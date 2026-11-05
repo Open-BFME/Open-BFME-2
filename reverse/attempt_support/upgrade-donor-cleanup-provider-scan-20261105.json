@@ -1,0 +1,19 @@
+{
+  "objects": 24827,
+  "refs": {
+    "??0AsciiString@@QAE@PBD@Z": [
+      "build/match/^code_^game^engine_^source_^common_^thing_^thing^factory.obj"
+    ],
+    "?canAffordUpgrade@UpgradeCenter@@QBE_NPAVPlayer@@PBVUpgradeTemplate@@_N@Z": [],
+    "?getUpgradeNameKey@UpgradeTemplate@@QBE?AW4NameKeyType@@XZ": [],
+    "?calcTimeToBuild@UpgradeTemplate@@QBEHPAVPlayer@@@Z": [],
+    "?countMoney@Money@@QBEIXZ": [],
+    "??_C@_0BM@LLBGMJIE@GUI?3NotEnoughMoneyToUpgrade?$AA@": [],
+    "?calcCostToBuild@UpgradeTemplate@@QBEHPAVPlayer@@@Z": [],
+    "__real@41f00000": [],
+    "?findNonConstUpgradeByKey@UpgradeCenter@@IAEPAVUpgradeTemplate@@W4NameKeyType@@@Z": [],
+    "?friend_getNext@UpgradeTemplate@@QAEPAV1@XZ": [],
+    "?getMoney@Player@@QAEPAVMoney@@XZ": [],
+    "?firstUpgradeTemplate@UpgradeCenter@@QAEPAVUpgradeTemplate@@XZ": []
+  }
+}

@@ -261,40 +261,6 @@ void Upgrade::loadPostProcess( void )
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-/** Calculate the time it takes (in logic frames) for a player to build this UpgradeTemplate */
-//-------------------------------------------------------------------------------------------------
-// ?calcTimeToBuild@UpgradeTemplate@@ present-unmatched
-Int UpgradeTemplate::calcTimeToBuild( Player *player ) const
-{
-#if defined(_DEBUG) || defined(_INTERNAL) || defined(_ALLOW_DEBUG_CHEATS_IN_RELEASE)
-	if( player->buildsInstantly() )
-	{
-		return 1;
-	}
-#endif
-
-	///@todo modify this by power state of player
-	return m_buildTime * LOGICFRAMES_PER_SECOND;
-
-}
-
-  // end calcTimeToBuild
-
-//-------------------------------------------------------------------------------------------------
-/** Calculate the cost takes this player to build this upgrade */
-//-------------------------------------------------------------------------------------------------
-// ?calcCostToBuild@UpgradeTemplate@@ present-unmatched
-Int UpgradeTemplate::calcCostToBuild( Player *player ) const
-{
-
-	///@todo modify this by any player handicaps
-	return m_cost;
-
-}
-
-  // end calcCostToBuild
-
-//-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 AsciiString getVetUpgradeName(VeterancyLevel v)
 {
@@ -340,37 +306,6 @@ const UpgradeTemplate *UpgradeCenter::findVeterancyUpgrade( VeterancyLevel level
 //-------------------------------------------------------------------------------------------------
 /** Find upgrade matching name key */
 //-------------------------------------------------------------------------------------------------
-// ?findNonConstUpgradeByKey@UpgradeCenter@@ present-unmatched
-UpgradeTemplate *UpgradeCenter::findNonConstUpgradeByKey( NameKeyType key )
-{
-	UpgradeTemplate *upgrade;
-
-	// search list
-	for( upgrade = m_upgradeList; upgrade; upgrade = upgrade->friend_getNext() )
-		if( upgrade->getUpgradeNameKey() == key )
-			return upgrade;
-
-	// item not found
-	return NULL;
-
-}
-
-// ------------------------------------------------------------------------------------------------
-/** Return the first upgrade template */
-// ------------------------------------------------------------------------------------------------
-// ?firstUpgradeTemplate@UpgradeCenter@@ present-unmatched
-UpgradeTemplate *UpgradeCenter::firstUpgradeTemplate( void )
-{
-	
-	return m_upgradeList;
-
-}
-
-  // end firstUpgradeTemplate
-
-//-------------------------------------------------------------------------------------------------
-/** Find upgrade matching name key */
-//-------------------------------------------------------------------------------------------------
 // UpgradeCenter::findUpgradeByKey: defined in UpgradeCenterFindUpgradeByKey.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
@@ -394,45 +329,14 @@ UpgradeTemplate *UpgradeCenter::firstUpgradeTemplate( void )
   // end unlinkUpgrade
 
 //-------------------------------------------------------------------------------------------------
-/** does this player have all the necessary things to make this upgrade */
-//-------------------------------------------------------------------------------------------------
-// ?canAffordUpgrade@UpgradeCenter@@ present-unmatched
-Bool UpgradeCenter::canAffordUpgrade( Player *player, const UpgradeTemplate *upgradeTemplate, Bool displayReason ) const
-{
- 
-	// sanity
-	if( player == NULL || upgradeTemplate == NULL )
-		return FALSE;
-
-	// money check
-	Money *money = player->getMoney();
-	if( money->countMoney() < upgradeTemplate->calcCostToBuild( player ) )
-	{
-		//Post reason why we can't make upgrade!
-		if( displayReason )
-		{
-			TheInGameUI->message( "GUI:NotEnoughMoneyToUpgrade" );
-		}
-		return FALSE;
-	}
-
-	/// @todo maybe have prereq checks for upgrades???
-
-	return TRUE;  // all is well
-
-}
-
-  // end canAffordUpgrade
-
-//-------------------------------------------------------------------------------------------------
 /** generate a list of upgrade names for WorldBuilder */
 //-------------------------------------------------------------------------------------------------
 std::vector<AsciiString> UpgradeCenter::getUpgradeNames( void ) const
 {
 	std::vector<AsciiString> upgradeNames;
 	// BFME 2's list head and next link are at +0x0C and +0x64, as in
-	// the matched findUpgradeByKey/linkUpgrade bodies. Keep the ZH header
-	// unchanged for this TU's other, still-unmatched definitions.
+	// the matched findUpgradeByKey/linkUpgrade bodies. The imported template
+	// declaration still describes the Zero Hour layout.
 	UpgradeTemplate *head = *reinterpret_cast<UpgradeTemplate *const *>(
 		reinterpret_cast<const char *>(this) + 0x0C);
 	for( UpgradeTemplate *upgrade = head; upgrade;
