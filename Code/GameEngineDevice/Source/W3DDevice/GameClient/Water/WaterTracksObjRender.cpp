@@ -10,7 +10,13 @@
 // and the local-player shroud test. Native FEADB..FF448 is the callee of the
 // matched WaterTracksRenderSystem::flush (0x0010004D), which passes
 // (m_vertexBuffer, m_batchStart, rinfo); the cull reads rinfo.Camera (+0).
-#include "Lib/BaseType.h"
+// Only Coord3D and the primitive aliases are needed from BaseType.h. Keep
+// their declarations local so composing this donor with W3DWaterTracks.cpp
+// does not redefine the canonical geometry types through the ZH header.
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+typedef int Int;
+typedef float Real;
+typedef bool Bool;
 #include "vector2.h"
 #include "vector3.h"
 #include "aabox.h"
