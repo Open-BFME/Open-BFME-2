@@ -14,6 +14,17 @@ public:
 
 #include "../../Include/Common/Rva00575674.h"
 
+// The holder's native unwind cleanup reaches the shared 29-byte release body
+// at 0x000AD6F4. Keep the destructor out of line, as the canonical declaration
+// requires, rather than emitting a wrapper around another holder's clear().
+Rva00575674::~Rva00575674()
+{
+	Object *old = m_ptr;
+	m_ptr = 0;
+	void *toFree = old ? old->deleteInstance(0) : 0;
+	::operator delete(toFree);
+}
+
 void Rva00575674::rva00575674(Object *object)
 {
 	if (object == m_ptr)

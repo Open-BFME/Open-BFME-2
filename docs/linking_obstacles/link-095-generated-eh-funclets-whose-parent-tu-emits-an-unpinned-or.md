@@ -8,6 +8,8 @@ label, with no new pin or generated source edit. All other rows keep their
 owners. [Body, graph and path evidence](../../reverse/attempt_support/bonefx-ctor-cleanup-20261106/README.md).
 This is scoped placeholder recovery; no real-image/current-consumer closure.
 
+2026-11-05: Rva00575674 now has the complete native 29-byte destructor provider; BuildPlot's two holder cleanups verify unmasked but remain generated until their parent reaches the approved LivingWorldBuildPlot.cpp TU. [Provider proof and scope](../../reverse/attempt_support/rva00575674-lifetime-20261105-codex2.md).
+
 **2026-11-05 Foundation constructor:** canonical UpdateModule adoption repairs the nonvirtual cleanup callee and the parent EH graph is EXACT; `uw_00789ed4` stays generated until its parent can merge into the approved FoundationAIUpdate.cpp TU (LINK-452). [Scoped verification and TU boundary](../../reverse/attempt_support/foundation-canonical-update-20261105-codex4.md).
 
 **2026-11-04:** Reused the existing counted-holder destructor for constructor `0x00180649` and repointed cleanup `0x007682C7` to its EXACT C++ parent; 220/220 rows pass and paired destination/provider previews retain 2/2 LINKS. Scoped audit remains inconclusive: refresh the `AICowerState_onEnter.cpp` receipt and older index in the next census; remaining generated rows stay open: [evidence](../../reverse/attempt_support/bfme-reset-holder-unwind-20261104-codexb4.md).

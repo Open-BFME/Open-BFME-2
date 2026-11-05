@@ -42,18 +42,7 @@ public:
 private:
     char m_unrecovered[0x38];
 };
-#include "../../../../Include/Common/Rva000AD6F4.h"
-class Rva00575674
-{
-public:
-    Rva00575674() : m_icon(0) {}
-    ~Rva00575674() { ((Rva000AD6F4 *)this)->clear(); }
-    void rva00575674(Object *object);
-    LivingWorldBuildPlotIcon *get() const { return m_icon; }
-    bool isBound() const { return m_icon != 0; }
-private:
-    LivingWorldBuildPlotIcon *m_icon;
-};
+#include "../../../../Include/Common/Rva00575674.h"
 class LivingWorldBuildPlot : public Snapshot, public Rva00330757Member,
                             public RegionTurnObserverView
 {
