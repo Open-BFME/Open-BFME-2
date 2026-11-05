@@ -24312,7 +24312,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0030B343,53,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B232..0x0030B378 provisional,Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp
 0x0030B378,29,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B232..0x0030B395 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B395,60,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B232..0x0030B3D1 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
-0x0030B3D1,478,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonUpdateBounds.cpp
+0x0030B3D1,478,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B5AF,233,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B3D1..0x0030B698 provisional,Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp
 0x0030B698,14,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B3D1..0x0030B6A6 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B6A6,61,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B3D1..0x0030B6E3 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
@@ -24328,11 +24328,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0030B85A,28,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp W=Code/GameEngine/Source/Common/AreaPolygon.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B876,110,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B85A..0x0030B8E4 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp
 0x0030B8E4,72,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
-0x0030B92C,63,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B8E4..0x0030B96B provisional,Code/GameEngine/Source/Common/Rva0030B92COpAssign.cpp
+0x0030B92C,63,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B8E4..0x0030B96B provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B96B,21,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
-0x0030B980,74,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9CA provisional,Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp
+0x0030B980,74,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9CA provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B9CA,19,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9DD provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
-0x0030B9DD,22,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9F3 provisional,Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp
+0x0030B9DD,22,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9F3 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B9F3,153,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030BA8C provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030BA8C,20,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030BAA0 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030BAA0,56,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp W=Code/GameEngine/Source/Common/AreaPolygon.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
@@ -72708,8 +72708,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077A025,10,code,,,-,,Code/GameEngine/Source/Common/System/AudioEventRTSDtor.cpp
 0x0077A02F,8,code,,,-,,Code/GameEngine/Source/Common/System/Rva0030B0E3Ctor.cpp
 0x0077A037,10,code,,,-,,Code/GameEngine/Source/Common/System/Rva0030B0E3Ctor.cpp
-0x0077A041,8,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,P,P=0x0030B980@FuncInfo0x009228E4 provisional,Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp
-0x0077A049,10,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,P,P=0x0030B980@FuncInfo0x009228E4 provisional,Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp
+0x0077A041,8,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,P,P=0x0030B980@FuncInfo0x009228E4 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
+0x0077A049,10,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,P,P=0x0030B980@FuncInfo0x009228E4 provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0077A053,8,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,P,P=0x0030BAF8@FuncInfo0x00922908 provisional,Code/GameEngine/Source/Common/AreaPolygonBase_parse.cpp
 0x0077A05B,10,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,P,P=0x0030BAF8@FuncInfo0x00922908 provisional,Code/GameEngine/Source/Common/AreaPolygonBase_parse.cpp
 0x0077A065,8,code,,,-,,Code/GameEngine/Source/Common/Rva0030BF80.cpp

@@ -15,12 +15,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <stl/_algobase.h>
 #define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
-
 #include "../../Include/Common/AreaPolygonBase.h"
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> vector<BfmeE8,allocator<BfmeE8> >::vector(vector<BfmeE8,allocator<BfmeE8> > const &); }
-
 // Retail's growth path is the no-EH provider 0x00057C80; spell its
 // algorithm out so this TU's copy is that provider instead of an EH copy.
 namespace _STL {
@@ -44,19 +41,27 @@ template<> inline void vector<BfmeE8>::_M_insert_overflow(
     _M_set(start, finish, start + length);
 }
 }
-
-// Retail 0x0030B9F3..0x0030BA8C is the STLport insertion provider called
-// below: the explicit float copy constructor reproduces its movss temporary
-// copies. Pointer stride and the point caller establish the eight-byte ABI;
-// the original point type name remains unknown.
-
-// AreaPolygonBase: canonical header Code/GameEngine/Include/Common/AreaPolygonBase.h.
-
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?rva0030B2B6@Rva0030B2B6@@QAEXPAVDataChunkOutput@@@Z retail 0x0030B2B6 72B: writes Elem array count then each pair via writeInt/writeReal.
-// Evidence: sub sar 3 count plus fld fstp loop with add 8; callees rowed writeInt/writeReal ICF-folded at 0x00306CFF.
-
 #include "../../Include/Common/DataChunkOutput.h"
+#include <math.h>
+#include <float.h>
+class MathCoord2D
+{
+public:
+	MathCoord2D() {}
+	// Keep inline copies without emitting a competing standalone constructor.
+	__declspec(dllimport) __forceinline MathCoord2D(const MathCoord2D &that) : x(that.x), y(that.y) {}
+	MathCoord2D(float initialX, float initialY) : x(initialX), y(initialY) {}
+	~MathCoord2D() {}
+	float Dot(const MathCoord2D &otherVector) const { return y * otherVector.y + x * otherVector.x; }
+	MathCoord2D &operator*=(float s) { x *= s; y *= s; return *this; }
+	MathCoord2D &operator+=(const MathCoord2D &c) { x += c.x; y += c.y; return *this; }
+	__forceinline float GetLengthSqrd() const { return y * y + x * x; }
+	__forceinline float GetLength() const { return (float)sqrt(GetLengthSqrd()); }
+	__forceinline void Normalize() { float inverseLength = 1.0f / GetLength(); x *= inverseLength; y *= inverseLength; }
+	float x;
+	float y;
+};
+MathCoord2D operator-(MathCoord2D left, const MathCoord2D &right);
 
 struct Rva0030B2B6Elem
 {
@@ -88,8 +93,6 @@ struct BfmeE12 { float x, y, z; };
 namespace _STL {
 template <> void vector<BfmeE12>::swap(vector<BfmeE12> &);
 }
-
-template void _STL::swap(_STL::vector<BfmeE12> &, _STL::vector<BfmeE12> &);
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?Rva0030B6A6Equal@@YAHPBURva0030B6A6Range@@0@Z @0x0030B6A6 61B
@@ -185,6 +188,61 @@ template <> void vector<BfmeE12, allocator<BfmeE12> >::swap(vector<BfmeE12, allo
 }
 
 void __cdecl Rva0030B31ASwap(Region2D *a, Region2D *b);
+
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<BfmeE8>::deallocate(BfmeE8* __p, size_t __n) const {
+ _STLP_ASSERT( (__p == 0) == (__n == 0) )
+ if (__p != 0) ::free((void*)__p);
+}
+template <> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<BfmeE8*,BfmeE8,allocator<BfmeE8> >::deallocate(BfmeE8* __p, size_t __n) {
+ __stl_alloc_rebind(static_cast<allocator<BfmeE8>&>(*this),(BfmeE8*)0).deallocate(__p,__n);
+}
+template <> __declspec(dllimport) __forceinline
+_Vector_base<BfmeE8,allocator<BfmeE8> >::~_Vector_base() {
+ if (_M_start != 0) _M_end_of_storage.deallocate(_M_start,_M_end_of_storage._M_data-_M_start);
+}
+}
+
+class Rva0030B980 : public AreaPolygonBase
+{
+public:
+	Rva0030B980(int capacity);
+private:
+};
+
+// Native 30B9DD..30B9F3: same receiver is passed to the base ctor and
+// the additional field at +28 is zeroed. The caller at 330CA8 places
+// this complete 2C-byte object at +8 inside its virtual-inheritance owner.
+class Rva0030B9DD : public Rva0030B980
+{
+public:
+	Rva0030B9DD(int capacity);
+private:
+	int unknown28;
+};
+
+// Use the rowed assignment provider at 0x001D9BEE, which retail's
+// eight-byte point vector shares under this element spelling.
+namespace _STL {
+template <> vector<BfmePod8> &vector<BfmePod8>::operator=(const vector &);
+}
+
+// ---- from Code/GameEngine/Source/Common/AreaPolygonBase.cpp
+
+// Retail 0x0030B9F3..0x0030BA8C is the STLport insertion provider called
+// below: the explicit float copy constructor reproduces its movss temporary
+// copies. Pointer stride and the point caller establish the eight-byte ABI;
+// the original point type name remains unknown.
+
+// AreaPolygonBase: canonical header Code/GameEngine/Include/Common/AreaPolygonBase.h.
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ?rva0030B2B6@Rva0030B2B6@@QAEXPAVDataChunkOutput@@@Z retail 0x0030B2B6 72B: writes Elem array count then each pair via writeInt/writeReal.
+// Evidence: sub sar 3 count plus fld fstp loop with add 8; callees rowed writeInt/writeReal ICF-folded at 0x00306CFF.
+
+template void _STL::swap(_STL::vector<BfmeE12> &, _STL::vector<BfmeE12> &);
 
 // ---- from Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 
@@ -476,20 +534,6 @@ void AreaPolygonBase::setPoint(int pointIndex, const BfmeE8 &point)
 	m_dirty = true;
 }
 
-// tu-skeleton: 0x0030B343 53B ?swapPoints@@YAXAAURva0030D111Point@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B3D1 478B ?rva0030B3D1@AreaPolygonBase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AreaPolygonUpdateBounds.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B5AF 233B ?rva0030B5AF@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B6E3 35B ?rva0030B6E3@Rva0030B719Shape@@QAE?AURegion2D@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B706 19B ?rva0030B706@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B719 19B ?getRadius@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B72C 67B ?rva0030B72C@Rva0030B719Shape@@QBE?AURva0030B72CPoint@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0030B76FSwap.cpp
 
 // ?rva0030B76F@Rva0030B76F@@QAEXPAU1@@Z, retail 0x0030B76F, 78 bytes.
@@ -519,23 +563,132 @@ void Rva0030B76F::rva0030B76F(Rva0030B76F *other)
 	}
 }
 
+// tu-skeleton: 0x0030B343 53B ?swapPoints@@YAXAAURva0030D111Point@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/AreaPolygonUpdateBounds.cpp
+
+// ?rva0030B3D1@AreaPolygonBase@@QAEXXZ, retail 0x0030B3D1..0x0030B5AF (478 B,
+// RET 0): AreaPolygonBase's bounds refresh. WorldBuilder's twin 0x00BF6BA0
+// (AreaPolygon code with MathCoord2D.h's inline Coord2D GetLengthSqrd /
+// GetLength / Normalize asserts) gives the statement shapes: the point
+// bounds, the half-extent radius (+0x20), then for every edge the squared
+// distance of the centre to its end point, the edge's normalized projection
+// (which only its sqrt survives in release, because the minimum is taken of
+// the centre offset again) and finally sqrt(min) - 0.1 clamped at zero
+// (+0x1C) and the dirty flag cleared (+0x24). Layout is shared with the
+// rowed AreaPolygonBase siblings (point vector at +0, bounds +0x0C..+0x18).
+// The method's original name is not established: the linker name stays
+// address-derived. Callees: MathCoord2D's out-of-line operator- 0x001040AE
+// and the CRT sqrt 0x0062921C.
+
+void AreaPolygonBase::rva0030B3D1()
+{
+	m_bounds.lo.x = m_bounds.lo.y = FLT_MAX;
+	m_bounds.hi.x = m_bounds.hi.y = -FLT_MAX;
+
+	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator end = (const MathCoord2D *)m_points.end();
+	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator it;
+	for (it = (const MathCoord2D *)m_points.begin(); it != end; ++it)
+	{
+		if (it->x < m_bounds.lo.x)
+			m_bounds.lo.x = it->x;
+		if (it->y < m_bounds.lo.y)
+			m_bounds.lo.y = it->y;
+		if (it->x > m_bounds.hi.x)
+			m_bounds.hi.x = it->x;
+		if (it->y > m_bounds.hi.y)
+			m_bounds.hi.y = it->y;
+	}
+
+	float halfWidth = (m_bounds.hi.x - m_bounds.lo.x) / 2.0f;
+	float halfHeight = (m_bounds.hi.y - m_bounds.lo.y) / 2.0f;
+	m_radius = sqrt(halfHeight * halfHeight + halfWidth * halfWidth);
+
+	float minimumDistanceSquared = FLT_MAX;
+	MathCoord2D center((m_bounds.lo.x + m_bounds.hi.x) * 0.5f, (m_bounds.lo.y + m_bounds.hi.y) * 0.5f);
+	_STL::vector<MathCoord2D, _STL::allocator<MathCoord2D> >::const_iterator prev = (const MathCoord2D *)m_points.end() - 1;
+	for (it = (const MathCoord2D *)m_points.begin(); it != end; prev = it, ++it)
+	{
+		MathCoord2D toCenter = center - *it;
+		float distanceSquared = toCenter.GetLengthSqrd();
+		if (distanceSquared < minimumDistanceSquared)
+			minimumDistanceSquared = distanceSquared;
+
+		MathCoord2D edge(prev->x - it->x, prev->y - it->y);
+		edge.Normalize();
+		float projectionDistance = edge.Dot(toCenter);
+		edge *= projectionDistance;
+		edge += *it;
+
+		distanceSquared = toCenter.GetLengthSqrd();
+		if (distanceSquared < minimumDistanceSquared)
+			minimumDistanceSquared = distanceSquared;
+	}
+
+	m_innerRadius = sqrt(minimumDistanceSquared) - 0.1f;
+	if (m_innerRadius < 0.0f)
+		m_innerRadius = 0.0f;
+	m_dirty = false;
+}
+
+// tu-skeleton: 0x0030B5AF 233B ?rva0030B5AF@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B6E3 35B ?rva0030B6E3@Rva0030B719Shape@@QAE?AURegion2D@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B706 19B ?rva0030B706@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B719 19B ?getRadius@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B72C 67B ?rva0030B72C@Rva0030B719Shape@@QBE?AURva0030B72CPoint@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
 // tu-skeleton: 0x0030B7BD 5B ?Rva0030B7BDEqual@@YAHPBURva0030B6A6Range@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x0030B7C2 80B ?rva0030B7C2@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
 
 // tu-skeleton: 0x0030B876 110B ?reserve@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x0030B92C 63B ??4AreaPolygonBase@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva0030B92COpAssign.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0030B92COpAssign.cpp
 
-// tu-skeleton: 0x0030B980 74B ??0Rva0030B980@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
+// ??4AreaPolygonBase@@QAEAAU0@ABU0@@Z @0x0030B92C 63B
+// operator= via rowed vector Pod8 0x001D9BEE then byte 0x24 gate then 24B at 0x0C.
+// Evidence: calls rowed Pod8 vector op=; cmp [ebx+0x24]; callers 0x00330B59; unblocks 0x00330B50.
 
-// tu-skeleton: 0x0030B9DD 22B ??0Rva0030B9DD@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
+AreaPolygonBase &AreaPolygonBase::operator=(const AreaPolygonBase &o)
+{
+	if (this != &o) {
+		*(_STL::vector<BfmePod8> *)&m_points = *(const _STL::vector<BfmePod8> *)&o.m_points;
+		m_dirty = o.m_dirty;
+		if (o.m_dirty == 0) {
+			m_bounds = o.m_bounds;
+			m_innerRadius = o.m_innerRadius;
+			m_radius = o.m_radius;
+		}
+	}
+	return *this;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp
+
+// The existing reserve provider at 30B96B proves the eight-byte vector
+// elements at +0. The native constructor stores zero floats at +1C/+20,
+// sets +24, and calls that provider with the initial capacity argument.
+// Owner names remain address-derived; AreaPolygonBase is the existing
+// reserve provider's name, rather than a new identity claim for the ctor.
+
+Rva0030B980::Rva0030B980(int capacity)
+{
+ m_innerRadius=0.0f;
+ m_radius=0.0f;
+ m_dirty=true;
+	reserve(capacity);
+}
+
+Rva0030B9DD::Rva0030B9DD(int capacity)
+	: Rva0030B980(capacity), unknown28(0)
+{
+}
 
 // tu-skeleton: 0x0030BAF8 143B ?parse@AreaPolygonBase@@QAEXAAVDataChunkInput@@H@Z -- matched in Code/GameEngine/Source/Common/AreaPolygonBase_parse.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A041 8B $L4570 -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A049 10B __ehhandler$??0Rva0030B980@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A053 8B $L4680 -- matched in Code/GameEngine/Source/Common/AreaPolygonBase_parse.cpp (not merged yet)
 
