@@ -60,7 +60,6 @@ public:
 private:
 	int m_handle;
 };
-extern "C" const void *const __identifier("??_7PassiveAreaEffectBehaviorModuleData@@6B@")[];
 #include "Common/Snapshot.h"
 #include "Common/GameLogicObjectLookupView.h"
 class UnicodeString;
@@ -347,22 +346,13 @@ private:
 	_STL::list<int> m_trackedIds; // +0x24, runtime watch list
 };
 
-class UpdateModuleData
-{
-public:
-	__declspec(dllimport) __forceinline UpdateModuleData() {}
-	~UpdateModuleData() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
-
-private:
-};
-
-class PassiveAreaEffectBehaviorModuleData : public UpdateModuleData
+class __declspec(novtable) PassiveAreaEffectBehaviorModuleData : public Snapshot
 {
 public:
 	PassiveAreaEffectBehaviorModuleData();
+	virtual ~PassiveAreaEffectBehaviorModuleData();
 
 private:
-	const void *m_vtable; // +0x00
 	unsigned int m_unused04; // +0x04, unstored gap
 	float m_effectRadius; // +0x08
 	float m_healPercentPerSecond; // +0x0C
@@ -562,18 +552,18 @@ void PassiveAreaEffectBehavior::rva00484C8B()
 // AntiCategories member at +2C builds through the pinned 0x3B31AD
 // construct and is memcoded, AntiFX at +30 and HealFX at +34 are zero.
 // Table 0xC4A388 carries all ten fields at these offsets; factory 0x24C724
-// news 0x38 with this ctor as sole caller. Shape follows CrateCollide
-// (empty UpdateModuleData base with declared-only dtor driving the EH
-// frame, explicit vtable first member, all-init-list) over AODCrush
-// (0x3623E5 filter member) and SpawnBehavior (vector<AsciiString> member
-// plus clear).
+// news 0x38 with this ctor as sole caller. The class is novtable (its
+// dtor 0x484EA9 stores no vptr), so the ctor stores 0xC4A490 itself
+// through the compiler-bound vftable name ahead of the first member
+// init (as ArmySummaryEntry.cpp does); Snapshot's dtor drives the EH
+// frame. Members follow AODCrush (0x3623E5 filter member) and
+// SpawnBehavior (vector<AsciiString> member plus clear).
 
   // ??_7PassiveAreaEffectBehaviorModuleData@@6B@
 
 // ??0PassiveAreaEffectBehaviorModuleData@@QAE@XZ @0x484DF4
 PassiveAreaEffectBehaviorModuleData::PassiveAreaEffectBehaviorModuleData()
-	: m_vtable(reinterpret_cast<const void *>(((unsigned int)__identifier("??_7PassiveAreaEffectBehaviorModuleData@@6B@"))))
-	, m_effectRadius(200.0f)
+	: m_effectRadius((*reinterpret_cast<const void **>(this) = &__identifier("??_7PassiveAreaEffectBehaviorModuleData@@6B@"), 200.0f))
 	, m_healPercentPerSecond(0.0f)
 	, m_pingDelay(15)
 	, m_upgradeRequired()

@@ -30,31 +30,33 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
 
-class Rva00360D26Member
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
+class Rva003B31ADMember
 {
 public:
-	~Rva00360D26Member();
+	Rva003B31ADMember();
 
 private:
-	unsigned char m_data[4];
+	int m_handle;
 };
 
 class __declspec(novtable) PassiveAreaEffectBehaviorModuleData : public Snapshot
 {
 public:
+	PassiveAreaEffectBehaviorModuleData();
 	virtual ~PassiveAreaEffectBehaviorModuleData();
 
 private:
-	int m_unused04; // +0x04
+	unsigned int m_unused04; // +0x04, unstored gap
 	float m_effectRadius; // +0x08
 	float m_healPercentPerSecond; // +0x0C
 	int m_pingDelay; // +0x10
 	_STL::vector<AsciiString> m_modifierName; // +0x14
-	Rva00360D26Member m_allowFilter; // +0x20
-	AsciiString m_upgradeRequired; // +0x24
+	Rva003623E5Member m_allowFilter; // +0x20
+	AsciiString m_upgradeRequired; // +0x24, inline-zeroed string (silent EH state)
 	bool m_nonStackable; // +0x28
 	unsigned char m_pad29[3];
-	int m_antiCategories; // +0x2C trivial
+	Rva003B31ADMember m_antiCategories; // +0x2C
 	int m_antiFX; // +0x30
 	int m_healFX; // +0x34
 };
