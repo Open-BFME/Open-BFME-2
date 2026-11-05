@@ -68,15 +68,12 @@ public:
 	int rva0020EEF4(int id);
 };
 
-class LivingWorldLogic
-{
-public:
-	Rva0020EEF4Outer *getRegionManager() { return m_regions; }
-private:
-	char m_pad00[0xB0];
-	Rva0020EEF4Outer *m_regions; // +0xB0
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
+
+// The region manager read through an inline call, as retail's caller did (the call
+// orders the global load after the argument pushes).
+static inline Rva0020EEF4Outer *livingWorldRegionManager() { return (Rva0020EEF4Outer *)TheLivingWorldLogic->fieldB0; }
 
 struct Rva0059D90CSource
 {
@@ -107,7 +104,7 @@ bool Rva0059D90C::rva0059D90C(_STL::vector<BfmeE8> *out, const Rva0059D90CSource
 			int bestType = 7;
 			for (int type = 0; type < 8; ++type)
 			{
-				if (m_counts[type] > best && types->HasUnitOfType(type, ((Rva0059D90CRegion *)TheLivingWorldLogic->getRegionManager()->rva0020EEF4((*ids)[i]))->m_type->m_key))
+				if (m_counts[type] > best && types->HasUnitOfType(type, ((Rva0059D90CRegion *)livingWorldRegionManager()->rva0020EEF4((*ids)[i]))->m_type->m_key))
 				{
 					best = m_counts[type];
 					bestType = type;
@@ -118,7 +115,7 @@ bool Rva0059D90C::rva0059D90C(_STL::vector<BfmeE8> *out, const Rva0059D90CSource
 				--m_counts[bestType];
 				BfmeE8 entry;
 				entry.id = (*ids)[i];
-				entry.unit = (SpawnArmy *)types->rva004FF910(bestType, ((Rva0059D90CRegion *)TheLivingWorldLogic->getRegionManager()->rva0020EEF4((*ids)[i]))->m_type->m_key);
+				entry.unit = (SpawnArmy *)types->rva004FF910(bestType, ((Rva0059D90CRegion *)livingWorldRegionManager()->rva0020EEF4((*ids)[i]))->m_type->m_key);
 				if (entry.unit->rva004E1755() < budget - *spent)
 				{
 					out->push_back(entry);

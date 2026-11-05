@@ -118,15 +118,12 @@ public:
 	int rva0020EEF4(int id);
 };
 
-class LivingWorldLogic
-{
-public:
-	Rva0020EEF4Outer *getRegionManager() { return m_regions; }
-private:
-	char m_pad00[0xB0];
-	Rva0020EEF4Outer *m_regions; // +0xB0
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
+
+// The region manager read through an inline call, as retail's caller did (the call
+// orders the global load after the argument pushes).
+static inline Rva0020EEF4Outer *livingWorldRegionManager() { return (Rva0020EEF4Outer *)TheLivingWorldLogic->fieldB0; }
 
 struct Rva0059D90CSource
 {
@@ -225,11 +222,11 @@ bool Rva0059DA34::rva0059DB48(_STL::vector<BfmeE8> *out, const Rva0059D90CSource
 		{
 			for (int k = 0; k < 8; ++k)
 			{
-				int key1 = ((Rva0059D90CRegion *)TheLivingWorldLogic->getRegionManager()->rva0020EEF4((*ids)[ii]))->m_type->m_key;
+				int key1 = ((Rva0059D90CRegion *)livingWorldRegionManager()->rva0020EEF4((*ids)[ii]))->m_type->m_key;
 				int type = order[k];
 				if (!types->rva0050010D(type, key1))
 					continue;
-				int key2 = ((Rva0059D90CRegion *)TheLivingWorldLogic->getRegionManager()->rva0020EEF4((*ids)[ii]))->m_type->m_key;
+				int key2 = ((Rva0059D90CRegion *)livingWorldRegionManager()->rva0020EEF4((*ids)[ii]))->m_type->m_key;
 				SpawnArmy *unit = (SpawnArmy *)types->rva0050024C(type, key2);
 				void *summary = ((Rva003B8E89 *)TheCampaignManager)->rva003B8E89(&unit->m_name);
 				AsciiString name(((Rva005E7322MidRet *)((Rva0040CB2CIndexedField *)summary)->get(0))->text);

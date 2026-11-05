@@ -578,15 +578,12 @@ struct EvaRegionView
 	int m_13c;						// +0x13C
 };
 
-class LivingWorldLogic
-{
-public:
-	void *getRegionManager() const { return m_regionManager; }
-
-	unsigned char m_pad00[0xb0];
-	void *m_regionManager;					// +0xB0
-};
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
+
+// The region manager read through an inline call, as retail's caller did (the call
+// orders the global load after the argument pushes).
+static inline LivingWorldRegionManager *livingWorldRegionManager() { return (LivingWorldRegionManager *)TheLivingWorldLogic->fieldB0; }
 
 // 0x002BF5B0 maps a world-map point to a 3D position (rowed as
 // Rva002BF4F3::rva002BF5B0).
@@ -616,11 +613,11 @@ EvaCoord Rva001DCDAF::getPlayPositionForEvent(const Arg001DCDAF *info, Player *l
 	}
 	else if (localPlayerWorldMap)
 	{
-		EvaRegionView *region = (EvaRegionView *)((Rva002104B6 *)TheLivingWorldLogic->getRegionManager())->rva002104B6(localPlayerWorldMap->m_regionName);
+		EvaRegionView *region = (EvaRegionView *)((Rva002104B6 *)livingWorldRegionManager())->rva002104B6(localPlayerWorldMap->m_regionName);
 		if (region && region->m_13c == localPlayerWorldMap->m_14)
 		{
 			Coord2D center;
-			if (((LivingWorldRegionManager *)TheLivingWorldLogic->getRegionManager())->GetRegionCenterPoint((Rva0020E89C *)region, &center))
+			if (livingWorldRegionManager()->GetRegionCenterPoint((Rva0020E89C *)region, &center))
 			{
 				Coord3D pos;
 				pos.x = center.x;
