@@ -1,4 +1,4 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // One of the BFME 1 "release the pointer I own, then forget it" bodies:
 //
 //     mov esi,ecx / mov eax,[esi+OFF] / test eax,eax / je ...
@@ -35,7 +35,7 @@
 
 // Gen00BBA5DC is the import slot __imp__fclose (data ledger); call the
 // import directly so nothing dangles.
-extern "C" __declspec(dllimport) int __cdecl fclose(void *fp);
+#include <stdio.h>
 
 class Rva00382AA0
 {
@@ -48,7 +48,7 @@ void Rva00382AA0::release()
 {
 	if ( m_18 )
 	{
-		fclose( m_18 );
+		fclose( (FILE *)m_18 );
 		m_18 = 0;
 	}
 }

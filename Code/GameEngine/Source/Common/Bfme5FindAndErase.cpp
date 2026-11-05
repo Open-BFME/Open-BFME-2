@@ -1,4 +1,4 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 // Two bodies that look a value up in their vector and erase the first match.
 //
 // The search is written out at the call site -- the value goes into a register
@@ -9,7 +9,7 @@
 // The erase itself is the move-down: copy the tail over the hole unless the
 // hole is the last element, then step the finish pointer back by one.
 
-extern "C" __declspec(dllimport) void * __cdecl memmove(void *destination, const void *source, unsigned int bytes);
+#include <string.h>
 
 class BfmeVecAG
 {

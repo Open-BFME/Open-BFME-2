@@ -1,4 +1,4 @@
-// cl: /Oy-
+// cl: /MD /Oy-
 // Debug::operator<<(short) at retail 0x0003B470 (80 bytes), the Zero Hour body
 // (GeneralsMD/Code/Libraries/Source/debug/debug_debug.cpp, operator<<(short val)): the prefix is
 // written out with its length measured in place, then the value is turned into
@@ -6,10 +6,10 @@
 // The Debug vtable at 0x007BE810 holds the fifteen overloads in reverse
 // declaration order: unsigned short is slot 5, short slot 6, const char * slot 14.
 
-extern "C" unsigned int __cdecl strlen(const char *at);
+#include <string.h>
+#include <stdlib.h>
 #pragma intrinsic(strlen)
 
-extern "C" __declspec(dllimport) char *__cdecl _itoa(int value, char *out, int base);
 
 class Debug
 {

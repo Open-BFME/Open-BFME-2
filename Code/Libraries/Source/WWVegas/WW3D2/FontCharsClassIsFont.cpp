@@ -1,15 +1,15 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /MD
 
 // FontCharsClass::Is_Font, retail 0x00154840 (66 bytes).
 // Donor is ZH render2dsentence.cpp Is_Font (name/size/bold triple match with
 // a false default); BFME2 repairs: the point size is a float compared with an
 // SSE unordered-aware inequality (movss/ucomiss plus the lahf/test/jp NaN
 // guard the toolchain emits for !=), and a fourth detail argument joins the
-// comparison. The name goes through the _strcmpi import (dllimport decl, rides
+// comparison. The name goes through the _strcmpi import (<string.h>, rides
 // 0xBBA518 per the parseListboxData precedent); the member at +0x44 reads as
 // the compared name, size at +0x3C, detail at +0x40, bold byte at +0x460.
 
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
+#include <string.h>
 
 class FontCharsClass
 {

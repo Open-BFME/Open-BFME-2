@@ -1,4 +1,4 @@
-// cl: /Od /Gy
+// cl: /MD /Od /Gy
 // Open-BFME5 conversions.
 
 // Defined by BfmeConv1303.cpp: retail has one STL diagnostic table.
@@ -13,7 +13,7 @@ void bfmeGoSXA(int a, int b, int c, int d)
 	DX8_Assert();
 }
 
-extern "C" __declspec(dllimport) void __cdecl abort(void);
+#include <stdlib.h>
 
 void Rva00023D70Abort(void)
 {

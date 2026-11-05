@@ -1,4 +1,4 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /MD
 // BFME2 1.06 StringBase<char>::toLower, RVA 0x00036A70 233B.
 // Pinned explicit export ?toLower@?$StringBase@D@@QAEXXZ, alias pin ?toLower@AsciiString@@QAEXXZ.
 // Copy-on-write duplicate via rowed byte allocator tagged rts 0x737472 then per-char tolower via IAT.
@@ -7,7 +7,7 @@
 // Code/Libraries/Source/WWVegas/WWLib/StringBaseNarrowRemoveLastChar.cpp // cl: /O2.
 #include <string.h>
 
-extern "C" __declspec(dllimport) int __cdecl tolower(int c);
+#include <ctype.h>
 
 namespace _STL {
 template <class _Tp> class allocator;

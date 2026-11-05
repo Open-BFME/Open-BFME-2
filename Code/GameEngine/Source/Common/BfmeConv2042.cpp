@@ -1,8 +1,8 @@
-extern "C" double sqrt(double x);
+// cl: /MD
+#include <math.h>
 
 #pragma intrinsic(sqrt)
 
-extern "C" __declspec(dllimport) double ceil(double x);
 
 class BfmeShapeEU
 {

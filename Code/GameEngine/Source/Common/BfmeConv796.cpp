@@ -1,4 +1,4 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: /MD -Ireference/open-bfme-1/game/GameEngine/Source/Common
 //
 // ?bfmeGoDYF@@YAXPBD@Z
 // retail 0x0041270D, 36 bytes. Dedicated TU ported from the Open-BFME-1
@@ -19,7 +19,7 @@
 // (the ledger's string-initializer evidence puts "true" at 0x00BBC408 and
 // "false" at 0x00BBC410). Spelling the literal directly keeps the same push
 // shape and gives this unit a definition for the operand, so it links.
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
+#include <string.h>
 
 // Retail's singleton at 0x012F4C5C is EA's Mouse *TheMouse (defined once in
 // GameEngine/Source/GameClient/Input/Mouse.cpp), so the extern must be spelled

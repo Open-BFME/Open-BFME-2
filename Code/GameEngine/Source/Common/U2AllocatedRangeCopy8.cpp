@@ -1,3 +1,4 @@
+// cl: /MD
 // Sibling of U2AllocatedRangeCopies.cpp at 0x0083F2F0 / 0x0083F330, same
 // allocator import slot, but eight-byte elements copied inline instead of
 // through the three-argument copy import.  Retail shifts the count by three
@@ -6,7 +7,7 @@
 
 // Retail slot 0xBBA6EC is msvcr71!malloc (import-ref verified); the BFME1
 // donor's u2_import_0135944C alias for the same slot fails the check here.
-extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int bytes);
+#include <stdlib.h>
 
 struct U2Elem8
 {

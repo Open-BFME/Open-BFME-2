@@ -1,11 +1,11 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /MD
 // BFME2 1.06 StringBase<char>::toUpper, RVA 0x00036B60 233B.
 // Copy-on-write duplicate via rowed byte allocator tagged rts 0x737472 then per-char toupper via IAT.
 // Evidence: ghidra toUpper, sibling toLower 0x00036A70 233B same shape/flags, releaseBuffer 0x00036410,
 // allocator 0x000307F0, narrow toLower donor TU StringBaseNarrowToLower.cpp // cl: /O2.
 #include <string.h>
 
-extern "C" __declspec(dllimport) int __cdecl toupper(int c);
+#include <ctype.h>
 
 namespace _STL {
 template <class _Tp> class allocator;

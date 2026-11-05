@@ -1,4 +1,4 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /MD
 // BFME2 1.06 StringBase<wchar_t>::toLower, RVA 0x000374E0 251B.
 // Wide twin of pinned narrow ?toLower@?$StringBase@D@@QAEXXZ at 0x00036A70.
 // Copy-on-write duplicate via rowed byte allocator tagged rts 0x737472 then
@@ -12,7 +12,7 @@
 
 typedef unsigned short wchar_t;
 
-extern "C" __declspec(dllimport) unsigned short __cdecl towlower(unsigned short c);
+#include <wchar.h>
 
 namespace _STL {
 template <class _Tp> class allocator;
