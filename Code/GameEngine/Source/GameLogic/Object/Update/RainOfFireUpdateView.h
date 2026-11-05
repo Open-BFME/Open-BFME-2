@@ -52,6 +52,7 @@ enum NameKeyType
 class RainOfFireUpdate : public UpdateModule, public Secondary20
 {
 public:
+    RainOfFireUpdate(Thing *thing, const ModuleData *moduleData);
     virtual ~RainOfFireUpdate();
     virtual UpdateSleepTime update();
     void rva004AC18D(float);
