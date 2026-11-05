@@ -50,14 +50,18 @@ extern ActionManager *TheActionManager;
 
 extern GameLogic *TheGameLogic;
 
+class Xfer;
+
+// Retail vftable 0x00C6A3C4: slot 3 is xfer (0x00546D15) and slot 4 the
+// garrison step 0x00546DD4, as in the twin AttackObjectGroupOrder.cpp.
 class GarrisonObjectGroupOrder
 {
 public:
 	virtual ~GarrisonObjectGroupOrder();
 	virtual void slot01();
 	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
+	virtual void xfer(Xfer *xfer);
+	virtual void rva00546DD4(ObjectID id);
 	virtual bool rva00546E2E(ObjectID id);
 	virtual void slot06();
 	virtual void slot07();
