@@ -19,7 +19,7 @@ class Object {public:char pad[0x38]; Coord3D position;const Coord3D *getPosition
 
 class BfmeFixedStorage0004543D {public: BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();unsigned bits[7];};
 
-struct Rva00045411BitSet {Rva00045411BitSet(int,int);unsigned bits[7];};
+#include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D &,const BfmeFixedStorage0004543D &); virtual bool allow(Object *);BfmeFixedStorage0004543D a,b;};
 

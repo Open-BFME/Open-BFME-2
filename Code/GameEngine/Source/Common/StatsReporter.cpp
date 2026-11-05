@@ -185,7 +185,7 @@ class ScoreKeeper {public:int getTotalBuildingsDestroyed();int getTotalUnitsDest
 
 class Player {public:char gap0[0x34];PlayerTemplate*playerTemplate;char gap38[0x374];int strategicID;char gap3B0[0xc];ScoreKeeper score;int getStrategicID()const{return strategicID;}};
 
-struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int);};
+#include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 
 template<int N>class BitFlags {unsigned words[7];};
 

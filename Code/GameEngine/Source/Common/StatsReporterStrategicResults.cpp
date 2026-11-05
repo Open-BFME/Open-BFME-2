@@ -24,7 +24,7 @@ class PlayerTemplate {public:const AsciiString&getSide()const{return side;}char 
 class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKeyType)const;};
 class Rva004EE35D;class Rva004EE3AB;class Rva004EE3F9;class Rva004EE447;class Rva004EE485;class Rva004EE4C3;
 template<int N>class BitFlags {unsigned words[7];};
-struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int);};
+#include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 class Rva004EE35D {public:int rva004EE35D(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};

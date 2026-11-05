@@ -34,7 +34,7 @@ private:
 //5BF4BC constructs both masks through the measured 28-byte224-bit
 //Rva00045411BitSet constructor. Keep its neutral type on these two
 //consuming wrappers rather than asserting the legacy116-bit view.
-struct Rva00045411BitSet { unsigned m_words[7]; };
+#include "../../Include/GameLogic/Module/Rva00045411BitSet.h"
 
 struct ObjectCountMap
 {
