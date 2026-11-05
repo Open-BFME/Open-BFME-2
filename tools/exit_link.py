@@ -74,6 +74,7 @@ import struct
 import subprocess
 import sys
 import time
+import tempfile
 from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -481,6 +482,45 @@ def write_blockers(errors, commit):
     return 0
 
 
+def run_native(command, *, check=False, timeout=None):
+    """Wait for the native tool, without waiting for Wine helpers to close a pipe."""
+    with tempfile.TemporaryFile(mode="w+", errors="replace") as output:
+        result = subprocess.run(command, cwd=ROOT,
+                                env=build.compiler_environment(build.vc71_root()),
+                                stdout=output, stderr=subprocess.STDOUT, timeout=timeout)
+        output.seek(0)
+        completed = subprocess.CompletedProcess(command, result.returncode, output.read(), "")
+    if check:
+        completed.check_returncode()
+    return completed
+
+
+def make_import_libs(entries, outdir, defined=()):
+    """The census's import convention, using file capture for native LIB output."""
+    root = build.vc71_root()
+    libraries = []
+    for dll, names in sorted(entries.items()):
+        stem = re.sub(r"\W", "_", dll.rsplit(".", 1)[0].lower())
+        definition = outdir / f"imp_{stem}.def"
+        exports = []
+        for name in names:
+            symbol = name if name.startswith("?") else "_" + name
+            exports.append(f"  {name}" + (" DATA" if symbol in defined else "") + "\n")
+        definition.write_text(f"LIBRARY {dll}\nEXPORTS\n" + "".join(exports), encoding="latin-1")
+        library = outdir / f"imp_{stem}.lib"
+        census.fresh_outputs(library)
+        command = [str(root / "Vc7/bin/lib.exe"), "/NOLOGO", "/MACHINE:X86",
+                   f"/DEF:{definition}", f"/OUT:{library}"]
+        if sys.platform != "win32":
+            command.insert(0, "wine")
+        result = run_native(command)
+        if result.returncode or not library.exists():
+            raise SystemExit(f"exit_link: lib.exe failed for {dll}:\n{result.stdout}{result.stderr}")
+        link_cycle.undecorate_stdcall_imports(library, dll.lower() in link_cycle.DECORATED_EXPORT_DLLS)
+        libraries.append(library)
+    return libraries
+
+
 def link_arguments(image, rsp):
     """The exit link's options: no /FORCE, no scaffold, a non-retail base."""
     return ["/NOLOGO", "/NODEFAULTLIB", "/INCREMENTAL:NO", "/MACHINE:X86",
@@ -547,8 +587,7 @@ def resource_object(outdir):
                f"/OUT:{census._arg(obj)}", census._arg(res)]
     if sys.platform != "win32":
         command.insert(0, "wine")
-    subprocess.run(command, cwd=ROOT, env=build.compiler_environment(root), check=True,
-                   capture_output=True)
+    run_native(command, check=True)
     if not obj.is_file():
         raise RuntimeError("cvtres did not write a resource object")
     return obj
@@ -733,7 +772,7 @@ def link_setup(rows, present):
                          ", ".join(sorted(import_roots.intersection(missing))))
     imports = OUT / "imports"
     imports.mkdir(parents=True, exist_ok=True)
-    libs = link_cycle.make_import_libs(entries, imports, link_cycle.defined_externals(objects))
+    libs = make_import_libs(entries, imports, link_cycle.defined_externals(objects))
     libs += link_cycle.runtime_libraries()
     absolute = link_cycle.write_coff(
         OUT / "absolute.obj", [],
@@ -856,8 +895,7 @@ def run_link(rows, diagnostic=False):
     census.fresh_outputs(image, image.with_suffix(".map"), OUT / "image_receipt.json",
                          OUT / "result.json", OUT / "errors.tsv")
     started = time.time()
-    result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, errors="replace",
-                            env=build.compiler_environment(build.vc71_root()))
+    result = run_native(command)
     stubbed = set()
     if diagnostic:
         stub_in_response = False
@@ -874,9 +912,7 @@ def run_link(rows, diagnostic=False):
                     handle.write(f'"{census._arg(stub)}"\n')
                 stub_in_response = True
             census.fresh_outputs(image, image.with_suffix(".map"))
-            result = subprocess.run(command, cwd=ROOT,
-                                    capture_output=True, text=True, errors="replace",
-                                    env=build.compiler_environment(build.vc71_root()))
+            result = run_native(command)
     seconds = time.time() - started
     manifest = snapshot_image_objects(rsp, image)
     if diagnostic:

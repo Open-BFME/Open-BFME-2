@@ -552,3 +552,63 @@ def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path
     assert E.OUT == measured
     assert board.read_bytes() == before
     assert sorted(p.name for p in measured.iterdir()) == ["scoreboard.json"]
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX descendant lifetime regression")
+def test_native_capture_does_not_wait_for_inherited_writer(tmp_path, monkeypatch):
+    import os
+    import signal
+    import subprocess
+    import sys
+    monkeypatch.setattr(E.build, "vc71_root", lambda: tmp_path)
+    monkeypatch.setattr(E.build, "compiler_environment", lambda root: os.environ.copy())
+    pidfile = tmp_path / "descendant.pid"
+    code = (
+        "import os,subprocess,sys; from pathlib import Path; "
+        "p=subprocess.Popen([sys.executable,'-c','import time; time.sleep(60)']); "
+        f"Path({str(pidfile)!r}).write_text(str(p.pid)); "
+        "os.write(1,b'native output\\n'); os.write(2,b'native error\\n')"
+    )
+    try:
+        result = E.run_native([sys.executable, "-c", code], timeout=3)
+        assert result.returncode == 0
+        assert result.stdout == "native output\nnative error\n"
+        assert result.stderr == ""
+        os.kill(int(pidfile.read_text()), 0)  # writer is still alive after native parent finished
+    finally:
+        if pidfile.exists():
+            try:
+                os.kill(int(pidfile.read_text()), signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+
+
+def test_native_capture_preserves_error_exit_and_output(tmp_path, monkeypatch):
+    import os
+    import subprocess
+    import sys
+    monkeypatch.setattr(E.build, "vc71_root", lambda: tmp_path)
+    monkeypatch.setattr(E.build, "compiler_environment", lambda root: os.environ.copy())
+    with pytest.raises(subprocess.CalledProcessError) as error:
+        E.run_native([sys.executable, "-c", "print('failed'); raise SystemExit(7)"], check=True)
+    assert error.value.returncode == 7
+    assert error.value.stdout == "failed\n"
+
+
+def test_import_archive_retains_census_provider_convention(tmp_path, monkeypatch):
+    import subprocess
+    monkeypatch.setattr(E.build, "vc71_root", lambda: tmp_path)
+    converted = []
+    monkeypatch.setattr(E.link_cycle, "undecorate_stdcall_imports",
+                        lambda lib, decorated: converted.append((lib.name, decorated)))
+    def native(command):
+        library = next(arg[5:] for arg in command if arg.startswith("/OUT:"))
+        Path(library).write_bytes(b"native archive")
+        return subprocess.CompletedProcess(command, 0, "", "")
+    monkeypatch.setattr(E, "run_native", native)
+    libraries = E.make_import_libs(
+        {"kernel32.dll": ["GetVersion", "GetVersion@0"]}, tmp_path, {"_GetVersion@0"})
+    assert libraries == [tmp_path / "imp_kernel32.lib"]
+    assert (tmp_path / "imp_kernel32.def").read_text() == (
+        "LIBRARY kernel32.dll\nEXPORTS\n  GetVersion\n  GetVersion@0 DATA\n")
+    assert converted == [("imp_kernel32.lib", False)]
