@@ -7,10 +7,11 @@
 
 class Rva002AAE81
 {
-	char m_pad[8];
-	AsciiString m_8;
 public:
-	void rva002AAE81(AsciiString s);
+	void rva002AAE81(AsciiString);
+	char m_pad00[0x8];
+private:
+	AsciiString m_8; // +0x08
 };
 
 void Rva002AAE81::rva002AAE81(AsciiString s)

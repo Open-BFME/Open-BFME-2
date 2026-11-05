@@ -15,13 +15,12 @@ class Rva002AABEE
 {
 public:
 	void rva002AABEE();
-
 private:
-	void *m_name;
-	unsigned int m_level;
-	_STL::vector<float> m_values;
+	void *m_name; // +0x00
+	unsigned int m_level; // +0x04
+	_STL::vector<float> m_values; // +0x08
 	char m_pad14[0xC];
-	float m_value;
+	float m_value; // +0x20
 };
 
 void Rva002AABEE::rva002AABEE()

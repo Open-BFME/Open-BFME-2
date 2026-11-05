@@ -54,15 +54,16 @@ public:
 	virtual void slot36(unsigned int *);
 };
 #include "../../../Include/GameLogic/ObjectFilter.h"
-class Rva002AE71D {
+class Rva002AE71D
+{
 public:
 	void rva002AE71D(Xfer *);
 	void rva002ADDD9(Xfer *);
 private:
-	ObjectFilter *member00;
-	_STL::vector<float> values04;
-	ObjectID id10;
-	unsigned int word14;
+	ObjectFilter *member00; // +0x00
+	_STL::vector<float> values04; // +0x04
+	ObjectID id10; // +0x10
+	unsigned int word14; // +0x14
 };
 
 void Rva002AE71D::rva002AE71D(Xfer *xfer)

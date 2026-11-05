@@ -65,8 +65,9 @@ struct PoolListNode
 
 struct Rva002E2690Element
 {
+public:
 	~Rva002E2690Element();
-	char bytes[0xD8];
+	char bytes[0xD8]; // +0x00
 };
 
 struct BfmeVectorRecord002AF478

@@ -26,14 +26,15 @@ namespace _STL {
  template<> void vector<const ModuleData *>::push_back(const ModuleData * const &);
  template<> void vector<AsciiString>::push_back(const AsciiString &);
 }
-class Rva002B0A05 {
+class Rva002B0A05
+{
 public:
- void rva002B0A05(Xfer *);
- AsciiString name;
- unsigned int value;
- _STL::vector<float> values;
- _STL::vector<AsciiString> names;
- float finalValue;
+	void rva002B0A05(Xfer *);
+	AsciiString name; // +0x00
+	unsigned int value; // +0x04
+	_STL::vector<float> values; // +0x08
+	_STL::vector<AsciiString> names; // +0x14
+	float finalValue; // +0x20
 };
 void Rva002B0A05::rva002B0A05(Xfer *raw)
 {

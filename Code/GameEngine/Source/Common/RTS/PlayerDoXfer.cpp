@@ -95,7 +95,18 @@ public:
  int m_skillPoints;        // Player+20
  int m_field24, m_field28, m_field2C;
 };
-class Rva002AE71D { public: void rva002AE71D(Xfer*); };
+class ObjectFilter;
+class Rva002AE71D
+{
+public:
+	void rva002AE71D(Xfer *);
+	void rva002ADDD9(Xfer *);
+private:
+	ObjectFilter *member00; // +0x00
+	_STL::vector<float> values04; // +0x04
+	ObjectID id10; // +0x10
+	unsigned int word14; // +0x14
+};
 class Rva00360BFEWordView { public: Rva00360BFEWordView(unsigned); unsigned bits; };
 class Rva002AC3BE { public: Rva002AC3BE(void *a):m_00(a){m_14=false;} void *m_00; _STL::vector<BfmeE16> m_04; int m_10; bool m_14; };
 class BuildListInfo {
@@ -112,7 +123,16 @@ public: Rva002AA14DBonuses() throw(); float armor; int bombard,search,hold; floa
 struct BfmeVectorRecord002AF478 { char bytes[36]; };
 class Rva002AF55A { public: Rva002AF55A(); char bytes[36]; };
 class Rva002AF6C5Element { public: ~Rva002AF6C5Element(); };
-class Rva002B0A05 { public: void rva002B0A05(Xfer*); };
+class Rva002B0A05
+{
+public:
+	void rva002B0A05(Xfer *);
+	AsciiString name; // +0x00
+	unsigned int value; // +0x04
+	_STL::vector<float> values; // +0x08
+	_STL::vector<AsciiString> names; // +0x14
+	float finalValue; // +0x20
+};
 struct PlayerTransferRecord:public Rva002AF55A {
  ~PlayerTransferRecord(){reinterpret_cast<Rva002AF6C5Element*>(this)->~Rva002AF6C5Element();}
 };

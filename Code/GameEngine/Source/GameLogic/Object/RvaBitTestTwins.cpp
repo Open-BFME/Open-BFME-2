@@ -13,11 +13,10 @@ typedef unsigned int UnsignedInt;
 class Rva002AA8BF
 {
 public:
-	Bool testBit(int bit) const;
-
+	bool testBit(int bit) const;
 private:
-	unsigned char m_pre[0x13C];
-	unsigned int m_flagBits[4];
+	unsigned char m_pre[0x13C]; // +0x00
+	unsigned int m_flagBits[4]; // +0x13C
 };
 
 // ?testBit@Rva002AA8BF@@QBE_NH@Z

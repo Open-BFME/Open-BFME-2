@@ -24,6 +24,12 @@ class Rva002AABEE
 {
 public:
 	void rva002AABEE();
+private:
+	void *m_name; // +0x00
+	unsigned int m_level; // +0x04
+	_STL::vector<float> m_values; // +0x08
+	char m_pad14[0xC];
+	float m_value; // +0x20
 };
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"

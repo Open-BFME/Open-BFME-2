@@ -7,6 +7,9 @@ class Rva002AA8BF
 {
 public:
 	bool testBit(int bit) const;
+private:
+	unsigned char m_pre[0x13C]; // +0x00
+	unsigned int m_flagBits[4]; // +0x13C
 };
 
 class Player : public Rva002AA8BF
