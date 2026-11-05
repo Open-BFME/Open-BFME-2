@@ -3,7 +3,7 @@
 Base cadc5ea134a50939f1a2a93170b1063af8c7e843; model GPT-6.
 Scope: existing W3DDisplayInit.cpp; no source or shared header is moved.
 Renderer, scene, constructor-view and header scopes are origin-claimed.
-LightClass claim is refused by a peer; its partial header claim is released
+LightClass claim was refused by a peer during this pass; its partial header claim is released
 immediately, and its original private body stays unchanged.
 
 ## Actual definition changes
@@ -46,9 +46,27 @@ hatch or pin changes. Ordinary preview retains LINKS1599->1599B against
 indexc95fcfcfcd (2026-11-05 05:17), and new-variant checking returns0.
 
 Both owning accept verdicts retire one queue row each, two total. No manual
-queue edit. LightClass remains peer-held and pending in this source. Other
+queue edit. LightClass was peer-held during this pass and remains pending in this source. Other
 scene/global consumers, full real-link selection and runtime remain unproved;
 carry this source and affected consumers into the next scheduled census.
 No new matched or census-linked bytes are claimed.
 
 Initialization family: t=18 model=gpt-6 lane=R budget=30m.
+
+## Rebase and outgoing-batch boundary
+
+Successfully rebased the source commit onto60cc40eb3a289822e9e31e0c4957c3bea6ed3d9d;
+resulting source commit4aa32ca6e244819ecb76df7a1ad337eafcb79b77.
+Upstream changed Vector3Data.h to inline its assignment operator. Repeated
+strict-current verification still passes15/15, one string and six floats;
+read-only object audit preserves21/21 definitions and relocations, no vtables,
+and EXACT parent EH. The repeated ordinary link preview retains1599->1599B.
+The outgoing header-dependency check returns0 (empty header-check.log).
+
+The batch audit is INCONCLUSIVE: indexc95fcfcfcd predates the outgoing base,
+and affected consumer Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
+lacks a current receipt. Its full diagnostic is retained in batch-audit.log.
+The audit process finished; its terminal session was no longer available when
+recovering the final output, so no independently observed terminal exit code
+is claimed here. This is not global link clearance; the source and affected
+consumers remain scheduled-census follow-up work. No audit was relaunched.
