@@ -113,6 +113,25 @@ protected:
 	// module-destructor convention retail and Zero Hour share; no rowed body
 	// calls it out of line.
 	virtual ~BehaviorModule();
+
+	// Snapshot slot 1. BehaviorModule's own table 0x00BEEA7C holds the shared
+	// empty `ret` 0x000B3FD0 there (row ?loadPostProcess@BehaviorModule@@MAEXXZ).
+	// The family overrides are the 5-byte tail jump 0x0058B03E to it (slot 1 of
+	// DamageModule's 0x00C598E4 and CreateModule's 0x00C59368 alike), Zero Hour's
+	// `BehaviorModule::loadPostProcess()` base call.
+	// Opt-in for now. Declared for every includer, it rebinds slot 1 of 56
+	// derived tables in 48 units from __purecall to this body: upgrade,
+	// special-power, body, die, create, update and collide classes whose views
+	// declare no loadPostProcess of their own. Retail's slot 1 there is the
+	// family's tail jump to the same `ret`, so that is retail's behaviour, but it
+	// changes those tables. A unit defining an override that makes the base call
+	// defines BFME_BEHAVIORMODULE_LOADPOSTPROCESS before its includes and must
+	// emit no BehaviorModule-derived table: where the unit's Snapshot uses the
+	// capitalized spelling (BuffManager.h, DamageModule.cpp) this is a new
+	// virtual rather than an override of slot 1. The symbol is the same.
+#ifdef BFME_BEHAVIORMODULE_LOADPOSTPROCESS
+	virtual void loadPostProcess();
+#endif
 public:
 
 	virtual void *vslot10() { return 0; }			// primary slot 10

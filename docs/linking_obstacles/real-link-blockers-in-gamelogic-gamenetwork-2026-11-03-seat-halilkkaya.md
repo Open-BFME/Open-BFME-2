@@ -321,3 +321,32 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
 #### Seat claudec follow-up (2026-11-05): LockWeaponCreate.cpp's next step is ~CreateModule's identity
 
 - 0x004B8CDE (`Rva004B8CDE`) is `~CreateModule`. A canonical view needs it and six other provider names first. `rename.py class --fold` refuses it (recorded as a false reject). Order of work: `reverse/attempt_support/004b8c0e-lockweaponcreate-canonical-view-20261105.md`.
+
+#### Seat halilkkaya-lk28 follow-up (2026-11-05, real link 42035295927 at `dbde7dbe3b`)
+
+- **BoneFXDamage.cpp (3): 1 repaired, `?loadPostProcess@DamageModule@@MAEXXZ`.**
+  - It is an ICF twin row at 0x0058B03E, defined in DamageModule.cpp as Zero Hour's base call.
+    Retail DamageModule table 0x00C598E4 slot 1 is `jmp 0x000B3FD0`, BehaviorModule's empty
+    loadPostProcess.
+  - Canonical `BehaviorModule.h` now declares `loadPostProcess`, but only for units that define
+    `BFME_BEHAVIORMODULE_LOADPOSTPROCESS`.
+  - Declared for every includer, it rebinds slot 1 of 56 tables in 48 units from `__purecall` to
+    BehaviorModule's body. All 856 includers stayed byte-exact and the 48 units still LINK, but
+    the tables change, so the unconditional form waits for the lead's decision.
+  - Opt-in form: no `??_7` and no other COMDAT changed across the 856 objects. DamageModule.cpp
+    LINKS 6 -> 11 B.
+  - Measurements and the full class list:
+    `reverse/attempt_support/behaviormodule-snapshot-slots-20261105-lk28.md`.
+- **BoneFXDamage.cpp: `xfer@DamageModule` still blocked.** Its twin at 0x004CE56D calls
+  BehaviorModule::xfer.
+  - The ledger spells that row `QAE` (0x004C9C7D) behind an `/alternatename`; a canonical call is
+    `MAE`. The byte verifier resolves only ledger names, and a pin would be a second name.
+  - First the 12 private views that call the `QAE` name move to `MAE` (listed in the handoff).
+    Then rename the row, drop the hatch, and declare `xfer` in `BehaviorModule.h`.
+- **BoneFXDamage.cpp: `crc@DamageModule` still blocked.** BFME 2 has no crc slot, so the name
+  goes only when the unit leaves the Zero Hour view for `DamageModuleClass.h` in retail's slot order.
+  - Needs the twins 0x0045CE8C (xfer) and 0x00497805 (loadPostProcess).
+  - Needs `Rva004B96E5` folded into BoneFXDamage as its destructor.
+  - Needs canonical Object and BoneFXUpdate views for the two rowed callbacks.
+- **LockWeaponCreate.cpp (2): not attempted.** `class:LockWeaponCreate` and the file are claimed
+  by yasinschroeder-claudec.
