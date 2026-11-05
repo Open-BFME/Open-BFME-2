@@ -139,13 +139,7 @@ public:
 	_STL::vector<LivingWorldRegionCampaign *> m_campaigns;	// +0x34
 };
 
-class LivingWorldLogic
-{
-public:
-	unsigned char m_pad00[0xB0];
-	LivingWorldRegionManagerCampaigns *m_regionManager;		// +0xB0
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
@@ -178,7 +172,7 @@ extern const FieldParse Rva00210A14FieldParseTable[] =
 
 void parseLivingWorldRegionCampaignDefinition(INI *ini)
 {
-	LivingWorldRegionManagerCampaigns *manager = TheLivingWorldLogic->m_regionManager;
+	LivingWorldRegionManagerCampaigns *manager = (LivingWorldRegionManagerCampaigns *)TheLivingWorldLogic->fieldB0;
 	const char *name = ini->getNextToken();
 	LivingWorldRegionCampaign *campaign = new LivingWorldRegionCampaign(AsciiString(name));
 	ini->initFromINI(campaign, Rva00210A14FieldParseTable);
