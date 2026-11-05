@@ -1,5 +1,4 @@
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
 // cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
@@ -11,7 +10,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
-#include <hash_map>
+#include <hash_set>
 #include <cstddef>
 // bfme link decl-only begin
 namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
@@ -65,6 +64,7 @@ template <> __declspec(dllimport) __forceinline void vector<void*>::insert(void 
 { _M_fill_insert(pos, n, x); }
 }
 
-struct Rva0005A112Element {Rva0005A112Element();Rva0005A112Element(const Rva0005A112Element&);Rva0005A112Element&operator=(const Rva0005A112Element&);~Rva0005A112Element(){}char bytes[8]; bool operator==(const Rva0005A112Element&)const;};
-// Only the rowed hashtable constructor is instantiated.
-template _STL::hashtable<_STL::pair<const int,Rva0005A112Element>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<const int,Rva0005A112Element> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,Rva0005A112Element> > >::hashtable(size_t, const _STL::hash<int> &, const _STL::equal_to<int> &, const _STL::allocator<_STL::pair<const int,Rva0005A112Element> > &);
+// Retail's only caller of 0x0005A112 is hash_set<int>'s default constructor
+// 0x0005B505 (stlport_pod_hash_bodies.cpp), so this is the constructor of
+// that hash_set's hashtable<int,int,hash<int>,_Identity<int>,...>.
+template _STL::hashtable<int,int,_STL::hash<int>,_STL::_Identity<int>,_STL::equal_to<int>,_STL::allocator<int> >::hashtable(size_t, const _STL::hash<int> &, const _STL::equal_to<int> &, const _STL::allocator<int> &);
