@@ -1,8 +1,7 @@
-# real link at c639483ba30e18379d90999d5d41c07a71e712f2: tools/exit_link.py --blockers
+# real link at a51fbd7f0fee0bcf81e4e0e5961a907a9ced471f: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp	3	?crc@DamageModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildComplete@LockWeaponCreate@@UAEXXZ
-Code/Libraries/Source/ATL/atlimage.cpp	2	?GdiplusShutdown@Gdiplus@@YGXK@Z
 Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	1	?freeBytes@AsciiString@@AAEXXZ
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
