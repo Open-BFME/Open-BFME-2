@@ -119,15 +119,13 @@ public:
 
 #include "ShaderClass.h"
 
-class MeshGeometryClass
-{
-public:
-	enum { TWO_SIDED = 0x100 };
-	const char *Get_Name() const;
-	int Get_Flag(int flag) const { return Flags & flag; }
-	char m_pad00[0x18];
-	int Flags;							// +0x18
-};
+// <new> already supplies the placement allocation operators.
+#define _OPERATOR_NEW_DEFINED_
+#include "always.h"
+#include "../WWLib/MultiListObjectClass.h"
+// The canonical list base replaces the reference multilist declarations.
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 class MeshModelClass : public MeshGeometryClass {};
 
 #include "FXShaderSetup.h"
@@ -416,7 +414,7 @@ bool Rva00199FFB::rva00199FFB(MeshMatDescClass *matDesc, MeshModelClass *model)
 	}
 	{
 		FXParameter param("CullingEnable", 7);
-		param.record().boolean = !(model && model->Get_Flag(MeshGeometryClass::TWO_SIDED));
+		param.record().boolean = !(model && (model->Flags & MeshGeometryClass::TWO_SIDED));
 		params.push_back(param.record());
 	}
 

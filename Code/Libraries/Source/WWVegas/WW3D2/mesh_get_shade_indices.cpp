@@ -15,37 +15,28 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // dtor 0x00072899) are the size form: compile refcount.h for size, as hlod.cpp does.
 #pragma optimize("s", on)
 #include "refcount.h"
+// Keep the reference base's proven inline destructor and its size-optimized
+// deleting wrapper; the canonical geometry layout uses this same 8-byte base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
 #pragma optimize("", on)
-#include "rendobj.h"
+#include "MeshGeometryClass.h"
 #include "sharebuf.h"
 
 // This specialization is rowed in its canonical defining unit. Keep this TU
 // a client so it does not emit a conflicting inline destructor copy.
 template <> ShareBufferClass<unsigned long>::~ShareBufferClass(void);
 
-// MeshGeometryClass's BFME2 VertexShadeIdx slot is at +0x4C.  The vendored
-// header's helper still uses its BFME1 +0x54 spelling, so keep this accessor's
-// proven retail offsets local while leaving the shared mesh header untouched.
-class MeshGeometryClass
+// Keep the existing emission anchor while using the canonical geometry layout.
+struct BfmeMeshShadeIndicesAccessor : MeshGeometryClass
 {
-public:
 	typedef uint32 *(MeshGeometryClass::*GetShadeIndicesFn)(bool);
 	static GetShadeIndicesFn emit_get_shade_indices()
 	{
-		return &MeshGeometryClass::get_shade_indices;
+		return &BfmeMeshShadeIndicesAccessor::get_shade_indices;
 	}
-
-protected:
-	uint32 *get_shade_indices(bool create);
-
-private:
-	unsigned char m_prefix[0x28];			// VertexCount is at +0x28
-	int VertexCount;
-	unsigned char m_before_shade[0x20];
-	ShareBufferClass<uint32> *VertexShadeIdx;	// retail pointer is at +0x4C
 };
 
-MeshGeometryClass::GetShadeIndicesFn kGetShadeIndices = MeshGeometryClass::emit_get_shade_indices();
+BfmeMeshShadeIndicesAccessor::GetShadeIndicesFn kGetShadeIndices = BfmeMeshShadeIndicesAccessor::emit_get_shade_indices();
 
 inline uint32 *MeshGeometryClass::get_shade_indices(bool create)
 {

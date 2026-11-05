@@ -39,9 +39,9 @@ struct Rva00172070Buffers
     ShareBufferClass<Vector4> *m_buffer48;
 };
 
-class W3DMPO
-{
-};
+// <new> already supplies placement operators; always.h supplies W3DMPO.
+#define _OPERATOR_NEW_DEFINED_
+#include "always.h"
 
 #include "../WWLib/MultiListObjectClass.h"
 
@@ -66,20 +66,10 @@ public:
 	char m_pad10C[0x118 - 0x10C];
 };
 
-// Stands in for MeshGeometryClass: W3DMPO (empty) + RefCountClass (vptr +0)
-// + MultiListObjectClass (vptr +8); total 0x8C per the proven sizeof.
-class MeshGeometryClass : public W3DMPO, public RefCountClass, public MultiListObjectClass
-{
-public:
-	virtual ~MeshGeometryClass();
-	MeshGeometryClass &operator=(const MeshGeometryClass &that);
-
-protected:
-	// Needs_Vertex_Normals (0x00171850) proves the packed flag byte at +0x19.
-	char m_pad10[0x19 - sizeof(RefCountClass) - sizeof(MultiListObjectClass)];
-	unsigned char m_flagByte;
-	char m_pad1A[0x8C - 0x1A];
-};
+// The canonical geometry header keeps the proven 0x8C extent and +8 list base.
+// The existing list base replaces the reference multilist declarations.
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 class MeshModelClass;
 
@@ -113,7 +103,7 @@ public:
 	void Make_Geometry_Unique();
 	void Init_For_NPatch_Rendering();
 	void Register_For_Rendering();
-	int Get_Flag(int mask) const { return m_flagByte & mask; }
+	int Get_Flag(int mask) const { return ((const unsigned char *)&Flags)[1] & mask; }
 
 	enum { PRELIT_MASK = 0xE0 };
 
@@ -418,7 +408,7 @@ void MeshModelClass::Register_For_Rendering()
 
     MeshMatDescClass *desc = CurMatDesc;
     if (desc->field_b8 == 0 && desc->field_108 == 0) {
-        if (*(volatile unsigned char *)&LODMeshCacheSetting != 0 || (m_flagByte & 4) != 0) {
+        if (*(volatile unsigned char *)&LODMeshCacheSetting != 0 || (((const unsigned char *)&Flags)[1] & 4) != 0) {
             Rva00199FFB::rva00199FFB(desc, this);
         }
     }

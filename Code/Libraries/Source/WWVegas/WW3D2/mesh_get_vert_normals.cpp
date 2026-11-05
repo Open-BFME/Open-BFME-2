@@ -21,8 +21,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // first copy in link order. Code this TU's rows inline keeps this TU's flags.
 #pragma optimize("s", on)
 #include "refcount.h"
+// Keep the reference base's proven inline destructor and its size-optimized
+// deleting wrapper; the canonical geometry layout uses this same 8-byte base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
 #pragma optimize("", on)
-#include "rendobj.h"
+#include "MeshGeometryClass.h"
 #include "sharebuf.h"
 #include "vector3.h"
 
@@ -31,37 +34,26 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 template <> ShareBufferClass<Vector3>::~ShareBufferClass();
 
 // MeshGeometryClass::get_vert_normals(bool), retail 0x0016AAE0, 170 bytes.
-// VertexCount is at +0x28, VertexNorm at +0x38, AlternateVertexNorm at +0x3C.
-class MeshGeometryClass
+// VertexCount is at +0x28, VertexNorm at +0x38, slot3C at +0x3C.
+struct BfmeMeshVertNormalsAccessor : MeshGeometryClass
 {
-public:
 	typedef Vector3 *(MeshGeometryClass::*GetVertNormalsFn)(bool);
 	static GetVertNormalsFn emit_get_vert_normals()
 	{
-		return &MeshGeometryClass::get_vert_normals;
+		return &BfmeMeshVertNormalsAccessor::get_vert_normals;
 	}
-
-protected:
-	Vector3 *get_vert_normals(bool alternate_format);
-
-private:
-	unsigned char m_prefix[0x28];
-	int VertexCount;
-	unsigned char m_pad2c[0x0c];
-	ShareBufferClass<Vector3> *VertexNorm;
-	ShareBufferClass<Vector3> *AlternateVertexNorm;
 };
 
-MeshGeometryClass::GetVertNormalsFn kGetVertNormals = MeshGeometryClass::emit_get_vert_normals();
+BfmeMeshVertNormalsAccessor::GetVertNormalsFn kGetVertNormals = BfmeMeshVertNormalsAccessor::emit_get_vert_normals();
 
 Vector3 *MeshGeometryClass::get_vert_normals(bool alternate_format)
 {
 	if (alternate_format) {
-		if (!AlternateVertexNorm) {
-			AlternateVertexNorm = new ShareBufferClass<Vector3>(VertexCount, "MeshGeometryClass::VertexNorm", 0);
-			AlternateVertexNorm->Clear();
+		if (!slot3C) {
+			slot3C = new ShareBufferClass<Vector3>(VertexCount, "MeshGeometryClass::VertexNorm", 0);
+			slot3C->Clear();
 		}
-		return AlternateVertexNorm->Get_Array();
+		return slot3C->Get_Array();
 	}
 	return VertexNorm->Get_Array();
 }
