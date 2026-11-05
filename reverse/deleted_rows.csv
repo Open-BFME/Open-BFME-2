@@ -5145,3 +5145,5 @@ _$E1,0x007ADA4C,"Retracted for readmission as _$E3 in BannerUI.cpp: the unit now
 ?xfer@UpdateModule@@QAEXPAVXfer@@@Z,0x0044DF9F,"Renamed to ?xfer@UpdateModule@@UAEXPAVXfer@@@Z by tools/rename.py (virtual: retail vtable slot)"
 ?xfer@DynamicShroudClearingRangeUpdate@@QAEXPAVXfer@@@Z,0x0048B505,"Renamed to ?xfer@DynamicShroudClearingRangeUpdate@@UAEXPAVXfer@@@Z by tools/rename.py (virtual: retail vtable slot)"
 ?xfer@BehaviorModule@@QAEXPAVXfer@@@Z,0x004C9C7D,"Renamed to ?xfer@BehaviorModule@@MAEXPAVXfer@@@Z by tools/rename.py (virtual: retail vtable slot)"
+??1Rva004B96E5@@UAE@XZ,0x004B96E5,"Renamed to ??1BoneFXDamage@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C598B4)"
+??_GRva004B96E5@@UAEPAXI@Z,0x004B97C6,"Renamed to ??_GBoneFXDamage@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C598B4)"

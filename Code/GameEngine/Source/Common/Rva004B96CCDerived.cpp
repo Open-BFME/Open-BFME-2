@@ -31,13 +31,13 @@ public:
 	virtual void f2();
 };
 
-class Rva004B96E5 : public Rva004B96CC, public MiBase1, public Rva004B96E5_B2
+class BoneFXDamage : public Rva004B96CC, public MiBase1, public Rva004B96E5_B2
 {
 public:
-	virtual ~Rva004B96E5();
+	virtual ~BoneFXDamage();
 };
 
-Rva004B96E5::~Rva004B96E5()
+BoneFXDamage::~BoneFXDamage()
 {
 }
 
