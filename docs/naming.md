@@ -702,8 +702,10 @@ refuses unless all of these hold:
 - The usual `class` rules: OLD is not protected or registered in
   `canonical_classes.csv`, is global and no template, is no function's
   identifier, and keys no frozen register; a registered NEW is refused where
-  the fold would create a private copy of it; no unit may end up declaring NEW
-  twice or deriving NEW from itself.
+  the fold would create a private copy of it, unless every unit that spells
+  OLD (text or object) comes `--prepared REL=FILE` on NEW's shared header and
+  spells OLD nowhere (class_gate and the byte gate judge those units); no unit
+  may end up declaring NEW twice or deriving NEW from itself.
 
 Each renamed row and data row is tombstoned `Renamed to <new> by
 tools/rename.py (fold: retail vftable 0x...)`. No `name_basis.csv` row is

@@ -5503,8 +5503,14 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
         raise Refusal("the new name is the old name")
     if old in parts:
         raise Refusal(f"{old} is one of {new}'s own scope names: the fold would nest the class in itself")
-    if prepared and not nested:
-        raise Refusal("--prepared goes with a nested --into (A::B::C); a global NEW is a token rewrite")
+    registered = {row.get("class") for row in ctx.dicts(CANONICAL_CLASSES)}
+    registered_new = new in registered or ctx.path(f"{CLASS_CONTRACTS}/{new}.json").exists()
+    if prepared and not nested and not registered_new:
+        raise Refusal("--prepared goes with a nested --into (A::B::C) or a NEW registered in "
+                      f"{CANONICAL_CLASSES}; an unregistered global NEW is a token rewrite")
+    # A registered NEW has one shared header: a token rewrite would turn each
+    # unit's OLD view into a private copy of it, so its units come prepared.
+    by_hand = nested or bool(prepared)
     if not is_placeholder(old, "class"):
         raise Refusal(f"{old} is a readable name: class --fold folds only a placeholder (docs/naming.md: a "
                       "placeholder never replaces a readable name except by a `restored` revert, and choosing "
@@ -5512,7 +5518,6 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
     reason = class_protected(ctx, old)
     if reason:
         raise Refusal(f"canonical name: {reason}")
-    registered = {row.get("class") for row in ctx.dicts(CANONICAL_CLASSES)}
     if old in registered or ctx.path(f"{CLASS_CONTRACTS}/{old}.json").exists():
         raise Refusal(f"{old} is registered in {CANONICAL_CLASSES} / {CLASS_CONTRACTS}; its key, contract "
                       "and class_gate allowances move in a class-reconciliation commit, not here")
@@ -5554,9 +5559,10 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
     if len(texts) > max_files:
         raise Refusal(f"{len(texts)} files spell {old} (over --max-files {max_files}; text scope alone)")
     declarers = sorted(rel for rel, text in texts.items() if declares_type(name_metric.strip(text), old))
-    if declarers and (new in registered or ctx.path(f"{CLASS_CONTRACTS}/{new}.json").exists()):
+    if declarers and registered_new and not prepared:
         raise Refusal(f"{new} is registered in {CANONICAL_CLASSES}: the fold would turn {', '.join(declarers[:3])}'s "
-                      f"class {old} into a private copy of {new} (class_gate); adopt {new}'s header there first")
+                      f"class {old} into a private copy of {new} (class_gate); adopt {new}'s header there first, "
+                      "or pass every unit spelling it as --prepared REL=FILE")
     by_object = object_referencers(ctx, set(scoped)) if ctx.object_scan and scoped else set()
     touched = set(texts) | by_object
     refuse_vendored(ctx, touched, f"folding the type {old}")
@@ -5664,18 +5670,21 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
     # unit spelling OLD comes prepared, spelling OLD nowhere; the build and
     # commit_checks decide on its bytes as for every rename.
     headers = []
-    if nested:
+    if by_hand:
         prepared = dict(prepared or {})
         missing = sorted(rel for rel in touched if rel not in prepared)
+        why = (f"a nested {new} needs its enclosing scopes declared in each unit, which a token rewrite cannot do"
+               if nested else
+               f"{new} is registered in {CANONICAL_CLASSES}, so each unit adopts its header instead of a "
+               "token rewrite")
         if missing:
-            raise Refusal(f"{', '.join(missing[:5])} spell{'s' if len(missing) == 1 else ''} {old}: a nested "
-                          f"{new} needs its enclosing scopes declared in each unit, which a token rewrite cannot "
-                          "do; pass each as --prepared REL=FILE")
+            raise Refusal(f"{', '.join(missing[:5])} spell{'s' if len(missing) == 1 else ''} {old}: {why}; "
+                          "pass each as --prepared REL=FILE")
         for rel, data in sorted(prepared.items()):
             if token.search(data.decode("utf-8", errors="surrogateescape")):
                 raise Refusal(f"prepared {rel} still spells {old}: the fold leaves no {old} behind")
         _batch_source_edits(ctx, plan, prepared)
-    for rel in sorted(touched) if not nested else ():
+    for rel in sorted(touched) if not by_hand else ():
         text = texts.get(rel)
         if text is None:
             data = ctx.read(rel)

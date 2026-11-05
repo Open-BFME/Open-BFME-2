@@ -1312,6 +1312,74 @@ def test_an_inlined_base_restore_needs_a_destructor_family(tmp_path, monkeypatch
         d_plan(root)
 
 
+
+# ------------------------------------------------------------ a registered NEW: every unit prepared
+#
+# DamageModule is registered in canonical_classes.csv (DamageModuleClass.h). A
+# token rewrite of Rva004B96CC would leave a private DamageModule view in each
+# unit that declares the placeholder, so each such unit comes prepared on the
+# shared header, spelling the placeholder nowhere; class_gate and the byte gate
+# then judge it as for every rename.
+D_HEADER = "Code/Game/NewClass.h"
+D_DTOR_PREPARED = f'#include "NewClass.h"\n{D_NEW}::~{D_NEW}() {{}}\n'
+
+
+def registered_tree(root, extra_units=None):
+    make_dtor_tree(root)
+    write(root, "reverse/canonical_classes.csv", f"class,header,notes\n{D_NEW},{D_HEADER},shared\n")
+    write(root, D_HEADER, f"class {D_NEW}\n{{\npublic:\n\t{D_NEW}();\n\tvirtual ~{D_NEW}();\n}};\n")
+    for rel, text in (extra_units or {}).items():
+        write(root, rel, text)
+    _git(root, "add", "-A")
+    return root
+
+
+def r_plan(root, prepared):
+    return rename.plan_rename("class", ctx=ctx_of(root), name=D_OLD, new=D_NEW, fold=True, prepared=prepared)
+
+
+def test_a_registered_new_without_prepared_units_is_refused(tmp_path, monkeypatch):
+    root = registered_tree(tmp_path)
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match="private copy"):
+        d_plan(root)
+
+
+def test_a_registered_new_folds_with_every_unit_prepared(tmp_path, monkeypatch):
+    root = registered_tree(tmp_path)
+    d_retail(monkeypatch)
+    p = r_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_PREPARED.encode("utf-8")})
+    assert p.fold == TABLE
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??1{D_NEW}@@QAE@XZ,,0x00402000,7,Code/Game/Dtor.cpp,matched," in fns
+    assert f"??_G{D_NEW}@@QAEPAXI@Z,,0x00402010,29,Code/Game/Dtor.cpp,matched," in fns
+    assert (root / "Code/Game/Dtor.cpp").read_text() == D_DTOR_PREPARED
+    assert (root / "Code/Game/Ctor.cpp").read_text() == D_CTOR_SRC
+
+
+def test_a_registered_new_refuses_an_unprepared_unit(tmp_path, monkeypatch):
+    # a second unit declares the placeholder; it is not prepared
+    root = registered_tree(tmp_path, {"Code/Game/Other.cpp": OTHER + f"class {D_OLD} {{ public: ~{D_OLD}(); }};\n"})
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match=f"Code/Game/Other.cpp spells {D_OLD}: {D_NEW} is registered"):
+        r_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_PREPARED.encode("utf-8")})
+
+
+def test_a_registered_new_refuses_a_prepared_unit_still_spelling_old(tmp_path, monkeypatch):
+    root = registered_tree(tmp_path)
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match=f"prepared Code/Game/Dtor.cpp still spells {D_OLD}"):
+        r_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_SRC.encode("utf-8")})
+
+
+def test_prepared_units_still_need_a_nested_or_registered_new(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path)
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match="an unregistered global NEW is a token rewrite"):
+        r_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_PREPARED.encode("utf-8")})
+
+
 # ------------------------------------------------------------ a NEW rowed only through virtual methods
 #
 # 0x00CF1648's class: its constructor 0x00740FD9, destructor and deleting
