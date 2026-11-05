@@ -50,7 +50,6 @@ typedef unsigned short UnsignedShort;
 enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
 enum VeterancyLevel { LEVEL_REGULAR, LEVEL_VETERAN, LEVEL_ELITE, LEVEL_HEROIC };
 enum ArmorSetType { ARMORSET_VETERAN, ARMORSET_ELITE, ARMORSET_HERO };
-enum MaxHealthChangeType { SAME_CURRENTHEALTH, PRESERVE_RATIO, ADD_CURRENT_HEALTH_TOO, FULLY_HEAL };
 enum DamageType { DAMAGE_4 = 4, DAMAGE_6 = 6, DAMAGE_HEALING = 7, DAMAGE_UNRESISTABLE = 8, DAMAGE_23 = 0x17 };
 enum KindOfType { KINDOF_4 = 4, KINDOF_220 = 0x220, KINDOF_14A = 0x14A };
 enum ObjectID { INVALID_ID = 0 };
@@ -137,8 +136,6 @@ public: // Retail callers read the ID field directly; no standalone getter.
 	ParticleSystemID m_systemID;	// +0xA8
 };
 ParticleSystem *Make001FCBD7();
-// The 12-byte handle: the out-of-line unlink is 0x0004CBC0, which the handle's
-// destructor calls only for a live system.
 #include "../../../../Include/Common/RvaSmartPtr12.h"
 class BfmeParticleSystemHandleBase
 {
@@ -254,68 +251,43 @@ struct BfmeCopyElementA;
 #include <stddef.h>
 #include <stdlib.h>
 #undef _CRTIMP
-
 enum AICommandType
 {
 	AICMD_53 = 0x53
 };
-
 enum CommandSourceType { CMD_FROM_PLAYER, CMD_FROM_SCRIPT, CMD_FROM_AI };
-
-//
-// ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004BFD83 (115B): the
-// DamageCreationList FieldParse proc (row 0x00C5B2F8). Reads an
-// ObjectCreationList (rowed INI::parseObjectCreationList) and two optional
-// index tokens (names at 0x00DCD7EC and 0x00DCD7FC, 0 when absent) into a
-// 12-byte entry appended to the vector at instance + 0x58 (12-byte POD
-// push_back fold 0x002DF89B). Name address-derived.
-
 #include "../../../../Include/Common/INI/INI.h"
-
 class ObjectCreationList;
-
 struct Rva004BFD83Entry
 {
 	const ObjectCreationList *m_ocl;
 	int m_damageType;
 	int m_deathType;
 };
-
 // The retail table at RVA 0x009CD7EC: 4 string pointers.
 extern const char *theRockNames[4] = { "NONE", "CATAPULT_ROCK", "TREBUCHET_ROCK", 0 };
-
 // The retail table at RVA 0x009CD7FC: 6 string pointers.
 extern const char *theDamageSideNames[6] = { "NONE", "FRONT_DESTROYED", "RIGHT_DESTROYED", "BACK_DESTROYED", "LEFT_DESTROYED", 0 };
-
 struct PrereqUnitRec;
-
 class BodyModuleInterface;
-
 class ActiveBody;
-
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class VSlots<0>
 {
 };
-
 enum DisabledType { DISABLED_8 = 8 };
-
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-
 struct AICommandParms;
-
 class Rva004BFD27
 {
 public:
 	void rva004BFD27(CommandSourceType cmdSource);
 	virtual void rvaVirtual(AICommandParms *parms) = 0;
 };
-
 class AIUpdateInterface
 {
 public:
@@ -359,13 +331,11 @@ public:
 	unsigned char m_pad24[0x34 - 0x24];
 	Int m_field34;				// +0x34
 };
-
 class Rva004BFE07ContainHelper : public VSlots<14>
 {
 public:
 	virtual void onClippedDamage(Object *obj);
 };
-
 class ContainModuleInterface : public VSlots<26>
 {
 public:
@@ -384,7 +354,6 @@ public:
 	virtual void c68();
 	virtual UnsignedInt getContainCount(Int arg);
 };
-
 class Rva0028C1A9Result
 {
 public:
@@ -393,18 +362,14 @@ public:
 	virtual void r4(); virtual void r5(); virtual void r6(); virtual void r7();
 	virtual void onKill(Object *victim);
 };
-
 class Rva004BFE07Flagged
 {
 public:
 	unsigned char m_pad00[0x5C];
 	Bool m_byte5C;
 };
-
 #include "../../../../Include/Common/Player.h"
-
 class Module;
-
 // The promotion sound references of a Drawable (keyed lookups rowed in
 // DrawableKeyedLookups.cpp) and the Object a Drawable belongs to (+0xFC).
 class Rva002390CB
@@ -414,21 +379,14 @@ public:
 	char m_pad00[4];
 	OpaqueRefElement4 m_04;
 };
-
 // Audio event setters rowed by address: 0x002D9C2F assigns the sound
 // reference, 0x002D9531 the Object ID.
 class Rva002D9C2F { public: OpaqueRefElement4 &rva002D9C2F(const OpaqueRefElement4 &other); };
-
 class Rva002D9531 { public: void rva002D9531(int v); };
-
 #include "../../../../Include/Common/GameAudio.h"
-
 extern AudioManager *TheAudio;
-
 #include "../../../../Include/GameClient/InGameUI.h"
-
 extern InGameUI *TheInGameUI;
-
 class ControlBar
 {
 public:
@@ -437,13 +395,9 @@ public:
 	unsigned char m_pad00[0x28];
 	Bool m_UIDirty;				// +0x28
 };
-
 extern ControlBar *TheControlBar;
-
 #include "../../../../Include/GameLogic/DOTManager.h"
-
 typedef _STL::hash_map<ObjectID, Object *, _STL::hash<int>, _STL::equal_to<ObjectID> > ObjectPtrHash;
-
 class GameLogic
 {
 public:
@@ -468,18 +422,14 @@ public:
 	unsigned char m_padHash[0x174 - 0xB4 - sizeof(ObjectPtrHash)];
 	DOTManager *m_dotManager;		// +0x174
 };
-
 extern GameLogic *TheGameLogic;
-
 #include "../../../../Include/GameLogic/AIPathfind.h"
-
 class AIData
 {
 public:
 	unsigned char m_pad00[0x64];
 	Bool m_enableRepulsors;
 };
-
 class AI
 {
 public:
@@ -491,13 +441,9 @@ public:
 	unsigned char m_pad14[4];
 	AIData *m_aiData;
 };
-
 extern AI *TheAI;
-
 #include "../../../../Include/Common/GlobalData.h"
-
 extern GlobalData *TheWritableGlobalData;
-
 // The damage state for the current health, rowed at 0x004BDA29 under an
 // address name: Zero Hour's calcDamageState order (rubble at zero health,
 // then the really-damaged and damaged ratios of max health) on the body's own
@@ -518,35 +464,29 @@ private:
 	Real m_damagedThresh;			// +0x24
 	Real m_reallyDamagedThresh;		// +0x28
 };
-
 // The rubble-state object reset (0x004BDA67), rowed under an address name.
 class Rva004BDA67
 {
 public:
 	void rva004BDA67();
 };
-
 #include "../../../../Include/Common/DamageFXClass.h"
-
 class Rva003605D5	// DamageFX throttle-time lookup (Zero Hour getDamageFXThrottleTime)
 {
 public:
 	Int rva003605D5(Int damageType, Int source);	// 0x003605D5
 };
-
 class ObjectCreationList
 {
 public:
 	void create(void *primary, void *secondary, void *lifetime);	// 0x001F08D3
 };
-
 struct DamageCreation
 {
 	ObjectCreationList *m_ocl;		// +0x00
 	Int m_type;				// +0x04
 	Int m_stage;				// +0x08: 0, or the damage stage 1-4
 };
-
 class Armor
 {
 public:
@@ -555,27 +495,18 @@ public:
 private:
 	void *m_name;
 };
-
 // Native module-data slot31 copies this float/DWORD pair at offset40.
 // Its original type and field semantics remain unknown.
 struct BfmeBodyDataPair8 { float value; unsigned word; BfmeBodyDataPair8() {} __forceinline BfmeBodyDataPair8(const BfmeBodyDataPair8 &that): value(that.value), word(that.word) {} };
-
 class Rva003427DD { public: Rva003427DD &operator=(const Rva003427DD &other); };
-
 class Rva00294D61 { public: void report(Object *victim, Int flag); };
-
 class Rva0028B749Host { public: void rva0028B749(Int victim, Real ratio); };
-
 class Rva002AA201IndexedByteField { public: void set(int index); };
-
 // The damage-delay call lands on the shared empty RET 4 at 0x0047A69C; it
 // goes through that address's rowed Rva0059BB50 name.
 class Rva0059BB50 { public: void rva0047A69C(int v); };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Rva00265254
 {
 public:
@@ -583,18 +514,14 @@ public:
 private:
 	unsigned int m_bits[19];
 };
-
 class Rva00263546 { public: bool rva00263546(const Rva00263546 *other) const; };
-
 class Rva0044EAF3
 {
 public:
 	Rva0044EAF3 *rva0044EAF3(int a, unsigned int b, unsigned int c, unsigned int d) throw();
 	unsigned int m_bits[4];
 };
-
 class Rva00331682Holder { public: bool test(const void *other) const; };
-
 class KindOfMaskType : public Rva00265254
 {
 public:
@@ -604,30 +531,21 @@ public:
 		return ((const Rva00263546 *)this)->rva00263546((const Rva00263546 *)bits);
 	}
 };
-
 class ObjectStatusMaskType : public Rva0044EAF3
 {
 public:
 	ObjectStatusMaskType(int a, unsigned int b, unsigned int c, unsigned int d) { rva0044EAF3(a, b, c, d); }
 	Bool testForAny(const void *bits) const { return ((const Rva00331682Holder *)this)->test(bits); }
 };
-
-// The parameter type of pickAndPlayUnitVoiceResponse. The list itself is a
-// plain list<Drawable *>: its destructor is retail's 0x00239AF4 call on the
-// normal path and the list<Drawable *> thunk 0x00239BAB in the unwind funclet.
 #include "../../../../Include/GameClient/DrawableList.h"
-
 class PickAndPlayInfo;
-
 class GameMessage
 {
 public:
 	enum Type { MSG_BFME2_0x7E0 = 0x7E0 };
 };
-
 bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
-
 struct BfmeDelayedLuaEvent
 {
 	unsigned char m_pad00[0x0C];
@@ -635,26 +553,20 @@ struct BfmeDelayedLuaEvent
 	unsigned char m_pad10[4];
 	Int m_type;
 };
-
 struct BfmeDelayedLuaEventList;
-
 struct DelayedLuaEventList
 {
 	DelayedLuaEventList();
 	virtual ~DelayedLuaEventList();
 	BfmeDelayedLuaEvent m_events[3];
 };
-
 class BfmeObjectEventDispatch
 {
 public:
 	void rva003360D2(int index, void *object, BfmeDelayedLuaEventList *eventList);
 };
-
 class LuaScriptEngine;
-
 extern LuaScriptEngine *TheLuaScriptEngine;
-
 class ActiveBodyModuleData
 {
 public:
@@ -673,7 +585,6 @@ public:
 	unsigned char m_pad52[0x54 - 0x52];
 	const FXList *m_clippedDamageFX;
 };
-
 // The armor-set flags are BitFlags<21> in BFME 2: its setBitByName is rowed
 // at 0x004BE0F1; the set-bit count (0x0028F528), the name of a set bit
 // (0x004BE0C7) and the CRC transfer of the raw bits (0x004BE722) are rowed
@@ -683,13 +594,11 @@ class Rva0028F528
 public:
 	Int rva0028F528();
 };
-
 class Rva004BE0C7
 {
 public:
 	void *rva004BE0C7(UnsignedInt i);
 };
-
 template <int NUMBITS> class BitFlags
 {
 public:
@@ -708,9 +617,7 @@ public:
 private:
 	UnsignedInt m_bits[NUMWORDS];
 };
-
 typedef BitFlags<21> ArmorSetFlags;
-
 // BodyModule: the primary base (BehaviorModule then the damage scalar at
 // +0x14); its xfer is primary slot 3, rowed at 0x0058B043.
 class BodyModule
@@ -739,77 +646,7 @@ protected:
 	Object *m_object;				// +0x08
 	void *m_vptr0C;
 };
-
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
-
-class ActiveBody : public BodyModule, public BodyModuleInterface
-{
-public:
-	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType);
-	virtual void setInitialHealth(Real initialPercent, Bool directional);
-	virtual void attemptDamage(DamageInfo *damageInfo);
-	virtual void attemptHealing(DamageInfo *damageInfo);
-	virtual Real estimateDamage(DamageInfoInput &damageInfo) const;
-	virtual void setDamageState(BodyDamageType newState);
-	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);
-	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
-	virtual ArmorSetFlags rva004BF8F5();
-	virtual ObjectID rva004BF897();
-	virtual Bool getBackCrushed() const;
-	virtual BfmeBodyDataPair8 rva004BDC56();
-	virtual void setArmorSetFlag(ArmorSetType ast);
-	virtual void clearArmorSetFlag(ArmorSetType ast);
-
-	virtual void rva004BE69C();
-	virtual void onDelete();
-	void setCorrectDamageState(Bool arg);
-	void rva004BFB1C(Real amount, const Coord3D *pos);	// 0x004BFB1C
-	void rva004BFCD4(Real amount, DamageInfo *damageInfo);
-
-protected:
-	virtual void xfer(Xfer *xfer);
-	static Bool shouldRetaliate(Object *obj);
-	virtual void doDamageFX(const DamageInfo *damageInfo);
-	virtual void createParticleSystems(const AsciiString &boneBaseName,
-		const ParticleSystemTemplate *systemTemplate, Int maxSystems);
-
-private:
-	const ActiveBodyModuleData *getActiveBodyModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-
-	Real m_damageScalar;
-	Real m_currentHealth;			// +0x18
-	Real m_prevHealth;			// +0x1C
-	Real m_maxHealth;			// +0x20
-	Real m_damagedRatio;			// +0x24
-	Real m_reallyDamagedRatio;		// +0x28
-	Real m_initialHealth;			// +0x2C
-	BodyDamageType m_curDamageState;	// +0x30
-	Int m_field34;				// +0x34
-	UnsignedInt m_nextDamageFXTime;		// +0x38
-	Int m_lastDamageFXDone;			// +0x3C
-	DamageInfo m_lastDamageInfo;		// +0x40
-	UnsignedInt m_lastDamageTimestamp;	// +0xBC
-	UnsignedInt m_lastHealingTimestamp;	// +0xC0
-	Bool m_frontCrushed;			// +0xC4
-	Bool m_backCrushed;			// +0xC5
-	Bool m_lastDamageCleared;		// +0xC6
-	Bool m_indestructible;			// +0xC7
-	BodyParticleSystem *m_particleSystems;	// +0xC8
-	Real m_damageStateValues[4];		// +0xCC
-	Bool m_damageStateFlags[4];		// +0xDC
-	DamageCreation *m_damageCreationBegin;	// +0xE0
-	DamageCreation *m_damageCreationEnd;	// +0xE4
-	unsigned char m_padE8[4];
-	ObjectID m_linkedObjectID;		// +0xEC
-	ArmorSetFlags m_curArmorSetFlags;	// +0xF0
-	const void *m_curArmorSet;		// +0xF4
-	Armor m_curArmor;			// +0xF8
-	DamageFX *m_curDamageFX;		// +0xFC
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 // WB1252E80 copies XYZ before jittering them, then constructs a second
 // three-float vector for side damage. This unit's Coord3D view instead carries
 // the out-of-line constructor and destructor used by the bone array.
@@ -821,15 +658,12 @@ struct ActiveBodySidePoint
 	{ x = activeBodySidePoint.x; y = activeBodySidePoint.y; z = activeBodySidePoint.z; }
 	~ActiveBodySidePoint() {}
 };
-
 struct ActiveBodyDamageVector
 {
 	Real x, y, z;
 	ActiveBodyDamageVector(Real a, Real b, Real c) : x(a), y(b), z(c) {}
 };
-
 extern Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);
-
 // Math helpers expanded in WB12531D0, with the three-row transform copied
 // before computing its axes. The memberwise copy definitions are the EA
 // Zero Hour WWMath Matrix3D/Vector4/Vector3 source at the pinned BFME1
@@ -850,9 +684,20 @@ public:
 	static float Dot_Product(const Vector3 &a, const Vector3 &b)
 	{ return a.X * b.X + a.Y * b.Y + a.Z * b.Z; }
 };
-
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+// BFME1 donor: 1399ad37d42ea52a63829e417c46a1ba9ed2cd20,
+// game/GameEngine/Source/GameLogic/Object/Body/ActiveBody_setMaxHealth.cpp.
+// Identity: ActiveBody ctor 0x4BF6A1 installs its secondary body-interface
+// table 0xC5B5B0. Slot +0x58 names native 0x4BDB85, shared by its derived bodies.
+// Before consolidation, the fragment's local view started at that interface
+// (complete ActiveBody +0x10); the definition below now uses the complete class.
+// Native health accesses +8/+0x10/+0x1C correspond to full-object
+// +0x18/+0x20/+0x2C, also established by ActiveBodyConstructor.cpp.
+// Slot +0x80 changes health with the BFME2 DamageInfo pointer argument.
+// The donor guides the ratio/addition/clamp semantics and change-type names.
 
+class DamageInfo;
+enum MaxHealthChangeType { SAME_CURRENTHEALTH, PRESERVE_RATIO, ADD_CURRENT_HEALTH_TOO, FULLY_HEAL };
 
 class Matrix3D
 {
@@ -1292,6 +1137,91 @@ private:
 	char m_pad00[0x148];
 	void *m_templateName; // AsciiString
 };
+
+class ActiveBody : public BodyModule, public BodyModuleInterface
+{
+public:
+	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType);
+	virtual void setInitialHealth(Real initialPercent, Bool directional);
+	virtual void attemptDamage(DamageInfo *damageInfo);
+	virtual void attemptHealing(DamageInfo *damageInfo);
+	virtual Real estimateDamage(DamageInfoInput &damageInfo) const;
+	virtual void setDamageState(BodyDamageType newState);
+	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);
+	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
+	virtual ArmorSetFlags rva004BF8F5();
+	virtual ObjectID rva004BF897();
+	virtual Bool getBackCrushed() const;
+	virtual BfmeBodyDataPair8 rva004BDC56();
+	virtual void setArmorSetFlag(ArmorSetType ast);
+	virtual void clearArmorSetFlag(ArmorSetType ast);
+
+	virtual void rva004BE69C();
+	virtual void onDelete();
+	void setCorrectDamageState(Bool arg);
+	void rva004BFB1C(Real amount, const Coord3D *pos);	// 0x004BFB1C
+	void rva004BFCD4(Real amount, DamageInfo *damageInfo);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+	static Bool shouldRetaliate(Object *obj);
+	virtual void doDamageFX(const DamageInfo *damageInfo);
+	virtual void createParticleSystems(const AsciiString &boneBaseName,
+		const ParticleSystemTemplate *systemTemplate, Int maxSystems);
+
+private:
+	const ActiveBodyModuleData *getActiveBodyModuleData() const { return m_moduleData; }
+	Object *getObject() const { return m_object; }
+
+	Real m_damageScalar;
+	Real m_currentHealth;			// +0x18
+	Real m_prevHealth;			// +0x1C
+	Real m_maxHealth;			// +0x20
+	Real m_damagedRatio;			// +0x24
+	Real m_reallyDamagedRatio;		// +0x28
+	Real m_initialHealth;			// +0x2C
+	BodyDamageType m_curDamageState;	// +0x30
+	Int m_field34;				// +0x34
+	UnsignedInt m_nextDamageFXTime;		// +0x38
+	Int m_lastDamageFXDone;			// +0x3C
+	DamageInfo m_lastDamageInfo;		// +0x40
+	UnsignedInt m_lastDamageTimestamp;	// +0xBC
+	UnsignedInt m_lastHealingTimestamp;	// +0xC0
+	Bool m_frontCrushed;			// +0xC4
+	Bool m_backCrushed;			// +0xC5
+	Bool m_lastDamageCleared;		// +0xC6
+	Bool m_indestructible;			// +0xC7
+	BodyParticleSystem *m_particleSystems;	// +0xC8
+	Real m_damageStateValues[4];		// +0xCC
+	Bool m_damageStateFlags[4];		// +0xDC
+	DamageCreation *m_damageCreationBegin;	// +0xE0
+	DamageCreation *m_damageCreationEnd;	// +0xE4
+	unsigned char m_padE8[4];
+	ObjectID m_linkedObjectID;		// +0xEC
+	ArmorSetFlags m_curArmorSetFlags;	// +0xF0
+	const void *m_curArmorSet;		// +0xF4
+	Armor m_curArmor;			// +0xF8
+	DamageFX *m_curDamageFX;		// +0xFC
+public:
+	virtual NameKeyType getModuleNameKey() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBody.cpp
+
+// The 12-byte handle: the out-of-line unlink is 0x0004CBC0, which the handle's
+// destructor calls only for a live system.
+
+//
+// ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004BFD83 (115B): the
+// DamageCreationList FieldParse proc (row 0x00C5B2F8). Reads an
+// ObjectCreationList (rowed INI::parseObjectCreationList) and two optional
+// index tokens (names at 0x00DCD7EC and 0x00DCD7FC, 0 when absent) into a
+// 12-byte entry appended to the vector at instance + 0x58 (12-byte POD
+// push_back fold 0x002DF89B). Name address-derived.
+
+// The parameter type of pickAndPlayUnitVoiceResponse. The list itself is a
+// plain list<Drawable *>: its destructor is retail's 0x00239AF4 call on the
+// normal path and the list<Drawable *> thunk 0x00239BAB in the unwind funclet.
 
 // Native42C0AE and42C0B5 now use the proven +4/+8 observer receivers
 // in Rva0042C5C3Dtor.cpp; both write the complete object word at+2C.
@@ -2655,7 +2585,61 @@ void Rva004BFD83Parse(INI *ini, void *instance, void *, const void *)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x004BDB85 126B ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp (not merged yet)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
+
+Int Rva004BF8AC::rva004BF8AC()
+{
+	return m_armorName.rva001D9083();
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodySetMaxHealth.cpp
+
+// ?setMaxHealth@ActiveBody@@UAEXMW4MaxHealthChangeType@@@Z
+void ActiveBody::setMaxHealth( Real maxHealth, MaxHealthChangeType healthChangeType )
+{
+	Real prevMaxHealth = m_maxHealth;
+	m_maxHealth = maxHealth;
+	m_initialHealth = maxHealth;
+
+	switch( healthChangeType )
+	{
+		case PRESERVE_RATIO:
+		{
+			Real ratio = m_currentHealth / prevMaxHealth;
+			Real newHealth = maxHealth * ratio;
+			internalChangeHealth( newHealth - m_currentHealth, 0 );
+			break;
+		}
+		case ADD_CURRENT_HEALTH_TOO:
+		{
+			internalChangeHealth( maxHealth - prevMaxHealth, 0 );
+			break;
+		}
+		default:
+			break;
+	}
+
+	if( m_currentHealth > maxHealth )
+	{
+		internalChangeHealth( maxHealth - m_currentHealth, 0 );
+	}
+}
 
 // tu-skeleton: 0x004BDC1C 9B ??0Rva004BDC1C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
@@ -2687,13 +2671,6 @@ void Rva004BFD83Parse(INI *ini, void *instance, void *, const void *)
 
 // tu-skeleton: 0x004BF893 4B ?get@Rva004BF893LeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
-
-Int Rva004BF8AC::rva004BF8AC()
-{
-	return m_armorName.rva001D9083();
-}
-
 // tu-skeleton: 0x004BF8D8 7B ?get@Rva004BF8D8ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004BF8DF 14B ?rva004BF8DF@Rva004BF8DF@@QBEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
@@ -2723,6 +2700,10 @@ Int Rva004BF8AC::rva004BF8AC()
 // tu-skeleton: 0x0078F90A 13B $L1387 -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyParticlesRva004BDCE2.cpp (not merged yet)
 
 // tu-skeleton: 0x0078F917 10B __ehhandler$?updateBodyParticleSystems@Rva0020FE20ActiveBodyInterface@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyParticlesRva004BDCE2.cpp (not merged yet)
+
+// tu-skeleton: 0x0078F9CC 8B $L1250 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004BF40FLoadPostProcess.cpp (not merged yet)
+
+// tu-skeleton: 0x0078F9D4 10B __ehhandler$?rva004BF40F@Rva004BF40F@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004BF40FLoadPostProcess.cpp (not merged yet)
 
 // tu-skeleton: 0x0078F9DE 8B Unwind@00b8f9de -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateModuleDataCtor.cpp (not merged yet)
 
