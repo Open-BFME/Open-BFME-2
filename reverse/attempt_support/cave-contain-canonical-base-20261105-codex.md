@@ -63,3 +63,18 @@ python3 tools/header_adopt_lane.py accept --class OpenContainModuleData Code/Gam
 Other five consumers need their own field/layout prerequisite repairs. The
 historical ModuleFactory constructor-provider obstruction is no longer the
 current Cave failure: the current saved vtable provider is the wrapper unit.
+
+## Committed-batch follow-up
+
+The runner rebased and handed repair `5710586139` to the fleet publisher.
+On that committed tree, `--prepare-current` recompiled the stale wrapper provider
+and again verified all 16 rows with strict reusable receipts. The paired preview
+again preserves 445/445 bytes.
+
+`link_batch_audit.py --base HEAD^ --tip HEAD` for the repair, with both verified
+source paths, returns INCONCLUSIVE (exit 2). Its index remains `c95fcfcfcd` and
+predates the outgoing base `2a5726aa4446083aafe013e1e0d8cd7209b03285`.
+After refreshing the two owned receipts, the consumer audit stops at the missing
+current receipt for `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp`.
+Carry that consumer into the next scheduled census. No clean batch-wide audit or
+census clearance is claimed. Source and class claims have been released.
