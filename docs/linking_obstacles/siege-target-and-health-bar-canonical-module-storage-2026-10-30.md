@@ -12,3 +12,5 @@ against ccafe54d1d. Complete derived hierarchy and other class/header debts
 remain separate; no census or runtime gain is claimed.
 [Siege evidence](../../reverse/attempt_support/module-ui-siege-dock-20261030/README.md),
 [health-bar evidence](../../reverse/attempt_support/module-ui-health-interface-20261030/README.md).
+
+2026-11-05: DrawableHealthBarGate also adopts canonical Drawable; its 472-byte body and link preview remain exact. [Scoped adoption and remaining Drawable prerequisites](../../reverse/attempt_support/drawable-header-adoption-20261105-codexb.md).
