@@ -13,12 +13,10 @@
 #include "GameLogic/BfmeStoredAICommandView.h"
 #include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 class Object;
-struct AICommandParms {
- int m_cmd; CommandSourceType m_cmdSource; Coord3D m_pos;
- Object *m_obj; void *m_extra18; void *m_team;
- char m_coords[12]; void *m_waypoint; void *m_polygon;
- int m_intValue; float m_floatValue; char m_damage[0x7c]; void *m_commandButton;
-};
+#include "../../../../Include/GameLogic/AICommandParms.h"
+// Keep the existing opaque handler declarations below: their symbol identities
+// predate this parameter-block adoption. Aggregate arguments now take the
+// address of the canonical member; legacy void * slots need explicit const casts.
 class AIUpdateInterface;
 class Rva001E3591 { public: bool rva001E3591(); };
 class Module;
@@ -250,9 +248,9 @@ void AIUpdateInterface::aiDoCommand(const AICommandParms *parms) {
 case 0x0: case 0x36:
  reinterpret_cast<Rva0026228F *>(this)->rva0026228F(reinterpret_cast<int>(&parms->m_pos), cmdSource); break;
 case 0x4E:
- slot13(&parms->m_pos, parms->m_floatValue, cmdSource); break;
+ slot13(&parms->m_pos, parms->field38, cmdSource); break;
 case 0x51:
- slot14(&parms->m_pos, parms->m_floatValue, parms->m_intValue, cmdSource); break;
+ slot14(&parms->m_pos, parms->field38, parms->m_intValue, cmdSource); break;
 case 0x47:
  slot16(&parms->m_pos, cmdSource); break;
 case 0x52:
@@ -278,23 +276,23 @@ case 0x42:
 case 0x5:
  slot24(cmdSource); break;
 case 0x6:
- slot26(parms->m_waypoint, cmdSource); break;
+ slot26(const_cast<Waypoint *>(parms->m_waypoint), cmdSource); break;
 case 0x7:
- slot27(parms->m_waypoint, cmdSource); break;
+ slot27(const_cast<Waypoint *>(parms->m_waypoint), cmdSource); break;
 case 0x32:
- slot28(parms->m_waypoint, cmdSource); break;
+ slot28(const_cast<Waypoint *>(parms->m_waypoint), cmdSource); break;
 case 0x33:
- slot29(parms->m_waypoint, cmdSource); break;
+ slot29(const_cast<Waypoint *>(parms->m_waypoint), cmdSource); break;
 case 0x9:
- slot30(parms->m_coords, parms->m_obj, cmdSource, false); break;
+ slot30(&parms->m_coords, parms->m_obj, cmdSource, false); break;
 case 0x24:
- slot31(parms->m_coords, parms->m_obj, parms->m_pos.x, cmdSource); break;
+ slot31(&parms->m_coords, parms->m_obj, parms->m_pos.x, cmdSource); break;
 case 0x25:
- slot32(parms->m_coords, parms->m_obj, parms->m_pos.x, cmdSource); break;
+ slot32(&parms->m_coords, parms->m_obj, parms->m_pos.x, cmdSource); break;
 case 0x35:
  slot33(&parms->m_pos, cmdSource); break;
 case 0xA:
- slot30(parms->m_coords, parms->m_obj, cmdSource, true); break;
+ slot30(&parms->m_coords, parms->m_obj, cmdSource, true); break;
 case 0xB:
  slot34(parms->m_obj, parms->m_intValue, cmdSource); break;
 case 0xC:
@@ -306,19 +304,19 @@ case 0x3F:
 case 0x40:
  slot37(&parms->m_pos, cmdSource); break;
 case 0xD:
- slot39(parms->m_team, parms->m_intValue, cmdSource); break;
+ slot39(const_cast<Team *>(parms->m_team), parms->m_intValue, cmdSource); break;
 case 0xE:
  slot40(&parms->m_pos, parms->m_intValue, cmdSource); break;
 case 0xF:
  reinterpret_cast<Rva00262271 *>(this)->rva00262271(reinterpret_cast<int>(&parms->m_pos), parms->m_intValue, cmdSource); break;
 case 0x10:
- slot42(parms->m_waypoint, parms->m_intValue, false, cmdSource); break;
+ slot42(const_cast<Waypoint *>(parms->m_waypoint), parms->m_intValue, false, cmdSource); break;
 case 0x11:
- slot42(parms->m_waypoint, parms->m_intValue, true, cmdSource); break;
+ slot42(const_cast<Waypoint *>(parms->m_waypoint), parms->m_intValue, true, cmdSource); break;
 case 0x12:
  slot43(cmdSource); break;
 case 0x23:
- slot68(parms->m_polygon, cmdSource); break;
+ slot68(const_cast<PolygonTrigger *>(parms->m_polygon), cmdSource); break;
 case 0x13:
  slot44(parms->m_obj, cmdSource); break;
 case 0x14:
@@ -342,31 +340,31 @@ case 0x1A:
 case 0x4B:
  slot54(parms->m_obj, &parms->m_pos, cmdSource); break;
 case 0x4D:
- slot55(parms->m_obj, parms->m_coords, cmdSource); break;
+ slot55(parms->m_obj, &parms->m_coords, cmdSource); break;
 case 0x3E:
  slot56(parms->m_obj, cmdSource); break;
 case 0x4A:
  slot57(parms->m_obj, &parms->m_pos, cmdSource); break;
 case 0x4C:
- slot58(parms->m_obj, parms->m_coords, cmdSource); break;
+ slot58(parms->m_obj, &parms->m_coords, cmdSource); break;
 case 0x54:
  slot59(parms->m_obj, &parms->m_pos, cmdSource); break;
 case 0x1B:
  slot60(parms->m_intValue, cmdSource); break;
 case 0x1D:
- slot61(parms->m_damage, cmdSource); break;
+ slot61(&parms->m_damage, cmdSource); break;
 case 0x1E:
  slot63(&parms->m_pos, parms->m_intValue, cmdSource); break;
 case 0x1F:
  slot64(parms->m_obj, parms->m_intValue, cmdSource); break;
 case 0x20:
- slot65(parms->m_team, parms->m_intValue, cmdSource); break;
+ slot65(const_cast<Team *>(parms->m_team), parms->m_intValue, cmdSource); break;
 case 0x37:
  slot62(parms->m_intValue, cmdSource); break;
 case 0x21:
- slot67(parms->m_polygon, parms->m_intValue, cmdSource, 0); break;
+ slot67(const_cast<PolygonTrigger *>(parms->m_polygon), parms->m_intValue, cmdSource, 0); break;
 case 0x44:
- slot67(parms->m_polygon, parms->m_intValue, cmdSource, &parms->m_pos); break;
+ slot67(const_cast<PolygonTrigger *>(parms->m_polygon), parms->m_intValue, cmdSource, &parms->m_pos); break;
 case 0x46:
  slot66(parms->m_obj, &parms->m_pos, parms->m_intValue, cmdSource); break;
 case 0x26:
@@ -374,19 +372,19 @@ case 0x26:
 case 0x27:
  slot70(&parms->m_pos, cmdSource); break;
 case 0x2A:
- slot72(parms->m_commandButton, cmdSource); break;
+ slot72(const_cast<CommandButton *>(parms->m_commandButton), cmdSource); break;
 case 0x29:
- slot74(parms->m_commandButton, parms->m_obj, cmdSource); break;
+ slot74(const_cast<CommandButton *>(parms->m_commandButton), parms->m_obj, cmdSource); break;
 case 0x28:
- slot73(parms->m_commandButton, &parms->m_pos, cmdSource); break;
+ slot73(const_cast<CommandButton *>(parms->m_commandButton), &parms->m_pos, cmdSource); break;
 case 0x2B:
- slot75(parms->m_waypoint, cmdSource); break;
+ slot75(const_cast<Waypoint *>(parms->m_waypoint), cmdSource); break;
 case 0x2C:
  slot76(cmdSource); break;
 case 0x53:
  slot77(cmdSource); break;
 case 0x2D:
- slot78(parms->m_waypoint, cmdSource); break;
+ slot78(const_cast<Waypoint *>(parms->m_waypoint), cmdSource); break;
 case 0x2E:
  slot79(parms->m_obj, cmdSource); break;
 case 0x2F:
@@ -404,7 +402,7 @@ case 0x3C:
 case 0x4F:
  slot86(parms->m_obj, cmdSource); break;
 case 0x50:
- slot87(parms->m_floatValue, cmdSource); break;
+ slot87(parms->field38, cmdSource); break;
  }
  if (obj->testStatus(STATUS_46) && cmdSource != CMD_FROM_AI) obj->rva00293105();
 }
