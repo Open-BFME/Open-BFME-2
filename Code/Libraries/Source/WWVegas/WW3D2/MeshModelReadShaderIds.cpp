@@ -57,20 +57,12 @@ protected:
 	int GrowthStep;
 };
 
-class MeshMatDescClass
-{
-public:
-	bool Has_Shader_Data(int pass) { return Shader[pass] != NullShader || ShaderArray[pass] != 0; }
-	void Set_Single_Shader(ShaderClass shader, int pass);
-	void Set_Shader(int index, ShaderClass shader, int pass);
+#include "MeshMatDescClass.h"
 
-private:
-	char m_pad0[0x98];
-	ShaderClass Shader[4];
-	char m_pad1[0xF8 - 0xA8];
-	void *ShaderArray[4];
-	char m_pad2[0x118 - 0x108];
-};
+inline bool MeshMatDescClass::Has_Shader_Data(int pass)
+{
+    return Shader[pass] != NullShader || ShaderArray[pass] != 0;
+}
 
 class MeshLoadContextClass
 {

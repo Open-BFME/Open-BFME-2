@@ -18,21 +18,14 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Descriptor +0x0C is guarded before renderer teardown; the descriptor Reset
 // at15D140 destroys it separately. UV buffers start at+0x10, not this slot.
 // BFME1 MeshModelClass::Reset adapted to the BFME2 bool ABI and target teardown order.
-#include "meshgeometry.h"
+#include "MeshGeometryClass.h"
 
 
 
 class MeshModelClass;
 
-class MeshMatDescClass {
-public:
-    ~MeshMatDescClass();
-    void Reset(int polycount, int vertcount, int passcount);
-    int PassCount;
-    int VertexCount;
-    int PolyCount;
-    void *RendererState; // +0x0C; original type unknown
-};
+#include "MeshMatDescClass.h"
+
 class MaterialInfoClass {
 public:
     void Reset() { Free(); }
@@ -72,7 +65,7 @@ void MeshModelClass::Reset(int polycount, int vertcount, int passcount, bool ski
     if (TheMeshGapFillerContext != NULL) {
         TheMeshGapFillerContext->DeleteModelGapFiller(this);
     }
-    if (CurMatDesc->RendererState != NULL) {
+    if (CurMatDesc->field_0C != NULL) {
         rva00199FA5((Rva00199FA5Rec *)CurMatDesc);
     }
     MatInfo->Reset();

@@ -148,12 +148,7 @@ private:
 
 // --- 0x00144340 / 0x00144360 (23B each): colour / UV array i of the leading
 // model's +0x94 material description (rowed MeshMatDescClass getters).
-class MeshMatDescClass
-{
-public:
-	unsigned int *Get_Color_Array(int index, bool create);
-	Vector2 *Get_UV_Array_By_Index(int index, bool create);
-};
+#include "MeshMatDescClass.h"
 
 struct GapModelView
 {

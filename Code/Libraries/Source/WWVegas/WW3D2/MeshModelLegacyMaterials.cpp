@@ -32,7 +32,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // remain structural inferences. Final RET 8 at 0x00189A1C ends before INT3 at
 // 0x00189A1F.
 #include "w3d_file.h"
-#include "shader.h"
+#include "MeshMatDescClass.h"
+// The shared-buffer template uses the canonical reference-count base.
+#define REFCOUNT_H
 #include "vector.h"
 #include "sharebuf.h"
 #include "vector3i.h"
@@ -59,6 +61,9 @@ public:
 class BfmeHandleCX {
 public:
     TextureClass *p;
+    __forceinline operator const RefCountPtr<TextureClass> &() const {
+        return *reinterpret_cast<const RefCountPtr<TextureClass> *>(this);
+    }
 
     BfmeHandleCX() : p(0) {}
     BfmeHandleCX(const BfmeHandleCX &other) : p(other.p) {
@@ -77,15 +82,6 @@ public:
 
 #include "../WWLib/ChunkLoadClass.h"
 
-class MeshMatDescClass {
-public:
-    void Set_Single_Shader(ShaderClass shader, int pass);
-    void Set_Shader(int index, ShaderClass shader, int pass);
-    void Set_Single_Material(VertexMaterialClass *material, int pass);
-    void Set_Material(int index, VertexMaterialClass *material, int pass);
-    void Set_Single_Texture(const BfmeHandleCX &texture, int pass, int stage);
-    void Set_Texture(int index, const BfmeHandleCX &texture, int pass, int stage);
-};
 
 class MeshLoadContextClass {
     friend class MeshModelClass;

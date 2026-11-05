@@ -14,9 +14,12 @@
 #define _OPERATOR_NEW_DEFINED_
 #include "always.h"
 #include <string.h>
-// Retail's RefCountClass inline copies are the size form: compile refcount.h for size.
+// Retail's reference-count inline copies use size optimization. Preserve the
+// inline base teardown while sharing the canonical declaration with the descriptor.
 #pragma optimize("s", on)
-#include <refcount.h>
+#include "../WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
+#define REFCOUNT_H
 #pragma optimize("", on)
 #include <sharebuf.h>
 
@@ -64,22 +67,14 @@ OpaqueRefBuffer::~OpaqueRefBuffer()
         }
     }
 }
-class MeshMatDescClass {
-public:
-    int PassCount, VertexCount, PolyCount;
-private:
-    char padding[0xFC];
-    OpaqueRefBuffer *OpaqueTailBuffers[4];
-public:
-    __declspec(noinline) OpaqueRefBuffer *Get_Rva0015B7A0(int pass, bool create);
-    void Set_Rva0015D300(int index, void *entry, int pass);
-};
+#include "MeshMatDescClass.h"
+
 OpaqueRefBuffer *MeshMatDescClass::Get_Rva0015B7A0(int pass, bool create)
 {
-    if (create && OpaqueTailBuffers[pass] == 0) {
-        OpaqueTailBuffers[pass] = new OpaqueRefBuffer(PolyCount, "MeshMatDescClass::FXShaderArray");
+    if (create && field_108[pass] == 0) {
+        field_108[pass] = new OpaqueRefBuffer(PolyCount, "MeshMatDescClass::FXShaderArray");
     }
-    return OpaqueTailBuffers[pass];
+    return field_108[pass];
 }
 void MeshMatDescClass::Set_Rva0015D300(int index, void *entry, int pass)
 {

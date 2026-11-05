@@ -47,24 +47,7 @@ struct Rva00172070Buffers
 
 struct UVBufferClass;
 
-class MeshMatDescClass
-{
-public:
-	MeshMatDescClass(const MeshMatDescClass &that);
-	~MeshMatDescClass();
-	MeshMatDescClass &operator=(const MeshMatDescClass &that);
-	bool Do_Mappers_Need_Normals();
-
-	int PassCount;
-	int VertexCount;
-	int PolyCount;
-	UVBufferClass *UV[8];
-	char m_pad[0xB8 - 0x2C];
-	unsigned *field_b8;
-	unsigned char pad1[0x108 - 0xBC];
-	unsigned *field_108;
-	char m_pad10C[0x118 - 0x10C];
-};
+#include "MeshMatDescClass.h"
 
 // The canonical geometry header keeps the proven 0x8C extent and +8 list base.
 // The existing list base replaces the reference multilist declarations.
@@ -250,7 +233,7 @@ MeshModelClass &MeshModelClass::operator=(const MeshModelClass &that)
 		if (TheMeshGapFillerContext != NULL) {
 			TheMeshGapFillerContext->DeleteModelGapFiller(this);
 		}
-		if (CurMatDesc->UV[0] != NULL) {
+		if (CurMatDesc->field_0C != NULL) {
 			rva00199FA5((Rva00199FA5Rec *)CurMatDesc);
 		}
 
@@ -407,7 +390,7 @@ void MeshModelClass::Register_For_Rendering()
     }
 
     MeshMatDescClass *desc = CurMatDesc;
-    if (desc->field_b8 == 0 && desc->field_108 == 0) {
+    if (desc->field_B8[0] == 0 && desc->field_108[0] == 0) {
         if (*(volatile unsigned char *)&LODMeshCacheSetting != 0 || (((const unsigned char *)&Flags)[1] & 4) != 0) {
             Rva00199FFB::rva00199FFB(desc, this);
         }
@@ -421,8 +404,8 @@ void MeshModelClass::Register_For_Rendering()
     //
     // The layout is reached with an explicit goto. See the header: every conditional
     // spelling canonicalises to the both-zero block first, which is not retail's.
-    if (desc->field_b8 != 0) goto specialized;
-    if (desc->field_108 != 0) goto specialized;
+    if (desc->field_B8[0] != 0) goto specialized;
+    if (desc->field_108[0] != 0) goto specialized;
     {
         TheDX8MeshRenderer->Register_Mesh_Type(this);
     }
