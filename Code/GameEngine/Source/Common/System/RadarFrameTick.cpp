@@ -101,12 +101,11 @@ extern TerrainLogic *TheTerrainLogic;
 class RadarEventRef
 {
 public:
+	void release();
 	virtual void m_spare0();
 	virtual void m_deleter();
-	void release();
-
 private:
-	int m_refCount;
+	int m_refCount; // +0x04
 };
 
 class RadarEventRefSlot
