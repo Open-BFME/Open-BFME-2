@@ -3967,7 +3967,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007EE8BC,8,.rdata,string,??_C@_04ODLBFFJE@User?$AA@,,literal,,0,1
 0x007EE8C4,60,.rdata,string,??_C@_01NEMOKFLO@?$DN?$AA@,,literal,,0,10
 0x007EE900,192,.rdata,vtable,??_7BehaviorModuleInterface@@6B@,,literal,,0,1
-0x007EE9C0,188,.rdata,vtable,??_7PrimaryP@@6BMiBase1@@@,,literal,??_7BehaviorModule@@6BBehaviorModuleInterface@@@;??_7PrimaryP24A797@@6BMiBase1@@@;??_7PrimaryP4B8CDE@@6BMiBase1@@@;??_7PrimaryP@@6BMiBase1@@@;??_7Rva004607E1@@6BMiBase1@@@;??_7UpgradeBehaviorBaseView@@6BBehaviorModuleInterface@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorCtor.cpp,1,15
+0x007EE9C0,188,.rdata,vtable,??_7PrimaryP@@6BMiBase1@@@,,literal,??_7BehaviorModule@@6BBehaviorModuleInterface@@@;??_7PrimaryP24A797@@6BMiBase1@@@;??_7PrimaryP4B8CDE@@6BMiBase1@@@;??_7PrimaryP@@6BMiBase1@@@;??_7Rva004607E1@@6BMiBase1@@@;??_7UpgradeBehaviorBaseView@@6BBehaviorModuleInterface@@@;_s_secondary0C@Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,1,15
 0x007EEA7C,48,.rdata,vtable,??_7PrimaryP@@6BRva0049B47C@@@,,literal,??_7BehaviorModule@@6BObjectModule@@@;??_7PrimaryP24A797@@6BRva0049B47C@@@;??_7PrimaryP4B8CDE@@6BRva0049B47C@@@;??_7PrimaryP@@6BRva0049B47C@@@;??_7Rva004607E1@@6BRva0049B47C@@@;??_7UpgradeBehaviorBaseView@@6BRva0049B47C@@@,0,14
 0x007EEAAC,1532,.rdata,string,??_C@_0P@EGIIBEMF@BehaviorModule?$AA@,,literal,,0,4
 0x007EF0A8,168,.rdata,global,?g_00BEF0A8WeaponFireSpecialAbilityFieldParse@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,owned,,1,1
@@ -10604,7 +10604,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008425E0,16,.rdata,vtable,??_7SpawnBehavior@@6BUpdateModule@@@,,literal,,0,2
 0x008425F0,188,.rdata,vtable,??_7SpawnBehavior@@6BBehaviorModuleOther@@@,,literal,,0,2
 0x008426AC,60,.rdata,vtable,??_7SpawnBehavior@@6BBehaviorModuleBase@@@,,literal,,0,2
-0x008426E8,56,.rdata,global,_s_vtable,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorCtor.cpp,owned,,1,1
+0x008426E8,56,.rdata,global,_s_vtable,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,owned,,1,1
 0x00842720,120,.rdata,vtable,??_7UpgradeModule@@6BUpgradeMux@@@,,literal,??_7UpgradeModule@@6BUpgradeMux@@@;_vtbl_00C42720,0,2
 0x00842798,16,.rdata,string,??_C@_0O@NPFHKFHD@UpgradeModule?$AA@,,literal,,0,1
 0x008427A8,16,.rdata,vtable,??_7DynamicPortalBehaviour@@6BDynamicPortalExtraB@@@,,literal,??_7DynamicPortalBehaviour@@6BDynamicPortalExtraB@@@;_s_second20@Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCtor.cpp,1,2
