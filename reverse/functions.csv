@@ -14190,7 +14190,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ZH
 ??0LevelUpUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B3DC8,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0StatusBitsUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B4960,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0CommandSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B3AB2,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-??0MaxHealthUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B630A,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgradeModule.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0MaxHealthUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B630A,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0AttributeModifierUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B6740,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/AttributeModifierUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0CastleUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B6869,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0CrushDie@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004862E1,42,Code/GameEngine/Source/GameLogic/Object/Die/CrushDie.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
