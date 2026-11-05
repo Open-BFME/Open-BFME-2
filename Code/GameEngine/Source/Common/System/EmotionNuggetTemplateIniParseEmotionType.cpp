@@ -27,15 +27,7 @@ public:
 	static int getSingleBitFromName(const char *name);
 };
 
-class INI
-{
-public:
-	char padding[0x420];
-	const char *separators;
-	static void iniParseAnim(INI *, void *, void *, const void *);
-	const char *getNextToken(const char *seps);
-	static void Rva004DC745_ParseAIState(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // ?IniParseEmotionType@EmotionNuggetTemplate@@SAXPAVINI@@PAX1PBX@Z @0x004DC702 66B:
 // renamed from placeholder INI::Rva004DC702_ParseEmotionType — the WorldBuilder
@@ -74,7 +66,7 @@ void INI::Rva004DC745_ParseAIState(INI *ini, void *instance, void *store, const 
 // before resolving the following model-condition name.
 void INI::iniParseAnim(INI *ini, void *, void *store, const void *)
 {
-    const char *token = ini->getNextToken(ini->separators);
+    const char *token = ini->getNextToken(ini->m_sepsColon);
     if (token && strcmp(token, "ModelConditionState") == 0) {
         *(int *)store = BitFlags<304>::getSingleBitFromName(ini->getNextToken(0));
         return;

@@ -360,10 +360,7 @@ static const unsigned int s_morphConditions[81] =
 
 extern int BfmeLogicFramesPerSecond;
 
-class INI { public:
- const char *getNextToken(const char *);const char *getNextTokenOrNull(const char *);int scanInt(const char *);
- char pad00[0x420];const char *colon,*quote;
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class ModuleData;
 
@@ -372,7 +369,7 @@ class Rva000B664E { public: void rva0033394D(AsciiString);unsigned words[19]; };
 // ExpLevelDraw (retail 0x004972A9, 293 B; table C4FA3C): "Level" integer, then
 // repeated "SubObject" show-flag/name pairs appended to the entry's own
 // pointer vector. A native redundant re-read of the parser's token pointer
-// survives after the sub-object test; the self-compare of ini->colon in that
+// survives after the sub-object test; the self-compare of ini->m_sepsColon in that
 // branch condition reproduces it (tautology carrier, zero bytes).
 class Rva004BA1B2 { public: Rva004BA1B2() throw();int level;unsigned vec[3]; };
 
@@ -800,17 +797,17 @@ BannerCarrierUpdateModuleData::BannerCarrierUpdateModuleData()
 void parseBannerCarrierMorphCondition(INI *ini,void *instance,void *store,const void *userData) {
  Rva00496ADE *entry=new Rva00496ADE;
  const ModuleData *slot=reinterpret_cast<const ModuleData *>(entry);
- const char *token=ini->getNextTokenOrNull(ini->colon);
+ const char *token=ini->getNextTokenOrNull(ini->m_sepsColon);
  if(!token || strcmp(token,"UnitType")!=0) throw INIException(3,"UnitType expected");
- entry->unitType.set(ini->getNextToken(ini->colon));
- token=ini->getNextTokenOrNull(ini->colon);
+ entry->unitType.set(ini->getNextToken(ini->m_sepsColon));
+ token=ini->getNextTokenOrNull(ini->m_sepsColon);
  if(token && strcmp(token,"Locomotor")==0) {
-  const char *name=ini->getNextToken(ini->colon);
+  const char *name=ini->getNextToken(ini->m_sepsColon);
   if(name) entry->locomotor.set(name);
-  token=ini->getNextTokenOrNull(ini->colon);
+  token=ini->getNextTokenOrNull(ini->m_sepsColon);
  }
  if(!token || strcmp(token,"ModelState")!=0) throw INIException(3,"'ModelState' expected");
- reinterpret_cast<Rva000B664E *>(&entry->modelState)->rva0033394D(AsciiString(ini->getNextToken(ini->quote)));
+ reinterpret_cast<Rva000B664E *>(&entry->modelState)->rva0033394D(AsciiString(ini->getNextToken(ini->m_sepsQuote)));
  reinterpret_cast<_STL::vector<const ModuleData *> *>(store)->push_back(slot);
  return;
 }
@@ -820,18 +817,18 @@ static __forceinline bool isSubToken(const char *token) { return token && strcmp
 void parseBannerCarrierExpLevelDraw(INI *ini,void *instance,void *store,const void *userData) {
  Rva004BA1B2 *entry=new Rva004BA1B2;
  const ModuleData *slot=reinterpret_cast<const ModuleData *>(entry);
- const char *token=ini->getNextTokenOrNull(ini->colon);
+ const char *token=ini->getNextTokenOrNull(ini->m_sepsColon);
  if(!token || strcmp(token,"Level")!=0) goto badLevel;
- entry->level=ini->scanInt(ini->getNextToken(ini->colon));
- token=ini->getNextTokenOrNull(ini->colon);
+ entry->level=ini->scanInt(ini->getNextToken(ini->m_sepsColon));
+ token=ini->getNextTokenOrNull(ini->m_sepsColon);
  while(token) {
-  if((!isSubToken(token)) && (ini->colon != 0 || ini->colon == 0)) goto badSub;
+  if((!isSubToken(token)) && (ini->m_sepsColon != 0 || ini->m_sepsColon == 0)) goto badSub;
   BannerExpDraw *sub=new BannerExpDraw;
   const ModuleData *subslot=reinterpret_cast<const ModuleData *>(sub);
-  sub->show=rva004969E7(ini->getNextToken(ini->colon));
-  sub->subObject.set(ini->getNextToken(ini->colon));
+  sub->show=rva004969E7(ini->getNextToken(ini->m_sepsColon));
+  sub->subObject.set(ini->getNextToken(ini->m_sepsColon));
   reinterpret_cast<_STL::vector<const ModuleData *> *>(&entry->vec)->push_back(subslot);
-  token=ini->getNextTokenOrNull(ini->colon);
+  token=ini->getNextTokenOrNull(ini->m_sepsColon);
  }
  reinterpret_cast<_STL::vector<const ModuleData *> *>(store)->push_back(slot);
  return;

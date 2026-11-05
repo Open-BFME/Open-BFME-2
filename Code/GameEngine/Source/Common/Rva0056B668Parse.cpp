@@ -18,18 +18,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // two-table MultiIniFieldParse setup, INIException paths and vector append.
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *separators);
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);			// 0x0002E850
-	static void parseBitString32(INI *ini, void *instance, void *store, const void *userData);	// 0x0002EB38
-
-	int m_00;
-	int m_04;
-	int m_type;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva0056B63E;
 class ModuleData
@@ -72,9 +61,9 @@ extern const FieldParse g_00C6D4D0[] = {
 
 void Rva0056B668Parse(INI *ini, void *instance, void *store, const void *userData)
 {
-	if (ini->m_type == 2)
+	if (ini->m_loadType == 2)
 		throw INIException(8, "Cannot override Living World objects in map.ini");
-	if (ini->m_type == 5)
+	if (ini->m_loadType == 5)
 		throw INIException(8, "Reload of LivingWorldArmyIconSubObjectTemplate not supported");
 	const char *token = ini->getNextToken(0);
 	Rva004DFCB0Element item = { new Rva0056B63E(&AsciiString(token)) };

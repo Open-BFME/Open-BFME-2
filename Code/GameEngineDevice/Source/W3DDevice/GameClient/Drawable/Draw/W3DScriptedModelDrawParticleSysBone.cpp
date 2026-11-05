@@ -5,18 +5,7 @@
 // below come from WB named options and target accesses rather than its old name.
 #include "ascii_string.h"
 #include <string.h>
-class INI {
-public:
- AsciiString getNextAsciiString();
- const char *getNextToken(const char *);
- const char *getNextTokenOrNull(const char *);
- bool scanBool(const char *);
- int scanInt(const char *);
- int scanIndexList(const char *, const char *const *);
- static void parseParticleSystemTemplate(INI *,void *,void *,const void *);
- const char *separators() const {return m_separators;}
-private:char unmodelled[0x420];const char *m_separators;
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 class Rva00704980 {
 public:
  Rva00704980();
@@ -46,29 +35,29 @@ static __declspec(noinline) void parseParticleSysBone(INI *ini,void *instance,vo
  INI::parseParticleSystemTemplate(ini,instance,&info.m_18,0);
  info.m_1C=false; info.m_1D=false;
  info.m_04=0; info.m_0C=0; info.m_08=0;
- const char *token=ini->getNextTokenOrNull(ini->separators());
+ const char *token=ini->getNextTokenOrNull(ini->m_sepsColon);
  while(token) {
   if(strcmp(token,"FollowBone")==0)
-   info.m_1C=ini->scanBool(ini->getNextToken(ini->separators()));
+   info.m_1C=ini->scanBool(ini->getNextToken(ini->m_sepsColon));
   else if(strcmp(token,"HouseColor")==0)
-   info.m_1D=ini->scanBool(ini->getNextToken(ini->separators()));
+   info.m_1D=ini->scanBool(ini->getNextToken(ini->m_sepsColon));
   else if(strcmp(token,"FXTrigger")==0)
    {
-   const char *value=ini->getNextToken(ini->separators());
+   const char *value=ini->getNextToken(ini->m_sepsColon);
    info.m_04=ini->scanIndexList(value,BfmeParticleBoneTriggerNames);
   }
   else if(strcmp(token,"Persist")==0)
    {
-   const char *value=ini->getNextToken(ini->separators());
+   const char *value=ini->getNextToken(ini->m_sepsColon);
    info.m_0C=ini->scanIndexList(value,BfmeParticleBonePersistenceNames);
   }
   else if(strcmp(token,"PersistID")==0)
-   info.m_08=ini->scanInt(ini->getNextToken(ini->separators()));
+   info.m_08=ini->scanInt(ini->getNextToken(ini->m_sepsColon));
   else if(strcmp(token,"OnlyIfOnWater")==0)
-   info.m_1F=ini->scanBool(ini->getNextToken(ini->separators()));
+   info.m_1F=ini->scanBool(ini->getNextToken(ini->m_sepsColon));
   else if(strcmp(token,"OnlyIfOnLand")==0)
-   info.m_1E=ini->scanBool(ini->getNextToken(ini->separators()));
-  token=ini->getNextTokenOrNull(ini->separators());
+   info.m_1E=ini->scanBool(ini->getNextToken(ini->m_sepsColon));
+  token=ini->getNextTokenOrNull(ini->m_sepsColon);
  }
  ((_STL::list<BfmePod32>*)list)->push_back((const BfmePod32&)info);
 }

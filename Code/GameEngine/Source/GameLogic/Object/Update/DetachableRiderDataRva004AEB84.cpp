@@ -26,14 +26,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 typedef unsigned int UnsignedInt;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	static void parseDurationUnsignedInt(INI *, void *, void *, const void *);
-	static void parseObjectCreationList(INI *, void *, void *, const void *);
-	const char *getSepsColon() const { return *(const char **)((const char *)this + 0x420); }
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
@@ -70,19 +63,19 @@ void Rva004AEB84Parse(INI *ini, void *instance, void *store, const void *)
 {
 	WeaponTemplateSet info;
 	memset(&info.m_flags, 0, sizeof(info.m_flags));
-	const char *token = ini->getNextToken(ini->getSepsColon());
+	const char *token = ini->getNextToken(ini->m_sepsColon);
 	if (token == 0 || strcmp(token, "AnimState") != 0)
 		throw INIException(3, "AnimState expected");
 
 	int bit = BitFlags<304>::getSingleBitFromName(ini->getNextToken());
 	info.m_flags = Rva0028F59A(0, bit);
 
-	token = ini->getNextToken(ini->getSepsColon());
+	token = ini->getNextToken(ini->m_sepsColon);
 	if (token == 0 || strcmp(token, "AnimTime") != 0)
 		throw INIException(3, "AnimDuration expected");
 	INI::parseDurationUnsignedInt(ini, instance, &info.m_animTime, 0);
 
-	token = ini->getNextToken(ini->getSepsColon());
+	token = ini->getNextToken(ini->m_sepsColon);
 	if (token == 0 || strcmp(token, "RiderOCL") != 0)
 		throw INIException(3, "RiderOCL expected");
 	INI::parseObjectCreationList(ini, instance, &info.m_ocl, 0);

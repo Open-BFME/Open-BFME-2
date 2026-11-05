@@ -56,18 +56,7 @@ namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	const char *getSepsColon() const { return m_sepsColon; }
-	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char m_unknown[0x420];
-	const char *m_sepsColon;
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 
 #include "ascii_string.h"
@@ -126,17 +115,17 @@ void HordeContainModuleData::parseRankInfo(INI *ini, void *instance, void *store
 	HordeContainRankInfo *entry=(HordeContainRankInfo*)info;
 	HordeContainRankInfoVector &rankInfos = *(HordeContainRankInfoVector *)store;
 
-	const char *token = ini->getNextTokenOrNull(ini->getSepsColon());
+	const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	if (token != 0 && strcmp(token, "RankNumber") == 0)
 	{
-		info->m_rankNumber = atoi(ini->getNextToken(ini->getSepsColon()));
+		info->m_rankNumber = atoi(ini->getNextToken(ini->m_sepsColon));
 
-		token = ini->getNextTokenOrNull(ini->getSepsColon());
+		token = ini->getNextTokenOrNull(ini->m_sepsColon);
 		if (token != 0 && strcmp(token, "UnitType") == 0)
 		{
-			info->m_unitType.set(ini->getNextToken(ini->getSepsColon()));
+			info->m_unitType.set(ini->getNextToken(ini->m_sepsColon));
 
-			token = ini->getNextTokenOrNull(ini->getSepsColon());
+			token = ini->getNextTokenOrNull(ini->m_sepsColon);
 			while (token != 0)
 			{
 				if (strcmp(token, "Position") == 0)
@@ -145,9 +134,9 @@ void HordeContainModuleData::parseRankInfo(INI *ini, void *instance, void *store
 					position.leaderRank = -1;
 					INI::parseCoord2D(ini, 0, &position, 0);
 					info->m_positions.push_back(position);
-					token = ini->getNextTokenOrNull(ini->getSepsColon());
+					token = ini->getNextTokenOrNull(ini->m_sepsColon);
 					if (token != 0 && strcmp(token, "Z") == 0)
-						token = ini->getNextTokenOrNull(ini->getSepsColon());
+						token = ini->getNextTokenOrNull(ini->m_sepsColon);
 					continue;
 				}
 				else if (strcmp(token, "Facing") == 0)
@@ -205,7 +194,7 @@ void HordeContainModuleData::parseRankInfo(INI *ini, void *instance, void *store
 					throw INIException(3, "'Position' expected");
 				}
 
-				token = ini->getNextTokenOrNull(ini->getSepsColon());
+				token = ini->getNextTokenOrNull(ini->m_sepsColon);
 			}
 			rankInfos.push_back(entry);
 		}

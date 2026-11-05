@@ -14,13 +14,7 @@
 #include <vector>
 #include <string.h>
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *);
-	char pad00[0x420];
-	const char *colon;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class FXList;
 #include "../../Include/GameClient/FXListStore.h"
@@ -59,34 +53,34 @@ void Rva003A47F3Parse(INI *ini, Rva003A47F3Owner *owner)
 	if (owner->triggers.size() >= 0x4B)
 		throw INIException(1, "parseUpgradeCreation: Too many triggers, can only have %d.", 0x4B);
 	Rva00469187 rec;
-	const char *token = ini->getNextTokenOrNull(ini->colon);
+	const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	while (token != 0 && *token != 0)
 	{
 		if (strcmp(token, "UNIT") == 0)
 		{
-			token = ini->getNextTokenOrNull(ini->colon);
+			token = ini->getNextTokenOrNull(ini->m_sepsColon);
 			if (token != 0 && *token != 0)
 				rec.unit.set(token);
 		}
 		else if (strcmp(token, "NEWMODELCONDITION") == 0)
 		{
-			token = ini->getNextTokenOrNull(ini->colon);
+			token = ini->getNextTokenOrNull(ini->m_sepsColon);
 			if (token != 0 && *token != 0)
 				rec.newModel.rva0033394D(AsciiString(token));
 		}
 		else if (strcmp(token, "FX") == 0)
 		{
-			token = ini->getNextTokenOrNull(ini->colon);
+			token = ini->getNextTokenOrNull(ini->m_sepsColon);
 			if (token != 0 && *token != 0)
 				rec.fx = TheFXListStore->findFXList(token);
 		}
 		else if (strcmp(token, "SPAWNERMODELCONDITION") == 0)
 		{
-			token = ini->getNextTokenOrNull(ini->colon);
+			token = ini->getNextTokenOrNull(ini->m_sepsColon);
 			if (token != 0 && *token != 0)
 				rec.spawnerModel.rva0033394D(AsciiString(token));
 		}
-		token = ini->getNextTokenOrNull(ini->colon);
+		token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	}
 	if (!rec.unit.isEmpty())
 	{

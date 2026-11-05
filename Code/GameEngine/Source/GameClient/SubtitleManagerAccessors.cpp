@@ -138,24 +138,10 @@ typedef int Int;
 typedef unsigned char Bool;
 typedef unsigned int UnsignedInt;
 
-class INI
-{
-public:
-	AsciiString getFilename() const;
-	Int getLineNum() const;
-	const char *getNextTokenOrNull(const char *separators);
-	const char *getNextSubToken(const char *expected);
-	Int scanInt(const char *token);
-	Int scanIndexList(const char *token, const char *const *names);
-
-	const char *getSeps() const { return m_seps; }
-	const char *getSepsColon() const { return m_sepsColon; }
-
-	char m_unreconstructed_000[0x418];
-	const char *m_seps;			// +0x418
-	const char *m_sepsPercent;	// +0x41C
-	const char *m_sepsColon;	// +0x420
-};
+#include "../../Include/Common/INI/INI.h"
+// Preserve the retail inlined accessors in this TU.
+inline const char *INI::getSeps() const { return m_seps; }
+inline const char *INI::getSepsColon() const { return m_sepsColon; }
 
 class VideoPlayerInterface
 {

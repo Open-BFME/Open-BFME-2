@@ -41,15 +41,7 @@ public:
 
 #include "../../../Include/GameClient/ParticleSys.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	void initFromINI(void *instance, const FieldParse *table);
-	static void parseParticleSystemDefinition(INI *ini);
-	unsigned char m_unmodelled_000[8];
-	int m_parseMode; // +0x08; the compared value 2 is target evidence.
-};
+#include "../../../Include/Common/INI/INI.h"
 
 extern ParticleSystemManager *TheParticleSystemManager;
 extern unsigned int g_Va00DFE014; // target global at VA 0x00DFE014.
@@ -103,7 +95,7 @@ void INI::parseParticleSystemDefinition(INI *ini)
 
 	ini->initFromINI(sysTemplate,
 		reinterpret_cast<const FieldParse *>(parseState + 4));
-	if (ini->m_parseMode == 2) {
+	if (ini->m_loadType == 2) {
 		ParticleSystemManager *manager = TheParticleSystemManager;
 		if (manager != 0)
 			reinterpret_cast<unsigned char *>(manager)[0x84] = 1;

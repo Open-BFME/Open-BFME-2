@@ -8,11 +8,7 @@
 #include "ascii_string.h"
 #include "Common/INIException.h"
 enum ModuleType { MODULETYPE_BEHAVIOR=0 };
-class INI { public:
- const char *getNextToken(const char *sep=0);
- int getLoadType() const {return loadType;}
-private: char prefix[8]; int loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 class ModuleData { public:
  virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
  virtual bool isAiModuleData(); virtual void s5(); virtual void s6();

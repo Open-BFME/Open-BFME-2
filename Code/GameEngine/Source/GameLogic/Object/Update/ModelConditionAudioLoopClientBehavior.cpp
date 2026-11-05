@@ -50,7 +50,7 @@ namespace _STL {template<> __declspec(noinline) void SoundVector::push_back(cons
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
-class INI {public:const char *getNextTokenOrNull(const char *);const char *getNextToken(const char *);char pad[0x420];const char *separators;};
+#include "../../../../Include/Common/INI/INI.h"
 
 class AudioManager {public:
  virtual void v0();
@@ -174,20 +174,20 @@ void Rva004CC371Parse(INI *ini,void *,void *store,const void *)
  char excluded[]="Excluded";
  char sound[]="Sound";
  Rva004CBEB0 entry;
- const char *token=ini->getNextTokenOrNull(ini->separators);
+ const char *token=ini->getNextTokenOrNull(ini->m_sepsColon);
  while(token){
   if(!_strcmpi(token,required)){
-   token=ini->getNextTokenOrNull(ini->separators);
-   while(token && ((BitFlags<304> *)&entry.required)->setBitByName(token))token=ini->getNextTokenOrNull(ini->separators);
+   token=ini->getNextTokenOrNull(ini->m_sepsColon);
+   while(token && ((BitFlags<304> *)&entry.required)->setBitByName(token))token=ini->getNextTokenOrNull(ini->m_sepsColon);
   }else if(!_strcmpi(token,excluded)){
-   token=ini->getNextTokenOrNull(ini->separators);
-   while(token && ((BitFlags<304> *)&entry.excluded)->setBitByName(token))token=ini->getNextTokenOrNull(ini->separators);
+   token=ini->getNextTokenOrNull(ini->m_sepsColon);
+   while(token && ((BitFlags<304> *)&entry.excluded)->setBitByName(token))token=ini->getNextTokenOrNull(ini->m_sepsColon);
   }else if(!_strcmpi(token,sound)){
-   token=ini->getNextToken(ini->separators);
+   token=ini->getNextToken(ini->m_sepsColon);
    if(_strcmpi(token,"NoSound")){
     entry.sound=TheAudio->findSound(AsciiString(token));
     if(!entry.sound.referent)throw INIException(3,"Unknown sound %s",token);
-    token=ini->getNextTokenOrNull(ini->separators);
+    token=ini->getNextTokenOrNull(ini->m_sepsColon);
    }
   }else throw INIException(5,"Expected one of %s, %s, or %s next",required,excluded,sound);
  }

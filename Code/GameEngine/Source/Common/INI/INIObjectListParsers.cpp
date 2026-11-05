@@ -14,16 +14,7 @@
 
 #include <windows.h>
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps = 0);
-	static void Rva003F341E_ParseConnections(INI *ini, void *instance, void *store, const void *userData);
-	const char *separators() const { return m_separators; }
-private:
-	unsigned char m_unreconstructed_000[0x420];
-	const char *m_separators;		// +0x420
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class LivingWorldRegionConnection
 {
@@ -54,12 +45,12 @@ private:
 // ?Rva003F341E_ParseConnections@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva003F341E_ParseConnections(INI *ini, void *, void *store, const void *)
 {
-	const char *token = ini->getNextTokenOrNull(ini->separators());
+	const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	while (token)
 	{
 		LivingWorldRegionConnection connection;
 		connection.m_regionName.set(token);
 		((_STL::vector<LivingWorldRegionConnection, _STL::allocator<LivingWorldRegionConnection> > *)store)->push_back(connection);
-		token = ini->getNextTokenOrNull(ini->separators());
+		token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	}
 }

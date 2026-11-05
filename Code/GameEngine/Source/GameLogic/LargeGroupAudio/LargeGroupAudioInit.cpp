@@ -17,17 +17,7 @@ enum INILoadType
     INI_LOAD_CREATE_OVERRIDES = 2
 };
 
-class INI
-{
-public:
-    INI();
-    ~INI();
-    unsigned char loadFile(AsciiString filename, INILoadType loadType, Xfer *xfer);
-    char m_pad00[8];
-    INILoadType m_word08;
-    // The rowed constructor and callers establish the 0x87C-byte extent.
-    char m_pad0C[0x870];
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva003ED94FDtor
 {
@@ -74,7 +64,7 @@ private:
 
 unsigned char LargeGroupAudio::rva0020DA21(INI *ini)
 {
-    return ini->loadFile("Data\\INI\\LargeGroupAudio.ini", ini->m_word08, 0);
+    return ini->loadFile("Data\\INI\\LargeGroupAudio.ini", ini->m_loadType, 0);
 }
 
 #include "../../../Include/Common/SubsystemInterfaceList.h"
@@ -100,7 +90,7 @@ extern InGameUI *TheInGameUI;
 bool LargeGroupAudio::rva0020DB09(int reason)
 {
     INI ini;
-    ini.m_word08 = static_cast<INILoadType>(5);
+    ini.m_loadType = static_cast<INILoadType>(5);
     if (rva0020DA21(&ini))
     {
         m_flag39 = true;

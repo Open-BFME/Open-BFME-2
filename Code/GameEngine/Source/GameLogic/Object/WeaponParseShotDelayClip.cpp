@@ -27,17 +27,9 @@
 typedef int Int;
 typedef float Real;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	int scanInt(const char *token);
-	const char *getSepsColon() const { return m_sepsColon; }
-private:
-	char _pad[0x420];
-	const char *m_sepsColon;
-};
+#include "../../../Include/Common/INI/INI.h"
+// Preserve the retail inlined accessor in this TU.
+inline const char *INI::getSepsColon() const { return m_sepsColon; }
 
 extern float g_parseDurationMsecScale;
 

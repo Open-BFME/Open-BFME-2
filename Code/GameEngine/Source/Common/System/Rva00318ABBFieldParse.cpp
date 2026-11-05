@@ -11,14 +11,7 @@
 class INI;
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	void initFromINI(void *chunk, const FieldParse *parse);
-	static void parseAsciiString(INI *, void *, void *, const void *);
-	unsigned char m_pad[8];
-	int m_08;
-};
+#include "../../../Include/Common/INI/INI.h"
 
 // Bind to the existing data-ledger owner; keep the retail access view local.
 extern unsigned int g_Va00E01CF0;
@@ -57,7 +50,7 @@ void parseCloudBreakEffectDefinition(INI *ini)
 {
 	sunbeamTarget() = sunbeamSource();
 	ini->initFromINI(&sunbeamTarget(), TheRva00318ABBSunbeam);
-	if (ini->m_08 != 2 && ini->m_08 != 4)
+	if (ini->m_loadType != 2 && ini->m_loadType != 4)
 		sunbeamSource() = sunbeamTarget();
 	if (TheCloudBreakEffectManager != 0)
 		return ((Rva00318ABBTarget *)TheCloudBreakEffectManager)->t14();

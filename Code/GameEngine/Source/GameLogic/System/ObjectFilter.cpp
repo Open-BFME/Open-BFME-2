@@ -110,11 +110,7 @@ public:
 };
 void Rva00360CB0Release(int *indexHolder);
 int Rva00361790(Rva00360F55 *entry);
-class INI
-{
-public:
-	static void parseAsciiStringVector(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 // A declaration-only specialization stops this TU emitting its own
 // vector<AsciiString> dtor COMDAT, so the call binds the kept copy.

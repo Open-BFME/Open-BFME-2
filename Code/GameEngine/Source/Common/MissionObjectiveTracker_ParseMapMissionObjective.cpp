@@ -5,12 +5,7 @@
 // MissionObjectiveTracker.cpp (assert TheMissionObjectiveTracker, line 303).
 // Static member spelling: ABI-identical to the proven cdecl free function.
 // Original evidence: calls rowed ctor 0x426C4D plus initFromINI wrapper 0x42666E with new 0x10 plus holder TheMissionObjectiveTracker at +0x10 plus debug theDebug slots 0x60 0x6c 0x38 0x4c plus literal plus INIException filler 0x2F681 plus throw 0x629094
-class INI
-{
-public:
-	char _00[8];
-	int m_08;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva00426C4D
 {
@@ -64,7 +59,7 @@ public:
 
 void MissionObjectiveTracker::ParseMapMissionObjective(INI *ini)
 {
-	if (ini->m_08 == 2)
+	if (ini->m_loadType == 2)
 	{
 		if ((Holder00426D14 *)TheMissionObjectiveTracker == 0)
 			return;
@@ -79,7 +74,7 @@ void MissionObjectiveTracker::ParseMapMissionObjective(INI *ini)
 		::operator delete(q);
 		return;
 	}
-	if (ini->m_08 == 5)
+	if (ini->m_loadType == 5)
 		return;
 	_bfme_debugRecordCallsite(1);
 	theDebug->SkipNext();

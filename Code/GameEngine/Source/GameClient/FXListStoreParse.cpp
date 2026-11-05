@@ -57,7 +57,7 @@ namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> 
 // bfme link decl-only end
 struct FieldParse;class INI;
 #include "../../Include/Common/INI/FieldParse.h"
-class INI {public:const char*getNextToken(const char*);void initFromINI(void*,const FieldParse*);static void parseBool(INI*,void*,void*,const void*);char opaque00[8];int loadType;};
+#include "../../Include/Common/INI/INI.h"
 enum NameKeyType{NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
 namespace rts {template<class T>struct hash {size_t operator()(const T&x)const{return (size_t)x;}};}
 #include "../../Include/Common/NameKeyGenerator.h"
@@ -108,7 +108,7 @@ void FXListStore::parseFXListDefinition(INI*ini){
  const char*c=ini->getNextToken(0);
  NameKeyType key=TheNameKeyGenerator->nameToKey(c);
  FXListMap::iterator it=TheFXListStore->fxmap.find(key);
- if(it!=TheFXListStore->fxmap.end()&&ini->loadType==5){
+ if(it!=TheFXListStore->fxmap.end()&&ini->m_loadType==5){
   TheFXListStore->fxmap.erase(it);
   Rva001E2747*old=it->second;
   // Retail uses the existing four-byte pointer-vector provider. It accesses

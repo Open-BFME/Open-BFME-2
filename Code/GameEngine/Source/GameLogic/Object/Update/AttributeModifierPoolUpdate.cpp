@@ -337,15 +337,7 @@ class UpgradeTemplate;
 
 extern UpgradeCenter *TheUpgradeCenter;
 
-class INI {
-public:
-    const char *getNextToken(const char *seps);
-    const char *getNextTokenOrNull(const char *seps);
-    unsigned scanUnsignedInt(const char *token);
-    const char *getSepsColon() const { return m_sepsColon; }
-private:
-    char m_pad[0x420]; const char *m_sepsColon;
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 struct DelayedModifierUpgrade {
     DelayedModifierUpgrade() : upgrade(0), delay(0) {}
@@ -811,7 +803,7 @@ void AttributeModifierContainer::parseDelayedUpgradeTemplate(INI *ini, void *ins
     AttributeModifierContainer *me = (AttributeModifierContainer *)instance;
     me->m_upgrade = new DelayedModifierUpgrade;
     me->m_upgrade->upgrade = TheUpgradeCenter->findUpgrade(AsciiString(token));
-    token = ini->getNextTokenOrNull(ini->getSepsColon());
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
     if (token && strcmp(token, "Delay") == 0) {
         token = ini->getNextToken(0);
         if (token) {

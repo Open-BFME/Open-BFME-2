@@ -19,18 +19,7 @@ namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::a
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);      // 0x0002E850
-	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData); // 0x0002EC4E
-
-	int m_00;
-	int m_04;
-	int m_type;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva0056BDC8;
 class ModuleData
@@ -66,9 +55,9 @@ extern const FieldParse g_00C6D8F8[] = {
 
 void Rva0056BDFCParse(INI *ini, void *instance, void *store, const void *userData)
 {
-	if (ini->m_type == 2)
+	if (ini->m_loadType == 2)
 		throw INIException(8, "Cannot override Living World objects in map.ini");
-	if (ini->m_type == 5)
+	if (ini->m_loadType == 5)
 		throw INIException(8, "Reload of LivingWorldBuildingIconSubObjectTemplate not supported");
 	const char *token = ini->getNextToken(0);
 	const ModuleData *item = new Rva0056BDC8(&AsciiString(token));

@@ -24,17 +24,7 @@ void Rva0056BDFCParse(INI *ini, void *instance, void *store, const void *userDat
 void Rva0056BF1FParse(INI *ini, void *instance, void *store, const void *userData);
 
 
-class INI
-{
-public:
-	static void parseAudioEventRTS(INI *ini, void *instance, void *store, const void *userData);
-	const char *getNextToken(const char *seps);
-	void initFromINIMulti(void *what, const MultiIniFieldParse &parse);
-
-	int m_00;
-	int m_thingTemplate;
-	int m_type;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class Rva00402BE3;
 class Rva003F9FA9;
@@ -64,9 +54,9 @@ extern const FieldParse g_00C38380[] =
 
 void parseLivingWorldBuildingIconDefinition(INI *ini)
 {
-	if (ini->m_type == 2)
+	if (ini->m_loadType == 2)
 		throw INIException(8, "Cannot override Living World objects in map.ini");
-	if (ini->m_type == 5)
+	if (ini->m_loadType == 5)
 		throw INIException(8, "LivingWorldBuildingIconTemplate does not support rapid iteration");
 	Rva00402BE3 *icon = TheLivingWorldManager->rva002140DB(AsciiString(ini->getNextToken(0)));
 	MultiIniFieldParse parse;
@@ -98,9 +88,9 @@ extern const FieldParse LivingWorldArmyIconFields[] =
 };
 void parseLivingWorldArmyIconDefinition(INI *ini)
 {
-    if (ini->m_type == 2)
+    if (ini->m_loadType == 2)
         throw INIException(8, "Cannot override Living World objects in map.ini");
-    if (ini->m_type == 5)
+    if (ini->m_loadType == 5)
         throw INIException(8, "LivingWorldArmyIconTemplate does not support rapid iteration");
     Rva003F9FA9 *icon = TheLivingWorldManager->rva00214060(AsciiString(ini->getNextToken(0)));
     MultiIniFieldParse parse;
@@ -126,9 +116,9 @@ extern const FieldParse LivingWorldBuildPlotIconFields[] =
 };
 void parseLivingWorldBuildPlotIconDefinition(INI *ini)
 {
-    if (ini->m_type == 2)
+    if (ini->m_loadType == 2)
         throw INIException(8, "Cannot override Living World objects in map.ini");
-    if (ini->m_type == 5)
+    if (ini->m_loadType == 5)
         throw INIException(8, "LivingWorldBuildPlotIconTemplate does not support rapid iteration");
     Rva00402EFA *icon = TheLivingWorldManager->rva00214156(AsciiString(ini->getNextToken(0)));
     MultiIniFieldParse parse;

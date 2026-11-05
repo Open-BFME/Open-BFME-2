@@ -33,16 +33,7 @@ namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
 
-class INI
-{
-public:
-	AsciiString getNextAsciiString();
-	const char *getNextTokenOrNull(const char *delimiter = 0);
-	const char *getNextToken(const char *delimiter = 0);
-
-	char pad[0x420];
-	const char *m_420;
-};
+#include "../../../../../../GameEngine/Include/Common/INI/INI.h"
 
 struct WeightedModel
 {
@@ -246,10 +237,10 @@ void W3DScriptedModelDrawModuleData::AttachModelStruct::parseModel(INI *ini, voi
 	WeightedModel model;
 	model.name = ini->getNextAsciiString();
 
-	const char *token = ini->getNextTokenOrNull(ini->m_420);
+	const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	if (token && _strcmpi(token, "prob") == 0)
 	{
-		const char *probToken = ini->getNextToken(ini->m_420);
+		const char *probToken = ini->getNextToken(ini->m_sepsColon);
 		model.probability = atoi(probToken);
 		if (model.probability < 1 || model.probability > 100)
 		{

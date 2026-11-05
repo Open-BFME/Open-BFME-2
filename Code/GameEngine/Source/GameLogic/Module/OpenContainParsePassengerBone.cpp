@@ -5,14 +5,7 @@
 #include <string.h>
 #include "ascii_string.h"
 
-class INI
-{
-public:
-	char m_pad[0x420];
-	const char *sepsColon;
-	const char *getNextToken(const char *seps);
-	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
@@ -46,13 +39,13 @@ void Rva00464574Parse(INI *ini, void *instance, void *, const void *)
 	AsciiString boneName;
 	BfmeContainerRecord00462D62 entry;
 
-	const char *token = ini->getNextToken(ini->sepsColon);
+	const char *token = ini->getNextToken(ini->m_sepsColon);
 	if (token == 0 || strcmp(token, "PassengerBone") != 0)
 		throw INIException(3, "PassengerBone expected");
 
 	INI::parseAsciiString(ini, instance, &boneName, 0);
 
-	token = ini->getNextToken(ini->sepsColon);
+	token = ini->getNextToken(ini->m_sepsColon);
 	if (token == 0 || strcmp(token, "KindOf") != 0)
 		throw INIException(3, "KindOf expected");
 

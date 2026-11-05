@@ -5,19 +5,7 @@ typedef float Real;
 
 #include "Common/INIException.h"
 
-class INI
-{
-public:
-	const char *getNextSubToken( const char *expected );
-	const char *getNextToken( const char *separators );
-	const char *getNextTokenOrNull( const char *separators );
-	const char *getSepsColon( void ) const { return m_sepsColon; }
-	Real scanReal( const char *token );
-
-private:
-	char m_padding[ 0x420 ];
-	const char *m_sepsColon;	// +0x420 in BFME2; donor uses getSepsColon().
-};
+#include "../../../Include/Common/INI/INI.h"
 
 class Rva00504F09FunctionCurve
 {
@@ -49,20 +37,20 @@ void Rva0006AF00FunctionCurve::parseKey( INI *ini, void *, void *,
 
 	for ( count = 0; count < 2; ++count )
 	{
-		const char *token = ini->getNextTokenOrNull( ini->getSepsColon() );
+		const char *token = ini->getNextTokenOrNull( ini->m_sepsColon );
 		if ( token == 0 )
 			break;
 
 		if ( inTangent == 0 && token[ 0 ] == 'I' && token[ 1 ] == 0 )
 		{
 			inValue = Rva005046B0ScanTangentAngle(
-				ini, ini->getNextToken( ini->getSepsColon() ) );
+				ini, ini->getNextToken( ini->m_sepsColon ) );
 			inTangent = &inValue;
 		}
 		else if ( outTangent == 0 && token[ 0 ] == 'O' && token[ 1 ] == 0 )
 		{
 			outValue = Rva005046B0ScanTangentAngle(
-				ini, ini->getNextToken( ini->getSepsColon() ) );
+				ini, ini->getNextToken( ini->m_sepsColon ) );
 			outTangent = &outValue;
 		}
 		else

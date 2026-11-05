@@ -36,21 +36,7 @@
 
 typedef unsigned int UnsignedInt;
 
-class INI
-{
-    char unknown[0x420];
-    const char *sepsColon;
-public:
-	const char *getNextToken( const char *seps );
-	const char *getNextTokenOrNull( const char *seps );
-	__forceinline const char *getSepsColon() const
-	{
-		return sepsColon;
-	}
-	AsciiString getNextAsciiString();
-	static void parseDurationUnsignedInt( INI *, void *, void *, const void * );
-	static void parseObjectCreationList( INI *, void *, void *, const void * );
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 class ObjectCreationList;
 
@@ -122,11 +108,11 @@ struct BoneNameSlot
 // it in this TU is required for the callback's retail inline/call scheduling.
 static void parseTimeAndLocationInfo( INI *ini, void *instance, TimeAndLocationInfo *info )
 {
-    const char *token = ini->getNextToken( ini->getSepsColon() );
+    const char *token = ini->getNextToken( ini->m_sepsColon );
     if( _strcmpi( token, "Delay" ) != 0 )
         throw INIException( 3, "Expected 'Delay' token, found '%s'\n", token );
     ini->parseDurationUnsignedInt( ini, instance, &info->delay, 0 );
-    token = ini->getNextTokenOrNull( ini->getSepsColon() );
+    token = ini->getNextTokenOrNull( ini->m_sepsColon );
     if( token != 0 )
     {
         if( _strcmpi( token, "Bone" ) != 0 )

@@ -14,17 +14,7 @@
 
 class FXList;
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-	const char *separators() const { return m_separators; }
-private:
-	unsigned char m_unreconstructed_000[0x420];
-	const char *m_separators;		// +0x420
-};
+#include "../../../Include/Common/INI/INI.h"
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
@@ -93,13 +83,13 @@ struct Rva0048D65FOwner
 void Rva00289C24Parse(INI *ini, void *instance, void *, const void *)
 {
 	Rva002898ACElement entry;
-	const char *token = ini->getNextToken(ini->separators());
+	const char *token = ini->getNextToken(ini->m_sepsColon);
 	if (_strcmpi(token, "FX") != 0)
 		throw INIException(3, "'fx' expected");
 
 	INI::parseFXList(ini, instance, &entry.m_fx, NULL);
 
-	token = ini->getNextTokenOrNull(ini->separators());
+	token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	if (token && _strcmpi(token, "BONE") == 0)
 		entry.m_bone.set(ini->getNextTokenOrNull(NULL));
 
@@ -112,13 +102,13 @@ void Rva00289C24Parse(INI *ini, void *instance, void *, const void *)
 void Rva0048D65FParse(INI *ini, void *instance, void *, const void *)
 {
 	Rva0048C8C6 entry;
-	const char *token = ini->getNextToken(ini->separators());
+	const char *token = ini->getNextToken(ini->m_sepsColon);
 	if (_strcmpi(token, "FX") != 0)
 		throw INIException(3, "'fx' expected");
 
 	INI::parseFXList(ini, instance, &entry.m_00, NULL);
 
-	token = ini->getNextTokenOrNull(ini->separators());
+	token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	if (token && _strcmpi(token, "BONE") == 0)
 		entry.m_04.set(ini->getNextTokenOrNull(NULL));
 

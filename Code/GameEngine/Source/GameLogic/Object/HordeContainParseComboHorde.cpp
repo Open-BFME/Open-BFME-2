@@ -28,13 +28,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned int); }
 // bfme link decl-only end
-class INI {
-public:
-    char unknown[0x420];
-    const char *sepsColon;
-    const char *getNextToken(const char *);
-    const char *getNextTokenOrNull(const char *);
-};
+#include "../../../Include/Common/INI/INI.h"
 class ModuleData;
 
 void Rva00339235(const char *token, void *store);
@@ -54,20 +48,20 @@ void parseHordeContainComboHorde(INI *ini, void *instance, void *store, const vo
     {
     Rva00469D50 *entry = new Rva00469D50;
     const ModuleData *slot = (const ModuleData *)entry;
-    token = ini->getNextTokenOrNull(ini->sepsColon);
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
     if (!token || strcmp(token, "Target") != 0)
         goto invalidTarget2;
-    entry->m_00 = ini->getNextToken(ini->sepsColon);
-    token = ini->getNextTokenOrNull(ini->sepsColon);
+    entry->m_00 = ini->getNextToken(ini->m_sepsColon);
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
     if (!token || strcmp(token, "Result") != 0)
         goto invalidResult2;
-    entry->m_04 = ini->getNextToken(ini->sepsColon);
-    token = ini->getNextTokenOrNull(ini->sepsColon);
+    entry->m_04 = ini->getNextToken(ini->m_sepsColon);
+    token = ini->getNextTokenOrNull(ini->m_sepsColon);
     if (token) {
         if (strcmp(token, "InitiateVoice") == 0) {
-            const char *voiceToken = ini->getNextToken(ini->sepsColon);
+            const char *voiceToken = ini->getNextToken(ini->m_sepsColon);
             Rva00339235(voiceToken, (void *)&entry->m_08);
-            token = ini->getNextTokenOrNull(ini->sepsColon);
+            token = ini->getNextTokenOrNull(ini->m_sepsColon);
         }
         if (token)
             goto unknownKey;

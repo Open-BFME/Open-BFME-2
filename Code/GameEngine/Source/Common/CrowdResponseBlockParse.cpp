@@ -35,16 +35,7 @@ private:
 	_STL::set<Rva00415B15Element> m_set;
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	int getLoadType() const { return m_loadType; }
-private:
-	int m_00;
-	int m_04;
-	int m_loadType;
-};
+#include "../../Include/Common/INI/INI.h"
 
 class CrowdResponseTemplate
 {

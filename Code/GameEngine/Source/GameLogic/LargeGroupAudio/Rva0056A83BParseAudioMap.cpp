@@ -14,12 +14,7 @@
 // No new pin, alias, global, header or compiler override.
 #include <string.h>
 #include "ascii_string.h"
-class INI {
-public:
- const char *getNextToken(const char *);
- float dup_002EE10(const char *);
- char pad[0x420]; const char *seps;
-};
+#include "../../../Include/Common/INI/INI.h"
 #include "../../../Include/Common/INI/FieldParse.h"
 struct BfmeStringRecord00568CE0;
 namespace _STL { template<class T> class allocator {}; template<class T,class A=allocator<T> > class vector {public:void push_back(const T &);}; }
@@ -35,17 +30,17 @@ public:
 void Rva0056A83BParseAudioMap(INI *ini,void *,void *store,const void *)
 {
  Rva00568C4E entry;
- const char *token=ini->getNextToken(ini->seps);
+ const char *token=ini->getNextToken(ini->m_sepsColon);
  char map[]="AudioMap";
  char sound[]="Sound";
  char multiplier[]="Multiplier";
  if(_strcmpi(token,map)!=0)throw INIException(8,"Expected %s:<name> next",map);
- entry.map=ini->getNextToken(ini->seps);
- token=ini->getNextToken(ini->seps);
+ entry.map=ini->getNextToken(ini->m_sepsColon);
+ token=ini->getNextToken(ini->m_sepsColon);
  if(_strcmpi(token,sound)!=0)throw INIException(8,"Expected %s:<name> next",sound);
- entry.sound=ini->getNextToken(ini->seps);
- token=ini->getNextToken(ini->seps);
+ entry.sound=ini->getNextToken(ini->m_sepsColon);
+ token=ini->getNextToken(ini->m_sepsColon);
  if(_strcmpi(token,multiplier)!=0)throw INIException(8,"Expected %s:<volume percent> next",multiplier);
- entry.multiplier=ini->dup_002EE10(ini->getNextToken(ini->seps));
+ entry.multiplier=ini->dup_002EE10(ini->getNextToken(ini->m_sepsColon));
  ((_STL::vector<BfmeStringRecord00568CE0> *)store)->push_back(*(BfmeStringRecord00568CE0 *)&entry);
 }

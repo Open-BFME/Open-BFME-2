@@ -69,14 +69,7 @@ extern const FieldParse g_00C3BE74[3] = {
 	{ "SpecialAbilities", (FieldParseProc)&__identifier("?Rva00339B50_ParseSpecialAbilities@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
 	{ 0, 0, 0, 0 }
 };
-class INI
-{
-public:
-    const char *getNextToken(const char * = 0);
-    void initFromINI(void *, const FieldParse *);
-    int pad[2];
-    int loadType;
-};
+#include "../../../Include/Common/INI/INI.h"
 // ?friend_parseLightPointLevelDefinition@LightPointSystem@@SAXPAVINI@@@Z
 // @0x00421572 (297B): parses one light-point level definition: clone-find via
 // the rowed 0x00421263 with override-chain head swap, else fresh level; both
@@ -86,7 +79,7 @@ void LightPointSystem::friend_parseLightPointLevelDefinition(INI *ini)
 {
     if (!TheLightPointSystem) return;
     AsciiString name(ini->getNextToken());
-    if (ini->loadType == 2)
+    if (ini->m_loadType == 2)
     {
         Rva004211CA *found = (Rva004211CA *)reinterpret_cast<const LightPointSystem *>(TheLightPointSystem)->rva00421263(
             (const Rva00421263Vec *)((char *)TheLightPointSystem + 12), *reinterpret_cast<const StringBase<char> *>(&name));

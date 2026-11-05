@@ -18,7 +18,7 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 class MultiIniFieldParse { public: MultiIniFieldParse(); const void *entries[16]; unsigned int offsets[16]; int count; };
 class Rva0033A8FC { public: static void buildFieldParse(MultiIniFieldParse &); };
-class INI { public: void initFromINIMulti(void *,const MultiIniFieldParse &); char pad[8]; int loadType; };
+#include "../../../Include/Common/INI/INI.h"
 class ThingTemplate { public: void copyFrom(const ThingTemplate *); void setCopiedFromDefault(); void validate(); char pad[8]; bool isOverride; };
 struct Rva0033E06AArg;
 class Rva0033E06A { public: void rva0033E06A(Rva0033E06AArg *); };
@@ -134,13 +134,13 @@ void ThingFactory::parseObjectDefinition(INI *ini,const AsciiString &name,const 
         thingTemplate = (ThingTemplate *)TheThingFactory->findTemplate(name);
     if (!thingTemplate) {
         thingTemplate = TheThingFactory->newTemplate(name);
-        if (ini->loadType==2) thingTemplate->isOverride = true;
-    } else if (ini->loadType==5) {
+        if (ini->m_loadType==2) thingTemplate->isOverride = true;
+    } else if (ini->m_loadType==5) {
         thingTemplate = TheThingFactory->newTemplate(name);
         ((ParserUI *)TheInGameUI)->message(UnicodeString(L"The ThingTemplate, '%S' was reloaded."),name.str());
         BfmeAudioEventPrefix136 event(*(OpaqueRefElement4 *)(((ParserAudio *)TheAudio)->settings()+0xC8),0);
         ((ParserAudio *)TheAudio)->addEvent(&event);
-    } else if (ini->loadType==2) {
+    } else if (ini->m_loadType==2) {
         thingTemplate = TheThingFactory->newOverride(thingTemplate);
     }
     MultiIniFieldParse fields;
@@ -150,10 +150,10 @@ void ThingFactory::parseObjectDefinition(INI *ini,const AsciiString &name,const 
         if (parent) {
             thingTemplate->copyFrom(parent);
             thingTemplate->setCopiedFromDefault();
-            int oldType=ini->loadType;
-            ini->loadType=4;
+            INILoadType oldType=ini->m_loadType;
+            ini->m_loadType=static_cast<INILoadType>(4);
             ini->initFromINIMulti(thingTemplate,fields);
-            ini->loadType=oldType;
+            ini->m_loadType=oldType;
         } else {
             throw INIException(3,"ChildObject must come after the original Object (%s, %s).",childOf.str(),name.str());
         }

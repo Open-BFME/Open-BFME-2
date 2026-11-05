@@ -12,17 +12,7 @@
 #include <windows.h>
 #include <string.h>
 
-class INI
-{
-public:
-	const char *getNextTokenOrNull(const char *seps = 0);
-	bool scanBool(const char *token);
-	static void Rva000C2B23_ParseModelName(INI *ini, void *instance, void *store, const void *userData);
-	const char *separators() const { return m_separators; }
-private:
-	unsigned char m_unreconstructed_000[0x420];
-	const char *m_separators;		// +0x420
-};
+#include "../../Include/Common/INI/INI.h"
 
 namespace _STL
 {
@@ -57,11 +47,11 @@ void INI::Rva000C2B23_ParseModelName(INI *ini, void *instance, void *, const voi
 	if (self == NULL)
 		return;
 
-	const char *name = ini->getNextTokenOrNull(ini->separators());
+	const char *name = ini->getNextTokenOrNull(ini->m_sepsColon);
 	if (name == NULL)
 		return;
 
-	const char *token = ini->getNextTokenOrNull(ini->separators());
+	const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	if (token == NULL || _strcmpi(token, "ExtraMesh") != 0 ||
 		(token = ini->getNextTokenOrNull(NULL)) == NULL || !ini->scanBool(token))
 	{

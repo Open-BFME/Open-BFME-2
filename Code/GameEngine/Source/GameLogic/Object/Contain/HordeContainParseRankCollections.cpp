@@ -50,24 +50,18 @@ static inline bool operator==(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node == b._M_node; }
 }
 
-class INI
-{
-public:
-    const char *getNextTokenOrNull(const char *);
-    char unknown[0x418];
-    const char *seps;
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 void parseHordeContainRanksThatStopAdvance(INI *ini, void *, void *store, const void *)
 {
-    for (const char *token = ini->getNextTokenOrNull(ini->seps); token;
-         token = ini->getNextTokenOrNull(ini->seps))
+    for (const char *token = ini->getNextTokenOrNull(ini->m_seps); token;
+         token = ini->getNextTokenOrNull(ini->m_seps))
         ((_STL::list<int> *)store)->push_back(_STL::atoi(token));
 }
 
 void parseHordeContainRankSets(INI *ini, void *, void *store, const void *)
 {
-    for (const char *token = ini->getNextTokenOrNull(ini->seps); token;
-         token = ini->getNextTokenOrNull(ini->seps))
+    for (const char *token = ini->getNextTokenOrNull(ini->m_seps); token;
+         token = ini->getNextTokenOrNull(ini->m_seps))
         ((_STL::set<int> *)store)->insert(_STL::atoi(token));
 }
