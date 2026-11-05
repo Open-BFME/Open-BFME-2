@@ -163,6 +163,13 @@ extern TerrainLogic *TheTerrainLogic;
 class RGBColor;
 #include "../../../Include/GameClient/Drawable.h"
 
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+	int get() const;
+};
+
 class BodyModule
 {
 public:
@@ -539,7 +546,7 @@ void Object::xfer(Xfer *xfer)
 	XferObjectID(xfer, &m_builderID);
 
 	Drawable *draw = m_drawable;
-	DrawableID drawableID = draw ? draw->getID() : INVALID_DRAWABLE_ID;
+	DrawableID drawableID = draw ? (DrawableID)((const Rva0055A88BDwordField *)draw)->get() : INVALID_DRAWABLE_ID;
 	if (!xfer->IsCRC())
 		XferDrawableID(xfer, (int *)&drawableID);
 	if (xfer->IsLoading())

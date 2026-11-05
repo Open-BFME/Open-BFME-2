@@ -1,0 +1,11 @@
+Source claims: OK (2 sources, scoped byte-verified)
+Funclet pins: 10 row(s) verified past a renumbered $L label
+    uw_0077471e (Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp): $L6491 was renumbered; verified parent EH data places $L10312 at 0x0077471E
+    Unwind@00b746de (Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp): $L6483 was renumbered; verified parent EH data places $L10304 at 0x007746DE
+    Unwind@00b746e6 (Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp): $L6484 was renumbered; verified parent EH data places $L10305 at 0x007746E6
+    Unwind@00b746ee (Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp): $L6485 was renumbered; verified parent EH data places $L10306 at 0x007746EE
+    Unwind@00b746f6 (Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp): $L6486 was renumbered; verified parent EH data places $L10307 at 0x007746F6
+Functions: OK 18/18 matched across 2 source file(s)
+String-ref verify: OK (5 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

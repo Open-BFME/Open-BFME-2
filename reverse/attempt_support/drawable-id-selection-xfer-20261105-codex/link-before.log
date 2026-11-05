@@ -1,0 +1,5 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp: LINKS  LINKED 605 -> 605 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 605)
+Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp: LINKS  LINKED 3,418 -> 3,418 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 3,418)
+link_check: 2 of 2 link cleanly; LINKED 4,023 -> 4,023 bytes (6.5s)
