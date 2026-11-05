@@ -119,26 +119,12 @@ private:
 	char m_pad078[0x250 - 0x78];
 	Payload *m_contain;
 	char m_pad254[0x258 - 0x254];
-	class RvaAI *m_aiPtr;
+	class AIUpdateInterface *m_aiPtr;
 	char m_pad25C[0x304 - 0x25C];
 	Team *m_team;
 };
 
-class RvaAIHead
-{
-private:
-	char m_pad00[0x20];
-};
-
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType source);
-};
-
-class RvaAI : public RvaAIHead, public AICommandInterface
-{
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class RvaHijackerModuleData
 {
@@ -279,7 +265,7 @@ UpdateSleepTime HijackerUpdate::update(void)
 			obj->maskObject(false);
 			obj->setStatus(OBJECT_STATUS_3, false);
 
-			RvaAI *ai = *reinterpret_cast<RvaAI **>(
+			AIUpdateInterface *ai = *reinterpret_cast<AIUpdateInterface **>(
 				reinterpret_cast<UnsignedByte *>(obj) + 0x258);
 			if (ai)
 				ai->aiIdle(CMD_FROM_AI);
