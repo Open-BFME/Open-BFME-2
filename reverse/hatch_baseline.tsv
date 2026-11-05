@@ -11636,6 +11636,7 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingG
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGM::bfmeDrainGM	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeWideResultForward.cpp	Rva000421C8::link	1
 present_unmatched	Code/GameEngine/Source/Common/BigChainBaseDtorsO1.cpp	BigChainO1Hold::~BigChainO1Hold	1
+present_unmatched	Code/GameEngine/Source/Common/BitRange.cpp	_M_create_node@?$_Rb_tree@UBfmeStringRecord004071F7@@U1@U?$_Identity@UBfmeStringRecord004071F7@@@_STL@@URecordNocaseLess@@V?$allocator@UBfmeStringRecord004071F7@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmeStringRecord004071F7@@@2@ABUBfmeStringRecord004071F7@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311974SplineGet.cpp	splineGetActive	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311DD9SplineDraw.cpp	SplineDrawPoint::SplineDrawPoint	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311DD9SplineDraw.cpp	SplineDrawPoint::operator=	1
@@ -13700,7 +13701,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_subs
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_substring_ctor.cpp	basic_string::_M_range_initialize	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp	unicodeKeyLess	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva004f7e61.cpp	1TreeHintRef00217D4C@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp	_M_create_node@?$_Rb_tree@UBfmeStringRecord004071F7@@U1@U?$_Identity@UBfmeStringRecord004071F7@@@_STL@@URecordNocaseLess@@V?$allocator@UBfmeStringRecord004071F7@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmeStringRecord004071F7@@@2@ABUBfmeStringRecord004071F7@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_BfmeStringRecord00448113_insert.cpp	insert_unique@?$_Rb_tree@UBfmeStringRecord00448113@@U1@U?$_Identity@UBfmeStringRecord00448113@@@_STL@@U?$less@UBfmeStringRecord00448113@@@3@V?$allocator@UBfmeStringRecord00448113@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmeStringRecord00448113@@U?$_Nonconst_traits@UBfmeStringRecord00448113@@@_STL@@@_STL@@_N@2@ABUBfmeStringRecord00448113@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00221e02_dtor.cpp	_Rb_tree_base::~_Rb_tree_base	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00222C5A.cpp	Rva0022307F::~Rva0022307F	1

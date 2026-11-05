@@ -31797,16 +31797,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003ED68D,53,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED6C2 provisional,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
 0x003ED6C2,34,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED6E4 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp
 0x003ED6E4,41,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED70D provisional,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
-0x003ED70D,149,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED7A2 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp
+0x003ED70D,149,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED7A2 provisional,Code/GameEngine/Source/Common/BitRange.cpp
 0x003ED7A2,191,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,W=Code/Libraries/Source/assetmanager/assetmanager_impl.cpp C=0x003ED5A5..0x003ED861 provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyList.cpp
 0x003ED861,24,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED879 provisional,Code/GameEngine/Source/Common/BitRange.cpp
 0x003ED879,56,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED8B1 provisional,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
-0x003ED8B1,153,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED94A provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp
+0x003ED8B1,153,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED94A provisional,Code/GameEngine/Source/Common/BitRange.cpp
 0x003ED94A,5,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED94F provisional,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x003ED94F,58,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED989 provisional,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x003ED989,40,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003ED9B1 provisional,Code/GameEngine/Source/Common/BitRange.cpp
 0x003ED9B1,126,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003EDA2F provisional,Code/GameEngine/Source/Common/BitRange.cpp
-0x003EDA2F,20,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003EDA43 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp
+0x003EDA2F,20,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,C,C=0x003ED5A5..0x003EDA43 provisional,Code/GameEngine/Source/Common/BitRange.cpp
 0x003EDA43,168,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMap.cpp provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp
 0x003EDAEB,195,code,Code/GameEngine/Source/Common/BitRange.cpp,approved,N,N=Code/GameEngine/Source/Common/BitRange.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyList.cpp provisional,Code/GameEngine/Source/Common/Rva003ED498Count.cpp
 0x003EDBAE,76,code,,,-,,Code/GameEngine/Source/Common/INI/Rva003D4920ParseAudioKeyTokens_Rva003edbae.cpp
