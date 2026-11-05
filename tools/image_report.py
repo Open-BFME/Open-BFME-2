@@ -525,7 +525,24 @@ def summary(report):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--out", type=Path, default=OUT)
+    parser.add_argument("--image", type=Path, help="compare actual linked copies via image_iso.py")
+    parser.add_argument("--map", type=Path, help="MAP for --image")
+    parser.add_argument("--objects", type=Path, help="hash-bound winning-object manifest for --image")
+    parser.add_argument("--retail", type=Path, default=build.EXE)
     args = parser.parse_args(argv)
+    if args.image:
+        if not args.map:
+            parser.error("--image requires --map")
+        import image_iso
+        command = ["--image", str(args.image), "--map", str(args.map),
+                   "--retail", str(args.retail)]
+        if args.out != OUT:
+            command += ["--out", str(args.out)]
+        if args.objects:
+            command += ["--objects", str(args.objects)]
+        return image_iso.main(command)
+    if args.map or args.objects:
+        parser.error("--map/--objects require --image")
     csv.field_size_limit(10 ** 8)
     rows = build.load_function_rows()
     omitted = set(exit_link.placement_objects(rows))
@@ -540,6 +557,12 @@ def main(argv=None):
     report["vtables"], report["globals"], report["fieldparse"], report["duplicates"] = \
         ledger_report(retail, definitions, addresses, constructed_names(sources))
     report["summary"] = summary(report)
+    report["analysis_scope"] = {
+        "linked_image_analyzed": False,
+        "vtable_same_length_means": "length only; neither slots nor ABI verified",
+        "constructed_undersized_means": "source-pattern and ledger-gap leads, not proven storage defects",
+        "wrong_pointers_requires": "read beside pointers_unchecked; zero is not a clean pointer census",
+    }
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "image_report.json").write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     print(json.dumps(report["summary"], indent=1))
