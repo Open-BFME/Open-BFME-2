@@ -140,6 +140,9 @@ protected:
 
 private:
 	unsigned int m_soundHandle; // +0x2C
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 // 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from

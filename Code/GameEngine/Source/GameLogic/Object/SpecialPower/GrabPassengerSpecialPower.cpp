@@ -63,6 +63,12 @@ protected:
 	virtual ~GrabPassengerSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void doSpecialPower(unsigned int);
+public:
+	// retail vftable slot: the rowed override
+	virtual void doSpecialPowerAtObject(Object *, unsigned int);
 };
 
 //

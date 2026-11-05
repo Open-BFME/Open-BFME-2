@@ -47,6 +47,12 @@ public:
 	virtual void onDamage(DamageInfo *damageInfo);
 private:
 	int m_14;	// +0x14
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
+public:
+	// retail vftable slot: the rowed override
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0CallHelpOnDamage@@QAE@PAVThing@@PBVModuleData@@@Z @0x004BB43C

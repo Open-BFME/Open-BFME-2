@@ -54,6 +54,9 @@ private:
 	float m_extrusion; // +0x174
 	RGBColor m_color; // +0x178
 	_STL::vector<AsciiString> m_member; // +0x184
+public:
+	// retail vftable slot: the rowed override
+	virtual void doFXObj(const Object *, const Object *) const;
 };
 
 // ??0BuffNuggetFXNugget@@QAE@XZ

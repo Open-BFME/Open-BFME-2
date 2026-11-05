@@ -18,6 +18,9 @@ public:
 
 private:
 	int m_108;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void Customized_Render(RenderInfoClass &);
 };
 
 // ??0Rva0009AA0F@@QAE@H@Z

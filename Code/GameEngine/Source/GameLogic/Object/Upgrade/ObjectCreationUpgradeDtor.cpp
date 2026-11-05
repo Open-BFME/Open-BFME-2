@@ -42,6 +42,9 @@ protected:
 	virtual ~ObjectCreationUpgrade();
 	// Slot 0 of the +0x18 vftable 0x00C57560 is 0x004B42DB, this class's update.
 	virtual UpdateSleepTime update();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 // ??1ObjectCreationUpgrade@@MAE@XZ @0x004B3F90

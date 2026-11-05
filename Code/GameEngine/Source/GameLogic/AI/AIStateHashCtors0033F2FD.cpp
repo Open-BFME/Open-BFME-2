@@ -51,6 +51,12 @@ private:
 protected:
 	// retail slot 3: the rowed ?xfer@AIAttackMeleeHordeWaitState@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
 };
 
 AIAttackMeleeHordeWaitState::AIAttackMeleeHordeWaitState(StateMachine *machine)

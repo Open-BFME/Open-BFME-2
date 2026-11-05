@@ -35,6 +35,9 @@ private:
 protected:
 	// retail slot 3: the rowed ?xfer@AITNGuardInnerState@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 
 AITNGuardInnerState::AITNGuardInnerState(StateMachine *machine)

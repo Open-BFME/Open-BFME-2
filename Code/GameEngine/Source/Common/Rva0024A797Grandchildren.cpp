@@ -146,6 +146,9 @@ class Rva004839D3 : public UpdateModule, public Rva004839D3_E1
 {
 public:
 	virtual ~Rva004839D3();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 Rva004839D3::~Rva004839D3()
@@ -226,6 +229,9 @@ class Rva004A1855 : public UpdateModule, public Rva004A1855_E1
 {
 public:
 	virtual ~Rva004A1855();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 Rva004A1855::~Rva004A1855()
@@ -312,6 +318,9 @@ class Rva004A8091 : public UpdateModule, public Rva004A8091_E1
 {
 public:
 	virtual ~Rva004A8091();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 Rva004A8091::~Rva004A8091()
@@ -328,6 +337,9 @@ class Rva004B8732 : public UpdateModule, public Rva004B8732_E1
 {
 public:
 	virtual ~Rva004B8732();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 Rva004B8732::~Rva004B8732()

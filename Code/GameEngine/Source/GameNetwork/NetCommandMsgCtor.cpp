@@ -119,6 +119,9 @@ public:
 	Rva004D5795();
 private:
 	bool m_1c;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 Rva004D5795::Rva004D5795() : NetCommandMsg()
@@ -135,6 +138,9 @@ public:
 	Rva004D57AE();
 private:
 	unsigned int m_1c;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 Rva004D57AE::Rva004D57AE() : NetCommandMsg()
@@ -272,6 +278,9 @@ public:
 private:
 	unsigned int m_1c;
 	unsigned int m_20;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 Rva004D59D1::Rva004D59D1() : NetCommandMsg()
@@ -310,6 +319,9 @@ public:
 private:
 	unsigned int m_1c;
 	unsigned int m_20;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 Rva004D5A30::Rva004D5A30() : NetCommandMsg()
@@ -462,6 +474,9 @@ private:
 	UnsignedByte m_originalPlayerID; // +0x1E
 	UnsignedInt m_originalTimestamp; // +0x20
 	UnsignedInt m_originalExecutionFrame; // +0x24
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 NetAckBothCommandMsg::NetAckBothCommandMsg(NetCommandMsg *msg) : NetCommandMsg()
@@ -494,6 +509,9 @@ private:
 	UnsignedByte m_originalPlayerID; // +0x1E
 	UnsignedInt m_originalTimestamp; // +0x20
 	UnsignedInt m_originalExecutionFrame; // +0x24
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 NetAckStage1CommandMsg::NetAckStage1CommandMsg(NetCommandMsg *msg) : NetCommandMsg()
@@ -527,6 +545,9 @@ private:
 	UnsignedByte m_originalPlayerID; // +0x1E
 	UnsignedInt m_originalTimestamp; // +0x20
 	UnsignedInt m_originalExecutionFrame; // +0x24
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 NetAckStage2CommandMsg::NetAckStage2CommandMsg(NetCommandMsg *msg) : NetCommandMsg()

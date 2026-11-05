@@ -118,6 +118,9 @@ private:
 	unsigned int m_maxFrame;
 	AttributeModifierCategoryFrame m_categoryFrames[15];
 	unsigned int m_poolCounts[15];
+public:
+	// retail vftable slot: the rowed override
+	virtual UpdateSleepTime update();
 };
 
 class Object

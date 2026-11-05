@@ -44,6 +44,9 @@ protected:
 	virtual ~PlayerUpgradeSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void doSpecialPower(unsigned int);
 };
 
 // A declaration-only specialization stops this TU emitting its own

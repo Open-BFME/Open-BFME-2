@@ -189,6 +189,9 @@ private:
 	AsciiString m_str20; // +0x20
 	AbilityStateVector m_state; // +0x24..+0x2C: measured scalar layout
 	Bool m_30;
+public:
+	// retail vftable slot: the rowed override
+	virtual UpdateSleepTime update();
 };
 
 

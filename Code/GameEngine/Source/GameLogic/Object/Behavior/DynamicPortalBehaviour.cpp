@@ -327,6 +327,9 @@ private:
 	bool m_3C;	// +0x3C
 	bool m_3D;	// +0x3D
 	unsigned char m_pad3E[2];
+public:
+	// retail vftable slot: the rowed override
+	virtual void upgradeImplementation();
 };
 
 #include "../../../../Include/Common/INI/INI.h"

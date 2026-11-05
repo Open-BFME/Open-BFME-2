@@ -31,6 +31,9 @@ public:
 	virtual void reset();
 private:
 	Tree00372FF4 m_map;
+public:
+	// retail vftable slot: the rowed override
+	virtual void update();
 };
 
 // ??1MineshaftPortalNetworkManager@@UAE@XZ

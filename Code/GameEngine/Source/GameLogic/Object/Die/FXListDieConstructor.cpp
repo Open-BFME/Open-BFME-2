@@ -19,6 +19,9 @@ class FXListDie : public DieModule
 {
 public:
 	FXListDie( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail vftable slot: the rowed override
+	virtual void onDie(const DamageInfo *);
 };
 
 FXListDie::FXListDie( Thing *thing, const ModuleData *moduleData )

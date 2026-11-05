@@ -195,6 +195,15 @@ public:
 	void rva00420B61(ExperienceLevelView *level, Object *obj);
 public:
 	void rva00420C8E(ExperienceLevelView *level, Object *obj, bool grant);
+public:
+	// retail vftable slot: the rowed override
+	virtual void reset();
+public:
+	// retail vftable slot: the rowed override
+	virtual void update();
+public:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 // Suppress this TU's non-retail copy of ?_M_create_node@?$list@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@IAEPAU?$_List_no:

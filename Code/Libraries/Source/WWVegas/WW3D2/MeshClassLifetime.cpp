@@ -77,6 +77,12 @@ private:
 	MeshRuntimeData *RuntimeData;           // +0x310
 	Vector3 _bfme_unk_314;                  // +0x314
 	bool _bfme_unk_320;                     // +0x320
+protected:
+	// retail vftable slot: the rowed override
+	virtual void Update_Cached_Bounding_Volumes() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &) const;
 };
 
 typedef char VerifyMeshClassSize[(sizeof(MeshClass) == 0x324) ? 1 : -1];

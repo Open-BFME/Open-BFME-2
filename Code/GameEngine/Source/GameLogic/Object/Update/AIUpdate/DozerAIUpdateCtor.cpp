@@ -1070,6 +1070,33 @@ private:
 	Rva004894F5DockPoint m_dockPoint[DOZER_NUM_TASKS][DOZER_NUM_DOCK_POINTS]; // +0x410
 	Int m_buildSubTask; // +0x4A0
 	Int m_4A4; // +0x4A4
+public:
+	// retail vftable slot: the rowed override
+	virtual DozerTask getMostRecentCommand();
+public:
+	// retail vftable slot: the rowed override
+	virtual ObjectID getTaskTarget(DozerTask);
+public:
+	// retail vftable slot: the rowed override
+	virtual bool canAcceptNewRepair(Object *);
+public:
+	// retail vftable slot: the rowed override
+	virtual bool isAnyTaskPending();
+public:
+	// retail vftable slot: the rowed override
+	virtual bool isTaskPending(DozerTask);
+public:
+	// retail vftable slot: the rowed override
+	virtual void createBridgeScaffolding(Object *);
+public:
+	// retail vftable slot: the rowed override
+	virtual void internalCancelTask(DozerTask);
+public:
+	// retail vftable slot: the rowed override
+	virtual void internalTaskComplete(DozerTask);
+public:
+	// retail vftable slot: the rowed override
+	virtual void removeBridgeScaffolding(Object *);
 };
 
 DozerAIUpdate::DozerAIUpdate(Thing *thing, const ModuleData *moduleData)

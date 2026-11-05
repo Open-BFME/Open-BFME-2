@@ -137,6 +137,48 @@ protected:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@ActiveBody@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual BfmeBodyDataPair8 rva004BDC56();
+public:
+	// retail vftable slot: the rowed override
+	virtual ObjectID rva004BF897();
+public:
+	// retail vftable slot: the rowed override
+	virtual bool getBackCrushed() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual float estimateDamage(DamageInfoInput &) const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void attemptDamage(DamageInfo *);
+public:
+	// retail vftable slot: the rowed override
+	virtual void attemptHealing(DamageInfo *);
+public:
+	// retail vftable slot: the rowed override
+	virtual void clearArmorSetFlag(ArmorSetType);
+public:
+	// retail vftable slot: the rowed override
+	virtual void internalChangeHealth(float, DamageInfo *);
+public:
+	// retail vftable slot: the rowed override
+	virtual void onVeterancyLevelChanged(VeterancyLevel, VeterancyLevel);
+public:
+	// retail vftable slot: the rowed override
+	virtual void setArmorSetFlag(ArmorSetType);
+public:
+	// retail vftable slot: the rowed override
+	virtual void setDamageState(BodyDamageType);
+public:
+	// retail vftable slot: the rowed override
+	virtual void setIndestructible(bool);
+public:
+	// retail vftable slot: the rowed override
+	virtual void setInitialHealth(float, bool);
+public:
+	// retail vftable slot: the rowed override
+	virtual void setMaxHealth(float, MaxHealthChangeType);
 };
 
 ActiveBody::ActiveBody(Thing *thing, const ModuleData *moduleData)

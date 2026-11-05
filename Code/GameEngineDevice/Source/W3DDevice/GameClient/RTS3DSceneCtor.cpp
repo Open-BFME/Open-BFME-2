@@ -158,6 +158,15 @@ private:
 	Int m_numPotentialOccludees;						// +0x80C
 	Int m_numNonOccluderOrOccludee;						// +0x810
 	Int m_814;											// +0x814
+public:
+	// retail vftable slot: the rowed override
+	virtual void Customized_Render(RenderInfoClass &);
+public:
+	// retail vftable slot: the rowed override
+	virtual void Render(RenderInfoClass &);
+public:
+	// retail vftable slot: the rowed override
+	virtual void Visibility_Check(CameraClass *);
 };
 
 RTS3DScene::RTS3DScene()

@@ -39,6 +39,9 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@InactiveBody@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void attemptHealing(DamageInfo *);
 };
 
 InactiveBody::InactiveBody(Thing *thing, const ModuleData *moduleData)

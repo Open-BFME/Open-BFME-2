@@ -104,6 +104,12 @@ private:
 	bool m_waitingForPath; // +0x49
 	Bool m_tryOneMoreRepath; // +0x4A
 	bool m_4B; // +0x4B
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
 };
 AIInternalMoveToState::AIInternalMoveToState(StateMachine *machine, unsigned int hash)
 	: State(machine, hash)

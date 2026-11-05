@@ -34,6 +34,9 @@ class OathbreakerBody : public ActiveBody
 public:
 	OathbreakerBody( Thing *thing, const ModuleData *moduleData );
 	virtual ~OathbreakerBody();
+public:
+	// retail vftable slot: the rowed override
+	virtual void attemptDamage(DamageInfo *);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBodyConstructor.cpp

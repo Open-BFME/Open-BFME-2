@@ -125,6 +125,12 @@ private:
 	Int m_5C;
 	Coord3D m_60;
 	Int m_6C;
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
 };
 
 AIAttackMoveToState::AIAttackMoveToState(StateMachine *machine) : Rva0034005D(machine)
@@ -153,6 +159,12 @@ public:
 	AIAttackFollowWaypointPathState(StateMachine *machine, Bool asGroup);
 private:
 	StateMachine *m_attackFollowMachine; // +0x68
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
 };
 
 AIAttackFollowWaypointPathState::AIAttackFollowWaypointPathState(StateMachine *machine, Bool asGroup) : Rva00342BAE(machine, asGroup, false)
@@ -176,6 +188,12 @@ private:
 	StateMachine *m_attackMoveMachine; // +0x5C
 	Real m_60;
 	Bool m_64;
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
 };
 
 AIFollowPathAsTeamState::AIFollowPathAsTeamState(StateMachine *machine, Bool attackMove, unsigned int hash) : AIInternalMoveToState(machine, hash)

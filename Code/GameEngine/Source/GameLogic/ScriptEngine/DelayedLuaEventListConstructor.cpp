@@ -46,6 +46,9 @@ public:
 
 private:
 	EventParameter m_bfmeEvents[3];		// +0x04
+public:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 // ??0DelayedLuaEventList@@QAE@XZ

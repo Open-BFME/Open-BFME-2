@@ -39,6 +39,9 @@ protected:
 	virtual ~CombineHordeSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void doSpecialPower(unsigned int);
 };
 
 // tu-skeleton: 0x004C87A9 27B ?buildFieldParse@CombineHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)

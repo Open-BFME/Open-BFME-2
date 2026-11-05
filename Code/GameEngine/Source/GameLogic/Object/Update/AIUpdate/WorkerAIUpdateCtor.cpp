@@ -898,6 +898,27 @@ private:
 	DozerPrimaryStateMachine *m_dozerMachine; // +0x4C4
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x4C8
 	Int m_4CC; // +0x4CC
+public:
+	// retail vftable slot: the rowed override
+	virtual DozerTask getMostRecentCommand();
+public:
+	// retail vftable slot: the rowed override
+	virtual ObjectID getTaskTarget(DozerTask);
+public:
+	// retail vftable slot: the rowed override
+	virtual bool canAcceptNewRepair(Object *);
+public:
+	// retail vftable slot: the rowed override
+	virtual bool isTaskPending(DozerTask);
+public:
+	// retail vftable slot: the rowed override
+	virtual const Coord3D * getDockPoint(DozerTask, DozerDockPoint);
+public:
+	// retail vftable slot: the rowed override
+	virtual void internalTaskComplete(DozerTask);
+public:
+	// retail vftable slot: the rowed override
+	virtual void setBuildSubTask(DozerBuildSubTask);
 };
 
 // BFME1 donor575ba2b04743 WorkerAIUpdate_internalCancelTask.cpp supplies

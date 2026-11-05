@@ -186,6 +186,9 @@ private:
 	int count2C;
 	bool loaded;
 	unsigned char enabled;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp

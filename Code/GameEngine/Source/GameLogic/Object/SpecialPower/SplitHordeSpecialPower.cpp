@@ -40,6 +40,9 @@ protected:
 	virtual ~SplitHordeSpecialPower();
 public:
 	virtual NameKeyType getModuleNameKey() const;
+public:
+	// retail vftable slot: the rowed override
+	virtual void doSpecialPower(unsigned int);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SplitHordeSpecialPower.cpp
