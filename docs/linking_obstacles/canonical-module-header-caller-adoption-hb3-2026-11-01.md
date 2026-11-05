@@ -10,4 +10,6 @@ CastleUpgrade_upgradeImplementation retains an existing data-identity shadow fin
 
 2026-11-04: SpellRechargeModifierUpgrade.cpp adopts canonical UpgradeModule; 5/5 rows byte-match, the preview retains 565/565 linked bytes, and UpgradeModule acceptance retires one queue row. The separate UpgradeMux header prerequisite remains: [verification and next step](../../reverse/attempt_support/spell-recharge-upgrade-header-20261104.md).
 
+2026-11-05: The allocated `SpellRechargeModifierUpgrade.cpp` merge dry run accepts no donor; its ctor donor fails C2511 because the class lacks the matching `Thing *, const ModuleData *` constructor declaration. Both affected units are census-linked; see [trial evidence](../../reverse/attempt_support/spell-recharge-merge-20261105.md). Reconcile the class declaration before retrying.
+
 2026-11-04: UnpauseSpecialPowerUpgrade.cpp adopts canonical UpgradeModule and Rva00253487Base; 8/8 rows match, the preview retains 334/334 linked bytes, and owning acceptances retire both queue rows. Separate behavior ctor/dtor scaffolds remain queued: [verification](../../reverse/attempt_support/unpause-special-power-upgrade-headers-20261104.md).
