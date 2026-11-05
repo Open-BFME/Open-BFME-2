@@ -56,3 +56,24 @@ nonmatching intermediate versions were replaced, not retained in `Code/`.
 This closes only this source's registered identity debt. Broader element-family
 reconciliation in LINK-002 and LINK-064 remains necessary. No new census or
 headline linked-byte gain is claimed.
+
+## Outgoing-batch follow-up
+
+The runner rebased the repair to `dd4f5c4928` before handing it to the fleet
+publisher. `link_batch_audit.py` against parent `ef8b2272b2` and the repaired
+tip reports INCONCLUSIVE: its index remains `c95fcfcfcd`, older than the
+outgoing base, and affected consumers lack strict current receipts. Prepared
+this repair source with `link_check.py --prepare-current`; the next audit
+requested `0CreateAHeroManager21FE49.cpp`. Prepared that consumer too: 24/24
+matched, including STLport folds and 16 renumbered funclets. The next audit
+stopped at `Code/GameEngine/Source/Common/AIBaseBuilder.cpp` without a current
+receipt. No complete consumer audit or clean batch result is claimed. Carry
+this scope into the next census and rerun the batch audit with current affected
+consumer receipts; do not count the unchanged four-unit preview as its substitute.
+
+The commit hook passed enforced checks. Its shadow code-identity scan also
+reported a divergent unrowed `vector<BfmeStringRecord00111ACF>::_M_fill_insert`
+definition. The source's row-reference retirement verdict still found no new
+finding and retired all three keys; that narrower result does not settle the
+unrowed member's family identity. Include that emitted member in the broader
+LINK-002 reconciliation and next consumer audit.
