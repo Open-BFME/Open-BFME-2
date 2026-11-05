@@ -7,3 +7,5 @@ Clearance: standalone linking preserved; no TU merge or filename approval claime
 Census confirmation: no new measurement claimed.
 
 2026-11-05: FlightDeck growth's environment prerequisite is repaired (34/34 paired rows exact, both previews LINKS); merge dry run now accepts that donor. Apply that merge next; the destructor ABI/result declarations and GetObjectsInRange override remain blocked. [Evidence](../../reverse/attempt_support/partition-flightdeck-environment-20261105-codexb.md).
+
+2026-11-05: FlightDeck donor merged into the approved PartitionManager TU: one source removed, 34/34 rows exact, EXACT 2 EH records and preview LINKS at the preserved 3,719 bytes. Next: reconcile the destructor's specialization placement/manager ABI; result declarations and the range-query override remain blocked. [Merge audit](../../reverse/attempt_support/partition-flightdeck-merge-20261105-codexb.md).

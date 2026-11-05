@@ -479,6 +479,9 @@ public:
 };
 #include "../../../GameEngine/Include/GameClient/RadarMarker.h"
 #include <iterator>
+enum ObjectID
+{
+};
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
@@ -509,7 +512,37 @@ void push_heap(RandomAccessIterator first, RandomAccessIterator last, Compare co
 
 }
 
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/FlightDeckBehavior.h
+class FlightDeckBehavior
+{
+public:
+	struct FlightDeckInfo
+	{
+		Coord3D m_prep;
+		float m_orientation;
+		int m_runway;
+		ObjectID m_objectInSpace;
+	};
+};
+
+// Retail growth releases through GameMemory at RVA 0x00030830.
+namespace _STL {
+template <> inline void allocator<FlightDeckBehavior::FlightDeckInfo>::deallocate(
+    FlightDeckBehavior::FlightDeckInfo *storage, size_type) const
+{
+    if (storage != 0) releaseFlightDeckStorage(storage);
+}
+}
+
+// These operations bind to the copies in FlightDeckBehavior.cpp.
+namespace _STL {
+template <> void vector<FlightDeckBehavior::FlightDeckInfo>::reserve(unsigned int);
+template <> template <> FlightDeckBehavior::FlightDeckInfo *vector<FlightDeckBehavior::FlightDeckInfo>::_M_allocate_and_copy<FlightDeckBehavior::FlightDeckInfo *>(unsigned int, FlightDeckBehavior::FlightDeckInfo *, FlightDeckBehavior::FlightDeckInfo *);
+}
+
 // tu-skeleton: 0x00626AA0 72B ?_ClearNumObjBelow@PartitionManagerImpl@@QAEXPAPAXI@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 
 // ---- from Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp
 
@@ -1025,6 +1058,28 @@ void PartitionManagerImpl::bfmeDropYQ(BfmeThingYQ *t)
 
 void Rva006272D0Fields::subtract24() { word4 -= 24u; }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva00626EF0Element * _STL::__copy<Rva00626EF0Element *, Rva00626EF0Element *, int>(Rva00626EF0Element *, Rva00626EF0Element *, Rva00626EF0Element *, _STL::random_access_iterator_tag const &, int *);
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00627B10.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+//
+// 0x00627B10 is _STL::push_heap<S4SortElem24 *, S4Cmp009F4BF0>: it forwards
+// first, last and the comparator with the two null distance/value type tags
+// to __push_heap_aux at 0x006279B0 (stlport_push_heap_s4sortelem24.cpp),
+// which copies last[-1] and calls __push_heap 0x00627330. Retail keeps that
+// call out of line, so the helper is declared here and not instantiated.
+// The partition manager's closest-object query (0x00628040) uses the same
+// 24-byte heap element and comparator.
+
+template void _STL::push_heap(S4SortElem24 *, S4SortElem24 *, S4Cmp009F4BF0);
+
 // tu-skeleton: 0x00626D90 30B ??_GRva00625800Dtor@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp (not merged yet)
 
 // tu-skeleton: 0x00626DE0 9B ?size@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
@@ -1035,17 +1090,13 @@ void Rva006272D0Fields::subtract24() { word4 -= 24u; }
 
 // tu-skeleton: 0x00626E40 75B ??$__uninitialized_copy@PAUFlightDeckInfo@FlightDeckBehavior@@PAU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 
-// tu-skeleton: 0x00626E90 71B ??$__uninitialized_fill_n@PAUFlightDeckInfo@FlightDeckBehavior@@IU12@@_STL@@YAPAUFlightDeckInfo@FlightDeckBehavior@@PAU12@IABU12@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
+
+template class _STL::vector<FlightDeckBehavior::FlightDeckInfo, _STL::allocator<FlightDeckBehavior::FlightDeckInfo> >;
 
 // tu-skeleton: 0x00626EE0 9B ?capacity@?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QBEIXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00626EF0.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-
-// Instantiate the recovered operation and its required template dependencies.
-template Rva00626EF0Element * _STL::__copy<Rva00626EF0Element *, Rva00626EF0Element *, int>(Rva00626EF0Element *, Rva00626EF0Element *, Rva00626EF0Element *, _STL::random_access_iterator_tag const &, int *);
 
 // tu-skeleton: 0x00626F50 50B ??$__copy@PBU?$pair@HH@_STL@@PAU12@H@_STL@@YAPAU?$pair@HH@0@PBU10@0PAU10@ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
 
@@ -1067,31 +1118,13 @@ template Rva00626EF0Element * _STL::__copy<Rva00626EF0Element *, Rva00626EF0Elem
 
 // tu-skeleton: 0x00627AE0 43B ?erase@?$vector@V?$BitFlags@$0HF@@@V?$allocator@V?$BitFlags@$0HF@@@@_STL@@@_STL@@QAEPAV?$BitFlags@$0HF@@@PAV3@0@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00627B10.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-//
-// 0x00627B10 is _STL::push_heap<S4SortElem24 *, S4Cmp009F4BF0>: it forwards
-// first, last and the comparator with the two null distance/value type tags
-// to __push_heap_aux at 0x006279B0 (stlport_push_heap_s4sortelem24.cpp),
-// which copies last[-1] and calls __push_heap 0x00627330. Retail keeps that
-// call out of line, so the helper is declared here and not instantiated.
-// The partition manager's closest-object query (0x00628040) uses the same
-// 24-byte heap element and comparator.
-
-template void _STL::push_heap(S4SortElem24 *, S4SortElem24 *, S4Cmp009F4BF0);
-
 // tu-skeleton: 0x00627B90 33B ?clear@?$vector@V?$BitFlags@$0HF@@@V?$allocator@V?$BitFlags@$0HF@@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x00627BC0 255B ?_M_insert_overflow@?$vector@UFlightDeckInfo@FlightDeckBehavior@@V?$allocator@UFlightDeckInfo@FlightDeckBehavior@@@_STL@@@_STL@@IAEXPAUFlightDeckInfo@FlightDeckBehavior@@ABU34@ABU__false_type@2@I_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp (not merged yet)
 
 // tu-skeleton: 0x00627CC0 208B ??4?$vector@U?$pair@HH@_STL@@V?$allocator@U?$pair@HH@_STL@@@2@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pair.cpp (not merged yet)
 
 // tu-skeleton: 0x00627DE0 84B ??1PartitionManagerImpl@@UAE@XZ -- matched in Code/GameEngine/Source/Common/PartitionManagerImpl.cpp (not merged yet)
 
 // tu-skeleton: 0x00627E40 266B ?SetTreeDepth@PartitionManagerImpl@@QAEXI@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
-
-// tu-skeleton: 0x00627F50 82B ?push_back@?$vector@UFlightDeckInfo@FlightDeckBehavior@@V?$allocator@UFlightDeckInfo@FlightDeckBehavior@@@_STL@@@_STL@@QAEXABUFlightDeckInfo@FlightDeckBehavior@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp (not merged yet)
 
 // tu-skeleton: 0x00628040 1830B ?GetClosestObject@PartitionManagerImpl@@QAEPAXHMHHH@Z -- matched in Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp (not merged yet)
 

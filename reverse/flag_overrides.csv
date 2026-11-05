@@ -271,7 +271,6 @@ Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp,,1,1,region default lo
 Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp,-O2,5,2,region default loses rows
 Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitStateUpdate.cpp,-O1 -G7,1,1,region default loses rows
-Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp,,4,4,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp,-O2,2,2,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,-G7 -arch:SSE,9,3,region default loses rows
@@ -677,7 +676,7 @@ Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,-O2 -G6,12,1,region 
 Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/collisionmanager/collisionmanager_data.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/partitionmanager/PartitionManagerGetObjectsInRange.cpp,-O2 -G6,1,1,region default loses rows
-Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,,8,8,region default loses rows
+Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,,12,12,region default loses rows
 Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows
 Code/Libraries/Source/profile/profile_highlevel.cpp,,17,2,region default loses rows
