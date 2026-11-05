@@ -84,12 +84,13 @@ void Rva001F82EEWrite(Stream&,unsigned,const char*,const AsciiString&);
 void Rva001F89E2Write(Stream&,unsigned,const char*,const Vec001F8810&);
 void Rva001F8B5FWrite(Stream&,unsigned,const char*,const S001F87D5&);
 void Rva001F9006Write(Stream&,unsigned,const char*,const TreeHintPayload001F8ACB&);
+class AssetList;
 namespace FXParticleSystem {
 // Defined by ParticleSystemTemplate.cpp (retail VAs 0x00C1B6A4, 0x00C1B610, 0x00C1B640).
 extern const char *ParticlePriorityNames[];
 extern const char *ParticleShaderTypeNames[];
 extern const char *ParticleTypeNames[];
-class ParticleSystemTemplate { public: void writeINI(File&,unsigned) const;
+class ParticleSystemTemplate { public: void writeINI(File&,unsigned) const; void GetAssetList(AssetList&) const;
 private:
  void *m_vtable; bool m_isOneShot; char gap5[3]; int m_shader,m_type;
  AsciiString m_particleName; S001F87D5 m_lifetime;
@@ -130,5 +131,9 @@ void ParticleSystemTemplate::writeINI(File &file,unsigned flags) const {
  Rva003AFC6BWrite(&file,&flags);
  ((Rva001FA7CE*)&m_modules)->rva001FA7CE((int)&file,flags);
  Rva003AFC6BWrite(&file,&flags);
+}
+// Retail export 1182 names this empty member; /OPT:ICF folds it onto the
+// shared empty RET 4 at 0x0047A69C. Nothing here calls it: the export keeps it.
+void ParticleSystemTemplate::GetAssetList(AssetList &) const {
 }
 }
