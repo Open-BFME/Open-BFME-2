@@ -141,7 +141,7 @@ public:
 class Rva002707FA
 {
 public:
-    void rva002707FA(unsigned char);
+	void rva002707FA(unsigned char value);
 };
 class Drawable : public Thing
 {

@@ -171,9 +171,12 @@ inline void zeroCoord3D( Coord3D &pos )
 
 struct MoveHint
 {
-	Coord3D pos;							// +0x00
-	ObjectID sourceID;						// +0x0C
-	bool flag;								// +0x10
+public:
+	~MoveHint() {}
+	Coord3D pos; // +0x00
+	ObjectID sourceID; // +0x0C
+	bool flag; // +0x10
+	char m_pad11[0x3];
 };
 
 class CommandButton;

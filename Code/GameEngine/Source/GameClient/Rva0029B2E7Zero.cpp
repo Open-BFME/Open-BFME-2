@@ -2,19 +2,19 @@
 // ?rva0029B2E7@Rva0029B2E7@@QAEXXZ @0x0029B2E7 44B.
 // Zeroes byte at +0 and floats at +4 +8 +C +10 +14 +18 +1C.
 // Caller at 0x0029B502.
-class Rva0029B2E7 {
+class Rva0029B2E7
+{
 public:
 	Rva0029B2E7 *rva0029B2E7();
-private:
-	unsigned char m_0;
-	char m_pad1[3];
-	float m_4;
-	float m_8;
-	float m_C;
-	float m_10;
-	float m_14;
-	float m_18;
-	float m_1C;
+	unsigned char m_0; // +0x00
+	char m_pad01[0x3];
+	float m_4; // +0x04
+	float m_8; // +0x08
+	float m_C; // +0x0C
+	float m_10; // +0x10
+	float m_14; // +0x14
+	float m_18; // +0x18
+	float m_1C; // +0x1C
 };
 Rva0029B2E7 *Rva0029B2E7::rva0029B2E7()
 {

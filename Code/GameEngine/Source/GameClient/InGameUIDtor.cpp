@@ -78,11 +78,12 @@ enum { MAX_PLAYER_COUNT = 20, MAX_MOVE_HINTS = 25, MAX_UI_MESSAGES = 6 };
 
 struct MoveHint
 {
-	Coord3D pos;							// +0x00
-	ObjectID sourceID;						// +0x0C
-	bool flag;								// +0x10
-
+public:
 	~MoveHint() {}
+	Coord3D pos; // +0x00
+	ObjectID sourceID; // +0x0C
+	bool flag; // +0x10
+	char m_pad11[0x3];
 };
 
 class DisplayString;

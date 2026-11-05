@@ -9,8 +9,7 @@ class Rva001EB130Holder
 {
 public:
 	void rva001EB130();
-private:
-	void *m_head;
+	void *head; // +0x00
 };
 
 class InGameUI
