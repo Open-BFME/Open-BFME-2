@@ -19,12 +19,51 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
+//
+// ?xfer@AutoHealBehavior@@MAEXPAVXfer@@@Z, retail 0x00452401, 95 bytes.
+// Slot 3 (offset 0x0C) of vtable 0x0083FCDC (class of rowed AutoHealBehavior
+// ctor 0x00452592). Version(1,2) via Xfer slot 0x28, then the UpdateModule
+// base xfer (rowed 0x0044DF9F), the UpgradeMux base at +0x20 (rowed
+// 0x004CE397), the uint at +0x2C via Xfer slot 0x78, the bool at +0x30 via
+// Xfer slot 0x90, and the version-gated uint at +0x34 via Xfer slot 0x78.
+// Retail diverges from the BFME1 donor, which xfers user/uint/bool. The
+// class is AutoHealBehavior.cpp's view. Recipe is the
+// FireWeaponWhenDamagedBehaviorXfer version-gated slot-3 pattern.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferVersion.h"
+class DamageInfo;
+class Xfer;
+class Object;
+class AutoHealBehaviorModuleData;
+#include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 
 class DamageInfo;
+
 class Xfer;
+
 class Object;
+
 class AutoHealBehaviorModuleData;
 
 enum BodyDamageType;
@@ -101,6 +140,41 @@ private:
     unsigned int m_radiusParticleSystemID;
 };
 
+class FXList
+{
+public:
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary = 0);
+};
+
+// The Object accessors pulseHealObject reaches; +0x254 is the body module.
+class Object
+{
+public:
+	bool rva0028C149(int attribute, float *value, int arg);
+	void attemptHealing(float amount, const Object *source);
+	bool attemptHealingFromSoleBenefactor(float amount, const Object *source, unsigned int extra);
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+private:
+	unsigned char m_pad00[0x254];
+	BodyModuleInterface *m_body; // +0x254
+};
+
+// Offsets from the rowed AutoHealBehaviorModuleData ctor and field parse table.
+class AutoHealBehaviorModuleData
+{
+public:
+	char m_pad00[0x11C];
+	int m_healingAmount; // +0x11C
+	unsigned int m_healingDelay; // +0x120
+	unsigned int m_startHealingDelay; // +0x124
+	int m_radius; // +0x128
+	char m_pad12C[0x150 - 0x12C];
+	const FXList *m_unitHealPulseFX; // +0x150
+	bool m_nonStackable; // +0x154
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPoolKey.cpp
 
 // ?rva00045235E@AutoHealBehavior@@SA?AW4NameKeyType@@XZ
@@ -110,8 +184,6 @@ NameKeyType AutoHealBehavior::rva00045235E()
 		TheNameKeyGenerator->nameToKey("AutoHealBehavior");
 	return TheAutoHealBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x004523A3 6B ?GetSnapshotName@AutoHealBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp
 
@@ -175,11 +247,44 @@ Rva004523F5::Rva004523F5()
 {
 }
 
-// tu-skeleton: 0x004523CC 29B ?rva004523CC@AutoHealBehavior@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorRva004523CC.cpp (not merged yet)
+// tu-skeleton: 0x004523A3 6B ?GetSnapshotName@AutoHealBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorRva004523CC.cpp
+
+//
+// ?rva004523CC@AutoHealBehavior@@QAEXXZ, retail 0x004523CC, 29 bytes.
+// Gap between 0x004523B6 (stopHealing) and 0x004523F5 (Rva ctor).
+// Clears m_stopped at +0x30, gives the UpgradeMux base at +0x20 its self
+// upgrade (rowed giveSelfUpgrade 0x45230C), then wakes the module now
+// through rowed setWakeFrame 0x44DF71. Caller at 0x451A2D finds
+// AutoHealBehavior by its cached pool key and calls this when non-null.
+// The class is AutoHealBehavior.cpp's view (rowed ctor 0x452592 layout).
+// Honest address name: method purpose unproven beyond activation, the
+// opposite of stopHealing.
+
+void AutoHealBehavior::rva004523CC()
+{
+    m_stopped = false;
+    giveSelfUpgrade();
+    setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
 
 // tu-skeleton: 0x004523E9 12B ?upgradeRemovalImplementation@Rva004523E9@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
 
-// tu-skeleton: 0x00452401 95B ?xfer@AutoHealBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoHealBehaviorXfer.cpp
+
+void AutoHealBehavior::xfer(Xfer *xfer)
+{
+    Xfer::Version version(1, 2);
+    *xfer == version;
+    UpdateModule::xfer(xfer);
+    UpgradeMux::upgradeMuxXfer(xfer);
+    *xfer == m_soonestHealFrame;
+    *xfer == m_stopped;
+    if (version.m_minimum >= 2) {
+        *xfer == m_radiusParticleSystemID;
+    }
+}
 
 // tu-skeleton: 0x00452460 39B ?getUpgradeActivationMasks@Rva00452460@@UBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
@@ -191,7 +296,44 @@ Rva004523F5::Rva004523F5()
 
 // tu-skeleton: 0x0045264F 28B ??_GRva0045232D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
-// tu-skeleton: 0x004526C6 207B ?pulseHealObject@AutoHealBehavior@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior_pulseHealObject.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior_pulseHealObject.cpp
+
+// ?pulseHealObject@AutoHealBehavior@@QAEXPAVObject@@_N@Z @0x004526C6 207B: Zero Hour's
+// pulseHealObject with BFME 2's FX flag. The nonStackable gate reads the body's
+// last healing timestamp (BodyModuleInterface slot 17), the heal amount takes the
+// attribute bonus 0x13, and the radius selects sole-benefactor healing.
+// Evidence: onDamage 0x0045266B reads the same +0x04/+0x08/+0x2C/+0x30 layout;
+// callees rowed rva0028C149, attemptHealing, attemptHealingFromSoleBenefactor and
+// doFXObj; TheGameLogic frame +0x40; module data 0x11C/0x120/0x128/0x150/0x154
+// from the AutoHealBehaviorModuleData ctor. The class is AutoHealBehavior.cpp's view.
+
+void AutoHealBehavior::pulseHealObject(Object *obj, bool playFX)
+{
+	if (m_stopped)
+		return;
+	const AutoHealBehaviorModuleData *data = getAutoHealBehaviorModuleData();
+	if (data->m_nonStackable)
+	{
+		BodyModuleInterface *body = obj->getBodyModule();
+		if (body)
+		{
+			unsigned int frame = TheGameLogic->getFrame();
+			if (body->getLastHealingTimestamp() + data->m_healingDelay > frame)
+				return;
+		}
+	}
+	float bonus;
+	int zero = 0;
+	getObject()->rva0028C149(0x13, &bonus, zero);
+	int amount = (int)((float)data->m_healingAmount + bonus);
+	if (data->m_radius == zero)
+		obj->attemptHealing((float)amount, getObject());
+	else
+		obj->attemptHealingFromSoleBenefactor((float)amount, getObject(), data->m_healingDelay);
+	if (playFX)
+		FXList::doFXObj(data->m_unitHealPulseFX, obj, (const Object *)zero);
+	m_soonestHealFrame = TheGameLogic->getFrame() + data->m_healingDelay;
+}
 
 // tu-skeleton: 0x00452795 80B ?Rva00452795CollectContained@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp (not merged yet)
 
