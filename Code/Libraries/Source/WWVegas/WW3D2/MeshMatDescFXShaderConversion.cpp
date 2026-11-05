@@ -122,11 +122,10 @@ public:
 // <new> already supplies the placement allocation operators.
 #define _OPERATOR_NEW_DEFINED_
 #include "always.h"
-#include "../WWLib/MultiListObjectClass.h"
-// The canonical list base replaces the reference multilist declarations.
-#define MULTILIST_H
-#include "MeshGeometryClass.h"
-class MeshModelClass : public MeshGeometryClass {};
+// The game Debug declaration above replaces the reference debug singleton.
+#define DEBUG_DEBUG_H
+// The model header needs the complete list template as well as its bases.
+#include "MeshModelClass.h"
 
 #include "FXShaderSetup.h"
 

@@ -45,15 +45,7 @@ extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
 // 0x00199FA5 is rowed as rva00199FA5 (Rva00199FA5Check.cpp); called by that name.
 class Rva00199FA5Rec;
 bool __cdecl rva00199FA5(Rva00199FA5Rec *p);
-class MeshModelClass : public MeshGeometryClass {
-public:
-    void Reset(int polycount, int vertcount, int passcount, bool skinned);
-private:
-    MeshMatDescClass *DefMatDesc;
-    MeshMatDescClass *AlternateMatDesc;
-    MeshMatDescClass *CurMatDesc;
-    MaterialInfoClass *MatInfo;
-};
+#include "MeshModelClass.h"
 
 typedef char MeshModelClass_base_size_check[(sizeof(MeshGeometryClass) == 0x8C) ? 1 : -1];
 void MeshModelClass::Reset(int polycount, int vertcount, int passcount, bool skinned)
