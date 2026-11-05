@@ -95,7 +95,9 @@ class Rva00385333;
 class GameSpyPSMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)virtual void trackPlayerStats(PSPlayerAllStats);V(9)V(10)V(11)virtual PSPlayerAllStats findPlayerStatsByID(int);virtual Rva00385333 getStats(int);};
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
 #include "../../../../../Include/GameClient/GameText.h"
-enum NameKeyType;class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};extern NameKeyGenerator *TheNameKeyGenerator;
+enum NameKeyType;
+#include "../../../../../Include/Common/NameKeyGenerator.h"
+extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 extern int GameSpyColor[];
@@ -106,7 +108,9 @@ struct GameSlotConnectInfo{unsigned ip;unsigned short port;GameSlotConnectInfo()
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 struct Rva004FDCE1AsciiField {AsciiString get()const;};
 struct SlotFields {char pad[0x1ac];int profile;};
-class GameSpyGameSlot:public GameSlot {public:char at1AC[0x1D0 - 0x1AC];int rva1d0,rva1d4;};class GameSpyStagingRoom:public GameInfo {public:GameSpyGameSlot *getGameSpySlot(int);void launchGame();};
+class GameSpyGameSlot:public GameSlot {public:char at1AC[0x1D0 - 0x1AC];int rva1d0,rva1d4;};
+#include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
+
 extern GameSpyStagingRoom *TheGameSpyGame;
 class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();};
 // Bind the existing NAT datum; retain this unit's access view at use sites.

@@ -89,7 +89,7 @@ int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int=-1,bool=tru
 enum SlotState {SLOT_OPEN,SLOT_CLOSED,SLOT_AI2,SLOT_AI3,SLOT_AI4,SLOT_AI5,SLOT_PLAYER};
 struct GameSlotConnectInfo{unsigned ip;unsigned short port;GameSlotConnectInfo():ip(0),port(0){}GameSlotConnectInfo(unsigned i,unsigned short p):port(p),ip(i){}};
 #include "../../../../../Include/GameNetwork/GameInfo.h"
-class GameSpyGameSlot:public GameSlot {public:char at44[0x18c];int rva1d0,rva1d4;};
+class GameSpyGameSlot:public GameSlot {public:char at1AC[0x1D0 - 0x1AC];int rva1d0,rva1d4;};
 #include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 extern GameSpyStagingRoom *TheGameSpyGame;
 // Bind the existing NAT datum; retain this unit's access view at use sites.
@@ -894,11 +894,7 @@ void _bfme_closeAptScreen(const AsciiString&);
 // Keep this view's member pointer representation stable in the TU's /vmg build.
 class __single_inheritance Rva005A6709 {public:int rva005A6709() const;};
 
-class Rva005A6D47
-{
-public:
-	virtual ~Rva005A6D47();
-};
+class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();};
 
 struct NAT;
 
@@ -1540,7 +1536,7 @@ AptOnline::OnlineQuickMatch::OnlineQuickMatch(AptOnline *owner)
 		TheMapCache->updateCache();
 		TheGameSpyGame->reset();
 		if (TheNAT) {
-			::delete (Rva005A6D47 *)TheNAT;
+			operator delete(((Rva005A6D47 *)TheNAT)->destroy(0));
 			TheNAT = 0;
 		}
 		if (TheGameSpyInfo)
