@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP=
 //
 // The target heuristic whose class keeps its address-derived name
 // AITargetHeuristicExpansionBase (ctor 0x005730FF, dtor 0x00573117, vftable 0x00C6E0B8: slot 0
@@ -185,9 +185,9 @@ public:
 };
 class PlayerList;
 extern PlayerList *ThePlayerList;
-extern "C" void *theLogicRandomLogFile;
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 extern int g_00E062F4;
-extern "C" int __cdecl fprintf(void *file, const char *format, ...);
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 
 // (the expansion

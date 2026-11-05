@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP=
 // W3DDisplay::gatherAnimationDebuggingInfo, retail 0x0004B31C..0x0004BEF2 (3030 bytes).
 // The WorldBuilder twin (W3DDisplay.cpp, assert line 2603) names it and gives
 // the statement order; everything else is read from retail: twenty-five
@@ -25,9 +25,8 @@ typedef float Real;
 
 // Retail calls the game format-and-append helper at 0x002CEC42.
 // Its target owns a vector of lines; it is not a CRT FILE stream.
-struct FprintfTarget;
-extern "C" void __cdecl fprintf(FprintfTarget *target, const char *format, ...);
-extern "C" void *theLogicRandomLogFile;
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 
 class GameFont;
 class Object;
@@ -424,10 +423,10 @@ selection:
 			} else {
 				Rva0004224C guard;
 				if (theLogicRandomLogFile)
-					fprintf((FprintfTarget *)theLogicRandomLogFile, "POTENTIAL DESYNC: Forced into EnterLogic State. (W3DDisplay::gatherAnimationDebuggingInfo)");
+					fprintf(theLogicRandomLogFile, "POTENTIAL DESYNC: Forced into EnterLogic State. (W3DDisplay::gatherAnimationDebuggingInfo)");
 				status = weapon->getStatus();
 				if (theLogicRandomLogFile)
-					fprintf((FprintfTarget *)theLogicRandomLogFile, "LeaveLogic() called.");
+					fprintf(theLogicRandomLogFile, "LeaveLogic() called.");
 			}
 			text.format(L"Weapon: %S(%S), NextShot:%d(%d%%), Status:%S", weaponTemplateNameText(weapon->m_template),
 				TheWeaponSlotTypeNames[slot], nextShot, percent, TheWeaponStatusNames[status]);

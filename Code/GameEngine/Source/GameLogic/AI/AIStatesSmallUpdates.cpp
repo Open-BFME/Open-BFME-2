@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP=
 //
 // AIDeadState::update, retail 0x0033FF05 (38 bytes): slot 6 of vtable
 // 0x00C11318, whose slot-2 name getter returns AIDeadState (slot 5 is the
@@ -61,13 +61,9 @@ class Snapshot;
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/AIGroup.h"
 class RadarObject;
-struct FprintfTarget
-{
-	char m_pad[4];
-};
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+#include <stdio.h>
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
+extern "C" FILE *theLogicRandomLogFile;
 template <int N> class AIDeadStateAISlots : public AIDeadStateAISlots<N - 1>
 {
 public:
@@ -213,7 +209,7 @@ StateReturnType AIFollowWaypointPathExactState::onEnter()
 
 	if (g_00E03745)
 	{
-		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+		FILE *log = theLogicRandomLogFile;
 		if (log)
 			fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 56");
 	}
