@@ -22,7 +22,6 @@
 	}
 #pragma inline_depth(0)
 #pragma inline_depth()
-
 // ?getModuleNameKey@CommandPointsUpgrade@@UBE?AW4NameKeyType@@XZ @0x4B85FA
 // (69B): cached pool-name key for CommandPointsUpgrade. The class
 // identity comes from the pool-name string the body pushes
@@ -37,20 +36,24 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/GameClient/Drawable.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-class CommandPointsUpgrade
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+class CommandPointsUpgradeModuleData;
+class CommandPointsUpgrade : public UpgradeModule
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void upgradeRemovalImplementation();
+	virtual void upgradeImplementation();
+	const CommandPointsUpgradeModuleData *getData() const
+	{
+		return (const CommandPointsUpgradeModuleData *)m_moduleData;
+	}
 };
-
 BFME_LITERAL_NAME_GETTER(Rva004B85F4Named, "CommandPointsUpgrade")
-
 //
 // Chained ModuleData::buildFieldParse procs: each calls its base-class
 // buildFieldParse, then registers its own FieldParse table with
@@ -93,66 +96,44 @@ BFME_LITERAL_NAME_GETTER(Rva004B85F4Named, "CommandPointsUpgrade")
 // friend_newModuleData factory pushes its class proc immediate.
 
 class MultiIniFieldParse;
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-
 #include "../../../../Include/Common/INI/FieldParse.h"
-
 #include "../../../../Include/Common/INI/INI.h"
-
 void Rva000B9468Parse(INI *, void *, void *, const void *);
-
 void Rva002567EAParse(INI *, void *, void *, const void *);
-
 void Rva002C8C06Parse(INI *, void *, void *, const void *);
-
 void Rva00464081ParseMask(INI *, void *, void *, const void *);
-
 void Rva00464574Parse(INI *, void *, void *, const void *);
-
 void iniParseObjectFilter(INI *, void *, void *, const void *);
-
 void rva004649A1(INI *, void *, void *, const void *);
-
 void rva004B5293(INI *, void *, void *, const void *);
-
 void Rva0049B51EParse(INI *, void *, void *, const void *);
-
-
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-
 class DockUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 #include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
-
 #include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
-
 #include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
-
 class SupplyWarehouseDockUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 #include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
-
 int Rva004CE29DGet(void);
-
 int Rva004CE52EGet(void);
-
 class CommandPointsUpgradeModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	unsigned char m_pad00[0x118];
+	int m_118; // +0x118
+	unsigned char m_11C[4]; // +0x11C
 };
-
 // Retail VA 0x00C590E8: 2 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies
 // every token, offset and callback. Global spelling is descriptive.
@@ -161,14 +142,86 @@ extern const FieldParse BfmeCommandPointsUpgradeFields[] = {
 	{ "RequiredObject", &iniParseObjectFilter, 0, 0x11C },
 	{ 0, 0, 0, 0 }
 };
-
 #include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
-
 int Rva0033A495Get(void);
-
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
-
 #include "../../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
+#include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
+//
+// CommandPointsUpgrade::upgradeImplementation, retail 0x004B86AE (44 bytes),
+// and upgradeRemovalImplementation, retail 0x004B86DA (54 bytes): slots 10
+// and 8 of the +0x10 UpgradeMux vtable 0x00C59060 (the recipe of
+// RemoveUpgradeUpgradeRemovalImplementation.cpp). Both work on the
+// controlling Player's +0x60 holder, keyed by the module data's +0x118 value
+// and our Object's ID: applying adds an entry carrying the data's +0x11C
+// block (0x002A77C1), removal, only when the upgrade is in effect (mux slot
+// 0), drops the entry (0x002A7611, which searches the holder's +0x20 vector
+// of 12-byte {value, ID, ...} records) and clears the executed flag (mux slot
+// 9). Neither touches the UpgradeModule condition state. The holder's two
+// members now use their existing verified definitions at these call sites.
+typedef bool Bool;
+class ModuleData;
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+// The Player+0x60 holder is Command (WorldBuilder Command.cpp).
+class Command
+{
+public:
+	void AddUpgradableCommandPointsToBonus(int value, ObjectID id, const void *block);
+	void RemoveUpgradableCommandPointsFromBonus(int value, ObjectID id);
+};
+#include "../../../../Include/Common/Player.h"
+// The holder occupies the canonical Player's opaque bytes at +0x60.
+static __forceinline Command *getPlayerCommandBonus(Player *player)
+{
+	return reinterpret_cast<Command *>(player->m_opaque60);
+}
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+	unsigned char m_pad00[0x74];
+	ObjectID m_id; // +0x74
+};
+class ObjectModuleBase
+{
+public:
+	virtual ~ObjectModuleBase();
+protected:
+	Object *getObject() const { return m_object; }
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+class UpgradeModuleInterface
+{
+public:
+	virtual void upgradeModuleInterfaceAnchor();
+};
+// UpgradeMux interface at +0x10: slot 0 isAlreadyUpgraded, slot 8
+// upgradeRemovalImplementation, slot 9 setUpgradeExecuted, slot 10
+// upgradeImplementation.
+class UpgradeMuxIface
+{
+public:
+	virtual Bool isAlreadyUpgraded() const = 0;
+	virtual void m01() = 0;
+	virtual void m02() = 0;
+	virtual void m03() = 0;
+	virtual void m04() = 0;
+	virtual void m05() = 0;
+	virtual void m06() = 0;
+	virtual void m07() = 0;
+protected:
+	virtual void upgradeRemovalImplementation() = 0;
+	virtual void setUpgradeExecuted(Bool executed) = 0;
+	virtual void upgradeImplementation() = 0;
+};
+
+// tu-skeleton: 0x004B85D4 32B ??1CommandPointsUpgrade@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/CommandPointsUpgrade.cpp
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
@@ -180,9 +233,6 @@ void Rva0033DC9CParse(INI *, void *, void *, const void *);
 // theory that the WeaponSetUpgrade pool key ending at this address was
 // packing coincidence. HealContain is a real, separate module (data factory
 // 0x24B80D, ctor 0x466D37).
-#include "../../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
-
-// tu-skeleton: 0x004B85D4 32B ??1CommandPointsUpgrade@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/CommandPointsUpgrade.cpp
 
@@ -233,6 +283,24 @@ void CommandPointsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x004B8692 28B ??_GCommandPointsUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004B86AE 44B ?upgradeImplementation@CommandPointsUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandPointsUpgradeMuxSlots.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandPointsUpgradeMuxSlots.cpp
 
-// tu-skeleton: 0x004B86DA 54B ?upgradeRemovalImplementation@CommandPointsUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandPointsUpgradeMuxSlots.cpp (not merged yet)
+void CommandPointsUpgrade::upgradeImplementation()
+{
+	Object *object = getObject();
+	Player *player = object->getControllingPlayer();
+	const CommandPointsUpgradeModuleData *data = getData();
+	getPlayerCommandBonus(player)->AddUpgradableCommandPointsToBonus(data->m_118, object->m_id, data->m_11C);
+}
+
+void CommandPointsUpgrade::upgradeRemovalImplementation()
+{
+	if (isAlreadyUpgraded())
+	{
+		Object *object = getObject();
+		Player *player = object->getControllingPlayer();
+		getPlayerCommandBonus(player)->RemoveUpgradableCommandPointsFromBonus(
+			getData()->m_118, object->m_id);
+		setUpgradeExecuted(false);
+	}
+}
