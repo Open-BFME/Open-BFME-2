@@ -11374,7 +11374,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0018C4A9,138,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C533 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp
 0x0018C533,27,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C54E provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 0x0018C54E,46,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C57C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
-0x0018C57C,127,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C5FB provisional,Code/GameEngine/Source/Common/Rva001732C6Dtor.cpp
+0x0018C57C,127,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C5FB provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 0x0018C5FB,5,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C600 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp
 0x0018C600,213,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C6D5 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 0x0018C6D5,48,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,C,C=0x0018C131..0x0018C705 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
@@ -65933,8 +65933,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00768802,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C3E6@FuncInfo0x0090D614 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp
 0x0076880A,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C3E6@FuncInfo0x0090D614 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp
 0x00768814,11,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C57C@FuncInfo0x0090D640 provisional,Code/gen_small/uw_gen_010.cpp
-0x0076881F,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C57C@FuncInfo0x0090D640 provisional,Code/GameEngine/Source/Common/Rva001732C6Dtor.cpp
-0x00768827,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C57C@FuncInfo0x0090D640 provisional,Code/GameEngine/Source/Common/Rva001732C6Dtor.cpp
+0x0076881F,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C57C@FuncInfo0x0090D640 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
+0x00768827,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C57C@FuncInfo0x0090D640 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 0x00768831,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C84E@FuncInfo0x0090D69C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 0x00768839,8,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C84E@FuncInfo0x0090D69C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 0x00768841,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C84E@FuncInfo0x0090D69C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
