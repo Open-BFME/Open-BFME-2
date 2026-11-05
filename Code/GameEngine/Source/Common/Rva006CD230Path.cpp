@@ -1,11 +1,10 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP=
 // ?Rva006CD230Path@@YAXPBURva006CD230Node@@PAPAD@Z, retail 0x006CD230 (112 bytes, cdecl). The owner is
 // unproven (address token): appends a node's path to the buffer cursor, parents first, each joined by
 // '/'; a root writes "_level" and its 17-bit signed level at +0x58. The cursor ends on the terminator.
 // The name at +0x08 is an EAStringC (rowed data-plus-eight accessor 0x00620090).
-extern "C" int __cdecl sprintf(char *buffer, const char *format, ...);
-extern "C" char *__cdecl strcpy(char *dest, const char *src);
-extern "C" unsigned int __cdecl strlen(const char *text);
+#include <stdio.h>
+#include <string.h>
 #pragma intrinsic(strcpy, strlen)
 
 #include "../../../Libraries/Source/Apt/EAStringC.h"
