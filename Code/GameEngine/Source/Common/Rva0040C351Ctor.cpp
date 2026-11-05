@@ -1,48 +1,14 @@
 // cl: /O1 /DNDEBUG /MD /G7 /arch:SSE /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
-// ??0ArmySummaryEntry@@QAE@XZ @0x0040C351 (77B).
-// Derived of rowed CarryoverUnit ctor 0x0037DF2C (same this, no offset) with own
-// vtable 0x00C3944C at +0x0 overwriting base vtable, member at +0xAC with base
-// vtable 0x00BC6F20 plus int 0 plus derived vtable 0x00C3945C via inline base
-// plus int init plus body derived store (preserves dead base store as mixed
-// init versus body paths), ints 0 at +0xB4 +0xB8 +0xBC +0xC0 plus bytes 0 at
-// +0xC4 +0xC5. Chain of 0x0037DF2C which this session landed. Callers at
-// 0x003F22B6 0x0040EFBB 0x0040F09B 0x0040F149 0x0040F24D 0x0040F721.
+// ArmySummaryEntry parser and upgrade methods. The canonical header supplies
+// the CarryoverUnit and secondary reference-base layout.
 
 #include "GameLogicObjectLookupView.h"
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-extern "C" const void *const __identifier("??_7Rva0007DF07@@6B@")[];  // folded vftable 0x00BC6F20 (7 classes), by its data-ledger name
+#include "../../Include/Common/ArmySummaryEntry.h"
 
-class Player;
-class Object;
-#include "../../Include/GameLogic/CarryoverUnit.h"
-struct MemberAC
-{
-	MemberAC() : m_vtable((void *)((unsigned int)__identifier("??_7Rva0007DF07@@6B@"))), m_thingTemplate(0) {}
-	void *m_vtable;
-	int m_thingTemplate;
-};
-class ArmySummaryEntry : public CarryoverUnit
-{
-public:
-	ArmySummaryEntry();
-	ArmySummaryEntry(const ArmySummaryEntry &o);
-	void Parse(class INI *ini);
-	void MarkForUpgrades(const class Rva004E0632 *armory);
-	void CancelUpgrades();
-	void ApplyWorldMapUpgrades();
-	Object *rva0040C495(class Player *player, int handle);
-private:
-	MemberAC m_ac;
-	int m_b4;
-	int m_b8;
-	int m_bc;
-	int m_c0;
-	unsigned char m_c4;
-	unsigned char m_default;
-};
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 extern "C" {
@@ -76,13 +42,6 @@ struct Rva0040C430Ret
 	virtual void f2();
 	virtual void slotC(void *p);
 };
-
-
-// ??0ArmySummaryEntry@@QAE@ABV0@@Z retail 0x0040D688 121B. Copy ctor of ArmySummaryEntry:
-// base copy 0x001EB79E then same dual-vtable member pattern as default ctor
-// (m_ac() gives base 0xBC6F20 plus 0 which body overwrites with 0xC3945C,
-// this gets 0xC3944C), ints/bytes copied from source. Callers in unclaimed
-// 0x0040E96D 0x0040EAED 0x0040F34E 0x004E0BDC 0x004F7B6B 0x0059B1EC.
 
 
 void ArmySummaryEntry::Parse(INI *ini)

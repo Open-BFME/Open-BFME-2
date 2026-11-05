@@ -22,3 +22,5 @@ findings in LivingWorldLogic (eight bindings, three divergent COMDAT names).
 The provider proof retains these bindings/payloads; no identity key is retired.
 All diagnostics are preserved in the retained-accessor packet shadow-findings.json.
 The15-source LINKS preview does not establish global identity cleanliness.
+
+2026-11-05: `Rva0040C351Ctor.cpp` adopts the unchanged canonical header after removing its unused constructor view and stale vtable declaration; six functions/two tables pass, the full object is identical except its timestamp, preview retains LINKS865, and owning acceptance retires one of the fifteen remaining header rows (fourteen remain). [Evidence](../../reverse/attempt_support/army-entry-method-header-20261105-codex3.json).

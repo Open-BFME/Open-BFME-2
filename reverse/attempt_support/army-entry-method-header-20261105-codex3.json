@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-05",
+  "base": "5dce6dbee8ae144f87ddd351d0e6bc3bfb1068a4",
+  "source": "Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp",
+  "header": "Code/GameEngine/Include/Common/ArmySummaryEntry.h",
+  "change": "Replace unused private constructor/member layout and stale explicit reference-base vtable declaration with the canonical header. This unit defines methods, not the constructors described in its stale comments. No shared header, function body, compiler flag, alias or pin changed.",
+  "prior_boundary": "automatic-refusals.json in army-entry-details-header-20261103 records C2373 from the old vtable declaration; removing that unused declaration removes the conflict.",
+  "object_proof": {
+    "size_before": 88693,
+    "size_after": 88693,
+    "before_sha256": "1089279199dcfcab3cb8954d5ad300cf0d006066fff75b6b256938356357eafd",
+    "after_sha256": "a1b3638f51b94941920f9d0bbd80cc80737a2125995f06c2f07661a0adb6979b",
+    "normalized_sha256": "ae638a4612828290afc2e4c909570498e7b59c34f0ba0891322c925a382e79ce",
+    "normalization": "Remove only COFF TimeDateStamp bytes 4..7; every other byte is identical, including all symbols, sections, relocations, directives, parser tables and auxiliary records.",
+    "differing_offsets": [
+      4,
+      5,
+      6
+    ]
+  },
+  "checks": [
+    "./build.sh Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp: six of six functions and two of two data rows pass",
+    "find_declared_unmatched.py: all defined functions are already matched",
+    "header_adopt_lane.py accept --class ArmySummaryEntry Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp: PASS, retires exactly one queue row",
+    "link_check.py Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp: LINKS; 865 -> 865 bytes; census 2026-11-05 05:17 at c95fcfcfcd",
+    "check_csv.py: PASS"
+  ],
+  "scope": "One consumer adopts the unchanged canonical header. Fourteen rows remain in the served fifteen-source cohort. This retires header debt; no new matched coverage, census gain or runtime closure is claimed."
+}
