@@ -30,9 +30,15 @@
 
 // Vector and string storage is released through the pinned _STL::free
 // (0x00030830); _strnicmp is the CRT import retail calls through its IAT slot.
+// The string CRT entry points are imports; the allocator below stays bound
+// to the game's _STL::free provider. Take the declarations from the CRT header.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#pragma pop_macro("_CRTIMP")
 namespace _STL { void __cdecl free(void *block); }
 #define free _STL::free
-#define _strnicmp bfme_crt_strnicmp_decl
 #include <vector>
 #include <string>
 #include "ascii_string.h"
@@ -96,9 +102,7 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
 { allocator<char>::deallocate(__p, __n); }
 }
-#undef _strnicmp
 #undef free
-extern "C" __declspec(dllimport) int __cdecl _strnicmp(const char *a, const char *b, unsigned int count);
 
 typedef bool Bool;
 typedef int Int;
