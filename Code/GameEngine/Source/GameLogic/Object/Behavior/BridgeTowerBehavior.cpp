@@ -287,7 +287,6 @@ BridgeTowerBehaviorInterface *BridgeTowerBehavior::getBridgeTowerBehaviorInterfa
 // every name is derived from its address.
 // No // cl: line (defaults match the shape).
 
-// tu-skeleton: 0x0045876C 69B ?rva00045876C@BridgeTowerBehavior@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x004587CD 62B ?xfer@BridgeTowerBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorXfer.cpp (not merged yet)
 

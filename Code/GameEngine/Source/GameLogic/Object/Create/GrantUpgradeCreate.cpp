@@ -172,7 +172,6 @@ void GrantUpgradeCreate::loadPostProcess( void )
 
 // tu-skeleton: 0x004B8F92 25B ??1Rva004B8F92@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004B8FAB 69B ?rva004B8FAB@GrantUpgradeCreate@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GrantUpgradeCreatePoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/CreateModuleDataBuildFieldParse.cpp
 
@@ -191,9 +190,7 @@ void GrantUpgradeCreateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x004B914B 48B ??1GrantUpgradeCreateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0078F21D 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GrantUpgradeCreatePoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0078F22A 10B __ehhandler$?rva004B8FAB@GrantUpgradeCreate@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GrantUpgradeCreatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078F234 8B uw_0078f234 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 

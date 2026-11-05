@@ -53,7 +53,6 @@ ProjectileStreamUpdate::ProjectileStreamUpdate(Thing *thing, const ModuleData *m
 
 // tu-skeleton: 0x0033EE7E 6B ?GetSnapshotName@ProjectileStreamUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
 
-// tu-skeleton: 0x0033EE84 69B ?rva0033EE84@ProjectileStreamUpdate@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0033EEC9 25B ??1Rva0033EEC9@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
@@ -254,6 +253,4 @@ void Rva0033EEC9::rva0033EF86(const struct Coord3D *pos)
 
 // tu-skeleton: 0x0033F090 143B ?getAllPoints@ProjectileStreamUpdate@@QAEXPAVVector3@@PAH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdateGetAllPoints.cpp (not merged yet)
 
-// tu-skeleton: 0x0077CB98 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdatePoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0077CBA5 10B __ehhandler$?rva0033EE84@ProjectileStreamUpdate@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdatePoolKey.cpp (not merged yet)
