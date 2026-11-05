@@ -2708,7 +2708,7 @@ def rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner_sourc
 
 
 def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
-                  to_class=None, prepared=None):
+                  to_class=None, prepared=None, access=None):
     """Plan respelling one RVA's function identifier everywhere it is named;
     with `virtual`, its decoration from non-virtual to virtual instead
     (plan_virtual: no new identifier, no basis, retail evidence); with
@@ -2721,11 +2721,14 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
                              max_files=max_files)
     if prepared and not virtual:
         raise Refusal("--prepared sources go with --to-class or --virtual only")
+    if access is not None and not virtual:
+        raise Refusal("--access goes with --virtual only")
     if virtual:
         if new or basis:
             raise Refusal("--virtual keeps the identifier and takes its evidence from retail: "
                           "pass neither a new name nor a basis")
-        return plan_virtual(ctx, rva, evidence=evidence, old=old, max_files=max_files, prepared=prepared)
+        return plan_virtual(ctx, rva, evidence=evidence, old=old, max_files=max_files, prepared=prepared,
+                            access=access)
     rows = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva]
     if not rows:
         raise Refusal(f"no functions.csv row at 0x{rva:08X}")
@@ -2908,6 +2911,10 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
 
 NONVIRTUAL_ACCESS = {"A": "E", "I": "M", "Q": "U"}   # private / protected / public near member
 VIRTUAL_ACCESS = frozenset("EFMNUV")
+# `function --virtual --access`: the virtual near member's access code, and the
+# access each non-virtual code already has (the declaration's label).
+VIRTUAL_CODE_OF = {"private": "E", "protected": "M", "public": "U"}
+ACCESS_OF_CODE = {"A": "private", "I": "protected", "Q": "public"}
 # A shared body: the row notes record an ICF fold or an alias.
 FOLD_NOTES = re.compile(r"fold-proof=|icf-owner=|dup-of=|\bICF\b", re.I)
 VIRTUAL_MEMBER = re.compile(r"\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)+)@")
@@ -2961,10 +2968,12 @@ def virtual_stream_operand(mangled, at):
     return {"_N": "bool", "_J": "__int64", "_K": "unsigned __int64"}[match.group(1)]
 
 
-def virtual_symbol(mangled):
+def virtual_symbol(mangled, access=None):
     """`mangled` with its access code respelled virtual (QAE -> UAE, IAE ->
     MAE, AAE -> EAE); identifier, scope, cv, convention, return type and
-    parameters are kept byte for byte."""
+    parameters are kept byte for byte. `access` ('public', 'protected' or
+    'private') picks the virtual member's access instead of keeping the
+    row's (QAE -> MAE for 'protected')."""
     at, _cls, _scopes, role = member_function_header(mangled)
     code = mangled[at]
     if code in VIRTUAL_ACCESS:
@@ -2972,9 +2981,12 @@ def virtual_symbol(mangled):
     if code not in NONVIRTUAL_ACCESS:
         raise Refusal(f"{mangled} is not a non-static member function (access code {code!r}): only a member "
                       "function can be virtual")
+    if access is not None and access not in VIRTUAL_CODE_OF:
+        raise Refusal(f"--access {access!r} is not one of {', '.join(sorted(VIRTUAL_CODE_OF))}")
     if role == "stream":
         virtual_stream_operand(mangled, at)
-    return mangled[:at] + NONVIRTUAL_ACCESS[code] + mangled[at + 1:]
+    virtual = NONVIRTUAL_ACCESS[code] if access is None else VIRTUAL_CODE_OF[access]
+    return mangled[:at] + virtual + mangled[at + 1:]
 
 
 def retail_vtables(ctx):
@@ -3228,12 +3240,60 @@ def virtual_declarations(code, cls, word=None, *, stream_operand=None):
     return out
 
 
-def respell_virtual_text(text, cls, word, pairs, *, stream_operand=None):
+def _member_declaration_end(code, begin, end):
+    """The offset just past the member declaration starting at `begin` in a
+    class body ending at `end` of stripped `code`: its `;`, or the close of
+    an inline body (and a `;` right after that)."""
+    def paren_close(at):
+        depth = 0
+        for index in range(at, end):
+            depth += {"(": 1, ")": -1}.get(code[index], 0)
+            if depth == 0:
+                return index
+        raise Refusal("a member declaration runs past its class body")
+    opened = code.find("(", begin, end)
+    if opened < 0:
+        raise Refusal("a member declaration without a parameter list cannot take an access label")
+    at = paren_close(opened) + 1
+    while at < end:
+        char = code[at]
+        if char == ";":
+            return at + 1
+        if char == "{":
+            at = name_metric.close(code, at) + 1
+            follow = at
+            while follow < end and code[follow].isspace():
+                follow += 1
+            return follow + 1 if follow < end and code[follow] == ";" else at
+        if char == "(":
+            at = paren_close(at) + 1
+            continue
+        at += 1
+    raise Refusal("a member declaration runs past its class body")
+
+
+def access_at(code, start, begin):
+    """The access in force at `begin` inside the class body that opens at
+    `start` in stripped `code`: the last label at the body's own depth, else
+    the class key's default (`class`: private, `struct`/`union`: public)."""
+    label = None
+    for match in ACCESS.finditer(code, start, begin):
+        if not _brace_depth(code, start, match.start()):
+            label = match.group(0).split(":")[0].strip()
+    if label:
+        return label
+    keys = list(re.finditer(r"\b(class|struct|union)\b", code[:code.rfind("{", 0, start)]))
+    return "private" if keys and keys[-1].group(1) == "class" else "public"
+
+
+def respell_virtual_text(text, cls, word, pairs, *, stream_operand=None, access=None):
     """(new text, declarations made virtual, mangled spellings respelled) for
     one file: `virtual` before each in-class declaration of `word` (`~cls`
     when None) in class `cls`, then every whole old mangled name of `pairs`
     respelled. A plain string literal spelling an old name is retail-locked
-    text: refused."""
+    text: refused. With `access`, a declaration under another access is
+    wrapped in that label, and the access it had is restored after it unless
+    nothing or another label follows it in the body."""
     for match in SEGMENT.finditer(text):
         seg = match.group(0)
         if seg.startswith(("//", "/*", "'")):
@@ -3246,10 +3306,21 @@ def respell_virtual_text(text, cls, word, pairs, *, stream_operand=None):
                 raise Refusal(f"{old} is spelled inside a string literal: {seg[:80]} (retail-locked text)")
     code = name_metric.strip(text)
     made = 0
+    bodies = class_bodies(code, cls) if access is not None else []
     for begin, already in sorted(virtual_declarations(code, cls, word, stream_operand=stream_operand),
                                  reverse=True):
-        if not already:
-            text = text[:begin] + "virtual " + text[begin:]
+        label = ""
+        if access is not None:
+            start, end = next((s, e) for s, e in bodies if s <= begin < e)
+            current = access_at(code, start, begin)
+            if current != access:
+                stop = _member_declaration_end(code, begin, end)
+                rest = code[stop:end].lstrip()
+                if rest and not ACCESS.match(rest):
+                    text = text[:stop] + f" {current}:" + text[stop:]
+                label = f"{access}: "
+        if not already or label:
+            text = text[:begin] + label + ("" if already else "virtual ") + text[begin:]
             made += 1
     respelled = 0
     for old, new in pairs:
@@ -3275,14 +3346,17 @@ def object_confirms(ctx, rel, symbols):
     return False
 
 
-def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None):
+def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None, access=None):
     """Plan respelling one row (and, for a destructor, its deleting
     destructors, or the reverse) from non-virtual to virtual on retail vtable
     evidence; see the section comment. `prepared` ({rel: bytes}) supplies the
     C++ of units whose view a `virtual` keyword alone cannot make virtual (a
     base held as a member at +0 must become a base class, or the vptr would
     shift every field); each is still respelled, compiled and byte-gated, and
-    must spell no old name afterwards. Raises Refusal; writes nothing."""
+    must spell no old name afterwards. `access` gives the virtual member
+    another access than the row's (QAE -> MAE for 'protected'): each
+    in-class declaration is put under that label. Raises Refusal; writes
+    nothing."""
     owners = [r for r in ctx.rows() if _rva(r.get("target_rva")) == rva
               and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) and "parent=" not in r.get("notes", "")]
     if old:
@@ -3295,7 +3369,7 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
                       "pass --old to choose one")
     first = owners[0]
     _at, cls, scopes, role = member_function_header(first["name"])
-    virtual_symbol(first["name"])
+    virtual_symbol(first["name"], access)
 
     # The group: the row, and for the destructor family every non-virtual
     # ??1 / ??_G / ??_E row of the same class, each on its own evidence.
@@ -3339,7 +3413,7 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
     records = current_records(ctx)
     for row in family:
         name, at = row["name"], _rva(row["target_rva"])
-        new_name = virtual_symbol(name)
+        new_name = virtual_symbol(name, access)
         if is_generated(row["source"]):
             raise Refusal(f"{name} lives in generated source {row['source']}; recover it as real C++ first")
         # The identifier is kept: a method is judged by its word as `function`
@@ -3373,11 +3447,13 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
         pairs.append((name, new_name))
         rvas.add(at)
 
-    plan = Plan("function", first["name"], virtual_symbol(first["name"]), "virtual",
+    plan = Plan("function", first["name"], virtual_symbol(first["name"], access), "virtual",
                 " ".join((evidence or "").split()), first["source"], rva, virtual=True)
     prepared_rels = set(prepared or {})
     _batch_source_edits(ctx, plan, prepared)
     plan.evidence = "; ".join(f"{old} -> {new}: {evidence_of[old]}" for old, new in pairs) + \
+        (f"; {access} access requested" if access is not None and
+         access != ACCESS_OF_CODE.get(first["name"][_at]) else "") + \
         (f"; {plan.evidence}" if plan.evidence else "")
 
     # Ledgers: rows, funclet rows and notes tokens, pins, audited owners.
@@ -3449,7 +3525,7 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
             raise Refusal(f"{rel} is listed but missing")
         text = data.decode("utf-8", errors="surrogateescape")
         new_text, made, respelled = respell_virtual_text(text, cls, word, pairs,
-                                                      stream_operand=stream_operand)
+                                                      stream_operand=stream_operand, access=access)
         if made and not rel.endswith(SOURCE_SUFFIXES):
             declaring_headers.add(rel)
         if rel in prepared_rels:
@@ -8631,6 +8707,9 @@ def main(argv=None):
                           help="respell the row non-virtual -> virtual (QAE->UAE, IAE->MAE, AAE->EAE), keeping "
                                "identifier, parameters and return type; refused unless a retail vtable slot of "
                                "the row's class (or of a class a view derives from it) holds the address")
+    function.add_argument("--access", choices=sorted(VIRTUAL_CODE_OF),
+                          help="with --virtual: the virtual member's access instead of the row's "
+                               "(protected: QAE->MAE); each in-class declaration is put under that label")
     function.add_argument("--to-class", metavar="CLASS",
                           help="move a placeholder-class member into CLASS as its virtual --new (identifier or "
                                "full mangled name); no --basis: refused unless a table CLASS's own constructor "
@@ -8759,6 +8838,8 @@ def main(argv=None):
         except OSError as error:
             parser.error(f"--prepared {item!r}: {error}")
     virtual = args.kind == "function" and args.virtual and not to_class
+    if args.kind == "function" and args.access and not virtual:
+        parser.error("--access goes with --virtual")
     if virtual and (args.new or args.basis):
         parser.error("function --virtual keeps the identifier and takes its evidence from retail: "
                      "pass neither --new nor --basis")
@@ -8781,6 +8862,8 @@ def main(argv=None):
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
                       prepared=prepared or None)
+        if args.access:
+            kwargs["access"] = args.access
     if to_class:
         kwargs = dict(to_class=args.to_class, new=args.new, prepared=prepared, evidence=args.evidence or "",
                       max_files=args.max_files)

@@ -424,7 +424,17 @@ exactly that change and nothing else:
     python3 tools/rename.py function --rva 0x00433025 --virtual [--evidence 'optional note']
 
 It takes no `--new` and no `--basis`: the evidence is retail's, and the tool
-reads it itself. It refuses unless all of these hold:
+reads it itself. The respell keeps the row's access (`Q` public, `I`
+protected, `A` private) unless `--access public|protected|private` names
+another: `--access protected` turns `QAE` into `MAE`, for a row that the
+callers' views and canonical headers declare a protected virtual (Zero Hour's
+module `xfer`/`crc`/`loadPostProcess`). Access is no retail fact, so the plan's
+evidence records it as requested. Each in-class declaration the respell makes
+virtual is put under that label (`protected: virtual void xfer(Xfer *xfer);`),
+and the access it had is restored after it unless nothing or another label
+follows it in the class body. A caller outside the class hierarchy that called
+the member directly no longer compiles (C2248); prepare it (`--prepared`) with a
+qualified call through a derived view. It refuses unless all of these hold:
 
 - a table that retail code installs (`mov dword ptr [reg], imm32` or
   `[reg+disp]`, the store `tools/vftable_map.py` reads, with the displacement

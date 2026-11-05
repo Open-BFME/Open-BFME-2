@@ -630,3 +630,126 @@ def test_a_unit_no_rewritten_header_reaches_is_still_refused(tree, monkeypatch):
     with pytest.raises(Refusal, match=r"Code/Game/Blind\.cpp's object references .*reconcile the view first"):
         plan(tree)
     assert snapshot(tree) == before
+
+
+# ------------------------------------------------------------ --access: another access than the row's
+#
+# BehaviorModule::xfer (0x004C9C7D) is rowed public non-virtual (QAE) while
+# the module views that call it as a protected virtual spell MAE: the plain
+# respell gives only UAE. `--access protected` gives MAE and puts each
+# in-class declaration under `protected:`, restoring the access it had.
+
+PROTECTED = "?countParts@Widget@@MAEHH@Z"
+
+
+@pytest.mark.parametrize("old,access,new", [
+    ("?f@C@@QAEXH@Z", "protected", "?f@C@@MAEXH@Z"),
+    ("?f@C@@QAEXH@Z", "private", "?f@C@@EAEXH@Z"),
+    ("?f@C@@QAEXH@Z", "public", "?f@C@@UAEXH@Z"),
+    ("?f@C@@IAEXH@Z", "public", "?f@C@@UAEXH@Z"),
+    ("?name@C@@QBEPBDXZ", "protected", "?name@C@@MBEPBDXZ"),
+    ("??1C@@QAE@XZ", "protected", "??1C@@MAE@XZ"),
+])
+def test_virtual_symbol_takes_the_requested_access(old, access, new):
+    assert rename.virtual_symbol(old, access) == new
+
+
+@pytest.mark.parametrize("mangled,access", [
+    ("?f@C@@QAEXH@Z", "friend"),
+    ("?f@C@@UAEXH@Z", "protected"),     # already virtual: an access change alone is no respell
+    ("?f@@YAXH@Z", "protected"),        # free function
+    ("?f@C@@SAXH@Z", "protected"),      # static member
+])
+def test_virtual_symbol_access_keeps_its_refusals(mangled, access):
+    with pytest.raises(Refusal):
+        rename.virtual_symbol(mangled, access)
+
+
+@pytest.mark.parametrize("body,expected", [
+    # a public declaration followed by more members: wrapped, public restored
+    ("class W {\npublic:\n    int f(int n);\n    int g;\n};\n",
+     "class W {\npublic:\n    protected: virtual int f(int n); public:\n    int g;\n};\n"),
+    # the last member: no restore label
+    ("class W {\npublic:\n    int g;\n    int f(int n);\n};\n",
+     "class W {\npublic:\n    int g;\n    protected: virtual int f(int n);\n};\n"),
+    # already protected: only `virtual`
+    ("class W {\nprotected:\n    int f(int n);\n    int g;\n};\n",
+     "class W {\nprotected:\n    virtual int f(int n);\n    int g;\n};\n"),
+    # class default access is private, struct's public
+    ("class W { int f(int n); int g; };\n", "class W { protected: virtual int f(int n); private: int g; };\n"),
+    ("struct W { int f(int n); int g; };\n", "struct W { protected: virtual int f(int n); public: int g; };\n"),
+    # an inline body is wrapped whole; a label that follows needs no restore
+    ("class W {\npublic:\n    int f(int n) { if (n) { return n; } return 0; }\nprivate:\n    int g;\n};\n",
+     "class W {\npublic:\n    protected: virtual int f(int n) { if (n) { return n; } return 0; }\nprivate:\n"
+     "    int g;\n};\n"),
+    # a nested class's label does not set the outer body's access
+    ("class W {\n    class N { public: int h; };\npublic:\n    int f(int n);\n    int g;\n};\n",
+     "class W {\n    class N { public: int h; };\npublic:\n    protected: virtual int f(int n); public:\n"
+     "    int g;\n};\n"),
+    # an already virtual declaration under another access still moves
+    ("class W {\npublic:\n    virtual int f(int n);\n    int g;\n};\n",
+     "class W {\npublic:\n    protected: virtual int f(int n); public:\n    int g;\n};\n"),
+])
+def test_access_wraps_each_declaration(body, expected):
+    text, made, _ = rename.respell_virtual_text(body, "W", "f", [], access="protected")
+    assert text == expected and made == 1
+
+
+def test_no_access_keeps_the_declaration_where_it_is():
+    body = "class W {\npublic:\n    int f(int n);\n    int g;\n};\n"
+    assert rename.respell_virtual_text(body, "W", "f", [])[0] == body.replace("int f", "virtual int f")
+    assert rename.respell_virtual_text(body, "W", "f", [], access="public")[0] == \
+        body.replace("int f", "virtual int f")
+
+
+def test_full_virtual_respell_with_protected_access(tree, monkeypatch):
+    retail(monkeypatch, {TABLE: ([0x00403040, 0x00401000], {CTOR_STORE: 0})})
+    p = plan(tree, access="protected")
+    assert p.new == PROTECTED and p.virtual
+    assert "protected access requested" in p.evidence
+    rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    widget = (tree / "Code/Game/Widget.cpp").read_text()
+    assert "    protected: virtual int countParts(int n); public:\n    void shared();" in widget
+    assert "int Widget::countParts(int n) { return n + 1; }" in widget     # a definition stays
+    assert f"// {PROTECTED} @ 0x00401000" in widget
+    gadget = (tree / "Code/Game/Gadget.cpp").read_bytes()
+    assert b"class Widget { public: protected: virtual int countParts(int n); public: virtual void spinUp(); };" \
+        in gadget
+    functions = (tree / "reverse/functions.csv").read_text()
+    assert f"{PROTECTED},,0x00401000,40," in functions and f"__ehhandler${PROTECTED}" in functions
+    assert OLD not in functions
+    assert f"{OLD},0x00401000,\"Renamed to {PROTECTED} by tools/rename.py" in \
+        (tree / "reverse/deleted_rows.csv").read_text()
+
+
+def test_access_keeps_the_evidence_refusals(tree, monkeypatch):
+    retail(monkeypatch, {})
+    before = snapshot(tree)
+    with pytest.raises(Refusal, match="no retail vtable slot"):
+        plan(tree, access="protected")
+    retail(monkeypatch, {TABLE: ([0x00405000], {CTOR_STORE: 0})})
+    with pytest.raises(Refusal, match="shared body"):
+        plan(tree, rva=0x00405000, access="protected")
+    assert snapshot(tree) == before
+
+
+def test_access_goes_with_virtual_only(tree, monkeypatch):
+    with pytest.raises(Refusal, match="--access goes with --virtual only"):
+        rename.plan_rename("function", ctx=ctx_of(tree), rva=0x00401000, new="countAll", basis="inferred",
+                           evidence="agree:x", access="protected")
+    with pytest.raises(SystemExit):
+        rename.main(["function", "--rva", "0x00401000", "--access", "protected", "--new", "countAll",
+                     "--basis", "inferred", "--evidence", "agree:x", "--root", str(tree), "--no-claim",
+                     "--dry-run"])
+    with pytest.raises(SystemExit):
+        rename.main(["function", "--rva", "0x00401000", "--virtual", "--access", "friend", "--root", str(tree),
+                     "--no-claim", "--dry-run"])
+
+
+def test_cli_dry_run_takes_the_access(tree, monkeypatch, capsys):
+    retail(monkeypatch, {TABLE: ([0x00401000], {CTOR_STORE: 0})})
+    before = snapshot(tree)
+    rename.main(["function", "--rva", "0x00401000", "--virtual", "--access", "protected", "--root", str(tree),
+                 "--no-claim", "--no-object-scan", "--dry-run"])
+    assert f"-> {PROTECTED}" in capsys.readouterr().out
+    assert snapshot(tree) == before
