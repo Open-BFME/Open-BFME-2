@@ -294,18 +294,8 @@ public:
 	virtual bool setUseEAX(bool use); // +0x184
 };
 
-class Display
-{
-public:
-	V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)
-	V(16)V(17)V(18)V(19)V(20)
-	virtual bool getWindowed(); // +0x54
-	V(22)
-	virtual int getDisplayModeCount(); // +0x5C
-	virtual void getDisplayModeDescription(int index, int *xres, int *yres, int *bitDepth); // +0x60
-	virtual void setGamma(float gamma, float bright, float contrast, bool calibrate); // +0x64
-};
 #undef V
+#include "../../../../../Include/GameClient/Display.h"
 
 #include "../../../../../Include/Common/GlobalData.h"
 

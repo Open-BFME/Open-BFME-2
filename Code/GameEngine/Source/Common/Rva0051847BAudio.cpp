@@ -26,18 +26,7 @@ public:
 	float getVolume(int index);
 	bool getUseEAX3();
 };
-class Display
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
-	virtual void s24();
-	virtual void v64(float a, float b, float c, int d);
-};
+#include "../../Include/GameClient/Display.h"
 #include "../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 extern Display *TheDisplay;
@@ -91,7 +80,7 @@ void Rva0051847B::rva0051847B(int unused)
 		return;
 	}
 	OptionPreferences prefs;
-	TheDisplay->v64(TheWritableGlobalData->field0BCC, 0.0f, 1.0f, 0);
+	TheDisplay->setGamma(TheWritableGlobalData->field0BCC, 0.0f, 1.0f, false);
 	for (int i = 0; i < 5; ++i)
 	{
 		int iv = (int)prefs.getVolume(i);
