@@ -41,6 +41,12 @@ Verification:
 - Search of the data/code-identity baselines finds no keys for these sources.
   No protected register debt is discarded; only the owning tool retires header debt.
 - `git diff --check` passes.
+- Outgoing `link_batch_audit.py --base origin/master --tip HEAD` with these
+  three sources exits 2 (inconclusive): index c95fcfcfcd predates the outgoing
+  base, and all three source objects lack current audit receipts. The ordinary
+  previews above therefore do not establish outgoing-batch link preservation;
+  carry these units into the next scheduled census. The commit hook separately
+  passed all three sources but could not record its commit receipt.
 
 The other CreateAHeroManager consumers retain their existing queue entries;
 nested class/container types and lifetime views remain separate work. No broad
