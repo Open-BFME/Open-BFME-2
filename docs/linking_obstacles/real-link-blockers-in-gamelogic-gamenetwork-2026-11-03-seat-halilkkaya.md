@@ -403,3 +403,67 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
      gains a +4 `this` adjustment. Then drop `MAE=QAE`.
   5. An opt-in `xfer` in `BehaviorModule.h`.
   6. The DamageModule::xfer twin at 0x004CE56D. Fold-proof: `Rva004CE56DXfer.cpp`.
+
+#### Seat halilkkaya-lk31 follow-up (2026-11-05): `xfer@DamageModule` resolved; the respell chain landed
+
+- **Repaired: `?xfer@DamageModule@@MAEXPAVXfer@@@Z` (BoneFXDamage.cpp, 2 of 3).** DamageModule.cpp
+  defines Zero Hour's `DamageModule::xfer` (Version1, then `BehaviorModule::xfer`). It is rowed as an
+  ICF twin at 0x004CE56D, fold-proof `Rva004CE56DXfer.cpp`; its COMDAT digest equals the
+  placeholder's. Canonical `BehaviorModule.h` declares `xfer` (protected virtual) only for units that
+  define `BFME_BEHAVIORMODULE_XFER`, following lk28's loadPostProcess opt-in. link_check:
+  DamageModule.cpp LINKS 6 -> 38 B. BoneFXDamage.cpp now lists only `crc@DamageModule` and its
+  `??0DamageModule` COMDAT note.
+- **The chain, one verified commit per step:**
+  1. 7e6d3ff7e32: `rename.py function --virtual --access public|protected|private` (tests, Verifier-Change).
+     The plain respell keeps the row's access (Q -> U). `--access protected` gives MAE and wraps each
+     in-class declaration as `protected: virtual ...`, restoring the previous access after it.
+  2. 60d20c27cf0: `?xfer@CastleMemberBehavior@@QAE` -> `MAE` (0x003957C6, retail 0x00C1A22C slot 3). The view
+     in CastleMemberBehaviorCtor.cpp was reshaped first:
+     - BehaviorModule's view gains a virtual destructor, so the vptr is real;
+     - the class is `__declspec(novtable)`, and the ctor keeps its hand stores in retail's order
+       through `*(const void **)this`.
+     Bytes are identical and no ??_7 is emitted.
+  3. fce76cc0204: UpdateModule::xfer (0x0044DF9F) and DynamicShroudClearingRangeUpdate::xfer (0x0048B505)
+     `QAE` -> `UAE`, one run_batch over 18 sources, 303/303 exact:
+     - the UAE twin pin and UpdateModule.cpp's `UAE=QAE` alternatename are gone;
+     - `MAE=UAE` stays for the 4 MAE consumers (AssistedTargetingUpdate, FireSpreadUpdate,
+       FloatUpdate, SlavedUpdate);
+     - prepared: MineshaftPortalBehaviour's DoXfer qualifies its base call. Rva0047F94C no longer
+       derives from its UpdateModule view (see below);
+     - PassiveAreaEffectBehavior, StancesBehavior and DynamicShroudClearingRangeUpdateView.h declare
+       retail's two Snapshot slots ahead of xfer as pure placeholders. Without them, the new base
+       virtual takes slot 1.
+  4. debd7c7bbdc: BehaviorModule::xfer (0x004C9C7D) `QAE` -> `MAE` over 13 sources, 36/36 exact. BehaviorModuleXfer.cpp's
+     `MAE=QAE` alternatename is gone, and its ObjectModule view has a vptr (virtual destructor).
+     Rva00493009 derives from its BehaviorModule view. Rva004CE56D is the view's friend: it calls
+     `((BehaviorModule *)this)->BehaviorModule::xfer`.
+  5. The DamageModule::xfer twin above (6b562c44a73).
+- **Vtables (every changed `??_7` diffed slot by slot against retail's installed table):**
+  - DynamicShroudClearingRangeUpdate (0x0084BEBC) and StancesBehavior (0x008424DC) each go from 0 to
+    2 retail-equal slots: xfer is now slot 3 and getModuleNameKey slot 4.
+  - Neutral, no slot equal before or after:
+    - InvisibilityUpdate: its view puts the Snapshot slots after a 10-slot placeholder run, and
+      slots 12-14 rotate into retail's relative order;
+    - Rva0037343B (MineshaftPortalBehaviour.cpp): its view has a placeholder at slot 0, and the
+      table gains slot 2 = UpdateModule::xfer.
+  - Every other table is unchanged.
+  - Fixing the two neutral tables needs those views put into retail's Snapshot order: dtor,
+    loadPostProcess, GetSnapshotName, xfer, getModuleNameKey.
+- **Left:**
+  - `crc@DamageModule`, unchanged from lk28's entry.
+  - The fold placeholders `?xfer@Rva0047F94C@@QAE` and `?xfer@Rva004CE56D@@QAE` stay non-virtual:
+    - Rva0047F94C is slot 3 of CivilianSpawnUpdate's 0x00C48418 and of BannerCarrierUpdate's
+      0x00C4F838;
+    - Rva004CE56D is slot 3 of DamageModule, DieModule and other module tables;
+    - `--virtual` refuses both for lack of class evidence, and `--to-class` refuses folds.
+    Naming the fold's owner (approved TU: CivilianSpawnUpdate.cpp, and DieModule.cpp) is the next
+    identity step.
+  - The 4 `MAE` UpdateModule::xfer consumers can move to the canonical `UAE` spelling, and then
+    `MAE=UAE` goes.
+- **Tool facts for the next seat:**
+  - rename.py's class scan does not see a body whose head is `class __declspec(novtable) X`. A
+    prepared source then declares the virtual itself.
+  - A prepared source must leave the declaration the respell rewrites non-virtual. If it is already
+    `virtual`, the tool sees nothing to rewrite and refuses the unit as "undeclared".
+  - run_batch `source_edits` take `.cpp` only. A view header with one includer was edited on disk
+    before the batch, so the transaction staged and verified it.
