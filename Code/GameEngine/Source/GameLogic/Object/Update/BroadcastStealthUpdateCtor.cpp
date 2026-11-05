@@ -59,11 +59,25 @@ struct BridgeBehaviorObjectIDNode
 	ObjectID m_value;
 };
 
-class BridgeBehaviorObjectIDList : public Rva0029FB3BMember
+// Keep the teardown bound to the rowed 29-byte cleanup owner. The older
+// Rva0029FB3BMember destructor spelling has a divergent COMDAT elsewhere.
+class PoolMember
+{
+public:
+	void Rva00268902() throw();
+};
+
+class BridgeBehaviorObjectIDList
 {
 public:
 	explicit BridgeBehaviorObjectIDList(const Rva0029FB3BAlloc &alloc = Rva0029FB3BAlloc())
-		: Rva0029FB3BMember(alloc) {}
+	{
+		reinterpret_cast<Rva0029FB3BMember *>(this)->init(const_cast<Rva0029FB3BAlloc *>(&alloc));
+	}
+	~BridgeBehaviorObjectIDList()
+	{
+		reinterpret_cast<PoolMember *>(this)->Rva00268902();
+	}
 	BridgeBehaviorObjectIDNode *node() const
 	{
 		return static_cast<BridgeBehaviorObjectIDNode *>(m_head);
@@ -75,6 +89,8 @@ public:
 			++count;
 		return count;
 	}
+private:
+	void *m_head;
 };
 
 struct BroadcastStealthUpdateModuleData

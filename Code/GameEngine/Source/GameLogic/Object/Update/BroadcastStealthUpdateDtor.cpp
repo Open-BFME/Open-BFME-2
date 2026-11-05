@@ -3,7 +3,7 @@
 // ??1BroadcastStealthUpdate@@UAE@XZ, retail 0x004A3555, 88 bytes (pinned;
 // rowed deleting wrapper 0x004A35AD). Stores four vtables (+0x00/+0x0C/
 // +0x10/+0x20), calls the helper 0x004A33EE on this, releases the ID-list
-// member at +0x28 through Rva0029FB3BMember's destructor 0x00268902,
+// member at +0x28 through the rowed PoolMember cleanup at 0x00268902,
 // then runs UpdateModule's dtor 0x0024A797. Retail's unwind map holds
 // the base (state 0) and the +0x28 member (state 1, through 0x00268AFF, a
 // jmp to 0x00268902), so the release is that member's inline destructor.
@@ -50,11 +50,25 @@ struct BridgeBehaviorObjectIDNode
 	ObjectID m_value;
 };
 
-class BridgeBehaviorObjectIDList : public Rva0029FB3BMember
+// Keep the teardown bound to the rowed 29-byte cleanup owner. The older
+// Rva0029FB3BMember destructor spelling has a divergent COMDAT elsewhere.
+class PoolMember
+{
+public:
+	void Rva00268902() throw();
+};
+
+class BridgeBehaviorObjectIDList
 {
 public:
 	explicit BridgeBehaviorObjectIDList(const Rva0029FB3BAlloc &alloc = Rva0029FB3BAlloc())
-		: Rva0029FB3BMember(alloc) {}
+	{
+		reinterpret_cast<Rva0029FB3BMember *>(this)->init(const_cast<Rva0029FB3BAlloc *>(&alloc));
+	}
+	~BridgeBehaviorObjectIDList()
+	{
+		reinterpret_cast<PoolMember *>(this)->Rva00268902();
+	}
 	BridgeBehaviorObjectIDNode *node() const
 	{
 		return static_cast<BridgeBehaviorObjectIDNode *>(m_head);
@@ -66,6 +80,8 @@ public:
 			++count;
 		return count;
 	}
+private:
+	void *m_head;
 };
 
 struct BroadcastStealthUpdateModuleData
