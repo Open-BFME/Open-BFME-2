@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /GX- /I.
+// stlport
 // Native268BD5..268CAC (215B), 26BCD2..26BE86 (436B), and
 // 26BEE6..26BFD9 (243B). Old360B force extent included already-owned
 // attackTeam117B26BFD9; the true RET12 boundary is checked independently.
@@ -128,7 +129,7 @@ static __declspec(noinline) Object *ModifyVictimForHorde(Object *target,Object *
  if((owner->thing->flags114 & 0x800000)||owner->testStatus(STATUS38))*horde=false;
  return target;
 }
-class Squad {public:Squad();virtual void *slot0(int);void rva004D6DF3(Object*,bool);char pad4[0x18];};
+#include "../../../../Include/Common/SquadClass.h"
 class AIStateMachine : public AttackSlots<5> {public:virtual void clear()=0;virtual void s6()=0;virtual void s7()=0;virtual void setState(int)=0;virtual void s9()=0;virtual void s10()=0;virtual void s11()=0;virtual void s12()=0;virtual void s13()=0;virtual void setGoalObject(Object*)=0;void setGoalSquad(const Squad*);};
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 void AIUpdateInterface::privateAttackObject(Object *target,int shots,volatile CommandSourceType command){
@@ -141,7 +142,7 @@ void AIUpdateInterface::privateAttackObject(Object *target,int shots,volatile Co
  if(obj->ai && obj->ai->word34)return;
  bool horde=false;target=ModifyVictimForHorde(target,obj,&horde);if(!target)return;
  m_stateMachine->clear();
- if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);m_stateMachine->setGoalSquad(squad);m_lastCommandSource=command;m_stateMachine->setState(23);::operator delete(squad?squad->slot0(0):0);}
+ if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);m_stateMachine->setGoalSquad(squad);m_lastCommandSource=command;m_stateMachine->setState(23);::delete squad;}
  else{m_stateMachine->setGoalObject(target);m_lastCommandSource=command;m_stateMachine->setState(10);}
  if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;if(((const Rva002C9400ByteField *)weapon->m_template)->get()&&(command==0||command==1))m_field1A4=target->id;}
  if(command==0||command==1)playAttackVoiceResponse(target);
@@ -151,7 +152,7 @@ void AIUpdateInterface::privateForceAttackObject(Object *target,int shots,Comman
  if(!target)return;
  if(((const Rva0028B7AELeaGetter*)m_object)->testBit8())return;
  m_stateMachine->clear();Object *obj=m_object;bool horde=false;target=ModifyVictimForHorde(target,obj,&horde);if(!target)return;
- if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);m_stateMachine->setGoalSquad(squad);m_lastCommandSource=command;m_stateMachine->setState(23);::operator delete(squad?squad->slot0(0):0);}
+ if(horde){Squad *squad=new Squad;squad->rva004D6DF3(target,true);m_stateMachine->setGoalSquad(squad);m_lastCommandSource=command;m_stateMachine->setState(23);::delete squad;}
  else{m_stateMachine->setGoalObject(target);m_lastCommandSource=command;m_stateMachine->setState(11);}
  Weapon *weapon=const_cast<Weapon*>(m_object->getCurrentWeapon(0));if(weapon){weapon->m_maxShotCount=shots;weapon->m_whenLastReloadStarted=0;}
  if(command==0||command==1)playAttackVoiceResponse(target);

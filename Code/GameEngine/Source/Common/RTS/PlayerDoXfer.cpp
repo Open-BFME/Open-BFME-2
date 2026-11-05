@@ -103,7 +103,7 @@ public: BuildListInfo(); virtual ~BuildListInfo();
  char pad04[0x28]; BuildListInfo *next; char pad30[0x50];
 };
 class PlayerBuildDestructorView {public: virtual void *destroy(unsigned);};
-class Squad { public: Squad() throw(); char bytes[0x1C]; };
+#include "../../../Include/Common/SquadClass.h"
 template<int N> class BitFlags { public: void xfer(Xfer*); unsigned bits[(N+31)/32]; };
 class Rva002AA14DBonuses {
 public: Rva002AA14DBonuses() throw(); float armor; int bombard,search,hold; float sight;
