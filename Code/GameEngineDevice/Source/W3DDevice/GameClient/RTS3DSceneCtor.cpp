@@ -89,17 +89,7 @@ public:
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 
-class MaterialPassClass : public RefCountClass
-{
-public:
-	MaterialPassClass();
-	// The material setter retail calls is the matpass-range body 0x0013EF10
-	// (after Set_Shader 0x0013EEF0); the ledger rows that address as
-	// MapObject::setRenderObj and gives Set_Material to 0x0030D3AD, so it is
-	// reached through an address-derived pin until those rows are reconciled.
-	void Set_Shader(ShaderClass shader);
-	char m_pad08[0x38 - 0x08];
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
 
 // MaterialPassClass's material setter is retail 0x0013EF10, the ICF-shared
 // ref-counted pointer setter rowed as MapObject::setRenderObj; the union calls

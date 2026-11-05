@@ -28,7 +28,7 @@
 // Render_Delayed_Procedural_Material_Passes at 0x144DF0.
 #include <stddef.h>
 
-class MaterialPassClass { public: int vptr; int references; void Add_Ref() { ++references; } };
+#include "MaterialPassClass.h"
 class MeshClass { public: int vptr; int references; void Add_Ref() { ++references; }
 	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the
 	// Add_Ref copy loses to the first-in-order copy. No flags touched.

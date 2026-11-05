@@ -1,0 +1,13 @@
+  FAIL Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp: FAIL ?rva00282794@Rva00282794@@QAEXI@Z (Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp)
+  FAIL Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp: Code\GameEngine\Source\Common\OpaqueScalarDeletingDtorsB08.cpp(136) : error C2664: 'MaterialPassClass::MaterialPassClass(const MaterialPassClass &)' : cannot convert parameter 1 from 'int' to 'const M
+  FAIL Code/GameEngine/Source/Common/Rva0073F96ACtor.cpp: FAIL ??0Rva0073F96A@@QAE@HM@Z (Code/GameEngine/Source/Common/Rva0073F96ACtor.cpp)
+  FAIL Code/GameEngine/Source/Common/W3DGlowOutlineMaterialPassClass.cpp: z:\work4\Open-BFME-2\Code\Libraries\Source\WWVegas\WW3D2\../WWLib\RefCountData.h(9) : error C2011: 'RefCountClass' : 'class' type redefinition
+  FAIL Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp: FAIL ?rva00362BD2@Rva0040AD80ReferenceState@@QAEXHM@Z (Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp)
+  PASS Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneCtor.cpp
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/DX8RigidDelayedMaterialPass.cpp: field renames: MaterialPassClass::vtable (+0x0, 4 bytes) has no canonical field of that offset and size
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/DX8RigidMaterialPassAppend.cpp: field renames: MaterialPassClass::vptr (+0x0, 4 bytes) has no canonical field of that offset and size
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp: field renames: MaterialPassClass::m_stages (+0x8) is MaterialPassStage[32]; the canonical MaterialPassClass::field08 is void*[32]
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassDestructor.cpp: field renames: MaterialPassClass::Stages (+0x8) is MaterialPassStage[32]; the canonical MaterialPassClass::field08 is void*[32]
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/MeshClassRender.cpp: field renames: MaterialPassClass::_bfme_unk_00 (+0x0, 48 bytes) has no canonical field of that offset and size
+  FAIL Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp: field renames: MaterialPassClass::Prefix (+0x4, 40 bytes) has no canonical field of that offset and size
+  PASS Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp

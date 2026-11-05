@@ -2,13 +2,7 @@
 
 #include <stddef.h>
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/matpass.h
-class MaterialPassClass
-{
-public:
-    int vtable;
-    int references;
-};
+#include "MaterialPassClass.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/mesh.h
 class MeshClass
@@ -59,7 +53,7 @@ public:
     MatPassTaskClass(MaterialPassClass *new_pass, MeshClass *new_mesh) :
         pass(new_pass), mesh(new_mesh), next(0)
     {
-        ++pass->references;
+        ++pass->NumRefs;
         ++mesh->references;
     }
 };

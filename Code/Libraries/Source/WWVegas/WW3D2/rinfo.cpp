@@ -87,9 +87,7 @@ class DummyPtrType;
 // external copies. The verified object contains no DLL-import calls for them.
 #include "../WWLib/RefCountData.h"
 
-class MaterialPassClass : public RefCountClass
-{
-};
+#include "MaterialPassClass.h"
 
 namespace FXShader {
 class RenderingMethod : public RefCountClass
