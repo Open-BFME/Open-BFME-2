@@ -31,11 +31,13 @@ int Rva00656B60Get();
 
 struct Rva00809500Entry
 {
-	char m_pad00[ 0x10 ];
-	const char *m_text;
-	int m_gdatBufferSize;
-	int m_pad18;
-	int m_length;
+public:
+	char m_body[4]; // +0x00
+	char m_pad04[0xC];
+	const char *m_text; // +0x10
+	int m_gdatBufferSize; // +0x14
+	char m_pad18[0x4];
+	int m_length; // +0x1C
 };
 
 struct Rva00809500Sink
