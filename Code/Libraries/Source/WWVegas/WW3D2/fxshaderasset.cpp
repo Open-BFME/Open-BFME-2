@@ -1,4 +1,5 @@
 // cl: /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// platformsdk
 // stlport
 //
 // ?Load@Impl@FXShaderAsset@@QAEXPBD@Z @ 0x00151915 (963 bytes): the effect
@@ -39,15 +40,15 @@ namespace _STL { template <> Rva0007BB16Record *__uninitialized_fill_n<Rva0007BB
 struct Rva0007BB16Record;
 namespace _STL { template <> Rva0007BB16Record *__uninitialized_copy<Rva0007BB16Record *, Rva0007BB16Record *>(Rva0007BB16Record *, Rva0007BB16Record *, Rva0007BB16Record *, const __false_type &); }
 
-extern "C" {
-char *__cdecl strcpy(char *d, const char *s);
-char *__cdecl _mbscat(char *d, const char *s);
-__declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
-}
+#include <string.h>
+#include <mbstring.h>
+#include <windows.h>
+// /D_CRTIMP= keeps the CRT calls direct, but retail calls _strcmpi through
+// its import: <string.h> is read with the name hidden (above) and the
+// dllimport declaration is written here.
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
 
-typedef long HRESULT;
 typedef const char *D3DXHANDLE;
-typedef int BOOL;
 
 struct IDirect3DDevice8;
 
@@ -268,8 +269,8 @@ void FXShaderAsset::Impl::Load(const char *filename)
 
 	char compiled[260];
 	strcpy(compiled, "Shaders/Compiled/");
-	_mbscat(compiled, filename);
-	_mbscat(compiled, "o");
+	_mbscat((unsigned char *)compiled, (const unsigned char *)filename);
+	_mbscat((unsigned char *)compiled, (const unsigned char *)"o");
 
 	HRESULT hr = -1;
 	if (TheFileSystem->doesFileExist(compiled) && !FXShaderAsset::s_isW3DView) {
@@ -283,7 +284,7 @@ void FXShaderAsset::Impl::Load(const char *filename)
 	} else {
 		char source[260];
 		strcpy(source, "Shaders/");
-		_mbscat(source, filename);
+		_mbscat((unsigned char *)source, (const unsigned char *)filename);
 		hr = D3DXCreateEffectFromFileA(DX8Wrapper::D3DDevice, source, macros, 0, 0, 0, &m_effect, &errors);
 	}
 
