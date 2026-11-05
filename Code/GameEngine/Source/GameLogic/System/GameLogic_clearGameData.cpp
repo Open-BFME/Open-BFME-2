@@ -102,11 +102,12 @@ void GameLogic::clearGameData(bool showScoreScreen, bool arg2)
     TheGameEngine->slot9();
     m_110=9;
     GlobalData *data=TheWritableGlobalData;
-    // Retail calls StringBase<char>::isEmpty (0x00001E2F) out of line here.
+    // Retail calls StringBase<char>::isEmpty (0x00001E2F) out of line here, and
+    // StringBase<char>::clear expands to the releaseBuffer call (0x00036410).
     if (!((const StringBase<char> *)&data->m_initialFile)->isEmpty()) {
         if (data->field0AC4) {
-            data->m_initialFile.clear();
-            TheWritableGlobalData->field0AB8.clear();
+            ((StringBase<char> *)&data->m_initialFile)->clear();
+            ((StringBase<char> *)&TheWritableGlobalData->field0AB8)->clear();
         } else TheGameEngine->slot20(true);
     }
     GameMessage *msg=TheMessageStream->appendMessage(0x3EC);
