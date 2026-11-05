@@ -39,11 +39,20 @@ jobs:
         with:
           repository: Open-BFME/Open-BFME-2
           ref: master
-          fetch-depth: 0
-          # Keep commit ancestry for validation without all historical file blobs.
-          filter: blob:none
+          # Match real-link.yml's default depth for root and submodule.
+          fetch-depth: 1
           submodules: 'true'
           persist-credentials: false
+      - name: Fetch root history for ref validation
+        shell: python
+        run: |
+          import subprocess
+          # Bootstrap (including the pinned BFME 1 submodule) stays depth 1.
+          # Expand only root ancestry; never fetch submodule history or tags.
+          subprocess.run(['git', '-c', 'submodule.recurse=false', 'fetch',
+                          '--unshallow', '--filter=blob:none', '--no-tags',
+                          '--no-recurse-submodules', 'origin',
+                          '+refs/heads/*:refs/remotes/origin/*'], check=True)
       - name: Resolve repository ref
         id: source
         env:
@@ -77,6 +86,7 @@ jobs:
           repository: Open-BFME/Open-BFME-2
           ref: ${{ steps.source.outputs.sha }}
           # Non-recursive, exactly as real-link.yml.
+          fetch-depth: 1
           submodules: 'true'
           persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
