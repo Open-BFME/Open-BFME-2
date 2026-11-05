@@ -34,24 +34,25 @@ struct AsciiComparator
 	bool operator()(AsciiString s1, AsciiString s2) const;
 };
 
-class PlayerInfo
+#include "../../Include/GameNetwork/PlayerInfo.h"
+
+PlayerInfo::PlayerInfo(const PlayerInfo &other)
+	: m_at00(other.m_at00),
+	  m_at04(other.m_at04),
+	  m_at08(other.m_at08),
+	  m_at0c(other.m_at0c),
+	  m_at10(other.m_at10),
+	  m_at14(other.m_at14),
+	  m_at18(other.m_at18),
+	  m_at1c(other.m_at1c),
+	  m_at20(other.m_at20),
+	  m_at24(other.m_at24),
+	  m_at28(other.m_at28),
+	  m_at2c(other.m_at2c),
+	  m_at30(other.m_at30)
 {
-public:
-	~PlayerInfo();
-	AsciiString m_00;
-	AsciiString m_name;									// +0x04
-	AsciiString m_08;
-	int m_0C;
-	int m_10;
-	int m_profileID;									// +0x14
-	unsigned int m_flags;								// +0x18
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	int m_30;
-};
+}
+
 
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 
