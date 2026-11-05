@@ -50,7 +50,7 @@ class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); }
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
 // AptArray vtableCEA778 and slots+20/+24/+28. Unaccessed state stays opaque.
-class AptArray : public AptValue { char m_arrayState[32]; public: int mnCount; AptValue *GetAt(int) const; AptArray(); virtual bool vslot12() const; virtual void vslot13() const; static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *block,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(block,n); } AptValue *get(int); void set(int,AptValue *); };
+class AptArray : public AptValue { char m_arrayState[32]; public: int mnCount; AptValue *GetAt(int) const; AptArray(); virtual bool IsGarbageCollected() const; virtual void RegisterReferences() const; static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *block,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(block,n); } AptValue *get(int); void set(int,AptValue *); };
 // PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
 // Member handlers establish the getter/setter ABI; later source names their role.
 AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char *)=0;
@@ -1823,8 +1823,8 @@ class AptPrototype : public AptValue {
     AptValue *mp__constructor__;
 public:
     AptPrototype();
-    virtual bool vslot12() const;
-    virtual void vslot13() const;
+    virtual bool IsGarbageCollected() const;
+    virtual void RegisterReferences() const;
     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static void operator delete(void *,unsigned int);
     __forceinline AptValue *GetSuperConstructor() const { return mp__constructor__; }

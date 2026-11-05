@@ -102,25 +102,25 @@ void Rva006E34D0::rva006E47C0()
     if (m_pValue6C != 0) {
         if (!((const Rva006DBB40ShrAndField *)m_pValue6C)->get()) {
             m_pValue6C->setGCMark(true);
-            m_pValue6C->vslot13();
+            m_pValue6C->RegisterReferences();
         }
     }
     if (m_pValue9C != 0) {
         if (!((const Rva006DBB40ShrAndField *)m_pValue9C)->get()) {
             m_pValue9C->setGCMark(true);
-            m_pValue9C->vslot13();
+            m_pValue9C->RegisterReferences();
         }
     }
     for (int i = 0; i < m_nCount0; ++i) {
         if (!((const Rva006DBB40ShrAndField *)m_pArray0[i])->get()) {
             m_pArray0[i]->setGCMark(true);
-            m_pArray0[i]->vslot13();
+            m_pArray0[i]->RegisterReferences();
         }
     }
     for (int i = 0; i < m_nCount10; ++i) {
         if (!((const Rva006DBB40ShrAndField *)m_pArray14[i].m_pValue)->get()) {
             m_pArray14[i].m_pValue->setGCMark(true);
-            m_pArray14[i].m_pValue->vslot13();
+            m_pArray14[i].m_pValue->RegisterReferences();
         }
     }
     {
@@ -129,7 +129,7 @@ void Rva006E34D0::rva006E47C0()
             if (m_pArrayC[i] != 0) {
                 if (!((const Rva006DBB40ShrAndField *)m_pArrayC[i])->get()) {
                     m_pArrayC[i]->setGCMark(true);
-                    m_pArrayC[i]->vslot13();
+                    m_pArrayC[i]->RegisterReferences();
                 }
             }
         }
@@ -140,7 +140,7 @@ void Rva006E34D0::rva006E47C0()
             if (m_pArray1C[i] != 0) {
                 if (!((const Rva006DBB40ShrAndField *)m_pArray1C[i])->get()) {
                     m_pArray1C[i]->setGCMark(true);
-                    m_pArray1C[i]->vslot13();
+                    m_pArray1C[i]->RegisterReferences();
                 }
             }
         }
@@ -151,7 +151,7 @@ void Rva006E34D0::rva006E47C0()
             if (m_pArray24[i] != 0) {
                 if (!((const Rva006DBB40ShrAndField *)m_pArray24[i])->get()) {
                     m_pArray24[i]->setGCMark(true);
-                    m_pArray24[i]->vslot13();
+                    m_pArray24[i]->RegisterReferences();
                 }
             }
         }
@@ -162,7 +162,7 @@ void Rva006E34D0::rva006E47C0()
             if (m_pArray2C[i] != 0) {
                 if (!((const Rva006DBB40ShrAndField *)m_pArray2C[i])->get()) {
                     m_pArray2C[i]->setGCMark(true);
-                    m_pArray2C[i]->vslot13();
+                    m_pArray2C[i]->RegisterReferences();
                 }
             }
         }
@@ -176,7 +176,7 @@ void Rva006E34D0::rva006E47C0()
             continue;
         if (!((const Rva006DBB40ShrAndField *)m_pArray34[i].m_pValue)->get()) {
             m_pArray34[i].m_pValue->setGCMark(true);
-            m_pArray34[i].m_pValue->vslot13();
+            m_pArray34[i].m_pValue->RegisterReferences();
         }
         {
             int nInner = m_pArray34[i].m_stack.m_nElements;
@@ -184,7 +184,7 @@ void Rva006E34D0::rva006E47C0()
                 AptValue *aptValue = m_pArray34[i].m_stack.At(j);
                 if (!((const Rva006DBB40ShrAndField *)aptValue)->get()) {
                     aptValue->setGCMark(true);
-                    aptValue->vslot13();
+                    aptValue->RegisterReferences();
                 }
             }
         }

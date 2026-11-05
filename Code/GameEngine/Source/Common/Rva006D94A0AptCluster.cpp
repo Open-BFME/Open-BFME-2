@@ -301,7 +301,7 @@ void BfmeAptValue006DCD20::rva006D94A0()
 		if (rva006D8A50(i) && !((const Rva006DBB40ShrAndField *)rva006D8A50(i))->get())
 		{
 			((AptValue *)rva006D8A50(i))->setGCMark(true);
-			((AptValue *)rva006D8A50(i))->vslot13();
+			((AptValue *)rva006D8A50(i))->RegisterReferences();
 		}
 	}
 }

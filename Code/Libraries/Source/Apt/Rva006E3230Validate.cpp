@@ -136,16 +136,16 @@ void AptActionQueueC::rva006E39A0()
             if (m_actionType == 1) {
                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[2])->get()) {
                     action->m_pValues[2]->setGCMark(true);
-                    action->m_pValues[2]->vslot13();
+                    action->m_pValues[2]->RegisterReferences();
                 }
             } else if (m_actionType == 2) {
                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[0])->get()) {
                     action->m_pValues[0]->setGCMark(true);
-                    action->m_pValues[0]->vslot13();
+                    action->m_pValues[0]->RegisterReferences();
                 }
                 if (!((const Rva006DBB40ShrAndField *)action->m_pValues[1])->get()) {
                     action->m_pValues[1]->setGCMark(true);
-                    action->m_pValues[1]->vslot13();
+                    action->m_pValues[1]->RegisterReferences();
                 }
             } else {
                 g_bfmeAptAssertAtE17734("NOT_REACHED && \"Encountered invalid pActionPool->eActionType\"", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x7AA);

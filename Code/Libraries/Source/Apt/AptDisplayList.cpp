@@ -174,7 +174,7 @@ void AptDisplayListState::DisplayListItem(void *arg)
 	do {
 		if (!((const Rva006DBB40ShrAndField *)node)->get()) {
 			((AptValue *)node)->setGCMark(true);
-			((AptValue *)node)->vslot13();
+			((AptValue *)node)->RegisterReferences();
 		}
 		node = node->m_next;
 	} while (node != 0);

@@ -69,7 +69,7 @@ void __cdecl Rva006E6E20Collect()
             if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
                 if (!((const Rva006DBB40ShrAndField *)pValue)->get()) {
                     pValue->setGCMark(true);
-                    pValue->vslot13();
+                    pValue->RegisterReferences();
                 }
             }
         }

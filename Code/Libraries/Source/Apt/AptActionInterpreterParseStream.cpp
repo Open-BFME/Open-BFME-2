@@ -50,8 +50,8 @@ class Rva006FB9C0 : public AptValue
 {
 public:
 	Rva006FB9C0(int value);
-	virtual bool vslot12() const;
-	virtual void vslot13() const;
+	virtual bool IsGarbageCollected() const;
+	virtual void RegisterReferences() const;
 	static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
 	static void operator delete(void *p, unsigned int n) { Rva006D8680Free(p, n); }
 private:
@@ -62,8 +62,8 @@ class Rva006FB960 : public AptValue
 {
 public:
 	Rva006FB960(int value);
-	virtual bool vslot12() const;
-	virtual void vslot13() const;
+	virtual bool IsGarbageCollected() const;
+	virtual void RegisterReferences() const;
 	static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
 	static void operator delete(void *p, unsigned int n) { Rva006D8680Free(p, n); }
 private:

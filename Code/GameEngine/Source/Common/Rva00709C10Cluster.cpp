@@ -87,7 +87,7 @@ void Rva00709B80::rva00709D80()
 		if (!((const Rva006DBB40ShrAndField *)m_28)->get())
 		{
 			((AptValue *)m_28)->setGCMark(true);
-			((AptValue *)m_28)->vslot13();
+			((AptValue *)m_28)->RegisterReferences();
 		}
 	}
 
@@ -96,7 +96,7 @@ void Rva00709B80::rva00709D80()
 		if (!((const Rva006DBB40ShrAndField *)m_20)->get())
 		{
 			((AptValue *)m_20)->setGCMark(true);
-			((AptValue *)m_20)->vslot13();
+			((AptValue *)m_20)->RegisterReferences();
 		}
 	}
 
@@ -105,7 +105,7 @@ void Rva00709B80::rva00709D80()
 		if (!((const Rva006DBB40ShrAndField *)m_24)->get())
 		{
 			((AptValue *)m_24)->setGCMark(true);
-			((AptValue *)m_24)->vslot13();
+			((AptValue *)m_24)->RegisterReferences();
 		}
 	}
 }

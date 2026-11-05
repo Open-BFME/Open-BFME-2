@@ -13,8 +13,8 @@ public:
 
     virtual void ForceDelete();
     virtual void DeleteThis();
-    virtual bool vslot12() const;
-    virtual void vslot13() const;
+    virtual bool IsGarbageCollected() const;
+    virtual void RegisterReferences() const;
 
     static AptValue *Create(int);
     static void ClearPool();

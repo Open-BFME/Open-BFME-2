@@ -24,8 +24,8 @@ public:
     virtual bool objectMemberSet(AptValue *const, const EAStringC *const, AptValue *const);
     virtual void PreDestroy();
     virtual void DestroyGCPointers();
-    virtual bool vslot12() const;
-    virtual void vslot13() const;
+    virtual bool IsGarbageCollected() const;
+    virtual void RegisterReferences() const;
 
     void SetEventHandler(int);
     void RemoveEventHandler(int);
