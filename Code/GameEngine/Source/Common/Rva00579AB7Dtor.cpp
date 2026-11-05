@@ -20,50 +20,38 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 #include "../../Include/Common/DelegateDesc.h"
 
-class AptCommandMap
-{
-public:
-	void *m_vtbl;
-	int m_refCount;
-};
-
-// 0x00579E47 is rowed as the delegate-wrapper constructor ??0Rva00579E47@@QAE@ABUDelegateDesc@@@Z
-// (built in place as the by-value AddCommandMap argument); AptRef<T> builds through it.
+// The bound callbacks are handed over as a by-value delegate the callee
+// destroys, built in place from an {object, method} pair by the rowed
+// constructor 0x00579E47 (the user-declared copy constructor is what makes
+// cl build it in the argument slot rather than copy it there).
 class Rva00579E47
 {
 public:
-	Rva00579E47(const DelegateDesc &desc); // 0x00579E47
-protected:
-	Rva00579E47() {}
-};
-
-template <class T> class AptRef : public Rva00579E47
-{
-public:
-	AptRef(const DelegateDesc *desc) : Rva00579E47(*desc) {}
-	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
-	{
-		if (m_ptr)
-			m_ptr->m_refCount++;
-	}
-	~AptRef()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
-	}
+	Rva00579E47(const DelegateDesc &desc);
+	Rva00579E47(const Rva00579E47 &other);
+	~Rva00579E47();
 
 private:
-	T *m_ptr;
+	void *m_ptr;
+};
+
+// The delegate as 0x0052458E takes it: an inline constructor taking the pair
+// by value around the out-of-line 0x00579E47 (StrategicHUD.cpp's HUD::Impl
+// binds its callbacks the same way).
+class AptCommandMap;
+
+template <class T> class AptRef;
+
+template <> class AptRef<AptCommandMap> : public Rva00579E47
+{
+public:
+	AptRef(DelegateDesc desc) : Rva00579E47(desc) {}
+	~AptRef();	// AptCallbackAdders.cpp's AptRef<T>::~AptRef
 };
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
 // AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
 #include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
-
-static __forceinline void AddCommandMapDelegate(AptCommandMapAdder &adder, const AsciiString &name, DelegateDesc desc)
-{
-	adder.AddCommandMap(name, &desc);
-}
 
 // "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
 #include "../../Include/Common/Rva000B3F84Pair.h"
@@ -118,26 +106,6 @@ private:
 	int m_1C; // +0x1C
 };
 
-extern "C" const void *const __identifier("??_7Rva005EEF2FBase0@@6B@")[];
-
-class Rva00579AB7Base
-{
-public:
-	virtual ~Rva00579AB7Base();
-};
-
-inline Rva00579AB7Base::~Rva00579AB7Base()
-{
-	*(const void **)this = __identifier("??_7Rva005EEF2FBase0@@6B@");
-}
-
-struct Rva00579AB7Holder1C
-{
-	Rva00579AB7Holder1C() : m_ptr(0) {}
-	TargetRef00217D4C *m_ptr;
-	__forceinline ~Rva00579AB7Holder1C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
-};
-
 class Rva002BED91
 {
 public:
@@ -158,18 +126,46 @@ public:
 	void rva005CB260();
 };
 
-namespace StrategicHUD {
-class StatsDisplayImpl;
-}
+// StrategicHUD::StatsDisplayImpl, the stats display: constructor 0x00579E82,
+// destructor 0x00579AB7 (deleting 0x0042D507), vtable 0x00C6ED64 whose slots
+// 1/3/5/7 are the rowed setters below; the HUD's slot setter is 0x0042D7E0.
+// OnStatRollOver keeps the hovered stat at +0x20 and its stat-table entry
+// (0x00579770) in the +0x1C holder, pushed to the +0x18 tooltip target.
+extern "C" const void *const __identifier("??_7Rva005EEF2FBase0@@6B@")[];
 
-class StrategicHUD::StatsDisplayImpl : public Rva00579AB7Base
+class Rva00579AB7Base
 {
 public:
-	StatsDisplayImpl(int level, const AsciiString &name);
-	virtual ~StatsDisplayImpl();
+	virtual ~Rva00579AB7Base();
+};
+
+inline Rva00579AB7Base::~Rva00579AB7Base()
+{
+	*(const void **)this = __identifier("??_7Rva005EEF2FBase0@@6B@");
+}
+
+struct Rva00579AB7Holder1C
+{
+	Rva00579AB7Holder1C() : m_ptr(0) {}
+	TargetRef00217D4C *m_ptr;
+	__forceinline ~Rva00579AB7Holder1C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+};
+
+namespace StrategicHUD
+{
+class StatsDisplayImpl : public Rva00579AB7Base
+{
+public:
+	StatsDisplayImpl(int level, const AsciiString &name); // 0x00579E82
+	virtual ~StatsDisplayImpl(); // 0x00579AB7
 	void OnStatRollOver(const char *path); // 0x00579B81
 	void OnStatRollOut(const char *path); // 0x00579C00
 	void SetRowText(int row, const UnicodeString &text); // 0x00579B17
+	virtual void rva00579CD4(int used, int max); // slot 1
+	virtual void rva00579D3D(int index, int value); // slot 3
+	virtual void rva00579D96(float value); // slot 5
+	virtual void rva00579DF8(int value); // slot 7
+
 private:
 	int m_04;
 	AsciiString m_08;
@@ -183,6 +179,7 @@ private:
 	float m_resourceMultiplier; // +0x38
 	int m_powerPoints; // +0x3C
 };
+}
 
 namespace StrategicHUD
 {
@@ -207,8 +204,8 @@ StrategicHUD::StatsDisplayImpl::StatsDisplayImpl(int level, const AsciiString &n
 
 	AsciiString prefix;
 	prefix.format("_level%u.", m_04);
-	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnStatRollOver", DelegateDesc(this, &StatsDisplayImpl::OnStatRollOver));
-	AddCommandMapDelegate(m_0C, prefix + m_08 + "_OnStatRollOut", DelegateDesc(this, &StatsDisplayImpl::OnStatRollOut));
+	m_0C.AddCommandMap(prefix + m_08 + "_OnStatRollOver", AptRef<AptCommandMap>(DelegateDesc(this, &StatsDisplayImpl::OnStatRollOver)));
+	m_0C.AddCommandMap(prefix + m_08 + "_OnStatRollOut", AptRef<AptCommandMap>(DelegateDesc(this, &StatsDisplayImpl::OnStatRollOut)));
 
 	SetRowText(0, FormatCommandPointsText(m_commandPoints, m_commandPointsMax));
 	SetRowText(4, FormatResourceMultiplierText(m_resourceMultiplier));

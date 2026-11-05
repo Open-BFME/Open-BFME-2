@@ -93,22 +93,59 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 }
 
 class Rva003FE20FBase;
-// The stats display: constructor 0x00579E82.
-namespace StrategicHUD
-{
-class StatsDisplayImpl
+#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+// StrategicHUD::StatsDisplayImpl, the stats display: constructor 0x00579E82,
+// destructor 0x00579AB7 (deleting 0x0042D507), vtable 0x00C6ED64 whose slots
+// 1/3/5/7 are the rowed setters below; the HUD's slot setter is 0x0042D7E0.
+// OnStatRollOver keeps the hovered stat at +0x20 and its stat-table entry
+// (0x00579770) in the +0x1C holder, pushed to the +0x18 tooltip target.
+extern "C" const void *const __identifier("??_7Rva005EEF2FBase0@@6B@")[];
+
+class Rva00579AB7Base
 {
 public:
-	StatsDisplayImpl(int level, const AsciiString &name);
-	virtual ~StatsDisplayImpl();
-	void OnStatRollOver(const char *);
+	virtual ~Rva00579AB7Base();
+};
+
+inline Rva00579AB7Base::~Rva00579AB7Base()
+{
+	*(const void **)this = __identifier("??_7Rva005EEF2FBase0@@6B@");
+}
+
+struct Rva00579AB7Holder1C
+{
+	Rva00579AB7Holder1C() : m_ptr(0) {}
+	TargetRef00217D4C *m_ptr;
+	__forceinline ~Rva00579AB7Holder1C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
+};
+
+namespace StrategicHUD
+{
+class StatsDisplayImpl : public Rva00579AB7Base
+{
+public:
+	StatsDisplayImpl(int level, const AsciiString &name); // 0x00579E82
+	virtual ~StatsDisplayImpl(); // 0x00579AB7
+	void OnStatRollOver(const char *path); // 0x00579B81
+	void OnStatRollOut(const char *path); // 0x00579C00
+	void SetRowText(int row, const UnicodeString &text); // 0x00579B17
+	virtual void rva00579CD4(int used, int max); // slot 1
+	virtual void rva00579D3D(int index, int value); // slot 3
+	virtual void rva00579D96(float value); // slot 5
+	virtual void rva00579DF8(int value); // slot 7
 
 private:
-	char prefix[0x14];
-	Rva003FE20FBase *tooltip;
-	TreeHintRef00217D4C hint;
-	int current;
-	unsigned char m_pad[0x40 - 0x24];
+	int m_04;
+	AsciiString m_08;
+	AptCommandMapAdder m_0C;
+	int m_18;
+	Rva00579AB7Holder1C m_1C;
+	int m_20;
+	int m_commandPoints; // +0x24
+	int m_commandPointsMax; // +0x28
+	int m_bonus[3]; // +0x2C
+	float m_resourceMultiplier; // +0x38
+	int m_powerPoints; // +0x3C
 };
 }
 // StrategicHUD::SelectionDetailsUIImpl as the +0x34 slot holder's pointer type.
@@ -1292,12 +1329,14 @@ void StrategicHUD::StatsDisplayImpl::OnStatRollOver(const char *param)
 			return;
 		stat = parsed;
 	}
-	if (stat != current)
+	if (stat != m_20)
 	{
-		hint = ((Rva00579731 *)&g_Va00E0631C)->rva00579770(stat);
-		current = stat;
-		if (tooltip != 0 && hint.m_ptr != 0)
-			tooltip->Rva003FE20FBase::slot1(&hint);
+		// The +0x1C holder is the stat-table entry reference.
+		*(TreeHintRef00217D4C *)&m_1C = ((Rva00579731 *)&g_Va00E0631C)->rva00579770(stat);
+		m_20 = stat;
+		Rva003FE20FBase *tooltip = (Rva003FE20FBase *)m_18;
+		if (tooltip != 0 && m_1C.m_ptr != 0)
+			tooltip->Rva003FE20FBase::slot1((TreeHintRef00217D4C *)&m_1C);
 	}
 }
 
