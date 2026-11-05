@@ -126,11 +126,6 @@ protected:
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class Thing;
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
 
 class GarrisonUpgrade : public UpgradeModule
 {
