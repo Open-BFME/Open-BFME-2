@@ -116,13 +116,7 @@ struct Coord3D;
 #include "../Object/object.h"
 
 #include "../../../Include/GameClient/CommandButton.h"
-
-// Option bit 5 read through a bool-returning inline: retail tests the shifted
-// value (shr eax,5; test al,1), not the byte mask a direct `& 0x20` produces.
-static inline bool needsTargetPosition(const CommandButton *button)
-{
-	return (button->getOptions() >> 5) & 1;
-}
+#include "ScriptActionsCommandButtonOptions.h"
 
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
