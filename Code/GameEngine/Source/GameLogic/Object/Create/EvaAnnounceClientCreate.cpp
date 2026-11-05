@@ -21,10 +21,59 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class EvaAnnounceClientCreate
+class Thing;
+class ModuleData;
+class Xfer;
+
+typedef unsigned int UnsignedInt;
+
+struct EvaAnnounceClientCreateModuleData
+{
+	unsigned char m_pad00[0x08];
+	int m_announcementEventEnemy; // +0x08
+	int m_announcementEventAlly; // +0x0C
+	int m_10; // +0x10
+	UnsignedInt m_delay; // +0x14
+	bool m_onlyIfVisible; // +0x18
+	bool m_countAsFirstSightedAnnoucement; // +0x19
+	bool m_useObjectsPosition; // +0x1A
+};
+
+class ClientCreateModule
 {
 public:
+	virtual ~ClientCreateModule();
+	virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
+	virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8();
+	virtual void slot9(); virtual void slot10(); virtual void slot11();
+	virtual void clientUpdate() = 0;
+protected:
+	const EvaAnnounceClientCreateModuleData *m_moduleData; // +0x04
+	Drawable *m_drawable; // +0x08
+};
+
+class CreateModuleInterface
+{
+public:
+	virtual void slot0();
+	virtual void rva004C9A51() = 0;
+};
+
+// One view for the unit's bodies: the primary module base (+0x00..+0x0B),
+// the create interface whose vptr the ctor 0x004C99D4 installs at +0x0C,
+// the trigger frame +0x10 and the once flag +0x14.
+class EvaAnnounceClientCreate : public ClientCreateModule, public CreateModuleInterface
+{
+public:
+	EvaAnnounceClientCreate(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva004C9A51();
+	virtual void clientUpdate();
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	UnsignedInt m_10; // +0x10
+	bool m_14; // +0x14
 };
 
 // tu-skeleton: 0x004C99D4 50B ??0EvaAnnounceClientCreate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Create/EvaAnnounceClientCreateCtor.cpp (not merged yet)

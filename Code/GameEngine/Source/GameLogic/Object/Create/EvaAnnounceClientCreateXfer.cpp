@@ -71,7 +71,7 @@ void EvaAnnounceClientCreate::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 2);
 	*xfer == version;
-	ObjectModule::xfer(xfer);
+	reinterpret_cast<ObjectModule *>(this)->xfer(xfer);
 	*xfer == m_14;
 	if (version.m_minimum >= 2) {
 		*xfer == m_10;
