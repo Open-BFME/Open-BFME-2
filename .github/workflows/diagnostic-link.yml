@@ -1,0 +1,147 @@
+name: Diagnostic link
+run-name: Diagnostic link ${{ inputs.ref }} (${{ inputs.label }})
+
+# Dispatch from master; inputs.ref selects the image source, never a fork.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or full 40-hex commit reachable from a repository branch
+        required: true
+        type: string
+      label:
+        description: Optional crash packet or experiment label
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: diagnostic-link-${{ github.run_id }}
+  cancel-in-progress: false
+
+env:
+  BUILD_POOL: '4'
+  PYTHONIOENCODING: utf-8
+  PYTHONUTF8: '1'
+
+jobs:
+  diagnostic:
+    if: github.repository == 'Open-BFME/Open-BFME-2' && github.ref == 'refs/heads/master'
+    runs-on: windows-2025
+    timeout-minutes: 300
+    steps:
+      # Resolve only this repository's branch history. Never fetch refs/pull/*
+      # or a caller-provided repository/URL.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          repository: Open-BFME/Open-BFME-2
+          ref: master
+          fetch-depth: 0
+          submodules: 'true'
+          persist-credentials: false
+      - name: Resolve repository ref
+        id: source
+        env:
+          REQUESTED_REF: ${{ inputs.ref }}
+        shell: python
+        run: |
+          import os
+          import re
+          import subprocess
+          ref = os.environ['REQUESTED_REF']
+          def git(*args):
+              return subprocess.check_output(['git', *args], text=True).strip()
+          branches = git('for-each-ref', '--format=%(refname)', 'refs/remotes/origin/').splitlines()
+          branches = [b for b in branches if b != 'refs/remotes/origin/HEAD']
+          if re.fullmatch(r'[0-9a-fA-F]{40}', ref):
+              sha = git('rev-parse', '--verify', ref + '^{commit}')
+              if not any(subprocess.run(['git', 'merge-base', '--is-ancestor', sha, b]).returncode == 0
+                         for b in branches):
+                  raise SystemExit('commit is not reachable from a repository branch')
+          else:
+              branch = ref.removeprefix('refs/heads/')
+              subprocess.run(['git', 'check-ref-format', 'refs/heads/' + branch], check=True)
+              target = 'refs/remotes/origin/' + branch
+              if target not in branches:
+                  raise SystemExit('ref must be a repository branch or full commit')
+              sha = git('rev-parse', '--verify', target + '^{commit}')
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+              out.write('sha=' + sha + '\n')
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          repository: Open-BFME/Open-BFME-2
+          ref: ${{ steps.source.outputs.sha }}
+          # Non-recursive, exactly as real-link.yml.
+          submodules: 'true'
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13.15'
+      - name: Install dependencies
+        run: python -m pip install -r reference/open-bfme-1/tools/requirements.txt -c .github/nightly-constraints.txt
+      - name: Full build with retail byte verification
+        id: build
+        continue-on-error: true
+        run: python tools/build.py
+      - name: Diagnostic link
+        timeout-minutes: 60
+        run: python tools/exit_link.py --diagnostic
+      - name: Analyze diagnostic linked image
+        continue-on-error: true
+        shell: python
+        run: |
+          import subprocess
+          import sys
+          from pathlib import Path
+          out = Path('build/diagnostic_link')
+          if (out / 'exit.exe').exists():
+              subprocess.run([sys.executable, 'tools/image_report.py',
+                              '--image', str(out / 'exit.exe'), '--map', str(out / 'exit.map'),
+                              '--objects', str(out / 'image_objects.json'),
+                              '--out', str(out / 'linked_report')], check=True)
+      - name: Stage diagnostic image
+        env:
+          IMAGE_SHA: ${{ steps.source.outputs.sha }}
+          REQUESTED_REF: ${{ inputs.ref }}
+          DIAGNOSTIC_LABEL: ${{ inputs.label }}
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import os
+          import shutil
+          from pathlib import Path
+          out = Path('build/diagnostic_link')
+          receipt = out / 'image_receipt.json'
+          data = json.loads(receipt.read_text(encoding='utf-8'))
+          if data.get('kind') != 'diagnostic' or data.get('commit') != os.environ['IMAGE_SHA']:
+              raise SystemExit('diagnostic kind or source commit mismatch')
+          for name, key in (('exit.exe', 'image_sha256'), ('exit.map', 'map_sha256')):
+              if hashlib.sha256((out / name).read_bytes()).hexdigest() != data.get(key):
+                  raise SystemExit(name + ' hash mismatch')
+          data.update(ref=os.environ['REQUESTED_REF'], label=os.environ['DIAGNOSTIC_LABEL'],
+                      workflow='diagnostic-link.yml', run_id=os.environ['GITHUB_RUN_ID'])
+          receipt.write_text(json.dumps(data, indent=1) + '\n', encoding='utf-8')
+          (out / 'image').mkdir(exist_ok=True)
+          for name in ('exit.exe', 'exit.map', 'image_receipt.json'):
+              shutil.copy2(out / name, out / 'image' / name)
+          for path in out.glob('image_objects*'):
+              target = out / 'image' / path.name
+              if path.is_dir():
+                  shutil.copytree(path, target, dirs_exist_ok=True)
+              else:
+                  shutil.copy2(path, target)
+      - name: Publish diagnostic result
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: diagnostic-link-${{ steps.source.outputs.sha }}
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            build/diagnostic_link/image/
+            build/diagnostic_link/stubbed.tsv
+            build/diagnostic_link/link.log
+            build/diagnostic_link/linked_report/
