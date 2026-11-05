@@ -184,6 +184,7 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 
 protected:
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 public:
 	virtual UpdateSleepTime update();
