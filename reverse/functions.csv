@@ -12537,7 +12537,7 @@ _Scale2D,,0x001BA510,697,Code/Libraries/Source/VP6/Scale2D.cpp,matched,Clean-roo
 ?friend_newModuleData@StatusBitsUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x0025479D,52,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeModuleDataFriendNew.cpp,matched,
 ??0CommandSetUpgradeModuleData@@QAE@XZ,,0x00255652,70,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgradeModuleDataCtor.cpp,matched,
 ?friend_newModuleData@CommandSetUpgradeModuleData@@SAPAVModuleData@@PAVINI@@@Z,,0x00255698,84,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgradeModuleDataFriendNew.cpp,matched,
-??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B8A8A,59,Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorCtor.cpp,matched,
+??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B8A8A,59,Code/GameEngine/Source/Common/OathbreakersFadeAwayBehavior.cpp,matched,
 ?friend_newModuleInstance@OathbreakersFadeAwayBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,,0x0025095E,56,Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorFriendNew.cpp,matched,
 ??0MaxHealthUpgradeModuleData@@QAE@XZ,,0x004B62C4,36,Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgrade.cpp,matched,
 ?buildFieldParse@MaxHealthUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z,,0x004B62E8,34,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp,matched,

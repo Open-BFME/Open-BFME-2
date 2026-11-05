@@ -23,7 +23,6 @@
 #include "../GameLogic/AI/WorkOrder.h"
 #include "../../Include/GameClient/Drawable.h"
 #include "../GameLogic/AI/TeamInQueue.h"
-
 #include "../../Include/GameLogic/Module/UpdateModule.h"
 // ?getModuleNameKey@OathbreakersFadeAwayBehavior@@UBE?AW4NameKeyType@@XZ @0x004B89DD
 // (69B): cached pool-name key for OathbreakersFadeAwayBehavior. The class
@@ -93,8 +92,26 @@ enum CommandSourceType
 };
 #include "../../Include/GameLogic/Module/AIUpdate.h"
 #include "../GameLogic/Object/object.h"
+//
+// ??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,
+// retail 0x004B8A8A, 59 bytes. Dedicated TU: the behavior ctor runs the
+// rowed UpdateModule base ctor (thing plus data, this in ecx per the
+// single-inheritance vptr-at-zero layout), then installs the behavior vtable,
+// re-stores the inherited +0x0C/+0x10 secondary slots with literals, clears
+// the fading flag and defaults the fade timer to 1.0f (shared literal pool).
+// The TU-local base carries a declared-only virtual dtor: vptr at +0 keeps
+// the base call this-direct (no lea) and the derived declared-only virtual
+// dtor emits the vtable store in position, both with zero EH code (AODCrush
+// frameless precedent). Class identity is the tight behavior cluster:
+// rowed pool key 0x4B8A02 plus literal name getter 0x4B8A22 plus the
+// FadeOutTime proc 0x4B8A79 ending exactly where this ctor begins, the 56B
+// instance factory 0x25095E sole-calling it, and the BFME1
+// OathbreakersFadeAwayBehavior class.
 
+extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleOther@@@")[];
+  // folded vftable 0x00BEFF90 (80 classes), by its data-ledger name
 
+extern "C" const void *const __identifier("??_7OathbreakersFadeAwayBehavior@@6BRva004B89C4_B2@@@")[];
 
 class OathbreakersFadeAwayBehavior : public UpdateModule
 {
@@ -114,6 +131,8 @@ private:
 };
 
 // tu-skeleton: 0x004B89C4 25B ??1OathbreakersFadeAwayBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/OathbreakersFadeAwayBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorPoolKey.cpp
 
@@ -164,14 +183,6 @@ void OathbreakersFadeAwayBehavior::xfer(Xfer *xfer)
 	*xfer == m_20;
 }
 
-// tu-skeleton: 0x004B8A79 17B ?buildFieldParse@OathbreakersFadeAwayBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004B8A8A 59B ??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B8AC5 28B ??_GOathbreakersFadeAwayBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x004B8AE1 46B ?calcSleepTime@OathbreakersFadeAwayBehavior@@QAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/Common/Rva004B89C4Update.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004B8B0F.cpp
 
 void OathbreakersFadeAwayBehavior::rva004B8B0F()
@@ -185,5 +196,25 @@ void OathbreakersFadeAwayBehavior::rva004B8B0F()
 	ai->rva0045003E(0, CMD_FROM_AI);
 	obj->setSelectable(false);
 }
+
+// tu-skeleton: 0x004B8A79 17B ?buildFieldParse@OathbreakersFadeAwayBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/OathbreakersFadeAwayBehaviorCtor.cpp
+
+// Opaque UpdateModule base; ctor resolves to its row. Single inheritance
+// with a declared-only virtual dtor puts the vptr (and the base) at +0, so
+// the base call takes this directly. Slots mirror the retail stores.
+
+// ??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
+OathbreakersFadeAwayBehavior::OathbreakersFadeAwayBehavior(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	m_20 = false;
+	m_24 = 1.0f;
+}
+
+// tu-skeleton: 0x004B8AC5 28B ??_GOathbreakersFadeAwayBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x004B8AE1 46B ?calcSleepTime@OathbreakersFadeAwayBehavior@@QAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/Common/Rva004B89C4Update.cpp (not merged yet)
 
 // tu-skeleton: 0x004B8B41 205B ?update@OathbreakersFadeAwayBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/Common/Rva004B89C4Update.cpp (not merged yet)
