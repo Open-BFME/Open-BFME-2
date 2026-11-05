@@ -4,9 +4,9 @@
 // over the Eva bucket vector for the AsciiString-keyed 12-byte node family.
 // Buckets at +4 count at +0x10 (same layout as rowed erase 0x00223429 and
 // bucketIndex 0x00223149). Resizes via pin 0x00212858 with count+1 hashes key
-// via rowed 0x00223149 allocates node via rowed _M_new_node 0x00410956 (12B
-// Pod44 node, ICF twin: plain 8B pair copy) links old head bumps count returns
-// value at +4. Same shape as landed 0x00410DDF/0x00410E67 68B inserts.
+// via rowed 0x00223149 allocates node via rowed _M_new_node 0x00410956 of the
+// AsciiString -> Rva0045EF90Object hashtable (stlport_pod_hash_bodies.cpp)
+// links old head bumps count returns value at +4. Same shape as landed 0x00410DDF/0x00410E67 68B inserts.
 // Caller 0x00411258 in 0x00411205.
 #include "ascii_string.h"
 
@@ -15,10 +15,16 @@ struct TreeHintPayload00410E23
 	unsigned char m_body[4];
 };
 
-struct BfmePod44
+class Rva0045EF90Object;
+
+namespace rts {
+template <class T> struct hash
 {
-	unsigned char m_body[4];
 };
+template <class T> struct equal_to
+{
+};
+}
 
 class Rva000427195;
 
@@ -70,8 +76,8 @@ private:
 };
 }
 
-typedef _STL::pair<const int, BfmePod44> Pod44Pair;
-typedef _STL::hashtable<Pod44Pair, int, _STL::hash<int>, _STL::_Select1st<Pod44Pair>, _STL::equal_to<int>, _STL::allocator<Pod44Pair> > Pod44Table;
+typedef _STL::pair<const AsciiString, Rva0045EF90Object> Rva00461BF0Value;
+typedef _STL::hashtable<Rva00461BF0Value, AsciiString, rts::hash<AsciiString>, _STL::_Select1st<Rva00461BF0Value>, rts::equal_to<AsciiString>, _STL::allocator<Rva00461BF0Value> > Rva00461BF0Table;
 
 #include "../../Include/GameLogic/Rva000427195.h"
 
@@ -80,7 +86,7 @@ _STL::pair<const AsciiString, TreeHintPayload00410E23> *Rva000427195::rva00410E2
 	rva00212858(m_numElements + 1);
 	int bucket = bucketIndex(&entry->first);
 	void *old = m_beginBuckets[bucket];
-	void *newNode = (void *)((Pod44Table *)this)->_M_new_node(*(const Pod44Pair *)(const void *)entry);
+	void *newNode = (void *)((Rva00461BF0Table *)this)->_M_new_node(*(const Rva00461BF0Value *)(const void *)entry);
 	*(void **)newNode = old;
 	m_beginBuckets[bucket] = newNode;
 	++m_numElements;

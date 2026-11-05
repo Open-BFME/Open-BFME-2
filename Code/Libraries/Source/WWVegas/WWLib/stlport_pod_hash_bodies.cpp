@@ -1,4 +1,4 @@
-// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
 // Pristine STLport 4.5.3 hash_map/hash_set members for placeholder values,
@@ -105,7 +105,35 @@ template class _STL::hash_map<int, BfmePod16, _STL::hash<int>, _STL::equal_to<in
 template class _STL::hash_map<int, BfmePod20, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod20> > >;
 template class _STL::hash_map<int, BfmePod24, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod24> > >;
 template class _STL::hash_map<int, BfmePod48, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod48> > >;
-template class _STL::hash_map<int, BfmePod44, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod44> > >;
+// Retail 0x00410956 builds the node of the AsciiString-keyed hash_map whose
+// operator[] is 0x00411205 (Rva00461BF0HashIndex.cpp): it calls the rowed
+// _Construct<pair<const AsciiString,Rva0045EF90Object>> 0x0041072F
+// (stlport_pair_asciistring_twins.cpp). The 52-byte node is next pointer,
+// AsciiString key and the 44-byte value; the value is declared only as far as
+// the node size and that call need it.
+#include "ascii_string.h"
+class Rva0045EF90Object
+{
+public:
+	Rva0045EF90Object(const Rva0045EF90Object &other);
+	~Rva0045EF90Object();
+private:
+	unsigned char m_body[44];
+};
+namespace rts {
+template <class T> struct hash { unsigned int operator()(T value) const; };
+template <class T> struct equal_to { bool operator()(const T &left, const T &right) const; };
+}
+typedef _STL::pair<const AsciiString, Rva0045EF90Object> Rva00461BF0Value;
+typedef _STL::hashtable<Rva00461BF0Value, AsciiString, rts::hash<AsciiString>,
+	_STL::_Select1st<Rva00461BF0Value>, rts::equal_to<AsciiString>,
+	_STL::allocator<Rva00461BF0Value> > Rva00461BF0Table;
+// The pair copies are rowed in stlport_pair_asciistring_twins.cpp; emit no copy here.
+namespace _STL {
+template <> pair<const AsciiString, Rva0045EF90Object>::pair(const pair<const AsciiString, Rva0045EF90Object> &);
+template <> void _Construct<pair<const AsciiString, Rva0045EF90Object>, pair<const AsciiString, Rva0045EF90Object> >(pair<const AsciiString, Rva0045EF90Object> *, const pair<const AsciiString, Rva0045EF90Object> &);
+}
+template _STL::_Hashtable_node<Rva00461BF0Value> *Rva00461BF0Table::_M_new_node(const Rva00461BF0Value &);
 template class _STL::hash_map<int, BfmePod52, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod52> > >;
 // Native4198C6 is now the typed string-key node creator in Rva004197E8Pair.cpp.
 template class _STL::hash_map<int, BfmePod72, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod72> > >;
