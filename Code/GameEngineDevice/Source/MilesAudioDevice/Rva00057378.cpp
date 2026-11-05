@@ -40,15 +40,7 @@ struct OpaqueRefElement4;
 typedef _STL::vector<OpaqueRefElement4> MilesOwnedOutput;
 template<> MilesOwnedOutput::iterator MilesOwnedOutput::erase(iterator, iterator);
 
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *, int);
-    ~MilesMutexGuard();
-private:
-    void *mutex;
-    bool held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 
 typedef _STL::hash_multimap<unsigned int, int> MilesKeyAliases;
 struct BfmeEventPositionView;

@@ -36,17 +36,7 @@ public:
     virtual unsigned char vf1();
 };
 
-class MilesMutexGuard
-{
-public:
-    MilesMutexGuard(void *mutex, int x);
-    ~MilesMutexGuard();
-    bool rva00041037(int x);
-    bool rva00041055();
-private:
-    Rva00041037Mutex *m_mutex; // +0
-    bool m_flag; // +4
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 
 class Rva00041168
 {
@@ -60,7 +50,7 @@ private:
 
 // ---- from Code/GameEngine/Source/Common/Rva00041037Acquire.cpp
 
-MilesMutexGuard::MilesMutexGuard(void *mutex, int x) : m_mutex((Rva00041037Mutex *)mutex), m_flag(0)
+MilesMutexGuard::MilesMutexGuard(void *mutex, int x) : m_mutex((Rva00041037Mutex *)mutex), m_held(0)
 {
     if (x == 0)
         rva00041037(-1);
@@ -68,10 +58,10 @@ MilesMutexGuard::MilesMutexGuard(void *mutex, int x) : m_mutex((Rva00041037Mutex
 
 bool MilesMutexGuard::rva00041037(int x)
 {
-    if (m_flag)
+    if (m_held)
         return false;
-    m_flag = m_mutex->vf0(x);
-    return m_flag;
+    m_held = m_mutex->vf0(x);
+    return m_held;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva00041168.cpp
@@ -182,16 +172,16 @@ bool Rva000411BC::unlock()
 
 bool MilesMutexGuard::rva00041055()
 {
-    if (m_flag)
-        m_flag = !m_mutex->vf1();
-    return m_flag == 0;
+    if (m_held)
+        m_held = !m_mutex->vf1();
+    return m_held == 0;
 }
 
 // @0x0004122F 12B: LINK BONUS name; 40+ callers including MilesAudioManager
 // sites; tail-jmps to rva00041055 when the flag is set.
 MilesMutexGuard::~MilesMutexGuard()
 {
-    if (m_flag)
+    if (m_held)
         rva00041055();
 }
 

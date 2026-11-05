@@ -60,7 +60,7 @@ template<> __declspec(noinline) TargetListAt0073EEE0::iterator TargetListAt0073E
 }
 }
 
-class MilesMutexGuard {public: MilesMutexGuard(void*,int);~MilesMutexGuard();void *mutex;bool held;};
+#include "../../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 class Rva0040F9D {public:bool set();bool reset();char bytes[8];};
 class AsyncServiceQueue {
  public:

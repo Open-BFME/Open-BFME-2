@@ -17,14 +17,7 @@
 
 #include "ascii_string.h"
 
-class MilesMutexGuard {
-public:
-    MilesMutexGuard(void *, int);
-    ~MilesMutexGuard();
-private:
-    void *mutex;
-    bool held;
-};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 class MilesAudioManager {
 public:
     virtual bool rva000619D1(bool enabled);

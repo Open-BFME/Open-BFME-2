@@ -61,7 +61,7 @@ inline AudioEventRTS *multisoundTarget(const BfmePoolRef10& ref) {
 }
 class GameMessageList;
 #include "../../../GameEngine/Include/Common/MessageStream.h"
-class MilesMutexGuard {public:MilesMutexGuard(void*,int);~MilesMutexGuard();bool rva00041055();bool rva00041037(int);void*mutex;bool held;};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 class Rva001D9A00 {public:bool rva001D9A00();};
 class Rva001D98BD {public:bool rva001D9781();};
 class AudioInfoNames {public:virtual ~AudioInfoNames();virtual const AsciiString&getAudioName()const;};

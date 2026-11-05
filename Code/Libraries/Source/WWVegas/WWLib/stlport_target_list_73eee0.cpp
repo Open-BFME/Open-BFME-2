@@ -127,7 +127,7 @@ template<> __declspec(noinline) void TargetListAt0073EEE0::splice(iterator posit
 // WB AsyncServiceQueue::enqueue and native73F37F..73F451 establish this
 // queue operation; owner field04 is the count, list08, mutex0C, event14.
 // The 12-byte element remains target-owned rather than donor BridgeFXInfo.
-class MilesMutexGuard {public: MilesMutexGuard(void*,int);~MilesMutexGuard();void *mutex;bool held;};
+#include "../../../../GameEngineDevice/Include/MilesAudioDevice/MilesMutexGuard.h"
 class Rva0040F9D {public:bool set();bool reset();char bytes[8];};
 class Rva0073EE21 {public:Rva0073EE21();char bytes[16];};
 struct OpaqueRefElement4 {void *item;OpaqueRefElement4 &operator=(const OpaqueRefElement4&);};

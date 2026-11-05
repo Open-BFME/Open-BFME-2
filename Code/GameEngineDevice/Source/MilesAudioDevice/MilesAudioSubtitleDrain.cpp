@@ -27,7 +27,7 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 template <> UnicodeString *vector<UnicodeString, allocator<UnicodeString> >::erase(UnicodeString*, UnicodeString*);
 }
-class MilesMutexGuard {public:MilesMutexGuard(void *,int);~MilesMutexGuard();private:void *mutex;bool held;};
+#include "../../Include/MilesAudioDevice/MilesMutexGuard.h"
 class MilesAudioManager {
 public:
  void rva0005B708();void rva00051353(const UnicodeString &);
