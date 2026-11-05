@@ -17,26 +17,12 @@
 
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
 
-class HeightDieUpdateModuleData
-{
-public:
-	HeightDieUpdateModuleData();
-
-private:
-	const void *m_vtable; // +0
-	unsigned int m_unused04; // +4 (retail never stores it)
-	float m_targetHeight; // +8
-	bool m_targetHeightIncludesStructures; // +0xC
-	bool m_onlyWhenMovingDown; // +0xD
-	float m_destroyAttachedParticlesAtHeight; // +0x10
-	bool m_snapToGroundOnDeath; // +0x14
-	int m_initialDelay; // +0x18
-};
+#include "HeightDieUpdateView.h"
 
 // ??0HeightDieUpdateModuleData@@QAE@XZ @0x48FC75
 HeightDieUpdateModuleData::HeightDieUpdateModuleData()
 {
-	m_targetHeight = 0.0f;
+	m_targetHeightAboveTerrain = 0.0f;
 	m_vtable = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7ObjectHelperModuleData@@6B@")));
 	m_targetHeightIncludesStructures = false;
 	m_onlyWhenMovingDown = false;

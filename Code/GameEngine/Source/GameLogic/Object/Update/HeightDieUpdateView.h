@@ -28,7 +28,10 @@ enum UpdateSleepTime
 class HeightDieUpdateModuleData
 {
 public:
-	char m_unknown00[0x08];
+	HeightDieUpdateModuleData();
+
+	const void *m_vtable; // +0x00
+	unsigned int m_unused04; // +0x04 (not initialized by retail)
 	Real m_targetHeightAboveTerrain; // +0x08
 	Bool m_targetHeightIncludesStructures; // +0x0C
 	Bool m_onlyWhenMovingDown; // +0x0D
