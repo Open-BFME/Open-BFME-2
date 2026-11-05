@@ -115,7 +115,7 @@ typedef bool Bool;
 #include "../../../../Include/Common/SubsystemInterfaceList.h"
 extern SubsystemInterfaceList *TheSubsystemList;
 
-class WindowVideoManager : public SubsystemInterface { public: WindowVideoManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x24 - 0x0C]; };
+#include "../../../../Include/GameClient/WindowVideoManagerClass.h"
 
 enum AnimTypes
 {

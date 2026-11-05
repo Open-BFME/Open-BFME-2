@@ -44,7 +44,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 }
 enum ParticleSystemID {INVALID_PARTICLE_SYSTEM_ID=0};
 class GameWindow;class WindowVideo;
-class WindowVideoManager {public:struct hashConstGameWindowPtr {unsigned operator()(const GameWindow*) const;};};
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 typedef _STL::hash_map<const GameWindow*,WindowVideo*,WindowVideoManager::hashConstGameWindowPtr,_STL::equal_to<const GameWindow*> > WindowMapView;
 typedef _STL::hashtable<_STL::pair<const GameWindow*const,WindowVideo*>,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<_STL::pair<const GameWindow*const,WindowVideo*> >,_STL::equal_to<const GameWindow*>,_STL::allocator<_STL::pair<const GameWindow*const,WindowVideo*> > > WindowTableView;
 namespace _STL {template<> WindowTableView::iterator WindowTableView::begin();}

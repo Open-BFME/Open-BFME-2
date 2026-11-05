@@ -73,7 +73,7 @@ private:
 };
 
 class GameWindow; class WindowVideo;
-class WindowVideoManager { public: struct hashConstGameWindowPtr { size_t operator()(const GameWindow *) const; }; };
+#include "../../../Include/GameClient/WindowVideoManagerClass.h"
 typedef _STL::pair<const GameWindow * const, WindowVideo *> Rva00206DA4Pair;
 typedef _STL::hashtable<Rva00206DA4Pair, const GameWindow *, WindowVideoManager::hashConstGameWindowPtr, _STL::_Select1st<Rva00206DA4Pair>, _STL::equal_to<const GameWindow *>, _STL::allocator<Rva00206DA4Pair> > Rva00206DA4Table;
 namespace _STL {
@@ -96,7 +96,7 @@ struct Rva001D92BB
 	Rva001D904A m_table;
 };
 
-#include "spline_service.h"
+// WindowVideoManagerClass.h supplies the canonical SubsystemInterface base.
 
 class Rva001D9670Store : public SubsystemInterface
 {
