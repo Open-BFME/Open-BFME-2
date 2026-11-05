@@ -19,6 +19,7 @@
 // TheLivingWorldManager's +0x268 object when present (rowed 0x003EE91A).
 
 #include "../../../Common/BattlePromptCallbackPayloadView.h"
+#include "../../../../Include/GameLogic/LivingWorldManager.h"
 
 struct Rva002BA8F1Listener;
 
@@ -70,13 +71,6 @@ class Rva003EE91A
 {
 public:
 	void rva003EE91A(int value);
-};
-
-class LivingWorldManager
-{
-public:
-	unsigned char m_pad000[0x268];
-	Rva003EE91A *m_268;						// +0x268
 };
 
 extern LivingWorldManager *TheLivingWorldManager;
@@ -148,8 +142,8 @@ Rva005CF27A::Rva005CF27A(Rva005CF7BF *owner, int a2, int a3, int a4, int a5, int
 		}
 	}
 	m_14->rva005CB84A(m_18);
-	if (TheLivingWorldManager->m_268)
-		TheLivingWorldManager->m_268->rva003EE91A(m_18);
+	if (TheLivingWorldManager->field268)
+		((Rva003EE91A *)TheLivingWorldManager->field268)->rva003EE91A(m_18);
 }
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot

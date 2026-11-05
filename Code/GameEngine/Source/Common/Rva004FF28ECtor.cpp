@@ -10,6 +10,7 @@
 
 #include "Coord3D.h"
 #include "Coord2D.h"
+#include "../../Include/GameLogic/LivingWorldManager.h"
 
 struct Rva004FF207Point : Coord3D
 {
@@ -27,11 +28,6 @@ struct Rva004FF207Record {
 	Coord2D values;
 };
 class Rva003EE980 { public: void rva003EE980(int); };
-class LivingWorldManager {
-public:
-	char unknown00[0x268];
-	Rva003EE980 *member268;
-};
 extern LivingWorldManager *TheLivingWorldManager;
 class Rva002D3627Host {
 public:
@@ -91,7 +87,7 @@ private:
 
 void Rva004FF207::rva004FF207()
 {
-	TheLivingWorldManager->member268->rva003EE980(reinterpret_cast<int>(record));
+	((Rva003EE980 *)TheLivingWorldManager->field268)->rva003EE980(reinterpret_cast<int>(record));
 	Rva004FF207Point point = record->point.point();
 	((Rva002D3627Host *)TheLivingWorld)->slot39(&point, get50(), get54(),
 		((Rva002D3627Host *)TheLivingWorld)->rva002BEDCA(&point, get54()));

@@ -100,13 +100,7 @@ protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
 
-class LivingWorldManager
-{
-public:
-	VSLOTS4(s0) VSLOTS4(s1)
-	virtual void s20(); virtual void s21();
-	virtual void rva000453B4Slot();	// slot 10 (+0x28)
-};
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldManager.h"
 extern LivingWorldManager *TheLivingWorldManager;
 
 #include "../../../../GameEngine/Include/GameClient/ParticleSys.h"
@@ -189,7 +183,7 @@ void W3DDisplay::rva000450CE(Int worldX, Int worldY)
 // vtable 0x00BC3C80#98
 void W3DDisplay::rva000453AC()
 {
-	TheLivingWorldManager->rva000453B4Slot();
+	TheLivingWorldManager->update();	// primary slot 10 (+0x28)
 	if (DX8Wrapper::_Get_D3D_Device8() && reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->TestCooperativeLevel() == D3D_OK)
 		TheParticleSystemManager->update();
 }

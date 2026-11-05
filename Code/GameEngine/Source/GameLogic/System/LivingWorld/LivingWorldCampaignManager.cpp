@@ -102,14 +102,7 @@ public:
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class LivingWorldRegionEffectsManager;
-class LivingWorldManager
-{
-public:
-	void rva00210F96();
-	unsigned char opaque_00[0x268];
-	LivingWorldRegionEffectsManager *m_regionEffects;
-};
+#include "../../../../Include/GameLogic/LivingWorldManager.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 
@@ -327,7 +320,7 @@ void LivingWorldCampaignManager::CallActSubroutine(const AsciiString &name)
         return;
     TheLivingWorldLogic->rva0047A69C(entry->rva00564DF2());
     ((Glo012F1024Item *)entry)->bfmeEnter();
-    TheLivingWorldManager->m_regionEffects->rva003EF2FF();
+    TheLivingWorldManager->field268->rva003EF2FF();
 }
 
 // Retail 0x0020F3E8, 90 bytes (RET 4; callers StartNewCampaign and

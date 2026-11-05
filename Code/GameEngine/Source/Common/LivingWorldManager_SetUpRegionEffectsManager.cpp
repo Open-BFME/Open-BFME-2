@@ -10,10 +10,10 @@
 // Disp32DwordFieldClearers.cpp and Rva00210DC9Get.cpp both use /O1.
 // No fallback paths.
 
+#include "../../Include/GameLogic/LivingWorldManager.h"
+
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class AsciiString;
-
 class Rva003EF14A {
 public:
 	void rva003EF1B8();
@@ -47,25 +47,17 @@ public:
 
 extern Rva003EF328 *TheLivingWorldRegionEffectsManagerStore;
 
-class LivingWorldManager {
-public:
-	void SetUpRegionEffectsManager();
-private:
-	char m_pad[0x268];
-	Rva003EF14A *m_ptr268;
-};
-
 void LivingWorldManager::SetUpRegionEffectsManager()
 {
-	if (m_ptr268) {
-		m_ptr268->rva003EF1B8();
-		m_ptr268 = 0;
+	if (field268) {
+		((Rva003EF14A *)field268)->rva003EF1B8();
+		field268 = 0;
 	}
 	Rva00210D68KeyHolder *holder = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_mid->m_keyHolder;
 	if (!holder)
 		return;
 	void *found = TheLivingWorldRegionEffectsManagerStore->rva003EF328((const AsciiString *)((char *)holder + 0x54));
-	m_ptr268 = (Rva003EF14A *)found;
+	field268 = (LivingWorldRegionEffectsManager *)found;
 	if (!found)
 		return;
 	((Rva003EF2E0 *)found)->rva003EF2E0();
