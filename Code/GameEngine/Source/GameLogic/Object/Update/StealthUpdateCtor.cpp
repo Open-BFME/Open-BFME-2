@@ -94,7 +94,10 @@ public:
 class Rva003743CF
 {
 public:
-	void rva003743CF(void *status, Bool set);
+	void rva003743CF(void *status, bool set);
+	char m_pad00[0x8];
+private:
+	Object *m_object; // +0x08
 };
 
 class StealthUpdate : public UpdateModule, public MiBase1, public Rva00373CB1_B2
