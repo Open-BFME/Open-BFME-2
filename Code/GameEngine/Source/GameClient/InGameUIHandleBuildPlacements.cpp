@@ -32,19 +32,10 @@ struct RGBAColorInt
 {
     int v[4];
 };
-class Mouse
-{
-public:
-    enum MouseCursor
-    {
-        CURSOR_BUILD = 5,
-        CURSOR_INVALID = 12
-    };
-    void setMouseText(UnicodeString, const RGBAColorInt*, const RGBAColorInt*);
-    char unknown[0x4f0c];
-    ICoord2D pos;
-};
-extern Mouse* TheMouse;
+#include "../../Include/GameClient/Mouse.h"
+// Retail's cursor name table (VA 0x00DB9058) names index 12 "GenericInvalid",
+// Zero Hour's GENERIC_INVALID; the canonical enum does not spell it yet.
+static const Mouse::MouseCursor GENERIC_INVALID = (Mouse::MouseCursor)12;
 class TerrainResourceBehaviorModuleData;
 class ModuleData
 {
@@ -599,7 +590,7 @@ void InGameUI::handleBuildPlacements()
     }
     else
     {
-        const ICoord2D* mousePos = &TheMouse->pos;
+        const ICoord2D* mousePos = &TheMouse->field4F0C;
         loc = *mousePos;
         if (feedbackState == 2)
         {
@@ -694,28 +685,28 @@ void InGameUI::handleBuildPlacements()
                 switch (info.status)
                 {
                 case 0:
-                    setMouseCursor(Mouse::CURSOR_BUILD);
+                    setMouseCursor(Mouse::MOVETO);
                     break;
                 case 10:
-                    setMouseCursor(Mouse::CURSOR_BUILD);
+                    setMouseCursor(Mouse::MOVETO);
                     tint.green = tint.red = tint.blue = 0.5f;
                     if (TheGameClient->getFrame() & 4)
                         tint.green = 1.3f;
                     break;
                 case 9:
-                    setMouseCursor(Mouse::CURSOR_INVALID);
+                    setMouseCursor(GENERIC_INVALID);
                     tint.red = 0;
                     if (TheGameClient->getFrame() & 4)
                         tint.blue = 1.7f;
                     break;
                 case 7:
-                    setMouseCursor(Mouse::CURSOR_INVALID);
+                    setMouseCursor(GENERIC_INVALID);
                     tint.red = 0;
                     if (TheGameClient->getFrame() & 4)
                         tint.green = 1.0f;
                     break;
                 default:
-                    setMouseCursor(Mouse::CURSOR_INVALID);
+                    setMouseCursor(GENERIC_INVALID);
                     if (TheGameClient->getFrame() & 4)
                         tint.green = 0.8f;
                     break;
