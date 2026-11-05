@@ -87,6 +87,8 @@ OUT = ROOT / "build" / "exit_link"
 # stale 0x400000 literal in our code cannot pass as a working image.
 BASE = 0x10000000
 ENTRY = "WinMainCRTStartup"
+# The harness patches these IAT slots before entering the image.
+HARNESS_IMPORTS = {"SHGetSpecialFolderPathW": 16, "GetVersion": 0, "GetVersionExA": 4}
 PLACEMENT_DIR = "Code/gen_small"
 # The reviewed population: the index's 2,395 `uw_gen` names, 69 `gthunks` names
 # and 7 `thunks` names come from exactly these files. A new file changes the
@@ -487,7 +489,7 @@ def link_arguments(image, rsp):
             "/FIXED:NO", "/OPT:NOICF", f"@{census._arg(rsp)}"]
 
 
-def link_command(inputs, image, outdir):
+def link_command(inputs, image, outdir, import_roots=()):
     """The exit link's argv, with the objects in a response file."""
     rsp = Path(outdir) / "exit.rsp"
     rsp.write_text("\n".join(f'"{census._arg(path)}"' for path in inputs) + "\n", encoding="utf-8")
@@ -495,6 +497,8 @@ def link_command(inputs, image, outdir):
     resource = resource_object(Path(outdir))
     with rsp.open("a", encoding="utf-8") as handle:
         handle.write(f'/DEF:"{census._arg(exports)}"\n"{census._arg(resource)}"\n')
+        for name in sorted(import_roots):
+            handle.write(f"/INCLUDE:{name}\n")
     root = build.vc71_root()
     command = [str(root / "Vc7" / "bin" / "link.exe"), *link_arguments(image, rsp)]
     if sys.platform != "win32":
@@ -568,6 +572,11 @@ def diagnostic_stubs(names, path):
     return path
 
 
+def image_commit():
+    """The cross-lane receipt requires a full object ID, unlike census headlines."""
+    return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+
+
 def image_receipt(image, diagnostic, stubbed):
     """Only an image and its fresh map can receive a receipt."""
     if stubbed and not diagnostic:
@@ -582,7 +591,7 @@ def image_receipt(image, diagnostic, stubbed):
     with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
         exports = sum(1 for _ in csv.DictReader(handle))
     receipt.write_text(json.dumps({
-        "kind": "diagnostic" if diagnostic else "real", "commit": census.head(),
+        "kind": "diagnostic" if diagnostic else "real", "commit": image_commit(),
         "base": f"0x{BASE:X}", "image_sha256": digest(image), "map_sha256": digest(mapfile),
         "stubbed": sorted(stubbed), "exports_requested": exports, "rsrc": True,
         "fixed_no": True,
@@ -687,6 +696,23 @@ def initializer_table(rows, inputs):
                   "note": "generated from retail's table; must reach 0 for the exit test"}
 
 
+def harness_import_roots(requests):
+    """Keep the harness's named IAT slots even without a surviving code referrer.
+
+    Reuse existing COFF spellings so adding a root does not manufacture a
+    second import slot. Multiple existing spellings remain visible to the
+    image checker; none is hidden or silently redirected.
+    """
+    requests = set(requests)
+    roots = set()
+    for name, stack_bytes in HARNESS_IMPORTS.items():
+        existing = {symbol for symbol in requests
+                    if symbol.startswith("__imp__") and
+                    re.sub(r"@\d+$", "", symbol[len("__imp__"):]) == name}
+        roots.update(existing or {f"__imp__{name}@{stack_bytes}"})
+    return requests | roots, roots
+
+
 def link_setup(rows, present):
     """(inputs, metadata) for the exit link, with every scaffold left out."""
     omitted = set(placement_objects(rows))
@@ -697,9 +723,12 @@ def link_setup(rows, present):
                          f"omitted objects {leaked}); nothing linked")
     objects = link_cycle.Objects(inputs)
     retail_imports = census.retail_imports()
-    entries, missing = link_cycle.import_def_entries(
-        link_cycle.undefined_imports(objects) | link_cycle.undefined_plain_imports(objects, retail_imports),
-        retail_imports)
+    requests, import_roots = harness_import_roots(
+        link_cycle.undefined_imports(objects) | link_cycle.undefined_plain_imports(objects, retail_imports))
+    entries, missing = link_cycle.import_def_entries(requests, retail_imports)
+    if import_roots.intersection(missing):
+        raise SystemExit("exit_link: retail does not provide the harness imports: " +
+                         ", ".join(sorted(import_roots.intersection(missing))))
     imports = OUT / "imports"
     imports.mkdir(parents=True, exist_ok=True)
     libs = link_cycle.make_import_libs(entries, imports, link_cycle.defined_externals(objects))
@@ -708,6 +737,7 @@ def link_setup(rows, present):
         OUT / "absolute.obj", [],
         [(name, -1, value, link_cycle.EXTERNAL) for name, value in link_cycle.ABSOLUTE.items()])
     metadata = {
+        "harness_import_symbols": sorted(import_roots),
         "omitted_objects": sorted(path.name for path in omitted),
         "import_libraries": sorted(path.name for path in libs),
         "import_entries": sum(len(names) for names in entries.values()),
@@ -819,7 +849,7 @@ def run_link(rows, diagnostic=False):
                          f"baselined, {eh['missing_objects']} without an object); nothing linked")
     inputs, setup = link_setup(rows, present)
     image = OUT / "exit.exe"
-    command, rsp = link_command(inputs, image, OUT)
+    command, rsp = link_command(inputs, image, OUT, setup["harness_import_symbols"])
     state, tools = census.census_state(present), tool_digests()
     census.fresh_outputs(image, image.with_suffix(".map"), OUT / "image_receipt.json",
                          OUT / "result.json", OUT / "errors.tsv")

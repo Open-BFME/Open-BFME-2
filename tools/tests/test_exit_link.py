@@ -361,7 +361,7 @@ def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
     image = tmp_path / "exit.exe"
     image.write_bytes(b"image")
     image.with_suffix(".map").write_bytes(b"map")
-    monkeypatch.setattr(E.census, "head", lambda: "a" * 40)
+    monkeypatch.setattr(E, "image_commit", lambda: "a" * 40)
     names = ["_missing"] if diagnostic else []
     E.image_receipt(image, diagnostic, names)
     receipt = json.loads((tmp_path / "image_receipt.json").read_text())
@@ -459,3 +459,37 @@ def test_manifest_uses_final_response_and_map(tmp_path, monkeypatch):
     assert E.snapshot_image_objects(rsp, image) == {"objects": 1}
     assert called == [((rsp, image.with_suffix(".map"), tmp_path / "image_objects.json"),
                        {"cwd": E.build.ROOT})]
+
+
+def test_harness_import_roots_add_required_stdcall_slots():
+    requests, roots = E.harness_import_roots({"__imp__Other@4"})
+    assert roots == {"__imp__SHGetSpecialFolderPathW@16", "__imp__GetVersion@0",
+                     "__imp__GetVersionExA@4"}
+    assert requests == roots | {"__imp__Other@4"}
+
+
+def test_harness_import_roots_reuse_existing_spelling():
+    requests, roots = E.harness_import_roots({"__imp__GetVersion", "__imp__GetVersionExA@4"})
+    assert "__imp__GetVersion" in roots
+    assert "__imp__GetVersion@0" not in requests
+    assert "__imp__GetVersionExA@4" in roots
+
+
+def test_harness_import_roots_do_not_hide_multiple_spellings():
+    requests, roots = E.harness_import_roots({"__imp__GetVersion", "__imp__GetVersion@0"})
+    assert {"__imp__GetVersion", "__imp__GetVersion@0"} <= roots
+    assert roots <= requests
+
+
+def test_exception_list_is_an_absolute_zero_coff_symbol(tmp_path):
+    obj = E.link_cycle.write_coff(tmp_path / "absolute.obj", [], [
+        (name, -1, value, E.link_cycle.EXTERNAL) for name, value in E.link_cycle.ABSOLUTE.items()])
+    sections, symbols = E.link_cycle.parse_coff(obj.read_bytes())
+    exception = [s for s in symbols.values() if s.name == "__except_list"]
+    assert len(exception) == 1
+    assert exception[0].sec == -1 and exception[0].value == 0
+
+
+def test_image_commit_is_a_full_git_object_id():
+    import re
+    assert re.fullmatch(r"[0-9a-f]{40}", E.image_commit())
