@@ -1,4 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+#include "../../../../Include/GameClient/CommandSet.h"
+#include "../../../../Include/Common/Overridable.h"
 // ?refreshIfStale@CommandSet@@QAEXXZ @0x00409FCC 46B
 // Evidence: unlock lane; same 0x9C CommandSet layout as siblings 0x409FA0
 // (landed) and 0x409FFA banked (array32 at +0x14, count +0x94, flag +0x98);
@@ -9,25 +11,7 @@
 #include "ascii_string.h"
 class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class Overridable
-{
-public:
-    virtual ~Overridable();
-private:
-    Overridable *m_next;
-};
 
-class CommandSet : public Overridable {
-    unsigned char flag08;
-    unsigned int word0C;
-    AsciiString str10;
-    unsigned int arr14[32];
-    unsigned int word94;
-    unsigned int word98;
-public:
-    void refreshIfStale();
-    virtual ~CommandSet();
-};
 class CommandButton;
 #include "../../../../Include/GameClient/ControlBar.h"
 struct BfmeWorldRV;
@@ -35,9 +19,9 @@ extern class ControlBar *TheControlBar;
 void CommandSet::refreshIfStale()
 {
     for (int i = 0; i < 0x20; ++i) {
-        unsigned int entry = arr14[i];
+        unsigned int entry = (unsigned int)m_command[i];
         if (entry != 0 && *(int *)(entry + 0xC) >= 1)
-            arr14[i] = (unsigned int)((ControlBar *)(void *)((BfmeWorldRV *)TheControlBar))->findCommandButton(*(const AsciiString *)(entry + 0x10));
+            m_command[i] = ((ControlBar *)(void *)((BfmeWorldRV *)TheControlBar))->findCommandButton(*(const AsciiString *)(entry + 0x10));
     }
 }
 

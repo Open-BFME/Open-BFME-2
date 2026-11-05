@@ -267,13 +267,8 @@ static inline const UpgradeTemplate *getNeededUpgrade(const CommandButton *butto
 // CommandSet::ResetCommandSet) and button setter (0x00409FA0, WB
 // CommandSet::SetCommandButton; the ledger spells the button argument as an
 // int); ControlBar's 0x0031E8D5 returns it.
-class CommandSet
-{
-public:
-	void ResetCommandSet();								// 0x00409F83
-	void SetCommandButton(Int button, Int index);		// 0x00409FA0
-	const CommandButton *getCommandButton(Int index) const;	// 0x00409EE8
-};
+#include "../../../Include/GameClient/CommandSet.h"
+#include "../../../Include/Common/Overridable.h"
 // ControlBar's command-set lookup by name (0x0031D5F8), rowed under its
 // address-named class.
 class Rva0031D5F8

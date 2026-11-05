@@ -306,7 +306,7 @@ typedef unsigned int UnsignedInt;
 class ThingTemplate;
 class Player;
 class ExitInterface;
-class CommandSet { public: const class CommandButton *getCommandButton(int) const; };
+#include "../../../../Include/GameClient/CommandSet.h"
 enum ObjectStatusTypes { CommandPopulationStatus=100 };
 enum ScienceType { CommandPopulationScienceInvalid=-1 };
 // Nothing here calls the science vector's deallocation helpers out of line;

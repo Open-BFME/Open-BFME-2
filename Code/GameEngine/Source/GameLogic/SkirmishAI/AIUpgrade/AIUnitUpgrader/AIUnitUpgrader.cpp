@@ -48,7 +48,7 @@ class UpgradeTemplate { public: unsigned int calcCostToBuild(Player *,unsigned i
 
 #include "../../../../../Include/GameClient/CommandButton.h"
 
-class CommandSet { public: const CommandButton *getCommandButton(int) const; };
+#include "../../../../../Include/GameClient/CommandSet.h"
 
 class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
 

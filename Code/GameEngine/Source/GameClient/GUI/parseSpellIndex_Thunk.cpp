@@ -160,11 +160,7 @@ class Image;
 // in SpellStoreEntry.
 #include "../../../Include/GameClient/CommandButton.h"
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int index) const;
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
 // ThePlayerList (0x009FEEE8): the local player at +0x10.
 #include "../../../Include/Common/PlayerList.h"

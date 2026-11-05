@@ -679,11 +679,7 @@ class Rva00395686 : public Rva0039718B
  public:
  bool rva00395686(Player *, ThingTemplate *);
 };
-class CommandSet
-{
- public:
- const CommandButton *getCommandButton(int) const;
-};
+#include "../../../Include/GameClient/CommandSet.h"
 class GateOpenAndCloseBehaviorView
 {
 public:

@@ -1,4 +1,6 @@
 // cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+#include "../../../Include/GameClient/CommandSet.h"
+#include "../../../Include/GameClient/CommandButton.h"
 //
 // ?rva002AD1FD@Player@@QAEXXZ @0x002AD1FD 94B: Player helper scanning 32 command buttons.
 // For the Player's Object (via rva002AC629) with template name (via Object rva00290E67),
@@ -13,17 +15,6 @@ class AsciiString;
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
 class Object;
-class CommandButton
-{
-public:
-	unsigned char m_pad00[0x44];
-	void *m_44; // +0x44
-};
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int i) const;
-};
 class Rva0031D5F8
 {
 public:
@@ -73,7 +64,7 @@ void Player::rva002AD1FD()
 		const CommandButton *btn = ((CommandSet *)cmdSet)->getCommandButton(i);
 		if (btn == 0)
 			continue;
-		void *p = btn->m_44;
+		const SpecialPowerTemplate *p = btn->m_specialPower;
 		if (p == 0)
 			continue;
 		void *found = obj->getSpecialPowerModule(reinterpret_cast<const SpecialPowerTemplate *>(p));

@@ -47,7 +47,7 @@ class Object;
 
 class GameWindow;
 
-class CommandSet { public: const class CommandButton *getCommandButton(int) const; };
+#include "../../../../Include/GameClient/CommandSet.h"
 
 struct CommandInventoryData { int current,last; GameWindow **windows; Object *transport; };
 

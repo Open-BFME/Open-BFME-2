@@ -485,7 +485,7 @@ class Rva0031D5F8
 public:
 	void* rva0031D5F8(const AsciiString*);
 };
-class CommandSet { public: const CommandButton* getCommandButton(int) const; };
+#include "../../../Include/GameClient/CommandSet.h"
 class Rva0026F0F0 { public: void* rva0026F0F0(const void*); };
 class Rva0029DE76 { public: bool rva0029DE76(const Coord3D*); };
 #include "../../../Include/GameLogic/ActionManager.h"

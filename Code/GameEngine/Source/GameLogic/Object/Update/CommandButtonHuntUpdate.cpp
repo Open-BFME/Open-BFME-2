@@ -284,11 +284,7 @@ class SpecialPowerTemplate;
 
 enum { MAX_COMMANDS_PER_SET = 32 };
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton( Int i ) const;
-};
+#include "../../../../Include/GameClient/CommandSet.h"
 
 // ControlBar::findCommandSet (0x0031D5F8) is rowed as Rva0031D5F8::rva0031D5F8.
 class Rva0031D5F8

@@ -1329,11 +1329,7 @@ public:
 
 #include "../../../Include/GameClient/CommandButton.h"
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int i) const;	// 0x00409EE8
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
 class ActionSpecialPowerInterfaceView
 {
