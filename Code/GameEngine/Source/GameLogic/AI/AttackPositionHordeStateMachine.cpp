@@ -14,13 +14,7 @@ class Object;
 class State;
 struct StateConditionInfo;
 
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, unsigned int name, bool flag);
-	virtual ~StateMachine();
-	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 
 class AIAttackApproachTargetState00C12678

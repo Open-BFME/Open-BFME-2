@@ -391,3 +391,5 @@ a class family's destructors, run `link_check` over every unit touching the fami
 record these losses).
 
 - **2026-11-04 LaserDraw consolidation:** typed storage and inline teardown now preserve all 23 combined bodies, but LinkGuard refuses `??_7DrawModule@@6B@` and the constructor's `??_7W3DLaserDraw@@6BDrawModule@@@` copy; standalone units still preview as linking. The shared table contract remains prerequisite. [Evidence](../../reverse/attempt_support/laserdraw-tu-contracts-20261104-codexb4.md).
+
+- **2026-11-05 StateMachine follow-up:** AttackPositionHorde constructor/destructor now adopt together with the canonical header first; all five adopted units preserve their scoped 1,044 B in the preview and retire five header entries. Other items remain open. [Evidence](../../reverse/attempt_support/statemachine-header-adoptions-20261105-codexb2.md).

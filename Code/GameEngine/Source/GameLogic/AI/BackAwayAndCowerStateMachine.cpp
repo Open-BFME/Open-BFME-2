@@ -50,6 +50,7 @@ public:
 // destructor 0x0034457C (slot 0) is emitted with this unit's vtable. Defined
 // beside the constructor; the canonical StateMachine base supplies the
 // complete retail slot list, including setGoalObject at slot 14.
+// beside the constructor so both use the canonical StateMachine slot list.
 BackAwayAndCowerStateMachine::~BackAwayAndCowerStateMachine()
 {
 }
