@@ -20,7 +20,7 @@ class SpecialPowerTemplate;
 class SpecialPowerStore
 {
 public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name) throw();
+	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
 // Retail loads the named store at VA 0x00E02D4C before its template lookup.

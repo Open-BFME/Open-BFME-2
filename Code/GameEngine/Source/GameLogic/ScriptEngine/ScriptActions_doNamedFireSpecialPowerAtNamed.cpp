@@ -31,7 +31,7 @@ extern SpecialPowerStore *TheSpecialPowerStore;
 class SpecialPowerStore
 {
 public:
-	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString s);
+	const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString name);
 };
 
 class BecSlot
