@@ -16,7 +16,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <cstdlib>
 extern void __cdecl Rva00030830FreeAllocation(void *);
-#define free Rva00030830FreeAllocation
 #include <set>
 #include <vector>
 // Preserve the placement construction in signed push_back without emitting
@@ -39,6 +38,21 @@ void vector<unsigned int>::_M_set(unsigned int *s, unsigned int *f, unsigned int
 }
 struct Rva0061F910Key {unsigned int a;};
 inline bool operator<(const Rva0061F910Key&a,const Rva0061F910Key&b){return a.a<b.a;}
+// Both releases call the GameMemory free wrapper (0x00030830) directly.
+namespace _STL {
+template<> inline void allocator<unsigned int>::deallocate(unsigned int *__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+template<> inline void allocator<int>::deallocate(int *__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+template<> inline void allocator<_Rb_tree_node<Rva0061F910Key> >::deallocate(_Rb_tree_node<Rva0061F910Key> *__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+}
 typedef _STL::_Rb_tree<Rva0061F910Key,Rva0061F910Key,_STL::_Identity<Rva0061F910Key>,_STL::less<Rva0061F910Key>,_STL::allocator<Rva0061F910Key> > NativeTree;
 template void _STL::vector<unsigned int>::_M_insert_overflow(unsigned int *,const unsigned int &,const _STL::__true_type &,unsigned int,bool);
 template void NativeTree::_M_erase(_STL::_Rb_tree_node<Rva0061F910Key> *);

@@ -18,9 +18,13 @@
 // ArmyUnitIcon siblings rather than an application-source donor.
 #include <cstdlib>
 void __cdecl Rva00030830FreeAllocation(void *);
-#define free Rva00030830FreeAllocation
 #include <vector>
-#undef free
+namespace _STL {
+template<> inline void allocator<int>::deallocate(int *__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+}
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00217D4C;
