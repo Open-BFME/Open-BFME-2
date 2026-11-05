@@ -26,18 +26,13 @@ class Object;
 extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual void onExit(StateExitType status);
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIEnterState : public AIInternalMoveToState
 {
 public:
 	virtual void onExit(StateExitType status);
 protected:
 	void exitEnterState(StateExitType status);
-	unsigned char m_pad20[0x4C - 0x20];
 	ObjectID m_entryToClear; // +0x4C
 };
 class Rva00351109 : public AIEnterState

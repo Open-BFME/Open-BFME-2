@@ -2,6 +2,7 @@
 Status: Blocked. Updated: 2026-11-05; inspected revision: 57d08ff823.
 Evidence / scope: [current-object trial](../../reverse/attempt_support/aiinternalmovetostate-header-adoption-20261105-codexb.md); AIAttackMoveStateMachine.cpp and AIGuardRetaliate.cpp byte-match the adoption but lose linking through GetSnapshotName and _bfme_state_slot7.
 Completed: rejected source edits restored; AIHarvest.cpp adopted independently and four passing header-queue rows retired through accept.
+2026-11-05: four additional consumers adopt the canonical base after adjusting derived padding; nine distinct byte rows, unchanged external definition/reference sets, four LINKS preserving 1,701 bytes and four owning-tool queue retirements. The two virtual-provider prerequisites remain open. [Evidence](../../reverse/attempt_support/aiinternalmovetostate-padding-adoption-20261105-codex5.md).
 Remaining / next check: reconcile existing placeholder owners at 0x0033F2F7 and 0x0033F2D7 with the canonical virtual declarations, then repeat the two adoptions and their consumer checks.
 Clearance: pending for the two blocked adoptions.
 Census confirmation: none claimed.

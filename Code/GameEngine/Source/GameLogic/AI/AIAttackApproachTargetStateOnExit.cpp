@@ -102,15 +102,7 @@ extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual Bool computePath();
-protected:
-	Coord3D m_goalPosition; // +0x20
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIAttackApproachTargetState : public AIInternalMoveToState
 {
@@ -119,7 +111,7 @@ public:
 	virtual StateReturnType update();
 private:
 	StateReturnType updateInternal( void );
-	unsigned char m_pad2C[0x6C - 0x2C];
+	unsigned char m_pad4C[0x6C - 0x4C];
 	Bool m_follow; // +0x6C
 	Bool m_isAttackingObject; // +0x6D
 	Bool m_stopIfInRange; // +0x6E
@@ -207,7 +199,7 @@ public:
 	virtual StateReturnType update();
 private:
 	StateReturnType updateInternal( void );
-	unsigned char m_pad2C[0x60 - 0x2C];
+	unsigned char m_pad4C[0x60 - 0x4C];
 	Bool m_stopIfInRange; // +0x60
 	Bool m_isInitialApproach; // +0x61
 	Bool m_62; // +0x62

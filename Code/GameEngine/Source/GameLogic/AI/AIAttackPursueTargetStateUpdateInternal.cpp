@@ -87,20 +87,13 @@ template <> class AIUpdateSlots<0>
 
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual Bool computePath();
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIAttackPursueTargetState : public AIInternalMoveToState
 {
 private:
 	StateReturnType updateInternal();
-	unsigned char m_pad20[0x5E - 0x20];
+	unsigned char m_pad4C[0x5E - 0x4C];
 	Bool m_stopIfInRange;
 	Bool m_isInitialApproach;
 	Bool m_isForceAttacking;
