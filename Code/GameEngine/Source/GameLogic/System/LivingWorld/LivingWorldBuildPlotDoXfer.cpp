@@ -79,18 +79,7 @@ public:
 class Rva0022C0CDSubsystem;
 extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 
-struct Rva003F1BD3TemplateView;
-class LivingWorldBuilding
-{
-public:
-	LivingWorldBuilding(LivingWorldRegion *region, const Coord2D &position,
-	                   const Rva003F1BD3TemplateView *templ, int id);
-	char m_pad00[0x18];
-	int m_id;
-	char m_pad1C[0x0C];
-	const AsciiString *m_template;
-	char m_pad2C[0x28];
-};
+#include "../../../../Include/GameLogic/LivingWorldBuilding.h"
 
 class Object;
 #include "../../../../Include/Common/Rva00575674.h"
@@ -129,7 +118,7 @@ public:
 	int m_buildFrames;
 	bool m_hidden;
 	int getRegionID() const { if (m_region) return ((BuildPlotRegionView *)m_region)->m_id; return -1; }
-	int getBuildingID() const { if (m_building.m_ptr) return ((LivingWorldBuilding *)m_building.m_ptr)->m_id; return 0; }
+	int getBuildingID() const { if (m_building.m_ptr) return ((LivingWorldBuilding *)m_building.m_ptr)->field18; return 0; }
 };
 
 void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
@@ -176,7 +165,7 @@ void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 		int buildingId = getBuildingID();
 		Rva004E075FGet((Rva004E075FObj *)xfer, (int)&buildingId);
 		if (m_building.m_ptr && buildingId != 0) {
-			AsciiString templateName(*((LivingWorldBuilding *)m_building.m_ptr)->m_template);
+			AsciiString templateName(*reinterpret_cast<const AsciiString *>(((LivingWorldBuilding *)m_building.m_ptr)->field28));
 			(*xfer == templateName);
 			(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(m_building)));
 		}

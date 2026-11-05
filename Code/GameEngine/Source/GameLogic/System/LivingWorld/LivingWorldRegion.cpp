@@ -50,14 +50,7 @@ struct Rva003F0614BuildingLink
     unsigned char prefix[0x2C];
     CreateAHeroData *field2C;
 };
-class LivingWorldBuilding
-{
-public:
-    unsigned char prefix[0x18];
-    int id;
-    char before28[0xc];
-    Rva003F0614BuildingLink *field28;
-};
+class LivingWorldBuilding;
 
 class LivingWorldBattle;
 class LivingWorldRegion;
@@ -95,6 +88,7 @@ public:
 };
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
+#include "../../../../Include/GameLogic/LivingWorldBuilding.h"
 
 class Rva002E071E
 {
@@ -250,7 +244,7 @@ Int LivingWorldRegion::rva003F0614(CreateAHeroData *key) const
     for (UnsignedInt i = 0; i < m_buildPlots.size(); ++i)
     {
         if (m_buildPlots[i]->HasBuilding() &&
-            m_buildPlots[i]->m_building->field28->field2C == key)
+            reinterpret_cast<const Rva003F0614BuildingLink *>(m_buildPlots[i]->m_building->field28)->field2C == key)
             ++count;
     }
     return count;
@@ -264,7 +258,7 @@ Int LivingWorldRegion::rva003F066B(CreateAHeroData *key) const
     for (UnsignedInt i = 0; i < m_buildPlots.size(); ++i)
     {
         if (m_buildPlots[i]->HasHiddenBuilding() &&
-            m_buildPlots[i]->m_building->field28->field2C == key)
+            reinterpret_cast<const Rva003F0614BuildingLink *>(m_buildPlots[i]->m_building->field28)->field2C == key)
             ++count;
     }
     return count;
@@ -278,7 +272,7 @@ Int LivingWorldRegion::rva003F06C2(CreateAHeroData *key) const
     for (UnsignedInt i = 0; i < m_buildPlots.size(); ++i)
     {
         if (m_buildPlots[i]->IsOccupied() &&
-            m_buildPlots[i]->m_building->field28->field2C == key)
+            reinterpret_cast<const Rva003F0614BuildingLink *>(m_buildPlots[i]->m_building->field28)->field2C == key)
             ++count;
     }
     return count;
@@ -554,7 +548,7 @@ void LivingWorldRegion::DoXfer(Xfer *xfer)
         int count=m_buildPlots.size();
         *xfer == count;
         for(int i=0;i<count;++i) *xfer == *(Snapshot *)m_buildPlots[i];
-        int buildingID=(m_plotIndex && m_plotIndex->m_building) ? m_plotIndex->m_building->id : 0;
+        int buildingID=(m_plotIndex && m_plotIndex->m_building) ? m_plotIndex->m_building->field18 : 0;
         Rva004E075FGet(reinterpret_cast<Rva004E075FObj *>(xfer),reinterpret_cast<int>(&buildingID));
     }
     *xfer == m_plotFlag;
@@ -577,7 +571,7 @@ CreateAHeroData *Rva003F1093::rva003F083A(void *key)
 {
     for (unsigned i=0;i<plots.size();++i) {
         LivingWorldBuilding *building=plots[i]->m_building;
-        if(building && building->id == reinterpret_cast<int>(key))
+        if(building && building->field18 == reinterpret_cast<int>(key))
             return reinterpret_cast<CreateAHeroData *>(plots[i]);
     }
     return 0;

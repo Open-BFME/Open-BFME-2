@@ -189,16 +189,8 @@ public:
 	BuildingNuggetView *findNugget(const AsciiString &name) const;
 };
 
-class LivingWorldBuilding
-{
-public:
-	char m_pad00[0x18];
-	int m_id;                                  // +0x18
-	char m_pad1c[0x28 - 0x1C];
-	LivingWorldBuildingTemplate *m_template;   // +0x28
-};
-
 #include "../../../../GameEngine/Include/GameLogic/LivingWorldRegion.h"
+#include "../../../../GameEngine/Include/GameLogic/LivingWorldBuilding.h"
 
 class Rva003F287F
 {
@@ -345,24 +337,24 @@ void LWAIWorldInformation::GatherWorldInformation()
 		for (unsigned int j = 0; j < buildings.size(); ++j)
 		{
 			LivingWorldBuilding *building = region->GetBuildingByIndex(j);
-			BuildingNuggetView *commandPoints = building->m_template->findNugget(AsciiString("IncreaseCommandPoints"));
-			BuildingNuggetView *spawnArmy = building->m_template->findNugget(AsciiString("SpawnArmy"));
-			BuildingNuggetView *strengthen = building->m_template->findNugget(AsciiString("StrengthenArmy"));
-			BuildingNuggetView *upgrade = building->m_template->findNugget(AsciiString("UpgradeTroops"));
+			BuildingNuggetView *commandPoints = building->field28->findNugget(AsciiString("IncreaseCommandPoints"));
+			BuildingNuggetView *spawnArmy = building->field28->findNugget(AsciiString("SpawnArmy"));
+			BuildingNuggetView *strengthen = building->field28->findNugget(AsciiString("StrengthenArmy"));
+			BuildingNuggetView *upgrade = building->field28->findNugget(AsciiString("UpgradeTroops"));
 			if (commandPoints && commandPoints->m_type != 1)
 				commandPoints = 0;
 			if (commandPoints)
-				info.m_28.push_back((ScienceType)building->m_id);
+				info.m_28.push_back((ScienceType)building->field18);
 			else if (strengthen)
-				info.m_10.push_back((ScienceType)building->m_id);
+				info.m_10.push_back((ScienceType)building->field18);
 			else if (upgrade)
-				info.m_1c.push_back((ScienceType)building->m_id);
+				info.m_1c.push_back((ScienceType)building->field18);
 			if (spawnArmy)
 			{
 				if (!commandPoints && !strengthen && !upgrade)
-					info.m_34.push_back((ScienceType)building->m_id);
+					info.m_34.push_back((ScienceType)building->field18);
 				else
-					info.m_40.push_back((ScienceType)building->m_id);
+					info.m_40.push_back((ScienceType)building->field18);
 			}
 		}
 

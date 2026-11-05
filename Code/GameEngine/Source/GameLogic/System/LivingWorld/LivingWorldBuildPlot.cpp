@@ -114,14 +114,7 @@ public:
     int bump();
 };
 
-class LivingWorldBuilding
-{
-public:
-    LivingWorldBuilding(LivingWorldRegion *region, const Coord2D &position,
-                       const Rva003F1BD3TemplateView *templ, int id);
-private:
-    char m_unrecovered[0x54];
-};
+#include "../../../../Include/GameLogic/LivingWorldBuilding.h"
 
 class Rva004E0705
 {

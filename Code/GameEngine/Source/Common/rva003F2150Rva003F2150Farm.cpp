@@ -54,20 +54,7 @@ template <> inline _Vector_base<ScienceType, allocator<ScienceType> >::~_Vector_
 // WB DoXfer treats each 12-byte hero slot as an army-vector. The existing
 // rowed transfer helper retains its neutral ModuleData pointer element ABI.
 struct RegionHeroSlot { _STL::vector<const ModuleData *> armies; };
-struct Rva003F0614BuildingLink
-{
-    unsigned char prefix[0x2C];
-    CreateAHeroData *field2C;
-};
-class LivingWorldBuilding
-{
-public:
-    unsigned char prefix[0x18];
-    int id;
-    char before28[0xc];
-    Rva003F0614BuildingLink *field28;
-    void rva004E0860(class Rva003F7BB4 *bonus);
-};
+class LivingWorldBuilding;
 
 class LivingWorldBattle;
 class LivingWorldRegion;
@@ -104,6 +91,7 @@ public:
 #include "../../Include/Common/SpawnArmy.h"
 
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
+#include "../../Include/GameLogic/LivingWorldBuilding.h"
 
 class Rva00318C32Ret;
 class Rva0020E89C;

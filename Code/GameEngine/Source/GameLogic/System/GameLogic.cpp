@@ -394,7 +394,8 @@ private:
 };
 struct LivingArmy {char pad[0x20];int id;};
 struct LivingBuildingTemplate {char pad[0xC];AsciiString name;};
-class LivingWorldBuilding {public:char pad[0x18];int id;char pad1C[0xC];const AsciiString &getName()const {const LivingBuildingTemplate &d=*definition;return d.name;} LivingBuildingTemplate *definition;};
+#include "../../../Include/GameLogic/LivingWorldBuilding.h"
+static __forceinline const AsciiString &LivingWorldBuildingName(const LivingWorldBuilding *building){const LivingBuildingTemplate &d=*reinterpret_cast<const LivingBuildingTemplate *>(building->field28);return d.name;}
 class LivingWorldRegion {public:char pad[0x13C];int owner;int GetOwner()const{return owner;} int rva003F05CE();LivingWorldBuilding *GetBuildingByIndex(int)const;};
 class Waypoint {public:Waypoint(unsigned,AsciiString,const Coord3D*,AsciiString,AsciiString,AsciiString,bool,int,AsciiString);virtual ~Waypoint();char pad[8];Coord3D position;char rest[0xC0-0x18];};
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString&);
@@ -406,7 +407,7 @@ class PlayerTemplate;
 // WB 0x00CFC810 exposes all five source arguments; forwarding template and
 // slot into the static object placer preserves that ABI although their final
 // machine-code uses disappear. The 486-byte helper itself is unchanged.
-// Keep the inline owner and building-name accessors: their compiler lifetimes
+// Keep the inline owner accessor and building-name helper: their compiler lifetimes
 // reproduce the saved player ID and retail register allocation without volatile.
 static void PlaceLivingWorldObjectsForPlayer(Player *player,const PlayerTemplate *pt,int startIndex,int slot,Waypoint *rally) {
  if(TheGameLogic->m_114==3) return;
@@ -435,7 +436,7 @@ static void PlaceLivingWorldObjectsForPlayer(Player *player,const PlayerTemplate
  ValidateLivingWorldBuildPlotWaypoints(start,region->rva003F05CE());
  for(int i=0;i<region->rva003F05CE();++i){
   LivingWorldBuilding *building=region->GetBuildingByIndex(i);
-  const AsciiString &name=building->getName();
+  const AsciiString &name=LivingWorldBuildingName(building);
   if(name.isEmpty()) continue;
   waypointName.format("Player_1_BuildPlot_%d",i+1);
   Waypoint *waypoint=Rva00506CC3FindWaypoint(waypointName);
@@ -446,7 +447,7 @@ static void PlaceLivingWorldObjectsForPlayer(Player *player,const PlayerTemplate
   player->onStructureCreated(0,obj);
   player->onStructureConstructionComplete(0,obj,false);
   ((ArmySummarySystem*)((char*)TheGameLogic+0x184))->rva0040D280(obj,armyId);
-  *(int*)((char*)obj+0x464)=building->id;
+  *(int*)((char*)obj+0x464)=building->field18;
  }
 }
 

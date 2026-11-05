@@ -36,13 +36,8 @@ class Rva004E0625
 public:
     int rva004E0625() const;
 };
-class LivingWorldBuilding
-{
-public:
-    unsigned char m_pad00[0x18];
-    int m_key18;
-};
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
+#include "../../../../Include/GameLogic/LivingWorldBuilding.h"
 struct Rva002E118ERegionCollection
 {
     _STL::vector<LivingWorldRegion *> m_regions;
@@ -84,10 +79,10 @@ bool LivingWorldPlayer::HasArmyQueuedInAnyBuilding(void *key, int *outBuildingID
             // Both native and WB callers consume it as a virtual receiver.
             Rva002E118EQueue *queue = reinterpret_cast<Rva002E118EQueue *>(
                 reinterpret_cast<Rva004E0625 *>(building)->rva004E0625());
-            if (queue != 0 && building->m_key18 != excludedBuildingID && queue->contains(key))
+            if (queue != 0 && building->field18 != excludedBuildingID && queue->contains(key))
             {
                 if (outBuildingID != 0)
-                    *outBuildingID = building->m_key18;
+                    *outBuildingID = building->field18;
                 return true;
             }
         }
