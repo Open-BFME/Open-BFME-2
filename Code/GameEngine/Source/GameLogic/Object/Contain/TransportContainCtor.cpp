@@ -78,12 +78,7 @@ struct TransportPayloadEntry
 	int m_08;
 };
 
-class TransportContainModuleData
-{
-public:
-	unsigned char m_pad[0x180];
-	_STL::vector<TransportPayloadEntry> m_payload;	// +0x180
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class TransportContain : public OpenContain, public TransportExtra
 {
@@ -104,7 +99,7 @@ private:
 TransportContain::TransportContain(Thing *thing, const ModuleData *moduleData)
 	: OpenContain(thing, moduleData)
 {
-	const _STL::vector<TransportPayloadEntry> &payload = getTransportContainModuleData()->m_payload;
+	const _STL::vector<TransportPayloadEntry> &payload = *(const _STL::vector<TransportPayloadEntry> *)getTransportContainModuleData()->m_storage180;
 	m_100 = 0;
 	m_104 = 0;
 	m_108 = 0;

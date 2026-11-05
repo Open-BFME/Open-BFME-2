@@ -248,21 +248,7 @@ public:
 };
 
 
-class TransportContainModuleData
-{
-public:
-	char m_pad00[0xB0];
-	KindOfMaskType m_typeOneForWeaponSet; // +0xB0 TypeOneForWeaponSet
-	KindOfMaskType m_typeTwoForWeaponSet; // +0xCC TypeTwoForWeaponSet
-	KindOfMaskType m_riderKindAtE8; // +0xE8, read by 0x0046731A
-	KindOfMaskType m_riderKindAt104; // +0x104
-	KindOfMaskType m_riderKindAt120; // +0x120
-	char m_pad13C[0x142 - 0x13C];
-	Bool m_destroyRidersWhoAreNotFreeToExit; // +0x142
-	char m_pad143[0x158 - 0x143];
-	Coord3D m_throwOutPassengersVelocity; // +0x158 ThrowOutPassengersVelocity
-	const void *m_throwOutPassengersLandingWarhead; // +0x164 ThrowOutPassengersLandingWarhead
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 template <int N> class ContainSlots : public ContainSlots<N - 1>
 {
@@ -379,9 +365,9 @@ void TransportContain::letRidersUpgradeWeaponSet()
 	for (IntList::iterator it = ((IntList *)riders.m04)->begin(); it != ((IntList *)riders.m04)->end(); ++it)
 	{
 		Object *rider = (Object *)containmentFirstWord(*it);
-		if (rider->isKindOfMulti(transportContainModuleData->m_typeOneForWeaponSet, KINDOFMASK_NONE))
+		if (rider->isKindOfMulti(*(const KindOfMaskType *)&transportContainModuleData->m_typeOneForWeaponSet, KINDOFMASK_NONE))
 			anyRiderA = TRUE;
-		else if (rider->isKindOfMulti(transportContainModuleData->m_typeTwoForWeaponSet, KINDOFMASK_NONE))
+		else if (rider->isKindOfMulti(*(const KindOfMaskType *)&transportContainModuleData->m_typeTwoForWeaponSet, KINDOFMASK_NONE))
 			anyRiderB = TRUE;
 	}
 
@@ -421,14 +407,14 @@ void Rva0046731A::rva0046731A(Object *rider)
 	const TransportContainModuleData *transportContainModuleData = *(const TransportContainModuleData **)((char *)this - 0x1C);
 	Object *owner = *(Object **)((char *)this - 0x18);
 	UnsignedInt mask;
-	if (((const BitFlags<218> *)&transportContainModuleData->m_riderKindAtE8)->any() &&
-		rider->isKindOfMulti(transportContainModuleData->m_riderKindAtE8, KINDOFMASK_NONE))
+	if (((const BitFlags<218> *)&transportContainModuleData->m_typeOneForWeaponState)->any() &&
+		rider->isKindOfMulti(*(const KindOfMaskType *)&transportContainModuleData->m_typeOneForWeaponState, KINDOFMASK_NONE))
 		mask = 0x40000;
-	else if (((const BitFlags<218> *)&transportContainModuleData->m_riderKindAt104)->any() &&
-		rider->isKindOfMulti(transportContainModuleData->m_riderKindAt104, KINDOFMASK_NONE))
+	else if (((const BitFlags<218> *)&transportContainModuleData->m_typeTwoForWeaponState)->any() &&
+		rider->isKindOfMulti(*(const KindOfMaskType *)&transportContainModuleData->m_typeTwoForWeaponState, KINDOFMASK_NONE))
 		mask = 0x80000;
-	else if (((const BitFlags<218> *)&transportContainModuleData->m_riderKindAt120)->any() &&
-		rider->isKindOfMulti(transportContainModuleData->m_riderKindAt120, KINDOFMASK_NONE))
+	else if (((const BitFlags<218> *)&transportContainModuleData->m_typeThreeForWeaponState)->any() &&
+		rider->isKindOfMulti(*(const KindOfMaskType *)&transportContainModuleData->m_typeThreeForWeaponState, KINDOFMASK_NONE))
 		mask = 0x100000;
 	else
 		return;

@@ -144,24 +144,7 @@ extern GameLogic *TheGameLogic;
 
 extern float BfmeClientFramesPerMillisecond;	// logic frames per millisecond (0.03)
 
-struct TransportContainModuleData
-{
-	unsigned char m_unmodelled000[0x144];
-	const WeaponTemplate *m_tempWeapon;					///< +0x144
-	bool m_tempWeaponKeepsStatus;						///< +0x148
-	unsigned char m_unmodelled149[7];
-	bool m_useFrameStamp;								///< +0x150
-	unsigned char m_unmodelled151[3];
-	UnsignedInt m_frameStampDelay;						///< +0x154
-	unsigned char m_unmodelled158[0x10];
-	Rva2225E0Filter m_fadeFilter;						///< +0x168
-	unsigned char m_unmodelled169[3];
-	bool m_fadeRiders;									///< +0x16C
-	unsigned char m_unmodelled16D[3];
-	float m_fadeTime;									///< +0x170
-	unsigned char m_unmodelled174[4];
-	bool m_fadeOut;										///< +0x178
-};
+#include "../../../../Include/GameLogic/Module/TransportContainModuleData.h"
 
 class OpenContain
 {
@@ -362,19 +345,19 @@ void Rva0046781F::rva0046781F(Object *rider, bool wasSelected)
 	slot59(rider);
 	slot27(rider, slot44(0).test(61));
 
-	if (transportContainModuleData->m_tempWeapon && getObject()->getRelationship(rider) != ALLIES)
+	if (transportContainModuleData->m_grabWeapon && getObject()->getRelationship(rider) != ALLIES)
 	{
-		if (!transportContainModuleData->m_tempWeaponKeepsStatus)
+		if (!transportContainModuleData->m_fireGrabWeaponOnVictim)
 			rider->setStatus(OBJECT_STATUS_RVA0046781F, true);
-		TheWeaponStore->createAndFireTempWeapon(transportContainModuleData->m_tempWeapon, getObject(), getObject()->getPosition());
-		if (!transportContainModuleData->m_tempWeaponKeepsStatus)
+		TheWeaponStore->createAndFireTempWeapon(transportContainModuleData->m_grabWeapon, getObject(), getObject()->getPosition());
+		if (!transportContainModuleData->m_fireGrabWeaponOnVictim)
 			rider->setStatus(OBJECT_STATUS_RVA0046781F, false);
 	}
 
-	if (transportContainModuleData->m_useFrameStamp)
-		m_frameStamp = TheGameLogic->getFrame() + transportContainModuleData->m_frameStampDelay;
+	if (transportContainModuleData->m_shouldThrowOutPassengers)
+		m_frameStamp = TheGameLogic->getFrame() + transportContainModuleData->m_throwOutPassengersDelay;
 
-	if (transportContainModuleData->m_fadeRiders && draw && transportContainModuleData->m_fadeTime != 0.0f && transportContainModuleData->m_fadeFilter.accepts(rider, NULL))
+	if (transportContainModuleData->m_fadePassengerOnEnter && draw && transportContainModuleData->m_enterFadeTime != 0.0f && ((Rva2225E0Filter *)&transportContainModuleData->m_fadeFilter)->accepts(rider, NULL))
 	{
 		if (rider->isKindOf(109) && rider->rva0028C197())
 		{
@@ -388,20 +371,20 @@ void Rva0046781F::rva0046781F(Object *rider, bool wasSelected)
 					Drawable *riderDraw = obj->getDrawable();
 					if (riderDraw)
 					{
-						if (transportContainModuleData->m_fadeOut)
-							riderDraw->fadeOut((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_fadeTime));
+						if (transportContainModuleData->m_fadeReverse)
+							riderDraw->fadeOut((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_enterFadeTime));
 						else
-							riderDraw->fadeIn((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_fadeTime));
+							riderDraw->fadeIn((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_enterFadeTime));
 					}
 				}
 			}
 		}
 		else
 		{
-			if (transportContainModuleData->m_fadeOut)
-				draw->fadeOut((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_fadeTime));
+			if (transportContainModuleData->m_fadeReverse)
+				draw->fadeOut((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_enterFadeTime));
 			else
-				draw->fadeIn((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_fadeTime));
+				draw->fadeIn((UnsignedInt)(BfmeClientFramesPerMillisecond * transportContainModuleData->m_enterFadeTime));
 		}
 	}
 }
