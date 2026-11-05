@@ -50,39 +50,18 @@ public:
 	Real m_attachToBoneInAnotherModule;
 };
 
-class DrawModule
-{
-public:
-	virtual void doDrawModule(const Matrix3D *transform) = 0;
-
-protected:
-	W3DLightDrawModuleData *m_moduleData;	// +0x04
-	Drawable *m_drawable;			// +0x08
-};
-
-class W3DLightDraw : public DrawModule
-{
-public:
-	virtual void doDrawModule(const Matrix3D *transform);
-
-private:
-	W3DDynamicLight *m_light;		// +0x0C
-	Real m_phase;				// +0x10
-	Real m_radius;				// +0x14
-	Real m_angle;				// +0x18
-	Real m_height;				// +0x1C
-};
+#include "../../../../../Include/W3DDevice/GameClient/Module/W3DLightDraw.h"
 
 void W3DLightDraw::doDrawModule(const Matrix3D *)
 {
-	Real phase = m_phase;
-	W3DDynamicLight *light = m_light;
+	Real phase = m_10;
+	W3DDynamicLight *light = m_0C;
 	phase += 1.0f / (Real)BfmeLogicFramesPerSecond;
-	m_phase = phase;
+	m_10 = phase;
 	if (light == 0)
 		return;
 
-	const W3DLightDrawModuleData *data = m_moduleData;
+	const W3DLightDrawModuleData *data = (const W3DLightDrawModuleData *)getModuleData();
 	if (data == 0)
 		return;
 	Real height = data->m_intensity;
@@ -108,23 +87,23 @@ void W3DLightDraw::doDrawModule(const Matrix3D *)
 		const Coord3D *position = ((const Rva00276470Drawable *)drawable)->rva00276470();
 		Vector3 positionVector(position->x, position->y, position->z);
 		transform.Set_Translation(positionVector);
-		m_light->Set_Transform(transform);
+		m_0C->Set_Transform(transform);
 	}
 
 	if (data->m_flickerAmplitude > 0.0f)
 	{
-		if (m_radius <= 0.0f)
+		if (m_14 <= 0.0f)
 		{
-			m_radius = (Real)BfmeLogicFramesPerSecond / data->m_flickerFrequency;
+			m_14 = (Real)BfmeLogicFramesPerSecond / data->m_flickerFrequency;
 			Real minimum = -data->m_flickerAmplitude;
 			Real maximum = data->m_flickerAmplitude;
-			m_angle = ((WWMath::Random_Float() * (maximum - minimum) + minimum) + height - m_height) / m_radius;
+			m_18 = ((WWMath::Random_Float() * (maximum - minimum) + minimum) + height - m_1C) / m_14;
 		}
-		m_radius -= 1.0f;
-		height = m_angle + m_height;
-		m_height = height;
+		m_14 -= 1.0f;
+		height = m_18 + m_1C;
+		m_1C = height;
 	}
 	if (data->m_pulseAmplitude > 0.0f)
-		height = WWMath::Sin(m_phase * data->m_pulseFrequency * 6.2831855f) * *(volatile const Real *)&data->m_pulseAmplitude + height;
-	*(Real *)((char *)m_light + 0xd0) = height;
+		height = WWMath::Sin(m_10 * data->m_pulseFrequency * 6.2831855f) * *(volatile const Real *)&data->m_pulseAmplitude + height;
+	*(Real *)((char *)m_0C + 0xd0) = height;
 }
