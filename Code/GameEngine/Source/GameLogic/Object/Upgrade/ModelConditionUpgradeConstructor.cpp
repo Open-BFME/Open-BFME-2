@@ -9,30 +9,8 @@ class ModuleData;
 
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
-private:
-	bool m_upgradeExecuted;
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule( Thing *thing, const ModuleData *moduleData );
-protected:
-	virtual ~UpgradeModule();
-};
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ModelConditionUpgrade.h
 class ModelConditionUpgrade : public UpgradeModule
 {
 public:
