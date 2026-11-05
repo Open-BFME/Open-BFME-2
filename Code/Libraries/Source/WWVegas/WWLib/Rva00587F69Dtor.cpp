@@ -1,10 +1,12 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1HordeMeleeAmoeba@@UAE@XZ, retail 0x00587F69 59B.
 // (Renamed from Rva00587F69: same class.) HordeMeleeAmoeba (ctor unit Rva00587D9CCtor.cpp) installs vtable 0x00C6FF38, whose slot 0 is the deleting dtor 0x00587F4D that calls this body.
 // Dtor: derived from Rva005D6FCC (vptr+held at +0, vtbl 0x00C75C38) with char* at +8
 // freed via rowed _free 0x00030830 then base dtor (ICF twin of rowed apply 0x005D6FDE).
 // Caller 0x00587F4D 28B is ??_G (push esi call test flag call delete) which becomes ready.
-extern "C" void __cdecl free(void *block) throw(...);
+// Built with /EHs, not /EHsc: retail keeps an EH state around the extern "C"
+// free call, so the CRT declaration must be allowed to throw.
+#include <stdlib.h>
 
 class Rva005D6FCC
 {
