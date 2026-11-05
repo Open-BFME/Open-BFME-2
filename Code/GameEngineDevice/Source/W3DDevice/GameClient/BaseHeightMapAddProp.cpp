@@ -36,17 +36,7 @@ typedef float Real;
 #include "ascii_string.h"
 
 class GeometryInfo;
-class W3DPropBuffer
-{
-public:
-	void notifyShroudChanged();
-	void rva000EE04A(const Coord3D *a, float b);
-	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float c);
-	void addProp( int id, Coord3D location, float angle, float scale, const AsciiString &modelName, bool bfmeFlag );
-	bool updatePropPosition( int id, const Coord3D &location, float angle, float scale );
-	W3DPropBuffer();
-	char data[194344]; // +0x00
-};
+#include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 
 #include "../../../../GameEngine/Include/Common/DataChunkOutput.h"
 

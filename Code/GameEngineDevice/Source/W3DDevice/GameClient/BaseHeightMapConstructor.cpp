@@ -48,17 +48,7 @@ class W3DShrubBuffer {public:W3DShrubBuffer();char data[332416];};
 struct Coord3D;
 class GeometryInfo;
 class AsciiString;
-class W3DPropBuffer
-{
-public:
-	void notifyShroudChanged();
-	void rva000EE04A(const Coord3D *a, float b);
-	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float c);
-	void addProp( int id, Coord3D location, float angle, float scale, const AsciiString &modelName, bool bfmeFlag );
-	bool updatePropPosition( int id, const Coord3D &location, float angle, float scale );
-	W3DPropBuffer();
-	char data[194344]; // +0x00
-};
+#include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 enum DrawableID
 {
 	INVALID_DRAWABLE_ID = 0,

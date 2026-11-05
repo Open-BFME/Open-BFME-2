@@ -276,7 +276,7 @@ private:
 };
 class W3DTreeBuffer { public: void setIsTerrain() { m_isTerrainPass = true; } private: char m_pad[0x44555]; Bool m_isTerrainPass; };
 class W3DShrubBuffer { public: void setIsTerrain() { m_isTerrainPass = true; } private: char m_pad[0x4FB6D]; Bool m_isTerrainPass; };
-class W3DPropBuffer { public: void drawProps(RenderInfoClass &rinfo); };
+#include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 class W3DBibBuffer { public: void renderBibs(void); };
 class W3DFloorBuffer { public: void drawFloors(RenderInfoClass &rinfo, RefCountPtr<FXShader::RenderingMethod> method); };
 class W3DWaypointBuffer { public: void drawWaypoints(RenderInfoClass &rinfo); };

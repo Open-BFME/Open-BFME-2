@@ -3,24 +3,13 @@
 // W3DPropBuffer visible refresh via embedded check container. Evidence: 4000x0x30 props at +4 count at +0x2EE04 visible byte at +0x1C bounds at +0x20 container at +0x2EE0C calling rowed ?rva000E488F@Rva000E488F@@QAE_NPAX@Z with inversion like cull caller 0x000EE4B2.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-#include "../../../../Libraries/Source/WWVegas/WWMath/SphereClass.h"
+#include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 class RenderObjClass
 {
 public:
 	virtual void Delete_This();
 private:
 	int m_refCount;
-};
-struct TProp
-{
-	RenderObjClass *m_robj;
-	int id;
-	Coord3D location;
-	int propType;
-	int ss;
-	bool visible;
-	char m_padVis[3];
-	SphereClass bounds;
 };
 class Rva000E488F
 {
@@ -30,21 +19,10 @@ private:
 	void *m_begin;
 	void *m_end;
 };
-class W3DPropBuffer
-{
-public:
-	void rva000EE15B();
-private:
-	void *m_vptr;
-	TProp m_props[4000];
-	int m_numProps;
-	int m_flags;
-	Rva000E488F m_container;
-};
 void W3DPropBuffer::rva000EE15B()
 {
 	for (int i = 0; i < m_numProps; ++i)
 	{
-		m_props[i].visible = !m_container.rva000E488F(&m_props[i].bounds);
+		m_props[i].visible = !reinterpret_cast<Rva000E488F *>(&field2EE0C)->rva000E488F(&m_props[i].bounds);
 	}
 }

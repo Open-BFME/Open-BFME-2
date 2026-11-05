@@ -27,14 +27,10 @@ typedef bool Bool;
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
+// Select the buffer's const-name Snapshot surface before GeometryInfo.
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 // GeometryInfo is a class: the rowed callee 0x000EF154 spells ABVGeometryInfo.
 #include "../../Include/Common/Geometry.h"
-
-class W3DPropBuffer
-{
-public:
-	void removePropsForConstruction(const Coord3D *a, const GeometryInfo &b, float f);
-};
 
 class W3DRoadBuffer
 {

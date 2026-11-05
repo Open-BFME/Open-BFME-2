@@ -13,21 +13,10 @@
 // vanish. The loop test is written as retail evaluates it, !(dist < r*r).
 // The bounds radius constant is the shared rdata literal 1.0f (0x007BB8D8).
 // Evidence: native bytes plus the removeProp sibling (W3DPropBuffer.cpp); the
-// method name is address-derived, the class view is private to this unit.
+// method name remains address-derived; the buffer uses its canonical layout.
 #define COORD3D_VIEW_INLINE
 #include "Coord3DCtorView.h"
-struct Vector3
-{
-	float x;
-	float y;
-	float z;
-	void set(float nx, float ny, float nz) { x = nx; y = ny; z = nz; }
-};
-struct SphereClass
-{
-	Vector3 Center;
-	float Radius;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
 class RenderObjClass
 {
 public:
@@ -40,26 +29,6 @@ public:
 	}
 private:
 	int m_refCount;
-};
-struct TProp
-{
-	RenderObjClass *m_robj;
-	int id;
-	Coord3D location;
-	int propType;
-	int ss;
-	int visible;
-	SphereClass bounds;
-};
-class W3DPropBuffer
-{
-public:
-	void rva000EE04A(const Coord3D *pos, float radius);
-private:
-	void *m_vptr;
-	TProp m_props[4000];
-	int m_numProps;
-	bool m_anythingChanged;
 };
 void W3DPropBuffer::rva000EE04A(const Coord3D *pos, float radius)
 {
@@ -83,7 +52,7 @@ void W3DPropBuffer::rva000EE04A(const Coord3D *pos, float radius)
 			robj->Release_Ref();
 			m_props[i].m_robj = 0;
 		}
-		m_props[i].bounds.Center.set(0, 0, 0);
+		m_props[i].bounds.Center.Set(0, 0, 0);
 		m_props[i].bounds.Radius = 1.0f;
 		m_anythingChanged = true;
 	}
