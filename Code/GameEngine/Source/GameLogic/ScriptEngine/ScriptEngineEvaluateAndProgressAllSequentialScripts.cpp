@@ -101,17 +101,7 @@ class Parameter;
 
 #include "../../../Include/GameLogic/ScriptAction.h"
 
-class Script
-{
-public:
-	ScriptAction *getAction() const { return m_action; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getAction copy loses to the first-in-order copy. No flags touched.
-	ScriptAction *bfme_getAction_6f132() const { return m_action; }
-
-private:
-	char m_unknown0[0x34];
-	ScriptAction *m_action;	// +0x34
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 class SequentialScript
 {
@@ -324,7 +314,7 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 				reinterpret_cast<StringBase<char> *>(&msg)->concat(" -- ");
 
 				int instruction = seqScript->m_currentInstruction;
-				ScriptAction *action = seqScript->m_scriptToExecuteSequentially->bfme_getAction_6f132();
+				ScriptAction *action = seqScript->m_scriptToExecuteSequentially->getAction();
 				while (action && instruction) {
 					--instruction;
 					action = action->getNext();

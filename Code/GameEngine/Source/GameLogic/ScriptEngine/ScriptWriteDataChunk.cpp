@@ -128,61 +128,25 @@ static __declspec(noinline) BfmeFixedStorage002CF0F0 ReadScriptPlayerMask_Rva003
     ((Rva003B44EE *)&mask)->rva003B5624(text);
     return mask;
 }
-class Rva003B3536
-{
-public:
-    Rva003B3536() : a(false), b(false), value(0), c(true) {}
-    Rva003B3536(const Rva003B3536 &);
-    bool a, b;
-    int value;
-    bool c;
-    AsciiString name;
-    void rva003B3536(DataChunkInput &file, unsigned short version);
-};
 #include "../../../Include/GameLogic/ScriptAction.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class Script : public Snapshot
-{
-public:
-    Script();
-    Script(const Script &other);
-    Script *duplicate() const;
-    bool parse(DataChunkInput &file, unsigned short version);
-protected:
-    virtual ~Script();
-    virtual void loadPostProcess();
-    virtual const char *GetSnapshotName() const;
-    virtual void xfer(Xfer *);
-private:
-    AsciiString m_text0, m_text1, m_text2;
-    Rva003B3536 m_subrecord;
-    int m_delay;
-    BfmeFixedStorage002CF0F0 m_mask;
-    bool m_active, m_easy, m_subroutine, m_normal, m_hard, m_flag;
-    OrCondition *m_condition;
-    ScriptAction *m_actions[2];
-    int m_frame;
-    bool m_currentActive, m_otherFlag;
-    AsciiString m_runtimeName44;
-    float m_conditionTime, m_currentTime;
-    int m_conditionExecutedCount;
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 bool Script::parse(DataChunkInput &file, unsigned short version)
 {
     m_text0 = file.readAsciiString();
     m_text1 = file.readAsciiString();
     m_text2 = file.readAsciiString();
     bool on = file.readByte() != 0;
-    m_currentActive = on;
+    m_isActive = on;
     m_active = on;
+    m_isOneShot = file.readByte() != 0;
     m_easy = file.readByte() != 0;
     m_normal = file.readByte() != 0;
     m_hard = file.readByte() != 0;
-    m_flag = file.readByte() != 0;
-    m_subroutine = file.readByte() != 0;
+    m_isSubroutine = file.readByte() != 0;
     if (version >= 2)
-        m_delay = file.readInt();
+        m_delayEvaluationSeconds = file.readInt();
     if (version >= 3)
         m_subrecord.rva003B3536(file, version);
     if (version >= 4)
@@ -205,12 +169,12 @@ bool Script::parse(DataChunkInput &file, unsigned short version)
 // string cleanup on44; timer field meanings follow the ZH lead. Snapshot identity:
 // vtable81F424 slot2 returns the native literal "Script" at81F434.
 Script::Script()
-    : m_subrecord(), m_delay(0),
+    : m_subrecord(), m_delayEvaluationSeconds(0),
       m_mask(*(const BfmeFixedStorage002CF0F0 *)&ScriptAllPlayersMask()),
-      m_active(true), m_easy(true), m_subroutine(false),
-      m_normal(true), m_hard(true), m_flag(true),
-      m_condition(0), m_frame(0), m_currentActive(true), m_otherFlag(false),
-      m_conditionTime(0.0f), m_currentTime(0.0f), m_conditionExecutedCount(0)
+      m_active(true), m_isOneShot(true), m_isSubroutine(false),
+      m_easy(true), m_normal(true), m_hard(true),
+      m_condition(0), m_frame(0), m_isActive(true), m_field41(false),
+      m_conditionTime(0.0f), m_field4C(0.0f), m_conditionExecutedCount(0)
 {
     for (int i = 0; i < 8; ++i) ((unsigned char *)m_actions)[i] = 0;
 }
@@ -220,12 +184,12 @@ Script::Script()
 Script::Script(const Script &other)
     : Snapshot(other), m_text0(other.m_text0), m_text1(other.m_text1),
       m_text2(other.m_text2), m_subrecord(other.m_subrecord),
-      m_delay(other.m_delay), m_mask(other.m_mask),
-      m_active(other.m_active), m_easy(other.m_easy), m_subroutine(other.m_subroutine),
-      m_normal(other.m_normal), m_hard(other.m_hard), m_flag(other.m_flag),
+      m_delayEvaluationSeconds(other.m_delayEvaluationSeconds), m_mask(other.m_mask),
+      m_active(other.m_active), m_isOneShot(other.m_isOneShot), m_isSubroutine(other.m_isSubroutine),
+      m_easy(other.m_easy), m_normal(other.m_normal), m_hard(other.m_hard),
       m_condition(other.m_condition ? other.m_condition->duplicate() : 0),
-      m_frame(0), m_currentActive(other.m_currentActive), m_otherFlag(false),
-      m_conditionTime(0.0f), m_currentTime(0.0f), m_conditionExecutedCount(0)
+      m_frame(0), m_isActive(other.m_isActive), m_field41(false),
+      m_conditionTime(0.0f), m_field4C(0.0f), m_conditionExecutedCount(0)
 {
     for (int i = 0; i < 2; ++i)
         m_actions[i] = other.m_actions[i] ? other.m_actions[i]->duplicate() : 0;

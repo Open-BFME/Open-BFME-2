@@ -18,15 +18,7 @@ public:
     Condition *m_first;
 };
 #include "../../../Include/GameLogic/ScriptAction.h"
-class Script {
-public:
-    AsciiString getUiText();
-private:
-    char m_prefix[0x30];
-    OrCondition *m_condition;
-    ScriptAction *m_action;
-    ScriptAction *m_actionFalse;
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 static __forceinline void appendUiText(AsciiString &dst, const AsciiString &src)
 {
