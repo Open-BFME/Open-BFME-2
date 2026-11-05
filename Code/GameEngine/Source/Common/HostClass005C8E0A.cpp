@@ -4,7 +4,6 @@
 #include "Lib/BfmeE16.h"
 #include <map>
 #include <vector>
-
 class TargetObj005C8DBF
 {
 public:
@@ -13,17 +12,14 @@ public:
 	void method_005C8D6B();
 	char m_pad00[0x2C];
 };
-
 struct Element005C8E0A {
 	TargetObj005C8DBF *m_obj;
 	int m_pad4;
 	float m_val;
 };
-
 // vector<BfmeE16>'s destructor is declared only: its rowed, retail-proven
 // copy (Rva0056616BCopy.cpp, 0x0052D1CD) is the one the link keeps.
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-
 struct Base0C
 {
 	Base0C(void *src)
@@ -34,8 +30,19 @@ struct Base0C
 	int m_00;
 	int m_04;
 };
-
 #include "../../Include/Common/BfmePoolRef10.h"
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
+struct BfmePoolHolder
+{
+public:
+	char m_pad00[0xC];
+	unsigned int m_audioHandle0C; // +0x0C
+	char m_pad10[0x78];
+	OpaqueRefCounted m_ref; // +0x88
+};
+typedef unsigned int AudioHandle;
+#include "../../Include/Common/GameAudio.h"
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
 
 // The map<int,void*> destructor otherwise emits this unit's own copy, which is
 // not retail's body; the call links to the kept retail definition.
@@ -125,6 +132,26 @@ private:
 	char m_pad47[0x1];
 };
 
+class LargeGroupAudioGridCell
+{
+public:
+	void setOverlappedLocking(bool flag);
+};
+
+struct Element005C8E0A;
+
+extern AudioManager *TheAudio;
+
+struct TreeOpaqueMapped00372FF4{unsigned m_bits;};
+
+typedef _STL::pair<const float,TreeOpaqueMapped00372FF4> TreeValue00372FF4;
+
+typedef _STL::_Rb_tree<float,TreeValue00372FF4,_STL::_Select1st<TreeValue00372FF4>,_STL::less<float>,_STL::allocator<TreeValue00372FF4> > Tree00372FF4;
+
+class Rva005C8F9A{public:_STL::pair<Tree00372FF4::iterator,bool>rva005C8F9A(const TreeValue00372FF4&);private:Tree00372FF4 m_tree;};
+
+// ---- from Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
+
 // ---- from Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
 
 // ---- from Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
@@ -180,14 +207,6 @@ void Rva005C8F50Elem::rva005C8F50(int a, int b)
 	}
 }
 
-// tu-skeleton: 0x005C8E2C 135B ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ -- matched in Code/GameEngine/Source/Common/HostClass005C8E2C.cpp (not merged yet)
-
-// tu-skeleton: 0x005C8F17 57B ?rva005C8F17@HostClass005C8E0A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/HostClass005C8F17.cpp (not merged yet)
-
-// tu-skeleton: 0x005C8F9A 35B ?rva005C8F9A@Rva005C8F9A@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@_N@_STL@@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@3@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva005C902AWeight.cpp (not merged yet)
-
-// tu-skeleton: 0x005C8FBD 94B ??1Rva005C8FBD@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005C8FBD.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/HostClass005C815B.cpp
 
 void Rva005C847BRecord::method_005C901B()
@@ -196,15 +215,70 @@ void Rva005C847BRecord::method_005C901B()
 	*(unsigned short *)((char *)this + 0x44) = 0;
 }
 
-// tu-skeleton: 0x005C902A 63B ?method_005C902A@TargetObj005C8DBF@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva005C902AWeight.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/HostClass005C8E2C.cpp
+
+// ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ @0x005C8E2C 135B
+// Take the pool ref at +8: if null return null, else copy to a local,
+// clear the member, clear byte +0x46, adjust via LargeGroupAudioGridCell(false) and
+// HostClass005C8E0A::method_005C8E0A, then return the saved ref.
+// Evidence: calls to 0x51950 copy-ctor, 0x519BD clear, 0x5C87F8 bool,
+// 0x5C8E0A method, Release_Ref at 0x50ED3; caller 0x56A430.
+
+BfmePoolRef10 HostClass005C8E0A::rva005C8E2C()
+{
+	if (m_pool08.m_target == 0)
+		return BfmePoolRef10();
+	BfmePoolRef10 tmp = m_pool08;
+	m_pool08.rva000519BD();
+	m_byte46 = 0;
+	((LargeGroupAudioGridCell *)this)->setOverlappedLocking(false);
+	method_005C8E0A();
+	return tmp;
+}
+
+// ---- from Code/GameEngine/Source/Common/HostClass005C8F17.cpp
+
+// ?rva005C8F17@HostClass005C8E0A@@QAEXXZ @0x005C8F17 57B
+// Void method on HostClass005C8E0A sharing layout with rva005C8E2C: if pool
+// ref at +8 is non-null notify TheAudio slot 0x6c removeAudioEvent with the
+// handle at holder+0xc then clear via 0x519BD adjust via LargeGroupAudioGridCell(false)
+// and method_005C8E0A then clear byte +0x46. Evidence: same +8/+0x46 layout
+// and callee trio as 0x005C8E2C callers 0x005C8FBD/0x005C901B/0x005C908B.
+
+void HostClass005C8E0A::rva005C8F17()
+{
+	if (m_pool08.m_target != 0) {
+		TheAudio->removeAudioEvent(((BfmePoolHolder *)m_pool08.m_target)->m_audioHandle0C);
+		m_pool08.rva000519BD();
+		((LargeGroupAudioGridCell *)this)->setOverlappedLocking(false);
+		method_005C8E0A();
+	}
+	m_byte46 = 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva005C902AWeight.cpp
+
+// Retail 0x005C902A..0x005C9069, 63B; WB 0x01568CB0.
+// Caller 0x005C9311 supplies a float weight to an audio grid cell. The native
+// float-key tree at +0x2C stores a count at node+0x14; its first reference calls
+// the independently owned 0x005C8D6B. Names remain address derived.
+// The map wrapper below is the exact owned 35B provider at 0x005C8F9A.
+// Visible, non-inlined provider code proves the returned iterator cannot be
+// changed by the counter store, matching retail's single node load. Its full
+// bytes and relocations were independently checked, not inferred from 63B.
+
+void TargetObj005C8DBF::method_005C902A(float value){
+ const TreeOpaqueMapped00372FF4 count={0};const TreeValue00372FF4 key(value,count);
+ const _STL::pair<Tree00372FF4::iterator,bool>r=((Rva005C8F9A*)((char*)this+0x2c))->rva005C8F9A(key);
+ ++r.first->second.m_bits;
+ if(r.first->second.m_bits==1)method_005C8D6B();
+}
+
+inline __declspec(noinline) _STL::pair<Tree00372FF4::iterator,bool> Rva005C8F9A::rva005C8F9A(const TreeValue00372FF4&v){_STL::pair<Tree00372FF4::iterator,bool>tmp=m_tree.insert_unique(v);return tmp;}
+
+// tu-skeleton: 0x005C8FBD 94B ??1Rva005C8FBD@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005C8FBD.cpp (not merged yet)
 
 // tu-skeleton: 0x005C908B 102B ?method_005C908B@HostClass005C8E0A@@QAEXVBfmePoolRef10@@E@Z -- matched in Code/GameEngine/Source/Common/HostClass005C908B.cpp (not merged yet)
-
-// tu-skeleton: 0x007A0DCF 25B ?rva007A0DCF@@YAXXZ -- matched in Code/GameEngine/Source/Common/HostClass005C8E2C.cpp (not merged yet)
-
-// tu-skeleton: 0x007A0DE8 8B $L355 -- matched in Code/GameEngine/Source/Common/HostClass005C8E2C.cpp (not merged yet)
-
-// tu-skeleton: 0x007A0DF0 10B __ehhandler$?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ -- matched in Code/GameEngine/Source/Common/HostClass005C8E2C.cpp (not merged yet)
 
 // tu-skeleton: 0x007A0E0F 11B $L377 -- matched in Code/GameEngine/Source/Common/Rva005C8FBD.cpp (not merged yet)
 
