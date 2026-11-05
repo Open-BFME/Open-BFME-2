@@ -305,11 +305,7 @@ struct TerrainResourceLogicView
 	Rva0035A238 *manager;							// +0x170
 	Rva0035A238 *getManager() const { return manager; }
 };
-class ObjectFilter
-{
-public:
-	Bool isValid() const;
-};
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 struct TerrainResourceIntVector
 {
 	Int *m_start;
@@ -322,7 +318,6 @@ struct TerrainResourcePlayerData
 {
 	char unknown000[0x1C8];
 	ObjectFilter m_filter;							// +0x1C8
-	char unknown1C9[0x1CC - 0x1C9];
 	TerrainResourceIntVector m_percents;			// +0x1CC
 	ObjectFilter *getFilter() { return &m_filter; }
 };

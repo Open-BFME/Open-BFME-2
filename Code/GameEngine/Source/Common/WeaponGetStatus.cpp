@@ -24,11 +24,7 @@ enum WeaponStatus
     WEAPON_STATUS_5
 };
 
-class ObjectFilter
-{
-public:
-    bool isValid() const;
-};
+#include "../../Include/GameLogic/ObjectFilter.h"
 
 #include "../../Include/GameLogic/WeaponTemplate.h"
 

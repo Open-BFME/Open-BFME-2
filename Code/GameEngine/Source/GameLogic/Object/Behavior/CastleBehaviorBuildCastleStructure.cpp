@@ -23,7 +23,7 @@ extern ThingFactory* TheThingFactory;
 class Player;
 class PlayerList;
 extern PlayerList* ThePlayerList;
-class ObjectFilter { public: bool testTemplate(const ThingTemplate*,const Player*,const Player*); };
+#include "../../../../Include/GameLogic/ObjectFilter.h"
 enum ObjectStatusTypes { STATUS5=5 };
 enum ModelConditionFlagType { CONDITION218=218 };
 #include "../../../../Include/GameClient/Drawable.h"
@@ -74,7 +74,7 @@ extern ScriptEngine* TheScriptEngine;
 extern int BfmeClientFramesPerSecond;
 float normalizeAngle(float);
 class Rva003955AFData { public: int query(int,int,float,int,int); };
-struct CastleBehaviorModuleData { char pad[0x30]; ObjectFilter m_filter; char p2[0x44]; bool m_flag75; };
+struct CastleBehaviorModuleData { char pad[0x30]; ObjectFilter m_filter; char p2[0x41]; bool m_flag75; };
 class CastleBehavior { public: Object* getOwner() const { return *(Object*const*)((const char*)this+8); }
  void* getData() const { return *(void*const*)((const char*)this+4); } Object* buildCastleStructure(BuildListInfo*,bool); };
 Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant) {

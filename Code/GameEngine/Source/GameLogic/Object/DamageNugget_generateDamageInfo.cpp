@@ -103,17 +103,11 @@ struct Rva00508120WeaponView
  Rva00508120WeaponTemplateView *template04;
  int sourceID08;
 };
-class ObjectFilter
-{
-public:
- bool isValid() const;
-};
+#include "../../../Include/GameLogic/ObjectFilter.h"
 class Rva2225E0Filter : public ObjectFilter
 {
 public:
  bool accepts(Object *object, Player *player);
-private:
- unsigned char pad00[4];
 };
 struct Rva00508120Scalar
 {
