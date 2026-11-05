@@ -25,6 +25,8 @@ template <class ObjectType>
 class MultiListClass : public GenericMultiListClass
 {
 public:
+	using GenericMultiListClass::Internal_Add;
+	using GenericMultiListClass::Internal_Remove_List_Head;
 	virtual ~MultiListClass(void) { while (!Is_Empty()) { Remove_Head(); } }
 	ObjectType *Remove_Head(void) { return (ObjectType *)Internal_Remove_List_Head(); }
 	bool Remove(ObjectType *obj) { return Internal_Remove(obj); }
