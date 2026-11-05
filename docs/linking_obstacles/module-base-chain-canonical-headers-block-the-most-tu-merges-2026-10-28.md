@@ -349,4 +349,6 @@ Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7
 
 - 2026-11-04: GrantUpgradeCreate's lifecycle donors now share canonical CreateModule and matching leaf declarations (2/2 rows exact; 196 preview bytes preserved); seed module/Object and module-data lifetime reconciliation still block merging. [Evidence](../../reverse/attempt_support/grantupgrade-lifecycle-base-20261104-codexb4.md).
 
+- 2026-11-05 allocated `GrantUpgradeCreate.cpp` merge dry run still accepts no donors: donor Module/Object definitions conflict, the module-data ctor has duplicate `StringBase`/class declarations, and the dtor is byte-rejected. [Current dry-run evidence](../../reverse/attempt_support/grant-upgrade-create-consolidation-20261105-codex.md).
+
 - 2026-11-04: ToggleMountedSpecialAbilityUpdate constructor merged into its approved TU (one source removed, 18 exact rows, census link guard passing); module-data constructor/deleter remain separate. [Audit and remaining blockers](../../reverse/attempt_support/togglemounted-constructor-merge-20261104-codexb4.md).

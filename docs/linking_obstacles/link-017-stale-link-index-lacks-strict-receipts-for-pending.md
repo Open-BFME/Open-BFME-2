@@ -296,6 +296,8 @@ this scope into the next census; no linking gain is claimed.
   regression or clearance. The standalone/composed definition, selection and
   reference comparisons are recorded in
   `reverse/attempt_support/consolidation-prerequisite-recovery-20261026-codex4.md`.
+
+2026-11-05 SlavedUpdate.cpp's allocated dry run accepted no donors: the ctor, member-view, Xfer and Coord3D prerequisites remain, and LinkGuard listed the census-linked destination and affected donors. [Current dry-run details](../../reverse/attempt_support/slaved-update-consolidation-20261105-codex.md).
   Preserve this batch's census confirmation as pending; do not repeat its
   unchanged receiver/base ABI blockers or run maintainer-only measurements.
   Recovery follow-up withdrew the shared GameLogic Hulk accessor/header adoption:
