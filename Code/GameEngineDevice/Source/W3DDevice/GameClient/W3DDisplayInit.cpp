@@ -124,16 +124,10 @@ public:
 
 enum StaticGameLODLevel { STATIC_GAME_LOD_UNKNOWN = -1 };
 
+#include "../../../../GameEngine/Include/Common/GameLODManager.h"
+
+// The setter is still rowed under this owner; keep its existing call identity.
 class Rva00202739 { public: Bool rva00202739(Int); };
-class GameLODManager
-{
-public:
-	StaticGameLODLevel findStaticLODLevel();
-	/* the rowed Rva00202739::rva00202739 */ __declspec(dllimport) __forceinline Bool rva00202739(Int p0) { return ((Rva00202739 *)this)->rva00202739(p0); }
-	unsigned char m_pad00[0x1768];
-	Int m_staticLODLevel;			// +0x1768
-};
-extern GameLODManager *TheGameLODManager;
 
 class Rva0061EEE0
 {
@@ -276,8 +270,8 @@ void W3DDisplay::init()
 	setWindowed(TheGlobalData->m_windowed);
 	m_2DRender = new Render2DClass;
 
-	if (TheGameLODManager && TheGameLODManager->m_staticLODLevel == STATIC_GAME_LOD_UNKNOWN)
-		TheGameLODManager->rva00202739(TheGameLODManager->findStaticLODLevel());
+	if (TheGameLODManager && TheGameLODManager->m_1768 == STATIC_GAME_LOD_UNKNOWN)
+		((Rva00202739 *)TheGameLODManager)->rva00202739(TheGameLODManager->findStaticLODLevel());
 
 	setWidth(TheGlobalData->m_xResolution);
 	setHeight(TheGlobalData->m_yResolution);

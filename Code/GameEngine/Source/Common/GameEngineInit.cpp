@@ -476,14 +476,7 @@ class FileSystem;
 extern FileSystem *TheFileSystem;
 class Rva0060061A { public: void rva006006D9(void *p); };
 
-class GameLODManager
-{
-public:
-	GameLODManager();
-	void init(Int level);
-	char m_data[0x17F8];
-};
-extern GameLODManager *TheGameLODManager;
+#include "../../Include/Common/GameLODManager.h"
 
 class Rva002CEC0A { public: Rva002CEC0A(); char m_data[0x10]; };
 extern "C" void *theLogicRandomLogFile;

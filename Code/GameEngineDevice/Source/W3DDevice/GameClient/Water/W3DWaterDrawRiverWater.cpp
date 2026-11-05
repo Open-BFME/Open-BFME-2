@@ -236,13 +236,7 @@ struct WWMathView
 #include "../../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 
-class GameLODManager
-{
-public:
-	unsigned char m_pad0[0x1784];
-	Int m_waterLOD;	// +0x1784
-};
-extern GameLODManager *TheGameLODManager;
+#include "../../../../../GameEngine/Include/Common/GameLODManager.h"
 
 // The river's +0x40 holder: its LOD word through the rowed 4-byte getter.
 class Rva002A98ABDwordField
@@ -299,7 +293,7 @@ protected:
 
 void WaterRenderObjClass::drawRiverWater(RenderInfoClass &rinfo, RenderableRiverArea *pRiver)
 {
-	Int waterLOD = TheGameLODManager->m_waterLOD;
+	Int waterLOD = TheGameLODManager->word1784;
 	if (pRiver->getHolder()->get() > waterLOD)
 		return;
 

@@ -94,7 +94,7 @@ class RenderObjClass {public:
 };
 #include "../../../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class W3DDisplay {public:static RTS3DScene*m_3DScene;};
-class GameLODManager {public:char opaque[0x1774];int level1774;};extern GameLODManager*TheGameLODManager;
+#include "../../../../../../GameEngine/Include/Common/GameLODManager.h"
 int GetGameClientRandomValue(int,int,char*,int);
 struct BfmeNarrowRecord000BFDC7 {
  unsigned m_word0;_STL::basic_string<char> m_text;float x,y,z;unsigned flags;
@@ -105,7 +105,7 @@ class Rva000C433A {public:
  char opaque00[0x50];RenderObjClass*render;char opaque54[0x164-0x54];_STL::vector<BfmeNarrowRecord000BFDC7> attachments;
 };
 void Rva000C433A::rva000C433A(RenderObjClass*obj,const char*bone,bool random,unsigned flags){
- if(TheGameLODManager&&TheGameLODManager->level1774<=1)return;
+ if(TheGameLODManager&&TheGameLODManager->m_1774<=1)return;
  if(!obj||!bone||!render||!render->Get_Bone_Index(bone))return;
  BfmeNarrowRecord000BFDC7 record;record.m_word0=(unsigned)obj;((RenderObjClass*)record.m_word0)->Add_Ref();record.m_text=bone;
  if(random){

@@ -80,13 +80,7 @@ private:
 	unsigned char m_pad000[0x12C];
 	bool m_drawTerrainOnly;			// +0x12C
 };
-class GameLODManager
-{
-public:
-	char m_pad[0x1774];
-	int m_detailVariant;		// +0x1774
-};
-extern GameLODManager *TheGameLODManager;
+#include "../../../../GameEngine/Include/Common/GameLODManager.h"
 // Slot 34 takes and returns AsciiString by value: retail ordinary teardown expands the
 // inline destructor (releaseBuffer 0x36410) and the EH cleanups call the out-of-line
 // ~AsciiString 0x48BA39.
@@ -1071,7 +1065,7 @@ AsciiString W3DDisplay::rva000481AA(const AsciiString &name)
 {
 	AsciiString suffix;
 	AsciiString full;
-	switch (TheGameLODManager->m_detailVariant)
+	switch (TheGameLODManager->m_1774)
 	{
 	case 0:
 		suffix = "L";
