@@ -39,8 +39,11 @@ public:
 	unsigned char m_pad00[0x74];
 	ObjectID m_id; // +0x74
 };
-struct CommandPointsUpgradeModuleData
+class MultiIniFieldParse;
+class CommandPointsUpgradeModuleData
 {
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	unsigned char m_pad00[0x118];
 	int m_118; // +0x118
 	unsigned char m_11C[4]; // +0x11C
@@ -81,6 +84,8 @@ protected:
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class CommandPointsUpgrade : public UpgradeModule
 {
+public:
+	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual void upgradeRemovalImplementation();
 	virtual void upgradeImplementation();
