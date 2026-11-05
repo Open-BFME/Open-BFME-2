@@ -56,7 +56,7 @@ public:
     void doEnableCountdownTimerDisplay(void);
     void Rva003C90B1Exit(Parameter *);
     void Rva003BD412Set(unsigned char);
-    void Rva003BB141Notify(StringBase<char> const &);
+    void doMoveCameraByAnimation(StringBase<char> const &);
     void doMoviePlayRadar(const AsciiString &name);
     void Rva003BB7E2(void);
     void Rva003BB7F0(void);

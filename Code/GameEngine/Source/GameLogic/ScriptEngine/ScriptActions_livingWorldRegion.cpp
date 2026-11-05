@@ -989,7 +989,7 @@ return;
 }
 case 550:
 {
-Rva003BB141Notify(*(StringBase<char> const *)(&TEXT(0)));
+doMoveCameraByAnimation(*(StringBase<char> const *)(&TEXT(0)));
 return;
 }
 case 18:

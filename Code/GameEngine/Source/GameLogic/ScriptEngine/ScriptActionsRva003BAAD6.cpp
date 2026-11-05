@@ -149,8 +149,8 @@ void ScriptActions::doStopCameraFollowUnit()
     Rva00DFEA3C->target();
 }
 
-// ?Rva003BB141Notify@ScriptActions@@QAEXABV?$StringBase@D@@@Z @0x003BB141 34B chain via 0x0033070E caller 0x003CAE0D globals 0xE01DB0 0xDFEA3C slot 0x68
-void ScriptActions::Rva003BB141Notify(const StringBase<char> &key)
+// ?doMoveCameraByAnimation@ScriptActions@@QAEXABV?$StringBase@D@@@Z @0x003BB141 34B chain via 0x0033070E caller 0x003CAE0D globals 0xE01DB0 0xDFEA3C slot 0x68
+void ScriptActions::doMoveCameraByAnimation(const StringBase<char> &key)
 {
 	Rva0033070EEntry *cameraAnimation = Rva00E01DB0->rva0033070E(key);
 	if (cameraAnimation)
