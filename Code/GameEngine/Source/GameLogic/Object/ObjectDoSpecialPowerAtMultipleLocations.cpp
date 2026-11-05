@@ -48,7 +48,7 @@ public:
 class SpecialPowerStore
 {
 public:
-	Bool canUseSpecialPower(Object *obj, const SpecialPowerTemplate *spTemplate);
+	bool canUseSpecialPower(Object*,const SpecialPowerTemplate*);
 };
 extern SpecialPowerStore *TheSpecialPowerStore;
 

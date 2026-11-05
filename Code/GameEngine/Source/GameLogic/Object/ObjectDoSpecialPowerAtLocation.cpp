@@ -32,7 +32,7 @@ typedef BitFlags<11> DisabledMaskType;
 class SpecialPowerStore
 {
 public:
-	bool canUseSpecialPower(Object *obj, const SpecialPowerTemplate *specialPowerTemplate);
+	bool canUseSpecialPower(Object*,const SpecialPowerTemplate*);
 };
 
 extern SpecialPowerStore *TheSpecialPowerStore;

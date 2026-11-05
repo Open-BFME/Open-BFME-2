@@ -77,7 +77,7 @@ public:
 	}
 	void rva0028C570(const Rva0028C570 &other);
 private:
-	unsigned int m_words[4];
+	unsigned int m_words[4]; // +0x00
 };
 typedef Rva0028C570 WeaponSetFlags;
 class Rva0010CConditionBits

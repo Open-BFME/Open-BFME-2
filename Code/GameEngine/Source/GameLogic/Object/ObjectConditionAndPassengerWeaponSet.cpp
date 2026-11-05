@@ -83,11 +83,24 @@ template<> struct _Base_bitset<4> {
  unsigned long m_words[4];
 };
 }
-class Rva0028C570 {
+class Rva0028C570
+{
 public:
- void rva0028C570(const Rva0028C570 &other);
+	void set(unsigned int i)
+	{
+		m_words[i >> 5] |= 1U << (i & 0x1f);
+	}
+	void clear(unsigned int i)
+	{
+		m_words[i >> 5] &= ~(1U << (i & 0x1f));
+	}
+	unsigned int test(unsigned int i) const
+	{
+		return m_words[i >> 5] & (1U << (i & 0x1f));
+	}
+	void rva0028C570(const Rva0028C570 &other);
 private:
- unsigned long m_words[4];
+	unsigned int m_words[4]; // +0x00
 };
 bool __cdecl Rva002634E0Equal(const void *, const void *);
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };

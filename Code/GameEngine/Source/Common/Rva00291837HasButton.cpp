@@ -11,7 +11,7 @@ extern ControlBar *TheControlBar;
 class Rva0031D5F8
 {
 public:
-	void *rva0031D5F8(const AsciiString *name);	// 0x0031D5F8
+	void *rva0031D5F8(const AsciiString *);
 };
 
 #include "../../Include/GameClient/CommandButton.h"

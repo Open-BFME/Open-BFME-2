@@ -20,7 +20,12 @@ extern NameKeyGenerator*TheNameKeyGenerator;
 template<int N>class BitFlags {public:BitFlags():bits(0){}bool any()const;bool test(const void*)const;unsigned bits;};
 typedef BitFlags<11>DisabledMaskType;
 class AutoAbilityMaskView{public:virtual void slot00();virtual DisabledMaskType slot04()const;};
-class SpecialPowerStore{public:bool canUseSpecialPower(Object*,const SpecialPowerTemplate*);};extern SpecialPowerStore*TheSpecialPowerStore;
+class SpecialPowerStore
+{
+public:
+	bool canUseSpecialPower(Object*,const SpecialPowerTemplate*);
+};
+extern SpecialPowerStore*TheSpecialPowerStore;
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 static __forceinline bool testAllowed(const DisabledMaskType&mask,const void*objMask){return mask.test(objMask);}
 class Object{public:void doSpecialPower(const SpecialPowerTemplate*,unsigned,bool);void doSpecialPowerAtObject(const SpecialPowerTemplate*,Object*,unsigned,bool);protected:Module*findModule(NameKeyType)const;public:SpecialPowerModuleInterface*getSpecialPowerModule(const SpecialPowerTemplate*)const;void rva0028C4B6();char pad[0x1c8];DisabledMaskType disabled;};
