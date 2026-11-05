@@ -68,28 +68,12 @@ struct RadarEvent
 	RadarEventBody m_body;  // +0x04
 };
 
-class Radar
-{
-public:
-	virtual void reset();
-protected:
-	void deleteListResources();
-	void clearAllEvents();
-private:
-	char m_pad[0x9];
-	bool m_radarForceOn;  // +0xD past the vptr
-	char m_pad0D[0x2C - 0xE];
-public:
-	RadarEvent m_events[64];  // +0x2C
-private:
-	int m_eventTrailer;  // +0x142C, immediately after the 64 events
-};
+#include "../../../Include/Common/Radar.h"
 
 void Radar::reset()
 {
-	Radar *core = (Radar *)((char *)this - 4);
-	core->deleteListResources();
-	core->clearAllEvents();
+	deleteListResources();
+	clearAllEvents();
 
 	m_radarForceOn = false;
 }
@@ -97,8 +81,8 @@ void Radar::reset()
 // ?clearAllEvents@Radar@@IAEXXZ
 void Radar::clearAllEvents()
 {
-	m_eventTrailer = 0;
-	RadarEventBody *body = &m_events[0].m_body;
+	m_nextFreeRadarEvent = 0;
+	RadarEventBody *body = &((RadarEvent *)padEvents)[0].m_body;
 	int left = 0x40;
 	do {
 		RadarEventRefSlot *holder = &body->m_ref;

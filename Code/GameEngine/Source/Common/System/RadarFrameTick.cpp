@@ -84,18 +84,6 @@ extern float g_00BC26EC;
 
 class TerrainLogic;
 
-// Radar's second MI base, reached from this body as (Radar *)((char *)this - 4).
-// refreshTerrain is the fifth vtable entry: retail calls through slot +0x10.
-class RadarPrimary
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void refreshTerrain(TerrainLogic *terrain);
-};
-
 extern TerrainLogic *TheTerrainLogic;
 
 class RadarEventRef
@@ -131,29 +119,13 @@ struct RadarEvent
 	RadarBody m_body;  // +0x04
 };
 
-class Radar
-{
-public:
-	virtual void update();
-
-private:
-	char m_pad04[0x0D - 0x04];
-	bool m_flag;  // +0x0D
-	char m_pad0E[0x28 - 0x0E];
-
-public:
-	RadarEvent m_events[64];  // +0x28, bodies at +0x2C
-
-private:
-	char m_pad1428[0x145C - 0x1428];
-	unsigned int m_lastFrame;  // +0x145C
-};
+#include "../../../Include/Common/Radar.h"
 
 void Radar::update()
 {
 	unsigned int curFrame = ((ClientFrameSubsystem *)TheGameClient)->getFrame();
-	m_flag = true;
-	RadarBody *body = &m_events[0].m_body;
+	m_radarForceOn = true;
+	RadarBody *body = &((RadarEvent *)padEvents)[0].m_body;
 	int left = 0x40;
 	do {
 		if (body->m_state == 1 && body->m_04 != 0 && curFrame > body->m_08) {
@@ -163,13 +135,12 @@ void Radar::update()
 		}
 		body = (RadarBody *)((char *)body + 0x50);
 	} while (--left != 0);
-	if (m_lastFrame == 0)
+	if (m_queueTerrainRefreshFrame == 0)
 		return;
-	unsigned int dt = TheGameLogic->getFrame() - m_lastFrame;
+	unsigned int dt = TheGameLogic->getFrame() - m_queueTerrainRefreshFrame;
 	float fdt = (float)dt;
 	float limit = (float)BfmeLogicFramesPerSecond * 3.0f;
 	if (fdt > limit) {
-		RadarPrimary *core = (RadarPrimary *)((char *)this - 4);
-		core->refreshTerrain(TheTerrainLogic);
+		refreshTerrain(TheTerrainLogic);
 	}
 }
