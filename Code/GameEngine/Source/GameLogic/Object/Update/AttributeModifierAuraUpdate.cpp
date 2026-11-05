@@ -245,29 +245,7 @@ private:
 	unsigned int m_executed;
 };
 
-class AttributeModifierAuraUpdateModuleData
-{
-public:
-	char m_unknown00[8];
-	AsciiString m_bonusName;		// +0x08
-	char m_unknown0C[0x18 - 0xC];
-	Int m_refreshDelay;			// +0x18
-	Real m_range;				// +0x1C
-	Bool m_allowPowerWhenAttacking;		// +0x20
-	Bool m_targetEnemy;			// +0x21
-	char m_unknown22[2];
-	char m_objectFilter[0x13C - 0x24];	// +0x24
-	UnsignedInt m_requiredConditions;	// +0x13C
-	Int m_antiCategory;			// +0x140
-	const FXList *m_antiFX;			// +0x144
-	Bool m_affectGood;			// +0x148
-	Bool m_affectEvil;			// +0x149
-	Bool m_runWhileDead;			// +0x14A
-	Bool m_allowSelf;			// +0x14B
-	Bool m_affectContainedOnly;		// +0x14C
-	char m_unknown14D[3];
-	Int m_maxActiveRank;			// +0x150
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
 
 // What update hands the callback for each object.
 struct AttributeModifierAuraInfo
@@ -533,7 +511,7 @@ UpdateSleepTime AttributeModifierAuraUpdate::update()
 		Rva002611BFFilter filter2(object);
 		Rva00260EB1Filter relationship1(object, 1, false);
 		Rva00260EB1Filter relationship4(object, 4, false);
-		Rva002614ECFilter objectFilter(data->m_objectFilter, object->getControllingPlayer(), true);
+		Rva002614ECFilter objectFilter(&data->m_objectFilter, object->getControllingPlayer(), true);
 		Rva0026119DFilter root;
 		root.link(&filter1);
 		root.link(&filter2);

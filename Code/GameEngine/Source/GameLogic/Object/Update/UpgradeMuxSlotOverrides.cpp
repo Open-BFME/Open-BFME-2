@@ -56,11 +56,7 @@ protected:
 	unsigned char m_pad0C[0x20 - 0x0C];
 };
 
-struct AttributeModifierAuraUpdateModuleData
-{
-	unsigned char m_pad000[0x28];
-	UpgradeMuxData m_upgradeMuxData; // +0x28
-};
+#include "../../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
 
 class AttributeModifierAuraUpdate : public UpdateModuleView, public UpgradeMux
 {
@@ -74,7 +70,7 @@ private:
 // ?getUpgradeActivationMasks@AttributeModifierAuraUpdate@@MBEXAAUUpgradeMaskType@@0@Z @0x0049B621
 void AttributeModifierAuraUpdate::getUpgradeActivationMasks(UpgradeMaskType &activation, UpgradeMaskType &conflicting) const
 {
-	const UpgradeMuxData &mux = data()->m_upgradeMuxData;
+	const UpgradeMuxData &mux = reinterpret_cast<const UpgradeMuxData &>(data()->m_28);
 	activation = mux.m_activation;
 	conflicting = mux.m_conflicting;
 }
@@ -82,7 +78,7 @@ void AttributeModifierAuraUpdate::getUpgradeActivationMasks(UpgradeMaskType &act
 // ?performUpgradeFX@AttributeModifierAuraUpdate@@MAEXXZ @0x0049B648
 void AttributeModifierAuraUpdate::performUpgradeFX()
 {
-	data()->m_upgradeMuxData.performUpgradeFX(m_object);
+	reinterpret_cast<const UpgradeMuxData &>(data()->m_28).performUpgradeFX(m_object);
 }
 
 struct RadiateFearUpdateModuleData
