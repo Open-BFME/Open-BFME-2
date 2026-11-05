@@ -15,3 +15,5 @@ Recovery follow-up (2026-10-27): the seven preserved commits were rebased onto `
 Remaining / next check: keep ImageConstructor's canonical ICoord2D and private StringBase collision, Dtor's private base/integer-list view, addImage's integer-to-pointer-list mismatch, Parse's byte failure, and the constructor's externally consumed allocator-copy conflict as prerequisites. Resolve each in its own verified commit before another merge. LINK-095 separately tracks the constructor's generated unwind callee binding.
 
 Clearance: string composition only; no new linked-byte or ownership gain is claimed. Census confirmation: pending the next scheduled census.
+
+2026-11-05: Image constructor now calls native releaseBuffer through the existing public string storage view; 32/32 rows and six EH graphs remain exact, all 645 external definitions remain, scoped preview LINKS (1,092 bytes), and the owning tool retires its identity key. Other composition prerequisites remain outside this repair; census confirmation pending. [Repair evidence](../../reverse/attempt_support/shell-menu-image-identity-20261105-codex2.md).
