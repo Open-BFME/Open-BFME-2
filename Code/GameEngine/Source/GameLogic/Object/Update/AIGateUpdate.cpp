@@ -142,7 +142,6 @@ class BehaviorModuleOther
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-BFME_LITERAL_NAME_GETTER(Rva004B0876Named, "AIGateUpdate")
 
 enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
@@ -187,9 +186,15 @@ private:
 	bool loaded;
 	unsigned char enabled;
 protected:
+	virtual const char *GetSnapshotName() const;
 	// retail vftable slot: the rowed override
 	virtual void xfer(Xfer *);
 };
+
+const char *AIGateUpdate::GetSnapshotName() const
+{
+	return "AIGateUpdate";
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp
 
