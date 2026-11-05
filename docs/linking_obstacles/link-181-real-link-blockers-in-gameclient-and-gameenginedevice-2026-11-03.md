@@ -439,3 +439,36 @@ W3DTerrainVisual's.
   name the rowed bodies. `??1T1Base_005F3750` and `??_GT1Base_005F3750` are no longer referenced, and
   5/5 rows match. `link_check` names no unresolved symbol; the only remaining verdict is the pre-existing
   `??_7DefaultDrawModuleInfo@FXParticleSystem` comdat order note. The class identity fold above stays open.
+
+**Seat halilkkaya-lk29 (2026-11-05, real link run 42035295927 at `dbde7dbe3b`: 10 unresolved, 0 duplicates).**
+- **W3DScriptedModelDrawDestructor.cpp `?GetSnapshotName@DrawableModule@@MBEPBDXZ`: cause found, fix
+  prepared, blocked on a claim.** New since the link at `50ff761bcd`. `f3fbb9188c` adopted the canonical
+  `DrawableModule.h`, whose slot 2 nothing defines. Retail's body is 0x00252B84, rowed
+  `?name@Rva00252B84Named@@QBEPBDXZ` in SubsystemNameGetters.cpp. The fix is `rename.py function --to-class
+  DrawableModule` with DrawableModuleCtor.cpp prepared on the canonical header. That preparation is
+  trial-verified: 1/1 bytes, and retail 0x00C07E54's slot order, with only this name left unresolved.
+  SubsystemNameGetters.cpp is held by yasinschroeder-claudeb2 (`class:LivingWorldBuilding`).
+  [Handoff](../../reverse/attempt_support/drawablemodule-getsnapshotname-to-class-20261105-lk29.md).
+- **`?ji_006291ae@@YAPAXPAXHI@Z`:** resolved by `b4c9b2d8a8` (Ancalgonn). `811358bb29` removed the body,
+  which `Rva00219B9EAccessor.cpp` still reaches through `/alternatename`.
+- **LivingWorldManagerCtor.cpp `??1Rva0022B12DSubsystem@@UAE@XZ`: first prerequisite done.** Slot 0 of
+  0x00BE5234 is now rowed `??_GLivingWorldManager@@UAEPAXI@Z` (0x002146B8), and 0x00214058 is rowed
+  `??_ELivingWorldManager@@WM@AEPAXI@Z`. Both are in LivingWorldManagerDtor.cpp, which already emits
+  them byte-identically. B04's `Rva00214405` class, its `/alternatename` and two pins are gone, and
+  link_check totals are unchanged (32,395 B). `--fold Rva0022B12DSubsystem --into LivingWorldManager`
+  now stops at the canonical-class check. GameEngineInit.cpp, LivingWorldManagerCtor.cpp and
+  SubsystemInterface.cpp declare the placeholder class, so the fold would make private copies.
+  `run_batch(source_edits=...)` can couple their header adoption with the fold, but the constructor unit
+  cannot adopt the header yet, for two reasons:
+  1. The header has opaque byte arrays where the constructor builds typed members (LINK-073).
+  2. Its 14-slot table would name `init`, `reset`, `update`, `loadPostProcess`, `GetSnapshotName` and
+     `xfer` under LivingWorldManager. All of these are rowed under placeholders (0x00210D0D, used by
+     two slots, 0x002123BE, 0x00210F27, 0x00214052, 0x00213D93). Adopting the header would trade one
+     unresolved name for about six.
+  Prerequisites: real member types in the header, then the slot names (`function --to-class`; 0x00210D0D
+  needs its fold first), then the coupled fold.
+- **EvacuateDamageCtorModuleFactoryBody.cpp `??1PB_DeepBase@@UAE@XZ`:** unchanged. 0x004B96CC is still
+  `??1Rva004B96CC` (re_attempts.log entries for 0x0002CD7B and 0x004B96CC), and 0x0002CD7B is still misnamed `~EvacuateDamage`.
+  Not attempted: DamageModule is lk28's this session.
+- **ProductionPrerequisite.cpp `?freeBytes@AsciiString@@AAEXXZ`:** LINK-182's PerTurnStats plan is still
+  not feasible. `LivingWorldScoreKeeper.h` still has `Rva004EE501` and only forward-declares PerTurnStats.
