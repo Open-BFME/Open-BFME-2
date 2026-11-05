@@ -845,11 +845,27 @@ void GadgetComboBoxSetItemData(GameWindow *comboBox, Int index, void *data);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, Int selectedIndex, Bool dontHilite);
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
 #include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) {}
+};
+class AptCommandMap;
+#include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
+class AptScreenInitGadgets;
+void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
+#include "../../../../../Include/GameClient/Image.h"
+class MapMetaData;
+
 extern MultiplayerSettings *TheMultiplayerSettings;
+
 enum { PLAYERTEMPLATE_RANDOM = -1 };
+
 typedef _STL::list<AsciiString>::const_iterator Rva005BB3A1FactionIterator;
+
 Rva005BB3A1FactionIterator Rva005BAA83Find(Rva005BB3A1FactionIterator first,
 	Rva005BB3A1FactionIterator last, const AsciiString &side);
+
 class PeerResponse;
 
 class Rva005BA621 : public Rva005BA440
@@ -877,6 +893,34 @@ void _bfme_closeAptScreen(const AsciiString&);
 // Native5BA3AD..5BA3C0: same NAT receiver gate to member schema+28.
 // Keep this view's member pointer representation stable in the TU's /vmg build.
 class __single_inheritance Rva005A6709 {public:int rva005A6709() const;};
+
+class Rva005A6D47
+{
+public:
+	virtual ~Rva005A6D47();
+};
+
+struct NAT;
+
+	// 0x00E063F8, data row in NATProcessGlobalMessage.cpp
+
+// The functor binding keeps the multiple-inheritance member pointer form
+// ({function, 0}); the callbacks are widened through this view.
+class QuickMatchBindingView
+{
+public:
+	virtual void v00();
+};
+
+class QuickMatchFunctorTarget : public AptOnline::OnlineQuickMatch, public QuickMatchBindingView
+{
+};
+
+typedef void (QuickMatchFunctorTarget::*QuickMatchCallback)(const char *);
+
+typedef void (QuickMatchFunctorTarget::*QuickMatchInitGadgets)(const char *, void *, GameWindow *);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
@@ -1283,10 +1327,6 @@ AptOnline::OnlineQuickMatch::~OnlineQuickMatch()
 
 bool Rva005BA3AD::rva005BA3AD(){return schema.rva005DBA9C((((Rva005A6709 *)this)->*reinterpret_cast<bool (Rva005A6709::*)() const>(&Rva005A6709::rva005A6709))());}
 
-// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
 
 // ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ, retail 0x005BA6EE, 277 bytes.
@@ -1325,18 +1365,6 @@ bool Rva005BA6EE::rva005BA6EE()
 	GadgetComboBoxSetSelectedPos(*(GameWindow **)((char *)this + 0x8c), selected, false);
 	return true;
 }
-
-// tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA94A 225B ?InitGadgets@OnlineQuickMatch@AptOnline@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAA83 32B ?Rva005BAA83Find@@YA?AU?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@U12@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAB0B 115B ??4?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAB7E 844B ??0OnlineQuickMatch@AptOnline@@QAE@PAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAF35 1132B ?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp
 
@@ -1419,6 +1447,110 @@ bool Rva005BB3A1::rva005BB3A1()
 	return true;
 }
 
+// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA94A 225B ?InitGadgets@OnlineQuickMatch@AptOnline@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAA83 32B ?Rva005BAA83Find@@YA?AU?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@U12@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAB0B 115B ??4?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp
+
+//
+// ??0OnlineQuickMatch@AptOnline@@QAE@PAV1@@Z, retail 0x005BAB7E..0x005BAECA
+// (844 bytes, EH, ret 4); pinned until now as ??0Rva005BAB7E@@QAE@PAVAptOnline@@@Z.
+//
+// The online quick match screen: the shell's factory (0x00516E4E) allocates
+// 0xA0 bytes and calls this with the shell. Identity: it installs vftable
+// 0x00C73E24 and binds the rowed AptOnline::OnlineQuickMatch callbacks
+// (PlayGame 0x005BA34B, Cancel 0x005BAAA3, WidenSearch 0x005BAA2B,
+// StartSimple 0x005BA344, OnFoundMovieDone 0x005BA359, InitGadgets
+// 0x005BA94A) to this object, so it is that class's constructor (the class
+// spelling follows those rows).
+// Body: the rowed screen base 0x0056DC4C keeps the shell at +0x58; the
+// members are the state +0x60, QuickMatchPreferences +0x64 (rowed ctor
+// 0x005DF1A3), three flags +0x78..+0x7A, the gadget mask +0x7C, the color
+// window ref +0x80 (pinned ctor 0x0007B719) and seven words +0x84..+0x9C.
+// While the Apt window manager exists and no instance is registered at
+// 0x00E06550 it registers itself, caches the AptCustomMatchSelected /
+// Unselected images (+0x94 / +0x98), binds the callbacks through the
+// command map adder at +0x04 (rowed 0x0052458E, functor holder 0x0057BC63)
+// and the InitGadgets screen ref (rowed 0x00411458), refreshes the map
+// cache (pinned 0x00305749), resets the staging room (TheGameSpyGame vslot
+// 10), deletes the 0x00E063F8 object, pokes TheGameSpyInfo (vslot 47) and
+// runs the shell's rowed 0x00516F08.
+// Pattern and views follow the matched AptOnlineStatsConstructor.cpp.
+
+AptOnline::OnlineQuickMatch::OnlineQuickMatch(AptOnline *owner)
+	: Rva0056DC4C(owner), m_state(0), m_78(false), m_simple(false), m_foundMovie(false),
+	  m_gadgets(0), m_color(0), m_numPlayers(0), m_side(0), m_connectionSpeed(0),
+	  m_ladder(0), m_selectedImage(0), m_unselectedImage(0), m_9C(0)
+{
+	if (g_bfmeAptWindowManager && !g_Va00E06550) {
+		g_Va00E06550 = (int)this;
+		{
+			AsciiString name("AptCustomMatchSelected");
+			m_selectedImage = TheMappedImageCollection->findImageByName(name);
+		}
+		{
+			AsciiString name("AptCustomMatchUnselected");
+			m_unselectedImage = TheMappedImageCollection->findImageByName(name);
+		}
+		{
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::PlayGame));
+			AsciiString name("AptOnline::OnlineQuickMatch::PlayGame");
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
+				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		}
+		{
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::Cancel));
+			AsciiString name("AptOnline::OnlineQuickMatch::Cancel");
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
+				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		}
+		{
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::WidenSearch));
+			AsciiString name("AptOnline::OnlineQuickMatch::WidenSearch");
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
+				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		}
+		{
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::StartSimple));
+			AsciiString name("AptOnline::OnlineQuickMatch::StartSimple");
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
+				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		}
+		{
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchCallback>(&AptOnline::OnlineQuickMatch::OnFoundMovieDone));
+			AsciiString name("AptOnline::OnlineQuickMatch::OnFoundMovieDone");
+			((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
+				AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		}
+		{
+			FunctorBinding::Method method = reinterpret_cast<FunctorBinding::Method>(static_cast<QuickMatchInitGadgets>(&AptOnline::OnlineQuickMatch::InitGadgets));
+			AsciiString name("AptOnlineQuickMatch::InitGadgets");
+			_bfme_setAptScreenRef(name,
+				AptRef<AptScreenInitGadgets>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		}
+		TheMapCache->updateCache();
+		TheGameSpyGame->reset();
+		if (TheNAT) {
+			::delete (Rva005A6D47 *)TheNAT;
+			TheNAT = 0;
+		}
+		if (TheGameSpyInfo)
+			TheGameSpyInfo->leaveStagingRoom();
+		m_owner->rva00516F08();
+	}
+}
+
+// tu-skeleton: 0x005BAF35 1132B ?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
+
 // tu-skeleton: 0x005BB5F6 1974B ?rva005BB5F6@AptOnlineQuickMatch@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB21 8B $L5801 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
@@ -1430,30 +1562,6 @@ bool Rva005BB3A1::rva005BB3A1()
 // tu-skeleton: 0x0079FBA9 8B $L1416 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FBB1 10B __ehhandler$?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FBD0 8B $L1633 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FBD8 11B Unwind@00b9fbd8 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FBE3 14B Unwind@00b9fbe3 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FBF1 8B Unwind@00b9fbf1 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FBF9 8B Unwind@00b9fbf9 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC01 8B Unwind@00b9fc01 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC09 8B Unwind@00b9fc09 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC11 8B Unwind@00b9fc11 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC19 8B Unwind@00b9fc19 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC21 8B Unwind@00b9fc21 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC29 8B Unwind@00b9fc29 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC31 10B __ehhandler$??0OnlineQuickMatch@AptOnline@@QAE@PAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FC3B 8B uw_0079fc3b -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 

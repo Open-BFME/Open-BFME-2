@@ -806,8 +806,7 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineH
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeStatistics.cpp	g_Va00E06504	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeStatistics.cpp	g_Va00E06524	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp	g_Va00E062F0	2
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp	g_Va00E06550	4
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp	g_Va00E06550	3
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp	g_Va00E06550	6
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp	g_Va00E06550	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp	g_Va00A04904	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp	g_Va00DD1568	5

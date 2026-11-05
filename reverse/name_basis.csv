@@ -3024,8 +3024,8 @@ param,AptMessageBox::Change::c,AptMessageBox::Change::title,inferred,agree:nl-d8
 param,FunctorBinding::m,FunctorBinding::functorMethod,inferred,agree:nl-41cf527b7272,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp,
 param,Rva0057BC63FunctorHolder::x,Rva0057BC63FunctorHolder::other,inferred,agree:nl-5e0113307316,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp,
 param,AptRef::b,AptRef::binding,inferred,agree:nl-0d6263adf494,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp,
-param,Rva0057BC63FunctorHolder::x,Rva0057BC63FunctorHolder::other,inferred,agree:nl-f8d95771555e,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp,
-param,AptRef::b,AptRef::binding,inferred,agree:nl-2b07428731c8,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp,
+param,Rva0057BC63FunctorHolder::x,Rva0057BC63FunctorHolder::other,inferred,agree:nl-f8d95771555e,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,
+param,AptRef::b,AptRef::binding,inferred,agree:nl-2b07428731c8,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,
 param,AptRef::b,AptRef::binding,inferred,agree:nl-a51363974b92,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineStatsConstructor.cpp,
 function,?Rva002E42EEForward@OptionPreferences@@QAEHXZ,?getModelLOD@OptionPreferences@@QAEHXZ,inferred,agree:nl-8a332f7d90e5,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_enumDispatch.cpp,0x002E42EE
 function,?Rva002E42F6Forward@OptionPreferences@@QAEHXZ,?getAnimationLOD@OptionPreferences@@QAEHXZ,inferred,agree:nl-f611b30e5b37,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_enumDispatch.cpp,0x002E42F6
@@ -3948,7 +3948,7 @@ member,BfmeThingTQD::m_bfmeField4,BfmeThingTQD::m_printCallback,inferred,agree:n
 param,ArmySummarySystem::rva0040D2FD::b,ArmySummarySystem::rva0040D2FD::delaySeconds,inferred,agree:nl-71843cbb0c84,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
 param,ArmySummarySystem::rva0040D2FD::v,ArmySummarySystem::rva0040D2FD::coordinates,inferred,agree:nl-25f6fbf370e1,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
 local,ArmySummarySystem::rva0040D2FD::f,ArmySummarySystem::rva0040D2FD::coordinateCopy,inferred,agree:nl-c30038f175c2,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
-param,FunctorBinding::m,FunctorBinding::functorMethod,inferred,agree:nl-54c796054ff0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp,
+param,FunctorBinding::m,FunctorBinding::functorMethod,inferred,agree:nl-54c796054ff0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp,
 local,INI::Rva004B2B64_ParseReplaceObject::p,INI::Rva004B2B64_ParseReplaceObject::parseTables,inferred,agree:nl-d3831f47dd81,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp,0x004B2B64
 member,Rva001DBA9BSectionView::m_section00,Rva001DBA9BSectionView::m_criticalSection,inferred,agree:nl-ef2d241787c2,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,
 function,?rva001542A0@@YAHG@Z,?isThaiCharacter@@YAHG@Z,inferred,agree:nl-1b5ababcfcfe,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,0x001542A0
