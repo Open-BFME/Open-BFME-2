@@ -5,25 +5,13 @@
 // then non-zero dword at machine+0x50 means 1 else 0. Caller at 0x45AA48.
 // No direct callees.
 
-class MiniMachine
-{
-public:
-	char m_pad00[0x50];
-	int m_field50;
-};
-
-class AIUpdateInterface
-{
-	char m_pad00[0x30];
-	MiniMachine *m_machine;
-public:
-	int rva002632B3() const;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameLogic/AIStateMachineClass.h"
 
 int AIUpdateInterface::rva002632B3() const
 {
-	MiniMachine *miniMachine = m_machine;
-	if (miniMachine && miniMachine->m_field50)
-		return 1;
-	return 0;
+    AIStateMachine *machine = m_stateMachine;
+    if (machine && machine->m_temporaryState)
+        return 1;
+    return 0;
 }

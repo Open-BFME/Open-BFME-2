@@ -1,5 +1,7 @@
 ### Module base chain: canonical headers block the most TU merges (2026-10-28)
 
+2026-11-05: Three AIUpdateInterface temporary-state units now use the canonical AIUpdateInterface/AIStateMachine fields; 3/3 rows byte-match, three header rows retire, and all 73 preview-linked bytes remain. [Scoped evidence; wider module-chain work remains open](../../reverse/attempt_support/aiupdate-temporary-state-headers-20261105-codex3.md).
+
 2026-11-05: InstantDeathBehavior parser-vector views now reconcile; the two-parser merge passes bytes/EH but is restored after an ownership refusal on an existing OCL ICF fold. [LINK-422 and next check](link-422-instantdeath-parser-merge-icf-owner-transfer.md).
 
 2026-11-05: Three client consumers now adopt AIUpdateInterface; seven existing AI adoptions reverified, ten header rows retired, and 12,939 client preview-linked bytes preserved; two voice cleanup-wrapper identity findings remain for follow-up. [Receipts and remaining cohort prerequisites](../../reverse/attempt_support/aiupdate-client-header-adoption-20261105-codex3.md).

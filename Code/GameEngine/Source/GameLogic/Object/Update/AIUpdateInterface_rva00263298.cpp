@@ -6,40 +6,16 @@
 // Evidence: neighbours rva0026320D/rva002632B3 share +0x30 machine and
 // +0x50 state layout; caller 0x004DCECE.
 
-#include "../../../../Include/Common/StateMachine.h"
-
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../../Include/GameLogic/AIStateMachineClass.h"
-
-class RetState
-{
-public:
-	virtual void v00();
-	int m_id;
-};
-
-class Machine
-{
-public:
-	char m_pad00[0x50];
-	RetState *m_state50;
-	int m_field54;
-};
-
-class AIUpdateInterface
-{
-	char m_pad00[0x30];
-	Machine *m_machine;
-public:
-	void rva00263298();
-};
 
 void AIUpdateInterface::rva00263298()
 {
-	Machine *machine = m_machine;
-	RetState *state = machine->m_state50;
-	if (!state)
-		return;
-	if (machine->m_field54 != -1)
-		return;
-	((AIStateMachine *)machine)->setTemporaryState(state->m_id, -2);
+    AIStateMachine *machine = m_stateMachine;
+    State *state = machine->m_temporaryState;
+    if (!state)
+        return;
+    if (machine->m_temporaryStateFramEnd != -1)
+        return;
+    machine->setTemporaryState(state->m_id, -2);
 }
