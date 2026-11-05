@@ -23,7 +23,7 @@ class AsciiString;
 
 class UnicodeString {
 public:
-    static UnicodeString TheEmptyString;
+    static const UnicodeString TheEmptyString;
 
     UnicodeString() { m_text = 0; }
     UnicodeString(const UnicodeString &that)

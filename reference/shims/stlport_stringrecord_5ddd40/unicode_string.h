@@ -79,5 +79,5 @@ public:
 	void translate(const AsciiString &that);
 	void translate(const char *that);
 
-	static UnicodeString TheEmptyString;
+	static const UnicodeString TheEmptyString;
 };

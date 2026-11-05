@@ -126,7 +126,7 @@ public:
 		string, so we don't need to construct temporaries
 		for such a common thing.
 	*/
-	static UnicodeString TheEmptyString;
+	static const UnicodeString TheEmptyString;
 
 	/**
 		Default constructor -- construct a new, empty UnicodeString.

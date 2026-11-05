@@ -7,8 +7,9 @@ typedef unsigned short wchar_t;
 
 // Zero Hour's UnicodeString.cpp defines the shared empty string here; retail
 // keeps it in .bss at VA 0x00E0C898, the address every reader in the ledger
-// loads (GadgetTextEntryGetText, GameInfo::clearSlotList, ...).
-UnicodeString UnicodeString::TheEmptyString;
+// loads (GadgetTextEntryGetText, GameInfo::clearSlotList, ...). The export
+// ?TheEmptyString@UnicodeString@@2V1@B makes it const.
+const UnicodeString UnicodeString::TheEmptyString;
 
 // Every member unicode_string.h defines in its class is a header inline in retail
 // (game.dat calls none of these copies; 161+ units emit them as select-any

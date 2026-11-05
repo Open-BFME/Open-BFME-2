@@ -18,8 +18,8 @@
 // `jmp releaseBuffer` retail has at 0x005B804E. The other members follow game.dat's exports (reverse/exports.csv):
 // format(const unsigned short *, ...), format(const UnicodeString *, ...),
 // translate(const AsciiString &), translate(const char *),
-// UnicodeString(const AsciiString &). TheEmptyString is non-const, the spelling
-// the tree converged on (c4cb0cd6ba).
+// UnicodeString(const AsciiString &). TheEmptyString is const, as the export
+// ?TheEmptyString@UnicodeString@@2V1@B spells it.
 #include "string_base.h"
 
 class AsciiString;
@@ -75,5 +75,5 @@ public:
 	void translate(const AsciiString &that);
 	void translate(const char *that);
 
-	static UnicodeString TheEmptyString;
+	static const UnicodeString TheEmptyString;
 };

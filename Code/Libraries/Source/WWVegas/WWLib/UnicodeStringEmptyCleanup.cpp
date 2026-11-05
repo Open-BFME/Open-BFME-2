@@ -17,7 +17,7 @@ public:
 
 void rva007B9C10DestroyEmptyUnicodeString()
 {
-    reinterpret_cast<UnicodeStringCleanup *>(&UnicodeString::TheEmptyString)->destroy();
+    reinterpret_cast<UnicodeStringCleanup *>(const_cast<UnicodeString *>(&UnicodeString::TheEmptyString))->destroy();
 }
 
 // Native 007B6740..007B6756 constructs the same object, then registers
@@ -26,7 +26,7 @@ void rva007B9C10DestroyEmptyUnicodeString()
 #pragma inline_depth(0)
 void rva007B6740InitializeEmptyUnicodeString()
 {
-    UnicodeString::TheEmptyString.UnicodeString::UnicodeString();
+    const_cast<UnicodeString &>(UnicodeString::TheEmptyString).UnicodeString::UnicodeString();
     atexit(rva007B9C10DestroyEmptyUnicodeString);
 }
 #pragma inline_depth()
