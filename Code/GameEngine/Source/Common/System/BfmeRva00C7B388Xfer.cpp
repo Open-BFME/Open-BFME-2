@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii
+// cl: /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// stlport
 
 // A text-dumping Xfer, vtable 0x00C7B388 (constructor 0x0060DEB1, destructor
 // 0x0060DED5).  Every typed transfer prints its value with a labelled format --
@@ -16,6 +17,22 @@
 //
 // The base uses the shared Xfer interface; the value types below retain
 // Xfer.cpp's layouts so the transfers line up with the shipped ones.
+
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *); }
+#define free _STL::free
+#include <string>
+#include <vector>
+#undef free
+
+// These retail helpers live in the existing STLport provider units.
+namespace _STL {
+typedef basic_string<char, char_traits<char>, allocator<char> > BfmeTextString;
+template <> BfmeTextString::basic_string(const BfmeTextString &);
+template <> vector<BfmeTextString, allocator<BfmeTextString> >::~vector();
+template <> void vector<BfmeTextString, allocator<BfmeTextString> >::push_back(const BfmeTextString &);
+template <> _Vector_base<int, allocator<int> >::_Vector_base(const allocator<int> &) throw();
+}
 
 #include <stdarg.h>
 
@@ -107,8 +124,9 @@ inline Xfer::~Xfer() {}
 #include "../../../Include/Common/XferVersion.h"
 
 // The text sink: only its write slot (+0x10) is called.
-struct BfmeRva00C7B388Stream
+class BfmeRva00C7B388Stream
 {
+public:
     virtual void _M_slot_00();
     virtual void _M_slot_04();
     virtual void _M_slot_08();
@@ -120,6 +138,8 @@ class XferSaveAsText : public Xfer
 {
 public:
     static void __cdecl Print(XferSaveAsText *self, const char *format, ...);
+
+    bool rva0060F0CE(BfmeRva00C7B388Stream *stream);
 
     XferSaveAsText();
     virtual ~XferSaveAsText();
@@ -475,52 +495,8 @@ Xfer &XferSaveAsText::XferEnum(const char *name, void *data, unsigned int size)
     return *this;
 }
 
-// 0x0060DED5 54B: dtor. Stores derived vtable 0x00C7B388, destroys the
-// narrow-string vector at +0x0C (rowed 0x000C0399), then stores base vtable
-// 0x00BBB910 with no base call (empty inline base). EH prolog arms state 0
-// around the vector call. Caller 0x0060DF0E.
-extern "C" void __cdecl free(void *block);
-namespace _STL
-{
-void free(void *block);
-template <class T> class allocator
-{
-public:
-	allocator() {}
-};
-template <class T> class char_traits
-{
-};
-template <class C, class Tr, class A> class basic_string
-{
-public:
-	basic_string(const C *s, const A &a = A());
-	basic_string(const basic_string &other);
-	__forceinline ~basic_string() { if (_M_start != 0) free(_M_start); }
-	char *_M_start;
-	char *_M_finish;
-	char *_M_end;
-};
-template <class T, class A> class vector
-{
-public:
-	~vector();
-	void push_back(const T &x);
-};
-}
-
-// 0x0060DEB1 (36B): no label pending, no stream, and the +0x0C block stack
-// built empty through the shared out-of-line vector-base constructor
-// 0x00211E58 (ICF-folded; called here under its int spelling). It cannot
-// throw (it only zeroes three words), which keeps retail's frame free of EH.
-namespace _STL
-{
-template <class T, class A> class _Vector_base
-{
-public:
-	_Vector_base(const A &a) throw();
-};
-}
+// 0x0060DEB1 (36B): the out-of-line int-vector base constructor at
+// 0x00211E58 zeroes the three stack words without an EH frame.
 typedef _STL::_Vector_base<int, _STL::allocator<int> > BfmeRva00C7B388BlockBase;
 
 XferSaveAsText::XferSaveAsText() : m_bfme04(false), m_bfme08(0)
@@ -529,6 +505,10 @@ XferSaveAsText::XferSaveAsText() : m_bfme04(false), m_bfme08(0)
 	blocks.BfmeRva00C7B388BlockBase::_Vector_base(_STL::allocator<int>());
 }
 
+// 0x0060DED5 54B: dtor. Stores derived vtable 0x00C7B388, destroys the
+// narrow-string vector at +0x0C (rowed 0x000C0399), then stores base vtable
+// 0x00BBB910 with no base call (empty inline base). EH prolog arms state 0
+// around the vector call. Caller 0x0060DF0E.
 XferSaveAsText::~XferSaveAsText()
 {
 	typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
@@ -592,5 +572,5 @@ void XferSaveAsText::EndBlock()
         m_bfme04 = false;
     }
     Print(this, (const char *)0);
-    Print(this, "</%s>\n", tmp._M_start);
+    Print(this, "</%s>\n", tmp.c_str());
 }

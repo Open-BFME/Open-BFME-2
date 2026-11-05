@@ -101,17 +101,133 @@ typedef basic_string<char, char_traits<char>, allocator<char> > BfmeNarrowString
 template <> BfmeNarrowString *vector<BfmeNarrowString, allocator<BfmeNarrowString> >::erase(BfmeNarrowString *first, BfmeNarrowString *last);
 }
 
-class XferSaveAsText
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
+
+#include "../../../../Libraries/Include/Lib/ICoord3D.h"
+
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+
+#include "../../../../Libraries/Include/Lib/Region3D.h"
+
+struct IRegion3D
+{
+    ICoord3D lo;
+    ICoord3D hi;
+};
+
+#include "../../../../Libraries/Include/Lib/Region2D.h"
+
+#include "../../../../Libraries/Include/Lib/IRegion2D.h"
+
+struct RealRange
+{
+    float lo;
+    float hi;
+};
+
+#include "../../../../Libraries/Include/Lib/RGBColor.h"
+
+struct RGBAColorReal
+{
+    float red;
+    float green;
+    float blue;
+    float alpha;
+};
+
+struct RGBAColorInt
+{
+    unsigned int red;
+    unsigned int green;
+    unsigned int blue;
+    unsigned int alpha;
+};
+
+class Xfer;
+
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+
+// The string types are reduced to what their transfers read: a pointer to a
+// data block whose text starts eight bytes in.  ASCII and Unicode fall back to
+// the shared empty literals when the pointer is null; the pooled string reads
+// through it unchecked.
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
+#include "ascii_string.h"
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/UnicodeString.h
+#include "unicode_string.h"
+
+class PooledString
+{
+    struct Data { int unexamined0; int unexamined4; };
+    Data *m_data;
+
+public:
+    const char *peek() const { return reinterpret_cast<const char *>(m_data + 1); }
+};
+// upstream layout: Code/GameEngine/Source/Common/System/Xfer.cpp (retail vtable 0x00BBB910)
+// cl builds the by-product ??_GXfer with the inline state in force where the
+// class definition ends; inline_depth(0) there makes it call ~Xfer, as the
+// ledger's ??_GXfer (0x0060C8B1) does, while bodies below still inline it.
+#pragma inline_depth(0)
+#define BFME_XFER_INLINE_CTOR
+#define BFME_XFER_INLINE_DTOR
+#include "../../../Include/Common/BfmeXfer.h"
+#undef BFME_XFER_INLINE_DTOR
+#undef BFME_XFER_INLINE_CTOR
+inline Xfer::~Xfer() {}
+#pragma inline_depth()
+
+#include "../../../Include/Common/XferVersion.h"
+
+class XferSaveAsText : public Xfer
 {
 public:
-	virtual ~XferSaveAsText();
+    static void __cdecl Print(XferSaveAsText *self, const char *format, ...);
 
-	bool rva0060F0CE(BfmeRva00C7B388Stream *stream);
+    bool rva0060F0CE(BfmeRva00C7B388Stream *stream);
+
+    XferSaveAsText();
+    virtual ~XferSaveAsText();
+
+    virtual Xfer &operator==(bool &value);
+    virtual Xfer &operator==(char &value);
+    virtual Xfer &operator==(unsigned char &value);
+    virtual Xfer &operator==(short &value);
+    virtual Xfer &operator==(unsigned short &value);
+    virtual Xfer &operator==(int &value);
+    virtual Xfer &operator==(unsigned int &value);
+    virtual Xfer &operator==(__int64 &value);
+    virtual Xfer &operator==(float &value);
+    virtual Xfer &operator==(AsciiString &value);
+    virtual Xfer &operator==(UnicodeString &value);
+    virtual Xfer &operator==(PooledString &value);
+    virtual Xfer &operator==(Coord3DBase &value);
+    virtual Xfer &operator==(ICoord3D &value);
+    virtual Xfer &operator==(Region3D &value);
+    virtual Xfer &operator==(IRegion3D &value);
+    virtual Xfer &operator==(Coord2D &value);
+    virtual Xfer &operator==(ICoord2D &value);
+    virtual Xfer &operator==(Region2D &value);
+    virtual Xfer &operator==(IRegion2D &value);
+    virtual Xfer &operator==(RealRange &value);
+    virtual Xfer &operator==(RGBColor &value);
+    virtual Xfer &operator==(RGBAColorReal &value);
+    virtual Xfer &operator==(RGBAColorInt &value);
+    virtual Xfer &operator==(Xfer::Version &value);
+    virtual Xfer &XferRawBytes(void *data, unsigned int size);
+    virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+    virtual void EndBlock();
+    int rva0060DF27(const char *s);
 
 private:
-	bool m_bfme04;					// +0x04
-	BfmeRva00C7B388Stream *m_bfme08;	// +0x08
-	char m_bfme0C[12];				// +0x0C: vector<basic_string<char>>
+    bool m_bfme04;				// +0x04: skip the indent once, after a label
+    BfmeRva00C7B388Stream *m_bfme08;	// +0x08
+    char *m_bfme0C;				// +0x0C: open-block stack, 12-byte entries
+    char *m_bfme10;
+    char *m_bfme14;
 };
 
 // tu-skeleton: 0x0060D5F2 124B ?Print@XferSaveAsText@@SAXPAV1@PBDZZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
