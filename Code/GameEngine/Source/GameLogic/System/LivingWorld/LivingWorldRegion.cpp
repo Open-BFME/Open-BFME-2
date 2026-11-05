@@ -105,13 +105,7 @@ struct Pair8;
 // vector-resize owner (Rva003F3AB5 view) spellings.
 class Rva0020EE29 { public: void *rva0020FAEA(float *, void *); };
 class Rva003F3AB5 { public: void rva003F3B28(unsigned int); };
-class LivingWorldLogic
-{
-public:
-    void *rva002B4948(void *owner, void *region, void *exclude);
-    char beforeB0[0xb0];
-    LivingWorldRegionManager *regions;
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 class Rva00318FBE
 {
@@ -415,11 +409,11 @@ Bool LivingWorldRegion::DebugValidatePlacementSpot(const Coord2D &spot,Coord2D *
     pos.y=y;
     pos.x=x;
     pos.z=100.0f;
-    LivingWorldRegionManager *manager=logic->regions;
+    LivingWorldRegionManager *manager=logic->fieldB0;
     if (((Rva0020EE29 *)manager)->rva0020FAEA((float *)&pos,(void *)this) != (void *)this) {
     AsciiString message;
     message.format("Bad INI data! Region %s has a %s placement spot (%.0f, %.0f) outside its bounds (remember, extra offset points are generated for overlapping opposing armies)! Using region center point",m_name.str(),kind,pos.x,pos.y);
-    TheLivingWorldLogic->regions->GetRegionCenterPoint(reinterpret_cast<Rva0020E89C *>(this),out);
+    TheLivingWorldLogic->fieldB0->GetRegionCenterPoint(reinterpret_cast<Rva0020E89C *>(this),out);
     return false;
     }
     return true;
@@ -463,7 +457,7 @@ bool Rva003F0E8A::rva003F0E8A(int index, Pair8 *out)
 		*out = positions[index];
 		return true;
 	}
-	LivingWorldRegionManager *regions = TheLivingWorldLogic->regions;
+	LivingWorldRegionManager *regions = TheLivingWorldLogic->fieldB0;
 	if (regions && regions->GetDefaultArmyPlacementPos(index, out))
 	{
 		Pair8 offset;

@@ -67,12 +67,7 @@ struct RegionAwardDisputeBeaconCounter
 	int m_nextBeaconId2C;	// +0x2C
 };
 
-class LivingWorldLogic
-{
-public:
-	char m_pad00[0xB0];
-	Rva0020F27EHost *m_hostB0;	// +0xB0
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 #include "../../../../Include/GameLogic/LivingWorldManager.h"
 
@@ -310,10 +305,10 @@ void RegionAwardDispute::rva004FC0ED(const _STL::vector<int> &players)
 void RegionAwardDispute::rva004FBF8E()
 {
 	Coord2D pos;
-	Rva0020F27EHost *host = TheLivingWorldLogic->m_hostB0;
+	Rva0020F27EHost *host = ((Rva0020F27EHost *)TheLivingWorldLogic->fieldB0);
 	if (host->rva0020F27E(m_region, (int)&pos)) {
 		RegionAwardDisputeBeaconCounter *next =
-			reinterpret_cast<RegionAwardDisputeBeaconCounter *>(TheLivingWorldLogic->m_hostB0);
+			reinterpret_cast<RegionAwardDisputeBeaconCounter *>(((Rva0020F27EHost *)TheLivingWorldLogic->fieldB0));
 		++next->m_nextBeaconId2C;
 		int id = next->m_nextBeaconId2C;
 		m_winner = id;

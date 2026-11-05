@@ -321,12 +321,7 @@ class Rva002E2903Player;
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
-class LivingWorldLogic
-{
-	char m_pad[0xb0];
-public:
-	Rva0020EAF6View *m_regions;	// +0xB0
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
@@ -366,7 +361,7 @@ void LivingWorldAIBuilder::FillBuildingOrders(_STL::vector<BfmeE16> *orders, int
 	for (Rva005003C7Map::const_iterator it = range.first; it != range.second; ++it)
 	{
 		Rva0059CFAARegion *const &node = *(Rva0059CFAARegion **)&it._M_node;
-		LivingWorldRegion *region = (LivingWorldRegion *)TheLivingWorldLogic->m_regions->rva0020EAF6(node->m_info.m_id);
+		LivingWorldRegion *region = (LivingWorldRegion *)((Rva0020EAF6View *)TheLivingWorldLogic->fieldB0)->rva0020EAF6(node->m_info.m_id);
 		const Rva0059D2DARegionInfo &regionInfo = node->m_info;
 		int count = regionInfo.m_count;
 		if (region->rva003F05CE() + count < (int)region->m_170.size())

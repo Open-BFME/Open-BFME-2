@@ -67,7 +67,7 @@ class Rva002E2903Player;
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva003F468D;
 class Rva0020E6B7RegionManager {public: Rva003F468D *rva0020E6B7();};
-class LivingWorldLogic {public: char unknown00[0xB0]; Rva0020E6B7RegionManager *manager;};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -198,7 +198,7 @@ void AIUnitBuilder::Rva00598052()
     if (TheGameLogic->m_114 != 3) {
         int playerId=m_30->playerId;
         Rva002E2903Player *player=((Rva002BA8F1Logic *)TheLivingWorldLogic)->find(playerId,0);
-        LivingWorldBattle *battle=(LivingWorldBattle *)TheLivingWorldLogic->manager->rva0020E6B7();
+        LivingWorldBattle *battle=(LivingWorldBattle *)((Rva0020E6B7RegionManager *)TheLivingWorldLogic->fieldB0)->rva0020E6B7();
         int outer=battle->rva003F4752(player);
         int middle=battle->rva003F4FAA(outer,player);
         int count=((Rva003F4DCA *)battle)->rva003F4DCA(outer,middle);
