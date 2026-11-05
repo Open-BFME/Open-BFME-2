@@ -53,6 +53,7 @@ class Energy
 public:
 	void objectEnteringInfluence(Object *obj);
 	void objectLeavingInfluence(Object *obj);
+	void adjustPower(int amount, bool incoming);
 };
 struct Rva00293DACNode
 {
