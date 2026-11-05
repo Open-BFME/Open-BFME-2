@@ -416,12 +416,7 @@ extern GameLODManager *TheGameLODManager;
 void BFME_DX8_Thread_Lock();
 
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
-class VertexBufferClass {public:
- class WriteLockClass {
-  VertexBufferClass *buffer;public: void *vertices;private:BFMEDX8DeviceLock lock;
-  public:WriteLockClass(VertexBufferClass*,int);~WriteLockClass();
- };
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 class BfmeDynamicNativeVB {
  public:char record[32];
  BfmeDynamicNativeVB(unsigned,unsigned short,unsigned,unsigned);
@@ -556,7 +551,7 @@ void RenderableStandingWaterArea::AllocateAndFillBuffers() {
   vertexBuffers.push_back(vb);
   {
    VertexBufferClass::WriteLockClass lock(reinterpret_cast<VertexBufferClass*>(const_cast<ModuleData*>(vertexBuffers.back())),0);
-   memcpy(lock.vertices,records->begin(),records->size()*44);
+   memcpy(lock.Get_Vertex_Array(),records->begin(),records->size()*44);
   }
   int vc=records->size();vertexCounts.push_back(*reinterpret_cast<const ModuleData**>(&vc));
   indexCounts.push_back(*reinterpret_cast<const ModuleData**>(&indexCount));

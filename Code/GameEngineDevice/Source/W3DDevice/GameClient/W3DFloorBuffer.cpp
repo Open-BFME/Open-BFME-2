@@ -555,20 +555,7 @@ struct Rva000E57FFNode
 
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(VertexBufferClass *vertex_buffer, int flags);
-		~WriteLockClass();
-
-		VertexBufferClass *m_buffer; // +0
-		void *m_vertices; // +4
-		BFMEDX8DeviceLock m_deviceLock; // +8
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
 // ?rva000E585F@Rva006F8700Owner@@QAEXPAX0PAH1@Z @0x000E585F 95B.
 // Saves *arg4 at +0x44 and *arg3 at +0x3C, clears +0x40 and +0x48, then
@@ -1462,7 +1449,7 @@ void Rva000E58BE::rva000E58BE()
 	BFMEDX8DeviceLock deviceLock;
 	IndexBufferClass::WriteLockClass indexLock(m_indexBuffer, 0x2000);
 	VertexBufferClass::WriteLockClass vertexLock(m_vertexBuffer, 0x2000);
-	void *vertexData = vertexLock.m_vertices;
+	void *vertexData = vertexLock.Get_Vertex_Array();
 	void *indexData = indexLock.Get_Index_Array();
 	for (Rva000E58BEListNode *node = m_listHead->m_next; node != m_listHead; node = node->m_next)
 		node->m_owner->rva000E585F(indexData, vertexData, &m_count10, &m_countC);

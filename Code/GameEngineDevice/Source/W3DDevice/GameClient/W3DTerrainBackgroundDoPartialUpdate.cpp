@@ -71,22 +71,7 @@ public:
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 
-class VertexBufferClass : public RefCountClass
-{
-public:
-	class WriteLockClass
-	{
-	public:
-		WriteLockClass(VertexBufferClass *buffer, int flags);
-		~WriteLockClass();
-		void *Get_Vertex_Array() { return m_vertices; }
-
-	private:
-		VertexBufferClass *m_buffer;
-		void *m_vertices;
-		int m_flags;
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 
 class BfmeDynamicNativeVB : public VertexBufferClass
 {
@@ -94,7 +79,7 @@ public:
 	BfmeDynamicNativeVB(unsigned int fvf, unsigned short count, unsigned int a, unsigned int b);
 
 private:
-	unsigned char m_storage[0x20 - 0x08];
+	void *m_nativeBuffer; // +0x1C, stored by native ctor RVA 0x0013AC00
 };
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"

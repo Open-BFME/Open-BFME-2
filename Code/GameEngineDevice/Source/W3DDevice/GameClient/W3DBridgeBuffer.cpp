@@ -156,26 +156,13 @@ extern bool BFME_DX8_Thread_Assert(void);
 #include "../../../Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
-class VertexBufferClass
-{
-public:
-	class WriteLockClass
-	{
-		BFMEDX8DeviceLock device_lock;
-		void *Vertices;
-		VertexBufferClass *VertexBuffer;
-	public:
-		WriteLockClass(VertexBufferClass *vertex_buffer, int flags = 0);
-		~WriteLockClass();
-		void *Get_Vertex_Array() { return Vertices; }
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 class BfmeDynamicNativeVB : public VertexBufferClass
 {
 public:
 	BfmeDynamicNativeVB(unsigned int fvf, unsigned short count, unsigned int usage, unsigned int size);
 private:
-	unsigned char m_pad[0x20];
+	void *m_nativeBuffer; // +0x1C, stored by native ctor RVA 0x0013AC00
 };
 // Texture teardown view shared with the verified bridge destructor donor.
 class TextureBaseClass

@@ -319,24 +319,12 @@ extern bool BFME_DX8_Thread_Assert(void);
 
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
-class VertexBufferClass {
-public:
- class WriteLockClass {
- public:
-  WriteLockClass(VertexBufferClass *buffer,int flags);
-  ~WriteLockClass();
-  void *Get_Vertex_Array() {return Vertices;}
- private:
-  VertexBufferClass *VertexBuffer;
-  void *Vertices;
-  BFMEDX8DeviceLock device_lock;
- };
-};
+#include "VertexBufferClass.h"
 
 class BfmeDynamicNativeVB:public VertexBufferClass {
 public:
  BfmeDynamicNativeVB(unsigned,unsigned short,unsigned,unsigned);
- char m_pad00[0x20];
+ void *m_nativeBuffer; // +0x1C, stored by native ctor RVA 0x0013AC00
 };
 
 #include "IndexBufferClass.h"

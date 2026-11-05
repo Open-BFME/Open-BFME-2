@@ -10,7 +10,7 @@ extern "C" { static float __cdecl floorf(float); }
 struct Rva000EAFA4Coord3 {float x,y,z;};struct Rva000EAFA4Coord2 {float x,y;};
 class W3DTreeBuffer {public:bool rva000EAFA4(int,Rva000EAFA4Coord3*,float*,Rva000EAFA4Coord2*,Rva000EAFA4Coord2*);char pad00[0x44540];int count;};
 struct ProjectionVertex687EF {float x,y,z;unsigned diffuse;float u,v;};
-class VertexBufferClass {public:class WriteLockClass {public:WriteLockClass(VertexBufferClass*,int);~WriteLockClass();VertexBufferClass*buffer;ProjectionVertex687EF*vertices;char mutex[4];};};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 class Rva0006653B {public:
  unsigned short rva0006653B(int x,int y) {
@@ -183,7 +183,7 @@ void BaseHeightMapRenderObjClass::rva000687EF(){
   count37ac=0;vertices37b0=0;indices37b4=0;
   if(((ProjectionGlobal687EF*)TheWritableGlobalData)->enabled61){
    IndexBufferClass::WriteLockClass il(indices37a8,0);unsigned short*curIb=il.indices;
-   VertexBufferClass::WriteLockClass vl(vertices37a4,0);ProjectionVertex687EF*curVb=vl.vertices;
+   VertexBufferClass::WriteLockClass vl(vertices37a4,0);ProjectionVertex687EF*curVb=(ProjectionVertex687EF*)vl.Get_Vertex_Array();
    int borderSize=(map37c0?map37c0:map37c0)->border;int count=tree3850->count;
    for(int curTree=0;curTree<count;curTree++){
     Rva000EAFA4Coord3 loc;float radius;Rva000EAFA4Coord2 scale,offset;
