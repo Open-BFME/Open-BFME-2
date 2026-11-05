@@ -19,7 +19,7 @@ other part of the engine depends on it. What happens on each frame is on
 | `Code/GameEngine/Source/Common/System/CopyProtectVerified.cpp` | `CopyProtect::setVerified` and `CopyProtect::isVerified` |
 | `Code/Libraries/Source/subsystem/` | mainly `SubsystemInterface` and `SubsystemInterfaceList`, the registration framework |
 | `Code/GameEngine/Source/Common/System/SubsystemInterface.cpp` | `SubsystemInterfaceList::postProcessLoadAll` |
-| `Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp` | `SubsystemInterface::loadIniFilesFromLegend`, the legend loader |
+| `Code/GameEngine/Source/Common/System/SubsystemInterface.cpp` | `SubsystemInterface::loadIniFilesFromLegend`, the legend loader |
 
 **Key classes.** `GameEngine` owns startup and the main loop, and
 `Win32GameEngine` is the Windows subclass `CreateGameEngine` builds.

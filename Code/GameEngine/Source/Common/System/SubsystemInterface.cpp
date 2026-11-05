@@ -8,6 +8,7 @@
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #ifdef DUMP_PERF_STATS
 #endif
@@ -16,18 +17,15 @@
 #include "int_dealloc.h"
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
-
 #ifdef DUMP_PERF_STATS
 #include "GameLogic/GameLogic.h"
 #include "Common/PerfTimer.h"
 
 Real SubsystemInterface::s_msConsumed = 0;
 #endif
-
 #ifdef DUMP_PERF_STATS
 static const Real MIN_TIME_THRESHOLD = 0.0002f;
 #endif
-
 // BFME's subsystem list holds eight-byte subsystem/slot PAIRS where the vendored
 // header has a plain vector<SubsystemInterface*>, and reset is at vtable +0x10
 // rather than +0x0C. The walk is otherwise the reverse iteration the reference
@@ -41,20 +39,17 @@ public:
 	virtual void slot0C() = 0;
 	virtual void reset() = 0;					///< vtable +0x10
 };
-
 struct BfmeSubsystemEntry
 {
 	BfmeSubsystemInterface *m_subsystem;
 	void *m_slot;
 };
-
 struct BfmeSubsystemList
 {
 	BfmeSubsystemEntry *m_begin;
 	BfmeSubsystemEntry *m_end;
 	BfmeSubsystemEntry *m_capacity;
 };
-
 //
 // ?rva001B4E49@Rva001B4E49@@QAEXXZ @0x001B4E49 26B. Loop over an 8-byte-entry
 // array ([this+0]=begin, [this+4]=end): calls virtual slot 3 (call
@@ -70,13 +65,11 @@ struct Rva001B4E49Target
 	virtual void vf2();
 	virtual void vf3();
 };
-
 struct Rva001B4E49Entry
 {
 	void *m_obj; // +0 dereferenced for the virtual call
 	int m_pad; // +4 keeps the 8-byte stride retail steps
 };
-
 class Rva001B4E49
 {
 public:
@@ -86,14 +79,12 @@ private:
 	Rva001B4E49Entry *m_begin; // +0
 	Rva001B4E49Entry *m_end; // +4
 };
-
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-
 // vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
 // shape per TU flags); explicit dllimport+forceinline specializations take
 // those calls inline so this TU emits no external copies.
@@ -103,15 +94,12 @@ void **vector<void *>::begin() { return this->_M_start; }
 template <> __declspec(dllimport) __forceinline
 void **vector<void *>::end() { return this->_M_finish; }
 }
-
 class ModuleData;
-
 struct Rva001B5140Entry8
 {
 	void *m_obj; // +0 dereferenced for the slot 0x14 call
 	int m_pad; // +4 keeps the 8-byte stride retail steps
 };
-
 class Rva001B5140Pred
 {
 public:
@@ -122,7 +110,6 @@ public:
 	virtual void vf4();
 	virtual bool vf5();
 };
-
 class Rva001B5140
 {
 public:
@@ -137,32 +124,27 @@ private:
 	void *m_pad14; // +0x14 capacity of the second array, untouched
 	_STL::vector<const ModuleData *> m_vec; // +0x18
 };
-
 // The registered entries: the subsystem and the owned object that is
 // destroyed through its slot 0 (flag 0) and operator delete.
 struct Rva001B51C0Object
 {
 	virtual void *destroy(unsigned flags);
 };
-
 struct BfmePod8
 {
 	void *m_first;
 	Rva001B51C0Object *m_second;
 };
-
 // The rowed BfmePod8 erase (stlport_pod_vector_malloc_bodies.cpp owns the retail
 // body); a declaration-only specialization keeps this TU from emitting its own copy.
 namespace _STL {
 template <> BfmePod8 *vector<BfmePod8, allocator<BfmePod8> >::erase(BfmePod8 *, BfmePod8 *);
 }
-
 struct Rva001B4EABEntry
 {
 	void *m_obj; // +0
 	int m_pad; // +4 keeps the 8-byte stride retail steps
 };
-
 class Rva001B4EABTarget
 {
 public:
@@ -183,7 +165,6 @@ public:
 	char m_pad4[4]; // +4
 	AsciiString m_name; // +8 compared via set
 };
-
 class Rva001B4EAB
 {
 public:
@@ -193,7 +174,6 @@ private:
 	Rva001B4EABEntry *m_begin; // +0
 	Rva001B4EABEntry *m_end; // +4
 };
-
 // ?rva001B4E21@SubsystemInterfaceList@@QAEEPAVSubsystemInterface@@PAE@Z RVA 0x001B4E21 40B
 // Evidence: unlock lane; callers 0x001B509F 0x001B50D8 in 0x001B505F; free function ret 8
 //   with vtable slot 0x10 call on arg1 with m_4 guard set/cleared around it.
@@ -210,15 +190,12 @@ public:
 	virtual bool v4(void *arg);
 	unsigned char m_4;
 };
-
 class SubsystemInterface;
-
 struct Rva001B4F8BEntry
 {
 	void *m_obj; // +0 dereferenced, StringBase at object+8
 	int m_pad; // +4 keeps 8-byte stride
 };
-
 class Rva001B4F8B
 {
 public:
@@ -228,11 +205,111 @@ private:
 	Rva001B4F8BEntry *m_begin; // +0
 	Rva001B4F8BEntry *m_end; // +4
 };
-
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-
 #include "../../../Include/Common/SubsystemInterfaceList.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+extern SubsystemInterfaceList *TheSubsystemList;
+#include "Common/INI/INI.h"
+// A declaration-only specialization stops this TU emitting its own
+// vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
+template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString&);
+template <> void vector<AsciiString, allocator<AsciiString> >::_M_insert_overflow(AsciiString*, const AsciiString&, const __false_type&, size_t, bool);
+}
+struct IniLoadFileList;
+class SubsystemLegend {public:IniLoadFileList *rva001B49C4(AsciiString);};
+extern SubsystemLegend *TheSubsystemLegend;
+struct BfmeLegendLoadRecord {
+ AsciiString name;_STL::vector<AsciiString> files,paths,extensions,cinematicPaths,excludePaths;
+ unsigned loader;AsciiString debugFile;
+};
+#include "../../../Include/Common/FileSystem.h"
+#include <algorithm>
+// bfme link decl-only begin
+namespace _STL { template <> void * * __copy_ptrs<void * *,void * *>(void * *,void * *,void * *,_STL::__true_type); }
+namespace _STL { template <> void * * vector<void *,_STL::allocator<void *> >::erase(void * *); }
+// bfme link decl-only end
+namespace _STL {
+template <> void **vector<void*>::begin();
+template <> void **vector<void*>::end();
+}
+// bfme link decl-only begin
+namespace _STL { template <> unsigned int const & max<unsigned int>(unsigned int const &, unsigned int const &); }
+// push_back's overflow is retail's 0x002DFCF6 body (ModuleFactory.cpp), which inlines
+// max(size(), n); the declaration-only max<unsigned> above would make this TU's copy
+// call it, so spell the inline form out here.
+static inline const unsigned int &moduleOverflowMax(const unsigned int &left, const unsigned int &right)
+{
+	return left < right ? right : left;
+}
+namespace _STL {
+template <> inline void vector<const ModuleData *>::_M_insert_overflow(pointer __position, const value_type &__x,
+	const __true_type &, size_type __fill_len, bool __atend)
+{
+	const size_type __old_size = size();
+	const size_type __len = __old_size + moduleOverflowMax(__old_size, __fill_len);
+	pointer __new_start = this->_M_end_of_storage.allocate(__len);
+	pointer __new_finish = (pointer)__copy_trivial(this->_M_start, __position, __new_start);
+	__new_finish = fill_n(__new_finish, __fill_len, __x);
+	if (!__atend)
+		__new_finish = (pointer)__copy_trivial(__position, this->_M_finish, __new_finish);
+	_M_clear();
+	_M_set(__new_start, __new_finish, __new_start + __len);
+}
+}
+// Dispatch-only view of the existing slot-7 call with its byte argument.
+// The canonical data header intentionally omits slots 1-13. This view emits
+// no vtable or named method definition and makes no additional identity claim.
+class Rva001B505FTarget
+{
+public:
+	virtual void vf0();
+	virtual void vf1();
+	virtual void vf2();
+	virtual void vf3();
+	virtual void vf4();
+	virtual void vf5();
+	virtual void vf6();
+	virtual void vf7(unsigned char flag);
+};
+void Rva0002BBC9Update();
+// Dispatch-only view: the canonical data header deliberately omits slots 1-13.
+// Retail rva001B4FE9 calls slot 8; resetAll calls slot 9. No objects of this
+// view are constructed and it supplies no vtable or named method definition.
+class Rva001B4FE9Target
+{
+public:
+	virtual void vf0();
+	virtual void vf1();
+	virtual void vf2();
+	virtual void vf3();
+	virtual void vf4();
+	virtual void vf5();
+	virtual void vf6();
+	virtual void vf7();
+	virtual void vf8();
+ virtual void vf9();
+};
+
+extern FileSystem *TheFileSystem;
+
+class CopyProtect {public:static void setVerified(bool);};
+
+struct Rva0002C5E6Range {const StringBase<char> *begin,*end;};
+
+bool Rva0002C5E6(const StringBase<char>&,const Rva0002C5E6Range*);
+
+// Target global byte atDFD944 controls adding Cinematics paths to the exclusion filter.
+// Its original name is unknown; this descriptive name claims only that use.
+bool skipCinematicSubsystemExclusions;
+
+// ---- from Code/GameEngine/Source/Common/System/SubsystemInterface.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva001B4E21Get.cpp
 
@@ -314,12 +391,6 @@ void SubsystemInterfaceList::postProcessLoadAll()
 	}
 }
 
-// tu-skeleton: 0x001B4E63 17B ??0SubsystemInterface@@QAE@XZ -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
-
-// tu-skeleton: 0x001B4E74 14B ??1SubsystemInterface@@UAE@XZ -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
-
-// tu-skeleton: 0x001B4E82 41B ?removeSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z -- matched in Code/GameEngine/Source/Common/System/SubsystemInterfaceListRemoveSubsystem.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva001B4EABExport.cpp
 
 //
@@ -351,8 +422,6 @@ void Rva001B4EAB::rva001B4EAB()
 	}
 }
 
-// tu-skeleton: 0x001B4F6D 30B ?resetAll@SubsystemInterfaceList@@QAEXXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B4FE9.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva001B4F8B.cpp
 
 // ?rva001B4F8B@Rva001B4F8B@@QAEPAXABV?$StringBase@D@@@Z RVA 0x001B4F8B 45B
@@ -381,12 +450,6 @@ SubsystemInterfaceList::SubsystemInterfaceList()
 {
 	m_xfer = 0;
 }
-
-// tu-skeleton: 0x001B4FE9 47B ?rva001B4FE9@SubsystemInterfaceList@@QAEXXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B4FE9.cpp (not merged yet)
-
-// tu-skeleton: 0x001B5018 71B ?rva001B5018@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListAdd.cpp (not merged yet)
-
-// tu-skeleton: 0x001B505F 225B ?notifySubsystems@SubsystemInterfaceList@@QAEEXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/SubsystemInterfaceListDtor.cpp
 
@@ -431,26 +494,177 @@ void SubsystemInterfaceList::rva001B51C0()
 	m_xfer = 0;
 }
 
+// tu-skeleton: 0x001B4E63 17B ??0SubsystemInterface@@QAE@XZ -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
+
+// tu-skeleton: 0x001B4E74 14B ??1SubsystemInterface@@UAE@XZ -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/SubsystemInterfaceListRemoveSubsystem.cpp
+
+//
+// SubsystemInterfaceList::removeSubsystem, retail 0x001B4E82 (41 bytes,
+// RET4), guided by Zero Hour's GameEngine/Source/Common/System/
+// SubsystemInterface.cpp (GeneralsMD tree vendored under reference/
+// open-bfme-1/inputs/reference). ZH compiles the loop only under
+// DUMP_PERF_STATS; BFME 2's body is an unconditional find-and-erase of the
+// given subsystem in the second subsystem vector (ZH m_allSubsystems, +0x0C;
+// m_subsystems at +0x00 as in ZH's header).
+//
+// Target evidence: both callers (0x0020DF3B, 0x0031DF18) load the list
+// singleton 0x00DFD940, test it and pass their own this -- ZH's
+// ~SubsystemInterface `if (TheSubsystemList) TheSubsystemList->
+// removeSubsystem(this)`. The body sits beside the matched
+// SubsystemInterfaceList::postProcessLoadAll (0x001B4E49) and calls the
+// rowed pointer find 0x0020E873 and pointer-vector erase 0x001FF51F. Same
+// instruction skeleton as the matched Rva004DFB55 (find + erase at +0x2C).
+// This TU also carries ICF alias rows for the SubsystemInterface** find
+// (0x0020E873) and __find (0x005250A5) instantiations it emits.
+
+void SubsystemInterfaceList::removeSubsystem(SubsystemInterface *sys)
+{
+	_STL::vector<SubsystemInterface *>::iterator it =
+		_STL::find(m_allSubsystems.begin(), m_allSubsystems.end(), sys);
+	if (it != m_allSubsystems.end()) {
+		((_STL::vector<void *> *)&m_allSubsystems)->erase((void **)it);
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B4FE9.cpp
+
+// ?rva001B4FE9@SubsystemInterfaceList@@QAEXXZ RVA 0x001B4FE9 47B
+// Evidence: leaf lane pin SubsystemInterfaceList::rva001B4FE9; caller
+//   GameEngine::rva00225AFF in GameEngineSlots.cpp; notifies each entry via
+//   virtual slot 0x20 then clears the vector at +0x18 via rowed 0x31BD55 erase.
+
+void SubsystemInterfaceList::rva001B4FE9()
+{
+	for (SubsystemInterface **it = field18.begin(); it != field18.end(); ++it) {
+		void *obj = *it;
+		if (obj != 0)
+			((Rva001B4FE9Target *)obj)->vf8();
+	}
+	_STL::vector<void *> &v = reinterpret_cast<_STL::vector<void *> &>(field18);
+	v.erase(v.begin(), v.end());
+}
+
+// ?resetAll@SubsystemInterfaceList@@QAEXXZ RVA 0x001B4F6D 30B (was rva001B4F6D).
+// Zero Hour SubsystemInterfaceList::resetAll walks the subsystem list in
+// reverse calling reset; GameEngine::init and GameEngine.cpp call it here.
+void SubsystemInterfaceList::resetAll()
+{
+ for(_STL::vector<_STL::pair<SubsystemInterface *, void *> >::reverse_iterator i=m_subsystems.rbegin();i!=m_subsystems.rend();++i)
+  ((Rva001B4FE9Target *)i->first)->vf9();
+}
+
+// ---- from Code/GameEngine/Source/Common/SubsystemInterfaceListAdd.cpp
+
+// ?rva001B5018@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@@Z, retail 0x001B5018 (71 bytes, ret 4).
+// Same list as the rowed rva001B4FE9 (SubsystemInterfaceListRva001B4FE9.cpp): register a subsystem once. A
+// null one is ignored, one already in the 8-byte records at +0x00 is ignored, and otherwise it is appended
+// to the pointer list at +0x0C unless that already holds it (the search is the folded 4-byte find, rowed
+// under its int spelling at 0x0020E873). Zero Hour has no equivalent; the method keeps its address token.
+// vector<>::_M_insert_overflow inlines max(size(), n). Retail never calls
+// _STL::max<unsigned> (0x00013740 has no call site), but cl 13.10 still emits
+// the template's COMDAT, and under /O1 /G7 it is not retail's blend body. A
+// file-static unsigned overload takes the call instead: no external max copy
+// (the SubsystemInterface.cpp recipe).
+
+void SubsystemInterfaceList::rva001B5018(SubsystemInterface *subsystem)
+{
+	if (subsystem == 0)
+		return;
+	for (_STL::vector<_STL::pair<SubsystemInterface *, void *> >::iterator it = m_subsystems.begin(); it != m_subsystems.end(); ++it) {
+		if (it->first == subsystem)
+			return;
+	}
+	const ModuleData *&item = (const ModuleData *&)subsystem;
+	const ModuleData **last = (const ModuleData **)m_allSubsystems.end();
+	if ((const ModuleData **)_STL::find((int *)m_allSubsystems.begin(), (int *)last, (const int &)item) == last)
+		reinterpret_cast<_STL::vector<const ModuleData *> &>(m_allSubsystems).push_back(item);
+}
+
+// ---- from Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp
+
+// ?notifySubsystems@SubsystemInterfaceList@@QAEEXZ @0x001B505F 225B (WB 0xA755A0, unnamed).
+// Sibling of the SubsystemInterfaceList members around it (0x001B4FE9, 0x001B5018,
+// 0x001B51C0): every non-null subsystem of the 8-byte records at +0x00 and of the
+// pointer vector at +0x0C is offered to the member 0x001B4E21 (retail passes ECX=this,
+// so it is spelled as a member here and reached through an address-named pin beside
+// its stdcall row; its body never reads this), a success flags the result, and the
+// subsystem is collected in a local vector; each collected entry then gets virtual
+// slot 7 with the flag byte 0x001B4E21 filled, and the rowed Rva0002BBC9Update runs
+// when anything succeeded. The local vector's element type is the rowed owner of
+// push_back 0x004DFCB0, not a recovered type.
+// Codegen: /EHs (not /EHsc) makes the _free in the vector destructor potentially
+// throwing, which emits retail's state -1 store and the guarded, bottom-tested loops;
+// obj and flag declared at function scope before the vector give retail's frame slots.
+
+unsigned char SubsystemInterfaceList::notifySubsystems()
+{
+	unsigned char flag;
+	const ModuleData *obj;
+	unsigned char any = 0;
+	flag = any;
+	_STL::vector<const ModuleData *> collected;
+	for (_STL::pair<SubsystemInterface *, void *> *subsystemEntry8 = m_subsystems.begin(); subsystemEntry8 != m_subsystems.end(); ++subsystemEntry8)
+	{
+		obj = (const ModuleData *)subsystemEntry8->first;
+		if (obj != 0)
+		{
+			if (rva001B4E21((SubsystemInterface *)obj, &flag))
+				any = 1;
+			collected.push_back(obj);
+		}
+	}
+	for (SubsystemInterface **subsystem = m_allSubsystems.begin(); subsystem != m_allSubsystems.end(); ++subsystem)
+	{
+		obj = (const ModuleData *)*subsystem;
+		if (obj != 0)
+		{
+			if (rva001B4E21((SubsystemInterface *)obj, &flag))
+				any = 1;
+			collected.push_back(obj);
+		}
+	}
+	for (const ModuleData **it = collected.begin(); it != collected.end(); ++it)
+	{
+		if (*it)
+			((Rva001B505FTarget *)*it)->vf7(flag);
+	}
+	if (any)
+		Rva0002BBC9Update();
+	return any;
+}
+
 // tu-skeleton: 0x001B5266 261B ?initSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@PAXPBD22PAVXfer@@VAsciiString@@@Z -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
 
 // tu-skeleton: 0x001B536B 25B ?Rva001B536B@@YAXABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@PAV12@@Z -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
 
-// tu-skeleton: 0x001B5384 426B ?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp
 
-// tu-skeleton: 0x007694F7 8B Unwind@00b694f7 -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
-
-// tu-skeleton: 0x007694FF 10B __ehhandler$?notifySubsystems@SubsystemInterfaceList@@QAEEXZ -- matched in Code/GameEngine/Source/Common/SubsystemInterfaceListRva001B505F.cpp (not merged yet)
+bool SubsystemInterface::loadIniFilesFromLegend(){
+ CopyProtect::setVerified(TheFileSystem && TheFileSystem->doesFileExist("mithriledition.txt"));
+ if(!TheSubsystemLegend)return false;
+ bool loaded=false;
+ AsciiString subsystemName=m_name;
+ BfmeLegendLoadRecord *legendEntry=reinterpret_cast<BfmeLegendLoadRecord*>(TheSubsystemLegend->rva001B49C4(subsystemName));
+ if(!legendEntry)return false;
+ _STL::vector<AsciiString> excluded;
+ for(AsciiString *asciiString=legendEntry->excludePaths.begin();asciiString!=legendEntry->excludePaths.end();++asciiString)excluded.push_back(*asciiString);
+ if(!skipCinematicSubsystemExclusions)
+  for(AsciiString *asciiString=legendEntry->cinematicPaths.begin();asciiString!=legendEntry->cinematicPaths.end();++asciiString)excluded.push_back(*asciiString);
+ INI ini;
+ bool flag=m_flag; INILoadType loadType=(INILoadType)(flag?5:1);
+ for(AsciiString *asciiString=legendEntry->files.begin();asciiString!=legendEntry->files.end();++asciiString){
+  if(!Rva0002C5E6(reinterpret_cast<const StringBase<char>&>(*asciiString),reinterpret_cast<const Rva0002C5E6Range*>(&excluded)))
+   if(ini.loadFile(*asciiString,loadType,TheSubsystemList->getXfer()))loaded=true;
+ }
+ for(AsciiString *asciiString=legendEntry->paths.begin();asciiString!=legendEntry->paths.end();++asciiString)
+  if(ini.loadDirectory(*asciiString,true,loadType,TheSubsystemList->getXfer(),reinterpret_cast<int>(&excluded)))loaded=true;
+ return loaded;
+}
 
 // tu-skeleton: 0x00769531 8B Unwind@00b69531 -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
 
 // tu-skeleton: 0x00769539 11B Unwind@00b69539 -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
 
 // tu-skeleton: 0x00769544 10B __ehhandler$?initSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@PAXPBD22PAVXfer@@VAsciiString@@@Z -- matched in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (not merged yet)
-
-// tu-skeleton: 0x0076954E 8B Unwind@00b6954e -- matched in Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp (not merged yet)
-
-// tu-skeleton: 0x00769556 8B Unwind@00b69556 -- matched in Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp (not merged yet)
-
-// tu-skeleton: 0x0076955E 11B Unwind@00b6955e -- matched in Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp (not merged yet)
-
-// tu-skeleton: 0x00769569 10B __ehhandler$?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp (not merged yet)

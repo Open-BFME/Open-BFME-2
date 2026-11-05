@@ -300,7 +300,7 @@ simulation therefore makes existing replays play out differently.
   \ref page_startup for the load order.
 - BFME 2 sources: `Code/GameEngine/Source/Common/GameEngineInit.cpp`,
   `Code/Libraries/Source/subsystem/SubsystemInterface.cpp`,
-  `Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp`
+  `Code/GameEngine/Source/Common/System/SubsystemInterface.cpp`
   (the legend loader),
   `Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp`,
   `Code/GameEngine/Source/Common/Thing/ModuleFactoryInit.cpp`,
