@@ -52,3 +52,8 @@ link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/Ga
 
 Carry AIBuildable.cpp and the rest of the affected consumer scope into the
 next scheduled census. The older index still limits the closure verdict.
+
+
+## Header queue reconciliation, 2026-11-05
+
+The initial recheck overlaps 24 entries already retired by other contributors at `e019760eb57ace4577c09180abafa939d58b400e`. This series counts the 100 actual removals relative to that upstream parent. The supplemental entries pass the same owning acceptance and native include-receipt checks.
