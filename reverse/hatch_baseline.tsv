@@ -10368,9 +10368,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	"t",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"",on	2
-pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"s",off	2
-pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	2
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"s",off	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	3

@@ -92,63 +92,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #pragma optimize("", on)
 #include <list>
-#define Matrix4x4 Matrix4  // BFME renamed it
-#undef MEMORY_POOL_GLUE_WITHOUT_GCMP
-#define MEMORY_POOL_GLUE_WITHOUT_GCMP(ARGCLASS) \
-protected: \
-	virtual ~ARGCLASS(); \
-public: \
-	enum ARGCLASS##MagicEnum { ARGCLASS##_GLUE_NOT_IMPLEMENTED = 0 }; \
-public: \
-	inline void *operator new(size_t s, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ return MP_GLUE_ALLOCATE(ARGCLASS); } \
-public: \
-	inline void operator delete(void *p, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ BfmePoolGlue::free(p); } \
-protected: \
-	inline void *operator new(size_t s) { return ::operator new(s); } \
-	inline void operator delete(void *p) { ::operator delete(p); } \
-private: \
-	virtual MemoryPool *getObjectMemoryPool() { return ARGCLASS::getClassMemoryPool(); } \
-public:
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-
-
-
-#endif
-#define Matrix4x4 Matrix4  // BFME renamed it
-#undef MEMORY_POOL_GLUE_WITHOUT_GCMP
-#define MEMORY_POOL_GLUE_WITHOUT_GCMP(ARGCLASS) \
-protected: \
-	virtual ~ARGCLASS(); \
-public: \
-	enum ARGCLASS##MagicEnum { ARGCLASS##_GLUE_NOT_IMPLEMENTED = 0 }; \
-public: \
-	inline void *operator new(size_t s, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ return MP_GLUE_ALLOCATE(ARGCLASS); } \
-public: \
-	inline void operator delete(void *p, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ BfmePoolGlue::free(p); } \
-protected: \
-	inline void *operator new(size_t s) { return ::operator new(s); } \
-	inline void operator delete(void *p) { ::operator delete(p); } \
-private: \
-	virtual MemoryPool *getObjectMemoryPool() { return ARGCLASS::getClassMemoryPool(); } \
-public:
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-
-
-
-#endif
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 
 extern void addIcon(const Coord3D *pos, Real width, Int numFramesDuration, RGBColor color);
 
