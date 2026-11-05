@@ -1,0 +1,19 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp
+seed: Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp  (4 files)
+  Object: plan (2 files)
+      note: Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp gets class Player;
+        | class Object
+        | {
+        | public:
+        | 	Relationship getRelationship(const Object *) const;
+        | 	Player *getControllingPlayer() const;
+        | 	char m_pad00[0x38];
+        | 	float px; // +0x38
+        | 	float py; // +0x3C
+        | 	float pz; // +0x40
+        | 	float angle; // +0x44
+        | };
+  AIGateUpdate: conflict (4 files)
+      CONFLICT: Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp: data at +0x4 lies under the bases (own data starts at +0x20)
+  AIGateUpdateModuleData: conflict (2 files)
+      CONFLICT: class-key differs (Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp: class, Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp: struct) and no matched name spells it

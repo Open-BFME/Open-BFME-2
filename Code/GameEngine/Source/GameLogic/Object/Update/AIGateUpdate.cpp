@@ -18,6 +18,8 @@ class Vector2;
 class AIGateUpdateModuleData;
 enum NameKeyType { NK_UNKNOWN = 0 };
 enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffffff };
+// Select BFME2's Snapshot name slot before ObjectModule first reads Snapshot.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
 	class NAME \

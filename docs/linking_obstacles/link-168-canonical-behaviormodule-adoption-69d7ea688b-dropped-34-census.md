@@ -365,3 +365,4 @@ DebugDestructorThunk (`??_7Debug@@6B@`, 1-slot view vs the 35-slot shim; retail 
 virtual destructor, see the Debug entry; class:Debug held), W3DPropDraw (32-slot Zero Hour
 `??_7DrawModule@@6B@` vs the 1-slot copies of eight other units).
 Census confirmation: awaiting.
+2026-11-05: AIGateUpdate seed now selects BFME2's Snapshot name slot before ObjectModule; seed/ctor/dtor retain 522 preview bytes and owning acceptance retires three stale UpdateModule queue rows. Destructor merge still needs primary-vtable parity; constructor/trigger views still differ. [Checks and next prerequisite](../../reverse/attempt_support/aigate-update-snapshot-20261105-codexb5/README.md).
