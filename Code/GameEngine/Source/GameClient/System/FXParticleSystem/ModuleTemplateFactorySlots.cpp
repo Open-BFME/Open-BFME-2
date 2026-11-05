@@ -1,40 +1,7 @@
 // cl: /DNDEBUG /MD /EHsc
-//
-// Slot 2 of sixteen particle-module template vtables (0x00C1BE20 and its
-// neighbours): each is a factory that allocates the module and constructs it
-// from (the owner passed in, this template), under an EH frame that frees the
-// block if the constructor throws. Product and template classes are
-// address-named (or keep the names the ledger already gives three of the
-// constructors); the module sizes come from the allocations.
-
-class Rva003AD6DFTemplate;
-
-class Rva003ACD71
-{
-public:
-	Rva003ACD71(void *a, void *b);	// rowed 0x003ACD71
-private:
-	char m_unmodelled[0x1C];
-};
-
-class Rva003ACD71Module
-{
-public:
-	Rva003ACD71Module(void *owner, Rva003AD6DFTemplate *moduleTemplate);
-private:
-	char m_unmodelled[0x1C];
-};
-
-class Rva003AD6DFTemplate
-{
-public:
-	Rva003ACD71Module *rva003AD6DF(void *owner);		// vtable 0x00C1BE20#2
-};
-
-Rva003ACD71Module *Rva003AD6DFTemplate::rva003AD6DF(void *owner)
-{
-	return (Rva003ACD71Module *)new Rva003ACD71(owner, this);
-}
+// Retail exported factory signatures. Allocation sizes and constructor
+// declarations retain the independently verified address-based views.
+// TrackingPtr is global; ParticleSystem is in FXParticleSystem.
 
 class Rva003AD71BTemplate;
 
@@ -46,17 +13,6 @@ private:
 	char m_unmodelled[0x1C];
 };
 
-class Rva003AD71BTemplate
-{
-public:
-	Rva003ACDA0Module *CreateModule(void *owner);		// vtable 0x00C1BE40#2
-};
-
-Rva003ACDA0Module *Rva003AD71BTemplate::CreateModule(void *owner)
-{
-	return new Rva003ACDA0Module(owner, this);
-}
-
 class Rva003AD757Template;
 
 class Rva003ACDCFModule
@@ -66,17 +22,6 @@ public:
 private:
 	char m_unmodelled[0x1C];
 };
-
-class Rva003AD757Template
-{
-public:
-	Rva003ACDCFModule *rva003AD757(void *owner);		// vtable 0x00C1BE60#2
-};
-
-Rva003ACDCFModule *Rva003AD757Template::rva003AD757(void *owner)
-{
-	return new Rva003ACDCFModule(owner, this);
-}
 
 class Rva003AD793Template;
 
@@ -88,17 +33,6 @@ private:
 	char m_unmodelled[0x1C];
 };
 
-class Rva003AD793Template
-{
-public:
-	Rva003ACDFEModule *rva003AD793(void *owner);		// vtable 0x00C1BE80#2
-};
-
-Rva003ACDFEModule *Rva003AD793Template::rva003AD793(void *owner)
-{
-	return new Rva003ACDFEModule(owner, this);
-}
-
 class V3HostRva005E7420;
 
 class Rva005E7420Object
@@ -108,17 +42,6 @@ public:
 private:
 	char m_unmodelled[0x5C];
 };
-
-class V3HostRva005E7420
-{
-public:
-	Rva005E7420Object *rva003AD7CF(void *owner);		// vtable 0x00C1C270#2
-};
-
-Rva005E7420Object *V3HostRva005E7420::rva003AD7CF(void *owner)
-{
-	return new Rva005E7420Object(owner, this);
-}
 
 class Rva003AD80BTemplate;
 
@@ -130,17 +53,6 @@ private:
 	char m_unmodelled[0x8E4];
 };
 
-class Rva003AD80BTemplate
-{
-public:
-	Rva003ACE5CModule *rva003AD80B(void *owner);		// vtable 0x00C1BEA0#2
-};
-
-Rva003ACE5CModule *Rva003AD80BTemplate::rva003AD80B(void *owner)
-{
-	return new Rva003ACE5CModule(owner, this);
-}
-
 class V3HostRva005E76E0;
 
 class Rva005E76E0Object
@@ -150,17 +62,6 @@ public:
 private:
 	char m_unmodelled[0x2C];
 };
-
-class V3HostRva005E76E0
-{
-public:
-	Rva005E76E0Object *rva003AD84A(void *owner);		// vtable 0x00C1C294#2
-};
-
-Rva005E76E0Object *V3HostRva005E76E0::rva003AD84A(void *owner)
-{
-	return new Rva005E76E0Object(owner, this);
-}
 
 class Rva003AD886Template;
 
@@ -172,17 +73,6 @@ private:
 	char m_unmodelled[0xA0];
 };
 
-class Rva003AD886Template
-{
-public:
-	Rva003ACEFCModule *rva003AD886(void *owner);		// vtable 0x00C1BF20#2
-};
-
-Rva003ACEFCModule *Rva003AD886Template::rva003AD886(void *owner)
-{
-	return new Rva003ACEFCModule(owner, this);
-}
-
 class Rva003AD8C5Template;
 
 class Rva003ACF32Module
@@ -192,17 +82,6 @@ public:
 private:
 	char m_unmodelled[0xAC];
 };
-
-class Rva003AD8C5Template
-{
-public:
-	Rva003ACF32Module *rva003AD8C5(void *owner);		// vtable 0x00C1BF40#2
-};
-
-Rva003ACF32Module *Rva003AD8C5Template::rva003AD8C5(void *owner)
-{
-	return new Rva003ACF32Module(owner, this);
-}
 
 class Rva003AD904Template;
 
@@ -214,17 +93,6 @@ private:
 	char m_unmodelled[0x40];
 };
 
-class Rva003AD904Template
-{
-public:
-	Rva003ACFCFModule *rva003AD904(void *owner);		// vtable 0x00C1BF60#2
-};
-
-Rva003ACFCFModule *Rva003AD904Template::rva003AD904(void *owner)
-{
-	return new Rva003ACFCFModule(owner, this);
-}
-
 class Rva003AD940Template;
 
 class Rva003AD005Module
@@ -234,17 +102,6 @@ public:
 private:
 	char m_unmodelled[0x84];
 };
-
-class Rva003AD940Template
-{
-public:
-	Rva003AD005Module *rva003AD940(void *owner);		// vtable 0x00C1BF84#2
-};
-
-Rva003AD005Module *Rva003AD940Template::rva003AD940(void *owner)
-{
-	return new Rva003AD005Module(owner, this);
-}
 
 class Rva003AD97FTemplate;
 
@@ -256,17 +113,6 @@ private:
 	char m_unmodelled[0x64];
 };
 
-class Rva003AD97FTemplate
-{
-public:
-	Rva003AD094Module *rva003AD97F(void *owner);		// vtable 0x00C1BFB8#2
-};
-
-Rva003AD094Module *Rva003AD97FTemplate::rva003AD97F(void *owner)
-{
-	return new Rva003AD094Module(owner, this);
-}
-
 class Rva003AD9BBTemplate;
 
 class Rva003AD0CAModule
@@ -276,17 +122,6 @@ public:
 private:
 	char m_unmodelled[0x40];
 };
-
-class Rva003AD9BBTemplate
-{
-public:
-	Rva003AD0CAModule *rva003AD9BB(void *owner);		// vtable 0x00C1C2F4#2
-};
-
-Rva003AD0CAModule *Rva003AD9BBTemplate::rva003AD9BB(void *owner)
-{
-	return new Rva003AD0CAModule(owner, this);
-}
 
 class Rva003AD9F7Template;
 
@@ -298,17 +133,6 @@ private:
 	char m_unmodelled[0xB4];
 };
 
-class Rva003AD9F7Template
-{
-public:
-	Rva003AD100Module *rva003AD9F7(void *owner);		// vtable 0x00C1BFD8#2
-};
-
-Rva003AD100Module *Rva003AD9F7Template::rva003AD9F7(void *owner)
-{
-	return new Rva003AD100Module(owner, this);
-}
-
 class V3HostRva005E7AD0;
 
 class Rva005E7AD0Object
@@ -318,17 +142,6 @@ public:
 private:
 	char m_unmodelled[0x44];
 };
-
-class V3HostRva005E7AD0
-{
-public:
-	Rva005E7AD0Object *rva003ADA36(void *owner);		// vtable 0x00C1C314#2
-};
-
-Rva005E7AD0Object *V3HostRva005E7AD0::rva003ADA36(void *owner)
-{
-	return new Rva005E7AD0Object(owner, this);
-}
 
 class Rva003ADBD0Template;
 
@@ -340,20 +153,6 @@ private:
 	char m_unmodelled[0xA8];
 };
 
-class Rva003ADBD0Template
-{
-public:
-	Rva003AD38BModule *rva003ADBD0(void *owner);		// vtable 0x00C1C154#2
-};
-
-Rva003AD38BModule *Rva003ADBD0Template::rva003ADBD0(void *owner)
-{
-	return new Rva003AD38BModule(owner, this);
-}
-
-// Eleven more of the same factories whose constructors cannot throw: retail
-// builds them with no EH frame, which the throw() specification reproduces.
-
 class Rva003ADA72Template;
 
 class Rva003AD16CModule
@@ -363,17 +162,6 @@ public:
 private:
 	char m_unmodelled[0x40];
 };
-
-class Rva003ADA72Template
-{
-public:
-	Rva003AD16CModule *rva003ADA72(void *owner);		// vtable 0x00C1BFFC#2
-};
-
-Rva003AD16CModule *Rva003ADA72Template::rva003ADA72(void *owner)
-{
-	return new Rva003AD16CModule(owner, this);
-}
 
 class Rva003ADA95Template;
 
@@ -385,17 +173,6 @@ private:
 	char m_unmodelled[0x28];
 };
 
-class Rva003ADA95Template
-{
-public:
-	Rva003AD19BModule *rva003ADA95(void *owner);		// vtable 0x00C1C020#2
-};
-
-Rva003AD19BModule *Rva003ADA95Template::rva003ADA95(void *owner)
-{
-	return new Rva003AD19BModule(owner, this);
-}
-
 class Rva003ADAB8Template;
 
 class Rva003AD1CAModule
@@ -405,17 +182,6 @@ public:
 private:
 	char m_unmodelled[0x28];
 };
-
-class Rva003ADAB8Template
-{
-public:
-	Rva003AD1CAModule *rva003ADAB8(void *owner);		// vtable 0x00C1C034#2
-};
-
-Rva003AD1CAModule *Rva003ADAB8Template::rva003ADAB8(void *owner)
-{
-	return new Rva003AD1CAModule(owner, this);
-}
 
 class Rva003ADADBTemplate;
 
@@ -427,17 +193,6 @@ private:
 	char m_unmodelled[0x34];
 };
 
-class Rva003ADADBTemplate
-{
-public:
-	Rva003AD1F9Module *rva003ADADB(void *owner);		// vtable 0x00C1C058#2
-};
-
-Rva003AD1F9Module *Rva003ADADBTemplate::rva003ADADB(void *owner)
-{
-	return new Rva003AD1F9Module(owner, this);
-}
-
 class Rva003ADAFETemplate;
 
 class Rva003AD228Module
@@ -447,17 +202,6 @@ public:
 private:
 	char m_unmodelled[0x34];
 };
-
-class Rva003ADAFETemplate
-{
-public:
-	Rva003AD228Module *rva003ADAFE(void *owner);		// vtable 0x00C1C07C#2
-};
-
-Rva003AD228Module *Rva003ADAFETemplate::rva003ADAFE(void *owner)
-{
-	return new Rva003AD228Module(owner, this);
-}
 
 class Rva003ADB21Template;
 
@@ -469,17 +213,6 @@ private:
 	char m_unmodelled[0x24];
 };
 
-class Rva003ADB21Template
-{
-public:
-	Rva003AD278Module *rva003ADB21(void *owner);		// vtable 0x00C1C0A0#2
-};
-
-Rva003AD278Module *Rva003ADB21Template::rva003ADB21(void *owner)
-{
-	return new Rva003AD278Module(owner, this);
-}
-
 class Rva003ADB44Template;
 
 class Rva003AD2B3Module
@@ -489,17 +222,6 @@ public:
 private:
 	char m_unmodelled[0x3C];
 };
-
-class Rva003ADB44Template
-{
-public:
-	Rva003AD2B3Module *rva003ADB44(void *owner);		// vtable 0x00C1C0C4#2
-};
-
-Rva003AD2B3Module *Rva003ADB44Template::rva003ADB44(void *owner)
-{
-	return new Rva003AD2B3Module(owner, this);
-}
 
 class Rva003ADB67Template;
 
@@ -511,17 +233,6 @@ private:
 	char m_unmodelled[0x30];
 };
 
-class Rva003ADB67Template
-{
-public:
-	Rva003AD2E9Module *rva003ADB67(void *owner);		// vtable 0x00C1C0E8#2
-};
-
-Rva003AD2E9Module *Rva003ADB67Template::rva003ADB67(void *owner)
-{
-	return new Rva003AD2E9Module(owner, this);
-}
-
 class Rva003ADB8ATemplate;
 
 class Rva003AD31FModule
@@ -531,17 +242,6 @@ public:
 private:
 	char m_unmodelled[0x28];
 };
-
-class Rva003ADB8ATemplate
-{
-public:
-	Rva003AD31FModule *rva003ADB8A(void *owner);		// vtable 0x00C1C10C#2
-};
-
-Rva003AD31FModule *Rva003ADB8ATemplate::rva003ADB8A(void *owner)
-{
-	return new Rva003AD31FModule(owner, this);
-}
 
 class Rva003ADBADTemplate;
 
@@ -553,17 +253,6 @@ private:
 	char m_unmodelled[0x3C];
 };
 
-class Rva003ADBADTemplate
-{
-public:
-	Rva003AD355Module *rva003ADBAD(void *owner);		// vtable 0x00C1C130#2
-};
-
-Rva003AD355Module *Rva003ADBADTemplate::rva003ADBAD(void *owner)
-{
-	return new Rva003AD355Module(owner, this);
-}
-
 class Rva003ADC0FTemplate;
 
 class Rva003AD3C1Module
@@ -574,13 +263,321 @@ private:
 	char m_unmodelled[0x4C];
 };
 
-class Rva003ADC0FTemplate
+template <class T> class TrackingPtr;
+
+namespace FXParticleSystem
+{
+class ParticleSystem;
+template <int CATEGORY> class DefaultModule;
+template <int CATEGORY> class DefaultParticleModule;
+class RenderObjectParticleUpdateModule;
+class ParticleLifeEventModule;
+class ParticleTerrainCollisionModule;
+
+template <int CATEGORY> class DefaultModuleTag
 {
 public:
-	Rva003AD3C1Module *rva003ADC0F(void *owner);		// vtable 0x00C1C178#2
+    typedef DefaultModule<CATEGORY> ModuleType;
 };
 
-Rva003AD3C1Module *Rva003ADC0FTemplate::rva003ADC0F(void *owner)
+template <int CATEGORY, const char *const &KEY, const char *const &NAME,
+    class MODULE, class TEMPLATE, class DEFAULT>
+class ModuleTag
 {
-	return new Rva003AD3C1Module(owner, this);
+public:
+    typedef MODULE ModuleType;
+};
+
+template <class TAG> class ConcreteModuleTemplate
+{
+public:
+    virtual typename TAG::ModuleType *createModule(TrackingPtr<ParticleSystem> &system);
+};
+class StreakDrawModule;
+class StreakDrawModuleTemplate;
+extern const char *const STREAK_DRAW_MODULE_KEY;
+extern const char *const STREAK_DRAW_MODULE_NAME;
+class QuadDrawModule;
+class QuadDrawModuleTemplate;
+extern const char *const QUAD_DRAW_MODULE_KEY;
+extern const char *const QUAD_DRAW_MODULE_NAME;
+class ButterflyDrawModule;
+class ButterflyDrawModuleTemplate;
+extern const char *const BUTTERFLY_DRAW_MODULE_KEY;
+extern const char *const BUTTERFLY_DRAW_MODULE_NAME;
+class RenderObjectDrawModule;
+class RenderObjectDrawModuleTemplate;
+extern const char *const RENDEROBJECT_DRAW_MODULE_KEY;
+extern const char *const RENDEROBJECT_DRAW_MODULE_NAME;
+class LightningDrawModule;
+class LightningDrawModuleTemplate;
+extern const char *const LIGHTNING_DRAW_MODULE_KEY;
+extern const char *const LIGHTNING_DRAW_MODULE_NAME;
+class GpuDrawModule;
+class GpuDrawModuleTemplate;
+extern const char *const GPU_DRAW_MODULE_KEY;
+extern const char *const GPU_DRAW_MODULE_NAME;
+class LifeEventModule;
+class LifeEventModuleTemplate;
+extern const char *const LIFE_EVENT_MODULE_KEY;
+extern const char *const LIFE_EVENT_MODULE_NAME;
+class RenderObjectUpdateModule;
+class RenderObjectUpdateModuleTemplate;
+extern const char *const RENDEROBJECT_UPDATE_MODULE_KEY;
+extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
+class TerrainCollisionModule;
+class TerrainCollisionModuleTemplate;
+extern const char *const TERRAIN_COLLISION_MODULE_KEY;
+extern const char *const TERRAIN_COLLISION_MODULE_NAME;
+class LightningEmissionModule;
+class LightningEmissionModuleTemplate;
+extern const char *const LIGHTNING_EMISSION_MODULE_KEY;
+extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
+class OrthoEmissionVelocityModule;
+struct OrthoEmissionVelocityModuleTag
+{
+    typedef OrthoEmissionVelocityModule ModuleType;
+};
+class SphericalEmissionVelocityModule;
+class SphericalEmissionVelocityModuleTemplate;
+extern const char *const SPHERICAL_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const SPHERICAL_EMISSION_VELOCITY_MODULE_NAME;
+class HemisphericalEmissionVelocityModule;
+class HemisphericalEmissionVelocityModuleTemplate;
+extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME;
+class CylindricalEmissionVelocityModule;
+class CylindricalEmissionVelocityModuleTemplate;
+extern const char *const CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME;
+class OutwardEmissionVelocityModule;
+class OutwardEmissionVelocityModuleTemplate;
+extern const char *const OUTWARD_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const OUTWARD_EMISSION_VELOCITY_MODULE_NAME;
+class PointEmissionVolumeModule;
+struct PointEmissionVolumeModuleTag
+{
+    typedef PointEmissionVolumeModule ModuleType;
+};
+class LineEmissionVolumeModule;
+class LineEmissionVolumeModuleTemplate;
+extern const char *const LINE_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const LINE_EMISSION_VOLUME_MODULE_NAME;
+class BoxEmissionVolumeModule;
+class BoxEmissionVolumeModuleTemplate;
+extern const char *const BOX_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const BOX_EMISSION_VOLUME_MODULE_NAME;
+class SphereEmissionVolumeModule;
+class SphereEmissionVolumeModuleTemplate;
+extern const char *const SPHERE_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const SPHERE_EMISSION_VOLUME_MODULE_NAME;
+class CylinderEmissionVolumeModule;
+class CylinderEmissionVolumeModuleTemplate;
+extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const CYLINDER_EMISSION_VOLUME_MODULE_NAME;
+class TerrainFireEmissionModule;
+class TerrainFireEmissionModuleTemplate;
+extern const char *const TERRAIN_FIRE_EMISSION_MODULE_KEY;
+extern const char *const TERRAIN_FIRE_EMISSION_MODULE_NAME;
+
+// 0x003AD71B: retail export signature; constructor identity retained.
+template <> StreakDrawModule *ConcreteModuleTemplate<ModuleTag<6, STREAK_DRAW_MODULE_KEY, STREAK_DRAW_MODULE_NAME,
+    StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (StreakDrawModule *)new Rva003ACDA0Module(&system, (Rva003AD71BTemplate *)this);
+}
+
+// 0x003AD757: retail export signature; constructor identity retained.
+template <> QuadDrawModule *ConcreteModuleTemplate<ModuleTag<6, QUAD_DRAW_MODULE_KEY, QUAD_DRAW_MODULE_NAME,
+    QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (QuadDrawModule *)new Rva003ACDCFModule(&system, (Rva003AD757Template *)this);
+}
+
+// 0x003AD793: retail export signature; constructor identity retained.
+template <> ButterflyDrawModule *ConcreteModuleTemplate<ModuleTag<6, BUTTERFLY_DRAW_MODULE_KEY, BUTTERFLY_DRAW_MODULE_NAME,
+    ButterflyDrawModule, ButterflyDrawModuleTemplate, DefaultParticleModule<6> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (ButterflyDrawModule *)new Rva003ACDFEModule(&system, (Rva003AD793Template *)this);
+}
+
+// 0x003AD7CF: retail export signature; constructor identity retained.
+template <> RenderObjectDrawModule *ConcreteModuleTemplate<ModuleTag<6, RENDEROBJECT_DRAW_MODULE_KEY, RENDEROBJECT_DRAW_MODULE_NAME,
+    RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (RenderObjectDrawModule *)new Rva005E7420Object(&system, (V3HostRva005E7420 *)this);
+}
+
+// 0x003AD80B: retail export signature; constructor identity retained.
+template <> LightningDrawModule *ConcreteModuleTemplate<ModuleTag<6, LIGHTNING_DRAW_MODULE_KEY, LIGHTNING_DRAW_MODULE_NAME,
+    LightningDrawModule, LightningDrawModuleTemplate, DefaultParticleModule<6> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (LightningDrawModule *)new Rva003ACE5CModule(&system, (Rva003AD80BTemplate *)this);
+}
+
+// 0x003AD84A: retail export signature; constructor identity retained.
+template <> GpuDrawModule *ConcreteModuleTemplate<ModuleTag<6, GPU_DRAW_MODULE_KEY, GPU_DRAW_MODULE_NAME,
+    GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (GpuDrawModule *)new Rva005E76E0Object(&system, (V3HostRva005E76E0 *)this);
+}
+
+// 0x003AD886: retail export signature; constructor identity retained.
+template <> DefaultModule<1> *ConcreteModuleTemplate<DefaultModuleTag<1> >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (DefaultModule<1> *)new Rva003ACEFCModule(&system, (Rva003AD886Template *)this);
+}
+
+// 0x003AD8C5: retail export signature; constructor identity retained.
+template <> DefaultModule<0> *ConcreteModuleTemplate<DefaultModuleTag<0> >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (DefaultModule<0> *)new Rva003ACF32Module(&system, (Rva003AD8C5Template *)this);
+}
+
+// 0x003AD904: retail export signature; constructor identity retained.
+template <> DefaultModule<3> *ConcreteModuleTemplate<DefaultModuleTag<3> >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (DefaultModule<3> *)new Rva003ACFCFModule(&system, (Rva003AD904Template *)this);
+}
+
+// 0x003AD940: retail export signature; constructor identity retained.
+template <> DefaultModule<2> *ConcreteModuleTemplate<DefaultModuleTag<2> >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (DefaultModule<2> *)new Rva003AD005Module(&system, (Rva003AD940Template *)this);
+}
+
+// 0x003AD97F: retail export signature; constructor identity retained.
+template <> DefaultModule<7> *ConcreteModuleTemplate<DefaultModuleTag<7> >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (DefaultModule<7> *)new Rva003AD094Module(&system, (Rva003AD97FTemplate *)this);
+}
+
+// 0x003AD9BB: retail export signature; constructor identity retained.
+template <> LifeEventModule *ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT_MODULE_KEY, LIFE_EVENT_MODULE_NAME,
+    LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (LifeEventModule *)new Rva003AD0CAModule(&system, (Rva003AD9BBTemplate *)this);
+}
+
+// 0x003AD9F7: retail export signature; constructor identity retained.
+template <> RenderObjectUpdateModule *ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY, RENDEROBJECT_UPDATE_MODULE_NAME,
+    RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (RenderObjectUpdateModule *)new Rva003AD100Module(&system, (Rva003AD9F7Template *)this);
+}
+
+// 0x003ADA36: retail export signature; constructor identity retained.
+template <> TerrainCollisionModule *ConcreteModuleTemplate<ModuleTag<8, TERRAIN_COLLISION_MODULE_KEY, TERRAIN_COLLISION_MODULE_NAME,
+    TerrainCollisionModule, TerrainCollisionModuleTemplate, ParticleTerrainCollisionModule > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (TerrainCollisionModule *)new Rva005E7AD0Object(&system, (V3HostRva005E7AD0 *)this);
+}
+
+// 0x003ADBD0: retail export signature; constructor identity retained.
+template <> LightningEmissionModule *ConcreteModuleTemplate<ModuleTag<5, LIGHTNING_EMISSION_MODULE_KEY, LIGHTNING_EMISSION_MODULE_NAME,
+    LightningEmissionModule, LightningEmissionModuleTemplate, DefaultParticleModule<5> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (LightningEmissionModule *)new Rva003AD38BModule(&system, (Rva003ADBD0Template *)this);
+}
+
+// 0x003ADA72: retail export signature; constructor identity retained.
+template <> OrthoEmissionVelocityModule *ConcreteModuleTemplate<OrthoEmissionVelocityModuleTag >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (OrthoEmissionVelocityModule *)new Rva003AD16CModule(&system, (Rva003ADA72Template *)this);
+}
+
+// 0x003ADA95: retail export signature; constructor identity retained.
+template <> SphericalEmissionVelocityModule *ConcreteModuleTemplate<ModuleTag<4, SPHERICAL_EMISSION_VELOCITY_MODULE_KEY, SPHERICAL_EMISSION_VELOCITY_MODULE_NAME,
+    SphericalEmissionVelocityModule, SphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (SphericalEmissionVelocityModule *)new Rva003AD19BModule(&system, (Rva003ADA95Template *)this);
+}
+
+// 0x003ADAB8: retail export signature; constructor identity retained.
+template <> HemisphericalEmissionVelocityModule *ConcreteModuleTemplate<ModuleTag<4, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME,
+    HemisphericalEmissionVelocityModule, HemisphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (HemisphericalEmissionVelocityModule *)new Rva003AD1CAModule(&system, (Rva003ADAB8Template *)this);
+}
+
+// 0x003ADADB: retail export signature; constructor identity retained.
+template <> CylindricalEmissionVelocityModule *ConcreteModuleTemplate<ModuleTag<4, CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY, CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME,
+    CylindricalEmissionVelocityModule, CylindricalEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (CylindricalEmissionVelocityModule *)new Rva003AD1F9Module(&system, (Rva003ADADBTemplate *)this);
+}
+
+// 0x003ADAFE: retail export signature; constructor identity retained.
+template <> OutwardEmissionVelocityModule *ConcreteModuleTemplate<ModuleTag<4, OUTWARD_EMISSION_VELOCITY_MODULE_KEY, OUTWARD_EMISSION_VELOCITY_MODULE_NAME,
+    OutwardEmissionVelocityModule, OutwardEmissionVelocityModuleTemplate, DefaultParticleModule<4> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (OutwardEmissionVelocityModule *)new Rva003AD228Module(&system, (Rva003ADAFETemplate *)this);
+}
+
+// 0x003ADB21: retail export signature; constructor identity retained.
+template <> PointEmissionVolumeModule *ConcreteModuleTemplate<PointEmissionVolumeModuleTag >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (PointEmissionVolumeModule *)new Rva003AD278Module(&system, (Rva003ADB21Template *)this);
+}
+
+// 0x003ADB44: retail export signature; constructor identity retained.
+template <> LineEmissionVolumeModule *ConcreteModuleTemplate<ModuleTag<5, LINE_EMISSION_VOLUME_MODULE_KEY, LINE_EMISSION_VOLUME_MODULE_NAME,
+    LineEmissionVolumeModule, LineEmissionVolumeModuleTemplate, DefaultParticleModule<5> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (LineEmissionVolumeModule *)new Rva003AD2B3Module(&system, (Rva003ADB44Template *)this);
+}
+
+// 0x003ADB67: retail export signature; constructor identity retained.
+template <> BoxEmissionVolumeModule *ConcreteModuleTemplate<ModuleTag<5, BOX_EMISSION_VOLUME_MODULE_KEY, BOX_EMISSION_VOLUME_MODULE_NAME,
+    BoxEmissionVolumeModule, BoxEmissionVolumeModuleTemplate, DefaultParticleModule<5> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (BoxEmissionVolumeModule *)new Rva003AD2E9Module(&system, (Rva003ADB67Template *)this);
+}
+
+// 0x003ADB8A: retail export signature; constructor identity retained.
+template <> SphereEmissionVolumeModule *ConcreteModuleTemplate<ModuleTag<5, SPHERE_EMISSION_VOLUME_MODULE_KEY, SPHERE_EMISSION_VOLUME_MODULE_NAME,
+    SphereEmissionVolumeModule, SphereEmissionVolumeModuleTemplate, DefaultParticleModule<5> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (SphereEmissionVolumeModule *)new Rva003AD31FModule(&system, (Rva003ADB8ATemplate *)this);
+}
+
+// 0x003ADBAD: retail export signature; constructor identity retained.
+template <> CylinderEmissionVolumeModule *ConcreteModuleTemplate<ModuleTag<5, CYLINDER_EMISSION_VOLUME_MODULE_KEY, CYLINDER_EMISSION_VOLUME_MODULE_NAME,
+    CylinderEmissionVolumeModule, CylinderEmissionVolumeModuleTemplate, DefaultParticleModule<5> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (CylinderEmissionVolumeModule *)new Rva003AD355Module(&system, (Rva003ADBADTemplate *)this);
+}
+
+// 0x003ADC0F: retail export signature; constructor identity retained.
+template <> TerrainFireEmissionModule *ConcreteModuleTemplate<ModuleTag<5, TERRAIN_FIRE_EMISSION_MODULE_KEY, TERRAIN_FIRE_EMISSION_MODULE_NAME,
+    TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate, DefaultParticleModule<5> > >::createModule(
+    TrackingPtr<ParticleSystem> &system)
+{
+    return (TerrainFireEmissionModule *)new Rva003AD3C1Module(&system, (Rva003ADC0FTemplate *)this);
+}
 }

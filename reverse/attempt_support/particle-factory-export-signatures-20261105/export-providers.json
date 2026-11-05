@@ -1,0 +1,194 @@
+{
+  "objects_scanned": 31981,
+  "exports": {
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?STREAK_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?STREAK_DRAW_MODULE_NAME@2@3QBDBVStreakDrawModule@2@VStreakDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVStreakDrawModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD71B",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?QUAD_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?QUAD_DRAW_MODULE_NAME@2@3QBDBVQuadDrawModule@2@VQuadDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVQuadDrawModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD757",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?BUTTERFLY_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?BUTTERFLY_DRAW_MODULE_NAME@2@3QBDBVButterflyDrawModule@2@VButterflyDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVButterflyDrawModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD793",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?RENDEROBJECT_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_DRAW_MODULE_NAME@2@3QBDBVRenderObjectDrawModule@2@VRenderObjectDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVRenderObjectDrawModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD7CF",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVLightningDrawModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD80B",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVGpuDrawModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD84A",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@UAEPAV?$DefaultModule@$00@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD886",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@UAEPAV?$DefaultModule@$0A@@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD8C5",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@UAEPAV?$DefaultModule@$02@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD904",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@UAEPAV?$DefaultModule@$01@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD940",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@UAEPAV?$DefaultModule@$06@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD97F",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVLifeEventModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD9BB",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVRenderObjectUpdateModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD9F7",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVTerrainCollisionModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADA36",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?LIGHTNING_EMISSION_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_EMISSION_MODULE_NAME@2@3QBDBVLightningEmissionModule@2@VLightningEmissionModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVLightningEmissionModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADBD0",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@UOrthoEmissionVelocityModuleTag@FXParticleSystem@@@FXParticleSystem@@UAEPAVOrthoEmissionVelocityModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADA72",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?SPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?SPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVSphericalEmissionVelocityModule@2@VSphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVSphericalEmissionVelocityModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADA95",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVHemisphericalEmissionVelocityModule@2@VHemisphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVHemisphericalEmissionVelocityModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADAB8",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVCylindricalEmissionVelocityModule@2@VCylindricalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVCylindricalEmissionVelocityModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADADB",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$03$E?OUTWARD_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?OUTWARD_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVOutwardEmissionVelocityModule@2@VOutwardEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVOutwardEmissionVelocityModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADAFE",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@UPointEmissionVolumeModuleTag@FXParticleSystem@@@FXParticleSystem@@UAEPAVPointEmissionVolumeModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADB21",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?LINE_EMISSION_VOLUME_MODULE_KEY@FXParticleSystem@@3QBDB$E?LINE_EMISSION_VOLUME_MODULE_NAME@2@3QBDBVLineEmissionVolumeModule@2@VLineEmissionVolumeModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVLineEmissionVolumeModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADB44",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?BOX_EMISSION_VOLUME_MODULE_KEY@FXParticleSystem@@3QBDB$E?BOX_EMISSION_VOLUME_MODULE_NAME@2@3QBDBVBoxEmissionVolumeModule@2@VBoxEmissionVolumeModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVBoxEmissionVolumeModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADB67",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?SPHERE_EMISSION_VOLUME_MODULE_KEY@FXParticleSystem@@3QBDB$E?SPHERE_EMISSION_VOLUME_MODULE_NAME@2@3QBDBVSphereEmissionVolumeModule@2@VSphereEmissionVolumeModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVSphereEmissionVolumeModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADB8A",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?CYLINDER_EMISSION_VOLUME_MODULE_KEY@FXParticleSystem@@3QBDB$E?CYLINDER_EMISSION_VOLUME_MODULE_NAME@2@3QBDBVCylinderEmissionVolumeModule@2@VCylinderEmissionVolumeModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVCylinderEmissionVolumeModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADBAD",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$ModuleTag@$04$E?TERRAIN_FIRE_EMISSION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_FIRE_EMISSION_MODULE_NAME@2@3QBDBVTerrainFireEmissionModule@2@VTerrainFireEmissionModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAVTerrainFireEmissionModule@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003ADC0F",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^template^factory^slots.obj"
+      ],
+      "consumers": []
+    },
+    "?createModule@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$05@FXParticleSystem@@@FXParticleSystem@@UAEPAV?$DefaultModule@$05@2@AAV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@@Z": {
+      "rva": "0x003AD6DF",
+      "providers": [
+        "build/match/^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva003^a^d6^d^f^create.obj"
+      ],
+      "consumers": []
+    }
+  }
+}
