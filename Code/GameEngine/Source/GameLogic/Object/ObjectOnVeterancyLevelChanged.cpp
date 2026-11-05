@@ -168,7 +168,7 @@ public:
 class Rva002D9531
 {
 public:
-	void rva002D9531(int id);
+	void rva002D9531(int value);
 };
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"

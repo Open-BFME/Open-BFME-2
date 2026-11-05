@@ -41,7 +41,11 @@ struct Rva00297612Entry
 // 0x0027B18C's bank names its parameter DamageInfo; the call passes this entry unchanged.
 struct DamageInfo;
 #include "../../../Include/GameClient/Drawable.h"
-class Rva002D9531 { public: void rva002D9531(int); };
+class Rva002D9531
+{
+public:
+	void rva002D9531(int value);
+};
 class Rva00294D61 { public: void report(Object *, int); };
 
 template<int N> class ShockSlots : public ShockSlots<N - 1>
