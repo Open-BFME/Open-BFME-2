@@ -253,18 +253,24 @@ linking and small dependency repairs proceed directly.
 `real-link-*` artifact's `image_objects.json` and hash-bound object data before
 the census-byte comparison. It compiles nothing and creates no base worktrees
 or snapshots. Tip replacements come only from the pre-push byte-gated cohort.
-Consumers changed since the measured commit without a tip object are printed
-as UNCHECKED; stale local objects are never read for those consumers. Committed
+Consumers changed since the measured commit without a tip object are listed
+as UNCHECKED (count plus at most five examples). Their measured references
+remain evidence; stale local objects are never read for those consumers. Committed
 `/alternatename` pragmas are also scanned, and runtime/import-library providers
 use the same archives and retail-import routing as `exit_link.py`.
 
 Only proven losses refuse a push. Unknown tip providers retain their possible
-base definitions and suppress a proven-absence verdict; missing artifacts,
+base definitions. A candidate loss is suppressed only if a changed, unchecked
+path contains that target's source identifier (`git grep -F` at the tip);
+unrelated source/header drift does not suppress it. Missing artifacts,
 objects, library evidence and unsupported directives produce named warnings.
-Compiler/header drift conservatively marks unbuilt consumers unchecked. This
-partial check does not certify a whole link or source freshness. Scheduled real
-links and their picker blockers remain the backstop. The hook retains its
-60-second cap and warns on timeout. Docs-only pushes return before artifact
+Compiler/header drift marks unbuilt consumers unchecked without discarding
+their measured references. This partial check does not certify a whole link or
+source freshness. Scheduled real links and their picker blockers remain the
+backstop. The hook runs `--guard-only` with its own 45-second cap and then
+`--census-only` with a separate 60-second cap; a guard timeout warns and cannot
+consume the census allowance. The serial worst case is 105 seconds, rather
+than sharing one 60-second deadline. Docs-only pushes return before artifact
 access, including when unrelated tracked files are dirty.
 
 Parsed manifest facts are cached by measured commit in the git common dir's
@@ -276,10 +282,15 @@ artifact kind, source commit and artifact ID, so a diagnostic summary cannot
 replace a real summary under the same commit.
 
 When the real artifact has no object manifest, the guard tries diagnostic
-artifacts in newest-first order from the same real-link run and from the latest
-completed `diagnostic-link.yml` run. The dedicated workflow's artifact name
+artifacts in newest-first order from the last five completed runs of each
+workflow (`real-link.yml` and `diagnostic-link.yml`). It skips source commits
+that are not ancestors of the outgoing base before downloading objects, so a
+branch experiment cannot hide older compatible evidence. The dedicated workflow's artifact name
 provides the image source commit; its workflow head can name a different commit.
-The image receipt must agree with that source commit, diagnostic kind and MAP
+Metadata requests have a 10-second timeout; artifact downloads have a separate
+40-second timeout within the guard's 45-second total budget. Transient network,
+download and filesystem failures are never stored as artifact failure entries,
+so the next push retries the same artifact. The image receipt must agree with that source commit, diagnostic kind and MAP
 hash. `stubbed.tsv` must agree with the receipt's unresolved-name list. The
 `diagnostic_stubs.obj` provider is discarded entirely, and receipt/table-listed
 stub definitions are removed from all measured facts. They never count as base
@@ -305,3 +316,13 @@ from the sparse seat (the warning-only path, not an actual push). Both passes
 completed within the unchanged 60-second hook budget. Earlier no-source audit
 measurements were 12--20 ms. The rejected implementation's private snapshot
 cache was removed from `image`; neither manifest path compiles extra units.
+
+Final-review measurements on srv1: full guard with a cold temporary evidence
+cache took 18.2 s, and the cached pass took 2.41 s. The run used the complete
+17,878-object diagnostic evidence at `3973ef8ec5` against the seat's later
+base/tip and a requested tip object absent from the sparse seat. Output was
+13 lines instead of listing every unchecked consumer; possible replacements
+now have a count and at most five examples too. Regression tests refuse the
+Drawable loss with either an unrelated `.cpp` or `.h` commit after the manifest,
+retry a timed-out artifact download, skip a newer experiment branch, and prove
+that guard timeout still invokes the census with its independent budget.

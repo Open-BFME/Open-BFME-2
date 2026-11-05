@@ -192,7 +192,7 @@ def definition_losses(before, after, unchecked=None):
     return found
 
 
-CACHE_SCHEMA = 2
+CACHE_SCHEMA = 3
 CACHE_LIMIT = 96 * 1024 * 1024
 ARTIFACT_LIMIT = 256 * 1024 * 1024
 REPO = 'Open-BFME/Open-BFME-2'
@@ -228,7 +228,7 @@ def save_cache(path, value):
 
 def gh_api(endpoint):
     return subprocess.run(['gh', 'api', endpoint], check=True, capture_output=True,
-                          timeout=10).stdout
+                          timeout=40 if endpoint.endswith('/zip') else 10).stdout
 
 
 def object_source(source, provider, sources):
@@ -298,8 +298,8 @@ def parse_manifest_archive(raw, commit, kind='real'):
                 # DATA provides only the IAT. Match the archive's real names.
                 import struct
                 name = data[20:].split(b'\0', 1)[0].decode('latin-1')
-                kind = struct.unpack_from('<H', data, 18)[0] & 3
-                facts = ({'__imp_' + name} | ({name} if kind == 0 else set()), set(), [], {}, set())
+                import_kind = struct.unpack_from('<H', data, 18)[0] & 3
+                facts = ({'__imp_' + name} | ({name} if import_kind == 0 else set()), set(), [], {}, set())
             else:
                 facts = link_census.object_symbols(Path(path), data)
             provider_name = entry['provider'].replace('\\', '/').rsplit('/', 1)[-1].lower()
@@ -330,30 +330,40 @@ def manifest_candidates():
     for workflow in ('real-link.yml', 'diagnostic-link.yml'):
         try:
             runs = json.loads(gh_api(f'repos/{REPO}/actions/workflows/{workflow}/runs'
-                                     '?branch=master&status=completed&per_page=1'))['workflow_runs']
+                                     '?branch=master&status=completed&per_page=5'))['workflow_runs']
         except subprocess.CalledProcessError:
             if workflow == 'real-link.yml':
                 raise
             continue  # Older repositories may not have the dedicated workflow.
         if not runs:
             continue
-        run = runs[0]
-        artifacts = json.loads(gh_api(f'repos/{REPO}/actions/runs/{run["id"]}/artifacts'))['artifacts']
-        for artifact in artifacts:
-            match = re.fullmatch(r'(real|diagnostic)-link-([0-9a-f]{40})', artifact['name'])
-            if not match or artifact['expired']:
-                continue
-            kind, commit = match.groups()
-            if workflow == 'diagnostic-link.yml' and kind != 'diagnostic':
-                continue
-            if artifact['size_in_bytes'] > ARTIFACT_LIMIT:
-                continue
-            candidates.append(dict(kind=kind, commit=commit, artifact=artifact['id'],
-                                   created=artifact.get('created_at', run.get('created_at', ''))))
-    return sorted(candidates, key=lambda c: (c['kind'] == 'real', c['created'], c['artifact']), reverse=True)
+        for run in runs:
+            artifacts = json.loads(gh_api(f'repos/{REPO}/actions/runs/{run["id"]}/artifacts'))['artifacts']
+            for artifact in artifacts:
+                match = re.fullmatch(r'(real|diagnostic)-link-([0-9a-f]{40})', artifact['name'])
+                if not match or artifact['expired']:
+                    continue
+                kind, commit = match.groups()
+                if workflow == 'diagnostic-link.yml' and kind != 'diagnostic':
+                    continue
+                if artifact['size_in_bytes'] > ARTIFACT_LIMIT:
+                    continue
+                candidates.append(dict(kind=kind, commit=commit, artifact=artifact['id'],
+                                       created=artifact.get('created_at', run.get('created_at', ''))))
+    # Newest evidence first; prefer the real artifact within the same measured
+    # commit, falling back to its diagnostic manifest if no real image exists.
+    newest = {c['commit']: max(x['created'] for x in candidates if x['commit'] == c['commit'])
+              for c in candidates}
+    return sorted(candidates, key=lambda c: (newest[c['commit']], c['kind'] == 'real',
+                                            c['created'], c['artifact']), reverse=True)
 
 
-def load_real_manifest():
+def manifest_ancestor(commit, base):
+    return subprocess.run(['git', 'merge-base', '--is-ancestor', commit, base],
+                          cwd=link_check.ROOT, capture_output=True).returncode == 0
+
+
+def load_real_manifest(base=None):
     """Real evidence first, diagnostic fallback with all trap providers excluded."""
     root = cache_root()
     latest = root / 'latest.json'
@@ -366,13 +376,21 @@ def load_real_manifest():
     warnings = []
     for candidate in selected['candidates']:
         commit, kind, artifact = candidate['commit'], candidate['kind'], candidate['artifact']
+        if base is not None and not manifest_ancestor(commit, base):
+            warnings.append(f'{kind}-link {commit}: not an ancestor of outgoing base; skipped')
+            continue
         path = root / (kind + '-' + commit + '.json')
         data = json.loads(path.read_text()) if path.exists() else {}
         if (data.get('schema') != CACHE_SCHEMA or data.get('commit') != commit
                 or data.get('kind') != kind or data.get('artifact') != artifact):
             try:
                 data = parse_manifest_archive(gh_api(f'repos/{REPO}/actions/artifacts/{artifact}/zip'), commit, kind)
-            except (ValueError, KeyError, OSError, subprocess.SubprocessError) as exc:
+            except (OSError, subprocess.SubprocessError) as exc:
+                # A slow/download/network failure says nothing permanent about
+                # this immutable artifact. Retry it on the next push.
+                warnings.append(f'{kind}-link {commit}: transient evidence failure: {exc}')
+                continue
+            except (ValueError, KeyError) as exc:
                 data = dict(schema=CACHE_SCHEMA, commit=commit, kind=kind, objects=[], warning=str(exc))
             data['artifact'] = artifact
             save_cache(path, data)
@@ -384,7 +402,7 @@ def load_real_manifest():
             data = {**data, 'fallback_warnings': warnings}
         return data
     if last is None:
-        raise ValueError('no available real-link or diagnostic-link artifact')
+        raise ValueError('no compatible available manifest: ' + '; '.join(warnings))
     return {**last, 'fallback_warnings': warnings}
 
 
@@ -438,13 +456,51 @@ def source_alternates(tip):
     return found, unchecked
 
 
+
+def target_identifier(name):
+    import re
+    name = name.removeprefix('__imp_')
+    if name.startswith('??$'):
+        name = name[3:]
+    elif name.startswith('??'):
+        match = re.match(r'\?\?(?:_[0-9A-Z]|[0-9A-Z])([A-Za-z_]\w*)@', name)
+        return match.group(1) if match else None
+    elif name.startswith('?'):
+        name = name[1:]
+    else:
+        name = name.lstrip('_')
+    match = re.match(r'[A-Za-z_]\w*', name)
+    return match.group() if match else None
+
+
+def identifier_sources(tip, identifier, sources):
+    """Cheap, fixed-string evidence of a possible unchecked replacement."""
+    found = set()
+    sources = sorted(sources)
+    for offset in range(0, len(sources), 256):
+        done = subprocess.run(['git', 'grep', '-F', '-l', '-e', identifier, tip, '--',
+                               *sources[offset:offset + 256]], cwd=link_check.ROOT,
+                              capture_output=True, text=True, timeout=5)
+        if done.returncode not in (0, 1):
+            raise ValueError('unchecked identifier grep failed')
+        found.update(line.removeprefix(tip + ':') for line in done.stdout.splitlines())
+    return found
+
+
+def unchecked_summary(label, values, evidence):
+    values = sorted(set(values))
+    if values:
+        examples = '; '.join(values[:5])
+        print(f'definition guard: UNCHECKED {label}: {len(values)}; examples: {examples} [{evidence}]')
+
+
 def removed_definition_guard(base, tip, verified):
     """Measured objects plus byte-gated tip replacements; missing proof warns."""
     started = time.monotonic()
     changes = changed_sources(base, tip)
     if not changes and not verified and not changed_identities(base, tip):
         return 0
-    manifest = load_real_manifest()
+    manifest = load_real_manifest(base)
     evidence = manifest.get('kind', 'real') + '-link ' + manifest['commit']
     for warning in manifest.get('fallback_warnings', ()):
         print('definition guard: UNCHECKED evidence: ' + warning)
@@ -465,7 +521,7 @@ def removed_definition_guard(base, tip, verified):
     # such consumers current; this guard never compiles or trusts a stale .obj.
     broad = any(not (p.startswith('reverse/') or Path(p).suffix.lower() in ('.cpp', '.c', '.asm')) for p in delta)
     changed = {p for p in delta if Path(p).suffix.lower() in ('.cpp', '.c', '.asm')}
-    live = set(git('ls-tree', '-r', '--name-only', tip, '--', 'Code').splitlines())
+    live = set(git('ls-tree', '-r', '--name-only', tip, '--', 'Code', 'reference', 'vendor').splitlines())
     before, after, unchecked = {}, {}, set()
     unknown_sources = []
     for entry in manifest['objects']:
@@ -478,25 +534,30 @@ def removed_definition_guard(base, tip, verified):
         if source and source not in live:
             continue
         if source in changed or (broad and source):
-            # Keep unchecked providers as possible definitions, but never use
-            # their old imports as current evidence. This cannot prove a loss.
+            # Retain measured imports as evidence despite unrelated master
+            # drift. Target-specific source grep below handles uncertainty.
             unchecked.add(source)
-            after[key] = (facts[0], set(), [], {}, set())
+            after[key] = facts
         else:
             after[key] = facts if source else (facts[0], set(), [], {}, set())
     verified = set(verified)
+    built = set()
     for source in sorted(verified):
         # The hook supplies only its completed byte-gated cohort. Never consult
         # another local object merely because it exists in build/match.
         obj = build.obj_path(link_check.ROOT / source)
-        if not obj.is_file() or exit_link.is_placement_source(source):
-            if not exit_link.is_placement_source(source):
-                unchecked.add(source)
+        if exit_link.is_placement_source(source):
             after.pop(source, None)
+            continue
+        if not obj.is_file():
+            unchecked.add(source)
+            # Missing proof is not a removed definition. Retain the measured
+            # provider until a byte-gated replacement actually disproves it.
             continue
         raw = obj.read_bytes()
         after[source] = link_census.object_symbols(obj, raw)
         unchecked.discard(source)
+        built.add(source)
     unchecked |= (changed & live) - verified
     directives, unparsed = source_alternates(tip)
     after.update({'source directive ' + source: facts for source, facts in directives.items()})
@@ -510,39 +571,47 @@ def removed_definition_guard(base, tip, verified):
     after['real-link libraries'] = (supplied, set(), [], {}, set())
     ambiguous = set()
     losses = definition_losses(before, after, ambiguous)
-    for warning in sorted(ambiguous):
-        print(f'definition guard: UNCHECKED [{evidence}]: {warning}')
-    for source in sorted(unchecked):
-        print('definition guard: UNCHECKED tip object: ' + source + ' [' + evidence + ']')
-    for provider in unknown_sources:
-        print('definition guard: UNCHECKED manifest source: ' + provider + ' [' + evidence + ']')
-    for source in unparsed:
-        print('definition guard: UNCHECKED source directive: ' + source + ' [' + evidence + ']')
-    # An unchecked changed unit could supply a replacement under a new name.
-    # Do not turn unknown provider evidence into a proven absence.
-    if unchecked and losses:
-        for consumer, root, target in losses[:20]:
-            print(f'  UNCHECKED possible loss {target}: {consumer} references {root} [{evidence}]')
-        losses = []
+    unchecked_summary('aliases', ambiguous, evidence)
+    unchecked_summary('tip objects', unchecked, evidence)
+    unchecked_summary('manifest sources', unknown_sources, evidence)
+    unchecked_summary('source directives', unparsed, evidence)
+    search_sources = {p for p in delta & live if p.startswith(('Code/', 'reference/', 'vendor/'))} - built
+    suppressed = {}
+    for target in {target for _, _, target in losses}:
+        identifier = target_identifier(target)
+        matches = identifier_sources(tip, identifier, search_sources) if identifier else set()
+        if matches:
+            suppressed[target] = matches
+    if suppressed:
+        print(f'definition guard: UNCHECKED possible replacements: {len(suppressed)} [{evidence}]')
+    for target, matches in sorted(suppressed.items())[:5]:
+        print(f'  UNCHECKED possible replacement {target}: {len(matches)} changed paths contain its identifier; '
+              f'examples: {"; ".join(sorted(matches)[:3])} [{evidence}]')
+    losses = [loss for loss in losses if loss[2] not in suppressed]
     for consumer, root, target in losses[:30]:
         print(f'  LOST EXTERNAL {target}: {consumer} references {root} [{evidence}]')
     print(f'definition guard: {evidence}, {len(verified)} byte-gated tip units, '
           f'{len(losses)} proven losses ({time.monotonic() - started:.3f}s)')
     return 1 if losses else 0
 
-def audit(base, tip, verified):
+def check_guard(base, tip, verified):
+    try:
+        return removed_definition_guard(base, tip, verified)
+    except (Exception, SystemExit) as exc:
+        print(f"definition guard: UNCHECKED: {exc}")
+        return 0
+
+
+def audit(base, tip, verified, *, census_only=False):
     changes = changed_sources(base, tip)
     identities = changed_identities(base, tip)
     if not changes and not verified and not identities:
         print("link batch audit: no changed source objects")
         return 0
-    try:
-        guard = removed_definition_guard(base, tip, verified)
-    except (OSError, ValueError, KeyError, SystemExit, subprocess.SubprocessError) as exc:
-        print(f"definition guard: UNCHECKED: {exc}")
-        guard = 0
-    if guard:
-        return guard
+    if not census_only:
+        guard = check_guard(base, tip, verified)
+        if guard:
+            return guard
     if not link_check.INDEX.exists():
         print("link batch audit: INCONCLUSIVE: census index missing; fetch with link_check.py --fetch-index")
         return 2
@@ -685,13 +754,18 @@ def main():
     parser.add_argument("--tip", required=True)
     parser.add_argument("--sources-from", metavar="FILE", required=True,
                         help="NUL-delimited byte-verified source paths")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--guard-only', action='store_true')
+    mode.add_argument('--census-only', action='store_true')
     args = parser.parse_args()
     try:
         raw = Path(args.sources_from).read_bytes()
         if raw and not raw.endswith(b"\0"):
             raise ValueError("unterminated verified source list")
         verified = [part.decode("utf-8") for part in raw.split(b"\0") if part]
-        return audit(args.base, args.tip, verified)
+        if args.guard_only:
+            return check_guard(args.base, args.tip, verified)
+        return audit(args.base, args.tip, verified, census_only=args.census_only)
     except (OSError, ValueError, KeyError, csv.Error, SystemExit, subprocess.CalledProcessError,
             link_census.MissingObject) as exc:
         print(f"link batch audit: INCONCLUSIVE: {exc}")

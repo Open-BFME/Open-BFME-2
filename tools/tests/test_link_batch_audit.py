@@ -473,7 +473,7 @@ def manifest_repo(monkeypatch, tmp_path):
     def manifest(facts):
         result = {'commit': base, 'objects': [dict(source=s, provider=Path(s).stem + '.obj',
                                                    facts=A.pack_facts(f)) for s, f in facts.items()]}
-        monkeypatch.setattr(A, 'load_real_manifest', lambda: result)
+        monkeypatch.setattr(A, 'load_real_manifest', lambda base=None: result)
         return result
     return repo, base, commit, object_, manifest
 
@@ -520,7 +520,7 @@ def test_rebased_unbuilt_consumer_is_unchecked_not_stale_local_evidence(manifest
     tip = commit(); object_('Code/provider.cpp', symbols())
     object_('Code/caller.cpp', symbols())  # stale local object deliberately has no import
     assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
-    assert 'UNCHECKED tip object: Code/caller.cpp' in capsys.readouterr().out
+    assert 'UNCHECKED tip objects: 1; examples: Code/caller.cpp' in capsys.readouterr().out
 
 
 def test_source_grep_finds_alternate_without_local_consumer_object(manifest_repo, capsys):
@@ -556,7 +556,7 @@ def test_missing_tip_object_warns_without_refusing(manifest_repo, capsys):
     manifest({'Code/provider.cpp': symbols(['target']), 'Code/caller.cpp': symbols(refs=['target'])})
     (repo / 'Code/provider.cpp').write_text('// changed\n'); tip = commit()
     assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
-    assert 'UNCHECKED tip object: Code/provider.cpp' in capsys.readouterr().out
+    assert 'UNCHECKED tip objects: 1; examples: Code/provider.cpp' in capsys.readouterr().out
 
 
 
@@ -573,7 +573,7 @@ def test_exact_runtime_and_generated_import_providers(monkeypatch):
 
 def test_absent_artifact_manifest_is_warning(monkeypatch, capsys):
     monkeypatch.setattr(A, 'changed_sources', lambda *a: {'Code/provider.cpp'})
-    monkeypatch.setattr(A, 'load_real_manifest', lambda: {'commit': 'a' * 40, 'objects': [], 'warning': 'no image_objects.json'})
+    monkeypatch.setattr(A, 'load_real_manifest', lambda base=None: {'commit': 'a' * 40, 'objects': [], 'warning': 'no image_objects.json'})
     assert REAL_DEFINITION_GUARD('base', 'tip', []) == 0
     assert 'UNCHECKED: no image_objects.json' in capsys.readouterr().out
 
@@ -637,6 +637,13 @@ def test_diagnostic_stub_definitions_never_count_as_base_providers(monkeypatch, 
         objects.append(dict(provider=provider, source='Code/provider.cpp' if provider == 'provider.obj' else '',
                             path=stored.replace('/', '\\'), sha256=hashlib.sha256(raw).hexdigest()))
         contents['image/' + stored] = raw
+    import struct
+    payload = b'_fixture\0fixture.dll\0'
+    imported = struct.pack('<HHHHIIHH', 0, 0xffff, 0, 0x14c, 0, len(payload), 0, 0) + payload
+    stored = 'image_objects-objects/import.obj'
+    objects.insert(0, dict(provider='fixture.lib:import.obj', source='', path=stored,
+                          sha256=hashlib.sha256(imported).hexdigest()))
+    contents['image/' + stored] = imported
     stream = io.BytesIO()
     with zipfile.ZipFile(stream, 'w') as z:
         z.writestr('image/image_objects.json', json.dumps(objects))
@@ -692,7 +699,7 @@ def test_diagnostic_workflow_uses_artifact_source_commit_not_run_head(monkeypatc
     monkeypatch.setattr(A, 'gh_api', api)
     candidates = A.manifest_candidates()
     assert [(c['kind'], c['commit']) for c in candidates] == [
-        ('real', 'a' * 40), ('diagnostic', 'b' * 40), ('diagnostic', 'a' * 40)]
+        ('diagnostic', 'b' * 40), ('real', 'a' * 40), ('diagnostic', 'a' * 40)]
 
 
 def test_diagnostic_evidence_kind_and_commit_appear_in_refusal(manifest_repo, capsys):
@@ -718,3 +725,137 @@ def test_unrelated_alias_conflicts_do_not_hide_a_proven_loss():
     after['ambiguous consumer'] = symbols(refs=['unrelated'])
     assert A.definition_losses(before, after, unchecked) == [('caller', 'target', 'target')]
     assert unchecked == {'conflicting weak/alternate targets: unrelated'}
+
+
+
+@pytest.mark.parametrize('suffix', ['cpp', 'h'])
+def test_lagging_manifest_unrelated_source_or_header_does_not_hide_loss(manifest_repo, suffix):
+    repo, measured, commit, object_, manifest = manifest_repo
+    target = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    manifest({'Code/provider.cpp': symbols([target]), 'Code/caller.cpp': symbols(refs=[target])})
+    (repo / ('Code/unrelated.' + suffix)).write_text('// unrelated landed commit\n')
+    base = commit()
+    (repo / 'Code/provider.cpp').write_text('// removed inline\n')
+    tip = commit(); object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 1
+
+
+def test_stale_consumer_references_remain_evidence(manifest_repo):
+    repo, measured, commit, object_, manifest = manifest_repo
+    manifest({'Code/provider.cpp': symbols(['target']), 'Code/caller.cpp': symbols(refs=['target'])})
+    (repo / 'Code/caller.cpp').write_text('// unrelated edit to measured consumer\n')
+    base = commit()
+    (repo / 'Code/provider.cpp').write_text('// removed\n'); tip = commit()
+    object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 1
+
+
+@pytest.mark.parametrize('suffix', ['cpp', 'h'])
+def test_only_target_identifier_in_changed_unchecked_source_suppresses(manifest_repo, suffix, capsys):
+    repo, measured, commit, object_, manifest = manifest_repo
+    target = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    manifest({'Code/provider.cpp': symbols([target]), 'Code/caller.cpp': symbols(refs=[target])})
+    (repo / ('Code/replacement.' + suffix)).write_text('// possible getID replacement\n')
+    base = commit(); (repo / 'Code/provider.cpp').write_text('// removed\n'); tip = commit()
+    object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
+    assert 'UNCHECKED possible replacement ' + target in capsys.readouterr().out
+
+
+def test_unchecked_listing_is_bounded(capsys):
+    A.unchecked_summary('tip objects', {f'Code/unit{i}.cpp' for i in range(17800)}, 'diagnostic-link sha')
+    output = capsys.readouterr().out
+    assert '17800' in output
+    assert output.count('.cpp') == 5
+    assert len(output.splitlines()) == 1
+
+
+def test_zip_download_has_a_longer_timeout(monkeypatch):
+    calls = []
+    class Done:
+        stdout = b'fixture'
+    monkeypatch.setattr(A.subprocess, 'run', lambda *a, **kw: calls.append(kw['timeout']) or Done())
+    A.gh_api('metadata'); A.gh_api('artifact/zip')
+    assert calls == [10, 40]
+
+
+def test_transient_download_failure_is_retried_not_cached(monkeypatch, tmp_path):
+    monkeypatch.setattr(A, 'cache_root', lambda: tmp_path)
+    monkeypatch.setattr(A, 'manifest_candidates', lambda: [dict(kind='diagnostic', commit='a' * 40, artifact=2)])
+    calls = []
+    def api(endpoint):
+        calls.append(endpoint)
+        if len(calls) == 1:
+            raise subprocess.TimeoutExpired('gh', 40)
+        return b'fixture'
+    monkeypatch.setattr(A, 'gh_api', api)
+    monkeypatch.setattr(A, 'parse_manifest_archive', lambda raw, c, kind: dict(schema=A.CACHE_SCHEMA,
+                        commit=c, kind=kind, objects=[{'provider': 'p'}]))
+    with pytest.raises(ValueError, match='transient evidence failure'):
+        A.load_real_manifest()
+    assert not (tmp_path / ('diagnostic-' + 'a' * 40 + '.json')).exists()
+    assert A.load_real_manifest()['objects']
+    assert len(calls) == 2
+
+
+def test_selects_older_ancestor_after_latest_experiment_dispatch(monkeypatch, tmp_path):
+    monkeypatch.setattr(A, 'cache_root', lambda: tmp_path)
+    candidates = [dict(kind='diagnostic', commit='b' * 40, artifact=1),
+                  dict(kind='diagnostic', commit='a' * 40, artifact=2)]
+    monkeypatch.setattr(A, 'manifest_candidates', lambda: candidates)
+    monkeypatch.setattr(A, 'manifest_ancestor', lambda c, base: c == 'a' * 40)
+    calls = []
+    monkeypatch.setattr(A, 'gh_api', lambda endpoint: calls.append(endpoint) or b'fixture')
+    monkeypatch.setattr(A, 'parse_manifest_archive', lambda raw, c, kind: dict(schema=A.CACHE_SCHEMA,
+                        commit=c, kind=kind, objects=[{'provider': 'p'}]))
+    assert A.load_real_manifest('base')['commit'] == 'a' * 40
+    assert calls == [f'repos/{A.REPO}/actions/artifacts/2/zip']
+
+
+
+def test_guard_timeout_preserves_separate_census_budget():
+    hook = (Path(__file__).resolve().parents[2] / '.githooks/pre-push').read_text()
+    function = hook[hook.index('link_audit() {'):hook.index('# replay_shadow:')]
+    setup = 'set -eu\nbase=a; local_sha=b\nshadow_cap() { echo "$BFME_SHADOW_BUDGET_S $*"; case "$*" in *--guard-only*) return 124;; *) return 0;; esac; }\n'
+    done = subprocess.run(['bash', '-c', setup + function + '\nlink_audit sources'], capture_output=True, text=True)
+    assert done.returncode == 0
+    assert '45 python3 tools/link_batch_audit.py --guard-only' in done.stdout
+    assert '60 python3 tools/link_batch_audit.py --census-only' in done.stdout
+    assert 'continuing census audit' in done.stderr
+
+
+
+def test_candidates_include_multiple_workflow_runs(monkeypatch):
+    import json
+    calls = []
+    def api(endpoint):
+        calls.append(endpoint)
+        if 'workflows/real-link.yml' in endpoint:
+            return json.dumps({'workflow_runs': [{'id': 1}, {'id': 2}]}).encode()
+        if 'workflows/diagnostic-link.yml' in endpoint:
+            return json.dumps({'workflow_runs': []}).encode()
+        ident = 1 if '/runs/1/' in endpoint else 2
+        return json.dumps({'artifacts': [dict(id=ident, name='diagnostic-link-' + str(ident) * 40,
+                    expired=False, size_in_bytes=1, created_at=str(3-ident))]}).encode()
+    monkeypatch.setattr(A, 'gh_api', api)
+    assert len(A.manifest_candidates()) == 2
+    assert any('per_page=5' in endpoint for endpoint in calls)
+
+
+@pytest.mark.parametrize('symbol,identifier', [
+    ('?getID@Drawable@@QBE?AW4DrawableID@@XZ', 'getID'),
+    ('?ji_006291ae@@YAXXZ', 'ji_006291ae'),
+    ('_memset', 'memset'),
+    ('__imp__Sleep@4', 'Sleep'),
+    ('??0Drawable@@QAE@XZ', 'Drawable'),
+    ('??$allocate@H@std@@', 'allocate'),
+])
+def test_target_identifier(symbol, identifier):
+    assert A.target_identifier(symbol) == identifier
+
+
+def test_census_only_mode_never_runs_guard(monkeypatch, tmp_path):
+    monkeypatch.setattr(A, 'changed_sources', lambda *a: {'Code/provider.cpp'})
+    monkeypatch.setattr(A, 'removed_definition_guard', lambda *a: pytest.fail('guard must not run twice'))
+    monkeypatch.setattr(A.link_check, 'INDEX', tmp_path / 'missing')
+    assert A.audit('base', 'tip', [], census_only=True) == 2
