@@ -62,7 +62,6 @@ public:
 #pragma optimize("t", on)
 #pragma optimize("", on)
 #include <hash_set>
-
 namespace rts
 {
 
@@ -77,19 +76,32 @@ struct hash<NameKeyType>
 };
 
 }
-
 typedef _STL::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> > ArmorRtsMap;
-
 // Retain the original insertion wrappers and their provisional type view.
 // The pinned insert_unique_noresize at 0x005472F8 is not reproduced by
 // this instantiation; these rows remain deferred for layout/identity repair.
 // Declared only (stl batch): retail's body for this name is the rowed one at its
 // pinned address; this TU's copy is not retail's.
 namespace _STL { template <> _STL::pair<_STL::_Ht_iterator<_STL::pair<NameKeyType const,ArmorTemplate>,_STL::_Nonconst_traits<_STL::pair<NameKeyType const,ArmorTemplate> >,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<_STL::pair<NameKeyType const,ArmorTemplate> >,rts::equal_to<NameKeyType>,_STL::allocator<_STL::pair<NameKeyType const,ArmorTemplate> > >,bool> hashtable<_STL::pair<NameKeyType const,ArmorTemplate>,NameKeyType,rts::hash<NameKeyType>,_STL::_Select1st<_STL::pair<NameKeyType const,ArmorTemplate> >,rts::equal_to<NameKeyType>,_STL::allocator<_STL::pair<NameKeyType const,ArmorTemplate> > >::insert_unique_noresize(_STL::pair<NameKeyType const,ArmorTemplate> const &); }
-
 template _STL::pair<ArmorRtsMap::iterator, bool> _STL::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> >::insert(const ArmorRtsMap::value_type &);
-
 #include "../Object/object.h"
+#include "../../Common/GameLogicObjectLookupView.h"
+typedef _STL::hash_map<ObjectID, Coord3D, rts::hash<ObjectID>,
+                      _STL::equal_to<ObjectID> > ObjectCoord3DMap;
+extern GameLogic *TheGameLogic;
+template <int N> class Rva00547368Slots : public Rva00547368Slots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N + 1]) = 0;
+};
+template <> class Rva00547368Slots<0>
+{
+public:
+	virtual void gap(char (*)[1]) = 0;
+};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
+bool Rva00547263(Object *p, const Coord3D *q);
+#include "../../../Include/GameLogic/GroupOrder.h"
 
 //
 // ?rva00547223@Rva00547223@@QAEPAV1@PAH0@Z retail 0x00547223 34B.
@@ -156,8 +168,18 @@ hashtable<Rva005472F8Record, Rva005472F8Record, hash<Rva005472F8Record>, _Identi
 }
 }
 
-// Instantiate the recovered member; retain only its required template dependencies.
-template _STL::pair<_STL::_Ht_iterator<Rva005472F8Record, _STL::_Nonconst_traits<Rva005472F8Record>, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >, bool> _STL::hashtable<Rva005472F8Record, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >::insert_unique_noresize(Rva005472F8Record const &);
+class MoveToGroupOrder : public GroupOrder
+{
+public:
+	virtual bool rva00547368(ObjectID id);
+
+private:
+	Coord3D m_destination;             // +0x18
+	bool m_flag24;                     // +0x24
+	bool m_flag25;                     // +0x25
+	ObjectCoord3DMap m_map28;          // +0x28
+	unsigned int m_value3C;            // +0x3C
+};
 
 // tu-skeleton: 0x00547188 21B ?rva00547188@MoveToGroupOrder@@QAE_NPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
 
@@ -168,6 +190,11 @@ template _STL::pair<_STL::_Ht_iterator<Rva005472F8Record, _STL::_Nonconst_traits
 // tu-skeleton: 0x005471DF 7B ?slot07Set@MoveToGroupOrder@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x005471E6 61B ?slot11Command@MoveToGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::pair<_STL::_Ht_iterator<Rva005472F8Record, _STL::_Nonconst_traits<Rva005472F8Record>, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >, bool> _STL::hashtable<Rva005472F8Record, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >::insert_unique_noresize(Rva005472F8Record const &);
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp
 
@@ -238,9 +265,7 @@ inline bool operator==(const ArmorTemplate &x, const ArmorTemplate &y)
 
 // The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
 
-// tu-skeleton: 0x00547245 30B ?Rva00547245Xfer@@YAXPAVXfer@@PAU?$pair@W4ObjectID@@UCoord3D@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x005472AD 38B ?getClassName@MoveToGroupOrder@@UAEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp
 
@@ -249,7 +274,54 @@ inline bool operator==(const ArmorTemplate &x, const ArmorTemplate &y)
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-// tu-skeleton: 0x00547368 143B ?rva00547368@MoveToGroupOrder@@UAE_NW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderIsDone.cpp (not merged yet)
+// tu-skeleton: 0x00547245 30B ?Rva00547245Xfer@@YAXPAVXfer@@PAU?$pair@W4ObjectID@@UCoord3D@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x005472AD 38B ?getClassName@MoveToGroupOrder@@UAEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderIsDone.cpp
+
+//
+// ?rva00547368@MoveToGroupOrder@@UAE_NW4ObjectID@@@Z, retail 0x00547368 143B.
+// Virtual slot 5 (offset 0x14) of the MoveToGroupOrder vftable 0x00C6A478
+// (layout in MoveToGroupOrderCtor.cpp; slot 5 of AttackObjectGroupOrder is the
+// same bool(int) shape). Looks the argument up through TheGameLogic
+// findObjectByID (0x00049DC5); a missing or rva002931BA (0x002931BA) Object or
+// one without an AI (+0x258) counts as done. Otherwise the order's per-object
+// destination map (+0x28 hash_map<ObjectID Coord3D>; _M_find 0x002888D4) is
+// probed: no entry or the rowed 20.0 proximity test Rva00547263 resets the
+// +0x3C counter and reports done. Else the AI's slot 110 (+0x1B8) decides:
+// false resets the counter and reports not done; true bumps it and reports done
+// only past one tick. No callers besides the vftable.
+
+// AIUpdateInterface slot 110 (+0x1B8).
+
+bool MoveToGroupOrder::rva00547368(ObjectID id)
+{
+	Object *obj = TheGameLogic->findObjectByID(id);
+	if (obj == 0 || obj->rva002931BA())
+		return true;
+	AIUpdateInterface *ai = obj->m_ai;
+	if (ai == 0)
+		return true;
+	ObjectCoord3DMap *map = &m_map28;
+	ObjectCoord3DMap::const_iterator it = map->find(id);
+	if (it == map->end()) {
+		m_value3C = 0;
+		return true;
+	}
+	if (Rva00547263(obj, &it->second)) {
+		m_value3C = 0;
+		return true;
+	}
+	if (ai->isIdle()) {
+		++m_value3C;
+		if (m_value3C > 1)
+			return true;
+	} else {
+		m_value3C = 0;
+	}
+	return false;
+}
 
 // tu-skeleton: 0x005473F7 57B ??1?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
 
@@ -286,6 +358,14 @@ inline bool operator==(const ArmorTemplate &x, const ArmorTemplate &y)
 // tu-skeleton: 0x00547A18 95B ??0MoveToGroupOrder@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00547A77 55B ?clone@MoveToGroupOrder@@UAEPAVGroupOrder@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x007980D5 11B $L6494 -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007980E0 10B __ehhandler$??1?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007980EA 8B $L6561 -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007980F2 10B __ehhandler$??0MoveToGroupOrder@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007980FC 10B $L6330 -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
 
