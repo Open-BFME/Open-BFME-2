@@ -247,7 +247,8 @@ int g_Va00DFDC64;
 // owning class are unknown. Both callee entries are Ghidra boundaries and are
 // pinned by their exact REL32 calls below.
 
-class Rva001E7053 {
+class Rva001E7053
+{
 public:
 	void rva001e7053(unsigned int, unsigned int, float, float);
 };
@@ -263,14 +264,18 @@ public:
 	void rva001E8C1B(int, int, float, float);
 };
 
-class Rva001E7C2B {
+class Rva001E7C2B
+{
 public:
 	void rva001e7c2b(unsigned int, unsigned int, float, float);
+	void rva001E7C2B(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
 
-class Rva001E9045 {
+class Rva001E9045
+{
 public:
 	void rva001e9045(unsigned int, unsigned int, float, float);
+	void rva001E9045(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
 
 // Native1E41D3..1E41FA and WB AF0DB0 establish12B result and hidden
@@ -404,8 +409,9 @@ class Rva001E3F08
 {
 public:
 	float rva001E3F2E(Rva001E3F08Arg *p);
+	float rva001E3F08(Rva001E3F08Arg *p);
+	char m_pad00[0x4];
 private:
-	int m_pad00; // +0x00
 	Rva001E3F08MidA *m_p04; // +0x04
 };
 
@@ -524,7 +530,7 @@ class Rva001E4912
 {
 public:
 	Rva001E4912 *rva001E4912(int a, unsigned int b, unsigned int c);
-	unsigned m_bits[19];
+	unsigned m_bits[19]; // +0x00
 };
 
 //
@@ -571,9 +577,9 @@ class Rva001E702E
 {
 public:
 	void rva001E702E(Thing *o, int b, int c);
+	char m_pad00[0x68];
 private:
-	char m_pad[0x68];
-	char m_mat[64];
+	char m_mat[64]; // +0x68
 };
 
 class Rva001E7E25Elem

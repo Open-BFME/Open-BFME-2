@@ -28,10 +28,30 @@ class Rva001EA0F4Interface250 { public:
 virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual void s1C();virtual void s20();virtual void s24();virtual void s28();virtual void s2C();virtual void s30();virtual void s34();virtual void s38();virtual void s3C();virtual void s40();virtual void s44();virtual void s48();virtual void s4C();virtual void s50();virtual void s54();virtual void s58();virtual void s5C();virtual void s60();virtual void s64();virtual void s68();virtual void s6C();virtual void s70();virtual void s74();virtual void s78();virtual Rva001EA0F4Transaction *s7C();
 };
 class Object {public:char pad[8]; Matrix3D matrix;Coord3D pos;float orientation;char pad48[0x250-0x48];Rva001EA0F4Interface250 *interface250;};
-class Rva0030A3E4 {public:void _setTransformMatrix(const Matrix3D *);};
+class Rva0030A3E4
+{
+public:
+	void _setTransformMatrix(const Matrix3D *mtx);
+};
 struct Rva001E3F08Arg;
-class Rva001E3F08 {public:float rva001E3F08(Rva001E3F08Arg *);};
-class Rva001E702E {public:void rva001E702E(Thing *,int,int);};
+struct Rva001E3F08MidA;
+class Rva001E3F08
+{
+public:
+	float rva001E3F2E(Rva001E3F08Arg *p);
+	float rva001E3F08(Rva001E3F08Arg *p);
+	char m_pad00[0x4];
+private:
+	Rva001E3F08MidA *m_p04; // +0x04
+};
+class Rva001E702E
+{
+public:
+	void rva001E702E(Thing *o, int b, int c);
+	char m_pad00[0x68];
+private:
+	char m_mat[64]; // +0x68
+};
 struct LocomotorData {char pad[0x84];float turnLimit;};
 class Locomotor {public:
  bool rva001E7ECA(Object *,const Coord3D *);

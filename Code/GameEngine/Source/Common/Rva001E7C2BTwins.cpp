@@ -9,8 +9,7 @@
 class Rva001E7053
 {
 public:
-	// Rowed as ?rva001e7053@Rva001E7053@@QAEXIIMM@Z (Rva001E7C2BForwarders.cpp).
-	void rva001e7053(unsigned int a, unsigned int b, float c, float d);
+	void rva001e7053(unsigned int, unsigned int, float, float);
 };
 class Rva001E8C1B
 {
@@ -20,12 +19,14 @@ public:
 class Rva001E7C2B
 {
 public:
-	void rva001E7C2B(int movingObject, int goal, float onPath, float speed);
+	void rva001e7c2b(unsigned int, unsigned int, float, float);
+	void rva001E7C2B(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
 class Rva001E9045
 {
 public:
-	void rva001E9045(int movingObject, int goal, float onPath, float speed);
+	void rva001e9045(unsigned int, unsigned int, float, float);
+	void rva001E9045(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
 
 // ?rva001E7C2B@Rva001E7C2B@@QAEXHHMM@Z

@@ -577,14 +577,10 @@ class Thing
 }
 ;
 class Rva0030A3E4
-
 {
- public:
- void _setTransformMatrix(const Matrix3D *mtx);
-// 0x0030A3E4
- 
-}
-;
+public:
+	void _setTransformMatrix(const Matrix3D *mtx);
+};
 struct Obj254V { virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03(); virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07(); virtual int s08(); };
 class Rva00368C7A { public: unsigned char rva00368271(); };
 struct Obj258Holder
@@ -854,13 +850,13 @@ class Rva001E685F
 }
 ;
 class Rva001E702E
-
 {
- public:
- void rva001E702E(Thing *obj, int goal, int flag);
- 
-}
-;
+public:
+	void rva001E702E(Thing *o, int b, int c);
+	char m_pad00[0x68];
+private:
+	char m_mat[64]; // +0x68
+};
 struct Rva001E756DCoord
 
 {
@@ -924,9 +920,11 @@ class Locomotor
  unsigned char m_9A; // +0x9A
 };
 class Rva001E43CF {public: void rva001E43CF(void*);};
-class Rva001E4912 { public:
-    Rva001E4912 *rva001E4912(int,unsigned,unsigned);
-    unsigned m_bits[19];
+class Rva001E4912
+{
+public:
+	Rva001E4912 *rva001E4912(int a, unsigned int b, unsigned int c);
+	unsigned m_bits[19]; // +0x00
 };
 // Native 0x001E56DC..0x001E5F1D (RET16): the locomotor receiver and Object
 // layouts are shared with the verified neighbouring movement/vertical bodies.
@@ -1213,13 +1211,15 @@ public:
 class Rva001E9045
 {
 public:
-	void rva001E9045(int obj, int goalPos, Real onPathDistToGoal, Real desiredSpeed);
+	void rva001e9045(unsigned int, unsigned int, float, float);
+	void rva001E9045(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
 
 class Rva001E7C2B
 {
 public:
-	void rva001E7C2B(int obj, int goalPos, Real onPathDistToGoal, Real desiredSpeed);
+	void rva001e7c2b(unsigned int, unsigned int, float, float);
+	void rva001E7C2B(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
 };
 
 class Rva001E8C1B
@@ -1231,7 +1231,7 @@ public:
 class Rva001E7053
 {
 public:
-	void rva001e7053(unsigned int obj, unsigned int goalPos, Real onPathDistToGoal, Real desiredSpeed);
+	void rva001e7053(unsigned int, unsigned int, float, float);
 };
 
 void Locomotor::rva001E9083(Object *obj, const Coord3D *goalPos, Real onPathDistToGoal, Real desiredSpeed)

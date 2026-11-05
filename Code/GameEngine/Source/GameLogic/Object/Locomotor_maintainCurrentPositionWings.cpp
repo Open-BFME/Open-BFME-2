@@ -10,8 +10,22 @@ class Object;
 int __cdecl Rva001E3896Check(float);
 float Cos(float); float Sin(float);
 struct Rva001E3F08Arg;
-class Rva001E3F08 { public: float rva001E3F08(Rva001E3F08Arg *); };
-class Rva001E7C2B { public: void rva001e7c2b(unsigned,unsigned,float,float); };
+struct Rva001E3F08MidA;
+class Rva001E3F08
+{
+public:
+	float rva001E3F2E(Rva001E3F08Arg *p);
+	float rva001E3F08(Rva001E3F08Arg *p);
+	char m_pad00[0x4];
+private:
+	Rva001E3F08MidA *m_p04; // +0x04
+};
+class Rva001E7C2B
+{
+public:
+	void rva001e7c2b(unsigned int, unsigned int, float, float);
+	void rva001E7C2B(int obj, int goalPos, float onPathDistToGoal, float desiredSpeed);
+};
 class Rva001E4073 { public: float rva001E4073(Object *,float *); };
 struct WingsObjectView { char gap[0x38]; Coord3D position; float angle; float getOrientation() const { return angle; } const Coord3D *getPosition() const { return &position; } };
 struct WingsTemplateView { char gap[0x64]; float radius; };

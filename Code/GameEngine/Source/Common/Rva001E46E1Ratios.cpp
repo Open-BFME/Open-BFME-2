@@ -476,9 +476,11 @@ void Rva001E46E1::rva001E546B(Object *obj)
     obj->setOrientation(normalized);
 }
 
-class Rva001E4912 { public:
-    Rva001E4912 *rva001E4912(int,unsigned,unsigned);
-    unsigned m_bits[19];
+class Rva001E4912
+{
+public:
+	Rva001E4912 *rva001E4912(int a, unsigned int b, unsigned int c);
+	unsigned m_bits[19]; // +0x00
 };
 class AI;
 extern AI *TheAI;

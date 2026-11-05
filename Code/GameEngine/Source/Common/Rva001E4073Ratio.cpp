@@ -32,9 +32,10 @@ struct Rva001E3F08Arg
 class Rva001E3F08
 {
 public:
+	float rva001E3F2E(Rva001E3F08Arg *p);
 	float rva001E3F08(Rva001E3F08Arg *p);
+	char m_pad00[0x4];
 private:
-	int m_pad00; // +0x00
 	Rva001E3F08MidA *m_p04; // +0x04
 };
 
