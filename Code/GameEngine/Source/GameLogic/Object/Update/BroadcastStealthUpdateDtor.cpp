@@ -1,10 +1,10 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ??1BroadcastStealthUpdate@@UAE@XZ, retail 0x004A3555, 88 bytes (pinned;
 // rowed deleting wrapper 0x004A35AD). Stores four vtables (+0x00/+0x0C/
-// +0x10/+0x20), calls the helper 0x004A33EE on this, releases the pool
-// member at +0x28 through the pinned PoolMember::Rva00268902 0x00268902,
-// then runs the opaque MI base dtor 0x0024A797. Retail's unwind map holds
+// +0x10/+0x20), calls the helper 0x004A33EE on this, releases the ID-list
+// member at +0x28 through Rva0029FB3BMember's destructor 0x00268902,
+// then runs UpdateModule's dtor 0x0024A797. Retail's unwind map holds
 // the base (state 0) and the +0x28 member (state 1, through 0x00268AFF, a
 // jmp to 0x00268902), so the release is that member's inline destructor.
 // Retail stores no state between the helper call and the release, so the
@@ -26,36 +26,75 @@ enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class BroadcastStealthUpdate_B3
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
+#include "ascii_string.h"
+
+typedef unsigned int UnsignedInt;
+
+enum ObjectID;
+
+// Four-byte STLport list storage: construction and teardown use the existing
+// out-of-line member providers at 0x0029FB3B and 0x00268902.
+struct Rva0029FB3BAlloc
 {
-public:
-	virtual void f3();
+	Rva0029FB3BAlloc() {}
 };
 
-class PoolMember
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
+
+struct BridgeBehaviorObjectIDNode
 {
-public:
-	~PoolMember() { Rva00268902(); }
-	void Rva00268902() throw();
-private:
-	void *m_ptr; // +0x00
+	BridgeBehaviorObjectIDNode *m_next;
+	BridgeBehaviorObjectIDNode *m_previous;
+	ObjectID m_value;
 };
 
-class BroadcastStealthUpdate : public UpdateModule, public BroadcastStealthUpdate_B3
+class BridgeBehaviorObjectIDList : public Rva0029FB3BMember
 {
 public:
-	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
+	explicit BridgeBehaviorObjectIDList(const Rva0029FB3BAlloc &alloc = Rva0029FB3BAlloc())
+		: Rva0029FB3BMember(alloc) {}
+	BridgeBehaviorObjectIDNode *node() const
+	{
+		return static_cast<BridgeBehaviorObjectIDNode *>(m_head);
+	}
+	UnsignedInt size() const
+	{
+		UnsignedInt count = 0;
+		for (BridgeBehaviorObjectIDNode *it = node()->m_next; it != node(); it = it->m_next)
+			++count;
+		return count;
+	}
+};
+
+struct BroadcastStealthUpdateModuleData
+{
+	unsigned char m_pad00[0x08];
+	BfmeFixedStorage0004543D m_08;	// +0x08 the kinds
+	float m_24;			// +0x24 the radius
+	UpdateSleepTime m_28;		// +0x28 the delay
+	AsciiString m_2c;		// +0x2C tested by the constructor
+	unsigned char m_pad30[0x140 - 0x30];
+	unsigned m_140;			// +0x140 the flags to keep
+};
+
+class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
+{
+public:
+	BroadcastStealthUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~BroadcastStealthUpdate();
-	void rva004A33EE();
-private:
-	int m_24;
-	PoolMember m_28;
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva004A33EE(); // 0x004A33EE
 protected:
-	// retail vftable slot: the rowed override
-	virtual void xfer(Xfer *);
+	virtual void xfer(Xfer *xfer);
+private:
+	const BroadcastStealthUpdateModuleData *getBroadcastStealthUpdateModuleData() const
+	{
+		return (const BroadcastStealthUpdateModuleData *)m_moduleData;
+	}
+	BridgeBehaviorObjectIDList m_28; // +0x28
 };
 
 BroadcastStealthUpdate::~BroadcastStealthUpdate()

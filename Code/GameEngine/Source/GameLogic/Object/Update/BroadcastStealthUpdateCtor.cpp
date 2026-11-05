@@ -38,25 +38,13 @@ enum UpdateSleepTime
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	virtual Bool isAlreadyUpgraded() const;
-protected:
-	Bool m_upgradeExecuted; // +0x04
-};
+#include "../../../../Include/GameLogic/Module/UpgradeMux.h"
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 
-class PoolMember
-{
-public:
-	~PoolMember() { Rva00268902(); }
-	void Rva00268902() throw();
-private:
-	void *m_ptr; // +0x00
-};
+enum ObjectID;
 
-// The ID list's base; its allocator-taking ctor is rowed at 0x0029FB3B.
+// Four-byte STLport list storage: construction and teardown use the existing
+// out-of-line member providers at 0x0029FB3B and 0x00268902.
 struct Rva0029FB3BAlloc
 {
 	Rva0029FB3BAlloc() {}
@@ -64,36 +52,58 @@ struct Rva0029FB3BAlloc
 
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
-// The list itself, default-constructed as STLport's list() does.
-class ObjectIDList : public Rva0029FB3BMember
+struct BridgeBehaviorObjectIDNode
 {
-public:
-	explicit ObjectIDList(const Rva0029FB3BAlloc &alloc = Rva0029FB3BAlloc()) : Rva0029FB3BMember(alloc) {}
+	BridgeBehaviorObjectIDNode *m_next;
+	BridgeBehaviorObjectIDNode *m_previous;
+	ObjectID m_value;
 };
 
-class BroadcastStealthUpdateModuleData
+class BridgeBehaviorObjectIDList : public Rva0029FB3BMember
 {
 public:
-	unsigned char m_pad00[0x2C];
-	AsciiString m_2c; // +0x2C
+	explicit BridgeBehaviorObjectIDList(const Rva0029FB3BAlloc &alloc = Rva0029FB3BAlloc())
+		: Rva0029FB3BMember(alloc) {}
+	BridgeBehaviorObjectIDNode *node() const
+	{
+		return static_cast<BridgeBehaviorObjectIDNode *>(m_head);
+	}
+	UnsignedInt size() const
+	{
+		UnsignedInt count = 0;
+		for (BridgeBehaviorObjectIDNode *it = node()->m_next; it != node(); it = it->m_next)
+			++count;
+		return count;
+	}
+};
+
+struct BroadcastStealthUpdateModuleData
+{
+	unsigned char m_pad00[0x08];
+	BfmeFixedStorage0004543D m_08;	// +0x08 the kinds
+	float m_24;			// +0x24 the radius
+	UpdateSleepTime m_28;		// +0x28 the delay
+	AsciiString m_2c;		// +0x2C tested by the constructor
+	unsigned char m_pad30[0x140 - 0x30];
+	unsigned m_140;			// +0x140 the flags to keep
 };
 
 class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
 public:
-	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	BroadcastStealthUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~BroadcastStealthUpdate();
-private:
-	const BroadcastStealthUpdateModuleData *getBroadcastStealthUpdateModuleData() const { return (const BroadcastStealthUpdateModuleData *)m_moduleData; }
-
-	ObjectIDList m_ids; // +0x28
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva004A33EE(); // 0x004A33EE
 protected:
-	// retail vftable slot: the rowed override
-	virtual void xfer(Xfer *);
+	virtual void xfer(Xfer *xfer);
+private:
+	const BroadcastStealthUpdateModuleData *getBroadcastStealthUpdateModuleData() const
+	{
+		return (const BroadcastStealthUpdateModuleData *)m_moduleData;
+	}
+	BridgeBehaviorObjectIDList m_28; // +0x28
 };
 
 BroadcastStealthUpdate::BroadcastStealthUpdate(Thing *thing, const ModuleData *moduleData)

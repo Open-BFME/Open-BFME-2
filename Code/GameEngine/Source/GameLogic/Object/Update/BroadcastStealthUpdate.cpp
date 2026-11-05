@@ -146,6 +146,15 @@ extern GameLogic *TheGameLogic;
 // A list<ObjectID>: STLport nodes (+0 next, +8 the ID) behind the header node.
 typedef unsigned int UnsignedInt;
 
+// Four-byte STLport list storage: construction and teardown use the existing
+// out-of-line member providers at 0x0029FB3B and 0x00268902.
+struct Rva0029FB3BAlloc
+{
+	Rva0029FB3BAlloc() {}
+};
+
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
+
 struct BridgeBehaviorObjectIDNode
 {
 	BridgeBehaviorObjectIDNode *m_next;
@@ -153,24 +162,29 @@ struct BridgeBehaviorObjectIDNode
 	ObjectID m_value;
 };
 
+class BridgeBehaviorObjectIDList : public Rva0029FB3BMember
+{
+public:
+	explicit BridgeBehaviorObjectIDList(const Rva0029FB3BAlloc &alloc = Rva0029FB3BAlloc())
+		: Rva0029FB3BMember(alloc) {}
+	BridgeBehaviorObjectIDNode *node() const
+	{
+		return static_cast<BridgeBehaviorObjectIDNode *>(m_head);
+	}
+	UnsignedInt size() const
+	{
+		UnsignedInt count = 0;
+		for (BridgeBehaviorObjectIDNode *it = node()->m_next; it != node(); it = it->m_next)
+			++count;
+		return count;
+	}
+};
+
 // LINK: 0x002A1B6F is rowed as Rva002A1B6FNativeList::append (Rva002A1316.cpp; pointer-sized element by reference).
 class Rva002A1B6FNativeList
 {
 public:
 	void append(void *const &value);
-};
-
-class BridgeBehaviorObjectIDList
-{
-public:
-	UnsignedInt size() const
-	{
-		UnsignedInt count = 0;
-		for (BridgeBehaviorObjectIDNode *bridgeBehaviorObjectIDNode = m_node->m_next; bridgeBehaviorObjectIDNode != m_node; bridgeBehaviorObjectIDNode = bridgeBehaviorObjectIDNode->m_next)
-			++count;
-		return count;
-	}
-	BridgeBehaviorObjectIDNode *m_node;
 };
 
 class Xfer;
@@ -194,13 +208,16 @@ class ModuleData;
 // +0x20: vptr and the executed flag; xfer runs its upgradeMuxXfer 0x004CE397.
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
 
+#include "ascii_string.h"
+
 struct BroadcastStealthUpdateModuleData
 {
 	unsigned char m_pad00[0x08];
 	BfmeFixedStorage0004543D m_08;	// +0x08 the kinds
 	float m_24;			// +0x24 the radius
 	UpdateSleepTime m_28;		// +0x28 the delay
-	unsigned char m_pad2C[0x140 - 0x2C];
+	AsciiString m_2c;		// +0x2C tested by the constructor
+	unsigned char m_pad30[0x140 - 0x30];
 	unsigned m_140;			// +0x140 the flags to keep
 };
 
@@ -216,9 +233,11 @@ void XferObjectID(Xfer *xfer, ObjectID *id);
 class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
 public:
+	BroadcastStealthUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~BroadcastStealthUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
-	void rva004A33EE();	// 0x004A33EE
+	void rva004A33EE(); // 0x004A33EE
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
@@ -226,7 +245,7 @@ private:
 	{
 		return (const BroadcastStealthUpdateModuleData *)m_moduleData;
 	}
-	BridgeBehaviorObjectIDList m_28;	// +0x28
+	BridgeBehaviorObjectIDList m_28; // +0x28
 };
 
 // 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
@@ -273,7 +292,7 @@ UpdateSleepTime BroadcastStealthUpdate::update()
 		ObjectID id = other->getID();
 		((Rva002A1B6FNativeList *)&m_28)->append(*(void *const *)&id);
 	}
-	for (BridgeBehaviorObjectIDNode *node = m_28.m_node->m_next; node != m_28.m_node; node = node->m_next) {
+	for (BridgeBehaviorObjectIDNode *node = m_28.node()->m_next; node != m_28.node(); node = node->m_next) {
 		Object *member = TheGameLogic->findObjectByID(node->m_value);
 		if (!member)
 			continue;
@@ -312,7 +331,7 @@ void BroadcastStealthUpdate::xfer(Xfer *xfer)
 	{
 		UnsignedInt count = m_28.size();
 		*xfer == count;
-		for (BridgeBehaviorObjectIDNode *it = m_28.m_node->m_next; it != m_28.m_node; it = it->m_next)
+		for (BridgeBehaviorObjectIDNode *it = m_28.node()->m_next; it != m_28.node(); it = it->m_next)
 		{
 			id = it->m_value;
 			XferObjectID(xfer, &id);
