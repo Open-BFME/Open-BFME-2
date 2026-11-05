@@ -1305,8 +1305,10 @@ class Tool:
         # and refuse unless all 223 files were claimable at the same moment. With
         # the fleet holding hundreds of file claims that last condition is never
         # met, so the largest TUs were unreachable however often they were tried:
-        # 48% of the 2026-11-04 sweep's 1074 attempts died on a file that no class
-        # it meant to write even mentions. A base recorded only outside this set
+        # of the 569 TUs the 2026-11-04 sweep examined, 46 were refused on all
+        # eight of its passes without being attempted once, and they are the big
+        # ones - median 8 files against 3 for those that ran, up to 318 - holding
+        # 272 of the 640 shareable classes. A base recorded only outside this set
         # cannot order two selected classes either, since a file declaring the
         # derived class lays out its bases, and that file is in the set.
         work = sorted({f for fs in shared.values() for f in fs}) if only else list(files)
