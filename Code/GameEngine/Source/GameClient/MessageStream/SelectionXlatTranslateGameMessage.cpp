@@ -126,13 +126,19 @@ extern void buildRegion(const ICoord2D *, const ICoord2D *, IRegion2D *);
 #include <hash_map>
 #include "Common/Thing.h"
 #include "Common/GameType.h"
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
+
 #ifndef _DRAWABLE_H_
 #define _DRAWABLE_H_
 enum DrawableStatus { DRAWABLE_STATUS_NONE = 0 };
 class Drawable : public Thing {
 public:
  Object *getObject() const { return *(Object *const *)((const char *)this + 0xFC); }
- DrawableID getID() const;
  const Coord3D *getPosition() const;
  Bool isSelected() const { return ((const Bool *)this)[0x43C]; }
  Drawable *getNextDrawable() const { return *(Drawable *const *)((const char *)this + 0x104); }
@@ -917,7 +923,7 @@ GameMessageDisposition SelectionTranslator::translateGameMessage(const GameMessa
     if (objUnderCursor && (!(((const unsigned char *)objUnderCursor)[0x438] & 1) || ((const unsigned char *)nativeTemplate43003C(objUnderCursor))[0x632] || ((const KindOfThing43003C *)(objUnderCursor))->isKindOf(58)))
     {
      mouseoverMessage = ((NativeMessageStream43003C *)TheMessageStream)->appendMessage((GameMessage::Type)162);
-     mouseoverMessage->appendDrawableIDArgument(underCursor->getID());
+     mouseoverMessage->appendDrawableIDArgument((DrawableID)((const Rva0055A88BDwordField *)underCursor)->get());
     }
     else// else this is a mouseover terrain
     {

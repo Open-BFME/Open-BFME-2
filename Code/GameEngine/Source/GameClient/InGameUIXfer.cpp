@@ -89,6 +89,13 @@ void XferDrawableID( Xfer *xfer, int *id );
 
 #include "../../Include/GameClient/Drawable.h"
 
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
+
 class ClientFrameSubsystem
 {
 public:
@@ -509,7 +516,7 @@ void InGameUI::xfer( Xfer *xfer )
 			{
 				if( m_placeIcon[ j ].drawable )
 				{
-					int drawableID = m_placeIcon[ j ].drawable->getID();
+					int drawableID = ((const Rva0055A88BDwordField *)m_placeIcon[ j ].drawable)->get();
 					XferDrawableID( xfer, &drawableID );
 				}
 			}

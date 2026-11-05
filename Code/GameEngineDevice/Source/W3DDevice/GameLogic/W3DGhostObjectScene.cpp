@@ -372,11 +372,17 @@ public:
 	Bool rva00270260( void );
 };
 
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
+
 class Drawable
 {
 public:
 	Bool isDrawableEffectivelyHidden( void ) { return ((Rva00270260 *)this)->rva00270260(); }
-	DrawableID getID( void ) const;
 	void setFullyObscuredByShroud( Bool fullyObscured );
 	DrawModule **getDrawModules( void );
 };
@@ -1077,7 +1083,7 @@ void W3DGhostObject::xfer( Xfer *xfer )
 	*xfer == m_drawableInfo.m_flags;
 
 	// drawable info drawable pointer
-	DrawableID drawableID = m_drawableInfo.m_drawable ? m_drawableInfo.m_drawable->getID() : INVALID_DRAWABLE_ID;
+	DrawableID drawableID = m_drawableInfo.m_drawable ? (DrawableID)((const Rva0055A88BDwordField *)m_drawableInfo.m_drawable)->get() : INVALID_DRAWABLE_ID;
 	XferDrawableID( xfer, (Int *)&drawableID );
 	if( xfer->IsLoading() )
 	{

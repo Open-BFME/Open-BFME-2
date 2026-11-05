@@ -167,6 +167,13 @@ class ThingTemplate { public:
  unsigned char pad3[0x108-0x68]; unsigned char kindFlags[24];
 };
 #include "../../Include/GameClient/Drawable.h"
+
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
 class Player { public:
  Relationship getRelationship(const Team*) const;
  bool isPlayerActive() const;
@@ -465,7 +472,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
   const Drawable* draw=TheGameClient->findDrawableByID(msg->getArgument(0)->drawableID);
   const Object* obj=draw?draw->getObject():0;
   if(obj) {
-   if(!obj->getTemplate()->testByte(5,0x80)) m_mousedOverDrawableID=draw->getID();
+   if(!obj->getTemplate()->testByte(5,0x80)) m_mousedOverDrawableID=(DrawableID)((const Rva0055A88BDwordField *)draw)->get();
    const Player* player=0;
    const ThingTemplate* thingTemplate=obj->getTemplate();
    ContainModuleInterface* contain=obj->getContain();

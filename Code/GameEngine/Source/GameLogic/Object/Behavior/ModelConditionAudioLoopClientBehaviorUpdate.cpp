@@ -27,6 +27,13 @@ public:
 	unsigned int m_bits[19];
 };
 #include "../../../../Include/GameClient/Drawable.h"
+
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
 struct Rva004CBE66Entry { Rva0036CA00Str value; Rva000CF0D6 required,exempt; };
 class ModuleData;
 class Rva004CBE66 {
@@ -77,7 +84,7 @@ void ModelConditionAudioLoopClientBehavior::rva004CBFC7(const Rva000CF0D6 *flags
   reinterpret_cast<Rva004CBF9A *>(this)->clear();
   current18=*reinterpret_cast<const OpaqueRefElement4 *>(&selected);
   if(current18.referent){
-   BfmeAudioEventPrefix136 event(current18,m_drawable->getID());
+   BfmeAudioEventPrefix136 event(current18,(DrawableID)((const Rva0055A88BDwordField *)m_drawable)->get());
    handle14=TheAudio->addAudioEvent(&event);
   }
  }

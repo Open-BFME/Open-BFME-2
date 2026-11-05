@@ -32,10 +32,16 @@ public:
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 enum DrawableID { INVALID_DRAWABLE_ID = 0 };
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
+
 class Drawable
 {
 public:
-	DrawableID getID() const;
 	bool rva00278689(const AsciiString &name, bool a, bool b);
 	void rva002724FD(const AsciiString &name, int show, int permanent, float c, float d);
  void rva002724FD(const AsciiString &name, unsigned char show, int permanent, float c, float d);
@@ -2773,7 +2779,7 @@ int CurDrawablePlaySound(lua_State *state) {
  Rva0036CA00Str sound=TheAudio->rvaSlot12C(AsciiString(lua_tostring(state,1)));
  if(!sound.m_item) return 0;
  {
-  BfmeAudioEventPrefix136 event((const OpaqueRefElement4&)sound,drawable->getID());
+  BfmeAudioEventPrefix136 event((const OpaqueRefElement4&)sound,(DrawableID)((const Rva0055A88BDwordField *)drawable)->get());
   TheAudio->addAudioEvent(&event);
  }
  return 0;

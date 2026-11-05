@@ -1,0 +1,13 @@
+Source claims: OK (8 sources, scoped byte-verified)
+Data rows: OK (4 row(s) byte-verified)
+Compile: 4 of 8 TU(s) (deps-cache: 4 current)
+Funclet pins: 82 row(s) verified past a renumbered $L label
+    $L1214 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L1214 was renumbered; verified parent EH data places $L19180 at 0x0077C0E4
+    $L1165 (Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp): $L1165 was renumbered; verified parent EH data places $L19088 at 0x0077C003
+    $L3009 (Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp): $L3009 was renumbered; verified parent EH data places $L4238 at 0x0075E56B
+    $L3108 (Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp): $L3108 was renumbered; verified parent EH data places $L4337 at 0x0075E557
+    $L3225 (Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp): $L3225 was renumbered; verified parent EH data places $L4585 at 0x0075E511
+Functions: OK 304/304 matched across 8 source file(s)
+String-ref verify: OK (67 literals + 19 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (3 compiler literals verified)
+Import-ref verify: OK (7 named imports verified)

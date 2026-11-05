@@ -1,0 +1,198 @@
+{
+  "provider": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^disp^dword^field^getters.obj",
+  "provider_defines_replacement": true,
+  "consumers": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/InGameUI.cpp",
+      "external_definitions_preserved": 728,
+      "comdats_preserved": 725,
+      "changed_comdats": {
+        "?isDrawableSelected@InGameUI@@UBE_NW4DrawableID@@@Z": {
+          "before": {
+            "digest": "fa591983c9ad",
+            "size": 53
+          },
+          "after": {
+            "digest": "464191e0d2e7",
+            "size": 53
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+      "external_definitions_preserved": 43,
+      "comdats_preserved": 43,
+      "changed_comdats": {
+        "?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z": {
+          "before": {
+            "digest": "141583556ce2",
+            "size": 1901
+          },
+          "after": {
+            "digest": "17e13a491e73",
+            "size": 1901
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+      "external_definitions_preserved": 134,
+      "comdats_preserved": 134,
+      "changed_comdats": {
+        "?xfer@InGameUI@@MAEXPAVXfer@@@Z": {
+          "before": {
+            "digest": "e26b284832ab",
+            "size": 1516
+          },
+          "after": {
+            "digest": "29e6c275bddb",
+            "size": 1516
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp",
+      "external_definitions_preserved": 651,
+      "comdats_preserved": 651,
+      "changed_comdats": {
+        "?translateGameMessage@SelectionTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z": {
+          "before": {
+            "digest": "f008136a9b20",
+            "size": 4054
+          },
+          "after": {
+            "digest": "da75dac15570",
+            "size": 4054
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp",
+      "external_definitions_preserved": 5,
+      "comdats_preserved": 5,
+      "changed_comdats": {
+        "?rva004CBFC7@ModelConditionAudioLoopClientBehavior@@QAEXPBVRva000CF0D6@@@Z": {
+          "before": {
+            "digest": "341b076f24ba",
+            "size": 165
+          },
+          "after": {
+            "digest": "c0af27535307",
+            "size": 165
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp",
+      "external_definitions_preserved": 269,
+      "comdats_preserved": 267,
+      "changed_comdats": {
+        "?CurDrawablePlaySound@@YAHPAUlua_State@@@Z": {
+          "before": {
+            "digest": "8d04f4acc20a",
+            "size": 233
+          },
+          "after": {
+            "digest": "95e94edc5933",
+            "size": 233
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp",
+      "external_definitions_preserved": 20,
+      "comdats_preserved": 20,
+      "changed_comdats": {
+        "?addFactionBibDrawable@W3DTerrainVisual@@UAEXPAVDrawable@@_NM@Z": {
+          "before": {
+            "digest": "65b55ff2a5c1",
+            "size": 835
+          },
+          "after": {
+            "digest": "480bc7ddd263",
+            "size": 835
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp",
+      "external_definitions_preserved": 88,
+      "comdats_preserved": 88,
+      "changed_comdats": {
+        "?xfer@W3DGhostObject@@MAEXPAVXfer@@@Z": {
+          "before": {
+            "digest": "eb05bcd8f7fa",
+            "size": 695
+          },
+          "after": {
+            "digest": "7f85a0cf47b7",
+            "size": 695
+          }
+        }
+      },
+      "removed_undefined": [
+        "?getID@Drawable@@QBE?AW4DrawableID@@XZ"
+      ],
+      "added_undefined": [
+        "?get@Rva0055A88BDwordField@@QBEHXZ"
+      ],
+      "normalized_comdat_bodies_and_relocations_unchanged": true
+    }
+  ]
+}

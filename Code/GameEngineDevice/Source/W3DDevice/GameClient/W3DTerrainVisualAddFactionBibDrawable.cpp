@@ -115,11 +115,17 @@ private:
 	Real m_factoryExtraBibWidth;		// +0x4D8
 };
 
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
+
 class Drawable
 {
 public:
 	const Matrix3D *getTransformMatrix() const;
-	DrawableID getID() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 
 private:
@@ -190,7 +196,7 @@ void W3DTerrainVisual::addFactionBibDrawable(Drawable *factionBuilding, Bool hig
 		mtx->Transform_Vector(*mtx, corners[1], &corners[1]);
 		mtx->Transform_Vector(*mtx, corners[2], &corners[2]);
 		mtx->Transform_Vector(*mtx, corners[3], &corners[3]);
-		((Rva0006840A *)m_terrainRenderObject)->rva0006840A(corners, factionBuilding->getID(), highlight);
+		((Rva0006840A *)m_terrainRenderObject)->rva0006840A(corners, (DrawableID)((const Rva0055A88BDwordField *)factionBuilding)->get(), highlight);
 	}
 }
 
