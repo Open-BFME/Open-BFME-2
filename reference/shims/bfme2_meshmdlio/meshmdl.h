@@ -305,7 +305,7 @@ protected:
 	bool read_shader_ids(ChunkLoadClass & cload,MeshLoadContextClass * context);
 	WW3DErrorType read_scg(ChunkLoadClass & cload,MeshLoadContextClass * context);
 	bool read_dig(ChunkLoadClass & cload,MeshLoadContextClass * context);
-	WW3DErrorType read_dcg(ChunkLoadClass & cload,MeshLoadContextClass * context);
+	bool read_dcg(ChunkLoadClass & cload,MeshLoadContextClass * context);
 	bool read_texture_stage(ChunkLoadClass & cload,MeshLoadContextClass * context);
 	bool read_texture_ids(ChunkLoadClass & cload,MeshLoadContextClass * context);
 	bool read_stage_texcoords(ChunkLoadClass & cload,MeshLoadContextClass * context);

@@ -684,72 +684,6 @@ WW3DErrorType MeshModelClass::read_material_info(ChunkLoadClass & cload,MeshLoad
 // Zero Hour's WW3DErrorType copy is not retail's and was dropped (it called ZH-only APIs).
 
 
-/***********************************************************************************************
- * MeshModelClass::read_dcg -- read the per-vertex diffuse color for a pass                    *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   2/16/99    GTH : Created.                                                                 *
- *   9/1/2000   gth : Added alternate material desc support                                    *
- *   2/9/2001   gth : converted to handle dx8 limitations                                      *
- *=============================================================================================*/
-WW3DErrorType MeshModelClass::read_dcg(ChunkLoadClass & cload,MeshLoadContextClass * context)
-{
-	/*
-	** Determine whether this chunk should be read into the default or alternate material description
-	*/
-	MeshMatDescClass * matdesc = DefMatDesc;
-	if (DefMatDesc->Get_DCG_Source(context->CurPass) != VertexMaterialClass::MATERIAL) {
-		matdesc = &(context->AlternateMatDesc);
-	}
-
-	/*
-	** The W3D file format supports arbitrary vertex color arrays for each pass; however since
-	** our conversion to hardware T&L, we only support two unique color arrays.  So here is 
-	** what is happening in this function:
-	**
-	** 1 - If this is the first diffuse color array we've encountered, load the values.
-	** 2 - Otherwise, if we are in PRELIT_VERTEX mode, put the alpha from this array into the color array.
-	** 3 - Always set the DCG source for this pass to the array.
-	**
-	** Our tools *currently* will only generate two color arrays in the case where one of them
-	** is being used for alpha and the other is used for precomputed vertex lighting...  This will
-	** break if our tools change.  The file format isn't restricting you from defining something
-	** we can't render right now...
-	*/
-	if (matdesc->Has_Color_Array(0) == false) {
-		W3dRGBAStruct color;
-		unsigned * dcg = matdesc->Get_Color_Array(0);
-
-		for (int i=0; i<Get_Vertex_Count(); i++) {
-			cload.Read(&color,sizeof(color));
-			Vector4 col;
-			W3dUtilityClass::Convert_Color(color,&col);
-			dcg[i]=DX8Wrapper::Convert_Color(col);
-		}
-	} else if (context->PrelitChunkID==W3D_CHUNK_PRELIT_VERTEX) {
-		
-		W3dRGBAStruct color;
-		unsigned * dcg = matdesc->Get_Color_Array(0);
-
-		for (int i=0; i<Get_Vertex_Count(); i++) {
-			cload.Read(&color,sizeof(color));
-			Vector4 col;
-			col=DX8Wrapper::Convert_Color(dcg[i]);
-			col.W = float(color.A)/255.0f;
-			dcg[i]=DX8Wrapper::Convert_Color(col);
-		}
-	}
-
-	matdesc->Set_DCG_Source(context->CurPass,VertexMaterialClass::COLOR1);
-
-	return WW3D_ERROR_OK;
-}
 
 // MeshModelClass::read_dig: BFME's bool-returning reader is the row in MeshModelReadDig.cpp;
 // Zero Hour's WW3DErrorType copy is not retail's and was dropped (it called ZH-only APIs).
@@ -1984,7 +1918,54 @@ Error:
 
 // tu-skeleton: 0x001889B0 307B ?read_shader_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadShaderIds.cpp (not merged yet)
 
-// tu-skeleton: 0x00188BB0 562B ?read_dcg@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadDcg.cpp (not merged yet)
+// BFME1 MeshModelVertexColors.cpp read_dcg port with BFME2 rewrites (all
+// retail-measured from the 0x00188BB0 body):
+// - bool (AL) returns, not WW3DErrorType.
+// - First arm (no color array yet): single bulk Read of VertexCount*4 bytes
+//   straight into the array, then an in-place R<->B byte-swap loop.
+// - Second arm (array present, PrelitChunkID == PRELIT_VERTEX): per-vertex
+//   4-byte Read; the packed color decomposes through the ZH unsigned
+//   Convert_Color inline (x87 fild batch), alpha comes from the fresh byte
+//   via SSE, and the pack is the ZH (Vector3, float) Convert_Color with its
+//   hand-written fstcw/chop/fistp asm spliced inline (sub esp,20 frame,
+//   255.0f scale hoisted to the loop preheader).
+// - DCGSource lives at matdesc+0x58 (MATERIAL == 0 selects DefMatDesc,
+//   else context AlternateMatDesc at +0x124); the array pointer at
+//   matdesc+0x50; COLOR1 == 1 is stored back by an inlined Set.
+// Get_Color_Array and Read resolve via matched rows; Get_DCG_Source is
+// emitted here as in retail (0x00188020, no callers).
+
+// ?read_dcg@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
+bool MeshModelClass::read_dcg(ChunkLoadClass &cload, MeshLoadContextClass *context)
+{
+	MeshMatDescClass *matdesc = DefMatDesc;
+	if (DefMatDesc->Get_DCG_Source(context->CurPass) != VertexMaterialClass::MATERIAL) {
+		matdesc = &context->AlternateMatDesc;
+	}
+
+	if (matdesc->Has_Color_Array(0) == false) {
+		unsigned *dcg = matdesc->Get_Color_Array(0);
+		cload.Read(dcg, VertexCount * 2 * 2);
+		for (int i = 0; i < VertexCount; i++) {
+			unsigned c = dcg[i];
+			unsigned lo = (c >> 16) & 0xFF;
+			unsigned hi = (c & 0xFF) << 16;
+			dcg[i] = lo | hi | (c & 0xFF00FF00);
+		}
+	} else if (context->PrelitChunkID == W3D_CHUNK_PRELIT_VERTEX) {
+		W3dRGBAStruct color;
+		unsigned *dcg = matdesc->Get_Color_Array(0);
+		for (int i = 0; i < VertexCount; i++) {
+			cload.Read(&color, sizeof(color));
+			Vector4 col = DX8Wrapper::Convert_Color(dcg[i]);
+			col.W = (float)color.A / 255.0f;
+			dcg[i] = DX8Wrapper::Convert_Color(col);
+		}
+	}
+
+	matdesc->Set_DCG_Source(context->CurPass, VertexMaterialClass::COLOR1);
+	return true;
+}
 
 // tu-skeleton: 0x00189140 293B ?read_texture_ids@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadTextureIds.cpp (not merged yet)
 
