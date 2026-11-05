@@ -631,8 +631,6 @@ extern unsigned int g_Va00DFDC50;
 // g_Va00DFDC50: matched references place it at VA 0xdfdc50 (zero-filled .bss).
 unsigned int g_Va00DFDC50;
 
-// g_Va00DFDCD8: matched references place it at VA 0xdfdcd8 (zero-filled .bss).
-unsigned int g_Va00DFDCD8;
 
 extern unsigned int g_Va00DFE014;
 
@@ -1295,14 +1293,8 @@ Rva001F073ACtor::Rva001F073ACtor(AsciiString *name)
 
 // ---- from Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp
 
-// Separate load, mask and store keep retail's shape at both /O1 and /O2.
-unsigned int Rva0076B063ClearFlag(void)
-{
-	unsigned int flags = g_Va00DFDCD8;
-	flags &= 0xFFFFFFFEu;
-	g_Va00DFDCD8 = flags;
-	return flags;
-}
+// The76B063 action belongs to AttackNugget::create (AttackNuggetCreate.cpp).
+// Its native parent emits the guard cleanup and owns the sole guard datum.
 
 // The76B248 action belongs to positional GenericObjectCreationNugget::create.
 // Its native parent now emits the guard cleanup and owns the sole guard datum.

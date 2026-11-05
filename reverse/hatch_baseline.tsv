@@ -941,7 +941,6 @@ address_global	Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp	g_Va00DF
 address_global	Code/GameEngine/Source/GameLogic/Object/Object.cpp	g_Va00BFBC84	3
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFDC48	2
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFDC50	2
-address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFDCD8	3
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	g_Va00DFE014	2
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FCD9.cpp	g_Va00BFBF34	6
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectRva002E6B89.cpp	g_Va00DFECD0	2
