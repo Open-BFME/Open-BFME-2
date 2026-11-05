@@ -8,11 +8,21 @@
 // container definitions in MilesAudioManager.cpp (retail free RVA 0x00030830).
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseUnicodeStringStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <vector>
-#undef free
 
 #include "unicode_string.h"
+
+namespace _STL {
+template<> inline void allocator<UnicodeString>::deallocate(UnicodeString *__p, size_type) const
+{
+	if (__p != 0) releaseUnicodeStringStorage((void *)__p);
+}
+}
 
 
 typedef char UnicodeStringExtent[sizeof(UnicodeString) == 4 ? 1 : -1];

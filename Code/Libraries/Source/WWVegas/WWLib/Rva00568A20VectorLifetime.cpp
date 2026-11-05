@@ -4,9 +4,7 @@
 // flag8 and advances12; established copy568A20/reserve569E1D users agree.
 void __cdecl Rva00030830FreeAllocation(void *);
 #include <cstdlib>
-#define free Rva00030830FreeAllocation
 #include <vector>
-#undef free
 #include "OpaqueRefCounted.h"
 #include "../../../../GameEngine/Include/Common/BfmePoolRef10.h"
 class HostClass005C8E0A;
@@ -15,6 +13,13 @@ public:
  __declspec(noinline) ~Rva00568A20();
  BfmePoolRef10 ref;HostClass005C8E0A *cell;unsigned char flag;
 };
+// The vector release calls the GameMemory free wrapper directly.
+namespace _STL {
+template<> inline void allocator<Rva00568A20>::deallocate(Rva00568A20 *__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+}
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline Rva00568A20::~Rva00568A20(){}

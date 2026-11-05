@@ -18,10 +18,7 @@
 // loop; with the shim's plain declaration the begin is reloaded from its
 // stack home and the loop is bottom-tested.
 #include <stdlib.h>
-void Rva00030830FreeAllocation(void *);
-#define free Rva00030830FreeAllocation
 #include <vector>
-#undef free
 namespace _STL {
 void *__copy_trivial(const void *__first, const void *__last, void *__result) throw();
 }
