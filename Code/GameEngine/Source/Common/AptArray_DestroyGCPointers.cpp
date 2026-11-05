@@ -1,10 +1,10 @@
 // cl: /MD
 // Apt array clear at retail 0x006D93D0 (195 bytes), reconstructed from the
-// retail ABI. Layout follows Rva006D94A0Cluster.cpp (m_data +0x20, mnCapacity
-// +0x24, mnLength +0x28); the two assert triples name AptArray.cpp lines
-// 0x82/0x83 and their file string. The body first calls the unrowed base/flag
-// helper 0x0070DFE0 (address-derived pin), then nulls each element through the
-// vtable slot 1 release, hands the backing store to the pool 0x00E176E8
+// retail ABI. Layout follows the approved TU's AptArray (mpValues +0x20,
+// mnCapacity +0x24, mnLength +0x28); the two assert triples name AptArray.cpp lines
+// 0x82/0x83 and their file string. The body first calls the base
+// AptObject::DestroyGCPointers 0x0070DFE0 (rowed), then nulls each element through the
+// AptValue::Release (vtable slot 1), hands the backing store to the pool 0x00E176E8
 // (freeBlock 0x006DB270 with mnCapacity*4 bytes) and clears all three fields.
 
 extern "C" void __cdecl __debugbreak(void);
@@ -13,42 +13,31 @@ extern "C" void __cdecl __debugbreak(void);
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
+#include "../../../Libraries/Source/Apt/AptObject/AptScriptFunction.h"
 #include "../../Include/Common/Rva006DB270.h"
 
 extern Rva006DB270 *g_pChainBlockAllocator; // VA 0x00E176E8
 
-class AptObject
-{
+// The approved TU's AptArray view (Code/Libraries/Source/Apt/AptArray.cpp):
+// AptObject base, mpValues +0x20, mnCapacity +0x24, mnLength +0x28.
+class AptArray : public AptObject {
 public:
-	virtual void DestroyGCPointers();
-};
-
-class BfmeAptValue006DCD20
-{
-public:
-	virtual void slot0();
-	virtual void release();
-
-
-	unsigned int m_flags;
-	char m_pad[0x18];
-	BfmeAptValue006DCD20 **m_data;
-	int mnCapacity;
-	int mnLength;
-};
-
-// WB AptArray::DestroyGCPointers (vtable 0xCEA778 slot); layout is the shared value base above.
-class AptArray : public BfmeAptValue006DCD20
-{
-public:
-	virtual void DestroyGCPointers();
+    virtual AptValue *objectMemberLookup(AptValue *const,const EAStringC *const) const;
+    virtual bool objectMemberSet(AptValue *const,const EAStringC *const,AptValue *const);
+    virtual void RegisterReferences() const;
+    virtual void DestroyGCPointers();
+protected:
+    virtual ~AptArray();
+private:
+    AptValue **mpValues;
+    int mnCapacity,mnLength;
 };
 
 void AptArray::DestroyGCPointers()
 {
-	((AptObject *)this)->AptObject::DestroyGCPointers();
+	AptObject::DestroyGCPointers();
 
-	if (!(m_data != 0 || mnLength == 0)) {
+	if (!(mpValues != 0 || mnLength == 0)) {
 		g_bfmeAptAssertAtE17734("mpValues != NULL || mnLength == 0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptArray.cpp", 0x82);
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
@@ -61,17 +50,17 @@ void AptArray::DestroyGCPointers()
 	}
 
 	for (int i = 0; i < mnLength; ++i) {
-		BfmeAptValue006DCD20 *pValue = m_data[i];
+		AptValue *pValue = mpValues[i];
 		if (pValue != 0) {
-			pValue->release();
-			m_data[i] = 0;
+			pValue->Release();
+			mpValues[i] = 0;
 		}
 	}
 
-	if (m_data != 0)
-		g_pChainBlockAllocator->freeBlock(m_data, mnCapacity * 4);
+	if (mpValues != 0)
+		g_pChainBlockAllocator->freeBlock(mpValues, mnCapacity * 4);
 
-	m_data = 0;
+	mpValues = 0;
 	mnLength = 0;
 	mnCapacity = 0;
 }
