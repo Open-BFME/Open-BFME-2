@@ -1,7 +1,8 @@
-struct _GUID { unsigned char bytes[16]; };
-struct IUnknown;
+// platformsdk
+#include <windows.h>
+#include <comdef.h>
+
 extern _GUID g_bfmeIidTSA;
-extern void __stdcall _com_issue_errorex(long, IUnknown *, const _GUID &);
 
 struct BfmeObjECF;
 
@@ -53,8 +54,6 @@ BfmeObjECF * g_bfmeObjECF = 0;
 // Use the existing global's canonical pointer spelling; clear it before
 // Release as VS2003's comip.h smart-pointer assignment does. Defining the
 // already identified hWnd also supplies the browser units' missing owner.
-extern "C" __declspec(dllimport) void __stdcall CoUninitialize();
-struct HWND__;
 class DX8WebBrowser
 {
 public:
