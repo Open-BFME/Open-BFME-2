@@ -30,3 +30,38 @@ Verification of the prerequisite:
 
 The existing GlobalData and W3DShadowManager header-queue debts remain owned
 by their sources. No protected debt is retired except the removed class hatch.
+
+## Applied composition and path-consumer audit
+
+After the prerequisite commit, the supported merger absorbed only
+`Code/GameEngine/Source/Common/System/AudioEventRTSAssign.cpp` into
+`Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp`.
+It repointed the assignment's function-ledger and existing TU-map source cells;
+the map was not regenerated on disk. One source file is removed. The other
+donor and all three mixed sources remain intact.
+
+Final verification: 18/18 rows byte-match, including the moved 93-byte
+assignment; parent EH labels remain verified. Declaration, ledger, class,
+TU-ownership and case checks pass. The merger's census link guard passed with
+the absorbed donor removed. The ordinary destination preview LINKS with 1,330
+authored bytes against the same index; the additional 93 bytes already linked
+in the donor, so this is no new linked-byte or census gain.
+
+The audit covers this session's prerequisite and its one path move. Combined
+searches for both donor basenames across tools, hooks, workflows, sources,
+build.sh, doxygen inputs and path-keyed registers found no active consumer of
+the absorbed path needing another update. Remaining old-path text is source
+provenance and this historical evidence. No include names the absorbed file.
+No alternatename pragma was removed. Existing data definitions and manager
+provider declarations are retained; the assignment uses the same canonical
+ASCII string header and passes the merger's combined COMDAT/link check.
+
+Neither donor has code/data-identity or Microsoft-header debt to transfer.
+The merger refreshed the destination's Microsoft-header scan and retained
+the existing GlobalData header-queue row. The unmerged addShadow source keeps
+its W3DShadowManager header-queue row. No debt retirement is inferred from the
+deleted source, and no protected-register change accompanies the merge.
+
+Next prerequisite for addShadow remains the nested Shadow type declaration
+ordering and reconciliation with the canonical manager header and GlobalData
+view. No partial body or additional path move is left in Code.

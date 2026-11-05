@@ -5,11 +5,19 @@
 #include "reference/shims/bfme_colmathaabox/vector3.h"
 #include "vector3.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
-// Native ctor callback47A6A9 is empty; native iterator initializes one12B
-// coordinate at receiver+C. Element original type unknown; this address view
-// inherits canonical Coord3D storage and emits the proven3B ICF callback.
 #include "../../../../Include/W3DDevice/GameClient/W3DShadowManager.h"
+//
+// ??4ShadowTypeInfo@Shadow@@QAEAAU01@ABU01@@Z @0x0009A41B (93B). TU named
+// for the row's earlier, wrong AudioEventRTS name.
+// Shadow::ShadowTypeInfo copy-assign on the ctor TU's layout
+// (AudioEventRTSCtor.cpp): two AsciiStrings then the type, six floats and
+// three bytes, member by member. Evidence: W3DShadowManager::addShadow
+// 0x0009A8D3 assigns the info it is passed into its locally constructed
+// copy through this body; AsciiString op= pin @0x366F0; ctor layout
+// @0x79514.
+
+typedef int Int;
+#include "ascii_string.h"
 
 class Rva000F1A32 {public:Rva000F1A32();private:char body[12];};
 
@@ -89,7 +97,6 @@ W3DProjectedShadowManager * TheW3DProjectedShadowManager;
 
 // Rva00DE1FF8Manager: matched references place it at VA 0xde1ff8 (zero-filled .bss).
 Rva0007DA23ResourceManager * Rva00DE1FF8Manager;
-
 
 // ?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManager@@A: matched references place it at VA 0xdec2d8; also referenced as ?R2Ptr01306DF0@@3PAVR2GlobalReceiver@@A.
 Rva00108660ResourceManager * Rva00DEC2D8Manager = 0;
@@ -250,6 +257,34 @@ private:
 	Vector3_9A587 m_lightPos[1];
 };
 
+class Shadow
+{
+public:
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo &operator=(const ShadowTypeInfo &right);
+
+		AsciiString m_first;
+		AsciiString m_second;
+		Int m_type;
+		float m_floatC;
+		float m_float10;
+		float m_float14;
+		float m_float18;
+		float m_float1C;
+		float m_float20;
+		unsigned char m_byte24;
+		unsigned char m_byte25;
+		unsigned char m_byte26;
+	};
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp
+
+// Native ctor callback47A6A9 is empty; native iterator initializes one12B
+// coordinate at receiver+C. Element original type unknown; this address view
+// inherits canonical Coord3D storage and emits the proven3B ICF callback.
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerReAcquire.cpp
@@ -405,12 +440,6 @@ void W3DGameClientShadowShim::setLightPosition(int lightIndex, float x, float y,
 	((Rva0007D9B5Host *)(*(void **)&Rva00DE1FF8Manager))->rva0007D9CF((const int *)&dir);
 }
 
-// tu-skeleton: 0x0009A338 16B ?Rva007B7600@@YAXXZ -- matched in Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp (not merged yet)
-
-// tu-skeleton: 0x0009A41B 93B ??4ShadowTypeInfo@Shadow@@QAEAAU01@ABU01@@Z -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSAssign.cpp (not merged yet)
-
-// tu-skeleton: 0x0009A478 31B ?invalidateCachedLightPositions@W3DShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientShadowShimGetLightPosWorld.cpp
 
 //
@@ -426,6 +455,29 @@ Vector3 &W3DShadowManager::getLightPosWorld(int lightIndex)
 {
 	return reinterpret_cast<Vector3 &>(m_lightPos[lightIndex]);
 }
+
+// tu-skeleton: 0x0009A338 16B ?Rva007B7600@@YAXXZ -- matched in Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/AudioEventRTSAssign.cpp
+
+Shadow::ShadowTypeInfo &Shadow::ShadowTypeInfo::operator=(const ShadowTypeInfo &right)
+{
+	m_first = right.m_first;
+	m_second = right.m_second;
+	m_type = right.m_type;
+	m_floatC = right.m_floatC;
+	m_float10 = right.m_float10;
+	m_float14 = right.m_float14;
+	m_float18 = right.m_float18;
+	m_float1C = right.m_float1C;
+	m_float20 = right.m_float20;
+	m_byte24 = right.m_byte24;
+	m_byte25 = right.m_byte25;
+	m_byte26 = right.m_byte26;
+	return *this;
+}
+
+// tu-skeleton: 0x0009A478 31B ?invalidateCachedLightPositions@W3DShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
 
 // tu-skeleton: 0x0009A4A4 46B ?rva0009A4A4@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
 
