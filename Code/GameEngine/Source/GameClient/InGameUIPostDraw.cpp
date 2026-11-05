@@ -52,12 +52,7 @@ inline Color GameMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte bl
 void GameGetColorComponents(Color color, UnsignedByte *red, UnsignedByte *green, UnsignedByte *blue, UnsignedByte *alpha);
 
 
-class GameFont
-{
-public:
-	char m_opaque00[0x10];
-	Int height;									// +0x10
-};
+#include "../../Include/GameClient/GameFontClass.h"
 
 class DisplayString
 {

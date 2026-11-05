@@ -41,12 +41,7 @@ typedef float Real;
 typedef int Color;
 
 // Only the height is read here, at +0x10.
-class GameFont
-{
-public:
-	unsigned char m_unreconstructed00[ 0x10 ];
-	Int height;                                            // +0x10
-};
+#include "../../../../../../GameEngine/Include/GameClient/GameFontClass.h"
 
 #include "../../../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../../../Libraries/Include/Lib/IRegion2D.h"

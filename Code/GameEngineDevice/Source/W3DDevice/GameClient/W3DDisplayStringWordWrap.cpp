@@ -41,15 +41,7 @@ class FontCharsClass;
 
 // BFME 2 GameFont: name at +0x08, point size (a Real here) at +0x0C and the
 // renderer font data at +0x14.
-class GameFont
-{
-public:
-	char m_unrecovered00[ 0x08 ];
-	AsciiString nameString;															///< 0x08
-	float pointSize;																		///< 0x0C
-	char m_unrecovered10[ 0x04 ];
-	void *fontData;																			///< 0x14
-};
+#include "../../../../GameEngine/Include/GameClient/GameFontClass.h"
 
 #include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
