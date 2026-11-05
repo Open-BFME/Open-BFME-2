@@ -20,7 +20,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #define _STLP_NO_EXCEPTIONS 1
-
 //
 // Slots 0 and 1 of the vtable 0x00BEFEA4 that UpgradeSoundSelectorClientBehavior's
 // ctor 0x00252CB5 installs at +0x0C (slot 2 is UpgradeSoundSelectorClientBehaviorSlot2.cpp),
@@ -36,20 +35,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 //   (OpaqueRefCounted::Release_Ref under an EH state), the record assigned
 //   through the rowed Rva002C99FB::operator= 0x002C99FB.
 class Object;
-
 class AsciiString;
-
 #include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-
 #include "../../../../Include/Common/OpaqueRefElement4.h"
-
 struct Rva002C99FB
 {
 	int m_first;
 	OpaqueRefElement4 m_second;
 	Rva002C99FB &operator=(const Rva002C99FB &other);
 };
-
 // The entry test 0x004CB333 is rowed as UpgradeMuxData::rva004CB333.
 struct UpgradeMaskType;
 class UpgradeMuxData
@@ -58,14 +52,12 @@ public:
 	bool rva004CB333(Object *obj);
 	void getUpgradeActivationMasks(UpgradeMaskType&,UpgradeMaskType&)const;
 };
-
 struct Rva004CB51CEntry
 {
 	Rva002C99FB rva004CB167(int index);
 	Rva002C99FB rva004CB2FB(const AsciiString &name);
 	unsigned char m_pad000[0x384];
 };
-
 // The +0x08 vector holds the 0x384-byte entries; its element type stays the
 // BfmeE16 placeholder the matched ctor's vector base 0x00211E58 is rowed with.
 class INI;
@@ -79,8 +71,13 @@ public:
 	char m_pad04[0x4];
 	_STL::vector<BfmeE16> m_vec08; // +0x08
 };
-
 #include "../../../../Include/GameClient/Drawable.h"
+#include <string.h>
+#include "ascii_string.h"
+typedef void (*INIFieldParseProc)(INI*,void*,void*,const void*);
+#include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/Common/INI/INI.h"
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 class DrawableModule
 {
@@ -182,6 +179,52 @@ namespace _STL
 template <> void _Construct<BfmeRecordOwner900, BfmeRecordOwner900>(BfmeRecordOwner900 *, const BfmeRecordOwner900 &);
 }
 
+struct UpgradeMaskType: Rva001EAE6FHelper {};
+
+class Object;
+
+class UpgradeCenter;
+
+extern UpgradeCenter*TheUpgradeCenter;
+
+int Rva0033A495Get();
+
+void Rva0033DC9CParse(INI*,void*,void*,const void*);
+
+void Rva000B9468Parse(INI*,void*,void*,const void*);
+
+struct BfmeE16;
+
+extern const FieldParse BfmeSoundUpgradeEntryFields[]={
+ {"UnitSpecificSounds",Rva0033DC9CParse,0,0x370},
+ {"ExcludedUpgrades",INI::parseAsciiStringVectorAppend,0,0x10C},
+ {"VoicePriority",UpgradeSoundSelectorClientBehaviorModuleData::parseVoicePriority,0,0x37C},
+ {"RequiredModelConditions",Rva000B9468Parse,0,0x118},
+ {"ExcludedModelConditions",Rva000B9468Parse,0,0x164},
+ {0,0,0,0}
+};
+
+namespace _STL {
+template<> AsciiString* vector<AsciiString,allocator<AsciiString> >::erase(AsciiString*,AsciiString*);
+template<> void vector<AsciiString,allocator<AsciiString> >::push_back(const AsciiString&);
+}
+
+class Rva004CB572 {
+ char fixed0[128],fixed80[128];
+ _STL::vector<AsciiString> names,excluded;
+ ModelConditionFlags required,excludedConditions;
+ char rest1B0[0x381-0x1B0];bool hasRequired,hasExcluded;
+ public:void parse(INI*);
+};
+
+class Thing;
+
+class ModuleData;
+
+class INI;
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/UpgradeSoundSelectorClientBehavior.cpp
+
 template void _STL::vector<BfmeRecordOwner900>::_M_insert_overflow(
 	BfmeRecordOwner900 *,
 	const BfmeRecordOwner900 &,
@@ -227,10 +270,6 @@ bool UpgradeSoundSelectorClientBehavior::rva004CB48A(const AsciiString &name, Rv
 	return false;
 }
 
-// tu-skeleton: 0x004CB572 343B ?parse@Rva004CB572@@QAEXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/Rva004CB572Parse.cpp (not merged yet)
-
-// tu-skeleton: 0x004CB6C9 103B ??1BfmeRecordOwner900@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Ctor.cpp
 
 //
@@ -251,6 +290,52 @@ BfmeRecordOwner900::BfmeRecordOwner900()
 {
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod900_overflow.cpp
+
+//
+// ?_M_insert_overflow@?$vector@UBfmeRecordOwner900@@V?$allocator@UBfmeRecordOwner900@@@_STL@@@_STL@@IAEXPAUBfmeRecordOwner900@@ABU3@ABU__false_type@2@I_N@Z,
+// retail 0x004CBA0F, 191 bytes. Dedicated TU.
+//
+// STLport 4.5.3 vector<BfmeRecordOwner900>::_M_insert_overflow, the growth path.
+// Gate wants RecordOwner900 clear-construct (rowed 0x004CB8DE 0x004CB9D5) while
+// allocate-copy-fill stay Pod900-ICF (pinned); /G7 for imul homing, _Construct
+// declared-only, explicit member instantiation. Element is 900 bytes to match
+// the 0x384 stride in retail.
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+
+// ---- from Code/GameEngine/Source/Common/Rva004CB572Parse.cpp
+
+// Complete native343B entry parser at RVA004CB572; EH metadata also EXACT.
+// Target FieldParse C5F1F0 and UpgradeSoundSelector consumer stride384 establish
+// the owner family; the entry and parse method keep address-derived names.
+// Native two128B mask temporaries plus MultiIniFieldParse132B prove frame188.
+// Vector clear wrapper preserves native cached receiver/EDI and zero/EBX.
+// All five table tokens, offsets, userdata and procedure VAs read from retail.
+// The first procedure is the independently matched33DC9C28B dispatcher,
+// whose nested C10C2C table uses the matched183B33DBE5 sound-map callback.
+// The complete table is separately byte, relocation and extent verified.
+// BF1 semantic lead874e38488c7dcf8cf3343452e8e5371bb3a0e64c:
+// UpgradeSoundSelectorClientBehaviorParseSoundUpgrade.cpp (528B donor record).
+// The target records are900B, supplied by independently matched ctor/copy/dtor.
+
+void Rva004CB572::parse(INI*ini){
+ names.clear();memset(fixed0,0,sizeof(fixed0));
+ excluded.clear();memset(fixed80,0,sizeof(fixed80));
+ memset(&required,0,sizeof(required));memset(&excludedConditions,0,sizeof(excludedConditions));
+ const char*token;
+ while((token=ini->getNextTokenOrNull(0))!=0){AsciiString value(token);names.push_back(value);}
+ MultiIniFieldParse parse;
+ parse.add(BfmeSoundUpgradeEntryFields,0);
+ parse.add((const FieldParse*)Rva0033A495Get(),0x1B0);
+ ini->initFromINIMulti(this,parse);
+ if(TheUpgradeCenter){UpgradeMaskType activation,conflicting;((UpgradeMuxData*)this)->getUpgradeActivationMasks(activation,conflicting);}
+ hasRequired=required.rva000B3EB3();hasExcluded=excludedConditions.rva000B3EB3();
+}
+
+// tu-skeleton: 0x004CB6C9 103B ??1BfmeRecordOwner900@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
+
 // tu-skeleton: 0x004CB7EE 231B ??0BfmeRecordOwner900@@QAE@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
 
 // tu-skeleton: 0x004CB8D5 9B ??$_Destroy@UBfmeRecordOwner900@@@_STL@@YAXPAUBfmeRecordOwner900@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
@@ -269,22 +354,23 @@ BfmeRecordOwner900::BfmeRecordOwner900()
 
 // tu-skeleton: 0x004CB9D5 30B ?_M_clear@?$vector@UBfmeRecordOwner900@@V?$allocator@UBfmeRecordOwner900@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportOwner900VectorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004CB9F3 28B ??0UpgradeSoundSelectorClientBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateCtor.cpp
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod900_overflow.cpp
+// Identity: ModuleFactory registers this data class under "UpgradeSoundSelectorClientBehaviorModuleData" (addModule
+// pairs the name with this factory); formerly misnamed BattlePlanUpdate/BattlePlanUpdateModuleData.
+//
+// ??0UpgradeSoundSelectorClientBehaviorModuleData@@QAE@PAVThing@@PBVModuleData@@@Z at retail 0x004CB9F3.
+// Root class (no base call): vtable plus a trailing E16 vector at +0x08
+// default-constructed through the vector_base pinned at retail 0x00211E58,
+// with the one-byte allocator temporary at [esp+0x07] (frameless).
+// Factory stub order names it; stub size 0x14 confirms the layout.
 
-//
-// ?_M_insert_overflow@?$vector@UBfmeRecordOwner900@@V?$allocator@UBfmeRecordOwner900@@@_STL@@@_STL@@IAEXPAUBfmeRecordOwner900@@ABU3@ABU__false_type@2@I_N@Z,
-// retail 0x004CBA0F, 191 bytes. Dedicated TU.
-//
-// STLport 4.5.3 vector<BfmeRecordOwner900>::_M_insert_overflow, the growth path.
-// Gate wants RecordOwner900 clear-construct (rowed 0x004CB8DE 0x004CB9D5) while
-// allocate-copy-fill stay Pod900-ICF (pinned); /G7 for imul homing, _Construct
-// declared-only, explicit member instantiation. Element is 900 bytes to match
-// the 0x384 stride in retail.
-// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
-// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
-// overload keeps the inlined code and offers the link no second copy.
+UpgradeSoundSelectorClientBehaviorModuleData::UpgradeSoundSelectorClientBehaviorModuleData()
+	: m_vec08()
+{
+}
+
+// UpgradeSoundSelectorClientBehaviorModuleData::~UpgradeSoundSelectorClientBehaviorModuleData: defined in UpgradeSoundSelectorClientBehaviorModuleDataDtor.cpp (its row's unit).
 
 // tu-skeleton: 0x004CBACE 28B ??_GUpgradeSoundSelectorClientBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/ClientModuleDeletingDtors.cpp (not merged yet)
 
@@ -294,13 +380,19 @@ BfmeRecordOwner900::BfmeRecordOwner900()
 
 // tu-skeleton: 0x004CBBB4 17B ?buildFieldParse@UpgradeSoundSelectorClientBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x007906C6 8B $L5098 -- matched in Code/GameEngine/Source/Common/Rva004CB572Parse.cpp (not merged yet)
-
-// tu-skeleton: 0x007906CE 10B __ehhandler$?parse@Rva004CB572@@QAEXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/Rva004CB572Parse.cpp (not merged yet)
+// tu-skeleton: 0x007906B4 8B uw_007906b4 -- matched in Code/gen_small/uw_gen_005.cpp (not merged yet)
 
 // tu-skeleton: 0x007906D8 14B uw_007906d8 -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
 
 // tu-skeleton: 0x007906E6 14B uw_007906e6 -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
+
+// tu-skeleton: 0x0079070C 14B $L5852 -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0079071A 14B $L5853 -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00790728 14B $L5854 -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00790736 10B __ehhandler$??0BfmeRecordOwner900@@QAE@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00790740 14B $L3036 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs2.cpp (not merged yet)
 
