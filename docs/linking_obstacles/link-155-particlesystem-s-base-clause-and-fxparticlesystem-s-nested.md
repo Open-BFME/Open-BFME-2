@@ -54,3 +54,5 @@ a shared declaration for the manager's system list.
 
 
 Recovery rebase update: current master now supplies createSlaveSystem and its verified destructor fold. The earlier recovery paragraph is historical and superseded for this export; do not repeat the archived proposal. [Current upstream repair](../../reverse/attempt_support/create-slave-system-export-20261106-noro.md). Automated real-link/runtime confirmation and broader handle-header adoption remain separate.
+
+2026-11-05: Rva000B8F5A.cpp, GPUParticleStorageConstructor.cpp and ScriptEngine.cpp adopt the existing RvaSmartPtr12 header; three header debts retired, 164 function rows and three data rows exact, previews preserve 10,092 bytes, no external definitions removed. Remaining lifetime-contract prerequisite unchanged; [evidence](../../reverse/attempt_support/smartptr-field-consumers-header-20261105-codexb2.md).

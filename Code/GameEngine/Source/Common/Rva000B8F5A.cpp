@@ -36,7 +36,7 @@ class Rva000B6253 {public:Rva000B6253*rva000B6253(int,unsigned,unsigned,unsigned
 class Rva000B4B23 {public:void*rva000B4B23(const ModelConditionFlags&);};
 #include "../../Include/GameClient/ParticleSystemClass.h"
 ParticleSystem*Make001FCBD7();
-class RvaSmartPtr12 {public:void rva0004CBC0();ParticleSystem*system;void*previous,*next;};
+#include "../../Include/Common/RvaSmartPtr12.h"
 namespace _STL {struct _Rb_tree_node_base {int color;
  _Rb_tree_node_base*parent,*left,*right;};
  template<class T>struct _Rb_global {static _Rb_tree_node_base*_M_increment(_Rb_tree_node_base*);};}
@@ -577,9 +577,9 @@ void Rva000BFB76Interface::rva000BFB76(const ModelConditionFlags&conditions,bool
  void*state=((Rva000B4BED*)*(void**)((char*)this-0xC))->rva000B4BED(&conditions);
  if(transition1CB && m_18 && state==next1CC)state=m_18;
  else {transition1CB=false;next1CC=0;}
- if(!conditions.test(239) && *(ParticleSystem*volatile*)&particle1C.system){
-  (particle1C.system?particle1C.system:Make001FCBD7())->destroy();
-  if(particle1C.system){particle1C.rva0004CBC0();particle1C.system=0;}
+ if(!conditions.test(239) && *(ParticleSystem*volatile*)&particle1C.field00){
+  particle1C->destroy();
+  if(particle1C.field00){particle1C.rva0004CBC0();particle1C.field00=0;}
  }
  if(info)((Rva000B8F5AOuter*)((char*)this-0x10))->applyInfo(info,change,state);
  if(state){m_flag28C=false;((Rva000B8F5AOuter*)((char*)this-0x10))->rva000BF9FC(state,force,options);}
