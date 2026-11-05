@@ -6,6 +6,7 @@
 // GadgetListBoxGetSelected / item-data / LANAPI::ValidateGameInfo
 // (0x00449969) calls. The int return is this unit's spelling of the
 // LANGameInfo pointer the callers cast it back to.
+// (This TU spells that +0x6A8 member m_customGamesList, as its seed does.)
 // __thiscall int method no args reading this+0x6a8 as GameWindow*.
 // Calls rowed GadgetListBoxGetSelected then rowed GadgetListBoxGetItemData then
 // rowed LANAPI::ValidateGameInfo via global 0x00DFE958. Returns game or 0.
@@ -34,17 +35,17 @@ public:
 	int GetValidSelectedGameInfo();
 private:
 	char m_pad[0x6a8];
-	GameWindow *m_listboxGames;
+	GameWindow *m_customGamesList;
 };
 
 int AptLanLobby::GetValidSelectedGameInfo()
 {
 	int sel;
-	if (m_listboxGames == 0)
+	if (m_customGamesList == 0)
 		return 0;
 	sel = -1;
-	GadgetListBoxGetSelected(m_listboxGames, &sel);
-	int game = (int)GadgetListBoxGetItemData(m_listboxGames, sel, 3);
+	GadgetListBoxGetSelected(m_customGamesList, &sel);
+	int game = (int)GadgetListBoxGetItemData(m_customGamesList, sel, 3);
 	LANGameInfo *info = (LANGameInfo *)game;
 	if (!TheLAN->ValidateGameInfo(info))
 		info = 0;
