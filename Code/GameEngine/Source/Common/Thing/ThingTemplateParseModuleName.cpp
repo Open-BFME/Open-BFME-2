@@ -9,11 +9,7 @@
 #include "Common/INIException.h"
 enum ModuleType { MODULETYPE_BEHAVIOR=0 };
 #include "../../../Include/Common/INI/INI.h"
-class ModuleData { public:
- virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
- virtual bool isAiModuleData(); virtual void s5(); virtual void s6();
- virtual bool rvaSlot7();
-};
+#include "../../../Include/Common/ModuleData.h"
 class ThingTemplate;
 #include "../../../Include/Common/ModuleFactoryClass.h"
 extern ModuleFactory *TheModuleFactory;
@@ -60,8 +56,8 @@ void ThingTemplate::parseModuleName(INI *ini,void *instance,void *store,const vo
    throw INIException(3,"ReplaceModule must specify a new unique tag for the replaced module, but you are not doing so for %s (%s) for object %s.",moduleTagStr.str(),self->replacedName.str(),self->name.str());
  ModuleData *data=TheModuleFactory->newModuleDataFromINI(ini,tokenStr,type,moduleTagStr);
  bool overrideFile=ini->getLoadType()==4;
- if (data->isAiModuleData()) mi->clearAiModuleInfo();
- if (data->rvaSlot7() && overrideFile) mi->rva0033C8B5();
+ if (data->slot04()) mi->clearAiModuleInfo();
+ if (data->slot07() && overrideFile) mi->rva0033C8B5();
  bool inheritable=self->mode==2;
  mi->addModuleInfo(self,tokenStr,moduleTagStr,data,mask,inheritable,overrideFile);
 }

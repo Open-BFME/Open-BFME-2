@@ -1,22 +1,7 @@
 // cl: /MD /DNDEBUG
 // ModuleInfo indexed accessor (Locomotor/AIUpdate parse cluster).
 
-class ModuleData
-{
-public:
-	virtual void bfmeReservedV0();
-	virtual void bfmeReservedV1();
-	virtual void bfmeReservedV2();
-	virtual void bfmeReservedV3();
-	virtual bool isAiModuleData() const;
-	virtual bool rva0033B3D7Predicate() const;
-	virtual bool rva0033B427Predicate() const;	// +0x18
-	virtual void bfmeReservedV7();
-	virtual void bfmeReservedV8();
-	virtual bool rva0033B479Predicate() const;
-	char m_at04[4];
-	int m_value08;
-};
+#include "../../../Include/Common/ModuleData.h"
 
 class AIUpdateModuleData;
 
@@ -59,7 +44,7 @@ AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo()
 	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->isAiModuleData())
+		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot04())
 			return (AIUpdateModuleData *)m_behaviorModuleInfo.getNthData(j);
 	}
 	return 0;
@@ -74,7 +59,7 @@ const ModuleData *ThingTemplate::rva0033B3D7() const
 	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->rva0033B3D7Predicate())
+		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot05())
 			return m_behaviorModuleInfo.getNthData(j);
 	}
 	return 0;
@@ -88,7 +73,7 @@ const ModuleData *ThingTemplate::rva0033B427(int unused) const
 	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->rva0033B427Predicate())
+		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot06())
 			return m_behaviorModuleInfo.getNthData(j);
 	}
 	return 0;
@@ -104,8 +89,8 @@ int ThingTemplate::rva0033B479() const
 	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->rva0033B479Predicate())
-			return m_behaviorModuleInfo.getNthData(j)->m_value08;
+		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot09())
+			return *(const int *)((const char *)m_behaviorModuleInfo.getNthData(j) + 8);
 	}
 	return 1;
 }

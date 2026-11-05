@@ -2,18 +2,7 @@
 // ?rva0033C8B5@ModuleInfo@@QAE_NXZ @0x0033C8B5 51B: vector<Nugget> filter via ModuleData virtual slot 7 erases matching entries returns bool.
 // ?clearAiModuleInfo@ModuleInfo@@QAE_NXZ @0x0033C882 51B: the same filter on ModuleData slot 4 (Zero Hour isAiModuleData), moved here from ThingTemplate.cpp.
 // Evidence: calls rowed vector erase at 0x0033C3BC; vcall [eax+0x1c] on [esi+8]; stride 0x14 finish at +4; sibling clearAiModuleInfo 51B same shape.
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual bool isAiModuleData() const;
-	virtual void v5();
-	virtual void v6();
-	virtual bool isMatching();
-};
+#include "../../../Include/Common/ModuleData.h"
 namespace _STL
 {
 template <class T> class allocator
@@ -53,7 +42,7 @@ bool ModuleInfo::rva0033C8B5()
 	_STL::vector<Nugget, _STL::allocator<Nugget> >::iterator it = m_info.begin();
 	while (it != m_info.end())
 	{
-		if (it->second->isMatching())
+		if (it->second->slot07())
 		{
 			it = m_info.erase(it);
 			ret = true;
@@ -72,7 +61,7 @@ bool ModuleInfo::clearAiModuleInfo()
 	_STL::vector<Nugget, _STL::allocator<Nugget> >::iterator it = m_info.begin();
 	while (it != m_info.end())
 	{
-		if (it->second->isAiModuleData())
+		if (it->second->slot04())
 		{
 			it = m_info.erase(it);
 			ret = true;
