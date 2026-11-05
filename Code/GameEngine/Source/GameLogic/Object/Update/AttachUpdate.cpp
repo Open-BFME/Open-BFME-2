@@ -199,9 +199,11 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AttachUpdate : public UpdateModule
+class __declspec(novtable) AttachUpdate : public UpdateModule
 {
 public:
+	AttachUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AttachUpdate();
 	virtual UpdateSleepTime update();
 	void rva00491AD0();	// 0x00491AD0
 	void rva00491C84(Coord3D *out, const Object *parent);	// 0x00491C84, the anchor point

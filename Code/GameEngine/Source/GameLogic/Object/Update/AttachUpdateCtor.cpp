@@ -8,7 +8,7 @@
 //
 // Shape follows WallUpgradeUpdate precedent verbatim over the same rowed
 // UpdateModule base 0x253390: re-stores the primary vtable slot and the
-// +0x0C/+0x10 secondary slots (explicit members, all immediates
+// +0x0C/+0x10 secondary slots (native subobjects, all immediates
 // DIR32-masked) plus an and-zero int at +0x20 plus an or-minus-one int at
 // +0x24, and parks the module awake-through-none via setWakeFrame.
 // Member names follow the Bloodthirsty donor (m_object at +0x08,
@@ -58,43 +58,44 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	~UpdateModule();
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-protected:
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
+enum ObjectID;
+struct Coord3D;
+class AttachUpdateModuleData;
 
-	const void *m_vtable;
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_secondary0C;
-	const void *m_secondary10;
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_reserved1C;
-};
-
-class AttachUpdate : public UpdateModule
+// Keep the existing three native table providers. The folded behavior table
+// belongs to AttributeModifierPoolUpdate; emitting a new derived table here
+// would give the link a second identity for that shared retail address.
+class __declspec(novtable) AttachUpdate : public UpdateModule
 {
 public:
 	AttachUpdate(Thing *thing, const ModuleData *moduleData);
-
+	virtual ~AttachUpdate();
+	virtual UpdateSleepTime update();
+	void rva00491AD0();	// 0x00491AD0
+	void rva00491C84(Coord3D *out, const Object *parent);	// 0x00491C84, the anchor point
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
-	int m_20;
-	int m_24;
+	const AttachUpdateModuleData *getAttachUpdateModuleData() const
+	{
+		return (const AttachUpdateModuleData *)m_moduleData;
+	}
+	ObjectID m_parentID;	// +0x20
+	int m_diedEvaEvent;	// +0x24
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0AttachUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x00491A0F
 AttachUpdate::AttachUpdate(Thing *thing, const ModuleData *moduleData)
-	: UpdateModule(thing, moduleData),
-	m_20(0),
-	m_24(-1)
+	: UpdateModule(thing, moduleData)
 {
-	m_vtable = (const void *)((unsigned int)vtbl_00C4DB20);
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva0049188D@@6BRva0049188D_B2@@@"));
+	*reinterpret_cast<const void **>(this) = vtbl_00C4DB20;
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
+	*reinterpret_cast<const void **>(reinterpret_cast<char *>(this) + 0x10) = (const void *)((unsigned int)__identifier("??_7Rva0049188D@@6BRva0049188D_B2@@@"));
+	m_parentID = (ObjectID)0;
+	m_diedEvaEvent = -1;
 	setWakeFrame(m_object, (UpdateSleepTime)UPDATE_SLEEP_NONE);
 }
