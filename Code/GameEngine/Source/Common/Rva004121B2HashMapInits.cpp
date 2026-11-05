@@ -2,15 +2,14 @@
 // stlport
 // ??0Rva004121B2@@QAE@XZ @0x004121B2 31B: hash_map-shape default ctor, one more
 // twin of 0x00360B99 (and of 0x003A393A): the same 31B pushing 0x64 with three
-// empty functor temporaries, calling the Armor-shaped hashtable ctor fold at
-// 0x00411AC7 (already rowed as a gen-alias of the Armor hashtable ctor). Its
-// only callers are the four file-scope initializers below, whose cleanups
+// empty functor temporaries, calling the hashtable ctor fold at 0x00411AC7.
+// Its only callers are the four file-scope initializers below, whose cleanups
 // (rowed 0x007B8247/821F/8229/8233) tear the maps down through three different
 // hashtable destructors, so the value types differ and fold here; the owner is
-// unknown and the ctor keeps an honest address name. The layout is the Armor
+// unknown and the ctor keeps an honest address name. The layout is a
 // hashtable's: 0x14 bytes per map, the stride between the four globals.
-// The fold keeps its own EH handler operand, so its hashtable ctor is pinned
-// under a unique equal_to spelling (the Rva002D0C71Twin convention).
+// The fold keeps its own EH handler operand; the call binds the fold's owner
+// row (StlSweepW5Rva00411AC7.cpp) by its name, so no pin is needed.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
@@ -75,61 +74,27 @@ namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
 
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
-};
-
-namespace rts
-{
-
-template <typename T> struct hash
-{
-	size_t operator()(const T &value) const;
-};
-
-}
-
-namespace Rva004121B2Twin
-{
-template <typename T> struct equal_to
-{
-	bool operator()(const T &a, const T &b) const;
-};
-}
-
-#include "../../Include/GameLogic/Armor.h"
-
-typedef std::hash_map<
-	NameKeyType,
-	ArmorTemplate,
-	rts::hash<NameKeyType>,
-	std::equal_to<NameKeyType> > ArmorTemplateMap;
-
-typedef ArmorTemplateMap::value_type ArmorPair004121B2;
-typedef ArmorTemplateMap::hasher ArmorHasher004121B2;
-typedef Rva004121B2Twin::equal_to<NameKeyType> ArmorEqual004121B2;
-typedef ArmorTemplateMap::allocator_type ArmorAlloc004121B2;
-
-typedef _STL::hashtable<
-	ArmorPair004121B2,
-	NameKeyType,
-	ArmorHasher004121B2,
-	_STL::_Select1st<ArmorPair004121B2>,
-	ArmorEqual004121B2,
-	ArmorAlloc004121B2> ArmorHashtable004121B2;
+// Retail calls 0x00411AC7, the rowed int-keyed hashtable ctor
+// (StlSweepW5Rva00411AC7.cpp's hash_map<int,Rva00411AC7Element>, element declared
+// as there): the member is that table. A declaration-only specialization of its
+// ctor would zero the hasher temporary (xor/stosb), so the template stays visible,
+// as in ArmorHashMapCtor003A393A.cpp.
+struct Rva00411AC7Element {Rva00411AC7Element();Rva00411AC7Element(const Rva00411AC7Element&);Rva00411AC7Element&operator=(const Rva00411AC7Element&);~Rva00411AC7Element(){}char bytes[8]; bool operator==(const Rva00411AC7Element&)const;};
+typedef _STL::hash_map<int, Rva00411AC7Element> Rva00411AC7Map;
+typedef Rva00411AC7Map::value_type Rva00411AC7Pair;
+typedef _STL::hashtable<Rva00411AC7Pair, int, Rva00411AC7Map::hasher,
+	_STL::_Select1st<Rva00411AC7Pair>, Rva00411AC7Map::key_equal,
+	Rva00411AC7Map::allocator_type> Rva00411AC7Hashtable;
 
 class Rva004121B2
 {
 public:
 	Rva004121B2();
 private:
-	ArmorHashtable004121B2 m_table;
+	Rva00411AC7Hashtable m_table;
 };
 
-Rva004121B2::Rva004121B2() : m_table(100, ArmorHasher004121B2(), ArmorEqual004121B2(), ArmorAlloc004121B2()) {}
+Rva004121B2::Rva004121B2() : m_table(100, Rva00411AC7Map::hasher(), Rva00411AC7Map::key_equal(), Rva00411AC7Map::allocator_type()) {}
 
 void __cdecl rva007B8247();
 void __cdecl rva007B821F();
