@@ -5,3 +5,4 @@ Completed: allocation, scoped planner and TU plan passed; dry run accepted no do
 Remaining / next check: reconcile the donor class views and required headers; rerun the supported merge and affected provider/consumer checks.
 Clearance: pending; no composed object or consumer-binding verification was possible.
 Census confirmation: not claimed.
+2026-11-05: next step for the ctor unit's header adoption: respell 0x000CFA3C (`?name@W3DLightDraw@@QBEPBDXZ`) as GetSnapshotName; `rename.py function --to-class` refuses a readable-class member, so it needs an identifier approval then `--virtual`; [rename attempt](../../reverse/attempt_support/w3dlightdraw-getsnapshotname-rename-20261105-claudeb4.md).
