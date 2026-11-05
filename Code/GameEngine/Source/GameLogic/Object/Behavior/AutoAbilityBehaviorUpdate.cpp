@@ -148,20 +148,7 @@ public:
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 static inline float readFloat(const float *p) { return *p; }
-class CommandButton
-{
-public:
-	char m_pad00[0x1C];
-	unsigned int m_flags1C;
-	char m_pad20[0x12C - 0x20];
-	bool m_noTarget;		// +0x12C
-	char m_pad12D[3];
-	float m_range130;
-	float m_delay134;
-	char m_pad138[0x194 - 0x138];
-	ModelConditionFlags m_required;	// +0x194
-	Rva00263546 m_forbidden;	// +0x1E0
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 class Object
 {
@@ -238,14 +225,14 @@ UpdateSleepTime AutoAbilityBehavior::update()
 {
 	Object *obj = m_object;
 	const CommandButton *button = TheControlBar->findCommandButton(m_command);
-	if (button == 0 || (obj->m_status438 & 1) != 0 || obj->m_model.rva00263546(&button->m_forbidden)
-		|| (button->m_required.rva000B3EB3()
-			&& !((const Rva00263546 *)&button->m_required)->rva00263546(&obj->m_model)))
+	if (button == 0 || (obj->m_status438 & 1) != 0 || obj->m_model.rva00263546((const Rva00263546 *)button->m_disableOnModelCondition)
+		|| (((const ModelConditionFlags *)button->m_enableOnModelCondition)->rva000B3EB3()
+			&& !((const Rva00263546 *)button->m_enableOnModelCondition)->rva00263546(&obj->m_model)))
 	{
 		rva0045A413();
 		return UPDATE_SLEEP_FOREVER;
 	}
-	unsigned int options = button->m_flags1C;
+	unsigned int options = button->m_options;
 	bool flagged = ((obj->m_model.m_words[6] >> 22) & 1) != 0;
 	if (((options & 0x4000000) != 0 && !flagged) || ((options & 0x8000000) != 0 && flagged))
 	{
@@ -259,13 +246,13 @@ UpdateSleepTime AutoAbilityBehavior::update()
 	if (!rva0045A57C())
 		return (UpdateSleepTime)(BfmeLogicFramesPerSecond + 1);
 	int delay = BfmeLogicFramesPerSecond * 10;
-	const float &delayRef = button->m_delay134;
+	const float &delayRef = button->m_autoDelay;
 	if (delayRef > 0.0f)
 	{
 		float delayScale = delayRef;
 		delay = (int)((float)BfmeLogicFramesPerSecond * delayScale);
 	}
-	if (button->m_noTarget)
+	if (button->m_triggerWhenReady)
 	{
 		obj->doCommandButton(button, 2, false);
 		return (UpdateSleepTime)delay;
@@ -276,7 +263,7 @@ UpdateSleepTime AutoAbilityBehavior::update()
 		range = __cp(data->m_range);
 	else
 	{
-		const float &buttonRange = button->m_range130;
+		const float &buttonRange = button->m_presetRange;
 		if (buttonRange > 0.0f)
 			range = buttonRange;
 	}
@@ -325,7 +312,7 @@ UpdateSleepTime AutoAbilityBehavior::update()
 		Coord3D dest = target->m_position;
 		if (ai != 0 && data->m_meleeAdjust && *(unsigned char *)((char *)target + 0xAC) == 0)
 			TheAI->m_pathfinder->adjustToMeleeDestination(obj, *(const LocomotorSet *)((char *)ai + 0x1CC), &dest);
-		unsigned int buttonFlags = button->m_flags1C;
+		unsigned int buttonFlags = button->m_options;
 		_ReadWriteBarrier();
 		unsigned char needTargetPosBit = (unsigned char)(buttonFlags >> 5);
 		if ((needTargetPosBit & 1) != 0)

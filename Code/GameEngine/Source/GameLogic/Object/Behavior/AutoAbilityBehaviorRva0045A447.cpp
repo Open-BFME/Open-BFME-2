@@ -43,13 +43,7 @@ public:
  char data158[0x254-0x158]; BodyModule *body;
  AIUpdateInterface *ai;
 };
-class CommandButton {
-public:
- bool isReady(const Object*) const;
- char data00[0x134]; float range;
- bool flag138;
- char data139[3]; Rva00263546 exclude;
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 struct AutoAbilityData {
  char data00[0xC]; float minimumRange;
  char data10[0x1C-0x10]; _STL::_Base_bitset<4> forbiddenStatus;
@@ -63,7 +57,7 @@ Object *AutoAbilityBehavior::rva0045A447(BfmeWideResult *items,const CommandButt
  Object *candidate;
  for(candidate=items->next();candidate;candidate=items->next()) {
   if(!modData->allowSelf && candidate==owner) continue;
-  if(button && button->flag138) {
+  if(button && button->m_needDamagedTarget) {
    BodyModule *body=candidate->body;
    if(body && body->slot14()>0.8f) continue;
   }

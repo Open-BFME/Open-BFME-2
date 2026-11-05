@@ -77,16 +77,7 @@ class Player;
 
 extern GameLogic *TheGameLogic;
 
-class CommandButton
-{
-public:
-	const ThingTemplate *rva0035B570() const;
-	int m_pad00[5];
-	int m_type;
-	int m_pad18[4];
-	Rva005DA6F3Link **m_begin;
-	Rva005DA6F3Link **m_end;
-};
+#include "../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {
@@ -131,12 +122,12 @@ AIUpgradeHeuristicFactoryUnlock::AIUpgradeHeuristicFactoryUnlock(void *held)
 		const CommandButton *button = set->getCommandButton(i);
 		if (button == 0)
 			continue;
-		if (button->m_type != 3 && button->m_type != 4)
+		if (button->getCommandType() != 3 && button->getCommandType() != 4)
 			continue;
 
 		bool found = false;
-		Rva005DA6F3Link **entry = button->m_begin;
-		Rva005DA6F3Link **end = button->m_end;
+		Rva005DA6F3Link **entry = (Rva005DA6F3Link **)button->m_neededBegin;
+		Rva005DA6F3Link **end = (Rva005DA6F3Link **)button->m_neededEnd;
 		if (entry != end) {
 			do {
 				if (found)

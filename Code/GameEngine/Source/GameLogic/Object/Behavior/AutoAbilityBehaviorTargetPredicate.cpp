@@ -36,13 +36,7 @@ public:
  char data158[0x254-0x158]; BodyModule *body;
  AIUpdateInterface *ai;
 };
-class CommandButton {
-public:
- bool isReady(const Object*) const;
- char data00[0x134]; float range;
- bool flag138;
- char data139[3]; Rva00263546 exclude;
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 #include "../../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
 struct AutoAbilityData {
@@ -64,7 +58,7 @@ bool AutoAbilityBehavior::rva0045A57C()
  if((unsigned char)(obj->model[3]>>31)&1) return false;
  if((unsigned char)(obj->model[5]>>3)&1) return false;
  if(!obj->rva0028F4EF()) return false;
- if(((const Rva00263546*)obj->model)->rva00263546(&button->exclude)) return false;
+ if(((const Rva00263546*)obj->model)->rva00263546((const Rva00263546*)button->m_autoAbilityDisallowedOnModelCondition)) return false;
  if(obj->testStatus(AutoAbilityStatus74)) return false;
  AIUpdateInterface *ai=obj->ai;
  if(ai && ai->m_nextEnemyScanTime) return false;
