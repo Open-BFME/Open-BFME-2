@@ -40,3 +40,5 @@ broader consumer/census limitation remains open.
 2026-11-04: Rva0028951FFind.cpp and Rva002897A8Find.cpp now adopt canonical Overridable, retiring two header rows with identical external/COMDAT bindings and 250 authored bytes still previewing LINKS; remaining merge work is base/virtual and container reconciliation. [Evidence](../../reverse/attempt_support/experiencelevel-two-find-headers-20261104-codexb4.md).
 
 2026-11-04: ExperienceLevelStore now uses its shared header with the proven owner prefix; acceptance retires its final private-view queue row, 51/51 function rows and four data rows match, and 2,990 authored bytes retain LINKS. Other header, base/virtual and container prerequisites remain. [Evidence](../../reverse/attempt_support/experiencelevel-store-header-20261104-codex3.md).
+
+2026-11-05: ExperienceLevelDtor.cpp now adopts the canonical string-record header; acceptance retires one header row, with all 11 code rows, external/COMDAT bindings and the 222-byte scoped link verdict preserved. Other merge prerequisites remain. [Evidence](../../reverse/attempt_support/experiencelevel-dtor-header-20261105-codexb4.md).

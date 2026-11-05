@@ -40,11 +40,7 @@ Rva002892ED::~Rva002892ED()
  _STL::_Destroy(start,finish);
 }
 #include "../../../Include/Common/Overridable.h"
-struct BfmeStringRecord000B94D2
-{
- ~BfmeStringRecord000B94D2();
- char bytes[8];
-};
+#include "../../../Include/Common/BfmeStringRecord000B94D2.h"
 struct Rva002894A2Radius
 {
  BfmeStringRecord000B94D2 strings;
