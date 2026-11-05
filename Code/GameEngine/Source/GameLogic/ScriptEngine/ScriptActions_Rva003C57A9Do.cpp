@@ -26,7 +26,7 @@ struct Coord3D;
 class Rva0031D5F8
 {
 public:
-	void *rva0031D5F8(const AsciiString *name);	// rowed 0x0031D5F8 (ControlBar::findCommandSet)
+	void *rva0031D5F8(const AsciiString *name);
 };
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
