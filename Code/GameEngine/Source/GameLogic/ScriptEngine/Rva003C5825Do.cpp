@@ -17,18 +17,9 @@ public:
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class CommandButton
-{
-public:
-	char m_pad00[0x10];
-	AsciiString m_str10;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int i) const;
-};
+#include "../../../Include/GameClient/CommandSet.h"
 
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
@@ -56,7 +47,7 @@ void ScriptActions::Rva003C5825Do(Parameter *p, const AsciiString &name, const A
 		const CommandButton *commandButton = cmdSet->getCommandButton(i);
 		if (commandButton == 0)
 			continue;
-		const StringBase<char> &bs = (const StringBase<char> &)commandButton->m_str10;
+		const StringBase<char> &bs = (const StringBase<char> &)commandButton->getName();
 		if (bs.isEmpty())
 			continue;
 		int cmp = bs.compare((const StringBase<char> &)name);
