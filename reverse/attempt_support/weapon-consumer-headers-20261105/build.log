@@ -1,0 +1,13 @@
+Source claims: OK (6 sources, scoped byte-verified)
+Data rows: OK (2 row(s) byte-verified)
+Compile: 5 of 6 TU(s) (deps-cache: 1 current)
+Funclet pins: 8 row(s) verified past a renumbered $L label
+    $L2551 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp): $L2551 was renumbered; verified parent EH data places $L5810 at 0x0075D34A
+    $L2027 (Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp): $L2027 was renumbered; verified parent EH data places $L4547 at 0x00778DA9
+    Unwind@00b5d327 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp): $L2716 was renumbered; verified parent EH data places $L5804 at 0x0075D327
+    Unwind@00b5d32f (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp): $L2717 was renumbered; verified parent EH data places $L5805 at 0x0075D32F
+    Unwind@00b5d337 (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp): $L2718 was renumbered; verified parent EH data places $L5806 at 0x0075D337
+Functions: OK 19/19 matched across 6 source file(s)
+String-ref verify: OK (28 literals + 19 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (15 compiler literals verified)
+Import-ref verify: OK (2 named imports verified)

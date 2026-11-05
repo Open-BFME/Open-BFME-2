@@ -1,0 +1,38 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Weapon_getRemainingAmmo.cpp",
+    "runtime_identical": true,
+    "removed_definitions": [],
+    "added_definitions": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Weapon_prepareProjectileStreamForFiring.cpp",
+    "runtime_identical": true,
+    "removed_definitions": [],
+    "added_definitions": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAttackView.cpp",
+    "runtime_identical": true,
+    "removed_definitions": [],
+    "added_definitions": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp",
+    "runtime_identical": true,
+    "removed_definitions": [],
+    "added_definitions": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp",
+    "runtime_identical": true,
+    "removed_definitions": [],
+    "added_definitions": []
+  },
+  {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp",
+    "runtime_identical": true,
+    "removed_definitions": [],
+    "added_definitions": []
+  }
+]

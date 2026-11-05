@@ -70,23 +70,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Weapon
-{
-public:
-    virtual void unused();
-    UnsignedInt getRemainingAmmo(Bool countReloadingAsEmpty) const;
-    WeaponStatus computeStatus(Bool *changed) const;
-    // Owner-has-usable-ammo gate for the empty-clip READY path; true name
-    // unproven (BFME1 attempt: bfmeAmmoReady). Adjacent to computeStatus.
-    Bool isAmmoReady() const;
-
-private:
-    WeaponTemplate *m_template;
-    ObjectID m_ownerID;
-    UnsignedInt m_weaponSlot;
-    mutable WeaponStatus m_status;
-    UnsignedInt m_ammoInClip;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -96,7 +80,7 @@ UnsignedInt Weapon::getRemainingAmmo(Bool countReloadingAsEmpty) const
     const WeaponTemplate *weaponTemplate = m_template;
     if (weaponTemplateAmmo(weaponTemplate).isValid())
     {
-        Object *owner = TheGameLogic->findObjectByID(m_ownerID);
+        Object *owner = TheGameLogic->findObjectByID((ObjectID)m_ownerID);
         BfmeAmmoProvider *provider = owner ? owner->getAmmoProvider() : 0;
         if (provider)
         {
@@ -115,7 +99,7 @@ UnsignedInt Weapon::getRemainingAmmo(Bool countReloadingAsEmpty) const
 
 Bool Weapon::isAmmoReady() const
 {
-    Object *owner = TheGameLogic->findObjectByID(m_ownerID);
+    Object *owner = TheGameLogic->findObjectByID((ObjectID)m_ownerID);
     if (owner != 0)
     {
         if (owner->isCurWeaponLocked())

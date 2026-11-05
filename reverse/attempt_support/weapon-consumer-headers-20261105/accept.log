@@ -1,0 +1,7 @@
+  PASS Code/GameEngine/Source/GameLogic/Object/Weapon_getRemainingAmmo.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Weapon_prepareProjectileStreamForFiring.cpp
+  PASS Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderAttackView.cpp
+  PASS Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp
+  PASS Code/GameEngine/Source/GameLogic/Pathfinder/rva002F14F9Rva002F14F9Farm.cpp
+  PASS Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp
+  retired 6 row(s) from reverse/header_queue.tsv; commit it with the adoption

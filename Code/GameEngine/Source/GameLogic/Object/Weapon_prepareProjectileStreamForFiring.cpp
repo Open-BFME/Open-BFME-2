@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /I.
 // Weapon::prepareProjectileStreamForFiring (retail 0x002CC4DD, 155 B): spawns the weapon template's named object for the owner's
-// player when none is alive (name at WeaponTemplate+0x178, owner id +0x08, spawned id +0x5C). Private
-// Weapon view (offsets are target facts); the equal-arms on the template name test and the stale-id lookup
+// player when none is alive (name at WeaponTemplate+0x178, owner id +0x08, spawned id +0x5C).
+// Offsets are target facts; the equal-arms on the template name test and the stale-id lookup
 // barrier are scheduling levers found by sweepeq4/chain.py.
 // stlport
 extern "C" void _ReadWriteBarrier(void);
@@ -22,17 +22,7 @@ class Player;
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
-class Weapon
-{
-public:
-	void prepareProjectileStreamForFiring();
-private:
-	char m_pad00[4];
-	WeaponTemplate *m_template;
-	ObjectID m_owner08;
-	char m_pad0C[0x5C - 0x0C];
-	ObjectID m_spawned5C;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {
@@ -63,17 +53,17 @@ void Weapon::prepareProjectileStreamForFiring()
 		return;
 	Object *owner;
 	GameLogic *logic = TheGameLogic;
-	owner = logic->findObjectByID(m_owner08);
+	owner = logic->findObjectByID((ObjectID)m_ownerID);
 	if (!owner)
 	{
-		m_spawned5C = INVALID_OBJECT_ID;
+		m_extra5C = INVALID_OBJECT_ID;
 		return;
 	}
-	Object *spawned = logic->findObjectByID(m_spawned5C);
+	Object *spawned = logic->findObjectByID((ObjectID)m_extra5C);
 	_ReadWriteBarrier();
 	if (spawned)
 		return;
-	m_spawned5C = INVALID_OBJECT_ID;
+	m_extra5C = INVALID_OBJECT_ID;
 	void *tmpl = (void *)TheThingFactory->findTemplate(asciiString);
 	CreateMask mask;
 	memset(&mask, 0, 0x10);
@@ -82,5 +72,5 @@ void Weapon::prepareProjectileStreamForFiring()
 	Object *created = TheThingFactory->newObject((const ThingTemplate *)tmpl, team, &mask, (ObjectID)0);
 	if (!created)
 		return;
-	m_spawned5C = created->m_id74;
+	m_extra5C = created->m_id74;
 }

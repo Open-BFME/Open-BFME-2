@@ -38,17 +38,7 @@ public:
     int rva0028B511() const;
 };
 class Rva002C9400ByteField;
-class Weapon
-{
-public:
-	bool isWithinAttackRange(Object *source, const Coord3D *pos, Object *victim, const Coord3D *victimPos, float bonus, bool checkMinimum);
-	float getAttackRange(const Object *) const;
-	bool isWithinAttackRange(const Object *,const Object *,float,int) const;
-	bool isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D &, const Coord3D &) const;
-	int isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D *, const Object *);
-	void *m_00; // +0x00
-	Rva002C9400ByteField *m_definition; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 struct AttackAiData { char pad[0x67]; unsigned char useLOS; };
 class AI;
 extern AI *TheAI;

@@ -255,17 +255,7 @@ static __forceinline const char *weaponTemplateNameText(const WeaponTemplate *wt
 	return data ? data + 8 : "";
 }
 
-class Weapon
-{
-public:
-	Real getPercentReadyToFire() const;
-	WeaponStatus computeStatus(Bool *out) const;
-	WeaponStatus getStatus() const;
-	void *m_vtable;
-	WeaponTemplate *m_template;	// +0x04
-	char m_unreconstructed_008[0x18 - 8];
-	UnsignedInt m_nextShot;		// +0x18
-};
+#include "../../../../GameEngine/Include/GameLogic/Weapon.h"
 
 class Thing
 {
@@ -413,7 +403,7 @@ selection:
 
 		const Weapon *weapon = object->getCurrentWeapon(&slot);
 		if (weapon) {
-			unsigned int nextShot = weapon->m_nextShot;
+			unsigned int nextShot = weapon->m_whenWeCanFireAgain;
 			int percent = (int)(weapon->getPercentReadyToFire() * 100.0f);
 			int status;
 			if (TheGameLogic->isInMultiplayerGame()) {

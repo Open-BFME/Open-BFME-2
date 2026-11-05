@@ -633,17 +633,7 @@ inline __declspec(noinline) void __cdecl Rva002EBCD6Split(void *p, int *outHalf,
  *outHalf = h;
  *outRest = v - h;
 }
-class Weapon
-{
-public:
-	bool isWithinAttackRange(Object *source, const Coord3D *pos, Object *victim, const Coord3D *victimPos, float bonus, bool checkMinimum);
-	float getAttackRange(const Object *) const;
-	bool isWithinAttackRange(const Object *,const Object *,float,int) const;
-	bool isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D &, const Coord3D &) const;
-	int isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D *, const Object *);
-	void *m_00; // +0x00
-	Rva002C9400ByteField *m_definition; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 class PathfinderAttackContainView:public PathfinderNativeSlots<6>
 {
  public:virtual int slot18();
@@ -678,7 +668,7 @@ Object *Pathfinder::rva002F14F9(Object *obj,Object *target)
  }
  ++g_Va00DFECD0;
  const Weapon *weapon=obj->getCurrentWeapon(0);
- if(!weapon || !weapon->m_definition->get())return 0;
+ if(!weapon || !((const Rva002C9400ByteField *)weapon->m_template)->get())return 0;
  int relatedID=0;
  bool status65=obj->testStatus((ObjectStatusTypes)65);
  if(obj ? status65 : status65)
@@ -729,7 +719,7 @@ Object *Pathfinder::rva002F14F9(Object *obj,Object *target)
         && (relation==ENEMIES || (candidate->m_template->hasKind(50) && relation==NEUTRAL))
         && (!target || candidate==target)
         && (candidate==target || !candidate->m_template->hasKind(130))
-        && weapon->isWithinAttackRange(obj,candidate,0.0f,1))
+        && weapon->isWithinAttackRange((const Object *)obj,(const Object *)candidate,0.0f,1))
         {
          float distance=obj->rva00263763(candidate);
          if(distance<bestDistance)
@@ -754,7 +744,7 @@ Object *Pathfinder::rva002F14F9(Object *obj,Object *target)
         if(!candidate->m_template->hasKind(50) && relation==NEUTRAL)continue;
        }
        if(target && candidate!=target && candidate->container!=target)continue;
-       if(weapon->isWithinAttackRange(obj,candidate,0.0f,1))
+       if(weapon->isWithinAttackRange((const Object *)obj,(const Object *)candidate,0.0f,1))
        {
         float distance=obj->rva00263763(candidate);
         if(distance<bestDistance)

@@ -21,7 +21,7 @@ enum NameKeyType {NAMEKEY_INVALID=0};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Object;class Module;class Weapon;
 class Rva002C9400ByteField {public:unsigned char get()const;};
-class Weapon {public:float getAttackRange(const Object*)const;void *vptr;Rva002C9400ByteField *definition;};
+#include "../../../Include/GameLogic/Weapon.h"
 struct AttackQueryTemplate {char pad[0x108];unsigned kind[8];unsigned kindOf(unsigned k)const{return kind[k>>5]&(1U<<(k&31));}};
 class Object {
  friend class Pathfinder;
@@ -115,7 +115,7 @@ inline __declspec(noinline) void DynamicPortalBehaviour::rva00460CBA(Coord3D *ou
 bool Pathfinder::rva002EC479(Object *attacker,const Coord3D *from,Object *target)
 {
  const Weapon *weapon=attacker->getCurrentWeapon(0);
- if(!weapon || !weapon->definition->get())return false;
+ if(!weapon || !((const Rva002C9400ByteField *)weapon->m_template)->get())return false;
  ICoord2D base;Rva002EBC14Cell(&base,attacker,from);
  int diameter=Rva002E9B31Get(attacker);
  int half=diameter/-2;base.x+=half;base.y+=half;
