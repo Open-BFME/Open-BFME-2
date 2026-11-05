@@ -7,10 +7,7 @@
 // out-of-line pointer-vector dtor 0x0047FAB3. Identity of the pointee and the
 // owner is unproven.
 #include <stdlib.h>
-void Rva00030830FreeAllocation(void *);
-#define free Rva00030830FreeAllocation
 #include <vector>
-#undef free
 #include <new>
 
 class H1F8167Pointee

@@ -6,7 +6,11 @@
 // stlport
 #include <stdlib.h>
 namespace _STL {void __cdecl free(void *) throw(...);}
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseBeaconStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <list>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base
@@ -17,7 +21,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
                               const _List_iterator<T, Traits>& b)
 { return a._M_node != b._M_node; }
 }
-#undef free
 
 typedef bool Bool;
 typedef float Real;
@@ -33,13 +36,17 @@ namespace _STL { template <> _List_node<Coord3D> * list<Coord3D, allocator<Coord
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void allocator<_List_node<Coord3D> >::deallocate(_List_node<Coord3D> *__p, size_t) const
-{ if (__p != 0) _STL::free((void *)__p); }
+{ if (__p != 0) releaseBeaconStorage((void *)__p); }
 template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<_List_node<Coord3D> *, _List_node<Coord3D>, allocator<_List_node<Coord3D> > >::deallocate(_List_node<Coord3D> *__p, size_t __n)
 { allocator<_List_node<Coord3D> >::deallocate(__p, __n); }
 }
 
 typedef _STL::list<Coord3D> Coord3DList;
+namespace _STL {
+template <> inline void allocator<_List_node<Coord3DList> >::deallocate(_List_node<Coord3DList> *__p, size_t) const
+{ if (__p != 0) releaseBeaconStorage((void *)__p); }
+}
 
 // Target outer nodes own a coordinate list: clear283002 calls its5B
 // destructor200667 and copy construction in282843 calls coordinate-list copy2820DD.

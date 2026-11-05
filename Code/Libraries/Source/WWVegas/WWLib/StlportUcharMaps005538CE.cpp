@@ -20,10 +20,12 @@
 // stand-ins for that.
 #include <cstdlib>
 void Rva00030830FreeAllocation(void *);
-// Share the stats constructor unit's verified game-memory cleanup route.
-#define free Rva00030830FreeAllocation
 #include <map>
-#undef free
+// Share the stats constructor unit's verified game-memory cleanup route.
+namespace _STL {
+template <> inline void allocator<_Rb_tree_node<pair<const unsigned char, float> > >::deallocate(_Rb_tree_node<pair<const unsigned char, float> > *__p, size_t) const
+{ if (__p != 0) Rva00030830FreeAllocation((void *)__p); }
+}
 // The common pair/clone unit supplies the short creator; the copy unit
 // supplies the dword creator. Both native bodies are verified at 34 bytes.
 // The generic malloc-based copy emits 32 different bytes at this native target.

@@ -24,13 +24,22 @@
 
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releasePointStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include "../../../../../../reference/shims/bfme_stlport_unsigned_max_link/unsigned_max.h"
 #include <vector>
-#undef free
 
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
+namespace _STL {
+template<> inline void allocator<Coord2D>::deallocate(Coord2D *__p, size_type) const
+{
+	if (__p != 0) releasePointStorage((void *)__p);
+}
+}
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 enum NameKeyType { NAMEKEY_INVALID = 0 };

@@ -15,7 +15,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <stdlib.h>
 void Rva00030830GameFree(void*);
 // Retail string allocator releases through the game allocator, not CRT free.
-#define free Rva00030830GameFree
 #include <vector>
 #include <string>
 // Inline _String_base<char>'s dtor everywhere so this unit emits no copy of
@@ -36,9 +35,8 @@ namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, 
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
-{ allocator<char>::deallocate(__p, __n); }
+{ if (__p != 0) Rva00030830GameFree((void *)__p); }
 }
-#undef free
 class RenderObjClass {public:
  virtual void slot00();
  virtual void slot01();

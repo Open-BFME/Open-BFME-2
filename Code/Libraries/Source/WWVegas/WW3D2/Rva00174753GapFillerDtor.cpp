@@ -19,10 +19,14 @@
 // The original context and auxiliary identities remain address-derived.
 void __cdecl Rva00030830FreeAllocation(void *);
 #include <cstdlib>
-#define free Rva00030830FreeAllocation
 #include <vector>
-#undef free
 #include <new>
+namespace _STL {
+template<> inline void allocator<int>::deallocate(int *__p, size_type) const
+{
+	if (__p != 0) Rva00030830FreeAllocation((void *)__p);
+}
+}
 class Rva00087A93 { public: void *m_data; };
 struct BfmeAssignRecord32 {
  BfmeAssignRecord32(const BfmeAssignRecord32 &);

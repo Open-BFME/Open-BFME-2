@@ -16,10 +16,7 @@
 // to the 0x00E03158 manager (0x004211A0) when that manager exists, else allows.
 
 #include <stdlib.h>
-namespace _STL { void __cdecl free(void *block); }
-#define free _STL::free
 #include <vector>
-#undef free
 
 typedef bool Bool;
 

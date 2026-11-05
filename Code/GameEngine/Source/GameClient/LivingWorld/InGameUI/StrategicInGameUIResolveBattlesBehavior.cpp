@@ -4,9 +4,19 @@
 // Retail576C39 frees through the existing C++-linkage game allocator30830.
 // Its throwing declaration retains the native exception-state reset.
 namespace _STL { void __cdecl free(void *); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseDisputeStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <vector>
-#undef free
+class Rva00576BDDDispute;
+namespace _STL {
+template<> inline void allocator<Rva00576BDDDispute *>::deallocate(Rva00576BDDDispute **__p, size_type) const
+{
+	if (__p != 0) releaseDisputeStorage((void *)__p);
+}
+}
 //
 // StrategicInGameUI::ResolveBattlesBehavior::Impl (WorldBuilder
 // StrategicInGameUIResolveBattlesBehavior.cpp names its translateGameMessage, vtable match).

@@ -21,10 +21,9 @@
 //
 // The free is the game's allocator wrapper at 0x00030830, reached through the
 // C++-linkage _STL::free spelling -- NOT the extern "C" import, which reaches
-// the thunk 0x00628F98 and carries no unwind state. The registry.cpp
-// include-guard idiom (stdlib.h first, then the _STL declaration, then the
-// `#define free _STL::free` around the STL headers) is what lets the STLport
-// headers coexist with that second spelling.
+// the thunk 0x00628F98 and carries no unwind state. A forceinline helper
+// declared before the STL headers binds that spelling before STLport imports
+// ::free into _STL.
 //
 // The two element vectors are declared-only specializations so their
 // destructors stay out of line and resolve to the matched rows 0x000C1C20 and
@@ -37,7 +36,11 @@
 // modelled as pad.
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseFinishStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include "ascii_string.h"
 #include <vector>
 #include <list>
@@ -57,7 +60,6 @@ template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 }
-#undef free
 
 struct Rva00B9AC2 { char _pad[0x18]; };
 struct Rva00B6CF1 { char _pad[8]; };
@@ -72,7 +74,7 @@ struct Rva000C2980OwningPtr
 	~Rva000C2980OwningPtr()
 	{
 		if (p != 0)
-			_STL::free(p);
+			releaseFinishStorage(p);
 	}
 };
 

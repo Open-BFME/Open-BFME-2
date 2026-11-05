@@ -53,11 +53,8 @@
 // 0x629110, tree 0xBB65C, vectors 0xC0417/0xC1C20/0xC1BE1, proxy dtor 0x2FECBC
 // via opaque pin, strings 0x36410, vector 0xC6878) then -1 for final string.
 #include <stdlib.h>
-namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
 #include "ascii_string.h"
 #include <vector>
-#undef free
 
 struct BfmeVectorRecord000BDF17;
 struct Rva00B9AC2 { char _pad[0x18]; };
