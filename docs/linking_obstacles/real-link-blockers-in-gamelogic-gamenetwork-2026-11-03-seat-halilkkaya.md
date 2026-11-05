@@ -322,6 +322,10 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
 
 - 0x004B8CDE (`Rva004B8CDE`) is `~CreateModule`. A canonical view needs it and six other provider names first. `rename.py class --fold` refuses it (recorded as a false reject). Order of work: `reverse/attempt_support/004b8c0e-lockweaponcreate-canonical-view-20261105.md`.
 
+#### Seat claudeb follow-up (2026-11-05): the `~CreateModule` fold now stops at class_gate
+
+- `86cd001293` cleared the false reject. The fold now needs `--prepared` for a registered global NEW (a tool change) and rows for `CreateModule::loadPostProcess` / `GetSnapshotName` first: `reverse/attempt_support/004b8cc9-lockweaponcreate-fold-class-gate-20261105-claudeb.md`.
+
 #### Seat halilkkaya-lk28 follow-up (2026-11-05, real link 42035295927 at `dbde7dbe3b`)
 
 - **BoneFXDamage.cpp (3): 1 repaired, `?loadPostProcess@DamageModule@@MAEXXZ`.**
