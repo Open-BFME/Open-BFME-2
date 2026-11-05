@@ -55,6 +55,12 @@ template <> void vector<AngleFXInfo>::_M_insert_overflow(AngleFXInfo *, const An
 template <> __declspec(dllimport) __forceinline
 AngleFXInfo *allocator<AngleFXInfo>::allocate(unsigned int n, const void *) const
 { return n != 0 ? reinterpret_cast<AngleFXInfo *>(allocator<char>::allocate(n * sizeof(AngleFXInfo), 0)) : 0; }
+
+// Keep the allocator-proxy operation inline. Its external copy depends on this
+// TU's compiler flags and would displace the kept copy when merged into dx8fvf.
+template <> __declspec(dllimport) __forceinline
+AngleFXInfo *_STLP_alloc_proxy<AngleFXInfo *, AngleFXInfo, allocator<AngleFXInfo> >::allocate(unsigned int n)
+{ return static_cast<allocator<AngleFXInfo> &>(*this).allocate(n, 0); }
 }
 
 template<>
