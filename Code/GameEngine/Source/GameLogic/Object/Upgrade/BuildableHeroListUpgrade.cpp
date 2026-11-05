@@ -133,7 +133,6 @@ private:
 #include "../../../../Include/Common/MemoryPoolObject.h"
 #include "Common/Snapshot.h"
 #include "../../../../Include/Common/TeamBFME2.h"
-
 class TeamPrototype
 {
 public:
@@ -145,10 +144,17 @@ private:
     char pad[0x334];
     Team *m_head;
 };
-
 #include "../../../../Include/GameLogic/PlayerTeamNode.h"
-
 #include "../../../../Include/Common/ThingTemplate.h"
+//
+// ??0BuildableHeroListUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B8332, 49 bytes.
+// BuildableHeroListUpgrade behavior ctor over the canonical UpgradeModule base
+// (0x460AEC, thing plus data): the compiler re-stores the four most-derived
+// vtable slots at +0/+0x0C/+0x10/+0x18 (GeometryUpgrade ctor precedent; the
+// immediates are DIR32-masked). The rowed name getter at 0x4B82CB proves the
+// class; the rowed instance factory 0x25087E is the sole raw caller.
+
+class Thing;
 
 template <int N> class Rva004B83D2Slots : public Rva004B83D2Slots<N - 1>
 {
@@ -168,9 +174,17 @@ public:
     virtual unsigned count() const = 0; // slot44
 };
 
-// tu-skeleton: 0x004B8332 49B ??0BuildableHeroListUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgradeCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgradeCtor.cpp
+
+// ??0BuildableHeroListUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z @0x004B8332
+BuildableHeroListUpgrade::BuildableHeroListUpgrade(Thing *thing, const ModuleData *moduleData)
+	: UpgradeModule(thing, moduleData)
+{
+}
 
 // tu-skeleton: 0x004B8363 28B ??_GRva004B82A5@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgradeImplementation.cpp
 
