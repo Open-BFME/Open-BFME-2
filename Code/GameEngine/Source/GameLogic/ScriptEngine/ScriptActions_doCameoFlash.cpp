@@ -2,12 +2,7 @@
 #include "ascii_string.h"
 // ?doCameoFlash@ScriptActions@@IAEXABVAsciiString@@H@Z @0x003BB556 64B chain via 0x0031BE3C caller 0x003CBAEC globals 0xE01CFC 0xDBA4E8
 // Evidence: ControlBar::findCommandButton row 0x0031BE3C, g_bfmeWorldRV alias, FramesPerSecond BfmeClientFramesPerSecond, CommandButton+0xF8 store.
-class CommandButton
-{
-public:
-	unsigned char m_pad[0xF8];
-	int m_00F8;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 #include "../../../Include/GameClient/ControlBar.h"
 struct BfmeWorldRV;
 extern class ControlBar *TheControlBar;
@@ -25,6 +20,6 @@ void ScriptActions::doCameoFlash(const AsciiString &name, int v)
 		int q = BfmeClientFramesPerSecond * v / 10;
 		if (q % 2 == 1)
 			++q;
-		((CommandButton *)btn)->m_00F8 = q;
+		btn->setFlashCount(q);
 	}
 }

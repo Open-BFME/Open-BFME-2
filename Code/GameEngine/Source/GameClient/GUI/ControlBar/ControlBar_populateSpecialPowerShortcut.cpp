@@ -89,33 +89,9 @@ typedef _STL::vector<ScienceType> ScienceVec;
 class AsciiString;
 class Image;
 class SpecialPowerTemplate;
-class CommandButton
-{
-public:
-    void cacheButtonImage();
-    CommandButton *friend_getNext() { return m_next; }
-    int getCommandType() const { return m_command; }
-    CommandButton *getNext() const { return m_next; }
-    const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
-    const _STL::vector<ScienceType> &getScienceVec() const { return science; }
-    signed char getOptions() const { return static_cast<signed char>(m_options); }
-    const Image *rva0035B19E() const;
-    const AsciiString &rva0035B1E9() const;
-    char m_pad00[0x14];
-    int m_command;
-    CommandButton *m_next;
-    unsigned int m_options;
-    char m_pad20[0x24];
-    const SpecialPowerTemplate *m_specialPower;
-    char m_pad48[0x5C];
-    _STL::vector<ScienceType> science;
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(Int index) const;
-};
+#include "../../../../Include/GameClient/CommandSet.h"
 
 class Rva0035B7D9
 {
@@ -443,7 +419,7 @@ void ControlBar::populateSpecialPowerShortcut(Player *player)
 				{
 					ScienceType science = commandButton->getScienceVec()[bestIndex];
 					for (CommandButton *purchase = m_commandButtons;
-						purchase; purchase = purchase->getNext())
+						purchase; purchase = purchase->friend_getNext())
 					{
 						if (purchase->getCommandType() == GUI_COMMAND_PURCHASE_SCIENCE
 								&& !purchase->getScienceVec().empty()
