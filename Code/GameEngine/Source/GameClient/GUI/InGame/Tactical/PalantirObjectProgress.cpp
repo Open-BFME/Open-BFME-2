@@ -67,15 +67,7 @@ private:
 
 bool ComputeObjectRankValues(const Object &obj, Int &rank, Real &progress);
 
-class LifetimeUpdate
-{
-	char m_pad00[0x20];
-
-public:
-	UnsignedInt m_dieFrame; // +0x20
-	UnsignedInt m_startFrame; // +0x24
-	Bool m_finished; // +0x28
-};
+#include "../../../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 
 class TemporarilyDefectUpdate
 {
@@ -155,10 +147,10 @@ Rva00528CEBResult rva00528CEB(Object *obj)
 
 	static NameKeyType lifetimeKey = TheNameKeyGenerator->nameToKey("LifetimeUpdate");
 	LifetimeUpdate *lifetime = (LifetimeUpdate *)obj->findModule(lifetimeKey);
-	if (lifetime != 0 && !lifetime->m_finished)
+	if (lifetime != 0 && !lifetime->m_field28)
 	{
 		result.mode = MODE_TIMER;
-		start = lifetime->m_startFrame;
+		start = lifetime->m_field24;
 		end = lifetime->m_dieFrame;
 	}
 	else if (obj->testStatus(OBJECT_STATUS_3E))

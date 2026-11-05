@@ -1,0 +1,4 @@
+### LINK-510: LifetimeUpdate header adoption needs canonical virtual providers
+Status: Blocked for LifetimeUpdate.cpp; Palantir consumer cleared. Updated: 2026-11-05; inspected revision: `5128dc56f7`.
+Evidence / next check: [trial and retained repair](../../reverse/attempt_support/lifetime-header-adoption-20261105-codex.md). PalantirObjectProgress.cpp adopts the header, retires one queue row and preserves 546 linked bytes. LifetimeUpdate.cpp adoption byte-matches but loses its 675 linked bytes on four unresolved canonical virtual names; restored and verified LINKS. Reconcile the existing destructor, snapshot-name, xfer and shared loadPostProcess placeholder providers through naming approval before retrying. Other three cohort blockers and final checks are in the evidence.
+Census confirmation: no new measurement claimed.
