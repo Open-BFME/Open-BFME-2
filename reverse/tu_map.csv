@@ -45720,7 +45720,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0054FCA5,202,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,C,C=0x0054FB78..0x0054FD6F,Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp
 0x0054FD6F,20,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,C,C=0x0054FB78..0x0054FD83,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
 0x0054FD83,33,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,C,C=0x0054FB78..0x0054FDA4,Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp
-0x0054FDA4,163,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp S=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp N=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Pinger.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp
+0x0054FDA4,163,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp S=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp N=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Pinger.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
 0x0054FE47,51,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,C,C=0x0054FDA4..0x0054FE7A,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
 0x0054FE7A,45,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,C,C=0x0054FDA4..0x0054FEA7,Code/GameEngine/Source/Common/Rva0054FD83Destroy.cpp
 0x0054FEA7,33,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,C,C=0x0054FDA4..0x0054FEC8,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
@@ -85146,9 +85146,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00798797,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FCA5@FuncInfo0x0094CC9C,Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp
 0x0079879F,25,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FCA5@FuncInfo0x0094CC9C,Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp
 0x007987B8,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FCA5@FuncInfo0x0094CC9C,Code/GameEngine/Source/Common/Rva0054FC14Cleanup.cpp
-0x007987C2,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FDA4@FuncInfo0x0094CCC8,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp
-0x007987CA,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FDA4@FuncInfo0x0094CCC8,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp
-0x007987D2,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FDA4@FuncInfo0x0094CCC8,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread_Pinger_getPing.cpp
+0x007987C2,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FDA4@FuncInfo0x0094CCC8,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
+0x007987CA,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FDA4@FuncInfo0x0094CCC8,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
+0x007987D2,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FDA4@FuncInfo0x0094CCC8,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
 0x007987DC,8,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FF17@FuncInfo0x0094CCEC,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
 0x007987E4,10,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FF17@FuncInfo0x0094CCEC,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp
 0x007987EE,14,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PingThread.cpp,approved,P,P=0x0054FF6E@FuncInfo0x0094CD10,Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp
