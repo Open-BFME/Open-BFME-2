@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// platformsdk
 // ?rva002251E5@Rva00222A8BTarget@@QAEXXZ @0x002251E5 (180B): frameless
 // window-manager frame update on the Rva00222A8BTarget layout proven by the
 // rowed 0x00224818 in Rva00224818.cpp (14 stride-0x28 entries at +0xF0,
@@ -11,7 +12,8 @@
 // thiscall to AptPlayer::HandleOverButtons 0x00224F6C. Address-derived method name; the class
 // attribution rests on the shared layout plus the self-call. No virtuals:
 // retail installs no vtable here.
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+#include <windows.h>
+#include <mmsystem.h>
 
 #include "../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
