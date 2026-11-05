@@ -44,29 +44,9 @@ public:
 class AptCommandMap;
 class AptExternHandler;
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	unsigned char m_names[12]; // an STLport vector<AsciiString>
-};
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
-// The Apt screen base (BfmeAptGameWindowDestructor.cpp): a 0x218-byte
-// GameWindow and, at +0x218, the 0x58-byte callback registry.
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {
 public:
@@ -516,22 +496,22 @@ AptInGameChat::AptInGameChat(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptInGameChat::OnInitialized);
 		AsciiString name("AptInGameChat::OnInitialized");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptInGameChat::rva004E8213);
 		AsciiString name("AptInGameChat::OnClosed");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva004E8220::rva004E8220);
 		AsciiString name("AptInGameChat::Close");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptInGameChat::Send);
 		AsciiString name("AptInGameChat::Send");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 }
 
