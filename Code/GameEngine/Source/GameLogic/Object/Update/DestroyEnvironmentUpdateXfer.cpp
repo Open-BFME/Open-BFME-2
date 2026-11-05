@@ -33,10 +33,7 @@ class Object;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
@@ -50,12 +47,16 @@ class DestroyEnvironmentUpdate : public UpdateModule
 {
 public:
 	DestroyEnvironmentUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DestroyEnvironmentUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva004AC722();
 
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned int m_frame;
+	unsigned int m_nextCallFrame;
 	ObjectID m_objectID;
 };
 
@@ -65,6 +66,6 @@ void DestroyEnvironmentUpdate::xfer(Xfer *xfer)
 	if (xfer->IsLightCRC())
 		return;
 	xfer->Version1();
-	*xfer == m_frame;
+	*xfer == m_nextCallFrame;
 	XferObjectID(xfer, &m_objectID);
 }

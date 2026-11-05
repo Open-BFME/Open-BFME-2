@@ -12,22 +12,32 @@
 // object to 0x004AC5F5 in eax, so it stays unrecovered; it is pinned here
 // under an address name from this call. Base layout follows
 // Rva0024A797Derived.cpp; the +0x20/+0x24 members follow the rowed ctor.
+class Thing;
+class ModuleData;
+class Xfer;
+
 enum NameKeyType { NK_UNKNOWN = 0 };
 
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0 };
 
 class DestroyEnvironmentUpdate : public UpdateModule
 {
 public:
+	DestroyEnvironmentUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~DestroyEnvironmentUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	void rva004AC722();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
 	unsigned int m_nextCallFrame;
-	unsigned int m_objectID;
+	ObjectID m_objectID;
 };
 
 //

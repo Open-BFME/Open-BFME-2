@@ -3,7 +3,7 @@
 // ??0DestroyEnvironmentUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
 // 0x004AC63A, 68 bytes. DestroyEnvironmentUpdate ctor over the rowed
 // UpdateModule base (0x253390): next-call frame defaults to 0x3FFFFFFF with
-// flags zeroed, then refreshes from TheGameLogic frame when module data is
+// the object ID cleared, then refreshes from TheGameLogic frame when module data is
 // present. Base-class layout mirrors UpdateModuleCtor.cpp exactly (MI chain
 // plus wake/index members) so the derived stores land at +0x20/+0x24; the
 // secondary vtable installs at +0xC/+0x10 come from that chain. TheGameLogic
@@ -43,17 +43,21 @@ public:
 	virtual ~DestroyEnvironmentUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	void rva004AC722();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
 	unsigned int m_nextCallFrame;
-	unsigned int m_flags;
+	ObjectID m_objectID;
 };
 
 // ??0DestroyEnvironmentUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
 DestroyEnvironmentUpdate::DestroyEnvironmentUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData),
 	  m_nextCallFrame(0x3FFFFFFF),
-	  m_flags(0)
+	  m_objectID(INVALID_OBJECT_ID)
 {
 	if (getModuleData() != 0)
 		m_nextCallFrame = TheGameLogic->getFrame();
