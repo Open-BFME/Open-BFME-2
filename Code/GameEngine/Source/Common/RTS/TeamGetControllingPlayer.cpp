@@ -175,30 +175,11 @@ class ThingTemplate;
 extern ThingFactory *TheThingFactory;
 
 enum KindOfType { KINDOF_HORDE = 109, KINDOF_COMBO_HORDE = 110 };
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (m_kindOfWord3 & (1UL << ((unsigned)t & 31))) != 0; }
-	const ModuleInfo &getBehaviorModuleInfo() const { return m_behaviorModuleInfo; }
-	Bool isEquivalentTo(const ThingTemplate *tt) const;
-	const AsciiString &getName() const { return m_name; }
-	const _STL::vector<AsciiString> &getBuildVariations() const { return m_buildVariations; }
-private:
-	unsigned char m_pad00[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad68[0x108 - 0x68];
-public:
-	UnsignedInt m_kind0; // +0x108
-	unsigned char m_pad10C[0x114 - 0x10C];
-	UnsignedInt m_kindOfWord3;
-	unsigned char m_pad118[0x11A - 0x118];
-	unsigned char m_kindByte11a; // +0x11A
-private:
-	unsigned char m_pad11B[0x2E4 - 0x11B];
-	ModuleInfo m_behaviorModuleInfo; // +0x2E4
-	unsigned char m_pad2F0[0x330 - 0x2F0];
-	_STL::vector<AsciiString> m_buildVariations; // +0x330
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// isKindOf for kinds in kindof word 3 (+0x114).
+static __forceinline Bool thingTemplateIsKindOfWord3(const ThingTemplate *tmpl, KindOfType t) { return (tmpl->m_kindof[3] & (1UL << ((unsigned)t & 31))) != 0; }
+static inline const ModuleInfo &thingTemplateBehaviorModuleInfo(const ThingTemplate *tmpl) { return *(const ModuleInfo *)tmpl->m_behaviorModuleInfo; }
+static inline const _STL::vector<AsciiString> &thingTemplateBuildVariations(const ThingTemplate *tmpl) { return *(const _STL::vector<AsciiString> *)tmpl->m_buildVariations; }
 
 class Player;
 class Team;
@@ -580,11 +561,11 @@ bool Team::rva0039DF87(BfmeTab1026 *tab)
 		if ((cur->m_status & 1) != 0)
 			continue;
 		const ThingTemplate *thingTemplate = cur->getTemplate();
-		if ((int)(thingTemplate->m_kind0 & 0x80) != 0)
+		if ((int)(thingTemplate->m_kindof[0] & 0x80) != 0)
 			continue;
-		if ((thingTemplate->m_kind0 & 0x2000000) != 0)
+		if ((thingTemplate->m_kindof[0] & 0x2000000) != 0)
 			continue;
-		if ((thingTemplate->m_kindByte11a & 0x10) != 0)
+		if ((((const unsigned char *)thingTemplate->m_kindof)[0x12] & 0x10) != 0)
 			continue;
 		if (tab->accepts(cur, player) != 0)
 			return true;
@@ -725,7 +706,7 @@ Bool TeamPrototype::evaluateProductionCondition()
 
 static Bool isInBuildVariations(const ThingTemplate* ttWithVariations, const ThingTemplate* thingTemplate)
 {
-	const _STL::vector<AsciiString>& bv = ttWithVariations->getBuildVariations();
+	const _STL::vector<AsciiString>& bv = thingTemplateBuildVariations(ttWithVariations);
 	if (bv.empty())
 		return false;
 
@@ -792,7 +773,7 @@ Bool Team::recruitUnit(Object **recruit, Real *distSqr, Object *obj, const Thing
 
 Object *Team::tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHome, Real maxDist, int a4, int a5, int a6)
 {
-	const ModuleInfo &mi = tTemplate->getBehaviorModuleInfo();
+	const ModuleInfo &mi = thingTemplateBehaviorModuleInfo(tTemplate);
 	int count = mi.getCount();
 	Real distSqr = maxDist*maxDist;
 	Real distSqr0 = distSqr;
@@ -1030,9 +1011,9 @@ int Team::rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam)
 	{
 		AsciiString typeName = types->getNthInList(i);
 		const ThingTemplate *thing = (const ThingTemplate *)TheThingFactory->findTemplate(*(&typeName));
-		if (thing && thing->isKindOf(KINDOF_COMBO_HORDE))
+		if (thing && thingTemplateIsKindOfWord3(thing, KINDOF_COMBO_HORDE))
 		{
-			const ModuleInfo &mi = thing->getBehaviorModuleInfo();
+			const ModuleInfo &mi = thingTemplateBehaviorModuleInfo(thing);
 			int numModules = mi.getCount();
 			for (int j = 0; j < numModules; j++)
 			{
@@ -1087,13 +1068,13 @@ int Team::rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam)
 									second->setTeam(defaultTeam);
 								}
 								Object *combined = NULL;
-								if (first->getTemplate()->isKindOf(KINDOF_HORDE))
+								if (thingTemplateIsKindOfWord3(first->getTemplate(), KINDOF_HORDE))
 								{
 									Rva003A135BHordeContain *contain = (Rva003A135BHordeContain *)first->rva0028C197();
 									if (contain && contain->v28(second))
 										combined = contain->v29(second, first, 0);
 								}
-								else if (second->getTemplate()->isKindOf(KINDOF_HORDE))
+								else if (thingTemplateIsKindOfWord3(second->getTemplate(), KINDOF_HORDE))
 								{
 									Rva003A135BHordeContain *contain = (Rva003A135BHordeContain *)second->rva0028C197();
 									if (contain && contain->v28(first))

@@ -81,12 +81,9 @@ struct BfmeKindOfBits
 	unsigned long m_w[7];
 };
 
-struct ThingTemplate
-{
-	__declspec(dllimport) __forceinline bool isKindOf(int t) const { return m_kindOf.test(t); }
-	char m_pad000[0x100];
-	BfmeKindOfBits m_kindOf;	// +0x100
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// isKindOf through the kindof bits as this unit numbers them from +0x100.
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t) { return ((const BfmeKindOfBits *)((const char *)tmpl + 0x100))->test(t); }
 
 class Object;
 
@@ -119,7 +116,7 @@ class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
 	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
 {
 public:
-	__declspec(dllimport) __forceinline bool isKindOf(int bit) const { return m_template->isKindOf(bit); }
+	__declspec(dllimport) __forceinline bool isKindOf(int bit) const { return thingTemplateIsKindOf(m_template, bit); }
 	// Retail inlines this +0x258 load; suppress the surplus external copy.
 	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	ContainModuleInterface *getContain() const { return m_contain; }

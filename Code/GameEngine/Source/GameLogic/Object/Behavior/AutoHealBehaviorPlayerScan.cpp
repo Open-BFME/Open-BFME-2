@@ -132,14 +132,8 @@ public:
 
 typedef _STL::list<Object *, Rva001EB984PoolAllocator<Object *> > ObjectPointerList;
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
-private:
-	char m_pad00[0x108];
-	unsigned char m_kindof[32]; // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+static __forceinline Bool thingTemplateIsKindOf(const ThingTemplate *tmpl, KindOfType t) { return (((const unsigned char *)tmpl->m_kindof)[t >> 3] & (1 << (t & 7))) != 0; }
 
 #include "../../../Common/Thing/thing.h"
 
@@ -400,7 +394,7 @@ static Bool Rva00452496Check(Object *obj)
 		return true;
 	Object *container = obj->getContainedBy();
 	return container
-		&& container->m_template->isKindOf(KINDOF_HORDE)
+		&& thingTemplateIsKindOf(container->m_template, KINDOF_HORDE)
 		&& container->getAIUpdateInterface() != 0
 		&& container->getAIUpdateInterface()->getCurrentVictim() != 0;
 }
@@ -450,7 +444,7 @@ static Bool Rva004524E5ShouldHeal(Object *testObj, const AutoHealPlayerScanHelpe
 // Gathers the hurt units of a container, descending into hordes.
 void Rva00452795CollectContained(Object *obj, void *userData)
 {
-	if (obj->m_template->isKindOf(KINDOF_HORDE))
+	if (thingTemplateIsKindOf(obj->m_template, KINDOF_HORDE))
 		obj->getContain()->iterateContained(Rva00452795CollectContained, userData, true);
 	else if (obj->getBodyModule()->getHealthRatio() < 1.0f)
 		((ObjectPointerList *)userData)->push_back(obj);
@@ -612,7 +606,7 @@ UpdateSleepTime AutoHealBehavior::update()
 					}
 				}
 			}
-			if (respawnReady && autoHealBehaviorModuleData->m_respawnNearbyHordeMembers && other->m_template->isKindOf(KINDOF_HORDE)
+			if (respawnReady && autoHealBehaviorModuleData->m_respawnNearbyHordeMembers && thingTemplateIsKindOf(other->m_template, KINDOF_HORDE)
 				&& !other->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
 			{
 				HordeRespawnInterface *horde = (HordeRespawnInterface *)other->rva0028C197();

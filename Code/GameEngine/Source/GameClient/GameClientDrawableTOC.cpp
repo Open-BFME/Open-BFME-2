@@ -94,22 +94,10 @@ class Snapshot;
 
 #include "../../Include/Common/BfmeXfer.h"
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName(void) const { return m_name; }
-
-	// GameClient slot 26 (0x002391AA) passes drawables whose object's
-	// template has bit 0x40 of the byte at +0x118 set without a cull test;
-	// the mask the selection code reads at +0x10C..+0x11F.
-	bool testKindOfByte118(unsigned char bit) const { return (m_kindOfByte118 & bit) != 0; }
-
-private:
-	char m_pad00[0x64];
-	AsciiString m_name;
-	char m_pad68[0x118 - 0x68];
-	unsigned char m_kindOfByte118;                                       // +0x118
-};
+#include "../../Include/Common/ThingTemplate.h"
+// GameClient slot 26 (0x002391AA) passes drawables whose object's
+// template has bit 0x40 of the kindof byte at +0x118 set without a cull test.
+static inline bool thingTemplateTestKindOfByte118(const ThingTemplate *tmpl, unsigned char bit) { return (((const unsigned char *)tmpl->m_kindof)[0x10] & bit) != 0; }
 
 // ZH ObjectShroudStatus values, under the enum name the matched
 // getShroudStatusForPlayer (0x0028D2A2) row carries.
@@ -1684,7 +1672,7 @@ void GameClient::rva002391AA(const FrustumClass *frustum, float radiusPad, GameC
 
 		bool visible;
 		Object *obj = draw->getObject();
-		if (obj && obj->getTemplate()->testKindOfByte118(0x40))
+		if (obj && thingTemplateTestKindOfByte118(obj->getTemplate(), 0x40))
 			visible = true;
 		else
 		{

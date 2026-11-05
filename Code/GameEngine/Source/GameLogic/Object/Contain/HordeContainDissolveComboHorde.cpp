@@ -39,17 +39,7 @@ enum EvaEventID
 	EVA_EVENT_NONE = 0
 };
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *other) const;
-	__forceinline unsigned int isKindOf(int kind) const
-	{
-		return m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
-	}
-	unsigned char m_pad000[0x114];
-	unsigned int m_kindOf[4]; // +0x114
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 struct Rva00469689Body
 {
@@ -66,7 +56,7 @@ public:
 	const Rva00469689Body *getBody264() const { return m_264; }
 	__forceinline unsigned int templateKindOfBits(int kind) const
 	{
-		return m_template->m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
+		return (m_template->m_kindof + 3)[kind >> 5] & (1U << (kind & 0x1f));
 	}
 	unsigned char m_pad000[0x04];
 	const ThingTemplate *m_template; // +0x04

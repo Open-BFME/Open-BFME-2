@@ -64,17 +64,11 @@ private:
 typedef BitFlags<116> KindOfMaskType;
 extern KindOfMaskType KINDOFMASK_NONE;
 
-class ThingTemplate
+#include "../../Include/Common/ThingTemplate.h"
+static inline Bool thingTemplateIsKindOfMulti(const ThingTemplate *tmpl, const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear)
 {
-	char m_pad000[0x108];
-	KindOfMaskType m_kindof;
-
-public:
-	Bool isKindOfMulti(const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear) const
-	{
-		return m_kindof.testSetAndClear(mustBeSet, mustBeClear);
-	}
-};
+	return ((const KindOfMaskType *)tmpl->m_kindof)->testSetAndClear(mustBeSet, mustBeClear);
+}
 
 #include "../../Include/GameLogic/Damage.h"
 
@@ -158,7 +152,7 @@ void ScoreKeeper::addObjectLost( const Object *object )
 
 	Bool addToCount = FALSE;
 	const ThingTemplate *thingTemplate = object->getTemplate();
-	if (thingTemplate->isKindOfMulti(scoringBuildingMask, KINDOFMASK_NONE))
+	if (thingTemplateIsKindOfMulti(thingTemplate, scoringBuildingMask, KINDOFMASK_NONE))
 	{
 		if (--m_totalStructures < 0)
 			m_totalStructures = 0;
@@ -166,7 +160,7 @@ void ScoreKeeper::addObjectLost( const Object *object )
 		++m_16c;
 		addToCount = TRUE;
 	}
-	else if (thingTemplate->isKindOfMulti(scoringBuildingDestroyMask, KINDOFMASK_NONE))
+	else if (thingTemplateIsKindOfMulti(thingTemplate, scoringBuildingDestroyMask, KINDOFMASK_NONE))
 	{
 		if (--m_totalStructures < 0)
 			m_totalStructures = 0;

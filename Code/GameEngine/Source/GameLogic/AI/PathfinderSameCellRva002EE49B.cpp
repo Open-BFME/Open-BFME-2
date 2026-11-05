@@ -63,15 +63,8 @@ public:
 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-struct ThingTemplate
-{
-	char m_pad00[0x108];
-	unsigned char m_kindOf0;
-	char m_pad109[0x56C - 0x109];
-	Int m_slopeLimitIndex;
-	char m_pad570[0x634 - 0x570];
-	Bool m_canPathThroughGates;
-};
+#include "../../../Include/Common/ThingTemplate.h"
+static inline Bool thingTemplateCanPathThroughGates(const ThingTemplate *tmpl) { return *(const Bool *)&tmpl->m_canPathThroughGates; }
 
 class Object
 {
@@ -102,7 +95,7 @@ public:
 Bool Pathfinder::IsValidObjectMovement(Object *obj, const Coord3D *oldPos, const Coord3D *newPos)
 {
 	if (obj->m_flags438 & 1) { return true; } else {
-	if (obj->getTemplate()->m_kindOf0 & 4)
+	if (((const unsigned char *)obj->getTemplate()->m_kindof)[0] & 4)
 		return true;
 	if (!m_isMapReady)
 		return true;
@@ -164,7 +157,7 @@ Bool Pathfinder::IsValidObjectMovement(Object *obj, const Coord3D *oldPos, const
 	m_ignoreObstacleID = (ObjectID)((Rva0006E009DwordField *)ai)->get();
 	const ThingTemplate *thingTemplate = obj->getTemplate();
 	Int maxLayer = thingTemplate->m_slopeLimitIndex;
-	Bool flag = thingTemplate->m_canPathThroughGates;
+	Bool flag = thingTemplateCanPathThroughGates(thingTemplate);
 	AIUpdateInterface *aIUpdate = obj->getAI();
 
 	Bool ok;

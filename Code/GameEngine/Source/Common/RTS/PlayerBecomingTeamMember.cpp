@@ -55,15 +55,9 @@ public:
 	virtual Int slot2();
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfDozer() const { return (m_kindOf109 & 0x40) != 0; }
-
-private:
-	char m_pad[0x109];
-	unsigned char m_kindOf109;
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// KINDOF_DOZER: kindof byte 1, bit 6.
+static inline Bool thingTemplateIsKindOfDozer(const ThingTemplate *tmpl) { return (((const unsigned char *)tmpl->m_kindof)[1] & 0x40) != 0; }
 
 class Object
 {
@@ -72,7 +66,7 @@ public:
 	void friend_adjustPowerForPlayer(Bool yes);
 	Module *findUpdateModule(NameKeyType key) const { return findModule(key); }
 	Bool areModulesReady() const { return m_modulesReady; }
-	Bool isKindOfDozer() const { return m_template->isKindOfDozer(); }
+	Bool isKindOfDozer() const { return thingTemplateIsKindOfDozer(m_template); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Rva002AD5D5Interface *getRva002AD5D5() const { return m_250; }
 

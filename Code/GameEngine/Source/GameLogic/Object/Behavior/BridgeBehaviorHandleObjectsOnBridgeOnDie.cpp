@@ -79,13 +79,7 @@ enum DeathType
 	BridgeDieDeathType0 = 0
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad00[0x10A];
-	unsigned char m_kindOf10A;
-	unsigned char m_kindOf10B;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Common/Thing/thing.h"
 
@@ -159,7 +153,7 @@ void BridgeBehavior::handleObjectsOnBridgeOnDie()
 		Object *other;
 		while ((other = iter.next()) != 0)
 		{
-			if ((other->m_template->m_kindOf10A & 0x40) || (other->m_template->m_kindOf10B & 1))
+			if ((((const unsigned char *)other->m_template->m_kindof)[2] & 0x40) || (((const unsigned char *)other->m_template->m_kindof)[3] & 1))
 				continue;
 			if (other->isAboveTerrain())
 				continue;

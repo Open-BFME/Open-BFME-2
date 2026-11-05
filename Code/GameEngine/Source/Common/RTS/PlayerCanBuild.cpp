@@ -63,23 +63,13 @@ namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int ve
 
 
 // ThingTemplate::getBuildable is out of line in BFME 2 (0x0033A632).
-class ThingTemplate
-{
-public:
-	BuildableStatus getBuildable() const;
-	// KINDOF_STRUCTURE: kindof bit 7.
-	Bool isKindOfStructure() const { return (m_kindof[0] & 0x80) != 0; }
-	Int getPrereqCount() const { return m_prereqInfo.size(); }
-	const ProductionPrerequisite *getNthPrereq(Int i) const { return &m_prereqInfo[i]; }
-	short getTemplateID() const { return m_templateID; }
-private:
-	char m_before_kindof[0x108];
-	unsigned char m_kindof[8];					// +0x108
-	char m_before_prereqs[0x324 - 0x110];
-	_STL::vector<ProductionPrerequisite> m_prereqInfo;		// +0x324
-	char m_before_id[0x5d8 - 0x330];
-	short m_templateID;						// +0x5D8
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// KINDOF_STRUCTURE: kindof bit 7.
+static inline Bool thingTemplateIsKindOfStructure(const ThingTemplate *tmpl) { return (((const unsigned char *)tmpl->m_kindof)[0] & 0x80) != 0; }
+static inline const _STL::vector<ProductionPrerequisite> &thingTemplatePrereqs(const ThingTemplate *tmpl) { return *(const _STL::vector<ProductionPrerequisite> *)tmpl->m_prereqInfo; }
+static inline Int thingTemplatePrereqCount(const ThingTemplate *tmpl) { return thingTemplatePrereqs(tmpl).size(); }
+static inline const ProductionPrerequisite *thingTemplateNthPrereq(const ThingTemplate *tmpl, Int i) { return &thingTemplatePrereqs(tmpl)[i]; }
+static inline short thingTemplateTemplateID(const ThingTemplate *tmpl) { return *(const short *)&tmpl->m5D8; }
 
 typedef _STL::list<short> PlayerTemplateIDList;
 
@@ -101,14 +91,14 @@ private:
 
 Bool Player::allowedToBuild(const ThingTemplate *thingTemplate) const
 {
-	if (!m_canBuildBase && thingTemplate->isKindOfStructure()) {
+	if (!m_canBuildBase && thingTemplateIsKindOfStructure(thingTemplate)) {
 		return false;
 	}
 
-	if (!m_canBuildUnits && !thingTemplate->isKindOfStructure()) {
+	if (!m_canBuildUnits && !thingTemplateIsKindOfStructure(thingTemplate)) {
 		return false;
 	}
 
-	return _STL::find(m_templateIdList_700.begin(), m_templateIdList_700.end(), thingTemplate->getTemplateID()) == m_templateIdList_700.end();
+	return _STL::find(m_templateIdList_700.begin(), m_templateIdList_700.end(), thingTemplateTemplateID(thingTemplate)) == m_templateIdList_700.end();
 }
 

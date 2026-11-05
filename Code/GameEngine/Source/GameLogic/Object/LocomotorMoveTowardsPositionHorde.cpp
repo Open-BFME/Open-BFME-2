@@ -500,19 +500,9 @@ public:
 private:
 	unsigned int m_bits[(NUMBITS + 31) / 32];
 };
-class ThingTemplate
-{
-public:
-	__forceinline Bool hasKindOf(KindOfType k) const { return m_kindof.test(k); }
-	bool isKindOf9() const { return (m_kindOfBytes[1] & 2) != 0; }
-private:
-	char m_pad000[0x108];
-	union
-	{
-		BitFlagsView<218> m_kindof; // +0x108
-		unsigned char m_kindOfBytes[4];
-	};
-};
+#include "../../../Include/Common/ThingTemplate.h"
+static __forceinline Bool thingTemplateHasKindOf(const ThingTemplate *tmpl, KindOfType k) { return ((const BitFlagsView<218> *)tmpl->m_kindof)->test(k); }
+static inline bool thingTemplateIsKindOf9(const ThingTemplate *tmpl) { return (((const unsigned char *)tmpl->m_kindof)[1] & 2) != 0; }
 class Drawable
 {
 public:
@@ -1265,10 +1255,10 @@ void Locomotor::rva001E9083(Object *obj, const Coord3D *goalPos, Real onPathDist
 		if (!skip && obj->getContainedByID())
 		{
 			Object *container = TheGameLogic->findObjectByID(obj->getContainedByID());
-			skip = container && container->getTemplate()->hasKindOf((KindOfType)0x6d);
+			skip = container && thingTemplateHasKindOf(container->getTemplate(), (KindOfType)0x6d);
 		}
 	}
-	if (!skip && m_template->m_scalesWalls && !obj->getTemplate()->hasKindOf((KindOfType)0x6d) && obj->getTemplate()->hasKindOf((KindOfType)0xb8))
+	if (!skip && m_template->m_scalesWalls && !thingTemplateHasKindOf(obj->getTemplate(), (KindOfType)0x6d) && thingTemplateHasKindOf(obj->getTemplate(), (KindOfType)0xb8))
 	{
 		Coord3D pos;
 		CoordCopy(&pos, obj->getPosition());
@@ -1285,7 +1275,7 @@ void Locomotor::rva001E9083(Object *obj, const Coord3D *goalPos, Real onPathDist
 		Bool climbing = false;
 		Bool descending = false;
 		Bool landed = false;
-		if (wall && wall->getTemplate()->hasKindOf((KindOfType)0xc9))
+		if (wall && thingTemplateHasKindOf(wall->getTemplate(), (KindOfType)0xc9))
 		{
 			Vector3 local(pos.x, pos.y, pos.z);
 			Matrix3D inverse;
@@ -1661,7 +1651,7 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
   goal.z = obj->getPosition()->z;
   if (m_template->m_turnWhileMoving)
   ((Rva001E46E1 *)this)->rva001E56DC(obj, &goal, maxTurnRate, &relAngle);
-  if (!((Rva001E46E1 *)this)->rva001E543F(obj) && obj->getTemplate()->isKindOf9() && hordeContain && !hordeContain->slot112(desiredAngle))
+  if (!((Rva001E46E1 *)this)->rva001E543F(obj) && thingTemplateIsKindOf9(obj->getTemplate()) && hordeContain && !hordeContain->slot112(desiredAngle))
   desiredSpeed *= 0.1f;
   ((Rva001E46E1 *)this)->rva001E6007(obj, &goal, onPathDistToGoal, desiredSpeed);
 }

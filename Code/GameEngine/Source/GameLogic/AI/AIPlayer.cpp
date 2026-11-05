@@ -129,19 +129,7 @@ enum CommandSourceType
 // What Object +0x04 points at: the KindOf mask at +0x108 (bit 7
 // KINDOF_STRUCTURE, +0x112 bit 6 the supply source) and the cost-to-build
 // helper 0x0033A69A.
-class ThingTemplate
-{
-public:
-	Int rva0033A69A(const Player *player, Int a, Int b) const;	// 0x0033A69A
-	const AsciiString &getName() const { return m_nameString; }
-	unsigned char m_pad000[0x64];
-	AsciiString m_nameString;		// +0x64
-	unsigned char m_pad068[0x108 - 0x68];
-	union {
-		unsigned char m_kindOf[0x1C];		// +0x108
-		unsigned int m_kindOfWords[7];
-	};
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 enum ObjectStatusTypes
 {
@@ -188,13 +176,13 @@ protected:
 class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase, public BfmeObjectVbptrCarrier
 {
 public:
-	bool isKindOfStructure() const { return (m_template->m_kindOf[0] & 0x80) != 0; }
-	bool isKindOfSupplySource() const { return (m_template->m_kindOf[10] & 0x40) != 0; }
+	bool isKindOfStructure() const { return (((const unsigned char *)m_template->m_kindof)[0] & 0x80) != 0; }
+	bool isKindOfSupplySource() const { return (((const unsigned char *)m_template->m_kindof)[10] & 0x40) != 0; }
 	// The KindOf bit as the masked mask word, not a Bool: retail tests each
 	// word in memory and merges the two word-0 bits into one test.
 	__forceinline unsigned int isKindOf(Int t) const
 	{
-		return m_template->m_kindOfWords[t >> 5] & (1u << (t & 31));
+		return m_template->m_kindof[t >> 5] & (1u << (t & 31));
 	}
 	ObjectID getID() const { return m_id; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
@@ -338,12 +326,6 @@ private:
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
-
 class SpecialPowerTemplate : public Overridable
 {
 public:
@@ -352,7 +334,7 @@ public:
 		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_type;
 	}
 private:
-	unsigned char m_pad[0x1C];
+	unsigned char m_pad[0x1C - 0x10];
 	Int m_type;				// +0x1C
 };
 
@@ -639,7 +621,7 @@ Int AIPlayer::getPlayerSuperweaponValue(Coord3D *searchCenter, Int playerIndex, 
 			for (DLINK_ITERATOR<Object> members = team->iterate_TeamMemberList(); !members.done(); members.advance())
 			{
 				Object *pObj = members.cur();
-				if ((pObj->getTemplate()->m_kindOf[1] & 0x10) != 0)	// KindOf bit 12
+				if ((((const unsigned char *)pObj->getTemplate()->m_kindof)[1] & 0x10) != 0)	// KindOf bit 12
 				{
 					if (pObj->isSignificantlyAboveTerrain())
 						continue;
@@ -652,7 +634,7 @@ Int AIPlayer::getPlayerSuperweaponValue(Coord3D *searchCenter, Int playerIndex, 
 					Real dist = sqrt(dx * dx + dy * dy);
 					Real factor = 1.0f - (dist / (2 * searchRadius));
 					Real cost = pObj->getTemplate()->rva0033A69A(pPlayer, 0, -1);
-					if ((pObj->getTemplate()->m_kindOf[2] & 0x02) != 0)	// KindOf bit 17
+					if ((((const unsigned char *)pObj->getTemplate()->m_kindof)[2] & 0x02) != 0)	// KindOf bit 17
 						cost = cost / 10;
 					if (cost > 3000)
 						cost = cost / 10;

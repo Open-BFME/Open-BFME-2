@@ -25,11 +25,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-struct ThingTemplate
-{
-	unsigned char m_pad[0x108];
-	BitFlags<116> m_flags;
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object
 {
@@ -53,7 +49,7 @@ int Team::countObjects(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear) const
 		ThingTemplate *thingTemplate = cur->m_template;
 		if (thingTemplate == 0)
 			continue;
-		if (!thingTemplate->m_flags.testSetAndClear(mustBeSet, mustBeClear))
+		if (!((const BitFlags<116> *)thingTemplate->m_kindof)->testSetAndClear(mustBeSet, mustBeClear))
 			continue;
 		++count;
 	}

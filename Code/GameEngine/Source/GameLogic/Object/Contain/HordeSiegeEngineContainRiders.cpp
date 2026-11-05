@@ -86,14 +86,9 @@ public:
 private:
 	unsigned int m_words[20];
 };
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline unsigned int isKindOf(KindOfType t) const { return m_kindOf.test(t); }
-private:
-	unsigned char m_pad[0x10C];
-	Rva0010CBits m_kindOf; // +0x10C
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// isKindOf through the kindof bits from +0x10C.
+static __forceinline unsigned int thingTemplateIsKindOf(const ThingTemplate *tmpl, KindOfType t) { return ((const Rva0010CBits *)(tmpl->m_kindof + 1))->test(t); }
 
 class Object
 {
@@ -234,7 +229,7 @@ void HordeSiegeEngineContain::addToContainList(Object *rider)
 	}
 	setModelConditionBit(rider, 6 * 32 + 17);
 	HordeTransportContain::addToContainList(rider);
-	if (rider->getTemplate()->isKindOf((KindOfType)23))
+	if (thingTemplateIsKindOf(rider->getTemplate(), (KindOfType)23))
 		m_130 = true;
 }
 class Rva0047C07FModuleData
@@ -295,6 +290,6 @@ void SiegeEngineContain::addToContainList(Object *rider)
 	}
 	setModelConditionBit(rider, 6 * 32 + 17);
 	TransportContain::addToContainList(rider);
-	if (rider->getTemplate()->isKindOf((KindOfType)23))
+	if (thingTemplateIsKindOf(rider->getTemplate(), (KindOfType)23))
 		m_104 = true;
 }

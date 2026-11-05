@@ -15,10 +15,8 @@ class Object;
 class Player;
 enum CommandSourceType { CMD_FROM_AI=2 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class ThingTemplate {
-public: __forceinline bool isKindOf(int t) const { return (m_kind[t>>3]&(1<<(t&7)))!=0; }
-private: unsigned char m_pad[0x108]; unsigned char m_kind[0x20];
-};
+#include "../../../Include/Common/ThingTemplate.h"
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t) { return (((const unsigned char *)tmpl->m_kindof)[t>>3]&(1<<(t&7)))!=0; }
 class Thing { public: virtual ~Thing(); };
 class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
 class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail { public: unsigned char m_carrier[4]; };
@@ -27,7 +25,7 @@ public: Object *dlink_next_TeamMemberList() const; const ThingTemplate *m_templa
 };
 class Object : public Thing, public BfmeObjectDlinkBase, public BfmeObjectVbptrCarrier {
 public:
- __forceinline bool isKindOf(int t) const { return m_template->isKindOf(t); }
+ __forceinline bool isKindOf(int t) const { return thingTemplateIsKindOf(m_template, t); }
  Object *getContainedBy() const { return m_containedBy; }
  AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
  void rva0028BAC0(); void rva0028DCC4();

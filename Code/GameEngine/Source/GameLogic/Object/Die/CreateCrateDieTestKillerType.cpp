@@ -32,12 +32,7 @@ extern KindOfMaskType KINDOFMASK_NONE;
 
 #define TEST_KINDOFMASK_MULTI(m, s, c) ((m).testSetAndClear((s), (c)))
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x108];
-	KindOfMaskType m_kindof;	// +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Common/Thing/thing.h"
 
@@ -63,7 +58,7 @@ Bool CreateCrateDie::testKillerType(const CrateTemplate *currentCrateData, Objec
 		return false;
 
 	// Must match the whole group of bits set in the KilledBy description (most likely One).
-	if (!TEST_KINDOFMASK_MULTI(killer->m_template->m_kindof, currentCrateData->m_killedByTypeKindof, KINDOFMASK_NONE))
+	if (!TEST_KINDOFMASK_MULTI(*(const KindOfMaskType *)killer->m_template->m_kindof, currentCrateData->m_killedByTypeKindof, KINDOFMASK_NONE))
 		return false;
 
 	return true;

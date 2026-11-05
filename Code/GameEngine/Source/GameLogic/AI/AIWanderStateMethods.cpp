@@ -106,21 +106,16 @@ template <> class AIUpdateSlots<0>
 };
 // chooseLocomotorSet is AIUpdateInterface vslot 142 (+0x238).
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class ThingTemplate
-{
-public:
-	Bool isKindOfCanBeRepulsed() const { return (m_kindOf[1] & 0x20) != 0; }
-private:
-	unsigned char m_pad00[0x10C];
-	unsigned char m_kindOf[4]; // +0x10C (CAN_BE_REPULSED: byte +0x10D mask 0x20)
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// CAN_BE_REPULSED: kindof byte +0x10D mask 0x20.
+static inline Bool thingTemplateIsKindOfCanBeRepulsed(const ThingTemplate *tmpl) { return (((const unsigned char *)tmpl->m_kindof)[5] & 0x20) != 0; }
 class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
 	unsigned int getID() const { return m_id; }
 	AIUpdateInterface *getAI() { return m_ai; }
-	Bool isKindOfCanBeRepulsed() const { return m_template->isKindOfCanBeRepulsed(); }
+	Bool isKindOfCanBeRepulsed() const { return thingTemplateIsKindOfCanBeRepulsed(m_template); }
 	Real getVisionRange() const;
 	void rva0028AE6D();
 	__forceinline void setModelConditionState(ModelConditionFlagType mc)

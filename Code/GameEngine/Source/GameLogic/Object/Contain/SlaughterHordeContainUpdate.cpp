@@ -95,14 +95,9 @@ private:
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class ThingTemplate
-{
-public:
-	__declspec(dllimport) __forceinline unsigned int isKindOf(KindOfType t) const { return m_kindOf.test(t); }
-private:
-	unsigned char m_pad[0x10C];
-	Rva0010CBits m_kindOf; // +0x10C
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// isKindOf through the kindof bits from +0x10C.
+static __forceinline unsigned int thingTemplateIsKindOf(const ThingTemplate *tmpl, KindOfType t) { return ((const Rva0010CBits *)(tmpl->m_kindof + 1))->test(t); }
 
 class Object
 {
@@ -138,7 +133,7 @@ void rva00480E28(Object *obj, void *userData)
 {
 	if (obj == 0)
 		return;
-	if (!obj->getTemplate()->isKindOf((KindOfType)77))
+	if (!thingTemplateIsKindOf(obj->getTemplate(), (KindOfType)77))
 		return;
 	ContainModuleInterface *contain = obj->getContain();
 	if (contain == 0)
@@ -202,7 +197,7 @@ UpdateSleepTime CitadelSlaughterHordeContain::update()
 		{
 			Object *me = m_object;
 			AIUpdateInterface *ai = other->getAI();
-			if (other->getTemplate()->isKindOf((KindOfType)77))
+			if (thingTemplateIsKindOf(other->getTemplate(), (KindOfType)77))
 				ai->rva0037379B(me, ai->vslot143());
 			else
 				ai->aiExit(me, ai->vslot143());
