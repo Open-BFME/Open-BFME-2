@@ -8767,7 +8767,7 @@ _rva0060E7F0,0x00211245,address,placeholder
 ?rva003611EFResolveNames@ObjectFilter@@SAXPAV1@@Z,0x003611EF,address,placeholder
 ?Rva00361439Resolve@@YAXXZ,0x00361439,address,placeholder
 ?Rva003614F4Copy@@YAPAVRva0036105B@@PAV1@00Urandom_access_iterator_tag@_STL@@PAH@Z,0x003614F4,address,placeholder
-?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z,0x00361594,address,placeholder
+?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z,0x00361594,address,placeholder
 ?dup_003615cd@@YAXXZ,0x003615CD,address,placeholder
 ?rva00361624@Rva00361624@@QAEPAVRva0036105B@@PAV2@0@Z,0x00361624,address,placeholder
 ?initFromStorages@Rva003623E5Member@@QAEXVBfmeFixedStorage0004543D@@0@Z,0x00362087,address,placeholder

@@ -37,8 +37,9 @@ template <> __declspec(dllimport) __forceinline void _Destroy<Rva0036105B *>(Rva
 
 }
 
-struct Rva00361624
+class Rva00361624
 {
+public:
 	Rva0036105B *rva00361624(Rva0036105B *first, Rva0036105B *last);
 	void rva00361675();
 

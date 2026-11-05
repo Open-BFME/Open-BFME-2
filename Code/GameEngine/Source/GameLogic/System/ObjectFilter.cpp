@@ -38,7 +38,6 @@ struct AsciiRange002ADD75
 int Rva00360C1FEqual(const void *a, const void *b);
 int Rva002ADD75Equal(const AsciiRange002ADD75 *a, const AsciiRange002ADD75 *b);
 #include <iterator>
-#pragma comment(linker, "/alternatename:?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z=?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z")
 //
 // ?Rva00361790@@YAHPAVRva00360F55@@@Z at 0x00361790 (135 bytes).
 // Pool intern for the 0x94-byte ObjectFilter science-cluster record: returns
@@ -358,7 +357,12 @@ extern void *g_bfmeXEBK;
 class Rva00361624
 {
 public:
-	Rva0036105B *rva00361624(Rva0036105B *a, Rva0036105B *b);
+	Rva0036105B *rva00361624(Rva0036105B *first, Rva0036105B *last);
+	void rva00361675();
+
+	Rva0036105B *m_start;
+	Rva0036105B *m_finish;
+	Rva0036105B *m_end;
 };
 
 char bfmeCmpEBMa(void *a, void *b);
@@ -917,7 +921,7 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva00361594Assign.cpp
 
-// ?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z @0x00361594 29B
+// ?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z @0x00361594 29B
 // Range-assign wrapper over the rowed __copy core at 0x003614F4: materializes
 // the random_access tag on stack and forwards (first, last, dest, tag, null).
 // Evidence: chain from 0x003614F4 which muse-05 just landed; identical 29B
@@ -927,13 +931,15 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *)
 // 0x003614F4 and next 0x003615B1 STL TUs. The core row spells the tag by
 // value (U) but retail passes its address (const ref ABU, the true STLport
 // spelling); the TU declares the ABU twin which is pinned at the same RVA.
+// It returns the copy's new end: the erase caller keeps eax in edi
+// (0x00361640).
 
-void Rva00361594Assign(Rva0036105B *first, Rva0036105B *last, Rva0036105B *dest, void *unused)
+Rva0036105B *Rva00361594Assign(Rva0036105B *first, Rva0036105B *last, Rva0036105B *dest, void *unused)
 {
 	const _STL::random_access_iterator_tag tag;
 	typedef Rva0036105B *(__cdecl *Copy)(Rva0036105B *, Rva0036105B *, Rva0036105B *, const _STL::random_access_iterator_tag &, int *);
 	Copy copy = Rva003614F4Copy;
-	copy(first, last, dest, tag, (int *)0);
+	return copy(first, last, dest, tag, (int *)0);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

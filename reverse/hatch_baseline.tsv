@@ -3141,7 +3141,6 @@ alternatename	Code/GameEngine/Source/GameLogic/System/GameLogicCRC_Rva00225A2D.c
 alternatename	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp	?R2Data010EC760@@3HA	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	??0Rva003623E5Filter@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?Rva003614F4Copy@@YAPAVRva0036105B@@PAV1@00ABUrandom_access_iterator_tag@_STL@@PAH@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?construct@Rva003623E5Member@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BFMEDisconnectManager_voterEligibility.cpp	?_bfme_slotIsLocalOrLive@ConnectionManager@@QAE_NH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp	??0Pinger@@QAE@XZ	1
