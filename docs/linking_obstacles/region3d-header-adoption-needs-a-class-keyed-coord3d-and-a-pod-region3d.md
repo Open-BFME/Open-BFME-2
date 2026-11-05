@@ -75,3 +75,16 @@ No source or ledger changed and no census gain is claimed.
 2026-11-04: PathDebugOutput's queued PathNode adoption reaches the same U/V-keyed debug-streamer prerequisite; trials reverted and its 93-byte control restored. [Consumer evidence](../../reverse/attempt_support/pathnode-debug-header-20261104-codex5/readme.md).
 
 2026-11-04: W3DTerrainVisual absorbed two donors with six exact rows and passing link previews; its canonically adopted Init/update donors now expose SubsystemInterface redefinitions too. Move the seed off the Zero Hour class closure before retrying these donors. [Merge and prerequisite evidence](../../reverse/attempt_support/w3dterrain-merge-20261104/README.md).
+
+2026-11-05 (claude-opus-5-5): the class key now blocks the real link directly. The real
+link at `4f0e20847d` (run 42093361060, `errors.tsv`) lists two `exit.exp` LNK2001 errors
+owned by Common/System/Snapshot.cpp: retail exports 285 `??0Matrix4D@@QAE@ABVCoord3D@@M@Z`
+and 1391 `?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z`, both at 0x00004079, but the row there is
+`??0Matrix4D@@QAE@ABUCoord3D@@M@Z` because Snapshot.cpp includes the struct-keyed
+canonical Coord3D.h (retested: a preceding `class Coord3D;` still emits ABU). Retail's
+export table spells Coord3D with the class key in all 15 exports that name it. The third
+Snapshot.cpp export error, 1799 `?lineSegmentIntersects@Region2D@@QAE_NABVCoord2D@@0@Z` at
+0x000062FD (rowed as the placeholder `?rva000062FD@Rva000062FDRegion@@QBE...`), is
+separate: it needs a non-const `lineSegmentIntersects` declaration in the canonical
+Region2D.h, the body on Region2D's lo/hi, the one caller Rva00261D2EFilter.cpp and a row
+rename; `class:Region2D` was held by another seat, so nothing was changed.
