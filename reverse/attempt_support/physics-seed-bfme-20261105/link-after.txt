@@ -1,0 +1,3 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp: LINKS  LINKED 173 -> 173 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 173)
+link_check: 1 of 1 link cleanly; LINKED 173 -> 173 bytes (4.8s)
