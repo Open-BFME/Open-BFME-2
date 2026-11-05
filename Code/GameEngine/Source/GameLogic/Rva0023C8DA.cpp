@@ -15,32 +15,23 @@ public:
 extern class LivingWorldManager *TheLivingWorldManager;
 #define g_00DFE1C8 (*(Rva00DFE1C8Host * *)&TheLivingWorldManager)
 
-class ArmySummarySystem
-{
-public:
-	bool rva0040F87E();
-};
+#include "../../Include/Common/ArmySummarySystem.h"
 
 class GameLogic
 {
 public:
-	bool rva0023C8DA(unsigned char value);
+	void rva0023C8DA(unsigned char value);
 
 private:
 	unsigned char m_pad00[0x184];
 	ArmySummarySystem m_armySummarySystem;
 };
 
-// ?rva0023C8DA@GameLogic@@QAE_NE@Z
-bool GameLogic::rva0023C8DA(unsigned char value)
+// ?rva0023C8DA@GameLogic@@QAEXE@Z
+// Retail returns with whatever al the last call left and its only caller,
+// GameLogic::startNewGame 0x00248558, discards it: the method returns void.
+void GameLogic::rva0023C8DA(unsigned char value)
 {
-	bool result = g_00DFE1C8->rva00210DC9();
-	if (result && value == 0)
-		result = m_armySummarySystem.rva0040F87E();
-	return result;
+	if (g_00DFE1C8->rva00210DC9() && value == 0)
+		m_armySummarySystem.rva0040F87E();
 }
-
-// The retail call in this body reads 0x0040F87E, an address the ledger already
-// carries as ?rva0040F87E@ArmySummarySystem@@QAEXXZ. Bind the donor spelling to that rowed owner so one
-// address keeps one definition and the unit links.
-#pragma comment(linker, "/alternatename:?rva0040F87E@ArmySummarySystem@@QAE_NXZ=?rva0040F87E@ArmySummarySystem@@QAEXXZ")

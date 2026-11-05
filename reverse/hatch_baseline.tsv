@@ -3086,7 +3086,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbi
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdateModuleDataCtor.cpp	??0FellBeastSwoopPowerModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandPointsUpgradeModuleDataCtor.cpp	??1Rva00253487Base@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/WeaponLoadAmmoNow.cpp	?Rva002CE1AC@Weapon@@QAEXPAVObject@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Rva0023C8DA.cpp	?rva0040F87E@ArmySummarySystem@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeOwnZC_rva00204F3B.cpp	?rva00204E64@BfmeOwnZC@@QAEPAVScriptList@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdateModuleDataCtorThunk.cpp	??0DelayedWeaponSetUpgradeUpdateModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdateModuleDataCtorThunk.cpp	??0HordeTransportContainDamageModuleData@@QAE@XZ	1
@@ -7476,7 +7475,7 @@ pin	reverse/symbols.csv	0x0040E499	1
 pin	reverse/symbols.csv	0x0040E589	1
 pin	reverse/symbols.csv	0x0040E96D	1
 pin	reverse/symbols.csv	0x0040EAED	2
-pin	reverse/symbols.csv	0x0040F87E	2
+pin	reverse/symbols.csv	0x0040F87E	1
 pin	reverse/symbols.csv	0x0040FAFE	1
 pin	reverse/symbols.csv	0x0040FB4A	1
 pin	reverse/symbols.csv	0x0040FDD1	1

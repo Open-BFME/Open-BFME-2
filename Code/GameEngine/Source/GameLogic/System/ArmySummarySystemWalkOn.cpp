@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ArmySummarySystem members over its army id list (+0x14, a vector<int>),
+// ArmySummarySystem members over its army id list (+0x14..+0x1C, a vector<int>),
 // each id resolved through the rowed lookup 0x0040D008:
 //  - GetArmyIDOfFirstWalkOnArmy, retail 0x0040D3FF (64 B; WB 0x0108DEF0,
 //    ArmySummary.cpp:2015): the +0x1C id of the first summary whose +0x14
@@ -10,24 +10,21 @@
 //    to 1. Its name is unknown.
 #include <vector>
 
+#include "../../../Include/Common/ArmySummarySystem.h"
 #include "../../../Include/GameLogic/ArmySummary.h"
 
-class ArmySummarySystem
+// The header spells the +0x14 vector<int> as its three storage words; read it
+// back through STLport's own vector so size() and operator[] inline as retail's.
+static inline const _STL::vector<int> &armyIDs(const ArmySummarySystem *system)
 {
-public:
-	void *rva0040D008(int id);	// 0x0040D008
-	int GetArmyIDOfFirstWalkOnArmy();
-	void rva0040D2C3();
-private:
-	char m_pad00[0x14];
-	_STL::vector<int> m_armyIDs;	// +0x14
-};
+	return *reinterpret_cast<const _STL::vector<int> *>(&system->m_14);
+}
 
 int ArmySummarySystem::GetArmyIDOfFirstWalkOnArmy()
 {
-	for (unsigned int i = 0; i < m_armyIDs.size(); ++i)
+	for (unsigned int i = 0; i < armyIDs(this).size(); ++i)
 	{
-		ArmySummary *summary = (ArmySummary *)rva0040D008(m_armyIDs[i]);
+		ArmySummary *summary = (ArmySummary *)rva0040D008(armyIDs(this)[i]);
 		if (summary && summary->field14)
 			return summary->field1C;
 	}
@@ -36,9 +33,9 @@ int ArmySummarySystem::GetArmyIDOfFirstWalkOnArmy()
 
 void ArmySummarySystem::rva0040D2C3()
 {
-	for (unsigned int i = 0; i < m_armyIDs.size(); ++i)
+	for (unsigned int i = 0; i < armyIDs(this).size(); ++i)
 	{
-		ArmySummary *summary = (ArmySummary *)rva0040D008(m_armyIDs[i]);
+		ArmySummary *summary = (ArmySummary *)rva0040D008(armyIDs(this)[i]);
 		if (summary)
 			summary->field2C = 1;
 	}

@@ -7436,7 +7436,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?clear@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAEXXZ,0x002D9186,callee of ??1?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE@XZ
 ?destroyPhantomStructure@DozerAIUpdate@@UAEXXZ,0x00489D09,callee of ??1DozerAIUpdate@@MAE@XZ
 ?rva002AA223@Player@@QBE_NXZ,0x002AA223,callee of ?rva00489F7D@DozerAIUpdate@@UAEXPBVThingTemplate@@PAVPlayer@@PBUCoord3D@@M@Z
-?rva0040F87E@ArmySummarySystem@@QAE_NXZ,0x0040F87E,address-derived ArmySummarySystem callee: Ghidra function boundary at 0x0040F87E; called through GameLogic+0x184 at 0x0023C8F9; semantic name unproven
 ?rva0057E45C@Rva0057E3DB@@QAEXXZ,0x0057E45C,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0x60 AptMapPreview member's Apt callback registration; REL32 call at 0x00443418); owner identity unresolved
 ?rva0057F0AA@Rva0057EE5C@@QAEXXZ,0x0057F0AA,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0xD0 member's registration; binds AptMpGameRules::Reset and AptMpGameRules::InitGadgets); owner identity unresolved
 ?rva0057FAB0@Rva0057F2DE@@QAEXXZ,0x0057FAB0,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0x190 member's registration; binds AptMpClans::WebSite and AptMpClans::Delete); owner identity unresolved

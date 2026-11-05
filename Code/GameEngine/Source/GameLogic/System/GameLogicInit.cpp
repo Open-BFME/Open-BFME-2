@@ -764,7 +764,7 @@ public:
 	void rva0024622F(bool loadingSaveGame);
 	void setWidth(float width) { m_width = width; }
 	void setHeight(float height) { m_height = height; }
-	bool rva0023C8DA(unsigned char loadingSaveGame);
+	void rva0023C8DA(unsigned char loadingSaveGame);
 	Object *findObjectByID(ObjectID id);
 	void loadAllObjects(_STL::vector<Rva0024622FEntry> *created, const KindOfType *excludeKind,
 		const KindOfType *requireKind, bool dontCreate);

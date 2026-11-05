@@ -119,16 +119,14 @@ struct Rva0040F87EIntVector
 	int *m_finish;
 };
 
-class ArmySummarySystem
-{
-public:
-	void rva0040F87E();
-	int ComputePlayerEarnedSpellPoints(_Rva0040CA61Arg *player);
-	void *rva0040D008(int key);
+#include "../../../Include/Common/ArmySummarySystem.h"
 
-	char pad00[0x14];
-	Rva0040F87EIntVector m_summaryIDs;
-};
+// The header spells the +0x14 id vector as its storage words; read it through
+// the start/finish view above.
+static inline const Rva0040F87EIntVector &summaryIDs(const ArmySummarySystem *system)
+{
+	return *reinterpret_cast<const Rva0040F87EIntVector *>(&system->m_14);
+}
 
 void ArmySummarySystem::rva0040F87E()
 {
@@ -173,8 +171,8 @@ void ArmySummarySystem::rva0040F87E()
 	LivingWorldRegionManager *regions = reinterpret_cast<Rva0040F87ELivingWorldLogic *>(TheLivingWorldLogic)->m_regionManager;
 	int battleID = regions->field0C;
 	if (battleID == 0) {
-		for (unsigned int i = 0; i < m_summaryIDs.size(); ++i) {
-			ArmySummary *summary = static_cast<ArmySummary *>(rva0040D008(m_summaryIDs[i]));
+		for (unsigned int i = 0; i < summaryIDs(this).size(); ++i) {
+			ArmySummary *summary = static_cast<ArmySummary *>(rva0040D008(summaryIDs(this)[i]));
 			if (summary && summary->field2C != 1)
 				summary->field2C = 0;
 		}
