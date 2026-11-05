@@ -15,13 +15,7 @@ class LocomotorSet;
 #include "../../../Include/Common/StateMachine.h"
 
 // The goal point the base move state keeps at +0x20.
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-protected:
-	Coord3D m_goalPosition;	// +0x20
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class Rva00544EB1 : public AIInternalMoveToState
 {
