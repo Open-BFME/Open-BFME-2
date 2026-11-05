@@ -181,8 +181,6 @@ enum
 	g_lanMaxOptionsLength = 0x186
 };
 
-#define BFME_VSLOT(n) virtual void slot##n( void ) = 0;
-#define BFME_GSLOT(n) virtual void slot##n( void );
 
 #include "../../Include/GameNetwork/GameSlotConnectInfo.h"
 
@@ -284,12 +282,28 @@ class GameInfo
 {
 public:
 	virtual ~GameInfo( void );
-	BFME_GSLOT(01) BFME_GSLOT(02) BFME_GSLOT(03) BFME_GSLOT(04)
-	BFME_GSLOT(05) BFME_GSLOT(06) BFME_GSLOT(07) BFME_GSLOT(08) BFME_GSLOT(09)
-	BFME_GSLOT(10) BFME_GSLOT(11) BFME_GSLOT(12) BFME_GSLOT(13)
+	virtual void slot01( void );
+	virtual void slot02( void );
+	virtual void slot03( void );
+	virtual void slot04( void );
+	virtual void slot05( void );
+	virtual void slot06( void );
+	virtual void slot07( void );
+	virtual void slot08( void );
+	virtual void slot09( void );
+	virtual void slot10( void );
+	virtual void slot11( void );
+	virtual void slot12( void );
+	virtual void slot13( void );
 	virtual void resetAccepted( void );		// slot 14
-	BFME_GSLOT(15) BFME_GSLOT(16) BFME_GSLOT(17) BFME_GSLOT(18) BFME_GSLOT(19)
-	BFME_GSLOT(20) BFME_GSLOT(21) BFME_GSLOT(22)
+	virtual void slot15( void );
+	virtual void slot16( void );
+	virtual void slot17( void );
+	virtual void slot18( void );
+	virtual void slot19( void );
+	virtual void slot20( void );
+	virtual void slot21( void );
+	virtual void slot22( void );
 	virtual UnicodeString getName( void );	// slot 23
 
 	AsciiString getMap( void ) const;
@@ -351,15 +365,49 @@ private:
 class NetworkInterface
 {
 public:
-	BFME_VSLOT(00) BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
-	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
-	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
-	BFME_VSLOT(15) BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
-	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22) BFME_VSLOT(23) BFME_VSLOT(24)
-	BFME_VSLOT(25) BFME_VSLOT(26) BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
-	BFME_VSLOT(30) BFME_VSLOT(31) BFME_VSLOT(32) BFME_VSLOT(33) BFME_VSLOT(34)
-	BFME_VSLOT(35) BFME_VSLOT(36) BFME_VSLOT(37) BFME_VSLOT(38) BFME_VSLOT(39)
-	BFME_VSLOT(40) BFME_VSLOT(41) BFME_VSLOT(42)
+	virtual void slot00( void ) = 0;
+	virtual void slot01( void ) = 0;
+	virtual void slot02( void ) = 0;
+	virtual void slot03( void ) = 0;
+	virtual void slot04( void ) = 0;
+	virtual void slot05( void ) = 0;
+	virtual void slot06( void ) = 0;
+	virtual void slot07( void ) = 0;
+	virtual void slot08( void ) = 0;
+	virtual void slot09( void ) = 0;
+	virtual void slot10( void ) = 0;
+	virtual void slot11( void ) = 0;
+	virtual void slot12( void ) = 0;
+	virtual void slot13( void ) = 0;
+	virtual void slot14( void ) = 0;
+	virtual void slot15( void ) = 0;
+	virtual void slot16( void ) = 0;
+	virtual void slot17( void ) = 0;
+	virtual void slot18( void ) = 0;
+	virtual void slot19( void ) = 0;
+	virtual void slot20( void ) = 0;
+	virtual void slot21( void ) = 0;
+	virtual void slot22( void ) = 0;
+	virtual void slot23( void ) = 0;
+	virtual void slot24( void ) = 0;
+	virtual void slot25( void ) = 0;
+	virtual void slot26( void ) = 0;
+	virtual void slot27( void ) = 0;
+	virtual void slot28( void ) = 0;
+	virtual void slot29( void ) = 0;
+	virtual void slot30( void ) = 0;
+	virtual void slot31( void ) = 0;
+	virtual void slot32( void ) = 0;
+	virtual void slot33( void ) = 0;
+	virtual void slot34( void ) = 0;
+	virtual void slot35( void ) = 0;
+	virtual void slot36( void ) = 0;
+	virtual void slot37( void ) = 0;
+	virtual void slot38( void ) = 0;
+	virtual void slot39( void ) = 0;
+	virtual void slot40( void ) = 0;
+	virtual void slot41( void ) = 0;
+	virtual void slot42( void ) = 0;
 	virtual Bool isPacketRouter( void ) = 0;	// slot 43
 };
 extern NetworkInterface *TheNetwork;
@@ -541,43 +589,70 @@ public:
 		ACT_JOIN
 	};
 
-	BFME_VSLOT(00) BFME_VSLOT(01) BFME_VSLOT(02) BFME_VSLOT(03) BFME_VSLOT(04)
-	BFME_VSLOT(05) BFME_VSLOT(06) BFME_VSLOT(07) BFME_VSLOT(08) BFME_VSLOT(09)
-	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
-	BFME_VSLOT(15)
+	virtual void slot00( void ) = 0;
+	virtual void slot01( void ) = 0;
+	virtual void slot02( void ) = 0;
+	virtual void slot03( void ) = 0;
+	virtual void slot04( void ) = 0;
+	virtual void slot05( void ) = 0;
+	virtual void slot06( void ) = 0;
+	virtual void slot07( void ) = 0;
+	virtual void slot08( void ) = 0;
+	virtual void slot09( void ) = 0;
+	virtual void slot10( void ) = 0;
+	virtual void slot11( void ) = 0;
+	virtual void slot12( void ) = 0;
+	virtual void slot13( void ) = 0;
+	virtual void slot14( void ) = 0;
+	virtual void slot15( void ) = 0;
 	virtual void RequestGameJoin( LANGameInfo *game, const BfmeNetAddress &ip );	// slot 16
-	BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
-	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22) BFME_VSLOT(23) BFME_VSLOT(24)
-	BFME_VSLOT(25)
+	virtual void slot17( void ) = 0;
+	virtual void slot18( void ) = 0;
+	virtual void slot19( void ) = 0;
+	virtual void slot20( void ) = 0;
+	virtual void slot21( void ) = 0;
+	virtual void slot22( void ) = 0;
+	virtual void slot23( void ) = 0;
+	virtual void slot24( void ) = 0;
+	virtual void slot25( void ) = 0;
 	virtual void RequestGameOptionsPacked( Bool isPublic, BfmeNetAddress *ip );	// slot 26
-	BFME_VSLOT(27) BFME_VSLOT(28) BFME_VSLOT(29)
-	BFME_VSLOT(30) BFME_VSLOT(31)
+	virtual void slot27( void ) = 0;
+	virtual void slot28( void ) = 0;
+	virtual void slot29( void ) = 0;
+	virtual void slot30( void ) = 0;
+	virtual void slot31( void ) = 0;
 	virtual void OnGameList( LANGameInfo *gameList );	// slot 32
 	virtual void rva00248E87( void );		// slot 33, the player list refresh
 	virtual void OnGameJoin( LANAPIInterface::ReturnType ret, LANGameInfo *theGame, LANMessage *msg );
 	virtual void rva002493BC( Int slot, UnicodeString playerName );	// slot 35, OnPlayerJoin
 	virtual void OnHostLeave( void );		// slot 36
 	virtual void OnPlayerLeave( UnicodeString player );	// slot 37
-	BFME_VSLOT(38)
+	virtual void slot38( void ) = 0;
 	virtual void OnHasMap( const BfmeNetAddress *ip, Bool status );
 	virtual void OnChat( const UnicodeString &player, const BfmeNetAddress *ip,
 		const UnicodeString &message, LANAPIInterface::ChatType format );	// slot 40
-	BFME_VSLOT(41)
+	virtual void slot41( void ) = 0;
 	virtual void OnGameStart( void );		// slot 42
 	virtual void OnWOTRGameStart( void );		// slot 43
-	BFME_VSLOT(44) BFME_VSLOT(45)
+	virtual void slot44( void ) = 0;
+	virtual void slot45( void ) = 0;
 	virtual Bool OnGameOptionsPacked( const BfmeNetAddress &sender, Int playerSlot, const void *data, Int length );	// slot 46
-	BFME_VSLOT(47)
+	virtual void slot47( void ) = 0;
 	virtual void OnNameChange( BfmeNetAddress *from, UnicodeString newName );
 	virtual LANGameInfo *LookupGame( UnicodeString gameName );
-	BFME_VSLOT(50) BFME_VSLOT(51) BFME_VSLOT(52) BFME_VSLOT(53)
+	virtual void slot50( void ) = 0;
+	virtual void slot51( void ) = 0;
+	virtual void slot52( void ) = 0;
+	virtual void slot53( void ) = 0;
 	virtual Bool AmIHost( void );			// slot 54
-	BFME_VSLOT(55) BFME_VSLOT(56)
+	virtual void slot55( void ) = 0;
+	virtual void slot56( void ) = 0;
 	virtual void fillInLANMessage( LANMessage *msg ) = 0;	// slot 57
-	BFME_VSLOT(58) BFME_VSLOT(59)
+	virtual void slot58( void ) = 0;
+	virtual void slot59( void ) = 0;
 	virtual Bool rva00449B79( void );		// slot 60, whether we are the loopback address
 	virtual void rva00248E2F( Bool value );		// slot 61
-	BFME_VSLOT(62)
+	virtual void slot62( void ) = 0;
 	virtual LANPlayer *LookupPlayer( const BfmeNetAddress *who );
 	virtual BfmeNetAddress *getLocalAddress( void ) = 0;
 
@@ -620,8 +695,6 @@ protected:
 	LANGameInfo *m_currentGame;			// +0x44
 };
 
-#undef BFME_VSLOT
-#undef BFME_GSLOT
 
 extern LANAPI *TheLAN;
 

@@ -19,3 +19,5 @@ Clearance: OnNameChange adoption only; broader class scope remains open. Census 
 2026-11-04: LANAPI.cpp and LANAPIhandlers.cpp adopt LANPlayerClass.h and BfmeNetAddress.h; 124/124 rows exact, 4 header rows retired, ordinary preview LINKS 14,705 -> 14,705 B. The address base/constructor prerequisite is cleared for these two consumers: [evidence](../../reverse/attempt_support/lanplayer-address-header-20261104-codexb.md).
 
 2026-11-04: GameInfo.cpp and GameSlotApparent.cpp adopt BfmeNetAddress.h with address-specific field accesses; 137/137 rows exact, 2 header rows retired, ordinary preview LINKS 9,876 -> 9,876 B ([evidence](../../reverse/attempt_support/gameinfo-netaddress-header-20261104-codex.md)); other class prerequisites remain unchanged.
+
+2026-11-05: LANAPIhandlers expands its virtual-slot macros with 45/45 rows exact and four-unit LINKS 6,419 -> 6,419 B; TU composition now reaches byte verification but loses LANMessage's packing scope, so preserve that scope before retrying the merge ([evidence](../../reverse/attempt_support/lanapi-composition-20261105-codex4.md)); header adoption remains open.
