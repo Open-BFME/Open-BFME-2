@@ -31,3 +31,20 @@
   word now equals retail's; confirm pointers on the next image report.
 - **Globals:** 3,194 agree, 18 differ, 34 are zero where retail is not, and no object defines 481 that
   retail gives a value. No strong data is defined twice; 24 addresses have several defined names.
+
+
+**2026-11-05, generated vtable bridge (pending link measurement).** The Link lane
+implements the P1 bridge in `tools/vtable_bridge.py`, called by `exit_link.py`.
+It emits only existing select-any names, refuses strong/common/absolute providers
+and ambiguous or unkept targets, and records every refusal in a separate list.
+Matching first copies need no bridge, allowing the counters to retire as source
+headers are repaired. Positive slot pointers are ledger-bounded; this does not
+recover class layouts or synthesize RTTI prefixes.
+
+Direct VC7.1 tests found that a select-any copy can beat another select-any copy,
+including a vtable from a compiled C++ class. A non-COMDAT strong definition instead
+causes LNK2005 in either order, so detecting it before generation is mandatory.
+A losing select-any copy's unresolved reference still appears in linker errors.
+No source edit or source-recovery credit is claimed by this bridge. G1 requires its
+table and slot counters to reach zero. Final paired-link evidence will be recorded
+here before the Link lane requests review.

@@ -38,6 +38,21 @@ game never builds those globals, so `exit_link.py` registers them from a table i
 retail's order (`retail_initializers.obj`). That lets an image start, but it is not the source: the
 count must reach 0 for the exit test.
 
+`vtables_bridged` and `vtable_slots_bridged` count generated select-any vtable
+copies and their positive virtual slots. `exit_link.py` emits them first, only for
+already-defined select-any tables with no supplied strong definition and with every
+retail slot resolved through a matched ledger row to an external kept code target.
+A first kept copy whose slot pointers already match needs no bridge. Missing tables,
+ambiguous names, omitted targets and other refused cases are listed in
+`vtable_bridge_queue.tsv`; `vtable_bridge.json` records the full decision.
+Neither list changes `reverse/exit_link_blockers.tsv` or the picker.
+
+These copies are a runtime bridge, not recovered class definitions. G1 requires both
+vtable counters and `initializers_bridged` to be zero in addition to its other
+requirements. Missing counters in an older result are unknown, not zero. The image
+receipt carries the vtable counts, so the linked-image report preserves them under
+`inputs.receipt` while continuing to judge the actual winning object and bytes.
+
 `image_report.json` compares the kept objects with retail on what the linker cannot see
 (`tools/image_report.py`): initializers registered, vtable lengths, data contents, FieldParse tables,
 duplicate globals and globals constructed in storage smaller than the ledger's gap. These all pass a link and fail at run time. Its `rows` lists name each case.

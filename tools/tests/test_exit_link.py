@@ -370,7 +370,8 @@ def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
         "base": "0x10000000", "image_sha256": E.digest(image),
         "map_sha256": E.digest(image.with_suffix(".map")), "stubbed": names,
         "exports_requested": 1964, "rsrc": True, "fixed_no": True, "opt": "NOREF,NOICF",
-        "authoritative": False, "omission_proof": "not-run"}
+        "authoritative": False, "omission_proof": "not-run",
+        "vtables_bridged": 0, "vtable_slots_bridged": 0}
 
 
 def test_receipt_requires_current_nonempty_map(tmp_path):
@@ -530,8 +531,9 @@ def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path
         "funclet_covered": 0, "funclet_rows": 0})
     monkeypatch.setattr(E, "eh_proof", lambda rows: {"unproven": [], "missing_objects": 0})
     monkeypatch.setattr(E, "link_setup", lambda *a: (
-        [root / "bridge.obj", root / "absolute.obj"],
-        {"import_libraries": [], "harness_import_symbols": []}))
+        [root / "retail_vtables.obj", root / "bridge.obj", root / "absolute.obj"],
+        {"import_libraries": [], "harness_import_symbols": [],
+         "vtable_bridge": {"object": "retail_vtables.obj", "tables": 1, "slots": 4}}))
     monkeypatch.setattr(E, "link_command", lambda inputs, image, out, roots:
                         (["fixture-linker"], out / "exit.rsp"))
     monkeypatch.setattr(E.census, "census_state", lambda *a: {})
@@ -553,6 +555,9 @@ def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path
     diagnostic = root / "build/diagnostic_link"
     result = json.loads((diagnostic / "result.json").read_text())
     assert result["mode"] == "diagnostic-link"
+    assert result["objects"]["linked"] == 0  # generated objects never earn source-object credit
+    assert result["vtable_bridge"]["tables"] == 1
+    assert result["vtable_bridge"]["slots"] == 4
     assert root / result["link"]["log"] == diagnostic / "link.log"
     assert (diagnostic / "link.log").is_file()
     import csv
@@ -781,3 +786,86 @@ def test_import_stubs_keep_even_helper_like_requested_names(tmp_path):
     path = E.diagnostic_stubs(names, tmp_path / "stubs.obj")
     _sections, symbols = E.link_cycle.parse_coff(path.read_bytes())
     assert {sym.name for sym in symbols.values()} == names
+
+
+def test_receipt_counts_vtable_debt_without_changing_measurement_authority(tmp_path, monkeypatch):
+    import json
+    image = tmp_path / "exit.exe"
+    image.write_bytes(b"image")
+    image.with_suffix(".map").write_bytes(b"map")
+    proof = {"population_problem": None, "inspection_failures": [], "uncovered_funclets": [],
+             "unproven": [], "outside_referrers": {}}
+    monkeypatch.setattr(E, "image_commit", lambda: "a" * 40)
+    E.image_receipt(image, False, [], proof=proof, vtables={"tables": 2, "slots": 9})
+    receipt = json.loads((tmp_path / "image_receipt.json").read_text())
+    assert receipt["vtables_bridged"] == 2 and receipt["vtable_slots_bridged"] == 9
+    assert receipt["authoritative"] is True  # strict-link authority is not a G1 pass
+
+
+def test_workflow_counts_both_bridges_and_leaves_old_or_refused_results_unknown():
+    import ast
+    import textwrap
+    text = (E.ROOT / ".github/workflows/real-link.yml").read_text()
+    step = text.split("      - name: Real link\n", 1)[1].split("      - name:", 1)[0]
+    code = textwrap.dedent(step.split("        run: |\n", 1)[1])
+    calls = [node for node in ast.walk(ast.parse(code)) if isinstance(node, ast.Call)
+             and isinstance(node.func, ast.Attribute) and node.func.attr == "update"
+             and isinstance(node.func.value, ast.Name) and node.func.value.id == "board"]
+    fields = {kw.arg: kw.value for kw in calls[0].keywords}
+    data = {"initializer_bridge": {"entries": 7}, "vtable_bridge": {"tables": 2, "slots": 9}}
+    for name, expected in (("initializers_bridged", 7), ("vtables_bridged", 2), ("vtable_slots_bridged", 9)):
+        expr = compile(ast.Expression(fields[name]), "real-link.yml", "eval")
+        assert eval(expr, {"data": data}) == expected
+        assert eval(expr, {"data": {}}) is None
+    assert text.count("vtable_bridge_queue.tsv") == 2
+    assert text.count("vtable_bridge.json") == 2
+
+
+def test_link_setup_puts_vtable_bridge_first_without_changing_original_order(tmp_path, monkeypatch):
+    import image_report
+    import vtable_bridge
+    original = [tmp_path / "a.obj", tmp_path / "b.obj"]
+    initializer = tmp_path / "retail_initializers.obj"
+    vtables = tmp_path / "retail_vtables.obj"
+    monkeypatch.setattr(E, "OUT", tmp_path)
+    monkeypatch.setattr(E, "placement_objects", lambda rows: {})
+    monkeypatch.setattr(E.link_cycle, "Objects", lambda paths: object())
+    monkeypatch.setattr(E.census, "retail_imports", lambda: {})
+    monkeypatch.setattr(E.link_cycle, "undefined_imports", lambda objects: set())
+    monkeypatch.setattr(E.link_cycle, "undefined_plain_imports", lambda objects, imports: set())
+    monkeypatch.setattr(E, "harness_import_roots", lambda requests: (set(), set()))
+    monkeypatch.setattr(E.link_cycle, "import_def_entries", lambda *args: ({}, set()))
+    monkeypatch.setattr(E.link_cycle, "runtime_libraries", lambda: [])
+    monkeypatch.setattr(E.link_cycle, "defined_externals", lambda objects: set())
+    monkeypatch.setattr(E, "runtime_data_imports", lambda libraries: set())
+    monkeypatch.setattr(E, "make_import_libs", lambda *args: [])
+    monkeypatch.setattr(E, "initializer_table", lambda rows, inputs: (
+        initializer, {"entries": 7, "unreachable": []}))
+    retail = tmp_path / "retail.exe"
+    retail.write_bytes(b"retail")
+    monkeypatch.setattr(E.build, "EXE", retail)
+    monkeypatch.setattr(image_report, "Retail", lambda raw: object())
+    def generated(rows, inputs, omitted, libraries, out, retail, objects=None):
+        assert inputs == original and omitted == set()
+        return vtables, {"object": vtables.name, "tables": 2, "slots": 9}
+    monkeypatch.setattr(vtable_bridge, "build_bridge", generated)
+    inputs, metadata = E.link_setup([], original)
+    assert inputs[:4] == [vtables, initializer] + original
+    assert metadata["initializer_bridge"]["entries"] == 7
+    assert metadata["vtable_bridge"]["slots"] == 9
+
+
+def test_report_shows_generated_vtable_retirement_count(tmp_path, monkeypatch, capsys):
+    import json
+    monkeypatch.setattr(E, "OUT", tmp_path)
+    (tmp_path / "result.json").write_text(json.dumps({
+        "when": "now", "commit": "a" * 40, "base": "0x10000000",
+        "objects": {"linked": 3, "omitted_count": 17},
+        "link": {"exit": 96, "image_written": False},
+        "errors": {"unresolved": 7, "duplicates": 0, "total": 8, "unresolved_classes": {},
+                   "unresolved_exclusive_to_omitted": []},
+        "vtable_bridge": {"tables": 2, "slots": 9, "refused_tables": 4, "already_correct": 5}}))
+    assert E.report() == 0
+    text = capsys.readouterr().out
+    assert "vtable bridge 2 table(s), 9 slot(s)" in text
+    assert "must reach 0 for G1" in text

@@ -96,6 +96,8 @@ jobs:
                            unresolved=data['errors']['unresolved'], duplicates=data['errors']['duplicates'],
                            objects=data['objects']['linked'],
                            initializers_bridged=data.get('initializer_bridge', {}).get('entries'),
+                           vtables_bridged=data.get('vtable_bridge', {}).get('tables'),
+                           vtable_slots_bridged=data.get('vtable_bridge', {}).get('slots'),
                            omitted_funclets=[e['name'] for e in
                                              data['omission_proof'].get('uncovered_funclets_recorded', [])])
           (out / 'scoreboard.json').write_text(json.dumps(board, indent=1) + '\n', encoding='utf-8')
@@ -154,6 +156,8 @@ jobs:
             build/exit_link/link.log
             build/exit_link/run.log
             build/exit_link/image_report.json
+            build/exit_link/vtable_bridge.json
+            build/exit_link/vtable_bridge_queue.tsv
             build/exit_link/image/
             build/exit_link/linked_report/
 
@@ -207,6 +211,8 @@ jobs:
           path: |
             build/diagnostic_link/image/
             build/diagnostic_link/stubbed.tsv
+            build/diagnostic_link/vtable_bridge.json
+            build/diagnostic_link/vtable_bridge_queue.tsv
             build/diagnostic_link/link.log
             build/diagnostic_link/linked_report/
 

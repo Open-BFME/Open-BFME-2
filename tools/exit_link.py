@@ -100,7 +100,8 @@ PLACEMENT_BASENAMES = frozenset(
 EXPECTED_PLACEMENT_SOURCES = len(PLACEMENT_BASENAMES)
 PLACEMENT_PATTERN = re.compile(
     rf"^{re.escape(PLACEMENT_DIR)}/(uw_gen_\d+\.cpp|gthunks_\d+_admitted\.cpp|thunks_\d+_admitted\.cpp)$")
-TOOL_FILES = ("exit_link.py", "link_census.py", "link_cycle.py", "build.py", "eh_verify.py")
+TOOL_FILES = ("exit_link.py", "link_census.py", "link_cycle.py", "build.py", "eh_verify.py",
+              "vtable_bridge.py", "image_report.py", "coffar.py")
 
 
 def is_placement_source(source):
@@ -139,6 +140,7 @@ def digest(path):
 def tool_digests():
     return {**{name: digest(ROOT / "tools" / name) for name in TOOL_FILES},
             "reverse/exports.csv": digest(ROOT / "reverse/exports.csv"),
+            "reverse/data_ledger.csv": digest(ROOT / "reverse/data_ledger.csv"),
             "retail": digest(build.EXE)}
 
 
@@ -701,7 +703,7 @@ def omission_status(proof):
     return "failed" if failed else "passed"
 
 
-def image_receipt(image, diagnostic, stubbed, proof=None):
+def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None):
     """Only an image and its fresh map can receive a receipt."""
     if stubbed and not diagnostic:
         raise ValueError("a real image cannot contain diagnostic stubs")
@@ -715,8 +717,10 @@ def image_receipt(image, diagnostic, stubbed, proof=None):
     with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
         exports = sum(1 for _ in csv.DictReader(handle))
     status = omission_status(proof)
+    vtables = vtables or {}
     receipt.write_text(json.dumps({
         "authoritative": not diagnostic and status == "passed", "omission_proof": status,
+        "vtables_bridged": vtables.get("tables", 0), "vtable_slots_bridged": vtables.get("slots", 0),
         "kind": "diagnostic" if diagnostic else "real", "commit": image_commit(),
         "base": f"0x{BASE:X}", "image_sha256": digest(image), "map_sha256": digest(mapfile),
         "stubbed": sorted(stubbed), "exports_requested": exports, "rsrc": True,
@@ -880,7 +884,13 @@ def link_setup(rows, present):
     }
     table, bridge = initializer_table(rows, inputs)
     metadata["initializer_bridge"] = bridge
-    return [table] + inputs + libs + [absolute], metadata
+    import image_report
+    import vtable_bridge
+    vtables, vtable_info = vtable_bridge.build_bridge(
+        rows, inputs, omitted, libs, OUT,
+        image_report.Retail(build.EXE.read_bytes()), objects=objects)
+    metadata["vtable_bridge"] = vtable_info
+    return ([vtables] if vtables else []) + [table] + inputs + libs + [absolute], metadata
 
 
 def expected_objects(rows):
@@ -1033,7 +1043,7 @@ def run_link(rows, diagnostic=False):
     exclusive = set(proof["exclusive_names"])
     still_wanted = sorted(name for name in detail if name in exclusive)
     image_written = image.exists()
-    image_receipt(image, diagnostic, stubbed, proof=proof)
+    image_receipt(image, diagnostic, stubbed, proof=proof, vtables=setup.get("vtable_bridge"))
     record = {
         "mode": "diagnostic-link" if diagnostic else "exit-link",
         "records": False,
@@ -1049,7 +1059,8 @@ def run_link(rows, diagnostic=False):
         "currency": {"rule": "build.compile_is_current (source + recorded headers)",
                      "published_index": published_index_meta()},
         "objects": {
-            "linked": len(inputs) - len(setup["import_libraries"]) - 2,
+            "linked": (len(inputs) - len(setup["import_libraries"]) - 2
+                       - bool(setup.get("vtable_bridge", {}).get("object"))),
             "present": len(present),
             "omitted": proof["objects"],
             "omitted_count": len(omitted),
@@ -1179,6 +1190,11 @@ def report():
               f"{len(proof.get('uncovered_funclets') or ())} uncovered, "
               f"{len(proof.get('inspection_failures') or ())} uninspected, "
               f"{len(proof.get('outside_referrers') or ())} outside referrer(s)")
+    vtables = record.get("vtable_bridge")
+    if vtables is not None:
+        print(f"exit_link: vtable bridge {vtables['tables']:,} table(s), {vtables['slots']:,} slot(s); "
+              f"{vtables['refused_tables']:,} refused, {vtables['already_correct']:,} already match; "
+              "generated tables and slots must reach 0 for G1")
     eh = record.get("eh_proof")
     if eh:
         print(f"exit_link: EH proof {eh['rows_with_eh']:,} row(s), {eh['not_exact']:,} not exact "
