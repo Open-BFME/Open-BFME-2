@@ -11,7 +11,8 @@
 // passed straight into findCommandSet's call (a pointer local for it is
 // computed into EAX instead).
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;

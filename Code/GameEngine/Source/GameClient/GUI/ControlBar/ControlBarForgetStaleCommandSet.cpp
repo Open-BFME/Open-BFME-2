@@ -40,7 +40,8 @@ class Rva000411084;
 struct StaleCommandSetView { char opaque00[0x0C]; int stale; };
 struct CommandSetNodeView { void *next; AsciiString key; StaleCommandSetView *value; };
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "ControlBarMemberTypes.h"
 enum CommandButtonMappedBorderType
 {

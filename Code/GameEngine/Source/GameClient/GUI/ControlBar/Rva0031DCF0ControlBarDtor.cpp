@@ -33,7 +33,10 @@ template<> inline void allocator<void *>::deallocate(void **__p, size_type) cons
 }
 }
 #include "ascii_string.h"
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "../../../../Include/Common/SubsystemInterfaceList.h"
+extern SubsystemInterfaceList *TheSubsystemList;
 
 #include <cstddef>
 // Bind to the kept retail copy instead of emitting this unit's own.

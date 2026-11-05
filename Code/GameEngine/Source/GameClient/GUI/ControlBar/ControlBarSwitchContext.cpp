@@ -219,7 +219,8 @@ struct ContextControlBarView {
 };
 struct Coord3D;
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "ControlBarMemberTypes.h"
 enum CommandButtonMappedBorderType
 {

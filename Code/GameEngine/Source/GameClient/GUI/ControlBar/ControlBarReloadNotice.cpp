@@ -53,7 +53,8 @@ static bool g_Va00E01D0C;
 class INI;
 class CommandSet;
 typedef bool Bool;
-#include "subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include "ControlBarMemberTypes.h"
 enum CommandButtonMappedBorderType
 {
