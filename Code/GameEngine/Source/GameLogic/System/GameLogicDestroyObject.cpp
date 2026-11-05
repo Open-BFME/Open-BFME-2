@@ -43,24 +43,7 @@ public:
 	virtual void onDestroy(void);
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00(void);
-	virtual void slot04(void);
-	virtual void slot08(void);
-	virtual void slot0C(void);
-	virtual void slot10(void);
-	virtual void slot14(void);
-	virtual DestroyModuleInterface *getDestroy(void);
-};
-
-class BehaviorModule
-{
-public:
-	char m_pad00[12];
-	BehaviorModuleInterface m_behavior;
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class AIUpdateInterface
 {
@@ -242,7 +225,10 @@ void GameLogic::destroyObject(Object *obj)
 		return;
 	for (BehaviorModule **behaviorModule = obj->m_modules; *behaviorModule; ++behaviorModule)
 	{
-		DestroyModuleInterface *destroy = (*behaviorModule)->m_behavior.getDestroy();
+		// Retail dispatches slot 6 at +0x0C; use the embedded interface by
+		// reference to preserve its non-null adjustment.
+		BehaviorModuleInterface &interface = **behaviorModule;
+		DestroyModuleInterface *destroy = static_cast<DestroyModuleInterface *>(interface.slot06());
 		if (destroy)
 			destroy->onDestroy();
 	}
