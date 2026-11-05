@@ -186,7 +186,7 @@ class UpdateModule : public FakePathfindPortalModule,
 {
 public:
     UpdateModule(Thing *thing, const ModuleData *moduleData);
-    void xfer(Xfer *xfer);
+    virtual void xfer(Xfer *xfer);
 
 protected:
     unsigned char m_pad[0x20 - 0x14];

@@ -133,7 +133,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 protected:
 	Object *getObject() const { return m_object; }
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);

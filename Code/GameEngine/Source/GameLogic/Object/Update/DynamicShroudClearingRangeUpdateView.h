@@ -91,7 +91,10 @@ class UpdateModule : public ObjectModule, public UpdateModuleInterface, public M
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	// Retail's Snapshot slots 1 and 2 precede xfer (slot 3, table 0x0084BEBC).
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void xfer(Xfer *xfer);
 	Object *getObject() const { return m_object; }
 
 protected:
@@ -141,7 +144,7 @@ public:
 public:
 	void killGridDecals();
 	void rva0048B256();
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 protected:
 	const DynamicShroudClearingRangeUpdateModuleData *getDynamicShroudClearingRangeUpdateModuleData() const
 	{

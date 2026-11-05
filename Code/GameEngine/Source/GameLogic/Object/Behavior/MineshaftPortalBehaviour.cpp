@@ -234,7 +234,7 @@ public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual UpdateSleepTime update();
  virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 };
 class MineshaftPortalInterfaceA
 {
@@ -1056,7 +1056,7 @@ void MineshaftPortalNetworkManager::addWaypoint(Waypoint *waypoint, Player *play
 // virtual declaration are not asserted by this neutral method label.
 void MineshaftPortalBehaviour::DoXfer(Xfer *xfer)
 {
-    ((UpdateModule *)this)->xfer(xfer);
+    ((UpdateModule *)this)->UpdateModule::xfer(xfer);
     if (xfer->IsLightCRC())
         return;
     Xfer::Version version(1, 1);

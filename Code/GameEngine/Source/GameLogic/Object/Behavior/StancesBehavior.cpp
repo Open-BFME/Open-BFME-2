@@ -318,7 +318,10 @@ class UpdateModule
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	// Retail's Snapshot slots 1 and 2 precede xfer (slot 3, table 0x008424DC).
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void xfer(Xfer *xfer);
 protected:
 	const StancesBehaviorModuleData *m_moduleData;	// +0x04
 	Object *m_object;	// +0x08

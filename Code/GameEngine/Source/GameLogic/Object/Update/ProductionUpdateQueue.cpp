@@ -550,7 +550,7 @@ public:
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 
 protected:
 	unsigned m_nextCallFrameAndPhase;

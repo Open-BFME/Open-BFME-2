@@ -169,7 +169,7 @@ class UpdateModule : public InvisibilityUpdatePrimary, public BehaviorModuleOthe
 public:
  UpdateModule(Thing *thing, const ModuleData *moduleData);
  virtual ~UpdateModule();
- void xfer(Xfer *xfer); // 0x0044DF9F, spelled as its row
+ virtual void xfer(Xfer *xfer); // 0x0044DF9F, spelled as its row
 protected:
  void setWakeFrame(Object*,UpdateSleepTime);
  unsigned char m_pad14[12];

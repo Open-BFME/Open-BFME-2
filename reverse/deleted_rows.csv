@@ -5142,3 +5142,5 @@ _$E1,0x007ADA4C,"Retracted for readmission as _$E3 in BannerUI.cpp: the unit now
 ?name@Rva00252B84Named@@QBEPBDXZ,0x00252B84,"Renamed to ?GetSnapshotName@DrawableModule@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C07E54 slot 2)"
 ?doCommand@DeployStyleAIUpdate@@QAEXPBUAICommandParms@@_N@Z,0x0048EA0F,"Renamed to ?doCommand@DeployStyleAIUpdate@@UAEXPBUAICommandParms@@_N@Z by tools/rename.py (virtual: retail vtable slot)"
 ?xfer@CastleMemberBehavior@@QAEXPAVXfer@@@Z,0x003957C6,"Renamed to ?xfer@CastleMemberBehavior@@MAEXPAVXfer@@@Z by tools/rename.py (virtual: retail vtable slot)"
+?xfer@UpdateModule@@QAEXPAVXfer@@@Z,0x0044DF9F,"Renamed to ?xfer@UpdateModule@@UAEXPAVXfer@@@Z by tools/rename.py (virtual: retail vtable slot)"
+?xfer@DynamicShroudClearingRangeUpdate@@QAEXPAVXfer@@@Z,0x0048B505,"Renamed to ?xfer@DynamicShroudClearingRangeUpdate@@UAEXPAVXfer@@@Z by tools/rename.py (virtual: retail vtable slot)"

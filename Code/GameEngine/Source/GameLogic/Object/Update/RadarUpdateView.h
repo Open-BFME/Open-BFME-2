@@ -58,7 +58,7 @@ public:
 class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 public:
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 protected:
 	unsigned int m_14;
 	int m_18;

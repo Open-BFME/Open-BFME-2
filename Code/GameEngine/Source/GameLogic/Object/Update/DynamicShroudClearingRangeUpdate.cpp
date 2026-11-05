@@ -170,7 +170,7 @@ void DynamicShroudClearingRangeUpdate::rva0048B256()
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DynamicShroudClearingRangeUpdateXfer.cpp
 
 //
-// ?xfer@DynamicShroudClearingRangeUpdate@@QAEXPAVXfer@@@Z retail 0x0048B505
+// ?xfer@DynamicShroudClearingRangeUpdate@@UAEXPAVXfer@@@Z retail 0x0048B505
 // ~165 bytes. Behavior-side xfer completing the DynamicShroudClearingRangeUpdate
 // file-unit (behavior ctor/dtor/??_G, ModuleData proc/ctor/factory, poolkey,
 // instance factory and killGridDecals all rowed).
@@ -185,7 +185,7 @@ void DynamicShroudClearingRangeUpdate::rva0048B256()
 // int 0x7C, uint 0x78, bool 0x90, float 0x70). UpdateModule::xfer rides the
 // pinned 0x44DF9F base xfer.
 
-// ?xfer@DynamicShroudClearingRangeUpdate@@QAEXPAVXfer@@@Z @0x0048B505
+// ?xfer@DynamicShroudClearingRangeUpdate@@UAEXPAVXfer@@@Z @0x0048B505
 void DynamicShroudClearingRangeUpdate::xfer(Xfer *xfer)
 {
 	UpdateModule::xfer(xfer);

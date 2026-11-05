@@ -3065,7 +3065,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecia
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateCtor.cpp	_vtbl_00C40818	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp	?getGoalObject@StateMachine@@QAEPAVObject@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp	?xfer@UpdateModule@@MAEXPAVXfer@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp	?xfer@UpdateModule@@UAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleCtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp	?bfmeSetWakeBJ@BfmeWakeBJ@@QAEXPAXH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWakeFrame.cpp	?setWakeFrame@FireWeaponUpdate@@IAEXPAVObject@@I@Z	1
@@ -7707,7 +7706,6 @@ pin	reverse/symbols.csv	0x0044D285	3
 pin	reverse/symbols.csv	0x0044D56A	1
 pin	reverse/symbols.csv	0x0044D5EE	1
 pin	reverse/symbols.csv	0x0044DF71	6
-pin	reverse/symbols.csv	0x0044DF9F	1
 pin	reverse/symbols.csv	0x0044ECCE	1
 pin	reverse/symbols.csv	0x0044EF5E	2
 pin	reverse/symbols.csv	0x0044FC52	1

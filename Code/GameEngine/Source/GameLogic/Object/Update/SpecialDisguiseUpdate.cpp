@@ -230,7 +230,7 @@ class UpdateModule
 public:
 	virtual ~UpdateModule();
 	virtual void slot1(); virtual void slot2();
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 };
 class SpecialAbilityUpdate : public UpdateModule
 {

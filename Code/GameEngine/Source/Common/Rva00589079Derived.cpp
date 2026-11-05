@@ -34,7 +34,7 @@ public:
 protected:
     virtual SleepyUpdatePhase getUpdatePhase() const;
 public:
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 };
 
 class Rva00589079_S2

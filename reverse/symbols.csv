@@ -6527,7 +6527,6 @@ name,address,notes
 ?xfer@CollideModule@@QAEXPAVXfer@@@Z,0x004CE56D,slot3 of CollideModule vtable 0x0085A130 via rowed ctor plus ZH donor identical body plus base call from CrateCollide 0x004BC617
 ?xfer@Rva0015334F@@QAEXPAVXfer@@@Z,0x005AA4C1,FlankAttack route xfer (rowed under the address name Rva005AA4C1); REL32 at 0x005AA623 in the FlankAttack slot 5
 ?xfer@TerrainVisual@@MAEXPAVXfer@@@Z,0x00306A9B,ZH TerrainVisual::xfer (version only): the 12-byte Version1-only body rowed as Rva00306A9BDoXfer; W3DTerrainVisual::xfer calls it first as its base (0x000926FA)
-?xfer@UpdateModule@@UAEXPAVXfer@@@Z,0x0044DF9F,virtual twin of QAE row for secondary vtable xfer placement
 ?zeroFrame@FrameData@@QAEXXZ,0x005DA5E3,BFME2 frame-ring entry zeroing helper used by bulk frame clearing
 @_RTC_CheckStackVars@8,0x0075A5C5,address read from the REL32 displacement in DirtySock Y4CommTable Rva00811E20 at 0x0067DD20; compiler stack-check helper next to RTC_CheckEsp; body not yet converted
 G00DB5FBC,0x009B5FBC,Render2DClass ctor 0x0011C0F0 stores 7; donor Render2DClassConstructor names this ThirdEB; opaque address-derived name

@@ -5,8 +5,13 @@
 // Version-gated base xfer: single-arg virtual slot 0x28 on the Xfer with a
 // 2-byte version struct {1,2}, then UpdateModule::xfer only when the second
 // byte reads back >= 2. Evidence: slot-3 xfer recipe; base call resolves to
-// rowed ?xfer@UpdateModule@@QAEXPAVXfer@@@Z 0x0044DF9F; slot-0x28 callee
+// rowed ?xfer@UpdateModule@@UAEXPAVXfer@@@Z 0x0044DF9F; slot-0x28 callee
 // identity unproven (indirect call, no relocation); owner class placeholder.
+// Retail tables 0x00C48418 (CivilianSpawnUpdate) and 0x00C4F838
+// (BannerCarrierUpdate) both hold this body at slot 3, so its owner is not
+// proven and the placeholder class stands for no class of either table: it
+// keeps its non-virtual row spelling and reaches the now-virtual base xfer
+// through a qualified call on an UpdateModule view (same this, direct call).
 
 struct XferVersion47
 {
@@ -20,10 +25,10 @@ struct XferVersion47
 class UpdateModule
 {
 public:
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 };
 
-class Rva0047F94C : public UpdateModule
+class Rva0047F94C
 {
 public:
 	void xfer(Xfer *xfer);
@@ -36,5 +41,5 @@ void Rva0047F94C::xfer(Xfer *xfer)
 	version.m_flags = 2;
 	*xfer == reinterpret_cast<Xfer::Version &>(version);
 	if (version.m_flags >= 2)
-		UpdateModule::xfer(xfer);
+		((UpdateModule *)this)->UpdateModule::xfer(xfer);
 }

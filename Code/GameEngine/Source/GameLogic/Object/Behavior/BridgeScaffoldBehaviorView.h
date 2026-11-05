@@ -62,7 +62,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
  UpdateModule(Thing *, const ModuleData *);
- void xfer(Xfer *);
+ virtual void xfer(Xfer *);
  void loadPostProcess();
 private:
  unsigned m_nextCallFrameAndPhase;

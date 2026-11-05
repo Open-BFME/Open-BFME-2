@@ -58,7 +58,7 @@ class UpdateModule : public ObjectModule,
 public:
 	UpdateModule(Thing *thing, const ModuleData *data);
 	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
 
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime frame);

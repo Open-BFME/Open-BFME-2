@@ -303,7 +303,10 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
-	void xfer(Xfer *xfer);
+	// Retail's Snapshot slots 1 and 2 precede xfer (slot 3).
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void xfer(Xfer *xfer);
 
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime frame);
@@ -319,8 +322,6 @@ class PassiveAreaEffectBehavior : public UpdateModule
 public:
 	PassiveAreaEffectBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~PassiveAreaEffectBehavior();
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
 
 protected:
 	virtual void xfer(Xfer *xfer);
