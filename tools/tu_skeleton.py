@@ -4364,8 +4364,14 @@ def dirty_others(root, allowed):
 
 # ---------------------------------------------------------------- apply
 def claim_keys(tu, don):
+    """The TU, its donors and the addresses of the rows they move. An ICF alias row
+    (fold_alias) adds no address: its address is the identity row's, which the unit
+    owning that row claims. A shared fold such as 0x0007FAB3 carries hundreds of alias
+    rows across the tree, and claiming it serialised every merge that moved one of them
+    (re_attempts.log: blocked-on=0x0007FAB3)."""
     keys = [f"file:{tu}"] + [f"file:{f}" for f in sorted(don) if f != tu]
-    return keys + sorted({r["target_rva"] for rows in don.values() for r in rows})
+    return keys + sorted({r["target_rva"] for rows in don.values() for r in rows
+                          if not (r.get("name") and fold_alias(r))})
 
 
 class Held(list):

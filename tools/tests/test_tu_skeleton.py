@@ -2608,6 +2608,24 @@ class ClaimTests(unittest.TestCase):
         self.assertEqual(T.claim_keys("Code/T.cpp", don),
                          ["file:Code/T.cpp", "file:Code/A.cpp", "0x00001000", "0x00001010", "0x00001020"])
 
+    def test_an_icf_alias_row_adds_no_address_to_the_scope(self):
+        def row(name, rva, source, notes=""):
+            return {"name": name, "export_rva": "", "target_rva": rva, "target_size": "14",
+                    "source": source, "status": "matched", "notes": notes}
+        identity = row("?owner@@YAXXZ", "0x0007FAB3", "Code/Owner.cpp")
+        alias = row("?alias@@YAXXZ", "0x0007FAB3", "Code/A.cpp", "fold-proof=Code/A.cpp")
+        own = row("?own@@YAXXZ", "0x00001010", "Code/A.cpp")
+        T._CACHE.clear()
+        T._CACHE["ledger"] = [identity, alias, own]
+        try:
+            self.assertEqual(T.claim_keys("Code/T.cpp", {"Code/A.cpp": [alias, own]}),
+                             ["file:Code/T.cpp", "file:Code/A.cpp", "0x00001010"])
+            # the unit that owns the identity row still claims the address
+            self.assertEqual(T.claim_keys("Code/T.cpp", {"Code/Owner.cpp": [identity]}),
+                             ["file:Code/T.cpp", "file:Code/Owner.cpp", "0x0007FAB3"])
+        finally:
+            T._CACHE.clear()
+
     def test_a_held_key_blocks_the_merge_before_anything_is_written(self):
         don = {"Code/A.cpp": [{"target_rva": "0x00001010"}]}
         calls = []
