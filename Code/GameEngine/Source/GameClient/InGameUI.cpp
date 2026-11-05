@@ -106,12 +106,6 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/Drawable.h"
 
-// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
-class Rva0055A88BDwordField
-{
-public:
-    int get() const;
-};
 #include "GameClient/GadgetPushButton.h"
 #include "GameClient/GameClient.h"
 #include "GameClient/GameWindowGlobal.h"
@@ -1024,7 +1018,7 @@ Bool InGameUI::isDrawableSelected( DrawableID idToCheck ) const
 	for( DrawableListCIt it = m_selectedDrawables.begin(); it != m_selectedDrawables.end(); ++it ) 
 	{
 
-		if( (DrawableID)((const Rva0055A88BDwordField *)(*it))->get() == idToCheck )
+		if( (*it)->getID() == idToCheck )
 			return TRUE;
 
 	}  // end for

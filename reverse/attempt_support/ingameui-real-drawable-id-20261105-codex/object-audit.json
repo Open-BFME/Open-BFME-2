@@ -1,0 +1,32 @@
+{
+  "provider_defines_replacement": true,
+  "consumers": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp",
+      "external_definitions_preserved": 21,
+      "external_comdats_preserved": 21,
+      "changed_comdat": "?evaluateSoloNexus@InGameUI@@IAEXPAVDrawable@@@Z",
+      "removed_undefined": "?get@Rva0055A88BDwordField@@QBEHXZ",
+      "added_undefined": "?getID@Drawable@@QBE?AW4DrawableID@@XZ",
+      "normalized_comdat_bytes_sizes_relocations_equal": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/InGameUI.cpp",
+      "external_definitions_preserved": 728,
+      "external_comdats_preserved": 725,
+      "changed_comdat": "?isDrawableSelected@InGameUI@@UBE_NW4DrawableID@@@Z",
+      "removed_undefined": "?get@Rva0055A88BDwordField@@QBEHXZ",
+      "added_undefined": "?getID@Drawable@@QBE?AW4DrawableID@@XZ",
+      "normalized_comdat_bytes_sizes_relocations_equal": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/InGameUIXfer.cpp",
+      "external_definitions_preserved": 134,
+      "external_comdats_preserved": 134,
+      "changed_comdat": "?xfer@InGameUI@@MAEXPAVXfer@@@Z",
+      "removed_undefined": "?get@Rva0055A88BDwordField@@QBEHXZ",
+      "added_undefined": "?getID@Drawable@@QBE?AW4DrawableID@@XZ",
+      "normalized_comdat_bytes_sizes_relocations_equal": true
+    }
+  ]
+}

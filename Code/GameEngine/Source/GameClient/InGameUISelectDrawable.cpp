@@ -101,13 +101,6 @@ public:
 // Retail Drawable prefix used by selectDrawable.
 #include "../../Include/GameClient/Drawable.h"
 
-// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
-class Rva0055A88BDwordField
-{
-public:
-    int get() const;
-};
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 class ControlBar;
 class BfmeWorldRV { public: void rva0031AA34(int); };
@@ -203,7 +196,7 @@ void InGameUI::evaluateSoloNexus(Drawable *newlyAddedDrawable)
         {
             ++nexaeFound;
             if (nexaeFound == 1)
-                m_soloNexusSelectedDrawableID = (DrawableID)((const Rva0055A88BDwordField *)draw)->get();
+                m_soloNexusSelectedDrawableID = draw->getID();
             else
             {
                 m_soloNexusSelectedDrawableID = INVALID_DRAWABLE_ID;

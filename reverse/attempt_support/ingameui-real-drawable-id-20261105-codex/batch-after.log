@@ -1,0 +1,13 @@
+Source claims: OK (2 sources, scoped byte-verified)
+Data rows: OK (2 row(s) byte-verified)
+Compile: 1 of 2 TU(s) (deps-cache: 1 current)
+Funclet pins: 8 row(s) verified past a renumbered $L label
+    uw_0077560d (Code/GameEngine/Source/GameClient/InGameUIXfer.cpp): $L12160 was renumbered; verified parent EH data places $L14476 at 0x0077560D
+    Unwind@00b74ace (Code/GameEngine/Source/GameClient/InGameUIXfer.cpp): $L11062 was renumbered; verified parent EH data places $L13378 at 0x00774ACE
+    Unwind@00b755dd (Code/GameEngine/Source/GameClient/InGameUIXfer.cpp): $L12153 was renumbered; verified parent EH data places $L14469 at 0x007755DD
+    Unwind@00b755e5 (Code/GameEngine/Source/GameClient/InGameUIXfer.cpp): $L12154 was renumbered; verified parent EH data places $L14470 at 0x007755E5
+    Unwind@00b755ed (Code/GameEngine/Source/GameClient/InGameUIXfer.cpp): $L12155 was renumbered; verified parent EH data places $L14471 at 0x007755ED
+Functions: OK 18/18 matched across 2 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
