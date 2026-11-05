@@ -235,7 +235,6 @@ void __cdecl Rva0052C37ADestroyRange(Rva0052BFB5Elem *first, Rva0052BFB5Elem *la
 #define _STLP_USE_STATIC_LIB
 #include "ascii_string.h"
 #define BFME_SNAPSHOT_NAME_SLOT
-extern "C" __declspec(dllimport) long __cdecl time(long *);
 #define LW_OBSERVERS(offset) ((Rva005A0B4CList *)((char *)TheLivingWorldLogic + (offset)))
 // Native online reporter5C062E constructs the rowed seven-word224-bit
 // mask before these calls. Reconcile the argument view with its constructor;
