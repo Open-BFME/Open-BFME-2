@@ -82,6 +82,14 @@ void *Rva007F93E0( void *message, void *route, void *owner );
 #pragma intrinsic( _WriteBarrier )
 #pragma comment(linker, "/alternatename:??1Gen00809750@@UAE@XZ=??1Rva00808920LanGame@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?Rva00809010Find@@YGPAURva00809500Sink@@PAURva00809500Entry@@@Z=?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z")
+class Rva007EFFC0Allocator
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void *allocate( unsigned int size, int flags );
+	virtual void release( void *block, int flags );
+};
 
 // Retail 0x008097D0 / 450B: LAN-theater removal transaction.
 // The matched 0x008036D0 caller supplies the transaction ID through the
@@ -519,15 +527,6 @@ extern "C" void Rva0080F0D0( unsigned char *object );
 
 void sendFeslMessage( void *message, const char *kind, void *owner );
 
-class Rva007EFFC0Allocator
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void *allocate( unsigned int size, int flags );
-	virtual void release( void *block, int flags );
-};
-
 class GenAlloc;
 
  GenAlloc *Gen007EFFC0();
@@ -682,11 +681,22 @@ public:
 	Rva00809500Sink *m_sinks[ 16 ]; // +0x18
 };
 
+struct Rva007E9B70Obj
+{
+	virtual void v0();
+	virtual void v1();
+	virtual unsigned int now();
+};
+
+int Rva00656B60Get();
+
 // tu-skeleton: 0x00674C00 330B ?apply@Rva00803620Sink@@QAEXHPADHH0@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D50 36B ?rva00674D50@@YAPADDPAPAD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D80 44B ?find@Rva00808E60Owner@@QAEPAURva00808C80Item@@H@Z -- matched in Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 
 // ---- from Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 
@@ -1147,11 +1157,8 @@ void BfmeSinkTCA::bfmeUseTCA( void *value )
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x00674DF0 127B ?accept@Rva00809500Sink@@QAEXPAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_accept.cpp (not merged yet)
 
-// tu-skeleton: 0x00674EB0 32B ??_GGen00808FB0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
 
-// tu-skeleton: 0x00674ED0 62B ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1338.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp
 
@@ -1171,6 +1178,40 @@ Rva00809500Sink *Rva00809010Finder::find( Rva00809500Entry *entry )
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// ---- from Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_accept.cpp
+
+void Rva00809500Sink::accept( Rva00809500Entry *entry )
+{
+	if( m_gdatBuffer != 0 )
+		((Rva007EFFC0Allocator *)Gen007EFFC0())->release( m_gdatBuffer, 0 );
+
+	m_gdatBufferSize = entry->m_gdatBufferSize;
+	m_gdatBuffer = (char *)((Rva007EFFC0Allocator *)Gen007EFFC0())->allocate( m_gdatBufferSize, 0 );
+	if( m_gdatBuffer == 0 )
+	{
+		Rva007EB810Get()->fail(
+			"mGdatBuffer",
+			"\\views\\feslbuild_main\\jabba\\fesl\\source\\gamebrowser\\lantheateremulator.cpp",
+			0x4EA );
+	}
+
+	const char *source = entry->m_text;
+	char *dest = m_gdatBuffer;
+	char value;
+	do
+	{
+		value = *source++;
+		*dest++ = value;
+	}
+	while( value != 0 );
+
+	m_gdatTimestamp = ((Rva007E9B70Obj *)Rva00656B60Get())->now();
+}
+
+// tu-skeleton: 0x00674EB0 32B ??_GGen00808FB0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x00674ED0 62B ??0BfmeThingUNC@@QAE@HPAUBfmeOwnerUNC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1338.cpp (not merged yet)
 
 // tu-skeleton: 0x00674F50 163B ?rva00809050@Rva00803620Sink@@QAEPAVRva00808CB0LanGameEntry@@PAURva00809050Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp (not merged yet)
 
