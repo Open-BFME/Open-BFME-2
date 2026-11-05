@@ -49,21 +49,9 @@ struct SpecialPowerTemplateView
 	int m_1C;
 };
 
-class CommandButton
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	char m_pad00[0x10];
-	AsciiString m_name;              // +0x10
-	char m_pad14[0x44 - 0x14];
-	const Overridable *m_specialPower; // +0x44
-};
-
-class CommandSet
-{
-public:
-	const CommandButton *getCommandButton(int index) const;
-};
+#include "../../../../Include/Common/SpecialPower.h"
+#include "../../../../Include/GameClient/CommandButton.h"
+#include "../../../../Include/GameClient/CommandSet.h"
 
 class Rva0031D5F8
 {
@@ -161,7 +149,7 @@ void AISpecialPowerUpdate::postInitAISpecialPower()
 	if (commandButton)
 	{
 		m_hasCommandButton = true;
-		const Overridable *specialPower = commandButton->m_specialPower;
+		const Overridable *specialPower = commandButton->getSpecialPowerTemplate();
 		if (specialPower)
 		{
 			int key = ((const SpecialPowerTemplateView *)specialPower->friend_getFinalOverride())->m_1C;
