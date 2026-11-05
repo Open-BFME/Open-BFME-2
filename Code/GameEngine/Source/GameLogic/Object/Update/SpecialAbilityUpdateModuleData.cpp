@@ -21,10 +21,10 @@
 class OpaqueRefPtr
 {
 public:
-	OpaqueRefPtr() : m_p(0) {}
 	~OpaqueRefPtr() { if (m_p) m_p->Release_Ref(); }
+	OpaqueRefPtr() : m_p(0) {}
 private:
-	OpaqueRefCounted *m_p;
+	OpaqueRefCounted *m_p; // +0x00
 };
 
 // The four dwords form one layout-only group so the +1C/+20 zero stores precede

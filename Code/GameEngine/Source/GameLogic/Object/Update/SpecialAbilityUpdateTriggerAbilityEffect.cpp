@@ -439,13 +439,15 @@ class Rva0044E633 {
   public:
     void *rva0044E633();
 };
-class Rva002D9531 {
-  public:
-    void rva002D9531(int);
+class Rva002D9531
+{
+public:
+	void rva002D9531(int objectID);
 };
-class Rva001E431E {
-  public:
-    void rva001E431E(const int *);
+class Rva001E431E
+{
+public:
+	void rva001E431E(const int*);
 };
 class Rva0028F59A {
   public:
@@ -467,11 +469,13 @@ template <int> class BitFlags {
 };
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "../../../../Include/GameLogic/PartitionFilter.h"
-class Rva0004584D : public Rva000421C8 {
-  public:
-    Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &);
-    virtual bool allow(Object *);
-    BfmeFixedStorage0004543D require, exclude;
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &) throw();
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m08; // +0x08
+	BfmeFixedStorage0004543D m24; // +0x24
 };
 class BfmeThingCME {
   public:
@@ -493,13 +497,16 @@ extern ThingFactory *TheThingFactory;
 #include "../../../../Include/GameClient/Eva.h"
 extern Eva *TheEva;
 #include "../../../../Include/GameLogic/Rva00439E0C.h"
-class AutoHealBehavior {
-  public:
-    void rva004523CC();
+class AutoHealBehavior
+{
+public:
+	void stopHealing();
+	void rva004523CC();
 };
-class SpecialDisguiseUpdate {
-  public:
-    void rva004B05F5(bool);
+class SpecialDisguiseUpdate
+{
+public:
+	void rva004B05F5(bool disguise);
 };
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
 // Descriptive bank-only declarations: existing address-named owners need a

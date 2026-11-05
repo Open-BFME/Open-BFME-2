@@ -31,8 +31,9 @@ class OpaqueRefPtr
 {
 public:
 	~OpaqueRefPtr() { if (m_p) m_p->Release_Ref(); }
+	OpaqueRefPtr() : m_p(0) {}
 private:
-	OpaqueRefCounted *m_p;
+	OpaqueRefCounted *m_p; // +0x00
 };
 
 class Rva0044ECCE : public Snapshot

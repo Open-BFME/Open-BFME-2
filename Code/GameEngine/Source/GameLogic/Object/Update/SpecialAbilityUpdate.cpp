@@ -552,6 +552,7 @@ class AutoHealBehavior
 {
 public:
 	void stopHealing();
+	void rva004523CC();
 };
 
 // Same signed frame-count datum defined by Rva007ABC6FFrameRateInits.
@@ -586,7 +587,11 @@ struct SaCoordCopy : Coord3D
 // The native finish callback is virtual slot 19; use its call-site ABI view.
 class Rva00265254 {public:Rva00265254(unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned);unsigned bits[19];};
 
-class Rva001E431E {public:void rva001E431E(const int*);};
+class Rva001E431E
+{
+public:
+	void rva001E431E(const int*);
+};
 
 class StealthUpdate {public:void markAsDetected(unsigned,int,Object*,bool);};
 
@@ -634,7 +639,8 @@ class Rva0004584D : public Rva000421C8
 public:
 	Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &) throw();
 	virtual bool allow(Object *obj);
-	BfmeFixedStorage0004543D m08, m24;
+	BfmeFixedStorage0004543D m08; // +0x08
+	BfmeFixedStorage0004543D m24; // +0x24
 };
 
 template <int N> class BitFlags;
