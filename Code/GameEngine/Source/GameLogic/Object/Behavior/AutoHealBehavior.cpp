@@ -23,6 +23,9 @@ enum NameKeyType
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 
 class DamageInfo;
+class Xfer;
+class Object;
+class AutoHealBehaviorModuleData;
 
 enum BodyDamageType;
 
@@ -79,12 +82,19 @@ public:
     AutoHealBehavior(Thing *, const ModuleData *);
     virtual ~AutoHealBehavior();
     void stopHealing();
+    void rva004523CC();
+    void pulseHealObject(Object *obj, bool playFX);
     static NameKeyType rva00045235E();
     virtual void onDamage(DamageInfo *);
 protected:
+    virtual void xfer(Xfer *xfer);
     virtual void upgradeImplementation();
     virtual void performUpgradeFX();
     bool isUpgradeActive() const { return isAlreadyUpgraded(); }
+    const AutoHealBehaviorModuleData *getAutoHealBehaviorModuleData() const
+    {
+        return (const AutoHealBehaviorModuleData *)m_moduleData;
+    }
 private:
     unsigned int m_soonestHealFrame;
     bool m_stopped;
