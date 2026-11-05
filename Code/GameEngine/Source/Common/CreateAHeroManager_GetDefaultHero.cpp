@@ -12,20 +12,11 @@
 
 #include "../../Include/Common/Rva0040A3F9.h"
 
-class CreateAHeroManager
-{
-public:
-	CreateAHeroData *GetDefaultHero(int v);
-	int GetPreferedFaction(unsigned int classIndex, unsigned int subClassIndex);
-
-private:
-	char m_pad00[0x174];
-	Rva0040A3F9 m_heroes174;
-};
+#include "../../Include/GameLogic/CreateAHeroManager.h"
 
 CreateAHeroData *CreateAHeroManager::GetDefaultHero(int v)
 {
-	Rva0040A3F9 *heroes = &m_heroes174;
+	Rva0040A3F9 *heroes = (Rva0040A3F9 *)field174;
 	unsigned int count = (unsigned int)(heroes->m_field04 - heroes->m_field00);
 	for (unsigned int i = 0; i < count; ++i) {
 		CreateAHeroData *data = heroes->rva0040A32F((int)i);
