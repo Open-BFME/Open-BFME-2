@@ -215,16 +215,8 @@ private:
 extern AI *TheAI;
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
-// BFME 2's unit entry is 0x18 bytes (AIPlayerTeamBuild.cpp's view).
-struct TCreateUnitsInfo
-{
-	Int minUnits;			// +0x00
-	Int maxUnits;			// +0x04
-	Int m_08;			// +0x08
-	AsciiString m_bfmeString0C;	// +0x0C
-	AsciiString unitThingName;	// +0x10
-	Int m_14;			// +0x14
-};
+// BFME 2's canonical unit entry is 0x18 bytes.
+#include "../../../Include/GameLogic/TCreateUnitsInfo.h"
 class TeamPrototype
 {
 public:

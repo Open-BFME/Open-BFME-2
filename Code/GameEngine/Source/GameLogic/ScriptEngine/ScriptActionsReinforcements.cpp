@@ -169,12 +169,7 @@ inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList(
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-struct TCreateUnitsInfo
-{
-	int minUnits, maxUnits, experienceLevel;
-	AsciiString upgradeList, unitThingName;
-	char unknown14[4];
-};
+#include "../../../Include/GameLogic/TCreateUnitsInfo.h"
 
 class TeamTemplateInfo
 {
@@ -365,8 +360,8 @@ void ScriptActions::doCreateReinforcements(const AsciiString &team, const AsciiS
 					obj->setPosition(&pos);
 					obj->setOrientation(0.0f);
 					obj->rva0028FC18();
-					obj->rva00293275(pInfo->m_unitsInfo[i].upgradeList);
-					((Rva00294759 *)obj)->rva00294759(pInfo->m_unitsInfo[i].experienceLevel);
+					obj->rva00293275(pInfo->m_unitsInfo[i].m_0C);
+					((Rva00294759 *)obj)->rva00294759(pInfo->m_unitsInfo[i].m_08);
 				}
 			}
 			if (obj)

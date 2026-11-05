@@ -679,15 +679,7 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 
-struct TCreateUnitsInfo
-{
-	Int minUnits;			// +0x00
-	Int maxUnits;			// +0x04
-	Int m_08;			// +0x08
-	AsciiString m_bfmeString0C;	// +0x0C
-	AsciiString unitThingName;	// +0x10
-	Int m_14;			// +0x14
-};
+#include "../../../Include/GameLogic/TCreateUnitsInfo.h"
 
 class Rva0039D761DwordClearer { public: void clear(); };
 
@@ -1972,7 +1964,7 @@ void AIPlayer::buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild)
 					order->m_numRequired = count;
 					order->m_bfmeFlag29 = true;
 					order->m_bfmeInt1C = unitInfo[i].m_08;
-					order->m_bfmeString20 = unitInfo[i].m_bfmeString0C;
+					order->m_bfmeString20 = unitInfo[i].m_0C;
 					order->m_bfmeInt2C = unitInfo[i].m_14;
 					order->m_next = orders;
 					orders = order;
@@ -1994,7 +1986,7 @@ void AIPlayer::buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild)
 					order->m_bfmeFlag29 = false;
 					order->m_required = true;
 					order->m_bfmeInt1C = unitInfo[i].m_08;
-					order->m_bfmeString20 = unitInfo[i].m_bfmeString0C;
+					order->m_bfmeString20 = unitInfo[i].m_0C;
 					order->m_bfmeInt2C = unitInfo[i].m_14;
 					order->m_next = orders;
 					orders = order;
