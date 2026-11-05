@@ -57,3 +57,10 @@ composed declaration precedes NetHeroCommandMsg. Its earlier Unicode/EH byte
 mismatch is also unresolved; that donor is unchanged. Mixed donors and the
 existing list-copy identity obstacle remain outside this two-file batch.
 Scratch logs and COFF comparison: build/netpacket-codex4*.
+
+Publication accounting: the outgoing check initially refused the combined
+prerequisite/merge range because both accepted header-debt sources now vanish.
+Their rows remain live in NetPacket, so deleted-row tombstones would be false.
+The follow-up records one Debt-Retired trailer per vanished header key, as
+docs/verifier_upgrade_plan.md permits, citing the prior owning-lane acceptance
+and the preserved canonical includes/bodies in the verified destination.
