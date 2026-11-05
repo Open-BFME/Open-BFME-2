@@ -5608,7 +5608,7 @@ param,Rva003FAAA1::rva003FAAA1::arg,Rva003FAAA1::rva003FAAA1::query,inferred,agr
 param,Rva004DF2E2::rva004DF3B0::p,Rva004DF2E2::rva004DF3B0::request,inferred,agree:nl-ae23871ea292-m2a299f36cf3ad7f86bd05846,Code/GameEngine/Source/Common/Rva004DF3B0.cpp,0x004DF3B0
 local,Rva0050492F::rva0050492F::a,Rva0050492F::rva0050492F::lhs,inferred,agree:nl-36390b6de03a,Code/GameEngine/Source/Common/Rva0050492FSwap.cpp,0x0050492F
 local,Rva0050492F::rva0050492F::b,Rva0050492F::rva0050492F::rhs,inferred,agree:nl-7bc493660f8f,Code/GameEngine/Source/Common/Rva0050492FSwap.cpp,0x0050492F
-local,AITacticsGenerator::rva00505AF1::e,AITacticsGenerator::rva00505AF1::element,inferred,agree:nl-325e843faeb8,Code/GameEngine/Source/Common/Rva00505AF1Prune.cpp,0x00505AF1
+local,AITacticsGenerator::rva00505AF1::e,AITacticsGenerator::rva00505AF1::element,inferred,agree:nl-325e843faeb8,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticsGenerator.cpp,0x00505AF1
 param,rva005686F5::e,rva005686F5::element,inferred,agree:nl-e26c5ae71010,Code/GameEngine/Source/Common/Rva005686F5Lookup.cpp,0x005686F5
 local,Rva005688D2::rva00568991::tmp,Rva005688D2::rva00568991::point,inferred,agree:nl-353ae7acb08d,Code/GameEngine/Source/Common/Rva005688D2Method.cpp,0x00568991
 param,Rva0056ACC5::rva0056AB35::arg,Rva0056ACC5::rva0056AB35::id,inferred,agree:nl-98382ca96aa3,Code/GameEngine/Source/Common/Rva0056AB35Method.cpp,0x0056AB35
@@ -6059,7 +6059,7 @@ param,Rva0038188BList::rva003818CE::arg,Rva0038188BList::rva003818CE::userData,i
 param,Rva003818B0List::rva003818E3::arg,Rva003818B0List::rva003818E3::userData,inferred,agree:nl-d269686ac866,Code/GameEngine/Source/Common/Rva0038153BListenerWalks.cpp,0x003818E3
 local,FormationTranslator::WaitForSecondButtonDownStateHandler::Update::q,FormationTranslator::WaitForSecondButtonDownStateHandler::Update::stateOwner,inferred,agree:nl-ab61d2040150,Code/GameEngine/Source/Common/Rva00431B76.cpp,0x00431B76
 local,Rva0050492F::rva0050492F::t,Rva0050492F::rva0050492F::saved,inferred,agree:nl-43055c2c37c1,Code/GameEngine/Source/Common/Rva0050492FSwap.cpp,0x0050492F
-local,AITacticsGenerator::rva00505AF1::p,AITacticsGenerator::rva00505AF1::payload,inferred,agree:nl-88aded594fbc,Code/GameEngine/Source/Common/Rva00505AF1Prune.cpp,0x00505AF1
+local,AITacticsGenerator::rva00505AF1::p,AITacticsGenerator::rva00505AF1::payload,inferred,agree:nl-88aded594fbc,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITacticsGenerator.cpp,0x00505AF1
 local,Rva005422CF::reset::tmp,Rva005422CF::reset::defaultRecord,inferred,agree:nl-54f8effa9429,Code/GameEngine/Source/Common/Rva00542148Reset.cpp,0x00542148
 local,EA::Allocator::GeneralAllocator::rva00034D10::p,EA::Allocator::GeneralAllocator::rva00034D10::snapshotStorage,inferred,agree:nl-bd1ea8aa9f76,Code/GameEngine/Source/Common/System/Rva00034D10Snapshot.cpp,0x00034D10
 local,TargetObj005C8DBF::method_005C8DBF::p,TargetObj005C8DBF::method_005C8DBF::countPtr,inferred,agree:nl-16b328fa9a36,Code/GameEngine/Source/Common/TargetObj005C8DBF.cpp,0x005C8DBF
