@@ -154,17 +154,7 @@ public:
 #define SLOTS10(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
 	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
 
-class AIUpdateInterface {
-public:
-	SLOTS10(a0) SLOTS10(a1) SLOTS10(a2) SLOTS10(a3) SLOTS10(a4) SLOTS10(a5) SLOTS10(a6) SLOTS10(a7) SLOTS10(a8)
-	virtual void a90(); virtual void a91(); virtual void a92();
-	virtual AIDozerView *getDozerAIInterface();
-	virtual void a94(); virtual void a95(); virtual void a96(); virtual void a97(); virtual void a98(); virtual void a99();
-	SLOTS10(b0) SLOTS10(b1) SLOTS10(b2)
-	virtual void b30(); virtual void b31(); virtual void b32(); virtual void b33(); virtual void b34();
-	virtual void b35(); virtual void b36(); virtual void b37();
-	virtual Bool isMoving();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ObjectModule254 {
 public:
@@ -314,7 +304,8 @@ public:
 	Bool affectedByUpgrade(const UpgradeTemplate *upgrade) const;
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	Bool isDisabled() const { return m_disabled.any(); }
-	__forceinline UnsignedInt commandDisabledMask(int type) const { return m_disabled.m_bits[type >> 5] & (1 << (type & 31)); }
+	__forceinline UnsignedInt commandDisabledMask(int type) const { return ((const UnsignedInt *)&m_disabled)[type >> 5] & (1 << (type & 31)); }
+	Bool commandDisabledTest(int bit) const { return ((((const UnsignedInt *)&m_disabled)[bit >> 5] >> (bit & 31)) & 1) != 0; }
 protected:
 	Module *findModule(NameKeyType key) const;
 public:
@@ -497,7 +488,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 	if (command->commandOptions() & 0x40000000)
 	{
 		AIUpdateInterface *ai = obj->getAI();
-		if (ai && ai->isMoving())
+		if (ai && ai->rva00262BA9())
 			return COMMAND_RESTRICTED;
 	}
 
@@ -515,7 +506,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		return COMMAND_HIDDEN;
 
 	Bool disabled = obj->isDisabled();
-	if (disabled && obj->m_disabled.commandTest(8) && obj->m_disabled.count() == 1)
+	if (disabled && obj->commandDisabledTest(8) && ((Rva0028F528 *)&obj->m_disabled)->rva0028F528() == 1)
 		disabled = false;
 
 	if (disabled && !forceDisabledEvaluation)
@@ -630,7 +621,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			Int queued = 0;
 			if (obj->commandKindOfMask(0xe) || obj->commandKindOfMask(0xf))
 			{
-				AIDozerView *dozerAI = obj->getAI() ? obj->getAI()->getDozerAIInterface() : 0;
+				AIDozerView *dozerAI = obj->getAI() ? (AIDozerView *)obj->getAI()->getDozerAIInterface() : 0;
 				if (dozerAI == 0)
 					return COMMAND_RESTRICTED;
 				queued = dozerAI->getQueueCount();
@@ -654,7 +645,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			}
 			if (!obj->commandKindOfMask(0xe) && !obj->commandKindOfMask(0x68))
 				return COMMAND_RESTRICTED;
-			AIDozerView *dozerAI = obj->getAI() ? obj->getAI()->getDozerAIInterface() : 0;
+			AIDozerView *dozerAI = obj->getAI() ? (AIDozerView *)obj->getAI()->getDozerAIInterface() : 0;
 			void *foundationAI = obj->rva0028BCF4();
 			if (dozerAI == 0 && foundationAI == 0)
 				return COMMAND_RESTRICTED;

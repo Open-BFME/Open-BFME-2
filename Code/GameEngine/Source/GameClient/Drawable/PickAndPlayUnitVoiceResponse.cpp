@@ -377,15 +377,7 @@ struct LocomotorVectorView
 	Locomotor **m_cap;
 };
 
-class AIUpdateInterface
-{
-public:
-	bool isMoving() const;
-	char m_pad[0x1D0];
-	LocomotorVectorView m_locomotors;
-	char m_pad1DC[0x3B1 - 0x1DC];
-	bool m_3B1;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 typedef AIUpdateInterface AIUpdateView;
 
 class Player
@@ -1060,12 +1052,12 @@ static bool moveRequiresClimbingWalls(Object *obj, const Coord3D *pos)
 
 	BfmeTmpCF locoSet;
 	TempTemplateVector temps;
-	int count = ai->m_locomotors.size();
+	int count = ((const LocomotorVectorView *)ai->getLocomotorSet().m_locomotors)->size();
 	temps.reserve(count);
 	g_00E01EA8 = 1;
 	for (int i = 0; i < count; ++i)
 	{
-		Locomotor *loco = ai->m_locomotors[i];
+		Locomotor *loco = (*(const LocomotorVectorView *)ai->getLocomotorSet().m_locomotors)[i];
 		LocomotorTemplate *lt = TheLocomotorStore->findLocomotorTemplate(TheNameKeyGenerator->nameToKey(loco->getTemplateName()));
 		if (!lt)
 			continue;
@@ -1143,7 +1135,7 @@ static void doPickAndPlayForMoveCommand(int command, Rva004DA57ATarget *target, 
 	AIUpdateInterface *ai = obj->m_ai;
 	if (!ai)
 		return;
-	bool moving = ai->isMoving() || ai->m_3B1;
+	bool moving = ai->isMoving() || ai->isWaitingForPath();
 	if (!isSiege && TheInGameUI->field8B0 && moving)
 		return;
 	if (*pending > 0)

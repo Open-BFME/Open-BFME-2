@@ -1,5 +1,7 @@
 ### Module base chain: canonical headers block the most TU merges (2026-10-28)
 
+2026-11-05: Three client consumers now adopt AIUpdateInterface; seven existing AI adoptions reverified, ten header rows retired, and 12,939 client preview-linked bytes preserved. [Receipts and remaining cohort prerequisites](../../reverse/attempt_support/aiupdate-client-header-adoption-20261105-codex3.md).
+
 2026-11-04: AIUpdateInterface adopted in two AI consumers; eight existing adoptions reverified, ten header rows retired, 5,269 preview-linked bytes preserved. [Cohort receipts and remaining prerequisites](../../reverse/attempt_support/aiupdate-header-cohort-20261104-codexb4.md).
 
 2026-11-04: RebuildHoleExposeDie now adopts canonical ModuleData/DestroyDieModuleData and eight further module-data headers; ten header-queue rows retire with 11/11 functions and its data row exact, and a passing link preview. Factory/Dock base conflicts and LINK-167 remain open. [Scoped evidence](../../reverse/attempt_support/rebuild-hole-moduledata-headers-20261104.md).
