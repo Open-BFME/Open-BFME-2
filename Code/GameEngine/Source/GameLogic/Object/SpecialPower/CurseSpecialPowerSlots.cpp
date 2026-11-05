@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // CurseSpecialPower's slot 17 (0x004CCEEE; SpecialAbilityUpdate's slot 17
 // first), its per-target curse (0x004CCE85) and the kind filter's implicit
@@ -139,14 +140,7 @@ public:
 	int get() const;
 };
 
-class SpecialAbilityUpdate
-{
-public:
-	virtual void triggerAbilityEffect();	// slot 17 (0x0045108D)
-protected:
-	const void *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class CurseSpecialPower : public SpecialAbilityUpdate
 {
@@ -158,9 +152,6 @@ private:
 	{
 		return (const CurseSpecialPowerModuleData *)m_moduleData;
 	}
-	char m_pad0C[0x40 - 0x0C];
-	ObjectID m_40;		// +0x40
-	Coord3D m_44;		// +0x44
 };
 
 void CurseSpecialPower::rva004CCE85(Object *obj)
@@ -186,27 +177,27 @@ void CurseSpecialPower::triggerAbilityEffect()
 	SpecialAbilityUpdate::triggerAbilityEffect();
 	const CurseSpecialPowerModuleData *data = getCurseSpecialPowerModuleData();
 	Object *owner = m_object;
-	if (m_40 == INVALID_OBJECT_ID) {
+	if (m_targetID == INVALID_OBJECT_ID) {
 		const SpecialPowerTemplate *power = (const SpecialPowerTemplate *)((const Rva005F6B0BPtrChaseField *)this)->get();
 		if (!power)
 			return;
 		float radius = power->getRadius();
 		Rva0004584D kind(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 90),
 			*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE);
-		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, radius, 0,
+		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_targetPos, radius, 0,
 			Rva0026119DFilter().link(Rva0004584D(kind).link(&Rva00260EB1Filter(owner, 1, false))), 0);
 		Object *other = hits.next();
 		if (other) {
 			do {
 				rva004CCE85(other);
 			} while ((other = hits.next()) != 0);
-			FXList::doFXPos(data->m_C8, &m_44, 0, 0.0f, 0);
+			FXList::doFXPos(data->m_C8, &m_targetPos, 0, 0.0f, 0);
 		}
 	} else {
-		Object *target = TheGameLogic->findObjectByID(m_40);
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
 		if (target) {
 			rva004CCE85(target);
-			FXList::doFXPos(data->m_C8, &m_44, 0, 0.0f, 0);
+			FXList::doFXPos(data->m_C8, &m_targetPos, 0, 0.0f, 0);
 		}
 	}
 }

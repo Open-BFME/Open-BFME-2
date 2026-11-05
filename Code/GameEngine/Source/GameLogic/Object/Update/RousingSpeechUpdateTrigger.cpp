@@ -54,17 +54,14 @@ class RousingSpeechUpdateModuleData {public:
  char unknown00[0xd8];const FXList *followerFX;char unknownDC[8];
  _STL::vector<AsciiString> modifiers;bool levelUp;
 };
-class SpecialAbilityUpdate {public:
- virtual void anchor();virtual void triggerAbilityEffect();
- const RousingSpeechUpdateModuleData *data;Object *object;char unknown0c[0x88-0xc];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class RousingSpeechUpdate:public SpecialAbilityUpdate {public:
  virtual void triggerAbilityEffect();void rva004AD176();
  _STL::list<ObjectID> affected;
 };
 void RousingSpeechUpdate::triggerAbilityEffect()
 {
- const RousingSpeechUpdateModuleData *md=data;
+ const RousingSpeechUpdateModuleData *md=(const RousingSpeechUpdateModuleData *)m_moduleData;
  SpecialAbilityUpdate::triggerAbilityEffect();
  rva004AD176();
  if(!affected.empty()) {
@@ -75,7 +72,7 @@ void RousingSpeechUpdate::triggerAbilityEffect()
        if(target) {
          target->addAttributeModifierToPool(*name,-1);
          if(!target->condition.test(201)){target->condition.set(201);target->rva0028AE6D();}
-         target->leader44c=object->id;
+         target->leader44c=m_object->id;
          const FXList *fx=md->followerFX;
          if(fx)FXList::doFXObj(fx,target,0);
        }

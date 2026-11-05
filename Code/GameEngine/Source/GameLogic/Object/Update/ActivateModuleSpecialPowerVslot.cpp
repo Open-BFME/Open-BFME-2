@@ -9,7 +9,8 @@
 // their accessed slots take the verified one-word delay / coord-word pair;
 // descriptive interface names are structural roles, not recovered ABI names.
 // The self-activation error and debug calls remain as they are in retail.
-// cl: /I. /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /I. /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/debug.h"
@@ -21,12 +22,12 @@ class SpecialPowerModuleInterface{public:virtual void s0();virtual void s1();vir
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object{public:BehaviorModule*rva0028F2C4(int)const;char p0[4];const ThingTemplate*tmpl;char p8[0x38-8];Coord3D position;};
 struct WakeEntry{int key,mode;};struct WakeVector{WakeEntry*begin,*end,*capacity;};struct WakeData{char p[0xc8];WakeVector entries;};
-class SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();};
-class ActivateModuleSpecialPower:public SpecialAbilityUpdate{public:void SetWakeState(int);virtual void triggerAbilityEffect();const WakeData*data;Object*object;char pc[0x44-12];Coord3D target;};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+class ActivateModuleSpecialPower:public SpecialAbilityUpdate{public:void SetWakeState(int);virtual void triggerAbilityEffect();};
 void ActivateModuleSpecialPower::SetWakeState(int state)
 {
- Object*obj=object;
- const WakeVector&wakeVector=data->entries;
+ Object*obj=m_object;
+ const WakeVector&wakeVector=((const WakeData*)m_moduleData)->entries;
  for(WakeEntry*it=wakeVector.begin;it!=wakeVector.end;++it){
   BehaviorModule*module=obj->rva0028F2C4(it->key);
   if(!module)continue;
@@ -41,7 +42,7 @@ void ActivateModuleSpecialPower::SetWakeState(int state)
     unsigned sleep=0x3fffffff;switch(state){case 0:sleep=1;break;case 1:sleep=update?0x3fffffff:0x3fffffff;break;default:break;}update->rva0044DF8D((UpdateSleepTime)sleep);
    }else if(state==0){
     SpecialPowerModuleInterface*power=static_cast<BehaviorModuleInterface &>(*module).getSpecialPower();
-    if(power){Coord3D position;if(it->mode==1)position=obj->position;else position=target;power->atLocation(&position,0);}
+    if(power){Coord3D position;if(it->mode==1)position=obj->position;else position=m_targetPos;power->atLocation(&position,0);}
    }
   }
  }
