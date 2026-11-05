@@ -10,9 +10,7 @@
 #include "matrix3d.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
-class CameraClass:public RenderObjClass {public:
-void Get_View_Plane(Vector2&,Vector2&)const;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 #include "../../../../GameEngine/Include/GameClient/Display.h"
 extern Display *TheDisplay;
 class Rva0009BF33Point {public:int x;int y;
