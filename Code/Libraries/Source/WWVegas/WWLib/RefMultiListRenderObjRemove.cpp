@@ -5,13 +5,7 @@
 // already landed; Release_Ref is inlined as dec-at-+4 then vtable slot 0.
 
 #include "MultiListObjectClass.h"
-
-class RefCountClass
-{
-public:
-	virtual void Delete_This();
-	int RefCount;
-};
+#include "RefCountData.h"
 
 class RenderObjClass : public RefCountClass, public MultiListObjectClass
 {
@@ -33,7 +27,7 @@ bool RefMultiListClass<T>::Remove(T *obj)
 	bool result = Internal_Remove(obj);
 	if (result)
 	{
-		if (--obj->RefCount == 0)
+		if (--obj->NumRefs == 0)
 			obj->Delete_This();
 	}
 	return result;
@@ -48,7 +42,7 @@ bool RefMultiListClass<T>::Release_Head(void)
 {
 	T *headObject = (T *)Internal_Remove_List_Head();
 	if (headObject != 0) {
-		if (--headObject->RefCount == 0)
+		if (--headObject->NumRefs == 0)
 			headObject->Delete_This();
 		return true;
 	}
