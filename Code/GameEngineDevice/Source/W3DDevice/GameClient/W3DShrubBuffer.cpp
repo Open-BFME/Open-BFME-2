@@ -149,15 +149,31 @@ private:
 	char m_pad[12];
 };
 
-class Rva000E9BAC
+class Rva000E86B8
 {
 public:
+	~Rva000E86B8();
+	char m_pad[0x5C];
+};
+
+// Native W3DPropBuffer ctor EF008 and dtor EEEF4 install 7CEECC, whose slot 2
+// is EEFE6: the canonical Snapshot GetSnapshotName slot.
+#include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
+
+class Rva000E3A8D;
+
+class Rva000E9BAC : public Rva000E6AC0
+{
+public:
+	virtual ~Rva000E9BAC();
 	void rva000E9CFB(const Rva000E3A8D &other);
 private:
-	char m_pad00[0x4FB5E];
+	char m_pad00[0x4FB5E - 0x5C0];
 	bool m_flag5E;
 	char m_pad5F;
-	Rva000E3A8D m_vec60;
+	Rva0008B470 m_4FB60;
+	char m_memberStorage[0xF]; // next array starts at +0x4FB70
+	Rva000E86B8 m_4FB70[0x40];
 };
 
 //
@@ -813,10 +829,6 @@ public:
 
 BFME_LITERAL_NAME_GETTER(Rva000E9C0FNamed, "W3DShrubBuffer")
 
-// Native W3DPropBuffer ctor EF008 and dtor EEEF4 install 7CEECC, whose slot 2
-// is EEFE6: the canonical Snapshot GetSnapshotName slot.
-#include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
-
 // Byte one-setters: eight-byte __thiscall members with one shape:
 //
 //     mov byte ptr [ecx+<DISP>],1 / ret
@@ -933,7 +945,8 @@ W3DShrubBuffer::W3DShrubBuffer()
 
 void Rva000E9BAC::rva000E9CFB(const Rva000E3A8D &other)
 {
-	m_vec60.rva000E3A8D(other);
+	// The setter uses a 12-byte view at +0x4FB60; the next member is +0x4FB70.
+	reinterpret_cast<Rva000E3A8D &>(m_4FB60).rva000E3A8D(other);
 	m_flag5E = true;
 }
 
