@@ -97,6 +97,7 @@ public:
 };
 
 class Drawable;
+#include "../../../Common/Thing/thing.h"
 #include "../object.h"
 
 struct __declspec(novtable) SiegeDeploySpecialPowerModuleData

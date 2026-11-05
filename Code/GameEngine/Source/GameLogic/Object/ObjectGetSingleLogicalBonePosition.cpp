@@ -17,6 +17,7 @@ static __forceinline Matrix3D &copyLogicalBoneTransform(Matrix3D &out,const Matr
 
 
 
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 

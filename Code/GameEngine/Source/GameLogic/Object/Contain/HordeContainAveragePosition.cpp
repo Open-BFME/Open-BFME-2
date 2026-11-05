@@ -60,6 +60,7 @@ enum PathfindLayerEnum
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 

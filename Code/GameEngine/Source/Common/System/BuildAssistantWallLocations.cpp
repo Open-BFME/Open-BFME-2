@@ -286,17 +286,7 @@ NEUTRAL,
 ALLIES
 };
 #include "../../../Include/GameLogic/Module/BodyModule.h"
-class Thing
-{
-public:
-virtual ~Thing();
-const ThingTemplate*getTemplate()const{return m_template;}
-Drawable*getDrawable()const;
-void setPosition(const Coord3D*pos);
-void setOrientation(Real angle);
-protected:
-const ThingTemplate*m_template;
-};
+#include "../Thing/thing.h"
 class Object : public Thing
 {
 public:
@@ -311,8 +301,6 @@ void setProducer(Object*obj);
 void*rva0028BCF4()const;
 void rva0028B4CE(PathfindLayerEnum layer);
 Int get45C()const{return m_45C;}
-const Coord3D*getPosition()const{return&m_position;}
-Real getOrientation()const{return m_orientation;}
 Relationship getRelationship(const Object*that)const;
 ObjectID getID()const{return m_id;}
 ObjectID get7C()const{return m_7C;}
@@ -331,10 +319,7 @@ void kill(DamageType damageType,DeathType deathType);
 Team*getTeam()const{return m_team;}
 void*rva0029439D();
 private:
-unsigned char m_pad008[0x38 - 8];
-Coord3D m_position;
-Real m_orientation;
-unsigned char m_pad048[0x74 - 0x48];
+unsigned char m_pad060[0x74 - 0x60];
 ObjectID m_id;
 unsigned char m_pad078[4];
 ObjectID m_7C;
@@ -605,7 +590,7 @@ case 4:
 ObjectID id=(ObjectID)(Int)TheAI->pathfinder()->getObstacleID(
 TheTerrainLogic->getHighestLayerForDestination(samplePoint,FALSE),(int)samplePoint);
 Object*obj=TheGameLogic->findObjectByID(id);
-if(obj==NULL || obj->getTemplate()->isKindOf(KINDOF_INERT))
+if(obj==NULL || obj->m_template->isKindOf(KINDOF_INERT))
 sampleData->terrainRestricted=TRUE;
 break;
 }
@@ -732,7 +717,7 @@ Real normalizeAngle(Real angle);
 Bool BuildAssistant::rva0039380F(Rva0039205C*out,Object*builder,const Coord3D*start,const Coord3D*end,UnsignedInt key)
 {
 if((builder==0)|| !start || !end)return false;
-if(!builder->getTemplate()->isKindOfByte(KINDOF_156))return false;
+if(!builder->m_template->isKindOfByte(KINDOF_156))return false;
 Rva0039380FModule*module=(Rva0039380FModule*)((Rva00293330*)builder)->rva00293330(key);
 if(!module)return false;
 const ThingTemplate*hubTemplate=module->getHub();
@@ -786,11 +771,11 @@ Bool lastWouldBeLegal=false;
 remaining-=hubHalf;
 while(progress < remaining&&index < TheWritableGlobalData->m_wallCount-1){
 const ThingTemplate*segment=module->getSegment(index);
-if(!segment)segment=builder->getTemplate();
+if(!segment)segment=builder->m_template;
 Real half=segment->getTemplateGeometryInfo().field28;half-=1.f;
 if(progress+half*2.f > remaining){
 segment=module->getEnd();
-if(!segment)segment=builder->getTemplate();
+if(!segment)segment=builder->m_template;
 half=segment->getTemplateGeometryInfo().field28;half-=1.f;
 }
 Coord3D step(unit.x*half,unit.y*half,0.f);
@@ -817,7 +802,7 @@ current.z=previous.z;
 out->setPos(index,&current);
 out->rva003921C8(index,1);
 const ThingTemplate*hub=module->getHub();
-if(!hub)hub=builder->getTemplate();
+if(!hub)hub=builder->m_template;
 if(index>=1){
 out->rva0039215F(index-1,hub->getName());
 out->cost+=terrainPiece->rva0033A69A(builder->getControllingPlayer(),(Int)builder,-1);

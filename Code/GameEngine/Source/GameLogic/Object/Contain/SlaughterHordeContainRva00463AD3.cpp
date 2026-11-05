@@ -34,6 +34,7 @@ struct Rva0006EE7A : public BitFlags<69>
 	Rva0006EE7A(int unused, int b1, int b2);
 };
 
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 

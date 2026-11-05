@@ -9,6 +9,7 @@
 #pragma function(memset)
 class Team;class ThingTemplate;class Drawable;class ClientUpdateModule;
 class Player {public:char pad[0x2EC];Team *team;};
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Object:public Thing {public:Player *getControllingPlayer() const;};
 struct CreateMask {unsigned words[4];};

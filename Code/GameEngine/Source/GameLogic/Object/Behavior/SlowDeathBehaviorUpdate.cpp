@@ -150,6 +150,7 @@ public:
 	OpaqueRefCounted *m_item;
 };
 
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 // The two-float drawable setter the slow death starts with (0.0f, -0.2f).

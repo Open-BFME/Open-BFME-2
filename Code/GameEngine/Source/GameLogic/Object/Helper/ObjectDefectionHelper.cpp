@@ -22,6 +22,7 @@ enum ObjectStatusTypes
 // Logic frame rate, read where Zero Hour uses LOGICFRAMES_PER_SECOND.
 extern int BfmeLogicFramesPerSecond;
 
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 

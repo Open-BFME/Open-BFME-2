@@ -223,15 +223,7 @@ public:
 	void rva00272945(int a);
 	void colorFlash(const RGBColor *color, unsigned int a2, unsigned int a3, unsigned int a4);
 };
-class Thing
-{
-public:
-	void setPositionZ(float z);
-	void setOrientation(float angle);
-	void setPosition(const Coord3D *pos);
-	const Coord3D *getUnitDirectionVector2D() const;
-	Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 class GlobalData
 {
 public:

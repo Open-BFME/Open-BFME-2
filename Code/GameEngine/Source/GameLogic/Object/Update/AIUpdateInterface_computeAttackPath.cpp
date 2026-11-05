@@ -65,18 +65,7 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
- Bool isAboveTerrain()const;
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-};
+#include "../../../Common/Thing/thing.h"
 
 class Weapon;
 enum WeaponSlotType { SLOT=0 };
@@ -106,7 +95,7 @@ public:
 	Bool isKindOf(KindOfType kind) const;
 	UnsignedInt getID() const { return m_id; }
 private:
-	unsigned char m_pad44[0x74 - 0x44];
+	unsigned char m_pad60[0x74 - 0x60];
 	UnsignedInt m_id; // +0x74
  unsigned char m_pad078[0x10c - 0x78];
  FacingConditionBits m_conditions; // +0x10c
@@ -251,7 +240,7 @@ static __forceinline void setFacingCondition(Object *obj,unsigned int bit) {
 void AIUpdateInterface::rva0026717B()
 {
  Object *obj=getObject();
- if(((obj->getTemplate()->m_kindof[5] & 0x80000000U) != 0)) {
+ if(((obj->m_template->m_kindof[5] & 0x80000000U) != 0)) {
   static FacingDirection direction(0.5f,0.5f,0.0f);
   direction.Normalize();
   ((Rva001E42F2*)obj)->rva001E42F2(Rva00265254(0,0x151,0x152,0x153).bits);

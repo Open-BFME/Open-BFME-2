@@ -57,12 +57,7 @@ enum WhichTurretType
     TURRET_DUMMY=-1
 };
 class Object;
-class Thing
-{
-public:
-    void setTransformMatrix(const Matrix3D*);
-    void setPosition(const Coord3D*);
-};
+#include "../../../Common/Thing/thing.h"
 class Rva00463235
 {
 public:

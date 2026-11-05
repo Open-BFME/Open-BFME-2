@@ -273,6 +273,7 @@ struct PickupStuffAI
 	int m_34;
 };
 
+#include "Thing/thing.h"
 #include "../GameLogic/Object/object.h"
 
 struct Rva002A8AB1Record;

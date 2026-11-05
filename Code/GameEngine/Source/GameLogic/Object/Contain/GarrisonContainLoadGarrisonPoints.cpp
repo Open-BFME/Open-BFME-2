@@ -60,6 +60,7 @@ public:
 	ModelConditionFlags m_conditionFlags;
 };
 
+#include "../../../Common/Thing/thing.h"
 #include "../object.h"
 
 

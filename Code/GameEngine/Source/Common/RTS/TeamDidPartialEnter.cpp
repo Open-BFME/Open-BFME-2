@@ -66,11 +66,7 @@ public:
 template<int NUMBITS> class BitFlags;
 class Team;
 
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &kinds) const;
-};
+#include "../Thing/thing.h"
 
 class Object : public Thing
 {
@@ -81,11 +77,7 @@ public:
 	bool isInside(PolygonTrigger *pTrigger);
 
 public:
-	unsigned char m_pad0[4];
-	ThingTemplate *m_template;
-	unsigned char m_pad1[0x38 - 0x8];
-	Coord3D m_pos;
-	unsigned char m_pad1b[0x258 - 0x44];
+	unsigned char m_pad1b[0x258 - 0x60];
 	AIUpdateInterface *m_ai;
 	unsigned char m_pad2[0x438 - 0x25c];
 	unsigned char m_dead;
@@ -158,7 +150,7 @@ bool Team::didPartialEnter(PolygonTrigger *pTrigger, UnsignedInt whichToConsider
 		}
 		if ((cur->m_dead & 1) != 0)
 			continue;
-		ThingTemplate *thingTemplate = cur->m_template;
+		const ThingTemplate *thingTemplate = cur->m_template;
 		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
 		if (cur->didEnter(pTrigger))
@@ -186,7 +178,7 @@ bool Team::didPartialExit(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		}
 		if ((cur->m_dead & 1) != 0)
 			continue;
-		ThingTemplate *thingTemplate = cur->m_template;
+		const ThingTemplate *thingTemplate = cur->m_template;
 		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
 		if (cur->didExit(pTrigger))
@@ -214,7 +206,7 @@ bool Team::someInsideSomeOutside(PolygonTrigger *pTrigger, UnsignedInt whichToCo
 		}
 		if ((cur->m_dead & 1) != 0)
 			continue;
-		ThingTemplate *thingTemplate = cur->m_template;
+		const ThingTemplate *thingTemplate = cur->m_template;
 		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
 		if ((thingTemplate->m_kindof[4] & (1U << 6)) != 0)
@@ -249,7 +241,7 @@ bool Team::allInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		}
 		if ((cur->m_dead & 1) != 0)
 			continue;
-		ThingTemplate *thingTemplate = cur->m_template;
+		const ThingTemplate *thingTemplate = cur->m_template;
 		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
 		if ((thingTemplate->m_kindof[4] & (1U << 6)) != 0)
@@ -279,7 +271,7 @@ bool Team::noneInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 		}
 		if ((cur->m_dead & 1) != 0)
 			continue;
-		ThingTemplate *thingTemplate = cur->m_template;
+		const ThingTemplate *thingTemplate = cur->m_template;
 		if ((thingTemplate->m_kindof[2] & (1U << 25)) != 0)
 			continue;
 		if ((thingTemplate->m_kindof[4] & (1U << 6)) != 0)
@@ -302,7 +294,7 @@ void Team::rva0039E5B9(Coord3D *center)
 		Object *obj = iter.cur();
 		if (!obj)
 			return;
-		const Coord3D *pos = &obj->m_pos;
+		const Coord3D *pos = &obj->m_cachedPos;
 		sum.x = pos->x + sum.x;
 		sum.y = pos->y + sum.y;
 		sum.z = pos->z + sum.z;

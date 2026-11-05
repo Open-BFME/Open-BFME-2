@@ -257,11 +257,7 @@ enum KindOfType { KINDOF_STRUCTURE = 7 };
 
 enum ScienceType { SCIENCE_INVALID = -1 };
 
-class Thing {
-public:
-	bool isKindOfMulti(const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear) const;
-	bool isAboveTerrain() const;
-};
+#include "../../../../Common/Thing/thing.h"
 
 class Player {
 public:
@@ -280,9 +276,7 @@ public:
 	void *getAIUpdateInterface() const { return m_ai; }
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 	unsigned char getIsUndetectedDefector() const { unsigned char s = m_privateStatus; s >>= 1; s = (unsigned char)~s; return s & 1; }
-	char m_pad000[4];
-	const ThingTemplate *m_template;
-	char m_pad008[0x258 - 0x08];
+	char m_pad060[0x258 - 0x60];
 	void *m_ai;
 	char m_pad25C[0x438 - 0x25C];
 	unsigned char m_privateStatus;

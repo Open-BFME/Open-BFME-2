@@ -147,22 +147,7 @@ public:
 	Int m_3C;
 };
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_pos; }
-	Coord3D *getPositionForUpdate() { return &m_pos; }
-	void setPosition(const Coord3D *pos);
-	Bool isAboveTerrain() const;
-	Real getHeightAboveTerrain() const;
-	void getUnitDirectionVector2D(Coord3D &dir) const;
-private:
-	void *m_vtbl;
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_pos; // +0x38
-};
+#include "../../../Common/Thing/thing.h"
 
 class Rva0028B525DwordSlot { public: void set(Int); };
 
@@ -194,7 +179,7 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad044[0x10C - 0x44];
+	unsigned char m_pad060[0x10C - 0x60];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
 
@@ -372,7 +357,7 @@ private:
 UpdateSleepTime AIUpdateInterface::doLocomotor()
 {
 	Object *obj = getObject();
-	if (obj && (obj->getTemplate()->m_kindof[0] & (1U << (2 & 0x1f))))
+	if (obj && (obj->m_template->m_kindof[0] & (1U << (2 & 0x1f))))
 		return UPDATE_SLEEP_FOREVER;
 	if (obj && obj->isKindOf(KINDOF_0x81))
 		return UPDATE_SLEEP_NONE;
@@ -437,7 +422,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 						Rva003642DFResult info = m_path->rva00364521((const Rva0008BB38FloatField *)m_curLocomotor);
 						((Locomotor *)m_curLocomotor)->rva001E9083(obj, &info.m_pos,
 							getPathExtraDistance() + ((Rva00363D20 *)&info)->rva00363D20(), speed);
-						m_path->DoAdvanceAlongPath(obj->getPositionForUpdate(), true);
+						m_path->DoAdvanceAlongPath(&obj->m_cachedPos, true);
 					}
 					obj->rva0028B525(TheTerrainLogic->getLayerForDestination(obj, obj->getPosition()));
 					m_doFinalPosition = false;
@@ -622,7 +607,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 								break;
 						}
 						obj->rva0028B525(((Rva001E34FA *)&next)->rva001E34FA());
-						m_path->DoAdvanceAlongPath(obj->getPositionForUpdate(), true);
+						m_path->DoAdvanceAlongPath(&obj->m_cachedPos, true);
 					}
 					else
 					{

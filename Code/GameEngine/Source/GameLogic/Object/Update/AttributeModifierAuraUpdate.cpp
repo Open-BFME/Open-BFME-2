@@ -196,16 +196,7 @@ public:
 	Int m_rank; // +0x24
 };
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-
-private:
-	void *m_vtable;
-	const ThingTemplate *m_template; // +0x04
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
@@ -215,7 +206,6 @@ public:
 	int rva0028B511() const;
 	Relationship getRelationship(const Object *that) const;
 	bool addAttributeModifierToPool(const AsciiString &name, int duration);
-	const Coord3D *getPosition() const { return &m_pos; }
 	ObjectID getID() const { return m_id; }
 	__declspec(dllimport) __forceinline Real getBoundingRadius() const { return m_boundingRadius; }
 	Bool testStatus(int bit) const { return (m_status >> bit) & 1; }
@@ -227,9 +217,7 @@ private:
 	friend void objectAuraUpdate(Object *obj, void *userData);
 	AttributeModifierPoolUpdate *findAttributeModifierPoolUpdate() const;
 
-	char m_pad008[0x38 - 0x8];
-	Coord3D m_pos;		// +0x38
-	char m_pad044[0x74 - 0x44];
+	char m_pad060[0x74 - 0x60];
 	ObjectID m_id;		// +0x74
 	char m_pad078[0xB8 - 0x78];
 	Real m_boundingRadius;	// +0xB8
@@ -476,7 +464,7 @@ void objectAuraUpdate(Object *obj, void *userData)
 				return;
 		}
 	}
-	if (info->m_contained && (obj->getTemplate()->m_kindof[3] & (1U << (77 & 31))))
+	if (info->m_contained && (obj->m_template->m_kindof[3] & (1U << (77 & 31))))
 		obj->getContain()->iterateContained(objectAuraUpdate, info, true);
 	if (info->m_endFrame)
 	{
@@ -518,7 +506,7 @@ UpdateSleepTime AttributeModifierAuraUpdate::update()
 	info.m_endFrame = 0;
 	info.m_data = data;
 	info.m_contained = false;
-	info.m_special = (getObject()->getTemplate()->m_kindof[1] & (1U << (28 & 31)));
+	info.m_special = (getObject()->m_template->m_kindof[1] & (1U << (28 & 31)));
 	if (((const BitFlags<11> *)&data->m_antiCategory)->any() && !((const StringBase<char> *)&data->m_bonusName)->isEmpty())
 	{
 		info.m_endFrame = TheGameLogic->getFrame();

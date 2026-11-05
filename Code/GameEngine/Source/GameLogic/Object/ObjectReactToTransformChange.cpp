@@ -37,6 +37,7 @@ static inline bool isInRegionNoZRV( const Region3D &region, const Coord3D *query
 extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 inline void Drawable::markTransformChanged( unsigned int frame )

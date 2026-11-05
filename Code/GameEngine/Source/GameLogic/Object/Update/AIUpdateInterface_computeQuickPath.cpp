@@ -64,26 +64,15 @@ public:
 	unsigned char m_kindOf[0x14]; // +0x108
 };
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	void getUnitDirectionVector2D(Coord3D &dir) const;
-private:
-	unsigned char m_pad00[0x04];
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {
 public:
 	const Rva0028AC4EEntry *rva0028AC4E() const;
 	Int rva0028B511() const; // the layer
-	Bool isKindOfAircraft() const { return (getTemplate()->m_kindOf[1] & 0x10) != 0; }
-	Bool isKindOfProjectile() const { return (getTemplate()->m_kindOf[3] & 2) != 0; }
+	Bool isKindOfAircraft() const { return (m_template->m_kindOf[1] & 0x10) != 0; }
+	Bool isKindOfProjectile() const { return (m_template->m_kindOf[3] & 2) != 0; }
 };
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"

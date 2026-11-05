@@ -24,6 +24,7 @@ class DamageInfo;
 class Object;
 class Drawable;
 #include "../../../../Include/GameLogic/Module/DieMuxData.h"
+#include "../../../Common/Thing/thing.h"
 #include "../object.h"
 #include "../../../../Include/GameClient/Drawable.h"
 extern GameLogic *TheGameLogic;

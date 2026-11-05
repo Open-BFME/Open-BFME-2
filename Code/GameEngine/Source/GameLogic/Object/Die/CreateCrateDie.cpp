@@ -136,6 +136,7 @@ private:
 	ObjectID m_crateCreated;	// +0x238
 };
 
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 // 0x00270644, setTerrainDecalFadeTarget, rowed under its own address class.

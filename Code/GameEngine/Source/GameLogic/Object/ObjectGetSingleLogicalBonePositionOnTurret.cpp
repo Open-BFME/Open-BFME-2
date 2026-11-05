@@ -16,6 +16,7 @@
 #include "matrix3d.h"
 enum WhichTurretType {TURRET_PRIMARY=0};
 enum WeaponSlotType {PRIMARY_WEAPON=0};
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/DrawableBFME2.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 class Object {public:

@@ -43,13 +43,13 @@ template<> __forceinline void _STL::allocator<ObjectID>::deallocate(ObjectID*p,u
 class NotifyFlags {public: unsigned int bits[19];unsigned test(int bit)const{return bits[bit>>5]&(1u<<(bit&31));} void SetBit(int bit){bits[bit>>5]|=1u<<(bit&31);}};
 class AIUpdateInterface;
 #include "../../../../Include/Common/ThingTemplate.h"
-class Thing {public: void setPosition(const Coord3D*);char pad0[4];ThingTemplate *templ;};
+#include "../../../Common/Thing/thing.h"
 enum DamageType { DAMAGE_INVALID=8 };enum DeathType { DEATH_INVALID=0 };enum PathfindLayerEnum {LAYER_INVALID=0};
 class Object:public Thing {public:
  Object*rva002931F5(bool); void *rva0028C197() const;void kill(DamageType,DeathType);void rva0028AE6D();
  __forceinline unsigned testCond()const{return modelCondition.test(122);}
  __forceinline void setCond(){modelCondition.SetBit(122);rva0028AE6D();}
- char pad8[0x10c-8];NotifyFlags modelCondition;char pad158[0x258-0x158];AIUpdateInterface *ai;
+ char pad60[0x10c-0x60];NotifyFlags modelCondition;char pad158[0x258-0x158];AIUpdateInterface *ai;
 };
 struct Rva003642DFNode;
 struct Rva003642DFResult {Rva003642DFResult();Rva003642DFNode*node;Coord3D pos;};
@@ -65,14 +65,14 @@ extern TerrainLogic*TheTerrainLogic;extern GameLogic*TheGameLogic;
 class AIUpdateInterface {public:void destroyPath();void NotifyPathHasInvalidPortals();char pad0[8];Object*owner;char padC[0x140-0xc];Path*path;char pad144[0x1f0-0x144];Rva0008BB38FloatField*loco;};
 void AIUpdateInterface::NotifyPathHasInvalidPortals(){
  Object *obj=owner;
- if(!(obj->templ->m_kindof[3]&0x2000)){
+ if(!(obj->m_template->m_kindof[3]&0x2000)){
   Object *brain=obj->rva002931F5(false);
   if(brain){if(!brain->ai)return;if(brain->ai->path)brain->ai->NotifyPathHasInvalidPortals();else destroyPath();return;}
  }
  Path *objPath=path;if(!objPath)return;
  Rva003642DFResult closest=objPath->rva00364521(loco);
  if(((Rva001E3511*)&closest)->rva001E3511()==0x7fffffff || TheTerrainLogic->slot35(((Rva001E3511*)&closest)->rva001E3511())){destroyPath();return;}
- if(obj->templ->m_kindof[3]&0x2000){
+ if(obj->m_template->m_kindof[3]&0x2000){
   NotifyHorde*hci=(NotifyHorde*)obj->rva0028C197();if(!hci)return;
   _STL::vector<ObjectID> a,b,c;hci->slot135(&a,&b,&c);
   for(_STL::vector<ObjectID>::iterator i=b.begin();i!=b.end();++i){Object*member=TheGameLogic->findObjectByID(*i);if(member){member->kill(DAMAGE_INVALID,DEATH_INVALID);if(!member->testCond())member->setCond();}}

@@ -71,6 +71,7 @@ private:
 	Coord3D m_targetOffset; // +0x1B0
 };
 
+#include "../Common/Thing/thing.h"
 #include "../../Include/GameClient/DrawableBFME2.h"
 class Object { public: int rva0028B511() const; };
 float GetGameClientRandomValueReal(float, float, char *, int);
