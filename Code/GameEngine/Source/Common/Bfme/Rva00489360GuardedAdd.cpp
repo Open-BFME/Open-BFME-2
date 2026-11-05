@@ -207,15 +207,15 @@ void Rva001DBDA4::rva001DBDC6()
 	m_08 = totalFrames;
 }
 
-// The 0x00DFDC14 singleton (theBfmeDfdc14, defined in WinMain.cpp); only its
-// +0x64 frame count is used here.
-class AudioManager
+// The 0x00DFDC14 singleton is TheTransitionHandler (defined in WinMain.cpp);
+// only its +0x64 frame count is used here, read through this partial view.
+struct TransitionHandlerFrameView
 {
-public:
 	char m_pad00[0x64];
 	int m_64;
 };
-extern class GameWindowTransitionsHandler *TheTransitionHandler;
+class GameWindowTransitionsHandler;
+extern GameWindowTransitionsHandler *TheTransitionHandler;
 
 // ?rva001DC164@Rva001DBDA4@@QAEXXZ @0x001DC164 59B: Zero Hour's
 // TransitionGroup::init shape (frame 0 at +0x08, direction 1 at +0x04, init
@@ -229,5 +229,5 @@ void Rva001DBDA4::rva001DC164()
 	m_04 = 1;
 	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
 		node->m_value->rva001DBD24();
-	(*(AudioManager **)&TheTransitionHandler)->m_64 = rva001DBDA4() + 3;
+	((TransitionHandlerFrameView *)TheTransitionHandler)->m_64 = rva001DBDA4() + 3;
 }
