@@ -29,14 +29,12 @@ template <class T1, class T2> struct pair { ~pair(); };
 }
 template <class T> class RefCountPtr { public: ~RefCountPtr(); };
 class Rva00217A37;
-class Rva0022115A;
 class Rva003ED68D;
 class Rva0041090E;
 class Rva005B3751;
 template <class T> class StringBase
 {
 	friend class Rva00217A37;
-	friend class Rva0022115A;
 	friend class Rva003ED68D;
 	friend class Rva0041090E;
 	friend class Rva005B3751;
@@ -379,42 +377,6 @@ void Rva00217A37::rva00217C8F()
 		return;
 	RvaTreeValueHead *head = (RvaTreeValueHead *)m_00Head;
 	rva00217A37(head->m_first);
-	((RvaTreeValueHead *)m_00Head)->m_next = (RvaTreeValueHead *)m_00Head;
-	((RvaTreeValueHead *)m_00Head)->m_first = 0;
-	((RvaTreeValueHead *)m_00Head)->m_child = (RvaTreeValueHead *)m_00Head;
-	m_04Flag = 0;
-}
-
-// owner Rva0022115A: erase 0x0022115A (value ??1?$StringBase@D@@AAE@XZ), clear 0x00221234
-typedef StringBase<char> Rva0022115AValue;
-class Rva0022115A
-{
-public:
-	void rva0022115A(void *node);
-	void rva00221234();
-private:
-	void *m_00Head; // +0x00
-	int m_04Flag; // +0x04
-};
-
-void Rva0022115A::rva0022115A(void *p)
-{
-	RvaTreeValueNode *node = (RvaTreeValueNode *)p;
-	while (node) {
-		rva0022115A(node->right);
-		RvaTreeValueNode *left = node->left;
-		reinterpret_cast<Rva0022115AValue *>(node + 1)->~Rva0022115AValue();
-		free(node);
-		node = left;
-	}
-}
-
-void Rva0022115A::rva00221234()
-{
-	if (m_04Flag == 0)
-		return;
-	RvaTreeValueHead *head = (RvaTreeValueHead *)m_00Head;
-	rva0022115A(head->m_first);
 	((RvaTreeValueHead *)m_00Head)->m_next = (RvaTreeValueHead *)m_00Head;
 	((RvaTreeValueHead *)m_00Head)->m_first = 0;
 	((RvaTreeValueHead *)m_00Head)->m_child = (RvaTreeValueHead *)m_00Head;

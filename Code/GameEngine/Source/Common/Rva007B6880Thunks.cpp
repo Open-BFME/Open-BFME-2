@@ -7030,23 +7030,6 @@ void __cdecl rva007B70D3()
 	return receiver->~Rva00136768Dtor();
 }
 
-// The teardown at 0x002213C0 is rowed as the plain member Rva002213C0::rva002213C0.
-class Rva002213C0
-{
-public:
-	void rva002213C0();
-};
-
-extern unsigned g_Va00DFE4AC;
-unsigned int g_Va00DFE4AC;
-
-// ?rva007B7704@@YAXXZ @ 0x007B7704 (10B). Global dtor thunk: ecx=&g_Va00DFE4AC then tail-jmp to pinned ??1Rva002213C0Dtor@@QAE@XZ (0x002213C0). No callers. Honest address name.
-void __cdecl rva007B7704()
-{
-	Rva002213C0 *receiver = (Rva002213C0 *)&g_Va00DFE4AC;
-	return receiver->rva002213C0();
-}
-
 class Rva003ED94FDtor
 {
 public:

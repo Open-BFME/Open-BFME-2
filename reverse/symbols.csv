@@ -3003,7 +3003,6 @@ name,address,notes
 ??1Rva0020DF0B@@UAE@XZ,0x0020DF0B,"destructor the scalar deleting destructor 0x0020E1E1 calls (REL32 at 0x0020E1E4; vtable 0x00BE40A0#0); opaque address name"
 ??1Rva00210CF1@@QAE@XZ,0x003FA14B,non-virtual dtor called directly by scalar deleting dtor 0x00210CF1; owning class unproven
 ??1Rva00214405@@UAE@XZ,0x00214405,"destructor the scalar deleting destructor 0x002146B8 calls (REL32 at 0x002146BB; vtable 0x00BE5234#0); opaque address name"
-??1Rva002213C0Dtor@@QAE@XZ,0x002213C0,dtor thunk stub at 0x002213C0 to 0x002212F1 (target of thunk 0x007B7704)
 ??1Rva00221A58@@QAE@XZ,0x002218D0,ICF twin of Open2Dtor4793C0 from Rva00221B42 dtor call site
 ??1Rva00224A90@@UAE@XZ,0x00224A90,opaque SEH dtor (mov-eax-cookie prologue); tail-called by single-inheritance dtor at 0x628FD; identity unproven, address-derived name
 ??1Rva0022CA74@@MAE@XZ,0x00200280,dtor installs its own vftable 0x00BE2704 (bytes at ++21) and is the REL32 callee of the slot-0 ??_G at 0x0020030F

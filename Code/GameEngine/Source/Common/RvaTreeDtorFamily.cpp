@@ -1056,21 +1056,6 @@ Rva00217A37::~Rva00217A37()
 	rva00217C8F();
 }
 
-// ??1Rva0022115A@@QAE@XZ @0x002212F1 56B -> Rva0022115A::rva00221234
-class Rva0022115A
-{
-public:
-	RvaTreeFamilyHolder m_header;
-	int m_flag;
-	void rva00221234();
-	~Rva0022115A();
-};
-
-Rva0022115A::~Rva0022115A()
-{
-	rva00221234();
-}
-
 // ??1Rva0022E121@@QAE@XZ @0x0022E1F1 56B -> Rva0022E121::rva0022E177
 class Rva0022E121
 {
@@ -1401,17 +1386,6 @@ public:
 Rva00211FA3::~Rva00211FA3()
 {
 	((Rva0021119B *)this)->~Rva0021119B();
-}
-
-class Rva002213C0
-{
-public:
-	void rva002213C0();
-};
-
-void Rva002213C0::rva002213C0()
-{
-	((Rva0022115A *)this)->~Rva0022115A();
 }
 
 class Rva00243B4D

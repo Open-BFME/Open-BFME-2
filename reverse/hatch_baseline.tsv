@@ -503,7 +503,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DF3660	
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DF6F98	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DF6FB0	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFDD0C	2
-address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFE4AC	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFEC74	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFEC84	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFF134	2
@@ -5845,7 +5844,6 @@ pin	reverse/symbols.csv	0x00220C56	1
 pin	reverse/symbols.csv	0x00220F8D	1
 pin	reverse/symbols.csv	0x0022105B	2
 pin	reverse/symbols.csv	0x0022118F	1
-pin	reverse/symbols.csv	0x002213C0	1
 pin	reverse/symbols.csv	0x00221635	2
 pin	reverse/symbols.csv	0x0022167C	2
 pin	reverse/symbols.csv	0x002218D0	2
