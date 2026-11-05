@@ -15,3 +15,5 @@ and its consumers into the next scheduled census. No census gain is claimed.
 [Checks and boundaries](../../reverse/attempt_support/physics-trajectory-objectmodule-20261030-codex.md).
 
 2026-11-05: PhysicsUpdate's seed now uses BFME declarations, retaining all three matched rows and its 173-byte link preview; donor composition and the other view prerequisites remain under verification. [Seed repair evidence](../../reverse/attempt_support/physics-seed-bfme-20261105/readme.md).
+
+2026-11-05: The constructor and pool-key donors now merge into PhysicsUpdate (two files removed, 10/10 rows verified, merged link preview passes); remaining private-view/header prerequisites and full affected-consumer census confirmation stay open. [Merge checks and audit limits](../../reverse/attempt_support/physics-consolidation-20261105-codexb4/readme.md).

@@ -19314,8 +19314,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0269C,4,.data,global,_s_rva007AF160,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A026A0,256,.data,global,?indata@?1??checkQR2Queries@@YAXPAXI@Z@4PADA,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,owned,,1,2
 0x00A027A0,4,.data,global,_s_lastExtendedInfoFrame,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,owned,,1,2
-0x00A027A4,4,.data,global,?ThePhysicsBehaviorPoolKey@?1??rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorPoolKey.cpp,owned,,1,2
-0x00A027A8,4,.data,global,?$S1@?1??rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorPoolKey.cpp,owned,,1,4
+0x00A027A4,4,.data,global,?ThePhysicsBehaviorPoolKey@?1??rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp,owned,,1,2
+0x00A027A8,4,.data,global,?$S1@?1??rva00039085C@PhysicsBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp,owned,,1,4
 0x00A027AC,4,.data,global,_s_rva007AF18A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A027B0,4,.data,global,?TheRadiusDecalUpdatePoolKey@?1??getModuleNameKey@RadiusDecalUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecalUpdate.cpp,owned,,1,2
 0x00A027B4,4,.data,global,?$S1@?1??getModuleNameKey@RadiusDecalUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecalUpdate.cpp,owned,,1,2

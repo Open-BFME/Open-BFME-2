@@ -1,0 +1,13 @@
+scanned 3 files; 0 define or declare Microsoft names locally
+  drop-in candidate 0
+  adapt        0
+  unverified   0
+  conflicting  0
+  shim         0
+  failed       0
+files whose CRT dllimport conflicts need the callee verified per body: 0
+occurrences by severity: 
+occurrences by kind:     
+files with local Microsoft prototypes: 0
+most copied names: 
+refreshed reverse/ms_header_queue.tsv (680 files) and build/ms_header_audit/occurrences.tsv
