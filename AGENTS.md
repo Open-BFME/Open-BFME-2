@@ -16,7 +16,9 @@ a lost row is regression repair; identifying an existing placeholder is cleanup.
 **Exit test** (`docs/verifier_upgrade_plan.md` step 12): the game links with no
 `/FORCE` and no stubs at a non-retail base, and automated runs
 (`tools/boot_smoke.py`, `tools/game_smoke.py`) reach the menu, a skirmish and
-save/load. The phase closes with source recovery done too: `Code/` holds retail's
+save/load. That is the milestone. The closing bar is a run whose game-logic CRCs equal
+retail's, with a deliberately perturbed run caught as the negative control. The phase
+closes with source recovery done too: `Code/` holds retail's
 translation units, not one file per function, and every code row sits in its
 approved TU (`reverse/tu_map.csv`).
 
