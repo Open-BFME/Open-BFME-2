@@ -59,12 +59,20 @@ class Thing;
 
 class ModuleData;
 
-struct FreeLifeBodyModuleData
+#include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
+
+class FreeLifeBodyModuleData : public RespawnBodyModuleData
 {
-	unsigned char m_pad00[0x6C];
-	int m_freeLifeHealthPercent;
-	int m_freeLifeTime;
-	bool m_freeLifeInvincible;
+public:
+	FreeLifeBodyModuleData();
+
+	float m_healthPercent; // +0x6C
+	int m_lifeTime; // +0x70
+	bool m_invincible; // +0x74
+	int m_animAndDuration; // +0x78
+	int m_unused7C; // +0x7C
+	int m_unused80; // +0x80
+	void *m_prerequisite; // +0x84
 };
 
 class RespawnBody
@@ -88,7 +96,7 @@ public:
 
 private:
 	bool m_100;
-	int m_104;
+	float m_104;
 	bool m_108;
 	int m_10C;
 	int m_110;
@@ -167,9 +175,9 @@ FreeLifeBody::FreeLifeBody(Thing *thing, const ModuleData *moduleData)
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7ActiveBody@@6BActiveBodyB1@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva004C1866@@6BRva004C1866_B2@@@"));
 	m_108 = false;
-	m_110 = data->m_freeLifeTime;
-	m_100 = data->m_freeLifeInvincible;
-	m_104 = data->m_freeLifeHealthPercent;
+	m_110 = data->m_lifeTime;
+	m_100 = data->m_invincible;
+	m_104 = data->m_healthPercent;
 }
 
 // tu-skeleton: 0x004C1920 28B ??_GRva004C1866@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004C131BDerived.cpp (not merged yet)
