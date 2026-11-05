@@ -57,7 +57,6 @@ public:
 	int m_flags;
 	bool m_match;
 };
-// A KindOfMaskType as the mask filters copy it (0x0004543D).
 #include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 // vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
 // first mask and none of the second.
@@ -105,7 +104,6 @@ class Snapshot;
 class Thing;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
-
 // The stealth helper Object::rva0028F4BC returns: +0x04 its data, whose
 // +0x0C holds the flags.
 struct Rva00373EC6Data
@@ -113,22 +111,15 @@ struct Rva00373EC6Data
 	char m_pad00[0x0C];
 	unsigned m_0C;		// +0x0C
 };
-
-// LINK: the stealth calls bind the rowed owners at the same addresses: 0x00373D28 is
-// StealthUpdate::rva00373D28 (StealthUpdateLogic.cpp); 0x002B2210 is the shared one-store
-// setter rowed as GameWindow::winSetUserData (GameWindowStatusUserData.cpp, ICF-shared body).
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/StealthUpdate.h"
-
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
-
 class Rva00373EC6
 {
 public:
 	void *m_vtable;
 	const Rva00373EC6Data *m_04;	// +0x04
 };
-
 class Object
 {
 public:
@@ -140,28 +131,22 @@ public:
 	char m_pad044[0x74 - 0x44];
 	ObjectID m_74;		// +0x74
 };
-
 extern GameLogic *TheGameLogic;
-
 // A list<ObjectID>: STLport nodes (+0 next, +8 the ID) behind the header node.
 typedef unsigned int UnsignedInt;
-
 // Four-byte STLport list storage: construction and teardown use the existing
 // out-of-line member providers at 0x0029FB3B and 0x00268902.
 struct Rva0029FB3BAlloc
 {
 	Rva0029FB3BAlloc() {}
 };
-
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
-
 struct BridgeBehaviorObjectIDNode
 {
 	BridgeBehaviorObjectIDNode *m_next;
 	BridgeBehaviorObjectIDNode *m_previous;
 	ObjectID m_value;
 };
-
 // Keep the teardown bound to the rowed 29-byte cleanup owner. The older
 // Rva0029FB3BMember destructor spelling has a divergent COMDAT elsewhere.
 class PoolMember
@@ -169,7 +154,6 @@ class PoolMember
 public:
 	void Rva00268902() throw();
 };
-
 class BridgeBehaviorObjectIDList
 {
 public:
@@ -195,37 +179,21 @@ public:
 private:
 	void *m_head;
 };
-
 // LINK: 0x002A1B6F is rowed as Rva002A1B6FNativeList::append (Rva002A1316.cpp; pointer-sized element by reference).
 class Rva002A1B6FNativeList
 {
 public:
 	void append(void *const &value);
 };
-
 class Xfer;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
-
 class ModuleData;
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-
-
-// +0x20: vptr and the executed flag; xfer runs its upgradeMuxXfer 0x004CE397.
 #include "../../../../Include/GameLogic/Module/UpgradeMux.h"
-
 #include "ascii_string.h"
-
 struct BroadcastStealthUpdateModuleData
 {
 	unsigned char m_pad00[0x08];
@@ -236,16 +204,10 @@ struct BroadcastStealthUpdateModuleData
 	unsigned char m_pad30[0x140 - 0x30];
 	unsigned m_140;			// +0x140 the flags to keep
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 #include "../../../../Include/Common/XferVersion.h"
-
 void XferObjectID(Xfer *xfer, ObjectID *id);
-
-
 class BroadcastStealthUpdate : public UpdateModule, public UpgradeMux
 {
 public:
@@ -263,19 +225,67 @@ private:
 	}
 	BridgeBehaviorObjectIDList m_28; // +0x28
 };
-
-// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
-// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
-// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
+typedef bool Bool;
+typedef int Int;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/Common/ObjectModule.h"
+enum ObjectID;
+#define BFME_SNAPSHOT_NAME_SLOT
+#pragma comment(linker, "/alternatename:?f3@BroadcastStealthUpdate_B3@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
+#pragma comment(linker, "/alternatename:?getBody@BehaviorModuleInterface@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A3541ByteChase32Field, 0x1C, 0x13C)
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004A354BByteChase32Field, 0x1C, 0x13D)
 
-// tu-skeleton: 0x004A342E 146B ??0BroadcastStealthUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateCtor.cpp
+
+//
+// ??0BroadcastStealthUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail
+// 0x004A342E, 146 bytes. BFME 2 module without a ZH counterpart. Target
+// evidence: the body runs the rowed UpdateModule ctor 0x00253390 and the
+// rowed UpgradeMux ctor 0x004CE2A3 on +0x20, stores the four vtables the
+// rowed dtor 0x004A3555 restores (0x00852364 primary, whose slot 0 is the
+// rowed ??_GBroadcastStealthUpdate 0x004A35AD and slot 3 the rowed xfer
+// 0x004A3752; 0x00852358 the UpdateModuleInterface one holding the rowed
+// update 0x004A35C9; 0x00852310 at +0x20 the UpgradeMux one), then builds
+// the +0x28 ID list (the one update fills) through the rowed list-base
+// ctor 0x0029FB3B with a stack allocator. The module sleeps forever when
+// the module data's +0x2C string (released by the rowed module-data dtor
+// 0x00256097) is non-empty, else wakes at once.
+
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
+
+BroadcastStealthUpdate::BroadcastStealthUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	if (getBroadcastStealthUpdateModuleData()->m_2c.getLength() > 0)
+		setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+	else
+		setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
 
 // tu-skeleton: 0x004A34C0 6B ?Rva004A34C0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp
+
+// A KindOfMaskType as the mask filters copy it (0x0004543D).
+
+// LINK: the stealth calls bind the rowed owners at the same addresses: 0x00373D28 is
+// StealthUpdate::rva00373D28 (StealthUpdateLogic.cpp); 0x002B2210 is the shared one-store
+// setter rowed as GameWindow::winSetUserData (GameWindowStatusUserData.cpp, ICF-shared body).
+
+// +0x20: vptr and the executed flag; xfer runs its upgradeMuxXfer 0x004CE397.
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp
 
@@ -365,10 +375,6 @@ void BroadcastStealthUpdate::xfer(Xfer *xfer)
 	}
 }
 
-// tu-skeleton: 0x004A350B 39B ?getUpgradeActivationMasks@BroadcastStealthUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
-// tu-skeleton: 0x004A3532 15B ?performUpgradeFX@BroadcastStealthUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
 
 // Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
@@ -387,12 +393,38 @@ void BroadcastStealthUpdate::xfer(Xfer *xfer)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x004A3555 88B ??1BroadcastStealthUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+// tu-skeleton: 0x004A350B 39B ?getUpgradeActivationMasks@BroadcastStealthUpdate@@MBEXAAUUpgradeMaskType@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x004A35AD 28B ??_GBroadcastStealthUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+// tu-skeleton: 0x004A3532 15B ?performUpgradeFX@BroadcastStealthUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpgradeMuxSlotOverrides.cpp (not merged yet)
 
-// tu-skeleton: 0x0078DC63 8B $L416 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp
 
-// tu-skeleton: 0x0078DC6B 11B $L417 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+//
+// ??1BroadcastStealthUpdate@@UAE@XZ, retail 0x004A3555, 88 bytes (pinned;
+// rowed deleting wrapper 0x004A35AD). Stores four vtables (+0x00/+0x0C/
+// +0x10/+0x20), calls the helper 0x004A33EE on this, releases the ID-list
+// member at +0x28 through the rowed PoolMember cleanup at 0x00268902,
+// then runs UpdateModule's dtor 0x0024A797. Retail's unwind map holds
+// the base (state 0) and the +0x28 member (state 1, through 0x00268AFF, a
+// jmp to 0x00268902), so the release is that member's inline destructor.
+// Retail stores no state between the helper call and the release, so the
+// release is declared non-throwing here. The helper is pinned under an
+// address name from this call (second caller 0x004A35DE).
+// UpdateModule carries its own three vptrs (+0x00/+0x0C/+0x10), as the rowed
+// ctor 0x004A342E and UpdateModule::~UpdateModule 0x0024A797 show, so this
+// unit's vftable names agree with the ctor's: the +0x10 UpdateModuleInterface
+// one (0x00C52358) is ??_7BroadcastStealthUpdate@@6BUpdateModule@@@.
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
 
-// tu-skeleton: 0x0078DC76 10B __ehhandler$??1BroadcastStealthUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp (not merged yet)
+BroadcastStealthUpdate::~BroadcastStealthUpdate()
+{
+	rva004A33EE();
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.

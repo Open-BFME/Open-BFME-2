@@ -3000,8 +3000,8 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAu
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp	?upgradeSlot@UpgradeMux@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva004978A3Dtor.cpp	?f1@MiBase1004978A3@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp	?f3@BroadcastStealthUpdate_B3@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp	?getBody@BehaviorModuleInterface@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp	?f3@BroadcastStealthUpdate_B3@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp	?getBody@BehaviorModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdateCtorThunk.cpp	?slot@PB_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdateCtorThunk.cpp	?slot@PB_Iface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp	?TheEmptyString@AsciiString@@2V1@A	1
