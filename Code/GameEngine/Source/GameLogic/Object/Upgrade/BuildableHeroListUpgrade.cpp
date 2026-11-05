@@ -143,11 +143,7 @@ private:
     Team *m_head;
 };
 
-struct PlayerTeamNode
-{
-    PlayerTeamNode *next, *prev;
-    TeamPrototype *value;
-};
+#include "../../../../Include/GameLogic/PlayerTeamNode.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
@@ -199,9 +195,9 @@ public:
 void BuildableHeroListUpgrade::rva004B83D2(const ThingTemplate *thingTemplate)
 {
     Player *player = getObject()->getControllingPlayer();
-    for (PlayerTeamNode *node = player->m_teamHead->next; node != player->m_teamHead; node = node->next)
+    for (PlayerTeamNode *node = player->m_teamHead->m_next; node != player->m_teamHead; node = node->m_next)
     {
-        for (DLINK_ITERATOR<Team> teams = node->value->iterate_TeamInstanceList(); !teams.done(); teams.advance())
+        for (DLINK_ITERATOR<Team> teams = node->m_value->iterate_TeamInstanceList(); !teams.done(); teams.advance())
         {
             Team *team = teams.cur();
             if (!team)

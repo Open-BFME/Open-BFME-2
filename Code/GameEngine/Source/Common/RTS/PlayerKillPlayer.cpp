@@ -77,10 +77,7 @@ class TeamPrototype {
         return DLINK_ITERATOR<Team>(head, &Team::dlink_next_TeamInstanceList);
     }
 };
-struct PlayerTeamNode {
-    PlayerTeamNode *next, *prev;
-    TeamPrototype *value;
-};
+#include "../../../Include/GameLogic/PlayerTeamNode.h"
 class PlayerList {
   public:
 #define SLOT(n) virtual void slot##n();
@@ -129,8 +126,8 @@ void Rva002AB5C7Player::rva002AB44A() {
     if (brain && brain->isAPartialBrain())
         dead = true;
     else {
-        for (PlayerTeamNode *it = teams->next; it != teams; it = it->next)
-            for (DLINK_ITERATOR<Team> iter = it->value->iterate_TeamInstanceList(); !iter.done();
+        for (PlayerTeamNode *it = teams->m_next; it != teams; it = it->m_next)
+            for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done();
                  iter.advance()) {
                 Team *team = iter.cur();
                 if (!team)
@@ -138,8 +135,8 @@ void Rva002AB5C7Player::rva002AB44A() {
                 team->evacuateTeam(false);
             }
         dead = true;
-        for (PlayerTeamNode *it = teams->next; it != teams; it = it->next)
-            for (DLINK_ITERATOR<Team> iter = it->value->iterate_TeamInstanceList(); !iter.done();
+        for (PlayerTeamNode *it = teams->m_next; it != teams; it = it->m_next)
+            for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done();
                  iter.advance()) {
                 Team *team = iter.cur();
                 if (!team)
@@ -211,8 +208,8 @@ extern BuildAssistant *TheBuildAssistant;
 // multiple-inheritance member pointer. Retaining the donor's explicit team
 // guard closes the native top-tested loop; no assembly or new pins.
 void Rva002AB5C7Player::rva002AB5C7() {
- for(PlayerTeamNode *node=teams->next;node!=teams;node=node->next) {
-  for(DLINK_ITERATOR<Team> iter=node->value->iterate_TeamInstanceList();!iter.done();iter.advance()) {
+ for(PlayerTeamNode *node=teams->m_next;node!=teams;node=node->m_next) {
+  for(DLINK_ITERATOR<Team> iter=node->m_value->iterate_TeamInstanceList();!iter.done();iter.advance()) {
    Team *team=iter.cur();
    if(!team)continue;
    for(DLINK_ITERATOR<Object> objects=team->iterate_TeamMemberList();!objects.done();objects.advance())
