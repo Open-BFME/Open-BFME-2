@@ -4634,6 +4634,17 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
 #     route, because the slot's body is NEW's either way (ICF shares it); it
 #     is recorded in the evidence and is not folded. A name on T for a class
 #     that installs no T of its own still refuses.
+#   * a NEW rowed only through virtual methods (no constructor, destructor or
+#     deleting destructor row, so no object binds T under NEW's name: a
+#     multiply-derived OLD's T is `??_7OLD@@6BBase@@@`) is tied to OLD's own
+#     table T by its slots instead of a `??_7NEW` name, when nothing but OLD
+#     names T, every rowed virtual method of NEW sits in a slot of T and in no
+#     other retail table (a base class's own table would hold its virtuals
+#     too; an ICF-folded body would sit in both), and no slot of T holds a
+#     third class's member (an inherited slot this route does not judge).
+#     0x00CF1648: ctor 0x00740FD9 (Rva0074104C) installs it last, its slots
+#     are ??_G 0x007410D0, W3DAptComponentColorPicker::Init and ::Render, and
+#     the base table 0x00CF1630 holds __purecall there.
 #
 # T's names come from data_rows.csv, data_ledger.csv and, because the ledger
 # is a tool-written cache that lags new rows, the DIR32 bindings of OLD's and
@@ -5030,6 +5041,49 @@ def third_owners(ctx, table, classes, tables):
     return dict(found)
 
 
+# A virtual method's decorated name: `?Init@W3DAptComponentColorPicker@@UAEX...`
+# (access codes E private, M protected, U public virtual near __thiscall).
+def virtual_member_re(cls):
+    return re.compile(r"\?[A-Za-z_]\w*@" + re.escape(class_scope(cls)) + r"@@[EMU]")
+
+
+def virtual_slot_tie(ctx, old, new, table, tables, unnamed):
+    """[evidence] tying NEW to OLD's own table T through NEW's rowed virtual
+    methods (the virtual-slot route of the section comment); raises Refusal
+    with `unnamed` plus the reason when the slots do not tie it."""
+    slots = tables[table][0]
+    va = f"0x{table + IMAGE_BASE:08X}"
+    virtuals = [r for _start, _end, r in _row_spans(ctx)[1] if virtual_member_re(new).match(r["name"])]
+    if not virtuals:
+        raise Refusal(unnamed + f"; and no row is a virtual method of {new}, so no slot of {va} ties it either")
+    evidence = []
+    for row in virtuals:
+        rva = _rva(row["target_rva"])
+        at = f"{row['name']} at 0x{rva:08X}"
+        if rva not in slots:
+            raise Refusal(unnamed + f"; and {at} is on no slot of {va}: {new}'s virtuals live in another table")
+        elsewhere = sorted(t for t, (other, _stores) in tables.items() if t != table and rva in other)
+        if elsewhere:
+            raise Refusal(unnamed + f"; and {at} also sits in retail table " +
+                          ", ".join(f"0x{t + IMAGE_BASE:08X}" for t in elsewhere) +
+                          f": {new} may be a base with a table of its own, or the body an ICF fold")
+        evidence.append(f"{at} is slot {slots.index(rva)} of {va} and of no other retail table")
+    starting = collections.defaultdict(list)
+    for start, _end, row in _row_spans(ctx)[1]:
+        starting[start].append(row)
+    scope = re.compile(r"\?(?:\?_?[0-9A-Z]|[A-Za-z_]\w*@)" + CLASS_SCOPE)
+    for index, target in enumerate(slots):
+        for row in starting.get(target, []):
+            found = scope.match(row["name"])
+            cls = scope_class(found.group(1)) if found else None
+            if cls and cls not in (old, new):
+                raise Refusal(unnamed + f"; and {va} slot {index} holds {row['name']} at 0x{target:08X}, a "
+                              f"member of {cls}: an inherited or folded slot this route does not judge")
+    evidence.append(f"{new} has no constructor, destructor or deleting destructor row and nothing names {va} "
+                    f"for it; {old}'s own table holds {new}'s virtual methods, so they are one class")
+    return evidence
+
+
 def fold_evidence(ctx, old, new):
     """(table rva, [evidence]) proving the class names `old` and `new` one
     retail class (see the section comment); raises Refusal."""
@@ -5099,9 +5153,14 @@ def fold_evidence(ctx, old, new):
         match = GLOBAL_VTABLE.match(symbol)
         classes[scope_class(match.group(1)) if match else symbol].append(f"{symbol} ({where})")
     if new not in classes:
-        raise Refusal(f"retail vftable {va}, which {table_owner}'s rows install as their own, is named "
-                      f"{', '.join(sorted(names)) or 'by nothing'} in data_rows.csv / data_ledger.csv / the "
-                      f"installing rows' objects, not ??_7{class_scope(new)}@@6B@: nothing ties {new} to it")
+        unnamed = (f"retail vftable {va}, which {table_owner}'s rows install as their own, is named "
+                   f"{', '.join(sorted(names)) or 'by nothing'} in data_rows.csv / data_ledger.csv / the "
+                   f"installing rows' objects, not ??_7{class_scope(new)}@@6B@: nothing ties {new} to it")
+        # NEW rowed only through virtual methods: their slots tie it to T
+        # (see the section comment); refused like before when they do not.
+        if via_slot or members[new] or set(classes) - {old}:
+            raise Refusal(unnamed)
+        evidence.extend(virtual_slot_tie(ctx, old, new, table, tables, unnamed))
     # The destructor-only route lets a third class that installs T as its own
     # stand (see the section comment); it is named in the evidence, not folded.
     co_owners = third_owners(ctx, table, (old, new), tables) if via_slot else {}

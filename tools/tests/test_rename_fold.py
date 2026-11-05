@@ -1204,3 +1204,119 @@ def test_a_destructor_only_fold_into_a_class_with_its_own_destructor_is_refused(
     d_retail(monkeypatch, calls={D_GDTOR: {D_DTOR}})
     with pytest.raises(Refusal, match="one class has one"):
         d_plan(root)
+
+
+# ------------------------------------------------------------ a NEW rowed only through virtual methods
+#
+# 0x00CF1648's class: its constructor 0x00740FD9, destructor and deleting
+# destructor are rowed under the placeholder Rva0074104C, whose objects name
+# the table ??_7Rva0074104C@@6BRva0074104CBase@@@ (multiple inheritance);
+# W3DAptComponentColorPicker is rowed only through Init and Render, slots 1
+# and 2 of that table, and no object names the table for it.
+V_OLD = "Rva00401000"
+V_NEW = "WidgetPicker"
+V_GDTOR, V_RUN = 0x00402010, 0x00406000
+
+
+def v_functions(extra=""):
+    return (f"""name,export_rva,target_rva,target_size,source,status,notes
+??0{V_OLD}@@QAE@XZ,,0x00401000,13,Code/Game/Ctor.cpp,matched,ctor installs vtable 0x00C00000
+??_G{V_OLD}@@UAEPAXI@Z,,0x00402010,29,Code/Game/Ctor.cpp,matched,deleting dtor
+?run@{V_NEW}@@UAEXXZ,,0x00406000,20,Code/Game/Picker.cpp,matched,a virtual method
+??0Other@@QAE@XZ,,0x00405000,20,Code/Game/Other.cpp,matched,unrelated ctor
+""" + extra)
+
+
+def v_ledger(name=f"??_7{V_OLD}@@6BBase@@@"):
+    return ("address,size,section,kind,name,source,status,names,defs,refs\n"
+            f"0x00800000,8,.rdata,vtable,{name},,literal,,0,1\n")
+
+
+V_CTOR_SRC = f"class {V_OLD}\n{{\npublic:\n\t{V_OLD}();\n\tvirtual ~{V_OLD}();\n}};\n{V_OLD}::{V_OLD}() {{}}\n"
+V_PICKER_SRC = f"class {V_NEW}\n{{\npublic:\n\tvirtual void run();\n}};\nvoid {V_NEW}::run() {{}}\n"
+
+
+def make_virtual_tree(root, functions=None, ledger_text=None):
+    files = {
+        "reverse/functions.csv": functions or v_functions(),
+        "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/deleted_rows.csv": "name,target_rva,reason\n",
+        "reverse/data_rows.csv": "name,address,address_kind,size,section,source,status,evidence,model\n",
+        "reverse/data_ledger.csv": ledger_text or v_ledger(),
+        "reverse/exports.csv": "ordinal,rva,target_rva,section,kind,name\n",
+        "reverse/gate_baseline.txt": "",
+        "Code/Game/Ctor.cpp": V_CTOR_SRC,
+        "Code/Game/Picker.cpp": V_PICKER_SRC,
+        "Code/Game/Other.cpp": OTHER,
+    }
+    for rel, text in files.items():
+        path = root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(text.encode("utf-8"))
+    _git(root, "init", "-q")
+    _git(root, "add", "-A")
+    return root
+
+
+def v_tables(slots=(V_GDTOR, V_RUN), extra=None):
+    tables = {TABLE: (list(slots), {0x00401002: 0}),
+              OTHER_TABLE: ([0x00407000, PURECALL], {0x00401001: 4})}
+    tables.update(extra or {})
+    return tables
+
+
+def v_plan(root, old=V_OLD, new=V_NEW):
+    return rename.plan_rename("class", ctx=ctx_of(root), name=old, new=new, fold=True)
+
+
+def test_a_placeholder_folds_into_the_class_whose_virtuals_fill_its_table(tmp_path, monkeypatch):
+    root = make_virtual_tree(tmp_path)
+    retail(monkeypatch, v_tables())
+    p = v_plan(root)
+    assert p.fold == TABLE
+    assert f"??0{V_OLD}@@QAE@XZ at 0x00401000 installs retail vftable 0x00C00000 as its own" in p.evidence
+    assert f"?run@{V_NEW}@@UAEXXZ at 0x00406000 is slot 1 of 0x00C00000 and of no other retail table" in p.evidence
+    assert f"??_G{V_OLD}@@UAEPAXI@Z at 0x00402010 is slot 0" in p.evidence
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??0{V_NEW}@@QAE@XZ,,0x00401000,13,Code/Game/Ctor.cpp,matched," in fns
+    assert f"??_G{V_NEW}@@UAEPAXI@Z,,0x00402010,29,Code/Game/Ctor.cpp,matched," in fns
+    assert V_OLD not in fns.split("\n", 1)[1].replace(f"Renamed to {V_NEW}", "")
+    assert f"class {V_NEW}\n" in (root / "Code/Game/Ctor.cpp").read_text()
+    assert (root / "Code/Game/Picker.cpp").read_text() == V_PICKER_SRC
+
+
+def test_a_virtual_slot_tie_needs_the_virtual_on_the_table(tmp_path, monkeypatch):
+    root = make_virtual_tree(tmp_path)
+    retail(monkeypatch, v_tables(slots=(V_GDTOR, PURECALL)))
+    with pytest.raises(Refusal, match="is on no slot of 0x00C00000"):
+        v_plan(root)
+
+
+def test_a_virtual_slot_tie_refuses_a_virtual_in_another_table(tmp_path, monkeypatch):
+    # a base class with a table of its own holds its virtual there too
+    root = make_virtual_tree(tmp_path)
+    retail(monkeypatch, v_tables(extra={DERIVED_TABLE: ([0x00408000, V_RUN], {0x00408002: 0})}))
+    with pytest.raises(Refusal, match="also sits in retail table 0x00C00100"):
+        v_plan(root)
+
+
+def test_a_virtual_slot_tie_refuses_a_third_classs_member_in_a_slot(tmp_path, monkeypatch):
+    root = make_virtual_tree(tmp_path, v_functions("?draw@Other@@UAEXXZ,,0x00405100,8,Code/Game/Other.cpp,matched,\n"))
+    retail(monkeypatch, v_tables(slots=(V_GDTOR, V_RUN, 0x00405100)))
+    with pytest.raises(Refusal, match="slot 2 holds \\?draw@Other@@UAEXXZ"):
+        v_plan(root)
+
+
+def test_a_virtual_slot_tie_needs_a_virtual_method(tmp_path, monkeypatch):
+    root = make_virtual_tree(tmp_path, v_functions().replace(f"?run@{V_NEW}@@UAEXXZ", f"?run@{V_NEW}@@QAEXXZ"))
+    retail(monkeypatch, v_tables())
+    with pytest.raises(Refusal, match=f"no row is a virtual method of {V_NEW}"):
+        v_plan(root)
+
+
+def test_a_virtual_slot_tie_refuses_a_table_named_for_a_third_class(tmp_path, monkeypatch):
+    root = make_virtual_tree(tmp_path, ledger_text=v_ledger("??_7Third@@6B@"))
+    retail(monkeypatch, v_tables())
+    with pytest.raises(Refusal, match=f"nothing ties {V_NEW} to it$"):
+        v_plan(root)
