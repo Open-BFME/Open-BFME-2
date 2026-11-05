@@ -333,17 +333,10 @@ const char *GetKey(ModuleCategory category)
 // Both emission info bases carry nothing but a vtable, except that the volume
 // one has a single byte behind it which its generated assignment copies on its
 // own - the vtable is left alone, as an assignment must.
-// Every *Info class below derives from Snapshot. Their destructors install
-// the vtable at 0x00BBB554 that Snapshot.cpp models, and the derived store is
-// dead the moment the base's follows it, which is why each one is a single
-// seven-byte store. Only the DESTRUCTOR slot is modelled here: giving the
-// base Snapshot.cpp's other three virtuals pushes GetSnapshotName from slot 2
-// to slot 4 and breaks 87 of this file's rows.
-class Snapshot
-{
-public:
-    virtual ~Snapshot() {}
-};
+// Every *Info class below derives from the canonical ::Snapshot. Their
+// destructors install the vtable at 0x00BBB554 that Snapshot.cpp models, and
+// the derived store is dead the moment the base's follows it, which is why
+// each one is a single seven-byte store.
 
 class EmissionVolumeInfo : public ::Snapshot
 {
@@ -676,13 +669,13 @@ const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::getFirst()
 // at 0x00306A9B. Each member below emits the complete body and Version1
 // call relocation already verified in the existing Xfer.cpp provider.
 #define FX_VTABLE_ONLY_INFO(NAME) \
-class NAME : public Snapshot \
+class NAME : public ::Snapshot \
 { \
 public: \
     NAME(); \
     NAME(const NAME &that); \
     virtual ~NAME(); \
-    virtual void v1() = 0; \
+    virtual void LoadPostProcess(); \
     virtual const char *GetSnapshotName(); \
     virtual void DoXfer(::Xfer &); \
 }; \
@@ -711,7 +704,7 @@ ButterflyDrawModuleInfo::~ButterflyDrawModuleInfo() {}
 // These four carry members this file has not recovered, but their assignments
 // are real out-of-line functions their module templates call, so they are
 // declared rather than defaulted.
-#define FX_DECLARED_ASSIGN_INFO(NAME)                                                                  class NAME : public Snapshot                                                                       {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               NAME &operator=(const NAME &that);                                                                                                                                                                    virtual ~NAME();                                                                                   virtual void v1() = 0;                                                                             virtual const char *GetSnapshotName();                                                         };                                                                                                                                                                                                                                                                                                                                                                                                                                                               const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
+#define FX_DECLARED_ASSIGN_INFO(NAME)                                                                  class NAME : public ::Snapshot                                                                       {                                                                                                  public:                                                                                                NAME();                                                                                            NAME(const NAME &that);                                                                                                                                                                               NAME &operator=(const NAME &that);                                                                                                                                                                    virtual ~NAME();                                                                                   virtual void LoadPostProcess();                                                                             virtual const char *GetSnapshotName(); virtual void DoXfer(::Xfer &);                                                         };                                                                                                                                                                                                                                                                                                                                                                                                                                                               const char *NAME::GetSnapshotName()                                                                {                                                                                                      return #NAME;                                                                                  }
 
 FX_DECLARED_ASSIGN_INFO(RenderObjectDrawModuleInfo)
 // GpuDrawModuleInfo carries 16 bytes after its vtable (0x14, as
@@ -2346,4 +2339,10 @@ void DefaultColorModuleInfo::LoadPostProcess() {}
 void LightningDrawModuleInfo::LoadPostProcess() {}
 void DefaultUpdateModuleInfo::LoadPostProcess() {}
 inline void RenderObjectUpdateModuleInfo::LoadPostProcess() {}
+void DefaultDrawModuleInfo::LoadPostProcess() {}
+void StreakDrawModuleInfo::LoadPostProcess() {}
+void QuadDrawModuleInfo::LoadPostProcess() {}
+void ButterflyDrawModuleInfo::LoadPostProcess() {}
+void RenderObjectDrawModuleInfo::LoadPostProcess() {}
+void LifeEventModuleInfo::LoadPostProcess() {}
 }
