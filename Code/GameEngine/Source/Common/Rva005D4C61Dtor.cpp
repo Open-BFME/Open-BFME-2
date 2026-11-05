@@ -10,9 +10,7 @@
 // ??1Rva005D4C61@@UAE@XZ retail 0x005D4C61 90B dtor stores vtable 0x00875AAC plus list forEach and holder clear with list free
 
 class Rva005D4C01Listener;
-class Rva00330757Member { public: Rva00330757Member();
- Rva005D4C01Listener **m_begin,**m_end,**m_capacity; unsigned int m_index;
-};
+#include "../../Include/Common/Rva00330757Member.h"
 
 class Rva005D4C01Listener
 {
@@ -28,16 +26,16 @@ public:
 #include <new>
 #undef _CRTIMP
 
+inline Rva00330757Member::~Rva00330757Member()
+{
+	if (field00)
+		free(field00);
+}
+
 class Rva005D4C01List
 {
 public:
 	void forEach(void (Rva005D4C01Listener::*notify)(void *), void *arg);
-	~Rva005D4C01List()
-	{
-		void *p = storage.m_begin;
-		if (p)
-			free(p);
-	}
 	Rva00330757Member storage;
 };
 

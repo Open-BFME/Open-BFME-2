@@ -10,6 +10,14 @@
 #include "vector3.h"
 #include <string.h>
 #include <stdlib.h>
+#include "../../Include/Common/Rva00330757Member.h"
+
+inline Rva00330757Member::~Rva00330757Member()
+{
+	if (field00)
+		free(field00);
+}
+
 class Rva005393F3Listener
 {
 public:
@@ -20,15 +28,6 @@ class Rva005393F3List
 {
 public:
 	void forEach(void (Rva005393F3Listener::*notify)(void *), void *arg);
-	~Rva005393F3List() throw()
-	{
-		if (m_begin)
-			free(m_begin);
-	}
-	Rva005393F3Listener **m_begin;
-	Rva005393F3Listener **m_end;
-	Rva005393F3Listener **m_capacity;
-	unsigned int m_index;
 };
 
 class Rva001FF3A9
@@ -46,7 +45,6 @@ public:
 class Rva002D3627Host { public: int rva002BED69(); };
 class LivingWorld; extern LivingWorld *TheLivingWorld;
 
-class Rva00330757Member : public Rva005393F3List { public: Rva00330757Member(); };
 class Rva0053947D : public Rva00330757Member
 {
 public:
@@ -73,7 +71,8 @@ private:
 
 Rva0053947D::~Rva0053947D()
 {
-	forEach((void (Rva005393F3Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+	reinterpret_cast<Rva005393F3List *>(static_cast<Rva00330757Member *>(this))->forEach(
+		(void (Rva005393F3Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
 	((Rva002BF6B7*)((Rva002D3627Host *)TheLivingWorld))->rva002BF6B7(this);
 }
 

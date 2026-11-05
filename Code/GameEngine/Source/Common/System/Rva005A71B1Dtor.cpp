@@ -44,20 +44,17 @@ void Rva005A66B8Elem::rva005DB86E()
 
 // Call view of the already rowed 16-byte vector-and-flags constructor.
 // Its first pointer is released by this owner's native cleanup.
-class Rva00330757Member
+#include "../../../Include/Common/Rva00330757Member.h"
+
+inline Rva00330757Member::~Rva00330757Member()
 {
-public:
-    Rva00330757Member();
-    char *m_begin;
-    char *m_end;
-    char *m_capacity;
-    int m_flags;
-};
+    if (field00)
+        free(field00);
+}
 
 class Rva005A71B1Base
 {
 public:
-    ~Rva005A71B1Base() { if (m_items.m_begin) free(m_items.m_begin); }
 protected:
     Rva00330757Member m_items;
 };
