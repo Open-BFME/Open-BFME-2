@@ -15,7 +15,8 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// cl: /Ireference/shims/bfme2_ascii /EHsc
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
+// platformsdk
 //
 // Narrow-pair to wide-string helpers for the WinMain title builders,
 // retail 0x0023428D (26 bytes), 0x0023436C (60 bytes) and 0x00234788
@@ -28,6 +29,9 @@
 
 class UnicodeString;
 
+#include <windows.h>
+#include <string.h>
+#include <new>
 #include "unicode_string.h"
 
 
@@ -72,11 +76,6 @@ struct WinMainTitlePair : Rva000B3F84Pair
 	Rva000B3F84Pair m_secondPair;
 };
 
-extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
-extern "C" __declspec(dllimport) unsigned int __cdecl wcslen(const unsigned short *s);
-extern "C" unsigned int strlen(const char *s);
-void *operator new[](unsigned int n);
-void operator delete[](void *p);
 int multiByteToWideChar(const char *src, int srcLen, unsigned short *dst, int dstLen);
 
 // ?init@Rva000B3F84Pair@@QAEPAV1@PBD@Z @0xB3F84
@@ -239,10 +238,6 @@ UnicodeString buildGameRegistryPath(const unsigned short *subPath)
 	return path;
 }
 
-struct HKEY__;
-typedef HKEY__ *HKEY;
-#define HKEY_LOCAL_MACHINE ((HKEY)0x80000002)
-
 const char *GetRegistryGameName();
 const char *GetRegistryInstallerRegPath();
 bool getStringFromRegistry(HKEY root, UnicodeString path, UnicodeString key, UnicodeString &val);
@@ -257,8 +252,6 @@ UnicodeString bfmeGetMainWindowTitle()
 		L"DisplayName", title);
 	return title;
 }
-
-#define HKEY_CURRENT_USER ((HKEY)0x80000001)
 
 // ?GetStringFromRegistry@@YA_NVUnicodeString@@0AAV1@@Z @0x234ADD
 // Reads a wide value from the game's registry tree, machine-wide first and
