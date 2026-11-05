@@ -11985,9 +11985,6 @@ present_unmatched	Code/GameEngine/Source/Common/System/SaveGame/FamilyDeletingDt
 present_unmatched	Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp	0SaveGameInfo@@	1
 present_unmatched	Code/GameEngine/Source/Common/System/SaveGame/GameStateRealMapPathToPortable.cpp	getMapLeafAndDirName@@YA?AVAsciiString@@ABV1@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/System/SmartPtrRvoGetter.cpp	RvaSmartPtr12::~RvaSmartPtr12	1
-present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	0Upgrade@@	1
-present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	1Upgrade@@	1
-present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	1UpgradeCenter@@	1
 present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	calcCostToBuild@UpgradeTemplate@@	1
 present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	calcTimeToBuild@UpgradeTemplate@@	1
 present_unmatched	Code/GameEngine/Source/Common/System/Upgrade.cpp	canAffordUpgrade@UpgradeCenter@@	1
