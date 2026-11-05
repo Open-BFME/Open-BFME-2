@@ -19,7 +19,7 @@ class AptString : public AptValue {public:static AptString *Create();
  void setStringInline(const char *text) {EAStringC temp(text); m_string=temp;}
  EAStringC m_string;};
 class BfmeAptValue006DCD20;
-class AptBasePtrStack {public:int count,capacity;BfmeAptValue006DCD20 **elements;void Push(BfmeAptValue006DCD20 *);BfmeAptValue006DCD20 *At(int);void rva006FE920();};
+#include "AptBasePtrStack.h"
 struct AptInitParmsT;
 struct AptActionInterpreter {
  void rva006FEAF0(const AptInitParmsT &);
@@ -147,7 +147,7 @@ __forceinline bool isTickAnimation(void *p) {
 }
 inline void *currentTickCIH(){return (*g_bfmeAptPtrAtE176D0->nodes)->cih;}
 inline void tickStackAssert(int line) {
- if(g_aptDateInterpreter.stack.count) {g_bfmeAptAssertAtE17734("gAptActionInterpreter.stack.GetSize() == 0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
+ if(g_aptDateInterpreter.stack.m_nElements) {g_bfmeAptAssertAtE17734("gAptActionInterpreter.stack.GetSize() == 0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\Apt.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
 }
 static int Rva006CD7A0Tick(unsigned elapsed) {
  int advanced=0;

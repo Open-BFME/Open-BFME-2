@@ -123,7 +123,7 @@ class Rva0070B380 { public: void *lookup(const EAStringC &key); };
 extern AptNativeHash *g_bfmeAptHashAtE180E4;
 
 class AptCIH;
-class AptBasePtrStack { public: int count, capacity; void **elements; void rva006FE920(); };
+#include "AptBasePtrStack.h"
 template <class T> class AptValuePtrStack
 {
 public:

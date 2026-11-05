@@ -23,20 +23,13 @@ class AptValue;
 class AptValue; extern AptValue *gpUndefinedValue;
 int Rva006CD220Get();
 
-class AptBasePtrStack
-{
-public:
-	BfmeAptValue006DCD20 *At(int nPos)
-	{
-		APT_BASE_PTR_STACK_ASSERT(m_nElements - nPos > 0);
-		return m_aElements[m_nElements - nPos - 1];
-	}
-	void rva006FE880(int nItems, BfmeAptValue006DCD20 *element);
+#include "AptBasePtrStack.h"
 
-	int m_nElements;
-	int m_nCapacity;
-	BfmeAptValue006DCD20 **m_aElements;
-};
+inline BfmeAptValue006DCD20 *AptBasePtrStack::At(int nPos)
+{
+	APT_BASE_PTR_STACK_ASSERT(m_nElements - nPos > 0);
+	return m_aElements[m_nElements - nPos - 1];
+}
 
 struct AptActionInterpreter
 {

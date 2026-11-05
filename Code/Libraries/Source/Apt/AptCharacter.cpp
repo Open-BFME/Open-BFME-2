@@ -51,13 +51,7 @@ public:
 	unsigned int m_flags; // +0x04
 };
 
-class AptBasePtrStack
-{
-public:
-	BfmeAptValue006DCD20 *At(int);
-private:
-	char bytes[12]; // +0x00
-};
+#include "AptBasePtrStack.h"
 
 struct AptActionInterpreter
 {

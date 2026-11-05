@@ -47,36 +47,26 @@ class AptActionInterpreter
 public:
 	AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int, int, int);
 };
-class AptBasePtrStack
-{
-public:
-	void rva00700170(void *a1, void *a2);
-	void Push(BfmeAptValue006DCD20 *v);
-	void rva006FE7B0(BfmeAptValue006DCD20 *v);
-private:
-	int m_0;
-	char pad04[4];
-	BfmeAptValue006DCD20 **m_8;
-};
+#include "AptBasePtrStack.h"
 void AptBasePtrStack::rva00700170(void *a1, void *a2)
 {
-	if (!(m_0 > 0)) {
+	if (!(m_nElements > 0)) {
 		g_bfmeAptAssertAtE17734("m_nElements - nPos > 0", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0x10a);
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	BfmeAptValue006DCD20 *topValue = m_8[m_0 - 1];
+	BfmeAptValue006DCD20 *topValue = m_aElements[m_nElements - 1];
 	if ((char)topValue->isString() != 0) {
 		BfmeAptValue006DCD20 *s = topValue->checkedString();
 		// 0x006FFD80 is rowed as AptActionInterpreter::getVariable; retail calls it on this stack.
 		topValue = (BfmeAptValue006DCD20 *)((AptActionInterpreter *)this)->getVariable((AptValue *)a1, (AptValue *)a2, (const EAStringC *)((char *)s + 8), 1, 1, 0);
 	}
-	if (m_0 <= 0) {
+	if (m_nElements <= 0) {
 		g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xbf);
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	} else {
-		m_0 = m_0 - 1;
+		m_nElements = m_nElements - 1;
 	}
 	rva006FE7B0((*(BfmeAptValue006DCD20 * *)&gpUndefinedValue));
 	AptNativeHash *aptNativeHash = topValue->v3();

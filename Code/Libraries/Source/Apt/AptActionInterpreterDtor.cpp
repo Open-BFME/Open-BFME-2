@@ -24,11 +24,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #include "../../../GameEngine/Include/Common/Rva006DB270.h"
 extern Rva006DB270 *g_pChainBlockAllocator;
-class AptBasePtrStack {
-public:
- ~AptBasePtrStack();
- int elements,capacity;void **storage;
-};
+#include "AptBasePtrStack.h"
 // The middle stack pointee remains unnamed; the native assertion establishes
 // the same AptValuePtrStack family without assuming AptValue element identity.
 struct Rva006FE9C0SetTargetElement;

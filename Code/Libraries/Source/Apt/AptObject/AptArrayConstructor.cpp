@@ -193,7 +193,7 @@ AptValue *AptArray::sMethod_shift(AptValue *pThis,int nParams) {
 #pragma comment(linker, "/alternatename:?isArray@AptValue@@QBE_NXZ=?isArray@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?toInteger@AptValue@@QBEHXZ=?toInteger@BfmeAptValue006DCD20@@QBEHXZ")
 
-class AptBasePtrStack { public: AptValue *At(int); int count,capacity; AptValue **values; };
+#include "../AptBasePtrStack.h"
 struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;
 #define g_aptValueStackAtE182E0 (*reinterpret_cast<AptBasePtrStack *>(&g_aptDateInterpreter))
@@ -202,8 +202,8 @@ AptValue *AptArray::sMethod_slice(AptValue *pThis,int nParams) {
   AptArray *array=pThis->c_array();
   AptArray *result=0;
   int start=0,end=array->mnLength;
-  if(nParams>0) {start=g_aptValueStackAtE182E0.At(0)->toInteger();if(start<0)start=array->mnLength+start;}
-  if(nParams>1) {end=g_aptValueStackAtE182E0.At(1)->toInteger();if(end<0)end=array->mnLength+end;else if(end>array->mnLength)end=array->mnLength;}
+  if(nParams>0) {start=((AptValue *)g_aptValueStackAtE182E0.At(0))->toInteger();if(start<0)start=array->mnLength+start;}
+  if(nParams>1) {end=((AptValue *)g_aptValueStackAtE182E0.At(1))->toInteger();if(end<0)end=array->mnLength+end;else if(end>array->mnLength)end=array->mnLength;}
   if(start>end || start<0 || end<0)return gpUndefinedValue;
   result=new AptArray();
   for(int i=start;i<end;i++)result->set(result->mnLength,array->At(i));
@@ -217,7 +217,7 @@ AptValue *AptArray::sMethod_slice(AptValue *pThis,int nParams) {
 AptValue *AptArray::sMethod_push(AptValue *pThis,int nParams) {
  if(pThis->isArray()) {
   AptArray *array=pThis->c_array();
-  for(int i=0;i<nParams;i++)array->set(array->mnLength,g_aptValueStackAtE182E0.At(i));
+  for(int i=0;i<nParams;i++)array->set(array->mnLength,(AptValue *)g_aptValueStackAtE182E0.At(i));
   return AptInteger::Create(array->mnLength);
  }
  return gpUndefinedValue;
@@ -230,7 +230,7 @@ AptValue *AptArray::sMethod_concat(AptValue *pThis,int nParams) {
   int i;
   for(i=0;i<array->mnLength;i++)result->set(result->mnLength,array->At(i));
   for(i=0;i<nParams;i++) {
-   AptValue *value=g_aptValueStackAtE182E0.At(i);
+   AptValue *value=(AptValue *)g_aptValueStackAtE182E0.At(i);
    if(value->isArray()) {
     AptArray *other=value->c_array();
     for(int j=0;j<other->mnLength;j++)result->set(result->mnLength,other->At(j));
@@ -250,7 +250,7 @@ AptValue *AptArray::sMethod_join(AptValue *pThis,int nParams) {
   AptArray *array=pThis->c_array();
   EAStringC buffer;
   EAStringC separator;
-  if(nParams>0) {g_aptValueStackAtE182E0.At(0)->toString(separator);array->toString(buffer,separator.rva00620090());}
+  if(nParams>0) {((AptValue *)g_aptValueStackAtE182E0.At(0))->toString(separator);array->toString(buffer,separator.rva00620090());}
   else array->toString(buffer);
   AptString *result=AptString::Create();
   result->str=buffer;
@@ -280,10 +280,10 @@ AptValue *AptArray::sMethod_splice(AptValue *pThis,int nParams) {
  if(pThis->isArray()) {
   AptArray *array=pThis->c_array();
   if(nParams>0) {
-   int start=g_aptValueStackAtE182E0.At(0)->toInteger();
+   int start=((AptValue *)g_aptValueStackAtE182E0.At(0))->toInteger();
    if(start<0)start=array->mnLength+start;
    int count=array->mnLength-start;
-   if(nParams>1)count=g_aptValueStackAtE182E0.At(1)->toInteger();
+   if(nParams>1)count=((AptValue *)g_aptValueStackAtE182E0.At(1))->toInteger();
    if(count>array->mnLength-start)count=array->mnLength-start;
    if(start>=array->mnLength)count=0;
    int i;
@@ -298,7 +298,7 @@ AptValue *AptArray::sMethod_splice(AptValue *pThis,int nParams) {
     array->mnLength+=added;
     for(i=0;i<added;i++) {
      array->mpValues[start+i]=0;
-     array->set(start+i,g_aptValueStackAtE182E0.At(i+2));
+     array->set(start+i,(AptValue *)g_aptValueStackAtE182E0.At(i+2));
     }
    }
    return pThis;

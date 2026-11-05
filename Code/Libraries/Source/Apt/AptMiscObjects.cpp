@@ -190,14 +190,7 @@ class Rva006DBB60ShrNAndField { public: bool get()const; };
 
 class Rva008A4570Owner { public: bool nameEquals(const char *); };
 
-class AptBasePtrStack
-{
-public:
-	BfmeAptValue006DCD20 *At(int);
-	int count; // +0x00
-	int capacity; // +0x04
-	BfmeAptValue006DCD20 **elements; // +0x08
-};
+#include "AptBasePtrStack.h"
 
 struct AptActionInterpreter
 {

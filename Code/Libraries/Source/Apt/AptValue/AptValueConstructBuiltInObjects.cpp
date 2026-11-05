@@ -28,12 +28,7 @@ public:
  int rva006DBFA0() const;
  BfmeAptValue006DCD20 *checkedString();
 };
-class AptBasePtrStack {
-public:
- BfmeAptValue006DCD20 *At(int);
- int count, capacity;
- BfmeAptValue006DCD20 **elements;
-};
+#include "../AptBasePtrStack.h"
 struct AptActionInterpreter { AptBasePtrStack stack; };
 extern AptActionInterpreter g_aptDateInterpreter;
 class Rva006DB160 { public: void *allocBlock(int); };

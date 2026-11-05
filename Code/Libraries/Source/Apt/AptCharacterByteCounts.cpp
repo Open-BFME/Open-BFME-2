@@ -135,7 +135,7 @@ AptValue *__cdecl rva006ee540(AptValue *value)
 }
 
 #include "../../../GameEngine/Include/Common/AptInteger.h"
-class AptBasePtrStack {public:AptValue *At(int);};
+#include "AptBasePtrStack.h"
 struct AptActionInterpreter {AptBasePtrStack stack;void loadVariables(AptValue *,AptValue *,const EAStringC *);};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern "C" { int (__cdecl *pointHitTestCallback)(float,float,void*) = 0; }
@@ -150,7 +150,7 @@ AptValue *__cdecl Rva006ECA70PointHitTest(void *self,int count)
 {
  struct {Rect otherRect,ownRect;} bounds;
  if(count==1){
-  AptValue *other=g_aptDateInterpreter.stack.At(0);
+  AptValue *other=((AptValue *)g_aptDateInterpreter.stack.At(0));
   if(other->isCIH(true)){
    AptCIH *cih=other->c_cih(false);
    ((AptValue*)self)->c_cih(false)->rva006E1DD0(&bounds.ownRect);
@@ -158,10 +158,10 @@ AptValue *__cdecl Rva006ECA70PointHitTest(void *self,int count)
    if(bounds.otherRect.left<=bounds.ownRect.right && bounds.otherRect.right>=bounds.ownRect.left && bounds.otherRect.bottom>=bounds.ownRect.top && bounds.otherRect.top<=bounds.ownRect.bottom)return AptInteger::Create(1);
   }
  }else if(count>1){
-  float x=g_aptDateInterpreter.stack.At(0)->toFloat();
-  float y=g_aptDateInterpreter.stack.At(1)->toFloat();
+  float x=((AptValue *)g_aptDateInterpreter.stack.At(0))->toFloat();
+  float y=((AptValue *)g_aptDateInterpreter.stack.At(1))->toFloat();
   int shape=0;
-  if(count>2)shape=g_aptDateInterpreter.stack.At(2)->toInteger();
+  if(count>2)shape=((AptValue *)g_aptDateInterpreter.stack.At(2))->toInteger();
   if(shape){
    if(!pointHitTestCallback){
     g_bfmeAptAssertAtE17734("gAptFuncs.pfnPointHitTest","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCharacter.cpp",0x58C);
@@ -231,7 +231,7 @@ Rva006EB4B0::Rva006EB4B0(const Rva006EB4B0 &other){
 // remains address-derived.
 AptValue *Rva006ECC20LoadVariables(AptValue *self,int count){
  if(count>0){
-  AptValue *aptValue=g_aptDateInterpreter.stack.At(0);
+  AptValue *aptValue=((AptValue *)g_aptDateInterpreter.stack.At(0));
   EAStringC url;
   aptValue->toString(url);
   g_aptDateInterpreter.loadVariables(self,0,&url);
@@ -312,14 +312,14 @@ AptValue *__cdecl Rva006EC900StartDrag(AptValue *self,int count)
   g_bfmeAptPtrAtE176D0->m_field5C=(float)g_bfmeAptPtrAtE176D0->m_field78-((float*)self->c_cih(false))[8];
  }
  if(count>0){
-  g_bfmeAptPtrAtE176D0->m_field48=g_aptDateInterpreter.stack.At(1)->toFloat();
+  g_bfmeAptPtrAtE176D0->m_field48=((AptValue *)g_aptDateInterpreter.stack.At(1))->toFloat();
   g_bfmeAptPtrAtE176D0->m_field4C=0;
   g_bfmeAptPtrAtE176D0->m_field50=0;
   g_bfmeAptPtrAtE176D0->m_field54=0;
  }
- if(count>1)g_bfmeAptPtrAtE176D0->m_field4C=g_aptDateInterpreter.stack.At(2)->toFloat();
- if(count>2)g_bfmeAptPtrAtE176D0->m_field50=g_aptDateInterpreter.stack.At(3)->toFloat();
- if(count>3)g_bfmeAptPtrAtE176D0->m_field54=g_aptDateInterpreter.stack.At(4)->toFloat();
+ if(count>1)g_bfmeAptPtrAtE176D0->m_field4C=((AptValue *)g_aptDateInterpreter.stack.At(2))->toFloat();
+ if(count>2)g_bfmeAptPtrAtE176D0->m_field50=((AptValue *)g_aptDateInterpreter.stack.At(3))->toFloat();
+ if(count>3)g_bfmeAptPtrAtE176D0->m_field54=((AptValue *)g_aptDateInterpreter.stack.At(4))->toFloat();
  return gpUndefinedValue;
 }
 
@@ -366,7 +366,7 @@ AptValue *__cdecl Rva006ECCB0LocalToGlobal(AptValue *self,int count)
 AptValue *Rva006EDF20SwapDepths(AptValue *self,int count){
  if(count!=1 && self->isCIH(false))return gpUndefinedValue;
  AptCIH *mine=self->c_cih(false);
- AptValue *aptValue=g_aptDateInterpreter.stack.At(0);
+ AptValue *aptValue=((AptValue *)g_aptDateInterpreter.stack.At(0));
  if(aptValue->isCIH(false)){
   AptCIH *other=aptValue->c_cih(false);
   if(other && ((AptValue *)other)->getIsDefined()){
