@@ -12,3 +12,5 @@ providers, destination and consumer into the next scheduled census. Four
 whole-file donors need class/base/declaration reconciliation; three mixed
 files remain separate. No census gain is claimed.
 [Checks, path audit and prerequisites](../../reverse/attempt_support/callhelp-consolidation-20261028-codex3.md).
+
+2026-11-05 recheck after shared-class-view changes: the current 23-row plan has six whole-file donors and two mixed sources; guarded dry run accepts none. The remaining constructor, name-key and Xfer declarations plus two byte failures still block composition. [Updated evidence](../../reverse/attempt_support/callhelp-consolidation-20261105-codex.md).
