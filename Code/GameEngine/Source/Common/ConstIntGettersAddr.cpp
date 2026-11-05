@@ -83,9 +83,24 @@ void __identifier("?parseLodOptions@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z
 void __identifier("?parseBitString32@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseTurret@AIUpdateModuleData@@CAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseObjectCreationList@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?Rva000B6E5A_ParseLowercasedString@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?Rva000C3C59Parse@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?Rva000C4BAEParse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva000C855CParseRecord@@YAXPAVINI@@PAVRva000C8492RecordOwner@@@Z")();
+void __identifier("?parseAttachModel@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseConditionState@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseEmbedPortal@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseICoord2D@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseVelocityReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?rva000C9146@@YAXPAVINI@@PAX1PBX@Z")();
 }
 
 extern const char *TheLocomotorSetNames[];
+// W3DModelDrawModuleData's list words: the weapon-slot names (data row at 0x00DBC284)
+// and GameLOD.cpp's LOD name run at 0x00DB960C, the definition OptionsMenu.cpp's
+// BfmeEnumTable already binds.
+extern const char *TheWeaponSlotTypeNames[];
+extern const char *const g_00DB960C[];
 namespace FXParticleSystem { extern const char *const RotationTypeNames[]; }
 
 // This unit's own copies of three header-static name lists. Zero Hour defines
@@ -369,65 +384,65 @@ extern const FieldParse s_fxpsColorTable[10] = {
 // valid entry). This unit already absorbs image-address debt; its link state
 // is unchanged. The parser TUs link by naming these instead of casting VAs.
 // Retail VA 0x00bcb3c8: 57 entries + terminator (928B).
-extern const int s_modelDrawFieldTable[232] = {
-    0x00BCB3B0, 0x00738BBD, 0x00000000, 0x00000054,
-    0x00BCB39C, 0x0042EFC0, 0x00000000, 0x00000058,
-    0x00BCB38C, 0x0042EFC0, 0x00000000, 0x0000005C,
-    0x00BCB378, 0x00738BBD, 0x00000000, 0x00000060,
-    0x00BCB360, 0x0042E850, 0x00000000, 0x00000068,
-    0x00BCB348, 0x0042E850, 0x00000000, 0x0000006B,
-    0x00BCB338, 0x0042EC4E, 0x00DB960C, 0x00000064,
-    0x00BCB314, 0x0042EB38, 0x00DBC284, 0x00000050,
-    0x00BCB2F8, 0x004C8914, 0x00000001, 0x00000000,
-    0x00BCB2E4, 0x004C8914, 0x00000000, 0x00000000,
-    0x00BCB2D0, 0x004C9146, 0x00000001, 0x00000000,
-    0x00BCB2C0, 0x004C9146, 0x00000002, 0x00000000,
-    0x00BCB2B0, 0x004C9146, 0x00000000, 0x00000000,
-    0x00BCB2A4, 0x004B6E5A, 0x00000000, 0x0000003C,
-    0x00BCB294, 0x0042E896, 0x00000000, 0x00000030,
-    0x00BCB278, 0x004B6E5A, 0x00000000, 0x00000040,
-    0x00BCB25C, 0x004B9468, 0x00000000, 0x000000BC,
-    0x00BCB248, 0x004C4BAE, 0x00000000, 0x00000000,
-    0x00BCB234, 0x0042E850, 0x00000000, 0x000000B8,
-    0x00BCB228, 0x0042E850, 0x00000000, 0x00000069,
-    0x00BCB210, 0x0042E850, 0x00000000, 0x0000006A,
-    0x00BCB200, 0x004C855C, 0x00000000, 0x00000000,
-    0x00BCB1E0, 0x0042E850, 0x00000000, 0x00000088,
-    0x00BCB1D0, 0x004C3C59, 0x00000000, 0x00000000,
-    0x00BCB1C4, 0x004C8748, 0x00000000, 0x00000000,
-    0x00BCB1A0, 0x0042E850, 0x00000000, 0x00000108,
-    0x00BCB18C, 0x0042F11E, 0x00000000, 0x00000044,
-    0x00BCB178, 0x0042F11E, 0x00000000, 0x00000048,
-    0x00BCB16C, 0x0042F11E, 0x00000000, 0x00000114,
-    0x00BCB160, 0x0042F11E, 0x00000000, 0x00000118,
-    0x00BCB154, 0x004C39F5, 0x00000000, 0x0000011C,
-    0x00BCB144, 0x0042F11E, 0x00000000, 0x0000010C,
-    0x00BCB134, 0x0042F11E, 0x00000000, 0x00000110,
-    0x00BCB128, 0x0042E850, 0x00000000, 0x00000128,
-    0x00BCB118, 0x0042E850, 0x00000000, 0x00000129,
-    0x00BCB0FC, 0x0042E850, 0x00000000, 0x0000012A,
-    0x00BCB0E8, 0x0042E850, 0x00000000, 0x0000012B,
-    0x00BCB0D0, 0x0042EFC0, 0x00000000, 0x0000012C,
-    0x00BCB0B8, 0x0042EFC0, 0x00000000, 0x00000130,
-    0x00BCB0A4, 0x0042E850, 0x00000000, 0x00000134,
-    0x00BCB090, 0x0042E850, 0x00000000, 0x00000135,
-    0x00BCB074, 0x0042E850, 0x00000000, 0x00000136,
-    0x00BCB05C, 0x0042E850, 0x00000000, 0x00000137,
-    0x00BCB048, 0x0042E850, 0x00000000, 0x00000138,
-    0x00BCB034, 0x0042E850, 0x00000000, 0x00000139,
-    0x00BCB024, 0x0042F5BA, 0x00000000, 0x0000013C,
-    0x00BCB010, 0x0042F11E, 0x00000000, 0x00000014,
-    0x00BCAFF4, 0x0042EFDC, 0x00000000, 0x00000144,
-    0x00BCAFD8, 0x0042EFDC, 0x00000000, 0x00000148,
-    0x00BCAFBC, 0x0042F1BA, 0x00000000, 0x0000014C,
-    0x00BCAFA0, 0x0042EF56, 0x00000000, 0x00000158,
-    0x00BCAF90, 0x00738B30, 0x00000000, 0x00000150,
-    0x00BCAF7C, 0x0042E850, 0x00000000, 0x00000154,
-    0x00BCAF64, 0x0042E850, 0x00000000, 0x0000015C,
-    0x00BCAF54, 0x0042E850, 0x00000000, 0x0000015D,
-    0x00BCAF40, 0x0042E850, 0x00000000, 0x0000015E,
-    0x00BCAF30, 0x0042E850, 0x00000000, 0x0000015F,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_modelDrawFieldTable[58] = {
+    { "InitialRecoilSpeed", (FieldParseProc)&__identifier("?parseVelocityReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x54 },
+    { "MaxRecoilDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x58 },
+    { "RecoilDamping", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x5C },
+    { "RecoilSettleSpeed", (FieldParseProc)&__identifier("?parseVelocityReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x60 },
+    { "OkToChangeModelColor", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "AnimationsRequirePower", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6B },
+    { "MinLODRequired", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), g_00DB960C, 0x64 },
+    { "ProjectileBoneFeedbackEnabledSlots", (FieldParseProc)&__identifier("?parseBitString32@INI@@SAXPAV1@PAX1PBX@Z"), TheWeaponSlotTypeNames, 0x50 },
+    { "DefaultModelConditionState", (FieldParseProc)&__identifier("?parseConditionState@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z"), (const void *)1, 0x0 },
+    { "ModelConditionState", (FieldParseProc)&__identifier("?parseConditionState@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "IdleAnimationState", (FieldParseProc)&__identifier("?rva000C9146@@YAXPAVINI@@PAX1PBX@Z"), (const void *)1, 0x0 },
+    { "TransitionState", (FieldParseProc)&__identifier("?rva000C9146@@YAXPAVINI@@PAX1PBX@Z"), (const void *)2, 0x0 },
+    { "AnimationState", (FieldParseProc)&__identifier("?rva000C9146@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "TrackMarks", (FieldParseProc)&__identifier("?Rva000B6E5A_ParseLowercasedString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3C },
+    { "ExtraPublicBone", (FieldParseProc)&__identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x30 },
+    { "AttachToBoneInAnotherModule", (FieldParseProc)&__identifier("?Rva000B6E5A_ParseLowercasedString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x40 },
+    { "DependencySharedModelFlags", (FieldParseProc)&__identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xBC },
+    { "TimeOfDayTexture", (FieldParseProc)&__identifier("?Rva000C4BAEParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "UseProducerTexture", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xB8 },
+    { "NoRotate", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x69 },
+    { "UseFiringArcRotation", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6A },
+    { "RandomTexture", (FieldParseProc)&__identifier("?Rva000C855CParseRecord@@YAXPAVINI@@PAVRva000C8492RecordOwner@@@Z"), 0, 0x0 },
+    { "RandomTextureFixedRandomIndex", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x88 },
+    { "BurntTexture", (FieldParseProc)&__identifier("?Rva000C3C59Parse@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x0 },
+    { "AttachModel", (FieldParseProc)&__identifier("?parseAttachModel@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "ParticlesAttachedToAnimatedBones", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x108 },
+    { "TrackMarksLeftBone", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
+    { "TrackMarksRightBone", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x48 },
+    { "RampMesh1", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x114 },
+    { "RampMesh2", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x118 },
+    { "EmbedPortal", (FieldParseProc)&__identifier("?parseEmbedPortal@W3DModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x11C },
+    { "WallBoundsMesh", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10C },
+    { "RaisedWallMesh", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x110 },
+    { "GlowEnabled", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x128 },
+    { "GlowEmissive", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x129 },
+    { "ParticleBonesCheckDrawable", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x12A },
+    { "ShadowForceDisable", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x12B },
+    { "HighDetailLODThreshold", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x12C },
+    { "LowDetailLODThreshold", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x130 },
+    { "SwitchModelLODMode", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x134 },
+    { "StaticModelLODMode", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x135 },
+    { "ShowShadowWhileContained", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x136 },
+    { "UseStandardModelNames", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x137 },
+    { "UseDefaultAnimation", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x138 },
+    { "AlphaRefAnimated", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x139 },
+    { "AlphaRefRange", (FieldParseProc)&__identifier("?parseICoord2D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13C },
+    { "WadingParticleSys", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14 },
+    { "AlphaCameraFadeOuterRadius", (FieldParseProc)&__identifier("?parsePositiveNonZeroReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x144 },
+    { "AlphaCameraFadeInnerRadius", (FieldParseProc)&__identifier("?parsePositiveNonZeroReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x148 },
+    { "AlphaCameraAtInnerRadius", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14C },
+    { "StaticSortLevelWhileFading", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x158 },
+    { "BirthFadeTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x150 },
+    { "BirthFadeAdditive", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x154 },
+    { "ZWriteDisableOverride", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x15C },
+    { "MultiPlayerOnly", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x15D },
+    { "AffectedByStealth", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x15E },
+    { "HighDetailOnly", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x15F },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00bcb840: 16 entries + terminator (272B).

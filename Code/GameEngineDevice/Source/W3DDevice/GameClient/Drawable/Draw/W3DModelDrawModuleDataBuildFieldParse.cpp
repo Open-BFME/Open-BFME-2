@@ -22,8 +22,8 @@ class MultiIniFieldParse;
 
 struct FieldParse;
 
-extern const int s_modelDrawFieldTable[];
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
+extern const FieldParse s_modelDrawFieldTable[];
 
 class W3DModelDrawModuleData
 {
@@ -33,7 +33,7 @@ public:
 
 void W3DModelDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(s_modelDrawFieldTable), 0);
+	parse.add(s_modelDrawFieldTable, 0);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

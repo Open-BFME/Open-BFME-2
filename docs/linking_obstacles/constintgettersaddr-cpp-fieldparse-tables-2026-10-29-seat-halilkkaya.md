@@ -137,3 +137,38 @@ Morning handoff (130 literals left):
   - 0xE032DC is only the provisional `?g_Va00E032DC@@3IA` hatch.
   - 0xDC2884/0xDC2D10/0xDC4B60/0xDC34A4/0xDB4CF0/0xDB4CF8/0xDC2274/0xDC5170/0xC6D690 have no
     data_ledger entry.
+
+Update (2026-11-05, seat halilkkaya-ha-o1, base d86761221d, census index c95fcfcfcd): 130 -> 11.
+- s_modelDrawFieldTable (116 literals) is typed. The banked generator
+  (reverse/attempt_support/constintgettersaddr-typed-fieldparse-20261101/convert_fp.py) ran against
+  the current functions.csv. MinLODRequired's userData binds `g_00DB960C`, GameLOD.cpp's existing
+  external definition at that address, which OptionsMenu.cpp's BfmeEnumTable already binds the same
+  way. ProjectileBoneFeedbackEnabledSlots binds the rowed TheWeaponSlotTypeNames. No name was added,
+  and none was renamed. The table still has no data row, as before: `g_00DB960C` has no ledger home,
+  because a 192-byte row would overlap the CPUNames row. A scratch run of data_rows.verify_row with
+  that one extra home (g_00DB960C = 0x00DB960C) passes, with 928 B equal to retail and 116
+  relocations on target. Without the extra home, only that one relocation fails. The consumer
+  W3DModelDrawModuleDataBuildFieldParse.cpp now spells `extern const FieldParse`. The real-name
+  route above (11 short LOD arrays, named and rowed) still applies, and once it lands, this table
+  can take its data row.
+- Rva000A8F58Get/Rva000A8F5EGet return `g_aptHostStateStorage + 0x10` and `+ 0x18`. That is the
+  rowed 32-byte Apt host state at 0x00DB4CE0 (AptDisplayStringBase.cpp, data row
+  ?g_aptHostStateStorage@@3PAEA). tu_map approves both getters to that TU, so a later
+  tu_skeleton merge can move them there.
+- Rva000EF29AGet returns `'TEX'`: it was a false positive. 0x00544558 is a class id, not an address.
+  The getter is slot 13 (+0x34) of six texture vtables (0x00BCEEF0, 0x00BD25D8, 0x00C03E48, ...).
+  Retail 0x00531D99 (BfmeResetTextureRef::operator=) does `call [eax+34h]; cmp eax,544558h`, which
+  BfmeResetTextureRefAssign.cpp spells `GetClassId() != 'TEX'`. The bytes are unchanged.
+- Still open (11), unchanged:
+  - 0xDBD7DC/0xDBD860/0xDBD918: the Drawable glow/ring/fire statics. tu_map approves no TU for
+    the getters (re_attempts 0x00309E4B).
+  - 0xE032DC: only the address-named hatch g_Va00E032DC (list<UnicodeString>), which this file may
+    not add.
+  - 0xC6D690: an unnamed LivingWorld FieldParse table whose four userData lists have undecided
+    extents (re_attempts 0x0056B7DE).
+  - 0xDC2274/0xDC2884/0xDC2D10/0xDC34A4/0xDC4B60/0xDC5170: the BigObf fallbacks' 0x38-byte key
+    contexts (BigObfFallbacks.cpp's FallbackCtx). Each sits 0x38 below its g_ObfSlot (slot - 0x38)
+    and holds nonzero retail keys. No object defines them, and defining one needs a name: the only
+    available spelling is address-derived, which the hatch rules forbid adding.
+  - re_attempts.log carries a 2026-11-05 `blocked` row for each of the six BigObf getters and for
+    0x00433B18.
