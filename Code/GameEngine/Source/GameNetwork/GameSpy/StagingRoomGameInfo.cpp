@@ -164,12 +164,16 @@ private:
 
 class Image;
 
+class Xfer;
+
 class GameInfo
 {
 public:
 	GameInfo();
 	virtual ~GameInfo();
-	virtual void v1() = 0; virtual void v2() = 0; virtual void v3() = 0;
+	virtual void v1() = 0; virtual void v2() = 0;
+	// Slot 3 is the transfer entry (GameInfo.h; retail table VA 00C193C8).
+	virtual void xfer(Xfer *) = 0;
 	virtual void v4() = 0; virtual void v5() = 0;
 	virtual const Image *rva00401015(int column);
 	virtual void v7() = 0; virtual void v8() = 0; virtual void v9() = 0;
@@ -268,6 +272,8 @@ class GameSpyStagingRoom : public GameInfo
 public:
 	GameSpyStagingRoom();
 	virtual ~GameSpyStagingRoom();
+	// Retail table VA 00C19440 overrides slot 3 with RVA 004FDAC7.
+	virtual void xfer(Xfer *);
 	virtual void reset(void);
 	virtual void startGame(int gameID);
 	virtual bool amIHost(void) const;

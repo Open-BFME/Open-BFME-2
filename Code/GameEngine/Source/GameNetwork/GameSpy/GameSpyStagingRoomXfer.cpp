@@ -31,7 +31,10 @@ class SkirmishGameInfo
 public:
 	virtual void xfer(Xfer *xfer);
 };
-class GameSpyStagingRoom : public SkirmishGameInfo
+// Declaration-only transfer call view: the retail call at 004FDAE4 targets
+// the existing SkirmishGameInfo::xfer row at 003FFA3C. This does not model
+// GameSpyStagingRoom's inheritance; its shared header derives from GameInfo.
+class GameSpyStagingRoom
 {
 public:
 	virtual void xfer(Xfer *xfer);
@@ -41,5 +44,5 @@ void GameSpyStagingRoom::xfer(Xfer *xfer)
 	if (xfer->IsLightCRC())
 		return;
 	xfer->Version1();
-	SkirmishGameInfo::xfer(xfer);
+	reinterpret_cast<SkirmishGameInfo *>(this)->SkirmishGameInfo::xfer(xfer);
 }

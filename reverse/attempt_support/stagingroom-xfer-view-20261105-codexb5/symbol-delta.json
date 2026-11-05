@@ -1,0 +1,32 @@
+{
+  "StagingRoomGameInfo": {
+    "definitions_added": [],
+    "definitions_removed": [],
+    "references_added": [
+      "?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z"
+    ],
+    "references_removed": [],
+    "vtable_relocation_changes": {
+      "before_only": [
+        [
+          12,
+          6,
+          "__purecall"
+        ]
+      ],
+      "after_only": [
+        [
+          12,
+          6,
+          "?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z"
+        ]
+      ]
+    }
+  },
+  "GameSpyStagingRoomXfer": {
+    "definitions_added": [],
+    "definitions_removed": [],
+    "references_added": [],
+    "references_removed": []
+  }
+}
