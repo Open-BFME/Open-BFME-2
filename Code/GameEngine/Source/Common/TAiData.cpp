@@ -31,48 +31,28 @@ struct NodeF8
 	NodeF8 *m_next;
 };
 
-#define BFME_SNAPSHOT_NAME_SLOT
-#include "Common/Snapshot.h"
-
-class TAiData : public Snapshot
-{
-public:
-	virtual ~TAiData();
-	virtual const char *GetSnapshotName() const;
-	virtual void loadPostProcess();
-protected:
-	virtual void xfer(Xfer *);
-private:
-	char m_pad04[0xD8];
-	AsciiString m_DC;
-	AsciiString m_E0;
-	AsciiString m_E4;
-	char m_padE8[0x0C];
-	NodeF4 *m_F4;
-	NodeF8 *m_F8;
-	NodeFC *m_FC;
-};
+#include "../../Include/GameLogic/TAiData.h"
 
 TAiData::~TAiData()
 {
-	NodeF4 *curF4 = m_F4;
-	m_F4 = 0;
+	NodeF4 *curF4 = reinterpret_cast<NodeF4 *>(m_sideInfo);
+	m_sideInfo = 0;
 	while (curF4 != 0) {
 		NodeF4 *del = curF4;
 		curF4 = curF4->m_next;
 		void *block = del->deldtor(0);
 		::operator delete(block);
 	}
-	NodeFC *curFC = m_FC;
-	m_FC = 0;
+	NodeFC *curFC = reinterpret_cast<NodeFC *>(m_namedLists);
+	m_namedLists = 0;
 	while (curFC != 0) {
 		NodeFC *del = curFC;
 		curFC = curFC->m_next;
 		void *block = del->deldtor(0);
 		::operator delete(block);
 	}
-	NodeF8 *curF8 = m_F8;
-	m_F8 = 0;
+	NodeF8 *curF8 = reinterpret_cast<NodeF8 *>(m_sideBuildLists);
+	m_sideBuildLists = 0;
 	while (curF8 != 0) {
 		NodeF8 *del = curF8;
 		curF8 = curF8->m_next;

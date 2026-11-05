@@ -53,17 +53,13 @@ public:
 	Rva002FE620 *m_next;				// +0x1BC
 };
 
-struct TAiData
-{
-	unsigned char m_unreconstructed_000[0xF4];
-	Rva002FE620 *m_sideInfo;			// +0x0F4
+#include "../../../Include/GameLogic/TAiData.h"
 
-	void addSideInfo(Rva002FE620 *info)
-	{
-		info->m_next = m_sideInfo;
-		m_sideInfo = info;
-	}
-};
+inline void TAiData::addSideInfo(Rva002FE620 *info)
+{
+	info->m_next = m_sideInfo;
+	m_sideInfo = info;
+}
 
 // ?parseSideInfo@AI@@SAXPAVINI@@PAX1PBX@Z
 void AI::parseSideInfo(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
