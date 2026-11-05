@@ -10338,9 +10338,6 @@ pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"s",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"",on	2
-pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"s",off	2
-pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"t",on	2
 pragma_optimize	Code/GameEngine/Source/Common/rva00104A75Rva00104A75Farm.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/rva00104A75Rva00104A75Farm.cpp	"w",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	"",on	1

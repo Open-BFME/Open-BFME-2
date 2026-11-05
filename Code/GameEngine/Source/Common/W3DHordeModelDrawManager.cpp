@@ -41,9 +41,6 @@ typedef int Int;
 #pragma comment(linker, "/alternatename:?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00079ED4Record@@@2@@Z=?rva00079D14@Rva00079D14Tree@@QAE?AURva00079D14Iter@@U2@ABVRva00079D14Value@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva0078B83_B2@@UAEXXZ=?rva000BFB76@Rva000BFB76Interface@@UAEXABVModelConditionFlags@@_NH@Z")
 #include "../../Include/Common/BfmeAccessorMacros.h"
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-#pragma optimize("", on)
 #include <memory>
 #define _STLP_NO_EXCEPTIONS 1
 struct Rva00078F95Item;
@@ -913,14 +910,6 @@ bool W3DHordeModelDrawManager::rva0007894E(Rva0007894EOuter *p)
 		return p->v49();
 	}
 }
-
-// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
-
-#pragma optimize("s", off)
-
-#pragma optimize("t", on)
-
-#pragma optimize("", on)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDrawPoolKey.cpp
 
