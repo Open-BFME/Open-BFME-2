@@ -264,16 +264,7 @@ private:
 // A locomotor's legal surfaces live in its template (+0x04) at +0x14.
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 
-class Locomotor
-{
-public:
-	float getMaxSpeed(Object *obj) const;
-	__declspec(dllimport) __forceinline LocomotorSurfaceTypeMask getLegalSurfaces() const { return m_template->m_surfaces; }
-
-private:
-	void *m_vtbl;
-	const LocomotorTemplate *m_template;	// +0x04
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 // The surfaces each cell type allows, indexed by type (VA 0x00DBD33C,
 // defined in Rva002E6DC4Check.cpp).
@@ -978,7 +969,7 @@ Bool Pathfinder::IsValidMovementTerrain(PathfindLayerEnum layer, const Locomotor
 		return true;
 	// check validity of destination cell
 	LocomotorSurfaceTypeMask acceptableSurfaces = g_00DBD33C[toCell->getType()];
-	if ((locomotor->getLegalSurfaces() & acceptableSurfaces) == 0)
+	if ((locomotor->m_template->m_surfaces & acceptableSurfaces) == 0)
 		return false;
 	return true;
 }

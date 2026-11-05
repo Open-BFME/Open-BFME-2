@@ -248,46 +248,27 @@ struct LocoMatrix
  
 }
 ;
-class Locomotor 
+#include "../../../Include/GameLogic/LocomotorClass.h"
+static __forceinline float surfaceAt(Locomotor *self,float worldX,float worldY)
 {
- public:
- bool rva001E7ECA(Object*,const Coord3D*);
- float rva001E6532(Object*,const Coord3D*,float);
- float getMaxSpeed(Object*)const;
- __forceinline float surfaceAt(float worldX,float worldY)
+ typedef float(Locomotor::*Member)(float,float);
+ union Convert
  {
-  typedef float(Locomotor::*Member)(float,float);
-  union Convert
-  {
-   float(__stdcall*fn)(float,float);
-   Member member;
-   
-  }
-  c;
-  c.fn=Rva001E40D9Get;
-  return(this->*c.member)(worldX,worldY);
-  
+  float(__stdcall*fn)(float,float);
+  Member member;
  }
- void setTranslation(const Rva001E41D3Result&translation)
- {
-  ((LocoMatrix*)matrix)->set(translation);
-  
- }
- void*vptr;
- LocoDefinition*data;
- char pad8[0x40-8];
- float speed40;
- unsigned flags44;
- float height48,min4c,damping50;
- char pad54[0x68-0x54];
- float matrix[12];
- 
+ c;
+ c.fn=Rva001E40D9Get;
+ return(self->*c.member)(worldX,worldY);
 }
-;
+static inline void setTranslation(Locomotor *self,const Rva001E41D3Result&translation)
+{
+ ((LocoMatrix*)&self->m_68)->set(translation);
+}
 bool Locomotor::rva001E7ECA(Object*object,const Coord3D*goal)
 {
  bool requires=true;
- int mode=data->behavior;
+ int mode=((LocoDefinition*)m_template)->behavior;
  if(mode==9)
  {
   LocoInterface*iface=(LocoInterface*)object->rva0029439D();
@@ -327,7 +308,7 @@ bool Locomotor::rva001E7ECA(Object*object,const Coord3D*goal)
     
    }
    pos.z=surface;
-   setTranslation(pos);
+   setTranslation(this,pos);
    requires=false;
    break;
    
@@ -338,7 +319,7 @@ bool Locomotor::rva001E7ECA(Object*object,const Coord3D*goal)
    if(object->disabled&8)break;
    float water;
    bool wet;
-   if(flags44&1)
+   if(m_flags&1)
     wet=((LocoTerrainView*)TheTerrainLogic)->underwater(pos.x,pos.y,&water,0,0);
    else
     wet=((LocoTerrainView*)TheTerrainLogic)->underwater(pos.x,pos.y,&water,0,0);
@@ -346,22 +327,22 @@ bool Locomotor::rva001E7ECA(Object*object,const Coord3D*goal)
    else pos.z=((LocoTerrainView*)TheTerrainLogic)->layer(pos.x,pos.y,object->rva0028B511(),0,true);
    if(object->definition->flags11f&8)
    {
-    float speed=speed40;
-    pos.z+=(speed/(getMaxSpeed(object)+0.1f)+1.0f)*height48;
+    float speed=m_40;
+    pos.z+=(speed/(getMaxSpeed(object)+0.1f)+1.0f)*m_preferredHeight;
     
    }
-   else pos.z+=height48;
-   setTranslation(pos);
+   else pos.z+=m_preferredHeight;
+   setTranslation(this,pos);
    break;
    
   }
   case 4:case 5:
   {
    requires=true;
-   bool relative=data->behavior==4;
-   float surface=relative?surfaceAt(pos.x,pos.y):0.0f;
-   pos.z=height48+(relative?surface:0.0f);
-   setTranslation(pos);
+   bool relative=((LocoDefinition*)m_template)->behavior==4;
+   float surface=relative?surfaceAt(this,pos.x,pos.y):0.0f;
+   pos.z=m_preferredHeight+(relative?surface:0.0f);
+   setTranslation(this,pos);
    break;
    
   }
@@ -381,26 +362,26 @@ bool Locomotor::rva001E7ECA(Object*object,const Coord3D*goal)
     if(height>highest)highest=height;
     
    }
-   pos.z=height48+highest;
-   setTranslation(pos);
+   pos.z=m_preferredHeight+highest;
+   setTranslation(this,pos);
    break;
    
   }
   case 7:
   {
    requires=true;
-   if(height48!=0.0f || (bool)((flags44>>3)&1))
+   if(m_preferredHeight!=0.0f || (bool)((m_flags>>3)&1))
    {
     int layer=object->rva0028B511();
     if(layer==1)layer=TheTerrainLogic->getHighestLayerForDestination((const Coord3D*)&pos,0);
     Coord3D &normal=work.normal;
-    float preferred=((LocoTerrainView*)TheTerrainLogic)->layer(pos.x,pos.y,layer,&normal,false)+height48;
-    if((bool)((flags44>>3)&1))preferred=goal->z;
-    float delta=((pos.z+(preferred-pos.z)*damping50)-pos.z)/((float)BfmeLogicFramesPerSecond*2.0f);
+    float preferred=((LocoTerrainView*)TheTerrainLogic)->layer(pos.x,pos.y,layer,&normal,false)+m_preferredHeight;
+    if((bool)((m_flags>>3)&1))preferred=goal->z;
+    float delta=((pos.z+(preferred-pos.z)*m_preferredHeightDamping)-pos.z)/((float)BfmeLogicFramesPerSecond*2.0f);
     if(delta!=0.0f)
     {
      pos.z+=delta;
-     setTranslation(pos);
+     setTranslation(this,pos);
      
     }
     
@@ -411,18 +392,18 @@ bool Locomotor::rva001E7ECA(Object*object,const Coord3D*goal)
   case 2:case 3:
   {
    requires=true;
-   if(height48!=0.0f || (bool)((flags44>>3)&1))
+   if(m_preferredHeight!=0.0f || (bool)((m_flags>>3)&1))
    {
-    float surface=data->behavior==2?surfaceAt(pos.x,pos.y):0.0f;
+    float surface=((LocoDefinition*)m_template)->behavior==2?surfaceAt(this,pos.x,pos.y):0.0f;
     float preferred=rva001E6532(object,goal,surface)+surface;
-    if((bool)((flags44>>3)&1))preferred=goal->z;
+    if((bool)((m_flags>>3)&1))preferred=goal->z;
     float delta;
     if(object->flags438&1)delta=((LocoGlobalView*)TheWritableGlobalData)->falling;
-    else delta=((pos.z+(preferred-pos.z)*damping50)-pos.z)/((float)BfmeLogicFramesPerSecond*2.0f);
+    else delta=((pos.z+(preferred-pos.z)*m_preferredHeightDamping)-pos.z)/((float)BfmeLogicFramesPerSecond*2.0f);
     if(delta!=0.0f)
     {
      pos.z+=delta;
-     setTranslation(pos);
+     setTranslation(this,pos);
      
     }
     if(delta>0.5f)

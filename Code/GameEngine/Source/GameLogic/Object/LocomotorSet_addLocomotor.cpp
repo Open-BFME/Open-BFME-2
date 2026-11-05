@@ -36,16 +36,7 @@ private:
 	Bool m_unknown150;
 };
 
-class Locomotor
-{
-public:
-	__declspec(dllimport) __forceinline Int getLegalSurfaces() const { return m_template->getLegalSurfaces(); }
-	Bool getIsDownhillOnly() const { return m_template->getIsDownhillOnly(); }
-	Bool getUnknown150() const { return m_template->getUnknown150(); }
-private:
-	void *m_vtable;
-	const LocomotorTemplate *m_template;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 class LocomotorStore
 {
@@ -73,12 +64,12 @@ void LocomotorSet::addLocomotor(const LocomotorTemplate *lt, Bool flag)
 	if (loco)
 	{
 		m_locomotors.push_back(pushed);
-		m_validLocomotorSurfaces |= loco->getLegalSurfaces();
-		if (loco->getIsDownhillOnly())
+		m_validLocomotorSurfaces |= loco->m_template->getLegalSurfaces();
+		if (loco->m_template->getIsDownhillOnly())
 		{
 			m_downhillOnly = true;
 		}
-		if (loco->getUnknown150())
+		if (loco->m_template->getUnknown150())
 		{
 			m_unknown15 = true;
 		}

@@ -62,23 +62,7 @@ struct LocomotorReverseData
 	Real m_reverseAngle; // +0x148
 };
 
-class Locomotor
-{
-public:
-	Real getMaxSpeed(Object *obj) const;
-    Real getMaxTurnRate(Object *obj) const;
-    void rva001E68D7(Object *obj, const Coord3D *goalPos, Real onPathDistToGoal, Real desiredSpeed);
-
-private:
-	void *m_vtbl;
-	LocomotorReverseData *m_template; // +0x04
-	char m_pad08[0x14 - 8];
-	Coord3D m_point; // +0x14
-	char m_pad20[0x40 - 0x20];
-	Real m_turnRate; // +0x40
-	unsigned int m_flags; // +0x44
-    bool reversing() const { return (m_flags & (1 << 7)) != 0; }
-};
+#include "Code/GameEngine/Include/GameLogic/LocomotorClass.h"
 
 float g_locomotorReverseTurnScale = 3.5f;
 
@@ -95,18 +79,18 @@ void Locomotor::rva001E68D7(Object *obj, const Coord3D *goalPos, Real onPathDist
 	Real desiredAngle = atan2(goalPos->y - obj->m_pos.y, goalPos->x - obj->m_pos.x);
 	Real relAngle = normalizeAngle(desiredAngle - angle);
 
-	Bool reverse = m_template->m_canReverse != 0;
+	Bool reverse = ((const LocomotorReverseData *)m_template)->m_canReverse != 0;
 	if (reverse)
 	{
-		target.copy(m_point);
+		target.copy(m_14);
 		target.subtract(obj->m_pos);
 		Real distance = target.GetLengthEstimate2D();
-		if (distance > m_template->m_reverseDistance && onPathDistToGoal > m_template->m_reversePathDistance)
+		if (distance > ((const LocomotorReverseData *)m_template)->m_reverseDistance && onPathDistToGoal > ((const LocomotorReverseData *)m_template)->m_reversePathDistance)
 			reverse = false;
 	}
 
-	Real turnRate = m_turnRate;
-	if (reverse && (_ReadWriteBarrier(), fabs(relAngle)) > m_template->m_reverseAngle * 3.1415927f)
+	Real turnRate = m_40;
+	if (reverse && (_ReadWriteBarrier(), fabs(relAngle)) > ((const LocomotorReverseData *)m_template)->m_reverseAngle * 3.1415927f)
 	{
 		if (!(obj->m_modelConditions & 0x10000000))
 		{
@@ -128,7 +112,7 @@ void Locomotor::rva001E68D7(Object *obj, const Coord3D *goalPos, Real onPathDist
 		m_flags &= ~0x80;
 	}
 
-	if (reversing())
+	if (isMovingBackwards())
 		desiredAngle = normalizeAngle(desiredAngle - 3.1415927f);
 
 	target.copy(obj->m_pos);
@@ -147,7 +131,7 @@ void Locomotor::rva001E68D7(Object *obj, const Coord3D *goalPos, Real onPathDist
 		if (angleCoeff > 0.9f)
 			angleCoeff = 0.9f;
         desiredSpeed = (1.0f - angleCoeff) * desiredSpeed;
-        if (m_template->m_backingUpStopWhenTurning && reversing())
+        if (((const LocomotorReverseData *)m_template)->m_backingUpStopWhenTurning && isMovingBackwards())
         {
             if (obj->modelTest(5) || obj->modelTest(6))
                 desiredSpeed = 0.0f;
