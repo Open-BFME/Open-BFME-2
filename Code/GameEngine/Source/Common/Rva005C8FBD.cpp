@@ -1,4 +1,5 @@
-// cl: /MD /EHs
+// stlport
+// cl: /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ??1Rva005C8FBD@@QAE@XZ @0x005C8FBD 94B
 // Dtor: call HostClass rva005C8F17 then free +0x38 via _free then tree dtor
 // at +0x2c (rowed ??1Rva005C8C73) then pool release at +8 via inline dtor.
@@ -7,29 +8,34 @@
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
-#define _CRTIMP
 #include <stdlib.h>
-#undef _CRTIMP
 
 #include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
 
 struct BfmePoolHolder
 {
-public:
-	char m_pad00[0xC];
-	unsigned int m_audioHandle0C; // +0x0C
-	char m_pad10[0x78];
+	char m_pad00[0x0c];
+	unsigned int m_audioHandle0C; // +0x0c
+	char m_pad10[0x1c];
+	float m_float2C; // +0x2c
+	char m_pad30[0x58];
 	OpaqueRefCounted m_ref; // +0x88
 };
 
 #include "../../Include/Common/BfmePoolRef10.h"
 
-class Rva005C8C73
+// Use the lookup owner's tree view. The extra four bytes replace the
+// opaque +0x34 padding below; the holder remains at +0x38.
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#include <map>
+typedef _STL::pair<const int, void *> TreeValue005530A8;
+typedef _STL::_Rb_tree<int, TreeValue005530A8, _STL::_Select1st<TreeValue005530A8>, _STL::less<int>, _STL::allocator<TreeValue005530A8> > Tree005530A8;
+
+class Rva005C8C73 : public Tree005530A8
 {
 public:
+	void *rva005C8CA0(const void *key);
 	~Rva005C8C73();
-private:
-	char m_data[8];
 };
 
 struct Holder38FBD
@@ -69,7 +75,6 @@ private:
 	BfmePoolRef10 m_pool08;
 	char m_pad0C[0x20];
 	Rva005C8C73 m_tree2C;
-	char m_pad34[4];
 	Holder38FBD m_holder38;
 	void *m_finish3C;
 	char m_pad40[6];

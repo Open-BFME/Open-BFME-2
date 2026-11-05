@@ -18,6 +18,7 @@ class Rva005C8C73 : public Tree005530A8
 {
 public:
 	void *rva005C8CA0(const void *key);
+	~Rva005C8C73();
 };
 
 class AudioManager
@@ -84,12 +85,16 @@ extern AudioManager *TheAudio;
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
+#include "../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
+
 struct BfmePoolHolder
 {
 	char m_pad00[0x0c];
-	int m_audioHandle0C;
+	unsigned int m_audioHandle0C; // +0x0c
 	char m_pad10[0x1c];
-	float m_float2C;
+	float m_float2C; // +0x2c
+	char m_pad30[0x58];
+	OpaqueRefCounted m_ref; // +0x88
 };
 
 struct Rva005C8D17Inner
