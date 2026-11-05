@@ -57,7 +57,7 @@ extern ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class CommandButton { public: unsigned char m_pad[0x10C]; bool m_10C; };
+#include "../../../Include/GameClient/CommandButton.h"
 class CommandSet { public: const CommandButton *getCommandButton(int) const; };
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
@@ -75,7 +75,7 @@ void ScriptActions::rva003C32CC(const AsciiString &teamName, const AsciiString &
 		return;
 	static NameKeyType key = TheNameKeyGenerator->nameToKey("AutoAbilityBehavior");
 	const CommandButton *button = TheControlBar->findCommandButton(buttonName);
-	if (!button || !button->m_10C)
+	if (!button || !button->m_autoAbility)
 		return;
 	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done();
 		((DLINK_ITERATOR<Object> *)&iter)->advance()) {

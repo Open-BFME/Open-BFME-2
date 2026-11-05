@@ -67,7 +67,7 @@ void Player::rva002AD1FD()
 		const SpecialPowerTemplate *p = btn->m_specialPower;
 		if (p == 0)
 			continue;
-		void *found = obj->getSpecialPowerModule(reinterpret_cast<const SpecialPowerTemplate *>(p));
+		void *found = obj->getSpecialPowerModule(p);
 		if (found == 0)
 			continue;
 		((Iface22 *)found)->slot22();

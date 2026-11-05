@@ -43,7 +43,7 @@ extern GameClient *TheGameClient;
 class Rva0022AD10Subsystem {public:char pad2c[0x2c];float threshold;char pad30[4];bool active;};
 extern Rva0022AD10Subsystem *TheFormationAssistant;
 extern int BfmeClientFramesPerSecond;
-class CommandButton {public:char pad14[0x14];int command;};
+#include "../../Include/GameClient/CommandButton.h"
 class InGameUI {public:
 virtual void slot0();
 virtual void slot1();
@@ -153,7 +153,7 @@ bool InGameUI::rva0029DB61() {
   float angle;{Coord2D direction=rva0029D9F9();angle=direction.toAngle();}
   bool armed=false;
   const CommandButton *button=TheInGameUI->getPending();
-  if(button && button->command==10)armed=true;
+  if(button && button->m_command==10)armed=true;
   GameMessage *msg=TheMessageStream->appendMessage(GameMessage::MSG_DO_MOVETO_FORMATION);
   Coord3D p;p.x=position.x;p.y=position.y;p.z=position.z;
   msg->appendLocationArgument(p);msg->appendRealArgument(angle);msg->appendIntegerArgument(formation);msg->appendBooleanArgument(armed);

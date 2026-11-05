@@ -20,7 +20,7 @@
 // Native command accessed-prefix: options+1C, weapon slot+80; bit5 location, low3 bits object.
 struct Coord3D;
 enum WeaponSlotType { PRIMARY_WEAPON=0 };
-class CommandButton { public: char unknown00[0x1c]; unsigned options; char unknown20[0x80-0x20]; WeaponSlotType slot; };
+#include "../../Include/GameClient/CommandButton.h"
 enum CanAttackResult { ATTACKRESULT_NOT_POSSIBLE=0,ATTACKRESULT_INVALID_SHOT=1,ATTACKRESULT_POSSIBLE_AFTER_MOVING=2,ATTACKRESULT_POSSIBLE=3 };
 enum AbleToAttackType { ATTACK_NEW_TARGET=0,ATTACK_NEW_TARGET_FORCED=1 };
 enum KindOfType { KINDOF_INVALID=0 };
@@ -273,9 +273,9 @@ CanAttackResult InGameUI::getCanSelectedObjectsAttack(ActionType action,const Ob
 // names remain address-derived. Every provider is owned and all relocations
 // resolve through the real ledger; no inferred method pin or alias is used.
 bool InGameUI::canSelectedObjectsEffectivelyUseWeapon(const CommandButton *command,const Object *target,const Coord3D *position,SelectionRules rule)const {
- WeaponSlotType slot=command->slot;
- bool doAtPosition=(command->options & 0x20)!=0;
- bool doAtObject=(command->options & 7)!=0;
+ WeaponSlotType slot=command->getWeaponSlot();
+ bool doAtPosition=(command->m_options & 0x20)!=0;
+ bool doAtObject=(command->m_options & 7)!=0;
  if(doAtObject && !target) return false;
  if(doAtPosition && !position) return false;
  const DrawableList *selected=TheInGameUI->getAllSelectedDrawables();
