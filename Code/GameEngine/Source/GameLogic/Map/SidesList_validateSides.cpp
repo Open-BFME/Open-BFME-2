@@ -20,8 +20,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <stdlib.h>
-namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
 #include <vector>
 #include <list>
 
@@ -34,7 +32,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 #include <set>
-#undef free
 
 #include "ascii_string.h"
 // bfme link decl-only begin

@@ -18,11 +18,14 @@
 // Match the game deallocator and its EH contract, as in buildBeacons.
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *) throw(...); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseTerrainStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <map>
 #include <list>
 #include <vector>
-#undef free
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -32,16 +35,25 @@ namespace _STL { void __cdecl free(void *) throw(...); }
 namespace _STL {
 template <> __declspec(dllimport) __forceinline
 void allocator<int>::deallocate(int *p, size_t) const
-{ if (p != 0) _STL::free((void *)p); }
+{ if (p != 0) releaseTerrainStorage((void *)p); }
 template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<int *, int, allocator<int> >::deallocate(int *p, size_t n)
 { allocator<int>::deallocate(p, n); }
 template <> __declspec(dllimport) __forceinline
 void allocator<_List_node<Coord3D> >::deallocate(_List_node<Coord3D> *p, size_t) const
-{ if (p != 0) _STL::free((void *)p); }
+{ if (p != 0) releaseTerrainStorage((void *)p); }
 template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<_List_node<Coord3D> *, _List_node<Coord3D>, allocator<_List_node<Coord3D> > >::deallocate(_List_node<Coord3D> *p, size_t n)
 { allocator<_List_node<Coord3D> >::deallocate(p, n); }
+}
+class Waypoint;
+namespace _STL {
+template <> inline
+void allocator<_Rb_tree_node<pair<const unsigned int, Waypoint *> > >::deallocate(_Rb_tree_node<pair<const unsigned int, Waypoint *> > *p, size_t) const
+{ if (p != 0) releaseTerrainStorage((void *)p); }
+template <> inline
+void allocator<_List_node<list<Coord3D> > >::deallocate(_List_node<list<Coord3D> > *p, size_t) const
+{ if (p != 0) releaseTerrainStorage((void *)p); }
 }
 
 

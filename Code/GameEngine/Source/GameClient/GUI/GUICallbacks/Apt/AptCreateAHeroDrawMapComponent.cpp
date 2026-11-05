@@ -9,12 +9,21 @@
 // The picture name's scratch vector frees through the C++-linkage free at
 // 0x00030830; that declaration is what makes the caller emit the unwind state
 // store retail carries before the call.
-#define free bfmeUnusedCRTFree
+namespace _STL { void __cdecl free(void *); }
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseWordStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <cstdlib>
-#undef free
-void free(void *);
 #include <string.h>
 #include <vector>
+namespace _STL {
+template<> inline void allocator<unsigned short>::deallocate(unsigned short *__p, size_type) const
+{
+	if (__p != 0) releaseWordStorage((void *)__p);
+}
+}
 // Keep the STLport operations inline without competing external copies.
 // The word-vector provider uses the same imported-inline allocator contract.
 namespace _STL {

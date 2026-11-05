@@ -4,8 +4,6 @@
 // superweapon timers per player map, named timers and RMB scroll anchor. Shape from the
 // WorldBuilder twin InGameUI::postDraw (InGameUI.cpp asserts 5356..5490) and Zero Hour's postDraw.
 #include <stdlib.h>
-namespace _STL { void __cdecl free(void *block); }
-#define free _STL::free
 #include <list>
 #include <map>
 
@@ -17,7 +15,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
                               const _List_iterator<T, Traits>& b)
 { return a._M_node != b._M_node; }
 }
-#undef free
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"

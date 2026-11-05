@@ -24,10 +24,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-#define free bfmeUnusedCRTFree
+namespace _STL { void __cdecl free(void *); }
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseAudioMapStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <cstdlib>
-#undef free
-void free(void *);
 #include <vector>
 #include "ascii_string.h"
 #include "subsystem_interface.h"
@@ -35,6 +38,12 @@ void free(void *);
 #include "Common/Snapshot.h"
 
 class LargeGroupAudioAudioMap;
+namespace _STL {
+template<> inline void allocator<LargeGroupAudioAudioMap *>::deallocate(LargeGroupAudioAudioMap **__p, size_type) const
+{
+	if (__p != 0) releaseAudioMapStorage((void *)__p);
+}
+}
 
 // Out-of-line ctor of the 12-byte key container (folded with
 // ObjectCreationList's; the ledger's spelling of 0x001F81BF).

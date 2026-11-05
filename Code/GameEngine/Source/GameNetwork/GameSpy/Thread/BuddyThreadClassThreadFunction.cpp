@@ -23,8 +23,11 @@
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <stdlib.h>
 void Rva00030830GameFree(void*);
-#define free Rva00030830GameFree
 #include <string>
+// String storage goes to the game free, as in registry.cpp.
+namespace _STL { template <> __declspec(dllimport) __forceinline void
+_STLP_alloc_proxy<char *, char, allocator<char> >::deallocate(char *p, size_t)
+{ if (p != 0) Rva00030830GameFree((void *)p); } }
 // Keep the vendor base cleanup inline while binding any outlined call to
 // the common STLport provider; no competing game-free copy is emitted.
 namespace _STL { template <> __declspec(dllimport) __forceinline

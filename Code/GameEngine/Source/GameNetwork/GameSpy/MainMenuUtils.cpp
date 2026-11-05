@@ -11,7 +11,6 @@
 // Its C++ throwing contract also preserves the native cleanup states.
 #include <stdlib.h>
 void __cdecl Rva00030830GameFree(void *);
-#define free Rva00030830GameFree
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <list>
