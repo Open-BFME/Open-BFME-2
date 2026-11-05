@@ -267,6 +267,28 @@ def test_nothing_to_push(seat, capsys):
     assert code == 0 and "nothing to push" in out
 
 
+@pytest.mark.parametrize("output", [
+    "remote: error: unable to write file ./objects/pack/tmp_pack_x\n"
+    "error: remote unpack failed: index-pack failed\n ! [remote rejected] HEAD -> master (failed)\n",
+    "remote: error: unable to rename temporary '*.pack' file to './objects/pack/pack-1.pack'\n"
+    " ! [remote rejected] HEAD -> master (failed)\n",
+])
+def test_a_pack_github_failed_to_store_is_a_server_error(output):
+    assert push.SERVER_ERROR.search(output) and not push.LOST_RACE.search(output)
+
+
+def test_gh013_force_push_refusal_is_a_lost_race():
+    output = ("remote: error: GH013: Repository rule violations found for refs/heads/master.\n"
+              "remote: - Cannot force-push to this branch\n ! [remote rejected] HEAD -> master (push declined "
+              "due to repository rule violations)\n")
+    assert push.LOST_RACE.search(output) and not push.SERVER_ERROR.search(output)
+
+
+def test_a_hook_refusal_is_neither():
+    output = "error: failed to push some refs to 'origin'\nerror: failed to push some refs: pre-push hook declined\n"
+    assert not push.SERVER_ERROR.search(output) and not push.LOST_RACE.search(output)
+
+
 def test_a_github_server_error_is_retried_and_is_not_a_lost_race(seat, capsys, monkeypatch):
     path, other, origin, state = seat
     work(path)

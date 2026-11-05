@@ -44,10 +44,17 @@ REMOTE = "origin"
 BRANCH = "master"
 SUBMODULE = "reference/open-bfme-1"
 # What git and GitHub say when master moved under a push (the ref update lost).
+# GitHub's ruleset answers a non-fast-forward with GH013 "Cannot force-push to this branch":
+# push.py never forces, so that is master moving under the push too.
 LOST_RACE = re.compile(r"cannot lock ref|\(fetch first\)|non-fast-forward|moved past this push's base"
-                       r"|incorrect old value provided|remote contains work that you do")
-# GitHub itself failed the ref update: nothing landed and no check refused this push.
-SERVER_ERROR = re.compile(r"fatal error in commit_refs|\(Internal Server Error\)")
+                       r"|incorrect old value provided|remote contains work that you do"
+                       r"|GH013.*Cannot force-push|Cannot force-push to this branch")
+# GitHub itself failed the ref update or failed to store the pushed pack ("unable to write
+# file", "index-pack failed", then "[remote rejected] ... (failed)"): nothing landed and no
+# check refused this push.
+SERVER_ERROR = re.compile(r"fatal error in commit_refs|\(Internal Server Error\)"
+                          r"|remote unpack failed|index-pack failed|unable to write file .*pack"
+                          r"|unable to rename temporary '.*\.pack'")
 SERVER_ERROR_WAIT_S = 30
 NOREPLY = re.compile(r"^[^@\s]+@users\.noreply\.github\.com$")
 
