@@ -312,7 +312,6 @@ Code/GameEngine/Source/Common/Rva00600665Set.cpp	conflicting	abi	1	0	0	0	0	0	1	0
 Code/GameEngine/Source/Common/Rva00600777.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<mbstring.h>	no	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	_mbscpy:abi
 Code/GameEngine/Source/Common/SmallGaps/aptKeyCode.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<ctype.h>	no	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	toupper:abi
 Code/GameEngine/Source/Common/System/INI_Rva003396D3ParseKillerScience.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<fltdefs.h>	yes	yes	hand			ERROR_BASE:abi
-Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<stdlib.h>	no	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	free:abi
 Code/GameEngine/Source/Common/VersionBlockKeyCompare.cpp	conflicting	mangle	1	0	0	0	0	1	0	0	0	0	0	<string.h>	no	yes	hand			strcmp:mangle
 Code/GameEngine/Source/Common/method_005C9311Rva005C9311Farm.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			ceil:abi
 Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			floor:abi

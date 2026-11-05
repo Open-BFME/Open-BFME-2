@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_CRTIMP=
 // stlport46
 
 // STLport vector<ObjectID>::_M_fill_insert, retail 0x0058A00B,
@@ -47,7 +47,7 @@ namespace _STL { template <> void vector<ObjectID>::_M_clear(); }
 // storage's release inline as a direct free instead of calling _M_clear, which
 // this unit binds out of line; spell the STLport 4.5.3 algorithm out so this
 // TU's copy is retail's body rather than a second variant.
-extern "C" void __cdecl free(void *);
+#include <stdlib.h>
 namespace _STL {
 template <> void vector<ObjectID>::_M_insert_overflow(ObjectID *position, const ObjectID &value,
     const __false_type &, size_t fillLength, bool atEnd)
