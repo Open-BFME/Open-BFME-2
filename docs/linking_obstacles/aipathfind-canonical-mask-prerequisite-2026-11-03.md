@@ -105,3 +105,9 @@ gain inferred. The remaining fprintf header finding calls a game helper at
 RVA2CEC42 at all five sites, not CRT stdio. Preserve it for a separate owner/
 caller naming-and-ABI cohort; no FILE*, CRT-mode or macro substitution is valid.
 [Current merge, full path audit and native logging evidence](../../reverse/attempt_support/pathfinder-callback-merge-20261103/README.md).
+
+2026-11-05: a fresh dry plan accepts three more callback donors (four functions,
+977 bytes), but apply writes nothing because its broad claim scope includes
+held fold addresses from rejected donors. Next: repair saved-plan claim scope
+with accepted-cohort and fallback-claim tests before retrying the normal merge.
+[Plan, refusal and verification](../../reverse/attempt_support/aipathfind-plan-claims-20261105/README.md).

@@ -1,0 +1,30 @@
+{
+  "controls": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp",
+      "source_sha256": "165acc6534de02c7b3dac35f1e8571a94291b58b0c76138c4c796025f4fecf06",
+      "object_sha256": "0ea636ab20ce90d8c0c10d961155b596b7df1d58a15e6fb661ea3dd5d2432dee",
+      "definitions": 226
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002ED15ACellCallback.cpp",
+      "source_sha256": "c1a9ffca60b2e3afb2242219996d881e7d161729ac21ac689cb7491f50a67ad0",
+      "object_sha256": "69585ab881cc0548eb9cfc45c45f8493dbc29fa6df6be017454c8f2fa700cae8",
+      "definitions": 3
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002F4491CellCallback.cpp",
+      "source_sha256": "84239b9401f5452b6540539b2b4718d4f02163b6ab4a80cdb9c3b06a0e02170a",
+      "object_sha256": "e2f5dfb9362c165b0367d67f28ec1672fe3f4c00696e83826a48e62e0fb2e64e",
+      "definitions": 8
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F4D8BCellCallback.cpp",
+      "source_sha256": "609a4c5c7ca15ed9ce8aea50bf6e76b309d4a721139756423a8c9cd8d4af6119",
+      "object_sha256": "d64df8d1b389a5f2bd0f640950c88e78fa216f5e5364d93910ede30e2b746b99",
+      "definitions": 1
+    }
+  ],
+  "union_definitions": 236,
+  "control_disagreements": []
+}
