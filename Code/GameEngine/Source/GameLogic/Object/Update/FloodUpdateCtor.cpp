@@ -48,13 +48,13 @@ public:
 	FloodUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~FloodUpdate();
 private:
-	_STL::list<int> m_bfme20;
-	bool m_bfme24;
+	_STL::list<int> m_records; // +0x20
+	bool m_membersCreated; // +0x24
 };
 
 // ??0FloodUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x0048E09F
 FloodUpdate::FloodUpdate(Thing *thing, const ModuleData *moduleData) :
 	UpdateModule(thing, moduleData)
 {
-	m_bfme24 = false;
+	m_membersCreated = false;
 }

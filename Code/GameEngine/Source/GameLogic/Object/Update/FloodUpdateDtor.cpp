@@ -90,13 +90,13 @@ public:
 	virtual UpdateSleepTime update(); // UpdateModuleInterface slot 0, the rowed override
 	virtual ~FloodUpdate();
 private:
-	_STL::list<int> m_bfme20;
-	bool m_bfme24;
+	_STL::list<int> m_records; // +0x20
+	bool m_membersCreated; // +0x24
 };
 
 FloodUpdate::~FloodUpdate()
 {
-	for (_STL::list<int>::iterator it = m_bfme20.begin(); it != m_bfme20.end(); ++it)
+	for (_STL::list<int>::iterator it = m_records.begin(); it != m_records.end(); ++it)
 		delete reinterpret_cast<FloodUpdateRecord *>(*it);
-	m_bfme20.clear();
+	m_records.clear();
 }
