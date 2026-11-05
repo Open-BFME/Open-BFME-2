@@ -1,5 +1,7 @@
 ### LINK-012: shattersystem.cpp's Zero Hour WW3D2 views emit divergent shared COMDATs
 
+2026-11-05: meshmdlio's two obsolete Vector4 queue rows are retired by owning acceptance; 42/42 rows match and the bounded preview links. DX8Wrapper and the wider material/shatter prerequisites remain open. [Evidence](../../reverse/attempt_support/meshmdlio-vector4-adoption-20261105-codex2.md).
+
 **2026-10-30 bounded getter probe:** the native MeshMatDesc getter at
 0x002C8ECF reads +0xA4; shatter's current copy reads +0xA8. The copy's incoming
 relocations are debug-only, but its body is also inlined into two other methods.

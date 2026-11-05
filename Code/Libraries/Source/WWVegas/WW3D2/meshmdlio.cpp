@@ -81,6 +81,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "bittype.h"
 #include "vector3.h"
 #include "vector4.h"
+#include "../WWMath/Vector4Data.h"
 #include "sphere.h"
 #include "multilist.h"
 #include "wwdebug.h"
