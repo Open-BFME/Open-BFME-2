@@ -47,89 +47,60 @@ enum GameMessageDisposition
 	DESTROY_MESSAGE
 };
 
-class UserInputTranslator
-{
-public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
-	virtual ~UserInputTranslator();
-	virtual GameMessageDisposition slot08(const Rva005CBC95Pixel &pos, int a);
-	virtual GameMessageDisposition slot0C(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot10(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot14(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot18(const Rva005CBC95Pixel &pos, const Rva005CBC95Pixel &anchor, int a);
-	virtual GameMessageDisposition slot1C(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot20(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot24(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot28(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot2C(const Rva005CBC95Pixel &pos, const Rva005CBC95Pixel &anchor, int a);
-	virtual GameMessageDisposition slot30(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot34(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot38(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot3C(const Rva005CBC95Pixel &pos, const Rva005CBC95Pixel &anchor, int a);
-	virtual GameMessageDisposition slot40(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot44(const Rva005CBC95Pixel &pos, int a, int b);
-	virtual GameMessageDisposition slot48(const IRegion2D &region, int a);
-	virtual GameMessageDisposition slot4C(const IRegion2D &region, int a);
-	virtual GameMessageDisposition slot50(const IRegion2D &region, int a);
-	virtual GameMessageDisposition slot54(const IRegion2D &region, int a);
-	virtual GameMessageDisposition slot58(const IRegion2D &region, int a);
-	virtual GameMessageDisposition slot5C(const IRegion2D &region, int a);
-	virtual GameMessageDisposition slot60(int a, int b);
-	virtual GameMessageDisposition slot64(int a, int b);
-};
+#include "../../Include/GameClient/UserInputTranslator.h"
 
 GameMessageDisposition UserInputTranslator::translateGameMessage(const GameMessage *msg)
 {
 	switch (msg->getType())
 	{
 	case 3:
-		return slot08(msg->getArgument(0)->pixel, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot02(msg->getArgument(0)->pixel, msg->getArgument(1)->integer);
 	case 4:
-		return slot0C(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot03(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 5:
-		return slot10(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot04(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 6:
-		return slot14(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot05(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 8:
-		return slot18(msg->getArgument(0)->pixel, msg->getArgument(1)->pixel, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot06(msg->getArgument(0)->pixel, msg->getArgument(1)->pixel, msg->getArgument(2)->integer);
 	case 9:
-		return slot1C(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot07(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 10:
-		return slot20(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot08(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 11:
-		return slot24(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot09(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 12:
-		return slot28(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot10(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 13:
-		return slot2C(msg->getArgument(0)->pixel, msg->getArgument(1)->pixel, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot11(msg->getArgument(0)->pixel, msg->getArgument(1)->pixel, msg->getArgument(2)->integer);
 	case 14:
-		return slot30(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot12(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 15:
-		return slot34(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot13(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 16:
-		return slot38(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot14(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 18:
-		return slot3C(msg->getArgument(0)->pixel, msg->getArgument(1)->pixel, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot15(msg->getArgument(0)->pixel, msg->getArgument(1)->pixel, msg->getArgument(2)->integer);
 	case 17:
-		return slot40(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot16(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 19:
-		return slot44(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
+		return (GameMessageDisposition)slot17(msg->getArgument(0)->pixel, msg->getArgument(1)->integer, msg->getArgument(2)->integer);
 	case 23:
-		return slot48(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)OnMouseLeftClick(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
 	case 24:
-		return slot4C(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot19(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
 	case 25:
-		return slot50(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot20(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
 	case 26:
-		return slot54(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot21(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
 	case 27:
-		return slot58(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot22(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
 	case 28:
-		return slot5C(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot23(msg->getArgument(0)->pixelRegion, msg->getArgument(1)->integer);
 	case 21:
-		return slot60(msg->getArgument(0)->integer, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot24(msg->getArgument(0)->integer, msg->getArgument(1)->integer);
 	case 22:
-		return slot64(msg->getArgument(0)->integer, msg->getArgument(1)->integer);
+		return (GameMessageDisposition)slot25(msg->getArgument(0)->integer, msg->getArgument(1)->integer);
 	}
 	return KEEP_MESSAGE;
 }
