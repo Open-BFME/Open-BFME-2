@@ -51,30 +51,8 @@ struct SYSTEMTIME
 };
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *st);
 UnicodeString Rva002DBFAD(SYSTEMTIME st);
-// TheGameText (VA 0xdff0bc). Slot 0x44 follows the by-value fetch overloads at
-// 0x3C/0x40 and returns the label's string by pointer; its name is not proven.
-class GameTextInterface
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7();
-	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual UnicodeString slot38(const AsciiString &label, bool *exists);
-	virtual void v15();
-	virtual void v16();
-	virtual const UnicodeString *slot44(const char *label, bool *exists);
-};
+// TheGameText (VA 0xdff0bc).
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class UnicodeString;
 
@@ -1057,7 +1035,7 @@ UnicodeString UserPreferences::rva00535B32(float seconds)
 {
 	UnicodeString text;
 	int hours = (int)seconds / 60 / 60;
-	text.format(TheGameText->slot44("Apt:TimePlayed", 0), hours / 24, hours % 24);
+	text.format(TheGameText->fetchPtr("Apt:TimePlayed", 0), hours / 24, hours % 24);
 	return text;
 }
 
@@ -1076,7 +1054,7 @@ UnicodeString UserPreferences::rva00537C3F()
         return UnicodeString::TheEmptyString;
     AsciiString label;
     label.format("Side:%s", side.str());
-    const UnicodeString &text = TheGameText->slot38(label, 0);
+    const UnicodeString &text = TheGameText->fetch(label, 0);
     return text;
 }
 

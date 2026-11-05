@@ -43,16 +43,7 @@ public:
  }
 private: struct LogicFPScopeView { char opaque[0x1B4]; int nesting; };
 };
-class GameTextInterface {
-public:
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
- virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
- virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
- virtual void v12(); virtual void v13(); virtual void v14();
- virtual UnicodeString fetch(const char*,bool* =0);
- virtual void v16();
- virtual const UnicodeString* fetchPointer(const char*,bool* =0);
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class GameEngine;
 extern GameEngine *TheGameEngine;
@@ -186,7 +177,7 @@ int GameState::rva002DE3C1(TreeHintOpaque0043671B info)
   TheGameLogic->clearGameData(false,false);
   ((LoadGameEngineResetView*)TheGameEngine)->reset();
   UnicodeString msg;
-  msg.format(TheGameText->fetchPointer("GUI:ErrorLoadingGame"),info.filename.str());
+  msg.format(TheGameText->fetchPtr("GUI:ErrorLoadingGame"),info.filename.str());
   MessageBoxOk(TheGameText->fetch("GUI:Error"),msg,0);
  }
  return result;

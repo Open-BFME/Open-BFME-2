@@ -30,16 +30,7 @@ struct FloatPair
 
 #include "../../../../Include/GameClient/DisplayString.h"
 
-class GameTextInterface
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14)
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0);		// +0x3C
-	V(16)
-	virtual const UnicodeString &fetchRef(const char *label, Bool *exists = 0);	// +0x44
-#undef V
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 struct IntPair;
@@ -95,7 +86,7 @@ Int InGameCommandButtonHelp::Impl::SetWidthAndComputeHeight(Int width)
 	{
 		UnicodeString key(&m_14, 1);
 		const void *keyData = *(const void *const *)&key;
-		shortcut.format(&TheGameText->fetchRef("TOOLTIP:Shortcut"),
+		shortcut.format(TheGameText->fetchPtr("TOOLTIP:Shortcut"),
 			keyData ? (const unsigned short *)((const char *)keyData + 8) : (const unsigned short *)L"");
 	}
 	Int shortcutHeightInt;

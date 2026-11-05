@@ -108,7 +108,7 @@ class GameSpyPeerMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)v
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 #include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
-class GameTextInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);V(16)virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #undef V
 class BfmeObjELB {public:char prefix[0xd1];bool disconnected;char pad[10];bool fesl26ad;};
@@ -196,7 +196,7 @@ void Rva00416589(BfmeStringRecord00415F34 record)
   UnicodeString snippet=message.message;
   while(snippet.getLength()>11)snippet.removeLastChar();
   UnicodeString notification;
-  notification.format(TheGameText->fetchFormat("Buddy:MessageNotification"),message.senderNick.str(),snippet.str());
+  notification.format(TheGameText->fetchPtr("Buddy:MessageNotification"),message.senderNick.str(),snippet.str());
   g_Va00A0308C=false;g_Va00A03090=0;
   Rva004163E1Notify(AsciiString::TheEmptyString,notification);
  }

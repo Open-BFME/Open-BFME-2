@@ -13,25 +13,7 @@ typedef bool Bool;
 template <typename T> class StringBase;
 class UnicodeString;
 #include "unicode_string.h"
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0c() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1c() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	virtual void slot28() = 0;
-	virtual void slot2c() = 0;
-	virtual void slot30() = 0;
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0) = 0;
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class Rva002DF9E9
 {
@@ -39,7 +21,7 @@ public:
 	UnicodeString rva002DF9E9();
 private:
 	char m_pad0[0x20];
-	char m_label[4];
+	AsciiString m_label;
 };
 UnicodeString Rva002DF9E9::rva002DF9E9()
 {

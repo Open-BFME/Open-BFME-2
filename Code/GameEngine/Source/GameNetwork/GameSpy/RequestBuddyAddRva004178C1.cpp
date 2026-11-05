@@ -101,17 +101,7 @@ template <> void BuddyRequestTree::erase(BuddyRequestTree::iterator, BuddyReques
 #include "../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class GameTextInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14();
-	virtual UnicodeString fetch(const char *label, bool *exists = 0); // +0x3C
-	virtual void slot16();
-	virtual const UnicodeString *fetchFormat(const char *label, bool *exists = 0); // +0x44
-};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 extern unsigned char g_Va00A0308C;
@@ -169,7 +159,7 @@ void Rva004178C1(Int profileID, const AsciiString &nick)
 	message.m_senderNick = g_Rva0107301CEmptyString;
 	message.m_recipientID = TheGameSpyInfo->getLocalProfileID();
 	message.m_recipientNick = TheGameSpyInfo->getLocalBaseName();
-	message.m_message.format(TheGameText->fetchFormat("Buddy:FriendRequestSent"), nick.str());
+	message.m_message.format(TheGameText->fetchPtr("Buddy:FriendRequestSent"), nick.str());
 	messages->push_back(*reinterpret_cast<const BfmeStringRecord00415F34 *>(&message));
 	g_Va00A0308C = 0;
 	g_Va00A03090 = 0;

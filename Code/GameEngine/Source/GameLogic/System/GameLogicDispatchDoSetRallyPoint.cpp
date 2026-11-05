@@ -104,16 +104,7 @@ private:
 };
 #include "../../../Include/GameLogic/LocomotorSet.h"
 
-class GameTextInterface
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14)
-	virtual UnicodeString fetch(const char *label, Bool *exists = 0);		// +0x3C
-	V(16)
-	virtual const UnicodeString &fetchRef(const char *label, Bool *exists = 0);	// +0x44
-#undef V
-};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 #include "../../../Include/GameClient/InGameUI.h"
@@ -214,7 +205,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 		else
 			text = *(void *const *)object->getDisplayName();
 		const unsigned short *substitute = text ? (const unsigned short *)((const char *)text + 8) : L"";
-		message.format(&TheGameText->fetchRef("GUI:RallyPointSet"), substitute);
+		message.format(TheGameText->fetchPtr("GUI:RallyPointSet"), substitute);
 		TheInGameUI->rva0029E846(message);
 
 		static BfmeAudioEventPrefix136 rallyPointSet(TheAudio->getAudioSettings()->m_rallyPointSet, 0);
@@ -263,7 +254,7 @@ void Rva003774ABSetGlobalRallyPoint(Object *object, const Coord3D *position)
 	if (isLocal && data.changed > 0)
 	{
 		UnicodeString message;
-		message.format(&TheGameText->fetchRef("GUI:GlobalRallyPointSet"));
+		message.format(TheGameText->fetchPtr("GUI:GlobalRallyPointSet"));
 		TheInGameUI->message(message);
 		static BfmeAudioEventPrefix136 globalRallyPointSet(TheAudio->getAudioSettings()->m_rallyPointSet, 0);
 		((Rva002D9508 *)&globalRallyPointSet)->rva002D9508(position);

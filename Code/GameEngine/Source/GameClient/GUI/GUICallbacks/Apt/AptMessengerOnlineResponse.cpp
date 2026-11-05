@@ -224,15 +224,7 @@ struct Rva00382D39Input;
 class GameSpyInfo { public: void rva00382D39(Rva00382D39Input *value, AsciiString oldNick); };
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class GameTextInterface
-{
-public:
-#define V(n) virtual void slot##n();
-    V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-    V(10) V(11) V(12) V(13) V(14) V(15) V(16)
-#undef V
-    virtual const UnicodeString *fetchFormat(const char *label, bool *exists = 0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #include "../../../../../Include/Common/GameState.h"
 extern GameState *TheGameState;
@@ -289,7 +281,7 @@ bool AptMessengerOnline::ProcessGameSpyResponse(void *p)
             {
                 const GameSpyGroupRoom &room = it->second;
                 UnicodeString msg;
-                msg.format(TheGameText->fetchFormat("GUI:LobbyJoined"), room.m_translatedName.str());
+                msg.format(TheGameText->fetchPtr("GUI:LobbyJoined"), room.m_translatedName.str());
                 if (g_lastJoinedGroupRoomID != resp->joinGroupRoom.id)
                 {
                     Rva00381C82AddChatText(1, msg, GameSpyColor[1]);

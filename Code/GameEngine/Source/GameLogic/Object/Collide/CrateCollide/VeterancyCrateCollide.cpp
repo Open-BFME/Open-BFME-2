@@ -29,16 +29,7 @@ public:
 
 extern PartitionManager *ThePartitionManager;
 
-class GameTextInterface
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16();
-	virtual const UnicodeString *slot44(const char *label, bool *exists);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -247,7 +238,7 @@ bool VeterancyCrateCollide::executeCrateBehavior(Object *other)
 		if (other && other->getExperienceTracker()) {
 			other->getExperienceTracker()->rva0039B4EC(getLevelsToGain(), !data->m_isPilot, false);
 			UnicodeString rankString;
-			rankString.format(TheGameText->slot44("GUI:GainRank", 0), getLevelsToGain());
+			rankString.format(TheGameText->fetchPtr("GUI:GainRank", 0), getLevelsToGain());
 			((Rva004BCF92 *)this)->rva004BCF92(other, (int)&rankString);
 		}
 	} else {
@@ -258,7 +249,7 @@ bool VeterancyCrateCollide::executeCrateBehavior(Object *other)
 			if (obj && obj->getExperienceTracker()) {
 				obj->getExperienceTracker()->rva0039B4EC(getLevelsToGain(), !data->m_isPilot, false);
 				UnicodeString rankString;
-				rankString.format(TheGameText->slot44("GUI:GainRank", 0), getLevelsToGain());
+				rankString.format(TheGameText->fetchPtr("GUI:GainRank", 0), getLevelsToGain());
 				((Rva004BCF92 *)this)->rva004BCF92(obj, (int)&rankString);
 			}
 		}

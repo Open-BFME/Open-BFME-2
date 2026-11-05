@@ -1085,28 +1085,7 @@ public:
 	float m_1220; // +0x1220 +0x1220
 };
 extern GlobalData *TheWritableGlobalData;
-class GameTextInterface
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7();
-	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual const UnicodeString *fetch(const char *label, Bool *exists); // +0x44
-};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -1401,7 +1380,7 @@ void BuildAssistant::update( void )
 			player->getMoney()->rva003B0D7C( sellValue, NULL, TRUE );
 
 			UnicodeString moneyString;
-			moneyString.format( TheGameText->fetch( "GUI:AddCash", NULL ), sellValue );
+			moneyString.format( TheGameText->fetchPtr( "GUI:AddCash", NULL ), sellValue );
 			Coord3D pos;
 			pos.x = obj->getPosition()->x;
 			pos.y = obj->getPosition()->y;

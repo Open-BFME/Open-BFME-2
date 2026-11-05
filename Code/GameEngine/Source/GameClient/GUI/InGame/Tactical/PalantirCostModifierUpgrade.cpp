@@ -22,10 +22,7 @@ class Rva00528BDD {public:void rva00528BDD();};
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class GameTextInterface {public:
- virtual void slot0()=0;virtual void slot1()=0;virtual void slot2()=0;virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;virtual void slot9()=0;virtual void slotA()=0;virtual void slotB()=0;virtual void slotC()=0;virtual void slotD()=0;virtual void slotE()=0;virtual void slotF()=0;
- virtual const UnicodeString *fetch(const AsciiString&,bool*)=0;
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 // Keep the persistent label's cleanup out of line, as witnessed by BB9270.
 // Ordinary member ownership preserves the canonical4B string representation.
@@ -53,7 +50,7 @@ void Rva0052914B::rva0052914B(Object *object) {
    if(percent!=percentage || (!percent && oldValue!=0) || value!=amount)cached=false;
   }
   if(!cached) {
-   UnicodeString text;text.format(TheGameText->fetch(name,0),value);
+   UnicodeString text;text.format(TheGameText->fetchPtr(name,0),value);
    static Rva0052914BStaticLabel textField("APT:CostModifierUpgrade");
    g_bfmeAptWindowManager->bfmeSetText(textField.asString(),text,false);
    percentage=percent;cached=true;oldValue=0;amount=value;

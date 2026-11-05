@@ -24,17 +24,7 @@ public:
 };
 InGameNotificationType *FindInGameNotificationType(const AsciiString &name);
 
-class GameTextInterface
-{
-public:
-#define TEXT_SLOT(n) virtual void slot##n();
-    TEXT_SLOT(0) TEXT_SLOT(1) TEXT_SLOT(2) TEXT_SLOT(3) TEXT_SLOT(4)
-    TEXT_SLOT(5) TEXT_SLOT(6) TEXT_SLOT(7) TEXT_SLOT(8) TEXT_SLOT(9)
-    TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
-#undef TEXT_SLOT
-    virtual UnicodeString fetchAscii(const AsciiString &label, bool *exists = 0);
-    virtual UnicodeString fetch(const char *label, bool *exists = 0);
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 // The notification interface InGameUI implements at +0x10 (vftable 0x7C7A64);
@@ -142,9 +132,9 @@ void InGameUI::notifyHeroEarnedAward(CreateAHeroHero *hero, int key)
  InGameNotificationType *type=FindInGameNotificationType(AsciiString("HeroEarnedAward"));
  if (!type) return;
  bool exists;
- UnicodeString format=TheGameText->fetchAscii(awardLabel,&exists);
+ UnicodeString format=TheGameText->fetch(awardLabel,&exists);
  if (!exists) return;
- UnicodeString label=TheGameText->fetchAscii(award->label);
+ UnicodeString label=TheGameText->fetch(award->label);
  UnicodeString text;
  text.format(format.str(),((HeroAwardNameView *)hero)->name.str(),label.str());
  const Image *image=TheMappedImageCollection->findImageByName(award->image);
@@ -174,7 +164,7 @@ void InGameUI::notifyOfHeroSpawnEvent(Object *obj, const char *typeName, const i
  if (!type)
   return;
  bool exists;
- UnicodeString format = TheGameText->fetchAscii(*(const AsciiString *)label, &exists);
+ UnicodeString format = TheGameText->fetch(*(const AsciiString *)label, &exists);
  if (!exists)
   return;
  ThingTemplate *thingTemplate = obj->getTemplate();

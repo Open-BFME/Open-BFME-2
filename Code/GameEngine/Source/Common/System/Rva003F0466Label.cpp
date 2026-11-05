@@ -12,25 +12,7 @@
 
 #include "unicode_string.h"
 
-class GameTextInterface
-{
-public:
-	virtual void v00();
-	virtual void v04();
-	virtual void v08();
-	virtual void v0c();
-	virtual void v10();
-	virtual void v14();
-	virtual void v18();
-	virtual void v1c();
-	virtual void v20();
-	virtual void v24();
-	virtual void v28();
-	virtual void v2c();
-	virtual void v30();
-	virtual void v34();
-	virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0);
-};
+#include "../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -42,12 +24,12 @@ extern GameTextInterface *TheGameText;
 
 UnicodeString LivingWorldRegion::GetFortressDisplayName()
 {
-	return !((const StringBase<char> *)&m_field124)->isEmpty() ? TheGameText->fetchLabel(m_field124) : UnicodeString::TheEmptyString;
+	return !((const StringBase<char> *)&m_field124)->isEmpty() ? TheGameText->fetch(m_field124) : UnicodeString::TheEmptyString;
 }
 
 UnicodeString LivingWorldRegion::GetFortressDisplayDescription()
 {
-	return !((const StringBase<char> *)&m_field128)->isEmpty() ? TheGameText->fetchLabel(m_field128) : UnicodeString::TheEmptyString;
+	return !((const StringBase<char> *)&m_field128)->isEmpty() ? TheGameText->fetch(m_field128) : UnicodeString::TheEmptyString;
 }
 
 // Native 0x003F8497..0x003F8509, 114B. The predicate and the optional

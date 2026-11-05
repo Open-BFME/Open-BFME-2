@@ -108,20 +108,7 @@ public:
 extern class GameWindowTransitionsHandler *TheTransitionHandler;
 #define theBfmeDfdc14 (*(Rva001DBAA4 * *)&TheTransitionHandler)
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
-	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0;
-	virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
-	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-	virtual void slot16() = 0;
-	virtual const UnicodeString *slot44(const char *label, bool *exists) = 0; // vslot 0x44
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 class Rva00222A8BTarget;
@@ -307,9 +294,9 @@ void AptCreateAHero::DrawMapComponent(const Coord2D *origin, const Coord2D *exte
 		UnicodeString path(TheWritableGlobalData->getPicturePath());
 		path.concat(file);
 		UnicodeString title;
-		title.format(TheGameText->slot44("GUI:OnPictureTakenTitle", 0), m_heroName.str());
+		title.format(TheGameText->fetchPtr("GUI:OnPictureTakenTitle", 0), m_heroName.str());
 		UnicodeString message;
-		message.format(TheGameText->slot44("GUI:OnPictureTaken", 0), path.str());
+		message.format(TheGameText->fetchPtr("GUI:OnPictureTaken", 0), path.str());
 		MessageBoxOk(title, message, 0);
 	}
 }

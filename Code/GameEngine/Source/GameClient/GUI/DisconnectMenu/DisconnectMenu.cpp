@@ -168,28 +168,7 @@ private:
 // DisconnectScreen::PlayerName%d, otherwise the name plus a
 // Network:PlayerLeftGame chat line, then the kick-button hide and the
 // DisconnectScreen::VotesReceived%d reset.
-class GameTextInterface
-{
-public:
-	virtual void v0();
-	virtual void v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7();
-	virtual void v8();
-	virtual void v9();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-	virtual void v16();
-	virtual const UnicodeString *slot44(const char *label, bool *exists);
-};
+#include "../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -487,7 +466,7 @@ void AptDisconnectScreen::rva00512EDD(int slot, UnicodeString name)
 			UnicodeString msg;
 			const char *data = *(const char *const *)&name;
 			const unsigned short *nameText = data ? (const unsigned short *)(data + 8) : L"";
-			msg.format(TheGameText->slot44("Network:PlayerLeftGame", 0), nameText);
+			msg.format(TheGameText->fetchPtr("Network:PlayerLeftGame", 0), nameText);
 			GadgetListBoxAddEntryText(m_chatBox, msg, g_00DD1488, -1, -1, true);
 		}
 	}

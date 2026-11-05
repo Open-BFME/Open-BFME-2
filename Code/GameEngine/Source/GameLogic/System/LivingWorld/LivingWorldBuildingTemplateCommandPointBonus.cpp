@@ -48,15 +48,7 @@ BuildingNuggetView *LivingWorldBuildingTemplate::findNugget(const AsciiString &n
     return 0;
 }
 
-class GameTextInterface
-{
-public:
-#define GT_SLOT(n) virtual void slot##n();
-GT_SLOT(0) GT_SLOT(1) GT_SLOT(2) GT_SLOT(3) GT_SLOT(4) GT_SLOT(5) GT_SLOT(6) GT_SLOT(7) GT_SLOT(8) GT_SLOT(9) GT_SLOT(10) GT_SLOT(11) GT_SLOT(12) GT_SLOT(13)
-#undef GT_SLOT
-    virtual UnicodeString fetchLabel(const AsciiString &, bool *);
-    virtual UnicodeString fetch(const char *, bool *);
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void LivingWorldBuildingTemplate::appendDisplayCommandPointBonus(UnicodeString &description) const
 {
@@ -97,7 +89,7 @@ const LivingWorldBuildingTemplate *LivingWorldBuildingTemplateStore::getEmergenc
 // Native2DFE36..2DFE9E complete104B: translated description + command-point bonus.
 UnicodeString LivingWorldBuildingTemplate::rva002DFE36()
 {
-    UnicodeString description=TheGameText->fetchLabel(descriptionLabel,0);
+    UnicodeString description=TheGameText->fetch(descriptionLabel,0);
     appendDisplayCommandPointBonus(description);
     return UnicodeString(description);
 }

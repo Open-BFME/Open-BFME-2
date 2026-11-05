@@ -28,19 +28,11 @@ Rva005DD772::Rva005DD772() : UnicodeString(AsciiString("-")), m04(0.0f) {}
 // Same 8B layout and callees as the default ctor above; callers in the big
 // parsers 0x005BEA70/0x005C1BDE.
 Rva005DD772::Rva005DD772(const UnicodeString &str, float statValue) : UnicodeString(str), m04(statValue) {}
-class GameTextInterface {
-public:
-    virtual ~GameTextInterface(){}
-    virtual void slot00()=0; virtual void slot01()=0; virtual void slot02()=0; virtual void slot03()=0;
-    virtual void slot04()=0; virtual void slot05()=0; virtual void slot06()=0; virtual void slot07()=0;
-    virtual void slot08()=0; virtual void slot09()=0; virtual void slot10()=0; virtual void slot11()=0;
-    virtual void slot12()=0; virtual UnicodeString fetch(const AsciiString &label, bool *exists=0)=0; virtual void slot14()=0; virtual void slot15()=0;
-    virtual const UnicodeString& slot44(const char* label, bool* exists=0)=0;
-};
+#include "../../Include/GameClient/GameText.h"
 extern GameTextInterface* TheGameText;
 // ??0Rva005DD9F9@@QAE@M@Z @0x005DD9F9 94B chain of base 0x5DD772.
 // Float ctor overwrites base m04 then rounds v+0.5f via 0x7C26F0 to int for
-// TheGameText slot44 GUI:WinPercent fetch returning const UnicodeString&
+// TheGameText fetchPtr (+0x44) GUI:WinPercent format string
 // then UnicodeString format 0x6CB660. Same 8B layout no vptr returns this.
 class Rva005DD9F9 : public Rva005DD772 {
 public:
@@ -49,7 +41,7 @@ public:
 Rva005DD9F9::Rva005DD9F9(float percent) : Rva005DD772() {
     m04 = percent;
     int i = (int)(percent + 0.5f);
-    ((UnicodeString*)this)->format(&TheGameText->slot44("GUI:WinPercent"), i);
+    ((UnicodeString*)this)->format(TheGameText->fetchPtr("GUI:WinPercent"), i);
 }
 
 // ??0Rva005DD822@@QAE@I@Z @ 0x005DD822 75B

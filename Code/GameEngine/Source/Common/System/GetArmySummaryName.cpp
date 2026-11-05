@@ -11,25 +11,7 @@
 
 #include "unicode_string.h"
 
-class GameTextInterface
-{
-public:
-	virtual void v00();
-	virtual void v04();
-	virtual void v08();
-	virtual void v0c();
-	virtual void v10();
-	virtual void v14();
-	virtual void v18();
-	virtual void v1c();
-	virtual void v20();
-	virtual void v24();
-	virtual void v28();
-	virtual void v2c();
-	virtual void v30();
-	virtual void v34();
-	virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0);
-};
+#include "../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -44,6 +26,6 @@ UnicodeString __cdecl GetArmySummaryName(Rva00220808 *src)
 {
 	UnicodeString tmp;
 	if (!((const StringBase<char> *)&src->m_label)->isEmpty())
-		tmp.set(TheGameText->fetchLabel(src->m_label));
+		tmp.set(TheGameText->fetch(src->m_label));
 	return tmp;
 }

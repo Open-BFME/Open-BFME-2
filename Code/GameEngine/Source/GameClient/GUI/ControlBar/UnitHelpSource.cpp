@@ -173,15 +173,7 @@ static __declspec(noinline) void rva004E72CB(const ThingTemplate *tpl,
 }
 
 extern GameLogic *TheGameLogic;
-class GameTextInterface {
-public:
-#define V(n) virtual void slot##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13)
- virtual UnicodeString fetch(const AsciiString &, bool *);
- V(15) V(16)
- virtual const UnicodeString *formatText(const char *, bool *);
-#undef V
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class UpgradeTemplate { public: char pad[0x2c]; AsciiString label; };
 class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int) const; };
@@ -223,7 +215,7 @@ TreeHintRef00217D4C Rva004E7506::rva004E7506()
      const UnicodeString &ownerName=owner->name();
      if(!ownerName.isEmpty()) {
       UnicodeString combined;
-      combined.format(TheGameText->formatText("TOOLTIP:VerteranHordeMemberName",0),titleView.str(),ownerName.str());
+      combined.format(TheGameText->fetchPtr("TOOLTIP:VerteranHordeMemberName",0),titleView.str(),ownerName.str());
       title.swap(combined);
      }
     }
@@ -234,7 +226,7 @@ TreeHintRef00217D4C Rva004E7506::rva004E7506()
    if(rank>0) {
     int maximum=ComputeObjectMaxRank(obj);
     if(maximum>1) {
-     UnicodeString text;text.format(TheGameText->formatText("TOOLTIP:Rank",0),rank,maximum);
+     UnicodeString text;text.format(TheGameText->fetchPtr("TOOLTIP:Rank",0),rank,maximum);
      Rva004E74E0Append(&details,&text);
     }
    }
@@ -244,18 +236,18 @@ TreeHintRef00217D4C Rva004E7506::rva004E7506()
     UnicodeString text;
     int maximum=maxHealthOf(obj);
     if(maximum>0) {
-     text.format(TheGameText->formatText("TOOLTIP:MaxHealth",0),maximum);Rva004E74E0Append(&details,&text);
+     text.format(TheGameText->fetchPtr("TOOLTIP:MaxHealth",0),maximum);Rva004E74E0Append(&details,&text);
     }
     int melee,ranged;rva004E72CB(tpl,melee,ranged,obj);
-    if(melee>=0){text.format(TheGameText->formatText("TOOLTIP:MeleeDamage",0),melee);Rva004E74E0Append(&details,&text);}
-    if(ranged>=0){text.format(TheGameText->formatText("TOOLTIP:RangedDamage",0),ranged);Rva004E74E0Append(&details,&text);}
+    if(melee>=0){text.format(TheGameText->fetchPtr("TOOLTIP:MeleeDamage",0),melee);Rva004E74E0Append(&details,&text);}
+    if(ranged>=0){text.format(TheGameText->fetchPtr("TOOLTIP:RangedDamage",0),ranged);Rva004E74E0Append(&details,&text);}
    }
    const unsigned long *upgradeWords=reinterpret_cast<const unsigned long *>(&obj->upgrades());
    if(obj->upgrades().any())for(int upgradeIndex=0;upgradeIndex<1024;++upgradeIndex)if((upgradeWords[((unsigned int)upgradeIndex)>>5] & (1UL<<(upgradeIndex&31)))) {
     const UpgradeTemplate *up=TheUpgradeCenter->rva0026EEA0(upgradeIndex);
     if(up && !up->label.isEmpty()) {Rva004E74E0Append(&details,&TheGameText->fetch(up->label,0));}
    }
-   if(obj->battles()>0){UnicodeString text;text.format(TheGameText->formatText("TOOLTIP:BattlesFought",0),obj->battles());Rva004E74E0Append(&details,&text);}
+   if(obj->battles()>0){UnicodeString text;text.format(TheGameText->fetchPtr("TOOLTIP:BattlesFought",0),obj->battles());Rva004E74E0Append(&details,&text);}
    AsciiString descriptionKey;
    UnicodeString description(tpl->description);
    draw=((Thing *)obj)->getDrawable();

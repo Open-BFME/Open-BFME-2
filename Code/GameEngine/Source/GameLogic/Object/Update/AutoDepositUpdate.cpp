@@ -20,16 +20,7 @@ enum KindOfType
 {
 	KINDOF_0A = 10
 };
-class GameTextInterface
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16();
-	virtual const UnicodeString *slot44(const char *label, Bool *exists);
-};
+#include "../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #include "../../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -206,7 +197,7 @@ void AutoDepositUpdate::awardInitialCaptureBonus( Player *player )
 	if( getAutoDepositUpdateModuleData()->m_initialCaptureBonus > 0 )
 	{
 		UnicodeString moneyString;
-		moneyString.format( TheGameText->slot44( "GUI:AddCash", NULL ), getAutoDepositUpdateModuleData()->m_initialCaptureBonus );
+		moneyString.format( TheGameText->fetchPtr( "GUI:AddCash", NULL ), getAutoDepositUpdateModuleData()->m_initialCaptureBonus );
 		Coord3D pos;
 		pos.x = getObject()->getPosition()->x;
 		pos.y = getObject()->getPosition()->y;
@@ -273,7 +264,7 @@ UpdateSleepTime AutoDepositUpdate::update( void )
 		if( getAutoDepositUpdateModuleData()->m_depositAmount > 0 )
 		{
 			UnicodeString moneyString;
-			moneyString.format( TheGameText->slot44( "GUI:AddCash", NULL ), moneyAmount );
+			moneyString.format( TheGameText->fetchPtr( "GUI:AddCash", NULL ), moneyAmount );
 			Coord3D pos;
 			pos.x = getObject()->getPosition()->x;
 			pos.y = getObject()->getPosition()->y;

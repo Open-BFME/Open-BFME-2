@@ -16,13 +16,7 @@ class Rva00423A68 { public: void rva00423A68(const ModuleData *); };
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
-class GameTextInterface {
-public:
-#define V(n) virtual void slot##n();
-V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)
-#undef V
- virtual UnicodeString fetchLabel(const AsciiString &, bool *exists = 0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 class CreateAHeroData;
 class Rva0040A3D2 { public: CreateAHeroData *rva0040A3D2(int, int); };
@@ -104,13 +98,13 @@ void Rva005B566B::rva005B54ED(unsigned major, unsigned minor, bool animate)
 
  {
   AsciiString key("APT:CahClassDescription");
-  g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetchLabel(TheCreateAHeroManager->GetClassDescTag(major)), true);
+  g_bfmeAptWindowManager->bfmeSetText(key, TheGameText->fetch(TheCreateAHeroManager->GetClassDescTag(major)), true);
 
  }
 
  {
   AsciiString key("APT:CahTypeDescription");
-  SetTypeDescription(key,TheGameText->fetchLabel(TheCreateAHeroManager->GetSubClassDescTag(major,minor)),minor);
+  SetTypeDescription(key,TheGameText->fetch(TheCreateAHeroManager->GetSubClassDescTag(major,minor)),minor);
 
  }
 

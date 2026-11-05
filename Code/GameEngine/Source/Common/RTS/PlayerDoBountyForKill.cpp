@@ -21,16 +21,7 @@ __forceinline int bountyRound(float value) {
  __asm {fistp result}
  return result;
 }
-class GameTextInterface
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16();
-	virtual const UnicodeString *slot44(const char *label, bool *exists);
-};
+#include "../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -110,7 +101,7 @@ void Player::doBountyForKill(const Object *killer,const Object *victim)
  m_money.rva003B0D7C(bounty,&m_3BC,true);
  { Coord3D pos;
   UnicodeString moneyString;
-  moneyString.format(TheGameText->slot44("GUI:AddCash",0),bounty);
+  moneyString.format(TheGameText->fetchPtr("GUI:AddCash",0),bounty);
   pos.x=victimObject->pos.x;pos.y=victimObject->pos.y;pos.z=victimObject->pos.z;
   pos.z+=10.0f;
   TheInGameUI->addFloatingText(moneyString,&pos,0xffffff00);

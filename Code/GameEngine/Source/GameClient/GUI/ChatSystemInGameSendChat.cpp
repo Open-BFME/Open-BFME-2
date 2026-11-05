@@ -78,28 +78,7 @@ public:
 #include "../../../Include/GameNetwork/GameInfo.h"
 
 
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual const UnicodeString &fetch(const char *label, bool *exists = 0) = 0; // +0x44
-};
+#include "../../../Include/GameClient/GameText.h"
 
 #include "../../../Include/GameNetwork/NetworkInterfaceClass.h"
 
@@ -146,11 +125,11 @@ bool Rva0038190FSendChat(const UnicodeString &text, const SelectionIDs &selected
 	}
 	UnicodeString message;
 	if (observer)
-		message.format(&TheGameText->fetch("APT:ObserverChat"), text.str());
+		message.format(TheGameText->fetchPtr("APT:ObserverChat"), text.str());
 	else if (selected.empty())
-		message.format(&TheGameText->fetch("APT:GlobalChat"), text.str());
+		message.format(TheGameText->fetchPtr("APT:GlobalChat"), text.str());
 	else
-		message.format(&TheGameText->fetch("APT:PrivateChat"), text.str());
+		message.format(TheGameText->fetchPtr("APT:PrivateChat"), text.str());
 	TheNetwork->sendChat(message, playerMask);
 	return true;
 }

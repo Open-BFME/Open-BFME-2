@@ -12,27 +12,7 @@
 
 #include "unicode_string.h"
 
-class GameTextInterface
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual const UnicodeString *fetchRank(const AsciiString &label, int a);
-};
+#include "../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -49,6 +29,6 @@ void __cdecl Rva0052906BUpdate(int rank)
 	static AsciiString s_rankLabel("APT:RankLabel");
 	static AsciiString s_heroRank("APT:HeroRank");
 	UnicodeString tmp;
-	tmp.format(TheGameText->fetchRank(s_rankLabel, 0), rank);
+	tmp.format(TheGameText->fetchPtr(s_rankLabel, 0), rank);
 	g_bfmeAptWindowManager->bfmeSetText(s_heroRank, tmp, false);
 }

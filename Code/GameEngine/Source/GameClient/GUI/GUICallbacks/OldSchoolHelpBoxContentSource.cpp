@@ -83,16 +83,7 @@ struct UpgradeRange
 	UpgradeTemplate **m_end;
 };
 
-class GameTextInterface
-{
-public:
-	HELP_SLOTS4(a) HELP_SLOTS4(b) HELP_SLOTS4(c)
-	virtual void d0(); virtual void d1();
-	virtual UnicodeString fetchA(const AsciiString &label, bool *exists);      // +0x38
-	virtual UnicodeString fetchC(const char *label, bool *exists);             // +0x3C
-	virtual UnicodeString *fetchPtrA(const AsciiString &label, bool *exists);  // +0x40
-	virtual UnicodeString *fetchPtrC(const char *label, bool *exists);         // +0x44
-};
+#include "../../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -431,11 +422,11 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 				if (notBusy)
 				{
 					if (!fullHealth)
-						cost.format(TheGameText->fetchPtrC("TOOLTIP:Cost", 0), (int)costValue);
+						cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), (int)costValue);
 				}
 				else if (obj->getBodyModule()->getHealthPercent() == 0.0f)
 				{
-					cost.format(TheGameText->fetchPtrC("TOOLTIP:Cost", 0), (int)costValue);
+					cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), (int)costValue);
 				}
 			}
 		}
@@ -463,7 +454,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 						|| localPlayer->rva002AB855((CreateAHeroData *)heroScience)
 						|| !TheScienceStore->playerHasRootPrereqsForScience((const Player *)((char *)localPlayer + 4), heroScience))
 					{
-						description = TheGameText->fetchC("TOOLTIP:ScienceDisabled", 0);
+						description = TheGameText->fetch("TOOLTIP:ScienceDisabled", 0);
 					}
 				}
 			}
@@ -471,36 +462,36 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 
 		if (UnicodeView::isEmpty(description) && !m_commandButton->rva0035B26F().isEmpty())
 		{
-			description = TheGameText->fetchA(m_commandButton->rva0035B26F(), 0);
+			description = TheGameText->fetch(m_commandButton->rva0035B26F(), 0);
 			if (obj && upgrade && !player->rva002AA8EF(upgrade) && isUnitBuild)
 			{
 				QueueModule *queue = (QueueModule *)obj->rva0028BC58(0);
 				if (queue && queue->getQueueState() == 0x14)
 				{
 					description.concat(L"\n\n");
-					description.concat(TheGameText->fetchC("TOOLTIP:TooltipCannotPurchaseBecauseQueueFull", 0));
+					description.concat(TheGameText->fetch("TOOLTIP:TooltipCannotPurchaseBecauseQueueFull", 0));
 				}
 				else if (!TheUpgradeCenter->rva0026F11A(ThePlayerList->getLocalPlayer(), upgrade, obj, false))
 				{
 					description.concat(L"\n\n");
-					description.concat(TheGameText->fetchC("TOOLTIP:TooltipNotEnoughMoneyToBuild", 0));
+					description.concat(TheGameText->fetch("TOOLTIP:TooltipNotEnoughMoneyToBuild", 0));
 				}
 			}
 		}
 
-		title = TheGameText->fetchC(m_commandButton->rva0035B1E9().str(), 0);
+		title = TheGameText->fetch(m_commandButton->rva0035B1E9().str(), 0);
 
 		if (thing && !(upgrade && isUnitBuild) && m_commandButton->getCommandType() != 0x19 && m_commandButton->getCommandType() != 0x34)
 		{
 			int buildCost = (thing->m_flags11B & 0x20) ? 0 : thing->rva0033A69A(player, (int)obj, -1);
 			if (buildCost <= 0)
-				cost = TheGameText->fetchC("TOOLTIP:CostFree", 0);
+				cost = TheGameText->fetch("TOOLTIP:CostFree", 0);
 			else
-				cost.format(TheGameText->fetchPtrC("TOOLTIP:Cost", 0), buildCost);
+				cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), buildCost);
 
 			int buildPoints = thing->m_buildPoints;
 			if (buildPoints > 0)
-				time.format(TheGameText->fetchPtrC("TOOLTIP:CommandPoints", 0), buildPoints);
+				time.format(TheGameText->fetchPtr("TOOLTIP:CommandPoints", 0), buildPoints);
 
 			for (int p = 0; p < thing->getPrereqCount(); ++p)
 			{
@@ -518,7 +509,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 
 			if (!UnicodeView::isEmpty(requiresList))
 			{
-				UnicodeString requiresFormat = TheGameText->fetchC("CONTROLBAR:Requirements", 0);
+				UnicodeString requiresFormat = TheGameText->fetch("CONTROLBAR:Requirements", 0);
 				requiresList.format(requiresFormat.str(), requiresList.str());
 				if (!UnicodeView::isEmpty(description))
 					description.concat(L"\n");
@@ -529,7 +520,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 			{
 				if (!UnicodeView::isEmpty(description))
 					description.concat(L"\n");
-				description.concat(TheGameText->fetchC("TOOLTIP:BuildDisabled", 0));
+				description.concat(TheGameText->fetch("TOOLTIP:BuildDisabled", 0));
 			}
 		}
 		else if (upgrade)
@@ -581,35 +572,35 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 			if (lacksPrereq)
 			{
 				if (!m_commandButton->m_lacksPrereqLabel.isEmpty())
-					description = TheGameText->fetchA(m_commandButton->m_lacksPrereqLabel, 0);
+					description = TheGameText->fetch(m_commandButton->m_lacksPrereqLabel, 0);
 				else
-					description = TheGameText->fetchC("TOOLTIP:LacksPrerequisiteUpgradeDefault", 0);
+					description = TheGameText->fetch("TOOLTIP:LacksPrerequisiteUpgradeDefault", 0);
 			}
 			else if (canUpgrade && !hasUpgrade)
 			{
 				if (!m_commandButton->m_conflictingLabel.isEmpty())
-					description = TheGameText->fetchA(m_commandButton->m_conflictingLabel, 0);
+					description = TheGameText->fetch(m_commandButton->m_conflictingLabel, 0);
 				else
-					description = TheGameText->fetchC("TOOLTIP:HasConflictingUpgradeDefault", 0);
+					description = TheGameText->fetch("TOOLTIP:HasConflictingUpgradeDefault", 0);
 			}
 			else if (hasUpgrade && (isType6 || isType7 || isType8))
 			{
 				if (!m_commandButton->m_alreadyUpgradedLabel.isEmpty())
-					description = TheGameText->fetchA(m_commandButton->m_alreadyUpgradedLabel, 0);
+					description = TheGameText->fetch(m_commandButton->m_alreadyUpgradedLabel, 0);
 				else
-					description = TheGameText->fetchC("TOOLTIP:AlreadyUpgradedDefault", 0);
+					description = TheGameText->fetch("TOOLTIP:AlreadyUpgradedDefault", 0);
 			}
 
 			if (!hasUpgrade)
 			{
 				int upgradeCost = upgrade->calcCostToBuild(player, (unsigned int)obj);
 				if (upgradeCost > 0)
-					cost.format(TheGameText->fetchPtrC("TOOLTIP:Cost", 0), upgradeCost);
+					cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), upgradeCost);
 			}
 		}
 		else if (science != SCIENCE_INVALID && !fireScienceButton)
 		{
-			cost.format(TheGameText->fetchPtrC("TOOLTIP:ScienceCost", 0), TheScienceStore->getSciencePurchaseCost(science));
+			cost.format(TheGameText->fetchPtr("TOOLTIP:ScienceCost", 0), TheScienceStore->getSciencePurchaseCost(science));
 		}
 		else if (m_commandButton->getCommandType() == 0x2E)
 		{
@@ -624,41 +615,41 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 				{
 					label = "CONTROLBAR:GenericReviveHero";
 					if (!((Rva0033AC7F *)revivalThing)->rva0033AC7F(description))
-						description = TheGameText->fetchC("CONTROLBAR:ToolTipGenericReviveHero", 0);
+						description = TheGameText->fetch("CONTROLBAR:ToolTipGenericReviveHero", 0);
 				}
 				else
 				{
 					label = "CONTROLBAR:GenericRecruitHero";
 					if (!((Rva0033AC7F *)revivalThing)->rva0033ACA2(description))
-						description = TheGameText->fetchC("CONTROLBAR:ToolTipGenericRecruitHero", 0);
+						description = TheGameText->fetch("CONTROLBAR:ToolTipGenericRecruitHero", 0);
 				}
 
 				if (!rva00405B0A(label, player, revivalThing, &title))
 				{
 					AsciiString nameLabel;
 					if (((Rva0033AC7F *)revivalThing)->rva0033ACC5(nameLabel))
-						title.format(TheGameText->fetchPtrA(label, 0), TheGameText->fetchA(nameLabel, 0).str());
+						title.format(TheGameText->fetchPtr(label, 0), TheGameText->fetch(nameLabel, 0).str());
 					else
-						title.format(TheGameText->fetchPtrA(label, 0), revivalThing->m_displayName.str());
+						title.format(TheGameText->fetchPtr(label, 0), revivalThing->m_displayName.str());
 				}
 
 				description.concat(L"\n");
 				UnicodeString rank;
-				rank.format(TheGameText->fetchPtrC("APT:RankLabel", 0), entry->m_rank);
+				rank.format(TheGameText->fetchPtr("APT:RankLabel", 0), entry->m_rank);
 				description.concat(rank);
 
-				cost.format(TheGameText->fetchPtrC("TOOLTIP:Cost", 0), ((Rva0037E6E8 *)revival)->rva0037E649(index, obj));
+				cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), ((Rva0037E6E8 *)revival)->rva0037E649(index, obj));
 
 				int buildPoints = revivalThing->m_buildPoints;
 				if (buildPoints > 0)
-					time.format(TheGameText->fetchPtrC("TOOLTIP:CommandPoints", 0), buildPoints);
+					time.format(TheGameText->fetchPtr("TOOLTIP:CommandPoints", 0), buildPoints);
 			}
 		}
 		else if (m_commandButton->getCommandType() == 0x21 && obj)
 		{
 			Module *castle = obj->helpFindModule(CastleBehavior::rva0003955DA());
 			if (castle && ((Rva00395F57 *)castle)->canUnpack(false))
-				cost.format(TheGameText->fetchPtrC("TOOLTIP:Cost", 0), ((Rva0039718B *)castle)->rva003970E7(player));
+				cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), ((Rva0039718B *)castle)->rva003970E7(player));
 		}
 	}
 

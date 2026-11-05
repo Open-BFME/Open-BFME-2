@@ -6,15 +6,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-class GameTextInterface
-{
-public:
-    virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03();
-    virtual void pad04(); virtual void pad05(); virtual void pad06(); virtual void pad07();
-    virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
-    virtual void pad12(); virtual void pad13();
-    virtual UnicodeString fetch(AsciiString *key, int unk);
-};
+#include "../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -39,21 +31,21 @@ struct Rva002CF1E2Node
 void Rva002CF1E2Node::rva0033B217()
 {
     {
-        m_val30 = TheGameText->fetch(&m_key2c, 0);
+        m_val30 = TheGameText->fetch(m_key2c, 0);
     }
     {
-        m_val38 = TheGameText->fetch(&m_key34, 0);
+        m_val38 = TheGameText->fetch(m_key34, 0);
     }
     {
-        m_val50 = TheGameText->fetch(&m_key4c, 0);
+        m_val50 = TheGameText->fetch(m_key4c, 0);
     }
     {
-        m_val48 = TheGameText->fetch(&m_key44, 0);
+        m_val48 = TheGameText->fetch(m_key44, 0);
     }
     {
-        m_val58 = TheGameText->fetch(&m_key54, 0);
+        m_val58 = TheGameText->fetch(m_key54, 0);
     }
     {
-        m_val40 = TheGameText->fetch(&m_key3c, 0);
+        m_val40 = TheGameText->fetch(m_key3c, 0);
     }
 }

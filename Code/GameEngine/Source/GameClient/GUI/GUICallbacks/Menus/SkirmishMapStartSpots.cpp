@@ -19,20 +19,7 @@ extern MapCache *TheMapCache;
 #include "../../../../../Include/GameNetwork/GameInfo.h"
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 void GadgetButtonSetText(GameWindow*,UnicodeString);
-class GameTextInterface {
-public:
- virtual void slot00(); virtual void slot01(); virtual void slot02();
- virtual void slot03(); virtual void slot04(); virtual void slot05();
- virtual void slot06(); virtual void slot07(); virtual void slot08();
- virtual void slot09(); virtual void slot10(); virtual void slot11();
- virtual void slot12(); virtual void slot13();
- virtual UnicodeString fetch(const char*,bool* =0);
- virtual UnicodeString fetch(const AsciiString&,bool* =0);
- virtual void slot16();
- // Target slot44 returns a borrowed UnicodeString pointer used by format.
- // Original spelling and ownership beyond the observed borrow remain unknown.
- virtual const UnicodeString* rvaSlot44(const char*,bool* =0);
-};
+#include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 void updateMapStartSpots(GameInfo *myGame,GameWindow *buttons[],bool onLoadScreen) {
  AsciiString lowerMap=myGame->getMap(); ((StringBase<char> &)(lowerMap)).toLower();
@@ -61,7 +48,7 @@ void updateMapStartSpots(GameInfo *myGame,GameWindow *buttons[],bool onLoadScree
     AsciiString displayNumber; displayNumber.format("NUMBER:%d",i+1);
     GadgetButtonSetText(buttons[gs->getStartPos()],TheGameText->fetch(displayNumber));
     UnicodeString temp;
-    temp.format(TheGameText->rvaSlot44("TOOLTIP:StartPositionN"),i+1);
+    temp.format(TheGameText->fetchPtr("TOOLTIP:StartPositionN"),i+1);
     buttons[gs->getStartPos()]->winSetTooltip(temp);
    } else if(gs->getStartPos()>=mmd.m_numPlayers) gs->setStartPos(-1);
   }

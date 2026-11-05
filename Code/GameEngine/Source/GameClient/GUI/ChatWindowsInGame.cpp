@@ -127,17 +127,7 @@ extern GameSpyStagingRoom *TheGameSpyGame;
 
 extern MultiplayerSettings *TheMultiplayerSettings;
 
-class GameTextInterface { public:
-#define TEXT_SLOT(N) virtual void slot##N();
-    TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04)
-    TEXT_SLOT(05) TEXT_SLOT(06) TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09)
-    TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
-#undef TEXT_SLOT
-    virtual UnicodeString fetch(const char *,bool * = 0);
-    virtual UnicodeString fetch(const AsciiString &,bool * = 0);
-    virtual void slot16();
-    virtual const UnicodeString *slot17(const char *,bool *);
-};
+#include "../../../Include/GameClient/GameText.h"
 
 extern GameTextInterface *TheGameText;
 
@@ -375,7 +365,7 @@ bool ChatWindowsInGame::PopulatePlayerList()
         if(!slot || !slot->isHuman()) continue;
         UnicodeString team;
         int number=slot->m_teamNumber;
-        if(number>=0) team.format(TheGameText->slot17("APT:CurrentTeam",0),number);
+        if(number>=0) team.format(TheGameText->fetchPtr("APT:CurrentTeam",0),number);
         else team=TheGameText->fetch("APT:CurrentTeamNone",0);
         int color=TheMultiplayerSettings->getColor(slot->m_color)->m_color;
         int user=i;
