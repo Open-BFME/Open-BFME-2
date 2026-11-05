@@ -58,6 +58,13 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 #include "GameClient/GameClient.h"
 
+// Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
+class Rva0055A88BDwordField
+{
+public:
+	int get() const;
+};
+
 // USER INCLUDES //////////////////////////////////////////////////////////////
 #include "Common/ActionManager.h"
 #include "Common/GameEngine.h"
@@ -206,7 +213,7 @@ void GameClient::addDrawableToLookupTable(Drawable *draw )
 
 	// add to lookup
 //	m_drawableHash[ draw->getID() ] = draw;
-	DrawableID newID = draw->getID();
+	DrawableID newID = (DrawableID)((const Rva0055A88BDwordField *)draw)->get();
 	while( newID >= m_drawableVector.size() ) // Fail case is hella rare, so faster to double up on size() call
 		m_drawableVector.resize(m_drawableVector.size() * 2, NULL);
 
@@ -453,8 +460,8 @@ void GameClient::loadPostProcess( void )
 	//
 	Drawable *draw;
 	for( draw = getDrawableList(); draw; draw = draw->getNextDrawable() )
-		if( draw->getID() >= m_nextDrawableID )
-			m_nextDrawableID = (DrawableID)((UnsignedInt)draw->getID() + 1);
+		if( (DrawableID)((const Rva0055A88BDwordField *)draw)->get() >= m_nextDrawableID )
+			m_nextDrawableID = (DrawableID)((UnsignedInt)((const Rva0055A88BDwordField *)draw)->get() + 1);
 
 }  // end loadPostProcess
 

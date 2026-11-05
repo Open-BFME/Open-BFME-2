@@ -1,0 +1,13 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/GameClient.cpp",
+  "provider_defines_replacement": true,
+  "external_definitions_preserved": 622,
+  "external_comdats_preserved": 616,
+  "changed_comdats": [
+    "?addDrawableToLookupTable@GameClient@@QAEXPAVDrawable@@@Z",
+    "?loadPostProcess@GameClient@@MAEXXZ"
+  ],
+  "removed_undefined": "?getID@Drawable@@QBE?AW4DrawableID@@XZ",
+  "added_undefined": "?get@Rva0055A88BDwordField@@QBEHXZ",
+  "normalized_comdat_bytes_sizes_relocations_equal": true
+}
