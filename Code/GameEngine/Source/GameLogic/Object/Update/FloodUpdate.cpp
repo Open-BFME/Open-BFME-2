@@ -163,18 +163,6 @@ struct FloodMember
 	Real m_speed; // +0x34
 };
 #include "Common/Snapshot.h"
-class FloodUpdateModuleData : public Snapshot
-{
-public:
-	FloodUpdateModuleData();
-	virtual ~FloodUpdateModuleData();
-	int m_unk04; // +4
-	// Pointer values use the same four-byte list ABI as the destructor's
-	// rowed int-spelled clear and list-base teardown.
-	_STL::list<int> m_members; // +8
-	Real m_angleOfFlow; // +0xC
-	Bool m_directionIsRelative; // +0x10
-};
 // One flood member in flight: its object, the tessellated path and the
 // index of the path point it stands on.
 class Rva0048E16C
@@ -193,16 +181,22 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#ifndef BFME_ASCII_DTOR_DECL
+#define BFME_ASCII_DTOR_DECL
+#endif
+
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> void _List_base<int, allocator<int> >::clear();
 }
+
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
 template <> _List_base<int, allocator<int> >::~_List_base();
 }
+
 // list<int> destruction otherwise instantiates per-TU deallocate
 // COMDATs (one byte shape per TU flags); explicit dllimport+forceinline
 // specializations take those calls inline so this TU emits no external copy.
@@ -217,6 +211,7 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
   allocator<_List_node<int> >().deallocate(__p, __n);
 }
 }
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class Traits>
@@ -224,6 +219,7 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
                               const _List_iterator<T, Traits>& b)
 { return a._M_node != b._M_node; }
 }
+
 // Retain the bfmealloc primary bodies inline without competing external copies.
 namespace _STL {
 template<> __declspec(dllimport) __forceinline
@@ -285,11 +281,67 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-// tu-skeleton: 0x0048DF7A 55B ??0FloodUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataCtor.cpp (not merged yet)
+namespace _STL {
+template <> _List_base<int, allocator<int> >::_List_base(const allocator<int> &);
+template <> _List_base<int, allocator<int> >::~_List_base();
+}
 
-// tu-skeleton: 0x0048DFB1 113B ??1FloodUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataDtor.cpp (not merged yet)
+class FloodUpdateModuleData : public Snapshot
+{
+public:
+	FloodUpdateModuleData();
+	virtual ~FloodUpdateModuleData();
+	int m_unk04; // +4
+	// Pointer values use the same four-byte list ABI as the destructor's
+	// rowed int-spelled clear and list-base teardown.
+	_STL::list<int> m_members; // +8
+	Real m_angleOfFlow; // +0xC
+	Bool m_directionIsRelative; // +0x10
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataCtor.cpp
+
+// Retail 0x0048DF7A: Snapshot-derived module data with a four-byte list
+// at +8; its scalar fields follow the verified FloodUpdate consumer view.
+
+FloodUpdateModuleData::FloodUpdateModuleData()
+{
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataDtor.cpp
+
+//
+// ??1FloodUpdateModuleData@@UAE@XZ, retail 0x0048DFB1, 113 bytes. Virtual dtor for
+// the rowed ctor 0x0048DF7A (vtable 0x00C4C8C0, slot0 deleting dtor 0x0048E13F
+// calls this). Shape follows FireWeaponUpdateModuleDataDtor 0x0048BC46:
+// vptr store plus list drain loop (per value: AsciiString teardown via folded
+// 0x36410 plus operator delete 0x2FD60) plus clear 0x23DAA5 plus implicit
+// list-base dtor 0x4EC395 plus Snapshot base restore to 0xBBB554. List at
+// +8 with unk dword at +4 per the ctor TU (news 0x14 via factory 0x24D17A).
+// The heap entries' first member is the AsciiString, so its teardown folds to
+// the StringBase spelling at the same address.
+
+// Link: declare ~AsciiString only (the shim's documented per-unit switch) so this TU calls the out-of-line
+// retail destructor instead of emitting a non-retail ??_GAsciiString copy; the // cl: line is untouched.
+
+FloodUpdateModuleData::~FloodUpdateModuleData()
+{
+	_STL::list<int> *trackedList = &m_members;
+	_STL::list<int>::iterator it = trackedList->begin();
+	while (it != trackedList->end()) {
+		int trackedValue = *it;
+		if (trackedValue != 0) {
+			((AsciiString *)trackedValue)->~AsciiString();
+			::operator delete((void *)trackedValue);
+		}
+		++it;
+	}
+	trackedList->clear();
+}
 
 // tu-skeleton: 0x0048E022 125B ?parseFloodMember@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIAllocListParsers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateCtor.cpp
 
@@ -314,8 +366,6 @@ FloodUpdate::FloodUpdate(Thing *thing, const ModuleData *moduleData) :
 {
 	m_membersCreated = false;
 }
-
-// tu-skeleton: 0x0048E0F4 6B ?Rva0048E0F4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp
 
@@ -482,12 +532,6 @@ void FloodUpdate::xfer(Xfer *xfer)
 	*xfer == m_membersCreated;
 }
 
-// tu-skeleton: 0x0048E13F 28B ??_GFloodUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048E15B 17B ?buildFieldParse@FloodUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0048E16C 29B ??0Rva0048E16C@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0048E16CCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateDtor.cpp
 
 //
@@ -511,12 +555,10 @@ FloodUpdate::~FloodUpdate()
 	m_records.clear();
 }
 
+// tu-skeleton: 0x0048E0F4 6B ?Rva0048E0F4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0048E15B 17B ?buildFieldParse@FloodUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0048E16C 29B ??0Rva0048E16C@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0048E16CCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0078C7A4 8B uw_0078c7a4 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C7AC 10B __ehhandler$??0FloodUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C7B6 8B Unwind@00b8c7b6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C7BE 11B uw_0078c7be -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C7C9 10B __ehhandler$??1FloodUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdateModuleDataDtor.cpp (not merged yet)
