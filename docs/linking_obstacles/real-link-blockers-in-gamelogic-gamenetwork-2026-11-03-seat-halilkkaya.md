@@ -317,3 +317,7 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
   before.
 - The FontCharsClass identity and 0x0016E310 steps above are still open for naming. They no
   longer block the real link.
+
+#### Seat claudec follow-up (2026-11-05): LockWeaponCreate.cpp's next step is ~CreateModule's identity
+
+- 0x004B8CDE (`Rva004B8CDE`) is `~CreateModule`. A canonical view needs it and six other provider names first. `rename.py class --fold` refuses it (recorded as a false reject). Order of work: `reverse/attempt_support/004b8c0e-lockweaponcreate-canonical-view-20261105.md`.
