@@ -116,18 +116,11 @@ public:
 	static const void *forwardUpperBound(const void *first, const void *last, const char *const *key, const void *match);
 };
 
-struct Rva0042830DElement {Rva0042830DElement();Rva0042830DElement(const Rva0042830DElement&);Rva0042830DElement&operator=(const Rva0042830DElement&);~Rva0042830DElement(){}char bytes[24]; bool operator==(const Rva0042830DElement&)const;};
-
-// Instantiate the recovered operation and its required template dependencies.
-template Rva0042830DElement * _STL::__copy<Rva0042830DElement *, Rva0042830DElement *, int>(Rva0042830DElement *, Rva0042830DElement *, Rva0042830DElement *, _STL::random_access_iterator_tag const &, int *);
-
 struct BfmeAssignRecord24;
 
 namespace _STL {
 template <> BfmeAssignRecord24 *__copy_backward<BfmeAssignRecord24 *, BfmeAssignRecord24 *, int>(BfmeAssignRecord24 *, BfmeAssignRecord24 *, BfmeAssignRecord24 *, const random_access_iterator_tag &, int *);
 }
-
-template BfmeAssignRecord24 *_STL::__copy_backward_ptrs<BfmeAssignRecord24 *, BfmeAssignRecord24 *>(BfmeAssignRecord24 *, BfmeAssignRecord24 *, BfmeAssignRecord24 *, const _STL::__false_type &);
 
 // The vector instance retail links is the one rowed for the 0x18-byte record
 // named BfmeNarrowRecord00427F75; the parser's local entry derives from it.
@@ -222,10 +215,6 @@ struct Rva00427F14KeyPrefix {
 
 namespace _STL { template <> void _Construct<BfmeNarrowRecord00427F75,BfmeNarrowRecord00427F75>(BfmeNarrowRecord00427F75 *,BfmeNarrowRecord00427F75 const &); }
 
-template BfmeNarrowRecord00427F75 *_STL::__uninitialized_copy<const BfmeNarrowRecord00427F75 *, BfmeNarrowRecord00427F75 *>(const BfmeNarrowRecord00427F75 *, const BfmeNarrowRecord00427F75 *, BfmeNarrowRecord00427F75 *, const _STL::__false_type &);
-
-template BfmeNarrowRecord00427F75 *_STL::__uninitialized_fill_n<BfmeNarrowRecord00427F75 *, unsigned int, BfmeNarrowRecord00427F75>(BfmeNarrowRecord00427F75 *, unsigned int, const BfmeNarrowRecord00427F75 &, const _STL::__false_type &);
-
 void __cdecl Rva004281DAInsert(VersionBlockEntry *last, Pivot24 val, VersionBlockKeyCompare comp);
 
 VersionBlockEntry *__cdecl Rva00428512Partition(VersionBlockEntry *first, VersionBlockEntry *last, Pivot24 pivot, VersionBlockKeyCompare comp);
@@ -259,15 +248,9 @@ void __introsort_loop<VersionBlockEntry *, VersionBlockEntry, int, VersionBlockK
 }
 }
 
-template void _STL::__final_insertion_sort<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare);
-
 void __cdecl Rva00428233PushHeap(VersionBlockEntry *first, int holeIndex, int topIndex, Pivot24 val, VersionBlockKeyCompare comp);
 
 void __cdecl Rva0042818FSwap(void *a, void *b);
-
-template void _STL::__unguarded_insertion_sort<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare);
-
-template void _STL::sort<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare);
 
 // The rowed 33B assignment at 0x0042816E is the pinned operator= for this view.
 struct BfmeAssignRecord24 { AsciiString s; int a[5]; BfmeAssignRecord24 &operator=(const BfmeAssignRecord24 &); };
@@ -347,6 +330,43 @@ void partial_sort<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry
 	__partial_sort(first, middle, last, (VersionBlockEntry *)0, comp);
 }
 }
+
+namespace _STL {
+template<> basic_string<char, char_traits<char>, allocator<char> > &basic_string<char, char_traits<char>, allocator<char> >::operator=(const basic_string<char, char_traits<char>, allocator<char> > &);
+}
+
+struct Rva0042830DElement
+{
+public:
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_first;
+public:
+	_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > m_second;
+public:
+	Rva0042830DElement &operator=(const Rva0042830DElement &other);
+public:
+	Rva0042830DElement();
+public:
+	~Rva0042830DElement(){}
+public:
+	bool operator==(const Rva0042830DElement&)const;
+};
+
+// ---- from Code/GameEngine/Source/Common/VersionBlockParser.cpp
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva0042830DElement * _STL::__copy<Rva0042830DElement *, Rva0042830DElement *, int>(Rva0042830DElement *, Rva0042830DElement *, Rva0042830DElement *, _STL::random_access_iterator_tag const &, int *);
+
+template BfmeAssignRecord24 *_STL::__copy_backward_ptrs<BfmeAssignRecord24 *, BfmeAssignRecord24 *>(BfmeAssignRecord24 *, BfmeAssignRecord24 *, BfmeAssignRecord24 *, const _STL::__false_type &);
+
+template BfmeNarrowRecord00427F75 *_STL::__uninitialized_copy<const BfmeNarrowRecord00427F75 *, BfmeNarrowRecord00427F75 *>(const BfmeNarrowRecord00427F75 *, const BfmeNarrowRecord00427F75 *, BfmeNarrowRecord00427F75 *, const _STL::__false_type &);
+
+template BfmeNarrowRecord00427F75 *_STL::__uninitialized_fill_n<BfmeNarrowRecord00427F75 *, unsigned int, BfmeNarrowRecord00427F75>(BfmeNarrowRecord00427F75 *, unsigned int, const BfmeNarrowRecord00427F75 &, const _STL::__false_type &);
+
+template void _STL::__final_insertion_sort<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare);
+
+template void _STL::__unguarded_insertion_sort<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare);
+
+template void _STL::sort<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare);
 
 // ---- from Code/GameEngine/Source/Common/VersionBlockParser.cpp
 
@@ -652,10 +672,6 @@ NarrowString VersionBlockParser::rva00427F46Text(const Rva00427F14KeyPrefix &key
     return NarrowString(lookupVersionValue(key.text(), fallback.text()));
 }
 
-// tu-skeleton: 0x00427FB2 324B ?rva00427FB2@Rva00427FB2@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ -- matched in Code/GameEngine/Source/Common/Rva00427FB2Serialize.cpp (not merged yet)
-
-// tu-skeleton: 0x004280F6 45B ??$_Construct@UBfmeNarrowRecord00427F75@@U1@@_STL@@YAXPAUBfmeNarrowRecord00427F75@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/NarrowStringRecord00427F75Helpers.cpp
 
 // stlport46
@@ -676,8 +692,6 @@ ProductionPrerequisite &ProductionPrerequisite::operator=(const ProductionPrereq
 	m_value = other.m_value;
 	return *this;
 }
-
-// tu-skeleton: 0x0042818F 75B ?Rva0042818FSwap@@YAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva0042818FSwap.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004281DAInsert.cpp
 
@@ -718,12 +732,6 @@ void __cdecl Rva00428233PushHeap(VersionBlockEntry *first, int holeIndex, int to
 	}
 	*(ProductionPrerequisite *)(first + holeIndex) = *(const ProductionPrerequisite *)&val;
 }
-
-// tu-skeleton: 0x004282BD 50B ??$__copy_backward@PAUBfmeAssignRecord24@@PAU1@H@_STL@@YAPAUBfmeAssignRecord24@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x004282EF 30B ?_M_clear@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x0042833F 5B ?j_0042833f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp
 
@@ -777,10 +785,6 @@ void __cdecl Rva00428372AdjustHeap(VersionBlockEntry *first, int holeIndex, int 
 	Rva00428233PushHeap(first, holeIndex, topIndex, val, comp);
 }
 
-// tu-skeleton: 0x0042843E 183B ?_M_insert_overflow@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXPAUBfmeNarrowRecord00427F75@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x004284F5 29B ??$__copy_ptrs@PAUBfmeNarrowRecord00427F75@@PAU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00428512Partition.cpp
 
 // stlport46
@@ -826,10 +830,6 @@ void __cdecl Rva00428594PopHeap(VersionBlockEntry *first, VersionBlockEntry *las
 	Rva00428372AdjustHeap(first, 0, last - first, val, comp);
 }
 
-// tu-skeleton: 0x00428678 55B ?push_back@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEXABUBfmeNarrowRecord00427F75@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x004286AF 51B ?erase@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEPAUBfmeNarrowRecord00427F75@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_copy_backward_assign24.cpp
 
 // stlport46
@@ -865,7 +865,65 @@ void __cdecl Rva00428594PopHeap(VersionBlockEntry *first, VersionBlockEntry *las
 // stlport46
 // ??$partial_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00VVersionBlockKeyCompare@@@Z RVA 0x004288CE size 27 evidence partial_sort wrapper forwarding to rowed __partial_sort 0x00428821 with dummy caller 0x00428965 same pattern as int precedent
 
-// tu-skeleton: 0x00428C04 63B ??0VersionBlockParser@@QAE@PBD@Z -- matched in Code/GameEngine/Source/Common/VersionBlockParserCtor.cpp (not merged yet)
+// tu-skeleton: 0x00427FB2 324B ?rva00427FB2@Rva00427FB2@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ -- matched in Code/GameEngine/Source/Common/Rva00427FB2Serialize.cpp (not merged yet)
+
+// tu-skeleton: 0x004280F6 45B ??$_Construct@UBfmeNarrowRecord00427F75@@U1@@_STL@@YAXPAUBfmeNarrowRecord00427F75@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0042830DAssignTwin.cpp
+
+//
+// ICF twin of ??4ProductionPrerequisite@@QAEAAV0@ABV0@@Z (0x0042816E,
+// ThingFactory.cpp): the element of the STLport sweep at 0x0042830D is a pair of
+// narrow strings, and its assignment is that body: two calls to the out-of-line
+// basic_string<char>::operator= at 0x000120C0 (41 bytes; the retail calls are
+// both to that address, so the members are strings, not vectors).
+
+Rva0042830DElement &Rva0042830DElement::operator=(const Rva0042830DElement &other)
+{
+	m_first = other.m_first;
+	m_second = other.m_second;
+	return *this;
+}
+
+// tu-skeleton: 0x0042818F 75B ?Rva0042818FSwap@@YAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva0042818FSwap.cpp (not merged yet)
+
+// tu-skeleton: 0x004282BD 50B ??$__copy_backward@PAUBfmeAssignRecord24@@PAU1@H@_STL@@YAPAUBfmeAssignRecord24@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x004282EF 30B ?_M_clear@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x0042833F 5B ?j_0042833f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0042843E 183B ?_M_insert_overflow@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXPAUBfmeNarrowRecord00427F75@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x004284F5 29B ??$__copy_ptrs@PAUBfmeNarrowRecord00427F75@@PAU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00428678 55B ?push_back@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEXABUBfmeNarrowRecord00427F75@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x004286AF 51B ?erase@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEPAUBfmeNarrowRecord00427F75@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VersionBlockParserCtor.cpp
+
+// stlport46
+//
+// ??0VersionBlockParser@@QAE@PBD@Z at retail 0x00428C04 (63B).
+// Constructs the parser over the 512-byte version block: clears the header
+// word, default-builds the 0x18-byte record vector at +4 through the
+// Vector_base body pinned at 0x00211E58, then parses the block through the
+// member pinned at 0x004289B8. Single EH state from the vector member.
+// The parser destructor is unrowed so it stays declared-only here; the
+// VersionDestructor TU keeps the buffer model that the rowed inner
+// destructor (0x002385FF) verifies against.
+// Retail stores 0x18-byte records with the key string at +0 and the value
+// string at +0xC. The rowed parser at 0x004289B8 returns success in AL; this
+// caller discards it.
+// string at +0xC (VersionBlockSearch TU); spelled for readability, the
+// constructor only needs the extent.
+
+VersionBlockParser::VersionBlockParser(const char *versionBlock)
+	: m_size(0), m_records()
+{
+	parse(versionBlock);
+}
 
 // tu-skeleton: 0x00787453 25B ?rva00787453@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva00427FB2Serialize.cpp (not merged yet)
 
@@ -883,6 +941,6 @@ void __cdecl Rva00428594PopHeap(VersionBlockEntry *first, VersionBlockEntry *las
 
 // tu-skeleton: 0x007874AB 8B uw_007874ab -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
 
-// tu-skeleton: 0x00787515 11B uw_00787515 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// tu-skeleton: 0x007874BD 8B uw_007874bd -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
 
-// tu-skeleton: 0x00787520 10B __ehhandler$??0VersionBlockParser@@QAE@PBD@Z -- matched in Code/GameEngine/Source/Common/VersionBlockParserCtor.cpp (not merged yet)
+// tu-skeleton: 0x00787515 11B uw_00787515 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
