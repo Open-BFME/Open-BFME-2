@@ -5,3 +5,5 @@ Completed: allocation, scoped planner and TU plan passed; dry run accepted no do
 Remaining / next check: reconcile affected donors' compiler/header and row-byte prerequisites, then rerun the supported merge and consumer checks.
 Clearance: pending; no composed object or consumer-binding verification was possible.
 Census confirmation: not claimed.
+
+2026-11-05: MaterialPassClassDestructor.cpp adopts canonical RefCountClass; 6/6 rows match, the owning lane retires one header-queue row, and the preview retains 167 linked bytes. MaterialPassClass layout and merge flag prerequisites remain; [evidence](../../reverse/attempt_support/materialpass-refcount-adoption-20261105-codex.md).

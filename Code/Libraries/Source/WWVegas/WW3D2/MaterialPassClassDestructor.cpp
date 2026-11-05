@@ -3,32 +3,12 @@
 // layout local avoids changing the later vendored MaterialPassClass header,
 // while allowing MSVC to emit the retail array-destructor cleanup sequence.
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib/refcount.h
-// Retail's out-of-line RefCountClass deleting-dtor copy is the /O1 form
-// (pop ecx after the delete call); this TU builds /G7 which emits add esp,4
-// instead. Compile just the base class for size so our COMDAT matches the
-// first copy in link order. Code this TU's rows inline keeps this TU's flags.
+// Use the canonical base layout. Keep its inline destructor under the
+// existing size optimization so the emitted deleting-dtor COMDAT retains
+// retail's /O1 form; the MaterialPassClass rows still use this TU's /G7 flags.
 #pragma optimize("s", on)
-class RefCountClass
-{
-public:
-	RefCountClass() : NumRefs(1) {}
-	void Add_Ref() { ++NumRefs; }
-
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
-
-	virtual void Delete_This() { delete this; }
-
-protected:
- 	virtual ~RefCountClass() {}
-
-private:
- 	int NumRefs;
-};
+#include "../WWLib/RefCountData.h"
+inline RefCountClass::~RefCountClass() {}
 #pragma optimize("", on)
 
 class MaterialPassStage
