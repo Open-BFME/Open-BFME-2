@@ -365,36 +365,7 @@ public:
     int status;
     void* unknown14;
 };
-class BuildAssistant
-{
-public:
-    virtual void slot0();
-    virtual void slot4();
-    virtual void slot8();
-    virtual void slotC();
-    virtual void slot10();
-    virtual void slot14();
-    virtual void slot18();
-    virtual void slot1C();
-    virtual void slot20();
-    virtual void slot24();
-    virtual void slot28();
-    virtual void slot2C();
-    virtual void slot30();
-    virtual void slot34();
-    virtual void slot38();
-    virtual void slot3C();
-    virtual int isLocationLegalToBuild(
-        const Coord3D*, const ThingTemplate*, float, int, Object*, Object*);
-    virtual void slot44();
-    virtual void slot48();
-    virtual void slot4c();
-    virtual bool getBuildPortData(Rva0039205C*, Object*, const Coord3D*, const Coord3D*, unsigned);
-    virtual void slot54();
-    virtual void slot58();
-    virtual bool isBuildPort(const ThingTemplate*, Object*);
-    bool getPortTransform(const Coord3D*, const ThingTemplate*, float, float*, Coord3D*);
-};
+#include "../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant* TheBuildAssistant;
 struct Rva0029A94FSlot;
 class Rva0029A94F
@@ -567,7 +538,7 @@ void InGameUI::handleBuildPlacements()
         return;
     if (!pendingType)
         return;
-    bool isPort = TheBuildAssistant->isBuildPort(pendingType, builder);
+    bool isPort = TheBuildAssistant->rva00391A70(pendingType, builder);
     const ModuleData* castle = pendingType->rva0033B3D7();
     ICoord2D loc;
     PlaceCoord world;
@@ -657,7 +628,7 @@ void InGameUI::handleBuildPlacements()
                 if (button)
                     command = button->m_options;
                 Rva0039205C info;
-                bool portResult = TheBuildAssistant->getBuildPortData(
+                bool portResult = TheBuildAssistant->rva0039380F(
                     &info, builder, &builderPos, &mouseWorld, command);
                 if (!portResult)
                 {

@@ -327,39 +327,7 @@ public:
 
 extern View *TheTacticalView;
 
-class BuildAssistant
-{
-public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual void slot8();
-	virtual void slot9();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual int isLocationLegalToBuild(const Coord3D *worldPos, const ThingTemplate *build, float angle,
-		int options, Object *builderObject, Object *player); // 0x40
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void slot22();
-	virtual bool isBuildPort(const ThingTemplate *build, Object *builderObject); // 0x5C
-	virtual int canMakeUnit(Object *builder, const ThingTemplate *build, int count); // 0x60
-	bool getPortTransform(const Coord3D *worldPos, const ThingTemplate *build, float angle,
-		float *newAngle, Coord3D *newPos);
-};
-
+#include "../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant *TheBuildAssistant;
 
 #include "../../../Include/GameLogic/GhostObjectManager.h"
@@ -526,7 +494,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 			TheTacticalView->screenToTerrain(&anchorStart, &world, false);
 
 			Object *builderObj = TheGameLogic->findObjectByID(TheInGameUI->getPendingPlaceSourceObjectID());
-			bool isPort = TheBuildAssistant->isBuildPort(pendingBuild, builderObj);
+			bool isPort = TheBuildAssistant->rva00391A70(pendingBuild, builderObj);
 
 			// make sure we can still afford and queue it
 			int cmt = TheBuildAssistant->canMakeUnit(builderObj, pendingBuild, -1);
@@ -593,7 +561,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
 					world = newWorld;
 				}
 
-				if (TheBuildAssistant->isBuildPort(pendingBuild, builderObj))
+				if (TheBuildAssistant->rva00391A70(pendingBuild, builderObj))
 				{
 					if (TheInGameUI->canPlacePort())
 					{

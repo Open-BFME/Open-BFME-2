@@ -440,38 +440,7 @@ UnsignedInt m_sellFrame;
 typedef _STL::list< ObjectSellInfo* > ObjectSellList;
 typedef ObjectSellList::iterator ObjectSellListIterator;
 class Rva0039205C;
-class BuildAssistant
-{
-public:
-virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();
-virtual void slot04();virtual void slot05();virtual void slot06();virtual void slot07();
-virtual void slot08();
-virtual void reset(void);
-virtual void update(void);
-virtual void slot11();
-virtual void slot12();virtual void slot13();
-virtual Object*buildObjectNow(Object*constructorObject,const ThingTemplate*what,const Coord3D*pos,Real angle,Player*owningPlayer);
-virtual void slot15();
-virtual LegalBuildCode isLocationLegalToBuild(const Coord3D*worldPos,const ThingTemplate*build,Real angle,UnsignedInt options,Object*builderObject,Player*player);
-virtual Bool isLocationClearOfObjects(const Coord3D*worldPos,const ThingTemplate*build,Real angle,Object*builderObject,UnsignedInt options,Player*player,Bool flag);
-virtual Bool rva0039361E(const Coord3D*pos,const ThingTemplate*whatToBuild,Real angle,Object*builder,Player*unused);
-virtual void addBibs(const Coord3D*worldPos,const ThingTemplate*build);
-virtual Bool rva0039380F(Rva0039205C*out,Object*builder,const Coord3D*start,const Coord3D*end,UnsignedInt key);
-virtual Bool slot21(Rva0039205C*out,Object*builder,Object*end,UnsignedInt key,Bool flag);
-virtual void slot22();
-virtual Bool rva00391A70(const ThingTemplate*whatToBuild,const Object*builder);
-virtual CanMakeType canMakeUnit(Object*builder,const ThingTemplate*whatToBuild,Int revivalIndex)const;
-virtual Bool isPossibleToMakeUnit(Object*builder,const ThingTemplate*whatToBuild,Int revivalIndex)const;
-virtual void sellObject(Object*obj);
-void iterateFootprint(const ThingTemplate*build,Real buildOrientation,const Coord3D*worldPos,Real sampleResolution,void(*func)(const Coord3D*samplePoint,void*userData),void*userData);
-Bool isRemovableForConstruction(Object*obj);
-Bool rva00391AA1(const ThingTemplate*builder,const ThingTemplate*what);
-void clearRemovableForConstruction(const ThingTemplate*whatToBuild,const Coord3D*pos,Real angle);
-Bool moveObjectsForConstruction(const ThingTemplate*whatToBuild,const Coord3D*pos,Real angle,Player*owningPlayer);
-private:
-unsigned char m_pad04[0x0C - 0x04];
-ObjectSellList m_sellList;
-};
+#include "../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant*TheBuildAssistant;
 enum ObjectID; class ThingFactory
 {
@@ -851,7 +820,7 @@ if(index>=TheWritableGlobalData->m_wallCount)break;
 if(endAtObject){
 if(connected&&lastWouldBeLegal){
 out->rva00392CAC();
-return slot21(out,builder,nearObject,key,false);
+return rva0039321C(out,builder,nearObject,key,false);
 }
 out->rva00392196(index-1,0);
 }else if(startNewHub){

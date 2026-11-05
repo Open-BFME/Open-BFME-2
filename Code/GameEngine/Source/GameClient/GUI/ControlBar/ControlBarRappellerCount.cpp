@@ -363,12 +363,7 @@ public:
 static inline BfmeFixedStorage0004543D getAffectsKindOf(const CommandButton *command) { return *(const BfmeFixedStorage0004543D *)command->m_affectsKindOf; }
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
-class BuildAssistant {
-public:
-	SLOTS10(v0) SLOTS10(v1)
-	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual Int isLocationLegal(Object *builder, const ThingTemplate *tt, Int index);
-};
+#include "../../../../Include/Common/BuildAssistantClass.h"
 extern BuildAssistant *TheBuildAssistant;
 class UpgradeCenter {
 public:
@@ -730,7 +725,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 				return COMMAND_NOT_ALLOWED;
 			if (!player->canBuild(tt))
 				return COMMAND_RESTRICTED;
-			Int legal = TheBuildAssistant->isLocationLegal(obj, tt, -1);
+			Int legal = TheBuildAssistant->canMakeUnit(obj, tt, -1);
 			if (legal == 7)
 				return COMMAND_LIMITED;
 			if (legal == 6 || legal == 5)
@@ -753,7 +748,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			const ThingTemplate *hero = (const ThingTemplate *)((Rva0037E421 *)owner->m_heroes)->rva0037E7A5(index);
 			if (hero && !owner->allowedToBuild(hero))
 				return COMMAND_NOT_ALLOWED;
-			Int legal = TheBuildAssistant->isLocationLegal(obj, 0, index);
+			Int legal = TheBuildAssistant->canMakeUnit(obj, 0, index);
 			if (legal == 7)
 				return COMMAND_LIMITED;
 			if (legal == 6 || legal == 5)
