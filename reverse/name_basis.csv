@@ -151,10 +151,10 @@ file,Code/GameEngine/Source/Common/RTS/Rva0073EBB0Cluster.cpp,Code/GameEngine/So
 file,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40ProcessPending.cpp,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl_processPending.cpp,inferred,mechanical:?processPending@ShroudManagerImpl@@AAEX_N@Z,Code/GameEngine/Source/Common/RTS/ShroudManagerImpl_processPending.cpp,
 file,Code/GameEngine/Source/Common/RTS/TeamFactoryRva003A2FD4.cpp,Code/GameEngine/Source/Common/RTS/TeamFactory_initTeamForTacticalAI.cpp,inferred,mechanical:?initTeamForTacticalAI@TeamFactory@@QAEPAURva003A2FD4Proto@@ABVAsciiString@@PAXHI@Z,Code/GameEngine/Source/Common/RTS/TeamFactory_initTeamForTacticalAI.cpp,
 file,Code/GameEngine/Source/Common/RTS/TeamRva0039DC9E.cpp,Code/GameEngine/Source/Common/RTS/Team_countObjects.cpp,inferred,mechanical:?countObjects@Team@@QBEHV?$BitFlags@$0HE@@@0@Z,Code/GameEngine/Source/Common/RTS/Team_countObjects.cpp,
-file,Code/GameEngine/Source/Common/RTS/TeamRva0039DEC4.cpp,Code/GameEngine/Source/Common/RTS/Team_hasAnyUnits.cpp,inferred,mechanical:?hasAnyUnits@Team@@QAE_NXZ,Code/GameEngine/Source/Common/RTS/Team_hasAnyUnits.cpp,
-file,Code/GameEngine/Source/Common/RTS/TeamRva0039DF1C.cpp,Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildings.cpp,inferred,mechanical:?hasAnyBuildings@Team@@QAE_NVBfmeFixedStorage0004543D@@0@Z,Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildings.cpp,
+file,Code/GameEngine/Source/Common/RTS/TeamRva0039DEC4.cpp,Code/GameEngine/Source/Common/RTS/Team_hasAnyUnits.cpp,inferred,mechanical:?hasAnyUnits@Team@@QAE_NXZ,Code/GameEngine/Source/Common/RTS/Team.cpp,
+file,Code/GameEngine/Source/Common/RTS/TeamRva0039DF1C.cpp,Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildings.cpp,inferred,mechanical:?hasAnyBuildings@Team@@QAE_NVBfmeFixedStorage0004543D@@0@Z,Code/GameEngine/Source/Common/RTS/Team.cpp,
 file,Code/GameEngine/Source/Common/RTS/TeamRva0039DFF8.cpp,Code/GameEngine/Source/Common/RTS/Team_isIdle.cpp,inferred,mechanical:?isIdle@Team@@QBE_NXZ,Code/GameEngine/Source/Common/RTS/Team_isIdle.cpp,
-file,Code/GameEngine/Source/Common/RTS/TeamRva0039E815.cpp,Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildFacility.cpp,inferred,mechanical:?hasAnyBuildFacility@Team@@QAE_NXZ,Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildFacility.cpp,
+file,Code/GameEngine/Source/Common/RTS/TeamRva0039E815.cpp,Code/GameEngine/Source/Common/RTS/Team_hasAnyBuildFacility.cpp,inferred,mechanical:?hasAnyBuildFacility@Team@@QAE_NXZ,Code/GameEngine/Source/Common/RTS/Team.cpp,
 file,Code/GameEngine/Source/Common/RTS/TeamRva0039F094.cpp,Code/GameEngine/Source/Common/RTS/Team_setAttackPriorityName.cpp,inferred,mechanical:?setAttackPriorityName@Team@@QAEXVAsciiString@@@Z,Code/GameEngine/Source/Common/RTS/Team_setAttackPriorityName.cpp,
 file,Code/GameEngine/Source/Common/RTS/TeamRva003A1C3A.cpp,Code/GameEngine/Source/Common/RTS/Team.cpp,inferred,mechanical:?evacuateTeam@Team@@QAEX_N@Z;?deleteTeam@Team@@QAEX_N@Z,Code/GameEngine/Source/Common/RTS/Team.cpp,
 file,Code/GameEngine/Source/Common/RoundedProductStrideThunk_Rva00001445.cpp,Code/GameEngine/Source/Common/roundedProductStride.cpp,inferred,mechanical:?roundedProductStride@@YAJJJ@Z,Code/GameEngine/Source/Common/roundedProductStride.cpp,
@@ -6464,9 +6464,9 @@ local,TeamFactory::findTeamPrototype::a,TeamFactory::findTeamPrototype::playerNa
 local,TeamFactory::findTeamPrototype::b,TeamFactory::findTeamPrototype::teamName,inferred,agree:nl-0613cbf8b988,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A2659
 local,TeamFactory::findTeam::a,TeamFactory::findTeam::playerName,inferred,agree:nl-a6c49dddb896,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A40F5
 local,TeamFactory::findTeam::b,TeamFactory::findTeam::teamName,inferred,agree:nl-353903b2b0b7,Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp,0x003A40F5
-local,Team::hasAnyObjects::b3,Team::hasAnyObjects::bit3Set,inferred,agree:nl-bf3d2324e827,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042
-local,Team::hasAnyObjects::s,Team::hasAnyObjects::status,inferred,agree:nl-1374af2e3e18,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042
-local,Team::hasAnyObjects::b4,Team::hasAnyObjects::bit4Set,inferred,agree:nl-7a7f1304e249,Code/GameEngine/Source/Common/RTS/TeamHasAnyObjects.cpp,0x0039E042
+local,Team::hasAnyObjects::b3,Team::hasAnyObjects::bit3Set,inferred,agree:nl-bf3d2324e827,Code/GameEngine/Source/Common/RTS/Team.cpp,0x0039E042
+local,Team::hasAnyObjects::s,Team::hasAnyObjects::status,inferred,agree:nl-1374af2e3e18,Code/GameEngine/Source/Common/RTS/Team.cpp,0x0039E042
+local,Team::hasAnyObjects::b4,Team::hasAnyObjects::bit4Set,inferred,agree:nl-7a7f1304e249,Code/GameEngine/Source/Common/RTS/Team.cpp,0x0039E042
 param,Rva00023A00::f::p,Rva00023A00::f::ptr,inferred,agree:nl-c79e466e8be9,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,0x00023A00
 param,Rva00023AC0::f::n,Rva00023AC0::f::count,inferred,agree:nl-d3735c305258,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,0x00023AC0
 param,Rva00023B00::f::p,Rva00023B00::f::ptr,inferred,agree:nl-62e004ddd8fc,Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,0x00023B00
