@@ -82,6 +82,24 @@ void *Rva007F93E0( void *message, void *route, void *owner );
 #pragma intrinsic( _WriteBarrier )
 #pragma comment(linker, "/alternatename:??1Gen00809750@@UAE@XZ=??1Rva00808920LanGame@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?Rva00809010Find@@YGPAURva00809500Sink@@PAURva00809500Entry@@@Z=?find@Rva00809010Finder@@QAEPAURva00809500Sink@@PAURva00809500Entry@@@Z")
+#pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
+#pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
+#pragma comment(linker, "/alternatename:??1Rva007E8810Message@@QAE@XZ=??1BfmeMsg@@UAE@XZ")
+#pragma comment(linker, "/alternatename:??1BfmeC994@@UAE@XZ=??1BfmeMsg@@UAE@XZ")
+struct Rva0080F100Object;
+struct LanGameEntryView
+{
+	char m_pad00[ 0x10 ];
+	int m_gameId;
+};
+struct HostedLanGameView
+{
+	char m_pad00[ 4 ];
+	int m_maxPlayers;
+	char m_pad08[ 0x84 ];
+	char m_userGameId[ 0x20 ];
+};
+
 class Rva007EFFC0Allocator
 {
 public:
@@ -203,18 +221,6 @@ struct BfmeOwnerUNC
 	PlayerAttributeList m_playerAttributes;
 	char m_opaque2C0[ 0x18 ];
 	Rva00809330Sender *m_sender;
-};
-
-class BfmeThingUNC
-{
-public:
-	void rva00809330( BfmeC994 *message, int gid );
-	void rva00809400( BfmeC994 *message, int gid,
-		Rva00802680Owner *player );
-
-	void *m_vtable;
-	int m_registrationValue;
-	BfmeOwnerUNC *m_owner;
 };
 
 // BFME 2 RVA 0x00675400 (27 bytes), transferred byte-identically from
@@ -682,11 +688,134 @@ struct Rva007E9B70Obj
 
 int Rva00656B60Get();
 
+class BfmeSinkSA
+{
+public:
+	void bfmeUseSA( int tid, int pid );
+
+	char m_pad00[ 4 ];
+	Rva008038F0Sender *m_sender;
+	char m_pad08[ 0x50 ];
+	Rva00808920LanGame *m_game;
+};
+
+class BfmeThingUPB
+{
+public:
+	char bfmeGoUPB( void *one, char *out, void *two );
+};
+
+struct FeslState;
+
+struct Rva0080A280State
+{
+	char m_pad00[ 0x2d8 ];
+	char *m_text;
+};
+
+struct FeslHandlerMessageView
+{
+	int m_field00;
+	int m_field04;
+	int m_field08;
+	int m_field0c;
+	char m_pad10[ 0x0c ];
+	int m_field1c;
+};
+
+class Rva0080A280Owner
+{
+public:
+	void rva0080A280( FeslHandlerMessageView *input );
+	char m_pad00[0x8];
+	Rva0080A280State *m_state; // +0x08
+	char m_pad0C[0x4];
+	void *m_routeOwner; // +0x10
+	char m_pad14[0x44];
+	char *m_field58; // +0x58
+};
+
+struct Rva0080A3C0Input
+{
+	int m_field00;
+	int m_field04;
+	int m_field08;
+	int m_field0c;
+	char m_pad10[ 0x0c ];
+	int m_field1c;
+};
+
+struct Rva0080A680Input;
+
+class BfmeThingUNC
+{
+public:
+	void rva00809330( BfmeC994 *message, int gid );
+	void rva00809400( BfmeC994 *message, int gid,
+		Rva00802680Owner *player );
+	void rva0080A3C0( Rva0080A3C0Input *input );
+	// Slot 3 of the table 0x00CE4008 that the constructor installs at +0;
+	// the real vptr replaces the explicit word that modelled it.
+	virtual void rva0080A680(Rva0080A680Input *input);
+
+	int m_registrationValue;
+	BfmeOwnerUNC *m_owner;
+	char m_pad0c[ 4 ];
+	void *m_routeOwner;
+};
+
+// BFME 2: the PDAT/TADP router below is Open-BFME-1's (submodule 10af19f44a),
+// byte-identical in game.dat at 0x00676580. The BFME 1 addresses in its
+// comments are the donor's.
+class Rva007E8810Message
+{
+public:
+ Rva007E8810Message();
+ ~Rva007E8810Message();
+ unsigned m_00, m_04, m_08, m_0c, m_10, m_14, m_18, m_1c, m_20, m_24, m_28, m_2c;
+ char m_30;
+};
+
+struct Rva0080A680Input { int m_00, m_04, m_08, m_0c, m_10, m_14, m_18, m_1c, m_20; };
+
+struct Rva00800E50Header;
+
+void Rva007F91D0(Rva00800E50Header *, const char *);
+
+class Rva00809E40Owner { public: void rva00809E40(Rva007E8810Message *); };
+
+struct Rva0080A110Message;
+
+class Rva0080A110Owner { public: void route(Rva0080A110Message *); };
+
+struct FeslHandlerMessageView;
+
+struct Rva0080A280State;
+
+class Rva0080A680Forwarder
+{
+public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual void slot08();
+ virtual void slot0c(Rva0080A680Input *);
+};
+
+class Rva0080A680Base { public: virtual void base00(); };
+
+class Rva0080A680ForwarderOwner : public Rva0080A680Base, public Rva0080A680Forwarder {};
+
+struct Rva00809520Entry;
+
+class Rva008038F0Sender;
+
 // tu-skeleton: 0x00674C00 330B ?apply@Rva00803620Sink@@QAEXHPADHH0@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D50 36B ?rva00674D50@@YAPADDPAPAD@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslLanGameCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00674D80 44B ?find@Rva00808E60Owner@@QAEPAURva00808C80Item@@H@Z -- matched in Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 
 // ---- from Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 
@@ -1204,7 +1333,35 @@ void Rva00809500Sink::accept( Rva00809500Entry *entry )
 
 // tu-skeleton: 0x00674F50 163B ?rva00809050@Rva00803620Sink@@QAEPAVRva00808CB0LanGameEntry@@PAURva00809050Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp (not merged yet)
 
-// tu-skeleton: 0x00675000 191B ?bfmeUseSA@BfmeSinkSA@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp
+
+static __forceinline Rva008097D0Player *Rva00809100FindPlayer(
+	const Rva00808920LanGame *game, int pid )
+{
+	for( int index = 0; index < game->m_maxPlayers; ++index )
+	{
+		Rva008097D0Player *player = game->m_players[ index ];
+		if( player != 0 && player->m_playerId == pid )
+			return player;
+	}
+	return 0;
+}
+
+void BfmeSinkSA::bfmeUseSA( int tid, int pid )
+{
+	char buffer[ 0x40 ];
+	BfmeC994 message( buffer, sizeof( buffer ) );
+	Rva008097D0Player *player = Rva00809100FindPlayer( m_game, pid );
+
+	message.m_category = 'PENT';
+	message.m_field20 = player != 0 ? 0 : 'ntfn';
+	message.addInt( "TID", tid );
+	message.addInt( "PID", pid );
+	m_sender->send( &message );
+}
+
+// Existing thiscall teardown pin at RVA 0x655780 names the matched
+// seven-byte base-vptr reinstall worker; no receiver adjustment is needed.
 
 // tu-skeleton: 0x00675650 35B ??_GGen00809750@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
 
@@ -1216,11 +1373,163 @@ void Rva00809500Sink::accept( Rva00809500Entry *entry )
 
 // tu-skeleton: 0x00676010 362B ?route@Rva0080A110Owner@@QAEXPAURva0080A110Message@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A110Route.cpp (not merged yet)
 
-// tu-skeleton: 0x00676180 317B ?rva0080A280@Rva0080A280Owner@@QAEXPAUFeslHandlerMessageView@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp
 
-// tu-skeleton: 0x006762C0 703B ?rva0080A3C0@BfmeThingUNC@@QAEXPAURva0080A3C0Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp (not merged yet)
+// Retail 0x0080A280 has no caller or proven semantic owner, so this source
+// keeps the address-derived owner and method names.
 
-// tu-skeleton: 0x00676580 345B ?rva0080A680@BfmeThingUNC@@UAEXPAURva0080A680Input@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp (not merged yet)
+void Rva0080A280Owner::rva0080A280( FeslHandlerMessageView *input )
+{
+	char buffer[ 0x200 ];
+	BfmeC994 message( buffer, sizeof( buffer ) );
+	BfmeThingRF *source = reinterpret_cast< BfmeThingRF * >( input );
+
+	message.m_category = input->m_field1c;
+	void *value = source->bfmeGoRF( (int *)"TID", (void *)-1 );
+	if( value != (void *)-1 )
+		reinterpret_cast< BfmeThingCIB * >( &message )->bfmeGoCIB(
+			(int *)"TID", value );
+	message.m_field04 = input->m_field04;
+	message.m_field08 = input->m_field08;
+	message.m_field0c = input->m_field0c;
+
+	char name[ 0x100 ];
+	reinterpret_cast< BfmeThingUPB * >( input )->bfmeGoUPB(
+		(void *)"FAV-GAME-UID", name, (void *)0x100 );
+	if( m_state->m_text != 0 )
+	{
+		int length = strlen( name );
+		if( length == 0 || strstr( name, m_field58 + 0x8c ) != 0 )
+		{
+			char shortName[ 0x20 ];
+			reinterpret_cast< BfmeThingUPB * >( input )->bfmeGoUPB(
+				(void *)"I", shortName, (void *)0x20 );
+			reinterpret_cast< Rva008091C0Owner * >( this )->handle(
+				&message,
+				(int)( long )source->bfmeGoRF( (void *)"GID", (void *)0 ),
+				shortName );
+			goto send;
+		}
+	}
+
+	message.m_field20 = 0x6e67616d;
+
+send:
+	Rva007F93E0( &message, (void *)"->L", m_routeOwner );
+}
+
+// Existing thiscall teardown pin at RVA 0x655780 names the matched
+// seven-byte base-vptr reinstall worker; no receiver adjustment is needed.
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp
+
+void BfmeThingUNC::rva0080A3C0( Rva0080A3C0Input *input )
+{
+	char buffer[ 0x200 ];
+	BfmeC994 message( buffer, sizeof( buffer ) );
+	BfmeThingRF *sourceRF = reinterpret_cast< BfmeThingRF * >( input );
+	BfmeThingCIB *messageCIB = reinterpret_cast< BfmeThingCIB * >( &message );
+
+	message.m_category = input->m_field1c;
+	void *value = sourceRF->bfmeGoRF( (int *)"TID", (void *)-1 );
+	if( value != (void *)-1 )
+		messageCIB->bfmeGoCIB( (int *)"TID", value );
+	message.m_field04 = input->m_field04;
+	message.m_field08 = input->m_field08;
+	message.m_field0c = input->m_field0c;
+
+	if( m_owner->m_sender == 0 )
+	{
+		message.m_field20 = 0x6e67616d;
+		Rva007F93E0( &message, (void *)"->L", m_routeOwner );
+		return;
+	}
+
+	int gid = (int)(long)sourceRF->bfmeGoRF( (void *)"GID", (void *)0 );
+	char name[ 0x20 ];
+	reinterpret_cast< BfmeThingUPB * >( input )->bfmeGoUPB(
+		(void *)"I", name, (void *)0x20 );
+	reinterpret_cast< Rva008091C0Owner * >( this )->handle(
+		&message, gid, name );
+	Rva007F93E0( &message, (void *)"->L", m_routeOwner );
+
+	BfmeC994 second( buffer, sizeof( buffer ) );
+	BfmeThingCIB *secondCIB = reinterpret_cast< BfmeThingCIB * >( &second );
+	second.m_category = input->m_field1c;
+	value = sourceRF->bfmeGoRF( (int *)"TID", (void *)-1 );
+	if( value != (void *)-1 )
+		secondCIB->bfmeGoCIB( (int *)"TID", value );
+	second.m_field04 = input->m_field04;
+	second.m_field08 = input->m_field08;
+	second.m_field0c = input->m_field0c;
+	second.m_category = 0x47444554;
+	rva00809330( &second, gid );
+	Rva007F93E0( &second, (void *)"->L", m_routeOwner );
+
+	Rva00809330Sender *sender = m_owner->m_sender;
+	int index = 0;
+	int count = sender->count();
+	while( index < count )
+	{
+		Rva00802680Owner *player = sender->at( index );
+		if( player->type() == 4 )
+		{
+			BfmeC994 playerMessage( buffer, sizeof( buffer ) );
+			BfmeThingCIB *playerCIB =
+				reinterpret_cast< BfmeThingCIB * >( &playerMessage );
+			playerMessage.m_category = input->m_field1c;
+			value = sourceRF->bfmeGoRF( (int *)"TID", (void *)-1 );
+			if( value != (void *)-1 )
+				playerCIB->bfmeGoCIB( (int *)"TID", value );
+			playerMessage.m_field04 = input->m_field04;
+			playerMessage.m_field08 = input->m_field08;
+			playerMessage.m_field0c = input->m_field0c;
+			playerMessage.m_category = 0x50444154;
+			rva00809400( &playerMessage, gid, player );
+			Rva007F93E0( &playerMessage, (void *)"->L",
+				m_routeOwner );
+		}
+		++index;
+		count = sender->count();
+	}
+}
+
+// Int3 at 0x0080A67F proves the start; final ret 4 at 0x0080A7D6
+// is followed by seven int3 bytes. The vtable reference is VA 0x0112C83C.
+void BfmeThingUNC::rva0080A680(Rva0080A680Input *input)
+{
+ bool response = (input->m_04 & 0x80000000) && (input->m_04 & 0x40000000);
+ Rva007F91D0((Rva00800E50Header *)input, "<-L");
+ Rva007E8810Message message;
+ message.m_10 = input->m_08;
+ message.m_14 = input->m_0c;
+ message.m_20 = input->m_04;
+ message.m_1c = input->m_00;
+ message.m_04 = input->m_18;
+ message.m_08 = input->m_1c;
+ message.m_0c = input->m_20;
+ if (!response) {
+  if (message.m_1c != 0x474c5354) {
+   ((Rva0080A680ForwarderOwner *)m_registrationValue)->slot0c(input);
+   return;
+  }
+  Rva00809500Sink *sink = ((Rva00809010Finder *)this)->find((Rva00809500Entry *)&message);
+  if (sink) sink->accept((Rva00809500Entry *)&message);
+ } else {
+  switch ((int)message.m_1c) {
+   case 0x4547414d: ((Rva00809E40Owner *)this)->rva00809E40(&message); break;
+   case 0x45434e4c: ((Rva0080A110Owner *)this)->route((Rva0080A110Message *)&message); break;
+   case 0x47444154: rva0080A3C0((Rva0080A3C0Input *)&message); break;
+   case 0x474c5354: ((Rva0080A280Owner *)this)->rva0080A280((FeslHandlerMessageView *)&message); break;
+  }
+ }
+}
+
+// Existing retail thiscall teardown spelling targets the matched seven-byte
+// vptr reinstall worker at RVA 0x655780, also used by Gen_007e86c0::m.
+
+// Existing thiscall teardown pin at RVA 0x655780 names the matched
+// seven-byte base-vptr reinstall worker; no receiver adjustment is needed.
 
 // tu-skeleton: 0x00676730 264B ??1Gen0080ACD0@@UAE@XZ -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
 
@@ -1230,4 +1539,62 @@ void Rva00809500Sink::accept( Rva00809500Entry *entry )
 
 // tu-skeleton: 0x00676980 204B ?rva0080AA80@Rva00803620Sink@@QAEXPAURva00809500Entry@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080AA80LanTheater.cpp (not merged yet)
 
-// tu-skeleton: 0x00676A50 374B ?handle@Gen0080AB50@@QAEHI@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0080AB50Handle.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/Rva0080AB50Handle.cpp
+
+int Gen0080AB50::handle( unsigned int timestamp )
+{
+	if( m_tid != 0 )
+	{
+		if( m_status == 0 && m_retryTime < timestamp )
+		{
+			m_retryTime = timestamp + 0x64;
+			m_status = (unsigned char)reinterpret_cast< Rva0080A940Owner * >( this )->finish();
+			if( m_status == 1 )
+				m_deadline = timestamp + 0x5dc;
+		}
+
+		if( m_deadline != 0 && m_deadline < timestamp )
+			process( timestamp );
+	}
+
+	if( m_pendingTid != 0 )
+	{
+		reinterpret_cast< BfmeSinkSKA * >( m_sender )->sendCreateGameRequest(
+			m_pendingTid,
+			reinterpret_cast< LanGameEntryView * >( m_entries[ 0 ] )->m_gameId,
+			m_game->m_maxPlayers, m_game->m_userGameId );
+		m_pendingTid = 0;
+	}
+
+	if( m_joinTid != 0 )
+	{
+		char buffer[ 0x40 ];
+		BfmeC994 message( buffer, sizeof( buffer ) );
+
+		LanGameEntryView *entry =
+			reinterpret_cast< LanGameEntryView * >( m_entries[ 0 ] );
+		if( entry == 0 )
+		{
+			Rva007EB810Get()->fail(
+				"lg",
+				"\\views\\feslbuild_main\\jabba\\fesl\\source\\gamebrowser\\lantheateremulator.cpp",
+				0x496 );
+		}
+		else
+		{
+			message.m_field20 = (int)0xC0000000;
+			message.m_category = 0x4547414d;
+			BfmeThingCIB *cib = reinterpret_cast< BfmeThingCIB * >( &message );
+			cib->bfmeGoCIB( (int *)"TID", (void *)m_joinTid );
+			cib->bfmeGoCIB( (void *)"GID", (void *)entry->m_gameId );
+			cib->bfmeGoCIB( (char *)"LID", (void *)-2 );
+
+			reinterpret_cast< BfmeThingVJJ * >( entry )->bfmeGoVJJ(
+				reinterpret_cast< BfmeMsgVJJ * >( &message ) );
+			message.addString( "NAME", m_name );
+			Rva007F93E0( &message, (void *)"->L", m_route );
+		}
+		m_joinTid = 0;
+	}
+	return 0;
+}
