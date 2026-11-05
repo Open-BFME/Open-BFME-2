@@ -41,10 +41,13 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class __declspec(novtable) CritterEmitterUpdateModuleData : public Snapshot
+// No user-declared destructor: retail's ??1 at 0x004C8F49 is the compiler-generated
+// one (no entry store of its own vtable, unlike every user-written ModuleData dtor),
+// emitted here beside ??_G with the vtable the constructor below installs.
+class CritterEmitterUpdateModuleData : public Snapshot
 {
 public:
-	virtual ~CritterEmitterUpdateModuleData();
+	CritterEmitterUpdateModuleData();
 
 private:
 	int m_unused04; // +4
@@ -227,24 +230,6 @@ NameKeyType CritterEmitterUpdate::getModuleNameKey() const
 	return TheCritterEmitterUpdatePoolKey;
 }
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateModuleDataDtor.cpp
-
-//
-// ??1CritterEmitterUpdateModuleData@@UAE@XZ @0x004C8F49 75B.
-// Dtor lane: ctor rowed at 0x004C8EFF in DynamicGeometryInfoUpdateCtor.cpp vtable
-// 0x0085E988 with slot0 ??_G at 0x004C8F2D. Destroys twin E16 vectors at +8
-// and +0x14 through inlined bfmealloc deallocate (two _free at 0x30830) then
-// restores Snapshot base vtable 0x00BBB554. Layout follows ctor TU (+0 vtable
-// +4 unused +8 vector +0x14 vector +0x20 int). Shape follows FloodUpdateModuleDataDtor
-// (shared Snapshot base dtor plus novtable derived
-// suppresses entry derived store). Two tracked members give states 1 then 0
-// exactly as retail. Caller is ??_G at 0x004C8F2D. BFME1 donor is
-// CritterEmitterUpdateModuleDataDestructorThunk.
-
-CritterEmitterUpdateModuleData::~CritterEmitterUpdateModuleData()
-{
-}
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateConstructorThunk.cpp
 
 // ??0CritterEmitterUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -323,8 +308,19 @@ void CritterEmitterUpdate::onCollide(Object *, const Coord3D *, const Coord3D *)
 	m_24 = true;
 }
 
-// tu-skeleton: 0x004C8EFF 46B ??0CritterEmitterUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DynamicGeometryInfoUpdateCtor.cpp (not merged yet)
+// ??0CritterEmitterUpdateModuleData@@QAE@XZ @0x004C8EFF 46B: installs vtable
+// 0x00C5E988, builds the twin E16 vectors at +8/+0x14 and clears +0x20.
+// ??1CritterEmitterUpdateModuleData@@UAE@XZ @0x004C8F49 75B is the implicit
+// destructor this TU emits: destroys the vectors through inlined bfmealloc
+// deallocate (two _free) under EH states 1 then 0, then restores the Snapshot
+// base vtable 0x00BBB554.
+CritterEmitterUpdateModuleData::CritterEmitterUpdateModuleData()
+	: m_a08(), m_b14()
+{
+	m_i20 = 0;
+}
 
-// tu-skeleton: 0x004C8F2D 28B ??_GCritterEmitterUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp (not merged yet)
+// ??_GCritterEmitterUpdateModuleData@@UAEPAXI@Z @0x004C8F2D 28B: the compiler-generated
+// scalar deleting destructor (vtable 0x00C5E988 slot 0), emitted here with the vtable.
 
 // tu-skeleton: 0x004C8FD7 17B ?buildFieldParse@CritterEmitterUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)

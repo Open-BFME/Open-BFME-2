@@ -3,8 +3,8 @@
 // pairs the name with this factory); formerly misnamed DynamicGeometryInfoUpdate/DynamicGeometryInfoUpdateModuleData.
 //
 // ?friend_newModuleData@CritterEmitterUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
-// retail 0x00252906, 81 bytes. Dedicated TU: the rowed no-arg ctor TU
-// DynamicGeometryInfoUpdateCtor.cpp proves a 0x24-byte root class (vtable,
+// retail 0x00252906, 81 bytes. Dedicated TU: the rowed no-arg ctor in
+// CritterEmitterUpdate.cpp proves a 0x24-byte root class (vtable,
 // int, two 12-byte vectors, trailing int); the factory news 0x24, runs the
 // declared-only ctor (rowed at 0x4C8EFF), then feeds the new data plus the
 // class parse proc at 0x4C8FD7 (pushed immediate, no pin) to

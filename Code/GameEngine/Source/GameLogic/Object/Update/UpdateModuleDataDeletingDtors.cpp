@@ -51,8 +51,3 @@ class AutoPickUpUpdateModuleData { public: AutoPickUpUpdateModuleData(EmitVtable
 // ?<AutoPickUpUpdateModuleData::AutoPickUpUpdateModuleData> absent-from-retail
 AutoPickUpUpdateModuleData::AutoPickUpUpdateModuleData(EmitVtableTag *) {}
 
-// ??_GCritterEmitterUpdateModuleData@@UAEPAXI@Z @0x004C8F2D 28B: slot 0 of vtable 0x00C5E988; calls ??1 at 0x004C8F49.
-// Owner evidence (audited 2026-09-26): retail registration CritterEmitterUpdate -> data factory RVA 0x00252906 -> ctor RVA 0x004C8EFF; primary vptr store RVA 0x004C8F0D.
-class CritterEmitterUpdateModuleData { public: CritterEmitterUpdateModuleData(EmitVtableTag *); virtual ~CritterEmitterUpdateModuleData(); };
-// ?<CritterEmitterUpdateModuleData::CritterEmitterUpdateModuleData> absent-from-retail
-CritterEmitterUpdateModuleData::CritterEmitterUpdateModuleData(EmitVtableTag *) {}
