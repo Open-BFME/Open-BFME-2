@@ -28073,7 +28073,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00375C28,471,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
 0x00375DFF,216,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
 0x00375ED7,453,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
-0x0037609C,2148,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp
+0x0037609C,2148,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
 0x00376900,28,code,,displaced,-,Z=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp S=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp N=Code/GameEngine/Source/Common/System/FontDesc.cpp,Code/GameEngine/Source/Common/System/INI_Rva0022175FParseDefaultMessageFont.cpp
 0x0037691C,108,code,,displaced,-,Z=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp S=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp N=Code/GameEngine/Source/GameClient/GlobalLanguage.cpp,Code/GameEngine/Source/GameClient/GlobalLanguageParseFontDesc.cpp
 0x00376988,58,code,Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp S=Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp N=Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp,Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp
@@ -74593,12 +74593,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077EAA5,10,code,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp,approved,P,P=0x003759F5@FuncInfo0x00928DB8,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateModuleDataDtor.cpp
 0x0077EAAF,8,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x00375C28@FuncInfo0x00928DDC provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
 0x0077EAB7,10,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x00375C28@FuncInfo0x00928DDC provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
-0x0077EAC1,11,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp
-0x0077EACC,8,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp
-0x0077EAD4,11,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp
-0x0077EADF,11,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp
-0x0077EAEA,8,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp
-0x0077EAF2,10,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp
+0x0077EAC1,11,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
+0x0077EACC,8,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
+0x0077EAD4,11,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
+0x0077EADF,11,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
+0x0077EAEA,8,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
+0x0077EAF2,10,code,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,approved,P,P=0x0037609C@FuncInfo0x00928E20 provisional,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
 0x0077EAFC,8,code,,,-,,Code/GameEngine/Source/GameClient/GlobalLanguageParseFontDesc.cpp
 0x0077EB04,10,code,,,-,,Code/GameEngine/Source/GameClient/GlobalLanguageParseFontDesc.cpp
 0x0077EB0E,8,code,Code/GameEngine/Source/GameLogic/Object/ObjectTypes.cpp,approved,P,P=0x00376A1F@FuncInfo0x00928E68,Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesCtor.cpp
