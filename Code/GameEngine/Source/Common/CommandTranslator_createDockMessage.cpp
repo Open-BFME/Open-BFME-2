@@ -5,134 +5,77 @@
 // here, as for the two sibling create*Message bodies); Zero Hour's body shape.
 // 127B
 // Evidence: caller 0x0042A38A plus TheInGameUI slot73 plus PickAndPlayInfo ctor 0x004D92FE plus pickAndPlayUnitVoiceResponse pin plus MessageStreamSubsystem slot 0x48 with 0x42d plus appendObjectIDArgument 0x0030F979
-#include "../../../Libraries/Include/Lib/ICoord2D.h"
-
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../Libraries/Include/Lib/IRegion2D.h"
+union GameMessageArgumentType { int integer; unsigned drawableID; ICoord2D pixel; IRegion2D pixelRegion; Coord3D location; };
+#include "GameLogicObjectLookupView.h"
+#include "../../Include/Common/MessageStream.h"
 
-enum ObjectID
-{
-	OBJECTID_INVALID = 0
+class PickAndPlayInfo { public:
+ PickAndPlayInfo();
+ bool field00; char pad01[3]; Drawable* m_drawTarget; void* m_weaponSlot;
+ void* field0c; int m_specialPowerType; Coord3D m_position; void* field1c;
 };
-
-class GameMessage
-{
+class Object {
 public:
-	enum Type
-	{
-		TYPE_420 = 0x42d
-	};
-	void appendObjectIDArgument(ObjectID id);
+ virtual void slot00();
+ void* m_template; char pad08[0x30]; Coord3D m_position; char pad44[0x30]; ObjectID m_id;
+ ObjectID getID() const { return m_id; }
 };
-
-class MessageStream
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual GameMessage *createMessage(int type);
-};
-extern class MessageStream *TheMessageStream;
-
-struct Sub741
-{
-	char m_pad[0x74];
-	int m_id;
-};
-
-struct InGameRet
-{
-	char m_pad[0xfc];
-	Sub741 *m_fc;
-};
-
+class Drawable { public: char pad00[0xfc]; Object* m_object; Object* getObject() const { return m_object; } const Coord3D* getPosition() const; };
 class DrawableList;
-class PickAndPlayInfo;
-bool __cdecl pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type type, PickAndPlayInfo *info);
-
-class InGameUI
-{
+class InGameUI {
 public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
-	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
-	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
-	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
-	virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
-	virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51();
-	virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
-	virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
-	virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63();
-	virtual void v64(); virtual void v65(); virtual void v66(); virtual void v67();
-	virtual void v68(); virtual void v69(); virtual void v70(); virtual void v71();
-	virtual void v72();
-	virtual const DrawableList *slot73();
-	virtual void v74();
-	virtual InGameRet *slot75();
+ virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+ virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+ virtual void slot08(); virtual void slot09(); virtual void slot0A(); virtual void slot0B();
+ virtual void slot0C(); virtual void slot0D(); virtual void slot0E(); virtual void slot0F();
+ virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13();
+ virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17();
+ virtual void slot18(); virtual void slot19(); virtual void slot1A(); virtual void slot1B();
+ virtual void slot1C(); virtual void slot1D(); virtual void slot1E(); virtual void slot1F();
+ virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+ virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+ virtual void slot28(); virtual void slot29(); virtual void slot2A(); virtual void slot2B();
+ virtual void slot2C(); virtual void slot2D(); virtual void slot2E(); virtual void slot2F();
+ virtual void slot30(); virtual void slot31(); virtual void slot32(); virtual void slot33();
+ virtual void slot34(); virtual void slot35(); virtual void slot36(); virtual void slot37();
+ virtual void slot38(); virtual void slot39(); virtual void slot3A(); virtual void slot3B();
+ virtual void slot3C(); virtual void slot3D(); virtual void slot3E(); virtual void slot3F();
+ virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
+ virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void slot47();
+ virtual void slot48();
+ virtual const DrawableList* getAllSelectedDrawables() const; // vtable +0x124
 };
-extern InGameUI *TheInGameUI;
-
-class PickAndPlayInfo
-{
+extern InGameUI* TheInGameUI;
+extern MessageStream* TheMessageStream;
+bool pickAndPlayUnitVoiceResponse(const DrawableList*,GameMessage::Type,PickAndPlayInfo* = 0);
+class CommandTranslator {
 public:
-	PickAndPlayInfo();
-	bool m_00;
-	int m_04;
-	int m_08;
-	int m_0c;
-	int m_10;
-	Coord3D m_14;
-	int m_20;
-};
-
-struct ArgInner
-{
-	char m_pad00[0x74];
-	ObjectID m_id74;
-	char m_pad78[0x274 - 0x78];
-	void *m_pad274;
-};
-
-class Drawable
-{
-public:
-	char m_pad00[0xfc];
-	ArgInner *m_innerFC;
-};
-
-class CommandTranslator
-{
-public:
-	int createDockMessage(Drawable *a, int b);
+ virtual ~CommandTranslator();
 private:
-	char m_pad00[8];
-	unsigned char m_flag08;
+ int opaque04; bool m_teamExists;
+public:
+ int createDockMessage(Drawable*,int);
 };
 
-int CommandTranslator::createDockMessage(Drawable *a, int b)
+int CommandTranslator::createDockMessage(Drawable *draw, int commandType)
 {
-	if (b == 2)
-		return 0x42d;
-	GameMessage::Type type = GameMessage::TYPE_420;
-	if (a != 0 && a->m_innerFC != 0)
+	if (commandType == 2)
+		return GameMessage::MSG_DOCK;
+	GameMessage::Type msgType = GameMessage::MSG_DOCK;
+	if (draw != 0 && draw->getObject() != 0)
 	{
-		if (m_flag08 != 0)
+		if (m_teamExists)
 		{
 			PickAndPlayInfo info;
-			info.m_04 = (int)a;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->slot73(), type, (PickAndPlayInfo *)&info);
-			GameMessage *msg = TheMessageStream->createMessage((int)type);
-			msg->appendObjectIDArgument(a->m_innerFC->m_id74);
+			info.m_drawTarget = draw;
+			pickAndPlayUnitVoiceResponse((const DrawableList*)TheInGameUI->getAllSelectedDrawables(), msgType, &info);
+			GameMessage *msg = TheMessageStream->appendMessage(msgType);
+			msg->appendObjectIDArgument(draw->getObject()->getID());
 		}
-		return type;
+		return msgType;
 	}
 	return 0;
 }
