@@ -33,3 +33,10 @@ Local scratch logs: `build/codexb4-experience-dry-after.log`,
 `build/codexb4-experience-merge.log`,
 `build/codexb4-experience-move-prepare-before.log` and
 `build/codexb4-experience-move-preview-before.log`.
+
+Publication follow-up: the handoff's first preflight refused its header-debt
+receipt after unrelated workspace edits were restored during judgment. With
+those edits preserved in a stash and the inputs stable,
+`header_adopt_lane.py accept --class BfmeStringRecord000B94D2` again passes for
+`ExperienceLevelDtor.cpp`. No additional queue row was removed. The merge
+remains unapplied, and the peer's shared-address claim remains untouched.
