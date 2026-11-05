@@ -87,7 +87,7 @@ void Rva00419726Parse(INI *ini, void *, void *store, const void *)
 		throw INIException(1, "Unknown LivingWorldAutoResolveWeapon %s", token);
 }
 
-extern const char *g_00DC85C4[];
+extern const char *g_Va00DC85C4Names[];
 
 // ?parseDamagePerRoundIntoTable@LivingWorldAutoResolveWeaponTemplate@@SAXPAVINI@@PAX1PBX@Z
 class LivingWorldAutoResolveWeaponTemplate
@@ -100,6 +100,6 @@ void LivingWorldAutoResolveWeaponTemplate::parseDamagePerRoundIntoTable(INI *ini
 {
 	float damage = ini->scanReal(ini->getNextSubToken("Damage"));
 	const char *against = ini->getNextSubToken("Against");
-	int index = ini->scanIndexList(against, g_00DC85C4);
+	int index = ini->scanIndexList(against, g_Va00DC85C4Names);
 	((float *)store)[index] = damage;
 }

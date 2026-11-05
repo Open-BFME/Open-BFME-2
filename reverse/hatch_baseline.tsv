@@ -868,7 +868,7 @@ address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Va00
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Rva00E02EEC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirUpdate.cpp	g_Va00A04450	2
-address_global	Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	g_Va00DC85C4Names	1
+address_global	Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	g_Va00DC85C4Names	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	g_Va00A03314	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0043F483PopulatePlayerCombo.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp	g_Va00E04904	5
@@ -889,6 +889,7 @@ address_global	Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp	g_V
 address_global	Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueIconSelect.cpp	g_Va00E06724	4
 address_global	Code/GameEngine/Source/GameClient/Rva004110DCGet.cpp	g_Va00E02FF8	2
 address_global	Code/GameEngine/Source/GameClient/Rva00411112Get.cpp	g_Va00E0300C	2
+address_global	Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp	g_Va00DC85C4Names	2
 address_global	Code/GameEngine/Source/GameClient/Rva00511F73.cpp	g_Va00E048C4	3
 address_global	Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp	g_Va00C68440	3
 address_global	Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp	g_Va00C6847C	3
@@ -2562,7 +2563,6 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?rva0023D075@GameLogicFwd@@QAEHH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?rva0023D096@GameLogicFwd@@QAEMH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?rva0023D0AC@GameLogicFwd@@QAEHH@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	?g_00DC85C4@@3PAPBDA	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	?erase@?$vector@PAURva0043D1C9Entry@@V?$allocator@PAURva0043D1C9Entry@@@_STL@@@_STL@@QAEPAPAURva0043D1C9Entry@@PAPAU3@0@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Rva00441DBFPop.cpp	?Rva00441DBFPop@@YAXPAPAX00PAXVRva0043FE9A@@H@Z	1

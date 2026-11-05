@@ -93,7 +93,7 @@ typedef const ConstCharPtr *ConstCharPtrArray;
 
 #include "../../../Include/Common/INI/INI.h"
 
-extern ConstCharPtr g_00DC85C4[];
+extern ConstCharPtr g_Va00DC85C4Names[];
 extern "C" {
 void __identifier("?Rva00427114Parse@@YAXPAVINI@@PAVRva00427157@@@Z")();
 }
@@ -124,7 +124,7 @@ void Rva00427114Parse(INI *ini, Rva00427157 *store)
 	const char *key = ini->getNextToken(0);
 	const char *val = ini->getNextToken(0);
 	float f = ini->dup_002EE10(val);
-	int idx = ini->scanIndexList(key, g_00DC85C4);
+	int idx = ini->scanIndexList(key, g_Va00DC85C4Names);
 	store->m_vals[idx] = f;
 }
 
@@ -187,7 +187,3 @@ void __cdecl Rva00427294Parse(INI *ini, void *dummy1, void *instance, void *dumm
 		throw INIException(1, "Unknown LivingWorldAutoResolveArmor %s", token);
 	}
 }
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00DC85C4@@3PAPBDA=?g_Va00DC85C4Names@@3PAPBDA")
