@@ -37,6 +37,15 @@ real link or a census gain. An attempted precommit batch audit was inconclusive
 because the working tree differed from its supplied HEAD tip; publication's
 batch audit must assess the actual outgoing commit and affected consumers.
 
+Postcommit `link_batch_audit.py --base HEAD^ --tip HEAD` at `ed61422a13`,
+with both byte-verified sources supplied, also returns INCONCLUSIVE: the index
+predates the outgoing base and both source objects lack census-grade current
+receipts (first reported: `TextureMapperFXShaderConvert.cpp`). Therefore the
+consumer audit is unverified; carry these two units and their affected
+consumers into the next authorized census. This result neither demonstrates
+a link regression nor establishes consumer preservation. Publication was
+deferred by the runner because maintainers have locked master.
+
 ## Remaining consolidation work
 
 The current-input `tu_skeleton.py --merge .../mapper.cpp --dry-run` still
