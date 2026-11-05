@@ -54891,7 +54891,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00656190,151,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656230 provisional,Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp
 0x00656230,104,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006562A0 provisional,Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp
 0x006562A0,9,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006562B0 provisional,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x006562B0,36,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006562E0 provisional,Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp
+0x006562B0,36,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006562E0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x006562E0,32,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656300 provisional,Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp
 0x00656300,172,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x006563B0 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp
 0x006563B0,223,code,Code/GameEngine/Source/Common/BfmeThingRE.cpp,approved,C,C=0x006560F0..0x00656490 provisional,Code/GameEngine/Source/Common/BfmeThingRE.cpp

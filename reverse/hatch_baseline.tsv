@@ -11629,7 +11629,9 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva006D07E0Key@@
 present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva008A2BA0Handle@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeStringRecord00426A5B.cpp	rva004266A1@Rva004266A1@@QAE_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeSub928F.cpp	1Rva00109C27@@UAE@XZ	1
+present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	0Rva006560E0@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	Rva007EA0A0Owner::forwardSentinel	1
+present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	marked	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGH::bfmeSetGH	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGL::bfmeReleaseGL	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeTwoHundredOne.cpp	BfmeThingGM::bfmeDrainGM	1
@@ -12962,8 +12964,6 @@ present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptV
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueWithHash::AptValueWithHash	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp	Rva006DA4D0::Rva006DA4D0	1
 present_unmatched	Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp	1HuffStat@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp	0Rva006560E0@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp	marked	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva0065E7D0Deleter.cpp	0Rva0065E7D0@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva0065E7D0Deleter.cpp	marked	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva0065F140Deleter.cpp	0Rva0065F140Derived@@QAE@XZ	1

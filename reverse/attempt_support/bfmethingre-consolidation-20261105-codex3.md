@@ -30,3 +30,39 @@ Verification before the prerequisite commit:
   hatch keys; these must transfer through the merge tool, without retirement.
 
 No real link, census, nightly or smoke measurement was run.
+
+## Applied merge and tooling audit
+
+After prerequisite da09453b6d, regenerated the supported consolidation planner
+and applied tu_skeleton --merge (same 40-row composition; no rejected donor).
+The tool removed one source, moved its only function row and its tu_map source
+cell, and transferred both present-unmatched keys to BfmeThingRE.cpp. The map
+was not regenerated on disk; only the moved row's source column changed.
+No debt was retired. The existing alternatename and address-global hatches stay.
+
+Final checks:
+
+- ./build.sh BfmeThingRE.cpp: 40/40 exact, 36 literals and two imports verified.
+- find_declared_unmatched.py: passes (all defined functions already matched).
+- check_csv.py and git diff --cached --check pass.
+- Merge link guard: both previously linked units retained through one object;
+  selected COMDAT/provider-consumer checks passed. Final link_check: destination
+  LINKS with 2,830 authored bytes; total equals the former 2,794 + 36 bytes.
+  The preview's per-destination increase is a move, not a census gain.
+- No donor/destination keys in header_queue, ms_header_queue, code-identity,
+  data-check or gate-debt registers. Existing destination data-ledger owners,
+  flag override and symbol pins stay in place. No new data binding is introduced.
+- Path audit covers the complete outgoing batch from origin/master at
+  1c8e3b235a plus the staged merge: searched old full path, basename and directory
+  assumptions across tools, hooks, workflows, code/includes, root build/config
+  files, ledgers/registers and docs. No active tooling or include references
+  require updates. The only remaining old basename hits are the historical
+  link_status.csv census row, two recipe comments, the generated provenance
+  comment in the merged TU and this evidence file. Historical re_attempts.log
+  entries remain untouched. Active function/map/hatch ownership is repointed;
+  no body-owner, data-row, doxygen input or fold-proof entry names the donor.
+
+The 16 mixed sources remain prerequisites for further consolidation; none were
+split or moved here. The final file retains the donor's ordinary inline empty
+destructor and emission-only constructor. Game/menu, real-link and census
+confirmation remain with their scheduled maintainers.

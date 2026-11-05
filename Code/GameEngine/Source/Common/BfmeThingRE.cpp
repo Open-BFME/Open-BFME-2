@@ -596,6 +596,34 @@ private:
 	char m_2AC;
 };
 
+// ??_GRva006560E0@@UAEPAXI@Z, retail 0x006562B0 (36B). Scalar-deleting
+// destructor of the opaque BfmeDirtyBase-derived class Rva006560E0 (vtable
+// 0x00CE0FC8, whose slot 0 lands here). Shape two of Y2ScalarDeleters.cpp:
+// the derived destructor is INLINE and empty, so what survives inlining is
+// the derived vptr reinstall (DIR32 auto-patch) followed by the call to the
+// matched shared base destructor at 0x00658650 (declared here, never
+// defined). The flag test then frees through the global one-arg operator
+// delete (matched ??3 row, no member delete declared). Per the
+// Rva0065F140Deleter recipe, the defined constructor below forces the vtable
+// emission, and ??_G rides along with it; the constructor itself is only
+// marked present-unmatched, never claimed. Owner identity is the rowed
+// ??1Rva006560E0 at 0x006560E0 in BfmeDirtyBaseDerived.cpp.
+
+struct BfmeDirtyBase
+{
+	BfmeDirtyBase();
+	virtual ~BfmeDirtyBase();
+};
+
+class Rva006560E0 : public BfmeDirtyBase
+{
+public:
+	Rva006560E0();
+	virtual ~Rva006560E0()
+	{
+	}
+};
+
 // tu-skeleton: 0x006560F0 36B ?bfmeGoRE@BfmeThingRE@@QAEDPAVBfmeOtherRE@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv908.cpp (not merged yet)
 
 // tu-skeleton: 0x00656120 104B ?get@Rva007E90C0Names@@QAE_NPADH@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp (not merged yet)
@@ -606,9 +634,16 @@ private:
 
 // tu-skeleton: 0x006562A0 9B ??0Rva006562A0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x006562B0 36B ??_GRva006560E0@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp (not merged yet)
+// ---- from Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp
+
+// ??0Rva006560E0@@QAE@XZ present-unmatched (emission only, unclaimed)
+Rva006560E0::Rva006560E0()
+{
+}
 
 // tu-skeleton: 0x006562E0 32B ??0Rva007E9B40Object@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeThingRE.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeThingRE.cpp
 
@@ -1061,44 +1096,6 @@ void __stdcall Rva007E93C0(Rva007E8810Message *msg, const char *name,
 	msg->addBool("thirdPartyMailFlag", thirdPartyMailFlag);
 }
 
-// tu-skeleton: 0x00656490 61B ?bfmeSetupPair_00656490@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x006564D0 61B ?bfmeSetupPair_006564D0@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x00656510 61B ?bfmeSetupPair_00656510@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x00656550 61B ?bfmeSetupPair_00656550@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x00656750 173B ?bfmeGoVIV@@YGXPAVFeslMessage@@PAD11111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
-
-// tu-skeleton: 0x00656800 78B ?bfmeGoVIT@@YGXPAVFeslMessage@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
-
-// tu-skeleton: 0x00656850 61B ?bfmeSetupPair_007E9860@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
-
-// tu-skeleton: 0x006568F0 129B ?bfmeGoVIX@@YGXPAVBfmeMsgVIX@@PAX1111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1380.cpp (not merged yet)
-
-// tu-skeleton: 0x006569E0 78B ?bfmeGoEVIW@@YGXPAVBfmeMsgVIW@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1379.cpp (not merged yet)
-
-// tu-skeleton: 0x00656A30 15B ?rva00656A30@Rva00656A30@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp (not merged yet)
-
-// tu-skeleton: 0x00656A40 179B ?lookup@Rva007E9A50@@QAEPAURva007E9A50Entry@@PAVRva007E8810Message@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B00 38B ??_GGen007E9B10@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B30 45B ?Rva007E9B40@@YAPAVRva007E9B40Object@@PAX@Z -- matched in Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B60 6B ?Rva00656B60Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00656B70 33B ??0Rva00CE12FCMutex@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
-
-// tu-skeleton: 0x00656BA0 6B ?sleep@Rva00CE12FCMutex@@UAEXK@Z -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
-
-// tu-skeleton: 0x00656C10 31B ??1Rva00CE12FCMutex@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
-
-// tu-skeleton: 0x00656C30 52B ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1324.cpp (not merged yet)
-
-// tu-skeleton: 0x00656C80 9B ??0Rva00657670@@QAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Rva007E9D20CachedAccessor.cpp
 
 void *Rva007E9D20Owner::get()
@@ -1148,6 +1145,44 @@ void Rva007E9FC0Owner::begin(int n, void *peer)
 		m_254->m_inner->slot2(0, &err);
 	}
 }
+
+// tu-skeleton: 0x00656490 61B ?bfmeSetupPair_00656490@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x006564D0 61B ?bfmeSetupPair_006564D0@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x00656510 61B ?bfmeSetupPair_00656510@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x00656550 61B ?bfmeSetupPair_00656550@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x00656750 173B ?bfmeGoVIV@@YGXPAVFeslMessage@@PAD11111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
+
+// tu-skeleton: 0x00656800 78B ?bfmeGoVIT@@YGXPAVFeslMessage@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1378.cpp (not merged yet)
+
+// tu-skeleton: 0x00656850 61B ?bfmeSetupPair_007E9860@@YGXPAUBfmeSetupRecord@@H@Z -- matched in Code/GameEngine/Source/Common/Bfme5SetupPairs.cpp (not merged yet)
+
+// tu-skeleton: 0x006568F0 129B ?bfmeGoVIX@@YGXPAVBfmeMsgVIX@@PAX1111@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1380.cpp (not merged yet)
+
+// tu-skeleton: 0x006569E0 78B ?bfmeGoEVIW@@YGXPAVBfmeMsgVIW@@PAX1@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1379.cpp (not merged yet)
+
+// tu-skeleton: 0x00656A30 15B ?rva00656A30@Rva00656A30@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAH.cpp (not merged yet)
+
+// tu-skeleton: 0x00656A40 179B ?lookup@Rva007E9A50@@QAEPAURva007E9A50Entry@@PAVRva007E8810Message@@@Z -- matched in Code/GameEngine/Source/Common/Rva007E9A50Lookups.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B00 38B ??_GGen007E9B10@@UAEPAXI@Z -- matched in Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B30 45B ?Rva007E9B40@@YAPAVRva007E9B40Object@@PAX@Z -- matched in Code/GameEngine/Source/Common/Q3MakeDerivedFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B60 6B ?Rva00656B60Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00656B70 33B ??0Rva00CE12FCMutex@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
+
+// tu-skeleton: 0x00656BA0 6B ?sleep@Rva00CE12FCMutex@@UAEXK@Z -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
+
+// tu-skeleton: 0x00656C10 31B ??1Rva00CE12FCMutex@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp (not merged yet)
+
+// tu-skeleton: 0x00656C30 52B ?bfmeDelTVA@BfmeThingTVA@@QAEPAXE@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1324.cpp (not merged yet)
+
+// tu-skeleton: 0x00656C80 9B ??0Rva00657670@@QAE@XZ -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors2.cpp (not merged yet)
 
 // tu-skeleton: 0x006573B0 99B ?set@Rva006573B0Holder@@QAEXPBD00@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp (not merged yet)
 
