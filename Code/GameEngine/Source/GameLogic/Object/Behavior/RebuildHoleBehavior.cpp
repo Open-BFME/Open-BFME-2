@@ -15,12 +15,6 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class RebuildHoleBehaviorInterface
-{
-public:
-	virtual void dummy() = 0;
-};
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class Team; class Player; class Drawable; class SpawnBehaviorInterface; class Rva00346BC0; struct Coord3D;
@@ -81,36 +75,22 @@ private:
 //
 // ??0RebuildHoleBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00483271,
 // 102 bytes. RebuildHoleBehavior ctor over the rowed UpdateModule base
-// (0x253390, thing plus data). FakePathfindPortalBehaviour two-phase idiom:
-// sourced-before address-take slots commit the initial +0x20/+0x24 constants
-// first; a shared-zero run clears +0x28 through +0x3C; the vtable group
-// reinstalls the primary slot, the +0x0C/+0x10 secondaries and +0x20/+0x24;
-// a float zero lands at +0x40 and a set flag at +0x44 (the class's own
-// tables, defined by RebuildHoleBehaviorDtor.cpp; no virtuals are declared
-// here so no vtable is emitted here).
+// (0x253390, thing plus data). The DieModuleInterface and
+// RebuildHoleBehaviorInterface bases store their own tables at +0x20/+0x24
+// first; the scheduler then clears +0x28 through +0x3C, installs the five
+// RebuildHoleBehavior vptrs and lands the float zero at +0x40 and the set
+// flag at +0x44 (canonical RebuildHoleBehaviorClass.h).
 //
 // The rowed name getter at 0x48331C (RebuildHoleBehavior literal), the pool
 // key at 0x4832D7, the ModuleData pair (ctor 0x48323E plus factory 0x24C433)
 // and the rowed instance factory 0x24C3FB (sole caller, ModuleFactory
 // registration literal) prove the class. Row supersedes the ctor pin.
 
-extern "C" const void *const __identifier("??_7BfmeCtorVirtualBase001B3A20@@6B@")[];
 
-extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
 
 class Thing;
 
 class ModuleData;
-
-extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BObjectModule@@@")[];  // vftable 0x00C49A74
-
-extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C49188
-
-extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BUpdateModule@@@")[];  // vftable 0x00C49A68
-
-extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BDieModuleInterface@@@")[];  // vftable 0x00C49A64
-
-extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BRebuildHoleBehaviorInterface@@@")[];  // vftable 0x00C49A50
 
 enum UpdateSleepTime
 {
@@ -118,64 +98,11 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class __declspec(novtable) RebuildHoleModulePrefix
-{
-public:
-	virtual void rebuildHoleModulePrefixAnchor() = 0;
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
+#include "GameLogicObjectLookupView.h"
 
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_p0C;
-};
-
-class __declspec(novtable) UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-// UpdateModule base; ctor resolves to its row, and __declspec(novtable) keeps
-// the explicit vptr store order in 0x00483271 while placing UpdateModuleInterface
-// at +0x10 for RebuildHoleBehavior::update.
-class __declspec(novtable) UpdateModule : public RebuildHoleModulePrefix, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	unsigned char m_pad[0x20 - 0x14];
-};
-
-class __declspec(novtable) RebuildHoleBehavior : public UpdateModule
-{
-public:
-	RebuildHoleBehavior(Thing *thing, const ModuleData *moduleData);
-	virtual UpdateSleepTime update();
-	void newWorkerRespawnProcess(Object *existingWorker);
-private:
-	const void *m_secondary20;
-private:
-	const void *m_secondary24;
-private:
-	int m_28;
-private:
-	int m_2C;
-private:
-	int m_30;
-private:
-	int m_34;
-private:
-	int m_38;
-private:
-	int m_3C;
-private:
-	float m_40;
-private:
-	bool m_44;
-public:
-	static RebuildHoleBehaviorInterface *getRebuildHoleBehaviorInterfaceFromObject(Object *obj);
-};
+extern GameLogic *TheGameLogic;
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorGetInterface.cpp
 
@@ -218,28 +145,25 @@ RebuildHoleBehaviorModuleData::RebuildHoleBehaviorModuleData()
 RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	int *slot20 = (int *)&m_secondary20;
-	*slot20 = (int)((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
-	int *slot24 = (int *)&m_secondary24;
-	*slot24 = (int)((unsigned int)__identifier("??_7BfmeCtorVirtualBase001B3A20@@6B@"));
-	m_28 = 0;
-	m_2C = 0;
-	m_30 = 0;
-	m_34 = 0;
-	m_38 = 0;
-	m_3C = 0;
-	*(const void **)this = __identifier("??_7RebuildHoleBehavior@@6BObjectModule@@@");
-	m_p0C = __identifier("??_7RebuildHoleBehavior@@6BBehaviorModuleInterface@@@");
-	*(const void **)((char *)this + 0x10) = __identifier("??_7RebuildHoleBehavior@@6BUpdateModule@@@");
-	m_secondary20 = __identifier("??_7RebuildHoleBehavior@@6BDieModuleInterface@@@");
-	m_secondary24 = __identifier("??_7RebuildHoleBehavior@@6BRebuildHoleBehaviorInterface@@@");
+	m_workerID = INVALID_OBJECT_ID;
+	m_reconstructingID = INVALID_OBJECT_ID;
+	m_spawnerObjectID = INVALID_OBJECT_ID;
+	m_workerWaitCounter = 0;
+	m_workerTemplate = 0;
+	m_rebuildTemplate = 0;
 	m_40 = 0.0f;
 	m_44 = true;
 }
 
 // tu-skeleton: 0x004832D7 69B ?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorPoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0048331C 6B ?name@RebuildHoleBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// ?GetSnapshotName@RebuildHoleBehavior@@MBEPBDXZ @0x0048331C: primary table
+// 0x00C49A74 slot 2; returns the class literal 0x00BF5880 that the name key
+// 0x004832D7 also hashes.
+const char *RebuildHoleBehavior::GetSnapshotName() const
+{
+	return "RebuildHoleBehavior";
+}
 
 // tu-skeleton: 0x0048332E 28B ??_GRebuildHoleBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDeletingDtors.cpp (not merged yet)
 
@@ -251,7 +175,23 @@ RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleD
 
 // tu-skeleton: 0x0048353E 118B ??1RebuildHoleBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004835FB 46B ?rva004835FB@Rva004835FB@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp (not merged yet)
+// ?onDie@RebuildHoleBehavior@@UAEXPBVDamageInfo@@@Z @0x004835FB: retail
+// RebuildHoleBehavior die table 0x00C49A64 slot 0. It runs on the
+// DieModuleInterface subobject (+0x20), so the worker ID is at +0x08 there.
+// When the hole dies, the worker it is still waiting on dies with it.
+void RebuildHoleBehavior::onDie(const DamageInfo *damageInfo)
+{
+	if (m_workerID != INVALID_OBJECT_ID)
+	{
+		GameLogic *gameLogic = TheGameLogic;
+		Object *worker = gameLogic->findObjectByID(m_workerID);
+		if (worker)
+		{
+			gameLogic->destroyObject(worker);
+			m_workerID = INVALID_OBJECT_ID;
+		}
+	}
+}
 
 // tu-skeleton: 0x00483629 28B ??_GRebuildHoleBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp (not merged yet)
 
@@ -261,7 +201,6 @@ RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleD
 // provide the semantic spine; target adds direct rebuild when no worker name
 // exists, flags, owner transfer, spawn activation and completion conditions.
 // /O1 /G7 /arch:SSE reproduces all 910 bytes.
-#include "GameLogicObjectLookupView.h"
 #include "ascii_string.h"
 // Native 128-bit status view; the 101-bit extent is a WB/donor lead.
 struct RebuildStatusView { unsigned words[4];bool test(unsigned pos) const {return ((words[pos>>5] >> (pos&31)) & 1u)!=0;} };

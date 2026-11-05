@@ -23,7 +23,7 @@ class Object
 {
 public:
 	unsigned char m_pad000[0x324];
-	int m_324;
+	float m_324;
 };
 
 
@@ -53,47 +53,9 @@ enum UpdateSleepTime
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie();
-};
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 
-class RebuildHoleBehaviorInterface
-{
-public:
-	virtual void startRebuildProcess(const ThingTemplate *rebuild, ObjectID spawnerID) = 0;
-	virtual ObjectID getSpawnerID();
-	virtual ObjectID getReconstructedBuildingID();
-	virtual const ThingTemplate *getRebuildTemplate() const;
-};
 
-class RebuildHoleBehavior : public UpdateModule,
-	public DieModuleInterface,
-	public RebuildHoleBehaviorInterface
-{
-public:
-	virtual UpdateSleepTime update();
-	virtual ~RebuildHoleBehavior();
-	virtual void startRebuildProcess(const ThingTemplate *rebuild, ObjectID spawnerID);
-	void newWorkerRespawnProcess(Object *existingWorker);
-
-private:
-	ObjectID m_workerID;
-	ObjectID m_reconstructingID;
-	ObjectID m_spawnerObjectID;
-	unsigned int m_workerWaitCounter;
-	const ThingTemplate *m_workerTemplate;
-	const ThingTemplate *m_rebuildTemplate;
-	int m_40;
-	bool m_44;
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	// retail vftable slot: the rowed override
-	virtual void xfer(Xfer *);
-};
 
 RebuildHoleBehavior::~RebuildHoleBehavior()
 {
@@ -121,14 +83,11 @@ void RebuildHoleBehavior::startRebuildProcess(const ThingTemplate *rebuild, Obje
 	newWorkerRespawnProcess(worker);
 }
 
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?getSpawnerID@RebuildHoleBehaviorInterface@@UAE?AW4ObjectID@@XZ=?getNext@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBV12@XZ")
-#pragma comment(linker, "/alternatename:?getReconstructedBuildingID@RebuildHoleBehaviorInterface@@UAE?AW4ObjectID@@XZ=?getName@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBDXZ")
-#pragma comment(linker, "/alternatename:?getRebuildTemplate@RebuildHoleBehaviorInterface@@UBEPBVThingTemplate@@XZ=?get@Rva002A79A1DwordField@@QBEHXZ")
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?onDie@DieModuleInterface@@UAEXXZ=?rva004835FB@Rva004835FB@@QAEXH@Z")
+// ?loadPostProcess@RebuildHoleBehavior@@MAEXXZ: primary table 0x00C49A74
+// slot 1 holds 0x00497805, the identical-code-folded `jmp` to
+// UpdateModule::loadPostProcess (0x0058B03E) that every UpdateModule-family
+// override without work of its own shares.
+void RebuildHoleBehavior::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}

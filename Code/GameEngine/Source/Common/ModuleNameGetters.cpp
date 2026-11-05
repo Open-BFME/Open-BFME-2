@@ -64,7 +64,6 @@ BFME_LITERAL_NAME_GETTER(WeaponFireSpecialAbilityUpdate, "WeaponFireSpecialAbili
 BFME_SNAPSHOT_NAME_GETTER(DozerAIUpdate, "DozerAIUpdate")
 BFME_SNAPSHOT_NAME_GETTER(AssistedTargetingUpdate, "AssistedTargetingUpdate")
 BFME_LITERAL_NAME_GETTER(RebuildHoleExposeDie, "RebuildHoleExposeDie")
-BFME_LITERAL_NAME_GETTER(RebuildHoleBehavior, "RebuildHoleBehavior")
 BFME_LITERAL_NAME_GETTER(FireWeaponWhenDamagedBehavior, "FireWeaponWhenDamagedBehavior")
 BFME_LITERAL_NAME_GETTER(RiderChangeContain, "RiderChangeContain")
 BFME_LITERAL_NAME_GETTER(TunnelContain, "TunnelContain")

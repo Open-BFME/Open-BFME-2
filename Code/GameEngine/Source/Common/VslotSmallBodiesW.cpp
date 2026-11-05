@@ -320,31 +320,6 @@ void Rva00479B0A::rva00479B0A(Object *obj)
 	}
 }
 
-// 0x004835FB: destroys the object whose id is held at +0x08 through
-// TheGameLogic and forgets the id (the argument is unused).
-class Rva004835FB
-{
-public:
-	void rva004835FB(Int unused);
-private:
-	Int m_00;
-	Int m_04;
-	ObjectID m_workerID;
-};
-void Rva004835FB::rva004835FB(Int)
-{
-	if (m_workerID)
-	{
-		GameLogic *logic = TheGameLogic;
-		Object *obj = logic->findObjectByID(m_workerID);
-		if (obj)
-		{
-			logic->destroyObject(obj);
-			m_workerID = INVALID_OBJECT_ID;
-		}
-	}
-}
-
 // 0x00483B10 (interface at +0x20 of an UpdateModule): virtual slot 13 of
 // the complete object, then the rowed UpdateModule::setWakeFrame for the
 // object at the frames left until the +0x24 frame.

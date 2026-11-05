@@ -2767,10 +2767,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBe
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp	?slot@PB_Iface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp	?slot@PropagandaTowerBehaviorIface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp	?g_bfmePropagandaHeal@@3MA	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp	?getRebuildTemplate@RebuildHoleBehaviorInterface@@UBEPBVThingTemplate@@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp	?getReconstructedBuildingID@RebuildHoleBehaviorInterface@@UAE?AW4ObjectID@@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp	?getSpawnerID@RebuildHoleBehaviorInterface@@UAE?AW4ObjectID@@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehaviorDtor.cpp	?onDie@DieModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp	?setReplenishing@SpawnBehaviorFourthBase@@UAEX_N@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp	?slot00@SpawnBehaviorFourthBase@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp	?slot04@SpawnBehaviorFourthBase@@UAEXXZ	1
