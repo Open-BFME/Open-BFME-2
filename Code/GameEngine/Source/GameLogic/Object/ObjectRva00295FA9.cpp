@@ -33,8 +33,14 @@ enum WeaponSlotType
 
 #include "../../../Include/Common/ThingTemplate.h"
 
+struct Rva0028AC4EQ;
 struct Rva0028AC4EEntry
 {
+public:
+	char m_pad00[0x4];
+	Rva0028AC4EQ *m_next; // +0x04
+	char m_pad08[0x38];
+	float m_float; // +0x40 +0x040 (read via 0x8BB38, never directly)
 };
 
 class Object;

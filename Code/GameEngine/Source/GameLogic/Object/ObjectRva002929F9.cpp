@@ -76,10 +76,14 @@ public:
 	float rva002627E8() const;
 };
 
+struct Rva0028AC4EQ;
 struct Rva0028AC4EEntry
 {
-	char m_pad00[0x40];
-	Real m_40;
+public:
+	char m_pad00[0x4];
+	Rva0028AC4EQ *m_next; // +0x04
+	char m_pad08[0x38];
+	float m_float; // +0x40 +0x040 (read via 0x8BB38, never directly)
 };
 
 class Rva001E46E1
@@ -212,7 +216,7 @@ void Object::rva002929F9(Object *other)
 	Real remaining = value - speed;
 	if (remaining < 0.0f)
 		remaining = 0.0f;
-	if (entry->m_40 > remaining)
-		entry->m_40 = remaining;
+	if (entry->m_float > remaining)
+		entry->m_float = remaining;
 	reinterpret_cast<Rva001E415F *>(entry)->rva001E415F(remaining, BfmeLogicFramesPerSecond);
 }

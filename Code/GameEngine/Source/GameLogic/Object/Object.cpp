@@ -543,7 +543,11 @@ void _bfme_debugRecordCallsite(int kind);
 
 extern BuildAssistant *TheBuildAssistant;
 
-class Rva002C9400ByteField { public: unsigned char get() const; };
+class Rva002C9400ByteField
+{
+public:
+	unsigned char get() const;
+};
 
 class AdjustVictimSelector;
 

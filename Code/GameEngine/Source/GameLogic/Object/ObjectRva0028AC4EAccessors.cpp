@@ -28,10 +28,11 @@ struct Rva0028AC4EQ
 
 struct Rva0028AC4EEntry
 {
-	char m_pad0[4];					// +0x000..+0x004 unknown
-	Rva0028AC4EQ *m_next;			// +0x004
-	char m_pad1[0x40 - 8];			// +0x008..+0x040 unknown
-	float m_float;					// +0x040 (read via 0x8BB38, never directly)
+public:
+	char m_pad00[0x4];
+	Rva0028AC4EQ *m_next; // +0x04
+	char m_pad08[0x38];
+	float m_float; // +0x40 +0x040 (read via 0x8BB38, never directly)
 };
 
 struct Rva0028AC4EHolder

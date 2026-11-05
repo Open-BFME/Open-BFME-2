@@ -174,7 +174,15 @@ class ObjectCollisionFlags {public:
  __forceinline unsigned test(int i)const{return bits[i>>5]&(1u<<(i&31));}
  __forceinline void set(int i){bits[i>>5]|=1u<<(i&31);}
 };
-struct Rva0028AC4EEntry {char pad[0x40];float m_float;};
+struct Rva0028AC4EQ;
+struct Rva0028AC4EEntry
+{
+public:
+	char m_pad00[0x4];
+	Rva0028AC4EQ *m_next; // +0x04
+	char m_pad08[0x38];
+	float m_float; // +0x40 +0x040 (read via 0x8BB38, never directly)
+};
 extern int BfmeLogicFramesPerSecond;
 class Object
 {
