@@ -87,17 +87,10 @@ public:
 	virtual void rva00453652(int a1) = 0;
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const GettingBuiltBehaviorModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-class GettingBuiltBehavior : public BehaviorModule, public GettingBuiltBehaviorInterface
+class GettingBuiltBehavior : public UpdateModule, public GettingBuiltBehaviorInterface
 {
 public:
 	virtual void rva00453652(int a1);
@@ -110,7 +103,7 @@ void GettingBuiltBehavior::onObjectCreated()
 	if (!obj)
 		return;
 	const ThingTemplate *named = 0;
-	const GettingBuiltBehaviorModuleData *data = m_moduleData;
+	const GettingBuiltBehaviorModuleData *data = static_cast<const GettingBuiltBehaviorModuleData *>(m_moduleData);
 	if (data)
 	{
 		if (data->m_testFaction)

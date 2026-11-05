@@ -165,6 +165,7 @@ struct Rva00453652Sound : public OpaqueRefElement4
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
 
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 

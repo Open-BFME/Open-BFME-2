@@ -65,67 +65,9 @@ public:
 	virtual void onDie(DamageInfo *damageInfo) = 0;
 };
 
-class Rva002985C6Interface
-{
-public:
-	virtual void vf000(); virtual void vf004(); virtual void vf008(); virtual void vf00C();
-	virtual void vf010(); virtual void vf014(); virtual void vf018(); virtual void vf01C();
-	virtual void vf020(); virtual void vf024(); virtual void vf028(); virtual void vf02C();
-	virtual void vf030(); virtual void vf034(); virtual void vf038(); virtual void vf03C();
-	virtual void vf040(); virtual void vf044(); virtual void vf048(); virtual void vf04C();
-	virtual void vf050(); virtual void vf054(); virtual void vf058(); virtual void vf05C();
-	virtual void vf060(); virtual void vf064(); virtual void vf068(); virtual void vf06C();
-	virtual void vf070(); virtual void vf074(); virtual void vf078(); virtual void vf07C();
-	virtual void vf080(); virtual void vf084(); virtual void vf088(); virtual void vf08C();
-	virtual void vf090(); virtual void vf094(); virtual void vf098(); virtual void vf09C();
-	virtual void vf0A0(); virtual void vf0A4(); virtual void vf0A8(); virtual void vf0AC();
-	virtual void vf0B0(); virtual void vf0B4(); virtual void vf0B8(); virtual void vf0BC();
-	virtual void vf0C0(); virtual void vf0C4(); virtual void vf0C8(); virtual void vf0CC();
-	virtual void vf0D0(); virtual void vf0D4(); virtual void vf0D8(); virtual void vf0DC();
-	virtual void vf0E0(); virtual void vf0E4(); virtual void vf0E8(); virtual void vf0EC();
-	virtual void vf0F0(); virtual void vf0F4(); virtual void vf0F8(); virtual void vf0FC();
-	virtual void vf100(); virtual void vf104(); virtual void vf108(); virtual void vf10C();
-	virtual void vf110(); virtual void vf114(); virtual void vf118(); virtual void vf11C();
-	virtual void vf120(); virtual void vf124(); virtual void vf128(); virtual void vf12C();
-	virtual void vf130(); virtual void vf134(); virtual void vf138(); virtual void vf13C();
-	virtual void vf140(); virtual void vf144(); virtual void vf148(); virtual void vf14C();
-	virtual void vf150(); virtual void vf154(); virtual void vf158(); virtual void vf15C();
-	virtual void vf160(); virtual void vf164(); virtual void vf168(); virtual void vf16C();
-	virtual void vf170(); virtual void vf174(); virtual void vf178(); virtual void vf17C();
-	virtual void vf180(); virtual void vf184(); virtual void vf188(); virtual void vf18C();
-	virtual void vf190(); virtual void vf194(); virtual void vf198(); virtual void vf19C();
-	virtual void vf1A0(); virtual void vf1A4(); virtual void vf1A8(); virtual void vf1AC();
-	virtual void vf1B0(); virtual void vf1B4(); virtual void vf1B8(); virtual void vf1BC();
-	virtual void vf1C0(); virtual void vf1C4(); virtual void vf1C8(); virtual void vf1CC();
-	virtual void vf1D0(); virtual void vf1D4(); virtual void vf1D8(); virtual void vf1DC();
-	virtual void vf1E0(); virtual void vf1E4(); virtual void vf1E8(); virtual void vf1EC();
-	virtual void vf1F0(); virtual void vf1F4(); virtual void vf1F8(); virtual void vf1FC();
-	virtual void vf200(); virtual void vf204(); virtual void vf208(); virtual void vf20C();
-	virtual void vf210(); virtual void vf214(); virtual void vf218(); virtual void vf21C();
-	virtual void vf220(); virtual void vf224(); virtual void vf228(); virtual void vf22C();
-	virtual void vf230(); virtual void vf234(); virtual void vf238(); virtual void vf23C();
-	virtual void vf240(); virtual void vf244(); virtual void vf248();
-	virtual void onOwnerDied();	// +0x24C
-};
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void vf00(); virtual void vf04(); virtual void vf08(); virtual void vf0C();
-	virtual void vf10(); virtual void vf14(); virtual void vf18();
-	virtual DieModuleInterface *getDie();	// +0x1C
-	virtual void vf20(); virtual void vf24(); virtual void vf28(); virtual void vf2C();
-	virtual void vf30(); virtual void vf34(); virtual void vf38(); virtual void vf3C();
-	virtual void vf40(); virtual void vf44(); virtual void vf48();
-	virtual Rva002985C6Interface *getRva002985C6();	// +0x4C
-};
-
-class BehaviorModule
-{
-public:
-	char pad00[0x0C];
-	BehaviorModuleInterface m_interface;	// +0x0C
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 
@@ -298,12 +240,12 @@ void Object::onDie(DamageInfo *damageInfo)
 
 	for (BehaviorModule **behaviorModule = m_behaviors; *behaviorModule; ++behaviorModule)
 	{
-		DieModuleInterface *die = (*behaviorModule)->m_interface.getDie();
+		DieModuleInterface *die = (*behaviorModule)->getDie();
 		if (die)
 			die->onDie(damageInfo);
-		Rva002985C6Interface *other = (*behaviorModule)->m_interface.getRva002985C6();
-		if (other)
-			other->onOwnerDied();
+		AIUpdateInterface *ai = (*behaviorModule)->getAIUpdateInterface();
+		if (ai)
+			ai->vslot147();
 	}
 
 	if (TheVictorySystem)

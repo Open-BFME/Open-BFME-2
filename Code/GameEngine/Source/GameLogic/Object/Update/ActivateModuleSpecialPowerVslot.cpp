@@ -15,6 +15,7 @@
 #include "../../../Common/debug.h"
 static __forceinline const char*formatText(const Debug::Format&f){return (const char*)&f;}
 extern Debug*theDebug;void _bfme_debugRecordCallsite(int);
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 class SpecialPowerModuleInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void atLocation(const Coord3D*,int);};
 #include "../../../../Include/Common/ThingTemplate.h"

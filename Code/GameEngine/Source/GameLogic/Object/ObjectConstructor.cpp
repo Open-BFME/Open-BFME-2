@@ -142,28 +142,7 @@ class BodyModuleInterface;
 class ContainModuleInterface;
 class AIUpdateInterface;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual BodyModuleInterface *getBody();
-	virtual void s1();
-	virtual ContainModuleInterface *getContain();
-	virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
-	virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12();
-	virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17();
-	virtual void s18();
-	virtual AIUpdateInterface *getAIUpdateInterface();
-};
-
-class BehaviorModule
-{
-public:
-	virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3();
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void onObjectCreated();
-	unsigned char m_pad04[8];
-	BehaviorModuleInterface m_interface;		// +0x0C
-};
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class ModuleFactory
 {
@@ -610,16 +589,15 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 		BehaviorModule *newMod = (BehaviorModule *)TheModuleFactory->newModule((Thing *)this, modName, mi.getNthData(modIdx), MODULETYPE_BEHAVIOR);
 		*curB++ = newMod;
 
-		BehaviorModuleInterface *bmi = &newMod->m_interface;
-		BodyModuleInterface *body = bmi->getBody();
+		BodyModuleInterface *body = newMod->getBody();
 		if (body)
 			m_body = body;
 
-		ContainModuleInterface *contain = bmi->getContain();
+		ContainModuleInterface *contain = newMod->getContain();
 		if (contain)
 			m_contain = contain;
 
-		AIUpdateInterface *ai = bmi->getAIUpdateInterface();
+		AIUpdateInterface *ai = newMod->getAIUpdateInterface();
 		if (ai)
 			m_ai = ai;
 

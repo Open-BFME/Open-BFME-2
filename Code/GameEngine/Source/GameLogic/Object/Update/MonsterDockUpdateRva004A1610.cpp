@@ -57,6 +57,7 @@ static __forceinline void setModelConditionBit(Object *object, int bit)
 }
 class Thing;
 class ModuleData;
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 enum UpdateSleepTime
 {

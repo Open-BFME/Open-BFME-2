@@ -165,6 +165,7 @@ public:
 	virtual void slot014(bool b);
 };
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 struct Rva002A8AB1Record;
 #include "../../../../Include/GameLogic/Rva002A8F24.h"

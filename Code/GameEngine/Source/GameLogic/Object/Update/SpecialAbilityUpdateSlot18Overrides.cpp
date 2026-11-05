@@ -22,6 +22,7 @@ enum WeaponSetType
 };
 #include "../object.h"
 class ModuleData;
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 #include "../../../Common/GameLogicObjectLookupView.h"

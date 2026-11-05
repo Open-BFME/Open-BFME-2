@@ -126,6 +126,7 @@ extern GameLogic *TheGameLogic;
 
 
 
+#include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 
 

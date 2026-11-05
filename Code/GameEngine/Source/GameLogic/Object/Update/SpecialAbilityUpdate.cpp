@@ -509,15 +509,9 @@ extern AudioManager *TheAudio;
 
 class ModuleData;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva0044E9C7
 {
@@ -752,12 +746,8 @@ extern TerrainLogic *TheTerrainLogic;
 
 extern AI *TheAI;
 
-class SpecialAbilityUpdate : public BehaviorModule
+class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
-public:
-	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
-	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08();
-	virtual void v09(); virtual void v10(); virtual void v11(); virtual void v12();
 protected:
 	virtual void onExit(bool cleanup, bool b); // +0x34
 public:
@@ -784,7 +774,6 @@ public:
 protected:
 	void endPreparation();
 private:
-	unsigned char m_pad0C[0x24 - 0x0C];
 	int m_24; // +0x24
 	unsigned int m_animFrames; // +0x28
 	unsigned char m_pad2C[0x30 - 0x2C];

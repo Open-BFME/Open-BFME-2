@@ -117,6 +117,7 @@ struct Rva00373EC6Data
 // LINK: the stealth calls bind the rowed owners at the same addresses: 0x00373D28 is
 // StealthUpdate::rva00373D28 (StealthUpdateLogic.cpp); 0x002B2210 is the shared one-store
 // setter rowed as GameWindow::winSetUserData (GameWindowStatusUserData.cpp, ICF-shared body).
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/StealthUpdate.h"
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"

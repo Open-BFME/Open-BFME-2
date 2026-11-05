@@ -224,6 +224,7 @@ public:
 	virtual unsigned char slot10() const = 0;
 };
 
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class GateOpenAndCloseBehavior : public GatePrimary, public UpdateModule

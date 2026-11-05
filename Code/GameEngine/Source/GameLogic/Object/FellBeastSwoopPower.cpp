@@ -49,6 +49,7 @@ struct AICommandParms
 	void *m_coordsEnd;		// +0x28
 	char m_tail[0xC0 - 0x2C];
 };
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 

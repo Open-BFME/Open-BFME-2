@@ -45,6 +45,7 @@ template <> void UpdateIntPtrTree::clear();
 }
 #include "../../../../Include/Common/WeaponTemplateSetHead.h"
 bool Rva00045473Equal(const void *, const void *);
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 enum PathfindLayerEnum { LAYER_INVALID = 0, LAYER_GROUND = 1 };
 class Object {
