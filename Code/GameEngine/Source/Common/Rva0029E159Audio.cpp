@@ -17,30 +17,16 @@ typedef int Int;
 class Shadow
 {
 public:
-	struct ShadowTypeInfo
-	{
-		ShadowTypeInfo();
-		~ShadowTypeInfo();
-		AsciiString m_first;
-		AsciiString m_second;
-		Int m_type;
-		float m_floatC;
-		float m_float10;
-		float m_float14;
-		float m_float18;
-		float m_float1C;
-		float m_float20;
-		unsigned char m_byte24;
-		unsigned char m_byte25;
-		unsigned char m_byte26;
-	};
+	struct ShadowTypeInfo { ShadowTypeInfo(); ~ShadowTypeInfo(); AsciiString m_first; AsciiString m_second; int m_type; float m_floatC; float m_float10; float m_float14; float m_float18; float m_float1C; float m_float20; unsigned char m_byte24; unsigned char m_byte25; unsigned char m_byte26; };
+	void setColor(int color);
 };
 
 struct Source0029E159
 {
-	AsciiString m_name;
-	float m_x;
-	float m_y;
+public:
+	AsciiString m_name; // +0x00
+	float m_x; // +0x04
+	float m_y; // +0x08
 };
 
 class AudioManager0029E159

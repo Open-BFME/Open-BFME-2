@@ -33,7 +33,13 @@ class InGameUI::FormationPreviewPoolObject {
 public: void assign();
 };
 extern bool BfmeFormationPreviewUseDecals;
-struct Source0029E159 { AsciiString m_name; float m_x,m_y; };
+struct Source0029E159
+{
+public:
+	AsciiString m_name; // +0x00
+	float m_x; // +0x04
+	float m_y; // +0x08
+};
 class InGameUI::FormationPreviewDecal {
 public: FormationPreviewDecal(const Source0029E159&);
 private: int m_handle;

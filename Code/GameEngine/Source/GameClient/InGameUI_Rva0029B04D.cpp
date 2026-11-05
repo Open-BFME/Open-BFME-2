@@ -30,6 +30,10 @@ class BfmeSelectionState
 {
 public:
 	bool isSelectionLocked() const;
+	char m_pad00[0xB4];
+private:
+	unsigned char m_first; // +0xB4
+	unsigned char m_second; // +0xB5
 };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;

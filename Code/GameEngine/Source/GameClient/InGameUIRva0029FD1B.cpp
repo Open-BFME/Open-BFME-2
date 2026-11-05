@@ -17,9 +17,11 @@ extern PlayerList *ThePlayerList;
 
 #include "../GameLogic/Object/object.h"
 
+class AsciiString;
 class Shadow
 {
 public:
+	struct ShadowTypeInfo { ShadowTypeInfo(); ~ShadowTypeInfo(); AsciiString m_first; AsciiString m_second; int m_type; float m_floatC; float m_float10; float m_float14; float m_float18; float m_float1C; float m_float20; unsigned char m_byte24; unsigned char m_byte25; unsigned char m_byte26; };
 	void setColor(int color);
 };
 

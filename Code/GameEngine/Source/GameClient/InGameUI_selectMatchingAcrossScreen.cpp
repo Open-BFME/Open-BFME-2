@@ -73,11 +73,10 @@ class BfmeSelectionState
 {
 public:
 	bool isSelectionLocked() const;
-
+	char m_pad00[0xB4];
 private:
-	unsigned char m_pad[0xB4];
-	unsigned char m_first;
-	unsigned char m_second;
+	unsigned char m_first; // +0xB4
+	unsigned char m_second; // +0xB5
 };
 
 // Borrowed prefix: native 29CBCA loads Drawable::m_object at +FC.

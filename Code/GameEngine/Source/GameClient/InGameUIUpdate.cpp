@@ -249,12 +249,14 @@ extern GameClient *TheGameClient;
 extern int BfmeClientFramesPerSecond;
 extern InGameUI *TheInGameUI;
 
+class DisplayString;
 struct UIMessage
 {
-	UnicodeString fullText;
-	void *displayString;
-	UnsignedInt timestamp;
-	Color color;
+public:
+	UnicodeString fullText; // +0x00
+	DisplayString *displayString; // +0x04
+	UnsignedInt timestamp; // +0x08
+	Color color; // +0x0C
 };
 
 class InGameUI

@@ -203,10 +203,11 @@ struct NamedTimerInfo
 
 struct UIMessage
 {
-	UnicodeString fullText;						// +0x00
-	DisplayString *displayString;				// +0x04
-	UnsignedInt timestamp;						// +0x08
-	Color color;								// +0x0C
+public:
+	UnicodeString fullText; // +0x00
+	DisplayString *displayString; // +0x04
+	UnsignedInt timestamp; // +0x08
+	Color color; // +0x0C
 };
 
 class InGameUIHelper7F4
