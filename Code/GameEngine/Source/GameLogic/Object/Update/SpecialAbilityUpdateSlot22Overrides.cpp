@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // Slot-22 overrides of two SpecialAbilityUpdate subclasses whose classes are
 // rowed only under placeholder names (matched ctors Rva00492179 0x00492179 and
@@ -26,15 +27,7 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-	virtual void startUnpacking();	// row 0x004508B7
-protected:
-	unsigned char m_pad24[0x2C - 0x24];
-	unsigned int m_2C; // +0x2C
-	unsigned char m_pad30[0x88 - 0x30];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class Rva00492179ModuleData
 {
 public:

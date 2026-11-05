@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // Slot-18 overrides of the two SpecialAbilityUpdate subclasses whose slot-22
 // overrides live in SpecialAbilityUpdateSlot22Overrides.cpp (same placeholder
@@ -27,15 +28,7 @@ class ModuleData;
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-	virtual void triggerAbilityEffect();
-protected:
-	unsigned char m_pad24[0x2C - 0x24];
-	unsigned int m_2C; // +0x2C
-	unsigned char m_pad30[0x88 - 0x30];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class Rva00492179 : public SpecialAbilityUpdate
 {
 public:

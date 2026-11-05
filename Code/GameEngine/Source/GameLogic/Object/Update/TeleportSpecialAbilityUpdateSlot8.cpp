@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?vslot08@Rva00492C59@@UAE_NH@Z, retail 0x00492E79 (132 bytes): slot 8
 // of the +0x20 interface table of the teleport special ability update whose
@@ -18,21 +19,7 @@ struct Rva00492C59ModuleData
 	unsigned char m_pad000[0xD4];
 	Real m_maxDistance; // +0xD4
 };
-class UpdateModule
-{
-public:
-	virtual ~UpdateModule();
-protected:
-	const Rva00492C59ModuleData *m_moduleData;	// +0x04
-	Object *m_object;				// +0x08
-	unsigned char m_pad0C[0x20 - 0x0C];
-};
-#include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-	virtual Bool vslot08(int value);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class Rva00492C59 : public SpecialAbilityUpdate
 {
 public:
@@ -43,7 +30,7 @@ Bool Rva00492C59::vslot08(int value)
 	const Coord3D *pos = (const Coord3D *)value;
 	if (pos)
 	{
-		const Rva00492C59ModuleData *data = m_moduleData;
+		const Rva00492C59ModuleData *data = (const Rva00492C59ModuleData *)m_moduleData;
 		if (data && data->m_maxDistance > 0.0f)
 		{
 			Object *obj = m_object;

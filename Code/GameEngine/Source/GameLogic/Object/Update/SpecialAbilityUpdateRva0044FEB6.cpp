@@ -80,26 +80,13 @@ public:
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
-class SpecialAbilityUpdate
-{
-public:
-	void killSpecialObjects();
-	Object *rva0044FEB6();
-
-private:
-	char m_pad00[4];
-	const SpecialAbilityUpdateModuleData *m_moduleData;
-	Object *m_object;
-	char m_pad0C[0x64 - 0x0C];
-	_STL::list<int> m_list64;
-	int m_count68;
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 Object *SpecialAbilityUpdate::rva0044FEB6()
 {
-	const SpecialAbilityUpdateModuleData *md = m_moduleData;
+	const SpecialAbilityUpdateModuleData *md = (const SpecialAbilityUpdateModuleData *)m_moduleData;
 	Object *newObj = 0;
-	if (m_count68 == md->m_maxSpecialObjects) {
+	if (m_68 == md->m_maxSpecialObjects) {
 		if (md->m_specialObjectsPersistent)
 			return 0;
 		killSpecialObjects();
@@ -112,8 +99,8 @@ Object *SpecialAbilityUpdate::rva0044FEB6()
 		newObj = TheThingFactory->newObject(thingTemplate, team, &mask, (ObjectID)0);
 		if (newObj != 0) {
 			int id = newObj->m_id74;
-			m_list64.push_back(id);
-			++m_count68;
+			m_specialObjectIDList.push_back(id);
+			++m_68;
 			((Thing *)newObj)->setPosition(&m_object->m_coord38);
 			AIUpdateInterface *ai = newObj->m_ai264;
 			if (ai != 0)
