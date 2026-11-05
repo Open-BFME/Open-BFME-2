@@ -83,7 +83,7 @@ class PeerResponse {public:
 };
 class PSPlayerAllStats {public:int id;char rest[0x548-4];PSPlayerAllStats(int);PSPlayerAllStats(const PSPlayerAllStats &);~PSPlayerAllStats();void setID(int);};
 class GameWindow;
-class PlayerInfo {public:AsciiString name,baseName,locale;int words[10];PlayerInfo();PlayerInfo(const PlayerInfo &);~PlayerInfo();};
+#include "../../../../../Include/GameNetwork/PlayerInfo.h"
 struct AsciiComparator {bool operator()(AsciiString,AsciiString)const;};
 typedef _STL::map<AsciiString,PlayerInfo,AsciiComparator> PlayerInfoMap;
 #define V(n) virtual void slot##n();
@@ -94,8 +94,7 @@ extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 class Rva00385333;
 class GameSpyPSMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)virtual void trackPlayerStats(PSPlayerAllStats);V(9)V(10)V(11)virtual PSPlayerAllStats findPlayerStatsByID(int);virtual Rva00385333 getStats(int);};
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
-class GameTextInterface {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);virtual void slot16();virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
-extern GameTextInterface *TheGameText;
+#include "../../../../../Include/GameClient/GameText.h"
 enum NameKeyType;class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
@@ -171,7 +170,7 @@ void AptOnlineQuickMatch::rva005BB5F6(){
   switch(r.unknown_00){
   case 16:{
    AsciiString nick;PlayerInfoMap::iterator found=TheGameSpyInfo->getPlayerInfoMap()->find(r.unknown_10.c_str());
-   if(found!=TheGameSpyInfo->getPlayerInfoMap()->end())nick=found->second.baseName;else nick=r.unknown_10.c_str();
+   if(found!=TheGameSpyInfo->getPlayerInfoMap()->end())nick=found->second.m_at04;else nick=r.unknown_10.c_str();
    if(!_strcmpi(r.unknown_e8.c_str(),"STATS")){
     AsciiString data=r.unknown_f4.c_str();AsciiString idText;data.nextToken(&idText," ");int id=atoi(idText.str());
     PSPlayerAllStats stats(0);PSPlayerAllStats oldStats=TheGameSpyPSMessageQueue->findPlayerStatsByID(id);stats.setID(id);
@@ -189,8 +188,8 @@ void AptOnlineQuickMatch::rva005BB5F6(){
   case 9:{unsigned char ok=*(unsigned char *)((char *)&r.payload_word0+4);if(ok==1){UnicodeString s;s.format(L"joinStagingRoom result: %d",ok);}else{UnicodeString s;s.format(L"joinStagingRoom result: %d",ok);}}break;
   case 4:{UnicodeString s;s.format(L"Staging room list callback",r.unknown_10.c_str());}break;
   case 17:{important=true;switch(r.payload_8a.first){
-   case 4:{UnicodeString s;s.format(TheGameText->fetchFormat("QM:WORKING"),r.payload_8a.second);}break;
-   case 5:{UnicodeString s;s.format(TheGameText->fetchFormat("QM:POOLSIZE"),r.payload_8a.second);}break;
+   case 4:{UnicodeString s;s.format(TheGameText->fetchPtr("QM:WORKING"),r.payload_8a.second);}break;
+   case 5:{UnicodeString s;s.format(TheGameText->fetchPtr("QM:POOLSIZE"),r.payload_8a.second);}break;
    case 7:((Rva00222A8BTarget*)g_bfmeAptWindowManager)->invoke(movieLevel(),"CallChild",1,"DoOpenFound",0,0,0,0);OnMatched(r);break;
   }}break;
   }
@@ -367,7 +366,7 @@ void AptOnlineQuickMatch::OnMatched(PeerResponse &resp){
  for(int i=0;i<8;++i){GameSpyGameSlot *slot=TheGameSpyGame->getGameSpySlot(i);
   if(resp.unknown_88[i].empty())slot->setState(SLOT_CLOSED,UnicodeString::TheEmptyString,&GameSlotConnectInfo());else{
    AsciiString aName=resp.unknown_88[i].c_str();char baseName[256]="";strncpy(baseName,resp.unknown_88[i].c_str(),255);
-   PlayerInfo player;player.name=resp.unknown_88[i].c_str();player.baseName=baseName;TheGameSpyInfo->updatePlayerInfo(player,AsciiString::TheEmptyString);
+   PlayerInfo player;player.m_at00=resp.unknown_88[i].c_str();player.m_at04=baseName;TheGameSpyInfo->updatePlayerInfo(player,AsciiString::TheEmptyString);
    UnicodeString uName;uName.translate(baseName);IPAndPort connect(resp.qmStatus.IP[i],resp.qmStatus.ports[i]);
    slot->setState(SLOT_PLAYER,uName,(const GameSlotConnectInfo*)&connect);slot->m_color=resp.payload_572.words[24+i];slot->setPlayerTemplate(resp.payload_572.words[16+i]);slot->m_field40=resp.payload_572.words[32+i];((Rva004FDD36AsciiField*)slot)->setClan("");slot->m_teamNumber=i/numPerTeam;
    switch(numPerTeam){case 1:slot->rva1d0=resp.payload_572.words[40+i];slot->rva1d4=-1;break;case 2:slot->rva1d0=-1;slot->rva1d4=resp.payload_572.words[40+i];break;default:slot->rva1d0=-1;slot->rva1d4=-1;}
