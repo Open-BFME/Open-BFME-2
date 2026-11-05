@@ -60,9 +60,7 @@ public:
 	float m_width;
 	bool m_additive;
 	unsigned char m_pad11[3];
-	float m_colorX;
-	float m_colorY;
-	float m_colorZ;
+	float m_color[3];
 	int m_numSegments;
 };
 
@@ -82,10 +80,10 @@ private:
 
 void W3DStreakDraw::rva000D0091()
 {
-	const W3DStreakDrawModuleData *data = m_moduleData;
+	const W3DStreakDrawModuleData *data = (const W3DStreakDrawModuleData *)m_moduleData;
 	if (m_streak == 0)
 		return;
-	const Vector3 *position = (const Vector3 *)m_drawable->getPosition();
+	const Vector3 *position = (const Vector3 *)((Drawable *)m_drawable)->getPosition();
 	Vector3 point;
 	float pointWidth;
 	if (((SidesList *)m_streak)->getNumSkirmishSides() == 0)
@@ -143,17 +141,17 @@ void W3DStreakDraw::rva000D0091()
 	pointWidth = ((Drawable *)m_drawable)->rva00272C9E(0);
 	if (data->m_additive)
 	{
-		point.X = pointWidth * data->m_colorX;
-		point.Y = pointWidth * data->m_colorY;
-		point.Z = pointWidth * data->m_colorZ;
+		point.X = pointWidth * data->m_color[0];
+		point.Y = pointWidth * data->m_color[1];
+		point.Z = pointWidth * data->m_color[2];
 		((Rva00167EF8 *)m_streak)->rva00167EF8((Rva00167EF8Rec &)point);
 		((Rva00167F15FloatField *)m_streak)->set(1.0f);
 	}
 	else
 	{
-		point.X = data->m_colorX;
-		point.Y = data->m_colorY;
-		point.Z = data->m_colorZ;
+		point.X = data->m_color[0];
+		point.Y = data->m_color[1];
+		point.Z = data->m_color[2];
 		((Rva00167EF8 *)m_streak)->rva00167EF8((Rva00167EF8Rec &)point);
 		((Rva00167F15FloatField *)m_streak)->set(pointWidth);
 	}
