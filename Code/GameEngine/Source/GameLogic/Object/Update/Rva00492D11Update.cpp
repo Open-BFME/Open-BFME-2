@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?triggerAbilityEffect@Rva00492C59@@UAEXXZ at retail 0x00492D11 (154B). Slot 17 (offset
 // 0x44) override of SpecialAbilityUpdate for the class of Rva00492C59 ctor
 // (vtable 0x0084E1A8). Evidence: calls pinned Object::GetRelativeAngle 0x000B4542
@@ -37,18 +38,7 @@ public:
 	AsciiString m_CC;
 };
 
-class SpecialAbilityUpdate
-{
-public:
-	virtual void triggerAbilityEffect();
-
-protected:
-	const Rva00492C59ModuleData *m_moduleData;
-	Object *m_object;
-	unsigned char m_pad0C[0x44 - 0x0C];
-	Coord3D m_44;
-	unsigned char m_pad50[0x88 - 0x50];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva00492C59 : public SpecialAbilityUpdate
 {
@@ -59,8 +49,8 @@ public:
 void Rva00492C59::triggerAbilityEffect()
 {
 	Object *object = m_object;
-	const Rva00492C59ModuleData *data = m_moduleData;
-	Coord3D *pos = &m_44;
+	const Rva00492C59ModuleData *data = (const Rva00492C59ModuleData *)m_moduleData;
+	Coord3D *pos = &m_targetPos;
 	Coord3D tmp;
 	tmp.x = pos->x;
 	tmp.y = pos->y;

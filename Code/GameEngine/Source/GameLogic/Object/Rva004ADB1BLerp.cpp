@@ -1,4 +1,5 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ @0x004ADB1B 188B.
 // When the gate passes, lerp the drawable float at +0xb0 between 1.0f
@@ -24,22 +25,15 @@ public:
 	float m_cc;
 };
 
-class Rva004ADB1B;
-class SpecialAbilityUpdate { friend class Rva004ADB1B; friend class Rva004B0164; protected: bool handlePackingProcessing(); }; // rowed 0x0044F0B3
-class Rva004ADB1B
+#include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+
+class Rva004ADB1B : public SpecialAbilityUpdate
 {
 public:
 	bool handlePackingProcessing();
 
 protected:
-	char m_pad0[4];
-	Src *m_src;
-	Thing *m_thing;
-	char m_padc[0x28 - 0x0c];
-	unsigned int m_num;
-	char m_pad2c[4];
-	int m_kind;
-	char m_pad34[0x8C - 0x34];
+	char m_pad88[0x8C - 0x88];
 	float m_result8C;
 };
 
@@ -51,26 +45,26 @@ public:
 
 bool Rva004ADB1B::handlePackingProcessing()
 {
-	bool ok = ((SpecialAbilityUpdate*)this)->handlePackingProcessing();
+	bool ok = SpecialAbilityUpdate::handlePackingProcessing();
 	if (ok == 0)
 		return ok;
 	float base;
 	float other;
 	unsigned int denom;
-	if (m_kind == 2) {
+	if (m_packingState == 2) {
 		base = g_00BBB8D8;
-		denom = m_src->m_unpackTime;
-		other = m_src->m_targetOpacity;
+		denom = ((const Src *)m_moduleData)->m_unpackTime;
+		other = ((const Src *)m_moduleData)->m_targetOpacity;
 	} else {
-		float targetOpacity = m_src->m_targetOpacity;
-		denom = m_src->m_packTime;
+		float targetOpacity = ((const Src *)m_moduleData)->m_targetOpacity;
+		denom = ((const Src *)m_moduleData)->m_packTime;
 		base = targetOpacity;
 		other = g_00BBB8D8;
 	}
-	float ratio = (float)m_num / (float)denom;
+	float ratio = (float)m_animFrames / (float)denom;
 	float result = base + (other - base) * (g_00BBB8D8 - ratio);
-	if (m_thing->getDrawable() != 0)
-		m_thing->getDrawable()->field_0b0 = result;
+	if (((Thing *)m_object)->getDrawable() != 0)
+		((Thing *)m_object)->getDrawable()->field_0b0 = result;
 	return ok;
 }
 
@@ -79,27 +73,27 @@ bool Rva004ADB1B::handlePackingProcessing()
 // copying it to the drawable +B0. RET0 returns the guard bool unchanged.
 bool Rva004B0164::handlePackingProcessing()
 {
-	bool ok = ((SpecialAbilityUpdate*)this)->handlePackingProcessing();
+	bool ok = SpecialAbilityUpdate::handlePackingProcessing();
 	if (ok == 0)
 		return ok;
 	float base;
 	float other;
 	unsigned int denom;
-	if (m_kind == 2) {
+	if (m_packingState == 2) {
 		base = g_00BBB8D8;
-		denom = m_src->m_unpackTime;
-		other = m_src->m_cc;
+		denom = ((const Src *)m_moduleData)->m_unpackTime;
+		other = ((const Src *)m_moduleData)->m_cc;
 	} else {
-		float disguiseOpacity = m_src->m_cc;
-		denom = m_src->m_packTime;
+		float disguiseOpacity = ((const Src *)m_moduleData)->m_cc;
+		denom = ((const Src *)m_moduleData)->m_packTime;
 		base = disguiseOpacity;
 		other = g_00BBB8D8;
 	}
-	float ratio = (float)m_num / (float)denom;
+	float ratio = (float)m_animFrames / (float)denom;
 	m_result8C = base + (other - base) * (g_00BBB8D8 - ratio);
-	if (m_thing->getDrawable() != 0) {
+	if (((Thing *)m_object)->getDrawable() != 0) {
 		float value = m_result8C;
-		Drawable *drawable = m_thing->getDrawable();
+		Drawable *drawable = ((Thing *)m_object)->getDrawable();
 		drawable->field_0b0 = value;
 	}
 	return ok;
