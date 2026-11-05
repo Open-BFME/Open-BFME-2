@@ -330,7 +330,7 @@ def test_runnable_link_options():
     options = E.link_arguments(E.ROOT / "build/exit_link/exit.exe",
                                E.ROOT / "build/exit_link/exit.rsp")
     assert "/FIXED:NO" in options
-    assert "/OPT:NOICF" in options
+    assert {arg for arg in options if arg.startswith("/OPT:")} == {"/OPT:NOREF", "/OPT:NOICF"}
     assert "/MAP:build/exit_link/exit.map" in options
     assert not any(arg.upper().startswith("/FORCE") for arg in options)
 
@@ -369,7 +369,7 @@ def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
         "kind": "diagnostic" if diagnostic else "real", "commit": "a" * 40,
         "base": "0x10000000", "image_sha256": E.digest(image),
         "map_sha256": E.digest(image.with_suffix(".map")), "stubbed": names,
-        "exports_requested": 1964, "rsrc": True, "fixed_no": True}
+        "exports_requested": 1964, "rsrc": True, "fixed_no": True, "opt": "NOREF,NOICF"}
 
 
 def test_receipt_requires_current_nonempty_map(tmp_path):

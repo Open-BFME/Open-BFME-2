@@ -486,7 +486,7 @@ def link_arguments(image, rsp):
     return ["/NOLOGO", "/NODEFAULTLIB", "/INCREMENTAL:NO", "/MACHINE:X86",
             "/SUBSYSTEM:WINDOWS", f"/ENTRY:{ENTRY}", f"/BASE:0x{BASE:X}",
             f"/OUT:{census._arg(image)}", f"/MAP:{census._arg(image.with_suffix('.map'))}",
-            "/FIXED:NO", "/OPT:NOICF", f"@{census._arg(rsp)}"]
+            "/FIXED:NO", "/OPT:NOREF", "/OPT:NOICF", f"@{census._arg(rsp)}"]
 
 
 def link_command(inputs, image, outdir, import_roots=()):
@@ -594,7 +594,7 @@ def image_receipt(image, diagnostic, stubbed):
         "kind": "diagnostic" if diagnostic else "real", "commit": image_commit(),
         "base": f"0x{BASE:X}", "image_sha256": digest(image), "map_sha256": digest(mapfile),
         "stubbed": sorted(stubbed), "exports_requested": exports, "rsrc": True,
-        "fixed_no": True,
+        "fixed_no": True, "opt": "NOREF,NOICF",
     }, indent=1) + "\n", encoding="utf-8")
 
 
