@@ -5679,7 +5679,6 @@ name,address,notes
 ?grow@Rva0082C300Buf@@AAEXXZ,0x00023A40
 ?handle@Gen00024B7C@@QAEEH@Z,0x00449969,callee read from the retail REL32 in placed BFME1-donor body ?wrap@Rva005169E0@@QAEEH@Z (0x00444208)
 ?handle@Gen0003AC38@@QAEXPAX@Z,0x000518E0,callee of 1W3DDebrisDraw (0x000B1CE2) at the site its BFME1 donor calls it; may be an ICF alias
-?handle@Gen002B2080@@QAEXPAVFlagPairTarget@@@Z,0x0044DF9F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?handle@Gen0089C880@@QAEXXZ,0x0070A8B0
 ?handleNode@Rva006BDB00@@QAEXPAVRva006BDB00Node@@@Z,0x00063A77,callee of ?detach@Rva006BD6C0@@QAEXXZ at retail 0x00063C33 read from its REL32 displacement; address already carries the matched ?removeGhostObject@W3DGhostObjectManager row
 ?handleRadiusCursor@InGameUI@@IAEXXZ,0x0029A661,address read from the REL32 displacement at a placed body
