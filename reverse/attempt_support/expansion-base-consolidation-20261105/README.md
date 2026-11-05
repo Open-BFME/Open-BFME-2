@@ -71,3 +71,47 @@ stream. `pytest tools/tests/test_tu_skeleton.py tools/tests/test_gate_exploits.p
 dry-run now accepts both donors, preserves all 12 rows and passes LinkGuard;
 the mixed destructor file remains outside the merge. The normal byte and
 link checks remain unchanged. Next apply the merge using the supported tool.
+
+## Applied merge and publication audit
+
+Applied with `tu_skeleton.py --merge` after regenerating the supported
+consolidation planner snapshot for the current inputs. The constructor and
+method sources now compose in the approved Common TU: 12 rows, one fewer
+source file. The six approved rows in the mixed destructor file remain there;
+no mixed file was split. The tool repointed 11 source cells in functions.csv
+and tu_map.csv, without regenerating the map's assignments or evidence.
+
+Final checks:
+
+- `find_declared_unmatched.py`: clean; `./build.sh`: all 12 rows exact,
+  five string literals and two float literals verified. Renumbered funclets
+  resolve through parent EH data; `eh_verify.py`: 2 EXACT, 0 failures.
+- Combined merged-TU/destructor `link_check.py`: 2/2 clean, 963 + 234 bytes.
+  The preview compares the merged source's old 24-byte ownership to its new
+  963 bytes; the removed donor previously owned the other 939 bytes. Thus this
+  is preservation, not a claimed increase in census linking coverage.
+- `check_csv.py`, staged class gate and diff whitespace check pass. Ownership
+  runs in the hook's shadow mode: its four B1 reports are the existing private
+  Player/Rva002A8F24/TerrainLogic/Waypoint views transferred from the deleted
+  donor, not additional copies. No A1/A2/A3/A4 findings.
+- The four header-queue items were transferred by `header_adopt_lane` through
+  the merge tool; the Microsoft-header queue was refreshed by its owning tool
+  and retains the same `fprintf:abi` item. All affected registers keep their
+  row counts. No identity/data baseline or hatch keys belonged to the donor,
+  and no debt, pins, aliases or fold proofs were retired.
+- `progress.py`: BYTE-MATCHED remains 100.00%; SOURCE FILES 18,217 (-1).
+
+Path-consumer audit covers the pending range from origin/master (`8ad61b7f4b`) through
+`4642b31ea8` plus this staged merge. Its sole path removal is the deep
+AITargetHeuristicExpansionBase.cpp donor. Searches used its full path,
+basename and AITargetHeuristics directory across tools, hooks, workflows,
+source/includes, root build/configuration files, docs and reverse registries.
+No active tooling/build consumer needs a change. Includes were relocated by
+the merge tool and compile at the new path. Current ledger, queue and naming
+source cells resolve to the new TU. Remaining old paths are intentionally
+historical: retail literals and original-path catalogues; tu_map/name_basis
+evidence; header-queue diagnostic text; class-contract sampled-offset evidence;
+the prior link census and attempt handoffs. Contract tools discover live
+source views through the current ledger. No regenerated census or runtime
+result is claimed. Future work remains header adoption and the mixed
+destructor-family consolidation.
