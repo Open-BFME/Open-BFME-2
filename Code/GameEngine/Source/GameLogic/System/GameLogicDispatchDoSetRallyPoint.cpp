@@ -15,7 +15,7 @@
 // others with "HumanLocomotor" from its exit position (slot 10); the path
 // test is QuickDoesPathExist (pin 0x002F477E) with the bridge fallback
 // rva002E9442; the locomotor set is the rowed 0x001E7087 class; the static
-// audio events are built from TheAudio's settings (slot 0x138, +0xDC / +0xD8);
+// audio events are built from TheAudio's getMiscAudio (slot 78, +0x138): +0xDC / +0xD8;
 // the display name comes from the drawable (0x002765D4) or the object
 // (0x0028F2F8); a selected drawable marks the control bar dirty.
 // Donor: reference/open-bfme-1/targets/game/reverse/attempts/0x00396d40.cpp.
@@ -25,6 +25,8 @@
 // (retail places the shared epilogue after the no-path return).
 #include "unicode_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
+#include "Common/GameAudio.h"
+#include "Common/MiscAudioClass.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 typedef int Int;
@@ -110,26 +112,6 @@ extern GameTextInterface *TheGameText;
 #include "../../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-struct AudioSettings
-{
-	unsigned char m_pad000[0xD8];
-	OpaqueRefElement4 m_rallyPointSet;	// +0xD8
-	OpaqueRefElement4 m_unableToSetRallyPoint;	// +0xDC
-};
-class AudioManager
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24)
-	virtual void addAudioEvent(BfmeAudioEventPrefix136 *event);	// +0x64
-	V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53)
-	V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67)
-	V(68) V(69) V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77)
-#undef V
-	virtual AudioSettings *getAudioSettings();	// +0x138
-};
 extern AudioManager *TheAudio;
 
 class Rva002D9508 { public: void rva002D9508(const void *position); };		// setPosition
@@ -177,7 +159,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 			{
 				TheInGameUI->rva0029E846(TheGameText->fetch("GUI:RallyPointNoPath"));
 
-				static BfmeAudioEventPrefix136 rallyNotSet(TheAudio->getAudioSettings()->m_unableToSetRallyPoint, 0);
+				static BfmeAudioEventPrefix136 rallyNotSet(TheAudio->getMiscAudio()->m_DC, 0);
 				((Rva002D9508 *)&rallyNotSet)->rva002D9508(&rallyPosition);
 				((Rva0033F15DDwordSlot *)&rallyNotSet)->set(object->getControllingPlayer()->m_playerIndex);
 				TheAudio->addAudioEvent(&rallyNotSet);
@@ -208,7 +190,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 		message.format(TheGameText->fetchPtr("GUI:RallyPointSet"), substitute);
 		TheInGameUI->rva0029E846(message);
 
-		static BfmeAudioEventPrefix136 rallyPointSet(TheAudio->getAudioSettings()->m_rallyPointSet, 0);
+		static BfmeAudioEventPrefix136 rallyPointSet(TheAudio->getMiscAudio()->m_D8, 0);
 		((Rva002D9508 *)&rallyPointSet)->rva002D9508(&rallyPosition);
 		((Rva0033F15DDwordSlot *)&rallyPointSet)->set(object->getControllingPlayer()->m_playerIndex);
 		TheAudio->addAudioEvent(&rallyPointSet);
@@ -256,7 +238,7 @@ void Rva003774ABSetGlobalRallyPoint(Object *object, const Coord3D *position)
 		UnicodeString message;
 		message.format(TheGameText->fetchPtr("GUI:GlobalRallyPointSet"));
 		TheInGameUI->message(message);
-		static BfmeAudioEventPrefix136 globalRallyPointSet(TheAudio->getAudioSettings()->m_rallyPointSet, 0);
+		static BfmeAudioEventPrefix136 globalRallyPointSet(TheAudio->getMiscAudio()->m_D8, 0);
 		((Rva002D9508 *)&globalRallyPointSet)->rva002D9508(position);
 		((Rva0033F15DDwordSlot *)&globalRallyPointSet)->set(object->getControllingPlayer()->m_playerIndex);
 		TheAudio->addAudioEvent(&globalRallyPointSet);

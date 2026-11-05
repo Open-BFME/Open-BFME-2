@@ -14,6 +14,7 @@
 #include <windows.h>
 
 #include "Common/BfmeAudioEventPrefix136.h"
+#include "Common/GameAudio.h"
 
 typedef int Int;
 typedef bool Bool;
@@ -92,18 +93,6 @@ struct PushButtonInputData
 #include "../../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
-
-class AudioManager
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24)
-#undef V
-	virtual void addAudioEvent(const BfmeAudioEventPrefix136 *evt) = 0;
-};
 
 extern AudioManager *TheAudio;
 

@@ -688,31 +688,9 @@ public:
 	AsciiString m_salvage;
 };
 
-struct MiscAudioView
-{
-	char m_pad[0xE0];
-	OpaqueRefElement4 m_E0;
-};
+#include "../../../Include/Common/GameAudio.h"
+#include "../../../Include/Common/MiscAudioClass.h"
 
-#define SLOT(n) virtual void slot##n();
-class AudioManager
-{
-public:
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24)
-	virtual void addAudioEvent(BfmeAudioEventPrefix136 *ev);
-	SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
-	virtual bool isValidAudioEvent(BfmeAudioEventPrefix136 *ev);
-	SLOT(32) SLOT(33) SLOT(34) SLOT(35) SLOT(36) SLOT(37) SLOT(38) SLOT(39)
-	SLOT(40) SLOT(41) SLOT(42) SLOT(43) SLOT(44) SLOT(45) SLOT(46) SLOT(47)
-	SLOT(48) SLOT(49) SLOT(50) SLOT(51) SLOT(52) SLOT(53) SLOT(54) SLOT(55)
-	SLOT(56) SLOT(57) SLOT(58) SLOT(59) SLOT(60) SLOT(61) SLOT(62) SLOT(63)
-	SLOT(64) SLOT(65) SLOT(66) SLOT(67) SLOT(68) SLOT(69) SLOT(70) SLOT(71)
-	SLOT(72) SLOT(73) SLOT(74) SLOT(75) SLOT(76) SLOT(77)
-	virtual const MiscAudioView *getMiscAudio();
-};
-#undef SLOT
 extern AudioManager *TheAudio;
 
 class Rva002D9531

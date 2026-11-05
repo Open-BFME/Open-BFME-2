@@ -17,24 +17,8 @@ struct FlagArg { _STL::bitset<591> bits; };
 struct Ref4Inner { char m_pad[0x14]; OpaqueRefElement4 m_ref; };
 struct Ref8Inner { char m_pad[0x74]; int m_id; };
 
-class AudioManager
-{
-public:
-	virtual void f00(); virtual void f01(); virtual void f02(); virtual void f03(); virtual void f04();
-	virtual void f05(); virtual void f06(); virtual void f07(); virtual void f08(); virtual void f09();
-	virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14();
-	virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19();
-	virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23(); virtual void f24();
-	virtual int AddEvent(const BfmeAudioEventPrefix136 &ev);
-	virtual void f26();
-	virtual void RemoveEvent(unsigned handle);
-	virtual void f28(); virtual void f29(); virtual void f30(); virtual void f31(); virtual void f32();
-	virtual void f33(); virtual void f34(); virtual void f35(); virtual void f36(); virtual void f37();
-	virtual void f38(); virtual void f39(); virtual void f40(); virtual void f41(); virtual void f42();
-	virtual void f43(); virtual void f44(); virtual void f45(); virtual void f46(); virtual void f47();
-	virtual void f48(); virtual void f49(); virtual void f50(); virtual void f51();
-	virtual bool IsPlaying(unsigned handle);
-};
+#include "../../../../Include/Common/GameAudio.h"
+
 extern AudioManager *TheAudio;
 
 class Rva00395BCB
@@ -58,10 +42,10 @@ void Rva00395BCB::rva00395BCB(const void *a_, const void *b_)
 		OpaqueRefElement4 *ref = &ref4Inner->m_ref;
 		if (*(void **)ref == 0)
 			return;
-		if (!TheAudio->IsPlaying(m_20)) {
+		if (!TheAudio->isCurrentlyPlaying(m_20)) {
 			Ref8Inner *ref8Inner = (Ref8Inner *)m_8;
 			BfmeAudioEventPrefix136 ev(*ref, (ObjectID)ref8Inner->m_id);
-			m_20 = TheAudio->AddEvent(ev);
+			m_20 = TheAudio->addAudioEvent(&ev);
 		}
 		return;
 	}
@@ -69,6 +53,6 @@ void Rva00395BCB::rva00395BCB(const void *a_, const void *b_)
 		return;
 	if (m_20 < 5)
 		return;
-	TheAudio->RemoveEvent(m_20);
+	TheAudio->removeAudioEvent(m_20);
 	m_20 = 1;
 }
