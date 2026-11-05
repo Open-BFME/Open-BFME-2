@@ -119,3 +119,6 @@ Rva007E3C20Vp6StreamDtor.cpp remains on its original view after the explicit rec
 
 
 2026-11-05 consumer recheck. AIBaseBuilder.cpp has a current 27/27 receipt. The scoped audit now reaches AIBuildable.cpp, whose current receipt is still missing. [Current proof scope and audit](../../reverse/attempt_support/header-adoption-link-evidence-up-to-hundred-each-20261105-1505.md).
+
+
+2026-11-05 receipt recheck. AIBuildable.cpp now has a current 20/20 receipt. The six-source audit is inconclusive at AICowerState_onEnter.cpp with the earlier published index. [Scoped verification](../../reverse/attempt_support/current-link-receipts-20261105-1800.md).
