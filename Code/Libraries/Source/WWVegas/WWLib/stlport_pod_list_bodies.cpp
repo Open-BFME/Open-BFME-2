@@ -47,7 +47,7 @@ inline bool operator==(const BfmePod12 &x, const BfmePod12 &y) { return x.a[0] =
 struct Rva004907AAElement { unsigned int id; };
 namespace _STL {
 template <> list<Rva004907AAElement>::iterator list<Rva004907AAElement>::erase(iterator __position);
-template <> __forceinline list<BfmePod12>::iterator list<BfmePod12>::erase(iterator __position)
+template <> __declspec(dllimport) __forceinline list<BfmePod12>::iterator list<BfmePod12>::erase(iterator __position)
 {
 	typedef list<Rva004907AAElement> ProviderList;
 	ProviderList::iterator __next = ((ProviderList *)this)->erase(
