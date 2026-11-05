@@ -1,0 +1,7 @@
+BFME_PUSH_SPACING_S=0 python3 tools/push.py --dry-run
+Exit status: 0
+
+link batch audit: INCONCLUSIVE baseline: index at 3a95b274a2, outgoing base c4ce216e7ea91368888b2c5d532f964305584e68; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 8 source object(s) lack current receipts; first: Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp
+pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
+PRE-PUSH OK (8 outgoing source(s) byte-verified)

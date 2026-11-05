@@ -48,3 +48,13 @@ markers remain. Other workers' scopes and queue entries remain untouched.
 
 No saved edit is discarded: eight are recovered and twelve are banked here.
 The recovery creates no new task selection or source-path move.
+
+## Outgoing audit limitation
+
+The recovery landed as `7c8f0b2e2f`. The required push dry run passed
+(`PRE-PUSH OK`, exit 0), but its batch link audit was inconclusive: the
+index was at `3a95b274a2`, behind outgoing base `c4ce216e7e`, and all eight
+source objects lacked current audit receipts. See `outgoing-audit.txt`.
+The scoped header acceptance above passed; broader outgoing link preservation
+remains unverified. Carry these eight consumers into the next authorized
+census; no maintainer-only measurement was started for this recovery.
