@@ -92,6 +92,7 @@ public:
 
 #include <float.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Region3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 class Matrix3D;
 #include "../../Common/Thing/thing.h"
@@ -101,17 +102,7 @@ struct Rva00287C21Other;
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
 extern GameLogic *TheGameLogic;
-struct ObjectTransformRegion {
- Coord3D lo, hi;
- bool contains(const Coord3D *p) const { return p->x > lo.x && p->x < hi.x && p->y > lo.y && p->y < hi.y; }
-};
-class TerrainLogic {
-public:
- virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
- virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
- virtual void getExtent(ObjectTransformRegion *);
-};
-extern TerrainLogic *TheTerrainLogic;
+#include "../../../Include/GameLogic/TerrainLogic.h"
 bool isPosDifferent(const Coord3D *,const Coord3D *);
 bool isAngleDifferent(float,float);
 class ObjectTransformContain {
@@ -297,9 +288,9 @@ void Object::reactToTransformChange(const Matrix3D *oldMtx,const Coord3D *oldPos
  if (posDiff) {
   if (initialZ==0.0f) initialZ=position.z;
   setTriggerAreaFlagsForChangeInPosition();
-  ObjectTransformRegion extent;
+  Region3D extent;
   TheTerrainLogic->getExtent(&extent);
-  if (extent.contains(&position)) flags438 &= ~8; else flags438 |= 8;
+  if (extent.isInRegionNoZ(&position)) flags438 &= ~8; else flags438 |= 8;
   rva0028B98B();
  }
 }

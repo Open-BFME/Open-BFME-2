@@ -28,9 +28,6 @@ enum CellShroudStatus
 
 extern PartitionManager *TheShroudManager;
 
-class TerrainLogic;
-
-extern TerrainLogic *TheTerrainLogic;
 
 struct TableEntry
 {
@@ -57,12 +54,7 @@ public:
 	void *rva00049D20(void *dest, int idx);
 };
 
-class TerrainLogic
-{
-public:
-	char m_pad00[0x584];
-	Rva00049D20 *m_584;
-};
+#include "../../Include/GameLogic/TerrainLogic.h"
 
 #include "../../Include/Common/Player.h"
 
@@ -101,7 +93,7 @@ int Rva00049D20::rva005D772D(int index)
 
 bool AISpellBookTreeKiller::shouldActivate(Object *source)
 {
-	Rva00049D20 *terrainTable = TheTerrainLogic->m_584;
+	Rva00049D20 *terrainTable = (Rva00049D20 *)TheTerrainLogic->field584;
 	Coord3D bestPosition;
 	bestPosition.x = 0.0f;
 	bestPosition.y = 0.0f;
