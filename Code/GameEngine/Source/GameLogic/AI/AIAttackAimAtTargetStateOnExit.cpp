@@ -114,6 +114,7 @@ private:
 	unsigned char m_pad25C[0x274 - 0x25C];
 	Rva00351788RangeOwner *m_rangeOwner; // +0x274
 };
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class AIAttackAimAtTargetState : public State
 {

@@ -61,6 +61,7 @@ enum ObjectID
 
 void XferObjectID( Xfer *xfer, ObjectID *id );
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 // ------------------------------------------------------------------------------------------------

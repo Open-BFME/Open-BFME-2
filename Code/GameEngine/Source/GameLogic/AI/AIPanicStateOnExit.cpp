@@ -42,6 +42,7 @@ private:
 	unsigned char m_pad000[0x10C];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 };
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIPanicState : public AIInternalMoveToState

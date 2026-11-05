@@ -11,6 +11,7 @@ typedef bool Bool;
 typedef float Real;
 class StateMachine;
 class Xfer;
+#include "../../Include/Common/StateMachine.h"
 #include "../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {

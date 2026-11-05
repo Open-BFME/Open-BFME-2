@@ -21,6 +21,7 @@
 // Layout: machine goal position +0x24, m_canTurnInPlace +0x2C.
 typedef bool Bool;
 typedef float Real;
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 extern "C" float __cdecl fabs(double); // CRT fabs; x87 result compared as float

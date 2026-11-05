@@ -91,6 +91,7 @@ private:
 	unsigned char m_pad08[0x258 - 0x08];
 	AIUpdateInterface *m_ai; // +0x258
 };
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIFollowPathState : public AIInternalMoveToState

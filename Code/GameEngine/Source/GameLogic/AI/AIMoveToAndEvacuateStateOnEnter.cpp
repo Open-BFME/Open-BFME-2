@@ -19,6 +19,7 @@ inline Coord3D operator-(const Coord3D &a, const Coord3D &b)
 class Object0033FA64;
 void Rva0033FA64Do(const Object0033FA64 *obj);
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

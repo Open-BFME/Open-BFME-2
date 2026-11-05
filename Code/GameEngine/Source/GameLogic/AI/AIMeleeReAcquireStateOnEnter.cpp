@@ -157,6 +157,7 @@ public:
 	unsigned char m_438;		// +0x438 (bit 0: effectively dead)
 };
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

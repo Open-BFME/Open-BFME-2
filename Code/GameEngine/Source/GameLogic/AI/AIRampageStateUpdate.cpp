@@ -4,6 +4,7 @@
 // Sibling onEnter 0x0034BD1B and onExit 0x0034BDF8 prove the class is
 // AIRampageState with Bool +0x20 and frame ints +0x24/+0x28; helper
 // rva0034BE57's own comment names this update as its caller.
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class VSlots : public VSlots<N - 1>

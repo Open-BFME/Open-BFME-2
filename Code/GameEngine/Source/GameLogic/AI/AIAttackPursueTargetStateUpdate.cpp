@@ -30,6 +30,7 @@ private:
 	Bool m_bfme3C7; // +0x3C7
 };
 #include "../Object/object.h"
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class AIAttackPursueTargetState : public State
 {

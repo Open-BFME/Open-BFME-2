@@ -20,6 +20,7 @@ enum ObjectID
 {
 	INVALID_ID = 0
 };
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes
 {

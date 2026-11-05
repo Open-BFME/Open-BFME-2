@@ -42,6 +42,7 @@ private:
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_privateStatus; // +0x438
 };
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIMoveAndEvacuateState : public AIInternalMoveToState

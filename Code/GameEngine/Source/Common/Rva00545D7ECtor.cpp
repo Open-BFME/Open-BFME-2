@@ -8,6 +8,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
+#include "../../Include/Common/StateMachine.h"
 #include "../../Include/Common/StateMachineClass.h"
 struct Rva00545D7EExitConditions
 {

@@ -7,6 +7,7 @@
 // TheGameLogic+0x40 plus AI rva00264F3D and inner chain. Chain of 0x002EDE5B.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 enum ObjectStatusTypes

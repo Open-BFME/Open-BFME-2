@@ -8,6 +8,7 @@
 // Evidence: named lane pin AICowerState::onExit, vslot slot 5, donor BFME1
 // Rva001745B0AICowerState_onExit (identity only, BFME2 body differs), caller
 // 0x00347F3E AIUncontrollableCower::onExit, prev/next AI state TUs.
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class VSlots : public VSlots<N - 1>

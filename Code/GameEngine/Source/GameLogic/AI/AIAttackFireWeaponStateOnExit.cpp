@@ -36,6 +36,7 @@ public:
 	void clearStatus(ObjectStatusTypes status) { setStatus(status, false); }
 	Weapon *getCurrentWeapon(WeaponSlotType *wslot = 0);
 };
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class AIAttackFireWeaponState : public State
 {

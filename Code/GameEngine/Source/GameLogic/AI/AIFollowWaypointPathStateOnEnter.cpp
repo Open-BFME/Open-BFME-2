@@ -149,6 +149,7 @@ public:
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;
 #include "../../../Include/GameLogic/AIPathfind.h"
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIStateMachineClass.h"
 class AIInternalMoveToState : public State

@@ -71,6 +71,7 @@ public:
 	void *m_physics;
 };
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>

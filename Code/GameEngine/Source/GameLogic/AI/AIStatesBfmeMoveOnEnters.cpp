@@ -30,6 +30,7 @@ typedef float Real;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

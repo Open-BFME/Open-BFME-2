@@ -80,6 +80,7 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>

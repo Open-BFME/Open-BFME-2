@@ -18,6 +18,7 @@
 
 typedef bool Bool;
 #include "../../Common/GameLogicObjectLookupView.h"
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 enum GuardTargetType { GUARDTARGET_LOCATION = 0, GUARDTARGET_OBJECT };
 class Object;

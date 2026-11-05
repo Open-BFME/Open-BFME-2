@@ -12,6 +12,7 @@ typedef float Real;
 #include "../../../../Libraries/Include/Lib/Coord3DInline.h"
 class StateMachine;
 class Xfer;
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {

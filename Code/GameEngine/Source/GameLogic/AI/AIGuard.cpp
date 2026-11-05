@@ -91,6 +91,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

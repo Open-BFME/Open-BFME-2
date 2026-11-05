@@ -56,6 +56,7 @@ private:
 
 extern AI *TheAI;
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

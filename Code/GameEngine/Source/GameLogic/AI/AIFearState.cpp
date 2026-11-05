@@ -168,6 +168,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 

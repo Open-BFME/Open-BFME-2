@@ -24,6 +24,7 @@ class Object;
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 extern GameLogic *TheGameLogic;
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {

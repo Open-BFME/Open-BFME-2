@@ -25,6 +25,7 @@ extern TerrainLogic *TheTerrainLogic;
 #include "../Object/object.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 class AIInternalMoveToState : public State
 {

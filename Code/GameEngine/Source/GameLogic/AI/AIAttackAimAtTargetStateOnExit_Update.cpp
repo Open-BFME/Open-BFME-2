@@ -15,6 +15,7 @@
 // Layout: m_canTurnInPlace +0x21, m_setLocomotor +0x22, AI +0x258.
 typedef bool Bool;
 typedef float Real;
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes
 {

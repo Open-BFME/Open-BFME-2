@@ -16,6 +16,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_WriteBarrier)
 #pragma intrinsic(_ReadWriteBarrier)
 
+#include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
