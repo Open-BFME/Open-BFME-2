@@ -2391,7 +2391,6 @@ void DefaultPhysicsModuleInfo::LoadPostProcess() {}
 void DefaultAlphaModuleInfo::LoadPostProcess() {}
 void DefaultColorModuleInfo::LoadPostProcess() {}
 void LightningDrawModuleInfo::LoadPostProcess() {}
-void GpuDrawModuleInfo::LoadPostProcess() {}
 void DefaultUpdateModuleInfo::LoadPostProcess() {}
 inline void RenderObjectUpdateModuleInfo::LoadPostProcess() {}
 void DefaultDrawModuleInfo::LoadPostProcess() {}
