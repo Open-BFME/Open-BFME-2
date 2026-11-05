@@ -13,24 +13,8 @@ struct BfmeE12
 	float z;
 };
 
-class ScriptList
-{
-public:
-	void swap(ScriptList *other);
-	char m_body[0x4C];
-};
-
-class SidesInfo
-{
-public:
-	void swap(SidesInfo *other);
-
-private:
-public:
-	char m_head[8];
-	ScriptList m_scripts; // +8, 0x4C-byte by-value list
-	char m_tail[0x60 - 8 - 0x4C];
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
+#include "../../../Include/GameLogic/ScriptList.h"
 
 class TeamsInfoRec
 {

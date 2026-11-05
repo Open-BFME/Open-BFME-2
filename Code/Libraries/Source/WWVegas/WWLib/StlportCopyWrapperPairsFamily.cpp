@@ -32,12 +32,7 @@ struct FXBoneInfo {
 	FXBoneInfo &operator=(const FXBoneInfo &);
 };
 
-class SidesInfo {
-public:
-	SidesInfo &operator=(const SidesInfo &);
-private:
-	char m_opaque[0x60];
-};
+#include "../../../../GameEngine/Include/GameLogic/SidesInfo.h"
 
 template Rva002B2F97 *_STL::copy_backward<Rva002B2F97 *, Rva002B2F97 *>(Rva002B2F97 *, Rva002B2F97 *, Rva002B2F97 *);
 template SidesInfo *_STL::copy<SidesInfo *, SidesInfo *>(SidesInfo *, SidesInfo *, SidesInfo *);

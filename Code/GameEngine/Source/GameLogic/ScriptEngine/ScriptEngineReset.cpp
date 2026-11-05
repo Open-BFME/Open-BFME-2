@@ -288,26 +288,8 @@ extern ScriptConditions *TheScriptConditions;
 // preserves the independently measured4C-byte temporary and frame layout.
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-class ScriptList : public Snapshot
-{
-public:
-	ScriptList();
-	~ScriptList();
-
-protected:
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *);
-
-private:
-	char m_body[0x48];
-};
-
-class SidesInfo
-{
-public:
-	void setScriptList(ScriptList *scriptList);
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
+#include "../../../Include/GameLogic/ScriptList.h"
 
 #include "../../../Include/Common/SidesList.h"
 extern SidesList *TheSidesList;

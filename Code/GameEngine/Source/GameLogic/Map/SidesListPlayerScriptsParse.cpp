@@ -12,27 +12,14 @@
 class DataChunkInput;
 struct DataChunkInfo;
 
-class ScriptList
-{
-public:
-	void swap(ScriptList *other);
-};
+#include "../../../Include/GameLogic/SidesInfo.h"
+#include "../../../Include/GameLogic/ScriptList.h"
 
 // The parsed lists, deleted through their virtual destructor.
 class Rva0032989FItem
 {
 public:
 	virtual ~Rva0032989FItem();
-};
-
-class SidesInfoPrefix
-{
-	unsigned char m_pad00[8];
-};
-
-// The side's script list is its base at +8.
-class SidesInfo : public SidesInfoPrefix, public ScriptList
-{
 };
 
 #include "../../../Include/Common/SidesList.h"
@@ -63,7 +50,7 @@ bool Rva0032989F::rva00329906(DataChunkInput &file, DataChunkInfo *info)
 	{
 		--m_count;
 		if (m_count < m_sides->m_numSides)
-			m_sides->getSideInfo(m_count)->swap((ScriptList *)m_lists[m_count]);
+			m_sides->getSideInfo(m_count)->m_scripts.swap((ScriptList *)m_lists[m_count]);
 		::delete m_lists[m_count];
 		m_lists[m_count] = 0;
 	}

@@ -13,16 +13,11 @@
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Dict;
 #include "../../../Include/Common/DataChunkOutput.h"
-#include "../../../Include/GameLogic/ScriptList.h"
+#include "../../../Include/GameLogic/SidesInfo.h"
 struct LibraryMapStringVector {
     AsciiString *first;
     AsciiString *last;
     AsciiString *capacity;
-};
-class SidesInfo {
-public:
-    unsigned char prefix[0x54];
-    LibraryMapStringVector libraryMaps;
 };
 class SidesList {
 public:
@@ -39,7 +34,7 @@ void SidesList::rva00329FF4WriteLibraryMaps(DataChunkOutput &output) {
     int count = numSides;
     for (int index = 0; index < count; ++index) {
         output.openDataChunk("LibraryMaps", 1);
-        LibraryMapStringVector *maps = &getSideInfo(index)->libraryMaps;
+        LibraryMapStringVector *maps = reinterpret_cast<LibraryMapStringVector *>(getSideInfo(index)->m_tail);
         output.writeInt(maps->last - maps->first);
         AsciiString *last = maps->last;
         for (AsciiString *value = maps->first; value != last; ++value)
@@ -53,6 +48,6 @@ void SidesList::rva0032996EWriteScripts(DataChunkOutput &output) {
     ScriptList *scripts[20];
     int count = numSides;
     for (int index = 0; index < count; ++index)
-        scripts[index] = (ScriptList *)((unsigned char *)getSideInfo(index) + 8);
+        scripts[index] = getSideInfo(index)->getScriptList();
     ScriptList::WriteScriptsDataChunk(output, scripts, count);
 }

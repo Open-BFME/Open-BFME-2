@@ -6,6 +6,7 @@ class AssetList;
 struct AssetLoadMode;
 #include "../../../Include/GameLogic/ScriptClass.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
+#include "../../../Include/GameLogic/SidesInfo.h"
 
 class Rva00205358PooledScript
 {
@@ -27,14 +28,6 @@ struct Rva00205358ScriptPool
     Rva00205358PoolNode *nodes;
     char beforeHead[12];
     int head;
-};
-class SidesInfo
-{
-public:
-    Rva00205358ScriptPool *getScripts() { return &scripts; }
-private:
-    char beforeScripts[8];
-    Rva00205358ScriptPool scripts;
 };
 class SidesList
 {
@@ -65,7 +58,7 @@ void ScriptEngine::rva00205358(AssetList *assets, AssetLoadMode *mode)
 {
     for (int side = 0; side < TheSidesList->getNumSides(); ++side)
     {
-        Rva00205358ScriptPool *pool = TheSidesList->getSideInfo(side)->getScripts();
+        Rva00205358ScriptPool *pool = reinterpret_cast<Rva00205358ScriptPool *>(TheSidesList->getSideInfo(side)->getScriptList());
         if (pool == 0)
             continue;
         for (int index = pool->head; index != -1; index = pool->nodes[index].next)
