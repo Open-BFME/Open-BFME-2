@@ -1652,7 +1652,7 @@ void Rva00467763Construct(void *dest, const void *source)
 
 // tu-skeleton: 0x0046824A 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord00466E64@@V?$allocator@UBfmeStringRecord00466E64@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00466E64@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x004684D5 28B ??_GTransportContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
+// 0x004684D5 28B ??_GTransportContainModuleData@@UAEPAXI@Z: compiler-generated, emitted by the ctor above
 
 // tu-skeleton: 0x004684F1 104B ??1TransportContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainModuleDataDtor.cpp (not merged yet)
 
