@@ -72,26 +72,7 @@ private:
 	Team *m_team; // +0x304
 };
 
-#include "../../Include/Common/Module.h"
-
-// Partial primary storage preceding the native module+0x24 interface.
-class Rva0027601BModuleStorage : public Module
-{
-public:
-    char m_pad08[0x24 - 0x08];
-};
-
-class UpgradeMux
-{
-public:
-	virtual Bool isUpgradeActive() const; // +0x24 subobject slot 0
-};
-
-class WallUpgradeUpdate : public Rva0027601BModuleStorage, public UpgradeMux
-{
-public:
-	static Module *rva004AB1F5(Object *obj);
-};
+#include "../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 
 #include "../../Include/GameClient/Drawable.h"
 
@@ -157,7 +138,7 @@ void Rva0027601BHost::rva0027601B()
 	if ((obj->getTemplate()->m_kindof[4] & (1 << (0x96 & 31))))
 	{
 		WallUpgradeUpdate *wall = static_cast<WallUpgradeUpdate *>(WallUpgradeUpdate::rva004AB1F5(obj));
-		if (wall != 0 && !wall->isUpgradeActive())
+		if (wall != 0 && !wall->rva004AB3AE())
 			return;
 	}
 	if ((obj->getTemplate()->m_kindof[1] & (1 << (0x3D & 31))) && !(obj->getTemplate()->m_kindof[5] & (1 << (0xAA & 31))))
