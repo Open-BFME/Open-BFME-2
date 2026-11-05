@@ -38,6 +38,7 @@ class DefaultUpdateModuleInfo : public Snapshot
 public:
 	DefaultUpdateModuleInfo();
 	__declspec(noinline) virtual ~DefaultUpdateModuleInfo();
+	virtual void LoadPostProcess();
 	virtual const char *GetSnapshotName();
 	virtual void DoXfer(Xfer &);
 

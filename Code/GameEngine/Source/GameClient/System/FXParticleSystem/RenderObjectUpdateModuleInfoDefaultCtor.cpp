@@ -38,6 +38,7 @@ class RenderObjectUpdateModuleInfo : public Snapshot
 public:
 	RenderObjectUpdateModuleInfo();
 	__declspec(noinline) virtual ~RenderObjectUpdateModuleInfo();
+	virtual void LoadPostProcess();
 	virtual const char *GetSnapshotName();
 	virtual void DoXfer(Xfer &);
 
