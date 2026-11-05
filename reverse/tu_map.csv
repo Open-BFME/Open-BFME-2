@@ -39474,7 +39474,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004B79CD,6,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,proposed,C,C=0x004B79AD..0x004B79D3,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 0x004B79D3,11,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,proposed,C,C=0x004B79AD..0x004B79DE,Code/GameEngine/Source/Common/StringFieldOps.cpp
 0x004B79DE,11,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,proposed,C,C=0x004B79AD..0x004B79E9,Code/GameEngine/Source/Common/StringFieldOps.cpp
-0x004B79E9,69,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradePoolKey.cpp
+0x004B79E9,69,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp
 0x004B7A2E,34,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/TooltipUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
 0x004B7A50,49,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp
 0x004B7A81,28,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,C,C=0x004B7A50..0x004B7A9D provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
@@ -81272,8 +81272,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078F07C,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ReplaceSelfUpgradeModuleDataCtor.cpp
 0x0078F086,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ReplaceSelfUpgradeModuleDataDtor.cpp
 0x0078F08E,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ReplaceSelfUpgradeModuleDataDtor.cpp
-0x0078F098,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,P,P=0x004B79E9@FuncInfo0x0093FE70 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradePoolKey.cpp
-0x0078F0A5,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,P,P=0x004B79E9@FuncInfo0x0093FE70 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradePoolKey.cpp
+0x0078F098,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,P,P=0x004B79E9@FuncInfo0x0093FE70 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp
+0x0078F0A5,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,approved,P,P=0x004B79E9@FuncInfo0x0093FE70 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp
 0x0078F0AF,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp,approved,P,P=0x004B7BBB@FuncInfo0x0093FE94 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp
 0x0078F0BC,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp,approved,P,P=0x004B7BBB@FuncInfo0x0093FE94 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp
 0x0078F0C6,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp,approved,P,P=0x004B7C00@FuncInfo0x0093FEC0 provisional,Code/gen_small/uw_gen_013.cpp
