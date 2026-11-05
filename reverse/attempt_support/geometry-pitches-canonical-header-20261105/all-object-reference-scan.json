@@ -1,0 +1,43 @@
+{
+  "objects_scanned": 139631,
+  "names": [
+    "?getCenterPosition@GeometryInfo@@QBEXABUCoord3D@@AAU2@@Z",
+    "?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z"
+  ],
+  "hits": [
+    {
+      "object": "build/class_layouts/Code_GameEngine_Source_Common_GeometryInfoCalcPitches.cpp.obj",
+      "undefined": [],
+      "defined": [
+        "?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z"
+      ]
+    },
+    {
+      "object": "build/geometry-pitches/before.obj",
+      "undefined": [],
+      "defined": [
+        "?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z"
+      ]
+    },
+    {
+      "object": "build/weapon-assistance-cleanup/Weapon-before.obj",
+      "undefined": [
+        "?getCenterPosition@GeometryInfo@@QBEXABUCoord3D@@AAU2@@Z"
+      ],
+      "defined": []
+    },
+    {
+      "object": "build/tu_skeleton/c4e8b29067b58b3c.obj",
+      "undefined": [],
+      "defined": [
+        "?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z"
+      ]
+    },
+    {
+      "object": "build/match/^code_^game^engine_^source_^common_^geometry^info^calc^pitches.obj",
+      "undefined": [],
+      "defined": []
+    }
+  ],
+  "errors": []
+}

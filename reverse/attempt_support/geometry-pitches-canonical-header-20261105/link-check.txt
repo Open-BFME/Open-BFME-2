@@ -1,0 +1,3 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp: LINKS  LINKED 159 -> 159 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 159)
+link_check: 1 of 1 link cleanly; LINKED 159 -> 159 bytes (5.0s)

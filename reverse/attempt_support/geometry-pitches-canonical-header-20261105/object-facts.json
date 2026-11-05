@@ -1,0 +1,67 @@
+{
+  "before": [
+    [
+      [
+        "?bfmeSqr@@YAMM@Z",
+        "d720cd9d6579",
+        9,
+        null
+      ],
+      [
+        "?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z",
+        "bd6df221bf90",
+        58,
+        null
+      ],
+      [
+        "?calcPitches@GeometryInfo@@QBEXABUCoord3D@@ABV1@0AAM2@Z",
+        "37fe1430ec03",
+        159,
+        null
+      ]
+    ],
+    [
+      "?calcPitches@GeometryInfo@@QBEXABUCoord3D@@ABV1@0AAM2@Z"
+    ],
+    [
+      "__fltused",
+      "?getMaxHeightBelowPosition@GeometryInfo@@QBEMXZ",
+      "?getMaxHeightAbovePosition@GeometryInfo@@QBEMXZ"
+    ],
+    []
+  ],
+  "after": [
+    [
+      [
+        "?bfmeSqr@@YAMM@Z",
+        "d720cd9d6579",
+        9,
+        null
+      ],
+      [
+        "?calcPitches@GeometryInfo@@QBEXABUCoord3D@@ABV1@0AAM2@Z",
+        "37fe1430ec03",
+        159,
+        null
+      ]
+    ],
+    [
+      "?calcPitches@GeometryInfo@@QBEXABUCoord3D@@ABV1@0AAM2@Z"
+    ],
+    [
+      "__fltused",
+      "?getMaxHeightBelowPosition@GeometryInfo@@QBEMXZ",
+      "?getMaxHeightAbovePosition@GeometryInfo@@QBEMXZ"
+    ],
+    []
+  ],
+  "removed_copies": [
+    [
+      "?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z",
+      "bd6df221bf90",
+      58,
+      null
+    ]
+  ],
+  "all_other_facts_equal": true
+}

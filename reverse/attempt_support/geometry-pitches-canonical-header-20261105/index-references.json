@@ -1,0 +1,22 @@
+{
+  "index_meta": {
+    "date": "2026-11-05 05:17",
+    "commit": "c95fcfcfcd",
+    "clean_tree": true,
+    "census_date": "2026-11-05 03:49",
+    "census_commit": "c2a9f8e0d7"
+  },
+  "index_sha256": "fc8fb85e6cb11b8514bf608e38196a7ec85c5a49e1d1d2ed6b096b11557093f1",
+  "names": {
+    "?getCenterPosition@GeometryInfo@@QBEXABUCoord3D@@AAU2@@Z": {
+      "touching_objects": [],
+      "referencing_symbols": []
+    },
+    "?getCenterPosition@GeometryInfo@@ABEXABUCoord3D@@AAU2@@Z": {
+      "touching_objects": [
+        "^code_^game^engine_^source_^common_^geometry^info^calc^pitches.obj"
+      ],
+      "referencing_symbols": []
+    }
+  }
+}
