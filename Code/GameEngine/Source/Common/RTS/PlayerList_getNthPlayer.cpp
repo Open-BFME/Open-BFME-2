@@ -101,6 +101,7 @@ public:
 	Relationship getRelationship(const Team *that) const;
 	Team *getDefaultTeam() const { return m_defaultTeam; }
 	bool rva002AA245() const; // 0x002AA245
+	bool isPlayerObserver() const; // 0x002AA223
 	bool isPlayerActive() const;
 	int field5C() const { return m_5C; }
 	int getPlayerIndex() const { return m_playerIndex; }
@@ -141,11 +142,6 @@ class Rva002AA22AByteField
 {
 public:
 	unsigned char get() const;
-};
-class ParticleSystem
-{
-public:
-	bool isSaveable() const;
 };
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -212,7 +208,7 @@ int PlayerList::rva002A7C0B(bool flag)
 			continue;
 		if (((Rva002AA22AByteField *)player)->get())
 			continue;
-		if (((ParticleSystem *)player)->isSaveable())
+		if (player->isPlayerObserver())
 			continue;
 		if (flag)
 		{

@@ -93,7 +93,6 @@ enum
 	KINDOF_SCORE_CREATE = 40,
 	KINDOF_SCORE_DESTROY = 41
 };
-class ParticleSystem { public: bool isSaveable() const; };	// 0x002AA223 (rowed under this name)
 class Player
 {
 public:
@@ -108,6 +107,7 @@ public:
 	ScoreKeeper m_scoreKeeper;			// +0x3BC
 
 	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask);
+	bool isPlayerObserver() const;		// 0x002AA223
 	ScoreKeeper *getScoreKeeper() { return &m_scoreKeeper; }
 };
 #include "../../../Include/Common/PlayerList.h"
@@ -189,7 +189,7 @@ void ControlBar::populateObserverList(void)
 			Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));
 			if (player && player->m_playerTemplate)
 			{
-				if (((const ParticleSystem *)player)->isSaveable())
+				if (player->isPlayerObserver())
 					continue;
 				Rva00328518(buttonPlayer[currentButton], (Int)player);
 				GadgetButtonSetEnabledImage_Rva002C0433(buttonPlayer[currentButton], player->m_playerTemplate->getEnabledImage());
@@ -225,7 +225,7 @@ void ControlBar::populateObserverList(void)
 		for (i = 0; i < 20; ++i)
 		{
 			Player *player = ThePlayerList->getNthPlayer(i);
-			if (player && !((const ParticleSystem *)player)->isSaveable() && player->m_playerType == 0)
+			if (player && !player->isPlayerObserver() && player->m_playerType == 0)
 			{
 				Rva00328518(buttonPlayer[currentButton], (Int)player);
 				GadgetButtonSetEnabledImage_Rva002C0433(buttonPlayer[currentButton], player->m_playerTemplate->getEnabledImage());

@@ -221,9 +221,6 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ParticleSystem { public: bool isSaveable() const; };
-
-	// 0x002AA223 (rowed under this name)
 #include "../../../../../Include/Common/Player.h"
 
 #include "../../../../../Include/Common/PlayerList.h"
@@ -518,7 +515,7 @@ void AptPlayerStatus::rva004E476C()
 		if (slot->isAI())
 			connected = true;
 		bool alive = !((UnknownE03138 *)TheVictoryConditions)->hasBeenDefeated(player);
-		bool observer = ((const ParticleSystem *)player)->isSaveable();
+		bool observer = player->isPlayerObserver();
 		(this->*tableCallback.member)(row, 0, slot->m_name);
 		(this->*tableCallback.member)(row, 1, slot->getApparentPlayerTemplateDisplayName());
 		AsciiString team;
