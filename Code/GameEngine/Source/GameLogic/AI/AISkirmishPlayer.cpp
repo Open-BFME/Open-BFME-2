@@ -432,7 +432,7 @@ private:
 	friend class BfmeThingDTK;
 private:
 	friend class Rva004EF4C1;
-protected:
+public:
 	virtual ~AIPlayer();
 protected:
 	virtual void slot01();
@@ -590,10 +590,8 @@ void AISkirmishPlayer::onUnitProduced(Object *factory, Object *unit)
 	AIPlayer::onUnitProduced(factory, unit);
 }
 
-// ?selectTeamToReinforce@AISkirmishPlayer@@MAE_NH@Z present-unmatched @0x004EF45A 5B: its tail-jump target, AIPlayer::selectTeamToReinforce 0x004F3DB1, is unrowed.
-// Inline until then: nothing in this unit references it (the vtable is not emitted here),
-// so it is not emitted and the unit's other bodies link.
-inline Bool AISkirmishPlayer::selectTeamToReinforce(Int minPriority)
+// ?selectTeamToReinforce@AISkirmishPlayer@@MAE_NH@Z @0x004EF45A 5B
+Bool AISkirmishPlayer::selectTeamToReinforce(Int minPriority)
 {
 	return AIPlayer::selectTeamToReinforce(minPriority);
 }
@@ -1079,7 +1077,6 @@ void AISkirmishPlayer::recruitSpecificAITeam(TeamPrototype *teamProto, Real recr
 	}
 }
 
-// tu-skeleton: 0x004EF45A 5B ?j_004ef45a@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv780.cpp
 
