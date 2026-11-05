@@ -13347,7 +13347,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001EC0A0,276,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EBB73..0x001EC1B4 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattle.cpp
 0x001EC1B4,349,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EBB73..0x001EC311 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignCarryoverInsert.cpp
 0x001EC311,56,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EBB73..0x001EC349 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva001EC311Ctor.cpp
-0x001EC349,108,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EBB73..0x001EC3B5 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
+0x001EC349,108,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EBB73..0x001EC3B5 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x001EC3B5,648,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaign.cpp W=Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x001EC63D,540,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaign.cpp W=Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp
 0x001EC859,103,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,C,C=0x001EC63D..0x001EC8C0 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
@@ -66627,11 +66627,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076A666,10,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,P,P=0x001EC8C0@FuncInfo0x0090FB14 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x0076A670,8,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,P,P=0x001EC9BD@FuncInfo0x0090FB38 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x0076A678,10,code,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp,approved,P,P=0x001EC9BD@FuncInfo0x0090FB38 provisional,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
-0x0076A682,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
-0x0076A68A,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
-0x0076A695,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
-0x0076A6A0,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
-0x0076A6AB,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
+0x0076A682,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+0x0076A68A,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+0x0076A695,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+0x0076A6A0,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+0x0076A6AB,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 0x0076A6B6,10,code,,,-,,Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp
 0x0076A6C0,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp
 0x0076A6C8,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva001ED0DEDtor.cpp

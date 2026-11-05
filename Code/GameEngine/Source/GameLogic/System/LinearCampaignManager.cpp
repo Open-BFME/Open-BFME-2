@@ -41,7 +41,6 @@ class Rva001ED0DE;
 namespace _STL { template <> void _Destroy<Rva001ED0DE *>(Rva001ED0DE *,Rva001ED0DE *); }
 // Declared only: the rowed copy (StlportVectorDtorFamily.cpp, 0x001ED363) serves the call.
 namespace _STL { template <> vector<Rva001ED0DE, allocator<Rva001ED0DE> >::~vector(); }
-// This unit's own row: the single-element _Destroy the vector dtor used to pull in.
 #include "../../../Include/Common/Rva000AD6F4.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -88,20 +87,15 @@ public:
 	char bytes[172]; // +0x00
 };
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-
 class Rva00376A62;
-
 struct Rva001EB023Elem
 {
 	char unknown00[0x90];
 	int quantity; // +0x90
 	char unknown94[0xAC - 0x94];
 };
-
 #include "../../../Include/Common/Rva00575674.h"
-
 class Rva001EB8D7 {public: void *rva001EB90C(const StringBase<char>&);};
-
 class Rva001EBAEA {
 public: Rva001EBAEA(int,int) throw();
  void *unknown0;
@@ -109,9 +103,7 @@ public: Rva001EBAEA(int,int) throw();
  int argument8;
  unsigned char opaque0c[0xc4-0xc];
 };
-
 void XferGameDifficulty(Xfer*,int*);
-
 class CampaignSlot {
 public:
  Rva001EBAEA *get() const { return pointer; }
@@ -119,37 +111,25 @@ public:
  bool valid() const { return pointer!=0; }
 private: Rva001EBAEA *pointer;
 };
-
 // One 0x24-byte campaign record, rowed under one address name per row: the
 // vector element of push_back 0x001ED549, the destructor 0x001ED0DE and the
 // name constructor 0x001ED0A9; its block parse 0x001ED338 (an initFromINI
 // forward with the record's field table) is rowed under a fourth. The view
 // chains them so one temporary reaches each row as retail's does.
 class Rva001ED03C { public: unsigned char data[0x24]; };
-
 // Element construction is rowed in stlport_construct_rva001ED03C.cpp (0x001ED1F1);
 // this TU's select-any copy, first in link order, is not retail's.
 namespace _STL { template <> void _Construct<Rva001ED03C, Rva001ED03C>(Rva001ED03C *, const Rva001ED03C &); }
-
 // So are the vector growth and clear paths (StlportVectorInsertOverflowRva001ED03C.cpp).
 namespace _STL { template <> void vector<Rva001ED03C, allocator<Rva001ED03C> >::_M_insert_overflow(Rva001ED03C *, const Rva001ED03C &, const __false_type &, size_t, bool); template <> void vector<Rva001ED03C, allocator<Rva001ED03C> >::_M_clear(); template <> void vector<Rva001ED03C, allocator<Rva001ED03C> >::push_back(const Rva001ED03C &); }
-
 class Rva001ED0DE : public Rva001ED03C { public: ~Rva001ED0DE(); };
-
 template void _STL::_Destroy<Rva001ED0DE>(Rva001ED0DE *);
-
 class Rva001ED0A9 : public Rva001ED0DE { public: Rva001ED0A9(const AsciiString &name); };
-
 class Rva001ED338 { public: void rva001ED338(void *ini); };
-
 enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
-
 struct FieldParse;
-
 #include "../../../Include/Common/INI/INI.h"
-
 #include "../../../Include/Common/INI/FieldParse.h"
-
 class LinearCampaignManager {
 public: void DoXfer(Xfer*);
  static void parseLinearCampaignIniBlock(INI *ini);
@@ -157,9 +137,7 @@ public: void DoXfer(Xfer*);
 private: unsigned char prefix00[0x10]; CampaignSlot current;
  _STL::vector<Rva001ED03C> campaigns; // +0x14
 };
-
 extern LinearCampaignManager *TheLinearCampaignManager;
-
 class Rva001ED41B : public Snapshot, public SubsystemInterface
 {
 public:
@@ -168,7 +146,6 @@ private:
 	Rva000AD6F4 m_10;
 	_STL::vector<Rva001ED0DE> m_14;
 };
-
 struct AsciiStringLike
 {
 	char *m_str;
@@ -178,7 +155,6 @@ struct AsciiStringLike
 			free(m_str);
 	}
 };
-
 struct BfmeAssignRecord172
 {
 public:
@@ -187,7 +163,6 @@ public:
 	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &);
 	int a[43]; // +0x00
 };
-
 class __declspec(novtable) Rva001EBFE5 : public Snapshot
 {
 public:
@@ -201,26 +176,17 @@ private:
 	unsigned char m_gapB0[0xB4 - (0xA4 + 12)];
 	_STL::vector<BfmeAssignRecord172> m_vecB4;
 };
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> void vector<BfmePod172,allocator<BfmePod172> >::push_back(BfmePod172 const &); }
-
 // bfme link decl-only begin
 namespace _STL { template <> void _Construct<BfmePod172, BfmePod172>(BfmePod172 *, BfmePod172 const &); }
-
 namespace _STL { template <> void _Destroy<BfmeAssignRecord172 *>(BfmeAssignRecord172 *, BfmeAssignRecord172 *); }
-
 namespace _STL { template <> unsigned int const & max<unsigned int>(unsigned int const &, unsigned int const &); }
-
 namespace _STL { template <> void vector<BfmePod172, allocator<BfmePod172> >::_M_insert_overflow(BfmePod172 *, BfmePod172 const &, __false_type const &, unsigned int, bool); }
-
 namespace _STL { template <> BfmeAssignRecord172 * vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *); }
-
 // bfme link decl-only end
 extern GameLogic*TheGameLogic;
-
 enum ScienceType {SCIENCE_INVALID=-1};
-
 // Calls in the matched parent use the rowed ScienceType providers.
 namespace _STL {
 template <> void vector<ScienceType, allocator<ScienceType> >::reserve(unsigned int);
@@ -228,11 +194,8 @@ template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const S
 template <> ScienceType *vector<ScienceType, allocator<ScienceType> >::erase(ScienceType *, ScienceType *);
 template <> void vector<ScienceType, allocator<ScienceType> >::_M_insert_overflow(ScienceType *, const ScienceType &, const __false_type &, unsigned int, bool);
 }
-
 struct Bits1024 {unsigned int words[32];__forceinline bool test(unsigned n)const {return (words[n/32] & (1U<<(n%32)))!=0;} __forceinline void set(unsigned n){words[n/32] |= 1U<<(n%32);} };
-
 class Player {public:char p0[0x14];int value14;char p18[0x5c-0x18];int value5C;char p60[0x13c-0x60];Bits1024 upgrades;char p1BC[0x2f0-0x1bc];_STL::vector<ScienceType>sciences;char p2FC[0x314-0x2fc];float value314;char p318[0x738-0x318];Rva0037E421 revival;};
-
 class PlayerList
 {
 public:
@@ -242,27 +205,18 @@ public:
 	char p0[0x14]; // +0x00
 	int count; // +0x14
 };
-
 extern PlayerList*ThePlayerList;
-
 #include "../../../Include/Common/ScienceStore.h"
-
 extern ScienceStore*TheScienceStore;
-
 class UpgradeTemplate {public:char p0[0x78];bool carryover;};
-
 class UpgradeCenter
 {
 public:
 	const UpgradeTemplate*rva0026EEA0(int)const;
 };
-
 extern UpgradeCenter*TheUpgradeCenter;
-
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-
 #include "../../../Include/Common/OpaqueRefElement4.h"
-
 class Rva001EC349
 {
 public:
@@ -276,7 +230,6 @@ private:
 	int m_14; // +0x14
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_18; // +0x18
 };
-
 class Rva001ED01E
 {
 public:
@@ -285,14 +238,11 @@ private:
 	Rva001EC349 *m_00;
 	Rva001EC349 *m_04;
 };
-
 template void _STL::_Destroy<Rva001EC349 *>(Rva001EC349 *, Rva001EC349 *);
-
 namespace _STL
 {
 template <class I> void __cdecl _Destroy(I first, I last);
 }
-
 class Rva001ED3A2
 {
 public:
@@ -301,9 +251,7 @@ private:
 	Rva001ED0DE *m_00;
 	Rva001ED0DE *m_04;
 };
-
 struct Rva001ECF03Entry { int words[9]; };
-
 class Rva0023D607Holder
 {
 public:
@@ -313,19 +261,15 @@ private:
     Rva001EBAEA *current;
     _STL::vector<Rva001ECF03Entry> entries;
 };
-
 // ?rva001ED338@Rva001ED338@@QAEXPAX@Z @0x001ED338 18B.
 // Forwards to rowed INI::initFromINI 0x0002DE78 with the class FieldParse table.
 // Evidence: callee rowed 0x0002DE78; table g_00BDF1D8; caller 0x001ED61C in 0x001ED580.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
-
-
 extern "C" {
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z")();
 }
-
 // The retail table at 0x007DF1D8: 4 entries and the null terminator; every parser is a rowed code owner.
 extern const FieldParse g_00BDF1D8[5] = {
 	{ "CampaignDisplayNameLabel", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
@@ -334,7 +278,6 @@ extern const FieldParse g_00BDF1D8[5] = {
 	{ "Mission", (FieldParseProc)&__identifier("?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z"), 0, 0x18 },
 	{ 0, 0, 0, 0 }
 };
-
 //
 // More null-checked member-pointer forwarders (VslotNullCheckedForwarders.cpp
 // shape, found by a .text byte scan of unowned starts): load the pointer at
@@ -361,29 +304,23 @@ extern const FieldParse g_00BDF1D8[5] = {
 //   0x0007E17B +0x100 -> WaterTracksRenderSystem::rva0010004D (1 arg)
 
 typedef int Int;
-
 class ShellMenuScheme
 {
 public:
 	void draw();
 };
-
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DPropBufferClass.h"
-
 class Rva000D3A17
 {
 public:
 	void rva000D3A17();
 };
-
 class Rva00270025
 {
 public:
 	void rva0027006C(Int a0);
 };
-
 class Rva001EAFFE;
-
 class LinearCampaign {
 public:
 	void onCurrentMissionWon();
@@ -418,7 +355,6 @@ public:
 	void restartCurrentCampaignMission();
 	void onMissionComplete();	// 0x001EB68A, the completion path
 };
-
 class Rva0023D6D5Callee
 {
 public:
@@ -427,11 +363,8 @@ private:
 	char m_lead[0x10];
 	LinearCampaign *m_member;
 };
-
 class Thing;
-
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShrubBuffer.h"
-
 class Rva00068061NullTarget
 {
 public:
@@ -440,13 +373,11 @@ private:
 	char m_lead[0x3854];
 	W3DShrubBuffer *m_member;
 };
-
 class W3DTreeBuffer
 {
 public:
 	void rva000EA2C0(void *a0);
 };
-
 class Rva00068283NullTarget
 {
 public:
@@ -455,40 +386,38 @@ private:
 	char m_lead[0x3850];
 	W3DTreeBuffer *m_member;
 };
-
 class Rva005E58ED
 {
 public:
 	void rva005E58ED();
 };
-
 class Rva005E88DDNullTarget
 {
 public:
 	void rva005E88DD();
 };
-
 class Rva005E8F49Owner
 {
 public:
 	void rva005E8F49();
 };
-
 class Rva000EE198Owner
 {
 public:
 	void rva000EE198();
 };
-
 class Rva000EDB47NullTarget
 {
 public:
 	void rva000EDB47();
 };
-
 class RenderInfoClass;
-
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
+// Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
+// rather than emitting its own.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+}
 
 // Two more with a ret 4 tail: 0x000B22E4 +0x4 -> rowed Shadow::setColor
 // (1 arg); 0x004FC176 +0x20 -> 0x004E0D19 (1 arg, address-derived pin).
@@ -703,14 +632,18 @@ public:
 	void addRevivableUnit(const Rva002E2D10Record &item, Player *player);
 };
 
-template Rva001ED03C *_STL::__uninitialized_copy(Rva001ED03C *, Rva001ED03C *, Rva001ED03C *, const _STL::__false_type &);
-
-template Rva001ED03C *_STL::__uninitialized_fill_n(Rva001ED03C *, unsigned int, const Rva001ED03C &, const _STL::__false_type &);
-
 namespace _STL {
 template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *);
 template <> void vector<Rva001EBEABElement, allocator<Rva001EBEABElement> >::_M_fill_insert(Rva001EBEABElement *, unsigned int, const Rva001EBEABElement &);
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
+
+// This unit's own row: the single-element _Destroy the vector dtor used to pull in.
+
+template Rva001ED03C *_STL::__uninitialized_copy(Rva001ED03C *, Rva001ED03C *, Rva001ED03C *, const _STL::__false_type &);
+
+template Rva001ED03C *_STL::__uninitialized_fill_n(Rva001ED03C *, unsigned int, const Rva001ED03C &, const _STL::__false_type &);
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 
@@ -1106,6 +1039,44 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 // The real STLport template supplies the loop; the declaration-only
 // _Construct specialization keeps each element copy a call to the row.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp
+
+void Rva001EC9BDVector::resize(unsigned int newSize, CarryoverUnit value)
+{
+	if (newSize < size()) {
+		reinterpret_cast<_STL::vector<BfmeAssignRecord172> *>(this)->erase(
+			reinterpret_cast<BfmeAssignRecord172 *>(begin() + newSize),
+			reinterpret_cast<BfmeAssignRecord172 *>(end()));
+	} else {
+		unsigned int extra = newSize - size();
+		reinterpret_cast<_STL::vector<Rva001EBEABElement> *>(this)->_M_fill_insert(
+			reinterpret_cast<Rva001EBEABElement *>(end()), extra,
+			*reinterpret_cast<Rva001EBEABElement const *>(&value));
+	}
+}
+
+void Rva001EC9BDVector::resize(unsigned int newSize)
+{
+	resize(newSize, CarryoverUnit());
+}
+
 // tu-skeleton: 0x001EBCC6 18B ??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x001EBCD8 62B ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBCD8Erase.cpp (not merged yet)
@@ -1136,30 +1107,17 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 
 // tu-skeleton: 0x001EC311 56B ??0Rva001EC311@@QAE@ABV?$StringBase@D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC311Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x001EC349 108B ??1Rva001EC349@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
+
+// ??1Rva001EC349@@QAE@XZ @0x001EC349 108B.
+// Non-virtual dtor: vector<AsciiString> at +0x18, owning ref at +0x10, four strings at +0xC..+0x00.
+// Evidence: callees rowed 0x0002CC70 0x00050ED3 0x00036410(x4); callers at 0x001ECB94 0x001ECFCF 0x001ED30C.
+
+Rva001EC349::~Rva001EC349()
+{
+}
 
 // tu-skeleton: 0x001EC63D 540B ?addCarryoverStuffToMap@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001EC9BDResize.cpp
-
-void Rva001EC9BDVector::resize(unsigned int newSize, CarryoverUnit value)
-{
-	if (newSize < size()) {
-		reinterpret_cast<_STL::vector<BfmeAssignRecord172> *>(this)->erase(
-			reinterpret_cast<BfmeAssignRecord172 *>(begin() + newSize),
-			reinterpret_cast<BfmeAssignRecord172 *>(end()));
-	} else {
-		unsigned int extra = newSize - size();
-		reinterpret_cast<_STL::vector<Rva001EBEABElement> *>(this)->_M_fill_insert(
-			reinterpret_cast<Rva001EBEABElement *>(end()), extra,
-			*reinterpret_cast<Rva001EBEABElement const *>(&value));
-	}
-}
-
-void Rva001EC9BDVector::resize(unsigned int newSize)
-{
-	resize(newSize, CarryoverUnit());
-}
 
 // tu-skeleton: 0x001ECA2D 204B ?Rva001ECA2DXfer@@YAPAVXfer@@PAV1@PAX@Z -- matched in Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp (not merged yet)
 
@@ -1220,16 +1178,6 @@ void Rva001EC9BDVector::resize(unsigned int newSize)
 // tu-skeleton: 0x0076A649 8B uw_0076a649 -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp (not merged yet)
 
 // tu-skeleton: 0x0076A651 10B __ehhandler$?addCarryoverStuffToMap@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A682 8B $L4608 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A68A 11B $L4609 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A695 11B $L4610 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A6A0 11B $L4611 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A6AB 11B $L4612 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076A6B6 10B __ehhandler$??0BfmeRecord001ECAF9@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
 
