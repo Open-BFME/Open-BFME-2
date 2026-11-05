@@ -42,13 +42,7 @@ public:
 	Real m_amount;				// +0x1C
 };
 
-class ArmorTemplate
-{
-public:
-	Real getDamageCoefficient(DamageType type) const { return m_damageCoefficient[type]; }
-	Real m_bonus;				// +0x00
-	Real m_damageCoefficient[28];		// +0x04
-};
+#include "../../../Include/GameLogic/Armor.h"
 
 class ArmorTemplateSet
 {
@@ -163,7 +157,7 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *owner, Bool
 	{
 		const ArmorTemplate *setArmor = TheArmorStore->rva001D901B(set->m_armorName);
 		if (setArmor)
-			setScale = setArmor->m_damageCoefficient[27];
+			setScale = setArmor->m_damageScalar;
 	}
 
 	Real unused;
@@ -173,7 +167,7 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *owner, Bool
 	{
 		ObjectID sourceID = input->m_sourceID;
 		if (sourceID && owner->rva0028F44C(TheGameLogic->findObjectByID(sourceID)))
-			bonus = armor->m_bonus;
+			bonus = armor->m_flankedPenalty;
 	}
 	Real factor = 1.0f - bonus;
 	amount *= 1.0f - (1.0f - setScale) * factor;
@@ -191,7 +185,7 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *owner, Bool
 		if (armor)
 		{
 			const DamageType currentType = input->m_damageType;
-			coefficient = armor->getDamageCoefficient(currentType);
+			coefficient = armor->m_damageCoefficient[currentType];
 		}
 
 		else
