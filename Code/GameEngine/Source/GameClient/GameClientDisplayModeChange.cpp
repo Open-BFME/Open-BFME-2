@@ -12,6 +12,7 @@
 // 0x00238F91 (new mode, remember the current one) and 0x00238FC0 (back to
 // the remembered mode), Rva00238E1BCounter.cpp's view of this class.
 
+#include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "ascii_string.h"
 #include "GUI/HeaderTemplateView.h"
 
@@ -43,14 +44,6 @@ void Rva0041267F();
 
 extern GameWindowManager *TheWindowManager;
 
-class BfmeAptWindowManager
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09();
-	virtual void v10();
-};
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -124,7 +117,7 @@ void GameClient::rva00239759()
 			TheShell->init();
 
 		TheWindowManager->update();
-		g_bfmeAptWindowManager->v10();
+		g_bfmeAptWindowManager->update();
 		TheInGameUI->recreateControlBar();
 
 		TheShell->push(AsciiString("MainMenu.apt"), false);

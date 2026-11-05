@@ -13,6 +13,7 @@
 // scheduler sink retail's x store past the owner push. The global at
 // 0x009FE4CC is TheAptPlayer in WorldBuilder; the ledger's provisional
 // name is used. Owner and scale types are views.
+#include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include "ascii_string.h"
 
 class Rva00222A8BTarget;
@@ -28,15 +29,6 @@ struct AptScale
 	float y;
 };
 
-class BfmeAptWindowManager
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual const AptScale *getScale(); // +0x40
-};
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -82,7 +74,7 @@ void Palantir::Impl::RadarPing::Update()
 	{
 		Rva002D43EFFire(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),
 			m_owner->m_aptLevel, "CreateRadarPing", &m_id, &m_name);
-		const AptScale *scale = g_bfmeAptWindowManager->getScale();
+		const AptScale *scale = reinterpret_cast<const AptScale *>(g_bfmeAptWindowManager->vslot16());
 		fireMoveRadarPing(m_owner->m_aptLevel, &m_id, m_x * scale->x, m_y * scale->y);
 	}
 	m_initialized = true;

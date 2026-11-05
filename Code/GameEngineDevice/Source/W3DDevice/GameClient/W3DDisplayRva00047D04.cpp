@@ -21,6 +21,7 @@
 // (the sibling Reset_D3D_Device view). The three function statics are the
 // retail data cells 0x009E1B44 (frame-counter switch), 0x009E1B48 (counter
 // display string) and 0x009E1C6C/0x009E1C78 (black colour and its guard word).
+#include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 #include <windows.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -89,23 +90,6 @@ public:
 
 // The window manager singleton at 0x009FE4CC and the transition/audio cell at
 // 0x009FDC14: each is only entered through its virtual slot +0x30.
-class BfmeAptWindowManager
-{
-public:
-	virtual void a0();
-	virtual void a1();
-	virtual void a2();
-	virtual void a3();
-	virtual void a4();
-	virtual void a5();
-	virtual void a6();
-	virtual void a7();
-	virtual void a8();
-	virtual void a9();
-	virtual void a10();
-	virtual void a11();
-	virtual void slot30();				// +0x30
-};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class GameWindowTransitionsHandler
@@ -203,7 +187,7 @@ void W3DDisplay::rva00047D04(int mode)
 	{
 		if (WW3D::Begin_Render(true, false, clearColor, 0.0f) == true)
 		{
-			g_bfmeAptWindowManager->slot30();
+			g_bfmeAptWindowManager->vslot12();
 			WW3D::End_Render(true);
 		}
 	}
