@@ -26,9 +26,16 @@ class Object {public:
  const BfmeVec3EJ *getPosition()const {return &position;}
  char p00[4];ThingTemplate *data;char p08[0x38-8];BfmeVec3EJ position;
 };
+class FreelistPool { public: void *pop(); };
+extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 
 template<> _List_base<Object*,allocator<Object*> >::~_List_base();
+// The pooled base constructor, native 0x001EB984: the same COMDAT body as
+// stlport_list_objectptr_insert.cpp's, so link order keeps the retail copy.
+template<> inline __declspec(noinline) _List_base<Object*,allocator<Object*> >::_List_base(const allocator<Object*>&__a)
+ : _M_node(allocator<_List_node<Object*> >(__a),(_List_node<Object*>*)0)
+{_List_node<Object*> *node=(_List_node<Object*>*)g_freelistPool00DB8FEC.pop();node->_M_next=node;node->_M_prev=node;_M_node._M_data=node;}
 }
 #define V(n) virtual void s##n()=0;
 class ContainInterface {public:
