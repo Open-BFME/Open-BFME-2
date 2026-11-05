@@ -25,8 +25,6 @@
 #include <cstddef>
 #undef _strcmpi
 
-#define NULL 0
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
