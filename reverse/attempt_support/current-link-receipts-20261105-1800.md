@@ -43,3 +43,29 @@ The six audit sources, BoneFXDamage.cpp and its two provider files then passed t
 link batch audit: INCONCLUSIVE baseline: index at f44cbcf5b0, outgoing base 178ff71e7505a42ebce54fd99bf7ab222e6c4c34; findings below are provisional since-index changes
 link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 ```
+
+
+## Upgrade layout and consumer checks at ce21580655
+
+At `ce215806551d83f5dbfe4daf4d002b83bcea6c6b`, current preparation passes 47 matched functions in
+AIBaseBuilder.cpp and AIBuildable.cpp and another 16 in AIGameTeam.cpp.
+All three files have strict reusable object receipts. The native six-source
+audit against the published index now reaches the next affected consumer.
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at f44cbcf5b0, outgoing base ce215806551d83f5dbfe4daf4d002b83bcea6c6b; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp
+```
+
+The current Upgrade subsystem evidence plan names four trial destinations.
+The merge tool accepted no donors in these trials.
+
+| Target | Remaining compile or byte boundary |
+| --- | --- |
+| GeometryUpgrade | BehaviorModule and helper redefinitions, plus the ModuleData constructor declaration |
+| AudioLoopUpgrade | Missing update declaration, StringBase redefinition, and unresolved UpgradeMux base view |
+| BaseUpgrade | StringBase template redefinition |
+| ObjectCreationUpgrade | Missing constructor fields and declaration, and different destructor bytes |
+
+The existing source paths and symbol ownership remain in place for all four
+trials. Full link and runtime verification remain separate.
