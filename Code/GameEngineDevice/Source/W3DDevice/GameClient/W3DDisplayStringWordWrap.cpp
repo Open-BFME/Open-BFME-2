@@ -62,30 +62,21 @@ extern GlobalLanguage *TheGlobalLanguageData;
 // float setters after getWidth, and a string append after appendChar.
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"
 
-class Render2DSentenceClass
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
+
+inline bool Render2DSentenceClass::Set_Wrapping_Width(float width)
 {
-public:
-	~Render2DSentenceClass();
-	virtual void Reset();
-	bool	Set_Wrapping_Width (float width)					{ if(WrapWidth == width)
-																											return false;
-																										WrapWidth = width; 
-																										return true;	}
-	void Set_Use_Hard_Word_Wrap( bool onoff ) { UseHardWordWrap = onoff; }
-	void Set_Hot_Key_Parse( bool parseHotKey ) { ParseHotKey = parseHotKey; }
-	void Set_Font( FontCharsClass *font );
-	void	Set_Clipping_Rect( const RectClass &rect )	{ ClipRect = rect; IsClippedEnabled = true; }
-private:
-	char m_unrecovered04[ 0x84 - 0x04 ];
-	float WrapWidth;																		///< 0x84
-	char m_unrecovered88[ 0x8C - 0x88 ];
-	RectClass ClipRect;																	///< 0x8C
-	char m_unrecovered9C[ 0xAC - 0x9C ];
-	bool IsClippedEnabled;															///< 0xAC
-	bool ParseHotKey;																		///< 0xAD
-	bool UseHardWordWrap;																///< 0xAE
-	char m_unrecoveredAF[ 0xC4 - 0xAF ];
-};
+	if (WrapWidth == width)
+		return false;
+	WrapWidth = width;
+	return true;
+}
+
+inline void Render2DSentenceClass::Set_Clipping_Rect(const RectClass &rect)
+{
+	*reinterpret_cast<RectClass *>(&ClipRect) = rect;
+	IsClippedEnabled = true;
+}
 
 class W3DDisplayString : public DisplayString
 {

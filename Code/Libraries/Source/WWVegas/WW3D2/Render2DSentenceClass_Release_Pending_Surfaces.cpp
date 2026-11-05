@@ -54,39 +54,30 @@ private:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
-class Render2DSentenceClass
-{
-public:
-	virtual ~Render2DSentenceClass(void);
-
-private:
-	void Release_Pending_Surfaces(void);
-	unsigned char sentence_data[0x18];
-	PendingSurfaceVector pending_surfaces;
-};
+#include "Render2DSentenceClass.h"
 
 // ?Release_Pending_Surfaces@Render2DSentenceClass@@AAEXXZ
 void Render2DSentenceClass::Release_Pending_Surfaces(void)
 {
 	Render2DSentenceClass *owner = this;
 	int index = 0;
-	if (owner->pending_surfaces.Count() > 0) {
+	if (reinterpret_cast<PendingSurfaceVector *>(owner->field1C)->Count() > 0) {
 		int byte_offset = 0;
 		do {
-			PendingSurfaceStruct *entry =
-				reinterpret_cast<PendingSurfaceStruct *>(
+			::PendingSurfaceStruct *entry =
+				reinterpret_cast<::PendingSurfaceStruct *>(
 					reinterpret_cast<unsigned char *>(
-						owner->pending_surfaces.Data()) + byte_offset);
+						reinterpret_cast<PendingSurfaceVector *>(owner->field1C)->Data()) + byte_offset);
 			SurfaceClass *surface = entry->surface;
 			if (surface != 0) {
 				surface->ops->release_ref(surface);
 				entry->surface = 0;
 			}
 			++index;
-			byte_offset += sizeof(PendingSurfaceStruct);
-		} while (index < owner->pending_surfaces.Count());
+			byte_offset += sizeof(::PendingSurfaceStruct);
+		} while (index < reinterpret_cast<PendingSurfaceVector *>(owner->field1C)->Count());
 	}
 
-	if (owner->pending_surfaces.Count() > 0)
-		owner->pending_surfaces.Delete_All();
+	if (reinterpret_cast<PendingSurfaceVector *>(owner->field1C)->Count() > 0)
+		reinterpret_cast<PendingSurfaceVector *>(owner->field1C)->Delete_All();
 }

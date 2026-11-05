@@ -52,33 +52,23 @@ private:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
-class Render2DSentenceClass
-{
-public:
-	// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
-	struct PendingSurfaceStruct
-	{
-		SurfaceClass *surface;
-		BfmeRendererVector renderers;
-
-		PendingSurfaceStruct &operator=(const PendingSurfaceStruct &that);
-	};
-};
+#include "Render2DSentenceClass.h"
 
 inline Render2DSentenceClass::PendingSurfaceStruct &
 Render2DSentenceClass::PendingSurfaceStruct::operator=(
 	const Render2DSentenceClass::PendingSurfaceStruct &that)
 {
-	SurfaceClass *incoming = that.surface;
+	SurfaceClass *incoming = that.Surface;
 	if (incoming != 0)
 		incoming->ops->add_ref(incoming);
 
-	SurfaceClass *outgoing = surface;
+	SurfaceClass *outgoing = Surface;
 	if (outgoing != 0)
 		outgoing->ops->release_ref(outgoing);
 
-	surface = that.surface;
-	renderers = that.renderers;
+	Surface = that.Surface;
+	*reinterpret_cast<BfmeRendererVector *>(field04) =
+		*reinterpret_cast<const BfmeRendererVector *>(that.field04);
 	return *this;
 }
 #pragma inline_depth(0)

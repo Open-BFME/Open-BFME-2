@@ -55,26 +55,18 @@ private:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.h
-class Render2DSentenceClass
-{
-public:
-	virtual ~Render2DSentenceClass(void);
-
-private:
-	void Reset_Sentence_Data(void);
-	SentenceDataVector sentence_data;
-};
+#include "Render2DSentenceClass.h"
 
 // ?Reset_Sentence_Data@Render2DSentenceClass@@AAEXXZ
 void Render2DSentenceClass::Reset_Sentence_Data(void)
 {
 	Render2DSentenceClass *owner = this;
 	int index = 0;
-	if (owner->sentence_data.Count() > 0) {
+	if (reinterpret_cast<SentenceDataVector *>(owner->field04)->Count() > 0) {
 		int byte_offset = 0;
 		do {
-		SentenceDataStruct *entry = reinterpret_cast<SentenceDataStruct *>(
-			reinterpret_cast<unsigned char *>(owner->sentence_data.Data()) +
+		::SentenceDataStruct *entry = reinterpret_cast<::SentenceDataStruct *>(
+			reinterpret_cast<unsigned char *>(reinterpret_cast<SentenceDataVector *>(owner->field04)->Data()) +
 			byte_offset);
 		SurfaceClass *surface = entry->surface;
 		if (surface != 0) {
@@ -82,10 +74,10 @@ void Render2DSentenceClass::Reset_Sentence_Data(void)
 			entry->surface = 0;
 		}
 		++index;
-		byte_offset += sizeof(SentenceDataStruct);
-		} while (index < owner->sentence_data.Count());
+		byte_offset += sizeof(::SentenceDataStruct);
+		} while (index < reinterpret_cast<SentenceDataVector *>(owner->field04)->Count());
 	}
 
-	if (owner->sentence_data.Count() > 0)
-		owner->sentence_data.Delete_All();
+	if (reinterpret_cast<SentenceDataVector *>(owner->field04)->Count() > 0)
+		reinterpret_cast<SentenceDataVector *>(owner->field04)->Delete_All();
 }

@@ -81,47 +81,28 @@ public:
 	int Y;
 };
 
-class Render2DSentenceClass
-{
-public:
-	virtual ~Render2DSentenceClass();
-	virtual void Reset();
-	void rva00156540(Rva00156540Param const *param);
-private:
-	DynamicVectorClassWide<TextureStatisticsStructWide> m_sentenceData; // +4
-	unsigned char m_pendingSurfaces[0x18]; // +1C
-	unsigned char m_renderers[0x18]; // +34
-	void *m_font; // +4C
-	Vector2 m_baseLocation; // +50
-	Vector2 m_location; // +58
-	Vector2 m_cursor; // +60
-	Vector2i m_textureOffset; // +68
-	int m_textureStartX; // +70
-	int m_currTextureSize; // +74
-	int m_textureSizeHint; // +78
-	SurfaceClass *m_curSurface; // +7C
-};
+#include "Render2DSentenceClass.h"
 
 void Render2DSentenceClass::rva00156540(Rva00156540Param const *param)
 {
-	int width = m_textureOffset.X - m_textureStartX;
+	int width = TextureOffset.X - TextureStartX;
 	if (0 >= width)
 		return;
 	float charHeight = (float)param->m_charHeight;
 	RenderSentenceGeometryView chunk;
-	SurfaceClass *surface = m_curSurface;
+	SurfaceClass *surface = CurSurface;
 	if (surface != 0)
 		surface->ops->add_ref(surface);
 	if (chunk.tex.m_surface != 0)
 		((SurfaceClass *)chunk.tex.m_surface)->ops->release_ref((SurfaceClass *)chunk.tex.m_surface);
-	chunk.f04 = m_cursor.X;
-	chunk.f0c = (float)m_cursor.X + width;
-	chunk.f08 = m_cursor.Y;
-	chunk.f10 = charHeight + m_cursor.Y;
-	chunk.f14 = (float)m_textureStartX;
-	chunk.tex.m_surface = m_curSurface;
-	chunk.f18 = (float)m_textureOffset.Y;
-	chunk.f1c = (float)m_textureOffset.X;
-	chunk.f20 = (float)m_textureOffset.Y + charHeight;
-	m_sentenceData.Add(reinterpret_cast<const TextureStatisticsStructWide &>(chunk));
+	chunk.f04 = Cursor.X;
+	chunk.f0c = (float)Cursor.X + width;
+	chunk.f08 = Cursor.Y;
+	chunk.f10 = charHeight + Cursor.Y;
+	chunk.f14 = (float)TextureStartX;
+	chunk.tex.m_surface = CurSurface;
+	chunk.f18 = (float)TextureOffset.Y;
+	chunk.f1c = (float)TextureOffset.X;
+	chunk.f20 = (float)TextureOffset.Y + charHeight;
+	reinterpret_cast<DynamicVectorClassWide<TextureStatisticsStructWide> *>(field04)->Add(reinterpret_cast<const TextureStatisticsStructWide &>(chunk));
 }

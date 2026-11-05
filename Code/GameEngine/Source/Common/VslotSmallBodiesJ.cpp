@@ -40,11 +40,7 @@ void Rva000EAF80::rva000EAF80()
 // sentence's font from the argument's +0x14 (rowed
 // Render2DSentenceClass::Set_Font); both raise the +0xD5/+0xD4 dirty bytes.
 class FontCharsClass;
-class Render2DSentenceClass
-{
-public:
-	void Set_Font(FontCharsClass *font);
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/Render2DSentenceClass.h"
 struct Rva00104DE6Font
 {
 	char m_pad00[0x14];
@@ -58,7 +54,6 @@ public:
 private:
 	char m_pad00[0x04];
 	Render2DSentenceClass m_sentence;
-	char m_pad05[0xC8 - 0x05];
 	Int m_width;
 	Int m_CC;
 	char m_padD0[0xD4 - 0xD0];

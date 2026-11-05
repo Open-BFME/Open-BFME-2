@@ -39,20 +39,12 @@ private:
 
 // Render2DSentenceClass prefix: vptr at +0; SentenceData and PendingSurfaces
 // occupy +4..+0x33, so Renderers begins at +0x34.
-class Render2DSentenceClass
-{
-public:
-	void Reset_Polys();
-
-private:
-	void *m_vptr;
-	char m_prefix[0x30];
-	RendererVector Renderers;
-};
+#include "Render2DSentenceClass.h"
 
 void Render2DSentenceClass::Reset_Polys()
 {
-	for (int index = 0; index < Renderers.Count(); index++) {
-		Renderers[index].Renderer->Reset();
+	RendererVector &renderers = *reinterpret_cast<RendererVector *>(field34);
+	for (int index = 0; index < renderers.Count(); index++) {
+		renderers[index].Renderer->Reset();
 	}
 }
