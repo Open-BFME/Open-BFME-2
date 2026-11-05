@@ -49,50 +49,27 @@ private:
 	BitFlags<11> m_disabled; // +0x1C8
 };
 
-class PlayerUpgradeSpecialPowerModuleData
-{
-public:
-	unsigned char m_pad00[0x7C];
-	_STL::vector<AsciiString> m_upgradeNames; // +0x7C
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
-class ModuleBase
+class PlayerUpgradeSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
-	virtual ~ModuleBase();
-protected:
-	const PlayerUpgradeSpecialPowerModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	PlayerUpgradeSpecialPowerModuleData();
+	virtual ~PlayerUpgradeSpecialPowerModuleData();
+	_STL::vector<AsciiString> m_upgradeNames; // +0x7C
 };
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00() = 0;
-	virtual void s01() = 0;
-	virtual void s02() = 0;
-	virtual void s03() = 0;
-	virtual void s04() = 0;
-	virtual void s05() = 0;
-	virtual void s06() = 0;
-	virtual void s07() = 0;
-	virtual void s08() = 0;
-	virtual void s09() = 0;
-	virtual void doSpecialPower(unsigned int options) = 0;
-	virtual void s11() = 0;
-	virtual void s12() = 0;
-	virtual void s13() = 0;
-	virtual void s14() = 0;
-	virtual void s15(float value) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
-class SpecialPowerModule : public ModuleBase, public BehaviorModuleInterface,
-	public SpecialPowerModuleInterface
+class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:
+	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
 	void triggerSpecialPower(const Coord3D *location);
+	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
+	virtual ~SpecialPowerModule();
 };
 
 class PlayerUpgradeSpecialPower : public SpecialPowerModule
@@ -105,8 +82,9 @@ void PlayerUpgradeSpecialPower::doSpecialPower(unsigned int)
 {
 	if (m_object->isDisabled())
 		return;
-	s15(1.0f);
-	_STL::vector<AsciiString> names(m_moduleData->m_upgradeNames);
+	startPowerRecharge(1.0f);
+	_STL::vector<AsciiString> names(
+		static_cast<const PlayerUpgradeSpecialPowerModuleData *>(m_moduleData)->m_upgradeNames);
 	for (unsigned int i = 0; i < names.size(); ++i)
 	{
 		const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(names[i]);

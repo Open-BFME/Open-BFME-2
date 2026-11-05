@@ -16,11 +16,12 @@ class ModuleData;
 
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpecialPowerModule.h
+struct Coord3D;
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:
 	SpecialPowerModule( Thing *thing, const ModuleData *moduleData );
-
+	void triggerSpecialPower(const Coord3D *location);
 	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
 	virtual ~SpecialPowerModule();
 };
