@@ -1,6 +1,7 @@
 // ?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z
 // partial score=0.99 date=2026-10-08
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // SpecialAbilityUpdate.cpp: bodies retail links from this TU (tu_map approved),
 // folded from three split units with these exact flags. The two
 // address-named helper classes keep their names (their rows are mangled with
@@ -176,48 +177,7 @@ class Rva0044E633
 public:
 	void *rva0044E633();
 };
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-	virtual void primarySlot13(bool a, bool b);
-	virtual void primarySlot14();
-	virtual void primarySlot15();
-	virtual void primarySlot16();
-	virtual void primarySlot17();
-
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
-		const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);
-	void rva0044EE07();
-	void rva0044EE80();
-private:
-	int m_24;
-	unsigned int m_28;
-	unsigned int m_2C;
-	int m_packingState; // +0x30
-	unsigned int m_34;
-	unsigned int m_38;
-	unsigned int m_3C;
-	ObjectID m_targetID; // +0x40
-	Coord3D m_targetPos; // +0x44
-	Coord3D m_50;
-	int m_5C;
-	int m_60;
-	void *m_64;
-	unsigned int m_68;
-	unsigned int m_commandOptions; // +0x6C
-	float m_70;
-	bool m_active; // +0x74
-	unsigned int m_78;
-	bool m_7C;
-	bool m_noTargetCommand; // +0x7D
-	bool m_7E;
-	bool m_7F;
-	bool m_80;
-	bool m_81;
-	bool m_82;
-	bool m_83;
-	int m_84; // +0x84
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 #include "../../../../Include/Common/Overridable.h"
 
@@ -262,21 +222,21 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 	m_5C = 0;
 	m_24 = 0;
 	m_2C = 0;
-	m_3C = 0;
-	m_28 = 0;
+	m_prepFrames = 0;
+	m_animFrames = 0;
 	m_packingState = 3;
 	m_7E = false;
 	m_7F = false;
-	m_80 = false;
+	m_withinStartAbilityRange = false;
 	m_82 = false;
 	m_83 = false;
-	m_commandOptions = commandOptions;
+	m_6C = commandOptions;
 	m_60 = data->m_70;
 	if (m_60 > 0)
 		--m_60;
 
 	rva0044EE07();
-	bool forced = (m_commandOptions >> 29) & 1;
+	bool forced = (m_6C >> 29) & 1;
 
 	if (targetObj)
 	{
@@ -289,11 +249,11 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 	}
 	else if (data->m_instant)
 	{
-		primarySlot17();
+		triggerAbilityEffect();
 		SpecialPowerModuleInterface *spm = (SpecialPowerModuleInterface *)((Rva0044E633 *)this)->rva0044E633();
 		if (spm)
 			spm->slot014(false);
-		primarySlot13(false, true);
+		onExit(false, true);
 		return;
 	}
 
@@ -332,7 +292,7 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 		{
 			SpecialAbilityUpdate *other = static_cast<SpecialAbilityUpdate *>(spu);
 			if (other != this)
-				other->primarySlot13(false, true);
+				other->onExit(false, true);
 		}
 	}
 

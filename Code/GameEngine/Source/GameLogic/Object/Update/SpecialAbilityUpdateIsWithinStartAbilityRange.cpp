@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?isWithinStartAbilityRange@SpecialAbilityUpdate@@IAE_NXZ
 // retail 0x0044F28E..0x0044F4F7 (617 bytes) thiscall RET 0.
@@ -130,26 +131,11 @@ public:
 	Bool rva0026163A(const Coord3D *target);
 };
 
-class SpecialAbilityUpdate
-{
-protected:
-	Bool isWithinStartAbilityRange();
-	Bool isWithinAbilityAbortRange() const;
-
-private:
-	void *m_vtable;
-	const SpecialAbilityUpdateModuleData *m_moduleData;	// +0x04
-	Object *m_object;									// +0x08
-	unsigned char m_pad00C[0x40 - 0x0C];
-	ObjectID m_targetID;								// +0x40
-	Coord3D m_targetPos;								// +0x44
-	unsigned char m_pad050[0x80 - 0x50];
-	Bool m_withinStartAbilityRange;						// +0x80
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 {
-	const SpecialAbilityUpdateModuleData *data = m_moduleData;
+	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
 	const SpecialPowerTemplate *power = data->m_specialPowerTemplate;
 	Object *self = m_object;
 
@@ -250,7 +236,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 // isWithinStartAbilityRange reads) and the abort range at module data +0x50.
 Bool SpecialAbilityUpdate::isWithinAbilityAbortRange() const
 {
-	const SpecialAbilityUpdateModuleData *data = m_moduleData;
+	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
 	const SpecialPowerTemplate *power = data->m_specialPowerTemplate;
 	const Object *self = m_object;
 
