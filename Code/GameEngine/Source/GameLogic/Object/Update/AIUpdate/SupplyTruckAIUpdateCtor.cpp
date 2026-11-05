@@ -36,10 +36,18 @@ typedef float Real;
 
 #include "../../../../../Include/Common/StateMachineClass.h"
 
+class State;
 class SupplyTruckStateMachine : public StateMachine
 {
 public:
 	SupplyTruckStateMachine(Object *owner);
+	static Bool ownerIdle(State *thisState, void *userData);
+	static Bool ownerDocking(State *thisState, void *userData);
+	static Bool ownerRva004A6D15(State *thisState, void *userData);
+	static Bool ownerAvailableForSupplying(State *thisState, void *userData);
+	static Bool ownerNotDockingOrIdle(State *thisState, void *userData);
+	static Bool isForcedIntoWantingState(State *thisState, void *userData);
+	static Bool isForcedIntoBusyState(State *thisState, void *userData);
 	virtual ~SupplyTruckStateMachine();
 };
 
@@ -187,8 +195,10 @@ bool SupplyTruckAIUpdate::isCurrentlyFerryingSupplies() const
 
 // Call-only view retaining the already-rowed broadcast symbol and argument ABI.
 // It does not define Drawable or assert the broadcaster's original class name.
-struct Rva002716Holder {
-    void Rva0027164EBroadcast(int first, int second);
+struct Rva002716Holder
+{
+public:
+	void Rva0027164EBroadcast(int a, int b);
 };
 
 bool SupplyTruckAIUpdate::loseOneBox()

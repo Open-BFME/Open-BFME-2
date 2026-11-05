@@ -182,8 +182,6 @@ class SupplyTruckStateMachine : public StateMachine
 {
 public:
 	SupplyTruckStateMachine(Object *owner);
-	virtual ~SupplyTruckStateMachine();
-
 	static Bool ownerIdle(State *thisState, void *userData);
 	static Bool ownerDocking(State *thisState, void *userData);
 	static Bool ownerRva004A6D15(State *thisState, void *userData);
@@ -191,6 +189,7 @@ public:
 	static Bool ownerNotDockingOrIdle(State *thisState, void *userData);
 	static Bool isForcedIntoWantingState(State *thisState, void *userData);
 	static Bool isForcedIntoBusyState(State *thisState, void *userData);
+	virtual ~SupplyTruckStateMachine();
 };
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -204,7 +203,11 @@ public:
 // this is interior (Module at Object+0x3E0): [esi-0x3E0]=obj+0 (Aux with +0x64), [esi-0x3DC]=obj+4 (BuildListInfo), [esi+0x1C]=counter.
 // Honest address names; class identity unproven.
 class BuildListInfo { public: int getDesiredGatherers(); };
-struct Rva002716Holder { void Rva0027164EBroadcast(int a, int b); };
+struct Rva002716Holder
+{
+public:
+	void Rva0027164EBroadcast(int a, int b);
+};
 struct Rva004A6EAux { unsigned char m_pad[0x64]; int m_maxBoxes; };
 struct Rva004A6EObj { Rva004A6EAux* m_moduleData; BuildListInfo* m_04; };
 class Rva004A6EHolder {
