@@ -207,6 +207,25 @@ the unit links. But the built object's vptr points at a zero int.
     tables by name. The other placeholder owners (StructureBody -> Rva004C0988, the five
     CrateCollides -> Rva004BC83F/96F/CB0D/CC43/CE62, SquishCollide -> Rva004BB949,
     HordeMemberCollide -> Rva004BC325, and so on) are listed per row in the TSV.
+- Identity conflict found on the way (target facts, both rows matched): OCLUpdate's ctor
+  (0x0049B381, proven by its pool key and factory) installs 0x00C50B40 at +0, the table that
+  `??1Rva0049B2A2@@UAE@XZ` (0x0049B2A2) installs, and `?xfer@Rva0049B2A2` sits in OCLUpdate.cpp.
+  But `??1OCLUpdate@@UAE@XZ` is rowed at 0x004CD3DB (ModuleUpdateDtors.cpp, named from factory
+  stub order), which installs 0x00C5FB40, so the kept `??_7OCLUpdate@@6B@` carries the other
+  table's address. One of the two dtor names is wrong; settle it in the naming lane before OCLUpdate's
+  ctor stores a table.
+- Beyond the TSV, 21 more units store `static` dummies as vptrs (any `s_dummy*`/`s_secondary*`/
+  `s_vt*` name, not just `&s_vtable`). Constructors with dummy secondary vptrs (+0x0C/+0x10/+0x20,
+  the BehaviorModuleInterface and module-interface subobjects that Object code calls through):
+  BoredUpdate, StealthDetectorUpdate, RampageBehavior, EnragedBehavior, AssistedTargetingUpdate,
+  Rva004DF418, and the special powers TeleportToCaster, Curse, EvacuateGarrison, ActivateModule,
+  Unleash, HordeDispatch and DominateEnemy, plus Rva00490D3F/Rva00492179/Rva00492402/Rva00492C59/
+  Rva00494DCA, and ToggleMountedSpecialAbilityUpdateModuleData's primary vptr. Destructors
+  with dummies: 14 in ModuleUpdateDtors.cpp, and those of RampageBehavior,
+  BoredUpdate and StealthDetectorUpdate. None has a class-owned kept table at its stored VAs (most
+  are the folded 0x00BEFF90/0x00C4D640/0x00C4DEE8 tables or have no kept copy), so all need class
+  views. The FXParticleSystem module creators in Rva003AC9AFCreate.cpp also store dummies (left to
+  the FXParticleSystem seat).
 - Separately, 154 retail table addresses are reached from matched code through a non-`??_7`
   symbol: address-named globals such as `?g_00C50868@@3QBQBXB` and `?vftable_0112B89C@@3HA`
   (`name_globals.load_index()` against retail-installed tables). Whether each is aliased to the
