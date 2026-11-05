@@ -49,7 +49,22 @@ enum { MAX_GLOBAL_LIGHTS = 3 };
 // The logic frame rate (data ledger owner of VA 0x00DBA4E4).
 extern int BfmeLogicFramesPerSecond;
 #define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
-struct Rva00235A21 { char words[528]; Rva00235A21(); };
+// The constructor at 0x00235A21 constructs 22 WeaponBonus elements, each
+// 24 bytes, through the rowed element constructor at 0x00235A0E.
+class WeaponBonus
+{
+public:
+ WeaponBonus();
+private:
+ int m_words[6];
+};
+class Rva00235A21
+{
+public:
+ Rva00235A21();
+private:
+ WeaponBonus m_arr[22];
+};
 extern Version *TheVersion;
 struct MultiPlayMults { char words[480]; MultiPlayMults() throw(); };
 struct RvaGDConst3 { float x,y,z; RvaGDConst3(float v):x(v),y(v),z(v){} };
