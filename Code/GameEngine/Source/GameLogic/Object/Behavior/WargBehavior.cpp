@@ -20,9 +20,12 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WargBehavior
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+class WargBehavior : public BehaviorModule
 {
 public:
+	WargBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
 };
 
