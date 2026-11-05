@@ -16,11 +16,7 @@
 #include "Coord3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include <hash_map>
-namespace rts {
-template <typename T> struct hash {
-    size_t operator()(const T &value) const { return (size_t)value; }
-};
-}
+#include "RtsHashView.h"
 typedef _STL::hash_map<ObjectID, Coord3D, rts::hash<ObjectID>,
                       _STL::equal_to<ObjectID> > ObjectCoord3DMap;
 extern GameLogic *TheGameLogic;

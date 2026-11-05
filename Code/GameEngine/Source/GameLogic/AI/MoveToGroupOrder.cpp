@@ -89,15 +89,7 @@ namespace _STL { template <> _STL::pair<_STL::_Ht_iterator<_STL::pair<NameKeyTyp
 
 template _STL::pair<ArmorRtsMap::iterator, bool> _STL::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> >::insert(const ArmorRtsMap::value_type &);
 
-class Object
-{
-public:
-	float rva002C97E8(const Coord3D *a, const Coord3D *b) const;
-	char m_pad0[0x38];
-	Coord3D m_position; // +0x38
-	char m_pad1[0x438 - 0x38 - sizeof(Coord3D)];
-	unsigned char m_privateStatus; // +0x438
-};
+#include "../Object/object.h"
 
 //
 // ?rva00547223@Rva00547223@@QAEPAV1@PAH0@Z retail 0x00547223 34B.
@@ -201,7 +193,7 @@ bool Rva00547263(Object *object, const Coord3D *q)
 {
 	if (object == 0 || (object->m_privateStatus & 1))
 		return true;
-	return 20.0f > object->rva002C97E8(&object->m_position, q);
+	return 20.0f > object->rva002C97E8(&object->m_cachedPos, q);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva00547297Finish.cpp
