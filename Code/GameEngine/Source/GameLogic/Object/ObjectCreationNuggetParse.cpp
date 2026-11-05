@@ -32,6 +32,7 @@ class ObjectCreationList
 {
 public:
 	void addObjectCreationNugget(ObjectCreationNugget *nugget);
+	bool rva001F0434(void*,void*);
 };
 
 // The nuggets declare no destructor of their own: retail's vtables 0x00BE09E8

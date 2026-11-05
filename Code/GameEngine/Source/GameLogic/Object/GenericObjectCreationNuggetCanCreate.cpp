@@ -17,7 +17,13 @@ class Object { public: Player *getControllingPlayer() const; char pad00[0x44]; f
 
 class ModuleData;
 class Rva00396A5C { public: int rva00396A5C(Player *); };
-class ObjectCreationList { public: bool rva001F0434(void*,void*); };
+class ObjectCreationNugget;
+class ObjectCreationList
+{
+public:
+	void addObjectCreationNugget(ObjectCreationNugget *nugget);
+	bool rva001F0434(void*,void*);
+};
 struct OCLArray { ObjectCreationList **begin,**end,**cap; };
 class SlowDeathData { public: char pad00[0x88]; OCLArray ocls[4]; };
 struct ModuleNugget { char name[4],tag[4]; const ModuleData *data; int mask,tail; };
