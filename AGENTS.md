@@ -22,31 +22,48 @@ closes with source recovery done too: `Code/` holds retail's
 translation units, not one file per function, and every code row sits in its
 approved TU (`reverse/tu_map.csv`).
 
-**Headline figures:**
+**Headline figures.** Two questions, in this order. The first decides progress.
+
+*Does the game run?* Measured on an actual image. Exit test and gates:
+`docs/verifier_upgrade_plan.md` step 12.
 
 - **Real link**: unresolved and duplicates from `.github/workflows/real-link.yml`
-  (`tools/exit_link.py --link`, no `/FORCE`). Only this measures a buildable game
-  (`docs/automation.md`).
-- **Linking**: the census's LINKED and LINKING, printed by `tools/progress.py`
-  from `reverse/link_census_history.csv`. Only census figures count;
-  `tools/link_check.py` only predicts.
-- **Image ownership**: NOT OURS (`tools/image_ownership.py report`), driven to
-  zero. Only the nightly workflow (`.github/workflows/nightly-measure.yml`)
-  records it.
+  (`tools/exit_link.py --link`, no `/FORCE`, retail's exported names included),
+  driven to 0 with an image written (`docs/automation.md`).
+- **Bridges**: `initializers_bridged` and the generated vtable table's count in
+  the real link's `scoreboard.json`. They are temporary scaffolding that lets an
+  image start, never progress, and are driven to 0 by real statics and classes.
+- **How far it runs**: the newest receipt from srv1's game queue for the newest
+  image: the crash and the row it maps to, then menu, skirmish and save/load.
+- **Matches retail**: `tools/image_iso.py` defects on the newest image (short or
+  wrong vtable slots, wrong globals, initializers), with what it could not
+  analyze; then game-logic CRCs equal to retail's over the frames retail repeats.
+
+*Is the source clean?*
+
 - **Source recovery**: SOURCE FILES (`.cpp`/`.c`/`.asm` under `Code/`, driven
   down from ~22,500 toward the ~2,000 TUs `reverse/tu_map.csv` names) and
   TU-APPROVED (code rows in an approved TU, which caps what merges can remove),
   printed by `tools/progress.py`. Merges (`tools/tu_skeleton.py --queue`) lower
   the first; TU-approval and TU-evidence work raises the second.
+- **Shared classes and names**: private class copies and readable names
+  (`tools/progress.py`); header adoption (`tools/header_adopt_lane.py`) is also
+  the lasting fix for short vtables.
 - **Debt**: `reverse/gate_baseline.txt`, the data, code-identity and header
   registers, and the hatch counts in `reverse/hatch_baseline.tsv`.
 
-Progress is `matched` rows in `reverse/functions.csv` backed by real source and
-byte verification; units the census records as linked; debt retired along its
-register's path; source files merged into their approved TUs and rows approved;
-and NOT OURS falling, shown only by ownership receipts that `image_ownership.py
-record` accepts into `reverse/image_ownership_history.csv` (none yet), with
-matched and linked coverage kept. Markers and prose are not
+Not answers to "does it work": BYTE-MATCHED (each function compiles to retail's
+bytes on its own), the census's LINKED and LINKING (`tools/progress.py` from
+`reverse/link_census_history.csv`; a link under `/FORCE` with stubs, so it
+cannot show the game builds; `tools/link_check.py` only predicts) and NOT OURS
+(`tools/image_ownership.py report`, recorded only by
+`.github/workflows/nightly-measure.yml`). Keep them; never quote them as the
+game working.
+
+Progress is the game getting further on a real image, then retail's behaviour
+matched; with `matched` rows in `reverse/functions.csv` backed by real source and
+byte verification kept; debt retired along its register's path; source files
+merged into their approved TUs and rows approved. Markers and prose are not
 progress.
 
 ## Hard rules
