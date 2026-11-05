@@ -7107,9 +7107,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000D181D,67,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTornadoDraw.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTornadoDraw.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTornadoDraw.cpp
 0x000D1860,6,code,Code/GameEngine/Source/Common/W3DTornadoDraw.cpp,proposed,N,N=Code/GameEngine/Source/Common/W3DTornadoDraw.cpp,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp
 0x000D1866,69,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDraw.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDraw.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDrawPoolKey.cpp
-0x000D18AB,77,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,N,N=Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawDtor.cpp
+0x000D18AB,77,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,N,N=Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp
 0x000D18F8,229,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,N,N=Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawRadius.cpp
-0x000D19DD,28,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,N,N=Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawDtor.cpp
+0x000D19DD,28,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,N,N=Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp
 0x000D19F9,129,code,,,-,,Code/GameEngine/Source/Common/Rva000D19F9.cpp
 0x000D1A7A,4,code,,,-,,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
 0x000D1A7E,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/ChinookAIUpdate.cpp
@@ -63777,9 +63777,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007629F7,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTornadoDraw.cpp,approved,P,P=0x000D181D@FuncInfo0x0090625C provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTornadoDraw.cpp
 0x00762A01,13,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDraw.cpp,approved,P,P=0x000D1866@FuncInfo0x00906280 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDrawPoolKey.cpp
 0x00762A0E,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDraw.cpp,approved,P,P=0x000D1866@FuncInfo0x00906280 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDrawPoolKey.cpp
-0x00762A18,8,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18AB@FuncInfo0x009062AC provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawDtor.cpp
-0x00762A20,11,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18AB@FuncInfo0x009062AC provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawDtor.cpp
-0x00762A2B,10,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18AB@FuncInfo0x009062AC provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawDtor.cpp
+0x00762A18,8,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18AB@FuncInfo0x009062AC provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp
+0x00762A20,11,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18AB@FuncInfo0x009062AC provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp
+0x00762A2B,10,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18AB@FuncInfo0x009062AC provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp
 0x00762A35,10,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18F8@FuncInfo0x009062D0 provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawRadius.cpp
 0x00762A3F,10,code,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDraw.cpp,approved,P,P=0x000D18F8@FuncInfo0x009062D0 provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawRadius.cpp
 0x00762A49,8,code,,,-,,Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp
