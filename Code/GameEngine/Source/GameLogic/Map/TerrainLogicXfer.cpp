@@ -130,23 +130,7 @@ public:
 	virtual const W3DTreeDrawModuleData *getAsW3DTreeDrawModuleData() const; // +0x40
 };
 
-class ModuleInfo
-{
-public:
-	__declspec(dllimport) __forceinline Int getCount() const { return (Int)(m_info.end - m_info.begin); }
-	const ModuleData *getNthData(Int i) const;
-private:
-	struct Nugget
-	{
-		char m_data[0x14];
-	};
-	struct
-	{
-		Nugget *begin;
-		Nugget *end;
-		Nugget *capacity;
-	} m_info;
-};
+#include "../../../Include/Common/ModuleInfoClass.h"
 
 class ThingTemplate
 {

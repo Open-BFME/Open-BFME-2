@@ -525,13 +525,7 @@ public:
 #undef SLOT
 };
 
-struct ModuleNugget { char unknown00[8]; const ModuleData *data; char unknown0C[8]; };
-
-class ModuleInfo {
-public: const ModuleData *getNthData(int)const;
- ModuleNugget *begin,*end,*capacity;
- int getCount()const {return end-begin;}
-};
+#include "../../../../Include/Common/ModuleInfoClass.h"
 
 struct RevivalThingView {char unknown00[0x2E4]; ModuleInfo modules;};
 
@@ -1048,7 +1042,7 @@ static __declspec(noinline) void CalcRevivalCostsForEntry(UnitRevivalEntry &entr
  // LINK: manual inline of ModuleInfo::getCount (identical body: end-begin).
  // This TU's copy loses to the first-in-order copy (no retail address); the
  // loop call inlines it but still emits the loser COMDAT. No flags touched.
- for(int i=0;i<(info.end-info.begin);++i) {
+ for(int i=0;i<(info.m_end-info.m_begin);++i) {
   const ModuleData *data=info.getNthData(i);
   if(!data) continue;
   if(data->isRevival()) {

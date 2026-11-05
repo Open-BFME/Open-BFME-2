@@ -22,12 +22,7 @@ public:
  virtual const RespawnUpdateModuleData *getRespawnData()const;
 #undef SLOT
 };
-struct ModuleNugget { char unknown00[8]; const ModuleData *data; char unknown0C[8]; };
-class ModuleInfo {
-public: const ModuleData *getNthData(int)const;
- ModuleNugget *begin,*end,*capacity;
- __declspec(dllimport) __forceinline int getCount()const {return end-begin;}
-};
+#include "../../../../Include/Common/ModuleInfoClass.h"
 class ThingTemplate;
 struct RevivalUpgradeStorage {unsigned int words[32];};
 class UnitRevivalEntry {
