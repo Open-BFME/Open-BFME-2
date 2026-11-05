@@ -12,29 +12,16 @@
 
 #include "../../../../GameEngine/Include/Common/NoCaseTreeValue4.h"
 
-class Rva000427195
-{
-public:
-	void rva00212858(unsigned int count);
-	int bucketIndex(const AsciiString *name);
-	void *rva000A7A63(const _STL::pair<const AsciiString, NoCaseTreeValue4> *src);
-	void *rva000A7976(const _STL::pair<const AsciiString, NoCaseTreeValue4> *src);
-private:
-	void *m_00;
-	void **m_buckets;
-	void *m_08;
-	void *m_0C;
-	unsigned int m_count;
-};
+#include "../../../../GameEngine/Include/GameLogic/Rva000427195.h"
 
 void *Rva000427195::rva000A7A63(const _STL::pair<const AsciiString, NoCaseTreeValue4> *src)
 {
-	rva00212858(m_count + 1);
+	rva00212858(m_numElements + 1);
 	int idx = bucketIndex((const AsciiString *)src);
-	void *old = m_buckets[idx];
+	void *old = m_beginBuckets[idx];
 	void *block = rva000A7976(src);
 	*(void **)block = old;
-	m_buckets[idx] = block;
-	++m_count;
+	m_beginBuckets[idx] = block;
+	++m_numElements;
 	return (char *)block + 4;
 }

@@ -103,14 +103,8 @@ struct InsertRet002E01F7
 #pragma pack(pop)
 
 // The name map's insert (rowed 0x002E035B: resize then insert_unique).
-class Rva000427195
-{
-public:
-	InsertRet002E01F7 rva002E035B(const void *key);
-	InsertRet002E01F7 insert(const _STL::pair<const AsciiString, int> &value) { return rva002E035B(&value); }
-private:
-	char m_body[0x14];
-};
+#include "../../Include/GameLogic/Rva000427195.h"
+inline InsertRet002E01F7 Rva000427195::insert(const _STL::pair<const AsciiString, int> &value) { return rva002E035B(&value); }
 
 class Rva0022C0CDSubsystem
 {

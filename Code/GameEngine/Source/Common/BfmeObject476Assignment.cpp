@@ -25,7 +25,7 @@ struct S3Handicap { int words[4]; };
 struct S3Money { virtual ~S3Money(); int words[2]; __forceinline S3Money &operator=(const S3Money &r) { words[0]=r.words[0]; words[1]=r.words[1]; return *this;} };
 struct S3Coord { float x,y,z; };
 struct Rva001FD42B { Rva001FD42B *rva001FD8DF(const Rva001FD42B &); Rva001FD42B &operator=(const Rva001FD42B &rhs) {rva001FD8DF(rhs);return *this;} char data[12]; };
-struct Rva000427195 { Rva000427195 &operator=(const Rva000427195 &); char data[20]; };
+#include "../../Include/GameLogic/Rva000427195.h"
 struct Rva001FD458 { Rva001FD458 *rva001FD952(const Rva001FD458 &); Rva001FD458 &operator=(const Rva001FD458 &rhs){rva001FD952(rhs);return *this;} char data[12]; };
 struct Rva0021C21BElement { char bytes[4]; };
 namespace _STL {template<> vector<Rva0021C21BElement>& vector<Rva0021C21BElement>::operator=(const vector<Rva0021C21BElement>&);}

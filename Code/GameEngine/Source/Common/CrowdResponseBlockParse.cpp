@@ -66,18 +66,8 @@ struct InsertRet0041539F
 
 typedef _STL::pair<const AsciiString, Rva00415B54 *> CrowdResponseEntry;
 
-class Rva000427195
-{
-public:
-	InsertRet0041539F rva0041557A(const void *key);
-	InsertRet0041539F insert(const CrowdResponseEntry &entry) { return rva0041557A(&entry); }
-private:
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameLogic/Rva000427195.h"
+inline InsertRet0041539F Rva000427195::insert(const CrowdResponseEntry &entry) { return rva0041557A(&entry); }
 
 class Rva0022A809Subsystem
 {

@@ -24,7 +24,8 @@ struct Rva00419789 : Rva0022D094 {};
 class Rva00419669 : public Rva00419789 {public: Rva00419669(const AsciiString&, const Rva00419669*);};
 struct Rva004197E8 : Rva0022D249 {Rva004197E8(const AsciiString&, const Rva00419789&);};
 struct InsertRet00419331 { void* m_node; void* m_owner; unsigned char m_found;};
-class Rva000427195 {public: InsertRet00419331 rva00419967(const void*); __forceinline InsertRet00419331 rva0041998B(const void *value) {return rva00419967(value);}private:char bytes[0x14];};
+#include "../../../../../Include/GameLogic/Rva000427195.h"
+__forceinline InsertRet00419331 Rva000427195::rva0041998B(const void *value) {return rva00419967(value);}
 class Rva0041811D {public: void* rva004196F8(); char prefix[0xC]; Rva000427195 table;};
 extern Rva0041811D *TheLivingWorldAutoResolveWeaponStore;
 void parseAutoResolveWeaponDefinition(INI* ini) {
