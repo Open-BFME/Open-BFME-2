@@ -470,7 +470,12 @@ public:
 	char m_unknown50[0x54 - 0x50];
 };
 
-struct QuantityModifier { AsciiString m_templateName; Int m_quantity; };
+struct QuantityModifier
+{
+public:
+	AsciiString m_templateName; // +0x00
+	int m_quantity; // +0x04
+};
 class ProductionUpdateModuleData
 {
 public:
@@ -569,7 +574,11 @@ public:
 };
 
 struct Rva0039BAD2Input;
-class Rva0039BAD2 { public: void rva0039BAD2(Rva0039BAD2Input *,Int); };
+class Rva0039BAD2
+{
+public:
+	void rva0039BAD2(Rva0039BAD2Input *in, int amount);
+};
 #include "../../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
 
 class DieModuleInterface
@@ -581,8 +590,8 @@ public:
 class Rva0049D526
 {
 public:
+	void rva0049D57F(void *node);
 	void rva0049D526(void *entry); // addToProductionQueue
-	void rva0049D57F(void *entry); // removeFromProductionQueue
 };
 
 enum
@@ -608,8 +617,22 @@ class Rva0033F15DDwordSlot { public: void set(int); };
 class Rva002AE98B { public: float rva002AE98B(const AsciiString *); };
 struct Rva002A7557In;
 class Rva002A7461 { public: bool rva002A7557(Rva002A7557In *,int); };
-class Rva0037E6E8 { public: int rva0037E649(int,Object *); float rva0037E815(int,Object *); };
-class Rva0037E421 { public: void *rva0037E7A5(int); void *rva0037E451(int); void *rva0037E421(int); };
+class Rva0037E6E8
+{
+public:
+	int rva0037E649(int,Object *);
+	float rva0037E815(int,Object *);
+	int rva0037E6E8(void *extra, void *object);
+};
+class Rva0037E421
+{
+public:
+	unsigned char productionSystemCancelUnitCreate(int id);
+	void *rva0037E915(int index);
+	void *rva0037E7A5(int);
+	void *rva0037E451(int);
+	void *rva0037E421(int);
+};
 struct ProductionRevivalCount { char m_pad[0x98]; int m_98; };
 class UnitRevivalTracker { public: bool productionSystemQueueCreateUnit(int,int,const Image **); Object *productionSystemNewObject(unsigned int,const Coord3D *); };
 class Rva0039ADF3 { public: bool rva0039AE04() const; };

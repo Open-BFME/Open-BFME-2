@@ -52,8 +52,9 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 
 struct QuantityModifier
 {
-	AsciiString m_templateName;
-	int m_quantity;
+public:
+	AsciiString m_templateName; // +0x00
+	int m_quantity; // +0x04
 };
 
 class ProductionUpdateModuleData

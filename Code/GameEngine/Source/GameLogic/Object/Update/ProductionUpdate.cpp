@@ -488,8 +488,9 @@ template QuantityModifier * _STL::__uninitialized_fill_n<QuantityModifier *, uns
 // stlport_vector_quantitymodifier_insert_overflow_49F729.cpp). Declared only here.
 struct QuantityModifier
 {
-    AsciiString m_templateName;
-    int m_quantity;
+public:
+	AsciiString m_templateName; // +0x00
+	int m_quantity; // +0x04
 };
 
 template void _STL::vector<QuantityModifier>::_M_insert_overflow(
