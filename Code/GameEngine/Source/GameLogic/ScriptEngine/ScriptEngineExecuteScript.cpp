@@ -88,24 +88,7 @@ private:
 	Team *m_conditionTeam;			// +0x1A118
 };
 
-class Script
-{
-public:
-	AsciiString getConditionTeamName() const;
-	ScriptAction *getAction() { return m_action; }
-	ScriptAction *getFalseAction() { return m_actionFalse; }
-	bool isOneShot() { return m_isOneShot; }
-	void deactivate() { m_isActive = false; }
-
-private:
-	char m_unknown0[0x29];
-	bool m_isOneShot;				// +0x29
-	char m_unknown2A[0x34 - 0x2A];
-	ScriptAction *m_action;			// +0x34
-	ScriptAction *m_actionFalse;	// +0x38
-	char m_unknown3C[0x40 - 0x3C];
-	bool m_isActive;				// +0x40
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 #include "../../../Include/Common/MemoryPoolObject.h"
 
@@ -143,7 +126,7 @@ void ScriptEngine::executeScript(Script *pScript, const AsciiString &name)
 					executeActions(pScript->getAction(), pScript, (void *)&name);
 				}
 				if (pScript->isOneShot())
-					pScript->deactivate();
+					pScript->setActive(false);
 			} else if (pScript->getFalseAction()) {
 				_appendMessage(Rva0032B389Join(m_currentScope, name), false, false);
 				executeActions(pScript->getFalseAction(), pScript, (void *)&name);
@@ -157,12 +140,12 @@ void ScriptEngine::executeScript(Script *pScript, const AsciiString &name)
 				executeActions(pScript->getAction(), pScript, (void *)&name);
 			}
 			if (pScript->isOneShot())
-				pScript->deactivate();
+				pScript->setActive(false);
 		} else if (pScript->getFalseAction()) {
 			_appendMessage(Rva0032B389Join(m_currentScope, name), false, false);
 			executeActions(pScript->getFalseAction(), pScript, (void *)&name);
 			if (pScript->isOneShot())
-				pScript->deactivate();
+				pScript->setActive(false);
 		}
 	}
 	m_conditionTeam = pSavConditionTeam;

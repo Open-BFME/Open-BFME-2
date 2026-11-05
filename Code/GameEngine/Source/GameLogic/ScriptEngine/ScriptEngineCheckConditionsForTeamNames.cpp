@@ -34,20 +34,7 @@ private:
 	Condition *m_firstAnd;
 };
 
-class Script
-{
-	friend class ScriptEngine; // Retail reads this view's +0x30 field inline.
-public:
-	Int getDelayEvalSeconds() const { return m_delay; }
-	void setFrameToEvaluate(UnsignedInt frame) { m_frame = frame; }
-private:
-	char m_pad0[0x20];
-	Int m_delay;
-	char m_pad1[0x30 - 0x24];
-	OrCondition *m_or;
-	char m_pad2[0x3C - 0x34];
-	UnsignedInt m_frame;
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 #include "../../../Include/Common/Team.h"
 
@@ -99,7 +86,7 @@ void ScriptEngine::checkConditionsForTeamNames(Script *pScript, const AsciiStrin
 		pScript->setFrameToEvaluate(0);
 	}
 
-	for (OrCondition *pOr = pScript->m_or; pOr; pOr = pOr->getNextOrCondition()) {
+	for (OrCondition *pOr = pScript->getOrCondition(); pOr; pOr = pOr->getNextOrCondition()) {
 		for (Condition *pCond = pOr->getFirstAndCondition(); pCond; pCond = pCond->getNext()) {
 			for (Int i = 0; i < pCond->getNumParameters(); ++i) {
 				if (((ScriptAction *)pCond)->getParameter(i)->getParameterType() != Parameter::TEAM)

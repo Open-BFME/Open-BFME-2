@@ -40,32 +40,7 @@ private:
 	ObjectID m_id;	// +0x74
 };
 
-// The script's sequential target: the team or unit name and the loop count.
-class Rva003B3536
-{
-public:
-	Rva003B3536(const Rva003B3536 &other);
-
-	bool m_a;			// +0
-	bool m_b;			// +1
-	int m_c;			// +4, times to loop
-	bool m_d;			// +8, target is a unit
-	AsciiString m_e;	// +0xC, target name
-};
-
-class Script
-{
-public:
-	void *m_vtbl;
-	char m_unknown04[0x10 - 0x04];
-	Rva003B3536 m_sequentialTarget;		// +0x10
-	char m_unknown20[0x29 - 0x20];
-	bool m_isOneShot;					// +0x29
-	char m_unknown2A[0x38 - 0x2A];
-	void *m_bfme38;						// +0x38
-	char m_unknown3C[0x40 - 0x3C];
-	bool m_isActive;					// +0x40
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 class Rva00358752Opaque
 {
@@ -130,9 +105,9 @@ void ScriptEngine::executeSequentialScript(Script *pScript, const AsciiString &s
 	if (evaluateConditions(pScript, 0, 0)) {
 		if (getCurrentPlayer()) {
 			SequentialScript *seqScript = new SequentialScript;
-			Rva003B3536 target(pScript->m_sequentialTarget);
-			if (!target.m_d) {
-				Team *team = getTeamNamed(target.m_e, false);
+			Rva003B3536 target(pScript->m_subrecord);
+			if (!target.m_field08) {
+				Team *team = getTeamNamed(target.m_field0C, false);
 				if (!team) {
 					pScript->m_isActive = false;
 					return;
@@ -143,8 +118,8 @@ void ScriptEngine::executeSequentialScript(Script *pScript, const AsciiString &s
 				team->getTeamAsAIGroup(theGroup);
 				theGroup->groupIdle(CMD_FROM_SCRIPT);
 				seqScript->m_teamToExecOn = team;
-			} else if (target.m_d) {
-				Object *obj = ((Rva00358752Opaque *)this)->lookupUnitByValue(target.m_e);
+			} else if (target.m_field08) {
+				Object *obj = ((Rva00358752Opaque *)this)->lookupUnitByValue(target.m_field0C);
 				if (!obj) {
 					pScript->m_isActive = false;
 					return;
@@ -154,14 +129,14 @@ void ScriptEngine::executeSequentialScript(Script *pScript, const AsciiString &s
 			seqScript->m_bfmeScriptName = scriptName;
 			seqScript->m_bfmeScriptScope = ((Rva002046C0Owner *)this)->resolveName(seqScript->m_bfmeScriptName);
 			seqScript->m_scriptToExecuteSequentially = pScript;
-			seqScript->m_timesToLoop = target.m_c;
+			seqScript->m_timesToLoop = target.m_field04;
 			appendSequentialScript(seqScript);
 			::delete seqScript;
 		}
 		if (pScript->m_isOneShot)
 			pScript->m_isActive = false;
 	} else {
-		if (pScript->m_bfme38)
+		if (pScript->m_actionFalse)
 			pScript->m_isActive = false;
 	}
 }

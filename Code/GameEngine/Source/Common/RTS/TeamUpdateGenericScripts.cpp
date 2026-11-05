@@ -26,43 +26,7 @@ extern int BfmeLogicFramesPerSecond;
 class Team;
 class Player;
 
-class Script
-{
-public:
-	Script *duplicate() const;
-	void *getAction() const { return m_action; }
-	bool isEasy() const { return m_easy; }
-	bool isNormal() const { return m_normal; }
-	bool isHard() const { return m_hard; }
-	int getDelayEvalSeconds() const { return m_delayEvaluationSeconds; }
-	unsigned int getFrameToEvaluate() const { return m_frameToEvaluate; }
-	void setFrameToEvaluate(unsigned int frame) { m_frameToEvaluate = frame; }
-	bool isSequential() const { return m_sequential; }
-	int getLoopCount() const { return m_loopCount; }
-	int getDelayEvaluationSeconds() const { return m_delayEvaluationSeconds; }
-	bool isOneShot() const { return m_oneShot; }
-	bool isActiveRV() const { return m_isActive; }
-	virtual void *deleteInstance(int flags);
-	char m_pad04[0xC];
-private:
-	bool m_sequential; // +0x10 +0x10
-	char m_pad11[0x3];
-	int m_loopCount; // +0x14 +0x14
-	char m_pad18[0x8];
-	int m_delayEvaluationSeconds; // +0x20 +0x20
-	char m_pad24[0x5];
-	bool m_oneShot; // +0x29 +0x29
-	char m_pad2A[0x1];
-	bool m_easy; // +0x2B +0x2B
-	bool m_normal; // +0x2C +0x2C
-	bool m_hard; // +0x2D +0x2D
-	char m_pad2E[0x6];
-	void *m_action; // +0x34 +0x34
-	char m_pad38[0x4];
-	unsigned int m_frameToEvaluate; // +0x3C +0x3C
-	bool m_isActive; // +0x40 +0x40
-	char m_pad41[0x3];
-};
+#include "../../../Include/GameLogic/ScriptClass.h"
 
 class Team;
 class Rva0020D451Engine
@@ -128,9 +92,9 @@ void Team::updateGenericScripts()
 		{
 			AsciiString scope;
 			Script *script = m_proto->getGenericScript(i, &scope);
-			if (script && script->isActiveRV())
+			if (script && script->isActive())
 			{
-				int delay = script->getDelayEvaluationSeconds();
+				int delay = script->getDelayEvalSeconds();
 				if (delay > 0 && m_90[i] > TheGameLogic->getFrame())
 					continue;
 
@@ -139,7 +103,7 @@ void Team::updateGenericScripts()
 					if (script->isOneShot())
 						m_shouldAttemptGenericScript[i] = false;
 
-					if (script->isSequential())
+					if (script->m_subrecord.m_field00)
 					{
 						if (script->isOneShot())
 						{
@@ -148,7 +112,7 @@ void Team::updateGenericScripts()
 							seq->m_bfmeScriptScope = scope;
 							seq->m_bfmeScriptName = m_proto->getGenericScriptName(i);
 							seq->m_scriptToExecuteSequentially = script;
-							seq->m_timesToLoop = script->getLoopCount();
+							seq->m_timesToLoop = script->m_subrecord.m_field04;
 							TheScriptEngine->appendSequentialScript(seq);
 						}
 					}
@@ -163,7 +127,7 @@ void Team::updateGenericScripts()
 					}
 				}
 
-				delay = script->getDelayEvaluationSeconds();
+				delay = script->getDelayEvalSeconds();
 				if (delay > 0)
 					m_90[i] = BfmeLogicFramesPerSecond * delay + TheGameLogic->getFrame();
 			}
