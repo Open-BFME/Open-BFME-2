@@ -30,7 +30,19 @@ extern template _STL::_Rb_tree<AsciiString,AsciiString,_STL::_Identity<AsciiStri
 
 extern FileSystem*TheFileSystem;
 
-class AptAnimData {public:void rva000AB83B();AsciiString baseDirectory;private:void createRenderData(const AsciiString&);};
+class Object;
+class ObjectLookupMap {public:Object **findSlot(int*);};
+// The enumerator reads the directory at +0; createRenderData addresses its
+// lookup table at +8. Only those observed members are represented here.
+class AptAnimData {
+public:
+ void rva000AB83B();
+ AsciiString baseDirectory;
+private:
+ char unknown04[4];
+ ObjectLookupMap map;
+ void createRenderData(const AsciiString&);
+};
 
 // bfme link decl-only begin
 namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }

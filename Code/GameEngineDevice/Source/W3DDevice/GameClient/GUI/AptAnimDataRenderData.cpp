@@ -73,7 +73,17 @@ class GeometryRecord00788A30 {public:
 };
 class Object;
 class ObjectLookupMap {public:Object **findSlot(int*);};
-class AptAnimData {char unknown[8];ObjectLookupMap map;void createRenderData(const AsciiString&);};
+// The enumerator reads the directory at +0; createRenderData addresses its
+// lookup table at +8. Only those observed members are represented here.
+class AptAnimData {
+public:
+ void rva000AB83B();
+ AsciiString baseDirectory;
+private:
+ char unknown04[4];
+ ObjectLookupMap map;
+ void createRenderData(const AsciiString&);
+};
 void AptAnimData::createRenderData(const AsciiString &filename)
 {
  int number=0;
