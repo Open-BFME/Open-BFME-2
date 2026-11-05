@@ -497,23 +497,7 @@ struct FXDamageParticleSystemInfo
 	FXLocInfo locInfo;
 };
 
-class INI
-{
-public:
-	const char *getNextToken(const char *seps = 0);
-	const char *getNextTokenOrNull(const char *seps = 0);
-	const char *getNextSubToken(const char *expected);
-	const char *getSepsColon() const { return m_sepsColon; }
-	float scanReal(const char *token);
-	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
-	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
-	static void parseParticleSystemTemplate(INI *ini, void *instance, void *store, const void *userData);
-
-private:
-	char m_unreconstructed[0x420];
-	const char *m_sepsColon;
-};
+#include "../../../../Include/Common/INI/INI.h"
 
 #include "../../../../Include/Common/INI/FieldParse.h"
 
@@ -1100,7 +1084,7 @@ NameKeyType TransitionDamageFX::getModuleNameKey() const
 
 static void parseFXLocInfo(INI *ini, void *instance, FXLocInfo *locInfo)
 {
-	const char *token = ini->getNextToken(ini->getSepsColon());
+	const char *token = ini->getNextToken(ini->m_sepsColon);
 
 	if (_strcmpi(token, "bone") == 0)
 	{
@@ -1111,7 +1095,7 @@ static void parseFXLocInfo(INI *ini, void *instance, FXLocInfo *locInfo)
 		}
 		locInfo->locType = FX_DAMAGE_LOC_TYPE_BONE;
 
-		token = ini->getNextToken(ini->getSepsColon());
+		token = ini->getNextToken(ini->m_sepsColon);
 		if (_strcmpi(token, "randombone") != 0)
 		{
 			throw INIException(3, "parseFXLocInfo: Bone name not followed by RandomBone specifier.");
@@ -1139,7 +1123,7 @@ void TransitionDamageFXModuleData::parseFXList(INI *ini, void *instance, void *s
 
 	parseFXLocInfo(ini, instance, &info->locInfo);
 
-	token = ini->getNextToken(ini->getSepsColon());
+	token = ini->getNextToken(ini->m_sepsColon);
 	if (_strcmpi(token, "fxlist") != 0)
 	{
 		throw INIException(3, "'fxlist' expected");
@@ -1155,7 +1139,7 @@ void TransitionDamageFXModuleData::parseObjectCreationList(INI *ini, void *insta
 
 	parseFXLocInfo(ini, instance, &info->locInfo);
 
-	token = ini->getNextToken(ini->getSepsColon());
+	token = ini->getNextToken(ini->m_sepsColon);
 	if (_strcmpi(token, "ocl") != 0)
 	{
 		throw INIException(3, "'ocl' expected");
@@ -1171,7 +1155,7 @@ void TransitionDamageFXModuleData::parseParticleSystem(INI *ini, void *instance,
 
 	parseFXLocInfo(ini, instance, &info->locInfo);
 
-	token = ini->getNextToken(ini->getSepsColon());
+	token = ini->getNextToken(ini->m_sepsColon);
 	if (_strcmpi(token, "psys") != 0)
 	{
 		throw INIException(3, "'psys' expected");
@@ -1389,7 +1373,7 @@ void TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend(INI *ini, v
 	neighbor.m_oclOffset.y = 0.0f;
 	neighbor.m_oclOffset.x = 0.0f;
 
-	const char *token = ini->getNextTokenOrNull(ini->getSepsColon());
+	const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
 	if (token != 0)
 	{
 		do
@@ -1416,7 +1400,7 @@ void TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend(INI *ini, v
 			else
 				throw INIException(3, "bad colon spacing, or unexpected token in TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend");
 
-			token = ini->getNextTokenOrNull(ini->getSepsColon());
+			token = ini->getNextTokenOrNull(ini->m_sepsColon);
 		} while (token != 0);
 	}
 
