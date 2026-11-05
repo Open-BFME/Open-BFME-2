@@ -1,8 +1,10 @@
-# real link at 47fcaffbbfe8d1351f4050ff6d26330775d3dfeb: tools/exit_link.py --blockers
+# real link at dbde7dbe3be16481b2c8d6f2f9577bc322f6b7ce: tools/exit_link.py --blockers
 source	missing	sample
 Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp	3	?crc@DamageModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildComplete@LockWeaponCreate@@UAEXXZ
 Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	1	?freeBytes@AsciiString@@AAEXXZ
+Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp	1	?ji_006291ae@@YAPAXPAXHI@Z
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp	1	?GetSnapshotName@DrawableModule@@MBEPBDXZ
+Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp	1	?ji_006291ae@@YAPAXPAXHI@Z
