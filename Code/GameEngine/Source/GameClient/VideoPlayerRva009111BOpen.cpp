@@ -15,6 +15,13 @@
 // with the rowed Debug::Format 0x000386E0. WorldBuilder has no twin.
 #include "ascii_string.h"
 #include "../../Include/GameClient/BfmeVideoRecord.h"
+#include <stdio.h>
+// Retail calls _mbscpy directly; sprintf retains its /MD import declaration.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 
 class GlobalData
 {
@@ -159,8 +166,6 @@ VideoStreamInterface *Rva009111B::open(AsciiString movieTitle, int flags)
 // builds a 1024-entry clamped 8-bit ramp ((i - 256) * 1.2 - 15) and five
 // 256-entry fixed-point colour tables from linear accumulators. The tables
 // are unnamed data, spelled by address.
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
-extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned char *src);
 AsciiString GetRegistryLanguage();
 extern "C" void __cdecl duck_mem_set_allocator(void *allocator);
 extern "C" void __cdecl VP6_VPInitLibrary();
