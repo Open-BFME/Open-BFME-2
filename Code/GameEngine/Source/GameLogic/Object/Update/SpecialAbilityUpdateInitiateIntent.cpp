@@ -138,23 +138,7 @@ struct Rva004CE41ECondition
 	unsigned int m_frames; // +0x04
 };
 class SpecialPowerTemplate;
-class SpecialAbilityUpdateModuleData
-{
-public:
-	unsigned char m_pad[0x18];
-	ModelConditionFlagType m_customAnimAndDuration; // +0x18
-	unsigned int m_1C; // +0x1C
-	unsigned char m_pad20[0x38 - 0x20];
-	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x38
-	unsigned char m_pad3C[0x70 - 0x3C];
-	int m_70; // +0x70
-	unsigned char m_pad74[0x88 - 0x74];
-	unsigned int m_unpackTime; // +0x88
-	unsigned char m_pad8C[0xA8 - 0x8C];
-	bool m_skipPackingWithNoTarget; // +0xA8
-	unsigned char m_padA9[0xB7 - 0xA9];
-	bool m_instant; // +0xB7
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 class ModuleData;
 class Waypoint;
 class CommandButton;
@@ -231,7 +215,7 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 	m_82 = false;
 	m_83 = false;
 	m_6C = commandOptions;
-	m_60 = data->m_70;
+	m_60 = data->field70;
 	if (m_60 > 0)
 		--m_60;
 
@@ -247,7 +231,7 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 		m_targetPos = *targetPos;
 		m_5C = (int)way;
 	}
-	else if (data->m_instant)
+	else if (data->fieldB7)
 	{
 		triggerAbilityEffect();
 		SpecialPowerModuleInterface *spm = (SpecialPowerModuleInterface *)((Rva0044E633 *)this)->rva0044E633();

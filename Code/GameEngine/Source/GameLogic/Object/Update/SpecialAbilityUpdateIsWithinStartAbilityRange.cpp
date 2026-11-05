@@ -91,23 +91,7 @@ public:
 	Int getSpecialPowerType() const { return ((const SpecialPowerTemplateView *)friend_getFinalOverride())->m_type; }
 };
 
-class SpecialAbilityUpdateModuleData
-{
-public:
-	unsigned char m_pad000[0x38];
-	const SpecialPowerTemplate *m_specialPowerTemplate;	// +0x38
-	unsigned char m_pad03C[0x4C - 0x3C];
-	Real m_startAbilityRange;							// +0x4C
-	Real m_abilityAbortRange;							// +0x50
-	unsigned char m_pad054[0xB1 - 0x54];
-	Bool m_approachRequiresLOS;							// +0xB1
-	unsigned char m_pad0B2[0xB8 - 0xB2];
-	Bool m_contactOnZeroDistance;						// +0xB8
-	unsigned char m_pad0B9[0xBC - 0xB9];
-	AsciiString m_contactBone;							// +0xBC
-	unsigned char m_pad0C0[0xC5 - 0xC0];
-	Bool m_addRadiusC5;									// +0xC5
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
 // The line-of-sight partition filter (vtable 0x00C07150).
 // Native C07150 slot0 uses395A19 and resets the BC26E0 base vptr at49C38A.
@@ -150,13 +134,13 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 		if (target)
 		{
 			Bool contact = false;
-			if (!((const StringBase<char> *)&data->m_contactBone)->isEmpty())
+			if (!((const StringBase<char> *)&data->fieldBC)->isEmpty())
 			{
 				Coord3D point;
 				point.x = 0.0f;
 				point.y = 0.0f;
 				point.z = 0.0f;
-				if (target->getWorldspaceBestContactPoint(&point, self->getPosition(), data->m_contactBone.str(), 0, 42, true))
+				if (target->getWorldspaceBestContactPoint(&point, self->getPosition(), data->fieldBC.str(), 0, 42, true))
 				{
 					fDistSquared = self->rva002C97E8(self->getPosition(), &point);
 					contact = true;
@@ -166,7 +150,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 			{
 				if (target->getTemplate()->m_kindof[4] & (1U << 4))
 					fDistSquared = target->rva0044E6B8(self);
-				else if ((self->getTemplate()->m_kindof[3] & (1U << 13)) && data->m_addRadiusC5)
+				else if ((self->getTemplate()->m_kindof[3] & (1U << 13)) && data->fieldC5)
 				{
 					Real radius = self->m_geometry.m_boundingCircleRadius;
 					fDistSquared = ((Rva000CBA20 *)target)->distSq((const Rva000CBA20Point *)self->getPosition()) + radius;
@@ -201,7 +185,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 	Real fStartRangeSquared = data->m_startAbilityRange * data->m_startAbilityRange;
 	if (fDistSquared <= fStartRangeSquared)
 	{
-		if (fDistSquared == 0.0f && m_targetID != INVALID_OBJECT_ID && data->m_contactOnZeroDistance)
+		if (fDistSquared == 0.0f && m_targetID != INVALID_OBJECT_ID && data->fieldB8)
 		{
 			if (!target)
 				return false;
