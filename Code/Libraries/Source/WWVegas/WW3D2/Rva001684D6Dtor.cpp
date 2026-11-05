@@ -6,7 +6,7 @@ template <> SimpleDynVecClass<Vector3>::~SimpleDynVecClass() throw();
 template <> SimpleDynVecClass<float>::~SimpleDynVecClass() throw();
 // Native1684D6..168527 destroys settingsE4 then widthsD4 then pointsC4
 // and finally the RenderObj C4 base. The target omits derived vptr stores,
-// as in the already matched StreakLineDestructor.cpp; novtable preserves that.
+// as in StreakLineClass's implicit destructor (streak.cpp); novtable preserves that.
 // Primitive vector cleanup cannot throw; texture release retains EH state2.
 // Native16844F..1684B2 constructs the RenderObj C4 base; points C4;
 // float widths D4; renderer settings E4. The same primary/secondary tables

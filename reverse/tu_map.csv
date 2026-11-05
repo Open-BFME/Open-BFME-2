@@ -60394,7 +60394,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00742550,6,code,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,approved,C,C=0x00742470..0x00742590,Code/GameEngine/Source/Common/ConstIntGetters2.cpp
 0x00742560,8,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/StreakLineClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp
 0x00742570,30,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/StreakLineClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp
-0x00742590,327,code,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/streak.cpp N=Code/Libraries/Source/WWVegas/WW3D2/StreakLineClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/StreakLineDestructor.cpp
+0x00742590,327,code,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/streak.cpp N=Code/Libraries/Source/WWVegas/WW3D2/StreakLineClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp
 0x007426E0,331,code,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/streak.cpp S=Code/Libraries/Source/WWVegas/WW3D2/streak.cpp N=Code/Libraries/Source/WWVegas/WW3D2/StreakLineClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp
 0x00742830,209,code,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,approved,C,C=0x007426E0..0x00742910,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp
 0x00742910,113,code,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/streak.cpp S=Code/Libraries/Source/WWVegas/WW3D2/streak.cpp N=Code/Libraries/Source/WWVegas/WW3D2/StreakLineClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/streak.cpp

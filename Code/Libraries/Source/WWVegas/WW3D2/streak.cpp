@@ -89,15 +89,6 @@ public:
 #define WWASSERT(x) ((void)0)
 
 // bfme link decl-only begin
-template <> SimpleDynVecClass<Vector4>::~SimpleDynVecClass();
-
-template <> SimpleDynVecClass<float>::~SimpleDynVecClass();
-
-template <> SimpleDynVecClass<Vector3>::~SimpleDynVecClass();
-
-template <> SimpleVecClass<float>::~SimpleVecClass();
-
-template <> SimpleVecClass<Vector3>::~SimpleVecClass();
 
 template <> bool SimpleDynVecClass<Vector3>::Add(Vector3 const &, int);
 
@@ -157,7 +148,8 @@ class StreakLineClass : public RenderObjClass
 		StreakLineClass(void);
 		StreakLineClass(const StreakLineClass & src);
 		StreakLineClass & StreakLineClass::operator = (const StreakLineClass &that);
-		virtual ~StreakLineClass(void);
+		// no user-declared destructor: retail's ~StreakLineClass (0x00742590) stores no vtable
+		// on entry, so it is the implicit one, emitted here beside the vtable
 
 		void					Reset_Line(void);
 
@@ -1091,4 +1083,4 @@ ParticleBufferClass::TextureHandleClass StreakLineClass::Get_Texture() {
 
 // tu-skeleton: 0x00742550 6B ?Rva00742550Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters2.cpp (not merged yet)
 
-// tu-skeleton: 0x00742590 327B ??1StreakLineClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/StreakLineDestructor.cpp (not merged yet)
+// 0x00742590 ??1StreakLineClass@@UAE@XZ: the implicit destructor (see the class), emitted here
