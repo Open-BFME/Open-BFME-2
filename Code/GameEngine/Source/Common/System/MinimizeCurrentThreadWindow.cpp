@@ -1,16 +1,11 @@
 // cl: /DNDEBUG /MD /Ob2
+// platformsdk
 
-typedef void *HWND;
-typedef long LPARAM;
-typedef int BOOL;
-typedef unsigned long DWORD;
-
-extern "C" __declspec(dllimport) DWORD __stdcall GetCurrentThreadId(void);
-extern "C" __declspec(dllimport) BOOL __stdcall EnumThreadWindows(
-	DWORD threadId,
-	BOOL (__stdcall *callback)(HWND, LPARAM),
-	LPARAM context);
-extern "C" __declspec(dllimport) BOOL __stdcall ShowWindow(HWND window, int command);
+// The callback's symbol carries the SDK's non-strict handle type
+// (?bfmeCaptureCurrentThreadWindow@@YGHPAXJ@Z: HWND is void *), so
+// WNDENUMPROC is the untyped FARPROC and the callback is cast to it.
+#define NO_STRICT
+#include <windows.h>
 
 // Retail 0x0056DD12, 15 bytes. The matched EnumThreadWindows caller
 // supplies &window as LPARAM; the callback stores HWND there and returns
@@ -19,7 +14,7 @@ extern "C" __declspec(dllimport) BOOL __stdcall ShowWindow(HWND window, int comm
 BOOL __stdcall bfmeCaptureCurrentThreadWindow(HWND window, LPARAM context)
 {
 	*reinterpret_cast<HWND *>(context) = window;
-	return 0;
+	return FALSE;
 }
 
 void bfmeMinimizeCurrentThreadWindow(void)
@@ -27,10 +22,10 @@ void bfmeMinimizeCurrentThreadWindow(void)
 	HWND window = 0;
 	EnumThreadWindows(
 		GetCurrentThreadId(),
-		bfmeCaptureCurrentThreadWindow,
+		(WNDENUMPROC)bfmeCaptureCurrentThreadWindow,
 		reinterpret_cast<LPARAM>(&window));
 
 	if (window != 0) {
-		ShowWindow(window, 6);
+		ShowWindow(window, SW_MINIMIZE);
 	}
 }
