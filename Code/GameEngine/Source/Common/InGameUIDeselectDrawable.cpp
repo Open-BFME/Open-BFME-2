@@ -57,23 +57,7 @@ extern GameLogic *TheGameLogic;
 
 typedef _STL::list<Drawable *> BfmeDrawableList;
 
-class InGameUI
-{
-public:
-	virtual void deselectDrawable(Drawable *draw);
-	void expireAllHints(int);
-
-protected:
-	void evaluateSoloNexus(Drawable *newlyAddedDrawable = 0);
-
-private:
-	unsigned char m_unmodelled004[0x1c];
-	BfmeDrawableList m_selectedDrawables;
-	unsigned char m_unmodelled024[0x544];
-	int m_selectCount;
-	unsigned char m_unmodelled56C[0x4];
-	unsigned int m_frameSelectionChanged;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 // ?deselectDrawable@InGameUI@@UAEXPAVDrawable@@@Z retail 0x0029F34F 136B
 // Slot 57 deselect mirror of slot 56 selectDrawable at 0x002A3805.
@@ -86,11 +70,11 @@ void InGameUI::deselectDrawable(Drawable *draw)
 {
 	if (!draw->m_selected)
 		return;
-	m_frameSelectionChanged = TheGameLogic->getFrame();
+	field570 = TheGameLogic->getFrame();
 	draw->rva00276B95();
 	_STL::list<ObjectID>::iterator findIt = _STL::find(((_STL::list<ObjectID> *)&m_selectedDrawables)->begin(), ((_STL::list<ObjectID> *)&m_selectedDrawables)->end(), *(ObjectID *)&draw);
 	m_selectedDrawables.erase(*(BfmeDrawableList::iterator *)&findIt);
-	--m_selectCount;
+	--field568;
 	evaluateSoloNexus(0);
 	((BfmeWorldRV *)TheControlBar)->rva0031AA4B((int)draw);
 	expireAllHints(0);

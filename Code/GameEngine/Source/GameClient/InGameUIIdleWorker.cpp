@@ -112,60 +112,7 @@ typedef _STL::list<Object *>::iterator ObjectListIt;
 
 enum { MAX_PLAYER_COUNT = 20 };
 
-class InGameUI
-{
-public:
-#define V(n) virtual void r##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47)
-	V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55)
-	V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63)
-	V(64) V(65)
-#undef V
-	virtual void selectDrawable(Drawable *draw);
-	virtual void r67() = 0;
-	virtual void deselectAllDrawables();
-	virtual void r69() = 0;
-	virtual int getSelectCount();
-#define V(n) virtual void r##n() = 0;
-	V(71) V(72) V(73) V(74)
-#undef V
-	virtual Drawable *getFirstSelectedDrawable();
-#define V(n) virtual void r##n() = 0;
-	V(76) V(77) V(78) V(79)
-	V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87)
-	V(88) V(89) V(90) V(91) V(92) V(93) V(94) V(95)
-	V(96) V(97) V(98) V(99) V(100) V(101) V(102) V(103)
-	V(104)
-#undef V
-	virtual void addIdleWorker(Object *obj);
-	virtual void removeIdleWorker(Object *obj, int playerNumber);
-	virtual void selectNextIdleWorker(void);
-#define V(n) virtual void r##n() = 0;
-	V(108) V(109) V(110) V(111)
-#undef V
-
-	bool getInputEnabled() { return m_engineInputEnabled && m_inputEnabled; }
-
-private:
-	virtual int getIdleWorkerCount(void);
-	virtual Object *findIdleWorker(Object *obj);
-	virtual void showIdleWorkerLayout(void);
-	virtual void hideIdleWorkerLayout(void);
-	virtual void updateIdleWorker(void);
-
-	char m_unknown04[0x15 - 4];
-	bool m_engineInputEnabled;
-	bool m_inputEnabled;
-	char m_unknown17[0x928 - 0x17];
-	ObjectList m_idleWorkers[MAX_PLAYER_COUNT];
-	GameWindow *m_idleWorkerWin;
-	int m_currentIdleWorkerDisplay;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 Object *InGameUI::findIdleWorker(Object *obj)
 {
@@ -270,7 +217,7 @@ void InGameUI::showIdleWorkerLayout(void)
 
 	m_idleWorkerWin->winEnable(true);
 
-	m_currentIdleWorkerDisplay = getIdleWorkerCount();
+	m_97C = getIdleWorkerCount();
 }
 
 void InGameUI::hideIdleWorkerLayout(void)
@@ -279,14 +226,14 @@ void InGameUI::hideIdleWorkerLayout(void)
 		return;
 	GadgetButtonSetText(m_idleWorkerWin, UnicodeString::TheEmptyString);
 	m_idleWorkerWin->winEnable(false);
-	m_currentIdleWorkerDisplay = -1;
+	m_97C = -1;
 }
 
 void InGameUI::updateIdleWorker(void)
 {
 	int idleCount = getIdleWorkerCount();
 
-	if(idleCount > 0 && m_currentIdleWorkerDisplay != idleCount && getInputEnabled())
+	if(idleCount > 0 && m_97C != idleCount && getInputEnabled())
 		showIdleWorkerLayout();
 
 	if((idleCount <= 0 && m_idleWorkerWin) || !getInputEnabled())

@@ -31,6 +31,14 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 }
 }
 
+// Compare list nodes with a local overload so this TU emits no iterator-base operator!= copy.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits> &a,
+                              const _List_iterator<T, RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
+
 class Drawable;
 typedef _STL::list<Drawable *> BfmeDrawableList;
 
@@ -44,23 +52,14 @@ public:
 
 #include "../../Include/GameClient/Drawable.h"
 
-class InGameUI
-{
-public:
-	virtual const BfmeDrawableList *getAllSelectedLocalDrawables();
-
-private:
-	unsigned char m_unmodelled004[0x1C]; // +0x04..0x1F
-	BfmeDrawableList *m_selectedDrawables; // +0x20 pointer to selected list sentinel
-	BfmeDrawableList m_selectedLocalDrawables; // +0x24
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 const BfmeDrawableList *InGameUI::getAllSelectedLocalDrawables()
 {
 	((Rva00239380Holder *)&m_selectedLocalDrawables)->rva00239380();
-	for (void *node = *(void **)(void *)m_selectedDrawables; node != (void *)m_selectedDrawables; node = *(void **)node)
+	for (BfmeDrawableList::iterator it = m_selectedDrawables.begin(); it != m_selectedDrawables.end(); ++it)
 	{
-		Drawable *draw = *(Drawable **)((char *)node + 8);
+		Drawable *draw = *it;
 		if (draw && draw->m_object && draw->m_object->isLocallyControlled())
 			m_selectedLocalDrawables.push_back(draw);
 	}

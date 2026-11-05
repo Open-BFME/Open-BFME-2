@@ -31,30 +31,9 @@ enum ObjectStatusTypes;
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class InGameUIRet
-{
-public:
-	unsigned char m_pad[0x14];
-	int m_field14;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
-class InGameUI
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
-	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
-	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
-	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
-	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
-	virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
-	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
-	virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void slot47();
-	virtual InGameUIRet *slot48();
-};
+#include "../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -89,8 +68,8 @@ Bool Object::isSelectable() const
 	if ((thingTemplate->m_kindof[2] & (1U << 9)) != 0)
 		return false;
 	Bool sel = m_isSelectable;
-	InGameUIRet *inGameUIRet = TheInGameUI->slot48();
-	if (inGameUIRet != 0 && inGameUIRet->m_field14 == 0x18 && (m_template->m_kindof[1] & (1U << 28)) != 0)
+	const CommandButton *command = TheInGameUI->getGUICommand();
+	if (command != 0 && command->getCommandType() == (GUICommandType)0x18 && (m_template->m_kindof[1] & (1U << 28)) != 0)
 		sel = true;
 	return sel;
 }
