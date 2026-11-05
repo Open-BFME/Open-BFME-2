@@ -185,12 +185,12 @@ class Rva00294759
 public:
 	void rva00294759(int param);
 	void rva002947A8();
+	char m_pad00[0x264];
 private:
-	char m_pad[0x264];
-	ExperienceTracker *m_exp;
-	char m_pad268[0x494 - 0x268];
-	AsciiString m_494;
-	int m_498;
+	ExperienceTracker *m_exp; // +0x264
+	char m_pad268[0x22C];
+	AsciiString m_494; // +0x494
+	int m_498; // +0x498
 };
 
 void Rva00294759::rva00294759(int param)

@@ -35,8 +35,9 @@ private:
 };
 struct Rva0028F5C6
 {
+public:
 	Rva0028F5C6(int unused, int b1, int b2, int b3, int b4);
-	unsigned int m_bits[19];
+	unsigned m_bits[19]; // +0x00
 };
 class Rva00278440Host { public: void rva00278440(int); };
 class ObjectSMCHelper { public: void setModelConditionState(ModelConditionFlagType, unsigned int); };

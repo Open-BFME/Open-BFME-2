@@ -37,6 +37,8 @@ class Rva0028F528
 {
 public:
 	int rva0028F528();
+private:
+	unsigned m_bits; // +0x00
 };
 
 struct ThingTemplate907A1

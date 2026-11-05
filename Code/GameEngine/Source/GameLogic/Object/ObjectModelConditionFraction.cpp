@@ -24,9 +24,10 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
 struct Rva00291793Node
 {
-	Rva00291793Node *m_next;
-	Rva00291793Node *m_prev;
-	Object *m_object;
+public:
+	Rva00291793Node *m_next; // +0x00
+	Rva00291793Node *m_prev; // +0x04
+	Object *m_object; // +0x08
 };
 
 struct Rva00291793List
@@ -39,9 +40,9 @@ class Rva00291793
 public:
 	int rva00291793();
 	Rva00291793Node *head() const { return m_p04->m_head; }
+	char m_pad00[0x4];
 private:
-	char m_pad00[4];
-	Rva00291793List *m_p04;
+	Rva00291793List *m_p04; // +0x04
 };
 
 class Rva002949AEContain

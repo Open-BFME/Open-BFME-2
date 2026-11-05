@@ -126,7 +126,14 @@ extern ScriptEngine *TheScriptEngine;
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 // RVO getter 0x00291775 over the prototype's attack-priority name (+0x318).
-class Rva00291775AsciiField { public: AsciiString get() const; };
+class Rva00291775AsciiField
+{
+public:
+	AsciiString get() const;
+	char m_pad00[0x318];
+private:
+	AsciiString m_value; // +0x318
+};
 // The out-of-line nothrow StringBase<char>::isEmpty (0x00001E2F) retail calls.
 static __forceinline bool isEmptyOutOfLine(const AsciiString &s) { return ((const StringBase<char> *)&s)->isEmpty(); }
 

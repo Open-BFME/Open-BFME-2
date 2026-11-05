@@ -47,6 +47,9 @@ class Rva0029173EAsciiField
 {
 public:
 	void setName(AsciiString value);
+	char m_pad00[0x308];
+private:
+	AsciiString m_value; // +0x308
 };
 
 class Object

@@ -187,10 +187,19 @@ public:
 	virtual void setIndestructible(Bool indestructible);
 };
 
+class ExperienceTracker;
+class AsciiString;
 class Rva00294759
 {
 public:
-	void rva00294759(Int level);
+	void rva00294759(int param);
+	void rva002947A8();
+	char m_pad00[0x264];
+private:
+	ExperienceTracker *m_exp; // +0x264
+	char m_pad268[0x22C];
+	AsciiString m_494; // +0x494
+	int m_498; // +0x498
 };
 
 class Module;

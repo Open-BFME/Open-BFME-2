@@ -13,10 +13,11 @@ public:
 	unsigned int m_bitIndex;
 };
 
-struct Rva0028F633
+class Rva0028F633
 {
-	unsigned int m_bits[32];
+public:
 	Rva0028F633(int unused, int bit);
+	unsigned m_bits[32]; // +0x00
 };
 
 class UpgradeModuleInterface

@@ -1057,22 +1057,21 @@ class Rva0028F528
 public:
 	int rva0028F528();
 private:
-	unsigned m_bits;
+	unsigned m_bits; // +0x00
 };
 
 struct Rva0028F5C6
 {
-	unsigned m_bits[19];
-
+public:
 	Rva0028F5C6(int unused, int b1, int b2, int b3, int b4);
+	unsigned m_bits[19]; // +0x00
 };
 
 class Rva0028F633
 {
 public:
-	unsigned m_bits[32];
-
 	Rva0028F633(int unused, int bit);
+	unsigned m_bits[32]; // +0x00
 };
 
 struct Rva0028F662Node
@@ -1192,8 +1191,7 @@ class Rva00291440
 {
 public:
 	void rva00291440(Sink00291440 *sink);
-private:
-	unsigned int m_bits[32];
+	unsigned int m_bits[32]; // +0x00
 };
 
 class Rva0029161AArg
@@ -1271,7 +1269,10 @@ private:
 
 struct Rva00291793Node
 {
-	Rva00291793Node *m_next;
+public:
+	Rva00291793Node *m_next; // +0x00
+	Rva00291793Node *m_prev; // +0x04
+	Object *m_object; // +0x08
 };
 
 struct Rva00291793List
@@ -1283,9 +1284,10 @@ class Rva00291793
 {
 public:
 	int rva00291793();
+	Rva00291793Node *head() const { return m_p04->m_head; }
+	char m_pad00[0x4];
 private:
-	char m_pad00[4];
-	Rva00291793List *m_p04;
+	Rva00291793List *m_p04; // +0x04
 };
 
 class Debug
@@ -1528,9 +1530,8 @@ class Rva00291775AsciiField
 {
 public:
 	AsciiString get() const;
-
+	char m_pad00[0x318];
 private:
-	char m_pad[0x318];
 	AsciiString m_value; // +0x318
 };
 
@@ -1691,9 +1692,8 @@ class Rva0029173EAsciiField
 {
 public:
 	void setName(AsciiString value);
-
+	char m_pad00[0x308];
 private:
-	char m_pad[0x308];
 	AsciiString m_value; // +0x308
 };
 

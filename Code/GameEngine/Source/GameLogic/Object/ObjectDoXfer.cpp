@@ -123,9 +123,8 @@ class Sink00291440;
 class Rva00291440
 {
 public:
-	void rva00291440(Sink00291440 *xfer);
-
-	unsigned int m_bits[32];
+	void rva00291440(Sink00291440 *sink);
+	unsigned int m_bits[32]; // +0x00
 };
 
 #include "../../../Include/Common/ThingTemplate.h"
