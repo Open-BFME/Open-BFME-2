@@ -16,13 +16,8 @@ class Rva0044EDA6ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-	char m_pad00[0x1C];
-	int m_val1C;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 
 class Rva0044E7A8
 {
@@ -57,7 +52,7 @@ public:
 struct Rva0044EDA6Outer
 {
 	char m_pad00[0x38];
-	Overridable *m_specialPowerTemplate; // +0x38
+	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x38
 };
 
 
@@ -68,8 +63,7 @@ Bool SpecialAbilityUpdate::vslot08(int targetPos)
 if ((m_moduleData != 0 || m_moduleData == 0)) {
  const Rva0044EDA6Outer *data=(const Rva0044EDA6Outer *)m_moduleData;
  if (!data || !((Rva0044E7A8 *)this)->rva0044E7A8(targetPos)) return false;
- const Overridable *fin=data->m_specialPowerTemplate->friend_getFinalOverride();
- int value=fin->m_val1C;
+ int value=data->m_specialPowerTemplate->getFO()->m_type;
  if(value!=0x28 && value!=0x27) {_ReadWriteBarrier(); return true;}
  Rva0044EDA6Virt *virt=*(Rva0044EDA6Virt **)((char *)m_object+0x250);
  if(!virt)return false;

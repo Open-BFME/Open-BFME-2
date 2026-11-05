@@ -100,16 +100,8 @@ class Rva2225E0Filter {
     bool accepts(Object *, Player *);
 };
 #include "../../../../Include/GameLogic/ObjectFilter.h"
-class Overridable {
-  public:
-    const Overridable *friend_getFinalOverride() const;
-    char pad00[0x1c];
-    int powerType;
-    char pad20[0x30 - 0x20];
-    int resourceCost;
-    char pad34[0x60 - 0x34];
-    Rva2225E0Filter targetFilter;
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 class FXList {
   public:
     static void doFXPos(const FXList *, const Coord3D *, const Matrix3D *, float, const Coord3D *);
@@ -130,7 +122,7 @@ class SpecialPowerModuleInterface {
     virtual void slot0C();
     virtual void slot10();
     virtual void slot14();
-    virtual const Overridable *getSpecialPowerTemplate() const;
+    virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;
     virtual void slot1C();
     virtual void slot20();
     virtual void slot24();
@@ -541,7 +533,7 @@ class SpecialAbilityUpdateModuleData {
     OpaqueRefElement4 triggerSound;
     char pad18[0x34 - 0x18];
     OpaqueRefElement4 triggerLoopSound;
-    Overridable *specialPowerTemplate;
+    const SpecialPowerTemplate *specialPowerTemplate;
     char pad3c[0x48 - 0x3c];
     AsciiString attributeModifier;
     char pad4c[0x60 - 0x4c];
@@ -615,7 +607,7 @@ extern AudioManager *TheAudio;
 
 void SpecialAbilityUpdate::triggerAbilityEffect() {
     const SpecialAbilityUpdateModuleData *moduleData = data;
-    const Overridable *powerTemplate = moduleData->specialPowerTemplate;
+    const SpecialPowerTemplate *powerTemplate = moduleData->specialPowerTemplate;
     Object *owner = object;
     Object *target = TheGameLogic->findObjectByID(targetID);
     SpecialPowerModuleInterface *power =
@@ -640,7 +632,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
         Player *player = owner->getControllingPlayer();
         if (player)
             ((Rva002A9EFB *)player)
-                ->rva002A9EFB(powerTemplate->friend_getFinalOverride()->resourceCost);
+                ->rva002A9EFB(powerTemplate->getFO()->m_lightPointCost);
     }
     BfmeAudioEventPrefix136 sound(moduleData->triggerSound, 0);
     ((Rva002D9531 *)&sound)->rva002D9531(owner->id);
@@ -649,7 +641,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
         BfmeAudioEventPrefix136 loop(moduleData->triggerLoopSound, owner->id);
         loopSound = TheAudio->addAudioEvent(&loop);
     }
-    switch (powerTemplate->friend_getFinalOverride()->powerType) {
+    switch (powerTemplate->getFO()->m_type) {
     case 0x27:
     case 0x28:
         // BFME2 pickup/grab pair. The two target kinds select a replacement
@@ -670,10 +662,10 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
                 const ThingTemplate *targetTemplate = target->tmplate;
                 bool createGrabObject = false;
                 if (targetTemplate->isKind(132) &&
-                    powerTemplate->friend_getFinalOverride()->powerType == 0x28)
+                    powerTemplate->getFO()->m_type == 0x28)
                     createGrabObject = true;
                 if (targetTemplate->isKind(136) &&
-                    powerTemplate->friend_getFinalOverride()->powerType == 0x27)
+                    powerTemplate->getFO()->m_type == 0x27)
                     createGrabObject = true;
                 if (createGrabObject) {
                     BodyModuleInterface *grabBody = target->body;
@@ -814,9 +806,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
         if (!target || !power)
             return;
         Object *captured = target;
-        Rva2225E0Filter *filter = (Rva2225E0Filter *)&power->getSpecialPowerTemplate()
-                                      ->friend_getFinalOverride()
-                                      ->targetFilter;
+        Rva2225E0Filter *filter = (Rva2225E0Filter *)&power->getSpecialPowerTemplate()->getFO()->field60;
         if (((ObjectFilter *)filter)->isValid()) {
             if (!filter->accepts(target, 0))
                 return;
@@ -873,7 +863,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
         ((Rva001E431E *)captured)->rva001E431E((const int *)&Rva0028F59A(0, 119));
         target->captor = 0;
         TheSkirmishAIManager->rva002A9365(captured);
-        if (powerTemplate->friend_getFinalOverride()->powerType == 0x1a)
+        if (powerTemplate->getFO()->m_type == 0x1a)
             power->resetRecharge(1.0f);
     } break;
     case 0x20:

@@ -43,9 +43,10 @@ class Object {public:Player *getControllingPlayer() const;void setSpecialModelCo
  bool isEffectivelyDead() const{return (m_deadFlags&1)!=0;}
 };
 extern GameLogic *TheGameLogic;
-class Overridable {public:const Overridable*friend_getFinalOverride() const;char m_pad00[0x1C];int m_type;};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 struct SpecialAbilityUpdateModuleData {
- char pad00[0x38];Overridable *m_specialPower;
+ char pad00[0x38];const SpecialPowerTemplate *m_specialPower;
  char pad3C[0x44-0x3C];AsciiString m_attachBone;AsciiString m_modifier;
  float m_startRange,m_abortRange;char pad54[0x74-0x54];unsigned m_preparationFrames;unsigned m_persistenceFrames;char pad7C[0xA0-0x7C];int m_minPause,m_maxPause;char padA8[0xAE-0xA8];bool m_alwaysValidate;bool m_doCaptureFX;char padB0[0xB4-0xB0];bool m_removeModifierOnAbort;bool m_continueOnAbort;
  char padB6[0xC6-0xB6];bool m_ignoreFacing;
@@ -175,14 +176,14 @@ UpdateSleepTime SpecialAbilityUpdate::update()
   if(m_targetID){Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);if(target)m_targetPos=target->m_position;}
   if(ai->vslot143()!=2){onExit(false,true);return rva0044F881();}
   bool shouldAbort=false;
-  if(specialAbilityUpdateModuleData->m_specialPower->friend_getFinalOverride()->m_type==0x2A){
+  if(specialAbilityUpdateModuleData->m_specialPower->getFO()->m_type==0x2A){
    Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);
    if(target&&target->isEffectivelyDead()&&ai->isIdle())shouldAbort=true;
    if(ai->isIdle()&&m_approached)shouldAbort=true;
   }
   if(handlePackingProcessing()&&!shouldAbort)return rva0044F881();
   if(m_targetID){Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);
-   if(target){int type=specialAbilityUpdateModuleData->m_specialPower->friend_getFinalOverride()->m_type;
+   if(target){int type=specialAbilityUpdateModuleData->m_specialPower->getFO()->m_type;
     if(type==0x1D||type==0x1A){
      if(target->m_team==m_object->m_team)shouldAbort=true;
      if(target->isEffectivelyDead() && (!(target->m_data[0x10E]&2)|| !(bool)((target->m_modelWord1>>28)&1)))shouldAbort=true;
@@ -211,7 +212,7 @@ UpdateSleepTime SpecialAbilityUpdate::update()
  return rva0044F881();
 }
 
-bool SpecialAbilityUpdate::rva0044F679(){if(!m_persistenceCount)return false;const SpecialAbilityUpdateModuleData *specialAbilityUpdateModuleData=m_data;Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);if(specialAbilityUpdateModuleData->m_specialPower->friend_getFinalOverride()->m_type==0x27){
+bool SpecialAbilityUpdate::rva0044F679(){if(!m_persistenceCount)return false;const SpecialAbilityUpdateModuleData *specialAbilityUpdateModuleData=m_data;Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);if(specialAbilityUpdateModuleData->m_specialPower->getFO()->m_type==0x27){
  if(!target && m_useCount<=1)return specialAbilityUpdateModuleData->m_persistenceFrames>0;
  if(target && ((target->m_data[0x108]&0x40)||(target->m_data[0x108]&0x40)) && m_useCount<=1)return specialAbilityUpdateModuleData->m_persistenceFrames>0;
  return false;
@@ -221,10 +222,10 @@ bool SpecialAbilityUpdate::rva0044F679(){if(!m_persistenceCount)return false;con
 void SpecialAbilityUpdate::rva0044F6D0()
 {
  const SpecialAbilityUpdateModuleData *specialAbilityUpdateModuleData=m_data;
- Overridable *power=specialAbilityUpdateModuleData->m_specialPower;
+ const SpecialPowerTemplate *power=specialAbilityUpdateModuleData->m_specialPower;
  Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);
  if(m_persistenceCount>0)--m_persistenceCount;
- if(power->friend_getFinalOverride()->m_type!=0x27 || (target && ((target=(Object*)target->m_data,((unsigned char*)target)[0x108]&0x40)||((unsigned char*)target)[0x114]&8)))m_prepFrames=specialAbilityUpdateModuleData->m_persistenceFrames;
+ if(power->getFO()->m_type!=0x27 || (target && ((target=(Object*)target->m_data,((unsigned char*)target)[0x108]&0x40)||((unsigned char*)target)[0x114]&8)))m_prepFrames=specialAbilityUpdateModuleData->m_persistenceFrames;
  else m_prepFrames=0;
 }
 
@@ -239,7 +240,7 @@ UpdateSleepTime SpecialAbilityUpdate::rva0044F881()
  if(m_active || m_data->m_alwaysValidate || m_expiryFrame)return UPDATE_SLEEP_NONE;
  const SpecialAbilityUpdateModuleData *specialAbilityUpdateModuleData=m_data;
  {
-   if(specialAbilityUpdateModuleData->m_specialPower->friend_getFinalOverride()->m_type==0x1D){
+   if(specialAbilityUpdateModuleData->m_specialPower->getFO()->m_type==0x1D){
     Object *self=m_object;
     Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);
     if(self && target){
@@ -293,9 +294,9 @@ class Rva002D9531 {public:void rva002D9531(int);};
 bool SpecialAbilityUpdate::continuePreparation()
 {
  const SpecialAbilityUpdateModuleData *specialAbilityUpdateModuleData=m_data;
- const Overridable *power=specialAbilityUpdateModuleData->m_specialPower;
+ const SpecialPowerTemplate *power=specialAbilityUpdateModuleData->m_specialPower;
  if(specialAbilityUpdateModuleData->m_abortRange<10000000.0f && !isWithinAbilityAbortRange())return false;
- int type=power->friend_getFinalOverride()->m_type;
+ int type=power->getFO()->m_type;
  if(type==0x15){
   Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);
   if(!target)return false;
