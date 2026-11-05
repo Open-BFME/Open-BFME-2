@@ -111,13 +111,17 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 protected:
 	virtual ~CritterEmitterUpdate();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 private:
 	bool m_24;
 	bool m_25;
 };
 
-BFME_LITERAL_NAME_GETTER(Rva004C8D3BNamed, "CritterEmitterUpdate")
+const char *CritterEmitterUpdate::GetSnapshotName() const
+{
+	return "CritterEmitterUpdate";
+}
 
 //
 // ?update@CritterEmitterUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
