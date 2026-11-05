@@ -38,6 +38,7 @@ class TooltipUpgrade : public UpgradeModule
 {
 public:
 	TooltipUpgrade( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 
