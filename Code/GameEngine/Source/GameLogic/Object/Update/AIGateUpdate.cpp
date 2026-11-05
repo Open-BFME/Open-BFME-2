@@ -17,8 +17,6 @@ class GateOpener;
 class Vector2;
 class AIGateUpdateModuleData;
 enum NameKeyType { NK_UNKNOWN = 0 };
-enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffffff };
-// Select BFME2's Snapshot name slot before ObjectModule first reads Snapshot.
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
@@ -43,15 +41,12 @@ enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffff
 	}
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
-
 // WB122EF60 AIGateUpdate::update and native173B4B0C27..4B0CD4.
 // The module update interface starts at10. The opener cache and two counters
 // are native fields; Actor slot names and counters remain unasserted.
 // WB enclosing enabled branch closes the old bank's early-fail placement.
 class Player;
-
 enum Relationship { RELATION_0,RELATION_1,RELATION_2 };
-
 class Object
 {
 public:
@@ -63,13 +58,9 @@ public:
 	float pz; // +0x40
 	float angle; // +0x44
 };
-
 struct Rva002A8AB1Record;
-
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
-
 extern Rva002A8F24 *TheSkirmishAIManager;
-
 class Actor
 {
 public:
@@ -85,12 +76,96 @@ public:
 	virtual void s9();
 	virtual bool s10();
 };
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
+//
+// ??0AIGateUpdateModuleData@@QAE@XZ, retail 0x004B08C1, 22 bytes.
+// Frameless trivial ctor: vtable literal 0x00C4ED70 (the folded trivial
+// ModuleData vtable, also installed by DeletionUpdate plus SlotToLock plus
+// ReflectDamage, so the install alone proves nothing) plus float zeros at
+// +8/+0xC, matching the rowed buildFieldParse table (TriggerWidthX at +8,
+// TriggerWidthY at +0xC). Size 0x10 matches the rowed 0x24FA64 factory news.
+// The TU-local class keeps an explicit vtable slot (factory-TU precedent, so
+// no vtable is emitted) plus an unstored +4 gap member (DemoTrap m_unused04
+// precedent) plus the two floats; body order vtable then floats reproduces
+// retail, with the ctor return-this homing placing mov eax,ecx after the
+// hoisted xorps (probe-proven). Class identity is pool-key adjacency: the
+// rowed AIGateUpdate pool key (0x4B087C, 69B) ends where this ctor begins.
 
+extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
+  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
+
+class AIGateUpdateModuleData
+{
+public:
+	AIGateUpdateModuleData();
+
+private:
+	void *m_vtable; // +0
+	int m_unused04; // +4
+	float m_triggerWidthX; // +8
+	float m_triggerWidthY; // +0xC
+};
+//
+// ?rva004B0942@Rva004B0942@@QAEPAXXZ @0x004B0942 26B.
+// The slot at +0x20 is created from the dword at +8 by the cdecl helper
+// 0x00498725 the first time it is read, then returned.
+
+void *__cdecl Rva00498725Find(void *arg);
+class Rva004B0942
+{
+public:
+	void *rva004B0942();
+
+private:
+	char m_pad[8];
+	void *m_arg8;
+	char m_padC[0x20 - 0x0C];
+	void *m_slot20;
+};
+#include "../../../../Include/Common/NameKeyGenerator.h"
+class BehaviorModuleBase
+{
+	virtual void unused();
+
+protected:
+	const ModuleData *m_moduleData;
+	int m_object;
+};
+class BehaviorModuleOther
+{
+	virtual void unused();
+};
+#pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+#pragma comment(linker, "/alternatename:?unused@BehaviorModuleBase@@EAEXXZ=??_GAIGateUpdate@@UAEPAXI@Z")
+#pragma comment(linker, "/alternatename:?update@UpdateModule@@UAEXXZ=?update@AIGateUpdate@@UAE?AW4UpdateSleepTime@@XZ")
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+BFME_LITERAL_NAME_GETTER(Rva004B0876Named, "AIGateUpdate")
+
+enum UpdateSleepTime { UPDATE_SLEEP_INVALID = 0, UPDATE_SLEEP_FOREVER = 0x3fffffff };
+
+struct Rva002E36D5Node
+{
+	virtual ~Rva002E36D5Node();
+	unsigned char m_pad[0x3C - 4];
+	Rva002E36D5Node *m_next3C;
+};
+
+void *Rva002E36D5Find(int id);
+
+void Rva002E3714Unlink(Rva002E36D5Node *node);
+
+class Rva0023D661
+{
+public:
+	void rva0023D661(int val);
+};
+
+class GameLogic;
+
+extern GameLogic *TheGameLogic;
 
 class AIGateUpdate : public UpdateModule
 {
@@ -113,62 +188,34 @@ private:
 	unsigned char enabled;
 };
 
-//
-// ??0AIGateUpdateModuleData@@QAE@XZ, retail 0x004B08C1, 22 bytes.
-// Frameless trivial ctor: vtable literal 0x00C4ED70 (the folded trivial
-// ModuleData vtable, also installed by DeletionUpdate plus SlotToLock plus
-// ReflectDamage, so the install alone proves nothing) plus float zeros at
-// +8/+0xC, matching the rowed buildFieldParse table (TriggerWidthX at +8,
-// TriggerWidthY at +0xC). Size 0x10 matches the rowed 0x24FA64 factory news.
-// The TU-local class keeps an explicit vtable slot (factory-TU precedent, so
-// no vtable is emitted) plus an unstored +4 gap member (DemoTrap m_unused04
-// precedent) plus the two floats; body order vtable then floats reproduces
-// retail, with the ctor return-this homing placing mov eax,ecx after the
-// hoisted xorps (probe-proven). Class identity is pool-key adjacency: the
-// rowed AIGateUpdate pool key (0x4B087C, 69B) ends where this ctor begins.
-
-extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
-
-  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
-
-class AIGateUpdateModuleData
-{
-public:
-	AIGateUpdateModuleData();
-
-private:
-	void *m_vtable; // +0
-	int m_unused04; // +4
-	float m_triggerWidthX; // +8
-	float m_triggerWidthY; // +0xC
-};
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp
 
 //
-// ?rva004B0942@Rva004B0942@@QAEPAXXZ @0x004B0942 26B.
-// The slot at +0x20 is created from the dword at +8 by the cdecl helper
-// 0x00498725 the first time it is read, then returned.
+// ??1AIGateUpdate@@UAE@XZ, retail 0x004B0802, 116 bytes (pinned; rowed
+// deleting wrapper 0x004B0926). Stores the three vtables, then
+// in EH state 0 looks up the node registered under the ID at +0x24 through
+// the rowed Rva002E36D5Find, and when found unlinks it (0x002E3714), passes
+// it to the rowed Rva0023D661::rva0023D661 on the global at 0x00DFE78C and
+// deletes it through its slot-0 destructor. Last comes the opaque MI base
+// dtor 0x0024A797, the only entry in retail's unwind map. Base layout as in
+// Rva0024A797Derived.cpp. The same find/unlink/notify/delete sequence
+// recurs at 0x00397E6E and 0x004EB61A.
 
-void *__cdecl Rva00498725Find(void *arg);
-
-class Rva004B0942
+AIGateUpdate::~AIGateUpdate()
 {
-public:
-	void *rva004B0942();
+	Rva002E36D5Node *node = (Rva002E36D5Node *)Rva002E36D5Find(m_24);
+	if (node) {
+		Rva002E3714Unlink(node);
+		((Rva0023D661 *)TheGameLogic)->rva0023D661((int)node);
+		::delete node;
+	}
+}
 
-private:
-	char m_pad[8];
-	void *m_arg8;
-	char m_padC[0x20 - 0x0C];
-	void *m_slot20;
-};
+// ?g_009FE78C@@3PAVRva0023D661@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
 
-#include "../../../../Include/Common/NameKeyGenerator.h"
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp
 
-extern NameKeyGenerator *TheNameKeyGenerator;
-
-BFME_LITERAL_NAME_GETTER(Rva004B0876Named, "AIGateUpdate")
-
-// tu-skeleton: 0x004B0802 116B ??1AIGateUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
+// Select BFME2's Snapshot name slot before ObjectModule first reads Snapshot.
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 
@@ -269,9 +316,27 @@ UpdateSleepTime AIGateUpdate::update()
 
 // tu-skeleton: 0x004B08D7 17B ?buildFieldParse@AIGateUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004B08E8 62B ??0AIGateUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateCtor.cpp
 
-// tu-skeleton: 0x004B0926 28B ??_GAIGateUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
+// ??0AIGateUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
+AIGateUpdate::AIGateUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData),
+	  m_opener(0),
+	  m_24(0),
+	  count28(0),
+	  count2C(0),
+	  loaded(false),
+	  enabled(0)
+{
+}
+
+// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
+// each one has the same function in that slot (vftable addresses from matched vptr
+// stores). Bind them to the rows at those functions.
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x004B095C 139B ?xfer@AIGateUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp (not merged yet)
 
@@ -280,10 +345,6 @@ UpdateSleepTime AIGateUpdate::update()
 // tu-skeleton: 0x004B0A24 134B ?rva004B0A24@AIGateUpdate@@QAE?AVVector2@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
 
 // tu-skeleton: 0x004B0AAA 381B ?loadTrigger@AIGateUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E77E 8B Unwind@00b8e77e -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E786 10B __ehhandler$??1AIGateUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E7A7 10B uw_0078e7a7 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp (not merged yet)
 

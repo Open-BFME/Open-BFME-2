@@ -368,3 +368,5 @@ Census confirmation: awaiting.
 2026-11-05: AIGateUpdate seed now selects BFME2's Snapshot name slot before ObjectModule; seed/ctor/dtor retain 522 preview bytes and owning acceptance retires three stale UpdateModule queue rows. Destructor merge still needs primary-vtable parity; constructor/trigger views still differ. [Checks and next prerequisite](../../reverse/attempt_support/aigate-update-snapshot-20261105-codexb5/README.md).
 
 2026-11-05: AIGateUpdate constructor/destructor now declare the retail slot-4 name key and share the seed field view; 5/5 rows and 522 preview bytes preserved. Dry run accepts the three-source merge; trigger remains separate. [Prerequisite evidence](../../reverse/attempt_support/aigate-update-views-20261105-codexb5/README.md).
+
+2026-11-05: AIGateUpdate seed/ctor/dtor merged into the approved TU: two fewer files, 13/13 rows and both EH graphs exact, aliases transferred intact. Trigger layout remains the next prerequisite; broad batch audit awaits a current consumer receipt and next-census confirmation. [Merge/audit evidence](../../reverse/attempt_support/aigate-update-merge-20261105-codexb5/README.md).
