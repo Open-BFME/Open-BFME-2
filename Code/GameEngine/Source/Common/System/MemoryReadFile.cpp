@@ -78,47 +78,7 @@ struct BfmeThingEE
 
 unsigned char bfmeAskEE(BfmeThingEE *thing);
 
-class File
-{
-public:
-	File();
-	virtual ~File();
-	virtual bool open(const char *filename, int access);
-	virtual void close();
-	enum seekMode { START, CURRENT, END };
-	enum { TEXT = 0x20 };
-
-	virtual int read(void *buffer, int bytes) = 0;
-	virtual int write(const void *buffer, int bytes) = 0;
-	virtual int seek(int bytes, seekMode mode) = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual bool print(const char *format, ...);
-	virtual int size();
-	virtual int position();
-	virtual char *readEntireAndClose() = 0;
-	virtual void slot14() = 0;
-	virtual void lock();
-	virtual void unlock();
-
-	bool eof();
-
-protected:
-	void setName(const char *name)
-	{
-		((StringBase<char> *)&m_sourceFile)->set(name);
-	}
-
-protected:
-	AsciiString m_sourceFile; // +0x04
-	int m_08; // +0x08 File m_access
-	unsigned char m_0C; // +0x0C File m_open
-	unsigned char m_0D; // +0x0D
-	unsigned char m_pad0E[2];
-	void *m_10; // +0x10 File m_mutex
-};
+#include "../../../Include/Common/File.h"
 
 class MemoryReadFile : public File
 {
@@ -171,9 +131,9 @@ MemoryReadFile::MemoryReadFile(char *data, int size)
 	m_data = data;
 	m_size = size;
 	m_pos = 0;
-	m_0C = 1;
-	m_08 = 0x41;
-	((StringBase<char> *)&m_sourceFile)->set("<MemoryReadFile>");
+	m_open = true;
+	m_access = 0x41;
+	((StringBase<char> *)&m_nameStorage)->set("<MemoryReadFile>");
 }
 
 // tu-skeleton: 0x006022AE 28B ??_GRva006022CA@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
