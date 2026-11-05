@@ -6,6 +6,7 @@
 // declaration uses the export name found at the retail IAT slot so the import
 // reference gate verifies identity as well as the FF 25 + DIR32 instruction.
 
+extern "C" __declspec(dllimport) void memset();
 extern "C" __declspec(dllimport) void AVIFileRelease();
 extern "C" __declspec(dllimport) void _CIacos();
 extern "C" __declspec(dllimport) void _CIasin();
@@ -43,6 +44,7 @@ extern "C" __declspec(dllimport) void sscanf();
 extern "C" __declspec(dllimport) void strtoul();
 extern "C" __declspec(dllimport) void tan();
 
+void ji_006291ae() { memset(); }
 void ji_0062909a() { abs(); }
 void ji_00629176() { _mbscpy(); }
 void ji_00629182() { __CxxFrameHandler(); }
