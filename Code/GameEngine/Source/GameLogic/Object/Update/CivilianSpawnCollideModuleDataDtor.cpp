@@ -2,7 +2,7 @@
 //
 // ??1CivilianSpawnCollideModuleData@@UAE@XZ, retail 0x004BD72A, 48 bytes.
 // ModuleData dtor: tears down the filter at +0x08 through the folded 0x360D26
-// body (Rva003623E5Filter pin), then restores the Snapshot base vtable
+// body (canonical Rva003623E5Member destructor), then restores the Snapshot base vtable
 // 0x00BBB554. Empty derived body with EH state 0 (EH prolog 0xB8F889, no base
 // call since Snapshot dtor is inline). Shape follows the landed
 // PillageModuleDataDtor/SpecialEnemySenseUpdateModuleDataDtor (TU-local Snapshot
@@ -18,11 +18,9 @@ class Xfer;
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 
-class Rva003623E5Filter
-{
-public:
-	~Rva003623E5Filter();
-};
+// The ctor uses this same four-byte handle at +0x08. Its canonical
+// destructor pin and the former private Filter name both resolve to 0x360D26.
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 class __declspec(novtable) CivilianSpawnCollideModuleData : public Snapshot
 {
@@ -31,7 +29,7 @@ public:
 
 private:
 	int m_unused04; // +0x04 tag
-	Rva003623E5Filter m_filter; // +0x08
+	Rva003623E5Member m_filter; // +0x08
 };
 
 CivilianSpawnCollideModuleData::~CivilianSpawnCollideModuleData()
