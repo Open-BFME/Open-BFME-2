@@ -39,17 +39,7 @@ struct Coord3DSet : public Coord3D
 	void set(Real ax, Real ay, Real az) { x = ax; y = ay; z = az; }
 };
 
-class Vector3
-{
-public:
-	Vector3() {}
-	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	Real X;
-	Real Y;
-	Real Z;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 

@@ -36,30 +36,7 @@
 #include "Lib/Coord3D.h"
 #include "Lib/RGBColor.h"
 #include "ascii_string.h"
-class Vector3
-{
-  public:
-    float X, Y, Z;
-    Vector3()
-    {
-    }
-    Vector3(float x, float y, float z)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-    }
-    Vector3(const Vector3 &vec) : X(vec.X), Y(vec.Y), Z(vec.Z)
-    {
-    }
-    Vector3 &operator=(const Vector3 &vec)
-    {
-        X = vec.X;
-        Y = vec.Y;
-        Z = vec.Z;
-        return *this;
-    }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class ChunkInputStream
 {
   public:

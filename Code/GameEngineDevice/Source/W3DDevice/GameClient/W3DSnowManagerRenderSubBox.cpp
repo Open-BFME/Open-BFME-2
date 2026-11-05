@@ -33,7 +33,7 @@
 #define WWMATH_PI 3.14159265358979323846f
 extern float _FastSinTable[SIN_TABLE_SIZE];
 class WWMath {public:static __forceinline int Float_To_Int_Floor(const float&);static __forceinline float Fast_Sin(float);};
-struct Vector3 {float X,Y,Z;void Set(float x,float y,float z){X=x;Y=y;Z=z;} Vector3&operator=(const Vector3&r){X=r.X;Y=r.Y;Z=r.Z;return *this;}};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class RenderInfoClass;class TextureBaseClass;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/ShaderClass.h"
 namespace Debug_Statistics {void Record_DX8_Polys_And_Vertices(int,int,const ShaderClass&);}

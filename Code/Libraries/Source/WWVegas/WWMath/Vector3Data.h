@@ -8,12 +8,16 @@
 // Rowed members: Dot_Product 0x000663EF, Length2 0x00711C40,
 // Cross_Product_Z 0x000D46CE, Add 0x0006E090, Subtract 0x0006E0C7,
 // Scale(Vector3) 0x0006E0FE, Update_Min 0x000E0E71, Update_Max 0x000E0EA7,
-// operator= 0x00169FB0, Normalize 0x0006924F, Length 0x000692B3,
+// Normalize 0x0006924F, Length 0x000692B3,
 // Normalized_Cross_Product 0x0006A965, Quick_Length 0x0026FDD4,
 // Quick_Distance 0x0026FE70, Rotate_Z(float) 0x0008E48C,
 // Rotate_Z(float,float) 0x0008E11F, Lerp 0x0009AA48, Distance 0x000CFF7F,
 // Find_X_At_Z 0x000852F7 and Find_Y_At_Z 0x00085317. These stay declarations
 // so consumers call the rowed bodies without emitting their own copies.
+// operator= is the exception: its rowed body 0x00169FB0 is a compiler COMDAT
+// of Zero Hour's inline assignment (owner matrix3d_inverse.cpp) that nothing in
+// retail calls or references, while consumers such as renderSubBox 0x00093507
+// copy the three dwords inline, so it is defined inline here.
 // CreateBeaconObject 0x00213171 initializes a Vector3 inline at 0x002132CB,
 // 0x002132D0 and 0x002132D5, with no constructor call or vptr store.
 // updateScorches 0x000678BB copies the scorch location inline; Zero Hour
@@ -45,7 +49,7 @@ public:
     __forceinline Vector3(const Vector3 &value) : X(value.X), Y(value.Y), Z(value.Z) {}
     __forceinline Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
     __forceinline Vector3(const float value[3]) : X(value[0]), Y(value[1]), Z(value[2]) {}
-    Vector3 &operator=(const Vector3 &value);
+    __forceinline Vector3 &operator=(const Vector3 &value) { X = value.X; Y = value.Y; Z = value.Z; return *this; }
     __forceinline void Set(float x, float y, float z) { X = x; Y = y; Z = z; }
     __forceinline void Set(const Vector3 &value) { X = value.X; Y = value.Y; Z = value.Z; }
     float &operator[](int index);

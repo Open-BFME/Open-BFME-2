@@ -34,17 +34,7 @@ typedef unsigned short UnsignedShort;
 #define MAX_SHADOW_LIGHTS		1
 #define MAX_SHADOW_CASTER_MESHES	160
 
-class Vector3
-{
-public:
-	Vector3(void) {}
-	Vector3(Real x, Real y, Real z);
-	__forceinline Vector3(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; }
-	__forceinline Vector3 &operator=(const Vector3 &vec) { X = vec.X; Y = vec.Y; Z = vec.Z; return *this; }
-	Vector3 &operator*=(Real k) { X *= k; Y *= k; Z *= k; return *this; }
-	Vector3 &operator+=(const Vector3 &vec) { X += vec.X; Y += vec.Y; Z += vec.Z; return *this; }
-	Real X, Y, Z;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 // Keep the subtraction local to each recovered algorithm. Their inline forms
 // differ in evaluation order; both compute the same three component differences.

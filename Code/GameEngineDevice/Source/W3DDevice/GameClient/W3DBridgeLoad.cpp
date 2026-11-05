@@ -30,13 +30,7 @@ enum TBridgeType
 	SECTIONAL_BRIDGE = 1
 };
 
-class Vector3
-{
-public:
-	float X, Y, Z;
-	__forceinline Vector3() {}
-	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 

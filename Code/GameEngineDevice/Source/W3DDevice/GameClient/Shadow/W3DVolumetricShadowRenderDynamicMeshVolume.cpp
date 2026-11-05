@@ -203,7 +203,7 @@ typedef DWORD D3DRENDERSTATETYPE;
 #define SHADOW_INDEX_SIZE	16384
 
 
-class Vector3 {public: Vector3(){} Vector3(float x,float y,float z):X(x),Y(y),Z(z){} Vector3(const Vector3&v):X(v.X),Y(v.Y),Z(v.Z){} float X,Y,Z; Vector3&operator=(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;return *this;} Vector3& operator+=(const Vector3 &v){X+=v.X;Y+=v.Y;Z+=v.Z;return *this;}};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 class AABoxClass {public: AABoxClass(){} Vector3 Center,Extent; void Translate(const Vector3&v){Center+=v;}};
 class SphereClass {public: SphereClass(){} __forceinline SphereClass&operator=(const SphereClass&v){Center=v.Center;Radius=v.Radius;return *this;} Vector3 Center;float Radius;};
 class FrustumClass;

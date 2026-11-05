@@ -10,24 +10,14 @@
 
 typedef unsigned int UnsignedInt;
 
-struct Vector3
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
+
+// The canonical Vector3 declares no binary operators; this TU supplies the
+// scaled copy its fades use.
+static __forceinline Vector3 operator*(const Vector3 &v, float scale)
 {
-	float x;
-	float y;
-	float z;
-	Vector3(float a, float b, float c) : x(a), y(b), z(c) {}
-	__forceinline friend Vector3 operator*(const Vector3 &v, float scale)
-	{
-		return Vector3(v.x * scale, v.y * scale, v.z * scale);
-	}
-	Vector3 &operator=(const Vector3 &v)
-	{
-		x = v.x;
-		y = v.y;
-		z = v.z;
-		return *this;
-	}
-};
+	return Vector3(v.X * scale, v.Y * scale, v.Z * scale);
+}
 
 class W3DDynamicLight
 {
