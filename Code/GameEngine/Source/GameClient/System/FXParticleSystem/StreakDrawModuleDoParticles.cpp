@@ -139,17 +139,7 @@ public:
 	int get() const;
 };
 
-class ParticleSystem
-{
-public:
-	char m_pad00[8];
-	Int m_shaderType; // +0x08
-	char m_pad0C[4];
-	AsciiString m_textureName; // +0x10
-	char m_pad14[0x90];
-	StreakParticleStorage *m_storage; // +0xA4
-};
-extern ParticleSystem *Make001FCBD7(void);
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
 struct StreakBox
 {
@@ -200,7 +190,7 @@ Int StreakDrawModule::doParticles(RenderInfoClass &rinfo, void *bounds, Int *par
 	StreakParticle *streakParticle = 0;
 
 	if (!(unsigned char)((Rva0004CABDSevenEight *)getSystem())->get())
-		streakParticle = getSystem()->m_storage->getFirstParticle();
+		streakParticle = ((StreakParticleStorage *)getSystem()->m_A4)->getFirstParticle();
 	{
 		for (; streakParticle != 0; streakParticle = streakParticle->m_next)
 		{
@@ -242,11 +232,11 @@ Int StreakDrawModule::doParticles(RenderInfoClass &rinfo, void *bounds, Int *par
 
 	if (g_00E06224 != 0 && count >= 2)
 	{
-		BFME2ParticleTextureHandle texture = TextureAsset::Get(getSystem()->m_textureName.str(), 0, 0);
+		BFME2ParticleTextureHandle texture = TextureAsset::Get(getSystem()->m_particleTypeName.str(), 0, 0);
 		g_00E06224->Reset_Line();
 		g_00E06224->Set_Texture((TextureClass *)&texture);
 		ShaderClass shader = ShaderClass::_PresetAdditiveSpriteShader;
-		switch (getSystem()->m_shaderType)
+		switch ((Int)getSystem()->m_shaderType)
 		{
 		case 2: shader = *reinterpret_cast<const ShaderClass *>(&BfmeParticleType2ShaderBits); break;
 		case 3: shader = ShaderClass::_PresetAlphaSpriteShader; break;

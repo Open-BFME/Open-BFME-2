@@ -113,12 +113,11 @@ class Rva001F4DF9 {public:float rva001F4DF9();};
 struct ButterflyParticle {char prefix[16];Vector3 axis;Vector3 position;char gap[0x3c];ButterflyParticle*next;};
 class ButterflyParticleStorage {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void v6();virtual void v7();virtual ButterflyParticle*getFirstParticle();};
 class Rva0004CABDSevenEight {public:int get()const;};
-class ParticleSystem {public:char p0[8];int shader;char pC[4];AsciiString texture;char p14[0x90];ButterflyParticleStorage*storage;};
-ParticleSystem*Make001FCBD7();
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 struct ButterflyBox {Vector3 center,extent;};
 __forceinline float quadFabs(float x){unsigned n=*(unsigned*)&x;n&=0x7fffffff;return *(float*)&n;}
 namespace FXParticleSystem {
-class ButterflyDrawModule {public:virtual int doParticles(RenderInfoClass&,void*,int*);private:ParticleSystem*system;__forceinline ParticleSystem*getSystem(){return system?system:Make001FCBD7();}};
+class ButterflyDrawModule {public:virtual int doParticles(RenderInfoClass&,void*,int*);private: ::ParticleSystem*system;__forceinline ::ParticleSystem*getSystem(){return system?system:Make001FCBD7();}};
 int ButterflyDrawModule::doParticles(RenderInfoClass&rinfo,void*bounds,int*particleCount){
  if(WW3D::IsCurrentlyRenderingShadowMap)return 0;
  int count=0;Vector3*positions=g_00E065C8->Get_Array();Vector4*colors=g_00E065CC->Get_Array();
@@ -129,7 +128,7 @@ int ButterflyDrawModule::doParticles(RenderInfoClass&rinfo,void*bounds,int*parti
  Rva0007671F view;Rva0007671F matrixB,matrixC,matrixD,matrixA;  // slot order follows the names (hash), not declaration order
  DX8Wrapper::Get_Transform(2,view);
  if(!((unsigned char)((Rva0004CABDSevenEight*)getSystem())->get())){
- ButterflyParticle*butterflyParticle=getSystem()->storage->getFirstParticle();
+ ButterflyParticle*butterflyParticle=((ButterflyParticleStorage*)getSystem()->m_A4)->getFirstParticle();
  for(;butterflyParticle;butterflyParticle=butterflyParticle->next){
   if(((Rva001F4E2D*)butterflyParticle)->rva001F4E2D())continue;
   const Vector3*pos=&butterflyParticle->position;float size=((Rva001F4D2D*)butterflyParticle)->rva001F4D2D();float angle=((Rva001F4DC4*)butterflyParticle)->rva001F4DC4();
@@ -161,10 +160,10 @@ int ButterflyDrawModule::doParticles(RenderInfoClass&rinfo,void*bounds,int*parti
   count+=2;if(count>=512)break;
  }
  }
- if(count>0){BFME2ParticleTextureHandle texture=TextureAsset::Get(getSystem()->texture.str(),0,0);
+ if(count>0){BFME2ParticleTextureHandle texture=TextureAsset::Get(getSystem()->m_particleTypeName.str(),0,0);
   if(g_00E06254){RefCountPtr<TextureClass>&dst=g_00E06254->texture;dst=*(RefCountPtr<TextureClass>*)&texture;
    ShaderClass shader=ShaderClass::_PresetAdditiveSpriteShader;
-   switch(getSystem()->shader){case 2:shader=*reinterpret_cast<const ShaderClass *>(&BfmeParticleType2ShaderBits);break;case 3:shader=ShaderClass::_PresetAlphaSpriteShader;break;case 4:shader=ShaderClass::_PresetATestSpriteShader;break;case 5:shader=ShaderClass::_PresetMultiplicativeSpriteShader;break;case 6:shader=ShaderClass::_PresetAdditive2DShader;break;case 7:shader=ShaderClass::_PresetAlpha2DShader;break;}
+   switch((int)getSystem()->m_shaderType){case 2:shader=*reinterpret_cast<const ShaderClass *>(&BfmeParticleType2ShaderBits);break;case 3:shader=ShaderClass::_PresetAlphaSpriteShader;break;case 4:shader=ShaderClass::_PresetATestSpriteShader;break;case 5:shader=ShaderClass::_PresetMultiplicativeSpriteShader;break;case 6:shader=ShaderClass::_PresetAdditive2DShader;break;case 7:shader=ShaderClass::_PresetAlpha2DShader;break;}
    if(DX8Wrapper::FogEnable)shader.Enable_Fog("HardwareFog");g_00E06254->shader=shader.ShaderBits;
    ((Rva0090F8C0Holder*)g_00E06254)->set(count,(RefCountClass*)g_00E065C8,(RefCountClass*)g_00E065CC,0,0);g_00E06254->Render(rinfo);
   }

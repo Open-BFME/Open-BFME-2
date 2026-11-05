@@ -191,13 +191,7 @@ public:
 	virtual RefCountPtr<FXShader::RenderingMethod> getShader();	// slot 15
 };
 
-class ParticleSystem
-{
-public:
-	char m_pad000[0xA4];
-	GpuParticleStorage *m_storage; // +0xA4
-};
-extern ParticleSystem *Make001FCBD7(void);
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
 namespace FXParticleSystem {
 class GpuDrawModule
@@ -206,15 +200,15 @@ public:
 	virtual Int doParticles(RenderInfoClass &rinfo, void *unused, Int *particleCount);
 
 private:
-	ParticleSystem *getSystem() const
+	::ParticleSystem *getSystem() const
 	{
-		ParticleSystem *system = m_system;
+		::ParticleSystem *system = m_system;
 		if (system == 0)
 			system = Make001FCBD7();
 		return system;
 	}
 
-	ParticleSystem *m_system; // +0x04
+	::ParticleSystem *m_system; // +0x04
 };
 
 Int GpuDrawModule::doParticles(RenderInfoClass &rinfo, void *unused, Int *particleCount)
@@ -224,7 +218,7 @@ Int GpuDrawModule::doParticles(RenderInfoClass &rinfo, void *unused, Int *partic
 	if (reinterpret_cast<GpuDrawGlobalDataView *>(TheWritableGlobalData)->m_C60 != -1)
 		return 0;
 
-	GpuParticleStorage *storage = getSystem()->m_storage;
+	GpuParticleStorage *storage = (GpuParticleStorage *)getSystem()->m_A4;
 	IDirect3DVertexDeclaration9 *vertexDeclaration = storage->getVertexDeclaration();
 	VertexBufferClass *vertexBuffer = storage->getVertexBuffer();
 	UnsignedInt vertexCount = storage->getVertexCount();

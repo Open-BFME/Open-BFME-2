@@ -120,17 +120,7 @@ public:
 	int get() const;
 };
 
-class ParticleSystem
-{
-public:
-	char m_pad00[8];
-	Int m_shaderType; // +0x08
-	char m_pad0C[4];
-	AsciiString m_textureName; // +0x10
-	char m_pad14[0x90];
-	StreakParticleStorage *m_storage; // +0xA4
-};
-extern ParticleSystem *Make001FCBD7(void);
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
 static inline float StreakFabs(float val)
 {
@@ -177,7 +167,7 @@ int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,vo
  unsigned char* angles=g_00E065D4->Get_Array();
  bool refresh=false;unsigned savedSeed=1;unsigned ids[512];
  StreakParticle* streakParticle=0;
- if(!(unsigned char)((Rva0004CABDSevenEight*)getSystem())->get())streakParticle=getSystem()->m_storage->getFirstParticle();
+ if(!(unsigned char)((Rva0004CABDSevenEight*)getSystem())->get())streakParticle=((StreakParticleStorage *)getSystem()->m_A4)->getFirstParticle();
  if(streakParticle){
   if(tail!=streakParticle->frame){tail=streakParticle->frame;refresh=true;savedSeed=streakParticle->seed;if(value>WWMath::Random_Float())count=2;else count=1;}
  for(;streakParticle;streakParticle=streakParticle->m_next) {
@@ -195,7 +185,7 @@ int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,vo
  }
  }
  if(g_00E0626C && numParticles>=2){
-  BFME2ParticleTextureHandle texture=TextureAsset::Get(getSystem()->m_textureName.str(),0,0);
+  BFME2ParticleTextureHandle texture=TextureAsset::Get(getSystem()->m_particleTypeName.str(),0,0);
   if(refresh){
    axisA.Set(locs[numParticles-1].X-locs[0].X,locs[numParticles-1].Y-locs[0].Y,locs[numParticles-1].Z-locs[0].Z);axisA.normalize();
    axisC.x=0;axisC.y=0;axisC.z=1;
@@ -237,7 +227,7 @@ int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,vo
   }
   g_00E0626C->Set_Texture((TextureClass*)&texture);g_00E0626C->Reset_Line();
   ShaderClass shader=ShaderClass::_PresetAdditiveSpriteShader;
-  switch(getSystem()->m_shaderType){
+  switch((Int)getSystem()->m_shaderType){
    case 2:shader=*reinterpret_cast<const ShaderClass *>(&BfmeParticleType2ShaderBits);break;case 3:shader=ShaderClass::_PresetAlphaSpriteShader;break;
    case 4:shader=ShaderClass::_PresetATestSpriteShader;break;case 5:shader=ShaderClass::_PresetMultiplicativeSpriteShader;break;
    case 6:shader=ShaderClass::_PresetAdditive2DShader;break;case 7:shader=ShaderClass::_PresetAlpha2DShader;break;
