@@ -178,6 +178,12 @@ private:
 };
 
 namespace _STL {
+// Match the vector donor's declaration without specializing an already
+// instantiated range destroy when the approved TU absorbs that donor.
+template <> inline void _Destroy<Rva00214ADC *>(Rva00214ADC *first, Rva00214ADC *last)
+{
+    __destroy(first, last, static_cast<Rva00214ADC *>(0));
+}
 template void _Destroy<Rva00214ADC *>(Rva00214ADC *, Rva00214ADC *);
 }
 

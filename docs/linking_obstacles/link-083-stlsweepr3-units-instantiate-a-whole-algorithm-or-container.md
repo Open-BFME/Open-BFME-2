@@ -152,3 +152,5 @@ inspected `d16a31e4dc`, index `73061d9452`, retail-truth-4):**
 - 2026-11-04: 0051F7AD now uses STLport vector without losing its 206-byte match or preview link; AptTimeLine merge dry run accepts it. [Prerequisite evidence](../../reverse/attempt_support/apt-timeline-vector-reconcile-20261104.md); no census gain claimed.
 
 - 2026-11-04: 0051F7AD is merged into its approved AptTimeLine.cpp TU (one source removed; 136/136 functions exact; destination and assignment consumer preview LINKS). Broader audit remains inconclusive on the stale 0CreateAHeroManager21FE49.cpp receipt and older index; carry to census. [Merge audit](../../reverse/attempt_support/apt-timeline-vector-reconcile-20261104.md).
+
+- 2026-11-05: AttributeModifierStore range-destroy specialization removes the STL donor's C2908 merge blocker with identical object facts; next reconcile the vector class/destructor C2910 conflict. [Prerequisite checks and remaining blockers](../../reverse/attempt_support/attribute-range-destroy-specialization-20261105-codexb5.md).
