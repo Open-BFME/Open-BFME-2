@@ -19608,7 +19608,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02DC4,4,.data,global,?$S1@?3??Rva003C30D9Do@ScriptActions@@QAEXABVAsciiString@@_N@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C30D9.cpp,owned,,1,4
 0x00A02DC8,4,.data,global,?dualKey@?3??Rva003C3175Do@ScriptActions@@QAEXABVAsciiString@@_N@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C3175.cpp,owned,,1,2
 0x00A02DCC,4,.data,global,?$S1@?3??Rva003C3175Do@ScriptActions@@QAEXABVAsciiString@@_N@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C3175.cpp,owned,,1,4
-0x00A02DD0,4,.data,global,?autoKey@?3??Rva003C31F3Do@@YGXABVAsciiString@@0_N@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp,owned,,1,2
+0x00A02DD0,4,.data,global,?autoKey@?3??Rva003C31F3Do@ScriptActions@@QAEXABVAsciiString@@0_N@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp,owned,,1,2
 0x00A02DD4,8,.data,global,?$S1@?3??Rva003C31F3Do@ScriptActions@@QAEXABVAsciiString@@0_N@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp,owned,,1,4
 0x00A02DDC,4,.data,global,?$S1@?3??rva003C32CC@ScriptActions@@IAEXABVAsciiString@@0_N@Z@4IA,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAutoAbility.cpp,owned,,1,2
 0x00A02DE0,4,.data,global,?key_CommandButtonHuntUpdate@?CA@??doTeamHuntWithCommandButton@ScriptActions@@IAEXABVAsciiString@@0@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamHuntWithCommandButton.cpp,owned,,1,2
