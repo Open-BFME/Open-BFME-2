@@ -10,30 +10,14 @@
 // with no callees. Name and Int parameter follow the Zero Hour ScriptEngine.h
 // declaration; the table shape is retail-measured.
 
-typedef int Int;
-typedef unsigned char Byte;
-
-class ActionTemplate
-{
-public:
-	Byte m_pad[128];
-};
-
-class ScriptEngine
-{
-public:
-	const ActionTemplate *getActionTemplate(Int actionType);
-
-private:
-	Byte m_pad0[0x20];
-	ActionTemplate m_actionTemplates[0x257];
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 // ?getActionTemplate@ScriptEngine@@QAEPBVActionTemplate@@H@Z
-const ActionTemplate *ScriptEngine::getActionTemplate(Int actionType)
+const ActionTemplate *ScriptEngine::getActionTemplate(int actionType)
 {
-	Int index = actionType;
+	int index = actionType;
 	if (index < 0 || index >= 0x257)
 		index = 0;
-	return &m_actionTemplates[index];
+	// The canonical header keeps both template tables opaque at +0x1C.
+	return reinterpret_cast<const ActionTemplate *>(m_opaque1C + 4 + index * 128);
 }

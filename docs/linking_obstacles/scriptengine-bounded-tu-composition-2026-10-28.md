@@ -20,3 +20,5 @@ need template/private-view or byte reconciliation; thirty-five mixed sources
 remain separate. The unapproved 0x000424FF wrapper remains in its original file.
 No census gain is claimed.
 [Verification, bindings, path audit and prerequisites](../../reverse/attempt_support/scriptengine-consolidation-20261028-codex.md).
+
+2026-11-05: The action/condition template getters adopt the canonical ScriptEngine header; both complete bodies and link previews retain 57 bytes, and the owning tool retires their two header-debt rows. Seed adoption and the other donor conflicts remain open; [repair evidence](../../reverse/attempt_support/scriptengine-template-getters-header-20261105-codex4.md).
