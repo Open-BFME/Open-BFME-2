@@ -136,6 +136,19 @@ protected:
 #ifdef BFME_BEHAVIORMODULE_LOADPOSTPROCESS
 	virtual void loadPostProcess();
 #endif
+
+	// Snapshot slot 3. BehaviorModule's own table 0x00BEEA7C holds 0x004C9C7D there
+	// (row ?xfer@BehaviorModule@@MAEXPAVXfer@@@Z: Version1, then ObjectModule's xfer).
+	// The family overrides make Zero Hour's `BehaviorModule::xfer(xfer)` base call;
+	// DamageModule's 0x004CE56D is one, folded with other modules' identical
+	// overrides. Opt-in like loadPostProcess above: declared for every includer it
+	// would override Snapshot's xfer in every derived view that declares none, and
+	// those tables are not measured. A unit defining an override that makes the base
+	// call defines BFME_BEHAVIORMODULE_XFER before its includes and must emit no
+	// BehaviorModule-derived table.
+#ifdef BFME_BEHAVIORMODULE_XFER
+	virtual void xfer(Xfer *xfer);
+#endif
 public:
 
 	virtual void *vslot10() { return 0; }			// primary slot 10
