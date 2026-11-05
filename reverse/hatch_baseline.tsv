@@ -715,7 +715,6 @@ address_global	Code/GameEngine/Source/Common/System/Rva003F10D0Pick.cpp	g_Va00DC
 address_global	Code/GameEngine/Source/Common/System/Rva003F10D0Pick.cpp	g_Va00DC163C	2
 address_global	Code/GameEngine/Source/Common/System/Rva003F10D0Pick.cpp	g_Va00DC164C	2
 address_global	Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp	g_Va00E01E74	3
-address_global	Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp	g_Rva0030A120Count	3
 address_global	Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp	g_Rva0081C5C0Begin	2
 address_global	Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp	g_Rva0081C5C0End	2
