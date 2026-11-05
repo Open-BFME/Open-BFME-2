@@ -173,22 +173,7 @@ public:
 };
 extern View *TheTacticalView;
 
-class Display
-{
-public:
-#define SLOT(N) virtual void slot##N();
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-#undef SLOT
-	virtual unsigned int getWidth();
-	virtual unsigned int getHeight();
-#define SLOT(N) virtual void slot##N();
-	SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26)
-	SLOT(27) SLOT(28) SLOT(29) SLOT(30) SLOT(31) SLOT(32) SLOT(33) SLOT(34)
-#undef SLOT
-	virtual void attachView( View *view );
-};
-extern Display *TheDisplay;
+#include "../../Include/GameClient/Display.h"
 
 struct FieldParse;
 
@@ -849,7 +834,7 @@ void InGameUI::init()
 		// make the tactical display the full screen width and height
 		TheTacticalView = createView();
 		TheTacticalView->init();
-		TheDisplay->attachView( TheTacticalView );
+		TheDisplay->rva0025C134( TheTacticalView );
 
 		TheTacticalView->setWidth( TheDisplay->getWidth() );
 		// keep the tactical view from rendering underneath the control bar

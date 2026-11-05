@@ -24952,7 +24952,7 @@ _piChannelMessageA,,0x006AACB0,305,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?rva0033269B@Rva0033269B@@QAEXABUBfmeStringRecord000331962@@@Z,,0x0033269B,115,Code/GameEngine/Source/Common/Rva0033269B.cpp,matched,unlock word-search update-or-append via G7 for imul
 ??$_Construct@VRva0052BD59@@V1@@_STL@@YAXPAVRva0052BD59@@ABV1@@Z,,0x0052C320,45,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp,matched,STL Construct for Rva0052BD59 calls rowed copy ctor 0x0052BD59
 ??0?$_Vector_base@UBfmePod48@@V?$allocator@UBfmePod48@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmePod48@@@1@@Z,,0x003F4443,60,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_base_pod48.cpp,matched,Vector_base Pod48 ctor via G7 imul plus allocate
-?rva0025C134@Display@@UAEXPAV1@@Z,,0x0025C134,25,Code/GameEngine/Source/Common/BfmeStrVM0Rva0025C134.cpp,matched,vslot 35 of 0x007F5DA0 plus member 0x1c via slot 0x25c
+?rva0025C134@Display@@UAEXPAVView@@@Z,,0x0025C134,25,Code/GameEngine/Source/Common/BfmeStrVM0Rva0025C134.cpp,matched,vslot 35 of 0x007F5DA0 plus member 0x1c via slot 0x25c
 ??$_Construct@VRva0052BE33@@V1@@_STL@@YAXPAVRva0052BE33@@ABV1@@Z,,0x0052C392,45,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp,matched,STL Construct for Rva0052BE33 calls rowed copy ctor 0x0052BE33
 ?Rva0052C961Get@@YAPAXPAX00@Z,,0x0052C961,38,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,matched,Uninit copy stride 20 via rowed Construct 0x0052C392 caller 0x0052CCA7 unlocks 0x0052CC64
 ?rva00332E60@Rva00332E60@@QAEPAXH@Z,,0x00332E60,35,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp,matched,unlock 17-entry search via O1 table at plus20

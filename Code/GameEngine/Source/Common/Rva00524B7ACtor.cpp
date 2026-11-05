@@ -2,12 +2,12 @@
 #include "ascii_string.h"
 template<int N> class MovieSlots:public MovieSlots<N-1>{public:virtual void gap(char(*)[N]);};
 template<> class MovieSlots<0>{};
-struct MovieSubtitle {char unknown[0x18];void *font;};
+class SubTitleManager;
+struct MovieSubtitle {char unknown[0x18];SubTitleManager *font;};
 class MovieStream:public MovieSlots<14>{public:virtual bool start(void*);char pad4[4];MovieSubtitle *subtitles;int unknownC;void(__cdecl *callback)(int);};
 class VideoPlayerInterface:public MovieSlots<17>{public:virtual MovieStream *open(AsciiString,int);};
 extern VideoPlayerInterface *TheVideoPlayer;
-class Display:public MovieSlots<16>{public:virtual unsigned height();virtual unsigned width();virtual void v18();virtual void v19();virtual void v20();virtual void v21();virtual void v22();virtual void v23();virtual void v24();virtual void v25();virtual void v26();virtual void v27();virtual void drawSubtitle(void*,float,float,int,int,int,int);virtual void v29();virtual void v30();virtual void v31();virtual void v32();virtual void v33();virtual void v34();virtual void v35();virtual void v36();virtual void v37();virtual void v38();virtual void v39();virtual void v40();virtual void *buffer(bool);};
-extern Display *TheDisplay;
+#include "../../Include/GameClient/Display.h"
 class BfmeSelectionState {public:bool isSelectionLocked()const;};
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -87,13 +87,13 @@ void MovieWindowPlayback::OpenMovie(const AsciiString &name,int value){
  if(!m_0C)return;
  if(m_0C->subtitles && m_0C->subtitles->font){
   float width=((BfmeSelectionState*)TheLivingWorldLogic)->isSelectionLocked()?MovieSubtitleLockedWidth:MovieSubtitleNormalWidth;
-  int subtitleY=(int)(TheDisplay->height()*MovieSubtitleYScale);
-  int subtitleWidth=(int)(TheDisplay->width()*width);
-  int subtitleX=(int)(TheDisplay->height()*MovieSubtitleXScale);
-  TheDisplay->drawSubtitle(m_0C->subtitles->font,(float)subtitleY,(float)subtitleWidth,subtitleX,MovieSubtitleDrawWord0,MovieSubtitleDrawWord1,MovieSubtitleDrawWord2);
+  int subtitleY=(int)(TheDisplay->getWidth()*MovieSubtitleYScale);
+  int subtitleWidth=(int)(TheDisplay->getHeight()*width);
+  int subtitleX=(int)(TheDisplay->getWidth()*MovieSubtitleXScale);
+  TheDisplay->slot28(m_0C->subtitles->font,(float)subtitleY,(float)subtitleWidth,subtitleX,MovieSubtitleDrawWord0,MovieSubtitleDrawWord1,MovieSubtitleDrawWord2);
  }
  MovieStream *playing=m_0C;
- if(!playing->start(TheDisplay->buffer((value&0x40)!=0))){clear();return;}
+ if(!playing->start(TheDisplay->createVideoBuffer((value&0x40)!=0))){clear();return;}
  value=(int)m_0C;
  *((ObjectLookupMap*)&g_Va00E04938)->findSlot(&value)=(Object*)this;
  m_0C->callback=Rva00524CC6;

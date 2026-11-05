@@ -37,24 +37,7 @@ class View:public RainSlots<70>{public:virtual void rvaSlot70(Coord3D *)=0;};
 extern View *TheTacticalView;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Display
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
-	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
-	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
-	virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35();
-	virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
-	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
-	virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47();
-	virtual void setLevel(float v);
-};
-extern Display *TheDisplay;
+#include "../../../../Include/GameClient/Display.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 //
 // ??1RainOfFireUpdate@@UAE@XZ, retail 0x004AC24D, 91 bytes.
@@ -159,7 +142,7 @@ void RainOfFireUpdate::rva004AC18D(float value)
 		return;
 	if (TheDisplay == 0)
 		return;
-	TheDisplay->setLevel(1.0 - (reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData)->darkness * scale * value));
+	TheDisplay->slot48(1.0 - (reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData)->darkness * scale * value));
 }
 
 void RainOfFireUpdate::loadPostProcess()

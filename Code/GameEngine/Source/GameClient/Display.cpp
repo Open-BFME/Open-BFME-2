@@ -315,7 +315,7 @@ public:
 	void rva0025C25A();
 };
 
-// tu-skeleton: 0x0025C134 25B ?rva0025C134@Display@@UAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/BfmeStrVM0Rva0025C134.cpp (not merged yet)
+// tu-skeleton: 0x0025C134 25B ?rva0025C134@Display@@UAEXPAVView@@@Z -- matched in Code/GameEngine/Source/Common/BfmeStrVM0Rva0025C134.cpp (not merged yet)
 
 // tu-skeleton: 0x0025C14D 62B ?rva0025C14D@Display@@UAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp (not merged yet)
 

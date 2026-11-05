@@ -356,7 +356,7 @@ int widthC,height10,bitDepth14; bool window18; char gap19[3];
 #pragma comment(linker, "/alternatename:?v21@Display@@UAEXXZ=?get@Rva004C9990ByteField@@QBEEXZ")
 #pragma comment(linker, "/alternatename:?v23@Display@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?v30@Display@@UAEXXZ=?Set_Fog_Color@SceneClass@@UAEXABVVector3@@@Z")
-#pragma comment(linker, "/alternatename:?v35@Display@@UAEXXZ=?rva0025C134@Display@@UAEXPAV1@@Z")
+#pragma comment(linker, "/alternatename:?v35@Display@@UAEXXZ=?rva0025C134@Display@@UAEXPAVView@@@Z")
 #pragma comment(linker, "/alternatename:?v36@Display@@UAEXXZ=?getData@NetWrapperCommandMsg@@QAEPAEXZ")
 #pragma comment(linker, "/alternatename:?v68@Display@@UAEXXZ=?rva0025D19E@Display@@QAEXXZ")
 

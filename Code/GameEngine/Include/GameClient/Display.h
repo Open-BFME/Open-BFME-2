@@ -10,6 +10,7 @@
 // Destructor 0x0025D6B0..0x0025D6D8 releases AsciiString storage at +0xF0/+0xD0 and UnicodeString storage at +0xB0. These four-byte string members and the image records remain opaque here. The parent owns +0x4 and +0x8. Callback 0x0025C6BD stores +0x30/+0x34; its ledger signature proves DebugDisplayCallback.
 // Nonvirtual method declarations follow the ledger rows at 0x0025DA73, 0x0025D904, 0x0004B180, 0x002B2466, 0x0025C46E, 0x0025D9CB, 0x0025D10F, 0x0025D19E, 0x0025D358, 0x00049F94, 0x0025C6E2, 0x0025C72C, 0x0025C4A4, 0x0025C776, 0x0025D33B, 0x0025CC7A and 0x0025D3C8. No copy or assignment body is supplied.
 // Zero Hour supplies setClipRegion/isClippingEnabled/enableClipping (42-44), createLightPulse (47), drawOpenRect/drawFillRect (56/57), drawImage (62), stopMovie/isMoviePlaying (68/69) and getAverageFPS (92). W3DDisplay table 0x00BC3C80 maps these to 0x00044FB9/0x00049F80/0x00049F87, 0x0004423C, 0x00044A1A/0x00044C9A, 0x0004776F, 0x0025D19E/0x0052D843 and 0x0055F4B5. Retail callers 0x001E041E, 0x00277D31/0x00277D7A and 0x004379A9 confirm the light-pulse, rectangle and FPS dispatches; row 0x0004776F proves the float-coordinate image ABI. Unnamed pure entries reserve their slots without claiming an argument signature. Exceptions: W3DDisplay slots 49/50 (0x0004450E/0x00044545) return with ret 16 and the fade caller 0x0004353C pushes an index and three floats; W3DDisplay slot 52 (0x0004488C) returns with ret 4 and ScriptActions 0x003BAA2D forwards one float to it. W3DDisplay slot 51 (0x0004481A) stores four floats and ScriptActions 0x003BA9FA forwards four floats to it; W3DDisplay slot 84 (0x0004538C) returns AL=1 with ret 8 and ScriptActions 0x003BCCA2 pushes 10000 and 1.
+// W3DDisplay table 0x00BC3C80 fixes the argument lists of slots 28/48/76/79/82/95 through its rowed bodies: 0x00047F79 (bool; SubTitleManager *, float, float, four ints; called by MovieWindowPlayback::OpenMovie 0x00524B7A), 0x0004443E (float; RainOfFireUpdate's darkness scale), 0x00044FF2/0x000450A3 (three ints; Radar notifications 0x002D7AE0/0x002D7B18), 0x000450CE (two ints; 0x002D7B50) and 0x005BF273 (a dword getter whose caller 0x00104A75 uses the result as a Render2DClass *). Slot 35's argument is the View whose slot 151 prepends it to the +0x1C view list (0x0025C134).
 // The shared stub 0x001F01E8 at slots 24/25 returns with ret 16, fixing four argument words. Slots 23-25 take Zero Hour's getDisplayModeCount/getDisplayModeDescription/setGamma: the rowed AptOptions::InitGadgets 0x00519E1E and Save 0x005194F6 read a mode count from +0x5C and pass an index and three int pointers to +0x60, and 0x00519167, Save and 0x0051847B pass the global gamma and 0.0/1.0/false to +0x64; slot 30 at 0x00049F0F copies through one pointer and returns with ret 4. W3DDisplay rows at 0x00044D7F (slot 41), 0x00044E77 (65), 0x0025D6F5 (67) and 0x00047D04 (99) prove their parameter/return representations. Slot 75 reads the callback stored by 0x0025C6BD, and Zero Hour supplies getDebugDisplayCallback. Slot 65 retains a neutral name: its ledger calls it drawImage(Image*,float,float,float,float,int), while consumers call it drawVideoBuffer; this does not prove a second drawImage overload adjacent to slot 62.
 #ifndef BFME2_DISPLAY_H
 #define BFME2_DISPLAY_H
@@ -30,6 +31,8 @@ class DisplayString;
 class DebugDisplayInterface;
 class Image;
 class GameFont;
+class SubTitleManager;
+class Render2DClass;
 struct IRegion2D;
 struct Coord3D;
 struct RGBColor;
@@ -59,14 +62,14 @@ public:
     virtual void setGamma(float gamma, float bright, float contrast, bool calibrate);
     virtual bool testMinSpecRequirements(bool *, bool *, bool *, StaticGameLODLevel * = 0, float * = 0);
     virtual void slot27() = 0;
-    virtual void slot28() = 0;
+    virtual bool slot28(SubTitleManager *, float, float, int, int, int, int) = 0;
     virtual void slot29() = 0;
     virtual void slot30(const void *);
     virtual void slot31() = 0;
     virtual void slot32() = 0;
     virtual void slot33() = 0;
     virtual void slot34() = 0;
-    virtual void rva0025C134(Display *);
+    virtual void rva0025C134(View *);
     virtual View *getFirstView() { return field1C; }
     virtual View *getNextView(View *);
     virtual void rva0025C14D();
@@ -79,7 +82,7 @@ public:
     virtual void slot45() = 0;
     virtual void slot46() = 0;
     virtual void createLightPulse(const Coord3D *, const RGBColor *, float, float, unsigned int, unsigned int) = 0;
-    virtual void slot48() = 0;
+    virtual void slot48(float) = 0;
     virtual void slot49(int, float, float, float) = 0;
     virtual void slot50(int, float, float, float) = 0;
     virtual void slot51(float, float, float, float) = 0;
@@ -107,13 +110,13 @@ public:
     virtual unsigned int rva0025CF2A(int);
     virtual void setDebugDisplayCallback(DebugDisplayCallback *, void * = 0);
     virtual DebugDisplayCallback *getDebugDisplayCallback() { return m_debugDisplayCallback; }
-    virtual void slot76() = 0;
+    virtual void slot76(int, int, int) = 0;
     virtual void slot77() = 0;
     virtual void slot78() = 0;
-    virtual void slot79() = 0;
+    virtual void slot79(int, int, int) = 0;
     virtual void slot80() = 0;
     virtual void slot81() = 0;
-    virtual void slot82() = 0;
+    virtual void slot82(int, int) = 0;
     virtual void slot83() = 0;
     virtual bool slot84(int, unsigned int) = 0;
     virtual void slot85() = 0;
@@ -126,7 +129,7 @@ public:
     virtual float getAverageFPS() = 0;
     virtual void slot93() = 0;
     virtual void slot94() = 0;
-    virtual void slot95() = 0;
+    virtual Render2DClass *slot95() = 0;
     virtual void slot96() = 0;
     virtual void slot97();
     virtual void slot98();
