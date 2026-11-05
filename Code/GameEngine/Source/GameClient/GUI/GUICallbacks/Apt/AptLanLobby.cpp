@@ -344,23 +344,8 @@ public:
 	// And 0x00442C9C (23 bytes), 0x0043E750 (417 bytes) and 0x00443C6E
 	// (570 bytes), likewise unrowed and pinned.
 };
-class AptMpGameSetup
-{
-public:
-	void InitGadgets();
-	void rva0043FFCF();
-	bool OnHostStartGame(bool flag);
-	bool WaitStartGame();
-	bool OnUpdate();
-	int rva00442CB3(unsigned int msg, unsigned int data1, unsigned int data2);
-	void rva0043FA68(GameInfo *game);
-	void rva004422B4(int mode);
-	bool rva00442C9C();
-	bool InitGameInfoFromSaveGame(GameInfo *game);
-	bool Init(GameInfo *game, int flag);
-	void rva0044303D();
-	void rva0043DC0F();
-};
+// The +0x288 panel as the canonical AptMpGameSetup (0x3E0 bytes, up to +0x668).
+#include "../../../../../Include/GameClient/AptMpGameSetup.h"
 // The screen's base class (destroyed by 0x005126F5); its message handler
 // 0x0051274F (136 bytes, vftable 0x00C659E8 slot 2) is unrowed and pinned.
 class Rva005126F5
@@ -679,6 +664,19 @@ public:
 public:
 	virtual int rva00444826(int msg, unsigned int data1, unsigned int data2);
 public:
+	// Retail primary vftable 0x00C3E0F8 slot 14 (AptLanLobbyMPOwnerValidatGameInfo.cpp).
+	virtual unsigned char MPOwnerValidatGameInfo(int a);
+public:
+	// Slots 1 and 12 of 0x00C3E0F8 and the create/join continuations
+	// (AptLanLobbyGameCreate.cpp).
+	virtual int rva0044522D(int msg, unsigned char key, int flags);
+	virtual void rva004442DB();
+	void Cancel(int unused);
+	void CancelMenu();
+	void rva00444EC8();
+	void OnGameCreate();
+	void OnGameJoin();
+public:
 	void rva004457BC();
 public:
 	void OnOptionsBttn(const char *unused);
@@ -699,17 +697,7 @@ private:
 private:
 	unsigned char m_pad278[0x288 - 0x278];
 private:
-	AptMpGameSetup m_panel;
-private:
-	unsigned char m_pad289[0x304 - 0x289];
-private:
-	int m_304;
-private:
-	unsigned char m_pad308[0x538 - 0x308];
-private:
-	int m_538;
-private:
-	unsigned char m_pad53c[0x668 - 0x53C];
+	AptMpGameSetup m_panel; // +0x288; the lobby's game mode is its +0x7C (+0x304)
 private:
 	Rva00580316 m_668;
 private:
@@ -721,7 +709,7 @@ private:
 private:
 	UnicodeString m_userName;
 private:
-	int m_6a4;
+	int m_currentState;
 private:
 	GameWindow *m_customGamesList;
 private:
@@ -939,7 +927,7 @@ void AptLanLobby::rva0044469C()
 {
 	bool hasName = false;
 	bool canJoin = false;
-	if (m_6a4 == 1)
+	if (m_currentState == 1)
 	{
 		bool notBlank = false;
 		if (m_nameEntry.m_owner)
@@ -979,7 +967,7 @@ void AptLanLobby::rva00445E3E(LANGameInfo *games)
 	reinterpret_cast<Rva00601941 *>(&m_668)->rva00601941();
 	for (LANGameInfo *game = games; game; game = game->m_next)
 	{
-		if (game->m_5c == m_304)
+		if (game->m_5c == m_panel.field7c)
 			reinterpret_cast<Rva00580B40 *>(&m_668)->rva00580B40((const ModuleData *)game);
 	}
 	rva004457BC();
@@ -1069,21 +1057,21 @@ int AptLanLobby::OnUpdateData()
 		if (TheLAN)
 			TheLAN->update();
 
-		switch (m_6a4)
+		switch (m_currentState)
 		{
 		case 0:
 			if (InitTheLan())
 			{
 				Rva005118F3Show(0, false);
-				if (m_538)
-					m_6a4 = 2;
+				if (m_panel.field2b0)
+					m_currentState = 2;
 				else
 				{
 					{
 					void *owner = m_owner;
 					((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(owner, "StartLobby", 0, 0, 0, 0, 0, 0);
 				}
-					m_6a4 = 1;
+					m_currentState = 1;
 					rva00446386(true);
 					m_6c0 = 0;
 				}
@@ -1095,16 +1083,16 @@ int AptLanLobby::OnUpdateData()
 			break;
 		case 2:
 			rva00446386(false);
-			m_6a4 = 3;
+			m_currentState = 3;
 			Rva005118F3Show(1, true);
 			TheLAN->RequestGameCreate(UnicodeString((const unsigned short *)L""), false);
 			break;
 		case 5:
 			if (m_panel.OnHostStartGame(true))
-				m_6a4 = 6;
+				m_currentState = 6;
 			else
 			{
-				m_6a4 = 4;
+				m_currentState = 4;
 				{
 					void *owner = m_owner;
 					((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(owner, "EnablePlayGame", 0, 0, 0, 0, 0, 0);
@@ -1114,7 +1102,7 @@ int AptLanLobby::OnUpdateData()
 		case 6:
 			if (!m_panel.WaitStartGame())
 			{
-				m_6a4 = 4;
+				m_currentState = 4;
 				{
 					void *owner = m_owner;
 					((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(owner, "EnablePlayGame", 0, 0, 0, 0, 0, 0);
@@ -1125,12 +1113,12 @@ int AptLanLobby::OnUpdateData()
 		{
 			rva00446386(false);
 			int selected = -1;
-			m_6a4 = 1;
+			m_currentState = 1;
 			GadgetListBoxGetSelected(m_customGamesList, &selected);
 			LANGameInfo *game = (LANGameInfo *)GetValidSelectedGameInfo();
 			if (game)
 			{
-				m_6a4 = 8;
+				m_currentState = 8;
 				Rva005118F3Show(1, true);
 				BfmeNetAddress address = { 0, 0 };
 				TheLAN->RequestGameJoin(game, address);
@@ -1144,7 +1132,7 @@ int AptLanLobby::OnUpdateData()
 			{
 				MessageBoxOk(TheGameText->fetch("GUI:GSErrorTitle"), TheGameText->fetch("GUI:GSKicked"), 0);
 				rva004443E7();
-				m_6a4 = 0;
+				m_currentState = 0;
 			}
 			break;
 		}
@@ -1228,21 +1216,21 @@ void AptLanLobby::OnExitBttn(const char *unused)
 // update's state machine (+0x6A4) to 5.
 void AptLanLobby::OnStartGameBttn(const char *unused)
 {
-	m_6a4 = 5;
+	m_currentState = 5;
 }
 
 // Retail 0x00444376, 20 bytes: "AptLanLobby::OnLoadGameBttn", state 1 to 11.
 void AptLanLobby::OnLoadGameBttn(const char *unused)
 {
-	if (m_6a4 == 1)
-		m_6a4 = 11;
+	if (m_currentState == 1)
+		m_currentState = 11;
 }
 
 // Retail 0x0044438A, 93 bytes: "AptLanLobby::OnLoadScreen" resets the
 // state and hands the panel (0x004422B4) the game mode named by the screen.
 void AptLanLobby::OnLoadScreen(const char *mode)
 {
-	m_6a4 = 0;
+	m_currentState = 0;
 	if (strcmp(mode, "LanOpenPlay") == 0)
 	{
 		m_gameMode = 0;
@@ -1264,8 +1252,8 @@ void AptLanLobby::OnLoadScreen(const char *mode)
 // to 2, and the name entry's text saved as the user name.
 void AptLanLobby::OnCreateGameBttn(const char *unused)
 {
-	if (m_6a4 == 1)
-		m_6a4 = 2;
+	if (m_currentState == 1)
+		m_currentState = 2;
 	if (m_nameEntry.m_owner)
 		m_prefs.setUserName(GadgetTextEntryGetText(m_nameEntry.m_owner));
 }
@@ -1420,7 +1408,7 @@ bool AptLanLobby::rva004467AC()
 		if ((unsigned char)TheLAN->AmIHost())
 		{
 			bool restored = ((AptMpGameSetup *)&m_panel)->InitGameInfoFromSaveGame(game);
-			game->rva003FF1A7(m_304);
+			game->rva003FF1A7(m_panel.field7c);
 			if (!restored)
 			{
 				GameSlot *slot = (GameSlot *)reinterpret_cast<Rva00447773 *>(game)->getLANSlot(0);
@@ -1428,7 +1416,7 @@ bool AptLanLobby::rva004467AC()
 				slot->setPlayerTemplate(modePrefs().rva0044D88C());
 				modePrefs().rva0044D774(slot);
 				slot->m_40 = 1;
-				if (m_304 == 1)
+				if (m_panel.field7c == 1)
 					game->m_58 = modePrefs().getStrategicScenario();
 				int rules[10];
 				modePrefs().rva0044DB54(rules);
@@ -1436,7 +1424,7 @@ bool AptLanLobby::rva004467AC()
 			}
 
 			AsciiString mapName;
-			if (m_304 == 1)
+			if (m_panel.field7c == 1)
 				mapName = "maps\\map wor mirkwood\\map wor mirkwood.map";
 			else
 				mapName = modePrefs().rva0044D986();

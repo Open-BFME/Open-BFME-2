@@ -21,13 +21,6 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 extern class GameEngine *TheGameEngine;
 
-class Member004443E7
-{
-public:
-	virtual void s0();
-	virtual void s1();
-};
-
 // The +0x288 panel's rowed bodies: 0x0044303D (1040 bytes; registers the
 // panel's Apt callbacks) and 0x0043DC0F.
 class GameInfo;
@@ -99,23 +92,21 @@ private:
 public:
 
 private:
-	char m_pad274[0x274 - 4];
-	void *m_274Owner; // +0x274
+	char m_pad04[0x274 - 4];
+	void *m_owner; // +0x274
 	char m_pad278[0x288 - 0x278];
-	Member004443E7 m_mem288; // +0x288
-	char m_pad28C[0x54B - 0x28C];
-	unsigned char m_54B; // +0x54B
-	char m_pad54C[0x6A4 - 0x54C];
+	AptMpGameSetup m_panel; // +0x288..+0x668
+	char m_pad668[0x6A4 - 0x668];
 	int m_currentState; // +0x6A4
-	char m_pad6A8[0x6C0 - 0x6A8];
-	unsigned char m_6C0; // +0x6C0
+	char m_pad6a8[0x6C0 - 0x6A8];
+	unsigned char m_6c0; // +0x6C0
 };
 
 void AptLanLobby::Cancel(int unused)
 {
 	(void)unused;
 	if (m_currentState == 6)
-		m_54B = 0;
+		m_panel.field2c3 = 0;
 	else {
 		rva004443E7();
 		m_currentState = 0;
@@ -131,7 +122,7 @@ void AptLanLobby::CancelMenu()
 	m_currentState = 0;
 	rva004443E7();
 	Rva00222A8BTarget *t = TheInvoke00444E8ATarget;
-	t->invoke(m_274Owner, "CancelGame", 0, 0, 0, 0, 0, 0);
+	t->invoke(m_owner, "CancelGame", 0, 0, 0, 0, 0, 0);
 }
 
 // Retail 0x0044522D, 123 bytes: slot 1 of the LAN lobby screen's own vftable
@@ -141,7 +132,7 @@ void AptLanLobby::CancelMenu()
 // is written first: retail shares the second case's return block.
 int AptLanLobby::rva0044522D(int msg, unsigned char key, int flags)
 {
-	if (!m_6C0 && msg == 0x15)
+	if (!m_6c0 && msg == 0x15)
 	{
 		switch (key)
 		{
@@ -190,7 +181,7 @@ void AptLanLobby::OnGameCreate()
 		return;
 	if (rva004467AC())
 	{
-		TheInvoke00444E8ATarget->invoke(m_274Owner, "DoCreateGame", 0, 0, 0, 0, 0, 0);
+		TheInvoke00444E8ATarget->invoke(m_owner, "DoCreateGame", 0, 0, 0, 0, 0, 0);
 		m_currentState = 4;
 	}
 	else
@@ -203,7 +194,7 @@ void AptLanLobby::OnGameJoin()
 		return;
 	if (rva004467AC())
 	{
-		TheInvoke00444E8ATarget->invoke(m_274Owner, "DoJoinGame", 0, 0, 0, 0, 0, 0);
+		TheInvoke00444E8ATarget->invoke(m_owner, "DoJoinGame", 0, 0, 0, 0, 0, 0);
 		m_currentState = 9;
 	}
 	else
@@ -216,7 +207,7 @@ void AptLanLobby::OnGameJoin()
 // (the rowed rva002233A6, as Rva00444525Init does after pushing the screen).
 void AptLanLobby::rva004442DB()
 {
-	((AptMpGameSetup *)&m_mem288)->rva0044303D();
+	m_panel.rva0044303D();
 	if (TheInvoke00444E8ATarget->m_31C != 1)
 		TheInvoke00444E8ATarget->rva002233A6(1);
 }
@@ -234,10 +225,10 @@ void MessageBoxOk(UnicodeString titleString, UnicodeString bodyString, void (*ok
 
 void AptLanLobby::rva00444EC8()
 {
-	((AptMpGameSetup *)&m_mem288)->rva0043DC0F();
+	m_panel.rva0043DC0F();
 	rva004443E7();
 	m_currentState = 0;
-	void *owner = m_274Owner;
+	void *owner = m_owner;
 	TheInvoke00444E8ATarget->invoke(owner, "CancelGame", 0, 0, 0, 0, 0, 0);
 	MessageBoxOk(TheGameText->fetch("GUI:HostLeftTitle"), TheGameText->fetch("GUI:HostLeft"), 0);
 }
