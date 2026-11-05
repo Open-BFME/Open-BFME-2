@@ -1,10 +1,11 @@
-// cl: /O1 /G7 /arch:SSE /EHs /MD /DBFME_ASCII_DTOR_DECL /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
+// cl: /O1 /Oi /G7 /arch:SSE /EHs /MD /DBFME_ASCII_DTOR_DECL /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // stlport
 // BFME1 donor874e38488 SidesListCtorThunk.cpp supplies the constructor
 // structure; retail32EE24..32EF22 independently establishes BFME2 offsets,
 // arrays20 of60B, 28B teams and 28B auxiliary records. Snapshot and subsystem
 // base layouts agree with existing target xfer/clear/copy bodies.
 #include <stdlib.h>
+#include <string.h>
 #include <vector>
 #include <map>
 #include <list>
@@ -29,14 +30,12 @@ namespace _STL { template <> void _Destroy<BfmePod128 *>(BfmePod128 *,BfmePod128
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmePod128;
 namespace _STL { template <> void __destroy_aux<BfmePod128 *>(BfmePod128 *,BfmePod128 *,__false_type const &); }
-class Rva00330757Member {
-public:
-    Rva00330757Member() throw();
-    ~Rva00330757Member() {}
-private:
-    _STL::vector<BfmeE16> m_items;
-    int m_flags;
-};
+#include "../../../Include/Common/Rva00330757Member.h"
+
+__forceinline Rva00330757Member::~Rva00330757Member()
+{
+    if (field00) free(field00);
+}
 struct BfmePod128 { ~BfmePod128(); int a[32]; };
 struct BfmeE8 { int a[2]; };
 class SidesInfo {
@@ -98,16 +97,14 @@ Rva001976F0::Rva001976F0() {}
 
 // Retail posts the slot-zero member callback with the complete SidesList owner.
 class Rva00281A15Listener { public: virtual void notify(void *); };
-class SidesListNotifier {
-public:
-    void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
-public:
-    struct Post { void (Rva00281A15Listener::*callback)(void *); void *owner; };
-    void dispatch(const Post *);
-};
+#include "../../../Include/Common/SidesListNotifier.h"
 void SidesListNotifier::post(void (Rva00281A15Listener::*callback)(void *), void *owner)
 {
-    Post p; p.callback=callback; p.owner=owner; dispatch(&p);
+    // The retail callback record stores the four-byte member-pointer representation.
+    Post p;
+    memcpy(&p.callback, &callback, sizeof(p.callback));
+    p.owner=owner;
+    dispatch(&p);
 }
 // ?SidesList::~SidesList present-unmatched
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
