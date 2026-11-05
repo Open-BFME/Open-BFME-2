@@ -1,3 +1,4 @@
+// stlport
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva002E112A@Rva002E112A@@QAE_NPAVSpawnArmy@@@Z @ 0x002E112A 43B.
 // Unlock-lane __thiscall bool taking SpawnArmy*: sums this->rva002E0C68
@@ -11,11 +12,7 @@ public:
 	int rva002E0C68();
 };
 
-class SpawnArmy
-{
-public:
-	int rva004E1755();
-};
+#include "../../Include/Common/SpawnArmy.h"
 
 class Rva002E0CD4
 {

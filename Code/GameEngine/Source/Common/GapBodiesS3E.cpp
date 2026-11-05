@@ -1,3 +1,4 @@
+// stlport
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
 // Table-reached INI block parsers from .text gaps no ledger row covers
 // (seat-3 batch E; see GapBodiesS3A.cpp). Retail bytes establish every shape;
@@ -72,11 +73,7 @@ void Rva0057A260::rva0057A260(INI *ini)
 // --- 0x004E12C4 / 0x004E12EF / 0x004E1342 (19B each): field-parse callbacks
 // parsing a nested block into their store through the rowed tables 0x00C616C0
 // (LivingWorldCampaignObjects' SpawnArmy table), 0x00C61830 and 0x00C61884.
-class SpawnArmy
-{
-public:
-	static const FieldParse m_fieldParseTable[];			// 0x00C616C0
-};
+#include "../../Include/Common/SpawnArmy.h"
 
 extern const FieldParse g_00C61830;
 extern const FieldParse g_00C61884;

@@ -1,3 +1,4 @@
+// stlport
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
 // Split from GapBodiesS3E.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -59,11 +60,7 @@ void parseFormationAssistantDefinition(INI *ini)
 // --- 0x004E12C4 / 0x004E12EF / 0x004E1342 (19B each): field-parse callbacks
 // parsing a nested block into their store through the rowed tables 0x00C616C0
 // (LivingWorldCampaignObjects' SpawnArmy table), 0x00C61830 and 0x00C61884.
-class SpawnArmy
-{
-public:
-	static const FieldParse m_fieldParseTable[];			// 0x00C616C0
-};
+#include "../../Include/Common/SpawnArmy.h"
 
 extern const FieldParse g_00C61830[];
 extern const FieldParse g_00C61884[];
