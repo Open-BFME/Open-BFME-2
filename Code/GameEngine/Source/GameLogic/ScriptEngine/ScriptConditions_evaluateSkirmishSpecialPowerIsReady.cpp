@@ -117,15 +117,7 @@ public:
 
 #include "Common/Snapshot.h"
 
-class Parameter
-{
-public:
-	const AsciiString &getString() const { return m_string; }
-	unsigned char m_beforeString[0x10];
-	AsciiString m_string; // +0x10
-	unsigned char m_pad14[0x20 - 0x14];
-	Int m_cachedFrame; // +0x20
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Team : public MemoryPoolObject, public Snapshot
 {
@@ -187,14 +179,15 @@ extern Int BfmeLogicFramesPerSecond;
 
 Bool ScriptConditions::evaluateSkirmishSpecialPowerIsReady(Parameter *pSkirmishPlayerParm, Parameter *pPower)
 {
-	if (pPower->m_cachedFrame == -1)
+	// This parameter uses the +0x20 cache word for a frame rather than a player mask.
+	if (pPower->m_cachedPlayerMask == -1)
 		return false;
-	if (pPower->m_cachedFrame > 0 && (unsigned int)pPower->m_cachedFrame > TheGameLogic->getFrame())
+	if (pPower->m_cachedPlayerMask > 0 && (unsigned int)pPower->m_cachedPlayerMask > TheGameLogic->getFrame())
 		return false;
 	unsigned int nextFrame = BfmeLogicFramesPerSecond * 10 + TheGameLogic->getFrame();
 	const SpecialPowerTemplate *power = TheSpecialPowerStore->findSpecialPowerTemplate(pPower->getString());
 	if (power == 0) {
-		pPower->m_cachedFrame = -1;
+		pPower->m_cachedPlayerMask = -1;
 		return false;
 	}
 
@@ -227,6 +220,6 @@ Bool ScriptConditions::evaluateSkirmishSpecialPowerIsReady(Parameter *pSkirmishP
 			}
 		}
 	}
-	pPower->m_cachedFrame = nextFrame;
+	pPower->m_cachedPlayerMask = nextFrame;
 	return false;
 }

@@ -16,11 +16,7 @@ public:
 	void addObjectType(const AsciiString &objectType);
 };
 
-class Parameter {
-public:
-	unsigned char m_pad[0x10];
-	StringBase<char> m_10;
-};
+#include "../../Include/GameLogic/ScriptParameter.h"
 
 void Script_objectTypesFromParam(Parameter *src, ObjectTypes *dst);
 
@@ -28,7 +24,7 @@ void Script_objectTypesFromParam(Parameter *src, ObjectTypes *dst)
 {
 	if (!dst)
 		return;
-	AsciiString tmp((const AsciiString &)src->m_10);
+	AsciiString tmp(src->m_string);
 	if (tmp.isEmpty())
 		return;
 	ObjectTypes *found = TheScriptEngine->getObjectTypes(tmp);
