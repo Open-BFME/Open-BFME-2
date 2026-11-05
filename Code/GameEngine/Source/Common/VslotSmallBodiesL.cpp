@@ -146,13 +146,7 @@ void AIBuildable::addNeed(Int value)
 
 // slots at VA 0x00C1C350, 0x00C1C3A4, 0x00C1C3E4 and more: the +0x08 field of
 // the +0x04 system, or of the rowed 0x001FCBD7 factory's result without one.
-class ParticleSystem
-{
-public:
-	char m_pad00[0x08];
-	Int m_08;
-};
-ParticleSystem *Make001FCBD7();
+#include "../../Include/GameClient/ParticleSystemClass.h"
 class Rva0055C44F
 {
 public:
@@ -166,7 +160,7 @@ Int Rva0055C44F::rva0055C44F()
 	ParticleSystem *system = m_system;
 	if (!system)
 		system = Make001FCBD7();
-	return system->m_08;
+	return system->m_shaderType;
 }
 
 // Installed table output words. Original owner, base relationship and

@@ -5,20 +5,11 @@
 // Rva003AE43F Rva003AE465 Rva003AE4E5 Rva003AE50B Rva003AE56F Rva003AE595
 // Rva003AE5F9 Rva003AE61F in ParticleModuleInfoCopyCtors.cpp).
 // Lazily creates ParticleSystem via rowed Make001FCBD7 0x001FCBD7 when
-// [ecx+4] is null, then copies AsciiString at sys+0x10 via rowed
+// [ecx+4] is null, then copies AsciiString at sys+0x10 (m_particleTypeName) via rowed
 // StringBase copy 0x000365F0 into hidden return pointer. Same 39B shape
 // as Rva0056394AGetter with added null-guarded factory call.
 #include "ascii_string.h"
-
-class ParticleSystem
-{
-public:
-	void *m_vptr;
-	char m_pad04[0xC];
-	AsciiString m_name10;
-};
-
-ParticleSystem *__cdecl Make001FCBD7();
+#include "../../../../Include/GameClient/ParticleSystemClass.h"
 
 class Rva00560ABA
 {
@@ -34,5 +25,5 @@ AsciiString Rva00560ABA::rva00560ABA()
 	ParticleSystem *sys = m_sys;
 	if (!sys)
 		sys = Make001FCBD7();
-	return sys->m_name10;
+	return sys->m_particleTypeName;
 }

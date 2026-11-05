@@ -20,7 +20,7 @@ struct Node001F4882 : public Rva001F45DFSlot { char m_p[0x6c-0x40]; Node001F4882
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
 struct Slot6Obj { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void slot6(void *arg); };
-class ParticleSystem { public: void destroy(); char m_pad[0xa4]; Slot6Obj *m_slot2; char m_p2[0x19c-0xa8]; int m_19c; };
+#include "../../Include/GameClient/ParticleSystemClass.h"
 class BfmeParticleSystemPtr
 {
 public:
@@ -66,10 +66,10 @@ private:
 // the anchor keeps the noinline body emitted.
 __declspec(noinline) inline Rva001F4C67::~Rva001F4C67()
 {
-	m_w3c.m_h.m_system->m_slot2->slot6(this);
+	((Slot6Obj *)m_w3c.m_h.m_system->m_A4)->slot6(this);
 	if (m_w78.m_h.m_system) {
 		_ReadWriteBarrier();
-		m_w78.m_h.m_system->m_19c = 0;
+		m_w78.m_h.m_system->m_controlParticle = 0;
 		m_w78.m_h.m_system->destroy();
 	}
 	((Rva001F4882 *)TheParticleSystemManager)->rva001F4882((Node001F4882 *)this);

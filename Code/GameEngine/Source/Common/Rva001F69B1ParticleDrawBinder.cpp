@@ -157,24 +157,15 @@ public:
 	virtual AsciiString slot06();
 };
 
-class ParticleSystem
-{
-public:
-	void rva001F5300(float *out) { ((Rva001F5300 *)this)->rva001F5300(out); }
-	float rva001F534C() { return ((Rva001F553F *)this)->rva001F534C(); }
-	void rva001F5373(Vec2001F5373 *out) { ((Rva001F5373 *)this)->rva001F5373(out); }
-	const RGBColor *rva001F53AA() const { return ((const Rva001F53AASlot *)this)->get(); }
-	const RGBColor *rva001F53BC() const { return ((const Rva001F53BCSlot *)this)->get(); }
+#include "../../Include/GameClient/ParticleSystemClass.h"
 
-	char m_pad000[8];
-	int m_08;
-	char m_pad00c[4];
-	AsciiString m_10;
-	char m_pad014[0x1C4 - 0x14];
-	Rva001F6C54Draw *m_1C4;
-};
-
-ParticleSystem *Make001FCBD7();
+static inline void rva001F5300(ParticleSystem *system, float *out) { ((Rva001F5300 *)system)->rva001F5300(out); }
+static inline float rva001F534C(ParticleSystem *system) { return ((Rva001F553F *)system)->rva001F534C(); }
+static inline void rva001F5373(ParticleSystem *system, Vec2001F5373 *out) { ((Rva001F5373 *)system)->rva001F5373(out); }
+static inline const RGBColor *rva001F53AA(const ParticleSystem *system) { return ((const Rva001F53AASlot *)system)->get(); }
+static inline const RGBColor *rva001F53BC(const ParticleSystem *system) { return ((const Rva001F53BCSlot *)system)->get(); }
+// +0x1C4, a word of the untyped +0x1AC member.
+static inline Rva001F6C54Draw *drawInfo1C4(const ParticleSystem *system) { return (Rva001F6C54Draw *)system->m_1AC[6]; }
 
 class RvaSmartPtr12
 {
@@ -219,7 +210,7 @@ void Rva001F7233SpeedMultiplier(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	float speed = 1.0f;
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
-		speed = TheParticleSystemManager->get()->rva001F534C();
+		speed = rva001F534C(TheParticleSystemManager->get().operator->());
 	effect->SetFloat(handle, speed);
 }
 
@@ -229,7 +220,7 @@ void Rva001F713ETextureLayout(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		float uv[2];
-		TheParticleSystemManager->get()->rva001F5300(uv);
+		rva001F5300(TheParticleSystemManager->get().operator->(), uv);
 		layout = D3DXVECTOR4(uv[0], uv[1], 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &layout);
@@ -241,7 +232,7 @@ void Rva001F72E8ColorScale(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F5373 colorScale;
-		TheParticleSystemManager->get()->rva001F5373(&colorScale);
+		rva001F5373(TheParticleSystemManager->get().operator->(), &colorScale);
 		scale = D3DXVECTOR4(colorScale.x, colorScale.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &scale);
@@ -251,7 +242,7 @@ void Rva001F6E1BShaderType(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	int type = 1;
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
-		type = TheParticleSystemManager->get()->m_08;
+		type = TheParticleSystemManager->get()->m_shaderType;
 	effect->SetInt(handle, type);
 }
 
@@ -260,7 +251,7 @@ void Rva001F705ATimeKeys(ID3DXEffect *effect, D3DXHANDLE handle)
 	D3DXVECTOR4 times(0.0f, 0.0f, 0.0f, 0.0f);
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
-		const RGBColor *keys = TheParticleSystemManager->get()->rva001F53AA();
+		const RGBColor *keys = rva001F53AA(TheParticleSystemManager->get().operator->());
 		if (keys)
 		{
 			for (int i = 0; i < 4; i++)
@@ -274,7 +265,7 @@ void Rva001F6B10Texture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
-		BFME2ParticleTextureHandle texture = TextureAsset::Get(TheParticleSystemManager->get()->m_10.str(), 0, 0);
+		BFME2ParticleTextureHandle texture = TextureAsset::Get(TheParticleSystemManager->get()->m_particleTypeName.str(), 0, 0);
 		if (texture)
 			effect->SetTexture(handle, texture.Peek_D3D_Base_Texture());
 		else
@@ -286,9 +277,9 @@ void Rva001F6B10Texture(ID3DXEffect *effect, D3DXHANDLE handle)
 
 void Rva001F6C6FDetailTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
-	if (TheParticleSystemManager && TheParticleSystemManager->get() && TheParticleSystemManager->get()->m_1C4)
+	if (TheParticleSystemManager && TheParticleSystemManager->get() && drawInfo1C4(TheParticleSystemManager->get().operator->()))
 	{
-		BFME2ParticleTextureHandle texture = TextureAsset::Get(TheParticleSystemManager->get()->m_1C4->slot06().str(), 0, 0);
+		BFME2ParticleTextureHandle texture = TextureAsset::Get(drawInfo1C4(TheParticleSystemManager->get().operator->())->slot06().str(), 0, 0);
 		if (texture)
 			effect->SetTexture(handle, texture.Peek_D3D_Base_Texture());
 		else
@@ -309,14 +300,14 @@ void Rva001F6EB7ColorKeys(ID3DXEffect *effect, D3DXHANDLE handle)
 	};
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
-		const RGBColorKeyframe *keys = (const RGBColorKeyframe *)TheParticleSystemManager->get()->rva001F53AA();
+		const RGBColorKeyframe *keys = (const RGBColorKeyframe *)rva001F53AA(TheParticleSystemManager->get().operator->());
 		if (keys)
 		{
 			for (int i = 0; i < 4; i++)
 				colors[i] = D3DXVECTOR4(keys[i].color.red, keys[i].color.green, keys[i].color.blue, 1.0f);
 		}
 		// Alpha keys have a 12-byte random value followed by a four-byte frame.
-		const char *alpha = (const char *)TheParticleSystemManager->get()->rva001F53BC();
+		const char *alpha = (const char *)rva001F53BC(TheParticleSystemManager->get().operator->());
 		if (alpha)
 		{
 			for (int i = 0; i < 4; i++)

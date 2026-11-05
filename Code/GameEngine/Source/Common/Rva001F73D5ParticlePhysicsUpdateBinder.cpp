@@ -109,29 +109,21 @@ class Rva001F529D { public: void rva001F529D(Vec2001F529D *out); };
 struct Vec2001F52CC { float x; float y; };
 class Rva001F52CC { public: void rva001F52CC(Vec2001F52CC *out); };
 
-class ParticleSystem
-{
-public:
-	float rva001F510D() { return ((Rva001F510D *)this)->rva001F510D(); }
-	const RGBColor *rva001F512F() const { return ((const Rva001F512FSlot *)this)->get(); }
-	Out001F5141 *rva001F5141(Out001F5141 *out) { return ((Rva001F5141 *)this)->rva001F5141(out); }
-	void rva001F517E(Vec2001F517E *out) { ((Rva001F517E *)this)->rva001F517E(out); }
-	void rva001F51AD(Vec2001F51AD *out) { ((Rva001F51AD *)this)->rva001F51AD(out); }
-	void rva001F51DC(Vec2001F51DC *out) { ((Rva001F51DC *)this)->rva001F51DC(out); }
-	void rva001F520B(Vec2001F520B *out) { ((Rva001F520B *)this)->rva001F520B(out); }
-	void rva001F523A(Vec2001F523A *out) { ((Rva001F523A *)this)->rva001F523A(out); }
-	void rva001F526E(Vec2001F526E *out) { ((Rva001F526E *)this)->rva001F526E(out); }
-	void rva001F529D(Vec2001F529D *out) { ((Rva001F529D *)this)->rva001F529D(out); }
-	void rva001F52CC(Vec2001F52CC *out) { ((Rva001F52CC *)this)->rva001F52CC(out); }
-	// Native Size callback reads upper30 then lower2C.
-	void getSize(float &lower, float &upper) const { upper=m_30; lower=m_2C; }
-private:
-	char m_pad000[0x2C];
-	float m_2C;
-	float m_30;
-};
+#include "../../Include/GameClient/ParticleSystemClass.h"
 
-ParticleSystem *Make001FCBD7();
+static inline float rva001F510D(ParticleSystem *system) { return ((Rva001F510D *)system)->rva001F510D(); }
+static inline const RGBColor *rva001F512F(const ParticleSystem *system) { return ((const Rva001F512FSlot *)system)->get(); }
+static inline Out001F5141 *rva001F5141(ParticleSystem *system, Out001F5141 *out) { return ((Rva001F5141 *)system)->rva001F5141(out); }
+static inline void rva001F517E(ParticleSystem *system, Vec2001F517E *out) { ((Rva001F517E *)system)->rva001F517E(out); }
+static inline void rva001F51AD(ParticleSystem *system, Vec2001F51AD *out) { ((Rva001F51AD *)system)->rva001F51AD(out); }
+static inline void rva001F51DC(ParticleSystem *system, Vec2001F51DC *out) { ((Rva001F51DC *)system)->rva001F51DC(out); }
+static inline void rva001F520B(ParticleSystem *system, Vec2001F520B *out) { ((Rva001F520B *)system)->rva001F520B(out); }
+static inline void rva001F523A(ParticleSystem *system, Vec2001F523A *out) { ((Rva001F523A *)system)->rva001F523A(out); }
+static inline void rva001F526E(ParticleSystem *system, Vec2001F526E *out) { ((Rva001F526E *)system)->rva001F526E(out); }
+static inline void rva001F529D(ParticleSystem *system, Vec2001F529D *out) { ((Rva001F529D *)system)->rva001F529D(out); }
+static inline void rva001F52CC(ParticleSystem *system, Vec2001F52CC *out) { ((Rva001F52CC *)system)->rva001F52CC(out); }
+// Native Size callback reads upper30 then lower2C: the bounds of the +0x28 random variable.
+static inline void getSize(const ParticleSystem *system, float &lower, float &upper) { upper=system->m_28.m_high; lower=system->m_28.m_low; }
 
 class RvaSmartPtr12
 {
@@ -171,7 +163,7 @@ void Rva001F7471Gravity(ID3DXEffect *effect, D3DXHANDLE handle)
 	D3DXVECTOR4 gravity(0.0f, 0.0f, 0.0f, 0.0f);
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
-		float g = TheParticleSystemManager->get()->rva001F510D();
+		float g = rva001F510D(TheParticleSystemManager->get().operator->());
 		gravity = D3DXVECTOR4(0.0f, 0.0f, g, 0.0f);
 	}
 	effect->SetVector(handle, &gravity);
@@ -182,7 +174,7 @@ void Rva001F7558DriftVelocity(ID3DXEffect *effect, D3DXHANDLE handle)
 	D3DXVECTOR4 drift(0.0f, 0.0f, 0.0f, 0.0f);
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
-		const RGBColor *velocity = TheParticleSystemManager->get()->rva001F512F();
+		const RGBColor *velocity = rva001F512F(TheParticleSystemManager->get().operator->());
 		if (velocity)
 			drift = D3DXVECTOR4(velocity->red, velocity->green, velocity->blue, 0.0f);
 	}
@@ -195,7 +187,7 @@ void Rva001F764BVelocityDamping(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Out001F5141 d;
-		TheParticleSystemManager->get()->rva001F5141(&d);
+		rva001F5141(TheParticleSystemManager->get().operator->(), &d);
 		damping = D3DXVECTOR4(d.x, d.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &damping);
@@ -209,7 +201,7 @@ void Rva001F798ESizeRate(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F517E v;
-		TheParticleSystemManager->get()->rva001F517E(&v);
+		rva001F517E(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -221,7 +213,7 @@ void Rva001F7A7BSizeRateDamping(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F51AD v;
-		TheParticleSystemManager->get()->rva001F51AD(&v);
+		rva001F51AD(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -233,7 +225,7 @@ void Rva001F7B68XyRotation(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F51DC v;
-		TheParticleSystemManager->get()->rva001F51DC(&v);
+		rva001F51DC(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -245,7 +237,7 @@ void Rva001F7C55XyRotationRate(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F520B v;
-		TheParticleSystemManager->get()->rva001F520B(&v);
+		rva001F520B(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -257,7 +249,7 @@ void Rva001F7D42XyRotationDamping(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F523A v;
-		TheParticleSystemManager->get()->rva001F523A(&v);
+		rva001F523A(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -269,7 +261,7 @@ void Rva001F7E2FZRotation(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F526E v;
-		TheParticleSystemManager->get()->rva001F526E(&v);
+		rva001F526E(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -281,7 +273,7 @@ void Rva001F7F1CZRotationRate(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F529D v;
-		TheParticleSystemManager->get()->rva001F529D(&v);
+		rva001F529D(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -293,7 +285,7 @@ void Rva001F8009ZRotationDamping(ID3DXEffect *effect, D3DXHANDLE handle)
 	if (TheParticleSystemManager && TheParticleSystemManager->get())
 	{
 		Vec2001F52CC v;
-		TheParticleSystemManager->get()->rva001F52CC(&v);
+		rva001F52CC(TheParticleSystemManager->get().operator->(), &v);
 		value = D3DXVECTOR4(v.x, v.y, 0.0f, 0.0f);
 	}
 	effect->SetVector(handle, &value);
@@ -457,7 +449,7 @@ void Rva001F7888Size(ID3DXEffect *effect, D3DXHANDLE handle)
     if(TheParticleSystemManager && TheParticleSystemManager->get()) {
         Coord2D lower;
         float upper;
-        TheParticleSystemManager->get()->getSize(lower.x,upper);
+        getSize(TheParticleSystemManager->get().operator->(), lower.x,upper);
         size=D3DXVECTOR4(lower.x,upper,0.0f,0.0f);
     }
     effect->SetVector(handle,&size);
