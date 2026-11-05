@@ -4,8 +4,10 @@
 // ModelConditionAudioLoopClientBehavior behavior ctor over the rowed
 // Rva00252B68 base (0x252B68, thing plus data): double-stores +0x0C/+0x10
 // (both firsts volatile) around the primary vtable slot, an int 1 at +0x14
-// and a trailing and-zero at +0x18 (address-of TU-local dummies,
-// DIR32-masked). The rowed name getter at 0x4CBF13 proves the class; the rowed instance
+// and a trailing and-zero at +0x18 (the final vptrs are the class's own
+// tables by their retail store immediates; the two transient first values,
+// overwritten before any call, stay TU-local dummies).
+// The rowed name getter at 0x4CBF13 proves the class; the rowed instance
 // factory 0x252D62 is the sole raw caller. Row supersedes the ctor pin.
 
 class Thing;
@@ -16,9 +18,9 @@ extern "C" void _ReadWriteBarrier(void);
 
 static int s_first0C;
 static int s_first10;
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BRva004CC0FEPrimary@@@")[];  // vftable 0x00C5F458
+extern "C" const void *const __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BSecondary0C@@@")[];  // vftable 0x00C5F450
+extern "C" const void *const __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BSecondary10@@@")[];  // vftable 0x00C5F44C
 
 // Rowed Rva00252B68 base; ctor resolves to its row. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -51,9 +53,9 @@ ModelConditionAudioLoopClientBehavior::ModelConditionAudioLoopClientBehavior(Thi
 	*(const void * volatile *)&m_p0C = &s_first0C;
 	*(const void * volatile *)&m_p10 = &s_first10;
 	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	m_vtable = __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BRva004CC0FEPrimary@@@");
+	m_p0C = __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BSecondary0C@@@");
+	m_p10 = __identifier("??_7ModelConditionAudioLoopClientBehavior@@6BSecondary10@@@");
 	m_14 = 1;
 	_ReadWriteBarrier();
 	m_18 = 0;

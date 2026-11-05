@@ -3,8 +3,9 @@
 // ??0AnimalAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0047ECA8
 // (121 bytes). Behavior ctor over the rowed AIUpdateInterface base (0x26E9BD,
 // thing plus data): installs the six behavior vtable slots (+0x00/+0x0C/+0x10/
-// +0x20/+0x24 via explicit members with TU-local dummy statics, DIR32-masked;
-// +0x3E4 double-stored C1C780-then-C47B84) plus zeros at +0x3E8/+0x3F8/+0x3F9
+// +0x20/+0x24 via explicit members naming the class's own tables by their
+// retail store immediates; +0x3E4 double-stored C1C780-then-C47B84, the
+// transient first value a TU-local dummy) plus zeros at +0x3E8/+0x3F8/+0x3F9
 // plus float zeros at +0x3EC/+0x3F0/+0x3F4. The class declares no virtuals of
 // its own: the stores land from explicit members in body order (AssaultTransport
 // precedent with volatile-first-store for the redundant +0x3E4 pair). Row
@@ -15,13 +16,13 @@
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
-static int s_secondary24;
+extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_Root@@@")[];  // vftable 0x00C47B98
+extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M1@@@")[];  // vftable 0x00BFA3C0
+extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_B2@@@")[];  // vftable 0x00C47B8C
+extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M3@@@")[];  // vftable 0x00C47B88
+extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M4@@@")[];  // vftable 0x00C52F88
 static int s_slot3E4first;
-static int s_slot3E4second;
+extern "C" const void *const __identifier("??_7AnimalAIUpdate@@6B@")[];  // vftable 0x00C47B84
 
 class AIUpdateInterface
 {
@@ -57,15 +58,15 @@ AnimalAIUpdate::AnimalAIUpdate(Thing *thing, const ModuleData *moduleData)
 	: AIUpdateInterface(thing, moduleData)
 {
 	*(const void * volatile *)&m_p3E4 = &s_slot3E4first;
-	m_p3E4 = &s_slot3E4second;
+	m_p3E4 = __identifier("??_7AnimalAIUpdate@@6B@");
 	m_3E8 = 0;
 	m_3F8 = 0;
 	m_3F9 = 0;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
-	m_p24 = &s_secondary24;
+	m_vtable = __identifier("??_7AnimalAIUpdate@@6BRva0026E836_Root@@@");
+	m_p0C = __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M1@@@");
+	m_p10 = __identifier("??_7AnimalAIUpdate@@6BRva0026E836_B2@@@");
+	m_p20 = __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M3@@@");
+	m_p24 = __identifier("??_7AnimalAIUpdate@@6BRva0026E836_M4@@@");
 	m_3F4 = 0.0f;
 	m_3F0 = 0.0f;
 	m_3EC = 0.0f;

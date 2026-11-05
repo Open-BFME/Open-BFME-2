@@ -5,8 +5,10 @@
 // thing plus data): volatile-first double-store at +0xFC around two
 // and-zeros at +0x104/+0x108, the primary vtable slot and eight secondary
 // slots at +0x0C/+0x10/+0x20/+0x24/+0x28/+0x2C/+0x30/+0x34, then the second
-// +0xFC store and a trailing one byte at +0x100 (address-of TU-local
-// dummies, DIR32-masked). The rowed pool key at 0x4663FF and the rowed
+// +0xFC store and a trailing one byte at +0x100 (the final vptrs are the
+// class's own tables by their retail store immediates; the transient first
+// +0xFC value, overwritten before any call, stays a TU-local dummy).
+// The rowed pool key at 0x4663FF and the rowed
 // instance factory 0x24B797 (sole caller, news 0x10C) prove the class. Row
 // supersedes the ctor pin.
 
@@ -17,16 +19,16 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 static int s_firstFC;
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
-static int s_secondary24;
-static int s_secondary28;
-static int s_secondary2C;
-static int s_secondary30;
-static int s_secondary34;
-static int s_secondFC;
+extern "C" const void *const __identifier("??_7CaveContain@@6BB0@@@")[];  // vftable 0x00C43CB8
+extern "C" const void *const __identifier("??_7CaveContain@@6BB1@@@")[];  // vftable 0x00C43BF8
+extern "C" const void *const __identifier("??_7CaveContain@@6BB2@@@")[];  // vftable 0x00C43BE8
+extern "C" const void *const __identifier("??_7CaveContain@@6BB3@@@")[];  // vftable 0x00C43A70
+extern "C" const void *const __identifier("??_7CaveContain@@6BB4@@@")[];  // vftable 0x00C46064
+extern "C" const void *const __identifier("??_7CaveContain@@6BB5@@@")[];  // vftable 0x00C43A6C
+extern "C" const void *const __identifier("??_7CaveContain@@6BB6@@@")[];  // vftable 0x00C58790
+extern "C" const void *const __identifier("??_7CaveContain@@6BB7@@@")[];  // vftable 0x00C43380
+extern "C" const void *const __identifier("??_7CaveContain@@6BB8@@@")[];  // vftable 0x00C43A5C
+extern "C" const void *const __identifier("??_7CaveContain@@6B@")[];  // vftable 0x00C43A54
 
 // Opaque OpenContain base (0xFC); ctor resolves to its pin.
 class OpenContain
@@ -59,15 +61,15 @@ CaveContain::CaveContain(Thing *thing, const ModuleData *moduleData)
 	_ReadWriteBarrier();
 	m_104 = 0;
 	m_108 = 0;
-	*(const void **)this = &s_vtable;
-	*(const void **)((char *)this + 0xC) = &s_secondary0C;
-	*(const void **)((char *)this + 0x10) = &s_secondary10;
-	*(const void **)((char *)this + 0x20) = &s_secondary20;
-	*(const void **)((char *)this + 0x24) = &s_secondary24;
-	*(const void **)((char *)this + 0x28) = &s_secondary28;
-	*(const void **)((char *)this + 0x2C) = &s_secondary2C;
-	*(const void **)((char *)this + 0x30) = &s_secondary30;
-	*(const void **)((char *)this + 0x34) = &s_secondary34;
-	m_FC = &s_secondFC;
+	*(const void **)this = __identifier("??_7CaveContain@@6BB0@@@");
+	*(const void **)((char *)this + 0xC) = __identifier("??_7CaveContain@@6BB1@@@");
+	*(const void **)((char *)this + 0x10) = __identifier("??_7CaveContain@@6BB2@@@");
+	*(const void **)((char *)this + 0x20) = __identifier("??_7CaveContain@@6BB3@@@");
+	*(const void **)((char *)this + 0x24) = __identifier("??_7CaveContain@@6BB4@@@");
+	*(const void **)((char *)this + 0x28) = __identifier("??_7CaveContain@@6BB5@@@");
+	*(const void **)((char *)this + 0x2C) = __identifier("??_7CaveContain@@6BB6@@@");
+	*(const void **)((char *)this + 0x30) = __identifier("??_7CaveContain@@6BB7@@@");
+	*(const void **)((char *)this + 0x34) = __identifier("??_7CaveContain@@6BB8@@@");
+	m_FC = __identifier("??_7CaveContain@@6B@");
 	m_100 = 1;
 }
