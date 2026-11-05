@@ -33,15 +33,6 @@ public:
 	void rva002D9531(int v);
 };
 
-template <int N> class Rva004AE5B8Slots : public Rva004AE5B8Slots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class Rva004AE5B8Slots<0>
-{
-};
-
 #include "../../../../Include/Common/GameAudio.h"
 
 extern AudioManager *TheAudio;
@@ -53,32 +44,8 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class AICommandInterface
-{
-public:
-	virtual void aiCommandInterfaceAnchor();
-	void aiIdle(CommandSourceType cmdSource);
-};
-
-class AIUpdateInterfaceSlots : public Rva004AE5B8Slots<111>
-{
-public:
-	virtual bool rva004AE6D7Slot111() = 0;
-};
-
-class AIUpdateInterfaceView : public AIUpdateInterfaceSlots
-{
-public:
-	unsigned char m_pad04[0x20 - 0x04];
-	AICommandInterface m_command; // +0x20
-};
-
-class DeployStyleAIUpdate : public AIUpdateInterfaceView
-{
-public:
-	void rva0048E6D2();
-	void rva0048E6AB();
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameLogic/Module/DeployStyleAIUpdateClass.h"
 
 class Object
 {
@@ -136,8 +103,8 @@ void ToggleDeploySpecialAbilityUpdate::rva004AE6D7(Object *obj)
 	DeployStyleAIUpdate *ai = obj->m_ai;
 	if (!ai)
 		return;
-	if ((char)obj->rva0028B7C8() || ai->rva004AE6D7Slot111())
-		ai->m_command.aiIdle(CMD_FROM_AI);
+	if ((char)obj->rva0028B7C8() || ai->rva00262D8F())
+		ai->aiIdle(CMD_FROM_AI);
 
 	const ToggleDeploySpecialAbilityUpdateModuleData *data = (const ToggleDeploySpecialAbilityUpdateModuleData *)m_moduleData;
 	BfmeAudioEventPrefix136 sound(data->m_soundC8, 0);

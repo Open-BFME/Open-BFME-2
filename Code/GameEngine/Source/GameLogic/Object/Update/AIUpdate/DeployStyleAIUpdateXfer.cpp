@@ -30,8 +30,10 @@
 // +0x3E4 command storage's doXfer (0x003533BF). That member is
 // Rva0026AFDAMember, as the matched ctor/dtor name it; Generals'
 // m_lastOutsideCommand (AICommandParmsStorage) is the donor-carried semantic
-// lead. The field names follow Generals' order and are inferences. BFME 2
+// lead. Generals' field order supplies semantic leads. BFME 2
 // adds two flags before them, a second command result, and two trailing flags.
+// The shared header uses target offset spellings; its +0x4C4 float triple
+// is transferred through the original 12-byte Coord3DBase view.
 
 class AsciiString;
 class UnicodeString;
@@ -75,40 +77,8 @@ void XferCommandResultTypes( Xfer *xfer, Int *value );
 void XferDeployStateTypes( Xfer *xfer, Int *value );
 void XferObjectID( Xfer *xfer, ObjectID *value );
 
-class Rva0026AFDAMember
-{
-public:
-	void doXfer( Xfer *xfer );
-private:
-	unsigned char m_unrecovered00[ 0xC4 ];
-};
-
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
-
-class DeployStyleAIUpdate : public AIUpdateInterface
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-private:
-	Rva0026AFDAMember m_lastOutsideCommand;																		///< 0x3E4
-	Bool m_bfmeFlag4A8;																												///< 0x4A8
-	Bool m_bfmeFlag4A9;																												///< 0x4A9
-	unsigned char m_unrecovered4AA[ 2 ];
-	Int m_bfmeCommandResult4AC;																								///< 0x4AC
-	Int m_bfmeCommandResult4B0;																								///< 0x4B0
-	Int m_state;																															///< 0x4B4
-	UnsignedInt m_frameToWakeForDeploy;																				///< 0x4B8
-	ObjectID m_designatedTargetID;																						///< 0x4BC
-	ObjectID m_attackObjectID;																								///< 0x4C0
-	Coord3DBase m_position;																										///< 0x4C4
-	Bool m_isAttackMultiple;																									///< 0x4D0
-	Bool m_isAttackObject;																										///< 0x4D1
-	Bool m_isAttackPosition;																									///< 0x4D2
-	Bool m_isGuardingPosition;																								///< 0x4D3
-	Bool m_overriddenAttack;																									///< 0x4D4
-	Bool m_bfmeFlag4D5;																												///< 0x4D5
-	Bool m_bfmeFlag4D6;																												///< 0x4D6
-};
+#include "../../../../../Include/GameLogic/Module/DeployStyleAIUpdateClass.h"
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -126,23 +96,23 @@ void DeployStyleAIUpdate::xfer( Xfer *xfer )
 
 	xfer->Version1();
 
-	*xfer == m_bfmeFlag4A9;
-	*xfer == m_bfmeFlag4A8;
-	XferCommandResultTypes( xfer, &m_bfmeCommandResult4AC );
-	*xfer == m_frameToWakeForDeploy;
-	XferDeployStateTypes( xfer, &m_state );
-	XferCommandResultTypes( xfer, &m_bfmeCommandResult4B0 );
-	XferObjectID( xfer, &m_designatedTargetID );
-	XferObjectID( xfer, &m_attackObjectID );
-	*xfer == m_position;
-	*xfer == m_isAttackMultiple;
-	*xfer == m_isAttackObject;
-	*xfer == m_isAttackPosition;
-	*xfer == m_isGuardingPosition;
-	*xfer == m_overriddenAttack;
-	*xfer == m_bfmeFlag4D5;
-	*xfer == m_bfmeFlag4D6;
+	*xfer == m_4A9;
+	*xfer == m_4A8;
+	XferCommandResultTypes( xfer, &m_4AC );
+	*xfer == m_4B8;
+	XferDeployStateTypes( xfer, &m_4B4 );
+	XferCommandResultTypes( xfer, &m_4B0 );
+	XferObjectID( xfer, &m_4BC );
+	XferObjectID( xfer, &m_4C0 );
+	*xfer == *reinterpret_cast<Coord3DBase *>(m_4C4);
+	*xfer == m_4D0;
+	*xfer == m_4D1;
+	*xfer == m_4D2;
+	*xfer == m_4D3;
+	*xfer == m_4D4;
+	*xfer == m_4D5;
+	*xfer == m_4D6;
 
-	m_lastOutsideCommand.doXfer( xfer );
+	m_member3E4.doXfer( xfer );
 
 }  // end xfer
