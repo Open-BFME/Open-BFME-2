@@ -29,12 +29,7 @@ public:
 // (EvictManagedResources, vtable slot 5).
 struct IDirect3DDevice8;
 
-class DX8Wrapper
-{
-	friend class W3DDisplay;
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 #include "../../../../GameEngine/Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
@@ -110,7 +105,7 @@ void W3DDisplay::reset()
 	g_Va00DB3BDC = -1;
 
 	BFMEDX8DeviceLock lock;
-	HRESULT hr = reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice)->EvictManagedResources();
+	HRESULT hr = reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8())->EvictManagedResources();
 	if (hr)
 		Log_DX8_ErrorCode(hr);
 	Rva0012641FClear();

@@ -64,14 +64,7 @@ enum
 // The device keeps its D3D8 type name but is a Direct3D 9 device.
 struct IDirect3DDevice8;
 
-class DX8Wrapper
-{
-public:
-	static IDirect3DDevice8 *_Get_D3D_Device8( void ) { return D3DDevice; }
-
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class MouseThreadClass : public ThreadClass
 {

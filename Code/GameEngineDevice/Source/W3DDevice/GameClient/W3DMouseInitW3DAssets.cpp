@@ -238,14 +238,7 @@ struct IDirect3DSurface8;
 // SetCursorProperties is slot 10, SetCursorPosition 11, ShowCursor 12.
 struct IDirect3DDevice8;
 
-class DX8Wrapper
-{
-public:
-	static IDirect3DDevice8 *_Get_D3D_Device8( void ) { return D3DDevice; }
-
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class RTS3DInterfaceScene
 {

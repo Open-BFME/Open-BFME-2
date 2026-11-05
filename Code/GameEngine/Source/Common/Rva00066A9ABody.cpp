@@ -85,12 +85,7 @@ Rva00077F80Filter **g_Va00DB43AC[10] = {
 #include <d3d9.h>
 
 struct IDirect3DDevice8;
-class DX8Wrapper
-{
-protected:
-	friend void W3DShaderManager::init(void);
-	static IDirect3DDevice8 *D3DDevice;
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 extern unsigned g_fvfShader;
 extern void __cdecl rva00075E42();
@@ -130,7 +125,7 @@ void W3DShaderManager::init(void)
 	};
 	if (g_fvfShader == 0) {
 		IDirect3DDevice9 *device =
-			reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice);
+			reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::_Get_D3D_Device8());
 		HRESULT hr = device->CreateVertexDeclaration(
 			declaration, reinterpret_cast<IDirect3DVertexDeclaration9 **>(&g_fvfShader));
 		if (hr < 0)

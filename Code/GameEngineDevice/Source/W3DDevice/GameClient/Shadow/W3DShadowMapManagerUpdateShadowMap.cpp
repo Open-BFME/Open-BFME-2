@@ -185,16 +185,7 @@ struct ShadowDepthDeviceTable
 };
 struct IDirect3DDevice8 { ShadowDepthDeviceTable *vtable; };
 
-class DX8Wrapper
-{
-public:
-	static RefCountPtr<TextureClass> Create_Render_Target(int width, int height, WW3DFormat format);
-	static void Set_Render_Target(IDirect3DSurface8 *render_target, IDirect3DSurface8 *depth_buffer);
-	static void Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default_depth_buffer);
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-	friend class Rva0007DA23ResourceManager;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 void bfmeReleaseQueuedDeviceInterfaces();
 
@@ -329,7 +320,7 @@ bool Rva0007DA23ResourceManager::ReAcquireResources()
             g_shadowMapSettings.v0, (WW3DFormat)0x72);
     if (!depth)
     {
-        IDirect3DDevice8 *device = DX8Wrapper::D3DDevice;
+        IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
         device->vtable->createDepth(device, g_shadowMapSettings.v0, g_shadowMapSettings.v0,
             0x4b, 0, 0, 1, &depth, 0);
     }

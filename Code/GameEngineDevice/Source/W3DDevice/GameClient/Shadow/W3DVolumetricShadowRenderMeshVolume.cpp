@@ -49,16 +49,7 @@ namespace Debug_Statistics
 	void Record_DX8_Polys_And_Vertices(int polys, int vertices, const ShaderClass &shader);
 }
 
-class DX8Wrapper
-{
-public:
-	static __declspec(dllimport) __forceinline IDirect3DDevice8 *_Get_D3D_Device8(void) { return D3DDevice; }
-	static __declspec(dllimport) __forceinline bool _Is_Triangle_Draw_Enabled(void) { return _EnableTriangleDraw; }
-	static void Set_DX8_Render_State(DWORD state, unsigned value);
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-	static bool _EnableTriangleDraw;
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class W3DShadowManager
 {
