@@ -7,7 +7,6 @@
 // reference gate verifies identity as well as the FF 25 + DIR32 instruction.
 
 extern "C" __declspec(dllimport) void AVIFileRelease();
-extern "C" __declspec(dllimport) void AVIStreamWrite();
 extern "C" __declspec(dllimport) void _CIacos();
 extern "C" __declspec(dllimport) void _CIasin();
 extern "C" __declspec(dllimport) void _CIfmod();
@@ -80,7 +79,6 @@ void ji_00629b14() { printf(); }
 void ji_00629b6e() { isxdigit(); }
 void ji_0065477e() { AVIFileRelease(); }
 void ji_0065478a() { AVIFileRelease(); }
-void ji_006547a2() { AVIStreamWrite(); }
 void ji_0065565e() { htonl(); }
 void ji_006556b8() { htons(); }
 void ji_006b8a30() { memmove(); }

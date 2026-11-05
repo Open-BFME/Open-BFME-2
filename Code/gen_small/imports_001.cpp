@@ -11,7 +11,6 @@
 
 extern "C" __declspec(dllimport) void AVIFileCreateStreamA();
 extern "C" __declspec(dllimport) void AVIFileInit();
-extern "C" __declspec(dllimport) void AVIFileOpen();
 extern "C" __declspec(dllimport) void AVIFileReadData();
 extern "C" __declspec(dllimport) void AVIMakeCompressedStream();
 extern "C" __declspec(dllimport) void AdjustTokenPrivileges();
@@ -660,7 +659,6 @@ void ji_00629d14() { InitCommonControls(); }
 void ji_00654778() { AVIFileReadData(); }
 void ji_00654784() { AVIMakeCompressedStream(); }
 void ji_00654790() { AVIFileCreateStreamA(); }
-void ji_00654796() { AVIFileOpen(); }
 void ji_0065479c() { AVIFileInit(); }
 void ji_006555f8() { timeGetTime(); }
 void ji_006555fe() { timeBeginPeriod(); }

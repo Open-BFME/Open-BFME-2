@@ -31,10 +31,29 @@ HRESULT STDAPICALLTYPE AVIFileCreateStreamA(PAVIFILE pfile, PAVISTREAM FAR * ppa
  return __identifier("_imp__AVIFileCreateStreamA@12")(pfile, ppavi, psi);
 }
 
+// _AVIFileOpen@16
+// Vfw.h maps AVIFileOpen to AVIFileOpenA under _WIN32; retail imports the
+// legacy undecorated export, declared here with the header's own win16
+// signature.
+#undef AVIFileOpen
+STDAPI AVIFileOpen(PAVIFILE FAR * ppfile, LPCSTR szFile, UINT uMode, LPCLSID lpHandler);
+typedef HRESULT (STDAPICALLTYPE *PFN_AVIFileOpen)(PAVIFILE FAR *, LPCSTR, UINT, LPCLSID);
+extern PFN_AVIFileOpen __identifier("_imp__AVIFileOpen@16");
+HRESULT STDAPICALLTYPE AVIFileOpen(PAVIFILE FAR * ppfile, LPCSTR szFile, UINT uMode, LPCLSID lpHandler) {
+ return __identifier("_imp__AVIFileOpen@16")(ppfile, szFile, uMode, lpHandler);
+}
+
 // _AVIFileInit@0
 typedef void (STDAPICALLTYPE *PFN_AVIFileInit)(void);
 extern PFN_AVIFileInit __identifier("_imp__AVIFileInit@0");
 void STDAPICALLTYPE AVIFileInit(void) {
  __identifier("_imp__AVIFileInit@0")();
+}
+
+// _AVIStreamWrite@32
+typedef HRESULT (STDAPICALLTYPE *PFN_AVIStreamWrite)(PAVISTREAM, LONG, LONG, LPVOID, LONG, DWORD, LONG FAR *, LONG FAR *);
+extern PFN_AVIStreamWrite __identifier("_imp__AVIStreamWrite@32");
+HRESULT STDAPICALLTYPE AVIStreamWrite(PAVISTREAM pavi, LONG lStart, LONG lSamples, LPVOID lpBuffer, LONG cbBuffer, DWORD dwFlags, LONG FAR * plSampWritten, LONG FAR * plBytesWritten) {
+ return __identifier("_imp__AVIStreamWrite@32")(pavi, lStart, lSamples, lpBuffer, cbBuffer, dwFlags, plSampWritten, plBytesWritten);
 }
 }

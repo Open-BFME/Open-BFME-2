@@ -15,17 +15,16 @@
 // and eight stdcall AVIStreamWrite arguments independently match retail.
 // The source's explicit positive-count guard redundantly reloads the count;
 // relying on the real for-loop guard keeps EDI=0 and retail's comparison.
-// Existing in-image ji_006547a2 import owner is the AVIFIL32 AVIStreamWrite
-// thunk (IAT BBA04C); no second import name or function pin is introduced.
+// The write goes through avifil32.dll!AVIStreamWrite (thunk row 0x006547A2,
+// Avifil32ImportThunks.cpp; IAT BBA04C).
 // Address-derived donor spelling is already used by BFME2's GetBuffer and
 // is retained without asserting the original historical member name.
-extern void ji_006547a2();
 
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char *);
 
-typedef int (__stdcall *AviStreamWrite)( void *stream, long start,
+extern "C" int __stdcall AVIStreamWrite( void *stream, long start,
 	long samples, void *buffer, long bytes, long flags,
 	long *samples_written, long *bytes_written );
 
@@ -398,7 +397,7 @@ void FrameGrabClass::Rva00958570_Flush_Buffered_Frames()
 			char error[ 0x100 ];
 			for( ; frame < BufferedFrames; ++frame )
 			{
-				int result = ((AviStreamWrite)ji_006547a2)( AVIStream,
+				int result = AVIStreamWrite( AVIStream,
 					WrittenFrames + frame, 1,
 					(char *)Buffer + FrameSize * frame,
 					FrameSize, 0x10, 0, 0 );
