@@ -11506,7 +11506,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0085BC48,320,.rdata,global,?g_00C5BC48@@3QBQBXB,Code/GameEngine/Source/GameLogic/Object/Update/DelayedDeathBody.cpp,owned,,1,2
 0x0085BD88,176,.rdata,vtable,??_7Rva004C1866@@6BRva004C1866_B2@@@,,literal,??_7Rva004C1866@@6BRva004C1866_B2@@@;_vtbl_00C5BD88,0,2
 0x0085BE38,148,.rdata,vtable,??_7Rva004C1866@@6BRva004C131B@@@,,literal,??_7Rva004C1866@@6BRva004C131B@@@;_vtbl_00C5BE38,0,2
-0x0085BECC,52,.rdata,global,_s_chinookFieldTable,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/ChinookAIUpdateBuildFieldParse.cpp,owned,,1,1
+0x0085BECC,52,.rdata,global,_s_chinookFieldTable,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DetachableRiderBody.cpp,owned,,1,1
 0x0085BF00,72,.rdata,vtable,??_7Rva004C1BAB@@6BRva004C1BAB_B3@@@,,literal,??_7Rva004C1BAB@@6BRva004C1BAB_B3@@@;_vtbl_00C5BF00,0,2
 0x0085BF48,176,.rdata,vtable,??_7Rva004C1BAB@@6BRva004C1BAB_B2@@@,,literal,??_7Rva004C1BAB@@6BRva004C1BAB_B2@@@;_vtbl_00C5BF48,0,2
 0x0085BFF8,192,.rdata,vtable,??_7Rva004C1BAB@@6BMiBase1@@@,,literal,??_7Rva004C1BAB@@6BMiBase1@@@;_vtbl_00C5BFF8,0,2

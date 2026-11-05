@@ -8550,8 +8550,8 @@ function,?rva0082B120Set@@YAHH@Z,?setMallocHandler@@YAHH@Z,inferred,agree:nl-684
 function,?rva0050EE23@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z,?compareNoCase@Rva0050EE23@@QAEHPBDHUCharCompare@@@Z,inferred,agree:nl-a0407a81e9c7,Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050EE23
 carry,Rva0050EE23::rva0050EE23::other,Rva0050EE23::compareNoCase::other,inferred,scope renamed by Rename rva0050EE23 to compareNoCase (inferred),Code/Libraries/Source/WWVegas/WWLib/Rva0050EE23Compare.cpp,0x0050EE23
 member,Rva004E7A85World10::m_54,Rva004E7A85World10::m_playerIndex,inferred,agree:nl-64c38cde24ff,Code/GameEngine/Source/Common/Rva004E7A85Refresh.cpp,
-function,?rva004C1C68@DetachableRiderBody@@MBE_NXZ,?requiresAllActivationUpgrades@DetachableRiderBody@@MBE_NXZ,inferred,agree:nl-8f64ddf9a292,Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp,0x004C1C68
-function,?rva004C1C75@DetachableRiderBody@@MBE_NXZ,?requiresAllConflictingUpgrades@DetachableRiderBody@@MBE_NXZ,inferred,agree:nl-853cef84d114,Code/GameEngine/Source/GameLogic/Object/Body/DetachableRiderBodyUpgradeSlots.cpp,0x004C1C75
+function,?rva004C1C68@DetachableRiderBody@@MBE_NXZ,?requiresAllActivationUpgrades@DetachableRiderBody@@MBE_NXZ,inferred,agree:nl-8f64ddf9a292,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DetachableRiderBody.cpp,0x004C1C68
+function,?rva004C1C75@DetachableRiderBody@@MBE_NXZ,?requiresAllConflictingUpgrades@DetachableRiderBody@@MBE_NXZ,inferred,agree:nl-853cef84d114,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DetachableRiderBody.cpp,0x004C1C75
 member,Rva0029B380Elem::m_4,Rva0029B380Elem::m_displayString,inferred,agree:nl-0df313dbb5cd,Code/GameEngine/Source/GameClient/Rva0029B380Clean.cpp,
 member,ParticleView::flag16C,ParticleView::m_masterSystem,inferred,agree:nl-e7bdc746c933,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp,
 member,Rva0055CD38::m_24,Rva0055CD38::m_startPoint,inferred,agree:nl-e778b63948b6,Code/GameEngine/Source/GameClient/FXParticleSystemLineXfer.cpp,
