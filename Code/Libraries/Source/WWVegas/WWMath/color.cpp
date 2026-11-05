@@ -3,6 +3,7 @@
 #include "../../../../GameEngine/Source/Common/debug.h"
 
 #define RGBCOLOR_VIEW_DEFAULT_CTOR
+#define RGBCOLOR_VIEW_FLOAT_CTOR
 #include "../../../Include/Lib/RGBColor.h"
 
 struct RGBAColorReal
@@ -41,6 +42,15 @@ inline void RGBColor::setFromInt(int color) throw()
 // "return this" body at 0x0047A6A9.
 RGBColor::RGBColor()
 {
+}
+
+// Exported (retail export 314); identical code folding puts it on Coord3D's
+// three-float store at 0x000423A0.
+RGBColor::RGBColor(float r, float g, float b)
+{
+    red = r;
+    green = g;
+    blue = b;
 }
 
 bool operator==(const RGBColor &left, const RGBColor &right)

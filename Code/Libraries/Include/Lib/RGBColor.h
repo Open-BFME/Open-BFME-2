@@ -22,6 +22,12 @@ struct RGBColor {
     // other units keep aggregate construction.
     RGBColor();
 #endif
+#ifdef RGBCOLOR_VIEW_FLOAT_CTOR
+    // Exported three-float constructor (retail export 314), folded onto Coord3D's
+    // shared store body 0x000423A0; owner color.cpp. Select before the first include;
+    // other units keep aggregate construction.
+    RGBColor(float r, float g, float b);
+#endif
 };
 
 #endif // CANONICAL_RGBCOLOR_H

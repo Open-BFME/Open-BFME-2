@@ -99509,3 +99509,4 @@ _$E1,,0x007AEBAA,13,Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,matched
 ??0LineSegment2D@@QAE@ABU0@@Z,0x0004254E,0x0004254E,31,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,exported LineSegment2D copy ctor; /OPT:ICF fold of Region2D's
 ??4LineSegment2D@@QAEAAU0@ABU0@@Z,0x002E7FDA,0x002E7FDA,19,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,exported LineSegment2D implicit copy assignment; /OPT:ICF fold of Region2D's movsd copy
 ??0IntRange@@QAE@HH@Z,0x0007E523,0x0007E523,18,Code/Libraries/Source/WWVegas/WWMath/region.cpp,matched,exported IntRange pair ctor; /OPT:ICF fold of ICoord2D's
+??0RGBColor@@QAE@MMM@Z,0x000423A0,0x000423A0,37,Code/Libraries/Source/WWVegas/WWMath/color.cpp,matched,ICF fold;retail export 314 names RGBColor's three-float ctor at Coord3D's shared store body;fold-proof=Code/Libraries/Source/WWVegas/WWMath/color.cpp
