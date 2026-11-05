@@ -86,17 +86,22 @@ private:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class InheritUpgradeCreate
+class Thing;
+class Xfer;
+
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
+
+class __declspec(novtable) InheritUpgradeCreate : public CreateModule
 {
 public:
-	virtual ~InheritUpgradeCreate();
+	InheritUpgradeCreate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onBuildComplete();
 	void rva004B959C();
 
-private:
-	const InheritUpgradeCreateData *m_moduleData;	// +0x04
-	Object *m_object;	// +0x08
-public:
-	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // tu-skeleton: 0x004B9428 42B ??0InheritUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateCtor.cpp (not merged yet)
@@ -155,7 +160,7 @@ void InheritUpgradeCreate::rva004B959C()
 	Object *self = m_object;
 	if (self)
 	{
-		const InheritUpgradeCreateData *data = m_moduleData;
+		const InheritUpgradeCreateData *data = (const InheritUpgradeCreateData *)m_moduleData;
 		if (data)
 		{
 			BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&self->m_pos, data->m_range, 1, &Rva002614ECFilter(data->m_pad8C, self->getControllingPlayer(), true), 0);

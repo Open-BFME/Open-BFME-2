@@ -10,37 +10,35 @@
 
 class Thing;
 class ModuleData;
+class Xfer;
+enum NameKeyType;
 
 static int s_vtable;
 static int s_secondary0C;
 static int s_secondary10;
 
-// Rowed CreateModule base; ctor resolves to its row. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class CreateModule
-{
-public:
-	CreateModule(Thing *thing, const ModuleData *moduleData);
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/CreateModuleClass.h"
 
-protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-};
-
-class InheritUpgradeCreate : public CreateModule
+// novtable: the compiler stores no vptr of its own, so the three explicit
+// stores below stay the body's only ones, in retail order.
+class __declspec(novtable) InheritUpgradeCreate : public CreateModule
 {
 public:
 	InheritUpgradeCreate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onBuildComplete();
+	void rva004B959C();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // ??0InheritUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z @0x4B9428
 InheritUpgradeCreate::InheritUpgradeCreate(Thing *thing, const ModuleData *moduleData)
 	: CreateModule(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
+	*(const void **)this = &s_vtable;
+	*(const void **)((char *)this + 0x0C) = &s_secondary0C;
+	*(const void **)((char *)this + 0x10) = &s_secondary10;
 }
