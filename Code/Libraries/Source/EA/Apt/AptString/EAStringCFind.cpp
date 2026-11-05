@@ -1,13 +1,10 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_CRTIMP=
 // ?Find@EAStringC@@QAEHDH@Z, retail 0x006D38E0 (62B). Ported from Open-BFME-1
 // Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp (BFME1 0x0089E230).
 // Trimmed to the placed char-find body; the string-find overload is
 // declared-only here. Callee strchr resolves via the existing ledger pin.
 
-extern "C" char *__cdecl strchr(const char *, int);
-extern "C" char *__cdecl strstr(const char *, const char *);
-extern "C" unsigned int __cdecl strlen(const char *);
-extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
+#include <string.h>
 #pragma intrinsic(strlen)
 #pragma intrinsic(memcmp)
 

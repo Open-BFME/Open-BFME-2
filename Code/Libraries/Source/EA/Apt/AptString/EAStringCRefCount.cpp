@@ -1,4 +1,4 @@
-// cl: /O2 /DNDEBUG /MD
+// cl: /O2 /DNDEBUG /MD /D_CRTIMP=
 // ?FreeData@EAStringC@@SAXPAVStringDataC@1@@Z, retail 0x006D2EB0 (118B).
 // EA refcounted-string release worker: asserts the data refcount is live,
 // drops it, and returns while shared; the last release frees the block
@@ -14,13 +14,7 @@ void __debugbreak();
 #pragma intrinsic(__debugbreak)
 #pragma intrinsic(memcmp)
 
-extern "C" int __cdecl memcmp(const void *left, const void *right, unsigned int count);
-extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
-extern "C" unsigned int __cdecl strlen(const char *str);
-extern "C" void *__cdecl memset(void *dst, int value, unsigned int count);
-extern "C" int __cdecl strcmp(const char *left, const char *right);
-extern "C" int __cdecl _strcmpi(const char *left, const char *right);
-extern "C" char *__cdecl strchr(const char *text, int character);
+#include <string.h>
 #pragma intrinsic(memcpy)
 #pragma intrinsic(strlen)
 #pragma intrinsic(memset)
