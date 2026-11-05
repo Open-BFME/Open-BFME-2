@@ -75,11 +75,7 @@ typedef Rva002AA14DBonuses BattlePlanBonuses;
 
 #include "../../../Include/GameLogic/Module/BodyModule.h"
 
-class Thing
-{
-public:
-	Bool isAnyKindOf(const KindOfMaskType &anyKindOf) const;
-};
+#include "../Thing/thing.h"
 
 class Object : public Thing
 {
@@ -96,9 +92,8 @@ public:
 	void clearWeaponBonusCondition(WeaponBonusConditionType wst) { m_weaponBonusCondition &= ~(1 << wst); }
 
 private:
-	void *m_vtbl;
-	const ThingTemplate *m_template;			// +0x04
-	char m_pad08[0x78 - 0x08];
+	// Thing owns the first 0x60 bytes, including the template pointer.
+	char m_pad60[0x78 - 0x60];
 	ObjectID m_producerID;						// +0x78
 	char m_pad7C[0x254 - 0x7C];
 	BodyModuleInterface *m_body;				// +0x254

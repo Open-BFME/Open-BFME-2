@@ -26,3 +26,5 @@ unchanged: six held dependents still block its two matched query declarations.
 [Accepted paths, trial history and validation](../../reverse/attempt_support/thing-header-adoption-20261101.md).
 
 Twenty-one more Thing consumers pass owning acceptance and retire their queue keys; four scanner-blocked sources remain unchanged. [Scope and verification](../../reverse/attempt_support/thing-header-adoption-20261104.md).
+
+2026-11-05: PlayerBattlePlanBonuses adopts Thing with its Object prefix adjusted to the canonical 0x60 base; the already-adopted WoTR tactic also passes acceptance, retiring two queue keys and preserving 1,046 census-linked bytes in preview. [Scope and checks](../../reverse/attempt_support/thing-battleplan-header-20261105-codexb4.md).
