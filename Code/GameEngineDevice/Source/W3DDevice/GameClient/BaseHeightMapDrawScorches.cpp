@@ -9,7 +9,7 @@
 // a depth bias of 1, the render-state flush and two direct sampler-0 writes
 // (IDirect3DDevice9::SetSamplerState, slot 69: ADDRESSU / ADDRESSV clamp,
 // counted as texture-stage changes) before the draw, and the bias back to 0.
-// Is_Hidden is vtable slot 100 (+0x190); the draw is skipped while hidden.
+// RenderObjClass::Is_Hidden is vtable slot 100 (+0x190); the draw is skipped while hidden.
 
 #include <d3d9.h>
 
@@ -48,121 +48,23 @@ public:
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 void bfmeSetProjectionDepthBias(float bias);
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	virtual void s000();
-	virtual void s001();
-	virtual void s002();
-	virtual void s003();
-	virtual void s004();
-	virtual void s005();
-	virtual void s006();
-	virtual void s007();
-	virtual void s008();
-	virtual void s009();
-	virtual void s010();
-	virtual void s011();
-	virtual void s012();
-	virtual void s013();
-	virtual void s014();
-	virtual void s015();
-	virtual void s016();
-	virtual void s017();
-	virtual void s018();
-	virtual void s019();
-	virtual void s020();
-	virtual void s021();
-	virtual void s022();
-	virtual void s023();
-	virtual void s024();
-	virtual void s025();
-	virtual void s026();
-	virtual void s027();
-	virtual void s028();
-	virtual void s029();
-	virtual void s030();
-	virtual void s031();
-	virtual void s032();
-	virtual void s033();
-	virtual void s034();
-	virtual void s035();
-	virtual void s036();
-	virtual void s037();
-	virtual void s038();
-	virtual void s039();
-	virtual void s040();
-	virtual void s041();
-	virtual void s042();
-	virtual void s043();
-	virtual void s044();
-	virtual void s045();
-	virtual void s046();
-	virtual void s047();
-	virtual void s048();
-	virtual void s049();
-	virtual void s050();
-	virtual void s051();
-	virtual void s052();
-	virtual void s053();
-	virtual void s054();
-	virtual void s055();
-	virtual void s056();
-	virtual void s057();
-	virtual void s058();
-	virtual void s059();
-	virtual void s060();
-	virtual void s061();
-	virtual void s062();
-	virtual void s063();
-	virtual void s064();
-	virtual void s065();
-	virtual void s066();
-	virtual void s067();
-	virtual void s068();
-	virtual void s069();
-	virtual void s070();
-	virtual void s071();
-	virtual void s072();
-	virtual void s073();
-	virtual void s074();
-	virtual void s075();
-	virtual void s076();
-	virtual void s077();
-	virtual void s078();
-	virtual void s079();
-	virtual void s080();
-	virtual void s081();
-	virtual void s082();
-	virtual void s083();
-	virtual void s084();
-	virtual void s085();
-	virtual void s086();
-	virtual void s087();
-	virtual void s088();
-	virtual void s089();
-	virtual void s090();
-	virtual void s091();
-	virtual void s092();
-	virtual void s093();
-	virtual void s094();
-	virtual void s095();
-	virtual void s096();
-	virtual void s097();
-	virtual void s098();
-	virtual void s099();
-	virtual int Is_Hidden();
-	void updateScorches();
-	void drawScorches();
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
-private:
-	char m_pad04[0xCC - 4];
-	VertexBufferClass *m_vertexScorch;	// +0xCC
-	IndexBufferClass *m_indexScorch;	// +0xD0
-	BFME2TextureRef m_scorchTexture;	// +0xD4
-	int m_curNumScorchVertices;	// +0xD8
-	int m_curNumScorchIndices;	// +0xDC
-};
+// Use the canonical RefCountClass instead of the donor refcount.h.
+#define REFCOUNT_H
+// d3d9.h already brought in the Platform SDK persist.h, whose guard hides
+// WWSaveLoad's; rendobj.h only needs these names declared.
+class PersistFactoryClass;
+class ChunkSaveClass;
+class ChunkLoadClass;
+
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
+// The header keeps the scorch texture holder at +0xD4 as an opaque word.
+static __forceinline const BFME2TextureRef &scorchTexture(const BaseHeightMapRenderObjClass *self)
+{
+	return *reinterpret_cast<const BFME2TextureRef *>(&self->field00D4);
+}
 
 void BaseHeightMapRenderObjClass::drawScorches()
 {
@@ -178,7 +80,7 @@ void BaseHeightMapRenderObjClass::drawScorches()
 	DX8Wrapper::Set_Shader(shader);
 	DX8Wrapper::Set_Index_Buffer(m_indexScorch, 0);
 	DX8Wrapper::Set_Vertex_Buffer(m_vertexScorch, 0);
-	BFME2Set_Texture(0, m_scorchTexture);
+	BFME2Set_Texture(0, scorchTexture(this));
 	bfmeSetProjectionDepthBias(1.0f);
 	DX8Wrapper::Apply_Render_State_Changes();
 	reinterpret_cast<IDirect3DDevice9 *>(DX8Wrapper::D3DDevice)->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);

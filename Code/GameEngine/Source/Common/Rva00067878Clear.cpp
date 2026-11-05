@@ -18,32 +18,45 @@ struct RefObj00067878
 
 #include "../../../Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.h"
 
-class BaseHeightMapRenderObjClass
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
+
+// Use the canonical RefCountClass instead of the donor refcount.h.
+#define REFCOUNT_H
+
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
+
+// The header types the +0xCC/+0xD0 scorch buffers by class only; this body
+// releases them through their reference count at +4 and slot 0.
+static __forceinline RefObj00067878 *&scorchHolder(VertexBufferClass *&field)
 {
-public:
-	void rva00067878();
-private:
-	unsigned char m_pad[0xCC];
-	RefObj00067878 *m_a;
-	RefObj00067878 *m_b;
-	BfmeResetTextureRef m_c;
-};
+	return reinterpret_cast<RefObj00067878 *&>(field);
+}
+
+static __forceinline RefObj00067878 *&scorchHolder(IndexBufferClass *&field)
+{
+	return reinterpret_cast<RefObj00067878 *&>(field);
+}
+
+static __forceinline BfmeResetTextureRef &scorchTexture(void *&field)
+{
+	return reinterpret_cast<BfmeResetTextureRef &>(field);
+}
 
 void BaseHeightMapRenderObjClass::rva00067878()
 {
-	RefObj00067878 *a = m_a;
+	RefObj00067878 *a = scorchHolder(m_vertexScorch);
 	if (a)
 	{
 		if (--a->m_ref == 0)
 			a->v0();
-		m_a = 0;
+		scorchHolder(m_vertexScorch) = 0;
 	}
-	RefObj00067878 *b = m_b;
+	RefObj00067878 *b = scorchHolder(m_indexScorch);
 	if (b)
 	{
 		if (--b->m_ref == 0)
 			b->v0();
-		m_b = 0;
+		scorchHolder(m_indexScorch) = 0;
 	}
-	return m_c.clear();
+	return scorchTexture(field00D4).clear();
 }
