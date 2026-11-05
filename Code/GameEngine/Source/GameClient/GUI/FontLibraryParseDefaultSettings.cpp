@@ -28,7 +28,7 @@ namespace _STL {template<> TreeHintRef00217D4C &map<AsciiString,TreeHintRef00217
 struct Rva002BED91 {TargetRef00217D4C *m_ptr;void set(TargetRef00217D4C*);};
 class Rva002186EB {public:Rva002186EB();const void *vtable;int references;TreeHintRef00218787 defaults;_STL::map<int,TreeHintRef00218787> sizes;};
 struct FontDefaultSettings {const void *vtable;int references;bool antialiased;FontDefaultSettings():references(0){vtable=__identifier("??_7Rva00217497@@6B@");}};
-class FontLibrary {public:static void ParseFontDefaultSettings(INI*);char prefix[0x14];_STL::map<AsciiString,TreeHintRef00217D4C> names;};
+#include "../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 void FontLibrary::ParseFontDefaultSettings(INI *ini)
 {
@@ -39,7 +39,8 @@ void FontLibrary::ParseFontDefaultSettings(INI *ini)
  TreeHintRef00217D4C settings((TargetRef00217D4C*)new FontDefaultSettings);
  ((FontDefaultSettings*)settings.m_ptr)->antialiased=true;
  ini->initFromINI(settings.m_ptr,FontDefaultSettingsFieldParse);
- TreeHintRef00217D4C &nameSlot=TheFontLibrary->names[name];
+ TreeHintRef00217D4C &nameSlot=
+  (*reinterpret_cast<_STL::map<AsciiString,TreeHintRef00217D4C> *>(TheFontLibrary->field14))[name];
  if(!nameSlot.m_ptr)((Rva002BED91*)&nameSlot)->set((TargetRef00217D4C*)new Rva002186EB);
  Rva002186EB *table=(Rva002186EB*)nameSlot.m_ptr;
  if((ini ? (pointSize>=0.f) : (pointSize>=0.f))){size=(int)pointSize;*(TreeHintRef00217D4C*)&table->sizes[size]=settings;}

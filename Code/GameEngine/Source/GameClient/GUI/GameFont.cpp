@@ -114,17 +114,7 @@ struct Gen00473A40Less
 
 	unsigned char m_pad0x00;
 };
-class FontLibrary
-{
-public:
-	void rva00218468(const AsciiString *name, float *size, bool *style);
-
-	// Nothing before the tree is read here; the landed sibling
-	// FontLibraryFontList.cpp spells the real prefix (font list at +0x0C,
-	// count at +0x10, table map at +0x14), so this stays a pad.
-	char m_pad0x00[0x20];
-	Rva00475680Tree m_fontSubstitution;
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 struct Rva004738A0Obj
 {
 	int m_00;
@@ -1060,7 +1050,7 @@ void __cdecl Rva002183D1SortHeap(Rva004748F0Element *first, Rva004748F0Element *
 
 void FontLibrary::rva00218468(const AsciiString *name, float *sizeOut, bool *style)
 {
-	Rva00475680Tree *tree = &m_fontSubstitution;
+	Rva00475680Tree *tree = reinterpret_cast<Rva00475680Tree *>(field20);
 	float &size = *sizeOut;
 	Rva00475680Node *node = tree->find(*name);
 	if (node == tree->m_header)

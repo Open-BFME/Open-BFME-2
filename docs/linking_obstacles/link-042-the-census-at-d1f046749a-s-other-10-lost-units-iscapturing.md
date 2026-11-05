@@ -50,6 +50,7 @@ it does not clear the whole register or claim a new census result.
     counts lowered. Preview at bf3dd31211 stays 1,758 + 357 B, with no new census
     gain claimed. The existing copy alias and opaque record name remain.
     [Evidence](../../reverse/attempt_support/gamefont-sort-identity-20261027.md).
+    **Header prerequisite 2026-11-05:** three FontLibrary private views adopt the existing canonical header (68/68 rows exact; three queue rows retired; preview 4,278 -> 4,278 B); the lookup merge now reaches byte comparison, while the parser needs its Rva002186EB container view reconciled. [Evidence and remaining merge blockers](../../reverse/attempt_support/gamefont-fontlibrary-header-adoption-20261105.md).
   - `statistics.cpp` (986 B), 01a7f0d9ba: absorbed `Rva001296F0Destroy.cpp`, which never
     linked (`extern "C" textureStatisticsString`, while the string is a file static in
     `DebugStatisticsRecordTextureEnd.cpp`; non-retail `??1Rva001880D0Dtor` copy).

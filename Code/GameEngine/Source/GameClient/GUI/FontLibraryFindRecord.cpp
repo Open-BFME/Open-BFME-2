@@ -86,30 +86,14 @@ struct BfmeFontRecord
 	bool m_flag08; // +0x08
 };
 
-class FontLibrary
-{
-public:
-	void *rva002186A6(const AsciiString *name, float size);
-	GameFont *getFont(const AsciiString *name, float size, bool bold);
-	GameFont *rva0021857E(const AsciiString *name, float size, bool bold, int style);
-	void rva00218468(const AsciiString *name, float *size, bool *bold);
-
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual bool loadFontData(GameFont *font); // +0x38
-private:
-	char m_pad04[0x0C - 4];
-	GameFont *m_fontList; // +0x0C
-	int m_fontCount; // +0x10, updated by the matched list-prepend helper
-	_STL::map<AsciiString, AsciiString> m_tables;
-};
+#include "../../../Include/GameClient/FontLibrary.h"
 
 void *FontLibrary::rva002186A6(const AsciiString *name, float size)
 {
-	_STL::map<AsciiString, AsciiString>::iterator table = m_tables.find(*name);
-	if (table == m_tables.end())
+	_STL::map<AsciiString, AsciiString> &tables =
+		*reinterpret_cast<_STL::map<AsciiString, AsciiString> *>(field14);
+	_STL::map<AsciiString, AsciiString>::iterator table = tables.find(*name);
+	if (table == tables.end())
 		return 0;
 	int sizeKey = (int)size;
 	BfmeFontSizeTable *sizes = *(BfmeFontSizeTable **)&table->second;
