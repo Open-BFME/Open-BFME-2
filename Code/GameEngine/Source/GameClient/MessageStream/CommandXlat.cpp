@@ -739,45 +739,31 @@ GameMessage::Type CommandTranslator::evaluateContextCommand(Drawable*draw,const 
 #pragma comment(linker, "/alternatename:?translateGameMessage@Rva0042CBB6@@UAEHPBX@Z=__purecall")
 #include <stl/_algobase.h>
 #include <new>
-
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-
 struct TranslateUIInput { char pad[0x15];bool enabled,active;bool getInputEnabled() const {return enabled&&active;} };
-
 struct TranslateMouseFields {char pad[0x12e8];unsigned dragTolerance;int pad12ec;unsigned clickTime;};
-
 struct TranslateGlobalFields {char pad[0x5c];bool alternate;char pad5d[0xa44-0x5d];int netMinPlayers;char pada48[0xbbd-0xa48];bool fastMode;char padbbe[0x11c9-0xbbe];bool timeControls;};
-
 struct TranslateLogicFields { char pad[0x110];int mode;bool isReplay()const{return mode==3;} };
-
 struct TranslateTransition {char pad[0x24];int first,second;char pad2c[0x25];bool flag;};
-
 class TranslateGameClient : public ContextSlots<16> { public: virtual Drawable*find(unsigned);virtual Drawable*first(); };
-
 class TranslateGameInfo : public ContextSlots<19> { public: virtual bool multiplayer(); };
-
 class TranslateWindowManager : public ContextSlots<60> {public:virtual GameWindow*window(GameWindow*,int);};
-
 class TranslateDisplay : public ContextSlots<83> {public:virtual void screenshot(int);};
-
 class TranslateAudio : public ContextSlots<25> {public: virtual unsigned add(const BfmeAudioEventPrefix136*);
 virtual void slotAudio26();virtual void slotAudio27();virtual void slotAudio28();virtual void slotAudio29();virtual void slotAudio30();virtual void slotAudio31();virtual void slotAudio32();virtual void slotAudio33();virtual void slotAudio34();virtual void slotAudio35();virtual void slotAudio36();virtual void slotAudio37();virtual void slotAudio38();virtual void slotAudio39();virtual void slotAudio40();virtual void slotAudio41();virtual void slotAudio42();virtual void slotAudio43();virtual void slotAudio44();virtual void slotAudio45();virtual void slotAudio46();virtual void slotAudio47();virtual void slotAudio48();virtual void slotAudio49();virtual void slotAudio50();virtual void slotAudio51();virtual void slotAudio52();virtual void slotAudio53();virtual void slotAudio54();virtual void slotAudio55();virtual void slotAudio56();virtual void slotAudio57();virtual void slotAudio58();virtual void slotAudio59();virtual void slotAudio60();virtual void slotAudio61();virtual void slotAudio62();virtual void slotAudio63();virtual void slotAudio64();virtual void slotAudio65();virtual void slotAudio66();virtual void slotAudio67();virtual void slotAudio68();virtual void slotAudio69();virtual void slotAudio70();virtual void slotAudio71();virtual void slotAudio72();virtual void slotAudio73();virtual void slotAudio74();virtual void slotAudio75();virtual void slotAudio76();virtual void slotAudio77();
  virtual const char*misc() const;};
-
 class TranslateMessages : public ContextSlots<16> {public:virtual void __cdecl message(UnicodeString,...);};
-
 class TranslateGameEngine : public ContextSlots<16> {public:virtual void increase();virtual void decrease();};
-
 class GameEngine;
-
 extern GameEngine*TheGameEngine;
-
 #include "../../../Include/GameClient/Eva.h"
+#define DrawableListFreeNodes (*(void **)((char *)&g_freelistPool00DBA5E0 + 8))
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 extern Eva*TheEva;
 
@@ -822,8 +808,8 @@ int Rva00429276(Rva00429276Entry*,Rva00429276Holder*);
 
 // The free-list head is the +8 member of the complete pool at VA 0xDBA5E0.
 class FreelistPool;
+
 extern FreelistPool g_freelistPool00DBA5E0;
-#define DrawableListFreeNodes (*(void **)((char *)&g_freelistPool00DBA5E0 + 8))
 
 namespace _STL {
 template<> list<Drawable*,allocator<Drawable*> >::list(const list<Drawable*,allocator<Drawable*> >&);
@@ -927,8 +913,6 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 // that is first in link order and wins over every consumer's retail-shaped one.
 class FreelistPool { public: void *pop(); };
 
-extern FreelistPool g_freelistPool00DBA5E0;
-
 namespace _STL
 {
 template <> __declspec(noinline) _List_node<Drawable *> *
@@ -939,12 +923,6 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
     return node;
 }
 }
-
-// Instantiate the recovered member; retain only its required template dependencies.
-template void _STL::list<Drawable *, _STL::allocator<Drawable *> >::_M_insert_dispatch<_STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> > >(_STL::_List_iterator<Drawable *, _STL::_Nonconst_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >, _STL::__false_type const &);
-
-// Instantiate the recovered member; retain only its required template dependencies.
-template void _STL::list<Drawable *, _STL::allocator<Drawable *> >::insert<_STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> > >(_STL::_List_iterator<Drawable *, _STL::_Nonconst_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >);
 
 struct Rva0042C1F9Helper
 {
@@ -969,11 +947,103 @@ public:
 
 // tu-skeleton: 0x00428EEB 284B ?rva00428EEB@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x00429007 140B ?createEnterMessage@CommandTranslator@@QAEHPAVDrawable@@H@Z -- matched in Code/GameEngine/Source/Common/CommandTranslator_createEnterMessage.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/CommandTranslator_createEnterMessage.cpp
 
-// tu-skeleton: 0x00429093 127B ?createEvacuateMessage@CommandTranslator@@QAEHPAVDrawable@@H@Z -- matched in Code/GameEngine/Source/Common/CommandTranslator_createEvacuateMessage.cpp (not merged yet)
+// ?createEnterMessage@CommandTranslator@@QAEHPAVDrawable@@H@Z @0x00429007. BFME1's
+// CommandTranslator::createEnterMessage (0x005AD9C0) has the same callees in order, and
+// its message type 0x42B is this body's 0x42C (BFME2's enum is shifted by one
+// here, as for the two sibling create*Message bodies); Zero Hour's body shape.
+// 140B
+// Evidence: caller 0x0042A368 plus TheInGameUI slot73 plus PickAndPlayInfo ctor 0x004D92FE plus pickAndPlayUnitVoiceResponse pin plus MessageStreamSubsystem slot 0x48 with 0x42c plus appendObjectIDArgument 0x0030F979
 
-// tu-skeleton: 0x00429112 127B ?createDockMessage@CommandTranslator@@QAEHPAVDrawable@@H@Z -- matched in Code/GameEngine/Source/Common/CommandTranslator_createDockMessage.cpp (not merged yet)
+int CommandTranslator::createEnterMessage(Drawable *draw, int commandType)
+{
+	if (commandType == 2)
+		return GameMessage::MSG_ENTER;
+	GameMessage::Type msgType = GameMessage::MSG_ENTER;
+	if (draw != 0 && draw->getObject() != 0)
+	{
+		if (m_teamExists)
+		{
+			PickAndPlayInfo info;
+			info.m_drawTarget = draw;
+			pickAndPlayUnitVoiceResponse((const DrawableList*)TheInGameUI->getAllSelectedDrawables(), msgType, &info);
+			GameMessage *msg = TheMessageStream->appendMessage(msgType);
+			msg->appendObjectIDArgument(INVALID_OBJECT_ID);
+			msg->appendObjectIDArgument(draw->getObject()->getID());
+		}
+		return msgType;
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/CommandTranslator_createEvacuateMessage.cpp
+
+// ?createEvacuateMessage@CommandTranslator@@QAEHPAVDrawable@@H@Z @0x00429093. BFME1's
+// CommandTranslator::createEvacuateMessage (0x005ADA90) has the same callees in order, and
+// its message type 0x41F is this body's 0x420 (BFME2's enum is shifted by one
+// here, as for the two sibling create*Message bodies); Zero Hour's body shape.
+// 127B
+// Evidence: caller 0x0042A398 plus TheInGameUI slot73 plus PickAndPlayInfo ctor 0x004D92FE plus pickAndPlayUnitVoiceResponse pin plus MessageStreamSubsystem slot 0x48 with 0x420 plus appendObjectIDArgument 0x0030F979
+// 0x420 is spelled as a cast: MessageStream.h still numbers MSG_EVACUATE 0x41E
+// (Zero Hour), one short of this body's value.
+
+int CommandTranslator::createEvacuateMessage(Drawable *draw, int commandType)
+{
+	if (commandType == 2)
+		return (GameMessage::Type)0x420;
+	GameMessage::Type msgType = (GameMessage::Type)0x420;
+	if (draw != 0 && draw->getObject() != 0)
+	{
+		if (m_teamExists)
+		{
+			PickAndPlayInfo info;
+			info.m_drawTarget = draw;
+			pickAndPlayUnitVoiceResponse((const DrawableList*)TheInGameUI->getAllSelectedDrawables(), msgType, &info);
+			GameMessage *msg = TheMessageStream->appendMessage(msgType);
+			msg->appendObjectIDArgument(draw->getObject()->getID());
+		}
+		return msgType;
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/CommandTranslator_createDockMessage.cpp
+
+// ?createDockMessage@CommandTranslator@@QAEHPAVDrawable@@H@Z @0x00429112. BFME1's
+// CommandTranslator::createDockMessage (0x005ADB50) has the same callees in order, and
+// its message type 0x42C is this body's 0x42D (BFME2's enum is shifted by one
+// here, as for the two sibling create*Message bodies); Zero Hour's body shape.
+// 127B
+// Evidence: caller 0x0042A38A plus TheInGameUI slot73 plus PickAndPlayInfo ctor 0x004D92FE plus pickAndPlayUnitVoiceResponse pin plus MessageStreamSubsystem slot 0x48 with 0x42d plus appendObjectIDArgument 0x0030F979
+
+int CommandTranslator::createDockMessage(Drawable *draw, int commandType)
+{
+	if (commandType == 2)
+		return GameMessage::MSG_DOCK;
+	GameMessage::Type msgType = GameMessage::MSG_DOCK;
+	if (draw != 0 && draw->getObject() != 0)
+	{
+		if (m_teamExists)
+		{
+			PickAndPlayInfo info;
+			info.m_drawTarget = draw;
+			pickAndPlayUnitVoiceResponse((const DrawableList*)TheInGameUI->getAllSelectedDrawables(), msgType, &info);
+			GameMessage *msg = TheMessageStream->appendMessage(msgType);
+			msg->appendObjectIDArgument(draw->getObject()->getID());
+		}
+		return msgType;
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::list<Drawable *, _STL::allocator<Drawable *> >::_M_insert_dispatch<_STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> > >(_STL::_List_iterator<Drawable *, _STL::_Nonconst_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >, _STL::__false_type const &);
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template void _STL::list<Drawable *, _STL::allocator<Drawable *> >::insert<_STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> > >(_STL::_List_iterator<Drawable *, _STL::_Nonconst_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >, _STL::_List_iterator<Drawable *, _STL::_Const_traits<Drawable *> >);
 
 // ---- from Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp
 
@@ -1159,37 +1229,21 @@ Rva005A7A90::Rva005A7A90()
 // selected-drawable list copy and AIUpdateInterface voice-response list operations.
 // TU-local overload avoids exporting an unrelated max instantiation.
 
-// tu-skeleton: 0x00429276 48B ?Rva00429276@@YAHPAURva00429276Entry@@PAURva00429276Holder@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE20.cpp (not merged yet)
 
-// tu-skeleton: 0x004292A6 80B ?Rva004292A6@@YAPAURva00429276Entry@@PAU1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE20.cpp (not merged yet)
 
-// tu-skeleton: 0x004292F6 248B ?issueMoveToLocationCommand@CommandTranslator@@AAEHPBUCoord3D@@PAVDrawable@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x004293EE 131B ?createAttackMessage@CommandTranslator@@AAEHPAVDrawable@@0H@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x00429471 593B ?issueFireWeaponCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/CommandTranslator_issueFireWeaponCommand.cpp (not merged yet)
 
-// tu-skeleton: 0x0042970A 103B ?rva0042970A@CommandTranslator@@QAEPBVCommandButton@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0042970AGet.cpp (not merged yet)
 
-// tu-skeleton: 0x00429771 74B ?canSelectionSalvage@@YI_NPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x004297F0 349B ?issueAttackCommand@CommandTranslator@@AAEHPAVDrawable@@PBUCoord3D@@HH@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x0042994D 878B ?issueSpecialPowerCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@PAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x0042AF97 161B ?rva0042AF97@CommandTranslator@@QAEXPAVGameMessage@@@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/CommandXlatTargetProbe.cpp (not merged yet)
 
-// tu-skeleton: 0x0042B086 88B ??0?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042B086.cpp (not merged yet)
 
-// tu-skeleton: 0x0078752A 11B $L2010 -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x00787535 10B __ehhandler$?issueSpecialPowerCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@PAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
 
-// tu-skeleton: 0x00787551 8B uw_00787551 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042B086.cpp (not merged yet)
 
-// tu-skeleton: 0x00787559 10B __ehhandler$??0?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042B086.cpp (not merged yet)
 
-// tu-skeleton: 0x007875A6 8B uw_007875a6 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0042C1F9.cpp
 
@@ -1222,6 +1276,38 @@ Rva0042C1F9 *Rva0042C1F9::rva0042C1F9(Holder0042C1F9 h)
 	::operator delete(q);
 	return this;
 }
+
+// tu-skeleton: 0x00429276 48B ?Rva00429276@@YAHPAURva00429276Entry@@PAURva00429276Holder@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE20.cpp (not merged yet)
+
+// tu-skeleton: 0x004292A6 80B ?Rva004292A6@@YAPAURva00429276Entry@@PAU1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE20.cpp (not merged yet)
+
+// tu-skeleton: 0x004292F6 248B ?issueMoveToLocationCommand@CommandTranslator@@AAEHPBUCoord3D@@PAVDrawable@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x004293EE 131B ?createAttackMessage@CommandTranslator@@AAEHPAVDrawable@@0H@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x00429471 593B ?issueFireWeaponCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/CommandTranslator_issueFireWeaponCommand.cpp (not merged yet)
+
+// tu-skeleton: 0x0042970A 103B ?rva0042970A@CommandTranslator@@QAEPBVCommandButton@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0042970AGet.cpp (not merged yet)
+
+// tu-skeleton: 0x00429771 74B ?canSelectionSalvage@@YI_NPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x004297F0 349B ?issueAttackCommand@CommandTranslator@@AAEHPAVDrawable@@PBUCoord3D@@HH@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x0042994D 878B ?issueSpecialPowerCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@PAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x0042AF97 161B ?rva0042AF97@CommandTranslator@@QAEXPAVGameMessage@@@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/CommandXlatTargetProbe.cpp (not merged yet)
+
+// tu-skeleton: 0x0042B086 88B ??0?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042B086.cpp (not merged yet)
+
+// tu-skeleton: 0x0078752A 11B $L2010 -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x00787535 10B __ehhandler$?issueSpecialPowerCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@PAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428EEBIssueFireWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x00787551 8B uw_00787551 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042B086.cpp (not merged yet)
+
+// tu-skeleton: 0x00787559 10B __ehhandler$??0?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042B086.cpp (not merged yet)
+
+// tu-skeleton: 0x007875A6 8B uw_007875a6 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
 
 // tu-skeleton: 0x007875B8 25B ?rva007875b8@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUITurnPhaseFactory.cpp (not merged yet)
 
