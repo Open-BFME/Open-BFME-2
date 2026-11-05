@@ -729,20 +729,14 @@ struct Rva00072F7CNode {
     unsigned value10;
 };
 
-struct Rva00072FE6 {
-    // Only the receiver at record+8 is known; the remaining record bytes
-    // are opaque. This span preserves the independently measured 0x20 stride.
-    Rva00072F7CNode *header00;
-    unsigned count04;
-    char unknown08[0x10];
-    void rva00072FE6();
-    void rva00072F7C(Rva00072F7CNode *);
-};
+#include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
 struct Rva004E2199Record {
     unsigned unknown00;
     Rva003EE9F1Ref *ref04;
     Rva00072FE6 container08;
+    // Retail records have a 0x20-byte stride; the tree occupies only +8..+0x13.
+    char unknown14[0x0C];
 };
 
 class Rva004E2E58Value {

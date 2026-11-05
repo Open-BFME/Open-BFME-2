@@ -109,14 +109,7 @@ public:
 // ctor); its inline dtor destroys the tree (0x000730DE) in place while the
 // unwind funclet calls the out-of-line set dtor 0x00073116 (a jmp to the
 // tree dtor).
-class Rva00072FE6
-{
-public:
-	~Rva00072FE6();
-	void *m_header;
-	unsigned int m_count;
-	unsigned char m_compare;
-};
+#include "../../Include/Common/Rva00072FE6.h"
 // LINK: the folded ctor 0x000D3A71 is rowed as set<AsciiString>::set().
 class AsciiString;
 namespace _STL
