@@ -63,9 +63,7 @@ public:
 	virtual void * createAudioManager();
 };
 #include "../GameClient/Rva000869CF.h"
-
 extern const float BfmeZeroRange;
-
 class Rva00524A4CInterface
 {
 public:
@@ -87,20 +85,15 @@ public:
 	virtual void s15();
 	virtual int slot16();
 };
-
 struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-
 struct TreeHintRef00217D4C {
  TargetRef00217D4C *m_ptr;
  TreeHintRef00217D4C() {}
  TreeHintRef00217D4C(const TreeHintRef00217D4C &other):m_ptr(other.m_ptr) {if(m_ptr) ++m_ptr->references;}
  ~TreeHintRef00217D4C() {if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);}
 };
-
 struct PlaybackFlags { unsigned char low:3; unsigned char reserved:5; };
-
 class Rva00524BB4:public SubsystemInterface {
 public:
  Rva00524BB4(TreeHintRef00217D4C ref);
@@ -113,7 +106,6 @@ private:
  TreeHintRef00217D4C m_ref;
  int m_38;
 };
-
 // ?rva00524A2D@Rva00524A2D@@QAEXHHHH@Z @0x00524A2D (31B): four-dword setter at +0x10
 // Evidence: two callers 0x002D32E3 and 0x005C9619 neighbours Rva0052493FClear and
 // Rva00524A4CClear both /O1 /MD honest Rva owner ret 0x10 four int args.
@@ -129,170 +121,130 @@ private:
 	int m_18;
 	int m_1c;
 };
-
 class Object;
-
 class ObjectLookupMap
 {
 public:
 	Object**findSlot(int*);
 };
-
 class Rva00548984;
-
 typedef _STL::hashtable<_STL::pair<const int,Rva00548984*>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<const int,Rva00548984*> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,Rva00548984*> > > EraseView;
-
 namespace _STL {template<> unsigned EraseView::erase(const int&);}
-
 extern unsigned g_Va00E04938;
-
 struct Rva00524CC6Value {char prefix[0xc];int clearC;char unknown10[0x14];unsigned char flags24;};
-
 #include "../../Include/GameClient/VideoPlayerClass.h"
-
 class Rva0030ADE8Forwarder
 {
 public:
 	void rva0030ADE8();
 };
-
 class Rva005CB260
 {
 public:
 	void rva005CB260();
 };
-
 class Rva00131CEAForwarder
 {
 public:
 	void rva00131CEA(int a);
 };
-
 class Rva002D35C7Forwarder
 {
 public:
 	void rva002D35C7();
 };
-
 class Rva002D6AE2Forwarder
 {
 public:
 	void rva002D6AE2();
 };
-
 class W3DProjectedShadow
 {
 public:
 	void rva00108951();
 };
-
 #include "../../Include/GameNetwork/GameInfo.h"
-
 #include "../../Include/GameLogic/Module/AIUpdate.h"
-
 class Rva0030BBE5
 {
 public:
 	void rva0030BBE5(int a);
 };
-
 class CommandList
 {
 public:
 	void destroyAllMessages();
 };
-
 #include "../../Include/Common/SidesList.h"
-
 #include "../../Include/Common/StateMachineClass.h"
-
 class AIExitState
 {
 public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 };
-
 class BfmeThing932E
 {
 public:
 	void bfmeTail932E();
 };
-
 class AIPickUpCrateState
 {
 public:
 	virtual StateReturnType update();
 };
-
 class Rva00262CB6DwordClearer
 {
 public:
 	void clear();
 };
-
 class GiantBirdNormalFlightState
 {
 public:
 	virtual void onExit(StateExitType a);
 };
-
 #include "../../Include/GameLogic/Module/StealthUpdate.h"
-
 #include "../../Include/Common/Rva0038404A.h"
-
 #include "../../Include/GameLogic/Module/CreateModuleClass.h"
-
 class Rva000B56F0Object
 {
 public:
 	void * selectStorage();
 };
-
 #include "../../Include/GameLogic/Rva003145B1.h"
-
 class HordeContain
 {
 public:
 	virtual void slot42(const Object *a);
 };
-
 class TransportContain
 {
 public:
 	virtual void onCapture(int a, int b);
 };
-
 class Rva00497805
 {
 protected:
 	virtual void loadPostProcess();
 };
-
 class Rva002645FF
 {
 public:
 	bool rva002645FF();
 };
-
 #include "../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
-
 class GateOpenAndCloseBehavior
 {
 protected:
 	virtual void xfer(Xfer *a);
 };
-
 #include "../../Include/GameLogic/Rva00493009.h"
-
 #include "../../Include/GameLogic/Module/Rva00507823.h"
-
 class _bfme_AptGameWindow
 {
 public:
 	int rva0051274F(int a, unsigned int b, unsigned int c);
 };
-
 class MovieWindowPlayback
 {
 public:
@@ -317,19 +269,16 @@ private:
 	int m_34;
 	int m_38;
 };
-
 class XferSave
 {
 public:
 	virtual void endBlock();
 };
-
 class AIEnterState
 {
 public:
 	virtual void onExit(StateExitType a);
 };
-
 namespace StrategicHUD {
 class SelectionDetailsUIImpl
 {
@@ -337,58 +286,45 @@ public:
 	void rva0057BA90();
 };
 }
-
 class Rva005E717ENamed
 {
 public:
 	const char * name() const;
 };
-
 class Rva005CC5DFNamed
 {
 public:
 	const char * name() const;
 };
-
 class Rva005E39E0Named
 {
 public:
 	const char * name() const;
 };
-
 class AIBuildable
 {
 public:
 	void addNeed(int a);
 };
-
 #include "../../Include/Common/Overridable.h"
-
 class Rva00420B2AZeroSetter
 {
 public:
 	void disable();
 };
-
 class Rva005FD8C1
 {
 public:
 	void rva005FD8C1();
 };
-
 #include "../../../Libraries/Source/Apt/AptCIHClass.h"
-
 #include "../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
-
 namespace Debug_Statistics
 {
 int Get_Draw_Calls();
 }
-
 int Rva000A8F58Get();
-
 int Rva000A8F5EGet();
-
 // 0x00034D00: tail jump to Rva006C1F60::rva00033D50.
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.
 class Rva00041A06 : public Rva001EDDBBForwarder
@@ -396,7 +332,6 @@ class Rva00041A06 : public Rva001EDDBBForwarder
 public:
 	void rva00041A06();
 };
-
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
 // 9, the Zero Hour reset position; the existing W3DMouse::reset row sits in
 // slot 1, so this keeps an address-derived name).
@@ -449,7 +384,6 @@ class Rva00494E4D : public SpecialAbilityUpdate
 public:
 	void rva00494E4D(bool a, bool b);
 };
-
 // 0x00494E52: tail jump to SpecialAbilityUpdate::update.
 // 0x00498CAC: tail jump to GateOpenAndCloseBehavior::xfer.
 // 0x004A976F: tail jump to AIUpdateInterface::privateIdle; slot 81 of the
@@ -461,7 +395,6 @@ protected:
 public:
 	void rva004A976F(CommandSourceType a);
 };
-
 // 0x004C38D0: tail jump to Rva00493009::xfer.
 // 0x0050B928: tail jump to Rva00507823::rva00507877.
 // 0x00521111: tail jump to _bfme_AptGameWindow::rva0051274F.
@@ -471,7 +404,6 @@ class Rva00524AE2 : public MovieWindowPlayback
 public:
 	void rva00524AE2();
 };
-
 // 0x0052B48D: tail jump to XferSave::endBlock.
 // 0x00545CAA: tail jump to AIEnterState::onExit.
 // 0x0057BC20: tail jump to SelectionDetailsUIImpl::rva0057BA90 (the Open body).
@@ -487,7 +419,6 @@ public:
 // 0x0070DFD0: tail jump to Rva006D6360::rva006DCC00.
 // Constant and field slots.
 typedef int Int;
-
 // 0x00444680 (22 tables): answers 1 for any two arguments.
 // 0x005B8012 (three tables): answers 1 for any four arguments.
 // 0x004BF8DF (eleven tables): 0 while +0xC6 is set, else +0x48.
@@ -500,14 +431,7 @@ typedef int Int;
 // address-derived names (argument counts from each callee's ret).
 
 class LargeGroupAudioKeyMap;
-
-// Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
-// accessor at 0x002862C9, copies the returned object through the rowed
-// Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
-// address-derived class and accessor result view preserve the target behavior;
-// no named identity or broader layout is inferred.
 #include "../../Include/GameLogic/Rva003ED658.h"
-
 // Native slot3497C2 forwards the StateReturnType result of the recovered
 // 433B internal update. Bind the call to its real provider instead of the
 // older unprovided void-return pin; this wrapper keeps its neutral spelling.
@@ -517,16 +441,13 @@ class LargeGroupAudioKeyMap;
 // and VictorySystem::newMap both call it on their own this. Method and field
 // names are unknown.
 class CellGrid { public: void rva0056C065(); };
-
 class Rva0056C3E5
 {
 public:
     ~Rva0056C3E5();
     /* the rowed CellGrid::rva0056C065 */ __declspec(dllimport) __forceinline void rva0056C065() { ((CellGrid *)this)->rva0056C065(); }
 };
-
 #include "../../Include/Common/Rva00404781.h"
-
 #include "../../Include/Common/VictorySystem.h"
 
 // Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA
@@ -543,7 +464,164 @@ namespace _STL {
  template<> _List_base<int, allocator<int> >::~_List_base();
 }
 
-// tu-skeleton: 0x00524973 186B ?draw@MovieWindowPlayback@@UAEXXZ -- matched in Code/GameEngine/Source/Common/MovieWindowPlayback_draw.cpp (not merged yet)
+// ?draw@MovieWindowPlayback@@UAEXXZ @0x00524973 186B
+// Slot 0x30 of vtable 0x00867DFC (class of ??0Rva00524B7A). Guards on
+// +0x24 bit0 and +0x0C null, virtual slot15 result, TheDisplay slot 0x104
+// with int+4 floats+int, then slot8 result to broadcast. Chain of ctor.
+class Display;
+
+extern Display *TheDisplay;
+
+class Display
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual void v60();
+	virtual void v61();
+	virtual void v62();
+	virtual void v63();
+	virtual void v64();
+	virtual void v65(int a, float b, float c, float d, float e, int f);
+};
+
+class Rva0081D520Owner
+{
+public:
+	void broadcast(int value, float x0, float y0, float x1, float y1);
+};
+
+class SlotOwner
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual int s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual int s15();
+};
+
+struct InnerLink
+{
+	char m_pad[0x18];
+	Rva0081D520Owner *m_owner;
+};
+
+class Rva00524A4CInterface;
+
+// MovieWindowPlayback::OpenMovie's complete native subtitle settings at
+// VA BF63DC..BF63F8. These descriptive names retain the proven word types;
+// the original identifiers and the meaning of the three draw words are unknown.
+extern const int MovieSubtitleDrawWord0=8;
+
+extern const int MovieSubtitleDrawWord1=0x61a8;
+
+extern const int MovieSubtitleDrawWord2=0x3f3f3f3f;
+
+extern const float MovieSubtitleXScale=0.52734375f;
+
+extern const float MovieSubtitleYScale=0.4228515625f;
+
+extern const float MovieSubtitleNormalWidth=0.813802063465118408203125f;
+
+extern const float MovieSubtitleLockedWidth=0.9765625f;
+
+// ---- from Code/GameEngine/Source/Common/MovieWindowPlayback_draw.cpp
+
+void MovieWindowPlayback::draw()
+{
+	if ((m_flags & 1) == 0)
+		return;
+	if (m_ptr == 0)
+		return;
+	int r = ((SlotOwner *)m_ptr)->s15();
+	if (r == 0)
+		return;
+	if (TheDisplay != 0)
+		TheDisplay->v65(r, (float)m_10, (float)m_14, (float)m_18, (float)m_1C, m_28);
+	InnerLink *link = *(InnerLink **)((char *)m_ptr + 8);
+	Rva0081D520Owner *owner = link->m_owner;
+	if (owner == 0)
+		return;
+	owner->broadcast(((SlotOwner *)m_ptr)->s08(), (float)m_10, (float)m_14, (float)m_18, (float)m_1C);
+}
+
+// ---- from Code/GameEngine/Source/Common/MovieWindowPlayback.cpp
+
+// Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
+// accessor at 0x002862C9, copies the returned object through the rowed
+// Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
+// address-derived class and accessor result view preserve the target behavior;
+// no named identity or broader layout is inferred.
 
 // ---- from Code/GameEngine/Source/Common/MovieWindowPlayback.cpp
 

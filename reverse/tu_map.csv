@@ -44005,7 +44005,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00524845,139,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp W=Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
 0x005248D0,111,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva005248D0Dtor.cpp
 0x0052493F,52,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva0052493FClear.cpp
-0x00524973,186,code,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,approved,N,N=Code/GameEngine/Source/Common/MovieWindowPlayback.cpp provisional,Code/GameEngine/Source/Common/MovieWindowPlayback_draw.cpp
+0x00524973,186,code,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,approved,N,N=Code/GameEngine/Source/Common/MovieWindowPlayback.cpp provisional,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp
 0x00524A2D,31,code,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,approved,C,C=0x00524973..0x00524A4C provisional,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp
 0x00524A4C,25,code,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,approved,N,N=Code/GameEngine/Source/Common/MovieWindowPlayback.cpp provisional,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp
 0x00524A65,31,code,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,approved,N,N=Code/GameEngine/Source/Common/MovieWindowPlayback.cpp provisional,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp
