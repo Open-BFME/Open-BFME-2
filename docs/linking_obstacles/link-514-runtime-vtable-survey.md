@@ -1,5 +1,5 @@
 ### LINK-514: kept `??_7` copies differ from retail's vftables (runtime vtable survey)
-Status: Open. Updated: 2026-11-05; inspected revision: e5e17e246f (census index c95fcfcfcd).
+Status: Open (partly repaired). Updated: 2026-11-05; inspected revision: e5e17e246f (census index c95fcfcfcd).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
@@ -43,6 +43,40 @@ the first COMDAT copy in link order without a word, and the census judges vftabl
 
 lk28's 56 slot-1 `loadPostProcess` tables (`behaviormodule-snapshot-slots-20261105-lk28.md`) are a
 subset: 372 kept tables have `__purecall` at slot 1.
+
+**Completed (2026-11-05, seat halilkkaya-rt-o1, base e5e17e246f).** 267 slots in 149 kept tables now
+equal retail. Each fix declares, in the kept unit's class view, an override that retail's slot word
+already names through a matched row of the table's own class. The row is bound by its exact mangled
+name; no new names or rows were added.
+- da28ffb0a68: DynamicPortalBehaviour slot 1.
+- d9e8d212bbd: slots 1/3/4 (`loadPostProcess`/`xfer`/`getModuleNameKey`), 64 tables. This covers
+  the five Body tables, AIUpdateInterface, Siege/Transport/GiantBird and the Upgrades.
+- 35d01b993d7: any rowed virtual slot of a single-copy table, 79 tables / 156 slots.
+- a8a794b1de6: 25 multi-copy classes, edited in every defining unit at once (27 tables / 41 slots).
+
+Totals:
+- Referenced `__purecall` slots 3,241 -> 3,098.
+- Wrong slots 908 -> 784.
+- Equal slots 23,714 -> 23,981.
+- T1 tables 852 -> 813.
+
+Every batch:
+- byte-matched;
+- was accepted only where each changed table gained `eq` slots and nothing else moved (survey A/B);
+- kept link_check unchanged over the edited units and every other definer of a changed table.
+
+Lesson: a ctor/dtor pair holds two copies of one table. Changing one copy charges the other under
+the census "first" rule (13 siblings, 4,082 B, in the first trial), so both copies change together.
+
+Rejected and left for header work:
+- Declarations that append a slot because the view's base lacks it: the Apt screens, group
+  orders, mice, GameSpyInfo, TaintManager, SpecialPowerModule's multi-copy group, StateMachine,
+  Weapon, the siege-engine contains, ObjectSMCHelper and others. They need the family's canonical
+  base header first.
+- Slots whose retail body is rowed under a non-virtual name (`?name@C@@QBEPBDXZ`, the BFME2
+  GetSnapshotName getters, 108 slots), or under another class's or a placeholder's name. Both need
+  naming-lane renames before a declaration can bind them.
+- Short tables (40,230 missing slots), which need full class views.
 
 **Remaining / next check.** A table moves to retail only through its class family's own view:
 adopt the canonical class header (`header_adopt_lane.py`), or declare the family's override where
