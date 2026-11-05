@@ -58,25 +58,6 @@ private:
 	unsigned char m_tail[0x9E0 - 0x9C4];
 };
 class Xfer;
-// The intermediate base adds no teardown work: its retail destructor is
-// the tail jump to GarrisonContain at 0x0047A147. Keeping it novtable lets
-// the destructor inline that same base teardown here. Import its outline
-// identity from the existing owner instead of emitting a second definition.
-class __declspec(novtable) HordeGarrisonContain : public GarrisonContain
-{
-public:
-	__declspec(dllimport) __forceinline ~HordeGarrisonContain() {}
-protected:
-	virtual void xfer(Xfer *xfer);
-};
-class ProductionQueueHordeContain : public HordeGarrisonContain
-{
-public:
-	virtual ~ProductionQueueHordeContain();
-	virtual NameKeyType getModuleNameKey() const;
-protected:
-	virtual void xfer(Xfer *xfer);
-};
 #include "../../../../Include/Common/INI/INI.h"
 void iniParseObjectFilter(INI*,void*,void*,const void*);
 class Rva00360D26Member
@@ -148,12 +129,36 @@ public:
 class WinInstanceData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
-
-// Rowed parse proc (retail 0x004816F4).
-
-
-
 #include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
+//
+// ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z, retail 0x0048127E, 54 bytes.
+// Slot 3 of the ProductionQueueHordeContain vftable (slot 0 the rowed ??_G
+// 0x00481397, slot 4 the rowed pool-name key 0x004812B9). Light-CRC
+// early-out, Version(1,1) through Xfer slot 0x28, then the
+// HordeGarrisonContain::xfer 0x00479D28. No members of its own.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/XferVersion.h"
 
 class ProductionQueueHordeContainModuleData : public HordeGarrisonContainModuleData
 {
@@ -179,6 +184,31 @@ public:
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 24 establishes native stack cleanup only.
 class Rva00481279 {public: bool rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6);};
+
+// The intermediate base adds no teardown work: its retail destructor is
+// the tail jump to GarrisonContain at 0x0047A147. Keeping it novtable lets
+// the destructor inline that same base teardown here. Import its outline
+// identity from the existing owner instead of emitting a second definition.
+class __declspec(novtable) HordeGarrisonContain : public GarrisonContain
+{
+public:
+	__declspec(dllimport) __forceinline ~HordeGarrisonContain() {}
+protected:
+	virtual void xfer(Xfer *xfer);
+};
+
+class ProductionQueueHordeContain : public HordeGarrisonContain
+{
+public:
+	virtual ~ProductionQueueHordeContain();
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp
+
+// Rowed parse proc (retail 0x004816F4).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp
 
@@ -295,8 +325,6 @@ NameKeyType ProductionQueueHordeContain::getModuleNameKey() const
 	return TheProductionQueueHordeContainPoolKey;
 }
 
-// tu-skeleton: 0x00481273 6B ?name@ProductionQueueHordeContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VtableConstantPredicates.cpp
 
 bool Rva00481279::rva00481279(int unusedArgument1, int unusedArgument2, int unusedArgument3, int unusedArgument4, int unusedArgument5, int unusedArgument6) {return false;}
@@ -309,7 +337,21 @@ bool Rva00481279::rva00481279(int unusedArgument1, int unusedArgument2, int unus
 // Installed-vtable constant result; original owner and parameter semantics
 // remain unknown. RET 0 establishes native stack cleanup only.
 
-// tu-skeleton: 0x0048127E 54B ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainXfer.cpp (not merged yet)
+// tu-skeleton: 0x00481273 6B ?name@ProductionQueueHordeContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainXfer.cpp
+
+// ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z @0x0048127E
+void ProductionQueueHordeContain::xfer(Xfer *xfer)
+{
+	if (xfer->IsLightCRC())
+		return;
+
+	Xfer::Version version(1, 1);
+	*xfer == version;
+
+	HordeGarrisonContain::xfer(xfer);
+}
 
 // tu-skeleton: 0x004812B4 5B ?j_004812b4@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
