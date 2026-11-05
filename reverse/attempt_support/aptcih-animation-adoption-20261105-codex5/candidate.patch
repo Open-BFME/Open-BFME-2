@@ -1,0 +1,71 @@
+diff --git a/Code/Libraries/Source/Apt/AptAnimation.cpp b/Code/Libraries/Source/Apt/AptAnimation.cpp
+index 55558189d5..860a22ad8b 100644
+--- a/Code/Libraries/Source/Apt/AptAnimation.cpp
++++ b/Code/Libraries/Source/Apt/AptAnimation.cpp
+@@ -43,19 +43,28 @@ struct AptCharacterInst {
+     char unknown10[0x18 - 0x10];
+     int frame;
+ };
+-class AptCIH {
+-public:
+-    virtual void AddRef();
+-    virtual void Release();
+-    char unknown4[0x4c - 4];
+-    AptCharacterInst *inst;
+-    const AptCIH *rva006E0CB0() const;
+-    void *rva006E1170() const;
+-    AptCharacterInst *CharacterInst() const { HCHECK((unsigned char)((const BfmeAptValue006DCD20 *)this)->isCharacterInst(), 0xa5, "isCharacterInst()"); return inst; }
+-    AptCharacterInst *Sprite() { HCHECK(((Rva006CFCD0 *)this)->isSpriteInstBase(), 0x7d, "isSpriteInstBase()"); return inst; }
+-    bool isUndefined() const { return ((const BfmeAptValue006DCD20 *)this)->isUndefined(); }
+-    int type() const { HCHECK(this, 0xd8, "this"); return ((const Rva006DBB30SarDwordField *)this)->get(); }
+-};
++#include "AptCIHClass.h"
++
++// Preserve the target assertions and calls while using the canonical +0x4C field.
++static inline AptCharacterInst *CharacterInst(const AptCIH *cih)
++{
++    HCHECK((unsigned char)((const BfmeAptValue006DCD20 *)cih)->isCharacterInst(), 0xa5, "isCharacterInst()");
++    return (AptCharacterInst *)cih->field4C;
++}
++static inline AptCharacterInst *Sprite(AptCIH *cih)
++{
++    HCHECK(((Rva006CFCD0 *)cih)->isSpriteInstBase(), 0x7d, "isSpriteInstBase()");
++    return (AptCharacterInst *)cih->field4C;
++}
++static inline bool isUndefined(const AptCIH *cih)
++{
++    return ((const BfmeAptValue006DCD20 *)cih)->isUndefined();
++}
++static inline int type(const AptCIH *cih)
++{
++    HCHECK(cih, 0xd8, "this");
++    return ((const Rva006DBB30SarDwordField *)cih)->get();
++}
+ class Rva006CD650 {
+ public:
+     void *rva006CD650();
+@@ -273,10 +282,10 @@ void AptAnimationPoolData::rva006E6540()
+         aptActionQueueC->setExecuting(p);
+         if (p->type == 1) {
+             g_aptDateInterpreter.dispatchWord = p->event;
+-            if (!p->target->isUndefined()) {
++            if (!isUndefined(p->target)) {
+                 AptCIH *target = p->target;
+-                if ((target->type() != 0x13 || target->isUndefined()) && p->target->Sprite()) {
+-                    if (p->frame >= 0 || -p->frame == p->target->Sprite()->frame) {
++                if ((type(target) != 0x13 || isUndefined(target)) && Sprite(p->target)) {
++                    if (p->frame >= 0 || -p->frame == Sprite(p->target)->frame) {
+                         AptActionSetup setup = {(AptValue *)p->target, 0, "AptRun-Actions", p->flags};
+                         void *saved = g_aptDateInterpreter.PrepareForExecution(&setup);
+                         void *character = p->target ? ((Rva006CD650 *)p->target->rva006E0CB0())->rva006CD650() : 0;
+@@ -382,8 +391,8 @@ void AptAnimationPoolData::removeTimerFunctions(AptCIH *cih)
+     for (int i = 0; i < g_bfmeAptPtrAtE176D0->getMaxIntervalTimers(); i++) {
+         if (!timers[i].active)
+             continue;
+-        if (cih->CharacterInst() && (unsigned char)timers[i].func->isScriptFunction()) {
+-            if (!((AptScriptFunctionOwnerView *)timers[i].func->rva006DCEE0())->owner->inst || ((AptCharacterInst *)((AptScriptFunctionOwnerView *)timers[i].func->rva006DCEE0())->owner->rva006E1170())->unknown0C == ((AptCharacterInst *)cih->rva006E1170())->unknown0C) {
++        if (CharacterInst(cih) && (unsigned char)timers[i].func->isScriptFunction()) {
++            if (!((AptScriptFunctionOwnerView *)timers[i].func->rva006DCEE0())->owner->field4C || ((AptCharacterInst *)((AptScriptFunctionOwnerView *)timers[i].func->rva006DCEE0())->owner->rva006E1170())->unknown0C == ((AptCharacterInst *)cih->rva006E1170())->unknown0C) {
+                 ((AptValue *)timers[i].func)->Release();
+                 timers[i].cleanParams();
+                 timers[i].active = 0;
