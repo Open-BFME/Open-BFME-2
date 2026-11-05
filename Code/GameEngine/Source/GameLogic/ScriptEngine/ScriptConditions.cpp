@@ -456,38 +456,10 @@ class PolygonTrigger;
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 enum SpecialPowerType { SPECIAL_INVALID = 0 };
-class Overridable
-{
-public:
-    const Overridable *friend_getFinalOverride() const;
-};
-class SpecialPowerTemplate : public Overridable
-{
-public:
-    SpecialPowerType getSpecialPowerType() const { return m_type; }
-    // LINK: same-body helper under a TU-unique name (identical inlined bytes); the getSpecialPowerType copy loses to the first-in-order copy. No flags touched.
-    SpecialPowerType bfme_getSpecialPowerType_9f9a6() const { return m_type; }
-private:
-    unsigned char m_pad[0x1C];
-    SpecialPowerType m_type; // +0x1C
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
 class ThingTemplate;
-class CommandButton
-{
-public:
-	const ThingTemplate *rva0035B570() const;
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
-	const void *getUpgradeTemplate() const { return m_upgrade; }
-	int getCommandType() const { return m_command; }
-	bool isReady(const Object *obj) const;
-	char m_pad00[0x14];
-	int m_command; // +0x14
-	char m_pad18[0xC];
-private:
-	const void *m_upgrade; // +0x24
-	char m_pad28[0x1C];
-	const SpecialPowerTemplate *m_specialPower; // +0x44
-};
+#include "../../../Include/GameClient/CommandButton.h"
 class Rva0031D5F8
 {
 public:
@@ -1957,7 +1929,7 @@ bool ScriptConditions::evaluateSkirmishCommandButtonIsReady(Parameter *, Paramet
         {
             const SpecialPowerTemplate *sp = commandButton->getSpecialPowerTemplate();
             const Overridable *finalOverride = sp->friend_getFinalOverride();
-            if (!iter.cur()->hasSpecialPower(((const SpecialPowerTemplate *)finalOverride)->bfme_getSpecialPowerType_9f9a6()))
+            if (!iter.cur()->hasSpecialPower(((const SpecialPowerTemplate *)finalOverride)->m_type))
                 continue;
         }
         else if (!commandButton->getUpgradeTemplate())
