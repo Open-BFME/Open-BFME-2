@@ -260,19 +260,9 @@ public:
 	unsigned char m_pad00[8];
 	AsciiString m_name;
 };
-class CommandButton
-{
-public:
-	const UpgradeTemplate *getNeededUpgrade() const { return m_neededBegin[0]; }
-	unsigned char m_pad00[0x14];
-	Int m_command;
-	unsigned char m_pad18[4];
-	UnsignedInt m_options;
-	unsigned char m_pad20[8];
-	const UpgradeTemplate **m_neededBegin, **m_neededEnd, **m_neededCapacity;
-	unsigned char m_pad34[0x44 - 0x34];
-	const SpecialPowerTemplate *m_power;
-};
+#include "../../../Include/GameClient/CommandButton.h"
+// The button's first needed upgrade (+0x28).
+static inline const UpgradeTemplate *getNeededUpgrade(const CommandButton *button) { return button->m_neededBegin[0]; }
 // The command set UpdateCommandSet builds, with its reset (0x00409F83, WB
 // CommandSet::ResetCommandSet) and button setter (0x00409FA0, WB
 // CommandSet::SetCommandButton; the ledger spells the button argument as an
@@ -625,7 +615,7 @@ Bool CreateAHeroHero::AddCommandButtonLevel(UnsignedInt index, const AsciiString
 		return false;
 	if (button->m_command == 0x18 || button->m_command == 0x25)
 	{
-		const SpecialPowerTemplate *power = button->m_power;
+		const SpecialPowerTemplate *power = button->m_specialPower;
 		if (!power)
 			return false;
 		power = (const SpecialPowerTemplate *)power->friend_getFinalOverride();
@@ -640,7 +630,7 @@ Bool CreateAHeroHero::AddCommandButtonLevel(UnsignedInt index, const AsciiString
 	{
 		if ((UnsignedInt)(button->m_neededEnd - button->m_neededBegin) != 1)
 			return false;
-		const AsciiString &upgradeName = button->getNeededUpgrade()->getName();
+		const AsciiString &upgradeName = getNeededUpgrade(button)->getName();
 		if (((const StringBase<char> *)&upgradeName)->isEmpty())
 			return false;
 		((ExperienceLevelStore *)TheExperienceLevelSystem)->CreateNewExpLevel(

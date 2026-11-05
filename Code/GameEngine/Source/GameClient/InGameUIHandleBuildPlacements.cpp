@@ -467,11 +467,7 @@ public:
 extern GhostObjectManager* TheGhostObjectManager;
 bool Rva0030596CIntersects(void*, PlaceCoord, float);
 float normalizeAngle(float);
-struct CommandButton
-{
-    char unknown00[0x1c];
-    unsigned command;
-};
+#include "../../Include/GameClient/CommandButton.h"
 struct PlaceIcon
 {
     Drawable* drawable;
@@ -636,7 +632,7 @@ void InGameUI::handleBuildPlacements()
                     SpecialPowerModule* module
                         = (SpecialPowerModule*)((Rva00293330*)builder)
                               ->rva00293330(
-                                  getPendingCommand() ? getPendingCommand()->command : 0xfffffe);
+                                  getPendingCommand() ? getPendingCommand()->m_options : 0xfffffe);
                     if (module)
                     {
                         _STL::vector<Coord3D> positions;
@@ -664,7 +660,7 @@ void InGameUI::handleBuildPlacements()
                 unsigned command = 0xfffffe;
                 CommandButton* button = getPendingCommand();
                 if (button)
-                    command = button->command;
+                    command = button->m_options;
                 Rva0039205C info;
                 bool portResult = TheBuildAssistant->getBuildPortData(
                     &info, builder, &builderPos, &mouseWorld, command);

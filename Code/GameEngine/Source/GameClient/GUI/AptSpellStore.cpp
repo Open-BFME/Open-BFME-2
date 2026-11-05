@@ -101,18 +101,7 @@ class Image;
 // the image its +0xFC index picks from the list at +0xEC, 0x0035B1E9 and
 // 0x0035B26F its label and description. The sciences span +0xA4..+0xA8 as
 // in SpellStoreEntry.
-class CommandButton
-{
-public:
-	const Image *rva0035B19E() const;
-	const AsciiString &rva0035B1E9() const;
-	const AsciiString &rva0035B26F() const;
-	unsigned int scienceCount() const { return m_sciencesEnd - m_sciences; }
-
-	unsigned char m_pad000[0xA4];
-	ScienceType *m_sciences; // +0xA4
-	ScienceType *m_sciencesEnd; // +0xA8
-};
+#include "../../../Include/GameClient/CommandButton.h"
 // ThePlayerList (0x009FEEE8): the local player at +0x10.
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;

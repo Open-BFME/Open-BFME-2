@@ -158,18 +158,7 @@ class Image;
 // the image its +0xFC index picks from the list at +0xEC, 0x0035B1E9 and
 // 0x0035B26F its label and description. The sciences span +0xA4..+0xA8 as
 // in SpellStoreEntry.
-class CommandButton
-{
-public:
-	const Image *rva0035B19E() const;
-	const AsciiString &rva0035B1E9() const;
-	const AsciiString &rva0035B26F() const;
-	unsigned int scienceCount() const { return m_sciencesEnd - m_sciences; }
-
-	unsigned char m_pad000[0xA4];
-	ScienceType *m_sciences; // +0xA4
-	ScienceType *m_sciencesEnd; // +0xA8
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {
@@ -452,7 +441,7 @@ void AptSpellStore::rva0043C9FD()
 			name.format("SpellStore/Buttons/Spell%d", i + 1);
 			((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2(name, image);
 		}
-		int cost = TheScienceStore->getSciencePurchaseCost(*button->m_sciences);
+		int cost = TheScienceStore->getSciencePurchaseCost(*button->m_sciencesBegin);
 		UnicodeString costText;
 		costText.format(L"%d", cost);
 		AsciiString costName;
@@ -667,9 +656,9 @@ void AptSpellStore::rva0043CD3C()
 			static AsciiString disabled("TOOLTIP:ScienceDisabled");
 			{
 				UnicodeString text = TheGameText->fetch(button->rva0035B26F());
-				for (unsigned int i = 0; i < button->scienceCount(); ++i)
+				for (unsigned int i = 0; i < (unsigned int)(button->m_sciencesEnd - button->m_sciencesBegin); ++i)
 				{
-					ScienceType science = button->m_sciences[i];
+					ScienceType science = button->m_sciencesBegin[i];
 					if (!m_sciences.v00(science))
 					{
 						if (science != (ScienceType)-1
@@ -703,7 +692,7 @@ void AptSpellStore::rva0043CD3C()
 		const CommandButton *button = (const CommandButton *)m_slots[i].m_entry;
 		if (button)
 		{
-			ScienceType science = *button->m_sciences;
+			ScienceType science = *button->m_sciencesBegin;
 			if (science != (ScienceType)-1)
 			{
 				if (((Rva0043C6EA *)&m_sciences)->rva0043C6EA(science))
