@@ -34,34 +34,7 @@ unsigned char __cdecl Rva005E9137Check(class Rva00318F42 *target)
 // ?rva005E917A@Rva005E917A@@QAEXXZ @0x005E917A 47B
 // Evidence: calls Rva005E9137Check then TheMessageStream slot 0x48 appendType 0x6a9 then GameMessage::appendIntegerArgument.
 // Chain on 0x005E9137.
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int arg);
-};
-class MessageStream
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual class GameMessage *appendType(int type);
-};
+#include "../../Include/Common/MessageStream.h"
 extern class MessageStream *TheMessageStream;
 class Rva005E917A
 {
@@ -74,6 +47,6 @@ void Rva005E917A::rva005E917A()
 {
 	if (Rva005E9137Check(m_14) == 0)
 		return;
-	class GameMessage *msg = TheMessageStream->appendType(0x6a9);
+	class GameMessage *msg = TheMessageStream->appendMessage(0x6a9);
 	msg->appendIntegerArgument(m_14->m_20);
 }

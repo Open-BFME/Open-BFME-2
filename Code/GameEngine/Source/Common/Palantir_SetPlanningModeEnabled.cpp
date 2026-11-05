@@ -21,27 +21,8 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class GameMessage
-{
-public:
-	enum Type
-	{
-		MSG_RVA469 = 0x469
-	};
+#include "../../Include/Common/MessageStream.h"
 
-	void appendIntegerArgument(int arg);
-};
-
-class MessageStream
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17();
-	virtual GameMessage *appendMessage(GameMessage::Type type);
-};
 extern class MessageStream *TheMessageStream;
 
 struct Rva002D37BDMid10
@@ -68,7 +49,7 @@ void Palantir::SetPlanningModeEnabled(unsigned char enabled)
 	if (enabled == 0) {
 		Rva002D37BDMid *mid = ThePlayerList->m_mid;
 		if (mid != 0 && mid->m_750 == 2) {
-			GameMessage *gameMessage = TheMessageStream->appendMessage(GameMessage::MSG_RVA469);
+			GameMessage *gameMessage = TheMessageStream->appendMessage(static_cast<GameMessage::Type>(0x469));
 			gameMessage->appendIntegerArgument(0);
 			gameMessage->appendIntegerArgument(2);
 		}
