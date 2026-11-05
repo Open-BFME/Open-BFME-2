@@ -17,12 +17,20 @@
 // The recovered six-argument helper stores instance/data/hook/mask in its
 // 16-byte record; its third callback is absent from the older donor API.
 #include <stl/_algobase.h>
-#include "PreRTS.h"
-#include "Common/ModuleFactory.h"
+
+// Same declaration as W3DModuleFactoryInit.cpp; the registrations below pass
+// module types 0..3 as plain values.
+enum ModuleType
+{
+	MODULETYPE_BEHAVIOR = 0,
+	MODULETYPE_DRAW = 1
+};
+
+class Module; class ModuleData; class Thing; class INI;
 
 class Rva002573EE { public: void rva002573EE(int,int,int,ModuleType,const AsciiString&,int); };
 
-class Module; class ModuleData; class Thing; class INI;
+#include "../../../Include/Common/ModuleFactoryClass.h"
 class AIGateUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AIGateUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AISpecialPowerUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
