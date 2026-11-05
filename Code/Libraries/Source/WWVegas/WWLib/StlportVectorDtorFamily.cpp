@@ -45,12 +45,9 @@ namespace _STL { template <> void _Destroy<BfmeVectorRecord000BDF17 *>(BfmeVecto
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??$_Destroy@PAVRva0021F876@@@_STL@@YAXPAVRva0021F876@@0@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-class CreateAHeroManager
-{
-public:
-    class CreateAHeroClass;
-    class CreateAHeroSubClass { public: ~CreateAHeroSubClass(); };
-};
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
+// Only the element's non-trivial destructor matters to these bodies.
+class CreateAHeroManager::CreateAHeroSubClass { public: ~CreateAHeroSubClass(); };
 typedef CreateAHeroManager::CreateAHeroClass CreateAHeroClass;
 
 namespace _STL { template <> void _Destroy<CreateAHeroClass *>(CreateAHeroClass *,CreateAHeroClass *); }

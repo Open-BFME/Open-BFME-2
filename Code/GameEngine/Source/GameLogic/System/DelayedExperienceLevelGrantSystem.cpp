@@ -161,11 +161,7 @@ public:
 	bool UpdateCommandSet(UnsignedInt commandSet);			// 0x00407705
 };
 
-class CreateAHeroManager
-{
-public:
-	CreateAHeroData *rva002197A6(Int id);						// 0x002197A6
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
 
 extern CreateAHeroManager *TheCreateAHeroManager;
 

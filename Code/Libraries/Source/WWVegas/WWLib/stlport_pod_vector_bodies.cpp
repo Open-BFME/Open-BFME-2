@@ -604,11 +604,8 @@ template <> inline void vector<BfmePod180, allocator<BfmePod180> >::_M_insert_ov
 // The 216-byte element is CreateAHeroManager::CreateAHeroSubClass: its vector
 // is CreateAHeroClass +0x14 (parseCreateAHeroSubClass push_back, CreateAHeroClass
 // copy 0x0021F876); this unit keeps only its 216-byte footprint.
-class CreateAHeroManager
-{
-public:
-    class CreateAHeroSubClass { public: int a[54]; ~CreateAHeroSubClass(); };
-};
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
+class CreateAHeroManager::CreateAHeroSubClass { public: int a[54]; ~CreateAHeroSubClass(); };
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline vector<CreateAHeroManager::CreateAHeroSubClass,allocator<CreateAHeroManager::CreateAHeroSubClass> >::~vector() { _Destroy(this->_M_start, this->_M_finish); } }
 namespace _STL {

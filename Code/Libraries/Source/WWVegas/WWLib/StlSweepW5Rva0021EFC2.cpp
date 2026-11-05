@@ -7,11 +7,8 @@
 
 // Retail's loop calls _Construct<CreateAHeroManager::CreateAHeroSubClass> (0x0021EF66,
 // stlport_construct_pod216.cpp), so the 216-byte element is that class.
-class CreateAHeroManager
-{
-public:
-    class CreateAHeroSubClass { public: int a[54]; };
-};
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
+class CreateAHeroManager::CreateAHeroSubClass { public: int a[54]; };
 // bfme link decl-only begin
 namespace _STL { template <> void _Construct<CreateAHeroManager::CreateAHeroSubClass, CreateAHeroManager::CreateAHeroSubClass>(CreateAHeroManager::CreateAHeroSubClass *, CreateAHeroManager::CreateAHeroSubClass const &); }
 // bfme link decl-only end

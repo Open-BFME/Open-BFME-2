@@ -103,11 +103,8 @@ template <> __declspec(dllimport) __forceinline void _Destroy<BfmeNarrowRecord00
 struct BfmePod128 { char m_pad[128]; public: BfmePod128(const BfmePod128 &); ~BfmePod128(); };
 // 216-byte element CreateAHeroManager::CreateAHeroSubClass; layout owner
 // CreateAHero.cpp (ctor 0x0021E793), dtor 0x0021E50F, copy 0x0021E85A.
-class CreateAHeroManager
-{
-public:
-    class CreateAHeroSubClass { char m_pad[216]; public: CreateAHeroSubClass(const CreateAHeroSubClass &); ~CreateAHeroSubClass(); };
-};
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
+class CreateAHeroManager::CreateAHeroSubClass { char m_pad[216]; public: CreateAHeroSubClass(const CreateAHeroSubClass &); ~CreateAHeroSubClass(); };
 // 248-byte element; layout owner stlport_pod_vector_bodies.cpp.
 struct BfmePod248 { char m_pad[248]; public: BfmePod248(const BfmePod248 &); ~BfmePod248(); };
 // 252-byte element; layout owner stlport_pod_vector_bodies.cpp.

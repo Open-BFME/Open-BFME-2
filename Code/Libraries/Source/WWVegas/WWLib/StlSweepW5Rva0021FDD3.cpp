@@ -8,16 +8,13 @@
 // its destructor is only declared here, so this unit emits the loop alone.
 #include <memory>
 
-class CreateAHeroManager
+#include "../../../../GameEngine/Include/GameLogic/CreateAHeroManager.h"
+class CreateAHeroManager::CreateAHeroClass
 {
 public:
-	class CreateAHeroClass
-	{
-	public:
-		~CreateAHeroClass();
-	private:
-		unsigned char m_bytes[0x20];
-	};
+	~CreateAHeroClass();
+private:
+	unsigned char m_bytes[0x20];
 };
 
 template void _STL::_Destroy<CreateAHeroManager::CreateAHeroClass *>(CreateAHeroManager::CreateAHeroClass *, CreateAHeroManager::CreateAHeroClass *);
