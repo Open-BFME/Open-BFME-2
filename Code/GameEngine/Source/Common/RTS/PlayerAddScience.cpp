@@ -91,17 +91,12 @@ public:
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class TeamPrototype
+#include "../../../Include/Common/Team.h"
+
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 {
-public:
-	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
-	{
-		return DLINK_ITERATOR<Team>(m_head334, &Team::dlink_next_TeamInstanceList);
-	}
-private:
-	unsigned char m_pad[0x334];
-	Team *m_head334; // +0x334
-};
+    return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+}
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 

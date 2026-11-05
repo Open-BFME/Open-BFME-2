@@ -69,14 +69,13 @@ template<> class DLINK_ITERATOR<Object> {
  bool done()const {return p==0;}
  Object *cur()const {return p;}
 };
-class TeamPrototype {
-  public:
-    char pad[0x334];
-    Team *head;
-    DLINK_ITERATOR<Team> iterate_TeamInstanceList() const {
-        return DLINK_ITERATOR<Team>(head, &Team::dlink_next_TeamInstanceList);
-    }
-};
+#include "../../../Include/Common/Team.h"
+
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
+{
+    return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
+}
+
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 class PlayerList {
   public:
