@@ -30,8 +30,7 @@ class Rva00265254
 {
 public:
 	Rva00265254(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4);
-private:
-	unsigned int m_bits[19];
+	unsigned int m_bits[19]; // +0x00
 };
 struct Rva0028F5C6
 {

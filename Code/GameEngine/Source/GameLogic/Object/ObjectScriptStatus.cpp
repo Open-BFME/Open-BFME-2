@@ -185,7 +185,11 @@ public:
 
 
 struct TintDrawable { char pad[0x118]; unsigned int m_tintStatus; __forceinline void setTintStatus(unsigned int b) { m_tintStatus |= b; } };
-class Rva001E4A4E {public:bool rva001E4A4E(int);};
+class Rva001E4A4E
+{
+public:
+	bool rva001E4A4E(int);
+};
 class Rva00270619 {public:void Rva00270619Clear(int);};
 class Object
 {

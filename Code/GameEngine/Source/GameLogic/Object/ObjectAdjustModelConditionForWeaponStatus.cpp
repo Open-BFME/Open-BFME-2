@@ -20,7 +20,12 @@ enum WeaponSetConditionType { WSF_INVALID=-1,WSF_NONE=0,WSF_FIRING,WSF_BETWEEN,W
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 class GameLogic;extern GameLogic*TheGameLogic;
 struct ClockView {char p0[0x40];unsigned frame;};
-class Rva002716Holder {public:void Rva00271619Broadcast(int,int,int);};
+class Rva002716Holder
+{
+public:
+	void Rva0027164EBroadcast(int a, int b);
+	void Rva00271619Broadcast(int,int,int);
+};
 class WeaponTemplateSetHead {char data[0x4c];};
 WeaponTemplateSetHead* __cdecl Rva002C76B2Build(WeaponTemplateSetHead*,int,int);
 WeaponTemplateSetHead* __cdecl rva002C777E(WeaponTemplateSetHead*,int);

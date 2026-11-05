@@ -48,13 +48,13 @@ class Object;
 class Rva001E46E1
 {
 public:
-	float rva001E48CF(Object *o);
+	float rva001E48CF(class Object *object);
 };
 
 class Rva001E415F
 {
 public:
-	void rva001E415F(float f, int i);
+	void rva001E415F(float value, Int frames);
 };
 
 class Rva002C9400ByteField

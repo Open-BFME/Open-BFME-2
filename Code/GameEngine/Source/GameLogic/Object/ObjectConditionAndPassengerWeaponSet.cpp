@@ -39,6 +39,7 @@ class Rva002716Holder
 {
 public:
 	void Rva0027164EBroadcast(int a, int b);
+	void Rva00271619Broadcast(int,int,int);
 };
 class Rva0010CBits
 {

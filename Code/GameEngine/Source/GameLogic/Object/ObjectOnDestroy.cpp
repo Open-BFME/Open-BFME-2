@@ -37,7 +37,7 @@ public:
 class Rva00271BCC
 {
 public:
-	void rva00271BCC(int slot, int value);
+	void rva00271BCC(int,int);
 };
 
 class Object

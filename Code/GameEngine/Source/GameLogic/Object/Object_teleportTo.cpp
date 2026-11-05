@@ -25,7 +25,7 @@ enum CommandSourceType
 class Rva002747F9
 {
 public:
-	void rva002747F9(int mode);
+	void rva002747F9(int dirty);
 };
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"

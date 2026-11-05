@@ -95,7 +95,7 @@ public:
 class Rva001E415F
 {
 public:
-	void rva001E415F(Real value, Int frames);
+	void rva001E415F(float value, Int frames);
 };
 
 #include "../../../Include/Common/ThingTemplate.h"
