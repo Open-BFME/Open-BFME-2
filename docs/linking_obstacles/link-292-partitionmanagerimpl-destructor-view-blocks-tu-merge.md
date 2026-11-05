@@ -5,3 +5,5 @@ Completed: replaced the destructor donor's private STLport string declaration wi
 Remaining / next check: seed lacks the destructor declaration (C2600); class reconciler refuses seed m_buckets at +0 beneath donor vfptr. Prove the retail manager ABI before unifying views; flag/result/byte prerequisites for other donors and the original source's two shadow destructor-adapter identity findings remain in the evidence.
 Clearance: standalone linking preserved; no TU merge or filename approval claimed.
 Census confirmation: no new measurement claimed.
+
+2026-11-05: FlightDeck growth's environment prerequisite is repaired (34/34 paired rows exact, both previews LINKS); merge dry run now accepts that donor. Apply that merge next; the destructor ABI/result declarations and GetObjectsInRange override remain blocked. [Evidence](../../reverse/attempt_support/partition-flightdeck-environment-20261105-codexb.md).

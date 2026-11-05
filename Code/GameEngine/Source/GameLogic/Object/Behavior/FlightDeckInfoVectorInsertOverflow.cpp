@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // STLport 4.5.3 vector<FlightDeckBehavior::FlightDeckInfo>::_M_insert_overflow
@@ -10,6 +10,12 @@
 // __uninitialized_copy at 0x00626E40 stays a call, as FlightDeckBehavior.cpp
 // already has it.
 
+// Capture the existing GameMemory release binding before STLport imports ::free.
+namespace _STL { void __cdecl free(void *); }
+static __forceinline void releaseFlightDeckStorage(void *storage)
+{
+    _STL::free(storage);
+}
 #include <vector>
 
 enum ObjectID
@@ -31,6 +37,15 @@ public:
 		ObjectID m_objectInSpace;
 	};
 };
+
+// Retail growth releases through GameMemory at RVA 0x00030830.
+namespace _STL {
+template <> inline void allocator<FlightDeckBehavior::FlightDeckInfo>::deallocate(
+    FlightDeckBehavior::FlightDeckInfo *storage, size_type) const
+{
+    if (storage != 0) releaseFlightDeckStorage(storage);
+}
+}
 
 // These operations bind to the copies in FlightDeckBehavior.cpp.
 namespace _STL {
