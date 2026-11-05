@@ -26447,7 +26447,7 @@ _FilterBlock1dBil,,0x001B82D0,107,Code/Libraries/Source/VP6/FilterBlockBilWide.c
 ?rva00537190@UserPreferences@@QAEHVAsciiString@@H@Z,,0x00537190,120,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,gap UserPreferences format pct-s-d v6 slot-0x18 twin-getter
 ?rva005372BD@UserPreferences@@QAEXH@Z,,0x005372BD,72,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,gap UserPreferences LoyalGames v11 slot-0x2C setter
 ?rva00237E1F@Rva00237E1F@@QAEHXZ,,0x00237E1F,9,Code/GameEngine/Source/Main/Rva00237E1F.cpp,matched,leaf 9B combine m00-shift16-or-m04 caller 0x0004953C
-?rva00373EC6@Rva00373EC6@@QBE_NXZ,,0x00373EC6,38,Code/GameEngine/Source/Common/Rva00373EC6Check.cpp,matched,null-checked mask predicate holder plus48 plusC8 via rowed 0x33A453
+?rva00373EC6@Rva00373EC6@@QBE_NXZ,,0x00373EC6,38,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdate.cpp,matched,null-checked mask predicate holder plus48 plusC8 via rowed 0x33A453
 ?rva00537305@UserPreferences@@QAEHXZ,,0x00537305,73,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,gap UserPreferences LoyalGames getter v6 slot-0x18
 ?rva00373EEC@StealthUpdate@@QAEXI@Z,,0x00373EEC,48,Code/GameEngine/Source/Common/Rva00373EECFrame.cpp,matched,frame-horizon max store via TheGameLogic plus40 callers 2
 ??0Rva00238B90@@QAE@XZ,,0x00238AC7,201,Code/GameEngine/Source/GameClient/GUI/Shell/Rva00238B90Ctor.cpp,matched,ctor via dtor layout literals and g_Va globals with G7 for imul
