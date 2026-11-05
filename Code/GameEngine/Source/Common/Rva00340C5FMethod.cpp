@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP=
+// cl: /MD
 // ?onEnter@Rva00340C5F@@QAEHXZ, retail 0x00340C5F, 81 bytes.
 // Unlock method: goal object via TurretStateMachine at +0x18, null returns
 // -2, optional CritterDesync log via globals, then 12B copy from +0x38 to
@@ -6,7 +6,7 @@
 // globals 0x00A03745 0x009FEFF0 string 0x008121B4, caller 0x0036808B.
 class Object;
 struct TurretStateMachine;
-#include <stdio.h>
+struct FprintfTarget;
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -14,9 +14,14 @@ struct TurretStateMachine;
 
 #include "../../Include/GameLogic/Module/TurretStateMachine.h"
 
+struct FprintfTarget
+{
+	char m_pad[4];
+};
 
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 
 class Rva00340C5F
 {
@@ -40,7 +45,7 @@ int Rva00340C5F::onEnter()
 		return -2;
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 38");
 	}

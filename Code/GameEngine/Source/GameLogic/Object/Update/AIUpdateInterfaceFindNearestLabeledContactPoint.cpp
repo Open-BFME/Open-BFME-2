@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /D_CRTIMP=
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include /Ireference/shims/bfme2_ascii
 // Clean donor: Open-BFME-1 575ba2b04743f190f069805fbdc59936123c45da,
 // game/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindNearestLabeledContactPoint.cpp.
 // Donor supplies labeled-contact iteration and diagnostic behavior. Independent
@@ -26,8 +26,8 @@ class Object { public:
 // exactly one strong definition is needed -- this unit is the sole reader the
 // fix unblocks.
 bool g_bfmeDockingTraceActive = false;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" int __cdecl fprintf(void*,const char*,...);
 struct ContactPointModuleData { char pad[0x58]; AsciiString *begin,*end; };
 class AIUpdateInterface { public:
  char pad0[4]; ContactPointModuleData *moduleData; Object *owner;

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7 /D_CRTIMP=
+// cl: /O1 /DNDEBUG /MD /G7
 //
 // Derived AI state onExit overrides chaining to the rowed
 // AIInternalMoveToState::onExit 0x003473A4, transferred from Zero Hour
@@ -552,13 +552,17 @@ void AIAttackFollowWaypointPathState::onExit(StateExitType status)
 	AIFollowWaypointPathState::onExit(status);
 }
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}
@@ -567,7 +571,7 @@ static __forceinline void critterDesyncLog(const char *text)
 #define CRITTER_DESYNC_GOAL_LOG(text) \
 	if (g_00E03745) \
 	{ \
-		FILE *log = theLogicRandomLogFile; \
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile; \
 		if (log != 0) \
 			fprintf(log, text, m_goalPosition.x, m_goalPosition.y, m_goalPosition.z); \
 	}

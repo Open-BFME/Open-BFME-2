@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /G7 /D_CRTIMP=
+// cl: /O1 /DNDEBUG /MD /G7
 // Split from AIStatesDerivedOnExit_ComputeGoal.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 // Split from AIStatesDerivedOnExit.cpp: these definitions reference a callee with no matched body yet,
@@ -541,13 +541,17 @@ private:
 
 
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}
@@ -556,7 +560,7 @@ static __forceinline void critterDesyncLog(const char *text)
 #define CRITTER_DESYNC_GOAL_LOG(text) \
 	if (g_00E03745) \
 	{ \
-		FILE *log = theLogicRandomLogFile; \
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile; \
 		if (log != 0) \
 			fprintf(log, text, m_goalPosition.x, m_goalPosition.y, m_goalPosition.z); \
 	}
@@ -612,7 +616,7 @@ StateReturnType AIAttackFollowWaypointPathState::update()
 
 		if (g_00E03745)
 		{
-			FILE *log = theLogicRandomLogFile;
+			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "CritterDesync: ComputePath38");
 		}

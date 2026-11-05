@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /D_CRTIMP=
+// cl: /DNDEBUG /MD
 //
 // AIAttackApproachTargetState::onExit, retail 0x0034894C (166 bytes): slot 5
 // of vtable 0x00C12610, whose slot-2 name getter returns
@@ -96,8 +96,8 @@ struct GameLogicFieldView
 };
 
 extern GameLogic *TheGameLogic;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
 
 #include "../../../Include/Common/StateMachineClass.h"
 
@@ -286,7 +286,7 @@ StateReturnType AIAttackApproachTargetState00C12678::updateInternal()
 	{
 		if (m_stopIfInRange && weapon != 0)
 		{
-			FILE *log = theLogicRandomLogFile;
+			void *log = theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "masiwar called by AIAttackPositionApproachTargetState::updateInternal [2]");
 		}

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP=
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
 // AIMoveToState::onEnter, retail 0x0034C7BD (264 bytes).
 //
@@ -19,14 +19,14 @@ typedef float Real;
 typedef unsigned int UnsignedInt;
 
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		void *log = theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}

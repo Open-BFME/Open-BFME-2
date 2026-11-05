@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE /D_CRTIMP=
+// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
 // AIWanderState::onEnter, retail 0x0034F1E1 (278 bytes): slot 4 of the
 // vtable whose slot-2 name getter returns AIWanderState. Ported from Zero
 // Hour's GameEngine/Source/GameLogic/AI/AIStates.cpp (GeneralsMD tree
@@ -54,9 +54,10 @@ enum ModelConditionFlagType
 #include "../../../Include/GameClient/ModelConditionFlags.h"
 // The calls at 0x0034EF3F and 0x0034EF85 reach the game format-and-append
 // helper at 0x002CEC42, not CRT fprintf. Its receiver stays opaque here.
-#include <stdio.h>
+struct FprintfTarget;
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 typedef float Real;
 typedef int Int;
 enum LocomotorSetType
@@ -270,7 +271,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
     {
         if (g_00E03745)
         {
-            FILE *log = theLogicRandomLogFile;
+            FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
             if (log != NULL)
                 fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 54");
         }
@@ -281,7 +282,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
         if (g_00E03745)
         {
             if (theLogicRandomLogFile != 0)
-                fprintf(theLogicRandomLogFile,
+                fprintf((FprintfTarget *)theLogicRandomLogFile,
                     "CritterDesync: setAdjustDestination(ai->isDoingGroundMovement()=%s) 55",
                     ai->isDoingGroundMovement() ? "TRUE" : "FALSE");
         }

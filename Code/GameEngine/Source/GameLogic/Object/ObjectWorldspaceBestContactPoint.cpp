@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /D_CRTIMP=
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
 // Clean donor: Open-BFME-1 575ba2b04743f190f069805fbdc59936123c45da,
 // game/GameEngine/Source/GameLogic/Object/Object_getWorldspaceBestContactPoint.cpp.
 // Donor supplies the contact-query algorithm and matrix-expression shape.
@@ -80,9 +80,9 @@ enum BodyDamageType
 #include "../../../Include/Common/Geometry.h"
 
 extern bool g_bfmeDockingTraceActive;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 
+extern "C" int __cdecl fprintf(void *sink, const char *format, ...);
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
 class Object

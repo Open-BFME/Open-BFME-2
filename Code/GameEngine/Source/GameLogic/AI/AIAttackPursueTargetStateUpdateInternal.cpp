@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /D_CRTIMP=
+// cl: /DNDEBUG /MD
 //
 // ?updateInternal@AIAttackPursueTargetState@@AAE?AW4StateReturnType@@XZ @0x0034939E 515B
 // Evidence: pinned name; callers 0x003495A9 (rowed update); donor ZH AIStates.cpp:3025
@@ -47,8 +47,8 @@ class AIUpdateInterface;
 
 extern class AI *TheAI;
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" void __cdecl fprintf(void *stream, const char *format, ...);
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
@@ -129,7 +129,7 @@ StateReturnType AIAttackPursueTargetState::updateInternal()
 		ai->setCurrentVictim(victim);
 		if (g_00E03745)
 		{
-			FILE *log = theLogicRandomLogFile;
+			void *log = theLogicRandomLogFile;
 			if (log != 0)
 				fprintf(log, "CritterDesync: ComputePath14");
 		}

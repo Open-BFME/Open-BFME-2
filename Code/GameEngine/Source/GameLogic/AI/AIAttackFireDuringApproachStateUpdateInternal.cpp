@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP=
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // ?updateInternal@AIAttackFireDuringApproachState@@AAE?AW4StateReturnType@@XZ
 // retail 0x0035066B (597 bytes). The update slot of vtable 0x00C12798
@@ -51,14 +51,14 @@ class Player;
 
 extern GameLogic *TheGameLogic;
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		void *log = theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}

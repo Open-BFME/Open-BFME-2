@@ -1,4 +1,4 @@
-// cl: /MD /DNDEBUG /D_CRTIMP=
+// cl: /MD /DNDEBUG
 //
 // ?requestPath@AIUpdateInterface@@QAEXPAUCoord3D@@_N@Z
 // retail 0x0026893F, 248 bytes (Ghidra FUN_0066893f).
@@ -20,9 +20,13 @@ typedef bool Bool;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-#include <stdio.h>
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
@@ -52,7 +56,7 @@ void AIUpdateInterface::requestPath( Coord3D *destination, Bool isFinalGoal )
 
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log)
 			fprintf(log, "CritterDesync: requestPath1-- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 				m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,

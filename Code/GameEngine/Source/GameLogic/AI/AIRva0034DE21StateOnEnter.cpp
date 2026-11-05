@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP=
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
 // ?onEnter@Rva0034DE21@@UAE?AW4StateReturnType@@XZ, retail 0x0034DE21
 // (189 bytes). An AIInternalMoveToState-derived onEnter (it tail-calls the
@@ -25,8 +25,12 @@
 typedef bool Bool;
 
 
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+extern "C" void *theLogicRandomLogFile;
 extern unsigned char g_00E03745;
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
@@ -65,7 +69,7 @@ protected:
 	{
 		if (g_00E03745)
 		{
-			FILE *log = theLogicRandomLogFile;
+			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 37");
 		}
@@ -80,7 +84,7 @@ protected:
 	{
 		if (g_00E03745)
 		{
-			FILE *log = theLogicRandomLogFile;
+			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 37");
 		}

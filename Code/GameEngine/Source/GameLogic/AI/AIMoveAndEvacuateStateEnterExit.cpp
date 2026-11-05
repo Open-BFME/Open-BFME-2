@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /D_CRTIMP=
+// cl: /DNDEBUG /MD
 //
 // AIMoveAndEvacuateState::onEnter, retail 0x0034EB7E (106 bytes), and
 // AIMoveAndEvacuateState::onExit, retail 0x00349FD0 (37 bytes): slots 4 and
@@ -23,9 +23,13 @@ enum StateReturnType
 	STATE_FAILURE = -2
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-#include <stdio.h>
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 #include "../Object/object.h"
 class StateMachine
 {
@@ -73,7 +77,7 @@ protected:
 		{
 			if (g_00E03745)
 			{
-				FILE *log = theLogicRandomLogFile;
+				FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 				if (log)
 					fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 49");
 			}
@@ -82,7 +86,7 @@ protected:
 		{
 			if (g_00E03745)
 			{
-				FILE *log = theLogicRandomLogFile;
+				FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 				if (log)
 					fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 56");
 			}

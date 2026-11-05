@@ -1,4 +1,4 @@
-// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /GX- /D_CRTIMP=
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /GX-
 // ?doPathfind@AIUpdateInterface@@UAEXPAVPathfindServicesInterface@@@Z
 // Retail 0x00269902..0x0026A05D, 1883 bytes, RET 4.
 // Identity: all fifteen native doPathfind/ComputePath42 traces and the attack,
@@ -43,8 +43,8 @@ enum KindOfType
 };
 
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 extern GameLogic *TheGameLogic;
 
 #define CRITTER_TRACE(s) \

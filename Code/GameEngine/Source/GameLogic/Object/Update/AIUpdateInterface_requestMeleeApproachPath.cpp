@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP=
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
 // ?requestMeleeApproachPath@AIUpdateInterface@@QAE_NPBUCoord3D@@_N@Z
 // retail 0x00263C06, 668 bytes (ret 8).
@@ -29,8 +29,8 @@ typedef bool Bool;
 #include <math.h>
 
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
@@ -274,7 +274,7 @@ Bool AIUpdateInterface::requestMeleeApproachPath(const Coord3D *destination, Boo
 		{
 			if (g_00E03745)
 			{
-				FILE *log = theLogicRandomLogFile;
+				void *log = theLogicRandomLogFile;
 				if (log != 0)
 					fprintf(log, "CritterDesync: requestMeleeApproachPath1 -- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 						m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,

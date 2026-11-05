@@ -1,4 +1,4 @@
-// cl: /MD /Ireference/shims/bfme2_ascii /D_CRTIMP=
+// cl: /MD /Ireference/shims/bfme2_ascii
 //
 // ?canUnpack@Rva00395F57@@QAE_N_N@Z, retail 0x00395F57, 176 bytes.
 // Castle canUnpack with debug-log gate plus readiness check. Donor is BFME1
@@ -13,7 +13,7 @@
 // shared header (str() gives +8-or-empty shape, literals link).
 #include "ascii_string.h"
 
-#include <stdio.h>
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 class Player;
 #include "../GameLogic/Object/object.h"
@@ -25,7 +25,7 @@ struct ChainValue
 };
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 
 class Rva00395F57
 {

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // BF1 f98983a7d CastleBehaviorIsPlayerAllowedToCapture.cpp guides the
 // algorithm; target's CAMP string proves the method name. Original class
 // spelling remains uncertain, so the receiver is address-qualified.
@@ -7,8 +7,8 @@
 // logic-level log guard. The second input is carried as an opaque ABI word.
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" int __cdecl fprintf(void *,const char *,...);
+extern "C" void *theLogicRandomLogFile;
 class Player { public: char pad[0x4C]; AsciiString name; };
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object {

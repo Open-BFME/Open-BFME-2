@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /D_CRTIMP=
+// cl: /DNDEBUG /MD
 //
 // AIInternalMoveToState::onExit, retail 0x003473A4 (188 bytes).
 // Identity (target evidence): slot 5 of vtable 0x00C10DE8, whose slot 4 is the
@@ -101,14 +101,18 @@ private:
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
-#include <stdio.h>
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 Bool AIInternalMoveToState::getAdjustsDestination() const
 {
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log)
 			fprintf(log, "CritterDesync: getAdjustsDestination() entered.");
 	}
@@ -117,7 +121,7 @@ Bool AIInternalMoveToState::getAdjustsDestination() const
 	{
 		if (g_00E03745)
 		{
-			FILE *log = theLogicRandomLogFile;
+			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: getAdjustsDestination1 - parachuting returning FALSE.");
 		}
@@ -128,7 +132,7 @@ Bool AIInternalMoveToState::getAdjustsDestination() const
 	{
 		if (g_00E03745)
 		{
-			FILE *log = theLogicRandomLogFile;
+			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 			if (log)
 				fprintf(log, "CritterDesync: getAdjustsDestination1 - isAllowedToAdjustDestination FALSE, returning FALSE.");
 		}
@@ -136,7 +140,7 @@ Bool AIInternalMoveToState::getAdjustsDestination() const
 	}
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log)
 		{
 			const char *tf = "TRUE";

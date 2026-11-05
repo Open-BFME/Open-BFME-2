@@ -1,4 +1,4 @@
-// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP=
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ?computePath@AIUpdateInterface@@QAE_NPAVPathfindServicesInterface@@PAUCoord3D@@@Z
 // Retail 0x00265E0B..0x00266AA2, 3223 bytes, RET 8.
 // Identity: native CritterDesync computePath traces, owned doPathfind and attack-
@@ -42,8 +42,8 @@ enum KindOfType
 };
 
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 extern int BfmeLogicFramesPerSecond;
 extern GameLogic *TheGameLogic;
 

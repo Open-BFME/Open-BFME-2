@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /D_CRTIMP=
+// cl: /DNDEBUG /MD
 //
 // onEnter/onExit/update overrides of BFME 2 states, each named by its
 // vtable's slot-2 name getter (the state's own name literal):
@@ -222,13 +222,17 @@ private:
 extern AI *TheAI;
 
 extern unsigned char g_00E03745;
-#include <stdio.h>
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		FILE *log = theLogicRandomLogFile;
+		FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}

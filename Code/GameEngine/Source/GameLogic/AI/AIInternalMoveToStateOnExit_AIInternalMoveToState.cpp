@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /D_CRTIMP=
+// cl: /DNDEBUG /MD
 // Split from AIInternalMoveToStateOnExit.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 //
@@ -119,9 +119,13 @@ AIInternalMoveToState::AIInternalMoveToState(StateMachine *machine, unsigned int
 	m_ambientPlayingHandle = 1;
 	m_adjustDestinations = true;
 }
-#include <stdio.h>
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
-extern "C" FILE *theLogicRandomLogFile;
+extern "C" void *theLogicRandomLogFile;
 
 
 
