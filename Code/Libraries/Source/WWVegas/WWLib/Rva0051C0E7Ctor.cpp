@@ -1,11 +1,14 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // ??0Rva0051C0E7@@QAE@XZ @0x0051C0E7 82B: default ctor, two ints + AsciiString[8] via ehvec plus 8B tail memset; evidence callees 0x0048BA39 clear/dtor 0x00326BE6 UnicodeString/AsciiString ctor 0x00629512 ehvec 0x006291AE memset caller 0x005202C8
+// memset is msvcr71's, called through its import thunk at 0x006291AE
+// rather than expanded inline (#pragma function). The constructor stores no
+// EH state around the call, so memset is first declared throw().
+extern "C" void *__cdecl memset(void *, int, unsigned int) throw();
+#pragma function(memset)
 #include "ascii_string.h"
 #include <vector>
 
-void *__cdecl ji_006291ae(void *dest, int val, unsigned int count) throw();
-#pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
 
 struct Rva0051C0E7 {
 	AsciiString m_00;
@@ -18,7 +21,7 @@ struct Rva0051C0E7 {
 
 Rva0051C0E7::Rva0051C0E7() : m_04(0)
 {
-	ji_006291ae(m_28, 0, 8);
+	memset(m_28, 0, 8);
 }
 
 // ??1Rva0051C0E7@@QAE@XZ @0x0051E471..0x0051E4B0, complete 63B.
