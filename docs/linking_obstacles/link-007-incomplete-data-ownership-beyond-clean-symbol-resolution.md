@@ -566,6 +566,8 @@ Recorded as a false reject in `reverse/re_attempts.log`. Next check (tooling
 seat): admit TU-scoped C static function names, repoint the row, delete the
 union owner and retire the four piNextID keys. No clearance is claimed.
 
+**Pinger decoder follow-up (2026-11-05):** [Additional volatile-copy and pointer-expression trials](../../reverse/attempt_support/pinger-decoder-alias-boundary-20261105-codex4.md) restore the alternating payload copy under `/Ow` but still change pointer scheduling and magic validation; whole-input volatility changes the caller too. All trials restored, 19/19 rows exact; next check must preserve those decoder details or establish approved TU placement. No keys retired.
+
 **piNextID extern trial (2026-11-04, `claude`):** making pingerMain.c's counter
 external (peerPing.c extern, Rva006B2150 through a view) breaks `_pingerPing`
 and `_piProcessTrip1`: retail's dword counter load needs a TU-static `uint16`.
