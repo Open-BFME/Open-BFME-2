@@ -16,7 +16,9 @@ Outcome (build/boot/smoke.json, also printed):
   no-window             alive at the timeout without a visible window
   reached-menu          alive at the timeout with the main menu's button bar
                         visible (a screenshot is saved; compare with --retail)
-  no-picture            alive with a window that renders nothing (black)
+  no-picture            alive with a window, but no picture was captured or it is
+                        black (under Wine the client area comes from the Xvfb root,
+                        since PrintWindow is black there)
   loading-screen        alive with a picture, but the main menu's button bar is
                         not up yet (the splash, or the shell map before the menu)
   profile-redirect-failed  the appdata lie could not be installed (nothing ran)
@@ -70,6 +72,7 @@ import collections
 import csv
 import ctypes
 import ctypes.wintypes as wt
+import functools
 import json
 import os
 import re
@@ -90,6 +93,7 @@ EXCEPTION, CREATE_PROCESS, EXIT_PROCESS, LOAD_DLL = 1, 3, 5, 6
 BREAKPOINTS = {0x80000003, 0x4000001F}          # int3, WOW64 int3
 
 
+@functools.cache
 def under_wine():
     """Wine's ntdll exports wine_get_version; Windows' does not."""
     try:
@@ -787,55 +791,113 @@ def sample_eips(k, hthread, n=8):
 
 
 def screenshot(pid):
-    """The game window's own picture, never the screen: a screen grab shows whatever
-    lies on top of the window, which may be anything on the owner's desktop."""
-    from PIL import ImageStat
-    wins = [w for w in windows_of(pid) if w[1][2] - w[1][0] > 100 and w[1][3] - w[1][1] > 100]
-    if not wins:
-        return None
-    _, _, h = max(wins, key=lambda w: (w[1][2] - w[1][0]) * (w[1][3] - w[1][1]))
-    u = ctypes.WinDLL("user32")
-    rc = wt.RECT()
-    u.GetClientRect(h, ctypes.byref(rc))
-    img = window_image(h, rc.right, rc.bottom)
-    if img is None:                           # nothing rendered (all black) or the capture failed
-        return {"capture": "none"}
-    how = "PrintWindow"
-    path = OUT / f"smoke_{pid}.png"
-    img.save(path)
-    stat = ImageStat.Stat(img.convert("L"))
-    out = {"path": str(path), "mean": round(stat.mean[0], 1), "stddev": round(stat.stddev[0], 1), "capture": how,
-           "menu_bar": menu_bar(img)}
+    """The game window's own picture (window_picture), with the menu-bar share and,
+    when a retail control exists, the distance from its picture."""
+    out = window_picture(pid, OUT / f"smoke_{pid}.png")
+    if not out or "path" not in out:
+        return out
     ref = OUT / "smoke_retail.json"
     try:
         shot = json.loads(ref.read_text())["run"]["screenshot"]["path"]
-        out["differs_from_retail"] = image_distance(img, shot)
+        from PIL import Image
+        out["differs_from_retail"] = image_distance(Image.open(out["path"]), shot)
     except (OSError, KeyError, TypeError, ValueError):
         pass
     return out
 
 
-def window_image(h, w, ht):
-    """The window's own client-area pixels (PrintWindow, PW_CLIENTONLY |
-    PW_RENDERFULLCONTENT), so a window under another one is still seen; None
-    when the capture fails or comes back black."""
-    from PIL import Image
-    if w <= 0 or ht <= 0:
+# A grey level at or below this is black: a frame with nothing above it shows nothing
+# (menu_bar and image_distance crop to content above the same level).
+BLACK = 8
+
+
+def picture_stats(img):
+    """Grey-level mean, standard deviation and maximum of a frame, and whether it is
+    black (no pixel above BLACK). Pure, so a black frame's refusal is tested."""
+    from PIL import ImageStat
+    g = img.convert("L")
+    st = ImageStat.Stat(g)
+    top = g.getextrema()[1]
+    return {"mean": round(st.mean[0], 1), "stddev": round(st.stddev[0], 1), "max": top, "black": top <= BLACK}
+
+
+def classify_picture(shot):
+    """The boot outcome a capture supports: no-window (none to capture), no-picture
+    (capture failed, or the frame is black), blank-window (one flat colour),
+    loading-screen (a picture without the main menu's button bar) or reached-menu.
+    Only a captured, non-black, non-flat frame with the button bar reaches the menu."""
+    if not shot:
+        return "no-window"
+    if "path" not in shot or shot.get("black", True):
+        return "no-picture"
+    if shot.get("stddev", 0) <= 8:
+        return "blank-window"
+    if shot.get("menu_bar", 0) < MENU_BAR:
+        return "loading-screen"
+    return "reached-menu"
+
+
+def window_picture(pid, path):
+    """Client-area picture of pid's largest visible window, saved to `path`:
+    {"path", "capture", stats, "menu_bar"}; {"capture": "none", "why"} when nothing
+    usable was captured; None when there is no window.
+
+    Windows: PrintWindow, never the screen (a screen grab shows whatever lies on top
+    of the window, which may be anything on the owner's desktop). Wine: PrintWindow
+    comes back black for the game's GL surface (measured 2026-11-05), so the client
+    rectangle is copied from the screen, which there is the X server's root window
+    (the harness's own Xvfb); the window must lie wholly on that screen and be the
+    window at its centre and inner corners, else nothing is captured."""
+    wins = [w for w in windows_of(pid) if w[1][2] - w[1][0] > 100 and w[1][3] - w[1][1] > 100]
+    if not wins:
         return None
+    h = max(wins, key=lambda w: (w[1][2] - w[1][0]) * (w[1][3] - w[1][1]))[2]
+    if under_wine():
+        img, how, why = root_capture(h)
+    else:
+        img, how = print_window(h), "PrintWindow"
+        why = None if img is not None else "PrintWindow failed"
+    if img is None:
+        return {"capture": "none", "method": how, "why": why}
+    img.save(path)
+    out = {"path": str(path), "capture": how} | picture_stats(img)
+    out["menu_bar"] = menu_bar(img)
+    if how == "xvfb-root":
+        out["display"] = os.environ.get("DISPLAY")
+    return out
+
+
+def _gdi():
     u, g = ctypes.WinDLL("user32"), ctypes.WinDLL("gdi32")
     u.GetDC.restype = g.CreateCompatibleDC.restype = g.CreateCompatibleBitmap.restype = wt.HANDLE
+    u.GetDC.argtypes = [wt.HWND]
     g.SelectObject.argtypes = [wt.HANDLE, wt.HANDLE]
     g.CreateCompatibleDC.argtypes = [wt.HANDLE]
     g.CreateCompatibleBitmap.argtypes = [wt.HANDLE, ctypes.c_int, ctypes.c_int]
     g.DeleteObject.argtypes = g.DeleteDC.argtypes = [wt.HANDLE]
+    g.BitBlt.argtypes = [wt.HANDLE] + [ctypes.c_int] * 4 + [wt.HANDLE, ctypes.c_int, ctypes.c_int, wt.DWORD]
     u.ReleaseDC.argtypes = [wt.HWND, wt.HANDLE]
     u.PrintWindow.argtypes = [wt.HWND, wt.HANDLE, wt.UINT]
+    u.WindowFromPoint.argtypes = [wt.POINT]
+    u.WindowFromPoint.restype = wt.HWND
+    u.GetAncestor.argtypes = [wt.HWND, wt.UINT]
+    u.GetAncestor.restype = wt.HWND
     g.GetDIBits.argtypes = [wt.HANDLE, wt.HANDLE, wt.UINT, wt.UINT, ctypes.c_void_p, ctypes.c_void_p, wt.UINT]
+    return u, g
+
+
+def _bitmap(draw, w, ht):
+    """Run draw(user32, gdi32, screen DC, memory DC) into a w x ht bitmap: its
+    pixels as an RGB image, or None when draw or the read-back fails."""
+    from PIL import Image
+    if w <= 0 or ht <= 0:
+        return None
+    u, g = _gdi()
     sdc = u.GetDC(None)
     mdc = g.CreateCompatibleDC(sdc)
     bmp = g.CreateCompatibleBitmap(sdc, w, ht)
     g.SelectObject(mdc, bmp)
-    ok = u.PrintWindow(h, mdc, 3)
+    ok = draw(u, g, sdc, mdc)
     info = struct.pack("<IiiHHIIiiII", 40, w, -ht, 1, 32, 0, 0, 0, 0, 0, 0)
     buf = ctypes.create_string_buffer(w * ht * 4)
     got = g.GetDIBits(mdc, bmp, 0, ht, buf, ctypes.create_string_buffer(info, 44), 0)
@@ -844,8 +906,60 @@ def window_image(h, w, ht):
     u.ReleaseDC(None, sdc)
     if not ok or got != ht:
         return None
-    img = Image.frombuffer("RGBX", (w, ht), buf.raw, "raw", "BGRX", 0, 1).convert("RGB")
-    return img if img.getextrema() != ((0, 0), (0, 0), (0, 0)) else None
+    return Image.frombuffer("RGBX", (w, ht), buf.raw, "raw", "BGRX", 0, 1).convert("RGB")
+
+
+def print_window(h):
+    """The window's own client-area pixels (PrintWindow, PW_CLIENTONLY |
+    PW_RENDERFULLCONTENT), so a window under another one is still seen."""
+    rc = wt.RECT()
+    ctypes.WinDLL("user32").GetClientRect(h, ctypes.byref(rc))
+    return _bitmap(lambda u, g, sdc, mdc: u.PrintWindow(h, mdc, 3), rc.right, rc.bottom)
+
+
+def client_on_screen(h):
+    """(left, top, right, bottom) of h's client area in screen coordinates."""
+    u = ctypes.WinDLL("user32")
+    rc, pt = wt.RECT(), wt.POINT(0, 0)
+    u.GetClientRect(h, ctypes.byref(rc))
+    u.ClientToScreen(h, ctypes.byref(pt))
+    return pt.x, pt.y, pt.x + rc.right, pt.y + rc.bottom
+
+
+def probe_points(rect):
+    """The client area's centre and four inner corners."""
+    l, t, r, b = rect
+    return [((l + r) // 2, (t + b) // 2), (l + 2, t + 2), (r - 3, t + 2), (l + 2, b - 3), (r - 3, b - 3)]
+
+
+def capture_refusal(rect, screen, owners):
+    """Why a screen capture of `rect` would not show the window alone, or None.
+    `screen` is (width, height); `owners`, for each probe point, whether the window
+    there is ours. Pure (tested): a window partly off screen or covered is refused."""
+    l, t, r, b = rect
+    if r - l <= 0 or b - t <= 0:
+        return "empty client area"
+    if l < 0 or t < 0 or r > screen[0] or b > screen[1]:
+        return f"client area {list(rect)} not wholly on the {screen[0]}x{screen[1]} screen"
+    if not owners or not all(owners):
+        return "another window covers the client area"
+    return None
+
+
+def root_capture(h):
+    """(image, "xvfb-root", why) of h's client area copied from the screen (the X
+    root under Wine); the image is None when the capture is refused or fails."""
+    u, _ = _gdi()
+    rect = client_on_screen(h)
+    screen = (u.GetSystemMetrics(0), u.GetSystemMetrics(1))
+    owners = [u.GetAncestor(u.WindowFromPoint(wt.POINT(x, y)), 2) == h for x, y in probe_points(rect)]
+    why = capture_refusal(rect, screen, owners)
+    if why:
+        return None, "xvfb-root", why
+    l, t, r, b = rect
+    img = _bitmap(lambda u, g, sdc, mdc: g.BitBlt(mdc, 0, 0, r - l, b - t, sdc, l, t, 0x00CC0020 | 0x40000000),
+                  r - l, b - t)                       # SRCCOPY | CAPTUREBLT
+    return img, "xvfb-root", None if img is not None else "BitBlt from the screen failed"
 
 
 def menu_bar(img):
@@ -1012,10 +1126,7 @@ def smoke(a, rows=None, tag="boot"):
         if "Exception" in titles:                   # the game's own crash dialog
             out["outcome"] = "crash-dialog"
         else:
-            out["outcome"] = ("no-window" if not shot else "no-picture" if "path" not in shot else
-                              "reached-menu" if shot["stddev"] > 8 else "blank-window")
-            if out["outcome"] == "reached-menu" and shot.get("menu_bar", 0) < MENU_BAR:
-                out["outcome"] = "loading-screen"           # alive, but the main menu's button bar is not up
+            out["outcome"] = classify_picture(shot)
     for g, snap in before.items():
         after = snapshot(Path(g))
         changed = sorted(set(after) ^ set(snap) | {p for p in snap if p in after and after[p] != snap[p]})

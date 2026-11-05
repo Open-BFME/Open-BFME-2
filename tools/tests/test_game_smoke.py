@@ -55,7 +55,7 @@ class PairCrcs(unittest.TestCase):
 class JudgeSkirmish(unittest.TestCase):
     def test_simulating_skirmish_passes(self):
         s = [(t, 30 * t if t >= 10 else 5, SKIRMISH if t >= 10 else 4) for t in range(60)]
-        self.assertEqual(gs.judge_skirmish(s, SKIRMISH, 100, shot={"stddev": 40}), "pass")
+        self.assertEqual(gs.judge_skirmish(s, SKIRMISH, 100, shot={"path": "x.png", "black": False, "stddev": 40}), "pass")
 
     def test_menu_only_is_no_game(self):                    # the shell map simulates too
         s = [(t, 30 * t, 4) for t in range(60)]
@@ -67,7 +67,7 @@ class JudgeSkirmish(unittest.TestCase):
 
     def test_blank_window_fails(self):
         s = [(t, 30 * t, SKIRMISH) for t in range(60)]
-        self.assertEqual(gs.judge_skirmish(s, SKIRMISH, 100, shot={"stddev": 2.0}), "blank-window")
+        self.assertEqual(gs.judge_skirmish(s, SKIRMISH, 100, shot={"path": "x.png", "black": False, "stddev": 2.0}), "blank-window")
 
     def test_crash_wins(self):
         s = [(t, 30 * t, SKIRMISH) for t in range(60)]

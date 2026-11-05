@@ -60,8 +60,13 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
 
 - `Options.ini` must be in `My Battle for Middle-earth II Files`, and the EA registry keys must be
   set through `KEY_WOW64_32KEY`; otherwise the game crashes in its CPU benchmark.
-- `PrintWindow` returns black under Wine, so a `no-picture` or `blank-window` outcome there says
-  nothing about the game. Judge by the CRCs.
+- `PrintWindow` returns black under Wine, so there both harnesses copy the window's client area
+  from the screen, which is the Xvfb root (`capture: xvfb-root`). A window not wholly on that
+  screen, or covered, is not captured, and a missing or black picture is `no-picture`. Give Xvfb a
+  screen larger than the window (2048x1536 for 1024x768): on 1400x1050 the menu bar lay off screen.
+  Retail on 2026-11-05: the intro movies run until about 2-3 minutes, `boot_smoke.py --retail
+  --timeout 300` reports `reached-menu` (menu bar 0.74), and `game_smoke.py skirmish --retail`
+  passes with a picture (225 logic frames).
 - Retail on 2026-11-03: main menu reached; a seeded skirmish gives 30 distinct CRCs over frames
   25-750; the same seed twice gives identical CRCs; `--perturb-frame 300` is caught, with the 12
   earlier CRCs matching and all 18 later ones differing; `save` works.

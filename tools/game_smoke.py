@@ -55,7 +55,9 @@ SHA-256 of Options.ini) before and after; any change fails the run with
 `profile-changed`, as does any change under HKCU\\Software\\Electronic Arts.
 
 Outcomes (build/game/<scenario>.json, also printed): pass, desync, no-game,
-no-frames, crash-at-<row>, exit-<code>, profile-changed, guard-violation.
+no-frames, no-picture, blank-window, crash-at-<row>, exit-<code>, profile-changed,
+guard-violation. skirmish and load need a picture at the end (boot_smoke.window_picture:
+PrintWindow on Windows, the Xvfb root under Wine); a black or missing one fails.
 """
 import argparse
 import ctypes
@@ -198,7 +200,9 @@ def judge_record(outcome, crcs, min_crcs=3):
 
 
 def judge_skirmish(samples, want_mode, min_frames, crash=None, shot=None):
-    """Outcome of a skirmish from (seconds, frame, mode) samples."""
+    """Outcome of a skirmish from (seconds, frame, mode) samples and the end-of-run
+    capture. A pass needs a picture: no capture, or a black one, is `no-picture`
+    and a flat one `blank-window` (boot_smoke.classify_picture's rules)."""
     if crash:
         return crash
     game = [(t, f) for t, f, m in samples if m == want_mode and f is not None]
@@ -206,7 +210,9 @@ def judge_skirmish(samples, want_mode, min_frames, crash=None, shot=None):
         return "no-game"
     if game[-1][1] - game[0][1] < min_frames:
         return "no-frames"
-    if shot is not None and shot.get("stddev", 0) <= 8:
+    if not shot or "path" not in shot or shot.get("black", True):
+        return "no-picture"
+    if shot.get("stddev", 0) <= 8:
         return "blank-window"
     return "pass"
 
@@ -849,44 +855,9 @@ def image_size(exe):
 
 
 def capture(pid, path):
-    """Client-area screenshot of pid's largest window (PrintWindow, so a covered
-    window is still seen); {"path", "mean", "stddev"} or None."""
-    from PIL import Image, ImageStat
-    wins = [w for w in boot_smoke.windows_of(pid) if w[1][2] - w[1][0] > 100 and w[1][3] - w[1][1] > 100]
-    if not wins:
-        return None
-    h = max(wins, key=lambda w: (w[1][2] - w[1][0]) * (w[1][3] - w[1][1]))[2]
-    u, g = ctypes.WinDLL("user32"), ctypes.WinDLL("gdi32")
-    rc = wt.RECT()
-    u.GetClientRect(h, ctypes.byref(rc))
-    w, ht = rc.right, rc.bottom
-    if w <= 0 or ht <= 0:
-        return None
-    u.GetDC.restype = g.CreateCompatibleDC.restype = g.CreateCompatibleBitmap.restype = wt.HANDLE
-    g.SelectObject.argtypes = [wt.HANDLE, wt.HANDLE]
-    g.CreateCompatibleDC.argtypes = [wt.HANDLE]
-    g.CreateCompatibleBitmap.argtypes = [wt.HANDLE, ctypes.c_int, ctypes.c_int]
-    g.DeleteObject.argtypes = g.DeleteDC.argtypes = [wt.HANDLE]
-    u.ReleaseDC.argtypes = [wt.HWND, wt.HANDLE]
-    u.PrintWindow.argtypes = [wt.HWND, wt.HANDLE, wt.UINT]
-    g.GetDIBits.argtypes = [wt.HANDLE, wt.HANDLE, wt.UINT, wt.UINT, ctypes.c_void_p, ctypes.c_void_p, wt.UINT]
-    sdc = u.GetDC(None)
-    mdc = g.CreateCompatibleDC(sdc)
-    bmp = g.CreateCompatibleBitmap(sdc, w, ht)
-    g.SelectObject(mdc, bmp)
-    ok = u.PrintWindow(h, mdc, 3)                    # PW_CLIENTONLY | PW_RENDERFULLCONTENT
-    info = struct.pack("<IiiHHIIiiII", 40, w, -ht, 1, 32, 0, 0, 0, 0, 0, 0)
-    buf = ctypes.create_string_buffer(w * ht * 4)
-    got = g.GetDIBits(mdc, bmp, 0, ht, buf, ctypes.create_string_buffer(info, 44), 0)
-    g.DeleteObject(bmp)
-    g.DeleteDC(mdc)
-    u.ReleaseDC(None, sdc)
-    if not ok or got != ht:
-        return None
-    img = Image.frombuffer("RGBX", (w, ht), buf.raw, "raw", "BGRX", 0, 1).convert("RGB")
-    img.save(path)
-    stat = ImageStat.Stat(img.convert("L"))
-    return {"path": str(path), "mean": round(stat.mean[0], 1), "stddev": round(stat.stddev[0], 1)}
+    """Client-area picture of pid's largest window: boot_smoke.window_picture (PrintWindow
+    on Windows, the Xvfb root under Wine, where PrintWindow is black)."""
+    return boot_smoke.window_picture(pid, path)
 
 
 # --------------------------------------------------------------------------- scenarios
