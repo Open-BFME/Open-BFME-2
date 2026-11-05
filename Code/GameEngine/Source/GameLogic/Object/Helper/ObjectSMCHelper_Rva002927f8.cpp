@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Helper
+// cl: -DNDEBUG -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/shims/bfmealloc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Helper
 //
 // ??0ObjectSMCHelper@@QAE@PAVThing@@PBVModuleData@@@Z
 // retail 0x002927F8, 81 bytes. Dedicated TU ported from the Open-BFME-1 donor
@@ -16,6 +16,8 @@
 // the timer-list member at +0x20 used by setModelConditionState, and the
 // matched ObjectSMCHelper destructor that clears that same list.
 
+// Retail's list header allocates its 16-byte sentinel through allocator<char>;
+// use the same allocation shim as the verified 0x0035C9A6 list-base owner.
 #include <list>
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
