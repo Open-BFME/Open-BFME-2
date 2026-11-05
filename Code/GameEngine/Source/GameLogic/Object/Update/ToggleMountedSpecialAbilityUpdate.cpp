@@ -5,6 +5,7 @@
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "Code/GameEngine/Source/Common/Thing/thing.h"
 #pragma comment(linker, "/alternatename:?rva00451B92@SpecialAbilityUpdate@@UAEXXZ=??_GSpecialAbilityUpdate@@UAEPAXI@Z")
 // Shared ToggleMountedSpecialAbilityUpdate unit view: one declaration of each
 // class for every body retail built into this unit.
