@@ -1,0 +1,3 @@
+### LINK-571: GameText consolidation needs interface destructor identity
+Status: Blocked. Updated: 2026-11-05; inspected revision: 05fbaef1d0.
+Evidence / next check: [Member reconciliation and exact remaining misses](../../reverse/attempt_support/gametext-member-reconciliation-20261105-codex.md). GameTextManager.cpp now uses the seed's members (8/8 exact); composition compiles but needs the 0x002E55D8 ICF destructor row reconciled with GameTextInterface before its 0x00778D49 unwind row can match. Apply the existing naming agreement through its supported workflow, then retry the merge. No merge or census gain claimed.

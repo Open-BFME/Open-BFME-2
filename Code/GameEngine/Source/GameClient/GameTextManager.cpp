@@ -33,6 +33,8 @@ public:
 	void rva002E674B(_STL::vector<AsciiString> &out, const AsciiString &filter);
 };
 
+class GameTextTable;
+
 namespace _STL
 {
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString *, AsciiString *);
@@ -63,9 +65,9 @@ private:
 	UnicodeString m_wide20;
 	void *m_list24;
 	char m_pad28[0x04];
-	Rva002E674B *m_ptr2c;
-	Rva002E674B *m_ptr30;
-	_STL::vector<AsciiString> m_vec34;
+	GameTextTable *m_textTable;
+	GameTextTable *m_mapTable;
+	_STL::vector<AsciiString> m_asciiStringVec;
 	int m_translateMode;
 };
 
@@ -75,14 +77,16 @@ GameTextManager::~GameTextManager()
 }
 
 // ?getStringsWithLabelPrefix@GameTextManager@@UAEAAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@ABVAsciiString@@@Z @0x002E67EA 60B
-// Evidence: vslot 18 offset 0x48 of vtable 0x00804FA8 class GameTextManager; clears m_vec34 via erase then forwards to m_ptr2c m_ptr30 rva002E674B; returns m_vec34.
+// Evidence: vslot 18 offset 0x48 of vtable 0x00804FA8 class GameTextManager;
+// clears the vector at +0x34, enumerates the tables at +0x2C and +0x30,
+// then returns the vector. Member names agree with GameText.cpp.
 _STL::vector<AsciiString> &GameTextManager::getStringsWithLabelPrefix(const AsciiString &filter)
 {
-	_STL::vector<AsciiString> &vec = m_vec34;
+	_STL::vector<AsciiString> &vec = m_asciiStringVec;
 	vec.erase(vec.begin(), vec.end());
-	if (m_ptr2c)
-		m_ptr2c->rva002E674B(vec, filter);
-	if (m_ptr30)
-		m_ptr30->rva002E674B(vec, filter);
+	if (m_textTable)
+		((Rva002E674B *)m_textTable)->rva002E674B(vec, filter);
+	if (m_mapTable)
+		((Rva002E674B *)m_mapTable)->rva002E674B(vec, filter);
 	return vec;
 }
