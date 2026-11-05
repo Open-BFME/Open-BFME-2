@@ -72,14 +72,7 @@ public:
 	bool m_delayBeforeCapture;		// +0xEA5
 };
 extern GlobalData *TheWritableGlobalData;
-class RTS3DScene
-{
-public:
-	void drawTerrainOnly(bool draw) { m_drawTerrainOnly = draw; }
-private:
-	unsigned char m_pad000[0x12C];
-	bool m_drawTerrainOnly;			// +0x12C
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 #include "../../../../GameEngine/Include/Common/GameLODManager.h"
 // Slot 34 takes and returns AsciiString by value: retail ordinary teardown expands the
 // inline destructor (releaseBuffer 0x36410) and the EH cleanups call the out-of-line

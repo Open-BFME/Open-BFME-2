@@ -284,14 +284,7 @@ class BaseHeightMapRenderObjClass
     virtual float getHeightMapHeight(float, float, void *);
     void addScorch(Vector3, float, Scorches);
 };
-class RTS3DScene
-{
-  public:
-    virtual void slot0();
-    virtual void slot1();
-    virtual void Add_Render_Object(RenderObjClass *);
-    RefMultiListIterator<RenderObjClass> *createLightsIterator();
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class W3DDisplay
 {
   public:

@@ -28,17 +28,7 @@ typedef unsigned int UnsignedInt;
 #include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 class CameraClass;
-class RTS3DScene {
-public:
-	char m_pad00[0x18];
-	int m_extraPassPolygonMode;
-	char m_pad1C[0x7EC - 0x1C];
-	int m_customPassMode;
-	int getCustomPassMode() { return m_customPassMode; }
-	void setCustomPassMode(int mode) { m_customPassMode = mode; }
-	void setExtraPassPolygonMode(int mode) { m_extraPassPolygonMode = mode; }
-	void doRender(CameraClass *camera); // 0x0006ED36 (Rva0006ED36Call.cpp)
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 class RTS2DScene {
 public:
 	void doRender(CameraClass *camera); // 0x0006EE27 (Rva0006ED36Call.cpp)
@@ -186,7 +176,7 @@ void W3DView::draw( void )
 {
 	Bool skipRender = false;
 	Bool doExtraRender = false;
-	Int origPassMode = W3DDisplay::m_3DScene->getCustomPassMode();
+	Int origPassMode = W3DDisplay::m_3DScene->m_customPassMode;
 	Int customScenePassMode = origPassMode;
 	Bool preRenderResult = false;
 
@@ -199,9 +189,9 @@ void W3DView::draw( void )
 
 	if (!skipRender)
 	{
-		W3DDisplay::m_3DScene->setCustomPassMode(customScenePassMode);
+		W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)customScenePassMode);
 		W3DDisplay::m_3DScene->doRender( m_3DCamera );
-		W3DDisplay::m_3DScene->setExtraPassPolygonMode(0);
+		W3DDisplay::m_3DScene->ExtraPassPolyRenderMode = 0;
 		m_isWireFrameEnabled = m_nextWireFrameEnabled;
 	}
 
@@ -228,7 +218,7 @@ void W3DView::draw( void )
 	if (doExtraRender)
 	{
 		DX8Wrapper::Clear(false, true, true, Vector3(0.0f,0.0f,0.0f), TheTerrainRenderObject->getMinOpacity());
-		W3DDisplay::m_3DScene->setCustomPassMode(0);
+		W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)0);
 		W3DDisplay::m_3DScene->doRender( m_3DCamera );
 		Coord2D deltaScroll;
 		Coord2D displaySize;
@@ -265,14 +255,14 @@ void W3DView::draw( void )
 			size.x = (Real)TheDisplay->getWidth();
 			size.y = (Real)TheDisplay->getHeight();
 			DX8Wrapper::Clear(false, true, true, Vector3(0.0f,0.0f,0.0f), TheTerrainRenderObject->getMinOpacity());
-			W3DDisplay::m_3DScene->setCustomPassMode(6);
+			W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)6);
 			W3DDisplay::m_3DScene->doRender( m_3DCamera );
 			setFilterPass(0);
 			Bool extra;
 			Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 			Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 		}
-		W3DDisplay::m_3DScene->setCustomPassMode(0);
+		W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)0);
 	}
 	else if (origPassMode == 0 && Rva00102215Get()->isActive() && !lowLOD)
 	{
@@ -294,7 +284,7 @@ void W3DView::draw( void )
 			Bool extra;
 			if (!((char *)Rva00309E4BGet())[0x21])
 			{
-				W3DDisplay::m_3DScene->setCustomPassMode(3);
+				W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)3);
 				if (!TheWritableGlobalData->field0D34)
 					W3DDisplay::m_3DScene->doRender( m_3DCamera );
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
@@ -302,25 +292,25 @@ void W3DView::draw( void )
 			}
 			else
 			{
-				W3DDisplay::m_3DScene->setCustomPassMode(6);
+				W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)6);
 				W3DDisplay::m_3DScene->doRender( m_3DCamera );
 				setFilterPass(0);
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 				Rva000756BFSelect(4, (int)&skip, (int)&origPassMode);
-				W3DDisplay::m_3DScene->setCustomPassMode(4);
+				W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)4);
 				W3DDisplay::m_3DScene->doRender( m_3DCamera );
 				setFilterPass(1);
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 				Rva000756BFSelect(4, (int)&skip, (int)&origPassMode);
-				W3DDisplay::m_3DScene->setCustomPassMode(5);
+				W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)5);
 				W3DDisplay::m_3DScene->doRender( m_3DCamera );
 				setFilterPass(2);
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 				Rva000756F1Dispatch(4, 6, (int)&delta, (int)&extra, (int)&size);
 			}
-			W3DDisplay::m_3DScene->setCustomPassMode(0);
+			W3DDisplay::m_3DScene->setCustomPassMode((CustomScenePassModes)0);
 		}
 	}
 

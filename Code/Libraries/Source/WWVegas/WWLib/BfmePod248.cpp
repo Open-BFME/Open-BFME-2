@@ -220,7 +220,7 @@ class Rva000C24EA;
 
 class Rva000C24EAVector {public:Rva000C24EA*eraseRange(Rva000C24EA*,Rva000C24EA*);BfmeNarrowRecord000BFDC7*begin,*end,*cap;};
 
-class RTS3DScene {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3(RefCountClass*);};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/RTS3DScene.h"
 
 class W3DDisplay {public:static RTS3DScene*m_3DScene;};
 
@@ -288,7 +288,7 @@ BfmePod248 &BfmePod248::operator=(const BfmePod248 &rhs)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawTrackedRenderCleanup.cpp
 
-void Rva000C7699::rva000C7699(){for(BfmeNarrowRecord000BFDC7*i=list.begin;i!=list.end;++i){BfmeNarrowRecord000BFDC7 item(*i);RTS3DScene*manager=W3DDisplay::m_3DScene;manager->s3(item.word0);item.word0->Release_Ref();item.word0=0;}Rva000C24EAVector*v=&list;v->eraseRange((Rva000C24EA*)v->begin,(Rva000C24EA*)v->end);}
+void Rva000C7699::rva000C7699(){for(BfmeNarrowRecord000BFDC7*i=list.begin;i!=list.end;++i){BfmeNarrowRecord000BFDC7 item(*i);RTS3DScene*manager=W3DDisplay::m_3DScene;manager->Remove_Render_Object(reinterpret_cast<RenderObjClass*>(item.word0));item.word0->Release_Ref();item.word0=0;}Rva000C24EAVector*v=&list;v->eraseRange((Rva000C24EA*)v->begin,(Rva000C24EA*)v->end);}
 
 // tu-skeleton: 0x000C7720 63B ??1?$vector@URva000C828CElement@@V?$allocator@URva000C828CElement@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 

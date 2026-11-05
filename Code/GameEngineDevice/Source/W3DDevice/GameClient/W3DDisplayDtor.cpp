@@ -27,8 +27,8 @@ class DebugDisplayInterface {public:virtual ~DebugDisplayInterface();};
 class DisplayString;
 #include "../../../../GameEngine/Include/GameClient/DisplayStringManager.h"
 extern DisplayStringManager *TheDisplayStringManager;
-class SceneClass {public:virtual void destroy();int refs;void Release_Ref(){if(--refs==0)destroy();}};
-class RTS3DScene:public SceneClass{};class RTS2DScene:public SceneClass{};class RTS3DInterfaceScene:public SceneClass{};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
+class RTS2DScene:public SceneClass{};class RTS3DInterfaceScene:public SceneClass{};
 class LightClass {public:virtual void destroy();int refs;void Release_Ref(){if(--refs==0)destroy();}};
 class Rva0025C0FF {public:void rva0025C0FF();};
 class Display {public:virtual ~Display();char unknown04[0x28];DebugDisplayInterface *debugDisplay;char unknown30[0x114];};
