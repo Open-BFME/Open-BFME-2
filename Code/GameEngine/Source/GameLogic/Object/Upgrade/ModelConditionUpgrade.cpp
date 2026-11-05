@@ -14,7 +14,6 @@ extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")
 #include "../../../../Include/GameClient/Drawable.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
-
 // ?rva004B65E4@Rva004B65E4@@SAXPAVINI@@PAX1PBX@Z
 // Retail 0x004B65E4..0x004B6691: ModelConditionUpgrade's
 // RemoveConditionFlagsInRange parser (field table at VA 0x00C58730).
@@ -26,7 +25,6 @@ extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")
 // beyond the native 19-word storage. Stop after filling the second endpoint.
 // All callees resolve through existing matched rows; no new address pins.
 class INI;
-
 class WeaponTemplateSetHead
 {
 public:
@@ -38,36 +36,29 @@ public:
     WeaponTemplateSetHead(const WeaponTemplateSetHead &);
     void rva000B3ED3(const WeaponTemplateSetHead &);
 };
-
 template<int N> class BitFlags
 {
 public:
     int count() const;
 };
-
 class Rva000B937E
 {
 public:
     void rva000B937E(INI *, void *);
 };
-
 struct INIException
 {
     INIException(int, const char *, ...);
     char *mFailureMessage;
     int mErrorCode;
 };
-
 extern "C" void __stdcall _CxxThrowException(void *, const _s__ThrowInfo *);
-
 extern "C" const struct _s__ThrowInfo __identifier("_TI1?AVINIException@@");
-
 class Rva004B65E4
 {
 public:
     static void rva004B65E4(INI *, void *, void *, const void *);
 };
-
 // ?getModuleNameKey@ModelConditionUpgrade@@UBE?AW4NameKeyType@@XZ @0x4B63E3
 // (69B): cached pool-name key for ModelConditionUpgrade. The class
 // identity comes from the pool-name string the body pushes
@@ -82,17 +73,8 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-class ModelConditionUpgrade
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 class Rva00253487Base
 {
 public:
@@ -101,20 +83,17 @@ public:
 protected:
 	unsigned char m_pad[0x118];
 };
-
 // 0x00042526 is matched as the constructor ??0Rva0042526Member@@QAE@XZ.
 class Rva0042526Member
 {
 public:
 	Rva0042526Member();
 };
-
 struct CondStore
 {
 
 	unsigned char m_data[0x4C];
 };
-
 //
 // ?upgradeImplementation@Rva004B63BD@@MAEXXZ, retail 0x004B6532 (115B): the
 // UpgradeMux-side slot before getUpgradeActivationMasks in the vtable of the
@@ -128,18 +107,13 @@ struct CondStore
 // class down to its destructor so its emitted vtables stay alike; this view
 // defines no constructor or destructor and emits none.
 typedef bool Bool;
-
 typedef unsigned int UnsignedInt;
-
 typedef float Real;
-
 #include "../../../../Include/GameClient/ModelConditionFlags.h"
-
 enum ModelConditionFlagType
 {
 	MODELCONDITION_INVALID = -1
 };
-
 struct Rva004B63BDModuleData
 {
 	unsigned char m_pad000[0x118];
@@ -148,15 +122,10 @@ struct Rva004B63BDModuleData
 	ModelConditionFlagType m_specialCondition;	// +0x1B0
 	Real m_specialConditionSeconds;			// +0x1B4
 };
-
 #include "../object.h"
-
 class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
-
 class Rva001E431E { public: void rva001E431E(const int *flags); };
-
 extern int BfmeLogicFramesPerSecond;
-
 	// logic frames per second
 
 class Rva004B63BDPrimary
@@ -167,25 +136,21 @@ protected:
 	const Rva004B63BDModuleData *m_moduleData;	// +0x04
 	Object *m_object;				// +0x08
 };
-
 class Rva004B63BDInterfaceC
 {
 public:
 	virtual void slot0();
 };
-
 class Rva004B63BDUpgradeMux
 {
 protected:
 	virtual void upgradeImplementation() = 0;
 };
-
 class Rva004B63BD : public Rva004B63BDPrimary, public Rva004B63BDInterfaceC, public Rva004B63BDUpgradeMux
 {
 protected:
 	virtual void upgradeImplementation();
 };
-
 //
 // Chained ModuleData::buildFieldParse procs: each calls its base-class
 // buildFieldParse, then registers its own FieldParse table with
@@ -228,9 +193,7 @@ protected:
 // friend_newModuleData factory pushes its class proc immediate.
 
 class MultiIniFieldParse;
-
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
-
 struct FieldParse
 {
 	const char *token;
@@ -238,61 +201,39 @@ struct FieldParse
 	const void *userData;
 	int offset;
 };
-
 #include "../../../../Include/Common/INI/INI.h"
-
 void Rva000B9468Parse(INI *, void *, void *, const void *);
-
 void Rva002567EAParse(INI *, void *, void *, const void *);
-
 void Rva002C8C06Parse(INI *, void *, void *, const void *);
-
 void Rva00464081ParseMask(INI *, void *, void *, const void *);
-
 void Rva00464574Parse(INI *, void *, void *, const void *);
-
 void iniParseObjectFilter(INI *, void *, void *, const void *);
-
 void rva004649A1(INI *, void *, void *, const void *);
-
 void rva004B5293(INI *, void *, void *, const void *);
-
 void Rva0049B51EParse(INI *, void *, void *, const void *);
-
 class MultiIniFieldParse
 {
 public:
 	void add(const FieldParse *parse, unsigned int extraOffset);
 };
-
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
-
 class DockUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 #include "../../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
-
 #include "../../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
-
 #include "../../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
-
 class SupplyWarehouseDockUpdateModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 #include "../../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
-
 int Rva004CE29DGet(void);
-
 int Rva004CE52EGet(void);
-
 #include "../../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
-
 class ModelConditionUpgradeModuleData : public Rva00253487Base
 {
 public:
@@ -308,7 +249,6 @@ public:
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
 // Retail VA 0x00C58730: 5 fields and the zero sentinel.
 // The matched registration proves the class relationship; retail supplies
 // every token, offset and callback. Global spelling is descriptive.
@@ -320,12 +260,15 @@ extern const FieldParse BfmeModelConditionUpgradeFields[] = {
 	{ "TempConditionTime", &INI::parseReal, 0, 0x1B4 },
 	{ 0, 0, 0, 0 }
 };
-
 int Rva0033A495Get(void);
-
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
-
 #include "../../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
+// readable body of ??0ModelConditionUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z: Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp
+
+class Thing;
+class ModuleData;
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x004B56F6 (34 bytes): double-add on the rowed ModuleData getter
@@ -342,6 +285,17 @@ class WeaponSetUpgradeModuleData
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
+
+class ModelConditionUpgrade : public UpgradeModule
+{
+public:
+	ModelConditionUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ModelConditionUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp
 
@@ -422,12 +376,6 @@ void Rva004B65E4::rva004B65E4(INI *ini, void *, void *store, const void *)
     }
 }
 
-// tu-skeleton: 0x004B64E5 49B ??0ModelConditionUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgradeConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B6516 28B ??_GRva004B63BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004B65A5 63B ?upgradeRemovalImplementation@Rva004B65A5@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
 
 void ModelConditionUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
@@ -442,3 +390,18 @@ void ModelConditionUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // These functions are header inlines; their ordinary owner definitions
 // collided with select-any copies. The anchor keeps this unit's row copies;
 // it is not retail code.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgradeConstructor.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
+
+ModelConditionUpgrade::ModelConditionUpgrade( Thing *thing, const ModuleData *moduleData )
+	: UpgradeModule( thing, moduleData )
+{
+}
+
+// tu-skeleton: 0x004B6516 28B ??_GRva004B63BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004B65A5 63B ?upgradeRemovalImplementation@Rva004B65A5@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
