@@ -413,6 +413,7 @@ public:
 };
 class RenderInfoClass;
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/WaterTracksRenderSystem.h"
+
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
 // rather than emitting its own.
 namespace _STL {
@@ -636,6 +637,50 @@ namespace _STL {
 template <> BfmeAssignRecord172 *vector<BfmeAssignRecord172, allocator<BfmeAssignRecord172> >::erase(BfmeAssignRecord172 *, BfmeAssignRecord172 *);
 template <> void vector<Rva001EBEABElement, allocator<Rva001EBEABElement> >::_M_fill_insert(Rva001EBEABElement *, unsigned int, const Rva001EBEABElement &);
 }
+
+struct GeometryShape;
+
+struct BfmeRecord001ECAF9
+{
+	char m_pad[36];
+};
+
+namespace _STL
+{
+template <> class vector<GeometryShape, allocator<GeometryShape> >
+{
+public:
+	allocator<GeometryShape> get_allocator() const;
+};
+template <> class _Vector_base<GeometryShape, allocator<GeometryShape> >
+{
+public:
+	_Vector_base(unsigned int count, const allocator<GeometryShape> &alloc);
+	~_Vector_base();
+	GeometryShape *m_begin;
+	GeometryShape *m_finish;
+};
+template <>
+void _Construct(BfmeRecord001ECAF9 *p, const BfmeRecord001ECAF9 &v);
+template <>
+inline __declspec(noinline) BfmeRecord001ECAF9 *__uninitialized_copy(
+	BfmeRecord001ECAF9 *first, BfmeRecord001ECAF9 *last,
+	BfmeRecord001ECAF9 *dest, const __false_type &tag)
+{
+	BfmeRecord001ECAF9 *cur = dest;
+	for (; first != last; ++first, ++cur)
+		_Construct(&*cur, *first);
+	return cur;
+}
+}
+
+class Rva001ECF66 : public _STL::_Vector_base<GeometryShape, _STL::allocator<GeometryShape> >
+{
+public:
+	Rva001ECF66(const Rva001ECF66 &src);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LinearCampaignManager.cpp
 
@@ -1077,6 +1122,16 @@ void Rva001EC9BDVector::resize(unsigned int newSize)
 	resize(newSize, CarryoverUnit());
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
+
+// ??1Rva001EC349@@QAE@XZ @0x001EC349 108B.
+// Non-virtual dtor: vector<AsciiString> at +0x18, owning ref at +0x10, four strings at +0xC..+0x00.
+// Evidence: callees rowed 0x0002CC70 0x00050ED3 0x00036410(x4); callers at 0x001ECB94 0x001ECFCF 0x001ED30C.
+
+Rva001EC349::~Rva001EC349()
+{
+}
+
 // tu-skeleton: 0x001EBCC6 18B ??0?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVObject@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_objectptr_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x001EBCD8 62B ?rva001EBCD8@Rva001EBCD8@@QAEPAXPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EBCD8Erase.cpp (not merged yet)
@@ -1107,16 +1162,6 @@ void Rva001EC9BDVector::resize(unsigned int newSize)
 
 // tu-skeleton: 0x001EC311 56B ??0Rva001EC311@@QAE@ABV?$StringBase@D@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001EC311Ctor.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
-
-// ??1Rva001EC349@@QAE@XZ @0x001EC349 108B.
-// Non-virtual dtor: vector<AsciiString> at +0x18, owning ref at +0x10, four strings at +0xC..+0x00.
-// Evidence: callees rowed 0x0002CC70 0x00050ED3 0x00036410(x4); callers at 0x001ECB94 0x001ECFCF 0x001ED30C.
-
-Rva001EC349::~Rva001EC349()
-{
-}
-
 // tu-skeleton: 0x001EC63D 540B ?addCarryoverStuffToMap@LinearCampaign@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp (not merged yet)
 
 // tu-skeleton: 0x001ECA2D 204B ?Rva001ECA2DXfer@@YAPAVXfer@@PAV1@PAX@Z -- matched in Code/GameEngine/Source/Common/System/XferScienceTypeVector.cpp (not merged yet)
@@ -1137,7 +1182,29 @@ Rva001EC349::~Rva001EC349()
 
 // tu-skeleton: 0x001ECEF6 13B ?rva001ECEF6@Rva0023D607Holder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
 
-// tu-skeleton: 0x001ECF66 96B ??0Rva001ECF66@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001ECF66Finish.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001ECF66Finish.cpp
+
+// stlport46
+//
+// ?rva001ECF66/Rva001ECF66, retail 0x001ECF66, 96 bytes: STLport vector
+// range copy-ctor over the 36-byte BfmeRecord001ECAF9 element. The
+// __uninitialized_copy callee keeps a visible __declspec(noinline) body so
+// MSVC 7.1 proves the __false_type tag is not retained and packs it onto the
+// dead incoming-argument slot [ebp+0xB]; a declaration-only callee forces a
+// fresh frame slot and one extra push (97 B). get_allocator and _Vector_base(n)
+// are ICF aliases pinned at their rowed bodies.
+
+Rva001ECF66::Rva001ECF66(const Rva001ECF66 &src)
+	: _STL::_Vector_base<GeometryShape, _STL::allocator<GeometryShape> >(
+		(unsigned int)(((BfmeRecord001ECAF9 *)src.m_finish) - ((BfmeRecord001ECAF9 *)src.m_begin)),
+		((const _STL::vector<GeometryShape, _STL::allocator<GeometryShape> > &)src).get_allocator())
+{
+	m_finish = (GeometryShape *)_STL::__uninitialized_copy(
+		(BfmeRecord001ECAF9 *)src.m_begin,
+		(BfmeRecord001ECAF9 *)src.m_finish,
+		(BfmeRecord001ECAF9 *)m_begin,
+		_STL::__false_type());
+}
 
 // tu-skeleton: 0x001ECFDF 63B ??1?$vector@VRva001EC349@@V?$allocator@VRva001EC349@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 
