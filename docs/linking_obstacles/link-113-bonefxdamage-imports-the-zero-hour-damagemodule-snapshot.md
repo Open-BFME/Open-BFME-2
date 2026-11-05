@@ -1,5 +1,7 @@
 ### LINK-113: BoneFXDamage imports the Zero Hour DamageModule Snapshot contract
 
+Status: Cleared for the three-unit current-object preview at `5eb11e1e87` (2026-11-05); earlier snapshot repair plus shared INIException adoption pass, 9/9 rows exact; census/real-link confirmation pending. [Evidence](../../reverse/attempt_support/bonefxdamage-iniexception-20261105-codexb5.md).
+
 2026-10-29 recheck at `bd9c9a4d73`, current index `85f6b7f40c`
 (2026-10-29 15:08): ordinary preview still reports the three unresolved
 DamageModule snapshot methods and the constructor-copy conflict (U3/L1).

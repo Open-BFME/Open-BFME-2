@@ -87,16 +87,8 @@ public:
 
 // BFME2 throws a formatted INIException here (retail 0x004B97E2 calls the
 // rowed ??0INIException@@QAA@HPBDZZ then _CxxThrowException); ZH threw a bare
-// INI_INVALID_DATA. TU-local to avoid a shared-header edit.
-class INIException
-{
-public:
-	char *mFailureMessage;
-	int m_argCount;
-	INIException(int argCount, const char *format, ...);
-	INIException(const INIException &other);
-	~INIException();
-};
+// INI_INVALID_DATA. Use the shared, retail-verified exception declaration.
+#include "../../../../Include/Common/INI/FieldParse.h"
 
 //-------------------------------------------------------------------------------------------------
 class BoneFXDamage : public DamageModule
