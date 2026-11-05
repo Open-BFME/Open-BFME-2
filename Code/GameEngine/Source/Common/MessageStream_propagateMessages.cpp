@@ -20,19 +20,8 @@ enum GameMessageDisposition
 	DESTROY_MESSAGE
 };
 
-class GameMessage;
-class GameMessageTranslator;
-
-class GameMessage
-{
-public:
-	virtual ~GameMessage(void);
-	GameMessage *next(void) { return m_next; }
-
-private:
-	GameMessage *m_next;
-	GameMessage *m_prev;
-};
+#include "../../Include/Common/MessageStream.h"
+#include "../../Include/Common/CommandList.h"
 
 class GameMessageTranslator
 {
@@ -41,50 +30,9 @@ public:
 	virtual ~GameMessageTranslator(void) {}
 };
 
-class CommandList
-{
-public:
-	void appendMessageList(GameMessage *messageList);
-};
-
-extern CommandList *TheCommandList;
-
-struct MessageTranslatorNode
-{
-	MessageTranslatorNode *m_next;
-	MessageTranslatorNode *m_prev;
-	int m_id;
-	GameMessageTranslator *m_translator;
-	unsigned int m_priority;
-};
-
-class GameMessageList
-{
-public:
-	virtual ~GameMessageList(void);
-	virtual void init(void);
-	virtual void reset(void);
-	virtual void update(void);
-
-protected:
-	void *m_reserved04;
-	void *m_reserved08;
-	GameMessage *m_firstMessage;
-	GameMessage *m_lastMessage;
-};
-
-class MessageStream : public GameMessageList
-{
-public:
-	void propagateMessages(void);
-
-private:
-	MessageTranslatorNode *m_firstTranslator;
-};
-
 void MessageStream::propagateMessages(void)
 {
-	MessageTranslatorNode *translator;
+	TranslatorData *translator;
 	GameMessage *message;
 	GameMessage *next;
 
