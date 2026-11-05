@@ -50,7 +50,10 @@ protected:
 class PoolMember
 {
 public:
+	~PoolMember() { Rva00268902(); }
 	void Rva00268902() throw();
+private:
+	void *m_ptr; // +0x00
 };
 
 // The ID list's base; its allocator-taking ctor is rowed at 0x0029FB3B.

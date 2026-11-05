@@ -38,7 +38,7 @@ public:
 	~PoolMember() { Rva00268902(); }
 	void Rva00268902() throw();
 private:
-	void *m_ptr;
+	void *m_ptr; // +0x00
 };
 
 class BroadcastStealthUpdate : public UpdateModule, public BroadcastStealthUpdate_B3
