@@ -1,6 +1,10 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I.
 // BFME1 U4Sink0060D3B0_push.cpp semantic guide, target-native statement order.
 // Retail 0x00376E92 (466 bytes). Calls the unrowed AptTimeLine::OpenScreen (0x00520F7D) through a pin.
+#include "Code/GameEngine/Include/Common/MessageStream.h"
+#include "Code/GameEngine/Include/Common/GlobalData.h"
+#include "Code/GameEngine/Include/GameClient/Mouse.h"
+#include "Code/GameEngine/Include/GameClient/Shell.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 class BfmeDfe6e4 { public: void _M_rva00625699(); };
 class Rva0023D46F {
@@ -48,8 +52,6 @@ extern ScriptActions *TheScriptActions;
 class BfmeSelectionState { public: bool isSelectionLocked() const; };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Shell { public: void showShell(bool); bool showShellMap(bool,bool); };
-extern Shell *TheShell;
 bool rva00520F7D();
 class GameEngine {
 public:
@@ -58,19 +60,7 @@ public:
     virtual void slot20(bool);
 };
 extern GameEngine *TheGameEngine;
-template<class T> class StringBase { public: bool isEmpty() const; private: friend class GameLogic; void releaseBuffer(); void *data; };
-class GlobalData {
-public: char pad[0xAB8]; StringBase<char> previousFile, initialFile; char padAC0[4]; bool clearFiles;
-};
-extern GlobalData *TheWritableGlobalData;
-class GameMessage { public: void appendBooleanArgument(bool); };
-class MessageStream {
-public:
-    VS(0) VS(1) VS(2) VS(3) VS(4) VS(5) VS(6) VS(7) VS(8) VS(9)
-    VS(10) VS(11) VS(12) VS(13) VS(14) VS(15) VS(16) VS(17)
-    virtual GameMessage *slot18(int);
-};
-extern class MessageStream *TheMessageStream;
+extern MessageStream *TheMessageStream;
 class InGameUI {
 public:
     VS(0) VS(1) VS(2) VS(3) VS(4) VS(5) VS(6) VS(7) VS(8) VS(9)
@@ -85,8 +75,6 @@ extern InGameUI *TheInGameUI;
 class ControlBar { public: VS(0) VS(1) VS(2) VS(3) VS(4) VS(5) VS(6) VS(7) VS(8) VS(9) VS(10) };
 extern ControlBar *TheControlBar;
 void HideControlBar(bool);
-class Mouse { public: void _bfme_setEngineVisibility(bool); };
-extern Mouse *TheMouse;
 extern int SavedClientFrame;
 #undef VS
 void GameLogic::clearGameData(bool showScoreScreen, bool arg2)
@@ -114,13 +102,14 @@ void GameLogic::clearGameData(bool showScoreScreen, bool arg2)
     TheGameEngine->slot9();
     m_110=9;
     GlobalData *data=TheWritableGlobalData;
-    if (!data->initialFile.isEmpty()) {
-        if (data->clearFiles) {
-            data->initialFile.releaseBuffer();
-            TheWritableGlobalData->previousFile.releaseBuffer();
+    // Retail calls StringBase<char>::isEmpty (0x00001E2F) out of line here.
+    if (!((const StringBase<char> *)&data->m_initialFile)->isEmpty()) {
+        if (data->field0AC4) {
+            data->m_initialFile.clear();
+            TheWritableGlobalData->field0AB8.clear();
         } else TheGameEngine->slot20(true);
     }
-    GameMessage *msg=TheMessageStream->slot18(0x3EC);
+    GameMessage *msg=TheMessageStream->appendMessage(0x3EC);
     msg->appendBooleanArgument(true);
     TheInGameUI->slot68();
     TheControlBar->slot10();
