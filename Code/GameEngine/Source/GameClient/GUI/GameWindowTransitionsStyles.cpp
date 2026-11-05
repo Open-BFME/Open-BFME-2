@@ -446,34 +446,32 @@ class ObjectCreationNugget
 public:
 	virtual void create();
 };
-// same layout as BfmeConv1140.cpp's Rva0035D74A -- duplicated here (TU-scoped
-// shim) rather than shared, per repo convention for these small state objects.
-class BfmeBase1140A
+// The transition the 0x0035D7ED factory news (0x38 bytes): its constructor
+// 0x0035D789 (Rva0035D74AFinish.cpp) calls the transition base 0x001DBAA4
+// and installs the existing vtable explicitly, so the class is novtable here
+// too; this is the constructor donor's view, shared for TU recovery.
+class __declspec(novtable) Rva0035D74A : public Rva001DBAA4
 {
 public:
-	BfmeBase1140A(void) throw();
-	char *volatile m_bfme00;
-	volatile int m_bfme04;
+	Rva0035D74A();
+	virtual ~Rva0035D74A();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+private:
+	int m_10;
+	int m_14;
+	int m_18;
+	int m_1c;
+	int m_20;
+	int m_24;
+	float m_28;
+	float m_2c;
+	int m_30;
+	int m_34;
 };
-class Rva0035D74A : public BfmeBase1140A
-{
-public:
-	Rva0035D74A(void);
-	char m_bfme08;
-	volatile char m_bfme09;
-	char m_bfmePad[2];
-	volatile int m_bfme0c;
-	volatile int m_bfme10;
-	volatile int m_bfme14;
-	volatile int m_bfme18;
-	volatile int m_bfme1c;
-	volatile int m_bfme20;
-	volatile int m_bfme24;
-	volatile int m_bfme28;
-	volatile int m_bfme2c;
-	volatile int m_bfme30;
-	volatile int m_bfme34;
-};
+typedef char Rva0035D74ASizeMatchesRetail[(sizeof(Rva0035D74A) == 0x38) ? 1 : -1];
 class Rva0059B8F0Nugget : public ObjectCreationNugget
 {
 public:
