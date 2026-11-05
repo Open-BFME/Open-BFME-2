@@ -78,14 +78,7 @@ public:
 extern TerrainLogic *TheTerrainLogic;
 extern unsigned char g_00E01EC0[4]; // defined once in Rva00368C7A.cpp (rowed below)
 
-class Locomotor
-{
-public:
-	Real getBfme48() const { return m_bfme48; }
-private:
-	unsigned char m_pad00[0x48];
-	Real m_bfme48; // +0x48
-};
+#include "../../../../../Include/GameLogic/LocomotorClass.h"
 
 class AIUpdateInterface
 {
@@ -195,7 +188,7 @@ StateReturnType GiantBirdFollowPathState::onEnter()
 		return STATE_FAILURE;
 	if (!ai->hasLocomotor())
 		return STATE_FAILURE;
-	ai->m_pathHeight = ai->getLocomotor()->getBfme48();
+	ai->m_pathHeight = ai->getLocomotor()->getPreferredHeight();
 	if (!followToNextPointNow())
 		return STATE_SUCCESS;
 	if (!ai->m_bfme4EC)

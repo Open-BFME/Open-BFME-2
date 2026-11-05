@@ -81,14 +81,7 @@ extern unsigned char g_00E01EC0[4];
 #include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class Locomotor
-{
-public:
-	Real getBfme48() const { return m_bfme48; }
-private:
-	unsigned char m_pad00[0x48];
-	Real m_bfme48; // +0x48
-};
+#include "../../../../../Include/GameLogic/LocomotorClass.h"
 
 class AIUpdateInterface : public GiantBirdFlightSlots<136>
 {
@@ -259,7 +252,7 @@ StateReturnType GiantBirdNormalFlightState::onEnter()
 		Locomotor *locomotor = ai->getLocomotor();
 		if (!locomotor)
 			return STATE_FAILURE;
-		ai->m_pathHeight = locomotor->getBfme48();
+		ai->m_pathHeight = locomotor->getPreferredHeight();
 
 		const Coord3D *source = m_machine->locomotorGoalPosition();
 		Coord3D goal;
