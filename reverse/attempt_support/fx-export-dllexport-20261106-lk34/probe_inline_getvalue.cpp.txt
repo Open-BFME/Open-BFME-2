@@ -1,0 +1,16 @@
+struct Str { Str(const char *); ~Str(); const char *str() const; void concat(const char *); };
+namespace FXParticleSystem {
+const char *GetKey(int);
+template <int C> struct __declspec(dllexport) DefaultModuleKey {
+    static const char *const VALUE;
+private:
+    static const char *GetValue() {
+        static bool initialized = false;
+        static Str value("Default");
+        if (!initialized) { value.concat(GetKey(C)); initialized = true; }
+        return value.str();
+    }
+};
+template <int C> const char *const DefaultModuleKey<C>::VALUE = DefaultModuleKey<C>::GetValue();
+template struct DefaultModuleKey<1>;
+}
