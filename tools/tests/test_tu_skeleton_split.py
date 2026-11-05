@@ -129,6 +129,26 @@ class CarveTests(unittest.TestCase):
             text = 'struct Later { int a; };\n#include "late.h"\nint f() { return 0; }\n'
             self.assertEqual(T.prune_unused_classes(text, source='source.cpp', root=root), text)
 
+    def test_class_used_through_an_earlier_transitive_header_member_is_kept(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'outer.h').write_text('#include "inner.h"\n')
+            (root / 'inner.h').write_text(
+                'class Impl;\nstruct Owner { Impl *impl; int call(); };\n')
+            text = ('#include "outer.h"\nclass Impl { public: int run(); };\n'
+                    'struct Gone { int unused; };\n'
+                    'int Owner::call() { return impl->run(); }\n')
+            got = T.prune_unused_classes(text, source='source.cpp', root=root)
+            self.assertIn('class Impl {', got)
+            self.assertNotIn('struct Gone', got)
+
+    def test_header_comments_and_literals_do_not_retain_unused_classes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'names.h').write_text('// Gone\nconst char *name = "Gone";\n')
+            text = '#include "names.h"\nstruct Gone { int unused; };\nint f() { return 0; }\n'
+            self.assertNotIn('struct Gone', T.prune_unused_classes(text, source='source.cpp', root=root))
+
     def test_class_reference_detection_ignores_comments_and_literals(self):
         text = 'struct Gone { int a; };\nconst char *s = "Gone"; /* Gone */\nint f() { return 0; }\n'
         self.assertNotIn('struct Gone', T.prune_unused_classes(text))

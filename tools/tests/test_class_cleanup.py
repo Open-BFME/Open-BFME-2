@@ -79,6 +79,19 @@ def test_a_source_with_no_possible_removal_needs_no_header_scan(tree, monkeypatc
     assert C.prepare(files[0], root) == (None, False)
 
 
+def test_header_member_change_invalidates_an_unchanged_source(tree):
+    root, files = tree
+    source = root / files[0]
+    source.write_text('#include "shared.h"\n' + source.read_text())
+    header = root / "Code/shared.h"
+    header.write_text("// no references\n")
+    assert C.prepare(files[0], root)[0]
+    header.write_text("struct Unused0;\nstruct Owner { Unused0 *member; };\n")
+    assert C.prepare(files[0], root)[0] is None
+    header.write_text("// references removed\n")
+    assert C.prepare(files[0], root)[0]
+
+
 def test_source_paths_and_ledger_membership_are_required(tree):
     root, files = tree
     with pytest.raises(ValueError):

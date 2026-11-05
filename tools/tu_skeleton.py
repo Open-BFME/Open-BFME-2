@@ -2690,24 +2690,28 @@ def cut(text, spans):
 
 
 def extern_macro_tokens(text, source=None, root=ROOT):
-    """Tokens in any reachable macro body, or None for an unchecked include.
+    """Tokens in reachable macros and header code, or None for an unchecked include.
 
     Follow quoted includes relative to their includer, then the explicit /I
     paths and Code include roots. Scan every branch; no expansion or macro-use
-    inference is needed to conservatively retain a declaration.
+    inference is needed to conservatively retain a declaration. Header code can
+    refer to a local class indirectly through a member or typedef, even when the
+    source never spells the class name outside its definition.
     """
-    pending = [(text, [posixpath.dirname(source or "")])]
+    pending = [(text, [posixpath.dirname(source or "")], False)]
     seen, tokens = set(), set()
     try:
         roots = [p.relative_to(root).as_posix() for p in (root / "Code").glob("*/Include")]
         roots = [f[2:].strip('"').replace("\\", "/") for f in flags_of(text)
                  if f.startswith(("/I", "-I")) and len(f) > 2] + roots
         while pending:
-            current, parents = pending.pop()
+            current, parents, header_code = pending.pop()
             current = re.sub(r"\\\r?\n", "", current)
             code = code_only(current)
             if "##" in code:
                 return None
+            if header_code:
+                tokens.update(re.findall(r"\b[A-Za-z_]\w*\b", code))
             for body in re.findall(r"^\s*#\s*define\s+[A-Za-z_]\w*(.*)$", code, re.M):
                 tokens.update(re.findall(r"\b[A-Za-z_]\w*\b", body))
             for directive in re.findall(r"^\s*#\s*(?:include|import)\b([^\n]*)", strip(current), re.M):
@@ -2724,7 +2728,7 @@ def extern_macro_tokens(text, source=None, root=ROOT):
                 if resolved.lower() not in seen:
                     seen.add(resolved.lower())
                     pending.append(((root / resolved).read_text(encoding="utf-8-sig"),
-                                    [posixpath.dirname(resolved)] + parents))
+                                    [posixpath.dirname(resolved)] + parents, True))
     except (OSError, UnicodeError):
         return None
     return tokens
