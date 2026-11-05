@@ -48,7 +48,7 @@ Rva001D28F0Element::~Rva001D28F0Element()
 	// NOTE: read through a local so the pointer parks in a callee-saved
 	// register (it is used on both sides of the teardown call); reading
 	// the member twice keeps it in ecx with a later reload instead.
-	Rva00688980 *owned = m_owned;
+	Rva00688980 *owned = static_cast<Rva00688980 *>(m_owned);
 	if (owned != 0) {
 		owned->~Rva00688980();
 		operator delete(owned);
