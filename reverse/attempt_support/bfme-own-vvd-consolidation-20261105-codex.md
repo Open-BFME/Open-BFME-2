@@ -1,0 +1,3 @@
+# BfmeOwnVVD consolidation dry-run handoff
+
+`BfmeOwnVVD.cpp` passed the shard allocation check and the scoped consolidation snapshot check. Its plan has 13 approved rows, one pull donor (`BfmeOwnVVDTranslateGameMessage.cpp`) and no mixed files. The guarded dry run accepted no donors. Compilation of the donor begins with C2143 (missing `;` before `*`) and C2501 (`TheGameClient` has missing storage-class or type specifiers) in the generated combined TU. `adopt_first` recommends `GameClient`, `InGameUI`, `Mouse` and `Shell` for the seed, plus `GameTextInterface`, `Mouse` and `View` for the donor. LinkGuard lists both objects as census-linked. No source or ledger changes were applied.
