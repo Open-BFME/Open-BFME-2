@@ -49,8 +49,7 @@ public:
 
 	FunctorWrapperHead *m_ptr;
 };
-struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+#include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 template <class T> class AptRef : public Rva0057BC63FunctorHolder
 {
 public:

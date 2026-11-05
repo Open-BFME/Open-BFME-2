@@ -1,4 +1,4 @@
-// cl: /Ob0
+// cl: /Ob1
 // ??4Rva004F6352@@QAEAAU0@ABU0@@Z, retail 0x004F6352, 35 bytes.
 // 12-byte struct copy-assign: two dwords at +0/+4 plus TreeHintRef at +8 via
 // rowed operator= 0x002174A4 then return this. Evidence: stride 0xC in callers
@@ -12,17 +12,7 @@
 // local at ebp-0x18 with release at ebp-0x10 via rowed 0x0007DEEF; same layout
 // as rowed assign 0x004F6352 and rowed TreeHintRef assign 0x002174A4.
 
-struct TargetRef00217D4C
-{
-	void *m_vtbl;
-	int references;
-};
-
-struct TreeHintRef00217D4C
-{
-	TargetRef00217D4C *m_ptr;
-	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other);
-};
+#include "../../../Libraries/Source/Apt/AptRefTarget.h"
 
 struct Rva004F6352
 {
@@ -35,12 +25,8 @@ struct Rva004F6352
 };
 
 Rva004F6352::Rva004F6352(const Rva004F6352 &other)
+	: m_00(other.m_00), m_04(other.m_04), m_08(other.m_08)
 {
-	m_00 = other.m_00;
-	m_04 = other.m_04;
-	m_08.m_ptr = other.m_08.m_ptr;
-	if (m_08.m_ptr)
-		++m_08.m_ptr->references;
 }
 
 // The assignment body is owned by stlport_rva004f6352_sort_entry.cpp,
