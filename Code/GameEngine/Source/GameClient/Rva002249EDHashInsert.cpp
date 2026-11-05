@@ -25,25 +25,14 @@ struct Rva002241ACNode
 
 #include "../../Include/GameLogic/Rva000427195.h"
 
-class Rva00056F61
-{
-public:
-	Rva0022304A &rva002249ED(const Rva0022304A &value);
-
-private:
-	void *m_unused;
-	Rva002241ACNode **m_beginBuckets;
-	Rva002241ACNode **m_endBuckets;
-	Rva002241ACNode **m_capacity;
-	unsigned int m_numElements;
-};
+#include "../../Include/GameClient/Rva00056F61.h"
 
 Rva0022304A &Rva00056F61::rva002249ED(const Rva0022304A &value)
 {
 	Rva000427195 *table = (Rva000427195 *)this;
 	table->rva00212858(m_numElements + 1);
 	unsigned int bucket = table->bucketIndex(&value.m_key);
-	Rva002241ACNode *first = m_beginBuckets[bucket];
+	Rva002241ACNode *first = (Rva002241ACNode *)m_beginBuckets[bucket];
 	Rva002241ACNode *node = table->rva002241AC(value);
 	node->m_next = first;
 	m_beginBuckets[bucket] = node;
