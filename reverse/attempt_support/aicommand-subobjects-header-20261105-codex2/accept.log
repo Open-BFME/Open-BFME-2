@@ -1,0 +1,5 @@
+  PASS Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/Rva00495801.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp
+  retired 4 row(s) from reverse/header_queue.tsv; commit it with the adoption

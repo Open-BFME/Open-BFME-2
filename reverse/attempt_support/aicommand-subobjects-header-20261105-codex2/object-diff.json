@@ -1,0 +1,212 @@
+{
+  "Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp": {
+    "definitions_removed": [],
+    "definitions_added": [],
+    "references_removed": [],
+    "references_added": [],
+    "weak_before": [
+      [
+        "??_ERva000421C8@@UAEPAXI@Z",
+        "??_GRva000421C8@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva00261409Filter@@UAEPAXI@Z",
+        "??_GRva00261409Filter@@UAEPAXI@Z"
+      ],
+      [
+        "??_EAIStructureCreepTactic@@UAEPAXI@Z",
+        "??_GAIStructureCreepTactic@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva0026119DFilter@@UAEPAXI@Z",
+        "??_GRva0026119DFilter@@UAEPAXI@Z"
+      ]
+    ],
+    "weak_after": [
+      [
+        "??_ERva000421C8@@UAEPAXI@Z",
+        "??_GRva000421C8@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva00261409Filter@@UAEPAXI@Z",
+        "??_GRva00261409Filter@@UAEPAXI@Z"
+      ],
+      [
+        "??_EAIStructureCreepTactic@@UAEPAXI@Z",
+        "??_GAIStructureCreepTactic@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva0026119DFilter@@UAEPAXI@Z",
+        "??_GRva0026119DFilter@@UAEPAXI@Z"
+      ]
+    ],
+    "aliases_before": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "aliases_after": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "comdats_before": 144,
+    "comdats_after": 144,
+    "comdats_changed": []
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp": {
+    "definitions_removed": [],
+    "definitions_added": [],
+    "references_removed": [],
+    "references_added": [],
+    "weak_before": [
+      [
+        "??_ERva000421C8@@UAEPAXI@Z",
+        "??_GRva000421C8@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva002614ECFilter@@UAEPAXI@Z",
+        "??_GRva002614ECFilter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva002611BFFilter@@UAEPAXI@Z",
+        "??_GRva002611BFFilter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva00260EB1Filter@@UAEPAXI@Z",
+        "??_GRva00260EB1Filter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva002614DFFilter@@UAEPAXI@Z",
+        "??_GRva002614DFFilter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ETeleportToCasterSpecialPowerModuleData@@UAEPAXI@Z",
+        "??_GTeleportToCasterSpecialPowerModuleData@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva0026119DFilter@@UAEPAXI@Z",
+        "??_GRva0026119DFilter@@UAEPAXI@Z"
+      ]
+    ],
+    "weak_after": [
+      [
+        "??_ERva000421C8@@UAEPAXI@Z",
+        "??_GRva000421C8@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva002614ECFilter@@UAEPAXI@Z",
+        "??_GRva002614ECFilter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva002611BFFilter@@UAEPAXI@Z",
+        "??_GRva002611BFFilter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva00260EB1Filter@@UAEPAXI@Z",
+        "??_GRva00260EB1Filter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva002614DFFilter@@UAEPAXI@Z",
+        "??_GRva002614DFFilter@@UAEPAXI@Z"
+      ],
+      [
+        "??_ETeleportToCasterSpecialPowerModuleData@@UAEPAXI@Z",
+        "??_GTeleportToCasterSpecialPowerModuleData@@UAEPAXI@Z"
+      ],
+      [
+        "??_ERva0026119DFilter@@UAEPAXI@Z",
+        "??_GRva0026119DFilter@@UAEPAXI@Z"
+      ]
+    ],
+    "aliases_before": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "aliases_after": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "comdats_before": 101,
+    "comdats_after": 101,
+    "comdats_changed": []
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/Rva00495801.cpp": {
+    "definitions_removed": [],
+    "definitions_added": [],
+    "references_removed": [],
+    "references_added": [],
+    "weak_before": [],
+    "weak_after": [],
+    "aliases_before": {},
+    "aliases_after": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "comdats_before": 2,
+    "comdats_after": 2,
+    "comdats_changed": []
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp": {
+    "definitions_removed": [],
+    "definitions_added": [],
+    "references_removed": [],
+    "references_added": [],
+    "weak_before": [
+      [
+        "??_EHeroModeSpecialAbilityUpdateModuleData@@UAEPAXI@Z",
+        "??_GHeroModeSpecialAbilityUpdateModuleData@@UAEPAXI@Z"
+      ]
+    ],
+    "weak_after": [
+      [
+        "??_EHeroModeSpecialAbilityUpdateModuleData@@UAEPAXI@Z",
+        "??_GHeroModeSpecialAbilityUpdateModuleData@@UAEPAXI@Z"
+      ]
+    ],
+    "aliases_before": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "aliases_after": {
+      "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+      "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+    },
+    "comdats_before": 42,
+    "comdats_after": 42,
+    "comdats_changed": []
+  }
+}

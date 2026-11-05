@@ -107,18 +107,17 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType source);			// 0x001E8A38
-	void aiMoveToPosition(const Coord3D *point, CommandSourceType source);	// 0x0026C26D
-};
+// Coord3D: shared derived view (Coord3DBase base); no private copy.
+#define COORD3D_DV_CTOR_INLINE
+#define COORD3D_DV_DTOR_INLINE
+#define COORD3D_DV_COPY_INLINE
+#include "../../../../../../../Libraries/Include/Lib/Coord3DDerivedView.h"
 
-struct Rva005AB7E5AI
-{
-	char m_pad00[0x20];
-	AICommandInterface m_commands;	// +0x20
-};
+#include "../../../../../../Include/GameLogic/Module/AIUpdate.h"
+
+// Native AI commands use the base subobject at +0x20.
+
+struct Rva005AB7E5AI;
 
 class Object
 {
@@ -167,11 +166,6 @@ inline Object *GameLogic::findObjectByID(ObjectID id)
 extern GameLogic *TheGameLogic;
 
 
-// Coord3D: shared derived view (Coord3DBase base); no private copy.
-#define COORD3D_DV_CTOR_INLINE
-#define COORD3D_DV_DTOR_INLINE
-#define COORD3D_DV_COPY_INLINE
-#include "../../../../../../../Libraries/Include/Lib/Coord3DDerivedView.h"
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree_node<AsciiString> * _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<AsciiString>, allocator<AsciiString> >::_M_create_node(AsciiString const &); }
 namespace _STL { template <> pair<_Rb_tree_iterator<AsciiString, _Nonconst_traits<AsciiString> >, bool> _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<AsciiString>, allocator<AsciiString> >::insert_unique(AsciiString const &); }
@@ -816,11 +810,11 @@ void AIStructureCreepTactic::update()
 			float dz = pos->z - dozer->m_pos[2];
 			if (dz * dz + dy * dy + dx * dx > 62500.0f) {
 				if (TheGameLogic->getFrame() >= m_nextMoveOrderFrame || m_nextMoveOrderFrame == (unsigned int)-1) {
-					dozer->m_ai->m_commands.aiMoveToPosition(pos, CMD_FROM_PLAYER);
+					((AICommandInterface *)((char *)dozer->m_ai + 0x20))->aiMoveToPosition(pos, CMD_FROM_PLAYER);
 					m_nextMoveOrderFrame = TheGameLogic->getFrame() + g_00E06424;
 				}
 			} else {
-				dozer->m_ai->m_commands.aiIdle(CMD_FROM_PLAYER);
+				((AICommandInterface *)((char *)dozer->m_ai + 0x20))->aiIdle(CMD_FROM_PLAYER);
 				if (!rva005AC294())
 					m_78 = true;
 			}
@@ -905,7 +899,7 @@ void AIStructureCreepTactic::moveDozerAway()
 	Object *dozer = TheGameLogic->findObjectByID(m_58);
 	if (dozer == 0)
 		return;
-	dozer->m_ai->m_commands.aiIdle(CMD_FROM_PLAYER);
+	((AICommandInterface *)((char *)dozer->m_ai + 0x20))->aiIdle(CMD_FROM_PLAYER);
 	Rva002A8AB1Record *record = TheSkirmishAIManager->rva002A8AB1(m_owner);
 	BfmeVector3 dir = ((Rva004EBF4B *)record)->rva004EBF4B();
 	BfmeVector3 base = *dozer->getPosition();
@@ -921,7 +915,7 @@ void AIStructureCreepTactic::moveDozerAway()
 		pos.x = dir.X;
 		pos.y = dir.Y;
 		pos.z = dir.Z;
-		dozer->m_ai->m_commands.aiMoveToPosition(&pos, CMD_FROM_PLAYER);
+		((AICommandInterface *)((char *)dozer->m_ai + 0x20))->aiMoveToPosition(&pos, CMD_FROM_PLAYER);
 	}
 }
 

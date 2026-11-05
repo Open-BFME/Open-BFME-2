@@ -1,0 +1,11 @@
+Source claims: OK (4 sources, scoped byte-verified)
+Funclet pins: 35 row(s) verified past a renumbered $L label
+    $L7693 (Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp): $L7693 was renumbered; verified parent EH data places $L10116 at 0x0079E94A
+    $L8614 (Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp): $L8614 was renumbered; verified parent EH data places $L10771 at 0x0079E977
+    $L8616 (Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp): $L8616 was renumbered; verified parent EH data places $L10773 at 0x0079E987
+    uw_0079e9a9 (Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp): $L9242 was renumbered; verified parent EH data places $L11162 at 0x0079E9A9
+    $L1800 (Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp): $L1800 was renumbered; verified parent EH data places $L10013 at 0x0079E8FB
+Functions: OK 80/80 matched across 4 source file(s)
+String-ref verify: OK (6 literals + 2 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (12 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
