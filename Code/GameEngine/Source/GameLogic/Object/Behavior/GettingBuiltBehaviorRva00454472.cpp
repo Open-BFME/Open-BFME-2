@@ -18,28 +18,14 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 0
 };
 
-class BehaviorModuleOther
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+
+// Expose the canonical protected helper for this secondary-this wrapper.
+// No object of this access class is constructed; its base starts at offset zero.
+class GettingBuiltWakeAccess : public UpdateModule
 {
 public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-class UpdateModuleInterface
-{
-public:
-	virtual void iface00();
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	friend class GettingBuiltBehaviorSecondary;
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime frame);
+	using UpdateModule::setWakeFrame;
 };
 
 class GettingBuiltBehaviorSecondary
@@ -51,8 +37,8 @@ public:
 void GettingBuiltBehaviorSecondary::rva00454472(int arg)
 {
 	UpdateModuleInterface *iface = (UpdateModuleInterface *)((char *)this - 0x10);
-	iface->iface00();
+	iface->update();
 	Object *obj = *(Object **)((char *)this - 0x18);
-	UpdateModule *mod = (UpdateModule *)((char *)this - 0x20);
+	GettingBuiltWakeAccess *mod = (GettingBuiltWakeAccess *)((char *)this - 0x20);
 	mod->setWakeFrame(obj, (UpdateSleepTime)arg);
 }
