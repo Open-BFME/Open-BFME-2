@@ -1,4 +1,4 @@
-// cl: /O2 /MD /EHsc
+// cl: /O2 /MD /D_CRTIMP= /EHsc
 // AptArray default constructor: target InitArray702860 allocates44B and calls
 // 6D91B0. Native ctor103B sets type22, native hash+8, array vtableCEA778,
 // capacity+24, pointer+20 and length+28. Existing array accessors independently
@@ -111,7 +111,7 @@ typedef char AptNativeFunctionNativeSize[sizeof(AptNativeFunction)==36?1:-1];
 void Rva006CC110Log(int,const char *,...);
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-extern "C" long __cdecl strtol(const char *,char **,int);
+#include <stdlib.h>
 extern Rva008B8B80Releasable *g_rva008B8B80_0;
 #define psMethod_concat ((AptNativeFunction *&)g_rva008B8B80_0)
 extern Rva008B8B80Releasable *g_rva008B8B80_1;
@@ -175,7 +175,7 @@ AptValue *AptArray::objectMemberLookup(AptValue *const context,const EAStringC *
 
 #pragma comment(linker, "/alternatename:?Lookup@AptNativeHash@@QBEPAVAptValue@@QBVEAStringC@@@Z=?lookup@Rva0070B380@@QAEPAXABVEAStringC@@@Z")
 
-extern "C" void *__cdecl memmove(void *,const void *,unsigned int);
+#include <string.h>
 AptValue *AptArray::sMethod_shift(AptValue *pThis,int nParams) {
  AptValue *result=gpUndefinedValue;
  if(pThis->isArray()) {
@@ -314,8 +314,8 @@ class AptDate : public AptObject { public: void toString(EAStringC &); };
 class AptError : public AptObject { public: EAStringC msMessage; };
 struct AptActionInterpreter { static void getName(AptCIH *,EAStringC &); };
 EAStringC *Rva0070B4F0GetString(int);
-extern "C" int __cdecl sprintf(char *,const char *,...);
-extern "C" double __cdecl fmod(double,double);
+#include <stdio.h>
+#include <math.h>
 #pragma intrinsic(fmod)
 static __forceinline float apt_fmodf(float x,float y) { return (float)fmod(x,y); }
 // Source lead230e7c503b5dbf7e AptValue.cpp; native1430B6DD6C0..6DDC56.
@@ -366,7 +366,6 @@ void AptValue::toString(EAStringC &sBuf) const {
 // (AptArray.cpp 0x14D, retail texts), joins through the rowed
 // toString(EAStringC&,const char*) into a local string and copies its text
 // into the caller's buffer with the intrinsic strcpy. Address-derived name.
-extern "C" char *__cdecl strcpy(char *,const char *);
 #pragma intrinsic(strcpy)
 void AptArray::rva006DA590(char *out,const char *szSeparator) {
  if(!szSeparator) {
