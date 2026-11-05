@@ -25,6 +25,8 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 { return a._M_node != b._M_node; }
 }
 #include "../../../../Include/Common/BfmeStringData.h"
+#define Matrix4x4 Matrix4  // BFME renamed it
+#define Matrix4x4 Matrix4
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -50,7 +52,6 @@ private:
 	char m_pad[16];
 	int m_14;
 };
-
 
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
@@ -190,6 +191,8 @@ private:
 };
 
 extern Shell *TheShell;
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp
 
@@ -457,8 +460,6 @@ void INI::parseShellMenuSchemeDefinition(INI *ini)
 	ini->initFromINI(SMScheme, SMSchemeManager->getFieldParse());
 }
 
-// tu-skeleton: 0x002004C3 58B ??0ShellMenuSchemeImage@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeImageConstructor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeSet.cpp
 
 // ?setShellMenuScheme@ShellMenuSchemeManager@@QAEXVAsciiString@@@Z @0x002005DE 124B.
@@ -496,11 +497,99 @@ void ShellMenuSchemeManager::update()
 {
 }
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeImageConstructor.cpp
+
+// ??0ShellMenuSchemeImage@@QAE@XZ, retail 0x002004C3 (58B): Zero Hour's
+// ShellMenuScheme.cpp constructor, compiled against the TU's own headers.
+//
+//   m_position.x = m_position.y = 0;
+//
+// is a chained assignment, so y at +8 is stored before x at +4, which is
+// why retail writes +8, then +4.
+//
+//   m_size.x = m_size.x = 0;
+//
+// names x twice. It is a typo in the original, and BFME kept it: m_size.y at
+// +0x10 is never written, which is exactly what retail does.
+
+ShellMenuSchemeImage::ShellMenuSchemeImage( void )
+{
+	m_name.clear();
+	m_position.x = m_position.y = 0;
+	m_size.x = m_size.x = 0;
+	m_image = NULL;
+}
+
 // tu-skeleton: 0x0020065A 13B ?draw@Rva0020065ANullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders3.cpp (not merged yet)
 
 // tu-skeleton: 0x00200667 5B ??1?$list@URva0036ADF9Element@@V?$allocator@URva0036ADF9Element@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00588E44.cpp (not merged yet)
 
-// tu-skeleton: 0x0020066C 68B ??0ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: ShellMenuScheme.cpp /////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+//                                                                          
+//                       Electronic Arts Pacific.                          
+//                                                                          
+//                       Confidential Information                           
+//                Copyright (C) 2002 - All Rights Reserved                  
+//                                                                          
+//-----------------------------------------------------------------------------
+//
+//	created:	Jul 2002
+//
+//	Filename: 	ShellMenuScheme.cpp
+//
+//	author:		Chris Huybregts
+//	
+//	purpose:	
+//
+//-----------------------------------------------------------------------------
+///////////////////////////////////////////////////////////////////////////////
+
+//-----------------------------------------------------------------------------
+// SYSTEM INCLUDES ////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// USER INCLUDES //////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// DEFINES ////////////////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
+//-----------------------------------------------------------------------------
+ShellMenuScheme::ShellMenuScheme( void )
+{
+	
+}
 
 // tu-skeleton: 0x002006B0 196B ??1ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
 
@@ -513,16 +602,6 @@ void ShellMenuSchemeManager::update()
 // tu-skeleton: 0x002007D5 109B ??1Rva002007D5@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00200893 53B ?Rva00200893Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/INIThinFieldParsers3.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C32E 8B $L347 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeImageConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C336 10B __ehhandler$??0ShellMenuSchemeImage@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeImageConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C352 8B $L35239 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C35A 11B $L35240 -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
-
-// tu-skeleton: 0x0076C365 10B __ehhandler$??0ShellMenuScheme@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rva0020066C.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C36F 8B Unwind@00b6c36f -- matched in Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp (not merged yet)
 
