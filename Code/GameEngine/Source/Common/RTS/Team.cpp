@@ -657,7 +657,13 @@ class TeamsInfoRec {public:char unknown00[12];TeamInfoRecord *records;
  Dict *getTeamInfo(int id){return &records[id].dict;}
 };
 class SidesList {public:char unknown00[0xf44];TeamsInfoRec teams;};
-class Rva00148F5ECache {public:NameKeyType get();NameKeyType m_key;const char *m_name;};
+class Rva00148F5ECache
+{
+public:
+	NameKeyType get();
+	NameKeyType m_key; // +0x00
+	const char *m_name; // +0x04
+};
 // The first two globals retain the data ledger's provisional const owner
 // spelling; their mutable key and name pointer share the lazy-cache layout.
 class StaticNameKey {private:mutable int value;const char *name;};

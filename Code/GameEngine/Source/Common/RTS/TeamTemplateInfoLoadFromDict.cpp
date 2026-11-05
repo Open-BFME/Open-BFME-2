@@ -26,7 +26,13 @@ extern int BfmeLogicFramesPerSecond; // LogicFramesPerSecond: target initial val
 enum NameKeyType { NAMEKEY_INVALID=0 };
 enum AttitudeType { AI_NORMAL=0 };
 enum VeterancyLevel { LEVEL_REGULAR=0 };
-class Rva00148F5ECache { public: NameKeyType get(); };
+class Rva00148F5ECache
+{
+public:
+	NameKeyType get();
+	NameKeyType m_key; // +0x00
+	const char *m_name; // +0x04
+};
 class StaticNameKey {
 public: mutable int m_key; const char *m_name;
 };
