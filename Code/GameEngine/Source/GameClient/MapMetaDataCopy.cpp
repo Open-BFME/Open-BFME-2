@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Reference: BFME1 GameClient/MapMetaData_ctor.cpp, MapMetaData_assign.cpp,
 // MapMetaData_dtor.cpp and ZH GeneralsMD MapUtil.h; BFME2 has a new word at F4.

@@ -1,5 +1,7 @@
 ### LINK-006: compiler emission and the selected copy still disagree with retail
 
+- **MapMetaData cleanup (2026-11-05):** removing its declaration-only AsciiString destructor override preserves 16/16 rows, EXACT EH and the 320-byte LINKS preview; `repair_queue.py retire identity` clears both keys for `MapMetaDataCopy.cpp`. Deferred waypoint-tree obstacles remain; [evidence and scope](../../reverse/attempt_support/map-metadata-ascii-identity-20261105-codex.md).
+
 - **Buddy status CRT declaration cleanup (2026-10-30, inspected `c790c01553`):**
   `Rva003896E7Permuted.cpp` now includes the real `stdlib.h` and binds its
   inline string cleanup to the existing `_STL::free` GameMemory provider.
