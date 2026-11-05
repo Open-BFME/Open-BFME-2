@@ -9,6 +9,16 @@
 struct Rva0028681ARecord {  char bytes[1]; };
 typedef _STL::pair<const int,Rva0028681ARecord> Rva0028681APair;
 typedef _STL::_Rb_tree<int,Rva0028681APair,_STL::_Select1st<Rva0028681APair>,_STL::less<int>,_STL::allocator<Rva0028681APair> > Rva0028681ATree;
+// Retail keeps the base cleanup state until clear returns, then releases the
+// header through the game allocator wrapper at 0x00030830. Spell that call
+// explicitly so /EHsc composition cannot infer the CRT free's no-throw contract.
+void Rva00030830GameFree(void *);
+template <> inline
+_STL::_Rb_tree_base<Rva0028681APair, _STL::allocator<Rva0028681APair> >::~_Rb_tree_base()
+{
+    if (_M_header._M_data != 0)
+        Rva00030830GameFree(_M_header._M_data);
+}
 // Emit only the owned destructor and its dependencies.
 template Rva0028681ATree::~_Rb_tree();
 

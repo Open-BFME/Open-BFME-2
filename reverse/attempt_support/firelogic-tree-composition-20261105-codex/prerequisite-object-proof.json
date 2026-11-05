@@ -1,0 +1,86 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp",
+  "external_definitions_before": 17,
+  "external_definitions_after": 17,
+  "removed": [],
+  "added": [],
+  "unchanged_comdat_digests": 15,
+  "changed_comdats": [
+    {
+      "name": "??1?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAE@XZ",
+      "same_bytes": true,
+      "before_relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAE@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          22,
+          20,
+          "?clear@?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAEXXZ"
+        ],
+        [
+          38,
+          20,
+          "_free"
+        ],
+        [
+          50,
+          6,
+          "__except_list"
+        ]
+      ],
+      "after_relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$??1?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAE@XZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          22,
+          20,
+          "?clear@?$_Rb_tree@HU?$pair@$$CBHURva0028681ARecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAEXXZ"
+        ],
+        [
+          38,
+          20,
+          "?Rva00030830GameFree@@YAXPAX@Z"
+        ],
+        [
+          50,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    {
+      "name": "??1?$_Rb_tree_base@U?$pair@$$CBHURva0028681ARecord@@@_STL@@V?$allocator@U?$pair@$$CBHURva0028681ARecord@@@_STL@@@2@@_STL@@QAE@XZ",
+      "same_bytes": true,
+      "before_relocations": [
+        [
+          8,
+          20,
+          "_free"
+        ]
+      ],
+      "after_relocations": [
+        [
+          8,
+          20,
+          "?Rva00030830GameFree@@YAXPAX@Z"
+        ]
+      ]
+    }
+  ]
+}
