@@ -1,13 +1,38 @@
 // cl: /DNDEBUG /MD /GX-
-// Rva00563EA8_ParseEventFX (retail 0x00563EA8, 23 bytes).
-// EventFX entry of the table at 0x86CAC0: forwards to the rowed
-// parseAsciiString at 0x002F11E with userData forced to 0 (EventTime's
-// sibling entry at +0x14 uses parseGameClientRandomVariable).
+// The EventFX field parser of the life-event and terrain-collision module
+// templates (retail 0x00563EA8, 23 bytes). Retail exports 1834 and 1835 name
+// both static members at that one address: /OPT:ICF folds the two identical
+// bodies. Each forwards to the rowed parseAsciiString at 0x002F11E with
+// userData forced to 0. The FieldParse tables at 0x00C6CAC0 (LifeEvent) and
+// 0x00C6CB68 (TerrainCollision) in FXParticleSystemModuleParsers.cpp name them.
 
 #include "../../../Include/Common/INI/INI.h"
 
-// ?Rva00563EA8_ParseEventFX@INI@@SAXPAV1@PAX1PBX@Z
-void INI::Rva00563EA8_ParseEventFX(INI *ini, void *instance, void *store, const void *userData)
+namespace FXParticleSystem
 {
-	parseAsciiString(ini, instance, store, 0);
+
+class LifeEventModuleTemplate
+{
+public:
+	static void parseEventFXListName(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class TerrainCollisionModuleTemplate
+{
+public:
+	static void parseEventFXListName(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// ?parseEventFXListName@LifeEventModuleTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z
+void LifeEventModuleTemplate::parseEventFXListName(INI *ini, void *instance, void *store, const void * /*userData*/)
+{
+	INI::parseAsciiString(ini, instance, store, 0);
 }
+
+// ?parseEventFXListName@TerrainCollisionModuleTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z
+void TerrainCollisionModuleTemplate::parseEventFXListName(INI *ini, void *instance, void *store, const void * /*userData*/)
+{
+	INI::parseAsciiString(ini, instance, store, 0);
+}
+
+} // namespace FXParticleSystem

@@ -162,10 +162,30 @@ extern const FieldParse g_00C6C608[] = {
 	{ 0, 0, 0, 0 }
 };
 
+// Retail exports 1834/1835 name the EventFX parser of these two templates;
+// both static members are defined in INI_Rva00563EA8ParseEventFX.cpp and fold
+// at 0x00563EA8.
+namespace FXParticleSystem
+{
+class LifeEventModuleTemplate
+{
+public:
+    void parse(INI *ini);
+    static void parseEventFXListName(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class TerrainCollisionModuleTemplate
+{
+public:
+    void parse(INI *ini);
+    static void parseEventFXListName(INI *ini, void *instance, void *store, const void *userData);
+};
+}
+
 // Retail VA 0x00C6CB68 (.rdata): 5 field records and a zero sentinel.
 extern const FieldParse g_00C6CB68[] = {
 	{ "HeightOffset", &INI::parseGameClientRandomVariable, 0, 0x14 },
-	{ "EventFX", &INI::Rva00563EA8_ParseEventFX, 0, 0x10 },
+	{ "EventFX", &FXParticleSystem::TerrainCollisionModuleTemplate::parseEventFXListName, 0, 0x10 },
 	{ "OrientFXToTerrain", &INI::parseBool, 0, 0x20 },
 	{ "PerParticle", &INI::parseBool, 0, 0x8 },
 	{ "KillAfterEvent", &INI::parseBool, 0, 0x9 },
@@ -175,7 +195,7 @@ extern const FieldParse g_00C6CB68[] = {
 // Retail VA 0x00C6CAC0 (.rdata): 4 field records and a zero sentinel.
 extern const FieldParse g_00C6CAC0[] = {
 	{ "EventTime", &INI::parseGameClientRandomVariable, 0, 0x14 },
-	{ "EventFX", &INI::Rva00563EA8_ParseEventFX, 0, 0x10 },
+	{ "EventFX", &FXParticleSystem::LifeEventModuleTemplate::parseEventFXListName, 0, 0x10 },
 	{ "PerParticle", &INI::parseBool, 0, 0x8 },
 	{ "KillAfterEvent", &INI::parseBool, 0, 0x9 },
 	{ 0, 0, 0, 0 }
@@ -256,16 +276,19 @@ void PointEmissionVolumeModuleTemplate::parse(INI *ini)
 namespace FXParticleSystem
 {
 
+#define FX_PARTICLE_PARSE(CLASS, TABLE)                                       \
+void CLASS::parse(INI *ini)                                                  \
+{                                                                            \
+    ini->initFromINI(this, reinterpret_cast<const FieldParse *>(TABLE));     \
+}
+
 #define FX_PARTICLE_PARSER(CLASS, TABLE)                                      \
 class CLASS                                                                  \
 {                                                                            \
 public:                                                                      \
     void parse(INI *ini);                                                    \
 };                                                                           \
-void CLASS::parse(INI *ini)                                                  \
-{                                                                            \
-    ini->initFromINI(this, reinterpret_cast<const FieldParse *>(TABLE));     \
-}
+FX_PARTICLE_PARSE(CLASS, TABLE)
 
 FX_PARTICLE_PARSER(LineEmissionVolumeModuleTemplate, g_00C6BBD8)
 FX_PARTICLE_PARSER(BoxEmissionVolumeModuleTemplate, g_00C6BCD0)
@@ -282,12 +305,13 @@ FX_PARTICLE_PARSER(ButterflyDrawModuleTemplate, g_emptyFieldParseTable)
 FX_PARTICLE_PARSER(LightningDrawModuleTemplate, g_00C6C608)
 FX_PARTICLE_PARSER(RenderObjectUpdateModuleTemplate, g_00C6C710)
 FX_PARTICLE_PARSER(RenderObjectDrawModuleTemplate, g_00C6C8E0)
-FX_PARTICLE_PARSER(LifeEventModuleTemplate, g_00C6CAC0)
-FX_PARTICLE_PARSER(TerrainCollisionModuleTemplate, g_00C6CB68)
+FX_PARTICLE_PARSE(LifeEventModuleTemplate, g_00C6CAC0)
+FX_PARTICLE_PARSE(TerrainCollisionModuleTemplate, g_00C6CB68)
 FX_PARTICLE_PARSER(TerrainFireEmissionModuleTemplate, g_00C6C128)
 FX_PARTICLE_PARSER(GpuDrawModuleTemplate, g_00C6CA20)
 
 #undef FX_PARTICLE_PARSER
+#undef FX_PARTICLE_PARSE
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

@@ -5159,3 +5159,4 @@ _$E1,0x007ADA4C,"Retracted for readmission as _$E3 in BannerUI.cpp: the unit now
 ??_GRva004B8C3E@@UAEPAXI@Z,0x004B8CAD,"Renamed to ??_GLockWeaponCreate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C592FC)"
 ?name@Rva0044E000Named@@QBEPBDXZ,0x0044E000,"Renamed to ?GetSnapshotName@BloodthirstyUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C3F0B4 slot 2)"
 ?name@Rva004AC93CNamed@@QBEPBDXZ,0x004AC93C,"Renamed to ?GetSnapshotName@PartTheHeavensUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C54DA4 slot 2)"
+?Rva00563EA8_ParseEventFX@INI@@SAXPAV1@PAX1PBX@Z,0x00563EA8,Renamed to ?parseEventFXListName@LifeEventModuleTemplate@FXParticleSystem@@SAXPAVINI@@PAX1PBX@Z: retail export 1834 names the LifeEventModuleTemplate static at 0x00563EA8 (export 1835 the folded TerrainCollisionModuleTemplate twin); signature unchanged
