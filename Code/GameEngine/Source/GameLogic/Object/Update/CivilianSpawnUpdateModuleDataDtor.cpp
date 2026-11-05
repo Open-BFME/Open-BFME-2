@@ -13,9 +13,10 @@
 class Rva003623E5Filter
 {
 public:
+	Rva003623E5Filter();
 	~Rva003623E5Filter();
 private:
-	unsigned char m_data[4];
+	unsigned char m_data[4]; // +0x00
 };
 class __declspec(novtable) CivilianSpawnUpdateModuleData : public Snapshot
 {
