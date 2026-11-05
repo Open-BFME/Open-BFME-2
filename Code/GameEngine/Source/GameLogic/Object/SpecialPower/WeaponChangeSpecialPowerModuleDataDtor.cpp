@@ -8,14 +8,7 @@
 
 #include "ascii_string.h"
 
-class SpecialPowerModuleData
-{
-public:
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_tail[0x94 - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
 class __declspec(novtable) WeaponChangeSpecialPowerModuleData : public SpecialPowerModuleData
 {
@@ -23,6 +16,7 @@ public:
 	virtual ~WeaponChangeSpecialPowerModuleData();
 
 private:
+	unsigned char m_fields7C[0x94 - 0x7C];
 	AsciiString m_string94;	// +0x94
 	AsciiString m_string98;	// +0x98
 };

@@ -15,3 +15,5 @@ Remaining / next check: give every emitter of these vftables the canonical heade
 one batch (start with `SpecialPowerModuleDeletingDtors.cpp`), confirm with `link_check` that each
 unit still links, then adopt the header in the seed and re-run the merge dry run.
 Clearance: pending.
+
+2026-11-05 prerequisite: WeaponChangeSpecialPowerModuleDataDtor now uses the canonical base (4/4 byte rows, EH EXACT, preview 84 -> 84; header queue accepted); seed/emitter reconciliation remains next. [Evidence](../../reverse/attempt_support/elvenwood-moduledata-header-20261105.md).
