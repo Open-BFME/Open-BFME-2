@@ -78,12 +78,6 @@ class RGBAColorInt;
 // isEqualNoCase is this body inlined twice and compared, which is why it was
 // blocked behind the same thing and lands with it.
 
-struct PooledStringEntry
-{
-    void *m_unknown0;
-    PooledStringEntry *m_noCase;
-    char m_text[1];
-};
 template bool _STL::vector<bool, _STL::allocator<bool> >::empty() const;
 class BfmePeer
 {
@@ -241,8 +235,6 @@ private:
 #include "../../../Include/Common/XferException.h"
 #include "XferVectorTypes.h"
 
-extern PooledStringEntry ThePooledStringEmptyEntry;
-
 // The same one-byte trait object and shared workers string_base.cpp uses; the
 // pooled comparisons hand them the pooled text and its strlen.
 struct CharCompare
@@ -257,11 +249,19 @@ int compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCom
 class PooledString
 {
 public:
+	struct StringEntry
+	{
+		StringEntry *m_next;
+		StringEntry *m_noCase;
+		char m_text[1];
+	};
+public:
 	unsigned int getIdNoCase() const;
 public:
 	bool isEqualNoCase(const PooledString &that) const;
 private:
-	PooledStringEntry *m_entry;
+	static StringEntry m_null;
+	StringEntry *m_entry;
 public:
 	PooledString(const AsciiString &that);
 public:
@@ -313,7 +313,7 @@ public:
 
 void PooledString::clear()
 {
-    m_entry = &ThePooledStringEmptyEntry;
+    m_entry = &m_null;
 }
 
 int PooledString::getLength() const
@@ -323,12 +323,12 @@ int PooledString::getLength() const
 
 bool PooledString::isEmpty() const
 {
-    return m_entry == &ThePooledStringEmptyEntry;
+    return m_entry == &m_null;
 }
 
 bool PooledString::isNotEmpty() const
 {
-    return m_entry != &ThePooledStringEmptyEntry;
+    return m_entry != &m_null;
 }
 
 // ---- from Code/GameEngine/Source/Common/System/Xfer.cpp

@@ -10,21 +10,6 @@
 // under /arch, which this unit cannot take without breaking its other bodies.
 // They live in pooled_string_nocase.cpp at /O1 /arch:SSE and both match.
 
-// A pooled entry is shared by every string with the same text. The alias at +4
-// points at the case-folded twin when there is one, which is what makes the two
-// id accessors differ, and the text itself starts at +8.
-struct PooledStringEntry
-{
-    void *m_unknown0;
-    PooledStringEntry *m_noCase;
-    char m_text[1];
-};
-
-// The entry every default-constructed PooledString points at. isEmpty is a
-// pointer comparison against it rather than a length test.
-// ThePooledStringEmptyEntry: matched references place it at VA 0xe1768c (zero-filled; a plain-data view).
-PooledStringEntry ThePooledStringEmptyEntry;
-
 class AsciiString;
 
 // The same one-byte trait object and shared workers string_base.cpp uses; the
@@ -40,6 +25,17 @@ int compareRangeNoCase(const char *a, int alen, const char *b, int blen, CharCom
 class PooledString
 {
 public:
+    // A pooled entry is shared by every string with the same text. +0 chains
+    // the hash bucket (setString walks it), the alias at +4 points at the
+    // case-folded twin when there is one, which is what makes the two id
+    // accessors differ, and the text itself starts at +8.
+    struct StringEntry
+    {
+        StringEntry *m_next;
+        StringEntry *m_noCase;
+        char m_text[1];
+    };
+
     PooledString(const AsciiString &that);
 
     PooledString();
@@ -70,15 +66,30 @@ public:
 
     friend Debug &operator<<(Debug &debug, const PooledString &str);
 
+    static const PooledString TheEmptyString;
+
 private:
+    template<class T> friend struct DataRowPrivateProbe;
+
     void setString(const char *text);
 
-    PooledStringEntry *m_entry;
+    // The entry every empty PooledString points at. isEmpty is a pointer
+    // comparison against it rather than a length test. Retail exports it as
+    // ?m_null@PooledString@@0UStringEntry@1@A (VA 0xe1768c, zero-filled).
+    static StringEntry m_null;
+
+    StringEntry *m_entry;
 };
+
+PooledString::StringEntry PooledString::m_null;
+
+// Retail exports ?TheEmptyString@PooledString@@2V1@B (VA 0xddc018, .data holding
+// &m_null).
+const PooledString PooledString::TheEmptyString;
 
 PooledString::PooledString()
 {
-    m_entry = &ThePooledStringEmptyEntry;
+    m_entry = &m_null;
 }
 
 PooledString::PooledString(const char *text)
@@ -173,14 +184,14 @@ int PooledString::compareNoCase(const char *str) const
 // Two names, one for each level of indirection, is one name too many.
 int PooledString::compare(const PooledString &that) const
 {
-    const PooledStringEntry *entry = that.m_entry;
+    const StringEntry *entry = that.m_entry;
 
     return compare(entry->m_text, (int)strlen(entry->m_text));
 }
 
 int PooledString::compareNoCase(const PooledString &that) const
 {
-    const PooledStringEntry *entry = that.m_entry;
+    const StringEntry *entry = that.m_entry;
 
     return compareNoCase(entry->m_text, (int)strlen(entry->m_text));
 }
