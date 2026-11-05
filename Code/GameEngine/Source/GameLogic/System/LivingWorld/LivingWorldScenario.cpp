@@ -33,17 +33,7 @@ class Rva002E1001; // Retained opaque parameter spelling for the defeat provider
 class Rva002E2903Player { public: char pad[0x34]; int team; };
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002104B6 { public: void *rva002104B6(void *name); };
-class LivingWorldLogic {
-public:
-    char pad0[0x8c];
-    Rva002E2903Player **playersBegin;
-    Rva002E2903Player **playersEnd;
-    char pad94[0xb0 - 0x94];
-    Rva002104B6 *regions;
-    char padb4[0xfc - 0xb4];
-    int turn;
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 class LivingWorldRegion {
 public:
     bool IsOwnedByTeam(int team) const;
@@ -87,7 +77,7 @@ bool LivingWorldScenario::TeamVictoryCondition::hasTeamAchievedVictory(int team)
     _STL::vector<const LivingWorldRegion *> heldRegions;
     for (unsigned int i = 0; i < regionNames.size(); ++i) {
         AsciiString *names = &regionNames[0];
-        Rva002104B6 *manager = TheLivingWorldLogic->regions;
+        Rva002104B6 *manager = ((Rva002104B6 *)TheLivingWorldLogic->fieldB0);
         const LivingWorldRegion *region = (const LivingWorldRegion *)manager->rva002104B6(&names[i]);
         if (!region)
             continue;
@@ -101,7 +91,7 @@ bool LivingWorldScenario::TeamVictoryCondition::hasTeamAchievedVictory(int team)
     if (requiredTurns > 0) {
         for (unsigned int i = 0; i < heldRegions.size(); ++i) {
             int lastTurn = heldRegions[i]->lastOwnershipTurn;
-            if (TheLivingWorldLogic->turn - lastTurn < requiredTurns)
+            if (TheLivingWorldLogic->fieldFC - lastTurn < requiredTurns)
                 return false;
         }
     }
@@ -119,7 +109,7 @@ void LivingWorldScenario::TeamVictoryCondition::QueryRegionsAndNumbers(
     _STL::vector<const LivingWorldRegion *> unusedRegions;
     for (unsigned int i = 0; i < regionNames.size(); ++i) {
         AsciiString *names = &regionNames[0];
-        Rva002104B6 *manager = TheLivingWorldLogic->regions;
+        Rva002104B6 *manager = ((Rva002104B6 *)TheLivingWorldLogic->fieldB0);
         const LivingWorldRegion *region = (const LivingWorldRegion *)manager->rva002104B6(&names[i]);
         if (!region)
             continue;
@@ -168,7 +158,7 @@ private:
 bool LivingWorldScenario::PlayerDefeatCondition::isPlayerDefeated(Rva002E1001 *player)
 {
     if (requireHome) {
-        Rva002104B6 *manager = TheLivingWorldLogic->regions;
+        Rva002104B6 *manager = ((Rva002104B6 *)TheLivingWorldLogic->fieldB0);
         void *region = manager->rva002104B6((char *)player + 0x2c);
         if (region && *(int *)((char *)region + 0x13c) != *(int *)((char *)player + 0x14))
             return true;
@@ -267,7 +257,7 @@ void LivingWorldScenario::Scenario::getDefaultStartSpots(const AsciiString &camp
     out.erase(out.begin(), out.end());
     if (defaultStartRegions.empty())
         return;
-    AsciiString *campaign = ((Rva0020F442 *)TheLivingWorldLogic->regions)->rva0020F442(campaignName);
+    AsciiString *campaign = ((Rva0020F442 *)TheLivingWorldLogic->fieldB0)->rva0020F442(campaignName);
     if (!campaign)
         return;
     for (unsigned int i = 0; i < defaultStartRegions.size(); ++i) {
