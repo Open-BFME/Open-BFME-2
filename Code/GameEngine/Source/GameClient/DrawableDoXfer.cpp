@@ -132,7 +132,14 @@ public:
 	Anim2D *m_icons[14];					// +0x04
 	unsigned int m_keepTillFrame[14];			// +0x3C
 };
-class Rva00270BA8 { public: Rva00270025 *rva00270BA8(); };
+class Rva00270BA8
+{
+public:
+	Rva00270025 *rva00270BA8();
+	char m_pad00[0x354];
+private:
+	Rva00270025 *m_354; // +0x354
+};
 
 class Rva00271826
 {

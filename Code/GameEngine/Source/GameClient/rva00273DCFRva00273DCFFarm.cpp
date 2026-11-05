@@ -48,9 +48,9 @@ class Rva00270BA8
 {
 public:
 	Rva00270025 *rva00270BA8();
+	char m_pad00[0x354];
 private:
-	unsigned char m_pad[0x354];
-	Rva00270025 *m_354;
+	Rva00270025 *m_354; // +0x354
 };
 
 typedef float Real;
