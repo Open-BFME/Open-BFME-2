@@ -19,16 +19,7 @@ extern GameLogic *TheGameLogic;
 
 class Condition;
 
-class ScriptAction
-{
-public:
-	Parameter *getParameter(Int ndx);
-private:
-	void *m_vtable;
-	Int m_actionType;
-	Int m_numParms;
-	Parameter *m_parms[12];
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 #include "../../../Include/GameLogic/ScriptCondition.h"
 

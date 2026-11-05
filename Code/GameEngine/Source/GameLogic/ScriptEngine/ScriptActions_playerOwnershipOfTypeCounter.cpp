@@ -7,7 +7,7 @@
 // those templates SET_PLAYER_OWNERSHIP_OF_TYPE_COUNTER and
 // SET_PLAYER_OWNERSHIP_OF_TYPE_COUNTER_INCLUDE_DEAD. WorldBuilder's twin
 // (wb 0x01017B90) is unnamed, so the method keeps its address name.
-// Target body: when the action's cached frame (ScriptAction+0x44) equals
+// Target body: when the action's cached frame (ScriptAction+0x44, field44) equals
 // TheScriptEngine's frame-object-count-changed stamp (+0x1A15C) nothing is
 // recounted; otherwise the type parameter is parsed into an ObjectTypesTemp
 // (ctor 0x003BA7FF) and the two STLport vectors filled by
@@ -44,24 +44,7 @@ public:
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-enum { MAX_PARMS = 12 };
-
-class ScriptAction
-{
-public:
-	unsigned int getCustomFrame() const { return m_customFrame; }
-	void setCustomFrame(unsigned int frame) { m_customFrame = frame; }
-private:
-	void *m_vtable;
-	int m_actionType;	// +0x04
-	int m_numParms;	// +0x08
-	Parameter *m_parms[MAX_PARMS];	// +0x0C
-	ScriptAction *m_nextAction;	// +0x3C
-	bool m_hasWarnings;	// +0x40
-	unsigned char m_tail;	// +0x41
-	char m_pad[2];
-	unsigned int m_customFrame;	// +0x44 (BFME2; the ctor zeroes it)
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 #include "../../../Include/GameLogic/ObjectTypesClass.h"
 
@@ -107,7 +90,7 @@ extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::rva003C5F1B(ScriptAction *pAction, Parameter *pTypeParm, Parameter *pPlayerParm, Parameter *pCounterParm, bool ignoreDead)
 {
-	if (TheScriptEngine->getFrameObjectCountChanged() == pAction->getCustomFrame())
+	if (TheScriptEngine->getFrameObjectCountChanged() == (unsigned int)pAction->field44)
 		return;
 
 	_STL::vector<int> counts;
@@ -133,7 +116,7 @@ void ScriptActions::rva003C5F1B(ScriptAction *pAction, Parameter *pTypeParm, Par
 	}
 
 	TheScriptEngine->bfmeCounter(pCounterParm->getString())->m_value = count;
-	pAction->setCustomFrame(TheScriptEngine->getFrameObjectCountChanged());
+	pAction->field44 = TheScriptEngine->getFrameObjectCountChanged();
 }
 
 // The retail call in this body reads 0x00376C50, an address the ledger already

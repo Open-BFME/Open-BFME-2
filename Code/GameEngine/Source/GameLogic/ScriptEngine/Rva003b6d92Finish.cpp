@@ -122,35 +122,7 @@ class ConditionTemplate : public Template {};
 
 extern ScriptEngine *TheScriptEngine;
 
-enum { MAX_PARMS = 12 };
-
-class ScriptAction
-{
-public:
-	enum ScriptActionType
-	{
-		NO_OP = 5,
-		NUM_ITEMS = 0x257
-	};
-	ScriptAction() throw();
-	void setActionType(ScriptActionType type);
-
-	Int getActionType() const { return m_actionType; }
-	Int getNumParameters() const { return m_numParms; }
-
-protected:
-	static ScriptAction *ParseAction(DataChunkInput &file, DataChunkInfo *info, void *userData);
-
-private:
-	void *m_vtable; // +0x00
-	Int m_actionType; // +0x04
-	Int m_numParms; // +0x08
-	Parameter *m_parms[MAX_PARMS]; // +0x0C
-	ScriptAction *m_nextAction; // +0x3C
-	Bool m_hasWarnings; // +0x40
-	Bool m_active; // +0x41
-	Int m_bfmeActionTail; // +0x44
-};
+#include "../../../Include/GameLogic/ScriptAction.h"
 
 void ScriptAction::setActionType(ScriptActionType type)
 {
@@ -259,9 +231,9 @@ ScriptAction *ScriptAction::ParseAction(DataChunkInput &file, DataChunkInfo *inf
 	}
 
 	if (info->version >= 3)
-		pScriptAction->m_active = file.readInt() != 0;
+		pScriptAction->field41 = file.readInt() != 0;
 	else
-		pScriptAction->m_active = true;
+		pScriptAction->field41 = true;
 
 	// heal old files.
 	switch (pScriptAction->getActionType()) {
