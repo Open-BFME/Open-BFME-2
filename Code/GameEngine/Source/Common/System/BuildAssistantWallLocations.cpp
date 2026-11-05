@@ -18,7 +18,11 @@
 #include <windows.h>
 #include <list>
 class Drawable;
-class FreelistPool{public: void*pop();};
+class FreelistPool
+{
+public:
+	void *pop();
+};
 extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL{
 template <> __declspec(noinline)
@@ -183,7 +187,7 @@ void setAnimationLoopDuration(UnsignedInt numFrames);
 class BfmeThingTemplateShadowSelector
 {
 public:
-Bool usePluralShadowName()const;
+	Bool usePluralShadowName() const;
 };
 class ModuleData;
 class ThingTemplate
@@ -250,7 +254,7 @@ const CommandButton*getCommandButton(Int i)const;
 class Rva0031D5F8
 {
 public:
-void*rva0031D5F8(const AsciiString*key);
+	void *rva0031D5F8(const AsciiString *key); // 0x0031D5F8, findCommandSet
 };
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar*TheControlBar;
@@ -267,10 +271,17 @@ UnsignedInt m_bits[4];
 class G00DFF080Obj
 {
 public:
-virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();
-virtual void slot04();virtual void slot05();virtual void slot06();virtual void slot07();
-virtual void slot08();virtual void slot09();
-virtual void addFactionBib(Object*factionBuilding,Bool highlight,Real extra=0);
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void addFactionBib(Object *factionBuilding, Bool highlight, Real extra = 0); // +0x28
 };
 extern G00DFF080Obj*g_00DFF080;
 struct CreateMask
@@ -346,24 +357,26 @@ Int m_45C;
 class Rva002A7461
 {
 public:
-bool rva002A7557(Rva002A7557In*p,int unused);
+	bool rva002A7557(Rva002A7557In *p, int unused);
 };
 class Rva0037E6E8
 {
 public:
-Int rva0037E649(Int index,Object*obj);
+	Int rva0037E649(Int index, Object *obj);
 };
 class Rva0037E421
 {
 public:
-void*rva0037E7A5(int index);
-unsigned char rva0037E7BC(int index);
+	void *rva0037E7A5(int index);
+	unsigned char rva0037E7BC(int index);
 };
 class Rva0039B7AD;
+class Rva0039B795;
 class Rva003B0D7C
 {
 public:
-void rva003B0D7C(int amount,Rva0039B7AD*score,bool flag);
+	unsigned withdraw(unsigned amount, class Rva0039B795 *scoreKeeper, bool flag);
+	void rva003B0D7C(int amount, Rva0039B7AD *score, bool flag); // ZH's Money::deposit
 };
 class Money : public Rva003B0D7C
 {
@@ -376,9 +389,8 @@ UnsignedInt m_money;
 class ScoreKeeper
 {
 public:
-void addObjectLost(const Object*o);
-private:
-unsigned char m_pad00[4];
+	void addObjectLost(const Object *o);
+	char m_pad00[0x4];
 };
 class Player
 {
@@ -507,10 +519,10 @@ extern BitFlags<116> KINDOFMASK_NONE;
 class Rva0004584D : public Rva000421C8
 {
 public:
-Rva0004584D(const BfmeFixedStorage0004543D&a,const BfmeFixedStorage0004543D&b)throw();
-virtual Bool allow(Object*obj);
-BfmeFixedStorage0004543D m_08;
-BfmeFixedStorage0004543D m_24;
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
+	virtual Bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08; // +0x08
+	BfmeFixedStorage0004543D m_24; // +0x24
 };
 Real GetGameLogicRandomValueReal(Real low,Real high,char*file,Int line);
 #define BUILDASSISTANT_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\System\\BuildAssistant.cpp"
@@ -524,8 +536,9 @@ bool pickAndPlayUnitVoiceResponse(const DrawableList*list,GameMessage::Type mess
 PickAndPlayInfo*info);
 struct ProductionCountData
 {
-UnsignedInt count;
-const ThingTemplate*type;
+public:
+	UnsignedInt count; // +0x00
+	const ThingTemplate *type; // +0x04
 };
 static Int countInProduction(Object*obj,void*userData)
 {
@@ -539,17 +552,20 @@ return 1;
 }
 struct SampleBuildData
 {
-const ThingTemplate*build;
-Bool requireWaterOrLand;
-Region3D mapRegion;
-Bool terrainRestricted;
-Real hiZ;
-Real loZ;
-Real waterSamples;
-Real landSamples;
-Coord3D waterSum;
-Coord3D landSum;
-Int playerIndex;
+public:
+	const ThingTemplate *build; // +0x00 +0x00 +0x00
+	Bool requireWaterOrLand; // +0x04 +0x04 +0x04
+	char m_pad05[0x3];
+	Region3D mapRegion; // +0x08 +0x08 +0x08
+	Bool terrainRestricted; // +0x20 +0x20 +0x20
+	char m_pad21[0x3];
+	Real hiZ; // +0x24 +0x24 +0x24
+	Real loZ; // +0x28 +0x28 +0x28
+	Real waterSamples; // +0x2C +0x2C +0x2C
+	Real landSamples; // +0x30 +0x30 +0x30
+	Coord3D waterSum; // +0x34 +0x34 +0x34
+	Coord3D landSum; // +0x40 +0x40 +0x40
+	Int playerIndex; // +0x4C +0x4C +0x4C
 };
 inline void addCoord3D(Coord3D*sum,const Coord3D*a)
 {
@@ -667,7 +683,11 @@ tmp2=matrix3D[2][1];
 matrix3D[2][0]=(float)((c ? c : c)*tmp1 + s*tmp2);
 matrix3D[2][1]=(float)(-s*tmp1 +(c ? c : c)*tmp2);
 }
-class Rva00293330{public: void*rva00293330(UnsignedInt key);};
+class Rva00293330
+{
+public:
+	void *rva00293330(UnsignedInt key);
+};
 class Rva0039380FModule{
 public:
 virtual void slot0();
@@ -687,8 +707,18 @@ virtual Bool allow(Object*obj);
 virtual Int getPlayerMask();
 Player*m_player;
 };
-struct Rva003920F7Src{int a,b,c;};
-class Rva003920F7{public: void rva003920F7(UnsignedInt index,const Rva003920F7Src*pos);};
+struct Rva003920F7Src
+{
+public:
+	int a; // +0x00
+	int b; // +0x04
+	int c; // +0x08
+};
+class Rva003920F7
+{
+public:
+	void rva003920F7(UnsignedInt index, const Rva003920F7Src *src);
+};
 class Rva0039205C{
 public:
 void rva00392129(UnsignedInt index,Real angle);
