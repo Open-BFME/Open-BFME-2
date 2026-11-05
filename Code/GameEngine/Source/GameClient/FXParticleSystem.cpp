@@ -1444,7 +1444,61 @@ class ModuleTag
 {
 public:
     typedef TEMPLATE TemplateType;
+
+    ModuleTag &operator=(const ModuleTag &)
+    {
+        return *this;
+    }
 };
+
+// Retail exports name empty assignments for the generic tags as well as the
+// DefaultModuleTag and plain-struct tags used by the wrappers below. Instantiate
+// the exported identities directly without adding runtime registration objects.
+template <int CATEGORY>
+struct DefaultModuleKey
+{
+    static const char *const VALUE;
+};
+
+template <int CATEGORY>
+struct DefaultModuleName
+{
+    static const char *const VALUE;
+};
+
+template <int CATEGORY>
+class DefaultModule;
+
+template <int CATEGORY>
+class DefaultModuleTemplate;
+
+template class ModuleTag<0, DefaultModuleKey<0>::VALUE, DefaultModuleName<0>::VALUE,
+    DefaultModule<0>, DefaultModuleTemplate<0>, DefaultParticleModule<0> >;
+template class ModuleTag<1, DefaultModuleKey<1>::VALUE, DefaultModuleName<1>::VALUE,
+    DefaultModule<1>, DefaultModuleTemplate<1>, DefaultParticleModule<1> >;
+template class ModuleTag<2, DefaultModuleKey<2>::VALUE, DefaultModuleName<2>::VALUE,
+    DefaultModule<2>, DefaultModuleTemplate<2>, DefaultParticleModule<2> >;
+template class ModuleTag<3, DefaultModuleKey<3>::VALUE, DefaultModuleName<3>::VALUE,
+    DefaultModule<3>, DefaultModuleTemplate<3>, DefaultParticleModule<3> >;
+template class ModuleTag<6, DefaultModuleKey<6>::VALUE, DefaultModuleName<6>::VALUE,
+    DefaultModule<6>, DefaultModuleTemplate<6>, DefaultParticleModule<6> >;
+template class ModuleTag<7, DefaultModuleKey<7>::VALUE, DefaultModuleName<7>::VALUE,
+    DefaultModule<7>, DefaultModuleTemplate<7>, DefaultParticleModule<7> >;
+
+extern const char *const ORTHO_EMISSION_VELOCITY_MODULE_KEY;
+extern const char *const ORTHO_EMISSION_VELOCITY_MODULE_NAME;
+class OrthoEmissionVelocityModule;
+class OrthoEmissionVelocityModuleTemplate;
+template class ModuleTag<4, ORTHO_EMISSION_VELOCITY_MODULE_KEY,
+    ORTHO_EMISSION_VELOCITY_MODULE_NAME, OrthoEmissionVelocityModule,
+    OrthoEmissionVelocityModuleTemplate, DefaultParticleModule<4> >;
+
+extern const char *const POINT_EMISSION_VOLUME_MODULE_KEY;
+extern const char *const POINT_EMISSION_VOLUME_MODULE_NAME;
+class PointEmissionVolumeModule;
+template class ModuleTag<5, POINT_EMISSION_VOLUME_MODULE_KEY,
+    POINT_EMISSION_VOLUME_MODULE_NAME, PointEmissionVolumeModule,
+    PointEmissionVolumeModuleTemplate, DefaultParticleModule<5> >;
 
 template <class TAG>
 class ConcreteModuleTemplate : public TAG::TemplateType
