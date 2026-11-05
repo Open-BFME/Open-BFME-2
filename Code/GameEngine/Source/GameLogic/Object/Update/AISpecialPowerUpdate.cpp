@@ -76,12 +76,7 @@ enum ObjectStatusTypes
 };
 class SpecialPowerTemplate;
 class Player;
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s0();
-	virtual bool s1();
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../object.h"
 class SpecialPowerStore
 {
@@ -309,7 +304,7 @@ bool Rva004B2F7B::rva004B2F7B(const SpecialPowerTemplate *specialPowerTemplate)
 	SpecialPowerModuleInterface *mod = m_obj->getSpecialPowerModule(specialPowerTemplate);
 	if (mod != 0)
 	{
-		if (mod->s1())
+		if (mod->isReady())
 			return true;
 	}
 	else

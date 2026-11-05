@@ -90,11 +90,7 @@ template <> class Rva004AE2D0Slots<0>
 {
 };
 
-class SpecialPowerModuleInterface : public Rva004AE2D0Slots<9>
-{
-public:
-	virtual void rva004AE2D0Slot9(bool on) = 0;
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class InvisibilityUpdate
 {
@@ -304,7 +300,7 @@ void ToggleHiddenSpecialAbilityUpdate::turnOff()
 	const ToggleHiddenSpecialAbilityUpdateModuleData *data = (const ToggleHiddenSpecialAbilityUpdateModuleData *)m_moduleData;
 	SpecialPowerModuleInterface *power = obj->getSpecialPowerModule(data->m_38);
 	if (power)
-		power->rva004AE2D0Slot9(false);
+		power->pauseCountdown(false);
 
 	static NameKeyType key_InvisibilityUpdate = TheNameKeyGenerator->nameToKey("InvisibilityUpdate");
 	InvisibilityUpdate *invisibility = (InvisibilityUpdate *)obj->findModule(key_InvisibilityUpdate);
@@ -327,7 +323,7 @@ void ToggleHiddenSpecialAbilityUpdate::turnOn()
 	const ToggleHiddenSpecialAbilityUpdateModuleData *data = (const ToggleHiddenSpecialAbilityUpdateModuleData *)m_moduleData;
 	SpecialPowerModuleInterface *power = obj->getSpecialPowerModule(data->m_38);
 	if (power)
-		power->rva004AE2D0Slot9(true);
+		power->pauseCountdown(true);
 
 	if ((char)obj->rva0028B7C8() || ai->rva00262D8F())
 		ai->aiIdle(CMD_FROM_AI);

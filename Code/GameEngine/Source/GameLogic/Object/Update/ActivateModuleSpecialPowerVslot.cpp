@@ -18,7 +18,7 @@ static __forceinline const char*formatText(const Debug::Format&f){return (const 
 extern Debug*theDebug;void _bfme_debugRecordCallsite(int);
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-class SpecialPowerModuleInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void atLocation(const Coord3D*,int);};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object{public:BehaviorModule*rva0028F2C4(int)const;char p0[4];const ThingTemplate*tmpl;char p8[0x38-8];Coord3D position;};
 struct WakeEntry{int key,mode;};struct WakeVector{WakeEntry*begin,*end,*capacity;};struct WakeData{char p[0xc8];WakeVector entries;};
@@ -42,7 +42,7 @@ void ActivateModuleSpecialPower::SetWakeState(int state)
     unsigned sleep=0x3fffffff;switch(state){case 0:sleep=1;break;case 1:sleep=update?0x3fffffff:0x3fffffff;break;default:break;}update->rva0044DF8D((UpdateSleepTime)sleep);
    }else if(state==0){
     SpecialPowerModuleInterface*power=static_cast<BehaviorModuleInterface &>(*module).getSpecialPower();
-    if(power){Coord3D position;if(it->mode==1)position=obj->position;else position=m_targetPos;power->atLocation(&position,0);}
+    if(power){Coord3D position;if(it->mode==1)position=obj->position;else position=m_targetPos;power->doSpecialPowerAtLocation(&position,0);}
    }
   }
  }

@@ -201,19 +201,7 @@ public:
 // SpecialPowerTemplate::getSpecialPowerType does.
 static inline Int getSpecialPowerType(const SpecialPowerTemplate *spTemplate) { return spTemplate->getFO()->m_type; }
 
-class SpecialPowerModuleInterface {
-public:
-	virtual void v00();
-	virtual Bool isReady() const;
-	virtual Real getPercentReady() const;
-	virtual Bool isPaused() const;
-	virtual void v04(); virtual void v05();
-	virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;
-	virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10();
-	virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
-	virtual void v15(); virtual void v16(); virtual void v17();
-	virtual Bool isUsable(Int mode);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class CommandFilterInterface {
 public:
@@ -999,12 +987,12 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 			}
 			else
 			{
-				if (!spm->isUsable(0))
+				if (!spm->rva0049466D(0))
 					return COMMAND_RESTRICTED;
 				if (!spm->isReady())
 				{
 					*percent = spm->getPercentReady();
-					if (*percent <= 0.0f && spm->isPaused())
+					if (*percent <= 0.0f && spm->slot03())
 					{
 						*percent = 1.0f;
 						return COMMAND_RESTRICTED;

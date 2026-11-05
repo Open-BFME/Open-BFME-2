@@ -114,25 +114,7 @@ struct GrabOffsetValue {
     __forceinline GrabOffsetValue(const GrabOffsetValue &other) : x(other.x), y(other.y) {}
     ~GrabOffsetValue() {}
 };
-class SpecialPowerModuleInterface {
-  public:
-    virtual void slot00();
-    virtual void slot04();
-    virtual void slot08();
-    virtual void slot0C();
-    virtual void slot10();
-    virtual void slot14();
-    virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const;
-    virtual void slot1C();
-    virtual void slot20();
-    virtual void slot24();
-    virtual void slot28();
-    virtual void slot2C();
-    virtual void slot30();
-    virtual void slot34();
-    virtual void slot38();
-    virtual void resetRecharge(float);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 // Vtable slots are release facts; neutral slot names avoid importing ZH
 // interface positions into BFME2. Named methods below describe observed roles.
 class ContainModuleInterface {
@@ -613,7 +595,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
     SpecialPowerModuleInterface *power =
         (SpecialPowerModuleInterface *)((Rva0044E633 *)this)->rva0044E633();
     if (power && ((const StringBase<char> *)&getRechargeTrigger())->isEmpty())
-        power->resetRecharge(1.0f);
+        power->startPowerRecharge(1.0f);
     ++triggerCount;
     if (moduleData->awardXPForTriggering) {
         ExperienceTracker *xp = owner->experience;
@@ -864,7 +846,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
         target->captor = 0;
         TheSkirmishAIManager->rva002A9365(captured);
         if (powerTemplate->getFO()->m_type == 0x1a)
-            power->resetRecharge(1.0f);
+            power->startPowerRecharge(1.0f);
     } break;
     case 0x20:
         if (target) {

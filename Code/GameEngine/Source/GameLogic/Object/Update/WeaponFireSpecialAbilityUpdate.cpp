@@ -297,15 +297,7 @@ public:
 	virtual Object *s68();
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14();
-	virtual void rva15(Real value);
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 class Rva0044E633
 {
@@ -665,7 +657,7 @@ void WeaponFireSpecialAbilityUpdate::triggerAbilityEffect()
 	SpecialAbilityUpdate::triggerAbilityEffect();
 	SpecialPowerModuleInterface *spm = (SpecialPowerModuleInterface *)reinterpret_cast<Rva0044E633 *>(this)->rva0044E633();
 	if (spm)
-		spm->rva15(1.0f);
+		spm->startPowerRecharge(1.0f);
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate_update.cpp

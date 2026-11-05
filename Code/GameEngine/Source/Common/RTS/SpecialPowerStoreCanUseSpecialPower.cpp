@@ -40,16 +40,7 @@ public:
 	ScienceVec rva0029FCB4();
 };
 
-class SpecialPowerModuleInterface
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17();
-	virtual Bool rva_slot18(int mode);
-};
+#include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
 struct Rva004211A0Key;
 class Rva004211A0Host
@@ -112,7 +103,7 @@ Bool SpecialPowerStore::canUseSpecialPower(Object *obj, const SpecialPowerTempla
 	if (obj->getSpecialPowerModule(specialPowerTemplate) == 0)
 		return false;
 
-	if (!obj->getSpecialPowerModule(specialPowerTemplate)->rva_slot18(0))
+	if (!obj->getSpecialPowerModule(specialPowerTemplate)->rva0049466D(0))
 		return false;
 
 	Player *player = obj->getControllingPlayer();
