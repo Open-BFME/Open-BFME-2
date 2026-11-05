@@ -109,10 +109,12 @@ extern Rva002E373CHolder *g_Va00DBD0F4;
 
 #include "../../../Include/Common/TeamBFME2.h"
 
+class Xfer;
 class PathfinderPosGoalManager
 {
 public:
-	bool rva004DE2ED();	// 0x004DE2ED
+	bool rva004DE2ED(); // rowed 0x004DE2ED returns bool; this caller ignores it
+	void rva004DD658(Xfer *xfer);
 };
 
 class ThingTemplate

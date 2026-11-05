@@ -24,10 +24,12 @@ class Object;
 extern TerrainLogic *TheTerrainLogic;
 
 // The object at Object+0xA4 (see ObjectRvaSmallGetters.cpp).
+class Xfer;
 class PathfinderPosGoalManager
 {
 public:
-	bool rva004DE2ED();	// rowed 0x004DE2ED returns bool; this caller ignores it
+	bool rva004DE2ED(); // rowed 0x004DE2ED returns bool; this caller ignores it
+	void rva004DD658(Xfer *xfer);
 };
 
 class Object

@@ -41,7 +41,11 @@ enum NameKeyType { NAMEKEY_INVALID=0 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Rva00271BCC {public:void rva00271BCC(int,int);};
-class Rva002039B6Host {public:void rva002039B6();};
+class Rva002039B6Host
+{
+public:
+	void rva002039B6();
+};
 class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 class Object;

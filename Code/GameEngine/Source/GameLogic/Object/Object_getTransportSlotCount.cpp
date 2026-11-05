@@ -20,9 +20,10 @@ struct Tmp
 };
 struct Node
 {
-	Node *next;
-	int _pad;
-	class Object *obj;
+public:
+	Node *next; // +0x00
+	char m_pad04[0x4];
+	class Object *obj; // +0x08
 };
 
 class ContainModule

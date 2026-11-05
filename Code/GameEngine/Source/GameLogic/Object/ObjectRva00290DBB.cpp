@@ -12,9 +12,10 @@ struct Out
 struct Object;
 struct Node
 {
-	Node *next;
-	void *unk4;
-	Object *obj;
+public:
+	Node *next; // +0x00
+	char m_pad04[0x4];
+	class Object *obj; // +0x08
 };
 template <int N> class Slots : public Slots<N-1>
 {

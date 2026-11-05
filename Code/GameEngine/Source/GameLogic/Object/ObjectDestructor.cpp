@@ -155,7 +155,11 @@ struct Rva00299CE4LogicFrames
 };
 extern GameLogic *TheGameLogic;
 
-class Rva002039B6Host { public: void rva002039B6(); };
+class Rva002039B6Host
+{
+public:
+	void rva002039B6();
+};
 class ScriptEngine { public: void rva00356FAF(int obj); };
 extern ScriptEngine *TheScriptEngine;
 

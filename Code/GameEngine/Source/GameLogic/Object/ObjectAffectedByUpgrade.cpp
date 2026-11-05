@@ -62,9 +62,10 @@ struct Out
 
 struct Node
 {
-	Node *m_next;
-	void *m_unk4;
-	Object *m_obj;
+public:
+	Node *next; // +0x00
+	char m_pad04[0x4];
+	class Object *obj; // +0x08
 };
 
 template<int N> class Slots : public Slots<N - 1>
@@ -146,15 +147,15 @@ haveMask:
 		Out out;
 		((ContainIface *)self)->getList(&out);
 		Node *head = *(Node **)out.b;
-		Node *cur = head->m_next;
+		Node *cur = head->next;
 		if (cur == head)
 			return 0;
 		do
 		{
-			Object *object = cur->m_obj;
+			Object *object = cur->obj;
 			if (object->affectedByUpgrade(upgrade))
 				return 1;
-			cur = cur->m_next;
+			cur = cur->next;
 		} while (cur != *(Node **)out.b);
 		return 0;
 	}

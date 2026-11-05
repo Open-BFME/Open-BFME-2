@@ -305,6 +305,7 @@ public:
 class PathfinderPosGoalManager
 {
 public:
+	bool rva004DE2ED(); // rowed 0x004DE2ED returns bool; this caller ignores it
 	void rva004DD658(Xfer *xfer);
 };
 
