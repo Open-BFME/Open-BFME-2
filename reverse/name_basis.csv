@@ -8665,7 +8665,7 @@ member,Rva0030E2ECFlags::m_bfmeFlags,Rva0030E2ECFlags::m_flags,inferred,agree:nl
 function,?rva00201DAA@@YAXPAVINI@@PAX1PBX@Z,?parseStaticGameLODLevel@@YAXPAVINI@@PAX1PBX@Z,inferred,agree:nl-7261320c688f,Code/GameEngine/Source/Common/GapBodiesGE53.cpp,0x00201DAA
 function,?s4ParseFieldsRva0059D1F0@@YAXPAVINI@@PAUGen_00489270@@@Z,?parseFreezePostLoadSoundsTransition@@YAXPAVINI@@PAUGen_00489270@@@Z,inferred,agree:nl-8e13ffe0189c,Code/GameEngine/Source/Common/Rva0059D1F0AttackNuggetFactory.cpp,0x0035D35D
 carry,s4ParseFieldsRva0059D1F0::transition,parseFreezePostLoadSoundsTransition::transition,inferred,scope renamed by Rename s4ParseFieldsRva0059D1F0 to parseFreezePostLoadSoundsTransition (inferred),Code/GameEngine/Source/Common/Rva0059D1F0AttackNuggetFactory.cpp,0x0035D35D
-member,Rva0052B4B6::m_41,Rva0052B4B6::m_digest,inferred,agree:nl-13f18d58778b,Code/GameEngine/Source/Common/Rva0052B4B6XferOpen.cpp,
+member,Rva0052B4B6::m_41,Rva0052B4B6::m_digest,inferred,agree:nl-13f18d58778b,Code/GameEngine/Source/Common/XferMD5CRC.cpp,
 member,Rva0030CAF8Area::m_s9C,Rva0030CAF8Area::m_textureName,inferred,agree:nl-a68938a4066d,Code/GameEngine/Source/Common/Rva0030CAF8Chain.cpp,
 member,Rva0042D5DDInner::m_04,Rva0042D5DDInner::m_level,inferred,agree:nl-fce6ae1a223c,Code/GameEngine/Source/Common/Rva0042D5DDUpdate.cpp,
 function,?rva001524EE@Rva0015229CVector@@QAEXXZ,?clear@Rva0015229CVector@@QAEXXZ,inferred,agree:nl-843eb8efb4c0,Code/GameEngine/Source/Common/GapBodiesGE45.cpp,0x001524EE
