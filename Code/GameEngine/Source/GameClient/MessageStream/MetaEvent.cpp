@@ -7,6 +7,9 @@
 #include "unicode_string.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
+// The canonical Mouse keeps the drag tolerance (+0x12E8) in opaque storage;
+// it must precede the SubsystemInterface include.
+#include "../../../Include/GameClient/Mouse.h"
 #include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 #include <string.h>
 
@@ -153,14 +156,6 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class Mouse
-{
-public:
-	unsigned char m_00[0x12E8];
-	UnsignedInt m_dragTolerance;	// +0x12E8
-};
-
-extern Mouse *TheMouse;
 
 enum LanguageID { LANGUAGE_ID_2 = 2 };
 
@@ -612,8 +607,8 @@ GameMessageDisposition MetaEventTranslator::translateGameMessage(const GameMessa
 
 				IRegion2D pixelRegion;
 				buildRegion(&m_mouseDownPosition[index], &location, &pixelRegion);
-				if (abs(pixelRegion.hi.x - pixelRegion.lo.x) < TheMouse->m_dragTolerance &&
-					abs(pixelRegion.hi.y - pixelRegion.lo.y) < TheMouse->m_dragTolerance)
+				if (abs(pixelRegion.hi.x - pixelRegion.lo.x) < *(const UnsignedInt *)TheMouse->field12E8 &&
+					abs(pixelRegion.hi.y - pixelRegion.lo.y) < *(const UnsignedInt *)TheMouse->field12E8)
 				{
 					pixelRegion.hi.x = pixelRegion.lo.x;
 					pixelRegion.hi.y = pixelRegion.lo.y;

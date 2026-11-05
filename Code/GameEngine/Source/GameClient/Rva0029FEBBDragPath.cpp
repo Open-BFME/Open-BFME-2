@@ -22,13 +22,8 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "Lib/ICoord2D.h"
 #include "BfmeSpecialPowerTimer8.h"
 
-class Mouse
-{
-public:
-	char m_pad[0x12e8];
-	unsigned int m_dragTolerance; // +0x12e8
-};
-extern Mouse *TheMouse;
+// The canonical Mouse keeps the drag tolerance (+0x12E8) in opaque storage.
+#include "../../Include/GameClient/Mouse.h"
 
 class Rva0029FEBB
 {
@@ -85,7 +80,7 @@ void Rva0029FEBB::rva0029FEBB(ICoord2D in)
 		delta.y = pos.y - last.y;
 		Coord3D vec;
 		vec.x = (float)delta.x;
-		unsigned int tol = TheMouse->m_dragTolerance;
+		unsigned int tol = *(const unsigned int *)TheMouse->field12E8;
 		vec.y = (float)delta.y;
 		int thresh = tol / 3;
 		vec.z = 0.0f;

@@ -368,7 +368,7 @@ struct TerrainLogicVtbl
 // class-gate: allow GameLogic canonical view lacks getObjectCount (rowed 0x0023CFCE) that this body calls and keeps the +0x38/+0x40 words private
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 class Keyboard { public: bool isShift(); bool isCtrl(); bool isAlt(); char m_pad[0xC]; unsigned char m_modifiers; };
-class Mouse { public: char m_pad[0x4F0C]; MouseIO m_currMouse; };
+#include "../../../../GameEngine/Include/GameClient/Mouse.h"
 class ExperienceTracker { public: char m_pad[0x10]; float m_experience; char m_pad14[0x24 - 0x14]; int m_level; };
 #include "../../../../GameEngine/Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
@@ -441,7 +441,6 @@ extern DisplayStringManager *TheDisplayStringManager;
 extern GlobalData *TheWritableGlobalData;
 extern GameLogic *TheGameLogic;
 extern Keyboard *TheKeyboard;
-extern Mouse *TheMouse;
 extern GameClient *TheGameClient;
 extern InGameUI *TheInGameUI;
 extern View *TheTacticalView;
@@ -655,7 +654,7 @@ void W3DDisplay::gatherDebugStats(void)
 			unibuffer.concat(W(") "));
 		}
 
-		const MouseIO *io = &TheMouse->m_currMouse;
+		const MouseIO *io = (const MouseIO *)&TheMouse->field4F0C;
 		if (io->leftState) unibuffer.concat(W("LMB "));
 		if (io->middleState) unibuffer.concat(W("MMB "));
 		Drawable *draw;
@@ -693,7 +692,7 @@ void W3DDisplay::gatherDebugStats(void)
 		m_displayStrings[6]->setText(unibuffer);
 
 		Coord3D world;
-		const MouseIO *mouse = &TheMouse->m_currMouse;
+		const MouseIO *mouse = (const MouseIO *)&TheMouse->field4F0C;
 		TheTacticalView->screenToTerrain(mouse, &world, 0);
 		unibuffer.format(W("Mouse position: screen: (%d, %d), world: (%g, %g, %g)"), mouse->x, mouse->y, world.x, world.y, world.z);
 		m_displayStrings[7]->setText(unibuffer);

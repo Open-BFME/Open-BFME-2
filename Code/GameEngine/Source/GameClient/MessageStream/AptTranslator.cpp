@@ -28,23 +28,11 @@ struct MouseIO
 	int middleState; // +0x30
 };
 
-#define MOUSE_SLOT(n) virtual void slot##n();
-class Mouse
-{
-public:
-	MOUSE_SLOT(00) MOUSE_SLOT(01) MOUSE_SLOT(02) MOUSE_SLOT(03) MOUSE_SLOT(04)
-	MOUSE_SLOT(05) MOUSE_SLOT(06) MOUSE_SLOT(07) MOUSE_SLOT(08) MOUSE_SLOT(09)
-	MOUSE_SLOT(10) MOUSE_SLOT(11) MOUSE_SLOT(12) MOUSE_SLOT(13) MOUSE_SLOT(14)
-	MOUSE_SLOT(15) MOUSE_SLOT(16) MOUSE_SLOT(17)
-	virtual void getCursorPosition(int *x, int *y); // slot 18 (+0x48)
-	virtual void setCursor(int cursor);             // slot 19 (+0x4C)
-	const MouseIO *getMouseStatus() const { return &m_currMouse; }
-private:
-	char m_pad04[0x4F0C - 4];
-	MouseIO m_currMouse; // +0x4F0C
-};
-#undef MOUSE_SLOT
-extern Mouse *TheMouse;
+// The canonical Mouse keeps the current MouseIO record at +0x4F0C in opaque
+// storage (field4F0C is its leading pos); the button states are read through
+// the record view above. Slot 18 (+0x48) is the cursor-position getter the
+// header still spells vslot18 with unsigned outputs.
+#include "../../../Include/GameClient/Mouse.h"
 
 #include "../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -67,7 +55,7 @@ enum GameMessageDisposition { KEEP_MESSAGE = 0, DESTROY_MESSAGE = 1 };
 
 static inline bool AnyMouseButtonsDown()
 {
-	const MouseIO *io = TheMouse->getMouseStatus();
+	const MouseIO *io = (const MouseIO *)&TheMouse->field4F0C;
 	if (io && (io->leftState || io->rightState || io->middleState))
 		return true;
 	return false;
@@ -119,13 +107,13 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 	{
 		if (anyButton || ((unsigned char)rva0043287E() && !mouseHeld))
 		{
-			TheMouse->setCursor(m_cursor);
+			TheMouse->setCursor((Mouse::MouseCursor)m_cursor);
 			disp = DESTROY_MESSAGE;
 		}
 		if (m_200 > 0)
 			--m_200;
 		const int maxCount = 5;
-		if (m_buttonDown[0] && TheMouse->getMouseStatus()->leftState == 0)
+		if (m_buttonDown[0] && ((const MouseIO *)&TheMouse->field4F0C)->leftState == 0)
 		{
 			if (++m_leftCount > maxCount)
 			{
@@ -137,7 +125,7 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 		}
 		else
 			m_leftCount = 0;
-		if (m_buttonDown[2] && TheMouse->getMouseStatus()->rightState == 0)
+		if (m_buttonDown[2] && ((const MouseIO *)&TheMouse->field4F0C)->rightState == 0)
 		{
 			if (++m_rightCount > maxCount)
 			{
@@ -149,7 +137,7 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 		}
 		else
 			m_rightCount = 0;
-		if (m_buttonDown[1] && TheMouse->getMouseStatus()->middleState == 0)
+		if (m_buttonDown[1] && ((const MouseIO *)&TheMouse->field4F0C)->middleState == 0)
 		{
 			if (++m_middleCount > maxCount)
 			{
@@ -228,7 +216,7 @@ GameMessageDisposition AptTranslator::translateGameMessage(const GameMessage *ms
 		if (window->winGetStatus() & 0x8000000)
 		{
 			int x, y;
-			TheMouse->getCursorPosition(&x, &y);
+			TheMouse->vslot18((unsigned int *)&x, (unsigned int *)&y);
 			if (window->winPointInWindow(x, y))
 				disp = DESTROY_MESSAGE;
 			break;

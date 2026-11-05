@@ -47,18 +47,7 @@ extern Coord3D BfmeFollowSavedOffset23E8;
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Mouse
-{
-public:
-	void rva001EDE9C();
-	void _bfme_setEngineVisibility(bool visible);
-	char m_pad00[0x4F0C];
-	ICoord2D m_pos; // +0x4F0C +0x4F0C
-	char m_pad4F14[0xF5];
-	Bool m_5009; // +0x5009
-};
-
-extern Mouse *TheMouse;
+#include "../../../../GameEngine/Include/GameClient/Mouse.h"
 
 #define W3DVIEW_SLOT(n) virtual void slot##n();
 
@@ -228,7 +217,7 @@ void W3DView::rva00087642()
 	if (slot163Test())
 		slot162Set(0);
 	TheMouse->_bfme_setEngineVisibility(true);
-	TheMouse->m_5009 = false;
+	TheMouse->field5009 = false;
 }
 
 // ?rva0008780A@W3DView@@QAEXH@Z retail 0x0008780A..0x00087952 (328B) RET4:

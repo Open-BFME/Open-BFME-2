@@ -101,24 +101,10 @@ struct MouseIO
 	int leftState;     // +0x18
 };
 
-struct Rva001EDD80Pair;
-
-class Mouse
-{
-public:
-	void rva001EDFF7(float *region) const;
-	bool rva001EDD80(const Rva001EDD80Pair *anchor, const Rva001EDD80Pair *pos);
-	const MouseIO *getMouseStatus() { return &m_currMouse; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getMouseStatus copy loses to the first-in-order copy
-	// (no retail address); the call below inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	const MouseIO *bfme_mouse_status() { return &m_currMouse; }
-
-	char m_pad00[0x4F0C];
-	MouseIO m_currMouse; // +0x4F0C
-};
+// The canonical Mouse keeps the current MouseIO record at +0x4F0C, exposing
+// only its leading ICoord2D pos as field4F0C; this TU reads leftState through
+// the record view above.
+#include "../../../Include/GameClient/Mouse.h"
 
 struct Rva001EDD80Pair
 {
@@ -169,7 +155,6 @@ extern Display *TheDisplay;
 extern GameClient *TheGameClient;
 extern GameLogic *TheGameLogic;
 extern GameTextInterface *TheGameText;
-extern Mouse *TheMouse;
 extern GlobalData *TheWritableGlobalData;
 extern Shell *TheShell;
 extern bool scrollDir[4];
@@ -338,7 +323,7 @@ GameMessageDisposition BfmeOwnVVD::translateGameMessage(const GameMessage *msg)
 			bool isSelecting = TheInGameUI->isSelecting();
 			if (isSelecting)
 			{
-				const MouseIO *io = TheMouse->bfme_mouse_status();
+				const MouseIO *io = (const MouseIO *)&TheMouse->field4F0C;
 				if (io && io->leftState != 1)
 					isSelecting = false;
 			}
@@ -369,8 +354,8 @@ GameMessageDisposition BfmeOwnVVD::translateGameMessage(const GameMessage *msg)
 			float region[4];
 			TheMouse->rva001EDFF7(region);
 			Coord2D mouse;
-			mouse.x = TheMouse->m_currMouse.pos.x;
-			mouse.y = TheMouse->m_currMouse.pos.y;
+			mouse.x = TheMouse->field4F0C.x;
+			mouse.y = TheMouse->field4F0C.y;
 			region[0] += 15.0f;
 			region[2] -= 15.0f;
 			region[1] += 15.0f;
