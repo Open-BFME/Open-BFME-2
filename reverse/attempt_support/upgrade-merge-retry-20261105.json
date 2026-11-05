@@ -1,0 +1,64 @@
+{
+  "tu": "Code/GameEngine/Source/Common/System/Upgrade.cpp",
+  "approved": 85,
+  "mixed": {
+    "Code/GameEngine/Source/Common/GapBodiesGE06.cpp": 15,
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp": 19,
+    "Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp": 11,
+    "Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp": 41,
+    "Code/GameEngine/Source/Common/System/XferUpgradeStatusTransfer.cpp": 1
+  },
+  "refused": {},
+  "accepted": [],
+  "rejected": {
+    "Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp": "compile: z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\GameLogic\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\MemoryPoolObject.h(7) : error C2011: 'MemoryPoolObject' : 'class' ",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp": "compile: Code\\GameEngine\\Source\\Common\\System\\.Upgrade.9b71153ab05c9f2b.tu_skeleton.cpp(101) : error C2039: 'rva0026EEA0' : is not a member of 'UpgradeCenter' | Code\\GameEngine\\Source\\Common\\System\\.Upgrade.9b71153ab05c9f2b.tu_skeleton.cpp(102) : error C2270: 'rva0026EEA0' : modifiers not allowed on nonmembe",
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp": "compile: z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\Overridable.h(23) : error C2011: 'Overridable' : 'class' type redefin",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterCanAffordUpgrade.cpp": "compile: z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\MemoryPoolObject.h(7) : error C2011: 'MemoryPoolObject' : 'class' typ",
+    "Code/GameEngine/Source/Common/System/UpgradeTemplate_friend_makeVeterancyUpgrade.cpp": "compile: z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\System\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: '",
+    "Code/GameEngine/Source/Common/System/UpgradeTemplate_cacheButtonImage.cpp": "compile: Code\\GameEngine\\Source\\Common\\System\\.Upgrade.a06e1b8c206c5b31.tu_skeleton.cpp(534) : error C2228: left of '.isEmpty' must have class/struct/union type | Code\\GameEngine\\Source\\Common\\System\\.Upgrade.a06e1b8c206c5b31.tu_skeleton.cpp(536) : error C2065: 'm_70' : undeclared identifier | Code\\GameEngin",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterParseUpgradeMask.cpp": "compile: z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\System\\../../../Include\\Common\\INI\\INI.h(248) : error C2011: 'INI' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\System\\../../../Include\\Common\\INI\\FieldParse.h(11) : error C2011: 'FieldParse' : 'struct' type redef",
+    "Code/GameEngine/Source/Common/UpgradeCenter.cpp": "compile: z:\\work3\\Open-BFME-2\\reference\\shims\\upgradecenter_bfme2\\../subsystem_bfme2\\subsystem_interface.h(27) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\reference\\shims\\upgradecenter_bfme2\\../subsystem_bfme2\\subsystem_interface.h(61) : error C2011: 'SubsystemInter",
+    "Code/GameEngine/Source/Common/UpgradeCenterDestructor.cpp": "compile: z:\\work3\\Open-BFME-2\\reference\\shims\\upgradecenter_bfme2\\../subsystem_bfme2\\subsystem_interface.h(27) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\reference\\shims\\upgradecenter_bfme2\\../subsystem_bfme2\\subsystem_interface.h(61) : error C2011: 'SubsystemInter",
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateResolveSubUpgradeNames.cpp": "compile: Code\\GameEngine\\Source\\Common\\System\\.Upgrade.72415a0261949f25.tu_skeleton.cpp(127) : error C2908: explicit specialization; '_STL::vector<_Tp>::~vector(void)' has already been instantiated | Code\\GameEngine\\Source\\Common\\System\\.Upgrade.72415a0261949f25.tu_skeleton.cpp(572) : error C2039: 'friend_re",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterNewUpgrade.cpp": "compile: z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\System\\../../../Include\\Common\\NameKeyGenerator.h(26) : error C2011: '",
+    "Code/GameEngine/Source/Common/System/UpgradeCenterInit.cpp": "compile: z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\../../../Libraries\\Source\\subsystem\\SubsystemInterface.h(14) : error C2011: 'SubsystemInterface' : 'class' type redefinition | z:\\work3\\Open-BFME-2\\Code\\GameEngine\\Include\\Common\\MemoryPoolObject.h(7) : error C2011: 'MemoryPoolObject' : 'class' typ",
+    "Code/GameEngine/Source/Common/System/UpgradeCtor.cpp": "bytes",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Dtor.cpp": "bytes",
+    "Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Assign.cpp": "bytes"
+  },
+  "adopt_first": {
+    "Code/GameEngine/Source/Common/System/UpgradeCenterCanAffordUpgrade.cpp": [
+      "Player"
+    ],
+    "Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp": [
+      "UpgradeCenter",
+      "UpgradeTemplate"
+    ],
+    "Code/GameEngine/Source/Common/System/UpgradeCenterNewUpgrade.cpp": [
+      "UpgradeCenter",
+      "UpgradeTemplate"
+    ],
+    "Code/GameEngine/Source/Common/System/UpgradeCenterParseUpgradeMask.cpp": [
+      "UpgradeCenter",
+      "UpgradeTemplate"
+    ],
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp": [
+      "UpgradeTemplate"
+    ],
+    "Code/GameEngine/Source/Common/System/UpgradeTemplateResolveSubUpgradeNames.cpp": [
+      "UpgradeCenter",
+      "UpgradeTemplate"
+    ],
+    "Code/GameEngine/Source/Common/System/UpgradeTemplate_cacheButtonImage.cpp": [
+      "ImageCollection",
+      "UpgradeTemplate"
+    ],
+    "Code/GameEngine/Source/Common/UpgradeCenterDestructor.cpp": [
+      "SubsystemInterface",
+      "UpgradeTemplate"
+    ]
+  },
+  "link_guard": "census-linked: Code/GameEngine/Source/Common/System/Upgrade.cpp, Code/GameEngine/Source/Common/System/UpgradeCenterCanAffordUpgrade.cpp, Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp, Code/GameEngine/Source/Common/System/UpgradeCenterInit.cpp, Code/GameEngine/Source/Common/System/UpgradeCenterNewUpgrade.cpp, Code/GameEngine/Source/Common/System/UpgradeCenterParseUpgradeMask.cpp, Code/GameEngine/Source/Common/System/UpgradeCtor.cpp, Code/GameEngine/Source/Common/System/UpgradeRva0026EE30.cpp, Code/GameEngine/Source/Common/System/UpgradeTemplateCalcCostToBuild.cpp, Code/GameEngine/Source/Common/System/UpgradeTemplateResolveSubUpgradeNames.cpp, Code/GameEngine/Source/Common/System/UpgradeTemplate_cacheButtonImage.cpp, Code/GameEngine/Source/Common/System/UpgradeTemplate_friend_makeVeterancyUpgrade.cpp, Code/GameEngine/Source/Common/UpgradeCenter.cpp, Code/GameEngine/Source/Common/UpgradeCenterDestructor.cpp, Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Assign.cpp, Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Dtor.cpp",
+  "blocked": "no verified merge of two or more donors"
+}
