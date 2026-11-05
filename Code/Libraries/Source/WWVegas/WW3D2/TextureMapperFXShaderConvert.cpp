@@ -11,7 +11,7 @@
 #define inline static inline
 #include <math.h>
 #undef inline
-#include "ascii_string.h"
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int kind);

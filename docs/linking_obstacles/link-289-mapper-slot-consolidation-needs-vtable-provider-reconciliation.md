@@ -1,3 +1,4 @@
 ### LINK-289: mapper slot consolidation needs vtable provider reconciliation
-Status: Blocked. Updated: 2026-11-04; inspected revision: 14de04da9b.
+Status: Blocked. Updated: 2026-11-05; inspected revision: 7cbd36821e.
 Evidence / next check: [Current-input merge and reverted slot trial](../../reverse/attempt_support/mapper-consolidation-20261104-codexb.md); reconcile TextureMapperClass/WSEnvMapperClass selected vtables and preserve calculate_uv_offset's external row before merging TextureMapperSlot8.cpp into mapper.cpp. No source change retained; restored byte verification passes. Census confirmation: none claimed.
+Update: [Verified header prerequisites](../../reverse/attempt_support/mapper-header-prerequisites-20261105-codex3.md) retire mapper's MaterialInfo header row and clear Debug/StringBase merge conflicts; 98 function rows and both unit link previews pass. Next reconcile mapper member declarations and vtable providers; Slot8/FX compile and Apply bytes still block the merge. Census confirmation: none claimed.
