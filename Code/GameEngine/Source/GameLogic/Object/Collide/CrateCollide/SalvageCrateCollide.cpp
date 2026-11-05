@@ -57,17 +57,7 @@ extern float GetGameLogicRandomValueReal(float lo, float hi, char *file, int lin
 extern int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 	// 0x00233FF4
 
-class GameTextInterface
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16();
-	virtual const UnicodeString *slot44(const char *label, bool *exists);
-};
-extern GameTextInterface *TheGameText;
+#include "../../../../../Include/GameClient/GameText.h"
 #include "../../../../Common/GameLogicObjectLookupView.h"
 //
 // ?xfer@SalvageCrateCollide@@MAEXPAVXfer@@@Z @0x004BD2F9 27B, with the fold alias
@@ -333,7 +323,7 @@ void SalvageCrateCollide::doMoney(Object *other)
 			player->m_money.rva003B0D7C(money, &player->m_3BC, true);
 		}
 		UnicodeString moneyString;
-		moneyString.format(TheGameText->slot44("GUI:AddCash", 0), money);
+		moneyString.format(TheGameText->fetchPtr("GUI:AddCash", 0), money);
 		((Rva004BCF92 *)this)->rva004BCF92(other, (int)&moneyString);
 	}
 }
@@ -362,7 +352,7 @@ bool SalvageCrateCollide::executeCrateBehavior(Object *other)
 		if (other && other->m_experienceTracker) {
 			other->m_experienceTracker->rva0039B4EC(1, true, false);
 			UnicodeString rankString;
-			rankString.format(TheGameText->slot44("GUI:GainRank", 0), 1);
+			rankString.format(TheGameText->fetchPtr("GUI:GainRank", 0), 1);
 			((Rva004BCF92 *)this)->rva004BCF92(other, (int)&rankString);
 		}
 		break;

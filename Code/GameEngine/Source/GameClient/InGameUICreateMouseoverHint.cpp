@@ -224,29 +224,7 @@ public:
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator* TheNameKeyGenerator;
 
-class GameTextInterface { public:
- virtual void slot00();
- virtual void slot01();
- virtual void slot02();
- virtual void slot03();
- virtual void slot04();
- virtual void slot05();
- virtual void slot06();
- virtual void slot07();
- virtual void slot08();
- virtual void slot09();
- virtual void slot10();
- virtual void slot11();
- virtual void slot12();
- virtual void slot13();
- virtual UnicodeString fetchAscii(const AsciiString&,bool * =0);
- virtual UnicodeString fetchChars(const char*,bool * =0);
- virtual void slot16();
- virtual const UnicodeString* fetchRef(const char*,bool * =0);
-
-
-};
-extern GameTextInterface* TheGameText;
+#include "../../Include/GameClient/GameText.h"
 class View { public:
  virtual void slot00();
  virtual void slot01();
@@ -500,14 +478,14 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    AsciiString drawKey;
    UnicodeString str;
    if(disguised) str=thingTemplate->getDisplayName();else str=*(const UnicodeString*)const_cast<Object*>(obj)->getDisplayName();
-   if(const_cast<Drawable*>(draw)->rva00274C62(&drawKey)) str=TheGameText->fetchAscii(drawKey);
+   if(const_cast<Drawable*>(draw)->rva00274C62(&drawKey)) str=TheGameText->fetch(drawKey);
    AsciiString objectKey;
-   if(const_cast<Object*>(obj)->rva0029137E(objectKey)) str=TheGameText->fetchAscii(objectKey);
+   if(const_cast<Object*>(obj)->rva0029137E(objectKey)) str=TheGameText->fetch(objectKey);
    UnicodeString displayName=str;
    if(str.isEmpty()) {
     AsciiString txtTemp;
     txtTemp.format("ThingTemplate:%s",obj->getTemplate()->getName().str());
-    str=TheGameText->fetchAscii(txtTemp);
+    str=TheGameText->fetch(txtTemp);
    }
    UnicodeString warehouseFeedback;
    static NameKeyType warehouseModuleKey=TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
@@ -515,7 +493,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    if(warehouseModule) {
     int boxes=warehouseModule->getBoxesStored();
     int value=boxes*TheGlobalData->m_valuePerSupplyBox;
-    warehouseFeedback.format(TheGameText->fetchRef("TOOLTIP:SupplyWarehouse"),value);
+    warehouseFeedback.format(TheGameText->fetchPtr("TOOLTIP:SupplyWarehouse"),value);
     str.concat(warehouseFeedback);
    }
    if(player) {
@@ -541,7 +519,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
        }
       }
      }
-     if(displayName.compare(TheGameText->fetchChars("OBJECT:Prop"))) {
+     if(displayName.compare(TheGameText->fetch("OBJECT:Prop"))) {
       bool sendOrdinaryTooltip=true;
       if(TheControlBar) {
        const Player* owner=obj->getControllingPlayer();

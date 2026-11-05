@@ -74,13 +74,7 @@ class AptOnline {public:void rva005170B4();};
 static __forceinline FunctorBinding bind(FunctorMethod method,FunctorTarget *target){FunctorBinding result(method,target);return result;}
 #include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
 extern GameSpyInfoInterface *TheGameSpyInfo;
-class GameTextInterface {public:
-#define V(n) virtual void slot##n();
-V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)
- virtual UnicodeString fetch(const char *,bool *exists=0);V(16)virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);
-#undef V
-};
-extern GameTextInterface *TheGameText;
+#include "../../../../../Include/GameClient/GameText.h"
 extern Rva00517048 *g_Va00A04904;
 // WB145D6E0 identifies OnYesToInvite; native5177EB..51795C RET0.
 void Rva00517048::rva005177EB()
@@ -94,7 +88,7 @@ void Rva00517048::rva005177EB()
  if(sender==map->end()){pending.state=0;pending.rva00516F3F();return;}
  UnicodeString nick(*(AsciiString *)((char *)&sender->second+4));
  UnicodeString text;
- text.format(TheGameText->fetchFormat("APT:BuddyInviteJoiningText"),nick.str());
+ text.format(TheGameText->fetchPtr("APT:BuddyInviteJoiningText"),nick.str());
  Rva00437F61(3,TheGameText->fetch("APT:BuddyInviteTitle"),text,Rva0023E8D8(Rva0051732A(
  Rva004F6986Member(bind(reinterpret_cast<FunctorMethod>(&AptOnline::rva005170B4),(FunctorTarget *)this)))));
 }
@@ -112,8 +106,8 @@ void Rva00517048::rva00517CC9(const BuddyInviteGameInfo &info)
  invite.rva00516F63(*(const Rva00516F3F *)&info);invite.state=1;
  UnicodeString nick(*(AsciiString *)((char *)&sender->second+4));
  UnicodeString text;
- if(invite.mode==1)text.format(TheGameText->fetchFormat("APT:BuddyInviteTextStrategic"),nick.str());
- else text.format(TheGameText->fetchFormat("APT:BuddyInviteTextOpenPlay"),nick.str());
+ if(invite.mode==1)text.format(TheGameText->fetchPtr("APT:BuddyInviteTextStrategic"),nick.str());
+ else text.format(TheGameText->fetchPtr("APT:BuddyInviteTextOpenPlay"),nick.str());
  n0044BF40::Rva00437F61(2,TheGameText->fetch("APT:BuddyInviteTitle"),text,Rva0044BF40(Rva0044BA4E(
   Rva004F6986Member(bind(reinterpret_cast<FunctorMethod>(&Rva00517048::rva005177EB),(FunctorTarget *)this)),
   Rva004F6986Member(bind(reinterpret_cast<FunctorMethod>(&AptOnline::rva005170B4),(FunctorTarget *)this)))));

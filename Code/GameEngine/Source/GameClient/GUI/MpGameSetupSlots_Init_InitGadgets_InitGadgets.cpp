@@ -460,30 +460,8 @@ struct MpGameSetupRules
 };
 
 // The game's rules setter (rowed under its address name).
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-	virtual void slot16() = 0;
-	virtual const UnicodeString *slot44(const char *label, bool *exists) = 0;
-};
+#include "../../../Include/GameClient/GameText.h"
 
-extern GameTextInterface *TheGameText;
 
 
 // Rva00511730Save.cpp's text entry helper.

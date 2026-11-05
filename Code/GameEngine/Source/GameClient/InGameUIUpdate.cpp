@@ -83,13 +83,7 @@ public:
 
 #include "../../Include/GameClient/GameWindowManager.h"
 
-class GameTextInterface
-{
-public:
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16)
-	virtual const UnicodeString *fetchFormat(const char *label, Bool *exists = 0);	// +0x44
-};
+#include "../../Include/GameClient/GameText.h"
 
 void GadgetStaticTextSetText(GameWindow *window, UnicodeString text);
 
@@ -238,7 +232,6 @@ extern int BfmeLogicFramesPerSecond;
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern GameWindowManager *TheWindowManager;
 extern PlayerList *ThePlayerList;
-extern GameTextInterface *TheGameText;
 extern ControlBar *TheControlBar;
 extern View *TheTacticalView;
 extern GlobalData *TheWritableGlobalData;
@@ -377,7 +370,7 @@ void InGameUI::update()
 		{
 			UnicodeString buffer;
 
-			buffer.format(TheGameText->fetchFormat("GUI:ControlBarMoneyDisplay"), currentMoney);
+			buffer.format(TheGameText->fetchPtr("GUI:ControlBarMoneyDisplay"), currentMoney);
 			GadgetStaticTextSetText(moneyWin, buffer);
 			lastMoney = currentMoney;
 		}

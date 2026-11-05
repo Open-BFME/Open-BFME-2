@@ -65,17 +65,7 @@ public:
 #include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
-class GameTextInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual void slot16();
-	virtual const UnicodeString *fetchFormat(const char *label, Bool *exists = 0); // +0x44
-};
-extern GameTextInterface *TheGameText;
+#include "../../Include/GameClient/GameText.h"
 
 class View
 {
@@ -197,11 +187,11 @@ void Rva002779CEHost::drawConstructPercent()
 		if ((obj->getTemplate()->m_nameString).endsWithNoCase("moot") && obj->rva0028BD17()
 			&& static_cast<CouncilInterface *>(obj->rva0028BD17())->isCouncil())
 		{
-			buffer.format(TheGameText->fetchFormat("CONTROLBAR:CouncilDesc"), obj->bfme_construction_percent());
+			buffer.format(TheGameText->fetchPtr("CONTROLBAR:CouncilDesc"), obj->bfme_construction_percent());
 		}
 		else if (!(obj->getTemplate()->m_kindof[5] & (1 << (0xbd & 31))) && !(obj->getTemplate()->m_kindof[1] & (1 << (0x3d & 31))))
 		{
-			buffer.format(TheGameText->fetchFormat("CONTROLBAR:UnderConstructionDesc"), obj->bfme_construction_percent());
+			buffer.format(TheGameText->fetchPtr("CONTROLBAR:UnderConstructionDesc"), obj->bfme_construction_percent());
 		}
 		m_constructDisplayString->setText(buffer);
 		m_lastConstructDisplayed = obj->bfme_construction_percent();

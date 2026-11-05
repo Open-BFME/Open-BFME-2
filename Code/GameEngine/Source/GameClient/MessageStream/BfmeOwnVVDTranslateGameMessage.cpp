@@ -83,14 +83,7 @@ public:
 
 #include "../../../Include/GameClient/GameClientClass.h"
 
-class GameTextInterface
-{
-public:
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E)
-	virtual UnicodeString fetch(const char *label, bool *exists = 0); // +0x3C
-	V(10)
-	virtual const UnicodeString &fetchRef(const char *label, bool *exists = 0); // +0x44
-};
+#include "../../../Include/GameClient/GameText.h"
 
 #undef V
 
@@ -154,7 +147,6 @@ extern View *TheTacticalView;
 extern Display *TheDisplay;
 extern GameClient *TheGameClient;
 extern GameLogic *TheGameLogic;
-extern GameTextInterface *TheGameText;
 extern GlobalData *TheWritableGlobalData;
 extern Shell *TheShell;
 extern bool scrollDir[4];
@@ -439,7 +431,7 @@ GameMessageDisposition BfmeOwnVVD::translateGameMessage(const GameMessage *msg)
 		{
 			TheTacticalView->getLocation(&m_viewLocation[slot - 1]);
 			UnicodeString text;
-			text.format(&TheGameText->fetchRef("GUI:BookmarkXSet"), slot);
+			text.format(TheGameText->fetchPtr("GUI:BookmarkXSet"), slot);
 			TheInGameUI->rva0029E846(text);
 		}
 		disp = DESTROY_MESSAGE;

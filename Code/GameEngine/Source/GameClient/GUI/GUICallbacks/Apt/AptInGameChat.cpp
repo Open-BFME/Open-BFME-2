@@ -282,22 +282,7 @@ enum NameKeyType
 extern NameKeyGenerator *TheNameKeyGenerator;
 #include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class GameTextInterface
-{
-public:
-#define TEXT_SLOT(N) virtual void slot##N();
-	TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04) TEXT_SLOT(05) TEXT_SLOT(06)
-	TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09) TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
-#undef TEXT_SLOT
-	// Overloaded virtuals are laid out in reverse declaration order: the
-	// AsciiString fetch is vslot 14, the char one vslot 15.
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
-	virtual void slot16();
-	// The localized format string itself.
-	virtual const UnicodeString *slot17(const char *label, bool *exists);
-};
-extern GameTextInterface *TheGameText;
+#include "../../../../../Include/GameClient/GameText.h"
 // ?rva004E8220@Rva004E8220@@QAEXH@Z @ 0x004E8220 (20B):
 // Leaf thiscall setter. If the dword at +0x27C is 1 set it to 2; single
 // unused int arg (ret 4). Evidence: reads ecx before writing it; caller at
@@ -630,25 +615,25 @@ void AptInGameChat::Send(const char *unused)
 			case 0:
 				if ((player->getRelationship(local->m_defaultTeam) == ALLIES && local->getRelationship(player->m_defaultTeam) == ALLIES) || player == local)
 					playerMask |= 1 << i;
-				message.format(TheGameText->slot17("APT:TeamChat", 0), text.str());
+				message.format(TheGameText->fetchPtr("APT:TeamChat", 0), text.str());
 				break;
 			case 1:
 				if (!TheGameInfo->getConstSlot(i)->m_0A)
 					playerMask |= 1 << i;
-				message.format(TheGameText->slot17("APT:GlobalChat", 0), text.str());
+				message.format(TheGameText->fetchPtr("APT:GlobalChat", 0), text.str());
 				break;
 			case 2:
 				if (player == local)
 					playerMask |= 1 << i;
-				message.format(TheGameText->slot17("APT:PrivateChat", 0), text.str());
+				message.format(TheGameText->fetchPtr("APT:PrivateChat", 0), text.str());
 				break;
 			case 3:
-				message.format(TheGameText->slot17("APT:ConsoleCommand", 0), text.str());
+				message.format(TheGameText->fetchPtr("APT:ConsoleCommand", 0), text.str());
 				break;
 			case 4:
 				if (!player->isPlayerActive())
 					playerMask |= 1 << i;
-				message.format(TheGameText->slot17("APT:ObserverChat", 0), text.str());
+				message.format(TheGameText->fetchPtr("APT:ObserverChat", 0), text.str());
 				break;
 			}
 		}

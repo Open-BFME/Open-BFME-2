@@ -7,6 +7,7 @@
 // names ("AptScoreScreen::OnInitialized" ...) as member pointers by the
 // screen's registration; that binding is their only reference. The class
 // is named for the strings' prefix. +0x27C is the screen's state.
+#include "../../../../../Include/GameClient/GameText.h"
 #include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -47,33 +48,6 @@ extern GameWindowManager *TheWindowManager;
 // The Apt player's rowed call 0x00222A8B on a movie's level.
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 extern class Rva00222A8BTarget *TheRva00222A8BTarget;
-// TheGameText's fetch by label (vslot 14).
-class GameTextInterface
-
-{
- public:
- virtual ~GameTextInterface() 
- {
-  
- }
- virtual void slot01() = 0;
- virtual void slot02() = 0;
- virtual void slot03() = 0;
- virtual void slot04() = 0;
- virtual void slot05() = 0;
- virtual void slot06() = 0;
- virtual void slot07() = 0;
- virtual void slot08() = 0;
- virtual void slot09() = 0;
- virtual void slot10() = 0;
- virtual void slot11() = 0;
- virtual void slot12() = 0;
- virtual void slot13() = 0;
- virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
- 
-}
-;
-extern GameTextInterface *TheGameText;
 // TheMouse's rowed tooltip setter 0x001EEA6D (MouseRva001EEA6D.cpp).
 #include "../../../../../../Libraries/Include/Lib/RGBColor.h"
 class Mouse

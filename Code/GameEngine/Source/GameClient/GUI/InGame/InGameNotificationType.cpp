@@ -158,16 +158,7 @@ extern AudioManager *TheAudio;
 #include "../../../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
-class GameTextInterface
-{
-public:
-	virtual void _slot0(); virtual void _slot1(); virtual void _slot2(); virtual void _slot3();
-	virtual void _slot4(); virtual void _slot5(); virtual void _slot6(); virtual void _slot7();
-	virtual void _slot8(); virtual void _slot9(); virtual void _slot10(); virtual void _slot11();
-	virtual void _slot12(); virtual void _slot13();
-	virtual UnicodeString fetchName(const AsciiString *name, bool *exists = 0);
-};
-extern GameTextInterface *TheGameText;
+#include "../../../../Include/GameClient/GameText.h"
 
 #include "../../../../Include/GameClient/Image.h"
 extern ImageCollection *TheMappedImageCollection;
@@ -176,7 +167,7 @@ static __declspec(noinline) Rva002217EA rva00221920(const InGameNotificationType
 {
 	Rva002217EA localNotif;
 	if (!type->m_textKey.isEmpty()) {
-		reinterpret_cast<Rva0040FB15WideStringCopyForward *>(&localNotif)->set(TheGameText->fetchName(&type->m_textKey, 0));
+		reinterpret_cast<Rva0040FB15WideStringCopyForward *>(&localNotif)->set(TheGameText->fetch(type->m_textKey, 0));
 	}
 	if (!type->m_audioKey.isEmpty()) {
 		reinterpret_cast<Rva0040FB2E *>(&localNotif)->rva0040FB2E(TheAudio->a75(&type->m_audioKey));

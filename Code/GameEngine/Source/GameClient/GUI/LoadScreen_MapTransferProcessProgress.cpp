@@ -23,20 +23,7 @@ class GameWindow;
 void GadgetProgressBarSetProgress(GameWindow *g, Int progress);
 void GadgetStaticTextSetText(GameWindow *window, UnicodeString text);
 
-class GameTextInterface
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02();
-	virtual void slot03(); virtual void slot04(); virtual void slot05();
-	virtual void slot06(); virtual void slot07(); virtual void slot08();
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
-	virtual void slot16();
-	virtual const UnicodeString *slot44(const char *label, bool *exists);
-};
-extern GameTextInterface *TheGameText;
+#include "../../../Include/GameClient/GameText.h"
 
 enum { MAX_SLOTS = 8 };
 
@@ -124,7 +111,7 @@ void MapTransferLoadScreen::processTimeout(Int secondsLeft)
     m_oldTimeout = secondsLeft;
     if (m_timeoutText) {
         UnicodeString text;
-        text.format(TheGameText->slot44("MapTransfer:Timeout", 0),
+        text.format(TheGameText->fetchPtr("MapTransfer:Timeout", 0),
                     secondsLeft / 60, secondsLeft % 60);
         GadgetStaticTextSetText(m_timeoutText, text);
     }
@@ -143,7 +130,7 @@ void MapTransferLoadScreen::setCurrentFilename(AsciiString filename)
 	{
 		UnicodeString txt;
 		txt.translate(TheGameState->getMapLeafName(filename));
-		txt.format(TheGameText->slot44("MapTransfer:CurrentFile", 0), txt.str());
+		txt.format(TheGameText->fetchPtr("MapTransfer:CurrentFile", 0), txt.str());
 		GadgetStaticTextSetText(m_fileNameText, txt);
 	}
 }

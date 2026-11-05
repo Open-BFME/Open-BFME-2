@@ -31,19 +31,7 @@ template<> __declspec(dllimport) __forceinline bool StringBase<unsigned short>::
 
 typedef unsigned short WideChar;
 
-class GameTextInterface
-{
-public:
-	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13();
-	// cl 7.1 lays overloaded virtuals out in reverse: slot 14 (+0x38) takes
-	// the AsciiString label, slot 15 (+0x3C) the C string.
-	virtual UnicodeString fetch(const char *label, bool *exists = 0);
-	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
-};
-extern GameTextInterface *TheGameText;
+#include "../../../../Include/GameClient/GameText.h"
 
 #include "../../../../Include/GameClient/MapMetaData.h"
 #include "../../../../Include/GameClient/MapCache.h"
@@ -202,6 +190,9 @@ class GameState : public SubsystemInterface, public Snapshot
 public:
 	GameState();
 	virtual ~GameState();
+	virtual void init();
+	virtual void reset();
+	virtual void update();
 
 	int determineCurrentGameSaveFileMode();
 	void *rva002DBC97Get(int mode);

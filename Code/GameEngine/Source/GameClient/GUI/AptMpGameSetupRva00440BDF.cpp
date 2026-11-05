@@ -399,30 +399,8 @@ struct MpGameSetupRules
 };
 
 // The game's rules setter (rowed under its address name).
-class GameTextInterface
-{
-public:
-	virtual ~GameTextInterface() {}
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0) = 0;
-	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
-	virtual void slot16() = 0;
-	virtual const UnicodeString *slot44(const char *label, bool *exists) = 0;
-};
+#include "../../../Include/GameClient/GameText.h"
 
-extern GameTextInterface *TheGameText;
 
 
 // Rva00511730Save.cpp's text entry helper.
@@ -828,7 +806,7 @@ bool AptMpGameSetup::OnHostStartGame(bool countdown)
    if(slot->isHuman()) {
     if(!(slot->m_hasMap?slot->m_hasMap:slot->m_hasMap) && !willTransfer) {
      UnicodeString msg;
-     msg.format(TheGameText->slot44("GUI:PlayerNoMap",0),slot->m_name.str(),mapName.str());
+     msg.format(TheGameText->fetchPtr("GUI:PlayerNoMap",0),slot->m_name.str(),mapName.str());
      m_owner->v17(msg,2);
      allHaveMap=false;
     }
@@ -852,7 +830,7 @@ bool AptMpGameSetup::OnHostStartGame(bool countdown)
   }
   if(countdown) m_3a8=numHumans;
   if(!allHaveMap) {rva0043E49C(TheGameText->fetch("GUI:CouldNotTransferMap"));return false;}
-  if(maxPlayers<numUsers) {text.format(TheGameText->slot44("LAN:TooManyPlayers",0),maxPlayers);rva0043E49C(text);return false;}
+  if(maxPlayers<numUsers) {text.format(TheGameText->fetchPtr("LAN:TooManyPlayers",0),maxPlayers);rva0043E49C(text);return false;}
   if(TheWritableGlobalData->field0A44 && !numHumans) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
   if(mode1 && !allSpots) {text=TheGameText->fetch("GUI:NeedStartSpots");rva0043E49C(text);m_owner->v17(text,2);return false;}
   if(numUsers<TheWritableGlobalData->field0A44) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
@@ -876,7 +854,7 @@ bool AptMpGameSetup::OnHostStartGame(bool countdown)
   }
   return true;
  }
- text.format(TheGameText->slot44("LAN:NoMapSelected",0));rva0043E49C(text);return false;
+ text.format(TheGameText->fetchPtr("LAN:NoMapSelected",0));rva0043E49C(text);return false;
 }
 bool Rva00441E4DFaction(void *, const AsciiString &);
 void AptMpGameSetup::PopulatePlayerTemplateCombo(int index)
