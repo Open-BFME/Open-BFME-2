@@ -194,17 +194,6 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 }
 #include "../../../Common/GameLogicObjectLookupView.h"
 #pragma intrinsic(_ReadWriteBarrier)
-
-// ?getModuleNameKey@AODCrushCollide@@UBE?AW4NameKeyType@@XZ @0x4BBF44
-// (69B): cached pool-name key for AODCrushCollide. The class
-// identity comes from the pool-name string the body pushes
-// ("AODCrushCollide"); the body guards a function-local static
-// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
-// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
-// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
-// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
-// from retail, no pins; nameToKey resolves via its matched row).
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -354,9 +343,25 @@ class Rva004BC0B8State { public:
  virtual Rva004BC0B8Listener *lookup();
 };
 
-// tu-skeleton: 0x004BBEDD 32B ??1AODCrushCollide@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp
+
+AODCrushCollide::~AODCrushCollide()
+{
+}
 
 // tu-skeleton: 0x004BBEFD 6B ?name@AODCrushCollide@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp
+
+// ?getModuleNameKey@AODCrushCollide@@UBE?AW4NameKeyType@@XZ @0x4BBF44
+// (69B): cached pool-name key for AODCrushCollide. The class
+// identity comes from the pool-name string the body pushes
+// ("AODCrushCollide"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp
 
@@ -487,8 +492,6 @@ void AODCrushCollide::onCollide(Object *other,const Coord3D *,const Coord3D *)
  if (ocl) ocl->create(other,self,0);
 }
 
-// tu-skeleton: 0x004BBFFC 17B ?buildFieldParse@AODCrushCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideCtor.cpp
 
 // ??0AODCrushCollide@@QAE@PAVThing@@PBVModuleData@@@Z
@@ -497,6 +500,6 @@ AODCrushCollide::AODCrushCollide(Thing *thing, const ModuleData *moduleData)
 {
 }
 
-// tu-skeleton: 0x004BC050 28B ??_GAODCrushCollide@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideDtor.cpp (not merged yet)
+// tu-skeleton: 0x004BBFFC 17B ?buildFieldParse@AODCrushCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x004BC06C 28B ??_GAODCrushCollideModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-95ab.cpp (not merged yet)
