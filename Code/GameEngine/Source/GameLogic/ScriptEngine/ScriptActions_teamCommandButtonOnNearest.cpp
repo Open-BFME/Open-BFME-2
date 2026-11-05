@@ -165,42 +165,16 @@ bool Rva0026144CFilter::allow(Object *obj)
 
 #include "../../Common/PartitionRangeQueryCallView.h"
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
+#include "../../../Include/GameClient/CommandButton.h"
 
-class SpecialPowerTemplate : public Overridable
+// Option bit 5 read through a bool-returning inline: retail tests the shifted
+// value (shr eax,5; test al,1), not the byte mask a direct `& 0x20` produces.
+static inline bool needsTargetPosition(const CommandButton *button)
 {
-public:
-	unsigned int getID() const
-	{
-		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_id;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getID copy loses to the first-in-order copy. No flags touched.
-	unsigned int bfme_getID_4c1e7() const
-	{
-		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_id;
-	}
-	char m_pad00[0x14];
-	unsigned int m_id;	// +0x14
-};
-
-class CommandButton
-{
-public:
-	bool isReady(const Object *obj) const;	// 0x0035B069
-	GUICommandType getCommandType() const { return m_command; }
-	const SpecialPowerTemplate *getSpecialPowerTemplate() const { return m_specialPower; }
-	bool rva003BDCCA() const { return (m_options >> 5) & 1; }
-	char m_pad00[0x14];
-	GUICommandType m_command;				// +0x14
-	char m_pad18[0x1C - 0x18];
-	unsigned int m_options;					// +0x1C
-	char m_pad20[0x44 - 0x20];
-	const SpecialPowerTemplate *m_specialPower;		// +0x44
-};
+	return (button->getOptions() >> 5) & 1;
+}
 
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
@@ -246,7 +220,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestEnemy(const AsciiString &team
 
 	Object *srcObj;
 	if (commandButton->getSpecialPowerTemplate())
-		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->bfme_getID_4c1e7());
+		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->getID());
 	else
 		srcObj = theGroup->getCommandButtonSourceObject(commandButton->getCommandType());
 	if (!srcObj)
@@ -261,7 +235,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestEnemy(const AsciiString &team
 	mask.set(89);
 	mask.set(54);
 	mask.set(130);
-	if (commandButton->rva003BDCCA()) {
+	if (needsTargetPosition(commandButton)) {
 		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -296,7 +270,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestGarrisonedBuilding(const Asci
 
 	Object *srcObj;
 	if (commandButton->getSpecialPowerTemplate())
-		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->bfme_getID_4c1e7());
+		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->getID());
 	else
 		srcObj = theGroup->getCommandButtonSourceObject(commandButton->getCommandType());
 	if (!srcObj)
@@ -311,7 +285,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestGarrisonedBuilding(const Asci
 	mask.set(89);
 	mask.set(54);
 	mask.set(130);
-	if (commandButton->rva003BDCCA()) {
+	if (needsTargetPosition(commandButton)) {
 		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -346,7 +320,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestKindof(const AsciiString &tea
 
 	Object *srcObj;
 	if (commandButton->getSpecialPowerTemplate())
-		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->bfme_getID_4c1e7());
+		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->getID());
 	else
 		srcObj = theGroup->getCommandButtonSourceObject(commandButton->getCommandType());
 	if (!srcObj)
@@ -361,7 +335,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestKindof(const AsciiString &tea
 	mask.set(89);
 	mask.set(54);
 	mask.set(130);
-	if (commandButton->rva003BDCCA()) {
+	if (needsTargetPosition(commandButton)) {
 		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -396,7 +370,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuilding(const AsciiString &t
 
 	Object *srcObj;
 	if (commandButton->getSpecialPowerTemplate())
-		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->bfme_getID_4c1e7());
+		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->getID());
 	else
 		srcObj = theGroup->getCommandButtonSourceObject(commandButton->getCommandType());
 	if (!srcObj)
@@ -411,7 +385,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuilding(const AsciiString &t
 	mask.set(89);
 	mask.set(54);
 	mask.set(130);
-	if (commandButton->rva003BDCCA()) {
+	if (needsTargetPosition(commandButton)) {
 		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
@@ -446,7 +420,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuildingClass(const AsciiStri
 
 	Object *srcObj;
 	if (commandButton->getSpecialPowerTemplate())
-		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->bfme_getID_4c1e7());
+		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->getID());
 	else
 		srcObj = theGroup->getCommandButtonSourceObject(commandButton->getCommandType());
 	if (!srcObj)
@@ -461,7 +435,7 @@ void ScriptActions::doTeamUseCommandButtonOnNearestBuildingClass(const AsciiStri
 	mask.set(89);
 	mask.set(54);
 	mask.set(130);
-	if (commandButton->rva003BDCCA()) {
+	if (needsTargetPosition(commandButton)) {
 		Object *obj = ThePartitionManager->getClosestObject(&pos, REALLY_FAR, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4)
 				.link(Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7),
@@ -505,7 +479,7 @@ void ScriptActions::doSkirmishCommandButtonOnMostValuable(const AsciiString &tea
 
 	Object *srcObj;
 	if (commandButton->getSpecialPowerTemplate())
-		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->bfme_getID_4c1e7());
+		srcObj = theGroup->getSpecialPowerSourceObject(commandButton->getSpecialPowerTemplate()->getID());
 	else
 		srcObj = theGroup->getCommandButtonSourceObject(commandButton->getCommandType());
 	if (!srcObj)
@@ -514,7 +488,7 @@ void ScriptActions::doSkirmishCommandButtonOnMostValuable(const AsciiString &tea
 	Coord3D pos;
 	theGroup->getCenter(&pos);
 
-	if (commandButton->rva003BDCCA()) {
+	if (needsTargetPosition(commandButton)) {
 		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&pos, range, 0,
 			Rva00261409Filter(team->getControllingPlayer(), true, 4).link(&Rva002611BFFilter(srcObj)), 0);
 		Object *best = hits.next();
