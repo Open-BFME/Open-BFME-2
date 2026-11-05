@@ -12,10 +12,10 @@
 class Thing;
 class ModuleData;
 
-extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseA@@@")[];  // vftable 0x00C590A8
-extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseB@@@")[];  // vftable 0x00C57328
-extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseC@@@")[];  // vftable 0x00C59060
-extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseD@@@")[];  // vftable 0x00C58790
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BObjectModule@@@")[];  // vftable 0x00C590A8
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C57328
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeMux@@@")[];  // vftable 0x00C59060
+extern "C" const void *const __identifier("??_7CommandPointsUpgrade@@6BUpgradeModuleInterface18@@@")[];  // vftable 0x00C58790
 
 // Opaque UpgradeModule base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -46,8 +46,8 @@ private:
 CommandPointsUpgrade::CommandPointsUpgrade(Thing *thing, const ModuleData *moduleData)
 	: UpgradeModule(thing, moduleData)
 {
-	m_vtable = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseA@@@");
-	m_p0C = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseB@@@");
-	m_p10 = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseC@@@");
-	m_p18 = __identifier("??_7CommandPointsUpgrade@@6BUpgradeDerivedBaseD@@@");
+	m_vtable = __identifier("??_7CommandPointsUpgrade@@6BObjectModule@@@");
+	m_p0C = __identifier("??_7CommandPointsUpgrade@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7CommandPointsUpgrade@@6BUpgradeMux@@@");
+	m_p18 = __identifier("??_7CommandPointsUpgrade@@6BUpgradeModuleInterface18@@@");
 }

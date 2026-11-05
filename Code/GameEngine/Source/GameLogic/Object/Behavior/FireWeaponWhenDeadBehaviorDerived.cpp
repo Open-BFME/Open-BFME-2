@@ -8,54 +8,18 @@
 // does not identify them. The former FireWeaponWhenDeadBehavior base name
 // was refuted by that class's verified five-table UpdateModule ctor.
 
-#include "PreRTS.h"
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-// TU-scoped layout view: only the base destructor is needed by these bodies.
-class UpgradeDerivedBaseA
-{
-	virtual ~UpgradeDerivedBaseA();
-	unsigned char m_pad[8];
-};
-
-class UpgradeDerivedBaseB
-{
-	virtual ~UpgradeDerivedBaseB();
-};
-
-class UpgradeDerivedBaseC
-{
-	virtual ~UpgradeDerivedBaseC();
-	unsigned char m_pad[4];
-};
-
-class UpgradeDerivedBaseD
-{
-	virtual ~UpgradeDerivedBaseD();
-};
-
-class UpgradeModule : public UpgradeDerivedBaseA, public UpgradeDerivedBaseB, public UpgradeDerivedBaseC, public UpgradeDerivedBaseD
-{
-protected:
-	virtual ~UpgradeModule();
-};
-
-// TU-scoped shims for ?loadPostProcess@Rva004B4CDF@@MAEXXZ @0x004B4D05 (25B,
-// slot 1 of primary vtable 0x00857C40; tail-jmp to pinned
-// ?loadPostProcess@UpdateModule@@MAEXXZ at 0x0058B03E).
+// ?loadPostProcess@Rva004B4CDF@@MAEXXZ @0x004B4D05 (25B, slot 1 of primary
+// vtable 0x00857C40) tail-jumps to 0x0058B03E, the ICF-shared empty
+// ?loadPostProcess@UpgradeModule@@MAEXXZ (also UpdateModule's).
 // Retail: if (byte at +0x20) ((Member10*)(this+0x10))->s10();
-// UpdateModule::loadPostProcess(). The indirect call is slot 10 (0x28) of the
+// UpgradeModule::loadPostProcess(). The indirect call is slot 10 (0x28) of the
 // UpgradeMux-side vtable 0x00857BF8 (18 slots; per-derived slots 8/10 are
 // 0x004B5101/0x004B5020 for this class). Primary slot layout (dtor/name/xfer/
 // poolkey/empty) matches HijackerUpdate vtable 0x008525E4 whose slot 1 is the
 // rowed ?loadPostProcess@HijackerUpdate@@MAEXXZ.
-class Rva004B4CDF;
-class UpdateModule
-{
-protected:
-	virtual void loadPostProcess();
-	friend class Rva004B4CDF;
-};
-
 class Rva004B4CDFMember10
 {
 public:
@@ -142,13 +106,12 @@ protected:
 
 void Rva004B4CDF::loadPostProcess()
 {
-	// +0x20 is an unidentified bool in the UpgradeModule base
-	// (inside the 0xAC body; UpgradeMux itself lives at +0x10 with its bool at
-	// +0x14, Die at +0x18). +0x10 is the UpgradeMux-side base whose vtable is
+	// +0x20 is an unidentified bool past the 0x1C-byte UpgradeModule base
+	// (UpgradeMux lives at +0x10 with its bool at +0x14). +0x10 is the UpgradeMux-side base whose vtable is
 	// 0x00857BF8; v10 is slot 10 (0x28), retail target 0x004B5020.
 	if (*reinterpret_cast<bool*>(reinterpret_cast<char*>(this) + 0x20))
 		reinterpret_cast<Rva004B4CDFMember10*>(reinterpret_cast<char*>(this) + 0x10)->v10();
-	reinterpret_cast<UpdateModule*>(reinterpret_cast<void*>(this))->UpdateModule::loadPostProcess();
+	UpgradeModule::loadPostProcess();
 }
 
 Rva004B4CDF::~Rva004B4CDF()

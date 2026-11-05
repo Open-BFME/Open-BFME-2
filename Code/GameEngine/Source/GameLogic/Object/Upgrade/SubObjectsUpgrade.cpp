@@ -24,8 +24,8 @@
 
 extern "C" const void *const __identifier("??_7ArmorUpgrade@@6BBehaviorModuleInterface@@@")[];
 extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface2C@@@")[];
-extern "C" const void *const __identifier("??_7Rva004B4CDF@@6BUpgradeDerivedBaseC@@@")[];
-extern "C" const void *const __identifier("??_7Rva004B4CDF@@6BUpgradeDerivedBaseA@@@")[];
+extern "C" const void *const __identifier("??_7Rva004B4CDF@@6BUpgradeMux@@@")[];
+extern "C" const void *const __identifier("??_7Rva004B4CDF@@6BObjectModule@@@")[];
 class Thing;
 #include "../../../Common/GameLogicObjectLookupView.h"
 //
@@ -464,17 +464,17 @@ NameKeyType SubObjectsUpgrade::getModuleNameKey() const
 
   // folded, 55 classes; via ??_7AODHordeContain@@6BIface2C@@@
 
-  // ??_7Rva004B4CDF@@6BUpgradeDerivedBaseC@@@
+  // ??_7Rva004B4CDF@@6BUpgradeMux@@@
 
-  // ??_7Rva004B4CDF@@6BUpgradeDerivedBaseA@@@
+  // ??_7Rva004B4CDF@@6BObjectModule@@@
 
 // ??0SubObjectsUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z @0x004B4D63
 SubObjectsUpgrade::SubObjectsUpgrade(Thing *thing, const ModuleData *moduleData) :
 	UpgradeModule(thing, moduleData)
 {
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva004B4CDF@@6BUpgradeDerivedBaseA@@@"));
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7Rva004B4CDF@@6BObjectModule@@@"));
 	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7ArmorUpgrade@@6BBehaviorModuleInterface@@@"));
-	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004B4CDF@@6BUpgradeDerivedBaseC@@@"));
+	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva004B4CDF@@6BUpgradeMux@@@"));
 	*(unsigned int *)((char *)this + 0x18) = ((unsigned int)__identifier("??_7AODHordeContain@@6BIface2C@@@"));
 	m_1C = (void *)TheGameLogic->getFrame();
 	m_20 = 0;
