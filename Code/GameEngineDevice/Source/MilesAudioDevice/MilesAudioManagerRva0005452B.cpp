@@ -28,24 +28,14 @@ typedef void *HSAMPLE;
 
 extern "C" __declspec(dllimport) void __stdcall AIL_release_3D_sample_handle(HSAMPLE sample);
 
-class MilesAudioManager
-{
-public:
-    void rva0005452B();
-private:
-    void *m_vtable;
-    char m_pad004[0x680 - 4];
-    unsigned int m_numSamples;
-    char m_pad684[0xA3C - 0x684];
-    _STL::list<int> m_available;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::rva0005452B()
 {
-    _STL::list<int>::iterator it = m_available.begin();
-    while (it != m_available.end()) {
+    _STL::list<int>::iterator it = m_available3DSamples.begin();
+    while (it != m_available3DSamples.end()) {
         AIL_release_3D_sample_handle((HSAMPLE)*it);
-        it = m_available.erase(it);
+        it = m_available3DSamples.erase(it);
     }
-    m_numSamples = 0;
+    m_680 = 0;
 }

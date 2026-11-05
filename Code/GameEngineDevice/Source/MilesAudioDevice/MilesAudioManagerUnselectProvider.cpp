@@ -10,8 +10,7 @@
 // donor names are retained only where the caller and call sequence support
 // them.
 
-typedef unsigned char Bool;
-typedef void *HPROVIDER;
+typedef unsigned int HPROVIDER;
 typedef void *H3DLISTENER;
 
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_speaker_type(
@@ -25,33 +24,7 @@ extern "C" __declspec(dllimport) void __stdcall AIL_close_3D_provider(
 
 extern class VideoPlayerInterface *TheVideoPlayer;
 
-struct MilesProviderInfo
-{
-	void *name;
-	HPROVIDER id;
-	int isValid;
-};
-
-enum { MAXPROVIDERS = 64 };
-
-class MilesAudioManager
-{
-public:
-	virtual void v00();
-
-private:
-	void unselectProvider(void);
-	char m_pad04[0x6A2];
-	Bool m_flag6A6;
-	char m_pad6A7[0x25];
-	MilesProviderInfo m_provider3D[MAXPROVIDERS];
-	unsigned int m_providerCount;
-	unsigned int m_selectedProvider;
-	char m_pad9D4[0x0C];
-	H3DLISTENER m_listener;
-	char m_pad9E4[0x20C];
-	int m_speakerType;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::unselectProvider(void)
 {
@@ -62,9 +35,9 @@ void MilesAudioManager::unselectProvider(void)
 	if (player)
 		player->notifyVideoPlayerOfNewProvider(0);
 
-	if (m_flag6A6)
+	if (m_6A6)
 		AIL_set_3D_speaker_type(m_provider3D[m_selectedProvider].id,
-			m_speakerType);
+			m_BF0);
 
 	AIL_close_3D_listener(m_listener);
 	m_listener = 0;

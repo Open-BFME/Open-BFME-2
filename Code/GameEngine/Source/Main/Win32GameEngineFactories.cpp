@@ -67,13 +67,7 @@ private:
 	char m_unmodelled[0x1504];
 };
 
-class MilesAudioManager
-{
-public:
-	MilesAudioManager();
-private:
-	char m_unmodelled[0xC08];
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 class Rva00628FD
 {

@@ -11,22 +11,13 @@ namespace _STL {
 template<> list<int>::iterator list<int>::erase(iterator position);
 }
 typedef void *H3DSAMPLE;
-class MilesAudioManager
-{
-public:
-	int rva00054596();
-private:
-	void *m_vtable;
-	char m_padC[0x9DC - 4];
-	char m_pad9DC[0xA3C - 0x9DC];
-	_STL::list<int> m_available3D;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 int MilesAudioManager::rva00054596()
 {
-	if (!m_available3D.empty()) {
-		_STL::list<int>::iterator it = m_available3D.begin();
+	if (!m_available3DSamples.empty()) {
+		_STL::list<int>::iterator it = m_available3DSamples.begin();
 		int v = *it;
-		m_available3D.erase(it);
+		m_available3DSamples.erase(it);
 		return v;
 	}
 	return 0;

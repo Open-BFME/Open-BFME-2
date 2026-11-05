@@ -39,10 +39,14 @@
 //    the AsciiString at +0 (0x00051774) and the handle at +4 (0x00060587).
 // Donor (Zero Hour MilesAudioManager.h, GameAudio.h) facts: the names m_audioSettings,
 // m_miscAudio, m_listenerPosition, m_listenerOrientation, ProviderInfo, m_provider3D,
-// m_providerCount, m_selectedProvider, m_digitalHandle, m_listener, m_delayFilter and
-// m_audioCache. Other members keep their offset as a neutral name. Members whose types have
-// no shared header (STLport containers, ScreenToTerrainSet, GlobalVolumeData, Mutex, the
-// +0xB90 device reference, the +0xB48 refs) stay opaque byte spans of the retail size.
+// m_providerCount, m_selectedProvider, m_digitalHandle, m_listener, m_delayFilter,
+// m_audioCache, m_availableSamples and m_available3DSamples. initSamplePools 0x00056746 and
+// init3DSamplePools 0x000566B6 append to +0xA38 and +0xA3C through the rowed list<int>
+// push_back 0x0005548F; 0x000544EB, 0x0005456B, 0x0005452B and 0x00054596 erase from them
+// through the rowed list<int> erase 0x00438539. Other members keep their offset as a neutral
+// name. Members whose types have no shared header (the other STLport containers,
+// ScreenToTerrainSet, GlobalVolumeData, Mutex, the +0xB90 device reference, the +0xB48 refs)
+// stay opaque byte spans of the retail size.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -426,8 +430,15 @@ public:
     unsigned char m_9FC[0xC];                // +0x9FC vector
     unsigned char m_A08[0xC];                // +0xA08 vector
     unsigned char m_A14[0x24];               // +0xA14 three sets
+    // STLport lists are typed where the unit included STLport's <list> first; elsewhere
+    // the same bytes stay opaque, so non-STLport includers compile unchanged.
+#ifdef _STLP_INTERNAL_LIST_H
+    _STL::list<int> m_availableSamples;      // +0xA38
+    _STL::list<int> m_available3DSamples;    // +0xA3C
+#else
     unsigned char m_A38[0x4];                // +0xA38 list
     unsigned char m_A3C[0x4];                // +0xA3C list
+#endif
     unsigned char m_A40[0x4];                // +0xA40 list
     unsigned char m_A44[0x4];                // +0xA44 list
     unsigned char m_A48[0x4];                // +0xA48 list
