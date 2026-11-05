@@ -175,86 +175,7 @@ public:
 
 #include "../../../Include/GameClient/CommandButton.h"
 
-class InGameUI
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19();
-	virtual void v20();
-	virtual void v21();
-	virtual void v22();
-	virtual void v23();
-	virtual void v24();
-	virtual void v25();
-	virtual void v26();
-	virtual void v27();
-	virtual void v28();
-	virtual void v29();
-	virtual void v30();
-	virtual void v31();
-	virtual void v32();
-	virtual void v33();
-	virtual void v34();
-	virtual void v35();
-	virtual void v36();
-	virtual void v37();
-	virtual void v38();
-	virtual void v39();
-	virtual void v40();
-	virtual void v41();
-	virtual void v42();
-	virtual void v43();
-	virtual void v44();
-	virtual void v45();
-	virtual void v46();
-	virtual void setGUICommand(const CommandButton *command);
-	virtual const CommandButton *getGUICommand();
-	virtual void v49();
-	virtual void v50();
-	virtual void v51();
-	virtual void v52();
-	virtual void v53();
-	virtual void v54();
-	virtual void v55();
-	virtual void v56();
-	virtual void v57();
-	virtual void v58();
-	virtual void v59();
-	virtual void v60();
-	virtual void v61();
-	virtual void v62();
-	virtual void v63();
-	virtual void v64();
-	virtual void v65();
-	virtual void v66();
-	virtual void v67();
-	virtual void v68();
-	virtual void v69();
-	virtual int getSelectCount();
-	virtual void v71();
-	virtual void v72();
-	virtual const DrawableList *getAllSelectedDrawables();
-	virtual void v74();
-	virtual Drawable *getFirstSelectedDrawable();
-};
+#include "../../../Include/GameClient/InGameUI.h"
 
 extern InGameUI *TheInGameUI;
 
@@ -445,7 +366,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 		PickAndPlayInfo info;
 		int slot = command->m_weaponSlot;
 		info.m_weaponSlot = &slot;
-		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DO_WEAPON_AT_LOCATION, (PickAndPlayInfo *)&info);
+		pickAndPlayUnitVoiceResponse((const DrawableList *)TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DO_WEAPON_AT_LOCATION, (PickAndPlayInfo *)&info);
 		break;
 	}
 	case 0x18:
@@ -461,7 +382,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 			gameMessage->appendLocationArgument(world);
 			PickAndPlayInfo info;
 			info.m_14 = world;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_CREW_EVACUATE, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse((const DrawableList *)TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_CREW_EVACUATE, (PickAndPlayInfo *)&info);
 			status = 1;
 		}
 		break;
@@ -474,7 +395,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 			gameMessage->appendLocationArgument(world);
 			PickAndPlayInfo info;
 			info.m_14 = world;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_EVACUATE, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse((const DrawableList *)TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_EVACUATE, (PickAndPlayInfo *)&info);
 			status = 1;
 		}
 		break;
@@ -487,7 +408,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 			gameMessage->appendLocationArgument(world);
 			PickAndPlayInfo info;
 			info.m_14 = world;
-			pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_EVACUATE_CONTESTERS, (PickAndPlayInfo *)&info);
+			pickAndPlayUnitVoiceResponse((const DrawableList *)TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_EVACUATE_CONTESTERS, (PickAndPlayInfo *)&info);
 			status = 1;
 		}
 		break;
@@ -512,7 +433,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 	case 0x35:
 	{
 		PickAndPlayInfo info;
-		pickAndPlayUnitVoiceResponse(TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DOZER_CONSTRUCT, (PickAndPlayInfo *)&info);
+		pickAndPlayUnitVoiceResponse((const DrawableList *)TheInGameUI->getAllSelectedDrawables(), GameMessage::MSG_DOZER_CONSTRUCT, (PickAndPlayInfo *)&info);
 		break;
 	}
 	}

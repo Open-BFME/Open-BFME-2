@@ -68,18 +68,7 @@ public:
 	Int m_frameCount;
 };
 
-class InGameUI
-{
-protected:
-	void updateFloatingText();
-
-private:
-	unsigned char m_pad[0x8A0];
-	_STL::list<int> m_floatingTextList;
-	UnsignedInt m_floatingTextTimeOut;
-	Real m_floatingTextMoveUpSpeed;
-	Real m_floatingTextMoveVanishRate;
-};
+#include "../../Include/GameClient/InGameUI.h"
 
 void InGameUI::updateFloatingText()
 {
@@ -94,7 +83,7 @@ void InGameUI::updateFloatingText()
 		return;
 	lastLogicFrameUpdate = currLogicFrame;
 
-	_STL::list<int> &floatingTextList = self->m_floatingTextList;
+	_STL::list<int> &floatingTextList = reinterpret_cast<_STL::list<int> &>(self->m_floatingTextList);
 	for (_STL::list<int>::iterator it = floatingTextList.begin(); it != floatingTextList.end();)
 	{
 		ftd = (FloatingTextData *)(*it);
