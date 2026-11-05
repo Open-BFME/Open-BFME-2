@@ -214,9 +214,11 @@ struct GdiplusStartupOutput
     NotificationUnhookProc NotificationUnhook;
 };
 
-Status __stdcall GdiplusStartup(
+// GdiPlusInit.h declares both extern "C": the references are _GdiplusStartup@12
+// and _GdiplusShutdown@4, which GdiplusImportThunks.cpp defines.
+extern "C" Status __stdcall GdiplusStartup(
     unsigned long *token, const GdiplusStartupInput *input, GdiplusStartupOutput *output);
-void __stdcall GdiplusShutdown(unsigned long token);
+extern "C" void __stdcall GdiplusShutdown(unsigned long token);
 
 // Only the pieces CImage::Load touches: the constructor and destructor it
 // calls out of line at 0x00001368 and 0x000012A3, and the inline
@@ -862,6 +864,4 @@ void bfmeEmitatlimage(ATL::CImage *p)
 
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.
-#pragma comment(linker, "/alternatename:?GdiplusShutdown@Gdiplus@@YGXK@Z=?ji_00628f6e@@YAXXZ")
-#pragma comment(linker, "/alternatename:?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z=?ji_00628f68@@YAXXZ")
 #pragma comment(linker, "/alternatename:??1Bitmap@Gdiplus@@UAE@XZ=??1Image@Gdiplus@@UAE@XZ")

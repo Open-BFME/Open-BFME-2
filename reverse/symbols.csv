@@ -3725,8 +3725,6 @@ name,address,notes
 ?GadgetListBoxSetListLength@@YAXPAVGameWindow@@H@Z,0x002C17EB,retail call from GadgetComboBoxSystem at +0x1F0; 66B target passes the length argument through WindowManager message 0x4030; name inferred from the corresponding Zero Hour call
 ?GameDarkenColor@@YAHHH@Z,0x002D2B9A,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?GameGetColorComponentsReal@@YAXHPAM000@Z,0x002D2ACA,read from the REL32s at 0x000C977C and 0x000C9797 in W3DLaserDraw::doDrawModule (inner and outer laser colors); ledger row there keeps the generic Rva002D2ACAGet name for the same YAXHPAM000 signature
-?GdiplusShutdown@Gdiplus@@YGXK@Z,0x00628F6E,GDI+ import thunk identified by official ATL 7.1 call and retail target
-?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z,0x00628F68,GDI+ import thunk; retail target of ATL CImage::CInitGDIPlus::Init
 ?Gen007E9B40@@YAPAURva007E9D70Cached@@PAURva007E9D70Owner@@@Z,0x00656B30
 ?Gen007F0130@@YAPAXI@Z,0x0065D010
 ?Gen007F1C20@@YAPAURva007E9CE0Cached@@PAURva007E9CE0Owner@@@Z,0x0065E7A0

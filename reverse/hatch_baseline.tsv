@@ -3396,8 +3396,6 @@ alternatename	Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem
 alternatename	Code/Libraries/Source/ATL/atlbase.cpp	??0Rva00800630Owner@@QAE@XZ	1
 alternatename	Code/Libraries/Source/ATL/atlbase.cpp	?m@Gen_00800540@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/ATL/atlimage.cpp	??1Bitmap@Gdiplus@@UAE@XZ	1
-alternatename	Code/Libraries/Source/ATL/atlimage.cpp	?GdiplusShutdown@Gdiplus@@YGXK@Z	1
-alternatename	Code/Libraries/Source/ATL/atlimage.cpp	?GdiplusStartup@Gdiplus@@YG?AW4Status@1@PAKPBUGdiplusStartupInput@1@PAUGdiplusStartupOutput@1@@Z	1
 alternatename	Code/Libraries/Source/Apt/Apt.cpp	?AptPushStaticData@@YAPAXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreter.cpp	?Push@AptBasePtrStack@@QAEXPAVAptValue@@@Z	2
 alternatename	Code/Libraries/Source/Apt/AptActionInterpreter.cpp	?bfmeFind1024@BfmeTab1024@@QAEHH@Z	1
@@ -9450,8 +9448,8 @@ pin	reverse/symbols.csv	0x00628F50	1
 pin	reverse/symbols.csv	0x00628F56	1
 pin	reverse/symbols.csv	0x00628F5C	1
 pin	reverse/symbols.csv	0x00628F62	1
-pin	reverse/symbols.csv	0x00628F68	2
-pin	reverse/symbols.csv	0x00628F6E	2
+pin	reverse/symbols.csv	0x00628F68	1
+pin	reverse/symbols.csv	0x00628F6E	1
 pin	reverse/symbols.csv	0x00628F74	1
 pin	reverse/symbols.csv	0x00628F7A	1
 pin	reverse/symbols.csv	0x00628F80	1
@@ -9507,7 +9505,6 @@ pin	reverse/symbols.csv	0x00629B0E	1
 pin	reverse/symbols.csv	0x00629B14	2
 pin	reverse/symbols.csv	0x00629B6E	1
 pin	reverse/symbols.csv	0x00629BBA	1
-pin	reverse/symbols.csv	0x0062AF20	1
 pin	reverse/symbols.csv	0x0062AF26	1
 pin	reverse/symbols.csv	0x0062AF2C	1
 pin	reverse/symbols.csv	0x0062AF32	1
