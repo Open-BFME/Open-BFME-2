@@ -36,10 +36,11 @@ struct Rva00516F3F
 	int m_14;
 };
 
-// The pending buddy invite at +0x298.
-struct AptOnlineInvite
+// The pending buddy invite at +0x298 (AptOnline.cpp's 0x00516FA0 owner):
+// the record and the shell's join state at +0x18.
+struct Rva00516FA0
 {
-	Rva00516F3F m_info;
+	Rva00516F3F m_record;
 	int m_18; // +0x18
 };
 
@@ -56,7 +57,7 @@ public:
 
 private:
 	unsigned char m_pad000[0x298];
-	AptOnlineInvite m_invite; // +0x298
+	Rva00516FA0 m_invite; // +0x298
 };
 
 // The shell constructor 0x0051795C binds "AptOnline::OnInitialized" to
@@ -87,8 +88,8 @@ void AptOnline::rva005170B4()
 {
 	if (g_Va00A04904)
 	{
-		AptOnlineInvite *invite = &m_invite;
+		Rva00516FA0 *invite = &m_invite;
 		invite->m_18 = 0;
-		invite->m_info.rva00516F3F();
+		invite->m_record.rva00516F3F();
 	}
 }

@@ -277,6 +277,10 @@ class AptOnline
 public:
 	virtual int rva0051805B();
 	void *getMovie() const { return m_movie; }
+	void OnInitialized(const char *unused);
+	void Options(const char *unused);
+	void ShellExit(const char *unused);
+	void rva005170B4();
 
 private:
 	unsigned char m_pad004[0x274 - 0x04];
@@ -285,8 +289,10 @@ private:
 	_STL::vector<AptOnlineSubScreen *> m_screens; // +0x280
 	AsciiString m_pendingScreen;         // +0x28C
 	AptOnlineSubScreen *m_current;       // +0x290
-	unsigned char m_pad294[0x2B0 - 0x294];
-	int m_state;                         // +0x2B0
+	unsigned char m_pad294[0x298 - 0x294];
+	// +0x298: the pending buddy invite; its int (+0x2B0) is the shell's join
+	// state, which 0x005170B4 clears together with the record.
+	Rva00516FA0 m_invite;
 };
 namespace _STL
 {
@@ -665,14 +671,14 @@ int AptOnline::rva0051805B()
 			}
 		}
 	}
-	switch (m_state)
+	switch (m_invite.m_18)
 	{
 	case 2:
 		if (m_current && m_current->isReady())
 		{
 			if (m_current != (AptOnlineSubScreen *)g_Va00E06544)
 				Rva00516F21Invoke(TheRva00222A8BTarget, m_movie, "LoadScreen", "OnlineOpenPlay");
-			m_state = 5;
+			m_invite.m_18 = 5;
 		}
 		break;
 	case 3:
@@ -680,12 +686,12 @@ int AptOnline::rva0051805B()
 		{
 			if (m_current != (AptOnlineSubScreen *)g_Va00E06548)
 				Rva00516F21InvokeFold(TheRva00222A8BTarget, m_movie, "LoadScreen", "OnlineStrategic");
-			m_state = 5;
+			m_invite.m_18 = 5;
 		}
 		break;
 	case 5:
 		if (m_current && m_current->isDone())
-			m_state = 4;
+			m_invite.m_18 = 4;
 		break;
 	}
 	((Rva005170CD *)this)->rva005170F1();
