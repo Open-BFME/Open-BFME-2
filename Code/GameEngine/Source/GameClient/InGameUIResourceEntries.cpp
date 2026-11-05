@@ -79,20 +79,13 @@ struct ResourceOwnedEntryNode
     ResourceOwnedEntryNode *prev;
     Rva004E5086 entry;
 };
-class ResourceOwnedEntryList
-{
-public:
-    void rva004E54ED();
-    void rva004E5542();
-    ~ResourceOwnedEntryList() { rva004E5542(); }
-    ResourceOwnedEntryNode *head;
-};
+#include "../../Include/GameClient/ResourceEntryCollector.h"
 
 // Retail 4E54ED/49B: destroy each node+8 entry, free the node, reset head.
 void ResourceOwnedEntryList::rva004E54ED()
 {
-    ResourceOwnedEntryNode *node = head->next;
-    if (node != head)
+    ResourceOwnedEntryNode *node = m_00->next;
+    if (node != m_00)
     {
         do
         {
@@ -100,10 +93,10 @@ void ResourceOwnedEntryList::rva004E54ED()
             node = node->next;
             old->entry.~Rva004E5086();
             free(old);
-        } while (node != head);
+        } while (node != m_00);
     }
-    head->next = head;
-    head->prev = head;
+    m_00->next = m_00;
+    m_00->prev = m_00;
 }
 
 // Retail 0x004E5542/23B clears entries then frees the head sentinel.
@@ -112,7 +105,7 @@ void ResourceOwnedEntryList::rva004E54ED()
 void ResourceOwnedEntryList::rva004E5542()
 {
     rva004E54ED();
-    ResourceOwnedEntryNode *sentinel = head;
+    ResourceOwnedEntryNode *sentinel = m_00;
     if (sentinel)
         free(sentinel);
 }
@@ -146,20 +139,10 @@ public:
 };
 }
 
-class ResourceEntryCollector
-{
-public:
-    __declspec(noinline) void rva004E551E();
-    void addEntry(const Coord3D *pos, float value, int index);
-private:
-    char unknown00[4];
-    ResourceOwnedEntryList entries;
-};
-
 // Retail 4E551E/8B adjusts to the +4 list and forwards its cleanup.
 void ResourceEntryCollector::rva004E551E()
 {
-    entries.rva004E54ED();
+    m_04.rva004E54ED();
 }
 
 // Retail 4E5559/96B RET C builds an entry at a position with a value and
@@ -171,7 +154,7 @@ void ResourceEntryCollector::addEntry(const Coord3D *pos, float value, int index
     entry.pos = *pos;
     entry.value = value;
     entry.index = index;
-    reinterpret_cast<_STL::list<BfmePod60> &>(entries).push_front(reinterpret_cast<const BfmePod60 &>(entry));
+    reinterpret_cast<_STL::list<BfmePod60> &>(m_04).push_front(reinterpret_cast<const BfmePod60 &>(entry));
 }
 
 class Rva004E7C1C
