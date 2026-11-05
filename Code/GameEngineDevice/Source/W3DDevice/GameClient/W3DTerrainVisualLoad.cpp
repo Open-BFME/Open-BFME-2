@@ -415,39 +415,27 @@ class TerrainLogic
     virtual AsciiString getWaterName();
 };
 extern TerrainLogic *TheTerrainLogic;
-class W3DTerrainVisual
-{
-  public:
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void slot3();
-    virtual bool load(const AsciiString &, ChunkInputStream *, AreaSet<StandingWaveArea> *,
-                      AreaSet<RiverArea> *, AreaSet<WaterWaveArea> *);
-    char pad4[0x14 - 4];
-    BaseHeightMapRenderObjClass *terrain;
-    WaterRenderObjClass *water;
-    WorldHeightMap *height;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
+
 bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *stream,
                             AreaSet<StandingWaveArea> *standing, AreaSet<RiverArea> *rivers,
                             AreaSet<WaterWaveArea> *waves)
 {
     if (!((Rva002DAAF2 *)this)->rva002DAAF2(filename, (int)stream, (int)standing, (int)rivers, (int)waves))
         return false;
-    if (!terrain)
+    if (!m_terrainRenderObject)
         return false;
-    if (height)
+    if (m_logicHeightMap)
     {
-        WorldHeightMap *old = height;
+        WorldHeightMap *old = m_logicHeightMap;
         if (--old->refs == 0)
             old->Delete_This();
-        height = 0;
+        m_logicHeightMap = 0;
     }
     stream->seek(0);
-    height = new WorldHeightMap(stream);
-    if (water)
-        water->rva00083A7A(standing, rivers, waves);
+    m_logicHeightMap = new WorldHeightMap(stream);
+    if (m_waterRenderObject)
+        m_waterRenderObject->rva00083A7A(standing, rivers, waves);
     TerrainMapObject *node = BfmeTheMapObjectListHolder->head;
     while (node)
     {
@@ -461,7 +449,7 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
             loc.z = location->z;
             if (loc.z < 0)
             {
-                loc.z = terrain->getHeightMapHeight(loc.x, loc.y, 0);
+                loc.z = m_terrainRenderObject->getHeightMapHeight(loc.x, loc.y, 0);
                 loc.z += dict->getReal(TheKey_lightHeightAboveTerrain);
             }
             LightClass *light = new LightClass(LightClass::POINT);
@@ -480,16 +468,17 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
         node = node->next;
     }
     RefMultiListIterator<RenderObjClass> *it = W3DDisplay::m_3DScene->createLightsIterator();
-    terrain->initHeightData(height->getDrawWidth(), height->getDrawHeight(), height, it);
+    m_terrainRenderObject->initHeightData(m_logicHeightMap->getDrawWidth(),
+        m_logicHeightMap->getDrawHeight(), m_logicHeightMap, it);
     if (it)
         ((Rva0006ED29 *)W3DDisplay::m_3DScene)->rva0006ED29(it);
     timeGetTime();
     timeGetTime();
-    W3DDisplay::m_3DScene->Add_Render_Object((RenderObjClass *)terrain);
-    if (water && !g_00DFE7A8)
+    W3DDisplay::m_3DScene->Add_Render_Object((RenderObjClass *)m_terrainRenderObject);
+    if (m_waterRenderObject && !g_00DFE7A8)
     {
-        W3DDisplay::m_3DScene->Add_Render_Object(&((TerrainWaterRenderView *)water)->render);
-        water->rva000B3FD0();
+        W3DDisplay::m_3DScene->Add_Render_Object(&((TerrainWaterRenderView *)m_waterRenderObject)->render);
+        m_waterRenderObject->rva000B3FD0();
     }
     node = BfmeTheMapObjectListHolder->head;
     while (node)
@@ -501,13 +490,13 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
             Vector3 loc(pos->x, pos->y, pos->z);
             float radius = dict->getReal(TheKey_objectRadius);
             Scorches type = (Scorches)dict->getInt(TheKey_scorchType);
-            terrain->addScorch(loc, radius, type);
+            m_terrainRenderObject->addScorch(loc, radius, type);
         }
         node = node->next;
     }
-    if (water && TheTerrainLogic)
+    if (m_waterRenderObject && TheTerrainLogic)
     {
-        ((Rva0007E90EHost *)water)->loadName(TheTerrainLogic->getWaterName());
+        ((Rva0007E90EHost *)m_waterRenderObject)->loadName(TheTerrainLogic->getWaterName());
     }
     return true;
 }

@@ -85,27 +85,11 @@ private:
 
 #include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
-class TerrainVisual
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x14 - 0x04 ];
-};
+#include "../../../../GameEngine/Include/GameClient/TerrainVisualClass.h"
+#include "../../../Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
-class W3DTerrainVisual : public TerrainVisual
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-private:
-	BaseHeightMapRenderObjClass *m_terrainRenderObject;												///< 0x14
-	Snapshot *m_waterRenderObject;																						///< 0x18
-	WorldHeightMap *m_logicHeightMap;																					///< 0x1C
-	Bool m_isWaterGridRenderingEnabled;																				///< 0x20
-};
+// The native base transfer is the shared Version1-only stdcall body.
+void __stdcall Rva00306A9BDoXfer(Xfer *xfer);
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -116,7 +100,7 @@ void W3DTerrainVisual::xfer( Xfer *xfer )
 {
 
 	// extend base class
-	TerrainVisual::xfer( xfer );
+	Rva00306A9BDoXfer( xfer );
 
 	if( xfer->IsLightCRC() )
 		return;
@@ -132,7 +116,7 @@ void W3DTerrainVisual::xfer( Xfer *xfer )
 
 	// xfer grid data if enabled
 	if( gridEnabled )
-		*xfer == *m_waterRenderObject;
+		*xfer == *reinterpret_cast<Snapshot *>(m_waterRenderObject);
 
 	// Write out the terrain height data.
 	Bool hasHeightMap = m_logicHeightMap != 0;
