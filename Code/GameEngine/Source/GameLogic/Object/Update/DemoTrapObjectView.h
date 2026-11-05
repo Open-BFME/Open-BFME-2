@@ -45,9 +45,14 @@ public:
 	bool isAnyKindOf(const BitFlags<69> &mask) const;
 	bool isAboveTerrain() const;
 };
+enum WeaponSetType;
+enum WeaponLockType;
+
 class Object : public Thing
 {
 public:
+	void setWeaponSetFlag(WeaponSetType flag);
+	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
 	bool testStatus(ObjectStatusTypes s) const;
 	void kill(DamageType d, DeathType t);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
