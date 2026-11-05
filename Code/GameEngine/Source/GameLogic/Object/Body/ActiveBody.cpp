@@ -50,7 +50,7 @@ typedef unsigned short UnsignedShort;
 enum BodyDamageType { BODY_PRISTINE, BODY_DAMAGED, BODY_REALLYDAMAGED, BODY_RUBBLE };
 enum VeterancyLevel { LEVEL_REGULAR, LEVEL_VETERAN, LEVEL_ELITE, LEVEL_HEROIC };
 enum ArmorSetType { ARMORSET_VETERAN, ARMORSET_ELITE, ARMORSET_HERO };
-enum MaxHealthChangeType { SAME_CURRENTHEALTH, PRESERVE_RATIO };
+enum MaxHealthChangeType { SAME_CURRENTHEALTH, PRESERVE_RATIO, ADD_CURRENT_HEALTH_TOO, FULLY_HEAL };
 enum DamageType { DAMAGE_4 = 4, DAMAGE_6 = 6, DAMAGE_HEALING = 7, DAMAGE_UNRESISTABLE = 8, DAMAGE_23 = 0x17 };
 enum KindOfType { KINDOF_4 = 4, KINDOF_220 = 0x220, KINDOF_14A = 0x14A };
 enum ObjectID { INVALID_ID = 0 };
@@ -745,6 +745,7 @@ protected:
 class ActiveBody : public BodyModule, public BodyModuleInterface
 {
 public:
+	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType);
 	virtual void setInitialHealth(Real initialPercent, Bool directional);
 	virtual void attemptDamage(DamageInfo *damageInfo);
 	virtual void attemptHealing(DamageInfo *damageInfo);
