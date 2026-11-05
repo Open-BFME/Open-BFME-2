@@ -4,15 +4,9 @@ class Thing;
 class ModuleData;
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
-
-// The common +4 ModuleData and +8 object fields belong to ObjectModule.
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BodyModule.h
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 #include "../../../../Include/GameLogic/Damage.h"
-
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/ActiveBody.h
 class ActiveBody : public BehaviorModule, public BodyModuleInterface
 {
@@ -24,7 +18,6 @@ public:
 	// Body-interface slot 0 (0x004BFE07).
 	virtual void attemptDamage( DamageInfo *damageInfo );
 };
-
 // ?getModuleNameKey@HighlanderBody@@UBE?AW4NameKeyType@@XZ @0x004C07CA
 // (69B): cached pool-name key for HighlanderBody. The class
 // identity comes from the pool-name string the body pushes
@@ -39,7 +32,6 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -58,6 +50,12 @@ public:
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp
 
+// The common +4 ModuleData and +8 object fields belong to ObjectModule.
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BodyModule.h
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyConstructor.cpp
 
 HighlanderBody::HighlanderBody( Thing *thing, const ModuleData *moduleData )
@@ -69,8 +67,6 @@ HighlanderBody::~HighlanderBody()
 {
 }
 
-// tu-skeleton: 0x004C07AB 6B ?Rva004C07ABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters2.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyPoolKey.cpp
 
 // ?getModuleNameKey@HighlanderBody@@UBE?AW4NameKeyType@@XZ
@@ -81,4 +77,27 @@ NameKeyType HighlanderBody::getModuleNameKey() const
 	return TheHighlanderBodyPoolKey;
 }
 
-// tu-skeleton: 0x004C082B 67B ?attemptDamage@HighlanderBody@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyAttemptDamage.cpp (not merged yet)
+// tu-skeleton: 0x004C07AB 6B ?Rva004C07ABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyAttemptDamage.cpp
+
+// HighlanderBody::attemptDamage, retail 0x004C082B (67 bytes): slot 0 of the
+// class's body-module interface table at VA 0x00C5B390, placed directly
+// after HighlanderBody's constructor, pool key and destructors. As Zero
+// Hour's HighlanderBody does, it clamps every damage except one type to
+// leave at least one hit point -- amount = min(amount, getHealth() - 1) --
+// and then forwards to ActiveBody::attemptDamage (0x004BFE07, pinned).
+// Target facts: the exempt type is 8 at DamageInfo +0x10 and the amount is
+// the float at +0x20; getHealth is slot 4 (+0x10) of the interface, one
+// later than in ZH. getHealth is read once, so the clamp is a by-reference
+// a < b ? a : b template rather than ZH's min macro. The helper is static so
+// its out-of-line copy stays local to this unit.
+template <class T> static inline const T &bfmeMin(const T &lhs, const T &rhs) { return lhs < rhs ? lhs : rhs; }
+
+void HighlanderBody::attemptDamage(DamageInfo *damageInfo)
+{
+	// 8 is the damage type ZH spells DAMAGE_UNRESISTABLE.
+	if (damageInfo->m_damageType != 8)
+		damageInfo->m_amount = bfmeMin(damageInfo->m_amount, getHealth() - 1.0f);
+	ActiveBody::attemptDamage(damageInfo);
+}
