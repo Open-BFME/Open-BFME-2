@@ -27,13 +27,7 @@ enum ErrorCode { ERROR_INVALID_D3D = 0xDEAD0007 };
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/RectClass.h"
 
-class SceneClass
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05();
-	virtual void Set_Ambient_Light(const Vector3 &color);	// slot 6
-};
+#include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 
 class LightClass
 {
@@ -43,36 +37,40 @@ public:
 	unsigned char m_bytes[0x120];
 };
 
-class RTS3DInterfaceScene : public SceneClass
-{
-};
-
-class Rva0006EE6F : public RTS3DInterfaceScene
+// Construction-only views follow the existing rowed constructor owners.
+// The interface-scene global retains its existing opaque pointer spelling.
+class RTS3DInterfaceScene;
+class Rva0006EE6F : public SimpleSceneClass
 {
 public:
 	Rva0006EE6F();
-	unsigned char m_bytes[0x108 - 4];
+	virtual ~Rva0006EE6F();
+protected:
+	virtual void Customized_Render(RenderInfoClass &info);
 };
 
-class RTS2DScene : public SceneClass
+class RTS2DScene : public SimpleSceneClass, public SubsystemInterface
 {
 public:
 	RTS2DScene();
-	unsigned char m_bytes[0x11C - 4];
+	virtual ~RTS2DScene();
+	// The full shared subsystem is abstract; native secondary slots 1/9/10
+	// are concrete no-ops. This construction-only TU emits no scene table.
+	virtual void init();
+	virtual void reset();
+	virtual void update();
+protected:
+	RenderObjClass *m_status;
+	CameraClass *m_camera;
 };
+typedef char InterfaceSceneExtent[sizeof(Rva0006EE6F) == 0x108 ? 1 : -1];
+typedef char Scene2DExtent[sizeof(RTS2DScene) == 0x11C ? 1 : -1];
 
 class Rva0006E52AObj;
 class Rva0006E52A { public: void rva0006E52A(Rva0006E52AObj *, Int); };
 class Rva0006E567Obj;
 class Rva0006E567 { public: void rva0006E567(Rva0006E567Obj *, Int); };
 void Rva001174D0(Int value);
-
-class RTS3DScene : public SceneClass
-{
-public:
-	RTS3DScene();
-	unsigned char m_bytes[0x818 - 4];
-};
 
 class W3DFileSystem
 {
@@ -114,13 +112,7 @@ public:
 
 #include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
-class Render2DClass
-{
-public:
-	void Set_Coordinate_Range(const RectClass &range);
-	Render2DClass();
-	unsigned char m_bytes[0x4C]; // +0x00
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/Render2DClass.h"
 
 enum StaticGameLODLevel { STATIC_GAME_LOD_UNKNOWN = -1 };
 
@@ -228,8 +220,8 @@ void W3DDisplay::init()
 	TheW3DFileSystem = new W3DFileSystem;
 	WWMath::Init();
 
-	m_3DInterfaceScene = new Rva0006EE6F;
-	m_3DInterfaceScene->Set_Ambient_Light(Vector3(1.0f, 1.0f, 1.0f));
+	m_3DInterfaceScene = reinterpret_cast<RTS3DInterfaceScene *>(new Rva0006EE6F);
+	reinterpret_cast<SimpleSceneClass *>(m_3DInterfaceScene)->Set_Ambient_Light(Vector3(1.0f, 1.0f, 1.0f));
 	m_2DScene = new RTS2DScene;
 	m_2DScene->Set_Ambient_Light(Vector3(1.0f, 1.0f, 1.0f));
 	m_3DScene = new RTS3DScene;
