@@ -27,8 +27,14 @@ private:
 class ParticleSystemInfo
 {
 public:
+    virtual void LoadPostProcess();
     virtual const char *GetSnapshotName();
 };
+
+// Exported empty post-load callback: ICF folds it onto the shared RET at 0x000B3FD0.
+void ParticleSystemInfo::LoadPostProcess()
+{
+}
 
 const char *ParticleSystemInfo::GetSnapshotName()
 {

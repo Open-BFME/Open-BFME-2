@@ -2399,4 +2399,5 @@ void QuadDrawModuleInfo::LoadPostProcess() {}
 void ButterflyDrawModuleInfo::LoadPostProcess() {}
 void RenderObjectDrawModuleInfo::LoadPostProcess() {}
 void LifeEventModuleInfo::LoadPostProcess() {}
+void GpuDrawModuleInfo::LoadPostProcess() {}
 }
