@@ -314,6 +314,10 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual ~DynamicPortalBehaviour();
+	// Slot 1 of 0x00C428C4: the rowed override 0x00461274
+	// (DynamicPortalBehaviourLoadPostProcess.cpp); undeclared, this unit's
+	// kept table held __purecall there.
+	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 	virtual void upgradeRemovalImplementation();
 
