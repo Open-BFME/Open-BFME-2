@@ -3,7 +3,7 @@
 // BFME 2 keeps BFME 1's AggregateDefClass shape: retail vtable 0x007D6C70
 // has 17 slots (bool Load/Save family, Is_Object_In_List at +0x3C,
 // Build_Subobject_List at +0x40; no Load_Assets/Create_Render_Object slots).
-// No local changes.
+// Local declarations include the retail size query at RVA 0x001A3930.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -126,6 +126,9 @@ class AggregateDefClass
 		void							Set_Name (const char *pname)			{ SAFE_FREE (m_pName); m_pName = ::_strdup (pname); }
 		RenderObjClass *			Create (void);
 		AggregateDefClass *		Clone (void) const						{ return W3DNEW AggregateDefClass (*this); }
+
+		// Retail 0x001A3930: name plus serialized subobjects and object size.
+		int rva001A3930() const;
 
 		//
 		//	Public accessors
