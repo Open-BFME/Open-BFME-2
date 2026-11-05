@@ -109,6 +109,45 @@ private:
 	AsciiStringMember m_at08;
 };
 
+// Retain bfmealloc's native null-checked free and proxy forwarding inline.
+// The matched bodies already inline these STLport ownership wrappers.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+void allocator<_List_node<int> >::deallocate(pointer p, size_type n) const
+{ if (p != 0) ::free((void*)p); }
+template<> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<int> > >::deallocate(_List_node<int>* p, size_t n)
+{ __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
+}
+
+#include "string_base.h"
+
+struct Inner64
+{
+	char m_pad[0x64];
+	StringBase<char> m_str;
+};
+
+struct Rva005996FFArg
+{
+	char m_pad00[4];
+	Inner64 *m_04;
+	char m_pad08[0x6C];
+	int m_74;
+};
+
+class Rva005996FF
+{
+public:
+	void unRegisterDozer(Rva005996FFArg *arg, bool flag);
+private:
+	_STL::list<int, _STL::allocator<int> > m_list;
+	char m_pad04[4];
+	StringBase<char> m_08;
+	char m_pad0C[0x10 - 0x0C];
+	unsigned char m_10;
+};
+
 // tu-skeleton: 0x00599606 5B ?rva00599606@AIDozerManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilder.cpp (not merged yet)
 
 // tu-skeleton: 0x0059960B 56B ??$__unguarded_partition@PAURva00599435Keyframe@@U1@URva00599435Compare@@@_STL@@YAPAURva00599435Keyframe@@PAU1@0U1@URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
@@ -121,13 +160,45 @@ private:
 
 // tu-skeleton: 0x005996DE 33B ??$__pop_heap_aux@PAURva00599435Keyframe@@U1@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@00URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
 
-// tu-skeleton: 0x005996FF 85B ?unRegisterDozer@Rva005996FF@@QAEXPAURva005996FFArg@@_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva005996FFListErase.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005996FFListErase.cpp
+
+// ?unRegisterDozer@Rva005996FF@@QAEXPAURva005996FFArg@@_N@Z
+// partial score=0.94 date=2026-09-29
+// ?unRegisterDozer@Rva005996FF@@QAEXPAUArg@@_N@Z @ 0x005996FF 85B list erase plus string flag.
+// Evidence: walks list<int> nodes via [eax+8] vs arg+0x74 then rowed erase 0x00438539; rowed StringBase compare 0x000069D6 for this+8 vs arg+4+0x64 then byte at +0x10; ret 8 is thiscall 2 args; neighbours Keyframe /O1 /GX- /arch:SSE2 plus DispByte default; unblocks 0x004EC869 plus 0x005ABAF6 plus 0x004ECB19.
+
+void Rva005996FF::unRegisterDozer(Rva005996FFArg *arg, bool flag)
+{
+	_STL::list<int, _STL::allocator<int> >::iterator it = m_list.begin();
+	if (it == m_list.end())
+		goto skip_erase;
+	{
+		int value = arg->m_74;
+		while (it._M_node != m_list.end()._M_node) {
+			if (*it == value)
+				goto do_erase;
+			++it;
+		}
+		goto skip_erase;
+do_erase:
+		m_list.erase(it);
+	}
+skip_erase:
+	if (!flag)
+		return;
+	Inner64 *inner = arg->m_04;
+	if (inner->m_str.compare(m_08) != 0)
+		return;
+	m_10 = 1;
+}
 
 // tu-skeleton: 0x00599754 25B ??$make_heap@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x0059976D 23B ??$pop_heap@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x00599784 73B ??0Rva005997CD@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva005997CDCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva005997CDDtor.cpp
 
@@ -136,30 +207,6 @@ Rva005997CD::~Rva005997CD()
 	m_at00.clear();
 	m_at04.clear();
 }
-
-// tu-skeleton: 0x00599825 75B ?rva00599825@AIDozerManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00599825ListAdd.cpp (not merged yet)
-
-// tu-skeleton: 0x00599870 186B ?rva00599870@Rva005997CD@@QAE?AW4ObjectID@@PBUVec2@@_N@Z -- matched in Code/GameEngine/Source/Common/Rva005997CDNearestPick.cpp (not merged yet)
-
-// tu-skeleton: 0x0059992A 177B ?DoXfer@AIDozerManager@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00599825ListAdd.cpp (not merged yet)
-
-// tu-skeleton: 0x005999DB 70B ??$__linear_insert@PAURva00599435Keyframe@@U1@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0U1@URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00599A21 58B ??$sort_heap@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00599A5B 48B ??$__insertion_sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00599A8B 88B ??$__partial_sort@PAURva00599435Keyframe@@U1@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@000URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00599AE3 281B ?rva00599AE3@AIDozerManager@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00599AE3Crowded.cpp (not merged yet)
-
-// tu-skeleton: 0x00599BFC 74B ??$__final_insertion_sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00599C46 27B ??$partial_sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@00URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00599C61 178B ??$__introsort_loop@PAURva00599435Keyframe@@U1@HURva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@00HURva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x00599D13 67B ??$sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp
 
@@ -241,6 +288,30 @@ void AIDozerManager::preEmptivelyBuildDozers()
 				buildDozer((Object *)candidateIter->m_frame);
 	}
 }
+
+// tu-skeleton: 0x00599825 75B ?rva00599825@AIDozerManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00599825ListAdd.cpp (not merged yet)
+
+// tu-skeleton: 0x00599870 186B ?rva00599870@Rva005997CD@@QAE?AW4ObjectID@@PBUVec2@@_N@Z -- matched in Code/GameEngine/Source/Common/Rva005997CDNearestPick.cpp (not merged yet)
+
+// tu-skeleton: 0x0059992A 177B ?DoXfer@AIDozerManager@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00599825ListAdd.cpp (not merged yet)
+
+// tu-skeleton: 0x005999DB 70B ??$__linear_insert@PAURva00599435Keyframe@@U1@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0U1@URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00599A21 58B ??$sort_heap@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00599A5B 48B ??$__insertion_sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00599A8B 88B ??$__partial_sort@PAURva00599435Keyframe@@U1@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@000URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00599AE3 281B ?rva00599AE3@AIDozerManager@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva00599AE3Crowded.cpp (not merged yet)
+
+// tu-skeleton: 0x00599BFC 74B ??$__final_insertion_sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00599C46 27B ??$partial_sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@00URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00599C61 178B ??$__introsort_loop@PAURva00599435Keyframe@@U1@HURva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@00HURva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00599D13 67B ??$sort@PAURva00599435Keyframe@@URva00599435Compare@@@_STL@@YAXPAURva00599435Keyframe@@0URva00599435Compare@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rva00599435keyframe_linear_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x00599EDC 117B ?rva00599EDC@AIDozerManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00599825ListAdd.cpp (not merged yet)
 
