@@ -51,6 +51,9 @@ typedef _STL::hashtable<XferKeyOffsetPair, const char *, _STL::hash<const char *
 // The separate retail resize provider retains the visible vector operations.
 namespace _STL { template <> void XferKeyOffsetTable::resize(unsigned int); }
 #include "../../../Include/Common/XferException.h"
+#define _STLP_NO_EXCEPTIONS 1
+class ModuleData;
+namespace _STL { template<> void vector<const ModuleData *>::push_back(const ModuleData *const&); }
 
 class BfmeByteStream
 {
@@ -151,25 +154,6 @@ class Rva0060CE41Argument
 {
 public:
 	const char *m_text;
-};
-
-class XferSave
-{
-public:
-	virtual void XferEnum(void *context, const void *bytes, unsigned int count);
-	virtual void endBlock();
-	virtual Xfer &rva0060CE41(Rva0060CE41Argument &str);
-	void rva0060D2E9(const char *name);
-	int rva0060D435(const char *name);
-
-private:
-	BfmeByteStream * volatile m_stream;
-	bool m_flag;
-	unsigned char m_pad09[3];
-	BfmePositionVector m_positions;
-	unsigned char m_pad18[0x28 - 0x18];
-	int m_28;
-	Rva0060CB2B m_table;	// +0x2C
 };
 
 namespace _STL
@@ -324,8 +308,6 @@ template <> void **vector<void*>::begin();
 }
 
 struct Rva0060CF76Element {Rva0060CF76Element();Rva0060CF76Element(const Rva0060CF76Element&);Rva0060CF76Element&operator=(const Rva0060CF76Element&);~Rva0060CF76Element(){}char bytes[8]; bool operator==(const Rva0060CF76Element&)const;};
-
-template _STL::hashtable<_STL::pair<const int, Rva0060CF76Element>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<const int, Rva0060CF76Element> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, Rva0060CF76Element> > >::hashtable(unsigned int, const _STL::hash<int> &, const _STL::equal_to<int> &, const _STL::allocator<_STL::pair<const int, Rva0060CF76Element> > &);
 
 // Suppress this TU's non-retail vector<void*> begin copy (family2-LK3 row 6):
 // the retail copies serve the link. Plain declaration-only form (no __imp_).
@@ -497,14 +479,6 @@ template <> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<StringLis
 { allocator<StringListNode>::deallocate(p, n); }
 }
 
-// The list constructor, destructor and splice, _S_sort, _S_merge, _S_unique, the
-// node proxy swap, the _List_base constructor and destructor and _M_create_node
-// have no retail row; this unit emits them for its explicit instantiation rather
-// than leaning on w3d_dep.cpp's unrowed copies.
-template class _STL::list<_STL::basic_string<char> >;
-
-template bool _STL::equal_to<_STL::basic_string<char> >::operator()(const _STL::basic_string<char> &, const _STL::basic_string<char> &) const;
-
 // Inline _String_base<char>'s dtor everywhere so this unit emits no copy of
 // its own; the kept retail copy serves any out-of-line call.
 namespace _STL { template <> __declspec(dllimport) __declspec(nothrow) __forceinline
@@ -529,6 +503,37 @@ typedef _STL::hashtable<XferNamePair,_STL::string,_STL::hash<_STL::string>,
  _STL::_Select1st<XferNamePair>,_STL::equal_to<_STL::string>,_STL::allocator<XferNamePair> > XferNameTable;
 
 namespace _STL { template<> XferNamePair &XferNameTable::_M_insert(const XferNamePair&); }
+
+class XferSave
+{
+public:
+	virtual void XferEnum(void *context, const void *bytes, unsigned int count);
+	virtual void endBlock();
+	virtual Xfer &rva0060CE41(Rva0060CE41Argument &str);
+	void rva0060D2E9(const char *name);
+	int rva0060D435(const char *name);
+
+private:
+	BfmeByteStream * volatile m_stream;
+	bool m_flag;
+	unsigned char m_pad09[3];
+	BfmePositionVector m_positions;
+	unsigned char m_pad18[0x28 - 0x18];
+	int m_28;
+	Rva0060CB2B m_table;	// +0x2C
+};
+
+// ---- from Code/GameEngine/Source/Common/System/XferSave.cpp
+
+template _STL::hashtable<_STL::pair<const int, Rva0060CF76Element>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<const int, Rva0060CF76Element> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, Rva0060CF76Element> > >::hashtable(unsigned int, const _STL::hash<int> &, const _STL::equal_to<int> &, const _STL::allocator<_STL::pair<const int, Rva0060CF76Element> > &);
+
+// The list constructor, destructor and splice, _S_sort, _S_merge, _S_unique, the
+// node proxy swap, the _List_base constructor and destructor and _M_create_node
+// have no retail row; this unit emits them for its explicit instantiation rather
+// than leaning on w3d_dep.cpp's unrowed copies.
+template class _STL::list<_STL::basic_string<char> >;
+
+template bool _STL::equal_to<_STL::basic_string<char> >::operator()(const _STL::basic_string<char> &, const _STL::basic_string<char> &) const;
 
 // ---- from Code/GameEngine/Source/Common/System/XferSave.cpp
 
@@ -750,6 +755,45 @@ Rva0060D031Member::~Rva0060D031Member()
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_string_erase_00424363.cpp
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp
+
+//
+// ?rva0060D269@Rva0060D269@@QAEAAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z @ 0x0060D269, 128 bytes.
+// Dedicated TU: the XferSave owner TU carries /MD rows and a different
+// class view; the R1 member-visibility lever needs the visible
+// __declspec(noinline) Rva0060CAEA::rva0060CB61 definition here (the
+// rowed 0x60CB61 body in stlport_string_find_0060CAEA.cpp is identical).
+// Use the CRT declaration before STLport; a private _STL::free conflicts
+// when this fragment is composed after headers that import ::free.
+
+unsigned int &Rva0060D269::rva0060D269(const _STL::string &key) {
+ Rva0060CAEANode *node;
+ { Rva0060CAEAIterator it=((Rva0060CAEA*)this)->rva0060CB61(key); node=it.m_cur; }
+ return !node ? ((XferNameTable*)this)->_M_insert(XferNamePair(key,0)).second : node->value;
+}
+
 // tu-skeleton: 0x0060C9A7 23B ?_M_bkt_num_key@?$hashtable@U?$pair@PBDH@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDH@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDH@_STL@@@2@@_STL@@ABEIABQBDI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0060CBAC.cpp (not merged yet)
 
 // tu-skeleton: 0x0060C9BE 5B ?_M_bkt_num@?$hashtable@U?$pair@PBDURva009D7350Mapped@@@_STL@@PBDU?$hash@PBD@2@U?$_Select1st@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@U?$equal_to@PBD@2@V?$allocator@U?$pair@PBDURva009D7350Mapped@@@_STL@@@2@@_STL@@ABEIABU?$pair@PBDURva009D7350Mapped@@@2@I@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva009D7350BktNumKey_Rva0060c9a7.cpp (not merged yet)
@@ -794,26 +838,30 @@ Rva0060D031Member::~Rva0060D031Member()
 
 // tu-skeleton: 0x0060D1F7 86B ??0XferSave@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv881O1.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0060D269.cpp
+// tu-skeleton: 0x0060D2E9 331B ?rva0060D2E9@XferSave@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp (not merged yet)
 
-//
-// ?rva0060D269@Rva0060D269@@QAEAAIABV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z @ 0x0060D269, 128 bytes.
-// Dedicated TU: the XferSave owner TU carries /MD rows and a different
-// class view; the R1 member-visibility lever needs the visible
-// __declspec(noinline) Rva0060CAEA::rva0060CB61 definition here (the
-// rowed 0x60CB61 body in stlport_string_find_0060CAEA.cpp is identical).
+// ---- from Code/Libraries/Source/xfer/XferSaveBlocks.cpp
+
+// BFME1 XferBlockWriter_rva009D86E0.cpp donor9cbfb551 supplies the
+// semantic lead. Native60D2E9..60D434 and60D435..60D4C9 establish the
+// stream4 flag8 position-vectorC and compressed-name table18. These
+// BFME2 helpers retain address names; the writer's original names unknown.
 // Use the CRT declaration before STLport; a private _STL::free conflicts
 // when this fragment is composed after headers that import ::free.
 
-unsigned int &Rva0060D269::rva0060D269(const _STL::string &key) {
- Rva0060CAEANode *node;
- { Rva0060CAEAIterator it=((Rva0060CAEA*)this)->rva0060CB61(key); node=it.m_cur; }
- return !node ? ((XferNameTable*)this)->_M_insert(XferNamePair(key,0)).second : node->value;
+int XferSave::rva0060D435(const char *name) {
+ if(!m_stream) return 0;
+ int marker=0x424c4f4b;
+ if(m_stream->write(&marker,4)!=4) throw XferException(1,0);
+ if(m_flag) rva0060D2E9(name);
+ int position=m_stream->skip(0,1);
+ if(position==-1) throw XferException(1,0);
+ name=(const char*)position;
+ ((_STL::vector<const ModuleData*>*)&m_positions)->push_back(*(const ModuleData *const*)&name);
+ int placeholder=0;
+ if(m_stream->write(&placeholder,4)!=4) throw XferException(1,0);
+ return 0;
 }
-
-// tu-skeleton: 0x0060D2E9 331B ?rva0060D2E9@XferSave@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/System/rva0060D2E9Rva0060D2E9Farm.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D435 148B ?rva0060D435@XferSave@@QAEHPBD@Z -- matched in Code/Libraries/Source/xfer/XferSaveBlocks.cpp (not merged yet)
 
 // tu-skeleton: 0x007A6CC0 14B $L8331 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_deque_string.cpp (not merged yet)
 
