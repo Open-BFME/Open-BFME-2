@@ -109,15 +109,12 @@ inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 
-class ThingTemplate
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask byte test on the canonical +0x108 mask.
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t)
 {
-public:
-	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-private:
-	unsigned char m_pad[0x108];
-	unsigned char m_kindOf[0x20];
-};
+	return (((const unsigned char *)tmpl->m_kindof)[t >> 3] & (1 << (t & 7))) != 0;
+}
 
 class ContainModuleInterface
 {
@@ -143,7 +140,7 @@ class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline bool isKindOf(int t) const { return getTemplate()->isKindOf(t); }
+	__forceinline bool isKindOf(int t) const { return thingTemplateIsKindOf(getTemplate(), t); }
 	ContainModuleInterface *getContain() const { return m_contain; }
 	Object *getContainedBy() const { return m_containedBy; }
 	Bool testStatus(ObjectStatusTypes bit) const;

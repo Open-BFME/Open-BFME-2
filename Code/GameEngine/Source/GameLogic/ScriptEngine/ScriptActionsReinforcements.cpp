@@ -57,15 +57,10 @@ private:
 	unsigned char m_pad[0x38];
 };
 
-class ThingTemplate
-{
-public:
-	bool isEquivalentTo(const ThingTemplate *tmpl) const;
-	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-private:
-	unsigned char m_pad[0x108];
-	unsigned char m_kindOf[0x20];
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask byte test on the canonical +0x108 storage.
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t)
+{ return (((const unsigned char *)tmpl->m_kindof)[t >> 3] & (1 << (t & 7))) != 0; }
 
 #include "../../../Include/GameLogic/Module/ContainModule.h"
 
@@ -105,7 +100,7 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	ObjectID getID() const { return m_objectID; }
 	float getMajorRadius() const { return m_majorRadius; }
-	__forceinline bool isKindOf(int t) const { return m_template->isKindOf(t); }
+	__forceinline bool isKindOf(int t) const { return thingTemplateIsKindOf(m_template, t); }
 	__forceinline bool isDisabledByType(int t) const { return (m_disabledMask[t >> 3] & (1 << (t & 7))) != 0; }
 	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }

@@ -419,18 +419,10 @@ enum KindOfType
 	KINDOF_BRIDGE_TOWER = 24 // native completion template+0x10B bit0
 };
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
-	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
-private:
-	unsigned char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad068[0x108 - 0x68];
-	UnsignedInt m_kindOf[4]; // +0x108
-};
+#include "../../../../../Include/Common/ThingTemplate.h"
+// Kind-mask dword test on the canonical +0x108 storage.
+static __forceinline UnsignedInt thingTemplateIsKindOf(const ThingTemplate *tmpl, KindOfType t)
+{ return tmpl->m_kindof[t >> 5] & (1U << (t & 31)); }
 
 class Drawable;
 
@@ -474,7 +466,7 @@ class Object : public Thing
 {
 public:
 	ObjectID getID() const { return m_id; }
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return thingTemplateIsKindOf(getTemplate(), t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }

@@ -374,30 +374,18 @@ struct WeaponNuggetNode
 class Weapon;
 struct Coord3D;
 
-class ThingTemplate
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask readers on the canonical +0x108 storage. Words: 0x80 STRUCTURE,
+// 0x40 SHRUBBERY, 0x2000000 PROJECTILE, 0x400 (BFME 2) in word 0; 0x100000
+// SMALL_MISSILE, 0x10000000 (BFME 2) in word 1; 0x800 BALLISTIC_MISSILE in word 2.
+static inline UnsignedInt thingTemplateTestKindOf(const ThingTemplate *tmpl, Int word, UnsignedInt mask)
 {
-  public:
-    // KindOf words: 0x80 STRUCTURE, 0x40 SHRUBBERY, 0x2000000 PROJECTILE, 0x400 (BFME 2) in
-    // word 0; 0x100000 SMALL_MISSILE, 0x10000000 (BFME 2) in word 1; 0x800 BALLISTIC_MISSILE in word 2.
-    UnsignedInt testKindOf(Int word, UnsignedInt mask) const
-    {
-        return m_kindOf[word] & mask;
-    }
-    unsigned char kindByte(int i) const
-    {
-        return ((const unsigned char *)m_kindOf)[i];
-    }
-    __declspec(dllimport) __forceinline Real getFenceWidth() const
-    {
-        return m_fenceWidth;
-    }
-
-  private:
-    char m_pad000[0x108];
-    UnsignedInt m_kindOf[4]; // +0x108
-    char m_pad118[0x4A0 - 0x118];
-    Real m_fenceWidth; // +0x4A0
-};
+    return tmpl->m_kindof[word] & mask;
+}
+static inline unsigned char thingTemplateKindByte(const ThingTemplate *tmpl, int i)
+{
+    return ((const unsigned char *)tmpl->m_kindof)[i];
+}
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -708,7 +696,7 @@ Bool WeaponTemplate::shouldProjectileCollideWith(
     else if (r == NEUTRAL)
         requiredMask = WEAPON_COLLIDE_NEUTRALS;
 
-    if (thingWeCollidedWith->getTemplate()->testKindOf(0, 0x80))
+    if (thingTemplateTestKindOf(thingWeCollidedWith->getTemplate(), 0, 0x80))
     {
         if (thingWeCollidedWith->getControllingPlayer() == projectile->getControllingPlayer())
             requiredMask |= WEAPON_COLLIDE_CONTROLLED_STRUCTURES;
@@ -717,24 +705,24 @@ Bool WeaponTemplate::shouldProjectileCollideWith(
     }
 
     const ThingTemplate *thingTemplate = thingWeCollidedWith->getTemplate();
-    if (thingTemplate->testKindOf(0, 0x40))
+    if (thingTemplateTestKindOf(thingTemplate, 0, 0x40))
         requiredMask |= WEAPON_COLLIDE_SHRUBBERY;
-    if (thingTemplate->testKindOf(0, 0x2000000))
+    if (thingTemplateTestKindOf(thingTemplate, 0, 0x2000000))
         requiredMask |= WEAPON_COLLIDE_PROJECTILE;
-    if (thingTemplate->getFenceWidth() > 0)
+    if (thingTemplate->m_fenceWidth > 0)
         requiredMask |= WEAPON_COLLIDE_WALLS;
-    if (thingTemplate->testKindOf(1, 0x100000))
+    if (thingTemplateTestKindOf(thingTemplate, 1, 0x100000))
         requiredMask |= WEAPON_COLLIDE_SMALL_MISSILES;
-    if (thingTemplate->testKindOf(2, 0x800))
+    if (thingTemplateTestKindOf(thingTemplate, 2, 0x800))
         requiredMask |= WEAPON_COLLIDE_BALLISTIC_MISSILES;
-    if (thingTemplate->testKindOf(0, 0x400))
+    if (thingTemplateTestKindOf(thingTemplate, 0, 0x400))
         requiredMask |= WEAPON_COLLIDE_BFME2_400;
 
     // if any in requiredMask are present in collidemask, do the collision. (srj)
     if ((weaponTemplateCollideMask(this) & requiredMask) == 0)
         return false;
 
-    if (thingTemplate->testKindOf(1, 0x10000000) && intendedVictimID != INVALID_OBJECT_ID)
+    if (thingTemplateTestKindOf(thingTemplate, 1, 0x10000000) && intendedVictimID != INVALID_OBJECT_ID)
     {
         Object *victim = TheGameLogic->findObjectByID(intendedVictimID);
         if (victim && victim->rva0028B511() > 1)
@@ -767,7 +755,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
             victim = 0;
             distance = source->rva002C97E8(sourcePos, position);
         }
-        else if (victim->getTemplate()->kindByte(2) & 0x40)
+        else if (thingTemplateKindByte(victim->getTemplate(), 2) & 0x40)
         {
             TheTerrainLogic->getBridgeAttackPoints(victim, &bridge);
             distance = source->rva002C97E8(sourcePos, &bridge.point1);
@@ -852,7 +840,7 @@ void WeaponTemplate::fireWeaponTemplate(Object *source, int wordC, int barrel, i
         target.z = oldZ;
     volatile bool scatter = false;
     Pathfinder *pathfinder;
-    if (m_infantryInaccuracyDist > 0.f && victim && (victim->getTemplate()->kindByte(1) & 1) &&
+    if (m_infantryInaccuracyDist > 0.f && victim && (thingTemplateKindByte(victim->getTemplate(), 1) & 1) &&
         (!m_field3D || !(pathfinder=TheAI->pathfinder, pathfinder->IsPointOnWall((int)&victim->pos, false))))
         scatter = true;
     char *filename =

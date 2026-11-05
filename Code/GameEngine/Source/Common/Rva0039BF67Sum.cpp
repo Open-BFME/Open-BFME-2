@@ -15,17 +15,12 @@ private:
 	unsigned m_words[7];
 };
 
-class ThingTemplate
+#include "../../Include/Common/ThingTemplate.h"
+// isKindOfMulti inlined here: the mask test on the canonical +0x108 storage.
+static __forceinline bool thingTemplateIsKindOfMulti(const ThingTemplate *tmpl, const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
 {
-public:
-	bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const
-	{
-		return m_kindOf.testSetAndClear(mustBeSet, mustBeClear);
-	}
-private:
-	char m_pad[0x108];
-	BitFlags<116> m_kindOf;
-};
+	return ((const BitFlags<116> *)tmpl->m_kindof)->testSetAndClear(mustBeSet, mustBeClear);
+}
 
 namespace _STL
 {
@@ -77,7 +72,7 @@ int Rva0039BF67::rva0039BF67(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear)
 		while (node != map->m_header)
 		{
 			const ThingTemplate *thingTemplate = ((ObjectCountNode *)node)->m_key;
-			if (thingTemplate && thingTemplate->isKindOfMulti(mustBeSet, mustBeClear))
+			if (thingTemplate && thingTemplateIsKindOfMulti(thingTemplate, mustBeSet, mustBeClear))
 				total += ((ObjectCountNode *)node)->m_value;
 			node = _STL::_Rb_global<bool>::_M_increment(node);
 		}

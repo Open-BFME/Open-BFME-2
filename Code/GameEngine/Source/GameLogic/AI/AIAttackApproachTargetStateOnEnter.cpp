@@ -322,21 +322,17 @@ public:
 	Bool m_3cc; // +0x3CC
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
-	UnsignedInt kindOfWord(Int i) const { return ((const UnsignedInt *)m_kindOf)[i]; }
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[0x14]; // +0x108
-	unsigned char m_pad11C[0x122 - 0x11C];
-	unsigned char m_122; // +0x122
-	unsigned char m_pad123[0x53C - 0x123];
-	Real m_firingArc; // +0x53C
-	unsigned char m_pad540[0x5FD - 0x540];
-	Bool m_useCrushAttack; // +0x5FD
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask readers on the canonical +0x108 storage (byte tests, one dword
+// test); byte 0x1A is the former +0x122 view byte.
+static __forceinline const unsigned char *thingTemplateKindOfBytes(const ThingTemplate *tmpl)
+{ return (const unsigned char *)tmpl->m_kindof; }
+static inline Bool thingTemplateIsKindOfImmobile(const ThingTemplate *tmpl)
+{ return (thingTemplateKindOfBytes(tmpl)[0] & 4) != 0; }
+static inline Bool thingTemplateIsKindOfProjectile(const ThingTemplate *tmpl)
+{ return (thingTemplateKindOfBytes(tmpl)[3] & 2) != 0; }
+static inline UnsignedInt thingTemplateKindOfWord(const ThingTemplate *tmpl, Int i)
+{ return ((const UnsignedInt *)thingTemplateKindOfBytes(tmpl))[i]; }
 
 class Thing
 {
@@ -381,8 +377,8 @@ public:
 		Object *container = getOutermostContainer();
 		return container && container->isKindOfImmobile();
 	}
-	Bool isKindOfImmobile() const { return getTemplate()->isKindOfImmobile(); }
-	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isKindOfImmobile() const { return thingTemplateIsKindOfImmobile(getTemplate()); }
+	Bool isKindOfProjectile() const { return thingTemplateIsKindOfProjectile(getTemplate()); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -900,7 +896,7 @@ __declspec(noinline) inline Bool rva003430A3(Object *source, Object *victim, Wea
 {
 	if (weapon && victim && !((const Rva002C9400ByteField *)weapon->getTemplate())->get() &&
 		!weapon->getTemplate()->isContactWeapon() &&
-		((source->getTemplate()->m_kindOf[7] & 8) || (source->getTemplate()->m_122 & 0x40)))
+		((thingTemplateKindOfBytes(source->getTemplate())[7] & 8) || (thingTemplateKindOfBytes(source->getTemplate())[0x1A] & 0x40)))
 	{
 		Rva002619C1Filter filter(source);
 		if (!filter.allow(victim))
@@ -1472,7 +1468,7 @@ StateReturnType AIAttackMeleeSquishState::rva0034D98B()
 		{
 			if (victim->m_438 & 1)
 				return STATE_SUCCESS;
-			if (!(obj->getTemplate()->m_kindOf[0x12] & 0x80))
+			if (!(thingTemplateKindOfBytes(obj->getTemplate())[0x12] & 0x80))
 				return STATE_SUCCESS;
 			m_goalPosition = *victim->getPosition();
 			obj->getObservedAI()->destroyPath();
@@ -1634,9 +1630,9 @@ StateReturnType AIAttackMeleeHordeWaitPathState::update()
 		return STATE_CONTINUE;
 
 	Bool reachable = false;
-	if (goal->getTemplate()->m_kindOf[0] & 0x80)
+	if (thingTemplateKindOfBytes(goal->getTemplate())[0] & 0x80)
 		reachable = TheAI->pathfinder()->QuickDoesPathExistToStructure(owner, owner->getPosition(), goal, 0);
-	if (goal->getTemplate()->m_kindOf[11] & 0x20)
+	if (thingTemplateKindOfBytes(goal->getTemplate())[11] & 0x20)
 	{
 		static NameKeyType siegeKey = TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
 		Module *mod = goal->findModule(siegeKey);
@@ -1678,7 +1674,7 @@ StateReturnType AIAttackAreaState::update()
 		if (((AIAreaGuardView *)ai)->getAreaToGuard() == 0)
 			return STATE_FAILURE;
 		Object *victim = TheAI->rva002FF8DD(((AIAreaGuardView *)ai)->getAreaToGuard(), owner, ai->m_attackInfo);
-		if (victim && (victim->getTemplate()->m_kindOf[0x0D] & 0x20))
+		if (victim && (thingTemplateKindOfBytes(victim->getTemplate())[0x0D] & 0x20))
 			victim = victim->adjustVictim(owner, 1, 0);
 		m_attackMachine->setGoalObject(victim);
 		if (m_attackMachine->getCurrentStateID() == AI_IDLE && victim)

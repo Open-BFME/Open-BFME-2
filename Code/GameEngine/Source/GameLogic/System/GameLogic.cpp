@@ -174,33 +174,20 @@ public:
 	unsigned char *m_begin;
 	unsigned char *m_end;
 };
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-	__forceinline unsigned int kindOfWord(int word) const { return ((const unsigned int *)m_kindOf)[word]; }
-	void GetAssetList(int a, int b);
-	const AsciiString &getName() const { return m_name; }
-	__forceinline const ModuleInfo &drawModules() const { return m_drawModuleInfo; }
-	const ThingTemplate *friend_getNextTemplate() const { return m_nextTemplate; }
-
-	char m_pad[0x64];
-	AsciiString m_name; // +0x64
-	char m_pad68[0x6C - 0x68];
-	AsciiString m_side; // +0x6C
-	char m_pad70[0x108 - 0x70];
-	unsigned char m_kindOf[0x20]; // +0x108
-	char m_pad128[0x2F0 - 0x128];
-	ModuleInfo m_drawModuleInfo; // +0x2F0
-	char m_pad2F8[0x484 - 0x2F8];
-	const ThingTemplate *m_nextTemplate; // +0x484
-	char m_pad488[0x4D0 - 0x488];
-	float m_orient4D0; // +0x4D0
-	char m_pad4D4[0x4E0 - 0x4D4];
-	float m_treeScale; // +0x4E0
-	char m_pad4E4[0x5F4 - 0x4E4];
-	unsigned char m_editorSorting; // +0x5F4
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Readers on the canonical ThingTemplate: kind-mask byte and word tests on the
+// +0x108 storage, the draw module list (+0x2F0) and the template chain link
+// (+0x484) the asset walk follows inline.
+static __forceinline const unsigned char *thingTemplateKindOfBytes(const ThingTemplate *tmpl)
+{ return (const unsigned char *)tmpl->m_kindof; }
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t)
+{ return (thingTemplateKindOfBytes(tmpl)[t >> 3] & (1 << (t & 7))) != 0; }
+static __forceinline unsigned int thingTemplateKindOfWord(const ThingTemplate *tmpl, int word)
+{ return tmpl->m_kindof[word]; }
+static __forceinline const ModuleInfo &thingTemplateDrawModules(const ThingTemplate *tmpl)
+{ return *(const ModuleInfo *)tmpl->m_drawModuleInfo; }
+static inline const ThingTemplate *thingTemplateNextTemplate(const ThingTemplate *tmpl)
+{ return (const ThingTemplate *)tmpl->m484; }
 #include "../../../Include/Common/TeamBFME2.h"
 class LocomotorSet
 {
@@ -333,7 +320,7 @@ static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *
 	}
 	if (obj) {
 	ThingTemplate *t2 = *(ThingTemplate **)((char *)obj + 4);
-	((Thing *)obj)->setOrientation(t2->m_orient4D0);
+	((Thing *)obj)->setOrientation(t2->m_placementViewAngle);
 	((Thing *)obj)->setPosition(pos);
 	Team *t = player->m_team;
 	((Rva0028CBFD *)obj)->rva0028CBFD();
@@ -345,7 +332,7 @@ static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *
 	}
 	TheAI->m_pf->AddObjectToPathfindMap(obj);
 	AIUpdateInterface *aiu = *(AIUpdateInterface **)((char *)obj + 0x258);
-	if (aiu && !((*(ThingTemplate **)((char *)obj + 4))->m_kindOf[0] & 4)) {
+	if (aiu && !(thingTemplateKindOfBytes(*(ThingTemplate **)((char *)obj + 4))[0] & 4)) {
 		LocomotorSet *loco = &aiu->m_loco;
 		Pathfinder *pf = TheAI->m_pf;
 		if (pf->AdjustDestination(obj, *loco, (Coord3D *)pos, 0)) {
@@ -4489,7 +4476,7 @@ void GameLogic::prepareLogicForObjectLoad()
 	Object *next;
 	for (obj = m_firstObject; obj; obj = next) {
 		next = obj->getNextObject();
-		if (obj->getTemplate()->isKindOf(0x16)) {
+		if (thingTemplateIsKindOf(obj->getTemplate(), 0x16)) {
 			Bridge *bridge = TheTerrainLogic->findBridgeAt(obj->getPosition());
 			const BridgeInfo *info = bridge->peekBridgeInfo();
 			Object *bridgeObj = findObjectByID(info->bridgeObjectID);
@@ -4499,7 +4486,7 @@ void GameLogic::prepareLogicForObjectLoad()
 					destroyObject(tower);
 			}
 			destroyObject(bridgeObj);
-		} else if (obj->getTemplate()->isKindOf(0x3C)) {
+		} else if (thingTemplateIsKindOf(obj->getTemplate(), 0x3C)) {
 			destroyObject(obj);
 		}
 	}
@@ -4798,7 +4785,7 @@ void GameLogic::rva0023D68E(bool value)
 {
 	Object *object = m_firstObject;
 	while (object != 0) {
-		if (value || (object->m_template->m_kindOf[0x117 - 0x108] & 1) == 0) {
+		if (value || (thingTemplateKindOfBytes(object->m_template)[0x117 - 0x108] & 1) == 0) {
 			Drawable *drawable = object->getDrawable();
 			if (drawable != 0) {
 				drawable->rva00270FAC(value);
@@ -4811,7 +4798,7 @@ void GameLogic::rva0023D68E(bool value)
 
 int rva0023D6FA(Object *object)
 {
-	if (object != 0 && (object->m_template->m_kindOf[0x10A - 0x108] & 2) != 0) {
+	if (object != 0 && (thingTemplateKindOfBytes(object->m_template)[0x10A - 0x108] & 2) != 0) {
 		Player *player = object->getControllingPlayer();
 		unsigned int playerMask = 1 << player->m_playerIndex;
 		TheGameLogic->selectObject(object, true, playerMask, object->isLocallyControlled());
@@ -5128,7 +5115,7 @@ void Rva002431CB::rva002431CB()
 		AsciiString modelName;
 		UnitTimingModelState state;
 		state.clear();
-		const ModuleInfo &mi = m_curThing->drawModules();
+		const ModuleInfo &mi = thingTemplateDrawModules(m_curThing);
 		if (mi.getCount() > 0)
 		{
 			const ModuleData *mdd = mi.getNthData(0);
@@ -5160,8 +5147,8 @@ void Rva002431CB::rva002431CB()
 			((Rva00382AA0 *)this)->release();
 			return;
 		}
-		while (m_curThing->friend_getNextTemplate() && m_curThing->friend_getNextTemplate()->getName().compare(m_singleUnit) != 0)
-			m_curThing = m_curThing->friend_getNextTemplate();
+		while (thingTemplateNextTemplate(m_curThing) && thingTemplateNextTemplate(m_curThing)->getName().compare(m_singleUnit) != 0)
+			m_curThing = thingTemplateNextTemplate(m_curThing);
 	}
 
 	Object *obj = ((GameLogicObjectListView *)TheGameLogic)->m_firstObject;
@@ -5183,7 +5170,7 @@ void Rva002431CB::rva002431CB()
 				m_gotUnit = true;
 				break;
 			}
-			m_curThing = m_curThing->friend_getNextTemplate();
+			m_curThing = thingTemplateNextTemplate(m_curThing);
 			if (m_curThing == 0)
 			{
 				m_unitTypes++;
@@ -5202,52 +5189,52 @@ void Rva002431CB::rva002431CB()
 			const ThingTemplate *btt = m_curThing;
 			if (!single && !((StringBase<char> *)&m_side)->isEmpty())
 			{
-				if (((StringBase<char> &)(btt->m_side)).compareNoCase((const StringBase<char> &)(m_side)) != 0)
+				if (((StringBase<char> &)(btt->m_defaultOwningSide)).compareNoCase((const StringBase<char> &)(m_side)) != 0)
 					continue;
 				if (m_unitTypes == 0)
 				{
-					if (!(btt->kindOfWord(0) & 0x100))
+					if (!(thingTemplateKindOfWord(btt, 0) & 0x100))
 						continue;
-					if (btt->kindOfWord(0) & 0x800)
+					if (thingTemplateKindOfWord(btt, 0) & 0x800)
 						continue;
-					if (btt->kindOfWord(0) & 0x80)
+					if (thingTemplateKindOfWord(btt, 0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 1)
 				{
-					if (!(btt->kindOfWord(0) & 0x800))
+					if (!(thingTemplateKindOfWord(btt, 0) & 0x800))
 						continue;
-					if (btt->kindOfWord(0) & 0x400)
+					if (thingTemplateKindOfWord(btt, 0) & 0x400)
 						continue;
-					if (btt->kindOfWord(0) & 0x80)
+					if (thingTemplateKindOfWord(btt, 0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 2)
 				{
-					if (!(btt->kindOfWord(0) & 0x200))
+					if (!(thingTemplateKindOfWord(btt, 0) & 0x200))
 						continue;
-					if (btt->kindOfWord(0) & 0xC00)
+					if (thingTemplateKindOfWord(btt, 0) & 0xC00)
 						continue;
-					if (btt->kindOfWord(0) & 0x80)
+					if (thingTemplateKindOfWord(btt, 0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 3)
 				{
-					if (!(btt->kindOfWord(0) & 0x400))
+					if (!(thingTemplateKindOfWord(btt, 0) & 0x400))
 						continue;
-					if (btt->kindOfWord(0) & 0x80)
+					if (thingTemplateKindOfWord(btt, 0) & 0x80)
 						continue;
 				}
 				else if (m_unitTypes == 4)
 				{
-					if (!(btt->kindOfWord(0) & 0x80))
+					if (!(thingTemplateKindOfWord(btt, 0) & 0x80))
 						continue;
 				}
 				else
 				{
-					if (btt->kindOfWord(0) & 0xF00)
+					if (thingTemplateKindOfWord(btt, 0) & 0xF00)
 						continue;
-					if (btt->kindOfWord(0) & 0x80)
+					if (thingTemplateKindOfWord(btt, 0) & 0x80)
 						continue;
 				}
 			}
@@ -5292,10 +5279,10 @@ void Rva002431CB::rva002431CB()
 					else
 					{
 						float scale;
-						makeIdentityAndTakeScale(mtx, scale, btt->m_treeScale);
-						if (btt->kindOfWord(2) & 0x40000000)
+						makeIdentityAndTakeScale(mtx, scale, btt->m_assetScale);
+						if (thingTemplateKindOfWord(btt, 2) & 0x40000000)
 							TheTerrainLogic->addTree(btt, &pos, &mtx, scale);
-						else if (btt->kindOfWord(2) & 0x80000000)
+						else if (thingTemplateKindOfWord(btt, 2) & 0x80000000)
 							TheTerrainLogic->rva00280176(btt, &pos, &mtx, scale);
 						else
 							TheTerrainLogic->rva0027D3D9(btt, &pos, &mtx, scale);

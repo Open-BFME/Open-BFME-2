@@ -125,18 +125,12 @@ public:
 	virtual void setHealthDelta(Real delta); // +0x80
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(Int t) const { return m_kindOf[t >> 5] & (1U << (t & 31)); }
-	Int rva0033A69A(const Player *player, Int builder, Int a3) const;
-	Real getPlacementAngle() const { return m_placementAngle; }
-private:
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[6]; // +0x108
-	unsigned char m_pad120[0x4D0 - 0x120];
-	Real m_placementAngle; // +0x4D0
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// Readers on the canonical ThingTemplate: the kind-mask dword test and the
+// placement view angle (+0x4D0).
+static __forceinline UnsignedInt thingTemplateIsKindOf(const ThingTemplate *tmpl, Int t)
+{ return tmpl->m_kindof[t >> 5] & (1U << (t & 31)); }
+static inline Real thingTemplateGetPlacementAngle(const ThingTemplate *tmpl) { return tmpl->m_placementViewAngle; }
 
 // Rowed bit-set helpers over the 19-word model condition flags.
 class Rva001E4912
@@ -422,7 +416,7 @@ Object *FoundationAIUpdate::construct(const ThingTemplate *what, const Coord3D *
 	Real orientation = angle;
 	obj->setProducer(foundation);
 
-	if (obj->getTemplate()->isKindOf(KINDOF_A3))
+	if (thingTemplateIsKindOf(obj->getTemplate(), KINDOF_A3))
 	{
 		static NameKeyType memberKey2 = TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
 		BfmeItemE63 *member2 = (BfmeItemE63 *)foundation->findModule(memberKey2);
@@ -444,17 +438,17 @@ Object *FoundationAIUpdate::construct(const ThingTemplate *what, const Coord3D *
 					Coord3D delta(*foundation->getPosition());
 					delta -= *keep->getPosition();
 					orientation = normalizeAngle(atan2f(delta.y, delta.x));
-					orientation += obj->getTemplate()->getPlacementAngle();
+					orientation += thingTemplateGetPlacementAngle(obj->getTemplate());
 				}
 			}
 		}
 	}
-	else if (obj->getTemplate()->isKindOf(KINDOF_69))
+	else if (thingTemplateIsKindOf(obj->getTemplate(), KINDOF_69))
 	{
-		orientation = obj->getTemplate()->getPlacementAngle() + foundation->getTransformMatrix()->Get_Z_Rotation();
+		orientation = thingTemplateGetPlacementAngle(obj->getTemplate()) + foundation->getTransformMatrix()->Get_Z_Rotation();
 	}
 
-	if (!isRebuild && obj->getTemplate()->isKindOf(KINDOF_69) && !obj->getTemplate()->isKindOf(KINDOF_68))
+	if (!isRebuild && thingTemplateIsKindOf(obj->getTemplate(), KINDOF_69) && !thingTemplateIsKindOf(obj->getTemplate(), KINDOF_68))
 	{
 		obj->m_constructionPercent = 0.0f;
 		obj->setStatus(OBJECT_STATUS_UNDER_CONSTRUCTION, TRUE);
@@ -504,7 +498,7 @@ Object *FoundationAIUpdate::construct(const ThingTemplate *what, const Coord3D *
 	}
 
 	obj->rva00293E64(NULL);
-	if (!obj->getTemplate()->isKindOf(KINDOF_3C))
+	if (!thingTemplateIsKindOf(obj->getTemplate(), KINDOF_3C))
 		TheAI->pathfinder()->AddObjectToPathfindMap(obj);
 
 	BfmeItemE63 *newMember = (BfmeItemE63 *)obj->findModule(memberKey);

@@ -127,12 +127,7 @@ enum GUICommandType
 	GUI_COMMAND_NONE = 0
 };
 
-class ThingTemplate
-{
-public:
-	char m_pad000[0x5DA];
-	unsigned short m_buildCost;	// +0x5DA
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 // ContainModuleInterface view for allow 0x0026144C: isGarrisonable is
 // vtable slot 4 (the +0x10 call); the preceding slots are never called here.

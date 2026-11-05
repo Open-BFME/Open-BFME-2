@@ -49,21 +49,19 @@ public:
 
 enum KindOfType { KINDOF_STRUCTURE = 7 };
 
-class ThingTemplate
+#include "../../../../Include/Common/ThingTemplate.h"
+// The view's inline kind test: a byte test on the canonical +0x108 mask.
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, KindOfType t)
 {
-public:
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-private:
-	char m_pad[0x108];
-	unsigned char m_kindOf[0x20];
-};
+	return (((const unsigned char *)tmpl->m_kindof)[t >> 3] & (1 << (t & 7))) != 0;
+}
 
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
 	ObjectID getID() const { return m_id; }
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return thingTemplateIsKindOf(m_template, t); }
 private:
 	void *m_vptr;
 	const ThingTemplate *m_template;

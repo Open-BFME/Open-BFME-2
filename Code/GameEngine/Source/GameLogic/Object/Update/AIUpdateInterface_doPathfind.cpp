@@ -67,18 +67,10 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	Bool isKindOfByte(Int index, unsigned char mask) const { return (m_kindOf[index] & mask) != 0; }
-	unsigned char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad068[0x108 - 0x68];
-	unsigned char m_kindOf[0x18]; // observed bytes +0x108..0x11F
-	unsigned char m_pad120[0x614 - 0x120];
-	Bool m_moveAllies; // +0x614
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// Kind-mask byte test on the canonical +0x108 storage.
+static inline Bool thingTemplateIsKindOfByte(const ThingTemplate *tmpl, Int index, unsigned char mask)
+{ return (((const unsigned char *)tmpl->m_kindof)[index] & mask) != 0; }
 
 class Thing
 {
@@ -299,11 +291,11 @@ void AIUpdateInterface::doPathfind(PathfindServicesInterface *services)
   if(isDoingGroundMovement()&&m_path){
    PathNode *last=m_path->tail;m_object->rva0028ACEE((int)&last->m_pos,(Int)last->m_layer);
    PATH_TRACE("CritterDesync: doPathfind10 -- m_requestedDestination=%g,%g,%g");
-   Bool move=m_path->m_blockedByAlly&&!m_object->getTemplate()->isKindOfByte(3,0x40);
+   Bool move=m_path->m_blockedByAlly&&!thingTemplateIsKindOfByte(m_object->getTemplate(), 3,0x40);
    Object *obj=m_object;const ThingTemplate *thingTemplate=obj->getTemplate();
-   UnsignedInt kinds=*(const UnsignedInt*)(thingTemplate->m_kindOf+12);AI *ai=TheAI;
+   UnsignedInt kinds=*(const UnsignedInt*)((const unsigned char *)thingTemplate->m_kindof+12);AI *ai=TheAI;
    if((kinds&0x2000)&&!ai->getAiData()->m_hordesWaitForHordes)move=false;
-   if(thingTemplate->m_moveAllies||(kinds&0x20000000))move=true;
+   if(thingTemplate->m_crushAllies||(kinds&0x20000000))move=true;
    if(obj->testStatus(OBJECT_STATUS_39)||obj->testStatus(OBJECT_STATUS_32)||obj->isKindOf(KINDOF_84))move=false;
    if(move){
     ai->pathfinder()->MoveAllies(obj,m_path,obj->rva0028CE7B()>=4);

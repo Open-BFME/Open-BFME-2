@@ -65,21 +65,14 @@ public:
 	void updateWeaponSet(const Object *obj);
 };
 
-class ThingTemplate
-{
-public:
-	__forceinline UnsignedInt isKindOf(Int k) const { return m_kindOf[k >> 5] & (1U << (k & 0x1f)); }
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[8];
-	char m_pad128[0x600 - 0x128];
-	const WeaponTemplate *m_extraWeaponTemplates[2];
-};
-
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Readers on the canonical ThingTemplate: the kind-mask dword test, and the
+// two weapon templates at +0x600/+0x604 (m_crushWeapon, m_crushRevengeWeapon)
+// that the extra-weapon slots index.
+static __forceinline UnsignedInt thingTemplateIsKindOf(const ThingTemplate *tmpl, Int k)
+{ return tmpl->m_kindof[k >> 5] & (1U << (k & 0x1f)); }
+static __forceinline const WeaponTemplate *thingTemplateExtraWeapon(const ThingTemplate *tmpl, Int index)
+{ return ((const WeaponTemplate *const *)&tmpl->m_crushWeapon)[index]; }
 
 class SpecialPowerTemplate : public Overridable
 {
@@ -88,8 +81,8 @@ public:
 	{
 		return static_cast<const SpecialPowerTemplate *>(friend_getFinalOverride())->m_type;
 	}
-	char m_pad00[0x1C];
-	UnsignedInt m_type;
+	char m_pad10[0x1C - 0x10];
+	UnsignedInt m_type;	// +0x1C
 };
 
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
@@ -256,11 +249,11 @@ public:
 	Bool addAttributeModifierToPool(const AsciiString &name, Int duration);
 
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline UnsignedInt isKindOf(Int k) const { return getTemplate()->isKindOf(k); }
+	__forceinline UnsignedInt isKindOf(Int k) const { return thingTemplateIsKindOf(getTemplate(), k); }
 	Bool getReceivingDifficultyBonus() const { return m_receivingDifficultyBonus; }
 	__forceinline void createExtraWeapon(Int index)
 	{
-		const WeaponTemplate *weaponTemplate = m_template->m_extraWeaponTemplates[index];
+		const WeaponTemplate *weaponTemplate = thingTemplateExtraWeapon(m_template, index);
 		if (weaponTemplate)
 		{
 			Weapon *weapon = TheWeaponStore->allocateNewWeapon(weaponTemplate, PRIMARY_WEAPON);

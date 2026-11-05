@@ -65,18 +65,10 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
-class ThingTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	Bool isKindOfByte(Int index, unsigned char mask) const { return (m_kindOf[index] & mask) != 0; }
-	unsigned char m_pad000[0x64];
-	AsciiString m_name; // +0x64
-	unsigned char m_pad068[0x108 - 0x68];
-	unsigned char m_kindOf[0x18]; // observed bytes +0x108..0x11F
-	unsigned char m_pad120[0x614 - 0x120];
-	Bool m_moveAllies; // +0x614
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// Kind-mask byte test on the canonical +0x108 storage.
+static inline Bool thingTemplateIsKindOfByte(const ThingTemplate *tmpl, Int index, unsigned char mask)
+{ return (((const unsigned char *)tmpl->m_kindof)[index] & mask) != 0; }
 
 class Thing
 {
@@ -304,7 +296,7 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
  }
  Coord3D localVictimPos;
  if(victim){
-  if(victim->getTemplate()->isKindOfByte(2,0x40)){
+  if(thingTemplateIsKindOfByte(victim->getTemplate(), 2,0x40)){
    TBridgeAttackInfo info;TheTerrainLogic->getBridgeAttackPoints(victim,&info);
    Real dist1=source->rva002637E2(source->getPosition(),&info.attackPoint1);
    Real dist2=source->rva002637E2(source->getPosition(),&info.attackPoint2);
@@ -333,7 +325,7 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
   Bool attackFlag=false;
   if(getStateMachine()&&getStateMachine()->getCurrentStateID()==16)attackFlag=m_attackFlag;
   Bool shortPath=false;
-  if(getObject()->getTemplate()->isKindOfByte(0x17,0x80))
+  if(thingTemplateIsKindOfByte(getObject()->getTemplate(), 0x17,0x80))
    m_path=services->findAttackPath2(getObject(),m_locomotorSet,getObject()->getPosition(),victim,&localVictimPos,weapon);
   else m_path=services->findAttackPath(getObject(),m_locomotorSet,getObject()->getPosition(),victim,&localVictimPos,weapon,attackFlag,&shortPath);
   if(m_path){
@@ -353,13 +345,13 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
   TheAI->pathfinder()->rva003E3BFB((ObjectID)0);
   if(attackFlag)return true;
   if(m_path){
-   Bool move=m_path->m_blockedByAlly&&!getObject()->getTemplate()->isKindOfByte(3,0x40);
+   Bool move=m_path->m_blockedByAlly&&!thingTemplateIsKindOfByte(getObject()->getTemplate(), 3,0x40);
    Object *obj=getObject();
    const ThingTemplate *thingTemplate=obj->getTemplate();
-   UnsignedInt kinds=*(const UnsignedInt*)(thingTemplate->m_kindOf+12);
+   UnsignedInt kinds=*(const UnsignedInt*)((const unsigned char *)thingTemplate->m_kindof+12);
    AI *ai=TheAI;
    if((kinds&0x2000)&&!ai->getAiData()->m_hordesWaitForHordes)move=false;
-   if(thingTemplate->m_moveAllies||(kinds&0x20000000))move=true;
+   if(thingTemplate->m_crushAllies||(kinds&0x20000000))move=true;
    if(obj->testStatus(OBJECT_STATUS_39)||obj->testStatus(OBJECT_STATUS_32)||obj->isKindOf(KINDOF_84))move=false;
    if(move)ai->pathfinder()->MoveAllies(obj,m_path,obj->rva0028CE7B()>=4);
   }

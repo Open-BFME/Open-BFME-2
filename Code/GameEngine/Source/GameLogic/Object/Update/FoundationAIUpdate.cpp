@@ -34,16 +34,13 @@ public:
 	void fadeIn(unsigned int frames);
 	void rva00274176(bool value);
 };
-class ThingTemplate
-{
-public:
- const GeometryInfo &getGeometryInfo() const { return *reinterpret_cast<const GeometryInfo *>(m_pad000 + 0xA0); }
- unsigned int constructionWord118() const { return m_kindOf[4]; }
- __declspec(dllimport) __forceinline float getBoundingCircleRadius() const { return getGeometryInfo().m_boundingSphereRadius; }
- __forceinline bool constructionKind(unsigned int bit) const { return (reinterpret_cast<const unsigned char *>(m_kindOf)[bit >> 3] & (1U << (bit & 7))) != 0; }
-	unsigned char m_pad000[0x108];
-	unsigned int m_kindOf[5]; // +0x108, the KindOf mask every other Object::isKindOf copy reads
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// Readers on the canonical ThingTemplate: the geometry record (+0xA0), the
+// kind-mask word 4 (+0x118) and the kind-mask byte test.
+static inline const GeometryInfo &thingTemplateGeometryInfo(const ThingTemplate *tmpl) { return *reinterpret_cast<const GeometryInfo *>(tmpl->m_geometryInfo); }
+static inline unsigned int thingTemplateConstructionWord118(const ThingTemplate *tmpl) { return tmpl->m_kindof[4]; }
+static __forceinline float thingTemplateBoundingCircleRadius(const ThingTemplate *tmpl) { return thingTemplateGeometryInfo(tmpl).m_boundingSphereRadius; }
+static __forceinline bool thingTemplateConstructionKind(const ThingTemplate *tmpl, unsigned int bit) { return (reinterpret_cast<const unsigned char *>(tmpl->m_kindof)[bit >> 3] & (1U << (bit & 7))) != 0; }
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_3 = 3
@@ -73,7 +70,7 @@ public:
  AIUpdateInterface *getAIUpdateInterface() const { return *reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(this)+0x258); }
 	__forceinline unsigned int foundationKindMask(int kind) const
 	{
-		return m_template->m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
+		return m_template->m_kindof[kind >> 5] & (1U << (kind & 0x1f));
 	}
 	void setStatus(ObjectStatusTypes status, bool set);
 	Player *getControllingPlayer() const;
@@ -345,9 +342,9 @@ void FoundationAIUpdate::rva0045527A(ObjectID id)
 bool FoundationAIUpdate::isRemovableForConstruction(Object *obj)
 {
  if (!obj) return false;
- if (obj->getTemplate()->constructionKind(89)) return false;
- if (obj->getTemplate()->constructionKind(6)) return true;
- if (obj->getTemplate()->constructionKind(51)) return true;
+ if (thingTemplateConstructionKind(obj->getTemplate(), 89)) return false;
+ if (thingTemplateConstructionKind(obj->getTemplate(), 6)) return true;
+ if (thingTemplateConstructionKind(obj->getTemplate(), 51)) return true;
  if (obj->isEffectivelyDead()) return true;
  return false;
 }
@@ -364,10 +361,10 @@ extern PartitionManager *ThePartitionManager;
 // ancestors. WB body corroborates kind bit58 protects removable objects.
 void FoundationAIUpdate::rva00455BDD(const ThingTemplate *thingTemplate, const Coord3D *pos, float angle)
 {
- BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, thingTemplate->getBoundingCircleRadius() * 1.1F, 3, &Rva00261603Filter(*pos, thingTemplate->getGeometryInfo(), angle, true), 0);
+ BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, thingTemplateBoundingCircleRadius(thingTemplate) * 1.1F, 3, &Rva00261603Filter(*pos, thingTemplateGeometryInfo(thingTemplate), angle, true), 0);
  Object *obj;
  while ((obj = hits.next()) != 0) {
-  if (isRemovableForConstruction(obj) == true && !obj->getTemplate()->constructionKind(58))
+  if (isRemovableForConstruction(obj) == true && !thingTemplateConstructionKind(obj->getTemplate(), 58))
    TheGameLogic->destroyObject(obj);
  }
 }
@@ -394,15 +391,15 @@ void FoundationAIUpdate::rva0045537F()
 {
  if (m_28 != INVALID_ID) return;
  Object *self = m_object;
- const GeometryInfo &geom = self->getTemplate()->getGeometryInfo();
+ const GeometryInfo &geom = thingTemplateGeometryInfo(self->getTemplate());
  const Coord3D *pos = self->getPosition();
  float radius = geom.m_boundingSphereRadius;
  Object *obj = ThePartitionManager->getClosestObject(pos, radius * 1.1F, 1,
   linkKeepingRadius(&Rva0004584D(reinterpret_cast<const BfmeFixedStorage0004543D &>(Rva00045411BitSet(0, 105)), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)),
    &Rva00261603Filter(*pos, geom, self->getTransformMatrix()->Get_Z_Rotation(), true), geom, radius));
  if (obj) {
-  bool kind = (self->getTemplate()->constructionWord118() & 0x02000000U) != 0;
-  if (kind == obj->getTemplate()->constructionKind(64)) {
+  bool kind = (thingTemplateConstructionWord118(self->getTemplate()) & 0x02000000U) != 0;
+  if (kind == thingTemplateConstructionKind(obj->getTemplate(), 64)) {
    rva0045527A(obj->getID());
    obj->setProducer(self);
   }
@@ -584,7 +581,7 @@ NameKeyType FoundationAIUpdate::getModuleNameKey() const
 // WB's paired Foundation body supplies the two destinations and line-build branch.
 bool FoundationAIUpdate::rva00455C98(const ThingTemplate *thingTemplate, const Coord3D *pos, float angle, Player *owner)
 {
- float minor=thingTemplate->getGeometryInfo().field28, major=thingTemplate->getGeometryInfo().field24;
+ float minor=thingTemplateGeometryInfo(thingTemplate).field28, major=thingTemplateGeometryInfo(thingTemplate).field24;
  GeometryInfo gi(GEOMETRY_BOX,false,50.0F,major*1.5F,minor*1.5F);
  float radius=gi.m_boundingCircleRadius*1.5F;
  bool anyUnmovables=false;
@@ -592,8 +589,8 @@ bool FoundationAIUpdate::rva00455C98(const ThingTemplate *thingTemplate, const C
  for(Object *obj=hits.next();obj;obj=hits.next()) {
   if (obj->container()) obj=obj->container();
   if (!obj) continue;
-  if (obj->getTemplate()->constructionKind(89) || obj->getTemplate()->constructionKind(104) || obj->getTemplate()->constructionKind(60) || obj->getTemplate()->constructionKind(134)) continue;
-  if (!obj->getTemplate()->constructionKind(58) && !isRemovableForConstruction(obj)) {
+  if (thingTemplateConstructionKind(obj->getTemplate(), 89) || thingTemplateConstructionKind(obj->getTemplate(), 104) || thingTemplateConstructionKind(obj->getTemplate(), 60) || thingTemplateConstructionKind(obj->getTemplate(), 134)) continue;
+  if (!thingTemplateConstructionKind(obj->getTemplate(), 58) && !isRemovableForConstruction(obj)) {
    Relationship rel=owner->getRelationship(obj->getTeam());
    if (rel==ALLIES || rel==NEUTRAL) {
     AIUpdateInterface *ai=obj->getAIUpdateInterface();
@@ -601,7 +598,7 @@ bool FoundationAIUpdate::rva00455C98(const ThingTemplate *thingTemplate, const C
      char *src="C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AIUpdate\\FoundationAIUpdate.cpp";
      float variedRadius=GetGameLogicRandomValueReal(0.5F,1.5F,src,683)*radius;
      Coord3D dest1,dest2;
-     if (!thingTemplate->constructionKind(60)) {
+     if (!thingTemplateConstructionKind(thingTemplate, 60)) {
       angle=GetGameLogicRandomValueReal(-3.1415927410125732F,3.1415927410125732F,src,687);
       Vector3 vec(variedRadius,0.0F,0.0F);vec.Rotate_Z(angle);
       dest1.x=pos->x+vec.X;dest1.y=pos->y+vec.Y;dest1.z=pos->z+vec.Z;
@@ -610,7 +607,7 @@ bool FoundationAIUpdate::rva00455C98(const ThingTemplate *thingTemplate, const C
       dest2.x=pos->x+vec.X;dest2.y=pos->y+vec.Y;dest2.z=pos->z+vec.Z;
      } else {
       Coord3D delta;
-      if (m_object->getTemplate()->constructionKind(120)) {
+      if (thingTemplateConstructionKind(m_object->getTemplate(), 120)) {
        delta=*m_object->getPosition();delta.x-=pos->x;delta.y-=pos->y;delta.z-=pos->z;
        delta.x*=0.5F;delta.y*=0.5F;delta.z*=0.5F;
       } else {
@@ -653,7 +650,7 @@ UpdateSleepTime FoundationAIUpdate::update()
   }
  }
  Object *self = m_object;
- if (self->isEffectivelyDead() && self->getTemplate()->constructionKind(150)) {
+ if (self->isEffectivelyDead() && thingTemplateConstructionKind(self->getTemplate(), 150)) {
   m_object->setConstructionState00455477(AsciiString("empty"));
   Drawable *draw = self->getDrawable();
   if (draw && draw->isSelectable()) TheInGameUI->deselectDrawable(draw);

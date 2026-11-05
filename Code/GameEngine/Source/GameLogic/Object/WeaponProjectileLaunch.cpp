@@ -142,15 +142,10 @@ static __forceinline Bool weaponTemplateIsTurretAimed(const WeaponTemplate *wt) 
 
 #include "../../../Include/GameLogic/WeaponSetClass.h"
 
-class ThingTemplate
-{
-  public:
-    Bool isKindOf6D() const { return (((const unsigned char *)m_kindOf)[13] & 0x20) != 0; }
-
-  private:
-    char m_pad000[0x108];
-    unsigned int m_kindOf[5]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask bit 0x6D on the canonical +0x108 storage (byte 13, mask 0x20).
+static __forceinline Bool thingTemplateIsKindOf6D(const ThingTemplate *tmpl)
+{ return (((const unsigned char *)tmpl->m_kindof)[13] & 0x20) != 0; }
 
 class Thing
 {
@@ -203,7 +198,7 @@ class Object : public Thing
 
     if (launcher->testStatus(OBJECT_STATUS_RIDER) && (host = launcher->getContainedBy()) != 0)
     {
-        if (host->getTemplate()->isKindOf6D())
+        if (thingTemplateIsKindOf6D(host->getTemplate()))
         {
             if (host->getContainedBy() != 0)
             {

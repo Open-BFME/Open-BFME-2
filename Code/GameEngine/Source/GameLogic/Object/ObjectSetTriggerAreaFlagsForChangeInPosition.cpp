@@ -107,20 +107,16 @@ public:
 	void rva004DD658(Xfer *xfer);
 };
 
-class ThingTemplate
-{
-public:
-	Real rva00291EB1SampleRadius() const { return m_heightSampleRadius; }
-	__forceinline UnsignedInt isKindOf(Int k) const { return m_kindOf[k >> 5] & (1U << (k & 0x1f)); }
-	char m_pad000[0x108];
-	UnsignedInt m_kindOf[8];	// +0x108
-	char m_pad128[0x4BC - 0x128];
-	Real m_visionBonusPercentPerFoot;	// +0x4BC
-	char m_pad4C0[0x4C8 - 0x4C0];
-	Real m_heightSampleRadius;	// +0x4C8
-	char m_pad4CC[0x544 - 0x4CC];
-	Int m_heightSampleCount;	// +0x544
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Readers on the canonical ThingTemplate: the kind-mask dword test and the
+// vision-bonus sample radius (+0x4C8) the height ring is built from.
+static __forceinline UnsignedInt thingTemplateIsKindOf(const ThingTemplate *tmpl, Int k)
+{ return tmpl->m_kindof[k >> 5] & (1U << (k & 0x1f)); }
+static inline Real thingTemplateSampleRadius(const ThingTemplate *tmpl)
+{ return tmpl->m_visionBonusTestRadius; }
+// The ring's segment count (+0x544), read signed as the loop compares it.
+static __forceinline Int thingTemplateSampleCount(const ThingTemplate *tmpl)
+{ return (Int)tmpl->m_visionBonusTestSegments; }
 
 enum
 {
@@ -150,7 +146,7 @@ public:
 	void updateTriggerAreaFlags();	// 0x0028B2BF updateTriggerAreaFlags
 
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline UnsignedInt isKindOf(Int k) const { return getTemplate()->isKindOf(k); }
+	__forceinline UnsignedInt isKindOf(Int k) const { return thingTemplateIsKindOf(getTemplate(), k); }
 
 private:
 	void *m_vtable;
@@ -201,16 +197,16 @@ void Object::setTriggerAreaFlagsForChangeInPosition()
 		if (getTemplate()->m_visionBonusPercentPerFoot > 0.0f)
 		{
 			m_averageGroundHeight = 0.0f;
-			Real step = 6.282f / getTemplate()->m_heightSampleCount;
+			Real step = 6.282f / thingTemplateSampleCount(getTemplate());
 			Real angle = 0.0f;
-			for (Int i = 0; i < getTemplate()->m_heightSampleCount; i++, angle += step)
+			for (Int i = 0; i < thingTemplateSampleCount(getTemplate()); i++, angle += step)
 			{
 				Coord3DView pt;
-				pt.x = cos(angle) * getTemplate()->rva00291EB1SampleRadius() + getPosition()->x;
-				pt.y = sin(angle) * getTemplate()->rva00291EB1SampleRadius() + getPosition()->y;
+				pt.x = cos(angle) * thingTemplateSampleRadius(getTemplate()) + getPosition()->x;
+				pt.y = sin(angle) * thingTemplateSampleRadius(getTemplate()) + getPosition()->y;
 				m_averageGroundHeight += TheTerrainLogic->getLayerHeight(pt.x, pt.y, (PathfindLayerEnum)m_40C, 0, true);
 			}
-			m_averageGroundHeight /= getTemplate()->m_heightSampleCount;
+			m_averageGroundHeight /= thingTemplateSampleCount(getTemplate());
 		}
 	}
 

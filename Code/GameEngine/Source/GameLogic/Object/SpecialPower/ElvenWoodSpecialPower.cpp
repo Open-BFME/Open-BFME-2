@@ -98,18 +98,12 @@ public:
     __forceinline bool test(int bit) const { return bits.test(bit); }
 };
 typedef char ElvenKindMaskSize[(sizeof(Rva004C397FKindOfMask)==28)?1:-1];
-class ThingTemplate
-{
-public:
-	// Local view adapter; this does not define the original isKindOf overload.
-	__forceinline unsigned int testKindInView(int bit) const { return m_kindOf.test(bit); }
-	float getScale() const { return m_scale; }
-private:
-	unsigned char m_pad000[0x108];
-	Rva004C397FKindOfMask m_kindOf; // +0x108
-	unsigned char m_pad124[0x4E0 - 0x124];
-	float m_scale;                  // +0x4E0
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// Readers on the canonical ThingTemplate: the bitset kind test on the +0x108
+// storage and the asset scale (+0x4E0).
+static __forceinline unsigned int thingTemplateTestKindInView(const ThingTemplate *tmpl, int bit)
+{ return ((const Rva004C397FKindOfMask *)tmpl->m_kindof)->test(bit); }
+static inline float thingTemplateGetScale(const ThingTemplate *tmpl) { return tmpl->m_assetScale; }
 class ThingTemplate;
 class Matrix3D;
 struct Region3D;
@@ -829,13 +823,13 @@ Object *ElvenWoodSpecialPower::addObject(const Coord3D *position, const AsciiStr
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*name);
 	if (thingTemplate)
 	{
-		if (thingTemplate->testKindInView(100) || thingTemplate->testKindInView(94) || thingTemplate->testKindInView(95))
+		if (thingTemplateTestKindInView(thingTemplate, 100) || thingTemplateTestKindInView(thingTemplate, 94) || thingTemplateTestKindInView(thingTemplate, 95))
 		{
             Matrix3D matrix(true);
-            float scale = thingTemplate->getScale();
-            if (thingTemplate->testKindInView(94))
+            float scale = thingTemplateGetScale(thingTemplate);
+            if (thingTemplateTestKindInView(thingTemplate, 94))
                 TheTerrainLogic->addTree(thingTemplate, position, &matrix, scale);
-            else if (thingTemplate->testKindInView(95))
+            else if (thingTemplateTestKindInView(thingTemplate, 95))
                 TheTerrainLogic->rva00280176(thingTemplate, position, &matrix, scale);
             else
                 TheTerrainLogic->rva0027D3D9(thingTemplate, position, &matrix, scale);

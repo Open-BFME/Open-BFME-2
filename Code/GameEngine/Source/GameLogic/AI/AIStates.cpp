@@ -287,21 +287,17 @@ public:
 	Bool m_3cc; // +0x3CC
 };
 
-class ThingTemplate
-{
-public:
-	Bool isKindOfImmobile() const { return (m_kindOf[0] & 4) != 0; }
-	Bool isKindOfProjectile() const { return (m_kindOf[3] & 2) != 0; }
-	UnsignedInt kindOfWord(Int i) const { return ((const UnsignedInt *)m_kindOf)[i]; }
-	unsigned char m_pad00[0x108];
-	volatile unsigned char m_kindOf[0x14]; // +0x108
-	unsigned char m_pad11C[0x122 - 0x11C];
-	unsigned char m_122; // +0x122
-	unsigned char m_pad123[0x53C - 0x123];
-	Real m_firingArc; // +0x53C
-	unsigned char m_pad540[0x5FD - 0x540];
-	Bool m_useCrushAttack; // +0x5FD
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask readers on the canonical +0x108 storage (byte tests, one dword
+// test); byte 0x1A is the former +0x122 view byte.
+static __forceinline const volatile unsigned char *thingTemplateKindOfBytes(const ThingTemplate *tmpl)
+{ return (const volatile unsigned char *)tmpl->m_kindof; }
+static inline Bool thingTemplateIsKindOfImmobile(const ThingTemplate *tmpl)
+{ return (thingTemplateKindOfBytes(tmpl)[0] & 4) != 0; }
+static inline Bool thingTemplateIsKindOfProjectile(const ThingTemplate *tmpl)
+{ return (thingTemplateKindOfBytes(tmpl)[3] & 2) != 0; }
+static inline UnsignedInt thingTemplateKindOfWord(const ThingTemplate *tmpl, Int i)
+{ return ((const UnsignedInt *)thingTemplateKindOfBytes(tmpl))[i]; }
 
 class Thing
 {
@@ -421,8 +417,8 @@ public:
 		Object *container = getOutermostContainer();
 		return container && container->isKindOfImmobile();
 	}
-	Bool isKindOfImmobile() const { return getTemplate()->isKindOfImmobile(); }
-	Bool isKindOfProjectile() const { return getTemplate()->isKindOfProjectile(); }
+	Bool isKindOfImmobile() const { return thingTemplateIsKindOfImmobile(getTemplate()); }
+	Bool isKindOfProjectile() const { return thingTemplateIsKindOfProjectile(getTemplate()); }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);
 	Player *getControllingPlayer() const;
@@ -1214,8 +1210,8 @@ StateReturnType AIAttackFireWeaponState::onEnter()
 	if (victim)
 	{
 		if (!obj->testStatus(OBJECT_STATUS_41) && !obj->isKindOf(KINDOF_CE) &&
-			!(victim->getTemplate()->m_kindOf[6] & 0x80) && !(victim->getTemplate()->m_kindOf[0x13] & 8) &&
-			!(victim->getTemplate()->m_kindOf[0xB] & 0x40) &&
+			!(thingTemplateKindOfBytes(victim->getTemplate())[6] & 0x80) && !(thingTemplateKindOfBytes(victim->getTemplate())[0x13] & 8) &&
+			!(thingTemplateKindOfBytes(victim->getTemplate())[0xB] & 0x40) &&
 			victim->getControllingPlayer() == obj->getControllingPlayer())
 		{
 			ai->friend_setGoalObject(0);
@@ -1223,7 +1219,7 @@ StateReturnType AIAttackFireWeaponState::onEnter()
 			return STATE_FAILURE;
 		}
 		if ((victim->m_physics && ((Rva00390533 *)victim->m_physics)->rva00390533()) ||
-			(!(obj->getTemplate()->kindOfWord(3) & 0x2000) && (victim->getTemplate()->kindOfWord(3) & 0x2000)))
+			(!(thingTemplateKindOfWord(obj->getTemplate(), 3) & 0x2000) && (thingTemplateKindOfWord(victim->getTemplate(), 3) & 0x2000)))
 		{
 			getMachine()->setGoalObject(0);
 			return STATE_FAILURE;

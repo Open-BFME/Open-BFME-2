@@ -67,14 +67,12 @@ template <> class AIUpdateSlots<0>
 {
 };
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
-class ThingTemplate
+#include "../../../Include/Common/ThingTemplate.h"
+// The can-be-repulsed test reads kind-mask bit 45 (+0x108 byte 5, mask 0x20).
+static __forceinline Bool isKindOfCanBeRepulsed(const ThingTemplate *tmpl)
 {
-public:
-	Bool isKindOfCanBeRepulsed() const { return (m_kindOf[5] & 0x20) != 0; }
-private:
-	unsigned char m_pad00[0x108];
-	unsigned char m_kindOf[8]; // +0x108
-};
+	return (((const unsigned char *)tmpl->m_kindof)[5] & 0x20) != 0;
+}
 class Object
 {
 public:
@@ -137,7 +135,7 @@ StateReturnType AIWanderInPlaceState::update()
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
 	if (!ai)
 		return STATE_FAILURE;
-	if (obj->getTemplate()->isKindOfCanBeRepulsed())
+	if (isKindOfCanBeRepulsed(obj->getTemplate()))
 	{
 		m_timer--;
 		if (m_timer < 0)

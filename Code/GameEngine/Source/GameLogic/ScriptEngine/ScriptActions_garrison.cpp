@@ -128,16 +128,10 @@ public:
 
 class Image;
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(int t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-	const Image *getButtonImage(); // resolves the image name on first use
-
-private:
-	unsigned char m_pad[0x108];
-	unsigned char m_kindOf[0x20];
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask byte test on the canonical +0x108 storage.
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int t)
+{ return (((const unsigned char *)tmpl->m_kindof)[t >> 3] & (1 << (t & 7))) != 0; }
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -170,7 +164,7 @@ class Object : public Thing
 public:
 	virtual ~Object();
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline bool isKindOf(int t) const { return getTemplate()->isKindOf(t); }
+	__forceinline bool isKindOf(int t) const { return thingTemplateIsKindOf(getTemplate(), t); }
 	ContainModuleInterface *getContain() const { return m_contain; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Player *getControllingPlayer() const;

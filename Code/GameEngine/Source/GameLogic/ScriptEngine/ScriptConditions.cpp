@@ -886,27 +886,9 @@ enum KindOfType
 {
 	KINDOF_90 = 90
 };
-class ThingTemplate
-{
-public:
-	bool isKindOfInert() const { return (m_kindOf[0x113 - 0x108] & 0x02) != 0; }
-	bool isEquivalentTo(const ThingTemplate *other) const;
-	bool isKindOf(KindOfType t) const
-	{
-		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
-	}
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the isKindOf
-	// copy loses to the kept copy. No flags touched.
-	bool bfme_isKindOf_puc(KindOfType t) const
-	{
-		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
-	}
-	const AsciiString &getName() const { return m_name; }
-	char m_pad00[0x64];
-	AsciiString m_name; // +0x64
-	char m_pad68[0xA0];
-	unsigned char m_kindOf[16]; // +0x108 KindOf bits; 0x02 of byte 11 is the inert flag
-};
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask bit 0x59 (inert) on the canonical +0x108 storage: byte 11, mask 0x02.
+static inline bool thingTemplateIsKindOfInert(const ThingTemplate *tmpl) { return (((const unsigned char *)tmpl->m_kindof)[0x113 - 0x108] & 0x02) != 0; }
 #define REALLY_FAR (100000 * 10.0f)
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 // AI_EXIT is enum item 37 in the pristine Zero Hour AIStateMachine.h.
@@ -3504,7 +3486,7 @@ Bool ScriptConditions::evaluateNamedEnteredArea(Parameter *unitParm, Parameter *
     Object *unit = TheScriptEngine->getUnitNamed(unitParm);
     if (!unit)
         return false;
-    if (unit->getTemplate()->isKindOfInert())
+    if (thingTemplateIsKindOfInert(unit->getTemplate()))
         return false;
     PolygonTrigger *trigger = TheScriptEngine->getQualifiedTriggerAreaByName(triggerParm->getString());
     if (!trigger)

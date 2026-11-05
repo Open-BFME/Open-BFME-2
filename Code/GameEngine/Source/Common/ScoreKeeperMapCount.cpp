@@ -14,17 +14,13 @@ private:
 	unsigned m_words[7];
 };
 
-class ThingTemplate
+#include "../../Include/Common/ThingTemplate.h"
+// Retail 0x0030A8E3: the mask test on the canonical +0x108 storage. Kept an
+// inline (COMDAT) definition as the private view emitted it.
+inline bool ThingTemplate::isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const
 {
-public:
-	bool isKindOfMulti(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear) const
-	{
-		return m_kindOf.testSetAndClear(mustBeSet, mustBeClear);
-	}
-private:
-	char m_pad[0x108];
-	BitFlags<116> m_kindOf;
-};
+	return ((const BitFlags<116> *)m_kindof)->testSetAndClear(mustBeSet, mustBeClear);
+}
 
 namespace _STL
 {

@@ -57,12 +57,7 @@ struct Rva0028AC4EEntry
 	const Rva0028AC4EValue *m_value; // +0x04
 };
 
-class ThingTemplate
-{
-public:
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x14]; // +0x108
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 #include "../../../Common/Thing/thing.h"
 
@@ -71,8 +66,8 @@ class Object : public Thing
 public:
 	const Rva0028AC4EEntry *rva0028AC4E() const;
 	Int rva0028B511() const; // the layer
-	Bool isKindOfAircraft() const { return (m_template->m_kindOf[1] & 0x10) != 0; }
-	Bool isKindOfProjectile() const { return (m_template->m_kindOf[3] & 2) != 0; }
+	Bool isKindOfAircraft() const { return (((const unsigned char *)m_template->m_kindof)[1] & 0x10) != 0; }
+	Bool isKindOfProjectile() const { return (((const unsigned char *)m_template->m_kindof)[3] & 2) != 0; }
 };
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"

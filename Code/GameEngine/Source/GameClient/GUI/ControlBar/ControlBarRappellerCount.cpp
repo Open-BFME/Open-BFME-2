@@ -79,15 +79,13 @@ class UpgradeTemplate { public: Int m_pad0; Int m_upgradeType; };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ThingTemplate {
-public:
-	BuildableStatus getBuildable() const;
-	bool isKindOf43() const { return (m_kindOf[5] & 8) != 0; }
-	__forceinline UnsignedInt commandKindOfMask(int bit) const { return ((const UnsignedInt *)m_kindOf)[bit >> 5] & (1 << (bit & 31)); }
-	__forceinline BuildableStatus commandBuildableStatus() const { return getBuildable(); }
-	char m_pad000[0x108];
-	unsigned char m_kindOf[32];
-};
+#include "../../../../Include/Common/ThingTemplate.h"
+// Kind-mask readers on the canonical +0x108 storage: bit 43 as a byte test,
+// the command checks as a dword test.
+static __forceinline bool thingTemplateIsKindOf43(const ThingTemplate *tmpl)
+{ return (((const unsigned char *)tmpl->m_kindof)[5] & 8) != 0; }
+static __forceinline UnsignedInt thingTemplateKindOfMask(const ThingTemplate *tmpl, int bit)
+{ return tmpl->m_kindof[bit >> 5] & (1 << (bit & 31)); }
 
 struct ContainedNode {
 	ContainedNode *m_next;
@@ -275,7 +273,7 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ContainModule *commandContain() const { return m_contain; }
 	AIUpdateInterface *getAI() const { return m_ai; }
-	__forceinline UnsignedInt commandKindOfMask(int bit) const { return getTemplate()->commandKindOfMask(bit); }
+	__forceinline UnsignedInt commandKindOfMask(int bit) const { return thingTemplateKindOfMask(getTemplate(), bit); }
 	Bool testStatus(ObjectStatusTypes status) const;
 	Player *getControllingPlayer() const;
 	Bool isLocallyControlled() const;
@@ -329,7 +327,7 @@ static Int getRappellerCount(Object *obj)
 	ContainedNode *end = items.m_list->m_node;
 	for (ContainedNode *it = end->m_next; it != end; it = it->m_next)
 	{
-		if (it->m_data->getTemplate()->isKindOf43())
+		if (thingTemplateIsKindOf43(it->m_data->getTemplate()))
 			++num;
 	}
 	return num;
@@ -516,7 +514,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 					{
 						if (command->rva0035B570())
 						{
-							BuildableStatus status = command->rva0035B570()->commandBuildableStatus();
+							BuildableStatus status = command->rva0035B570()->getBuildable();
 							if (status == 2 || (status == 3 && obj->getControllingPlayer()->m_playerType != 1))
 								return COMMAND_HIDDEN;
 						}
@@ -593,7 +591,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 		{
 			if (command->rva0035B570())
 			{
-				BuildableStatus status = command->rva0035B570()->commandBuildableStatus();
+				BuildableStatus status = command->rva0035B570()->getBuildable();
 				if (status == 2 || (status == 3 && obj->getControllingPlayer()->m_playerType != 1))
 					return COMMAND_HIDDEN;
 			}
@@ -722,7 +720,7 @@ CommandAvailability ControlBar::getCommandAvailability(const CommandButton *comm
 				return COMMAND_HIDDEN;
 			if (tt)
 			{
-				BuildableStatus status = tt->commandBuildableStatus();
+				BuildableStatus status = tt->getBuildable();
 				if (status == 2 || (status == 3 && obj->getControllingPlayer()->m_playerType != 1))
 					return COMMAND_HIDDEN;
 			}

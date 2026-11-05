@@ -77,17 +77,16 @@ enum CellShroudStatus
 class Object;
 class Team;
 
-class ThingTemplate
+#include "../../../../Include/Common/ThingTemplate.h"
+// The view's structure test reads kind-mask byte 0, bit 0x80 (+0x108).
+static __forceinline Bool thingTemplateIsStructure(const ThingTemplate *tmpl)
 {
-public:
-	Int getCommandPoints() const { return m_commandPoints; }
-	Bool isStructure() const { return (m_kindOf[0] & 0x80) != 0; }
-
-private:
-	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x618 - 0x108];
-	Int m_commandPoints;
-};
+	return (((const unsigned char *)tmpl->m_kindof)[0] & 0x80) != 0;
+}
+static __forceinline Int thingTemplateCommandPoints(const ThingTemplate *tmpl)
+{
+	return tmpl->m_commandPoints;
+}
 
 // The 16-byte status mask newObject reads through a pointer.
 struct CreateMask
@@ -148,7 +147,7 @@ class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	Bool isKindOf_Structure() const { return getTemplate()->isStructure(); }
+	Bool isKindOf_Structure() const { return thingTemplateIsStructure(getTemplate()); }
 	const Coord3D *getPosition() const { return &m_pos; }
 	ObjectID getID() const { return m_id; }
 	ObjectID getProducerID() const { return m_producerID; }
@@ -230,7 +229,7 @@ Bool SpawnBehavior::createSpawn()
 		Player *controllingPlayer = parent->getControllingPlayer();
 		if (controllingPlayer && controllingPlayer->commandPoints())
 		{
-			if (controllingPlayer->commandPoints()->rva002A7548(1) < m_spawnTemplate->getCommandPoints())
+			if (controllingPlayer->commandPoints()->rva002A7548(1) < thingTemplateCommandPoints(m_spawnTemplate))
 				return false;
 		}
 	}

@@ -182,21 +182,21 @@ public:
 #define PAD_VIRTUALS10(p) \
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
 	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
-class ThingTemplate
+#include "../../../Include/Common/ThingTemplate.h"
+// Kind-mask readers on the canonical +0x108 storage: byte tests, and the
+// dword test the weapon pass compiles to.
+static __forceinline const unsigned char *thingTemplateKindOfBytes(const ThingTemplate *tmpl)
+{ return (const unsigned char *)tmpl->m_kindof; }
+static inline Int thingTemplateIsInfantry(const ThingTemplate *tmpl) { return thingTemplateKindOfBytes(tmpl)[1] & 1; }
+static inline Int thingTemplateIsMobNexus(const ThingTemplate *tmpl) { return thingTemplateKindOfBytes(tmpl)[5] & 0x40; }
+static inline Int thingTemplateIsVehicle(const ThingTemplate *tmpl)
 {
- public:
- Int isInfantry() const {return m_kindOf[1] & 1;}
- Int isMobNexus() const {return m_kindOf[5] & 0x40;}
- Int isVehicle() const
- {
-  return m_kindOf[1] & 0x02;
- }
- __declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
- __forceinline Bool isKindOf(Int kind) const { return (m_kindOf[kind >> 3] & (1 << (kind & 7))) != 0; }
- __forceinline Bool bfme_isKindOf_wpx(KindOfType t) const { return (reinterpret_cast<const unsigned int *>(m_kindOf)[(unsigned int)t >> 5] & (1u << ((unsigned int)t & 31))) != 0; }
- char m_pad000[0x108];
- unsigned char m_kindOf[0x20]; // +0x108
-};
+ return thingTemplateKindOfBytes(tmpl)[1] & 0x02;
+}
+static __forceinline Bool thingTemplateIsKindOf(const ThingTemplate *tmpl, Int kind)
+{ return (thingTemplateKindOfBytes(tmpl)[kind >> 3] & (1 << (kind & 7))) != 0; }
+static __forceinline Bool thingTemplateIsKindOfWord(const ThingTemplate *tmpl, KindOfType t)
+{ return (tmpl->m_kindof[(unsigned int)t >> 5] & (1u << ((unsigned int)t & 31))) != 0; }
 class SimpleObjectIterator
 {
  public:
@@ -615,8 +615,8 @@ public:
 	void *rva0028BD5D(int v) const;
 	const AsciiString *rva00290E67() const; // Object::getCommandSetString
 	__declspec(dllimport) __forceinline bool isDisabledByType(DisabledType t) const { return (m_disabledMask[t >> 3] & (1 << (t & 7))) != 0; }
-	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
-	__forceinline Bool bfme_isKindOf_wpx(KindOfType kind) const { return m_template->bfme_isKindOf_wpx(kind); }
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return thingTemplateIsKindOf(getTemplate(), t); }
+	__forceinline Bool bfme_isKindOf_wpx(KindOfType kind) const { return thingTemplateIsKindOfWord(m_template, kind); }
 	Bool bfme_isAirborneTarget_wpx() const { return ((m_status >> 6) & 1) != 0; }
 	ContainModuleInterface *getContain() const { return reinterpret_cast<ContainModuleInterface *>(m_provider250); }
 	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
@@ -1484,11 +1484,11 @@ Bool AIGroup::moveInfantryToPos(const Coord3D *pos, CommandSourceType cmdSource)
   if ((*i)->isDisabledHeld())
   continue;
 // don't bother telling the occupants to move.
-  if (!(*i)->getTemplate()->isInfantry())
+  if (!thingTemplateIsInfantry((*i)->getTemplate()))
   continue;
   if ((*i)->getAI() == 0)
   continue;
-  if ((*i)->getTemplate()->isMobNexus())
+  if (thingTemplateIsMobNexus((*i)->getTemplate()))
   return false;
   Coord3DCopy unitPos;
   copyCoord(unitPos, (*i)->getPosition());
@@ -1824,7 +1824,7 @@ Bool AIGroup::moveVehicleToPos(const Coord3D *pos, CommandSourceType cmdSource)
   if ((*i)->isDisabledHeld())
   continue;
 // don't bother telling the occupants to move.
-  if (!(*i)->getTemplate()->isVehicle())
+  if (!thingTemplateIsVehicle((*i)->getTemplate()))
   continue;
   if ((*i)->getAI() == 0)
   continue;
@@ -2500,7 +2500,7 @@ void AIGroup::recompute()
 	for (std::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it)
 	{
 		Object *obj = *it;
-		if ((obj->m_template->m_kindOf[0] & 4) != 0)
+		if ((thingTemplateKindOfBytes(obj->m_template)[0] & 4) != 0)
 			continue;
 		if ((obj->m_disabledMask[0] & 8) != 0)
 			continue;
@@ -2601,7 +2601,7 @@ bool AIGroup::groupDoSpecialPower(UnsignedInt id, UnsignedInt commandOptions, In
 	for (_STL::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
 		Object *object = *it;
 		const ThingTemplate *thingTemplate = object->m_template;
-		if ((thingTemplate->m_kindOf[0x0B] & 4) == 0)
+		if ((thingTemplateKindOfBytes(thingTemplate)[0x0B] & 4) == 0)
 			continue;
 		ExperienceLevelHandle handle = object->m_experienceTracker->rva0039AC0C();
 		if (!((ExperienceLevelStore *)TheExperienceLevelSystem)->IsValid(handle))
@@ -2690,7 +2690,7 @@ bool AIGroup::groupDoSpecialPowerAtLocation(UnsignedInt id, const Coord3D *loc, 
 	for (_STL::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
 		Object *object = *it;
 		const ThingTemplate *thingTemplate = object->m_template;
-		if ((thingTemplate->m_kindOf[0x0B] & 4) == 0)
+		if ((thingTemplateKindOfBytes(thingTemplate)[0x0B] & 4) == 0)
 			continue;
 		ExperienceLevelHandle handle = object->m_experienceTracker->rva0039AC0C();
 		if (!((ExperienceLevelStore *)TheExperienceLevelSystem)->IsValid(handle))
@@ -2998,7 +2998,7 @@ bool AIGroup::rva0036E357() {
   bool reject=false;
   if(obj->m_disabledMask[0]&8)reject=true;
   AIUpdateInterface *ai=obj->m_ai;
-  if(!ai)reject=true;else if(!ai->m_field1F0)reject=true;else if(obj->m_template->m_kindOf[0]&4)reject=true;
+  if(!ai)reject=true;else if(!ai->m_field1F0)reject=true;else if(thingTemplateKindOfBytes(obj->m_template)[0]&4)reject=true;
   ++cur;
   if(reject) {
    _ReadWriteBarrier();
@@ -3161,7 +3161,7 @@ void AIGroup::groupDoSpecialPowerAtObject(UnsignedInt specialPowerID, Object *ta
 	for (i = m_memberList.begin(); i != m_memberList.end(); ++i)
 	{
 		Object *obj = *i;
-		if (!(commandOptions & 0x100000) && obj->getTemplate()->isKindOf(0x5A))
+		if (!(commandOptions & 0x100000) && thingTemplateIsKindOf(obj->getTemplate(), 0x5A))
 		{
 			ExperienceLevelHandle level = obj->getExperienceTracker()->rva0039AC0C();
 			if (!reinterpret_cast<const ExperienceLevelStore *>(TheExperienceLevelSystem)->IsValid(level))

@@ -47,17 +47,12 @@ enum KindOfType
 	KINDOF_BFME_91 = 91
 };
 
-class ThingTemplate
+#include "../../Include/Common/ThingTemplate.h"
+// The view's inline kind test: a byte test on the canonical +0x108 mask.
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, KindOfType t)
 {
-public:
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType kind) const
-	{
-		return (((const unsigned char *)m_kindOf)[kind >> 3] & (1 << (kind & 7))) != 0;
-	}
-private:
-	unsigned char m_pad000[0x108];
-	UnsignedInt m_kindOf[4]; // +0x108
-};
+	return (((const unsigned char *)tmpl->m_kindof)[t >> 3] & (1 << (t & 7))) != 0;
+}
 
 class Object
 {
@@ -128,14 +123,14 @@ void InGameUI::rva0029BE05(Bool viaLogic, Player *player)
 		if (obj->getContainedBy())
 			continue;
 		const ThingTemplate *thingTemplate = obj->getTemplate();
-		if (thingTemplate->isKindOf(KINDOF_BFME_91))
+		if (thingTemplateIsKindOf(thingTemplate, KINDOF_BFME_91))
 			continue;
-		if (thingTemplate->isKindOf(KINDOF_BFME_3))
+		if (thingTemplateIsKindOf(thingTemplate, KINDOF_BFME_3))
 		{
 		}
-		else if (thingTemplate->isKindOf(KINDOF_BFME_14))
+		else if (thingTemplateIsKindOf(thingTemplate, KINDOF_BFME_14))
 			continue;
-		else if (thingTemplate->isKindOf(KINDOF_BFME_16))
+		else if (thingTemplateIsKindOf(thingTemplate, KINDOF_BFME_16))
 			continue;
 		if (obj->isEffectivelyDead())
 			continue;

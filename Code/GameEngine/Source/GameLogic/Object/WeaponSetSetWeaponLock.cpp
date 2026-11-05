@@ -293,9 +293,7 @@ bool WeaponSet::setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType
 template<int N> class BitFlags;
 template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
 class WeaponTemplateSet;
-class ThingTemplate { public: const WeaponTemplateSet *findWeaponTemplateSet(const BitFlags<117> &) const;
- char pad0[0x108]; unsigned m_kindOf[5]; // +0x108
-};
+#include "../../../Include/Common/ThingTemplate.h"
 class Rva0028B7AELeaGetter { public: void *get() const; };
 class Rva002C9424 { public: Rva002C9424 *rva002C9424(); };
 struct Rva002C943BSrc;
@@ -423,28 +421,28 @@ void WeaponSet::releaseWeaponLock(WeaponLockType lockType)
 static int getVictimAntiMask(const Object *victim)
 {
 	const ThingTemplate *thingTemplate = victim->m_template;
-	if (thingTemplate->m_kindOf[1] & 0x800000)
+	if (thingTemplate->m_kindof[1] & 0x800000)
 		return 0x12;
-	if (thingTemplate->m_kindOf[1] & 0x100000)
+	if (thingTemplate->m_kindof[1] & 0x100000)
 		return 8;
-	if (thingTemplate->m_kindOf[2] & 0x800)
+	if (thingTemplate->m_kindof[2] & 0x800)
 		return 0x40;
-	if (thingTemplate->m_kindOf[0] & 0x2000000)
+	if (thingTemplate->m_kindof[0] & 0x2000000)
 		return 4;
 	if ((bool)((victim->m_status >> 6) & 1))
 	{
-		if (thingTemplate->m_kindOf[0] & 0x200)
+		if (thingTemplate->m_kindof[0] & 0x200)
 			return 1;
-		if (thingTemplate->m_kindOf[0] & 0x100)
+		if (thingTemplate->m_kindof[0] & 0x100)
 			return 0x20;
-		if (thingTemplate->m_kindOf[0] & 0x400)
+		if (thingTemplate->m_kindof[0] & 0x400)
 			return 0x200;
-		if (thingTemplate->m_kindOf[2] & 0x4000)
+		if (thingTemplate->m_kindof[2] & 0x4000)
 			return 0x80;
 		return 0;
 	}
 	// Ground victim: 2, plus 0x100 for KindOf bit 7 (retail selects 0x102/2).
-	return (thingTemplate->m_kindOf[0] & 0x80) ? 0x102 : (thingTemplate->m_kindOf[0] & 0x80) + 2;
+	return (thingTemplate->m_kindof[0] & 0x80) ? 0x102 : (thingTemplate->m_kindof[0] & 0x80) + 2;
 }
 
 class ContainedItemsListView;
@@ -577,7 +575,7 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 				targetPos.y = pos->y;
 				targetPos.z = pos->z;
 				Coord3D goalPos;
-				if (!(source->m_template->m_kindOf[3] & 0x2000)
+				if (!(source->m_template->m_kindof[3] & 0x2000)
 					&& contain->calcBestGarrisonPosition(&goalPos, &targetPos))
 					withinAttackRange = weapon->isSourceObjectWithGoalPositionWithinAttackRange(source, &goalPos, victim, &targetPos);
 				else if (victim)
@@ -590,7 +588,7 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 
 			if (withinAttackRange)
 			{
-				if (source->m_template->m_kindOf[0] & 4)
+				if (source->m_template->m_kindof[0] & 4)
 				{
 					AIUpdateInterface *ai = source->m_ai;
 					if (!ai || !ai->m_1F0)
@@ -612,9 +610,9 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 		}
 	}
 
-	if ((source->m_template->m_kindOf[0] & 4)
-		|| (source->m_template->m_kindOf[2] & 0x100000)
-		|| (containedBy && !(containedBy->m_template->m_kindOf[3] & 0x2000))
+	if ((source->m_template->m_kindof[0] & 4)
+		|| (source->m_template->m_kindof[2] & 0x100000)
+		|| (containedBy && !(containedBy->m_template->m_kindof[3] & 0x2000))
 		|| (source->m_ai && source->m_ai->m_1F0
 			&& source->m_ai->m_1F0->rva001E4845((Object *)source) <= 0.0f))
 	{
@@ -677,8 +675,8 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 	if (spawnInterface
 		&& spawnInterface->getCanAnySlavesUseWeaponAgainstTarget(attackType, victim, pos, commandSource) == ATTACKRESULT_POSSIBLE)
 	{
-		if ((source->m_template->m_kindOf[0] & 4)
-			&& (source->m_template->m_kindOf[2] & 0x100000)
+		if ((source->m_template->m_kindof[0] & 4)
+			&& (source->m_template->m_kindof[2] & 0x100000)
 			&& okResult == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
 			okResult = ATTACKRESULT_POSSIBLE;
 		return okResult;
@@ -716,7 +714,7 @@ CanAttackResult WeaponSet::getAbleToAttackSpecificObject(AbleToAttackType attack
 		return ATTACKRESULT_NOT_POSSIBLE;
 
 	const ThingTemplate *victimTemplate = victim->m_template;
-	if (victimTemplate->m_kindOf[1] & 0x400000)
+	if (victimTemplate->m_kindof[1] & 0x400000)
 		return ATTACKRESULT_NOT_POSSIBLE;
 
 	if (victim->testStatus((ObjectStatusTypes)0x3C))
@@ -729,7 +727,7 @@ CanAttackResult WeaponSet::getAbleToAttackSpecificObject(AbleToAttackType attack
 	if (source->testStatus((ObjectStatusTypes)0x1B) || sameOwnerForceAttack)
 		allowStealthToPreventAttacks = false;
 	bool forced = ((int)attackType & 1) != 0;
-	if (forced && (victimTemplate->m_kindOf[2] & 0x1000000))
+	if (forced && (victimTemplate->m_kindof[2] & 0x1000000))
 	{
 		Rva00373EC6 *disguise = ((Object *)victim)->rva0028F4BC();
 		if (disguise && disguise->isDisguised())
@@ -738,7 +736,7 @@ CanAttackResult WeaponSet::getAbleToAttackSpecificObject(AbleToAttackType attack
 
 	if (allowStealthToPreventAttacks && ((Object *)victim)->rva002943B2(source->getControllingPlayer()))
 	{
-		if (!(victim->m_template->m_kindOf[2] & 0x1000000))
+		if (!(victim->m_template->m_kindof[2] & 0x1000000))
 			return ATTACKRESULT_NOT_POSSIBLE;
 		Rva00373EC6 *disguise = ((Object *)victim)->rva0028F4BC();
 		if (disguise && disguise->isDisguised())
@@ -751,9 +749,9 @@ CanAttackResult WeaponSet::getAbleToAttackSpecificObject(AbleToAttackType attack
 	}
 
 	bool reject = false;
-	if ((victim->m_template->m_kindOf[1] & 0x800000) && (victim->m_template->m_kindOf[0] & 4))
+	if ((victim->m_template->m_kindof[1] & 0x800000) && (victim->m_template->m_kindof[0] & 4))
 	{
-		if ((source->m_template->m_kindOf[4] & 0x1000) && (bool)((source->m_conditionBits.word(9) >> 13) & 1))
+		if ((source->m_template->m_kindof[4] & 0x1000) && (bool)((source->m_conditionBits.word(9) >> 13) & 1))
 			reject = true;
 		const Weapon *weapon = source->getCurrentWeapon(0);
 		if (weapon && ((Rva002CA9CA *)weapon->m_template)->rva002CA9CA(6, weapon))
@@ -762,17 +760,17 @@ CanAttackResult WeaponSet::getAbleToAttackSpecificObject(AbleToAttackType attack
 
 	Relationship r = reject ? ENEMIES : source->getRelationship(victim);
 
-	if (source->m_template->m_kindOf[1] & 0x800000)
+	if (source->m_template->m_kindof[1] & 0x800000)
 	{
 		if (r == ALLIES)
 			return ATTACKRESULT_NOT_POSSIBLE;
-		if (!(victim->m_template->m_kindOf[0] & 0x80))
+		if (!(victim->m_template->m_kindof[0] & 0x80))
 			return ATTACKRESULT_NOT_POSSIBLE;
 	}
 
-	if (!((victim->m_template->m_kindOf[1] & 0x40000) && r == NEUTRAL))
+	if (!((victim->m_template->m_kindof[1] & 0x40000) && r == NEUTRAL))
 	{
-		if ((victim->m_template->m_kindOf[2] & 0x40000000) && TheAI->m_inner->m_flagBC)
+		if ((victim->m_template->m_kindof[2] & 0x40000000) && TheAI->m_inner->m_flagBC)
 			r = ENEMIES;
 		if (r != ENEMIES && !forced && !reject && commandSource == CMD_FROM_PLAYER && !(victim->m_scriptStatus & 0x10))
 			return ATTACKRESULT_NOT_POSSIBLE;

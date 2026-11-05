@@ -24,14 +24,7 @@ struct ModuleNugget
 
 #include "../../../Include/Common/ModuleInfoClass.h"
 
-class ThingTemplate
-{
-public:
-	char m_pad00[0x108];
-	unsigned char m_kindOf;  // +0x108
-	char m_pad109[0x2F0 - 0x109];
-	ModuleInfo m_drawModuleInfo;  // +0x2F0
-};
+#include "../../../Include/Common/ThingTemplate.h"
 
 class Object;
 
@@ -59,8 +52,8 @@ void *Rva00290EFE::getGhostObject()
 	if (TheWritableGlobalData->field0C69 == 0)
 		return 0;
 	ThingTemplate *thing = *(ThingTemplate **)((char *)this - 0x60);
-	if ((thing->m_kindOf & 4) != 0) {
-		ModuleInfo *drawMod = &thing->m_drawModuleInfo;
+	if ((*(const unsigned char *)thing->m_kindof & 4) != 0) {
+		ModuleInfo *drawMod = (ModuleInfo *)thing->m_drawModuleInfo;
 		int makeGhostObject = 1;
 		// LINK: drawMod->getCount() inlined here but the live call emits a
 		// loser COMDAT (first-copy-wins, no retail address). Manual inline of

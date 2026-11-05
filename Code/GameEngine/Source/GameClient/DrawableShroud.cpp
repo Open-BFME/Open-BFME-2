@@ -18,21 +18,13 @@ enum NameKeyType
 class Player;
 class Drawable;
 
-class ThingTemplate
-{
-public:
-	__forceinline bool isKindOf(int kind) const
-	{ return (((const unsigned char *)&m_kindOf)[kind >> 3] & (1 << (kind & 7))) != 0; }
-	__forceinline bool testKindInView(int kind) const
-	{ return m_kindOf.test(kind); }
-	char m_pad000[0x108];
-	std::bitset<218> m_kindOf; // +0x108
-	char m_pad124[0x59C - 0x124];
-	int m_sightedEvent; // +0x59C
-	int m_sightedEventAlt; // +0x5A0
-	int m_revealedEvent; // +0x5A4
-	int m_shroudedEvent; // +0x5A8
-};
+#include "../../Include/Common/ThingTemplate.h"
+// Kind-mask readers on the canonical +0x108 storage: a byte test, and the
+// STLport bitset<218> word test the sighting check compiles to.
+static __forceinline bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int kind)
+{ return (((const unsigned char *)tmpl->m_kindof)[kind >> 3] & (1 << (kind & 7))) != 0; }
+static __forceinline bool thingTemplateTestKindInView(const ThingTemplate *tmpl, int kind)
+{ return ((const std::bitset<218> *)tmpl->m_kindof)->test(kind); }
 
 #include "../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -175,7 +167,7 @@ void Drawable::onComingOutOfShroud()
 		return;
 
 	if (obj->rva00294471(localPlayer, 1)) {
-		if (!obj->isEffectivelyDead() && thingTemplate->m_sightedEvent != -1 && !thingTemplate->testKindInView(47) && !m_sightReported) {
+		if (!obj->isEffectivelyDead() && thingTemplate->m_evaEnemyObjectSightedEvent != -1 && !thingTemplateTestKindInView(thingTemplate, 47) && !m_sightReported) {
 			Rva004A1828Holder *holder = (Rva004A1828Holder *)Rva004A1828Get((Rva004A1828Owner *)obj);
 			bool skip;
 			if (holder && holder->isReady()) {
@@ -183,7 +175,7 @@ void Drawable::onComingOutOfShroud()
 			} else {
 				Player *controller = obj->getControllingPlayer();
 				if (controller) {
-					int dataEvent = thingTemplate->m_sightedEvent;
+					int dataEvent = thingTemplate->m_evaEnemyObjectSightedEvent;
 					SightedEventData data;
 					data.drawable = this;
 					data.event = dataEvent;
@@ -198,9 +190,9 @@ void Drawable::onComingOutOfShroud()
 			if (!skip) {
 				Object *nearest = ((Drawable *)obj)->rva00272AD5();
 				if (nearest) {
-					int event = thingTemplate->m_sightedEvent;
-					if (m_useAltSightedEvent && thingTemplate->m_sightedEventAlt != -1)
-						event = thingTemplate->m_sightedEventAlt;
+					int event = thingTemplate->m_evaEnemyObjectSightedEvent;
+					if (m_useAltSightedEvent && thingTemplate->m_evaEnemyObjectSightedAfterRespawnEvent != -1)
+						event = thingTemplate->m_evaEnemyObjectSightedAfterRespawnEvent;
 					if (TheEva->reportEvaEvent((EvaEventID)event, nearest->getPosition(), obj->getPosition()) && holder && holder->isReady()) {
 						m_sightReported = true;
 						Object *holderObject = TheGameLogic->findObjectByID(holder->getID());
@@ -216,7 +208,7 @@ void Drawable::onComingOutOfShroud()
 
 		int mask80 = 0x80;
 
-		if ((((const unsigned char *)&thingTemplate->m_kindOf)[0] & mask80) && !(m_status & 0x40)) {
+		if ((((const unsigned char *)thingTemplate->m_kindof)[0] & mask80) && !(m_status & 0x40)) {
 			static NameKeyType key_CastleMemberBehavior = TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
 			Module *member;
 			// Equivalent paths preserve VC7.1 allocation costs before tail merging.
@@ -248,7 +240,7 @@ void Drawable::onComingOutOfShroud()
 
 		if (!(m_status & mask80) && !obj->isEffectivelyDead()) {
 			m_status |= mask80;
-			int event = thingTemplate->m_revealedEvent;
+			int event = thingTemplate->m_evaOnFirstSightingEventEnemy;
 			if (event != -1) {
 				Object *nearest = ((Drawable *)obj)->rva00272AD5();
 				if (nearest)
@@ -261,7 +253,7 @@ void Drawable::onComingOutOfShroud()
 		int mask80 = 0x80;
 		if (!(m_status & mask80) && !obj->isEffectivelyDead()) {
 			m_status |= mask80;
-			int event = thingTemplate->m_shroudedEvent;
+			int event = thingTemplate->m_evaOnFirstSightingEventNonEnemy;
 			if (event != -1) {
 				Object *nearest = ((Drawable *)obj)->rva00272AD5();
 				if (nearest)
@@ -286,10 +278,10 @@ int rva00272A6A(Object *object, void *userData)
     if (drawable == context->drawable || !drawable ||
         ((BfmeDrawableSightedView *)drawable)->obscured) goto reject;
     const ThingTemplate *thingTemplate = drawable->getTemplate();
-    if (!thingTemplate || thingTemplate->m_sightedEvent != context->event ||
+    if (!thingTemplate || thingTemplate->m_evaEnemyObjectSightedEvent != context->event ||
         object->isEffectivelyDead()) goto reject;
     if (!object->rva00294471(ThePlayerList->getLocalPlayer(), 1)) goto reject;
-    if (object->getTemplate()->isKindOf(47)) goto reject;
+    if (thingTemplateIsKindOf(object->getTemplate(), 47)) goto reject;
     return 0;
 reject:
     return 1;

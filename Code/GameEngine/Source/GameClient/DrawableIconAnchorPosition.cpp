@@ -86,17 +86,17 @@ private:
 	AnchorModule *m_anchorModule; // +0x250
 };
 
-class ThingTemplate
+#include "../../Include/Common/ThingTemplate.h"
+// The view's inline kind test and height read on the canonical layout
+// (kind mask +0x108, health-box height offset +0x538).
+static __forceinline Bool thingTemplateIsKindOf(const ThingTemplate *tmpl, int bit)
 {
-public:
-	__forceinline Bool isKindOf(int bit) const { return (m_kindOf[bit >> 3] & (1 << (bit & 7))) != 0; }
-	Real getHeight() const { return m_height; }
-
-private:
-	char m_pad000[0x108];
-	UnsignedByte m_kindOf[0x538 - 0x108]; // +0x108
-	Real m_height; // +0x538
-};
+	return (((const unsigned char *)tmpl->m_kindof)[bit >> 3] & (1 << (bit & 7))) != 0;
+}
+static __forceinline Real thingTemplateHeight(const ThingTemplate *tmpl)
+{
+	return tmpl->m_healthBoxHeightOffset;
+}
 
 class Rva00276470Drawable
 {
@@ -109,7 +109,7 @@ public:
 void Drawable::rva002775C9(Coord3D *pos)
 {
 	Object *obj = m_object;
-	if (m_template->isKindOf(0x6d) && obj != 0)
+	if (thingTemplateIsKindOf(m_template, 0x6d) && obj != 0)
 	{
 		if (obj->getAnchorModule() != 0 && obj->getAnchorModule()->getAnchorInterface() != 0
 			&& obj->getAnchorModule()->getAnchorInterface()->getAnchorPosition(pos))
@@ -119,7 +119,7 @@ void Drawable::rva002775C9(Coord3D *pos)
 	Real height = 10.0f;
 	const ThingTemplate *thingTemplate = m_template;
 	if (thingTemplate != 0)
-		height = thingTemplate->getHeight();
+		height = thingTemplateHeight(thingTemplate);
 	pos->z += height;
 	if (obj != 0)
 		pos->z += obj->getGeometryInfo().rva006BD830();
