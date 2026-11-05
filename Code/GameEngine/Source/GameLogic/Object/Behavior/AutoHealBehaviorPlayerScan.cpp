@@ -320,7 +320,8 @@ enum
 	ALLOW_ALLIES = 1 << 2
 };
 
-#include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
 
