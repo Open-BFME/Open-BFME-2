@@ -78,13 +78,10 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
 class DemoTrapUpdate : public UpdateModule
 {
 public:
@@ -107,28 +104,37 @@ private:
 	int m_nextScanFrames;					// +0x20
 	bool m_detonated;					// +0x24
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class WeaponTemplate;
-
 #include "../../../../Include/GameLogic/WeaponStore.h"
-
 extern WeaponStore *TheWeaponStore;
-
 struct Rva00495A2B_H04
 {
 	unsigned char m_pad[8];
 	const WeaponTemplate *m_detonationWeaponTemplate;
 };
-
 #include "../../../../Include/Common/XferVersion.h"
 
 BFME_LITERAL_NAME_GETTER(Rva0049592FNamed, "DemoTrapUpdate")
 
+enum WeaponSetType
+{
+	WEAPONSET_NONE = 0
+};
+
+enum WeaponLockType
+{
+	NOT_LOCKED = 0,
+	LOCKED_TEMPORARILY = 1,
+	LOCKED_PERMANENTLY = 2
+};
+
 // tu-skeleton: 0x00495916 25B ??1DemoTrapUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp
+
+// BFME2's Snapshot puts GetSnapshotName where Zero Hour spells crc (primary slot 2).
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 
@@ -291,6 +297,21 @@ void DemoTrapUpdate::xfer(Xfer *xfer)
 	*xfer == m_detonated;
 }
 
-// tu-skeleton: 0x004959FF 44B ?onObjectCreated@DemoTrapUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/Common/DemoTrapUpdate_onObjectCreated.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DemoTrapUpdate_onObjectCreated.cpp
+
+// Retail 0x004959FF (44 bytes), primary slot 5 of DemoTrapUpdate.
+// Use the approved TU's module hierarchy and accessed Object/data prefixes.
+// The callback reads module data at +4, Object at +8, and weapon slots at
+// data+0x28/+0x30 selected by the flag at data+0x3C.
+
+void DemoTrapUpdate::onObjectCreated()
+{
+	const DemoTrapUpdateModuleData *data = (const DemoTrapUpdateModuleData *)m_moduleData;
+	m_object->setWeaponSetFlag((WeaponSetType)0);
+	if (data->m_defaultsToProximityMode)
+		m_object->setWeaponLock((WeaponSlotType)data->m_proximityModeWeaponSlot, LOCKED_TEMPORARILY);
+	else
+		m_object->setWeaponLock((WeaponSlotType)data->m_manualModeWeaponSlot, LOCKED_TEMPORARILY);
+}
 
 // tu-skeleton: 0x00495AA9 17B ?buildFieldParse@DemoTrapUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
