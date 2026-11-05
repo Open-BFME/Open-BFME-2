@@ -1,5 +1,5 @@
 ### LINK-514: kept `??_7` copies differ from retail's vftables (runtime vtable survey)
-Status: Open (partly repaired). Updated: 2026-11-06; inspected revision: e5e17e246f, getter and installer passes at be366d041e (census index c95fcfcfcd).
+Status: Open (partly repaired). Updated: 2026-11-06; inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
@@ -165,12 +165,48 @@ the unit links. But the built object's vptr points at a zero int.
   unchanged; each DIR32 now targets the real table. Map each displacement to its table through
   the retail store immediate and the kept copy at that VA, never by member name alone.
   Verified: bytes exact, scoped DIR32 OK, link_check LINKS on the ctor and the definer.
-- Same pattern, next (every store maps to a single definer's table; script:
-  displacement -> immediate -> kept `??_7` at that VA): RadarMarkerClientUpdate,
-  TerrainResourceClientBehavior, ShipSlowDeathBehavior, Horse/ProductionQueue/SlaughterHordeContain,
-  SiegeDeployHordeSpecialPower, DeployStyleAIUpdate, MonsterDockUpdate and CommandPointsUpgrade.
-  Many of their kept tables are placeholder-shaped and short, so fix the class views too. The
-  other ~55 have no kept table at a stored VA: their tables need a class view first.
+- Done (seat halilkkaya-rt-o4, base e44e2c5ef6c), the same pattern: RadarMarkerClientUpdate,
+  TerrainResourceClientBehavior, ShipSlowDeathBehavior, FakePathfindPortalBehaviour,
+  RebuildHoleBehavior, Horse/ProductionQueue/SlaughterHordeContain, DeployStyleAIUpdate,
+  MonsterDockUpdate, CommandPointsUpgrade, ObjectCreationUpgrade and SiegeDeployHordeSpecialPower.
+  Then five ctors that store a slot twice (an inlined base ctor writes a folded interface table
+  first, the derived ctor overwrites it): DynamicPortalBehaviour, ModelConditionAudioLoopClientBehavior,
+  CaveContain, DamageFilteredCreateObjectDie and AnimalAIUpdate. Their final stores now name the
+  class's tables; the transient first store stays a TU-local dummy. That is safe at run time: the
+  decoded store (base register, displacement) is overwritten with only plain stores in between, and
+  naming one of the many classes folded at 0x00BE2B78/0x00C1C780/0x00C4EF80/0x00C6FFFC would be a
+  guess. WargBehavior and BuildableHeroListUpgrade had already been fixed by their TU merges.
+  Verified per batch: bytes exact; each new DIR32 target's retail imm32 equals the planned table VA;
+  scoped DIR32 OK over the ctors and definers; link_check current A/B over every unit naming the
+  class unchanged; survey unchanged (0 tables differ). Most of these kept tables are still 1-slot
+  placeholder views, so the class family's header is the next step for them; the vptrs no longer
+  need touching then.
+- Mapping script (reusable): for each `_s_*` DIR32 site in the ctor's current object, read the
+  retail imm32 at the site's offset, take the one `??_7<Class>@@...` the survey keeps at that VA, and
+  count its definers over the current objects of every unit naming the class (the census index is
+  stale for merged units). Read the ctor's source path from `reverse/functions.csv`, not the TSV:
+  a stale object of a deleted unit still answers.
+- Status of all 71 is in the TSV's `status` column: 25 fixed, 1 blocked, 7 need a class view, 38
+  need an identity first.
+  - Blocked: CastleMemberBehavior. Its ctor unit's view of the class is polymorphic (novtable,
+    virtual `xfer`), so the compiler owns `??_7CastleMemberBehavior@@6B@` there and the extern
+    declaration fails with C2373. It needs CastleMemberBehavior.cpp's view (re_attempts 0x00395B66).
+  - Needs a class view (no kept table at the stored VA): AnnounceBirthAndDeathBehavior,
+    CitadelSlaughterHordeContain, RiderChangeContain, EvaAnnounceClientCreate, DamageModule and
+    ReplaceSelfUpgrade. FXListDieModuleData's 0x00C4ED70 is a ModuleData table folded across 12
+    classes and kept under their names.
+  - Needs an identity first (38): the class's retail table is kept only under a placeholder
+    class's name, emitted by a scaffold unit (`Rva...Derived.cpp`). The highest risk is the
+    ObjectHelper family, which every Object builds: `??1Rva004DF7C2@@UAE@XZ` (0x004DF7C2),
+    `??1Rva004DF52E`, `??1Rva004DF836`, `??1Rva004DF863` and `??1Rva004DF8A9` install
+    0x00BFBCF0/0x00BFBD40/0x00BFBD98/0x00BFBDF0/0x00BFBE48. Those are the very tables the
+    ObjectHelper, ObjectDefectionHelper, ObjectRecoveryHelper, ObjectRepulsorHelper and
+    ObjectWeaponStatusHelper ctors install last. That is a target fact (the same vptr store at +0,
+    five distinct addresses); that they are those classes' destructors is the inference. Rename the
+    placeholder classes through the naming lane (`docs/naming.md`), then the ctors can store the
+    tables by name. The other placeholder owners (StructureBody -> Rva004C0988, the five
+    CrateCollides -> Rva004BC83F/96F/CB0D/CC43/CE62, SquishCollide -> Rva004BB949,
+    HordeMemberCollide -> Rva004BC325, and so on) are listed per row in the TSV.
 - Separately, 154 retail table addresses are reached from matched code through a non-`??_7`
   symbol: address-named globals such as `?g_00C50868@@3QBQBXB` and `?vftable_0112B89C@@3HA`
   (`name_globals.load_index()` against retail-installed tables). Whether each is aliased to the
