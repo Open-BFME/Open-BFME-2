@@ -78,12 +78,31 @@ class ModuleData;
 
 extern "C" const void *const __identifier("??_7BeaconClientUpdateModuleData@@6B@")[];
 #include <cstring>
-
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+class Object;
+enum UpdateSleepTime
+{
+    UPDATE_SLEEP_NONE = 1
+};
+class PB_Iface1
+{
+public:
+    virtual void slot();
+};
+class PB_Iface2
+{
+public:
+    virtual void slot();
+};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+#pragma comment(linker, "/alternatename:?slot@ClickReactionBehaviorIface@@UAEXXZ=?get@Rva004543A9LeaNegSbbField@@WBE@BEHXZ")
+#pragma comment(linker, "/alternatename:?slot@PB_Iface1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+#pragma comment(linker, "/alternatename:?slot@PB_Iface2@@UAEXXZ=?update@Rva0045969F@@UAEHXZ")
 
 extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp
 
@@ -226,10 +245,19 @@ NameKeyType ClickReactionBehavior::getModuleNameKey() const
 
 // tu-skeleton: 0x0045960C 17B ?buildFieldParse@ClickReactionBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x0045961D 102B ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
+
+// ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
+ClickReactionBehavior::ClickReactionBehavior(Thing *thing, const ModuleData *moduleData)
+    : UpdateModule(thing, moduleData), m_clicks(0), m_cooldown(0)
+{
+    setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x00459683 28B ??_GRva00459553@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A295 8B Unwind@00b8a295 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A29D 10B __ehhandler$??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp (not merged yet)

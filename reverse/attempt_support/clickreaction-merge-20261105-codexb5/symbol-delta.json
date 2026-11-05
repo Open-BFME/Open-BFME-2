@@ -1,0 +1,20 @@
+{
+  "comparison": "original two-unit objects before interface prerequisite versus merged TU",
+  "definitions_removed": [],
+  "definitions_added": [],
+  "external_requirements_removed": [],
+  "external_requirements_added": [],
+  "aliases_unchanged": true,
+  "aliases": {
+    "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+    "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+    "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+    "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+    "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+    "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+    "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z",
+    "?slot@ClickReactionBehaviorIface@@UAEXXZ": "?get@Rva004543A9LeaNegSbbField@@WBE@BEHXZ",
+    "?slot@PB_Iface1@@UAEXXZ": "?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z",
+    "?slot@PB_Iface2@@UAEXXZ": "?update@Rva0045969F@@UAEHXZ"
+  }
+}

@@ -2746,9 +2746,9 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDto
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDtor.cpp	?f30@CastleBehavior_30@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDtor.cpp	?fe@Rva00455050_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp	?f2@CastleB2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp	?slot@ClickReactionBehaviorIface@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp	?slot@PB_Iface1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp	?slot@PB_Iface2@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp	?slot@ClickReactionBehaviorIface@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp	?slot@PB_Iface1@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp	?slot@PB_Iface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraA@DynamicPortalExtraA@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp	?dynamicPortalExtraB@DynamicPortalExtraB@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp	??1DynamicPortalLinkVec@@QAE@XZ	1
