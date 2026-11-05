@@ -3016,8 +3016,8 @@ member,Rva004102C8Arg::m_18,Rva004102C8Arg::m_y,inferred,agree:nl-611ef75c0cc9,C
 member,Rva004102C8Arg::m_1C,Rva004102C8Arg::m_width,inferred,agree:nl-cc6d0f9b0572,Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp,
 member,Rva004102C8Arg::m_20,Rva004102C8Arg::m_height,inferred,agree:nl-f4082f7b005e,Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp,
 param,Rva004102C8Update::a3,Rva004102C8Update::size,inferred,agree:nl-59c9e31de319,Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp,0x004102C8
-param,Rva0041534BIter::n,Rva0041534BIter::node,inferred,agree:nl-9c11b293f4c5,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp,
-param,Rva0041534BIter::t,Rva0041534BIter::table,inferred,agree:nl-f73a3196d9fb,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp,
+param,Rva0041534BIter::n,Rva0041534BIter::node,inferred,agree:nl-9c11b293f4c5,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,
+param,Rva0041534BIter::t,Rva0041534BIter::table,inferred,agree:nl-f73a3196d9fb,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,
 param,AptMessageBox::Change::a,AptMessageBox::Change::type,inferred,agree:nl-3d2d71f6cbb7,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBox.cpp,0x00437EAC
 param,AptMessageBox::Change::b,AptMessageBox::Change::text,inferred,agree:nl-2b2f304c6fd8,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBox.cpp,0x00437EAC
 param,AptMessageBox::Change::c,AptMessageBox::Change::title,inferred,agree:nl-d81d89f3c59a,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBox.cpp,0x00437EAC
