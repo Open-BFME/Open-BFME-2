@@ -9,10 +9,13 @@
 // spelling (the SidesListCastleBuildLists.cpp idiom).
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseOptionNode(void *storage)
+{
+	_STL::free(storage);
+}
 #include "ascii_string.h"
 #include <map>
-#undef free
 #include <windows.h>
 
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
@@ -42,6 +45,13 @@ template <> struct less<UnicodeString>
         return left < right;
     }
 };
+}
+
+namespace _STL {
+template<> inline void allocator<_Rb_tree_node<pair<const UnicodeString, UnicodeString> > >::deallocate(_Rb_tree_node<pair<const UnicodeString, UnicodeString> > *__p, size_type) const
+{
+	if (__p != 0) releaseOptionNode((void *)__p);
+}
 }
 
 typedef std::map<UnicodeString, UnicodeString> UnicodeStringMap;

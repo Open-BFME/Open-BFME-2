@@ -5,12 +5,15 @@
 #include "ascii_string.h"
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseRecordStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #define _STLP_LINK_TIME_INSTANTIATION
 #include <map>
 #include <vector>
 #include <list>
-#undef free
 
 // Suppress this TU's non-retail copy of ??0?$vector@VRva000BB4AC@@V?$allocator@VRva000BB4AC@@@_STL@@@_STL@@QAE@ABV01@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -61,6 +64,20 @@ namespace _STL { template <> _Vector_base<BfmeFixedObject60,allocator<BfmeFixedO
 namespace _STL { template <> _Vector_base<BfmeVectorRecord000BDF17,allocator<BfmeVectorRecord000BDF17> >::~_Vector_base(); }
 
 namespace _STL { template <> _List_base<BfmePod32,allocator<BfmePod32> >::~_List_base(); }
+namespace _STL {
+template<> inline void allocator<Rva000BB491>::deallocate(Rva000BB491 *__p, size_type) const
+{
+	if (__p != 0) releaseRecordStorage((void *)__p);
+}
+template<> inline void allocator<Rva000BB4AC>::deallocate(Rva000BB4AC *__p, size_type) const
+{
+	if (__p != 0) releaseRecordStorage((void *)__p);
+}
+template<> inline void allocator<BfmeStringRecord000B950F>::deallocate(BfmeStringRecord000B950F *__p, size_type) const
+{
+	if (__p != 0) releaseRecordStorage((void *)__p);
+}
+}
 
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
@@ -192,11 +209,10 @@ typedef char Pod248Size[(sizeof(BfmePod248) == 0xF8) ? 1 : -1];
 // a counted object here. Original method and record purpose remain unknown.
 // The record string destructor and reference release are visible, giving
 // the native EH state and free. Retained neutral prefix names describe ABI.
-void __cdecl free(void*);
 
 #include "RefCountData.h"
 
-namespace _STL {template<class C>class char_traits;template<class T>class allocator;template<class C,class Tr=char_traits<C>,class A=allocator<C> >class basic_string {public:~basic_string(){if(start)free(start);}C*start,*finish,*end;};}
+namespace _STL {template<class C>class char_traits;template<class T>class allocator;template<class C,class Tr=char_traits<C>,class A=allocator<C> >class basic_string {public:~basic_string(){if(start)releaseRecordStorage(start);}C*start,*finish,*end;};}
 
 struct BfmeNarrowRecord000BFDC7 {RefCountClass*word0;_STL::basic_string<char>text;int word1,word2,word3,word4;BfmeNarrowRecord000BFDC7(const BfmeNarrowRecord000BFDC7&);};
 

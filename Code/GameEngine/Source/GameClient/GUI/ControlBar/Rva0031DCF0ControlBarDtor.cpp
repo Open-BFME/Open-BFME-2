@@ -18,11 +18,20 @@
 // Offsets and callee names are target evidence; class names stay opaque.
 typedef bool Bool;
 // C++-linkage free (0x00030830) as LargeGroupAudio.cpp uses for vector storage.
-#define free bfmeUnusedCRTFree
+namespace _STL { void __cdecl free(void *); }
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releasePointerStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <cstdlib>
-#undef free
-void free(void *);
 #include <vector>
+namespace _STL {
+template<> inline void allocator<void *>::deallocate(void **__p, size_type) const
+{
+	if (__p != 0) releasePointerStorage((void *)__p);
+}
+}
 #include "ascii_string.h"
 #include "subsystem_interface.h"
 

@@ -23,12 +23,8 @@
 // 0x004CE4A0. Mask copies, counts and lookups are the rowed 0x0004548B,
 // 0x00046827 and 0x0026F0F0; the ID list is an STLport vector of
 // UpgradeID (WorldBuilder's BitFlags<1024,UpgradeID>).
-// STLport's deallocation here is the game's _STL::free (0x00030830).
-namespace _STL { void __cdecl free(void *); }
-#define free _STL::free
 #include <vector>
 #include <algorithm>
-#undef free
 #include "ascii_string.h"
 
 typedef bool Bool;

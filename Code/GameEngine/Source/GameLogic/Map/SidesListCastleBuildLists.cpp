@@ -56,7 +56,11 @@
 
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block) throw(...); }
-#define free _STL::free
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseCastleListStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <map>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -93,7 +97,6 @@ struct BfmePod128;
 namespace _STL { template <> void __destroy_aux<BfmePod128 *>(BfmePod128 *,BfmePod128 *,__false_type const &); }
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline bool less<int>::operator()(int const &x,int const &y)const  { return x < y; } }
-#undef free
 
 // Copying an entry is the BuildListInfo copy constructor (0x00329DE6), which
 // retail's _Construct 0x0032A2AF calls under an EH frame.
@@ -110,6 +113,16 @@ namespace _STL { template <> void vector<BfmePod128>::_M_clear(); }
 // is declared above, so take SidesListCtor.cpp's retail copy instead.
 namespace _STL { template <> vector<BfmePod128>::~vector(); }
 struct BfmeE8 { int a[2]; };
+namespace _STL {
+template<> inline void allocator<BfmeE8>::deallocate(BfmeE8 *__p, size_type) const
+{
+	if (__p != 0) releaseCastleListStorage((void *)__p);
+}
+template<> inline void allocator<vector<BfmeE8> >::deallocate(vector<BfmeE8> *__p, size_type) const
+{
+	if (__p != 0) releaseCastleListStorage((void *)__p);
+}
+}
 
 class PolygonalArea {
 public:

@@ -14,11 +14,21 @@
 // ??_GStateMachine (retail 0x004D7A59, 28B) is emitted here with the vftable.
 // Retail's state-map destructor frees the header node through the C++-linkage
 // free (0x00030830), which keeps the unwind-state store before the call.
-#define free bfmeUnusedCRTFree
+namespace _STL { void __cdecl free(void *); }
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseStateMapStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <cstdlib>
-#undef free
-void free(void *);
 #include <map>
+class State;
+namespace _STL {
+template<> inline void allocator<_Rb_tree_node<pair<const unsigned int, State *> > >::deallocate(_Rb_tree_node<pair<const unsigned int, State *> > *__p, size_type) const
+{
+	if (__p != 0) releaseStateMapStorage((void *)__p);
+}
+}
 #include "Common/Snapshot.h"
 #include "../../Include/Common/StateMachine.h"
 

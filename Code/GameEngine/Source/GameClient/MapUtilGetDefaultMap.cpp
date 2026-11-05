@@ -3,7 +3,6 @@
 // The 0x00302459 collector is recovered in this translation unit.
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport46
-#define free bfmeUnusedCRTFree
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -12,9 +11,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
+// vector<MapMetaData *> storage goes to the C++-linkage free (0x00030830).
+namespace _STL { void __cdecl free(void *); }
+// Bind before STLport imports ::free into the same namespace.
+static __forceinline void releaseMapListStorage(void *storage)
+{
+	_STL::free(storage);
+}
 #include <cstdlib>
-#undef free
-void free(void *);
 #include <vector>
 #include <map>
 
@@ -53,7 +57,7 @@ public:
 // STLport semantics inline-only, as in AIWall, so this unit does not emit
 // unused cleanup COMDATs that conflict with other template instantiations.
 namespace _STL {
-template<> __declspec(dllimport) __forceinline void allocator<MapMetaData *>::deallocate(MapMetaData **p,size_t n) {if(p) ::free(p);}
+template<> __declspec(dllimport) __forceinline void allocator<MapMetaData *>::deallocate(MapMetaData **p,size_t n) {if(p) releaseMapListStorage(p);}
 template<> __declspec(dllimport) __forceinline void vector<MapMetaData *,allocator<MapMetaData *> >::_M_clear(){_Destroy(_M_start,_M_finish);_M_end_of_storage.deallocate(_M_start,_M_end_of_storage._M_data-_M_start);}
 }
 
