@@ -19844,8 +19844,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A033C8,4,.data,global,_s_rva007B07D1,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A033CC,4,.data,global,_s_rva007B07E3,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A033D0,4,.data,global,?g_00E033D0@@3HA,,unowned,,0,2
-0x00A033D4,4,.data,global,?TheAutoHealBehaviorPoolKey@?1??rva00045235E@AutoHealBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPoolKey.cpp,owned,,1,2
-0x00A033D8,4,.data,global,?$S1@?1??rva00045235E@AutoHealBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPoolKey.cpp,owned,,1,4
+0x00A033D4,4,.data,global,?TheAutoHealBehaviorPoolKey@?1??rva00045235E@AutoHealBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp,owned,,1,2
+0x00A033D8,4,.data,global,?$S1@?1??rva00045235E@AutoHealBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehavior.cpp,owned,,1,4
 0x00A033DC,4,.data,global,_s_rva007B0834,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A033E0,4,.data,global,?TheWallHubBehaviorPoolKey@?1??getModuleNameKey@WallHubBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp,owned,,1,2
 0x00A033E4,4,.data,global,?$S1@?1??getModuleNameKey@WallHubBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehavior.cpp,owned,,1,4
