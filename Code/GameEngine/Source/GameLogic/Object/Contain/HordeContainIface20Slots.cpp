@@ -69,11 +69,7 @@ public:
  unsigned char m_pad10A[0x113 - 0x10A];
  unsigned char m_113;
 };
-class BodyModule : public Rva00469626Slots<13>
-{
-public:
- virtual void rva00469E03Slot13(int value) = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class Rva00469E03Bits
 {
@@ -96,7 +92,7 @@ public:
  Rva00469E03Bits m_conditions;
  unsigned char m_pad15C[0x250 - 0x15C];
  ContainModuleInterface *m_contain; // +0x250
- BodyModule *m_body;
+ BodyModuleInterface *m_body;
  AIUpdateInterface *m_ai;
  unsigned char m_pad25C[0x274 - 0x25C];
  Object *m_274; // +0x274
@@ -210,7 +206,7 @@ void HordeContain::onRemoving(Object *object)
   object->m_conditions.clear(255);
   object->rva0028AE6D();
  }
- object->m_body->rva00469E03Slot13(5);
+ object->m_body->clearArmorSetFlag((ArmorSetType)5);
  object->rva0029130C(2);
  if (m_moduleData && m_moduleData->m_234 != -1)
  {

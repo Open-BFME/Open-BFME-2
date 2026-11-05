@@ -161,13 +161,7 @@ public:
 	virtual float getCost2(Player *player);          // +0x50
 };
 
-class BodyModule
-{
-public:
-	HELP_SLOTS4(a)
-	virtual void b0();
-	virtual float getHealthPercent() const;          // +0x14
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 
 class QueueModule
 {
@@ -210,8 +204,8 @@ public:
 	__forceinline Module *helpFindModule(NameKeyType key) const { return findModule(key); }
 
 	char m_pad000[0x254];
-	BodyModule *m_body;             // +0x254
-	BodyModule *getBodyModule() const { return m_body; }
+	BodyModuleInterface *m_body;             // +0x254
+	BodyModuleInterface *getBodyModule() const { return m_body; }
 };
 
 class ProductionPrerequisite
@@ -384,14 +378,14 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 					costValue = production->getCost2(player);
 				else
 					costValue = production->getCost1(player);
-				bool fullHealth = obj->getBodyModule()->getHealthPercent() == 1.0f;
+				bool fullHealth = obj->getBodyModule()->getHealthRatio() == 1.0f;
 				bool notBusy = !obj->isFactionStructure();
 				if (notBusy)
 				{
 					if (!fullHealth)
 						cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), (int)costValue);
 				}
-				else if (obj->getBodyModule()->getHealthPercent() == 0.0f)
+				else if (obj->getBodyModule()->getHealthRatio() == 0.0f)
 				{
 					cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), (int)costValue);
 				}

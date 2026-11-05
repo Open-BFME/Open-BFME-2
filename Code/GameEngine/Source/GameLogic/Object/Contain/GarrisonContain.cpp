@@ -516,24 +516,12 @@ enum
     GARRISON_POINT_REALLY_DAMAGED = 2,
     GARRISON_INDEX_INVALID = -1
 };
-class BodyModule
-{
-public:
-    virtual void slot00();
-    virtual void slot04();
-    virtual void slot08();
-    virtual void slot0C();
-    virtual void slot10();
-    virtual void slot14();
-    virtual void slot18();
-    virtual void slot1C();
-    virtual BodyDamageType getDamageState();
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 class ObjectBodyView
 {
 public:
     unsigned char m_pad[0x254];
-    BodyModule *m_body;
+    BodyModuleInterface *m_body;
 };
 class Object;
 class Rva00478231 : public Rva00478231Mid<48>
@@ -935,7 +923,7 @@ void GarrisonContain::putObjectAtGarrisonPoint(Object *obj, ObjectID targetID, i
 int GarrisonContain::findConditionIndex()
 {
     ObjectBodyView *obj = (ObjectBodyView *)m_object;
-    BodyModule *body = obj->m_body;
+    BodyModuleInterface *body = obj->m_body;
     BodyDamageType damage = body->getDamageState();
     int index = GARRISON_INDEX_INVALID;
     switch (damage) {

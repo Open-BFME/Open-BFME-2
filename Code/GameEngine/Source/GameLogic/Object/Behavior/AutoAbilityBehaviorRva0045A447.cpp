@@ -26,10 +26,7 @@ public:
 	unsigned int m_words[19]; // +0x00
 };
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
-class BodyModule { public:
- virtual void slot00(); virtual void slot04(); virtual void slot08();
- virtual void slot0C(); virtual void slot10(); virtual float slot14();
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 class CommandButton;
 enum ObjectStatusTypes { AutoAbilityStatus74=74 };
 class Object {
@@ -40,7 +37,7 @@ public:
  char data00[0x38]; Coord3D position;
  char data44[0x94-0x44]; unsigned int status[4];
  char dataA4[0x10C-0xA4]; unsigned int model[19];
- char data158[0x254-0x158]; BodyModule *body;
+ char data158[0x254-0x158]; BodyModuleInterface *body;
  AIUpdateInterface *ai;
 };
 #include "../../../../Include/GameClient/CommandButton.h"
@@ -58,8 +55,8 @@ Object *AutoAbilityBehavior::rva0045A447(BfmeWideResult *items,const CommandButt
  for(candidate=items->next();candidate;candidate=items->next()) {
   if(!modData->allowSelf && candidate==owner) continue;
   if(button && button->m_needDamagedTarget) {
-   BodyModule *body=candidate->body;
-   if(body && body->slot14()>0.8f) continue;
+   BodyModuleInterface *body=candidate->body;
+   if(body && body->getHealthRatio()>0.8f) continue;
   }
   if(modData->minimumRange>0) {
    float x=owner->position.x,y=owner->position.y,z=owner->position.z;

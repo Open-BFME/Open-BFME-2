@@ -5,7 +5,7 @@
 // EvacuateDamage onDamage with evacuation record and threshold. Evidence:
 // BFME1 donor EvacuateDamage_onDamage.cpp (same shape, DamageInfo +0x08
 // source +0x10 type +0x20 amount, moduleData +0x0C type +0x10 scale,
-// list at +0x14, TheGameLogic frame +0x40, BodyModule getHealth slot 0x18,
+// list at +0x14, TheGameLogic frame +0x40, body-interface getMaxHealth slot 0x18,
 // rowed list<BfmeSpecialPowerTimer8>::push_back 0x004DE74D, rowed sum
 // 0x004BADC1, rowed findObjectByID 0x00049DC5, rowed rva004BAF2D 0x004BAF2D);
 // 8B record is list<BfmeSpecialPowerTimer8>, amount bitcast to m_templateID
@@ -25,17 +25,7 @@ struct DamageInfo
 	float m_amount;
 };
 
-class BodyModule
-{
-public:
-	virtual void s0() = 0;
-	virtual void s1() = 0;
-	virtual void s2() = 0;
-	virtual void s3() = 0;
-	virtual void s4() = 0;
-	virtual void s5() = 0;
-	virtual float getHealth() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 
 enum WeaponSlotType
 {
@@ -54,7 +44,7 @@ public:
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	unsigned char m_pad[0x250];
 	Rva004BAFE5Iface *m_iface;   // +0x250 (retail vcalls slots 29/32/70)
-	BodyModule *m_body;
+	BodyModuleInterface *m_body;
 };
 
 class EvacuateDamageModuleData
@@ -97,7 +87,7 @@ void EvacuateDamage::onDamage(DamageInfo *damageInfo)
 	*(float *)&record.m_templateID = damageInfo->m_amount;
 	record.m_readyFrame = TheGameLogic->getFrame();
 	m_pendingEvacuations.push_back(record);
-	float health = m_object->m_body->getHealth();
+	float health = m_object->m_body->getMaxHealth();
 	if (rva004BADC1() >= health * moduleData->m_evacuationScale)
 	{
 		Object *source = TheGameLogic->findObjectByID(damageInfo->m_sourceObject);

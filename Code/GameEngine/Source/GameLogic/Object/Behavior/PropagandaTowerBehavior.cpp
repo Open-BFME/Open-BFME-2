@@ -101,17 +101,7 @@ class Rva0028ADECmpBoolField
 public:
 	bool get() const;
 };
-class BodyModule
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual void f3();
-	virtual void f4();
-	virtual void f5();
-	virtual float f6();
-};
+#include "../../../../Include/GameLogic/Module/BodyModuleClass.h"
 enum ObjectStatusTypes { STATUS_BUILDING = 2, STATUS_SOLD = 19 };
 template <int N> class BitFlags
 {
@@ -161,7 +151,7 @@ public:
 	char m_pad078[0x1c8 - 0x78];
 	BitFlags<11> disabled; // +0x1C8
 	char m_pad1cc[0x254 - 0x1cc];
-	BodyModule *m_body; // +0x254
+	BodyModuleInterface *m_body; // +0x254
 	char m_pad258[0x274 - 0x258];
 	Object *containedBy; // +0x274
 	char m_pad278[0x380 - 0x278];
@@ -259,7 +249,7 @@ enum UpdateSleepTime
 
 class Rva0028ADECmpBoolField;
 
-class BodyModule;
+class BodyModuleInterface;
 
 enum SleepyUpdatePhase { PHASE_NORMAL = 2 };
 
@@ -447,7 +437,7 @@ void Rva0048180C::rva00481A9E(Object *tgt, bool flag, Rva00481A9EInfo *info)
 					tgt->setWeaponBonusCondition(7);
 			}
 		}
-		BodyModule *body = tgt->m_body;
+		BodyModuleInterface *body = tgt->m_body;
 		if (body == 0)
 			return;
 		float fsel;
@@ -459,7 +449,7 @@ void Rva0048180C::rva00481A9E(Object *tgt, bool flag, Rva00481A9EInfo *info)
 		// Retail ends the x87 chain with a single `fmulp st(1),st`; the product
 		// is a named float argument temp (inline call-argument forms keep the
 		// non-pop `fmul` plus a separate `fstp st(0)`).
-		float amount = body->f6() * (fsel / (float)BfmeLogicFramesPerSecond); tgt->attemptHealingFromSoleBenefactor(amount, m_owner, info->m_extra);
+		float amount = body->getMaxHealth() * (fsel / (float)BfmeLogicFramesPerSecond); tgt->attemptHealingFromSoleBenefactor(amount, m_owner, info->m_extra);
 	} else {
 		((unsigned char *)&tgt->m_flags380)[1] &= 0x7e;
 	}

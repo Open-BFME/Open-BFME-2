@@ -74,11 +74,7 @@ public:
 };
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 struct ShockBodyEntry { char pad0[8]; ObjectID source; };
-class BodyModule : public ShockSlots<15>
-{
-public:
-	virtual ShockBodyEntry *slot15() = 0;
-};
+#include "../../../Include/GameLogic/Module/BodyModuleClass.h"
 class AIUpdateInterface : public ShockSlots<153>
 {
 public:
@@ -126,7 +122,7 @@ public:
 	char pad88[0x10c - 0x88];
 	ShockFlags flags;
 	char pad158[0x254 - 0x158];
-	BodyModule *body;
+	BodyModuleInterface *body;
 	AIUpdateInterface *ai;
 	PhysicsBehavior *physics;
 	char pad260[0x438 - 0x260];
@@ -258,8 +254,8 @@ void Object::rva00296065(Rva00297612Entry *entry)
 		behavior->rva00390629(true);
 		if (ai && ai->getCurrentStateID() == 45)
 		{
-			ShockBodyEntry *data = body->slot15();
-			Object *source = TheGameLogic->findObjectByID(data ? body->slot15()->source : INVALID_OBJECT_ID);
+			const ShockBodyEntry *data = (const ShockBodyEntry *)body->getLastDamageInfo();
+			Object *source = TheGameLogic->findObjectByID(data ? ((const ShockBodyEntry *)body->getLastDamageInfo())->source : INVALID_OBJECT_ID);
 			if (source && !(status & 1)) ((Rva00294D61 *)source)->report(this, 1);
 			kill(DAMAGE_UNKNOWN8, DEATH_UNKNOWN0);
 			kill(DAMAGE_UNKNOWN8, DEATH_UNKNOWN0);
