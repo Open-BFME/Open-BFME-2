@@ -1,55 +1,14 @@
-// cl: /O1 /Ob2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /Ob2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Reference: Open-BFME-1 575ba2b04743f190f069805fbdc59936123c45da,
 // game/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp
 // Get_Obj_Space_Bounding_Box, with the original GeneralsMD body as semantic guide.
 // Target: full native RVA 0x00069BCC..0x00069C5F, 147 bytes including RET4.
 // Base terrain primary table VA 0x00BC5E5C slot25 points to VA 0x00469BCC.
 // Retail and WB0x758A10 agree on map37C0, dimensions8/C, heights37D8/DC.
-// Only this accessed prefix is modeled; the remainder of the class is open.
-#include "../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
-static __forceinline Vector3 &copyBoundsVector(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
-
-
-__forceinline Vector3 operator+(const Vector3 &a, const Vector3 &b)
-{
-    return Vector3(a.X+b.X, a.Y+b.Y, a.Z+b.Z);
-}
-__forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b)
-{
-    return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z);
-}
-__declspec(dllimport) __forceinline Vector3 operator*(const Vector3 &a, float k)
-{
-    return Vector3(a.X*k, a.Y*k, a.Z*k);
-}
-class MinMaxAABoxClass
-{
-public:
-    Vector3 MinCorner, MaxCorner;
-    __forceinline MinMaxAABoxClass(const Vector3 &minimum, const Vector3 &maximum)
-        : MinCorner(minimum), MaxCorner(maximum) {}
-};
-class AABoxClass
-{
-public:
-    Vector3 Center, Extent;
-    __forceinline void Init(const MinMaxAABoxClass &bounds)
-    {
-        copyBoundsVector(Center,(bounds.MaxCorner + bounds.MinCorner) * 0.5f);
-        copyBoundsVector(Extent,(bounds.MaxCorner - bounds.MinCorner) * 0.5f);
-    }
-};
+// Uses the canonical BaseHeightMap.h class and WWMath AABoxClass::Init.
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
-class BaseHeightMapRenderObjClass
-{
-public:
-    virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;
-private:
-    char m_unreconstructed004[0x37C0-4];
-    WorldHeightMap *m_map;
-    char m_unreconstructed37C4[0x37D8-0x37C4];
-    float m_minHeight, m_maxHeight;
-};
+#define REFCOUNT_H
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 void BaseHeightMapRenderObjClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 {
     int x=0, y=0;

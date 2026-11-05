@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // dxsdk
 // platformsdk
 //
@@ -59,16 +59,14 @@ public:
 	void loadBridges(W3DTerrainLogic *pTerrainLogic, Bool saveGame);
 };
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	void loadRoadsAndBridges(W3DTerrainLogic *pTerrainLogic, Bool saveGame);
-
-private:
-	unsigned char m_pad0000[0x386C];
-	W3DRoadBuffer *m_roadBuffer;      // +0x386C
-	W3DBridgeBuffer *m_bridgeBuffer;  // +0x3870
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+#define REFCOUNT_H
+// d3d9.h already brought in the Platform SDK persist.h, whose guard hides
+// WWSaveLoad's; declare the classes rendobj.h names.
+class PersistFactoryClass;
+class ChunkSaveClass;
+class ChunkLoadClass;
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 void BaseHeightMapRenderObjClass::loadRoadsAndBridges(W3DTerrainLogic *pTerrainLogic, Bool saveGame)
 {

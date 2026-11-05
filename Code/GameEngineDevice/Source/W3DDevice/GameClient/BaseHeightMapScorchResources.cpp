@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc
+// cl: /O1 /MD /EHsc /DNDEBUG /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Native6B3F3..6B4CC full217 including EH2; BFME1 f989
 // BaseHeightMapRva006CB080 gives scorch buffer/texture initialization purpose.
 // ActualVB/IB CC/D0 owned texture D4 counters D8/DC/3794 and existing
@@ -13,6 +13,8 @@
 
 typedef unsigned int Uint;
 typedef unsigned short UShort;
+// WWLib always.h defines the array placement forms itself.
+#define __PLACEMENT_VEC_NEW_INLINE
 #include <new>
 
 #include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
@@ -52,32 +54,32 @@ public:
 };
 
 class Rva0006B3F3ScorchTexture:public RefCountPtr<TextureClass>{public:Rva0006B3F3ScorchTexture(int);};
-class BaseHeightMapRenderObjClass
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+#define REFCOUNT_H
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
+// The header keeps +0xCC as VertexBufferClass*; this body allocates the
+// dynamic native VB that the constructor 0x0006C9CF stores there.
+static __forceinline BfmeDynamicNativeVB *&scorchVertexBuffer(BaseHeightMapRenderObjClass *self)
 {
-public:
-	void rva00067878();
-	void rva0006B3F3();__forceinline RefCountPtr<TextureClass>&scorchSlot(){return this?m_tex:m_tex;}
+	return *reinterpret_cast<BfmeDynamicNativeVB **>(&self->m_vertexScorch);
+}
 
-private:
-	unsigned char m_pad[0xCC];
-	BfmeDynamicNativeVB *m_vb;
-	DX8IndexBufferClass *m_ib;
-	RefCountPtr<TextureClass> m_tex;
-	int m_d8;
-	int m_dc;
-	unsigned char m_pad2[0x3794 - 0xE0];
-	int m_3794;
-};
-
+// +0xD4 is the scorch texture holder (opaque word in the header).
+static __forceinline RefCountPtr<TextureClass> &scorchSlot(BaseHeightMapRenderObjClass *self)
+{
+	return self ? *reinterpret_cast<RefCountPtr<TextureClass> *>(&self->field00D4)
+	            : *reinterpret_cast<RefCountPtr<TextureClass> *>(&self->field00D4);
+}
 
 void BaseHeightMapRenderObjClass::rva0006B3F3()
 {
-	if (m_vb != 0 || m_ib != 0)
+	if (m_vertexScorch != 0 || m_indexScorch != 0)
 		rva00067878();
-	m_vb = new BfmeDynamicNativeVB(0x142, 0x2002, 0, 0);
-	m_ib = new DX8IndexBufferClass(0xC00C, DX8IndexBufferClass::USAGE_DEFAULT);
-	scorchSlot()=Rva0006B3F3ScorchTexture(3);
-	m_3794 = 0;
-	m_d8 = 0;
-	m_dc = 0;
+	scorchVertexBuffer(this) = new BfmeDynamicNativeVB(0x142, 0x2002, 0, 0);
+	m_indexScorch = new DX8IndexBufferClass(0xC00C, DX8IndexBufferClass::USAGE_DEFAULT);
+	scorchSlot(this)=Rva0006B3F3ScorchTexture(3);
+	m_scorchesInBuffer = 0;
+	m_curNumScorchVertices = 0;
+	m_curNumScorchIndices = 0;
 }
