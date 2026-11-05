@@ -23810,3 +23810,9 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp|funct
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003328EDChain.cpp|member|Rva002628C3Object74|m_74,e44596c2f403e165c8f6c8ee,claude-opus-5-5,claude3-20261104-204833-3,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|function|0x003BBC81|Rva003BBC81Set,0ab5f3af23c37d6f4ea761f5,claude-opus-5-5,claude3-20261104-204833-4,w-29a6ae2a2f9f,2026-11-04
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsAudioControl.cpp|function|0x003BBCD2|Rva003BBCD2Set,654db11ad73ccd8a03e7b15d,claude-opus-5-5,claude3-20261104-204833-4,w-29a6ae2a2f9f,2026-11-04
+Code/GameEngine/Source/Common/Rva0022CA74Slot9.cpp|function|0x002000A4|rva002000A4,0137581b8205fbed189855b9,claude-opus-5-5,rank1,w-85ac5a290b20,2026-11-05
+Code/GameEngine/Source/Common/GapBodiesS3E.cpp|function|0x005742B3|Rva005742B3,ce57e02bd150f97d1d3e0889,sonnet,review-de668c6302174c3f,w-f332219df0a4,2026-11-05
+Code/GameEngine/Source/Common/GapBodiesS3E.cpp|function|0x005CB29A|Rva005CB29A,b849631168a9db07927d24c6,sonnet,review-de668c6302174c3f,w-f332219df0a4,2026-11-05
+Code/GameEngine/Source/Common/GapBodiesS3E.cpp|function|0x005CB2D2|Rva005CB2D2,de6361e8ecfa9d71644b089a,sonnet,review-de668c6302174c3f,w-f332219df0a4,2026-11-05
+Code/Libraries/Source/Apt/Rva006E3410.cpp|function|0x006E3410|rva006E3410,b8b40681c4110437e796ce4e,sonnet,review-de668c6302174c3f,w-f332219df0a4,2026-11-05
+Code/GameEngine/Source/Common/Rva0022CA74Slot9.cpp|function|0x002000A4|rva002000A4,9bbdd3e47b2eb648c7f59d19,sonnet,review-33efcb3f7c994151,w-f332219df0a4,2026-11-05
