@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+// platformsdk
 //
 // ?RunShaderAssetBuilder@@YA_NXZ, retail 0x0012C99D, 148 bytes.
 // Launch the wide command line at VA 0x00BD2354 with CREATE_NO_WINDOW,
@@ -7,21 +8,7 @@
 // 0x8000000, WaitForSingleObject(-1), GetExitCodeProcess, CloseHandle x2;
 // caller at 0x0012CFE9 in 0x0012CFA0.
 
-typedef unsigned long DWORD;
-
-struct STARTUPINFOW
-{
-	DWORD cb;
-	unsigned char m_rest[0x40];
-};
-
-struct PROCESS_INFORMATION
-{
-	void *hProcess;
-	void *hThread;
-	DWORD dwProcessId;
-	DWORD dwThreadId;
-};
+#include <windows.h>
 
 // memset is msvcr71's, called through its import thunk at 0x006291AE
 // rather than expanded inline: <string.h>'s memset with
@@ -29,22 +16,12 @@ struct PROCESS_INFORMATION
 #include <string.h>
 #pragma function(memset)
 
-extern "C" __declspec(dllimport) unsigned short *__cdecl wcscpy(unsigned short *dst, const unsigned short *src);
-extern "C" __declspec(dllimport) int __stdcall CreateProcessW(
-	const unsigned short *application, unsigned short *commandLine,
-	void *processAttributes, void *threadAttributes, int inheritHandles, DWORD creationFlags,
-	void *environment, const unsigned short *currentDirectory, STARTUPINFOW *startupInfo,
-	PROCESS_INFORMATION *processInformation);
-extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void *handle, unsigned long timeout);
-extern "C" __declspec(dllimport) int __stdcall GetExitCodeProcess(void *process, DWORD *exitCode);
-extern "C" __declspec(dllimport) int __stdcall CloseHandle(void *handle);
-
 
 // WorldBuilder RunShaderAssetBuilder, WB VA 0x009D6E10 (imports,strings lead, score 1.2).
 bool __cdecl RunShaderAssetBuilder()
 {
 	STARTUPINFOW startup;
-	unsigned short command[260];
+	WCHAR command[260];
 	PROCESS_INFORMATION info;
 	DWORD exitCode;
 	bool ok = false;
@@ -52,8 +29,8 @@ bool __cdecl RunShaderAssetBuilder()
 	memset(&startup, 0, sizeof(startup));
 	startup.cb = sizeof(startup);
 	wcscpy(command, L"ShaderAssetBuilder.exe");
-	if (CreateProcessW(0, command, 0, 0, 0, 0x8000000, 0, 0, &startup, &info)) {
-		WaitForSingleObject(info.hProcess, 0xFFFFFFFF);
+	if (CreateProcessW(0, command, 0, 0, 0, CREATE_NO_WINDOW, 0, 0, &startup, &info)) {
+		WaitForSingleObject(info.hProcess, INFINITE);
 		if (!GetExitCodeProcess(info.hProcess, &exitCode) || exitCode == 0)
 			ok = true;
 		CloseHandle(info.hProcess);
@@ -64,10 +41,10 @@ bool __cdecl RunShaderAssetBuilder()
 }
 
 // WorldBuilder ExecuteTextureAssetBuilder, WB VA 0x009D6BA0 (imports,strings lead, score 1.2).
-bool __cdecl ExecuteTextureAssetBuilder(const unsigned short *currentDirectory)
+bool __cdecl ExecuteTextureAssetBuilder(const WCHAR *currentDirectory)
 {
 	STARTUPINFOW startup;
-	unsigned short command[260];
+	WCHAR command[260];
 	PROCESS_INFORMATION info;
 	DWORD exitCode;
 	bool ok = false;
@@ -75,8 +52,8 @@ bool __cdecl ExecuteTextureAssetBuilder(const unsigned short *currentDirectory)
 	memset(&startup, 0, sizeof(startup));
 	startup.cb = sizeof(startup);
 	wcscpy(command, L"TextureAssetBuilder.exe");
-	if (CreateProcessW(0, command, 0, 0, 0, 0x8000000, 0, currentDirectory, &startup, &info)) {
-		WaitForSingleObject(info.hProcess, 0xFFFFFFFF);
+	if (CreateProcessW(0, command, 0, 0, 0, CREATE_NO_WINDOW, 0, currentDirectory, &startup, &info)) {
+		WaitForSingleObject(info.hProcess, INFINITE);
 		if (!GetExitCodeProcess(info.hProcess, &exitCode) || exitCode == 0)
 			ok = true;
 		CloseHandle(info.hProcess);
