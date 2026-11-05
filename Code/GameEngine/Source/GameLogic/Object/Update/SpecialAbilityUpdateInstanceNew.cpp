@@ -1,4 +1,5 @@
-// cl: /O1 /GX /DNDEBUG /MD
+// cl: /O1 /GX /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?friend_newModuleInstance@SpecialAbilityUpdate@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z,
 // retail 0x0024A847, 59 bytes. Dedicated TU: retail news 0x88 (push-imm32)
@@ -10,15 +11,7 @@ class Thing;
 class ModuleData;
 class Module;
 
-class SpecialAbilityUpdate
-{
-public:
-	SpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData);
-	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
-
-private:
-	char m_pad[0x88];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 // The rowed owner spelling of the 0x88 constructor (0x44EF5E); the row's own
 // class name stays on friend_newModuleInstance.

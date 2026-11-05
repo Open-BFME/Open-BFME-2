@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // SpecialAbilityUpdate base slot 8 of the +0x20 interface table (retail
 // 0x0044EDA6, 97 bytes; the teleport, give-upgrade, weapon-fire and
@@ -14,11 +15,7 @@ class Object;
 class Rva0044EDA6ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-	virtual Bool vslot08(int value);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class Overridable
 {
 public:

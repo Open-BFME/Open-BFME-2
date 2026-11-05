@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?startUnpacking@Rva00492C59@@UAEXXZ at retail 0x00492DAB (101B). Slot 22 (offset
 // 0x58) override of SpecialAbilityUpdate slot 22 (0x004508B7, pinned) for the
 // class of Rva00492C59 ctor (vtable 0x0084E1A8). Evidence: calls rowed
@@ -30,16 +31,7 @@ extern WeaponStore *TheWeaponStore;
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
-class SpecialAbilityUpdate
-{
-public:
-	virtual void startUnpacking();	// row 0x004508B7
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	unsigned char m_pad0C[0x88 - 0x0C];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva00492C59ModuleData
 {

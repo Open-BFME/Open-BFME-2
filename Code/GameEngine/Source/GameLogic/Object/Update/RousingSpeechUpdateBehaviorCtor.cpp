@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ??0RousingSpeechUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004ACF76,
 // 135 bytes. Behavior-side ctor (poolkey rowed; ModuleData ctor rowed;
@@ -24,11 +25,7 @@ class ModuleData;
 
 // Retail's unwind of the base subobject calls the rowed
 // ~SpecialAbilityUpdate 0x00451F45 (the dtor of the 0x0044EF5E base).
-class SpecialAbilityUpdate
-{
-public:
-	virtual ~SpecialAbilityUpdate();
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva0044EF5E
 {

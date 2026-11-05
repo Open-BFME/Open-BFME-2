@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?xfer@ArrowStormUpdate@@MAEXPAVXfer@@@Z, retail 0x00490C9B, 111 bytes.
 // Slot 3 of the vftable 0x00C4D700 whose slot-2 name getter returns
@@ -56,15 +57,7 @@ public:
 
 Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
 
-class SpecialAbilityUpdate
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-	char m_unrecovered04[0x88 - 0x04];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class ArrowStormUpdate : public SpecialAbilityUpdate
 {

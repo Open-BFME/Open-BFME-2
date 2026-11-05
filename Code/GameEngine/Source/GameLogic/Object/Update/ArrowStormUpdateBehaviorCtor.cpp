@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ??0ArrowStormUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004909D7,
 // 129 bytes. Behavior-side ctor (rowed instance factory news 0x9C with this
@@ -21,11 +22,7 @@ class ModuleData;
 
 // Retail's unwind of the base subobject calls the rowed
 // ~SpecialAbilityUpdate 0x00451F45 (the dtor of the 0x0044EF5E base).
-class SpecialAbilityUpdate
-{
-public:
-	virtual ~SpecialAbilityUpdate();
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva0044EF5E
 {

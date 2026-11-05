@@ -37,10 +37,11 @@
 // and its overridden slots. BFME2's four vptr offsets come from retail above.
 // Zero Hour also names m_animFrames, m_packingState, m_prepFrames, m_targetID,
 // m_targetPos, m_active, m_noTargetCommand, m_withinStartAbilityRange and
-// m_specialObjectIDList. Retail intent (0x004500A3) stores the target, command
-// flags and packing state; preparation (0x00450D9A) sets the preparation timer;
-// packing (0x00450635) sets the animation timer. The active getter above reads
-// +0x74; range checking (0x0044F28E) reads +0x80. Other field names are neutral.
+// m_specialObjectIDList, and types m_targetID as ObjectID. Retail intent
+// (0x004500A3) stores the target, command flags and packing state; preparation
+// (0x00450D9A) sets the preparation timer; packing (0x00450635) sets the
+// animation timer. The active getter above reads +0x74; range checking
+// (0x0044F28E) reads +0x80. Other field names are neutral.
 
 #pragma once
 #ifndef __BFME2_SPECIALABILITYUPDATE_H_
@@ -55,6 +56,7 @@ class SpecialPowerTemplate;
 class Waypoint;
 class CommandButton;
 enum SpecialPowerType;
+enum ObjectID;
 
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
@@ -124,7 +126,7 @@ protected:
     unsigned int m_34;
     unsigned int m_38;
     unsigned int m_prepFrames;
-    unsigned int m_targetID;
+    ObjectID m_targetID;
     Coord3D m_targetPos;
     Coord3D m_50;
     int m_5C;

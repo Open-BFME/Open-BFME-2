@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?findSpecialAbilityUpdate@Object@@QBEPAVSpecialAbilityUpdate@@W4SpecialPowerType@@@Z
 // @0x0028BD92 69B: Zero Hour's and BFME1's Object::findSpecialAbilityUpdate
 // (BFME1 0x001BF750: same getSpecialPowerType test over the behavior modules). Object scan of +0x244
@@ -20,11 +21,7 @@ public:
 
 
 enum SpecialPowerType {};
-class SpecialAbilityUpdate
-{
-public:
-	SpecialPowerType getSpecialPowerType() const;
-};
+#include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Object
 {

@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?xfer@ScaleWallSpecialAbilityUpdate@@MAEXPAVXfer@@@Z, retail 0x00494E57, 44 bytes.
 // Slot 3 of the vftable 0x00C4EB40 whose slot-2 name getter returns
@@ -30,15 +31,7 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class SpecialAbilityUpdate
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer(Xfer *xfer);
-	char m_unrecovered04[0x88 - 0x04];
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class ScaleWallSpecialAbilityUpdate : public SpecialAbilityUpdate
 {

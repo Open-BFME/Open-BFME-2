@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // EvacuateGarrisonSpecialPower::finishAbility, primary slot 19 (vtable
 // 0x00C5FC28), retail 0x004CDCB4 (78 bytes): the base
@@ -27,20 +28,7 @@ class Object;
 #include "../object.h"
 extern GameLogic *TheGameLogic;
 class ModuleData;
-class SpecialAbilityUpdate
-{
-public:
-	virtual ~SpecialAbilityUpdate();
-	VSLOTS10(s0);
-	virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13();
-	virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17();
-	virtual void finishAbility();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-	unsigned char m_pad0C[0x40 - 0x0C];
-	ObjectID m_40;			// +0x40
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class EvacuateGarrisonSpecialPower : public SpecialAbilityUpdate
 {
 public:
@@ -53,7 +41,7 @@ void EvacuateGarrisonSpecialPower::finishAbility()
 	AIUpdateInterface *ai = self->getAI();
 	if (ai == 0)
 		return;
-	Object *target = TheGameLogic->findObjectByID(m_40);
+	Object *target = TheGameLogic->findObjectByID(m_targetID);
 	if (target == 0)
 		return;
 	self->setStatus(OBJECT_STATUS_5D, true);

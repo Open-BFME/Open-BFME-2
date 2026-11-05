@@ -1,4 +1,5 @@
-// cl: /Ob0 /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ob0 /MD /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB
+// stlport
 // BFME 2 has no RailedTransportDockUpdate: game.dat holds no such module name and no row is
 // one of its methods but the first below. Three rows rest in this file until their addresses
 // are settled: the null-checked +0x0C to +0x88 cast at 0x004B01D9 (slot 3 of retail's table
@@ -56,11 +57,7 @@ extern const void *const g_dockRowsAnchor = (const void *)&callDockRows;
 
 // The callee at 0x0044FC52 is the rowed virtual
 // SpecialAbilityUpdate::continuePreparation, called directly.
-class SpecialAbilityUpdate
-{
-public:
-	virtual bool continuePreparation();
-};
+#include "../../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva004B01E6Owner
 {

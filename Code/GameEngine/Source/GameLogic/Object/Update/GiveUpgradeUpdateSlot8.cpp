@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // GiveUpgradeUpdate slot 8 of its +0x20 interface table 0x00C511F0 (installed
 // by the ctors 0x0049C3D3 and 0x0049C410), retail 0x0049C553 (63 bytes), so
@@ -13,25 +14,18 @@ extern GameLogic *TheGameLogic;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/SpecialPowerUpdateInterface.h"
-class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
-{
-public:
-	virtual Bool vslot08(int value);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 class GiveUpgradeUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual Bool vslot08(int value);
-private:
-	unsigned char m_pad24[0x40 - 0x24];
-	ObjectID m_40; // +0x40
 };
 Bool GiveUpgradeUpdate::vslot08(int value)
 {
 	if (!SpecialAbilityUpdate::vslot08(value))
 		return false;
-	if (m_40 == INVALID_OBJECT_ID)
+	if (m_targetID == INVALID_OBJECT_ID)
 		return true;
-	Object *obj = TheGameLogic->findObjectByID(m_40);
+	Object *obj = TheGameLogic->findObjectByID(m_targetID);
 	return obj == 0 || (obj->m_privateStatus & 1) != 0;
 }

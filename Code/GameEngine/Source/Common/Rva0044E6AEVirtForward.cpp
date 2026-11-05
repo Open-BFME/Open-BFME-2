@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva0044E6AE@Rva0044E6AE@@QAEXXZ @0x0044E6AE 10B
 // Virtual forward with (0 1) through slot 0x34. Retail is mov eax [ecx]
 // push 1 push 0 call [eax+0x34] ret. Evidence: unlock lane; callers at
@@ -106,11 +107,7 @@ public:
 	virtual void slot46(void *upgrade, int zero);
 };
 
-class SpecialAbilityUpdate
-{
-public:
-	virtual void triggerAbilityEffect();
-};
+#include "../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva0044E6AE
 {

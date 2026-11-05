@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?xfer@Rva004AD9B0@@MAEXPAVXfer@@@Z, retail 0x004ADA2D, 67 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x008551C0 (class of ??1Rva004AD9B0 in
@@ -45,11 +46,7 @@ protected:
 	unsigned char m_pad[0x88 - 4];
 };
 
-class SpecialAbilityUpdate : public Rva0044EF5E
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class Rva004AD9B0 : public SpecialAbilityUpdate
 {

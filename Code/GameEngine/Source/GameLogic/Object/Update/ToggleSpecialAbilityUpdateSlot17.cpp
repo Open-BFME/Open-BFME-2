@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // Slot-17 overrides of ToggleHiddenSpecialAbilityUpdate (vftable 0x00C552D8)
 // and ToggleDeploySpecialAbilityUpdate (vftable 0x00C55370), named by their
@@ -32,23 +33,7 @@ enum KindOfType
 
 #include "../object.h"
 
-class SpecialAbilityUpdate
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16();
-	virtual void triggerAbilityEffect();
-	virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21();
-	virtual void s22();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-	unsigned char m_pad0C[0x24 - 0x0C];
-	int m_24; // +0x24
-};
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
 
 class ToggleHiddenSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
