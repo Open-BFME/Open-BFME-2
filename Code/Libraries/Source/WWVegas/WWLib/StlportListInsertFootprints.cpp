@@ -34,6 +34,7 @@ struct BfmePod60 { char m_pad[60]; public: BfmePod60(const BfmePod60 &); ~BfmePo
 // 72-byte element; layout owner stlport_pod_list_bodies.cpp.
 struct BfmePod72 { char m_pad[72]; public: BfmePod72(const BfmePod72 &); ~BfmePod72(); };
 // 32-byte element; layout owner stlport_list_create_nodes.cpp.
+struct BfmePod32 { int a[8]; };
 struct BfmeStringRecord000B75AE { char m_pad[32]; public: BfmeStringRecord000B75AE(const BfmeStringRecord000B75AE &); ~BfmeStringRecord000B75AE(); };
 // 24-byte element; layout owner stlport_list_create_nodes.cpp.
 struct BfmeStringRecord00415F34 { char m_pad[24]; public: BfmeStringRecord00415F34(const BfmeStringRecord00415F34 &); ~BfmeStringRecord00415F34(); };
@@ -55,6 +56,7 @@ template <> _STL::_List_node<BfmePod124> *_STL::list<BfmePod124>::_M_create_node
 template <> _STL::_List_node<BfmePod60> *_STL::list<BfmePod60>::_M_create_node(const BfmePod60 &);
 template <> _STL::_List_node<BfmePod72> *_STL::list<BfmePod72>::_M_create_node(const BfmePod72 &);
 template <> _STL::_List_node<BfmeStringRecord000B75AE> *_STL::list<BfmeStringRecord000B75AE>::_M_create_node(const BfmeStringRecord000B75AE &);
+template <> _STL::_List_node<BfmePod32> *_STL::list<BfmePod32>::_M_create_node(const BfmePod32 &);
 template <> _STL::_List_node<BfmeStringRecord00415F34> *_STL::list<BfmeStringRecord00415F34>::_M_create_node(const BfmeStringRecord00415F34 &);
 template <> _STL::_List_node<Coord3D> *_STL::list<Coord3D>::_M_create_node(const Coord3D &);
 template <> _STL::_List_node<Rva0036CA00Str> *_STL::list<Rva0036CA00Str>::_M_create_node(const Rva0036CA00Str &);
@@ -66,6 +68,7 @@ template <> _STL::_List_node<TreeKey00242F5E> *_STL::list<TreeKey00242F5E>::_M_c
 template void _STL::list<Rva0036CA00Str>::push_back(const Rva0036CA00Str &);
 // Retail 0x000BC180 (37B).
 template _STL::list<BfmeStringRecord000B75AE>::iterator _STL::list<BfmeStringRecord000B75AE>::insert(_STL::list<BfmeStringRecord000B75AE>::iterator, const BfmeStringRecord000B75AE &);
+template _STL::list<BfmePod32>::iterator _STL::list<BfmePod32>::insert(_STL::list<BfmePod32>::iterator, const BfmePod32 &);
 // Retail 0x001B4CAB (37B).
 template _STL::list<BfmePod72>::iterator _STL::list<BfmePod72>::insert(_STL::list<BfmePod72>::iterator, const BfmePod72 &);
 // Retail 0x001F640B (37B).
