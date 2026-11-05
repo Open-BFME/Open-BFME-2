@@ -12,7 +12,8 @@ namespace _STL { void __cdecl free(void *); }
 // The copy constructor is 0x009EE8E0; the tree destructor is called through
 // ILT 0x00015D7A -> 0x00140950. Existing Gen_t names describe those ABI types.
 
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/sweep /D_CRTIMP=
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// platformsdk
 // stlport
 
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
@@ -242,11 +243,6 @@ struct Q1ReceiverSetGroup198
 };
 
 #include <windows.h>
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
-	CRITICAL_SECTION *lock);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
-	CRITICAL_SECTION *lock);
-extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long);
 extern volatile bool g_q1Flag0134FAA8;
 
 class Q1ReceiverLockGuard
