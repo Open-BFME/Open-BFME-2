@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 
 // BaseHeightMapRenderObjClass::getHeightMapHeight (retail 0x0006AD6A, 938
 // bytes): virtual, held by vftables 0x007C5FF4 and 0x007CE9CC in the slot
@@ -14,6 +14,13 @@
 extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+
+// Use the canonical RefCountClass instead of the donor refcount.h.
+#define REFCOUNT_H
+
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
 
 typedef float Real;
 typedef int Int;
@@ -39,12 +46,6 @@ __forceinline long fast_float2long_round(Real f)
 
 #define FAST_REAL_FLOOR(x) fast_float_floor(x)
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round(fast_float_floor(x)))
-
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float a);	// 0x0004233A
-};
 
 class Rva0006AD6AVector3
 {
@@ -88,18 +89,6 @@ class Rva0006653B
 {
 public:
 	UnsignedShort rva0006653B(Int x, Int y);
-};
-
-#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
-
-class BaseHeightMapRenderObjClass
-{
-public:
-	virtual Real getHeightMapHeight(Real x, Real y, Coord3D *normal) const;
-
-private:
-	char m_unknown0004[0x37C0 - 4];
-	WorldHeightMap *m_map;	// +0x37C0
 };
 
 Real BaseHeightMapRenderObjClass::getHeightMapHeight(Real x, Real y, Coord3D *normal) const
