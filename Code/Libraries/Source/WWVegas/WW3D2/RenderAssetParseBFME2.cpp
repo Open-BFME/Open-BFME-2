@@ -146,7 +146,9 @@ char bfmeGo1025F(BfmeR1025 *);
 void Add_Prototype(void *);
 class AssetName;
 class CountedAsset{public:void Release_Ref();};
-class AssetReference{public:~AssetReference(){if(pointer)pointer->Release_Ref();}CountedAsset *pointer;};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
+// Preserve the native release at this TU's temporary cleanup sites.
+inline AssetReference::~AssetReference(){if(field00)field00->Release_Ref();}
 AssetReference Rva009EBEC0(const AssetName &);
 class Rva0013BE70Host{public:void opaqueCall(const char *);};
 extern bool g_Va00DB6218;

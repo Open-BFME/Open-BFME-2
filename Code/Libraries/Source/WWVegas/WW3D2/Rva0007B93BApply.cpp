@@ -11,14 +11,10 @@
 // lead for owning temporaries, not evidence of this wrapper's original name.
 class CountedAsset { public: void Release_Ref(); };
 class Rva001514D0 { public: void *rva001514D0(int); };
-class AssetReference {
-public:
- AssetReference(const AssetReference &);
- ~AssetReference() { if(m_object) m_object->Release_Ref(); }
- bool IsNull() const { return m_object == 0; }
- Rva001514D0 *View() { return reinterpret_cast<Rva001514D0*>(this); }
-private: CountedAsset *m_object;
-};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
+// Keep the native inline cleanup and the destructor's existing COMDAT copy.
+inline AssetReference::~AssetReference() { if(field00) field00->Release_Ref(); }
+
 class Rva0007B9EE {
 public: AssetReference rva0007B9EE();
  char m_pad00[0x20]; void *m_state20;
@@ -38,8 +34,8 @@ private: int m_pad04; Rva0007B93BStep *m_step; void *m_previousState;
 bool Rva0007B93B::rva0007B93B(int a, int b)
 {
  Rva0007B9EE *h = holder();
- if(!h || h->rva0007B9EE().IsNull()) return false;
- void *result = h->rva0007B9EE().View()->rva001514D0(0);
+ if(!h || (h->rva0007B9EE().field00 == 0)) return false;
+ void *result = reinterpret_cast<Rva001514D0 *>(&h->rva0007B9EE())->rva001514D0(0);
  if(!result) return false;
  m_previousState = h->m_state20;
  h->m_state20 = result;

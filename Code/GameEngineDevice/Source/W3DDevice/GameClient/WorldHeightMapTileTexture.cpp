@@ -25,11 +25,11 @@ private:
 // Native owning conversion uses the existing MaterialInfoTextureHandles constructor at 424BB.
 // Its one-pointer representation and WORD refcount at +4 are established there;
 // the distinct ordinary RefCountPtr copy at1494F0 must retain its own identity.
-class AssetReference { public: void *m_object; };
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
 template<class T>class RefCountPtr {public:
  RefCountPtr(T*p=0):m_ptr(p){}
  RefCountPtr(const RefCountPtr&);
- template<class Native> __declspec(noinline) RefCountPtr(const Native &other) { m_ptr=(T*)other.m_object; if(m_ptr) ++*(unsigned short*)((char*)m_ptr+4); }
+ template<class Native> __declspec(noinline) RefCountPtr(const Native &other) { m_ptr=(T*)other.field00; if(m_ptr) ++*(unsigned short*)((char*)m_ptr+4); }
  const RefCountPtr &operator=(const RefCountPtr&);
  ~RefCountPtr(){if(m_ptr)m_ptr->Release_Ref();}
  bool isValid()const{return m_ptr!=0;}

@@ -30,9 +30,12 @@ class TextureBaseClass
 public:
 	void Release_Ref();
 };
-class AssetReference {public:
- TextureBaseClass*p;AssetReference(const AssetReference&);~AssetReference(){if(p)p->Release_Ref();
-}};
+#include "../../../../GameEngine/Include/Common/AssetReference.h"
+// Keep this TU's native inlined release and its existing COMDAT provider.
+inline AssetReference::~AssetReference()
+{
+ if(field00)reinterpret_cast<TextureBaseClass *>(field00)->Release_Ref();
+}
 class Rva00069322 {public:
  AssetReference rva00069322();
 };
