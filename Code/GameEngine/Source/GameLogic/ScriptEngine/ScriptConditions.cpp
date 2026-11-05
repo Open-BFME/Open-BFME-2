@@ -863,14 +863,8 @@ class Rva0030B719Shape
 public:
 	float getRadius() const;	// 0x0030B719
 };
-class PolygonTrigger
-{
-public:
-	bool pointInTrigger(const ICoord3D &position);
-	void getCenterPoint(Coord3D *pOutCoord) const; // 0x002E38F3
-	char m_pad00[0x8];
-	Rva0030B719Shape m_shape; // +0x08
-};
+// The trigger's polygon shape at +0x08 (canonical Rva00330C50 container).
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 struct CondA003E5F73
 {
 	char m_pad[0x10];
@@ -4046,7 +4040,7 @@ bool ScriptConditions::evaluateSkirmishSuppliesWithinDistancePerimeter(Parameter
 		Coord3D center;
 		trigger->getCenterPoint(&center);
 		float extra = radiusParm->m_real;
-		float radius = trigger->m_shape.getRadius() + extra;
+		float radius = ((const Rva0030B719Shape *)((const char *)trigger + 0x08))->getRadius() + extra;
 		float value = valueParm->m_real;
 		float best = 0.0f;
 		BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&center, radius, 0,

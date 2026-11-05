@@ -86,14 +86,7 @@ private:
 
 #include "../../../../../Include/GameLogic/Waypoint.h"
 
-class PolygonTrigger
-{
-public:
-	const AsciiString &getTriggerName() const { return m_triggerName; }
-private:
-	unsigned char m_pad00[0x40];
-	AsciiString m_triggerName;	// +0x40
-};
+#include "../../../../../Include/GameLogic/PolygonTrigger.h"
 
 #include "../../../../../Include/GameClient/CommandButton.h"
 

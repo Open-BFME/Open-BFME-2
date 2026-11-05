@@ -11,11 +11,7 @@ struct FloatRect0073CE30
 	float m_bottom;
 };
 
-class PolygonTrigger
-{
-public:
-	void getBounds(FloatRect0073CE30 *rect);
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

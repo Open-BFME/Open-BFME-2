@@ -61,11 +61,28 @@ class Rva002E3EB8Base { public: virtual void slot()=0; };
 
 class PolygonLink { public: PolygonLink():next(0){} PolygonTrigger *next; };
 
+struct IRegion2D;
+struct ICoord3D;
+struct FloatRect0073CE30;
+
 class PolygonTrigger : public PolygonLink, public Rva00330C50, public Rva002E3EB8Base {
 public:
- PolygonTrigger(int,int);
+ PolygonTrigger(int);     // 0x002E3EB8
+ PolygonTrigger(int,int); // 0x002E3FAB
  virtual ~PolygonTrigger();
  virtual void slot() = 0;
+ // Rowed in Map/PolygonTrigger.cpp unless noted.
+ static void addPolygonTrigger(PolygonTrigger *); // 0x002E36EF
+ PolygonTrigger *getNext() { return next; }         // trigger list link, +0x3C
+ const AsciiString &getTriggerName() const { return name; } // +0x40
+ int getID() const { return id; }                    // +0x44
+ Region2D rva0007E03A();                             // shape region, 0x0007E03A
+ void getBounds(FloatRect0073CE30 *rect);            // 0x002E3954
+ void getBounds(IRegion2D *out);                     // 0x002E3978
+ Rva0030B72CPoint getCenterPoint2D() const;          // 0x002E3876
+ void getCenterPoint(Coord3D *pOutCoord) const;      // 0x002E38F3
+ void rva002E38AF(const Coord3D *offset);            // 0x002E38AF
+ bool pointInTrigger(const ICoord3D &point);         // 0x002E3A13
  void rva002E36B7(int);
  bool rva002E3A39(const Coord3D &);
  bool rva002E3AA8(const Coord3D *, const Coord3D *, Coord3D *, bool);

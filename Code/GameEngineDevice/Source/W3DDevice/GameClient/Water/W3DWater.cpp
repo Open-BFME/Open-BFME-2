@@ -410,7 +410,7 @@ class Rva00081F03 {public:void rva00081F03();};
 class Rva0030D111Shape {public:virtual int count();};
 bool Rva0030D111Contains(Rva0030D111Shape*,const Coord2D*);
 #include "../../../../../Libraries/Include/Lib/Region2D.h"
-class PolygonTrigger { public:Region2D rva0007E03A();};
+#include "../../../../../GameEngine/Include/GameLogic/PolygonTrigger.h"
 class GameLODManager;
 extern GameLODManager *TheGameLODManager;
 void BFME_DX8_Thread_Lock();

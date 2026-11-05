@@ -96,7 +96,7 @@ Xfer *Rva00263569Xfer(Xfer *, int *);
 void XferLocomotorSetType(Xfer *, int *);
 void XferWhichTurretType(Xfer *, int *);
 void XferAttitudeType(Xfer *, int *);
-class PolygonTrigger { public: char m_pad[0x40]; AsciiString m_name; };
+#include "../../../../Include/GameLogic/PolygonTrigger.h"
 #include "../../../../Include/GameLogic/AttackPriorityInfo.h"
 #include "../../../../Include/GameLogic/Waypoint.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
@@ -372,7 +372,7 @@ void AIUpdateInterface::xfer(Xfer *xfer)
  XferObjectID(xfer, &m_objectToGuard);
  *xfer == m_extra68;
  AsciiString triggerName;
- if (m_areaToGuard) triggerName = m_areaToGuard->m_name;
+ if (m_areaToGuard) triggerName = m_areaToGuard->getTriggerName();
  *xfer == triggerName;
  if (xfer->IsLoading() && !triggerName.isEmpty()) m_areaToGuard = TheTerrainLogic->getTriggerAreaByName(triggerName);
  AsciiString attackName;

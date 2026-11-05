@@ -368,12 +368,7 @@ private:
 	Waypoint *m_links[1];						// +0x20
 };
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/PolygonTrigger.h
-class PolygonTrigger
-{
-public:
-	void getCenterPoint(Coord3D *position) const;
-};
+#include "../../../../Include/GameLogic/PolygonTrigger.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/OpenContain.h
 // BFME2 slots, from privateExitInstantly (0x0026488B, +0x84) and the enter

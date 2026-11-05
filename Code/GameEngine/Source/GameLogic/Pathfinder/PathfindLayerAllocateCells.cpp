@@ -70,15 +70,7 @@ typedef PathfindCell *PathfindCellP;
 
 #include "../../../Include/GameLogic/BridgeClass.h"
 
-class PolygonTrigger
-{
-public:
-	void getBounds(IRegion2D *bounds);
-	PolygonTrigger *getNext() { return m_next; }
-private:
-	unsigned char m_pad00[0x3C];
-	PolygonTrigger *m_next;		// +0x3C
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 #include "../../../Include/GameLogic/PathfindLayer.h"
 

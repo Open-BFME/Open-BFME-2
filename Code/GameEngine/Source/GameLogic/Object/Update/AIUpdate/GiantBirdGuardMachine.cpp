@@ -55,11 +55,7 @@ struct StateConditionInfo;
 
 #include "../../../../../Include/Common/TeamFactory.h"
 
-class PolygonTrigger
-{
-public:
-	void getCenterPoint(Coord3D *pOutCenter) const;
-};
+#include "../../../../../Include/GameLogic/PolygonTrigger.h"
 
 struct TAiData
 {

@@ -45,13 +45,7 @@ public:
 	Pair00739BE0 m_location;	// +0x0C
 };
 
-class PolygonTrigger
-{
-public:
-	void getBounds(FloatRect0073CE30 *rect);
-	char m_pad00[0x38];
-	int m_38;
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -117,7 +111,7 @@ void ScriptEngine::doNamedMapReveal(const AsciiString &revealName)
 					{
 						FloatRect0073CE30 rect;
 						trigger->getBounds(&rect);
-						((Rva00739AF0 *)TheShroudManager)->rva00739AF0(&rect, (int)&trigger->m_38, mask);
+						((Rva00739AF0 *)TheShroudManager)->rva00739AF0(&rect, (int)((char *)trigger + 0x38), mask);
 					}
 					break;
 				}
@@ -153,7 +147,7 @@ void ScriptEngine::undoNamedMapReveal(const AsciiString &revealName)
 					{
 						FloatRect0073CE30 rect;
 						trigger->getBounds(&rect);
-						((Rva00739CA0 *)TheShroudManager)->rva00739CA0(&rect, (int)&trigger->m_38, mask);
+						((Rva00739CA0 *)TheShroudManager)->rva00739CA0(&rect, (int)((char *)trigger + 0x38), mask);
 					}
 					break;
 				}

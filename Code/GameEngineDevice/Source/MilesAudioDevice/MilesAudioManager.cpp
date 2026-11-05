@@ -662,14 +662,7 @@ class Rva002D94DD { public: float rva002D94DD(void) const; };
 // Object::isInside(PolygonTrigger *) and keeps the lowest +0x04 level whose
 // trigger holds the event. Names are descriptive.
 // +0x44 is the trigger ID xfer saves and loadPostProcess looks up again.
-class PolygonTrigger {
-public:
-    bool rva002E3A39(const Coord3D &pos);
-    int getID(void) const { return m_triggerID; }
-private:
-    char at00[0x44];
-    int m_triggerID;
-};
+#include "../../../GameEngine/Include/GameLogic/PolygonTrigger.h"
 class Object { public: bool isInside(PolygonTrigger *trigger); };
 extern GameLogic *TheGameLogic;
 inline float sqr(float value) { return value * value; }

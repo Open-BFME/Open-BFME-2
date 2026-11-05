@@ -87,17 +87,7 @@ public:
 	void notifyObjectEntered(Int obj);	// 0x002E3777
 };
 
-class PolygonTrigger
-{
-public:
-	Bool pointInTrigger(const ICoord3D &point);	// 0x002E3A13
-	PolygonTrigger *getNext() { return m_nextPolygonTrigger; }
-	const Rva0036CA00Str &getTriggerName() const { return *(const Rva0036CA00Str *)m_triggerName; }
-private:
-	unsigned char m_pad00[0x3C];
-	PolygonTrigger *m_nextPolygonTrigger;	// +0x3C
-	char m_triggerName[4];	// +0x40
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 struct ObjectTriggerListView
 {
@@ -240,7 +230,7 @@ void Object::setTriggerAreaFlagsForChangeInPosition()
 				m_team->rva0039D8BA(this);
 			TheGameLogic->updateObjectsChangedTriggerAreas();
 			DelayedLuaEventList events;
-			((Rva001BDA20 *)&events.m_events[0])->set(m_triggerInfo[i].pTrigger->getTriggerName());
+			((Rva001BDA20 *)&events.m_events[0])->set(*(const Rva0036CA00Str *)&m_triggerInfo[i].pTrigger->getTriggerName());
 			((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(5, this, (BfmeDelayedLuaEventList *)&events);
 			((Rva002E3766Holder *)m_triggerInfo[i].pTrigger)->notifyObjectExited((Int)this);
 		}
@@ -275,7 +265,7 @@ void Object::setTriggerAreaFlagsForChangeInPosition()
 				TheGameLogic->updateObjectsChangedTriggerAreas();
 				++m_numTriggerAreasActive;
 				DelayedLuaEventList events;
-				((Rva001BDA20 *)&events.m_events[0])->set(m_triggerInfo[i].pTrigger->getTriggerName());
+				((Rva001BDA20 *)&events.m_events[0])->set(*(const Rva0036CA00Str *)&m_triggerInfo[i].pTrigger->getTriggerName());
 				((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(3, this, (BfmeDelayedLuaEventList *)&events);
 				((Rva002E3766Holder *)pTrig)->notifyObjectEntered((Int)this);
 			}

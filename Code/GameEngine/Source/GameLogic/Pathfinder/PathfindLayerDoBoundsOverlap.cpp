@@ -11,16 +11,7 @@
 
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
-class PolygonTrigger
-{
-public:
-	void getBounds(IRegion2D *bounds); // rowed 0x002E3978
-	PolygonTrigger *getNext() { return m_nextPolygonTrigger; }
-
-private:
-	unsigned char m_pad00[0x3C];
-	PolygonTrigger *m_nextPolygonTrigger; // +0x3C
-};
+#include "../../../Include/GameLogic/PolygonTrigger.h"
 
 #include "../../../Include/GameLogic/PathfindLayer.h"
 
