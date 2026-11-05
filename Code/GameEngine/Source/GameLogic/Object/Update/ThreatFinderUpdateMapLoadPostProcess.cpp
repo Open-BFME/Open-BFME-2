@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ThreatFinderUpdate::mapLoadPostProcess at 0x003ECE33..0x003ECED5 (162B),
 // named by WB 0x01028A50's identical constructor/register/property sequence.
 // The ctor-installed +0x0C interface passes this: owner at -4, data at -8,
@@ -6,13 +6,7 @@
 // Retail's lazy key object VA 0x00DBDE1C has key zero and the name pointer
 // VA 0x00C0953C, the literal "objectThreatFinderRadius". This establishes the
 // extern key's purpose; its descriptive name does not assert a donor spelling.
-template <class T> class StringBase
-{
-public:
- StringBase(const StringBase &other);
-private:
- void *m_data;
-};
+#include "string_base.h"
 struct OwnerWithName
 {
 public:
