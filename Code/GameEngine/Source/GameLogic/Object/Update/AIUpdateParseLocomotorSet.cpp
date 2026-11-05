@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc_alloconly /EHsc /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?parseLocomotorSet@AIUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z
@@ -16,6 +16,14 @@
 // "not found" and re-specify throws are throw INIException(3, ...)
 // through _CxxThrowException 0x629094.
 
+// /D_CRTIMP= makes the alloc-only shim's ::free a direct call, as in retail's
+// overflow 0x002DFCF6; the "None" _strcmpi still goes through the import.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#undef _CRTIMP
+#define _CRTIMP
+
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
@@ -29,7 +37,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <map>
 #include <vector>
-#include <string.h>
 
 class LocomotorTemplate;
 
@@ -84,14 +91,6 @@ enum NameKeyType
 };
 
 #include "ascii_string.h"
-// Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVLocomotorTemplate@@@_STL@@QBEPAPBVLocomotorTemplate@@IPBX@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class LocomotorTemplate;
-namespace _STL { template <> LocomotorTemplate const * * allocator<LocomotorTemplate const *>::allocate(unsigned int,void const *) const; }
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@PBVLocomotorTemplate@@@_STL@@QBEXPAPBVLocomotorTemplate@@I@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-class LocomotorTemplate;
-namespace _STL { template <> void allocator<LocomotorTemplate const *>::deallocate(LocomotorTemplate const * *,unsigned int) const; }
 
 #include "../../../../Include/Common/INI/INI.h"
 

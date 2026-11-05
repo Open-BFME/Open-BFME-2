@@ -69,6 +69,10 @@ namespace _STL { template <> map<LocomotorSetType,vector<LocomotorTemplate const
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 enum LocomotorSetType; class LocomotorTemplate;
 namespace _STL { template <> _Rb_tree_base<pair<LocomotorSetType const ,vector<LocomotorTemplate const *,allocator<LocomotorTemplate const *> > >,allocator<pair<LocomotorSetType const ,vector<LocomotorTemplate const *,allocator<LocomotorTemplate const *> > > > >::_Rb_tree_base(allocator<pair<LocomotorSetType const ,vector<LocomotorTemplate const *,allocator<LocomotorTemplate const *> > > > const &); }
+// Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVLocomotorTemplate@@@_STL@@QBEPAPBVLocomotorTemplate@@IPBX@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+class LocomotorTemplate;
+namespace _STL { template <> LocomotorTemplate const * * allocator<LocomotorTemplate const *>::allocate(unsigned int,void const *) const; }
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomo:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 enum LocomotorSetType; class LocomotorTemplate;

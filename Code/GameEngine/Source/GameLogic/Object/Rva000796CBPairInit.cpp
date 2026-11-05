@@ -22,7 +22,10 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
+// Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVLocomotorTemplate@@@_STL@@QBEPAPBVLocomotorTemplate@@IPBX@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
 class LocomotorTemplate;
+namespace _STL { template <> LocomotorTemplate const * * allocator<LocomotorTemplate const *>::allocate(unsigned int,void const *) const; }
 
 typedef _STL::vector<const LocomotorTemplate *> LocomotorTemplateVector;
 
