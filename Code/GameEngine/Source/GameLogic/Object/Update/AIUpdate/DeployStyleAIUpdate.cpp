@@ -473,7 +473,7 @@ public:
  void reset();
 	void rva0048E8F7(const AICommandParms *parms);
 	void doLastOutsideCommand();
-	void doCommand(const AICommandParms *parms, bool fromLastOutside);
+	virtual void doCommand(const AICommandParms *parms, bool fromLastOutside);
 	void setGoal(const BfmeVec12 &pos) { float *goal = &m_4C4; goal[0] = pos.x; goal[1] = pos.y; goal[2] = pos.z; }
  void rva0048EB53(DeployStateTypes);
  Object *getObject() const { return *reinterpret_cast<Object *const *>(reinterpret_cast<const char *>(this)+8); }
@@ -711,7 +711,7 @@ void DeployStyleAIUpdate::rva0048EB53(DeployStateTypes stateID)
  }
 }
 
-// ?doCommand@DeployStyleAIUpdate@@QAEXPBUAICommandParms@@_N@Z, retail
+// ?doCommand@DeployStyleAIUpdate@@UAEXPBUAICommandParms@@_N@Z, retail
 // 0x0048EA0F (324 bytes): the primary slot +0x268 that doLastOutsideCommand
 // dispatches to. Unless the AI may not respond (slot +0x250), every command
 // other than 5 and 0x35 first idles the unit. AI-sourced commands remember
