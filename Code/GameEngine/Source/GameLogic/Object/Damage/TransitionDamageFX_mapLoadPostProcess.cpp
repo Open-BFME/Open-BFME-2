@@ -40,7 +40,7 @@ public:
 	Coord3D m_oclOffset; // +0x20
 };
 struct TransitionDamageFXModuleDataView {char pad00[0x1034];_STL::vector<Rva004BA1D0,_STL::allocator<Rva004BA1D0> >neighbors;};
-class BfmeFixedStorage0004543D {public:unsigned words[7];};
+#include "../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 class Rva003959FA:public Rva000421C8 {public:Rva003959FA(const BfmeFixedStorage0004543D&);virtual ~Rva003959FA(){}virtual bool allow(Object*);BfmeFixedStorage0004543D mask;};
 extern PartitionManager*ThePartitionManager;
@@ -123,13 +123,14 @@ void TransitionDamageFX::mapLoadPostProcess(const Dict *)
  
  const TransitionDamageFXModuleDataView*data=getTransitionDamageFXModuleData();
  if(!data)return;
- BfmeFixedStorage0004543D mask;memset(&mask,0,28);mask.words[0]|=1U<<7;mask.words[1]|=1U<<28;
+ // Retail builds these seven mask words in place, without a constructor call.
+ unsigned mask[7];memset(mask,0,sizeof(mask));mask[0]|=1U<<7;mask[1]|=1U<<28;
  for(const Rva004BA1D0*it=data->neighbors.begin();it!=data->neighbors.end();++it) {
   if(it->m_subObjects.empty()||!it->m_ocl)continue;
   const Coord3D&offset=it->m_neighborOffset;Coord3D pos;pos.x=offset.x;pos.y=offset.y;pos.z=offset.z;
   Object*owner=m_object;
   owner->convertBonePosToWorldPos(&pos,0,&pos,0);
-  Object*other=ThePartitionManager->getClosestObject(&pos,30000.f,0,&Rva003959FA(mask));
+  Object*other=ThePartitionManager->getClosestObject(&pos,30000.f,0,&Rva003959FA(*(const BfmeFixedStorage0004543D *)mask));
   if(other&&other!=m_object) {
    Rva004BA1D0 neighbor(*it);neighbor.m_objectID=other->getID();
    ((_STL::vector<Rva004BA1D0> *)&(this?this:this)->resolvedNeighbors)->push_back(neighbor);
