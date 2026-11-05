@@ -3,14 +3,15 @@
 // ??0TerrainResourceClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x00252DEB, 32 bytes.
 // TerrainResourceClientBehavior behavior ctor over the rowed Rva00252B68
 // base (0x252B68, thing plus data): re-stores the primary vtable slot, then
-// zeroes the byte at +0x0C (address-of TU-local dummy, DIR32-masked). The
+// zeroes the byte at +0x0C (the vtable is the class's own table, by its
+// retail store immediate). The
 // rowed pool key at 0x252E0B proves the class; the rowed instance factory
 // 0x254C56 is the sole raw caller. Row supersedes the ctor pin.
 
 class Thing;
 class ModuleData;
 
-static int s_vtable;
+extern "C" const void *const __identifier("??_7TerrainResourceClientBehavior@@6B@")[];  // vftable 0x00BEFF20
 
 // Rowed Rva00252B68 base; ctor resolves to its row. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -37,6 +38,6 @@ private:
 TerrainResourceClientBehavior::TerrainResourceClientBehavior(Thing *thing, const ModuleData *moduleData)
 	: Rva00252B68(thing, moduleData)
 {
-	m_vtable = &s_vtable;
+	m_vtable = __identifier("??_7TerrainResourceClientBehavior@@6B@");
 	m_0C = 0;
 }

@@ -85,9 +85,9 @@ private:
 // sourced-before address-take slots commit the initial +0x20/+0x24 constants
 // first; a shared-zero run clears +0x28 through +0x3C; the vtable group
 // reinstalls the primary slot, the +0x0C/+0x10 secondaries and +0x20/+0x24;
-// a float zero lands at +0x40 and a set flag at +0x44 (address-of TU-local
-// dummies, DIR32-masked; no virtuals are declared anywhere so no vtable is
-// emitted here).
+// a float zero lands at +0x40 and a set flag at +0x44 (the class's own
+// tables, defined by RebuildHoleBehaviorDtor.cpp; no virtuals are declared
+// here so no vtable is emitted here).
 //
 // The rowed name getter at 0x48331C (RebuildHoleBehavior literal), the pool
 // key at 0x4832D7, the ModuleData pair (ctor 0x48323E plus factory 0x24C433)
@@ -102,15 +102,15 @@ class Thing;
 
 class ModuleData;
 
-static int s_vtable;
+extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BObjectModule@@@")[];  // vftable 0x00C49A74
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C49188
 
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BUpdateModule@@@")[];  // vftable 0x00C49A68
 
-static int s_secondary20;
+extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BDieModuleInterface@@@")[];  // vftable 0x00C49A64
 
-static int s_secondary24;
+extern "C" const void *const __identifier("??_7RebuildHoleBehavior@@6BRebuildHoleBehaviorInterface@@@")[];  // vftable 0x00C49A50
 
 enum UpdateSleepTime
 {
@@ -228,11 +228,11 @@ RebuildHoleBehavior::RebuildHoleBehavior(Thing *thing, const ModuleData *moduleD
 	m_34 = 0;
 	m_38 = 0;
 	m_3C = 0;
-	*(const void **)this = &s_vtable;
-	m_p0C = &s_secondary0C;
-	*(const void **)((char *)this + 0x10) = &s_secondary10;
-	m_secondary20 = &s_secondary20;
-	m_secondary24 = &s_secondary24;
+	*(const void **)this = __identifier("??_7RebuildHoleBehavior@@6BObjectModule@@@");
+	m_p0C = __identifier("??_7RebuildHoleBehavior@@6BBehaviorModuleInterface@@@");
+	*(const void **)((char *)this + 0x10) = __identifier("??_7RebuildHoleBehavior@@6BUpdateModule@@@");
+	m_secondary20 = __identifier("??_7RebuildHoleBehavior@@6BDieModuleInterface@@@");
+	m_secondary24 = __identifier("??_7RebuildHoleBehavior@@6BRebuildHoleBehaviorInterface@@@");
 	m_40 = 0.0f;
 	m_44 = true;
 }

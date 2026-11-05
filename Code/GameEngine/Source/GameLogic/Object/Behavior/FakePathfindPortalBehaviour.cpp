@@ -46,7 +46,7 @@ class Object;
 // ??0FakePathfindPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00461944, 99 bytes. Frameless behavior ctor over the rowed
 // UpdateModule base (0x253390): two-phase +0x20/+0x24 slots (ints first,
-// vtable dummies second), byte zeros at +0x30/+0x31/+0x32 plus int zero at
+// the class's own tables second), byte zeros at +0x30/+0x31/+0x32 plus int zero at
 // +0x34, then CRT memset over +0x28 (8 bytes). The rowed instance factory
 // 0x24B50D (news 0x38) is the sole caller. Row supersedes the ctor pin.
 
@@ -213,15 +213,15 @@ public:
 	virtual void rva0046190A(void *arg) = 0;
 };
 
-static int s_vtable;
+extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BObjectModule@@@")[];  // vftable 0x00C42C1C
 
-static int s_secondary0C;
+extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C42B60
 
-static int s_secondary10;
+extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BUpdateModule@@@")[];  // vftable 0x00C42B54
 
-static int s_secondary20;
+extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BFakePathfindPortalBehaviour_B3@@@")[];  // vftable 0x00C42B50
 
-static int s_secondary24;
+extern "C" const void *const __identifier("??_7FakePathfindPortalBehaviour@@6BFakePathfindPortalBehaviour_B4@@@")[];  // vftable 0x00C42B40
 
 static float s_fakePortalWaypointMargin=10.0f;
 
@@ -399,11 +399,11 @@ FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const Mod
 	m_31 = false;
 	m_32 = false;
 	m_34 = 0;
-	*reinterpret_cast<const void **>(this) = &s_vtable;
-	m_p0C = &s_secondary0C;
-	*(const void **)((char *)this + 0x10) = &s_secondary10;
-	*(int *)((char *)this + 0x20) = (int)&s_secondary20;
-	*(int *)((char *)this + 0x24) = (int)&s_secondary24;
+	*reinterpret_cast<const void **>(this) = __identifier("??_7FakePathfindPortalBehaviour@@6BObjectModule@@@");
+	m_p0C = __identifier("??_7FakePathfindPortalBehaviour@@6BBehaviorModuleInterface@@@");
+	*(const void **)((char *)this + 0x10) = __identifier("??_7FakePathfindPortalBehaviour@@6BUpdateModule@@@");
+	*(int *)((char *)this + 0x20) = (int)__identifier("??_7FakePathfindPortalBehaviour@@6BFakePathfindPortalBehaviour_B3@@@");
+	*(int *)((char *)this + 0x24) = (int)__identifier("??_7FakePathfindPortalBehaviour@@6BFakePathfindPortalBehaviour_B4@@@");
 	memset(m_28, 0, 8);
 }
 
