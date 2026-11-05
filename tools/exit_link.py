@@ -521,6 +521,28 @@ def run_native(command, *, check=False, timeout=None):
     return completed
 
 
+def runtime_data_imports(libraries):
+    """Public names the runtime import libraries declare DATA (msvcrt.lib: `__adjust_fdiv`, `__iob`).
+
+    A generated CODE entry for one of these defines a callable `_X` thunk in .text. For
+    `_adjust_fdiv`, msvcrt.lib's own adjustfd.obj defines the variable the startup code
+    stores to; the thunk (earlier on the command line) won instead and the first store
+    faulted at entry. Retail's import library has no such thunk, so neither do ours.
+    """
+    names = set()
+    for library in libraries:
+        data = Path(library).read_bytes()
+        at = 8
+        while at + 60 <= len(data):
+            size = int(data[at + 48:at + 58].decode("ascii").strip())
+            start = at + 60
+            if size >= 20 and data[start:start + 4] == b"\0\0\xff\xff" and \
+                    struct.unpack_from("<H", data, start + 18)[0] & 3 == 1:
+                names.add(data[start + 20:data.index(0, start + 20)].decode("latin-1"))
+            at = start + size + (size & 1)
+    return names
+
+
 def make_import_libs(entries, outdir, defined=()):
     """The census's import convention, using file capture for native LIB output."""
     root = build.vc71_root()
@@ -840,8 +862,10 @@ def link_setup(rows, present):
                          ", ".join(sorted(import_roots.intersection(missing))))
     imports = OUT / "imports"
     imports.mkdir(parents=True, exist_ok=True)
-    libs = make_import_libs(entries, imports, link_cycle.defined_externals(objects))
-    libs += link_cycle.runtime_libraries()
+    runtime = link_cycle.runtime_libraries()
+    libs = make_import_libs(entries, imports,
+                            link_cycle.defined_externals(objects) | runtime_data_imports(runtime))
+    libs += runtime
     absolute = link_cycle.write_coff(
         OUT / "absolute.obj", [],
         [(name, -1, value, link_cycle.EXTERNAL) for name, value in link_cycle.ABSOLUTE.items()])

@@ -627,6 +627,19 @@ def test_import_archive_retains_census_provider_convention(tmp_path, monkeypatch
     assert converted == [("imp_kernel32.lib", False)]
 
 
+def test_runtime_data_imports_are_the_archive_data_members(tmp_path):
+    """msvcrt.lib's DATA imports (`__adjust_fdiv`) must not become CODE thunks that shadow
+    its static providers: the first diagnostic image faulted storing into one at entry."""
+    def member(name, kind):
+        body = struct.pack("<HHHHIIHH", 0, 0xFFFF, 0, 0x14C, 0, len(name) + 13, 0, kind)
+        body += name.encode() + b"\0" + b"MSVCR71.dll\0"
+        return b"x".ljust(48) + str(len(body)).ljust(10).encode() + b"`\n" + body + b"\n" * (len(body) & 1)
+    library = tmp_path / "msvcrt.lib"
+    library.write_bytes(b"!<arch>\n" + member("__adjust_fdiv", 1 | 8) + member("_malloc", 0 | 8)
+                        + member("__iob", 1 | 4))
+    assert E.runtime_data_imports([library]) == {"__adjust_fdiv", "__iob"}
+
+
 def test_export_errors_reach_blockers_and_picker_without_crashing_unowned(tmp_path, monkeypatch):
     import csv
     import repair_queue
