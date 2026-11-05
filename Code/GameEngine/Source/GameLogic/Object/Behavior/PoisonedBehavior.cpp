@@ -181,6 +181,7 @@ public:
 	void rva00483083(); // stopPoisonedEffects
 protected:
 	virtual ~PoisonedBehavior();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	void startPoisonedEffects(const DamageInfo *damageInfo);
 	UpdateSleepTime calcSleepTime();
@@ -209,7 +210,10 @@ public:
 
 void XferDeathType(Xfer *xfer, int *value);
 
-BFME_LITERAL_NAME_GETTER(Rva00482EF9Named, "PoisonedBehavior")
+const char *PoisonedBehavior::GetSnapshotName() const
+{
+	return "PoisonedBehavior";
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PoisonedBehavior.cpp
 
