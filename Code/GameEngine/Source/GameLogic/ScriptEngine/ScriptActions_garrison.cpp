@@ -652,10 +652,10 @@ extern BitFlags<116> KINDOFMASK_NONE;
 class Rva0004584D : public Rva000421C8
 {
 public:
-	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
 	virtual bool allow(Object *obj);
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
+	BfmeFixedStorage0004543D m_08; // +0x08
+	BfmeFixedStorage0004543D m_24; // +0x24
 };
 
 // SiegeDockingBehavior: the +0x20 interface's slot 3 answers whether the
