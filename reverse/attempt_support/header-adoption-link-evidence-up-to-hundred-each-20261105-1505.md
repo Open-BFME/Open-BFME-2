@@ -57,3 +57,13 @@ next scheduled census. The older index still limits the closure verdict.
 ## Header queue reconciliation, 2026-11-05
 
 The initial recheck overlaps 24 entries already retired by other contributors at `e019760eb57ace4577c09180abafa939d58b400e`. This series counts the 100 actual removals relative to that upstream parent. The supplemental entries pass the same owning acceptance and native include-receipt checks.
+
+
+## Final upstream reconciliation, 2026-11-05
+
+The verified selections overlap 36 entries already retired by other contributors at `e5631a466c66b3f4acfc42948fb3c7ca087be144`. This series counts the 100 actual removals relative to that upstream parent. The supplemental entries pass the same owning acceptance and native include-receipt checks.
+
+
+## Published scope after the additional upstream recheck, 2026-11-05
+
+The verified selections overlap 42 entries already retired by other contributors at `70afd5ebbc8d53b7237725010449dd5f4d5b44df`. This series counts the 94 actual removals relative to that upstream parent. The supplemental entries pass the same owning acceptance and native include-receipt checks.
