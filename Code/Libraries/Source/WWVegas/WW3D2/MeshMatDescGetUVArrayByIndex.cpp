@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /Ob2 /EHsc
+// cl: /DNDEBUG /MD /Ob2 /EHsc /ICode/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?Get_UV_Array_By_Index@MeshMatDescClass@@QAEPAVVector2@@H_N@Z @0x000D1F40 125B
 // Create-gated UV buffer accessor with legacy Get_UV_Array fallback.
 // Evidence: retail EH_prolog, new 0x1c plus UVBuffer ctor with
@@ -33,28 +33,18 @@ private:
 	unsigned int m_crc; // +0x18 (sizeof 0x1C)
 };
 
-class MeshMatDescClass
-{
-public:
-	Vector2 *Get_UV_Array(int pass, int stage);
-	Vector2 *Get_UV_Array_By_Index(int index, bool create);
-
-private:
-	int m_passCount; // +0x00
-	int m_vertexCount; // +0x04
-	int m_polyCount; // +0x08
-	int m_unknown0C; // +0x0C
-	UVBufferClass *m_uv[8]; // +0x10
-};
+// Use BFME2 debug declarations before the WWLib ownership include closure.
+#include "../../debug/debug.h"
+#include "MeshMatDescClass.h"
 
 inline Vector2 *MeshMatDescClass::Get_UV_Array_By_Index(int index, bool create)
 {
-	if (create && !m_uv[index])
-		m_uv[index] = new UVBufferClass(m_vertexCount, "MeshMatDescClass::UV");
-	if (!create && m_unknown0C != 0 && index < 2)
+	if (create && !UV[index])
+		UV[index] = new UVBufferClass(VertexCount, "MeshMatDescClass::UV");
+	if (!create && field_0C != 0 && index < 2)
 		return Get_UV_Array(0, index);
-	if (m_uv[index])
-		return m_uv[index]->Get_Array();
+	if (UV[index])
+		return UV[index]->Get_Array();
 	return 0;
 }
 
