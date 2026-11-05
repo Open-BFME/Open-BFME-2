@@ -56,14 +56,10 @@ class Rva0020EAF6View
 public:
 	Rva0020E89C *rva0020EAF6(int);
 };
-class LivingWorldLogic
-{
-public:
-	char m_pad00[0xB0];
-	Rva0020EAF6View *m_regions;
-	Rva0020EAF6View *getRegions() const { return m_regions; }
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
+// The region table read through an inline call, as retail's caller did.
+static inline Rva0020EAF6View *livingWorldRegions() { return (Rva0020EAF6View *)TheLivingWorldLogic->fieldB0; }
 
 struct Rva0059E647Entry;
 struct Rva0059E647Factory
@@ -134,7 +130,7 @@ void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 		Rva003EFE82Get((Rva003EFE82Obj *)xfer, &regionId);
 		m_region = 0;
 		if (TheLivingWorldLogic)
-			m_region = (LivingWorldRegion *)TheLivingWorldLogic->getRegions()->rva0020EAF6(regionId);
+			m_region = (LivingWorldRegion *)livingWorldRegions()->rva0020EAF6(regionId);
 		int buildingId;
 		Rva004E075FGet((Rva004E075FObj *)xfer, (int)&buildingId);
 		if (buildingId != 0) {

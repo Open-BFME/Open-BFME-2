@@ -223,29 +223,27 @@ public:
 	LivingWorldRegionManager *m_regionManager;	// +0x08
 };
 
-class LivingWorldLogic
-{
-public:
-	__forceinline _STL::vector<LivingWorldRegion *> *getRegions()
-	{
-		LivingWorldCampaign *livingWorldCampaign = m_campaign;
-		if (livingWorldCampaign->m_regionManager)
-			return &livingWorldCampaign->m_regionManager->m_regions;
-		return 0;
-	}
-	__forceinline Rva003EF8E1 *getPathFinder()
-	{
-		LivingWorldRegionManager *livingWorldRegionManager = m_campaign->m_regionManager;
-		return livingWorldRegionManager ? livingWorldRegionManager->m_pathFinder : 0;
-	}
-	__forceinline int findShortestPath(LivingWorldSearchCallback *callback, int a, int from, int to, _STL::vector<ObjectID> *path, bool b)
-	{
-		return getPathFinder()->FindShortestPath(callback, a, from, to, path, b);
-	}
-	char m_pad00[0xB0];
-	LivingWorldCampaign *m_campaign;	// +0xB0
-};
+#include "../../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
+
+// TheLivingWorldLogic's +0xB0 object read through this unit's campaign view, by
+// the inline calls retail's caller made.
+static __forceinline _STL::vector<LivingWorldRegion *> *livingWorldRegions()
+{
+	LivingWorldCampaign *livingWorldCampaign = (LivingWorldCampaign *)TheLivingWorldLogic->fieldB0;
+	if (livingWorldCampaign->m_regionManager)
+		return &livingWorldCampaign->m_regionManager->m_regions;
+	return 0;
+}
+static __forceinline Rva003EF8E1 *livingWorldPathFinder()
+{
+	LivingWorldRegionManager *livingWorldRegionManager = ((LivingWorldCampaign *)TheLivingWorldLogic->fieldB0)->m_regionManager;
+	return livingWorldRegionManager ? livingWorldRegionManager->m_pathFinder : 0;
+}
+static __forceinline int livingWorldFindShortestPath(LivingWorldSearchCallback *callback, int a, int from, int to, _STL::vector<ObjectID> *path, bool b)
+{
+	return livingWorldPathFinder()->FindShortestPath(callback, a, from, to, path, b);
+}
 
 void Rva005020CCBuildRegionDistances()
 {
@@ -257,7 +255,7 @@ void Rva005020CCBuildRegionDistances()
 	Rva005020CCDistanceTable *table = reinterpret_cast<Rva005020CCDistanceTable *>(&g_Va00E04544);
 	if (table->size() != 0)
 		return;
-	_STL::vector<LivingWorldRegion *> *regions = TheLivingWorldLogic->getRegions();
+	_STL::vector<LivingWorldRegion *> *regions = livingWorldRegions();
 	for (unsigned int regionIndex = 0; regionIndex < regions->size(); ++regionIndex) {
 		Rva0050055D distances;
 		LivingWorldRegion *region = (*regions)[regionIndex];
@@ -265,7 +263,7 @@ void Rva005020CCBuildRegionDistances()
 			for (unsigned int otherRegionIndex = 0; otherRegionIndex < regions->size(); ++otherRegionIndex) {
 				LivingWorldRegion *other = (*regions)[otherRegionIndex];
 				Rva004FF33DCallback callback;
-				int distance = TheLivingWorldLogic->findShortestPath((LivingWorldSearchCallback*)&callback, -1, region->m_id, other->m_id, 0, 0);
+				int distance = livingWorldFindShortestPath((LivingWorldSearchCallback*)&callback, -1, region->m_id, other->m_id, 0, 0);
 				if (distance >= 0) {
 					IntIntTree::iterator hintDistance = distances.m_byDistance.begin();
 					int otherID = other->m_id;

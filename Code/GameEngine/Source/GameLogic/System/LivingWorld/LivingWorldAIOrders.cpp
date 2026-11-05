@@ -30,13 +30,11 @@ class Rva003F1C56Plot;struct Rva003F1BD3TemplateView;
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
 class Rva003F1093 {public:void rva003F1CFE(void*,bool);};
 struct LivingWorldArmy;
-class LivingWorldLogic {public:
- bool CanMoveArmyMember(LivingWorldArmy*,int,int);
- __forceinline Rva0020EAF6View *getRegions() const {return (Rva0020EAF6View*)regions;}
- __forceinline Rva0020EEF4Outer *getSpawnerRegions() const {return (Rva0020EEF4Outer*)regions;}
- char unknown[0xB0];void *regions;
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
+// Region-manager views read through inline calls, as retail's callers did.
+static __forceinline Rva0020EAF6View *livingWorldRegions() { return (Rva0020EAF6View *)TheLivingWorldLogic->fieldB0; }
+static __forceinline Rva0020EEF4Outer *livingWorldSpawnerRegions() { return (Rva0020EEF4Outer *)TheLivingWorldLogic->fieldB0; }
 class Rva0022C0CDSubsystem;extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 enum NameKeyType{NAMEKEY_INVALID=0};class ArmorTemplate;
 class Rva002B6498 {public:ArmorTemplate *rva002B6498(NameKeyType);};
@@ -58,7 +56,7 @@ void LivingWorldAI::SubmitOrders() {
  if(!owner)return;
  unsigned orderCount=orders68.size();
  for(unsigned i=0;i<orderCount;++i) {
-  Rva004E0625 *region=(Rva004E0625*)TheLivingWorldLogic->getSpawnerRegions()->rva0020EEF4(orders68[i].a[0]);
+  Rva004E0625 *region=(Rva004E0625*)livingWorldSpawnerRegions()->rva0020EEF4(orders68[i].a[0]);
   if(region) {
    ArmySpawnerOrderView *spawner=(ArmySpawnerOrderView*)region->rva004E0625();
    SpawnArmy spawn(*(SpawnArmy*)orders68[i].a[1]);spawner->spawn(&spawn);
@@ -67,7 +65,7 @@ void LivingWorldAI::SubmitOrders() {
  clearOrderVector(orders68);
  orderCount=orders74.size();
  for(unsigned i=0;i<orderCount;++i) {
-  LivingWorldRegion *region=(LivingWorldRegion*)TheLivingWorldLogic->getRegions()->rva0020EAF6(orders74[i].a[1]);
+  LivingWorldRegion *region=(LivingWorldRegion*)livingWorldRegions()->rva0020EAF6(orders74[i].a[1]);
   if(region) {
    if(*(bool*)&orders74[i])((Rva003F1093*)region)->rva003F1CFE((void*)orders74[i].a[3],1);
    else {
@@ -84,7 +82,7 @@ void LivingWorldAI::SubmitOrders() {
   if(orders80[i].words[2]) {
    if(TheLivingWorldLogic->CanMoveArmyMember(army,orders80[i].words[3],owner->rva002E0A9F((void*)orders80[i].words[2])))
     ((Rva002B4076*)TheLivingWorldLogic)->rva002B4076(army,orders80[i].words[3],(LivingWorldArmy*)owner->rva002E0A9F((void*)orders80[i].words[2]));
-  } else ((Rva002B2702*)TheLivingWorldLogic)->rva002B2702(army,TheLivingWorldLogic->getRegions()->rva0020EAF6(orders80[i].words[4]),1);
+  } else ((Rva002B2702*)TheLivingWorldLogic)->rva002B2702(army,livingWorldRegions()->rva0020EAF6(orders80[i].words[4]),1);
  }
 }
 void LivingWorldAI::rva004FB7B2() {
@@ -95,7 +93,7 @@ void LivingWorldAI::rva004FB7B2() {
   if(orders80[i].words[2]) {
    if(TheLivingWorldLogic->CanMoveArmyMember(army,orders80[i].words[3],owner->rva002E0A9F((void*)orders80[i].words[2])))
     ((Rva002B4076*)TheLivingWorldLogic)->rva002B4076(army,orders80[i].words[3],(LivingWorldArmy*)owner->rva002E0A9F((void*)orders80[i].words[2]));
-  } else ((Rva002B2702*)TheLivingWorldLogic)->rva002B2702(army,TheLivingWorldLogic->getRegions()->rva0020EAF6(orders80[i].words[4]),1);
+  } else ((Rva002B2702*)TheLivingWorldLogic)->rva002B2702(army,livingWorldRegions()->rva0020EAF6(orders80[i].words[4]),1);
  }
  ((Rva005B129FVector*)&orders80)->clear();
 }
