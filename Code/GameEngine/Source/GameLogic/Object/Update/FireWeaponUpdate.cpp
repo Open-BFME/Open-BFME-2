@@ -294,6 +294,7 @@ public:
 	void Rva0048BDF8Helper();
 
 protected:
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	UpdateSleepTime rva0048BA3E();
 	const FireWeaponUpdateModuleData *getFireWeaponUpdateModuleData() const
@@ -324,7 +325,10 @@ class Weapon;
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-BFME_LITERAL_NAME_GETTER(Rva0048BDADNamed, "FireWeaponUpdate")
+const char *FireWeaponUpdate::GetSnapshotName() const
+{
+	return "FireWeaponUpdate";
+}
 
 // tu-skeleton: 0x0048B9D0 74B ?rva0048B9D0@FireWeaponUpdate@@QAEXPBVWeaponTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0048B9D0Replace.cpp (not merged yet)
 

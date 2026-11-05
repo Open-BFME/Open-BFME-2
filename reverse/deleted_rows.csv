@@ -5150,3 +5150,4 @@ _$E1,0x007ADA4C,"Retracted for readmission as _$E3 in BannerUI.cpp: the unit now
 ?name@Rva00427603Named@@QBEPBDXZ,0x00427603,"Renamed to ?GetSnapshotName@CaveSystem@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C3C634 slot 2)"
 ?name@Rva004B0876Named@@QBEPBDXZ,0x004B0876,"Renamed to ?GetSnapshotName@AIGateUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C56480 slot 2)"
 ?name@Rva00482EF9Named@@QBEPBDXZ,0x00482EF9,"Renamed to ?GetSnapshotName@PoisonedBehavior@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C498BC slot 2)"
+?name@Rva0048BDADNamed@@QBEPBDXZ,0x0048BDAD,"Renamed to ?GetSnapshotName@FireWeaponUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4C198 slot 2)"
