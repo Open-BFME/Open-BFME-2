@@ -48,3 +48,13 @@ Continue reconciling the remaining subsystem and private-view conflicts before
 the next normal merger run. This prerequisite does not assert that a merged TU
 now compiles or links; the post-edit merger has not been run. No census, real
 link or smoke measurement was started.
+
+## Landing receipt
+
+The prerequisite landed as `5ae67ad8f3`. Pre-push reverified all nine code rows,
+three exact EH graphs, DIR32 identities and converged data ownership. Its batch
+link audit was **inconclusive**: the census index was at `3a95b274a2`, older than
+the outgoing base `b500074091`, and all three changed source objects lacked
+current audit receipts. The successful header-adoption previews above do not
+resolve that outgoing-audit gap. Carry these three donors into the next census
+for confirmation; no measured linking improvement is claimed.
