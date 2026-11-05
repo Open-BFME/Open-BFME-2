@@ -64,40 +64,21 @@ struct CommandButtonImageList
 	const Image *at(int index) const { return m_begin[index]; }
 };
 
-class CommandButton
+#include "../../../../Include/GameClient/CommandButton.h"
+
+// The canonical header exposes the +0x58/+0x64/+0xEC ranges as raw storage;
+// each use views the range in place, as retail reloads its bounds per block.
+template <class T> static inline const T &rangeView(const void *storage)
 {
-public:
-	Bool isReady(const Object *sourceObj) const;
-	Bool isContextCommand() const;
-	const Image *rva0035B19E() const;
-	const AsciiString &rva0035B1E9() const;
-	const AsciiString &rva0035B26F() const;
-private:
-	char m_pad00[0x14];
-	int m_commandType;                         // +0x14
-	char m_pad18[0x1C - 0x18];
-	unsigned int m_options;                    // +0x1C
-	char m_pad20[0x24 - 0x20];
-	const UpgradeTemplate *m_upgradeTemplate;  // +0x24
-	char m_pad28[0x44 - 0x28];
-	const SpecialPowerTemplate *m_specialPower; // +0x44
-	char m_pad48[0x58 - 0x48];
-	_STL::vector<AsciiString> m_labels;        // +0x58
-	_STL::vector<AsciiString> m_descriptions;  // +0x64
-	char m_pad70[0x7C - 0x70];
-	AsciiString m_label;                       // +0x7C, wins over m_labels when set
-	char m_pad80[0xEC - 0x80];
-	CommandButtonImageList m_images;           // +0xEC
-	char m_padF8[0xFC - 0xF8];
-	int m_listIndex;                           // +0xFC, selects from m_images and the label lists
-};
+	return *reinterpret_cast<const T *>(storage);
+}
 
 Bool CommandButton::isReady(const Object *sourceObj) const
 {
 	if( !sourceObj )
 		return false;
 
-	if( m_commandType == 0x17 )
+	if( m_command == 0x17 )
 	{
 		if( m_upgradeTemplate && !sourceObj->hasUpgrade( m_upgradeTemplate ) )
 			return false;
@@ -121,7 +102,7 @@ Bool CommandButton::isReady(const Object *sourceObj) const
 // it between its need-target test and the radius cursor, as in ZH.
 Bool CommandButton::isContextCommand() const
 {
-	if( m_commandType == 0x18 || m_commandType == 0x20 || m_commandType == 0x26 || m_commandType == 0x17 )
+	if( m_command == 0x18 || m_command == 0x20 || m_command == 0x26 || m_command == 0x17 )
 		return true;
 	return ((m_options >> 9) & 1) != 0;
 }
@@ -131,11 +112,11 @@ Bool CommandButton::isContextCommand() const
 // spell store (parseSpellIndex_Thunk.cpp, 0x0043C9FD) binds it per button.
 const Image *CommandButton::rva0035B19E() const
 {
-	int index = m_listIndex;
+	int index = fieldFC;
 	if (index < 0)
 		return 0;
-	if ((unsigned int)index < (unsigned int)m_images.size())
-		return m_images.at(index);
+	if ((unsigned int)index < (unsigned int)rangeView<CommandButtonImageList>(&m_imagesBegin).size())
+		return rangeView<CommandButtonImageList>(&m_imagesBegin).at(index);
 	return 0;
 }
 
@@ -145,13 +126,13 @@ const Image *CommandButton::rva0035B19E() const
 // (parseSpellIndex_Thunk.cpp, 0x0043CD3C) fetches its help text with it.
 const AsciiString &CommandButton::rva0035B1E9() const
 {
-	if (!m_label.isEmpty())
-		return m_label;
-	if (!m_labels.empty())
+	if (!field7C.isEmpty())
+		return field7C;
+	if (!rangeView<_STL::vector<AsciiString> >(&m_textLabelBegin).empty())
 	{
-		if ((unsigned int)m_listIndex >= m_labels.size())
-			return m_labels.back();
-		return m_labels[m_listIndex];
+		if ((unsigned int)fieldFC >= rangeView<_STL::vector<AsciiString> >(&m_textLabelBegin).size())
+			return rangeView<_STL::vector<AsciiString> >(&m_textLabelBegin).back();
+		return rangeView<_STL::vector<AsciiString> >(&m_textLabelBegin)[fieldFC];
 	}
 	return AsciiString::TheEmptyString;
 }
@@ -160,11 +141,11 @@ const AsciiString &CommandButton::rva0035B1E9() const
 // no override; the spell store's description text.
 const AsciiString &CommandButton::rva0035B26F() const
 {
-	if (!m_descriptions.empty())
+	if (!rangeView<_STL::vector<AsciiString> >(&m_descriptionBegin).empty())
 	{
-		if ((unsigned int)m_listIndex >= m_descriptions.size())
-			return m_descriptions.back();
-		return m_descriptions[m_listIndex];
+		if ((unsigned int)fieldFC >= rangeView<_STL::vector<AsciiString> >(&m_descriptionBegin).size())
+			return rangeView<_STL::vector<AsciiString> >(&m_descriptionBegin).back();
+		return rangeView<_STL::vector<AsciiString> >(&m_descriptionBegin)[fieldFC];
 	}
 	return AsciiString::TheEmptyString;
 }
