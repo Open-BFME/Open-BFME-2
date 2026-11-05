@@ -12287,10 +12287,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::playM
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::registerWindowLayout	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::removeMessageAtIndex	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::resetIdleWorker	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByType	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByTypeAcrossMap	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByTypeAcrossRegion	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::selectAllUnitsByTypeAcrossScreen	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setScrollAmount	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setSelecting	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setSuperweaponDisplayEnabledByScript	1

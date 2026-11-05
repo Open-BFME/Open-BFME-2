@@ -1,6 +1,6 @@
 ### LINK-145: InGameUI.cpp host kept unrowed Zero Hour bodies whose callees BFME 2 does not provide (2026-10-29)
 
-Status: partly repaired; the host does not link yet. Census 2026-10-29 15:08 at
+Status: host blockers cleared in the 2026-11-05 scoped preview; census confirmation and guarded donor merges remain pending. Census 2026-10-29 15:08 at
 85f6b7f40c: `GameClient/InGameUI.cpp` (2 rows, 55 B) linked=no with five
 unresolved names (`UpdateDiplomacyBriefingText(AsciiString, Bool)`,
 `WindowLayout::destroyWindows`, `MemoryPool::freeBlock`, `UnicodeString::set`,
@@ -42,3 +42,5 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
 
 - **2026-11-04 prerequisite cleanup:** removed unused donor `removeNamedTimer` / `clearFloatingText` bodies and the host's conflicting `deleteInstance` copy; four rows stay exact, preview blockers 2 -> 1, LINKED 0 -> 0. Next: `BitFlags<116>` and the merge guard's `Drawable::isSelected` conflict; [provider audit and handoff](../../reverse/attempt_support/ingameui-donor-prune-20261104-codex5.md).
 - **Outgoing audit follow-up:** byte gate passes after the fleet rebase, but the batch link audit is inconclusive (older index; host lacks census-grade receipt); carry provider/consumer checks into the next scheduled census: [evidence](../../reverse/attempt_support/ingameui-link-audit-followup-20261104-codex5.md).
+
+- **2026-11-05 selector-emitter cleanup:** removed four unused donor selectors and their private callback; both conflicting `BitFlags<116>` / `Drawable::isSelected` copies disappear, all four rows stay exact, host preview now LINKS (predicted 55 B). Next: scheduled census confirmation and a fresh guarded merge pass; [provider audit and scope](../../reverse/attempt_support/ingameui-bitflags-prune-20261105-codexb.md).
