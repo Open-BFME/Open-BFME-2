@@ -481,10 +481,8 @@ extern PlayerTemplateStore *ThePlayerTemplateStore;
 int GetGameClientRandomValue(int, int, char *, int);
 #include "../../../../../Include/Common/OptionPreferences.h"
 #include "../../../../../Include/GameNetwork/LadderPref.h"
-
 // Retail constructs the temporary recent-ladder record in place.
 inline LadderPref::LadderPref() {}
-
 class LadderPreferences {
 public:
   LadderPreferences();
@@ -523,13 +521,6 @@ struct NativeQuickMatchRequest {
   unsigned exeCRC, iniCRC;
 };
 void *GadgetComboBoxGetItemData(GameWindow *, int);
-// Native5BAF35..5BB3A1 RET4 (1132B): the quick-match "matched" handler the
-// response drain 0x005BB5F6 calls for QM status 7 after DoOpenFound. Semantic
-// guide: BF1 handleMatched (AptOnlineQuickMatch.cpp, donor 2f243e26d); BFME 2
-// adds the game reset, the native rules block, team-mode staging fields
-// +0x1D0/+0x1D4 and the NAT negotiator setup. The local address record uses
-// the connect-info type (its constructor zeroing is dead but sets retail's
-// frame homes for the temporaries and the param-home reuse of the new NAT).
 #include "../../../../../Include/GameClient/MapMetaData.h"
 #include "../../../../../Include/GameClient/MapCache.h"
 extern MapCache *TheMapCache;
@@ -839,6 +830,33 @@ public:
 };
 #include "../../../../../Include/Common/Rva00404781.h"
 #include "../../../../../Include/Common/VictorySystem.h"
+extern GameTextInterface *TheGameText;
+// Native one-word combo-entry count; descriptive original-name-unknown label.
+int OnlineQuickMatchMaxPingEntries = 0;
+#include <set>
+// Declaration-only: the rowed set<AsciiString> tree members are bound,
+// this TU emits no per-flag copy of them or of their allocator leaves.
+namespace _STL {
+typedef _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>, less<AsciiString>, allocator<AsciiString> > Lk6AsciiSetTree;
+template <> Lk6AsciiSetTree::~_Rb_tree();
+template <> set<AsciiString, less<AsciiString>, allocator<AsciiString> >::set();
+template <> pair<Lk6AsciiSetTree::iterator, bool> Lk6AsciiSetTree::insert_unique(const AsciiString&);
+template <> _Rb_tree_node<AsciiString> *Lk6AsciiSetTree::_M_create_node(const AsciiString&);
+}
+typedef bool Bool;
+typedef int Color;
+#include "../../../../../Include/GameClient/Bfme2GameWindow.h"
+Int GadgetComboBoxAddEntry(GameWindow *comboBox, UnicodeString text, Color color);
+void GadgetComboBoxSetItemData(GameWindow *comboBox, Int index, void *data);
+void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, Int selectedIndex, Bool dontHilite);
+#include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
+#include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
+extern MultiplayerSettings *TheMultiplayerSettings;
+enum { PLAYERTEMPLATE_RANDOM = -1 };
+typedef _STL::list<AsciiString>::const_iterator Rva005BB3A1FactionIterator;
+Rva005BB3A1FactionIterator Rva005BAA83Find(Rva005BB3A1FactionIterator first,
+	Rva005BB3A1FactionIterator last, const AsciiString &side);
+class PeerResponse;
 
 class Rva005BA621 : public Rva005BA440
 {
@@ -865,6 +883,16 @@ void _bfme_closeAptScreen(const AsciiString&);
 // Native5BA3AD..5BA3C0: same NAT receiver gate to member schema+28.
 // Keep this view's member pointer representation stable in the TU's /vmg build.
 class __single_inheritance Rva005A6709 {public:int rva005A6709() const;};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
+
+// Native5BAF35..5BB3A1 RET4 (1132B): the quick-match "matched" handler the
+// response drain 0x005BB5F6 calls for QM status 7 after DoOpenFound. Semantic
+// guide: BF1 handleMatched (AptOnlineQuickMatch.cpp, donor 2f243e26d); BFME 2
+// adds the game reset, the native rules block, team-mode staging fields
+// +0x1D0/+0x1D4 and the NAT negotiator setup. The local address record uses
+// the connect-info type (its constructor zeroing is dead but sets retail's
+// frame homes for the temporaries and the param-home reuse of the new NAT).
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
@@ -1265,7 +1293,44 @@ bool Rva005BA3AD::rva005BA3AD(){return schema.rva005DBA9C((((Rva005A6709 *)this)
 
 // tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
 
-// tu-skeleton: 0x005BA6EE 277B ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
+
+// ?rva005BA6EE@Rva005BA6EE@@QAE_NXZ, retail 0x005BA6EE, 277 bytes.
+// BFME1 donor game/GameEngine/Source/GameClient/GUI/OnlineQuickMatchPopulateMaxPing.cpp
+// BfmeAptScreenOnlineQuickMatch::rva00558A30Ready: same reset/compute/loop/ANY/select
+// shape. BFME2 deltas from retail: color from GameSpyColor[0], timeout via TheGameSpyConfig
+// slot 0xc, entries stored to OnlineQuickMatchMaxPingEntries, format string via TheGameText slot 0x44
+// (pointer) with ping vararg, ANY via fetch slot 0x3c by value, prefs at +0x64 via
+// getMaxPing row, combo at +0x8c, selected clamp then SetSelectedPos(combo, sel, false).
+
+bool Rva005BA6EE::rva005BA6EE()
+{
+	if (*(GameWindow **)((char *)this + 0x8c) == 0)
+		return false;
+	int color = GameSpyColor[0];
+	UnicodeString text;
+	GadgetComboBoxReset(*(GameWindow **)((char *)this + 0x8c));
+	int maxPingEntries = (TheGameSpyConfig->getPingTimeoutInMs() - 1) / 100;
+	maxPingEntries++;
+	OnlineQuickMatchMaxPingEntries = maxPingEntries;
+	if (maxPingEntries > 1)
+	{
+		int ping = 100;
+		int remaining = maxPingEntries - 1;
+		do
+		{
+			text.format(TheGameText->fetchPtr("GUI:TimeInMilliseconds", 0), ping);
+			GadgetComboBoxAddEntry(*(GameWindow **)((char *)this + 0x8c), text, color);
+			ping += 100;
+		} while (--remaining != 0);
+	}
+	GadgetComboBoxAddEntry(*(GameWindow **)((char *)this + 0x8c), TheGameText->fetch("GUI:ANY"), color);
+	int selected = ((QuickMatchPreferences *)((char *)this + 0x64))->getMaxPing();
+	if (selected < 0 || selected >= maxPingEntries)
+		selected = maxPingEntries - 1;
+	GadgetComboBoxSetSelectedPos(*(GameWindow **)((char *)this + 0x8c), selected, false);
+	return true;
+}
 
 // tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
 
@@ -1279,17 +1344,92 @@ bool Rva005BA3AD::rva005BA3AD(){return schema.rva005DBA9C((((Rva005A6709 *)this)
 
 // tu-skeleton: 0x005BAF35 1132B ?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
-// tu-skeleton: 0x005BB3A1 557B ?rva005BB3A1@Rva005BB3A1@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp
+
+//
+// ?rva005BB3A1@Rva005BB3A1@@QAE_NXZ
+// retail 0x005BB3A1..0x005BB5CE (557 bytes), thiscall, EH frame.
+//
+// The quick match menu's side combo box fill: Zero Hour's
+// populateQMSideComboBox (WOLQuickMatchMenu.cpp; the Open-BFME-1 copy is the
+// same) made a member of the quick match window object, the existing pin
+// spelling kept.  WorldBuilder twin 0x01588250 (unnamed) has the same
+// statements, the "GUI:Random" and "SIDE:%s" labels and the same callees.
+// Without the combo box at +0x88 it returns false.  Otherwise the favourite
+// side comes from the QuickMatchPreferences at +0x64 (rowed getSide) and the
+// ladder from the rowed 0x005BA36D; the box is reset, gets the random entry
+// (colour of TheMultiplayerSettings->getColor(-1), item data -1), then one
+// entry per playable side (PlayerTemplate byte +0x151) not yet seen and,
+// with a ladder, listed in its valid factions (list<AsciiString> at +0x20,
+// rowed find 0x005BAA83), labelled by TheGameText's AsciiString fetch.  The
+// favourite side's entry is selected and the box is disabled for a ladder
+// with random factions (+0x19).  BFME2 adds the leading unused UnicodeString
+// that the twin also constructs first; ZH's ChallengeGenerals filter is gone.
+
+bool Rva005BB3A1::rva005BB3A1()
+{
+	if (!m_comboBoxSide)
+		return false;
+
+	UnicodeString unused;
+	Int favSide = m_prefs.getSide();
+	const Rva0054D8D8 *li = ((AptOnlineQuickMatch *)this)->rva005BA36D();
+	Int numPlayerTemplates = ThePlayerTemplateStore->getPlayerTemplateCount();
+	UnicodeString playerTemplateName;
+
+	GadgetComboBoxReset(m_comboBoxSide);
+
+	MultiplayerColorDefinition *def = TheMultiplayerSettings->getColor(PLAYERTEMPLATE_RANDOM);
+	Int newIndex = GadgetComboBoxAddEntry(m_comboBoxSide, TheGameText->fetch("GUI:Random"), def->getColor());
+	GadgetComboBoxSetItemData(m_comboBoxSide, newIndex, (void *)PLAYERTEMPLATE_RANDOM);
+
+	_STL::set<AsciiString> seenSides;
+
+	Int entryToSelect = 0;
+
+	for (Int c = 0; c < numPlayerTemplates; ++c)
+	{
+		const PlayerTemplate *fac = ThePlayerTemplateStore->getNthPlayerTemplate(c);
+		if (!fac)
+			continue;
+
+		if (!fac->isPlayableSide())
+			continue;
+
+		AsciiString side;
+		side.format("SIDE:%s", fac->getSide().str());
+		if (seenSides.find(side) != seenSides.end())
+			continue;
+
+		if (li)
+		{
+			if (Rva005BAA83Find(li->factions.begin(), li->factions.end(), fac->getSide()) == li->factions.end())
+				continue;
+		}
+
+		seenSides.insert(side);
+
+		newIndex = GadgetComboBoxAddEntry(m_comboBoxSide, TheGameText->fetch(side), def->getColor());
+		GadgetComboBoxSetItemData(m_comboBoxSide, newIndex, (void *)c);
+
+		if (c == favSide)
+			entryToSelect = newIndex;
+	}
+	seenSides.clear();
+
+	GadgetComboBoxSetSelectedPos(m_comboBoxSide, entryToSelect, false);
+	if (li && li->randomFactions)
+		m_comboBoxSide->winEnable(false);
+	else
+		m_comboBoxSide->winEnable(true);
+	return true;
+}
 
 // tu-skeleton: 0x005BB5F6 1974B ?rva005BB5F6@AptOnlineQuickMatch@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB21 8B $L5801 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB29 10B __ehhandler$??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FB8A 8B $L843 -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FB92 10B __ehhandler$?rva005BA6EE@Rva005BA6EE@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FB9C 13B $L1415 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
 
@@ -1336,16 +1476,6 @@ bool Rva005BA3AD::rva005BA3AD(){return schema.rva005DBA9C((((Rva005A6709 *)this)
 // tu-skeleton: 0x0079FC6E 10B $L14594 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FC78 10B __ehhandler$?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC82 8B Unwind@00b9fc82 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC8A 8B Unwind@00b9fc8a -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC92 8B uw_0079fc92 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC9A 8B Unwind@00b9fc9a -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCA2 10B __ehhandler$?rva005BB3A1@Rva005BB3A1@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FCAC 11B $L16969 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
 
