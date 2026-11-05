@@ -78,21 +78,13 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class ModuleData;
 
-// BFME2 layout as ArmorTemplateParse.cpp measures it (0x7C bytes).
-class ArmorTemplate
-{
-public:
-	ArmorTemplate(const AsciiString &name);
-	~ArmorTemplate() {}
-	static void parseDamageScalar(INI *ini, void *instance, void *store, const void *userData);
-	static void parseArmorCoefficients(INI *ini, void *instance, void *store, const void *userData);
+#include "../../../Include/GameLogic/Armor.h"
 
-	float m_head; // +0x00
-	float m_damageCoefficient[27]; // +0x04
-	float m_damageScalar; // +0x70
-	int m_flag; // +0x74
-	AsciiString m_name; // +0x78
-};
+// Retail inlines the empty destructor here (the discarded local's name string
+// is released directly); the out-of-line copy lives in ArmorTemplateParse.cpp.
+inline ArmorTemplate::~ArmorTemplate()
+{
+}
 
 typedef _STL::hash_map<NameKeyType, ArmorTemplate *, rts::hash<NameKeyType>, _STL::equal_to<NameKeyType> > ArmorTemplateMap;
 
@@ -131,9 +123,9 @@ extern ArmorStore *TheArmorStore;
 		armorTmpl = it->second;
 		if (ini->getLoadType() == 5)
 		{
-			armorTmpl->m_flag = 1;
+			armorTmpl->m_field74 = 1;
 			armorTmpl = new ArmorTemplate(armorName);
-			armorTmpl->m_flag = 0;
+			armorTmpl->m_field74 = 0;
 			// Pointer-vector push_back through the rowed four-byte provider 0x004DFCB0.
 			reinterpret_cast<_STL::vector<const ModuleData *> &>(TheArmorStore->m_pending).push_back(reinterpret_cast<const ModuleData * const &>(armorTmpl));
 		}
