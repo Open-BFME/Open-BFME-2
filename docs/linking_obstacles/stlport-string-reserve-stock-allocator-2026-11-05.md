@@ -21,3 +21,13 @@ Remaining / next check: a queue receipt for an image from a commit with this cha
 `make_classic_locale`.
 Clearance: pending the queue receipt.
 Census confirmation: not claimed.
+
+2026-11-05 follow-up: the image from `2b78296450` (receipt
+`2026-11-05T232606Z-boot_smoke-ce226891c07e`) faulted at the same place with retail's `reserve`
+winning: the block it freed came from the winning `basic_string<char>` default constructor, also
+this unit's stock copy (allocates through `bfmeSmallAllocPS`, the node pool). Retail's
+(0x00007850, `stlport_narrow_string_default_ctor.cpp`) calls `allocator<char>::allocate`; the two
+are the only definers. The constructor is now declared body-less too (6/6 exact; both symbols
+undefined in the object). A by-address scan of that image finds no other char-string function
+on the stock pool. The unit still wins retail-owned `operator=`, `append(n, c)`,
+`_M_append_buffer` and `epptr` copies, none of which call the pool; they are not changed here.

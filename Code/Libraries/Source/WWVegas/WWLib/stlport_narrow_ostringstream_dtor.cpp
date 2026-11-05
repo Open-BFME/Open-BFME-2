@@ -27,12 +27,14 @@ template <> __declspec(dllimport) __forceinline
 char *uninitialized_copy<char *, char *>(char *__first, char *__last, char *__result)
 { return (char *)__copy_trivial(__first, __last, __result); }
 }
-// Suppress this TU's basic_string<char>::reserve copy: it allocates through the
-// stock __node_alloc but frees through the game's free, and as the first definer it
-// beat stlport_narrow_string_reserve.cpp's retail copy (0x0000C390, game allocate and
-// free) in the link, so the first string it grew faulted in GeneralAllocator.
-// Plain declaration-only form (no __imp_), as for the proxy above.
+// Suppress this TU's basic_string<char> default constructor and reserve copies: they
+// allocate through the stock pool but free through the game's free, and as the first
+// definer they beat the retail copies (0x00007850 stlport_narrow_string_default_ctor.cpp,
+// 0x0000C390 stlport_narrow_string_reserve.cpp; game allocate and free) in the link, so
+// the first string grown faulted in GeneralAllocator. Plain declaration-only form (no
+// __imp_), as for the proxy above.
 namespace _STL {
+template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string();
 template <> void basic_string<char, char_traits<char>, allocator<char> >::reserve(size_t);
 }
 template class _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> >;
