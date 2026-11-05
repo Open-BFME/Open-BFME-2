@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// platformsdk
 //
 // W3DDisplay screenshot saver pair (retail 0x00047BC0 + 0x00045127).
 //  - ?rva00047BC0@W3DDisplay@@AAEXPADIIPBD@Z @0x00047BC0 324B, thiscall ret 0x10
@@ -18,15 +19,15 @@
 // 0x00600C34 (rowed); frame counter cell VA 0x00DB3BFC (function static of
 // the original, initialised to 1). Donor (structure only): Zero Hour
 // W3DDisplay.cpp CreateBMPFile / saveScreenShot as carried in BFME 1.
+// Retail calls the _mbscpy/_mbscat thunks named above directly, while
+// sprintf uses the CRT import. Keep that distinction in the real declarations.
+#define _CRTIMP
+#include <mbstring.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#include <windows.h>
 #include "ascii_string.h"
-
-#define NULL 0
-
-extern "C" char *__cdecl _mbscpy(char *dest, const char *src);
-extern "C" char *__cdecl _mbscat(char *dest, const char *src);
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
-extern "C" __declspec(dllimport) void *__stdcall LocalAlloc(unsigned int flags, unsigned int bytes);
-extern "C" __declspec(dllimport) void *__stdcall LocalFree(void *memory);
 
 #include "../../../../GameEngine/Include/Common/File.h"
 
@@ -119,14 +120,14 @@ void W3DDisplay::rva00047BC0(char *image, unsigned int width, unsigned int heigh
 	bool done = false;
 	do {
 		if (filename != NULL) {
-			_mbscpy(leafname, filename);
+			_mbscpy((unsigned char *)leafname, (const unsigned char *)filename);
 			done = true;
 		} else {
 			sprintf(leafname, "sshot%.4d", frame_number++);
 		}
-		_mbscat(leafname, ".bmp");
-		_mbscpy(pathname, TheWritableGlobalData->getPicturePath().str());
-		_mbscat(pathname, leafname);
+		_mbscat((unsigned char *)leafname, (const unsigned char *)".bmp");
+		_mbscpy((unsigned char *)pathname, (const unsigned char *)TheWritableGlobalData->getPicturePath().str());
+		_mbscat((unsigned char *)pathname, (const unsigned char *)leafname);
 		if (!TheFileSystem->doesFileExist(pathname))
 			done = true;
 	} while (!done);
