@@ -395,7 +395,6 @@ Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp	conflicting	abi	1	0	0
 Code/GameEngine/Source/Common/VersionBlockKeyCompare.cpp	conflicting	mangle	1	0	0	0	0	1	0	0	0	0	0	<string.h>	no	yes	hand			strcmp:mangle
 Code/GameEngine/Source/Common/method_005C9311Rva005C9311Farm.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			ceil:abi
 Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			floor:abi
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<stdlib.h>	no	yes	hand			atoi:abi
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp	conflicting	mangle	1	1	0	0	0	0	0	0	0	1	0	<string.h>	no	yes	hand			memcpy:same
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp	conflicting	abi	1	0	0	0	0	0	1	0	1	1	0	<windows.h>,<stdlib.h>	yes	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	free:abi
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp	conflicting	mangle	1	1	0	0	0	0	0	0	0	1	0	<string.h>	no	yes	hand			strcpy:same

@@ -58,7 +58,6 @@ private:
 	int m_274;
 	char m_278;
 };
-// The Apt window manager (VA 0x00DFE4CC).
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameWindow;
@@ -78,25 +77,6 @@ extern LanguageFilter *TheLanguageFilter;
 extern NetworkInterface *TheNetwork;
 // The open in-game chat screen (VA 0x00E04478).
 extern int g_Va00E04478;
-class AptInGameChat : public _bfme_AptGameWindow
-{
-public:
-	AptInGameChat(void *context);
-	virtual ~AptInGameChat();
-
-	// AptLobbyScreenInitCallbacks.cpp.
-	void InitGadgets(const char *name, void *argument, GameWindow *window);
-	void OnInitialized(const char *unused);
-	void rva004E8213(const char *unused);
-	void Send(const char *unused);
-	bool rva004E8670(UnicodeString text);
-	static void OpenScreen(int chatType);
-
-private:
-	int m_state; // +0x27C
-	int m_chatType; // +0x280
-	GameWindow *m_entry; // +0x284
-};
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
 	class NAME \
@@ -226,7 +206,6 @@ private:
 	{ \
 		return ((NAME##Outer *)((char *)this - BACK))->m_ptr->m_b ? true : false; \
 	}
-
 // The canonical GameLogic header pads over the fields read here; they
 // are reached through a view of the real TheGameLogic.
 struct GameLogicFieldView
@@ -236,19 +215,12 @@ struct GameLogicFieldView
 	unsigned char m_pad114[0x120 - 0x114];
 	void *m_120; // +0x120
 };
-
 extern GameLogic *TheGameLogic;
-
-// TheInGameUI (0x00DFEDF0): vslot 95 reports the quit menu up.
 #include "../../../../../Include/GameClient/InGameUI.h"
-
 extern InGameUI *TheInGameUI;
-
 // The disconnect menu (VA 0x00E048D0).
 class DisconnectMenu;
-
  extern DisconnectMenu *TheDisconnectMenu;
-
 // TheGameInfo (0x00E02EEC): vslot 19 lets a chat other than the console
 // open while TheWritableGlobalData's +0xA44 flag is set.
 class GameSlot
@@ -259,7 +231,6 @@ public:
 	unsigned char m_pad00B[0x34 - 0xB];
 	AsciiString m_playerName; // +0x34
 };
-
 class GameInfo
 {
 public:
@@ -274,13 +245,9 @@ public:
 #undef INFO_SLOT
 	virtual bool slot19();
 };
-
 extern GameInfo *TheGameInfo;
-
 #include "../../../../../Include/Common/GlobalData.h"
-
 extern GlobalData *TheWritableGlobalData;
-
 // What TheWindowManager's slot 32 makes of an Apt file (as in
 // Rva00511730Save.cpp); slot 0 is run on it with 0.
 class Rva005116C2Screen
@@ -288,7 +255,6 @@ class Rva005116C2Screen
 public:
 	virtual void v00(int value) = 0;
 };
-
 class GameWindowManager
 {
 public:
@@ -300,32 +266,22 @@ public:
 #undef V
 	virtual Rva005116C2Screen *v32(AsciiString filename) = 0;
 };
-
 extern GameWindowManager *TheWindowManager;
-
 class Team;
-
 enum Relationship
 {
 	ENEMIES,
 	NEUTRAL,
 	ALLIES
 };
-
 #include "../../../../../Include/Common/Player.h"
-
 enum NameKeyType
 {
 };
-
 #include "../../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 #include "../../../../../Include/Common/PlayerList.h"
-
 extern PlayerList *ThePlayerList;
-
 class GameTextInterface
 {
 public:
@@ -341,9 +297,7 @@ public:
 	// The localized format string itself.
 	virtual const UnicodeString *slot17(const char *label, bool *exists);
 };
-
 extern GameTextInterface *TheGameText;
-
 // ?rva004E8220@Rva004E8220@@QAEXH@Z @ 0x004E8220 (20B):
 // Leaf thiscall setter. If the dword at +0x27C is 1 set it to 2; single
 // unused int arg (ret 4). Evidence: reads ecx before writing it; caller at
@@ -356,13 +310,9 @@ private:
 	unsigned char m_pad[0x27C];
 	int m_val27C;
 };
-
 void __cdecl GadgetTextEntrySetText(GameWindow *window, UnicodeString text);
-
 UnicodeString __cdecl GadgetTextEntryGetText(GameWindow *textentry);
-
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
-
 struct Rva004E855CState
 {
 	char m_pad00[0x274];
@@ -372,15 +322,10 @@ struct Rva004E855CState
 	char m_pad280[0x284 - 0x280];
 	GameWindow * volatile m_window284;
 };
-
 extern UnicodeString g_00E0447C;
-
 class Rva00222A8BTarget;
-
 class BfmeAptWindowManager;
-
 void __cdecl Rva004E84ABRun();
-
 class Rva0050DA20FunctorBind
 {
 public:
@@ -391,7 +336,6 @@ private:
 	unsigned int m_unmodelled_04;
 	FunctorMethod m_method;
 };
-
 // Reference guide: Open-BFME-1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
 // Common/Rva00192120FunctorInvoker.cpp expresses the member binding dispatch.
 // Its void/no-argument prototype is not adopted: native registration ABB87
@@ -401,22 +345,16 @@ private:
 // This access prefix asserts only those fields and the observed byte return;
 // original parser subclass/target names and the preceding12 bytes remain unknown.
 class __multiple_inheritance Rva000AD770Target;
-
 typedef unsigned char (Rva000AD770Target::*Rva000AD770Method)(void *, void *);
-
 // Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
 // Keep the existing slot placeholder: no original method name is proven.
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-
 class WinInstanceData;
-
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
 BFME_DISP8_TERNARY_BOOL_GETTER(Rva004E8234CmpBoolField, 0x284)
-
-// 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
-// Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
 #include "../../../../../Include/GameLogic/Module/ToppleUpdateClass.h"
+#pragma pointers_to_members(full_generality, multiple_inheritance)
 
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
 // Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
@@ -433,6 +371,41 @@ public:
 	unsigned char m_4C;
 };
 
+void _bfme_closeAptScreen(const AsciiString &name);
+
+class AptInGameChat : public _bfme_AptGameWindow
+{
+public:
+	AptInGameChat(void *context);
+	virtual ~AptInGameChat();
+
+	// AptLobbyScreenInitCallbacks.cpp.
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	void OnInitialized(const char *unused);
+	void rva004E8213(const char *unused);
+	void Send(const char *unused);
+	bool rva004E8670(UnicodeString text);
+	static void OpenScreen(int chatType);
+
+private:
+	int m_state; // +0x27C
+	int m_chatType; // +0x280
+	GameWindow *m_entry; // +0x284
+};
+
+// tu-skeleton: 0x004E81FF 20B ?OnInitialized@AptInGameChat@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x004E8213 13B ?rva004E8213@AptInGameChat@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp
+
+// The Apt window manager (VA 0x00DFE4CC).
+
+// TheInGameUI (0x00DFEDF0): vslot 95 reports the quit menu up.
+
+// 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
+// Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
+
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
 // BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
@@ -441,9 +414,7 @@ public:
 // 0x0023C4F8 (14B): both flag bytes at +0x15 and +0x16 set (the
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
-// tu-skeleton: 0x004E81FF 20B ?OnInitialized@AptInGameChat@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)
 
-// tu-skeleton: 0x004E8213 13B ?rva004E8213@AptInGameChat@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp
 
@@ -775,20 +746,23 @@ Rva0050DA20FunctorBind::Rva0050DA20FunctorBind( FunctorMethod method, FunctorTar
 // `this` and the inner byte is tested through it (probe-proven; a direct
 // backward cast would fold the two offsets into one read).
 
-// tu-skeleton: 0x004E83EB 116B ??1AptInGameChat@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp
+
+// ??1AptInGameChat@@UAE@XZ @0x004E83EB 116B (WB AptInGameChat.cpp line 224 names the class and its InitGadgets screen key)
+// Evidence: unlock lane, AptInGameChat::InitGadgets literal, base pin 0x005126F5, current-window global g_Va00E04478, caller 0x004E84E6.
+AptInGameChat::~AptInGameChat()
+{
+	if (g_Va00E04478 == (int)this)
+	{
+		_bfme_closeAptScreen(AsciiString("AptInGameChat::InitGadgets"));
+		g_Va00E04478 = 0;
+	}
+}
 
 // tu-skeleton: 0x004E846A 58B ?rva004E846A@Rva004E8220@@QAEHHEH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
 
 // tu-skeleton: 0x004E84A4 7B ?apply@Rva0004E84A4DwordImmSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004E84E3 28B ??_GAptInGameChat@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp (not merged yet)
-
 // tu-skeleton: 0x004E84FF 93B ?InitGadgets@AptInGameChat@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x004E8620 80B ?rva004E8620@AptInGameChat@@UAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChatRva004E8620.cpp (not merged yet)
-
-// tu-skeleton: 0x0079242E 8B uw_0079242e -- matched in Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00792436 8B $L1287 -- matched in Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079243E 10B __ehhandler$??1AptInGameChat@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp (not merged yet)
