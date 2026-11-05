@@ -280,7 +280,6 @@ Code/GameEngine/Source/GameNetwork/BFMEConnectionManager_sendGameSpyStatsAuthKey
 Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp	conflicting	abi	2	1	0	0	0	0	1	0	0	0	0	<string.h>	no	no	hand			strlen:abi,strstr:same
 Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager_initDelayFilter.cpp	conflicting	mangle	2	1	0	0	0	1	0	0	0	1	0	<windows.h>,<string.h>	yes	yes	hand			strcmp:mangle,NULL:same
 Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp	conflicting	abi	2	1	0	0	0	0	1	0	0	0	0	<math.h>,<stdlib.h>	no	yes	hand	1: Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarRenderObjectList.cpp:24 stl/_algobase.h(unknown)	do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	free:abi,floor:same
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp	conflicting	mangle	2	2	0	0	0	0	0	0	0	1	0	<windows.h>	yes	yes	hand			EnterCriticalSection:same,LeaveCriticalSection:same
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCursorSurfaceLevel.cpp	conflicting	mangle	2	1	0	0	0	1	0	0	0	0	0	<windows.h>	yes	yes	hand			GUID:mangle,NULL:same
 Code/Libraries/Source/Apt/AptObject/AptCIHProceduralAllocation.cpp	conflicting	abi	2	0	0	0	0	0	2	0	0	0	0	<new.h>	no	yes	hand			operator new:abi,operator delete:abi
 Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperEndSceneHelper.cpp	conflicting	mangle	2	1	0	0	0	0	0	1	0	1	0	<windows.h>	yes	yes	hand			GUID:same

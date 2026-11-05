@@ -1,5 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc /O2 /Ob2
 // stlport
+// platformsdk
 //
 // Open-BFME5: AssetRegistry::Find_Asset, the counted lookup reverse/symbols.csv
 // already pins at 0x009EEC60 because Rva009EBEC0 returns its result.
@@ -18,15 +19,7 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <hash_map>
 
-struct CRITICAL_SECTION
-{
-	unsigned char m_data[0x18];
-};
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(
-	CRITICAL_SECTION *lock);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(
-	CRITICAL_SECTION *lock);
+#include <windows.h>
 
 class CriticalSectionLock
 {
