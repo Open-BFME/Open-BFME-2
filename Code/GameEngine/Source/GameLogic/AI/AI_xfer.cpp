@@ -5,9 +5,9 @@
 // Zero Hour's AI::crc and AI::xfer into one body: a CRC pass snapshots the
 // pathfinder, every TAiData and every AIGroup behind retail's own
 // "MARKER:TAiData" / "MARKER:AIGroup" literals (Zero Hour AI.cpp order);
-// otherwise it writes version 1, the +0x10 word and four raw bytes at +0x14.
+// otherwise it writes version 1, m_nextGroupID and m_nextFormationID's bytes.
 // Xfer slots follow the ledger's LivingWorld snapshot view (3 IsCRC,
-// 9 user bytes, 12 xferSnapshot, 27 xferAsciiString, 30 the +0x10 word).
+// 9 user bytes, 12 xferSnapshot, 27 xferAsciiString, 30 unsigned int).
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
 #include <list>
@@ -43,17 +43,7 @@ public:
 
 #include "../../../Include/GameLogic/AIGroup.h"
 
-class AI
-{
-public:
-	virtual void xfer(Xfer *xfer);
-private:
-	Pathfinder *m_pathfinder;								// +0x04
-	_STL::list<AIGroup *> m_groupList;						// +0x08
-	TAiData *m_aiData;										// +0x0C
-	int m_10;												// +0x10
-	int m_14;												// +0x14
-};
+#include "../../../Include/GameLogic/AI.h"
 
 void AI::xfer(Xfer *xfer)
 {
@@ -86,7 +76,7 @@ void AI::xfer(Xfer *xfer)
 	else
 	{
 		xfer->Version1();
-		*xfer == reinterpret_cast<unsigned int &>(m_10);
-		xfer->XferRawBytes(&m_14, 4);
+		*xfer == m_nextGroupID;
+		xfer->XferRawBytes(&m_nextFormationID, 4);
 	}
 }

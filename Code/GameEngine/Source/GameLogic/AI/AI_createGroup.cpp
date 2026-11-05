@@ -16,6 +16,6 @@
 AIGroup *AI::createGroup()
 {
 	AIGroup *group = new AIGroup;
-	((_STL::list<AIGroup *> *)&field14)->push_back(group);
+	m_groupList.push_back(group);
 	return group;
 }
