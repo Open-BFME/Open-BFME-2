@@ -26,14 +26,7 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class HordeGarrisonContainModuleData
-{
-public:
-	HordeGarrisonContainModuleData();
-	virtual ~HordeGarrisonContainModuleData();
-private:
-	char m_pad04[0xAC - 4];
-};
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 class SlaughterHordeContainModuleData : public HordeGarrisonContainModuleData
 {
@@ -41,7 +34,6 @@ public:
 	SlaughterHordeContainModuleData();
 	virtual ~SlaughterHordeContainModuleData();
 private:
-	char m_padAC[0xD4 - 0xAC];
 	float m_floatD4;
 	Rva003623E5Member m_filterD8;
 	_STL::bitset<128> m_bitsDC;

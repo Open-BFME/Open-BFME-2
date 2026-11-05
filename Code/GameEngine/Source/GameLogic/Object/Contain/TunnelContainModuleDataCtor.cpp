@@ -20,34 +20,12 @@ private:
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 
-class Rva003623E5Member
-{
-public:
-	void rva00362192(Rva00045411BitSet bits, BfmeFixedStorage0004543D storage);
-private:
-	unsigned char m_bytes[0x58];
-};
+#include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
-class OpenContainModuleData
-{
-public:
-	OpenContainModuleData();
-	virtual ~OpenContainModuleData();
-protected:
-	unsigned char m_pad04[0x3C];
-	Rva003623E5Member m_filter40;
-};
-
-class HordeGarrisonContainModuleData : public OpenContainModuleData
-{
-public:
-	HordeGarrisonContainModuleData();
-	virtual ~HordeGarrisonContainModuleData();
-private:
-	unsigned char m_pad98[0xD4 - 0x98];
-};
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
+#include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 
 class TunnelContainModuleData : public HordeGarrisonContainModuleData
 {
@@ -60,5 +38,5 @@ private:
 TunnelContainModuleData::TunnelContainModuleData()
 {
 	m_D4 = 1.0f;
-	m_filter40.rva00362192(Rva00045411BitSet(0, 8), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE));
+	m_passengerFilter.rva00362192(Rva00045411BitSet(0, 8), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE));
 }
