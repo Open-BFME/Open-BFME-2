@@ -47,16 +47,7 @@ public:
 class Rva002E2285;
 class Rva002E2903Player;
 
-class LivingWorldPlayer
-{
-public:
-	void CheckForRemovedMultiRegionBonuses();
-
-	char m_pad00[0x14];
-	int m_id;
-	char m_pad18[0x258 - 0x18];
-	Rva0020E449 m_bonus;
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 
 #include "../../../../Include/GameLogic/Rva002BA8F1Logic.h"
 
@@ -107,7 +98,7 @@ void Rva0020EE29::rva0020F483()
 	for (int i = 0; i < TheLivingWorldLogic->getNumPlayers(); i++)
 	{
 		LivingWorldPlayer *player = TheLivingWorldLogic->getPlayerAtIndex(i);
-		Rva0020E449 *bonus = &player->m_bonus;
+		Rva0020E449 *bonus = reinterpret_cast<Rva0020E449 *>(player->field258);
 		bonus->m_04 = 0;
 		bonus->m_08 = 0;
 		bonus->m_0C = 0;
@@ -119,7 +110,7 @@ void Rva0020EE29::rva0020F483()
 		for (unsigned int j = 0; j < regions.size(); j++)
 		{
 			Rva0020F483Region *region = regions[j];
-			if (region->m_owner == player->m_id)
+			if (region->m_owner == player->m_14)
 				bonus->rva0020E250(region->m_bonus);
 		}
 		m_manager->rva0020F34E(this, reinterpret_cast<Rva002E2285 *>(player));

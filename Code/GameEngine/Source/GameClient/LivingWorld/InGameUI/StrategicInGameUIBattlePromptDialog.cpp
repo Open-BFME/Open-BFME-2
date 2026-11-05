@@ -59,11 +59,7 @@ class ImageCollection { public: const Image *findImageByName(const AsciiString &
 extern ImageCollection *TheMappedImageCollection;
 struct FactionView { char prefix[0x20]; AsciiString icon; };
 class Rva002E071E { public: bool rva002E071E(const Rva002E071E *) const; };
-struct LivingWorldPlayer {
- char pad00[0x1C]; UnicodeString name; // +0x1C
- char pad20[0x20]; FactionView *faction; // +0x40
- char pad44[0x184-0x44]; RGBColor color; // +0x184
-};
+#include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class LivingWorldLogic { public: char prefix[0x98]; LivingWorldPlayer *localPlayer; };
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva003F468D { public: int rva003F468D(int side,int index); int rva003F4DAE(int side); };
@@ -136,11 +132,11 @@ static __declspec(noinline) void PopulateMovieClip(StrategicHUD::BattlePromptMov
   for (int i=0; i<count; ++i) {
    LivingWorldPlayer *player=(LivingWorldPlayer *)((Rva003F468D *)&battle)->rva003F468D(side,i);
    if (player==localPlayer) continue;
-   FactionView *faction=player->faction;
+   FactionView *faction=static_cast<FactionView *>(player->field40);
    Rva005F918D data;
    data.m_word4=(unsigned int)TheMappedImageCollection->findImageByName(faction->icon);
-   data.m_word8=(unsigned int)player->color.getAsInt()|0xFF000000;
-   data.m_text0C=player->name;
+   data.m_word8=(unsigned int)player->field184.getAsInt()|0xFF000000;
+   data.m_text0C=player->field1C;
    if (((const Rva002E071E *)player)->rva002E071E((const Rva002E071E *)localPlayer)) {
     Rva005E97B8::Payload payload={{(int)&battle,side,i}};
     data.m_holder=Rva005E992FCreate(&payload);
