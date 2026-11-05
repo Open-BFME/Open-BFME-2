@@ -119,7 +119,6 @@ public:
 };
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
-// Partition filters (see the BroadcastStealthUpdate.cpp view).
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 // A KindOfMaskType (0x0004543D copies it).
 class BfmeFixedStorage0004543D
@@ -161,10 +160,30 @@ public:
 		Rva000421C8 *filters, int order); // 0x00625610
 };
 extern PartitionManager *ThePartitionManager;
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+//
+// ??0HeightDieUpdateModuleData@@QAE@XZ, retail 0x0048FC75, 44 bytes.
+// Frameless store-only ctor over the Height table 0xC4CFC8 (TargetHeight@8,
+// TargetHeightIncludesStructures@C, OnlyWhenMovingDown@D,
+// DestroyAttachedParticlesAtHeight@10, SnapToGroundOnDeath@14,
+// InitialDelay@18). Identity is the table plus the rowed HeightDieUpdate
+// poolkey 0x48FC5A ending exactly where this ctor begins plus factory
+// 0x24D3B6 (news 0x1C, sole caller) plus rowed proc 0x48FCA1. Shape follows
+// the ReflectDamage trivial-ctor precedent: flat TU-local class with
+// explicit void*m_vtable (no virtuals, no vtable emission) plus plain-data
+// members; body assignments in retail order; /O1 emits integer zeros as
+// compact AND MOVs and /arch:SSE emits the float zero as xorps plus movss.
+// Vtable 0x00C4ED70 is ICF-folded (DeletionUpdate/SlotToLock/ReflectDamage
+// share); the -1.0f pool literal reproduces the DestroyAttachedParticles
+// default.
+
+extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];
 
 extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp
+
+// Partition filters (see the BroadcastStealthUpdate.cpp view).
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdateXfer.cpp
 
@@ -220,14 +239,6 @@ NameKeyType HeightDieUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("HeightDieUpdate");
 	return TheHeightDieUpdatePoolKey;
 }
-
-// tu-skeleton: 0x0048FC75 44B ??0HeightDieUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048FCA1 17B ?buildFieldParse@HeightDieUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0048FCB2 77B ??0HeightDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048FCFF 28B ??_GRva0048FBBA@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdateUpdate.cpp
 
@@ -408,3 +419,25 @@ UpdateSleepTime HeightDieUpdate::update( void )
 }
 
   // end update
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdateModuleDataCtor.cpp
+
+  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
+
+// ??0HeightDieUpdateModuleData@@QAE@XZ @0x48FC75
+HeightDieUpdateModuleData::HeightDieUpdateModuleData()
+{
+	m_targetHeightAboveTerrain = 0.0f;
+	m_vtable = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7ObjectHelperModuleData@@6B@")));
+	m_targetHeightIncludesStructures = false;
+	m_onlyWhenMovingDown = false;
+	m_destroyAttachedParticlesAtHeight = -1.0f;
+	m_snapToGroundOnDeath = false;
+	m_initialDelay = 0;
+}
+
+// tu-skeleton: 0x0048FCA1 17B ?buildFieldParse@HeightDieUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0048FCB2 77B ??0HeightDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0048FCFF 28B ??_GRva0048FBBA@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
