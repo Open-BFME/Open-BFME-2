@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// platformsdk
 // List box hit testing, the Zero Hour GadgetListBox.cpp statics BFME2 keeps:
 // getListboxEntryBasedOnCoord @0x00323E95 218B (cdecl; the only body the
 // GadgetListBoxGetEntryBasedOnXY wrapper @0x00323F6F tail-jumps to) maps a
@@ -34,6 +35,8 @@
 // instead of in descending case-value order; and the top-entry declaration
 // precedes the bottom-entry one, which makes the bottom call come first.
 #include "unicode_string.h"
+#include <windows.h>
+#include <mmsystem.h>
 #include <string.h>
 
 typedef int Int;
@@ -97,9 +100,6 @@ enum { LISTBOX_TEXT = 1 };
 #define BitTest(x, i) (((x) & (i)) != 0)
 #define BitSet(x, i) ((x) |= (i))
 #define BitClear(x, i) ((x) &= ~(i))
-
-#define TRUE true
-#define FALSE false
 
 // Zero Hour inlines UnicodeString::getCharAt; WWLib keeps the out-of-line
 // copy at 0x00035760. Keep this expansion inline without emitting a competing
@@ -569,15 +569,11 @@ void GadgetListBoxSetTopVisibleEntry(GameWindow *window, Int newPos)
 // adjustDisplayByDelta 0x00324B39 is rowed in its own unit.
 void Rva00324B39Add(GameWindow *window, Short delta, Bool updateSlider);
 
-extern "C" __declspec(dllimport) unsigned int __stdcall GetDoubleClickTime(void);
-
 // Zero Hour and BFME 1 name the shared OS double-click interval doubleClickTime and
 // initialize it from GetDoubleClickTime() at file scope. Retail's .CRT$XCU table runs
 // 0x007AE9E6, which stores that call's result to VA 0x00E01D48, read by this callback
 // at 0x00325F14: this definition's compiler-emitted dynamic initializer.
 unsigned int doubleClickTime = GetDoubleClickTime();
-
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
 // GadgetListBoxInput @0x00325635 2442B: the single-select input callback.
 WindowMsgHandledType GadgetListBoxInput(GameWindow *window, UnsignedInt msg,
