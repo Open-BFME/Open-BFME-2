@@ -543,30 +543,6 @@ public:
 	virtual void na5();
 	virtual const char *getName();
 };
-class W3DHordeModelDrawManager {
-public:
-	int rva0007A54B();
-public:
-	void rva00079911();
-public:
-	void rva007A41E();
-public:
-	void ProcessGroup(W3DHordeModelDrawHandle **begin,W3DHordeModelDrawHandle **end);
-public:
-	HordeGroupNode *header;
-public:
-	int count;
-	char m_compare; // +0x08 the map's empty key compare
-	_STL::list<_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > > m_list; // +0x0C
-	_STL::vector<void *> m_vec1; // +0x10
-	_STL::vector<void *> m_vec2; // +0x1C
-public:
-	bool rva0007894E(Rva0007894EOuter *);
-public:
-	void rva0007898BClear(Rva000789A0Outer *obj);
-public:
-	void rva000789A0Update(Rva000789A0Outer *obj);
-};
 // The manager entry7A7DD installs its static40B instance; guarded7A75E reads
 // the same pointer. Original singleton identifier is unknown.
 W3DHordeModelDrawManager *TheW3DHordeModelDrawManager;
@@ -875,6 +851,83 @@ extern const FieldParse s_hordeModelDrawFieldTable[];
 
 // Vtable 0x00BC6870: the table whose slot 0 is ??_GRva000D089D (vftable_map); bound to the ??_7 the ledger's deleting-dtor unit emits.
 extern "C" const void *__identifier("??_7Rva000D089D@@6B@")[];
+
+// Retain the bfmealloc primary bodies inline without competing external copies.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+void allocator<int>::deallocate(int* p, size_t n) const {
+ _STLP_ASSERT( (p == 0) == (n == 0) )
+ if(p != 0) ::free((void*)p);
+}
+template<> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int* p, size_t n) {
+ __stl_alloc_rebind(static_cast<allocator<int>&>(*this),(int*)0).deallocate(p,n);
+}
+}
+
+struct Rva00079554Record
+{
+	~Rva00079554Record();
+	_STL::vector<int> m_00;
+	_STL::vector<int> m_0C;
+	_STL::vector<int> m_18;
+};
+
+class Rva00079911Item
+{
+public:
+	virtual void Delete();
+	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
+	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08();
+	virtual void v09(); virtual void v10(); virtual void v11(); virtual void v12();
+	virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16();
+	virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20();
+	virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24();
+	virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28();
+	virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32();
+	virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36();
+	virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40();
+	virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44();
+	virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48();
+	virtual void v49(); virtual void v50(); virtual void v51(); virtual void v52();
+	virtual void v53(); virtual void v54(); virtual void v55(); virtual void v56();
+	virtual void v57(); virtual void v58();
+	virtual void FuncEC(int x);
+	int m_ref;
+	char m_pad[0x310 - 8];
+	int m_310;
+};
+
+class W3DHordeModelDrawManager {
+public:
+	int rva0007A54B();
+public:
+	void rva00079911();
+public:
+	void rva007A41E();
+public:
+	void ProcessGroup(W3DHordeModelDrawHandle **begin,W3DHordeModelDrawHandle **end);
+public:
+	HordeGroupNode *header;
+public:
+	int count;
+	char m_compare; // +0x08 the map's empty key compare
+	_STL::list<_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > > m_list; // +0x0C
+	_STL::vector<void *> m_vec1; // +0x10
+	_STL::vector<void *> m_vec2; // +0x1C
+public:
+	bool rva0007894E(Rva0007894EOuter *);
+public:
+	void rva0007898BClear(Rva000789A0Outer *obj);
+public:
+	void rva000789A0Update(Rva000789A0Outer *obj);
+};
+
+namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
+
+namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::end() { return this->_M_finish; } }
+
+// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
@@ -1679,7 +1732,19 @@ W3DHordeModelDrawModuleData::W3DHordeModelDrawModuleData()
 
 // tu-skeleton: 0x0007942F 29B ??$__copy_ptrs@PAURva00079EA1Element@@PAU1@@_STL@@YAPAURva00079EA1Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
-// tu-skeleton: 0x00079554 86B ??1Rva00079554Record@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00079554RecordDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00079554RecordDtor.cpp
+
+//
+// ??1Rva00079554Record@@QAE@XZ, retail 0x00079554, 86 bytes.
+// Non-virtual record of three POD vectors at +0x00, +0x0C, +0x18: inline
+// buffer frees (0x00030830) in reverse member order. A member at +0x00
+// rules out a vptr, so the older ??1Rva0079554@@UAE@XZ pin spelling cannot
+// describe this body and is left as recorded. Element types and owner are
+// unrecovered.
+
+Rva00079554Record::~Rva00079554Record()
+{
+}
 
 // tu-skeleton: 0x000795C1 29B ??0?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hero_integer_vector_tree.cpp (not merged yet)
 
@@ -1695,15 +1760,41 @@ W3DHordeModelDrawModuleData::W3DHordeModelDrawModuleData()
 
 // tu-skeleton: 0x0007975E 45B ?Rva0007975EConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
-// tu-skeleton: 0x0007978B 9B ??$_Destroy@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@YAXPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@@Z -- matched in Code/GameEngine/Source/Common/Rva00079911Clear.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00079911Clear.cpp
+
+// ?rva00079911@W3DHordeModelDrawManager@@QAEXXZ @0x00079911 116B via vector pair clear with ref release plus list clear
+// Evidence: thiscall ret0 tail jmp to List_base<string> clear; two vector<void*> erases; and [ecx+0x310],0 plus dec [ecx+4] release and virtual slot 0xec call; caller 0x0007A54B
+
+// bfme link decl-only/import-inline end
+// The row _Destroy<string> (retail's list<string> clear helper) is emitted here.
+template void _STL::_Destroy(_STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > *);
+
+void W3DHordeModelDrawManager::rva00079911()
+{
+	for (void **it = m_vec1.begin(); it != m_vec1.end(); ++it) {
+		Rva00079911Item *p = (Rva00079911Item *)*it;
+		p->m_310 = 0;
+		if (--p->m_ref == 0)
+			p->Delete();
+	}
+	for (void **it = m_vec2.begin(); it != m_vec2.end(); ++it) {
+		Rva00079911Item *p = (Rva00079911Item *)*it;
+		p->FuncEC(0);
+		if (--p->m_ref == 0)
+			p->Delete();
+	}
+	_STL::vector<void *> &v1 = m_vec1;
+	v1.erase(v1.begin(), v1.end());
+	_STL::vector<void *> &v2 = m_vec2;
+	v2.erase(v2.begin(), v2.end());
+	m_list.clear();
+}
 
 // tu-skeleton: 0x0007981B 34B ?_M_create_node@?$list@V?$vector@IV?$allocator@I@_STL@@@_STL@@V?$allocator@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@@_STL@@IAEPAU?$_List_node@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@ABV?$vector@IV?$allocator@I@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_node_vecuint.cpp (not merged yet)
 
 // tu-skeleton: 0x0007983D 27B ??$find@PAVAsciiString@@PBD@_STL@@YAPAVAsciiString@@PAV1@0ABQBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_find.cpp (not merged yet)
 
 // tu-skeleton: 0x000798BE 25B ??$_Destroy@PAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@_STL@@YAXPAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp (not merged yet)
-
-// tu-skeleton: 0x00079911 116B ?rva00079911@W3DHordeModelDrawManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00079911Clear.cpp (not merged yet)
 
 // tu-skeleton: 0x000799E7 37B ?insert@?$list@V?$vector@IV?$allocator@I@_STL@@@_STL@@V?$allocator@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@@_STL@@QAE?AU?$_List_iterator@V?$vector@IV?$allocator@I@_STL@@@_STL@@U?$_Nonconst_traits@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@@2@U32@ABV?$vector@IV?$allocator@I@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_node_vecuint.cpp (not merged yet)
 

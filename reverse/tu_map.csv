@@ -4367,7 +4367,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00079495,33,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000794B6 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000794B6,94,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x00079514 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00079514,64,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x00079554 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
-0x00079554,86,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000795AA provisional,Code/GameEngine/Source/Common/Rva00079554RecordDtor.cpp
+0x00079554,86,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000795AA provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000795AA,23,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000795C1 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000795C1,29,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000795DE provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_hero_integer_vector_tree.cpp
 0x000795DE,63,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x0007961D provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
@@ -4381,7 +4381,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00079715,28,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x00079731 provisional,Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp
 0x00079731,45,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x0007975E provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x0007975E,45,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x0007978B provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
-0x0007978B,9,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x00079794 provisional,Code/GameEngine/Source/Common/Rva00079911Clear.cpp
+0x0007978B,9,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x00079794 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00079794,25,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000797AD provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000797AD,23,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000797C4 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000797C4,87,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeNarrowRecord00079C23.cpp provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
@@ -4391,7 +4391,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0007989C,34,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000797C4..0x000798BE provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000798BE,25,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000797C4..0x000798D7 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp
 0x000798D7,58,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000797C4..0x00079911 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
-0x00079911,116,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp provisional,Code/GameEngine/Source/Common/Rva00079911Clear.cpp
+0x00079911,116,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00079985,16,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00079911..0x00079995 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x00079995,59,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00079911..0x000799D0 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000799D0,23,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x00079911..0x000799E7 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
