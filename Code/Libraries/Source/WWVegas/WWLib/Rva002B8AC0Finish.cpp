@@ -23,9 +23,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-class ModuleData
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
+
+// Opaque record offsets; keep the canonical ModuleData pointer in the ABI.
+struct Rva002B8AC0RecordView
 {
-public:
 	unsigned char m_pad[8];
 	unsigned char m_flag8;
 };
@@ -42,7 +44,7 @@ private:
 
 void Rva002B8AC0::rva002B8AC0(const ModuleData *moduleData)
 {
-	if (moduleData->m_flag8)
+	if (reinterpret_cast<const Rva002B8AC0RecordView *>(moduleData)->m_flag8)
 	{
 		const ModuleData *slot = moduleData;
 		m_d8.push_back(slot);

@@ -1,5 +1,7 @@
 ### Module base chain: canonical headers block the most TU merges (2026-10-28)
 
+2026-11-05: Thirteen ModuleData consumers now adopt the canonical header with explicit opaque-record views; 125/125 rows exact, thirteen header rows retired, and 23,819 preview-linked bytes preserved. [Scoped evidence; wider module-chain work remains open](../../reverse/attempt_support/moduledata-header-cohort-20261105-codex2.md).
+
 2026-11-05: Six Player consumers now adopt canonical TeamPrototype while retaining their iterator bodies; 21/21 rows exact, six header rows retired, 2,948 preview-linked bytes preserved and no external definitions lost. [Evidence; wider Team consolidation prerequisites remain](../../reverse/attempt_support/teamprototype-player-headers-20261105-codex2.md).
 
 2026-11-05: Nine TeamPrototype consumers now adopt Common/Team.h while retaining TU-local iterator implementations; nine header rows retire, 24/24 rows byte-match, and 3,939 preview-linked bytes remain. [Scoped evidence; wider Team.cpp prerequisites remain](../../reverse/attempt_support/teamprototype-header-adoption-20261105-codexb.md).

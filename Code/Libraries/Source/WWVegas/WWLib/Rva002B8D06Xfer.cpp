@@ -59,9 +59,11 @@ class ModuleData;
 namespace _STL {
 template<> void vector<const ModuleData *>::reserve(unsigned int);
 }
-class ModuleData
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
+
+// Opaque record offsets; keep the canonical ModuleData pointer in the ABI.
+struct Rva002B8D06RecordView
 {
-public:
 	char m_pad[0x20];
 	int m_armyID;
 };
@@ -100,7 +102,7 @@ void Rva002BA8F1Logic::rva002B8D06(Xfer *xfer, _STL::vector<const ModuleData *> 
 		int count = (int)vec->size();
 		(*xfer == count);
 		for (int i = 0; i < count; ++i) {
-			int armyID = (*vec)[i]->m_armyID;
+			int armyID = reinterpret_cast<const Rva002B8D06RecordView *>((*vec)[i])->m_armyID;
 			XferLivingWorldArmyID(xfer, &armyID);
 		}
 	}

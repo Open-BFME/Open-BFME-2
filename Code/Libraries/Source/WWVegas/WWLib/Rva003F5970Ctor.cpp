@@ -66,9 +66,11 @@ struct BfmeAssignRecord104
 	int a[26];
 };
 
-class ModuleData
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
+
+// Opaque record offsets; keep the canonical ModuleData pointer in the ABI.
+struct Rva003F5970RecordView
 {
-public:
 	char _pad[0x78];
 	BfmePod104 *m_p78;
 };
@@ -96,5 +98,5 @@ Rva003F5970::Rva003F5970(int a, const ModuleData *moduleData)
 	const ModuleData *tmp = moduleData;
 	((_STL::vector<const ModuleData *> *)&m_04)->push_back(tmp);
 	((_STL::vector<BfmeAssignRecord104> *)&m_10)->reserve(4);
-	((_STL::vector<BfmePod104> *)&m_10)->push_back(*moduleData->m_p78);
+	((_STL::vector<BfmePod104> *)&m_10)->push_back(*reinterpret_cast<const Rva003F5970RecordView *>(moduleData)->m_p78);
 }

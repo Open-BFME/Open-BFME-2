@@ -748,15 +748,7 @@ struct Rva000ECDF5TreeDrawData
 	AsciiString m_nameC;
 };
 
-class ModuleData
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
-	virtual const Rva000ECDF5TreeDrawData *getAsW3DTreeDrawModuleData() const;
-};
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
 
 #include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
 
@@ -1995,7 +1987,7 @@ Int W3DTreeBuffer::rva000ECDF5(const AsciiString &asciiString, Int shadowKind, c
 	const ModuleData *module = ((const ModuleInfo *)thingTemplate->m_drawModuleInfo)->getNthData(0);
 	if (module == 0)
 		return -2;
-	const Rva000ECDF5TreeDrawData *data = module->getAsW3DTreeDrawModuleData();
+	const Rva000ECDF5TreeDrawData *data = static_cast<const Rva000ECDF5TreeDrawData *>(module->slot16());
 	if (data == 0) {
 		if (bfmeRva000387C0()) {
 			_bfme_debugRecordCallsite(1);
@@ -2567,7 +2559,7 @@ void W3DTreeBuffer::xfer(Xfer *xfer)
 					const ModuleInfo &moduleInfo = *(const ModuleInfo *)thingTemplate->m_drawModuleInfo;
 					const ModuleData *moduleData = moduleInfo.getNthData(0);
 					if (moduleData)
-						((W3DTreeType *)m_types)[i].m_data = (const Rva000ECF79Data *)moduleData->getAsW3DTreeDrawModuleData();
+						((W3DTreeType *)m_types)[i].m_data = (const Rva000ECF79Data *)moduleData->slot16();
 				}
 				if (((W3DTreeType *)m_types)[i].m_mesh) {
 					((W3DTreeType *)m_types)[i].m_mesh->Release_Ref();

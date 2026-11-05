@@ -80,10 +80,13 @@ public:
 	bool rva004E9378();
 };
 
-class ModuleData
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
+
+// Opaque record view; the callback at vtable +0x1C takes an int.
+class Rva004EC869EntryView
 {
 public:
-  virtual ~ModuleData();
+  virtual ~Rva004EC869EntryView();
   virtual void v1();
   virtual void v2();
   virtual void v3();
@@ -163,7 +166,7 @@ void AIBuilder::notifyDozerDead(Rva005996FFArg *arg)
 		ModuleData *cur;
 		while (it != m_list.end()) {
 			cur = (ModuleData *)(*it);
-			if (cur->m_08 == value)
+			if (reinterpret_cast<Rva004EC869EntryView *>(cur)->m_08 == value)
 				goto found;
 			++it;
 		}
@@ -172,13 +175,13 @@ found:
 		;
 		if (((Rva004E9378 *)cur)->rva004E9378())
 			return;
-		if (cur->m_20) {
-			cur->virt(0);
-			cur->m_08 = 0;
+		if (reinterpret_cast<Rva004EC869EntryView *>(cur)->m_20) {
+			reinterpret_cast<Rva004EC869EntryView *>(cur)->virt(0);
+			reinterpret_cast<Rva004EC869EntryView *>(cur)->m_08 = 0;
 			m_list.erase(it);
 			m_vec.push_back(cur);
 		} else {
-			cur->virt(3);
+			reinterpret_cast<Rva004EC869EntryView *>(cur)->virt(3);
 		}
 	}
 }
@@ -193,13 +196,13 @@ void AIBuilder::rva004EC2D4(int value)
 		ModuleData *cur;
 		while (it != m_list.end()) {
 			cur = (ModuleData *)(*it);
-			if (cur->m_08 == value)
+			if (reinterpret_cast<Rva004EC869EntryView *>(cur)->m_08 == value)
 				goto found;
 			++it;
 		}
 		return;
 found:
 		;
-		cur->virt(2);
+		reinterpret_cast<Rva004EC869EntryView *>(cur)->virt(2);
 	}
 }

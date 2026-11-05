@@ -132,11 +132,7 @@ void Rva0030612AXfer(Xfer *,float *);
 Xfer *Rva003062FEXfer(Xfer *,float *);
 void XferDrawableID(Xfer *,int *);
 class ThingTemplate; class ThingFactory {public:const ThingTemplate*findTemplate(const AsciiString&);};extern ThingFactory *TheThingFactory;
-class ModuleData {public:
- virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04();virtual void s05();virtual void s06();virtual void s07();
- virtual void s08();virtual void s09();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual void s15();
- virtual const Rva000E91CEData *TreeDrawData()const;
-};
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
 #include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
 #include "../../../../GameEngine/Include/Common/XferException.h"
 class RenderObjClass {public:
@@ -198,7 +194,7 @@ void W3DShrubBuffer::DoXfer(Xfer *xfer)
    if(xfer->IsLoading()){
     shrubType.data=0;
 
-    if(const ThingTemplate *tt=TheThingFactory->findTemplate(shrubType.templateName)){ModuleInfo *mi=reinterpret_cast<ModuleInfo *>(const_cast<char *>(reinterpret_cast<const char *>(tt))+0x2F0);const ModuleData *module=mi->getNthData(0);if(module)shrubType.data=module->TreeDrawData();}
+    if(const ThingTemplate *tt=TheThingFactory->findTemplate(shrubType.templateName)){ModuleInfo *mi=reinterpret_cast<ModuleInfo *>(const_cast<char *>(reinterpret_cast<const char *>(tt))+0x2F0);const ModuleData *module=mi->getNthData(0);if(module)shrubType.data=static_cast<const Rva000E91CEData *>(module->slot16());}
     if(!shrubType.data)throw XferException(4,0);
     if(shrubType.mesh){reinterpret_cast<RenderObjClass *>(shrubType.mesh)->Release_Ref();shrubType.mesh=0;}
     RenderObjClass *render=Create_Render_Obj(shrubType.modelName.str());

@@ -13,15 +13,7 @@
 // A normal128-byte aggregate assignment gives retail's inline repMOVSD, while
 // a memcpy call adds a call boundary. No hand-built private calling convention.
 class RespawnUpdateModuleData {public: int calcCostToBuild(int); int calcTimeToBuild(unsigned);};
-class ModuleData {
-public:
-#define SLOT(n) virtual void slot##n();
- SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12)
- virtual bool isRevival()const;
- SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27)
- virtual const RespawnUpdateModuleData *getRespawnData()const;
-#undef SLOT
-};
+#include "../../../../Include/Common/ModuleData.h"
 #include "../../../../Include/Common/ModuleInfoClass.h"
 class ThingTemplate;
 #include "../../../../Include/GameLogic/UnitRevivalEntry.h"
@@ -78,8 +70,8 @@ static __declspec(noinline) UnitRevivalEntry CreateRevivalEntry(LivingWorldPlaye
   const ModuleInfo &info=thing->modules;
   for(int i=0;i<info.getCount();++i) {
    const ModuleData *module=info.getNthData(i);
-   if(!module || !module->isRevival()) continue;
-   const RespawnUpdateModuleData *rules=module->getRespawnData();
+   if(!module || !module->slot13()) continue;
+   const RespawnUpdateModuleData *rules=static_cast<const RespawnUpdateModuleData *>(module->slot28());
    const Image *image=0;
    if(thing->flags11F & 0x40) {
     const CreateAHeroHero *hero=(const CreateAHeroHero*)player->rva002E06EF();

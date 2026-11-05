@@ -18,9 +18,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-class ModuleData
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
+
+// Opaque record offsets; keep the canonical ModuleData pointer in the ABI.
+struct Rva0031BF1BRecordView
 {
-public:
 	char m_pad00[0xC];
 	int m_removed; // +0x0C
 	char m_pad10[0x8];
@@ -48,16 +50,16 @@ find_node:
     if (node == data)
         goto found_node;
     previous = node;
-    node = node->m_next;
+    node = reinterpret_cast<Rva0031BF1BRecordView *>(node)->m_next;
 check_node:
     if (node != 0)
         goto find_node;
     return;
 found_node:
     if (previous != 0)
-        previous->m_next = node->m_next;
+        reinterpret_cast<Rva0031BF1BRecordView *>(previous)->m_next = reinterpret_cast<Rva0031BF1BRecordView *>(node)->m_next;
     else
-        m_head = node->m_next;
+        m_head = reinterpret_cast<Rva0031BF1BRecordView *>(node)->m_next;
     m_removed.push_back(data);
-    data->m_removed = 1;
+    reinterpret_cast<Rva0031BF1BRecordView *>(data)->m_removed = 1;
 }

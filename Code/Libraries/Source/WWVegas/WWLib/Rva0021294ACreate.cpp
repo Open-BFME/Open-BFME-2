@@ -35,11 +35,7 @@ private:
 	T *m_data;
 };
 
-class ModuleData
-{
-public:
-	virtual ~ModuleData();
-};
+#include "../../../../GameEngine/Include/Common/ModuleData.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> ModuleData const * * allocator<ModuleData const *>::allocate(unsigned int,void const *)const ; }
 // Bind to the kept retail copy instead of emitting this unit's own.
@@ -54,7 +50,7 @@ public:
 	Rva003FD789(const StringBase<char> &src);
 	virtual ~Rva003FD789();
 private:
-	int volatile m_04;
+	// ModuleData already owns +4; the remaining fields begin at +8.
 	float volatile m_08;
 	StringBase<char> m_0c;
 	bool m_10;
