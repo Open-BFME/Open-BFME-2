@@ -130,6 +130,12 @@ void Rva00427114Parse(INI *ini, Rva00427157 *store)
 
 typedef _STL::hash_map<NameKeyType, const Rva00427157 *, rts::hash<NameKeyType>, _STL::equal_to<NameKeyType> > ArmorMap;
 
+// Retail folds this pointer map's subscript onto ObjectLookupMap::findSlot
+// (0x0041F4E5). Both use a four-byte key and pointer value in the same table
+// layout; use that rowed insertion provider rather than emitting another copy.
+class Object;
+class ObjectLookupMap { public: Object **findSlot(int *key); };
+
 class LivingWorldAutoResolveArmorStore
 {
 public:
@@ -173,7 +179,7 @@ void LivingWorldAutoResolveArmorStore::parseArmorDefinition(INI *ini)
 		return;
 	}
 	Rva00427157 *armor = new Rva00427157(AsciiString(token), defaultArmor);
-	TheLivingWorldAutoResolveArmorStore->m_map[key] = armor;
+	*reinterpret_cast<Rva00427157 **>(reinterpret_cast<ObjectLookupMap &>(TheLivingWorldAutoResolveArmorStore->m_map).findSlot((int *)&key)) = armor;
 	ini->initFromINI(armor, g_00C3C614);
 }
 
