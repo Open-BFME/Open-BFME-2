@@ -29,6 +29,11 @@ private:
 	unsigned char m_opaque[0x34];
 };
 
+enum WeaponSlotType
+{
+	PRIMARY_WEAPON = 0
+};
+
 class AttackNugget : public ObjectCreationNugget
 {
 public:
@@ -36,17 +41,17 @@ public:
 	virtual ~AttackNugget();
 
 private:
-	RadiusDecalTemplate m_member04;	// +0x04
-	float m_float38;	// +0x38
-	int m_int3C;	// +0x3C
-	int m_int40;	// +0x40
+	RadiusDecalTemplate m_deliveryDecalTemplate;	// +0x04
+	float m_deliveryDecalRadius;	// +0x38
+	int m_numberOfShots;	// +0x3C
+	WeaponSlotType m_weaponSlot;	// +0x40
 };
 
 inline AttackNugget::AttackNugget()
 {
-	m_float38 = 0.0f;
-	m_int3C = 1;
-	m_int40 = 0;
+	m_deliveryDecalRadius = 0.0f;
+	m_numberOfShots = 1;
+	m_weaponSlot = PRIMARY_WEAPON;
 }
 
 // Header inlines that the units including the header emit as select-any
