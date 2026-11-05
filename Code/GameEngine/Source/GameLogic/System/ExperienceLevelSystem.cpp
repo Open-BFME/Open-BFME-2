@@ -251,7 +251,7 @@ struct Rva0028867DData
 	unsigned char m_b101;
 	unsigned char m_b102;
 };
-static bool Rva0028867DCheck(const void *p)
+__declspec(noinline) static bool Rva0028867DCheck(const void *p)
 {
 	const Rva0028867DData *d = (const Rva0028867DData *)p;
 	if (TheBfmeGlob->bfmeCall939D())
