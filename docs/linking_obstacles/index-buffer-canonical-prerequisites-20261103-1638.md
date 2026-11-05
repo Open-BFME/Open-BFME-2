@@ -122,3 +122,8 @@ Rva007E3C20Vp6StreamDtor.cpp remains on its original view after the explicit rec
 
 
 2026-11-05 receipt recheck. AIBuildable.cpp now has a current 20/20 receipt. The six-source audit is inconclusive at AICowerState_onEnter.cpp with the earlier published index. [Scoped verification](../../reverse/attempt_support/current-link-receipts-20261105-1800.md).
+
+
+2026-11-05 follow-up. AICowerState_onEnter.cpp now passes its current byte gate with a strict reusable receipt. [Same-head audit and scoped preview](../../reverse/attempt_support/current-link-receipts-20261105-1800.md#aicowerstate-and-repaired-blocker-recheck-at-899300899b).
+
+The follow-up preparation verifies all nine selected files. Under the newer f44cbcf5b0 index the broader audit is provisional and reaches AIBaseBuilder.cpp, whose current receipt is missing.
