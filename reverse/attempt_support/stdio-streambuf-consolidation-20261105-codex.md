@@ -52,3 +52,49 @@ memory: all three clean donors are approved for StdioStreambufBase.cpp, and
 the final dry run accepts all three with no rejection and a census link guard.
 The mixed narrow_istream, wide_streambuf and wide_string sources remain out
 of scope. No regenerated TU map is committed.
+
+## Applied merge and outgoing path audit
+
+`tu_skeleton.py --merge` applied the verified plan: three source files removed,
+12 ledger rows repointed, five source cells repointed in the committed TU map.
+Only those map source cells change; assignments and evidence are retained.
+The hatch rescan produces no register diff. No header, data or identity debt
+key is removed, and no pin or alias is removed or added.
+
+Post-merge `./build.sh` verifies 25/25 functions in the destination, with all
+literal/import checks passing. The declared-unmatched and CSV checks pass.
+EH verification is EXACT for the one EH-bearing row. Converged data identity
+passes all 11 addresses with no second names or unjudged rows.
+`link_check.py` predicts the destination at 986 bytes, equal to the four
+pre-merge units' combined 986 bytes; its reported 560 -> 986 is absorption,
+not newly linking coverage.
+
+The pre-merge objects' union has 40 COMDAT definitions. The merged object
+retains all 40 with identical relocation-aware fingerprints and adds one
+50-byte char_traits<char>::assign inline helper, digest `c37e1a563191`, already
+provided identically by WWLib/stlport_narrow_string.obj. Undefined references,
+weak externals, alternatename directives and forced includes equal their
+pre-merge unions. The saved comparison is in the adjacent object-proof JSON.
+
+The shadow TU checker diagnoses underflow at 0x0013B5E0 (rendobj) and imbue
+at 0x00180FD0 (stale nullrobj assignment). Both are existing ICF alias rows:
+the supported merge engine's fold_alias predicate is true for each. The fresh
+in-memory map identifies the first address by stdio_ostreambuf::showmanyc and
+the second by RegistryReceiverNoOp (displaced, no TU). As documented under
+consolidation's split verification, the map places address identities, not
+their aliases; aliases follow the bodies that emit them and do not make a
+donor mixed. Their rows, signatures and matched bytes are preserved; no new
+TU approval is claimed for either shadow finding.
+
+Audited the full pending path batch from origin/master through the prerequisite
+and this staged merge. It also includes StlSweepR3Rva0028681A.cpp absorbed into
+FireLogicSystem.cpp by the preceding session. Combined old-path and basename
+searches cover tools, hooks, workflows, Code/includes, build/config files,
+registries and docs. No active filename consumer needs a change. Remaining
+mentions are the destination provenance comments, attempt evidence, historical
+link_status.csv and stlport_trial.csv, and BFME 1's separate reference records.
+The STLport queue explicitly joins historical report identities to the live
+ledger; querying queue_files confirms none of the deleted sources is served.
+The prior FireLogic audit retains its wider census follow-up under LINK-001;
+the publisher's outgoing link-batch audit remains authoritative. No real link,
+census, nightly or smoke run was started.

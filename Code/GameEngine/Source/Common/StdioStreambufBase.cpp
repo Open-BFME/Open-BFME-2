@@ -240,6 +240,89 @@ public:
 	void rva0001C8B0();
 };
 
+namespace _STL
+{
+
+int basic_streambuf<char, char_traits<char> >::underflow() { return char_traits<char>::eof(); }
+int basic_streambuf<char, char_traits<char> >::pbackfail(int_type c) { return char_traits<char>::eof(); }
+void basic_streambuf<char, char_traits<char> >::imbue(const locale &) {}
+int basic_streambuf<char, char_traits<char> >::showmanyc() { return 0; }
+int basic_streambuf<char, char_traits<char> >::sync() { return 0; }
+basic_streambuf<char, char_traits<char> > *basic_streambuf<char, char_traits<char> >::setbuf(char *, int) { return this; }
+int basic_streambuf<char, char_traits<char> >::overflow(int_type c) { return char_traits<char>::eof(); }
+fpos<int> basic_streambuf<char, char_traits<char> >::seekoff(long, int, int) { return fpos<int>(-1); }
+fpos<int> basic_streambuf<char, char_traits<char> >::seekpos(fpos<int>, int) { return fpos<int>(-1); }
+
+}
+
+namespace _STL
+{
+
+basic_streambuf<char, char_traits<char> >::int_type
+basic_streambuf<char, char_traits<char> >::uflow()
+{
+	return char_traits<char>::eq_int_type(this->underflow(), char_traits<char>::eof())
+	       ? char_traits<char>::eof()
+	       : char_traits<char>::to_int_type(_FILE_I_postincr(_M_get));
+}
+
+streamsize basic_streambuf<char, char_traits<char> >::xsputn(const char *__s, streamsize __n)
+{
+	const int_type __eof = char_traits<char>::eof();
+	streamsize __result = 0;
+
+	while (__result < __n) {
+		ptrdiff_t __avail = _FILE_O_avail(_M_put);
+		if (__avail > 0) {
+			size_t __chunk = streambufWriteMin (__STATIC_CAST(size_t, __avail),
+			                        __STATIC_CAST(size_t, __n - __result));
+			char_traits<char>::copy(_FILE_O_next(_M_put), __s, __chunk);
+			__result += __chunk;
+			__s += __chunk;
+			_FILE_O_bump(_M_put, __chunk);
+		}
+		else if (!char_traits<char>::eq_int_type(
+		             this->overflow(char_traits<char>::to_int_type(*__s)), __eof)) {
+			++__result;
+			++__s;
+		}
+		else
+			break;
+	}
+	return __result;
+}
+
+}
+
+namespace _STL
+{
+
+streamsize basic_streambuf<char, char_traits<char> >::_M_xsputnc(char_type c, streamsize n)
+{
+	streamsize result = 0;
+	const int_type eofv = traits_type::eof();
+
+	while (result < n)
+	{
+		if (_FILE_O_avail(_M_put) > 0)
+		{
+			size_t chunk = streambufWriteMin((size_t)_FILE_O_avail(_M_put), (size_t)(n - result));
+			traits_type::assign((char *)_M_put->_ptr, chunk, c);
+			result += chunk;
+			_FILE_O_bump(_M_put, (int)chunk);
+		}
+		else if (!traits_type::eq_int_type(this->overflow(traits_type::to_int_type(c)), eofv))
+			++result;
+		else
+			break;
+	}
+	return result;
+}
+
+}
+
+// ---- from Code/GameEngine/Source/Common/StdioStreambufBase.cpp
+
 // 0x0001D170: slot 3.
 // 0x00035790: slot 0.
 // 0x000357F0: slot 2.
@@ -359,19 +442,12 @@ unsigned int Rva0001CDA0Word::get() const { return *m_ptr; }
 
  // namespace _STL
 
-// tu-skeleton: 0x0001C7F0 18B ??0?$fpos@H@_STL@@QAE@J@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001C810 13B ?gbump@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001C820 24B ?setg@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXPAG00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001C840 13B ?pbump@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001C850 20B ?setp@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXPAG0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001C870 32B ?pubseekoff@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAE?AV?$fpos@H@2@JHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001C890 32B ?pubseekpos@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAE?AV?$fpos@H@2@V32@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/GapBodiesGE21.cpp
 
@@ -394,6 +470,20 @@ void Rva0001C8B0Slots::rva0001C8B0()
 	slot11();
 }
 
+// tu-skeleton: 0x0001C7F0 18B ??0?$fpos@H@_STL@@QAE@J@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
+
+// tu-skeleton: 0x0001C810 13B ?gbump@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
+
+// tu-skeleton: 0x0001C820 24B ?setg@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXPAG00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
+
+// tu-skeleton: 0x0001C840 13B ?pbump@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
+
+// tu-skeleton: 0x0001C850 20B ?setp@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@IAEXPAG0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
+
+// tu-skeleton: 0x0001C870 32B ?pubseekoff@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAE?AV?$fpos@H@2@JHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
+
+// tu-skeleton: 0x0001C890 32B ?pubseekpos@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAE?AV?$fpos@H@2@V32@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
+
 // tu-skeleton: 0x0001C8C0 20B ?in_avail@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
 // tu-skeleton: 0x0001C8E0 32B ?getloc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QBE?AVlocale@2@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
@@ -404,13 +494,46 @@ void Rva0001C8B0Slots::rva0001C8B0()
 
 // tu-skeleton: 0x0001C970 20B ?seekoff@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@MAE?AV?$fpos@H@2@JHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
-// tu-skeleton: 0x0001CA40 35B ?uflow@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_uflow.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_uflow.cpp
 
-// tu-skeleton: 0x0001CA70 6B ?pbackfail@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_defaults.cpp (not merged yet)
+// stlport46
+//
+// The four basic_streambuf<char> base defaults nothing had reached: xsgetn,
+// uflow, xsputn and _M_xsputnc, slots 6, 8, 10 and 11 of the vftable at
+// 0x007BBC30. They are worth four tables, not one - stdio_istreambuf,
+// stdio_ostreambuf and stdio_streambuf_base all inherit these same four
+// addresses unchanged.
+//
+// uflow settles which basic_streambuf<char> the game links. It reaches its get
+// area through [this+4] and then reads a pointer at [+0] and a count at [+4]
+// of whatever that points to, decrementing the count and post-incrementing the
+// pointer. That is a C FILE - _ptr and _cnt - so this build is STLport's
+// stdio-backed specialisation, the one the vendored header declares, and not
+// the three-pointer primary template. The other three follow from it: each
+// asks the FILE for its available count rather than differencing two area
+// pointers.
 
-// tu-skeleton: 0x0001CA80 172B ?xsputn@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHPBDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_uflow.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_defaults.cpp
 
-// tu-skeleton: 0x0001CB30 178B ?_M_xsputnc@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@MAEHDH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_xsputnc_vendor.cpp (not merged yet)
+// stlport46
+//
+// Two of the narrow basic_streambuf base defaults, written out rather than
+// instantiated. basic_streambuf<char> is an explicit specialisation in the
+// vendored headers, so `template class` on it is C2950 and no user TU emits
+// its members - the wide facet has no such problem, which is why
+// stlport_wide_streambuf.cpp covers the wide side of this vtable.
+//
+// Both bodies are the upstream defaults from vendor/stlport/stl/_streambuf.h:
+// underflow and pbackfail each return eof, which for char_traits<char> is the
+// int -1, so each is an or eax, -1 and a return. The narrow streambuf vtable
+// holds 0x0001CA70 in both slot 9 and slot 12, so overflow folded onto
+// pbackfail; it is rowed below as that body's ICF twin.
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_xsputnc_vendor.cpp
+
+// stlport46
+
+ // namespace _STL
 
 // tu-skeleton: 0x0001CC50 40B ?sputbackc@?$basic_streambuf@GV?$char_traits@G@_STL@@@_STL@@QAEGG@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp (not merged yet)
 
