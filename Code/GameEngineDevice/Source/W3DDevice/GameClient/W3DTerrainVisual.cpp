@@ -46,8 +46,149 @@
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
 #endif //#defined DO_SEISMIC_SIMULATIONS
 #include <string.h>
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra size (sized from
+// their bytes), batch C: guarded forwards, flag and field logic. Each class
+// and method is address-derived unless the ledger already names it, and
+// models only what its body touches; the comment above each gives the vtable
+// and slot. Types are what the bytes require; meanings are not recovered.
+
+typedef int Int;
+typedef bool Bool;
+typedef float Real;
+template <int N> class VslotPad : public VslotPad<N - 1>
+{
+public:
+	virtual void pad(char (*)[N]);
+};
+template <> class VslotPad<0>
+{
+public:
+	virtual void pad0();
+};
+// vtable 0x00BC6540#2-#6 and #9: forward to the same slot of the object at
+// +8 when there is one (false or 0 without it).
+// Slots #3-#6 carry the WorldBuilder names of FXShader::RenderingMethodDelegate
+// (fxshaderrenderingmethod.h:71/78/84/90): WB's Begin_Pass,
+// UpdateDynamicParameterSet, End_Pass and End_Rendering forward to inner
+// vtable +0x0C/+0x10/+0x14/+0x18 with the same argument counts as these
+// bodies (vtable leads for the first three, slot order for End_Rendering).
+// The class stays address-named; the inner view keeps its slot names.
+class Rva00072A08Inner : public VslotPad<1>
+{
+public:
+	virtual Bool slot2(Int a0, Int a1);
+	virtual void slot3(Int a0);
+	virtual void slot4(Int a0);
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual Int slot9();
+};
+// WorldBuilder FXShader::RenderingMethodDelegate (slot bodies Begin_Pass..End_Rendering, vtable leads).
+class FXShader
+{
+public:
+	class RenderingMethodDelegate;
+};
+class FXShader::RenderingMethodDelegate
+{
+public:
+	Bool rva00072A08(Int a0, Int a1);
+	void Begin_Pass(Int a0);
+	void UpdateDynamicParameterSet(Int a0);
+	void End_Pass();
+	void End_Rendering();
+	Int rva00072ADE();
+private:
+	char m_pad00[0x08];
+	Rva00072A08Inner *m_08;
+};
+// vtable 0x00BC80A0#33 and #32: slots 143 and 142 of the object at +0x14,
+// when there is one.
+class Rva00091DB2Inner : public VslotPad<141>
+{
+public:
+	virtual Bool slot142(Int a0);
+	virtual void slot143();
+};
+class Rva00091DB2
+{
+public:
+	void rva00091DB2();
+	Bool rva00091F95(Int a0);
+private:
+	char m_pad00[0x14];
+	Rva00091DB2Inner *m_14;
+};
+void Rva00091DB2::rva00091DB2()
+{
+	if (m_14 != 0)
+		m_14->slot143();
+}
+Bool Rva00091DB2::rva00091F95(Int a0)
+{
+	if (m_14 != 0)
+		return m_14->slot142(a0);
+	return false;
+}
+// vtable 0x00C164F0#6: own slot 2 with 2 unless the byte at +8 is set.
+class Rva0035D512 : public VslotPad<1>
+{
+public:
+	virtual void slot2(Int value);
+	void rva0035D512();
+private:
+	char m_pad04[0x08 - 0x04];
+	Bool m_08;
+};
+// vtable 0x00BC6FF4#1: the cdecl function at +8 with both arguments.
+class Rva00080256
+{
+public:
+	void rva00080256(Int a0, Int a1);
+private:
+	char m_pad00[0x08];
+	void (__cdecl *m_function08)(Int, Int);
+};
+class Rva0007E971
+{
+public:
+	~Rva0007E971();
+};
+class Rva00080266
+{
+public:
+	void rva00080266();
+};
+// vtable 0x00BC7A88#20: toggle the byte at +0x811.
+class Rva0008EF81
+{
+public:
+	void rva0008EF81();
+private:
+	char m_pad00[0x811];
+	Bool m_811;
+};
+// InGameUI::setSelecting: defined in InGameUIInputModes.cpp (its row's unit).
+
+// vtable 0x00BC7568#122: 1 when neither +0x8C nor +0x90 is -1.
+class Rva0008BBC7
+{
+public:
+	Int rva0008BBC7();
+private:
+	char m_pad00[0x8C];
+	Int m_8C;
+	Int m_90;
+};
+// The partition filter base (ctor 0x000421C8, vftable 0x00BC26E0).
+class Object;
+#include "../../../../GameEngine/Include/GameLogic/PartitionFilter.h"
 
 // bfme link decl-only begin
 namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
@@ -269,7 +410,27 @@ struct Rva00092024Block
 
 // tu-skeleton: 0x00091D61 81B ?rva00091D61@Rva00091D61@@QAEXPAHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00091D61Finish.cpp (not merged yet)
 
-// tu-skeleton: 0x00091DB2 18B ?rva00091DB2@Rva00091DB2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp
+
+// vtable 0x00BFAD28#2: the bit (+8)->+0x54 as a mask, complemented unless the
+// byte at +0xC is set.
+
+// vtable 0x00BCE788#139: +0x3934 becomes 1 for true and 2 for false.
+
+// vtable 0x00BC7A88#75: +8 of the first node of the circular list at +0x20,
+// 0 when the list is empty.
+
+// vtable 0x00BFDC60#0: the 16-bit field at +4 of **(+4), 0 without it.
+
+// REF slots 0x007C7BBC 0x007FD544 neighbours rva0029C096/get: search the
+// circular list at +0x20 for a node whose dword field matches the arg.
+// ?rva0029C0A9@Rva0029C0A9@@QAE_NH@Z
+
+// Installed table byte transfer. Native receiver-relative pointer load
+// and pointed byte read are established independently; original owner,
+// base relationship and field meanings are unknown.
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00091DC4Forward.cpp
 
@@ -445,6 +606,35 @@ void W3DTerrainVisual::removeAllBibs(void)
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Rva00092024Clear.cpp
+
+// Retail 0x00092024, 14 bytes (Ghidra-unlisted, after 0x00092014 and before
+// the 0x00092032 deleting-destructor thunk): zero a 0x4C-byte object through
+// the CRT memset import 0x006291AE. No caller found; owner and name are
+// address-derived.
+
+void Rva00092024Block::clear()
+{
+	memset(this, 0, sizeof(*this));
+}
+
 // tu-skeleton: 0x00091E19 31B ?rva00091E19@W3DTerrainVisual@@UAEXHMH@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x00091E38 13B ?rva00091E38@Rva00091E38NullForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
@@ -471,25 +661,11 @@ void W3DTerrainVisual::removeAllBibs(void)
 
 // tu-skeleton: 0x00091F84 17B ?rva00091F84@Rva00091F84NullForwarder@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x00091F95 22B ?rva00091F95@Rva00091DB2@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
-
 // tu-skeleton: 0x00091FAB 15B ?rva00091FAB@Rva00091FABNullForwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x00091FBA 90B ?rva00091FBA@Rva00091FBA@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z -- matched in Code/GameEngine/Source/Common/Rva00091E83Forwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x00092014 16B ?rva00092014@Rva00091A80@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracksBind.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00092024Clear.cpp
-
-// Retail 0x00092024, 14 bytes (Ghidra-unlisted, after 0x00092014 and before
-// the 0x00092032 deleting-destructor thunk): zero a 0x4C-byte object through
-// the CRT memset import 0x006291AE. No caller found; owner and name are
-// address-derived.
-
-void Rva00092024Block::clear()
-{
-	memset(this, 0, sizeof(*this));
-}
 
 // tu-skeleton: 0x00092032 8B ??_ERva009203A@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB09.cpp (not merged yet)
 

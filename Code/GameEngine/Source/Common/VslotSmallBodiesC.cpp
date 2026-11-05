@@ -97,17 +97,6 @@ private:
 	char m_pad00[0x14];
 	Rva00091DB2Inner *m_14;
 };
-void Rva00091DB2::rva00091DB2()
-{
-	if (m_14 != 0)
-		m_14->slot143();
-}
-Bool Rva00091DB2::rva00091F95(Int a0)
-{
-	if (m_14 != 0)
-		return m_14->slot142(a0);
-	return false;
-}
 
 // vtable 0x00C164F0#6: own slot 2 with 2 unless the byte at +8 is set.
 class Rva0035D512 : public VslotPad<1>
