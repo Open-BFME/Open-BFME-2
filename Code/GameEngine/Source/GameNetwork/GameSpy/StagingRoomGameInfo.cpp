@@ -381,11 +381,7 @@ void CreateTheNetwork(void);
 
 extern GameLogic *TheGameLogic;
 
-class LivingWorldManager
-{
-public:
-	void rva0021427A(void);
-};
+#include "../../../Include/GameLogic/LivingWorldManager.h"
 
 extern LivingWorldManager *TheLivingWorldManager;
 
