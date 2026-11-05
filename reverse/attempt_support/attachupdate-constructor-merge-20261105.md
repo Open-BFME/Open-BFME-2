@@ -49,3 +49,11 @@ queue mapping. No active ledger still names AttachUpdateCtor.cpp.
 The module-data constructor's bitset/vptr repair is the remaining prerequisite;
 no new trial of its source was made. No real-link, census, nightly or smoke run
 was started. Normal commit and outgoing publication hooks remain authoritative.
+
+Publication accounting follow-up: the outgoing debt audit cannot replay the
+already-passing constructor header acceptance after its source disappears.
+The rows remain live in the destination, so deleted_rows tombstones would be
+incorrect. Re-ran the owning UpdateModule acceptance on the merged destination:
+PASS. A per-key Debt-Retired trailer accounts for this vanished source, as the
+project's missing-source rule permits; it records the earlier acceptance and
+retained destination rather than claiming a second retirement.
