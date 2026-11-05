@@ -110,22 +110,8 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-struct AIData
-{
-	char m_unknown00[0xBC];
-	Bool m_bfmeBC; // +0xBC
-};
-
-class AI
-{
-public:
-	const AIData *getAiData() const { return m_aiData; }
-
-private:
-	char m_unknown00[0x18];
-	const AIData *m_aiData; // +0x18
-};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/TAiData.h"
+#include "../../../../Include/GameLogic/AI.h"
 
 class FireSpreadUpdateModuleData
 {
@@ -174,7 +160,7 @@ UpdateSleepTime FireSpreadUpdate::update( void )
 				PartitionFilterFlammable fFilter;
 				objectToLight = ThePartitionManager->getClosestObject(getObject()->getPosition(), fireSpreadUpdateModuleData->m_spreadTryRange, FROM_CENTER_3D, &fFilter);
 			}
-			if( objectToLight == NULL && TheAI->getAiData()->m_bfmeBC )
+			if( objectToLight == NULL && TheAI->getAiData()->m_allowForestFires )
 			{
 				void *found = (void *)((BfmeThingCME *)TheTerrainLogic)->rva0027F108( (void *)me->getPosition(), fireSpreadUpdateModuleData->m_spreadTryRange, 1, 0 );
 				if( found )

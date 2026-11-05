@@ -56,8 +56,7 @@ enum WhichTurretType
 class Object;
 class Weapon;
 #include "../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char pad[0x10];Pathfinder *pathfinder;};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
 class Module;
 #include "../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 class WallAttackPredicate {public:virtual bool slot0();};
@@ -390,7 +389,7 @@ CanAttackResult Object::getAbleToAttackSpecificObject(AbleToAttackType type,
     if ((m_template->m_kindof[0] & (1U << 11)) && !m_template->m_canPathThroughGates &&
         (target->m_template->m_kindof[0] & (1U << 7)))
     {
-        Pathfinder *pathfinder = TheAI->pathfinder;
+        Pathfinder *pathfinder = TheAI->m_pathfinder;
         if (!pathfinder->QuickDoesPathExistToStructure(const_cast<Object *>(this),
                 &m_position, const_cast<Object *>(target), 0))
             return ATTACKRESULT_NOT_POSSIBLE;

@@ -138,24 +138,8 @@ public:
 	Bool MoveAllies(Object *obj, Path *path, Bool flag);
 };
 
-struct AIData
-{
-	unsigned char m_pad00[0xB9];
-	Bool m_fieldB9; // +0xB9
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const AIData *getAiData() { return m_aiData; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	const AIData *m_aiData; // +0x18
-};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/TAiData.h"
+#include "../../../../Include/GameLogic/AI.h"
 
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -355,7 +339,7 @@ Bool AIUpdateInterface::computePath(PathfindServicesInterface *pathServices, Coo
 		Bool moveAllies = m_path->m_blockedByAlly && !((getObject()->getTemplate()->m_kindof[0] & 0x40000000U) != 0);
 		if (((getObject()->getTemplate()->m_kindof[3] & 0x2000U) != 0)) {
 			CRITTER_TRACE("CritterDesync:  bblah2");
-			if (!TheAI->getAiData()->m_fieldB9) {
+			if (!TheAI->getAiData()->m_hordesWaitForHordes) {
 				CRITTER_TRACE("CritterDesync:  bblah3");
 				moveAllies = false;
 			}

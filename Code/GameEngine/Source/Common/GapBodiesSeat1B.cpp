@@ -733,18 +733,11 @@ public:
 	virtual void slot10();
 };
 
-class AI
-{
-public:
-	virtual void update();
-private:
-	char m_pad04[0x10 - 0x04];
-	Pathfinder *m_10;
-};
+#include "../../Include/GameLogic/AI.h"
 
 void AI::update()
 {
-	m_10->ProcessPathfindQueue();
+	m_pathfinder->ProcessPathfindQueue();
 	((Rva002FD7DCPlayerListView *)ThePlayerList)->slot10();
 }
 

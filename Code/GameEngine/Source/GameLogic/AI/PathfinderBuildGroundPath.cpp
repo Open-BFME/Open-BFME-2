@@ -35,9 +35,8 @@ class Pathfinder;
 struct IRegion2D;
 class Xfer;
 #include "../../../Include/GameLogic/PathfindLayer.h"
-struct AIData {char pad00[0xA0];float m_a0;};
-class AI {public:const AIData *getAiData() const {return m_aiData;}private:char pad00[0x10]; public: Pathfinder *pathfinder; private: char gap14[4]; const AIData *m_aiData;};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 struct PathGroundNode {PathGroundNode *next,*previous,*nextOptimized;Coord3D pos;int layer;};
 class Path {public:Path();void optimizeGroundPath(Int);void *vtable;PathGroundNode *first,*last;char padC[0x28-0xC];};
 class Pathfinder {public:Path *BuildGroundPath(const Coord3D *,PathfindCell *,Bool,Int);void PrependCells(Path *,const Coord3D *,PathfindCell *,Bool);Int AdjustGroundPathPosition(const Coord3D *,Coord3D *);
@@ -79,7 +78,7 @@ dir.x += v2.x;
 dir.y += v2.y;
 dir.z = 0;
 dir.Normalize();
-float cornerOffsetDistance = 2.0f * TheAI->getAiData()->m_a0;
+float cornerOffsetDistance = 2.0f * TheAI->getAiData()->m_formationColumnWidth;
 dir.x *= cornerOffsetDistance;
 dir.y *= cornerOffsetDistance;
 PathGroundCoord newPos(node->pos);
@@ -171,7 +170,7 @@ void Pathfinder::rva002EFB3A()
                     topLeftCorner.y=(float)y*10.0f;
                     color.blue=0; color.green=0; color.red=0;
                     Bool empty=true;
-                    cell=TheAI->pathfinder->getCell(PATHFIND_LAYER_GROUND,x,y);
+                    cell=TheAI->m_pathfinder->getCell(PATHFIND_LAYER_GROUND,x,y);
                     if (cell) {
                         switch (cell->getType()) {
                         case 2: color.red=1; empty=false; break;

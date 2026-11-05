@@ -217,8 +217,7 @@ class ModelConditionFlags {public:
 class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
 struct SiegeExitData {char pad[0x18c];Rva2225E0Filter filter;char pad18d[3];int count;};
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char pad[0x10];Pathfinder *pathfinder;};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 extern int BfmeLogicFramesPerSecond;
 template<int N>class SiegeExitSlots:public SiegeExitSlots<N-1>{public:virtual void gap(char(*)[N]);};
 template<>class SiegeExitSlots<0>{};
@@ -371,10 +370,10 @@ void SiegeEngineContain::exitObjectViaDoor(Object *exitObj,ExitDoorType door)
    {Coord3D diff;diff.x=pos.x-me->m_cachedPos.x;diff.y=pos.y-me->m_cachedPos.y;diff.z=pos.z-me->m_cachedPos.z;
    diff.normalize();float dx=diff.x*50.0f,dy=diff.y*50.0f;pos.x+=dx;pos.y+=dy;pos.z=0;}
    AIUpdateInterface *ai=exitObj->ai;
-   TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
+   TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
    if(ai){
      ai->ignoreObstacle(0);ai->movementFrame=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;
-     Pathfinder *pathfinder=TheAI->pathfinder;pathfinder->adjustToPossibleDestination(exitObj,ai->set(),&pos);
+     Pathfinder *pathfinder=TheAI->m_pathfinder;pathfinder->adjustToPossibleDestination(exitObj,ai->set(),&pos);
      _STL::vector<Coord3D> path;path.push_back(pos);path.push_back(pos);
      ai->commands()->rva0036EE16(reinterpret_cast<const Rva0035149F*>(&path),me,CMD_FROM_AI);
      exitObj->rva0028ACDC((int)&pos);
@@ -385,17 +384,17 @@ void SiegeEngineContain::exitObjectViaDoor(Object *exitObj,ExitDoorType door)
      me->getSingleLogicalBonePosition("Ladder04",&pos,&transform);
      exitObj->clearModelConditionState(3*32+0);
      exitObj->rva0028D412(&transform);exitObj->setLayer(LAYER_WALL);
-     AIUpdateInterface *ai=exitObj->ai;TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
+     AIUpdateInterface *ai=exitObj->ai;TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
      if(ai){if(exitObj->getControllingPlayer()->type==1){ai->ignoreObstacle(0);ai->commands()->aiHunt(CMD_FROM_AI);}else ai->commands()->aiIdle(CMD_FROM_AI);}
    }else{
      Coord3D dest;{pos=me->m_cachedPos;Coord3D direction=*me->getUnitDirectionVector2D();
      float radius=me->radius;pos.x+=direction.x*radius;pos.y+=direction.y*radius;
-     pos.z=(TheAI->pathfinder ? TheAI->pathfinder : TheAI->pathfinder)->GetWallHeight(LAYER_WALL,&pos,0);
+     pos.z=(TheAI->m_pathfinder ? TheAI->m_pathfinder : TheAI->m_pathfinder)->GetWallHeight(LAYER_WALL,&pos,0);
      dest=pos;pos.x+=direction.x*20.0f;pos.y+=direction.y*20.0f;
      dest.x+=direction.x*40.0f;dest.y+=direction.y*40.0f;}
      exitObj->teleportTo(&pos,false);exitObj->setOrientation(me->m_cachedAngle);exitObj->setLayer(LAYER_WALL);
-     AIUpdateInterface *ai=exitObj->ai;TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
-     if(ai){ai->ignoreObstacle(0);ai->movementFrame=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;Pathfinder *pathfinder=TheAI->pathfinder;pathfinder->adjustToPossibleDestination(exitObj,ai->set(),&dest);}
+     AIUpdateInterface *ai=exitObj->ai;TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
+     if(ai){ai->ignoreObstacle(0);ai->movementFrame=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;Pathfinder *pathfinder=TheAI->m_pathfinder;pathfinder->adjustToPossibleDestination(exitObj,ai->set(),&dest);}
      {_STL::vector<Coord3D> path;path.push_back(dest);path.push_back(dest);
      if(ai){ai->commands()->rva0036EE16(reinterpret_cast<const Rva0035149F*>(&path),me,CMD_FROM_AI);exitObj->rva0028ACDC((int)&dest);}}
    }

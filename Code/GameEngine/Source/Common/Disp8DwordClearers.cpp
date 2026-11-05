@@ -13,18 +13,11 @@ BFME_DISP8_DWORD_CLEAR(Rva0010034FDwordClearer, 0xC)
 BFME_DISP8_DWORD_CLEAR(Rva0020E34FDwordClearer, 0x8)
 BFME_DISP8_DWORD_CLEAR(Rva0023D2D8DwordClearer, 0x38)
 BFME_DISP8_DWORD_CLEAR(Rva002E0668DwordClearer, 0x44)
-class AI
-{
-public:
-	virtual void init();
-private:
-	char m_lead[0x1C - 4];
-	int m_counter;
-};
+#include "../../Include/GameLogic/AI.h"
 
 void AI::init()
 {
-	m_counter = 0;
+	m_nextGroupID = 0;
 }
 BFME_DISP8_DWORD_CLEAR(Rva0033F9F9DwordClearer, 0x20)
 BFME_DISP8_DWORD_CLEAR(Rva004C12CBDwordClearer, 0x2C)

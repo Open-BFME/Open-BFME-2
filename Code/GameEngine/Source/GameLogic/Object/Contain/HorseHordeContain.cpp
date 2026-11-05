@@ -217,9 +217,7 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
-class AI {public:char pad[0x10];Pathfinder*pathfinder;};
-
-extern AI*TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 
 class TerrainLogic {public:
 virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual float s1C(float,float,int,Coord3D*,bool);
@@ -371,7 +369,7 @@ void HorseHordeContain::_horseUpdatePosition(Object *obj, const Coord3D *destina
                 Object *pathOwner = getObject();
                 int movementType = unitAI->movementType;
                 desired.z = current.z;
-                Pathfinder *pathfinder = TheAI->pathfinder;
+                Pathfinder *pathfinder = TheAI->m_pathfinder;
                 if (pathfinder->IsValidMovementPositionForObject(
                         &desired, obj->rva0028B511(), movementType, pathOwner))
                     desired.z = TheTerrainLogic->s1C(

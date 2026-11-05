@@ -40,9 +40,8 @@ __forceinline int cellInteger(float value)
 #include "../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../GameClient/BuffManager.h"
 #include "../../../Include/GameLogic/AIPathfind.h"
-class AI {public: char pad00[0x10]; Pathfinder *pathfinder10;};
+#include "../../../Include/GameLogic/AI.h"
 class TerrainLogic;
-extern AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
 struct TerrainResourceCellVisitor { virtual void f(int,int); };
 //
@@ -672,7 +671,7 @@ void TerrainResourceManager::updateMapConstantCells()
      point.z=0;
      bool found=false,other=false;
      int type=2;
-     TheAI->pathfinder10->GetCellType((int)&point,&found,&other,&type,1);
+     TheAI->m_pathfinder->GetCellType((int)&point,&found,&other,&type,1);
      if(!found || type==1 || type==7 || type==2 || type==5) {
        Rva0035A18D& cell=cells40[y*width34+x];
        if(cell.state!=1) {

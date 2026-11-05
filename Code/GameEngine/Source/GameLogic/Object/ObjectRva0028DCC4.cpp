@@ -32,9 +32,8 @@ extern LuaScriptEngine *TheLuaScriptEngine;
 extern Rva002A8F24 *TheSkirmishAIManager;
 // The timing-log enable byte (VA 0x00DFE7A8), defined by Rva003B9EC4.cpp.
 extern unsigned char g_00DFE7A8;
-class AIData {public:char pad[0xb9];bool enabled;};
-class AI {public:char pad[0x18];AIData *data;};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 #include "../../../Include/Common/ThingTemplate.h"
 class Object {public:void rva0028DCC4();
  char pad[4];ThingTemplate *type; char pad8[0x64-8];char shroud[8];char partition[4];char collision[4];char pad74[0x454-0x74];bool flag454;char pad455[0x4c4-0x455];PartitionData *partitionData;
@@ -54,7 +53,7 @@ void Object::rva0028DCC4(){
   }
   bool eligible = !(type->m_kindof[0] & (1u<<30));
   if(g_00DFE7A8) eligible=false;
-  if((type->m_kindof[3] & (1u<<13)) && !TheAI->data->enabled)eligible=false;
+  if((type->m_kindof[3] & (1u<<13)) && !TheAI->m_aiData->m_hordesWaitForHordes)eligible=false;
   if(eligible && TheCollisionManager)((Rva00758230*)TheCollisionManager)->rva00758230((Rva009A29A0Window*)collision);
   if(TheLuaScriptEngine)((LuaDrawableState*)TheLuaScriptEngine)->rva00333E5B(this);
   TheSkirmishAIManager->rva002A9365(this);

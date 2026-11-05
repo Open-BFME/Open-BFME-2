@@ -26,12 +26,7 @@ public:
     Object *containedBy;
 };
 #include "../../../../../Include/GameLogic/AIPathfind.h"
-class AI {
-public:
-    char pad000[0x10];
-    Pathfinder *pathfinder;
-};
-extern AI *TheAI;
+#include "../../../../../Include/GameLogic/AI.h"
 extern GameLogic *TheGameLogic;
 class Rva0046AFDEReceiver {
 public:
@@ -44,7 +39,7 @@ bool Rva0046AFDEReceiver::rva0046AFDE(Object *target)
     if (target->m_template->flags109 & 8)
         return true;
     Object *self = owner;
-    Pathfinder *pathfinder = TheAI->pathfinder;
+    Pathfinder *pathfinder = TheAI->m_pathfinder;
     int nearby[16];
     int count = pathfinder->GetOverlapGoalUnits(target, &target->position, nearby);
     for (int i = 0; i < count; ++i) {

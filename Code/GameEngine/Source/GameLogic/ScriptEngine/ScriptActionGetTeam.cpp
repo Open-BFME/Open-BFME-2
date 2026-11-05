@@ -622,8 +622,7 @@ class ScriptTracker {public:void setCurScript(SequentialScript *,bool,int);};
 struct Rva003B3D75AIUpdateView {char unknown[0x3D0]; ScriptTracker tracker;};
 struct Rva003B3D75ObjectView {char unknown[0x258]; Rva003B3D75AIUpdateView *ai;};
 class AIGroup;
-class AI {public:AIGroup *createGroup();};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
 class Rva0036E2A7 {public:void rva0036E2A7(SequentialScript *,int);};
 #include "../../../Include/GameLogic/ScriptAction.h"
 void ScriptAction::rva003B3D75(void *script,void *mode) {

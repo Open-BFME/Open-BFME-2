@@ -71,8 +71,7 @@ class Object {public:
  char opaque44[0x250-0x44]; AdmissionAIView *ai;AdmissionBodyView *body;
 };
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public: char opaque00[0x10];Pathfinder *pathfinder;};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 class OpenContain {public: virtual bool isValidContainerFor(Object*,bool,bool);};
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
@@ -285,9 +284,9 @@ bool HordeGarrisonContain::isValidContainerFor(Object *obj,bool checkCapacity,bo
  if(testPath){
  Object *container=m_object;
  if(container){
-  Pathfinder *finder=TheAI->pathfinder;
+  Pathfinder *finder=TheAI->m_pathfinder;
   if(!finder->QuickDoesPathExist(obj,&obj->position,rva004626AF(),0) &&
-     !TheAI->pathfinder->QuickDoesPathExistToStructure(obj,&obj->position,container,0))return false;
+     !TheAI->m_pathfinder->QuickDoesPathExistToStructure(obj,&obj->position,container,0))return false;
  }}
  AdmissionAIView *ai=obj->ai;
  if(ai && ai->query7C()){

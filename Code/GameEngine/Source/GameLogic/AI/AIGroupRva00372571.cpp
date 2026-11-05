@@ -249,23 +249,8 @@ private:
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
-struct AIData
-{
-	char m_pad[0xBD];
-	bool m_flagBD; // +0xBD
-};
-
-class AI
-{
-public:
-	const AIData *getAiData() const { return m_aiData; }
-
-private:
-	char m_pad[0x18];
-	AIData *m_aiData; // +0x18
-};
-
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 extern GameLogic *TheGameLogic;
 
 // One formation slot: object id at +0x04 and its offset at +0x18.
@@ -526,7 +511,7 @@ void AIGroup::groupMoveToPosition(Rva00372571Params *params, int cmdSource)
 
 	Real numUnits = (Real)size();
 	if (numUnits > 1.0f && !tightenGroup && !params->m_addWaypoint && params->m_target == 0
-		&& cmdSource == CMD_FROM_PLAYER && params->m_formationType == -1 && TheAI->getAiData()->m_flagBD)
+		&& cmdSource == CMD_FROM_PLAYER && params->m_formationType == -1 && TheAI->getAiData()->m_useFormations)
 	{
 		if (((BfmeC986 *)this)->privateGatherAndMoveInFormationToPosition((int)params->m_pos, cmdSource, 0, (int)params->m_ignoreObstacle, 1))
 			return;

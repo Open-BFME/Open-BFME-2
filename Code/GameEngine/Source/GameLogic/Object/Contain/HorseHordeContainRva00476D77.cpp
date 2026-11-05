@@ -40,7 +40,7 @@ __forceinline void clear11C(unsigned mask){if(model11C&mask){model11C &=~mask;rv
 __forceinline void set11C(unsigned mask){if(!(model11C&mask)){model11C|=mask;rva0028AE6D();}}
 };
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char pad[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic*TheTerrainLogic;
 class HorseHordeContain {public:
@@ -83,6 +83,6 @@ void HorseHordeContain::rva00476D77(Object*obj,const Coord3D*destination,float a
   if(unitAI->isMoving())unitAI->rva00262AEA();if(obj->flags10C.test(61)){_ReadWriteBarrier();obj->flags10C.clear(61);obj->rva0028AE6D();}unitAI->setLocomotorGoalNone();moving=true;return;
  }
  Coord3D goal;goal.x=destination->x;goal.y=destination->y;goal.z=destination->z;
- TheAI->pathfinder->rva002EF3EE(obj,&goal,horde,!force);
+ TheAI->m_pathfinder->rva002EF3EE(obj,&goal,horde,!force);
  _horseUpdatePosition(obj,&goal,angle);
 }

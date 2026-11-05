@@ -78,21 +78,8 @@ public:
 
 #include "../../../Include/GameLogic/AIPathfind.h"
 
-struct Rva002CB35CAIData
-{
-	char m_pad000[0xD0];
-	float m_chaseFromBehindLimit;							// +0xD0
-};
-
-class AI
-{
-public:
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;			// +0x10
-	char m_pad14[4];
-	Rva002CB35CAIData *m_data;			// +0x18
-};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 
 #include "../../../Include/GameLogic/WeaponTemplate.h"
 
@@ -162,7 +149,7 @@ bool Weapon::isWithinAttackRange(Object *source, const Coord3D *pos,
 		{
 			if (source->testStatus(OBJECT_STATUS_4B))
 			{
-				float reach = TheAI->m_data->m_chaseFromBehindLimit;
+				float reach = TheAI->m_aiData->m_chaseFromBehindLimit;
 				if (source->rva00263763(victim) < reach * reach)
 					return true;
 			}

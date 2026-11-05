@@ -118,7 +118,7 @@ public:
  LocomotorSet &locomotorSet(){return *(LocomotorSet*)((char*)this+0x1cc);}
 };
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char pad[0x10];Pathfinder *pathfinder;Pathfinder *getPathfinder(){return pathfinder;}};extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 #include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
@@ -184,11 +184,11 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType exitDoor)
   exitObj->setOrientation(exitAngle);
   exitObj->setLayer((PathfindLayerEnum)me->rva0028B511());
   ai=exitObj->ai;
-  TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
+  TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
   if(ai){
    ai->ignoreObstacle(exitObj);
    ai->ignoreCollisionUntil=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;
-   TheAI->getPathfinder()->adjustToPossibleDestination(exitObj,ai->locomotorSet(),&endPosition);
+   TheAI->pathfinder()->adjustToPossibleDestination(exitObj,ai->locomotorSet(),&endPosition);
   }
   }
   _STL::vector<Coord3D> exitPath;
@@ -209,7 +209,7 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType exitDoor)
    startPosition.x=pos->x;
    startPosition.y=pos->y;
    startPosition.z=pos->z;
-   if(TheAI->getPathfinder()->getClosestPointOnLand(pos,me,&startPosition)){
+   if(TheAI->pathfinder()->getClosestPointOnLand(pos,me,&startPosition)){
     ai=exitObj->ai;
     if(ai){
      {
@@ -256,7 +256,7 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType exitDoor)
     }
    }
   }
-  TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
+  TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
  }
 }
 
@@ -300,7 +300,7 @@ void OpenContain::exitObjectInAHurry(Object *exitObj)
   exitPath.push_back(endPosition);
   AIUpdateInterface *ai=exitObj->ai;
   AIUpdateInterface *myAi=me->ai;
-  TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
+  TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
   if(ai){
    if(myAi&&myAi->isIdle()&&(me->thingTemplate[0x109]&2)){
     me->rva0028AD7C();
@@ -308,7 +308,7 @@ void OpenContain::exitObjectInAHurry(Object *exitObj)
    }
    ai->ignoreObstacle(0);
    ai->ignoreCollisionUntil=TheGameLogic->getFrame()+BfmeLogicFramesPerSecond;
-   Pathfinder *pathfinder=TheAI->pathfinder;
+   Pathfinder *pathfinder=TheAI->m_pathfinder;
    pathfinder->adjustToPossibleDestination(exitObj,ai->locomotorSet(),&endPosition);
   }
   exitPath.push_back(endPosition);
@@ -319,7 +319,7 @@ void OpenContain::exitObjectInAHurry(Object *exitObj)
    exitObj->rva0028ACDC((int)&endPosition);
   }
  }else{
-  TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
+  TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
  }
 }
 

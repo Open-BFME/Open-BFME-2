@@ -40,8 +40,7 @@ virtual bool allow(Object *); const void *what; Player *player; bool match;
 };
 extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI { public: char pad[0x10]; Pathfinder *pathfinder; Pathfinder *getPathfinder() { return pathfinder; } };
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 struct Waypoint { char pad[0xC]; Coord3D pos; };
 class TerrainLogic {
 public:
@@ -302,23 +301,23 @@ void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned 
  switch(modData->location) {
  case 0:
   creation=TheTerrainLogic->findClosestEdgePoint(&getObject()->pos);
-  TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
+  TheAI->pathfinder()->AdjustToNearestValidCell(&creation);
   ObjectCreationList::create(ocl,getObject(),&creation,location,0);
   break;
  case 1:
   creation=TheTerrainLogic->findClosestEdgePoint(location);
-  TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
+  TheAI->pathfinder()->AdjustToNearestValidCell(&creation);
   ObjectCreationList::create(ocl,getObject(),&creation,0,0);
   break;
  case 2:
   creation=TheTerrainLogic->findClosestEdgePoint(location);
-  TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
+  TheAI->pathfinder()->AdjustToNearestValidCell(&creation);
   ObjectCreationList::create(ocl,getObject(),&creation,location,0);
   break;
  case 6:
   creation=TheTerrainLogic->findFarthestEdgePoint(location);
   creation.z+=300.0f;
-  TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
+  TheAI->pathfinder()->AdjustToNearestValidCell(&creation);
   ObjectCreationList::create(ocl,getObject(),&creation,location,0);
   break;
  case 3:

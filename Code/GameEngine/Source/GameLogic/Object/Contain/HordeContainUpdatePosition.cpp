@@ -334,13 +334,7 @@ enum EvaEventID { EVA_EVENT_15 = 15 };
 extern Eva *TheEva;
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {
-  public:
-    Pathfinder *getPathfinder() const { return pathfinder; }
-    char pad[0x10];
-    Pathfinder *pathfinder;
-};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 class TerrainLogic {
   public:
     virtual void s00();
@@ -623,7 +617,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
         bool adjusted = false;
         if (iface.s238()) {
             Object *bridge = TheGameLogic->findObjectByID(
-                (ObjectID)(int)TheAI->getPathfinder()->getObstacleID(1, (int)&obj->pos));
+                (ObjectID)(int)TheAI->pathfinder()->getObstacleID(1, (int)&obj->pos));
             if (bridge) {
                 const Coord3D *heading = ((Thing *)owner)->getUnitDirectionVector2D();
                 Coord3D direction;
@@ -672,7 +666,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
     float speed = ((Locomotor *)unitLoco)->getMaxSpeed(obj);
     if (tolerance > speed * 0.2f)
         tolerance = speed * 0.2f;
-    if (distance < 100.0f && TheAI->getPathfinder()->CountOverlapHordeGoalUnits(obj, &goal) > 2) {
+    if (distance < 100.0f && TheAI->pathfinder()->CountOverlapHordeGoalUnits(obj, &goal) > 2) {
         Coord3D candidate;
         candidate.x = old.x;
         candidate.y = old.y;
@@ -702,13 +696,13 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
                     float cost = difference.GetLength2D();
                     if (cost > bestDistance)
                         continue;
-                    int count = TheAI->getPathfinder()->CountOverlapHordeGoalUnits(obj, &test);
+                    int count = TheAI->pathfinder()->CountOverlapHordeGoalUnits(obj, &test);
                     if (count > (int)distance)
                         continue;
                     cost += float(count * 10) * 0.25f;
                     if (cost > bestDistance)
                         continue;
-                    if (!TheAI->getPathfinder()->IsValidObjectMovement(obj, &candidate, &test))
+                    if (!TheAI->pathfinder()->IsValidObjectMovement(obj, &candidate, &test))
                         continue;
                     bestDistance = cost;
                     best = test;
@@ -717,7 +711,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
             if (!found)
                 break;
             candidate = best;
-            if (TheAI->getPathfinder()->rva002EE49B(obj, candidate, goal))
+            if (TheAI->pathfinder()->rva002EE49B(obj, candidate, goal))
                 break;
             Coord3D difference;
             difference.x = candidate.x - old.x;
@@ -736,7 +730,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
         target.z = goal.z;
         if (unitLoco->data->appearance != 8) {
             target.z = old.z;
-            if (TheAI->getPathfinder()->IsValidMovementPositionForObject(
+            if (TheAI->pathfinder()->IsValidMovementPositionForObject(
                     &target, obj->rva0028B511(), unitAI->getMovementType(), getObject()))
                 target.z = TheTerrainLogic->s1C(target.x, target.y, obj->rva0028B511(), 0, true);
         }

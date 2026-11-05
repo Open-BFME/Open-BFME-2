@@ -27,7 +27,7 @@ class Object:public Thing {public:
 static __forceinline void clearCondition(Object*obj,int n){if(obj->conditions.test(n)){obj->conditions.clear(n);obj->rva0028AE6D();}}
 bool Rva002629EACheck(const Thing*,const Thing*);int Rva00264237Check(const Coord3D*,const Coord3D*);
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI{public:char pad[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 extern GameLogic*TheGameLogic;
 class TerrainLogic{public:
  virtual void v0();
@@ -253,7 +253,7 @@ bool AIUpdateInterface::rva0026CF11(Object*other)
   if(obj->testStatus((ObjectStatusTypes)0x46))return false;if(obj->flags438&8)return false;if(((obj->templ->m_kindof[5] & 0x4000000U)!=0))return false;
   if(!isIdle())return false;
   Coord3D safe,old;safe.x=obj->position.x;safe.y=obj->position.y;safe.z=obj->position.z;old.x=safe.x;old.y=safe.y;old.z=safe.z;
-  TheAI->pathfinder->adjustToPossibleDestination(obj,collisionLocomotorSet(),&safe);
+  TheAI->m_pathfinder->adjustToPossibleDestination(obj,collisionLocomotorSet(),&safe);
   if(!(safe==old))command.aiMoveToPosition(&safe,CMD_FROM_AI);
   return false;
  }
@@ -274,7 +274,7 @@ bool AIUpdateInterface::rva0026CF11(Object*other)
  blocked=true;if(blockedFrames==0)blockedFrames=1;
  if(otherMoving&&aiOther->waiting)return false;
  if(blockedFrames%BfmeLogicFramesPerSecond!=obj->id%BfmeLogicFramesPerSecond)return false;
- if(responseID==0){responseID=other->id;TheAI->pathfinder->QueueForCollisionResponsePath((ObjectID)obj->id);}
+ if(responseID==0){responseID=other->id;TheAI->m_pathfinder->QueueForCollisionResponsePath((ObjectID)obj->id);}
  if(blockedFrames>2*BfmeLogicFramesPerSecond+1){blocked=false;blockedFrames=0;ignoreUntil=TheGameLogic->getFrame()+2*BfmeLogicFramesPerSecond;return true;}
  if(!rva002641BA()){clearCondition(obj,0x3d);clearCondition(obj,0x9c);}
  return false;

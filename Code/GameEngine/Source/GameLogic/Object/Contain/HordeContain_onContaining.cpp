@@ -60,7 +60,7 @@ class OpenContain:public ContainModuleInterface {public:virtual void onContainin
 struct Rva0046E6EAObject;struct Rva0046E6EACoord;
 class Rva0046E6EA {public:bool rva0046E6EA(Rva0046E6EAObject*,const Rva0046E6EACoord*,Rva0046E6EACoord*,bool);};
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char p00[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct RvaGlobalData9A6 {char p[0x9a6];bool flag;};
 class RvaTerrain {public:
@@ -402,7 +402,7 @@ void HordeContain::onContaining(Object*object,bool wasSelected){
  float angle=0.0f;
  RvaHordeIface11C*h=reinterpret_cast<RvaHordeIface11C*>(reinterpret_cast<char*>(this)+0x11C);
  Coord3D pos=h->position(object,&angle);
- int layer=(owner?TheAI:TheAI)->pathfinder->GetGroundLayer(&owner->m_cachedPos);
+ int layer=(owner?TheAI:TheAI)->m_pathfinder->GetGroundLayer(&owner->m_cachedPos);
  reinterpret_cast<Rva0046E6EA*>(this)->rva0046E6EA(reinterpret_cast<Rva0046E6EAObject*>(object),reinterpret_cast<const Rva0046E6EACoord*>(&pos),reinterpret_cast<Rva0046E6EACoord*>(owner),false);
  pos.z=reinterpret_cast<RvaTerrain*>(TheTerrainLogic)->height(pos.x,pos.y,layer,0,true);
  object->setPosition(&pos);object->setPosition(&pos);

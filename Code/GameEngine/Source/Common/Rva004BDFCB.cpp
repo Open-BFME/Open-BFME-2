@@ -16,20 +16,8 @@ enum Relationship
 
 #include "../../Include/Common/Player.h"
 
-class AIInner
-{
-public:
-	char m_pad[0xC8];
-	float m_range;
-};
-
-class AI
-{
-public:
-	char m_pad[0x18];
-	AIInner *m_inner;
-};
-extern AI *TheAI;
+#include "../../Include/GameLogic/TAiData.h"
+#include "../../Include/GameLogic/AI.h"
 
 class Obj258Inner
 {
@@ -66,7 +54,7 @@ unsigned char __cdecl Rva004BDFCBTest(const Object *object, const Object *b)
 	if (b->getRelationship(object) != REL_SAME)
 		return false;
 	float dist = object->rva00263763(b);
-	float range = TheAI->m_inner->m_range;
+	float range = TheAI->m_aiData->m_maxRetaliateDistance;
 	float rangeSq = range * range;
 	if (dist > rangeSq)
 		return false;

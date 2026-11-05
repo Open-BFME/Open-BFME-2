@@ -159,26 +159,8 @@ public:
  void SetDebugPath(struct Rva002EDEABArg*);
 };
 
-struct AIData
-{
-	unsigned char m_pad00[0x60];
- Real repulsedDistance;
- char m_pad064[0xB9-0x64];
-	Bool m_fieldB9; // +0xB9
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const AIData *getAiData() { return m_aiData; }
-private:
-	unsigned char m_pad00[0x10];
-	Pathfinder *m_pathfinder; // +0x10
-	unsigned char m_pad14[0x18 - 0x14];
-	const AIData *m_aiData; // +0x18
-};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/TAiData.h"
+#include "../../../../Include/GameLogic/AI.h"
 
 struct TBridgeAttackInfo { Coord3D attackPoint1,attackPoint2; };
 #include "../../../../Include/GameLogic/TerrainLogic.h"
@@ -275,9 +257,9 @@ void AIUpdateInterface::doPathfind(PathfindServicesInterface *services)
   if(repulsor)pos1=*repulsor->getPosition();
   pos2=pos1;repulsor=TheGameLogic->findObjectByID(m_repulsor2);
   if(repulsor)pos2=*repulsor->getPosition();
-  Object *object=m_object;const AIData *aid=TheAI->getAiData();
+  Object *object=m_object;const TAiData *aid=TheAI->getAiData();
   Int extra=(Int)*(const volatile Real*)((const char*)object+0x1ac);
-  m_path=services->findSafePath(object,m_locomotorSet,object->getPosition(),&pos1,&pos2,object->getVisionRange()+aid->repulsedDistance+extra);
+  m_path=services->findSafePath(object,m_locomotorSet,object->getPosition(),&pos1,&pos2,object->getVisionRange()+aid->m_repulsedDistance+extra);
   *(Real*)((char*)m_object+0x1ac)=0.0f;
   TheAI->pathfinder()->rva003E3BFB((ObjectID)0);
   PATH_TRACE("CritterDesync: doPathfind2 -- m_requestedDestination=%g,%g,%g");return;
@@ -315,7 +297,7 @@ void AIUpdateInterface::doPathfind(PathfindServicesInterface *services)
    Bool move=m_path->m_blockedByAlly&&!m_object->getTemplate()->isKindOfByte(3,0x40);
    Object *obj=m_object;const ThingTemplate *thingTemplate=obj->getTemplate();
    UnsignedInt kinds=*(const UnsignedInt*)(thingTemplate->m_kindOf+12);AI *ai=TheAI;
-   if((kinds&0x2000)&&!ai->getAiData()->m_fieldB9)move=false;
+   if((kinds&0x2000)&&!ai->getAiData()->m_hordesWaitForHordes)move=false;
    if(thingTemplate->m_moveAllies||(kinds&0x20000000))move=true;
    if(obj->testStatus(OBJECT_STATUS_39)||obj->testStatus(OBJECT_STATUS_32)||obj->isKindOf(KINDOF_84))move=false;
    if(move){

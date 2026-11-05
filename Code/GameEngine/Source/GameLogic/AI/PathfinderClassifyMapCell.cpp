@@ -83,25 +83,10 @@ public:
 	virtual Bool slot5C(Real x, Real y); // +0x5C
 };
 
-struct Rva0052E11AAiData
-{
-	char m_pad[0x98];
-	Real m_waterDepth; // +0x98
-	Real m_deepWaterDepth; // +0x9C
-};
-
-class AI
-{
-public:
-	const Rva0052E11AAiData *getAiData() const { return m_aiData; }
-
-private:
-	char m_pad[0x18];
-	Rva0052E11AAiData *m_aiData; // +0x18
-};
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 
 extern TerrainLogic *TheTerrainLogic;
-extern AI *TheAI;
 
 enum PathfindLayerEnum {GROUND_LAYER=1};
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
@@ -144,7 +129,7 @@ void Pathfinder::classifyMapCell(Int i, Int j, PathfindCell *cell)
 
 	if (type != CELL_TYPE_CLIFF)
 	{
-		Real waterDepth = TheAI->getAiData()->m_waterDepth;
+		Real waterDepth = TheAI->getAiData()->m_wadeWaterDepth;
 		Real deepWaterDepth = TheAI->getAiData()->m_deepWaterDepth;
 		Real waterZ, terrainZ;
 		Bool underwater;

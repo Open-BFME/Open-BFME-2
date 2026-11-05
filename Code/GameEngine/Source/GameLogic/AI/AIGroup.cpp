@@ -212,25 +212,8 @@ class SimpleObjectIterator
  char m_pad04[0x3C - 0x04];
 };
 #include "../../../Include/GameLogic/AIPathfind.h"
-class AIData;
-class AI
-{
- public:
- unsigned int getNextGroupID() { return ++m_nextGroupID; }
- const AIData *getAiData() const { return m_aiData; }
- Pathfinder *pathfinder() const
- {
-  return m_pathfinder;
- }
- private:
- char m_pad00[0x10];
- Pathfinder *m_pathfinder;
-// +0x10
- char m_pad14[0x18 - 0x14];
- AIData *m_aiData; // +0x18
- unsigned int m_nextGroupID; // +0x1C
-};
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 struct BfmeListNode
@@ -1163,14 +1146,6 @@ class Rva00295A0FCommands
 public:
 	void Rva00295A0FCommand(void *pos, int maxShots, int source);
 	virtual void aiDoCommand(const AICommandParms *parms);
-};
-
-struct AIData
-{
-	char m_pad[0xBA];
-	bool m_flagBA; // +0xBA
-	char m_padBB[2];
-	bool m_flagBD; // +0xBD
 };
 
 class BfmeC986
@@ -3832,8 +3807,8 @@ PHASE2:
 
 void AIGroup::groupAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
 {
-	if ((Real)size() > 1.0f && TheAI->getAiData()->m_flagBA && cmdSource == CMD_FROM_PLAYER
-		&& TheAI->getAiData()->m_flagBD)
+	if ((Real)size() > 1.0f && TheAI->getAiData()->m_attackMoveUsesFormations && cmdSource == CMD_FROM_PLAYER
+		&& TheAI->getAiData()->m_useFormations)
 	{
 		if (((BfmeC986 *)this)->privateGatherAndMoveInFormationToPosition((int)pos, 0, 1, 0, 1))
 			return;

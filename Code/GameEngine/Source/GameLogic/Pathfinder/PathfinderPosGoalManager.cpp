@@ -265,7 +265,7 @@ public:
 private:
     unsigned char pad00[8]; bool m_enabled;
 };
-class AI { public: char pad[16]; Pathfinder *map; }; extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
 class TerrainLogic : public NativeSlots<44> { public: virtual bool slot44(Object *,int)=0; PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *); }; extern TerrainLogic *TheTerrainLogic;
 float __cdecl Rva004DD722Get(int);
 int __cdecl Rva002E9B31Get(void *);
@@ -294,7 +294,7 @@ void PathfinderPosGoalManager::AddObjPtr(Rva004DD843Slot *slot)
  visitor.slot=slot; visitor.category=slot->m_listKind; visitor.object=callbackObject;
  visitor.secondary=0; visitor.layer=slot->m_pathLayer;
  if (!(unsigned char)isGroundOrBridgeLayer(slot->m_pathLayer) && TheTerrainLogic->slot44(callbackObject,slot->m_pathLayer)) visitor.secondary=1;
- TheAI->map->IterateCellsInRectangle((ICoord2DBase *)slot,&diameter,Rva004DD722Get(slot->m_angle),slot->m_pathLayer,&visitor);
+ TheAI->m_pathfinder->IterateCellsInRectangle((ICoord2DBase *)slot,&diameter,Rva004DD722Get(slot->m_angle),slot->m_pathLayer,&visitor);
 }
 
 
@@ -430,7 +430,7 @@ bool PathfinderPosGoalManager::rva004DE2ED()
  if (m_object->m_status & 1)
  {
   int oldLayer=m_object->rva0028B511();
-  Pathfinder *map=TheAI->map;
+  Pathfinder *map=TheAI->m_pathfinder;
   PathfindCell *cell=(PathfindCell *)map->rva001E3647Pos(oldLayer,&m_object->m_position);
   if (!cell) return false;
   int newLayer=cell->getLayer();
@@ -445,7 +445,7 @@ bool PathfinderPosGoalManager::rva004DE2ED()
   if(m_position.m_value!=-666666) RemoveObjPtr(&m_position);
   return false;
  }
- if (!TheAI->map->enabled()) return false;
+ if (!TheAI->m_pathfinder->enabled()) return false;
  AIUpdateInterface *ai=m_object->m_ai;
  if (!ai || !ai->isDoingGroundMovement()) return false;
  if (ai->bfmeSlot138())
@@ -462,7 +462,7 @@ bool PathfinderPosGoalManager::rva004DE2ED()
  Rva004DD843Slot *slot=&m_position;
  if (cell==*(ICoord2DBase *)slot && bin==m_position.m_angle && layer==m_position.m_pathLayer) return false;
  if(slot->m_value!=-666666) RemoveObjPtr(slot);
- if (!TheAI->map->getCell((PathfindLayerEnum)layer,cell.x,cell.y)) return false;
+ if (!TheAI->m_pathfinder->getCell((PathfindLayerEnum)layer,cell.x,cell.y)) return false;
  slot->m_value=cell.x; slot->m_y=cell.y;
  m_position.m_angle=bin; m_position.m_pathLayer=layer; m_position.m_listKind=mode;
  AddObjPtr(slot);

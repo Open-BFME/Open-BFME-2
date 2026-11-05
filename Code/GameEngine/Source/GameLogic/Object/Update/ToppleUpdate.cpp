@@ -39,8 +39,7 @@ class ToppleBits {public:unsigned words[19];
 class ScriptEngine {public:void rva00357340(void *,Coord3D *);};
 extern ScriptEngine *TheScriptEngine;
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char pad[0x10];Pathfinder *pathfinder;};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 class FXList {public:static void doFXObj(const FXList *,const Object *,const Object *);};
 struct CreateMask {unsigned words[4];};
 enum ObjectID;
@@ -236,7 +235,7 @@ void ToppleUpdate::applyTopplingForce(const Coord3D *toppleDirection,float toppl
  if(modules){while(*modules){if((*modules)->getModuleNameKey()==sway)(*modules)->sway=0;++modules;}}
  float currentAngle=normalizeAngle(m_object->angle);
  float toppleAngle=normalizeAngle(atan2(direction.y,direction.x));
- if(toppleUpdateModuleData->leftRight){toppleAngle=angleClosestTo(currentAngle+PI/2,currentAngle-PI/2,toppleAngle);direction.x=Cos(toppleAngle);direction.y=Sin(toppleAngle);TheAI->pathfinder->RemoveObjectFromPathfindMap(m_object);}
+ if(toppleUpdateModuleData->leftRight){toppleAngle=angleClosestTo(currentAngle+PI/2,currentAngle-PI/2,toppleAngle);direction.x=Cos(toppleAngle);direction.y=Sin(toppleAngle);TheAI->m_pathfinder->RemoveObjectFromPathfindMap(m_object);}
  float desiredAngle=angleClosestTo(toppleAngle+PI/2,toppleAngle-PI/2,currentAngle);
  countDelta=REAL_TO_INT_FLOOR(ANGULAR_LIMIT/(velocity*(float)2));
  if(countDelta<1)countDelta=1;

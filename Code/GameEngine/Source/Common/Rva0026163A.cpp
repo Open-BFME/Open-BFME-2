@@ -19,12 +19,7 @@ public:
 
 #include "../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	unsigned char _00[0x10];
-	Pathfinder *m_pathfinder;
-};
+#include "../../Include/GameLogic/AI.h"
 
 class TerrainLogic
 {
@@ -48,7 +43,6 @@ public:
 };
 
 extern TerrainLogic *TheTerrainLogic;
-extern class AI *TheAI;
 
 class Rva0026163A
 {

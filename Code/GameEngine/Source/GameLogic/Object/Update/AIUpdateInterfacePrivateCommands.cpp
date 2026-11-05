@@ -754,28 +754,8 @@ public:
 	unsigned char m_unmodelled_0E[0x28 - 0x0E];
 };
 
-// TheAI's data block at +0x18; privateMoveAwayFromUnit reads a flag at +0xB9
-// before letting a BFME_KINDOF_6D unit push its allies aside. Unnamed.
-struct AIData
-{
-	unsigned char m_unmodelled_00[0xB9];
-	Bool m_bfmeFlagB9;							// +0xB9
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const AIData *getAiData() const { return m_aiData; }
-
-private:
-	unsigned char m_unmodelled_00[0x10];
-	Pathfinder *m_pathfinder;					// +0x10
-	unsigned char m_unmodelled_14[0x18 - 0x14];
-	AIData *m_aiData;							// +0x18
-};
-
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/TAiData.h"
+#include "../../../../Include/GameLogic/AI.h"
 
 
 extern GameLogic *TheGameLogic;
@@ -2387,7 +2367,7 @@ void AIUpdateInterface::privateMoveAwayFromUnit(Object *unit, const Coord3D *pos
 				moveAllies = false;
 			Object *obj = getObject();
 			AI *ai = TheAI;
-			if (obj->isTemplateKindOf(BFME_KINDOF_6D) && !ai->getAiData()->m_bfmeFlagB9)
+			if (obj->isTemplateKindOf(BFME_KINDOF_6D) && !ai->getAiData()->m_hordesWaitForHordes)
 				moveAllies = false;
 			if (obj->m_template->m_bfmeFlag614 || obj->isTemplateKindOf(BFME_KINDOF_7D))
 				moveAllies = true;

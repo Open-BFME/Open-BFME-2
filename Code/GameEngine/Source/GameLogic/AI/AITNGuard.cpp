@@ -340,25 +340,8 @@ struct TnLookupBuckets {
 
 struct TnLookupMap { unsigned char hashEqual[4]; TnLookupBuckets buckets; };
 
-struct TAiData
-{
-public:
-	char m_pad00[0x3C];
-	UnsignedInt m_guardChaseUnitFrames; // +0x3C
-	UnsignedInt m_guardEnemyScanRate; // +0x40
-	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
-};
-
-class AI
-{
-public:
-	const TAiData *getAiData() const { return m_aiData; }
-private:
-	unsigned char m_pad00[0x18];
-	TAiData *m_aiData; // +0x18
-};
-
-extern AI *TheAI;
+#include "../../../Include/GameLogic/TAiData.h"
+#include "../../../Include/GameLogic/AI.h"
 
 class AITNGuardMachine : public StateMachine
 {

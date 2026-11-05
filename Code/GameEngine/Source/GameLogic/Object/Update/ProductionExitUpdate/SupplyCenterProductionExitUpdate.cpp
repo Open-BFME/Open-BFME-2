@@ -132,16 +132,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../../../Include/GameLogic/AIPathfind.h"
 
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-private:
-	char m_unrecovered00[0x10];
-	Pathfinder *m_pathfinder;																									///< 0x10
-};
-
-extern AI *TheAI;
+#include "../../../../../Include/GameLogic/AI.h"
 
 class SupplyCenterProductionExitUpdateModuleData : public ModuleData
 {

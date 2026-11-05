@@ -39,8 +39,7 @@ extern NameKeyGenerator*TheNameKeyGenerator;
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList*ThePlayerList;
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI{public:char prefix[0x10];Pathfinder*pathfinder;};
-extern AI*TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 void CastleBehavior::rva0039A7D6(){
  Object*self=object;if(!self)return;
  {_STL::vector<ObjectID>*vec=&owned50;
@@ -58,7 +57,7 @@ void CastleBehavior::rva0039A7D6(){
  Player*civilian=ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey("PlyrCivilian"));
  if(civilian &&civilian->defaultTeam){self->setTeam(civilian->defaultTeam);self->rva0028BAC0();self->rva0028DCC4();self->rva0028D253();}
  ((Rva0039A270MoveOwner*)this)->rva0039A270Move(self);
- self->rva0028DA28();TheAI->pathfinder->AddObjectToPathfindMap(self);
+ self->rva0028DA28();TheAI->m_pathfinder->AddObjectToPathfindMap(self);
  getObject()->getDrawable()->rva00274176(false);
  if(((LogicLogView*)TheGameLogic)->enabled>0 && theLogicRandomLogFile){
   const char*caller=((StringBase<char>*)&self->getControllingPlayer()->name)->str();int id=self->id;const char*name=((StringBase<char>*)&self->tmplate->name)->str();

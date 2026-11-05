@@ -64,25 +64,8 @@ class LocomotorSet;
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
-class AIData
-{
-public:
-	char m_pad00[0x94];
-	Real m_meleeApproachDistance;
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	const AIData *getAiData() { return m_aiData; }
-private:
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;
-	char m_pad14[0x18 - 0x14];
-	AIData *m_aiData;
-};
-extern class AI *TheAI;
+#include "../../../../Include/GameLogic/TAiData.h"
+#include "../../../../Include/GameLogic/AI.h"
 
 class Path;
 
@@ -261,12 +244,12 @@ Bool AIUpdateInterface::requestMeleeApproachPath(const Coord3D *destination, Boo
 	delta.y = objPos.y - destination->y;
 	delta.z = 0.0f;
 
-	if (!exact && delta.length() > TheAI->getAiData()->m_meleeApproachDistance)
+	if (!exact && delta.length() > TheAI->getAiData()->m_meleeApproachDist)
 	{
 		delta.normalize();
-		const AIData *data = TheAI->getAiData();
-		delta.x *= data->m_meleeApproachDistance;
-		delta.y *= data->m_meleeApproachDistance;
+		const TAiData *data = TheAI->getAiData();
+		delta.x *= data->m_meleeApproachDist;
+		delta.y *= data->m_meleeApproachDist;
 	}
 
 	Coord3D dest = {destination->x, destination->y, destination->z};

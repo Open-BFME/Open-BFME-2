@@ -130,8 +130,7 @@ struct Rva002ED236Pos {
  ~Rva002ED236Pos() {}
 };
 #include "../../../Include/GameLogic/AIPathfind.h"
-class AI { char unknown00[0x10]; Pathfinder *m_pathfinder; public: Pathfinder *getPathfinder() { return m_pathfinder; } };
-extern AI *TheAI;
+#include "../../../Include/GameLogic/AI.h"
 
 
 class Rva001E3591 { public: bool rva001E3591(); };
@@ -304,7 +303,7 @@ void Object::reactToTransformChange(const Matrix3D *oldMtx,const Coord3D *oldPos
 void Object::rva0028B98B() {
  if(pending && cachedFrame+13<=TheGameLogic->getFrame()) {
   Rva002ED236Pos p(position);
-  if(TheAI->getPathfinder()->rva002ED236(this,p)==1) {
+  if(TheAI->pathfinder()->rva002ED236(this,p)==1) {
    cachedFrame=(unsigned int)-1;
    pending=false;
   }
@@ -330,7 +329,7 @@ bool Object::canCrushOrSquishNoAlly(Object *other,int testType) {
   Rva001E3591 *path=update->path;
   if(update->isMoving() && path) pathOk=path->rva001E3591();
  }
- if(!pathOk) pathOk=TheAI->getPathfinder()->QuickDoesPathExist(this,&position,&other->position,0);
+ if(!pathOk) pathOk=TheAI->pathfinder()->QuickDoesPathExist(this,&position,&other->position,0);
  if(!pathOk) return false;
  if(testType==1 || testType==2) { if(other->squishable) return true; }
  if(testType==0 || testType==2) { if(crusherLevel>other->rva0028CE7B()) return true; }
@@ -380,7 +379,7 @@ void Object::tempRemoveObjectFromWorld() {
   }
  }
  TheRadar->removeObject((Rva002D76C6Owner *)this);
- TheAI->getPathfinder()->RemoveObjectFromPathfindMap(this);
+ TheAI->pathfinder()->RemoveObjectFromPathfindMap(this);
  if(theRadarWindowOverrideSource) ((Rva002D37Owner *)theRadarWindowOverrideSource)->rva002D373E((int)this);
  rva0028BAC0(); rva0029004B(); setStatus((ObjectStatusTypes)0x33,true);
 }
@@ -393,7 +392,7 @@ void Object::restoreObjectToWorldInternal() {
  if(!testStatus((ObjectStatusTypes)0x33)) return;
  if(drawable) ((Drawable *)drawable)->setDrawableHidden(false);
  TheRadar->removeObject((Rva002D76C6Owner *)this);
- TheAI->getPathfinder()->AddObjectToPathfindMap(this);
+ TheAI->pathfinder()->AddObjectToPathfindMap(this);
  if(theRadarWindowOverrideSource) ((Rva002D3726 *)theRadarWindowOverrideSource)->rva002D3726((Obj00526309 *)this);
  rva0028DCC4(); rva00290095(); setStatus((ObjectStatusTypes)0x33,false);
 }

@@ -144,8 +144,7 @@ public:
 
 
 #include "../../../../Include/GameLogic/AIPathfind.h"
-class AI {public:char unknown00[0x10];Pathfinder *pathfinder;};
-extern AI *TheAI;
+#include "../../../../Include/GameLogic/AI.h"
 class CitadelSlaughterHordeContain : public SlaughterHordeContain {
 public:virtual bool isValidContainerFor(Object*,bool,bool);
 };
@@ -166,10 +165,10 @@ bool CitadelSlaughterHordeContain::isValidContainerFor(Object *object,bool check
   if (testPath) {
    Object *owner=m_object;
    if (owner) {
-    Pathfinder *pathfinder=TheAI->pathfinder;
+    Pathfinder *pathfinder=TheAI->m_pathfinder;
     const Coord3D *from=object->getPosition();
     if (!pathfinder->QuickDoesPathExist(object,from,rva00479F62(),0)
-        && !TheAI->pathfinder->QuickDoesPathExistToStructure(object,from,owner,0)) return false;
+        && !TheAI->m_pathfinder->QuickDoesPathExistToStructure(object,from,owner,0)) return false;
    }
   }
  }
