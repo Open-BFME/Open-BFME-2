@@ -371,11 +371,6 @@ protected:
 };
 #include "../../../../../Include/GameLogic/Rva00493009.h"
 #include "../../../../../Include/GameLogic/Module/Rva00507823.h"
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int a, unsigned int b, unsigned int c);
-};
 class MovieWindowPlayback
 {
 public:
@@ -856,6 +851,68 @@ class AptCommandMap;
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 #include "../../../../../Include/GameClient/Image.h"
+#define V(n) virtual void slot##n();
+struct IPAndPort{unsigned ip;unsigned short port;IPAndPort(unsigned i,unsigned short p):port(p),ip(i){}};
+struct Rva004FDCE1AsciiField {AsciiString get()const;};
+struct SlotFields {char pad[0x1ac];int profile;};
+struct Rva005BA31F {int rva005BA31F();};
+#include "../../../../../Include/GameClient/AptMessengerOnline.h"
+#undef V
+void AptOnlineQuickMatch::rva005BB5F6(){
+ HandleBuddyResponses();HandlePersistentStorageResponses();
+ if(TheGameSpyGame&&TheGameSpyGame->m_inProgress){
+  if(TheGameSpyInfo->isDisconnectedAfterGameStart(0))return;
+  int allowed=TheGameSpyInfo->getMaxMessagesPerUpdate();bool important=false;PeerResponse r;
+  while(allowed--&&!important&&TheGameSpyPeerMessageQueue->getResponse(r)){
+   AptMessengerOnline::ProcessGameSpyResponse(&r);
+   switch(r.unknown_00){case 1:{important=true;AsciiString reason;reason.format("GUI:GSDisconReason%d",r.payload_word0.value);
+    NameKeyType key=TheNameKeyGenerator->nameToKey("ScoreScreen.wnd:ListboxChatWindowScoreScreen");GameWindow *gameWindow=TheWindowManager->winGetWindowFromId(0,key);
+    if(gameWindow)GadgetListBoxAddEntryText(gameWindow,TheGameText->fetch(reason),GameSpyColor[0],-1);
+    TheGameSpyInfo->markAsDisconnectedAfterGameStart(r.payload_word0.value);
+   }break;}
+  }return;
+ }
+ if(TheNAT){
+  ((Rva005A6D47 *)TheNAT)->rva005A8F57();
+  if(((Rva005BA3AD *)TheNAT)->rva005BA3AD()){TheGameSpyGame->startGame(0);TheGameSpyGame->launchGame();return;}
+  else if((unsigned char)((Rva005BA31F *)TheNAT)->rva005BA31F()){
+   void *memory=TheNAT?((Rva005A6D47 *)TheNAT)->destroy(0):0;operator delete(memory);TheNAT=0;state=3;
+   Rva00437F61(0,TheGameText->fetch("GUI:Error"),TheGameText->fetch("GUI:NATNegotiationFailed"),Rva0023E8D8(bind(reinterpret_cast<FunctorMethod>(&AptOnlineQuickMatch::rva005BA39F),(FunctorTarget *)this)));
+   ((Rva00222A8BTarget*)g_bfmeAptWindowManager)->invoke(movieLevel(),"CallChild",1,"CloseFoundAndReset",0,0,0,0);return;
+  }
+ }
+ int allowed=TheGameSpyInfo->getMaxMessagesPerUpdate();bool important=false;PeerResponse r;
+ while(allowed--&&!important&&TheGameSpyPeerMessageQueue->getResponse(r)){
+  if(!state)AptMessengerOnline::ProcessGameSpyResponse(&r);else Rva00511730(0);
+  switch(r.unknown_00){
+  case 16:{
+   AsciiString nick;PlayerInfoMap::iterator found=TheGameSpyInfo->getPlayerInfoMap()->find(r.unknown_10.c_str());
+   if(found!=TheGameSpyInfo->getPlayerInfoMap()->end())nick=found->second.m_at04;else nick=r.unknown_10.c_str();
+   if(!_strcmpi(r.unknown_e8.c_str(),"STATS")){
+    AsciiString data=r.unknown_f4.c_str();AsciiString idText;data.nextToken(&idText," ");int id=atoi(idText.str());
+    PSPlayerAllStats stats(0);PSPlayerAllStats oldStats=TheGameSpyPSMessageQueue->findPlayerStatsByID(id);stats.setID(id);
+    if(stats.id&&!oldStats.id)TheGameSpyPSMessageQueue->trackPlayerStats(stats);
+    for(int i=0;i<8;++i){GameSlot *slot=TheGameSpyGame->getGameSpySlot(i);if(slot&&slot->isHuman()&&((Rva004FDCE1AsciiField *)slot)->get().compareNoCase(nick)==0){((SlotFields *)slot)->profile=id;break;}}
+   }else{
+    int slot=TheGameSpyGame->getSlotNum(nick);
+    if(slot>=0&&slot<8&&!_strcmpi(r.unknown_e8.c_str(),"NAT")){important=true;if(TheNAT)TheNAT->processGlobalMessage(slot,r.unknown_f4.c_str());}
+   }
+  }break;
+  case 1:{important=true;UnicodeString title,body;AsciiString reason;reason.format("GUI:GSDisconReason%d",r.payload_word0.value);
+   title=TheGameText->fetch("GUI:GSErrorTitle");body=TheGameText->fetch(reason);Rva00548C1ACleanup();GSMessageBoxOk(title,body);
+   TheGameSpyInfo->reset();TheShell->pop();TearDownGameSpy();}break;
+  case 8:{if(r.payload_word0.value==0){UnicodeString s;s.format(L"Created staging room");}else{UnicodeString s;s.format(L"createStagingRoom result: %d",r.payload_word0.value);}}break;
+  case 9:{unsigned char ok=*(unsigned char *)((char *)&r.payload_word0+4);if(ok==1){UnicodeString s;s.format(L"joinStagingRoom result: %d",ok);}else{UnicodeString s;s.format(L"joinStagingRoom result: %d",ok);}}break;
+  case 4:{UnicodeString s;s.format(L"Staging room list callback",r.unknown_10.c_str());}break;
+  case 17:{important=true;switch(r.payload_8a.first){
+   case 4:{UnicodeString s;s.format(TheGameText->fetchPtr("QM:WORKING"),r.payload_8a.second);}break;
+   case 5:{UnicodeString s;s.format(TheGameText->fetchPtr("QM:POOLSIZE"),r.payload_8a.second);}break;
+   case 7:((Rva00222A8BTarget*)g_bfmeAptWindowManager)->invoke(movieLevel(),"CallChild",1,"DoOpenFound",0,0,0,0);OnMatched(r);break;
+  }}break;
+  }
+ }
+}
+
 class MapMetaData;
 
 extern MultiplayerSettings *TheMultiplayerSettings;
@@ -914,6 +971,16 @@ class QuickMatchFunctorTarget : public AptOnline::OnlineQuickMatch, public Quick
 typedef void (QuickMatchFunctorTarget::*QuickMatchCallback)(const char *);
 
 typedef void (QuickMatchFunctorTarget::*QuickMatchInitGadgets)(const char *, void *, GameWindow *);
+
+class Rva003821E2 {public:void assign(UnicodeString);};
+
+class Rva004FDD36AsciiField{public:void setClan(AsciiString);};
+
+class MpGameRules { public: static void GetDefaults(int,void*); };
+
+class Rva005A734B{public:char storage[0x974];Rva005A734B();};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp
 
@@ -1442,18 +1509,6 @@ bool Rva005BB3A1::rva005BB3A1()
 	return true;
 }
 
-// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x005BA94A 225B ?InitGadgets@OnlineQuickMatch@AptOnline@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAA83 32B ?Rva005BAA83Find@@YA?AU?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@U12@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
-
-// tu-skeleton: 0x005BAB0B 115B ??4?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp
 
 //
@@ -1544,9 +1599,69 @@ AptOnline::OnlineQuickMatch::OnlineQuickMatch(AptOnline *owner)
 	}
 }
 
-// tu-skeleton: 0x005BAF35 1132B ?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
+// tu-skeleton: 0x005BA3C0 53B ??1LadderPref@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
 
-// tu-skeleton: 0x005BB5F6 1974B ?rva005BB5F6@AptOnlineQuickMatch@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
+// tu-skeleton: 0x005BA3F5 75B ??0LadderPref@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/LadderPrefCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA803 299B ?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x005BA94A 225B ?InitGadgets@OnlineQuickMatch@AptOnline@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAA83 32B ?Rva005BAA83Find@@YA?AU?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@U12@0ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_find_list_asciistring_rva001fd9c5.cpp (not merged yet)
+
+// tu-skeleton: 0x005BAB0B 115B ??4?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp
+
+// Split from AptOnlineQuickMatchOptions.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+// BF1 donor2f243e26d AptOnlineQuickMatch.cpp rva0055A240 semantic guide.
+// Target5BB5F6..5BBDAC: two response drains, NAT failure prompt, native all-stats1348.
+// Start-request5BBF15..5BC474: ZH WOLQuickMatchMenu buttonStart is the
+// semantic guide; BFME2 WB and native bytes fix the request fields, rank
+// range (one eighth), class offsets, calls, and omitted random-side retry.
+// WB places every member in AptOnlineQuickMatch.cpp and names 0x5BAF35
+// AptOnlineQuickMatch::OnMatched (callgraph lead score 6); the other method
+// names stay address-derived.
+
+// Native5BAF35..5BB3A1 RET4 (1132B): the quick-match "matched" handler the
+// response drain 0x005BB5F6 calls for QM status 7 after DoOpenFound. Semantic
+// guide: BF1 handleMatched (AptOnlineQuickMatch.cpp, donor 2f243e26d); BFME 2
+// adds the game reset, the native rules block, team-mode staging fields
+// +0x1D0/+0x1D4 and the NAT negotiator setup. The local address record uses
+// the connect-info type (its constructor zeroing is dead but sets retail's
+// frame homes for the temporaries and the param-home reuse of the new NAT).
+
+void AptOnlineQuickMatch::OnMatched(PeerResponse &resp){
+ TheGameSpyGame->reset();TheGameSpyGame->enterGame();TheGameSpyGame->setSeed(resp.payload_572.words[3]);
+ {GameSpyStagingRoom *game=TheGameSpyGame;int m=mode;*(bool*)((char*)game+0xff4)=true;*(int*)((char*)game+0xff8)=m;}
+ int rules[10];memset(rules,0xff,sizeof(rules));MpGameRules::GetDefaults(0,rules);rules[0]=0;rules[2]=0;memcpy((char*)TheGameSpyGame+0x60,rules,sizeof(rules));
+ int numPlayers=0;for(int i=0;i<8;++i)if(!resp.unknown_88[i].empty())++numPlayers;
+ _STL::list<AsciiString> maps=TheGameSpyConfig->getQMMaps();
+ for(_STL::list<AsciiString>::const_iterator it=maps.begin();it!=maps.end();++it){AsciiString map=*it;map.toLower();const MapMetaData *md=TheMapCache->findMap(map);if(md&&md->m_numPlayers==numPlayers){TheGameSpyGame->setMap(*it);if(resp.payload_572.words[2]--==0)break;}}
+ int numPerTeam=numPlayers/2;if(!numPerTeam)numPerTeam=1;
+ for(int i=0;i<8;++i){GameSpyGameSlot *slot=TheGameSpyGame->getGameSpySlot(i);
+  if(resp.unknown_88[i].empty())slot->setState(SLOT_CLOSED,UnicodeString::TheEmptyString,&GameSlotConnectInfo());else{
+   AsciiString aName=resp.unknown_88[i].c_str();char baseName[256]="";strncpy(baseName,resp.unknown_88[i].c_str(),255);
+   PlayerInfo player;player.m_at00=resp.unknown_88[i].c_str();player.m_at04=baseName;TheGameSpyInfo->updatePlayerInfo(player,AsciiString::TheEmptyString);
+   UnicodeString uName;uName.translate(baseName);IPAndPort connect(resp.qmStatus.IP[i],resp.qmStatus.ports[i]);
+   slot->setState(SLOT_PLAYER,uName,(const GameSlotConnectInfo*)&connect);slot->m_color=resp.payload_572.words[24+i];slot->setPlayerTemplate(resp.payload_572.words[16+i]);slot->m_field40=resp.payload_572.words[32+i];((Rva004FDD36AsciiField*)slot)->setClan("");slot->m_teamNumber=i/numPerTeam;
+   switch(numPerTeam){case 1:slot->rva1d0=resp.payload_572.words[40+i];slot->rva1d4=-1;break;case 2:slot->rva1d0=-1;slot->rva1d4=resp.payload_572.words[40+i];break;default:slot->rva1d0=-1;slot->rva1d4=-1;}
+   if(i==0)((Rva003821E2*)TheGameSpyGame)->assign(uName);
+  }
+ }
+ SendStatsToOtherPlayers(TheGameSpyGame);matched=true;
+ if(TheNAT){operator delete(((Rva005A6D47 *)TheNAT)->destroy(0));TheNAT=0;}
+ if(TheGameSpyGame->getLocalSlotNum()>=0){TheNAT=(NAT*)new Rva005A734B;GameSlotConnectInfo address;address.ip=TheGameSpyInfo->getInternalIP();address.port=TheGameSpyInfo->getInternalPort();*(unsigned*)((char*)TheGameSpyGame+0x38)=address.ip;*(unsigned*)((char*)TheGameSpyGame+0x3c)=*(const volatile unsigned*)&address.port;
+ unsigned &transportIP=*(unsigned*)((char*)TheGameSpyGame+0x38);((NAT*)TheNAT)->attachSlotList(TheGameSpyGame,TheGameSpyGame->getLocalSlotNum(),transportIP,30000,TheGameSpyGame->getLocalSlotNum()==0);}
+}
+
+// Native5BBDAC..5BBF15 RET4 (361B): quick-match map-selection vector builder.
+// WB1589500 shows the request map-selection walk; BF1 donor rva0055A240 and
+// ZH WOLQuickMatchMenu are the semantic guides. The local view classes below
+// supply the partition predicate and comparator the native call site uses;
+// the loop body holds *m in a named local, which reproduces retail's iterator
+// register roles (EDI first-arg / ESI iterator) exactly.
 
 // tu-skeleton: 0x0079FB21 8B $L5801 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp (not merged yet)
 
@@ -1557,71 +1672,3 @@ AptOnline::OnlineQuickMatch::OnlineQuickMatch(AptOnline *owner)
 // tu-skeleton: 0x0079FBA9 8B $L1416 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x0079FBB1 10B __ehhandler$?rva005BA803@OnlineQuickMatch@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC3B 8B uw_0079fc3b -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC43 8B $L16570 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC4B 8B $L16574 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC53 11B $L14587 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC5E 8B $L16576 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC66 8B $L16578 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC6E 10B $L14594 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FC78 10B __ehhandler$?OnMatched@AptOnlineQuickMatch@@QAEXAAVPeerResponse@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCAC 11B $L16969 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCB7 8B $L16970 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCBF 8B $L14213 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCC7 8B $L16973 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCCF 8B $L16974 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCD7 11B $L16975 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCE2 8B $L17001 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCEA 8B $L17000 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCF2 8B $L16976 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FCFA 8B $L16977 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD02 8B $L16978 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD0A 8B $L16979 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD12 11B $L16980 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD1D 11B $L16981 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD28 8B $L16997 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD30 8B $L16998 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD38 8B $L16995 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD40 8B $L16996 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD48 8B $L16999 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD50 8B $L16988 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD58 8B $L16989 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD60 8B $L16990 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD68 8B $L16991 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD70 8B $L16992 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD78 8B $L16993 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
-
-// tu-skeleton: 0x0079FD80 10B __ehhandler$?rva005BB5F6@AptOnlineQuickMatch@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions_OnMatched.cpp (not merged yet)
