@@ -24,11 +24,11 @@ int g_00E06468;
 
 #include "../../../../GameEngine/Include/GameClient/AptMyHero.h"
 
-// The canonical header keeps the +0x15C vector opaque (field15C); this TU
-// reads it as the STLport vector of 8-byte entries the body indexes.
+// The canonical header retains the constructor's BfmeE8 element spelling.
+// This existing view indexes the same eight-byte records as BfmePod8.
 static __forceinline _STL::vector<BfmePod8> &AptMyHeroObjectInfo(AptMyHero *hero)
 {
-    return *reinterpret_cast<_STL::vector<BfmePod8> *>(hero->field15C);
+    return *reinterpret_cast<_STL::vector<BfmePod8> *>(&hero->field15C);
 }
 
 BfmePod8 *AptMyHero::GetObjectInfo(int idx)

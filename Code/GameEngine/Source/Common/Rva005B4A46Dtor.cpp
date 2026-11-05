@@ -1,3 +1,4 @@
+// stlport
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Native 005B4A46..005B4AD9 (147B): CahAppearance cleanup. Both literals
 // identify its Apt resources; the application class name remains unresolved.

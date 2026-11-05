@@ -1,3 +1,4 @@
+// stlport
 // Target evidence: Ghidra bounds 0x00513988-0x005139AF (40B); the preceding
 // byte is RET and the next Ghidra function starts at 0x005139B0. Retail calls
 // AptMyHero::rva005B1A6C (rowed in AptMyHero.cpp) on the embedded hero at

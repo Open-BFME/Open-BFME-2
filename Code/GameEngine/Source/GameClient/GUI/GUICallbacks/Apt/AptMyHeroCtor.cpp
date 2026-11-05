@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 //
 // ??0AptMyHero@@QAE@PAVAptCreateAHero@@@Z, retail 0x005B12C5..0x005B1748 (1155 bytes, EH,
 // ret 4). The AptMyHero constructor: it installs vftable 0x00872A80 whose
@@ -51,46 +52,15 @@ private:
 	int m_val158; // +0x158
 };
 
+#include "../../../../../Include/GameClient/AptMyHero.h"
+
+// Keep the existing external destructor providers: BfmeE8 at RVA 0x0007FAB3
+// and ObjectCreationList pointers in the existing STLport instantiation.
 namespace _STL
 {
-template <class T> class allocator
-{
-public:
-	allocator() {}
-};
-
-template <class T, class A>
-class _Vector_base
-{
-public:
-	_Vector_base(const A &a);
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-};
-
-template <class T, class A = allocator<T> >
-class vector : public _Vector_base<T, A>
-{
-public:
-	explicit vector(const A &a = A()) : _Vector_base<T, A>(a) {}
-	~vector();
-};
+template <> vector<BfmeE8>::~vector();
+template <> vector<const ObjectCreationList *>::~vector();
 }
-
-struct BfmeE8
-{
-	int a;
-	float b;
-};
-class ObjectCreationList;
-
-struct MyHeroViewRange
-{
-	MyHeroViewRange() : lo(0.0f), hi(0.0f) {}
-	float lo;
-	float hi;
-};
 
 class __single_inheritance AptDelegateTarget;
 typedef void (AptDelegateTarget::*AptDelegateMethod)(void);
@@ -152,34 +122,10 @@ public:
  void rva005B06CE(unsigned, char *, bool);
 };
 
-class AptMyHero : public CreateAHeroData
-{
-public:
-	AptMyHero(AptCreateAHero *holder);
-	virtual ~AptMyHero();
-	virtual void slot14();
-
-
-private:
-	AptCreateAHero *holder140;
-	void *pending144;
-	bool flag148;
-	int field14C;
-	bool field150;
-	bool field151;
-	int availAttribPoints154;
-	int maxAttribPoints158;
-	_STL::vector<BfmeE8> mapObjectInfo15C;
-	MyHeroViewRange range168;
-	int field170;
-	_STL::vector<const ObjectCreationList *> blocks174[2];
-	int field18C;
-};
-
 AptMyHero::AptMyHero(AptCreateAHero *holder)
 	: CreateAHeroData(0, 0, 0, UnicodeString::TheEmptyString, -1, 0xFF707070, -1),
-	  holder140(holder), pending144(0), flag148(false), field14C(0), field150(true), field151(true),
-	  availAttribPoints154(0), maxAttribPoints158(0), field170(1), field18C(0)
+	  field140(holder), field144(0), field148(false), field14C(0), field150(true), field151(true),
+	  field154(0), field158(0), field170(1), field18C(0)
 {
 	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:MyHeroName"), UnicodeString((const unsigned short *)L" "), false);
 	g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:MyHeroClass"), UnicodeString((const unsigned short *)L" "), false);
@@ -192,9 +138,9 @@ AptMyHero::AptMyHero(AptCreateAHero *holder)
 		DelegateDesc curHandler = MakeDelegate(this, &Rva005B0608::rva005B0648);
 		DelegateDesc maxHandler = MakeDelegate(this, &Rva005B0608::rva005B068E);
 		for (; i < 5; ++i) {
-			holder140->m_externHandlers.AddExternHandler(rva005B0A53("Base", i), i, AptRef<AptExternHandler>(baseHandler));
-			holder140->m_externHandlers.AddExternHandler(rva005B0A53("Cur", i), i, AptRef<AptExternHandler>(curHandler));
-			holder140->m_externHandlers.AddExternHandler(rva005B0A53("Max", i), i, AptRef<AptExternHandler>(maxHandler));
+			field140->m_externHandlers.AddExternHandler(rva005B0A53("Base", i), i, AptRef<AptExternHandler>(baseHandler));
+			field140->m_externHandlers.AddExternHandler(rva005B0A53("Cur", i), i, AptRef<AptExternHandler>(curHandler));
+			field140->m_externHandlers.AddExternHandler(rva005B0A53("Max", i), i, AptRef<AptExternHandler>(maxHandler));
 		}
 	}
 	{
@@ -203,20 +149,20 @@ AptMyHero::AptMyHero(AptCreateAHero *holder)
 		for (; i < 7; ++i) {
 			AsciiString name;
 			name.format("MyHero::NumAppearance_%d", i);
-			holder140->m_externHandlers.AddExternHandler(name, i, AptRef<AptExternHandler>(appearanceHandler));
+			field140->m_externHandlers.AddExternHandler(name, i, AptRef<AptExternHandler>(appearanceHandler));
 		}
 	}
 	{
 		AsciiString name("MyHero::MaxAttribute");
-		holder140->m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeDelegate(this, &Rva005B03B4::rva005B03B4)));
+		field140->m_externHandlers.AddExternHandler(name, 0, AptRef<AptExternHandler>(MakeDelegate(this, &Rva005B03B4::rva005B03B4)));
 	}
 	{
 		AsciiString name("MyHero::MaxAwards");
-		holder140->m_externHandlers.AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeDelegate(this, &Rva005B03B4::rva005B03B4)));
+		field140->m_externHandlers.AddExternHandler(name, 1, AptRef<AptExternHandler>(MakeDelegate(this, &Rva005B03B4::rva005B03B4)));
 	}
 	{
 		AsciiString name("MyHero::IsSystemHero");
-		holder140->m_externHandlers.AddExternHandler(name, 2, AptRef<AptExternHandler>(MakeDelegate(this, &Rva005B03B4::rva005B03B4)));
+		field140->m_externHandlers.AddExternHandler(name, 2, AptRef<AptExternHandler>(MakeDelegate(this, &Rva005B03B4::rva005B03B4)));
 	}
 	{
 		unsigned int awards = TheCreateAHeroManager->field1D4;
@@ -226,7 +172,7 @@ AptMyHero::AptMyHero(AptCreateAHero *holder)
 			do {
 				AsciiString name;
 				name.format("MyHero::AwardState_%d", i);
-				holder140->m_externHandlers.AddExternHandler(name, i, AptRef<AptExternHandler>(awardHandler));
+				field140->m_externHandlers.AddExternHandler(name, i, AptRef<AptExternHandler>(awardHandler));
 			} while (++i < awards);
 		}
 	}

@@ -1,3 +1,4 @@
+// stlport
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?ExternFunc@Class@AptCreateAHero@@QAEXHPAD_N@Z @0x005B5485 104B
 // Snprintf "%d" of outer/inner vector counts guarded by buf and flag.

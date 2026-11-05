@@ -1,3 +1,4 @@
+// stlport
 // cl: /O1 /G7 /MD /EHsc /arch:SSE /Ireference/shims/bfme2_ascii
 // Retail 0x005B1019..0x005B1275, 604 bytes, no stack arguments.
 // WB 0x01570850 has this camera refresh inside AptMyHero.cpp; its Vector3
@@ -143,11 +144,11 @@ void AptMyHero::rva005B1019(){
 	Rva005B0473View *firstView=rva005B0473();
 	int firstIndex=firstView->field68;
 	BfmePod8 *info=GetObjectInfo(firstIndex);
-	object->setOrientation(field168+info->b);
+	object->setOrientation(field168.lo+info->b);
 	int b=m_10;
 	int classIndex=m_0c;
 	const MyHeroCameraView2 *view=reinterpret_cast<const MyHeroCameraView2 *>(TheCreateAHeroManager->GetViewInfo(classIndex,b));
-	float interpolationFactor=field16C;
+	float interpolationFactor=field168.hi;
 	const MyHeroCameraPreset *preset=&view->preset18;
 	bool useLerp=true;
 	if(field170){

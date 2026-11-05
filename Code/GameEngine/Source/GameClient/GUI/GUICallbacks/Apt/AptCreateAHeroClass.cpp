@@ -1,3 +1,4 @@
+// stlport
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc /O1 /G7 /arch:SSE
 // WB157C640 names Class::CreateDefaultHeroes; native5B566B..5B576B
 // independently establishes the behavior and offsets. Retain a neutral
