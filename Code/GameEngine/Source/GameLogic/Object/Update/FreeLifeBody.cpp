@@ -31,7 +31,6 @@ class RGBAColorInt;
 class Snapshot;
 class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 //
 // ??0FreeLifeBody@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004C18CA,
 // 86 bytes. Body-side ctor (rowed instance factory 0x251676 news 0x114
@@ -45,35 +44,16 @@ class Object;
 // so the derived ctor stays frameless. Row supersedes the ctor pin.
 
 extern "C" const void *const __identifier("??_7ActiveBody@@6BActiveBodyB1@@@")[];
-
   // folded vftable 0x00C5AD78 (18 classes), by its data-ledger name
 
 extern "C" const void *const __identifier("??_7Rva004C1866@@6BRva004C1866_B2@@@")[];
-
   // vftable 0x00C5BD88
 extern "C" const void *const __identifier("??_7Rva004C1866@@6BRva004C131B@@@")[];
-
   // vftable 0x00C5BE38
 
 class Thing;
-
 class ModuleData;
-
 #include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
-
-class FreeLifeBodyModuleData : public RespawnBodyModuleData
-{
-public:
-	FreeLifeBodyModuleData();
-
-	float m_healthPercent; // +0x6C
-	int m_lifeTime; // +0x70
-	bool m_invincible; // +0x74
-	int m_animAndDuration; // +0x78
-	int m_unused7C; // +0x7C
-	int m_unused80; // +0x80
-	void *m_prerequisite; // +0x84
-};
 
 class RespawnBody
 {
@@ -155,6 +135,25 @@ private:
 	unsigned int m_u110; // +0x110
 };
 
+class FreeLifeBodyModuleData : public RespawnBodyModuleData
+{
+public:
+	FreeLifeBodyModuleData();
+
+	float m_healthPercent; // +0x6C
+	int m_lifeTime; // +0x70
+	bool m_invincible; // +0x74
+	int m_animAndDuration; // +0x78
+	int m_unused7C; // +0x7C
+	int m_unused80; // +0x80
+	void *m_prerequisite; // +0x84
+};
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+extern const void *const g_00C5BC48[];
+
 // tu-skeleton: 0x004C184B 27B ?buildFieldParse@FreeLifeBodyModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x004C1866 25B ??1Rva004C1866@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004C131BDerived.cpp (not merged yet)
@@ -162,6 +161,8 @@ private:
 // tu-skeleton: 0x004C187F 6B ?name@Rva004C187FNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // tu-skeleton: 0x004C1885 69B ?getModuleNameKey@FreeLifeBody@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreeLifeBody.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyCtor.cpp
 
@@ -179,8 +180,6 @@ FreeLifeBody::FreeLifeBody(Thing *thing, const ModuleData *moduleData)
 	m_100 = data->m_invincible;
 	m_104 = data->m_healthPercent;
 }
-
-// tu-skeleton: 0x004C1920 28B ??_GRva004C1866@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004C131BDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyAttemptDamage.cpp
 
@@ -209,9 +208,42 @@ void Rva004C1866::xfer(Xfer *xfer)
 	ImmortalBody::xfer(xfer);
 }
 
+// tu-skeleton: 0x004C1920 28B ??_GRva004C1866@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004C131BDerived.cpp (not merged yet)
+
 // tu-skeleton: 0x004C19DC 351B ?apply@Rva004C19DCOwner@@QAEXMPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyApply.cpp (not merged yet)
 
-// tu-skeleton: 0x004C1B3B 64B ??0FreeLifeBodyModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FreeLifeBodyModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreeLifeBodyModuleDataCtor.cpp
+
+//
+// ??0FreeLifeBodyModuleData@@QAE@XZ, retail 0x004C1B3B, 64 bytes. Frameless
+// ctor over the pinned RespawnUpdate base (0x4C14DF): vtable literal
+// 0x00C5BC48, HealthPercent 0.0f at +0x6C, Time 0 at +0x70, Invincible false
+// at +0x74, AnimAndDuration |= -1 at +0x78 with zeroed spares at +0x7C/+0x80,
+// Prerequisite null at +0x84 (own table 0x0085BD38 all five fields). The
+// base is the canonical RespawnBodyModuleData; the folded table 0x00C5BC48
+// is stored through `this` over the compiler's own vptr store, as the
+// DelayedDeathBodyModuleData sibling ctor does. Scheduling: the early address-take commits the
+// +0x78 block to eax-addressing, so lea hoists with the xor pair above the
+// vtable store while both |= stay in place; the second |= is spelled direct
+// which defeats the CSE that eats a repeated pointer-spelled |=. No barrier
+// needed (a barrier traps the lea below the movs).
+
+// ??0FreeLifeBodyModuleData@@QAE@XZ @0x4C1B3B
+FreeLifeBodyModuleData::FreeLifeBodyModuleData()
+{
+	*(unsigned int *)this = (unsigned int)g_00C5BC48;
+	int *animSlots = &m_animAndDuration;
+	m_healthPercent = 0.0f;
+	m_lifeTime = 0;
+	m_invincible = false;
+	animSlots[0] |= -1;
+	animSlots[1] = 0;
+	animSlots[2] = 0;
+	m_animAndDuration |= -1;
+	m_prerequisite = 0;
+	m_unused7C = 0;
+	m_unused80 = 0;
+}
 
 // tu-skeleton: 0x0078FC59 13B $L2677 -- matched in Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp (not merged yet)
 
