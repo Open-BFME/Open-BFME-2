@@ -727,20 +727,7 @@ class Waypoint
  
 }
 ;
-class TerrainLogic
-{
- public:
-#define V(n) virtual void r##n();
- V(0) V(1) V(2) V(3) V(4) V(5) V(6)
- virtual Real getLayerHeight(Real x, Real y, int layer, Coord3D *normal, Bool clip) const; // +0x1C
- V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18)
- virtual bool s19(float x, float y, float *a, float *b, unsigned char *out); // +0x4C
- V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
- V(30) V(31) V(32) V(33) V(34)
-#undef V
- virtual Waypoint *getWaypointByID(int id); // +0x8C
- PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/AIPathfind.h"
 #include "../../../Include/GameLogic/AIGroup.h"
@@ -1278,12 +1265,12 @@ void Locomotor::rva001E9083(Object *obj, const Coord3D *goalPos, Real onPathDist
 	{
 		Coord3D pos;
 		CoordCopy(&pos, obj->getPosition());
-		Real height = TheTerrainLogic->getLayerHeight(pos.x, pos.y, obj->rva0028B511(), NULL, true);
+		Real height = TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)obj->rva0028B511(), NULL, true);
 		Coord3D dir;
 		CoordCopy(&dir, obj->getUnitDirectionVector2D());
 		CoordScale(&dir, desiredSpeed < 7.0f ? desiredSpeed : 7.0f);
 		CoordAdd(&pos, &dir);
-		Real nextHeight = TheTerrainLogic->getLayerHeight(pos.x, pos.y, obj->rva0028B511(), NULL, true);
+		Real nextHeight = TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)obj->rva0028B511(), NULL, true);
 		Real bias = (height - nextHeight + 0.1f < 0.0f) ? 0.0f : height - nextHeight + 0.1f;
 		PathfindLayerEnum layer = TheTerrainLogic->getLayerForDestination(obj, &pos);
 		ObjectID wallID = (ObjectID)(int)TheAI->pathfinder()->getObstacleID(layer, (int)&pos);
@@ -1346,7 +1333,7 @@ void Locomotor::rva001E9083(Object *obj, const Coord3D *goalPos, Real onPathDist
 		}
 		else
 		{
-			Real groundHeight = TheTerrainLogic->getLayerHeight(pos.x, pos.y, obj->rva0028B511(), NULL, true);
+			Real groundHeight = TheTerrainLogic->getLayerHeight(pos.x, pos.y, (PathfindLayerEnum)obj->rva0028B511(), NULL, true);
 			if (pos.z > groundHeight + bias)
 			{
 				CoordSub(&pos, &dir);

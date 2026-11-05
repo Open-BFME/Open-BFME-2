@@ -35,7 +35,7 @@ template<>class RainSlots<0>{};
 // The camera-position global at DFEA3C is the tactical View, as in the reference.
 class View:public RainSlots<70>{public:virtual void rvaSlot70(Coord3D *)=0;};
 extern View *TheTacticalView;
-class TerrainLogic:public RainSlots<7>{public:virtual float rvaSlot7(float,float,PathfindLayerEnum,Coord3D *,bool)=0;PathfindLayerEnum getHighestLayerForDestination(const Coord3D *,bool);};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Display
 {
@@ -212,7 +212,7 @@ UpdateSleepTime RainOfFireUpdate::update() {
     }
     Coord3D targetPosition;targetPosition.z=launchPosition.z;targetPosition.x=launchPosition.x+rainOfFireUpdateModuleData->offset.x;targetPosition.y=launchPosition.y+rainOfFireUpdateModuleData->offset.y;
     PathfindLayerEnum layer=TheTerrainLogic->getHighestLayerForDestination(&targetPosition,false);
-    targetPosition.z=TheTerrainLogic->rvaSlot7(targetPosition.x,targetPosition.y,layer,0,true);
+    targetPosition.z=TheTerrainLogic->getLayerHeight(targetPosition.x,targetPosition.y,layer,0,true);
     Vector3 firingDirection=Vector3(targetPosition.x,targetPosition.y,targetPosition.z)-Vector3(launchPosition.x,launchPosition.y,launchPosition.z);firingDirection.Normalize();
     Matrix3D transform;transform.buildTransformMatrix(Vector3(launchPosition.x,launchPosition.y,launchPosition.z),firingDirection);
     emitterObject->setTransformMatrix(&transform);weapon->loadAmmoNow(emitterObject);weapon->fireWeapon(emitterObject,&targetPosition,0);

@@ -37,25 +37,9 @@ struct HeightHolder
 
 extern GlobalData *TheWritableGlobalData;
 
-struct Extents
-{
-	Coord3D m_min;
-	Coord3D m_max;
-};
+#include "../../../../../../Libraries/Include/Lib/Region3D.h"
 
-class TerrainLogic
-{
-public:
-	virtual void s0();
-	virtual void s1();
-	virtual void s2();
-	virtual void s3();
-	virtual void s4();
-	virtual void s5();
-	virtual void s6();
-	virtual void s7();
-	virtual void getExtents(Extents *out);
-};
+#include "../../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
@@ -95,18 +79,18 @@ void AIUpdateInterface::setGoalPositionClipped(const Coord3D *pos, float range, 
 					}
 				}
 			}
-			Extents mapRegion;
-			TheTerrainLogic->getExtents(&mapRegion);
-			float loX = mapRegion.m_min.x + fudge;
+			Region3D mapRegion;
+			TheTerrainLogic->getExtent(&mapRegion);
+			float loX = mapRegion.lo.x + fudge;
 			if (loX > local.x)
 				local.x = loX;
-			float hiX = mapRegion.m_max.x - fudge;
+			float hiX = mapRegion.hi.x - fudge;
 			if (local.x > hiX)
 				local.x = hiX;
-			float loY = mapRegion.m_min.y + fudge;
+			float loY = mapRegion.lo.y + fudge;
 			if (loY > local.y)
 				local.y = loY;
-			float hiY = mapRegion.m_max.y - fudge;
+			float hiY = mapRegion.hi.y - fudge;
 			if (local.y > hiY)
 				local.y = hiY;
 			m_machine->setGoalPosition(&local, range);

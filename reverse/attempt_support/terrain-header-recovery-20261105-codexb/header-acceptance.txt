@@ -1,0 +1,9 @@
+  PASS Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Rva002CB967LOS.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
+  PASS Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp
+  retired 8 row(s) from reverse/header_queue.tsv; commit it with the adoption

@@ -1,0 +1,37 @@
+{
+  "preparation_record": ".git/runner-prepare.json",
+  "backup_ref": "refs/runner/preparation/1793871049135509725",
+  "stash": "8c18d6d6dff956acfb1dea4b09f22e0310f19fc2",
+  "inspected_head": "70d173d45a8007f9f76889de0b0854bdfbd623f0",
+  "upstream_equivalent_commits": {
+    "e7bd5f2476d3614f79fe6091a4a03c2f33b3aff0": "c97c04febd",
+    "979f7694182a1ad4ec91c8395b462497fee7fa7e": "2c5fe6e7f5",
+    "de2c5ce97ee8a64787a3bf88a93abbff3b6ab4b1": "8472db95e7"
+  },
+  "verified_and_accepted": [
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva002CB967LOS.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp"
+  ],
+  "deferred_due_to_other_worker_claim": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00474842.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainUpdatePosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainScatter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSnapshotLoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCollisionResponse.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceNotifyPathHasInvalidPortals.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp"
+  ],
+  "saved_patch_sha256": "d592f60a7df60974d252cbce7f1f663eee19018b9d9795d3074513833803968e",
+  "saved_untracked_files": []
+}

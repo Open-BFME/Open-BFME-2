@@ -131,15 +131,7 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/GlobalData.h"
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
-class TerrainLogic
-{
-public:
-#define TERRAIN_SLOT(n) virtual void slot##n();
-	TERRAIN_SLOT(00) TERRAIN_SLOT(01) TERRAIN_SLOT(02) TERRAIN_SLOT(03)
-	TERRAIN_SLOT(04) TERRAIN_SLOT(05) TERRAIN_SLOT(06)
-#undef TERRAIN_SLOT
-	virtual Real getLayerHeight(Real x, Real y, Int layer, Coord3D *normal, Bool clip); // slot 0x1C
-};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class ModuleData;
 class DamageInfo;
@@ -332,7 +324,7 @@ UpdateSleepTime RubbleRiseUpdate::update()
 #line 171
 		m_nextBurstFrame = now + GameLogicRandomValue(rubbleRiseUpdateModuleData->m_minBurstDelay, rubbleRiseUpdateModuleData->m_maxBurstDelay);
 		m_riseVelocity = -TheGlobalData->m_gravity * (1.0 - rubbleRiseUpdateModuleData->m_rubbleRiseDamping) * 20.0;
-		m_rubbleHeight = TheTerrainLogic->getLayerHeight(obj->getPosition()->x, obj->getPosition()->y, obj->rva0028B511(), 0, true);
+		m_rubbleHeight = TheTerrainLogic->getLayerHeight(obj->getPosition()->x, obj->getPosition()->y, (PathfindLayerEnum)obj->rva0028B511(), 0, true);
 		m_currentHeight = 0;
 		m_risePosition = *pos;
 	}

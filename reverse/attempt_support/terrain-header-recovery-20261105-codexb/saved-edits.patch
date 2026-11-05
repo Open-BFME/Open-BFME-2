@@ -1,0 +1,484 @@
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00474842.cpp b/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00474842.cpp
+index 1dcef262cd..be50ea76f0 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00474842.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00474842.cpp
+@@ -242,20 +242,7 @@ class Rva001E42F2
+ }
+ ;
+ #include "../../../Common/Thing/thing.h"
+-class TerrainLogic 
+-{
+- public:
+- virtual void unused0();
+- virtual void unused1();
+- virtual void unused2();
+- virtual void unused3();
+- virtual void unused4();
+- virtual void unused5();
+- virtual void unused6();
+- virtual float height(float,float,int,bool*,bool);
+- 
+-}
+-;
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ class Rva00469012 
+ {
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainUpdatePosition.cpp b/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainUpdatePosition.cpp
+index d16b745a39..f33e49ad38 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainUpdatePosition.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainUpdatePosition.cpp
+@@ -341,17 +341,7 @@ class AI {
+     Pathfinder *pathfinder;
+ };
+ extern AI *TheAI;
+-class TerrainLogic {
+-  public:
+-    virtual void s00();
+-    virtual void s04();
+-    virtual void s08();
+-    virtual void s0C();
+-    virtual void s10();
+-    virtual void s14();
+-    virtual float s18(float, float, bool);
+-    virtual float s1C(float, float, int, Coord3D *, bool);
+-};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ class Rva0046ACF6 {
+   public:
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp b/Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp
+index 5383359ea7..c01bcb6935 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContain.cpp
+@@ -221,9 +221,7 @@ class AI {public:char pad[0x10];Pathfinder*pathfinder;};
+ 
+ extern AI*TheAI;
+ 
+-class TerrainLogic {public:
+-virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual float s1C(float,float,int,Coord3D*,bool);
+-};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ 
+ extern TerrainLogic*TheTerrainLogic;
+ 
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainScatter.cpp b/Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainScatter.cpp
+index ae516cd399..4818e66f39 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainScatter.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainScatter.cpp
+@@ -29,9 +29,7 @@ struct Rva00464B96Mask { unsigned words[4]; bool test(int i) const { return (wor
+ class Rva00464B96Status : public Rva00464B96Slots<44> {
+ public: virtual Rva00464B96Mask status(int);
+ };
+-class TerrainLogic : public Rva00464B96Slots<7> {
+-public: virtual float height(float, float, int, int, int);
+-};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ struct Rva00464B96Object {
+     char unknown00[0x38];
+diff --git a/Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp b/Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp
+index 0bb8743924..0e98c301a3 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp
+@@ -727,20 +727,7 @@ class Waypoint
+  
+ }
+ ;
+-class TerrainLogic
+-{
+- public:
+-#define V(n) virtual void r##n();
+- V(0) V(1) V(2) V(3) V(4) V(5) V(6)
+- virtual Real getLayerHeight(Real x, Real y, int layer, Coord3D *normal, Bool clip) const; // +0x1C
+- V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18)
+- virtual bool s19(float x, float y, float *a, float *b, unsigned char *out); // +0x4C
+- V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+- V(30) V(31) V(32) V(33) V(34)
+-#undef V
+- virtual Waypoint *getWaypointByID(int id); // +0x8C
+- PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
+-};
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ #include "../../../Include/GameLogic/AIPathfind.h"
+ #include "../../../Include/GameLogic/AIGroup.h"
+diff --git a/Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp b/Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp
+index 1fac820ecd..b15b14bded 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp
+@@ -142,12 +142,7 @@ struct LocoStealthView
+  
+ }
+ ;
+-class TerrainLogic
+-{
+- public:PathfindLayerEnum getHighestLayerForDestination(const Coord3D*,bool);
+- 
+-}
+-;
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic*TheTerrainLogic;
+ class LocoTerrainView:public LocoSlots<6>
+ {
+diff --git a/Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp b/Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp
+index b17c888e07..6565086cd7 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp
+@@ -20,22 +20,7 @@ enum PathfindLayerEnum
+ 
+ class Object;
+ 
+-class TerrainLogic
+-{
+-public:
+-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
+-	virtual void vslot04(); virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
+-	virtual void vslot08(); virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
+-	virtual void vslot12(); virtual void vslot13(); virtual void vslot14(); virtual void vslot15();
+-	virtual void vslot16(); virtual void vslot17(); virtual void vslot18(); virtual void vslot19();
+-	virtual void vslot20(); virtual void vslot21(); virtual void vslot22(); virtual void vslot23();
+-	virtual void vslot24(); virtual void vslot25(); virtual void vslot26(); virtual void vslot27();
+-	virtual void vslot28(); virtual void vslot29(); virtual void vslot30(); virtual void vslot31();
+-	virtual void vslot32(); virtual void vslot33(); virtual void vslot34(); virtual void vslot35();
+-	virtual void vslot36(); virtual void vslot37(); virtual void vslot38(); virtual void vslot39();
+-	virtual void vslot40(); virtual void vslot41(); virtual void vslot42();
+-	virtual Bool vslot43(Object *obj, int layer, Bool flag);
+-};
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ 
+ // The object at Object+0xA4 (see ObjectRvaSmallGetters.cpp).
+diff --git a/Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp b/Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp
+index b5e1017cd6..49bcc33456 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp
+@@ -105,12 +105,7 @@ struct ObjectTransformRegion {
+  Coord3D lo, hi;
+  bool contains(const Coord3D *p) const { return p->x > lo.x && p->x < hi.x && p->y > lo.y && p->y < hi.y; }
+ };
+-class TerrainLogic {
+-public:
+- virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
+- virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1c();
+- virtual void getExtent(ObjectTransformRegion *);
+-};
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ bool isPosDifferent(const Coord3D *,const Coord3D *);
+ bool isAngleDifferent(float,float);
+diff --git a/Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp b/Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp
+index 1a50d80301..ce59f8be08 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp
+@@ -41,12 +41,7 @@ template <> class Rva00291EB1Slots<0>
+ {
+ };
+ 
+-class TerrainLogic : public Rva00291EB1Slots<7>
+-{
+-public:
+-	virtual Real getLayerHeight(Real x, Real y, Int layer, Coord3D *normal, Bool clip);	// slot 7
+-	void rva00285193(Object *obj);	// 0x00285193
+-};
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ 
+ #include "../../../Include/GameLogic/ScriptEngine.h"
+diff --git a/Code/GameEngine/Source/GameLogic/Object/ObjectSnapshotLoadPostProcess.cpp b/Code/GameEngine/Source/GameLogic/Object/ObjectSnapshotLoadPostProcess.cpp
+index d9ea5eae84..21fefc7174 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/ObjectSnapshotLoadPostProcess.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/ObjectSnapshotLoadPostProcess.cpp
+@@ -49,14 +49,7 @@ void _STLP_alloc_proxy<_List_node<CameraMarker>*,_List_node<CameraMarker>,alloca
+ }
+ 
+ namespace _STL {template<> __declspec(noinline) void _Base_bitset<32>::_M_do_or(const _Base_bitset<32>&);}
+-class TerrainLogic{public:
+-virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
+-virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+-virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+-virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+-virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38();
+-virtual void*slot39(const AsciiString&);
+-};
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic*TheTerrainLogic;
+ class WeaponSet{public:void updateWeaponSet(const Object*);};
+ #include "../../../Include/GameLogic/AIPathfind.h"
+diff --git a/Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp b/Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp
+index 4dda86eb17..de83fae374 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/PartitionManagerRva003BD116.cpp
+@@ -10,18 +10,7 @@ class Object;
+ #include "object.h"
+ #include "../../../Include/GameLogic/ScriptEngine.h"
+ extern class ScriptEngine *TheScriptEngine;
+-class TerrainLogic
+-{
+-public:
+-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03(); virtual void s04();
+-	virtual void s05(); virtual void s06(); virtual void s07(); virtual void s08(); virtual void s09();
+-	virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14();
+-	virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+-	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24();
+-	virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29();
+-	virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33();
+-	virtual void *s34(void *p);
+-};
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ 
+ void ScriptActions::Rva003BD116Set(Parameter *parameter, void *p2)
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Rva002CB967LOS.cpp b/Code/GameEngine/Source/GameLogic/Object/Rva002CB967LOS.cpp
+index 65a851b519..ea453995d9 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Rva002CB967LOS.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Rva002CB967LOS.cpp
+@@ -12,26 +12,7 @@ class Object;
+ 
+ #include "../../../../Libraries/Include/Lib/Coord3D.h"
+ 
+-class TerrainLogic
+-{
+-public:
+-	virtual void slot00();
+-	virtual void slot01();
+-	virtual void slot02();
+-	virtual void slot03();
+-	virtual void slot04();
+-	virtual void slot05();
+-	virtual void slot06();
+-	virtual void slot07();
+-	virtual void slot08();
+-	virtual void slot09();
+-	virtual void slot10();
+-	virtual void slot11();
+-	virtual void slot12();
+-	virtual void slot13();
+-	virtual void slot14();
+-	virtual void slot15(void *a, void *b);
+-};
++#include "../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ 
+ #include "../../../Include/GameLogic/Weapon.h"
+diff --git a/Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp b/Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
+index f362efa850..3e4df10a86 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp
+@@ -43,14 +43,7 @@ extern PartitionManager *ThePartitionManager;
+ class AI { public: char pad[0x10]; Pathfinder *pathfinder; Pathfinder *getPathfinder() { return pathfinder; } };
+ extern AI *TheAI;
+ struct Waypoint { char pad[0xC]; Coord3D pos; };
+-class TerrainLogic {
+-public:
+-virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();virtual void s18();virtual void s1C();virtual void s20();virtual void s24();virtual void s28();virtual void s2C();virtual void s30();
+-virtual Coord3D findClosestEdgePoint(const Coord3D *);
+-virtual Coord3D findFarthestEdgePoint(const Coord3D *);
+-virtual void s3C();virtual void s40();virtual void s44();virtual void s48();virtual void s4C();virtual void s50();virtual void s54();virtual void s58();virtual void s5C();virtual void s60();virtual void s64();virtual void s68();virtual void s6C();virtual void s70();virtual void s74();virtual void s78();virtual void s7C();virtual void s80();virtual void s84();
+-virtual Waypoint *getWaypoint(const AsciiString &);
+-};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ struct OCLData { char pad[0x8C]; int location; _STL::vector<AsciiString> upgrades; ObjectFilter filter; };
+ #include "../../../../Include/Common/Module.h"
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp
+index 079f65378c..ad60c2426b 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp
+@@ -43,19 +43,7 @@ struct Extents
+ 	Coord3D m_max;
+ };
+ 
+-class TerrainLogic
+-{
+-public:
+-	virtual void s0();
+-	virtual void s1();
+-	virtual void s2();
+-	virtual void s3();
+-	virtual void s4();
+-	virtual void s5();
+-	virtual void s6();
+-	virtual void s7();
+-	virtual void getExtents(Extents *out);
+-};
++#include "../../../../../Include/GameLogic/TerrainLogic.h"
+ 
+ extern TerrainLogic *TheTerrainLogic;
+ 
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCollisionResponse.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCollisionResponse.cpp
+index e0787fbe16..b114ff5e95 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCollisionResponse.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceCollisionResponse.cpp
+@@ -29,59 +29,8 @@ bool Rva002629EACheck(const Thing*,const Thing*);int Rva00264237Check(const Coor
+ #include "../../../../Include/GameLogic/AIPathfind.h"
+ class AI{public:char pad[0x10];Pathfinder*pathfinder;};extern AI*TheAI;
+ extern GameLogic*TheGameLogic;
+-class TerrainLogic{public:
+- virtual void v0();
+- virtual void v1();
+- virtual void v2();
+- virtual void v3();
+- virtual void v4();
+- virtual void v5();
+- virtual void v6();
+- virtual void v7();
+- virtual void v8();
+- virtual void v9();
+- virtual void v10();
+- virtual void v11();
+- virtual void v12();
+- virtual void v13();
+- virtual void v14();
+- virtual void v15();
+- virtual void v16();
+- virtual void v17();
+- virtual void v18();
+- virtual void v19();
+- virtual void v20();
+- virtual void v21();
+- virtual void v22();
+- virtual void v23();
+- virtual void v24();
+- virtual void v25();
+- virtual void v26();
+- virtual void v27();
+- virtual void v28();
+- virtual void v29();
+- virtual void v30();
+- virtual void v31();
+- virtual void v32();
+- virtual void v33();
+- virtual void v34();
+- virtual void v35();
+- virtual void v36();
+- virtual void v37();
+- virtual void v38();
+- virtual void v39();
+- virtual void v40();
+- virtual void v41();
+- virtual void v42();
+- virtual void v43();
+- virtual void v44();
+- virtual void v45();
+- virtual void v46();
+- virtual void v47();
+- virtual void v48();
+- virtual void v49();
+- virtual bool isUnderwater(const Coord3D*);
+-};extern TerrainLogic*TheTerrainLogic;extern int BfmeLogicFramesPerSecond;
++#include "../../../../Include/GameLogic/TerrainLogic.h"
++extern TerrainLogic*TheTerrainLogic;extern int BfmeLogicFramesPerSecond;
+ class State{public:char pad[4];int id;};class Machine{public:char pad[4];State*state;int getID()const{return state?state->id:999999;}};
+ class AICommandInterface{public:void aiMoveToPosition(const Coord3D*,CommandSourceType);char pad[0x10];};
+ class AIUpdateInterface{public:
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceNotifyPathHasInvalidPortals.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceNotifyPathHasInvalidPortals.cpp
+index 90e6f8c238..1bb62757a1 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceNotifyPathHasInvalidPortals.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceNotifyPathHasInvalidPortals.cpp
+@@ -59,7 +59,7 @@ class Rva001E3511 {public:int rva001E3511();};
+ template<int N> class NotifySlots:public NotifySlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class NotifySlots<0>{};
+ struct BfmeE12 { float x, y, z; }; // 12B element-agnostic swap stand-in; swap touches only header pointers
+ class NotifyHorde:public NotifySlots<135>{public:virtual void slot135(_STL::vector<ObjectID>*,_STL::vector<ObjectID>*,_STL::vector<ObjectID>*)=0;};
+-class TerrainLogic:public NotifySlots<35>{public:virtual void *slot35(int)=0;PathfindLayerEnum getLayerForDestination(Object*,const Coord3D*);};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ class Rva0028B525DwordSlot {public:void set(int);};
+ extern TerrainLogic*TheTerrainLogic;extern GameLogic*TheGameLogic;
+ class AIUpdateInterface {public:void destroyPath();void NotifyPathHasInvalidPortals();char pad0[8];Object*owner;char padC[0x140-0xc];Path*path;char pad144[0x1f0-0x144];Rva0008BB38FloatField*loco;};
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp
+index 36216f3e65..90f4b12767 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp
+@@ -337,38 +337,7 @@ static __forceinline void clearModelConditionBit(Object *me, unsigned int mc)
+ 	}
+ }
+ 
+-class TerrainLogic
+-{
+-public:
+-	virtual void v00();
+-	virtual void v01();
+-	virtual void v02();
+-	virtual void v03();
+-	virtual void v04();
+-	virtual void v05();
+-	virtual void v06();
+-	virtual void v07();
+-	virtual void v08();
+-	virtual void v09();
+-	virtual void v10();
+-	virtual void v11();
+-	virtual void v12();
+-	virtual void v13();
+-	virtual void v14();
+-	virtual void v15();
+-	virtual void v16();
+-	virtual void v17();
+-	virtual void v18();
+-	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = 0, Real *terrainZ = 0, Int unused = 0);
+-	virtual void v20();
+-	virtual void v21();
+-	virtual void v22();
+-	virtual void v23();
+-	virtual void v24();
+-	// Water depth at (x, y): waterZ - terrainZ when isUnderwater, else 0
+-	// (W3DTerrainLogic slot 25, row 0x0027D815).
+-	virtual Real Rva0027D815(Real x, Real y);
+-};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ 
+ extern TerrainLogic *TheTerrainLogic;
+ 
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp
+index efd8e3a856..c917ba3319 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp
+@@ -76,13 +76,7 @@ private:
+ #include "../object.h"
+ 
+ 
+-class TerrainLogic
+-{
+-public:
+-	virtual void slot00(); virtual void slot01(); virtual void slot02();
+-	virtual void slot03(); virtual void slot04(); virtual void slot05();
+-	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) const; // +0x18
+-};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ // MSVC 7.1 represents this single-inheritance member pointer as one code
+ // address. Retail's primary vtable slot is that same four-byte code address;
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
+index 95cfec3753..305cc71e29 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
+@@ -35,7 +35,7 @@ template<>class RainSlots<0>{};
+ // The camera-position global at DFEA3C is the tactical View, as in the reference.
+ class View:public RainSlots<70>{public:virtual void rvaSlot70(Coord3D *)=0;};
+ extern View *TheTacticalView;
+-class TerrainLogic:public RainSlots<7>{public:virtual float rvaSlot7(float,float,PathfindLayerEnum,Coord3D *,bool)=0;PathfindLayerEnum getHighestLayerForDestination(const Coord3D *,bool);};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ class Display
+ {
+diff --git a/Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp b/Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp
+index 48f86ef53a..ca7bca2246 100644
+--- a/Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp
++++ b/Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp
+@@ -131,15 +131,7 @@ extern GameLogic *TheGameLogic;
+ #include "../../../../Include/Common/GlobalData.h"
+ extern GlobalData *TheWritableGlobalData;
+ #define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
+-class TerrainLogic
+-{
+-public:
+-#define TERRAIN_SLOT(n) virtual void slot##n();
+-	TERRAIN_SLOT(00) TERRAIN_SLOT(01) TERRAIN_SLOT(02) TERRAIN_SLOT(03)
+-	TERRAIN_SLOT(04) TERRAIN_SLOT(05) TERRAIN_SLOT(06)
+-#undef TERRAIN_SLOT
+-	virtual Real getLayerHeight(Real x, Real y, Int layer, Coord3D *normal, Bool clip); // slot 0x1C
+-};
++#include "../../../../Include/GameLogic/TerrainLogic.h"
+ extern TerrainLogic *TheTerrainLogic;
+ class ModuleData;
+ class DamageInfo;

@@ -1,0 +1,11 @@
+Source claims: OK (8 sources, scoped byte-verified)
+Funclet pins: 9 row(s) verified past a renumbered $L label
+    Unwind@00b6a07e (Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp): $L10975 was renumbered; verified parent EH data places $L17161 at 0x0076A07E
+    Unwind@00b6a090 (Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp): $L11194 was renumbered; verified parent EH data places $L17434 at 0x0076A090
+    Unwind@00b6a098 (Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp): $L11195 was renumbered; verified parent EH data places $L17435 at 0x0076A098
+    Unwind@00b744d6 (Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp): $L2320 was renumbered; verified parent EH data places $L9653 at 0x007744D6
+    Unwind@00b744de (Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp): $L2321 was renumbered; verified parent EH data places $L9654 at 0x007744DE
+Functions: OK 47/47 matched across 8 source file(s)
+String-ref verify: OK (12 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (58 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

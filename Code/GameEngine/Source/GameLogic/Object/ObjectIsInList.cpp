@@ -20,22 +20,7 @@ enum PathfindLayerEnum
 
 class Object;
 
-class TerrainLogic
-{
-public:
-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02(); virtual void vslot03();
-	virtual void vslot04(); virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
-	virtual void vslot08(); virtual void vslot09(); virtual void vslot10(); virtual void vslot11();
-	virtual void vslot12(); virtual void vslot13(); virtual void vslot14(); virtual void vslot15();
-	virtual void vslot16(); virtual void vslot17(); virtual void vslot18(); virtual void vslot19();
-	virtual void vslot20(); virtual void vslot21(); virtual void vslot22(); virtual void vslot23();
-	virtual void vslot24(); virtual void vslot25(); virtual void vslot26(); virtual void vslot27();
-	virtual void vslot28(); virtual void vslot29(); virtual void vslot30(); virtual void vslot31();
-	virtual void vslot32(); virtual void vslot33(); virtual void vslot34(); virtual void vslot35();
-	virtual void vslot36(); virtual void vslot37(); virtual void vslot38(); virtual void vslot39();
-	virtual void vslot40(); virtual void vslot41(); virtual void vslot42();
-	virtual Bool vslot43(Object *obj, int layer, Bool flag);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 // The object at Object+0xA4 (see ObjectRvaSmallGetters.cpp).
@@ -95,7 +80,7 @@ void Object::setLayer(PathfindLayerEnum layer)
 	if (layer != m_layer)
 	{
 		if (m_layer != LAYER_GROUND)
-			TheTerrainLogic->vslot43(this, m_layer, true);
+			TheTerrainLogic->objectInteractsWithBridgeLayer(this, m_layer, true);
 		m_layer = layer;
 		if (m_a4)
 			m_a4->rva004DE2ED();

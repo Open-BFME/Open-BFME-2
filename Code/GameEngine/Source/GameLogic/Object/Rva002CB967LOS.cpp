@@ -5,33 +5,13 @@
 // refines it through landed Weapon::getFiringLineOfSightOrigin, assigns a
 // second Coord3D from landed Weapon::bfmeGetLOSVictimPos(arg0, arg1, 0),
 // then calls TheTerrainLogic virtual slot 15 with (&origin, &victim).
-// Weapon/Coord3D/TerrainLogic are minimal TU-local views for call
-// resolution (numbered-slot idiom for TerrainLogic); exact function
-// identity unproven, honest address-derived method name.
+// Calls use the canonical Weapon, Coord3D and TerrainLogic headers.
+// The enclosing function identity remains unproven and address-derived.
 class Object;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class TerrainLogic
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15(void *a, void *b);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../Include/GameLogic/Weapon.h"
@@ -44,5 +24,5 @@ void Weapon::rva002CB967(const Object *object, const Object *b)
 	getFiringLineOfSightOrigin(object, origin);
 	Coord3D victim;
 	victim = bfmeGetLOSVictimPos(object, b, 0);
-	TheTerrainLogic->slot15(&origin, &victim);
+	TheTerrainLogic->isClearLineOfSight(origin, victim);
 }

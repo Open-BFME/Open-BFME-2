@@ -41,12 +41,7 @@ template <> class Rva00291EB1Slots<0>
 {
 };
 
-class TerrainLogic : public Rva00291EB1Slots<7>
-{
-public:
-	virtual Real getLayerHeight(Real x, Real y, Int layer, Coord3D *normal, Bool clip);	// slot 7
-	void rva00285193(Object *obj);	// 0x00285193
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
@@ -221,7 +216,7 @@ void Object::setTriggerAreaFlagsForChangeInPosition()
 				Coord3DView pt;
 				pt.x = cos(angle) * getTemplate()->rva00291EB1SampleRadius() + getPosition()->x;
 				pt.y = sin(angle) * getTemplate()->rva00291EB1SampleRadius() + getPosition()->y;
-				m_averageGroundHeight += TheTerrainLogic->getLayerHeight(pt.x, pt.y, m_40C, 0, true);
+				m_averageGroundHeight += TheTerrainLogic->getLayerHeight(pt.x, pt.y, (PathfindLayerEnum)m_40C, 0, true);
 			}
 			m_averageGroundHeight /= getTemplate()->m_heightSampleCount;
 		}
