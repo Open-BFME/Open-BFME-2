@@ -7,8 +7,9 @@
 // class spellings. A named slot alone does not establish the complete owner.
 // See docs/reconstruction/deleting-destructor-identity-audit.md.
 //
-// These minimal declarations emit the wrappers, not complete class layouts.
-// No bases, member layout, or destructor implementation are claimed here.
+// Most minimal declarations emit only wrappers, not complete class layouts.
+// CaveContainModuleData uses its canonical base so its table has all 31 slots.
+// The other declarations claim no bases, member layout or destructor implementation.
 // The noinline empty destructor is an unmatched compilation scaffold; the
 // verified wrapper call resolves to the retail destructor through its pin.
 
@@ -18,6 +19,7 @@
 // declared here; the tag constructor (no retail counterpart) makes this TU
 // emit the vtable and with it the deleting destructor.
 struct EmitVtableTag;
+#include "../../../../Include/GameLogic/Module/OpenContainModuleData.h"
 class HordeGarrisonContainModuleData { public: HordeGarrisonContainModuleData(EmitVtableTag *); virtual ~HordeGarrisonContainModuleData(); };
 // ?<HordeGarrisonContainModuleData::HordeGarrisonContainModuleData> absent-from-retail
 HordeGarrisonContainModuleData::HordeGarrisonContainModuleData(EmitVtableTag *) {}
@@ -102,6 +104,13 @@ GarrisonContainModuleData::GarrisonContainModuleData(EmitVtableTag *) {}
 
 // ??_GCaveContainModuleData@@UAEPAXI@Z @0x002576F3 28B: slot 0 of vtable 0x00C43F40; calls ??1 at 0x0025770F.
 // Owner evidence: vtable 0x00C43F40 installed by ctor 0x00466D37 (rowed ??0CaveContainModuleData); ModuleFactory pairs CaveContain with data factory 0x00257714; dtor 0x0025770F is a 5B jmp to the OpenContainModuleData dtor 0x00257481 (rowed).
-class CaveContainModuleData { public: CaveContainModuleData(EmitVtableTag *); virtual ~CaveContainModuleData(); };
+class CaveContainModuleData : public OpenContainModuleData
+{
+public:
+    CaveContainModuleData(EmitVtableTag *);
+    virtual ~CaveContainModuleData();
+private:
+    int m_caveIndexData; // +0x98, as in the retail constructor and field parser
+};
 // ?<CaveContainModuleData::CaveContainModuleData> absent-from-retail
 CaveContainModuleData::CaveContainModuleData(EmitVtableTag *) {}
