@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva0006B76C@BaseHeightMapRenderObjClass@@QAEXPBVRva0055A88BDwordField@@VAsciiString@@@Z @0x0006B76C 83B
 // Wrapper over 0x000E5EE5: loads Rva000E5EE5* from this+0x3860 and forwards
 // (id, by-value AsciiString name) if non-null. Same shape as sibling 0x0006B7BF
@@ -20,17 +20,15 @@ public:
 	void rva000E5EE5(const Rva0055A88BDwordField *idSrc, AsciiString name);
 };
 
-class BaseHeightMapRenderObjClass
-{
-private:
-	char m_pad[0x3860];
-	Rva000E5EE5 *m_3860;
-public:
-	void rva0006B76C(const Rva0055A88BDwordField *id, AsciiString name);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h"
+
+// Use the canonical RefCountClass instead of the donor refcount.h.
+#define REFCOUNT_H
+
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 void BaseHeightMapRenderObjClass::rva0006B76C(const Rva0055A88BDwordField *id, AsciiString name)
 {
-	if (m_3860 != 0)
-		m_3860->rva000E5EE5(id, name);
+	if (field3860 != 0)
+		static_cast<Rva000E5EE5 *>(field3860)->rva000E5EE5(id, name);
 }
