@@ -150,6 +150,17 @@ template <> AsciiString *__uninitialized_copy(const AsciiString*, const AsciiStr
 template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
 }
 
+namespace _STL { template <> void _Construct<BfmeVectorRecord0002154F3, BfmeVectorRecord0002154F3>(BfmeVectorRecord0002154F3 *, const BfmeVectorRecord0002154F3 &); }
+
+// Bind to the kept retail copy instead of emitting this unit's own.
+namespace _STL { template <> BfmeVectorRecord0002154F3 * vector<BfmeVectorRecord0002154F3,allocator<BfmeVectorRecord0002154F3> >::erase(BfmeVectorRecord0002154F3 *,BfmeVectorRecord0002154F3 *); }
+
+typedef BfmeVectorRecord0002154F3 Record;
+
+typedef _STL::vector<Record, _STL::allocator<Record> > RecordVector;
+
+// ---- from Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp
 
 template void _STL::vector<BfmeVectorRecord0002154F3>::reserve(unsigned int);
@@ -289,10 +300,6 @@ template <> _STL::vector<BfmeVectorRecord0002154F3, _STL::allocator<BfmeVectorRe
 	return first;
 }
 
-// tu-skeleton: 0x002154BE 53B ??1BfmeVectorRecord0002154F3@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x002154F3 61B ??0BfmeVectorRecord0002154F3@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00215696AssignTwin.cpp
 
 //
@@ -308,35 +315,46 @@ Rva00215696Element &Rva00215696Element::operator=(const Rva00215696Element &o)
     return *this;
 }
 
-// tu-skeleton: 0x00215551 47B ??$__copy_backward@PAUBfmeVectorRecord0002154F3@@PAU1@H@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp
 
-// tu-skeleton: 0x00215580 28B ??_GBfmeVectorRecord0002154F3@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
+// BFME2's 16-byte BfmeVectorRecord0002154F3 vector allocation/copy helper at RVA 0x215614.
+// Uses the shared ascii_string.h so the emitted ??_GAsciiString copy calls
+// releaseBuffer like the kept WOLBuddyOverlay copy. operator= is declared only
+// so this TU does not emit the shallow implicit copy (kept deep copy lives in
+// StringVectorRecordCopyBFME2.cpp).
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+// The rowed placement-copy provider owns the constructor and its EH graph.
+
+template RecordVector::~vector();
+
+template void RecordVector::push_back(const Record &);
+
+template void RecordVector::_M_insert_overflow(Record *, const Record &, const _STL::__false_type &, unsigned int, bool);
+
+template void RecordVector::_M_clear();
+
+template Record *RecordVector::_M_allocate_and_copy(unsigned int, const Record *, const Record *);
+
+template void _STL::fill(Record *, Record *, const Record &);
+
+template Record *_STL::__copy_backward(Record *, Record *, Record *, const _STL::random_access_iterator_tag &, int *);
+
+template Record *_STL::__uninitialized_fill_n(Record *, unsigned int, const Record &, const _STL::__false_type &);
+
+template void _STL::_Destroy(Record *);
+
+template Record *_STL::__copy(Record *, Record *, Record *, const _STL::random_access_iterator_tag &, int *);
+
+// 0x0021567B calls the fill above through the out-of-line uninitialized_fill_n wrapper
+// (three arguments plus the __false_type tag at [ebp-1]).
+template Record *_STL::uninitialized_fill_n(Record *, unsigned int, const Record &);
+
+// tu-skeleton: 0x002154F3 61B ??0BfmeVectorRecord0002154F3@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x0021559C 45B ??$_Construct@UBfmeVectorRecord0002154F3@@U1@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
 
-// tu-skeleton: 0x002155C9 38B ??$__uninitialized_copy@PBUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x002155EF 37B ??$__uninitialized_fill_n@PAUBfmeVectorRecord0002154F3@@IU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00215614 45B ??$_M_allocate_and_copy@PBUBfmeVectorRecord0002154F3@@@?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord0002154F3@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0021565E 29B ??$fill@PAUBfmeVectorRecord0002154F3@@U1@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@0ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0021567B 27B ??$uninitialized_fill_n@PAUBfmeVectorRecord0002154F3@@IU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@IABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x002156C5 9B ??$_Destroy@UBfmeVectorRecord0002154F3@@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00215783 25B ??$_Destroy@PAUBfmeVectorRecord0002154F3@@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0021579C 63B ??1?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0021580E 30B ?_M_clear@?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00215895 180B ?_M_insert_overflow@?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@IAEXPAUBfmeVectorRecord0002154F3@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
 // tu-skeleton: 0x00215949 264B ?_M_fill_insert@?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@QAEXPAUBfmeVectorRecord0002154F3@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00215949.cpp (not merged yet)
-
-// tu-skeleton: 0x00215A51 55B ?push_back@?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@QAEXABUBfmeVectorRecord0002154F3@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00215A88 5B ?insert@?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@QAEXPAUBfmeVectorRecord0002154F3@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
@@ -353,10 +371,6 @@ Rva00215696Element &Rva00215696Element::operator=(const Rva00215696Element &o)
 // tu-skeleton: 0x0076E15C 10B __ehhandler$??$_Construct@UBfmeVectorRecord0002154F3@@U1@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E180 11B uw_0076e180 -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E195 8B $L6077 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E19D 10B __ehhandler$??1?$vector@UBfmeVectorRecord0002154F3@@V?$allocator@UBfmeVectorRecord0002154F3@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E1A7 8B $L4683 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00215949.cpp (not merged yet)
 
