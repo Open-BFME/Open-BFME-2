@@ -35,19 +35,19 @@ class AIGateUpdate { public: static Module *friend_newModuleInstance(Thing *,con
 class AIGateUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AISpecialPowerUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AISpecialPowerUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class AIUpdateInterface { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 class AODCrushCollide { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AODCrushCollideModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AODHordeContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AODHordeContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ActivateModuleSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ActivateModuleSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class ActiveBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class ActiveBodyModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/ActiveBody.h"
+#include "../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 class AimWeaponBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AimWeaponBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AllowBannerSpawnUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class AnimalAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/AnimalAIUpdate.h"
 class AnimalAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AnimatedParticleSysBoneClientUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AnimationSoundClientBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -63,14 +63,14 @@ class AssistedTargetingUpdate { public: static Module *friend_newModuleInstance(
 class AssistedTargetingUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AttachUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AttachUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class AttributeModifierAuraUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class AttributeModifierAuraUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class AttributeModifierPoolUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/AttributeModifierAuraUpdate.h"
+#include "../../../Include/GameLogic/Module/AttributeModifierAuraUpdateModuleData.h"
+#include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class AttributeModifierUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AttributeModifierUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AudioLoopUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AudioLoopUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class AutoAbilityBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/AutoAbilityBehavior.h"
 class AutoAbilityBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class AutoDepositUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class AutoDepositUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
@@ -107,13 +107,13 @@ class BuildingBehaviorModuleData { public: static ModuleData *friend_newModuleDa
 class CallHelpOnDamage { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CallHelpOnDamageModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CashHackSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class CashHackSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/CashHackSpecialPowerModuleData.h"
 class CastleBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CastleBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CastleMemberBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CastleMemberBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CastleUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class CastleUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/CastleUpgradeModuleData.h"
 class CaveContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CaveContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CitadelSlaughterHordeContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -150,7 +150,7 @@ class CritterEmitterUpdateModuleData { public: static ModuleData *friend_newModu
 class CrushDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class CrushDieModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class CurseSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class CurseSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/CurseSpecialPowerModuleData.h"
 class DamageFieldUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DamageFieldUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DamageFilteredCreateObjectDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -164,7 +164,7 @@ class DefectorSpecialPowerModuleData { public: static ModuleData *friend_newModu
 class DeflectSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DeflectSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DelayedDeathBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class DelayedDeathBodyModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/DelayedDeathBodyModuleData.h"
 class DelayedLuaEventUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DelayedLuaEventUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DelayedUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -174,7 +174,7 @@ class DeletionUpdate { public: static Module *friend_newModuleInstance(Thing *,c
 class DeletionUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DemoTrapUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DemoTrapUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class DeployStyleAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/DeployStyleAIUpdateClass.h"
 class DeployStyleAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DestroyDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
 class DestroyEnvironmentUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -188,7 +188,7 @@ class DevastateSpecialPowerModuleData { public: static ModuleData *friend_newMod
 class DoCommandUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DoCommandUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DominateEnemySpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class DominateEnemySpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/DominateEnemySpecialPowerModuleData.h"
 class DozerAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class DozerAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class DualWeaponBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -199,7 +199,7 @@ class DynamicShroudClearingRangeUpdate { public: static Module *friend_newModule
 class DynamicShroudClearingRangeUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ElvenWoodSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ElvenWoodSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class EmotionTrackerUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/EmotionTrackerUpdate.h"
 class EmotionTrackerUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class EnragedBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class EnragedBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
@@ -227,7 +227,7 @@ class FireSpreadUpdateModuleData { public: static ModuleData *friend_newModuleDa
 class FireWeaponCollide { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class FireWeaponCollideModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class FireWeaponUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class FireWeaponUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/FireWeaponUpdateModuleData.h"
 class FireWeaponWhenDamagedBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class FireWeaponWhenDamagedBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class FireWeaponWhenDeadBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -246,16 +246,16 @@ class FreeLifeBodyModuleData { public: static ModuleData *friend_newModuleData(I
 class FreezingRainSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class FreezingRainSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GarrisonContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class GarrisonContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 class GarrisonUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GateOpenAndCloseBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class GateOpenAndCloseBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/GateOpenAndCloseBehaviorModuleData.h"
 class GateProxyBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GateProxyBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GeometryUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GeometryUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GettingBuiltBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class GettingBuiltBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/GettingBuiltBehaviorModuleData.h"
 class GiantBirdAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GiantBirdAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GiantBirdSlowDeathBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -263,7 +263,7 @@ class GiantBirdSlowDeathBehaviorModuleData { public: static ModuleData *friend_n
 class GiveOrRestoreUpgradeSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GiveOrRestoreUpgradeSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GiveUpgradeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class GiveUpgradeUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
 class GloriousChargeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class GloriousChargeUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class GrabPassengerSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -283,13 +283,13 @@ class HijackerUpdate { public: static Module *friend_newModuleInstance(Thing *,c
 class HijackerUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class HitReactionBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HitReactionBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class HordeAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/HordeAIUpdate.h"
 class HordeContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HordeContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class HordeDispatchSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HordeDispatchSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class HordeGarrisonContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class HordeGarrisonContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
 class HordeMemberCollide { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HordeNotifyTargetsOfImminentProbableCrushingUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class HordeSiegeEngineContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -322,7 +322,7 @@ class LevelGrantSpecialPower { public: static Module *friend_newModuleInstance(T
 class LevelGrantSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class LevelUpUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class LevelUpUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class LifetimeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/LifetimeUpdateClass.h"
 class LockWeaponCreate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class LockWeaponCreateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class LocomotorSetUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -360,7 +360,7 @@ class ObjectCreationUpgrade { public: static Module *friend_newModuleInstance(Th
 class ObjectCreationUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class OilSpillUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class OilSpillUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class OneRingPenaltyUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/OneRingPenaltyUpdate.h"
 class OneRingPenaltyUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class OpenContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
 class PartTheHeavensUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -386,7 +386,7 @@ class ProductionQueueHordeContain { public: static Module *friend_newModuleInsta
 class ProductionQueueHordeContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ProductionSpeedBonus { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ProductionSpeedBonusModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class ProductionUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/ProductionUpdateClass.h"
 class ProductionUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class ProjectileStreamUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ProneUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -409,7 +409,7 @@ class RampageBehavior { public: static Module *friend_newModuleInstance(Thing *,
 class RampageBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RandomSoundSelectorClientBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class RandomSoundSelectorClientBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class RebuildHoleBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 class RebuildHoleBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RebuildHoleExposeDie { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class RebuildHoleExposeDieModuleData { public: static ModuleData *friend_newModuleData(INI *); };
@@ -430,8 +430,8 @@ class ReplaceSelfUpgradeModuleData { public: static ModuleData *friend_newModule
 class ReplenishUnitsBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class ReplenishUnitsBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RespawnBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class RespawnBodyModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class RespawnUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
+#include "../../../Include/GameLogic/Module/RespawnUpdate.h"
 class RespawnUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class RiderChangeContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class RiderChangeContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
@@ -469,17 +469,17 @@ class SlaveWatcherBehaviorModuleData { public: static ModuleData *friend_newModu
 class SlavedUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SlavedUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SlowDeathBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class SlowDeathBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/SlowDeathBehaviorModuleData.h"
 class SpawnBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class SpawnBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/SpawnBehaviorModuleData.h"
 class SpawnPointProductionExitUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpawnPointProductionExitUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SpawnUnitBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpawnUnitBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SpawnedModelConditionCreate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpawnedModelConditionCreateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class SpecialAbilityUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class SpecialAbilityUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+#include "../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 class SpecialDisguiseUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpecialDisguiseUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SpecialEnemySenseUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -488,13 +488,13 @@ class SpecialPowerCompletionDie { public: static Module *friend_newModuleInstanc
 class SpecialPowerCompletionDieModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SpecialPowerCreate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpecialPowerModule { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class SpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 class SpecialPowerTimerRefreshSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpellRechargeModifierUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SpellRechargeModifierUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class SplitHordeSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class SquishCollide { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); static ModuleData *friend_newModuleData(INI *); };
-class StancesBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/StancesBehavior.h"
 class StancesBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class StatusBitsUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StatusBitsUpgradeIfEldestKindof { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -502,18 +502,18 @@ class StatusBitsUpgradeIfEldestKindofModuleData { public: static ModuleData *fri
 class StatusBitsUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class StealthDetectorUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StealthDetectorUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class StealthUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/StealthUpdate.h"
 class StealthUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class StealthUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StopSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StopSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class StoreObjectsSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class StoreObjectsSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/StoreObjectsSpecialPowerModuleData.h"
 class StrafeAreaUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StrafeAreaUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class StructureBody { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StructureBodyModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class StructureCollapseUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/StructureCollapseUpdateClass.h"
 class StructureCollapseUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class StructureToppleUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class StructureToppleUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
@@ -538,7 +538,7 @@ class TaintSpecialPowerModuleData { public: static ModuleData *friend_newModuleD
 class TeleportSpecialAbilityUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class TeleportSpecialAbilityUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class TeleportToCasterSpecialPower { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class TeleportToCasterSpecialPowerModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/TeleportToCasterSpecialPowerModuleData.h"
 class TemporarilyDefectUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class TemporarilyDefectUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class TerrainResourceBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -554,14 +554,14 @@ class ToggleMountedSpecialAbilityUpdate { public: static Module *friend_newModul
 class ToggleMountedSpecialAbilityUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class TooltipUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class TooltipUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class ToppleUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/ToppleUpdateClass.h"
 class ToppleUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class TransitionDamageFX { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class TransitionDamageFXModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class TransportAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class TransportAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/TransportAIUpdateClass.h"
+#include "../../../Include/GameLogic/Module/TransportAIUpdateModuleData.h"
 class TransportContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class TransportContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/TransportContainModuleData.h"
 class TunnelContain { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class TunnelContainModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class UnitCrateCollide { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -581,7 +581,7 @@ class VeterancyCrateCollideModuleData { public: static ModuleData *friend_newMod
 class W3DDebrisDraw { public: static ModuleData *friend_newModuleData(INI *); };
 class WallHubBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class WallHubBehaviorModuleData { public: static ModuleData *friend_newModuleData(INI *); };
-class WallUpgradeUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
+#include "../../../Include/GameLogic/Module/WallUpgradeUpdate.h"
 class WanderAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class WanderAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class WargBehavior { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
@@ -595,7 +595,7 @@ class WeaponModeSpecialPowerUpdateModuleData { public: static ModuleData *friend
 class WeaponSetSpecialAbilityUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class WeaponSetSpecialAbilityUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class WeaponSetUpgrade { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
-class WeaponSetUpgradeModuleData { public: static ModuleData *friend_newModuleData(INI *); };
+#include "../../../Include/GameLogic/Module/WeaponSetUpgradeModuleData.h"
 class WorkerAIUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
 class WorkerAIUpdateModuleData { public: static ModuleData *friend_newModuleData(INI *); };
 class WoundArrowUpdate { public: static Module *friend_newModuleInstance(Thing *,const ModuleData *); };
