@@ -82,22 +82,14 @@ class RGBAColorReal;
 class RGBAColorInt;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
-
 extern GameLogic *TheGameLogic;
-
 class ModuleData;
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
-
-
-
 class DockUpdateInterface
 {
 public:
@@ -118,7 +110,6 @@ public:
 	virtual bool isDockOpen() = 0;
 	virtual void setDockOpen(bool open) = 0;
 };
-
 class DockUpdate : public UpdateModule, public DockUpdateInterface
 {
 protected:
@@ -131,7 +122,6 @@ protected:
 	virtual void xfer(Xfer *xfer);
 	unsigned char m_pad24[0x88 - 0x24];
 };
-
 class MonsterDockUpdate : public DockUpdate
 {
 protected:
@@ -150,14 +140,12 @@ private:
  bool m_actionStarted; // +0x89
  int m_actionEnd; // +0x8C
 };
-
 // The ZH DockUpdateInterface::action contract and repair/delivery actions are
 // semantic ancestors. The Monster implementation is BFME-specific: native
 // 4A1659..4A17C1, its ctor-installed C51D18 slot12, and xfer of 89/8C prove
 // the wait state. Target bits clear305 and replace82->83 before the wait;
 // completion teleports through the dock bone, resets bits81..84 and unhides.
 class MonsterDockUpdateModuleData { public: char m_pad00[0x14]; unsigned int m_actionFrames; };
-
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
@@ -167,6 +155,8 @@ class Rva001E42F2 {public: void rva001E42F2(const int *);};
 // tu-skeleton: 0x004A137F 27B ?buildFieldParse@MonsterDockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x004A139A 70B ??0MonsterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDockSlots.cpp
 
@@ -270,7 +260,30 @@ bool MonsterDockUpdate::action(Object *docker,Object *)
 
 // tu-skeleton: 0x004A1459 28B ??_GMonsterDockUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A14C2 85B ?xfer@MonsterDockUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateXfer.cpp
+
+//
+// ?xfer@MonsterDockUpdate@@MAEXPAVXfer@@@Z, retail 0x004A14C2, 85 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x00851D74 (class of rowed ctor
+// ??0MonsterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z at 0x004A139A in
+// MonsterDockUpdateCtor.cpp): base DockUpdate xfer via rowed 0x0058A410
+// then IsLightCRC early-out via Xfer slot 0x10 then bool at +0x88 via Xfer
+// slot 0x90 then int at +0x8C via Xfer slot 0x7C then bool at +0x89 via Xfer
+// slot 0x90 then Version1 via rowed 0x000053EE last. Layout is DockUpdate
+// base 0x88 plus two bools plus int (BFME1 donor
+// MonsterDockUpdateConstructor.cpp: bool m_dockOpen plus bool m_actionStarted plus
+// int m_value8c; ctor sets 1/0/0). Donor is BFME1 plus ZH.
+
+void MonsterDockUpdate::xfer(Xfer *xfer)
+{
+	DockUpdate::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	*xfer == m_dockOpen;
+	*xfer == m_actionEnd;
+	*xfer == m_actionStarted;
+	xfer->Version1();
+}
 
 // tu-skeleton: 0x004A1517 59B ??0MonsterDockUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataCtor.cpp (not merged yet)
 
@@ -278,4 +291,34 @@ bool MonsterDockUpdate::action(Object *docker,Object *)
 
 // tu-skeleton: 0x004A156E 48B ??1MonsterDockUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A1610 73B ?rva004A1610@MonsterDockUpdate@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateRva004A1610.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdateRva004A1610.cpp
+
+// Retail 0x004A1610 (73 bytes): ?rva004A1610@MonsterDockUpdate@@UAEXPAVObject@@@Z.
+// Identity: slot 10 of the vtable 0x00C51D18 that the matched MonsterDockUpdate
+// ctor 0x004A139A installs at +0x20, the DockUpdateInterface base (slot 3 of
+// that table is the matched DockUpdate::isClearToEnter, as in the Zero Hour
+// interface order, where slot 10 is onDockReached(Object *docker); the BFME2
+// name is not asserted, hence the address name). Overrides of a non-primary
+// base take the +0x20 subobject this ([edi-0x18] is the Object at +0x08).
+// Body: set condition bit 9*32+17 on the docker; when both the docker and our
+// Object have a Drawable, call the matched Drawable::rva00272A02(false) on the
+// docker drawable.
+//
+// Model-condition bits: the word array of the Object starts at +0x10C (the
+// variable-index set/test in 0x00293A05 addresses [obj + word*4 + 0x10C]); a
+// bit index is word*32 + bit. The accessors return the masked word rather
+// than a bool and the update is a free __forceinline helper that calls the
+// pinned condition-changed notifier 0x0028AE6D (?rva0028AE6D@Object@@QAEXXZ)
+// only when the bit changed; this is the BFME1 HordeGarrisonContainCtor.cpp
+// recipe (mask in a register and test/or on the member for a set, byte-narrowed
+// test/and for a clear). With the array based at +0x110 instead, a word-0 access
+// keeps the array address in a register (lea), which retail never does.
+
+void MonsterDockUpdate::rva004A1610(Object *docker)
+{
+	setModelConditionBit(docker, 9 * 32 + 17);
+	Drawable *mine = m_object->getDrawable();
+	Drawable *theirs = docker->getDrawable();
+	if (theirs && mine)
+		theirs->rva00272A02(false);
+}
