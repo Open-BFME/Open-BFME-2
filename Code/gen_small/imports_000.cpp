@@ -34,7 +34,6 @@ extern "C" __declspec(dllimport) void log();
 extern "C" __declspec(dllimport) void log10();
 extern "C" __declspec(dllimport) void memcpy();
 extern "C" __declspec(dllimport) void memmove();
-extern "C" __declspec(dllimport) void memset();
 extern "C" __declspec(dllimport) void printf();
 extern "C" __declspec(dllimport) void realloc();
 extern "C" __declspec(dllimport) void sin();
@@ -48,7 +47,7 @@ void ji_0062909a() { abs(); }
 void ji_00629176() { _mbscpy(); }
 void ji_00629182() { __CxxFrameHandler(); }
 void ji_006291a8() { memcpy(); }
-void ji_006291ae() { memset(); }
+
 void ji_006291b4() { sprintf(); }
 void ji_006291c0() { strtoul(); }
 void ji_0062920a() { cos(); }
