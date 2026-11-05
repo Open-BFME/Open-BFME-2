@@ -58,6 +58,8 @@ inline UnsignedInt &maskWord(unsigned char (&mask)[4])
 	return *(UnsignedInt *)mask;
 }
 
+// Select retail's name-getter slot before ObjectModule reads Snapshot.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../Include/Common/ObjectModule.h"
 
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
@@ -108,10 +110,7 @@ private:
 
 // The giant bird's state machine (rowed constructor 0x0036792F in
 // Rva0036792FMachineCtor.cpp, 0x68 bytes, an AIStateMachine).
-class AIStateMachine
-{
-	unsigned char m_unmodelled_00[0x68];
-};
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 class Rva00367E26 : public AIStateMachine
 {
 public:

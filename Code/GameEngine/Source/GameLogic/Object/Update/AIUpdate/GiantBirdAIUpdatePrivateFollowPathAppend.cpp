@@ -48,67 +48,37 @@ enum CommandSourceType
 // Reuse the verified Coord3D push-back specialization at 0x002CE7DC.
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D &); }
 
-template<int N>
-class GiantBirdVirtualSlots : public GiantBirdVirtualSlots<N - 1>
-{
-public:
-	virtual void unused(char (*)[N]) = 0;
-};
-
-template<>
-class GiantBirdVirtualSlots<0>
-{
-};
-
-class GiantBirdSlot30 : public GiantBirdVirtualSlots<30>
-{
-public:
-	virtual void privateFollowPath(const Rva0035149F *path, Object *ignoreObject, CommandSourceType commandSource, bool exitProduction) = 0;
-};
-
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../../Include/GameLogic/AIStateMachineClass.h"
 
-class AIStateMachine
-{
-public:
-	void addToGoalPath(const Coord3D *pathPoint); // 0x0035385E
-	char m_unrecovered00[0x24];
-	Coord3D m_goalPosition; // +0x24
-	char m_unrecovered30[0x3C - 0x30];
-	_STL::vector<Coord3D> m_goalPath; // +0x3C
-};
-
-class GiantBirdAIUpdate
+class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
 	virtual void privateFollowPathAppend(const Coord3D *pos, CommandSourceType commandSource);
 private:
-	char m_unrecovered004[0x30 - 0x04];
-	AIStateMachine *m_stateMachine; // +0x30
-	char m_unrecovered34[0x550 - 0x34];
+	char m_unrecovered3E4[0x550 - 0x3E4];
 	bool m_pathLoops; // +0x550
 };
 
 void GiantBirdAIUpdate::privateFollowPathAppend(const Coord3D *pos, CommandSourceType commandSource)
 {
 	m_pathLoops = false;
-	AIUpdateInterface *ai = reinterpret_cast<AIUpdateInterface *>(this);
-	if (ai->getCurrentStateID() == 0x3F6 && (int)m_stateMachine->m_goalPath.size() > 0)
+	if (getCurrentStateID() == 0x3F6 && (int)reinterpret_cast<_STL::vector<Coord3D> *>(m_stateMachine->field3C)->size() > 0)
 	{
 		m_stateMachine->addToGoalPath(pos);
 	}
-	else if (ai->getCurrentStateID() > 0x3E8 && ai->getCurrentStateID() < 0x401
-		&& ai->getCurrentStateID() != 0x3ED && ai->getCurrentStateID() != 0x3F4)
+	else if (getCurrentStateID() > 0x3E8 && getCurrentStateID() < 0x401
+		&& getCurrentStateID() != 0x3ED && getCurrentStateID() != 0x3F4)
 	{
 		_STL::vector<Coord3D> path;
 		path.push_back(m_stateMachine->m_goalPosition);
 		path.push_back(*pos);
-		reinterpret_cast<GiantBirdSlot30 *>(this)->privateFollowPath(reinterpret_cast<const Rva0035149F *>(&path), 0, commandSource, false);
+		privateFollowPath(reinterpret_cast<const Rva0035149F *>(&path), 0, commandSource, false);
 	}
 	else
 	{
 		_STL::vector<Coord3D> path;
 		path.push_back(*pos);
-		reinterpret_cast<GiantBirdSlot30 *>(this)->privateFollowPath(reinterpret_cast<const Rva0035149F *>(&path), 0, commandSource, false);
+		privateFollowPath(reinterpret_cast<const Rva0035149F *>(&path), 0, commandSource, false);
 	}
 }
