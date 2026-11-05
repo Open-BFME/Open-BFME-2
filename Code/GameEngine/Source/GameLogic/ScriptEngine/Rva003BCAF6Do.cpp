@@ -47,57 +47,11 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class TacticalView
-{
-public:
-	virtual void t00();
-	virtual void t01();
-	virtual void t02();
-	virtual void t03();
-	virtual void t04();
-	virtual void t05();
-	virtual void t06();
-	virtual void t07();
-	virtual void t08();
-	virtual void t09();
-	virtual void t10();
-	virtual void t11();
-	virtual void t12();
-	virtual void t13();
-	virtual void t14();
-	virtual void t15();
-	virtual void t16();
-	virtual void t17();
-	virtual void t18();
-	virtual void t19();
-	virtual void t20();
-	virtual void t21();
-	virtual void t22();
-	virtual void t23();
-	virtual void t24();
-	virtual void t25();
-	virtual void t26();
-	virtual void t27();
-	virtual void t28();
-	virtual void t29();
-	virtual void t30();
-	virtual void t31();
-	virtual void t32();
-	virtual void t33();
-	virtual void t34();
-	virtual void t35();
-	virtual void t36();
-	virtual void t37();
-	virtual void t38();
-	virtual void t39();
-	virtual void t40();
-	virtual void t41();
-	virtual void t42(void *a, float b, float c, float d);
-};
-extern class View *TheTacticalView;
+#include "../../../Include/GameClient/View.h"
+extern View *TheTacticalView;
 
 void ScriptActions::Rva003BCAF6Do(Parameter *param, float f2, float f3, float f4)
 {
 	void *res = TheTerrainLogic->s34(param);
-	((TacticalView *)TheTacticalView)->t42((char *)res + 12, f4, f3, f2);
+	TheTacticalView->Add_Camera_Shake(*(const Coord3D *)((char *)res + 12), f4, f3, f2);
 }
