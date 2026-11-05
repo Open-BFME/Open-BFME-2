@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/moduledata /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // cl: /O1 /DNDEBUG /MD /GX
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -29,9 +29,10 @@
 // Xfer::operator==(Version&) uses for "older than supported". ZH's two buffer
 // snapshots become three (+0x3788, +0x378C, +0x3790). Version 2 adds a fourth
 // (+0x3798). Version 4 adds a counted array of 0x1C-byte snapshot records
-// from +0x18 (count at +0x36C8) and an Int at +0x36D0. ZH's
-// m_treeBuffer/m_propBuffer names on the first two follow ZH's order and are
-// an inference.
+// from +0x18 (count at +0x36C8) and an Int at +0x36D0. These offsets are
+// relative to the Snapshot base at +0xC8; they fall on the canonical header's
+// m_treeBuffer, m_shrubBuffer, m_propBuffer, field3860, the records at +0xE0,
+// m_numScorches and field3798.
 
 #include "Common/Snapshot.h"
 
@@ -76,26 +77,21 @@ private:
 	char m_unrecovered04[ 0x1C - 0x04 ];
 };
 
-class BaseHeightMapRenderObjClass
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+#define REFCOUNT_H
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
+// xfer overrides the Snapshot base at +0xC8, so retail addresses these
+// fields 0xC8 lower: the 0x1C-byte records at +0xE0 (count +0x3790, Int
+// +0x3798) and the buffers at +0x3850/+0x3854/+0x3858/+0x3860.
+static __forceinline BaseHeightMapSnapshotRecord *snapshotRecords(BaseHeightMapRenderObjClass *self)
 {
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x18 - 0x04 ];
-	BaseHeightMapSnapshotRecord m_bfmeRecords[ ( 0x36C8 - 0x18 ) / 0x1C ];		///< 0x18
-	Int m_bfmeRecordCount;																										///< 0x36C8
-	char m_unrecovered36CC[ 0x36D0 - 0x36CC ];
-	Int m_bfmeInt36D0;																												///< 0x36D0
-	char m_unrecovered36D4[ 0x3788 - 0x36D4 ];
-	Snapshot *m_treeBuffer;																										///< 0x3788
-	Snapshot *m_propBuffer;																										///< 0x378C
-	Snapshot *m_bfmeBuffer3790;																								///< 0x3790
-	char m_unrecovered3794[ 0x3798 - 0x3794 ];
-	Snapshot *m_bfmeBuffer3798;																								///< 0x3798
-};
+	return reinterpret_cast<BaseHeightMapSnapshotRecord *>(self->unknown00E0);
+}
+static __forceinline Snapshot *bufferSnapshot(void *buffer)
+{
+	return reinterpret_cast<Snapshot *>(buffer);
+}
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -116,19 +112,19 @@ void BaseHeightMapRenderObjClass::xfer( Xfer *xfer )
 	if( version.m_minimum < 3 )
 		throw XferException::XFER_EXCEPTION_BFME_2;
 
-	*xfer == *m_treeBuffer;
-	*xfer == *m_propBuffer;
-	*xfer == *m_bfmeBuffer3790;
+	*xfer == *bufferSnapshot(m_treeBuffer);
+	*xfer == *bufferSnapshot(m_shrubBuffer);
+	*xfer == *bufferSnapshot(m_propBuffer);
 
 	if( version.m_minimum >= 2 )
-		*xfer == *m_bfmeBuffer3798;
+		*xfer == *bufferSnapshot(field3860);
 
 	if( version.m_minimum >= 4 )
 	{
-		*xfer == m_bfmeRecordCount;
-		for( Int i = 0; i < m_bfmeRecordCount; ++i )
-			*xfer == m_bfmeRecords[ i ];
-		*xfer == m_bfmeInt36D0;
+		*xfer == m_numScorches;
+		for( Int i = 0; i < m_numScorches; ++i )
+			*xfer == snapshotRecords(this)[ i ];
+		*xfer == field3798;
 	}
 
 }  // end xfer

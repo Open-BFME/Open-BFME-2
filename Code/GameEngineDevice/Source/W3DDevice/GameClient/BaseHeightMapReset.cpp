@@ -11,6 +11,8 @@
 // texture reloaded from the empty name while the first (+0x381C/+0x3820) is
 // released. Receiver evidence: all the buffer pointers are the ones the
 // neighbouring draw/update steps (0x0006B895, 0x0006669F) use.
+// WWLib always.h defines the array placement forms itself.
+#define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 #include "ascii_string.h"
 
@@ -99,74 +101,80 @@ public:
 };
 extern GlobalData *TheWritableGlobalData;
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	virtual void reset();
-	void rva0006ABE7(AsciiString name, bool flag);
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+#define REFCOUNT_H
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
-private:
-	char m_pad04[0x3790 - 4];
-	int m_numScorches;		// +0x3790
-	int m_scorchesInBuffer;		// +0x3794
-	int m_nextScorch;		// +0x3798
-	char m_pad379C[0x37AC - 0x379C];
-	int m_37AC;
-	char m_pad37B0[0x37EC - 0x37B0];
-	_STL::vector<bool> m_visibleCliff;	// +0x37EC
-	_STL::vector<bool> m_cliff2;		// +0x3800
-	char m_pad3814[0x381C - 0x3814];
-	BfmeResetTextureRef m_381C;
-	AsciiString m_3820;
-	char m_pad3824[0x3850 - 0x3824];
-	W3DTreeBuffer *m_treeBuffer;		// +0x3850
-	W3DShrubBuffer *m_shrubBuffer;		// +0x3854
-	Rva000EE198Owner *m_propBuffer;		// +0x3858
-	W3DBibBuffer *m_bibBuffer;		// +0x385C
-	W3DFloorBuffer *m_floorBuffer;		// +0x3860
-	char m_pad3864[0x386C - 0x3864];
-	W3DRoadBuffer *m_roadBuffer;		// +0x386C
-	W3DBridgeBuffer *m_bridgeBuffer;	// +0x3870
-	Rva000D3A17 *m_3874;
-	Rva000731AE *m_shroud;			// +0x3878
-	Rva00073C7A *m_387C;
-	bool m_3880;
-};
+// TU-local views of the header's untyped words: the two visibility bit
+// vectors, the first terrain texture and its name, and the buffers whose
+// reset entry points this body calls.
+static __forceinline _STL::vector<bool> &visibilityBits(char (&storage)[0x14])
+{
+	return *reinterpret_cast<_STL::vector<bool> *>(storage);
+}
+static __forceinline BfmeResetTextureRef &terrainTexture(void *&word)
+{
+	return *reinterpret_cast<BfmeResetTextureRef *>(&word);
+}
+static __forceinline AsciiString &terrainString(unsigned int &word)
+{
+	return *reinterpret_cast<AsciiString *>(&word);
+}
+static __forceinline Rva000EE198Owner *propBuffer(W3DPropBuffer *buffer)
+{
+	return reinterpret_cast<Rva000EE198Owner *>(buffer);
+}
+static __forceinline W3DFloorBuffer *floorBuffer(void *buffer)
+{
+	return reinterpret_cast<W3DFloorBuffer *>(buffer);
+}
+static __forceinline Rva000D3A17 *buffer3874(void *buffer)
+{
+	return reinterpret_cast<Rva000D3A17 *>(buffer);
+}
+static __forceinline Rva000731AE *shroudLayer(W3DShroud *layer)
+{
+	return reinterpret_cast<Rva000731AE *>(layer);
+}
+static __forceinline Rva00073C7A *taintLayer(W3DTaint *layer)
+{
+	return reinterpret_cast<Rva00073C7A *>(layer);
+}
 
 void BaseHeightMapRenderObjClass::reset()
 {
-	m_3880 = true;
+	field3880 = true;
 	if (m_treeBuffer)
 		m_treeBuffer->rva000EA24D();
-	if (m_3874)
-		m_3874->rva000D3A17();
+	if (field3874)
+		buffer3874(field3874)->rva000D3A17();
 	if (m_shrubBuffer)
 		m_shrubBuffer->rva000E7016();
 	if (m_propBuffer)
-		m_propBuffer->rva000EE198();
+		propBuffer(m_propBuffer)->rva000EE198();
 	m_numScorches = 0;
 	m_scorchesInBuffer = 0;
-	m_nextScorch = 0;
-	m_37AC = 0;
+	field3798 = 0;
+	field37AC = 0;
 	if (m_roadBuffer)
 		m_roadBuffer->clearAllRoads();
 	if (m_bridgeBuffer)
 		m_bridgeBuffer->clearAllBridges();
-	if (m_floorBuffer)
-		m_floorBuffer->rva000E598B();
+	if (field3860)
+		floorBuffer(field3860)->rva000E598B();
 	if (m_bibBuffer)
 		m_bibBuffer->clearAllBibs();
-	m_visibleCliff.clear();
-	m_cliff2.clear();
+	visibilityBits(unknown37EC).clear();
+	visibilityBits(unknown3800).clear();
 	if (m_shroud) {
-		m_shroud->rva000731AE();
+		shroudLayer(m_shroud)->rva000731AE();
 		((Rva000729CC *)m_shroud)->rva000729CC(TheWritableGlobalData->m_shroudAlphaA);
 	}
-	if (m_387C) {
-		m_387C->rva00073C7A();
-		((Rva000729CC *)m_387C)->rva000729CC(TheWritableGlobalData->m_shroudAlphaB);
+	if (field387C) {
+		taintLayer(field387C)->rva00073C7A();
+		((Rva000729CC *)field387C)->rva000729CC(TheWritableGlobalData->m_shroudAlphaB);
 	}
 	rva0006ABE7(AsciiString(""), false);
-	m_381C.clear();
-	m_3820.clear();
+	terrainTexture(field381C).clear();
+	terrainString(field3820).clear();
 }
