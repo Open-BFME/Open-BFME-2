@@ -63,3 +63,5 @@ base and lacks per-object consumer names. This is unverified batch-wide
 linking, not evidence of a regression or a clean result. The existing
 unreferenced `Object::clearCondition` body is unchanged and remains a shadow
 identity finding without a register key.
+
+**2026-11-05 AOD header adoption:** one private view and its header-queue row removed; all four cohort previews link with 5,696 bytes preserved against index `f44cbcf5b0`. Remaining canonical-container prerequisites and census/batch-audit limits: [evidence](../../reverse/attempt_support/transport-moduledata-aod-adoption-20261105.md).
