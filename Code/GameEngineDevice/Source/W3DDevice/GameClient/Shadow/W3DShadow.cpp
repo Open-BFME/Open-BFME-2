@@ -105,18 +105,19 @@ class Rva001076EE { public: bool rva001076EE(); };
 
 class Rva0007B6EC { public: unsigned char rva0007B6EC(); };
 
-// class-gate: allow StringBase private validate via friend free function for rowed 0x000B3FD0
-//
 // ?Rva0009A2CDRun@@YAXXZ @ 0x0009A2CD (61B):
 // Free dispatch of four guarded globals then tail jmp to 0x0007BA35.
 // Chain from 0x0007BA35 which this session landed. Globals by packet names.
 
 void Rva0009A2CDRun();
 
-template <typename T> class StringBase
+// The second dispatch calls the folded empty body at 0x000B3FD0 on the
+// shadow-manager receiver. Its original method name is unknown; use the
+// existing opaque member provider rather than a private StringBase view.
+class Rva000B3FD0
 {
-	friend void Rva0009A2CDRun();
-	void validate() const;
+public:
+	void rva000B3FD0();
 };
 
 class Rva000F278F
@@ -324,7 +325,7 @@ void Rva0009A2CDRun()
 	if ((*(Rva000F278F **)&TheW3DVolumetricShadowManager) != 0)
 		(*(Rva000F278F **)&TheW3DVolumetricShadowManager)->rva000F278F();
 	if (TheW3DProjectedShadowManager != 0)
-		((StringBase<unsigned short> *)TheW3DProjectedShadowManager)->validate();
+		((Rva000B3FD0 *)TheW3DProjectedShadowManager)->rva000B3FD0();
 	if ((*(R2GlobalReceiver **)&Rva00DEC2D8Manager) != 0)
 		((BfmeThing928F *)(*(R2GlobalReceiver **)&Rva00DEC2D8Manager))->bfmeGo928F();
 	if ((*(Rva0007BA35 **)&Rva00DE1FF8Manager) != 0)
