@@ -8,11 +8,14 @@
 // BANKED PARTIAL ONLY: not an adopted class/provider contract.
 // Target WB identity FXShaderRenderer::PerformRendering; integration must reconcile
 // current FXShaderRenderer and Rva00DF6F94GapFillerContext owners without a second pin.
-extern "C" {
-unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
-unsigned char *__cdecl _mbscat(unsigned char *,const unsigned char *);
-__declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
-}
+#include <mbstring.h>
+
+// Retail calls the multibyte helpers directly, but sprintf through its import.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#pragma pop_macro("_CRTIMP")
 class RefCountClass {
 public:
  virtual void Delete_This();
