@@ -12,22 +12,8 @@ struct FieldParse;
 
 #include "../../Include/GameClient/Bfme2GameWindow.h"
 
-class Radar
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04();
-	virtual void s05();
-	virtual void s06();
-	virtual void unk1C(int a, int b, int c, int d, int e);
-	void rva002D7BB7(void const *src);
-	void rva002D7BD3();
-};
+#include "../../Include/Common/Radar.h"
 
-extern Radar *TheRadar;
 // TheRadar: matched references place it at VA 0xdff070 (zero-filled .bss).
 Radar * TheRadar;
 
@@ -62,11 +48,11 @@ void Rva002D317C::rva002D317C(const float *position, const float *size, int c, i
 	if (windowWidth != sizeW || (rect[3] - rect[1]) != sizeH)
 		m_window->winSetSize(windowWidth, rect[3] - rect[1]);
 	if (radarX == rect[0] && radarY == rect[1] && radarWidth == (rect[2] - rect[0]) && radarHeight == (rect[3] - rect[1]))
-		TheRadar->unk1C(radarX, radarY, radarWidth, radarHeight, -1);
+		TheRadar->draw(radarX, radarY, radarWidth, radarHeight, -1);
 	else
 	{
 		TheRadar->rva002D7BB7(rect);
-		TheRadar->unk1C(radarX, radarY, radarWidth, radarHeight, -1);
+		TheRadar->draw(radarX, radarY, radarWidth, radarHeight, -1);
 		TheRadar->rva002D7BD3();
 	}
 }

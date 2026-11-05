@@ -23,17 +23,7 @@
 
 extern Mouse *TheMouse;
 
-class Radar
-{
-public:
-	bool screenPixelToWorld(const ICoord2D *pixel, Coord3D *world);
-
-	unsigned char m_pad[0x10];
-	bool m_hidden; // +0x10
-	bool m_radarForceOn; // +0x11
-};
-
-extern Radar *TheRadar;
+#include "../../Include/Common/Radar.h"
 
 #include "../../Include/Common/Player.h"
 
@@ -197,7 +187,7 @@ void InGameUI::handleRadiusCursor()
 	Coord3D pos;
 
 	bool radarOn = TheRadar->m_radarForceOn ||
-		(!TheRadar->m_hidden && ThePlayerList->m_local &&
+		(!TheRadar->m_radarHidden && ThePlayerList->m_local &&
 			ThePlayerList->m_local->hasRadar());
 
 	if (!radarOn || !TheRadar->screenPixelToWorld(mousePos, &pos))

@@ -3,20 +3,10 @@
 #include "../../../Include/GameLogic/ScriptActionsBFME2.h"
 // ?doRadarRefresh@ScriptActions@@QAEXXZ @0x003BC1A0 18B: script forwards TheTerrainLogic to TheRadar slot 0x10.
 // Evidence: mov ecx,[0xDFF070]=TheRadar push [0xDFEC50]=TheTerrainLogic mov eax,[ecx] call [eax+0x10] ret; caller 0x003CC86C.
-class TerrainLogic;
-class Radar
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04(TerrainLogic *t);
-};
-extern Radar *TheRadar;
+#include "../../../Include/Common/Radar.h"
 extern TerrainLogic *TheTerrainLogic;
 
 void ScriptActions::doRadarRefresh()
 {
-	TheRadar->s04(TheTerrainLogic);
+	TheRadar->refreshTerrain(TheTerrainLogic);
 }

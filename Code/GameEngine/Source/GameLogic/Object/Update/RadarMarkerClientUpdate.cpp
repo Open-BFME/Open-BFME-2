@@ -56,8 +56,7 @@ class Rva004C9CF7RadarView : public Rva004C9CF7Slots<12>
 public:
 	virtual Rva004C9B8F rva004C9CF7Slot12(const char *name) = 0;
 };
-class Radar;
-extern Radar *TheRadar;
+#include "../../../../Include/Common/Radar.h"
 
 class Rva00362EC7 : public DrawableModule
 {
