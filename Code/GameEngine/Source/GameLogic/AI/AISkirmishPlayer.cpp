@@ -433,7 +433,7 @@ private:
 private:
 	friend class Rva004EF4C1;
 protected:
-	virtual void slot00();
+	virtual ~AIPlayer();
 protected:
 	virtual void slot01();
 protected:
@@ -499,6 +499,8 @@ protected:
 	}
 public:
 	static void getPlayerStructureBounds(Region2D *bounds, Int playerNdx);
+public:
+	void clearTeamsInQueue();
 protected:
 	TeamInQueue *m_teamBuildQueue;
 protected:
@@ -522,6 +524,7 @@ protected:
 class AISkirmishPlayer : public AIPlayer
 {
 public:
+	virtual ~AISkirmishPlayer();
 	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *retPos, Int playerNdx, Real weaponRadius);
 	virtual void update();
 	virtual void onUnitProduced(Object *factory, Object *unit);
