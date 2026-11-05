@@ -20,6 +20,7 @@
 // iterator); /EHs keeps the state reset before the rowed _List_base dtor
 // 0x004EC395 (ctor 0x004EC36C).
 // Facts from retail: slots offsets and callees; names from the WB twin.
+#include "../Common/Thing/thing.h"
 #include <list>
 #include "../Common/GameLogicObjectLookupView.h"
 

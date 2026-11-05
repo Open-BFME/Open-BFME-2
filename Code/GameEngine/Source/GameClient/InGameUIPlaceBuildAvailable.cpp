@@ -6,6 +6,7 @@
 class ThingTemplate {public:char p[0x118];unsigned kinds;char q[0x4d0-0x11c];float placementAngle;};
 class Player {public:char p[0x280];int color,nightColor;};
 class Object {public:Player*getControllingPlayer()const;char p[4];const ThingTemplate*tmpl;char q[0x74-8];unsigned id;};
+#include "../Common/Thing/thing.h"
 #include "../../Include/GameClient/Drawable.h"
 class ModelConditionFlags;
 struct Rva0028F59A {unsigned bits[19];Rva0028F59A(int,int);};

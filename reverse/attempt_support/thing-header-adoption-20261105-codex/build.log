@@ -1,0 +1,13 @@
+Source claims: OK (7 sources, scoped byte-verified)
+Data rows: OK (1 row(s) byte-verified)
+Compile: 0 of 7 TU(s) (deps-cache: 7 current)
+Funclet pins: 9 row(s) verified past a renumbered $L label
+    uw_007979f5 (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp): $L10233 was renumbered; verified parent EH data places $L12549 at 0x007979F5
+    uw_00797a02 (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp): $L10240 was renumbered; verified parent EH data places $L12556 at 0x00797A02
+    uw_00797a0f (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp): $L10241 was renumbered; verified parent EH data places $L12557 at 0x00797A0F
+    uw_00797a1c (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp): $L10242 was renumbered; verified parent EH data places $L12558 at 0x00797A1C
+    uw_00774e5f (Code/GameEngine/Source/GameClient/InGameUIUpdateLocalPhantomStructureDisplay.cpp): $L4457 was renumbered; verified parent EH data places $L6331 at 0x00774E5F
+Functions: OK 38/38 matched across 7 source file(s)
+String-ref verify: OK (14 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (7 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

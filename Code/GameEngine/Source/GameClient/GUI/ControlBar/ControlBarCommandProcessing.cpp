@@ -5,6 +5,7 @@
 // arguments. Native539A65..53B0F3 code; switch data53B0F3..53B1CF.
 // Numeric command/message values and opaque fields are independently native;
 // the ZH donor establishes purpose, not the added BFME2 cases or full layouts.
+#include "../../../Common/Thing/thing.h"
 #include <map>
 #include <list>
 #include <vector>

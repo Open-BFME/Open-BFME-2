@@ -30,6 +30,7 @@
 // appendObjectID 0x0030F979 (Object +0x74), selectDrawable +0x108 on
 // Thing::getDrawable 0x005508E2 and TheTacticalView lookAt +0x54 on the
 // position at +0x38.
+#include "../Common/Thing/thing.h"
 #include <list>
 
 class Object;

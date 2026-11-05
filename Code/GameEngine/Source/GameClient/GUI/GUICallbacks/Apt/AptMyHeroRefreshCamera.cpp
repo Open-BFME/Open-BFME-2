@@ -36,15 +36,8 @@ public:
 	int field64; // +0x64
 	int field68; // +0x68
 };
-class Thing {
-	public:
-	void setOrientation(float);
-	char pad[0x38];
-	float posX,posY,posZ;
-	float getX()const{
-		return posX;
-	}
-};
+#include "../../../../Common/Thing/thing.h"
+static inline float getCameraPositionX(const Thing *thing) { return thing->m_cachedPos.x; }
 class Rva002195E6;
 #include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
@@ -169,7 +162,7 @@ void AptMyHero::rva005B1019(){
 	float angle=rot+info->b;
 	MyHeroOffset offset(m_offsetX,offsetY,0.0f);
 	offset.Rotate_ZF(angle);
-	CameraPosition pos(object->getX(),object->posY,object->posZ);
+	CameraPosition pos(getCameraPositionX(object),object->m_cachedPos.y,object->m_cachedPos.z);
 	pos+=CameraPosition(offset.X,offset.Y,offset.Z);
 	Rva0008A234 camera(*(const StringBase<char> *)&AsciiString("TempCamera"),(const ThreeInts *)&pos,floor,angle+1.5707964f,pitch,zoom,fovZoom,roll);
 	((MyHeroTacticalView *)TheTacticalView)->slot60(0,&camera,0,true,0.0f,0.0f);
