@@ -60,21 +60,7 @@ public:
 };
 inline void GadgetProgressBarSetEnabledBarColor(GameWindow *gameWindow, Int color) { gameWindow->winSetEnabledColor(4, color); }
 
-class GameWindowManager
-{
-public:
-#define MTL_SLOT(n) virtual void slot##n();
-	MTL_SLOT(00) MTL_SLOT(01) MTL_SLOT(02) MTL_SLOT(03) MTL_SLOT(04) MTL_SLOT(05) MTL_SLOT(06) MTL_SLOT(07) MTL_SLOT(08) MTL_SLOT(09)
-	MTL_SLOT(10) MTL_SLOT(11) MTL_SLOT(12) MTL_SLOT(13) MTL_SLOT(14) MTL_SLOT(15) MTL_SLOT(16) MTL_SLOT(17) MTL_SLOT(18) MTL_SLOT(19)
-	MTL_SLOT(20) MTL_SLOT(21) MTL_SLOT(22) MTL_SLOT(23) MTL_SLOT(24) MTL_SLOT(25) MTL_SLOT(26) MTL_SLOT(27) MTL_SLOT(28) MTL_SLOT(29)
-	MTL_SLOT(30)
-	virtual GameWindow *winCreateFromScript(AsciiString filename, void *info = 0, void *extra = 0);	// slot 31
-	MTL_SLOT(32) MTL_SLOT(33) MTL_SLOT(34) MTL_SLOT(35) MTL_SLOT(36) MTL_SLOT(37) MTL_SLOT(38) MTL_SLOT(39)
-	MTL_SLOT(40) MTL_SLOT(41) MTL_SLOT(42) MTL_SLOT(43) MTL_SLOT(44) MTL_SLOT(45) MTL_SLOT(46) MTL_SLOT(47) MTL_SLOT(48) MTL_SLOT(49)
-	MTL_SLOT(50) MTL_SLOT(51) MTL_SLOT(52) MTL_SLOT(53) MTL_SLOT(54) MTL_SLOT(55) MTL_SLOT(56) MTL_SLOT(57) MTL_SLOT(58) MTL_SLOT(59)
-#undef MTL_SLOT
-	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);	// slot 60
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 extern GameWindowManager *TheWindowManager;
 
 #include "../../../Include/GameNetwork/MultiplayerColorDefinition.h"
@@ -171,7 +157,7 @@ void MapTransferLoadScreen::setCurrentFilename(AsciiString filename)
 // layout window's +0x1F4 after bringing it to the top.
 void MapTransferLoadScreen::init(GameInfo *game)
 {
-	m_loadScreen = TheWindowManager->winCreateFromScript(AsciiString("Menus/MapTransferScreen.wnd"));
+	m_loadScreen = TheWindowManager->winCreateFromScript(AsciiString("Menus/MapTransferScreen.wnd"), 0, 0);
 	if (!m_loadScreen)
 		return;
 

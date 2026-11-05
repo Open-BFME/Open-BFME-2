@@ -62,73 +62,12 @@ public:
  unsigned char winPointInWindow(int,int);
  Int winGetPosition(Int*,Int*); Int winGetSize(Int*,Int*); Int winSetPosition(Int,Int);
 };
-struct ModalWindow
+class ModalWindow
 {
 public:
 	void *m_vtable; // +0x00
 	GameWindow *window; // +0x04
 	ModalWindow *next; // +0x08
-};
-class GameWindowManager { public:
- virtual void slot00();
- virtual void slot04();
- virtual void slot08();
- virtual void slot0C();
- virtual void slot10();
- virtual void slot14();
- virtual void slot18();
- virtual void slot1C();
- virtual void slot20();
- virtual void slot24();
- virtual void slot28();
- virtual void slot2C();
- virtual void slot30();
- virtual void slot34();
- virtual void slot38();
- virtual void slot3C();
- virtual void slot40();
- virtual void slot44();
- virtual void slot48();
- virtual void slot4C();
- virtual void slot50();
- virtual void slot54();
- virtual void slot58();
- virtual void slot5C();
- virtual void slot60();
- virtual void slot64();
- virtual void slot68();
- virtual void slot6C();
- virtual void slot70();
- virtual void slot74();
- virtual void slot78();
- virtual void slot7C();
- virtual void slot80();
- virtual void slot84();
- virtual void slot88();
- virtual void slot8C();
- virtual void slot90();
- virtual void slot94();
- virtual void slot98();
- virtual void slot9C();
- virtual void slotA0();
- virtual void slotA4();
- virtual void slotA8();
- virtual void slotAC();
- virtual void slotB0();
- virtual void slotB4();
- virtual WinInputReturnCode winProcessMouseEvent(GameWindowMessage,ICoord2D*,void*);
- virtual void slotBC();
- virtual void slotC0();
- virtual void slotC4();
- virtual void slotC8();
- virtual void slotCC();
- virtual void winSetLoneWindow(GameWindow*);
- virtual void slotD4(); virtual void slotD8(); virtual Bool isHidden(GameWindow*);
- virtual void slotE0(); virtual void slotE4(); virtual void slotE8();
- virtual WindowMsgHandledType winSendInputMsg(GameWindow*,UnsignedInt,UnsignedInt,UnsignedInt);
- char opaque04[8]; GameWindow *m_windowList,*m_windowTail,*m_destroyList,*m_currMouseRgn,*m_mouseCaptor,*m_keyboardFocus;
- ModalWindow *m_modalHead; GameWindow *m_grabWindow,*m_loneWindow;
- void *tabNode30,*cursorBitmap34; unsigned captureFlags38; int bfmeCurrentLayer;
 };
 class Display;
 class BfmeMouseDisplayView { public:
@@ -152,6 +91,7 @@ class BfmeMouseDisplayView { public:
 };
 struct RGBColor;
 #include "../../../Include/GameClient/Mouse.h"
+#include "../../../Include/GameClient/GameWindowManager.h"
 extern Mouse *TheMouse; extern Display *TheDisplay;
 static Bool sendMousePosMessages=TRUE;
 WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage msg,
@@ -345,7 +285,7 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 				for( window = m_windowList; window; window = window->m_next )
 				{
 					if( !BitTest(window->m_status, WIN_STATUS_HIDDEN) &&
-						window->bfmeLayer == bfmeCurrentLayer &&
+						window->bfmeLayer == m_unrecovered3C &&
 						mousePos->x >= window->m_region.lo.x &&
 						mousePos->x <= window->m_region.hi.x &&
 						mousePos->y >= window->m_region.lo.y &&

@@ -168,27 +168,7 @@ public:
 };
 
 // Observed GameWindowManager slots only.
-class GameWindowManager
-{
-public:
-#define SLOT(N) virtual void slot##N();
-	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07)
-	SLOT(08) SLOT(09) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
-	SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
-	SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
-	virtual GameWindow *winCreateFromScript(AsciiString filename, void *info, void *parent);	// +0x7C
-	SLOT(32) SLOT(33) SLOT(34)
-	virtual Int winDestroy(GameWindow *window);											// +0x8C
-	SLOT(36) SLOT(37) SLOT(38) SLOT(39) SLOT(40) SLOT(41) SLOT(42) SLOT(43)
-	SLOT(44) SLOT(45) SLOT(46) SLOT(47) SLOT(48) SLOT(49) SLOT(50) SLOT(51)
-	SLOT(52) SLOT(53) SLOT(54) SLOT(55) SLOT(56) SLOT(57) SLOT(58)
-	virtual Int winSendInputMsg(GameWindow *window, UnsignedInt msg, UnsignedInt mData1, UnsignedInt mData2);	// +0xEC
-	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);					// +0xF0
-	SLOT(61) SLOT(62) SLOT(63)
-	virtual Int winSetModal(GameWindow *window);											// +0x100
-	virtual Int winUnsetModal(GameWindow *window);										// +0x104
-#undef SLOT
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 // Observed Display slot only.
 class Display

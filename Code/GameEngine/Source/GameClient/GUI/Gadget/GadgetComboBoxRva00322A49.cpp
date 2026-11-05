@@ -109,39 +109,13 @@ GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
 void *bfmeGo925A(BfmeKeyLC *k);
 void Rva003229C5Hide(GameWindow *window);
 
-class GameWindowManager
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41)
-	virtual void winNextTab(GameWindow *window) = 0;
-	virtual void winPrevTab(GameWindow *window) = 0;
-	V(44) V(45) V(46) V(47)
-	V(48) V(49) V(50) V(51)
-	virtual void winSetLoneWindow(GameWindow *window) = 0;
-	virtual GameWindow *winGetLoneWindow() = 0;
-	V(54) V(55)
-	V(56) V(57)
-	virtual WindowMsgHandledType winSendSystemMsg(GameWindow *window,
-		UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2) = 0;
-	virtual WindowMsgHandledType winSendInputMsg(GameWindow *window,
-		UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2) = 0;
-	V(60) V(61) V(62) V(63)
-	V(64) V(65) V(66) V(67) V(68) V(69) V(70) V(71)
-	virtual Int winFontHeight(GameFont *font) = 0;
-#undef V
-};
 
-extern GameWindowManager *TheWindowManager;
 
 
 #include "../../../../Include/Common/GameAudio.h"
 #include "../../../../Include/Common/MiscAudioClass.h"
+#include "../../../../Include/GameClient/GameWindowManager.h"
+extern GameWindowManager *TheWindowManager;
 
 extern AudioManager *TheAudio;
 
@@ -267,7 +241,7 @@ WindowMsgHandledType GadgetComboBoxInput(GameWindow *window, UnsignedInt msg,
 			break;
 
 		case GWM_LEFT_DOWN:
-			if (TheWindowManager->winGetLoneWindow() == window)
+			if (TheWindowManager->slot53() == window)
 				return MSG_IGNORED;
 			break;
 

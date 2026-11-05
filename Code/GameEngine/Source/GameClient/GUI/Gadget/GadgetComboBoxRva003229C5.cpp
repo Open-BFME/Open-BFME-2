@@ -22,29 +22,7 @@ GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
 
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 
-class GameWindowManager
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41)
-#undef V
-	virtual void winNextTab(GameWindow *window);
-	virtual void winPrevTab(GameWindow *window);
-#define W(n) virtual void pad##n() = 0;
-	W(44) W(45) W(46) W(47) W(48)
-#undef W
-	virtual Int winSetFocus(GameWindow *window);
-#define X(n) virtual void pad##n() = 0;
-	X(50) X(51)
-#undef X
-	virtual void winSetLoneWindow(GameWindow *window);
-	virtual GameWindow *winGetLoneWindow();
-};
+#include "../../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 
@@ -62,7 +40,7 @@ void Rva003229C5Hide(GameWindow *window)
 		editBox->winGetSize(&winSize.x, &winSize.y);
 		window->winGetSize(&newSize.x, &newSize.y);
 		window->winSetSize(newSize.x, winSize.y);
-		if (TheWindowManager->winGetLoneWindow() == window)
+		if (TheWindowManager->slot53() == window)
 			TheWindowManager->winSetLoneWindow(NULL);
 	}
 }

@@ -4,48 +4,14 @@
 // Identity: ZH/BFME1 GameWindowManager::processDestroyList (release captor,
 // focus and modal head, clear mouse region and grab, GWM_DESTROY, delete).
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
-struct ModalWindow
+class ModalWindow
 {
 public:
 	void *m_vtable; // +0x00
 	GameWindow *window; // +0x04
 	ModalWindow *next; // +0x08
 };
-class GameWindowManager
-{
-public:
-	virtual void p00(); virtual void p01(); virtual void p02(); virtual void p03();
-	virtual void p04(); virtual void p05(); virtual void p06(); virtual void p07();
-	virtual void p08(); virtual void p09(); virtual void p10(); virtual void p11();
-	virtual void p12(); virtual void p13(); virtual void p14(); virtual void p15();
-	virtual void p16(); virtual void p17(); virtual void p18(); virtual void p19();
-	virtual void p20(); virtual void p21(); virtual void p22(); virtual void p23();
-	virtual void p24(); virtual void p25(); virtual void p26(); virtual void p27();
-	virtual void p28(); virtual void p29(); virtual void p30(); virtual void p31();
-	virtual void p32(); virtual void p33(); virtual void p34(); virtual void p35();
-	virtual void p36(); virtual void p37(); virtual void p38(); virtual void p39();
-	virtual void p40(); virtual void p41(); virtual void p42(); virtual void p43();
-	virtual void p44(); virtual void p45(); virtual void p46(); virtual void p47();
-	virtual void p48();
-	virtual void winSetFocus(GameWindow *window);
-	virtual void p50(); virtual void p51(); virtual void p52(); virtual void p53();
-	virtual void p54(); virtual void p55(); virtual void p56(); virtual void p57();
-	virtual void winSendSystemMsg(GameWindow *win, int msg, int a, int b);
-	virtual void p59(); virtual void p60(); virtual void p61();
-	virtual void winRelease(GameWindow *win);
-	virtual void p63(); virtual void p64();
-	virtual void winUnsetModal(GameWindow *win);
-protected:
-	void processDestroyList();
-private:
-	unsigned char m_pad04[0x14 - 4];
-	GameWindow *m_destroyList;
-	GameWindow *m_currMouseRgn;
-	GameWindow *m_mouseCaptor;
-	GameWindow *m_keyboardFocus;
-	ModalWindow *m_modalHead;
-	GameWindow *m_grabWindow;
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 #include <new>
 void GameWindowManager::processDestroyList()
 {

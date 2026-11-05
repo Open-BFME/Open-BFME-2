@@ -18,6 +18,7 @@ struct _ComboBoxData;
 class Rva0031763A;
 struct ICoord2D;
 class Image;
+class ModalWindow;
 enum GameWindowMessage;
 enum WinInputReturnCode;
 class GameWindowManager : public SubsystemInterface {
@@ -88,9 +89,7 @@ private:
 public:
     virtual int winDestroy(GameWindow *); // slot 35
     virtual int winDestroyAll(); // slot 36
-private:
-    virtual void slot37(); // slot 37
-public:
+    virtual GameWindow *winGetWindowList(); // slot 37
     virtual void hideWindowsInRange(GameWindow *, int, int, bool); // slot 38
     virtual void enableWindowsInRange(GameWindow *, int, int, bool); // slot 39
     virtual void windowHiding(GameWindow *); // slot 40
@@ -102,25 +101,17 @@ public:
 private:
     virtual void slot44(); // slot 44
 public:
-private:
-    virtual void slot45(); // slot 45
-public:
+    virtual void clearTabList(); // slot 45
     virtual WinInputReturnCode winProcessMouseEvent(GameWindowMessage, ICoord2D *, void *); // slot 46
     virtual int rva002C0F68(bool, bool); // slot 47
-private:
-    virtual void slot48(); // slot 48
-public:
+    virtual GameWindow *winGetFocus(); // slot 48
     virtual int winSetFocus(GameWindow *); // slot 49
 private:
     virtual void slot50(); // slot 50
 public:
-private:
-    virtual void slot51(); // slot 51
-public:
+    virtual GameWindow *winGetGrabWindow(); // slot 51
     virtual void winSetLoneWindow(GameWindow *); // slot 52
-private:
-    virtual void slot53(); // slot 53
-public:
+    virtual GameWindow *slot53(); // slot 53: returns m_loneWindow
     virtual bool isEnabled(GameWindow *); // slot 54
     virtual bool isHidden(GameWindow *); // slot 55
     virtual void addWindowToParent(GameWindow *, GameWindow *); // slot 56
@@ -130,28 +121,18 @@ public:
     virtual GameWindow *winGetWindowFromId(GameWindow *, int); // slot 60
     virtual int winCapture(GameWindow *); // slot 61
     virtual int winRelease(GameWindow *); // slot 62
-private:
-    virtual void slot63(); // slot 63
-public:
+    virtual GameWindow *winGetCapture(); // slot 63
     virtual int winSetModal(GameWindow *); // slot 64
     virtual int winUnsetModal(GameWindow *); // slot 65
-private:
-    virtual void slot66(); // slot 66
-public:
-private:
-    virtual void slot67(); // slot 67
-public:
-private:
-    virtual void slot68(); // slot 68
-public:
+    virtual void winDrawImage(const Image *, int, int, int, int, int = 0xFFFFFFFF); // slot 66
+    virtual void winFillRect(int, float, int, int, int, int); // slot 67
+    virtual void winOpenRect(int, float, int, int, int, int); // slot 68
 private:
     virtual void slot69(); // slot 69
 public:
     virtual int winMakeColor(unsigned char, unsigned char, unsigned char, unsigned char); // slot 70
     virtual const Image *winFindImage(const char *); // slot 71
-private:
-    virtual void slot72(); // slot 72
-public:
+    virtual int winFontHeight(GameFont *); // slot 72
 private:
     virtual void slot73(); // slot 73
 public:
@@ -162,9 +143,7 @@ private:
     virtual void slot75(); // slot 75
 public:
     virtual GameFont *slot76(AsciiString, int, bool); // slot 76
-private:
-    virtual void slot77(); // slot 77
-public:
+    virtual GameWindow *getWindowUnderCursor(int, int, bool); // slot 77
     GameWindow *winCreate(Rva0047EDE0CreateInfo *);
     GameFont *winFindFont(AsciiString, int, bool);
     UnicodeString winTextLabelToText(AsciiString);
@@ -185,7 +164,7 @@ protected:
     GameWindow *m_currMouseRgn;
     GameWindow *m_mouseCaptor;
     GameWindow *m_keyboardFocus; // +0x20: set-focus and parent-chain owners
-    void *m_modalHead;
+    ModalWindow *m_modalHead;
     GameWindow *m_grabWindow;
     GameWindow *m_loneWindow;
     unsigned char m_unrecovered30[4]; // native list base at +0x30, not typed/adopted here
