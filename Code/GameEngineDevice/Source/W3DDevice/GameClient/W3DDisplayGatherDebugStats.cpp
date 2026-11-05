@@ -372,7 +372,16 @@ class Keyboard { public: bool isShift(); bool isCtrl(); bool isAlt(); char m_pad
 class ExperienceTracker { public: char m_pad[0x10]; float m_experience; char m_pad14[0x24 - 0x14]; int m_level; };
 #include "../../../../GameEngine/Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
-class ThingTemplate { public: char m_pad[0x64]; char *m_nameData; const char *getNameText() const { return m_nameData ? m_nameData + 8 : ""; } char m_pad68[0x5E7 - 0x68]; bool m_showLevel; };
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
+
+// Read the canonical name string's buffer directly, preserving retail's
+// single member load rather than materialising the +0x64 string address.
+static const char *templateNameText(const ThingTemplate *thingTemplate)
+{
+	const char *text = *reinterpret_cast<const char *const *>(&thingTemplate->m_nameString);
+	return text ? text + 8 : "";
+}
+
 #include "../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
 namespace _STL { template <int N> struct _Base_bitset { unsigned int _M_w[N]; bool _M_is_any() const; }; }
 typedef _STL::_Base_bitset<4> _STL_Base_bitset4;
@@ -669,7 +678,7 @@ void W3DDisplay::gatherDebugStats(void)
 		Object *obj;
 		if (draw && (obj = draw->m_object) != 0)
 		{
-			int objID = obj->m_id; unibuffer2.format(W("Moused over object: %S (%d) "), obj->m_template->getNameText(), objID);
+			int objID = obj->m_id; unibuffer2.format(W("Moused over object: %S (%d) "), templateNameText(obj->m_template), objID);
 			unibuffer.concat(unibuffer2);
 			Object *container = obj->rva002931F5(false);
 			int army = container ? container->m_army : obj->m_army;
@@ -678,7 +687,7 @@ void W3DDisplay::gatherDebugStats(void)
 			else
 				unibuffer2.format(W(" (army INVALID)"));
 			unibuffer.concat(unibuffer2);
-			if (obj->m_template->m_showLevel)
+			if (obj->m_template->m_isTrainable)
 			{
 				ExperienceTracker *tracker = obj->m_experienceTracker;
 				float experience = tracker->m_experience;
@@ -749,7 +758,7 @@ void W3DDisplay::gatherDebugStats(void)
 			PathfindLayerEnum layer = TheTerrainLogic->getHighestLayerForDestination(&selPos, false);
 			float groundZ = TheTerrainLogic->getLayerHeight(selPos.x, selPos.y, layer, 0, true);
 			unibuffer.format(W("Select Info: '%S'(%S)[%d][%d] at (%.3f,%.3f,%.3f) groundZ@pos: %.3f Health: %.3f"),
-				((Object *)draw)->m_template->getNameText(), name.str(), ((Rva0055A88BDwordField *)draw)->get(), draw->m_object ? draw->m_object->m_id : 0,
+				templateNameText(((Object *)draw)->m_template), name.str(), ((Rva0055A88BDwordField *)draw)->get(), draw->m_object ? draw->m_object->m_id : 0,
 				draw->getPosition()->x, draw->getPosition()->y, draw->getPosition()->z, groundZ,
 				((BodyView *)body)->getHealth());
 

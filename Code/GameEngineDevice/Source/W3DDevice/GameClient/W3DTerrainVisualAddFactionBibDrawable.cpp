@@ -88,22 +88,17 @@ private:
 	char m_pad2C[0x5C - 0x2C];
 };
 
-class ThingTemplate
-{
-public:
-	Real getFactoryExitWidth() const { return m_factoryExitWidth; }
-	Real getFactoryExtraBibWidth() const { return m_factoryExtraBibWidth; }
-	Real bfme_bib_exit_width() const { return m_factoryExitWidth; }
-	Real bfme_bib_extra_width() const { return m_factoryExtraBibWidth; }
-	const GeometryInfo &getTemplateGeometryInfo() const { return m_geometryInfo; }
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
 
-private:
-	char m_pad000[0xA0];
-	GeometryInfo m_geometryInfo;		// +0xA0
-	char m_padFC[0x4D4 - 0xFC];
-	Real m_factoryExitWidth;			// +0x4D4
-	Real m_factoryExtraBibWidth;		// +0x4D8
-};
+static Real bibExitWidth(const ThingTemplate *thingTemplate)
+{ return thingTemplate->m_factoryExitWidth; }
+
+static Real bibExtraWidth(const ThingTemplate *thingTemplate)
+{ return thingTemplate->m_factoryExtraBibWidth; }
+
+static const GeometryInfo &templateGeometryInfo(const ThingTemplate *thingTemplate)
+{ return *reinterpret_cast<const GeometryInfo *>(thingTemplate->m_geometryInfo); }
+
 
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.
 class Rva0055A88BDwordField
@@ -165,9 +160,9 @@ void W3DTerrainVisual::addFactionBibDrawable(Drawable *factionBuilding, Bool hig
 		Vector3 corners[4];
 		Coord3DSet pos;
 		pos.set(0, 0, 0);
-		Real exitWidth = factionBuilding->getTemplate()->bfme_bib_exit_width();
-		Real extraWidth = factionBuilding->getTemplate()->bfme_bib_extra_width() + extra;
-		const GeometryInfo info = factionBuilding->getTemplate()->getTemplateGeometryInfo();
+		Real exitWidth = bibExitWidth(factionBuilding->getTemplate());
+		Real extraWidth = bibExtraWidth(factionBuilding->getTemplate()) + extra;
+		const GeometryInfo info = templateGeometryInfo(factionBuilding->getTemplate());
 		Real sizeX = info.bfme_bib_major();
 		Real sizeY = info.bfme_bib_minor();
 		corners[0].Set(pos.x, pos.y, pos.z);
@@ -203,8 +198,8 @@ void W3DTerrainVisual::addFactionBib(Object *factionBuilding, Bool highlight, Re
 		Vector3 corners[4];
 		Coord3DSet pos;
 		pos.set(0, 0, 0);
-		Real exitWidth = factionBuilding->getTemplate()->bfme_bib_exit_width();
-		Real extraWidth = factionBuilding->getTemplate()->bfme_bib_extra_width() + extra;
+		Real exitWidth = bibExitWidth(factionBuilding->getTemplate());
+		Real extraWidth = bibExtraWidth(factionBuilding->getTemplate()) + extra;
 		const GeometryInfo info = factionBuilding->getGeometryInfo();
 		Real sizeX = info.bfme_bib_major();
 		Real sizeY = info.bfme_bib_minor();

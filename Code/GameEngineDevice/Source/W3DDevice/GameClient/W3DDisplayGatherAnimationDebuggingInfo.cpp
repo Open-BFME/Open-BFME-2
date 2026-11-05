@@ -215,12 +215,16 @@ public:
 	virtual void buildSubObjectDescription(AsciiString *out, Int perLine);	// +0xE0
 };
 
-struct ThingTemplate
+#include "../../../../GameEngine/Include/Common/ThingTemplate.h"
+
+// Read the canonical name string's buffer directly, preserving retail's
+// single member load rather than materialising the +0x64 string address.
+static const char *templateNameText(const ThingTemplate *thingTemplate)
 {
-	char m_unreconstructed_000[0x64];
-	char *m_nameData;		// +0x64
-	const char *getNameText() const { return m_nameData ? m_nameData + 8 : ""; }
-};
+	const char *text = *reinterpret_cast<const char *const *>(&thingTemplate->m_nameString);
+	return text ? text + 8 : "";
+}
+
 
 class Drawable
 {
@@ -402,7 +406,7 @@ selection:
 		const char *modelName = 0;
 		if (drawInterface)
 			modelName = drawInterface->getModelName();
-		text.format(L"LOCKED Object: %S (ID:%d) %S", drawable->m_template->getNameText(), object->getID(), modelName ? modelName : "n/a");
+		text.format(L"LOCKED Object: %S (ID:%d) %S", templateNameText(drawable->m_template), object->getID(), modelName ? modelName : "n/a");
 		if (s_lockedID)
 			text.concat(L" -- release by Shift+mousing over any object");
 		m_animDebugStrings[1]->setText(text);
@@ -426,7 +430,7 @@ selection:
 				TheWeaponSlotTypeNames[slot], nextShot, percent, TheWeaponStatusNames[status]);
 			m_animDebugStrings[2]->setText(text);
 		} else {
-			text.format(L"Weapon: n/a", drawable->m_template->getNameText(), object->getID());
+			text.format(L"Weapon: n/a", templateNameText(drawable->m_template), object->getID());
 			m_animDebugStrings[2]->setText(text);
 		}
 
