@@ -505,6 +505,24 @@ class PreludeOrderTests(unittest.TestCase):
         self.assertEqual(out.count("static void anchor()"), 1)
         self.assertEqual(out.count('#pragma optimize("s", on)'), 1)
 
+    def test_an_intrinsic_pragma_follows_the_declaration_it_names(self):
+        # Rva0051730ECtor.cpp: hoisted into the seed's includes, the pragma came before the
+        # donor's own declaration, cl ignored it, and _ReadWriteBarrier became a call
+        tu = "Code/T.cpp"
+        seed = '// cl: /MD\n#include "A.h"\nint f() { return 1; }\n'
+        donor = ('extern "C" void _ReadWriteBarrier();\n#pragma intrinsic(_ReadWriteBarrier)\n'
+                 '// cl: /MD\nstruct R { int a, b; R(); };\n'
+                 'R::R() { a = -1; _ReadWriteBarrier(); b = -1; }\n')
+        out = T.compose(tu, [], [tu, "Code/D.cpp"], {tu: seed, "Code/D.cpp": donor}, ["/MD"], "first")
+        at = [out.index(name) for name in ('"A.h"', 'extern "C" void _ReadWriteBarrier();',
+                                           "#pragma intrinsic(_ReadWriteBarrier)", "R::R()")]
+        self.assertEqual(at, sorted(at))
+        self.assertEqual(out.count("#pragma intrinsic(_ReadWriteBarrier)"), 1)
+
+    def test_an_intrinsic_pragma_after_an_unrelated_declaration_stays_a_directive(self):
+        chunks = T.composition_chunks("int g;\n#pragma intrinsic(memcpy)\nvoid h() { }\n")
+        self.assertIn(("pp", "#pragma intrinsic(memcpy)"), chunks)
+
 
 class DirectiveContinuationTests(unittest.TestCase):
     def test_a_continuation_onto_a_blank_line_does_not_swallow_the_next_line(self):

@@ -753,6 +753,16 @@ def composition_chunks(text):
             continue
         if kind == "pp" and re.match(r"#\s*pragma\s+optimize\s*\(", text):
             kind = "body-pp"
+        # `#pragma intrinsic(f)` takes effect only after f is declared: hoisted
+        # above a donor's own `extern "C" void _ReadWriteBarrier();` it is
+        # ignored and the call becomes an external one (0x0051730E). It stays
+        # with the declaration right before it that names one of its functions.
+        intrinsic = re.fullmatch(r"#\s*pragma\s+intrinsic\s*\(([^)]*)\)\s*", text) if kind == "pp" else None
+        if intrinsic and out and out[-1][0] == "decl" and any(
+                re.search(r"\b%s\s*\(" % re.escape(name), strip(out[-1][1]))
+                for name in re.findall(r"[A-Za-z_]\w*", intrinsic.group(1))):
+            out[-1] = ("decl", out[-1][1].rstrip("\n") + "\n" + text)
+            continue
         out.append((kind, text))
     if region:  # Preserve malformed input too: the compiler must still refuse it.
         out.append(("decl", "\n".join(c for _, c in region)))
