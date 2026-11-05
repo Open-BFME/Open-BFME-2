@@ -4,6 +4,8 @@ Evidence / affected units: twelve real-link blocker sources reference `?getID@Dr
 Completed: AnimationSoundClientBehavior.cpp and eight more consumer units call the existing matched getter; the new batch preserves 304/304 matched rows and all 1,938 external definitions.
 Remaining / next check: all twelve consumers now call the matched getter, and provider repair `85b46a09f3` defines Drawable::getID; GameClient.cpp passes bytes and its current link preview. Confirm all affected consumers disappear from the next authorized real-link missing-name errors; [GameClient verification](../../reverse/attempt_support/gameclient-drawable-id-provider-20261105-codex2.md).
 Clearance: pending real-link verification; the new eight-unit preview remains LINKS for the same 30,284 bytes and previously accepted the pin.
+Remaining / next check: upstream `85b46a09f3` now defines the exact Drawable::getID spelling; confirm the repaired consumers disappear from the next authorized real-link missing-name errors.
+Clearance: current-object missing-definition cause cleared for GameClient.cpp plus Drawable.cpp (2/2 LINKS); real-link verification pending. The eight-unit preview remains LINKS for the same 30,284 bytes and previously accepted the pin.
 Census confirmation: not claimed.
 [Repair evidence](../../reverse/attempt_support/animation-sound-drawable-id-link-20261105-codex.md).
 [Eight-consumer repair evidence](../../reverse/attempt_support/drawable-id-consumers-20261105-codex/report.md).
@@ -19,3 +21,4 @@ has a definer. Clearance needs the next real link (`real-link.yml`) to stop list
 2026-11-05: independently of `85b46a09f3`, GameClient.cpp also calls the matched getter (2/2 rows, 622 external definitions kept, preview LINKS); next check: the next real link lists none of them; [GameClient repair evidence](../../reverse/attempt_support/drawable-id-gameclient-20261105-claude/report.md).
 
 2026-11-05: `85b46a09f3` supplies the named getter in Drawable.cpp; AnimationSoundClientBehavior now uses it directly, removing its address-named workaround. Current animation/provider/health-bar objects all preview LINKS; provider absence is cleared locally, awaiting the next real link for all historical callers. [Named-provider verification and stale-index duplicate diagnosis](../../reverse/attempt_support/animation-sound-named-id-20261105-codexb4.md).
+2026-11-05: GameClient needs no source edit after the upstream provider repair; [current-object verification](../../reverse/attempt_support/gameclient-drawable-id-provider-20261105-codexb.md).
