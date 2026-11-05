@@ -2863,6 +2863,53 @@ def test_debt_can_follow_a_rehomed_row_while_old_source_still_exists(tmp_path, m
     assert rq.verify_removed_debt(header_verdict=lambda *a: pytest.fail("transfer mistaken for adoption")) == []
 
 
+@pytest.mark.parametrize("case", ["separate-row", "coalesced-row", "source-remains",
+                                  "old-duplicate", "missing-rva", "partial-ledger",
+                                  "wrong-destination", "empty-rvas", "unstaged-queue"])
+@pytest.mark.parametrize("target", ["index", "tree"])
+def test_header_transfer_into_an_already_queued_destination(tmp_path, monkeypatch, case, target):
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES)
+    source, dest = "Code/GameEngine/Body.cpp", "Code/GameEngine/Loco.cpp"
+    queue = rev / "header_queue.tsv"
+    original = queue.read_text()
+    donor = next(line for line in original.splitlines(True) if line.startswith("Coord3D\t" + source))
+    existing = donor.replace(source, dest).replace("0x00002000", "0x00001000")
+    if case == "old-duplicate":
+        existing = donor.replace(source, dest)
+    if case == "empty-rvas":
+        original = original.replace(donor, donor.replace("0x00002000", ""))
+        donor = donor.replace("0x00002000", "")
+    queue.write_text(original + existing)
+    git = _git_repo(tmp_path)
+    if case != "source-remains":
+        (tmp_path / source).unlink()
+    ledger = rev / "functions.csv"
+    if case != "partial-ledger":
+        target = "Code/GameEngine/Rva00003000Noop.cpp" if case == "wrong-destination" else dest
+        ledger.write_text(ledger.read_text().replace(source, target))
+    moved = donor.replace(source, dest)
+    if case == "missing-rva":
+        moved = moved.replace("0x00002000", "0x00003000")
+    if case == "coalesced-row":
+        new_queue = original.replace(donor, "") + existing.replace("0x00001000", "0x00001000 0x00002000")
+    else:
+        new_queue = original.replace(donor, "") + existing + moved
+    if case != "unstaged-queue":
+        queue.write_text(new_queue)
+    git("add", "reverse/functions.csv", "reverse/header_queue.tsv", source)
+    if case == "unstaged-queue":
+        queue.write_text(new_queue)
+    if target == "tree":
+        rq.DEBT_TARGET = git("write-tree").stdout.strip()
+    passing = case in {"separate-row", "coalesced-row", "source-remains"}
+    assert rq._debt_transferred("header", source, ["Coord3D"], ()) == passing
+    if passing:
+        assert rq.verify_missing_debt() == []
+        assert rq.verify_removed_debt(header_verdict=lambda *a: pytest.fail("transfer judged as adoption")) == []
+    elif case != "unstaged-queue":
+        assert rq.verify_missing_debt()
+
+
 # Microsoft-header migrations use the same logical file locks as the debt picker.
 def ms_header_fixture(tmp_path):
     import csv

@@ -1907,12 +1907,33 @@ def _debt_transferred(kind, source, keys, staged):
     _debt_follows); old duplicates prove nothing."""
     if kind == "header":
         def rows(text):
-            return {(r.get("class"), r.get("source")) for r in
-                    csv.DictReader(io.StringIO(text), delimiter="\t")}
+            out = {}
+            for row in csv.DictReader(io.StringIO(text), delimiter="\t"):
+                pair = row.get("class"), row.get("source")
+                out.setdefault(pair, set()).update((row.get("retail_rvas") or "").split())
+            return out
         old = _git("show", f"{DEBT_BASE}:{HEADER_QUEUE}")
-        added = rows(_staged_text(HEADER_QUEUE)) - rows(old.stdout)
-        return all(any(name == key and dest and _debt_follows(source, dest)
-                       for name, dest in added) for key in keys)
+        before, after = rows(old.stdout), rows(_staged_text(HEADER_QUEUE))
+        added = after.keys() - before.keys()
+
+        def carried(key, dest):
+            if not dest or not _debt_follows(source, dest):
+                return False
+            if (key, dest) in added:
+                return True
+            # A merge can append a second row (or coalesce RVAs) under a pair
+            # already queued. An unchanged destination pair proves nothing:
+            # require the donor's queued RVAs to be newly present there, and
+            # every donor ledger row to follow them even if its file vanished.
+            rvas = before.get((key, source), set())
+            old_rows = _ledger_sources(DEBT_BASE).get(source, set())
+            new_rows = _ledger_sources(DEBT_TARGET)
+            return bool(rvas and old_rows) and (
+                rvas <= after.get((key, dest), set()) - before.get((key, dest), set())
+                and not new_rows.get(source) and old_rows <= new_rows.get(dest, set()))
+
+        return all(any(name == key and carried(key, dest) for name, dest in after)
+                   for key in keys)
     old = _git("show", f"{DEBT_BASE}:{REGISTERS[kind]}")
     added = set(staged) - register_keys(kind, old.stdout)
     dests = {}
