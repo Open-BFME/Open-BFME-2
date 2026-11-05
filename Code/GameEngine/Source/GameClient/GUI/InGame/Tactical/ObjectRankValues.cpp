@@ -51,18 +51,7 @@ public:
 	bool rva005CB9FF(Int arg);
 };
 
-class ExperienceTracker
-{
-public:
-	ExperienceLevelHandle rva0039AC0C() const;
-	bool rva0039ABFF() const;
-	bool getLevelCap(Int *cap) const { return reinterpret_cast<Rva005CB9FF *>(const_cast<ExperienceTracker *>(this))->rva005CB9FF(reinterpret_cast<Int>(cap)); }
-	Real getCurrentExperience() const { return m_currentExperience; }
-
-private:
-	unsigned char m_pad00[0x10];
-	Real m_currentExperience;	// +0x10
-};
+#include "../../../../../Include/GameLogic/ExperienceTracker.h"
 
 #include "../../../../GameLogic/Object/object.h"
 
@@ -76,7 +65,7 @@ bool ComputeObjectRankValues(const Object &obj, Int &rank, Real &progress)
 	ExperienceLevelHandle next = ExperienceLevelStore::get()->GetNextLevel(handle);
 	if (ExperienceLevelStore::get()->IsValid(next) && obj.getExperienceTracker()->rva0039ABFF()) {
 		Int cap;
-		if (!obj.getExperienceTracker()->getLevelCap(&cap) || rank < cap) {
+		if (!reinterpret_cast<Rva005CB9FF *>(const_cast<ExperienceTracker *>(obj.getExperienceTracker()))->rva005CB9FF(reinterpret_cast<Int>(&cap)) || rank < cap) {
 			Real current = obj.getExperienceTracker()->getCurrentExperience();
 			Real lower = (Real)ExperienceLevelStore::get()->GetRequiredExperience(handle);
 			Real upper = (Real)ExperienceLevelStore::get()->GetRequiredExperience(next);

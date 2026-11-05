@@ -102,14 +102,7 @@ public:
 
 #include "../../../Include/Common/ThingTemplate.h"
 
-class ExperienceTracker
-{
-public:
-	Int getRank() const { return m_rank; }
-private:
-	unsigned char m_pad[0x24];
-	Int m_rank; // +0x24
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 
 #include "../../../Include/Common/ThingFactory.h"
 extern ThingFactory *TheThingFactory;
@@ -233,7 +226,7 @@ Bool ScriptConditions::rva003E8E23(Parameter *playerParm, Parameter *typeParm, P
 				ExperienceTracker *tracker = obj->getExperienceTracker();
 				if (!tracker)
 					continue;
-				Int rank = tracker->getRank();
+				Int rank = tracker->getVeterancyLevel();
 				Bool matches = false;
 				switch (comparisonParm->getInt())
 				{

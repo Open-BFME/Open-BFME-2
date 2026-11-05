@@ -369,7 +369,7 @@ struct TerrainLogicVtbl
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 class Keyboard { public: bool isShift(); bool isCtrl(); bool isAlt(); char m_pad[0xC]; unsigned char m_modifiers; };
 #include "../../../../GameEngine/Include/GameClient/Mouse.h"
-class ExperienceTracker { public: char m_pad[0x10]; float m_experience; char m_pad14[0x24 - 0x14]; int m_level; };
+#include "../../../../GameEngine/Include/GameLogic/ExperienceTracker.h"
 #include "../../../../GameEngine/Include/GameLogic/ExperienceLevelStore.h"
 class ExperienceLevelSystem;
 #include "../../../../GameEngine/Include/Common/ThingTemplate.h"
@@ -690,8 +690,8 @@ void W3DDisplay::gatherDebugStats(void)
 			if (obj->m_template->m_isTrainable)
 			{
 				ExperienceTracker *tracker = obj->m_experienceTracker;
-				float experience = tracker->m_experience;
-				int level = tracker->m_level;
+				float experience = tracker->m_10;
+				int level = tracker->m_24;
 				unibuffer2.format(W("Level %d ( has %.1f and needs %d to level). "), level, experience, ((ExperienceLevelStore *)TheExperienceLevelSystem)->rva00289BE0(tracker, 0));
 				unibuffer.concat(unibuffer2);
 			}

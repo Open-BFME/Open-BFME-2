@@ -13,7 +13,7 @@ union ObjectExperienceFlag { bool flag; float bonus; };
 class Rva0039ADF3 { public: bool rva0039AE04() const; };
 class Rva0039ACBD { public: int rva0039ACBD(const Object *,bool); };
 class Rva0039AF9B { public: float rva0039AF9B(float); };
-class ExperienceTracker { public: void rva0039B315(float,bool,bool,bool,bool); unsigned char pad[0x20]; unsigned char flag; };
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 #include "../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 class ObjectVirtualView {
 public:
@@ -216,7 +216,7 @@ void Object::rva00294C1A(Object *victimObject,bool flagArg,float scale) {
   } else tracker->rva0039B315(points,true,true,true,false);
 
   if (points>0.0f) {
-   experienceFlag |= tracker->flag;
+   experienceFlag |= tracker->m_20;
    ObjectExpSink *sink=(ObjectExpSink*)Rva0047FDFEGet(this);
    if (sink) sink->grant(points);
   }

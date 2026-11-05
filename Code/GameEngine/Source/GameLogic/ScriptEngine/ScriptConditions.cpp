@@ -716,14 +716,11 @@ class MeshGeometryClass
 protected:
 	Vector3i16 *get_polys();
 };
-class ExperienceTracker : public MeshGeometryClass
+#include "../../../Include/GameLogic/ExperienceTracker.h"
+// 0x000B49A1 folds ExperienceTracker's level-cap read ([[this+0x2C]+0xC]).
+struct ExperienceTrackerLevelCapView : public MeshGeometryClass
 {
-public:
-	int getRank() const { return m_rank; }
-	int getLevelCap() { return (int)get_polys(); }
-private:
-	unsigned char m_pad[0x24];
-	int m_rank; // +0x24
+	int levelCap() { return (int)get_polys(); }
 };
 class CastleBehavior : public Rva00395686
 {
@@ -2916,8 +2913,8 @@ bool __stdcall Rva003E4E6AGet(Parameter *parameter)
         if (obj) {
             ExperienceTracker *tracker = obj->m_experienceTracker;
             if (tracker) {
-                int rank = tracker->getRank();
-                if (rank > tracker->getLevelCap())
+                int rank = tracker->getVeterancyLevel();
+                if (rank > ((ExperienceTrackerLevelCapView *)tracker)->levelCap())
                     return true;
             }
         }
@@ -3037,7 +3034,7 @@ bool ScriptConditions::rva003E514F(Parameter *param, CondA003E514F *a, CondB003E
 		return false;
 
 	int op = a->m_op;
-	int count = inner->getRank();
+	int count = inner->getVeterancyLevel();
 	bool result;
 
 	switch (op)
@@ -3930,7 +3927,7 @@ bool ScriptConditions::evaluateNamedUnitRankLevel(Parameter *pUnitParm, Paramete
 	} else {
 		ExperienceTracker *body = pUnit->m_experienceTracker;
 		if (body != 0)
-			return body->getRank() >= pRankParm->getInt();
+			return body->getVeterancyLevel() >= pRankParm->getInt();
 	}
 	return false;
 }

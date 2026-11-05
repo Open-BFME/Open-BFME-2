@@ -90,15 +90,7 @@ struct ExperienceLevelHandle
 };
 // The object FindCurrentLevel and FindExperienceLevelList read: current level
 // at +0x0C, level-list key at +0x30.
-class ExperienceTracker
-{
-public:
-	unsigned char m_pad00[0xc];
-	Int m_currentLevel;			// +0x0C
-	float m_experience;			// +0x10
-	unsigned char m_pad14[0x30 - 0x14];
-	Int m_levelListKey;			// +0x30
-};
+#include "../../../Include/GameLogic/ExperienceTracker.h"
 // The NameKeyType -> level-list hash_map at the store's +0x0C. Its STLport
 // find instantiation is identical to every other NameKeyType hash_map find
 // and folded into the one body 0x00148B27, pinned under the
@@ -310,7 +302,7 @@ ExperienceLevelHandle ExperienceLevelStore::FindCurrentLevel(const ExperienceTra
 		ExperienceLevelList *list = FindExperienceLevelList(tracker);
 		if (list)
 		{
-			Int level = tracker->m_currentLevel;
+			Int level = tracker->m_0C;
 			ExperienceLevelIterator end = list->end();
 			for (ExperienceLevelIterator it = list->begin(); !(it == end); ++it)
 			{
@@ -391,7 +383,7 @@ ExperienceLevelList *ExperienceLevelStore::FindExperienceLevelList(const Experie
 	if (tracker)
 	{
 		NameKeyGenerator::KeyToBucketMap::Slot it;
-		((NameKeyGenerator::KeyToBucketMap *)m_levelLists)->find(it, &tracker->m_levelListKey);
+		((NameKeyGenerator::KeyToBucketMap *)m_levelLists)->find(it, &tracker->m_30);
 		NameKeyGenerator::KeyToBucketMap::Slot found = it;
 		if (found.node)
 			return (ExperienceLevelList *)((char *)found.node + 8);
@@ -937,10 +929,10 @@ int ExperienceLevelStore::rva00289BE0(const ExperienceTracker *tracker, int *out
 	ExperienceLevelList *list = FindExperienceLevelList(tracker);
 	if (list == 0)
 		return 0;
-	const Rva00289BE0Level *level = (const Rva00289BE0Level *)((Rva0028951F *)this)->rva002897A8(list, tracker->m_currentLevel);
+	const Rva00289BE0Level *level = (const Rva00289BE0Level *)((Rva0028951F *)this)->rva002897A8(list, tracker->m_0C);
 	if (level == 0)
 		return 0;
-	int current = (int)tracker->m_experience;
+	int current = (int)tracker->getCurrentExperience();
 	if (out)
 		*out = level->m_xFC;
 	return level->m_requiredExperience - current;

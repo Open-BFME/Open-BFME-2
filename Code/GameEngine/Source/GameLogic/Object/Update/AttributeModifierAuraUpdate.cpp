@@ -189,12 +189,7 @@ private:
 	Rva0028B511Side *m_side; // +0x34
 };
 
-class ExperienceTracker
-{
-public:
-	char m_unknown00[0x24];
-	Int m_rank; // +0x24
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 #include "../../../Common/Thing/thing.h"
 
@@ -406,7 +401,7 @@ void objectAuraUpdate(Object *obj, void *userData)
 	if (experience)
 	{
 		Int maxRank = info->m_data->m_maxActiveRank;
-		Int rank = experience->m_rank;
+		Int rank = experience->getVeterancyLevel();
 		if (maxRank && rank > maxRank)
 			return;
 	}

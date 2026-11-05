@@ -265,7 +265,7 @@ public:
 #include "../../../../Include/GameLogic/Weapon.h"
 class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const; };
 
-class ExperienceTracker { public: Int getVeterancyLevel() const { return m_level; } char m_pad000[0x24]; Int m_level; };
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 
 enum SpecialPowerType {};
 class SpecialAbilityUpdate;

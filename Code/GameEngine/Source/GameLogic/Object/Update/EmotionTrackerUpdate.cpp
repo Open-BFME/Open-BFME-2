@@ -31,7 +31,7 @@ public:
 	int index; // +0x54
 };
 #include "../../../../Include/Common/ThingTemplate.h"
-class ExperienceTracker { public: char pad[0x24]; int level; };
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 enum ObjectStatusTypes;
 enum Relationship { ENEMIES = 0 };
 class Object
@@ -540,7 +540,7 @@ EmotionNugget *EmotionTrackerUpdate::rva004B13D8()
 	level = 0;
 	ExperienceTracker *tracker = m_object->m_tracker;
 	if (tracker)
-		level = tracker->level;
+		level = tracker->getVeterancyLevel();
 
 	for (cursor = nuggets.begin(); cursor != nuggets.end(); ++cursor)
 	{

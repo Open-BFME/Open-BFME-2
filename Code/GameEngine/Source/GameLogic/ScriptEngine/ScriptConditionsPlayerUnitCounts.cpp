@@ -153,14 +153,11 @@ protected:
 	Vector3i16 *get_polys();
 };
 
-class ExperienceTracker : public MeshGeometryClass
+#include "../../../Include/GameLogic/ExperienceTracker.h"
+// 0x000B49A1 folds ExperienceTracker's level-cap read ([[this+0x2C]+0xC]).
+struct ExperienceTrackerLevelCapView : public MeshGeometryClass
 {
-public:
-	Int getRank() const { return m_rank; }
-	Int getLevelCap() { return (Int)get_polys(); }
-private:
-	unsigned char m_pad[0x24];
-	Int m_rank; // +0x24
+	Int levelCap() { return (Int)get_polys(); }
 };
 
 enum DisabledType
@@ -352,7 +349,7 @@ Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, 
 				if (!obj)
 					continue;
 				if ((((obj->getTemplate()->m_kindof[KINDOF_90 >> 5] >> (KINDOF_90 & 31)) & 1) != 0) && obj->getExperienceTracker() != 0
-					&& obj->getExperienceTracker()->getRank() >= rankParm->bfme_getInt_f996b())
+					&& obj->getExperienceTracker()->getVeterancyLevel() >= rankParm->bfme_getInt_f996b())
 					count++;
 			}
 		}
@@ -582,7 +579,7 @@ Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, 
 				if (modeParm->bfme_getInt_f996b() == 0 && (((obj->getTemplate()->m_kindof[KINDOF_90 >> 5] >> (KINDOF_90 & 31)) & 1) != 0))
 					continue;
 				ExperienceTracker *tracker = obj->getExperienceTracker();
-				if (tracker && tracker->getRank() > tracker->getLevelCap())
+				if (tracker && tracker->getVeterancyLevel() > ((ExperienceTrackerLevelCapView *)tracker)->levelCap())
 					count++;
 			}
 		}

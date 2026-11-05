@@ -7,12 +7,7 @@
 // banner transfer purpose; original spelling is unknown. Target accesses prove
 // owner +8, tracker +264, level +24 and the out-ID word at +26C.
 class ThingTemplate;
-class ExperienceTracker {
-public:
- bool rva0039B4EC(int levels, bool feedback, bool flag);
- char unknown[0x24];
- int level;
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Rva003BD306Target {
 public:
  void rva0039B2C7(int count, bool value);
@@ -41,7 +36,7 @@ void HordeContain::rva00473197(Object *banner, const Object *source, bool flag, 
   rva00473125(banner, &bannerID, index);
   rva00468E79((int)banner, (int)type, value);
   if (!flag) owner->tracker->rva0039B4EC(1, true, false);
-  int levels = owner->tracker->level - banner->tracker->level;
+  int levels = owner->tracker->m_24 - banner->tracker->m_24;
   reinterpret_cast<Rva003BD306Target *>(banner->tracker)->rva0039B2C7(levels, 0);
  }
 }

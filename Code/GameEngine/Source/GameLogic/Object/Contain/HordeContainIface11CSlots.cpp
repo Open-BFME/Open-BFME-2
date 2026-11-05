@@ -397,16 +397,7 @@ public:
 };
 // Object +0x264: the experience tracker; +0x10 is the value slots 30 and 49
 // record per template.
-class ExperienceTracker : public Rva003BD306Target
-{
-public:
-	bool rva0039B4EC(int levels, bool flag1, bool flag2);	// 0x0039B4EC
-	unsigned char m_pad00[0x10];
-	float m_10; // +0x10
-	unsigned char m_pad14[0x24 - 0x14];
-	int getVeterancyLevel() const { return m_24; }
-	int m_24; // +0x24 (slot 48 compares it across 0x0039B3D1)
-};
+#include "../../../../Include/GameLogic/ExperienceTracker.h"
 // The Object +0x254 module: slot 5 gives a float.
 class Rva0046B850Module : public Rva00468D11Slots<5>
 {
@@ -2859,7 +2850,7 @@ Object *HordeContain::rva004708BC(const Matrix3D *mtx)
 		if (((_STL::map<unsigned short, int> *)&m_258)->find(keytmpl->m_5D8) != ((_STL::map<unsigned short, int> *)&m_258)->end())
 			xp = m_258[*(volatile short *)&keytmpl->m_5D8];
 		ExperienceTracker *tracker = result->m_264;
-		tracker->rva0039B3D1(xp, false);
+		reinterpret_cast<Rva003BD306Target *>(tracker)->rva0039B3D1(xp, false);
 		((ContainIface93 *)((char *)this + 0x20))->slot93(&self->m_284, 0);
 		AttributeModifierPoolUpdate *pool = self->findAttributeModifierPoolUpdate();
 		if (pool)
@@ -3400,7 +3391,7 @@ void HordeContain::rva00473799(const _STL::list<Object *> &items)
 			++it;
 		}
 	}
-	m_object->m_264->rva0039B3D1(best, true);
+	reinterpret_cast<Rva003BD306Target *>(m_object->m_264)->rva0039B3D1(best, true);
 	rva0046E740(0);
 	rva0046981C();
 	returnToFormation(0);
@@ -3427,7 +3418,7 @@ void rva00468AEC(Object *obj, void *userData)
 	if (thingTemplate->m_5D8 != data->m_key)
 		return;
 	if (obj->m_264)
-		obj->m_264->rva0039B3D1(data->m_value, false);
+		reinterpret_cast<Rva003BD306Target *>(obj->m_264)->rva0039B3D1(data->m_value, false);
 }
 
 // ?rva004707DB@HordeContain@@UAEXPAVObject@@M@Z @0x004707DB: slot 48; adds the
@@ -3455,7 +3446,7 @@ void HordeContain::rva004707DB(Object *obj, float amount)
 	if (data.m_value > tracker->m_10)
 	{
 		int level = tracker->m_24;
-		tracker->rva0039B3D1(data.m_value, false);
+		reinterpret_cast<Rva003BD306Target *>(tracker)->rva0039B3D1(data.m_value, false);
 		if (m_object->m_264->m_24 > level)
 			rva0046E740(1);
 	}
