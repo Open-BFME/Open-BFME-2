@@ -45,6 +45,47 @@ extern int thePlayer;
     ]
 
 
+def test_an_elaborated_type_specifier_still_declares_the_member():
+    """`class Object *obj;` is a member, not a nested type.
+
+    members() skipped every statement opening with class/struct/union/enum, so a
+    member or global written that way was counted nowhere - and rename.py's
+    reference_declarers, which reads this to show a word is a genuine name in the
+    reference trees, could not see it either.
+    """
+    source = '''
+struct Node {
+    Node *plain;
+    class Object *elaborated;
+    struct Thing *tagged;
+    enum Kind kind;
+};
+class Object *theObject;
+'''
+    assert names.declared("Code/Node.cpp", source) == [
+        ("file", "Node"), ("type", "Node"),
+        ("member", "plain"), ("member", "elaborated"),
+        ("member", "tagged"), ("member", "kind"),
+        ("global", "theObject"),
+    ]
+
+
+@pytest.mark.parametrize("body, why", [
+    ("class Fwd;", "a forward declaration declares no member"),
+    ("class Inner { int hidden; };", "a nested definition is read as its own type"),
+])
+def test_an_elaborated_keyword_without_a_declarator_declares_no_member(body, why):
+    source = "struct Holder {\n    %s\n    int real;\n};\n" % body
+    got = [n for kind, n in names.declared("Code/Holder.cpp", source) if kind == "member"]
+    assert "Fwd" not in got and "Inner" not in got, why
+    assert "real" in got
+
+
+def test_a_base_clause_is_not_read_as_a_member():
+    source = "struct Derived : public Base {\n    int real;\n};\n"
+    assert [n for kind, n in names.declared("Code/Derived.cpp", source) if kind == "member"] == ["real"]
+
+
 def track(root, paths):
     subprocess.run(["git", "init", "-q", str(root)], check=True)
     for rel, text in paths.items():

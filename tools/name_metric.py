@@ -112,6 +112,31 @@ def functions_in(code):
     return out
 
 
+# `class Object *obj;` declares a member, not a nested type: the keyword is an
+# elaborated type specifier. Skipping every statement that opens with one cost
+# real names - a member written that way was counted nowhere, and
+# rename.py's reference_declarers, which reads this to show that a word is a
+# genuine name in the reference trees, could not see it either.
+ELABORATED = re.compile(r"^(\s*)(?:class|struct|union|enum)\s+([A-Za-z_]\w*)\b(.*)$", re.S)
+# A declarator after the type name: a pointer or reference, or one plain name,
+# possibly an array. `: public Base` is a base clause and `final` is not a name.
+DECLARATOR = re.compile(r"[*&]|^\s*[A-Za-z_]\w*\s*(?:\[[^\]]*\])?\s*$", re.S)
+NOT_A_NAME = {"final", "sealed", "abstract"}
+
+
+def unelaborate(stmt):
+    """`class Object *obj` -> `Object *obj`, so the declarator reader sees it.
+    None for a nested type, a forward declaration or a base clause: braces are
+    flattened before this runs, so those have no declarator left to find."""
+    m = ELABORATED.match(stmt)
+    if not m:
+        return stmt
+    rest = m.group(3)
+    if not DECLARATOR.search(rest) or rest.strip() in NOT_A_NAME:
+        return None
+    return m.group(1) + m.group(2) + rest
+
+
 def members(body):
     while True:
         flat = re.sub(r"\{[^{}]*\}", ";", body)
@@ -119,7 +144,10 @@ def members(body):
             break
         body = flat
     for stmt in re.sub(r"\b(?:public|private|protected)\s*:", ";", body).split(";"):
-        if "(" in stmt or re.match(r"\s*(?:typedef|friend|using|enum|class|struct)\b", stmt):
+        if "(" in stmt or re.match(r"\s*(?:typedef|friend|using)\b", stmt):
+            continue
+        stmt = unelaborate(stmt)
+        if stmt is None:
             continue
         for d in stmt.split(","):
             m = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?::\s*\w+\s*)?$", d.strip())
@@ -153,7 +181,10 @@ def global_names(code):
                 top.append(";")
     top.append(code[last:] if depth == 0 else "")
     for stmt in "".join(top).split(";"):
-        if "(" in stmt or re.match(r"\s*(?:typedef|using|class|struct|enum|union|namespace|template|friend)\b", stmt):
+        if "(" in stmt or re.match(r"\s*(?:typedef|using|namespace|template|friend)\b", stmt):
+            continue
+        stmt = unelaborate(stmt)          # `class Object *g_obj;` is a global, as above
+        if stmt is None:
             continue
         ids = [t for t in WORD.findall(stmt.split("=")[0].split("[")[0]) if t not in KEYWORDS]
         if len(ids) >= 2 or (ids and re.search(r"\b(?:int|char|bool|float|double|long|short|unsigned|void)\b", stmt)):
