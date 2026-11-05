@@ -18,29 +18,25 @@ template <> ShareBufferClass<char>::~ShareBufferClass();
 // declared so this unit does not instantiate the generic sharebuf.h destructor.
 template<> ShareBufferClass<char>::~ShareBufferClass();
 
-// Donor layout labels are retained; target accesses establish the +0x14 slot.
-class MeshGeometryClass
-{
-protected:
-	bool read_user_text(ChunkLoadClass & cload);
-
-private:
-	char pad_00[0x14];
-	ShareBufferClass<char> *NameSlot;			// target +0x14; NameSlot is the donor label
-};
+// Target accesses establish the canonical UserText member at +0x14.
+// Keep the reference RefCountClass inline definitions and the canonical list base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#include "../WWLib/MultiListObjectClass.h"
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // ?read_user_text@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z
 bool MeshGeometryClass::read_user_text(ChunkLoadClass & cload)
 {
 	unsigned int textlen = cload.Cur_Chunk_Length();
 
-	if (NameSlot != NULL) {
+	if (UserText != NULL) {
 		return true;
 	}
 
-	NameSlot = NEW_REF(ShareBufferClass<char>,(textlen, "MeshGeometryClass::UserText"));
+	UserText = NEW_REF(ShareBufferClass<char>,(textlen, "MeshGeometryClass::UserText"));
 
-	if (cload.Read(NameSlot->Get_Array(),textlen) != textlen) {
+	if (cload.Read(UserText->Get_Array(),textlen) != textlen) {
 		return false;
 	}
 	return true;

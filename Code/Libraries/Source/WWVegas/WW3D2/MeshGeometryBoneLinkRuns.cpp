@@ -34,27 +34,22 @@
 // the primary template's copy here is not retail's and must not be emitted.
 template <> ShareBufferClass<unsigned short>::~ShareBufferClass();
 
-class MeshGeometryClass
-{
-public:
-    virtual ~MeshGeometryClass();
-private:
-    unsigned char m_before_links[0x50];
-    ShareBufferClass<unsigned short> *BoneLinkRuns; // target +0x54
-protected:
-    unsigned short *get_buffer54(int count);
-};
+// Keep the reference RefCountClass inline definitions and the canonical list base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#include "../WWLib/MultiListObjectClass.h"
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // Target 16A170 lazily allocates the requested element count at +0x54.
-// A zero count only queries the current array. This is a local ABI view.
+// A zero count only queries the current array.
 unsigned short *MeshGeometryClass::get_buffer54(int count)
 {
-    if (count && !BoneLinkRuns) {
-        BoneLinkRuns = NEW_REF(ShareBufferClass<unsigned short>,
+    if (count && !slot54) {
+        slot54 = NEW_REF(ShareBufferClass<unsigned short>,
             (count, 0));
     }
-    if (BoneLinkRuns) {
-        return BoneLinkRuns->Get_Array();
+    if (slot54) {
+        return slot54->Get_Array();
     }
     return NULL;
 }

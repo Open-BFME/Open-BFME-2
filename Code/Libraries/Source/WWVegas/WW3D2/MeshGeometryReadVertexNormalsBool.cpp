@@ -47,16 +47,11 @@
 
 #include "../WWMath/Vector3Data.h"
 
-class MeshGeometryClass
-{
-protected:
-	Vector3 *get_vert_normals(bool alternate_format);
-	bool read_vertex_normals(ChunkLoadClass &cload, bool alternate_format);
-private:
-	char m_pad00[0x28];
-	int m_count28;
-	int Get_Vertex_Count() const { return m_count28; }
-};
+// Keep the reference RefCountClass inline definitions and the canonical list base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#include "../WWLib/MultiListObjectClass.h"
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // ?read_vertex_normals@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
 bool MeshGeometryClass::read_vertex_normals(ChunkLoadClass &cload, bool alternate_format)

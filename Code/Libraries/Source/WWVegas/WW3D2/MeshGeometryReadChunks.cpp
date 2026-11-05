@@ -41,23 +41,11 @@
 #include "sharebuf.h"
 #include "chunkio.h"
 
-class MeshGeometryClass
-{
-protected:
-	bool read_chunks(ChunkLoadClass &cload);
-	bool read_vertices(ChunkLoadClass &cload, bool use_secondary);
-	Vector3 *get_vert_normals(bool alternate_format);
-	bool read_triangles(ChunkLoadClass &cload);
-	bool read_user_text(ChunkLoadClass &cload);
-	bool read_vertex_influences(ChunkLoadClass &cload);
-	uint32 *get_shade_indices(bool create);
-	bool read_aabtree(ChunkLoadClass &cload);
-	int Get_Vertex_Count() const { return VertexCount; }
-
-private:
-	char m_prefix[0x28];
-	int VertexCount;			// retail VertexCount is at +0x28
-};
+// Keep the reference RefCountClass inline definitions and the canonical list base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#include "../WWLib/MultiListObjectClass.h"
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // ?read_chunks@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z
 bool MeshGeometryClass::read_chunks(ChunkLoadClass &cload)

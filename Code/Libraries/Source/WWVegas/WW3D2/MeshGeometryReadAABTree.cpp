@@ -55,14 +55,9 @@ private:
     char _storage[0x14]; // target operand proves sizeof AABTreeClass is 0x1c
 };
 
-class MeshGeometryClass
-{
-protected:
-    bool read_aabtree(ChunkLoadClass &cload);
-
-    char BeforeCullTree[0x88];
-    AABTreeClass *CullTree;
-};
+// Preserve the reference base and its existing inline member definitions.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#include "MeshGeometryClass.h"
 
 // ?read_aabtree@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z
 bool MeshGeometryClass::read_aabtree(ChunkLoadClass &cload)

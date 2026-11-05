@@ -51,33 +51,27 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Do not implicitly re-emit their virtual destructors in this TU.
 template <> ShareBufferClass<Vector3>::~ShareBufferClass();
 
-class MeshGeometryClass {
-protected:
-    bool read_vertices(ChunkLoadClass &cload, bool use_secondary);
-
-    char pad_00[0x28];
-    int VertexCount;                          // target this+0x28
-    void *Slot2C;                             // field identity unproven
-    ShareBufferClass<Vector3> *VertexSlot30;  // target this+0x30
-    ShareBufferClass<Vector3> *VertexSlot34;  // target this+0x34
-    int Get_Vertex_Count() const { return VertexCount; }
-};
+// Keep the reference RefCountClass inline definitions and the canonical list base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#include "../WWLib/MultiListObjectClass.h"
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // ?read_vertices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@_N@Z
 bool MeshGeometryClass::read_vertices(ChunkLoadClass &cload, bool use_secondary)
 {
     Vector3 *loc;
     if (use_secondary) {
-        if (VertexSlot34 == NULL) {
-            VertexSlot34 = NEW_REF(ShareBufferClass<Vector3>,
+        if (slot34 == NULL) {
+            slot34 = NEW_REF(ShareBufferClass<Vector3>,
                 (VertexCount, "MeshGeometryClass::Vertex"));
-            int buffer_count = VertexSlot34->Get_Count();
-            Vector3 *buffer_array = VertexSlot34->Get_Array();
+            int buffer_count = slot34->Get_Count();
+            Vector3 *buffer_array = slot34->Get_Array();
             memset(buffer_array, 0, buffer_count * sizeof(Vector3));
         }
-        loc = VertexSlot34->Get_Array();
+        loc = slot34->Get_Array();
     } else {
-        loc = VertexSlot30->Get_Array();
+        loc = Vertex->Get_Array();
     }
 
     bool matched = cload.Read(loc, Get_Vertex_Count() * sizeof(Vector3))

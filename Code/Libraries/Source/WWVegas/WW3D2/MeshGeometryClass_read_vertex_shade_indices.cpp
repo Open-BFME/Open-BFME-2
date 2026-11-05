@@ -10,17 +10,11 @@
 #include "chunkio.h"
 #include "sharebuf.h"
 
-class MeshGeometryClass
-{
-protected:
-	bool read_vertex_shade_indices(ChunkLoadClass & cload);
-	uint32 *get_shade_indices(bool create);
-	int Get_Vertex_Count() const { return VertexCount; }
-
-private:
-	char m_prefix[0x28];
-	int VertexCount;			// retail VertexCount is at +0x28
-};
+// Keep the reference RefCountClass inline definitions and the canonical list base.
+#define BFME2_WWLIB_REFCOUNTDATA_H
+#include "../WWLib/MultiListObjectClass.h"
+#define MULTILIST_H
+#include "MeshGeometryClass.h"
 
 // ?read_vertex_shade_indices@MeshGeometryClass@@IAE_NAAVChunkLoadClass@@@Z
 bool MeshGeometryClass::read_vertex_shade_indices(ChunkLoadClass & cload)
