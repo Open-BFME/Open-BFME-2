@@ -182,9 +182,8 @@ class Rva00279074Host
 {
 public:
 	void rva00279074();
-
+	char m_pad00[0xFC];
 private:
-	char m_pad[0xFC];
 	Object *m_object; // +0xFC
 };
 

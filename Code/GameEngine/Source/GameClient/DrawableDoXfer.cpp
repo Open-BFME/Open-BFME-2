@@ -243,7 +243,13 @@ public:
 
 class Rva002716Holder { public: void rva00271547(); };
 class Rva00279354Host { public: void rva00279354(bool b); };
-class Rva0027974B { public: void rva0027974B(); };
+class Rva0027974B
+{
+public:
+	void rva0027974B();
+	char m_pad00[0x10C];
+	Rva0036CA00Str held; // +0x10C
+};
 
 #include "../Common/Thing/thing.h"
 

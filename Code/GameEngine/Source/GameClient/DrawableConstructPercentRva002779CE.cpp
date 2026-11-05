@@ -159,14 +159,12 @@ class Rva002779CEHost
 {
 public:
 	void drawConstructPercent();
-
 	Object *getObject() const { return m_object; }
-
+	char m_pad00[0xFC];
 private:
-	char m_pad000[0xfc];
 	Object *m_object; // +0xFC
-	char m_pad100[0x33c - 0x100];
-	Real m_lastConstructDisplayed; // +0x33C
+	char m_pad100[0x23C];
+	float m_lastConstructDisplayed; // +0x33C
 	DisplayString *m_constructDisplayString; // +0x340
 };
 

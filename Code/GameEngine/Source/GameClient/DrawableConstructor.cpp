@@ -134,6 +134,16 @@ class Rva002783F6Host
 {
 public:
 	void rva002783F6(int v);
+	void rva00278341(int query, int v); // 0x00278341
+	char m_pad00[0xFC];
+private:
+	Object *m_object; // +0xFC
+	char m_pad100[0x347];
+	unsigned char m_x447; // +0x447
+	unsigned char m_x448; // +0x448
+	char m_pad449[0x1];
+	unsigned char m_x44A; // +0x44A
+	char m_pad44B[0x1];
 };
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"

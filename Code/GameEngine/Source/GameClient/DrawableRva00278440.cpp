@@ -17,19 +17,19 @@ public:
 class Rva00278341Host
 {
 public:
- char pad100[0x100];
- DrawableID identifier;
- char pad104[0xc];
- OpaqueRefElement4 playing;
- char pad114[0x30];
- int playingHandle;
- char pad148[0x2ff];
- unsigned char flag447;
- unsigned char flag448;
- unsigned char flag449;
- unsigned char flag44A;
- unsigned char flag44B;
- void rva00278341(int selector, int permanent);
+	void rva00278341(int query, int v); // 0x00278341
+	char m_pad00[0x100];
+	DrawableID identifier; // +0x100
+	char m_pad104[0xC];
+	OpaqueRefElement4 playing; // +0x110
+	char m_pad114[0x30];
+	int playingHandle; // +0x144
+	char m_pad148[0x2FF];
+	unsigned char flag447; // +0x447
+	unsigned char flag448; // +0x448
+	unsigned char flag449; // +0x449
+	unsigned char flag44A; // +0x44A
+	unsigned char flag44B; // +0x44B
 };
 // Native278440..2784AF complete 111B RET4. The matched 2784AF wrapper and WB CB11D0 establish the
 // receiver, selector and three flag-byte guard. Compare the selected counted owner with field 0x110 and

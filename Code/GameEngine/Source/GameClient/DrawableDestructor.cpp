@@ -286,6 +286,9 @@ class Rva002714CA
 {
 public:
 	void rva002714CA();
+private:
+	unsigned char m_pre[0x148]; // +0x00
+	unsigned int m_handle; // +0x148
 };
 
 class Rva00279354Host

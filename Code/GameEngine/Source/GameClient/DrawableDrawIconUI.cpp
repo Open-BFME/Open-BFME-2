@@ -74,7 +74,7 @@ private:
 class Rva002AA191
 {
 public:
-	Int rva002AA191(const Object *obj);		// 0x002AA191, squad number
+	Int rva002AA191(const Object *object);
 };
 
 class Rva00276470Drawable

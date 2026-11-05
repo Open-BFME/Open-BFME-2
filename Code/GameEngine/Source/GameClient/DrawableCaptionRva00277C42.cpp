@@ -110,9 +110,8 @@ class Rva00277C42Host
 {
 public:
 	void rva00277C42();
-
+	char m_pad00[0x344];
 private:
-	char m_pad[0x344];
 	DisplayString *m_captionDisplayString; // +0x344
 };
 
