@@ -931,14 +931,23 @@ def skirmish_setup(ai, seed=None, player=False, players=2, difficulty="easy", fa
     return handler
 
 
-def skirmish_tick(a, samples, want_mode):
-    """Sample the logic every tick; stop --seconds after the skirmish started."""
+def skirmish_tick(a, samples, want_mode, hook=None):
+    """Sample the logic every tick; stop --seconds after the skirmish started, or with
+    --until-frame once the logic reaches that frame (and, with a CRC `hook`, once the
+    hook has its CRC at or past it), whatever the time."""
+    until = getattr(a, "until_frame", None)
+
     def tick(game):
         frame, mode = game.logic()
         samples.append((game.seconds(), frame, mode))
         modes = game.res.setdefault("modes", [])
         if not modes or modes[-1][1] != mode:
             modes.append((game.seconds(), mode, frame))
+        if until is not None:
+            if mode == want_mode and frame is not None and frame >= until and \
+                    (hook is None or any(f >= until for f, _ in hook.crcs)):
+                return "done"
+            return None
         started = [t for t, f, m in samples if m == want_mode and f]
         if started and samples[-1][0] - started[0] >= a.seconds:
             return "done"
@@ -1106,7 +1115,7 @@ def cmd_skirmish(a, keep_replay=None):
     hook = FrameHook(every=a.crc_every, modes=(a.mode,)) if keep_replay else None
     if hook:
         handlers.append(("GameEngine::update", hook))
-    game, out = launch(a, f'-file "{a.map}"', handlers, skirmish_tick(a, samples, a.mode))
+    game, out = launch(a, f'-file "{a.map}"', handlers, skirmish_tick(a, samples, a.mode, hook))
     out["samples"] = samples
     if hook:
         out["crcs"], out["rng"], out["blocks"] = hook.crcs, hook.rng, hook.blocks
@@ -1260,7 +1269,7 @@ def cmd_determinism(a):
     record = json.loads(Path(a.record_json or OUT / "record_retail.json").read_text())
     samples, perturbed = [], {}
     hook = FrameHook(every=a.crc_every, modes=(a.mode,))
-    base_tick = skirmish_tick(a, samples, a.mode)
+    base_tick = skirmish_tick(a, samples, a.mode, hook)
 
     def tick(game):
         perturb_tick(a, game, samples[-1][1] if samples else None, perturbed)
@@ -1440,6 +1449,8 @@ def main(argv=None):
                     help="slot 0 plays (random faction) against one AI, instead of observing two AIs")
     ap.add_argument("--seed", type=lambda v: int(v, 0), default=1, help="-randomSeed and the skirmish seed (GameInfo+0x50)")
     ap.add_argument("--seconds", type=float, default=60, help="skirmish seconds to simulate")
+    ap.add_argument("--until-frame", type=int,
+                    help="simulate until this logic frame (with CRCs, until its CRC is taken) instead of --seconds")
     ap.add_argument("--min-frames", type=int, default=100)
     ap.add_argument("--timeout", type=float, default=240)
     ap.add_argument("--replay", default="smoke")

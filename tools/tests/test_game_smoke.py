@@ -341,5 +341,42 @@ class RetailAddresses(unittest.TestCase):
             self.assertEqual(img[gs.RVA[name]:][:8], bytes.fromhex("6A01 FF1508A6BB00"))     # push 1; call [exit]
 
 
+class UntilFrame(unittest.TestCase):
+    """--until-frame stops on the logic frame, not on time, and waits for that frame's CRC."""
+
+    class Clock:
+        def __init__(self, frames):
+            self.frames, self.i, self.res = frames, -1, {}
+
+        def logic(self):
+            self.i += 1
+            return self.frames[self.i], SKIRMISH
+
+        def seconds(self):
+            return 1000.0 * self.i                   # far past any --seconds
+
+    def opts(self, until):
+        from types import SimpleNamespace
+        return SimpleNamespace(seconds=60, until_frame=until)
+
+    def test_stops_at_the_frame_not_the_time(self):
+        g = self.Clock([10, 4990, 5003])
+        tick = gs.skirmish_tick(self.opts(5000), [], SKIRMISH)
+        self.assertEqual([tick(g), tick(g), tick(g)], [None, None, "done"])
+
+    def test_waits_for_the_crc_at_the_frame(self):
+        g, hook = self.Clock([5001, 5002, 5003]), gs.FrameHook(every=25)
+        tick = gs.skirmish_tick(self.opts(5000), [], SKIRMISH, hook)
+        hook.crcs = [(4975, 1)]
+        self.assertIsNone(tick(g))
+        hook.crcs.append((5000, 2))
+        self.assertEqual(tick(g), "done")
+
+    def test_without_it_seconds_still_rule(self):
+        g = self.Clock([10, 20])
+        tick = gs.skirmish_tick(self.opts(None), [], SKIRMISH)
+        self.assertEqual([tick(g), tick(g)], [None, "done"])
+
+
 if __name__ == "__main__":
     unittest.main()
