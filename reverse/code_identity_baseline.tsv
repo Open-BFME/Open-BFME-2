@@ -3,7 +3,6 @@
 # deleted by hand once fixed, never added. See tools/allowed_symbols.py for the classes.
 # mode: shadow
 Code/GameEngine/Source/Common/Bfme5FindAndErase.cpp	?bfmeRemove@Gen_0039BE00@@QAEXH@Z	?bfmeErase@BfmeVecAG@@QAEXPAH@Z	0x001FF51F	wrong
-Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	??0Gen004502D0ParserRegistration@@QAE@PAXPAVDataChunkInput@@PAVAsciiString@@@Z	??1AsciiString@@QAE@XZ	0x00036410	divergent
 Code/GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp	?erase@?$vector@UElem003B2540@@V?$allocator@UElem003B2540@@@_STL@@@_STL@@QAEPAUElem003B2540@@PAU3@@Z	??$__copy_ptrs@PAUElem003B2540@@PAU1@@_STL@@YAPAUElem003B2540@@PAU1@00ABU__false_type@0@@Z	0x003F325A	wrong
 Code/GameEngine/Source/Common/PAVectorEraseRangeFamily003AF.cpp	?push_back@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@QAEXABUElem003AF9E0@@@Z	?_M_insert_overflow@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@IAEXPAUElem003AF9E0@@ABU3@ABU__false_type@2@I_N@Z	0x00565FC1	wrong
 Code/GameEngine/Source/Common/PoolDeleteDeletingDtors01.cpp	??_GRva006DE320@@UAEPAXI@Z	??1Rva006DE320@@UAE@XZ	0x006DE350	wrong

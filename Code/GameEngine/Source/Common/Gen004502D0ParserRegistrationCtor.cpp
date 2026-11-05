@@ -1,7 +1,7 @@
-// cl: -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii/Common -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/Common
+// cl: -DNDEBUG -MD -EHsc -Ireference/shims/bfme2_ascii
 // The string xref names MPPositionInfo. Retail writes 0x0107C7D0 during registration and 0x010F5E78 before return. No caller names the derived class, so the class keeps the retail address.
 
-#include "AsciiString.h"
+#include "ascii_string.h"
 
 // Retail vtable 0x0107C7D0: BfmeParserBindingBaseVE's vftable, i.e.
 // ??_7BfmeParserBindingBaseVE@@6B@ (targets/game/reverse/dir32_addresses.csv).
@@ -71,7 +71,7 @@ Gen004502D0ParserRegistration::Gen004502D0ParserRegistration(
     void *extra, DataChunkInput *table, AsciiString *labelOverride)
     : BfmeParserRegistrationVE(table,
         (AsciiString *)&AsciiString("MPPositionInfo"),
-        labelOverride ? labelOverride : &AsciiString::TheEmptyString)
+        labelOverride ? labelOverride : (AsciiString *)&AsciiString::TheEmptyString)
 {
     Gen004502D0ParserRegistration *self = this;
     self->m_0c = extra;
