@@ -19,12 +19,7 @@ typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;
 
-struct StateConditionInfo
-{
-	void *m_test;
-	StateID m_toStateID;
-	void *m_userData;
-};
+#include "../../../Include/Common/StateConditionInfo.h"
 #include "../../../Include/Common/StateMachineClass.h"
 enum ObjectStatusTypes
 {
@@ -146,16 +141,16 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 {
 	static const StateConditionInfo objectConditionsNormal[] =
 	{
-		{ (void *)rva00343DD8, CHASE_TARGET, NULL },
-		{ (void *)wantToSquishTarget, CHASE_TARGET, NULL },
-		{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
+		{ (bool (*)(State *, void *))rva00343DD8, CHASE_TARGET, NULL },
+		{ (bool (*)(State *, void *))wantToSquishTarget, CHASE_TARGET, NULL },
+		{ (bool (*)(State *, void *))cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
 		{ NULL, 0, NULL }	// keep last
 	};
 	static const StateConditionInfo objectConditionsForced[] =
 	{
-		{ (void *)rva00343DD8, CHASE_TARGET, NULL },
-		{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)3 },
-		{ (void *)wantToSquishTarget, CHASE_TARGET, NULL },
+		{ (bool (*)(State *, void *))rva00343DD8, CHASE_TARGET, NULL },
+		{ (bool (*)(State *, void *))cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)3 },
+		{ (bool (*)(State *, void *))wantToSquishTarget, CHASE_TARGET, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 	const StateConditionInfo *objectConditions = forceAttacking ? objectConditionsForced : objectConditionsNormal;
@@ -163,13 +158,13 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 	{
 		static const StateConditionInfo statusConditions[] =
 		{
-			{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
+			{ (bool (*)(State *, void *))cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
 			{ NULL, 0, NULL }	// keep last
 		};
 		static const StateConditionInfo turretConditions[] =
 		{
-			{ (void *)rva00343DD8, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
-			{ (void *)cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
+			{ (bool (*)(State *, void *))rva00343DD8, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
+			{ (bool (*)(State *, void *))cannotPossiblyAttackObject, EXIT_MACHINE_WITH_FAILURE, (void *)2 },
 			{ NULL, 0, NULL }	// keep last
 		};
 		objectConditions = statusConditions;
@@ -178,7 +173,7 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 	}
 	static const StateConditionInfo positionConditions[] =
 	{
-		{ (void *)rva0033FD98, CHASE_TARGET, NULL },
+		{ (bool (*)(State *, void *))rva0033FD98, CHASE_TARGET, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 
@@ -192,7 +187,7 @@ AttackStateMachine::AttackStateMachine(Object *obj, Rva00346D17Attack *att, Unsi
 		{
 			static const StateConditionInfo portableStructureChaseConditions[] =
 			{
-				{ (void *)inWeaponRangeObject, AIM_AT_TARGET, NULL },
+				{ (bool (*)(State *, void *))inWeaponRangeObject, AIM_AT_TARGET, NULL },
 				{ NULL, 0, NULL }	// keep last
 			};
 			defineState( CHASE_TARGET, (State *)new Rva004D74AC( this ), EXIT_MACHINE_WITH_FAILURE, EXIT_MACHINE_WITH_FAILURE, portableStructureChaseConditions );

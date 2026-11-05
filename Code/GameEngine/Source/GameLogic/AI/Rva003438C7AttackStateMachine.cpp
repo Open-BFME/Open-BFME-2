@@ -17,12 +17,7 @@ typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
 typedef UnsignedInt ObjectID;
 class Object;
-struct StateConditionInfo
-{
-	void *m_test;
-	StateID m_toStateID;
-	void *m_userData;
-};
+#include "../../../Include/Common/StateConditionInfo.h"
 class State
 {
 public:
@@ -100,7 +95,7 @@ AttackPositionStateMachine::AttackPositionStateMachine(Object *owner, Rva003438C
 {
 	static const StateConditionInfo positionConditions[] =
 	{
-		{ (void *)rva0033FD98, 600, NULL },
+		{ (bool (*)(State *, void *))rva0033FD98, 600, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 
@@ -108,7 +103,7 @@ AttackPositionStateMachine::AttackPositionStateMachine(Object *owner, Rva003438C
 	defineState( 601, new Rva0033F3EF( this ), 602, 9999, positionConditions );
 	defineState( 602, new Rva0033F4B1( this, (int)static_cast<Rva003438C7HostInterface *>(host) ), 603, 600, positionConditions );
 	defineState( 603, new Rva0033F43D( this ), 601, 9999 );
-    static const StateConditionInfo portableConditions[] = { {(void*)rva0033FDD6,601,0}, {0,0,0} };
+    static const StateConditionInfo portableConditions[] = { {(bool (*)(State *, void *))rva0033FDD6,601,0}, {0,0,0} };
     AttackKindPrefixView *thing=reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing;
     if(((this?reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing:reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing)->kind108 & 4)==0) {
         if((thing->kind10F & 2) && ((this?reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing:reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing)->kind108 & 8))

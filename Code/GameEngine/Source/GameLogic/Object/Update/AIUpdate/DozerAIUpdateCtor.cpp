@@ -246,12 +246,7 @@ typedef UnsignedInt StateID;
 enum { INVALID_STATE_ID = 999999 };
 
 class State;
-struct StateConditionInfo
-{
-	Bool (*test)(State *thisState, void *userData);
-	StateID toStateID;
-	void *userData;
-};
+#include "../../../../../Include/Common/StateConditionInfo.h"
 
 #include "StateMachineView.h"
 

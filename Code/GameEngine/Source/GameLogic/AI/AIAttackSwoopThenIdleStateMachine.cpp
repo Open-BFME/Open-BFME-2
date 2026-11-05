@@ -29,12 +29,7 @@ typedef UnsignedInt ObjectID;
 
 class Object;
 
-struct StateConditionInfo
-{
-	void *m_test;
-	StateID m_toStateID;
-	void *m_userData;
-};
+#include "../../../Include/Common/StateConditionInfo.h"
 
 class State
 {
