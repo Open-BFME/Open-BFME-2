@@ -15,6 +15,7 @@
 // holder set 0x00575674 and clear 0x000AD6F4 / CreateIcon 0x004FC185.
 #include "ascii_string.h"
 #include "Coord2D.h"
+#include "../../../../Include/GameLogic/LivingWorldBuildPlot.h"
 
 class Snapshot;
 class Snapshot;
@@ -82,7 +83,7 @@ class Object;
 #include "../../../../Include/Common/Rva000AD6F4.h"
 
 // Keep the typed holder access local to this consumer.
-static inline LivingWorldBuilding *GetBuildPlotBuilding(const Rva00575674 &holder)
+static inline LivingWorldBuilding *GetBuildPlotBuilding(const Rva000AD6F4 &holder)
 {
 	return (LivingWorldBuilding *)holder.m_ptr;
 }
@@ -99,38 +100,33 @@ struct BuildPlotRegionView
 	int m_id;
 };
 
-class LivingWorldBuildPlot
+// These accessors stay local: the pointer holders expose the canonical storage.
+static inline int GetBuildPlotRegionID(const LivingWorldBuildPlot &plot)
 {
-public:
-	virtual void DoXfer(Xfer *xfer);
-	void CreateIcon(const AsciiString &iconName);
+	if (plot.field1C) return ((BuildPlotRegionView *)plot.field1C)->m_id;
+	return -1;
+}
 
-	char m_pad04[0x14];
-	int m_id;
-	LivingWorldRegion *m_region;
-	Rva00575674 m_building;
-	BuildPlotIconView *m_icon;
-	Coord2D m_position;
-	int m_buildFrames;
-	bool m_hidden;
-	int getRegionID() const { if (m_region) return ((BuildPlotRegionView *)m_region)->m_id; return -1; }
-	int getBuildingID() const { if (m_building.m_ptr) return ((LivingWorldBuilding *)m_building.m_ptr)->field18; return 0; }
-};
+static inline int GetBuildPlotBuildingID(const LivingWorldBuildPlot &plot)
+{
+	if (plot.field20.m_ptr) return ((LivingWorldBuilding *)plot.field20.m_ptr)->field18;
+	return 0;
+}
 
 void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 {
 	BuildPlotXferVersion version(1, 1);
 	(*xfer == reinterpret_cast<Xfer::Version &>(version));
-	XferLivingWorldBuildPlotID(xfer, &m_id);
-	(*xfer == m_position);
-	(*xfer == m_buildFrames);
-	(*xfer == m_hidden);
+	XferLivingWorldBuildPlotID(xfer, &field18);
+	(*xfer == field28);
+	(*xfer == field30);
+	(*xfer == field34);
 	if (xfer->IsLoading()) {
 		int regionId;
 		Rva003EFE82Get((Rva003EFE82Obj *)xfer, &regionId);
-		m_region = 0;
+		field1C = 0;
 		if (TheLivingWorldLogic)
-			m_region = (LivingWorldRegion *)livingWorldRegions()->rva0020EAF6(regionId);
+			field1C = (LivingWorldRegion *)livingWorldRegions()->rva0020EAF6(regionId);
 		int buildingId;
 		Rva004E075FGet((Rva004E075FObj *)xfer, (int)&buildingId);
 		if (buildingId != 0) {
@@ -139,16 +135,16 @@ void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 			const Rva003F1BD3TemplateView *buildingTemplate = (const Rva003F1BD3TemplateView *)
 				((Rva0059E647Factory *)TheLivingWorldBuildingTemplateStore)->Lookup((int *)&templateName);
 			if (buildingTemplate) {
-				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, buildingTemplate, buildingId));
-				(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(m_building)));
+				((Rva00575674 *)&field20)->rva00575674((Object *)new LivingWorldBuilding(field1C, field28, buildingTemplate, buildingId));
+				(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(field20)));
 			} else {
 				buildingTemplate = (const Rva003F1BD3TemplateView *)
 					((LivingWorldBuildingTemplateStore *)TheLivingWorldBuildingTemplateStore)->getEmergencyBackupTemplateForBadLoads();
-				m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position, buildingTemplate, buildingId));
-				(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(m_building)));
-				((Rva000AD6F4 *)&m_building)->clear();
-				m_buildFrames = 0;
-				m_hidden = false;
+				((Rva00575674 *)&field20)->rva00575674((Object *)new LivingWorldBuilding(field1C, field28, buildingTemplate, buildingId));
+				(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(field20)));
+				((Rva000AD6F4 *)&field20)->clear();
+				field30 = 0;
+				field34 = false;
 			}
 		}
 		AsciiString iconName;
@@ -156,17 +152,17 @@ void LivingWorldBuildPlot::DoXfer(Xfer *xfer)
 		if (!iconName.isEmpty())
 			CreateIcon(iconName);
 	} else {
-		int regionId = getRegionID();
+		int regionId = GetBuildPlotRegionID(*this);
 		Rva003EFE82Get((Rva003EFE82Obj *)xfer, &regionId);
-		int buildingId = getBuildingID();
+		int buildingId = GetBuildPlotBuildingID(*this);
 		Rva004E075FGet((Rva004E075FObj *)xfer, (int)&buildingId);
-		if (m_building.m_ptr && buildingId != 0) {
-			AsciiString templateName(*reinterpret_cast<const AsciiString *>(((LivingWorldBuilding *)m_building.m_ptr)->field28));
+		if (field20.m_ptr && buildingId != 0) {
+			AsciiString templateName(*reinterpret_cast<const AsciiString *>(((LivingWorldBuilding *)field20.m_ptr)->field28));
 			(*xfer == templateName);
-			(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(m_building)));
+			(*xfer == *reinterpret_cast<Snapshot *>(GetBuildPlotBuilding(field20)));
 		}
 		if (!xfer->IsCRC()) {
-			AsciiString iconName(m_icon ? *m_icon->m_template : AsciiString::TheEmptyString);
+			AsciiString iconName(field24.m_ptr ? *((BuildPlotIconView *)field24.m_ptr)->m_template : AsciiString::TheEmptyString);
 			(*xfer == iconName);
 		}
 	}

@@ -72,28 +72,7 @@ class Rva004E0B60;
 
 #include "../../../../Include/Common/Rva00575674.h"
 
-class LivingWorldBuildPlot : public Snapshot, public Rva00330757Member,
-                            public LivingWorldPhaseObserver
-{
-public:
-    LivingWorldBuildPlot(int id, LivingWorldRegion *region, const Coord2D &position);
-    virtual ~LivingWorldBuildPlot();
-    virtual void loadPostProcess();
-    virtual void crc(Xfer *xfer);
-    virtual void xfer(Xfer *xfer);
-    virtual void slot00(int, int);
-    void CreateIcon(const AsciiString &iconName);
-    void ConstructBuildingImmediately(const Rva003F1BD3TemplateView *templ);
-private:
-    int m_id;
-    LivingWorldRegion *m_region;
-    Rva00575674 m_building;
-    Rva00575674 m_icon;
-    Coord2D m_position;
-    int m_buildFrames;
-    bool m_hidden;
-    bool m_unrecovered35;
-};
+#include "../../../../Include/GameLogic/LivingWorldBuildPlot.h"
 
 // The existing callee pin names ConstructBuilding by its address-derived
 // receiver. Keep that provider spelling; WorldBuilder 0x013118C0 supplies
@@ -284,8 +263,8 @@ void LivingWorldBuildPlot::CreateIcon(const AsciiString &iconName)
         ((Rva00213148 *)TheLivingWorldManager)->rva00213148(&iconName);
     if (livingWorldBuildPlotIconTemplate)
     {
-        m_icon.rva00575674((Object *)new LivingWorldBuildPlotIcon(livingWorldBuildPlotIconTemplate, this, m_position));
-        ((LivingWorldBuildPlotIcon *)m_icon.m_ptr)->slot20(m_building.m_ptr != 0, true);
+        ((Rva00575674 *)&field24)->rva00575674((Object *)new LivingWorldBuildPlotIcon(livingWorldBuildPlotIconTemplate, this, field28));
+        ((LivingWorldBuildPlotIcon *)field24.m_ptr)->slot20(field20.m_ptr != 0, true);
     }
 }
 
@@ -307,15 +286,15 @@ void Rva003F1C56Plot::rva004FC33E(const Rva003F1BD3TemplateView *templ)
 // WorldBuilder 0x01311A50; native 0x004FC3DC..0x004FC470 RET4.
 void LivingWorldBuildPlot::ConstructBuildingImmediately(const Rva003F1BD3TemplateView *templ)
 {
-    if (m_building.m_ptr)
+    if (field20.m_ptr)
         return;
-    m_building.rva00575674((Object *)new LivingWorldBuilding(m_region, m_position,
+    ((Rva00575674 *)&field20)->rva00575674((Object *)new LivingWorldBuilding(field1C, field28,
         templ, ((Rva002B315BBumpCounter *)TheLivingWorldLogic)->bump()));
-    ((Rva004E0B60 *)m_building.m_ptr)->rva004E0CB6();
-    m_buildFrames = 0;
-    m_hidden = false;
-    if (m_icon.m_ptr)
-        ((LivingWorldBuildPlotIcon *)m_icon.m_ptr)->slot24(false, true);
+    ((Rva004E0B60 *)field20.m_ptr)->rva004E0CB6();
+    field30 = 0;
+    field34 = false;
+    if (field24.m_ptr)
+        ((LivingWorldBuildPlotIcon *)field24.m_ptr)->slot24(false, true);
     ((Rva004FC320List *)((char *)this + 8))->forEach(
         (void (Rva004FC320Listener::*)(void *))(void (Rva001FF3A9::*)(const TreeHintRef00217D4C &))&Rva001FF3A9::rva001FF3A9, this);
 }

@@ -1,5 +1,7 @@
 ### LINK-098: Snapshot and Coord2D header adoption prerequisites
 
+2026-11-05: LivingWorldBuildPlot's seed and transfer consumers adopt its canonical header; combined acceptance retires two rows, 22/22 rows match and ordinary previews preserve 1,333 bytes. Five class-queue rows retain the existing lifetime/provider and coordinated-caller prerequisites. [Provider audit and scope](../../reverse/attempt_support/livingworldbuildplot-method-header-20261105-codex2.md).
+
 2026-11-05: four exported draw-info DoXfer providers now verify as complete Version1-only ICF twins; ordinary previews preserve 7,860 linked bytes. Next: reconcile their post-load slot and the RenderObjectDraw/LifeEvent transfer signatures before removing the private Snapshot base; both queue rows remain. [Evidence](../../reverse/attempt_support/fx-draw-transfer-20261105-codexb5/README.md).
 
 2026-11-04: retail alpha/color DoXfer exports replace both placeholder identities, all three caller sources are reconciled, constructor views declare native slot 3, and those two FX info views use canonical Snapshot; 403 rows and two EXACT EH graphs pass, with eight ordinary LINKS preserving 6,385 bytes. Next: reconcile the six remaining macro-declared info views before removing the private base; both Snapshot queue rows remain. [Evidence](../../reverse/attempt_support/fx-alpha-color-export-20261104-codexb/README.md).
