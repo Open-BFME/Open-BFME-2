@@ -185,11 +185,7 @@ private:
  CountedAsset *m_object;
 };
 class Rva0007B9EE {public:AssetReference rva0007B9EE();void *Get_Technique() {return m_technique;}char m_pad00[0x20];void *m_technique;};
-class Vector3 {
-public:
- float X,Y,Z;
- Vector3 &operator=(const Vector3 &v) {X=v.X;Y=v.Y;Z=v.Z;return *this;}
-};
+#include "../WWMath/Vector3Data.h"
 struct TriIndex {unsigned short I,J,K;};
 template<class T> class ShareBufferClass {public:ShareBufferClass(int count,const char *msg,int alignment=0);T *Get_Array() {return Array;}char m_pad00[0xC];T *Array;};
 class MeshMatDescClass {

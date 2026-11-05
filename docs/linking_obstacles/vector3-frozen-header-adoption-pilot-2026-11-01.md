@@ -9,3 +9,4 @@ One consumer needs a scoped Coord3D/Vector3 field rename; five other byte-passin
 trials add inline providers and were conservatively restored, rather than
 treated as proven regressions. [Pilot and remaining prerequisites](../../reverse/attempt_support/vector3-adoption-pilot-20261101.md).
 2026-11-05: the header's out-of-line operator= was the shared byte blocker (retail inlines it; 0x00169FB0 is an uncalled COMDAT); it is inline now and 8 more units adopted. [Inline assignment and remaining cohort](../../reverse/attempt_support/vector3-inline-assignment-adoption-20261105.md).
+2026-11-05: LightClassCopyCtor and FXShaderGeometry also adopt the header; 39/39 rows and full runtime/provider equality pass, and cohort acceptance retires two queue rows. [WW3D2 verification](../../reverse/attempt_support/vector3-ww3d2-adoption-20261105.md).
