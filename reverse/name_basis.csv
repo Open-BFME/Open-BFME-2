@@ -607,7 +607,7 @@ local,Rva00226856::rva00229976::h,Rva00226856::rva00229976::head,inferred,agree:
 local,Rva002268B0::rva002299C8::h,Rva002268B0::rva002299C8::head,inferred,agree:nl-86f52e0a1499,Code/GameEngine/Source/Common/Rva00226883TreeFree.cpp,0x002299C8
 local,Rva00082C98Host::rva00082C98::e,Rva00082C98Host::rva00082C98::newEnd,inferred,agree:nl-07bad8c86fd2,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva00082C98Clamp.cpp,0x00082C98
 param,MotionCoord::r,MotionCoord::coord,inferred,agree:nl-cec22f91d92f,Code/GameEngine/Source/Common/Rva0028E8D4Rva0028E8D4.cpp,
-member,Rva00524B7A::m_24,Rva00524B7A::m_flags,inferred,agree:nl-817157641118,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
+member,Rva00524B7A::m_24,Rva00524B7A::m_flags,inferred,agree:nl-817157641118,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
 local,AIEconomyStats::rva0059640C::t,AIEconomyStats::rva0059640C::version,inferred,agree:nl-760a2f06f3a5,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp,0x0059640C
 file,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButtonRva0035B0F0.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButton_getSpecialPowerPercentReady.cpp,inferred,mechanical:?getSpecialPowerPercentReady@CommandButton@@QBEMPBVObject@@@Z,Code/GameEngine/Source/GameClient/GUI/ControlBar/CommandButton_getSpecialPowerPercentReady.cpp,
 file,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AD8F.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_hidePurchaseScience.cpp,inferred,mechanical:?hidePurchaseScience@ControlBar@@QAEXXZ,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_hidePurchaseScience.cpp,
@@ -742,13 +742,13 @@ member,Elem004E93E8::m_5c,Elem004E93E8::m_playerType,inferred,agree:nl-0a780da08
 local,AIGameTeam::getMasterPlayer::e,AIGameTeam::getMasterPlayer::playersEnd,inferred,agree:nl-5776dfe3ef2e,Code/GameEngine/Source/Common/Rva004E93E8Find.cpp,0x004E93E8
 local,Rva004F6BB3Fill::p,Rva004F6BB3Fill::current,inferred,agree:nl-ae37869d0fa7,Code/GameEngine/Source/Common/Rva004F6BB3Fill.cpp,0x004F6BB3
 local,Rva004FDA42Owner::rva004FDA42::p,Rva004FDA42Owner::rva004FDA42::allocation,inferred,agree:nl-7b1629d12499,Code/GameEngine/Source/Common/Rva004FDA42Clear.cpp,0x004FDA42
-member,Rva00524B7A::m_20,Rva00524B7A::m_playbackFlags,inferred,agree:nl-5c207a05ddbb,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
-member,Rva00524B7A::m_28,Rva00524B7A::m_color,inferred,agree:nl-8a80ecdecfc8,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
-member,Rva00524B7A::m_2C,Rva00524B7A::m_fadeDuration,inferred,agree:nl-6bf1a175a5ea,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
-member,Rva00524B7A::m_30,Rva00524B7A::m_fadeStartTime,inferred,agree:nl-abe66f2eb528,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
-member,Rva00524B7A::m_34,Rva00524B7A::m_completionCallback,inferred,agree:nl-b939e25d3ed4,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
-member,Rva00524B7A::m_38,Rva00524B7A::m_completionCallbackArg,inferred,agree:nl-4ba3af63df7b,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
-local,Rva00524B7A::update::b,Rva00524B7A::update::alphaByte,inferred,agree:nl-b46f3f1edb0c,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,0x00524AE7
+member,Rva00524B7A::m_20,Rva00524B7A::m_playbackFlags,inferred,agree:nl-5c207a05ddbb,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
+member,Rva00524B7A::m_28,Rva00524B7A::m_color,inferred,agree:nl-8a80ecdecfc8,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
+member,Rva00524B7A::m_2C,Rva00524B7A::m_fadeDuration,inferred,agree:nl-6bf1a175a5ea,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
+member,Rva00524B7A::m_30,Rva00524B7A::m_fadeStartTime,inferred,agree:nl-abe66f2eb528,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
+member,Rva00524B7A::m_34,Rva00524B7A::m_completionCallback,inferred,agree:nl-b939e25d3ed4,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
+member,Rva00524B7A::m_38,Rva00524B7A::m_completionCallbackArg,inferred,agree:nl-4ba3af63df7b,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
+local,Rva00524B7A::update::b,Rva00524B7A::update::alphaByte,inferred,agree:nl-b46f3f1edb0c,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,0x00524AE7
 local,Rva005398B3::rva005398B3::p,Rva005398B3::rva005398B3::entry,inferred,agree:nl-4814f5655a60,Code/GameEngine/Source/Common/Rva005396E6Dtor.cpp,0x005398B3
 function,?rva005398B3@Rva005398B3@@QAEXXZ,?reset@Rva005398B3@@QAEXXZ,inferred,agree:nl-f049367e0d95,Code/GameEngine/Source/Common/Rva005396E6Dtor.cpp,0x005398B3
 carry,Rva005398B3::rva005398B3::entry,Rva005398B3::reset::entry,inferred,scope renamed by Rename rva005398B3 to reset (inferred),Code/GameEngine/Source/Common/Rva005396E6Dtor.cpp,0x005398B3
@@ -2105,7 +2105,7 @@ local,Palantir::Impl::TogglePlanningMode::m2,Palantir::Impl::TogglePlanningMode:
 local,Rva0055B39C::computeAlphaRate::v,Rva0055B39C::computeAlphaRate::targetAlpha,inferred,agree:nl-97c0069b0fcb,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B39C.cpp,0x0055B39C
 local,Rva00276223::rva00276223::p,Rva00276223::rva00276223::dm,inferred,agree:nl-20fb5dc263ec,Code/GameEngine/Source/Common/Rva00276223Leaf.cpp,0x00276223
 local,Rva00276223::rva00276223::e,Rva00276223::rva00276223::drawModule,inferred,agree:nl-7fe1a36dbd7a,Code/GameEngine/Source/Common/Rva00276223Leaf.cpp,0x00276223
-local,Rva00524B7A::update::v,Rva00524B7A::update::remainingTime,inferred,agree:nl-f5a7714d2346,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,0x00524AE7
+local,Rva00524B7A::update::v,Rva00524B7A::update::remainingTime,inferred,agree:nl-f5a7714d2346,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,0x00524AE7
 local,Rva00512C88Shutdown::p,Rva00512C88Shutdown::layoutToDelete,inferred,agree:nl-844b86cc7673,Code/GameEngine/Source/Common/Rva00512C88Shutdown.cpp,0x00512C88
 param,Object::forceEmotion::arg,Object::forceEmotion::source,inferred,agree:nl-cfef1ac7e9d5,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028EBDA.cpp,0x0028ECA8
 local,LivingWorld::ZoomInTo::local14,LivingWorld::ZoomInTo::position,inferred,agree:nl-b0d757dafe35,Code/GameEngine/Source/Common/LivingWorld_ZoomInTo.cpp,0x002BE8F9
@@ -2282,7 +2282,7 @@ member,BfmeThingVJQ::m_bfme30,BfmeThingVJQ::m_state,inferred,agree:nl-c4b162b379
 function,?bfmeAddFN@BfmeHostFN@@QAEHPBD0@Z,?appendText@BfmeHostFN@@QAEHPBD0@Z,inferred,agree:nl-f9da8b74730f,Code/GameEngine/Source/Common/BfmeConv2048.cpp,0x0066DC40
 carry,BfmeHostFN::bfmeAddFN::buffer,BfmeHostFN::appendText::buffer,inferred,scope renamed by Rename bfmeAddFN to appendText (inferred),Code/GameEngine/Source/Common/BfmeConv2048.cpp,0x0066DC40
 param,ArmySummary::rva0040CA3A::x,ArmySummary::rva0040CA3A::delaySeconds,inferred,agree:nl-0c6e450bc41a,Code/GameEngine/Source/Common/Rva0040C985Init.cpp,0x0040CA3A
-member,Rva00524B7A::m_0C,Rva00524B7A::m_videoStream,inferred,agree:nl-909d5144ca10,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,
+member,Rva00524B7A::m_0C,Rva00524B7A::m_videoStream,inferred,agree:nl-909d5144ca10,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,
 param,BfmeSubmitter1283::bfmeSubmitColors1283::a6,BfmeSubmitter1283::bfmeSubmitColors1283::replace,inferred,agree:nl-fc2fb1aff5e7,Code/GameEngine/Source/Common/BfmeSubmitColors1283.cpp,0x006F8E10
 param,Rva001E30F5::rva001E30F5::b,Rva001E30F5::rva001E30F5::context,inferred,agree:nl-48f6f24846df,Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp,0x001E30F5
 param,Rva002616D1::rva002616EB::arg,Rva002616D1::rva002616EB::otherObject,inferred,agree:nl-33b4e1fae022,Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp,0x002616EB

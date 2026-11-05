@@ -67325,7 +67325,7 @@ $L2551,,0x0075D34A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDispla
 ?rva005ED385@Rva005ED385@@QAEXHPBVImage@@@Z,,0x005ED385,140,Code/GameEngine/Source/Common/AptImageKeySetters.cpp,matched,
 ?rva0056C0A5@CellGrid@@QAEIABUCellPoint@@@Z,,0x0056C0A5,75,Code/GameEngine/Source/Common/BfmeCellGridCtor.cpp,matched,
 ?OnStatRollOver@StatsDisplayImpl@StrategicHUD@@QAEXPBD@Z,,0x00579B81,127,Code/GameEngine/Source/Common/StrategicHUD.cpp,matched,
-?update@Rva00524B7A@@UAEXXZ,,0x00524AE7,147,Code/GameEngine/Source/Common/Rva00524B7AVslot10.cpp,matched,
+?update@Rva00524B7A@@UAEXXZ,,0x00524AE7,147,Code/GameEngine/Source/Common/MovieWindowPlayback.cpp,matched,
 ?PopulatePlayerList@ChatWindowsOnlineRoom@@UAE_NXZ,,0x005D6AA4,408,Code/GameEngine/Source/GameClient/GUI/ChatWindowsOnlineRoom.cpp,matched,
 ?FindSafePath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@22M@Z,,0x002FB997,596,Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp,matched,same TU as InternalFindPath; start-cell scope trick lets farthest share start slot (retail 0x24 frame); boolArg center; erase through the ICF-shared vector erase 0x2A133B view
 ?getLoadScreen@GameLogic@@AAEPAVLoadScreen@@_N@Z,,0x0023DD48,796,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp,matched,
