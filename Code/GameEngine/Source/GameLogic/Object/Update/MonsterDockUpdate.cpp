@@ -12,7 +12,10 @@ public:
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
 	}
-	void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
+	void clear(int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
 	void set(int bit)
 	{
 		m_words[bit >> 5] |= 1U << (bit & 0x1f);
@@ -61,6 +64,23 @@ static __forceinline void setModelConditionBit(Object *object, int bit)
 		object->rva0028AE6D();
 	}
 }
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+struct Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+#include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
@@ -91,7 +111,7 @@ public:
 	virtual void getExitPosition(Object *docker, Coord3D *position) = 0;
 	virtual void onApproachReached(Object *docker) = 0;
 	virtual void onEnterReached(Object *docker) = 0;
-	virtual void onDockReached(Object *docker) = 0;
+	virtual void rva004A1610(Object *docker) = 0;
 	virtual void onExitReached(Object *docker) = 0;
 	virtual bool action(Object *docker, Object *drone) = 0;
 	virtual void cancelDock(Object *docker) = 0;
@@ -108,6 +128,7 @@ public:
 	virtual void onEnterReached(Object *docker);
 	virtual void cancelDock(Object *docker);
 protected:
+	virtual void xfer(Xfer *xfer);
 	unsigned char m_pad24[0x88 - 0x24];
 };
 
@@ -121,10 +142,13 @@ public:
 	virtual void onExitReached(Object *docker);
 	virtual void setDockOpen(bool open);
  virtual bool action(Object *, Object *);
+	virtual void rva004A1610(Object *docker);
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
 	bool m_dockOpen; // +0x88
  bool m_actionStarted; // +0x89
- unsigned int m_actionEnd; // +0x8C
+ int m_actionEnd; // +0x8C
 };
 
 // The ZH DockUpdateInterface::action contract and repair/delivery actions are
