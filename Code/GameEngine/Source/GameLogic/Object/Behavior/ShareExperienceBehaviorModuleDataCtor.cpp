@@ -40,18 +40,16 @@ public:
 	virtual ~ShareExperienceBehaviorModuleData();
 
 private:
-	unsigned char m_unk04[4]; // +4
-	float m_r8; // +8
-	float m_rC; // +0xC
-	float m_r10; // +0x10
-	Rva003623E5Filter m_filter; // +0x14
+	unsigned char m_pad04[4]; // +4
+	float m_radius; // +8
+	float m_dropOff; // +0xC
+	float m_percentage; // +0x10
+	Rva003623E5Filter m_objectFilter; // +0x14
 };
 
 // ??0ShareExperienceBehaviorModuleData@@QAE@XZ @0x47FE90
 inline ShareExperienceBehaviorModuleData::ShareExperienceBehaviorModuleData()
-	: m_r8(0.0f)
-	, m_rC(0.0f)
-	, m_r10(1.0f)
+	: m_radius(0.0f), m_dropOff(0.0f), m_percentage(1.0f)
 {
 }
 

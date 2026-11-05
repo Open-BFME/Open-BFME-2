@@ -46,3 +46,5 @@ ordinary post-merge preview is unavailable. The batch audit is INCONCLUSIVE:
 the index predates the outgoing base and affected consumer
 Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry this moved
 scope into the next normal census; full consumer selection remains unverified.
+
+2026-11-05: module-data declarations reconciled with identical external object facts; the supported trial now accepts that fragment (19 rows), while the behavior constructor remains blocked by unresolved secondary-interface slots. [Verification and next step](../../reverse/attempt_support/share-experience-moduledata-reconcile-20261105.md).
