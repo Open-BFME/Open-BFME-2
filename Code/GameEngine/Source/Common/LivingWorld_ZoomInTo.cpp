@@ -55,13 +55,7 @@ public:
 	void rva00213AFC(void *value);
 };
 
-class LivingWorldLogic
-{
-public:
-	char m_pad[0xB0];
-	Rva0020F27EHost *m_b0;
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
+#include "../../Include/GameLogic/LivingWorldLogic.h"
 
 class Mouse
 {
@@ -113,7 +107,7 @@ void LivingWorld::ZoomInTo(void *arg)
 			if (item == 0)
 				return;
 			int itemValue = *(int *)((char *)item + 0x12C);
-			Rva0020F27EHost *host = TheLivingWorldLogic->m_b0;
+			Rva0020F27EHost *host = (Rva0020F27EHost *)TheLivingWorldLogic->fieldB0;
 			if (!host->rva0020F27E(itemValue, (int)&field1C))
 				return;
 			v40(1);
