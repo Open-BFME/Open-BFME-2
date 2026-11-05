@@ -224,13 +224,7 @@ Rva004C1B7B::Rva004C1B7B(EmitVtableTag *)
 {
 }
 
-class LivingWorldBuilding
-{
-public:
-	LivingWorldBuilding(EmitVtableTag *);
-public:
-	virtual ~LivingWorldBuilding();
-};
+#include "../../Include/GameLogic/LivingWorldBuilding.h"
 
 // ?<LivingWorldBuilding::LivingWorldBuilding> absent-from-retail
 LivingWorldBuilding::LivingWorldBuilding(EmitVtableTag *)

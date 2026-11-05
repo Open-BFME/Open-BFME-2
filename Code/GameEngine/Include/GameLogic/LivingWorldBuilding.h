@@ -27,11 +27,14 @@ class LivingWorldBuildingTemplate;
 class Rva003F7BB4;
 struct Rva003F1BD3TemplateView;
 struct Rva004E0790Inner;
+struct EmitVtableTag;
 
 class LivingWorldBuilding : public Snapshot, public Rva00330757Member, public RegionTurnObserverView
 {
 public:
     LivingWorldBuilding(LivingWorldRegion *, const Coord2D &, const Rva003F1BD3TemplateView *, int);
+    // Existing non-retail table-emission overload in OpaqueScalarDeletingDtorsB11.cpp.
+    LivingWorldBuilding(EmitVtableTag *);
     virtual ~LivingWorldBuilding();
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void LoadPostProcess();
