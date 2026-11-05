@@ -33,16 +33,6 @@ extern "C" void _ReadWriteBarrier(void);
 typedef bool Bool;
 typedef int Int;
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_NONE = 0,
@@ -183,20 +173,11 @@ private:
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned int m_438; // +0x438
 };
-class State;
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
 
 // State-machine calls use the target's slot 4/8 interface. Keep this separate
-// from StateMachine's virtual destructor view used by AIAttackState::onExit.
+// from the canonical StateMachine that AIAttackState::onExit deletes.
 class StateMachineCallView : public AttackSlots<4>
 {
 public:
@@ -218,27 +199,6 @@ class AttackExitConditionsInterface
 {
 public:
 	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	Int getID() const { return m_id; }
-	Bool getByte1C() const { return m_1c; }
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
-	Int m_id; // +0x04
-	unsigned char m_pad08[0x18 - 0x08];
-	StateMachine *m_machine; // +0x18
-	Bool m_1c; // +0x1C
 };
 class AIAttackState : public State
 {
@@ -381,7 +341,7 @@ if (sourceAI && !victim->testStatus(OBJECT_STATUS_01) && victim->getContain() &&
 	}
 
 	Int stateID = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()
-		? reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()->getID() : 999999;
+		? reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()->m_id : 999999;
 	if (stateID == 0xE4)
 	{
 		source->clearModelConditionState(1 * 32 + 5);
@@ -397,7 +357,7 @@ if (sourceAI && !victim->testStatus(OBJECT_STATUS_01) && victim->getContain() &&
 			source->setModelConditionState(1 * 32 + 7);
 	}
 	Bool runState = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()
-		? reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()->getByte1C() : true;
+		? reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()->m_tail1C : true;
 	if (runState && reinterpret_cast<StateMachineCallView *>(m_attackMachine)->rva0034FB52Slot8(
 		reinterpret_cast<StateMachineCallView *>(m_attackMachine)->m_1cState()) == STATE_FAILURE)
 		return STATE_FAILURE;

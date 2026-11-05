@@ -64,17 +64,7 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 
 typedef bool Bool;
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
 
 enum ObjectID
 {
@@ -188,54 +178,15 @@ public:
 	Bool rva00293249(ObjectID id);
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-private:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-};
-
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08(); virtual void slot09(); virtual void slot10();
-	virtual void slot11(); virtual void slot12(); virtual void slot13();
-	virtual void slot14(); virtual void slot15(); virtual void slot16();
-	virtual Bool slot17();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType update();
-protected:
-	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustDestination; // +0x48
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AICowerState : public State
 {
 public:
 	virtual StateReturnType update();
+	virtual Bool slot17(); // slot 17 of 0x00C11958, the first after State's 17 slots
 };
 
 StateReturnType AICowerState::update()
@@ -298,7 +249,7 @@ StateReturnType AIBackAwayState::update()
 		{
 			m_goalPosition = *objAI->getPath()->getLastNode()->getPosition();
 			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 17");
-			setAdjustsDestination(false);
+			m_adjustDestinations = false;
 			m_retargetToPathEnd = false;
 		}
 	}

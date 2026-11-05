@@ -18,11 +18,6 @@ typedef bool Bool;
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
-enum StateReturnType
-{
-	STATE_FAILURE = -2
-};
-
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
@@ -64,50 +59,9 @@ private:
 	AIUpdateInterface *m_ai; // +0x258
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's copy loses (first-copy); the call below inlines it
-	// but still emits the loser COMDAT. Rebinding there emits only this
-	// unique (trivially kept) copy. No flags touched.
-	const Coord3D *bfme_goal_position() const { return &m_goalPosition; }
-protected:
-	unsigned char m_pad00[0x14];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-};
-
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
-};
-
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-protected:
-	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
-	unsigned char m_pad1C[0x20 - 0x1C];
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustsDestination; // +0x48
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIMoveToState : public AIInternalMoveToState
 {
@@ -123,7 +77,7 @@ enum
 StateReturnType AIMoveToState::onEnter()
 {
 	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 4");
-	setAdjustsDestination(true);
+	m_adjustDestinations = true;
 
 	// If we have a goal object and are trying to ignore it as an obstacle...
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
@@ -132,7 +86,7 @@ StateReturnType AIMoveToState::onEnter()
 		if (ai && getMachine()->getGoalObject()->getID() == ai->getIgnoredObstacleID())
 		{
 			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 5");
-			setAdjustsDestination(false);
+			m_adjustDestinations = false;
 		}
 	}
 
@@ -149,7 +103,7 @@ StateReturnType AIMoveToState::onEnter()
 		}
 	}
 	else
-		m_goalPosition = *getMachine()->bfme_goal_position();
+		m_goalPosition = *getMachine()->getGoalPosition();
 
 	return AIInternalMoveToState::onEnter();
 }

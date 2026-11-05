@@ -91,29 +91,8 @@ private:
 	char m_unrecovered04[ 0x50 - 0x04 ];
 };
 
-class StateMachine
-{
-public:
-	Object *getOwner( void ) const { return m_owner; }
-private:
-	char m_unrecovered00[ 0x14 ];
-	Object *m_owner;																													///< 0x14
-};
-
-// The state base: only its virtual table and machine matter to these bodies.
-class State
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-	Object *getMachineOwner( void ) const { return m_machine->getOwner(); }
-private:
-	char m_unrecovered04[ 0x18 - 0x04 ];
-	StateMachine *m_machine;																									///< 0x18
-	char m_unrecovered1C[ 0x20 - 0x1C ];
-};
+#include "../../../Include/Common/StateMachine.h"
+#include "../../../Include/Common/StateMachineClass.h"
 
 // ------------------------------------------------------------------------------------------------
 class AIGuardRetaliateState : public State
