@@ -25,16 +25,11 @@ typedef bool Bool;
 #include "ascii_string.h"
 
 
-class WinInstanceData
-{
-public:
-	char m_pad[0x194];
-	AsciiString m_headerTemplateName;
-};
+class WinInstanceData;
 
 
 // ?parseHeaderTemplate@@YA_NPADPAVWinInstanceData@@0PAX@Z
-Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *buffer, void *data)
+static Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	char *c, *ptr;
 	char *stringSeps = "\"";
@@ -46,7 +41,7 @@ Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *buffer, v
 	ptr++;  // skip the first "
 	c = strtok(ptr, stringSeps);  // name value
 
-	instData->m_headerTemplateName.set(c);
+	((AsciiString *)((char *)instData + 0x194))->set(c);
 
 	return true;
 }

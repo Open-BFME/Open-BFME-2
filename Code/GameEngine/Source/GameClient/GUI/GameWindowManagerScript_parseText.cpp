@@ -40,15 +40,10 @@ class AsciiString;
 #include "ascii_string.h"
 
 
-class WinInstanceData
-{
-public:
-	char m_pad[0x188];
-	AsciiString m_textLabelString;
-};
+class WinInstanceData;
 
 // ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z
-Bool parseText(char *token, WinInstanceData *instData, char *buffer, void *data)
+static Bool parseText(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	char *ptr = buffer;
 	char *c;
@@ -65,7 +60,7 @@ Bool parseText(char *token, WinInstanceData *instData, char *buffer, void *data)
 		assert(0);
 		return false;
 	}
-	instData->m_textLabelString.set(c);
+	((AsciiString *)((char *)instData + 0x188))->set(c);
 
 	return true;
 }

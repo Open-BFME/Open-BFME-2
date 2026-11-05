@@ -1174,6 +1174,24 @@ static Bool parseStyle( char *token, WinInstanceData *instData,
 
   // end parseDrawCallback
 
+// Field offsets below are measured by the matched BFME 2 parser bodies.
+static Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *c, *ptr;
+	char *stringSeps = "\"";
+
+	// scan to the first " mark
+	ptr = buffer;
+	while (*ptr != '"')
+		ptr++;
+	ptr++;  // skip the first "
+	c = strtok(ptr, stringSeps);  // name value
+
+	((AsciiString *)((char *)instData + 0x194))->set(c);
+
+	return true;
+}
+
 // parseComboBoxData ===========================================================
 /** Parse Combo Box data entry */
 //=============================================================================
@@ -1275,6 +1293,28 @@ static Bool parseTooltipDelay( char *token, WinInstanceData *instData,
 
   // end parseTooltipDelay
 
+
+static Bool parseText(char *token, WinInstanceData *instData, char *buffer, void *data)
+{
+	char *ptr = buffer;
+	char *c;
+	char *stringSeps = "\n\r\t\"";
+
+	// scan to the first " mark
+	while (*ptr != '"')
+		ptr++;
+	ptr++;  // skip the "
+	c = strtok(ptr, stringSeps);  // value
+	if (strlen(c) >= MAX_TEXT_LABEL)
+	{
+		DEBUG_LOG(("Text label '%s' is too long, max is '%d'\n", c, MAX_TEXT_LABEL));
+		assert(0);
+		return false;
+	}
+	((AsciiString *)((char *)instData + 0x188))->set(c);
+
+	return true;
+}
 
 // parseTextColor =============================================================
 /** Parse text color entries for enabled, disabled, and hilite with
