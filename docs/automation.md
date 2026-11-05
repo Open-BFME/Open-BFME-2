@@ -62,7 +62,10 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
   set through `KEY_WOW64_32KEY`; otherwise the game crashes in its CPU benchmark.
 - `PrintWindow` returns black under Wine, so there both harnesses copy the window's client area
   from the screen, which is the Xvfb root (`capture: xvfb-root`). A window not wholly on that
-  screen, or covered, is not captured, and a missing or black picture is `no-picture`. Give Xvfb a
+  screen, or with any Win32 window above it overlapping its client area before or after the copy,
+  is not captured, and a missing or black picture is `no-picture`. Native X windows cannot be
+  seen from Windows Python, so the capture also needs `BFME_PRIVATE_DISPLAY` equal to `DISPLAY`:
+  the game queue sets it for the Xvfb it starts for one game, with its own auth cookie. Give Xvfb a
   screen larger than the window (2048x1536 for 1024x768): on 1400x1050 the menu bar lay off screen.
   Retail on 2026-11-05: the intro movies run until about 2-3 minutes, `boot_smoke.py --retail
   --timeout 300` reports `reached-menu` (menu bar 0.74), and `game_smoke.py skirmish --retail`

@@ -845,9 +845,11 @@ def window_picture(pid, path):
     Windows: PrintWindow, never the screen (a screen grab shows whatever lies on top
     of the window, which may be anything on the owner's desktop). Wine: PrintWindow
     comes back black for the game's GL surface (measured 2026-11-05), so the client
-    rectangle is copied from the screen, which there is the X server's root window
-    (the harness's own Xvfb); the window must lie wholly on that screen and be the
-    window at its centre and inner corners, else nothing is captured."""
+    rectangle is copied from the screen, which there is the X server's root window.
+    That needs the window wholly on the screen, no Win32 window above it overlapping
+    its client area (before and after the copy), and DISPLAY declared private by the
+    queue (BFME_PRIVATE_DISPLAY), since native X windows cannot be seen from here;
+    otherwise nothing is captured."""
     wins = [w for w in windows_of(pid) if w[1][2] - w[1][0] > 100 and w[1][3] - w[1][1] > 100]
     if not wins:
         return None
@@ -864,6 +866,7 @@ def window_picture(pid, path):
     out["menu_bar"] = menu_bar(img)
     if how == "xvfb-root":
         out["display"] = os.environ.get("DISPLAY")
+        out["display_private"] = "declared by the queue (BFME_PRIVATE_DISPLAY); native X windows not checked"
     return out
 
 
@@ -878,10 +881,8 @@ def _gdi():
     g.BitBlt.argtypes = [wt.HANDLE] + [ctypes.c_int] * 4 + [wt.HANDLE, ctypes.c_int, ctypes.c_int, wt.DWORD]
     u.ReleaseDC.argtypes = [wt.HWND, wt.HANDLE]
     u.PrintWindow.argtypes = [wt.HWND, wt.HANDLE, wt.UINT]
-    u.WindowFromPoint.argtypes = [wt.POINT]
-    u.WindowFromPoint.restype = wt.HWND
-    u.GetAncestor.argtypes = [wt.HWND, wt.UINT]
-    u.GetAncestor.restype = wt.HWND
+    u.GetWindow.argtypes = [wt.HWND, wt.UINT]
+    u.GetWindow.restype = wt.HWND
     g.GetDIBits.argtypes = [wt.HANDLE, wt.HANDLE, wt.UINT, wt.UINT, ctypes.c_void_p, ctypes.c_void_p, wt.UINT]
     return u, g
 
@@ -917,49 +918,88 @@ def print_window(h):
     return _bitmap(lambda u, g, sdc, mdc: u.PrintWindow(h, mdc, 3), rc.right, rc.bottom)
 
 
-def client_on_screen(h):
+GW_HWNDPREV = 3
+# Set by the game queue to the Xvfb display it started for this game alone (with its
+# own auth cookie). Windows-side code cannot see native X windows, so a screen capture
+# under Wine is only trusted on a display declared private this way.
+PRIVATE_DISPLAY = "BFME_PRIVATE_DISPLAY"
+
+
+def _rect(u, call, h):
+    rc = wt.RECT()
+    call(h, ctypes.byref(rc))
+    return rc.left, rc.top, rc.right, rc.bottom
+
+
+def client_on_screen(u, h):
     """(left, top, right, bottom) of h's client area in screen coordinates."""
-    u = ctypes.WinDLL("user32")
-    rc, pt = wt.RECT(), wt.POINT(0, 0)
-    u.GetClientRect(h, ctypes.byref(rc))
+    _, _, w, ht = _rect(u, u.GetClientRect, h)
+    pt = wt.POINT(0, 0)
     u.ClientToScreen(h, ctypes.byref(pt))
-    return pt.x, pt.y, pt.x + rc.right, pt.y + rc.bottom
+    return pt.x, pt.y, pt.x + w, pt.y + ht
 
 
-def probe_points(rect):
-    """The client area's centre and four inner corners."""
-    l, t, r, b = rect
-    return [((l + r) // 2, (t + b) // 2), (l + 2, t + 2), (r - 3, t + 2), (l + 2, b - 3), (r - 3, b - 3)]
+def windows_above(u, h, limit=4096):
+    """[(hwnd, window rectangle)] of every visible top-level window above h in the
+    z-order (the game's own popups included)."""
+    out, w = [], u.GetWindow(h, GW_HWNDPREV)
+    while w and len(out) < limit:
+        if u.IsWindowVisible(w):
+            out.append((w, _rect(u, u.GetWindowRect, w)))
+        w = u.GetWindow(w, GW_HWNDPREV)
+    return out
 
 
-def capture_refusal(rect, screen, owners):
+def overlaps(a, b):
+    return max(a[0], b[0]) < min(a[2], b[2]) and max(a[1], b[1]) < min(a[3], b[3])
+
+
+def capture_refusal(rect, screen, above, display=None, private=None):
     """Why a screen capture of `rect` would not show the window alone, or None.
-    `screen` is (width, height); `owners`, for each probe point, whether the window
-    there is ours. Pure (tested): a window partly off screen or covered is refused."""
+    `screen` is (width, height); `above`, [(hwnd, rectangle)] of the visible windows
+    above it; `display`/`private`, DISPLAY and the display the queue declared private.
+    Pure (tested): a window partly off screen, any window over any part of the client
+    area, or a display not declared private is refused."""
     l, t, r, b = rect
     if r - l <= 0 or b - t <= 0:
         return "empty client area"
     if l < 0 or t < 0 or r > screen[0] or b > screen[1]:
         return f"client area {list(rect)} not wholly on the {screen[0]}x{screen[1]} screen"
-    if not owners or not all(owners):
-        return "another window covers the client area"
+    over = [(w, list(o)) for w, o in above if overlaps(rect, o)]
+    if over:
+        return f"{len(over)} window(s) above the game overlap its client area: {over[:3]}"
+    if not display or display != private:
+        return f"display {display!r} is not the private one the queue declared ({PRIVATE_DISPLAY}={private!r})"
     return None
 
 
-def root_capture(h):
+def root_capture(h, u=None):
     """(image, "xvfb-root", why) of h's client area copied from the screen (the X
-    root under Wine); the image is None when the capture is refused or fails."""
-    u, _ = _gdi()
-    rect = client_on_screen(h)
+    root under Wine); the image is None when the capture is refused or fails. The
+    window's position and the windows above it are read again after the copy, and
+    the capture is refused unless both are unchanged and still clear."""
+    u = u or _gdi()[0]
     screen = (u.GetSystemMetrics(0), u.GetSystemMetrics(1))
-    owners = [u.GetAncestor(u.WindowFromPoint(wt.POINT(x, y)), 2) == h for x, y in probe_points(rect)]
-    why = capture_refusal(rect, screen, owners)
+    display, private = os.environ.get("DISPLAY"), os.environ.get(PRIVATE_DISPLAY)
+
+    def state():
+        return client_on_screen(u, h), windows_above(u, h)
+    rect, above = state()
+    why = capture_refusal(rect, screen, above, display, private)
     if why:
         return None, "xvfb-root", why
     l, t, r, b = rect
     img = _bitmap(lambda u, g, sdc, mdc: g.BitBlt(mdc, 0, 0, r - l, b - t, sdc, l, t, 0x00CC0020 | 0x40000000),
                   r - l, b - t)                       # SRCCOPY | CAPTUREBLT
-    return img, "xvfb-root", None if img is not None else "BitBlt from the screen failed"
+    if img is None:
+        return None, "xvfb-root", "BitBlt from the screen failed"
+    rect2, above2 = state()
+    if rect2 != rect:
+        return None, "xvfb-root", f"the client area moved during the capture ({list(rect)} to {list(rect2)})"
+    why = capture_refusal(rect2, screen, above2, display, private)
+    if why:
+        return None, "xvfb-root", f"after the capture: {why}"
+    return img, "xvfb-root", None
 
 
 def menu_bar(img):

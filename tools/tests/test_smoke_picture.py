@@ -94,25 +94,143 @@ class Frames(unittest.TestCase):
         self.assertEqual(bs.classify_picture(shot), "no-picture")
 
 
-class RootCaptureRefusal(unittest.TestCase):
-    def test_wholly_visible_window_is_captured(self):
-        self.assertIsNone(bs.capture_refusal((10, 10, 1034, 778), (2048, 1536), [True] * 5))
+PRIVATE = {"DISPLAY": ":91", "BFME_PRIVATE_DISPLAY": ":91"}
+GAME = 7
+
+
+class FakeUser32:
+    """The user32 calls root_capture makes, over a scripted desktop: the game's client
+    area in screen coordinates and the windows above it, top-most last. `later` is the
+    desktop the second look (after the copy) sees."""
+
+    def __init__(self, client, above=(), later=None, screen=(2048, 1536)):
+        self.screen, self.looks = screen, [(client, list(above))] + ([later] if later else [])
+        self.n = 0
+
+    def now(self):
+        return self.looks[min(self.n, len(self.looks) - 1)]
+
+    def GetSystemMetrics(self, i):
+        return self.screen[i]
+
+    def GetClientRect(self, h, ref):
+        l, t, r, b = self.now()[0]
+        ref._obj.left, ref._obj.top, ref._obj.right, ref._obj.bottom = 0, 0, r - l, b - t
+        return 1
+
+    def ClientToScreen(self, h, ref):
+        ref._obj.x, ref._obj.y = self.now()[0][:2]
+        return 1
+
+    def GetWindow(self, h, cmd):
+        assert cmd == bs.GW_HWNDPREV
+        chain = [GAME] + [w for w, _ in self.now()[1]]
+        i = chain.index(h) + 1
+        if i == len(chain):
+            self.n += 1                         # one walk ends a look
+            return 0
+        return chain[i]
+
+    def IsWindowVisible(self, w):
+        return 1
+
+    def GetWindowRect(self, w, ref):
+        ref._obj.left, ref._obj.top, ref._obj.right, ref._obj.bottom = dict(self.now()[1])[w]
+        return 1
+
+
+def black_game_under_green_window():
+    """What the screen shows: the game renders nothing (black 1024x768) and another
+    window draws a green bar where the menu buttons would be (the review's case)."""
+    img = Image.new("RGB", (W, H))
+    ImageDraw.Draw(img).rectangle((100, 680, 924, 750), fill=(20, 160, 30))
+    for x in range(0, W, 7):                    # some texture, so it is not flat
+        ImageDraw.Draw(img).line((x, 690, x, 740), fill=(200, 200, 200))
+    return img
+
+
+def captured(user, screen_shows):
+    with (mock.patch.object(bs, "_bitmap", return_value=screen_shows) as copy,
+          mock.patch.dict(bs.os.environ, PRIVATE)):
+        return bs.root_capture(GAME, user), copy
+
+
+class RootCapture(unittest.TestCase):
+    def test_window_over_part_of_a_black_game_is_refused(self):
+        frame = black_game_under_green_window()
+        self.assertEqual(bs.classify_picture(bs.picture_stats(frame) | {"path": "x", "menu_bar": bs.menu_bar(frame)}),
+                         "reached-menu")              # what the screen copy alone would claim
+        user = FakeUser32((0, 0, W, H), [(99, (100, 680, 924, 750))])
+        (img, how, why), copy = captured(user, frame)
+        self.assertIsNone(img)
+        self.assertIn("overlap", why)
+        copy.assert_not_called()
+
+    def test_review_case_end_to_end_is_no_picture_and_no_pass(self):
+        user = FakeUser32((0, 0, W, H), [(99, (100, 680, 924, 750))])
+        with (mock.patch.object(bs, "windows_of", return_value=[("BFME2", (0, 0, W, H), GAME)]),
+              mock.patch.object(bs, "under_wine", return_value=True),
+              mock.patch.object(bs, "_gdi", return_value=(user, None)),
+              mock.patch.object(bs, "_bitmap", return_value=black_game_under_green_window()),
+              mock.patch.dict(bs.os.environ, PRIVATE)):
+            shot = bs.window_picture(1, Path("unused.png"))
+        self.assertEqual(bs.classify_picture(shot), "no-picture")
+        self.assertEqual(gs.judge_skirmish([(t, t * 10, 2) for t in range(30)], 2, 100, shot=shot), "no-picture")
+
+    def test_window_appearing_during_the_copy_is_refused(self):
+        user = FakeUser32((0, 0, W, H), [], later=((0, 0, W, H), [(99, (1000, 700, 1100, 800))]))
+        (img, _, why), copy = captured(user, menu())
+        copy.assert_called_once()
+        self.assertIsNone(img)
+        self.assertIn("after the capture", why)
+
+    def test_window_moving_during_the_copy_is_refused(self):
+        user = FakeUser32((0, 0, W, H), [], later=((5, 0, W + 5, H), []))
+        (img, _, why), _ = captured(user, menu())
+        self.assertIsNone(img)
+        self.assertIn("moved", why)
+
+    def test_window_beside_the_game_is_fine(self):
+        user = FakeUser32((0, 0, W, H), [(99, (W, 0, W + 300, 200))])
+        (img, how, why), _ = captured(user, menu())
+        self.assertIsNone(why)
+        self.assertEqual(how, "xvfb-root")
+        self.assertIsNotNone(img)
+
+    def test_display_not_declared_private_is_refused(self):
+        user = FakeUser32((0, 0, W, H))
+        for env in ({"DISPLAY": ":91"}, {"DISPLAY": ":91", "BFME_PRIVATE_DISPLAY": ":92"}):
+            with (mock.patch.object(bs, "_bitmap", return_value=menu()) as copy,
+                  mock.patch.dict(bs.os.environ, env, clear=True)):
+                img, _, why = bs.root_capture(GAME, user)
+            self.assertIsNone(img)
+            self.assertIn("not the private", why)
+            copy.assert_not_called()
 
     def test_window_off_the_screen_is_refused(self):            # measured: 1024x768 at y 315 on 1050 lines
-        self.assertIn("not wholly", bs.capture_refusal((303, 315, 1327, 1083), (1400, 1050), [True] * 5))
-        self.assertIn("not wholly", bs.capture_refusal((-5, 0, 1019, 768), (2048, 1536), [True] * 5))
+        user = FakeUser32((303, 315, 1327, 1083), screen=(1400, 1050))
+        (img, _, why), _ = captured(user, menu())
+        self.assertIsNone(img)
+        self.assertIn("not wholly", why)
 
-    def test_covered_window_is_refused(self):
-        self.assertIn("covers", bs.capture_refusal((0, 0, 1024, 768), (2048, 1536), [True, True, False, True, True]))
-        self.assertIn("covers", bs.capture_refusal((0, 0, 1024, 768), (2048, 1536), []))
 
-    def test_empty_client_area_is_refused(self):
-        self.assertEqual(bs.capture_refusal((0, 0, 0, 0), (2048, 1536), [True] * 5), "empty client area")
+class CaptureRefusal(unittest.TestCase):
+    def test_clear_private_window_is_captured(self):
+        self.assertIsNone(bs.capture_refusal((10, 10, 1034, 778), (2048, 1536), [], ":9", ":9"))
 
-    def test_probe_points_lie_inside_the_rectangle(self):
-        rect = (100, 50, 1124, 818)
-        for x, y in bs.probe_points(rect):
-            self.assertTrue(rect[0] <= x < rect[2] and rect[1] <= y < rect[3])
+    def test_any_overlap_is_refused_even_a_corner_pixel(self):
+        self.assertIn("overlap", bs.capture_refusal((0, 0, W, H), (2048, 1536), [(5, (W - 1, H - 1, W + 50, H + 50))],
+                                                    ":9", ":9"))
+
+    def test_touching_edges_do_not_overlap(self):
+        self.assertIsNone(bs.capture_refusal((0, 0, W, H), (2048, 1536), [(5, (W, 0, W + 50, 50))], ":9", ":9"))
+
+    def test_off_screen_and_empty_are_refused(self):
+        self.assertIn("not wholly", bs.capture_refusal((-5, 0, 1019, 768), (2048, 1536), [], ":9", ":9"))
+        self.assertEqual(bs.capture_refusal((0, 0, 0, 0), (2048, 1536), [], ":9", ":9"), "empty client area")
+
+    def test_missing_display_is_refused(self):
+        self.assertIn("not the private", bs.capture_refusal((0, 0, W, H), (2048, 1536), [], None, None))
 
 
 class SkirmishNeedsAPicture(unittest.TestCase):
