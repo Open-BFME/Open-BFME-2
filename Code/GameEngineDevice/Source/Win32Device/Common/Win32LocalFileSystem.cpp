@@ -26,6 +26,25 @@ namespace _STL { template <> pair<_Rb_tree<AsciiString, AsciiString, _Identity<A
 
 typedef std::set<AsciiString, BfmeStringNoCaseLess> FilenameList;
 
+namespace rts {
+	template <class T> struct less_than_nocase {
+		bool operator()(const T &a, const T &b) const { return a.compareNoCase(b) < 0; }
+	};
+	// Use the byte-verified comparator at 0x00037B40; /O1's local copy differs.
+	template <> bool less_than_nocase<UnicodeString>::operator()(
+		const UnicodeString &a, const UnicodeString &b) const;
+}
+typedef std::set<UnicodeString, rts::less_than_nocase<UnicodeString> > UnicodeFilenameList;
+
+// set::insert (0x00604E11) is rowed in stlport_unicode_string_set.cpp;
+// declare its specialization so this unit calls it without emitting a
+// second copy of the insert chain. (_M_find 0x00604D0E is a member template;
+// declaring its specialization crashes MSVC 7.1, so its COMDAT stays.)
+namespace _STL
+{
+template <> pair<UnicodeFilenameList::iterator, bool> UnicodeFilenameList::insert(const UnicodeString &__x);
+}
+
 int __cdecl BFME2Utf8ToWide(const char* src, int srclen, unsigned short* dst, int dstlen);
 
 int __cdecl BFME2WideToUtf8(const unsigned short* src, int srclen, char* dst, int dstlen);
@@ -45,8 +64,11 @@ struct LocalFileSystem {
   virtual int M7F3(const char* src, void* a2, int a3);
   virtual bool Virt10(unsigned short* buf);
   virtual bool M831(const char* src);
+  // MSVC lays overloaded virtuals out in reverse declaration order: this
+  // UnicodeString form is slot 7, the narrow form slot 6.
+  virtual void getFileListInDirectory(const UnicodeString &currentDirectory, const UnicodeString &originalDirectory,
+    const UnicodeString &searchName, UnicodeFilenameList &filenameList, bool searchSubdirectories) const;
   virtual void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
-  virtual void _v7();
   virtual void rva00604A8B(const AsciiString &current,const AsciiString &original,const AsciiString &pattern,void *output,void *recurse);
   virtual int Virt24(unsigned short* buf, void* a2);
   virtual int M948(const char* src, void* a2);
@@ -65,6 +87,8 @@ struct Win32LocalFileSystem : LocalFileSystem {
   virtual bool M831(const char* src);
   virtual void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
   virtual int M948(const char* src, void* a2);
+  virtual void getFileListInDirectory(const UnicodeString &currentDirectory, const UnicodeString &originalDirectory,
+    const UnicodeString &searchName, UnicodeFilenameList &filenameList, bool searchSubdirectories) const;
   virtual void getFileListInDirectory(unsigned short* prefix, unsigned short* current, unsigned short* original, unsigned short* pattern, void* output, void* recurse);
 };
 

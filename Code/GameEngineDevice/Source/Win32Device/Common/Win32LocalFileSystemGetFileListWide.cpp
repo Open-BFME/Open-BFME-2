@@ -33,7 +33,7 @@ namespace rts {
 	template <>
 	bool less_than_nocase<UnicodeString>::operator()(const UnicodeString &a, const UnicodeString &b) const;
 }
-typedef std::set<UnicodeString, rts::less_than_nocase<UnicodeString> > FilenameList;
+typedef std::set<UnicodeString, rts::less_than_nocase<UnicodeString> > UnicodeFilenameList;
 
 // set::insert (0x00604E11) is rowed in stlport_unicode_string_set.cpp;
 // declare its specialization so this unit calls it without emitting a
@@ -41,20 +41,56 @@ typedef std::set<UnicodeString, rts::less_than_nocase<UnicodeString> > FilenameL
 // declaring its specialization crashes MSVC 7.1, so its COMDAT stays.)
 namespace _STL
 {
-template <> pair<FilenameList::iterator, bool> FilenameList::insert(const UnicodeString &__x);
+template <> pair<UnicodeFilenameList::iterator, bool> UnicodeFilenameList::insert(const UnicodeString &__x);
 }
 
-class Win32LocalFileSystem
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
-	virtual void slot04(); virtual void slot05(); virtual void slot06();
-	virtual void getFileListInDirectory(const UnicodeString &currentDirectory, const UnicodeString &originalDirectory,
-		const UnicodeString &searchName, FilenameList &filenameList, bool searchSubdirectories) const;	// slot 7
+class AsciiString;
+
+// Slots 0-14 of vtable 0x00C7A9A8 (installed by the ctor at 0x00604A5F) come
+// from the LocalFileSystem interface; slots 3, 5, 6 and 10 are the narrow-string
+// virtuals that convert and forward to their wide neighbours. The wide
+// getFileListInDirectory is Win32LocalFileSystem's own slot 15 (0x3C): it is a
+// new virtual of the derived class, which is why it does not sit next to the
+// narrow overload as two overloads introduced by one class would.
+class File;
+
+struct LocalFileSystem {
+  virtual void _v0();
+  virtual void _v1();
+  virtual File* openFile(const unsigned short* filename, int access, void** seekPointer);
+  virtual int M7F3(const char* src, void* a2, int a3);
+  virtual bool Virt10(unsigned short* buf);
+  virtual bool M831(const char* src);
+  // MSVC lays overloaded virtuals out in reverse declaration order: this
+  // UnicodeString form is slot 7, the narrow form slot 6.
+  virtual void getFileListInDirectory(const UnicodeString &currentDirectory, const UnicodeString &originalDirectory,
+    const UnicodeString &searchName, UnicodeFilenameList &filenameList, bool searchSubdirectories) const;
+  virtual void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
+  virtual void rva00604A8B(const AsciiString &current,const AsciiString &original,const AsciiString &pattern,void *output,void *recurse);
+  virtual int Virt24(unsigned short* buf, void* a2);
+  virtual int M948(const char* src, void* a2);
+  virtual bool createDirectory(const unsigned short* path);
+  virtual bool rva006049D8(const char *src);
+  virtual void _v13();
+  virtual void _v14();
+};
+
+struct Win32LocalFileSystem : LocalFileSystem {
+  virtual bool Virt10(unsigned short *buf);
+  virtual bool rva006049D8(const char *src);
+  virtual void rva00604A8B(const AsciiString &current,const AsciiString &original,const AsciiString &pattern,void *output,void *recurse);
+  virtual File* openFile(const unsigned short* filename, int access, void** seekPointer);
+  virtual int M7F3(const char* src, void* a2, int a3);
+  virtual bool M831(const char* src);
+  virtual void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
+  virtual int M948(const char* src, void* a2);
+  virtual void getFileListInDirectory(const UnicodeString &currentDirectory, const UnicodeString &originalDirectory,
+    const UnicodeString &searchName, UnicodeFilenameList &filenameList, bool searchSubdirectories) const;
+  virtual void getFileListInDirectory(unsigned short* prefix, unsigned short* current, unsigned short* original, unsigned short* pattern, void* output, void* recurse);
 };
 
 void Win32LocalFileSystem::getFileListInDirectory(const UnicodeString &currentDirectory, const UnicodeString &originalDirectory,
-	const UnicodeString &searchName, FilenameList &filenameList, bool searchSubdirectories) const
+	const UnicodeString &searchName, UnicodeFilenameList &filenameList, bool searchSubdirectories) const
 {
 	HANDLE fileHandle = 0;
 	WIN32_FIND_DATAW findData;
