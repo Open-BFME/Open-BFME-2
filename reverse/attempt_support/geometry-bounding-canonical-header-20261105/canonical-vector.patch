@@ -1,0 +1,39 @@
+diff --git a/Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp b/Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp
+index 04e6575d51..1a0e47715e 100644
+--- a/Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp
++++ b/Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp
+@@ -3 +3 @@
+-// GeometryInfo::rva006BD9C0, retail 0x006BD9C0, 560 bytes. Banked partial
++// GeometryInfo::rva006BD9C0, retail 0x006BD9C0, 567 bytes. Banked partial
+@@ -22,6 +22 @@ extern float g_Va00BBAEAC;
+-enum GeometryType
+-{
+-	GEOMETRY_SPHERE = 0,
+-	GEOMETRY_CYLINDER,
+-	GEOMETRY_BOX
+-};
++#include "../../../Include/Common/Geometry.h"
+@@ -74,21 +68,0 @@ static inline const T &bfmeMax(const T &lhs, const T &rhs)
+-class GeometryInfo
+-{
+-public:
+-	Real getMaxHeightAbovePosition() const;
+-	void rva006BD9C0(GeometryShape &out) const;
+-
+-private:
+-	void *m_vtbl;
+-	Bool m_isSmall;
+-	int m_scalar08;
+-	int m_scalar0c;
+-	Real m_boundingCircleRadius;
+-	int m_scalar14;
+-	int m_scalar18;
+-	int m_scalar1c;
+-	int m_scalar20;
+-	int m_scalar24;
+-	int m_scalar28;
+-	std::vector<GeometryShape> m_shapes;
+-};
+-
+@@ -96,0 +71 @@ void GeometryInfo::rva006BD9C0(GeometryShape &out) const
++	const std::vector<GeometryShape> &m_shapes = *(const std::vector<GeometryShape> *)((const char *)this + 0x2c);

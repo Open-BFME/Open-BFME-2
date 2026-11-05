@@ -1,0 +1,64 @@
+diff --git a/Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp b/Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp
+index 911d0027c2..919c2a3ab3 100644
+--- a/Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp
++++ b/Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp
+@@ -34,0 +35 @@
++#include "../../../Include/Common/Geometry.h"
+@@ -51,0 +53,8 @@ struct GeometryContactVector {
++// The canonical receiver keeps the contact vector and the two coordinates
++// at +0x38, +0x44 and +0x50. Retain their existing typed tail view.
++struct GeometryContactStorage {
++ void *shapes[3];
++ GeometryContactVector contacts;
++ Coord3D preferredPosition,defaultPosition;
++};
++
+@@ -105,10 +113,0 @@ struct GeometryContact {
+-class GeometryInfo {
+-public:
+- bool getBestContactPoint(Coord3D*,const Coord3D*,const char*,int,int,bool) const;
+- float getMaxHeightAbovePosition()const;
+- bool CollidesWith(const Coord3D &,float,const GeometryInfo &,const Coord3D &,float) const;
+-private:
+- void *vptr; char prefix[0x28]; GeometryShape *begin,*end,*limit;
+- GeometryContactVector contacts;
+- Coord3D preferredPosition,defaultPosition;
+-};
+@@ -133 +132 @@ bool GeometryInfo::CollidesWith(const Coord3D &pos,float angle,const GeometryInf
+- for(GeometryShape *geometryShape=begin;geometryShape!=end;++geometryShape) {
++ for(GeometryShape *geometryShape=(GeometryShape *)field2c[0];geometryShape!=(GeometryShape *)field2c[1];++geometryShape) {
+@@ -140 +139 @@ bool GeometryInfo::CollidesWith(const Coord3D &pos,float angle,const GeometryInf
+-  for(GeometryShape *otherShape=other.begin;otherShape!=other.end;++otherShape) {
++  for(GeometryShape *otherShape=(GeometryShape *)other.field2c[0];otherShape!=(GeometryShape *)other.field2c[1];++otherShape) {
+@@ -160,0 +160 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
++ const GeometryContactStorage &contactStorage=*(const GeometryContactStorage *)field2c;
+@@ -162,2 +162,2 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-  fprintf(theLogicRandomLogFile,"        GeometryInfo::getBestContactPoint, callerPos=%g,%g,%g, label=%s, pref=%d, seed=%d, skipCollideTest=%d, m_innermostContactPoint=%g,%g,%g",caller->x,caller->y,caller->z,label?label:"NONE",preference,seed,ignoreCollision?"TRUE":"FALSE",defaultPosition.x,defaultPosition.y,defaultPosition.z);
+- contactCopy(*out,defaultPosition);
++  fprintf(theLogicRandomLogFile,"        GeometryInfo::getBestContactPoint, callerPos=%g,%g,%g, label=%s, pref=%d, seed=%d, skipCollideTest=%d, m_innermostContactPoint=%g,%g,%g",caller->x,caller->y,caller->z,label?label:"NONE",preference,seed,ignoreCollision?"TRUE":"FALSE",contactStorage.defaultPosition.x,contactStorage.defaultPosition.y,contactStorage.defaultPosition.z);
++ contactCopy(*out,contactStorage.defaultPosition);
+@@ -166 +166 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-  int count=(int)contacts.size();
++  int count=(int)contactStorage.contacts.size();
+@@ -169,2 +169,2 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-   ContactPoint first=contacts[index].position;
+-   ContactPoint second=contacts[index+1].position;
++   ContactPoint first=contactStorage.contacts[index].position;
++   ContactPoint second=contactStorage.contacts[index+1].position;
+@@ -180 +180 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-   for(GeometryShape*shape=begin;shape!=end;++shape){
++   for(GeometryShape*shape=(GeometryShape *)field2c[0];shape!=(GeometryShape *)field2c[1];++shape){
+@@ -190 +190 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-  contactCopy(*out,preferredPosition);
++  contactCopy(*out,contactStorage.preferredPosition);
+@@ -195 +195 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-  int count=(int)contacts.size();
++  int count=(int)contactStorage.contacts.size();
+@@ -199,2 +199,2 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-   if(label){const AsciiString &asciiString=contacts[i].label;geometryContactRecord=&contacts[i];if(asciiString.compare(label)!=0)continue;}
+-   else{const AsciiString &asciiString=contacts[i].label;geometryContactRecord=&contacts[i];if(asciiString.compare("")!=0)continue;}
++   if(label){const AsciiString &asciiString=contactStorage.contacts[i].label;geometryContactRecord=&contactStorage.contacts[i];if(asciiString.compare(label)!=0)continue;}
++   else{const AsciiString &asciiString=contactStorage.contacts[i].label;geometryContactRecord=&contactStorage.contacts[i];if(asciiString.compare("")!=0)continue;}
+@@ -209 +209 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
+-  contactCopy(*out,contacts[best].position);
++  contactCopy(*out,contactStorage.contacts[best].position);

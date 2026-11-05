@@ -15,3 +15,7 @@ Repair composition ordering in a separate tooling commit with a regression test 
 2026-11-04 setter/parser prerequisite: three more GeometryInfo consumers adopt the canonical header; owning acceptance retires three queue rows, 8/8 bodies match (669B), object link facts are unchanged and preview retains LINKS 669B. Other shape/profile prerequisites remain. [Evidence](../../reverse/attempt_support/geometry-parsers-canonical-header-20261104/README.md).
 
 2026-11-04 GeometryOther prerequisite: the parser adopts canonical GeometryInfo and INI; owning acceptance retires two header rows, 3/3 bodies match (592B), object link facts are unchanged and preview retains LINKS 592B. Broader shape/profile blockers remain. [Evidence](../../reverse/attempt_support/geometry-other-canonical-headers-20261104/README.md).
+
+2026-11-05 collision/contact prerequisite: canonical adoption preserves two bodies; the full-sized contact-selector trial differs in two LEA operand encodings. Original source restored, header debt retained; resolve those encodings before acceptance. [Attempt and next step](../../reverse/attempt_support/geometry-collision-canonical-header-20261105/README.md).
+
+2026-11-05 bounding-shape prerequisite: canonical adoption of the existing STLport-vector consumer changes allocation/reloads (554B versus 567B); byte-address casting does not fix it. Original source restored, header debt retained; reconcile the vector view before acceptance. [Attempt and next step](../../reverse/attempt_support/geometry-bounding-canonical-header-20261105/README.md).
