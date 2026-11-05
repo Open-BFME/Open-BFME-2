@@ -132,7 +132,7 @@ void TransitionDamageFX::mapLoadPostProcess(const Dict *)
   Object*other=ThePartitionManager->getClosestObject(&pos,30000.f,0,&Rva003959FA(mask));
   if(other&&other!=m_object) {
    Rva004BA1D0 neighbor(*it);neighbor.m_objectID=other->getID();
-   (this?this:this)->resolvedNeighbors.push_back(neighbor);
+   ((_STL::vector<Rva004BA1D0> *)&(this?this:this)->resolvedNeighbors)->push_back(neighbor);
   }
  }
 }

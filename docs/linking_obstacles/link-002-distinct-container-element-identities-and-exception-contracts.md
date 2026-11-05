@@ -1,5 +1,7 @@
 ### LINK-002: distinct container element identities and exception contracts
 
+**TransitionDamageFX (2026-11-05, inspected `bdbf2ed06c`):** explicit append view and provider definition remove the map-load type/instantiation compiler blockers while preserving 63 rows and the 4,210-byte LINKS preview; merging still needs compatible register/frame allocation and destructor contracts (zero donors accepted). [Evidence and next checks](../../reverse/attempt_support/transitiondamagefx-template-contracts-20261105.md).
+
 **TransitionDamageFX (2026-11-04, `d6e57b77c0`):** the verified map-load record alignment preserves its five rows and 339-byte LINKS preview; merging now reaches the distinct Rva004BA1D0/Rva004BA1C8 vector identity conflict (zero donors accepted). [Evidence and native-contract prerequisites](../../reverse/attempt_support/transitiondamagefx-views-20261104-codex5.md).
 
 **Status: Open. Updated: 2026-10-26; inspected revision: 896af216804e1f1e34de28bd318285fbbbfcc536.**

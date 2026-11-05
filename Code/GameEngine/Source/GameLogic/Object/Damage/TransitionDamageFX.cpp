@@ -329,7 +329,17 @@ template <> void _Construct<Rva004BA1D0, Rva004BA1D0>(Rva004BA1D0 *, const Rva00
 template void _STL::vector<Rva004BA1D0>::_M_insert_overflow(
     Rva004BA1D0 *, const Rva004BA1D0 &, const _STL::__false_type &, unsigned int, bool);
 
-template void _STL::vector<Rva004BA1D0>::push_back(const Rva004BA1D0 &);
+// A declaration of this specialization in a donor suppresses an explicit
+// instantiation. Keep the STLport 4.5.3 member body as the row's definition.
+template <> void _STL::vector<Rva004BA1D0>::push_back(const Rva004BA1D0 &value)
+{
+    if (_M_finish != _M_end_of_storage._M_data) {
+        _STL::_Construct(_M_finish, value);
+        ++_M_finish;
+    } else {
+        _M_insert_overflow(_M_finish, value, _STL::__false_type(), 1UL, true);
+    }
+}
 
 char g_00C59B20;
 
