@@ -20,3 +20,10 @@ Verification:
 - Downloaded the published index/object store with `link_check.py --fetch-index`. The retained index is **2026-11-05 15:19, f44cbcf5b0**. Ordinary five-source preview: **5/5 LINKS**, **23,753 -> 23,753 authored bytes**. This is a preview, not a census or real-link measurement.
 
 No source paths, ledger rows, pins, shared headers or hatch counts changed.
+
+Drain correction, 2026-11-05: the fleet publisher rejected retirement of the
+`ScriptActions_livingWorldRegion.cpp` Parameter queue row because its link preview
+predicted a loss. The local full outgoing dry run and ordinary unit preview pass,
+but do not establish acceptance in the publisher's combined scope. Restore that
+one queue row pending publisher-side link acceptance; retain the byte-verified
+canonical-header source. Net retirement from this adoption is four rows.
