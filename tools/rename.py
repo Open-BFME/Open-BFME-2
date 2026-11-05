@@ -3763,11 +3763,58 @@ def compiled_vtables(ctx, rel, current=True):
     return None
 
 
+def retail_jump(ctx, rva):
+    """Where the `jmp rel32` (E9) at retail .text `rva` lands, or None when
+    the instruction there is not one or lands outside .text (any byte can be
+    0xE9: build.follow_thunk's bound). Read from the md5-verified retail
+    image (build.exe_image)."""
+    key = "_retail_jump"
+    cache = ctx._cache.setdefault(key, {})
+    if rva in cache:
+        return cache[rva]
+    import struct
+    import build
+    image, sections = build.exe_image()
+    text = next(s for s in sections if s["name"] == ".text")
+    lo, hi = text["rva"], text["rva"] + text["size"]
+    target = None
+    if lo <= rva < hi:
+        try:
+            offset = build.rva_to_file_offset(sections, rva)
+        except ValueError:
+            offset = None
+        stub = image[offset:offset + 5] if offset is not None else b""
+        if len(stub) == 5 and stub[0] == 0xE9:
+            landed = (rva + 5 + struct.unpack_from("<i", stub, 1)[0]) & 0xFFFFFFFF
+            target = landed if lo <= landed < hi else None
+    cache[rva] = target
+    return target
+
+
+def same_slot_body(ctx, ours, theirs):
+    """Does a slot whose name the ledger places at `ours` call the body retail's
+    slot word `theirs` calls? Equal addresses, or one side's entry is a single
+    `jmp rel32` to the other, or both are a single `jmp rel32` to one body.
+    BFME 2's empty `X::loadPostProcess() { Base::loadPostProcess(); }`
+    overrides compile to one ICF-folded `jmp` (retail 0x00497805 is
+    `jmp 0x0058B03E`, UpdateModule::loadPostProcess's row), so a view that
+    inherits the base's slot calls the same code at that slot. Only one hop is
+    followed on each side: a chain proves no more, and a jump anywhere else
+    is still a different body."""
+    if ours == theirs:
+        return True
+    hop_ours, hop_theirs = retail_jump(ctx, ours), retail_jump(ctx, theirs)
+    return hop_theirs == ours or hop_ours == theirs or (hop_ours is not None and hop_ours == hop_theirs)
+
+
 def to_class_slot_problems(ctx, check, *, current=True):
     """Why the vftable `check['cls']`'s installer units compile does not name
     `check['new']` in retail's slot `check['slot']`: [] when every installer
     object agrees. With `current`, a source whose object is stale is skipped
-    (planning); otherwise a missing object is a problem (after ./build.sh)."""
+    (planning); otherwise a missing object is a problem (after ./build.sh).
+    Another slot agrees when its name's address is retail's word; it clashes
+    unless both reach one body through a single `jmp rel32` (same_slot_body),
+    which neither agrees nor clashes."""
     cls, slot, new, retail = check["cls"], check["slot"], check["new"], check["retail"]
     address = {}
     for row in ctx.rows():
@@ -3793,7 +3840,7 @@ def to_class_slot_problems(ctx, check, *, current=True):
             agree = [j for j, name in enumerate(names) if j != slot and j < len(retail)
                      and address.get(name) == retail[j]]
             clash = [j for j, name in enumerate(names) if j != slot and name in address
-                     and (j >= len(retail) or address[name] != retail[j])]
+                     and (j >= len(retail) or not same_slot_body(ctx, address[name], retail[j]))]
             verdicts.append((symbol, names, agree, clash))
         matching = [v for v in verdicts if v[2] and not v[3]]
         if not matching:

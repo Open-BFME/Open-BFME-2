@@ -631,7 +631,12 @@ spelling); convention, return type and parameters are kept. It takes no
   or fold note;
 - the vftable C's installer units compile names the new symbol in that slot,
   and every other slot whose symbol the ledger resolves agrees with retail's
-  table: C's declared virtual order matches retail's there. It is checked on
+  table: C's declared virtual order matches retail's there. A slot also
+  agrees when its address and retail's word reach one body through a single
+  `jmp rel32` on either side (retail 0x00497805, `jmp 0x0058B03E`, is the
+  ICF-folded empty `loadPostProcess` override of the UpdateModule family,
+  which a view inheriting UpdateModule's slot calls too); a chain of jumps or
+  a jump to another body still refuses. It is checked on
   the current objects when planning and on the rebuilt ones after ./build.sh.
 
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under

@@ -93,12 +93,14 @@ def tree(tmp_path):
     return tmp_path
 
 
-def retail(monkeypatch, tables, compiled=None):
-    """Inject the retail image {table rva: (slots, {store rva: this offset})}
-    and the installer objects' vftables {source: {??_7 symbol: [names]}}."""
+def retail(monkeypatch, tables, compiled=None, jumps=None):
+    """Inject the retail image {table rva: (slots, {store rva: this offset})},
+    the installer objects' vftables {source: {??_7 symbol: [names]}} and the
+    retail `jmp rel32` entries {rva: target} (none unless given)."""
     monkeypatch.setattr(rename, "retail_vtables", lambda ctx: tables)
     built = {"Code/Game/Widget.cpp": COMPILED} if compiled is None else compiled
     monkeypatch.setattr(rename, "compiled_vtables", lambda ctx, rel, current=True: built.get(rel))
+    monkeypatch.setattr(rename, "retail_jump", lambda ctx, rva: (jumps or {}).get(rva))
 
 
 def ctx_of(root):
@@ -212,6 +214,81 @@ def test_refuses_a_table_shared_with_an_unrelated_class(tree, monkeypatch):
                          0x00810000: ([0x00401000], {OTHER_STORE: 0})})
     with pytest.raises(Refusal, match="unrelated to Widget"):
         plan(tree)
+
+
+# Retail slot 2 holds THUNK, a 5-byte `jmp` that is the class's own empty
+# override of stop() tail-calling the base body Widget's view inherits
+# (0x00404000, STOP's row): retail 0x00497805 `jmp 0x0058B03E` in the
+# UpdateModule tables (re_attempts 0x004B0876).
+THUNK = 0x00406005
+THUNKED = {TABLE: ([0x00403040, 0x00401000, THUNK], {CTOR_STORE: 0})}
+
+
+def test_accepts_a_slot_reaching_the_same_body_through_one_jump(tree, monkeypatch):
+    retail(monkeypatch, THUNKED, jumps={THUNK: 0x00404000})
+    p = plan(tree)
+    assert p.new == NEW and p.to_class["slot"] == 1
+
+
+def test_accepts_both_sides_jumping_to_one_body(tree, monkeypatch):
+    # STOP's row is itself a `jmp` to the body retail's thunk reaches
+    retail(monkeypatch, THUNKED, jumps={THUNK: 0x00409000, 0x00404000: 0x00409000})
+    assert plan(tree).new == NEW
+
+
+def test_refuses_a_slot_jumping_to_a_different_body(tree, monkeypatch):
+    # the thunk lands on another body: slot 2 is not the stop() Widget declares
+    retail(monkeypatch, THUNKED, jumps={THUNK: 0x00409000})
+    with pytest.raises(Refusal, match=r"does not prove the slot.*1 differ"):
+        plan(tree)
+
+
+def test_refuses_a_slot_reached_only_through_two_jumps(tree, monkeypatch):
+    # one hop on each side only: THUNK -> 0x00406010 -> STOP proves nothing
+    retail(monkeypatch, THUNKED, jumps={THUNK: 0x00406010, 0x00406010: 0x00404000})
+    with pytest.raises(Refusal, match=r"does not prove the slot.*1 differ"):
+        plan(tree)
+
+
+def test_a_jump_never_moves_the_slot_itself(tree, monkeypatch):
+    # retail slot 1 is a jmp to the placeholder's body, but the move's own
+    # slot is found by exact address only: no retail slot holds 0x00401000
+    retail(monkeypatch, {TABLE: ([0x00403040, THUNK, 0x00404000], {CTOR_STORE: 0})},
+           jumps={THUNK: 0x00401000})
+    with pytest.raises(Refusal, match="no retail vftable slot holds 0x00401000"):
+        plan(tree)
+
+
+@pytest.mark.parametrize("ours,theirs,jumps,same", [
+    (0x10, 0x10, {}, True),
+    (0x10, 0x20, {}, False),
+    (0x10, 0x20, {0x20: 0x10}, True),                 # retail's word jumps to ours
+    (0x10, 0x20, {0x10: 0x20}, True),                 # ours jumps to retail's word
+    (0x10, 0x20, {0x10: 0x30, 0x20: 0x30}, True),     # both jump to one body
+    (0x10, 0x20, {0x10: 0x30, 0x20: 0x40}, False),    # two jumps, two bodies
+    (0x10, 0x20, {0x20: 0x30, 0x30: 0x10}, False),    # a chain: one hop only
+])
+def test_same_slot_body(monkeypatch, ours, theirs, jumps, same):
+    monkeypatch.setattr(rename, "retail_jump", lambda ctx, rva: jumps.get(rva))
+    assert rename.same_slot_body(None, ours, theirs) is same
+
+
+def test_retail_jump_reads_one_bounded_e9(monkeypatch):
+    import struct
+    import build
+    text = {"name": ".text", "rva": 0x1000, "size": 0x100, "raw_size": 0x100, "raw_pointer": 0}
+    image = bytearray(b"\xcc" * 0x100)
+    image[0x10:0x15] = b"\xe9" + struct.pack("<i", 0x40 - 0x15)       # 0x1010: jmp 0x1040
+    image[0x20:0x25] = b"\xe9" + struct.pack("<i", 0x10000)           # 0x1020: jmp out of .text
+    image[0x30:0x35] = b"\xe8" + struct.pack("<i", 0)                 # 0x1030: a call, not a jmp
+    monkeypatch.setattr(build, "exe_image", lambda: (bytes(image), [text]))
+
+    class Ctx:
+        _cache = {}
+    assert rename.retail_jump(Ctx, 0x1010) == 0x1040
+    assert rename.retail_jump(Ctx, 0x1020) is None
+    assert rename.retail_jump(Ctx, 0x1030) is None
+    assert rename.retail_jump(Ctx, 0x0FFF) is None                   # outside .text
 
 
 def test_refuses_a_readable_source_class(tree, monkeypatch):
