@@ -14,10 +14,10 @@ class ModuleData;
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary20;
+extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BObjectModule@@@")[];  // vftable 0x00C5FA40
+extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C5F980
+extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BRva0044EF5E@@@")[];  // vftable 0x00C4DEE8
+extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@")[];  // vftable 0x00C552A4
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -51,10 +51,10 @@ private:
 GiveOrRestoreUpgradeSpecialPower::GiveOrRestoreUpgradeSpecialPower(Thing *thing, const ModuleData *moduleData)
 	: Rva0044EF5E(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
+	m_vtable = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BObjectModule@@@");
+	m_p0C = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BRva0044EF5E@@@");
+	m_p20 = __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BSpecialPowerUpdateInterface@@@");
 	m_88 = 0;
 	_ReadWriteBarrier();
 	m_8C = 0;

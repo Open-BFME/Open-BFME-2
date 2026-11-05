@@ -3,18 +3,18 @@
 // ??0DoCommandUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B4C2E, 49 bytes.
 // DoCommandUpgrade behavior ctor over the pinned UpgradeModule base
 // (0x460AEC, thing plus data): re-stores the primary vtable slot and the
-// +0x0C/+0x10/+0x18 secondary slots (address-of TU-local dummies,
-// DIR32-masked). The rowed name getter at 0x4B4BC7 and ModuleData pair
+// +0x0C/+0x10/+0x18 secondary slots (the class's own tables, by
+// their retail store immediates). The rowed name getter at 0x4B4BC7 and ModuleData pair
 // (proc 0x4B4C0C plus factory 0x2557B5) prove the class; the rowed instance
 // factory 0x2500AE is the sole raw caller. Row supersedes the ctor pin.
 
 class Thing;
 class ModuleData;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-static int s_secondary18;
+extern "C" const void *const __identifier("??_7DoCommandUpgrade@@6BObjectModule@@@")[];  // vftable 0x00C57B58
+extern "C" const void *const __identifier("??_7DoCommandUpgrade@@6BBehaviorModuleInterface@@@")[];  // vftable 0x00C57328
+extern "C" const void *const __identifier("??_7DoCommandUpgrade@@6BUpgradeMux@@@")[];  // vftable 0x00C57B10
+extern "C" const void *const __identifier("??_7DoCommandUpgrade@@6BModuleInterface@@@")[];  // vftable 0x00C58790
 
 // Opaque UpgradeModule base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -45,8 +45,8 @@ private:
 DoCommandUpgrade::DoCommandUpgrade(Thing *thing, const ModuleData *moduleData)
 	: UpgradeModule(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_p18 = &s_secondary18;
+	m_vtable = __identifier("??_7DoCommandUpgrade@@6BObjectModule@@@");
+	m_p0C = __identifier("??_7DoCommandUpgrade@@6BBehaviorModuleInterface@@@");
+	m_p10 = __identifier("??_7DoCommandUpgrade@@6BUpgradeMux@@@");
+	m_p18 = __identifier("??_7DoCommandUpgrade@@6BModuleInterface@@@");
 }
