@@ -133,7 +133,9 @@ extern int g_Va00E06550;
 static __forceinline void *movieLevel(){return *(void **)((char *)*(void **)((char *)g_Va00E06550+0x58)+0x274);}
 #include "../../../../../Include/GameClient/Shell.h"
 extern Shell *TheShell;
-void HandleBuddyResponses();void HandlePersistentStorageResponses();class AptMessengerOnline { public: static bool ProcessGameSpyResponse(void *); };void Rva00511730(int);void Rva00548C1ACleanup();void GSMessageBoxOk(UnicodeString,UnicodeString,void(*)()=0);void TearDownGameSpy();
+void HandleBuddyResponses();void HandlePersistentStorageResponses();
+#include "../../../../../Include/GameClient/AptMessengerOnline.h"
+void Rva00511730(int);void Rva00548C1ACleanup();void GSMessageBoxOk(UnicodeString,UnicodeString,void(*)()=0);void TearDownGameSpy();
 #include "../../../../../../Libraries/Source/Apt/AptRefTarget.h"
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __multiple_inheritance FunctorTarget;typedef void(FunctorTarget::*FunctorMethod)(int);
@@ -355,7 +357,10 @@ void *GadgetComboBoxGetItemData(GameWindow *, int);
 // the connect-info type (its constructor zeroing is dead but sets retail's
 // frame homes for the temporaries and the param-home reuse of the new NAT).
 #include "../../../../../Include/GameClient/MapMetaData.h"
-class MapCache{public:const MapMetaData *findMap(AsciiString);};extern MapCache *TheMapCache;
+
+#include "../../../../../Include/GameClient/MapCache.h"
+extern MapCache *TheMapCache;
+
 class Rva003821E2 {public:void assign(UnicodeString);};class Rva004FDD36AsciiField{public:void setClan(AsciiString);};
 class MpGameRules { public: static void GetDefaults(int,void*); };void SendStatsToOtherPlayers(GameInfo*);
 class Rva005A734B{public:char storage[0x974];Rva005A734B();};

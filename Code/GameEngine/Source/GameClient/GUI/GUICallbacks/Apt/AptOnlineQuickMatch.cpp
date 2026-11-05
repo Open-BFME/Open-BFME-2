@@ -92,6 +92,7 @@ struct GameSlotConnectInfo{unsigned ip;unsigned short port;GameSlotConnectInfo()
 class GameSpyGameSlot:public GameSlot {public:char at1AC[0x1D0 - 0x1AC];int rva1d0,rva1d4;};
 #include "../../../../../Include/GameNetwork/GameSpyStagingRoom.h"
 extern GameSpyStagingRoom *TheGameSpyGame;
+class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();};
 // Bind the existing NAT datum; retain this unit's access view at use sites.
 struct NAT {void processGlobalMessage(int,const char *);	// 0x005A8ABF, rowed
  void attachSlotList(GameInfo*,int,unsigned,unsigned,bool);};
@@ -893,8 +894,6 @@ void _bfme_closeAptScreen(const AsciiString&);
 // Native5BA3AD..5BA3C0: same NAT receiver gate to member schema+28.
 // Keep this view's member pointer representation stable in the TU's /vmg build.
 class __single_inheritance Rva005A6709 {public:int rva005A6709() const;};
-
-class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();};
 
 struct NAT;
 
