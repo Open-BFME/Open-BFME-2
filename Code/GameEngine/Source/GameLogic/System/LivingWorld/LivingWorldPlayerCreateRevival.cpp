@@ -24,18 +24,12 @@ public:
 };
 #include "../../../../Include/Common/ModuleInfoClass.h"
 class ThingTemplate;
-struct RevivalUpgradeStorage {unsigned int words[32];};
-class UnitRevivalEntry {
-public:
- UnitRevivalEntry(); UnitRevivalEntry(const ThingTemplate*); UnitRevivalEntry(const UnitRevivalEntry&); ~UnitRevivalEntry(); void *getThingTemplate();
- char unknown00[8]; float experience; int rank,level; RevivalUpgradeStorage upgrades; unsigned int cost; int startFrame; unsigned int time;
- bool revival,flagA1; int productionID,armyID,key; char record[0x18]; int valueC8; float factor; char textD0[8];
-};
+#include "../../../../Include/GameLogic/UnitRevivalEntry.h"
 
 struct Rva002E2D10Record {char unknown[0xD8];};
 namespace _STL { template<> void vector<Rva002E2D10Record>::push_back(const Rva002E2D10Record&); }
 class Rva001EAFC1 {public: Rva001EAFC1 &operator=(const Rva001EAFC1&);};
-struct RevivalSourceView {char unknown00[8]; float experience; int rank; RevivalUpgradeStorage upgrades; char unknown90[4]; char record[0x18]; char unknownAC[0x14]; int heroKey;};
+struct RevivalSourceView {char unknown00[8]; float experience; int rank; BfmeFixedStorage128 upgrades; char unknown90[4]; char record[0x18]; char unknownAC[0x14]; int heroKey;};
 class Image;
 class ThingTemplate {
 public:
@@ -69,17 +63,17 @@ public: void rva002E3442(const RevivalSourceView*const*,const ThingTemplate*,int
 // ?CreateRevivalEntry@@YA?AVUnitRevivalEntry@@PAVLivingWorldPlayer@@PBQBURevivalSourceView@@PBVThingTemplate@@H@Z
 static __declspec(noinline) UnitRevivalEntry CreateRevivalEntry(LivingWorldPlayer *player,const RevivalSourceView *const *source,const ThingTemplate *thing,int kind) {
  UnitRevivalEntry entry(thing);
- entry.revival=(kind==1);
+ entry.m_fieldA0=(kind==1);
  const RevivalSourceView *data=*source;
- entry.rank=data->rank; entry.level=data->rank; entry.experience=data->experience;
- entry.upgrades=data->upgrades;
- entry.armyID=0; entry.key=data->heroKey;
- *reinterpret_cast<Rva001EAFC1*>(entry.record)=*reinterpret_cast<const Rva001EAFC1*>(data->record);
+ entry.m_field0C=data->rank; entry.m_field10=data->rank; entry.m_field08=data->experience;
+ entry.m_field14=data->upgrades;
+ entry.m_fieldA8=0; entry.m_fieldAC=data->heroKey;
+ *reinterpret_cast<Rva001EAFC1*>(entry.m_fieldB0)=*reinterpret_cast<const Rva001EAFC1*>(data->record);
  if(kind==0) {
   int rank=thing->rva0033B479();
-  entry.rank=rank; entry.level=rank;
+  entry.m_field0C=rank; entry.m_field10=rank;
   ExperienceLevelHandle handle=TheExperienceLevelStore->rva00288E21(thing,rank);
-  if(TheExperienceLevelStore->IsValid(handle)) entry.experience=(float)TheExperienceLevelStore->GetRequiredExperience(handle);
+  if(TheExperienceLevelStore->IsValid(handle)) entry.m_field08=(float)TheExperienceLevelStore->GetRequiredExperience(handle);
  } else {
   const ModuleInfo &info=thing->modules;
   for(int i=0;i<info.getCount();++i) {
@@ -95,9 +89,9 @@ static __declspec(noinline) UnitRevivalEntry CreateRevivalEntry(LivingWorldPlaye
     if(!imageName.isEmpty()) image=TheMappedImageCollection->findImageByName(imageName);
     else image=const_cast<ThingTemplate*>(thing)->getButtonImage();
    }
-   *reinterpret_cast<const Image**>(entry.unknown00)=image;
-   entry.cost=const_cast<RespawnUpdateModuleData*>(rules)->calcCostToBuild(entry.rank);
-   entry.time=const_cast<RespawnUpdateModuleData*>(rules)->calcTimeToBuild(entry.rank);
+   entry.m_field00=image;
+   entry.m_field94=const_cast<RespawnUpdateModuleData*>(rules)->calcCostToBuild(entry.m_field0C);
+   entry.m_field9C=const_cast<RespawnUpdateModuleData*>(rules)->calcTimeToBuild(entry.m_field0C);
   }
  }
  return entry;
@@ -105,7 +99,7 @@ static __declspec(noinline) UnitRevivalEntry CreateRevivalEntry(LivingWorldPlaye
 // ?rva002E3442@LivingWorldPlayer@@QAEXPBQBURevivalSourceView@@PBVThingTemplate@@H@Z
 void LivingWorldPlayer::rva002E3442(const RevivalSourceView*const *source,const ThingTemplate *thing,int key) {
  UnitRevivalEntry entry=CreateRevivalEntry(this,source,thing,0);
- entry.key=key;
+ entry.m_fieldAC=key;
  reinterpret_cast<std::vector<Rva002E2D10Record>*>(&entries)->push_back(reinterpret_cast<const Rva002E2D10Record&>(entry));
 }
 

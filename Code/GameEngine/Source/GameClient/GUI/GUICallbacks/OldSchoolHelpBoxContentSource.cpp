@@ -249,16 +249,7 @@ public:
 	int m_buildPoints;              // +0x618
 };
 
-class UnitRevivalEntry
-{
-public:
-	void *getThingTemplate();
-
-	char m_pad00[0x0C];
-	int m_rank;                     // +0x0C
-	char m_pad10[0xA0 - 0x10];
-	bool m_isRevive;                // +0xA0
-};
+#include "../../../../Include/GameLogic/UnitRevivalEntry.h"
 
 class Rva0037E421
 {
@@ -587,7 +578,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 			if (entry && revivalThing)
 			{
 				AsciiString label;
-				if (entry->m_isRevive)
+				if (entry->m_fieldA0)
 				{
 					label = "CONTROLBAR:GenericReviveHero";
 					if (!((Rva0033AC7F *)revivalThing)->rva0033AC7F(description))
@@ -611,7 +602,7 @@ TreeHintRef00217D4C OldSchoolHelpBoxContentSource::createContent()
 
 				description.concat(L"\n");
 				UnicodeString rank;
-				rank.format(TheGameText->fetchPtr("APT:RankLabel", 0), entry->m_rank);
+				rank.format(TheGameText->fetchPtr("APT:RankLabel", 0), entry->m_field0C);
 				description.concat(rank);
 
 				cost.format(TheGameText->fetchPtr("TOOLTIP:Cost", 0), ((Rva0037E6E8 *)revival)->rva0037E649(index, obj));

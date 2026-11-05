@@ -176,17 +176,7 @@ extern ExperienceLevelSystem *TheExperienceLevelSystem;
 // The 0xD8-byte revival record built from a template (the rowed
 // UnitRevivalEntry constructor 0x0037E289 and destructor 0x001EB63C).
 struct Rva002E2D10Record;
-struct UnitRevivalEntry
-{
-	UnitRevivalEntry(const ThingTemplate *thingTemplate);
-	~UnitRevivalEntry();
-
-	unsigned char m_pad00[0x08];
-	float m_requiredExperience;	// +0x08
-	int m_rank;			// +0x0C
-	int m_levelRank;		// +0x10
-	unsigned char m_pad14[0xD8 - 0x14];
-};
+#include "../../../Include/GameLogic/UnitRevivalEntry.h"
 
 class UnitRevivalTracker
 {
@@ -631,15 +621,15 @@ void ScriptActions::doCreateUnitRevivalEntry(const AsciiString &objectTypeName, 
 		return;
 	UnitRevivalEntry entry(objectType);
 	if (level == -1) {
-		entry.m_rank = objectType->rva0033B479();
+		entry.m_field0C = objectType->rva0033B479();
 	} else {
 		ExperienceLevelHandle levelHandle = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->rva00288E21(objectType, level);
 		if (levelHandle.isValid()) {
-			entry.m_requiredExperience = (float)reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetRequiredExperience(levelHandle);
-			entry.m_rank = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetLevelRank(levelHandle);
-			entry.m_levelRank = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetLevelRank(levelHandle);
+			entry.m_field08 = (float)reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetRequiredExperience(levelHandle);
+			entry.m_field0C = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetLevelRank(levelHandle);
+			entry.m_field10 = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetLevelRank(levelHandle);
 		} else {
-			entry.m_rank = objectType->rva0033B479();
+			entry.m_field0C = objectType->rva0033B479();
 		}
 	}
 	tracker->addRevivableUnit(*(const Rva002E2D10Record *)&entry, player);

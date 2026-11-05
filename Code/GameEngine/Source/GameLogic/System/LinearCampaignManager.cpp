@@ -612,15 +612,7 @@ public:
 	unsigned char rva0037DE0E(void *dest);
 };
 
-class UnitRevivalEntry
-{
-public:
-	UnitRevivalEntry();
-	~UnitRevivalEntry();
-	char m_pad00[0xA1];
-	bool m_flagA1;
-	char m_padA2[0xD8 - 0xA2];
-};
+#include "../../../Include/GameLogic/UnitRevivalEntry.h"
 
 struct Rva002E2D10Record
 {
@@ -1046,7 +1038,7 @@ bool Rva001EC8C0::rva001EC8C0(int key, int tracker, int player)
 		UnitRevivalEntry entry;
 		if (reinterpret_cast<Rva0037DE0E *>(record)->rva0037DE0E(&entry))
 		{
-			entry.m_flagA1 = true;
+			entry.m_fieldA1 = true;
 			reinterpret_cast<UnitRevivalTracker *>(tracker)
 				->addRevivableUnit(*reinterpret_cast<const Rva002E2D10Record *>(&entry), reinterpret_cast<Player *>(player));
 			m_used.push_back(*reinterpret_cast<const BfmePod172 *>(record));
