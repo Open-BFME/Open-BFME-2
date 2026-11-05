@@ -313,7 +313,6 @@ private:
 // answers true. Same shape as Rva005FED52::invoke (vtable 0x00C37064).
 class CreateAHeroData;
 #include "../../../../../Include/GameLogic/CreateAHeroData.h"
-
 // slots at VA 0x00C644C4, 0x00C64544 and 0x00C645AC: forward both arguments
 // to a rowed method of the +0x134 (resp. +0x128) object when it is set.
 // slot at VA 0x00C66420: for argument 1, runs the rowed 0x0044BD79 on the
@@ -324,7 +323,6 @@ public:
 	void bfmeGo1042D();
 	Int m_00;
 };
-
 class Rva00517364
 {
 public:
@@ -333,11 +331,6 @@ private:
 	char m_pad00[0x08];
 	BfmeA1042N m_08;
 };
-
-// slots at VA 0x00C1AEC4, 0x00C6B90C, 0x00C6E27C and more: appends the
-// argument to the int list at +0x14 (rowed list<int>::push_back).
-// slots at VA 0x00C1C350, 0x00C1C3A4, 0x00C1C3E4 and more: the +0x08 field of
-// the +0x04 system, or of the rowed 0x001FCBD7 factory's result without one.
 #include "../../../../../Include/GameClient/ParticleSystemClass.h"
 
 ParticleSystem *Make001FCBD7();
@@ -377,9 +370,89 @@ struct Rva00517547 : Rva005173CB
 	Rva00517547 *rva00517547(Rva0051732A arg);
 };
 
-// tu-skeleton: 0x00516EC0 19B ?Options@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
+//
+// BFME2's online shell screen Apt callbacks, 0x00516EC0 onward, bound by
+// these names ("AptOnline::Options", "AptOnline::ShellExit") as member
+// pointers by the screen's registration; that binding is their only
+// reference. The class is named for the strings' prefix.
 
-// tu-skeleton: 0x00516ED3 22B ?ShellExit@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
+class AptOptions
+{
+public:
+	static void OpenScreen(bool a, bool b, bool c, bool d);
+};
+
+// Rva00516E92Enable.cpp's 0x00516E92.
+void Rva00516E92Enable();
+
+// Rva0059FF9DDo.cpp's two words (retail .data initial value -1).
+extern int g_009C0758;
+
+extern int g_009C075C;
+
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+
+// ??0Rva0051730E@@QAE@XZ @0x0051730E 28B
+// Native 0x0051730E..0x00517329: thiscall constructor returning this that
+// fills a seven-dword record with -1,-1,-1,0,0,-1,0. No direct caller or data
+// reference was found, so owner and field roles are unproven and the name is
+// address-derived; it sits between the AptOnline shell bodies 0x00517207 and
+// the handle constructor 0x0051732A.
+struct Rva0051730E
+{
+	int m_first;
+	int m_second;
+	int m_third;
+	int m_count;
+	int m_value;
+	int m_index;
+	int m_extra;
+	Rva0051730E();
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp
+
+// The shell constructor 0x0051795C binds "AptOnline::OnInitialized" to
+// 0x0047A69C. Retail folds this complete RET4 with other empty callbacks;
+// its binding establishes the name and one unused argument independently.
+void AptOnline::OnInitialized(const char *unused)
+{
+}
+
+// Retail 0x00516EC0, 19 bytes: "AptOnline::Options".
+void AptOnline::Options(const char *unused)
+{
+	AptOptions::OpenScreen(true, false, true, false);
+}
+
+// Retail 0x00516ED3, 22 bytes: "AptOnline::ShellExit" resets both words
+// and leaves through 0x00516E92.
+void AptOnline::ShellExit(const char *unused)
+{
+	g_009C075C = -1;
+	g_009C0758 = -1;
+	Rva00516E92Enable();
+}
+
+// Retail 0x005170B4, 25 bytes. Name unknown. Drops the pending buddy
+// invite while one is flagged.
+void AptOnline::rva005170B4()
+{
+	if (g_Va00A04904)
+	{
+		Rva00516FA0 *invite = &m_invite;
+		invite->m_18 = 0;
+		invite->m_record.rva00516F3F();
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+
+// slots at VA 0x00C1AEC4, 0x00C6B90C, 0x00C6E27C and more: appends the
+// argument to the int list at +0x14 (rowed list<int>::push_back).
+// slots at VA 0x00C1C350, 0x00C1C3A4, 0x00C1C3E4 and more: the +0x08 field of
+// the +0x04 system, or of the rowed 0x001FCBD7 factory's result without one.
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 
@@ -707,11 +780,17 @@ void Rva00517364::rva00517364(Int which)
 		member->bfmeGo1042D();
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva00517547Set.cpp
+
+Rva00517547 *Rva00517547::rva00517547(Rva0051732A arg)
+{
+	rva005173CB(arg);
+	return this;
+}
+
 // tu-skeleton: 0x00516F08 25B ?rva00516F08@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
 
 // tu-skeleton: 0x00517027 33B ?LoadChildScreen@AptOnlineShell@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00517027Set.cpp (not merged yet)
-
-// tu-skeleton: 0x005170B4 25B ?rva005170B4@AptOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x0051719B 8B ??1Rva0051719B@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp (not merged yet)
 
@@ -719,7 +798,19 @@ void Rva00517364::rva00517364(Int which)
 
 // tu-skeleton: 0x00517207 263B ?ExternFunc@AptOnline@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp (not merged yet)
 
-// tu-skeleton: 0x0051730E 28B ??0Rva0051730E@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva0051730ECtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva0051730ECtor.cpp
+
+Rva0051730E::Rva0051730E()
+{
+	m_first=-1;
+	_ReadWriteBarrier();
+	m_second=-1;
+	m_third=-1;
+	m_count=0;
+	m_value=0;
+	m_index=-1;
+	m_extra=0;
+}
 
 // tu-skeleton: 0x00517345 31B ??0Rva00517345@@QAE@ABURva0051732A@@@Z -- matched in Code/GameEngine/Source/Common/Rva00517345Ctor.cpp (not merged yet)
 
@@ -732,14 +823,6 @@ void Rva00517364::rva00517364(Int which)
 // tu-skeleton: 0x005174D9 11B ??_ERva005173F8@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
 
 // tu-skeleton: 0x005174E4 99B ?rva005174E4@Rva005174E4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva00517547Set.cpp
-
-Rva00517547 *Rva00517547::rva00517547(Rva0051732A arg)
-{
-	rva005173CB(arg);
-	return this;
-}
 
 // tu-skeleton: 0x00517582 28B ??_GRva005173F8@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
 

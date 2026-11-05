@@ -784,7 +784,7 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMesseng
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerCallbacks.cpp	g_Va00E06394	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp	g_Va00E046BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp	g_Va00E06394	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp	g_Va00A04904	2
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp	g_Va00A04904	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp	g_Va00E06544	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp	g_Va00E06548	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp	g_Va00A04904	2
@@ -806,7 +806,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineH
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeStatistics.cpp	g_Va00E06524	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp	g_Va00E062F0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatch.cpp	g_Va00E06550	6
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp	g_Va00A04904	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp	g_Va00DD1568	5
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp	g_Va00E06480	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp	g_Va00E06550	2
@@ -4728,7 +4727,7 @@ pin	reverse/symbols.csv	0x0007EA1F	1
 pin	reverse/symbols.csv	0x0007EB6E	1
 pin	reverse/symbols.csv	0x0007EBB1	1
 pin	reverse/symbols.csv	0x0007F87C	1
-pin	reverse/symbols.csv	0x0007FAB3	50	allow=5cb478f05bce971db40d1d3db09187899c5fcfb4
+pin	reverse/symbols.csv	0x0007FAB3	50
 pin	reverse/symbols.csv	0x0007FAEA	2
 pin	reverse/symbols.csv	0x00080221	1
 pin	reverse/symbols.csv	0x000806B4	1
