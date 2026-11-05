@@ -127,3 +127,31 @@ The remaining first-batch task is to screen mixed-source split plans for
 eligible destinations; if the first 20 are exhausted, inspect the full shard
 with `consolidation_queue.py --limit 100000` before declaring no work. Do not
 repeat any unchanged dry run above until its prerequisite changes.
+
+## Additional allocated screens after the first 20
+
+The full `consolidation_queue.py --limit 100000` listing contains 95 eligible
+entries in shard 0/5. Five further destinations passed `--check-tu`, each was
+planned under its parent with a current planner snapshot, and each guarded dry
+run accepted zero donors:
+
+- `Libraries/Source/WWVegas/WWMath/wwmath.cpp`: only donor
+  `Libraries/Source/WWVegas/WWLib/wwmath.cpp` fails bytes; both objects are
+  census-linked.
+- `GameLogic/Object/Create/SpecialPowerCreate.cpp`: constructor donor fails
+  C2511 because `(Thing *, const ModuleData *)` is absent from the class view;
+  tool suggests reconciling `SpecialPowerCreate`; both objects are census-linked.
+- `GameLogic/Object/Made002CCC90.cpp`: finish donor fails C2600 because the
+  constructor is a compiler-generated special member not declared in the class;
+  tool suggests its class view; both objects are census-linked.
+- `Common/BfmeOwnVVD.cpp`: translate donor fails with missing `TheGameClient`
+  type/storage-class declaration; tool suggests `BfmeOwnVVD` view work; both
+  objects are census-linked.
+- `Common/Command.cpp`: command donor fails C2953 for duplicate STL allocator
+  and vector templates; tool suggests `Command` view work; both objects are
+  census-linked.
+
+No merge or claim resulted. Unchanged dry runs above should wait for their
+listed prerequisite changes. Still uninspected: remaining allocated entries
+in the 95-item shard and mixed-source `tu_skeleton.py --split` plans; inspect
+those before declaring the shard empty.
