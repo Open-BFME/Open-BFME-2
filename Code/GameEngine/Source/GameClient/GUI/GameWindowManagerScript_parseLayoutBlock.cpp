@@ -11,8 +11,8 @@
 // ENDLAYOUTBLOCK, dispatching each through the table's parse pointer.
 // BFME2 facts (all retail-measured):
 // - File's own vtable has scanString at slot 9 (offset 0x24); the sweep shim's
-//   MemoryPoolObject adds one virtual ahead of File's, so this TU carries a
-//   TU-local 17-slot File view copied from RAMFileRead.cpp.
+//   MemoryPoolObject adds one virtual ahead of File's, so this TU uses the
+//   canonical 17-slot File header.
 // - strtok rides the msvcr71 import at 0xBBA5EC (dllimport decl -> the 6-byte
 //   ff 15 indirect call).
 // - strcpy is a plain extern decl (5-byte E8 to the 0x629176 slot).
@@ -56,29 +56,7 @@ struct LayoutScriptParse
 // Native table at RVA 0x009BE318: four named callbacks and a null entry.
 extern LayoutScriptParse layoutScriptTable[];
 
-class File
-{
-public:
-	enum seekMode { START, CURRENT, END };
-
-	virtual ~File();								// slot 0
-	virtual bool open(const char *filename, int access = 0);	// slot 1
-	virtual void close(void);						// slot 2
-	virtual int read(void *buffer, int bytes);			// slot 3
-	virtual int write(const void *buffer, int bytes);		// slot 4
-	virtual int seek(int pos, seekMode mode);			// slot 5
-	virtual void nextLine(char *buf, int bufSize);			// slot 6
-	virtual bool scanInt(int &newInt);				// slot 7
-	virtual bool scanReal(float &newReal);				// slot 8
-	virtual bool scanString(void *newString);			// slot 9
-	virtual bool print(const char *format, ...);			// slot 10
-	virtual int size(void);						// slot 11
-	virtual int position(void);					// slot 12
-	virtual char *readEntireAndClose(void);				// slot 13
-	virtual File *convertToRAMFile(void);				// slot 14
-	virtual void lock(void);					// slot 15
-	virtual void unlock(void);					// slot 16
-};
+#include "../../../Include/Common/File.h"
 
 #include "ascii_string.h"
 #include "PreRTS.h"
@@ -131,7 +109,7 @@ Bool parseLayoutBlock(File *inFile, char *buffer, UnsignedInt version, WindowLay
 	char token[256];
 
 	AsciiString asciitoken;
-	if (inFile->scanString(&asciitoken) == FALSE)
+	if (inFile->scanString(asciitoken) == FALSE)
 	{
 		return FALSE;
 	}
@@ -145,7 +123,7 @@ Bool parseLayoutBlock(File *inFile, char *buffer, UnsignedInt version, WindowLay
 	while (TRUE)
 	{
 		// get next token
-		inFile->scanString(&asciitoken);
+		inFile->scanString(asciitoken);
 
 		// check for end
 		if (asciitoken.compare("ENDLAYOUTBLOCK") == 0)

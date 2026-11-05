@@ -30,17 +30,8 @@ private:
 	char *m_Buffer;
 };
 
-class BFMEChunkInput
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void Close();
-};
 
-class File : public BFMEChunkInput
-{
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 class FileClass;
 
@@ -85,7 +76,8 @@ void Rva0017FB41_Prototype::Rva0017FDA7_LoadTree()
 	if (file == 0)
 		return;
 
-	ChunkLoadClass cload(file);
+	// The chunk reader retains its legacy slot-compatible stream view.
+	ChunkLoadClass cload((BFMEChunkInput *)file);
 	if (cload.Open_Chunk() && cload.Cur_Chunk_ID() == 0x100)
 	{
 		m_tree = new HTreeClass;
@@ -95,5 +87,5 @@ void Rva0017FB41_Prototype::Rva0017FDA7_LoadTree()
 			m_tree = 0;
 		}
 	}
-	file->Close();
+	file->close();
 }

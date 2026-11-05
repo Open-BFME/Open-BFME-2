@@ -12,20 +12,8 @@ extern "C" __declspec(dllimport) char *__cdecl strchr(const char *s, int c);
 typedef unsigned int uint32;
 typedef unsigned char uint8;
 
-class BFMEChunkInput
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual int Read(void *buffer, int size);
-	virtual void f4();
-	virtual int Seek(int pos, int dir);
-};
 
-class File : public BFMEChunkInput
-{
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 class FileClass;
 
@@ -59,12 +47,13 @@ void Gen_dtor_00972460::rva001808B0()
 		_mbscpy(dot, ".w3d");
 	File *file = GetGameFilePart(buf, m_unk1C, m_unk20);
 	if (file != 0) {
-		ChunkLoadClass chunk(file);
+		// The chunk reader retains its legacy slot-compatible stream view.
+		ChunkLoadClass chunk((BFMEChunkInput *)file);
 		if (chunk.Open_Chunk() && chunk.Cur_Chunk_ID() == 0x740) {
 			void *p = operator new(0x44);
 			m_ptr = p;
 			chunk.Read(p, 0x44);
 		}
-		file->f2();
+		file->close();
 	}
 }

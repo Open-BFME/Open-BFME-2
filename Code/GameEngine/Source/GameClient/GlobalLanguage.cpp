@@ -14,12 +14,7 @@ extern const char BfmeFontExtractionDirectoryName[]="{70FF7DF1-E69E-47df-9AA6-F0
 const char *BfmeFontExtractionDirectory=BfmeFontExtractionDirectoryName;
 class Xfer;
 enum INILoadType{INI_LOAD_INVALID,INI_LOAD_OVERWRITE};
-class File{public:
- virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();
- virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual int size();virtual void v12();virtual char *readEntireAndClose();
- char unknown04[9];bool deleteWhenClosed;
- void deleteOnClose(){deleteWhenClosed=true;}
-};
+#include "../../Include/Common/File.h"
 #include "../../Include/Common/FileSystem.h"
 extern FileSystem *TheFileSystem;
 typedef bool Bool;

@@ -31,17 +31,8 @@ private:
 	char *m_Buffer;
 };
 
-class BFMEChunkInput
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void Close();
-};
 
-class File : public BFMEChunkInput
-{
-};
+#include "../../../../GameEngine/Include/Common/File.h"
 
 class FileClass;
 
@@ -111,7 +102,8 @@ void Rva0014CD63_Prototype::Rva0014D078_LoadAnim()
 	if (file == 0)
 		return;
 
-	ChunkLoadClass cload(file);
+	// The chunk reader retains its legacy slot-compatible stream view.
+	ChunkLoadClass cload((BFMEChunkInput *)file);
 	if (cload.Open_Chunk()) {
 		switch (cload.Cur_Chunk_ID()) {
 		case 0x200: {
@@ -135,5 +127,5 @@ void Rva0014CD63_Prototype::Rva0014D078_LoadAnim()
 		}
 	}
 close:
-	file->Close();
+	file->close();
 }

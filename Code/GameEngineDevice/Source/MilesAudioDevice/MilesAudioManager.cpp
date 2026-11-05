@@ -5675,7 +5675,7 @@ protected:
 struct Rva0060C3C3Stream;
 class XferLoad { public: bool Open(Rva0060C3C3Stream *stream, int *version); };
 class Rva0060C45E { public: void clear(); };
-class File { public: virtual ~File(); };
+#include "../../../GameEngine/Include/Common/File.h"
 File *createMemoryReadFile(char *data, int size);
 // The event refresh rowed at 0x002DAAD5 (play info regenerated around +0x74).
 class Rva002DAAD5Owner { public: void rva002DAAD5(); };

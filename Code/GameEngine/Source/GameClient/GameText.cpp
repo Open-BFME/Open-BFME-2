@@ -62,30 +62,7 @@ namespace _STL { template <> void allocator<AsciiString>::deallocate(AsciiString
 #include <windows.h>
 
 // File (vtable slots read from the calls below) and the FileSystem calls.
-class File
-{
-public:
-	virtual ~File();
-	virtual Bool open(const char *filename, int access);
-	virtual void close();
-	virtual int read(void *buffer, int bytes);
-	virtual int write(const void *buffer, int bytes);
-	virtual int seek(int bytes, int mode);
-	virtual Bool nextLine(char *buf, int bufSize);
-	virtual Bool scanInt(int &newInt);
-	virtual Bool scanReal(float &newReal);
-	virtual Bool scanString(AsciiString &newString);
-	virtual Bool print(const char *format, ...);
-	virtual int size();
-	virtual int position();
-	virtual char *readEntireAndClose();
-	virtual File *convertToRAMFile();
-
-	AsciiString m_nameStr;	// +0x04
-	int m_access;			// +0x08
-	Bool m_open;			// +0x0c
-	Bool m_deleteOnClose;	// +0x0d
-};
+#include "../../Include/Common/File.h"
 
 struct FileInfo
 {
@@ -426,7 +403,7 @@ Bool GameTextTable::readSTR(const char *filename)
 	File *file = TheFileSystem->openFile(filename, 1, 0);
 	if (!file)
 		return false;
-	file->m_deleteOnClose = true;
+	file->deleteOnClose();
 	int size = file->size();
 	char *data = new char[size + 2];
 	file->read(data, size);
@@ -538,7 +515,7 @@ Bool GameTextTable::readCSF(const char *filename)
 	File *file = TheFileSystem->openFile(filename, 0x21, 0);
 	if (!file)
 		return false;
-	file->m_deleteOnClose = true;
+	file->deleteOnClose();
 	char *data = file->readEntireAndClose();
 	unsigned int count = 0;
 	CSFHeader *header = (CSFHeader *)data;

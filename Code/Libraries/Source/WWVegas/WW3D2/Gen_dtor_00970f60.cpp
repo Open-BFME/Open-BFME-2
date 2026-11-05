@@ -54,17 +54,7 @@ extern "C" __declspec(dllimport) char *__cdecl strchr(const char *, int);
 void *__cdecl operator new(unsigned int);
 
 // Same chunk reader view as the verified sibling factory at 0x001808B0.
-class BFMEChunkInput
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual int Read(void *, int);
-	virtual void f4();
-	virtual int Seek(int, int);
-};
-class File : public BFMEChunkInput {};
+#include "../../../../GameEngine/Include/Common/File.h"
 class FileClass;
 File *__cdecl GetGameFilePart(const char *, int, int);
 #include "../WWLib/ChunkLoadClass.h"
@@ -97,7 +87,8 @@ void Gen_dtor_00970f60::Load()
 		_mbscat(buf, ".w3d");
 	File *file = GetGameFilePart(buf, m_unk1C, m_unk20);
 	if (file) {
-		ChunkLoadClass chunk(file);
+		// The chunk reader retains its legacy slot-compatible stream view.
+		ChunkLoadClass chunk((BFMEChunkInput *)file);
 		if (chunk.Open_Chunk() && chunk.Cur_Chunk_ID() == 0) {
 			MeshClass *mesh = new MeshClass;
 			m_ptr = reinterpret_cast<Gen_dtor_00970f60Held *>(mesh);
@@ -108,7 +99,7 @@ void Gen_dtor_00970f60::Load()
 				m_ptr = 0;
 			}
 		}
-		file->f2();
+		file->close();
 	}
 }
 
