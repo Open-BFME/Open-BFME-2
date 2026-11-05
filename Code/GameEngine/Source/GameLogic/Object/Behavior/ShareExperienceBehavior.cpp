@@ -104,10 +104,8 @@ public:
 // Native distribution reads the byte at GameLogic +0x9F.
 struct Rva00480093GameLogicView { char m_pad[0x9F]; bool m_heroExperienceSharing; };
 extern GameLogic *TheGameLogic;
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include <new>
-
 class Rva003623E5Filter
 {
 public:
@@ -116,36 +114,16 @@ public:
 private:
 	unsigned char m_data[4];
 };
-
 class ShareExperienceBehaviorModuleDataBase
 {
 public:
 	virtual ~ShareExperienceBehaviorModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 };
-
-// The existing constructor/destructor owners supply this polymorphic layout.
-// The filter's storage is still passed through the existing call view below.
-class ShareExperienceBehaviorModuleData : public ShareExperienceBehaviorModuleDataBase
-{
-public:
-	ShareExperienceBehaviorModuleData();
-	unsigned char m_pad04[4];
-	float m_radius;
-	float m_dropOff;
-	float m_percentage;		// +0x10 the share
-	Rva003623E5Filter m_objectFilter;	// +0x14 the object filter
-};
-
-
-
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-
-
 class Rva00480093Iface20
 {
 public:
@@ -162,7 +140,6 @@ public:
 	virtual void slot10();
 	virtual void rva00480093(float amount) = 0;
 };
-
 //
 // ?update@ShareExperienceBehavior@@UAE?AW4UpdateSleepTime@@XZ, retail
 // 0x0047FF6B, 71 bytes: slot 0 of the update-interface vtable 0x00C485B0
@@ -171,9 +148,7 @@ public:
 // singleton (the DevastateSpecialPowerSlots.cpp reporting shape) and sleeps
 // forever: the behavior does its work elsewhere.
 typedef int Int;
-
 typedef bool Bool;
-
 class Debug
 {
 public:
@@ -190,18 +165,14 @@ public:
 	virtual void slot64(); virtual void slot68();
 	virtual Debug *slot6C(Int first, Int second, Int third);
 };
-
 extern Debug *theDebug;
-
 Bool bfmeRva000387C0(void);
-
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "Common/Snapshot.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -215,6 +186,21 @@ public:
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
+
+// The existing constructor/destructor owners supply this polymorphic layout.
+// The filter's storage is still passed through the existing call view below.
+class ShareExperienceBehaviorModuleData : public ShareExperienceBehaviorModuleDataBase
+{
+public:
+	ShareExperienceBehaviorModuleData();
+	unsigned char m_pad04[4];
+	float m_radius;
+	float m_dropOff;
+	float m_percentage;		// +0x10 the share
+	Rva003623E5Filter m_objectFilter;	// +0x14 the object filter
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 
@@ -300,14 +286,6 @@ void ShareExperienceBehavior::rva00480093(float amount)
 	}
 }
 
-// tu-skeleton: 0x0047FE90 76B ??0ShareExperienceBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047FEDC 17B ?buildFieldParse@ShareExperienceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0047FEED 98B ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0047FF4F 28B ??_GRva0047FE25@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp
 
 // ??1ShareExperienceBehaviorModuleData@@UAE@XZ @ 0x0047FFCE 48B
@@ -335,6 +313,35 @@ void constructShareExperienceBehaviorModuleData(void *storage)
 {
     ::new (storage) ShareExperienceBehaviorModuleData;
 }
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp
+
+//
+// ??0ShareExperienceBehaviorModuleData@@QAE@XZ, retail 0x0047FE90, 76 bytes.
+// Framed single-state EH ctor: zero floats at +8/+0xC, pool float 1.0f at
+// +0x10, folded vtable 0x00C486B0, filter member at +0x14 through the
+// pinned nullary filter (0x3623E5, Rva003623E5Filter spelling), unknown
+// dword at +4 kept as explicit pad. Own table 0x00C48740 holds Radius/
+// DropOff/Percentage/ObjectFilter; the ShareExperienceBehavior pool key at
+// 0x47FE4B ends near the rowed proc; the factory at 0x24BFE5 news 0x18
+// and calls this ctor as sole caller; the rowed proc at 0x47FEDC starts
+// where this ctor ends. Recipe: GeometryUpgrade (virtual mid-init vtable
+// placement) with the native Snapshot base teardown arming the
+// single EH state. Native cleanup78B925 restores Snapshot through49B47C;
+// the polymorphic base shares the derived vptr and has no this-adjust.
+// The companion48B destructor independently restores the same BBB554 table.
+
+// ?constructShareExperienceBehaviorModuleDataCtor absent-from-retail
+void constructShareExperienceBehaviorModuleDataCtor(void *storage)
+{
+    ::new (storage) ShareExperienceBehaviorModuleData;
+}
+
+// tu-skeleton: 0x0047FEDC 17B ?buildFieldParse@ShareExperienceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0047FEED 98B ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x0047FF4F 28B ??_GRva0047FE25@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // tu-skeleton: 0x0078B913 8B Unwind@00b8b913 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
 

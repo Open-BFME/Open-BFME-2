@@ -37124,7 +37124,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0047FE25,32,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,proposed,K,K=Rva0047FE25,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp
 0x0047FE45,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,proposed,C,C=0x0047FE25..0x0047FE4B,Code/GameEngine/Source/Common/ModuleNameGetters2.cpp
 0x0047FE4B,69,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
-0x0047FE90,76,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp
+0x0047FE90,76,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 0x0047FEDC,17,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp
 0x0047FEED,98,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp
 0x0047FF4F,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,C,C=0x0047FEED..0x0047FF6B provisional,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp
@@ -79883,8 +79883,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078B909,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,P,P=0x0047FE4B@FuncInfo0x0093A9FC provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 0x0078B913,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,P,P=0x0047FEED@FuncInfo0x0093AA20 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp
 0x0078B91B,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,P,P=0x0047FEED@FuncInfo0x0093AA20 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp
-0x0078B925,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp
-0x0078B92D,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp
+0x0078B925,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
+0x0078B92D,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 0x0078B937,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,P,P=0x00480093@FuncInfo0x0093AAB8 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 0x0078B93F,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,P,P=0x00480093@FuncInfo0x0093AAB8 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 0x0078B947,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,approved,P,P=0x00480093@FuncInfo0x0093AAB8 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
