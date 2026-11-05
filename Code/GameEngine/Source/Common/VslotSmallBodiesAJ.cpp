@@ -1156,16 +1156,7 @@ public:
     ~Rva0056C3E5();
     /* the rowed CellGrid::rva0056C065 */ __declspec(dllimport) __forceinline void rva0056C065() { ((CellGrid *)this)->rva0056C065(); }
 };
-class Rva00404781
-{
-public:
-    void rva0040475C();
-private:
-    float a[20];
-    float b[20];
-    unsigned int flags0;
-    unsigned int flags1;
-};
+#include "../../Include/Common/Rva00404781.h"
 class VictorySystem
 {
 public:

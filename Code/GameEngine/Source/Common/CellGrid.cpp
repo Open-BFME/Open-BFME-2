@@ -183,21 +183,7 @@ public:
 	unsigned int rva0056C0A5(const CellPoint &cell);
 };
 
-class Rva00404781
-{
-public:
-	void rva0040475C();
-public:
-	Real m_first[20];
-public:
-	Real m_second[20];
-public:
-	UnsignedInt m_firstMask;
-public:
-	UnsignedInt m_secondMask;
-public:
-	void AddDeath(float v, int i, int j);
-};
+#include "../../Include/Common/Rva00404781.h"
 
 class Rva0056C4D3
 {
@@ -267,11 +253,11 @@ Bool CellGrid::rva0056C50E(Xfer *xfer)
 		{
 			for (Int playerIndex = 0; playerIndex < 20; ++playerIndex)
 			{
-				xfer->operator==(m_cells[0].m_first[0]);
-				xfer->operator==(m_cells[0].m_second[0]);
+				xfer->operator==(m_cells[0].m_a[0]);
+				xfer->operator==(m_cells[0].m_b[0]);
 			}
-			xfer->operator==(m_cells[0].m_firstMask);
-			xfer->operator==(m_cells[0].m_secondMask);
+			xfer->operator==(m_cells[0].m_flags0);
+			xfer->operator==(m_cells[0].m_flags1);
 		}
 	}
 	else
@@ -280,11 +266,11 @@ Bool CellGrid::rva0056C50E(Xfer *xfer)
 		{
 			for (Int playerIndex = 0; playerIndex < 20; ++playerIndex)
 			{
-				xfer->operator==(m_cells[cellIndex].m_first[playerIndex]);
-				xfer->operator==(m_cells[cellIndex].m_second[playerIndex]);
+				xfer->operator==(m_cells[cellIndex].m_a[playerIndex]);
+				xfer->operator==(m_cells[cellIndex].m_b[playerIndex]);
 			}
-			xfer->operator==(m_cells[cellIndex].m_firstMask);
-			xfer->operator==(m_cells[cellIndex].m_secondMask);
+			xfer->operator==(m_cells[cellIndex].m_flags0);
+			xfer->operator==(m_cells[cellIndex].m_flags1);
 		}
 
 		if (xfer->IsLoading())
@@ -299,11 +285,11 @@ Int CellGrid::rva0056C16D()
 	for (UnsignedInt cellIndex = 0; cellIndex < m_cellCount; ++cellIndex)
 	{
 		m_cellValues[cellIndex] = 0;
-		if (m_cells[cellIndex].m_firstMask != 0)
+		if (m_cells[cellIndex].m_flags0 != 0)
 		{
 			for (UnsignedInt playerIndex = 0; playerIndex < 20; ++playerIndex)
 			{
-				if ((m_cells[cellIndex].m_firstMask & (1 << playerIndex)) != 0)
+				if ((m_cells[cellIndex].m_flags0 & (1 << playerIndex)) != 0)
 				{
 					Rva00404927 *parameters = ((Rva00404C26 *)TheVictorySystem)
 						->rva00404C26((Int)playerIndex);
