@@ -1,7 +1,9 @@
 # Expansion-base declaration reconciliation
 
 Inspected revision: `112a456a2c40d5c7731b1355d11e901090afd702`.
-Provider index: census `2026-11-05 05:17`, `c95fcfcfcd`.
+Initial provider-index snapshot: `2026-11-05 05:17`, `c95fcfcfcd`.
+The refreshed local index reports underlying census `2026-11-05 03:49`,
+`c2a9f8e0d7`; the local refresh is not a new census.
 
 ## Evidence and changes
 
@@ -43,3 +45,20 @@ as the original BFME translation-unit path.
 
 The method unit's Player, Rva002A8F24, TerrainLogic and Waypoint header queue
 items remain adoption work; no debt is retired by this prerequisite repair.
+
+## Composer false reject after local index refresh
+
+The local `link_check.py --update-index` completed, rereading 5,601 objects
+and dropping 83 stale entries. The next merge dry-run reaches compilation
+but fails at `Rva00261409Filter(Player *player, ...)` (composed line 11).
+The seed's `class Player;` enters the late declaration stream; the identical
+donor forward declaration, which precedes its last include, is discarded as
+already seen. Consequently the earlier include/declaration stream uses
+`Player` before either declaration or definition. All four composition
+strategies reproduce the missing forward declaration. The original files
+remain unchanged and verified; this is a composer failure, not a new source
+layout hypothesis. Recorded with `re_log.py` as a `false-reject`.
+
+Next step: preserve forward declarations independently in the two output
+streams, with a regression fixture and existing verifier exploit tests;
+then retry the approved merge. No merge or source-file reduction yet.
