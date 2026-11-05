@@ -15,20 +15,13 @@ typedef bool Bool;
 #include "ascii_string.h"
 
 
-class Team
-{
-public:
-    void setRecruitable(Bool availability)
-    {
-        m_recruitable = 1;
-        m_available = availability;
-    }
+#include "../../../Include/Common/TeamBFME2.h"
 
-private:
-    char m_pad[0x110];
-    unsigned char m_recruitable;
-    unsigned char m_available;
-};
+inline void Team::setRecruitable(Bool availability)
+{
+    m_isRecruitablitySet = 1;
+    m_isRecruitable = availability;
+}
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

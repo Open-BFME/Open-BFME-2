@@ -9,3 +9,5 @@ identity is introduced. Owning Team acceptance retires one key, leaving this
 source's header queue empty. Preview retains LINKS/6,378 authored bytes;
 complete class/source recovery and census measurement remain separate.
 [Target instructions and invariants](../../reverse/attempt_support/game-logic-canonical-team-20261030/README.md).
+
+2026-11-05: two additional script consumers adopt TeamBFME2.h with their inline helpers retained; 8/8 rows match, acceptance retires two header keys, and current previews preserve LINKS/422 bytes ([evidence](../../reverse/attempt_support/team-script-inline-adoption-20261105-codexb3.md)).
