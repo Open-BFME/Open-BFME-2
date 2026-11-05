@@ -839,6 +839,7 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
                 pick = (union_view(pick[0], [x[0] for x in v if x is not pick]), v[-1][1])
             chosen[k] = pick
     pps, decls, seen, placed, bodies = [], [], set(), set(), set()
+    forwards = set()
     trailing, trailing_seen = [], set()
     for f in files:
         # a declaration before the file's last #include (a type an included header
@@ -881,6 +882,15 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
                     pps.append(line)
             elif kind == "decl":
                 k = key_of(kind, c)
+                if re.fullmatch(r"(?:class|struct|union)\s+[A-Za-z_]\w*\s*;", norm(c)):
+                    # A later donor's pre-include use precedes the seed's
+                    # decls in the output. A forward seen only in decls cannot
+                    # replace that donor's forward in pps (expansion-base).
+                    forward = (into is pps, token_seq(c))
+                    if forward not in forwards:
+                        forwards.add(forward)
+                        into.append(c.strip("\n"))
+                    continue
                 if k[0] in ("type", "typedef") and (k[1] in drop_all or (k[1] in drop and f != files[0])):
                     continue   # cl saw it defined earlier: the seed's copy, else a header (includes come first)
                 if k[0] in ("type", "typedef") and k[1] in drop and k not in seen:

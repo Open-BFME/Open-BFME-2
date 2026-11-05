@@ -62,3 +62,12 @@ layout hypothesis. Recorded with `re_log.py` as a `false-reject`.
 Next step: preserve forward declarations independently in the two output
 streams, with a regression fixture and existing verifier exploit tests;
 then retry the approved merge. No merge or source-file reduction yet.
+
+The focused composer repair preserves simple class/struct/union forwards
+once per output stream. Two fixtures fail before the repair under all four
+strategies and pass afterwards, including duplicate removal within each
+stream. `pytest tools/tests/test_tu_skeleton.py tools/tests/test_gate_exploits.py`:
+252 passed, 1 existing open-escape skip, 86 subtests passed. The real merge
+dry-run now accepts both donors, preserves all 12 rows and passes LinkGuard;
+the mixed destructor file remains outside the merge. The normal byte and
+link checks remain unchanged. Next apply the merge using the supported tool.

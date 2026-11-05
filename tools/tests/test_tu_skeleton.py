@@ -941,6 +941,33 @@ class CaseVariantTuTests(unittest.TestCase):
 
 
 class ComposePreprocessorTests(unittest.TestCase):
+    def test_forward_declaration_survives_in_both_output_streams(self):
+        # Expansion-base: the seed's forward goes to decls, but the donor
+        # needs its identical forward in pps before a filter and last include.
+        texts = {"Seed.cpp": "class Player;\nstruct Seed { Player *player; };\n",
+                 "Donor.cpp": ('class Player;\n'
+                               'struct Filter { Filter(Player *player); };\n'
+                               '#include "target.h"\n'
+                               'class Player { public: int money; };\n')}
+        for strategy in T.STRATEGIES:
+            with self.subTest(strategy=strategy):
+                out = T.compose("Seed.cpp", [], list(texts), texts, [], strategy)
+                self.assertLess(out.index("class Player;"), out.index("struct Filter"))
+                self.assertLess(out.index("class Player;"), out.index('#include "target.h"'))
+                self.assertIn("class Player { public: int money; };", out)
+
+    def test_forward_declarations_are_still_deduplicated_within_each_stream(self):
+        for tag in ("class", "struct", "union"):
+            texts = {"Seed.cpp": f"{tag} Node;\n{tag} Node;\n",
+                     "Donor.cpp": f'{tag} Node;\n{tag} Node;\n#include "last.h"\n'}
+            for strategy in T.STRATEGIES:
+                with self.subTest(tag=tag, strategy=strategy):
+                    out = T.compose("Seed.cpp", [], list(texts), texts, [], strategy)
+                    self.assertEqual(out.count(f"{tag} Node;"), 2)
+                    early, late = out.split('#include "last.h"')
+                    self.assertEqual(early.count(f"{tag} Node;"), 1)
+                    self.assertEqual(late.count(f"{tag} Node;"), 1)
+
     def test_conditionals_are_not_deduplicated_across_donors(self):
         texts = {"Seed.cpp": "#ifndef FALSE\n#define FALSE 0\n#endif\nint seed() { return 1; }\n",
                  "Donor.cpp": "#ifndef NULL\n#define NULL 0\n#endif\nint donor() { return 2; }\n"}
