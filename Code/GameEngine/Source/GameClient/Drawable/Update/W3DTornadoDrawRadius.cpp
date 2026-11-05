@@ -7,6 +7,7 @@
 // this+8 Drawable, this+C list, template+24 radius bound and unsigned count.
 #include <list>
 #include "Coord3D.h"
+#include "../../../../Include/GameClient/RadiusDecalTemplate.h"
 
 // vector<int> fill/insert otherwise instantiates the _Construct<int,int>
 // COMDAT (one byte shape per TU flags); a file-static overload takes those
@@ -41,11 +42,6 @@ public:
  RadiusDecal(); void clear();
  const void *data; Shadow *decal; bool empty; float previousFrame;
 };
-class RadiusDecalTemplate {
-public:
- void createRadiusDecal(const Coord3D&,float,const Player*,RadiusDecal&) const;
- unsigned char pad[0x24]; float maxRadius;
-};
 struct TornadoDrawableView { unsigned char pad[0xFC]; Object *object; };
 class W3DTornadoDraw {
 public:
@@ -63,9 +59,9 @@ void W3DTornadoDraw::rva000D18F8(const RadiusDecalTemplate *type,float radius,co
  if(!object) return;
  if(count<=0) return;
  volatile float bound;
- float maximum=type->maxRadius;
+ float maximum=type->m_unmodelled24;
  if(maximum>radius) { bound=radius; _ReadWriteBarrier(); }
- else bound=type->maxRadius;
+ else bound=type->m_unmodelled24;
  for(int i=0;i<count;++i) {
   RadiusDecal *decal=new RadiusDecal;
   decal->clear();
