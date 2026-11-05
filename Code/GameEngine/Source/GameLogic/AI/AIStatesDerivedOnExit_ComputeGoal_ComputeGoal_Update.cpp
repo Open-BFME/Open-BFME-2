@@ -188,14 +188,7 @@ private:
 	Waypoint *m_links[MAX_LINKS]; // +0x1C
 	Int m_numLinks; // +0x4C
 };
-class AIGroup
-{
-public:
-	Bool getCenter(Coord3D *center);
-	// Rotates a group offset into the frame of the from->to direction: the
-	// rowed static AIGroup::rotateOffset at 0x0036CBF9 (WB AIGroup::rotateOffset).
-	static void rotateOffset(const Coord3D *from, const Coord3D *to, Coord2D *offset);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/Common/Player.h"

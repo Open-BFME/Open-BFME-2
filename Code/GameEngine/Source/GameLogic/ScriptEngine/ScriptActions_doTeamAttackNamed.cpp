@@ -35,17 +35,7 @@ enum CommandSourceType
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class AIGroup
-{
-private:
-    void groupAttackObjectPrivate(bool, Object *, Int, CommandSourceType);
-public:
-    void groupAttackObject(Object *victim, Int maxShotsToFire,
-                           CommandSourceType cmdSource)
-    {
-        groupAttackObjectPrivate(false, victim, maxShotsToFire, cmdSource);
-    }
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

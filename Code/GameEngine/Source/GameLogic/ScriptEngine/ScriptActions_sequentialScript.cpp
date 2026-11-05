@@ -19,7 +19,7 @@
 #include "ascii_string.h"
 
 typedef int Int;
-typedef unsigned int ObjectID;
+enum ObjectID { INVALID_ID = 0 };
 
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 
@@ -69,11 +69,7 @@ public:
 	SequentialScript *m_nextScriptInSequence;	// +0x28
 };
 
-class AIGroup
-{
-public:
-	void groupIdle(CommandSourceType cmdSource);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 #include "../../../Include/GameLogic/AI.h"
 extern AI *TheAI;

@@ -7,9 +7,6 @@
 #ifndef CANONICAL_AIGROUP_H
 #define CANONICAL_AIGROUP_H
 
-#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
-#error AIGroup requires loadPostProcess, a const GetSnapshotName, and xfer slots
-#endif
 #if !defined(__SNAPSHOT_H_) && !defined(BFME_SNAPSHOT_NAME_SLOT)
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
@@ -52,15 +49,33 @@ public:
     AIGroup(); // 0x0036E4C7
 protected:
     virtual ~AIGroup(); // 0x0036E564
+    // Snapshot slots, spelled the way the unit selected Snapshot.h's (as Team's);
+    // AIGroup's rows are loadPostProcess, GetSnapshotName() const and xfer.
 public:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+    virtual void LoadPostProcess();
+#else
     virtual void loadPostProcess(); // slot 1, 0x000B3FD0
+#endif
 #ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+    virtual const char *GetSnapshotName();
+#else
     virtual const char *GetSnapshotName() const; // slot 2, 0x0036E55E
+#endif
 #else
     virtual void crc(Xfer *xfer);
 #endif
 protected:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+    virtual void DoXfer(Xfer &);
+#else
+    virtual void DoXfer(Xfer *);
+#endif
+#else
     virtual void xfer(Xfer *); // slot 3, 0x0036E3C6
+#endif
 public:
     const char *name() const; // 0x0036E55E
     void add(Object *); // 0x0036E5F1
@@ -104,8 +119,13 @@ public:
     void groupMoveToAndEvacuate(const Coord3D *, CommandSourceType); // 0x0036FA8C
     void groupMoveToAndEvacuateAndExit(const Coord3D *, CommandSourceType); // 0x0036FAC2
     void groupTightenToPosition(const Coord3D *, bool, CommandSourceType); // 0x0036F917
-    void groupAttackObject(Object *, int, CommandSourceType); // 0x00376CE4
-    void groupForceAttackObject(Object *, int, CommandSourceType); // 0x00376CFA
+    // Inline forwarders: AITactic::teamAttackObject 0x004ED1A1 and doTeamAttackNamed 0x003C3B7D call
+    // groupAttackObjectPrivate 0x0036FD64 directly with false; 0x00376CE4/0x00376CFA are their
+    // out-of-line COMDAT copies (false/true forced flag). Zero Hour's AI.h has the same inline pair.
+    void groupAttackObject(Object *victim, int maxShotsToFire, CommandSourceType cmdSource) // 0x00376CE4
+    { groupAttackObjectPrivate(false, victim, maxShotsToFire, cmdSource); }
+    void groupForceAttackObject(Object *victim, int maxShotsToFire, CommandSourceType cmdSource) // 0x00376CFA
+    { groupAttackObjectPrivate(true, victim, maxShotsToFire, cmdSource); }
     void groupAttackTeam(const Team *, int, CommandSourceType); // 0x0036FF33
     void groupAttackPosition(const Coord3D *, int, CommandSourceType); // 0x0036FF74
     void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType); // 0x00372B09

@@ -2,7 +2,8 @@
 // stlport
 //
 // ?destroyGroup@AI@@QAEXPAVAIGroup@@@Z @ 0x002FE712 89B
-// AI group destroy: find in +0x14 list, erase, deleteInstance(0)+delete.
+// AI group destroy: find in +0x14 list, erase, then ::delete (deleting destructor
+// slot 0 with flags 0, then the global operator delete).
 // Evidence: TheAI at 0x00DFF0F8 callers 0x0036CF62 and 0x0023C99D pass AIGroup*,
 // list at +0x14 matches createGroup push_back<int> at 0x002FEC4B, donor
 // BFME1 ai.cpp destroyGroup find+erase+deleteInstance shape.
@@ -34,11 +35,7 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
-class AIGroup
-{
-public:
-	virtual void *deleteInstance(int flags);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 
 class AI
 {
@@ -56,10 +53,7 @@ void AI::destroyGroup(AIGroup *group)
 	if (it == m_groupList.end())
 		return;
 	((_STL::list<int> *)&m_groupList)->erase(*(_STL::list<int>::iterator *)&it);
-	void *mem = 0;
-	if (group)
-		mem = group->deleteInstance(0);
-	::operator delete(mem);
+	::delete group;
 }
 
 // ?find@Rva002FE76BListPrefix@@QAEPAVRva001DB09DDwordField@@H@Z

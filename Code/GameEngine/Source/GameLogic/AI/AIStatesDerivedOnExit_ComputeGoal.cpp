@@ -213,11 +213,7 @@ private:
 	Waypoint *m_links[MAX_LINKS]; // +0x1C
 	Int m_numLinks; // +0x4C
 };
-class AIGroup
-{
-public:
-	Bool getCenter(Coord3D *center);
-};
+#include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
 #include "../../../Include/Common/TeamBFME2.h"
 #include "../../../Include/Common/Player.h"

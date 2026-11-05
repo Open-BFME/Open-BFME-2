@@ -42,19 +42,7 @@ class Rva002A9BF2
 public:
 	void *rva002A9BF2();
 };
-class AIGroup
-{
-private:
-	friend class AITactic;
-public:
-	void groupAttackMoveToPosition(const Coord3D *, int, CommandSourceType);
-	void rva00372C05();
-	void groupMoveToPosition(Rva00372571Params *params, int source);
-private:
-	void groupAttackObjectPrivate(bool a, Object *victim, int b, CommandSourceType c);
-public:
-	void rva00372BB9(const void *a, int b);
-};
+#include "../../../../GameEngine/Include/GameLogic/AIGroup.h"
 #include "../../../../GameEngine/Include/GameLogic/AI.h"
 #include "../../../../GameEngine/Include/Common/TeamBFME2.h"
 #include "../../../../GameEngine/Include/Common/AITactic.h"
@@ -66,7 +54,7 @@ void AITactic::teamAttackObject(int id, Object *victim)
 		AIGroup *group = TheAI->createGroup();
 		Team *team = TheTeamFactory->findTeamByID((unsigned int)node->m_model);
 		team->getTeamAsAIGroup(group);
-		group->groupAttackObjectPrivate(false, victim, 0x7fffffff, (CommandSourceType)0);
+		group->groupAttackObject(victim, 0x7fffffff, (CommandSourceType)0);
 		TheAI->destroyGroup(group);
 		node->m_10 = 0;
 	}
