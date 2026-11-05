@@ -112,16 +112,7 @@ struct WideCharCompare
     int compareNoCase(const wchar_t *a, const wchar_t *b, int len) const;
 };
 
-class Rva000062FDRegion
-{
-public:
-    bool rva000062FD(const Coord2D &start, const Coord2D &delta) const;
-
-    float x_min;
-    float y_min;
-    float x_max;
-    float y_max;
-};
+#include "../../../../Libraries/Include/Lib/Region2D.h"
 
 // tu-skeleton: 0x0000401C 93B ?SetIdentity@Matrix4D@@QAEAAV1@XZ -- matched in Code/Libraries/Source/WWVegas/WWMath/matrix4d.cpp (not merged yet)
 
@@ -515,31 +506,30 @@ int bfmeAnchorWideCharCompare(const WideCharCompare *wideCharCompare, const wcha
 // ---- from Code/Libraries/Source/WWVegas/WWMath/Rva000062FDSegment.cpp
 
 //
-// ?rva000062FD@Rva000062FDRegion@@QBE_NABVCoord2D@@0@Z @0x000062FD (294B), RET 8.
-// Native 62FD..6423 and WB 0x426C30: two-axis slab test of a segment (origin,
-// delta) against the 16-byte rectangle in ECX (x_min,y_min,x_max,y_max floats).
+// ?lineSegmentIntersects@Region2D@@QAE_NABVCoord2D@@0@Z @0x000062FD (294B), RET 8;
+// the name and its non-const decoration are retail's export (reverse/exports.csv).
+// Native 62FD..6423 and WB 0x426C30: two-axis slab test of a segment (start,
+// delta) against the region in ECX (lo.x, lo.y, hi.x, hi.y floats).
 // Per axis: a delta within +-0.0001 (areApproxEqual(d, 0, 0.0001), inlined as
-// d < tol && d > -tol) means the origin must lie inside the slab, else the two
-// slab entry parameters (extent - origin) * (1 / d) are ordered through
+// d < tol && d > -tol) means the start must lie inside the slab, else the two
+// slab entry parameters (extent - start) * (1 / d) are ordered through
 // address-taken locals (they live in the dead parameter slots) and the segment
 // is rejected when the nearer one is beyond 1 or the farther one is negative.
-// The y axis ends in one combined `||` test. Named after its address, not
-// Region2D: the canonical Region2D header carries no methods and a private copy
-// of it is refused (the caller Rva00261D2EFilter.cpp casts to this view).
+// The y axis ends in one combined `||` test.
 
 static __forceinline bool areApproxEqual(float a, float b, float tol) { return a < b + tol && a > b - tol; }
 
-bool Rva000062FDRegion::rva000062FD(const Coord2D &start, const Coord2D &delta) const
+bool Region2D::lineSegmentIntersects(const Coord2D &start, const Coord2D &delta)
 {
     if (areApproxEqual(delta.x, 0.0f, 0.0001f))
     {
-        if (x_min > start.x || start.x > x_max)
+        if (lo.x > start.x || start.x > hi.x)
             return false;
     }
     else
     {
-        float t1 = (x_min - start.x) * (1.0f / delta.x);
-        float t2 = (x_max - start.x) * (1.0f / delta.x);
+        float t1 = (lo.x - start.x) * (1.0f / delta.x);
+        float t2 = (hi.x - start.x) * (1.0f / delta.x);
         float *pmin = t1 < t2 ? &t1 : &t2;
         float vmin = *pmin;
         float *pmax = t1 > t2 ? &t1 : &t2;
@@ -550,13 +540,13 @@ bool Rva000062FDRegion::rva000062FD(const Coord2D &start, const Coord2D &delta) 
     }
     if (areApproxEqual(delta.y, 0.0f, 0.0001f))
     {
-        if (y_min > start.y || start.y > y_max)
+        if (lo.y > start.y || start.y > hi.y)
             return false;
     }
     else
     {
-        float t1 = (y_min - start.y) * (1.0f / delta.y);
-        float t2 = (y_max - start.y) * (1.0f / delta.y);
+        float t1 = (lo.y - start.y) * (1.0f / delta.y);
+        float t2 = (hi.y - start.y) * (1.0f / delta.y);
         float *pmin = t1 < t2 ? &t1 : &t2;
         float vmin = *pmin;
         float *pmax = t1 > t2 ? &t1 : &t2;
