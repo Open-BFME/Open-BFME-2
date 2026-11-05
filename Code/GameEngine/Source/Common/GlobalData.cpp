@@ -74,9 +74,7 @@ typedef float Real;
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include <map>
 #include <stdlib.h>
-
 #include "../../Include/Common/BfmeStringData.h"
-
 //
 // ?rva002360DE@GlobalData@@QBE?AVAsciiString@@XZ,
 // retail 0x002360DE, 30 bytes, plus the Unicode twin
@@ -93,24 +91,18 @@ typedef float Real;
 // is load-bearing (calls resolve via ledger rows); member names positional.
 
 typedef int Int;
-
 typedef unsigned short WideChar;
-
 // Inline-constructed subobjects of the constructor (retail: lea this, then the
 // member stores). +D54 and +D68..+DA4 are {int 0, float 0, float 0}, the shape
 // of BFME1's GameClientRandomVariable; +DB8..+DC8, +DEC/+DF4 and +E04..+E7C are
 // two-int pairs. Original type names are unknown.
 struct GDRandomVar { int m_type; float m_low, m_high; GDRandomVar():m_type(0),m_low(0),m_high(0){} };
-
 struct GDPair { int a,b; GDPair(int x,int y):a(x),b(y){} };
-
 struct RvaGDColor:RGBColor { RvaGDColor(int v) {setFromInt(v);} };
-
 // The INI field parsers GlobalData's table names (all rowed elsewhere),
 // plus the load type at +8 and initFromINI (0x0002DE78) that
 // parseGameDataDefinition uses.
 struct FieldParse;
-
 class INI
 {
 public:
@@ -138,7 +130,6 @@ public:
  char m_0000[8];
  int m_loadType;
 };
-
 #include "../../Include/Common/INI/FieldParse.h"
 
 class WeaponBonusSet
@@ -1347,6 +1338,8 @@ private:
 
 // ---- from Code/GameEngine/Source/Common/GlobalData.cpp
 
+// ---- from Code/GameEngine/Source/Common/GlobalData.cpp
+
 // ---- from Code/GameEngine/Source/Common/GlobalDataSetTimeOfDay.cpp
 
 // ?setTimeOfDay@GlobalData@@QAE_NW4TimeOfDay@@@Z @0x2352BC
@@ -2070,14 +2063,6 @@ void GlobalData::applyOptionPreferences()
 	m_yResolution = yres;
 }
 
-// tu-skeleton: 0x00235312 1060B ?rva00235312@GlobalData@@QAE_NW4TimeOfDay@@0M@Z -- matched in Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp (not merged yet)
-
-// tu-skeleton: 0x00235A00 14B ??0Rva00235A00WordPair@@QAE@I@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x00235A0E 19B ??0WeaponBonus@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponReloadAmmo.cpp (not merged yet)
-
-// tu-skeleton: 0x00235A21 22B ??0Rva00235A21@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00235A21Ctor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00235A37Assign.cpp
 
 // ??4Rva00235A37@@QAEAAV0@ABV0@@Z @0x00235A37 127B
@@ -2100,6 +2085,18 @@ Rva00235A37 &Rva00235A37::operator=(const Rva00235A37 &other)
 	m_28 = other.m_28;
 	m_2C = other.m_2C;
 	return *this;
+}
+
+// tu-skeleton: 0x00235312 1060B ?rva00235312@GlobalData@@QAE_NW4TimeOfDay@@0M@Z -- matched in Code/GameEngine/Source/Common/rva00235312Rva00235312Farm.cpp (not merged yet)
+
+// tu-skeleton: 0x00235A00 14B ??0Rva00235A00WordPair@@QAE@I@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x00235A0E 19B ??0WeaponBonus@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponReloadAmmo.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00235A21Ctor.cpp
+
+Rva00235A21::Rva00235A21()
+{
 }
 
 // tu-skeleton: 0x00235AB6 336B ?parseMultiPlayMoneyMult@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/MultiPlayMoneyMultParse.cpp (not merged yet)
