@@ -621,7 +621,12 @@ def test_context_rejects_stale_unknown_and_outside_paths(batch):
         name_scoped.context(lane, SimpleNamespace(session="large", key=[key]))
 
 
+def test_related_handoff_is_off_until_the_game_boots():
+    assert name_scoped.related_work("Code/Game/Object.cpp", "link") is None
+
+
 def test_related_handoff_is_file_local_and_does_not_run_any_work(monkeypatch):
+    monkeypatch.setattr(name_scoped, "RELATED_WORK_HANDOFF", True)
     monkeypatch.setattr(name_scoped, "inventory", lambda *_a, **_k: pytest.fail("handoff must not inventory"))
     monkeypatch.setattr(name_scoped.claims, "busy_keys", lambda *_a: pytest.fail("handoff must not claim"))
     handoff = name_scoped.related_work("Code/Game/Object.cpp", "link", function="?update@Object@@QAEXXZ")

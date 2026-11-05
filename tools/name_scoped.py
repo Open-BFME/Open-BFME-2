@@ -27,13 +27,18 @@ DIRECTORY = "build/name_lane/scoped"
 COMPLETED = f"{DIRECTORY}/completed.json"
 
 
+# Off until the rebuilt game reaches the menu (docs/verifier_upgrade_plan.md, step 12): link
+# repairs and merges take the time first. `name_lane.py scoped next` itself stays available.
+RELATED_WORK_HANDOFF = False
+
+
 def related_work(sources, work, function=None):
     """A cheap, file-local handoff for an already selected repair or merge.
 
     No inventory, claims, model or verifier runs when another lane emits this.
     The worker takes a fresh scoped snapshot after its primary source edits.
     """
-    if sources is None:
+    if sources is None or not RELATED_WORK_HANDOFF:
         return None
     files = []
     for source in [sources] if isinstance(sources, str) else sources:

@@ -327,7 +327,8 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
 - **Names**: `tools/rename.py`, `tools/name_lane.py` (`docs/naming.md`).
   During linking or consolidation, clarify unclear locals/parameters in the
   complete functions you are already inspecting, using the current code context.
-  Selected link/TU tasks and successful merges provide a `scoped_naming` handoff;
+  Until the rebuilt game reaches the menu, link tasks and merges carry no
+  `scoped_naming` handoff (`name_scoped.RELATED_WORK_HANDOFF`). Afterwards they do:
   use its explicit `--files` and optional `--functions` scopes with the same
   worker identity and existing claims. Take a fresh packet after primary edits,
   using the final TU path after a merge. Keep clear names and unsupported roles;

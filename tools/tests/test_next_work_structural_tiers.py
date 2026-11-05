@@ -165,6 +165,21 @@ def test_a_structural_pick_prints_its_own_credit_not_bytes(capsys):
     assert "pass test: t" in out
 
 
+@pytest.fixture
+def handoff_on(monkeypatch):
+    import name_scoped
+    monkeypatch.setattr(name_scoped, "RELATED_WORK_HANDOFF", True)
+
+
+def test_no_scoped_handoff_until_the_game_boots(capsys):
+    candidate = item("link", "Final")
+    picked = dict(candidate=candidate, label=next_work.TIER_LABELS["link"], pool=[candidate],
+                  suppressed=0, acquired=[], tried=[])
+    next_work.emit_debt(argparse.Namespace(json=True, claim=False, shard=None, tier="link"), "okay", picked)
+    assert "scoped_naming" not in json.loads(capsys.readouterr().out)["selection"]
+
+
+@pytest.mark.usefixtures("handoff_on")
 @pytest.mark.parametrize("tier", ["link", "closure", "consolidate"])
 def test_selected_related_work_including_cached_items_carries_a_scoped_handoff(tier, capsys):
     candidate = item(tier, "Final")
@@ -181,6 +196,7 @@ def test_selected_related_work_including_cached_items_carries_a_scoped_handoff(t
     assert "scoped_naming" not in candidate  # Cached queue data is not mutated.
 
 
+@pytest.mark.usefixtures("handoff_on")
 def test_link_handoff_is_visible_in_human_picker_instructions(capsys):
     candidate = item("link", "Final")
     picked = dict(candidate=candidate, label=next_work.TIER_LABELS["link"], pool=[candidate],
@@ -192,6 +208,7 @@ def test_link_handoff_is_visible_in_human_picker_instructions(capsys):
     assert "pass test: t" in out
 
 
+@pytest.mark.usefixtures("handoff_on")
 def test_direct_link_queue_also_prints_the_file_local_handoff(monkeypatch, capsys):
     monkeypatch.setattr(rq, "BFME1", False)
     monkeypatch.setattr(rq, "link_items", lambda: ([item("link", "Final")], "fixture"))

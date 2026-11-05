@@ -17,6 +17,12 @@ HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
 
 
 class SavedMergePlanTests(unittest.TestCase):
+    def setUp(self):
+        import name_scoped
+        handoff = patch.object(name_scoped, "RELATED_WORK_HANDOFF", True)
+        handoff.start()
+        self.addCleanup(handoff.stop)
+
     def test_successful_merge_handoff_uses_the_final_tu_not_deleted_donors(self):
         report = T.view_hint(dict(accepted=["Code/A.cpp", "Code/B.cpp"], rejected={}),
                              "Code/Final.cpp", {})
