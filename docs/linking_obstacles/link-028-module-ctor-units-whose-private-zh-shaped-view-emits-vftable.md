@@ -48,3 +48,5 @@
   confirm on the next census. No repair, clearance or census gain is claimed here.
 
 - **2026-11-03 HijackerUpdate recheck:** all five scoped units link in current-object prediction (672/672 B); consolidation instead requires reconciling the seed header environment and ctor/update base clauses. Banked the unreferenced unverified seed xfer; batch audit is inconclusive (older baseline and stale affected-consumer receipt), requiring the next census; [evidence and next checks](../../reverse/attempt_support/hijackerupdate-xfer-cleanup-20261103.md). Census confirmation remains pending.
+
+- **2026-11-05 HijackerUpdate prerequisite repair:** canonical TU-local declarations preserve all six seed byte matches and the five-unit 672/672-byte link prediction; merge dry-run now accepts Xfer and PoolKey, while opaque ctor stores and Update interface reconciliation remain; [evidence and next check](../../reverse/attempt_support/hijackerupdate-header-reconcile-20261105.md). Census confirmation remains pending.
