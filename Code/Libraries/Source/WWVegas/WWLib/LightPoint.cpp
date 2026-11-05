@@ -22,11 +22,6 @@
 // matched callee rows say otherwise; new names are address-derived.
 // One ledger row per method. The integer-forwarder correction is caller-proven.
 
-class VersionBlockParserInner
-{
-public:
-	~VersionBlockParserInner();
-};
 
 // The +8/+8/+4 members of 0x0042581E, 0x005C8565 and 0x00603C57 are the
 // rowed STLport containers whose dtors they tail-jump to.
