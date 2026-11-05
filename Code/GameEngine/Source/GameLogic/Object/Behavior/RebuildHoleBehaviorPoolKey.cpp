@@ -38,8 +38,9 @@ extern GameLogic *TheGameLogic;
 class Rva00346BC0;
 struct Rva00391F4E
 {
-	Rva00391F4E(int bit0, int bit1, int bit2);		// 0x00391F4E
-	unsigned int m_bits[4];
+public:
+	Rva00391F4E(int,int,int);
+	unsigned m_bits[4]; // +0x00
 };
 
 #include "../object.h"

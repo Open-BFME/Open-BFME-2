@@ -273,7 +273,12 @@ enum CommandSourceType {CMD_FROM_AI=2};
 class Rva00346BC0;
 class Rva001E4912 {public:Rva001E4912() {} unsigned m_bits[19]; Rva001E4912 *rva001E4912(int,unsigned,unsigned);};
 class Rva0023DA79 {public:Rva0023DA79() {} unsigned m_bits[4]; Rva0023DA79 *rva0023DA79(int,int);};
-struct Rva00391F4E {Rva00391F4E(int,int,int); unsigned m_bits[4];};
+struct Rva00391F4E
+{
+public:
+	Rva00391F4E(int,int,int);
+	unsigned m_bits[4]; // +0x00
+};
 struct Rva00263895Member {Rva00263895Member() throw(); char bytes[0x7c];};
 #include "../../../../Include/GameClient/Drawable.h"
 
