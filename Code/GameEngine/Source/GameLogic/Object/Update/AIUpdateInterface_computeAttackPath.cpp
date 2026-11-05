@@ -1,4 +1,4 @@
-// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP=
 // ?computeAttackPath@AIUpdateInterface@@QAE_NPAVPathfindServicesInterface@@PBVObject@@PBUCoord3D@@@Z
 // Retail 0x00266AA2..0x00267179, 1753 bytes, RET 0xC.
 // Identity: WorldBuilder 0x00E45730 AIUpdateInterface::computeAttackPath,
@@ -44,8 +44,8 @@ enum KindOfType
 };
 
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 extern GameLogic *TheGameLogic;
 
 #define CRITTER_TRACE(s) \

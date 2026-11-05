@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_CRTIMP=
 // Retail 0x00397F45, 166B: the castle's isPlayerAllowedToPackOrUnpack (named
 // by retail's own CAMP log string at 0x00C1A600). True when the player
 // already controls the castle object (this+8) or when 0x003973EB allows it;
@@ -21,7 +21,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Rva00397FEBInterface;
 
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#include <stdio.h>
 
 #include "../../../../Include/Common/Player.h"
 
@@ -52,7 +52,7 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern "C" void *theLogicRandomLogFile;
+extern "C" FILE *theLogicRandomLogFile;
 
 class Rva003973EB
 {

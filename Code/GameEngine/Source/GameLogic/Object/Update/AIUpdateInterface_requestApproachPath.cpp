@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_CRTIMP=
 //
 // ?requestApproachPath@AIUpdateInterface@@QAEXPAUCoord3D@@@Z
 // retail 0x00263B33, 211 bytes.
@@ -21,8 +21,8 @@ typedef bool Bool;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
@@ -46,7 +46,7 @@ void AIUpdateInterface::requestApproachPath(Coord3D *destination)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, "CritterDesync: requestApproachPath1 -- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 				m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,

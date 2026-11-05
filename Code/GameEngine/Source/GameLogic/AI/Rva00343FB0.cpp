@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I.
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /D_CRTIMP=
 // ?rva00343FB0@@YA_NPAVObject@@@Z
 //
 // AIAttackApproachTargetState::onEnter, retail 0x0034CD3A (783 bytes): slot 4
@@ -64,14 +64,14 @@ class Object;
 class Weapon;
 
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}

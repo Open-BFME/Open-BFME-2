@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP=
 //
 // ?getPlayerMask@Rva00341C54Filter@@UAEHXZ
 // retail 0x00341C30, 36 bytes: slot 2 of the AIStates partition filter
@@ -53,8 +53,8 @@ class Rva002F23A6{public:bool rva002F23A6(Object*,int,int,Coord3D*,Object*);};
 class AI{public:char pad[0x10];Rva002F23A6*pathfinder;};
 extern AI*TheAI;
 extern GameLogic*TheGameLogic;
-extern "C" void*theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void*,const char*,...);
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 
 // Slot1 of C122F0; WB E2E130 independently gives the reject flags,
 // relationship/physics checks and melee engagement callback purpose.

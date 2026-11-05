@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_CRTIMP=
 //
 // ?requestSafePath@AIUpdateInterface@@QAEXW4ObjectID@@@Z
 // retail 0x00263EA2, 261 bytes.
@@ -22,8 +22,8 @@ typedef bool Bool;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
@@ -74,11 +74,11 @@ void AIUpdateInterface::requestSafePath(ObjectID repulsor)
 	m_field3B1 = true;
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = theLogicRandomLogFile;
 		if (log != 0)
 		{
 			fprintf(log, "CritterDesync: requestSafePath 'I don't believe this line accomplishes anything' ");
-			void *log2 = theLogicRandomLogFile;
+			FILE *log2 = theLogicRandomLogFile;
 			if (log2 != 0)
 				fprintf(log2, "-- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 					m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP=
 //
 // AIFearState: onEnter 0x00354D0D (419 bytes), update 0x00347CA3 (359 bytes)
 // and onExit 0x00347E0A (66 bytes); computePath 0x0034029B (53 bytes, slot
@@ -44,14 +44,14 @@ struct MemberwiseCoord3D : public Coord3D
 };
 
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP=
 //
 // AI move-state overrides: four adjacent onEnter bodies, retail
 // 0x0034C994-0x0034CBAB, and the update/onExit bodies 0x00347B3D-0x00347C38.
@@ -45,14 +45,14 @@ enum
 };
 
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+#include <stdio.h>
+extern "C" FILE *theLogicRandomLogFile;
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, text);
 	}
