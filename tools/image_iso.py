@@ -362,7 +362,12 @@ class Checker:
         self.counts["ambiguous_map_locations"] = len(self.mapping.ambiguous)
         self.defects = []
         self.by_name = collections.defaultdict(list)
+        self.literal_widths = collections.defaultdict(set)
+        self.literal_cache = {}
         for p in publics:
+            literal = re.match(r"\?\?_C@_([01])", p["name"])
+            if literal:
+                self.literal_widths[p["rva"]].add(2 if literal[1] == "1" else 1)
             self.by_name[p["name"]].append(p)
         self.by_retail = collections.defaultdict(list)
         for p in publics:
@@ -390,7 +395,36 @@ class Checker:
         got = self.mapping.resolve(actual - self.ours.base, expected - self.retail.base)
         if got is None:
             return "unchecked"
-        return "equal" if got == expected - self.retail.base else "wrong"
+        if got == expected - self.retail.base:
+            return "equal"
+        if self.literal_alias(actual - self.ours.base, got, expected - self.retail.base):
+            self.counts["pointers_literal_aliases"] += 1
+            return "equal"
+        return "wrong"
+
+    def literal_alias(self, actual, mapped, expected):
+        """Only a uniquely mapped MSVC literal can prove a pooled-copy alias.
+        Compare complete NUL-terminated values in ours and BOTH retail copies;
+        never equate arbitrary globals, code, prefixes or ambiguous mappings.
+        """
+        key = (actual, mapped, expected)
+        if key in self.literal_cache:
+            return self.literal_cache[key]
+        widths = self.literal_widths.get(actual, set())
+        same = False
+        if len(widths) == 1 and not self.retail.in_text(self.retail.base + expected):
+            width = next(iter(widths))
+            for offset in range(0, 4096, width):
+                parts = (self.ours.read(actual + offset, width),
+                         self.retail.read(mapped + offset, width),
+                         self.retail.read(expected + offset, width))
+                if parts[0] is None or len(set(parts)) != 1:
+                    break
+                if parts[0] == bytes(width):
+                    same = True
+                    break
+        self.literal_cache[key] = same
+        return same
 
     def code_equal(self, actual, expected, size):
         """Whole row instruction comparison preserves ret immediates and ECX adjustment.

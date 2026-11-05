@@ -477,3 +477,40 @@ def test_cli_duplicate_initializer_object_symbols_are_source_qualified(tmp_path,
     counts = json.loads((out / "report.json").read_text())["counts"]
     assert counts["initializers_retail"] == counts["initializers_image"] == 2
     assert counts["initializers_unanalyzed"] == counts["initializers_missing_or_unresolved"] == 0
+
+
+def test_pooled_literal_alias_requires_complete_ours_and_both_retail_values():
+    for name, value in (("??_C@_0fixture", b"CommandPoints\0"),
+                        ("??_C@_1fixture", "00000000".encode("utf-16le") + b"\0\0")):
+        c = checker([public(name, 0x2000, len(value))], {name: {0x2100}})
+        c.ours.put(0x2000, value)
+        c.retail.put(0x2100, value)
+        c.retail.put(0x2200, value)
+        assert c.pointer(c.ours.base + 0x2000, c.retail.base + 0x2200) == "equal"
+        assert c.counts["pointers_literal_aliases"] == 1
+        # Matching prefix alone is not an alias.
+        c.retail.put(0x2200, b"X")
+        c.literal_cache.clear()
+        assert c.pointer(c.ours.base + 0x2000, c.retail.base + 0x2200) == "wrong"
+        # A changed linked literal is not an alias of two equal retail copies.
+        c.retail.put(0x2200, value)
+        c.ours.put(0x2000, b"X")
+        c.literal_cache.clear()
+        assert c.pointer(c.ours.base + 0x2000, c.retail.base + 0x2200) == "wrong"
+
+
+def test_identical_arbitrary_globals_and_ambiguous_literals_are_not_aliases():
+    c = checker([public("global", 0x2000, 4)], {"global": {0x2100}})
+    assert c.pointer(c.ours.base + 0x2000, c.retail.base + 0x2200) == "wrong"
+    c = checker([public("??_C@_0ambiguous", 0x2000)],
+                {"??_C@_0ambiguous": {0x2100, 0x2200}})
+    assert c.pointer(c.ours.base + 0x2000, c.retail.base + 0x2200) == "unchecked"
+
+
+def test_literal_alias_never_accepts_a_terminated_prefix_of_another_string():
+    name = "??_C@_0prefix"
+    c = checker([public(name, 0x2000, 6)], {name: {0x2100}})
+    c.ours.put(0x2000, b"name\0")
+    c.retail.put(0x2100, b"name\0")
+    c.retail.put(0x2200, b"nameX\0")
+    assert c.pointer(c.ours.base + 0x2000, c.retail.base + 0x2200) == "wrong"
