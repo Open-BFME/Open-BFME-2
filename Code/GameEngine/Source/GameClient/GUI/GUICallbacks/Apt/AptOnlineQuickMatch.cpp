@@ -79,8 +79,7 @@ extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 class Rva00385333;
 class GameSpyPSMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)virtual void trackPlayerStats(PSPlayerAllStats);V(9)V(10)V(11)virtual PSPlayerAllStats findPlayerStatsByID(int);virtual Rva00385333 getStats(int);};
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
-class GameTextInterface {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);virtual void slot16();virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
-extern GameTextInterface *TheGameText;
+#include "../../../../../Include/GameClient/GameText.h"
 enum NameKeyType;
 #include "../../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -1233,7 +1232,7 @@ bool Rva005BA626::rva005BA626()
 	UnicodeString text;
 	for (int i = 1; i <= 2; ++i)
 	{
-		text.format(TheGameText->fetchFormat("GUI:PlayersVersusPlayers", 0), i, i);
+		text.format(TheGameText->fetchPtr("GUI:PlayersVersusPlayers", 0), i, i);
 		GadgetComboBoxAddEntry(*(GameWindow **)((char *)this + 0x84), text, color);
 	}
 	int num = ((QuickMatchPreferences *)((char *)this + 0x64))->getNumPlayers();
