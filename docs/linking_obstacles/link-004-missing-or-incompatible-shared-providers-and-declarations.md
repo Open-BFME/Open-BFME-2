@@ -68,6 +68,7 @@
   `reverse/attempt_support/autoheal-owned-bodies-20261101/`.
 
 - **AutoHeal current-input triage (2026-10-28, `2fd3f18efc`, historical):**
+  2026-11-05: Canonical-base seed reconciliation preserves 6/6 rows and its 167-byte link preview; the supported dry-run now accepts PoolKey, while the other donors still require member/layout/header work ([evidence](../../reverse/attempt_support/autoheal-canonical-seed-20261105-codex3.md)).
   2026-11-05: PlayerScan's four stale BehaviorModule/UpdateModule header rows retired through passing acceptance verdicts (12/12 exact; 45 COMDAT digests and undefined symbols unchanged); the small ctor is already merged, and remaining donors require header/inheritance reconciliation ([evidence](../../reverse/attempt_support/autoheal-playerscan-header-debt-20261105-codexb4.md)).
   The four matched rows in `AutoHealBehavior.cpp` remain exact, and the
   frozen-file check passes. The ordinary preview against published index
