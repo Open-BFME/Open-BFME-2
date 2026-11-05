@@ -6,3 +6,5 @@ Remaining / next check: confirm removal of this unit's missing-name error in the
 Census confirmation: pending; no headline or runtime gain claimed.
 
 2026-11-05: [InGameUI follow-up](../../reverse/attempt_support/ingameui-id-provider-20261105-codexb.md) binds selection, mouseover hints and UI save/load to the same rowed getter; 39 rows and four EH graphs pass, and all three current-object previews LINKS (4,465 authored bytes). Cleared for those bounded previews; next real-link confirmation and other consumers remain pending.
+
+2026-11-05: [Audio-loop and faction-bib follow-up](../../reverse/attempt_support/behavior-bib-id-provider-20261105-codexb.md) binds two more consumers to the rowed getter; nine rows and three EH graphs pass, and both current-object previews LINKS (1,795 authored bytes). Cleared for these bounded previews; next real-link confirmation and other consumers remain pending.
