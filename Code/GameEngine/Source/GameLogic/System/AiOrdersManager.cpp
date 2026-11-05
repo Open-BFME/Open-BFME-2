@@ -33,12 +33,8 @@ struct RGBColor;
 struct RGBAColorReal;
 struct RGBAColorInt;
 #include "../../../Include/Common/BfmeXfer.h"
-
-// Share ObjectID with the patrol donor before the queue declarations use it.
 #include "../../Common/GameLogicObjectLookupView.h"
-
 namespace rts { template<class T> struct hash { size_t operator()(const T& x) const { return (size_t)x; } }; }
-
 class Rva0054840A {
 public:
     Rva0054840A(ObjectID);
@@ -46,7 +42,6 @@ public:
     void rva00548464(int,int);
 private: unsigned char opaque[0x14];
 };
-
 class GroupOrder {
 public:
     virtual void slot0();
@@ -67,9 +62,7 @@ public:
     int id;
     int unknown14;
 };
-
 struct NameKeyBucket { NameKeyBucket* next; int key; void* value; };
-
 class NameKeyGenerator {
 public: class KeyToBucketMap {
 public:
@@ -78,17 +71,12 @@ public:
     insert_result insert(const value_type&);
 };
 };
-
 typedef _STL::hash_map<ObjectID,Rva0054840A*,rts::hash<ObjectID>,_STL::equal_to<ObjectID> > QueueMap;
-
 typedef QueueMap::iterator::_Hashtable QueueTable;
-
 typedef _STL::_Hashtable_node<QueueTable::value_type> QueueNode;
-
 namespace _STL {
 template<> template<> QueueNode* QueueTable::_M_find<ObjectID>(const ObjectID& id) const;
 }
-
 struct QueueBucketVector {
     void** begin;
     void** end;
@@ -96,9 +84,7 @@ struct QueueBucketVector {
     unsigned size() const { return (unsigned)(end-begin); }
     void* const& at(unsigned index) const { return begin[index]; }
 };
-
 struct QueueBucketsView { unsigned char functors[4]; QueueBucketVector buckets; unsigned count; };
-
 namespace _STL {
 template<> template<> QueueNode* QueueTable::_M_find<ObjectID>(const ObjectID& id) const {
     const QueueBucketsView* view=reinterpret_cast<const QueueBucketsView*>(this);
@@ -109,46 +95,34 @@ template<> template<> QueueNode* QueueTable::_M_find<ObjectID>(const ObjectID& i
     return node;
 }
 }
-
 enum NameKeyType { NK_NONE=0 };
-
 class ArmorTemplate;
-
 class Rva00355B61
 {
 public:
 	const ArmorTemplate* rva00355155(NameKeyType) const;
 };
-
 class Object;
-
 class Rva0036E346;
-
 struct Coord3D;
-
 class MoveToFormationGroupOrder : public GroupOrder {
 public:
     MoveToFormationGroupOrder(Rva0036E346*, int, const Coord3D&, float, bool);
 private: unsigned char opaque18[0x48-0x18];
 };
-
 class MoveToGroupOrder : public GroupOrder {
 public:
     MoveToGroupOrder(Rva0036E346*, const Coord3D&, bool, bool);
 private: unsigned char opaque18[0x40-0x18];
 };
-
 class ObjectLookupMap { public: Object** findSlot(int*); private: unsigned char opaque[0x14]; };
-
 // The rowed attack-object order (constructor 0x00546ECE; 0x2C bytes).
 class AttackObjectGroupOrder : public GroupOrder {
 public:
     AttackObjectGroupOrder(Rva0036E346*, int);
 private: unsigned char m_pad[0x2C - sizeof(GroupOrder)];
 };
-
 #include "../../../Include/GameLogic/AiOrdersManager.h"
-
 // The canonical class keeps these two 0x14-byte maps opaque. Native accesses
 // establish their +0x10/+0x24 offsets; retain the existing provider views.
 struct AiOrdersManagerMaps {
@@ -156,14 +130,10 @@ struct AiOrdersManagerMaps {
     ObjectLookupMap orders;
     QueueMap queues;
 };
-
 // Existing counter provider: GroupOrder.cpp owns this data symbol.
 extern int g_Va00E05F74;
-
 Xfer *Rva0035552AXfer(Xfer *xfer, void *map);
-
 Xfer *Rva0035568FXfer(Xfer *xfer, void *map);
-
 class Rva00355770
 {
 public:
@@ -173,25 +143,19 @@ private:
 	unsigned char m_firstMap[0x14];
 	unsigned char m_secondMap[0x14];
 };
-
 // The native cursor carries {node, table}; node fields are next +0, 32-bit
 // key +4 and pointer value +8. Begin 0x427195 reads only bucket-vector
 // offsets +4/+8. Increment 0x41E832 reaches the raw 32-bit identity-hash
 // bucket walker 0x39FD3E. Reuse the already pinned int-key cursor ABI,
 // without naming the unknown GroupOrder map's template specialization.
 enum Relationship { ENEMIES = 0, NEUTRAL, ALLIES };
-
 typedef _STL::hash_map<int, Relationship, _STL::hash<int>,
 	_STL::equal_to<int> >::iterator GroupOrderMapCursor;
-
 namespace _STL {
 template <> GroupOrderMapCursor &GroupOrderMapCursor::operator++();
 }
-
 class Rva000411084;
-
 #include "../../../Include/GameLogic/Rva000427195.h"
-
 struct GroupOrderMapWords
 {
 	unsigned char m_unknown00[4];
@@ -200,18 +164,50 @@ struct GroupOrderMapWords
 	void **m_bucketCapacityEnd;
 	unsigned int m_count;
 };
-
 class GroupOrder;
-
 struct Rva00355100Pair
 {
 	int m_key;
 	GroupOrder *m_order;
 };
-
 Xfer *Rva00355100Xfer(Xfer *, Rva00355100Pair *);
-
 #include "../../../Include/Common/XferException.h"
+#include <list>
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
+// Retail inlines the object-ID vector's accessors everywhere and has no
+// out-of-line copies; another unit's copies are first in link order, so
+// dllimport keeps this unit's inline-only.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline ObjectID *vector<ObjectID>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline ObjectID *vector<ObjectID>::end() { return this->_M_finish; }
+template <> __declspec(dllimport) __forceinline ObjectID &vector<ObjectID>::front() { return *begin(); }
+}
+bool Rva00354EB9(const Coord3D *,const Coord3D *);
+ // opaque return identity inherited from existing providers
+class Rva0035516C { public: const ArmorTemplate *rva0035516C(NameKeyType) const; };
+class CreateAHeroData;
+typedef _STL::list<CreateAHeroData*> ListHeroPtr;
+class Rva00548800 { public:
+    bool rva00548800(const ListHeroPtr *);
+    bool rva00548753(const Rva00548800 &);
+};
+class ObjectOrderQueue { public:
+    const ArmorTemplate *checkForPatrol(void *,const ListHeroPtr *);
+    const ArmorTemplate *checkForPatrol(void *,const Rva00548800 *);
+    unsigned unknown0;
+    _STL::list<NameKeyType> orders;
+};
+struct ObjectPatrolView { char pad[0x38]; Coord3D position; char pad44[0x74-0x44]; unsigned id; };
+extern GameLogic *TheGameLogic;
 
 class Rva0054840A;
 
@@ -223,9 +219,65 @@ struct Rva0035511BPair
 
 Xfer *Rva0035511BXfer(Xfer *, Rva0035511BPair *);
 
-// tu-skeleton: 0x0035538C 230B ?rva0035538C@AiOrdersManager@@QAEPAXABUCoord3D@@HPBV?$list@PAVCreateAHeroData@@V?$allocator@PAVCreateAHeroData@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp
 
-// tu-skeleton: 0x00355472 184B ?rva00355472@AiOrdersManager@@QAEPAXABUCoord3D@@HPAVGroupOrder@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp (not merged yet)
+// Callsites and rowed queue/contains providers establish this target's
+// patrol reuse route. Existing ArmorTemplate names are only opaque ABI
+// Codegen: the GameLogic receiver as a same-valued PHI closes the native register roles of the member walk.
+void *AiOrdersManager::rva0035538C(const Coord3D &destination,int enabled,const ListHeroPtr *members) {
+    if(!enabled) return 0;
+    enabled=0;
+    typedef ListHeroPtr::_Node Node;
+    Node *head=(Node *)members->_M_node._M_data;
+    for(Node *node=(Node*)head->_M_next;node!=head;node=(Node*)node->_M_next) {
+        unsigned id=(unsigned)node->_M_data;
+        ObjectPatrolView *obj=(ObjectPatrolView*)(TheGameLogic?TheGameLogic:TheGameLogic)->findObjectByID((ObjectID)id);
+        if(obj) {
+            if(Rva00354EB9(&obj->position,&destination)) {
+                ObjectOrderQueue *queue=(ObjectOrderQueue*)((Rva0035516C*)this)->rva0035516C((NameKeyType)id);
+                if(queue && queue->orders.size()) {
+                    Rva00548800 *order=(Rva00548800*)((Rva00355B61*)this)->rva00355155(queue->orders.front());
+                    if(order && order->rva00548800(members)) return order;
+                }
+            }
+            if(!enabled) enabled=obj->id;
+        }
+    }
+    if(enabled) {
+        ObjectOrderQueue *queue=(ObjectOrderQueue*)((Rva0035516C*)this)->rva0035516C((NameKeyType)enabled);
+        if(queue) {
+            const ArmorTemplate *order=queue->checkForPatrol((void*)&destination,members);
+            if(order) return (void*)order;
+        }
+    }
+    return 0;
+}
+
+// adapters; no armor identity is inferred for the returned order/queue.
+void *AiOrdersManager::rva00355472(const Coord3D &destination,int mode,GroupOrder *members) {
+    ObjectID *end=members->objects.end();
+    for(ObjectID *i=members->objects.begin();i!=end;++i) {
+        unsigned id=*i;
+        ObjectPatrolView *obj=(ObjectPatrolView*)TheGameLogic->findObjectByID((ObjectID)id);
+        if(obj && Rva00354EB9(&obj->position,&destination)) {
+            ObjectOrderQueue *queue=(ObjectOrderQueue*)((Rva0035516C*)this)->rva0035516C((NameKeyType)id);
+            if(queue && queue->orders.size()) {
+                Rva00548800 *order=(Rva00548800*)((Rva00355B61*)this)->rva00355155(queue->orders.front());
+                if(order && order->rva00548753(*(Rva00548800*)members)) return order;
+            }
+        }
+    }
+    ObjectOrderQueue *queue=(ObjectOrderQueue*)((Rva0035516C*)this)->rva0035516C((NameKeyType)members->objects.front());
+    if(queue) {
+        const ArmorTemplate *order=queue->checkForPatrol((void*)&destination,(Rva00548800*)members);
+        if(order) return (void*)order;
+    }
+    return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp
+
+// Share ObjectID with the patrol donor before the queue declarations use it.
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva00355770GroupOrderMaps.cpp
 

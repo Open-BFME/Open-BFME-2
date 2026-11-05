@@ -1,0 +1,6 @@
+reverse/link_status.csv:12808:Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp,yes,0,0,0,0,0
+reverse/attempt_evidence/astra-high-a/dispatcher-exact/dispatcher-header-dependents.txt:342:Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp
+reverse/attempt_support/crack-g-parents-20261014/claims-final.txt:1363:file:Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp  yasinschroeder-claude3           1.9 h left
+reverse/attempt_support/aiorders-patrol-consolidation-20261105-codex3/dry-run.txt:5:accepted: ['Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp', 'Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp']
+reverse/attempt_support/aiorders-patrol-consolidation-20261105-codex3/dry-run.txt:8:link_guard: census-linked: Code/GameEngine/Source/GameLogic/System/AiOrdersManager.cpp, Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp
+reverse/attempt_support/aiorders-patrol-consolidation-20261105-codex3/prepared-link.txt:4:Code/GameEngine/Source/GameLogic/System/AiOrdersManagerPatrol.cpp: LINKS  LINKED 414 -> 414 bytes (census 2026-11-05 05:17 at c95fcfcfcd; file's own bytes 414)
