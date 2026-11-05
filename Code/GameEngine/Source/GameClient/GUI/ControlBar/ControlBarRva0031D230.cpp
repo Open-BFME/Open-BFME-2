@@ -33,12 +33,7 @@ class Team;
 class Module;
 
 class AsciiString;
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
 #include "../../../../Include/Common/PlayerTemplate.h"
 

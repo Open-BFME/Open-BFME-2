@@ -1,11 +1,11 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // stlport
 // Clean BFME1 ba7ddda7 ControlBarUpdateVirtual.cpp supplies the workflow.
 // Named WB 0x00C2B8A0 and full native 0x0031E25E..0x0031E4BA supply
 // the BFME2 offsets, 32-button loops, radar cleanup and actual call routes.
 typedef bool Bool;
 #include "ascii_string.h"
-#include "subsystem_interface.h"
+#include "../../../../Include/Common/NameKeyGenerator.h"
 class GadgetCreateView;
 class Image;
 class GameWindow;
@@ -26,13 +26,6 @@ extern GameWindowManager *TheWindowManager;
 extern PlayerList *ThePlayerList;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
-extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva0031AEFF
 {
 public:

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
 // stlport
 // Clean donor: reference/open-bfme-1 @575ba2b04743f190f069805fbdc59936123c45da
 // game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowershortcutBar.cpp.
@@ -10,7 +10,7 @@
 // Target uses StringBase::isEmpty and pointer-format overload. Qualified global
 // delete reproduces virtual destructor flag0 then global free rather than flag1.
 typedef bool Bool;
-#include "subsystem_interface.h"
+#include "../../../../Include/Common/NameKeyGenerator.h"
 #include "ascii_string.h"
 
 typedef int Int;
@@ -128,15 +128,7 @@ public:
 	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);	// +0xF0
 };
 
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *nameString);
-	NameKeyType nameToKey(const AsciiString &nameString);
-};
-
 extern GameWindowManager *TheWindowManager;
-extern NameKeyGenerator *TheNameKeyGenerator;
 
 #include "../../../../Include/Common/PlayerTemplate.h"
 
