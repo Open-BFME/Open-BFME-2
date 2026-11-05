@@ -35,7 +35,19 @@ link_check shows no LINKS loss.
 - Template statics and vtables: they need an owner unit that instantiates them. Adopting
   dllexport in a canonical FX header is a maintainer decision; trial it with link_check first,
   because it adds COMDATs and `/EXPORT`s in every including unit.
-- The 30 "other" names are ordinary data identity work.
+- The 30 "other" names are ordinary data identity work. Leads: three of the 17 exported
+  `WindModuleInfo::DEFAULT_*` constants are already owned under address names, and they
+  are the providers to respell. `windDefault_00E02904` (Rva003A53C4Finish.cpp) is
+  `DEFAULT_MOTION_START_ANGLE` (RVA 0x00A02904). `windDefault_00DC0A9C` is
+  `DEFAULT_MOTION_END_ANGLE` (0x009C0A9C). `g_00C1B310` (fxpswindmodule.cpp) is
+  `DEFAULT_MOTION_END_ANGLE_MAX` (0x0081B310). Retail spells them `static const float` (`2MB`),
+  yet the first two sit in `.data`; settle that placement before respelling.
+- Code-side lead (not data): export 666 puts `HemisphericalEmissionVelocityModuleTemplate::operator=`
+  at 0x003A8EFC. That is the 18-byte body that calls `SphericalEmissionVelocityModuleTemplate::operator=`
+  (0x003A738E). The Hemispherical template therefore derives from the Spherical one, with an
+  implicit assignment that both it and `ConcreteModuleTemplate<HEMISPHERICAL tag>` inline.
+  `FXParticleSystemModules.cpp` declares it beside the Spherical template instead, so providing
+  these two exports means reshaping that class. Check its vtables before trying.
 
 Evidence: [probe and counts](../../reverse/attempt_support/fx-export-dllexport-20261106-lk34/README.md).
 Census confirmation: not claimed.
