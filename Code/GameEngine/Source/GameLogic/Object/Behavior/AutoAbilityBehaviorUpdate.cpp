@@ -138,12 +138,7 @@ public:
 	bool rva00263546(const Rva00263546*) const;
 	unsigned int m_words[19]; // +0x00
 };
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;	// 0x000B3EB3: any bit set
-	unsigned int m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
