@@ -119,12 +119,16 @@ protected:
 	// The family overrides are the 5-byte tail jump 0x0058B03E to it (slot 1 of
 	// DamageModule's 0x00C598E4 and CreateModule's 0x00C59368 alike), Zero Hour's
 	// `BehaviorModule::loadPostProcess()` base call.
-	// Opt-in for now. Declared for every includer, it rebinds slot 1 of 56
-	// derived tables in 48 units from __purecall to this body: upgrade,
-	// special-power, body, die, create, update and collide classes whose views
-	// declare no loadPostProcess of their own. Retail's slot 1 there is the
-	// family's tail jump to the same `ret`, so that is retail's behaviour, but it
-	// changes those tables. A unit defining an override that makes the base call
+	// Opt-in. Declared for every includer, it would rebind slot 1 of 56 derived
+	// tables in 48 units from __purecall to this body: upgrade, special-power,
+	// body, die, create, update and collide classes whose views declare no
+	// loadPostProcess of their own. No retail table among them holds this body
+	// there. 32 hold tail-jump chains that end in it (0x00497805, 0x0058B03E,
+	// 0x00483CEF); the other 24 reach real bodies, among them SpecialPowerModule's
+	// 0x00493B1E, ActiveBody's 0x004BF40F and AIUpdateInterface's 0x002686A4.
+	// Each family declares its own override first; the per-table list is in
+	// reverse/attempt_support/behaviormodule-snapshot-slots-20261105-lk28.md.
+	// A unit defining an override that makes the base call
 	// defines BFME_BEHAVIORMODULE_LOADPOSTPROCESS before its includes and must
 	// emit no BehaviorModule-derived table: where the unit's Snapshot uses the
 	// capitalized spelling (BuffManager.h, DamageModule.cpp) this is a new

@@ -331,8 +331,11 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
   - Canonical `BehaviorModule.h` now declares `loadPostProcess`, but only for units that define
     `BFME_BEHAVIORMODULE_LOADPOSTPROCESS`.
   - Declared for every includer, it rebinds slot 1 of 56 tables in 48 units from `__purecall` to
-    BehaviorModule's body. All 856 includers stayed byte-exact and the 48 units still LINK, but
-    the tables change, so the unconditional form waits for the lead's decision.
+    BehaviorModule's body. All 856 includers stayed byte-exact and the 48 units still LINK.
+    Retail holds that body at slot 1 in none of the 56: 32 reach it through tail jumps
+    (0x00497805, 0x0058B03E, 0x00483CEF), and 24 run real bodies (SpecialPowerModule 0x00493B1E,
+    ActiveBody 0x004BF40F, AIUpdateInterface 0x002686A4, TerrainResourceBehavior,
+    DynamicPortalBehaviour). It stays opt-in until each family declares its own override.
   - Opt-in form: no `??_7` and no other COMDAT changed across the 856 objects. DamageModule.cpp
     LINKS 6 -> 11 B.
   - Measurements and the full class list:

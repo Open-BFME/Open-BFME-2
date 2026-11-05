@@ -66,14 +66,56 @@ No `??_7` changed anywhere. `link_check`: DamageModule.cpp LINKS 6 -> 11 B; Bone
 keeps only the crc and xfer names; BehaviorModuleLoadPostProcess.cpp,
 UpdateModuleLoadPostProcess.cpp and UpgradeModule.cpp LINK unchanged.
 
-Retail's slot 1 in those tables is the family's tail jump (0x0058B03E or 0x00497805) to
-the same empty `ret` 0x000B3FD0, so the unconditional form calls what retail calls, where
-the current `__purecall` would abort a save load that reaches those modules. It is still a
-change to 56 emitted tables, which this seat's brief does not allow without the lead's
-decision, so the declaration ships behind the opt-in and the measurement stays here.
-Next: decide the unconditional form (drop the `#ifdef`), or give each family header its own
-`loadPostProcess` override first (UpgradeModule, SpecialPowerModule, BodyModule, DieModule,
-CollideModule, UpdateModule views; their rows are the 0x0058B03E and 0x00497805 folds).
+### Retail truth at slot 1 of the 56 tables
+
+Each table was found in `tools/vftable_map.py`'s map of retail's installed tables by its
+`??_7` name, and slot 1 was read from the image. **None holds BehaviorModule's
+0x000B3FD0**, so the unconditional form makes 0 of the 56 equal to retail at slot 1:
+
+- 0x00497805 (`jmp 0x0058B03E`, which jumps to the empty `ret`), 27 tables:
+  AllowBannerSpawnUpgrade 0x00C59030, ArmorUpgrade 0x00C570A0,
+  AttributeModifierUpgrade 0x00C587E8, BaseUpgrade 0x00C57120, CastleUpgrade 0x00C58880,
+  CrateCollide 0x00C5A618, CrushDie 0x00C4AC34, DamageFilteredCreateObjectDie 0x00C4AB54,
+  DelayedUpgrade 0x00C573E4, DoCommandUpgrade 0x00C57B58, ExperienceLevelCreate 0x00C5956C,
+  ExperienceScalarUpgrade 0x00C584E8, FXListDie 0x00C4AD04, GarrisonUpgrade 0x00C58088,
+  InactiveBody 0x00C5AE34, LevelUpUpgrade 0x00C57460, LocomotorSetUpgrade 0x00C57530,
+  MaxHealthUpgrade 0x00C58590, ModelConditionUpgrade 0x00C58658, RefundDie 0x00C4A70C,
+  Rva00589079 0x00C70190, SpecialPowerCreate 0x00C596B4, StealthUpgrade 0x00C57E30,
+  SupplyCenterCreate 0x00C593B8, TooltipUpgrade 0x00C58C08,
+  UnpauseSpecialPowerUpgrade 0x00C57EA8, UpgradeDie 0x00C4AEBC.
+- 0x0058B03E (`jmp 0x000B3FD0`; rows UpdateModule/UpgradeModule/DamageModule
+  `loadPostProcess`), 2 tables: BodyModule 0x00C5AE68, UpdateModule 0x00BF004C.
+- 0x00483CEF (`jmp 0x00497805`), 3 tables: ClearanceTestingSlowDeathBehavior 0x00C49E4C,
+  GiveOrRestoreUpgradeSpecialPower 0x00C5FA40, WeaponModeSpecialPowerUpdate 0x00C4EA54.
+- 0x004C8A2F (`jmp 0x00493B1E`, SpecialPowerModule::loadPostProcess, 182 B with EH), 14
+  tables: CloudBreak 0x00C5D42C, CombineHorde 0x00C5E76C, Darkness 0x00C5D854,
+  Devastate 0x00C5E494, ElvenWood 0x00C5CE8C, FreezingRain 0x00C5D764,
+  GrabPassenger 0x00C5D93C, ManTheWalls 0x00C5E044, PlayerUpgrade 0x00C5E184,
+  Repair 0x00C5E6A4, Scavenger 0x00C5D304, SplitHorde 0x00C5E5FC, Taint 0x00C5D5CC
+  (all `...SpecialPower`), WeaponChangeSpecialPowerModule 0x00C5D1B4. SpecialPowerModule
+  0x00C4E868 holds 0x00493B1E itself.
+- 0x004C202F (`jmp 0x004BF40F`, placeholder `Rva004BF40F`, 191 B with EH, calls
+  0x0058B03E), 4 tables: HighlanderBody 0x00C5B440, ImmortalBody 0x00C5B550,
+  PorcupineFormationBodyModule 0x00C5C3C8, RespawnBody 0x00C5B9A0. ActiveBody 0x00C5B038
+  holds 0x004BF40F itself.
+- 0x0049A7EE (`jmp 0x002686A4`, AIUpdateInterface::loadPostProcess), 2 tables:
+  SiegeAIUpdate 0x00C4D330, TransportAIUpdate 0x00C53AA8.
+- 0x0048223D (row `TerrainResourceBehavior::loadPostProcess`, 28 B), table Rva00481F82
+  0x00C49408; 0x00461274 (row `DynamicPortalBehaviour::loadPostProcess`, 16 B), table
+  DynamicPortalBehaviour 0x00C428C4.
+
+So the unconditional form would be behaviourally retail's (an empty `ret` reached through
+a tail-jump chain) for 32 tables. For the other 24 it would replace a `__purecall` with a
+silent no-op where retail runs real post-load code. That is no fix, so the declaration
+stays opt-in. A table moves to retail only through its own family's override.
+`SpecialPowerModule::loadPostProcess` (rowed 0x00493B1E), declared in the special-power view,
+would make SpecialPowerModule's table equal retail at slot 1. The 14 derived tables would then
+run retail's body, which retail reaches through the 0x004C8A2F tail jump; their slot still
+differs until each class's own override is a twin there. ActiveBody's 0x004BF40F does the same
+for 5 tables once that placeholder is named, and AIUpdateInterface's 0x002686A4 for 2.
+BodyModule and UpdateModule need their 0x0058B03E names (UpdateModule's is rowed;
+BodyModule's would be a twin like DamageModule's), and the 27 + 3 tail-jump tables need each
+class's own override as an ICF twin of 0x00497805 or 0x00483CEF.
 
 `DamageModule.cpp` includes `GameClient/BuffManager.h`, which selects Snapshot's
 capitalized spelling, so in that unit the declaration is a new virtual rather than an
@@ -101,6 +143,18 @@ on a named address. Order of work:
    slot 3 of non-overriding tables would go from `__purecall` to BehaviorModule's).
 4. Twin row `?xfer@DamageModule@@MAEXPAVXfer@@@Z` at 0x004CE56D in `DamageModule.cpp`
    (needs `BfmeXfer.h` for `Version1`).
+
+`rename.py function --rva 0x004C9C7D --virtual --dry-run` (2026-11-05) plans the respelling
+over 13 sources. It gives `UAE`, not Zero Hour's protected `MAE`: the tool changes only
+virtuality, so the `/alternatename` would remain as `MAE=UAE`. Two views declare a
+derived `xfer` non-virtual, and a virtual base makes those virtual too, changing their rows'
+spelling:
+- `UpdateModule.cpp`, row `?xfer@UpdateModule@@QAEXPAVXfer@@@Z` 0x0044DF9F, which 15 census
+  objects touch;
+- `CastleMemberBehaviorCtor.cpp`, row `?xfer@CastleMemberBehavior@@QAEXPAVXfer@@@Z` 0x003957C6.
+
+So those rows need their own `--virtual` respelling, with UpdateModule's callers, before
+step 2 can verify. Not applied.
 
 ## Still blocked: `?crc@DamageModule@@MAEXPAVXfer@@@Z`
 
