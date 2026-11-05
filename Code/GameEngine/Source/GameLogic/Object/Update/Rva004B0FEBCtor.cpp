@@ -7,7 +7,7 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Include/Common/Player.h"
 class Object {public:Player *getControllingPlayer()const;char pad[0x38];Coord3D pos;};
-class EmotionTrackerUpdate {public:class TauntPointFilter;char pad[8];Object *object;};
+#include "../../../../Include/GameLogic/Module/EmotionTrackerUpdate.h"
 #include "../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct BfmePointFD;
@@ -20,7 +20,7 @@ class EmotionTrackerUpdate::TauntPointFilter:public Rva000421C8 {public:TauntPoi
  EmotionTrackerUpdate *module;Object *object;Player *player;int enemyCount,allyCount;Object *cached;bool tested;
 };
 EmotionTrackerUpdate::TauntPointFilter::TauntPointFilter(EmotionTrackerUpdate *emotionTrackerUpdate):module(emotionTrackerUpdate),cached(0),tested(false) {
- object=emotionTrackerUpdate->object;enemyCount=0;allyCount=0;player=object?object->getControllingPlayer():0;
+ object=emotionTrackerUpdate->m_object;enemyCount=0;allyCount=0;player=object?object->getControllingPlayer():0;
  if(player){unsigned allies=ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(),3,false);
  unsigned enemies=ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(),4,false);
  enemyCount=((Rva00739830 *)TheShroudManager)->rva00739830((const BfmePointFD *)&object->pos,1,enemies);

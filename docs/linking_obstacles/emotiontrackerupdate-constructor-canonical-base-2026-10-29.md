@@ -33,3 +33,5 @@ consumer scope into the next scheduled census. The constructor, other derived
 interfaces and mixed files still need separate reconciliation. No census gain
 or consumer-wide closure is claimed.
 [Consolidation evidence](../../reverse/attempt_support/emotion-tracker-consolidation-20261029-codex.md).
+
+2026-11-05: the nested-filter constructor adopts canonical EmotionTrackerUpdate and reads inherited ObjectModule::m_object; 5/5 rows and the 240-byte clean preview are preserved, and owning acceptance retires one header row. The five other selected consumers retain their module-base/vector-lifetime prerequisites. [Evidence and next checks](../../reverse/attempt_support/emotion-filter-header-20261105.md).
