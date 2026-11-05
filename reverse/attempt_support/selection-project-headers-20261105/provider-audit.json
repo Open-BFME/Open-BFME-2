@@ -1,0 +1,59 @@
+{
+  "base": "7dc4b67c8e",
+  "source": "Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp",
+  "retained": 76,
+  "retained_payloads_and_symbolic_relocations_equal": true,
+  "removed": 539,
+  "removed_code": {
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": {
+      "digest": "6246c280fc30",
+      "size": 34,
+      "code": true
+    }
+  },
+  "removed_data_count": 538,
+  "min_remaining_index_providers": 260,
+  "no_added_providers": true,
+  "undefined_names_unchanged": true,
+  "weak_names_unchanged": true,
+  "old_aliases_preserved": true,
+  "included_existing_aliases": {
+    "?concat@AsciiString@@QAEXPBD@Z": {
+      "target": "?concat@?$StringBase@D@@QAEXPBD@Z",
+      "existing_same_target_copies": 6436
+    },
+    "?set@AsciiString@@QAEXPBD@Z": {
+      "target": "?set@?$StringBase@D@@QAEXPBD@Z",
+      "existing_same_target_copies": 6437
+    },
+    "?concat@AsciiString@@QAEXABV1@@Z": {
+      "target": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+      "existing_same_target_copies": 6436
+    },
+    "?clear@AsciiString@@QAEXXZ": {
+      "target": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+      "existing_same_target_copies": 6437
+    },
+    "?compare@AsciiString@@QBEHABV1@@Z": {
+      "target": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+      "existing_same_target_copies": 6436
+    },
+    "?trim@AsciiString@@QAEXXZ": {
+      "target": "?trim@?$StringBase@D@@QAEXXZ",
+      "existing_same_target_copies": 6436
+    },
+    "?compare@AsciiString@@QBEHPBD@Z": {
+      "target": "?compare@?$StringBase@D@@QBEHPBD@Z",
+      "existing_same_target_copies": 6436
+    }
+  },
+  "index_meta": {
+    "date": "2026-11-05 05:17",
+    "commit": "c95fcfcfcd",
+    "clean_tree": true,
+    "census_date": "2026-11-05 03:49",
+    "census_commit": "c2a9f8e0d7"
+  },
+  "min_remaining_same_digest_index_providers": 260,
+  "removed_without_same_digest_index_provider": []
+}

@@ -1,0 +1,9 @@
+tu: Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp
+approved: 20
+mixed: {}
+refused: {}
+accepted: []
+rejected: {'Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp': "compile: reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\Libraries\\Include\\Lib\\BaseType.h(332) : error C2011: 'Coord3D' : 'struct' type redefinition | reference\\open-bfme-1\\inputs\\reference\\CnC_Generals_Zero_Hour\\GeneralsMD\\Code\\GameEngine\\Include\\Common\\AsciiString.h(87) : erro", 'Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatCtor.cpp': "compile: Code\\GameEngine\\Source\\GameClient\\MessageStream\\.SelectionXlat.7e78b8e51a3378c4.tu_skeleton.cpp(260) : error C2373: 'const Rva0042FCE6::`vftable'' : redefinition; different type modifiers | Code\\GameEngine\\Source\\GameClient\\MessageStream\\.SelectionXlat.7e78b8e51a3378c4.tu_skeleton.cpp(308) : error C", 'Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatSelectFriends.cpp': "compile: Code\\GameEngine\\Source\\GameClient\\MessageStream\\.SelectionXlat.7a0ac57924837127.tu_skeleton.cpp(424) : error C2679: binary '[' : no operator found which takes a right-hand operand of type 'unsigned int' (or there is no acceptable conversion)"}
+adopt_first: {'Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatSelectFriends.cpp': ['InGameUI'], 'Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp': ['Drawable', 'GameMessage']}
+link_guard: census-linked: Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp, Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatCtor.cpp, Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatSelectFriends.cpp, Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp
+blocked: no verified merge of two or more donors

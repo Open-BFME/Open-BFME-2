@@ -1,0 +1,7 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 1 row(s) verified past a renumbered $L label
+    $L5835 (Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp): $L5835 was renumbered; verified parent EH data places $L12384 at 0x00787A5B
+Functions: OK 13/13 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
