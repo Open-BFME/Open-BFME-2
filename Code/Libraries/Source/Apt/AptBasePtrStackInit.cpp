@@ -16,25 +16,17 @@ public:
 };
 extern class Rva006DB270 *g_pChainBlockAllocator;
 
-class AptBasePtrStack
-{
-public:
-    void rva006FE0B0(int nSize);
-
-    int m_nElements;
-    int m_nSize;
-    void **m_aElements;
-};
+#include "AptBasePtrStack.h"
 
 void AptBasePtrStack::rva006FE0B0(int nSize)
 {
-    if (m_nSize != 0) {
+    if (m_nCapacity != 0) {
         g_bfmeAptAssertAtE17734("m_nSize == 0", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h", 0x59);
         if (g_bfmeAptBreakOnAssertAtDDC01C)
             __debugbreak();
     }
-    m_nSize = nSize;
-    m_aElements = (void **)(*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(nSize * 4);
+    m_nCapacity = nSize;
+    m_aElements = (BfmeAptValue006DCD20 **)(*(Rva006DB160 **)&g_pChainBlockAllocator)->allocBlock(nSize * 4);
     if (m_aElements == 0) {
         g_bfmeAptAssertAtE17734("m_aElements != NULL", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h", 0x5E);
         if (g_bfmeAptBreakOnAssertAtDDC01C)
