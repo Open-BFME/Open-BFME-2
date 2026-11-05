@@ -15,3 +15,9 @@ The constructor, slot 8, update, and slot 17 donors remain separate: their
 private class and base views do not compose with the seed. Two mixed files also
 remain. Reconcile those views and check their vtable and provider bindings before
 retrying. Carry the merged provider and its consumers into the next census.
+
+2026-11-05 mechanical consolidation recheck: no donor was accepted. The ctor
+and slot-17 donors still need the `SpecialAbilityUpdate`/seed view reconciled;
+`ConstIntGetters4.cpp` and `Rva00451F45Derived.cpp` split trials are blocked by a
+missing `Object::m_conditionBits` view and selected-COMDAT LinkGuard evidence,
+respectively. [Exact trial and next prerequisites](../../reverse/attempt_support/woundarrowupdate-consolidation-trial-20261105.md).

@@ -78,3 +78,19 @@ conflicts and path-keyed data/hatch registers. Placement alternatives remain
 hints until current TU routing is rebuilt and corroborated. This repair neither
 approves a placement nor removes a source file. A future merge must refresh the
 planner and reconcile these prerequisites before running `tu_skeleton.py`.
+
+## Consolidation dry-run follow-up (2026-11-05)
+
+The allocated WeaponSet trial (`tu_skeleton.py --merge WeaponSet.cpp --dry-run`)
+accepted no donors and reports `blocked: no verified merge of two or more
+donors`. The tool found `WeaponSet.cpp`, `WeaponSetCtor.cpp`,
+`WeaponTemplateSetParse.cpp`, `WeaponSetIsOutOfAmmo.cpp`,
+`WeaponSetRvaSlotSearch.cpp`, `Rva002C7474Loop.cpp`, `BitFlags218Any.cpp`,
+`WeaponSetDeleter.cpp`, `WeaponSetRva002C75D1.cpp`, `Rva002C777EBuild.cpp`,
+`WeaponSetSetWeaponLock.cpp`, `Rva002C8754.cpp` and `WeaponSetDtor.cpp`
+census-linked. Rejected donors need manual prerequisite work: repeated class
+redefinitions (`Weapon`, `WeaponSet`, `AsciiString`, `Coord3D`, and others),
+`WeaponSlotType` assignment mismatches, missing class members, `BitFlags`
+template disagreement, and the obsolete destructor's byte mismatch. No donor
+or source was changed. The existing clear-provider and obsolete-destructor
+findings remain; no link clearance or census gain is claimed.
