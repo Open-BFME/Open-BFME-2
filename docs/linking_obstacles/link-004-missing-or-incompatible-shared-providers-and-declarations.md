@@ -395,6 +395,7 @@
   and the earlier audio batch's measurement prerequisites into the next census.
   No source-count, registered-debt, census-link or ownership gain is claimed.
 - **UpdateModule current-verifier follow-up (2026-10-26):** ordinary dry run now
+  2026-11-05: PartTheHeavensUpdate's rebuild helper adopts the canonical base; its and the seed's two header rows pass acceptance, both local previews remain LINKS, and constructor/flag/view prerequisites still block consolidation ([evidence](../../reverse/attempt_support/parttheheavens-updatemodule-adoption-20261105-codexb4.md)).
   accepts seed/xfer (two rows / 116 bytes); scoped build, strict receipts and COFF
   composition checks preserve three external definitions and all bindings/data.
   No source edit or merge is needed; mixed wake-frame split hatch growth remains.

@@ -75,18 +75,7 @@ extern ProjectedShadowManager *TheProjectedShadowManager;
 class Thing;
 class ModuleData;
 
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	const void *m_vtable;
-	PartTheHeavensUpdateModuleData *m_moduleData;
-	Object *m_object;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class PartTheHeavensUpdate : public UpdateModule
 {
@@ -102,7 +91,7 @@ void PartTheHeavensUpdate::rva004ACADA()
 {
 	if (m_shadow != 0)
 		return;
-	PartTheHeavensUpdateModuleData *data = m_moduleData;
+	PartTheHeavensUpdateModuleData *data = (PartTheHeavensUpdateModuleData *)m_moduleData;
 	if (((const StringBase<char> &)data->m_str08).isEmpty())
 		return;
 	Shadow::ShadowTypeInfo ev;
