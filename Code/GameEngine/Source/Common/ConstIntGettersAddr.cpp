@@ -197,20 +197,28 @@ int Rva003EFE9AGet(void)
 // Prev leave/ret with a test-and-style function after. 3 direct E8
 // callers, no Ghidra entry (dead emission), no branch sources.
 // Opaque name.
-// ?Rva000A8F58Get@@YAHXZ @ 0x000A8F58 (6B): returns 0x00DB4CF0. Opens a
+// The Apt host state AptDisplayStringBase.cpp defines over retail
+// 0x00DB4CE0..0x00DB4D00 (data row ?g_aptHostStateStorage@@3PAEA): its
+// +0x10/+0x14 and +0x18/+0x1C float pairs are the two the getters below
+// return.
+extern unsigned char g_aptHostStateStorage[32];
+
+// ?Rva000A8F58Get@@YAHXZ @ 0x000A8F58 (6B): returns 0x00DB4CF0, which is
+// g_aptHostStateStorage + 0x10. Opens a
 // contiguous pair (58/F0 then 5E/F8, 8 apart) after a ret-4. Tail-jumped
 // from thunk 0x62972, 1 direct E8 caller, Ghidra-6. Opaque name.
 int Rva000A8F58Get(void)
 {
-	return 0x00DB4CF0;
+	return (int)(g_aptHostStateStorage + 0x10);
 }
 
-// ?Rva000A8F5EGet@@YAHXZ @ 0x000A8F5E (6B): returns 0x00DB4CF8. Closes
+// ?Rva000A8F5EGet@@YAHXZ @ 0x000A8F5E (6B): returns 0x00DB4CF8, which is
+// g_aptHostStateStorage + 0x18. Closes
 // the pair. Tail-jumped from thunk 0x62977, 2 direct E8 callers,
 // Ghidra-6. Opaque name.
 int Rva000A8F5EGet(void)
 {
-	return 0x00DB4CF8;
+	return (int)(g_aptHostStateStorage + 0x18);
 }
 
 
@@ -252,13 +260,16 @@ int Rva0056B7DEGet(void)
 	return 0x00C6D690;
 }
 
-// ?Rva000EF29AGet@@YAHXZ @ 0x000EF29A (6B): returns 0x00544558.
-// Follows a ret-16 (0xEF297-9C) with a push-style function after.
-// Carried by 6 .rdata slots, no direct callers, no branch sources.
-// Opaque address-derived name.
+// ?Rva000EF29AGet@@YAHXZ @ 0x000EF29A (6B): returns 'TEX' (0x00544558), a
+// class id, not an address. Follows a ret-16 (0xEF297-9C) with a push-style
+// function after. Carried by 6 .rdata slots, no direct callers, no branch
+// sources. Each slot is slot 13 (+0x34) of a texture vtable (0x00BCEEF0,
+// 0x00BD25D8, 0x00C03E48, ...), the slot BfmeResetTextureRef::operator=
+// (retail 0x00531D99: call [eax+34h]; cmp eax,544558h) compares with 'TEX'
+// (BfmeResetTextureRefAssign.cpp). Opaque address-derived name.
 int Rva000EF29AGet(void)
 {
-	return 0x00544558;
+	return 'TEX';
 }
 
 
