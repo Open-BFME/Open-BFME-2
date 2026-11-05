@@ -67,9 +67,12 @@ protected:
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
 };
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 class BuildableHeroListUpgrade : public UpgradeModule
 {
+public:
+	BuildableHeroListUpgrade(Thing *thing, const ModuleData *moduleData);
 protected:
 	virtual void upgradeRemovalImplementation();
 	virtual void upgradeImplementation();
