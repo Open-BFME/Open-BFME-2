@@ -1,4 +1,5 @@
 ### LINK-001: landed repairs still appear in the historical census
+- 2026-11-05: [AptAnimData consolidation and inherited ClickReactionBehavior/staging-room batch](../../reverse/attempt_support/aptanimdata-merge-20261105-codexb5/README.md): nine rows and all 78 COMDAT digests preserved after the string-release prerequisite; scoped preview passes, broader audit inconclusive against `c95fcfcfcd` with three inherited units lacking receipts. Carry this batch to the next scheduled census.
 - 2026-11-05: [BooleanBitmapSet merge and inherited AIEconomyBuilder batch](../../reverse/attempt_support/booleanbitmap-tu-merge-20261105-codex.md): scoped previews pass; wider audit remains inconclusive against `c95fcfcfcd`, with `0CreateAHeroManager21FE49.cpp` lacking a current receipt. Carry this scope to the next scheduled census.
 
 **Status: Repair landed / awaiting verification. Updated: 2026-10-25.**

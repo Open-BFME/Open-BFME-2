@@ -1,0 +1,14 @@
+{
+  "before_comdats": 78,
+  "after_comdats": 78,
+  "removed_comdats": [],
+  "added_comdats": [],
+  "changed_common_comdats": [],
+  "removed_external_entries": [
+    [
+      "?createRenderData@AptAnimData@@AAEXABVAsciiString@@@Z",
+      false
+    ]
+  ],
+  "added_external_entries": []
+}

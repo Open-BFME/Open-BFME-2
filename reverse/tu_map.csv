@@ -5962,7 +5962,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000AB419,55,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp
 0x000AB450,25,code,,,-,,Code/GameEngine/Source/Common/S2DeleteHeldObject.cpp
 0x000AB469,28,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva00788A00Assign.cpp
-0x000AB485,886,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimDataRenderData.cpp
+0x000AB485,886,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp
 0x000AB7FB,64,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp,approved,C,C=0x000AB485..0x000AB83B provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp
 0x000AB83B,182,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimData.cpp
 0x000AB8F1,31,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva000AB8F1.cpp

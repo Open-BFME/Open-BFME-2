@@ -1,0 +1,2 @@
+link batch audit: INCONCLUSIVE baseline: index at c95fcfcfcd, outgoing base origin/master; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 3 source object(s) lack current receipts; first: Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp
