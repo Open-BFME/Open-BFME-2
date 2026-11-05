@@ -9,6 +9,12 @@
 // the vendor header declares a different return type. No vtable is emitted.
 namespace _STL
 {
+template <class T>
+static inline const T &streambufWriteMin(const T &a, const T &b)
+{
+	return b < a ? b : a;
+}
+
 struct BfmeFileBuf
 {
 	char *_ptr;
@@ -20,6 +26,18 @@ inline char *_FILE_I_begin(BfmeFileBuf *f) { return f->_base; }
 inline char *_FILE_I_next(BfmeFileBuf *f) { return f->_ptr; }
 inline char *_FILE_I_end(BfmeFileBuf *f) { return f->_ptr + f->_cnt; }
 inline int _FILE_I_avail(BfmeFileBuf *f) { return f->_cnt; }
+inline char &_FILE_I_postincr(BfmeFileBuf *f)
+{
+	--f->_cnt;
+	return *f->_ptr++;
+}
+inline char *_FILE_O_next(BfmeFileBuf *f) { return f->_ptr; }
+inline int _FILE_O_avail(BfmeFileBuf *f) { return f->_cnt; }
+inline void _FILE_O_bump(BfmeFileBuf *f, int n)
+{
+	f->_ptr += n;
+	f->_cnt -= n;
+}
 inline void _FILE_I_set(BfmeFileBuf *f, char *begin, char *next, char *end)
 {
 	f->_base = begin;
@@ -44,15 +62,17 @@ class basic_streambuf<char, char_traits<char> >
 public:
 	typedef char char_type;
 	typedef int int_type;
+	typedef char_traits<char> traits_type;
 
 	virtual ~basic_streambuf();
+
+protected:
 	virtual basic_streambuf *setbuf(char *, int);
-	virtual int seekoff(int, int, int);
-	virtual int seekpos(int, int);
+	virtual fpos<int> seekoff(long, int, int);
+	virtual fpos<int> seekpos(fpos<int>, int);
 	virtual int sync();
 	virtual int showmanyc();
 
-protected:
 	virtual int xsgetn(char *, int);
 	virtual int underflow();
 	virtual int uflow();

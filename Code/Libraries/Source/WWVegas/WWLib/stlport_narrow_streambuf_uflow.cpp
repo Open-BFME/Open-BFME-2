@@ -16,8 +16,8 @@
 // asks the FILE for its available count rather than differencing two area
 // pointers.
 
-#include <locale>
-#include <streambuf>
+#include "../../../../GameEngine/Source/Common/StdioStreambufBaseView.h"
+#include <cstring>
 
 namespace _STL
 {
@@ -38,7 +38,7 @@ streamsize basic_streambuf<char, char_traits<char> >::xsputn(const char *__s, st
 	while (__result < __n) {
 		ptrdiff_t __avail = _FILE_O_avail(_M_put);
 		if (__avail > 0) {
-			size_t __chunk = (min) (__STATIC_CAST(size_t, __avail),
+			size_t __chunk = streambufWriteMin (__STATIC_CAST(size_t, __avail),
 			                        __STATIC_CAST(size_t, __n - __result));
 			char_traits<char>::copy(_FILE_O_next(_M_put), __s, __chunk);
 			__result += __chunk;
