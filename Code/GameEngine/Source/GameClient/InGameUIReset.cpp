@@ -120,9 +120,27 @@ public:
 // The InGameUI members reset calls by address (each rowed under its address).
 class Rva0029C138 { public: void rva0029C138(); };
 class Rva0029B380 { public: void rva0029B34B(); };	// freeMessageResources
-class Rva0029D30A { public: void rva0029D30A(); };
-class Rva0029D3FB { public: void rva0029D3FB(); };
-class Rva0029D7CA { public: void rva0029D7CA(); };
+class Rva0029D30A
+{
+public:
+	void rva0029D30A();
+	char m_pad00[0x8A0];
+	_STL::list<int> m_8A0; // +0x8A0
+};
+class Rva0029D3FB
+{
+public:
+	void rva0029D3FB();
+	char m_pad00[0x8CC];
+	_STL::list<int> m_8CC; // +0x8CC
+};
+class Rva0029D7CA
+{
+public:
+	void rva0029D7CA();
+	char m_pad00[0x8D0];
+	_STL::list<int> m_8D0; // +0x8D0
+};
 
 class SuperweaponInfo
 {

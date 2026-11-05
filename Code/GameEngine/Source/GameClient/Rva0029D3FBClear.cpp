@@ -35,7 +35,7 @@ class Rva0029D3FB
 {
 public:
 	void rva0029D3FB();
-	unsigned char m_pad[0x8CC];
+	char m_pad00[0x8CC];
 	_STL::list<int> m_8CC; // +0x8CC
 };
 

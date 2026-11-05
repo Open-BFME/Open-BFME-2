@@ -62,9 +62,27 @@ public:
 // The InGameUI members the destructor calls by address (each rowed under its
 // address): freeMessageResources, clearFloatingText, clearWorldAnimations.
 class Rva0029B380 { public: void rva0029B34B(); };
-class Rva0029D30A { public: void rva0029D30A(); };
-class Rva0029D3FB { public: void rva0029D3FB(); };
-class Rva0029D7CA { public: void rva0029D7CA(); };
+class Rva0029D30A
+{
+public:
+	void rva0029D30A();
+	char m_pad00[0x8A0];
+	_STL::list<int> m_8A0; // +0x8A0
+};
+class Rva0029D3FB
+{
+public:
+	void rva0029D3FB();
+	char m_pad00[0x8CC];
+	_STL::list<int> m_8CC; // +0x8CC
+};
+class Rva0029D7CA
+{
+public:
+	void rva0029D7CA();
+	char m_pad00[0x8D0];
+	_STL::list<int> m_8D0; // +0x8D0
+};
 
 // Zero Hour's DrawableList typedef. The member destructors call the base
 // destructor 0x00239AF4 (defined in InGameUICtor.cpp) with no state store

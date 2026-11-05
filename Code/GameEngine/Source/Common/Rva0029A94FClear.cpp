@@ -40,9 +40,9 @@ class Rva0029A94F
 {
 public:
 	void rva0029A94F();
+	char m_pad00[0x544];
 private:
-	char m_pad[0x544];
-	Rva0029A94FSlot *m_slots;
+	Rva0029A94FSlot *m_slots; // +0x544
 };
 
 void Rva0029A94F::rva0029A94F()

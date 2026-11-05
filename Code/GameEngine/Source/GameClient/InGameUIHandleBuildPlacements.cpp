@@ -405,10 +405,14 @@ public:
     bool getPortTransform(const Coord3D*, const ThingTemplate*, float, float*, Coord3D*);
 };
 extern BuildAssistant* TheBuildAssistant;
+struct Rva0029A94FSlot;
 class Rva0029A94F
 {
 public:
-    void rva0029A94F();
+	void rva0029A94F();
+	char m_pad00[0x544];
+private:
+	Rva0029A94FSlot *m_slots; // +0x544
 };
 #include "../../Include/Common/TerrainType.h"
 class BuildListInfo

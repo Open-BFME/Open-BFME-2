@@ -35,7 +35,7 @@ class Rva0029D7CA
 {
 public:
 	void rva0029D7CA();
-	unsigned char m_pad[0x8D0];
+	char m_pad00[0x8D0];
 	_STL::list<int> m_8D0; // +0x8D0
 };
 
