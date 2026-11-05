@@ -29,22 +29,13 @@ public:
     union Bits { float f; unsigned u; };
 };
 class LivingWorld; extern LivingWorld *TheLivingWorld;
-class LivingWorldLogic
-{
-public:
-    void rva002B2A0A();
-private:
-    char pad[0xb0];
-    Rva0020F27EHost *host;
-    char padB4[4];
-    int index;
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 void LivingWorldLogic::rva002B2A0A()
 {
     RvaFloatPair pos;
     pos.x = 0.0f;
     pos.y = 0.0f;
-    host->rva0020F27E(index, (int)&pos);
+    ((Rva0020F27EHost *)fieldB0)->rva0020F27E(fieldB8, (int)&pos);
     if (((Rva002D3627Host *)TheLivingWorld))
     {
         ((Rva002BECCD*)((Rva002D3627Host *)TheLivingWorld))->rva002BECCD(pos, 0.0f);
