@@ -44,3 +44,5 @@ broader consumer/census limitation remains open.
 2026-11-05: ExperienceLevelDtor.cpp now adopts the canonical string-record header; acceptance retires one header row, with all 11 code rows, external/COMDAT bindings and the 222-byte scoped link verdict preserved. Other merge prerequisites remain. [Evidence](../../reverse/attempt_support/experiencelevel-dtor-header-20261105-codexb4.md).
 
 2026-11-05: aligning the seed's existing static-helper declaration with its noinline donor copies clears the duplicate-definition collision; the supported dry run now accepts both find donors with unchanged seed bytes/bindings. Next step: apply the guarded merge and audit its moved paths. [Evidence](../../reverse/attempt_support/experiencelevel-find-composition-20261105-codexb4.md).
+
+2026-11-05: actual merge wrote no changes because its cohort claim encounters peer-held ICF address 0x0007FAB3; retry after release, then audit the accepted two-donor merge. The original three files retain exact bytes and the 3,152-byte ordinary link prediction. [Claim and verification handoff](../../reverse/attempt_support/experiencelevel-find-merge-claim-20261105-codexb4.md).
