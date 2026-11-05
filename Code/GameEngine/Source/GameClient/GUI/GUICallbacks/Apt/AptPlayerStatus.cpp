@@ -166,18 +166,8 @@ extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *f
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
 #include "../../../../../Include/GameClient/Shell.h"
 void _bfme_closeAptScreen(const AsciiString &name);
-
-// ?Rva004E44FBSet@@YGXHHABVUnicodeString@@@Z @0x004E44FB 88B
-// Free __stdcall setter formatting "PlayerTable:%d:%d" via rowed AsciiString::format
-// 0x00038150 then pinned BfmeAptWindowManager::bfmeSetText 0x00225301 with false.
-// Manager at VA 0x009FE4CC via in-use TheRva00222A8BTarget; AsciiString local
-// cleanup via rowed releaseBuffer 0x00036410 with EH_prolog. Ret 0xC is 3 args.
-// Callers 0x004E4886/0x004E48A2/0x004E4910/0x004E4991 in 0x004E476C.
-// Layout and flags from AptPlayerNameSet.cpp sibling using same callees.
 #include "../../../../../Include/Common/BfmeStringData.h"
-
 extern GameLogic *TheGameLogic;
-
 // The multiplayer-or-skirmish predicate at 0x0023C6FD is rowed as
 // BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). This call
 // goes through a TU-local derivation so it resolves to the rowed body
@@ -187,51 +177,33 @@ class BfmeGlob939D : public GameLogic
 public:
 	char bfmeCall939D();
 };
-
 class Rva0023C902
 {
 public:
 	int rva0023C902();
 };
-
 // The +0x10 view TheInGameUI's 0x000CF155 returns and the folded forwarder
 // to its vslot 3 (0x005CB265), both pinned (as in AptQuitMenuCallbacks.cpp).
 class Rva005CB260;
-
 class Rva005CB265
 {
 public:
 	virtual int rva005CB265();
 };
-
-// TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the menu, vslot 95
-// reports one already up.
 #include "../../../../../Include/GameClient/InGameUI.h"
-
 extern InGameUI *TheInGameUI;
-
 // The extern queries' names, by index (0x00C621A8).
 static const char *const s_externNames[] = { "NumOfPlayers", "InSkirmish", "AptObjectivesMenu::InputEnabled" };
-
 enum NameKeyType
 {
 };
-
 #include "../../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 #include "../../../../../Include/Common/Player.h"
-
 #include "../../../../../Include/Common/PlayerList.h"
-
 extern PlayerList *ThePlayerList;
-
 #include "../../../../../Include/GameNetwork/GameInfo.h"
-
-
 extern GameInfo *TheGameInfo;
-
 // TheNetwork's isPlayerConnected (vslot 51).
 class NetworkInterface
 {
@@ -247,9 +219,7 @@ public:
 #undef NET_SLOT
 	virtual bool isPlayerConnected(int slot);
 };
-
 extern NetworkInterface *TheNetwork;
-
 // The victory conditions (VA 0x00E03138): vslot 16 asks whether a player
 // has been defeated.
 struct UnknownE03138
@@ -261,52 +231,36 @@ struct UnknownE03138
 #undef VICTORY_SLOT
 	virtual bool hasBeenDefeated(Player *player);
 };
-
 class VictoryConditionsInterface;
-
  extern VictoryConditionsInterface *TheVictoryConditions;
-
-// TheGameText's fetch by label (vslot 14).
 #include "../../../../../Include/GameClient/GameText.h"
-
 extern GameTextInterface *TheGameText;
-
 #include "../../../../../Include/GameNetwork/MultiplayerColorDefinition.h"
-
 #include "../../../../../Include/GameNetwork/MultiplayerSettingsClass.h"
-
 extern MultiplayerSettings *TheMultiplayerSettings;
-
 // The objectives gate singleton (Rva0050E9D3Enable.cpp): its +4 flag
 // allows the screen.
 void *Rva004E4179Get();
-
 struct Rva004E4179Gate
 {
 	int m_0;
 	bool m_enabled; // +0x04
 };
-
 // The in-game chat close (BFME 1's HideInGameChat).
 void Rva004E855CClose();
-
 class ScriptEngine
 {
 public:
 	unsigned char m_pad00000[0x1A104];
 	int m_1a104; // +0x1A104, negative when no script holds the screen
 };
-
 extern ScriptEngine *TheScriptEngine;
-
 class GameWindowTransitionsHandler
 {
 public:
 	bool isFinished();
 };
-
 extern GameWindowTransitionsHandler *TheTransitionHandler;
-
 // TheDisplay's vslots 87 and 88 (a movie or a letterbox up).
 
 
@@ -321,17 +275,15 @@ public:
 #undef MOUSE_SLOT
 	virtual void slot19(int cursor);
 };
-
 extern Mouse *TheMouse;
-
 extern Shell *TheShell;
-
 // The disconnect menu (VA 0x00E048D0).
 class DisconnectMenu;
-
  extern DisconnectMenu *TheDisconnectMenu;
-
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+#define _CRTIMP
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
 
 class Rva00222A8BTarget;
 
@@ -359,9 +311,34 @@ struct Rva0039B95FHolder
 
 extern Rva0039B95FHolder *TheMissionObjectiveTracker;
 
+int __cdecl GetNthVisibleObjectiveIndex(int row);
+
+struct Rva0039B95FHolder;
+
+struct AptPlayerStatusObjectives
+{
+	unsigned char m_pad00[0x10];
+	Rva004266A1 *m_list;
+};
+
 // tu-skeleton: 0x004E40C7 178B ?InitGadgets@AptPlayerStatus@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x004E4179 50B ?Rva004E4179Get@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp
+
+// ?Rva004E44FBSet@@YGXHHABVUnicodeString@@@Z @0x004E44FB 88B
+// Free __stdcall setter formatting "PlayerTable:%d:%d" via rowed AsciiString::format
+// 0x00038150 then pinned BfmeAptWindowManager::bfmeSetText 0x00225301 with false.
+// Manager at VA 0x009FE4CC via in-use TheRva00222A8BTarget; AsciiString local
+// cleanup via rowed releaseBuffer 0x00036410 with EH_prolog. Ret 0xC is 3 args.
+// Callers 0x004E4886/0x004E48A2/0x004E4910/0x004E4991 in 0x004E476C.
+// Layout and flags from AptPlayerNameSet.cpp sibling using same callees.
+
+// TheInGameUI (0x00DFEDF0): vslot 94 shows or hides the menu, vslot 95
+// reports one already up.
+
+// TheGameText's fetch by label (vslot 14).
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp
 
@@ -660,22 +637,6 @@ int __cdecl GetNthVisibleObjectiveIndex(int skip)
 	}
 }
 
-// tu-skeleton: 0x004E4312 5B ?Rva004E4312GetRoute@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4317 10B ?rva004E4317@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4321 9B ?Rva004E4321Get@@YAEXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E432A 34B ?Rva004E432ASet@@YAXE@Z -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4446 131B ?Objective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x004E44C9 50B ?Rva004E44C9Check@@YGHHEE@Z -- matched in Code/GameEngine/Source/Common/Rva004E44C9Check.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4553 167B ?ExternsObjective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp (not merged yet)
-
-// tu-skeleton: 0x004E45FA 91B ?PlayerColor@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp
 
 // ??1AptPlayerStatus@@UAE@XZ
@@ -710,8 +671,45 @@ AptPlayerStatus::~AptPlayerStatus()
 	}
 }
 
+// tu-skeleton: 0x004E4312 5B ?Rva004E4312GetRoute@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E4317 10B ?rva004E4317@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E4321 9B ?Rva004E4321Get@@YAEXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E432A 34B ?Rva004E432ASet@@YAXE@Z -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E4446 131B ?Objective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x004E44C9 50B ?Rva004E44C9Check@@YGHHEE@Z -- matched in Code/GameEngine/Source/Common/Rva004E44C9Check.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp
+
+// ?ExternsObjective@AptPlayerStatus@@QAEXHPAD_N@Z @0x004E4553 167B
+// AptPlayerStatus handler answering "$<text>" for a row. Evidence: between
+// Objective 0x004E4446 and PlayerColor 0x004E45FA in same TU family; same
+// m_state +0x288 zero check and row range 0-12 and bool skip as Objective;
+// same GetNthVisibleObjectiveIndex index plus TheMissionObjectiveTracker list plus Rva004266A1 text record.
+// Retail calls the CRT import thunk directly, as the containing TU does.
+
+void AptPlayerStatus::ExternsObjective(int row, char *result, bool skip)
+{
+	*result = 0;
+	if (m_state == 0 && row >= 0 && row < 12 && !skip)
+	{
+		AsciiString tmp;
+		int index = GetNthVisibleObjectiveIndex(row);
+		if (index >= 0 && TheMissionObjectiveTracker && ((AptPlayerStatusObjectives *)TheMissionObjectiveTracker)->m_list)
+			tmp = *(const AsciiString *)((AptPlayerStatusObjectives *)TheMissionObjectiveTracker)->m_list->rva004267E9(index);
+		if (!tmp.isEmpty() && tmp.getLength() + 2 < 0xFF)
+		{
+			result[0] = '$';
+			_mbscpy(reinterpret_cast<unsigned char *>(result + 1),
+				reinterpret_cast<const unsigned char *>(tmp.str()));
+		}
+	}
+}
+
+// tu-skeleton: 0x004E45FA 91B ?PlayerColor@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
+
 // tu-skeleton: 0x004E4A34 17B ?rva004E4A34@AptPlayerStatus@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00791EA9 8B $L1233 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp (not merged yet)
-
-// tu-skeleton: 0x00791EB1 10B __ehhandler$?ExternsObjective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp (not merged yet)
