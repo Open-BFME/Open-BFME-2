@@ -287,13 +287,7 @@ private: unsigned char payload04[24];
 class LivingWorldPendingBattle;
 #include "../../../../../Include/GameLogic/LivingWorldRegionManager.h"
 struct Rva002B8573Filter;
-class LivingWorldLogic {
-public:
- unsigned char prefix00[0x98];
- Rva002B8573Filter *selected98;
- unsigned char prefix9C[0xB0-0x9C];
- LivingWorldRegionManager *regionManagerB0;
-};
+#include "../../../../../Include/GameLogic/LivingWorldLogic.h"
 class Object;
 class LivingWorldBattle;
 class Rva002B25EF {
@@ -349,12 +343,12 @@ template<> inline void allocator<TacticalArmyView *>::deallocate(pointer p,size_
 
 Rva005ED152::Rva005ED152(LivingWorldLogic *logic) {
  _STL::vector<BfmeE8> units;
- LivingWorldRegionManager *regions=logic->regionManagerB0;
+ LivingWorldRegionManager *regions=logic->fieldB0;
  if (!regions) return;
  LivingWorldPendingBattle *battle=regions->rva0020E6C0();
  if (!battle) return;
  _STL::vector<TacticalArmyView *> armies;
- ((Rva002B25EF *)logic)->rva002B25EF((LivingWorldBattle *)battle,(_STL::vector<Object *> *)&armies,logic->selected98);
+ ((Rva002B25EF *)logic)->rva002B25EF((LivingWorldBattle *)battle,(_STL::vector<Object *> *)&armies,(Rva002B8573Filter *)logic->field98);
  for (_STL::vector<TacticalArmyView *>::iterator it=armies.begin(); it!=armies.end(); ++it) {
   TacticalArmyView *army=*it;
   if (!army) continue;

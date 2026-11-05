@@ -60,7 +60,7 @@ extern ImageCollection *TheMappedImageCollection;
 struct FactionView { char prefix[0x20]; AsciiString icon; };
 class Rva002E071E { public: bool rva002E071E(const Rva002E071E *) const; };
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
-class LivingWorldLogic { public: char prefix[0x98]; LivingWorldPlayer *localPlayer; };
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva003F468D { public: int rva003F468D(int side,int index); int rva003F4DAE(int side); };
 namespace StrategicHUD {
@@ -126,7 +126,7 @@ Rva005F918D CreateLocalPlayerData(LivingWorldBattle &battle,int first,int second
 // WB15E0680 (assertions 80..84): one ally or enemy record per other player.
 static __declspec(noinline) void PopulateMovieClip(StrategicHUD::BattlePromptMovieClip *clip,LivingWorldBattle &battle)
 {
- LivingWorldPlayer *localPlayer=TheLivingWorldLogic->localPlayer;
+ LivingWorldPlayer *localPlayer=TheLivingWorldLogic->field98;
  for (int side=0; side<battle.getSideCount(); ++side) {
   int count=((Rva003F468D *)&battle)->rva003F4DAE(side);
   for (int i=0; i<count; ++i) {

@@ -42,14 +42,10 @@ public:
     char prefix[8];
     Rva0020F0EE *rules;
 };
-class LivingWorldLogic
-{
-public:
-    char prefix[0xB0];
-    RegionDescriptionManagerView *regions;
-    RegionDescriptionManagerView *getRegions() { return regions; }
-};
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
 extern LivingWorldLogic *TheLivingWorldLogic;
+// The region table read through an inline call, as retail's caller did.
+static inline RegionDescriptionManagerView *livingWorldRegions() { return (RegionDescriptionManagerView *)TheLivingWorldLogic->fieldB0; }
 class Rva0020E89C
 {
 public:
@@ -64,7 +60,7 @@ UnicodeString Rva0020E89C::rva003F15D1()
     UnicodeString result;
     result.concat(TheGameText->fetch("LW:TerritoryBonusHeader"));
     result.concat(bonus.rva003F1241());
-    Rva0020F0EE *rules = TheLivingWorldLogic->getRegions()->rules;
+    Rva0020F0EE *rules = livingWorldRegions()->rules;
     if (rules) {
         Rva0020E9D0 *rule = rules->rva0020F0EE((Rva0020F0EEArg *)this);
         if (rule) {

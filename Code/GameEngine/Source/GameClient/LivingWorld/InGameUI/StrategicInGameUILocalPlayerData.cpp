@@ -95,17 +95,13 @@ struct LivingWorldPlayer {
     char pad44[0x184 - 0x44];
     RGBColor color;
 };
-class LivingWorldLogic {
-public:
-    char prefix[0x98];
-    LivingWorldPlayer *localPlayer;
-};
-extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Include/GameLogic/LivingWorldBattle.h"
+#include "../../../../Include/GameLogic/LivingWorldLogic.h"
+extern LivingWorldLogic *TheLivingWorldLogic;
 
 namespace StrategicInGameUI {
 Rva005F918D CreateLocalPlayerData(LivingWorldBattle &battle, int first, int second, int third) {
-    LivingWorldPlayer *player = TheLivingWorldLogic->localPlayer;
+    LivingWorldPlayer *player = TheLivingWorldLogic->field98;
     int side = battle.rva003F4752(player);
     int index = battle.rva003F4FAA(side, player);
     FactionView *faction = player->faction;
