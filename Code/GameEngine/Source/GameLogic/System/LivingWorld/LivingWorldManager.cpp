@@ -39,13 +39,7 @@ public:
 struct Rva00210FC6Ref : OpaqueRefElement4 {
 };
 
-class LivingWorldManager {
-public:
- void rva0021100E();
- void rva00210FC6(Rva00210FC6Ref sound,int owner);
-private:
- char opaque00[0x22c]; OpaqueRefElement4 sound22c; int owner230;
-};
+#include "GameLogic/LivingWorldManager.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldManagerSound.cpp
 

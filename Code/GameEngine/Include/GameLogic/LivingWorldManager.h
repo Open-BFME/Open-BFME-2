@@ -4,6 +4,7 @@
 // Snapshot table 0x00BE5224 has four slots: 0x00214058 subtracts 0x0C and jumps to the deleting destructor; 0x00210F27 uses secondary +0x25C (complete +0x268); 0x00214052 returns the class-name string; 0x00213D93 subtracts 0x0C before calling the complete object's rowed methods. The base's slot-2 name signature is selected below.
 // The +0x10 base has one virtual slot and no virtual destructor: table 0x00BE5114 holds 0x001F01E8 (ret 0x10), and destructor 0x00210CC5 only restores that table. The derived table 0x00BE5220 holds 0x00211C68, whose ledger row proves OnSwapArmyMembers' four argument types; it does not use the incoming this pointer. The rowed OnSwapArmyMembers spelling is non-virtual and remains declared separately from slot00.
 // The declared non-virtual methods are the LivingWorldManager ledger rows at 0x00210D68, 0x00210F96, 0x00210FC6, 0x0021100E, 0x00211142, 0x00211C68, 0x00212183, 0x0021219E, 0x00213171, 0x002133E0, 0x0021399A, 0x00213C6E, 0x00214060, 0x002140DB, 0x00214156, 0x0021427A and 0x002142EA. The out-of-line constructor has the ledger's Rva0022B12DSubsystem spelling.
+// Field +0x204 is the 0x14-byte Rva00056F61 table: CreateSound 0x0021399A looks names up there, the constructor builds it through 0x00213E11 and the destructor 0x00214405 calls its table destructor 0x002129DD at 0x0021467F. Fields +0x22C and +0x230 are a four-byte owning OpaqueRefElement4 and an int: the matched rows 0x00210FC6 (assigns both) and 0x0021100E (guards the reference, builds the audio event from both and clears it) access them, and the destructor's layout places them between the +0x218 table and the +0x234 buffer.
 // Field +0x268 is a four-byte pointer: 0x00210D6B loads it, 0x00210D7A clears it and 0x00210DA4 stores the lookup result. Retail 0x003EFE2A and 0x003EFE50 load that same field from TheLivingWorldManager, then call the rowed LivingWorldRegionEffectsManager::SyncRegion at 0x003EF08B. Other data remains opaque; the 0x2D8 allocation fixes its complete extent.
 
 #pragma once
@@ -20,6 +21,8 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../GameClient/Rva00056F61.h"
+#include "../Common/OpaqueRefElement4.h"
 
 struct ArmySwapView;
 struct ArmyMemberRangeView;
@@ -68,7 +71,12 @@ public:
     void rva0021427A();
     void rva002142EA();
 
-    unsigned char m_opaque14[0x268 - 0x14];
+    unsigned char m_opaque14[0x204 - 0x14];
+    Rva00056F61 m_sounds;
+    unsigned char m_opaque218[0x22C - 0x218];
+    OpaqueRefElement4 sound22c;
+    int owner230;
+    unsigned char m_opaque234[0x268 - 0x234];
     LivingWorldRegionEffectsManager *field268;
     unsigned char m_opaque26C[0x2D8 - 0x26C];
 

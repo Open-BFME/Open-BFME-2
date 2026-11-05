@@ -19,14 +19,7 @@ private:
 class Rva00056F61;
 #include "../../../Include/GameClient/Rva0041534BIter.h"
 #include "../../../Include/GameClient/Rva00056F61.h"
-class LivingWorldManager
-{
-public:
-    Rva003FAE68Base *CreateSound(const AsciiString &name);
-private:
-    char m_unrecovered[0x204];
-    Rva00056F61 m_sounds;
-};
+#include "../../../Include/GameLogic/LivingWorldManager.h"
 
 Rva003FAE68Base *LivingWorldManager::CreateSound(const AsciiString &name)
 {
