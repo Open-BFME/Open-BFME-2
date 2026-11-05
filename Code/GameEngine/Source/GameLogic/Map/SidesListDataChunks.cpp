@@ -1087,97 +1087,18 @@ void SidesList::rva0032E474(SidesInfo *side, ScriptList *scripts, TeamsInfoRec *
 
 // Identity and layout: WB 0x00A86AD0 names addMusicScriptReference
 // (SidesList.cpp:1851). Native 0x0032FD8E..0x0032FEF5 selects the neutral
-// side, reads the music map at +0x18 of AudioManager slot 77's result,
+// side, reads the music map at +0x18 of AudioManager::getAudioSettings (slot 77),
 // and links that map using a 12-byte cache, 28-byte team record and 76-byte
-// ScriptList. The slot's original method/type names remain unknown; the
-// uncalled virtual declarations below state only its native table position.
+// ScriptList.
 // TheAudio's storage identity is already owned at VA 0x00DFE6E8.
 class Rva00329EE9 { public: bool rva00329EE9() const; };
-struct RvaMusicSettings { char m_pad[0x18]; AsciiString m_musicMap; };
+// The settings record getAudioSettings (slot 77) returns; only the music map
+// this method reads is known.
+struct AudioSettings { char m_pad[0x18]; AsciiString m_musicMap; };
 typedef char MusicTeamsSize[(sizeof(TeamsInfoRec) == 0x1C) ? 1 : -1];
 typedef char MusicCacheSize[(sizeof(LibraryMapCache) == 0x0C) ? 1 : -1];
 typedef char MusicScriptSize[(sizeof(ScriptList) == 0x4C) ? 1 : -1];
-class AudioManager {
-public:
-    virtual void unknownSlot0();
-    virtual void unknownSlot1();
-    virtual void unknownSlot2();
-    virtual void unknownSlot3();
-    virtual void unknownSlot4();
-    virtual void unknownSlot5();
-    virtual void unknownSlot6();
-    virtual void unknownSlot7();
-    virtual void unknownSlot8();
-    virtual void unknownSlot9();
-    virtual void unknownSlot10();
-    virtual void unknownSlot11();
-    virtual void unknownSlot12();
-    virtual void unknownSlot13();
-    virtual void unknownSlot14();
-    virtual void unknownSlot15();
-    virtual void unknownSlot16();
-    virtual void unknownSlot17();
-    virtual void unknownSlot18();
-    virtual void unknownSlot19();
-    virtual void unknownSlot20();
-    virtual void unknownSlot21();
-    virtual void unknownSlot22();
-    virtual void unknownSlot23();
-    virtual void unknownSlot24();
-    virtual void unknownSlot25();
-    virtual void unknownSlot26();
-    virtual void unknownSlot27();
-    virtual void unknownSlot28();
-    virtual void unknownSlot29();
-    virtual void unknownSlot30();
-    virtual void unknownSlot31();
-    virtual void unknownSlot32();
-    virtual void unknownSlot33();
-    virtual void unknownSlot34();
-    virtual void unknownSlot35();
-    virtual void unknownSlot36();
-    virtual void unknownSlot37();
-    virtual void unknownSlot38();
-    virtual void unknownSlot39();
-    virtual void unknownSlot40();
-    virtual void unknownSlot41();
-    virtual void unknownSlot42();
-    virtual void unknownSlot43();
-    virtual void unknownSlot44();
-    virtual void unknownSlot45();
-    virtual void unknownSlot46();
-    virtual void unknownSlot47();
-    virtual void unknownSlot48();
-    virtual void unknownSlot49();
-    virtual void unknownSlot50();
-    virtual void unknownSlot51();
-    virtual void unknownSlot52();
-    virtual void unknownSlot53();
-    virtual void unknownSlot54();
-    virtual void unknownSlot55();
-    virtual void unknownSlot56();
-    virtual void unknownSlot57();
-    virtual void unknownSlot58();
-    virtual void unknownSlot59();
-    virtual void unknownSlot60();
-    virtual void unknownSlot61();
-    virtual void unknownSlot62();
-    virtual void unknownSlot63();
-    virtual void unknownSlot64();
-    virtual void unknownSlot65();
-    virtual void unknownSlot66();
-    virtual void unknownSlot67();
-    virtual void unknownSlot68();
-    virtual void unknownSlot69();
-    virtual void unknownSlot70();
-    virtual void unknownSlot71();
-    virtual void unknownSlot72();
-    virtual void unknownSlot73();
-    virtual void unknownSlot74();
-    virtual void unknownSlot75();
-    virtual void unknownSlot76();
-    virtual const RvaMusicSettings *rvaSlot77();
-};
+#include "../../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
 
 // Native 0x0032FD8E..0x0032FEF5; WB 0x00A86AD0 names this method.
@@ -1196,7 +1117,7 @@ void SidesList::addMusicScriptReference()
     }
     if (neutral == -1) return;
     AsciiString name;
-    if (TheAudio) name = TheAudio->rvaSlot77()->m_musicMap;
+    if (TheAudio) name = TheAudio->getAudioSettings()->m_musicMap;
     if (name.isEmpty()) return;
     LibraryMapCache cache;
     AsciiStringNoCaseSet visited;
