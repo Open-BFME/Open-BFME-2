@@ -61,12 +61,7 @@ class Snapshot;
 
 #include "../../../Include/Common/XferVersion.h"
 
-class Locomotor : public Snapshot
-{
-public:
-	virtual ~Locomotor();
-	AsciiString getTemplateName() const;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 class LocomotorTemplate;
 class ModuleData;
@@ -117,7 +112,7 @@ void LocomotorSet::DoXfer(Xfer *xfer)
 	Xfer::Version version(1, 2);
 	*xfer == version;
 
-	Locomotor **vectorState = reinterpret_cast<Locomotor **>(&m_locomotors);
+	Locomotor ***vectorState = reinterpret_cast<Locomotor ***>(&m_locomotors);
 	UnsignedShort count = static_cast<UnsignedShort>(vectorState[1] - vectorState[0]);
 	*xfer == count;
 

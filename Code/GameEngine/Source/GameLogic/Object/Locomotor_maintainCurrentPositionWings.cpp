@@ -33,26 +33,20 @@ public:
 };
 struct WingsObjectView { char gap[0x38]; Coord3D position; float angle; float getOrientation() const { return angle; } const Coord3D *getPosition() const { return &position; } };
 struct WingsTemplateView { char gap[0x64]; float radius; };
-class Locomotor {
-protected:
- void maintainCurrentPositionWings(Object *);
-public:
- void *unknown0; WingsTemplateView *parameters; Coord3D maintainPos;
- char unknown14[0x44-0x14]; unsigned flags;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
 void Locomotor::maintainCurrentPositionWings(Object *obj) {
  if(((Thing *)obj)->isAboveTerrain()) {
-  flags|=0x10;
-  float radius=parameters->radius;
+  m_flags|=0x10;
+  float radius=((const WingsTemplateView *)m_template)->radius;
   if(radius==0.0f) radius=((Rva001E4073 *)this)->rva001E4073(obj,0);
   WingsObjectView *object=(WingsObjectView *)obj;
-  float dx=maintainPos.x-object->getPosition()->x;
-  float dy=maintainPos.y-object->getPosition()->y;
+  float dx=m_maintainPos.x-object->getPosition()->x;
+  float dy=m_maintainPos.y-object->getPosition()->y;
   float angle=((unsigned char)Rva001E3896Check(dx) && (unsigned char)Rva001E3896Check(dy)) ? object->getOrientation() : atan2(dy,dx);
   float aimDir=(3.14159265358979323846f-3.14159265358979323846f/8);
   if(radius<0) { radius=-radius;aimDir=-aimDir; }
   angle+=aimDir;
-  Coord3D desired; desired.x=maintainPos.x; desired.y=maintainPos.y; desired.z=maintainPos.z;
+  Coord3D desired; desired.x=m_maintainPos.x; desired.y=m_maintainPos.y; desired.z=m_maintainPos.z;
   desired.x+=Cos(angle)*radius;
   desired.y+=Sin(angle)*radius;
   ((Rva001E7C2B *)this)->rva001e7c2b((unsigned)obj,(unsigned)&desired,0,((Rva001E3F08 *)this)->rva001E3F08((Rva001E3F08Arg *)obj));

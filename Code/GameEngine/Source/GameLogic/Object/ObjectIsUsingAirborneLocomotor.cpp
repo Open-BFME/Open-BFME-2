@@ -7,21 +7,10 @@
 
 #include "../../../Include/GameLogic/LocomotorTemplate.h"
 
-class Locomotor
-{
-public:
-	// Rva0028B81EGetSurfaces: NOT the real Locomotor::getLegalSurfaces (kept
-	// copy in AIUpdate.cpp tests m_template==null and calls
-	// Overridable::getFinalOverride). Retail 0x0028B81E inlines only the
-	// direct m_template->m_surfaces load, so this TU uses an honest
-	// address-named accessor to avoid emitting a differing
-	// ?getLegalSurfaces@Locomotor@@QBEHXZ COMDAT.
-	int rva0028B81EGetSurfaces() const { return m_template->m_surfaces; }
-
-private:
-	unsigned char m_pad[4];
-	const LocomotorTemplate *m_template; // +0x04
-};
+// Retail 0x0028B81E inlines only the direct m_template->m_surfaces load,
+// not the real Locomotor::getLegalSurfaces (AIUpdate.cpp's kept copy tests
+// m_template==null and calls Overridable::getFinalOverride).
+#include "../../../Include/GameLogic/LocomotorClass.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -29,5 +18,5 @@ private:
 
 bool Object::isUsingAirborneLocomotor() const
 {
-	return (m_ai && m_ai->getCurLocomotor() && ((m_ai->getCurLocomotor()->rva0028B81EGetSurfaces() & (1 << 3)) != 0));
+	return (m_ai && m_ai->getCurLocomotor() && ((m_ai->getCurLocomotor()->m_template->m_surfaces & (1 << 3)) != 0));
 }

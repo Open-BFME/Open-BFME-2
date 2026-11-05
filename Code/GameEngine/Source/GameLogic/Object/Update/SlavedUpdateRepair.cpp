@@ -509,22 +509,7 @@ enum LocomotorSetType
 {
 	LOCOMOTORSET_NORMAL = 0
 };
-class Locomotor
-{
- friend class SlavedUpdate;
-public:
-	enum LocoFlag
-	{
-		PRECISE_Z_POS = 3,
-		ULTRA_ACCURATE = 6
-	};
-	__declspec(dllimport) __forceinline void setUsePreciseZPos(bool u) { setFlag(PRECISE_Z_POS, u); }
-	__declspec(dllimport) __forceinline void setUltraAccurate(bool u) { setFlag(ULTRA_ACCURATE, u); }
-private:
-	inline void setFlag(LocoFlag f, bool b) { if (b) m_flags |= (1 << f); else m_flags &= ~(1 << f); }
-	unsigned char m_pad[0x44];
-	unsigned int m_flags; // +0x44
-};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
 enum AICommandType
 {
 	AICMD_MOVE_TO_POSITION = 0
@@ -939,7 +924,7 @@ void SlavedUpdate::doRepairLogic()
 		Locomotor *locomotor = ai->getCurLocomotor();
 		if (locomotor)
 		{
-			locomotor->setFlag(Locomotor::PRECISE_Z_POS, closeEnoughForZPrecision);
+			locomotor->setUsePreciseZPos(closeEnoughForZPrecision);
 		}
 		Coord3D pos;
 		pos.set(master->getPosition());

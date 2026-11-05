@@ -23,7 +23,8 @@ class Gen_000E5A50 { public: float Get3DCenterDistanceSquared(const BfmeVec3EJ*)
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object { public: char pad[4];ThingTemplate *templ; char pad8[0x38-8];Coord3D position; const Coord3D*getPosition()const{return &position;} };
 class LocomotorTemplate {public:char pad[0x74];int type;};
-class Locomotor {public: char pad[4];LocomotorTemplate*templ;char pad8[0x44-8];unsigned int flags;bool isCloseEnoughDist3D()const{return (flags>>10)&1;} };
+#include "../../../../Include/GameLogic/LocomotorClass.h"
+static inline bool isCloseEnoughDist3D(const Locomotor *loco){return (loco->m_flags>>10)&1;}
 #include "../../../../Include/GameLogic/PathNode.h"
 struct Rva003642DFNode;
 struct Rva003642DFResult { Rva003642DFResult();Rva003642DFNode*node;Coord3D position; };
@@ -55,13 +56,13 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
  case 1:{
   if(!path)return 100.0f;
   if(!loco)break;
-  if(loco->isCloseEnoughDist3D()||(owner->templ->m_kindof[0] & 0x2000000U)){
+  if(isCloseEnoughDist3D(loco)||(owner->templ->m_kindof[0] & 0x2000000U)){
    const Object *obj=owner;PathNode *last=path->m_pathTail;const Coord3D *p=machine->locomotorGoalPosition();
    goalPos.x=p->x;goalPos.y=p->y;goalPos.z=p->z;
    if(last)goalPos=last->m_pos;
    return (float)sqrt(((const Gen_000E5A50*)obj)->Get3DCenterDistanceSquared((const BfmeVec3EJ*)&goalPos));
   } else {
-  if(loco->templ->type==5)break;
+  if(loco->m_template->type==5)break;
   bool aircraft=getTreatAsAircraftForLocoDistToGoal();float dist;
   Path *current=path;
   if(aircraft){const Coord3D *pos=(owner ? owner : owner)->getPosition();dist=current->computeFlightDistToGoal(pos,goalPos);}
