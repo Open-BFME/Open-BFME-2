@@ -32,22 +32,18 @@ typedef int NameKeyTypeHack;
 class Rva003427DD { public: Rva003427DD &operator=(const Rva003427DD &src); private: char m_data[0x7C]; };
 #include "../../../Include/GameLogic/AICommandParms.h"
 
-class AICommandInterface {
-public:
-	virtual void aiDoCommand(const AICommandParms *parms) = 0;
-	void aiAttackPositionInlined(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource);	// retail inlines aiAttackPosition here; a unit-local name keeps a second copy of it out of the link
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
-// ?aiAttackPositionInlined@AICommandInterface@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z absent-from-retail
-__forceinline void AICommandInterface::aiAttackPositionInlined(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
+// Retail inlines aiAttackPosition here. Keep the expansion local so the
+// out-of-line AICommandInterface::aiAttackPosition retains its sole provider.
+// ?aiAttackPositionInlined absent-from-retail
+static __forceinline void aiAttackPositionInlined(AICommandInterface *ai, const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
 {
 	AICommandParms parms(AICMD_ATTACK_POSITION, cmdSource);
 	parms.m_pos = *pos;
 	parms.m_intValue = maxShotsToFire;
-	aiDoCommand(&parms);
+	ai->aiDoCommand(&parms);
 }
-
-class AIUpdateInterface : public AICommandInterface {};
 
 #include "../../../Include/GameClient/RadiusDecalTemplate.h"
 
@@ -100,8 +96,8 @@ Object *AttackNugget::create(const Object *primaryObj, const Coord3D *primary, c
 		if (container) {
 			primaryObject->setWeaponLock(m_slot, LOCKED_TEMPORARILY);
 			Int shots = m_shots;
-			AIUpdateInterface *ai = (AIUpdateInterface*)(container + 0x20);
-			ai->aiAttackPositionInlined(secondary, shots, CMD_FROM_AI);
+			AICommandInterface *ai = (AICommandInterface*)(container + 0x20);
+			aiAttackPositionInlined(ai, secondary, shots, CMD_FROM_AI);
 		}
 		static NameKeyType key_RadiusDecalUpdate = TheNameKeyGenerator->nameToKey("RadiusDecalUpdate");
 		RadiusDecalUpdate *radiusDecalUpdate = (RadiusDecalUpdate*)ObjectHack::find(primaryObject, key_RadiusDecalUpdate);
