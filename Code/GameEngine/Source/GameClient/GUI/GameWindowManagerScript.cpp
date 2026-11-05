@@ -1174,32 +1174,6 @@ static Bool parseStyle( char *token, WinInstanceData *instData,
 
   // end parseDrawCallback
 
-// parseHeaderTemplate ==========================================================
-/** Parse the Draw method callback for a window */
-//=============================================================================
-static Bool parseHeaderTemplate( char *token, WinInstanceData *instData,
-															 char *buffer, void *data )
-{
-	char *c, *ptr;
-//	char *seps = " ,\n\r\t";
-	char *stringSeps = "\"";
-
-	// scan to the first " mark
-	ptr = buffer;
-	while( *ptr != '"' )
-		ptr++;
-	ptr++;  // skip the first "
-	c = strtok( ptr, stringSeps );  // name value
-
-	// save a pointer of the function address
-	DEBUG_ASSERTCRASH( TheNameKeyGenerator && TheFunctionLexicon, ("Invalid singletons") );
-	
-	instData->m_headerTemplateName = c;
-	
-	return TRUE;
-
-}
-
 // parseComboBoxData ===========================================================
 /** Parse Combo Box data entry */
 //=============================================================================
@@ -1301,38 +1275,6 @@ static Bool parseTooltipDelay( char *token, WinInstanceData *instData,
 
   // end parseTooltipDelay
 
-
-// parseText ==================================================================
-/** Parse the TEXT field */
-//=============================================================================
-static Bool parseText( char *token, WinInstanceData *instData, 
-											 char *buffer, void *data )
-{
-	char *ptr = buffer;
-	char *c;
-	char *stringSeps = "\n\r\t\""; 
-
-	// scan to the first " mark
-	while( *ptr != '"' )
-		ptr++;
-	ptr++;  // skip the "
-	c = strtok( ptr, stringSeps );  // value
-	if( strlen( c ) >= MAX_TEXT_LABEL )
-	{
-		
-		DEBUG_LOG(( "Text label '%s' is too long, max is '%d'\n", c, MAX_TEXT_LABEL ));
-		assert( 0 );
-		return FALSE;
-
-	}  // end if
-	instData->m_textLabelString = c;
-	
-
-  return TRUE;
-
-}
-
-  // end parseText
 
 // parseTextColor =============================================================
 /** Parse text color entries for enabled, disabled, and hilite with

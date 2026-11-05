@@ -34,7 +34,7 @@ public:
 
 
 // ?parseHeaderTemplate@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	char *c, *ptr;
 	char *stringSeps = "\"";

@@ -48,7 +48,7 @@ public:
 };
 
 // ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseText(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseText(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	char *ptr = buffer;
 	char *c;
