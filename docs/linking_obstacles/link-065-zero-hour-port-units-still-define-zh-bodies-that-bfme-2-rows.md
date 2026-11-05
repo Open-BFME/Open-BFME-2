@@ -76,6 +76,7 @@
   Hatch-register tightening is blocked by two pre-existing WWLib vector alias
   keys; no aliases are admitted and no registered debt retirement is claimed.
   The retained static parser/table and private declarations remain prerequisites.
+- **MaterialPass seed cleanup (2026-11-05):** removed three unrowed pointer-signature accessors and their exemptions; 3/3 rows and all retained COMDATs unchanged, ordinary preview LINKS 72 -> 72 B. [Provider/consumer evidence and remaining merge prerequisites](../../reverse/attempt_support/matpass-port-cleanup-20261105-codex5.md).
 - **Remaining / next check:** other ZH-port units (header comment "Ported verbatim from the
   Generals Zero Hour reference") whose U blockers are ZH-only callees: list each defined body,
   check whether its BFME 2 counterpart is rowed under another name or absent, and drop the ZH copy

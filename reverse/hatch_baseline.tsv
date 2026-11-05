@@ -13383,9 +13383,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	Get_Vertex_Mat
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	MaterialCollectorClass::Find_Shader	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	Process_Texture_Reduction@MaterialInfoClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp	Set_Texture_Reduction_Factor@MaterialInfoClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp	Get_Texture@MaterialPassClass@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp	MaterialPassClass::Get_Material	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp	Set_Texture@MaterialPassClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Cast_AABox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Cast_OBBox	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp	MeshClass::Contains	1

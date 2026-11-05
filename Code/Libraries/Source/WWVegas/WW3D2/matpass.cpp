@@ -131,30 +131,6 @@ TextureClass *bfmeAnchorMatpassPeekTexture(const MaterialPassClass *pass)
 	return pass->Peek_Texture(0);
 }
 
-
-/***********************************************************************************************
- * MaterialPassClass::Set_Texture -- Set texture to use                                        *
- *                                                                                             *
- * INPUT:                                                                                      *
- * tex - pointer to the texture for this material pass (or NULL)                               *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/9/99    gth : Created.                                                                 *
- *=============================================================================================*/
-// ?Set_Texture@MaterialPassClass@@ present-unmatched
-void MaterialPassClass::Set_Texture(TextureClass * tex,int stage)
-{
-	WWASSERT(stage >= 0);
-	WWASSERT(stage < MAX_TEX_STAGES);
-
-	REF_PTR_SET(Texture[stage],tex);
-}
-
-
 /***********************************************************************************************
  * MaterialPassClass::Set_Shader -- Set the shader to use                                      *
  *                                                                                             *
@@ -191,53 +167,4 @@ void MaterialPassClass::Set_Shader(ShaderClass shader)
 void MaterialPassClass::Set_Material(VertexMaterialClass * mat)
 {
 	REF_PTR_SET(Material,mat);
-}
-
-
-/***********************************************************************************************
- * MaterialPassClass::Get_Texture -- Get a pointer to the texture                              *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- * reference counted pointer to the texture this material pass is using                        *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/9/99    gth : Created.                                                                 *
- *=============================================================================================*/
-// ?Get_Texture@MaterialPassClass@@ present-unmatched
-TextureClass * MaterialPassClass::Get_Texture(int stage) const
-{
-	WWASSERT(stage >= 0);
-	WWASSERT(stage < MAX_TEX_STAGES);
-	
-	if (Texture[stage]) {
-		Texture[stage]->Add_Ref();
-	}
-	return Texture[stage];
-}
-
-
-/***********************************************************************************************
- * MaterialPassClass::Get_Material -- get the vertex material                                  *
- *                                                                                             *
- * INPUT:                                                                                      *
- *                                                                                             *
- * OUTPUT:                                                                                     *
- * reference counted pointer to the vertex material being used by this material pass           *
- *                                                                                             *
- * WARNINGS:                                                                                   *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   12/9/99    gth : Created.                                                                 *
- *=============================================================================================*/
-// ?MaterialPassClass::Get_Material present-unmatched
-VertexMaterialClass * MaterialPassClass::Get_Material(void) const
-{
-	if (Material) {
-		Material->Add_Ref();
-	}
-	return Material;
 }
