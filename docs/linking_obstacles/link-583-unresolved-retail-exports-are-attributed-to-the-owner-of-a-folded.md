@@ -30,6 +30,7 @@ definition (or an ICF row with `fold-proof=`) belongs. Confirm against the next 
 six FXParticleSystem names should drop out, and the four left need class-side providers.
 
 Progress 2026-11-05: `??0RGBColor@@QAE@XZ` is defined in WWMath/color.cpp (opt-in `RGBCOLOR_VIEW_DEFAULT_CTOR`, ICF row at 0x0047A6A9); `??0IntRange`, `??0LineSegment2D` and `??1LineSegment2D` still wait on region.cpp.
+2026-11-05: supplied the seventh callback, `GpuDrawModuleInfo::LoadPostProcess`, as a verified empty C++ fold in `FXParticleSystem.cpp`; its named object definition is `c3` without relocations and the TU previews LINKS (5,650 B). The three constructor exports remain; confirm this callback's disappearance in the next real link. [Evidence](../../reverse/attempt_support/gpudraw-postload-export-20261105.md).
 
 Census confirmation: not claimed.
 
