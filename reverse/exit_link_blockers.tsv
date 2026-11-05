@@ -1,20 +1,8 @@
-# real link at 73d6c7ccb604e10aa15cfc05b1b6cd6f2b0ec01c: tools/exit_link.py --blockers
+# real link at 6b74b10f48df9601f8283432205dce41f34d608a: tools/exit_link.py --blockers
 source	missing	sample
-Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp	3	?crc@DamageModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildComplete@LockWeaponCreate@@UAEXXZ
+Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp	2	?crc@DamageModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	1	?freeBytes@AsciiString@@AAEXXZ
-Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
 Code/GameEngine/Source/GameClient/GameClient.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngine/Source/GameClient/InGameUI.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngine/Source/GameClient/InGameUISelectDrawable.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngine/Source/GameClient/InGameUIXfer.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
-Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorUpdate.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
-Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp	1	?GetSnapshotName@DrawableModule@@MBEPBDXZ
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualAddFactionBibDrawable.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
-Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	1	?getID@Drawable@@QBE?AW4DrawableID@@XZ
