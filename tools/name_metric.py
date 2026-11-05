@@ -18,7 +18,11 @@ ROOT = Path(__file__).resolve().parents[1]
 GENERATED = ("Code/gen_asm/", "Code/gen_small/")
 NONCODE = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)
 WORD = re.compile(r"\b[A-Za-z_]\w*\b")
-DECL = re.compile(r"^[ \t]*(?:class|struct)[ \t]+([A-Za-z_]\w*)\b[^;{()]*\{", re.M)
+# A named union is a type with data members, like a class or a struct. It was
+# left out, so its tag and its fields were counted nowhere - and while `union`
+# was also missing from members()' old skip list, that only counted the tag, in
+# the wrong category, and never the fields.
+DECL = re.compile(r"^[ \t]*(?:class|struct|union)[ \t]+([A-Za-z_]\w*)\b[^;{()]*\{", re.M)
 ENUM = re.compile(r"^[ \t]*enum[ \t]+([A-Za-z_]\w*)\b[^;{()]*\{", re.M)
 BRACE = re.compile(r"[{}]")
 # A directive runs over its backslash-newline continuations; in a CRLF file the backslash is followed

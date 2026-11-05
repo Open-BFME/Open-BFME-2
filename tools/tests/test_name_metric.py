@@ -81,6 +81,29 @@ def test_an_elaborated_keyword_without_a_declarator_declares_no_member(body, why
     assert "real" in got
 
 
+def test_a_named_union_is_a_type_and_its_fields_are_members():
+    """A named union declares a type and data members, like a class or struct.
+
+    DECL matched only class and struct, so `union Tangent { ... } m_inTangent;`
+    contributed neither the tag nor the fields. `union` was also missing from
+    members()' old skip list, which counted the tag as a data member - the one
+    reading that was wrong in both directions at once.
+    """
+    source = '''
+class Curve {
+    union Tangent
+    {
+        float value;
+        int bits;
+    } m_inTangent, m_outTangent;
+};
+'''
+    got = names.declared("Code/Curve.cpp", source)
+    assert ("type", "Tangent") in got
+    assert ("member", "value") in got and ("member", "bits") in got
+    assert ("member", "m_inTangent") in got and ("member", "m_outTangent") in got
+
+
 def test_a_base_clause_is_not_read_as_a_member():
     source = "struct Derived : public Base {\n    int real;\n};\n"
     assert [n for kind, n in names.declared("Code/Derived.cpp", source) if kind == "member"] == ["real"]
