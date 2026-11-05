@@ -40,6 +40,8 @@ void __cdecl operator delete[](void *) throw();
 #include "rendobj.h"
 #include <string.h>
 #pragma intrinsic(memset)
+#undef W3DMPO_GLUE
+#define W3DMPO_GLUE(ARGCLASS)
 
 ///////////////////////////////////////////////////////////////////////////////////
 //
@@ -153,6 +155,8 @@ struct AggregateSubobjectListView {
     int Count() const { return ActiveCount; }
     W3dAggregateSubobjectStruct *&operator[](int index) { return Vector[index]; }
 };
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp
 
@@ -1027,10 +1031,6 @@ bool AggregateDefClass::Save_Header(ChunkSaveClass &chunk_save)
 	return ret_val;
 }
 
-// tu-skeleton: 0x001A3720 178B ?Resize@?$VectorClass@PAVFontCharsBuffer@@@@UAE_NHPBQAVFontCharsBuffer@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp (not merged yet)
-
-// tu-skeleton: 0x001A3930 40B ?rva001A3930@AggregateDefClass@@QBEHXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/AggregateDefRva001A3930.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/AggregateDefSaveInfo.cpp
 
 bool AggregateDefClass::Save_Info(ChunkSaveClass &chunk_save)
@@ -1048,6 +1048,23 @@ bool AggregateDefClass::Save_Info(ChunkSaveClass &chunk_save)
         chunk_save.End_Chunk();
     }
     return ret_val;
+}
+
+// tu-skeleton: 0x001A3720 178B ?Resize@?$VectorClass@PAVFontCharsBuffer@@@@UAE_NHPBQAVFontCharsBuffer@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassConstructorBFME.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/AggregateDefRva001A3930.cpp
+
+// Retail 0x001A3930, 40 bytes. The method identity remains unknown.
+// Use the aggregate TU layout: name at +0x58, list count at +0x18.
+
+int AggregateDefClass::rva001A3930() const
+{
+	int size = 0x5C;
+	if (m_pName) {
+		size += ::strlen(m_pName) + 1;
+	}
+	size += m_SubobjectList.Count() * sizeof(W3dAggregateSubobjectStruct);
+	return size;
 }
 
 // tu-skeleton: 0x001A3A60 77B ?Add@?$DynamicVectorClass@PAVFontCharsBuffer@@@@QAE_NABQAVFontCharsBuffer@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp (not merged yet)
