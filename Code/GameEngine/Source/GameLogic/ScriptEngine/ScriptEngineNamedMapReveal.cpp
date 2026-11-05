@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ScriptEngine::doNamedMapReveal (0x003577DA, 195B) and undoNamedMapReveal
 // (0x0035789D, 195B). Zero Hour's pair (BFME 1 donor
@@ -79,7 +80,7 @@ public:
 class PartitionManager;
 extern PartitionManager *TheShroudManager;
 
-struct NamedReveal
+struct BfmeStringRecord00204A30
 {
 	unsigned long m_nameCRC;	// +0x00
 	AsciiString m_name;			// +0x04 waypoint or trigger area
@@ -88,25 +89,13 @@ struct NamedReveal
 	int m_kind;					// +0x10
 };
 
-class ScriptEngine
-{
-public:
-	void doNamedMapReveal(const AsciiString &revealName);
-	void undoNamedMapReveal(const AsciiString &revealName);
-	int rva00357475(const AsciiString &name, Bool *matchedSpecialName);
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-private:
-	char m_pad[0x1A49C];
-	NamedReveal *m_namedRevealsBegin;	// +0x1A49C
-	NamedReveal *m_namedRevealsEnd;		// +0x1A4A0
-};
-extern ScriptEngine *TheScriptEngine;
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::doNamedMapReveal(const AsciiString &revealName)
 {
 	unsigned long crc = Rva003ECA13Get(revealName);
-	NamedReveal *it = m_namedRevealsBegin;
-	NamedReveal *end = m_namedRevealsEnd;
+	std::vector<BfmeStringRecord00204A30>::iterator it = m_namedReveals.begin();
+	std::vector<BfmeStringRecord00204A30>::iterator end = m_namedReveals.end();
 	for (; it != end; ++it)
 	{
 		if (it->m_nameCRC == crc)
@@ -141,8 +130,8 @@ void ScriptEngine::doNamedMapReveal(const AsciiString &revealName)
 void ScriptEngine::undoNamedMapReveal(const AsciiString &revealName)
 {
 	unsigned long crc = Rva003ECA13Get(revealName);
-	NamedReveal *it = m_namedRevealsBegin;
-	NamedReveal *end = m_namedRevealsEnd;
+	std::vector<BfmeStringRecord00204A30>::iterator it = m_namedReveals.begin();
+	std::vector<BfmeStringRecord00204A30>::iterator end = m_namedReveals.end();
 	for (; it != end; ++it)
 	{
 		if (it->m_nameCRC == crc)

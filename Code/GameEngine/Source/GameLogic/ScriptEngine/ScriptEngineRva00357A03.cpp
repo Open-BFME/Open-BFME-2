@@ -1,4 +1,5 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?rva00357A03@ScriptEngine@@QAEXHW4ScienceType@@@Z, retail 0x00357A03, 51 bytes.
 // Removes one ScienceType from ScriptEngine per-player vector at +0x1A3A8[index].
@@ -11,37 +12,13 @@ enum ScienceType
     SCIENCE_INVALID = -1
 };
 
-namespace _STL
-{
-template <class T> class allocator
-{
-};
-
-template <class T, class A = allocator<T> > class vector
-{
-public:
-    T *erase(T *pos);
-
-    T *m_start;
-    T *m_finish;
-    T *m_end;
-};
-}
-
-class ScriptEngine
-{
-public:
-    void rva00357A03(int playerIndex, ScienceType science);
-private:
-    char m_pad[0x1A3A8];
-    _STL::vector<ScienceType> m_playerVectors[20];
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva00357A03(int playerIndex, ScienceType science)
 {
-    _STL::vector<ScienceType> *vec = &m_playerVectors[playerIndex];
-    ScienceType *end = vec->m_finish;
-    for (ScienceType *it = vec->m_start; it != end; ++it) {
+    std::vector<ScienceType> *vec = &m_acquiredSciences[playerIndex];
+    std::vector<ScienceType>::iterator end = vec->end();
+    for (std::vector<ScienceType>::iterator it = vec->begin(); it != end; ++it) {
         if (*it == science) {
             vec->erase(it);
             break;

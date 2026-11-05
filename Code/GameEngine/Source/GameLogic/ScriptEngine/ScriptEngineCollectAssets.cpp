@@ -1,19 +1,11 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // BF1 f989 Rva0033CA50CollectScriptAssets supplies traversal; native205358
 // supplies BFME2 side count3C, embedded pool8, receiver chains10/14.
 class AssetList;
 struct AssetLoadMode;
 #include "../../../Include/GameLogic/ScriptClass.h"
-struct Rva00205358Chain;
-class ScriptEngine
-{
-public:
-    void rva00205358(AssetList *assets, AssetLoadMode *mode);
-private:
-    char beforeChains[0x10];
-    Rva00205358Chain **chainsBegin;
-    Rva00205358Chain **chainsEnd;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Rva00205358PooledScript
 {
@@ -60,12 +52,13 @@ private:
     char sides[0x60];
 };
 extern SidesList *TheSidesList;
-struct Rva00205358Chain
+class SequentialScript
 {
+public:
     char beforeScript[0x14];
     Script *script;
     char beforeNext[0x10];
-    Rva00205358Chain *next;
+    SequentialScript *next;
 };
 // Target205358 proves the pool and chain offsets; BF1 supplies traversal.
 void ScriptEngine::rva00205358(AssetList *assets, AssetLoadMode *mode)
@@ -82,8 +75,8 @@ void ScriptEngine::rva00205358(AssetList *assets, AssetLoadMode *mode)
                 script->rva003B3836(assets, mode);
         }
     }
-    for (Rva00205358Chain **it = chainsBegin; it != chainsEnd; ++it)
-        for (Rva00205358Chain *chain = *it; chain; chain = chain->next)
+    for (VecSequentialScriptPtrIt it = m_sequentialScripts.begin(); it != m_sequentialScripts.end(); ++it)
+        for (SequentialScript *chain = *it; chain; chain = chain->next)
             if (chain->script)
                 chain->script->rva003B3836(assets, mode);
 }

@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii
+// cl: /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ?didUnitExist@ScriptEngine@@QAE_NABVAsciiString@@@Z, retail 0x0035743F, 54 bytes.
 // Donor: BFME1 ScriptEngine::didUnitExist (reference/open-bfme-1/Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_didUnitExist.cpp).
@@ -10,26 +11,17 @@
 
 class Object;
 
-struct ScriptNamedEntry
+struct Rva0020A227Element
 {
     AsciiString m_name;
     Object *m_object;
 };
 
-class ScriptEngine
-{
-public:
-    bool didUnitExist(const AsciiString &name);
-private:
-    char m_pad[0x1A120];
-    ScriptNamedEntry *m_namedBegin;
-    ScriptNamedEntry *m_namedEnd;
-    ScriptNamedEntry *m_namedEndAlloc;
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 bool ScriptEngine::didUnitExist(const AsciiString &name)
 {
-    for (ScriptNamedEntry *it = m_namedBegin; it != m_namedEnd; ++it) {
+    for (std::vector<Rva0020A227Element>::iterator it = m_namedObjects.begin(); it != m_namedObjects.end(); ++it) {
         if (name.compare(it->m_name) == 0)
             return it->m_object == 0;
     }

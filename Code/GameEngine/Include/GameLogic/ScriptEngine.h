@@ -37,8 +37,8 @@
 // Vector members are typed only under STLport's <vector> (12 bytes); a unit
 // that reads the compiler's own <vector> keeps the same bytes opaque. List
 // members are typed where the unit read STLport's <list> first, as in Player.h.
-// The class ends at +0x1A4F8; retail's ctor also zeroes a double at +0x1A4F8
-// (Zero Hour's m_curUpdateTime) and GameEngine::init allocates 0x1A500.
+// The last member is Zero Hour's m_curUpdateTime, the double the ctor zeroes
+// at +0x1A4F8 (0x00208679), so the class ends at +0x1A500 as allocated.
 // Units whose private view names other fields stay queued in
 // reverse/header_queue.tsv.
 #ifndef CANONICAL_SCRIPTENGINE_H
@@ -342,7 +342,8 @@ private:
 	double m_numFrames;									// +0x1A4E0
 	double m_totalUpdateTime;							// +0x1A4E8
 	double m_maxUpdateTime;								// +0x1A4F0
-};													// ends at +0x1A4F8, see the header comment
+	double m_curUpdateTime;								// +0x1A4F8: ctor 0x00208679
+};													// sizeof 0x1A500: GameEngine::init push 0x0022F511
 
 extern ScriptEngine *TheScriptEngine;					// 0x009FE16C
 
