@@ -130,6 +130,7 @@ public:
 	virtual void f12();
 	virtual void f13();
 	virtual DisplayString *newDisplayString();
+	virtual void freeDisplayString(DisplayString *string);
 };
 extern DisplayStringManager *TheDisplayStringManager;
 static inline SubtitleDisplayFactoryView *theDisplayStringManagerView()
