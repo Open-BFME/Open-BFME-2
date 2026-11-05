@@ -22,6 +22,10 @@ public:
     virtual bool vslot15();
     virtual void *CreateChatWindow(int selector) = 0;
 
+    // The open messenger (VA 0x00E046B8, set by the ctor) and its opener 0x005116C2.
+    static AptMessenger *s_instance;
+    static void OpenScreen();
+
     void OnBttn_0(const char *argument);
     void OnBttn_1(const char *argument);
     void GetSelectedPlayers(int listIndex, int profiles, int names);

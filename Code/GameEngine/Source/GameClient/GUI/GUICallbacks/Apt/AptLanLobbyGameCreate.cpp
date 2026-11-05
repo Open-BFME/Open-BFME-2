@@ -60,13 +60,7 @@ public:
 // (110 bytes, no arguments, opens "Messenger.apt" when no messenger state
 // exists) is AptMessenger::OpenScreen; 0x00511730 is rowed.
 void Rva00444040Enable();
-class AptMessenger
-{
-public:
- static AptMessenger *s_instance;
-public:
-	static void OpenScreen();
-};
+#include "../../../../../Include/GameClient/AptMessenger.h"
 void __cdecl Rva00511730(int unused);
 
 struct Rva00511730State;

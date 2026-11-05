@@ -132,11 +132,7 @@ public:
 };
 // The screen's base class (destroyed by 0x005126F5); its message handler
 // 0x0051274F (136 bytes, vftable 0x00C659E8 slot 2) is unrowed and pinned.
-class _bfme_AptGameWindow
-{
-public:
-	int rva0051274F(int msg, unsigned int data1, unsigned int data2);
-};
+#include "../../../../../Include/GameClient/BfmeAptGameWindow.h"
 class Rva00580172
 {
 public:
