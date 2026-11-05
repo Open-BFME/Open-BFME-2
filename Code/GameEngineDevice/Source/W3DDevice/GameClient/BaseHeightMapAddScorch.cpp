@@ -4,23 +4,13 @@
 // Ring-buffer algorithm follows that donor; target array E0/stride1C and state
 // 3790/3794/3798 are independently proven by native67EA3..67FCD (298B).
 // Target identity: W3DGameClient::addScorch4C7A8 calls67EA3 on
-// TheTerrainRenderObject. User-defined Vector3 copy preserves float stores.
-// cl: /O1 /DNDEBUG /MD /Oi- /arch:SSE
+// TheTerrainRenderObject. WWMath Vector3's member copy preserves float stores.
+// cl: /O1 /DNDEBUG /MD /Oi- /arch:SSE /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // Target signature follows the REL32 call from W3DGameClient::addScorch.
 // The array and state offsets are independently established by target bytes.
 
 #include <math.h>
-
-class Vector3
-{
-public:
-	float x;
-	float y;
-	float z;
-    Vector3() {}
-    __forceinline Vector3(const Vector3 &v) : x(v.x), y(v.y), z(v.z) {}
-    __forceinline Vector3 &operator=(const Vector3 &v) { x=v.x; y=v.y; z=v.z; return *this; }
-};
+#include "vector3.h"
 
 enum Scorches
 {
@@ -37,47 +27,48 @@ struct ScorchEntry00067EA3
 	char pad[3];
 };
 
-class BaseHeightMapRenderObjClass
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
+
+// Use the canonical RefCountClass instead of the donor refcount.h.
+#define REFCOUNT_H
+
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
+// The header keeps the 500 scorch records at +0xE0 as raw storage.
+static __forceinline ScorchEntry00067EA3 *scorchEntries(BaseHeightMapRenderObjClass *self)
 {
-public:
-	void addScorch(Vector3 pos, float radius, Scorches type);
-private:
-	unsigned char m_pad[0xE0];
-	ScorchEntry00067EA3 m_entries[500];
-	int m_count;
-	int m_flag3794;
-	int m_head;
-};
+	return reinterpret_cast<ScorchEntry00067EA3 *>(self->unknown00E0);
+}
 
 void BaseHeightMapRenderObjClass::addScorch(Vector3 pos, float radius, Scorches type)
 {
 	float estimate = radius * 0.25f;
-	for (int i = 0; i < m_count; ++i)
+	for (int i = 0; i < m_numScorches; ++i)
 	{
-		ScorchEntry00067EA3 *entry = &m_entries[i];
-		if (!(fabs((double)(pos.x - entry->position.x)) < estimate))
+		ScorchEntry00067EA3 *entry = &scorchEntries(this)[i];
+		if (!(fabs((double)(pos.X - entry->position.X)) < estimate))
 			continue;
-		if (!(fabs((double)(pos.y - entry->position.y)) < estimate))
+		if (!(fabs((double)(pos.Y - entry->position.Y)) < estimate))
 			continue;
 		if (!(fabs((double)(radius - entry->radius)) < estimate))
 			continue;
 		if (entry->kind != type)
 			continue;
-		m_entries[i].active = 0;
+		scorchEntries(this)[i].active = 0;
 		return;
 	}
-	int slot = m_count;
+	int slot = m_numScorches;
 	if (slot >= 500)
 	{
-		slot = m_head;
+		slot = field3798;
 		int next = (slot + 1) % 500;
-		m_head = next;
-		--m_count;
+		field3798 = next;
+		--m_numScorches;
 	}
-	m_entries[slot].position = pos;
-	m_entries[slot].radius = radius;
-	m_entries[slot].kind = type;
-	m_entries[slot].active = 0;
-	++m_count;
-	m_flag3794 = 0;
+	scorchEntries(this)[slot].position = pos;
+	scorchEntries(this)[slot].radius = radius;
+	scorchEntries(this)[slot].kind = type;
+	scorchEntries(this)[slot].active = 0;
+	++m_numScorches;
+	m_scorchesInBuffer = 0;
 }

@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // ?rva00069CE6@BaseHeightMapRenderObjClass@@QAEXABVRva000E3A8D@@H@Z
 // retail 0x00069CE6..0x00069DB1 (203 bytes) thiscall ret 8; slot 91 of
 // the terrain render-object vtable at 0x007C5E5C (WB 0x0075DFD0 by vtable).
@@ -68,28 +68,20 @@ public:
 	unsigned char m_21;
 };
 
-class BaseHeightMapRenderObjClass
-{
-public:
-	void rva00069CE6(const Rva000E3A8D &list, int arg);
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
-private:
-	char m_pad0000[0x37C0];
-	void *m_map;	// +0x37C0
-	char m_pad37c4;
-	bool m_updating;	// +0x37C5
-	char m_pad37c6[0x37D4 - 0x37C6];
-	bool m_37d4;	// +0x37D4
-	char m_pad37d5[0x3850 - 0x37D5];
-	Rva000EDF23 *m_3850;
-	Rva000E9BAC *m_3854;
-	Rva000EF137 *m_3858;
-	char m_pad385c[0x3860 - 0x385C];
-	Rva000E585A *m_3860;
-	char m_pad3864[0x386C - 0x3864];
-	Rva000D4A7COneSetter *m_roadBuffer;	// +0x386C
-	W3DBridgeBuffer *m_bridgeBuffer;	// +0x3870
-};
+// Use the canonical RefCountClass instead of the donor refcount.h.
+#define REFCOUNT_H
+
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
+
+// The header types the receivers only by their buffer classes; this body
+// reaches them through the rowed placeholder spellings of their setters.
+template<class View, class Field>
+static __forceinline View *bufferView(Field *field)
+{
+	return reinterpret_cast<View *>(field);
+}
 
 void BaseHeightMapRenderObjClass::rva00069CE6(const Rva000E3A8D &list, int arg)
 {
@@ -99,24 +91,24 @@ void BaseHeightMapRenderObjClass::rva00069CE6(const Rva000E3A8D &list, int arg)
 		return;
 	if (m_updating)
 		return;
-	if (m_3850)
-		m_3850->rva000EDF23(list);
-	if (m_3854)
-		m_3854->rva000E9CFB(list);
-	if (m_3858)
-		m_3858->rva000EF137(list);
+	if (m_treeBuffer)
+		bufferView<Rva000EDF23>(m_treeBuffer)->rva000EDF23(list);
+	if (m_shrubBuffer)
+		bufferView<Rva000E9BAC>(m_shrubBuffer)->rva000E9CFB(list);
+	if (m_propBuffer)
+		bufferView<Rva000EF137>(m_propBuffer)->rva000EF137(list);
 	m_updating = true;
 	if (m_roadBuffer)
-		m_roadBuffer->enable();
-	if (m_37d4) {
+		bufferView<Rva000D4A7COneSetter>(m_roadBuffer)->enable();
+	if (m_disableTextures) {
 		if (m_bridgeBuffer)
 			m_bridgeBuffer->m_d7b5 = 1;
-		if (m_3860)
-			m_3860->m_21 = 1;
+		if (field3860)
+			bufferView<Rva000E585A>(field3860)->m_21 = 1;
 	}
 	if (m_bridgeBuffer)
 		m_bridgeBuffer->rva000DF745((int)&list, arg);
-	if (m_3860)
-		m_3860->rva000E585A((Rva000E488F *)&list);
+	if (field3860)
+		bufferView<Rva000E585A>(field3860)->rva000E585A((Rva000E488F *)&list);
 	m_updating = false;
 }
