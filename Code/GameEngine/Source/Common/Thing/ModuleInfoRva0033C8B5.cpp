@@ -61,7 +61,7 @@ bool ModuleInfo::clearAiModuleInfo()
 	_STL::vector<Nugget, _STL::allocator<Nugget> >::iterator it = m_info.begin();
 	while (it != m_info.end())
 	{
-		if (it->second->slot04())
+		if (it->second->isAiModuleData())
 		{
 			it = m_info.erase(it);
 			ret = true;

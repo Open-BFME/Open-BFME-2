@@ -165,17 +165,7 @@ private:
 	_STL::vector<const AsciiString *> m_names; // +0x1A4
 };
 
-class ModuleData
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20();
-	virtual const Rva003A135BHordeData *v21() const;
-};
+#include "../../../Include/Common/ModuleData.h"
 
 #include "../../../Include/Common/ModuleInfoClass.h"
 
@@ -817,7 +807,7 @@ Object *Team::tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHo
 		const ModuleData *md = mi.getNthData(i);
 		if (md == NULL)
 			continue;
-		const Rva003A135BHordeData *hd = md->v21();
+		const Rva003A135BHordeData *hd = (const Rva003A135BHordeData *)md->getHordeModuleData();
 		if (hd == NULL)
 			continue;
 		if (hd->getNameCount() > 1) {
@@ -1050,7 +1040,7 @@ int Team::rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam)
 				const ModuleData *md = mi.getNthData(j);
 				if (md == NULL)
 					continue;
-				const Rva003A135BHordeData *hd = md->v21();
+				const Rva003A135BHordeData *hd = (const Rva003A135BHordeData *)md->getHordeModuleData();
 				if (hd == NULL)
 					continue;
 				if ((count ? (hd->getNameCount()) : (hd->getNameCount())) > 1)

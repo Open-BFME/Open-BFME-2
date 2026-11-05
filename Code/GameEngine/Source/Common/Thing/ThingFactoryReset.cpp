@@ -43,22 +43,8 @@ public:
 };
 
 // Call-only view; no vtable or slot implementation is emitted here.
-class ModuleData
-{
-public:
-    virtual void slot00(); virtual void slot01();
-    virtual void slot02(); virtual void slot03();
-    virtual void slot04(); virtual void slot05();
-    virtual void slot06(); virtual void slot07();
-    virtual bool slot08() const; virtual void slot09();
-    virtual void slot10(); virtual void slot11();
-    virtual void slot12(); virtual void slot13();
-    virtual void slot14(); virtual void slot15();
-    virtual void slot16(); virtual void slot17();
-    virtual Rva000B4BED *slot18() const;
-    char m_pad004[0x86 - 4];
-    bool m_flag86;
-};
+#include "../../../Include/Common/ModuleData.h"
+#include "../../../Include/GameLogic/Module/OpenContainModuleData.h"
 
 struct ModuleInfoRecord { char m_opaque[20]; };
 #include "../../../Include/Common/ModuleInfoClass.h"
@@ -115,7 +101,7 @@ void ThingFactory::reset()
                 const ModuleData *data = thingTemplate->m_modules.getNthData(i);
                 if (data)
                 {
-                    Rva000B4BED *cache = data->slot18();
+                    Rva000B4BED *cache = (Rva000B4BED *)data->getAsW3DModelDrawModuleData();
                     if (cache)
                         cache->rva000B4AE4();
                 }
@@ -149,7 +135,7 @@ void ThingFactory::postProcessLoad()
         for (int i = 0; i < count; ++i)
         {
             const ModuleData *data = thingTemplate->m_behaviorModules.getNthData(i);
-            if (data && data->slot08() && !data->m_flag86)
+            if (data && data->slot08() && !((const OpenContainModuleData *)data)->m_slot86)
                 throw INIException(3,
                     "ENTRY MISSING: ObjectStatusOfContained entry required within ContainModule for %s.",
                     thingTemplate->m_name.str());

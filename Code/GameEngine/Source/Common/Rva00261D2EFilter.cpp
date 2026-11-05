@@ -21,7 +21,9 @@ public:
  char dataB4[0x108-0xB4];
  unsigned char kinds[0x14];
 };
-class ModuleData { public: char data00[0x2C]; Real radius; };
+#include "../../Include/Common/ModuleData.h"
+// What ThingTemplate::rva0033B3D7 selects keeps its range at +0x2C.
+class Rva0033B3D7Data { public: char data00[0x2C]; Real radius; };
 #include "RTS/XYDistanceCallView.h"
 #include "Region2D.h"
 class Rva000062FDRegion { public: bool rva000062FD(const Coord2D&,const Coord2D&) const; };
@@ -75,7 +77,7 @@ bool Rva00261D2EFilter::allow(Object *other)
 {
  const ThingTemplate *otherTemplate=other->thingTemplate;
  if(otherTemplate) {
-  const ModuleData *data=otherTemplate->rva0033B3D7();
+  const Rva0033B3D7Data *data=(const Rva0033B3D7Data *)otherTemplate->rva0033B3D7();
   if(data && useSpecial) {
    GeometryInfo special(GEOMETRY_CYLINDER,false,20.0f,data->radius,data->radius);
    if(geometry->CollidesWith(position,angle,special,other->position,other->angle))

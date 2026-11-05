@@ -44,7 +44,7 @@ AIUpdateModuleData *ThingTemplate::friend_getAIModuleInfo()
 	int numModInfos = moduleRecordCount(&m_behaviorModuleInfo);
 	for (int j = 0; j < numModInfos; ++j)
 	{
-		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->slot04())
+		if (m_behaviorModuleInfo.getNthData(j) && m_behaviorModuleInfo.getNthData(j)->isAiModuleData())
 			return (AIUpdateModuleData *)m_behaviorModuleInfo.getNthData(j);
 	}
 	return 0;

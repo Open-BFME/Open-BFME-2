@@ -2387,20 +2387,7 @@ struct Rva00394879Door
 	Coord3D m_offset;			// +0xC8
 };
 
-class ModuleData
-{
-public:
-	virtual void m00(); virtual void m01(); virtual void m02(); virtual void m03();
-	virtual void m04(); virtual void m05(); virtual void m06(); virtual void m07();
-	virtual void m08(); virtual void m09(); virtual void m10(); virtual void m11();
-	virtual void m12(); virtual void m13(); virtual void m14(); virtual void m15();
-	virtual void m16(); virtual void m17(); virtual void m18(); virtual void m19();
-	virtual void m20(); virtual void m21(); virtual void m22(); virtual void m23();
-	virtual void m24();
-	virtual const Rva00394879Exit *rva00394879Exit() const;	// +0x64
-	virtual void m26(); virtual void m27(); virtual void m28();
-	virtual const Rva00394879Door *rva00394879Door() const;	// +0x74
-};
+#include "../../../Include/Common/ModuleData.h"
 
 typedef void (*IterateFootprintFunc)(const Coord3D*,void*);
 
@@ -2873,7 +2860,7 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 		const ModuleData *md = info.getNthData( i );
 		if( md )
 		{
-			const Rva00394879Exit *exitData = md->rva00394879Exit();
+			const Rva00394879Exit *exitData = (const Rva00394879Exit *)md->slot25();
 			if( exitData )
 			{
 				pt = exitData->m_offset;
@@ -2885,7 +2872,7 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 				pt.z += dir.Z;
 				break;
 			}
-			const Rva00394879Door *doorData = md->rva00394879Door();
+			const Rva00394879Door *doorData = (const Rva00394879Door *)md->slot29();
 			if( doorData )
 			{
 				pt = doorData->m_offset;
