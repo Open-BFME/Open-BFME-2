@@ -86,6 +86,7 @@ public:
 protected:
 	virtual void xfer(Xfer *xfer);
 	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 
 private:
 	void rva004AC9FA(int elapsed);
@@ -176,7 +177,7 @@ PartTheHeavensUpdateModuleData::PartTheHeavensUpdateModuleData()
 	m_angle.set(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
-// tu-skeleton: 0x004AC93C 6B ?name@Rva004AC93CNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+// tu-skeleton: 0x004AC93C 6B ?GetSnapshotName@PartTheHeavensUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004AC942 69B ?getModuleNameKey@PartTheHeavensUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdatePoolKey.cpp (not merged yet)
 
