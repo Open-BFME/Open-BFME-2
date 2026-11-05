@@ -1,17 +1,60 @@
 // cl: /DNDEBUG /MD
-// ?rva005613F9@Rva005613F9@@QAEXPAVFile@@I@Z at 0x005613F9 size 35
-// Evidence: chain via 0x0055C9A0 and just-landed 0x003AFC6B; vslot 3 DefaultModuleTemplate; WriteHeader then footer only.
+// Retail export 1939: DefaultModuleTemplate<6>::writeINI, 0x005613F9, 35 bytes.
+// This writer has no fields to serialize after the common header.
 class File;
 void Rva0055C9A0WriteHeader(const void *self, File *file, unsigned int *flags);
 void Rva003AFC6BWrite(File *file, unsigned int *flags);
 
-class Rva005613F9 {
+namespace FXParticleSystem {
+
+template <int CATEGORY>
+class DefaultModuleTemplate {
 public:
-	void rva005613F9(File *file, unsigned int flags);
+	virtual void writeINI(File &file, unsigned int flags) const;
 };
 
-void Rva005613F9::rva005613F9(File *file, unsigned int flags)
+template <int CATEGORY>
+void DefaultModuleTemplate<CATEGORY>::writeINI(File &file, unsigned int flags) const
 {
-	Rva0055C9A0WriteHeader(this, file, &flags);
-	Rva003AFC6BWrite(file, &flags);
+	Rva0055C9A0WriteHeader(this, &file, &flags);
+	Rva003AFC6BWrite(&file, &flags);
 }
+
+template void DefaultModuleTemplate<6>::writeINI(File &, unsigned int) const;
+
+// Exports 1942, 1954 and 1959 fold these draw writers onto the
+// same complete body. These views declare only the out-of-line writer.
+class ButterflyDrawModuleTemplate {
+public:
+	virtual void writeINI(File &file, unsigned int flags) const;
+};
+
+void ButterflyDrawModuleTemplate::writeINI(File &file, unsigned int flags) const
+{
+	Rva0055C9A0WriteHeader(this, &file, &flags);
+	Rva003AFC6BWrite(&file, &flags);
+}
+
+class QuadDrawModuleTemplate {
+public:
+	virtual void writeINI(File &file, unsigned int flags) const;
+};
+
+void QuadDrawModuleTemplate::writeINI(File &file, unsigned int flags) const
+{
+	Rva0055C9A0WriteHeader(this, &file, &flags);
+	Rva003AFC6BWrite(&file, &flags);
+}
+
+class StreakDrawModuleTemplate {
+public:
+	virtual void writeINI(File &file, unsigned int flags) const;
+};
+
+void StreakDrawModuleTemplate::writeINI(File &file, unsigned int flags) const
+{
+	Rva0055C9A0WriteHeader(this, &file, &flags);
+	Rva003AFC6BWrite(&file, &flags);
+}
+
+} // namespace FXParticleSystem

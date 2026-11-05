@@ -32,3 +32,5 @@ six FXParticleSystem names should drop out, and the four left need class-side pr
 Progress 2026-11-05: `??0RGBColor@@QAE@XZ` is defined in WWMath/color.cpp (opt-in `RGBCOLOR_VIEW_DEFAULT_CTOR`, ICF row at 0x0047A6A9); `??0IntRange`, `??0LineSegment2D` and `??1LineSegment2D` still wait on region.cpp.
 
 Census confirmation: not claimed.
+
+2026-11-05: supplied the four `0x005613F9` writeINI exports (DefaultModuleTemplate<6>, Butterfly, Quad and Streak); 4/4 exact and unit preview LINKS, awaiting automated real-link confirmation ([evidence](../../reverse/attempt_support/fx-empty-writers-20261105-codexb.md)).
