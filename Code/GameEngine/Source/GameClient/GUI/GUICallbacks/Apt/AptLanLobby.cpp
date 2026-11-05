@@ -43,31 +43,19 @@ extern "C" void _ReadWriteBarrier(void);
 #include <wchar.h>
 #pragma intrinsic(_ReadWriteBarrier)
 #include "../../../BuffManager.h"
-
 class LANGameInfo;
-
 #include "../../../../../Include/GameClient/GameText.h"
-
 extern GameTextInterface *TheGameText;
-
 class WinInstanceData;
-
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
-
 class BfmeKeyLC;
-
 void GadgetListBoxReset(GameWindow *window);
-
 void GadgetTextEntrySetText(GameWindow *window, UnicodeString text);
-
 void __cdecl GadgetTextEntrySetValidationFlags(GameWindow *window, int value);
-
 void GadgetTextEntrySetMaxChars(BfmeKeyLC *key, unsigned short value);
-
 // The custom games list tooltip, unrowed 0x00445BAA (507 bytes; BFME1's is
 // Rva00518150LanLobbyTooltip), pinned by address.
 void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *data, unsigned int mouse);
-
 // The name entry's link helper (BFME1's Gen_00479A60): it keeps the
 // attached window at +0x08.
 class Rva0031455E
@@ -79,17 +67,13 @@ public:
 	void *m_04;
 	GameWindow *m_owner; // +0x08
 };
-
 class LanguageFilter
 {
 public:
 	void filterLine(UnicodeString &line);
 };
-
 extern LanguageFilter *TheLanguageFilter;
-
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
-
 // Other units' views of this same screen object, called by address name.
 class Rva00580316
 {
@@ -98,7 +82,6 @@ public:
 
 	unsigned char m_pad00[0x1C];
 };
-
 class Member00442FD6AC
 {
 public:
@@ -110,7 +93,6 @@ public:
 	unsigned char m_pad10[0x04];
 	unsigned char m_14;
 };
-
 class Rva004442FD
 {
 public:
@@ -122,7 +104,6 @@ private:
 	int m_6A8;
 	Member00442FD6AC m_6AC;
 };
-
 // Enables (rva00444083) or disables (rva004440F4) the create (1) and join
 // (2) buttons.
 class Rva00444083
@@ -131,9 +112,7 @@ public:
 	void rva00444083(int flags);
 	void rva004440F4(int flags);
 };
-
 class ModuleData;
-
 // More views of the +0x668 object (rva00601941 resets it, rva00580B40 adds
 // an entry) and of the +0x288 panel (enable).
 class Rva00601941
@@ -141,19 +120,16 @@ class Rva00601941
 public:
 	void rva00601941();
 };
-
 class Rva00580B40
 {
 public:
 	void rva00580B40(const ModuleData *entry);
 };
-
 class Rva0043DB66ByteOneSetter
 {
 public:
 	void enable();
 };
-
 // The screen's base class (destroyed by 0x005126F5); its message handler
 // 0x0051274F (136 bytes, vftable 0x00C659E8 slot 2) is unrowed and pinned.
 class _bfme_AptGameWindow
@@ -161,24 +137,17 @@ class _bfme_AptGameWindow
 public:
 	int rva0051274F(int msg, unsigned int data1, unsigned int data2);
 };
-
 class Rva00580172
 {
 public:
 	bool rva00580172();
 };
-
 class Rva00222A8BTarget;
-
 class BfmeAptWindowManager;
-
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 // The two GameLogic fields read by the update (TheGameLogic, 0x00DFE78C).
 class GameLogic;
-
 extern GameLogic *TheGameLogic;
-
 struct Rva00446443GameLogic
 {
 	unsigned char m_pad000[0x40];
@@ -186,37 +155,28 @@ struct Rva00446443GameLogic
 	unsigned char m_pad044[0x110 - 0x44];
 	int m_110; // +0x110
 };
-
 void __cdecl Rva005118F3Show(int mode, bool show);
-
 class AptSaveLoad
 {
 public:
 	static void OpenScreen(int a, int b, bool c);
 };
-
 void __cdecl Rva003B3371Call(int value);
-
 void Rva00444040Enable();
-
 class AptOptions
 {
 public:
 	static void OpenScreen(bool a, bool b, bool c, bool d);
 };
-
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);
-
 // Unrowed 0x0044C0A8 (message box with title, text and callback), pinned.
 void MessageBoxOk(UnicodeString title, UnicodeString text, void (*callback)());
-
 class EnumeratedIP
 {
 public:
 	void *m_next;
 	unsigned int m_ip; // +0x04
 };
-
 class IPEnumeration
 {
 public:
@@ -228,12 +188,9 @@ private:
 	void *m_addresses;
 	int m_isWinsockInitialized;
 };
-
 // The two GlobalData fields read here (TheWritableGlobalData, 0x00DFE758).
 class GlobalData;
-
 extern GlobalData *TheWritableGlobalData;
-
 struct Rva004452A8GlobalData
 {
 	unsigned char m_pad000[0x26];
@@ -241,11 +198,9 @@ struct Rva004452A8GlobalData
 	unsigned char m_pad027[0xA48 - 0x27];
 	unsigned int m_defaultIP; // +0xA48
 };
-
 // 0x00437421 (482 bytes, no arguments): the saved-game digest index
 // rebuild, rowed in WWLib/stlport_rb_tree_hint_00436e3b.cpp with its map.
 void Rva00437421();
-
 // Window manager vslots 44 and 45 are registerTabList and clearTabList
 // (GameWindowManager_registerTabList.cpp; vtable 0x007C7C90). Retail copies
 // the window into a temporary before the push_back, so the list is spelled
@@ -268,13 +223,9 @@ public:
 	virtual void registerTabList(_STL::list<int> tabList);
 	virtual void clearTabList();
 };
-
 extern GameWindowManager *TheWindowManager;
-
 class LANAPI;
-
  extern LANAPI *TheLAN;
-
 enum Rva00445086ClientState
 {
 	CS_INIT,
@@ -291,7 +242,6 @@ enum Rva00445086ClientState
 	CS_UNNAMED_11, // target-only state: its table slot takes the default exit
 	CS_GAME_STARTED,
 };
-
 namespace _STL
 {
 template <> struct less<AsciiString>
@@ -302,14 +252,9 @@ template <> struct less<AsciiString>
 	}
 };
 }
-
 #include "../../../../../Include/GameClient/MapMetaData.h"
-
-// Its 0x00305749 (98 bytes, refreshes the cache) is unrowed and pinned.
 #include "../../../../../Include/GameClient/MapCache.h"
-
 extern MapCache *TheMapCache;
-
 class GameSlot
 {
 public:
@@ -323,17 +268,13 @@ public:
 	char m_pad34[0xC];
 	int m_40; // +0x40
 };
-
 class Rva00447773
 {
 public:
 	void *getLANSlot(int index);
 };
-
 void __cdecl Rva0032060D(GameWindow *window, int value);
-
 void bfmeGo924F(BfmeKeyLC *key, unsigned short value);
-
 // The LAN preferences at +0x684 (ledger spelling of its setUserName); vslot 3
 // writes the file.
 class LanLobbyUserNamePrefs
@@ -348,13 +289,11 @@ public:
 
 	unsigned char m_pad04[0x14 - 0x04];
 };
-
 class Rva00444165
 {
 public:
 	int rva00444165();
 };
-
 class GameInfo
 {
 public:
@@ -386,24 +325,6 @@ public:
 	virtual void resetStartSpots();
 	virtual void adjustSlotsForMap();
 };
-
-// TheLAN's game list: eight 0x1D0-byte slots from +0xDC end at +0xF5C, where
-// the next game is linked.
-class LANGameInfo : public GameInfo
-{
-public:
-	unsigned char m_pad004[0x44 - 0x04];
-	unsigned int m_mapCRC; // +0x44
-	unsigned int m_mapSize; // +0x48
-	unsigned char m_pad04c[0x58 - 0x4C];
-	int m_58; // +0x58
-	int m_5c; // +0x5C (game mode)
-	int m_rules[10]; // +0x60
-	int m_88; // +0x88
-	unsigned char m_pad08c[0xF5C - 0x8C];
-	LANGameInfo *m_next; // +0xF5C
-};
-
 // The +0x288 panel (destroyed by ??1Rva004421E1); 0x0043DE19 (265 bytes) is
 // unrowed and pinned by address.
 class Rva004421E1
@@ -423,7 +344,6 @@ public:
 	// And 0x00442C9C (23 bytes), 0x0043E750 (417 bytes) and 0x00443C6E
 	// (570 bytes), likewise unrowed and pinned.
 };
-
 class AptMpGameSetup
 {
 public:
@@ -441,7 +361,6 @@ public:
 	void rva0044303D();
 	void rva0043DC0F();
 };
-
 // The screen's base class (destroyed by 0x005126F5); its message handler
 // 0x0051274F (136 bytes, vftable 0x00C659E8 slot 2) is unrowed and pinned.
 class Rva005126F5
@@ -449,37 +368,24 @@ class Rva005126F5
 public:
 	int rva0051274F(int msg, unsigned int data1, unsigned int data2);
 };
-
 class Rva00444362
 {
 public:
 	void rva00444362(void *unused);
 };
-
 #include "../../../../../Include/Common/GameEngine.h"
-
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-
 void __cdecl Rva00434160Init(int a, int b, bool c);
-
 // Unrowed 0x0044C0A8 (message box with title, text and callback), pinned.
 void Rva0044C0A8(UnicodeString title, UnicodeString text, void *callback);
-
-// The +0x684 preferences as GameModePreferences; 0x0044D774 (194 bytes),
-// 0x0044DB54 (81 bytes) and 0x0044D986 (290 bytes) are unrowed and pinned.
 #include "../../../../../Include/Common/GameModePreferences.h"
-
-// TheLAN as the canonical LANAPI: it befriends AptLanLobby for the protected
-// ValidateGameInfo and the native slot 58 that has no callable identity yet.
 #include "../../../../../Include/GameNetwork/LANAPI.h"
-
 // The free tooltip callback reaches the protected ValidateGameInfo through
 // this access view; the call is the same direct call on TheLAN.
 struct LanLobbyTooltipLANAccess : public LANAPI
 {
 	using LANAPI::ValidateGameInfo;
 };
-
 //
 // ??1Rva004444D2@@UAE@XZ, retail 0x004444D2, 25 bytes.
 // Dtor with vtable 0x0083E020 plus array[2] of Rva005F8F96 at +4
@@ -493,7 +399,6 @@ struct Rva005F8F96
 	~Rva005F8F96();
 	void *m_00;
 };
-
 class Rva004444D2
 {
 public:
@@ -503,22 +408,15 @@ public:
 private:
 	Rva005F8F96 m_arr[2];
 };
-
 extern UnicodeString GadgetTextEntryGetText(GameWindow *window);
-
 extern bool GadgetTextEntryHasSelection(GameWindow *window);
-
-// The fallback dispatch at 0x00314596 is rowed as Rva003145B1::rva00314596
-// (Rva003145B1Dispatch.cpp), a thiscall removing all three arguments.
 #include "../../../../../Include/GameLogic/Rva003145B1.h"
-
 struct Rva00445172StringData
 {
 	int m_refs;
 	unsigned short m_length;
 	unsigned short m_capacity;
 };
-
 class Rva00445172Owner
 {
 public:
@@ -529,7 +427,6 @@ private:
 	char m_pad00[8];
 	GameWindow *m_entry;
 };
-
 //
 // ?rva00444462@Rva00444462@@QAEXXZ, retail 0x00444462, 11 bytes.
 // Tail jmp to enable at this+0x288 via rowed 0x0043DB56.
@@ -540,7 +437,6 @@ class Rva0043DB56ByteOneSetter
 public:
 	void enable();
 };
-
 class Rva00444462
 {
 public:
@@ -550,35 +446,211 @@ private:
 	unsigned char m_pad00[0x288];
 	Rva0043DB56ByteOneSetter m_field;
 };
-
 struct GlobalA01E48;
-
 extern class Shell *TheShell;
-
 #include "../../../../../Include/GameClient/Shell.h"
-
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
-
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *listbox, int x, int y, int &row, int &column);
-
 void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
-
 class AsciiString;
-
 // GameInfo's 16-byte nonzero test (rowed under its address name).
 class Rva003FF1C2
 {
 public:
 	bool rva003FF1C2() const;
 };
-
 struct RGBColor;
-
 #include "../../../../../Include/GameClient/Mouse.h"
-
 extern Mouse *TheMouse;
+struct _GUID { unsigned char bytes[16]; };
+struct IUnknown;
+extern _GUID g_bfmeIidTSA;
+extern void __stdcall _com_issue_errorex(long, IUnknown *, const _GUID &);
+struct BfmeObjECF;
+struct IFEBrowserEngine2Vtbl
+{
+	void (__stdcall *m_bfmeF0)(BfmeObjECF *obj);
+	void (__stdcall *m_bfmeF1)(BfmeObjECF *obj);
+	void (__stdcall *m_bfmeF2)(BfmeObjECF *obj);
+    // IDispatch slots +0x0c..+0x1c are unused by this partial view.
+    void *slot0C, *slot10, *slot14, *slot18, *slot1C;
+    long (__stdcall *shutdown)(BfmeObjECF *obj);
+};
+struct BfmeObjECF
+{
+	IFEBrowserEngine2Vtbl *m_vtable;
+    void shutdown()
+    {
+        long result = m_vtable->shutdown(this);
+        if (result < 0)
+            _com_issue_errorex(result, (IUnknown *)this, g_bfmeIidTSA);
+    }
+};
+class BfmeObjECI
+{
+public:
+	virtual void bfmeW0(void);
+	virtual void bfmeW1(void);
+	virtual void bfmeW2(void);
+	virtual void bfmeW3(void);
+	virtual void bfmeW4(void);
+	virtual void bfmeW5(void);
+	virtual void bfmeW6(void);
+	virtual void bfmeW7(void);
+	virtual void bfmeW8(void);
+	virtual void bfmeW9(void);
+	virtual void bfmeW10(void);
+	virtual void bfmeW11(void);
+	virtual void bfmeW12(void);
+	virtual void bfmeW13(void);
+	virtual void bfmeW14(void);
+	virtual void bfmeW15(void);
+	virtual void bfmeW16(void);
+	virtual void bfmeW17(void);
+	virtual void bfmeW18(void);
+	virtual void bfmeW19(void);
+	virtual void bfmeW20(void);
+	virtual void bfmeW21(void);
+	virtual void bfmeW22(void);
+	virtual void bfmeW23(void);
+	virtual void bfmeW24(void);
+	virtual void bfmeW25(void);
+	virtual void bfmeW26(void);
+	virtual void bfmeW27(void);
+	virtual void bfmeW28(void);
+	virtual void bfmeW29(void);
+	virtual void bfmeW30(void);
+	virtual void bfmeW31(void);
+	virtual void bfmeW32(void);
+	virtual void bfmeW33(void);
+	virtual void bfmeW34(void);
+	virtual void bfmeW35(void);
+	virtual void bfmeW36(void);
+	virtual void bfmeW37(void);
+	virtual void bfmeW38(void);
+	virtual void bfmeW39(void);
+	virtual void bfmeW40(void);
+	virtual void bfmeW41(void);
+	virtual void bfmeW42(void);
+	virtual void bfmeW43(void);
+	virtual void bfmeW44(void);
+	virtual void bfmeW45(void);
+	virtual void bfmeW46(void);
+	virtual void bfmeW47(void);
+	virtual void bfmeW48(void);
+	virtual void bfmeW49(void);
+	virtual void bfmeW50(void);
+	virtual void bfmeW51(void);
+	virtual void bfmeW52(void);
+	virtual void bfmeW53(void);
+	virtual bool bfmeAsk54ECI(void);
+};
+// ?g_bfmeObjECI@@3PAVBfmeObjECI@@A: the global at VA 0xdfe958 is ?g_Va009FE958@@3PAUGlobal009FE958@@A.
+
+// Donor: GeneralsMD dx8webbrowser.cpp, DX8WebBrowser::Shutdown, through
+// reference/open-bfme-1 revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20.
+// Target evidence: complete 0x00176FA0..0x00176FED boundary, COM slot +0x20,
+// same browser IID as Initialize and the existing dispatch wrappers, Release
+// at +8, named window global reset, and CoUninitialize tail import. The
+// structural queue's 34-byte candidate ended at the interior error call;
+// this 77-byte body includes the release and both return paths.
+// Use the existing global's canonical pointer spelling; clear it before
+// Release as VS2003's comip.h smart-pointer assignment does. Defining the
+// already identified hWnd also supplies the browser units' missing owner.
+extern "C" __declspec(dllimport) void __stdcall CoUninitialize();
+struct HWND__;
+class DX8WebBrowser
+{
+public:
+    static HWND__ *hWnd;
+    static void Shutdown();
+};
+// Cold-slice B8-imm32 const-int returners (twin-free TU).
+//
+// Same shape as ConstIntGetters2.cpp/ConstIntGetters3.cpp (mov eax,<IMM32> /
+// ret, 6B) but kept in a separate TU so this lane does not contend with the
+// hot ConstIntGetters appends on origin/master. Rows are opaque
+// address-derived names: each body follows a ret-imm (C2-04-00 / C2-08-00)
+// and is carried by .rdata vtable slots with no direct callers and no branch
+// sources, so no class identity is witnessed. No // cl: line (defaults match
+// the frameless 6-byte shape).
+
+// The three Apt screen factories these getters return are matched rows.
+void *__stdcall createAptScreenInGameChat(void *);
+void *__stdcall createAptScreenObjectives(void *);
+void *__stdcall createAptScreenQuickMatchMenu(void *);
+#include "../../../../GameLogic/Object/object.h"
+// ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
+// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
+// no direct callers, no branch sources. Opaque address-derived name.
+class Rva004885DE
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+#include "../../../../../Include/GameLogic/Module/DamageModuleClass.h"
+void GadgetListBoxGetSelected(GameWindow *listbox, int *selectList);
+// TheLAN's game list: eight 0x1D0-byte slots from +0xDC end at +0xF5C, where
+// the next game is linked.
+class LANGameInfo : public GameInfo
+{
+public:
+	unsigned char m_pad004[0x44 - 0x04];
+	unsigned int m_mapCRC; // +0x44
+	unsigned int m_mapSize; // +0x48
+	unsigned char m_pad04c[0x58 - 0x4C];
+	int m_58; // +0x58
+	int m_5c; // +0x5C (game mode)
+	int m_rules[10]; // +0x60
+	int m_88; // +0x88
+	unsigned char m_pad08c[0xF5C - 0x8C];
+	LANGameInfo *m_next; // +0xF5C
+};
+
+class Xfer;
+
+ void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
+
+class Rva0078D310Host;
+
+ Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
+
+class AptLanLobby;
+
+ AptLanLobby *__stdcall Rva002D1F77Create(void *);
+
+class Rva004E4A45;
+
+ Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
+
+class Rva004E8B38;
+
+ Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
+
+class Rva00512AC8;
+
+ Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
+
+class Rva005142B0;
+
+ Rva005142B0 *__stdcall Rva002D1F03Create(void *);
+
+class Rva00516211;
+
+ Rva00516211 *__stdcall Rva002D1FB1Create(void *);
+
+class Rva0051A78E;
+
+ Rva0051A78E *__stdcall Rva002D205FCreate(void *);
+
+class Rva005202C8;
+
+ Rva005202C8 *__stdcall Rva002D2147Create(void *);
+
+class Rva00523825;
+
+ Rva00523825 *__stdcall Rva002D21FBCreate(void *);
 
 class AptLanLobby
 {
@@ -682,198 +754,41 @@ public:
 	static AptLanLobby *Instance() { return s_instance; }
 };
 
-struct _GUID { unsigned char bytes[16]; };
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGetValidSelectedGameInfo.cpp
 
-struct IUnknown;
-
-extern _GUID g_bfmeIidTSA;
-
-extern void __stdcall _com_issue_errorex(long, IUnknown *, const _GUID &);
-
-struct BfmeObjECF;
-
-struct IFEBrowserEngine2Vtbl
+int AptLanLobby::GetValidSelectedGameInfo()
 {
-	void (__stdcall *m_bfmeF0)(BfmeObjECF *obj);
-	void (__stdcall *m_bfmeF1)(BfmeObjECF *obj);
-	void (__stdcall *m_bfmeF2)(BfmeObjECF *obj);
-    // IDispatch slots +0x0c..+0x1c are unused by this partial view.
-    void *slot0C, *slot10, *slot14, *slot18, *slot1C;
-    long (__stdcall *shutdown)(BfmeObjECF *obj);
-};
+	int sel;
+	if (m_customGamesList == 0)
+		return 0;
+	sel = -1;
+	GadgetListBoxGetSelected(m_customGamesList, &sel);
+	int game = (int)GadgetListBoxGetItemData(m_customGamesList, sel, 3);
+	LANGameInfo *info = (LANGameInfo *)game;
+	if (!TheLAN->ValidateGameInfo(info))
+		info = 0;
+	return (int)info;
+}
 
-struct BfmeObjECF
-{
-	IFEBrowserEngine2Vtbl *m_vtable;
-    void shutdown()
-    {
-        long result = m_vtable->shutdown(this);
-        if (result < 0)
-            _com_issue_errorex(result, (IUnknown *)this, g_bfmeIidTSA);
-    }
-};
+// ?g_00DFE958@@3PAVLANAPI@@A: the global at VA 0xdfe958 is ?g_Va009FE958@@3PAUGlobal009FE958@@A.
 
-class BfmeObjECI
-{
-public:
-	virtual void bfmeW0(void);
-	virtual void bfmeW1(void);
-	virtual void bfmeW2(void);
-	virtual void bfmeW3(void);
-	virtual void bfmeW4(void);
-	virtual void bfmeW5(void);
-	virtual void bfmeW6(void);
-	virtual void bfmeW7(void);
-	virtual void bfmeW8(void);
-	virtual void bfmeW9(void);
-	virtual void bfmeW10(void);
-	virtual void bfmeW11(void);
-	virtual void bfmeW12(void);
-	virtual void bfmeW13(void);
-	virtual void bfmeW14(void);
-	virtual void bfmeW15(void);
-	virtual void bfmeW16(void);
-	virtual void bfmeW17(void);
-	virtual void bfmeW18(void);
-	virtual void bfmeW19(void);
-	virtual void bfmeW20(void);
-	virtual void bfmeW21(void);
-	virtual void bfmeW22(void);
-	virtual void bfmeW23(void);
-	virtual void bfmeW24(void);
-	virtual void bfmeW25(void);
-	virtual void bfmeW26(void);
-	virtual void bfmeW27(void);
-	virtual void bfmeW28(void);
-	virtual void bfmeW29(void);
-	virtual void bfmeW30(void);
-	virtual void bfmeW31(void);
-	virtual void bfmeW32(void);
-	virtual void bfmeW33(void);
-	virtual void bfmeW34(void);
-	virtual void bfmeW35(void);
-	virtual void bfmeW36(void);
-	virtual void bfmeW37(void);
-	virtual void bfmeW38(void);
-	virtual void bfmeW39(void);
-	virtual void bfmeW40(void);
-	virtual void bfmeW41(void);
-	virtual void bfmeW42(void);
-	virtual void bfmeW43(void);
-	virtual void bfmeW44(void);
-	virtual void bfmeW45(void);
-	virtual void bfmeW46(void);
-	virtual void bfmeW47(void);
-	virtual void bfmeW48(void);
-	virtual void bfmeW49(void);
-	virtual void bfmeW50(void);
-	virtual void bfmeW51(void);
-	virtual void bfmeW52(void);
-	virtual void bfmeW53(void);
-	virtual bool bfmeAsk54ECI(void);
-};
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp
 
-// ?g_bfmeObjECI@@3PAVBfmeObjECI@@A: the global at VA 0xdfe958 is ?g_Va009FE958@@3PAUGlobal009FE958@@A.
+// Its 0x00305749 (98 bytes, refreshes the cache) is unrowed and pinned.
 
-// Donor: GeneralsMD dx8webbrowser.cpp, DX8WebBrowser::Shutdown, through
-// reference/open-bfme-1 revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20.
-// Target evidence: complete 0x00176FA0..0x00176FED boundary, COM slot +0x20,
-// same browser IID as Initialize and the existing dispatch wrappers, Release
-// at +8, named window global reset, and CoUninitialize tail import. The
-// structural queue's 34-byte candidate ended at the interior error call;
-// this 77-byte body includes the release and both return paths.
-// Use the existing global's canonical pointer spelling; clear it before
-// Release as VS2003's comip.h smart-pointer assignment does. Defining the
-// already identified hWnd also supplies the browser units' missing owner.
-extern "C" __declspec(dllimport) void __stdcall CoUninitialize();
+// The +0x684 preferences as GameModePreferences; 0x0044D774 (194 bytes),
+// 0x0044DB54 (81 bytes) and 0x0044D986 (290 bytes) are unrowed and pinned.
 
-struct HWND__;
+// TheLAN as the canonical LANAPI: it befriends AptLanLobby for the protected
+// ValidateGameInfo and the native slot 58 that has no callable identity yet.
 
-class DX8WebBrowser
-{
-public:
-    static HWND__ *hWnd;
-    static void Shutdown();
-};
-
-// Cold-slice B8-imm32 const-int returners (twin-free TU).
-//
-// Same shape as ConstIntGetters2.cpp/ConstIntGetters3.cpp (mov eax,<IMM32> /
-// ret, 6B) but kept in a separate TU so this lane does not contend with the
-// hot ConstIntGetters appends on origin/master. Rows are opaque
-// address-derived names: each body follows a ret-imm (C2-04-00 / C2-08-00)
-// and is carried by .rdata vtable slots with no direct callers and no branch
-// sources, so no class identity is witnessed. No // cl: line (defaults match
-// the frameless 6-byte shape).
-
-// The three Apt screen factories these getters return are matched rows.
-void *__stdcall createAptScreenInGameChat(void *);
-
-void *__stdcall createAptScreenObjectives(void *);
-
-void *__stdcall createAptScreenQuickMatchMenu(void *);
+// The fallback dispatch at 0x00314596 is rowed as Rva003145B1::rva00314596
+// (Rva003145B1Dispatch.cpp), a thiscall removing all three arguments.
 
 // Object Snapshot table VA 0x00BFC2F0 slot 2 returns its class name.
-#include "../../../../GameLogic/Object/object.h"
-
-// ?GetSnapshotName@Rva004885DE@@MBEPBDXZ @ 0x004886c1 (6B): returns 0x00c4b550.
-// Follows a ret-8 (prev C2-08-00), carried by 1 .rdata vtable slot,
-// no direct callers, no branch sources. Opaque address-derived name.
-class Rva004885DE
-{
-protected:
-	virtual const char *GetSnapshotName() const;
-};
 
 // Retail table C4C3D4 selects this Snapshot name getter in slot 2.
 // Snapshot slot 2 of retail DamageModule table RVA 0x008598E4 selects this getter.
-#include "../../../../../Include/GameLogic/Module/DamageModuleClass.h"
-
-class Xfer;
-
- void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
-
-class Rva0078D310Host;
-
- Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
-
-class AptLanLobby;
-
- AptLanLobby *__stdcall Rva002D1F77Create(void *);
-
-class Rva004E4A45;
-
- Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
-
-class Rva004E8B38;
-
- Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
-
-class Rva00512AC8;
-
- Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
-
-class Rva005142B0;
-
- Rva005142B0 *__stdcall Rva002D1F03Create(void *);
-
-class Rva00516211;
-
- Rva00516211 *__stdcall Rva002D1FB1Create(void *);
-
-class Rva0051A78E;
-
- Rva0051A78E *__stdcall Rva002D205FCreate(void *);
-
-class Rva005202C8;
-
- Rva005202C8 *__stdcall Rva002D2147Create(void *);
-
-class Rva00523825;
-
- Rva00523825 *__stdcall Rva002D21FBCreate(void *);
-
-// tu-skeleton: 0x00444165 75B ?GetValidSelectedGameInfo@AptLanLobby@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGetValidSelectedGameInfo.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp
 
@@ -1662,6 +1577,14 @@ void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *, unsigned 
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
+
+// ?Rva0044643DGet@@YAHXZ @ 0x0044643D: verified existing getter.
+int Rva0044643DGet(void)
+{
+ return reinterpret_cast<int>(&Rva002D1F77Create);
+}
+
 // tu-skeleton: 0x004441C5 67B ?rva004441C5@AptLanLobby@@QAEX_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
 
 // tu-skeleton: 0x00444208 20B ?MPOwnerValidatGameInfo@AptLanLobby@@UAEEH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyMPOwnerValidatGameInfo.cpp (not merged yet)
@@ -1728,14 +1651,6 @@ void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *, unsigned 
 
 // tu-skeleton: 0x00445EE3 1187B ??0AptLanLobby@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-
-// ?Rva0044643DGet@@YAHXZ @ 0x0044643D: verified existing getter.
-int Rva0044643DGet(void)
-{
- return reinterpret_cast<int>(&Rva002D1F77Create);
-}
-
 // tu-skeleton: 0x004469D1 75B ?OnGameCreate@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
 
 // tu-skeleton: 0x00446A1C 75B ?OnGameJoin@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
@@ -1784,6 +1699,10 @@ int Rva0044643DGet(void)
 
 // tu-skeleton: 0x00788F8C 10B __ehhandler$?bfmeMapChanged@AptLanLobby@@QAE_NPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
 
+// tu-skeleton: 0x00788FFF 8B $L2270 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00789007 10B __ehhandler$?MpOwnerSelectTeam@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
 // tu-skeleton: 0x00789011 8B Unwind@00b89011 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp (not merged yet)
 
 // tu-skeleton: 0x00789019 8B Unwind@00b89019 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp (not merged yet)
@@ -1797,6 +1716,10 @@ int Rva0044643DGet(void)
 // tu-skeleton: 0x00789039 8B Unwind@00b89039 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp (not merged yet)
 
 // tu-skeleton: 0x00789041 10B __ehhandler$?rva004457BC@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp (not merged yet)
+
+// tu-skeleton: 0x0078904B 8B $L2662 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00789053 10B __ehhandler$?MpOwnerGetLocalPlayerName@AptLanLobby@@QAEXAAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
 
 // tu-skeleton: 0x0078905D 8B Unwind@00b8905d -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
