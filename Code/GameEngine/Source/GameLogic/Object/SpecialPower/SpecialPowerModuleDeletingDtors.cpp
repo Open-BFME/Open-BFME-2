@@ -14,6 +14,13 @@
 
 struct EmitVtableTag;
 
+// The five family ModuleData classes below derive from SpecialPowerModuleData, as their family
+// units declare them (DevastateSpecialPower.cpp, OCLSpecialPower.cpp, PlayerUpgradeSpecialPower.cpp,
+// ProductionSpeedBonus.cpp, MobNexusContainModuleDataCtor.cpp), so this unit's copy of each
+// 31-slot vftable (retail 0x00C5C558, 0x00C5CA80, 0x00C5CCB0, 0x00C5E1C0, 0x00C5E518) is the
+// same table instead of a one-slot one that link order would keep.
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
+
 // ??_GWeaponFireSpecialAbilityUpdateModuleData@@UAEPAXI@Z @0x004927EA 28B: slot 0 of vtable 0x00C4E108; calls ??1 at 0x00492806.
 // Owner evidence (audited 2026-09-26): retail registration WeaponFireSpecialAbilityUpdate -> data factory RVA 0x0024DB56 -> ctor RVA 0x004926CA; primary vptr store RVA 0x004926D4.
 class WeaponFireSpecialAbilityUpdateModuleData { public: WeaponFireSpecialAbilityUpdateModuleData(EmitVtableTag *); virtual ~WeaponFireSpecialAbilityUpdateModuleData(); };
@@ -28,7 +35,7 @@ AISpecialPowerUpdateModuleData::AISpecialPowerUpdateModuleData(EmitVtableTag *) 
 
 // ??_GInvisibilitySpecialPowerModuleData@@UAEPAXI@Z @0x004C24C3 28B: slot 0 of vtable 0x00C5C558; calls ??1 at 0x004C24DF.
 // Owner evidence (audited 2026-09-26): retail registration InvisibilitySpecialPower -> data factory RVA 0x002518CB -> ctor RVA 0x004C244D; primary vptr store RVA 0x004C246C.
-class InvisibilitySpecialPowerModuleData { public: InvisibilitySpecialPowerModuleData(EmitVtableTag *); virtual ~InvisibilitySpecialPowerModuleData(); };
+class InvisibilitySpecialPowerModuleData : public SpecialPowerModuleData { public: InvisibilitySpecialPowerModuleData(EmitVtableTag *); virtual ~InvisibilitySpecialPowerModuleData(); };
 // ?<InvisibilitySpecialPowerModuleData::InvisibilitySpecialPowerModuleData> absent-from-retail
 InvisibilitySpecialPowerModuleData::InvisibilitySpecialPowerModuleData(EmitVtableTag *) {}
 
@@ -46,13 +53,13 @@ LevelGrantSpecialPower::LevelGrantSpecialPower(EmitVtableTag *) {}
 
 // ??_GProductionSpeedBonusModuleData@@UAEPAXI@Z @0x004C3048 28B: slot 0 of vtable 0x00C5CA80; calls ??1 at 0x004C3064.
 // Owner evidence (audited 2026-09-26): retail registration ProductionSpeedBonus -> data factory RVA 0x00251AFE -> ctor RVA 0x004C2FE6; primary vptr store RVA 0x004C300E.
-class ProductionSpeedBonusModuleData { public: ProductionSpeedBonusModuleData(EmitVtableTag *); virtual ~ProductionSpeedBonusModuleData(); };
+class ProductionSpeedBonusModuleData : public SpecialPowerModuleData { public: ProductionSpeedBonusModuleData(EmitVtableTag *); virtual ~ProductionSpeedBonusModuleData(); };
 // ?<ProductionSpeedBonusModuleData::ProductionSpeedBonusModuleData> absent-from-retail
 ProductionSpeedBonusModuleData::ProductionSpeedBonusModuleData(EmitVtableTag *) {}
 
 // ??_GOCLSpecialPowerModuleData@@UAEPAXI@Z @0x004C37A4 28B: slot 0 of vtable 0x00C5CCB0; calls ??1 at 0x004C37C0.
 // Owner evidence (audited 2026-09-26): retail registration OCLSpecialPower -> data factory RVA 0x00251B8A -> ctor RVA 0x004C32BC; primary vptr store RVA 0x004C32E3.
-class OCLSpecialPowerModuleData { public: OCLSpecialPowerModuleData(EmitVtableTag *); virtual ~OCLSpecialPowerModuleData(); };
+class OCLSpecialPowerModuleData : public SpecialPowerModuleData { public: OCLSpecialPowerModuleData(EmitVtableTag *); virtual ~OCLSpecialPowerModuleData(); };
 // ?<OCLSpecialPowerModuleData::OCLSpecialPowerModuleData> absent-from-retail
 OCLSpecialPowerModuleData::OCLSpecialPowerModuleData(EmitVtableTag *) {}
 
@@ -82,12 +89,12 @@ TaintSpecialPowerModuleData::TaintSpecialPowerModuleData(EmitVtableTag *) {}
 
 // ??_GPlayerUpgradeSpecialPowerModuleData@@UAEPAXI@Z @0x004C7DB8 28B: slot 0 of vtable 0x00C5E1C0; calls ??1 at 0x004C7DD4.
 // Owner evidence (audited 2026-09-26): retail registration PlayerUpgradeSpecialPower -> data factory RVA 0x0025253B -> ctor RVA 0x004C7D68; primary vptr store RVA 0x004C7D8D.
-class PlayerUpgradeSpecialPowerModuleData { public: PlayerUpgradeSpecialPowerModuleData(EmitVtableTag *); virtual ~PlayerUpgradeSpecialPowerModuleData(); };
+class PlayerUpgradeSpecialPowerModuleData : public SpecialPowerModuleData { public: PlayerUpgradeSpecialPowerModuleData(EmitVtableTag *); virtual ~PlayerUpgradeSpecialPowerModuleData(); };
 // ?<PlayerUpgradeSpecialPowerModuleData::PlayerUpgradeSpecialPowerModuleData> absent-from-retail
 PlayerUpgradeSpecialPowerModuleData::PlayerUpgradeSpecialPowerModuleData(EmitVtableTag *) {}
 
 // ??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z @0x004C851B 28B: slot 0 of vtable 0x00C5E518; calls ??1 at 0x004C8537.
 // Owner evidence (audited 2026-09-26): retail registration DevastateSpecialPower -> data factory RVA 0x00252653 -> ctor RVA 0x004C84BD; primary vptr store RVA 0x004C84EC.
-class DevastateSpecialPowerModuleData { public: DevastateSpecialPowerModuleData(EmitVtableTag *); virtual ~DevastateSpecialPowerModuleData(); };
+class DevastateSpecialPowerModuleData : public SpecialPowerModuleData { public: DevastateSpecialPowerModuleData(EmitVtableTag *); virtual ~DevastateSpecialPowerModuleData(); };
 // ?<DevastateSpecialPowerModuleData::DevastateSpecialPowerModuleData> absent-from-retail
 DevastateSpecialPowerModuleData::DevastateSpecialPowerModuleData(EmitVtableTag *) {}
