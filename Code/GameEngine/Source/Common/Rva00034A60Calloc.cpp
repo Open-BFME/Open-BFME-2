@@ -73,12 +73,7 @@ typedef bool (*GrowCallback)(void *, unsigned int, unsigned int, unsigned int);
 // mmap-enable byte m_46D, n_mmaps m_488, n_mmaps_max m_490, mmap_threshold
 // m_494, the grow callback m_4AC with its argument m_4B0 and retry limit m_4B4,
 // and the lock m_pLock.
-class Rva006C1F60 : public EA::Allocator::GeneralAllocator
-{
-public:
-    void *rva00033ED0(unsigned int bytes, int flags);
-
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 void *Rva006C1F60::rva00033ED0(unsigned int bytes, int flags)
 {

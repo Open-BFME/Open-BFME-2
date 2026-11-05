@@ -46,11 +46,7 @@ public:
 	void consolidate();
 };
 
-class Rva006C1F60
-{
-public:
-	void *rva00033ED0(unsigned int size, int flags);
-};
+#include "../../../Include/Common/Rva006C1F60.h"
 
 // Canonical base fields used here: m_004 (bit 0 consolidates first), the
 // +0x448 core sentinel m_448, the +0x49C large-block sentinel m_49C and the

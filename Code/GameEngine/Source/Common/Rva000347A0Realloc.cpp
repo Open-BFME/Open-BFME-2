@@ -22,11 +22,7 @@
 #include <string.h>
 #pragma intrinsic(memcpy)
 
-class Rva006C1F60
-{
-public:
-	void *rva00033ED0(unsigned int size, int flags);
-};
+#include "../../Include/Common/Rva006C1F60.h"
 
 static inline unsigned int Rva000347A0RequestSize(unsigned int request)
 {

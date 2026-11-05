@@ -65,7 +65,7 @@ class Rva00031790;
 // placement unverified: no rowed DIR32 site yet; ZH initial value is null.
 MemoryPoolFactory *TheMemoryPoolFactory = 0;
 
-class Rva006C1F60 { public: void *rva00033ED0(unsigned int size, int flags); };
+#include "../../../Include/Common/Rva006C1F60.h"
 
 #include "../../../Include/Common/GeneralAllocator.h"
 
