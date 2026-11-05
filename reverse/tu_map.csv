@@ -14267,13 +14267,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00201064,33,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Snow.cpp S=Code/GameEngine/Source/GameClient/Snow.cpp N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
 0x00201085,16,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,U,N=Code/GameEngine/Source/GameClient/WeatherSetting.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
 0x00201095,6,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,U,N=Code/GameEngine/Source/Common/WeatherSetting.cpp,Code/GameEngine/Source/Common/ConstIntGetters.cpp
-0x0020109B,153,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Snow.cpp S=Code/GameEngine/Source/GameClient/Snow.cpp N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow_Unresolved.cpp
+0x0020109B,153,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Snow.cpp S=Code/GameEngine/Source/GameClient/Snow.cpp N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
 0x00201134,31,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Snow.cpp S=Code/GameEngine/Source/GameClient/Snow.cpp N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
 0x00201153,18,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,U,N=Code/GameEngine/Source/GameClient/WeatherSetting.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
 0x00201165,685,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Snow.cpp S=Code/GameEngine/Source/GameClient/Snow.cpp N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
 0x00201412,345,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,C,C=0x00201165..0x0020156B,Code/GameEngine/Source/GameClient/WeatherSettingAssign.cpp
-0x0020156B,145,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Snow.cpp S=Code/GameEngine/Source/GameClient/Snow.cpp N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow_Unresolved.cpp
-0x002015FC,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow_Unresolved.cpp
+0x0020156B,145,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/Snow.cpp S=Code/GameEngine/Source/GameClient/Snow.cpp N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
+0x002015FC,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/SnowManager.cpp,Code/GameEngine/Source/GameClient/Snow.cpp
 0x00201618,503,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,C,C=0x0020156B..0x0020180F,Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp
 0x0020180F,28,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,U,N=Code/GameEngine/Source/GameClient/WeatherSetting.cpp,Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp
 0x0020182B,79,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,U,N=Code/GameEngine/Source/Common/WeatherSetting.cpp,Code/GameEngine/Source/Common/Rva0020182BDtor.cpp
@@ -67320,8 +67320,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076C48E,10,code,Code/GameEngine/Source/Common/INI/INIWater.cpp,approved,P,P=0x00200EE4@FuncInfo0x00911B8C,Code/GameEngine/Source/Common/INI/INIWaterTransparency.cpp
 0x0076C498,8,code,,,-,,Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers.cpp
 0x0076C4A0,10,code,,,-,,Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers.cpp
-0x0076C4AA,8,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,P,P=0x0020156B@FuncInfo0x00911BD4,Code/GameEngine/Source/GameClient/Snow_Unresolved.cpp
-0x0076C4B2,10,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,P,P=0x0020156B@FuncInfo0x00911BD4,Code/GameEngine/Source/GameClient/Snow_Unresolved.cpp
+0x0076C4AA,8,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,P,P=0x0020156B@FuncInfo0x00911BD4,Code/GameEngine/Source/GameClient/Snow.cpp
+0x0076C4B2,10,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,P,P=0x0020156B@FuncInfo0x00911BD4,Code/GameEngine/Source/GameClient/Snow.cpp
 0x0076C4BC,8,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,P,P=0x00201618@FuncInfo0x00911C18,Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp
 0x0076C4C4,8,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,P,P=0x00201618@FuncInfo0x00911C18,Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp
 0x0076C4CC,11,code,Code/GameEngine/Source/GameClient/Snow.cpp,approved,P,P=0x00201618@FuncInfo0x00911C18,Code/GameEngine/Source/GameClient/WeatherSettingCtor.cpp
