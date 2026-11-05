@@ -67,6 +67,9 @@ public:
 	Coord3D m_positionToGuard;	// +0x3C
 	ObjectID m_nemesisToAttack;	// +0x48
 	UnsignedInt m_4C;			// +0x4C
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 // condition 0x00545F10 (retail .rdata table entry)
 Bool rva00545F10(State *thisState, void *userData);

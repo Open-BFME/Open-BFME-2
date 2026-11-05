@@ -414,6 +414,12 @@ public:
 	void *m_4c4;						// +0x4C4
 	int m_4c8;						// +0x4C8
 	int m_4cc;						// +0x4CC
+protected:
+	// retail vftable slot: the rowed override
+	virtual float calculateHeightAboveTerrain() const;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
 };
 
 Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, ObjectID id) :

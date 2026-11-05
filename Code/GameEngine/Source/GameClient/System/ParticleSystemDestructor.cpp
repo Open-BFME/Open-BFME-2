@@ -112,6 +112,9 @@ public:
  const FXParticleSystem::ParticleSystemTemplate *sysTemplate;Rva001F4A22 *controlParticle;
  bool localIdentity,identity,forever,stopped,destroyed,firstPos,saveable,skip;
  unsigned char unknown1A8;Rva001FBCDC chain;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void loadPostProcess();
 };
 typedef char ParticleExtent[sizeof(ParticleSystem)==0x1DC?1:-1];
 

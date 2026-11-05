@@ -47,6 +47,9 @@ public:
 private:
     char m_pad44[0x4C - 0x44];
     Rva00340BDCMember *m_ptr4C;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

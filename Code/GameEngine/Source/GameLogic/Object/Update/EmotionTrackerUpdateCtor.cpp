@@ -127,6 +127,9 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 EmotionTrackerUpdate::EmotionTrackerUpdate(Thing *thing, const ModuleData *moduleData)

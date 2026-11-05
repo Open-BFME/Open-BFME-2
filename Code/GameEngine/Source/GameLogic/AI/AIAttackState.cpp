@@ -53,6 +53,12 @@ private:
 protected:
 	// retail slot 3: the rowed ?xfer@AIAttackState@@MAEXPAVXfer@@@Z
 	virtual void xfer(Xfer *xfer);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType update();
+public:
+	// retail vftable slot: the rowed override
+	virtual void onExit(StateExitType);
 };
 
 AIAttackState::AIAttackState(StateMachine *machine, bool follow, bool attackingObject, bool forceAttacking,

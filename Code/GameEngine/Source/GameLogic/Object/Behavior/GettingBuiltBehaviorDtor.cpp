@@ -72,6 +72,9 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@GettingBuiltBehavior@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 GettingBuiltBehavior::~GettingBuiltBehavior()

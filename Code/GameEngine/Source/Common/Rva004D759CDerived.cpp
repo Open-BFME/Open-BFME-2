@@ -128,6 +128,15 @@ class TurretStateMachine : public StateMachine
 {
 public:
 	virtual ~TurretStateMachine();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType resetToDefaultState();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType setState(unsigned int);
+public:
+	// retail vftable slot: the rowed override
+	virtual void clear();
 };
 
 TurretStateMachine::~TurretStateMachine()
@@ -138,6 +147,9 @@ class AIGuardMachine : public StateMachine
 {
 public:
 	virtual ~AIGuardMachine();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AIGuardMachine::~AIGuardMachine()
@@ -148,6 +160,9 @@ class AIDockMachine : public StateMachine
 {
 public:
 	virtual ~AIDockMachine();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AIDockMachine::~AIDockMachine()
@@ -168,6 +183,9 @@ class AIGuardRetaliateMachine : public StateMachine
 {
 public:
 	virtual ~AIGuardRetaliateMachine();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AIGuardRetaliateMachine::~AIGuardRetaliateMachine()
@@ -178,6 +196,9 @@ class AITNGuardMachine : public StateMachine
 {
 public:
 	virtual ~AITNGuardMachine();
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 AITNGuardMachine::~AITNGuardMachine()

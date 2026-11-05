@@ -139,6 +139,12 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@W3DTruckDraw@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
+public:
+	// retail vftable slot: the rowed override
+	virtual void doDrawModule(const Matrix3D *);
 };
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawModuleDataDtor.cpp

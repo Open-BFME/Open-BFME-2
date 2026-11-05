@@ -14,6 +14,9 @@ private:
 	};
 	Keys m_keys;
 	float m_trailing;
+public:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 Rva0055BC8B::Rva0055BC8B(const Rva0055BC8B &that)
 {

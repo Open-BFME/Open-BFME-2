@@ -53,6 +53,9 @@ public:
 private:
 	Coord3D m_positionToGuard;		// +0x3C
 	ObjectID m_nemesisToAttack;		// +0x48
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 // Zero Hour's checkForAggressor condition. BFME 2's body answers false and
 // retail folds it into the shared xor al,al / ret at 0x0047A699 (ICF twin

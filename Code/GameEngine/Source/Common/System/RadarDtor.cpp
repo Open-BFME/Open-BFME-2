@@ -48,6 +48,18 @@ public:
 	RadarEvent m_events[64]; // +0x2C
 private:
 	int m_eventTrailer; // +0x142C
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
+public:
+	// retail vftable slot: the rowed override
+	virtual void loadPostProcess();
+public:
+	// retail vftable slot: the rowed override
+	virtual void reset();
+public:
+	// retail vftable slot: the rowed override
+	virtual void update();
 };
 
 RadarEvent::~RadarEvent()

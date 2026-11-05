@@ -61,6 +61,15 @@ public:
 	virtual ~TurretStateMachine();
 private:
 	TurretAI *m_turretAI; // +0x3C
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType resetToDefaultState();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType setState(unsigned int);
+public:
+	// retail vftable slot: the rowed override
+	virtual void clear();
 };
 // The rowed turret-state base constructor 0x004D7B70 (a 0x20-byte State
 // prefix). The five states are created here with plain operator new, so

@@ -47,6 +47,9 @@ public:
 
 private:
 	NetGameCommandMsgArg *m_argList; // +0x28
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

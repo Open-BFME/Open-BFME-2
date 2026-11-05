@@ -361,6 +361,9 @@ public:
 	virtual ~Rva004D64F5();
 private:
 	unsigned int m_1c;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 Rva004D64F5::Rva004D64F5() : NetCommandMsg()
@@ -407,6 +410,9 @@ protected:
 private:
 	unsigned int m_1c;
 	unsigned int m_20;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 Rva004D65DC::Rva004D65DC() : NetCommandMsg()
@@ -442,6 +448,9 @@ private:
 	Int m_type; // +0x24
 	void *m_argList; // +0x28
 	void *m_argTail; // +0x2C
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 NetGameCommandMsg::NetGameCommandMsg() : NetCommandMsg()

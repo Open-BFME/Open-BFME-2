@@ -80,6 +80,9 @@ public:
 	UnsignedInt m_68;			// +0x68
 	UnsignedInt m_6C;			// +0x6C
 	UnsignedInt m_70;			// +0x70
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 // condition 0x005430E7 (retail .rdata table entry)
 Bool rva005430E7(State *thisState, void *userData);

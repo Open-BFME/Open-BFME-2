@@ -131,6 +131,9 @@ public:
 	// (Zero Hour's ableToAdvance: wait-for-clearance -> advance-position)
 	static Bool ableToAdvance(State *thisState, void *userData);
 	int m_approachPosition;	// +0x3C dock approach slot (-1: none)
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 class AIInternalMoveToState : public State

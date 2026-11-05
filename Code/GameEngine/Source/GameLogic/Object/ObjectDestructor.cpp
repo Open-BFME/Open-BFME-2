@@ -244,6 +244,12 @@ public:
 	unsigned char m_unmodelled4C0[4];
 	void *m_partitionData;							// +0x4C4
 	unsigned char m_unmodelled4C8[8];
+protected:
+	// retail vftable slot: the rowed override
+	virtual float calculateHeightAboveTerrain() const;
+protected:
+	// retail vftable slot: the rowed override
+	virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
 };
 
 // ??1Object@@MAE@XZ

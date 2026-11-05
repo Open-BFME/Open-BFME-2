@@ -36,6 +36,9 @@ public:
 	virtual ~Rva004D64F5();
 private:
 	AsciiString m_str1c;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 inline Rva004D64F5::~Rva004D64F5() {}

@@ -113,6 +113,9 @@ private:
 	MeshModelClass *NextMesh;
 	GapFillerClass *GapFiller;
 	bool HasBeenInUse;
+public:
+	// retail vftable slot: the rowed override
+	virtual bool Load_W3D(ChunkLoadClass &);
 };
 
 // 0x00199FA5 is rowed as rva00199FA5 (Rva00199FA5Check.cpp); called by that name.

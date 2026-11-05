@@ -44,6 +44,9 @@ private:
 	Int m_type;
 	GameMessageArgument *m_argList;
 	GameMessageArgument *m_argTail;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 
 NetGameCommandMsg::NetGameCommandMsg(GameMessage *msg) : NetCommandMsg()

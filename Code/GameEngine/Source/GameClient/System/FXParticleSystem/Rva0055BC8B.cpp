@@ -31,6 +31,9 @@ public:
 private:
 	FXParticleSystem::RGBColorKeyframe m_keys[8];
 	float m_trailing;
+public:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 
 Rva0055BC8B::Rva0055BC8B() : m_trailing(0.0f)

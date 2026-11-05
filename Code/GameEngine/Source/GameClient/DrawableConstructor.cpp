@@ -315,6 +315,9 @@ public:
 	AsciiString m_458;					// +0x458
 	int m_45c;						// +0x45C
 	unsigned char m_pad460[0x470 - 0x460];
+protected:
+	// retail vftable slot: the rowed override
+	virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
 };
 
 Drawable::Drawable(const ThingTemplate *thingTemplate, DrawableStatus statusBits, int arg) :

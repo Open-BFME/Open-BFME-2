@@ -76,6 +76,18 @@ public:
 private:
 	char m_pad145D[0x1460 - 0x145D];
 	int m_1460; // +0x1460
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
+public:
+	// retail vftable slot: the rowed override
+	virtual void loadPostProcess();
+public:
+	// retail vftable slot: the rowed override
+	virtual void reset();
+public:
+	// retail vftable slot: the rowed override
+	virtual void update();
 };
 
 RadarEvent::RadarEvent()

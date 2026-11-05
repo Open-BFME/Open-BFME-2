@@ -280,6 +280,9 @@ public:
 	AsciiString m_458;					// +0x458
 	DrawableDisposable *m_45c;					// +0x45C; deleted through virtual slot 0
 	unsigned char m_pad460[0x470 - 0x460];
+protected:
+	// retail vftable slot: the rowed override
+	virtual void reactToTransformChange(const Matrix3D *, const Coord3D *, float);
 };
 
 class Rva002714CA

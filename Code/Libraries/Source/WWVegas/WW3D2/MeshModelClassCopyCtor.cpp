@@ -107,6 +107,9 @@ private:
 	MeshModelClass *NextMesh;
 	GapFillerClass *GapFiller;
 	bool HasBeenInUse;
+public:
+	// retail vftable slot: the rowed override
+	virtual bool Load_W3D(ChunkLoadClass &);
 };
 
 // Head of the global MeshModelClass instance list (retail .data head).

@@ -47,6 +47,21 @@ private:
 	Rva003516F3Buffer m_buffer; // +0x3C
 	unsigned char m_pad40[0x4C - 0x40];
 	Rva003516F3Owned *m_owned; // +0x4C
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType resetToDefaultState();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType setState(unsigned int);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType updateStateMachine();
+public:
+	// retail vftable slot: the rowed override
+	virtual void clear();
 };
 
 AIStateMachine::~AIStateMachine()

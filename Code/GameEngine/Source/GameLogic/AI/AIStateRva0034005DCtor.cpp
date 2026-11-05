@@ -324,6 +324,9 @@ private:
 	int m_74;
 public:
 	virtual ~Rva00340BDC();	// rowed elsewhere; declared so this unit binds to it
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
 };
 Rva00340BDC::Rva00340BDC(StateMachine *machine, int value)
 	: AIInternalMoveToState(machine, 0x26ab28f6u)

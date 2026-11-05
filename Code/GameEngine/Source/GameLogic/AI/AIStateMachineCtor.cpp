@@ -58,6 +58,21 @@ private:
 	UnsignedInt m_temporaryStateFrameEnd;	// +0x54
 	UnsignedInt m_goalObjectID;			// +0x58
 	Coord3D m_goalPosition;				// +0x5C
+protected:
+	// retail vftable slot: the rowed override
+	virtual void xfer(Xfer *);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType resetToDefaultState();
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType setState(unsigned int);
+public:
+	// retail vftable slot: the rowed override
+	virtual StateReturnType updateStateMachine();
+public:
+	// retail vftable slot: the rowed override
+	virtual void clear();
 };
 typedef char AIStateMachineSize[sizeof(AIStateMachine) == 0x68 ? 1 : -1];
 class Rva0033FE65

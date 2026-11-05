@@ -43,6 +43,9 @@ protected:
 private:
 	StringBase<char> m_str1c;
 	StringBase<char> m_str20;
+public:
+	// retail vftable slot: the rowed override
+	virtual AsciiString getContentsAsAsciiString();
 };
 Rva004D65DC::~Rva004D65DC()
 {
