@@ -9,7 +9,7 @@
 // Constructor writes 0x0025D4AB..0x0025D50C prove dwords +0xC..+0x58 and +0x60, bytes +0x18/+0x48/+0x5C/+0x5D/+0x64. 0x0025D4ED..0x0025D50F constructs three 0x18-byte elements at +0x68. 0x0025D514..0x0025D62A proves the scalar offsets through byte +0x141. Derived W3DDisplay constructor 0x00049DEA starts its own storage at +0x144, bounding Display to 0x144 bytes after alignment.
 // Destructor 0x0025D6B0..0x0025D6D8 releases AsciiString storage at +0xF0/+0xD0 and UnicodeString storage at +0xB0. These four-byte string members and the image records remain opaque here. The parent owns +0x4 and +0x8. Callback 0x0025C6BD stores +0x30/+0x34; its ledger signature proves DebugDisplayCallback.
 // Nonvirtual method declarations follow the ledger rows at 0x0025DA73, 0x0025D904, 0x0004B180, 0x002B2466, 0x0025C46E, 0x0025D9CB, 0x0025D10F, 0x0025D19E, 0x0025D358, 0x00049F94, 0x0025C6E2, 0x0025C72C, 0x0025C4A4, 0x0025C776, 0x0025D33B, 0x0025CC7A and 0x0025D3C8. No copy or assignment body is supplied.
-// Zero Hour supplies setClipRegion/isClippingEnabled/enableClipping (42-44), createLightPulse (47), drawOpenRect/drawFillRect (56/57), drawImage (62), stopMovie/isMoviePlaying (68/69) and getAverageFPS (92). W3DDisplay table 0x00BC3C80 maps these to 0x00044FB9/0x00049F80/0x00049F87, 0x0004423C, 0x00044A1A/0x00044C9A, 0x0004776F, 0x0025D19E/0x0052D843 and 0x0055F4B5. Retail callers 0x001E041E, 0x00277D31/0x00277D7A and 0x004379A9 confirm the light-pulse, rectangle and FPS dispatches; row 0x0004776F proves the float-coordinate image ABI. Unnamed pure entries reserve their slots without claiming an argument signature. Exceptions: W3DDisplay slots 49/50 (0x0004450E/0x00044545) return with ret 16 and the fade caller 0x0004353C pushes an index and three floats; W3DDisplay slot 52 (0x0004488C) returns with ret 4 and ScriptActions 0x003BAA2D forwards one float to it.
+// Zero Hour supplies setClipRegion/isClippingEnabled/enableClipping (42-44), createLightPulse (47), drawOpenRect/drawFillRect (56/57), drawImage (62), stopMovie/isMoviePlaying (68/69) and getAverageFPS (92). W3DDisplay table 0x00BC3C80 maps these to 0x00044FB9/0x00049F80/0x00049F87, 0x0004423C, 0x00044A1A/0x00044C9A, 0x0004776F, 0x0025D19E/0x0052D843 and 0x0055F4B5. Retail callers 0x001E041E, 0x00277D31/0x00277D7A and 0x004379A9 confirm the light-pulse, rectangle and FPS dispatches; row 0x0004776F proves the float-coordinate image ABI. Unnamed pure entries reserve their slots without claiming an argument signature. Exceptions: W3DDisplay slots 49/50 (0x0004450E/0x00044545) return with ret 16 and the fade caller 0x0004353C pushes an index and three floats; W3DDisplay slot 52 (0x0004488C) returns with ret 4 and ScriptActions 0x003BAA2D forwards one float to it. W3DDisplay slot 51 (0x0004481A) stores four floats and ScriptActions 0x003BA9FA forwards four floats to it; W3DDisplay slot 84 (0x0004538C) returns AL=1 with ret 8 and ScriptActions 0x003BCCA2 pushes 10000 and 1.
 // The shared stub 0x001F01E8 at slots 24/25 returns with ret 16, fixing four argument words. Slots 23-25 take Zero Hour's getDisplayModeCount/getDisplayModeDescription/setGamma: the rowed AptOptions::InitGadgets 0x00519E1E and Save 0x005194F6 read a mode count from +0x5C and pass an index and three int pointers to +0x60, and 0x00519167, Save and 0x0051847B pass the global gamma and 0.0/1.0/false to +0x64; slot 30 at 0x00049F0F copies through one pointer and returns with ret 4. W3DDisplay rows at 0x00044D7F (slot 41), 0x00044E77 (65), 0x0025D6F5 (67) and 0x00047D04 (99) prove their parameter/return representations. Slot 75 reads the callback stored by 0x0025C6BD, and Zero Hour supplies getDebugDisplayCallback. Slot 65 retains a neutral name: its ledger calls it drawImage(Image*,float,float,float,float,int), while consumers call it drawVideoBuffer; this does not prove a second drawImage overload adjacent to slot 62.
 #ifndef BFME2_DISPLAY_H
 #define BFME2_DISPLAY_H
@@ -82,7 +82,7 @@ public:
     virtual void slot48() = 0;
     virtual void slot49(int, float, float, float) = 0;
     virtual void slot50(int, float, float, float) = 0;
-    virtual void slot51() = 0;
+    virtual void slot51(float, float, float, float) = 0;
     virtual void slot52(float) = 0;
     virtual void slot53() = 0;
     virtual void slot54() = 0;
@@ -115,7 +115,7 @@ public:
     virtual void slot81() = 0;
     virtual void slot82() = 0;
     virtual void slot83() = 0;
-    virtual void slot84() = 0;
+    virtual bool slot84(int, unsigned int) = 0;
     virtual void slot85() = 0;
     virtual void slot86() = 0;
     virtual bool slot87() { return false; }

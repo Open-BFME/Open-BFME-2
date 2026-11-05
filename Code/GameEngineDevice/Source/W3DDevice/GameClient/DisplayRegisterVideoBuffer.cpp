@@ -22,14 +22,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <vector>
 
-class VideoBuffer;
+#include "../../../../GameEngine/Include/GameClient/Display.h"
 
-class Display
+// The buffer list lies past Display's 0x144 bytes, in the derived display's
+// storage; this TU reads it through a local view of the same object.
+struct DisplayVideoBufferListView
 {
-public:
-	void Rva006F2890RegisterVideoBuffer(VideoBuffer *buffer);
-
-private:
 	unsigned char m_pad[0x2A4];
 	_STL::vector<VideoBuffer *> m_buffers; // +0x2A4
 };
@@ -37,5 +35,5 @@ private:
 // ?Rva006F2890RegisterVideoBuffer@Display@@QAEXPAVVideoBuffer@@@Z @0x0004B180
 void Display::Rva006F2890RegisterVideoBuffer(VideoBuffer *buffer)
 {
-	m_buffers.push_back(buffer);
+	reinterpret_cast<DisplayVideoBufferListView *>(this)->m_buffers.push_back(buffer);
 }
