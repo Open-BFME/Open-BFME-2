@@ -4839,6 +4839,15 @@ Rva0036CA00Str Rva0027937BHost::rva0027937B()
 
 // tu-skeleton: 0x0027BB65 875B ?applyPhysicsXform@Drawable@@QAEXPAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameClient/DrawableApplyPhysicsXform.cpp (not merged yet)
 
+// ?getID@Drawable@@QBE?AW4DrawableID@@XZ @0x0055A88B 7B
+// `mov eax,[ecx+100h]; ret`: retail calls it out of line (LaserUpdate's
+// initFromDrawables at 0x00363853). Identical-code fold with the rowed
+// disp32 dword getter ?get@Rva0055A88BDwordField@@QBEHXZ at the same address.
+DrawableID Drawable::getID() const
+{
+	return m_id;
+}
+
 // tu-skeleton: 0x007732D5 19B ?rva007732d5@@YAXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp (not merged yet)
 
 // tu-skeleton: 0x007732E8 10B __ehhandler$?calcPitchRoll@Drawable@@QAE_NPAX000HH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_calcPitchRoll.cpp (not merged yet)

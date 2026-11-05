@@ -5541,7 +5541,6 @@ name,address,notes
 ?getGenericAIObjectName@MapObject@@QAE?AVAsciiString@@XZ,0x0030D808,BFME 2 MapObject getter twin of getWaypointName on the key cache 0x00DBDC6C whose name pointer reads "GenericAIObjectName"; method name inferred from that key; rowed under ?rva0030D808@Rva0030D808@@QAE?AVAsciiString@@XZ
 ?getGoalObject@StateMachine@@QAEPAVObject@@XZ,0x004D7726,m_machine->getGoalObject called by AIDockState::onEnter at 0x003416A7
 ?getGoalPathPosition@AIStateMachine@@QBEPBUCoord3D@@H@Z,0x00346FA5,ZH AIStateMachine::getGoalPathPosition shape (index bounds check over the +0x3C Coord3D vector then element address); same body as the Rva00346FA5 row; REL32 from AIFollowPathState::onEnter 0x0034DF1D with ECX the AI's +0x30 state machine
-?getID@Drawable@@QBE?AW4DrawableID@@XZ,0x0055A88B,callee of ?initFromDrawables@LaserUpdate@@QAEXPAXPAVDrawable@@10@Z at retail 0x00363853 read from its REL32 displacement; ICF alias onto the matched ?get@Rva0055A88BDwordField@@QBEHXZ
 ?getIgnoredObstacleID@AIUpdateInterface@@QBE?AW4ObjectID@@XZ,0x0006E009,AIUpdateInterface::getIgnoredObstacleID (dword at +0x164): AIMoveToStateSA::onEnter 0x0034C8C5 calls it at 0x0034C913 on the owner's AI and compares the goal object's id with it, as Zero Hour's AIMoveToState::onEnter does; out of line and ICF-folded with the rowed +0x164 dword getter
 ?getInt@BfmeSrc803A00@@QAEHPBDH@Z,0x00655990
 ?getInt@BfmeSrc803B60@@QAEHPBDH@Z,0x00655990
