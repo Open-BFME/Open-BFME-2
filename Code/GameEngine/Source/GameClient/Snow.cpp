@@ -9,6 +9,7 @@
 #include <new>
 #include <stdlib.h>
 
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // Two adjacent floats that retail copies with one override lookup.
@@ -21,30 +22,9 @@ class SnowManager : public SubsystemInterface {
 public:
     SnowManager();
     virtual ~SnowManager();
-    // Slot 1 of retail's base table; slot 2 is the base's
-    // loadIniFilesFromLegend (0x001B5384), which the canonical header leaves
-    // undeclared.
     virtual void init();
-    virtual bool targetSlot2();
-    virtual void targetSlot3();
-    virtual void targetSlot4();
-    virtual void targetSlot5();
-    virtual void targetSlot6();
-    virtual void targetSlot7();
-    virtual void targetSlot8();
     virtual void reset();
-    virtual void targetSlot10() = 0;
-    virtual void targetSlot11();
-    virtual void targetSlot12();
-    virtual void targetSlot13();
     virtual void updateIniSettings();
-    virtual void targetSlot15();
-    virtual void targetSlot16();
-    virtual void targetSlot17();
-    virtual void targetSlot18();
-    virtual void targetSlot19();
-    virtual void targetSlot20();
-    virtual void targetSlot21();
 private:
     float *m_startingHeights;
     float m_time;

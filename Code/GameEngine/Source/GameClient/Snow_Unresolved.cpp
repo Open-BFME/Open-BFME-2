@@ -9,7 +9,8 @@
 // Unidentified virtual slots retain neutral names in this target ABI view.
 // stlport
 typedef bool Bool;
-#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // Two adjacent floats that retail copies with one override lookup.
 struct SnowFloatPair {
