@@ -1,6 +1,4 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /DBFME_MODULE_NO_MPO /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
-// stlport
-#define Matrix4x4 Matrix4  // BFME renamed it
+// cl: /O1 /DNDEBUG /MD /EHsc
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -29,35 +27,63 @@
 // Author: Bryan Cleveland, March 2002
 // Desc:   Damage module that goes with BoneFX update
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// BFME2 class shape (target facts; table addresses are VAs, code addresses RVAs):
+//  - ??0BoneFXDamage (0x004B979C) calls ??0DamageModule (0x004B9704) and stores
+//    0x00C598B4 at +0, 0x00C597F8 at +0x0C and 0x00C597E8 at +0x10.
+//  - The primary table 0x00C598B4 has DamageModule's twelve slots: deleting
+//    destructor 0x004B97C6 (it calls the destructor 0x004B96E5), loadPostProcess
+//    0x00497805 (`jmp 0x0058B03E`, DamageModule's), GetSnapshotName 0x004B96FE,
+//    xfer 0x0045CE8C (Version1, then DamageModule's 0x004CE56D), getModuleNameKey
+//    0x004B9757, onObjectCreated 0x004B97E2, then the inherited bodies. There is
+//    no crc slot: Zero Hour's BoneFXDamage::crc has no BFME2 counterpart.
+//  - The +0x10 DamageModuleInterface table 0x00C597E8 holds the shared `ret 4`
+//    0x0047A69C for onDamage and onHealing, then onBodyDamageStateChange 0x004B985E.
+//  - loadPostProcess and xfer are identical-code folds with other module classes'
+//    overrides (rows ?loadPostProcess@Rva00497805@@MAEXXZ in BattlePlanUpdate.cpp
+//    and ?xfer@Rva0045CE8C@@QAEXPAVXfer@@@Z in Rva0045CE8CXfer.cpp); the
+//    destructor and its deleting destructor are rowed in Rva004B96CCDerived.cpp.
+// Donor: Zero Hour BoneFXDamage.cpp gives the names and the callback bodies.
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
+#include "../object.h"
 
-#include "Common/Xfer.h"
-#include "GameClient/Drawable.h"
-#include "GameLogic/GameLogic.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/Module/BoneFXDamage.h"
-#include "GameLogic/Module/BoneFXUpdate.h"
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// The module hierarchy needs BFME_MODULE_NO_MPO on this file's own cl line:
-// retail's Module has no MemoryPoolObject base, so BehaviorModule spans 0x0C
-// and this constructor's second vtable store lands at +0x0C, where the wider
-// layout puts a fourth vptr at +0x04 and +0x14 and shifts everything.
-BoneFXDamage::BoneFXDamage( Thing *thing, const ModuleData* moduleData ) 
-																		  : DamageModule( thing, moduleData )
+enum NameKeyType
 {
-}  // end BoneFXDamage
+	NK_UNKNOWN = 0
+};
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ??1BoneFXDamage@@MAE@XZ present-unmatched
-BoneFXDamage::~BoneFXDamage( void )
+#include "../../../../Include/Common/NameKeyGenerator.h"
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// Xfer::Version1 operand types, as BfmeXfer.h's other includers declare them.
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+// BoneFXUpdate::changeBodyDamageState, rowed at 0x00487B60 (BoneFXUpdate.cpp).
+class BoneFXUpdate
 {
-
-}  // end ~BoneFXDamage
+public:
+	void changeBodyDamageState(BodyDamageType oldState, BodyDamageType newState);
+};
 
 // BFME2 throws a formatted INIException here (retail 0x004B97E2 calls the
 // rowed ??0INIException@@QAA@HPBDZZ then _CxxThrowException); ZH threw a bare
@@ -73,13 +99,54 @@ public:
 };
 
 //-------------------------------------------------------------------------------------------------
+class BoneFXDamage : public DamageModule
+{
+public:
+
+	BoneFXDamage( Thing *thing, const ModuleData* moduleData );
+	virtual ~BoneFXDamage();
+
+	// Zero Hour's MAKE_STANDARD_MODULE_MACRO body: a pool-name key cached in a
+	// function-local static. Retail slot 4 is 0x004B9757, rowed under the
+	// placeholder BoneFXDamage::rva004B9757 (BoneFXDamagePoolKey.cpp); this inline
+	// copy is the one the Zero Hour build of this unit already emitted (same digest).
+	virtual NameKeyType getModuleNameKey() const
+	{
+		static NameKeyType nk = TheNameKeyGenerator->nameToKey("BoneFXDamage");
+		return nk;
+	}
+
+	// damage module callbacks
+	virtual void onDamage( DamageInfo *damageInfo ) { }
+	virtual void onHealing( DamageInfo *damageInfo ) { }
+	virtual void onBodyDamageStateChange( const DamageInfo* damageInfo,
+																				BodyDamageType oldState,
+																				BodyDamageType newState );
+
+protected:
+
+	virtual void onObjectCreated();
+
+	virtual void loadPostProcess( void );
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer( Xfer *xfer );
+
+};
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+BoneFXDamage::BoneFXDamage( Thing *thing, const ModuleData* moduleData )
+																		  : DamageModule( thing, moduleData )
+{
+}  // end BoneFXDamage
+
+//-------------------------------------------------------------------------------------------------
 void BoneFXDamage::onObjectCreated()
 {
-	static NameKeyType key_BoneFXUpdate = NAMEKEY("BoneFXUpdate");
+	static NameKeyType key_BoneFXUpdate = TheNameKeyGenerator->nameToKey("BoneFXUpdate");
 	BoneFXUpdate* bfxu = (BoneFXUpdate*)getObject()->findUpdateModule(key_BoneFXUpdate);
 	if (bfxu == NULL)
 	{
-		DEBUG_ASSERTCRASH(bfxu != NULL, ("BoneFXDamage requires BoneFXUpdate"));
 		throw INIException(3, "BoneFXDamage requires BoneFXUpdate");
 	}
 }
@@ -87,11 +154,11 @@ void BoneFXDamage::onObjectCreated()
 //-------------------------------------------------------------------------------------------------
 /** Switching damage states */
 //-------------------------------------------------------------------------------------------------
-void BoneFXDamage::onBodyDamageStateChange( const DamageInfo *damageInfo, 
-																						BodyDamageType oldState, 
+void BoneFXDamage::onBodyDamageStateChange( const DamageInfo *damageInfo,
+																						BodyDamageType oldState,
 																						BodyDamageType newState )
 {
-	static NameKeyType key_BoneFXUpdate = NAMEKEY("BoneFXUpdate");
+	static NameKeyType key_BoneFXUpdate = TheNameKeyGenerator->nameToKey("BoneFXUpdate");
 	BoneFXUpdate* bfxu = (BoneFXUpdate*)getObject()->findUpdateModule(key_BoneFXUpdate);
 	if (bfxu)
 		bfxu->changeBodyDamageState(oldState, newState);
@@ -101,28 +168,20 @@ void BoneFXDamage::onBodyDamageStateChange( const DamageInfo *damageInfo,
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?crc@BoneFXDamage@@MAEXPAVXfer@@@Z present-unmatched
-void BoneFXDamage::crc( Xfer *xfer )
-{
-
-	// extend base class
-	DamageModule::crc( xfer );
-
-}  // end crc
+// BFME2's Snapshot has no crc slot: retail table 0x00C598B4 holds GetSnapshotName
+// where Zero Hour's crc sat, so Zero Hour's BoneFXDamage::crc was not carried over.
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
 	* Version Info:
 	* 1: Initial version */
 // ------------------------------------------------------------------------------------------------
-// ?xfer@BoneFXDamage@@MAEXPAVXfer@@@Z present-unmatched
+// Slot 3 of 0x00C598B4: 0x0045CE8C, identical-code fold with other modules' overrides.
 void BoneFXDamage::xfer( Xfer *xfer )
 {
 
 	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
+	xfer->Version1();
 
 	// extend base class
 	DamageModule::xfer( xfer );
@@ -132,7 +191,7 @@ void BoneFXDamage::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@BoneFXDamage@@MAEXXZ present-unmatched
+// Slot 1 of 0x00C598B4: 0x00497805, identical-code fold with other modules' overrides.
 void BoneFXDamage::loadPostProcess( void )
 {
 

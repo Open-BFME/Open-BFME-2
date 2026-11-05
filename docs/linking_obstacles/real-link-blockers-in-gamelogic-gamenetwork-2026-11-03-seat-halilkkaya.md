@@ -467,3 +467,38 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
     `virtual`, the tool sees nothing to rewrite and refuses the unit as "undeclared".
   - run_batch `source_edits` take `.cpp` only. A view header with one includer was edited on disk
     before the batch, so the transaction staged and verified it.
+
+#### Seat halilkkaya-lk32 follow-up (2026-11-05): `crc@DamageModule` resolved; BoneFXDamage.cpp on canonical views
+
+- **Repaired: `?crc@DamageModule@@MAEXPAVXfer@@@Z` (BoneFXDamage.cpp, 3 of 3).** The unit no longer
+  compiles against Zero Hour headers. It includes canonical `DamageModuleClass.h` (Snapshot with
+  GetSnapshotName in slot 2) and the draft `object.h`, and declares a TU-local BoneFXDamage in retail's
+  slot order. Zero Hour's `BoneFXDamage::crc` has no BFME2 counterpart and is gone, so nothing
+  references `DamageModule::crc`. link_check: BoneFXDamage.cpp does not link -> LINKS 0 -> 322 B.
+- **Steps, each verified:**
+  1. `rename.py class --fold Rva004B96E5 --into BoneFXDamage`: the destructor 0x004B96E5 and its
+     deleting destructor 0x004B97C6 (Rva004B96CCDerived.cpp) are BoneFXDamage's. Evidence: the
+     destructor's first +0 store installs 0x00C598B4, which the rowed ctor 0x004B979C installs too.
+  2. ICF twin rows in BoneFXDamage.cpp: `loadPostProcess` at 0x00497805 (`jmp` DamageModule's
+     0x0058B03E; fold-proof BattlePlanUpdate.cpp) and `xfer` at 0x0045CE8C (Version1, then
+     DamageModule's 0x004CE56D; fold-proof Rva0045CE8CXfer.cpp).
+  3. The canonical rewrite: ctor, onObjectCreated, onBodyDamageStateChange, both EH handlers and both
+     funclets stay exact (9/9). The funclet labels renumbered (`$L46026` -> `$L3686`, `$L46047` ->
+     `$L3704`); build.py verifies them through the parent's EH data. Four `present-unmatched` hatches
+     are gone (dtor, crc, xfer, loadPostProcess).
+- **Vtables, slot by slot against retail:**
+  - `??_7BoneFXDamage@@6BObjectModule@@@` (0x00C598B4): 14 slots with 1 retail-equal -> 12 slots
+    with 11 equal. The one unknown is slot 4, getModuleNameKey (next item).
+  - `??_7BoneFXDamage@@6BBehaviorModuleInterface@@@` (0x00C597F8): 34 slots with 6 equal -> 47 slots
+    with 43 equal.
+  - `??_7BoneFXDamage@@6B@` (0x00C597E8): unchanged.
+  - The unit stops emitting the Zero Hour copies of BehaviorModule's, BehaviorModuleInterface's and
+    DamageModuleInterface's tables. Other objects keep identical copies of those, and nothing else
+    touched the Zero Hour DamageModule tables, `??1DamageModule@@MAE@XZ` or `??0DamageModule`'s
+    second COMDAT variant (the census's `??0DamageModule` COMDAT note is gone with it).
+- **Left for BoneFXDamage:** getModuleNameKey is still an unrowed inline body, the same COMDAT the
+  Zero Hour build emitted (digest d40f9a747e27). Retail's 0x004B9757 is rowed under the static
+  placeholder `?rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ` (BoneFXDamagePoolKey.cpp).
+  Respelling that row to `?getModuleNameKey@BoneFXDamage@@UBE?AW4NameKeyType@@XZ` and moving it
+  into BoneFXDamage.cpp would turn slot 4 retail-equal. `rename.py --virtual` changes only Q to U,
+  so it cannot respell a static.
