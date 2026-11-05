@@ -78,15 +78,14 @@ private:
 #include "../../../../Include/GameNetwork/GameInfo.h"
 struct Rva00506C82Arg;
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
-struct Rva002A8AB1Record;
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);
-	char m_pad000[0x864];
-	_STL::vector<int> m_usedStarts;	// +0x864
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
+// The canonical header keeps +0x864 opaque (inside m_pad861): read the
+// used start-position list there through a TU-local view.
+static __forceinline _STL::vector<int> &skirmishUsedStarts(Rva002A8F24 *manager)
+{
+	return *(_STL::vector<int> *)&manager->m_pad861[0x864 - 0x861];
+}
 class Rva005ADA40Owned
 {
 public:
@@ -346,7 +345,7 @@ bool AIBase::rva005AD964()
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_owner);
 	if (slot) {
 		int start = slot->m_startPos + 1;
-		_STL::vector<int> &used = TheSkirmishAIManager->m_usedStarts;
+		_STL::vector<int> &used = skirmishUsedStarts(TheSkirmishAIManager);
 		int *end = used.end();
 		for (int *it = used.begin(); it != end; ++it) {
 			if (*it == start)

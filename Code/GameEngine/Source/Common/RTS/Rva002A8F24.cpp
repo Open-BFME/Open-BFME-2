@@ -32,23 +32,23 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 
 #include "../../../Include/Common/Player.h"
 
-class Rva002A8F24
-{
-public:
-	void *rva002A8F24(Player *player);
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 
-private:
-	char m_pad[0x908];
-	_STL::map<int, int> m_map; // +0x908
-};
+// The canonical header keeps +0x908 opaque (m_pad888): reach the
+// player-index map there through a TU-local view.
+static __forceinline _STL::map<int, int> &skirmishPlayerMap(Rva002A8F24 *manager)
+{
+	return *(_STL::map<int, int> *)&manager->m_pad888[0x908 - 0x888];
+}
 
 void *Rva002A8F24::rva002A8F24(Player *player)
 {
 	if (!player)
 		return 0;
 	int key = player->m_playerIndex;
-	_STL::map<int, int>::iterator it = m_map.find(key);
-	if (it != m_map.end())
+	_STL::map<int, int> &map = skirmishPlayerMap(this);
+	_STL::map<int, int>::iterator it = map.find(key);
+	if (it != map.end())
 		return (void *)(*it).second;
 	return 0;
 }

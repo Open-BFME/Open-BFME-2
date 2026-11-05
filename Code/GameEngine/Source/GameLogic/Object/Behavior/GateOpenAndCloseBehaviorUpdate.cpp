@@ -156,12 +156,13 @@ public:
 	void rva004E908C(void *item);
 };
 
-class Rva002A8F24
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
+// The canonical header keeps +0x940 opaque (m_pad91C): read the gate list
+// pointer there through a TU-local view.
+static __forceinline GateOpenBehaviorList *skirmishGateList(Rva002A8F24 *manager)
 {
-public:
-	unsigned char m_pad[0x940];
-	GateOpenBehaviorList *m_gateList; // +0x940
-};
+	return *(GateOpenBehaviorList **)&manager->m_pad91C[0x940 - 0x91C];
+}
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 struct GateVec
@@ -301,7 +302,7 @@ UpdateSleepTime GateOpenAndCloseBehavior::update()
 		}
 		rva004992D5Inline(false, true);
 		TheAudio->removeAudioEvent(m_soundHandle);
-		TheSkirmishAIManager->m_gateList->rva004E908C(this);
+		skirmishGateList(TheSkirmishAIManager)->rva004E908C(this);
 		m_30 = false;
 		return UPDATE_SLEEP_NONE;
 	}

@@ -37,13 +37,14 @@ struct Rva002A8AB1Record
 	int m_16C; // +0x16C
 };
 
-class Rva002A8F24
+#include "../../../Include/GameLogic/Rva002A8F24.h"
+
+// The canonical header keeps +0x888 opaque (m_pad888): read the four
+// 32-byte difficulty entries there through a TU-local view.
+static __forceinline AIDiffEntry *skirmishDifficultyTable(Rva002A8F24 *manager)
 {
-public:
-	char m_pad[0x888];
-	AIDiffEntry m_table[4]; // +0x888
-	Rva002A8AB1Record *rva002A8AB1(void *key);
-};
+	return (AIDiffEntry *)manager->m_pad888;
+}
 
 class AIDifficulty
 {
@@ -60,7 +61,7 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
 {
 	int diff = (int)p->rva002A9BF2();
-	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
+	AIDiffEntry entry = skirmishDifficultyTable(TheSkirmishAIManager)[diff];
 	float num = (float)entry.m_num;
 	float den = (float)entry.m_den;
 	float ratio = num / den;
@@ -78,7 +79,7 @@ bool __stdcall Rva0058AF47Check(Rva002A9BF2 *p)
 bool Rva002A9BF2::fromGate(Rva002A9BF2 *key)
 {
 	int diff = (int)key->rva002A9BF2();
-	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
+	AIDiffEntry entry = skirmishDifficultyTable(TheSkirmishAIManager)[diff];
 	float num = (float)entry.m_num;
 	float den = (float)entry.m_den;
 	float ratio = num / den;
@@ -103,7 +104,7 @@ bool AIDifficulty::allowOffensiveTactic(Rva002A9BF2 *key)
 		if (rec->m_16C == diff)
 			return false;
 	}
-	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
+	AIDiffEntry entry = skirmishDifficultyTable(TheSkirmishAIManager)[diff];
 	float num = (float)entry.m_14;
 	float den = (float)entry.m_18;
 	float ratio = num / den;
@@ -124,7 +125,7 @@ bool AIDifficulty::allowOffensiveTactic(Rva002A9BF2 *key)
 bool AIDifficulty::allowEconomyUpgrade(Rva002A9BF2 *p)
 {
 	int diff = (int)p->rva002A9BF2();
-	AIDiffEntry entry = TheSkirmishAIManager->m_table[diff];
+	AIDiffEntry entry = skirmishDifficultyTable(TheSkirmishAIManager)[diff];
 	Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(p);
 	if (rec->m_cc + rec->m_d0 < entry.m_1C)
 	{

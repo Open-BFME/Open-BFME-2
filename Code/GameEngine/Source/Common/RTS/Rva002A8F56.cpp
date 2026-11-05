@@ -48,16 +48,14 @@ public:
 
 #include "../../../Include/GameLogic/AIStatCollector.h"
 
-class Rva002A8F24
+#include "../../../Include/GameLogic/Rva002A8F24.h"
+
+// The canonical header keeps +0x934 opaque (m_pad91C): reach the hero
+// ObjectID list there through a TU-local view.
+static __forceinline _STL::vector<enum ObjectID> &skirmishHeroIDs(Rva002A8F24 *manager)
 {
-public:
-	struct Rva002A8AB1Record *rva002A8AB1(void *key);
-	void *rva002A8F24(Player *player);
-	void UnRegister(Object *obj);
-private:
-	char m_pad[0x934];
-	_STL::vector<enum ObjectID> m_vec; // +0x934
-};
+	return *(_STL::vector<enum ObjectID> *)&manager->m_pad91C[0x934 - 0x91C];
+}
 
 void Rva002A8F24::UnRegister(Object *obj)
 {
@@ -74,8 +72,8 @@ void Rva002A8F24::UnRegister(Object *obj)
 	if ((obj->m_p4->m_flag & 4) == 0)
 		return;
 	enum ObjectID id = obj->m_id;
-	enum ObjectID *end = m_vec.end();
-	CreateAHeroData **it = _STL::find((CreateAHeroData **)m_vec.begin(), (CreateAHeroData **)end, (CreateAHeroData *&)id);
+	enum ObjectID *end = skirmishHeroIDs(this).end();
+	CreateAHeroData **it = _STL::find((CreateAHeroData **)skirmishHeroIDs(this).begin(), (CreateAHeroData **)end, (CreateAHeroData *&)id);
 	if ((enum ObjectID *)it != end)
-		m_vec.erase((enum ObjectID *)it);
+		skirmishHeroIDs(this).erase((enum ObjectID *)it);
 }

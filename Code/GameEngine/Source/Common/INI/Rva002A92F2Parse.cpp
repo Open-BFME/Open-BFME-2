@@ -32,12 +32,14 @@ public:
 	AsciiString &rva002A9140(const int &key);
 };
 
-class Rva002A8F24
+#include "../../../Include/GameLogic/Rva002A8F24.h"
+
+// The canonical header keeps +0x920 opaque (m_pad91C): reach the
+// dozer-assignment map there through a TU-local view.
+static __forceinline Rva002A9140 &skirmishDozerAssignments(Rva002A8F24 *manager)
 {
-public:
-	char m_unreconstructed_00[0x920];
-	Rva002A9140 m_dozerAssignments; // +0x920
-};
+	return *(Rva002A9140 *)&manager->m_pad91C[0x920 - 0x91C];
+}
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern const FieldParse AIDozerAssignmentFields[];
@@ -57,5 +59,5 @@ void parseAIDozerAssignmentDefinition(INI *ini)
 	Rva002A8BB9 entry;
 	ini->initFromINI(&entry, AIDozerAssignmentFields);
 	int key = TheNameKeyGenerator->nameToKey(entry.m_0);
-	TheSkirmishAIManager->m_dozerAssignments.rva002A9140(key) = entry.m_4;
+	skirmishDozerAssignments(TheSkirmishAIManager).rva002A9140(key) = entry.m_4;
 }
