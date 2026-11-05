@@ -59,14 +59,24 @@ struct Rva007FA170Slot
 	unsigned m_expiry;
 };
 
+struct Rva007F96C0Rec;
+class Rva007E8810Message;
+class Rva007F96C0Hub;
+
 class Rva007FA2C0
 {
 public:
 	void rva007F95A0(Rva007FA170Slot *slot, unsigned timeout);
+	bool onTxn(Rva007E8810Message *msg);
+	Rva007F96C0Rec *lookup(void *key);
 
 private:
-	char m_pad00[0x18];
+	char m_pad[0x14];
+	int m_14;
 	unsigned m_watermark;
+	char m_pad1C[4];
+	void *m_20;
+	Rva007F96C0Hub *m_24;
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)

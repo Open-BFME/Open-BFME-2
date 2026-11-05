@@ -44,16 +44,20 @@ public:
 	virtual Rva007F96C0Obj *v4(void *a, Rva007E8810Message *msg);
 };
 
+struct Rva007FA170Slot;
+
 class Rva007FA2C0
 {
 public:
+	void rva007F95A0(Rva007FA170Slot *slot, unsigned timeout);
 	bool onTxn(Rva007E8810Message *msg);
 	Rva007F96C0Rec *lookup(void *key);
 
 private:
 	char m_pad[0x14];
 	int m_14;
-	char m_pad18[8];
+	unsigned m_watermark;
+	char m_pad1C[4];
 	void *m_20;
 	Rva007F96C0Hub *m_24;
 };
