@@ -18,7 +18,7 @@
 // Row supersedes the ctor pin.
 
 extern "C" const void *const __identifier("??_7DamageModuleInterface@@6B@")[];  // folded vftable 0x00BE2B78 (9 classes), by its data-ledger name
-extern "C" const void *const __identifier("??_7FireWeaponWhenDamagedBehavior@@6BBehaviorModuleOther@@@")[];  // folded vftable 0x00C495A0 (2 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7FireWeaponWhenDamagedBehavior@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00C495A0 (2 classes), by the name FireWeaponWhenDamagedBehavior.cpp defines
 
 extern "C" const void *const __identifier("??_7Rva0045232D@@6BRva0045232D_E2@@@")[];  // vftable 0x00C3FC78
 extern "C" const void *const __identifier("??_7Rva0045232D@@6BRva0045232D_E1@@@")[];  // vftable 0x00C3FC88
@@ -99,7 +99,7 @@ AutoHealBehavior::AutoHealBehavior(Thing *thing, const ModuleData *moduleData)
 	const AutoHealBehaviorModuleData *data = (const AutoHealBehaviorModuleData *)m_moduleData;
 	m_2C &= 0;
 	m_vtable = (const void *)((unsigned int)__identifier("??_7Rva0045232D@@6BObjectModule@@@"));
-	m_secondary0C = (const void *)((unsigned int)__identifier("??_7FireWeaponWhenDamagedBehavior@@6BBehaviorModuleOther@@@"));
+	m_secondary0C = (const void *)((unsigned int)__identifier("??_7FireWeaponWhenDamagedBehavior@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7Rva0045232D@@6BUpdateModule@@@"));
 	*(void **)&m_20 = (void *)((unsigned int)__identifier("??_7Rva0045232D@@6BRva0045232D_E1@@@"));
 	m_28 = (unsigned int)((unsigned int)__identifier("??_7Rva0045232D@@6BRva0045232D_E2@@@"));

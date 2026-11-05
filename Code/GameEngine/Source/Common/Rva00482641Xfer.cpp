@@ -33,40 +33,7 @@ class Object;
 
 #include "../../Include/Common/BfmeXfer.h"
 
-#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
-
-#include "../../Include/GameLogic/Weapon.h"
-
-class Thing;
-class ModuleData;
-
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
-#include "../../Include/GameLogic/Module/BehaviorModule.h"
-
-#include "../../Include/GameLogic/Module/UpdateModule.h"
-
-
-#include "../../Include/GameLogic/Module/UpgradeMux.h"
-
-class DamageModuleInterface
-{
-public:
-	virtual void damageSlot();
-};
+#include "../GameLogic/Object/Behavior/FireWeaponWhenDamagedView.h"
 
 class Rva00482641 : public UpdateModule, public UpgradeMux, public DamageModuleInterface
 {

@@ -54,9 +54,6 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-static const int UPDATE_SLEEP_NONE = 1;
-
-static const int UPDATE_SLEEP_FOREVER = 0x3fffffff;
 
 //
 // ??_GRva00482A4DRecord@@QAEPAXI@Z at 0x00482A4D (28B): a non-virtual scalar
@@ -109,28 +106,28 @@ BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004827F9ByteChase32Field, 0x1C, 0x115)
 FireWeaponWhenDamagedBehavior::~FireWeaponWhenDamagedBehavior()
 {
 	if (m_reactionWeaponPristine != 0) {
-		::operator delete(m_reactionWeaponPristine->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_reactionWeaponPristine);
 	}
 	if (m_reactionWeaponDamaged != 0) {
-		::operator delete(m_reactionWeaponDamaged->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_reactionWeaponDamaged);
 	}
 	if (m_reactionWeaponReallyDamaged != 0) {
-		::operator delete(m_reactionWeaponReallyDamaged->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_reactionWeaponReallyDamaged);
 	}
 	if (m_reactionWeaponRubble != 0) {
-		::operator delete(m_reactionWeaponRubble->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_reactionWeaponRubble);
 	}
 	if (m_continuousWeaponPristine != 0) {
-		::operator delete(m_continuousWeaponPristine->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_continuousWeaponPristine);
 	}
 	if (m_continuousWeaponDamaged != 0) {
-		::operator delete(m_continuousWeaponDamaged->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_continuousWeaponDamaged);
 	}
 	if (m_continuousWeaponReallyDamaged != 0) {
-		::operator delete(m_continuousWeaponReallyDamaged->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_continuousWeaponReallyDamaged);
 	}
 	if (m_continuousWeaponRubble != 0) {
-		::operator delete(m_continuousWeaponRubble->deleteInstance(0));
+		::delete static_cast<Snapshot *>(m_continuousWeaponRubble);
 	}
 }
 
@@ -178,56 +175,56 @@ FireWeaponWhenDamagedBehavior::FireWeaponWhenDamagedBehavior(Thing *thing, const
 		m_reactionWeaponPristine = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_reactionWeaponPristine, PRIMARY_WEAPON);
 		m_reactionWeaponPristine->reloadAmmo(obj);
-		m_reactionWeaponPristine->m_status = obj->m_weaponStatus;
+		m_reactionWeaponPristine->m_ownerID = obj->getID();
 	}
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_reactionWeaponDamaged)
 	{
 		m_reactionWeaponDamaged = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_reactionWeaponDamaged, PRIMARY_WEAPON);
 		m_reactionWeaponDamaged->reloadAmmo(obj);
-		m_reactionWeaponDamaged->m_status = obj->m_weaponStatus;
+		m_reactionWeaponDamaged->m_ownerID = obj->getID();
 	}
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_reactionWeaponReallyDamaged)
 	{
 		m_reactionWeaponReallyDamaged = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_reactionWeaponReallyDamaged, PRIMARY_WEAPON);
 		m_reactionWeaponReallyDamaged->reloadAmmo(obj);
-		m_reactionWeaponReallyDamaged->m_status = obj->m_weaponStatus;
+		m_reactionWeaponReallyDamaged->m_ownerID = obj->getID();
 	}
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_reactionWeaponRubble)
 	{
 		m_reactionWeaponRubble = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_reactionWeaponRubble, PRIMARY_WEAPON);
 		m_reactionWeaponRubble->reloadAmmo(obj);
-		m_reactionWeaponRubble->m_status = obj->m_weaponStatus;
+		m_reactionWeaponRubble->m_ownerID = obj->getID();
 	}
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponPristine)
 	{
 		m_continuousWeaponPristine = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponPristine, PRIMARY_WEAPON);
 		m_continuousWeaponPristine->reloadAmmo(obj);
-		m_continuousWeaponPristine->m_status = obj->m_weaponStatus;
+		m_continuousWeaponPristine->m_ownerID = obj->getID();
 	}
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponDamaged)
 	{
 		m_continuousWeaponDamaged = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponDamaged, PRIMARY_WEAPON);
 		m_continuousWeaponDamaged->reloadAmmo(obj);
-		m_continuousWeaponDamaged->m_status = obj->m_weaponStatus;
+		m_continuousWeaponDamaged->m_ownerID = obj->getID();
 	}
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponReallyDamaged)
 	{
 		m_continuousWeaponReallyDamaged = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponReallyDamaged, PRIMARY_WEAPON);
 		m_continuousWeaponReallyDamaged->reloadAmmo(obj);
-		m_continuousWeaponReallyDamaged->m_status = obj->m_weaponStatus;
+		m_continuousWeaponReallyDamaged->m_ownerID = obj->getID();
 	}
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponRubble)
 	{
 		m_continuousWeaponRubble = TheWeaponStore->allocateNewWeapon(
 			fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponRubble, PRIMARY_WEAPON);
 		m_continuousWeaponRubble->reloadAmmo(obj);
-		m_continuousWeaponRubble->m_status = obj->m_weaponStatus;
+		m_continuousWeaponRubble->m_ownerID = obj->getID();
 	}
 
 	if (fireWeaponWhenDamagedBehaviorModuleData->m_initiallyActive)
@@ -235,18 +232,17 @@ FireWeaponWhenDamagedBehavior::FireWeaponWhenDamagedBehavior(Thing *thing, const
 		giveSelfUpgrade();
 	}
 
-	UpgradeMux *upgradeMux = this;
-	if (upgradeMux->isUpgradeActive() &&
+	if (isUpgradeActive() &&
 		(fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponPristine != NULL ||
 		fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponDamaged != NULL ||
 		fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponReallyDamaged != NULL ||
 		fireWeaponWhenDamagedBehaviorModuleData->m_continuousWeaponRubble != NULL))
 	{
-		setWakeFrame(const_cast<Object *>(getObject()), (UpdateSleepTime)UPDATE_SLEEP_NONE);
+		setWakeFrame(const_cast<Object *>(getObject()), UPDATE_SLEEP_NONE);
 	}
 	else
 	{
-		setWakeFrame(const_cast<Object *>(getObject()), (UpdateSleepTime)UPDATE_SLEEP_FOREVER);
+		setWakeFrame(const_cast<Object *>(getObject()), UPDATE_SLEEP_FOREVER);
 	}
 }
 
