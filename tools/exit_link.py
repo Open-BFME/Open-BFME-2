@@ -792,7 +792,7 @@ def object_sources(rows):
 
 
 BLOCKERS = "reverse/exit_link_blockers.tsv"
-INITIALIZER_SECTION = 0x40300040     # initialized data, read, align 4
+INITIALIZER_SECTION = 0xC0300040     # initialized data, read/write, align 4
 SCAFFOLD_OBJECT = re.compile(r"^(?:stubs?\.obj|alias(?:es)?\.obj|fill\d+\.obj)$", re.IGNORECASE)
 
 
