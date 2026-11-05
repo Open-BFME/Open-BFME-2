@@ -10,3 +10,5 @@ units adopted the header and retired four queue rows with identical runtime
 object graphs; their preview preserves 12,967 bytes. Census confirmation and
 the remaining five queue items are still open.
 [Cohort verification and remaining prerequisites](../../reverse/attempt_support/buildassistant-header-cohort-20261105-codex4.md).
+
+Recovery 2026-11-05: the build-placement consumer remains queued after current acceptance predicted a census-link loss; see [recovery evidence](../../reverse/attempt_support/recovery-buildassistant-retirement-20261105-codex4.md).
