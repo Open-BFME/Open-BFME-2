@@ -782,32 +782,23 @@ float Rva002636E6::rva002636E6(const Rva002636E6Arg *arg)
 }
 
 // --- 0x002638CC, 0x002638E4 (14B each): Locomotor flag setters for flags 6
-// and 3 through the rowed private setFlag.
-class Locomotor
-{
-public:
-	enum LocoFlag { LOCO_FLAG_1 = 1, LOCO_FLAG_3 = 3, LOCO_FLAG_6 = 6 };
-	void rva002638CC(bool value);
-	void rva002638E4(bool value);
-	void rva00343095(bool value);
-private:
-	void setFlag(LocoFlag flag, bool value);				// 0x001E3459
-};
+// (ULTRA_ACCURATE) and 3 (PRECISE_Z_POS) through the rowed private setFlag.
+#include "../../Include/GameLogic/LocomotorClass.h"
 
 void Locomotor::rva002638CC(bool value)
 {
-	setFlag(LOCO_FLAG_6, value);
+	setUltraAccurate(value);
 }
 
 void Locomotor::rva002638E4(bool value)
 {
-	setFlag(LOCO_FLAG_3, value);
+	setUsePreciseZPos(value);
 }
 
-// 0x00343095 (14B): the same for flag 1.
+// 0x00343095 (14B): the same for flag 1 (ALLOW_INVALID_POSITION).
 void Locomotor::rva00343095(bool value)
 {
-	setFlag(LOCO_FLAG_1, value);
+	setAllowInvalidPosition(value);
 }
 
 // --- 0x00265681 (16B): returns by value the word the +4 handle's pointer
