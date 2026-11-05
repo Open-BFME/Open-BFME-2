@@ -69,92 +69,7 @@ struct Rva003C8F86Contained
 };
 
 // The +0x250 contain module interface; only the slots this action calls.
-class ContainModuleInterface
-{
-public:
-	virtual void v00() = 0;
-	virtual const Rva003C8F86Contained *getContained() const = 0;	// slot 1
-	virtual void v02() = 0;
-	virtual void v03() = 0;
-	virtual void v04() = 0;
-	virtual void v05() = 0;
-	virtual void v06() = 0;
-	virtual void v07() = 0;
-	virtual void v08() = 0;
-	virtual void v09() = 0;
-	virtual void v0A() = 0;
-	virtual void v0B() = 0;
-	virtual void v0C() = 0;
-	virtual void v0D() = 0;
-	virtual void v0E() = 0;
-	virtual void v0F() = 0;
-	virtual void v10() = 0;
-	virtual void v11() = 0;
-	virtual void v12() = 0;
-	virtual void v13() = 0;
-	virtual void v14() = 0;
-	virtual void v15() = 0;
-	virtual void v16() = 0;
-	virtual void v17() = 0;
-	virtual void v18() = 0;
-	virtual void v19() = 0;
-	virtual void v1A() = 0;
-	virtual void v1B() = 0;
-	virtual void v1C() = 0;
-	virtual void v1D() = 0;
-	virtual void v1E() = 0;
-	virtual void v1F() = 0;
-	virtual void v20() = 0;
-	virtual void v21() = 0;
-	virtual void v22() = 0;
-	virtual void v23() = 0;
-	virtual void v24() = 0;
-	virtual void v25() = 0;
-	virtual void v26() = 0;
-	virtual void v27() = 0;
-	virtual void v28() = 0;
-	virtual void v29() = 0;
-	virtual void v2A() = 0;
-	virtual void v2B() = 0;
-	virtual void v2C() = 0;
-	virtual void v2D() = 0;
-	virtual void v2E() = 0;
-	virtual void v2F() = 0;
-	virtual void v30() = 0;
-	virtual void v31() = 0;
-	virtual void v32() = 0;
-	virtual void v33() = 0;
-	virtual void v34() = 0;
-	virtual void v35() = 0;
-	virtual void v36() = 0;
-	virtual void v37() = 0;
-	virtual void v38() = 0;
-	virtual void v39() = 0;
-	virtual void v3A() = 0;
-	virtual void v3B() = 0;
-	virtual void v3C() = 0;
-	virtual void v3D() = 0;
-	virtual void v3E() = 0;
-	virtual void v3F() = 0;
-	virtual void v40() = 0;
-	virtual void v41() = 0;
-	virtual void v42() = 0;
-	virtual void v43() = 0;
-	virtual void v44() = 0;
-	virtual void v45() = 0;
-	virtual void v46() = 0;
-	virtual void v47() = 0;
-	virtual void v48() = 0;
-	virtual void v49() = 0;
-	virtual void v4A() = 0;
-	virtual void v4B() = 0;
-	virtual void v4C() = 0;
-	virtual void v4D() = 0;
-	virtual void v4E() = 0;
-	virtual void v4F() = 0;
-	virtual void v50() = 0;
-	virtual unsigned int getPlayerWhoEntered() const = 0;	// slot 81 (+0x144)
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 #include "../../../Include/GameLogic/Module/AIUpdate.h"
 
@@ -194,7 +109,7 @@ void ScriptActions::doUnitGarrisonNearestBuilding(const AsciiString &unitName)
 		ContainModuleInterface *contain = theBuilding->getContain();
 		if (!contain)
 			continue;
-		if (contain->getContained() && !contain->getContained()->m_DE)
+		if (((const Rva003C8F86Contained *)contain->asOpenContain()) && !((const Rva003C8F86Contained *)contain->asOpenContain())->m_DE)
 			continue;
 		unsigned int player = theBuilding->getContain()->getPlayerWhoEntered();
 		if (player != 0 && player != theUnit->getControllingPlayer()->getPlayerMask())

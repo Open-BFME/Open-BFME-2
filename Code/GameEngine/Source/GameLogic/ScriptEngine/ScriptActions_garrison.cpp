@@ -124,41 +124,7 @@ public:
 	virtual void getObjects(_STL::list<const Object *> &objects); // slot 0x10C
 };
 
-class ContainModuleInterface
-{
-public:
-#define CONTAIN_SLOT(n) virtual void slot##n();
-	CONTAIN_SLOT(0) CONTAIN_SLOT(1) CONTAIN_SLOT(2) CONTAIN_SLOT(3)
-	CONTAIN_SLOT(4) CONTAIN_SLOT(5) CONTAIN_SLOT(6) CONTAIN_SLOT(7)
-	CONTAIN_SLOT(8) CONTAIN_SLOT(9) CONTAIN_SLOT(10) CONTAIN_SLOT(11)
-	CONTAIN_SLOT(12) CONTAIN_SLOT(13) CONTAIN_SLOT(14) CONTAIN_SLOT(15)
-	CONTAIN_SLOT(16) CONTAIN_SLOT(17) CONTAIN_SLOT(18) CONTAIN_SLOT(19)
-	CONTAIN_SLOT(20) CONTAIN_SLOT(21) CONTAIN_SLOT(22) CONTAIN_SLOT(23)
-	CONTAIN_SLOT(24) CONTAIN_SLOT(25) CONTAIN_SLOT(26) CONTAIN_SLOT(27)
-	CONTAIN_SLOT(28) CONTAIN_SLOT(29) CONTAIN_SLOT(30)
-#undef CONTAIN_SLOT
-	virtual ContainedObjectSource *getContainedObjectSource(); // slot 0x7C
-#define CONTAIN_SLOT(n) virtual void slot##n();
-	CONTAIN_SLOT(32) CONTAIN_SLOT(33) CONTAIN_SLOT(34) CONTAIN_SLOT(35)
-	CONTAIN_SLOT(36) CONTAIN_SLOT(37)
-#undef CONTAIN_SLOT
-	virtual bool isValidContainerFor(const Object *obj, bool checkCapacity, bool flag); // slot 0x98
-	virtual void addToContain(Object *obj); // slot 0x9C
-#define CONTAIN_SLOT(n) virtual void slot##n();
-	CONTAIN_SLOT(40) CONTAIN_SLOT(41) CONTAIN_SLOT(42) CONTAIN_SLOT(43)
-	CONTAIN_SLOT(44) CONTAIN_SLOT(45) CONTAIN_SLOT(46) CONTAIN_SLOT(47)
-	CONTAIN_SLOT(48) CONTAIN_SLOT(49) CONTAIN_SLOT(50) CONTAIN_SLOT(51)
-	CONTAIN_SLOT(52) CONTAIN_SLOT(53) CONTAIN_SLOT(54) CONTAIN_SLOT(55)
-	CONTAIN_SLOT(56) CONTAIN_SLOT(57) CONTAIN_SLOT(58) CONTAIN_SLOT(59)
-	CONTAIN_SLOT(60) CONTAIN_SLOT(61) CONTAIN_SLOT(62) CONTAIN_SLOT(63)
-	CONTAIN_SLOT(64) CONTAIN_SLOT(65) CONTAIN_SLOT(66) CONTAIN_SLOT(67)
-	CONTAIN_SLOT(68) CONTAIN_SLOT(69) CONTAIN_SLOT(70) CONTAIN_SLOT(71)
-	CONTAIN_SLOT(72) CONTAIN_SLOT(73) CONTAIN_SLOT(74) CONTAIN_SLOT(75)
-	CONTAIN_SLOT(76) CONTAIN_SLOT(77) CONTAIN_SLOT(78) CONTAIN_SLOT(79)
-	CONTAIN_SLOT(80)
-#undef CONTAIN_SLOT
-	virtual int getPlayerWhoEntered(); // slot 0x144
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 class Image;
 
@@ -404,7 +370,7 @@ void ScriptActions::putUnitInContain(Object *unit, ContainModuleInterface *conta
 		return;
 	contain->addToContain(unit);
 	if (unit->isKindOf(0x6D)) {
-		ContainedObjectSource *source = unit->getContain()->getContainedObjectSource();
+		ContainedObjectSource *source = (ContainedObjectSource *)unit->getContain()->slot31();
 		if (source) {
 			ContainTransfer transfer;
 			transfer.dest = contain;
@@ -469,7 +435,7 @@ void ScriptActions::doUnitGarrisonSpecificBuilding(const AsciiString &unitName,
 	if (instant) {
 		contain->addToContain(theUnit);
 		if (theUnit->isKindOf(0x6D)) {
-			ContainedObjectSource *source = theUnit->getContain()->getContainedObjectSource();
+			ContainedObjectSource *source = (ContainedObjectSource *)theUnit->getContain()->slot31();
 			if (source) {
 				ContainTransfer transfer;
 				transfer.dest = contain;
