@@ -68,14 +68,62 @@ Every batch:
 Lesson: a ctor/dtor pair holds two copies of one table. Changing one copy charges the other under
 the census "first" rule (13 siblings, 4,082 B, in the first trial), so both copies change together.
 
+**GetSnapshotName getter slots (2026-11-05, seat halilkkaya-rt-o2, base 8e80cf400b).** Retail
+slot 2 of a Snapshot-family table is a 6-byte class-name getter (`mov eax, "Class"; ret`). In 223
+kept-table slots (222 in referenced tables; 113 `__purecall`, 93 wrong, 17 unknown) that getter
+is rowed under a non-virtual `?name@X@@QBEPBDXZ`. There are 204 getter rows: 159 slots hang off a
+placeholder class (`RvaXXXXXXXXNamed`), 64 off a readable class (`?name@DockUpdate@@QBEPBDXZ`).
+- Done: 28576b66b9a moves 0x00427603 into CaveSystem (`rename.py function --to-class`). The kept
+  `??_7CaveSystem@@6BSnapshot@@@` goes from 3/4 to 4/4 equal retail; its slot 2 was a Zero Hour
+  `crc` stand-in. (0x00252B84 DrawableModule had already landed in dcf5bd0a777.)
+- Wall 1, readable class (64 slots): `--to-class` moves only a placeholder class's member, and
+  `--virtual` keeps the identifier `name`. These rows need an identifier rename to GetSnapshotName
+  with a basis first. Examples: TurretAI, AIGuardMachine, Upgrade, MilesAudioManager.
+- Wall 2, other slots clash: `--to-class` refuses unless every other resolvable slot of the
+  installers' table equals retail. 106 getter tables also hold `__purecall` in slot 1 or 3, so
+  those slots (rowed under placeholders or folds) must be fixed in the same move.
+- Wall 3, a false reject (re_attempts 0x004B0876): about 66 UpdateModule-family tables name
+  `?loadPostProcess@UpdateModule@@MAEXXZ` (0x0058B03E) in slot 1. Retail slot 1 is 0x00497805,
+  `jmp 0x0058B03E` (which itself jumps to the `ret` at 0x000B3FD0). That is the same body, but
+  the slot check compares addresses without following E9 chains. Reproduced on AIGateUpdate:
+  13/13 rows exact, slot 2 named, refused, restored. Fixing it unblocks AIGateUpdate,
+  BattlePlanUpdate, BloodthirstyUpdate, CritterEmitterUpdate, FireWeaponUpdate, PoisonedBehavior
+  and others.
+- Wall 4, an installer without a table: PartTheHeavensUpdate (0x004AC93C; the kept copy is
+  otherwise 12/13 equal) is refused because PartTheHeavensUpdateCtor.cpp stores dummies, not a
+  `??_7` (see the next item).
+- Held at the time (skipped): SubsystemNameGetters.cpp (class claims of yasinschroeder-claude),
+  and SubsystemNameGetters2/4.cpp and ModuleNameGetters3.cpp (lk28).
+
+**New obstacle: constructors that install a TU-local dummy as the vptr (found by rt-o2).** 71
+matched constructor rows in 71 units, listed in
+[dummy-vptr-ctors-20261105.tsv](../../reverse/attempt_support/dummy-vptr-ctors-20261105.tsv)
+(`rg -l '&s_vtable\b' Code`, constructor bodies only), store `&s_vtable`, and often
+`&s_secondary0C`/`&s_secondary10`, where retail stores the class's `??_7` tables. These are
+`static int`s in the unit. DIR32 is masked, so the bytes match; the static resolves locally, so
+the unit links. But the built object's vptr points at a zero int.
+- Leaf classes crash at their first virtual call. Examples: ObjectDefectionHelper,
+  ObjectRecoveryHelper, ObjectRepulsorHelper and ObjectWeaponStatusHelper (in Zero Hour, a donor
+  fact, every Object creates its helpers), StructureBody, the crate collides, and many update,
+  upgrade and special-power modules.
+- In a base constructor (ObjectHelper, DamageModule) the dummy is live only until the derived
+  constructor's own store.
+- The table survey cannot see this, because it judges `??_7` copies, not installers.
+- Fix: write the constructor against the class view that emits the real table (often the class's
+  TU seed), then re-run the survey and link_check.
+- Separately, 154 retail table addresses are reached from matched code through a non-`??_7`
+  symbol: address-named globals such as `?g_00C50868@@3QBQBXB` and `?vftable_0112B89C@@3HA`
+  (`name_globals.load_index()` against retail-installed tables). Whether each is aliased to the
+  real table at link time is not checked here.
+
 Rejected and left for header work:
 - Declarations that append a slot because the view's base lacks it: the Apt screens, group
   orders, mice, GameSpyInfo, TaintManager, SpecialPowerModule's multi-copy group, StateMachine,
   Weapon, the siege-engine contains, ObjectSMCHelper and others. They need the family's canonical
   base header first.
 - Slots whose retail body is rowed under a non-virtual name (`?name@C@@QBEPBDXZ`, the BFME2
-  GetSnapshotName getters, 108 slots), or under another class's or a placeholder's name. Both need
-  naming-lane renames before a declaration can bind them.
+  GetSnapshotName getters), or under another class's or a placeholder's name. Both need
+  naming-lane renames before a declaration can bind them (getter walls: the rt-o2 pass above).
 - Short tables (40,230 missing slots), which need full class views.
 - Deleting-destructor scaffolds. 60 units use the `EmitVtableTag` pattern: a dummy constructor
   makes a view with only a virtual destructor emit its table, so the unit emits the `??_G`
