@@ -93,26 +93,8 @@ static __forceinline long fast_float2long_round(Real f)
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define AISTATES_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIStates.cpp"
 
-class LocomotorTemplate
-{
-public:
-	Real getWanderWidthFactor() const { return m_wanderWidthFactor; }
-	Real getWanderAboutPointRadius() const { return m_wanderAboutPointRadius; }
-private:
-	unsigned char m_pad00[0xF0];
-	Real m_wanderWidthFactor; // +0xF0
-	unsigned char m_padF4[0xF8 - 0xF4];
-	Real m_wanderAboutPointRadius; // +0xF8
-};
-class Locomotor
-{
-public:
-	__declspec(dllimport) __forceinline Real getWanderWidthFactor() const { return m_template->getWanderWidthFactor(); }
-	Real getWanderAboutPointRadius() const { return m_template->getWanderAboutPointRadius(); }
-private:
-	unsigned char m_pad00[0x04];
-	const LocomotorTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 class Waypoint;
 template <int N> class AIUpdateSlots : public AIUpdateSlots<N - 1>
 {
@@ -221,8 +203,8 @@ StateReturnType AIWanderState::onEnter()
 		return STATE_FAILURE;
 	m_groupOffset.x = m_groupOffset.y = 0;
 	Locomotor* curLoco = ai->getCurLocomotor();
-	if (curLoco && curLoco->getWanderWidthFactor() > 0.0f) {
-		Int delta = REAL_TO_INT_FLOOR(curLoco->getWanderWidthFactor()+0.5f);
+	if (curLoco && curLoco->m_template->m_wanderWidthFactor > 0.0f) {
+		Int delta = REAL_TO_INT_FLOOR(curLoco->m_template->m_wanderWidthFactor+0.5f);
 		if (delta<1) delta = 1;
 		m_groupOffset.x = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10579)*PATHFIND_CELL_SIZE;
 		m_groupOffset.y = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10580)*PATHFIND_CELL_SIZE;
@@ -268,8 +250,8 @@ StateReturnType AIWanderState::update()
 		}
 
 		Locomotor* curLoco = ai->getCurLocomotor();
-		if (curLoco && curLoco->getWanderWidthFactor() > 0.0f) {
-			Int delta = REAL_TO_INT_FLOOR(curLoco->getWanderWidthFactor()+0.5f);
+		if (curLoco && curLoco->m_template->m_wanderWidthFactor > 0.0f) {
+			Int delta = REAL_TO_INT_FLOOR(curLoco->m_template->m_wanderWidthFactor+0.5f);
 			if (delta<1) delta = 1;
 			m_groupOffset.x = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10630)*PATHFIND_CELL_SIZE;
 			m_groupOffset.y = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10631)*PATHFIND_CELL_SIZE;
@@ -299,8 +281,8 @@ StateReturnType AIPanicState::onEnter()
 		return STATE_FAILURE;
 	// set initial movement goal
 	Locomotor* curLoco = ai->getCurLocomotor();
-	if (curLoco && curLoco->getWanderWidthFactor() > 0.0f) {
-		Int delta = REAL_TO_INT_FLOOR(curLoco->getWanderWidthFactor()+0.5f);
+	if (curLoco && curLoco->m_template->m_wanderWidthFactor > 0.0f) {
+		Int delta = REAL_TO_INT_FLOOR(curLoco->m_template->m_wanderWidthFactor+0.5f);
 		if (delta<1) delta = 1;
 		m_groupOffset.x = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10797)*PATHFIND_CELL_SIZE;
 		m_groupOffset.y = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10798)*PATHFIND_CELL_SIZE;
@@ -353,8 +335,8 @@ StateReturnType AIPanicState::update()
 			return STATE_SUCCESS;
 		}
 		Locomotor* curLoco = ai->getCurLocomotor();
-		if (curLoco && curLoco->getWanderWidthFactor() > 0.0f) {
-			Int delta = REAL_TO_INT_FLOOR(curLoco->getWanderWidthFactor()+0.5f);
+		if (curLoco && curLoco->m_template->m_wanderWidthFactor > 0.0f) {
+			Int delta = REAL_TO_INT_FLOOR(curLoco->m_template->m_wanderWidthFactor+0.5f);
 			if (delta<1) delta = 1;
 			m_groupOffset.x = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10851)*PATHFIND_CELL_SIZE;
 			m_groupOffset.y = GetGameLogicRandomValue(-delta, delta, AISTATES_FILE, 10852)*PATHFIND_CELL_SIZE;

@@ -52,28 +52,21 @@ public:
 private:
 	char m_mat[64]; // +0x68
 };
-struct LocomotorData {char pad[0x84];float turnLimit;};
-class Locomotor {public:
- bool rva001E7ECA(Object *,const Coord3D *);
- bool rva001E4194(Object *);
- void locoUpdate_moveTowardsAngle(Object *,float);
- void rva001E9083(Object *,const Coord3D *,float,float);
- void rva001E41FA(float);
- char pad[4];const LocomotorData *data;char pad08[0x44-8];unsigned flags;char pad48[0x68-0x48];Matrix3D matrix;
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 void Locomotor::locoUpdate_moveTowardsAngle(Object *obj,float goalAngle)
 {
- flags &=~4U;
- if(!obj||!data)return;
+ m_flags &=~(1U<<MAINTAIN_POS_IS_VALID);
+ if(!obj||!m_template)return;
  if(rva001E4194(obj))return;
- copyMatrixWords(matrix,obj->matrix);
+ copyMatrixWords(m_68,obj->matrix);
  float relative=normalizeAngle(goalAngle-*(volatile float*)&obj->orientation);
- float limit=data->turnLimit;
+ float limit=m_template->m_maxTurnWithoutReform;
  float cosine=Cos(relative);
  if(cosine<Cos(limit)) {
   Rva001EA0F4Interface250 *iface=obj->interface250;
   Rva001EA0F4Transaction *transaction=iface?iface->s7C():0;
-  if(transaction){transaction->s3C();rva001E41FA(goalAngle);((Rva0030A3E4*)obj)->_setTransformMatrix(&matrix);transaction->s40();}
+  if(transaction){transaction->s3C();rva001E41FA(goalAngle);((Rva0030A3E4*)obj)->_setTransformMatrix(&m_68);transaction->s40();}
  }
  float minSpeed=((Rva001E3F08*)this)->rva001E3F08((Rva001E3F08Arg*)obj);
  if(minSpeed>0) {

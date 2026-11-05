@@ -50,21 +50,7 @@ public:
 
 #include "../../Include/GameLogic/LocomotorTemplate.h"
 
-class Locomotor
-{
-public:
-	Real getAccelPitchLimit() const { return m_template->m_accelerationPitchLimit; }
-	Real getPitchStiffness() const { return m_template->m_pitchStiffness; }
-	Real getRollStiffness() const { return m_template->m_rollStiffness; }
-	Real getPitchDamping() const { return m_template->m_pitchDamping; }
-	Real getRollDamping() const { return m_template->m_rollDamping; }
-	Real getUniformAxialDamping() const { return m_template->m_uniformAxialDamping; }
-
-private:
-	void *m_vtable;
-	const LocomotorTemplate *m_template;	// +0x04
-};
-
+#include "../../Include/GameLogic/LocomotorClass.h"
 // The object's AI (+0x258) as 0x00270B0F uses it: virtual slot 0x168/4
 // gates the banking and slot 0x188/4 returns the record whose +0x53C float
 // drives it. Slot meanings are not recovered; only the offsets are target
@@ -124,12 +110,12 @@ void Drawable::calcPhysicsXformTreads(const Locomotor *locomotor, PhysicsXformIn
 	if (m_locoInfo == 0)
 		m_locoInfo = new DrawableLocoInfo;
 
-	const Real ACCEL_PITCH_LIMIT = locomotor->getAccelPitchLimit();
-	const Real PITCH_STIFFNESS = locomotor->getPitchStiffness();
-	const Real ROLL_STIFFNESS = locomotor->getRollStiffness();
-	const Real PITCH_DAMPING = locomotor->getPitchDamping();
-	const Real ROLL_DAMPING = locomotor->getRollDamping();
-	const Real UNIFORM_AXIAL_DAMPING = locomotor->getUniformAxialDamping();
+	const Real ACCEL_PITCH_LIMIT = locomotor->m_template->m_accelerationPitchLimit;
+	const Real PITCH_STIFFNESS = locomotor->m_template->m_pitchStiffness;
+	const Real ROLL_STIFFNESS = locomotor->m_template->m_rollStiffness;
+	const Real PITCH_DAMPING = locomotor->m_template->m_pitchDamping;
+	const Real ROLL_DAMPING = locomotor->m_template->m_rollDamping;
+	const Real UNIFORM_AXIAL_DAMPING = locomotor->m_template->m_uniformAxialDamping;
 
 	const Object *obj = m_object;
 	if (obj == 0 || obj->getAI() == 0)

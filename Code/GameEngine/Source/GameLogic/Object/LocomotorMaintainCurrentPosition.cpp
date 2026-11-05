@@ -9,6 +9,8 @@
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 #include "../../Common/Thing/thing.h"
+#include "../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 class Object {
 public:
  void rva0028AE6D();
@@ -26,60 +28,47 @@ class Rva001E6516
 public:
 	void rva001E6516(Object *obj);
 };
-struct MaintainTemplate {char unknown[0x74];int appearance;};
-class Locomotor {
-public:
- bool rva001E7ECA(Object*,const Coord3D*);
- bool locoUpdate_maintainCurrentPosition(Object*);
- __forceinline bool getFlag(unsigned bit) const {return (flags&(1U<<bit))!=0;}
-protected:
- void maintainCurrentPositionWings(Object*);
-private:
- void *unknown0; MaintainTemplate *parameters; Coord3D maintainPos;
- char unknown14[0x40-0x14]; float speed; unsigned flags;
- char unknown48[0x68-0x48]; Matrix3D savedTransform; bool unknown98;
-};
 bool Locomotor::locoUpdate_maintainCurrentPosition(Object *obj)
 {
  if(!obj) return false;
- Matrix3D *dst=&savedTransform;
+ Matrix3D *dst=&m_68;
  dst->Row[0].X=obj->transform.Row[0].X; dst->Row[0].Y=obj->transform.Row[0].Y; dst->Row[0].Z=obj->transform.Row[0].Z; dst->Row[0].W=obj->transform.Row[0].W; dst->Row[1].X=obj->transform.Row[1].X; dst->Row[1].Y=obj->transform.Row[1].Y; dst->Row[1].Z=obj->transform.Row[1].Z; dst->Row[1].W=obj->transform.Row[1].W; dst->Row[2].X=obj->transform.Row[2].X; dst->Row[2].Y=obj->transform.Row[2].Y; dst->Row[2].Z=obj->transform.Row[2].Z; dst->Row[2].W=obj->transform.Row[2].W;
- if(!getFlag(2)) {maintainPos=obj->position;flags|=4;}
+ if(!getFlag(MAINTAIN_POS_IS_VALID)) {m_maintainPos=obj->position;m_flags|=(1<<MAINTAIN_POS_IS_VALID);}
  if(!obj->hasCondition(61)) {
   obj->clearCondition(133); obj->clearCondition(134);
   obj->clearCondition(137); obj->clearCondition(138);
   obj->clearCondition(135); obj->clearCondition(136);
   obj->clearCondition(131);
  }
- flags&=~1U;
- unknown98=false;
+ m_flags&=~(1U<<IS_BRAKING);
+ m_98=false;
  if(!obj->physics) return true;
  bool requiresConstantCalling=true; // assume the worst.
- switch(parameters->appearance) {
+ switch(m_template->m_appearance) {
  case 0: case 4: case 7:
-  speed=0.0f;
+  m_40=0.0f;
   ((Rva001E6516*)this)->rva001E6516(obj);
   requiresConstantCalling=false;break;
  case 1:
-  speed=0.0f;
+  m_40=0.0f;
   ((Rva001E6516*)this)->rva001E6516(obj);
   requiresConstantCalling=false;break;
  case 6:
-  speed=0.0f;
+  m_40=0.0f;
   ((Rva001E6516*)this)->rva001E6516(obj);
   requiresConstantCalling=false;break;
  case 8:
   ((Rva001E6516*)this)->rva001E6516(obj);
   requiresConstantCalling=false;break;
  case 2: case 5:
-  speed=0.0f; requiresConstantCalling=true;break;
+  m_40=0.0f; requiresConstantCalling=true;break;
  case 3:
   maintainCurrentPositionWings(obj);requiresConstantCalling=true;break;
  default:
-  speed=0.0f;((Rva001E6516*)this)->rva001E6516(obj);requiresConstantCalling=true;break;
+  m_40=0.0f;((Rva001E6516*)this)->rva001E6516(obj);requiresConstantCalling=true;break;
  }
  // but we do need to do this even if not moving, for hovering/Thrusting things.
- if(rva001E7ECA(obj,&maintainPos)) requiresConstantCalling=true;
- ((Thing*)obj)->setTransformMatrix(&savedTransform);
+ if(rva001E7ECA(obj,&m_maintainPos)) requiresConstantCalling=true;
+ ((Thing*)obj)->setTransformMatrix(&m_68);
  return requiresConstantCalling;
 }

@@ -51,22 +51,8 @@ int GetGameLogicRandomValue(int low, int high, char *file, int line);
 // Retail passes AIStates.cpp's own line numbers.
 #define GameLogicRandomValueAt(low, high, line) GetGameLogicRandomValue(low, high, AISTATES_FILE, line)
 
-class LocomotorTemplate
-{
-public:
-	Real getWanderAboutPointRadius() const { return m_wanderAboutPointRadius; }
-private:
-	unsigned char m_pad00[0xF8];
-	Real m_wanderAboutPointRadius; // +0xF8
-};
-class Locomotor
-{
-public:
-	Real getWanderAboutPointRadius() const { return m_template->getWanderAboutPointRadius(); }
-private:
-	unsigned char m_pad00[0x04];
-	const LocomotorTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../Include/GameLogic/LocomotorTemplate.h"
 enum LocomotorSetType
 {
 	LOCOMOTORSET_NORMAL = 0,
@@ -131,7 +117,7 @@ StateReturnType AIWanderInPlaceState::onEnter()
 		ai->chooseLocomotorSet(LOCOMOTORSET_WANDER);
 	Int delta = 3;
 	if (ai->getCurLocomotor())
-		delta = REAL_TO_INT_FLOOR((ai->getCurLocomotor()->getWanderAboutPointRadius() / PATHFIND_CELL_SIZE_F) + 0.5f);
+		delta = REAL_TO_INT_FLOOR((ai->getCurLocomotor()->m_template->m_wanderAboutPointRadius / PATHFIND_CELL_SIZE_F) + 0.5f);
 	Coord3D offset;
 	offset.x = GameLogicRandomValueAt(-delta, delta, 10700) * PATHFIND_CELL_SIZE;
 	offset.y = GameLogicRandomValueAt(-delta, delta, 10701) * PATHFIND_CELL_SIZE;
@@ -166,7 +152,7 @@ StateReturnType AIWanderInPlaceState::update()
 	{
 		Int delta = 3;
 		if (ai->getCurLocomotor())
-			delta = REAL_TO_INT_FLOOR((ai->getCurLocomotor()->getWanderAboutPointRadius() / PATHFIND_CELL_SIZE_F) + 0.5f);
+			delta = REAL_TO_INT_FLOOR((ai->getCurLocomotor()->m_template->m_wanderAboutPointRadius / PATHFIND_CELL_SIZE_F) + 0.5f);
 		Coord3D offset;
 		offset.x = GameLogicRandomValueAt(-delta, delta, 10739) * PATHFIND_CELL_SIZE;
 		offset.y = GameLogicRandomValueAt(-delta, delta, 10740) * PATHFIND_CELL_SIZE;

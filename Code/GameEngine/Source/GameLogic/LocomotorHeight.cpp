@@ -10,7 +10,7 @@
 // owned getCurrentWeapon/getStatus calls are target facts; original query name
 // is unknown. Model condition bit122 is directly observed.
 // Whole511B now matches. The initial range read is volatile: native reloads
-// range64 for state2 DIVSS while cl otherwise carries its comparison value
+// m_circlingRadius (+0x64) for state2 DIVSS while cl otherwise carries its comparison value
 // in XMM0. This preserves both native reads without introducing a helper call.
 
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
@@ -28,7 +28,6 @@ public:
 	void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}
 	unsigned words[20]; // +0x00
 };
-struct LocoHeightData {char pad[0x64];float range64;};
 enum WeaponSlotType{WEAPONSLOT0=0};enum WeaponStatus{WEAPONSTATUS0=0};
 #include "../../Include/GameLogic/Weapon.h"
 class LocoHeightAI{public:
@@ -146,9 +145,10 @@ virtual void slot110();
 virtual bool query111();
 };
 class Object{public:const Weapon*getCurrentWeapon(WeaponSlotType*)const;void rva0028AE6D();char pad00[0x38];Coord3D pos38;char pad44[0xC8];ModelFlags model10C;char pad15C[0xFC];LocoHeightAI*ai258;char pad25C[0x1DC];unsigned char flags438;};
-class Locomotor{public:float rva001E6532(Object*,const Coord3D*,float);char pad00[4];LocoHeightData*data4;char pad08[0x3C];unsigned flags44;float height48,min4C;char pad50[0x4C];int state9C;};
+#include "../../Include/GameLogic/LocomotorClass.h"
+#include "../../Include/GameLogic/LocomotorTemplate.h"
 float Locomotor::rva001E6532(Object*obj,const Coord3D*goal,float surface){
- if(min4C>0){
+ if(m_4C>0){
  LocoHeightAI*ai=obj->ai258;
  if(ai){
   PointDiff goalPoint(*goal);PointDiff pos(obj->pos38);PointDiff delta=goalPoint-pos;delta.z=0;float z=pos.z;float distance=delta.length();float above=z-surface;
@@ -158,17 +158,17 @@ float Locomotor::rva001E6532(Object*obj,const Coord3D*goal,float surface){
    return 0;
   }
   int zero=0;
-  if(weapon!=(const Weapon*)zero && *(volatile const float*)&data4->range64>0){
-   switch(state9C){
-   case 0:if(!((bool)((flags44>>2)&1)) && data4->range64>distance && ai->query111())state9C=1;break;
-   case 1:{float ratio=distance/data4->range64;float one=1;float dh=height48-min4C;float height=min4C+dh*minRef(ratio,one);
-    if(weapon->getStatus()!=WEAPONSTATUS0 || !ai->query111())state9C=2;
+  if(weapon!=(const Weapon*)zero && *(volatile const float*)&m_template->m_circlingRadius>0){
+   switch(m_9C){
+   case 0:if(!((bool)((m_flags>>MAINTAIN_POS_IS_VALID)&1)) && m_template->m_circlingRadius>distance && ai->query111())m_9C=1;break;
+   case 1:{float ratio=distance/m_template->m_circlingRadius;float one=1;float dh=m_preferredHeight-m_4C;float height=m_4C+dh*minRef(ratio,one);
+    if(weapon->getStatus()!=WEAPONSTATUS0 || !ai->query111())m_9C=2;
     return height;}
-   case 2:{float ratio=(distance/data4->range64)*2;float one=1;float dh=height48-min4C;float height=min4C+dh*minRef(ratio,one);
-    if(above>=height48)state9C=zero;return height;}
+   case 2:{float ratio=(distance/m_template->m_circlingRadius)*2;float one=1;float dh=m_preferredHeight-m_4C;float height=m_4C+dh*minRef(ratio,one);
+    if(above>=m_preferredHeight)m_9C=zero;return height;}
    }
-  }else state9C=zero;
+  }else m_9C=zero;
  }
  }
- return height48;
+ return m_preferredHeight;
 }

@@ -172,8 +172,8 @@ int rva00260DED()const;bool isMoving()const;void setPathExtraDistance(float);
 char pad20[0x140-0x20];Path*path;char pad144[0x1dc-0x144];int movementType;char pad1e0[0x1f0-0x1e0];Locomotor*loco;
 AICommandInterface*command(){return (AICommandInterface*)((char*)this+0x20);}
 };
-struct LocoTemplate {char pad[0x70];int appearance;};
-class Locomotor {public:float getMaxSpeed(Object*)const;bool rva001E4194(Object*);char pad[4];const LocoTemplate*data;};
+#include "../../../../Include/GameLogic/LocomotorClass.h"
+#include "../../../../Include/GameLogic/LocomotorTemplate.h"
 class Rva001E46E1
 {
 public:
@@ -365,7 +365,7 @@ void HorseHordeContain::_horseUpdatePosition(Object *obj, const Coord3D *destina
         if (closeDistance > distance) {
             Coord3D desired;
             desired.x = goal.x; desired.y = goal.y; desired.z = goal.z;
-            if (unitLoco->data->appearance != 8) {
+            if (unitLoco->m_template->m_zAxisBehavior != 8) {
                 Object *pathOwner = getObject();
                 int movementType = unitAI->movementType;
                 desired.z = current.z;

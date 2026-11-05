@@ -34,7 +34,7 @@ void resize(unsigned int n,T value);
 }
 class DrawableLocoInfo{public:virtual ~DrawableLocoInfo(){}DrawableLocoInfo();float m_pitch,m_pitchRate,m_roll,m_rollRate,m_yaw,m_accelerationPitch,m_accelerationPitchRate,m_accelerationRoll,m_accelerationRollRate,m_overlapZVel,m_overlapZ,m_wobble,m_yawModulator,m_pitchModulator;float wheels[7];};
 #include "../../Include/GameLogic/LocomotorTemplate.h"
-class Locomotor{public:void*vp;const LocomotorTemplate*data;float getAccelPitchLimit()const{return data->m_accelerationPitchLimit;}float getPitchStiffness()const{return data->m_pitchStiffness;}float getRollStiffness()const{return data->m_rollStiffness;}float getPitchDamping()const{return data->m_pitchDamping;}float getRollDamping()const{return data->m_rollDamping;}float getUniformAxialDamping()const{return data->m_uniformAxialDamping;}};
+#include "../../Include/GameLogic/LocomotorClass.h"
 class Object{public:char pad[0x25C];void*physics;Int rva0028B511()const;};
 #include "../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic*TheTerrainLogic;
@@ -138,17 +138,17 @@ float Sin(float);float Cos(float);
 void Drawable::calcPhysicsXformHugeFourLegs(const Locomotor*locomotor,PhysicsXformInfo&info){
 if(!m_locoInfo)m_locoInfo=new DrawableLocoInfo;
 
-const Real ACCEL_PITCH_LIMIT=locomotor->getAccelPitchLimit();
+const Real ACCEL_PITCH_LIMIT=locomotor->m_template->m_accelerationPitchLimit;
 
-const Real PITCH_STIFFNESS=locomotor->getPitchStiffness();
+const Real PITCH_STIFFNESS=locomotor->m_template->m_pitchStiffness;
 
-const Real ROLL_STIFFNESS=locomotor->getRollStiffness();
+const Real ROLL_STIFFNESS=locomotor->m_template->m_rollStiffness;
 
-const Real PITCH_DAMPING=locomotor->getPitchDamping();
+const Real PITCH_DAMPING=locomotor->m_template->m_pitchDamping;
 
-const Real ROLL_DAMPING=locomotor->getRollDamping();
+const Real ROLL_DAMPING=locomotor->m_template->m_rollDamping;
 
-const Real UNIFORM_AXIAL_DAMPING=locomotor->getUniformAxialDamping();
+const Real UNIFORM_AXIAL_DAMPING=locomotor->m_template->m_uniformAxialDamping;
 
 const Object*obj=m_object;
 if(!obj||!obj->physics)return;
