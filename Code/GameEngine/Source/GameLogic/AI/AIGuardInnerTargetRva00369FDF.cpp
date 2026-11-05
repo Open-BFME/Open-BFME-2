@@ -58,10 +58,11 @@ extern BitFlags<116> KINDOFMASK_NONE;
 class Rva0004584D : public Rva000421C8
 {
 public:
-	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
-	virtual bool allow(Object *obj);
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
+	Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&);
+	virtual bool allow(Object*);
+	virtual~Rva0004584D(){}
+	BfmeFixedStorage0004543D m_08; // +0x08
+	BfmeFixedStorage0004543D m_24; // +0x24
 };
 
 // vftable 0x00BFBC90, allow 0x00260EB1, getPlayerMask 0x00260E6A: the object,

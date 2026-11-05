@@ -15,7 +15,15 @@ class Rva001E46E1 {public:void rva001E546B(Object*);};
 class Rva002618A2 {public:Rva002618A2*rva002618A2(int,int,int,int);unsigned words[7];};
 #include "../../../../../Include/Common/BfmeFixedStorage0004543D.h"
 #include "../../../../../Include/GameLogic/PartitionFilter.h"
-class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&);virtual~Rva0004584D(){}virtual bool allow(Object*);BfmeFixedStorage0004543D m_08,m_24;};
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&);
+	virtual bool allow(Object*);
+	virtual~Rva0004584D(){}
+	BfmeFixedStorage0004543D m_08; // +0x08
+	BfmeFixedStorage0004543D m_24; // +0x24
+};
 template <int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 #include "PartitionRangeQueryCallView.h"
