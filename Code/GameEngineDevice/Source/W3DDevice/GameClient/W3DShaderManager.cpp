@@ -19,20 +19,7 @@ struct GlobalDataCheck
 	int m_check;
 };
 extern class GlobalData *TheWritableGlobalData;
-class VertexBufferClass
-{
-public:
-	class AppendLockClass
-	{
-		VertexBufferClass *m_vb;
-		void *m_verts;
-		void *m_lock;
-	public:
-		AppendLockClass(VertexBufferClass *vb, unsigned start, unsigned range, int flags);
-		~AppendLockClass();
-		void *Get_Vertex_Array() const { return m_verts; }
-	};
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/VertexBufferClass.h"
 #include "Vector2.h"
 #define m_newRenderSurface (*(IDirect3DSurface8 **)&g_Va009E1F6C)
 #include "cpudetect.h"
@@ -339,13 +326,7 @@ public:
 	static ShaderClass _PresetOpaqueSolidShader;
 	unsigned m_bits;
 };
-class RefCountClass
-{
-public:
-	virtual void Delete_This() = 0;
-	int m_refs;
- __declspec(dllimport) __forceinline void Release_Ref() { --m_refs; if (*(volatile int *)&m_refs == 0) Delete_This(); }
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
 class VertexMaterialClass : public RefCountClass
 {
 public:
@@ -1336,14 +1317,14 @@ void W3DShaderManager::startRenderToTexture()
 			DX8Wrapper::Set_Shader(temp.shaderHome.shader);
 			VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
 			if (vmat)
-				++vmat->m_refs;
+				++vmat->NumRefs;
 			if (ScreenMaterial) ScreenMaterial->Release_Ref();
 			DX8Wrapper::Mark_Material_Changed();
 			ScreenMaterial = vmat;
 			if (vmat)
 			{
-				--vmat->m_refs;
-				if (vmat->m_refs == 0)
+				--vmat->NumRefs;
+				if (vmat->NumRefs == 0)
 					vmat->Delete_This();
 			}
 			temp.scaleHome.x = 1.0f;
