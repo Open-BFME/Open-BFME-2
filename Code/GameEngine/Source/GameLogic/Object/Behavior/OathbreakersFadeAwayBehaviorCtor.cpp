@@ -27,21 +27,32 @@ class ModuleData;
 // the base call takes this directly. Slots mirror the retail stores.
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class OathbreakersFadeAwayBehavior : public UpdateModule
 {
 public:
 	OathbreakersFadeAwayBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~OathbreakersFadeAwayBehavior();
+	const char *name() const;
+	virtual NameKeyType getModuleNameKey() const;
+	void rva004B8B0F();
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
-	bool m_fading;
-	float m_fadeTimer;
+	bool m_20;
+	float m_24;
 };
 
 // ??0OathbreakersFadeAwayBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
 OathbreakersFadeAwayBehavior::OathbreakersFadeAwayBehavior(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	m_fading = false;
-	m_fadeTimer = 1.0f;
+	m_20 = false;
+	m_24 = 1.0f;
 }

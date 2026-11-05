@@ -99,6 +99,8 @@ enum CommandSourceType
 class OathbreakersFadeAwayBehavior : public UpdateModule
 {
 public:
+	OathbreakersFadeAwayBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~OathbreakersFadeAwayBehavior();
 	const char *name() const;
 	virtual NameKeyType getModuleNameKey() const;
 	void rva004B8B0F();
