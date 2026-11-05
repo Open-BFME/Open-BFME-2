@@ -117,28 +117,13 @@ static inline Real getRadius(ParticleSystem *system) { return reinterpret_cast<R
 static inline void getPosition(ParticleSystem *system, Coord3D *out) { reinterpret_cast<Rva001F385A *>(system)->rva001F385A(out); }
 static inline Rva003A5A58WindInfo *getWindInfo(ParticleSystem *system) { return (Rva003A5A58WindInfo *)system->m_1AC[7]; }	// +0x1C8
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12()
-	{
-		if (m_system)
-			rva0004CBC0();
-	}
-	void rva0004CBC0() throw();
-	ParticleSystem *operator->() const
-	{
-		ParticleSystem *p = m_system;
-		if (!p)
-			p = Make001FCBD7();
-		return p;
-	}
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
-	ParticleSystem *m_system;
-	void *m_previous;
-	void *m_next;
-};
+inline RvaSmartPtr12::~RvaSmartPtr12() throw()
+{
+	if (field00)
+		rva0004CBC0();
+}
 
 class Rva003A5A58Particle
 {

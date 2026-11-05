@@ -8,21 +8,13 @@
 // releases the two handles (an inline test-and-destroy of the folded
 // smart-pointer wrapper RvaSmartPtr12, whose out-of-line copy is the
 // unwinding target 0x002115C5) and runs the base. Class name address-derived.
-class RvaSmartPtr12
-{
-	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
+#include "../../Include/Common/RvaSmartPtr12.h"
 
-public:
-	~RvaSmartPtr12()
-	{
-		if (m_system)
-			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
-	}
-	void *m_system;
-	void *m_previous;
-	void *m_next;
-};
+inline RvaSmartPtr12::~RvaSmartPtr12() throw()
+{
+	if (field00)
+		rva0004CBC0();
+}
 
 class Rva00985E4
 {

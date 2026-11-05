@@ -6,22 +6,13 @@
 // system +0xB4 against arg +0x74, destroy via rowed 0x1F462C, release via
 // rowed handle dtor 0x4CBC0. Caller at 0x48FF56. Honest Rva names.
 
-class RvaSmartPtr12
-{
-	public: void rva0004CBC0(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
+#include "../../Include/Common/RvaSmartPtr12.h"
 
-public:
-	RvaSmartPtr12(const RvaSmartPtr12 &that);
-	~RvaSmartPtr12()
-	{
-		if (m_ptr != 0)
-			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
-	}
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+inline RvaSmartPtr12::~RvaSmartPtr12() throw()
+{
+	if (field00)
+		rva0004CBC0();
+}
 
 #include "../../Include/GameClient/ParticleSystemClass.h"
 
@@ -71,9 +62,9 @@ void Rva001F58D4::rva001F5BBE(Rva001F5BBEArg *arg)
 		ListNode001F5BBE *curCopy = cur;
 		cur = cur->m_next;
 		RvaSmartPtr12 tmp = curCopy->m_handle;
-		if (tmp.m_ptr == 0)
+		if (tmp.field00 == 0)
 			continue;
-		ParticleSystem *sys = (ParticleSystem *)tmp.m_ptr;
+		ParticleSystem *sys = (ParticleSystem *)tmp.field00;
 		if (sys->m_attachedToObjectID == arg->m_id74)
 			sys->destroy();
 	} while (cur != (ListNode001F5BBE *)m4c);

@@ -84,24 +84,13 @@ Rva0056224F::Rva0056224F()
 	m_34 = 1;
 }
 
-#include "../../../../Include/GameClient/BfmeParticleSystemHandle.h"
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
-class RvaSmartPtr12
+inline RvaSmartPtr12::~RvaSmartPtr12() throw()
 {
-	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
-
-public:
-	~RvaSmartPtr12() throw()
-	{
-		BfmeParticleSystemHandle *p = (BfmeParticleSystemHandle *)this;
-		if (p->m_system != 0)
-			reinterpret_cast<RvaSmartPtr12 *>(p)->rva0004CBC0();
-	}
-	ParticleSystem *m_ptr;
-	int m_04;
-	int m_08;
-};
+	if (field00)
+		rva0004CBC0();
+}
 
 class Rva0055DDB6SmartField
 {
@@ -154,7 +143,7 @@ Rva00562366::Rva00562366(unsigned int a, Src00562366 &src)
 	RvaSmartPtr12 smart = ((Rva0055DDB6SmartField *)&src)->get();
 	float v20 = src.m_20.getValue();
 	m_04 = v20;
-	ParticleSystem *ps = smart.m_ptr;
+	ParticleSystem *ps = static_cast<ParticleSystem *>(smart.field00);
 	if (!ps)
 		ps = Make001FCBD7();
 	float mul = ((ParticleSystemView *)ps)->m_184;
@@ -167,17 +156,17 @@ Rva00562366::Rva00562366(unsigned int a, Src00562366 &src)
 	m_1C = src.m_68.getValue();
 	m_20 = src.m_74.getValue();
 	m_24 = src.m_80.getValue();
-	ParticleSystem *pa = smart.m_ptr;
+	ParticleSystem *pa = static_cast<ParticleSystem *>(smart.field00);
 	if (!pa)
 		pa = Make001FCBD7();
 	float add0 = ((ParticleSystemView *)pa)->m_180;
 	m_04 += add0;
-	ParticleSystem *pb = smart.m_ptr;
+	ParticleSystem *pb = static_cast<ParticleSystem *>(smart.field00);
 	if (!pb)
 		pb = Make001FCBD7();
 	float add1 = ((ParticleSystemView *)pb)->m_180;
 	m_08 += add1;
-	ParticleSystem *pc = smart.m_ptr;
+	ParticleSystem *pc = static_cast<ParticleSystem *>(smart.field00);
 	if (!pc)
 		pc = Make001FCBD7();
 	float add2 = ((ParticleSystemView *)pc)->m_180;

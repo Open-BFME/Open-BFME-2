@@ -30,24 +30,13 @@ protected:
 };
 
 Rva0055F72C::Rva0055F72C():m_04(0),m_08(0),m_0C(0),m_10(0),m_14(0),m_18(0),m_1C(1),m_20(0),m_24(0),m_28(0){}
-#include "../../../../Include/GameClient/BfmeParticleSystemHandle.h"
+#include "../../../../Include/Common/RvaSmartPtr12.h"
 
-class RvaSmartPtr12
+inline RvaSmartPtr12::~RvaSmartPtr12() throw()
 {
-	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
-
-public:
-	~RvaSmartPtr12() throw()
-	{
-		BfmeParticleSystemHandle *p = (BfmeParticleSystemHandle *)this;
-		if (p->m_system != 0)
-			reinterpret_cast<RvaSmartPtr12 *>(p)->rva0004CBC0();
-	}
-	ParticleSystem *m_ptr;
-	int m_04;
-	int m_08;
-};
+	if (field00)
+		rva0004CBC0();
+}
 
 class Rva0055DDB6SmartField
 {
@@ -64,14 +53,14 @@ extern GlobalData*TheWritableGlobalData;
 class Rva003ADFB2:public Rva003ADFDB,public Rva0055F72C {public:Rva003ADFB2(unsigned,Src0055F840&);virtual~Rva003ADFB2();virtual void slot00()=0;};
 Rva003ADFB2::Rva003ADFB2(unsigned a,Src0055F840&src):Rva003ADFDB(a){
  RvaSmartPtr12 smart=((Rva0055DDB6SmartField*)&src)->get();
- ParticleSystem*ps=smart.m_ptr;if(!ps)ps=Make001FCBD7();
- ParticleSystem*pf=smart.m_ptr;if(!pf)pf=Make001FCBD7();
+ ParticleSystem*ps=static_cast<ParticleSystem *>(smart.field00);if(!ps)ps=Make001FCBD7();
+ ParticleSystem*pf=static_cast<ParticleSystem *>(smart.field00);if(!pf)pf=Make001FCBD7();
  float multiplier=((ParticleView330*)pf)->multiplier;
  m_04=((ParticleView330*)ps)->initial.getValue()*TheWritableGlobalData->m_particleScale*multiplier;
- ParticleSystem*py=smart.m_ptr;if(!py)py=Make001FCBD7();
+ ParticleSystem*py=static_cast<ParticleSystem *>(smart.field00);if(!py)py=Make001FCBD7();
  multiplier=((ParticleView330*)py)->multiplier;
  m_08=src.var20.getValue()*TheWritableGlobalData->m_particleScale*multiplier;
  m_0C=src.var2C.getValue();
- ParticleSystem*pa=smart.m_ptr;if(!pa)pa=Make001FCBD7();m_04+=((ParticleView330*)pa)->offset;
+ ParticleSystem*pa=static_cast<ParticleSystem *>(smart.field00);if(!pa)pa=Make001FCBD7();m_04+=((ParticleView330*)pa)->offset;
  m_10=src.var38.getValue();m_14=src.var44.getValue();m_18=src.var50.getValue();m_1C=src.kind5C;m_20=src.var60.getValue();m_24=src.var6C.getValue();m_28=src.var78.getValue();
 }

@@ -11,24 +11,13 @@
 class ParticleSystem;
 ParticleSystem *Make001FCBD7();
 
-#include "../../Include/GameClient/BfmeParticleSystemHandle.h"
+#include "../../Include/Common/RvaSmartPtr12.h"
 
-class RvaSmartPtr12
+inline RvaSmartPtr12::~RvaSmartPtr12() throw()
 {
-	public: void rva0004CBC0(); // 0x0004CBC0, the unlink the inline dtor null test calls
-private:
-
-public:
-	~RvaSmartPtr12()
-	{
-		BfmeParticleSystemHandle *h = (BfmeParticleSystemHandle *)this;
-		if (h->m_system != 0)
-			reinterpret_cast<RvaSmartPtr12 *>(h)->rva0004CBC0();
-	}
-	void *m_ptr;
-	int m_pad04;
-	int m_pad08;
-};
+	if (field00)
+		rva0004CBC0();
+}
 
 class Rva003FDA90SmartField
 {
@@ -60,7 +49,7 @@ void Rva003FDC46::rva003FDC46()
 		Rva003FDA90SmartField *f = m_field;
 		if (!f)
 			f = (Rva003FDA90SmartField *)Make001FCBD7();
-		ok = f->get().m_ptr != 0;
+		ok = f->get().field00 != 0;
 	}
 	if (ok)
 	{
@@ -68,7 +57,7 @@ void Rva003FDC46::rva003FDC46()
 		if (!f2)
 			f2 = (Rva003FDA90SmartField *)Make001FCBD7();
 		ParticleSystem *particleSystem;
-		((Rva001F3852ByteOneSetter *)((particleSystem = (ParticleSystem *)f2->get().m_ptr) ? particleSystem : Make001FCBD7()))->enable();
+		((Rva001F3852ByteOneSetter *)((particleSystem = (ParticleSystem *)f2->get().field00) ? particleSystem : Make001FCBD7()))->enable();
 	}
 	{
 		Rva003FDA90SmartField *f3 = m_field;
