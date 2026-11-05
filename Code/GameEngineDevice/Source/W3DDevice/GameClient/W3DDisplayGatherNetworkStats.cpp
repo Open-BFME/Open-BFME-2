@@ -22,14 +22,7 @@ class GameFont;
 extern FontLibrary *TheFontLibrary;
 
 // The native debug display font description of the language data.
-class GlobalLanguage
-{
-	char m_unreconstructed_000[0xC8];
-public:
-	AsciiString m_debugFontName;	// +0xC8
-	Int m_debugFontSize;		// +0xCC
-	Bool m_debugFontBold;		// +0xD0
-};
+#include "../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 #include "../../../../GameEngine/Include/GameClient/DisplayString.h"
@@ -122,9 +115,9 @@ void W3DDisplay::gatherNetworkStats()
 		GameFont *font;
 		GlobalLanguage *language = TheGlobalLanguageData;
 		const AsciiString *fontName;
-		if (language && (fontName = &language->m_debugFontName, !((const StringBase<char> *)fontName)->isEmpty()))
+		if (language && (fontName = &language->m_nativeDebugDisplay.name, !((const StringBase<char> *)fontName)->isEmpty()))
 		{
-			font = TheFontLibrary->getFont(fontName, (Real)language->m_debugFontSize, language->m_debugFontBold);
+			font = TheFontLibrary->getFont(fontName, (Real)language->m_nativeDebugDisplay.size, language->m_nativeDebugDisplay.bold);
 		}
 		else
 		{

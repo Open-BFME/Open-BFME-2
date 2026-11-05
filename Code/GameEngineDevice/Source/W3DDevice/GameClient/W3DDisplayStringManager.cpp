@@ -45,19 +45,7 @@ extern GameTextInterface *TheGameText;
 
 enum { MAX_GROUPS = 10 };
 
-struct FontDesc
-{
-	AsciiString name;
-	Int size;
-	Bool bold;
-};
-
-class GlobalLanguage
-{
-public:
-	char m_opaque00[ 0xB0 ];
-	FontDesc m_defaultDisplayStringFont;								///< 0xB0
-};
+#include "../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 
 extern GlobalLanguage *TheGlobalLanguageData;
 

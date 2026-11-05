@@ -145,14 +145,7 @@ class GameFont;
 #include "../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
-class GlobalLanguage
-{
-public:
-	unsigned char m_pad00[0xC8];
-	AsciiString m_defaultDisplayFont;	// +0xC8
-	Int m_defaultDisplayFontSize;		// +0xCC
-	Bool m_defaultDisplayFontBold;		// +0xD0
-};
+#include "../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 class DebugDisplayInterface;
@@ -321,9 +314,9 @@ void W3DDisplay::init()
 	{
 		m_nativeDebugDisplay->rva000747E5();
 		GameFont *font;
-		if (TheGlobalLanguageData && !TheGlobalLanguageData->m_defaultDisplayFont.isEmpty())
-			font = TheFontLibrary->getFont(&TheGlobalLanguageData->m_defaultDisplayFont,
-				(Real)TheGlobalLanguageData->m_defaultDisplayFontSize, TheGlobalLanguageData->m_defaultDisplayFontBold);
+		if (TheGlobalLanguageData && !TheGlobalLanguageData->m_nativeDebugDisplay.name.isEmpty())
+			font = TheFontLibrary->getFont(&TheGlobalLanguageData->m_nativeDebugDisplay.name,
+				(Real)TheGlobalLanguageData->m_nativeDebugDisplay.size, TheGlobalLanguageData->m_nativeDebugDisplay.bold);
 		else
 			font = TheFontLibrary->getFont(&AsciiString("FixedSys"), 8.0f, false);
 		m_nativeDebugDisplay->rva000748DF((Int)font);

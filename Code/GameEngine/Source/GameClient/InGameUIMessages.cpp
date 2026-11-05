@@ -116,31 +116,7 @@ extern GameTextInterface *TheGameText;
 #include "../../Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 
-struct FontDesc
-{
-	AsciiString name;
-	int size;
-	bool bold;
-};
-
-// Font override offsets are retail-measured from init: ZH's order plus one
-// unidentified FontDesc at +0x5C.
-class GlobalLanguage
-{
-public:
-	int adjustFontSize( int theFontSize );
-
-	char m_opaque00[ 0x38 ];
-	FontDesc m_messageFont;							// +0x38
-	FontDesc m_militaryCaptionTitleFont;			// +0x44
-	FontDesc m_militaryCaptionFont;					// +0x50
-	FontDesc m_unknownFont5C;						// +0x5C
-	FontDesc m_superweaponCountdownNormalFont;		// +0x68
-	FontDesc m_superweaponCountdownReadyFont;		// +0x74
-	FontDesc m_namedTimerCountdownNormalFont;		// +0x80
-	FontDesc m_namedTimerCountdownReadyFont;		// +0x8C
-	FontDesc m_drawableCaptionFont;					// +0x98
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 extern GameLogic *TheGameLogic;

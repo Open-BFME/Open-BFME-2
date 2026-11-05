@@ -102,14 +102,7 @@ extern GameTextInterface *TheGameText;
 #include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class GlobalLanguage
-{
-public:
-	Int adjustFontSize(Int point);
-
-	char m_opaque00[0x14];
-	AsciiString m_timeSeparator;				// +0x14
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 #include "../../Include/GameClient/FontLibrary.h"

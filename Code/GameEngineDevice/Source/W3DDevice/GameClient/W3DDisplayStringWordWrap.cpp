@@ -55,12 +55,7 @@ public:
 extern FontLibrary *TheFontLibrary;
 
 // The global owner is class GlobalLanguage; keep the class tag in its symbol.
-class GlobalLanguage
-{
-public:
-	char m_unrecovered00[ 0x24 ];
-	Bool m_useHardWrap;																	///< 0x24
-};
+#include "../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"

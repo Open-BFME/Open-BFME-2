@@ -49,14 +49,7 @@ extern DisplayStringManager *TheDisplayStringManager;
 extern FontLibrary *TheFontLibrary;
 
 // The native debug display font description of the language data.
-class GlobalLanguage
-{
-	char m_unreconstructed_000[0xC8];
-public:
-	AsciiString m_unicodeFontName;	// +0xC8
-	Int m_unicodeFontSize;		// +0xCC
-	Bool m_unicodeFontBold;		// +0xD0
-};
+#include "../../../../GameEngine/Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
 // The writable global data as this body reads it.
@@ -316,9 +309,9 @@ void W3DDisplay::gatherAnimationDebuggingInfo()
 
 	if (!m_animDebugStrings[0]) {
 		GameFont *font;
-		if (TheGlobalLanguageData && !TheGlobalLanguageData->m_unicodeFontName.isEmpty())
-			font = TheFontLibrary->getFont(&TheGlobalLanguageData->m_unicodeFontName,
-				(float)TheGlobalLanguageData->m_unicodeFontSize, TheGlobalLanguageData->m_unicodeFontBold);
+		if (TheGlobalLanguageData && !TheGlobalLanguageData->m_nativeDebugDisplay.name.isEmpty())
+			font = TheFontLibrary->getFont(&TheGlobalLanguageData->m_nativeDebugDisplay.name,
+				(float)TheGlobalLanguageData->m_nativeDebugDisplay.size, TheGlobalLanguageData->m_nativeDebugDisplay.bold);
 		else {
 			AsciiString fixedSys("FixedSys");
 			font = TheFontLibrary->getFont(&fixedSys, 8.0f, false);

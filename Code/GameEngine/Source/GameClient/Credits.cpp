@@ -56,13 +56,7 @@ enum INILoadType { INI_LOAD_OVERWRITE=1 };
 
 #include "../../Include/GameClient/GameFontClass.h"
 
-struct CreditsFontDescription { AsciiString name; int size; bool bold; };
-
-class GlobalLanguage {
-public: int adjustFontSize(int);
- char pad00[0xE0];
- CreditsFontDescription m_creditsTitleFont,m_creditsPositionFont,m_creditsNormalFont;
-};
+#include "../../Include/Common/GlobalLanguageClass.h"
 
 #include "../../Include/GameClient/FontLibrary.h"
 
