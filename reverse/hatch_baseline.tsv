@@ -10713,9 +10713,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjCollision.cpp	"gsy"
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjGetObjSpaceBoundingBox.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjGetObjSpaceBoundingBox.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/RenderObjIntersect.cpp	"",on	1
@@ -10960,8 +10957,9 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp	"gsy",o
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/renderobjectrecycler.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp	"",on	7
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp	"gsy",on	7
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp	"",on	9
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp	"gsy",on	8
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.h	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rendobj.h	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/rinfo.cpp	"",on	1
