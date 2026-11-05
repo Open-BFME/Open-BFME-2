@@ -63,3 +63,23 @@ attempt retires no debt.
 Historical LINK-168 mechanism 1 repaired this constructor's folded table
 binding. The current baseline links; this composition failure is not a
 reported link regression. No obstacle entry's status changed.
+
+
+## Mechanical merge and outgoing-batch handoff (2026-11-05)
+
+The approved merge absorbed `FadeAndDieOrnamentUpdateCtor.cpp` into the existing
+TU and preserved all four matched rows. `./build.sh` passed 4/4; the TU frozen-file
+check, staged code-identity and data checks, `tu_ownership.py --staged`, and the
+converged data check passed. Header and Microsoft-header queues were refreshed.
+The path consumer audit for the pending range `origin/master..HEAD` found no active
+consumer requiring a manual change; the old path remains in the TU provenance
+comment, historical `reverse/link_status.csv`, and `reverse/re_attempts.log`. The
+publisher's outgoing-batch `link_batch_audit` remains the provider/consumer and
+link comparison for this composition; no new link coverage is claimed until that
+receipt is reported.
+
+The fleet publisher currently holds this batch. Outstanding claims are rows
+`0x003A4358`, `0x00781B3F`, `0x00781B4C` and file
+`Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdateCtor.cpp`.
+The audited path-change range is `origin/master..HEAD`; these claims remain live
+until the runner lands the batch.
