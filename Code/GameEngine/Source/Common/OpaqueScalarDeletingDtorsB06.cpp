@@ -309,21 +309,7 @@ void Rva002D62AB::updateButtonFlash()
 // semantic lead; the record's DF4-byte extent and ownership come from the
 // rowed 229811/229840/22D106 constructors and destructor, not ZH's layout.
 #include "unicode_string.h"
-struct BfmeSubobject0022CE19
-{
-    virtual ~BfmeSubobject0022CE19();
-    unsigned char opaque04[0xDE4];
-    BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
-};
-struct TreeHintOpaque0043671B
-{
-    TreeHintOpaque0043671B();
-    TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
-    ~TreeHintOpaque0043671B();
-    UnicodeString filename;
-    BfmeSubobject0022CE19 saveGameInfo;
-    unsigned int next, prev;
-};
+#include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 class Rva002DC74A
 {
 public:
@@ -340,10 +326,10 @@ int GameState::rva002DF2F6(const UnicodeString &filename)
 {
     UnicodeString filepath = reinterpret_cast<const Rva002DC74A *>(this)->rva002DC74A(filename);
     TreeHintOpaque0043671B gameInfo;
-    gameInfo.filename = filename;
-    gameInfo.next = 0;
-    gameInfo.prev = 0;
-    if (!getSaveGameInfoFromFile(filepath, &gameInfo.saveGameInfo))
+    gameInfo.m_text = filename;
+    gameInfo.m_wordDEC = 0;
+    gameInfo.m_wordDF0 = 0;
+    if (!getSaveGameInfoFromFile(filepath, &gameInfo.m_subobject))
         return 1;
     return rva002DE3C1(gameInfo);
 }

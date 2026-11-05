@@ -17,26 +17,7 @@ extern "C" __declspec(dllimport) __declspec(noreturn) void __cdecl exit(int);
 extern "C" __declspec(dllimport) int __cdecl sprintf(char*,const char*,...);
 #include "../../../Libraries/Source/profile/profile.h"
 void _bfme_debugRecordCallsite(int);
-struct BfmeSubobject0022CE19 
-
-{
- virtual ~BfmeSubobject0022CE19();
- char opaque[0xDE4];
- 
-}
-;
-struct TreeHintOpaque0043671B 
-
-{
- UnicodeString m_text;
- BfmeSubobject0022CE19 m_subobject;
- unsigned m_wordDEC,m_wordDF0;
- TreeHintOpaque0043671B();
- TreeHintOpaque0043671B(const TreeHintOpaque0043671B&);
- ~TreeHintOpaque0043671B();
- 
-}
-;
+#include "../../Include/GameClient/TreeHintOpaque0043671B.h"
 #include "../../Include/Common/GameState.h"
 extern GameState *TheGameState;
 #include "../../Include/GameClient/Shell.h"

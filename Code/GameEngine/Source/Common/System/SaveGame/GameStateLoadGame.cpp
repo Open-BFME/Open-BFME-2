@@ -21,18 +21,7 @@
 #include "unicode_string.h"
 #include "../../GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-struct BfmeSubobject0022CE19 {
- virtual ~BfmeSubobject0022CE19();
- unsigned char opaque04[0xDE4];
- BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
-};
-struct TreeHintOpaque0043671B {
- UnicodeString filename;
- BfmeSubobject0022CE19 saveGameInfo;
- unsigned int next,prev;
- TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
- ~TreeHintOpaque0043671B();
-};
+#include "../../../../Include/GameClient/TreeHintOpaque0043671B.h"
 typedef char RecordExtent[(sizeof(TreeHintOpaque0043671B)==0xDF4)?1:-1];
 class Rva0004224C {
 public:
@@ -177,7 +166,7 @@ int GameState::rva002DE3C1(TreeHintOpaque0043671B info)
   TheGameLogic->clearGameData(false,false);
   ((LoadGameEngineResetView*)TheGameEngine)->reset();
   UnicodeString msg;
-  msg.format(TheGameText->fetchPtr("GUI:ErrorLoadingGame"),info.filename.str());
+  msg.format(TheGameText->fetchPtr("GUI:ErrorLoadingGame"),info.m_text.str());
   MessageBoxOk(TheGameText->fetch("GUI:Error"),msg,0);
  }
  return result;
@@ -191,7 +180,7 @@ missingFile:
  return 2;
 checkLoadState:
  if(!s_inLoadGame)return 3;
- if(!((Rva002DCCFB*)this)->rva002DCCFB(info.filename))goto missingFile;
+ if(!((Rva002DCCFB*)this)->rva002DCCFB(info.m_text))goto missingFile;
  GameLoadLogicFlagScope inLoad;
  {
  Rva0023D46F countRef(theBfmeDfe6e4);
@@ -200,7 +189,7 @@ checkLoadState:
  bool campaignSave=((*(int*)((char*)&info+0x28))==1 || (*(int*)((char*)&info+0x28))==0);
  if((*(int*)((char*)&info+0x28))==1 || (*(int*)((char*)&info+0x28))==4 || (*(int*)((char*)&info+0x28))==6)TheGameLogic->clearGameData(false,false);
  ((GameStateMap*)TheGameStateMap)->clearScratchPadMaps();
- UnicodeString path=((const Rva002DC74A*)this)->rva002DC74A(info.filename);
+ UnicodeString path=((const Rva002DC74A*)this)->rva002DC74A(info.m_text);
  LoadFileView *file=(LoadFileView*)TheFileSystem->rva00600676(path.str(),0x41,0);
  unsigned char error;
  Rva0060C3C3Stream *stream;

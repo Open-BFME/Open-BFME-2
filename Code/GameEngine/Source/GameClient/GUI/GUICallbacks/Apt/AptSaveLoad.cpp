@@ -185,23 +185,8 @@ static const char *s_externNames[] = { "SaveLoadMode", "GameTypes", "CurrentGame
 
 // The list element's layout as its list provider (stlport_list_treehintopaque_00436e3b.cpp)
 // sees it: the node allocation is 0xDFC bytes.
-struct BfmeSubobject0022CE19
-{
-	virtual ~BfmeSubobject0022CE19();
-	unsigned char m_opaque[0xDE4];
-	BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
-};
+#include "../../../../../Include/GameClient/TreeHintOpaque0043671B.h"
 
-struct TreeHintOpaque0043671B
-{
-public:
-	TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
-	~TreeHintOpaque0043671B();
-	UnicodeString m_text; // +0x00
-	BfmeSubobject0022CE19 m_subobject; // +0x04
-	unsigned int m_wordDEC; // +0xDEC
-	unsigned int m_wordDF0; // +0xDF0
-};
 
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<TreeHintOpaque0043671B>(TreeHintOpaque0043671B *p) { typedef TreeHintOpaque0043671B BfmeDestroyT; p->~BfmeDestroyT(); } }
