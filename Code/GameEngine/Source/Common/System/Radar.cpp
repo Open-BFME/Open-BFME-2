@@ -682,16 +682,7 @@ private:
 // rowed RefCountClass::Release_Ref at 0x005D1A7D (dec plus virtual slot 0)
 // with the count at +8 and the deleter at slot 1. No // cl: line (defaults
 // match the frameless 11-byte shape).
-class RadarMarker
-{
-public:
-	virtual void v0();
-	virtual void v1();
-
-	int m04;
-	int m_ref08;
-	void DeleteReference();
-};
+#include "../../../Include/GameClient/RadarMarker.h"
 extern Radar *TheRadar;
 struct Rva002D7FAENode
 {
@@ -912,7 +903,7 @@ Rva002D76A6::Rva002D76A6() : m_04(0), m_08(0)
 
 void RadarMarker::DeleteReference()
 {
-	if (--m_ref08 == 0)
+	if (--m_08 == 0)
 		v1();
 }
 
