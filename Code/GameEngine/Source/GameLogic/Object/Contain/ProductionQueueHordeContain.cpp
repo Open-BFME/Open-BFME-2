@@ -57,11 +57,25 @@ private:
 	Coord3D m_garrisonPoint[120];
 	unsigned char m_tail[0x9E0 - 0x9C4];
 };
-class ProductionQueueHordeContain : public GarrisonContain
+class Xfer;
+// The intermediate base adds no teardown work: its retail destructor is
+// the tail jump to GarrisonContain at 0x0047A147. Keeping it novtable lets
+// the destructor inline that same base teardown here. Import its outline
+// identity from the existing owner instead of emitting a second definition.
+class __declspec(novtable) HordeGarrisonContain : public GarrisonContain
+{
+public:
+	__declspec(dllimport) __forceinline ~HordeGarrisonContain() {}
+protected:
+	virtual void xfer(Xfer *xfer);
+};
+class ProductionQueueHordeContain : public HordeGarrisonContain
 {
 public:
 	virtual ~ProductionQueueHordeContain();
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 #include "../../../../Include/Common/INI/INI.h"
 void iniParseObjectFilter(INI*,void*,void*,const void*);
