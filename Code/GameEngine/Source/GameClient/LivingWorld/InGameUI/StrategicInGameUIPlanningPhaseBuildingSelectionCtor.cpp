@@ -454,15 +454,7 @@ class BfmeMemberRV { public: bool bfmeAskRV(); };
 class PlayerList;
 extern PlayerList *ThePlayerList;
 struct CommandPlayerListView { char unknown00[0x10]; BfmeMemberRV *localPlayer; };
-class CommandButton {
-public:
-    const ThingTemplate *rva0035B570() const;
-    void rva0035B5C2(Object *,bool);
-    unsigned int options() const { return *(const unsigned int *)((const char *)this + 0x1C); }
-    int type() const { return *(const int *)((const char *)this + 0x14); }
-    bool enabled() const { return *((const unsigned char *)this + 0x105) != 0; }
-    const _STL::vector<ScienceType> &getScienceVec() const { return *(const _STL::vector<ScienceType> *)((const char *)this + 0xA4); }
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 void *GadgetButtonGetData(GameWindow *);
 void GadgetButtonSetDisallowed(GameWindow *, int);
 void GadgetCheckLikeButtonSetVisualCheck(GameWindow *, bool);
@@ -537,12 +529,12 @@ void ControlBar::populateCommand(Object *obj,bool refresh)
         const CommandButton *button=set->getCommandButton(i+range.start);
         char *b=(char *)button;
         if(!button||!*(bool *)(b+0x106))continue;
-        if(button->options()&0x80000){if(windows[i])windows[i]->winHide(true);continue;}
+        if(button->getOptions()&0x80000){if(windows[i])windows[i]->winHide(true);continue;}
         if(contain&&*(bool *)(b+0x107)){
             void *open=contain->asOpenContain();
             if(open&&!*(bool *)((char *)open+0xDE))continue;
         }
-        if(button->type()==0x2E){
+        if(button->getCommandType()==0x2E){
             CommandIncrement increment(templateIndex);
             if(!((Rva002A7DDE *)ThePlayerList)->rva002A7DDE((Rva002A7DDEArg *)obj)){
                 if(windows[i])windows[i]->winHide(true);continue;
@@ -564,13 +556,13 @@ void ControlBar::populateCommand(Object *obj,bool refresh)
             }else *(int *)(b+0xC0)=-1;
             ++revivalIndex;
         }
-        if(button->type()==0x10)continue;
+        if(button->getCommandType()==0x10)continue;
         if(windows[i]){
             windows[i]->winHide(false);windows[i]->winEnable(true);
             if(*(bool *)(b+0x101))windows[i]->winSetStatus(0x4000000);
             else windows[i]->winClearStatus(0x4000000);
         }
-        if((button->options()&0x80)&&*(void **)(b+0x44)){
+        if((button->getOptions()&0x80)&&*(void **)(b+0x44)){
             _STL::vector<ScienceType> sciences=((Rva0029FCB4 *)*(void **)(b+0x44))->rva0029FCB4();
             if(!sciences.empty()){
                 if(!player->hasAnyRequiredSciences(sciences)){if(windows[i])windows[i]->winHide(true);}
@@ -582,7 +574,7 @@ void ControlBar::populateCommand(Object *obj,bool refresh)
                         ScienceType science=list[best];
                         const CommandButton *candidate=*(const CommandButton **)((char *)this+0x2C);
                         for(;candidate;candidate=*(const CommandButton **)((char *)candidate+0x18)){
-                                                        if(candidate->type()==0x19){ 
+                                                        if(candidate->getCommandType()==0x19){ 
  if(candidate->getScienceVec().empty()){} else if(candidate->getScienceVec()[0]==science) ((Rva0035B7D9 *)button)->rva0035B7D9((Rva0035B7D9 *)candidate,true);}
                         }
                     }
@@ -596,8 +588,8 @@ void ControlBar::populateCommand(Object *obj,bool refresh)
         {for(int i=0;i<limit;++i){
             const CommandButton *button=set->getCommandButton(i+range.start);
             char *b=(char *)button;
-            if(!button||!*(bool *)(b+0x106)||button->type()!=0x2E)continue;
-            if(((Rva0023C6A4 *)TheGameLogic)->rva00200084()&&(button->options()&0x40))continue;
+            if(!button||!*(bool *)(b+0x106)||button->getCommandType()!=0x2E)continue;
+            if(((Rva0023C6A4 *)TheGameLogic)->rva00200084()&&(button->getOptions()&0x40))continue;
             CommandIncrement increment(revivalIndex);
             if(used[revivalIndex])continue;
             const Image *image=((Rva0037EDC6 *)((char *)player+0x738))->rva0037EDC6(revivalIndex);

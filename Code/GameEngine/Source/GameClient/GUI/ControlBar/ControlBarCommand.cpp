@@ -249,13 +249,7 @@ extern PlayerList *ThePlayerList;
 
 struct CommandPlayerListView { char unknown00[0x10]; BfmeMemberRV *localPlayer; };
 
-class CommandButton {
-public:
-    const ThingTemplate *rva0035B570() const;
-    unsigned int options() const { return *(const unsigned int *)((const char *)this + 0x1C); }
-    int type() const { return *(const int *)((const char *)this + 0x14); }
-    bool enabled() const { return *((const unsigned char *)this + 0x105) != 0; }
-};
+#include "../../../../Include/GameClient/CommandButton.h"
 
 void *GadgetButtonGetData(GameWindow *);
 
@@ -443,7 +437,7 @@ void ControlBar::doTransportInventoryUI(Object *transport,CommandSet *set)
     int first=-1,last=-1;
     for(int i=0;i<32;++i){
         const CommandButton *button=set->getCommandButton(i);
-        if(button&&button->type()==0x10){
+        if(button&&button->getCommandType()==0x10){
             if(first==-1)first=i;
             last=i;
             if(windows[i]){
@@ -599,14 +593,14 @@ void ControlBar::updateContextCommand()
             } else disable = true;
         }
         if (availability == 3 && win->winIsHidden()) continue;
-        if (availability == 0 && (command->options() & 0x00400000) && !forceVisible)
+        if (availability == 0 && (command->getOptions() & 0x00400000) && !forceVisible)
             availability = 3;
         win->winClearStatus(0x00400000);
         win->winClearStatus(0x01000000);
         win->winClearStatus(0x40000000);
         win->winClearStatus(0x80000000);
         GadgetButtonSetDisallowed(win, 0);
-        if (command->type() == 0x10 && (locallyControlled || disable)) {
+        if (command->getCommandType() == 0x10 && (locallyControlled || disable)) {
             if (obj && (*(const unsigned int *)(((CommandObjectView *)obj)->objectTemplate + 0x11C) & 0x80000000) && availability == 0) {
                 win->winEnable(false);
                 win->winClearStatus(8);
@@ -640,10 +634,10 @@ void ControlBar::updateContextCommand()
             win->winEnable(false); win->winSetStatus(0x40000000);
         }
         win->winHide(hide);
-        if (!command->enabled()) win->winEnable(false);
+        if (!command->m_isClickable) win->winEnable(false);
         command->rva0035B570();
         Rva003284ED(win, 0);
-        if (command->options() & 0x400) {
+        if (command->getOptions() & 0x400) {
             if (availability == 2) GadgetCheckLikeButtonSetVisualCheck(win, true);
             else GadgetCheckLikeButtonSetVisualCheck(win, false);
         }

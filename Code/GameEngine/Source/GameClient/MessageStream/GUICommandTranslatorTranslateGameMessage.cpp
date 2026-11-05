@@ -213,19 +213,7 @@ public:
 	int m_20;
 };
 
-class CommandButton
-{
-public:
-	bool isContextCommand() const;
-	char m_pad00[0x14];
-	int m_commandType;
-	char m_pad18[4];
-	unsigned int m_options;
-	char m_pad20[0x80 - 0x20];
-	int m_weaponSlot;
-	char m_pad84[0xA0 - 0x84];
-	int m_maxShots;
-};
+#include "../../../Include/GameClient/CommandButton.h"
 
 class InGameUI
 {
@@ -353,7 +341,7 @@ static int doFireWeaponCommand(const CommandButton *command, ICoord2D *mouse)
 		GameMessage *msg = TheMessageStream->createMessage(0x40E);
 		msg->appendIntegerArgument(command->m_weaponSlot);
 		msg->appendLocationArgument(world);
-		msg->appendIntegerArgument(command->m_maxShots);
+		msg->appendIntegerArgument(command->m_maxShotsToFire);
 		Object *target = Rva00431012PickObject(mouse, (Rva0035AFE4 *)command, 4);
 		ObjectID targetID = target ? target->m_id : OBJECTID_NONE;
 		msg->appendObjectIDArgument(targetID);
@@ -371,14 +359,14 @@ static int doFireWeaponCommand(const CommandButton *command, ICoord2D *mouse)
 			GameMessage *msg = TheMessageStream->createMessage(0x40F);
 			msg->appendIntegerArgument(command->m_weaponSlot);
 			msg->appendObjectIDArgument(target->m_id);
-			msg->appendIntegerArgument(command->m_maxShots);
+			msg->appendIntegerArgument(command->m_maxShotsToFire);
 		}
 	}
 	else
 	{
 		GameMessage *msg = TheMessageStream->createMessage(0x40D);
 		msg->appendIntegerArgument(command->m_weaponSlot);
-		msg->appendIntegerArgument(command->m_maxShots);
+		msg->appendIntegerArgument(command->m_maxShotsToFire);
 	}
 	return 1;
 }
@@ -461,7 +449,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 	bool isDown = msg->m_type == 4;
 	bool cancelCommand;
 	bool executeCommand;
-	if (command->m_commandType == 0xA && TheWritableGlobalData->field005C)
+	if (command->m_command == 0xA && TheWritableGlobalData->field005C)
 	{
 		cancelCommand = gameMessageArgumentType;
 		executeCommand = rightClick;
@@ -489,7 +477,7 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 	((Rva005B5440 *)((BfmeOwnVVD *)TheLookAtTranslator))->clearFlags();
 	if (!command->isContextCommand())
 	{
-	switch (command->m_commandType)
+	switch (command->m_command)
 	{
 	case 0x17:
 	{

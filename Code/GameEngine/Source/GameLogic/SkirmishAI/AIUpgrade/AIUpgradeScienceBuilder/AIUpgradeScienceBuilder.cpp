@@ -151,15 +151,7 @@ public:
 
 class ThingTemplate;
 
-class CommandButton
-{
-public:
-	const ThingTemplate *rva0035B570() const;	// 0x0035B570
-	char m_pad00[0x14];
-	int m_command;		// +0x14
-	char m_pad18[0x24 - 0x18];
-	UpgradeTemplate *m_upgrade;	// +0x24
-};
+#include "../../../../../Include/GameClient/CommandButton.h"
 
 class CommandSet
 {
@@ -365,7 +357,7 @@ void AIUpgradeScienceBuilder::Register(Object *object, void *)
 			const CommandButton *button = commands->getCommandButton(i);
 			if (!button)
 				continue;
-			UpgradeTemplate *upgrade = button->m_upgrade;
+			const UpgradeTemplate *upgrade = button->getUpgradeTemplate();
 			if (upgrade) {
 				unsigned cost = upgrade->calcCostToBuild(m_14, (unsigned)object);
 				Rva005970ED *record = new Rva005970ED;
@@ -383,7 +375,7 @@ void AIUpgradeScienceBuilder::Register(Object *object, void *)
 					record->rva0059717F(upgrade->m_heuristic);
 					m_upgrades.push_back(reinterpret_cast<const ModuleData *const &>(item));
 				}
-			} else if (button->m_command == 1 && button->rva0035B570() &&
+			} else if (button->getCommandType() == 1 && button->rva0035B570() &&
 				!(((const ScienceBuildTemplateView *)button->rva0035B570())->m_11B & 0x10) &&
 				!(((const ScienceBuildTemplateView *)button->rva0035B570())->m_116 & 0x40)) {
 				Rva005DAAB6 *record = new Rva005DAAB6;
