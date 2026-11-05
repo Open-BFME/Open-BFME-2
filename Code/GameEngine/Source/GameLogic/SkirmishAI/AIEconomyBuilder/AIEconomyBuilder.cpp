@@ -51,6 +51,16 @@ public:
 	StringBase<char> m_name; // +0x64
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
+#include "Coord3D.h"
+#include "Common/GameLogicObjectLookupView.h"
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+class Xfer;
 
 class Rva004DFB55 { public: void rva004DFB55(CreateAHeroData *); };
 
@@ -188,6 +198,66 @@ private:
 // The rowed initializer at 7B31DF constructs "FarmTemplate" in this
 // four-byte storage; its existing owner keeps the global address unique.
 extern unsigned g_Va00E04490;
+
+namespace _STL { template <> void _STLP_alloc_proxy<ModuleData const * *,ModuleData const *,allocator<ModuleData const *> >::deallocate(ModuleData const * *,unsigned int); }
+
+namespace _STL { template <> void vector<ModuleData const *,allocator<ModuleData const *> >::reserve(unsigned int); }
+
+// Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
+// and this TU's /O1 COMDAT copy differs from the copy the link keeps.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
+{ if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
+}
+
+namespace _STL { template <> const ModuleData **_STLP_alloc_proxy<const ModuleData **, const ModuleData *, allocator<const ModuleData *> >::allocate(size_t); }
+
+namespace _STL { template <> const ModuleData **allocator<const ModuleData *>::allocate(size_t, const void *) const; }
+
+namespace _STL { template <> void allocator<const ModuleData *>::deallocate(const ModuleData **, size_t) const; }
+
+namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
+
+// Declaration-only: retail keeps one _STL::max<unsigned int> (17-byte jae
+// shape); this TU's flags would emit a private copy.
+namespace _STL {
+template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
+}
+
+int Rva004EA2C5Get();
+
+class Rva00573A00
+{
+public:
+	void rva00573A00(const Coord3D *pos);
+};
+
+class Rva00596F18 : public Rva00573A00
+{
+public:
+	Rva00596F18(void *arg);
+private:
+	char m_pad[0x74];
+};
+
+namespace _STL {}
+
+class FarmLibraryXferHead {public:virtual void slot0();virtual bool IsLoading() const;};
+
+template<class Base,int N> class FarmLibraryXferSlots:public FarmLibraryXferSlots<Base,N-1>{public:virtual void gap(Base*,char(*)[N]);};
+
+template<class Base> class FarmLibraryXferSlots<Base,0>:public Base {};
+
+class FarmLibraryXferView:public FarmLibraryXferSlots<FarmLibraryXferHead,28>{public:virtual void transferUnsigned(unsigned &);};
+
+template<int N> class FarmSnapshotSlots:public FarmSnapshotSlots<N-1>{public:virtual void gap(char(*)[N]);};
+
+template<> class FarmSnapshotSlots<0> {};
+
+class FarmSnapshotView:public FarmSnapshotSlots<12>{public:virtual void DoXfer(Xfer*,bool);};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp
 
@@ -402,12 +472,6 @@ void Rva004EA3B8::rva004EA33A()
  reinterpret_cast<Rva004DFB55 *>(stats)->rva004DFB55(reinterpret_cast<CreateAHeroData *>(this));
 }
 
-// tu-skeleton: 0x004EA149 45B ?rva004EA149@Rva004EA149@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA264 41B ?rva004EA264@Rva004EA149@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x004EA28D 56B ??1Rva004EA149@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004EA2C5.cpp
 
 // ?Rva004EA2C5Get@@YAHXZ @0x004EA2C5 55B
@@ -427,6 +491,12 @@ int __cdecl Rva004EA2C5Get()
 	return count;
 }
 
+// tu-skeleton: 0x004EA149 45B ?rva004EA149@Rva004EA149@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA264 41B ?rva004EA264@Rva004EA149@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x004EA28D 56B ??1Rva004EA149@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
 // tu-skeleton: 0x004EA2FC 5B ?rva004EA2FC@Rva004EA2FC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x004EA301 57B ?insert_equal@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
@@ -435,21 +505,82 @@ int __cdecl Rva004EA2C5Get()
 
 // tu-skeleton: 0x004EA418 8B ??_ERva004EA3B8@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp (not merged yet)
 
-// tu-skeleton: 0x004EA420 197B ?rva004EA420@Rva004EA3B8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004EA420Init.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004EA420Init.cpp
+
+// Native 0x004EA420..0x004EA4E4 (197B). If the global pointer vector at
+// 0x00E04494 is empty and Rva004EA2C5Get()>0, reserves it, walks GameLogic
+// objects (getFirstObject 0x0023CAD2) and for each whose +4 record has an
+// AsciiString at +0x64 equal to the global AsciiString 0x00E04490
+// (StringBase compare 0x000069D6) creates an Rva00596F18 (rowed ctor
+// 0x00596EEF), sets its Coord3D from object+0x38 (rowed 0x00573A00), copies
+// object+0x44 to item+0x3C and push_backs it (rowed 0x004DFCB0); next at
+// object+0x8C.
+//
+// Codegen: the new item is held in a pointer-to-const-ModuleData variable (the
+// address passed to push_back takes it by const reference); its home is
+// written right after the allocation, before the Coord3D call, like retail.
+// A plain 'Rva00596F18 *item' local gets its home store sunk to the push_back.
+
+void Rva004EA3B8::rva004EA420()
+{
+	_STL::vector<const ModuleData *> &farms =
+		reinterpret_cast<_STL::vector<const ModuleData *> &>(AIEconomyBuilder::m_farmList);
+	if (!farms.empty())
+		return;
+	int count = Rva004EA2C5Get();
+	if (count <= 0)
+		return;
+	farms.reserve(count);
+	int index = 0;
+	Object *obj = TheGameLogic->getFirstObject();
+	if (!obj)
+		return;
+	do
+	{
+		char *record = *(char **)((char *)obj + 4);
+		if (((const StringBase<char> *)(record + 0x64))->compare(*(const StringBase<char> *)&g_Va00E04490) == 0)
+		{
+			const ModuleData *entry = (const ModuleData *)new Rva00596F18((void *)index++);
+			((Rva00596F18 *)entry)->rva00573A00((const Coord3D *)((char *)obj + 0x38));
+			*(int *)((char *)entry + 0x3C) = *(int *)((char *)obj + 0x44);
+			farms.push_back(entry);
+		}
+		obj = *(Object **)((char *)obj + 0x8C);
+	} while (obj);
+}
 
 // tu-skeleton: 0x004EA4E5 790B ?findAvailableFarm@AIEconomyBuilder@@QAEPAVRva004EA4E5Farm@@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFindAvailableFarm.cpp (not merged yet)
 
 // tu-skeleton: 0x004EA7FB 324B ?update@AIEconomyBuilder@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIEconomyBuilderUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x004EAA4B 168B ?DoXferFarmLibrary@AIEconomyBuilder@@SAXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderDoXferFarmLibrary.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderDoXferFarmLibrary.cpp
+
+// The explicit-specialization declaration of the push_back/other template was dropped so cl sees the STLport body (frame/temps share as in retail).
+// vector<>::_M_insert_overflow inlines max(size(), n). Retail never calls
+// _STL::max<unsigned> (0x00013740 has no call site), but cl 13.10 still emits
+// the template's COMDAT, and under /O1 /G7 it is not retail's blend body. A
+// file-static unsigned overload takes the call instead: no external max copy
+// (the SubsystemInterface.cpp recipe).
+
+void AIEconomyBuilder::DoXferFarmLibrary(Xfer *xfer) {
+ unsigned count=m_farmList.finish-m_farmList.first;
+ FarmLibraryXferView *io=reinterpret_cast<FarmLibraryXferView *>(xfer);
+ io->transferUnsigned(count);
+ if(io->IsLoading()) {
+  for(unsigned i=0;i<count;++i) {
+   const ModuleData *farm=reinterpret_cast<const ModuleData *>(new Rva00596F18(0));
+   reinterpret_cast<_STL::vector<const ModuleData*> *>(&m_farmList)->push_back(farm);
+  }
+ }
+ Rva00596F18 **last=m_farmList.finish;
+ for(Rva00596F18 **i=m_farmList.first;i!=last;++i) {
+  reinterpret_cast<FarmSnapshotView *>(*i)->DoXfer(xfer,false);
+ }
+}
 
 // tu-skeleton: 0x007925CF 8B $L3122 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x007925D7 10B __ehhandler$??1Rva004EA149@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00792612 10B uw_00792612 -- matched in Code/GameEngine/Source/Common/Rva004EA420Init.cpp (not merged yet)
-
-// tu-skeleton: 0x0079261C 10B __ehhandler$?rva004EA420@Rva004EA3B8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004EA420Init.cpp (not merged yet)
 
 // tu-skeleton: 0x00792626 8B $L1399 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFindAvailableFarm.cpp (not merged yet)
 
@@ -468,7 +599,3 @@ int __cdecl Rva004EA2C5Get()
 // tu-skeleton: 0x00792666 8B $L1557 -- matched in Code/GameEngine/Source/GameLogic/AI/AIEconomyBuilderUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0079266E 10B __ehhandler$?update@AIEconomyBuilder@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIEconomyBuilderUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x00792678 10B uw_00792678 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderDoXferFarmLibrary.cpp (not merged yet)
-
-// tu-skeleton: 0x00792682 10B __ehhandler$?DoXferFarmLibrary@AIEconomyBuilder@@SAXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderDoXferFarmLibrary.cpp (not merged yet)
