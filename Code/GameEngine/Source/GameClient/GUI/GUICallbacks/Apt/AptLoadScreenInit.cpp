@@ -234,31 +234,14 @@ public:
 	void rva0057C7BA(int value);
 };
 
-class AptLoadScreen
-{
-public:
-	virtual ~AptLoadScreen();
-	virtual void update(int percent);
-	virtual void init(GameInfo *game);
-	virtual void reset();
-	virtual void processProgress(int playerId, int percentage);
-
-private:
-	unsigned char m_pad004[0x18 - 0x04];
-	Rva0057E3DB m_mapPreview;	// +0x18
-	unsigned char m_pad019[0x88 - 0x19];
-	GameInfo *m_game;			// +0x88
-	int m_level;				// +0x8C
-	int m_rowSlot[8];			// +0x90
-	int m_slotRow[8];			// +0xB0
-};
+#include "../../../../../Include/GameClient/AptLoadScreen.h"
 
 void AptLoadScreen::init(GameInfo *game)
 {
 	if (!game)
 		return;
 
-	m_game = game;
+	field88 = game;
 	AsciiString key;
 	AsciiString teamText;
 	AsciiString clipName;
@@ -274,12 +257,12 @@ void AptLoadScreen::init(GameInfo *game)
 	}
 
 	int gameMode = TheGameInfo ? TheGameInfo->m_gameMode : 0;
-	m_mapPreview.rva0057C7BA(0);
+	reinterpret_cast<Rva0057E3DB *>(field18)->rva0057C7BA(0);
 
 	int i;
 	for (i = 0; i < 8; ++i)
 	{
-		GameSlot *slot = m_game->getSlot(i);
+		GameSlot *slot = field88->getSlot(i);
 		if (!slot || !slot->isOccupied())
 			continue;
 		if (row == 8)
@@ -366,8 +349,8 @@ void AptLoadScreen::init(GameInfo *game)
 		((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2(clipName, rankImage);
 		clipName.format("UIClip/Fellowship/%d", row);
 		((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2(clipName, isGood ? fellowshipImage : 0);
-		m_slotRow[i] = row;
-		m_rowSlot[row] = i;
+		fieldB0[i] = row;
+		field90[row] = i;
 		++row;
 		processProgress(i, 0);
 	}

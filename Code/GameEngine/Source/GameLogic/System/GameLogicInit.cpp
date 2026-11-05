@@ -5177,13 +5177,7 @@ public:
 private:
 	char m_storage[0x28];
 };
-class AptLoadScreen
-{
-public:
-	AptLoadScreen(void *mode);
-private:
-	char m_storage[0xD4];
-};
+#include "../../../Include/GameClient/AptLoadScreen.h"
 void Rva0023D614Set(StringBase<char> *image);
 class BfmeAptWindowManagerLS
 {

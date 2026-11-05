@@ -53,6 +53,7 @@ Two concrete hand reconciles, both verified and both still short of a merge:
   deliberately declares only the destructor so its emitted vftable stays the
   ctor unit's COMDAT (retail 0x00C3D50C has six slots). Unblocking needs the
   full six-slot spelling in all three files, judged by the link guard.
+  2026-11-05: Init and GameLogic allocation consumers adopt the canonical six-slot header; 234/234 rows pass, both link previews retain 30,460 bytes, and acceptance retires two header rows. Constructor/destructor adoption still needs typed-preview lifecycle reconciliation ([evidence](../../reverse/attempt_support/aptloadscreen-header-20261105-codexb2.md)).
 - **PickupStuffUpdate**: base-clause CONFLICT cleared for five donors
   (2026-10-30, `bca81dd8bc` plus the merge after it). The seed now includes
   `Include/GameLogic/Module/BehaviorModule.h` and spells the full
