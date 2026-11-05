@@ -166,22 +166,7 @@ static __forceinline void reportSubObject(const char *format, const char *name, 
 	} \
 }
 #include "../../../../../../GameEngine/Include/Common/ThingTemplate.h"
-class Drawable
-
-{
- public:
- const ThingTemplate *getTemplate() const 
- {
-  return m_template;
-  
- }
- private:
- char m_pad00[4];
- const ThingTemplate *m_template;
-// +0x04
- 
-}
-;
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 // Hide/show entry (0x18 bytes); the per-entry workers are W3DModelDraw
 // members (0x000B3885, 0x000B38F9).
 struct Rva000B3885HideShowInfo
@@ -292,7 +277,7 @@ void W3DModelDraw::updateSubObjects()
     Int len = wildcard - it->m_name.str();
     if (len < 1)
     SUBOBJECT_CRASH("*** ASSET ERROR: SubObject wildcard string %s must not have wildcard at beginning (%s)!\n",
-    it->m_name.str(), getDrawable()->getTemplate()->getName().str());
+    it->m_name.str(), getDrawable()->m_template->getName().str());
     Int count = m_renderObject->Get_Num_Sub_Objects();
     for (objIndex = 0; objIndex < count; ++objIndex)
     
@@ -334,7 +319,7 @@ void W3DModelDraw::updateSubObjects()
     {
      --m_missingSubObjectReports;
      SUBOBJECT_CRASH("*** ASSET ERROR: SubObject %s not found (%s)!\n",
-     it->m_name.str(), getDrawable()->getTemplate()->getName().str());
+     it->m_name.str(), getDrawable()->m_template->getName().str());
      
     }
     
@@ -357,7 +342,7 @@ void W3DModelDraw::updateSubObjects()
     Int len = wildcard - it->m_name.str();
     if (len < 1)
     SUBOBJECT_CRASH("*** ASSET ERROR: SubObject wildcard string %s must not have wildcard at beginning (%s)!\n",
-    it->m_name.str(), getDrawable()->getTemplate()->getName().str());
+    it->m_name.str(), getDrawable()->m_template->getName().str());
     Int count = m_renderObject->Get_Num_Sub_Objects();
     for (objIndex = 0; objIndex < count; ++objIndex)
     
