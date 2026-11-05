@@ -60,16 +60,19 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 class FloodUpdateModuleData : public Snapshot
 {
 public:
+	FloodUpdateModuleData();
 	virtual ~FloodUpdateModuleData();
 
-private:
 	int m_unk04; // +4
-	_STL::list<int> m_list; // +8
+	// Pointer values use the rowed four-byte list ABI.
+	_STL::list<int> m_members; // +8
+	float m_angleOfFlow; // +0xC
+	bool m_directionIsRelative; // +0x10
 };
 
 FloodUpdateModuleData::~FloodUpdateModuleData()
 {
-	_STL::list<int> *trackedList = &m_list;
+	_STL::list<int> *trackedList = &m_members;
 	_STL::list<int>::iterator it = trackedList->begin();
 	while (it != trackedList->end()) {
 		int trackedValue = *it;

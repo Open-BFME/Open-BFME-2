@@ -162,11 +162,16 @@ struct FloodMember
 	Coord3D m_controlPointOffset[4]; // +4
 	Real m_speed; // +0x34
 };
-class FloodUpdateModuleData
+#include "Common/Snapshot.h"
+class FloodUpdateModuleData : public Snapshot
 {
 public:
-	char m_unknown00[8];
-	_STL::list<FloodMember *> m_members; // +8
+	FloodUpdateModuleData();
+	virtual ~FloodUpdateModuleData();
+	int m_unk04; // +4
+	// Pointer values use the same four-byte list ABI as the destructor's
+	// rowed int-spelled clear and list-base teardown.
+	_STL::list<int> m_members; // +8
 	Real m_angleOfFlow; // +0xC
 	Bool m_directionIsRelative; // +0x10
 };
@@ -353,9 +358,9 @@ void FloodUpdate::rva0048E189()
 {
 	const FloodUpdateModuleData *data = getFloodUpdateModuleData();
 	Team *team = getObject()->getTeam();
-	for (_STL::list<FloodMember *>::const_iterator it = data->m_members.begin(); it != data->m_members.end(); ++it)
+	for (_STL::list<int>::const_iterator it = data->m_members.begin(); it != data->m_members.end(); ++it)
 	{
-		const FloodMember *member = *it;
+		const FloodMember *member = reinterpret_cast<const FloodMember *>(*it);
 		Rva0048E16C *record = new Rva0048E16C;
 		Rva0048E16C *entry = record; // the list entry keeps its own slot in retail
 		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(member->m_templateName);
