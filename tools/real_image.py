@@ -182,6 +182,9 @@ class Sections:
     def code(self, rva):
         return any(va <= rva < va + size and x for va, size, _, x, _ in self.secs)
 
+    def section(self, rva):
+        return next((n for va, size, _, _, n in self.secs if va <= rva < va + size), None)
+
 
 class Rows:
     """functions.csv rows: (start, size, name, source), searchable by RVA and by name."""
@@ -269,23 +272,27 @@ class RealImage:
             raise RealImageError(f"{name}: {len(cands)} map symbol(s)" + (f", not one from {source}" if source else ""))
         return cands[0][0]
 
-    def verify_body(self, row, iva, depth=0):
+    def verify_body(self, row, iva, depth=0, end=None):
         """None if the image's copy of retail row `row` at image VA iva is the same body
-        (see the module doc), else why not. Cached per (row, iva, depth)."""
-        key = (row, iva, depth)
+        (see the module doc), else why not; with `end`, only its first `end` bytes (the
+        instructions starting there, the relocations starting there). Cached."""
+        key = (row, iva, depth, end)
         if key not in self._bodies:
-            self._bodies[key] = self._verify_body(row, iva, depth)
+            self._bodies[key] = self._verify_body(row, iva, depth, end)
         return self._bodies[key]
 
-    def _verify_body(self, row, iva, depth):
+    def _verify_body(self, row, iva, depth, end=None):
         start, size, name, _ = row
         irva = iva - self.base
+        end = size if end is None else min(end, size)
         try:
             r, i = self.retail.read(start, size), self.img.read(irva, size)
         except RealImageError as e:
             return str(e)
         rsites = {s - start for s in self.retail.sites() if start <= s < start + size}
         isites = {s - irva for s in self.img.relocs if irva <= s < irva + size}
+        if end < size:                                # a prefix: what starts inside it
+            rsites, isites = {o for o in rsites if o < end}, {o for o in isites if o < end}
         if self.need_relocs or isites:
             if rsites != isites:
                 return (f"relocated dwords differ: retail-only {sorted(hex(x) for x in rsites - isites)[:4]}, "
@@ -294,11 +301,11 @@ class RealImage:
             decoded, data_from = decode(start, r, rsites)
         except ImportError:
             return "capstone is needed to decode the body"
-        if data_from < size and data_from not in rsites and any(b not in (0xCC, 0x00) for b in r[data_from:]):
+        if data_from < end and data_from not in rsites and any(b not in (0xCC, 0x00) for b in r[data_from:end]):
             return f"+{data_from:#x} neither decodes nor starts a relocated table"
         allowed = set()
         for o, n, rel in decoded:                     # every relative target, changed bytes or not
-            if rel:
+            if rel and o < end:
                 p, k = rel
                 fmt = "<i" if k == 4 else "<b"
                 why = self._same_place(row, irva, start + o + n + struct.unpack_from(fmt, r, p)[0],
@@ -313,7 +320,7 @@ class RealImage:
                 if why:
                     return f"code address at +{o:#x}: {why}"
             allowed.update(range(o, o + 4))
-        for o in range(size):
+        for o in range(end):
             if r[o] != i[o] and o not in allowed:
                 return f"byte +{o:#x} differs ({r[o]:02x} / {i[o]:02x}) outside any relocation or branch operand"
         return None
@@ -416,7 +423,9 @@ class RealImage:
         """The contract's crash fields for image VA va (at the preferred base): map_symbol,
         stubbed_name, retail_rva, plus how they were found. Nothing is chosen among
         aliases: several names at the symbol leave map_symbol null (names_at_symbol lists
-        them), and retail_rva is set only when every candidate row gives the same RVA."""
+        them), and retail_rva is set only when every candidate row gives the same RVA and,
+        for a crash inside a function, its image body equals retail's through the crashing
+        instruction (else retail_rva_why says why; retail_row and the offset stay)."""
         out = {"address_image": hex(va), "return_address_image": hex(return_va) if return_va else None,
                "map_symbol": None, "stubbed_name": None, "retail_rva": None}
         sym, off = self.map.holding(va)
@@ -436,15 +445,66 @@ class RealImage:
             out["stubbed_name"], out["stubbed_by"] = self.stub_from_caller(sym, return_va)
         if out["stubbed_name"]:
             cands = {(r[0], out["stubbed_name"]) for r in self.rows.by_name.get(out["stubbed_name"], [])}
+        elif stubs:                                   # an unresolved stub: its missing functions' entries
+            cands = {(r[0], n) for n in stubs for r in self.rows.by_name.get(n, [])}
         else:
-            cands = {(r[0] + off, n) for n in names for r in self.rows.by_name.get(n, [])}
-            if any(off >= r[1] for n in names for r in self.rows.by_name.get(n, [])):
-                cands.add((None, "beyond a row"))
+            cands, why = set(), []
+            rows = [(n, r) for n in names for r in self.rows.by_name.get(n, [])]
+            if len({n for n, _ in rows}) == 1:
+                out["retail_row"] = rows[0][0]        # named, whether or not its offset maps
+            for n, row in rows:
+                bad = self.crash_offset_problem(row, sym, off)
+                if bad:
+                    why.append(f"{n}: {bad}")
+                    cands.add((None, n))
+                else:
+                    cands.add((row[0] + off, n))
+                    if len(rows) == 1:
+                        out["crash_operands"] = self.crash_operands(row, sym, off)
+            if why:
+                out["retail_rva_why"] = why[:4]
         if len({c[0] for c in cands}) == 1 and None not in {c[0] for c in cands}:
             out["retail_rva"] = hex(next(iter(cands))[0])
             out["retail_row"] = sorted(c[1] for c in cands)[0] if len(cands) == 1 else sorted(c[1] for c in cands)
-        elif cands:
+        elif len(cands) > 1:
             out["retail_rva_candidates"] = sorted({hex(c[0]) for c in cands if c[0] is not None})[:8]
+        return out
+
+    def crash_offset_problem(self, row, sym, off):
+        """None if `off` into the image's copy of `row` (at image VA sym) is the same
+        instruction as `off` into retail's row: the image body equals retail's from its
+        start through that instruction. Else why not (then the offset means nothing in
+        retail, as at a rebuilt entry point)."""
+        if off >= row[1]:
+            return f"+{off:#x} lies beyond the retail row ({row[1]:#x} bytes)"
+        try:
+            decoded, _ = decode(row[0], self.retail.read(row[0], row[1]),
+                                {s - row[0] for s in self.retail.sites() if row[0] <= s < row[0] + row[1]})
+        except (ImportError, RealImageError) as e:
+            return str(e)
+        ins = [(o, n) for o, n, _ in decoded if o == off]
+        if not ins:
+            return f"+{off:#x} is not an instruction start in retail's body"
+        bad = self.verify_body(row, sym, 0, off + ins[0][1])
+        return f"the image body differs from retail's before the crash: {bad}" if bad else None
+
+    def crash_operands(self, row, sym, off):
+        """The relocated operands of the crashing instruction (at `off` in both bodies,
+        which compare equal through it): retail's and the image's targets, with the image's
+        map symbol and both sections. The body check does not compare where relocated data
+        operands point, so this is where a wrong one shows (seen: retail's .data
+        __adjust_fdiv linked to msvcr71's import thunk in .text, LINK-548)."""
+        decoded, _ = decode(row[0], self.retail.read(row[0], row[1]),
+                            {s - row[0] for s in self.retail.sites() if row[0] <= s < row[0] + row[1]})
+        n = next(n for o, n, _ in decoded if o == off)
+        out = []
+        for s in sorted(x for x in self.retail.sites() if row[0] + off <= x < row[0] + off + n):
+            rt = self.retail.img.u32(s) - RETAIL_BASE
+            it = self.img.u32(sym - self.base + s - row[0]) - self.base
+            isym, ioff = self.map.holding(self.base + it)
+            out.append({"retail": hex(RETAIL_BASE + rt), "retail_section": self.retail.img.section(rt),
+                        "image": hex(self.base + it), "image_section": self.img.section(it),
+                        "image_symbol": f"{'|'.join(self.map.names_at(isym))}+{ioff:#x}" if isym else None})
         return out
 
     def stub_from_caller(self, stub_va, return_va):
@@ -559,6 +619,19 @@ def rebased_copy(ri, new_base, path):
     pe.write(str(path))
     pe.close()
     return Path(path)
+
+
+def install_game_dat(exe, game_dir):
+    """Copy the image under test to game_dir/game.dat and prove it is there: the copy's
+    SHA-256 must equal the source's, so a retail control never runs a leftover image (the
+    game queue stages each linked image into the same game folder). Returns the hash."""
+    import shutil
+    dest = Path(game_dir) / "game.dat"
+    shutil.copyfile(exe, dest)
+    want, got = sha256_file(exe), sha256_file(dest)
+    if want != got:
+        raise RealImageError(f"{dest} has SHA-256 {got}, not {want} of {exe}")
+    return got
 
 
 def result_of(outcome):

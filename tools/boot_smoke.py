@@ -93,6 +93,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import boot_image  # noqa: E402
+import real_image  # noqa: E402
 
 OUT = ROOT / "build" / "boot"
 DEBUG_PROCESS = 0x1
@@ -1118,7 +1119,11 @@ def smoke(a, rows=None, tag="boot"):
         exe, pieces_map, base = OUT / f"{tag}.exe", rep["pieces_map"], a.base
         authored = rep.get("authored", [])
     prepare_sandbox_profile(a.appdata)
-    shutil.copyfile(exe, a.game_dir / "game.dat")
+    try:                                          # never a leftover image: refused by hash
+        out["game_dat_sha256"] = real_image.install_game_dat(exe, a.game_dir)
+    except real_image.RealImageError as e:
+        out["outcome"], out["game_dat_error"] = "game-dat-mismatch", str(e)
+        return out
     before = {str(g): snapshot(g) for g in a.guard}
     profile_guard = ProfileGuard()
     if a.compat:

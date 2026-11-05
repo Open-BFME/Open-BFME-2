@@ -320,7 +320,7 @@ class RunnerDebugTests(unittest.TestCase):
         report = {"outcome": "debugger-error", "first_chance": [], "probes_hit": [],
                   "debugger_errors": [{"operation": "ContinueDebugEvent", "error": 5}]}
         with (mock.patch.object(runner, "prepare_sandbox_profile"),
-              mock.patch.object(runner.shutil, "copyfile"),
+              mock.patch.object(runner.real_image, "install_game_dat", return_value="0" * 64),
               mock.patch.object(runner, "run", return_value=report),
               mock.patch.object(runner, "ProfileGuard") as guard):
             guard.return_value.check.return_value = ({"changed": []}, False)

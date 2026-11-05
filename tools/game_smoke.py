@@ -1095,7 +1095,10 @@ def launch(a, extra, handlers=(), tick=None, timeout=None):
         a.address_map = {n: [hex(v), ours] for n, (v, ours) in placed.items()}
         a.relayout = rep.get("relayout")
     boot_smoke.prepare_sandbox_profile(a.appdata)       # refuses an appdata inside the real AppData
-    shutil.copyfile(exe, gd / "game.dat")
+    try:                                                # never a leftover image: refused by hash
+        a.game_dat_sha256 = boot_smoke.real_image.install_game_dat(exe, gd)
+    except boot_smoke.real_image.RealImageError as e:
+        raise SystemExit(f"game_smoke: {e}")
     before = {"guard": {str(g): boot_smoke.snapshot(g) for g in a.guard}}
     profile_guard = boot_smoke.ProfileGuard()
     # -randomSeed sets GlobalData's fixed seed (+0x1228, parseRandomSeed 0x3B9D2C):

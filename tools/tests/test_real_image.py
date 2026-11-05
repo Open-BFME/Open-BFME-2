@@ -36,6 +36,9 @@ class FakeSections:
     def code(self, rva):
         return any(a <= rva < a + n for a, n in self.ranges)
 
+    def section(self, rva):
+        return ".text" if self.code(rva) else ".data"
+
 
 def f1_body(base, g, g2, here, f2, miss):
     """push ebp; mov ebp, esp; mov eax, [g]; call f2; mov byte [g2], 1; call miss; pop ebp; ret.
@@ -200,10 +203,52 @@ class ReviewFindings(unittest.TestCase):
             img.map_code(0x1000)                      # the image's dword still points at data
 
 
+class GameDat(unittest.TestCase):
+    """The game folder's game.dat must be the image under test, proven by hash."""
+
+    def test_installed_copy_is_proven(self):
+        with tempfile.TemporaryDirectory() as d:
+            src = Path(d) / "retail.dat"
+            src.write_bytes(b"MZ retail")
+            self.assertEqual(ri.install_game_dat(src, d), hashlib.sha256(b"MZ retail").hexdigest())
+
+    def test_a_copy_that_left_another_image_is_refused(self):
+        from unittest import mock
+        with tempfile.TemporaryDirectory() as d:
+            src = Path(d) / "retail.dat"
+            src.write_bytes(b"MZ retail")
+            (Path(d) / "game.dat").write_bytes(b"MZ our linked image")    # what the queue left behind
+            with mock.patch("shutil.copyfile"), self.assertRaisesRegex(ri.RealImageError, "not "):
+                ri.install_game_dat(src, d)
+
+
 class Crashes(unittest.TestCase):
     def test_crash_in_a_function_names_symbol_and_retail_row(self):
+        w = build().where(IB + 0x2103)                # mov eax, [g]: +3 in both bodies
+        self.assertEqual((w["map_symbol"], w["stubbed_name"], w["retail_rva"]), (F1, None, "0x1003"))
+        self.assertEqual(w["crash_operands"], [{"retail": hex(RB + 0x5000), "retail_section": ".data",
+                                                "image": hex(IB + 0x8000), "image_section": ".data",
+                                                "image_symbol": "?g@@3HA+0x0"}])
+
+    def test_crash_in_a_body_that_differs_before_it_maps_no_retail_rva(self):
+        # 2026-11-05 receipt: _WinMainCRTStartup+0xa9 reported as retail's entry + 0xa9,
+        # though our entry body is not retail's; the offset means nothing in retail then.
+        w = build(tamper=1).where(IB + 0x2108)        # the body differs at +1, the crash is at +8
+        self.assertIsNone(w["retail_rva"])
+        self.assertEqual((w["map_symbol"], w["retail_row"], w["offset"]), (F1, F1, "0x8"))
+        self.assertIn("differs from retail's before the crash", w["retail_rva_why"][0])
+        self.assertEqual(ri.crash_name(w), F1)
+
+    def test_a_difference_after_the_crash_does_not_matter(self):
+        img = build(tamper=0x19)                      # pop ebp, after the crash at +3
+        with self.assertRaises(ri.RealImageError):
+            img.map_code(0x1000)                      # the whole body does not map
+        self.assertEqual(img.where(IB + 0x2103)["retail_rva"], "0x1003")
+
+    def test_a_crash_inside_an_instruction_maps_no_retail_rva(self):
         w = build().where(IB + 0x2105)
-        self.assertEqual((w["map_symbol"], w["stubbed_name"], w["retail_rva"]), (F1, None, "0x1005"))
+        self.assertIsNone(w["retail_rva"])
+        self.assertIn("not an instruction start", w["retail_rva_why"][0])
 
     def test_shared_stub_is_named_through_the_caller(self):
         img = build()
