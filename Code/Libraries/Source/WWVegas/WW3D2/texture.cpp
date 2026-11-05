@@ -460,16 +460,7 @@ public:
 	void rva00132C8D(int value);
 };
 
-class TextureAsset
-{
-	TextureAssetFactoryView *m_factory;
-
-public:
-	static void Register(const char *name);
-public:
-	static void RegisterRecolorForHouseColorDecal(void *a, void *b, void *c);
-	void SetQualityLevel(int value);
-};
+#include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/TextureAsset.h"
 
 // tu-skeleton: 0x00132129 18B ?bfmeGo937B@BfmeThing937B@@QAEXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv937.cpp (not merged yet)
 
@@ -853,8 +844,8 @@ void Rva0090E190::rva00132C8D(int value)
 
 void TextureAsset::SetQualityLevel(int value)
 {
-	if (m_factory)
-		m_factory->m_value = value;
+	if (m_00)
+		((TextureAssetFactoryView *)m_00)->m_value = value;
 }
 
 // tu-skeleton: 0x00132D0F 52B ?rva00132D0F@Rva00132D0FHolder@@QAE_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_texture_ref_recreate_device.cpp (not merged yet)
