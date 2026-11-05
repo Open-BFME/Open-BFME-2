@@ -18,3 +18,5 @@ and already link, so they were left alone.
 2026-11-04: the main `GiantBirdAIUpdate.cpp` now adopts canonical AI/module bases and state-machine headers; seven queue rows retired with 18/18 byte matches and unchanged 2,249 linked-byte prediction. Remaining merge prerequisites: [evidence](../../reverse/attempt_support/giantbird-main-headers-20261104-codex.md).
 
 2026-11-05: factory/append donors now adopt canonical AIStateMachine, with the append donor using the canonical AI base and slot-30 declaration; four header-queue entries retired, all four checked units still predict LINKS (1,351 bytes unchanged). Remaining merge prerequisites and verification: [evidence](../../reverse/attempt_support/giantbird-state-headers-20261105-codex.md).
+
+2026-11-05: seed/collision declarations now agree; 19/19 rows match and both units still predict LINKS (2,487 bytes unchanged). Next run the guarded composition: [evidence](../../reverse/attempt_support/giantbird-collision-prep-20261105-codex.md).

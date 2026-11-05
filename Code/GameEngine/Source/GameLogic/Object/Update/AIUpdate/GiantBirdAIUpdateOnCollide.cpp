@@ -34,7 +34,12 @@ enum KindOfType { KINDOF_BFME_9B = 0x9B };
 class ModuleData;
 class Rva001E438B { public: float *rva00261988(float *out, Rva001E438B *other); };
 
-class ThingTemplateView { public: unsigned char m_pad00[0x108]; unsigned char m_flags108; };
+class ThingTemplateView
+{
+public:
+	unsigned char m_pad000[0x108];
+	unsigned char m_kindOf[0x20]; // +0x108
+};
 
 class Object
 {
@@ -87,7 +92,7 @@ void GiantBirdAIUpdate::onCollide(Object *other, const Coord3D *loc, const Coord
 	}
 	if (victim == other)
 		return;
-	if (!(other->getTemplateView()->m_flags108 & 4))
+	if (!(other->getTemplateView()->m_kindOf[0] & 4))
 		return;
 	if (!testFlag(6) && victim)
 	{

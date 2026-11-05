@@ -40,6 +40,8 @@ enum AICommandType { AICMD_NO_COMMAND = -1 };
 
 enum CommandSourceType { CMD_FROM_AI = 2 };
 
+enum KindOfType { KINDOF_BFME_9B = 0x9B };
+
 class FXList;
 
 class Object;
@@ -144,6 +146,10 @@ private:
 class Object : public Thing
 {
 public:
+	Bool isKindOf(KindOfType t) const;
+	Real rva00263763(const void *other) const;
+	const ThingTemplateView *getTemplateView() const { return getTemplate(); }
+	Real getRadiusB8() const { return m_B8; }
 	UnsignedInt getID() const { return m_id; }
 	void rva0028AE6D();
 	__forceinline void setModelConditionState(unsigned int bit)
@@ -186,7 +192,9 @@ public:
 private:
 	unsigned char m_pad048[0x74 - 0x48];
 	UnsignedInt m_id; // +0x74
-	unsigned char m_pad078[0x10C - 0x78];
+	unsigned char m_pad078[0xB8 - 0x78];
+	Real m_B8; // +0xB8
+	unsigned char m_pad0BC[0x10C - 0xBC];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
 	unsigned char m_pad158[0x250 - 0x158];
 	ContainModuleInterface *m_contain; // +0x250
@@ -300,6 +308,7 @@ public:
 	StateMachine *getStateMachine() const { return (StateMachine *)m_stateMachine; }
 	Bool isCommandPending() const { return m_commandPending; }
 	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 	void rva0036AE79();
 	const GiantBirdAIUpdateModuleData *getGiantBirdAIUpdateModuleData() const { return (const GiantBirdAIUpdateModuleData *)m_moduleData; }
 	Bool testFlag(Int bit) const { return (m_4B8 >> bit) & 1; }
