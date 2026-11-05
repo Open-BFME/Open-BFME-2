@@ -50,20 +50,7 @@ struct Rva00391F4E
 
 extern AI *TheAI;
 
-class RebuildHoleBehavior
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-	void newWorkerRespawnProcess(Object *existingWorker);
-
-private:
-	const ModuleData *m_moduleData;				// +0x04
-	Object *m_object;					// +0x08
-	unsigned char m_pad0C[0x28 - 0xc];
-	int m_workerID;						// +0x28
-	unsigned char m_pad2C[0x34 - 0x2c];
-	unsigned int m_workerWaitCounter;			// +0x34
-};
+#include "../../../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
 
 // ?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ
 NameKeyType RebuildHoleBehavior::getModuleNameKey() const
@@ -87,7 +74,7 @@ void RebuildHoleBehavior::newWorkerRespawnProcess(Object *existingWorker)
 	// if we have an existing worker, get rid of it
 	if (existingWorker)
 		TheGameLogic->destroyObject(existingWorker);
-	m_workerID = 0;
+	m_workerID = INVALID_OBJECT_ID;
 
 	// set the timer for the next worker respawn
 	m_workerWaitCounter = (unsigned int)modData->m_workerRespawnDelay;
