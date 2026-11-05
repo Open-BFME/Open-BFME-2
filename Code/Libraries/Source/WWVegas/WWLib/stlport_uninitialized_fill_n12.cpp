@@ -19,15 +19,7 @@
 namespace _STL { template <> vector<unsigned int, allocator<unsigned int> > * uninitialized_fill_n<vector<unsigned int, allocator<unsigned int> > *, unsigned int, vector<unsigned int, allocator<unsigned int> > >(vector<unsigned int, allocator<unsigned int> > *, unsigned int, vector<unsigned int, allocator<unsigned int> > const &); }
 // bfme link decl-only end
 
-class RvaSmartPtr12
-{
-public:
-	RvaSmartPtr12();
-	RvaSmartPtr12(const RvaSmartPtr12 &other);
-
-private:
-	unsigned int m_body[3];
-};
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 
 struct BfmeStringRecord0022074B
 {

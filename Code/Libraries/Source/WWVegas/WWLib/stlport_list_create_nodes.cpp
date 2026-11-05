@@ -22,7 +22,7 @@ struct BfmeStringRecord000B75AE { public: unsigned char m_data[32]; };
 struct BfmeStringRecord000B757D { public: unsigned char m_data[20]; };
 struct BfmeFloat4Record00469C61 { public: unsigned char m_data[16]; };
 struct BfmeStringRecord001EA478 { public: unsigned char m_data[8]; };
-class RvaSmartPtr12 { public: unsigned char m_data[12]; };
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct BfmeStringRecord00239B46 { public: unsigned char m_data[8]; };
 struct BfmeStringRecord002B4DC1 { public: unsigned char m_data[12]; };
 struct BfmeStringRecord00415F34 { public: unsigned char m_data[24]; };

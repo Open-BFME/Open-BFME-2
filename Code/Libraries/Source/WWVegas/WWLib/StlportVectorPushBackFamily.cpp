@@ -110,7 +110,7 @@ void __cdecl Rva00317CA0Construct(void *, const void *);
 void __cdecl Rva0032ACFCConstruct(void *, const void *);
 void __cdecl Rva004C3A9FConstruct(void *, const void *);
 
-class RvaSmartPtr12 { public: int a[3]; };
+#include "../../../../GameEngine/Include/Common/RvaSmartPtr12.h"
 struct Rva00082BE6Element { int a[1]; };
 struct Rva00082C1DElement { int a[1]; };
 struct Rva0008B689Element { int a[1]; };
