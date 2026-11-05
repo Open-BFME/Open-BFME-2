@@ -28,17 +28,7 @@ private:
 #include "../../../../../Include/GameLogic/PartitionFilter.h"
 
 class Object;
-class ExitInterface
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual bool slot06() = 0;
-};
+#include "../../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class ContainView
 {
@@ -118,7 +108,7 @@ Object *bfmeQueryRallyOverride(Object *obj, const Coord3D *pos)
 		ContainView *contain = found->m_contain250;
 		if (contain && contain->s13() &&
 			obj->getObjectExitInterface() != 0 &&
-			obj->getObjectExitInterface()->slot06() &&
+			obj->getObjectExitInterface()->useSpawnRallyPoint() &&
 			obj->getRelationship(found) == REL_2 &&
 			225.0f > ((Rva000CBA20 *)found)->distSq((const Rva000CBA20Point *)pos))
 			return found;

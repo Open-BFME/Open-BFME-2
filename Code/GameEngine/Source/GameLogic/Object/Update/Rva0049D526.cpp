@@ -20,15 +20,7 @@ struct Rva0049D526Src
 	WeaponTemplateSetHead m_head;
 };
 
-class ExitInterface
-{
-public:
-	virtual void s00();
-	virtual void s01();
-	virtual void s02();
-	virtual void s03();
-	virtual void s04(int x);
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
 #include "../object.h"
 
@@ -96,7 +88,7 @@ void Rva0049D526::rva0049D57F(void *entry)
 		Object *obj = (Object *)m_08;
 		ExitInterface *ei = obj->getObjectExitInterface();
 		if (ei != 0)
-			ei->s04(node->m_2C);
+			ei->unreserveDoorForExit((ExitDoorType)node->m_2C);
 	}
 	if (node->m_prev != 0)
 		((Rva0049D526Node *)node->m_prev)->m_next = node->m_next;

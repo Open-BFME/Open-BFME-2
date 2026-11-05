@@ -54,13 +54,7 @@ public:
 
 #include "../../../../Include/Common/PlayerList.h"
 
-class ExitInterface
-{
-public:
-	virtual void vf00();
-	virtual int reserveDoorForExit(const ThingTemplate *objType, Object *specificObject);	// +0x04
-	virtual void exitObjectViaDoor(Object *newObj, int exitDoor);	// +0x08
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class Rva0028D891Owner
 {
@@ -260,7 +254,7 @@ void HordeContain::rva0046CF21()
 		ExitInterface *exitInterface = producer->getObjectExitInterface();
 		if (exitInterface)
 		{
-			int door = exitInterface->reserveDoorForExit(newObj->getTemplate(), newObj);
+			ExitDoorType door = exitInterface->reserveDoorForExit(newObj->getTemplate(), newObj);
 			if (door != -1)
 			{
 				exitInterface->exitObjectViaDoor(newObj, door);

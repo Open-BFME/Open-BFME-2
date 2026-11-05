@@ -109,13 +109,7 @@ class Object;
 class ThingTemplate;
 
 // A contain module's exit interface (contain slot 29).
-class ExitInterface
-{
-public:
-	virtual Bool isExitBusy() = 0;
-	virtual int reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
-	virtual void exitObjectViaDoor(Object *newObj, int exitDoor) = 0;
-};
+#include "../../../Include/GameLogic/Module/ExitInterface.h"
 
 class ContainModuleInterface
 {
@@ -565,7 +559,7 @@ StateReturnType AIHordeExitState::update()
 		return STATE_FAILURE;
 	if (exitInterface->isExitBusy())
 		return STATE_CONTINUE;
-	int exitDoor = exitInterface->reserveDoorForExit(owner->getTemplate(), owner);
+	ExitDoorType exitDoor = exitInterface->reserveDoorForExit(owner->getTemplate(), owner);
 	if (exitDoor == -1)
 		return STATE_FAILURE;
 	BfmeAIExitDoorFlag = m_20;

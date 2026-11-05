@@ -60,16 +60,7 @@ class Object;
 
 class ThingTemplate { public: unsigned char m_pad000[0x11F]; unsigned char m_kindOf11F; };
 
-class ExitInterface
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06();
-	virtual void setRallyPoint(const Coord3D *pos);				// +0x1C
-	virtual void v08();
-	virtual void getNaturalRallyPoint(Coord3D *pos, Bool offset);		// +0x24
-	virtual Bool getExitPosition(Coord3D *pos, Real *orientation);		// +0x28
-};
+#include "../../../Include/GameLogic/Module/ExitInterface.h"
 
 class Object
 {
@@ -135,7 +126,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 	{
 		key = TheNameKeyGenerator->nameToKey("LargeShipLocomotor");
 		if (exitInterface)
-			exitInterface->getNaturalRallyPoint(&start, true);
+			exitInterface->getNaturalRallyPoint(start, true);
 	}
 	else
 	{
@@ -143,7 +134,7 @@ Bool Rva0037711ADoSetRallyPoint(Object *object, const Coord3D *position, Bool sh
 		{
 			Real orientation = 0.0f;
 			Coord3D exitPos;
-			if (exitInterface->getExitPosition(&exitPos, &orientation))
+			if (exitInterface->getExitPosition(exitPos, orientation))
 				start = exitPos;
 		}
 		key = TheNameKeyGenerator->nameToKey("HumanLocomotor");

@@ -27,13 +27,7 @@ extern PlayerList* ThePlayerList;
 enum ObjectStatusTypes { STATUS5=5 };
 enum ModelConditionFlagType { CONDITION218=218 };
 #include "../../../../Include/GameClient/Drawable.h"
-class ExitInterface {
-public:
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
- virtual void slot4(); virtual void slot5(); virtual void slot6();
- virtual void slot7(const Coord3D*);
- virtual void slot8(); virtual bool slot9(Coord3D*,bool);
-};
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 class CastleBodyView;
 class Object { public: CastleBodyView* body() const { return *(CastleBodyView*const*)((const char*)this+0x254); } float orientation() const { return *(const float*)((const char*)this+0x44); }
  Player* getControllingPlayer() const;
@@ -136,11 +130,11 @@ Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant)
    bool hasOffset=false;
    if(fabs(field<float>(record,0x18))>1.0 || fabs(field<float>(record,0x1c))>1.0) hasOffset=true;
    Coord3D rally;
-   if(!exit->slot9(&rally,true)) rally=field<Coord3D>(record,0xc);
+   if(!exit->getNaturalRallyPoint(rally,true)) rally=field<Coord3D>(record,0xc);
    if(hasOffset) {
     rally.x+=field<float>(record,0x18);
     rally.y+=field<float>(record,0x1c);
-    exit->slot7(&rally);
+    exit->setRallyPoint(&rally);
    }
   }
   if(instant) ((Rva0028CBFD*)created)->rva0028CBFD();

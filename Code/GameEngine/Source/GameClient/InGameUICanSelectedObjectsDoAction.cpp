@@ -58,15 +58,7 @@ class ContainModuleInterface { public:
  virtual void slot12();
  virtual bool rva0029C823Slot13()const;
 };
-class ExitInterface { public:
- virtual void slot0();
- virtual void slot1();
- virtual void slot2();
- virtual void slot3();
- virtual void slot4();
- virtual void slot5();
- virtual bool rva0029C823Slot6()const;
-};
+#include "../../Include/GameLogic/Module/ExitInterface.h"
 class Rva0041B8D2Obj;
 
 
@@ -223,7 +215,7 @@ bool InGameUI::canSelectedObjectsDoAction(ActionType action,const Object *target
     if(!obj) {success=false;break;}
     ContainModuleInterface *contain=target?target->m_contain:0;
     ExitInterface *exit=obj->getObjectExitInterface();
-    if(contain && exit && contain->rva0029C823Slot13() && exit->rva0029C823Slot6()) success=true; else success=(obj->hasDispatchKind((KindOfType)69) && obj->isLocallyControlled());
+    if(contain && exit && contain->rva0029C823Slot13() && exit->useSpawnRallyPoint()) success=true; else success=(obj->hasDispatchKind((KindOfType)69) && obj->isLocallyControlled());
     break;
    }
    case 19: success=TheActionManager->Rva0041BB87IsRelated(other->getObject(),const_cast<Object*>(target),0); break;

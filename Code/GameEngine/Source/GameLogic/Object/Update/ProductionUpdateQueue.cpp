@@ -347,23 +347,8 @@ extern GameLogic *TheGameLogic;
 
 class Module;
 
-// ZH ExitInterface slots 0..10 (BFME 1 UpdateModule.h); BFME 2 adds slot 11.
-class ExitInterface
-{
-public:
-	virtual Bool isExitBusy() const = 0;
-	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
-	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
-	virtual void exitObjectByBudding(Object *newObj, Object *budHost) = 0;
-	virtual void unreserveDoorForExit(ExitDoorType exitDoor) = 0;
-	virtual void exitObjectInAHurry(Object *newObj) = 0;
-	virtual void setRallyPoint(const void *pos) = 0;
-	virtual const void *getRallyPoint() const = 0;
-	virtual Bool useSpawnRallyPoint() const = 0;
-	virtual Bool getNaturalRallyPoint(void *rallyPoint, Bool offset) const = 0;
-	virtual Bool getExitPosition(void *exitPosition, float *orientation) const = 0;
-	virtual void exitSlot11() = 0;
-};
+// Use BFME 2's native slot order, including production-burst notification.
+#include "../../../../Include/GameLogic/Module/ExitInterface.h"
 
 class BehaviorModule;
 class ProductionUpdateInterface;
@@ -1513,7 +1498,7 @@ void ProductionUpdate::rva0049DEC8()
 		}
 	}
 	if( exitInterface )
-		exitInterface->exitSlot11();
+		exitInterface->notifyProductionBurstFinished();
 }
 
 // ?xfer@ProductionUpdate@@MAEXPAVXfer@@@Z @0x0049F91A 1192B
@@ -1822,7 +1807,7 @@ UpdateSleepTime ProductionUpdate::update()
    Object *newObj;
    if(m_bfme120==0) {
     Coord3D pos; pos.z=pos.y=pos.x=0.0f; float angle=0.0f;
-    bool havePosition=exitInterface->getExitPosition(&pos,&angle);
+    bool havePosition=exitInterface->getExitPosition(pos,angle);
     int revivalExperience=0;
     CreateMask mask;
     if(revival) {
@@ -1880,7 +1865,7 @@ UpdateSleepTime ProductionUpdate::update()
     const ThingTemplate *thingTemplate=newObj->m_template;
     newObj->setStatus((ObjectStatusTypes)0x5a,true);
     if(thingTemplate->m_buildFadeInOnCreateTime>0.0f) {
-     Coord3D rally; if(exitInterface->getNaturalRallyPoint(&rally,true)) ((ProductionAIView *)TheAI)->getPathfinder()->MoveAlliesAwayFromDestination(newObj,&us->m_position,&rally);
+     Coord3D rally; if(exitInterface->getNaturalRallyPoint(rally,true)) ((ProductionAIView *)TheAI)->getPathfinder()->MoveAlliesAwayFromDestination(newObj,&us->m_position,&rally);
     }
     if(production->m_bfme30!=-1) {
      ((_STL::_Base_bitset<32> *)((char *)newObj+0x284))->_M_do_or((const _STL::_Base_bitset<32> &)Rva0028F633(0,production->m_bfme30));
@@ -1912,7 +1897,7 @@ UpdateSleepTime ProductionUpdate::update()
       Team *team=us->getControllingPlayer()->m_defaultTeam;
       Object *extra=TheThingFactory->newObject(extraTemplate,team,&mask,(ObjectID)0);
       rva0049CD24(extra);
-      if(exitInterface->getExitPosition(&pos,&angle)) { ((Thing *)extra)->setPosition(&pos); ((Thing *)extra)->setOrientation(angle); }
+      if(exitInterface->getExitPosition(pos,angle)) { ((Thing *)extra)->setPosition(&pos); ((Thing *)extra)->setOrientation(angle); }
       ((Thing *)extra)->getDrawable()->setDrawableHidden(true);
       if(!extra->m_modelConditionFlags.test(218)) { extra->m_modelConditionFlags.set(218); extra->rva0028AE6D(); }
       newObj->setSpecialModelConditionState((ModelConditionFlagType)0x14d,5);
@@ -1955,7 +1940,7 @@ UpdateSleepTime ProductionUpdate::update()
     } }
    }
   }
-  if(production->m_productionQuantityTotal-production->m_productionQuantityProduced==0) { removeFromProductionQueue(production); ::delete production; exitInterface->exitSlot11(); }
+  if(production->m_productionQuantityTotal-production->m_productionQuantityProduced==0) { removeFromProductionQueue(production); ::delete production; exitInterface->notifyProductionBurstFinished(); }
   } else { removeFromProductionQueue(production); ::delete production; }
   break;
  }
