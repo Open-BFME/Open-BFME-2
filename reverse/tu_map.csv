@@ -34607,7 +34607,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0042D4B3,28,code,,,-,,Code/GameEngine/Source/Common/Rva0042D4B3ScalarDeletor.cpp
 0x0042D4CF,28,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp
 0x0042D4EB,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042D4EB.cpp
-0x0042D507,28,code,,,-,,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+0x0042D507,28,code,,,-,,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0042D523,28,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImplConstructor.cpp
 0x0042D53F,28,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp
 0x0042D55B,28,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0057C04F.cpp
@@ -47439,7 +47439,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00579575,225,code,,,-,,Code/GameEngine/Source/Common/Rva005794EDDtor.cpp
 0x00579656,7,code,,,-,,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp
 0x0057965D,23,code,,,-,,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
-0x00579674,2,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,N,N=Code/GameEngine/Source/Common/StrategicHUD.cpp provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+0x00579674,2,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,N,N=Code/GameEngine/Source/Common/StrategicHUD.cpp provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x00579676,32,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,N,N=Code/GameEngine/Source/Common/StrategicHUD.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDStatsDisplayImpl.cpp provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x00579696,18,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp N=Code/GameEngine/Source/GameLogic/ScriptEngine/Parameter.cpp,Code/GameEngine/Source/GameLogic/ScriptEngine/Parameter_getStatus.cpp
 0x005796A8,11,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp N=Code/Libraries/Source/WWVegas/WW3D2/GapFillerClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp
@@ -47451,18 +47451,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00579900,149,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,N,N=Code/GameEngine/Source/Common/StrategicHUD.cpp provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x00579995,154,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,N,N=Code/GameEngine/Source/Common/StrategicHUD.cpp provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x00579A2F,136,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,N,N=Code/GameEngine/Source/Common/StrategicHUD.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDStatsDisplayImpl.cpp provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
-0x00579AB7,96,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579B17 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+0x00579AB7,96,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579B17 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x00579B17,106,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579B81 provisional,Code/GameEngine/Source/Common/AptImageKeySetters.cpp
 0x00579B81,127,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579C00 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
-0x00579C00,82,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579C52 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+0x00579C00,82,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579C52 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x00579C52,102,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579CB8 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
 0x00579CB8,28,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579CD4 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
-0x00579CD4,105,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579D3D provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x00579D3D,89,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579D96 provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x00579D96,98,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579DF8 provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x00579DF8,79,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579E47 provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
+0x00579CD4,105,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579D3D provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x00579D3D,89,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579D96 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x00579D96,98,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579DF8 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x00579DF8,79,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579E47 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x00579E47,59,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x00579E82 provisional,Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp
-0x00579E82,541,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A09F provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+0x00579E82,541,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A09F provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0057A09F,406,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A235 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
 0x0057A235,7,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A23C provisional,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp
 0x0057A23C,7,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,C,C=0x00579A2F..0x0057A243 provisional,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp
@@ -86445,11 +86445,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079BB4A,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579A2F@FuncInfo0x009510E0 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0079BB52,25,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579A2F@FuncInfo0x009510E0 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0079BB6B,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579A2F@FuncInfo0x009510E0 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
-0x0079BB75,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BB7D,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BB88,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BB93,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BB9E,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+0x0079BB75,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BB7D,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BB88,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BB93,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BB9E,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579AB7@FuncInfo0x0095111C provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0079BBA8,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579B17@FuncInfo0x00951140 provisional,Code/GameEngine/Source/Common/AptImageKeySetters.cpp
 0x0079BBB0,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579B17@FuncInfo0x00951140 provisional,Code/GameEngine/Source/Common/AptImageKeySetters.cpp
 0x0079BBBA,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579B81@FuncInfo0x00951164 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
@@ -86457,24 +86457,24 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079BBCC,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579C52@FuncInfo0x00951198 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
 0x0079BBD4,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579C52@FuncInfo0x00951198 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
 0x0079BBDC,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579C52@FuncInfo0x00951198 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
-0x0079BBE6,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579CD4@FuncInfo0x009511BC provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x0079BBEE,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579CD4@FuncInfo0x009511BC provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x0079BBF8,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579D96@FuncInfo0x009511E0 provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x0079BC00,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579D96@FuncInfo0x009511E0 provisional,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x0079BC0A,8,code,,,-,,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x0079BC12,10,code,,,-,,Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
-0x0079BC1C,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC24,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC2F,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC3A,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC45,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC4D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC55,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC5D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC65,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC6D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC75,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
-0x0079BC7D,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+0x0079BBE6,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579CD4@FuncInfo0x009511BC provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BBEE,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579CD4@FuncInfo0x009511BC provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BBF8,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579D96@FuncInfo0x009511E0 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC00,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579D96@FuncInfo0x009511E0 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC0A,8,code,,,-,,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC12,10,code,,,-,,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC1C,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC24,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC2F,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC3A,11,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC45,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC4D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC55,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC5D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC65,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC6D,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC75,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
+0x0079BC7D,10,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x00579E82@FuncInfo0x00951278 provisional,Code/GameEngine/Source/Common/StrategicHUD.cpp
 0x0079BC87,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A09F@FuncInfo0x009512B4 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
 0x0079BC8F,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A09F@FuncInfo0x009512B4 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp
 0x0079BC97,8,code,Code/GameEngine/Source/Common/StrategicHUD.cpp,approved,P,P=0x0057A09F@FuncInfo0x009512B4 provisional,Code/GameEngine/Source/Common/Rva00579731Dtor.cpp

@@ -2,7 +2,7 @@
 // ??1CommandUIImpl@StrategicHUD@@QAE@XZ @0x005D25F2 91B: nonvirtual dtor, derived vtable 0x00875800 then base 0x008078DC.
 // Evidence: array ??_M at +0x1C count 6 stride 0x1C via rowed 0x005D258E, rowed 0x0052413E at +0xC,
 // rowed releaseBuffer 0x00036410 at +0x8, layout matches sibling Rva005D2664 header 0x1C + 6x0x1C,
-// precedents Rva005794EDDtor Rva00579AB7Dtor Rva005FFBCBDtor, callers 0x00578532 0x0057866D 0x00578690.
+// precedents Rva005794EDDtor 0x00579AB7 (StrategicHUD.cpp) Rva005FFBCBDtor, callers 0x00578532 0x0057866D 0x00578690.
 #include "ascii_string.h"
 #include <vector>
 // stlport

@@ -6960,7 +6960,6 @@ pin	reverse/symbols.csv	0x0036105B	1
 pin	reverse/symbols.csv	0x00361470	2
 pin	reverse/symbols.csv	0x0036149D	1
 pin	reverse/symbols.csv	0x003614F4	1
-pin	reverse/symbols.csv	0x00361594	1
 pin	reverse/symbols.csv	0x003615B1	1
 pin	reverse/symbols.csv	0x003615CD	2
 pin	reverse/symbols.csv	0x003615E5	1
@@ -11870,7 +11869,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00578AC1.cpp	AptCommandMapAdd
 present_unmatched	Code/GameEngine/Source/Common/Rva00578AC1.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	1Rva005794EDBase@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005794EDDtor.cpp	text)	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	isEmpty@?$StringBase@D@@QBE_NXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp	rva002104B6@Rva002104B6@@QAEPAXPAX@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva005C3A37ElemDtor.cpp	AptRef::AptRef	1
@@ -11940,6 +11938,7 @@ present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmit
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva0007DF07Ctor@@YAXPAVRva0007DF07@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp	bfmeEmitRva0030D346Ctor@@YAXPAVRva0030D346@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp	Rva003ED658::~Rva003ED658	1
+present_unmatched	Code/GameEngine/Source/Common/StrategicHUD.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/StringBaseTailDtors_muse-8fbc.cpp	1Rva000AF215@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	ArchiveFile::ArchiveFile	1
 present_unmatched	Code/GameEngine/Source/Common/System/ArchiveFile.cpp	ArchiveFile::addFile	1

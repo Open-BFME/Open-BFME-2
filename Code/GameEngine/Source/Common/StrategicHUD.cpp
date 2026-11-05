@@ -38,8 +38,6 @@ void Rva005108EB::rva005108EB(const char *name)
 	if (m_24.m_ptr == 0)
 		m_24.rva0050F68A(new Rva0050ED58(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
-// "string + text", as rowed in RegistryAsciiPath.cpp: the 12-byte node the
-// constructor converts into each "_level%u_On..." name.
 #include "../../Include/Common/Rva000B3F84Pair.h"
 #include "../../Include/Common/AsciiStringRef.h"
 #include "../../Include/Common/AsciiStringPlusText.h"
@@ -91,7 +89,6 @@ inline TreeHintRef00217D4C::~TreeHintRef00217D4C()
 	if (m_ptr)
 		ReleaseTreeHintRef00217D4C(m_ptr);
 }
-
 class Rva003FE20FBase;
 #include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 // StrategicHUD::StatsDisplayImpl, the stats display: constructor 0x00579E82,
@@ -100,25 +97,21 @@ class Rva003FE20FBase;
 // OnStatRollOver keeps the hovered stat at +0x20 and its stat-table entry
 // (0x00579770) in the +0x1C holder, pushed to the +0x18 tooltip target.
 extern "C" const void *const __identifier("??_7Rva005EEF2FBase0@@6B@")[];
-
 class Rva00579AB7Base
 {
 public:
 	virtual ~Rva00579AB7Base();
 };
-
 inline Rva00579AB7Base::~Rva00579AB7Base()
 {
 	*(const void **)this = __identifier("??_7Rva005EEF2FBase0@@6B@");
 }
-
 struct Rva00579AB7Holder1C
 {
 	Rva00579AB7Holder1C() : m_ptr(0) {}
 	TargetRef00217D4C *m_ptr;
 	__forceinline ~Rva00579AB7Holder1C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
-
 namespace StrategicHUD
 {
 class StatsDisplayImpl : public Rva00579AB7Base
@@ -268,7 +261,6 @@ namespace StrategicHUD
 typedef int Int;
 typedef unsigned int UnsignedInt;
 #include "GameLogicObjectLookupView.h"
-
 // The slot holders. Each one's destructor is its rowed clear, which the
 // Impl destructor calls once per slot, in reverse, under its own
 // unwind state. Where the clear is rowed under another class name than the
@@ -278,7 +270,6 @@ class Rva002D38D1
 public:
 	void clear();
 };
-
 class Rva002D38EB
 {
 public:
@@ -288,13 +279,10 @@ public:
 
 	Rva00527CCE *m_ptr;
 };
-
 // The +0x1C slot's setter, rowed with an Object parameter; reached through
 // a cast, as in AptRowListCallbacks.cpp.
 class Object;
-
 #include "../../Include/Common/Rva00575674.h"
-
 class Rva000AD6F4
 {
 public:
@@ -304,7 +292,6 @@ public:
 
 	void *m_ptr;
 };
-
 class Rva0042D729
 {
 public:
@@ -323,13 +310,11 @@ public:
 
 	Rva00577DE1OwningCell *m_ptr;
 };
-
 class Rva0042D789
 {
 public:
 	void clear();
 };
-
 class Rva0042D766
 {
 public:
@@ -339,7 +324,6 @@ public:
 
 	Rva00578C43 *m_ptr;
 };
-
 class Rva0042D7A3
 {
 public:
@@ -358,7 +342,6 @@ public:
 
 	StrategicHUD::EndTurnButtonImpl *m_ptr;
 };
-
 class Rva0042D7E0
 {
 public:
@@ -377,7 +360,6 @@ public:
 
 	StrategicHUD::StatsDisplayImpl *m_ptr;
 };
-
 class Rva0042D81D
 {
 public:
@@ -396,13 +378,11 @@ public:
 
 	StrategicHUD::ChecklistUIImpl *m_ptr;
 };
-
 class Rva0042D87D
 {
 public:
 	void clear();
 };
-
 class Rva0042D85A
 {
 public:
@@ -412,7 +392,6 @@ public:
 
 	Rva0057BD01 *m_ptr;
 };
-
 class Rva0042D897
 {
 public:
@@ -431,13 +410,11 @@ public:
 
 	Rva0057C04F *m_ptr;
 };
-
 // The bound callbacks are handed over as a by-value delegate the callee
 // destroys, built in place from an {object, method} pair by the rowed
 // constructor 0x00579E47 (the user-declared copy constructor is what makes
 // cl build it in the argument slot rather than copy it there).
 struct DelegateDesc;
-
 class Rva00579E47
 {
 public:
@@ -448,21 +425,11 @@ public:
 private:
 	void *m_ptr;
 };
-
-// The +0x0C member: 12 bytes, a vector of the bound names. Its constructor
-// is the vector default constructor ICF-folded at 0x001F81BF (rowed there as
-// ObjectCreationList's); 0x0052458E binds a delegate under a name through
-// the Apt window manager and remembers the name; the rowed destructor
-// 0x0052413E unbinds them.
-
 #include "../../Include/Common/Rva0052413E.h"
-
 // The Apt window manager at 0x009FE4CC; the destructor unloads the movie
 // through it. The unload is pinned under Rva00222A8BTarget, hence the cast.
 class BfmeAptWindowManager;
-
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 namespace StrategicHUD
 {
 class HUD
@@ -477,7 +444,6 @@ private:
 	Impl *m_impl;
 };
 }
-
 class StrategicHUD::HUD::Impl
 {
 public:
@@ -524,9 +490,7 @@ private:
 	Rva0042D85A m_selectionDetails; // +0x34
 	Rva0042D897 m_newTurnIndicator; // +0x38
 };
-
 #include "../../Include/Common/DelegateDesc.h"
-
 // The one-pointer cell that owns the Impl: constructor 0x0042E71D (the owner
 // passes its level by reference; the cell passes its own address as the
 // Impl's first argument), clear 0x0042DFF5, and the destructor 0x0042E00F,
@@ -544,27 +508,19 @@ public:
 private:
 	StrategicHUD::HUD::Impl *m_ptr;
 };
-
 // The delegate as 0x0052458E takes it: an inline constructor taking the pair
 // by value around the out-of-line 0x00579E47, the same shape as the functor
 // banked for MpGameSetup 0x0044303D. Retail's order (the argument slot's
 // address saved before ecx is loaded, the method through eax) needs both
 // the inline wrapper and the by-value pair.
 class AptCommandMap;
-
 template <class T> class AptRef;
-
 template <> class AptRef<AptCommandMap> : public Rva00579E47
 {
 public:
 	AptRef(DelegateDesc desc) : Rva00579E47(desc) {}
 	~AptRef();	// AptCallbackAdders.cpp's AptRef<T>::~AptRef
 };
-
-// 0x0052458E is the rowed AptCommandMapAdder::AddCommandMap (AptCallbackAdders.cpp)
-// on the +0x0C member.
-#include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
-
 // ?SetHelpBox@Rva005796B3@@QAEXPAX@Z @0x005796B3 73B
 // Thiscall setter for +0x18 pointer with +0x1C flag: if new==old return; if
 // old!=0 and flag!=0 and old virtual int getter == flag then old slot1
@@ -577,13 +533,11 @@ class Rva005CB260
 public:
 	void rva005CB260();
 };
-
 class Rva005CB265
 {
 public:
 	virtual int rva005CB265();
 };
-
 class Rva005796B3
 {
 public:
@@ -593,29 +547,20 @@ private:
 	void *m_18; // +0x18
 	int m_1C; // +0x1C
 };
-
 #include "../../Include/GameClient/GameText.h"
-
 extern GameTextInterface *TheGameText;
-
 extern unsigned short g_Va007BB5C4;
-
 // ?g_Va007BB5C4@@3GA: matched references place it at VA 0xbbb5c4; also referenced as ?g_bfmeLit1042@@3PADA.
 unsigned short g_Va007BB5C4 = 0u;
-
 // g_00E06354: matched references place it at VA 0xe06354 (zero-filled).
 unsigned short g_00E06354[5] = { 0 };
-
 extern unsigned char g_00E0635E;
-
 // g_00E0635E: matched references place it at VA 0xe0635e (zero-filled .bss).
 unsigned char g_00E0635E;
-
 // ?rva0057A382@Rva0057A382@@QAEXXZ @0x0057A382 39B
 // Evidence: caller 0x0057A748 sets +0x58=0 +0x5C=1; callee row ?rva005D3F6D@Rva005D3F6D@@QAEXH@Z; neighbours share /O1 /MD
 
 class Rva005D3F6DInner;
-
 class Rva005D3F6D
 {
 public:
@@ -626,20 +571,17 @@ private:
 	int m_pad28;
 	int m_cached2C;
 };
-
 class Rva005D3FBD
 {
 public:
 	void rva005D3FBD(bool v);
 };
-
 class Rva0057A4A3Target
 {
 public:
 	char m_pad00[0x38];
 	bool m_38;
 };
-
 // ?GetPhaseIndicatorIndex@StrategicHUD@@YAHH@Z @0x0057A3B2 33B
 // Linear search of 6-entry key/value table at 0x00C6EF40; returns value or -1.
 // Evidence: callers at 0x0057AB2B 0x0057AB36 pass int and use signed result.
@@ -648,13 +590,10 @@ struct Rva0057A3B2Entry
 	int m_key;
 	int m_value;
 };
-
 extern Rva0057A3B2Entry g_00C6EF40[6];
-
 Rva0057A3B2Entry g_00C6EF40[6] = {
 	{ 0, 0 }, { 1, 1 }, { 2, 2 }, { 3, 3 }, { 4, 4 }, { 5, 4 },
 };
-
 // WorldBuilder StrategicHUD::GetPhaseIndicatorIndex, WB VA 0x014BD5C0 (align lead, score 1.0).
 namespace StrategicHUD {
 int __cdecl GetPhaseIndicatorIndex(int val)
@@ -667,20 +606,17 @@ int __cdecl GetPhaseIndicatorIndex(int val)
 	return -1;
 }
 }
-
 class Sub
 {
 public:
 	virtual void *get(int);
 };
-
 class Full
 {
 public:
 	char m_pad[8];
 	Sub m_sub;
 };
-
 class Rva0057A418
 {
 public:
@@ -688,7 +624,6 @@ public:
 private:
 	Full *m_ptr;
 };
-
 class __declspec(novtable) Rva0022167C
 {
 public:
@@ -696,7 +631,6 @@ public:
 private:
 	char m_bytes[4];
 };
-
 class __declspec(novtable) Rva0057A4E7 : public Rva0022167C
 {
 public:
@@ -704,68 +638,51 @@ public:
 private:
 	AsciiString m_at08;
 };
-
 struct Rva0057A51CTeam;
-
 namespace StrategicHUD
 {
 	void __cdecl SetTurnNumberString(int level, Rva0057A51CTeam **ppTeam, int turn);
 }
-
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
-
 class Rva00222A8BTarget;
-
 extern const unsigned short g_Va007C9260[];
-
 struct Rva0057A51CTeam
 {
 	char m_pad8[8];
 	char m_name[1];
 };
-
 struct Rva0057A5A8Team;
-
 namespace StrategicHUD
 {
 	void __cdecl SetTimeRemainingString(int level, Rva0057A5A8Team **ppTeam, int totalSeconds);
 }
-
 extern unsigned short *Rva0057A272Get(void);
-
 struct Rva0057A5A8Team
 {
 	char m_pad8[8];
 	char m_name[1];
 };
-
 struct Rva0057A685Team;
-
 namespace StrategicHUD
 {
 	void __cdecl SetPhaseTitleString(int level, Rva0057A685Team **ppTeam, int phase);
 }
-
 struct Rva0057A685Team
 {
 	char m_pad8[8];
 	char m_name[1];
 };
-
 struct Rva0057A685Entry
 {
 	int m_id;
 	const char *m_label;
 };
-
 static const Rva0057A685Entry s_table[3] = {
 	{ 0, "A" },
 	{ 1, "B" },
 	{ 2, "C" },
 };
-
 AsciiString __cdecl Rva00222834Get(int val);
-
 // WorldBuilder StrategicHUD::ParseRowNum, WB VA 0x014C10A0 (callgraph lead, score 1.0).
 namespace StrategicHUD {
 bool __cdecl ParseRowNum(const char *s, int *out)
@@ -777,21 +694,17 @@ bool __cdecl ParseRowNum(const char *s, int *out)
     return true;
 }
 }
-
 class Rva00579731
 {
 public:
 	TreeHintRef00217D4C rva00579770(int);
 };
-
 extern unsigned int g_Va00E0631C[14];
-
 	// the StatsDisplay instance at 0x00E0631C
 // Defined here: nothing else in the tree did. Retail's 56-byte zero-filled
 // .bss object (RVA 0x00A0631C), constructed in place by the 0x007AC6DD
 // initializer; its referencing units spell it as this scalar.
 unsigned int g_Va00E0631C[14];
-
 class Rva003FE20FBase
 {
 public:
@@ -801,27 +714,21 @@ public:
 public:
 	__declspec(noinline) void slot0(void *) {}
 };
-
 class AsciiString;
-
 struct ChecklistSelectNode
 {
 	ChecklistSelectNode *next;
 	ChecklistSelectNode *prev;
 	StrategicHUD::ChecklistUIImpl::Item *item;
 };
-
 struct ChecklistIteratorView
 {
 	ChecklistSelectNode *node;
 	ChecklistIteratorView(const ChecklistIteratorView &other) : node(other.node) {}
 };
-
 struct ChecklistFontDesc;
-
 extern unsigned int g_Va00E06360[9];
 struct HudFontObject { static int *words() { return (int *)g_Va00E06360; } };
-
 class Rva005D1A6C
 {
 public:
@@ -831,7 +738,6 @@ public:
 private:
 	int m_04;
 };
-
 class Rva005D40A6
 {
 public:
@@ -842,7 +748,6 @@ public:
 private:
 	char m_pad04[0x40 - 0x04];
 };
-
 class Rva0057A382
 {
 public:
@@ -858,7 +763,6 @@ private:
 	int m_58;
 	bool m_5C;
 };
-
 struct ItemObserver
 {
 	virtual void s0();
@@ -869,7 +773,6 @@ struct ItemObserver
 	virtual void s5();
 	virtual void onItemDestroyed(void *item);
 };
-
 namespace StrategicHUD
 {
 class ChecklistUIImpl::Item : public Rva005D1A6C, public Rva005D40A6
@@ -894,13 +797,10 @@ private:
 	bool m_5c;
 };
 }
-
 // Declaration-only views of the STLport vector, deque cursor and tree members
 // these bodies call; no container code is instantiated here.
 class Rva0059D7B1;
-
 class Rva0059E882;
-
 namespace _STL {
 template <class T> class allocator;
 template <class T, class A = allocator<T> > class vector
@@ -951,7 +851,6 @@ template <class K, class V, class KoV, class C, class A> class _Rb_tree
 	C _M_key_compare;
 };
 }
-
 // --- 0x00574251 (20B) / 0x0057426C (16B) / 0x0057427C (16B): forward to the
 // receiver's own virtual slots 4, 1 and 5. 0x0057426C re-pushes both argument
 // dwords and calls (ret 8) where two scalar arguments tail-jump: cl copies an
@@ -966,7 +865,6 @@ public:
 private:
 	int m_words[3];
 };
-
 // --- 0x0057A304 (15B): twice the +0x58 count plus the +0x5C flag.
 class Rva0057A304
 {
@@ -977,14 +875,12 @@ private:
 	int m_58;
 	bool m_5C;
 };
-
 // --- 0x0057A433 (26B): share a counted record (rowed 0x005D1A79 increment).
 class Rva005D1A79DwordCounter
 {
 public:
 	void inc();												// 0x005D1A79
 };
-
 class Rva0057A433
 {
 public:
@@ -992,7 +888,6 @@ public:
 private:
 	Rva005D1A79DwordCounter *m_record;
 };
-
 // --- 0x0057E779 (40B): store a rule value, notify slot 1 and refresh its
 // gadget (rowed AptMpGameRules::UpdateRuleGadget).
 class AptMpGameRules
@@ -1006,11 +901,9 @@ private:
 	char m_pad[0x8C - 4];
 	int m_rules[1];											// +0x8C
 };
-
 // --- 0x0057EF0A (14B) / 0x0058A193 (14B): resize a pointer / id vector
 // (rowed resize 0x000E6D39, 0x005839A7) with null / invalid fill.
 class Drawable;
-
 // --- 0x0057FD5F (15B): close the +0x64 in-game chat (rowed 0x005AFCB4 with
 // true).
 class ChatWindowsInGame
@@ -1018,29 +911,23 @@ class ChatWindowsInGame
 public:
 	bool rva005AFCB4(bool flag);							// 0x005AFCB4
 };
-
 // --- 0x005851BF (14B, cdecl): advance a deque cursor (rowed _M_advance
 // 0x00584CB2).
 // --- 0x00599F65 (15B): the record of the +0x14 key in the 0x00DFEEF8 table
 // (rowed 0x002A8AB1).
 struct Rva002A8AB1Record;
-
 #include "../../Include/GameLogic/Rva002A8F24.h"
-
 extern Rva002A8F24 *TheSkirmishAIManager;
-
 class Rva004194D6
 {
 public:
 	bool rva0041950A();										// 0x0041950A
 };
-
 struct Rva0059AE72Object
 {
 	char m_pad[0x10];
 	int m_10;
 };
-
 class Rva0059AE72
 {
 public:
@@ -1053,13 +940,10 @@ private:
 	char m_pad10[0x2C - 0x10];
 	ThingTemplate *m_template;								// +0x2C
 };
-
 // --- 0x0059D7B1 (19B): the value slot of the key in the +0x04
 // map<int,int> (rowed _M_find 0x00388F63).
 typedef _STL::pair<const int, int> Rva0059D7B1Pair;
-
 typedef _STL::_Rb_tree<int, Rva0059D7B1Pair, _STL::_Select1st<Rva0059D7B1Pair>, _STL::less<int>, _STL::allocator<Rva0059D7B1Pair> > Rva0059D7B1Tree;
-
 class Rva0059D7B1
 {
 public:
@@ -1068,20 +952,16 @@ private:
 	int m_00;
 	Rva0059D7B1Tree m_map;
 };
-
 // --- 0x0059E882 (31B): whether the name is a key of the +0x04 record's
 // +0x08 string map (rowed _M_find 0x001F8437).
 typedef _STL::pair<const AsciiString, AsciiString> Rva0059E882Pair;
-
 typedef _STL::_Rb_tree<AsciiString, Rva0059E882Pair, _STL::_Select1st<Rva0059E882Pair>, _STL::less<AsciiString>, _STL::allocator<Rva0059E882Pair> > Rva0059E882Tree;
-
 struct Rva0059E882Record
 {
 	int m_00;
 	int m_04;
 	Rva0059E882Tree m_map;									// +0x08
 };
-
 class Rva0059E882
 {
 public:
@@ -1090,7 +970,6 @@ private:
 	int m_00;
 	Rva0059E882Record *m_record;
 };
-
 // --- 0x0059E9AD (16B): the rowed 0x0059E861 check of the record's +0x04
 // name.
 class Rva0059E861
@@ -1099,7 +978,6 @@ public:
 	bool rva0059E861(const AsciiString &name);				// 0x0059E861
 	bool rva0059E9AD(const void *record);
 };
-
 // --- 0x0059EAD9 (15B) / 0x0059EAF0 (20B) / 0x0059EB04 (15B): the +0x1008
 // 16-bit value; set and clear the +0xFF4 flagged +0xFF8 word.
 class Rva0059EAD9
@@ -1115,23 +993,19 @@ private:
 	char m_padFFC[0x1008 - 0xFFC];
 	short m_1008;
 };
-
 BFME_DISP8_BYTE_GETTER(Rva0057A3D3ByteField, 0x48)
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?setBit2@Rva0030000CFields@@QAEXXZ
 struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
-
 // Clean BFME1 9cbfb551 donor structural leads; native instructions independently
 // establish complete RET boundaries and each raw field operation and ABI.
 // Address-owned carriers retain unknown original receiver identity and bounds.
 
 // ?matches@Rva0056AB88Fields@@QBE_NI@Z
 struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
-
 // Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
 // Address-derived class; the stored byte's meaning is unproven.
 // ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
@@ -1148,7 +1022,6 @@ private:
 	char m_pad9E[0xA8 - 0x9E];
 	unsigned char m_a8;
 };
-
 // slot at VA 0x00C5CC3C: with an argument, hands its +0x38 block and the
 // second argument to this object's vslot 12.
 // slots at VA 0x00BC662C and 0x00C0883C: stores both arguments at +0x04 and
@@ -1177,9 +1050,7 @@ private:
 // Slot 1 (allow) of partition filter vftable 0x00C53D18.
 // Slot 1 (allow) of partition filter vftable 0x00C1FE28.
 struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
-
 class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
-
 // 0x00490628: false while +0x98 is set, else the rowed
 // SpecialAbilityUpdate::continuePreparation (slot 16) it overrides.
 class SpecialAbilityUpdate
@@ -1187,40 +1058,25 @@ class SpecialAbilityUpdate
 public:
 	virtual bool continuePreparation();
 };
-
- 
- 
 #include "../../Include/Common/ThingTemplate.h"
-
 #include "../../Include/Common/ThingFactory.h"
-
 extern ThingFactory *TheThingFactory;
-
 // 0x0050BDD5: own virtual slot 6 with the argument and the +0x38 member of
 // the second argument, when there is one.
 // 0x005101C0: 1 when the +0x24 object's rowed 0x0050FF7F answers 1, else 0.
 class GameWindow;
-
 // 0x005117B7: message 0x15 with byte argument 1 and bit 0 of the third runs
 // the rowed 0x00511730 with 0 and answers 1; else 0.
 void Rva00511730(Int a);
-
-// 0x005127F3: messages 0x4014 and 0x4031 answer 1; the rest go to the pinned
-// base handler.
 #include "../../Include/Common/Rva00222A8BTarget.h"
-
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 extern class Shell *TheShell;
-
 // 0x0051E2FB: state 1 at +0x27C runs virtual slot 9 of the object at VA
 // 0x00DFDC14 and clears; answers 1.
 extern class GameWindowTransitionsHandler *TheTransitionHandler;
-
-// 0x0053ECAC: clears (true) or sets (false) status 0x200 of window i of the
-// +0x3C array. A virtual: slot 3 of RadialWindowController's vtable
-// 0x00C6944C, as in WorldBuilder's twin table.
 #include "../../Include/GameClient/Bfme2GameWindow.h"
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+#include "../../../Libraries/Source/Apt/AptCommandTarget.h"
 
 class RadialWindowController
 {
@@ -1300,7 +1156,169 @@ bool canPlayersTransferMoneyYet();
 
 int Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
-// tu-skeleton: 0x00579674 2B ?GetBonusRowNum@StrategicHUD@@YAHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
+struct AsciiStringPlusString : AsciiStringRef
+{
+	AsciiStringRef m_second;
+};
+
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	operator AsciiString(); // 0x0050F74B
+
+	Rva000B3F84Pair m_right;
+};
+
+namespace StrategicHUD {
+UnicodeString FormatCommandPointsText(int used, int max); // 0x00579868
+UnicodeString FormatResourceMultiplierText(float multiplier); // 0x00579995
+UnicodeString FormatPowerPointsText(int points); // 0x00579A2F
+UnicodeString FormatBonusText(int bonus); // 0x00579900
+}
+
+class Rva002BED91
+{
+public:
+	void clear();
+};
+
+namespace StrategicHUD { bool __cdecl ParseRowNum(const char *s, int *out); }
+
+namespace StrategicHUD
+{
+// WorldBuilder 0x014C0440 self-asserts GetBonusRowNum and maps bonus types
+// 0..2 onto display rows 1..3. Retail's constructor inlines the same mapping.
+// Keep this helper file-static: MSVC retains a two-byte out-of-line copy at
+// 0x00579674 with its private EAX-input convention, despite inlining the call.
+// An external declaration would instead produce a stack-input six-byte body.
+// The int carrier does not establish the original bonus-enum type name.
+static int GetBonusRowNum(int bonus)
+{
+	return bonus + 1;
+}
+}
+
+namespace StrategicHUD
+{
+	UnicodeString FormatResourceMultiplierText(float value);
+	UnicodeString FormatBonusText(int value);
+}
+
+namespace StrategicHUD { UnicodeString __cdecl FormatPowerPointsText(int value); }
+
+namespace StrategicHUD { UnicodeString __cdecl FormatCommandPointsText(int used, int max); }
+
+// The command-points pair at +0x24; retail compares it through the folded
+// two-dword equality 0x0007E394 (pinned _rva0007E394CursorEqual).
+struct Rva00579CD4CommandPoints
+{
+	int used;
+	int max;
+};
+
+extern "C" bool __cdecl rva0007E394CursorEqual(const Rva00579CD4CommandPoints &a, const Rva00579CD4CommandPoints &b);
+
+// ---- from Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp
+
+// StrategicHUD::StatsDisplayImpl::~StatsDisplayImpl @0x00579AB7 96B: virtual dtor with AsciiString at +8 plus Rva0052413E at +0xC plus TargetRef at +0x1C plus SetHelpBox clear.
+// Evidence: deleting-dtor callers 0x0042D507 0x0042D7E0 0x0042D803 plus rowed SetHelpBox 0x005796B3 plus rowed Release 0x0007DEEF plus rowed 0x0052413E plus rowed releaseBuffer 0x00036410 plus vtables 0x00C6ED64 0x00BFBC9C; sibling Rva005794EDDtor.
+//
+// The class is StrategicHUD's stats display (its slot setter 0x0042D7E0).
+// Its constructor 0x00579E82 binds OnStatRollOver/OnStatRollOut
+// (0x00579B81/0x00579C00) as "_level%u." + path + "_OnStatRollOver"/
+// "_OnStatRollOut" delegates; OnStatRollOver keeps the hovered stat at +0x20
+// and its stat-table entry (0x00579770) in the +0x1C holder, pushed to the
+// +0x18 tooltip target.
+
+// Delegate payload (object, member) handed to the command-map reference
+// (as in Rva0042DB21Method.cpp).
+
+// The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
+// AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
+
+// "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_string = &left;
+	result.m_second.m_string = &right;
+	return result;
+}
+
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+	Rva000B3F84Pair text;
+	text.init(right);
+	AsciiStringPlusStringText result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_right = text;
+	return result;
+}
+
+StrategicHUD::StatsDisplayImpl::StatsDisplayImpl(int level, const AsciiString &name)
+	: m_04(level), m_08(name), m_18(0), m_20(-1), m_commandPoints(0), m_commandPointsMax(0),
+	  m_resourceMultiplier(1.0f), m_powerPoints(0)
+{
+	for (int *bonus = m_bonus; bonus != m_bonus + 3; ++bonus)
+		*bonus = 0;
+
+	AsciiString prefix;
+	prefix.format("_level%u.", m_04);
+	m_0C.AddCommandMap(prefix + m_08 + "_OnStatRollOver", AptRef<AptCommandMap>(DelegateDesc(this, &StatsDisplayImpl::OnStatRollOver)));
+	m_0C.AddCommandMap(prefix + m_08 + "_OnStatRollOut", AptRef<AptCommandMap>(DelegateDesc(this, &StatsDisplayImpl::OnStatRollOut)));
+
+	SetRowText(0, FormatCommandPointsText(m_commandPoints, m_commandPointsMax));
+	SetRowText(4, FormatResourceMultiplierText(m_resourceMultiplier));
+	SetRowText(5, FormatPowerPointsText(m_powerPoints));
+	for (int row = 0; row < 3; ++row)
+		SetRowText(GetBonusRowNum(row), FormatBonusText(m_bonus[row]));
+}
+
+StrategicHUD::StatsDisplayImpl::~StatsDisplayImpl()
+{
+	((Rva005796B3 *)this)->SetHelpBox(0);
+}
+
+// ?OnStatRollOut@StatsDisplayImpl@StrategicHUD@@QAEXPBD@Z @0x00579C00 82B:
+// un-hovering the stat that is showing clears the tooltip when it still shows
+// this entry, then drops the entry and the hovered stat.
+void StrategicHUD::StatsDisplayImpl::OnStatRollOut(const char *path)
+{
+	int stat;
+	if (StrategicHUD::ParseRowNum(path, &stat) && stat == m_20)
+	{
+		if (m_18 != 0)
+		{
+			TargetRef00217D4C *hint = m_1C.m_ptr;
+			if (hint != 0 && ((Rva005CB265 *)m_18)->Rva005CB265::rva005CB265() == (int)hint)
+				((Rva005CB260 *)m_18)->rva005CB260();
+		}
+		((Rva002BED91 *)&m_1C)->clear();
+		m_20 = -1;
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
+
+// "string + text", as rowed in RegistryAsciiPath.cpp: the 12-byte node the
+// constructor converts into each "_level%u_On..." name.
+
+// The +0x0C member: 12 bytes, a vector of the bound names. Its constructor
+// is the vector default constructor ICF-folded at 0x001F81BF (rowed there as
+// ObjectCreationList's); 0x0052458E binds a delegate under a name through
+// the Apt window manager and remembers the name; the rowed destructor
+// 0x0052413E unbinds them.
+
+// 0x0052458E is the rowed AptCommandMapAdder::AddCommandMap (AptCallbackAdders.cpp)
+// on the +0x0C member.
+
+// 0x005127F3: messages 0x4014 and 0x4031 answer 1; the rest go to the pinned
+// base handler.
+
+// 0x0053ECAC: clears (true) or sets (false) status 0x200 of window i of the
+// +0x3C array. A virtual: slot 3 of RadialWindowController's vtable
+// 0x00C6944C, as in WorldBuilder's twin table.
 
 // ---- from Code/GameEngine/Source/Common/StrategicHUD.cpp
 
@@ -1998,33 +2016,87 @@ Rva0057A433::Rva0057A433(Rva005D1A79DwordCounter *const *record, int unused) : m
 
 int Rva0057A4BA::rva0057A4BA() {return (entry->word-word) ?0:1;}
 
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp
+
+void Rva0057A4C9::rva0057A4C9()
+{
+	if (m_28)
+		m_28->rva005D4BD4(0.0f);
+}
+
 // tu-skeleton: 0x005796FC 53B ??1Rva005796FC@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b94d2_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x00579731 63B ??1Rva00579731@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00579770 248B ?rva00579770@Rva00579731@@QAE?AUTreeHintRef00217D4C@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00579AB7 96B ??1StatsDisplayImpl@StrategicHUD@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
 // tu-skeleton: 0x00579B17 106B ?SetRowText@StatsDisplayImpl@StrategicHUD@@QAEXHABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptImageKeySetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00579C00 82B ?OnStatRollOut@StatsDisplayImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00579C52 102B ??0Rva00579731@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00579CB8 28B ??_GRva00579731@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00579CD4 105B ?rva00579CD4@StatsDisplayImpl@StrategicHUD@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00579D96Setter.cpp
 
-// tu-skeleton: 0x00579D3D 89B ?rva00579D3D@StatsDisplayImpl@StrategicHUD@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
+// StrategicHUD::StatsDisplayImpl::rva00579D96 @0x00579D96 (class named by
+// WorldBuilder's SetRowText 0x00579B17, called on the same this; WB keeps
+// these two setters beside it unnamed) 98B slot 5 of 0x0086ED64.
+// Float setter with change detection: if arg != m_resourceMultiplier (+0x38), fetch UnicodeString via
+// StrategicHUD::FormatResourceMultiplierText 0x00579995, set indexed text via rowed StatsDisplayImpl::SetRowText
+// 0x00579B17 with index 4, then store arg to m_resourceMultiplier. Callees rowed, vtable slot
+// evidence, neighbours Rva00579AB7Dtor and Rva00579E47Delegate share /O1.
+// StrategicHUD::StatsDisplayImpl::rva00579D3D @0x00579D3D 89B slot 3 of same vtable.
+// Int array setter at +0x2C with same Get/Set pattern via StrategicHUD::FormatBonusText
+// 0x00579900 and index+1.
+// StrategicHUD::StatsDisplayImpl::rva00579DF8 @0x00579DF8 79B slot 7: the
+// power points at +0x3C, shown on row 5 via rowed Rva00579A2FGet 0x00579A2F.
 
-// tu-skeleton: 0x00579D96 98B ?rva00579D96@StatsDisplayImpl@StrategicHUD@@UAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
+void StrategicHUD::StatsDisplayImpl::rva00579D96(float value)
+{
+	if (value != m_resourceMultiplier)
+	{
+		SetRowText(4, StrategicHUD::FormatResourceMultiplierText(value));
+		m_resourceMultiplier = value;
+	}
+}
 
-// tu-skeleton: 0x00579DF8 79B ?rva00579DF8@StatsDisplayImpl@StrategicHUD@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
+void StrategicHUD::StatsDisplayImpl::rva00579D3D(int index, int value)
+{
+	int *slot = &m_bonus[index];
+	if (value != *slot)
+	{
+		SetRowText(index + 1, StrategicHUD::FormatBonusText(value));
+		*slot = value;
+	}
+}
+
+void StrategicHUD::StatsDisplayImpl::rva00579DF8(int value)
+{
+	if (value != m_powerPoints)
+	{
+		SetRowText(5, StrategicHUD::FormatPowerPointsText(value));
+		m_powerPoints = value;
+	}
+}
+
+// StrategicHUD::StatsDisplayImpl::rva00579CD4 @0x00579CD4 105B slot 1: the
+// command-points pair (used, max) at +0x24, shown on row 0 via
+// FormatCommandPointsText 0x00579868. The equal-arm read of max keeps retail's
+// register home for the second argument.
+void StrategicHUD::StatsDisplayImpl::rva00579CD4(int used, int max)
+{
+	Rva00579CD4CommandPoints *cur = (Rva00579CD4CommandPoints *)&m_commandPoints;
+	if (!rva0007E394CursorEqual(*(Rva00579CD4CommandPoints *)&used, *cur))
+	{
+		int u = used;
+		int m = (max ? max : max);
+		SetRowText(0, StrategicHUD::FormatCommandPointsText(u, m));
+		cur->max = m;
+		cur->used = u;
+	}
+}
 
 // tu-skeleton: 0x00579E47 59B ??0Rva00579E47@@QAE@ABUDelegateDesc@@@Z -- matched in Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp (not merged yet)
-
-// tu-skeleton: 0x00579E82 541B ??0StatsDisplayImpl@StrategicHUD@@QAE@HABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0057A09F 406B ?rva0057A09F@Rva00579731@@UAEXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
@@ -2072,14 +2144,6 @@ int Rva0057A4BA::rva0057A4BA() {return (entry->word-word) ?0:1;}
 
 // tu-skeleton: 0x0057A455 28B ??_GRva0057A2B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0057A2B0Dtor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp
-
-void Rva0057A4C9::rva0057A4C9()
-{
-	if (m_28)
-		m_28->rva005D4BD4(0.0f);
-}
-
 // tu-skeleton: 0x0057A4DC 11B ?OnScrollBarUnloaded@ChecklistUIImpl@StrategicHUD@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x0079BA9E 8B Unwind@00b9ba9e -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b94d2_allocate_copy.cpp (not merged yet)
@@ -2104,16 +2168,6 @@ void Rva0057A4C9::rva0057A4C9()
 
 // tu-skeleton: 0x0079BB05 10B __ehhandler$?rva00579770@Rva00579731@@QAE?AUTreeHintRef00217D4C@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0079BB75 8B $L1779 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BB7D 11B Unwind@00b9bb7d -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BB88 11B uw_0079bb88 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BB93 11B $L1782 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BB9E 10B __ehhandler$??1StatsDisplayImpl@StrategicHUD@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0079BBA8 8B $L3277 -- matched in Code/GameEngine/Source/Common/AptImageKeySetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0079BBB0 10B __ehhandler$?SetRowText@StatsDisplayImpl@StrategicHUD@@QAEXHABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptImageKeySetters.cpp (not merged yet)
@@ -2123,38 +2177,6 @@ void Rva0057A4C9::rva0057A4C9()
 // tu-skeleton: 0x0079BBD4 8B $L6228 -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0079BBDC 10B __ehhandler$??0Rva00579731@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BBE6 8B Unwind@00b9bbe6 -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BBEE 10B __ehhandler$?rva00579CD4@StatsDisplayImpl@StrategicHUD@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BBF8 8B Unwind@00b9bbf8 -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC00 10B __ehhandler$?rva00579D96@StatsDisplayImpl@StrategicHUD@@UAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva00579D96Setter.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC1C 8B $L1865 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC24 11B Unwind@00b9bc24 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC2F 11B $L1861 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC3A 11B $L1868 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC45 8B Unwind@00b9bc45 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC4D 8B Unwind@00b9bc4d -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC55 8B Unwind@00b9bc55 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC5D 8B Unwind@00b9bc5d -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC65 8B Unwind@00b9bc65 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC6D 8B Unwind@00b9bc6d -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC75 8B Unwind@00b9bc75 -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079BC7D 10B __ehhandler$??0StatsDisplayImpl@StrategicHUD@@QAE@HABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00579AB7Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0079BC87 8B Unwind@00b9bc87 -- matched in Code/GameEngine/Source/Common/Rva00579731Dtor.cpp (not merged yet)
 

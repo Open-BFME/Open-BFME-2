@@ -11,7 +11,7 @@
 // rowed StrategicHUD::SetCommandPointsString (0x005D3966).
 // Evidence (target): native bytes; the machinery (AptRef / DelegateDesc / the string
 // expression views) is the one of the StatsDisplayImpl sibling constructor 0x00579E82
-// (Rva00579AB7Dtor.cpp); the member layout is the destructor unit's. The class name is
+// (StrategicHUD.cpp); the member layout is the destructor's. The class name is
 // address-derived; the delegates' target classes keep the names of their rowed bodies.
 #include "ascii_string.h"
 #include "unicode_string.h"
