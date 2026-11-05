@@ -60,6 +60,9 @@ protected:
 	virtual ~ArmorUpgrade();
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	// retail slot 3: the rowed ?xfer@ArmorUpgrade@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgrade.cpp

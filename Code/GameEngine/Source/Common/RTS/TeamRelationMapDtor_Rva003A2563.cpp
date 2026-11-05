@@ -70,6 +70,9 @@ protected:
 	virtual ~TeamRelationMap();
 
 	BfmeTeamRelationMapMember m_map;
+protected:
+	// retail slot 3: the rowed ?xfer@TeamRelationMap@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 TeamRelationMap::~TeamRelationMap()

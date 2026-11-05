@@ -53,6 +53,9 @@ public:
 	virtual void sacrificeHorde(Object *victim, CommandSourceType source);
 protected:
 	virtual ~BloodthirstyUpdate();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@BloodthirstyUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 BloodthirstyUpdate::~BloodthirstyUpdate()

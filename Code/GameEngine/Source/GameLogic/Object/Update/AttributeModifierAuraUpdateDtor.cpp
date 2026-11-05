@@ -73,6 +73,9 @@ class AttributeModifierAuraUpdate : public UpdateModule, public UpgradeMux
 {
 public:
 	virtual ~AttributeModifierAuraUpdate();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@AttributeModifierAuraUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 AttributeModifierAuraUpdate::~AttributeModifierAuraUpdate()

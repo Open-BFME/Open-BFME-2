@@ -121,6 +121,9 @@ private:
 	AsciiString *m_templateNameIterator;
 public:
 	virtual ~SpawnBehavior();	// rowed elsewhere; declared so this unit binds to it
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 SpawnBehavior::SpawnBehavior(Thing *thing, const ModuleData *moduleData)

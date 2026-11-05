@@ -136,6 +136,9 @@ private:
 	BfmeAudioEventPrefix136 m_sound374;
 	BfmeAudioEventPrefix136 m_sound3FC;
 	int m_unk484;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@W3DTruckDraw@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawModuleDataDtor.cpp

@@ -236,6 +236,9 @@ private:
 	Rva001E3E43Element m_68[3];
 	unsigned char m_98, m_99, m_9A;
 	int m_9C, m_A0, m_A4, m_A8, m_AC;
+protected:
+	// retail slot 3: the rowed ?xfer@Rva001E3E43@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 // g_Va00DFDC64: matched references place it at VA 0xdfdc64 (zero-filled .bss).

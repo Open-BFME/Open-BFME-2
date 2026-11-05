@@ -41,6 +41,9 @@ public:
 
 private:
     unsigned int m_spawnFrame;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@CivilianSpawnUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0CivilianSpawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z

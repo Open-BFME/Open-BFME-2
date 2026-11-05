@@ -32,6 +32,9 @@ private:
 	TunnelNetworkExitConditions m_exitConditions; // +0x20
 	Bool m_scanForEnemy; // +0x28
 	void *m_attackState; // +0x2C
+protected:
+	// retail slot 3: the rowed ?xfer@AITNGuardInnerState@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 AITNGuardInnerState::AITNGuardInnerState(StateMachine *machine)

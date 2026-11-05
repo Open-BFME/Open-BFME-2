@@ -48,6 +48,9 @@ public:
 
 private:
 	int m_20; // +0x20
+protected:
+	// retail slot 3: the rowed ?xfer@AIAttackMeleeHordeWaitState@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 AIAttackMeleeHordeWaitState::AIAttackMeleeHordeWaitState(StateMachine *machine)

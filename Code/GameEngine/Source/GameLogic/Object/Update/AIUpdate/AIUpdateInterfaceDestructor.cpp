@@ -104,6 +104,9 @@ private:
 	int m_220;					// +0x220
 	Rva0026E7EA m_224;				// +0x224
 	Rva0026AFDAMember m_2EC;			// +0x2EC
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@AIUpdateInterface@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 AIUpdateInterface::~AIUpdateInterface()

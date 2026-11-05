@@ -24,6 +24,9 @@ class RespawnBody : public ActiveBody
 public:
 	RespawnBody(Thing *thing, const ModuleData *moduleData);
 	virtual ~RespawnBody();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@RespawnBody@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0RespawnBody@@QAE@PAVThing@@PBVModuleData@@@Z

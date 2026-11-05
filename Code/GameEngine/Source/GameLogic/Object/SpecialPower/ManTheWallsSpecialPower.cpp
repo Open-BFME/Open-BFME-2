@@ -217,6 +217,9 @@ public:
 	BfmeVecAV *rva004C76AC(Rva004C7621Range *, const Rva004C7621Pos *);
 	void rva004C7734(Rva004C7621Range *, BfmeWideResult *);
 	bool rva004C78AF(Rva004C78AFList *);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ManTheWallsSpecialPower@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 ManTheWallsSpecialPower::ManTheWallsSpecialPower( Thing *thing, const ModuleData *moduleData )

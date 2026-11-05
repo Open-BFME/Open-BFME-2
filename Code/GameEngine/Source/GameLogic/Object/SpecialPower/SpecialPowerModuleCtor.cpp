@@ -113,6 +113,12 @@ private:
 	Bool m_28;
 	Int m_2c;
 	Bool m_30;
+protected:
+	// retail slot 1: the rowed ?loadPostProcess@SpecialPowerModule@@MAEXXZ
+	virtual void loadPostProcess();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SpecialPowerModule@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 SpecialPowerModule::SpecialPowerModule(Thing *thing, const ModuleData *moduleData)

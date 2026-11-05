@@ -560,6 +560,12 @@ protected:
 	float m_9E4;
 	AsciiString m_9E8;						// +0x9E8
 	float m_9EC;
+protected:
+	// retail slot 1: the rowed ?loadPostProcess@InGameUI@@MAEXXZ
+	virtual void loadPostProcess();
+protected:
+	// retail slot 3: the rowed ?xfer@InGameUI@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 // ??0InGameUI@@QAE@XZ

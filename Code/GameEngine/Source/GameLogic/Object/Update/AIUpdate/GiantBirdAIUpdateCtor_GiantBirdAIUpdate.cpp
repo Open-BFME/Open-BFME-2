@@ -175,6 +175,9 @@ private:
 	Coord3D m_560; // +0x560
 	Coord3D m_56C; // +0x56C
 	Bool m_578; // +0x578
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@GiantBirdAIUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 GiantBirdAIUpdate::GiantBirdAIUpdate(Thing *thing, const ModuleData *moduleData)

@@ -140,6 +140,9 @@ private:
 	int m_bfmeE8;
 	int m_bfmeEC;
 	Rva00462D35Map m_riderMapDraw;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 OpenContain::~OpenContain()

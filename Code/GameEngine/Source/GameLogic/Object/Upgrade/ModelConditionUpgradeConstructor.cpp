@@ -37,6 +37,9 @@ class ModelConditionUpgrade : public UpgradeModule
 {
 public:
 	ModelConditionUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ModelConditionUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 ModelConditionUpgrade::ModelConditionUpgrade( Thing *thing, const ModuleData *moduleData )

@@ -91,6 +91,9 @@ private:
 	bool m_FD;
 	char m_padFE[0x100 - 0xFE];
 	PoolMember m_100;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 BridgeBehavior::~BridgeBehavior()

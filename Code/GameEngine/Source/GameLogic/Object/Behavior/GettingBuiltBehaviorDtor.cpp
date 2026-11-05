@@ -69,6 +69,9 @@ private:
 	unsigned char m_b3D;
 	unsigned char m_b3E;
 	_STL::list<BfmePod20, _STL::allocator<BfmePod20> > m_workList;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@GettingBuiltBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 GettingBuiltBehavior::~GettingBuiltBehavior()

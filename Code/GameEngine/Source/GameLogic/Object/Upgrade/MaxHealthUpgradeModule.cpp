@@ -42,6 +42,9 @@ class MaxHealthUpgrade : public UpgradeModule
 {
 public:
 	MaxHealthUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@MaxHealthUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 

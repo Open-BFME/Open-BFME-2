@@ -127,6 +127,9 @@ public:
 
 protected:
 	virtual void xfer( Xfer *xfer );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@PorcupineFormationBodyModule@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 //

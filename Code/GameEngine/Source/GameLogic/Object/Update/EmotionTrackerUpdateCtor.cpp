@@ -124,6 +124,9 @@ private:
 	UnsignedInt m_BC; // +0xBC
 	Bool m_enabled; // +0xC0
 	Int m_C4; // +0xC4
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 EmotionTrackerUpdate::EmotionTrackerUpdate(Thing *thing, const ModuleData *moduleData)

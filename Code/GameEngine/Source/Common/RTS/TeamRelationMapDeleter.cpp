@@ -15,6 +15,7 @@
 // the vtable and with it the deleting destructor.
 
 struct EmitVtableTag;
+class Xfer;
 
 class TeamRelationMap
 {
@@ -25,7 +26,10 @@ protected:
 public:
 	virtual void bfmeVtSlot1() = 0; // __purecall in every copy of this vtable
 	virtual void bfmeVtSlot2() = 0; // __purecall in every copy of this vtable
-	virtual void bfmeVtSlot3() = 0; // __purecall in every copy of this vtable
+protected:
+	// retail slot 3: the rowed ?xfer@TeamRelationMap@@MAEXPAVXfer@@@Z, as in
+	// TeamRelationMapDtor_Rva003A2563.cpp's copy of this vtable
+	virtual void xfer(Xfer *xfer);
 };
 
 // ?<TeamRelationMap::TeamRelationMap> absent-from-retail

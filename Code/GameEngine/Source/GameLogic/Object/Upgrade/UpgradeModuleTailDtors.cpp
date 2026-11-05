@@ -45,6 +45,9 @@ class LocomotorSetUpgrade : public UpgradeModule
 {
 protected:
 	virtual ~LocomotorSetUpgrade();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@LocomotorSetUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 LocomotorSetUpgrade::~LocomotorSetUpgrade()
@@ -55,6 +58,9 @@ class AllowBannerSpawnUpgrade : public UpgradeModule
 {
 protected:
 	virtual ~AllowBannerSpawnUpgrade();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@AllowBannerSpawnUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 AllowBannerSpawnUpgrade::~AllowBannerSpawnUpgrade()

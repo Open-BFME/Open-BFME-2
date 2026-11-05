@@ -34,6 +34,9 @@ public:
 private:
     bool m_flag20;
     bool m_flag21;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@DetachableRiderUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0DetachableRiderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z

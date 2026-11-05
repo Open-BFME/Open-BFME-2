@@ -104,6 +104,9 @@ private:
 	_STL::list<int> m_replacementTimes; // +0x48
 	_STL::list<int> m_spawnIDs; // +0x4C
 	unsigned char m_pad50[0x14]; // +0x50..+0x63 trivial tail to news 0x64
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 SpawnBehavior::~SpawnBehavior()

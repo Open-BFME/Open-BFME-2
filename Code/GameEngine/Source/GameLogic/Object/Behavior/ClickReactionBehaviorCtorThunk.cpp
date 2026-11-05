@@ -39,6 +39,9 @@ public:
 private:
     int m_clicks; // +0x24, shared reaction/xfer view
     int m_cooldown; // +0x28, shared reaction/xfer view
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ClickReactionBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z

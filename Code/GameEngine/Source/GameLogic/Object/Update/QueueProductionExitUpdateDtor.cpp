@@ -50,6 +50,9 @@ public:
 	virtual const Coord3D *getRallyPoint() const;
 	virtual bool getNaturalRallyPoint(Coord3D &rallyPoint, bool offset) const;
 	virtual bool getExitPosition(Coord3D &exitPosition, float &exitAngle) const;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@QueueProductionExitUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 QueueProductionExitUpdate::~QueueProductionExitUpdate()

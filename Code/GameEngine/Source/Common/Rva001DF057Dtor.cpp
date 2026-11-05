@@ -121,6 +121,9 @@ private:
 	Rva001DF057Buf m_buf5C;
 	char m_pad60[0x68 - 0x5C - sizeof(Rva001DF057Buf)];
 	_STL::_List_base<int, _STL::allocator<int> > m_list68;
+protected:
+	// retail slot 3: the rowed ?xfer@Eva@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 Eva::~Eva()

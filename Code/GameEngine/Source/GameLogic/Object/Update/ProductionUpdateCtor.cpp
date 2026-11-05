@@ -143,6 +143,9 @@ private:
 	int m_12C;
 	_STL::vector<BfmeE16> m_vec130;
 	unsigned char m_13C;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ProductionUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 ProductionUpdate::ProductionUpdate(Thing *thing, const ModuleData *moduleData) :

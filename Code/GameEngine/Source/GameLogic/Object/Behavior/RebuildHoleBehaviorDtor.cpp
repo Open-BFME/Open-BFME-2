@@ -87,6 +87,9 @@ private:
 	const ThingTemplate *m_rebuildTemplate;
 	int m_40;
 	bool m_44;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@RebuildHoleBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 RebuildHoleBehavior::~RebuildHoleBehavior()

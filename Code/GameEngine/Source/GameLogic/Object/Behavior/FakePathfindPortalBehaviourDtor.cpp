@@ -48,6 +48,9 @@ private:
 	bool m_31;
 	bool m_32;
 	int m_34;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@FakePathfindPortalBehaviour@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 FakePathfindPortalBehaviour::~FakePathfindPortalBehaviour()

@@ -32,6 +32,9 @@ public:
 private:
 	unsigned char m_unreconstructed_20[0x38];
 	AudioHandle m_audioHandle;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@FiringTracker@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 inline FiringTracker::~FiringTracker()

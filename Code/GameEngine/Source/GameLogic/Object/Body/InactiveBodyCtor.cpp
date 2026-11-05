@@ -36,6 +36,9 @@ public:
 	virtual void attemptDamage(DamageInfo *damageInfo);
 private:
 	bool m_dieCalled;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@InactiveBody@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 InactiveBody::InactiveBody(Thing *thing, const ModuleData *moduleData)

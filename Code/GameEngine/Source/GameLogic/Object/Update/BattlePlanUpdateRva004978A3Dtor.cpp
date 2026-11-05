@@ -93,6 +93,9 @@ public:
 private:
 	BfmeStringTailRecord156 m_arr44[0x10];
 	int m_84;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@BattlePlanUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 BattlePlanUpdate::~BattlePlanUpdate()

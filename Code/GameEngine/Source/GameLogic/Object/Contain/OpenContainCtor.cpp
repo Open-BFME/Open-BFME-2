@@ -165,6 +165,9 @@ private:
 	int m_bfmeE8;
 	int m_bfmeEC;
 	unsigned char m_riderMapDraw[0x0C];
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z @0x004649F8

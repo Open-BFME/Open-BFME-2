@@ -35,6 +35,9 @@ class ShareExperienceBehavior : public UpdateModule,
 {
 public:
     ShareExperienceBehavior(Thing *, const ModuleData *);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ShareExperienceBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z

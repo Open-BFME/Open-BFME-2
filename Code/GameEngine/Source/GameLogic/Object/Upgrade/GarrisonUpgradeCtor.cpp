@@ -35,6 +35,9 @@ class GarrisonUpgrade : public UpgradeModule
 {
 public:
 	GarrisonUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@GarrisonUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 GarrisonUpgrade::GarrisonUpgrade( Thing *thing, const ModuleData *moduleData )

@@ -54,6 +54,9 @@ private:
 	AudioHandle m_audioHandle;
 public:
 	virtual ~FiringTracker();	// rowed elsewhere; declared so this unit binds to it
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@FiringTracker@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 FiringTracker::FiringTracker(Thing *thing, const ModuleData *data) :

@@ -38,6 +38,9 @@ class ExperienceScalarUpgrade : public UpgradeModule
 {
 public:
 	ExperienceScalarUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ExperienceScalarUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0ExperienceScalarUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z

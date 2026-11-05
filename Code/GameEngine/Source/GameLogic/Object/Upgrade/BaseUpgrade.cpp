@@ -40,6 +40,9 @@ class BaseUpgrade : public UpgradeModule
 {
 public:
 	BaseUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@BaseUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 class Rva00253487Base

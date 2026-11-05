@@ -38,6 +38,9 @@ class UnpauseSpecialPowerUpgrade : public UpgradeModule
 {
 public:
 	UnpauseSpecialPowerUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@UnpauseSpecialPowerUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0UnpauseSpecialPowerUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z

@@ -26,6 +26,9 @@ class ExperienceLevelCreate : public ExperienceLevelCreateBase
 {
 public:
 	ExperienceLevelCreate(Thing *thing, const ModuleData *moduleData);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ExperienceLevelCreate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0ExperienceLevelCreate@@QAE@PAVThing@@PBVModuleData@@@Z

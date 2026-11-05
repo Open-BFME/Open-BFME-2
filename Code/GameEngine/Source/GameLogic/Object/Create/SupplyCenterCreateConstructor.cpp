@@ -29,6 +29,9 @@ public:
 	SupplyCenterCreate( Thing *thing, const ModuleData *moduleData );
 protected:
 	virtual ~SupplyCenterCreate();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SupplyCenterCreate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 SupplyCenterCreate::SupplyCenterCreate( Thing *thing, const ModuleData *moduleData )

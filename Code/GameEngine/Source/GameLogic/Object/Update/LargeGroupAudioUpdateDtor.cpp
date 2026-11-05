@@ -59,6 +59,9 @@ class LargeGroupAudioUpdate : public UpdateModule, public LargeGroupAudioUpdate_
 {
 public:
 	virtual ~LargeGroupAudioUpdate();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@LargeGroupAudioUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 LargeGroupAudioUpdate::~LargeGroupAudioUpdate()

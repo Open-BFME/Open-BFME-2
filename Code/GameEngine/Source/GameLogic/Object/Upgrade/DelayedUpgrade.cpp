@@ -35,6 +35,9 @@ class DelayedUpgrade : public UpgradeModule
 {
 public:
 	DelayedUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@DelayedUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 DelayedUpgrade::DelayedUpgrade( Thing *thing, const ModuleData *moduleData )

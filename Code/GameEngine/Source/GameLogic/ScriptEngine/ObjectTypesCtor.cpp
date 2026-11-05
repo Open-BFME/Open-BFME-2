@@ -43,6 +43,9 @@ public:
 private:
 	AsciiString m_listName; // +4
 	_STL::vector<AsciiString> m_objectTypes; // +8
+protected:
+	// retail slot 3: the rowed ?xfer@ObjectTypes@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 ObjectTypes::ObjectTypes()

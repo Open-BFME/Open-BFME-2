@@ -64,6 +64,9 @@ protected:
 
 	unsigned char m_unreconstructed_28[0x10];
 	bool m_38;									///< retail this+0x38
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@WeaponModeSpecialPowerUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0WeaponModeSpecialPowerUpdate@@QAE@PAVThing@@PBVModuleData@@@Z

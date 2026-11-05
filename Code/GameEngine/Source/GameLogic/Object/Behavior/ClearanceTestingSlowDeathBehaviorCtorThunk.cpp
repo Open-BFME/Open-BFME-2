@@ -57,6 +57,12 @@ public:
 	ClearanceTestingSlowDeathBehavior(Thing *thing, const ModuleData *moduleData);
 public:
 	virtual ~ClearanceTestingSlowDeathBehavior();
+protected:
+	// retail slot 3: the rowed ?xfer@ClearanceTestingSlowDeathBehavior@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ClearanceTestingSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z

@@ -110,6 +110,9 @@ public:
 private:
 	unsigned int m_frame;		// +0x18
 	int m_playerValue;		// +0x1C
+protected:
+	// retail slot 3: the rowed ?xfer@DamageFilteredCreateObjectDie@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDie.cpp

@@ -234,6 +234,9 @@ private:
 	Rva00262436 m_3D0;				// +0x3D0
 	int m_3DC;
 	bool m_3E0;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@AIUpdateInterface@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 AIUpdateInterface::AIUpdateInterface(Thing *thing, const ModuleData *moduleData) :

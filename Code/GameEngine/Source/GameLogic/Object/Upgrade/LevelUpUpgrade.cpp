@@ -35,6 +35,9 @@ class LevelUpUpgrade : public UpgradeModule
 {
 public:
 	LevelUpUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@LevelUpUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 LevelUpUpgrade::LevelUpUpgrade( Thing *thing, const ModuleData *moduleData )

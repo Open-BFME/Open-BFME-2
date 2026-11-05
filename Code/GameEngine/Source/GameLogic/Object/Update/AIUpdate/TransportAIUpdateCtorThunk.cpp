@@ -47,6 +47,12 @@ public:
 	TransportAIUpdate(Thing *thing, const ModuleData *moduleData);
 public:
 	virtual ~TransportAIUpdate();
+protected:
+	// retail slot 3: the rowed ?xfer@TransportAIUpdate@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@TransportAIUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0TransportAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z

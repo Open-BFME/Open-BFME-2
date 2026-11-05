@@ -79,6 +79,9 @@ public:
 
 protected:
 	virtual void xfer( Xfer *xfer );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ImmortalBody@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 ImmortalBody::ImmortalBody( Thing *thing, const ModuleData *moduleData )

@@ -29,6 +29,9 @@ public:
 	SpecialPowerCreate( Thing *thing, const ModuleData *moduleData );
 protected:
 	virtual ~SpecialPowerCreate();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SpecialPowerCreate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 SpecialPowerCreate::SpecialPowerCreate( Thing *thing, const ModuleData *moduleData )

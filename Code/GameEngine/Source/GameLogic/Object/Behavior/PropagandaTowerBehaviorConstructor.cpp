@@ -36,6 +36,9 @@ private:
     unsigned int m_lastScanFrame;
     void *m_insideList;
     const void *m_upgradeRequired;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z

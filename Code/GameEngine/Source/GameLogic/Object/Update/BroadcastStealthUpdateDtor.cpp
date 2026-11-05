@@ -50,6 +50,9 @@ public:
 private:
 	int m_24;
 	PoolMember m_28;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@BroadcastStealthUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 BroadcastStealthUpdate::~BroadcastStealthUpdate()

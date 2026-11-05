@@ -85,6 +85,9 @@ private:
 	int m_nextBurstFrame;
 	Coord3D m_delayBurstLocation;
 	float m_buildingHeight;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@StructureToppleUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0StructureToppleUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x004A5556

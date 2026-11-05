@@ -131,6 +131,12 @@ private:
 	const void *m_curArmorSet;
 	AsciiString m_armorSetName;
 	const void *m_curDamageFX;
+protected:
+	// retail slot 3: the rowed ?xfer@ActiveBody@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@ActiveBody@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 ActiveBody::ActiveBody(Thing *thing, const ModuleData *moduleData)

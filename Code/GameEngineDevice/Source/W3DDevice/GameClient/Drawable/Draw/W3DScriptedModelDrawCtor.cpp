@@ -343,6 +343,9 @@ private:
 	int m_2dc;
 	int m_2e0;
 	AsciiString m_2e4;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@W3DScriptedModelDraw@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0W3DScriptedModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z @0x000C0DD8

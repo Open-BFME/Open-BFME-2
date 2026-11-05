@@ -49,6 +49,9 @@ public:
 private:
 	int m_20;
 	AISpecialPowerUpdatePointee *m_pointee;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@AISpecialPowerUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 #include <new>
 AISpecialPowerUpdate::~AISpecialPowerUpdate()

@@ -59,6 +59,9 @@ private:
     // ModuleData+0x1c to parseBool (table RVA 0x00CA7008). Retail
     // 0x0020D147/0x0020D14A copies that byte into this+0x24.
     unsigned char m_spawnOnce;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SpawnUnitBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0SpawnUnitBehavior@@QAE@PAVThing@@PBVModuleData@@@Z

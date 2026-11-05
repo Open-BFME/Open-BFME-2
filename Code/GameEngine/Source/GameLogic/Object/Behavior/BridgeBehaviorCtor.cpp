@@ -115,6 +115,9 @@ public:
 	virtual void onDie(const DamageInfo *damageInfo);
 
 	BridgeBehavior(Thing *thing, const ModuleData *moduleData);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 BridgeBehavior::BridgeBehavior(Thing *thing, const ModuleData *moduleData)

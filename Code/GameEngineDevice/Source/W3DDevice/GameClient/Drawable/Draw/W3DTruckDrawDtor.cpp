@@ -81,6 +81,9 @@ private:
 	BfmeStringTailRecord144 m_sound374;
 	BfmeStringTailRecord144 m_sound3FC;
 	int m_unk484;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@W3DTruckDraw@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);

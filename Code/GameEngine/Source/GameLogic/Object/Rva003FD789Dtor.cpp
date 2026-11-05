@@ -17,6 +17,9 @@ private:
 	AsciiString m_0c;
 	char m_pad10[12];
 	AsciiString m_1c;
+protected:
+	// retail slot 3: the rowed ?xfer@Rva003FD789@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva003FD789::~Rva003FD789()

@@ -277,6 +277,9 @@ class StructureToppleUpdate : public UpdateModule, public DieModuleInterface
 public:
 	virtual ~StructureToppleUpdate();
 	virtual void onDie(const DamageInfo *damageInfo);
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@StructureToppleUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 StructureToppleUpdate::~StructureToppleUpdate()

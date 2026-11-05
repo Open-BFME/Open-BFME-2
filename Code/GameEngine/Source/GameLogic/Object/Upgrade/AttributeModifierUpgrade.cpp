@@ -35,6 +35,9 @@ class AttributeModifierUpgrade : public UpgradeModule
 {
 public:
 	AttributeModifierUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@AttributeModifierUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 AttributeModifierUpgrade::AttributeModifierUpgrade(

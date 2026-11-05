@@ -50,6 +50,9 @@ private:
 	bool m_bfmeAttackState4D;
 	unsigned char m_pad4E[2];
 	unsigned int m_attackMachineType;
+protected:
+	// retail slot 3: the rowed ?xfer@AIAttackState@@MAEXPAVXfer@@@Z
+	virtual void xfer(Xfer *xfer);
 };
 
 AIAttackState::AIAttackState(StateMachine *machine, bool follow, bool attackingObject, bool forceAttacking,

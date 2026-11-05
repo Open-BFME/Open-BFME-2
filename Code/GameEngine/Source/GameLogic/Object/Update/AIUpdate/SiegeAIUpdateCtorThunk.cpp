@@ -46,6 +46,9 @@ public:
 	SiegeAIUpdate(Thing *thing, const ModuleData *moduleData);
 public:
 	virtual ~SiegeAIUpdate();
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SiegeAIUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0SiegeAIUpdate@@QAE@PAVThing@@PBVModuleData@@@Z

@@ -81,6 +81,9 @@ private:
 	bool m_enabled; // +0xC0
 	unsigned char m_padC1[3];
 	int m_C4; // +0xC4
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??1EmotionTrackerUpdate@@UAE@XZ @0x004B1322

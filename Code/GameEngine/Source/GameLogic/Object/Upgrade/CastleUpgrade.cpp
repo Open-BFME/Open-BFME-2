@@ -95,6 +95,9 @@ private:
 		return (const CastleUpgradeModuleData *)getModuleData();
 	}
 	void rva004B68B6(const UpgradeTemplate *upgrade); // unrowed: nearby-object pass at 0x004B68B6
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@CastleUpgrade@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // BFME1 CastleUpgradeImplementation donor874e38488 supplies upgrade grant
