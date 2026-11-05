@@ -353,3 +353,53 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
   - Needs canonical Object and BoneFXUpdate views for the two rowed callbacks.
 - **LockWeaponCreate.cpp (2): not attempted.** `class:LockWeaponCreate` and the file are claimed
   by yasinschroeder-claudec.
+
+#### Seat halilkkaya-lk30 follow-up (2026-11-05): the `xfer@DamageModule` respell chain
+
+- **Still blocked: `xfer@DamageModule` and `crc@DamageModule`.** Neither name resolved this pass.
+  The `xfer` work mapped the respell chain and cleared two of its tool obstacles.
+- **Which spelling (target and donor facts).** The census index (c95fcfcfcd) has 8 objects
+  referencing `?xfer@BehaviorModule@@MAEXPAVXfer@@@Z`. They are the Zero Hour units' unrowed
+  bodies. 13 objects reference the `QAE` row spelling and none references `UAE`. Snapshot,
+  `DamageModuleClass.h` and `UpgradeModule.h` declare the slot protected, so the row's target
+  spelling is `MAE`. `rename.py function --virtual` gives only `UAE` (it changes Q to U), so `MAE`
+  still needs an access option in the tool.
+- **The cascade is real.** Three units declare a derived `xfer` non-virtual over a private
+  BehaviorModule view: UpdateModule.cpp, GateOpenAndCloseBehaviorXfer.cpp and
+  SpawnBehaviorXfer.cpp. CastleMemberBehaviorCtor.cpp does the same. Once the base turns
+  virtual, those derived declarations become overrides, so these rows respell first:
+  - `?xfer@UpdateModule@@QAEXPAVXfer@@@Z` (0x0044DF9F). Its spelling is `UAE`: retail table
+    0x00BF004C slot 3, and canonical `UpdateModule.h` declares it public (148 census objects
+    reference `UAE`).
+  - `?xfer@CastleMemberBehavior@@QAEXPAVXfer@@@Z` (0x003957C6): retail table 0x00C1A22C slot 3.
+- **Cleared:**
+  - A dead pin at 0x0044DF9F, `?handle@Gen002B2080@@QAEXPAVFlagPairTarget@@@Z`, made `rename.py`
+    refuse the address as a shared body. It is now removed (pin register -1).
+  - `rename.py --virtual` refused units whose UpdateModule view sits in an included `*View.h`:
+    BridgeScaffoldBehavior, DynamicShroudClearingRangeUpdate, LargeGroupAudioUpdate and
+    RadarUpdate. A header the respell rewrites now covers its includers. The fix has tests.
+- **UpdateModule::xfer trial: 300 of 303 rows exact, restored.**
+  - Setup:
+    - The `UAE` twin pin was removed in the same change.
+    - `--prepared UpdateModule.cpp`: the BehaviorModule view declares `virtual ~BehaviorModule()`,
+      so the vptr is the base's. The pad goes from 0x14 to 0x10, and the self-referential
+      `UAE=QAE` `/alternatename` is dropped.
+  - Remaining failures:
+    - DynamicShroudClearingRangeUpdate::xfer (0x0048B505) is declared non-virtual in its view
+      header. Couple its respell in `run_batch`.
+    - Rva0047F94C::xfer (0x0047F94C) is a placeholder with the same non-virtual declaration.
+    - MineshaftPortalBehaviour::DoXfer calls `((UpdateModule *)this)->xfer(xfer)` unqualified,
+      which is now a vtable call. Prepare it as `->UpdateModule::xfer(xfer)`.
+- **CastleMemberBehavior:** CastleMemberBehaviorCtor.cpp's view keeps an explicit `m_vtable`
+  member for the ctor's hand-ordered table stores. Any virtual adds a real vptr and shifts every
+  field, so the view must be reshaped before the respell can verify.
+- **Order left:**
+  1. UpdateModule::xfer, with the three fixes above.
+  2. CastleMemberBehavior::xfer.
+  3. A `--virtual` access option for `MAE`.
+  4. BehaviorModule::xfer to `MAE`. Its 13 views get `protected: virtual`. Non-derived callers,
+     Rva004CE56DXfer.cpp and Rva00493009Xfer.cpp, need a qualified call through a derived view.
+     BehaviorModuleXfer.cpp's ObjectModule view needs a vptr, or the ObjectModule::xfer call
+     gains a +4 `this` adjustment. Then drop `MAE=QAE`.
+  5. An opt-in `xfer` in `BehaviorModule.h`.
+  6. The DamageModule::xfer twin at 0x004CE56D. Fold-proof: `Rva004CE56DXfer.cpp`.
