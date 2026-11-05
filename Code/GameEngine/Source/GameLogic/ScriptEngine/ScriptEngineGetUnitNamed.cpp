@@ -27,21 +27,7 @@ class Object;
 extern GameLogic *TheGameLogic;
 
 
-class Parameter
-{
-public:
-    const AsciiString &getString() const { return m_string; }
-    ObjectID getObjectID() const { return (ObjectID)m_objectID; }
-private:
-    int m_paramType; // +0x00
-    char m_pad04[4]; // +0x04
-    int m_int; // +0x08
-    float m_real; // +0x0C
-    AsciiString m_string; // +0x10
-    char m_coord[12]; // +0x14
-    int m_pad20; // +0x20
-    int m_objectID; // +0x24
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 class Rva00358752Opaque
 {
@@ -53,7 +39,7 @@ public:
 
 Object *ScriptEngine::getUnitNamed(Parameter *unitName)
 {
-    ObjectID id = unitName->getObjectID();
+    ObjectID id = (ObjectID)unitName->m_objectID;
     if (id != INVALID_OBJECT_ID) {
         Object *o = TheGameLogic->findObjectByID(id);
         if (o)

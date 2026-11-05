@@ -47,44 +47,7 @@ static inline void yieldToOS(void)
 		TheGameEngine->serviceWindowsOS();
 }
 
-// Parameter's by-value string setter (ZH friend_setString); the ledger names
-// the body by address only, so Parameter reaches it through this empty base.
-class Gen002E3FD0
-{
-public:
-	void bfmeSet(AsciiString value);
-};
-
-class Parameter : public Gen002E3FD0
-{
-public:
-	enum ParameterType
-	{
-		INT = 0,
-		REAL = 1,
-		BOOLEAN = 8,
-		SIDE = 11,
-		OBJECT_TYPE = 15,
-		AI_MOOD = 20
-	};
-
-	Parameter(ParameterType type, Int val = 0);
-	static Parameter *ReadParameter(DataChunkInput &file);
-
-	__declspec(dllimport) __forceinline ParameterType getParameterType() const { return m_paramType; }
-	__declspec(dllimport) __forceinline Int getInt() const { return m_int; }
-	__declspec(dllimport) __forceinline void friend_setParameterType(ParameterType type) { m_paramType = type; }
-
-private:
-	ParameterType m_paramType;
-	Bool m_initialized;
-	Int m_int;
-	float m_real;
-	AsciiString m_string;
-	struct { float x, y, z; } m_coord;
-	unsigned int m_objectStatus0;
-	unsigned int m_objectStatus1;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 // Retail 0x003B333A (55 B), the row this unit owns.
 Parameter::Parameter(ParameterType type, Int val) :
@@ -92,8 +55,8 @@ Parameter::Parameter(ParameterType type, Int val) :
 	m_initialized(false),
 	m_int(val),
 	m_real(0.0f),
-	m_objectStatus0(0),
-	m_objectStatus1(0)
+	m_cachedPlayerMask(0),
+	m_objectID(0)
 {
 	m_coord.x = 0.0f;
 	m_coord.y = 0.0f;

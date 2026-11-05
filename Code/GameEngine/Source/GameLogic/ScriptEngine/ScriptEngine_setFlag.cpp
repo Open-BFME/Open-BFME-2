@@ -30,16 +30,7 @@
 #include "ascii_string.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
-class Parameter
-{
-public:
-	// Retail inlines these reads. Accessing the existing fields directly
-	// avoids emitting getter COMDATs for this partial Parameter layout.
-	char m_unknown[8];
-	int m_integer;
-	float m_real;
-	AsciiString m_string;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Scripts.h
 #include "../../../Include/GameLogic/ScriptAction.h"
@@ -76,7 +67,7 @@ void ScriptEngine::setFlag(ScriptAction *action, bool copyFromFlag)
 	}
 	else
 	{
-		value = sourceAction->getParameter(1)->m_integer != 0;
+		value = sourceAction->getParameter(1)->m_int != 0;
 	}
 	*flag = value;
 }

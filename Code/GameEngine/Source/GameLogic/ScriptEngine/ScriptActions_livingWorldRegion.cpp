@@ -294,21 +294,7 @@ extern ScriptEngine *TheScriptEngine;
 #include "Code/Libraries/Include/Lib/RGBColor.h"
 enum EmotionType { EMOTION_INVALID = -1 };
 enum ObjectStatusTypes { OBJECT_STATUS_INVALID = -1 };
-class Parameter
-{
-public:
-    __forceinline int getInt() const { return m_int; }
-    float getReal() const { return m_real; }
-    const AsciiString &getString() const { return m_string; }
-    void getCoord3D(Coord3D *) const;
-private:
-    int m_type;
-    bool m_initialized;
-    int m_int;
-    float m_real;
-    AsciiString m_string;
-    Coord3D m_coord;
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 class ScriptAction
 {
 public:

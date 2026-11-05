@@ -27,3 +27,5 @@ Post-rebase checks retain all 81 rows and object comparisons. The hook also
 reports two unchanged clear/AsciiString bindings in shadow; these remain open
 for identity review, with exact row names in the handoff.
 [Scope and verification](../../reverse/attempt_support/scriptactions-consolidation-20261030-codex/README.md).
+
+2026-11-05: adopted the existing Parameter header in five script units and retired five header-queue rows; 30/30 rows match, provider preservation checked, preview retains 23,753 bytes ([evidence](../../reverse/attempt_support/parameter-header-adoption-20261105-codex.md)). The remaining Parameter queue rows and broader declaration prerequisites stay open.

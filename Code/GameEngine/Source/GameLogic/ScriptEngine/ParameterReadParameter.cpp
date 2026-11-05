@@ -23,7 +23,7 @@ typedef bool Bool;
 
 #include "../../../Include/Common/DataChunk.h"
 
-template <unsigned int N>
+template <int N>
 class BitFlags
 {
 public:
@@ -45,39 +45,13 @@ enum
 	BODY_STATE_PARAM = 0x29
 };
 
-class Parameter
-{
-public:
-	enum ParameterType
-	{
-		INT_TYPE = 0
-	};
-
-	Parameter(ParameterType type, Int val = 0);
-	static Parameter *ReadParameter(DataChunkInput &file);
-
-	__declspec(dllimport) __forceinline ParameterType getParameterType() const { return m_paramType; }
-
-protected:
-	void setCoord3D(const Coord3D *pLoc);
-
-private:
-	ParameterType m_paramType; // +0x00
-	Bool m_initialized; // +0x04
-	char m_pad[3]; // +0x05
-	Int m_int; // +0x08
-	float m_real; // +0x0C
-	AsciiString m_string; // +0x10
-	Coord3D m_coord; // +0x14
-	unsigned int m_tail0; // +0x20
-	unsigned int m_tail1; // +0x24
-};
+#include "../../../Include/GameLogic/ScriptParameter.h"
 
 Parameter *Parameter::ReadParameter(DataChunkInput &file)
 {
 	Parameter *pParm = new Parameter((ParameterType)file.readInt());
 	pParm->m_initialized = true;
-	if (pParm->getParameterType() == (ParameterType)COORD3D_PARAM) {
+	if (pParm->m_paramType == (ParameterType)COORD3D_PARAM) {
 		Coord3D pos;
 		pos.x = file.readReal();
 		pos.y = file.readReal();
@@ -89,12 +63,12 @@ Parameter *Parameter::ReadParameter(DataChunkInput &file)
 		pParm->m_string = file.readAsciiString();
 	}
 
-	if (pParm->getParameterType() == (ParameterType)BODY_STATE_PARAM) {
+	if (pParm->m_paramType == (ParameterType)BODY_STATE_PARAM) {
 		const char *tok = pParm->m_string.str();
 		pParm->m_int = BitFlags<101>::getSingleBitFromName(tok);
 	}
 
-	if (pParm->getParameterType() != (ParameterType)KIND_OF_PARAM) return pParm;
+	if (pParm->m_paramType != (ParameterType)KIND_OF_PARAM) return pParm;
 	AsciiString &str = pParm->m_string;
 	StringBase<char> &s = (StringBase<char> &)str;
 	if (!s.isEmpty()) {
