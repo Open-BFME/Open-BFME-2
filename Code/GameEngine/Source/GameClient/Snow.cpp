@@ -90,24 +90,7 @@ void SnowManager::init()
 
 #include "../../Include/Common/MemoryPoolObject.h"
 
-class Overridable : public MemoryPoolObject {
-public:
-    Overridable *m_nextOverride;
-    bool m_isOverride;
-    Overridable *deleteOverrides();
-    Overridable *friend_getFinalOverride()
-    {
-        if (m_nextOverride)
-            return m_nextOverride->friend_getFinalOverride();
-        return this;
-    }
-    const Overridable *getFinalOverride() const
-    {
-        if (m_nextOverride)
-            return m_nextOverride->getFinalOverride();
-        return this;
-    }
-};
+#include "../../Include/Common/Overridable.h"
 
 // Field offsets read from retail's compiler-generated WeatherSetting
 // copy assignment (0x00201412, 0xB4 bytes). +0x1C..+0x44 follow Zero Hour's
@@ -116,7 +99,6 @@ class WeatherSetting : public Overridable {
 public:
     virtual WeatherSetting *rva00201153();
     virtual void rva00201085();
-    unsigned int m_target0C;
     unsigned int m_targetBase10[2];
     unsigned int m_snowTexture;
     float m_snowFrequencyScaleX;
@@ -180,7 +162,9 @@ OVERRIDE<WeatherSetting> TheWeatherSetting;
 WeatherSetting *WeatherSetting::rva00201153()
 {
     WeatherSetting *setting = const_cast<WeatherSetting *>(TheWeatherSetting.getNonOverloadedPointer());
-    return static_cast<WeatherSetting *>(setting->friend_getFinalOverride());
+    if (setting->friend_getNextOverride())
+        return static_cast<WeatherSetting *>(setting->friend_getNextOverride()->friend_getFinalOverride());
+    return setting;
 }
 
 
