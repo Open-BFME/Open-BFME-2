@@ -95,7 +95,7 @@ DevastateSpecialPower::~DevastateSpecialPower()
 
 // tu-skeleton: 0x004C8213 25B ??1Rva004C8213@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004C822C 68B ?doSpecialPower@DevastateSpecialPower@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp (not merged yet)
+// tu-skeleton: 0x004C822C 68B ?doSpecialPower@DevastateSpecialPower@@UAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerPoolKey.cpp
 
@@ -109,7 +109,7 @@ NameKeyType DevastateSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C82B5 28B ??_GRva004C8213@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004C82D1 20B ?doSpecialPowerAtObject@DevastateSpecialPower@@UAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp (not merged yet)
+// tu-skeleton: 0x004C82D1 20B ?doSpecialPowerAtObject@DevastateSpecialPower@@UAEXPAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004C82E5 472B ?doSpecialPowerAtLocation@DevastateSpecialPower@@UAEXPBUCoord3D@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerDoSpecialPowerAtLocation.cpp (not merged yet)
 
