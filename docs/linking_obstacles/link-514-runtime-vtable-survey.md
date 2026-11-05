@@ -77,6 +77,19 @@ Rejected and left for header work:
   GetSnapshotName getters, 108 slots), or under another class's or a placeholder's name. Both need
   naming-lane renames before a declaration can bind them.
 - Short tables (40,230 missing slots), which need full class views.
+- Deleting-destructor scaffolds. 60 units use the `EmitVtableTag` pattern: a dummy constructor
+  makes a view with only a virtual destructor emit its table, so the unit emits the `??_G`
+  wrapper. These units sit early in link order, so their one-slot tables become the kept copy.
+  The kept tables they hold (at e5e17e246f plus the passes above):
+  - 228 at risk (T1 28, T2 47, T4 152);
+  - 196 of them one slot long;
+  - 137 with a longer copy elsewhere.
+  Example: SpecialPowerModuleDeletingDtors.cpp keeps the 1-slot
+  `??_7{Devastate,OCL,PlayerUpgrade,Invisibility,ProductionSpeedBonus}...ModuleData@@6B@`. The
+  family units' 31-slot copies (built on SpecialPowerModuleData.h/ModuleData.h) are discarded.
+  The fix is to give the scaffold class the same base view as its family unit, so every copy is
+  identical. The scaffold's ModuleData inline-virtual COMDATs then join every copy of that header,
+  so check all their definers with link_check.
 
 **Remaining / next check.** A table moves to retail only through its class family's own view:
 adopt the canonical class header (`header_adopt_lane.py`), or declare the family's override where
