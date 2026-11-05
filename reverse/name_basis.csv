@@ -1891,8 +1891,8 @@ param,Rva002EBA88::rva002EBA88::a3,Rva002EBA88::rva002EBA88::size,inferred,agree
 local,Rva00222B19AptCall::s,Rva00222B19AptCall::target,inferred,agree:nl-890afc3bebdc,Code/GameEngine/Source/GameClient/Rva00222B19AptCallLevel.cpp,0x00222B19
 param,Rva00531196::rva00531196::p,Rva00531196::rva00531196::cell,inferred,agree:nl-bcfba0442cd0,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,0x00531196
 local,Rva00531196::rva00531196::c3,Rva00531196::rva00531196::bridge,inferred,agree:nl-accabac59340,Code/GameEngine/Source/Common/BooleanBitmapSet.cpp,0x00531196
-local,Rva0045D7E0Notify::p2,Rva0045D7E0Notify::fxList,inferred,agree:nl-92452c3960e7,Code/GameEngine/Source/GameLogic/Object/Rva0045D7E0Notify.cpp,0x0045D7E0
-local,Rva0045D7E0Notify::p3,Rva0045D7E0Notify::weaponTemplate,inferred,agree:nl-cf10de627735,Code/GameEngine/Source/GameLogic/Object/Rva0045D7E0Notify.cpp,0x0045D7E0
+local,Rva0045D7E0Notify::p2,Rva0045D7E0Notify::fxList,inferred,agree:nl-92452c3960e7,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,0x0045D7E0
+local,Rva0045D7E0Notify::p3,Rva0045D7E0Notify::weaponTemplate,inferred,agree:nl-cf10de627735,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,0x0045D7E0
 param,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::a1,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::side,inferred,agree:nl-168508c2d975,Code/GameEngine/Source/Common/LivingWorldAutoResolveBattle_enumerateReinforcementUnits.cpp,0x004F76EA
 param,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::a2,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::round,inferred,agree:nl-35d5df4af552,Code/GameEngine/Source/Common/LivingWorldAutoResolveBattle_enumerateReinforcementUnits.cpp,0x004F76EA
 local,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::v,LivingWorldAutoResolveBattle::enumerateReinforcementUnits::unit,inferred,agree:nl-4ea8ff869b02,Code/GameEngine/Source/Common/LivingWorldAutoResolveBattle_enumerateReinforcementUnits.cpp,0x004F76EA
@@ -2224,8 +2224,8 @@ param,W3DTerrainBackground::getTriangleIntersection::x,W3DTerrainBackground::get
 param,W3DTerrainBackground::getTriangleIntersection::y,W3DTerrainBackground::getTriangleIntersection::startY,inferred,agree:nl-c43f2d623f08,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundGetTriangleIntersection.cpp,0x0011319A
 local,W3DTerrainBackground::getTriangleIntersection::z,W3DTerrainBackground::getTriangleIntersection::intersectionHeight,inferred,agree:nl-6949f9139753,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainBackgroundGetTriangleIntersection.cpp,0x0011319A
 member,Rva00DFE758::m_134,Rva00DFE758::m_timeOfDay,inferred,agree:nl-7c105501a76a,Code/GameEngine/Source/Common/Rva0040C985Init.cpp,
-param,Rva0045D7E0Notify::a,Rva0045D7E0Notify::assets,inferred,agree:nl-15c3e3f4aef2,Code/GameEngine/Source/GameLogic/Object/Rva0045D7E0Notify.cpp,0x0045D7E0
-param,Rva0045D7E0Notify::b,Rva0045D7E0Notify::context,inferred,agree:nl-b79b12715f17,Code/GameEngine/Source/GameLogic/Object/Rva0045D7E0Notify.cpp,0x0045D7E0
+param,Rva0045D7E0Notify::a,Rva0045D7E0Notify::assets,inferred,agree:nl-15c3e3f4aef2,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,0x0045D7E0
+param,Rva0045D7E0Notify::b,Rva0045D7E0Notify::context,inferred,agree:nl-b79b12715f17,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,0x0045D7E0
 local,Rva005C6D4D::rva005C6D9C::t,Rva005C6D4D::rva005C6D9C::flashProgress,inferred,agree:nl-e04eedfc51c4,Code/GameEngine/Source/Common/Rva005C6CCC.cpp,0x005C6D9C
 local,Rotate::s,Rotate::sinAngle,inferred,agree:nl-7b433e8553ec,Code/GameEngine/Source/Common/Rva005C6CCC.cpp,
 local,Rotate::c,Rotate::cosAngle,inferred,agree:nl-cd016b040947,Code/GameEngine/Source/Common/Rva005C6CCC.cpp,

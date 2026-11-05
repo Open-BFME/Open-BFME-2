@@ -19908,10 +19908,10 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A034DC,4,.data,global,?$S1@?1??getModuleNameKey@SlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Module/SlowDeathBehaviorPoolKey.cpp,owned,,1,4
 0x00A034E0,4,.data,global,?key_SlavedUpdate@?CE@??beginSlowDeath@SlowDeathBehavior@@UAEXPBVDamageInfo@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp,owned,,1,2
 0x00A034E4,4,.data,global,?$S1@?CE@??beginSlowDeath@SlowDeathBehavior@@UAEXPBVDamageInfo@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp,owned,,1,4
-0x00A034E8,16,.data,global,?s_allowedStatusFlags@?4??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4URva0045D887@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp,owned,,1,2
-0x00A034F8,80,.data,global,?s_disallowedModelFlags@?1??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4VWeaponTemplateSetHead@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp,owned,,1,1
-0x00A03548,76,.data,global,?s_allowedModelFlags@?1??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4VRva000B6253@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp,owned,,1,2
-0x00A03594,4,.data,global,?$S1@?1??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp,owned,,1,6
+0x00A034E8,16,.data,global,?s_allowedStatusFlags@?4??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4URva0045D887@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,owned,,1,2
+0x00A034F8,80,.data,global,?s_disallowedModelFlags@?1??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4VWeaponTemplateSetHead@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,owned,,1,1
+0x00A03548,76,.data,global,?s_allowedModelFlags@?1??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4VRva000B6253@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,owned,,1,2
+0x00A03594,4,.data,global,?$S1@?1??parseDeathFlags@SlowDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,owned,,1,6
 0x00A03598,4,.data,global,_s_rva007B0B90,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A0359C,4,.data,global,_s_rva007B0BA0,Code/GameEngine/Source/Common/Rva007ABC6FFrameRateInits.cpp,owned,,1,1
 0x00A035A0,4,.data,global,?TheShipSlowDeathBehaviorPoolKey@?1??getModuleNameKey@ShipSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,owned,,1,2
