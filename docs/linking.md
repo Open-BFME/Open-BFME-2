@@ -261,15 +261,18 @@ use the same archives and retail-import routing as `exit_link.py`.
 
 Only proven losses refuse a push. Unknown tip providers retain their possible
 base definitions. A candidate loss is suppressed only if a changed, unchecked
-path contains that target's source identifier (`git grep -F` at the tip);
+path adds a definition matching the target (`git grep -F -w`, followed by
+added-line and definition-scope checks);
 unrelated source/header drift does not suppress it. Missing artifacts,
 objects, library evidence and unsupported directives produce named warnings.
 Compiler/header drift marks unbuilt consumers unchecked without discarding
 their measured references. This partial check does not certify a whole link or
 source freshness. Scheduled real links and their picker blockers remain the
-backstop. The hook runs `--guard-only` with its own 45-second cap and then
+backstop. The hook runs `--bounded-guard` with its own hard 45-second cap and then
 `--census-only` with a separate 60-second cap; a guard timeout warns and cannot
-consume the census allowance. The serial worst case is 105 seconds, rather
+consume the census allowance. The guard supervisor kills its process group at the
+deadline (a kill-on-close job on Windows); it does not use `shadow_cap`'s extra
+30 seconds and grace. The guard allowance plus nominal census budget is 105 seconds, rather
 than sharing one 60-second deadline. Docs-only pushes return before artifact
 access, including when unrelated tracked files are dirty.
 
@@ -326,3 +329,12 @@ now have a count and at most five examples too. Regression tests refuse the
 Drawable loss with either an unrelated `.cpp` or `.h` commit after the manifest,
 retry a timed-out artifact download, skip a newer experiment branch, and prove
 that guard timeout still invokes the census with its independent budget.
+
+Final qualification fix: member replacement evidence must add a function
+signature/body for `Class::method`, or an inline definition in that class's own
+scope. A declaration, unrelated receiver call, comment, substring, or unchanged
+definition in an otherwise edited file does not suppress a loss. A header whose
+removed lines intersect the original definition is excluded as a replacement.
+The two refusal regressions are
+`test_removed_inline_header_declaration_is_not_a_replacement` and
+`test_unrelated_getid_call_in_lag_does_not_suppress_loss`.

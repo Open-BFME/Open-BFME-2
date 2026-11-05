@@ -583,8 +583,8 @@ link_audit() {
     # Independent budgets: a slow guard cannot consume the census's 60 seconds.
     # Status 1 is a proven loss; unavailable or timed-out guard evidence warns.
     local guard_status=0
-    BFME_SHADOW_BUDGET_S=45 shadow_cap python3 tools/link_batch_audit.py \
-        --guard-only --base "$base" --tip "$local_sha" --sources-from "$1" < /dev/null || guard_status=$?
+    python3 tools/link_batch_audit.py \
+        --bounded-guard --base "$base" --tip "$local_sha" --sources-from "$1" < /dev/null || guard_status=$?
     case "$guard_status" in
         0) ;;
         1) return 1 ;;

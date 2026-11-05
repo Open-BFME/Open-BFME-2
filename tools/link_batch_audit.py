@@ -473,17 +473,102 @@ def target_identifier(name):
     return match.group() if match else None
 
 
-def identifier_sources(tip, identifier, sources):
-    """Cheap, fixed-string evidence of a possible unchecked replacement."""
+def member_target(name):
+    """Simple MSVC member binding; unrecognized encodings cannot prove replacements."""
+    import re
+    match = re.match(r'^\?([A-Za-z_]\w*)@([A-Za-z_]\w*)@@', name)
+    return (match.group(2), match.group(1)) if match else None
+
+
+def definition_spans(text, identifier, member=None):
+    """(signature start, body opening, end) for definitions, never declarations/calls."""
+    import re
+    import header_adopt_lane as H
+    code = H.masked(text)
+    spans = []
+    if member:
+        cls, method = member
+        for start, end, _ in H.member_spans(code, [cls]):
+            if re.match(re.escape(cls) + r'\s*::\s*' + re.escape(method) + r'\b', code[start:]):
+                opening = code.find('{', start, end)
+                spans.append((start, opening, end))
+        for match in re.finditer(r'\b(?:class|struct)\s+' + re.escape(cls) + r'\b[^;{}]*\{', code):
+            opening = match.end() - 1
+            end = H.block_end(code, opening) + 1
+            own = H.class_scope(code[opening:end])
+            for found in re.finditer(r'\b' + re.escape(method) + r'\s*\(', own):
+                start = opening + found.start()
+                signature = re.match(re.escape(method) + r'\s*\([^;{}]*\)\s*(?:(?:const|volatile|override|final|noexcept)\s*|&\s*)*\{', code[start:end])
+                if signature:
+                    body = start + signature.end() - 1
+                    spans.append((start, body, H.block_end(code, body) + 1))
+
+    else:
+        for match in re.finditer(r'\b' + re.escape(identifier) + r'\s*\([^;{}]*\)\s*\{', code):
+            if H.starts_declaration(code, match.start()):
+                body = match.end() - 1
+                spans.append((match.start(), body, H.block_end(code, body) + 1))
+    return spans
+
+
+def changed_lines(measured, tip, source):
+    import re
+    diff = git('diff', '--no-ext-diff', '--no-textconv', '--no-renames', '--unified=0', measured, tip, '--', source)
+    added, removed = set(), set()
+    old = new = 0
+    for line in diff.splitlines():
+        if line.startswith('@@'):
+            match = re.match(r'@@ -(\d+)(?:,\d+)? \+(\d+)', line)
+            old, new = map(int, match.groups())
+        elif line.startswith(('---', '+++')):
+            continue
+        elif line.startswith('+'):
+            added.add(new); new += 1
+        elif line.startswith('-'):
+            removed.add(old); old += 1
+        elif not line.startswith('\\'):
+            old += 1; new += 1
+    return added, removed
+
+
+def span_lines(text, start, end):
+    return set(range(text.count('\n', 0, start) + 1, text.count('\n', 0, end) + 2))
+
+
+def identifier_sources(measured, tip, target, sources):
+    """New definition signatures only, qualified or in the target class's own scope."""
+    identifier = target_identifier(target)
+    if not identifier:
+        return set()
+    binding = member_target(target)
+    # A decorated scoped name we cannot bind safely is not replacement proof.
+    if target.startswith('?') and not target.startswith('??$') and '@@' in target:
+        prefix = target.split('@@', 1)[0]
+        if '@' in prefix and binding is None:
+            return set()
     found = set()
     sources = sorted(sources)
     for offset in range(0, len(sources), 256):
-        done = subprocess.run(['git', 'grep', '-F', '-l', '-e', identifier, tip, '--',
+        done = subprocess.run(['git', 'grep', '-F', '-w', '-l', '-e', identifier, tip, '--',
                                *sources[offset:offset + 256]], cwd=link_check.ROOT,
                               capture_output=True, text=True, timeout=5)
         if done.returncode not in (0, 1):
             raise ValueError('unchecked identifier grep failed')
-        found.update(line.removeprefix(tip + ':') for line in done.stdout.splitlines())
+        for line in done.stdout.splitlines():
+            source = line.removeprefix(tip + ':')
+            added, removed = changed_lines(measured, tip, source)
+            if not added:
+                continue
+            text = subprocess.run(['git', 'show', tip + ':' + source], cwd=link_check.ROOT,
+                                  check=True, capture_output=True, text=True).stdout
+            if Path(source).suffix.lower() in ('.h', '.hpp', '.hh', '.hxx', '.inl', '.inc') and removed:
+                prior = subprocess.run(['git', 'show', measured + ':' + source], cwd=link_check.ROOT,
+                                       capture_output=True, text=True)
+                if prior.returncode == 0 and any(span_lines(prior.stdout, a, c) & removed
+                    for a, b, c in definition_spans(prior.stdout, identifier, binding)):
+                    continue  # The header that lost this definition is not a replacement.
+            if any(span_lines(text, a, b) & added for a, b, c in definition_spans(text, identifier, binding)):
+                found.add(source)
     return found
 
 
@@ -579,13 +664,13 @@ def removed_definition_guard(base, tip, verified):
     suppressed = {}
     for target in {target for _, _, target in losses}:
         identifier = target_identifier(target)
-        matches = identifier_sources(tip, identifier, search_sources) if identifier else set()
+        matches = identifier_sources(measured, tip, target, search_sources) if identifier else set()
         if matches:
             suppressed[target] = matches
     if suppressed:
         print(f'definition guard: UNCHECKED possible replacements: {len(suppressed)} [{evidence}]')
     for target, matches in sorted(suppressed.items())[:5]:
-        print(f'  UNCHECKED possible replacement {target}: {len(matches)} changed paths contain its identifier; '
+        print(f'  UNCHECKED possible replacement {target}: {len(matches)} changed paths add a matching definition; '
               f'examples: {"; ".join(sorted(matches)[:3])} [{evidence}]')
     losses = [loss for loss in losses if loss[2] not in suppressed]
     for consumer, root, target in losses[:30]:
@@ -748,6 +833,66 @@ def audit(base, tip, verified, *, census_only=False):
     return 0 if exact_base else 2
 
 
+def guard_windows_job(process):
+    import ctypes as C
+    from ctypes import wintypes as W
+    class Basic(C.Structure):
+        _fields_ = [('process_time', C.c_longlong), ('job_time', C.c_longlong),
+                    ('flags', W.DWORD), ('min_ws', C.c_size_t), ('max_ws', C.c_size_t),
+                    ('active', W.DWORD), ('affinity', C.c_size_t),
+                    ('priority', W.DWORD), ('scheduling', W.DWORD)]
+    class Limits(C.Structure):
+        _fields_ = [('basic', Basic), ('io', C.c_ulonglong * 6),
+                    ('memory', C.c_size_t * 4)]
+    kernel = C.WinDLL('kernel32', use_last_error=True)
+    kernel.CreateJobObjectW.restype = W.HANDLE
+    kernel.SetInformationJobObject.argtypes = [W.HANDLE, C.c_int, C.c_void_p, W.DWORD]
+    kernel.AssignProcessToJobObject.argtypes = [W.HANDLE, W.HANDLE]
+    kernel.CloseHandle.argtypes = [W.HANDLE]
+    job = kernel.CreateJobObjectW(None, None)
+    limits = Limits(); limits.basic.flags = 0x2000  # KILL_ON_JOB_CLOSE
+    if not job or not kernel.SetInformationJobObject(job, 9, C.byref(limits), C.sizeof(limits)) or not kernel.AssignProcessToJobObject(job, W.HANDLE(int(process._handle))):
+        if job:
+            kernel.CloseHandle(job)
+        raise OSError('cannot contain guard in Windows kill-on-close job')
+    return lambda: kernel.CloseHandle(job)
+
+
+def bounded_guard(argv, seconds=45):
+    import os
+    import signal
+    started = time.monotonic()
+    command = [sys.executable, str(Path(__file__).resolve()), '--guard-only', *argv]
+    with tempfile.TemporaryFile() as output:
+        process = subprocess.Popen(command, stdout=output, stderr=output,
+                                   start_new_session=os.name != 'nt')
+        close_job = None
+        if os.name == 'nt':
+            try:
+                close_job = guard_windows_job(process)
+            except OSError as exc:
+                process.kill(); process.wait()
+                print(f'definition guard: UNCHECKED: {exc}')
+                return 124
+        try:
+            status = process.wait(timeout=max(0, seconds - (time.monotonic() - started)))
+        except subprocess.TimeoutExpired:
+            if os.name == 'posix':
+                os.killpg(process.pid, signal.SIGKILL)
+            else:
+                close_job(); close_job = None
+            process.wait()
+            status = 124
+        finally:
+            if close_job:
+                close_job()
+        output.seek(0)
+        sys.stdout.write(output.read().decode('utf-8', errors='replace'))
+    if status == 124:
+        print(f'definition guard: UNCHECKED: hard {seconds}s budget expired')
+    return status
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", required=True)
@@ -756,8 +901,11 @@ def main():
                         help="NUL-delimited byte-verified source paths")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--guard-only', action='store_true')
+    mode.add_argument('--bounded-guard', action='store_true')
     mode.add_argument('--census-only', action='store_true')
     args = parser.parse_args()
+    if args.bounded_guard:
+        return bounded_guard(['--base', args.base, '--tip', args.tip, '--sources-from', args.sources_from])
     try:
         raw = Path(args.sources_from).read_bytes()
         if raw and not raw.endswith(b"\0"):

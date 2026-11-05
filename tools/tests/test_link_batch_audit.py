@@ -290,7 +290,7 @@ def test_push_hook_honors_audit_exit_status(status, blocked):
     block = hook[hook.index('    link_scope=$(mktemp)'):
                  hook.index('    stage "scoped DIR32 + eh + data audits, link_batch_audit')]
     setup = (f'set -euo pipefail\nverify=(); scope_units=(); scoped_list=""; base=a; local_sha=b\n'
-             f'fail() {{ exit 1; }}\nshadow_cap() {{ return {status}; }}\nstage() {{ :; }}\n')
+             f'fail() {{ exit 1; }}\nshadow_cap() {{ return {status}; }}\npython3() {{ return {status}; }}\nstage() {{ :; }}\n')
     done = subprocess.run([bash, "-c", setup + jobs + audits + block], capture_output=True, text=True)
     assert (done.returncode != 0) == blocked, done.stderr
     if status in (2, 124, 137):
@@ -755,7 +755,7 @@ def test_only_target_identifier_in_changed_unchecked_source_suppresses(manifest_
     repo, measured, commit, object_, manifest = manifest_repo
     target = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
     manifest({'Code/provider.cpp': symbols([target]), 'Code/caller.cpp': symbols(refs=[target])})
-    (repo / ('Code/replacement.' + suffix)).write_text('// possible getID replacement\n')
+    (repo / ('Code/replacement.' + suffix)).write_text('struct Drawable { int getID() const { return 1; } };\n')
     base = commit(); (repo / 'Code/provider.cpp').write_text('// removed\n'); tip = commit()
     object_('Code/provider.cpp', symbols())
     assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
@@ -816,10 +816,10 @@ def test_selects_older_ancestor_after_latest_experiment_dispatch(monkeypatch, tm
 def test_guard_timeout_preserves_separate_census_budget():
     hook = (Path(__file__).resolve().parents[2] / '.githooks/pre-push').read_text()
     function = hook[hook.index('link_audit() {'):hook.index('# replay_shadow:')]
-    setup = 'set -eu\nbase=a; local_sha=b\nshadow_cap() { echo "$BFME_SHADOW_BUDGET_S $*"; case "$*" in *--guard-only*) return 124;; *) return 0;; esac; }\n'
+    setup = 'set -eu\nbase=a; local_sha=b\npython3() { echo python3 \"$@\"; return 124; }\nshadow_cap() { echo "$BFME_SHADOW_BUDGET_S $*"; case "$*" in *--guard-only*) return 124;; *) return 0;; esac; }\n'
     done = subprocess.run(['bash', '-c', setup + function + '\nlink_audit sources'], capture_output=True, text=True)
     assert done.returncode == 0
-    assert '45 python3 tools/link_batch_audit.py --guard-only' in done.stdout
+    assert 'python3 tools/link_batch_audit.py --bounded-guard' in done.stdout
     assert '60 python3 tools/link_batch_audit.py --census-only' in done.stdout
     assert 'continuing census audit' in done.stderr
 
@@ -859,3 +859,69 @@ def test_census_only_mode_never_runs_guard(monkeypatch, tmp_path):
     monkeypatch.setattr(A, 'removed_definition_guard', lambda *a: pytest.fail('guard must not run twice'))
     monkeypatch.setattr(A.link_check, 'INDEX', tmp_path / 'missing')
     assert A.audit('base', 'tip', [], census_only=True) == 2
+
+
+
+def test_removed_inline_header_declaration_is_not_a_replacement(manifest_repo):
+    repo, measured, commit, object_, manifest = manifest_repo
+    target = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    (repo / 'Code/Drawable.h').write_text('struct Drawable { int getID() const { return 1; } };\n')
+    measured = commit()
+    record = manifest({'Code/provider.cpp': symbols([target]), 'Code/caller.cpp': symbols(refs=[target])})
+    record['commit'] = measured
+    (repo / 'Code/Drawable.h').write_text('struct Drawable { int getID() const; };\n')
+    base = commit()
+    (repo / 'Code/provider.cpp').write_text('// inline removed\n'); tip = commit()
+    object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 1
+
+
+def test_unrelated_getid_call_in_lag_does_not_suppress_loss(manifest_repo):
+    repo, measured, commit, object_, manifest = manifest_repo
+    target = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    manifest({'Code/provider.cpp': symbols([target]), 'Code/caller.cpp': symbols(refs=[target])})
+    (repo / 'Code/unrelated.cpp').write_text('int inspect(Other *obj) { return obj->getID(); }\n')
+    base = commit()
+    (repo / 'Code/provider.cpp').write_text('// inline removed\n'); tip = commit()
+    object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 1
+
+
+@pytest.mark.parametrize('body', [
+    'int Drawable::getID() const { return 1; }',
+    'struct Drawable { int getID() const { return 1; } };',
+])
+def test_added_member_definition_is_possible_replacement(manifest_repo, body):
+    repo, measured, commit, object_, manifest = manifest_repo
+    target = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    manifest({'Code/provider.cpp': symbols([target]), 'Code/caller.cpp': symbols(refs=[target])})
+    (repo / 'Code/replacement.cpp').write_text(body + '\n')
+    base = commit()
+    (repo / 'Code/provider.cpp').write_text('// inline removed\n'); tip = commit()
+    object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 0
+
+
+def test_existing_definition_in_changed_file_is_not_added_replacement(manifest_repo):
+    repo, measured, commit, object_, manifest = manifest_repo
+    target = '?getID@Drawable@@QBE?AW4DrawableID@@XZ'
+    (repo / 'Code/unrelated.cpp').write_text('int Drawable::getID() const { return 1; }\n')
+    measured = commit()
+    record = manifest({'Code/provider.cpp': symbols([target]), 'Code/caller.cpp': symbols(refs=[target])})
+    record['commit'] = measured
+    (repo / 'Code/unrelated.cpp').write_text('int Drawable::getID() const { return 1; }\n// unrelated edit\n')
+    base = commit()
+    (repo / 'Code/provider.cpp').write_text('// inline removed\n'); tip = commit()
+    object_('Code/provider.cpp', symbols())
+    assert REAL_DEFINITION_GUARD(base, tip, ['Code/provider.cpp']) == 1
+
+
+def test_guard_supervisor_enforces_hard_deadline(monkeypatch):
+    import time
+    real_popen = subprocess.Popen
+    def child(*args, **kwargs):
+        return real_popen([sys.executable, '-c', 'import time; time.sleep(10)'], **kwargs)
+    monkeypatch.setattr(A.subprocess, 'Popen', child)
+    started = time.monotonic()
+    assert A.bounded_guard([], seconds=0.1) == 124
+    assert time.monotonic() - started < 1.0
