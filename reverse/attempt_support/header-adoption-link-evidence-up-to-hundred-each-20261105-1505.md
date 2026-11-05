@@ -34,3 +34,21 @@ from the outgoing series. The source and header key remain on their original sta
 link_check: protected decoder source cannot be prepared: Code/GameEngine/Source/Common/Rva007E3C20Vp6StreamDtor.cpp
 ```
 
+
+
+## Scoped consumer recheck, 2026-11-05, second follow-up
+
+Inspected revision `7dc4b67c8e26610c09218ebb9e47ccfab9a71afd`. The previously missing AIBaseBuilder.cpp
+receipt now passes 27/27 function rows and one data row. The six previously
+published DieModuleInterface units and the CreateAHero consumer together pass
+76/76 function rows with current strict receipts.
+
+The same-head audit of the six affected providers reports:
+
+```text
+link batch audit: INCONCLUSIVE baseline: index at 984a4cdc4d, outgoing base 7dc4b67c8e26610c09218ebb9e47ccfab9a71afd; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/GameEngine/Source/Common/AIBuildable.cpp
+```
+
+Carry AIBuildable.cpp and the rest of the affected consumer scope into the
+next scheduled census. The older index still limits the closure verdict.
