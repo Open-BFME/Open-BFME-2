@@ -465,7 +465,9 @@ Typedef operands and other operator signatures are unsupported. All native
 installation, identity, protection and byte checks above still apply. A unit
 whose current object references the old name but whose text declares nothing
 to rewrite (an implicit member, a base's declaration) is refused: reconcile
-that view first. It tombstones each renamed `(name, rva)` with `Renamed to
+that view first. A unit that includes, directly or through other headers, a
+header this respell makes virtual is not such a unit: its view is that
+header's, and it is verified with it. It tombstones each renamed `(name, rva)` with `Renamed to
 <new> by tools/rename.py (virtual: retail vtable slot)`. The name's basis does
 not change: a `name_basis.csv` record of the old spelling moves to the new one
 in a `carry` row whose evidence cites the slot (so an inferred landing stays

@@ -582,3 +582,51 @@ def test_prepared_goes_with_virtual_or_to_class_only(tree, monkeypatch):
     with pytest.raises(Refusal, match="--prepared sources go with --to-class or --virtual only"):
         rename.plan_rename("function", ctx=ctx_of(tree), rva=0x00401000, new="countAll", basis="inferred",
                            evidence="agree:x", prepared={"Code/Game/WidgetDtor.cpp": PREPARED_DTOR.encode()})
+
+
+# ------------------------------------------------------------ a view declared in an included header
+
+VIEW_HEADER = "class Widget { public: int countParts(int n); virtual void spinUp(); };\n"
+VIEWER = '#include "WidgetView.h"\nvoid viewer(Widget *w) { w->countParts(4); }\n'
+BLIND = "class Widget;\nvoid blind(Widget *w);\n"
+
+
+def _with_units(tree, monkeypatch, units):
+    """Add WidgetView.h and the ledger units `units` ({rel: text}) with a row
+    each, and report every unit's current object as referencing the old name."""
+    (tree / "Code/Game/WidgetView.h").write_bytes(VIEW_HEADER.encode())
+    rows = []
+    for at, (rel, text) in enumerate(sorted(units.items())):
+        (tree / rel).write_bytes(text.encode())
+        rows.append(f"?unit{at}@@YAXPAVWidget@@@Z,,0x0040A{at:03X},8,{rel},matched,calls {OLD}\n")
+    with open(tree / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.writelines(rows)
+    _git(tree, "add", "-A")
+    monkeypatch.setattr(rename, "object_referencers", lambda ctx, symbols: set(units))
+    monkeypatch.setattr(rename, "object_confirms", lambda ctx, rel, symbols: True)
+
+
+def test_a_unit_whose_view_lives_in_a_rewritten_header_is_covered(tree, monkeypatch):
+    """BridgeScaffoldBehavior.cpp's UpdateModule view sits in its included
+    BridgeScaffoldBehaviorView.h: the header gains `virtual`, so the unit is
+    not one with nothing to reconcile; it is verified with the header."""
+    retail(monkeypatch, {TABLE: ([0x00401000], {CTOR_STORE: 0})})
+    _with_units(tree, monkeypatch, {"Code/Game/Viewer.cpp": VIEWER})
+    p = plan(tree)
+    assert "Code/Game/WidgetView.h" in p.after
+    assert "Code/Game/Viewer.cpp" in p.verify
+    rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    assert (tree / "Code/Game/WidgetView.h").read_bytes() == VIEW_HEADER.replace(
+        "public: int countParts", "public: virtual int countParts").encode()
+    assert (tree / "Code/Game/Viewer.cpp").read_bytes() == VIEWER.encode()
+
+
+def test_a_unit_no_rewritten_header_reaches_is_still_refused(tree, monkeypatch):
+    """The header covers only its includers: a referencing unit that neither
+    declares the method nor includes a rewritten view keeps the refusal."""
+    retail(monkeypatch, {TABLE: ([0x00401000], {CTOR_STORE: 0})})
+    _with_units(tree, monkeypatch, {"Code/Game/Viewer.cpp": VIEWER, "Code/Game/Blind.cpp": BLIND})
+    before = snapshot(tree)
+    with pytest.raises(Refusal, match=r"Code/Game/Blind\.cpp's object references .*reconcile the view first"):
+        plan(tree)
+    assert snapshot(tree) == before

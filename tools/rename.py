@@ -3439,6 +3439,10 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
     by_object = object_referencers(ctx, set(olds))
     candidates |= by_object | sources | prepared_rels
     headers, rewritten = [], set(prepared_rels)
+    # A unit whose object references an old name but whose own text declares
+    # nothing may get its view from a header this plan makes virtual; it is
+    # refused only after every candidate is read, when no such header covers it.
+    undeclared, declaring_headers = [], set()
     for rel in sorted(candidates):
         data = plan.after.get(rel, ctx.read(rel))
         if data is None:
@@ -3446,6 +3450,8 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
         text = data.decode("utf-8", errors="surrogateescape")
         new_text, made, respelled = respell_virtual_text(text, cls, word, pairs,
                                                       stream_operand=stream_operand)
+        if made and not rel.endswith(SOURCE_SUFFIXES):
+            declaring_headers.add(rel)
         if rel in prepared_rels:
             left = [name for name in olds if name in new_text]
             if left:
@@ -3459,9 +3465,7 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
             # exists; only a current object naming an old symbol is a consumer
             # this rewrite would miss (name_dependents still builds the rest).
             if rel in by_object and object_confirms(ctx, rel, set(olds)):
-                raise Refusal(f"{rel}'s object references {', '.join(olds)} but no body of class {cls} there "
-                              f"declares {word or '~' + cls} to make virtual, nor does its text spell the name "
-                              "(an implicit member or a base's declaration: reconcile the view first)")
+                undeclared.append(rel)
             continue
         if is_generated(rel):
             raise Refusal(f"generated source {rel} declares or spells {first['name']}; it is never edited")
@@ -3471,6 +3475,12 @@ def plan_virtual(ctx, rva, *, evidence="", old=None, max_files=25, prepared=None
         plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
         if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
             headers.append(rel)
+    covered = includers(ctx, sorted(declaring_headers), max_files) if declaring_headers else set()
+    for rel in undeclared:
+        if rel not in covered:
+            raise Refusal(f"{rel}'s object references {', '.join(olds)} but no body of class {cls} there "
+                          f"declares {word or '~' + cls} to make virtual, nor does its text spell the name "
+                          "(an implicit member or a base's declaration: reconcile the view first)")
     if len(rewritten) > max_files:
         raise Refusal(f"{len(rewritten)} files to rewrite (over --max-files {max_files})")
     verify = {rel for rel in rewritten if rel in ctx.ledger_sources()} | sources
