@@ -17,3 +17,5 @@ and retires the pin. So the remaining consumer, GameClient.cpp
 change: `link_check` LINKS (5 -> 5 bytes). Scope: every consumer that spells the name now
 has a definer. Clearance needs the next real link (`real-link.yml`) to stop listing it.
 2026-11-05: independently of `85b46a09f3`, GameClient.cpp also calls the matched getter (2/2 rows, 622 external definitions kept, preview LINKS); next check: the next real link lists none of them; [GameClient repair evidence](../../reverse/attempt_support/drawable-id-gameclient-20261105-claude/report.md).
+
+2026-11-05: `85b46a09f3` supplies the named getter in Drawable.cpp; AnimationSoundClientBehavior now uses it directly, removing its address-named workaround. Current animation/provider/health-bar objects all preview LINKS; provider absence is cleared locally, awaiting the next real link for all historical callers. [Named-provider verification and stale-index duplicate diagnosis](../../reverse/attempt_support/animation-sound-named-id-20261105-codexb4.md).

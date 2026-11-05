@@ -237,13 +237,11 @@ struct ObjectPositionView { char unknown[0x38]; Coord3D position; };
 
 class Drawable { public:
  const Coord3D* getPosition() const; DrawModule**getDrawModules();
+ DrawableID getID() const;
  char unknown00[0xFC]; ObjectPositionView *parent; char unknown100[0x34A]; bool enabled;
 };
 
 class Rva002B224BDwordField { public: int get() const; };
-// The matched +0x100 accessor owns RVA 0x0055A88B. Drawable::getID is
-// pinned there too, but no object defines that spelling for the real link.
-class Rva0055A88BDwordField { public: int get() const; };
 
 class Rva0049B47C
 {
@@ -590,7 +588,7 @@ void AnimationSoundClientBehavior::updateAnimationSounds()
      iter=(AnimationSoundTreeNode*)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base*)iter);
      if(entry->frame==ranges[r].first)continue;
      if(entry->conditional && !((Rva001DFE56*)((char*)d+0x258))->rva001DFE56(&entry->required,&entry->prohibited))continue;
-     BfmeAudioEventPrefix136 event(entry->sound,(DrawableID)((const Rva0055A88BDwordField*)d)->get());
+     BfmeAudioEventPrefix136 event(entry->sound,d->getID());
      TheAudio->addAudioEvent(&event);
     }
    }
