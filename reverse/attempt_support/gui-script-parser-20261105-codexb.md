@@ -43,3 +43,11 @@ Publication of the first prerequisite was initially refused by an earlier
 queued identity retirement: Upgrade.cpp lacked a current provider receipt.
 Its normal build passes 27/27; repair_queue verify-removed over the entire
 outgoing range then passes without editing or retiring any register key.
+
+Import-call prerequisite: merged parser trials emitted direct strtok calls under
+the seed flags, whereas retail uses the DLL import. Qualifying both definitions
+through the existing NativeScriptCrt import declaration makes their cached
+object bytes and relocation names identical. Normal builds pass 35/35 rows.
+The fresh merge dry run accepts the seed and both parser donors (35 rows) and
+passes its census-based link guard. Applying requires committed donor changes
+before git rm; its partial path repoints were restored before this prerequisite.

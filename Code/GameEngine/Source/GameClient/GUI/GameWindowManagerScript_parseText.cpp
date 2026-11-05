@@ -40,6 +40,10 @@ class AsciiString;
 #include "ascii_string.h"
 
 
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+}
+
 class WinInstanceData;
 
 // ?parseText@@YA_NPADPAVWinInstanceData@@0PAX@Z
@@ -53,7 +57,7 @@ static Bool parseText(char *token, WinInstanceData *instData, char *buffer, void
 	while (*ptr != '"')
 		ptr++;
 	ptr++;  // skip the "
-	c = strtok(ptr, stringSeps);  // value
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // value
 	if (strlen(c) >= MAX_TEXT_LABEL)
 	{
 		DEBUG_LOG(("Text label '%s' is too long, max is '%d'\n", c, MAX_TEXT_LABEL));

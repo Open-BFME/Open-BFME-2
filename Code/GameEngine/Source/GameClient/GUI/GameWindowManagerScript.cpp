@@ -1185,7 +1185,7 @@ static Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *bu
 	while (*ptr != '"')
 		ptr++;
 	ptr++;  // skip the first "
-	c = strtok(ptr, stringSeps);  // name value
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // name value
 
 	((AsciiString *)((char *)instData + 0x194))->set(c);
 
@@ -1304,7 +1304,7 @@ static Bool parseText(char *token, WinInstanceData *instData, char *buffer, void
 	while (*ptr != '"')
 		ptr++;
 	ptr++;  // skip the "
-	c = strtok(ptr, stringSeps);  // value
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // value
 	if (strlen(c) >= MAX_TEXT_LABEL)
 	{
 		DEBUG_LOG(("Text label '%s' is too long, max is '%d'\n", c, MAX_TEXT_LABEL));

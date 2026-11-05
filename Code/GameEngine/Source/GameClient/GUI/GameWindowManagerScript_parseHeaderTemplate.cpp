@@ -25,6 +25,10 @@ typedef bool Bool;
 #include "ascii_string.h"
 
 
+namespace NativeScriptCrt {
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *, const char *);
+}
+
 class WinInstanceData;
 
 
@@ -39,7 +43,7 @@ static Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *bu
 	while (*ptr != '"')
 		ptr++;
 	ptr++;  // skip the first "
-	c = strtok(ptr, stringSeps);  // name value
+	c = NativeScriptCrt::strtok(ptr, stringSeps);  // name value
 
 	((AsciiString *)((char *)instData + 0x194))->set(c);
 
