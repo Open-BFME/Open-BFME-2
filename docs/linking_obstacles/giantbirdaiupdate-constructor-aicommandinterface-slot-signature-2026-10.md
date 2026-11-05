@@ -20,3 +20,5 @@ and already link, so they were left alone.
 2026-11-05: factory/append donors now adopt canonical AIStateMachine, with the append donor using the canonical AI base and slot-30 declaration; four header-queue entries retired, all four checked units still predict LINKS (1,351 bytes unchanged). Remaining merge prerequisites and verification: [evidence](../../reverse/attempt_support/giantbird-state-headers-20261105-codex.md).
 
 2026-11-05: seed/collision declarations now agree; 19/19 rows match and both units still predict LINKS (2,487 bytes unchanged). Next run the guarded composition: [evidence](../../reverse/attempt_support/giantbird-collision-prep-20261105-codex.md).
+
+2026-11-05: guarded merge absorbed the collision donor into the approved GiantBird TU, removing one source file with 19/19 rows preserved and unchanged combined 2,487-byte link prediction. Remaining donor prerequisites and path/register audit: [evidence](../../reverse/attempt_support/giantbird-collision-merge-20261105-codex.md).

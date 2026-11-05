@@ -15,45 +15,32 @@ extern int BfmeLogicFramesPerSecond;
 #include <stdlib.h>
 #include <list>
 #include <memory>
-
 Real normalizeAngle(Real angle);
-
 // The scratch mask the GiantBird movement helpers pass along (data row).
 extern unsigned char g_00E01EC4[4];
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_BFME_06 = 0x06,
 	OBJECT_STATUS_BFME_3C = 0x3C,
 	OBJECT_STATUS_BFME_48 = 0x48
 };
-
 enum { BFME_MODELCONDITION_72 = 2 * 32 + 8, BFME_MODELCONDITION_103 = 3 * 32 + 7 };
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
-
 enum AICommandType { AICMD_NO_COMMAND = -1 };
-
 enum CommandSourceType { CMD_FROM_AI = 2 };
-
 enum KindOfType { KINDOF_BFME_9B = 0x9B };
-
 class FXList;
-
 class Object;
-
 class FXList
 {
 public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
-
 #include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
-
 class ThingTemplateView
 {
 public:
@@ -61,9 +48,7 @@ public:
 	unsigned char m_pad000[0x108];
 	unsigned char m_kindOf[0x20]; // +0x108
 };
-
 extern Real ACos(Real);
-
 class Thing
 {
 public:
@@ -84,9 +69,7 @@ private:
 	Coord3D m_cachedPos; // +0x38
 	Real m_cachedAngle; // +0x44
 };
-
 #include "../../../../../Include/GameLogic/Module/BodyModule.h"
-
 class ContainModuleInterface
 {
 public:
@@ -112,7 +95,6 @@ public:
 	virtual UnsignedInt getContainCount(Int unused) const = 0; // +0x114
 	virtual Rva0036AE51ListView getContainedItemsView() = 0; // +0x118
 };
-
 class PhysicsBehavior
 {
 public:
@@ -122,12 +104,9 @@ private:
 	unsigned char m_pad00[0x5F];
 	Bool m_5F; // +0x5F
 };
-
 // The pinned owner names of 0x003909FA and 0x00294D61.
 class Rva003909FAObj { public: void consume(void *force, Int a, Int b); };
-
 class Rva00294D61 { public: void report(Object *victim, Int flag); };
-
 class ModelConditionFlags
 {
 public:
@@ -142,7 +121,6 @@ public:
 private:
 	unsigned int m_words[19];
 };
-
 class Object : public Thing
 {
 public:
@@ -204,7 +182,6 @@ private:
 	unsigned char m_pad260[0x438 - 0x260];
 	unsigned char m_privateStatus; // +0x438
 };
-
 // Sets a status on the Object for the lifetime of the scope (WB 0x00E414C0
 // and 0x00E41500, inlined in retail); the name is a structural inference.
 class ObjectStatusScope
@@ -222,11 +199,8 @@ private:
 	Object *m_obj;
 	ObjectStatusTypes m_status;
 };
-
 #include "../../../../../Include/GameLogic/AiOrdersManager.h"
-
 extern AiOrdersManager *TheAiOrdersManager;
-
 struct AICommandParms
 {
 	AICommandParms(AICommandType cmd, CommandSourceType cmdSource); // 0x00351BD0
@@ -243,21 +217,16 @@ struct AICommandParms
 	void *m_coordsEnd; // +0x28
 	char m_tail[0xC0 - 0x2C];
 };
-
 class Rva00368C7A
 {
 public:
 	void rva003681F2(const Coord3D *pos, const unsigned char *mask, const Coord3D *pos2, bool flag);
 };
-
 typedef UnsignedInt StateID;
-
 #include "../../../../../Include/Common/StateMachine.h"
 #include "../../../../../Include/Common/StateMachineClass.h"
-
 // Field names are the INI tokens of the retail parse table 0x00C178D8.
 class MultiIniFieldParse;
-
 class __declspec(novtable) TransportAIUpdateModuleData
 {
 public:
@@ -268,7 +237,6 @@ public:
 private:
 	unsigned char m_opaque[0x64 - 4];
 };
-
 class __declspec(novtable) GiantBirdAIUpdateModuleData : public TransportAIUpdateModuleData
 {
 public:
@@ -284,24 +252,20 @@ public:
 	Real m_followThroughGradient; // +0x7C FollowThroughGradient
 	const FXList *m_tossFX; // +0x80 TossFX
 };
-
 struct GiantBirdHeightView
 {
 	unsigned char m_pad00[0xC0];
 	Int m_C0; // +0xC0
 };
-
 struct GiantBirdLocomotorView
 {
 	void *m_00;
 	const GiantBirdHeightView *m_04; // +0x04
 	Int getC0() const { return m_04->m_C0; }
 };
-
 #include "../../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../../Include/GameLogic/Module/AIUpdate.h"
-
 class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
@@ -335,7 +299,6 @@ private:
 	Coord3D m_56C; // +0x56C
 	Bool m_578; // +0x578
 };
-
 //
 // ??0GiantBirdAIUpdateModuleData@@QAE@XZ, retail 0x0036812E (84 bytes).
 // Frameless ModuleData ctor over the pinned TransportAIUpdateModuleData
@@ -349,14 +312,18 @@ private:
 // base with its own float/int tail).
 
 extern "C" const void *const __identifier("??_7AnimalAIUpdateModuleData@@6B@")[];
-
 class INI;
-
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
 #include "../../../../../Include/Common/INI/FieldParse.h"
-
 #include "../../../../../Include/Common/INI/INI.h"
+inline void addCoord(Coord3D *lhs, const Coord3D *rhs)
+{
+	lhs->x += rhs->x;
+	lhs->y += rhs->y;
+	lhs->z += rhs->z;
+}
+class ModuleData;
+class Rva001E438B { public: float *rva00261988(float *out, Rva001E438B *other); };
 
 extern const char *TheLocomotorSetNames[];
 
@@ -372,7 +339,6 @@ extern const FieldParse g_00C178D8[] = {
 	{ "TossFX", &INI::parseFXList, 0, 0x80 },
 	{ 0, 0, 0, 0 }
 };
-
 
 // Instantiate the recovered operations only. Retail's single insertion calls
 // the node creator; the forced-inline list shim would emit another body here.
@@ -393,6 +359,8 @@ template list<Rva0036ADF9Element>::_Node *list<Rva0036ADF9Element>::_M_create_no
 // its source, otherwise copy the existing empty-list sentinel at E0362C.
 // The copier's insertion callees establish a four-byte element independently.
 extern unsigned g_Va00E0362C;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp
 
@@ -680,16 +648,6 @@ UpdateSleepTime GiantBirdAIUpdate::update()
 	return sleep;
 }
 
-// tu-skeleton: 0x0036819D 63B ?makeStateMachine@GiantBirdAIUpdate@@MAEPAVAIStateMachine@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00368D12 387B ?rva00368D12@GiantBirdAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp (not merged yet)
-
-// tu-skeleton: 0x003698CD 238B ?onCollide@GiantBirdAIUpdate@@UAEXPAVObject@@PBUCoord3D@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateOnCollide.cpp (not merged yet)
-
-// tu-skeleton: 0x00369FDF 1034B ?lookForInnerTarget@Rva00369FDFGuardMachine@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardInnerTargetRva00369FDF.cpp (not merged yet)
-
-// tu-skeleton: 0x0036AC73 390B ?xfer@GiantBirdAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateXfer.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0036ADF9.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
@@ -703,6 +661,65 @@ ContainmentList Rva0036AE51ListView::rva0036AE51()
     }
     return ContainmentList(*reinterpret_cast<const ContainmentList *>(&g_Va00E0362C));
 }
+
+// tu-skeleton: 0x0036819D 63B ?makeStateMachine@GiantBirdAIUpdate@@MAEPAVAIStateMachine@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00368D12 387B ?rva00368D12@GiantBirdAIUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateOnCollide.cpp
+
+//
+// GiantBirdAIUpdate::onCollide, retail 0x003698CD (238 bytes, RET 0xC).
+// Target evidence: it is slot 0 of ??_7GiantBirdAIUpdate@@6BAIUpdateInterface24@@@
+// (0x00817A54), the subobject vtable at +0x24 whose six slots have Zero
+// Hour's CollideModuleInterface shape (a three-argument slot 0, a one-
+// argument false predicate 0x005CB9FF, then four folded false predicates
+// 0x0047A699), so the body's this is the +0x24 subobject. It reads the
+// module's Object (+0x08), the rowed AIUpdateInterface::getCurrentVictim
+// and, when there is none, the +0x30 state machine's rowed getGoalObject;
+// skips KindOf 0x9B owners, the goal itself and colliders whose template
+// (+0x04) lacks bit 2 of byte +0x108. Unless bit 6 of the +0x4B8 word (the
+// GiantBirdAIUpdate constructor's m_4B8) is set it requires the goal's rowed
+// squared distance 0x00263763 to the collider to exceed the square of both
+// +0xB8 radii, then adds the normalized vector 0x00261988 between the two
+// objects to the +0x56C accumulator the constructor zeroes. The Object and
+// template fields stay unnamed views; the callee names are the ledger's.
+
+void GiantBirdAIUpdate::onCollide(Object *other, const Coord3D *loc, const Coord3D *normal)
+{
+	Object *obj = getObject();
+	if (!obj || !other)
+		return;
+	if (obj->isKindOf(KINDOF_BFME_9B))
+		return;
+	Object *victim = getCurrentVictim();
+	if (!victim)
+	{
+		if (!getStateMachine())
+			return;
+		victim = getStateMachine()->getGoalObject();
+		if (!victim)
+			return;
+	}
+	if (victim == other)
+		return;
+	if (!(other->getTemplateView()->m_kindOf[0] & 4))
+		return;
+	if (!testFlag(6) && victim)
+	{
+		Real r = obj->getRadiusB8() + other->getRadiusB8();
+		if (victim->rva00263763(other) <= r * r)
+			return;
+	}
+	Coord3D v;
+	((Rva001E438B *)other)->rva00261988(&v.x, (Rva001E438B *)obj);
+	v.normalize();
+	addCoord(&m_56C, &v);
+}
+
+// tu-skeleton: 0x00369FDF 1034B ?lookForInnerTarget@Rva00369FDFGuardMachine@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardInnerTargetRva00369FDF.cpp (not merged yet)
+
+// tu-skeleton: 0x0036AC73 390B ?xfer@GiantBirdAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0036B567 338B ?doLocomotor@GiantBirdAIUpdate@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdDoLocomotor.cpp (not merged yet)
 
