@@ -475,9 +475,11 @@ def test_harness_import_roots_reuse_existing_spelling():
     assert "__imp__GetVersionExA@4" in roots
 
 
-def test_harness_import_roots_do_not_hide_multiple_spellings():
+def test_harness_import_roots_keep_providers_but_root_only_canonical_slot():
     requests, roots = E.harness_import_roots({"__imp__GetVersion", "__imp__GetVersion@0"})
-    assert {"__imp__GetVersion", "__imp__GetVersion@0"} <= roots
+    assert {"__imp__GetVersion", "__imp__GetVersion@0"} <= requests
+    assert "__imp__GetVersion@0" in roots
+    assert "__imp__GetVersion" not in roots
     assert roots <= requests
 
 
@@ -504,3 +506,49 @@ def test_unresolved_export_is_not_lost_from_errors_tsv():
     assert rows[0]["code"] == "LNK2001"
     assert rows[0]["symbol"] == name
     assert rows[0]["source"] == ""
+
+def test_diagnostic_pipeline_keeps_results_logs_and_scoreboard_separate(tmp_path, monkeypatch):
+    import json
+    import types
+    root = tmp_path
+    measured = root / "build/exit_link"
+    measured.mkdir(parents=True)
+    board = measured / "scoreboard.json"
+    board.write_bytes(b'{"unresolved":393,"duplicates":0,"image_written":false,"authoritative":true}\n')
+    before = board.read_bytes()
+    monkeypatch.setattr(E, "ROOT", root)
+    monkeypatch.setattr(E, "OUT", measured)
+    monkeypatch.setattr(E.sys, "platform", "linux")
+    monkeypatch.setattr(E, "object_inventory", lambda rows: ([], [], []))
+    monkeypatch.setattr(E, "check_data_rows", lambda: None)
+    monkeypatch.setattr(E.census, "_object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "omission_proof", lambda *a: {
+        "population_problem": None, "inspection_failures": [], "uncovered_funclets": [],
+        "unproven": [], "outside_referrers": {}, "exclusive_names": [], "objects": [],
+        "funclet_covered": 0, "funclet_rows": 0})
+    monkeypatch.setattr(E, "eh_proof", lambda rows: {"unproven": [], "missing_objects": 0})
+    monkeypatch.setattr(E, "link_setup", lambda *a: (
+        [root / "bridge.obj", root / "absolute.obj"],
+        {"import_libraries": [], "harness_import_symbols": []}))
+    monkeypatch.setattr(E, "link_command", lambda inputs, image, out, roots:
+                        (["fixture-linker"], out / "exit.rsp"))
+    monkeypatch.setattr(E.census, "census_state", lambda *a: {})
+    monkeypatch.setattr(E, "tool_digests", lambda: {})
+    monkeypatch.setattr(E.build, "vc71_root", lambda: root)
+    monkeypatch.setattr(E.build, "compiler_environment", lambda *a: {})
+    monkeypatch.setattr(E.subprocess, "run", lambda *a, **k:
+                        types.SimpleNamespace(returncode=0, stdout="", stderr=""))
+    monkeypatch.setattr(E, "object_sources", lambda rows: {})
+    monkeypatch.setattr(E.census, "classify", lambda *a: ({}, {}, {}, {}))
+    monkeypatch.setattr(E, "placement_objects", lambda rows: [])
+    monkeypatch.setattr(E, "published_index_meta", lambda: {})
+    monkeypatch.setattr(E.census, "head", lambda: "a" * 40)
+    assert E.run_diagnostic([]) == 1  # fake linker wrote no image, so no credit
+    diagnostic = root / "build/diagnostic_link"
+    result = json.loads((diagnostic / "result.json").read_text())
+    assert result["mode"] == "diagnostic-link"
+    assert root / result["link"]["log"] == diagnostic / "link.log"
+    assert (diagnostic / "link.log").is_file()
+    assert E.OUT == measured
+    assert board.read_bytes() == before
+    assert sorted(p.name for p in measured.iterdir()) == ["scoreboard.json"]

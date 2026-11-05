@@ -699,9 +699,10 @@ def initializer_table(rows, inputs):
 def harness_import_roots(requests):
     """Keep the harness's named IAT slots even without a surviving code referrer.
 
-    Reuse existing COFF spellings so adding a root does not manufacture a
-    second import slot. Multiple existing spellings remain visible to the
-    image checker; none is hidden or silently redirected.
+    Root one spelling per API, preferring its canonical stdcall name. Rooting
+    every spelling also retains unused IAT variants from discarded COMDATs.
+    Keep all requests/providers: genuinely referenced variants still link
+    normally and remain visible to the image checker.
     """
     requests = set(requests)
     roots = set()
@@ -709,7 +710,8 @@ def harness_import_roots(requests):
         existing = {symbol for symbol in requests
                     if symbol.startswith("__imp__") and
                     re.sub(r"@\d+$", "", symbol[len("__imp__"):]) == name}
-        roots.update(existing or {f"__imp__{name}@{stack_bytes}"})
+        preferred = f"__imp__{name}@{stack_bytes}"
+        roots.add(preferred if preferred in existing or not existing else sorted(existing)[0])
     return requests | roots, roots
 
 
@@ -929,7 +931,7 @@ def run_link(rows, diagnostic=False):
             "exit": code,
             "command": command,
             "response": rsp.name,
-            "log": "build/exit_link/link.log",
+            "log": (OUT / "link.log").relative_to(ROOT).as_posix(),
             "image_written": image_written,
             "pe_defect": census.pe_defect(image) if image_written else None,
         },
