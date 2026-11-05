@@ -20,17 +20,7 @@ struct BfmeNode_00161220
 // and Zero Hour's checkQueuedTeams call it with the entry right after removeFrom_TeamBuildQueue.
 class TeamInQueue;
 
-class AIPlayer
-{
-public:
-	void prependTo_TeamReadyQueue(TeamInQueue *team);
-
-private:
-	char m_pad00[4];
-	void *m_teamBuildQueue;
-	void *m_teamReadyQueue;
-};
-
+#include "../../Include/GameLogic/AIPlayerClass.h"
 
 // Native4EF39A calls the independently byte-verified/link-clean23-byte
 // second-list prepend4EF35C with its node receiver and supplied head.
@@ -51,7 +41,7 @@ public:
 
 void AIPlayer::prependTo_TeamReadyQueue(TeamInQueue *team)
 {
-    void **readyQueueHead = &m_teamReadyQueue;
-    if (!team->dlink_isInList_TeamReadyQueue((TeamInQueue *const *)readyQueueHead))
+    TeamInQueue **readyQueueHead = &m_teamReadyQueue;
+    if (!team->dlink_isInList_TeamReadyQueue(readyQueueHead))
         ((Rva00160620 *)team)->set((Rva00160620 **)readyQueueHead);
 }

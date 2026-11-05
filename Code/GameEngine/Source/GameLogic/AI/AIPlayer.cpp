@@ -514,38 +514,7 @@ int BuildListInfo::getDesiredGatherers()
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/AIPlayer.h
 class ThingTemplate;
-class AIPlayer
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power,
-		Coord3D *retPos, Int playerNdx, Real weaponRadius);	// +0x10
-	virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual Player *getAiEnemy();				// +0x30
-	static void getPlayerStructureBounds(Region2D *bounds, Int playerIndex);	// 0x004F1B8C
-	bool isLocationSafe(const Coord3D *pos, const ThingTemplate *tmpl);
-	Bool isSupplySourceAttacked();	// 0x004F1138
-	void guardSupplyCenter(Team *team, Int minSupplies);
-	void buildUpgrade(const AsciiString &upgrade);
-
-protected:
-	static Int getPlayerSuperweaponValue(Coord3D *center, Int playerNdx, Real radius);
-	void checkForSupplyCenter(BuildListInfo *info, Object *bldg);
-	Object *findSupplyCenter(Int minimumCash);
-	bool rva004F2BEE(int minimumCash);
-
-private:
-	unsigned char m_pre[0x0C - 0x04];
-	Player *m_player;					// +0x0C
-	unsigned char m_mid[0x2C - 0x10];
-	GameDifficulty m_difficulty;				// +0x2C
-	unsigned char m_pad30[0x34 - 0x30];
-	Coord3D m_baseCenter;					// +0x34
-	unsigned char m_pad40[0x6C - 0x40];
-	unsigned int m_supplySourceAttackCheckFrame;		// +0x6C
-	ObjectID m_attackedSupplyCenter;			// +0x70
-};
+#include "../../../Include/GameLogic/AIPlayerClass.h"
 
 // ?checkForSupplyCenter@AIPlayer@@IAEXPAVBuildListInfo@@PAVObject@@@Z
 void AIPlayer::checkForSupplyCenter(BuildListInfo *info, Object *bldg)

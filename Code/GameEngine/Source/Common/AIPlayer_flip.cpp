@@ -1,36 +1,23 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
 
-struct Rva00160A00Node
-{
-	char pad[0x0C];
-	Rva00160A00Node *m_0C;
-	Rva00160A00Node *m_10;
-};
-
-class AIPlayer
-{
-	char pad[8];
-	Rva00160A00Node *m_08;
-
-public:
-	void flip();
-};
+#include "../../Include/GameLogic/AIPlayerClass.h"
+#include "../GameLogic/AI/TeamInQueue.h"
 
 void AIPlayer::flip()
 {
-	Rva00160A00Node *currentNode = m_08;
-	Rva00160A00Node *lastNode = 0;
+	TeamInQueue *currentNode = m_teamReadyQueue;
+	TeamInQueue *lastNode = 0;
 	if (currentNode)
 	{
 		do
 		{
-			Rva00160A00Node *firstLink = currentNode->m_0C;
-			Rva00160A00Node *secondLink = currentNode->m_10;
-			currentNode->m_10 = firstLink;
-			currentNode->m_0C = secondLink;
+			TeamInQueue *firstLink = currentNode->m_prevReady;
+			TeamInQueue *secondLink = currentNode->m_nextReady;
+			currentNode->m_nextReady = firstLink;
+			currentNode->m_prevReady = secondLink;
 			lastNode = currentNode;
 			currentNode = secondLink;
 		} while (currentNode);
 	}
-	m_08 = lastNode;
+	m_teamReadyQueue = lastNode;
 }
