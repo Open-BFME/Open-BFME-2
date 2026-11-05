@@ -41,14 +41,10 @@ struct LivingWorldArmy;
 struct Rva002B6A04Player;
 struct Rva003F0F13Elem {float a,b;};
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
-class SpawnArmy {
-public:
- SpawnArmy(int);
- virtual ~SpawnArmy();
- unsigned char beforePos[0x20-4];
- Rva003F0F13Elem pos;
- unsigned char afterPos[0x58-0x28];
-};
+// Use the Snapshot slot-3 spelling already selected by LivingWorldRegion.
+#define xfer DoXfer
+#include "../../../../Include/Common/SpawnArmy.h"
+#undef xfer
 struct Rva004FAFF2 {Rva004FAFF2 &rva004FAFF2(const Rva004FAFF2 &);};
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"
 struct OwnershipBuildingRegion {
@@ -135,7 +131,7 @@ void LivingWorldScenario::OwnershipSet::spawnArmiesInRegionsForPlayer(Rva0059E64
     if(found) {
      SpawnArmy army(0);
      ((Rva004FAFF2 *)&army)->rva004FAFF2(*(const Rva004FAFF2 *)found);
-     army.pos=spot;
+     *reinterpret_cast<Rva003F0F13Elem *>(&army.m_20)=spot;
      TheLivingWorldLogic->spawnArmy(&army,(Rva002B6A04Player *)player,true);
     }
    }

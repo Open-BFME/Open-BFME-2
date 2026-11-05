@@ -18,7 +18,7 @@ template<> BfmePod8 *vector<BfmePod8>::erase(BfmePod8*,BfmePod8*);
 template<> BfmePod16 *vector<BfmePod16>::erase(BfmePod16*,BfmePod16*);
 }
 class Rva005B129FVector {public: Rva005B09D8Record *erase(Rva005B09D8Record*,Rva005B09D8Record*); __forceinline void clear() {erase(first,finish);} Rva005B09D8Record *first,*finish,*limit;};
-class SpawnArmy {public: SpawnArmy(const SpawnArmy&);virtual ~SpawnArmy();char bytes[0x58-4];};
+class SpawnArmy;
 class Rva004E0625 {public:int rva004E0625() const;};
 class ArmySpawnerOrderView {public:
  virtual void slot0();virtual void slot4();virtual void slot8();virtual void slotC();virtual void slot10();virtual void slot14();virtual void spawn(const SpawnArmy*);
@@ -28,6 +28,10 @@ class Rva0020E89C;
 class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
 class Rva003F1C56Plot;struct Rva003F1BD3TemplateView;
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
+// Region selects Snapshot's slot-3 DoXfer spelling; keep SpawnArmy on that slot.
+#define xfer DoXfer
+#include "../../../../Include/Common/SpawnArmy.h"
+#undef xfer
 class Rva003F1093 {public:void rva003F1CFE(void*,bool);};
 struct LivingWorldArmy;
 #include "../../../../Include/GameLogic/LivingWorldLogic.h"

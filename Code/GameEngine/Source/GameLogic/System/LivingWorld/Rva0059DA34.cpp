@@ -73,13 +73,7 @@ struct RegionInfo
 
 typedef _STL::map<int, int> Rva004FFA6EIntMap;
 
-class SpawnArmy
-{
-public:
-	int rva004E1755();
-	char m_pad00[0x2C];
-	AsciiString m_name; // +0x2C
-};
+#include "../../../../Include/Common/SpawnArmy.h"
 
 struct BfmeE8
 {
@@ -228,7 +222,7 @@ bool Rva0059DA34::rva0059DB48(_STL::vector<BfmeE8> *out, const Rva0059D90CSource
 					continue;
 				int key2 = ((Rva0059D90CRegion *)livingWorldRegionManager()->rva0020EEF4((*ids)[ii]))->m_type->m_key;
 				SpawnArmy *unit = (SpawnArmy *)types->rva0050024C(type, key2);
-				void *summary = ((Rva003B8E89 *)TheCampaignManager)->rva003B8E89(&unit->m_name);
+				void *summary = ((Rva003B8E89 *)TheCampaignManager)->rva003B8E89(&unit->m_2c);
 				AsciiString name(((Rva005E7322MidRet *)((Rva0040CB2CIndexedField *)summary)->get(0))->text);
 				int kind = TheThingFactory->findTemplate(name)->m_autoResolveUnitType;
 				if (tally[kind] > m_weights[type])

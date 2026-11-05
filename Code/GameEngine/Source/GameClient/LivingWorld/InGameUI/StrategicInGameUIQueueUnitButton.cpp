@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// stlport
 //
 // StrategicInGameUIQueueUnitButton.cpp -- StrategicInGameUI::QueueUnitButton
 // members at their WorldBuilder home (reverse/wb_name_leads.csv); retail
@@ -28,16 +29,7 @@ public:
 	const Image *findImageByName(const AsciiString &name);
 };
 extern ImageCollection *TheMappedImageCollection;
-class SpawnArmy
-{
-public:
-	UnicodeString rva004E25AF(int playerID);
-	UnicodeString GetButtonHelp(int playerID);
-	unsigned char m_pad00[0x48];
-	int m_48;
-	int m_4c;
-	const Image *GetButtonImage(int playerID);
-};
+#include "../../../../Include/Common/SpawnArmy.h"
 
 struct QueueUnitButtonIds
 {

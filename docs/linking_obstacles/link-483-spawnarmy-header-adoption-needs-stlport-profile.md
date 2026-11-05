@@ -5,3 +5,4 @@ Completed: select the supported STLport profile and replace eight private SpawnA
 Remaining / next check: thirteen cohort consumers still need source-specific layout, field-identity or compile-profile reconciliation; their queue rows remain.
 Clearance: 21/21 function rows byte-match; all eight current objects pass link preview, 832 -> 832 bytes. This clearance covers only these eight consumers.
 Census confirmation: awaiting; no headline linking gain claimed.
+Follow-up 2026-11-05: seven more consumers accepted (92/92 rows exact, unchanged external definitions, 7/7 link preview at 6,428 -> 6,428 bytes); six cohort rows remain. [Reconciliation and verification](../../reverse/attempt_support/spawnarmy-header-adoption-20261105-codexb4.md).

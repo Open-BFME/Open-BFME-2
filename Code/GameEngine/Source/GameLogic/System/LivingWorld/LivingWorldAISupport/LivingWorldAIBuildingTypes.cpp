@@ -52,7 +52,7 @@ class Rva0033A674 {public:void*rva0033A674();};
 class ThingTemplate;class ThingFactory {public:const ThingTemplate*findTemplate(const AsciiString&);};extern ThingFactory*TheThingFactory;
 struct TemplateView {char gap[0x5c4];int category;};
 struct SummaryView {char gap[0x40];_STL::vector<_STL::pair<int,int> >entries;};
-class SpawnArmy {public:virtual ~SpawnArmy();SpawnArmy(const SpawnArmy&);bool rva00319CED();char data[84];};
+#include "../../../../../Include/Common/SpawnArmy.h"
 class Rva00500500 {public:Rva00500500(void*&,const SpawnArmy&);Rva00500500(const Rva00500500&);void*key;SpawnArmy value;};
 struct SpawnView {char gap[8];_STL::vector<SpawnArmy>entries;};
 struct BfmePod88 {char body[88];};

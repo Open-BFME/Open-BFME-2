@@ -21,22 +21,12 @@ struct Rva003F0F13Elem
 	float b;
 };
 
-class SpawnArmy
-{
-public:
-	void *rva004E23C1();
-	int rva004E1755();
-	SpawnArmy(int v);
-	virtual ~SpawnArmy();
-
-	char m_pad04[0x1C];
-	Rva003F0F13Elem m_pos;	// +0x20 placement spot
-	char m_pad28[0x20];
-	int m_48;	// +0x48 production time (int-ctor sets 1)
-	char m_pad4C[0x0C];
-};
 
 #include "../../../../Include/GameLogic/LivingWorldRegion.h"
+// Use the Snapshot slot-3 spelling already selected by LivingWorldRegion.
+#define xfer DoXfer
+#include "../../../../Include/Common/SpawnArmy.h"
+#undef xfer
 
 struct Rva004FAA81Building
 {
@@ -238,7 +228,7 @@ bool LivingWorldBuildingNuggetSpawnArmy::canQueueUnit(ObjectID id)
 		&& (thingTemplate = (Rva004FA83ETemplate *)((Rva0037DCA5 *)((Rva0040CB2CIndexedField *)summary)->get(0))->GetThingTemplate()) != 0
 		&& ((thingTemplate->m_kind113 & 4) == 0
 			|| (((LivingWorldPlayer *)((Rva004E0705 *)m_building)->rva004E0705())->rva002E12F3(id)
-				&& !((LivingWorldPlayer *)((Rva004E0705 *)m_building)->rva004E0705())->HasArmyQueuedInAnyBuilding(*(void **)army.m_pad4C, 0, 0)));
+				&& !((LivingWorldPlayer *)((Rva004E0705 *)m_building)->rva004E0705())->HasArmyQueuedInAnyBuilding((void *)army.m_4c, 0, 0)));
 	return result;
 }
 
@@ -296,7 +286,7 @@ void LivingWorldBuildingNuggetSpawnArmy::runProductionPhase()
 		spot.a = 0.0f;
 		spot.b = 0.0f;
 		region->GetGarrisonArmyPlacementSpot(&spot);
-		army.m_pos = spot;
+		*reinterpret_cast<Rva003F0F13Elem *>(&army.m_20) = spot;
 		int ownerId = region->m_field13C;
 		Rva002E2903Player *owner = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->find(ownerId, 0);
 		if (!owner)

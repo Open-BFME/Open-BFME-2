@@ -94,14 +94,7 @@ private:
 // described unit becomes a button record (rowed 0x005F8C48, destructor
 // 0x005E8908) that the rowed helper 0x005E8ADF adds to the list. The
 // record view binds the record's two rowed spellings.
-class SpawnArmy
-{
-public:
-	SpawnArmy(int playerID);
-	virtual ~SpawnArmy();
-private:
-	unsigned char m_data[0x58 - 4];
-};
+#include "../../Include/Common/SpawnArmy.h"
 class Rva004E0625 { public: int rva004E0625() const; };
 int Rva005F88D6Get(int id);
 class Rva005E8B66Source
