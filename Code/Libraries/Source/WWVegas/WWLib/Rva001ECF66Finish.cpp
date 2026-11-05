@@ -1,5 +1,5 @@
 // cl: /G7 /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ?rva001ECF66/Rva001ECF66, retail 0x001ECF66, 96 bytes: STLport vector
 // range copy-ctor over the 36-byte BfmeRecord001ECAF9 element. The
@@ -9,53 +9,42 @@
 // fresh frame slot and one extra push (97 B). get_allocator and _Vector_base(n)
 // are ICF aliases pinned at their rowed bodies.
 
+#include <vector>
+
 struct GeometryShape;
-struct AsciiString;
+struct BfmeRecord001ECAF9
+{
+	char m_pad[36];
+};
 
 namespace _STL
 {
-template <class _Tp> class allocator
-{
-public:
-	allocator();
-	allocator(const allocator<_Tp> &);
-};
-struct __false_type
-{
-	__false_type()
-	{
-	}
-};
-template <class _Tp, class _Alloc> class vector;
 template <> class vector<GeometryShape, allocator<GeometryShape> >
 {
 public:
 	allocator<GeometryShape> get_allocator() const;
 };
-template <class _Tp, class _Alloc> struct _Vector_base;
-template <> struct _Vector_base<GeometryShape, allocator<GeometryShape> >
+template <> class _Vector_base<GeometryShape, allocator<GeometryShape> >
 {
+public:
 	_Vector_base(unsigned int count, const allocator<GeometryShape> &alloc);
 	~_Vector_base();
 	GeometryShape *m_begin;
 	GeometryShape *m_finish;
 };
-template <class _Tp, class _Tp2>
-void _Construct(_Tp *p, const _Tp2 &v);
-template <class _InputIter, class _ForwardIter>
-__declspec(noinline) _ForwardIter __uninitialized_copy(_InputIter first, _InputIter last, _ForwardIter dest, const __false_type &tag)
+template <>
+void _Construct(BfmeRecord001ECAF9 *p, const BfmeRecord001ECAF9 &v);
+template <>
+inline __declspec(noinline) BfmeRecord001ECAF9 *__uninitialized_copy(
+	BfmeRecord001ECAF9 *first, BfmeRecord001ECAF9 *last,
+	BfmeRecord001ECAF9 *dest, const __false_type &tag)
 {
-	_ForwardIter cur = dest;
+	BfmeRecord001ECAF9 *cur = dest;
 	for (; first != last; ++first, ++cur)
 		_Construct(&*cur, *first);
 	return cur;
 }
 }
-
-struct BfmeRecord001ECAF9
-{
-	char m_pad[36];
-};
 
 class Rva001ECF66 : public _STL::_Vector_base<GeometryShape, _STL::allocator<GeometryShape> >
 {
