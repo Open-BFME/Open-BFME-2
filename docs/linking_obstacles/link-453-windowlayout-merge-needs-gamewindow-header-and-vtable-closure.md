@@ -1,0 +1,3 @@
+### LINK-453: WindowLayout merge needs GameWindow header and vtable closure
+Status: Blocked. Updated: 2026-11-05; inspected revision: `006a74b68c`.
+Evidence / next check: [Current dry-run and claim prerequisites](../../reverse/attempt_support/windowlayout-consolidation-20261105.md). `window_layout.cpp` conflicts with the seed's canonical GameWindow include; `BfmeQuickMatchScreenBaseDefaultCtor.cpp` loses linkability through slot7 and its emitted vtable. Acquire the held GameWindow consumer scope for header reconciliation, preserve chain-call bindings, and prove vtable providers before repeating the merge. No source edit or clearance; census confirmation pending.
