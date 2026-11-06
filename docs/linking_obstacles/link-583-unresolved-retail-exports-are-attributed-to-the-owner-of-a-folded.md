@@ -294,3 +294,12 @@ literals and EXACT EH. Its five claims were then released. Both provider
 repairs still await authoritative real-link and runtime confirmation; the
 last inspected pre-repair run remains 42180682743 (308 unresolved, zero
 duplicates, no image). No new link or smoke workflow was started.
+
+2026-11-06, Default alpha and color writers (base `134a4ae77bf`): the category labels
+were swapped. Export 1936 puts `DefaultModuleTemplate<1>::writeINI` at
+`0x0055B735` and export 1940 puts `<0>` at `0x0055C263`, yet the alpha body
+defined `<0>` and the color body sat under a placeholder. Both units now emit
+their exact export; the build passes **5/5** and **5 literals**, and the preview
+stays **LINKS 745 -> 745 B** against index `d707d2f53b`. Awaiting the automated
+real link. The `<2>` and `<3>` writers stay at the recorded rename boundary.
+[Evidence](../../reverse/attempt_support/default01-writeini-export-20261106-noro.md).

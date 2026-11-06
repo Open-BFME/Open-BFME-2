@@ -1,9 +1,9 @@
-// ?writeINI@Rva0055C263@@UAEXPAVFile@@I@Z
+// ?writeINI@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@UBEXAAVFile@@I@Z
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// Native full body 55C263..55C414, RET8. WB1417BE0 is unnamed; retain a
-// neutral owner. Literal Color and ColorScale plus eight 16-byte records at
-// +0xC establish this serializer's measured view, not an original template name.
+// Native full body 55C263..55C414, RET8. Retail export ordinal 1940 names it
+// DefaultModuleTemplate<0>::writeINI. Literal Color and ColorScale plus eight
+// 16-byte records at +0xC establish this serializer's measured view.
 // Primary C++ guides: matched Rva00563D3FWrite.cpp stream serialization and
 // Rva0055C18BWrite.cpp stream/header setup. Target helpers supply the key RGB,
 // float-pair, indentation, File write, and trailing-record operations.
@@ -83,9 +83,11 @@ OutputStream& Rva001F87D5Put(OutputStream&,const S001F87D5&);
 void Rva0055C18BWriteHeader(const void*,File*,unsigned int*);
 void Rva003AFC6BWrite(File*,unsigned int*);
 File& Rva001F458BWrite(File&,const Rva001F458BText&);
-class Rva0055C263 {public: virtual void v0();virtual void v1();virtual void v2();virtual void writeINI(File*,unsigned int); private:char pad[8];ColorKey keys[8];S001F87D5 scale;};
-void Rva0055C263::writeINI(File* file,unsigned int flags) {
- Rva0055C18BWriteHeader(this,file,&flags);
+namespace FXParticleSystem {
+template <int Category> class DefaultModuleTemplate;
+template <> class DefaultModuleTemplate<0> {public: virtual void writeINI(File&,unsigned int) const; private:char pad[8];ColorKey keys[8];S001F87D5 scale;};
+void DefaultModuleTemplate<0>::writeINI(File& file,unsigned int flags) const {
+ Rva0055C18BWriteHeader(this,&file,&flags);
  _STL::basic_ostringstream<char,_STL::char_traits<char>,_STL::allocator<char> > oss(16);
  const ColorKey* cursor=keys;
  for(unsigned int i=0;i<8;i++,cursor++) {
@@ -99,6 +101,7 @@ void Rva0055C263::writeINI(File* file,unsigned int flags) {
   Rva001F6951Pad(oss,flags)<<"ColorScale = ";
   Rva001F87D5Put(oss,scale)<<'\n';
  }
- Rva001F458BWrite(*file,(const Rva001F458BText&)oss.str());
- Rva003AFC6BWrite(file,&flags);
+ Rva001F458BWrite(file,(const Rva001F458BText&)oss.str());
+ Rva003AFC6BWrite(&file,&flags);
+}
 }

@@ -1,9 +1,9 @@
 // cl: /O1 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?writeINI@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@UBEXAAVFile@@I@Z
-// @0x0055B735 302B: the alpha (category 0) particle module template's INI
-// writer, slot 3 of vtables 0x0081BA70 (DefaultModuleTemplate<0>) and
-// 0x0081BF20 (its ConcreteModuleTemplate). After the rowed alpha header
+// ?writeINI@?$DefaultModuleTemplate@$00@FXParticleSystem@@UBEXAAVFile@@I@Z
+// @0x0055B735 302B: the alpha (category 1) particle module template's INI
+// writer, retail export ordinal 1936, slot 3 of vtables 0x0081BA70
+// (DefaultModuleTemplate<1>) and 0x0081BF20 (its ConcreteModuleTemplate). After the rowed alpha header
 // 0x0055B65D it writes each of the eight alpha keyframes that is not the
 // default (a zero random variable, rowed test 0x001F3744, at frame 0) as
 // "Alpha<n> = <variable> <frame>", through the rowed pad 0x001F6951 and
@@ -107,7 +107,7 @@ struct AlphaKeyframe {
 
 template <int Category> class DefaultModuleTemplate;
 
-template <> class DefaultModuleTemplate<0> {
+template <> class DefaultModuleTemplate<1> {
 public:
 	virtual void writeINI(File &file, unsigned int flags) const;
 
@@ -117,7 +117,7 @@ private:
 	AlphaKeyframe m_keyframes[8];	// 0x0C
 };
 
-void DefaultModuleTemplate<0>::writeINI(File &file, unsigned int flags) const
+void DefaultModuleTemplate<1>::writeINI(File &file, unsigned int flags) const
 {
 	Rva0055B65DWriteHeader(this, &file, &flags);
 	_STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
