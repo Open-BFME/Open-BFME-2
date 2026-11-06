@@ -171,11 +171,17 @@ def test_prefix_or_shared_section_is_not_guessed(tmp_path, kw):
     assert plan(code, [table], rows, data)["refusals"][0]["reason"] == "shared-or-prefixed-comdat"
 
 
-def test_multiple_kept_vtable_names_are_not_merged_or_aliased(tmp_path):
+def test_multiple_names_at_one_retail_address_each_get_full_counted_copy(tmp_path):
     code, table, rows, data = inputs(tmp_path)
     data[0]["names"] = "_other"
     other = table_object(tmp_path / "other.obj", name="_other")
-    assert plan(code, [table, other], rows, data)["refusals"][0]["reason"] == "multiple-kept-names"
+    result = plan(code, [table, other], rows, data)
+    assert (result["tables"], result["slots"], result["retail_tables"]) == (2, 4, 1)
+    assert {entry["name"] for entry in result["entries"]} == {"_vtable", "_other"}
+    path = V.write_object(result["entries"], tmp_path / "bridge.obj")
+    sections, symbols = L.parse_coff(path.read_bytes())
+    assert len(sections) == 2 and all(section.size == 8 for section in sections)
+    assert {sym.name for sym in symbols.values() if sym.sec > 0 and sym.cls == L.EXTERNAL} == {"_vtable", "_other"}
 
 
 def test_one_vtable_name_cannot_pick_between_retail_rows(tmp_path):
@@ -318,3 +324,56 @@ def test_queue_source_can_come_from_a_data_only_object_mapping(tmp_path):
                     object_for=lambda row: code, symbol_for=lambda row: row["name"],
                     source_of={table: "Code/TableOnly.cpp"})
     assert result["entries"][0]["source"] == "Code/TableOnly.cpp"
+
+def test_referenced_only_alias_gets_full_copy_but_unused_alias_does_not(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    data[0]["names"] = "_used;_unused"
+    consumer = L.write_coff(tmp_path / "consumer.obj", [], [("_used", 0, 0, L.EXTERNAL)])
+    result = plan(code, [table, consumer], rows, data)
+    assert {entry["name"] for entry in result["entries"]} == {"_vtable", "_used"}
+    assert result["tables"] == 2 and result["slots"] == 4
+
+
+def test_alias_that_names_another_retail_address_refuses_entire_group(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    data[0]["names"] = "_other"
+    data.append({**data[0], "address": "0x3010", "name": "_other", "names": ""})
+    other = table_object(tmp_path / "other.obj", name="_other")
+    result = plan(code, [table, other], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"ambiguous-table-name": 2}
+
+
+def test_same_address_ledger_rows_with_different_slot_sequences_are_refused(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    data.append({**data[0], "name": "_other", "size": "4"})
+    other = table_object(tmp_path / "other.obj", name="_other")
+    result = plan(code, [table, other], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"conflicting-retail-slots": 1}
+
+
+def test_multiple_names_do_not_hide_strong_duplicate(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    data[0]["names"] = "_other"
+    other = table_object(tmp_path / "other.obj", name="_other")
+    strong = table_object(tmp_path / "strong.obj", name="_other", selection=0)
+    result = plan(code, [table, other, strong], rows, data)
+    assert result["tables"] == 0
+    assert result["refusals"][0]["reason"] == "strong-definition"
+
+
+def test_p8_destructor_only_names_get_all_ten_retail_slots(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    names = ["??_7Win32BIGFileSystem@@6B@", "??_7Rva00604465@@6B@"]
+    first = table_object(tmp_path / "win32.obj", name=names[0])
+    second = table_object(tmp_path / "opaque.obj", name=names[1])
+    data[0].update(name=names[0], names=names[1], size="40")
+    result = plan(code, [first, second], rows, data, retail=Retail([0x1000, 0x1010] * 5))
+    assert result["tables"] == 2 and result["slots"] == 20
+    assert result["refused_tables"] == 0
+    assert {entry["name"] for entry in result["entries"]} == set(names)
+    for entry in result["entries"]:
+        assert entry["previous_extent"] == 4
+        assert len(entry["slots"]) == 10
+        assert entry["slots"][1]["name"] == "_second"

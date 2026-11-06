@@ -6,3 +6,14 @@ Evidence: [repair checks and post-adoption merge trial](../../reverse/attempt_su
 Census confirmation: awaiting; no linking headline gain claimed.
 
 Directory-list consolidation removes one source file, preserves all rows and clarifies three local names. [Checks and compatibility audit](../../reverse/attempt_support/win32bigfilesystem-directory-merge-20261104.md).
+
+2026-11-06 P8 experiment: the boot receipt
+`2026-11-06T155837Z-boot_smoke-5f14318d61dc` reaches a virtual init call
+past the one-slot Win32BIGFileSystem table, into XferMD5CRC's deleting destructor.
+The retail table at 0x87A94C has ten slots and two kept ledger names. The Link
+lane's generated bridge now emits a separately counted full SELECT_ANY copy for
+each defined or referenced ledger name at that same unique retail address.
+Conflicting retail-address assignments or slot sequences refuse the group.
+Strong/common definitions, target-provider checks and displaced-slot evidence
+remain enforced. No source recovery or runtime pass is claimed by this bridge.
+Diagnostic topic proof and independent review are required before master landing.
