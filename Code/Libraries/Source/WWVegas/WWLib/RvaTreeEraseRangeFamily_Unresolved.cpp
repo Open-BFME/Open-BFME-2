@@ -47,7 +47,7 @@ class Rva0007E971
 {
 public:
 	void rva0007FAC1();
-	void rva0007FB07(IntPtrTree::iterator first, IntPtrTree::iterator last);
+	void eraseRange(IntPtrTree::iterator first, IntPtrTree::iterator last);
 	unsigned int rva00082536(const int &key);
 };
 
@@ -57,7 +57,7 @@ unsigned int Rva0007E971::rva00082536(const int &key)
 {
 	_STL::pair<IntPtrTree::iterator, IntPtrTree::iterator> p = reinterpret_cast<IntPtrTree *>(this)->equal_range(key);
 	unsigned int n = _STL::distance(p.first, p.second);
-	rva0007FB07(p.first, p.second);
+	eraseRange(p.first, p.second);
 	return n;
 }
 

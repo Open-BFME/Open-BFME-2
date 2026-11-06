@@ -114,7 +114,7 @@ extern "C" const void *const __identifier("??_7ArmySummary@@6B@")[];
 extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 
-class Rva0040C598 { public: void rva0040C598(const int *); void rva0040C5B1(const int *); };
+class Rva0040C598 { public: void bitAnd(const int *); void rva0040C5B1(const int *); };
 
 class ModuleData;
 

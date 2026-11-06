@@ -59,7 +59,7 @@ public:
 	bool rva001E3840(int bit) const;
 private:
 	char m_pad00[0x4B8];
-	unsigned int m_4B8;
+	unsigned int m_flags;
 	char m_pad4BC[0x538 - 0x4BC];
 	float m_538;
 	float m_53C;
@@ -77,7 +77,7 @@ void Rva001E381E::rva001E382F(float value)
 
 bool Rva001E381E::rva001E3840(int bit) const
 {
-	return (m_4B8 & (1 << bit)) != 0;
+	return (m_flags & (1 << bit)) != 0;
 }
 
 // --- 0x001E417C (24B): lower the +0x40 float to a value.

@@ -413,7 +413,7 @@ public:
 };
 }
 
-struct Rva005648FEInput;
+struct TerrainCollisionModuleInput;
 struct Rva005641EDInput;
 struct DrawInfo2;
 

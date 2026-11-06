@@ -439,12 +439,12 @@ public:
 };
 }
 
-struct Rva005648FEInput;
+struct TerrainCollisionModuleInput;
 struct Rva005641EDInput;
 struct DrawInfo2;
 class Rva005634F7 { public: Rva005634F7(void *a, DrawInfo2 *b); };
 class Rva003AE94E { public: Rva003AE94E(void *a, void *b); };
-class Rva003AF076 { public: Rva003AF076(const RvaSmartPtr12 &a, const Rva005648FEInput &b); };
+class Rva003AF076 { public: Rva003AF076(const RvaSmartPtr12 &a, const TerrainCollisionModuleInput &b); };
 
 class Rva003AE50B { public: Rva003AE50B(void *a, void *b); };
 class Rva003ACC7C { public: Rva003ACC7C(void *a, void *b); };
@@ -669,7 +669,7 @@ public:
 };
 
 Rva003ABE8D::Rva003ABE8D(void *a, void *b)
-	: Rva003AF076(*(const RvaSmartPtr12 *)a, *(const Rva005648FEInput *)b)
+	: Rva003AF076(*(const RvaSmartPtr12 *)a, *(const TerrainCollisionModuleInput *)b)
 {
 	STAMP(0x00, g_00C1C6A4);
 	STAMP(0x14, __identifier("??_7Gen005ED0D0@@6BRva003AEEB3Slot14@@@"));

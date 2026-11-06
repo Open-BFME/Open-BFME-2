@@ -30,7 +30,7 @@ class V3Slot3	{ public: virtual void s0(); virtual ~V3Slot3() {} };
 class V3Slot2Wide { public: virtual void s0(); virtual ~V3Slot2Wide() {} int m_a; };
 struct DrawInfo2;
 class RvaSmartPtr12;
-struct Rva005648FEInput;
+struct TerrainCollisionModuleInput;
 class Rva005634F7 : public V3Slot0N, public V3Slot1, public V3Slot2 {
 public: Rva005634F7(void *, DrawInfo2 *);
 private: char unknown1C[0x5c-0x1c];
@@ -40,7 +40,7 @@ public: Rva003AE94E(void *, void *);
 private: char unknown1C[0x2c-0x1c];
 };
 class Rva003AF076 : public V3Slot0N, public V3Slot1, public V3Slot2Wide, public V3Slot3 {
-public: Rva003AF076(const RvaSmartPtr12&, const Rva005648FEInput&);
+public: Rva003AF076(const RvaSmartPtr12&, const TerrainCollisionModuleInput&);
     virtual ~Rva003AF076();
 private: char unknown24[0x44-0x24];
 };
@@ -61,7 +61,7 @@ private: char unknown24[0x44-0x24];
 // without assigning names or meanings to unrecovered fields.
 V3_NEW_TWO_ARG_FACTORY( Rva005E7420, Rva005EE8A0, 0x5c, Rva005634F7, (arg, (DrawInfo2 *)owner) )
 V3_NEW_TWO_ARG_FACTORY( Rva005E76E0, Rva005FFAC0, 0x2c, Rva003AE94E, (arg, (void *)owner) )
-V3_NEW_TWO_ARG_FACTORY( Rva005E7AD0, Rva006008D0, 0x44, Rva003AF076, (*(const RvaSmartPtr12 *)arg, *(const Rva005648FEInput *)owner) )
+V3_NEW_TWO_ARG_FACTORY( Rva005E7AD0, Rva006008D0, 0x44, Rva003AF076, (*(const RvaSmartPtr12 *)arg, *(const TerrainCollisionModuleInput *)owner) )
 
 // ---- the clone form: one argument, and it is the receiver ------------------
 //

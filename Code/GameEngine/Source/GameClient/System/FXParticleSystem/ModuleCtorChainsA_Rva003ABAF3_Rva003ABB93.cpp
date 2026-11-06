@@ -385,7 +385,7 @@ public:
 };
 }
 
-struct Rva005648FEInput;
+struct TerrainCollisionModuleInput;
 struct Rva005641EDInput;
 struct DrawInfo2;
 class Rva005634F7 { public: Rva005634F7(void *a, DrawInfo2 *b); };

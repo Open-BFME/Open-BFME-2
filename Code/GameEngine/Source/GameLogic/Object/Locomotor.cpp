@@ -167,7 +167,7 @@ struct Rva001E6731Head;
 class Rva001E6731
 {
 public:
-	unsigned rva001E71FA(const int &);
+	unsigned eraseKey(const int &);
 	void rva001E6731();
 	~Rva001E6731();
 	Rva001E6731Head *m_00; // +0x00
@@ -1104,7 +1104,7 @@ void Rva001E9045::rva001e9045(unsigned int a, unsigned int b, float c, float d)
 
 // tu-skeleton: 0x001E70C2 312B ?xferSelfAndCurLocoPtr@LocomotorSet@@QAEXPAVXfer@@PAPAVLocomotor@@@Z -- matched in Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp (not merged yet)
 
-// tu-skeleton: 0x001E71FA 73B ?rva001E71FA@Rva001E6731@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
+// tu-skeleton: 0x001E71FA 73B ?eraseKey@Rva001E6731@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x001E7243 45B ?Rva001E7243Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 

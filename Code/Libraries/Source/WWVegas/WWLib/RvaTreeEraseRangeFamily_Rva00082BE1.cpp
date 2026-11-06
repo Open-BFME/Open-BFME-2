@@ -44,7 +44,7 @@ class Rva0007E971
 {
 public:
 	void rva0007FAC1();
-	void rva0007FB07(IntPtrTree::iterator first, IntPtrTree::iterator last);
+	void eraseRange(IntPtrTree::iterator first, IntPtrTree::iterator last);
 	unsigned int rva00082536(const int &x);
 };
 

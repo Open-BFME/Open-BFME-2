@@ -122,7 +122,7 @@ static inline const int &min(const int &a, const int &b)
 }
 #include <bitset>
 #include <algorithm>
-class Rva0040C598 { public: void rva0040C598(const int *); void rva0040C5B1(const int *); };
+class Rva0040C598 { public: void bitAnd(const int *); void rva0040C5B1(const int *); };
 class Rva0037DCA5 { public: void *GetThingTemplate(); };
 class Rva002AA292 { public: bool rva002AA292(const int *) const; };
 class Rva00406F9C { public: bool rva00406F9C(const void *); };
@@ -240,7 +240,7 @@ bool Rva0040C804Target::check()
 			BfmeFixedStorage128 missing(*(const BfmeFixedStorage128 *)&carry->upgrades);
 			for (unsigned i = 0; i < 32; ++i)
 				missing.m_bits[i] = ~missing.m_bits[i];
-			((Rva0040C598 *)&missing)->rva0040C598((const int *)&view->upgrades);
+			((Rva0040C598 *)&missing)->bitAnd((const int *)&view->upgrades);
 			const ModuleInfo *modules = &view->modules;
 			for (int i = 0; i < modules->count(); ++i)
 			{

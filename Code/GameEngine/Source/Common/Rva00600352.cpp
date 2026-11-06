@@ -67,7 +67,7 @@ Rva006003FCMember::Rva006003FCMember(void *owner, void *first, void *second, uns
 	m_owner = owner;
 	*(const void *const **)this = vtbl_00C7A620;
 }
-static __forceinline unsigned int Rva006003FCColor(const Rva006003FCInputs *in)
+static __forceinline unsigned int getPlayerColor(const Rva006003FCInputs *in)
 {
 	return ((Rva006003FCPlayer *)in->m_source->rva003F468D(in->m_a, in->m_b))->getColor()->getAsInt() | 0xff000000;
 }
@@ -81,7 +81,7 @@ private:
 	Rva006003FCInputs m_14;			// +0x14
 };
 Rva006003FC::Rva006003FC(void *first, void *second, void *third)
-	: m_08(this, first, second, Rva006003FCColor((const Rva006003FCInputs *)third))
+	: m_08(this, first, second, getPlayerColor((const Rva006003FCInputs *)third))
 {
 	const Rva006003FCInputs *in = (const Rva006003FCInputs *)third;
 	m_14.m_source = in->m_source;

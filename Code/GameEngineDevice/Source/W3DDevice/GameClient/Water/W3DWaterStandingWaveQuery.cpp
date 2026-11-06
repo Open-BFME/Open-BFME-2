@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include
 // stlport
 //
-// ?rva0008026B@Rva0008026BStandingWaveQuery@@QAEXPAURva0008026BWaveInfo@@@Z,
+// ?rva0008026B@Rva0008026BStandingWaveQuery@@QAEXPAUStandingWaveInfo@@@Z,
 // retail 0x0008026B..0x00080637 (972B), thiscall ret 4 (`this` unused); sole
 // caller 0x00082EAA passes a query record built from a position.
 //
@@ -237,7 +237,7 @@ private:
 
 extern void *W3DGCData00DE2000;
 
-struct Rva0008026BWaveInfo
+struct StandingWaveInfo
 {
 	Real x;						// +0x00 query position
 	Real y;
@@ -255,10 +255,10 @@ struct Rva0008026BWaveInfo
 class Rva0008026BStandingWaveQuery
 {
 public:
-	void rva0008026B(Rva0008026BWaveInfo *info);
+	void rva0008026B(StandingWaveInfo *info);
 };
 
-void Rva0008026BStandingWaveQuery::rva0008026B(Rva0008026BWaveInfo *info)
+void Rva0008026BStandingWaveQuery::rva0008026B(StandingWaveInfo *info)
 {
 	info->index = -1;
 

@@ -158,7 +158,7 @@ struct Rva001E6731Head;
 class Rva001E6731
 {
 public:
-	unsigned rva001E71FA(const int &);
+	unsigned eraseKey(const int &);
 	void rva001E6731();
 	~Rva001E6731();
 	Rva001E6731Head *m_00; // +0x00
@@ -292,7 +292,7 @@ void LocomotorStore::parseLocomotorTemplateDefinition(INI *ini) {
   } else if(ini->type==5) {
    ((LocomotorParserView *)loco)->retired=1;
    Rva001E6731 *map=(Rva001E6731 *)&TheLocomotorStore->templates;
-   map->rva001E71FA(key);
+   map->eraseKey(key);
    reinterpret_cast<_STL::vector<const ModuleData*> *>(&TheLocomotorStore->retired)->push_back(reinterpret_cast<const ModuleData* const&>(original));
    if(((LocomotorParserView *)loco)->overrideFlag) g_Va00DFDC61=true;
    loco=new LocomotorTemplate;

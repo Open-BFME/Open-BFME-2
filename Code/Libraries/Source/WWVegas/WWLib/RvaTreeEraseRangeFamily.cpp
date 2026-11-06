@@ -58,12 +58,12 @@ class Rva0007E971
 {
 public:
 	void rva0007FAC1();
-	void rva0007FB07(IntPtrTree::iterator first, IntPtrTree::iterator last);
+	void eraseRange(IntPtrTree::iterator first, IntPtrTree::iterator last);
 	unsigned int rva00082536(const int &x);
 };
 
 // 0x0007FB07 68B: erase(first, last) over rva0007FAC1
-void Rva0007E971::rva0007FB07(IntPtrTree::iterator first, IntPtrTree::iterator last)
+void Rva0007E971::eraseRange(IntPtrTree::iterator first, IntPtrTree::iterator last)
 {
 	IntPtrTree *tree = reinterpret_cast<IntPtrTree *>(this);
 	if (first == tree->begin() && last == tree->end())
@@ -168,7 +168,7 @@ class Rva001E6731
 public:
 	void rva001E6731();
 	void rva001E675A(IntPtrTree::iterator first, IntPtrTree::iterator last);
-	unsigned int rva001E71FA(const int &key);
+	unsigned int eraseKey(const int &key);
 };
 
 // 0x001E675A 68B: erase(first, last) over rva001E6731
@@ -183,7 +183,7 @@ void Rva001E6731::rva001E675A(IntPtrTree::iterator first, IntPtrTree::iterator l
 }
 
 // 0x001E71FA 73B: erase(const int &) over rva001E675A and map<int, int>'s equal_range
-unsigned int Rva001E6731::rva001E71FA(const int &key)
+unsigned int Rva001E6731::eraseKey(const int &key)
 {
 	_STL::pair<IntIntTree::iterator, IntIntTree::iterator> q = reinterpret_cast<IntIntTree *>(this)->equal_range(key);
 	unsigned int count = _STL::distance(reinterpret_cast<IntPtrTree::iterator &>(q.first), reinterpret_cast<IntPtrTree::iterator &>(q.second));
@@ -223,7 +223,7 @@ public:
 
 unsigned int Rva001E7E78::rva001E7E78(const int &key)
 {
-	return reinterpret_cast<Rva001E6731 *>(this)->rva001E71FA(key);
+	return reinterpret_cast<Rva001E6731 *>(this)->eraseKey(key);
 }
 
 class Rva003899C4

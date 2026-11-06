@@ -6,7 +6,7 @@
 // base folds 3 pre-stores; callees rowed 0x003AEEB3 0x003A9900. Needs EH/vptr
 // order lever for volatile word vs intermediate vptrs. t=20 model=muse-03
 class RvaSmartPtr12;
-struct Rva005648FEInput;
+struct TerrainCollisionModuleInput;
 struct Rva005641EDInput;
 class GameClientRandomVariable {public:float getValue()const;int mode;float minimum,maximum;};
 class FXList;
@@ -107,7 +107,7 @@ class Rva003AF076 : public Rva005641BB, public FXParticleSystem::TerrainCollisio
 {
 public:
 	Rva003AF076(const Rva003AF076 &other);
- Rva003AF076(const RvaSmartPtr12&,const Rva005648FEInput&);
+ Rva003AF076(const RvaSmartPtr12&,const TerrainCollisionModuleInput&);
 	virtual ~Rva003AF076();
 private:
 	int m_3c;
@@ -140,10 +140,10 @@ Gen005ED0D0::Gen005ED0D0(Host005ED050 *owner)
 {
 }
 
-struct Rva005648FEInput {char unknown00[8];bool a,b;char unknown0A[10];GameClientRandomVariable eventTime;bool flag;};
+struct TerrainCollisionModuleInput {char unknown00[8];bool a,b;char unknown0A[10];GameClientRandomVariable eventTime;bool flag;};
 // Native5648FE..56499B, owner established by existing Rva003AF076 vtable
 // and copy ctor3AF076. Target base5641BB, info20/time28/cache38/count3C/active40.
-Rva003AF076::Rva003AF076(const RvaSmartPtr12&smart,const Rva005648FEInput&input)
+Rva003AF076::Rva003AF076(const RvaSmartPtr12&smart,const TerrainCollisionModuleInput&input)
  :Rva005641BB(smart,(int)&input),FXParticleSystem::TerrainCollisionModuleInfo()
 {
  eventTime=input.eventTime;

@@ -9054,3 +9054,13 @@ function,?Rva003BB141Notify@ScriptActions@@QAEXABV?$StringBase@D@@@Z,?doMoveCame
 carry,ScriptActions::Rva003BB141Notify::cameraAnimation,ScriptActions::doMoveCameraByAnimation::cameraAnimation,inferred,scope renamed by Rename Rva003BB141Notify to doMoveCameraByAnimation (inferred),Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,0x003BB141
 carry,Rva00341796::onExit::memory,Rva0033F56B::onExit::memory,inferred,scope renamed by Fold class Rva00341796 into Rva0033F56B (retail vftable 0x00C113B8),Code/GameEngine/Source/Common/Rva003418EAMethod.cpp,0x003418EA
 carry,Rva00341796::onExit::status,Rva0033F56B::onExit::status,inferred,scope renamed by Fold class Rva00341796 into Rva0033F56B (retail vftable 0x00C113B8),Code/GameEngine/Source/Common/Rva003418EAMethod.cpp,0x003418EA
+member,Rva001E381E::m_4B8,Rva001E381E::m_flags,inferred,agree:nl-16084ff21e00,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,
+function,?rva0040C598@Rva0040C598@@QAEXPBH@Z,?bitAnd@Rva0040C598@@QAEXPBH@Z,inferred,agree:nl-3ae165344e69,Code/GameEngine/Source/Common/Rva0040C598BitAnd.cpp,0x0040C598
+function,?Rva005EA0EFDecrementWord@@YAPAIPAI@Z,?decrementWord@@YAPAIPAI@Z,inferred,agree:nl-e453fbcbd586,Code/GameEngine/Source/Common/Rva0040C598BitAnd.cpp,0x005EA0EF
+function,?Rva006003FCColor@@YAIPBURva006003FCInputs@@@Z,?getPlayerColor@@YAIPBURva006003FCInputs@@@Z,inferred,agree:nl-df58aeb2339f,Code/GameEngine/Source/Common/Rva00600352.cpp,0x006003B5
+function,?rva0007FB07@Rva0007E971@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z,?eraseRange@Rva0007E971@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z,inferred,agree:nl-b77f09da709c,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,0x0007FB07
+function,?rva001E71FA@Rva001E6731@@QAEIABH@Z,?eraseKey@Rva001E6731@@QAEIABH@Z,inferred,agree:nl-c63dabd0e5e7,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,0x001E71FA
+carry,Rva001E6731::rva001E71FA::count,Rva001E6731::eraseKey::count,inferred,scope renamed by Rename rva001E71FA to eraseKey (inferred),Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,0x001E71FA
+carry,Rva001E6731::rva001E71FA::key,Rva001E6731::eraseKey::key,inferred,scope renamed by Rename rva001E71FA to eraseKey (inferred),Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,0x001E71FA
+class,Rva005648FEInput,TerrainCollisionModuleInput,inferred,agree:nl-29aeb725dadb,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp,
+class,Rva0008026BWaveInfo,StandingWaveInfo,inferred,agree:nl-95bbe28ee91e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterStandingWaveQuery.cpp,

@@ -447,11 +447,11 @@ inline MathCoord2D operator+(MathCoord2D left,const MathCoord2D &right){left.x+=
 // Target82E33..82EB8 and WB740340 establish cached vertex lookup/append.
 // Existing constructor proves cells04/dim10/records18/origin24/spacing30.
 // Original nested class name remains a donor lead; neutral owner retained.
-struct Rva0008026BWaveInfo;
+struct StandingWaveInfo;
 class Rva0008026BStandingWaveQuery
 {
 public:
-    void rva0008026B(Rva0008026BWaveInfo *record);
+    void rva0008026B(StandingWaveInfo *record);
 };
 
 typedef _STL::vector<BfmePod44, _STL::allocator<BfmePod44> > BfmePod44Vector;
@@ -471,7 +471,7 @@ unsigned short Rva00082A53::rva00082E33(int x, int y)
         *(float *)((char *)record + 0) = (float)x * spacing + *(float *)((char *)this + 0x24);
         *(float *)((char *)record + 4) = (float)y * spacing + *(float *)((char *)this + 0x28);
         record->a[2] = origin[2];
-        ((Rva0008026BStandingWaveQuery *)self)->rva0008026B((Rva0008026BWaveInfo *)record);
+        ((Rva0008026BStandingWaveQuery *)self)->rva0008026B((StandingWaveInfo *)record);
     }
     return *cell;
 }
