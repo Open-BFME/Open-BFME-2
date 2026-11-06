@@ -394,4 +394,11 @@ from Rva0024A797Derived.cpp, and leave `loadPostProcess` to UpdateModule when re
   8/10 base or `__purecall`) earlier in link order than the real ones. In the fold commit the scaffold
   includes the shared header instead; every copy is now byte-identical. Check any fold whose scaffold
   derives from a canonical base the same way (`rename.py` takes `--prepared` only for a registered NEW).
+- InheritUpgradeCreate 0x004B9428 (CreateModule family, approved TU InheritUpgradeCreate.cpp): the class was
+  `__declspec(novtable)` over canonical CreateModuleClass.h with explicit dummy stores. Dropping novtable
+  needed `BFME_SNAPSHOT_NAME_SLOT` first: in crc mode CreateModuleClass.h's GetSnapshotName became a 13th slot
+  behind a pure `crc` in slot 2 (check any unit that includes Snapshot.h before a canonical module header).
+  onCreate is retail's shared empty body (inline override); slot02 0x004B96C4 moved by `--to-class` into a
+  two-base view in GapBodiesS9B.cpp; `Rva004B9458` folded. Its getter 0x004B9452 is, like ObjectHelper's, a
+  free-function scaffold (`?Rva004B9452Get@@YAHXZ`), so slot 2 stays CreateModule's.
 
