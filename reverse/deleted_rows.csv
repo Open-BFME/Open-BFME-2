@@ -5211,3 +5211,5 @@ __ehhandler$?rva0055D525@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UA
 ?rva0055E969@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z,0x0055E969,Renamed to ?writeINI@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z: exact retail export ordinal 1950; existing virtual retained with File-reference const signature; existing 275B owner byte-verified; docs/naming.md hand-signature exception.
 ??1Rva0044D285@@UAE@XZ,0x0044D285,"Renamed to ??1LANPreferences@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C3EF04)"
 ??_GRva0044D285@@UAEPAXI@Z,0x0044D290,"Renamed to ??_GLANPreferences@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C3EF04)"
+??1Rva004CDD39@@UAE@XZ,0x004CDD39,"Renamed to ??1ActivateModuleSpecialPower@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5FC88)"
+??_GRva004CDD39@@UAEPAXI@Z,0x004CDD9E,"Renamed to ??_GActivateModuleSpecialPower@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5FC88)"

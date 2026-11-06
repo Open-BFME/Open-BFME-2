@@ -258,13 +258,13 @@ Rva004CC9BF::~Rva004CC9BF()
 	m_p20 = vtbl_00C552A4;
 }
 
-class Rva004CDD39 : public Rva0044EF5E
+class ActivateModuleSpecialPower : public Rva0044EF5E
 {
 public:
-	virtual ~Rva004CDD39();
+	virtual ~ActivateModuleSpecialPower();
 };
 
-Rva004CDD39::~Rva004CDD39()
+ActivateModuleSpecialPower::~ActivateModuleSpecialPower()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;

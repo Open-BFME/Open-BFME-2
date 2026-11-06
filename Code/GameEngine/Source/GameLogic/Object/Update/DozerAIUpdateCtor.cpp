@@ -50,7 +50,5 @@ ActivateModuleSpecialPower::ActivateModuleSpecialPower(Thing *thing, const Modul
 	m_p20 = &s_dummy20;
 }
 
-// ??1ActivateModuleSpecialPower@@ present-unmatched
-ActivateModuleSpecialPower::~ActivateModuleSpecialPower()
-{
-}
+// ??1ActivateModuleSpecialPower@@UAE@XZ (retail 0x004CDD39) and its deleting
+// destructor 0x004CDD9E are defined in ModuleUpdateDtors.cpp.

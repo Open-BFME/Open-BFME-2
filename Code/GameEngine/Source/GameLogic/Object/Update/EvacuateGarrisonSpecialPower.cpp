@@ -195,9 +195,9 @@ void parseTriggerSpecialPower(INI *ini, void *instance, void *, const void *)
 
 // tu-skeleton: 0x004CDD33 6B ?Rva004CDD33Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004CDD39 32B ??1Rva004CDD39@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+// tu-skeleton: 0x004CDD39 32B ??1ActivateModuleSpecialPower@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004CDD9E 28B ??_GRva004CDD39@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+// tu-skeleton: 0x004CDD9E 28B ??_GActivateModuleSpecialPower@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004CDDBA 307B ?SetWakeState@ActivateModuleSpecialPower@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ActivateModuleSpecialPowerVslot.cpp (not merged yet)
 
