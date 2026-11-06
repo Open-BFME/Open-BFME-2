@@ -244,10 +244,82 @@ def source_slot_mismatches(found, slots, addresses):
     return result
 
 
+def discover_table_names(rows, objects, retail, object_for, symbol_for):
+    """Bind current compiler vftable names at matched-row DIR32 sites.
+    The whole row must match outside known relocation fields. No class spelling,
+    destructor pin, adjacency, or MAP placement supplies an address.
+    """
+    kept = {Path(path).resolve() for path in objects.paths}
+    bindings, rejected = [], []
+    for row in rows:
+        if row.get("status") != "matched" or not row.get("target_size"):
+            continue
+        path = Path(object_for(row)).resolve()
+        if path not in kept:
+            continue
+        obj = objects.get(path)
+        if obj is None:
+            continue
+        sections, symbols, raw = obj
+        sym = objects.defined(obj)[0].get(symbol_for(row) or row["name"])
+        if sym is None or sym.sec <= 0 or sym.cls != link_cycle.EXTERNAL:
+            continue
+        sec = sections[sym.sec - 1]
+        if not sec.flags & EXECUTE:
+            continue
+        rva, size = int(row["target_rva"], 16), int(str(row["target_size"]), 0)
+        relocs = [(off - sym.value, symbols[index], kind) for off, index, kind in sec.relocs
+                  if sym.value <= off < sym.value + size]
+        candidates = [(off, target) for off, target, kind in relocs
+                      if kind == link_cycle.DIR32 and target.cls == link_cycle.EXTERNAL
+                      and target.name.startswith("??_7") and off + 4 <= size]
+        if not candidates:
+            continue
+        evidence = dict(source=row["source"], row_rva=rva, object=str(path),
+                        names=sorted({target.name for _off, target in candidates}))
+        target_bytes = retail.read(rva, size)
+        body = raw[sec.ptr + sym.value:sec.ptr + sym.value + size]
+        reason = None
+        if sym.value + size > sec.size or target_bytes is None or len(target_bytes) != size:
+            reason = "incomplete-matched-row"
+        else:
+            masked = set()
+            for off, _target, kind in relocs:
+                width = coffar.RELOC_WIDTH.get(kind)
+                if width is None or off + width > size:
+                    reason = "unsupported-row-relocation"
+                    break
+                masked.update(range(off, off + width))
+            if reason is None and any(a != b for index, (a, b) in enumerate(zip(body, target_bytes))
+                                      if index not in masked):
+                reason = "matched-row-bytes-differ"
+        if reason:
+            rejected.append(dict(evidence, reason=reason))
+            continue
+        for off, target in candidates:
+            addend = struct.unpack_from("<I", body, off)[0]
+            if addend:
+                rejected.append(dict(evidence, offset=off, name=target.name,
+                                     reason="nonzero-vtable-addend", addend=addend))
+                continue
+            address = struct.unpack_from("<I", target_bytes, off)[0] - retail.base
+            bindings.append(dict(evidence, offset=off, name=target.name, rva=address))
+    return bindings, rejected
+
+
 def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
          object_for=None, symbol_for=None, source_of=None):
     """Return generated entries and explicit refusal reasons; input order is significant."""
     objects = objects or link_cycle.Objects(inputs)
+    ledger_names = set().union(*(row_names(row) for row in tables)) if tables else set()
+    targets = Targets(rows, objects, omitted, object_for, symbol_for, archives)
+    bindings, rejected_bindings = discover_table_names(
+        rows, objects, retail, targets.path, targets.symbol_for)
+    by_address = collections.defaultdict(set)
+    for binding in bindings:
+        by_address[binding["rva"]].add(binding["name"])
+    tables = [dict(row, names=";".join(sorted(
+        row_names(row) | by_address.get(int(row["address"], 16), set())))) for row in tables]
     names = set().union(*(row_names(row) for row in tables)) if tables else set()
     # A name must have a unique retail address even when several ledger rows
     # describe one table. Never pick one conflicting row or slot extent.
@@ -265,13 +337,23 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         row["_slot_conflict"] = any(sequence != sequences[0] for sequence in sequences[1:])
         merged.append(row)
     tables = merged
+    for binding in bindings:
+        addresses[binding["name"]].add(binding["rva"])
+    indexed = set(grouped)
+    discovery = dict(bindings=bindings, rejected=rejected_bindings,
+                     names=len({binding["name"] for binding in bindings}),
+                     unindexed=[binding for binding in bindings if binding["rva"] not in indexed])
     referenced = collections.defaultdict(list)
+    native_names = set()
     for path in objects.paths:
         for sym in objects.get(path)[1].values():
+            if sym.cls == link_cycle.EXTERNAL and sym.name.startswith("??_7"):
+                native_names.add(sym.name)
             if sym.name in names and sym.cls == link_cycle.EXTERNAL and sym.sec == 0 and not sym.value:
                 referenced[sym.name].append(str(path))
+    discovery["native_names_without_address_binding"] = sorted(native_names - addresses.keys())
+    discovery["new_name_bindings"] = [binding for binding in bindings if binding["name"] not in ledger_names]
     found = definitions(objects, names, archives)
-    targets = Targets(rows, objects, omitted, object_for, symbol_for, archives)
     sources = {str(Path(path).resolve()): str(source).replace(str(build.ROOT) + "/", "")
                for path, source in (source_of or {}).items()}
     for row in rows:
@@ -285,7 +367,9 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         kept = [(name, entry) for name, entry in copies if not entry["archive"]
                 and not entry.get("common") and not entry.get("absolute")]
         active = {name for name, _copy in kept} | (names & referenced.keys())
-        entry = dict(rva=rva, name=row["name"], names=sorted(active))
+        entry = dict(rva=rva, name=row["name"], names=sorted(active),
+                     name_bindings=[binding for binding in bindings if binding["name"] in names],
+                     name_addresses={name: sorted(table_addresses[name]) for name in sorted(active)})
         slots, reason = retail_slots(retail, row)
         entry["slots"] = len(slots or [])
         previous = next((copy for name, copy in kept if name == row["name"]),
@@ -346,6 +430,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
             generated.append(dict(
                 rva=rva, name=name, names=sorted(active), slots=resolved,
                 source=sources.get(origin, ""), referenced_by=referenced.get(name, []),
+                name_bindings=[binding for binding in bindings if binding["name"] == name],
                 previous_object=first["object"] if first else None,
                 previous_extent=first["extent"] if first else 0,
                 source_slot_mismatches=source_slot_mismatches(first, slots, targets.addresses)
@@ -353,7 +438,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
     return dict(tables=len(generated), retail_tables=len({entry["rva"] for entry in generated}), slots=sum(len(entry["slots"]) for entry in generated),
                 refused_tables=len(refused), refusal_reasons=dict(collections.Counter(
                     entry["reason"] for entry in refused)), already_correct=len(correct),
-                entries=generated, refusals=refused, correct=correct,
+                entries=generated, refusals=refused, correct=correct, name_discovery=discovery,
                 note="Temporary positive-slot copies; tables and slots must reach zero for G1.")
 
 
@@ -381,6 +466,13 @@ def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tab
     metadata["queue"] = "vtable_bridge_queue.tsv"
     write_queue(metadata, Path(out) / metadata["queue"])
     (Path(out) / "vtable_bridge.json").write_text(json.dumps(metadata, indent=1) + "\n")
+    print("vtable_name_discovery: " + json.dumps(dict(
+        names=metadata["name_discovery"]["names"],
+        rejected=len(metadata["name_discovery"]["rejected"]),
+        unindexed=len(metadata["name_discovery"]["unindexed"]),
+        native_names_without_address_binding=len(metadata["name_discovery"]["native_names_without_address_binding"])),
+        sort_keys=True))
+    print("vtable_new_name_bindings: " + json.dumps(metadata["name_discovery"]["new_name_bindings"], sort_keys=True))
     print("vtable_bridge: " + json.dumps({key: metadata[key] for key in
           ("tables", "retail_tables", "slots", "refused_tables", "refusal_reasons", "already_correct")},
           sort_keys=True))

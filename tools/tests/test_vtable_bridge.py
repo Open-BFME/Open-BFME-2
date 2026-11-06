@@ -377,3 +377,64 @@ def test_p8_destructor_only_names_get_all_ten_retail_slots(tmp_path):
         assert entry["previous_extent"] == 4
         assert len(entry["slots"]) == 10
         assert entry["slots"][1]["name"] == "_second"
+
+
+def renamed_table_inputs(tmp_path, *, addend=0, changed=False, second_address=None):
+    name = "??_7SubsystemLegend@@6B@"
+    code, _old, rows, data = inputs(tmp_path)
+    body = b"\xc7\x01" + struct.pack("<I", addend) + b"\xc3"
+    raw = body + b"\xcc" * 9 + body + b"\xcc" * 10
+    L.write_coff(code, [(".text", 0x60500020, raw, 0)],
+                 [("_first", 1, 0, L.EXTERNAL), ("_second", 1, 16, L.EXTERNAL),
+                  (name, 0, 0, L.EXTERNAL)],
+                 {1: [(2, name, L.DIR32), (18, name, L.DIR32)]})
+    rows[0]["target_size"] = "7"
+    if second_address is not None:
+        rows[1]["target_size"] = "7"
+    table = table_object(tmp_path / "renamed.obj", name=name)
+    retail = Retail()
+    old_read = retail.read
+    def read(rva, size):
+        if rva in (0x1000, 0x1010):
+            address = 0x3000 if rva == 0x1000 else second_address
+            return (b"\xc7" + (b"\x02" if changed else b"\x01") +
+                    struct.pack("<I", retail.base + (address or 0x3000)) + b"\xc3")[:size]
+        return old_read(rva, size)
+    retail.read = read
+    return code, table, rows, data, retail, name
+
+
+def test_stale_ledger_spelling_is_extended_from_matched_row_relocation(tmp_path):
+    code, table, rows, data, retail, name = renamed_table_inputs(tmp_path)
+    result = plan(code, [table], rows, data, retail=retail)
+    assert result["tables"] == 1
+    assert result["entries"][0]["name"] == name
+    evidence = result["entries"][0]["name_bindings"]
+    assert [(b["row_rva"], b["offset"], b["rva"], b["name"]) for b in evidence] == [
+        (0x1000, 2, 0x3000, name)]
+    assert data[0]["name"] == "_vtable"  # no persistent or caller-owned ledger mutation
+
+
+@pytest.mark.parametrize("kw,reason", [
+    ({"changed": True}, "matched-row-bytes-differ"),
+    ({"addend": 4}, "nonzero-vtable-addend")])
+def test_current_name_needs_exact_row_bytes_and_zero_table_addend(tmp_path, kw, reason):
+    code, table, rows, data, retail, _name = renamed_table_inputs(tmp_path, **kw)
+    result = plan(code, [table], rows, data, retail=retail)
+    assert result["tables"] == 0
+    assert result["name_discovery"]["rejected"][0]["reason"] == reason
+
+
+def test_current_name_bound_to_two_addresses_refuses_instead_of_picking_one(tmp_path):
+    code, table, rows, data, retail, name = renamed_table_inputs(tmp_path, second_address=0x3010)
+    result = plan(code, [table], rows, data, retail=retail)
+    assert result["tables"] == 0
+    assert result["refusals"][0]["reason"] == "ambiguous-table-name"
+    assert result["name_discovery"]["unindexed"][0]["rva"] == 0x3010
+
+
+def test_unverified_row_cannot_supply_new_vtable_name(tmp_path):
+    code, table, rows, data, retail, _name = renamed_table_inputs(tmp_path)
+    rows[0]["status"] = "pending"
+    result = plan(code, [table], rows, data, retail=retail)
+    assert result["tables"] == 0 and not result["name_discovery"]["bindings"]
