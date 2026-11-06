@@ -18,6 +18,9 @@ class Made002CCB67 : public Rva00507823
 {
 public:
 	Made002CCB67();
+	// Retail 0x0050B6ED, defined in Rva0050B6EDDtor.cpp; declaring it keeps this unit
+	// from emitting a second, implicit copy.
+	virtual ~Made002CCB67();
 private:
 	float m_128;
 };
