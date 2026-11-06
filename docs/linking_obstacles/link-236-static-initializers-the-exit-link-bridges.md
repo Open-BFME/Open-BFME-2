@@ -19,8 +19,8 @@ AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, 
 676 -> 674, and AIStates' IDLE_COUNTDOWN_DELAY, bridged 674 -> 673; halilkkaya-lk39: GameEngine.cpp's
 copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the four held BlockParse
 nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored units freed since round 2,
-bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642; next seat
-continues).
+bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642, and two private Drawable views
+replaced, bridged 642 -> 640; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -266,6 +266,12 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     (private `Thing`; ReplaceObjectUpdate reads `m_id` through it). The two `Drawable` views need
     only a cast view over the canonical class; the `Thing` views follow SquishCollide's recipe
     (round 5).
+  - *The two `Drawable` views, fixed.* HitReactionBehavior now includes the canonical header after
+    its last include and tests the condition words through a file-local view
+    (`HitReactionDrawableConditionView`; the canonical class keeps +0x258 opaque and already
+    declares `rva00274176`). GiveUpgradeUpdate's word at +0xB0 is the canonical `field_0b0`; the
+    unit still copies its bits with an int store. Both copies are rowed as `_$E1`, every `??_7`
+    keeps its digest, 3/3 link with the grab-bag, bridged 642 -> 640.
 - *Copies a unit already compiles (halilkkaya-lk39).* A TU file that includes the canonical header
   compiles its copy, but with no row image_report counts it as unidentified (an unplaced static
   breaks no tie). Cross the unidentified list with the bridged copies' guard units: W3DStreakDraw
@@ -273,8 +279,9 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   (0x007B17BD, guard of 0x00496B48, approved to the unit) each sit alone in their run with the
   static right after the unit's own guard. Rowing them needs no source change: bridged 645 -> 642,
   unidentified 524 -> 521. ControlBar.cpp (0x007B3BCE) is the same case but held by Burachi-3D,
-  and AssistedTargetingUpdate (0x007B13C0) waits for a codex seat's merge into that file. 167
-  other files compile an unidentified copy; most are fragments whose TU file is not yet merged.
+  and AssistedTargetingUpdate (0x007B13C0) waits for a codex seat's merge into that file. 227
+  other files still compile an unidentified copy (image_report at `318099a57f`); most are
+  fragments whose TU file is not merged yet.
 
 **BlockParseInits (130 rows): per-unit `BlockParse` nodes (halilkkaya-in-o3, 2026-11-04).**
 - *Target facts.* All 130 entries are one 21-byte body, `mov eax, [0x00DDF578]; mov [node], eax;
