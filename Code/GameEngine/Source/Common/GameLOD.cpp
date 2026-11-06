@@ -152,32 +152,21 @@ public:
 
 /**Parse a description of all the LOD settings for a given detail level*/
 // ?parseStaticGameLODDefinition@INI@@SAXPAV1@@Z
-// The "StaticGameLOD" block. BFME's field set is not Zero Hour's, so this table
-// carries the offsets retail's own table at 0x00BE3478 holds rather than
-// offsetof against a reconstructed struct. The matching retail parser passes
-// TheGameLODManager + 0x1c8 + (index << 4) to initFromINI; this proves the
-// address formula, not the complete layout of the parsed region.
+// The table this parser passes is retail's .rdata 0x00BE3478 (VA): MinimumFPS, ParticleSkipMask,
+// DebrisSkipMask and SlowDeathScale over the 16-byte element at TheGameLODManager + 0x1c8 +
+// (index << 4). Retail writes no null entry after them: its table runs on into the AudioLOD
+// entries at 0x00BE34B8 (MaximumAmbientStreams, AllowDolby, AllowReverb), whose null entry ends
+// both, so this copy carries those three too, as g_007E3308 above carries the tables after it.
+// The Zero Hour field set it replaces wrote up to +0x2c, past the 16-byte element.
 static const FieldParse TheBFMEStaticGameLODFieldParseTable[] =
 {
-	{ "MaxParticleCount",			INI::parseInt,			NULL,	0x00 },
-	{ "UseShadowVolumes",			INI::parseBool,			NULL,	0x04 },
-	{ "UseShadowDecals",			INI::parseBool,			NULL,	0x05 },
-	{ "UseAnisotropic",				INI::parseBool,			NULL,	0x06 },
-	{ "UsePixelShaders",			INI::parseBool,			NULL,	0x07 },
-	{ "UseLightMap",				INI::parseBool,			NULL,	0x08 },
-	{ "ShowSoftWaterEdge",			INI::parseBool,			NULL,	0x09 },
-	{ "MaxTankTrackEdges",			INI::parseInt,			NULL,	0x0c },
-	{ "MaxTankTrackOpaqueEdges",	INI::parseInt,			NULL,	0x10 },
-	{ "MaxTankTrackFadeDelay",		INI::parseInt,			NULL,	0x14 },
-	{ "UseBuildupScaffolds",		INI::parseBool,			NULL,	0x18 },
-	{ "UseTreeSway",				INI::parseBool,			NULL,	0x19 },
-	{ "GrassDrawSkip",				INI::parseInt,			NULL,	0x1a },
-	{ "ShowProps",					INI::parseBool,			NULL,	0x22 },
-	{ "TextureReductionFactor",		INI::parseInt,			NULL,	0x1c },
-	{ "UseHighQualityVideo",		INI::parseBool,			NULL,	0x23 },
-	{ "AnimationDetail",			INI::parseStaticGameLODLevel,	NULL,	0x24 },
-	{ "MinParticlePriority",		INI::parseIndexList,	NULL,	0x28 },
-	{ "MinParticleSkipPriority",	INI::parseIndexList,	NULL,	0x2c },
+	{ "MinimumFPS",				INI::parseInt,			NULL,	0x00 },
+	{ "ParticleSkipMask",			INI::parseInt,			NULL,	0x04 },
+	{ "DebrisSkipMask",			INI::parseInt,			NULL,	0x08 },
+	{ "SlowDeathScale",			INI::parseReal,			NULL,	0x0c },
+	{ "MaximumAmbientStreams",		INI::parseInt,			NULL,	0x00 },
+	{ "AllowDolby",				INI::parseBool,			NULL,	0x04 },
+	{ "AllowReverb",				INI::parseBool,			NULL,	0x05 },
 	{ 0, 0, 0, 0 }
 };
 

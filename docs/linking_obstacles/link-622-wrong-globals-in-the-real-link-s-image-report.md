@@ -54,7 +54,13 @@ one-off script: each static the ledger keys to its own source (`name@source`), b
   `s_table0050AD97` (`Rva0050AD97BuildFieldParse.cpp`, 4 at 0x00864B60, with that unit's 24-name `TheDeathNames` copy at
   0x009D0FA0) and `s_extraFieldTable` (`FXListDieModuleDataBuildFieldParse.cpp`, 2 at 0x00864C08). Each compared with
   retail by the same script: all equal.
-- Still open: `TheBFMEStaticGameLODFieldParseTable` (`GameLOD.cpp`) and
+- **Repaired:** `TheBFMEStaticGameLODFieldParseTable` (`GameLOD.cpp`, the table `INI::parseStaticGameLODDefinition`
+  passes for the 16-byte element at manager + 0x1c8) held Zero Hour's 19 static-LOD fields with offsets up to +0x2c.
+  Retail's table at 0x007E3478 is MinimumFPS, ParticleSkipMask, DebrisSkipMask and SlowDeathScale, and it has no null
+  entry: it runs on into the three AudioLOD entries, as `g_007E3308` in the same file already reproduces. Ours now holds
+  those seven entries and a null one; the script compares all 128 bytes with retail: equal. The 16-byte element and
+  this field set are Zero Hour's dynamic LOD, so the parser's name may be the static one's; not changed here.
+- Still open:
   `StrategicHUD.cpp`'s `s_table`, whose contents differ; and initial values retail has in `.data` that ours leaves zero:
   the glow, ring and fire effect statics (`Drawable/Rva00309FB3.cpp`, `Rva00309FFD.cpp`, `Rva0030A040.cpp`),
   `animationDisableOverride` (`W3DGhostObjectScene.cpp`), `AXIS_ROTATION` (`camerashakesystem_shaker.cpp`),
