@@ -372,3 +372,19 @@ Census confirmation: awaiting.
 2026-11-05: AIGateUpdate seed/ctor/dtor merged into the approved TU: two fewer files, 13/13 rows and both EH graphs exact, aliases transferred intact. Trigger layout remains the next prerequisite; broad batch audit awaits a current consumer receipt and next-census confirmation. [Merge/audit evidence](../../reverse/attempt_support/aigate-update-merge-20261105-codexb5/README.md).
 
 2026-11-05 codex4: OneRing roaming-helper canonical headers adopted; seed adoption still needs four canonical virtual providers before merging; byte/link evidence and next steps: [handoff](../../reverse/attempt_support/onering_headers_20261105_codex4.md).
+
+2026-11-06 real-link unresolved ?crc@BehaviorModule@@MAEXPAVXfer@@@Z (exit_link_blockers at e185a327a7, 8 units), seat leosmare:
+- Target fact: retail BFME2 has no crc slot. BehaviorModule's slot 2 is GetSnapshotName (row 0x0024A791,
+  BehaviorModule.cpp), so nothing defines the Zero Hour ?crc@BehaviorModule.
+- SpecialPowerModule.cpp: repaired (327177475d). Its unrowed SpecialPowerModule::crc dropped the base call
+  (the 1a7053eb7c pattern); the object no longer references the name. 4/4 exact, LINKS 36 -> 36 B.
+- BridgeTowerBehavior.cpp: base call dropped too (f982dc9e95), but the blocker stays. The unit emits the Zero
+  Hour ??_7BehaviorModule@@6BObjectModule@@@ table (from the ZH BehaviorModule.h it compiles against), and slot
+  2 of that table is ?crc@BehaviorModule. FXListDie.cpp and AssistedTargetingUpdate.cpp reference the name the
+  same way (table relocation, no explicit call). CreateObjectDie.cpp and SpecialPowerCompletionDie.cpp reach it
+  through DieModule::crc.
+- DieModule.cpp and SpawnBehavior.cpp hold the same explicit base call but were claimed by
+  codex-01a1071d-root-recovery-oct11, so they were left alone.
+- Remaining prerequisite: move each table-emitting unit off the Zero Hour BehaviorModule.h onto the canonical
+  Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h (slot 2 = GetSnapshotName), as 1a7053eb7c did for
+  CreateModule.cpp. Dropping the explicit calls alone does not clear the table reference.
