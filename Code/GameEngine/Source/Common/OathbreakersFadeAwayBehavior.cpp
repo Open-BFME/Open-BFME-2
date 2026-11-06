@@ -213,7 +213,7 @@ OathbreakersFadeAwayBehavior::OathbreakersFadeAwayBehavior(Thing *thing, const M
 	m_24 = 1.0f;
 }
 
-// tu-skeleton: 0x004B8AC5 28B ??_GOathbreakersFadeAwayBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// 0x004B8AC5 28B ??_GOathbreakersFadeAwayBehavior@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004B8AE1 46B ?calcSleepTime@OathbreakersFadeAwayBehavior@@QAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/Common/Rva004B89C4Update.cpp (not merged yet)
 

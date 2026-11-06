@@ -109,7 +109,7 @@ private:
 	unsigned char m_a8;
 };
 
-// tu-skeleton: 0x005C4F88 29B ??_GProcessAnimateWindow@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowSpiralCtor.cpp (not merged yet)
+// 0x005C4F88 29B ??_GProcessAnimateWindow@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
 

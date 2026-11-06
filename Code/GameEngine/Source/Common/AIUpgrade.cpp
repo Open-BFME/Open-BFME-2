@@ -113,7 +113,7 @@ AIUpgrade::AIUpgrade()
 
 // tu-skeleton: 0x0059734B 11B ??1AIUpgrade@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0055B0CCDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x00597356 28B ??_GAIUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0055B0CCDerived.cpp (not merged yet)
+// 0x00597356 28B ??_GAIUpgrade@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp
 

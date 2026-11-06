@@ -450,7 +450,7 @@ Rva0026F684::Rva0026F684()
 
 // tu-skeleton: 0x0026F767 339B ??4Rva0026F684@@QAEAAV0@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Assign.cpp (not merged yet)
 
-// tu-skeleton: 0x0026F8BA 28B ??_GRva0026F684@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Dtor.cpp (not merged yet)
+// 0x0026F8BA 28B ??_GRva0026F684@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x0026F8D6 102B ?friend_resolveSubUpgradeNames@UpgradeTemplate@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/UpgradeTemplateResolveSubUpgradeNames.cpp (not merged yet)
 

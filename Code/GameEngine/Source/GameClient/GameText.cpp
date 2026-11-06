@@ -939,7 +939,7 @@ GameTextInterface *CreateGameTextInterface(void)
 
 // tu-skeleton: 0x002E66F2 89B ??1GameTextManager@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
 
-// tu-skeleton: 0x002E67CE 28B ??_GGameTextManager@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
+// 0x002E67CE 28B ??_GGameTextManager@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x002E67EA 60B ?getStringsWithLabelPrefix@GameTextManager@@UAEAAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
 

@@ -1743,7 +1743,7 @@ void Rva000E4886::rva000E4886()
 
 // tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
+// 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x0076330E 11B $L5271 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 

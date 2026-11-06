@@ -385,7 +385,7 @@ void ProductionQueueHordeContain::xfer(Xfer *xfer)
 
 // tu-skeleton: 0x004816BD 55B ?push_back@?$vector@URva0048130E@@V?$allocator@URva0048130E@@@_STL@@@_STL@@QAEXABURva0048130E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0048130e_destroy.cpp (not merged yet)
 
-// tu-skeleton: 0x0048179A 28B ??_GProductionQueueHordeContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainModuleDataDtor.cpp (not merged yet)
+// 0x0048179A 28B ??_GProductionQueueHordeContainModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004817B6 62B ??1ProductionQueueHordeContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainModuleDataDtor.cpp (not merged yet)
 

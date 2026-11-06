@@ -1254,7 +1254,7 @@ Rva00785140Handle::Rva00785140Handle(const AssetReference &that) : ref(that)
 {
 }
 
-// tu-skeleton: 0x000A9ECD 28B ??_GRva00785140Handle@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00785140HandleDestructor.cpp (not merged yet)
+// 0x000A9ECD 28B ??_GRva00785140Handle@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x000A9EE9 58B ??1Rva00785140Handle@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00785140HandleDestructor.cpp (not merged yet)
 

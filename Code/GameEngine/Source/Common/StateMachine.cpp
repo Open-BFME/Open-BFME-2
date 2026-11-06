@@ -496,7 +496,7 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 
 // tu-skeleton: 0x004D795B 134B ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAVImage@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAVImage@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_uint_image_insert.cpp (not merged yet)
 
-// tu-skeleton: 0x004D7A59 28B ??_GStateMachine@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/StateMachineDtor.cpp (not merged yet)
+// 0x004D7A59 28B ??_GStateMachine@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004D7A75 88B ?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 

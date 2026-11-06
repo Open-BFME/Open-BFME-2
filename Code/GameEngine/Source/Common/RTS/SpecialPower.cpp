@@ -271,7 +271,7 @@ void Rva003B1017::parseFromINI(INI *ini, void * /*instance*/, void *store, const
 
 // tu-skeleton: 0x003B1337 215B ??4Rva003B1101@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003B1101Assign.cpp (not merged yet)
 
-// tu-skeleton: 0x003B152A 28B ??_GRva003B1101@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp (not merged yet)
+// 0x003B152A 28B ??_GRva003B1101@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x003B15D6 541B ?parseSpecialPowerDefinition@SpecialPowerStore@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/RTS/SpecialPowerStoreParseSpecialPowerDefinition.cpp (not merged yet)
 

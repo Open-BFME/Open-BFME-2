@@ -175,7 +175,7 @@ void SiegeDockingBehavior::stopDocking() throw()
 
 // tu-skeleton: 0x0045A16D 16B ?loadPostProcess@SiegeDockingBehavior@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorLoadPostProcess.cpp (not merged yet)
 
-// tu-skeleton: 0x0045A17D 28B ??_GSiegeDockingBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDtor.cpp (not merged yet)
+// 0x0045A17D 28B ??_GSiegeDockingBehavior@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x0078A2DB 13B $L4761 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorRefresh.cpp (not merged yet)
 

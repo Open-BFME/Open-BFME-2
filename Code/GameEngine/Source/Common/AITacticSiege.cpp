@@ -137,7 +137,7 @@ bool AITacticSiege::rva005DCAF4()
 
 // tu-skeleton: 0x005DC87B 11B ??1AITacticSiege@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005DC73CDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x005DC886 28B ??_GAITacticSiege@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva005DC73CDerived.cpp (not merged yet)
+// 0x005DC886 28B ??_GAITacticSiege@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // ---- from Code/GameEngine/Source/Common/AITacticSiege_sideHasIdleSiegeWeapons.cpp
 

@@ -1082,7 +1082,7 @@ void GateOpenAndCloseBehavior::onObjectCreated()
 
 // tu-skeleton: 0x00498D46 145B ??1GateOpenAndCloseBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00498DD7 28B ??_GGateOpenAndCloseBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp (not merged yet)
+// 0x00498DD7 28B ??_GGateOpenAndCloseBehaviorModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004991CB 64B ?open@GateOpenAndCloseBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorSlots.cpp (not merged yet)
 

@@ -5712,7 +5712,7 @@ Int Gen_000cd680::keyAtA( Int index ) const { return m_arrayA[index].m_key; }
 
 // tu-skeleton: 0x00243177 50B ??0Rva000D3FA0Map@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
 
-// tu-skeleton: 0x002431AF 28B ??_GRva000D3FA0Map@@UAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00243177.cpp (not merged yet)
+// 0x002431AF 28B ??_GRva000D3FA0Map@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x00243B48 5B ??1Rva00243B48@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp (not merged yet)
 

@@ -250,7 +250,7 @@ GapCounted *Rva00111772::rva00111772()
 
 // tu-skeleton: 0x00111850 23B ??0TileData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataGetRGBDataForWidth.cpp (not merged yet)
 
-// tu-skeleton: 0x00111867 28B ??_GTileData@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataGetRGBDataForWidth.cpp (not merged yet)
+// 0x00111867 28B ??_GTileData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x00111883 105B ?updateMips@TileData@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataGetRGBDataForWidth.cpp (not merged yet)
 

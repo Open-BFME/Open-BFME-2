@@ -1249,7 +1249,7 @@ Rva001E7087::~Rva001E7087() { rvaClear(); }
 
 // tu-skeleton: 0x001E8C1B 744B ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E8C1BSteering.cpp (not merged yet)
 
-// tu-skeleton: 0x001E8F03 28B ??_GRva001E7087@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva001E7087Ctor.cpp (not merged yet)
+// 0x001E8F03 28B ??_GRva001E7087@@MAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x001E8F1F 294B ?insert_unique@?$_Rb_tree@W4LocomotorSetType@@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@U?$less@W4LocomotorSetType@@@3@V?$allocator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@@2@U32@ABU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp (not merged yet)
 
