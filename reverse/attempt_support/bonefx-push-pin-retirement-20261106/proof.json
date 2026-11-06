@@ -1,0 +1,26 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp",
+  "row": {
+    "name": "?push_back@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEXABW4ParticleSystemID@@@Z",
+    "export_rva": "",
+    "target_rva": "0x002E01C6",
+    "target_size": "49",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp",
+    "status": "matched",
+    "notes": "Native ParticleSystemID enum-vector push from BoneFX callers; complete49B and resolved179B overflow twin; fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp;retire the superseded same-name pin after normal verification; zero unique bytes"
+  },
+  "exact": true,
+  "native": "558bec8b41043b4108741185c074078b55088b12891083410404eb116a016a018d550b52ff750850e80d8be6ff5dc20400",
+  "relocations": [
+    [
+      41,
+      20,
+      "?_M_insert_overflow@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@ABW43@ABU__false_type@2@I_N@Z"
+    ]
+  ],
+  "unresolved": [],
+  "pin_records_removed": 1,
+  "original_symbols_sha256": "581237b0ba28c1d698077c19562532b1930f263e00ccd3ef177eeb18207760ae",
+  "result_symbols_sha256": "7d25e93f02764fdee9dcba5e9157112e68c183510e09225a000f7b205e067cd9",
+  "boundary": "Only the same-name same-address pin is removed after its real matched C++ row is admitted and verified. All retained pin records preserve their bytes. Existing NameKey/Science owners are untouched; no alias or address is added."
+}

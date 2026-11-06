@@ -224,5 +224,12 @@ older-index paired preview preserves3459B. This clears that recorded key, not
 the subsystem's real-image/current-consumer closure. One admitted pin remains
 counted hatch debt. [Current proof and boundary](../../reverse/attempt_support/bonefx-vector-fold-20261106/README.md).
 
+2026-11-06 follow-up: the exact49B ParticleSystemID push helper is now a real
+matched C++ ICF row admitted by add_match against the retained NameKey owner.
+Its superseded same-name pin is removed; normal42/42 caller/provider rows and
+pin consistency pass. hatch_counters retires one pin (9316 ->9315). The proven
+overflow pin stays counted. No unique-byte, global linked-byte or runtime gain
+is claimed. [Retirement proof](../../reverse/attempt_support/bonefx-push-pin-retirement-20261106/README.md).
+
 
 2026-11-06 recovery trial: ObjListPush 0x005CD018 already has a 26-byte owner; its archived explicit stdcall bridge to the existing 0x005CCED5 owner fails normal byte verification (21-byte candidate, changed iterator-argument construction). The complete trial is tool-banked, Code is restored and the original baseline again passes 1/1; identity debt remains. [Measured boundary and next prerequisite](../../reverse/attempt_support/objlist-push-recovery-20261106.md).
