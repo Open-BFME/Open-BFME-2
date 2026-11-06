@@ -18,6 +18,17 @@ class FXShaderParameterBinder;
 
 typedef const char *D3DXHANDLE;
 
+// ??1Rva0018BEC7@@UAE@XZ, retail 0x0018BE87, 64 bytes.
+// Ctor registers "WW3D" (rowed 0x0018BEC7), dtor erases "WW3D"; vtable at +0
+// plus member vptr at +4, both reset to the base vtable in the dtor. Evidence:
+// dtor stores the derived vtable then Erase then both to the base vtable;
+// callers 0x0017414B/0x0018BF0C. A trailing _ReadWriteBarrier (no code) holds
+// the EH epilogue scheduling retail uses.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+void __cdecl Rva001532E1Erase(const char *name);
+
 class FXShaderParameterSourceNamespace {
 public:
     virtual ~FXShaderParameterSourceNamespace() {}
@@ -49,6 +60,8 @@ public:
 
 // tu-skeleton: 0x0018BE65 25B ?Rva0018BE65FogRangeEnd@@YAXPAUID3DXEffect@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp (not merged yet)
 
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceWW3D.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva0018BEC7Ctor.cpp
 
 // Native18BE7E installs BD5BD4 and returns this (complete9B).
@@ -61,8 +74,12 @@ FXShaderParameterSourceNamespaceWW3D::FXShaderParameterSourceNamespaceWW3D()
     Rva00153565Register("WW3D", this);
 }
 
-// tu-skeleton: 0x0018BE87 64B ??1FXShaderParameterSourceNamespaceWW3D@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FXShaderParameterSourceNamespaceWW3D.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/FXShaderParameterSourceNamespaceWW3D.cpp
 
-// tu-skeleton: 0x0018BF09 28B ??_GFXShaderParameterSourceNamespaceWW3D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FXShaderParameterSourceNamespaceWW3D.cpp (not merged yet)
+FXShaderParameterSourceNamespaceWW3D::~FXShaderParameterSourceNamespaceWW3D()
+{
+    Rva001532E1Erase("WW3D");
+    _ReadWriteBarrier();
+}
 
 // tu-skeleton: 0x0018BF25 169B ?ResolveBindings@FXShaderParameterSourceNamespaceWW3D@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp (not merged yet)
