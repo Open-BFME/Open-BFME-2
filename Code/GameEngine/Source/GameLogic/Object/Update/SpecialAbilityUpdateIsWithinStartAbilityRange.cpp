@@ -79,17 +79,10 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../../Include/Common/Overridable.h"
 
-struct SpecialPowerTemplateView
-{
-	unsigned char m_pad00[0x1C];
-	Int m_type;							// +0x1C
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	Int getSpecialPowerType() const { return ((const SpecialPowerTemplateView *)friend_getFinalOverride())->m_type; }
-};
+#include "../../../../Include/Common/SpecialPower.h"
+// Retail inlines the final override's +0x1C type read here (the canonical
+// getSpecialPowerType is the out-of-line row 0x002AAE3D).
+__forceinline Int spType(const SpecialPowerTemplate *power) { return power->getFO()->m_type; }
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
@@ -167,7 +160,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 	}
 	else if (m_targetPos.x || m_targetPos.y || m_targetPos.z)
 	{
-		Int type = power->getSpecialPowerType();
+		Int type = spType(power);
 		if (self->testStatus(OBJECT_STATUS_BFME_5B) || (self->getAI()->vslot090() && type == 0x38))
 			fDistSquared = ((const Gen_000E5A50 *)self)->Get3DCenterDistanceSquared((const BfmeVec3EJ *)&m_targetPos);
 		else
@@ -177,7 +170,7 @@ Bool SpecialAbilityUpdate::isWithinStartAbilityRange()
 	}
 	else
 	{
-		if (power->getSpecialPowerType() == 0x88)
+		if (spType(power) == 0x88)
 			return false;
 		return true;
 	}
@@ -239,7 +232,7 @@ Bool SpecialAbilityUpdate::isWithinAbilityAbortRange() const
 	else if (m_targetPos.x || m_targetPos.y || m_targetPos.z)
 	{
 		fDistSquared = self->rva002C97E8(self->getPosition(), &m_targetPos);
-		if (power->getSpecialPowerType() == 0x27)
+		if (spType(power) == 0x27)
 			fDistSquared -= 400.0f;
 	}
 	else
