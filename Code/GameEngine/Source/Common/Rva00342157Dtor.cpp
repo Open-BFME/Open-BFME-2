@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ??1Rva0033F772@@UAE@XZ, retail 0x00342157, 91 bytes.
+// ??1AIHuntState@@UAE@XZ, retail 0x00342157, 91 bytes.
 // Twin of 0x0033FC42 (vtable 0x00811DB0): dtor restoring vtable 0x008118B0,
 // calling member +0x20 slot 0x3C when present then deleting it via slot-0
 // scalarDeletingDestructor(0) plus operator delete with null->0 ternary
@@ -38,16 +38,16 @@ public:
 	virtual void method3C();
 };
 
-class Rva0033F772 : public State
+class AIHuntState : public State
 {
 public:
-	virtual ~Rva0033F772();
+	virtual ~AIHuntState();
 
 private:
 	Rva00342157Member *m_ptr20;
 };
 
-Rva0033F772::~Rva0033F772()
+AIHuntState::~AIHuntState()
 {
 	if (m_ptr20 != 0) {
 		m_ptr20->method3C();

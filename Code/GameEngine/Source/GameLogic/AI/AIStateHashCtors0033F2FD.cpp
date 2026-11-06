@@ -393,21 +393,21 @@ AITunnelNetworkGuardState::AITunnelNetworkGuardState(StateMachine *machine)
 {
 }
 
-// Rva0033F772: retail 0x0033F772 (37B), hash 0x705e17cf, vtable 0xc118b0 callers 0x00352791
-class Rva0033F772 : public State
+// AIHuntState: retail 0x0033F772 (37B), hash 0x705e17cf, vtable 0xc118b0 callers 0x00352791
+class AIHuntState : public State
 {
 public:
-	Rva0033F772(StateMachine *machine);
+	AIHuntState(StateMachine *machine);
 	// the rowed destructor 0x00342157 (Rva00342157Dtor.cpp); declared so this
 	// unit does not emit an implicit copy
-	virtual ~Rva0033F772();
+	virtual ~AIHuntState();
 
 private:
 	int m_20; // +0x20
 	int m_24; // +0x24
 };
 
-Rva0033F772::Rva0033F772(StateMachine *machine)
+AIHuntState::AIHuntState(StateMachine *machine)
 	: State(machine, 0x705E17CFu)
 	, m_20(0)
 	, m_24(0)

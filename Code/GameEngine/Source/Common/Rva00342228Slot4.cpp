@@ -3,7 +3,7 @@
 // ?onEnter@Rva0033F79D@@UAEHXZ, retail 0x0034230C, 64 bytes.
 // Virtual slot 4 (offset 0x10) of vtable 0x00811900, the class whose dtor
 // ??1Rva0033F79D@@UAE@XZ is rowed in Rva00342228Dtor.cpp (same // cl: line,
-// sibling of the landed Rva0033F772 slot-4 body at 0x003421B2). Body:
+// sibling of the landed AIHuntState slot-4 body at 0x003421B2). Body:
 // m_ptr20 = m_ptr18->slot9() (call [eax+0x24]); frame = TheGameLogic->getFrame()
 // (kept in edi across the next call); r = GetGameLogicRandomValue(0,
 // Int00DBA4E4, AIStates.cpp, 0x3D75) (rowed int twin 0x00233FF4); m_24 =
