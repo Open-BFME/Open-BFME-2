@@ -89,21 +89,10 @@ public:
 	unsigned m_114;		// +0x114 (bit 13 tested)
 };
 extern GameLogic *TheGameLogic;
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const void *getObjectFilter() const
-	{
-		return &((const SpecialPowerTemplate *)friend_getFinalOverride())->m_objectFilter;
-	}
-	char m_pad00[0x60];
-	int m_objectFilter;	// +0x60 the object filter
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
+// The final override's object filter is the record at +0x60.
+__forceinline const void *spObjectFilter(const SpecialPowerTemplate *t) { return &t->getFO()->field60; }
 // What 0x0044E633 returns: slot 6 is the special power template.
 class Rva004CDA49Power
 {
@@ -332,7 +321,7 @@ void StoreObjectsSpecialPower::triggerAbilityEffect()
 	SpecialAbilityUpdate::triggerAbilityEffect();
 	const StoreObjectsSpecialPowerModuleData *data = getStoreObjectsSpecialPowerModuleData();
 	Object *owner = m_object;
-	const void *filter = ((Rva004CDA49Power*)((Rva0044E633*)this)->rva0044E633())->getSpecialPowerTemplate()->getObjectFilter();
+	const void *filter = spObjectFilter(((Rva004CDA49Power*)((Rva0044E633*)this)->rva0044E633())->getSpecialPowerTemplate());
 	m_88.clear();
 	Rva0023DA79 bits;
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, data->m_C8, 0,
