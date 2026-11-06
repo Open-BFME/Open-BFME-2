@@ -14,7 +14,6 @@
 //   0x000723C7  0x00BC64B0  BfmeBaseCC
 //   0x00072899  0x00BC650C  RefCountClass
 //   0x00074626  0x00BC65A8  Rva00074626
-//   0x0007827B  0x00BC6778  FileFactoryClass
 //   0x0007DFF2  0x00BC6F24  Rva0007DFF2
 //   0x000906DE  0x00BC7E94  Rva000906DE
 //   0x000A8E9C  0x00BC93BC  AptDisplayStringBase
@@ -120,7 +119,6 @@ class FileFactoryClass
 {
 public:
 	FileFactoryClass();
-	FileFactoryClass(EmitVtableTag *);
 	virtual ~FileFactoryClass() {}
 	virtual FileClass *Get_File(const char *filename) = 0;
 	virtual void Return_File(FileClass *file) = 0;
@@ -129,11 +127,6 @@ public:
 // ??0FileFactoryClass@@QAE@XZ @0x0007838A 9B: the default constructor, storing the
 // class's own vtable and returning this.
 __declspec(noinline) inline FileFactoryClass::FileFactoryClass()
-{
-}
-
-// ?<FileFactoryClass::FileFactoryClass> absent-from-retail
-FileFactoryClass::FileFactoryClass(EmitVtableTag *)
 {
 }
 

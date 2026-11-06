@@ -125,7 +125,7 @@ PlayerUpgradeSpecialPowerModuleData::PlayerUpgradeSpecialPowerModuleData()
 	names.erase(names.begin(), names.end());
 }
 
-// tu-skeleton: 0x004C7DB8 28B ??_GPlayerUpgradeSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+// 0x004C7DB8 28B ??_GPlayerUpgradeSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C7DD4 53B ??1PlayerUpgradeSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPowerModuleDataDtor.cpp (not merged yet)
 

@@ -419,7 +419,7 @@ unsigned Rva004C31A8ScienceSelector::select()const
 
 // tu-skeleton: 0x004C31EC 24B ?doSpecialPowerAtObject@Rva004C31EC@@QAEXPAURva004C31ECArg@@H@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesF.cpp (not merged yet)
 
-// tu-skeleton: 0x004C37A4 28B ??_GOCLSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+// 0x004C37A4 28B ??_GOCLSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C37C0 92B ??1OCLSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerModuleDataDtor.cpp (not merged yet)
 

@@ -16,7 +16,6 @@
 //   0x0051588B  0x00514EAB  0x00C65F10#0
 //   0x00517582  0x005173F8  0x00C66428#0
 //   0x00521CE3  0x00521977  0x00C67910#0
-//   0x00524BFF  0x00524BB4  0x00C67DFC#0
 //   0x0052B40F  0x0052B3B2  0x00C685E0#0
 //   0x0052B56C  0x0052B497  0x00C68620#0
 //   0x005394D4  0x0053947D  0x00C69228#0
@@ -89,19 +88,6 @@ Rva005173F8::Rva005173F8(EmitVtableTag *)
 
 // ??_GAptSkirmish (0x00521CE3) is emitted with the AptSkirmish vtable in
 // AptSkirmishDestructor.cpp.
-
-class Rva00524BB4
-{
-public:
-	Rva00524BB4(EmitVtableTag *);
-public:
-	virtual ~Rva00524BB4();
-};
-
-// ?<Rva00524BB4::Rva00524BB4> absent-from-retail
-Rva00524BB4::Rva00524BB4(EmitVtableTag *)
-{
-}
 
 class Rva0052B497
 {

@@ -132,7 +132,7 @@ ProductionSpeedBonusModuleData::ProductionSpeedBonusModuleData()
 	typeList.erase(typeList.begin(), typeList.end());
 }
 
-// tu-skeleton: 0x004C3048 28B ??_GProductionSpeedBonusModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+// 0x004C3048 28B ??_GProductionSpeedBonusModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // 0x004C3064 56B ??1ProductionSpeedBonusModuleData@@UAE@XZ: the implicit destructor (see the class).
 

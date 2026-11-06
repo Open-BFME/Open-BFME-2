@@ -85,12 +85,6 @@ class CitadelSlaughterHordeContain { public: CitadelSlaughterHordeContain(EmitVt
 // ?<CitadelSlaughterHordeContain::CitadelSlaughterHordeContain> absent-from-retail
 CitadelSlaughterHordeContain::CitadelSlaughterHordeContain(EmitVtableTag *) {}
 
-// ??_GCitadelSlaughterHordeContainModuleData@@UAEPAXI@Z @0x004811CA 28B: slot 0 of vtable 0x00C48E40; calls ??1 at 0x004811E6.
-// Owner evidence (audited 2026-09-26): retail registration CitadelSlaughterHordeContain -> data factory RVA 0x0024C100 -> ctor RVA 0x0048112F; primary vptr store RVA 0x00481155.
-class CitadelSlaughterHordeContainModuleData { public: CitadelSlaughterHordeContainModuleData(EmitVtableTag *); virtual ~CitadelSlaughterHordeContainModuleData(); };
-// ?<CitadelSlaughterHordeContainModuleData::CitadelSlaughterHordeContainModuleData> absent-from-retail
-CitadelSlaughterHordeContainModuleData::CitadelSlaughterHordeContainModuleData(EmitVtableTag *) {}
-
 // ??_GGarrisonContainModuleData@@UAEPAXI@Z @0x0047981E 28B: calls ??1 at 0x00257507.
 // Owner evidence: retail ctor 0x0047978F installs vtable 0x00C462D8; rowed dtor 0x00257507 is ??1GarrisonContainModuleData@@UAE@XZ; 28B flag-test wrapper calls dtor plus delete 0x0002FD60.
 class GarrisonContainModuleData { public: GarrisonContainModuleData(EmitVtableTag *); virtual ~GarrisonContainModuleData(); };

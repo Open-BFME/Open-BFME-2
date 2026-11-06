@@ -394,7 +394,7 @@ CitadelSlaughterHordeContain::CitadelSlaughterHordeContain(Thing *thing, const M
 
 // tu-skeleton: 0x00480FE2 107B ?update@CitadelSlaughterHordeContain@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x004811CA 28B ??_GCitadelSlaughterHordeContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
+// 0x004811CA 28B ??_GCitadelSlaughterHordeContainModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004811E6 74B ??1CitadelSlaughterHordeContainModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/CitadelSlaughterHordeContainModuleDataDtor.cpp (not merged yet)
 

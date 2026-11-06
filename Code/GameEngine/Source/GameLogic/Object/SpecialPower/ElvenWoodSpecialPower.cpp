@@ -1605,7 +1605,7 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C3DF4 178B ?_M_insert_overflow@?$vector@URva004C3F09Element@@V?$allocator@URva004C3F09Element@@@_STL@@@_STL@@IAEXPAURva004C3F09Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+// 0x004C3EA6 28B ??_GElvenWoodSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C3EC2 71B ??1ElvenWoodSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerModuleDataDtor.cpp (not merged yet)
 
@@ -1625,7 +1625,7 @@ void Rva004C3A9FConstruct(void *dest, const void *source)
 
 // tu-skeleton: 0x004C4069 12B ?doSpecialPowerUsingWaypoints@WeaponChangeSpecialPowerModule@@UAEXPAXMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleSlots.cpp (not merged yet)
 
-// tu-skeleton: 0x004C42D2 28B ??_GWeaponChangeSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+// 0x004C42D2 28B ??_GWeaponChangeSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C42EE 74B ??1WeaponChangeSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/WeaponChangeSpecialPowerModuleDataDtor.cpp (not merged yet)
 

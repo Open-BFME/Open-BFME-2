@@ -126,6 +126,6 @@ DevastateSpecialPowerModuleData::DevastateSpecialPowerModuleData()
 {
 }
 
-// tu-skeleton: 0x004C851B 28B ??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
+// 0x004C851B 28B ??_GDevastateSpecialPowerModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004C8537 56B ??1DevastateSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DevastateSpecialPowerModuleDataDtor.cpp (not merged yet)

@@ -838,7 +838,7 @@ check0c:
 
 // tu-skeleton: 0x00524BB4 75B ??1Rva00524BB4@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00524BB4Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00524BFF 28B ??_GRva00524BB4@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB12.cpp (not merged yet)
+// 0x00524BFF 28B ??_GRva00524BB4@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x00524C88 57B (unledgered) -- unmatched, no code, never credited
 

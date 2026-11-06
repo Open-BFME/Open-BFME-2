@@ -84,4 +84,4 @@ GODupBase::~GODupBase()
 // contributors conflict-free; the BFME_LITERAL_NAME_GETTER macro is verbatim.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// tu-skeleton: 0x003067CA 8B ??_EGODupBase@@W3AEPAXI@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+// 0x003067CA 8B ??_EGODupBase@@W3AEPAXI@Z: the deleting-destructor adjustor thunk this unit's vtable emits

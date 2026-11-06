@@ -703,7 +703,7 @@ void Rva004B5B82::rva004B5B82()
 	m_latched = true;
 }
 
-// tu-skeleton: 0x004B5C64 28B ??_GCostModifierUpgradeModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDeletingDtors.cpp (not merged yet)
+// 0x004B5C64 28B ??_GCostModifierUpgradeModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004B5C80 105B ??1CostModifierUpgradeModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgradeModuleDataDtor.cpp (not merged yet)
 

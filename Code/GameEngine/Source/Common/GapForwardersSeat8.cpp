@@ -509,19 +509,6 @@ DEFINE_DTOR_THUNK(AptInGameChat, 0x218, public)
 // ?<LargeGroupAudioUpdate::LargeGroupAudioUpdate> absent-from-retail
 DEFINE_DTOR_THUNK(LargeGroupAudioUpdate, 0x24, public)
 
-// --- 0x003067CA (8B): GODupBase's destructor, slot 0 of table 0x00C07D3C
-// (the +4 SubsystemInterface base) -> ??_G 0x0030680E.
-struct __declspec(novtable) GODupBase_DtorBaseA { virtual ~GODupBase_DtorBaseA(); };
-struct __declspec(novtable) GODupBase_DtorBaseB { virtual ~GODupBase_DtorBaseB(); };
-class GODupBase : public GODupBase_DtorBaseA, public GODupBase_DtorBaseB
-{
-public:
-	GODupBase(EmitVtableTag *);
-	virtual ~GODupBase();
-};
-// ?<GODupBase::GODupBase> absent-from-retail
-GODupBase::GODupBase(EmitVtableTag *) {}
-
 class AptSkirmish { public: void InitCreateAHeroOnStartGame(); };
 class Rva00521B48 { public: void rva00521B48(int, int); };
 void Rva00521B48::rva00521B48(int, int)

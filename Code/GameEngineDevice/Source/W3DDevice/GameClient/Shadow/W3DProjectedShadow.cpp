@@ -1950,7 +1950,7 @@ Rva00109610::~Rva00109610()
 
 // tu-skeleton: 0x0010A736 4737B ?queueDualDecal@W3DProjectedShadowManager@@QAEXPAVW3DDualProjectedShadow@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp (not merged yet)
 
-// tu-skeleton: 0x0010B9C9 28B ??_GRva001095B2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
+// 0x0010B9C9 28B ??_GRva001095B2@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x0010B9E5 71B ?rva0010B9E5@Rva0010B9E5@@QAEXPAUNode@@@Z -- matched in Code/GameEngine/Source/Common/Rva0010959E.cpp (not merged yet)
 

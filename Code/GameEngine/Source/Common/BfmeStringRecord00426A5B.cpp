@@ -429,6 +429,6 @@ void Rva00426A15::rva00426A15()
 	}
 }
 
-// tu-skeleton: 0x00426A3F 28B ??_GRva00426745@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
+// 0x00426A3F 28B ??_GRva00426745@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x00426A5B 39B ??0BfmeStringRecord00426A5B@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)

@@ -39,11 +39,5 @@ class StatusBitsUpgradeIfEldestKindof { public: StatusBitsUpgradeIfEldestKindof(
 // ?<StatusBitsUpgradeIfEldestKindof::StatusBitsUpgradeIfEldestKindof> absent-from-retail
 StatusBitsUpgradeIfEldestKindof::StatusBitsUpgradeIfEldestKindof(EmitVtableTag *) {}
 
-// ??_GCostModifierUpgradeModuleData@@UAEPAXI@Z @0x004B5C64 28B: slot 0 of vtable 0x00C58210; calls ??1 at 0x004B5C80.
-// Owner evidence (audited 2026-09-26): retail registration CostModifierUpgrade -> data factory RVA 0x00250316 -> ctor RVA 0x004B5BAC; primary vptr store RVA 0x004B5BD0.
-class CostModifierUpgradeModuleData { public: CostModifierUpgradeModuleData(EmitVtableTag *); virtual ~CostModifierUpgradeModuleData(); };
-// ?<CostModifierUpgradeModuleData::CostModifierUpgradeModuleData> absent-from-retail
-CostModifierUpgradeModuleData::CostModifierUpgradeModuleData(EmitVtableTag *) {}
-
 // ??_GAllowBannerSpawnUpgrade @0x004B85B8: rowed as ??_GAllowBannerSpawnUpgrade@@MAEPAXI@Z in UpgradeModuleTailDtors.cpp,
 // which defines the protected destructor it calls.

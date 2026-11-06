@@ -848,7 +848,7 @@ NameKeyType AnimationSoundClientBehavior::getModuleNameKey() const
 
 // tu-skeleton: 0x004CA6D5 5B ??1Rva004CA6D5@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x004CA74C 28B ??_GAnimationSoundClientBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/ClientModuleDeletingDtors.cpp (not merged yet)
+// 0x004CA74C 28B ??_GAnimationSoundClientBehaviorModuleData@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x007905CB 8B $L441 -- matched in Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp (not merged yet)
 
