@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva00561DB3@LightningDrawModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x00561DB3 340B chain lane writeINI via WriteHeader.
+// ?writeINI@LightningDrawModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z @0x00561DB3 340B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of LightningDrawModuleTemplate 0x0081BD90; calls rowed WriteHeader 0x0055C9A0 then ostringstream then rowed IsZero 0x001F3744 gated OffsetX/Y/Z 0x001F8B5F then rowed t4IsZero 0x0055D3D9 gated MultiChance 0x003A5D34 then TileTexture 0x001F89C3 then rowed str plus FileWrite plus free plus footer; same shape as GpuDrawModuleTemplate rva00563D3F.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -100,7 +100,7 @@ namespace FXParticleSystem {
 
 class LightningDrawModuleTemplate {
 public:
-    virtual void rva00561DB3(File *file, unsigned int flags);
+    virtual void writeINI(File &file, unsigned int flags) const;
 private:
     char m_pad04[12 - 4];
     S001F87D5 m_offsetX;
@@ -110,9 +110,9 @@ private:
     bool m_tileTexture;
 };
 
-void LightningDrawModuleTemplate::rva00561DB3(File *file, unsigned int flags)
+void LightningDrawModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-    Rva0055C9A0WriteHeader(this, file, &flags);
+    Rva0055C9A0WriteHeader(this, &file, &flags);
     _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_offsetX))
         Rva001F8B5FWrite(oss, flags, "OffsetX", m_offsetX);
@@ -123,8 +123,8 @@ void LightningDrawModuleTemplate::rva00561DB3(File *file, unsigned int flags)
     if (!(unsigned char)t4IsZero005F4180(&m_multiChance))
         Rva003A5D34Write(oss, flags, "MultiChance", m_multiChance);
     Rva001F89C3Write(oss, flags, "TileTexture", &m_tileTexture);
-    Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-    Rva003AFC6BWrite(file, &flags);
+    Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+    Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem

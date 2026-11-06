@@ -309,3 +309,11 @@ Same pass: retired the second claim on `0x0055B735`, `DefaultAlphaModuleInfoWrit
 the same COMDAT digest, `9cd879571e54`, and no source names the placeholder. The
 survivor builds **1/1** and previews **LINKS 302 -> 302 B**. The next blocker
 refresh should stop charging the deleted file.
+
+2026-11-06, six FX writers (base `6462724dfad`): export ordinals 1945, 1947, 1948,
+1951, 1958 and 1960 identify the existing Gpu, LightningDraw, LightningEmission,
+Outward, Spherical and TerrainCollision template writers. All six rows now carry the
+exact `writeINI(File &, unsigned) const` spelling, with no second body or alias.
+The build passes **25/25** and **32 literals**; the preview stays **LINKS 2,245 ->
+2,245 B** against index `d707d2f53b`. Awaiting the automated real link.
+[Evidence](../../reverse/attempt_support/fx-writeini-exports-batch-20261106-noro.md).

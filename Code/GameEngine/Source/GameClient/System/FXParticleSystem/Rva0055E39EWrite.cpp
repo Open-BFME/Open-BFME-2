@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0055E39E@LightningEmissionModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055E39E 582B chain lane writeINI via WriteHeader.
+// ?writeINI@LightningEmissionModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z @0x0055E39E 582B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of LightningEmissionModuleTemplate 0x0081BBB0 and 0x0081C154; calls rowed WriteHeader 0x0055CB5D then ostringstream then rowed RGB IsZero 0x0055CCEF gated StartPoint EndPoint via rowed Vec Write 0x001F89E2 then 9x rowed IsZero 0x001F3744 gated Amplitude Frequency Phase via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Ortho plus RGB head.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -102,7 +102,7 @@ namespace FXParticleSystem {
 
 class LightningEmissionModuleTemplate {
 public:
-    virtual void rva0055E39E(File *file, unsigned int flags);
+    virtual void writeINI(File &file, unsigned int flags) const;
 private:
     char m_pad04[16 - 4];
     Vec001F8810 m_startPoint;
@@ -118,9 +118,9 @@ private:
     S001F87D5 m_phase3;
 };
 
-void LightningEmissionModuleTemplate::rva0055E39E(File *file, unsigned int flags)
+void LightningEmissionModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-    Rva0055CB5DWriteHeader(this, file, &flags);
+    Rva0055CB5DWriteHeader(this, &file, &flags);
     _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
     if (!(unsigned char)Rva0055CCEFIsZero((const RGBColor &)m_startPoint))
         Rva001F89E2Write(oss, flags, "StartPoint", m_startPoint);
@@ -144,8 +144,8 @@ void LightningEmissionModuleTemplate::rva0055E39E(File *file, unsigned int flags
         Rva001F8B5FWrite(oss, flags, "Frequency3", m_frequency3);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_phase3))
         Rva001F8B5FWrite(oss, flags, "Phase3", m_phase3);
-    Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-    Rva003AFC6BWrite(file, &flags);
+    Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+    Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem

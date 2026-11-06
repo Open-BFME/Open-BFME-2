@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva00563D3F@GpuDrawModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x00563D3F 288B chain lane writeINI via WriteHeader
+// ?writeINI@GpuDrawModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z @0x00563D3F 288B chain lane writeINI via WriteHeader
 // Evidence: vslot 3 of GpuDrawModuleTemplate 0x0081C1F8; calls rowed WriteHeader 0x0055C9A0 then ostringstream then rowed Rva00563636Write 0x00563636 FramesPerRow TotalFrames then rowed isEmpty 0x00001E2F gated DetailTexture 0x001F82EE then rowed t4IsZero 0x0055D3D9 gated SpeedMultiplier 0x003A5D34 then rowed str 0x001FA473 plus Rva001F458BWrite 0x001F458B plus free 0x00030830 plus Rva003AFC6BWrite 0x003AFC6B; members +0xC +0x10 payload +0x14 AsciiString +0x18 float.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -91,7 +91,7 @@ namespace FXParticleSystem {
 
 class GpuDrawModuleTemplate {
 public:
-	virtual void rva00563D3F(File *file, unsigned int flags);
+	virtual void writeINI(File &file, unsigned int flags) const;
 private:
 	char m_pad04[12 - 4];
 	Rva005635DEPayload m_framesPerRow;
@@ -100,9 +100,9 @@ private:
 	float m_speedMultiplier;
 };
 
-void GpuDrawModuleTemplate::rva00563D3F(File *file, unsigned int flags)
+void GpuDrawModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-	Rva0055C9A0WriteHeader(this, file, &flags);
+	Rva0055C9A0WriteHeader(this, &file, &flags);
 	_STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
 	Rva00563636Write(oss, flags, "FramesPerRow", m_framesPerRow);
 	Rva00563636Write(oss, flags, "TotalFrames", m_totalFrames);
@@ -110,8 +110,8 @@ void GpuDrawModuleTemplate::rva00563D3F(File *file, unsigned int flags)
 		Rva001F82EEWrite(oss, flags, "DetailTexture", m_detailTexture);
 	if (!(unsigned char)t4IsZero005F4180(&m_speedMultiplier))
 		Rva003A5D34Write(oss, flags, "SpeedMultiplier", m_speedMultiplier);
-	Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-	Rva003AFC6BWrite(file, &flags);
+	Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+	Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem

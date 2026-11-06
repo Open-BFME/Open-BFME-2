@@ -1,8 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0056499B@TerrainCollisionModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0056499B 285B chain lane writeINI.
+// ?writeINI@TerrainCollisionModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z @0x0056499B 285B chain lane writeINI.
 // Evidence: vslot 3 of TerrainCollisionModuleTemplate; calls rowed WriteHeader 0x00564284 then ostringstream then HeightOffset 0x001F8B5F EventFX 0x001F82EE Orient/PerParticle/Kill 0x001F8384 then str/Write/free then footer 0x003AFC6B; members +0x8 +0x9 +0x10 AsciiString +0x14 S001F87D5 +0x20.
-// Pattern from GpuDrawModuleTemplate::rva00563D3F 0x00563D3F.
+// Pattern from GpuDrawModuleTemplate::writeINI 0x00563D3F.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
@@ -128,7 +128,7 @@ void LifeEventModuleTemplate::writeINI(File &file, unsigned int flags) const
 
 class TerrainCollisionModuleTemplate {
 public:
-	virtual void rva0056499B(File *file, unsigned int flags);
+	virtual void writeINI(File &file, unsigned int flags) const;
 private:
 	char m_pad04[8 - 4];
 	bool m_perParticle;
@@ -139,17 +139,17 @@ private:
 	bool m_orientFXToTerrain;
 };
 
-void TerrainCollisionModuleTemplate::rva0056499B(File *file, unsigned int flags)
+void TerrainCollisionModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-	Rva00564284WriteHeader(this, file, &flags);
+	Rva00564284WriteHeader(this, &file, &flags);
 	_STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
 	Rva001F8B5FWrite(oss, flags, "HeightOffset", m_heightOffset);
 	Rva001F82EEWrite(oss, flags, "EventFX", m_eventFX);
 	Rva001F8384Write(oss, flags, "OrientFXToTerrain", &m_orientFXToTerrain);
 	Rva001F8384Write(oss, flags, "PerParticle", &m_perParticle);
 	Rva001F8384Write(oss, flags, "KillAfterEvent", &m_killAfterEvent);
-	Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-	Rva003AFC6BWrite(file, &flags);
+	Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+	Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem
