@@ -46,7 +46,6 @@ void Rva0021376BParse(INI *);
 void parseCloudEffectDefinition(INI *);
 void parsePlayerAITypeDefinition(INI *);
 void parseInGameNotificationBoxDefinition(INI *);
-void parseFireLogicSystemDefinition(INI *);
 void parseSkirmishAIDataDefinition(INI *);
 void parseAIDozerAssignmentDefinition(INI *);
 void parseLivingWorldBuildingDefinition(INI *);
@@ -227,7 +226,6 @@ BlockParse theCreateAHeroSystemBlockParse = { 0, "CreateAHeroSystem", CreateAHer
 BlockParse theStrategicHUDBlockParse = { 0, "StrategicHUD", StrategicHUD::ParseSettings };	// VA 0x00DBA190 "StrategicHUD", parse 0x0022157B
 BlockParse theInGameNotificationBoxBlockParse = { 0, "InGameNotificationBox", parseInGameNotificationBoxDefinition };	// VA 0x00DBA19C "InGameNotificationBox", parse 0x0022232E
 extern BlockParse theAptButtonTooltipMapBlockParse;	// VA 0x00DBA1CC "AptButtonTooltipMap", parse 0x00224DFF
-BlockParse theFireLogicSystemBlockParse = { 0, "FireLogicSystem", parseFireLogicSystemDefinition };	// VA 0x00DBB758 "FireLogicSystem", parse 0x002859A8
 BlockParse theAIDozerAssignmentBlockParse = { 0, "AIDozerAssignment", parseAIDozerAssignmentDefinition };	// VA 0x00DBBC1C "AIDozerAssignment", parse 0x002A92F2
 BlockParse theSkirmishAIDataBlockParse = { 0, "SkirmishAIData", parseSkirmishAIDataDefinition };	// VA 0x00DBBC28 "SkirmishAIData", parse 0x002A8A31
 BlockParse theLivingWorldBuildingBlockParse = { 0, "LivingWorldBuilding", parseLivingWorldBuildingDefinition };	// VA 0x00DBD078 "LivingWorldBuilding", parse 0x002E048C
@@ -304,7 +302,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007ADB4C();
 	static void rva007ADB6D();
 	static void rva007ADB92();
-	static void rva007ADFCA();
 	static void rva007AE15A();
 	static void rva007AE16F();
 	static void rva007AE489();
@@ -425,8 +422,6 @@ BLOCK_PARSE_INIT( rva007ADB4C, theStrategicHUDBlockParse )
 BLOCK_PARSE_INIT( rva007ADB6D, theInGameNotificationBoxBlockParse )
 // ?rva007ADB92@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB92 (21B): "AptButtonTooltipMap"
 BLOCK_PARSE_INIT( rva007ADB92, theAptButtonTooltipMapBlockParse )
-// ?rva007ADFCA@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADFCA (21B): "FireLogicSystem"
-BLOCK_PARSE_INIT( rva007ADFCA, theFireLogicSystemBlockParse )
 // ?rva007AE15A@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE15A (21B): "AIDozerAssignment"
 BLOCK_PARSE_INIT( rva007AE15A, theAIDozerAssignmentBlockParse )
 // ?rva007AE16F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE16F (21B): "SkirmishAIData"

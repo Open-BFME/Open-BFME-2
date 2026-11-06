@@ -1491,3 +1491,27 @@ void Rva0028691CTreeCleanupForward::cleanup() {reinterpret_cast<Rva0028681ATree*
 // tu-skeleton: 0x00773FA0 8B $L2657 -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
 
 // tu-skeleton: 0x00773FA8 10B __ehhandler$?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp (not merged yet)
+
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so the node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007ADFCA). Retail's .data puts this node (0x00DBB758) between
+// this TU's theFireLogicSystemParseRegistration (0x00DBB750) and the field
+// table of Rva00285FA9Parse (0x00DBB768).
+void parseFireLogicSystemDefinition( INI *ini );
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theFireLogicSystemBlockParse( "FireLogicSystem", parseFireLogicSystemDefinition );
