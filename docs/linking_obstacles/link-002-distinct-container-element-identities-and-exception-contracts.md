@@ -207,3 +207,9 @@ Whole-unit clearance and census confirmation remain pending.
 **2026-11-05:** Cleared the three registered identity keys in `stlport_vector_stringrecord_111acf_allocate_copy.cpp` by binding overflow's construction/fill to the existing 0x003F62C8/0x003F631B Eva helpers; 16/16 bytes match and the four-unit preview preserves 1,122 linked bytes, with Eva assignment still blocked; outgoing batch audit remains inconclusive pending current consumer receipts (next: `AIBaseBuilder.cpp`). [Evidence and remaining scope](../../reverse/attempt_support/stringrecord-overflow-identity-20261105-codexb.md).
 
 **2026-11-05 header cleanup:** three declaration-only `Rva0007BB16Record` consumers adopt the canonical header; cohort acceptance retires three queue rows, 27/27 functions match and the preview preserves 5,188 linked bytes. Seven constructor-adapter consumers and the broader identity reconcile remain open. [Evidence and provider audit](../../reverse/attempt_support/record36-header-20261105-codex4.md).
+
+
+Recovery publication (2026-11-06): historical fleet investigation at the inspected revision below; not a fresh reproduction or closure verdict. Original claims are released.
+
+
+**BoneFXUpdate particle enum-vector identity (2026-11-06, chat05 seat2, inspected `f15737ff46b`):** allocator-contract flag trial in the conflicting BoneFXUpdateUpdate.cpp provider preserves all six matched rows; full recursive overflow fold proof and consumer closure remain unverified. Initial pin admission lacked Wine PATH; the configured retry was blocked before execution by automatic approval review on the existing real-owner/one-identity concern. Trial restored, no pin or debt retirement. [Measured trial, exact command/rejection and prerequisites](../../reverse/attempt_support/bonefx-particle-vector-allocator-20261106-c05-seat2.md). Status: Blocked; census/runtime confirmation not claimed.

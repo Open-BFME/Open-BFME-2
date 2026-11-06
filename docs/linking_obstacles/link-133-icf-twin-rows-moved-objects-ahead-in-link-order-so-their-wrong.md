@@ -261,3 +261,17 @@ link order. Do not count them as new linked bytes. Do not extend the batch
 to the remaining `_floorf` or PendingSurfaceStruct consumers. Confirm them at the next census.
 
 2026-11-04: W3DShroud's erase-donor composition now preserves the existing 0x005530A8 provider instead of emitting a non-retail /G7 COMDAT; scoped merge guard and 2,030-byte link preview pass, with no census gain claimed. [Audit and remaining interpolation prerequisite](../../reverse/attempt_support/shroud-erase-consolidation-20261104.md).
+
+
+Recovery publication (2026-11-06): historical fleet investigation at the inspected revision below; not a fresh reproduction or closure verdict. Original claims are released.
+
+
+
+**2026-11-06 FadeInTextRender composition (chat 07 seat 2, base `f15737ff46b`):**
+The supported merge dry-run rejects its only movable draw donor: the census-linked
+`rva00596908Rva00596908Farm.cpp` would fail on selected
+`??_GRva0059675ABase@@UAEPAXI@Z` in the composed object. No move applied and no
+source or ledger change. The destructor file separately has an unapproved row.
+This is a selected-COMDAT composition prerequisite; the exact cause still needs
+provider/copy/flags inspection, not a proven placement regression or false reject.
+[Tracked trial and remaining audits](../../reverse/attempt_support/fade-consolidation-20261106-c07-seat2.md).

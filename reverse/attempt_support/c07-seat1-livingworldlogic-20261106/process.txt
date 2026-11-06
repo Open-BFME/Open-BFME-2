@@ -1,0 +1,4 @@
+    PID     ELAPSED     TIME %CPU S   RSS COMMAND
+   9113    01:14:04 01:13:16 98.9 R 18120 /Users/mehmet/Projects/Open-BFME-2/build/fleet/20261106-pass3/chat-07/seat1/reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/bin/cl.exe -nologo -c -O2 -GR- -EHsc- -O1 -arch:SSE -G7 -DNDEBUG -MD -EHs -D_STLP_USE_STATIC_LIB -D_CRTIMP= -D_STLP_NO_EXCEPTIONS -D_STLP_USE_MALLOC -Ireference/shims/bfme2_ascii -Ireference/shims/bfmealloc -FoZ:\tmp\bfme-68cfcedf2d204864a401f2fbda0bed34.obj -Z7 -showIncludes Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp
+19251 2026-11-06 11:35:07.361479580 +0000 /tmp/bfme-run-8b2ddb0afc574e15ba138f98163d981b.out
+63 2026-11-06 11:34:10.337498893 +0000 /tmp/bfme-run-8b2ddb0afc574e15ba138f98163d981b.err

@@ -1,0 +1,131 @@
+StagingRoomGameInfo.cpp
+Note: including file: Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\string
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_prolog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_config.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl_user_config.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_config_compat.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_site_config.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/stlcomp.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/stl_msvc.h
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/vc_select_lib.h
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/stl_select_lib.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/stl_confix.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_prolog.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_msvc_warnings_off.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_string.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\memory
+Note: including file:    reference/shims/bfmealloc\stl/_alloc.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cstddef
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/cstddef
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\yvals.h
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\use_ansi.h
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stddef.h
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/stddef.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cstdlib
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/cstdlib
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stdlib.h
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/stdlib.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cstring
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/cstring
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\string.h
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/string.h
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\using/cstring
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cstdio
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/cstdio
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stdio.h
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/stdio.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\new
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/new
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\exception
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/exception
+Note: including file:         Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\xstddef
+Note: including file:          Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cstddef
+Note: including file:         Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\eh.h
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_msvc_warnings_off.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_threads.h
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_threads.c
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_construct.h
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_iterator_base.h
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/type_traits.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_tempbuf.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\climits
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/climits
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\limits.h
+Note: including file:     reference/shims/bfmealloc\stl/_uninitialized.h
+Note: including file:      reference/shims/bfmealloc\stl/_algobase.h
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_pair.h
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_algobase.c
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_iterator.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_tempbuf.c
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_raw_storage_iter.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_auto_ptr.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cctype
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/cctype
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\ctype.h
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/ctype.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_string_fwd.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\iosfwd
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cwchar
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/cwchar
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\wchar.h
+Note: including file:        Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\include\../include/wchar.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_iosfwd.h
+Note: including file:      Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/char_traits.h
+Note: including file:       Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/type_traits.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_function.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_function_base.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_ctraits_fns.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_string.c
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_string_fwd.c
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_range_errors.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_string_io.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_string_io.c
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_string_hash.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_hash_fun.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_config_compat_post.h
+Note: including file: Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\map
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_prolog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_prolog.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_msvc_warnings_off.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_map.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_tree.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_tree.c
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_relops_cont.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_relops_cont.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_config_compat_post.h
+Note: including file: reference/shims/bfme2_ascii\ascii_string.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\string.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_prolog.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_prolog.h
+Note: including file:     Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_msvc_warnings_off.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_epilog.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_epilog.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_config_compat_post.h
+Note: including file:  z:\users\mehmet\projects\open-bfme-2\build\fleet\20261106-pass3\chat-07\seat1\reference\shims\bfme2_ascii\string_base.h
+Note: including file: reference/shims/bfme2_ascii\unicode_string.h
+Note: including file: z:\users\mehmet\projects\open-bfme-2\build\fleet\20261106-pass3\chat-07\seat1\code\gameengine\source\gamenetwork\gamespy\../../../Include/GameNetwork/GameSpyInfoInterface.h
+Note: including file: z:\users\mehmet\projects\open-bfme-2\build\fleet\20261106-pass3\chat-07\seat1\code\gameengine\source\gamenetwork\gamespy\../../Common/GameLogicObjectLookupView.h
+Note: including file: Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\cstddef
+Note: including file: Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\string.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_prolog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_prolog.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_msvc_warnings_off.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_config_compat_post.h
+Note: including file: Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\vector
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_prolog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_prolog.h
+Note: including file:    Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_msvc_warnings_off.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_vector.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_relops_cont.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_vector.c
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_bvector.h
+Note: including file:  Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\config/_epilog.h
+Note: including file:   Z:\Users\mehmet\Projects\Open-BFME-2\build\fleet\20261106-pass3\chat-07\seat1\vendor\stlport\stl/_config_compat_post.h
+Code\GameEngine\Source\GameNetwork\GameSpy\StagingRoomGameInfo.cpp(55) : fatal error C1083: Cannot open include file: 'windows.h': No such file or directory

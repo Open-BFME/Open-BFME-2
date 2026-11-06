@@ -1,0 +1,107 @@
+{
+  "blockers": [
+    "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterGetTexture.cpp: placement-needs-target-corroboration",
+    "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterRva001A1500.cpp: placement-needs-target-corroboration",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: data-ownership-review: 1 ledger rows",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: internal-linkage-review",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: macro-or-pragma-context",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: mixed-or-incomplete-routing; split/review every row first",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: path-keyed-registers: reverse/data_ledger.csv, reverse/hatch_baseline.tsv",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: placement-needs-target-corroboration",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: quoted-include-resolution-review",
+    "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp: unledgered-definitions: retain and reconcile declarations before draining source",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp: internal-linkage-review",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp: macro-or-pragma-context",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp: mixed-or-incomplete-routing; split/review every row first",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp: path-keyed-registers: reverse/hatch_baseline.tsv",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp: placement-needs-target-corroboration",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp: quoted-include-resolution-review",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp: internal-linkage-review",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp: macro-or-pragma-context",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp: mixed-or-incomplete-routing; split/review every row first",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp: path-keyed-registers: reverse/hatch_baseline.tsv",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp: placement-needs-target-corroboration",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp: quoted-include-resolution-review",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp: internal-linkage-review",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp: macro-or-pragma-context",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp: mixed-or-incomplete-routing; split/review every row first",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp: path-keyed-registers: reverse/hatch_baseline.tsv",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp: placement-needs-target-corroboration",
+    "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp: quoted-include-resolution-review",
+    "compiler-settings-disagree: reconcile cl lines, region flags and overrides",
+    "duplicate-type-definitions: BfmeVciAnchorElem, ParticleBufferClass, ParticleEmitterClass",
+    "stale-tu-map: regenerate and recheck before using map assignments"
+  ],
+  "file_count": 6,
+  "files": [
+    {
+      "complete": true,
+      "packet_key": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterGetTexture.cpp",
+      "rows": 1,
+      "sha256": "5006eb81849d4ff32b09a5df55bf40cd7069c3587aa2e07df21168e5ad55a1ad",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterGetTexture.cpp"
+    },
+    {
+      "complete": true,
+      "packet_key": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterRva001A1500.cpp",
+      "rows": 1,
+      "sha256": "7adc47cae06fc3a3cd0277fd6e73e4ef806a815e17e31e40455b86c37c9c11cb",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterRva001A1500.cpp"
+    },
+    {
+      "complete": false,
+      "packet_key": "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp",
+      "rows": 42,
+      "sha256": "98140c58ff03174b5beaba758ce4061ff511602f13cf248b1180a195faf85db3",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp"
+    },
+    {
+      "complete": false,
+      "packet_key": "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp",
+      "rows": 40,
+      "sha256": "b9edc33de7966ebec58bb908162beafb6433c16e055113759a6e18c186d13938",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp"
+    },
+    {
+      "complete": false,
+      "packet_key": "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp",
+      "rows": 23,
+      "sha256": "8d33dbb9fd7624364c436e455e5746304dc993965ca225ace71dd6aabeacf42c",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp"
+    },
+    {
+      "complete": false,
+      "packet_key": "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp",
+      "rows": 6,
+      "sha256": "b9b6c71dbbf7183b377c5cb3ce5f0cc9dc8f74ebf88c2c20c9706142fee3d814",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp"
+    }
+  ],
+  "next_checks": [
+    [
+      "python3",
+      "tools/name_evidence.py"
+    ],
+    [
+      "python3",
+      "tools/class_views.py",
+      "--class",
+      "<owner>"
+    ],
+    [
+      "python3",
+      "tools/find_declared_unmatched.py",
+      "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterGetTexture.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterRva001A1500.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp",
+      "Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp"
+    ]
+  ],
+  "potential_file_reduction": 5,
+  "stage": "investigate",
+  "target": "Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp",
+  "unique_bytes": 9277,
+  "verified": false
+}

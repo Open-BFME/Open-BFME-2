@@ -362,3 +362,9 @@ Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7
 - 2026-11-05 allocated `GrantUpgradeCreate.cpp` merge dry run still accepts no donors: donor Module/Object definitions conflict, the module-data ctor has duplicate `StringBase`/class declarations, and the dtor is byte-rejected. [Current dry-run evidence](../../reverse/attempt_support/grant-upgrade-create-consolidation-20261105-codex.md).
 
 - 2026-11-04: ToggleMountedSpecialAbilityUpdate constructor merged into its approved TU (one source removed, 18 exact rows, census link guard passing); module-data constructor/deleter remain separate. [Audit and remaining blockers](../../reverse/attempt_support/togglemounted-constructor-merge-20261104-codexb4.md).
+
+
+Recovery publication (2026-11-06): historical fleet investigation at the inspected revision below; not a fresh reproduction or closure verdict. Original claims are released.
+
+
+- 2026-11-06 (pass3 c06 seat3, inspected `f15737ff46b`): supported UpdateModuleInterface adoption of StealthUpdateLogic, UpdateModuleCtor, GameLogic and GameLogicInit refused all four during discovery/preflight: no private view, ambiguous field-token scope, unresolved SDK include and missing canonical field respectively. No source edits, header debt retirement, changed-source byte/link verdict or runtime gain. Reconcile those prerequisites before retry; these are not proven false rejects. [Exact command, diagnostics and input fingerprints](../../reverse/attempt_support/update-interface-cohort-20261106-pass3-c06-seat3.md).
