@@ -23,7 +23,7 @@
 // Zero Hour's GameEngine/Source/GameLogic/AI/AIStates.cpp (GeneralsMD tree
 // vendored under reference/open-bfme-1/inputs/reference). Each is slot 3 of
 // the vftable whose name getter returns its class: 0x00C117F0
-// (0x0033F745, "AIGuardRetaliateState"; the ledger's Rva00341E70) and
+// (0x0033F745, "AIGuardRetaliateState"; the ledger's Rva0033F724) and
 // 0x00C11850 (0x0033F76C, "AITunnelNetworkGuardState"; Rva00341F99).
 //
 // BFME 2 opens with the light-CRC gate and Version1. The machine member sits
