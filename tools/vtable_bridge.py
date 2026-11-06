@@ -358,6 +358,8 @@ def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tab
     metadata["queue"] = "vtable_bridge_queue.tsv"
     write_queue(metadata, Path(out) / metadata["queue"])
     (Path(out) / "vtable_bridge.json").write_text(json.dumps(metadata, indent=1) + "\n")
+    print("vtable_bridge_baseline: " + json.dumps({key: metadata[key] for key in
+          ("tables", "slots", "refused_tables", "refusal_reasons", "already_correct")}, sort_keys=True))
     return (path if metadata["entries"] else None), metadata
 
 
