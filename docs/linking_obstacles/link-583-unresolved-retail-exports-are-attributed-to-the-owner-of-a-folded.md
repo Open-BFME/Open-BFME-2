@@ -303,3 +303,9 @@ their exact export; the build passes **5/5** and **5 literals**, and the preview
 stays **LINKS 745 -> 745 B** against index `d707d2f53b`. Awaiting the automated
 real link. The `<2>` and `<3>` writers stay at the recorded rename boundary.
 [Evidence](../../reverse/attempt_support/default01-writeini-export-20261106-noro.md).
+
+Same pass: retired the second claim on `0x0055B735`, `DefaultAlphaModuleInfoWriteINI.cpp`
+(`?rva0055B735@DefaultAlphaModuleInfo`). Link index `d707d2f53b` gives both copies
+the same COMDAT digest, `9cd879571e54`, and no source names the placeholder. The
+survivor builds **1/1** and previews **LINKS 302 -> 302 B**. The next blocker
+refresh should stop charging the deleted file.
