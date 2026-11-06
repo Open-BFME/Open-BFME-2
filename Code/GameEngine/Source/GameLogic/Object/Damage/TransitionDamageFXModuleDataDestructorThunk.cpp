@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
 
 // TransitionDamageFXModuleData's destructor, lifted from its MASM dump to C++.
 //
@@ -44,22 +44,17 @@ private:
 	void *m_capacity;
 };
 
-// Root base: vptr plus two words, destructor inlined to the vptr restore.
-class TransitionDamageFXModuleDataBase
-{
-public:
-	virtual ~TransitionDamageFXModuleDataBase() {}
+// Root base: canonical Snapshot; its inline destructor is the 0x00BBB554
+// vptr restore, and the unwind funclets call its rowed copy at 0x0049B47C.
+#include "Common/Snapshot.h"
 
-private:
-	unsigned char m_unreconstructed_04[8];				///< out to sizeof() == 0x0C
-};
-
-class __declspec(novtable) TransitionDamageFXModuleData : public TransitionDamageFXModuleDataBase
+class __declspec(novtable) TransitionDamageFXModuleData : public Snapshot
 {
 public:
 	virtual ~TransitionDamageFXModuleData();
 
 private:
+	unsigned char m_unreconstructed_04[8];				///< retail this+0x0004
 	TransitionDamageFXSlotA m_slotsA[0x30];				///< retail this+0x000C
 	unsigned char m_unreconstructed_54c[4];
 	TransitionDamageFXSlotB m_slotsB[0x30];				///< retail this+0x0550

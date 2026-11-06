@@ -5361,3 +5361,4 @@ __ehhandler$??0Rva003AF076@@QAE@ABVRvaSmartPtr12@@ABURva005648FEInput@@@Z,0x0079
 ?rva0008026B@Rva0008026BStandingWaveQuery@@QAEXPAURva0008026BWaveInfo@@@Z,0x0008026B,"Renamed to ?rva0008026B@Rva0008026BStandingWaveQuery@@QAEXPAUStandingWaveInfo@@@Z by tools/rename.py (inferred)"
 ?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ,0x005469FD,"Renamed to ?rva005469FD@SynchronizeGroupOrder@@UAEPAV1@XZ by tools/rename.py (virtual: retail vtable slot)"
 __ehhandler$?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ,0x0079808F,"Renamed to __ehhandler$?rva005469FD@SynchronizeGroupOrder@@UAEPAV1@XZ by tools/rename.py (virtual: retail vtable slot)"
+??1TransitionDamageFXModuleDataBase@@UAE@XZ,0x0049B47C,"Private Snapshot stand-in retired: TransitionDamageFXModuleDataDestructorThunk.cpp now derives from canonical Snapshot, so its funclets call ??1Snapshot@@UAE@XZ, the existing row at 0x0049B47C (Snapshot.cpp); this alias name is no longer emitted (LINK-618)"
