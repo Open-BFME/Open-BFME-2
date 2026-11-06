@@ -270,3 +270,27 @@ Run42180682743 (`306f01e6f65`, 08:42 UTC) still records this export among
 308 unresolved, zero duplicates, no image, before this repair. Confirm its
 disappearance in the scheduled real link; no count/runtime gain is claimed.
 [Evidence and remaining checks](../../reverse/attempt_support/terrain-fire-writer-export-20261106-c01-seat3.md).
+
+2026-11-06 pass3, TerrainFire single-result publication check
+(`codex-fleet-20261106-c01-coordinator`, integrated repair `586d9614095`):
+strict preparation in the publication checkout verifies 4/4 rows and four
+literals with one reusable provider receipt. Ordinary preview reports 1/1
+LINKS, 322 -> 322 bytes, against `47fd56b879`; it reuses the current object.
+The integration hook also verifies the conservatively detected unchanged
+Spherical sibling: 8/8 rows, five literals and two EXACT EH graphs in total.
+
+`link_batch_audit.py --base 21693bbe216 --tip 586d9614095`, with exactly the
+TerrainFire source in its NUL-delimited verified list, exits 2,
+**INCONCLUSIVE**: the baseline is older than the outgoing base and
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` still lacks a
+current affected-consumer receipt. No broader provider-selection or consumer
+closure is established. Obtain those receipts and a matching baseline, repeat
+the closure checks, and confirm the export in the next scheduled real link.
+
+Cylindrical was published independently as `2806a73828c` with its audit note
+`21693bbe216`. Its pre-push hook on actual rebased base `e1429641ccf` repeated
+the same INCONCLUSIVE/UNVERIFIED consumer result while passing 4/4 rows, two
+literals and EXACT EH. Its five claims were then released. Both provider
+repairs still await authoritative real-link and runtime confirmation; the
+last inspected pre-repair run remains 42180682743 (308 unresolved, zero
+duplicates, no image). No new link or smoke workflow was started.
