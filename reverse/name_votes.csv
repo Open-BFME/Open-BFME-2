@@ -23816,3 +23816,9 @@ Code/GameEngine/Source/Common/GapBodiesS3E.cpp|function|0x005CB29A|Rva005CB29A,b
 Code/GameEngine/Source/Common/GapBodiesS3E.cpp|function|0x005CB2D2|Rva005CB2D2,de6361e8ecfa9d71644b089a,sonnet,review-de668c6302174c3f,w-f332219df0a4,2026-11-05
 Code/Libraries/Source/Apt/Rva006E3410.cpp|function|0x006E3410|rva006E3410,b8b40681c4110437e796ce4e,sonnet,review-de668c6302174c3f,w-f332219df0a4,2026-11-05
 Code/GameEngine/Source/Common/Rva0022CA74Slot9.cpp|function|0x002000A4|rva002000A4,9bbdd3e47b2eb648c7f59d19,sonnet,review-33efcb3f7c994151,w-f332219df0a4,2026-11-05
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|global|unrowed:567626311144355894871868f41cb602dceea70eadf6d3b9faa5c40169653c0f|unrowedData,567b43ce20dbebbb91c5b746,claude-opus-5-5,voter-b-2,w-b0c51fc17010,2026-11-06
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|global|unrowed:64a84f87ab530d310389033bc4d1cef3d88ae528ca69ca278a1598c57ecc4c0a|unrowedData,a88539f39611780b9d57d227,claude-opus-5-5,voter-b-2,w-b0c51fc17010,2026-11-06
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|global|unrowed:56f5783cea58f1f96a6e4ccd68ac7a8ebea178239a4903c950183a907cba4577|unrowedData,72665762e543254428b01074,claude-opus-5-5,voter-b-2,w-b0c51fc17010,2026-11-06
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|global|unrowed:dbe41cac6f3aea7c6eae28ef7af53f1f15e1befdd32618b5106246bdf47d5799|unrowedData,c7b141419c09e57c79e69037,claude-opus-5-5,voter-b-2,w-b0c51fc17010,2026-11-06
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|global|unrowed:b4c9759cbc781ff4fcddac2478c688392e9a238a971d1ff7baa709008ccafc6a|unrowedData,3b5fcc40846b6a2ade9b9684,claude-opus-5-5,voter-b-2,w-b0c51fc17010,2026-11-06
+Code/GameEngine/Source/Common/BigObfFallbacks.cpp|global|unrowed:7e39f844022eefab14daae52ee6bd290a5c2850542d61011aa8a10de7f9e62fd|unrowedData,56018dc02645e406def961e8,claude-opus-5-5,voter-b-2,w-b0c51fc17010,2026-11-06
