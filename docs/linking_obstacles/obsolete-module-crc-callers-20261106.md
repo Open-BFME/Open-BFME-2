@@ -1,6 +1,6 @@
 ### Obsolete module CRC callers after native BehaviorModule cleanup
 
-Status: Open; SpawnBehavior repaired, seven measured CRC units remain. Updated:
+Status: Open; SpawnBehavior and AssistedTargetingUpdate repaired in scope. Updated:
 2026-11-06, base b4e415d620; real-link artifact e185a327a7.
 
 SpawnBehavior's unrowed donor CRC body is unused by tables or outside consumers.
@@ -35,3 +35,15 @@ and constructor merge; final selected table/image behavior is unverified.
 Publication audit for callback push6ecd06cf85: INCONCLUSIVE indexe9f0686bd3,
 base d815d301c27503f8a8ef8fa1753fe1629c5555f8, one missing current receipt
 (AssistedTargetingUpdate.cpp). Carry to the next current consumer/census pass.
+
+2026-11-06 constructor consolidation completed afterc4354285e7: supported merge
+absorbs AssistedTargetingUpdateCtor.cpp (source files-1,10/10 rows). Original
+inline key COMDAT/data names restored; data_check has0 findings; final63/63
+slots and2 EXACT EH graphs pass. The merged TU independently passes canonical
+UpdateModule queue acceptance, retiring its transferred header entry. Current
+preview LINKS367B and contains no obsolete BehaviorModule CRC relocation.
+The lifetime split remains blocked by selected-provider context; no guard is
+bypassed. No current real image/census result claimed. See the profile packet's
+completion and move audit. Publication audit forc4354285e7 was INCONCLUSIVE
+(indexe9f0686bd3/base6227e952db,2 missing receipts); carry current-consumer/image
+confirmation forward.

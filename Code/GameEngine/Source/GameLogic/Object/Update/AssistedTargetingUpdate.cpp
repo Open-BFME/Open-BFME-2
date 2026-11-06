@@ -48,7 +48,10 @@ class AssistedTargetingUpdate : public UpdateModule {
 public:
     AssistedTargetingUpdate(Thing *thing, const ModuleData *data);
     virtual ~AssistedTargetingUpdate();
-    virtual NameKeyType getModuleNameKey() const;
+    virtual NameKeyType getModuleNameKey() const {
+        static NameKeyType nk = TheNameKeyGenerator->nameToKey("AssistedTargetingUpdate");
+        return nk;
+    }
     virtual UpdateSleepTime update();
     bool isFreeToAssist() const;
     void assistAttack(const Object *requestingObject, Object *victimObject);
@@ -95,11 +98,7 @@ UpdateSleepTime AssistedTargetingUpdate::update() { return UPDATE_SLEEP_FOREVER;
 
 void AssistedTargetingUpdate::loadPostProcess() { UpdateModule::loadPostProcess(); }
 
-NameKeyType AssistedTargetingUpdate::getModuleNameKey() const
-{
-    static NameKeyType nk = TheNameKeyGenerator->nameToKey("AssistedTargetingUpdate");
-    return nk;
-}
+
 
 // tu-skeleton: 0x00486E76 6B ?GetSnapshotName@AssistedTargetingUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 

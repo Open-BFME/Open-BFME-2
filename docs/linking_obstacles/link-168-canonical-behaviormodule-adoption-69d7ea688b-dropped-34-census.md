@@ -388,3 +388,10 @@ Census confirmation: awaiting.
 - Remaining prerequisite: move each table-emitting unit off the Zero Hour BehaviorModule.h onto the canonical
   Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h (slot 2 = GetSnapshotName), as 1a7053eb7c did for
   CreateModule.cpp. Dropping the explicit calls alone does not clear the table reference.
+
+2026-11-06 AssistedTargetingUpdate scoped follow-up: constructor dummy arrays
+are replaced by compiler-owned native13/47/3 tables (63/63 slots checked).
+Canonical0x20 UpdateModule view removes the old CRC table dependency; ctor is
+merged into the approved TU,10/10 rows and2 EXACT EH graphs retained. Lifetime
+source still awaits a guard-approved split; no actual image/runtime clearance
+claimed. [Proof and remaining prerequisites](../../reverse/attempt_support/assisted-native-profile-20261106/README.md).
