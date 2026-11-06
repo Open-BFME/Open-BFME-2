@@ -275,3 +275,5 @@ source or ledger change. The destructor file separately has an unapproved row.
 This is a selected-COMDAT composition prerequisite; the exact cause still needs
 provider/copy/flags inspection, not a proven placement regression or false reject.
 [Tracked trial and remaining audits](../../reverse/attempt_support/fade-consolidation-20261106-c07-seat2.md).
+
+2026-11-06 follow-up: reproduced the exact approval refusal. Base deleting destructor5966C0 is independently approved here by C, but approved_here vetoes it because its complete destructor596686 is an unapproved secondary ICF identity. The existing fold_alias exception handles the parent in foreign-row checks only. A complete5-slot private view verifies20 rows (two hypothetical4B callbacks included), with no live Code/map change. Banked as a false reject for a separate narrow verifier correction and negative regression tests; no inline/TU evidence is fabricated. [Current target facts and blocker](../../reverse/attempt_support/fade-native-table-tool-blocker-20261106/README.md).
