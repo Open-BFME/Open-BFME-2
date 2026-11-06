@@ -133,6 +133,37 @@ class NewMapTerrainView {public:
 #endif
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+//
+// ?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z, retail 0x004051BC, 156 bytes.
+// Unlock-lane body called from 0x00405258: player-index guard at this+0x2B
+// stride 4 bit 0x80, ThePlayerList range query through the pinned
+// ThePartitionManager float-radius overload at 0x00625610 (row
+// ?bfmeForwardWideC spells the radius as int), single Rva000421C8 filter
+// carrying the getNthPlayer result, then ExperienceTracker level bump
+// through the pin-only 0x0039B4EC for each hit whose +0x264 tracker is
+// present. The row's int radius and void* next are noted here and the
+// float/Object spellings are used as the bytes require. Evidence: caller
+// 0x004052F7, prev/next // cl:, ThePlayerList/ThePartitionManager pins,
+// vtable-free QAE naming with ret 8.
+
+class Player;
+class PlayerList;
+class Rva000421C8;
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Include/GameLogic/PartitionFilter.h"
+// The player filter whose vftable slots are allow 0x00260E2A and
+// getPlayerMask 0x00260E1E, spelled as SpecialAbilityUpdate.cpp spells it.
+class Rva00260E2AFilter : public Rva000421C8
+{
+public:
+	Rva00260E2AFilter(Player *player) : m_player(player) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+};
+#include "PartitionRangeQueryCallView.h"
+extern PartitionManager *ThePartitionManager;
+#include "../../Include/GameLogic/ExperienceTracker.h"
 
 extern PlayerList *ThePlayerList;
 
@@ -188,6 +219,8 @@ float g_00BC7A54 = 5e+02f;
 // tu-skeleton: 0x00404B03 105B ?rva00404B03@VictorySystem@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
 // tu-skeleton: 0x00404B6C 5B ?reset@VictorySystem@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VictorySystem.cpp
 
 // ---- from Code/GameEngine/Source/Common/VictorySystem.cpp
 
@@ -468,30 +501,6 @@ BfmeStringRecord00404BF3 *Rva00404D70::rva00405684(const AsciiString &asciiStrin
 	return &m_vec.back();
 }
 
-// tu-skeleton: 0x00404BF3 51B ??0BfmeStringRecord00404BF3@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00404C60 45B ??$_Construct@UBfmeStringRecord00404BF3@@U1@@_STL@@YAXPAUBfmeStringRecord00404BF3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00404C8D 38B ??$__uninitialized_copy@PAUBfmeStringRecord00404BF3@@PAU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00404CB3 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00404BF3@@IU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00404CD8 29B ??$__copy_ptrs@PAURva0040538FElement@@PAU1@@_STL@@YAPAURva0040538FElement@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x00404CF5 123B ?rva00404CF5@Rva00404781@@QAEH_N@Z -- matched in Code/GameEngine/Source/Common/Rva00404781Method.cpp (not merged yet)
-
-// tu-skeleton: 0x004051BC 156B ?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva004051BC.cpp (not merged yet)
-
-// tu-skeleton: 0x00405350 63B ??1Rva00405350@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0040538F 51B ?erase@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEPAURva0040538FElement@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x0040541F 11B ?clear@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x0040542A 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord00404BF3@@V?$allocator@UBfmeStringRecord00404BF3@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00404BF3@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x004055BB 55B ?push_back@?$vector@UBfmeStringRecord00404BF3@@V?$allocator@UBfmeStringRecord00404BF3@@@_STL@@@_STL@@QAEXABUBfmeStringRecord00404BF3@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00404D70Init.cpp
 
 void VictorySystem::init()
@@ -508,15 +517,48 @@ void VictorySystem::init()
 	reinterpret_cast<_STL::vector<BfmeStringRecord00404BF3> *>(&parameters120)->push_back(rec);
 }
 
+// tu-skeleton: 0x00404BF3 51B ??0BfmeStringRecord00404BF3@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00404C60 45B ??$_Construct@UBfmeStringRecord00404BF3@@U1@@_STL@@YAXPAUBfmeStringRecord00404BF3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00404C8D 38B ??$__uninitialized_copy@PAUBfmeStringRecord00404BF3@@PAU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00404CB3 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00404BF3@@IU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00404CD8 29B ??$__copy_ptrs@PAURva0040538FElement@@PAU1@@_STL@@YAPAURva0040538FElement@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00404CF5 123B ?rva00404CF5@Rva00404781@@QAEH_N@Z -- matched in Code/GameEngine/Source/Common/Rva00404781Method.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004051BC.cpp
+
+void Rva004051BC::rva004051BC(int playerIndex, const Coord3D *pos)
+{
+	if ((m_guards[playerIndex].flag & 0x80) != 0)
+		return;
+	Player *player = ThePlayerList->getNthPlayer(playerIndex);
+	Rva00260E2AFilter filter(player);
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, m_radius20, 1, &filter, 0);
+	for (Object *other = hits.next(); other != 0; other = hits.next()) {
+		ExperienceTracker *tracker = other->m_experienceTracker;
+		if (tracker == 0)
+			continue;
+		tracker->rva0039B4EC(1, true, false);
+	}
+}
+
+// tu-skeleton: 0x00405350 63B ??1Rva00405350@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0040538F 51B ?erase@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEPAURva0040538FElement@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x0040541F 11B ?clear@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x0040542A 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord00404BF3@@V?$allocator@UBfmeStringRecord00404BF3@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00404BF3@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x004055BB 55B ?push_back@?$vector@UBfmeStringRecord00404BF3@@V?$allocator@UBfmeStringRecord00404BF3@@@_STL@@@_STL@@QAEXABUBfmeStringRecord00404BF3@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
 // tu-skeleton: 0x00784DEF 14B uw_00784def -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x00784DFD 10B __ehhandler$??$_Construct@UBfmeStringRecord00404BF3@@U1@@_STL@@YAXPAUBfmeStringRecord00404BF3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00784E2D 8B $L492 -- matched in Code/GameEngine/Source/Common/Rva004051BC.cpp (not merged yet)
-
-// tu-skeleton: 0x00784E35 8B uw_00784e35 -- matched in Code/GameEngine/Source/Common/Rva004051BC.cpp (not merged yet)
-
-// tu-skeleton: 0x00784E3D 10B __ehhandler$?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva004051BC.cpp (not merged yet)
 
 // tu-skeleton: 0x00784E47 8B $L3302 -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
