@@ -1,6 +1,6 @@
 // cl: /MD /EHsc
-// ?update@Rva0033F724@@UAEHXZ @0x00341F5D 60B: Rva0033F724 virtual slot 6 (offset 0x18) of vtable 0x008117F0.
-// Evidence: vslot packet; class of ??1Rva0033F724@@UAE@XZ; calls rowed ?getGoalObject@TurretStateMachine@@QAEPAVObject@@XZ twice plus vtable slots 0x38 (setGoalObject) and 0x10 tail.
+// ?update@AIGuardRetaliateState@@UAEHXZ @0x00341F5D 60B: AIGuardRetaliateState virtual slot 6 (offset 0x18) of vtable 0x008117F0.
+// Evidence: vslot packet; class of ??1AIGuardRetaliateState@@UAE@XZ; calls rowed ?getGoalObject@TurretStateMachine@@QAEPAVObject@@XZ twice plus vtable slots 0x38 (setGoalObject) and 0x10 tail.
 class Object;
 class TurretStateMachine
 {
@@ -37,7 +37,7 @@ public:
 	char m_pad1D[0x20 - 0x1D];
 };
 }
-class Rva0033F724 : public FXParticleSystem::WindModuleInfo
+class AIGuardRetaliateState : public FXParticleSystem::WindModuleInfo
 {
 public:
 	virtual void _s01();
@@ -49,7 +49,7 @@ public:
 private:
 	TurretStateMachine *m_20;
 };
-int Rva0033F724::update()
+int AIGuardRetaliateState::update()
 {
 	if (!m_20)
 		return -2;

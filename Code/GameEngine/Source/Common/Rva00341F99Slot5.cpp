@@ -3,7 +3,7 @@
 // ?rva00342120@Rva0033F74B@@UAEXH@Z, retail 0x00342120, 55 bytes.
 // Slot 5 (offset 0x14) of vtable 0x00811850 (class of ??1Rva0033F74B@@UAE@XZ,
 // rowed in Rva00341F99Dtor.cpp, same // cl: line) and also of twin vtable
-// 0x008117F0 (class of ??1Rva0033F724@@UAE@XZ); both slots share this body.
+// 0x008117F0 (class of ??1AIGuardRetaliateState@@UAE@XZ); both slots share this body.
 // Shape: delete m_ptr20 when present through slot-0
 // scalarDeletingDestructor(0) plus operator delete with the null->0 ternary
 // (rowed ??3@YAXPAX@Z 0x0002FD60, caller cleanup via pop ecx), null it with

@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ??1Rva0033F724@@UAE@XZ @0x00341E70 91B: Rva0033F724 public virtual dtor.
+// ??1AIGuardRetaliateState@@UAE@XZ @0x00341E70 91B: AIGuardRetaliateState public virtual dtor.
 // Vptr install plus member at +0x20 via virtual slot15 then slot0 with 0 plus
 // delete 0x0002FD60, then the base State destructor (the rowed
 // ??1State@@UAE@XZ, the 7-byte fold body at 0x0049B47C).
@@ -30,14 +30,14 @@ public:
 	virtual void v14();
 	virtual void v15();
 };
-class Rva0033F724 : public State {
+class AIGuardRetaliateState : public State {
 public:
-	virtual ~Rva0033F724();
+	virtual ~AIGuardRetaliateState();
 private:
 	Rva00341E70Member *m_20;
 };
 #include <new>
-Rva0033F724::~Rva0033F724()
+AIGuardRetaliateState::~AIGuardRetaliateState()
 {
 	if (m_20) {
 		m_20->v15();

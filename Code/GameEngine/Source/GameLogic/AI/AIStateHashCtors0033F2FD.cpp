@@ -355,20 +355,20 @@ Rva0033F701::Rva0033F701(StateMachine *machine)
 {
 }
 
-// Rva0033F724: retail 0x0033F724 (33B), hash 0x9837864, vtable 0xc117f0 callers 0x00352732
-class Rva0033F724 : public State
+// AIGuardRetaliateState: retail 0x0033F724 (33B), hash 0x9837864, vtable 0xc117f0 callers 0x00352732
+class AIGuardRetaliateState : public State
 {
 public:
-	Rva0033F724(StateMachine *machine);
+	AIGuardRetaliateState(StateMachine *machine);
 	// the rowed destructor 0x00341E70 (Rva00341E70Dtor.cpp); declared so this
 	// unit does not emit an implicit copy
-	virtual ~Rva0033F724();
+	virtual ~AIGuardRetaliateState();
 
 private:
 	int m_20; // +0x20
 };
 
-Rva0033F724::Rva0033F724(StateMachine *machine)
+AIGuardRetaliateState::AIGuardRetaliateState(StateMachine *machine)
 	: State(machine, 0x9837864u)
 	, m_20(0)
 {

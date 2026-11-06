@@ -376,10 +376,10 @@ public:
 private:
 	unsigned char m_pad00[0x24];
 };
-class Rva0033F724
+class AIGuardRetaliateState
 {
 public:
-	Rva0033F724(StateMachine *machine);
+	AIGuardRetaliateState(StateMachine *machine);
 private:
 	unsigned char m_pad00[0x24];
 };
@@ -575,7 +575,7 @@ AIStateMachine::AIStateMachine(Object *owner, UnsignedInt nameKey) : StateMachin
 	defineState( 75, (State *)new Rva0033F5B9( this, true ), 0, 0 );
 	defineState( 78, (State *)new Rva0033F701( this ), 16, 0 );
 	defineState( 16, (State *)new AIGuardState( this ), 0, 0 );
-	defineState( 62, (State *)new Rva0033F724( this ), 0, 0 );
+	defineState( 62, (State *)new AIGuardRetaliateState( this ), 0, 0 );
 	defineState( 24, (State *)new Rva0033F74B( this ), 0, 0 );
 	defineState( 17, (State *)new Rva0033F772( this ), 0, 0 );
 	defineState( 31, (State *)new Rva0033F79D( this ), 0, 0 );
