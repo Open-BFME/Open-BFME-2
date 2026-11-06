@@ -51,10 +51,21 @@ extern const char *const ParticleShaderTypeNames[12] = {
     "W3D_DIFFUSE", "W3D_ALPHA", "W3D_EMISSIVE", NULL,
 };
 // VA 0x00C1B640 (.rdata), 10 slots through the sentinel; next table is
-// ParticlePriorityNames at VA 0x00C1B6A4.
+// EmissionVelocityTypeNames at VA 0x00C1B668.
 extern const char *const ParticleTypeNames[10] = {
     "NONE", "PARTICLE", "DRAWABLE", "STREAK", "VOLUME_PARTICLE",
     "SMUDGE", "TERRAIN_PARTICLE", "GPU_PARTICLE", "GPU_TERRAINFIRE", NULL,
+};
+// VA 0x00C1B668 (.rdata), 7 slots through the sentinel (retail export
+// ordinal 1178); next table is EmissionVolumeTypeNames at VA 0x00C1B684.
+extern const char *const EmissionVelocityTypeNames[7] = {
+    "NONE", "ORTHO", "SPHERICAL", "HEMISPHERICAL", "CYLINDRICAL", "OUTWARD",
+    NULL,
+};
+// VA 0x00C1B684 (.rdata), 8 slots through the sentinel (retail export
+// ordinal 1179); next table is ParticlePriorityNames at VA 0x00C1B6A4.
+extern const char *const EmissionVolumeTypeNames[8] = {
+    "NONE", "POINT", "LINE", "BOX", "SPHERE", "CYLINDER", "TERRAIN", NULL,
 };
 // VA 0x00C1B6A4 (.rdata), 8 slots through the sentinel, before the next known
 // data symbol Rva003AF184_v0a at VA 0x00C1C84C.
