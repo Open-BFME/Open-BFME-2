@@ -2,77 +2,100 @@
 //
 // ??0ObjectWeaponStatusHelper@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0028CB45, 81 bytes.
 // ObjectWeaponStatusHelper behavior ctor over the rowed ObjectHelper base
-// (0x28C8DF, thing plus data): re-stores the three most-derived vtable slots
-// then setWakeFrame(m_object, UPDATE_SLEEP_NONE) via the 0x44DF71 pin
-// (address-of TU-local dummies, DIR32-masked; EH frametry via the
-// declared-only base dtor, store-then-wake source order for the hoist).
+// (0x28C8DF, thing plus data): stores the class's three vftables (0x00BFBE48
+// at +0, the UpdateModule family's 0x00BEFF90 at +0x0C, 0x00BFBE3C at +0x10),
+// then setWakeFrame(getObject(), UPDATE_SLEEP_NONE) (0x44DF71). The EH frame
+// unwinds the constructed ObjectHelper base through ~ObjectHelper 0x004DF7C2.
 // BFME1 donor is ObjectWeaponStatusHelperCtorThunk.cpp; unlike the other
-// helpers this one wakes immediately since it runs every frame. The
-// rowed factory 0x299806 (news 0x20, no new members) is the sole raw caller,
-// and the ObjectWeaponStatusHelper pool key at 0x28CB96 immediately follows. Row
-// supersedes the ctor pin.
+// helpers this one wakes immediately since it runs every frame. The rowed
+// factory 0x299806 (news 0x20, no new members) is the sole raw caller, and
+// the ObjectWeaponStatusHelper pool key at 0x28CB96 immediately follows.
+//
+// Retail 0x00BFBE48 (13 slots): deleting dtor 0x0028CBE1, loadPostProcess
+// 0x00483CEF (`jmp 0x00497805`), the name getter 0x0028CBDB, xfer 0x004DF87C,
+// getModuleNameKey 0x0028CB96, then UpdateModule's slots up to slot 12,
+// getUpdatePhase 0x0044827C (`push 3; pop eax; ret`, a body retail folds
+// with ATL's _AtlGetThreadACPReal). 0x00BFBE3C: update 0x0028F976,
+// getDisabledTypesToProcess 0x004DF8C2 (bits 3 and 8), then UpdateModule's
+// wake slot.
+// The name getter is not declared yet: its row (Rva0028CBDBNamed, 0x0028CBDB)
+// sits in a unit another seat holds, so slot 2 still inherits UpdateModule's.
 
-class Thing;
-class ModuleData;
-class Object;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
 
-// Opaque UpdateModule base; setWakeFrame resolves to its pin, m_object at +8.
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime when);
-
-	const void *m_vtable;
-	int m_pad04;
-	Object *m_object;
-};
-
-// Retail's unwind of the ObjectHelper base calls the rowed 0x004DF7C2
-// destructor (??1Rva004DF7C2).
-class Rva004DF7C2
-{
-public:
-	virtual ~Rva004DF7C2();
-};
-
-// Opaque ObjectHelper base (0x20 bytes); 2-arg ctor resolves to its row, the
-// dtor arms the EH frame and forwards to the rowed body.
-class ObjectHelper : public UpdateModule
-{
-public:
-	ObjectHelper(Thing *thing, const ModuleData *moduleData);
-	~ObjectHelper() { ((Rva004DF7C2 *)this)->Rva004DF7C2::~Rva004DF7C2(); }
-
-protected:
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_tailPad[0x20 - 0x14];
-};
-
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
+#include "../../../../Include/GameLogic/Module/ObjectHelper.h"
 
 class ObjectWeaponStatusHelper : public ObjectHelper
 {
 public:
 	ObjectWeaponStatusHelper(Thing *thing, const ModuleData *moduleData);
+	virtual ~ObjectWeaponStatusHelper();
+
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual DisabledMaskType getDisabledTypesToProcess() const;
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
+	virtual SleepyUpdatePhase getUpdatePhase() const;
 };
 
-// ??0ObjectWeaponStatusHelper@@QAE@PAVThing@@PBVModuleData@@@Z @0x28C9F9
+// ??0ObjectWeaponStatusHelper@@QAE@PAVThing@@PBVModuleData@@@Z @0x28CB45
 ObjectWeaponStatusHelper::ObjectWeaponStatusHelper(Thing *thing, const ModuleData *moduleData)
 	: ObjectHelper(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
+	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
+}
+
+// Slot 1 of 0x00BFBE48: 0x00483CEF, `jmp 0x00497805` to ObjectHelper's; the
+// body the other helpers' tables share.
+void ObjectWeaponStatusHelper::loadPostProcess()
+{
+	ObjectHelper::loadPostProcess();
+}
+
+// ObjectHelper's xfer, 0x004DF81B, is still rowed under its placeholder class.
+class Rva004DF81B
+{
+public:
+	void xfer(Xfer *xfer);
+};
+
+// Slot 3 of 0x00BFBE48: 0x004DF87C, version 1 then ObjectHelper's xfer; the
+// body ObjectRecoveryHelper and ObjectRepulsorHelper share.
+void ObjectWeaponStatusHelper::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	((Rva004DF81B *)this)->xfer(xfer);
+}
+
+// Slot 12 of 0x00BFBE48: 0x0044827C. UpdateModule's own (0x0022C4CB) returns
+// phase 2; this helper's returns phase 3. The phase's enumerator name is not
+// recovered.
+SleepyUpdatePhase ObjectWeaponStatusHelper::getUpdatePhase() const
+{
+	return (SleepyUpdatePhase)3;
 }
