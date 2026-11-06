@@ -33,7 +33,7 @@ int bfmeSameGX(BfmeThingGX *left, BfmeThingGX *right);
 // owning pointer to it.
 #include "../../Include/Common/Rva000AD6F4.h"
 // The +0x2A4 holder owns a BfmeThingGX here.
-static __forceinline BfmeThingGX *heldHint(const Rva000AD6F4 &holder) { return (BfmeThingGX *)holder.m_ptr; }
+__forceinline BfmeThingGX *heldHint(const Rva000AD6F4 &holder) { return (BfmeThingGX *)holder.m_ptr; }
 
 #include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
