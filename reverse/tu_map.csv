@@ -59504,7 +59504,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0070DF80,45,code,,,-,,Code/GameEngine/Source/Common/Rva0070DF80Slot13.cpp
 0x0070DFB0,29,code,Code/GameEngine/Source/Common/AptObject.cpp,approved,N,N=Code/GameEngine/Source/Common/AptObject.cpp provisional,Code/GameEngine/Source/Common/AptObject.cpp
 0x0070DFD0,5,code,Code/GameEngine/Source/Common/AptObject.cpp,approved,N,N=Code/GameEngine/Source/Common/AptObject.cpp provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
-0x0070DFE0,5,code,Code/GameEngine/Source/Common/AptObject.cpp,approved,N,N=Code/GameEngine/Source/Common/AptObject.cpp provisional,Code/GameEngine/Source/Common/AptObject_DestroyGCPointers.cpp
+0x0070DFE0,5,code,Code/GameEngine/Source/Common/AptObject.cpp,approved,N,N=Code/GameEngine/Source/Common/AptObject.cpp provisional,Code/GameEngine/Source/Common/AptObject.cpp
 0x0070DFF0,107,code,,,-,,Code/GameEngine/Source/Common/Rva0070DFF0Reg.cpp
 0x0070E060,148,code,,,-,,Code/GameEngine/Source/Common/Rva0070E060Cluster.cpp
 0x0070E100,284,code,Code/Libraries/Source/Apt/AptObject/AptObject.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptObject/AptObject.cpp,Code/Libraries/Source/Apt/AptObject/AptObjectDoesImplement.cpp

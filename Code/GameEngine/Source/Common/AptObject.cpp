@@ -30,6 +30,7 @@ public:
     virtual void DestroyGCPointers();
 };
 
+// ---- from Code/GameEngine/Source/Common/AptObject.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0070DFB0Pred.cpp
 
@@ -43,4 +44,9 @@ AptValue *AptObject::objectMemberLookup(AptValue *const, const EAStringC *const 
 
 // tu-skeleton: 0x0070DFD0 5B ?RegisterReferences@AptObject@@UBEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
-// tu-skeleton: 0x0070DFE0 5B ?DestroyGCPointers@AptObject@@UAEXXZ -- matched in Code/GameEngine/Source/Common/AptObject_DestroyGCPointers.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AptObject_DestroyGCPointers.cpp
+
+void AptObject::DestroyGCPointers()
+{
+    AptValueWithHash::DestroyGCPointers();
+}
