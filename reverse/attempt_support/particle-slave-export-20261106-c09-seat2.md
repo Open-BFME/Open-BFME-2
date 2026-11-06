@@ -1,3 +1,5 @@
+> Superseded during recovery publication rebase: current master repairs this exact exported return and its destructor-fold prerequisite. See [upstream repair and its verification scope](create-slave-system-export-20261106-noro.md). The interrupted proposal and recovery inspection below describe their earlier revisions; do not apply the archived draft again.
+
 > Recovery review at `8bb483ac9115`: this interrupted proposal was not byte-verified by its worker. The constructor, destructor and slave-provider sources are unchanged since `f15737ff46b` (`git diff --quiet f15737ff46b HEAD -- <three sources>` exits 0). The existing attempt at 0x001F9CF3 already documents the exact handle-destructor identity boundary. No repeated compiler trial or source change is claimed. All original claims are released.
 
 # Particle slave return identity: chat 09 seat 2

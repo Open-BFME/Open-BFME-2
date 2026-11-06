@@ -51,3 +51,6 @@ a shared declaration for the manager's system list.
 
 
 2026-11-06 recovery review: the interrupted createSlaveSystem exported-return proposal remains unverified. Its three affected sources are unchanged since the archived attempt; prior 0x001F9CF3 evidence already identifies the 0x002115C5 shared-destructor naming prerequisite. No repeated build, second body or alias was added. [Recovery disposition and original proposal boundary](../../reverse/attempt_support/particle-slave-export-20261106-c09-seat2.md).
+
+
+Recovery rebase update: current master now supplies createSlaveSystem and its verified destructor fold. The earlier recovery paragraph is historical and superseded for this export; do not repeat the archived proposal. [Current upstream repair](../../reverse/attempt_support/create-slave-system-export-20261106-noro.md). Automated real-link/runtime confirmation and broader handle-header adoption remain separate.

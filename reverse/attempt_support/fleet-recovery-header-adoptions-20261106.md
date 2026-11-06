@@ -37,3 +37,15 @@ Compiler: pinned BFME1 VS2003 through the existing shared VM, Wine prefix `/home
 The published census index is `d707d2f53b` (2026-11-06 11:04 UTC), older than this source base. Strict providers and owning acceptance preserve their bounded scopes; they do not establish current full consumer closure. The outgoing pre-push batch audit must judge the actual final range and its inconclusive cases must remain unverified. The previously missing current receipt for `0CreateAHeroManager21FE49.cpp` is not assumed repaired by this five-source batch.
 
 The newest official real link inspected before publication is run **42233431149** at `6e5fe55db8`: **291 unresolved**, **0 duplicates**, **673 initializer bridges**, **1,775 vtable bridges**. It predates this recovery. Its diagnostic link is not the exit test. No new real link, image, menu, skirmish, save/load or retail-CRC result is claimed. Remaining family/header/merge prerequisites remain queued; no consolidation or export-count gain is claimed.
+
+## Commit-gate shadow finding
+
+The normal commit hook reverified **11/11** rows, **EXACT 1** EH graph, the data row, six float literals and four imports, and accepted all five queue removals. Its shadow identity detector reports the existing `?Set_Material@DX8Wrapper@@SAXPAVVertexMaterialClass@@@Z` definition as divergent. Read-only COFF/index comparison finds this source's **52-byte** provider has digest **c0b7cdf7e449** both in published index `d707d2f53b` and the recovered current object. Its declaration/body also precede the new WorldHeightMap include and are unchanged. This establishes provider preservation against that index; it does not repair the pre-existing retail identity finding. No identity baseline key was added or retired. The full outgoing consumer audit and index-age limitations remain.
+
+## Publication rebase
+
+Rebased onto `ffc7c6bdc9d` after concurrent master updates. Documentation conflicts preserve both contributors' histories. `git diff --quiet 5a1e6ff3247 HEAD -- <the five consumer paths>` exits 0: all five already-verified source files are byte-for-byte unchanged by the rebase. The historical Cylinder and particle-slave investigations are now explicitly marked superseded by current upstream repairs. Pre-push verification still judges the actual outgoing batch; no full consumer or runtime claim follows from this source-equality check.
+
+## Completed combined-batch publication checks
+
+The combined source/debt attempts passed the normal pre-push gates: 11/11 rows, 13-symbol DIR32 consistency, EXACT 1 EH graph, six float literals, four imports and converged data checks. Rebases reused five source receipts. Their audit remained INCONCLUSIVE/UNVERIFIED: index d707d2f53b predates each outgoing base (including 71fdc054f3a90042ea6bfa0a1b921548378c22e1), and 0CreateAHeroManager21FE49.cpp lacks a current affected-consumer receipt. These cases remain for the next authoritative census; no closure or runtime result is inferred. Repeated successful gates lost publication races, so source adoption and owning queue retirement are now published separately. No hook was bypassed or changed.

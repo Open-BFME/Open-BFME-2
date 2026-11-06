@@ -12,3 +12,6 @@ The generator reports a decided contract but selects size 16 by majority despite
 
 
 2026-11-06 stopped-fleet recovery: FlatHeightMapDoPartialUpdate and W3DSnowManagerRender now adopt the existing WorldHeightMap header; 2/2 rows remain exact, strict providers pass and owning acceptance passed; two queue rows await separate retirement. Constructor/parser and remaining cohort/TU prerequisites stay open. [Current five-consumer verification and remaining audit limits](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md).
+
+
+Recovery commit-gate follow-up: the shadow Set_Material identity finding is not retired. Read-only comparison preserves its 52-byte provider digest c0b7cdf7e449 from index d707d2f53b to the current Snow object. This is bounded provider preservation, not a retail-identity repair or full consumer verdict. [Gate result and comparison scope](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md#commit-gate-shadow-finding).
