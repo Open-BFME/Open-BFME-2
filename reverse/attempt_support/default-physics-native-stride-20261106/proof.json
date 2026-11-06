@@ -1,0 +1,264 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultPhysicsModuleInfoVectorDeletingDestructor_Rva003A69B4.cpp",
+  "control_sha256": "30486302619029f4da24beed989310402c87c4cd80e9954726acb6b53fa2d8be",
+  "matched": [
+    "0x003A77A7"
+  ],
+  "missing": [],
+  "errors": [],
+  "row_count": 1,
+  "before_facts": [
+    {
+      "?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ": {
+        "bytes": "b800000000e800000000516a44e800000000598945f08365fc0085c07421566a025968000000006800000000518d70046a20568908e8000000008bc65eeb0233c08b4df464890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            14,
+            20,
+            "??_U@YAPAXI@Z"
+          ],
+          [
+            35,
+            6,
+            "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            40,
+            6,
+            "??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ"
+          ],
+          [
+            54,
+            20,
+            "??_L@YGXPAXIHP6EX0@Z1@Z"
+          ],
+          [
+            71,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "bytes": "538a5c2408f6c302568bf174245768000000008d7efcff376a2056e800000000f6c301740757e800000000598bc75feb158bcee800000000f6c301740756e800000000598bc65e5bc20400",
+        "relocations": [
+          [
+            15,
+            6,
+            "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            28,
+            20,
+            "??_M@YGXPAXIHP6EX0@Z@Z"
+          ],
+          [
+            39,
+            20,
+            "??_V@YAXPAX@Z"
+          ],
+          [
+            52,
+            20,
+            "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            63,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "?DeleteDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAXPAVDefaultPhysicsModuleInfo@1@@Z": {
+        "bytes": "8b4c240485c974168d41fc83380074078b016a03ff10c350e80000000059c3",
+        "relocations": [
+          [
+            25,
+            20,
+            "??_V@YAXPAX@Z"
+          ]
+        ]
+      }
+    },
+    {
+      "?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?DeleteDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAXPAVDefaultPhysicsModuleInfo@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      }
+    },
+    {
+      "defined": [
+        "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z",
+        "?DeleteDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAXPAVDefaultPhysicsModuleInfo@1@@Z",
+        "?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ"
+      ],
+      "undefined": [
+        "??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ",
+        "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ",
+        "??3@YAXPAX@Z",
+        "??_L@YGXPAXIHP6EX0@Z1@Z",
+        "??_M@YGXPAXIHP6EX0@Z@Z",
+        "??_U@YAPAXI@Z",
+        "??_V@YAXPAX@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    }
+  ],
+  "after_facts": [
+    {
+      "?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ": {
+        "bytes": "b800000000e800000000516a4ce800000000598945f08365fc0085c07421566a025968000000006800000000518d70046a24568908e8000000008bc65eeb0233c08b4df464890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            14,
+            20,
+            "??_U@YAPAXI@Z"
+          ],
+          [
+            35,
+            6,
+            "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            40,
+            6,
+            "??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ"
+          ],
+          [
+            54,
+            20,
+            "??_L@YGXPAXIHP6EX0@Z1@Z"
+          ],
+          [
+            71,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "bytes": "538a5c2408f6c302568bf174245768000000008d7efcff376a2456e800000000f6c301740757e800000000598bc75feb158bcee800000000f6c301740756e800000000598bc65e5bc20400",
+        "relocations": [
+          [
+            15,
+            6,
+            "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            28,
+            20,
+            "??_M@YGXPAXIHP6EX0@Z@Z"
+          ],
+          [
+            39,
+            20,
+            "??_V@YAXPAX@Z"
+          ],
+          [
+            52,
+            20,
+            "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            63,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "?DeleteDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAXPAVDefaultPhysicsModuleInfo@1@@Z": {
+        "bytes": "8b4c240485c974168d41fc83380074078b016a03ff10c350e80000000059c3",
+        "relocations": [
+          [
+            25,
+            20,
+            "??_V@YAXPAX@Z"
+          ]
+        ]
+      }
+    },
+    {
+      "?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?DeleteDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAXPAVDefaultPhysicsModuleInfo@1@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      }
+    },
+    {
+      "defined": [
+        "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z",
+        "?DeleteDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAXPAVDefaultPhysicsModuleInfo@1@@Z",
+        "?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ"
+      ],
+      "undefined": [
+        "??0DefaultPhysicsModuleInfo@FXParticleSystem@@QAE@XZ",
+        "??1DefaultPhysicsModuleInfo@FXParticleSystem@@UAE@XZ",
+        "??3@YAXPAX@Z",
+        "??_L@YGXPAXIHP6EX0@Z1@Z",
+        "??_M@YGXPAXIHP6EX0@Z@Z",
+        "??_U@YAPAXI@Z",
+        "??_V@YAXPAX@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list"
+      ],
+      "weak": [],
+      "alternates": {},
+      "includes": []
+    }
+  ],
+  "removed": [],
+  "added": [],
+  "changed": [
+    "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z",
+    "?MakeDefaultPhysicsModuleInfoArray@FXParticleSystem@@YAPAVDefaultPhysicsModuleInfo@1@XZ"
+  ],
+  "binding_changes": [],
+  "routes_identical": true
+}

@@ -1,0 +1,8 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultPhysicsModuleInfoVectorDeletingDestructor_Rva003A69B4.cpp",
+  "source_sha256": "33eae62a156fc90d874bd52535005ff8940ea1754dd3f2120807353c7912eec1",
+  "object_sha256": "258e6aab79c3e80a5db2b8f822eb536ece7a505bed7ba921fcdbd0e2163650ab",
+  "normal_equals_private_winner": true,
+  "definitions": 3,
+  "eh": {}
+}
