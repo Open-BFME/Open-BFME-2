@@ -1,8 +1,8 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?onEnter@Rva00342157@@UAEHXZ, retail 0x003421B2, 66 bytes.
+// ?onEnter@Rva0033F772@@UAEHXZ, retail 0x003421B2, 66 bytes.
 // Virtual slot 4 (offset 0x10) of vtable 0x008118B0, the class whose dtor
-// ??1Rva00342157@@UAE@XZ is rowed in Rva00342157Dtor.cpp (same // cl: line).
+// ??1Rva0033F772@@UAE@XZ is rowed in Rva00342157Dtor.cpp (same // cl: line).
 // Body: m_ptr20 = m_ptr18->slot9() (call [eax+0x24]); m_24 =
 // TheGameLogic->getFrame() + GetGameLogicRandomValue(0, Int00DBA4E4*3,
 // file, 0x3C4F) (rowed int twin 0x00233FF4); tail-call m_ptr20->slot7()
@@ -13,7 +13,7 @@
 // 0x00812248 is "C:\projects\bfme2patch103\bfme2\Code\GameEngine\Source\
 // GameLogic\AI\AIStates.cpp" (gate string-ref proved it after a placeholder
 // failed verification); the class is therefore AI-state shaped but keeps its
-// honest Rva00342157 name since identity rests on vtable 0x008118B0 only.
+// honest Rva0033F772 name since identity rests on vtable 0x008118B0 only.
 
 extern int BfmeLogicFramesPerSecond;
 
@@ -63,7 +63,7 @@ private:
 	char m_pad04[8];
 };
 
-class Rva00342157 : public Rva0049B47C
+class Rva0033F772 : public Rva0049B47C
 {
 public:
 	virtual void _slot01();
@@ -79,7 +79,7 @@ private:
 	unsigned int m_24;
 };
 
-int Rva00342157::onEnter()
+int Rva0033F772::onEnter()
 {
 	m_ptr20 = m_ptr18->getPtr20();
 	int hi = Int00DBA4E4 * 3;

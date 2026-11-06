@@ -5280,3 +5280,6 @@ __ehhandler$?writeINI@Rva0055C263@@UAEXPAVFile@@I@Z,0x0079986B,Renamed to __ehha
 ??1Rva00341F99@@UAE@XZ,0x00341F99,"Renamed to ??1Rva0033F74B@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C11850)"
 ??_GRva00341F99@@UAEPAXI@Z,0x00342F79,"Renamed to ??_GRva0033F74B@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C11850)"
 ?rva00342120@Rva00341F99@@UAEXH@Z,0x00342120,"Renamed to ?rva00342120@Rva0033F74B@@UAEXH@Z by tools/rename.py (fold: retail vftable 0x00C11850)"
+??1Rva00342157@@UAE@XZ,0x00342157,"Renamed to ??1Rva0033F772@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C118B0)"
+??_GRva00342157@@UAEPAXI@Z,0x00342F95,"Renamed to ??_GRva0033F772@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C118B0)"
+?onEnter@Rva00342157@@UAEHXZ,0x003421B2,"Renamed to ?onEnter@Rva0033F772@@UAEHXZ by tools/rename.py (fold: retail vftable 0x00C118B0)"

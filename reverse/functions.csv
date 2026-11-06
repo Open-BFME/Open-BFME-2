@@ -21387,7 +21387,7 @@ _vp6_drawc,,0x001BB580,109,Code/Libraries/Source/VP6/debug.cpp,matched,Target CR
 ?ParseRowNum@StrategicHUD@@YA_NPBDPAH@Z,,0x00579676,32,Code/GameEngine/Source/Common/StrategicHUD.cpp,matched,atoi range check 0 to 6 via dllimport plus O1
 ?rva006DC490@BfmeAptValue006DCD20@@QBEHXZ,,0x006DC490,78,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,gap type31 line1789 between isKey isMath same O2 shape
 ?xfer@Rva003424B1@@MAEXPAVXfer@@@Z,,0x003424B1,81,Code/GameEngine/Source/Common/Rva003424B1Xfer.cpp,matched,chain FF76 base last Version1 bools int
-??1Rva00342157@@UAE@XZ,,0x00342157,91,Code/GameEngine/Source/Common/Rva00342157Dtor.cpp,matched,vtable 0x8118B0 member slot3C delete base 49B47C twin FC42
+??1Rva0033F772@@UAE@XZ,,0x00342157,91,Code/GameEngine/Source/Common/Rva00342157Dtor.cpp,matched,vtable 0x8118B0 member slot3C delete base 49B47C twin FC42
 ?clear@?$_List_base@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAEXXZ,,0x005CCEFA,49,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva005F8F96_clear.cpp,matched,listbase clear via rowed dtor 0x5F8F96 unblocks 0x5CD032
 ??1?$_List_base@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@XZ,,0x005CD032,23,Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva005F8F96_clear.cpp,matched,listbase dtor via rowed clear 0x5CCEFA and free
 ??RRva00422CA8@@QBE_NHH@Z,,0x00422CA8,65,Code/Libraries/Source/WWVegas/WWLib/Rva00422CA8Cmp.cpp,matched,int sort predicate via TheGameLogic lookup and template order
@@ -22044,7 +22044,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva0025D2F6@W3DDisplay@@QAEXXZ,,0x0025D2F6,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0025D2F6.cpp,matched,W3DDisplay clear via TheDisplay callers plus ctor 0x0025D489 plus element 0x0025C07D plus wide releaseBuffer
 ??1W3DTruckDraw@@UAE@XZ,,0x000CDE73,151,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawDtor.cpp,matched,dtor vtable BCC650 slot0 deleting dtor CDF34 pool key CB578 string W3DTruckDraw
 ?Rva0036ABAFXfer@@YAPAVXfer@@PAV1@PAV?$list@HV?$allocator@H@_STL@@@_STL@@@Z,,0x0036ABAF,196,Code/GameEngine/Source/Common/System/XferListObjectID.cpp,matched,unlock helper version plus TypeName plus ObjectID plus list-int pushback
-??_GRva00342157@@UAEPAXI@Z,,0x00342F95,28,Code/GameEngine/Source/Common/Rva00342157Dtor.cpp,matched,slot0 of vtable 0x8118B0 calls rowed 0x342157 plus delete 0x2FD60; rehomed from FamilyDeletingDtors_muse-953e.cpp: Rva00342157Dtor.cpp owns ~Rva00342157 and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
+??_GRva0033F772@@UAEPAXI@Z,,0x00342F95,28,Code/GameEngine/Source/Common/Rva00342157Dtor.cpp,matched,slot0 of vtable 0x8118B0 calls rowed 0x342157 plus delete 0x2FD60; rehomed from FamilyDeletingDtors_muse-953e.cpp: Rva00342157Dtor.cpp owns ~Rva00342157 and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
 ??1Rva00342228@@UAE@XZ,,0x00342228,91,Code/GameEngine/Source/Common/Rva00342228Dtor.cpp,matched,sibling of 0x342157 same 91B shape vtable 0x811900 plus base 0x49B47C
 ?getMaxTurnRate@Locomotor@@QBEMPAVObject@@@Z,,0x001E3E9F,105,Code/GameEngine/Source/GameLogic/Object/LocomotorGetMaxTurnRate.cpp,matched,Locomotor turn-rate via BFME1 donor Object slot 0x20 template periods clamp
 ?rva00215E6F@Rva00215E6F@@QAEXPAI@Z,,0x00215E6F,24,Code/GameEngine/Source/Common/Rva00215E6F.cpp,matched,caller 0x00215EF7 collects two slots; honest rva name
@@ -24060,7 +24060,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva002B4360@Rva002B4360@@QAEXPAUNode002B4360@@@Z,,0x002B4360,45,Code/GameEngine/Source/Common/Rva002B4360.cpp,matched,unlock recursive child plus next free via rowed free
 ?rva002B438D@Rva002B438D@@QAEXPAUNode002B438D@@@Z,,0x002B438D,45,Code/GameEngine/Source/Common/Rva002B438D.cpp,matched,unlock sibling recursive free via rowed free
 ??_EUnicodeString@@QAEPAXI@Z,,0x002331F0,75,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IME candidate UnicodeString array deleting destructor; new[] construction and candidate readers prove type; canonical UnicodeString header; whole75B and destructor function-pointer relocation verified; removes private StringBase provider
-?onEnter@Rva00342157@@UAEHXZ,,0x003421B2,66,Code/GameEngine/Source/Common/Rva00342157Slot4.cpp,matched,vslot4 of vtable 0x008118B0 via TheGameLogic frame plus random tail call
+?onEnter@Rva0033F772@@UAEHXZ,,0x003421B2,66,Code/GameEngine/Source/Common/Rva00342157Slot4.cpp,matched,vslot4 of vtable 0x008118B0 via TheGameLogic frame plus random tail call
 ?Rva0043C933Get@@YAHXZ,,0x0043C933,54,Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp,matched,Tri-state multiplayer plus flag gate via caller evidence
 ?rva00583202@AptFileTransferPopup@@QAEXH@Z,,0x00583202,206,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,matched,unlock TheGameText fetch MapTransfer Timeout swprintf bfmeSetText
 ?rva002B43BA@Rva002B43BA@@QAEXPAUNode002B43BA@@@Z,,0x002B43BA,45,Code/GameEngine/Source/Common/Rva002B43BA.cpp,matched,unlock sibling recursive free via rowed free

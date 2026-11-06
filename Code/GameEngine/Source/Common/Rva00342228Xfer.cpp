@@ -3,7 +3,7 @@
 // ?xfer@Rva00342228@@MAEXPAVXfer@@@Z, retail 0x00342283, 108 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x00811900 (class of ??1Rva00342228@@UAE@XZ,
 // rowed in Rva00342228Dtor.cpp) and also of twin vtable 0x008118B0 (class of
-// ??1Rva00342157@@UAE@XZ); both slots share this one body. It sits directly
+// ??1Rva0033F772@@UAE@XZ); both slots share this one body. It sits directly
 // after the Rva00342228 dtor (0x00342228+91). Shape is the PoisonedBehavior /
 // Rva003424B1 slot-3 recipe: IsLightCRC early-out (Xfer slot 0x10), Version1
 // (rowed 0x000053EE), a stack bool streaming m_ptr20 presence via ==(bool&)
