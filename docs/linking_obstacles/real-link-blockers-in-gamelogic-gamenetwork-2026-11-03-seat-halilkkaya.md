@@ -583,3 +583,6 @@ view consumers already reference that spelling. Nothing referenced `UAE`. `Grant
 confirmation: not claimed.
 
 2026-11-06 INI lifetime prerequisite (base da93446935): native2CCC3's existing source and2CD71 consumer now share INI.cpp's nocase MacroMap view; fake one-byte hash-set identity removed with EH names/parent and tombstones kept. Normal137/137, EXACT destructor EH and fully resolved native57B/5B pass; preview preserves9185B, EvacuateDamage remains unlinked. This does not re-identify2CD7B or clear PB_DeepBase/DamageModule. [Scoped proof and remaining order](../../reverse/attempt_support/ini-macro-native-lifetime-20261106/README.md).
+
+
+2026-11-06 INI destructor proof: the existing INI.cpp view emits a fully resolved 53-byte match at 0x0002CD7B with an EXACT EH graph and the rowed 0x0002CC38 and 0x0002CCC3 calls. All 136 original INI.cpp rows remained exact. The trial was reverted because the current map still marks 0x0002CD7B displaced, with no approved placement for the new body or its handler. The EvacuateDamage link blocker remains open. [Source trial and proof](../../reverse/attempt_support/ini-macro-destructor-20261106/README.md).

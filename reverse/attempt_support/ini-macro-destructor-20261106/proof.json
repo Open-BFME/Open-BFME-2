@@ -1,0 +1,51 @@
+{
+  "name": "??1INIMacroTable@@QAE@XZ",
+  "rva": 183675,
+  "trial_size": 53,
+  "retail": "b8f7c9b500e803c45f0051568bf18975f08365fc008d4e14e8a0feffff834dfcff8bcee820ffffff8b4df45e64890d00000000c9c3",
+  "compiled": "b800000000e80000000051568bf18975f08365fc008d4e14e800000000834dfcff8bcee8000000008b4df45e64890d00000000c9c3",
+  "restored_code": "b8f7c9b500e803c45f0051568bf18975f08365fc008d4e14e8a0feffff834dfcff8bcee820ffffff8b4df45e64890d00000000c9c3",
+  "same_after_relocation": true,
+  "relocations": [
+    [
+      1,
+      6,
+      "__ehhandler$??1INIMacroTable@@QAE@XZ",
+      7719415,
+      true
+    ],
+    [
+      6,
+      20,
+      "__EH_prolog",
+      6459784,
+      true
+    ],
+    [
+      25,
+      20,
+      "??1?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ",
+      183352,
+      true
+    ],
+    [
+      36,
+      20,
+      "??1?$hashtable@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@_STL@@QAE@XZ",
+      183491,
+      true
+    ],
+    [
+      47,
+      6,
+      "__except_list",
+      0,
+      true
+    ]
+  ],
+  "eh": [
+    "EXACT",
+    ""
+  ],
+  "exception_list_note": "The last DIR32 names the x86 FS-relative __except_list slot at offset zero, not a PE address."
+}
