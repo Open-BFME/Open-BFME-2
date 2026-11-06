@@ -1520,14 +1520,65 @@ def gate_many(sources, _depth=0):
     return {**gate_many(sources[:middle], _depth + 1), **gate_many(sources[middle:], _depth + 1)}
 
 
+def key_backref_names(rows, scope, other):
+    """Row names whose class-key this lane cannot flip, because MSVC spelled it as a back-reference.
+
+    The rename below rewrites the spelled type, `U<scope>@@` -> `V<scope>@@`. But
+    MSVC also writes a class-key letter in front of a *name* back-reference:
+    `?Rva003AFA64FillUnitVector@@YAPAUCoord3D@@PAU1@@Z` names Coord3D once and
+    refers to it again as `U1@`, and a Coord3D member taking one by const
+    reference can spell it only as `ABU0@`, with no `UCoord3D@@` anywhere. The
+    spelled-type substitution leaves every such `U<digit>@` behind and writes a
+    name that is half struct-keyed and half class-keyed - one no compiler emits
+    and nothing in the image carries.
+
+    Flipping the back-reference as well needs the name's own back-reference
+    table, which this lane does not parse: the index is positional, so `U1@` in
+    one name and the next may mean different types, and a blind swap would
+    re-key a back-reference to some other, genuinely other-keyed type. So these
+    rows are named and refused rather than guessed at. For Coord3D that is 84 of
+    its 1,117 struct-keyed rows across 51 units.
+    """
+    keyed = re.compile(r"[UV]" + re.escape(scope) + r"@@")
+    enclosing = re.compile(r"@" + re.escape(scope) + r"@@")      # `?m@Scope@@...`, no key letter
+    backref = re.compile(other + r"[0-9]@")
+    return [r["name"] for r in rows
+            if (keyed.search(r["name"]) or enclosing.search(r["name"])) and backref.search(r["name"])]
+
+
+def key_backref_blockers(sources, name, key):
+    """{source: why} for units a class-key change cannot rename, read in one ledger pass."""
+    _, other = ("U", "V") if key == "struct" else ("V", "U")
+    scope = class_contract.mangled_scope(name)
+    rows = collections.defaultdict(list)
+    wanted = set(sources)
+    with LEDGER.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            if row["source"] in wanted:
+                rows[row["source"]].append(row)
+    blockers = {}
+    for source in sources:
+        blocked = key_backref_names(rows.get(source, []), scope, other)
+        if blocked:
+            blockers[source] = (f"class-key: {len(blocked)} row(s) spell the key on a name "
+                                f"back-reference, which this lane cannot rewrite: "
+                                f"{', '.join(sorted(blocked)[:3])}")
+    return blockers
+
+
 def ledger_renames(source, name, want_key):
-    """[(old, new)] for the unit's row names that mangle the other class-key."""
+    """([(old, new)], why) for the unit's row names that mangle the other class-key."""
     have, other = ("U", "V") if want_key == "struct" else ("V", "U")
     scope = class_contract.mangled_scope(name)
     pattern = re.compile(other + re.escape(scope) + r"@@")
     with LEDGER.open(newline="", encoding="utf-8") as handle:
-        return [(r["name"], pattern.sub(have + scope + "@@", r["name"])) for r in csv.DictReader(handle)
-                if r["source"] == source and pattern.search(r["name"])]
+        rows = [r for r in csv.DictReader(handle) if r["source"] == source]
+    blocked = key_backref_names(rows, scope, other)
+    if blocked:
+        return [], (f"{len(blocked)} row(s) spell the class-key on a name back-reference, which this "
+                    f"lane cannot rewrite: {', '.join(sorted(blocked)[:3])}")
+    return [(r["name"], pattern.sub(have + scope + "@@", r["name"])) for r in rows
+            if pattern.search(r["name"])], None
 
 
 def rewrite_ledger(renames):
@@ -1559,10 +1610,18 @@ def prospective_renames(sources, name, key):
     have, other = ("U", "V") if key == "struct" else ("V", "U")
     pattern = re.compile(other + re.escape(scope) + r"@@")
     names = collections.defaultdict(list)
+    per_source = collections.defaultdict(list)
     with LEDGER.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
-            if row["source"] in changed and pattern.search(row["name"]):
-                names[row["source"]].append((row["name"], pattern.sub(have + scope + "@@", row["name"])))
+            if row["source"] in changed:
+                per_source[row["source"]].append(row)
+                if pattern.search(row["name"]):
+                    names[row["source"]].append((row["name"], pattern.sub(have + scope + "@@", row["name"])))
+    # A unit holding a back-referenced key predicts no renames: it is refused in
+    # try_units before preparation, so it must not be predicted as adoptable.
+    for source, rows in per_source.items():
+        if key_backref_names(rows, scope, other):
+            names.pop(source, None)
     return [(s, None, None, renames) for s, renames in names.items()]
 
 
@@ -1686,7 +1745,9 @@ def prepare_unit(source, strip, header, key):
         if why:
             return source, f"field renames: {why}", None, []
         FIELD_RENAMES[source] = {f"{cls}::{old}": new for cls, m in fields.items() for old, new in m.items()}
-    renames = ledger_renames(source, strip[0], key) if view_key != key else []
+    renames, why = ledger_renames(source, strip[0], key) if view_key != key else ([], None)
+    if why:
+        return source, f"class-key {view_key}: {why}", None, []
     if renames:
         return source, f"class-key {view_key}: {len(renames)} ledger rename(s) needed", swapped, renames
     return source, None, swapped, []
@@ -1725,7 +1786,7 @@ def try_units(sources, strip, header, key, jobs=1, dependency_plan=None):
         plan = adoption_dependencies(prospective)
     except (Exception, SystemExit) as exc:
         return [(s, f"symbol dependency discovery unavailable: {exc}", None, []) for s in sources]
-    early = dependency_blockers(plan, sources)
+    early = {**key_backref_blockers(sources, strip[0], key), **dependency_blockers(plan, sources)}
     pending = [s for s in sources if s not in early]
     with cf.ThreadPoolExecutor(jobs) as pool:
         prepared = dict(zip(pending, pool.map(lambda s: prepare_unit(s, strip, header, key), pending)))
