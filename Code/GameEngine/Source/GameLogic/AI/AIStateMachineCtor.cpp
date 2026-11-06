@@ -362,10 +362,10 @@ public:
 private:
 	unsigned char m_pad00[0x24];
 };
-class Rva0033F701
+class AIGoingIdleState
 {
 public:
-	Rva0033F701(StateMachine *machine);
+	AIGoingIdleState(StateMachine *machine);
 private:
 	unsigned char m_pad00[0x20];
 };
@@ -573,7 +573,7 @@ AIStateMachine::AIStateMachine(Object *owner, UnsignedInt nameKey) : StateMachin
 	defineState( 53, (State *)new Rva0033F5B9( this, false ), 0, 0 );
 	defineState( 65, (State *)new Rva0033F5E3( this, false ), 0, 0 );
 	defineState( 75, (State *)new Rva0033F5B9( this, true ), 0, 0 );
-	defineState( 78, (State *)new Rva0033F701( this ), 16, 0 );
+	defineState( 78, (State *)new AIGoingIdleState( this ), 16, 0 );
 	defineState( 16, (State *)new AIGuardState( this ), 0, 0 );
 	defineState( 62, (State *)new AIGuardRetaliateState( this ), 0, 0 );
 	defineState( 24, (State *)new AITunnelNetworkGuardState( this ), 0, 0 );

@@ -9,9 +9,11 @@
 // dwords before the vtable store and zeroed bytes after it). Member widths,
 // offsets and argument counts come from the retail stores and ret sizes;
 // 0x0033F4DF pops a second argument it never reads. The callers are the
-// AI state-machine constructors at 0x00343xxx and 0x00352xxx; the state
-// identities are not recovered, so every name is address-derived. Vtable
-// values in the per-class notes are virtual addresses.
+// AI state-machine constructors at 0x00343xxx and 0x00352xxx. Slot 2 of each
+// class's vtable is State's 6-byte snapshot-name getter, and the literal it
+// returns is the class name; classes still under address-derived names have
+// not been renamed yet. Vtable values in the per-class notes are virtual
+// addresses.
 class StateMachine;
 
 #include "../../../Include/Common/StateMachine.h"
@@ -336,21 +338,21 @@ Rva0033F64E::Rva0033F64E(StateMachine *machine, bool arg0)
 {
 }
 
-// Rva0033F701: retail 0x0033F701 (29B), hash 0xcf7e4f5f, vtable 0xc11798 callers 0x003526D3
-class Rva0033F701 : public State
+// AIGoingIdleState: retail 0x0033F701 (29B), hash 0xcf7e4f5f, vtable 0xc11798 callers 0x003526D3
+class AIGoingIdleState : public State
 {
 public:
-	Rva0033F701(StateMachine *machine);
+	AIGoingIdleState(StateMachine *machine);
 	// the rowed destructor 0x00341E22 (Rva0049B47CDerived.cpp); declared so this
 	// unit does not emit an implicit copy
-	virtual ~Rva0033F701();
+	virtual ~AIGoingIdleState();
 
 protected:
-	// retail slot 3: the rowed ?xfer@Rva0033F701@@MAEXPAVXfer@@@Z 0x00341E2D
+	// retail slot 3: the rowed ?xfer@AIGoingIdleState@@MAEXPAVXfer@@@Z 0x00341E2D
 	virtual void xfer(Xfer *xfer);
 };
 
-Rva0033F701::Rva0033F701(StateMachine *machine)
+AIGoingIdleState::AIGoingIdleState(StateMachine *machine)
 	: State(machine, 0xCF7E4F5Fu)
 {
 }

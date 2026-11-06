@@ -5,7 +5,7 @@
 // ??1Rva000647D4@@UAE@XZ in LocomotorDerivedDtors.cpp, same primary; gap
 // between 0x000647D4/18 and 0x00064809/28). Body is Version1 via rowed
 // 0x000053EE then base Locomotor xfer via pinned 0x00341E2D (ICF twin of
-// rowed Rva0033F701 xfer 27B; IsLightCRC-plus-Version1 root). Identity is
+// rowed AIGoingIdleState xfer 27B; IsLightCRC-plus-Version1 root). Identity is
 // slot 3 plus the Version1-plus-base shape; flags copy the neighbour
 // LocomotorDerivedDtors.cpp (/O1 /MD).
 
@@ -28,10 +28,13 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
 
-class Rva0033F701
+// The base view only spells the call target. 0x00341E2D is one ICF body
+// rowed twice, as AIGoingIdleState::xfer and Locomotor::xfer, so naming the
+// AIGoingIdleState row proves no AIGoingIdleState base for this class.
+class AIGoingIdleState
 {
 protected:
-	virtual ~Rva0033F701();
+	virtual ~AIGoingIdleState();
 	virtual void xfer(Xfer *xfer);
 };
 
@@ -41,7 +44,7 @@ public:
 	virtual void f();
 };
 
-class Rva000647D4 : public Rva0033F701, public Rva000647D4_B
+class Rva000647D4 : public AIGoingIdleState, public Rva000647D4_B
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -50,5 +53,5 @@ protected:
 void Rva000647D4::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	Rva0033F701::xfer(xfer);
+	AIGoingIdleState::xfer(xfer);
 }

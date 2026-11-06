@@ -1,8 +1,8 @@
 // cl: /MD
 //
-// ?xfer@Rva0033F701@@MAEXPAVXfer@@@Z, retail 0x00341E2D, 27 bytes. Virtual
+// ?xfer@AIGoingIdleState@@MAEXPAVXfer@@@Z, retail 0x00341E2D, 27 bytes. Virtual
 // slot 3 (offset 0x0C) of vtable 0x00811798 (class of rowed dtor
-// ??1Rva0033F701@@UAE@XZ in Rva0049B47CDerived.cpp, same primary; prev row
+// ??1AIGoingIdleState@@UAE@XZ in Rva0049B47CDerived.cpp, same primary; prev row
 // 0x00341E22/11 abuts); ICF-twin slot 3 of GODupBase vtable 0x00807D2C.
 // Body is IsLightCRC early-out via Xfer slot 0x10 then Version1 via rowed
 // 0x000053EE; no members, no base call (root versioning only). Identity is
@@ -35,13 +35,13 @@ public:
 	virtual ~Rva0049B47C();
 };
 
-class Rva0033F701 : public Rva0049B47C
+class AIGoingIdleState : public Rva0049B47C
 {
 protected:
 	virtual void xfer(Xfer *xfer);
 };
 
-void Rva0033F701::xfer(Xfer *xfer)
+void AIGoingIdleState::xfer(Xfer *xfer)
 {
 	if (xfer->IsLightCRC())
 		return;
