@@ -5371,3 +5371,4 @@ __ehhandler$??1?$hashtable@URva0002CCC3Record@@U1@U?$hash@URva0002CCC3Record@@@_
 __ehhandler$??1EvacuateDamage@@UAE@XZ,0x0075C9F7,Retracted with its parent 0x0002CD7B for readmission as __ehhandler$??1INIMacroTable@@QAE@XZ (see that row)
 ??0Rva0010BA2COwner@@QAE@XZ,0x0010BA2C,"Renamed to ??0Rva007AFF00Owner@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00BCF9E0)"
 ?rva00108895@Rva0010BA2COwner@@QAEXXZ,0x00108895,"Renamed to ?rva00108895@Rva007AFF00Owner@@QAEXXZ by tools/rename.py (fold: retail vftable 0x00BCF9E0)"
+?name@Rva0028C9D7Named@@QBEPBDXZ,0x0028C9D7,"Renamed to ?GetSnapshotName@ObjectDefectionHelper@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00BFBD40 slot 2)"

@@ -2019,7 +2019,19 @@ BFME_DISP32_FLOAT_GETTER(Rva0028BB86FloatField, 0x1B8)
 
 #include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-BFME_LITERAL_NAME_GETTER(Rva0028C9D7Named, "ObjectDefectionHelper")
+// Slot 2 of ObjectDefectionHelper's primary vftable 0x00BFBD40, which its
+// constructor 0x0028C955 installs; the name getter that ObjectHelper.h's
+// derived helpers override (the class's view: ObjectDefectionHelperCtor.cpp).
+class ObjectDefectionHelper
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+const char *ObjectDefectionHelper::GetSnapshotName() const
+{
+	return "ObjectDefectionHelper";
+}
 
 BFME_LITERAL_NAME_GETTER(Rva0028CA92Named, "ObjectRecoveryHelper")
 
