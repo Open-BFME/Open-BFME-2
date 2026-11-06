@@ -6,15 +6,7 @@
 // Target evidence: calls ScriptEngine::rva00357475 (0x00357475) once then getEachPlayerFromMask (0x002A7BC9) loop writing byte [eax+0x339]=0; globals g_Va009FE16C (0x009FE16C) and ThePlayerList (0x009FEEE8); ret 4; caller 0x003CB7C7.
 class AsciiString;
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
-class Player
-{
-public:
-	void setObjectsEnabled(const AsciiString &templateTypeToAffect, bool enable);
-	void setUnitsShouldHunt(bool unitsShouldHunt, CommandSourceType source);
-
-	char m_pad00[0x339];
-	unsigned char m_flag339; // +0x339
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 #include "../../../Include/Common/PlayerList.h"
@@ -28,7 +20,7 @@ void ScriptActions::doPlayerDisableBaseConstruction(const AsciiString &name)
 	do {
 		player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (player)
-			player->m_flag339 = 0;
+			player->m_canBuildBase = 0;
 	} while (mask != 0);
 }
 

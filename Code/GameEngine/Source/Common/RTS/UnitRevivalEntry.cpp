@@ -65,18 +65,7 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 
 #include "../../../Include/Common/XferVersion.h"
 
-class Player
-{
-public:
-	int getPlayerIndex() const { return m_playerIndex; }
-	int getLivingWorldPlayerID() const { return m_livingWorldPlayerID; }
-
-private:
-	unsigned char m_pad00[0x54];
-	int m_playerIndex; // +0x54
-	unsigned char m_pad58[0x3AC - 0x58];
-	int m_livingWorldPlayerID; // +0x3AC
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 
@@ -745,7 +734,7 @@ void UnitRevivalTracker::xfer(Xfer *xfer)
 
 void UnitRevivalTracker::retrieveHeroesForArmySummary(ArmySummarySystem *summary)
 {
-	int id = m_player->getLivingWorldPlayerID();
+	int id = m_player->m_3AC;
 	if (id == -1)
 		return;
 	Rva002E2903Player *lwPlayer = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->find(id, 0);

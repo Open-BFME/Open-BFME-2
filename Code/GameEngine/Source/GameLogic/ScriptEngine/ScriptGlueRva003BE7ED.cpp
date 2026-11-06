@@ -43,13 +43,7 @@ struct Rva003BE5C9P34
 	unsigned char m_1bc;
 };
 
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-	char m_pad[0x34];
-	Rva003BE5C9P34 *m_p34; // +0x34
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -154,7 +148,7 @@ void Rva003BE7ED::rva003BE7ED()
 				if (player != 0) {
 					AsciiString s1("Gui_DefeatScreen");
 					AsciiString s2("APT:EndDefeat");
-					Rva003BE5C9P34 *p = player->m_p34;
+					Rva003BE5C9P34 *p = (Rva003BE5C9P34 *)player->m_playerTemplate;
 					((Rva00E03138 *)TheVictoryConditions)->slot23(s2, p ? p->m_1bc : (unsigned char)0, s1, AsciiString::TheEmptyString);
 				}
 			}

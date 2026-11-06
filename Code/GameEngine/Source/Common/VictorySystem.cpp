@@ -60,7 +60,7 @@ public:
 	Rva001DE4F0(const Rva001DE4F0 &other) throw();
 };
 class Object;
-class Player {public:char unknown00[0x54];int index;AsciiString faction;};
+#include "../../Include/Common/Player.h"
 struct VictoryObjectTemplate { char pad[0x109]; unsigned char flags109; char pad10a[9]; unsigned char flags113; };
 class ExperienceTracker;
 class Object { public: Player *getControllingPlayer() const; char pad0[4]; VictoryObjectTemplate *tmpl; char pad8[0x264-8]; ExperienceTracker *m_experienceTracker; char pad268[0x438-0x268]; unsigned char flags438; };
@@ -325,16 +325,16 @@ void VictorySystemGridUpdateView::rva004050CE(Object *victim,const VictoryDeathI
  victimPlayer=victim->getControllingPlayer();
  Player *killerPlayer=killer->getControllingPlayer();
  if (!victimPlayer || !killerPlayer) return;
- int victimIndex=victimPlayer->index;
+ int victimIndex=victimPlayer->m_playerIndex;
  int parameterIndex=playerIndices[victimIndex];
  if ((unsigned)parameterIndex & 0x80000000) return;
  VictoryGridParameter *parameter=&parameters[parameterIndex];
  float weight;
  if ((victim->tmpl->flags109 & 4) || (victim->tmpl->flags113 & 4)) weight=parameter->weight;
  else weight=1.0f;
- root.AddDeath(weight,victimIndex,killerPlayer->index);
+ root.AddDeath(weight,victimIndex,killerPlayer->m_playerIndex);
  for (unsigned i=0;i<2;++i) {
-  if (grids[i]) ((Rva0056C4D3*)grids[i])->rva0056C4D3(victim,weight,victimPlayer->index,killerPlayer->index);
+  if (grids[i]) ((Rva0056C4D3*)grids[i])->rva0056C4D3(victim,weight,victimPlayer->m_playerIndex,killerPlayer->m_playerIndex);
  }
 }
 
@@ -436,7 +436,7 @@ void VictorySystem::newMap()
   for(unsigned i=0;i<field14;++i){
    bool neutral=false;
    Player *player=ThePlayerList->getNthPlayer(i);
-   AsciiString faction=player->faction;
+   AsciiString faction=player->m_side;
    int index=reinterpret_cast<Rva00404D70 *>(this)->rva00404D70(faction);
    if(faction.isEmpty() || faction.compareNoCase("Observer")==0 || faction.compareNoCase("Civilian")==0)
     neutral=true;

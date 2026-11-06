@@ -150,7 +150,7 @@ enum PathfindLayerEnum { LAYER_WALL=17 };
 enum NameKeyType { NAMEKEY_INVALID=0 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Player {public:char pad[0x5c];int type;};
+#include "../../../../Include/Common/Player.h"
 class Module;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
@@ -385,7 +385,7 @@ void SiegeEngineContain::exitObjectViaDoor(Object *exitObj,ExitDoorType door)
      exitObj->clearModelConditionState(3*32+0);
      exitObj->rva0028D412(&transform);exitObj->setLayer(LAYER_WALL);
      AIUpdateInterface *ai=exitObj->ai;TheAI->m_pathfinder->AddObjectToPathfindMap(exitObj);
-     if(ai){if(exitObj->getControllingPlayer()->type==1){ai->ignoreObstacle(0);ai->commands()->aiHunt(CMD_FROM_AI);}else ai->commands()->aiIdle(CMD_FROM_AI);}
+     if(ai){if(exitObj->getControllingPlayer()->m_playerType==1){ai->ignoreObstacle(0);ai->commands()->aiHunt(CMD_FROM_AI);}else ai->commands()->aiIdle(CMD_FROM_AI);}
    }else{
      Coord3D dest;{pos=me->m_cachedPos;Coord3D direction=*me->getUnitDirectionVector2D();
      float radius=me->radius;pos.x+=direction.x*radius;pos.y+=direction.y*radius;
