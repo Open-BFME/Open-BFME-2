@@ -131,18 +131,8 @@ void AssistedTargetingUpdate::assistAttack( const Object *requestingObject, Obje
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?AssistedTargetingUpdate::update present-unmatched
 UpdateSleepTime AssistedTargetingUpdate::update( void )
 {
-
-  const AssistedTargetingUpdateModuleData *assistedTargetingUpdateModuleData = getAssistedTargetingUpdateModuleData();
-
-	m_laserFromAssisted = TheThingFactory->findTemplate( assistedTargetingUpdateModuleData->m_laserFromAssistedName );
-
-
-	m_laserToTarget =TheThingFactory->findTemplate( assistedTargetingUpdateModuleData->m_laserFromAssistedName );
-
-
 	return UPDATE_SLEEP_FOREVER;
 }
 
