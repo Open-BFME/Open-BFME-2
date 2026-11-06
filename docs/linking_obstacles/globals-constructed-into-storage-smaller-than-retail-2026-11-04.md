@@ -68,11 +68,18 @@ and `g_Va00DEDC80`.
 
 **Open:**
 
-- `g_Va00E06634` (16 bytes; the ledger's gap of 12 is short): one object recorded as two globals. Retail's constructor at 0x005D00A6
-  stores 1000 at +8 and +0xC, so the row `?delay@Rva005CF9FF@@2IA` at 0x00E0663C, in
-  `StrategicInGameUIBattleResolver.cpp`, is this object's +8. Ours is a separate zero, so the battle resolver's wait never
-  happens, and the constructor writes past 4 bytes. Fix: make it an array with `delay` as `[2]`, retiring that row. The
-  hatch register counts `g_Va00E06634` per file, and that file has no allowance for the name, so it needs a real name first.
+- `g_Va00E06634` (16 bytes; the ledger's gap of 12 is short): one object recorded as three globals. Retail's constructor at
+  0x005D00A6 calls base 0x00221635 (vptr 0x00BE6BA8 at +0, a new 12-byte pair at +4), stores 1000 at +8 and +0xC and then
+  its own vptr 0x00C75374. The row `?delay@Rva005CF9FF@@2IA` at 0x00E0663C, in `StrategicInGameUIBattleResolver.cpp`, is this
+  object's +8, and `g_00E06640`, defined `= 0` in `Rva005CFE30VSlot.cpp` and compared as a timeout there, is its +0xC. Ours
+  are separate zeros, so the battle resolver's wait and that timeout never happen.
+  **Storage repaired 2026-11-07 (seat halilkkaya-lk42):** `Rva007ABBB3CtorInits.cpp` now defines the name as four words, and
+  its 4-byte data row is removed, as for `g_00DFE7A8`. Before, the object sat at `.bss`+20 of that unit with
+  `g_Va00E02D94` at +4 and `g_Va00E032E8` at +8, so at startup the constructor stored 1000 into the `UnicodeString`
+  `g_Va00E032E8`'s data pointer. Retail's initializer for that string, 0x007B0625, runs before 0x007B4A1A, so nothing
+  repaired it: the save/load screen (`AptSaveLoadCallbacks.cpp`) and its atexit destructor 0x007B83A5 read address 0x3E8.
+  Still open: +8 and +0xC as fields of this object. That needs a real name for it first; the hatch register counts
+  `g_Va00E06634` per file, and neither file has an allowance for the name.
 - `g_Va00E01E08` (gap 16): `AIBurningDeathStateUpdate.cpp` names it and another worker held that file. It has no data
   row, so the first repair works without touching that file.
 - `g_Va00E02FF8` (gap 20): has a data row, so it needs the array form, and `BfmeConv1292DeferredWalkers.cpp` names it. That

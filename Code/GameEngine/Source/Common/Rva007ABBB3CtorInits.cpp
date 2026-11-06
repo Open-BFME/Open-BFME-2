@@ -179,7 +179,10 @@ extern UnicodeString g_00E0447C;
 class Rva002B7250;
 extern Rva002B7250 g_00E044F0;
 extern unsigned g_Va00E048C4;
-unsigned g_Va00E06634;	// retail RVA 0x00A06634 (.bss), defined here
+// RVA 0x00A06634: retail's constructor 0x005D00A6 (rva007B4A1A below) stores its
+// vptr at +0, the base's pair at +4 and 1000 at +8 and +0xC, so the object is 16
+// bytes. The ledger records +8 and +0xC as their own globals; the others keep this name.
+extern "C" { unsigned int __identifier("?g_Va00E06634@@3IA")[4]; }
 extern unsigned g_Va00E06778;
 unsigned g_Va00E09E60;	// retail RVA 0x00A09E60 (.bss), defined here
 extern unsigned int g_Va00E01E7C;
@@ -385,7 +388,7 @@ void Rva007ABBB3CtorInits::rva007B37CE()
 // 0x007B4A1A (22B): ??0Rva005D00A6@@QAE@XZ on VA 0x00E06634, atexit(0x007B9748)
 void Rva007ABBB3CtorInits::rva007B4A1A()
 {
-	( (Rva005D00A6 *)&g_Va00E06634 )->Rva005D00A6::Rva005D00A6();
+	( (Rva005D00A6 *)__identifier("?g_Va00E06634@@3IA") )->Rva005D00A6::Rva005D00A6();
 	atexit( rva007B9748 );
 }
 
