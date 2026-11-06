@@ -360,7 +360,13 @@ public:
 	virtual void DoXfer(Xfer &);
 
 private:
-	unsigned char m_pad[0x98];
+	unsigned char m_beforeSlaveName[0x64];
+
+protected:
+	AsciiString m_slaveSystemName; // +0x68
+
+private:
+	unsigned char m_afterSlaveName[0x30];
 };
 
 // Tail subobject at +0xa4, 0x30 bytes to the 0xD4 element size proven by the
@@ -384,6 +390,7 @@ public:
 	ParticleSystemTemplate(const AsciiString &);
 	ParticleSystemTemplate(const ParticleSystemTemplate &other);
 	ParticleSystemTemplate &operator=(const ParticleSystemTemplate &);
+	void setSlaveSystemName(const AsciiString &name);
 	virtual ~ParticleSystemTemplate();
 
 private:
@@ -629,14 +636,6 @@ private:
 	char m_pad1A3[0x1];
 	bool m_1A4; // +0x1A4
 	char m_pad1A5[0x3];
-};
-class Rva001F3FD0Slot {
-public:
-    void set(const AsciiString &other);
-    char m_lead[0x68];
-    AsciiString m_str;
-    char m_pad[0xa0 - (0x68 + 4)];
-    int m_a0;
 };
 // ?rva001F416C@Rva001F416C@@QAEXPAUNode001F416C@@H@Z @0x001F416C 67B.
 // Insert node at head of slot list when flag clear; mirrors unlink at
@@ -1957,16 +1956,11 @@ bool Rva001F3C9A::rva001F3C9A()
 
 // ---- from Code/GameEngine/Source/Common/Rva001F3FD0Set.cpp
 
-// ?set@Rva001F3FD0Slot@@QAEXABVAsciiString@@@Z @0x001F3FD0 26B.
-// Sets AsciiString at +0x68 via pinned ??4AsciiString@@QAEAAV0@ABV0@@Z then
-// zeroes dword at +0xa0. Ghidra names it setSlaveSystemName; offset +0x68
-// matches BFME1 slave-name slot. Honest Rva name; /O1 for push-arg plus
-// and [m],0 idiom.
-
-void Rva001F3FD0Slot::set(const AsciiString &other)
+// Retail export 1883 at 0x001F3FD0. Changing the name invalidates the slave template cache.
+void FXParticleSystem::ParticleSystemTemplate::setSlaveSystemName(const AsciiString &name)
 {
-    m_str = other;
-    m_a0 = 0;
+    m_slaveSystemName = name;
+    m_slaveTemplate = 0;
 }
 
 // ---- from Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemManagerGetShaderSetup.cpp

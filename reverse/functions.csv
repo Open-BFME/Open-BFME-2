@@ -20190,7 +20190,7 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ,,0x004D7321,98,Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp,matched,vtable slot4 plus BFME1 donor update plus friend pins
 ?rva0045A421@AutoAbilityBehavior@@QAEXPAX@Z,,0x0045A421,38,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,matched,AutoAbility copy plus wake via pinned assign plus rowed wake
 ??1AutoAbilityBehaviorModuleData@@UAE@XZ,,0x0045A517,73,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehaviorModuleDataDtor.cpp,matched,AutoAbility ModuleData dtor via array plus string plus Snapshot base
-?set@Rva001F3FD0Slot@@QAEXABVAsciiString@@@Z,,0x001F3FD0,26,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,AsciiString plus0x68 via pinned assign plus zero plus0xa0
+?setSlaveSystemName@ParticleSystemTemplate@FXParticleSystem@@QAEXABVAsciiString@@@Z,0x001F3FD0,0x001F3FD0,26,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,Retail export 1883; AsciiString at +0x68 and slave template cache at +0xa0
 ??1SiegeEngineContain@@UAE@XZ,,0x0047BF43,207,Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainDtor.cpp,matched,SiegeContain dtor with contained-Object loop via destroyObject plus list-map-list
 ?get@Rva001F45DFSlot@@QBEHXZ,,0x001F45DF,16,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,nullable ptr plus0x3c via Make then dword plus0x7c
 ?rva0045A6FE@AutoAbilityBehavior@@QAEXPAX@Z,,0x0045A6FE,74,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,matched,AutoAbility select copy or clear via rowed compare plus leaves

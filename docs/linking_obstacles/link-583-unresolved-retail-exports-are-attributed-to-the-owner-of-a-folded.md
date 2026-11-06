@@ -56,3 +56,6 @@ for310 distinct symbols. All old history above is retained. The residual277
 unowned data exports and33 other missing symbols remain; this is confirmation
 of upstream work and queue freshness, not a new code fix by this worker.
 [Official scoreboard, exact errors and refresh evidence](../../reverse/attempt_support/real-link-blockers-refresh-20261106/readme.md).
+
+
+2026-11-06. ParticleSys.cpp now emits the exact retail export for ParticleSystemTemplate::setSlaveSystemName at 0x001F3FD0. The 26-byte body and its relocations match; the next real link will confirm clearance. [Verification](../../reverse/attempt_support/particle-slave-name-export-20261106-codex.md).
