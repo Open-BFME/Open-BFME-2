@@ -16,6 +16,10 @@
 template <> bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
 template <> int VectorClass<Vector3>::ID(Vector3 const &);
 template <> int VectorClass<Vector3>::ID(Vector3 const *);
+// Resize too: vector_class_vector3_resize.cpp (0x000F0BF1) and Vector2Resize.cpp
+// (0x001793A0) row retail's copies; this unit's /O2 EH copies came first in link order.
+template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
+template <> bool VectorClass<Vector4>::Resize(int, Vector4 const *);
 
 void rva007B7280();
 void rva007B72C0();
