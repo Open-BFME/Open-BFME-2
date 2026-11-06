@@ -1,0 +1,8 @@
+??0IntRange@@QAE@XZ 0x0047A6A9 3 ('03ca90960a9c', 3)
+??0LineSegment2D@@QAE@XZ 0x0047A6A9 3 ('03ca90960a9c', 3)
+??1LineSegment2D@@QAE@XZ 0x000B3FD0 1 ('8bf7b464aaa2', 1)
+??4IntRange@@QAEAAU0@ABU0@@Z 0x005CFBC2 19 ('61b49965367b', 19)
+??0LineSegment2D@@QAE@ABU0@@Z 0x0004254E 31 ('7f8de6438c3d', 31)
+??4LineSegment2D@@QAEAAU0@ABU0@@Z 0x002E7FDA 19 ('32d189b120a7', 19)
+??0IntRange@@QAE@HH@Z 0x0007E523 18 ('e685bedae444', 18)
+PASS 7/7 existing retail export names in current verified source object; no source/row change

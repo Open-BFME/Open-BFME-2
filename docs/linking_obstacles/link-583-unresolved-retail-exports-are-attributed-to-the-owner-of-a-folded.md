@@ -35,3 +35,13 @@ Progress 2026-11-05: `??0RGBColor@@QAE@XZ` is defined in WWMath/color.cpp (opt-i
 Census confirmation: not claimed.
 
 2026-11-05: supplied the four `0x005613F9` writeINI exports (DefaultModuleTemplate<6>, Butterfly, Quad and Streak); 4/4 exact and unit preview LINKS, awaiting automated real-link confirmation ([evidence](../../reverse/attempt_support/fx-empty-writers-20261105-codexb.md)).
+
+2026-11-06 recheck (base47fd56b8793): the served region.cpp seven-export packet
+is older than source repair0d9b065634 (23:33 Nov5). All seven IntRange and
+LineSegment2D special-member exports now have existing rows and named object
+definitions. Normal build passes52/52 and seven string literals; bounded
+preview LINKS1287->1305B against index2d7376f084 (23:16 Nov5). No new source,
+row or provider was added by this recheck. Keep the historical real-link
+count pending the next automated real-link run; this clears only the current
+provider-presence investigation. The Coord3D/Region3D key prerequisites are
+separate. [Exact named definitions and checks](../../reverse/attempt_support/region-export-recheck-20261106/readme.md).
