@@ -62,7 +62,7 @@ class ShaderClass { unsigned bits; protected: static bool ShaderDirty; public:
  static __forceinline bool IsDirty(){return ShaderDirty;}
  static __forceinline void Invalidate(){ShaderDirty=true;}
 };
-class Matrix4 { public: float Row[16]; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 // DX8Wrapper::render_state (VA 0x00DEE5D8, defined in dx8wrapper.cpp): the
 // shader word, then Zero Hour's material, Textures[16], Lights[4] and
 // LightEnable[4] (0x1E8 bytes, bfmestages/dx8wrapper.h), then world at +0x1EC
@@ -165,22 +165,22 @@ class W3DStatusCircle { public:
 
 __forceinline void Rva00726290SetWorld(const Rva00726290Matrix3D &m)
 {
-	DX8Wrapper::render_state.world.Row[0] = m.row[0];
-	DX8Wrapper::render_state.world.Row[1] = m.row[4];
-	DX8Wrapper::render_state.world.Row[2] = m.row[8];
-	DX8Wrapper::render_state.world.Row[3] = 0.0f;
-	DX8Wrapper::render_state.world.Row[4] = m.row[1];
-	DX8Wrapper::render_state.world.Row[5] = m.row[5];
-	DX8Wrapper::render_state.world.Row[6] = m.row[9];
-	DX8Wrapper::render_state.world.Row[7] = 0.0f;
-	DX8Wrapper::render_state.world.Row[8] = m.row[2];
-	DX8Wrapper::render_state.world.Row[9] = m.row[6];
-	DX8Wrapper::render_state.world.Row[10] = m.row[10];
-	DX8Wrapper::render_state.world.Row[11] = 0.0f;
-	DX8Wrapper::render_state.world.Row[12] = m.row[3];
-	DX8Wrapper::render_state.world.Row[13] = m.row[7];
-	DX8Wrapper::render_state.world.Row[14] = m.row[11];
-	DX8Wrapper::render_state.world.Row[15] = 1.0f;
+	DX8Wrapper::render_state.world[0][0] = m.row[0];
+	DX8Wrapper::render_state.world[0][1] = m.row[4];
+	DX8Wrapper::render_state.world[0][2] = m.row[8];
+	DX8Wrapper::render_state.world[0][3] = 0.0f;
+	DX8Wrapper::render_state.world[1][0] = m.row[1];
+	DX8Wrapper::render_state.world[1][1] = m.row[5];
+	DX8Wrapper::render_state.world[1][2] = m.row[9];
+	DX8Wrapper::render_state.world[1][3] = 0.0f;
+	DX8Wrapper::render_state.world[2][0] = m.row[2];
+	DX8Wrapper::render_state.world[2][1] = m.row[6];
+	DX8Wrapper::render_state.world[2][2] = m.row[10];
+	DX8Wrapper::render_state.world[2][3] = 0.0f;
+	DX8Wrapper::render_state.world[3][0] = m.row[3];
+	DX8Wrapper::render_state.world[3][1] = m.row[7];
+	DX8Wrapper::render_state.world[3][2] = m.row[11];
+	DX8Wrapper::render_state.world[3][3] = 1.0f;
 	DX8Wrapper::render_state_changed = (DX8Wrapper::render_state_changed & 0xfffbffff) | 1;
 }
 
