@@ -301,11 +301,17 @@ slots 0-3 of its primary 0x00BFBCF0. It declares the constructor, the virtual de
   (`Rva004DF396`, UpdateModuleSetWakeFrame.cpp). It needs an ICF twin under this class with a BitFlags<11>
   view. The defection helper then does not update while its Object is disabled.
 
+- ObjectRepulsorHelper (0x0028CAB4) followed the same recipe the same day: ctor unit on ObjectHelper.h,
+  ICF twins `?loadPostProcess@ObjectRepulsorHelper@@MAEXXZ` (0x00483CEF) and
+  `?xfer@ObjectRepulsorHelper@@MAEXPAVXfer@@@Z` (0x004DF87C, calling ObjectHelper's xfer through its
+  placeholder spelling `Rva004DF81B`), `--to-class` for the getter 0x0028CB23 (Object.cpp) and `update`
+  0x004DF897 (VslotSmallBodiesU.cpp), and the fold of `Rva004DF863`. Its three tables are 11/13, 3/3 and
+  45/47 by address; every other slot is an inline body of the same shape (`??_E`, `ret`,
+  `xor eax,eax; ret`). link_check: 13 of 13 checked units LINK, the ctor unit 42 -> 74 B.
+
 Next, in this order (each a wall found this pass):
-1. ObjectRepulsorHelper (0x0028CAB4, no EH): the same recipe. Its xfer 0x004DF87C is an ICF fold of the
-   Recovery/Repulsor/WeaponStatus tables (`Rva004DF87C`): add a twin that calls ObjectHelper's xfer under its
-   current placeholder spelling. Its update 0x004DF897 is `Rva004DF897` in VslotSmallBodiesU.cpp (`this` at
-   +0x10), getter 0x0028CB23 `Rva0028CB23Named` (Object.cpp), dtor `Rva004DF863`.
+1. ObjectRecoveryHelper and ObjectWeaponStatusHelper: their constructors (0x0028C9F9, 0x0028CB45) have EH
+   frames whose unwind calls `~ObjectHelper`, so they adopt the header only together with step 3.
 2. ObjectHelper's own names: `GetSnapshotName` 0x0028C933 is the scaffold `?Rva0028C933Get@@YAHXZ`
    (ConstIntGetters4.cpp, no approved TU); `xfer` 0x004DF81B is `Rva004DF81B` but also carries the ICF twin
    `?xfer@AssistedTargetingUpdate@@MAEXPAVXfer@@@Z`, so `--to-class` refuses it as a shared body.
