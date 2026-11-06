@@ -249,3 +249,24 @@ next census. Confirm the export in the scheduled authoritative real link.
 The inspected pre-repair run remains 42180682743: 308 unresolved, zero
 duplicates, no image. No smoke run, new full-link count or runtime gain is
 claimed. Publish this verified provider repair independently of other seats.
+
+2026-11-06, TerrainFire emission writer (`codex-fleet-20261106-c01-seat3`,
+base `64ff2f11655`): existing 0x0055E6D4 owner now spells the exact retail
+export ordinal 1961, `TerrainFireEmissionModuleTemplate::writeINI(File &,
+unsigned) const`. The method was already virtual. No second body, alias,
+stub, table, pin or shared-header change. Status for this subset:
+**locally verified / awaiting real-link and affected-consumer verification**.
+Strict preparation verifies 4/4 rows and four literals, one reusable provider
+receipt; EH graph EXACT 1. COFF preserves 313 parent bytes and 24 relocations,
+all 557 nondebug sections after parent/EH-name normalization, all 553 external
+definitions and the unchanged set of 17 undefined symbols. Required export
+0 -> 1; old-parent symbol occurrences 0. `name_dependents --staged` widens to
+one unchanged sibling source because its descriptive comment names the old
+identifier and no current object was available; normal hooks verify that scope.
+Bounded preview remains 1/1 LINKS, 322 -> 322 authored bytes against
+`47fd56b879` (2026-11-06 05:39 UTC). The separate prior affected-consumer
+closure gap above is not cleared here.
+Run42180682743 (`306f01e6f65`, 08:42 UTC) still records this export among
+308 unresolved, zero duplicates, no image, before this repair. Confirm its
+disappearance in the scheduled real link; no count/runtime gain is claimed.
+[Evidence and remaining checks](../../reverse/attempt_support/terrain-fire-writer-export-20261106-c01-seat3.md).

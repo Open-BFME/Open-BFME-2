@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0055E6D4@TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055E6D4 313B chain lane writeINI via WriteHeader.
+// ?writeINI@TerrainFireEmissionModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z @0x0055E6D4 313B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of TerrainFireEmissionModuleTemplate 0x0081BBE0; calls rowed WriteHeader 0x0055CB5D then ostringstream then rowed IsZero 0x001F3744 gated Xoffset/Yoffset/Zoffset 0x001F8B5F then rowed t4IsZero 0x0055D3D9 gated CellEmissionChance 0x003A5D34 then rowed str plus FileWrite plus free plus footer; same shape as Lightning rva00561DB3.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -95,7 +95,7 @@ namespace FXParticleSystem {
 
 class TerrainFireEmissionModuleTemplate {
 public:
-    virtual void rva0055E6D4(File *file, unsigned int flags);
+    virtual void writeINI(File &file, unsigned int flags) const;
 private:
     char m_pad04[16 - 4];
     S001F87D5 m_xoffset;
@@ -104,9 +104,9 @@ private:
     float m_cellEmissionChance;
 };
 
-void TerrainFireEmissionModuleTemplate::rva0055E6D4(File *file, unsigned int flags)
+void TerrainFireEmissionModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-    Rva0055CB5DWriteHeader(this, file, &flags);
+    Rva0055CB5DWriteHeader(this, &file, &flags);
     _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_xoffset))
         Rva001F8B5FWrite(oss, flags, "Xoffset", m_xoffset);
@@ -116,8 +116,8 @@ void TerrainFireEmissionModuleTemplate::rva0055E6D4(File *file, unsigned int fla
         Rva001F8B5FWrite(oss, flags, "Zoffset", m_zoffset);
     if (!(unsigned char)t4IsZero005F4180(&m_cellEmissionChance))
         Rva003A5D34Write(oss, flags, "CellEmissionChance", m_cellEmissionChance);
-    Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-    Rva003AFC6BWrite(file, &flags);
+    Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+    Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem
