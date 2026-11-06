@@ -5470,3 +5470,5 @@ _$E1,0x007AEBAA,Retracted for readmission as _$E3 in Rva0033FE65OnEnter.cpp: the
 ??1Rva0049A1AB@@UAE@XZ,0x0049A1AB,"Renamed to ??1AutoDepositUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C504EC)"
 ??_GRva0049A1AB@@UAEPAXI@Z,0x0049A253,"Renamed to ??_GAutoDepositUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C504EC)"
 ?name@Rva004B55E8Named@@QBEPBDXZ,0x004B55E8,"Renamed to ?GetSnapshotName@WeaponBonusUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C57F68 slot 2)"
+??1Rva004B55C8@@UAE@XZ,0x004B55C8,"Renamed to ??1WeaponBonusUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57F68)"
+??_GRva004B55C8@@UAEPAXI@Z,0x004B5664,"Renamed to ??_GWeaponBonusUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57F68)"

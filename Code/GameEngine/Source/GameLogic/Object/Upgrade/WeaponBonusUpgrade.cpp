@@ -74,7 +74,7 @@ void WeaponBonusUpgrade::xfer(Xfer *xfer)
 	UpgradeModule::xfer(xfer);
 }
 
-// tu-skeleton: 0x004B5664 28B ??_GRva004B55C8@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B5664 28B ??_GWeaponBonusUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B5680 11B ?upgradeImplementation@WeaponBonusUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 

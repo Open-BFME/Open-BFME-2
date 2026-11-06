@@ -10,7 +10,7 @@
 // (ModuleData at +4 Object at +8 Mux at +0x10) plus AllowBanner precedent.
 // ModuleData bitset at +0x118 (16B _Base_bitset<4>), Object at +8 is the
 // Rva0028D86F receiver (WeaponSet at +0x330 bitset at +0x370 per its TU).
-// Evidence: vtable 0x00857F68 slot 22 class Rva004B55C8, prev 0x004B5749
+// Evidence: vtable 0x00857F68 slot 22 class WeaponBonusUpgrade, prev 0x004B5749
 // next 0x004B57AA WeaponSetUpgradeModuleData, callees rowed 0x004CE4A0
 // plus 0x0028D86F, LINK none.
 
@@ -60,7 +60,7 @@ public:
 };
 
 // ?upgradeRemovalImplementation@WeaponSetUpgradeSecondary@@QAEXXZ retail 0x004B5783 39B
-// Slot 20 of vtable 0x00857F68 class Rva004B55C8; Object mask clear via data+0x118 then UpgradeModule remove then vslot 9 with 0.
+// Slot 20 of vtable 0x00857F68 class WeaponBonusUpgrade; Object mask clear via data+0x118 then UpgradeModule remove then vslot 9 with 0.
 // Evidence: vtable 0x00857F68 slot 20 plus sibling 0x004B5765 pattern plus rowed 0x00290AC1 0x004CE4A8 plus prev 0x004B5765 next 0x004B57AA.
 class Rva0028C570;
 

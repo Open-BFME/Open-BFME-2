@@ -128,13 +128,12 @@ Rva004B53DF::~Rva004B53DF()
 {
 }
 
-class Rva004B55C8 : public UpgradeModule
-{
-public:
-	virtual ~Rva004B55C8();
-};
+// WeaponBonusUpgrade's destructor 0x004B55C8: its constructor 0x004B5633
+// installs the same four tables. The class is WeaponBonusUpgrade.h's, so this
+// unit's copies of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/WeaponBonusUpgrade.h"
 
-Rva004B55C8::~Rva004B55C8()
+WeaponBonusUpgrade::~WeaponBonusUpgrade()
 {
 }
 
