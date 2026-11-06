@@ -1,6 +1,6 @@
 ### LINK-620: a shape-only initializer credit hides a rowed initializer from the bridge (P10)
 
-Status: open. The tool route is parked (2026-11-06, after three reviews); the lasting fix is real statics
+Status: open. The tool route is parked (2026-11-06, after three reviews) and a guarded-bridge design was rejected; the lasting fix is real statics
 in source. Updated: 2026-11-06; ancalgonn-swarm-link. Related: LINK-236 (the initializer bridge),
 LINK-226 (P8 and P9).
 
@@ -76,3 +76,21 @@ native registration also builds, so the image builds each twice: 0x007B51EB (`Rv
 MappedImageCache; Rva005F0152ImageGet.cpp's `_$E1`), 0x007ABBE0 (`AsciiString::TheEmptyString`),
 0x007ACD72 (`g_00DEE93C`) and 0x007AFC6B (`g_00E02EAC`, a Region2D). Retire them at the source under
 LINK-236: row each native initializer and drop its rowed copy.
+
+**Option 3, design only, rejected (2026-11-06).** After the tool route was parked, a design note
+(`build/drift_review/swarm/p10_design.md`, local) proposed a guarded bridge. Master's credits and entries
+would stay unchanged, and one generated object, last in link order, would hold a thunk per shape-hidden
+rowed initializer that passes two tests: no native registration names any global its body names (the
+C++ rule that a TU's `_$E` constructs only what it defines), and every such global is still all zero
+bytes at run time. On the P9 snapshot 23 of the 36 passed (0x007ABBB3 among them) and 12 were refused,
+including every known true pair. It also compared a retail-ordered 1,166-entry table (rejected in the
+note: a native `.CRT$XCU` contribution cannot be kept out of the link) and the TU-evidence route (signal
+(b)'s nearest recorded relative scores 0.79-0.88 against the 0.99 gate). Design review rejected option 3:
+- All-zero storage is no proof an object is unconstructed: a constructor can register `this` with a
+  manager, so running it again duplicates live callbacks during play.
+- Ownership by name does not bound what a constructor touches.
+- Last in link order does not prove VC7.1's `.CRT$XCU` order.
+- Partial construction and overlapping storage break a whole-initializer guard.
+
+No bridge-side fix for P10. It goes to Crash triage as source work on the 35 shape-credited native
+registrations themselves (LINK-621).
