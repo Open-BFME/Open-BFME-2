@@ -6395,7 +6395,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva0035D352@@UAE@XZ,,0x0035D352,11,Code/GameEngine/Source/Common/Rva001DBAC3Derived.cpp,matched,opaque derived dtor; tail-jmp opaque leaf base pin 0x1DBAC3
 ??1Rva006DE2B0@@UAE@XZ,,0x006DE2B0,11,Code/Libraries/Source/Apt/AptValue.cpp,matched,opaque derived dtor; tail-jmp opaque SEH base pin 0x6D63C0
 ??1Rva006DE6C0@@UAE@XZ,,0x006DE6C0,11,Code/Libraries/Source/Apt/AptValue.cpp,matched,opaque derived dtor; tail-jmp opaque SEH base pin 0x6D63C0
-??1Rva0044D285@@UAE@XZ,,0x0044D285,11,Code/GameEngine/Source/Common/Rva0044D56ADerived.cpp,matched,opaque derived dtor; tail-jmp opaque SEH base pin 0x44D56A
+??1LANPreferences@@UAE@XZ,,0x0044D285,11,Code/GameEngine/Source/Common/Rva0044D56ADerived.cpp,matched,opaque derived dtor; tail-jmp opaque SEH base pin 0x44D56A
 ??1Rva0054F508@@UAE@XZ,,0x0054F508,11,Code/GameEngine/Source/Common/Rva0044D56ADerived.cpp,matched,opaque derived dtor; tail-jmp opaque SEH base pin 0x44D56A
 ??1Rva004E3D2A@@UAE@XZ,,0x004E3D2A,11,Code/GameEngine/Source/Common/Rva004E3CD0Derived.cpp,matched,opaque derived dtor; tail-jmp opaque SEH base pin 0x4E3CD0
 ??1Rva004E3D47@@UAE@XZ,,0x004E3D47,11,Code/GameEngine/Source/Common/Rva004E3CD0Derived.cpp,matched,opaque derived dtor; tail-jmp opaque SEH base pin 0x4E3CD0
@@ -11183,7 +11183,7 @@ _FilterBlock2dBil_SecondPass,,0x001B83B0,127,Code/Libraries/Source/VP6/FilterBlo
 ?broadcast@Rva0088A1F0Owner@@QAEXXZ,,0x000392C0,63,Code/GameEngine/Source/Common/Rva0088A1F0Broadcast.cpp,matched,BFME1 byte-identical donor b1 0x0088A1F0
 ??0SubtitleEntry@@QAE@ABVUnicodeString@@IHHHHH@Z,,0x00688550,74,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,matched,BFME1 donor reconstruction; vptr immediate; text via StringBase copy pin
 ??_GRva004607E1@@UAEPAXI@Z,,0x0025335A,28,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
-??_GRva0044D285@@UAEPAXI@Z,,0x0044D290,28,Code/GameEngine/Source/Common/Rva0044D56ADerived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
+??_GLANPreferences@@UAEPAXI@Z,,0x0044D290,28,Code/GameEngine/Source/Common/Rva0044D56ADerived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva0054F508@@UAEPAXI@Z,,0x0054F513,28,Code/GameEngine/Source/Common/Rva0044D56ADerived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva0048D742@@UAEPAXI@Z,,0x0048D7F7,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva000CA119@@UAEPAXI@Z,,0x000CA1B7,28,Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH

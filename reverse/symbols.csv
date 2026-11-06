@@ -6700,7 +6700,6 @@ _xferThreeInts,0x0060BC53,donor_sweep: call target read from retail at a unique 
 rva009C7380WeightPairs,0x009B84E0
 ?rva00628770@Rva00628770Impl@@QAE?AUBfmeWideResult@@PBUCoord3D@@MHHPAVRva000421C8@@H@Z,0x00628770,"PartitionManager range-query implementation (525 bytes, SEH frame) behind +0x10: position, float radius, 0, distance type, filter chain, order; called from iterateObjectsInRange 0x00625610; same address as the int-typed ?bfmeMakeWideResult pin"
 ?enterGame@GameInfo@@QAEXXZ,0x003FF268,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
-??1LANPreferences@@UAE@XZ,0x0044D285,callee of ?RequestGameCreate@LANAPI@@UAEXVUnicodeString@@_N@Z
 ?setSlotPointer@GameInfo@@QAEXHPAVGameSlot@@@Z,0x003FF332,callee of ??0LANGameInfo@@QAE@XZ
 ?switchToContext@ControlBar@@QAEXHPAX@Z,0x0031BF64,ControlBar context switch callee of reset at 0x0031E09E; honest address-derived name
 ?rva0044009D@AptMpGameSetup@@QAE_NH@Z,0x0044009D,unrowed 1039B thiscall (Ghidra FUN_0084009d; ret 4; the slot; returns al read by 0x00441C95) on the LAN lobby MpGameSetup panel; called per slot from the game install 0x00443D02; address name

@@ -475,10 +475,8 @@ public:
 	Bool loadFromIniFile(void);
 };
 
-// The destructor (0x0044D285) and its deleting form (0x0044D290) are rowed
-// under address names in Rva0044D56ADerived.cpp. The non-deleting body at
-// 0x0044D285 is the single-inheritance GameModePreferences-derived destructor.
-#pragma comment(linker, "/alternatename:??1LANPreferences@@UAE@XZ=??1Rva0044D285@@UAE@XZ")
+// The destructor (0x0044D285) and its deleting form (0x0044D290) are defined
+// in Rva0044D56ADerived.cpp, on the same GameModePreferences base view.
 
 // ?loadFromIniFile@LANPreferences@@QAE_NXZ @0x44D2AC
 Bool LANPreferences::loadFromIniFile(void)
