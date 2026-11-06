@@ -1,7 +1,7 @@
 // cl: /MD
-// ?onExit@Rva0033F56B@@UAEXH@Z @0x003418EA 70B: Rva0033F56B slot 5.
+// ?onExit@AIHarvestState@@UAEXH@Z @0x003418EA 70B: AIHarvestState slot 5.
 // Member at +0x20 via virtual slot15 then slot0 with 0 plus delete plus clear plus ptr chase +0x18 +0x14 +0x258 null-checked plus byte at +0x3BA cleared.
-// Precedent Rva0033F56B dtor member shape plus State m_machine chase.
+// Precedent AIHarvestState dtor member shape plus State m_machine chase.
 // Vtable 0x008113B8 slot 5.
 class StateMachine;
 namespace FXParticleSystem {
@@ -49,14 +49,14 @@ struct StateMachine {
 	char m_pad000[0x14];
 	ChaseB *m_14;
 };
-class Rva0033F56B : public FXParticleSystem::WindModuleInfo {
+class AIHarvestState : public FXParticleSystem::WindModuleInfo {
 public:
 	virtual void onExit(int status);
 private:
 	Rva003418EAMember *m_20;
 };
 #include <new>
-void Rva0033F56B::onExit(int status)
+void AIHarvestState::onExit(int status)
 {
 	(void)status;
 	if (m_20) {
