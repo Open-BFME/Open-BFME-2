@@ -31,15 +31,9 @@ int bfmeSameGX(BfmeThingGX *left, BfmeThingGX *right);
 
 // The +0x2A4 owning holder (rowed clear 0x000AD6F4); 0x00405AC9 assigns an
 // owning pointer to it.
-class Rva000AD6F4
-{
-public:
-	BfmeThingGX *get() const { return m_ptr; }
-	void clear();
-	Rva000AD6F4 &operator=(std::auto_ptr<BfmeThingGX> ptr);
-private:
-	BfmeThingGX *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
+// The +0x2A4 holder owns a BfmeThingGX here.
+static __forceinline BfmeThingGX *heldHint(const Rva000AD6F4 &holder) { return (BfmeThingGX *)holder.m_ptr; }
 
 #include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
@@ -91,7 +85,7 @@ void Rva00405A50::rva00405C04(BfmeThingGX *hint)
 	bool expired = false;
 	static unsigned long s_shownAt = timeGetTime();
 
-	if (m_hint.get() && (char)bfmeSameGX(hint, m_hint.get()))
+	if (heldHint(m_hint) && (char)bfmeSameGX(hint, heldHint(m_hint)))
 	{
 		m_214 = true;
 		unsigned int duration = hint->getDuration();
@@ -152,7 +146,7 @@ std::auto_ptr<BfmeThingGX> OldSchoolHelpBoxContentSource::clone()
 struct Rva00405AC9Slot0 { virtual void *slot0(int flags); };
 Rva000AD6F4 &Rva000AD6F4::operator=(std::auto_ptr<BfmeThingGX> ptr)
 {
-	BfmeThingGX *old = m_ptr;
+	BfmeThingGX *old = (BfmeThingGX *)m_ptr;
 	m_ptr = ptr.release();
 	::operator delete(old ? ((Rva00405AC9Slot0 *)old)->slot0(0) : 0);
 	return *this;
