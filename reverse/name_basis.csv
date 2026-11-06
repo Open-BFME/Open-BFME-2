@@ -9072,3 +9072,4 @@ global,unrowedData,?g_loginFieldLengthKeys@@3UFallbackCtx@@A,inferred,agree:nr-a
 global,unrowedData,?g_externHandlerIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-98681c4fc101df5ab1e8230a,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C5170
 global,unrowedData,?FireSpreadUpdateModuleDataFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-d64c0c845213,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,0x0084C000
 global,unrowedData,?LivingWorldIconSubObjectTemplateFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-2ba537801e6e,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,0x0086D690
+global,unrowedData,?AssistedTargetingUpdateModuleDataFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-3195b2cd3539,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,0x0084AFE8

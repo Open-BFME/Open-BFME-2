@@ -70,3 +70,10 @@ Both link previews remain clean; row approval/extent and fold proofs preserved.
 Publication audit carried from424d4d55df: INCONCLUSIVE index4d5e6a2f0f,
 base9d04d5d0ac0fe0e83a9aae58bbe00fcd3ff0a8b6, one missing current receipt.
 Current scoped checks pass; no broader actual image/census clearance claimed.
+
+2026-11-06 native Assisted parser table recovered:80B/9relocations admitted by
+data_rows after two independent name votes, using the existing weapon-slot
+lookup. The dummy char is gone; its17B caller resolves the one real table and
+2BC6E add. Normal95/95 +11data,3EXACT EH and63slots pass; bounded3-source preview
+preserves linking. [Admission proof](../../reverse/attempt_support/assisted-fieldparse-native-20261106/README.md).
+No real image or CRC clearance claimed; approved builder source move remains.

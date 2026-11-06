@@ -207,3 +207,12 @@ const char *AssistedTargetingUpdate::GetSnapshotName() const { return "AssistedT
 // tu-skeleton: 0x00486E7C 17B ?buildFieldParse@AssistedTargetingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C15D 8B uw_0078c15d -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+
+// Retail table C4AFE8: four fields and the zero sentinel. Identifier is inferred.
+extern const FieldParse AssistedTargetingUpdateModuleDataFieldParse[5] = {
+ { "AssistingClipSize", &INI::parseInt, 0, 0x08 },
+ { "AssistingWeaponSlot", &INI::parseLookupList, TheWeaponSlotTypeNamesLookupList, 0x0C },
+ { "LaserFromAssisted", &INI::parseThingTemplate, 0, 0x10 },
+ { "LaserToTarget", &INI::parseThingTemplate, 0, 0x14 },
+ { 0, 0, 0, 0 }
+};

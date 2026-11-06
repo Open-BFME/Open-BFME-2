@@ -1,0 +1,39 @@
+{
+  "data": [
+    true,
+    "80 B at 0x00C4AFE8 equal to retail, 9 relocation(s) on target (sizeof(::AssistedTargetingUpdateModuleDataFieldParse) under the build's flags = 80 (allocation extent 80))"
+  ],
+  "registration": {
+    "exact": true,
+    "rva": "0x00486E7C",
+    "size": 17,
+    "native": "8b4c24046a0068e8afc400e8e24dbaffc3",
+    "unresolved": [],
+    "relocations": [
+      [
+        7,
+        6,
+        "?AssistedTargetingUpdateModuleDataFieldParse@@3QBUFieldParse@@B"
+      ],
+      [
+        12,
+        20,
+        "?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z"
+      ]
+    ]
+  },
+  "code_rows": 95,
+  "data_rows": 11,
+  "eh_exact": 3,
+  "table_slots_exact": 63,
+  "objects": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp": {
+      "source_sha256": "7cf4fb20c6708c2f8d4d6e5c44e59cad34bce7b78da8654ce33a525c4b21656b",
+      "object_sha256": "5293603ef3bb0fb3368886c1a25e99a3a17ebd53741a2c9be71a451314386c52"
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp": {
+      "source_sha256": "c8732684f0dc5c5b088f08d8bd2c5eb8ed1abc6bbd29d64c3d1fa8a0027bc18c",
+      "object_sha256": "2410bf4e5e0a73d7595ab8cba6d58f2d4aa7ad2c592cb5aadff9b191aa01a692"
+    }
+  }
+}

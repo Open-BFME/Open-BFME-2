@@ -22,7 +22,6 @@ char g_00C49918;
 char g_00C49A10;
 char g_00C49B40;
 char g_00C4A388;
-char g_00C4AFE8;
 char g_00C4BE20;
 char g_00C4C210;
 char g_00C4C600;
@@ -90,6 +89,7 @@ class MultiIniFieldParse;
 class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../Include/Common/INI/FieldParse.h"
+extern const FieldParse AssistedTargetingUpdateModuleDataFieldParse[5];
 
 #include "../../../../Include/Common/INI/INI.h"
 
@@ -291,7 +291,7 @@ FIELD_PROC(SpecialEnemySenseUpdateModuleData, (unsigned int)&g_00BF1B88, Special
 FIELD_PROC(OneRingPenaltyUpdateModuleData, (unsigned int)&g_00C503B0, RingTable)
 FIELD_PROC(SiegeDockingBehaviorModuleData, (unsigned int)&g_00C413E4, DUMMY)
 FIELD_PROC_INLINE(AutoDepositUpdateModuleData, (unsigned int)&g_00BF1CC8, DepositTable)
-FIELD_PROC(AssistedTargetingUpdateModuleData, (unsigned int)&g_00C4AFE8, AssistedTargetingTable)
+FIELD_PROC(AssistedTargetingUpdateModuleData, AssistedTargetingUpdateModuleDataFieldParse, AssistedTargetingTable)
 FIELD_PROC(SpawnUnitBehaviorModuleData, BfmeSpawnUnitBehaviorFields, SpawnUnitTable)
 FIELD_PROC(EmotionTrackerUpdateModuleData, (unsigned int)&g_00C56858, TauntAndPointDistance)
 FIELD_PROC(PartTheHeavensUpdateModuleData, (unsigned int)&g_00C54DD8, Texture)

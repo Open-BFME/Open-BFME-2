@@ -225,3 +225,11 @@ rowed and referenced.
 - Still open in this file (4 flagged):
   - The three Drawable statics 0x00DBD7DC/0x00DBD860/0x00DBD918: no approved TU for the getters.
   - 0x00E032DC: its only owner is the address-named g_Va00E032DC.
+
+2026-11-06 Assisted table follow-up: inferred
+AssistedTargetingUpdateModuleDataFieldParse at C4AFE8 is now80B exact with9
+relocations, admitted through data_rows/nl-3195b2cd3539. Its17B registration in
+ModuleDataBuildFieldParse.cpp references the real table in the approved Assisted
+TU, replacing the dummy char. Reuses TheWeaponSlotTypeNamesLookupList at C00698;
+no second list or pins. Both sources retain95/95 rows,11 data rows,3EXACT EH
+and63 native table slots. [Proof and remaining move](../../reverse/attempt_support/assisted-fieldparse-native-20261106/README.md).
