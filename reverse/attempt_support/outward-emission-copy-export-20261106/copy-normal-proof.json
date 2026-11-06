@@ -1,0 +1,8 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp",
+  "source_sha256": "406eaad8c113923430bafd179935cd9d7d5976050a841d099d319237e7f4d7a3",
+  "object_sha256": "6f99ac62c4207add75d13b6b973a33e5518e97d4c4448f6fa9917395977c1911",
+  "normal_equals_private_winner": true,
+  "definitions": 17,
+  "eh": {}
+}

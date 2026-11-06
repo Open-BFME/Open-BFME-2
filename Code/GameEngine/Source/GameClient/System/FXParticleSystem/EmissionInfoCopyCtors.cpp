@@ -33,6 +33,24 @@ void EmissionVelocityInfo::DoXfer(Xfer &xfer)
 {
 }
 
+// Retail exports fold this class's default/copy/lifetime with Cylindrical.
+// Native copy3A7501 calls the four-byte base, then copies twelve-byte
+// members at +4/+0x10. Member roles are not established by this layout.
+class OutwardEmissionVelocityInfo : public EmissionVelocityInfo
+{
+public:
+    OutwardEmissionVelocityInfo(const OutwardEmissionVelocityInfo &that);
+    virtual ~OutwardEmissionVelocityInfo();
+private:
+    ::GameClientRandomVariable m_04;
+    ::GameClientRandomVariable m_10;
+};
+
+OutwardEmissionVelocityInfo::OutwardEmissionVelocityInfo(const OutwardEmissionVelocityInfo &that)
+    : EmissionVelocityInfo(that), m_04(that.m_04), m_10(that.m_10)
+{
+}
+
 // ??0CylindricalEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
 CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &that)
     : EmissionVelocityInfo(that)
