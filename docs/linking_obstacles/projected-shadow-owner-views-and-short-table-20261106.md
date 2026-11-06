@@ -36,6 +36,12 @@ Publication fc7590d725 audit: INCONCLUSIVE, index7bd55416c6 against outgoing
 base7523f06674513d785f41dd50cc0af713ce5edd26; three source objects lack current
 receipts, first AIStatBase.cpp. No link clearance or census gain is inferred.
 
+The constructor merge landed as6d19e6b1f0. Its audit used the refreshed local
+index88ce76fc44 against outgoing baseb51ac21203e99c61834cdb1d97095ae50b7fc737
+and remained INCONCLUSIVE because affected consumer AIBaseBuilder.cpp lacked
+a current receipt. The merged TU itself has a strict reusable receipt; carry
+the affected consumer and merged unit into the next census.
+
 The initial14-file merge survey accepted no donor; the repaired constructor
 is now absorbed as recorded above. The twelve remaining donors' compile
 compile boundaries include canonical RefCountClass/HashableClass/Coord3D

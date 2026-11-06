@@ -1,7 +1,7 @@
 # ReflectDamage destructor identity prerequisite
 
 The supported class fold identifies Rva004BAB36 as the existing ReflectDamage.
-Its31-byte destructor4BAB36 installs C59CBC; constructor4BABB4 installs the
+Its25-byte destructor4BAB36 installs C59CBC; constructor4BABB4 installs the
 same native primary table, and the28-byte deleting destructor4BABDE occupies
 slot0. The tool checks all special-member/table identities and respells both
 rows, native callers/table tokens and tombstones together. No name is invented.

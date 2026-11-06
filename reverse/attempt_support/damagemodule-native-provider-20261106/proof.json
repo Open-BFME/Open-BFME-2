@@ -1,0 +1,55 @@
+{
+  "provider": {
+    "source": "Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp",
+    "rows": 13,
+    "matched": 12,
+    "missing": [
+      "??_GDamageModule@@UAEPAXI@Z"
+    ],
+    "errors": [],
+    "damage_symbols": {
+      "defined": [
+        "??1DamageModule@@UAE@XZ",
+        "??_7DamageModule@@6B@",
+        "?getDamage@BehaviorModule@@UAEPAVDamageModuleInterface@@XZ"
+      ],
+      "undefined": [],
+      "weak": []
+    },
+    "eh": {}
+  },
+  "ctor": {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Damage/DamageModuleCtor.cpp",
+    "rows": 1,
+    "matched": 1,
+    "missing": [],
+    "errors": [],
+    "damage_symbols": {
+      "defined": [
+        "??0DamageModule@@QAE@PAVThing@@PBVModuleData@@@Z",
+        "??0DamageModuleInterface@@QAE@XZ",
+        "??_7DamageModule@@6B@",
+        "??_7DamageModule@@6BBehaviorModuleInterface@@@",
+        "??_7DamageModule@@6BObjectModule@@@",
+        "??_7DamageModuleInterface@@6B@",
+        "??_GDamageModule@@UAEPAXI@Z",
+        "?bfmeEmitDamageModuleCtor@@YAXPAVDamageModule@@PAVThing@@PBVModuleData@@@Z",
+        "?getDamage@DamageModule@@UAEPAVDamageModuleInterface@@XZ"
+      ],
+      "undefined": [
+        "??1DamageModule@@UAE@XZ",
+        "??_GDamageModule@@UAEPAXI@Z",
+        "?GetSnapshotName@DamageModule@@MBEPBDXZ",
+        "?loadPostProcess@DamageModule@@MAEXXZ",
+        "?xfer@DamageModule@@MAEXPAVXfer@@@Z"
+      ],
+      "weak": [
+        [
+          "??_EDamageModule@@UAEPAXI@Z",
+          "??_GDamageModule@@UAEPAXI@Z"
+        ]
+      ]
+    },
+    "eh": {}
+  }
+}
