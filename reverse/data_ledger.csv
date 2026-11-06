@@ -20501,8 +20501,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03F9C,4,.data,global,?$S1@?1??getModuleNameKey@SpecialPowerCreate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Create/SpecialPowerCreate.cpp,owned,,1,4
 0x00A03FA0,4,.data,global,?TheInheritUpgradeCreatePoolKey@?1??getModuleNameKey@InheritUpgradeCreate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp,owned,,1,2
 0x00A03FA4,4,.data,global,?$S1@?1??getModuleNameKey@InheritUpgradeCreate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp,owned,,1,4
-0x00A03FA8,4,.data,global,?TheBoneFXDamagePoolKey@?1??rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXDamagePoolKey.cpp,owned,,1,2
-0x00A03FAC,4,.data,global,?$S1@?1??rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXDamagePoolKey.cpp,owned,,1,4
+0x00A03FA8,4,.data,global,?TheBoneFXDamagePoolKey@?1??rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,owned,,1,2
+0x00A03FAC,4,.data,global,?$S1@?1??rva004B9757@BoneFXDamage@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,owned,,1,4
 0x00A03FB0,4,.data,global,?key_BoneFXUpdate@?1??onObjectCreated@BoneFXDamage@@MAEXXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,owned,,1,2
 0x00A03FB4,4,.data,global,?$S23@?1??onObjectCreated@BoneFXDamage@@MAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,owned,,1,4
 0x00A03FB8,4,.data,global,?key_BoneFXUpdate@?1??onBodyDamageStateChange@BoneFXDamage@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,owned,,1,2
