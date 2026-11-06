@@ -158,7 +158,7 @@ InheritUpgradeCreate::InheritUpgradeCreate(Thing *thing, const ModuleData *modul
 
 // tu-skeleton: 0x004B9452 6B ?Rva004B9452Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x004B9458 25B ??1Rva004B9458@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B9458 25B ??1InheritUpgradeCreate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreate.cpp
 
@@ -228,7 +228,7 @@ void InheritUpgradeCreate::rva004B959C()
 
 // tu-skeleton: 0x004B94B6 17B ?buildFieldParse@InheritUpgradeCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004B94C7 28B ??_GRva004B9458@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B94C7 28B ??_GInheritUpgradeCreate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Create/InheritUpgradeCreateXfer.cpp
 

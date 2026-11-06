@@ -5473,3 +5473,5 @@ _$E1,0x007AEBAA,Retracted for readmission as _$E3 in Rva0033FE65OnEnter.cpp: the
 ??1Rva004B55C8@@UAE@XZ,0x004B55C8,"Renamed to ??1WeaponBonusUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57F68)"
 ??_GRva004B55C8@@UAEPAXI@Z,0x004B5664,"Renamed to ??_GWeaponBonusUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57F68)"
 ?rva004B96C4@Rva004B96C4@@QAEXXZ,0x004B96C4,"Renamed to ?slot02@InheritUpgradeCreate@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C596E4 slot 2)"
+??1Rva004B9458@@UAE@XZ,0x004B9458,"Renamed to ??1InheritUpgradeCreate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C596F4)"
+??_GRva004B9458@@UAEPAXI@Z,0x004B94C7,"Renamed to ??_GInheritUpgradeCreate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C596F4)"
