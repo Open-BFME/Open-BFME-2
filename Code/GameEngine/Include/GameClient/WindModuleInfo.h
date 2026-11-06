@@ -65,6 +65,8 @@ public:
     static const float DEFAULT_TURBULENCE_AMPLITUDE;
     static const float DEFAULT_TURBULENCE_FREQUENCY;
 
+    static const float DEFAULT_MOTION_END_ANGLE_MAX;
+
     int m_04;
     float m_08;
     float m_0C;

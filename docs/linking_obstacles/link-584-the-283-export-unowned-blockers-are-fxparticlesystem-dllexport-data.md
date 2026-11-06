@@ -57,3 +57,6 @@ Census confirmation: not claimed.
 
 
 A second scoped check provides six additional, previously unowned literal defaults at their retail export names. The six .rdata data definitions match retail exactly and leave all 10 existing external code bodies and relocations unchanged. The enum-valued default still needs its original WindMotion declaration; the two .data constants and the shared 0x0081B310 provider are separate.
+
+
+Retail export 1148 now owns the shared 0x0081B310 constant. The constructor and writer used kG9, while the wind update used a second named copy. All three use the same const provider now. The original four data bytes and all 37 external code bodies verify, with 3 same-address DIR32 edges rebound. The two .data constants and enum declaration remain open.

@@ -81,7 +81,6 @@ void Rva003AFC6BWrite(File *file, unsigned int *flags);
 
 // The wind-motion name table rowed at 0x00C1B6C4 (Rva003A547EXfer.cpp).
 namespace FXParticleSystem { extern const char * const WindMotionNames[]; }
-extern "C" const float kG9;
 
 void Rva001F82ABWrite(
     _STL::basic_ostream<char, _STL::char_traits<char> > &os,
@@ -141,7 +140,7 @@ void WindModuleTemplate::rva003A5E78(File *file, unsigned int flags)
         Rva003A5D34Write(oss, flags, "WindPingPongStartAngleMax", m_windPingPongStartAngleMax);
     if (m_windPingPongEndAngleMin != WindModuleInfo::DEFAULT_MOTION_END_ANGLE_MIN)
         Rva003A5D34Write(oss, flags, "WindPingPongEndAngleMin", m_windPingPongEndAngleMin);
-    if (m_windPingPongEndAngleMax != kG9)
+    if (m_windPingPongEndAngleMax != WindModuleInfo::DEFAULT_MOTION_END_ANGLE_MAX)
         Rva003A5D34Write(oss, flags, "WindPingPongEndAngleMax", m_windPingPongEndAngleMax);
     if (m_turbulenceAmplitude != 0.0f)
         Rva003A5D34Write(oss, flags, "TurbulenceAmplitude", m_turbulenceAmplitude);
