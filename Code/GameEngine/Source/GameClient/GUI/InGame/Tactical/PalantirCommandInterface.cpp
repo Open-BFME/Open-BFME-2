@@ -97,10 +97,7 @@ void Rva0052991E::OnSubMenuLoaded(const char *path)
 // Constructor2859D7 has no Ghidra entry, but is an explicit constructor callback
 // in529FC5; the preceding row2859C1 ends exactly at its first byte.
 // Prefix/member views remain address-derived; no donor identity or new pin claimed.
-class Rva000AD6F4 {public:
-// ?Rva000AD6F4::Rva000AD6F4 present-unmatched
-Rva000AD6F4():p(0){}
-~Rva000AD6F4();void*p;};
+#include "../../../../../Include/Common/Rva000AD6F4.h"
 struct PalantirToggleHolder: Rva00528FE6 {
 // ?PalantirToggleHolder::~PalantirToggleHolder present-unmatched
 ~PalantirToggleHolder(){rva00529009();}};

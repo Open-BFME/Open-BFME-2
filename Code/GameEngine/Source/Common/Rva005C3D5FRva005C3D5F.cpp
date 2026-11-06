@@ -9,7 +9,7 @@
 #include <stdlib.h>
 bool __cdecl Rva004128F0GetParam(const char *,const char *,AsciiString &);
 class Rva002BED91 { public: void clear(); void *held; };
-class Rva000AD6F4 { public: void clear(); void *held; };
+#include "../../Include/Common/Rva000AD6F4.h"
 struct Rva005C3D5FRecord { unsigned char unknown[4]; Rva000AD6F4 first; Rva002BED91 second; };
 class Rva005C3D5F { public: void rva005C3D5F(const char *); unsigned char unknown[0x20]; Rva005C3D5FRecord records[3]; };
 void Rva005C3D5F::rva005C3D5F(const char *args) {
