@@ -709,6 +709,14 @@ refuses unless all of these hold:
   OLD (text or object) comes `--prepared REL=FILE` on NEW's shared header and
   spells OLD nowhere (class_gate and the byte gate judge those units); no unit
   may end up declaring NEW twice or deriving NEW from itself.
+- With prepared units, `--access public|protected|private` respells the folded
+  virtual destructor family (`??1`, `??_G`, `??_E` and their adjustor thunks,
+  with their `__ehhandler$` rows) to that access, where NEW's shared header
+  declares its destructor with another access than the placeholder rows spell
+  (CreateModuleClass.h: protected, `??1CreateModule@@MAE@XZ`, the spelling its
+  consumers reference; `Rva004B8CDE` rowed it public). Access is no retail fact:
+  the header's declaration and the prepared units' bytes decide it. A
+  non-virtual family is refused, and without prepared units so is `--access`.
 
 Each renamed row and data row is tombstoned `Renamed to <new> by
 tools/rename.py (fold: retail vftable 0x...)`. No `name_basis.csv` row is

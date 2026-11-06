@@ -765,11 +765,13 @@ def class_spans(symbol, word):
     return [(a, b) for a, b in spans[lead:] if symbol[a:b] == word]
 
 
-def class_sub(text, word, new, check=None):
+def class_sub(text, word, new, check=None, post=None):
     """`text` with every mangled symbol in it respelling the type fragment
     `word` as `new`; returns (text, count). Raises Unparsed for a symbol that
     spells `word@` and cannot be tokenized. `check(symbol, respelled)` sees
-    every symbol it changes (and may raise)."""
+    every symbol it changes (and may raise). `post(respelled)`, when given,
+    returns the final spelling of each changed symbol (class --fold --access
+    respells the folded class's destructor family there)."""
     out, last, count = [], 0, 0
     for match in SYMBOL_TOKEN.finditer(text):
         symbol = match.group(0)
@@ -781,9 +783,12 @@ def class_sub(text, word, new, check=None):
             pieces += [symbol[prev:a], new]
             prev = b
         pieces.append(symbol[prev:])
+        respelled = "".join(pieces)
+        if post is not None:
+            respelled = post(respelled)
         if check is not None:
-            check(symbol, "".join(pieces))
-        out += [text[last:match.start()], "".join(pieces)]
+            check(symbol, respelled)
+        out += [text[last:match.start()], respelled]
         last = match.end()
         count += len(spans)
     out.append(text[last:])
@@ -794,13 +799,14 @@ class ClassToken:
     """`class_sub` with the interface of a compiled regex (`search`, `sub`,
     `subn`), for the ledger and pragma rewrites."""
 
-    def __init__(self, word, check=None):
+    def __init__(self, word, check=None, post=None):
         self.word = word
         self.check = check
+        self.post = post
 
     def subn(self, new, text):
         try:
-            return class_sub(text, self.word, new if isinstance(new, str) else new(None), self.check)
+            return class_sub(text, self.word, new if isinstance(new, str) else new(None), self.check, self.post)
         except Unparsed as error:
             raise Refusal(f"cannot tokenize a mangled name spelling {self.word}: {error}") from None
 
@@ -2915,6 +2921,12 @@ VIRTUAL_ACCESS = frozenset("EFMNUV")
 # access each non-virtual code already has (the declaration's label).
 VIRTUAL_CODE_OF = {"private": "E", "protected": "M", "public": "U"}
 ACCESS_OF_CODE = {"A": "private", "I": "protected", "Q": "public"}
+# `class --fold --access`: the near virtual codes a folded destructor family
+# may be respelled from, and a deleting destructor's this-adjustor thunk codes
+# (G private, O protected, W public; near).
+VIRTUAL_NEAR_CODES = frozenset("EMU")
+THUNK_CODE_OF = {"private": "G", "protected": "O", "public": "W"}
+THUNK_NEAR_CODES = frozenset("GOW")
 # A shared body: the row notes record an ICF fold or an alias.
 FOLD_NOTES = re.compile(r"fold-proof=|icf-owner=|dup-of=|\bICF\b", re.I)
 VIRTUAL_MEMBER = re.compile(r"\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)+)@")
@@ -4569,7 +4581,8 @@ def rewrite_ledger(ctx, plan, rel, label, regex, replacement):
     return changed
 
 
-def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=False, prepared=None):
+def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=False, prepared=None,
+               access=None):
     """Plan respelling one class/struct/union/enum type token everywhere: every
     mangled name it scopes or types (functions.csv names and notes, pins, data
     rows), every source, header and shim view that spells it, and the units
@@ -4580,9 +4593,12 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
     if fold:
         if basis is not None:
             raise Refusal("class --fold invents no name and takes no --basis: retail's vftable is the evidence")
-        return plan_fold(ctx, name, new, evidence=evidence or "", max_files=max_files, prepared=prepared)
+        return plan_fold(ctx, name, new, evidence=evidence or "", max_files=max_files, prepared=prepared,
+                         access=access)
     if prepared:
         raise Refusal("--prepared goes with class --fold into a nested class")
+    if access is not None:
+        raise Refusal("--access goes with class --fold (or function --virtual)")
     if basis is None:
         raise Refusal("--basis is required")
     old = name or ""
@@ -5530,11 +5546,44 @@ def fold_evidence(ctx, old, new):
     return table, evidence
 
 
-def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
+def fold_access_respell(mangled_new, access):
+    """`post` for class_sub under `class --fold --access`: a respelled
+    destructor, deleting destructor or deleting-destructor adjustor thunk of
+    the folded class (`??1NEW@@`, `??_GNEW@@`, `??_ENEW@@`) takes `access`'s
+    near virtual code (thunk code for a thunk); every other symbol is kept.
+    A destructor family that is not spelled virtual is refused: access is no
+    retail fact, and only a virtual family's spelling follows the shared
+    header's declaration."""
+    code, thunk = VIRTUAL_CODE_OF[access], THUNK_CODE_OF[access]
+    family = re.compile(r"(?:%s)?\?\?(1|_G|_E)%s@@" % ("|".join(re.escape(p) for p in FUNCLET_PREFIXES),
+                                                    re.escape(mangled_new)))
+
+    def post(symbol):
+        match = family.match(symbol)
+        if not match:
+            return symbol
+        at = match.end()
+        current = symbol[at:at + 1]
+        if current in VIRTUAL_NEAR_CODES:
+            wanted = code
+        elif current in THUNK_NEAR_CODES and match.group(1) != "1":
+            wanted = thunk
+        else:
+            raise Refusal(f"{symbol}: --access respells a near virtual destructor family only "
+                          f"(access code {current!r})")
+        return symbol[:at] + wanted + symbol[at + 1:]
+    return post
+
+
+def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access=None):
     """Plan `class --fold`: respell placeholder class `old` as `new`, the class
     retail's vftable already names (fold_evidence); see the section comment.
     `new` may be a nested class (`A::B::C`); its units then come as
-    `prepared` C++. Raises Refusal; writes nothing."""
+    `prepared` C++. `access` ('public', 'protected' or 'private') gives the
+    folded destructor family that access (fold_access_respell): a registered
+    NEW's header declares its destructor with an access the placeholder's
+    rows need not share, and the prepared units then compile that spelling.
+    Raises Refusal; writes nothing."""
     old, new = old or "", new or ""
     parts = new.split("::")
     nested = len(parts) > 1
@@ -5550,6 +5599,11 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
     if prepared and not nested and not registered_new:
         raise Refusal("--prepared goes with a nested --into (A::B::C) or a NEW registered in "
                       f"{CANONICAL_CLASSES}; an unregistered global NEW is a token rewrite")
+    if access is not None and access not in VIRTUAL_CODE_OF:
+        raise Refusal(f"--access {access!r} is not one of {', '.join(sorted(VIRTUAL_CODE_OF))}")
+    if access is not None and not prepared:
+        raise Refusal("--access goes with prepared units: a token rewrite keeps each view's own access, "
+                      "so only units prepared on NEW's header compile the respelled destructor family")
     # A registered NEW has one shared header: a token rewrite would turn each
     # unit's OLD view into a private copy of it, so its units come prepared.
     by_hand = nested or bool(prepared)
@@ -5570,7 +5624,8 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
     # (`C@B@A`), and only where MSVC's name table stays put (see
     # nested_respelling_check); NEW is the C++ spelling everywhere else.
     mangled_new = class_scope(new)
-    frag = ClassToken(old, nested_respelling_check(old, new)) if nested else type_fragment_re(old)
+    post = fold_access_respell(mangled_new, access) if access is not None else None
+    frag = ClassToken(old, nested_respelling_check(old, new) if nested else None, post)
     token = class_token_re(old)
     rows, pins, datas = ctx.rows(), ctx.pins(), ctx.dicts(DATA_ROWS)
     names = [r["name"] for r in rows] + [p.get("name", "") for p in pins] + [d.get("name", "") for d in datas]
@@ -5617,6 +5672,9 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None):
                       f"{len(texts)} text, {len(by_object)} object consumers)")
 
     owner = next((d for d in declarers if d in ctx.ledger_sources()), declarers[0] if declarers else "")
+    if access is not None:
+        proof = list(proof) + [f"the destructor family takes {access} access as requested (NEW's header "
+                               "declares it; access is no retail fact)"]
     plan = Plan("class", old, new, "fold", "; ".join(proof) + (f"; {' '.join(evidence.split())}"
                                                                  if evidence.strip() else ""),
                 owner, None, old_word=old, new_word=new, fold=table)
@@ -8921,6 +8979,9 @@ def main(argv=None):
     klass.add_argument("--prepared", action="append", default=[], metavar="REL=FILE",
                        help="with --fold into a nested class: the proposed bytes of Code source REL, read from "
                             "FILE (repeatable), for every unit spelling OLD")
+    klass.add_argument("--access", choices=sorted(VIRTUAL_CODE_OF),
+                       help="with --fold and --prepared: the access the folded virtual destructor family takes "
+                            "(the registered NEW header's declaration), instead of the placeholder rows'")
     member = kinds.add_parser("member", parents=[common],
                               help="respell one non-static data member in every view and use")
     member.add_argument("--class", dest="cls", required=True, help="the class whose member it is")
@@ -9020,6 +9081,8 @@ def main(argv=None):
     virtual = args.kind == "function" and args.virtual and not to_class
     if args.kind == "function" and args.access and not virtual:
         parser.error("--access goes with --virtual")
+    if args.kind == "class" and args.access and not fold:
+        parser.error("--access goes with --fold")
     if virtual and (args.new or args.basis):
         parser.error("function --virtual keeps the identifier and takes its evidence from retail: "
                      "pass neither --new nor --basis")
@@ -9050,6 +9113,8 @@ def main(argv=None):
     if fold:
         kwargs = dict(name=args.fold, new=args.into, fold=True, evidence=args.evidence or "",
                       max_files=args.max_files, prepared=prepared or None)
+        if args.access:
+            kwargs["access"] = args.access
     elif args.kind == "function":
         try:
             kwargs.update(rva=int(args.rva, 16), old=args.old)

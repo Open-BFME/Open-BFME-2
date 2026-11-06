@@ -1373,6 +1373,86 @@ def test_a_registered_new_refuses_a_prepared_unit_still_spelling_old(tmp_path, m
         r_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_SRC.encode("utf-8")})
 
 
+# ------------------------------------------------------------ --access: the header's destructor access
+#
+# CreateModule is registered (CreateModuleClass.h) and declares its virtual
+# destructor protected, the spelling (??1CreateModule@@MAE@XZ) every current
+# consumer references; the placeholder Rva004B8CDE rows ~CreateModule public
+# (UAE). The prepared units compile the header's spelling, so the fold respells
+# the destructor family's access with the class token.
+D_HEADER_PROTECTED = (f"class {D_NEW}\n{{\npublic:\n\t{D_NEW}();\nprotected:\n\tvirtual ~{D_NEW}();\n}};\n")
+
+
+def virtual_registered_tree(root):
+    make_dtor_tree(root, d_functions().replace(f"{D_OLD}@@QAE", f"{D_OLD}@@UAE"))
+    write(root, "reverse/canonical_classes.csv", f"class,header,notes\n{D_NEW},{D_HEADER},shared\n")
+    write(root, D_HEADER, D_HEADER_PROTECTED)
+    _git(root, "add", "-A")
+    return root
+
+
+def a_plan(root, prepared, access):
+    return rename.plan_rename("class", ctx=ctx_of(root), name=D_OLD, new=D_NEW, fold=True, prepared=prepared,
+                              access=access)
+
+
+def test_a_fold_with_access_respells_the_destructor_family(tmp_path, monkeypatch):
+    root = virtual_registered_tree(tmp_path)
+    d_retail(monkeypatch)
+    p = a_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_PREPARED.encode("utf-8")}, "protected")
+    assert "the destructor family takes protected access as requested" in p.evidence
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??1{D_NEW}@@MAE@XZ,,0x00402000,7,Code/Game/Dtor.cpp,matched," in fns
+    assert f"??_G{D_NEW}@@MAEPAXI@Z,,0x00402010,29,Code/Game/Dtor.cpp,matched," in fns
+    assert f"__ehhandler$??1{D_NEW}@@MAE@XZ,,0x00402100" in fns
+    assert f"??0{D_NEW}@@QAE@XZ,,0x00401000" in fns          # the constructor keeps its spelling
+    assert D_OLD not in fns and f"{D_NEW}@@UAE" not in fns
+    deleted = (root / "reverse/deleted_rows.csv").read_text()
+    assert f"??1{D_OLD}@@UAE@XZ,0x00402000,\"Renamed to ??1{D_NEW}@@MAE@XZ" in deleted
+
+
+def test_a_fold_without_access_keeps_the_placeholders_access(tmp_path, monkeypatch):
+    root = virtual_registered_tree(tmp_path)
+    d_retail(monkeypatch)
+    p = r_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_PREPARED.encode("utf-8")})
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    assert f"??1{D_NEW}@@UAE@XZ,,0x00402000" in (root / "reverse/functions.csv").read_text()
+
+
+def test_a_fold_with_access_needs_prepared_units(tmp_path, monkeypatch):
+    root = make_dtor_tree(tmp_path, d_functions().replace(f"{D_OLD}@@QAE", f"{D_OLD}@@UAE"))
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match="--access goes with prepared units"):
+        a_plan(root, None, "protected")
+
+
+def test_a_fold_with_access_refuses_a_nonvirtual_destructor_family(tmp_path, monkeypatch):
+    root = registered_tree(tmp_path)                          # the placeholder rows spell QAE
+    d_retail(monkeypatch)
+    with pytest.raises(Refusal, match="near virtual destructor family only"):
+        a_plan(root, {"Code/Game/Dtor.cpp": D_DTOR_PREPARED.encode("utf-8")}, "protected")
+
+
+def test_a_fold_access_respells_an_adjustor_thunk_with_the_thunk_code():
+    post = rename.fold_access_respell("CreateModule", "protected")
+    assert post("??1CreateModule@@UAE@XZ") == "??1CreateModule@@MAE@XZ"
+    assert post("??_GCreateModule@@UAEPAXI@Z") == "??_GCreateModule@@MAEPAXI@Z"
+    assert post("??_ECreateModule@@WM@AEPAXI@Z") == "??_ECreateModule@@OM@AEPAXI@Z"
+    assert post("??0CreateModule@@QAE@XZ") == "??0CreateModule@@QAE@XZ"
+    assert post("?xfer@CreateModule@@UAEXPAVXfer@@@Z") == "?xfer@CreateModule@@UAEXPAVXfer@@@Z"
+    assert post("??1CreateModuleData@@UAE@XZ") == "??1CreateModuleData@@UAE@XZ"
+    with pytest.raises(Refusal):
+        post("??1CreateModule@@QAE@XZ")
+
+
+def test_access_goes_with_a_fold_only(tmp_path):
+    root = make_dtor_tree(tmp_path)
+    with pytest.raises(Refusal, match="--access goes with class --fold"):
+        rename.plan_rename("class", ctx=ctx_of(root), name=D_OLD, new="Readable", basis="inferred",
+                           evidence="x", access="protected")
+
+
 def test_prepared_units_still_need_a_nested_or_registered_new(tmp_path, monkeypatch):
     root = make_dtor_tree(tmp_path)
     d_retail(monkeypatch)
