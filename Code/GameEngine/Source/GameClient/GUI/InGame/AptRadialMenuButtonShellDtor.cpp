@@ -82,20 +82,8 @@ public:
 	int m_references;
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-	void *m_start;
-	void *m_finish;
-	void *m_end;
-};
-class Rva00577FE2List
-{
-public:
-	~Rva00577FE2List() { m_c.clear(); }
-	Rva000AD6F4 m_c;
-};
+// The +0x14 holder's destructor is 0x000AD6F4, the body clear shares.
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 class AptRadialMenu::Impl::ButtonShell : public Rva00577FE2Base
 {
@@ -105,7 +93,9 @@ private:
 	Impl *m_impl;
 	int m_slot;
 	int m_index;
-	Rva00577FE2List m_14;
+	Rva000AD6F4 m_14;
+	void *m_18;
+	void *m_1C;
 	int m_20;
 	int m_24;
 	bool m_enabled;
