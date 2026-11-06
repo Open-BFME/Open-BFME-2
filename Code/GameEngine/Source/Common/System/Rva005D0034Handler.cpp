@@ -25,11 +25,8 @@ public:
 	virtual void c0();
 };
 
-class Rva000AD6F4
-{
-public:
-	void reset(void *callback);
-};
+// The +0x1C holder is replaced through its rowed setter 0x00575674.
+#include "../../../Include/Common/Rva00575674.h"
 
 class Rva005D0034Target
 {
@@ -37,7 +34,7 @@ public:
 	unsigned char m_pad00[0x14];
 	int m_objectID;				// +0x14
 	unsigned char m_pad18[0x1C - 0x18];
-	Rva000AD6F4 m_callbackHolder;			// +0x1C
+	Rva00575674 m_callbackHolder;			// +0x1C
 };
 
 struct Rva005D0034LogicView
@@ -76,7 +73,7 @@ public:
 void Rva005D078B::rva005D0034(int a, int worldValue, int objectID)
 {
 	if (worldValue == ((Rva005D0034LogicView *)TheLivingWorldLogic)->m_98 && objectID == m_target->m_objectID)
-		m_target->m_callbackHolder.reset(new Rva005D0034Callback(m_target));
+		m_target->m_callbackHolder.rva00575674((Object *)new Rva005D0034Callback(m_target));
 }
 
 // Placeholder names this unit's own object settles.  In retail each one holds
@@ -84,4 +81,3 @@ void Rva005D078B::rva005D0034(int a, int worldValue, int objectID)
 // the vftable slot it occupies, or the function or datum the instruction
 // reaches, so bind the placeholder to that row's name.
 #pragma comment(linker, "/alternatename:?c0@Rva005D0034Callback@@UAEXXZ=??_GRva005CF86B@@QAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?reset@Rva000AD6F4@@QAEXPAX@Z=?rva00575674@Rva00575674@@QAEXPAVObject@@@Z")
