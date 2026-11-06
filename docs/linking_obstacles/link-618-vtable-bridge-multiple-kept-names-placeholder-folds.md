@@ -63,7 +63,17 @@ them.
 - Rva0053FB33 into Rva0053FADE (0x008694DC): the direction that keeps the `??_7Rva0053FADE@@6B@` data
   pin. Rva0053FADECopy.cpp and Rva00540845Copy.cpp now declare `~Rva0053FADE` instead of defining it
   inline, so the row 0x0053FB33 is its one definition.
-- 9 refusal rows should leave the multiple-kept-names list at the next real link (unmeasured). Each fold's
+- GameResultsInterface (0x0083AD08): `06917bb207f` gives GameResultsQueueStartup_Unresolved.cpp the
+  fourteen-slot SubsystemInterface (`BFME_SUBSYSTEM_SLOTS`) and Zero Hour's empty queue
+  init/reset/update, so its GameResultsInterface and queue (0x0083AD70) tables grow from 9 slots to
+  retail's 22, the queue methods in retail's slots 14-21. `72c2fc0e8da` folds Rva00419CD4 into
+  GameResultsInterface. Retail's interface destructor and constructor are inline: the queue's
+  destructor and constructor expand them, and 0x00419CD4/0x00419CDF/0x00419D18 are the out-of-line
+  COMDAT copies the linker kept. So the destructor is inline in both units (identical COMDATs), and the
+  queue unit's constructor, which cl emitted although it expands it, is `__declspec(dllimport)
+  __forceinline`, leaving the row the one definition. Without that, link_check showed both units losing
+  to a duplicate `??0GameResultsInterface`.
+- 10 refusal rows should leave the multiple-kept-names list at the next real link (unmeasured). Each fold's
   link_check covered every unit naming either spelling plus the units the earlier folds changed (the
   census objects are stale for them): at most 22 units, all LINKS, LINKED unchanged against the census.
 - Naming lead, not applied: each AI-state table's slot 2 is a 6-byte getter returning the class-name
@@ -114,8 +124,17 @@ them.
     in the same to-class step. Order: LINK-513's two to-class moves with the installer adoption, then the
     Rva0033FF2B fold with the three prepared units, then the three readable folds with their
     destructor units on the canonical header;
-  - ScriptActionsInterface and GameResultsInterface (the SubsystemInterface slot views differ:
-    `BFME_SUBSYSTEM_SLOTS`);
+  - ScriptActionsInterface (0x0081FD98; GameResultsInterface was repaired by lk37, above). Both copies
+    need SubsystemInterface's fourteen slots plus four pure ones (retail has 18; ScriptActions' own table
+    0x0081FE48 puts executeAction, the rowed closeWindows body and two more there). ScriptActions_ctor.cpp
+    rows the interface's constructor 0x003BA89A, so it emits the table and an inline
+    `~ScriptActionsInterface` COMDAT; ~ScriptActions 0x003BD582 expands that destructor. The destructor
+    and deleting destructor rows 0x003BA6A9/0x003BA6B4 sit in GameEngineDeletingBaseDerived.cpp, which
+    has no constructor that would emit an inline copy, so its definition stays strong and meets the
+    COMDAT as a duplicate. Retail's copies come from the ScriptActions TU (all three sit at
+    0x003BA6A9..0x003BA8AC beside ScriptActions::reset). tu_map gives 0x003BA6A9/0x003BA6B4 no TU and
+    proposes ScriptActionsInterface.cpp for 0x003BA89A: approve those rows into the ScriptActions TU,
+    then make the destructor inline there and fold;
   - TextOnFrameTransition, ProfilePreferences, ExperienceTrackerAutoResolve and DominateEnemySpecialPower;
   - the Die/Update/Create/SpecialPower MI scaffolds (DieModuleDerived.cpp, Rva0024A797Derived.cpp,
     Rva004B8CDEDerived.cpp, Rva00493DEFDerived.cpp). Their folds would only rename the scaffold's
@@ -124,7 +143,9 @@ them.
   premise was wrong: `??1State@@UAE@XZ` has been a matched row in StateCtor.cpp at 0x0049B47C since
   `0fe7b0f981e` (2026-10-07).
 
-**Next check.** Read the next published real link's `vtable_bridge_queue.tsv` for the 21 tables above.
+**Next check.** Read the next published real link's `vtable_bridge_queue.tsv` for lk36's 21 tables and lk37's 10
+(0x008112C0, 0x00811368, 0x008113B8, 0x00811798, 0x008117F0, 0x00811850, 0x008118B0, 0x00811900, 0x008694DC,
+0x0083AD08).
 Re-run the dry-run sweep after other seats' header adoptions, because each adoption turns DIFF
 candidates into SAME ones.
 
