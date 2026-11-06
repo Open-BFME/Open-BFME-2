@@ -156,3 +156,22 @@ the seed does, not when the canonical header changes. 42 units are still unexpla
 four-level include closure and need individual tracing before the atomic batch is counted
 final; they are listed by the same query, and Coord3DVectorFillInsertO1.cpp among them is a
 sibling of a unit already refused for back-references.
+
+2026-11-07, resolver prerequisite: the header lane now resolves all 84 previously
+refused names against their own MSVC name tables. Independent DbgHelp decoding
+confirms those exact mappings; compiler-authentic pointer-return and operator
+fixtures cover literal and name-reference keys. The old synthetic
+`?equals@Coord3D@@QBE_NABU0@@Z` example above was misleading: ordinary `equals`
+occupies entry 0, so that U0 denotes a different type. The genuine operator
+`??8Coord3D@@QAE_NABU0@@Z` does denote Coord3D and rekeys correctly.
+
+Private Snapshot compilation preserves 22/22 rows under either header key;
+normalized external bytes, relocations and provider facts agree. This proves
+the local key diagnosis, not a landed header migration or link clearance.
+The resolver rejects invalid argument references and mixed union/class keys,
+and a new preflight refuses stale parent/pin/data/register metadata before
+writing source. The canonical header, contract and function/pin/data rows are
+unchanged. Six local-static/adjustor forms remain unsupported. The broader
+migration still needs current header/include closure, already-adopted users,
+private views and seed headers reconciled, and one coherent metadata transaction.
+[Reproduction and exact scope](../../reverse/attempt_support/coord3d-class-key-resolver-20261107/README.md).

@@ -190,6 +190,19 @@ before retiring debt, so manual adoptions get the same early guard. Discovery
 errors refuse approval; symbol-preserving work skips this scan. Normal commit and
 push hooks still provide the final checks over affected callers.
 
+Class-key row planning resolves MSVC's name and argument-type backreferences;
+it changes only U/V type-key characters whose resolved qualified type is the
+requested class. Template name tables stay local; nested function signatures
+share the argument-type table. Unrelated types, reference digits and all other
+characters are preserved. Unsupported grammar, invalid references and mixed
+keys for the same type refuse the whole unit. The lane also refuses a rename
+whose old name occurs in active metadata, pins, data or debt registers, or whose
+target already exists or is tombstoned: its narrow ledger writer cannot migrate
+those families. This guard runs before trial source writes. A canonical-header
+key change still needs an explicit complete consumer and metadata migration;
+already-adopted header users are not automatically selected by the private-view
+adoption lane.
+
 The header tier serves
 classes by the queued TU-merge donors their header unblocks:
 `header_adopt_lane.py order --merges [N]` lists them (private views in one

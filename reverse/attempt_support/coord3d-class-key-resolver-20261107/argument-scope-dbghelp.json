@@ -1,0 +1,96 @@
+[
+  {
+    "case": "bool-ref",
+    "symbol": "?f@@YAX_N0@Z",
+    "decoded": "void __cdecl f(bool,bool)",
+    "decoded_success": true
+  },
+  {
+    "case": "int-ref-invalid",
+    "symbol": "?f@@YAXH0@Z",
+    "decoded": "?f@@YAXH0@Z",
+    "decoded_success": false
+  },
+  {
+    "case": "int64-ref",
+    "symbol": "?f@@YAX_J0@Z",
+    "decoded": "void __cdecl f(__int64,__int64)",
+    "decoded_success": true
+  },
+  {
+    "case": "return-not-memorized",
+    "symbol": "?f@@YAPAH0@Z",
+    "decoded": "?f@@YAPAH0@Z",
+    "decoded_success": false
+  },
+  {
+    "case": "function-ptr-inner-outer-0",
+    "symbol": "?f@@YAXP6AXPAH0@Z0@Z",
+    "decoded": "void __cdecl f(void (__cdecl*)(int *,int *),int *)",
+    "decoded_success": true
+  },
+  {
+    "case": "function-ptr-inner-outer-1",
+    "symbol": "?f@@YAXP6AXPAH0@Z1@Z",
+    "decoded": "void __cdecl f(void (__cdecl*)(int *,int *),void (__cdecl*)(int *,int *))",
+    "decoded_success": true
+  },
+  {
+    "case": "outer-type-used-inside",
+    "symbol": "?f@@YAXPAHP6AX0@Z0@Z",
+    "decoded": "void __cdecl f(int *,void (__cdecl*)(int *),int *)",
+    "decoded_success": true
+  },
+  {
+    "case": "outer-inner-mixed",
+    "symbol": "?f@@YAXPAHP6AXPAJ0@Z0@Z",
+    "decoded": "void __cdecl f(int *,void (__cdecl*)(long *,int *),int *)",
+    "decoded_success": true
+  },
+  {
+    "case": "fnptr-empty-nested",
+    "symbol": "?f@@YAXP6AXXZ0@Z",
+    "decoded": "void __cdecl f(void (__cdecl*)(void),void (__cdecl*)(void))",
+    "decoded_success": true
+  },
+  {
+    "case": "repeated-literal-1",
+    "symbol": "?f@@YAXPAHPAH1@Z",
+    "decoded": "void __cdecl f(int *,int *,int *)",
+    "decoded_success": true
+  },
+  {
+    "case": "repeated-literal-2",
+    "symbol": "?f@@YAXPAHPAHPAJ2@Z",
+    "decoded": "void __cdecl f(int *,int *,long *,long *)",
+    "decoded_success": true
+  },
+  {
+    "case": "backref-not-rememorized",
+    "symbol": "?f@@YAXPAH01@Z",
+    "decoded": "?f@@YAXPAH01@Z",
+    "decoded_success": false
+  },
+  {
+    "case": "member-function-ptr-inner-outer",
+    "symbol": "?f@@YAXP8C@@AEXPAH0@Z1@Z",
+    "decoded": "void __cdecl f(void (__thiscall C::*)(int *,int *),void (__thiscall C::*)(int *,int *))",
+    "decoded_success": true
+  },
+  {
+    "case": "nested-return-not-memorized",
+    "symbol": "?f@@YAXP6APAHXZ1@Z",
+    "decoded": "?f@@YAXP6APAHXZ1@Z",
+    "decoded_success": false
+  },
+  {
+    "symbol": "?f@@YAP6AXPAH0@Z0@Z",
+    "decoded": "void (__cdecl*__cdecl f(int *))(int *,int *)",
+    "decoded_success": true
+  },
+  {
+    "symbol": "?f@@YAP6AXPAH0@Z1@Z",
+    "decoded": "?f@@YAP6AXPAH0@Z1@Z",
+    "decoded_success": false
+  }
+]

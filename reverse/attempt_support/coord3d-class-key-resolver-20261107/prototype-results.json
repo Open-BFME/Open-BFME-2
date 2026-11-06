@@ -1,0 +1,781 @@
+[
+  {
+    "old": "?getPlanarDirectionTo@Object@@QBEPAUCoord3D@@PAU2@PBV1@@Z",
+    "new": "?getPlanarDirectionTo@Object@@QBEPAVCoord3D@@PAV2@PBV1@@Z",
+    "edits": [
+      35,
+      47
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Object_getPlanarDirectionTo.cpp"
+  },
+  {
+    "old": "?Rva003AFA64FillUnitVector@@YAPAUCoord3D@@PAU1@@Z",
+    "new": "?Rva003AFA64FillUnitVector@@YAPAVCoord3D@@PAV1@@Z",
+    "edits": [
+      32,
+      44
+    ],
+    "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/fxpsemittervolumemodule.cpp"
+  },
+  {
+    "old": "??$fill@PAUCoord3D@@U1@@_STL@@YAXPAUCoord3D@@0ABU1@@Z",
+    "new": "??$fill@PAVCoord3D@@V1@@_STL@@YAXPAVCoord3D@@0ABV1@@Z",
+    "edits": [
+      10,
+      20,
+      35,
+      48
+    ],
+    "source": "Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp"
+  },
+  {
+    "old": "??$uninitialized_fill_n@PAUCoord3D@@IU1@@_STL@@YAPAUCoord3D@@PAU1@IABU1@@Z",
+    "new": "??$uninitialized_fill_n@PAVCoord3D@@IV1@@_STL@@YAPAVCoord3D@@PAV1@IABV1@@Z",
+    "edits": [
+      26,
+      37,
+      51,
+      63,
+      69
+    ],
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp"
+  },
+  {
+    "old": "?rva001FD2D9@Rva001FD2D9@@QAEPAUCoord3D@@PAU2@H@Z",
+    "new": "?rva001FD2D9@Rva001FD2D9@@QAEPAVCoord3D@@PAV2@H@Z",
+    "edits": [
+      31,
+      43
+    ],
+    "source": "Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp"
+  },
+  {
+    "old": "?rva0039DA2A@Team@@QBEPAUCoord3D@@PAU2@@Z",
+    "new": "?rva0039DA2A@Team@@QBEPAVCoord3D@@PAV2@@Z",
+    "edits": [
+      24,
+      36
+    ],
+    "source": "Code/GameEngine/Source/Common/RTS/Team.cpp"
+  },
+  {
+    "old": "?rva001F553F@Rva001F553F@@QAEPAUCoord3D@@PAU2@II@Z",
+    "new": "?rva001F553F@Rva001F553F@@QAEPAVCoord3D@@PAV2@II@Z",
+    "edits": [
+      31,
+      43
+    ],
+    "source": "Code/GameEngine/Source/GameClient/System/ParticleSys.cpp"
+  },
+  {
+    "old": "?_M_insert_overflow@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEXPAUCoord3D@@ABU3@ABU__false_type@2@I_N@Z",
+    "new": "?_M_insert_overflow@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@IAEXPAVCoord3D@@ABV3@ABU__false_type@2@I_N@Z",
+    "edits": [
+      29,
+      52,
+      82,
+      94
+    ],
+    "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_coord3d_insert_overflow.cpp"
+  },
+  {
+    "old": "?transformPoint@Thing@@QAEXPBUCoord3D@@PAU2@@Z",
+    "new": "?transformPoint@Thing@@QAEXPBVCoord3D@@PAV2@@Z",
+    "edits": [
+      29,
+      41
+    ],
+    "source": "Code/GameEngine/Source/Common/Thing/ThingTransformPointFinish.cpp"
+  },
+  {
+    "old": "?rva002EE96B@Pathfinder@@QAEHPAUCoord3D@@PBU2@@Z",
+    "new": "?rva002EE96B@Pathfinder@@QAEHPAVCoord3D@@PBV2@@Z",
+    "edits": [
+      31,
+      43
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002EE96B.cpp"
+  },
+  {
+    "old": "??$__copy_backward@PAUCoord3D@@PAU1@H@_STL@@YAPAUCoord3D@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "new": "??$__copy_backward@PAVCoord3D@@PAV1@H@_STL@@YAPAVCoord3D@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "edits": [
+      21,
+      33,
+      48,
+      60
+    ],
+    "source": "Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp"
+  },
+  {
+    "old": "??$__copy_backward_ptrs@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z",
+    "new": "??$__copy_backward_ptrs@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "edits": [
+      26,
+      38,
+      52,
+      64
+    ],
+    "source": "Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp"
+  },
+  {
+    "old": "??0Pathfinder_IsCheckForAdjust@@QAE@PAVPathfinder@@PAVObject@@PAXABUCoord3D@@PBU3@MH@Z",
+    "new": "??0Pathfinder_IsCheckForAdjust@@QAE@PAVPathfinder@@PAVObject@@PAXABVCoord3D@@PBV3@MH@Z",
+    "edits": [
+      67,
+      79
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?rva002EBC34@Rva002EBC34@@QAEPAUICoord2D@@PAU2@PAXPBUCoord3D@@@Z",
+    "new": "?rva002EBC34@Rva002EBC34@@QAEPAUICoord2D@@PAU2@PAXPBVCoord3D@@@Z",
+    "edits": [
+      52
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+  },
+  {
+    "old": "?AdjustGroundPathPosition@Pathfinder@@QAEHPBUCoord3D@@PAU2@@Z",
+    "new": "?AdjustGroundPathPosition@Pathfinder@@QAEHPBVCoord3D@@PAV2@@Z",
+    "edits": [
+      44,
+      56
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/Pathfinder_AdjustGroundPathPosition.cpp"
+  },
+  {
+    "old": "?PeekPastClimbPortal@Path@@QAEPAUCoord3D@@PAU2@@Z",
+    "new": "?PeekPastClimbPortal@Path@@QAEPAVCoord3D@@PAV2@@Z",
+    "edits": [
+      32,
+      44
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/Path.cpp"
+  },
+  {
+    "old": "?Get2DCenterVectorTo@Object@@QBEXPAUCoord3D@@PBU2@@Z",
+    "new": "?Get2DCenterVectorTo@Object@@QBEXPAVCoord3D@@PBV2@@Z",
+    "edits": [
+      35,
+      47
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Object_planarSubtractWorker.cpp"
+  },
+  {
+    "old": "?FindBrokenBridge@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBUCoord3D@@PBU3@@Z",
+    "new": "?FindBrokenBridge@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBVCoord3D@@PBV3@@Z",
+    "edits": [
+      56,
+      68
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/PathfinderRva002E99F9.cpp"
+  },
+  {
+    "old": "?rva002866B5@Rva002866B5@@QAEPAUCoord3D@@PAU2@PBU2@M@Z",
+    "new": "?rva002866B5@Rva002866B5@@QAEPAVCoord3D@@PAV2@PBV2@M@Z",
+    "edits": [
+      31,
+      43,
+      48
+    ],
+    "source": "Code/GameEngine/Source/Common/Rva002866B5NearestPoint.cpp"
+  },
+  {
+    "old": "?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAUCoord3D@@PBU2@@Z",
+    "new": "?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAVCoord3D@@PBV2@@Z",
+    "edits": [
+      50,
+      62
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp"
+  },
+  {
+    "old": "?TightenPath@Pathfinder@@QAEXPAVObject@@ABVLocomotorSet@@PAUCoord3D@@PBU4@@Z",
+    "new": "?TightenPath@Pathfinder@@QAEXPAVObject@@ABVLocomotorSet@@PAVCoord3D@@PBV4@@Z",
+    "edits": [
+      59,
+      71
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?AdjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@PBU4@@Z",
+    "new": "?AdjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAVCoord3D@@PBV4@@Z",
+    "edits": [
+      66,
+      78
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?CheckForAdjust@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@_NHHW4PathfindLayerEnum@@H2PAUCoord3D@@PBU5@MPAHH@Z",
+    "new": "?CheckForAdjust@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@_NHHW4PathfindLayerEnum@@H2PAVCoord3D@@PBV5@MPAHH@Z",
+    "edits": [
+      90,
+      102
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?FindClosestHierarchicalPath@Pathfinder@@IAEPAVPath@@_NABVLocomotorSet@@PAVObject@@PBUCoord3D@@30PAU5@@Z",
+    "new": "?FindClosestHierarchicalPath@Pathfinder@@IAEPAVPath@@_NABVLocomotorSet@@PAVObject@@PBVCoord3D@@30PAV5@@Z",
+    "edits": [
+      85,
+      99
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?GetWallHeight@Pathfinder@@QAEMW4PathfindLayerEnum@@PBUCoord3D@@PAU3@@Z",
+    "new": "?GetWallHeight@Pathfinder@@QAEMW4PathfindLayerEnum@@PBVCoord3D@@PAV3@@Z",
+    "edits": [
+      54,
+      66
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?Rva00284AC6TryPosition@@YA_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU1@@Z",
+    "new": "?Rva00284AC6TryPosition@@YA_NPBVCoord3D@@MMPBUFindPositionOptions@@PAV1@@Z",
+    "edits": [
+      31,
+      69
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp"
+  },
+  {
+    "old": "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z",
+    "new": "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBVCoord3D@@@Z",
+    "edits": [
+      49
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?ComputeNormalRadialOffset@@YAXABUCoord3D@@AAU1@0PAVObject@@M@Z",
+    "new": "?ComputeNormalRadialOffset@@YAXABVCoord3D@@AAV1@0PAVObject@@M@Z",
+    "edits": [
+      33,
+      45
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+  },
+  {
+    "old": "?Rva002EBC14Cell@@YAPAUICoord2D@@PAU1@PAXPBUCoord3D@@@Z",
+    "new": "?Rva002EBC14Cell@@YAPAUICoord2D@@PAU1@PAXPBVCoord3D@@@Z",
+    "edits": [
+      43
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?bfmeCalcScatterTargetPos@WeaponTemplate@@QAE?AUCoord3D@@PBVObject@@0U2@@Z",
+    "new": "?bfmeCalcScatterTargetPos@WeaponTemplate@@QAE?AVCoord3D@@PBVObject@@0V2@@Z",
+    "edits": [
+      47,
+      69
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateScatterTargetPos.cpp"
+  },
+  {
+    "old": "?computeIndividualDestination@AIGroup@@SAXPAUCoord3D@@PBU2@PAVObject@@1PBMH@Z",
+    "new": "?computeIndividualDestination@AIGroup@@SAXPAVCoord3D@@PBV2@PAVObject@@1PBMH@Z",
+    "edits": [
+      44,
+      56
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp"
+  },
+  {
+    "old": "?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBUCoord3D@@PAMPAU3@@Z",
+    "new": "?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBVCoord3D@@PAMPAV3@@Z",
+    "edits": [
+      49,
+      64
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp"
+  },
+  {
+    "old": "?rva00375ED7@AerialPathfinder@@QAEHPAVObject@@PBUCoord3D@@PAU3@@Z",
+    "new": "?rva00375ED7@AerialPathfinder@@QAEHPAVObject@@PBVCoord3D@@PAV3@@Z",
+    "edits": [
+      48,
+      60
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp"
+  },
+  {
+    "old": "?computeFlightDistToGoal@Path@@QAEMPBUCoord3D@@AAU2@@Z",
+    "new": "?computeFlightDistToGoal@Path@@QAEMPBVCoord3D@@AAV2@@Z",
+    "edits": [
+      37,
+      49
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/Path.cpp"
+  },
+  {
+    "old": "?convertBonePosToWorldPos@Thing@@QBEXPBUCoord3D@@PBVMatrix3D@@PAU2@PAV3@@Z",
+    "new": "?convertBonePosToWorldPos@Thing@@QBEXPBVCoord3D@@PBVMatrix3D@@PAV2@PAV3@@Z",
+    "edits": [
+      39,
+      64
+    ],
+    "source": "Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp"
+  },
+  {
+    "old": "?erase@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEPAUCoord3D@@PAU3@0@Z",
+    "new": "?erase@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEPAVCoord3D@@PAV3@0@Z",
+    "edits": [
+      16,
+      39,
+      68,
+      80
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIStateMachineUpdate.cpp"
+  },
+  {
+    "old": "?fillInsert@Rva00082719Vector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?fillInsert@Rva00082719Vector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "edits": [
+      37,
+      50
+    ],
+    "source": "Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp"
+  },
+  {
+    "old": "?fillInsert@Rva000CA1EEVector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?fillInsert@Rva000CA1EEVector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "edits": [
+      37,
+      50
+    ],
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp"
+  },
+  {
+    "old": "?findNearestLabeledContactPointOnTarget@AIUpdateInterface@@QAE_NPAVObject@@PAUCoord3D@@PBU3@_N@Z",
+    "new": "?findNearestLabeledContactPointOnTarget@AIUpdateInterface@@QAE_NPAVObject@@PAVCoord3D@@PBV3@_N@Z",
+    "edits": [
+      77,
+      89
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindNearestLabeledContactPoint.cpp"
+  },
+  {
+    "old": "?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z",
+    "new": "?findPositionAround@PartitionManager@@SA_NPBVCoord3D@@PBUFindPositionOptions@@PAV2@@Z",
+    "edits": [
+      44,
+      80
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogicFindPositionAround.cpp"
+  },
+  {
+    "old": "?getWorldspaceBestContactPoint@Object@@QBE_NPAUCoord3D@@PBU2@PBDHH_N@Z",
+    "new": "?getWorldspaceBestContactPoint@Object@@QBE_NPAVCoord3D@@PBV2@PBDHH_N@Z",
+    "edits": [
+      46,
+      58
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/ObjectWorldspaceBestContactPoint.cpp"
+  },
+  {
+    "old": "?rva002153C7@Rva002153C7@@QAEPAUCoord3D@@PAU2@@Z",
+    "new": "?rva002153C7@Rva002153C7@@QAEPAVCoord3D@@PAV2@@Z",
+    "edits": [
+      31,
+      43
+    ],
+    "source": "Code/GameEngine/Source/Common/Rva002153C7Mod3.cpp"
+  },
+  {
+    "old": "?rva0028D4E0@Object@@UAEPBUCoord3D@@PAU2@0@Z",
+    "new": "?rva0028D4E0@Object@@UAEPBVCoord3D@@PAV2@0@Z",
+    "edits": [
+      26,
+      38
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/ObjectVisualPositionBFME2.cpp"
+  },
+  {
+    "old": "?rva002E7D3F@Rva002E7D6DInfo@@QAEPAU1@PAVRva002E6DC4@@PAUCoord3D@@HABURva002E7D3FQuery@@_N@Z",
+    "new": "?rva002E7D3F@Rva002E7D6DInfo@@QAEPAU1@PAVRva002E6DC4@@PAVCoord3D@@HABURva002E7D3FQuery@@_N@Z",
+    "edits": [
+      56
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+  },
+  {
+    "old": "?CircleClipsTallBuilding@Pathfinder@@QAE_NPBUCoord3D@@0MIPAU2@@Z",
+    "new": "?CircleClipsTallBuilding@Pathfinder@@QAE_NPBVCoord3D@@0MIPAV2@@Z",
+    "edits": [
+      44,
+      59
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+  },
+  {
+    "old": "?rva00474B51@Rva00474B51@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z",
+    "new": "?rva00474B51@Rva00474B51@@QAEPAVCoord3D@@PAV2@PAVObject@@H@Z",
+    "edits": [
+      31,
+      43
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/Rva00474B51.cpp"
+  },
+  {
+    "old": "?rva00739820@ShroudManager@@QAEXPBUCoord3D@@HHHPAU2@@Z",
+    "new": "?rva00739820@ShroudManager@@QAEXPBVCoord3D@@HHHPAV2@@Z",
+    "edits": [
+      34,
+      49
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp"
+  },
+  {
+    "old": "__ehhandler$?Rva00284AC6TryPosition@@YA_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU1@@Z",
+    "new": "__ehhandler$?Rva00284AC6TryPosition@@YA_NPBVCoord3D@@MMPBUFindPositionOptions@@PAV1@@Z",
+    "edits": [
+      43,
+      81
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp"
+  },
+  {
+    "old": "__ehhandler$?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBUCoord3D@@PAMPAU3@@Z",
+    "new": "__ehhandler$?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBVCoord3D@@PAMPAV3@@Z",
+    "edits": [
+      61,
+      76
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp"
+  },
+  {
+    "old": "?rva0039E9A1@Team@@QBEPAUCoord3D@@PAU2@@Z",
+    "new": "?rva0039E9A1@Team@@QBEPAVCoord3D@@PAV2@@Z",
+    "edits": [
+      24,
+      36
+    ],
+    "source": "Code/GameEngine/Source/Common/RTS/Team.cpp"
+  },
+  {
+    "old": "?rva00276952@Rva002768AC@@QAE_NPBUCoord3D@@PAU2@@Z",
+    "new": "?rva00276952@Rva002768AC@@QAE_NPBVCoord3D@@PAV2@@Z",
+    "edits": [
+      33,
+      45
+    ],
+    "source": "Code/GameEngine/Source/GameClient/Rva00276952.cpp"
+  },
+  {
+    "old": "?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBUCoord3D@@IHIPAU2@@Z",
+    "new": "?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBVCoord3D@@IHIPAV2@@Z",
+    "edits": [
+      52,
+      67
+    ],
+    "source": "Code/GameEngine/Source/Common/RTS/ShroudManagerImplGetNearestGroupWithValue.cpp"
+  },
+  {
+    "old": "?findMeACrashSite@AIUpdateInterface@@QAE_NMPBUCoord3D@@PAU2@VBfmeFixedStorage0004543D@@@Z",
+    "new": "?findMeACrashSite@AIUpdateInterface@@QAE_NMPBVCoord3D@@PAV2@VBfmeFixedStorage0004543D@@@Z",
+    "edits": [
+      45,
+      57
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindMeCrashSite.cpp"
+  },
+  {
+    "old": "?rva00472620@Rva00472620@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z",
+    "new": "?rva00472620@Rva00472620@@QAEPAVCoord3D@@PAV2@PAVObject@@H@Z",
+    "edits": [
+      31,
+      43
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainFormationPosition.cpp"
+  },
+  {
+    "old": "?getClosestPointOnLand@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z",
+    "new": "?getClosestPointOnLand@Pathfinder@@QAE_NPBVCoord3D@@PAVObject@@PAV2@@Z",
+    "edits": [
+      42,
+      65
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?insert@Rva00082719Vector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?insert@Rva00082719Vector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "edits": [
+      33,
+      46
+    ],
+    "source": "Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp"
+  },
+  {
+    "old": "?insertFill@Rva000CA1EEVector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?insertFill@Rva000CA1EEVector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "edits": [
+      37,
+      50
+    ],
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DQuadrupedDraw.cpp"
+  },
+  {
+    "old": "?Rva0030D241Intersect@@YA_NPAVRva0030D111Shape@@PBUCoord3D@@1PAU2@@Z",
+    "new": "?Rva0030D241Intersect@@YA_NPAVRva0030D111Shape@@PBVCoord3D@@1PAV2@@Z",
+    "edits": [
+      50,
+      63
+    ],
+    "source": "Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp"
+  },
+  {
+    "old": "?rva002814EF@TerrainLogic@@QAE_NPBUCoord3D@@0PAU2@@Z",
+    "new": "?rva002814EF@TerrainLogic@@QAE_NPBVCoord3D@@0PAV2@@Z",
+    "edits": [
+      34,
+      47
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp"
+  },
+  {
+    "old": "?findMeleeAttackPosition@HordeMeleeSwarm@@QAE_NPAVObject@@PAUCoord3D@@0PBU3@_NPAH3@Z",
+    "new": "?findMeleeAttackPosition@HordeMeleeSwarm@@QAE_NPAVObject@@PAVCoord3D@@0PBV3@_NPAH3@Z",
+    "edits": [
+      60,
+      73
+    ],
+    "source": "Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp"
+  },
+  {
+    "old": "?findMeleeAttackPosition@HordeMeleeFormation@@QAE_NPAVObject@@PAUCoord3D@@0PBU3@_NPAH3@Z",
+    "new": "?findMeleeAttackPosition@HordeMeleeFormation@@QAE_NPAVObject@@PAVCoord3D@@0PBV3@_NPAH3@Z",
+    "edits": [
+      64,
+      77
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormationFindMeleeAttackPosition.cpp"
+  },
+  {
+    "old": "?Get2DBorderVectorTo@Object@@QBE?AUCoord3D@@PBU2@@Z",
+    "new": "?Get2DBorderVectorTo@Object@@QBE?AVCoord3D@@PBV2@@Z",
+    "edits": [
+      34,
+      46
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/ObjectPlanarBorderVector.cpp"
+  },
+  {
+    "old": "__ehhandler$?findMeACrashSite@AIUpdateInterface@@QAE_NMPBUCoord3D@@PAU2@VBfmeFixedStorage0004543D@@@Z",
+    "new": "__ehhandler$?findMeACrashSite@AIUpdateInterface@@QAE_NMPBVCoord3D@@PAV2@VBfmeFixedStorage0004543D@@@Z",
+    "edits": [
+      57,
+      69
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceFindMeCrashSite.cpp"
+  },
+  {
+    "old": "__ehhandler$?CircleClipsTallBuilding@Pathfinder@@QAE_NPBUCoord3D@@0MIPAU2@@Z",
+    "new": "__ehhandler$?CircleClipsTallBuilding@Pathfinder@@QAE_NPBVCoord3D@@0MIPAV2@@Z",
+    "edits": [
+      56,
+      71
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp"
+  },
+  {
+    "old": "__ehhandler$?getClosestPointOnLand@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z",
+    "new": "__ehhandler$?getClosestPointOnLand@Pathfinder@@QAE_NPBVCoord3D@@PAVObject@@PAV2@@Z",
+    "edits": [
+      54,
+      77
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "__ehhandler$?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBUCoord3D@@IHIPAU2@@Z",
+    "new": "__ehhandler$?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBVCoord3D@@IHIPAV2@@Z",
+    "edits": [
+      64,
+      79
+    ],
+    "source": "Code/GameEngine/Source/Common/RTS/ShroudManagerImplGetNearestGroupWithValue.cpp"
+  },
+  {
+    "old": "?computeApproachTarget@Weapon@@QBE_NPBVObject@@0PBUCoord3D@@MAAU3@@Z",
+    "new": "?computeApproachTarget@Weapon@@QBE_NPBVObject@@0PBVCoord3D@@MAAV3@@Z",
+    "edits": [
+      50,
+      63
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/WeaponComputeApproachTarget.cpp"
+  },
+  {
+    "old": "?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@PAU5@_NM4@Z",
+    "new": "?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBVCoord3D@@PAV5@_NM4@Z",
+    "edits": [
+      71,
+      83
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "__ehhandler$?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@PAU5@_NM4@Z",
+    "new": "__ehhandler$?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBVCoord3D@@PAV5@_NM4@Z",
+    "edits": [
+      83,
+      95
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?getBridgeHeight@Bridge@@QAEMPBUCoord3D@@PAU2@@Z",
+    "new": "?getBridgeHeight@Bridge@@QAEMPBVCoord3D@@PAV2@@Z",
+    "edits": [
+      31,
+      43
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Map/BridgeGetBridgeHeight.cpp"
+  },
+  {
+    "old": "?AdjustFlingDestination@Pathfinder@@QAEXPAVObject@@PBUCoord3D@@PAU3@@Z",
+    "new": "?AdjustFlingDestination@Pathfinder@@QAEXPAVObject@@PBVCoord3D@@PAV3@@Z",
+    "edits": [
+      53,
+      65
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?rva0047AC8F@AODHordeContain@@UAEPAUCoord3D@@PAU2@PAVObject@@H@Z",
+    "new": "?rva0047AC8F@AODHordeContain@@UAEPAVCoord3D@@PAV2@PAVObject@@H@Z",
+    "edits": [
+      35,
+      47
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainRva0047AC8F.cpp"
+  },
+  {
+    "old": "?getPortTransform@BuildAssistant@@QAE_NPBUCoord3D@@PBVThingTemplate@@MPAMPAU2@@Z",
+    "new": "?getPortTransform@BuildAssistant@@QAE_NPBVCoord3D@@PBVThingTemplate@@MPAMPAV2@@Z",
+    "edits": [
+      41,
+      75
+    ],
+    "source": "Code/GameEngine/Source/Common/System/BuildAssistantGetPortTransform.cpp"
+  },
+  {
+    "old": "?internal_findHierarchicalPath@Pathfinder@@IAEPAVPath@@_NHPAVObject@@PBUCoord3D@@200PAU4@@Z",
+    "new": "?internal_findHierarchicalPath@Pathfinder@@IAEPAVPath@@_NHPAVObject@@PBVCoord3D@@200PAV4@@Z",
+    "edits": [
+      71,
+      86
+    ],
+    "source": "Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp"
+  },
+  {
+    "old": "?getBestContactPoint@GeometryInfo@@QBE_NPAUCoord3D@@PBU2@PBDHH_N@Z",
+    "new": "?getBestContactPoint@GeometryInfo@@QBE_NPAVCoord3D@@PBV2@PBDHH_N@Z",
+    "edits": [
+      42,
+      54
+    ],
+    "source": "Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp"
+  },
+  {
+    "old": "?rva002E3AA8@PolygonTrigger@@QAE_NPBUCoord3D@@0PAU2@_N@Z",
+    "new": "?rva002E3AA8@PolygonTrigger@@QAE_NPBVCoord3D@@0PAV2@_N@Z",
+    "edits": [
+      36,
+      49
+    ],
+    "source": "Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp"
+  },
+  {
+    "old": "??$__copy_ptrs@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z",
+    "new": "??$__copy_ptrs@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "edits": [
+      17,
+      29,
+      43,
+      55
+    ],
+    "source": "Code/GameEngine/Source/Common/Rva0055A7DBTess.cpp"
+  },
+  {
+    "old": "?insert@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXPAUCoord3D@@IABU3@@Z",
+    "new": "?insert@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEXPAVCoord3D@@IABV3@@Z",
+    "edits": [
+      17,
+      40,
+      70,
+      83
+    ],
+    "source": "Code/GameEngine/Source/Common/Rva0055A7DBTess.cpp"
+  },
+  {
+    "old": "?_M_fill_insert@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXPAUCoord3D@@IABU3@@Z",
+    "new": "?_M_fill_insert@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEXPAVCoord3D@@IABV3@@Z",
+    "edits": [
+      25,
+      48,
+      78,
+      91
+    ],
+    "source": "Code/GameEngine/Source/Common/Coord3DVectorFillInsertO1.cpp"
+  },
+  {
+    "old": "??$__copy@PAUCoord3D@@PAU1@H@_STL@@YAPAUCoord3D@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "new": "??$__copy@PAVCoord3D@@PAV1@H@_STL@@YAPAVCoord3D@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "edits": [
+      12,
+      24,
+      39,
+      51
+    ],
+    "source": "Code/GameEngine/Source/Common/BfmeTwoHundredFortyThree.cpp"
+  },
+  {
+    "old": "?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z",
+    "new": "?Rva00506CF5@@YA?AVCoord3D@@PAXPAV1@@Z",
+    "edits": [
+      18,
+      33
+    ],
+    "source": "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+  },
+  {
+    "old": "__ehhandler$?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z",
+    "new": "__ehhandler$?Rva00506CF5@@YA?AVCoord3D@@PAXPAV1@@Z",
+    "edits": [
+      30,
+      45
+    ],
+    "source": "Code/GameEngine/Source/Common/AIBaseBuilder.cpp"
+  },
+  {
+    "old": "??$__uninitialized_fill_n@PAUCoord3D@@IU1@@_STL@@YAPAUCoord3D@@PAU1@IABU1@ABU__false_type@0@@Z",
+    "new": "??$__uninitialized_fill_n@PAVCoord3D@@IV1@@_STL@@YAPAVCoord3D@@PAV1@IABV1@ABU__false_type@0@@Z",
+    "edits": [
+      28,
+      39,
+      53,
+      65,
+      71
+    ],
+    "source": "Code/GameEngine/Source/Common/Coord3DUninitializedFillN.cpp"
+  },
+  {
+    "old": "??$__uninitialized_copy@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z",
+    "new": "??$__uninitialized_copy@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "edits": [
+      26,
+      38,
+      52,
+      64
+    ],
+    "source": "Code/GameEngine/Source/Common/Coord3DUninitializedCopy.cpp"
+  }
+]

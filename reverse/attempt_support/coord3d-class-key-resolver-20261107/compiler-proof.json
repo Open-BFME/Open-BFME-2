@@ -1,0 +1,42 @@
+{
+  "source": "Code/GameEngine/Source/Common/System/Snapshot.cpp",
+  "source_sha256": "46a48fbcd9d8a13a47a32d8cab7290bc43a2d861634084b7d47afb9f756265c3",
+  "export_key": {
+    "class": 15
+  },
+  "scope": "Private compiler evidence only. Temporary header copies stay in ignored build; no canonical header, source or ledger is changed.",
+  "variants": {
+    "struct": {
+      "rows": 22,
+      "matched_addresses": 22,
+      "missing": [],
+      "errors": []
+    },
+    "class": {
+      "rows": 22,
+      "matched_addresses": 22,
+      "missing": [],
+      "errors": []
+    }
+  },
+  "normalized_snapshot_facts_equal": true,
+  "fixtures": {
+    "struct": {
+      "errors": [],
+      "symbols": [
+        "??8Coord3D@@QAE_NABU0@@Z",
+        "?CoordKeyProbe@@YAPAUCoord3D@@PAU1@@Z"
+      ]
+    },
+    "class": {
+      "errors": [],
+      "symbols": [
+        "??8Coord3D@@QAE_NABV0@@Z",
+        "?CoordKeyProbe@@YAPAVCoord3D@@PAV1@@Z"
+      ]
+    }
+  },
+  "current_lane_backref_refusals": [
+    "?CoordKeyProbe@@YAPAUCoord3D@@PAU1@@Z"
+  ]
+}

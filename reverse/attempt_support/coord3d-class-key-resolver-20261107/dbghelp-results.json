@@ -1,0 +1,674 @@
+[
+  {
+    "old": "?getPlanarDirectionTo@Object@@QBEPAUCoord3D@@PAU2@PBV1@@Z",
+    "new": "?getPlanarDirectionTo@Object@@QBEPAVCoord3D@@PAV2@PBV1@@Z",
+    "before": "public: struct Coord3D * __thiscall Object::getPlanarDirectionTo(struct Coord3D *,class Object const *)const ",
+    "after": "public: class Coord3D * __thiscall Object::getPlanarDirectionTo(class Coord3D *,class Object const *)const ",
+    "expected": "public: class Coord3D * __thiscall Object::getPlanarDirectionTo(class Coord3D *,class Object const *)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?Rva003AFA64FillUnitVector@@YAPAUCoord3D@@PAU1@@Z",
+    "new": "?Rva003AFA64FillUnitVector@@YAPAVCoord3D@@PAV1@@Z",
+    "before": "struct Coord3D * __cdecl Rva003AFA64FillUnitVector(struct Coord3D *)",
+    "after": "class Coord3D * __cdecl Rva003AFA64FillUnitVector(class Coord3D *)",
+    "expected": "class Coord3D * __cdecl Rva003AFA64FillUnitVector(class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "??$fill@PAUCoord3D@@U1@@_STL@@YAXPAUCoord3D@@0ABU1@@Z",
+    "new": "??$fill@PAVCoord3D@@V1@@_STL@@YAXPAVCoord3D@@0ABV1@@Z",
+    "before": "void __cdecl _STL::fill<struct Coord3D *,struct Coord3D>(struct Coord3D *,struct Coord3D *,struct Coord3D const &)",
+    "after": "void __cdecl _STL::fill<class Coord3D *,class Coord3D>(class Coord3D *,class Coord3D *,class Coord3D const &)",
+    "expected": "void __cdecl _STL::fill<class Coord3D *,class Coord3D>(class Coord3D *,class Coord3D *,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "??$uninitialized_fill_n@PAUCoord3D@@IU1@@_STL@@YAPAUCoord3D@@PAU1@IABU1@@Z",
+    "new": "??$uninitialized_fill_n@PAVCoord3D@@IV1@@_STL@@YAPAVCoord3D@@PAV1@IABV1@@Z",
+    "before": "struct Coord3D * __cdecl _STL::uninitialized_fill_n<struct Coord3D *,unsigned int,struct Coord3D>(struct Coord3D *,unsigned int,struct Coord3D const &)",
+    "after": "class Coord3D * __cdecl _STL::uninitialized_fill_n<class Coord3D *,unsigned int,class Coord3D>(class Coord3D *,unsigned int,class Coord3D const &)",
+    "expected": "class Coord3D * __cdecl _STL::uninitialized_fill_n<class Coord3D *,unsigned int,class Coord3D>(class Coord3D *,unsigned int,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva001FD2D9@Rva001FD2D9@@QAEPAUCoord3D@@PAU2@H@Z",
+    "new": "?rva001FD2D9@Rva001FD2D9@@QAEPAVCoord3D@@PAV2@H@Z",
+    "before": "public: struct Coord3D * __thiscall Rva001FD2D9::rva001FD2D9(struct Coord3D *,int)",
+    "after": "public: class Coord3D * __thiscall Rva001FD2D9::rva001FD2D9(class Coord3D *,int)",
+    "expected": "public: class Coord3D * __thiscall Rva001FD2D9::rva001FD2D9(class Coord3D *,int)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva0039DA2A@Team@@QBEPAUCoord3D@@PAU2@@Z",
+    "new": "?rva0039DA2A@Team@@QBEPAVCoord3D@@PAV2@@Z",
+    "before": "public: struct Coord3D * __thiscall Team::rva0039DA2A(struct Coord3D *)const ",
+    "after": "public: class Coord3D * __thiscall Team::rva0039DA2A(class Coord3D *)const ",
+    "expected": "public: class Coord3D * __thiscall Team::rva0039DA2A(class Coord3D *)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?rva001F553F@Rva001F553F@@QAEPAUCoord3D@@PAU2@II@Z",
+    "new": "?rva001F553F@Rva001F553F@@QAEPAVCoord3D@@PAV2@II@Z",
+    "before": "public: struct Coord3D * __thiscall Rva001F553F::rva001F553F(struct Coord3D *,unsigned int,unsigned int)",
+    "after": "public: class Coord3D * __thiscall Rva001F553F::rva001F553F(class Coord3D *,unsigned int,unsigned int)",
+    "expected": "public: class Coord3D * __thiscall Rva001F553F::rva001F553F(class Coord3D *,unsigned int,unsigned int)",
+    "status": "pass"
+  },
+  {
+    "old": "?_M_insert_overflow@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@IAEXPAUCoord3D@@ABU3@ABU__false_type@2@I_N@Z",
+    "new": "?_M_insert_overflow@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@IAEXPAVCoord3D@@ABV3@ABU__false_type@2@I_N@Z",
+    "before": "protected: void __thiscall _STL::vector<struct Coord3D,class _STL::allocator<struct Coord3D> >::_M_insert_overflow(struct Coord3D *,struct Coord3D const &,struct _STL::__false_type const &,unsigned int,bool)",
+    "after": "protected: void __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::_M_insert_overflow(class Coord3D *,class Coord3D const &,struct _STL::__false_type const &,unsigned int,bool)",
+    "expected": "protected: void __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::_M_insert_overflow(class Coord3D *,class Coord3D const &,struct _STL::__false_type const &,unsigned int,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "?transformPoint@Thing@@QAEXPBUCoord3D@@PAU2@@Z",
+    "new": "?transformPoint@Thing@@QAEXPBVCoord3D@@PAV2@@Z",
+    "before": "public: void __thiscall Thing::transformPoint(struct Coord3D const *,struct Coord3D *)",
+    "after": "public: void __thiscall Thing::transformPoint(class Coord3D const *,class Coord3D *)",
+    "expected": "public: void __thiscall Thing::transformPoint(class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva002EE96B@Pathfinder@@QAEHPAUCoord3D@@PBU2@@Z",
+    "new": "?rva002EE96B@Pathfinder@@QAEHPAVCoord3D@@PBV2@@Z",
+    "before": "public: int __thiscall Pathfinder::rva002EE96B(struct Coord3D *,struct Coord3D const *)",
+    "after": "public: int __thiscall Pathfinder::rva002EE96B(class Coord3D *,class Coord3D const *)",
+    "expected": "public: int __thiscall Pathfinder::rva002EE96B(class Coord3D *,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "??$__copy_backward@PAUCoord3D@@PAU1@H@_STL@@YAPAUCoord3D@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "new": "??$__copy_backward@PAVCoord3D@@PAV1@H@_STL@@YAPAVCoord3D@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "before": "struct Coord3D * __cdecl _STL::__copy_backward<struct Coord3D *,struct Coord3D *,int>(struct Coord3D *,struct Coord3D *,struct Coord3D *,struct _STL::random_access_iterator_tag const &,int *)",
+    "after": "class Coord3D * __cdecl _STL::__copy_backward<class Coord3D *,class Coord3D *,int>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::random_access_iterator_tag const &,int *)",
+    "expected": "class Coord3D * __cdecl _STL::__copy_backward<class Coord3D *,class Coord3D *,int>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::random_access_iterator_tag const &,int *)",
+    "status": "pass"
+  },
+  {
+    "old": "??$__copy_backward_ptrs@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z",
+    "new": "??$__copy_backward_ptrs@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "before": "struct Coord3D * __cdecl _STL::__copy_backward_ptrs<struct Coord3D *,struct Coord3D *>(struct Coord3D *,struct Coord3D *,struct Coord3D *,struct _STL::__false_type const &)",
+    "after": "class Coord3D * __cdecl _STL::__copy_backward_ptrs<class Coord3D *,class Coord3D *>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::__false_type const &)",
+    "expected": "class Coord3D * __cdecl _STL::__copy_backward_ptrs<class Coord3D *,class Coord3D *>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::__false_type const &)",
+    "status": "pass"
+  },
+  {
+    "old": "??0Pathfinder_IsCheckForAdjust@@QAE@PAVPathfinder@@PAVObject@@PAXABUCoord3D@@PBU3@MH@Z",
+    "new": "??0Pathfinder_IsCheckForAdjust@@QAE@PAVPathfinder@@PAVObject@@PAXABVCoord3D@@PBV3@MH@Z",
+    "before": "public: __thiscall Pathfinder_IsCheckForAdjust::Pathfinder_IsCheckForAdjust(class Pathfinder *,class Object *,void *,struct Coord3D const &,struct Coord3D const *,float,int)",
+    "after": "public: __thiscall Pathfinder_IsCheckForAdjust::Pathfinder_IsCheckForAdjust(class Pathfinder *,class Object *,void *,class Coord3D const &,class Coord3D const *,float,int)",
+    "expected": "public: __thiscall Pathfinder_IsCheckForAdjust::Pathfinder_IsCheckForAdjust(class Pathfinder *,class Object *,void *,class Coord3D const &,class Coord3D const *,float,int)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva002EBC34@Rva002EBC34@@QAEPAUICoord2D@@PAU2@PAXPBUCoord3D@@@Z",
+    "new": "?rva002EBC34@Rva002EBC34@@QAEPAUICoord2D@@PAU2@PAXPBVCoord3D@@@Z",
+    "before": "public: struct ICoord2D * __thiscall Rva002EBC34::rva002EBC34(struct ICoord2D *,void *,struct Coord3D const *)",
+    "after": "public: struct ICoord2D * __thiscall Rva002EBC34::rva002EBC34(struct ICoord2D *,void *,class Coord3D const *)",
+    "expected": "public: struct ICoord2D * __thiscall Rva002EBC34::rva002EBC34(struct ICoord2D *,void *,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "?AdjustGroundPathPosition@Pathfinder@@QAEHPBUCoord3D@@PAU2@@Z",
+    "new": "?AdjustGroundPathPosition@Pathfinder@@QAEHPBVCoord3D@@PAV2@@Z",
+    "before": "public: int __thiscall Pathfinder::AdjustGroundPathPosition(struct Coord3D const *,struct Coord3D *)",
+    "after": "public: int __thiscall Pathfinder::AdjustGroundPathPosition(class Coord3D const *,class Coord3D *)",
+    "expected": "public: int __thiscall Pathfinder::AdjustGroundPathPosition(class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?PeekPastClimbPortal@Path@@QAEPAUCoord3D@@PAU2@@Z",
+    "new": "?PeekPastClimbPortal@Path@@QAEPAVCoord3D@@PAV2@@Z",
+    "before": "public: struct Coord3D * __thiscall Path::PeekPastClimbPortal(struct Coord3D *)",
+    "after": "public: class Coord3D * __thiscall Path::PeekPastClimbPortal(class Coord3D *)",
+    "expected": "public: class Coord3D * __thiscall Path::PeekPastClimbPortal(class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?Get2DCenterVectorTo@Object@@QBEXPAUCoord3D@@PBU2@@Z",
+    "new": "?Get2DCenterVectorTo@Object@@QBEXPAVCoord3D@@PBV2@@Z",
+    "before": "public: void __thiscall Object::Get2DCenterVectorTo(struct Coord3D *,struct Coord3D const *)const ",
+    "after": "public: void __thiscall Object::Get2DCenterVectorTo(class Coord3D *,class Coord3D const *)const ",
+    "expected": "public: void __thiscall Object::Get2DCenterVectorTo(class Coord3D *,class Coord3D const *)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?FindBrokenBridge@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBUCoord3D@@PBU3@@Z",
+    "new": "?FindBrokenBridge@Pathfinder@@QAEHPAURva002E99F9Arg1@@RBVCoord3D@@PBV3@@Z",
+    "before": "public: int __thiscall Pathfinder::FindBrokenBridge(struct Rva002E99F9Arg1 *,struct Coord3D const * volatile,struct Coord3D const *)",
+    "after": "public: int __thiscall Pathfinder::FindBrokenBridge(struct Rva002E99F9Arg1 *,class Coord3D const * volatile,class Coord3D const *)",
+    "expected": "public: int __thiscall Pathfinder::FindBrokenBridge(struct Rva002E99F9Arg1 *,class Coord3D const * volatile,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva002866B5@Rva002866B5@@QAEPAUCoord3D@@PAU2@PBU2@M@Z",
+    "new": "?rva002866B5@Rva002866B5@@QAEPAVCoord3D@@PAV2@PBV2@M@Z",
+    "before": "public: struct Coord3D * __thiscall Rva002866B5::rva002866B5(struct Coord3D *,struct Coord3D const *,float)",
+    "after": "public: class Coord3D * __thiscall Rva002866B5::rva002866B5(class Coord3D *,class Coord3D const *,float)",
+    "expected": "public: class Coord3D * __thiscall Rva002866B5::rva002866B5(class Coord3D *,class Coord3D const *,float)",
+    "status": "pass"
+  },
+  {
+    "old": "?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAUCoord3D@@PBU2@@Z",
+    "new": "?calcBestGarrisonPosition@GarrisonContain@@UAE_NPAVCoord3D@@PBV2@@Z",
+    "before": "public: virtual bool __thiscall GarrisonContain::calcBestGarrisonPosition(struct Coord3D *,struct Coord3D const *)",
+    "after": "public: virtual bool __thiscall GarrisonContain::calcBestGarrisonPosition(class Coord3D *,class Coord3D const *)",
+    "expected": "public: virtual bool __thiscall GarrisonContain::calcBestGarrisonPosition(class Coord3D *,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "?TightenPath@Pathfinder@@QAEXPAVObject@@ABVLocomotorSet@@PAUCoord3D@@PBU4@@Z",
+    "new": "?TightenPath@Pathfinder@@QAEXPAVObject@@ABVLocomotorSet@@PAVCoord3D@@PBV4@@Z",
+    "before": "public: void __thiscall Pathfinder::TightenPath(class Object *,class LocomotorSet const &,struct Coord3D *,struct Coord3D const *)",
+    "after": "public: void __thiscall Pathfinder::TightenPath(class Object *,class LocomotorSet const &,class Coord3D *,class Coord3D const *)",
+    "expected": "public: void __thiscall Pathfinder::TightenPath(class Object *,class LocomotorSet const &,class Coord3D *,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "?AdjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@PBU4@@Z",
+    "new": "?AdjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAVCoord3D@@PBV4@@Z",
+    "before": "public: bool __thiscall Pathfinder::AdjustDestination(class Object *,class LocomotorSet const &,struct Coord3D *,struct Coord3D const *)",
+    "after": "public: bool __thiscall Pathfinder::AdjustDestination(class Object *,class LocomotorSet const &,class Coord3D *,class Coord3D const *)",
+    "expected": "public: bool __thiscall Pathfinder::AdjustDestination(class Object *,class LocomotorSet const &,class Coord3D *,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "?CheckForAdjust@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@_NHHW4PathfindLayerEnum@@H2PAUCoord3D@@PBU5@MPAHH@Z",
+    "new": "?CheckForAdjust@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@_NHHW4PathfindLayerEnum@@H2PAVCoord3D@@PBV5@MPAHH@Z",
+    "before": "public: bool __thiscall Pathfinder::CheckForAdjust(class Object *,class LocomotorSet const &,bool,int,int,enum PathfindLayerEnum,int,bool,struct Coord3D *,struct Coord3D const *,float,int *,int)",
+    "after": "public: bool __thiscall Pathfinder::CheckForAdjust(class Object *,class LocomotorSet const &,bool,int,int,enum PathfindLayerEnum,int,bool,class Coord3D *,class Coord3D const *,float,int *,int)",
+    "expected": "public: bool __thiscall Pathfinder::CheckForAdjust(class Object *,class LocomotorSet const &,bool,int,int,enum PathfindLayerEnum,int,bool,class Coord3D *,class Coord3D const *,float,int *,int)",
+    "status": "pass"
+  },
+  {
+    "old": "?FindClosestHierarchicalPath@Pathfinder@@IAEPAVPath@@_NABVLocomotorSet@@PAVObject@@PBUCoord3D@@30PAU5@@Z",
+    "new": "?FindClosestHierarchicalPath@Pathfinder@@IAEPAVPath@@_NABVLocomotorSet@@PAVObject@@PBVCoord3D@@30PAV5@@Z",
+    "before": "protected: class Path * __thiscall Pathfinder::FindClosestHierarchicalPath(bool,class LocomotorSet const &,class Object *,struct Coord3D const *,struct Coord3D const *,bool,struct Coord3D *)",
+    "after": "protected: class Path * __thiscall Pathfinder::FindClosestHierarchicalPath(bool,class LocomotorSet const &,class Object *,class Coord3D const *,class Coord3D const *,bool,class Coord3D *)",
+    "expected": "protected: class Path * __thiscall Pathfinder::FindClosestHierarchicalPath(bool,class LocomotorSet const &,class Object *,class Coord3D const *,class Coord3D const *,bool,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?GetWallHeight@Pathfinder@@QAEMW4PathfindLayerEnum@@PBUCoord3D@@PAU3@@Z",
+    "new": "?GetWallHeight@Pathfinder@@QAEMW4PathfindLayerEnum@@PBVCoord3D@@PAV3@@Z",
+    "before": "public: float __thiscall Pathfinder::GetWallHeight(enum PathfindLayerEnum,struct Coord3D const *,struct Coord3D *)",
+    "after": "public: float __thiscall Pathfinder::GetWallHeight(enum PathfindLayerEnum,class Coord3D const *,class Coord3D *)",
+    "expected": "public: float __thiscall Pathfinder::GetWallHeight(enum PathfindLayerEnum,class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?Rva00284AC6TryPosition@@YA_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU1@@Z",
+    "new": "?Rva00284AC6TryPosition@@YA_NPBVCoord3D@@MMPBUFindPositionOptions@@PAV1@@Z",
+    "before": "bool __cdecl Rva00284AC6TryPosition(struct Coord3D const *,float,float,struct FindPositionOptions const *,struct Coord3D *)",
+    "after": "bool __cdecl Rva00284AC6TryPosition(class Coord3D const *,float,float,struct FindPositionOptions const *,class Coord3D *)",
+    "expected": "bool __cdecl Rva00284AC6TryPosition(class Coord3D const *,float,float,struct FindPositionOptions const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBUCoord3D@@@Z",
+    "new": "?Rva002E7875WorldToCell@@YAPAUICoord2D@@PAU1@_NPBVCoord3D@@@Z",
+    "before": "struct ICoord2D * __cdecl Rva002E7875WorldToCell(struct ICoord2D *,bool,struct Coord3D const *)",
+    "after": "struct ICoord2D * __cdecl Rva002E7875WorldToCell(struct ICoord2D *,bool,class Coord3D const *)",
+    "expected": "struct ICoord2D * __cdecl Rva002E7875WorldToCell(struct ICoord2D *,bool,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "?ComputeNormalRadialOffset@@YAXABUCoord3D@@AAU1@0PAVObject@@M@Z",
+    "new": "?ComputeNormalRadialOffset@@YAXABVCoord3D@@AAV1@0PAVObject@@M@Z",
+    "before": "void __cdecl ComputeNormalRadialOffset(struct Coord3D const &,struct Coord3D &,struct Coord3D const &,class Object *,float)",
+    "after": "void __cdecl ComputeNormalRadialOffset(class Coord3D const &,class Coord3D &,class Coord3D const &,class Object *,float)",
+    "expected": "void __cdecl ComputeNormalRadialOffset(class Coord3D const &,class Coord3D &,class Coord3D const &,class Object *,float)",
+    "status": "pass"
+  },
+  {
+    "old": "?Rva002EBC14Cell@@YAPAUICoord2D@@PAU1@PAXPBUCoord3D@@@Z",
+    "new": "?Rva002EBC14Cell@@YAPAUICoord2D@@PAU1@PAXPBVCoord3D@@@Z",
+    "before": "struct ICoord2D * __cdecl Rva002EBC14Cell(struct ICoord2D *,void *,struct Coord3D const *)",
+    "after": "struct ICoord2D * __cdecl Rva002EBC14Cell(struct ICoord2D *,void *,class Coord3D const *)",
+    "expected": "struct ICoord2D * __cdecl Rva002EBC14Cell(struct ICoord2D *,void *,class Coord3D const *)",
+    "status": "pass"
+  },
+  {
+    "old": "?bfmeCalcScatterTargetPos@WeaponTemplate@@QAE?AUCoord3D@@PBVObject@@0U2@@Z",
+    "new": "?bfmeCalcScatterTargetPos@WeaponTemplate@@QAE?AVCoord3D@@PBVObject@@0V2@@Z",
+    "before": "public: struct Coord3D __thiscall WeaponTemplate::bfmeCalcScatterTargetPos(class Object const *,class Object const *,struct Coord3D)",
+    "after": "public: class Coord3D __thiscall WeaponTemplate::bfmeCalcScatterTargetPos(class Object const *,class Object const *,class Coord3D)",
+    "expected": "public: class Coord3D __thiscall WeaponTemplate::bfmeCalcScatterTargetPos(class Object const *,class Object const *,class Coord3D)",
+    "status": "pass"
+  },
+  {
+    "old": "?computeIndividualDestination@AIGroup@@SAXPAUCoord3D@@PBU2@PAVObject@@1PBMH@Z",
+    "new": "?computeIndividualDestination@AIGroup@@SAXPAVCoord3D@@PBV2@PAVObject@@1PBMH@Z",
+    "before": "public: static void __cdecl AIGroup::computeIndividualDestination(struct Coord3D *,struct Coord3D const *,class Object *,struct Coord3D const *,float const *,int)",
+    "after": "public: static void __cdecl AIGroup::computeIndividualDestination(class Coord3D *,class Coord3D const *,class Object *,class Coord3D const *,float const *,int)",
+    "expected": "public: static void __cdecl AIGroup::computeIndividualDestination(class Coord3D *,class Coord3D const *,class Object *,class Coord3D const *,float const *,int)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBUCoord3D@@PAMPAU3@@Z",
+    "new": "?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBVCoord3D@@PAMPAV3@@Z",
+    "before": "public: bool __thiscall AerialPathfinder::rva00375C28(class Object *,struct Coord3D const *,float *,struct Coord3D *)",
+    "after": "public: bool __thiscall AerialPathfinder::rva00375C28(class Object *,class Coord3D const *,float *,class Coord3D *)",
+    "expected": "public: bool __thiscall AerialPathfinder::rva00375C28(class Object *,class Coord3D const *,float *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva00375ED7@AerialPathfinder@@QAEHPAVObject@@PBUCoord3D@@PAU3@@Z",
+    "new": "?rva00375ED7@AerialPathfinder@@QAEHPAVObject@@PBVCoord3D@@PAV3@@Z",
+    "before": "public: int __thiscall AerialPathfinder::rva00375ED7(class Object *,struct Coord3D const *,struct Coord3D *)",
+    "after": "public: int __thiscall AerialPathfinder::rva00375ED7(class Object *,class Coord3D const *,class Coord3D *)",
+    "expected": "public: int __thiscall AerialPathfinder::rva00375ED7(class Object *,class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?computeFlightDistToGoal@Path@@QAEMPBUCoord3D@@AAU2@@Z",
+    "new": "?computeFlightDistToGoal@Path@@QAEMPBVCoord3D@@AAV2@@Z",
+    "before": "public: float __thiscall Path::computeFlightDistToGoal(struct Coord3D const *,struct Coord3D &)",
+    "after": "public: float __thiscall Path::computeFlightDistToGoal(class Coord3D const *,class Coord3D &)",
+    "expected": "public: float __thiscall Path::computeFlightDistToGoal(class Coord3D const *,class Coord3D &)",
+    "status": "pass"
+  },
+  {
+    "old": "?convertBonePosToWorldPos@Thing@@QBEXPBUCoord3D@@PBVMatrix3D@@PAU2@PAV3@@Z",
+    "new": "?convertBonePosToWorldPos@Thing@@QBEXPBVCoord3D@@PBVMatrix3D@@PAV2@PAV3@@Z",
+    "before": "public: void __thiscall Thing::convertBonePosToWorldPos(struct Coord3D const *,class Matrix3D const *,struct Coord3D *,class Matrix3D *)const ",
+    "after": "public: void __thiscall Thing::convertBonePosToWorldPos(class Coord3D const *,class Matrix3D const *,class Coord3D *,class Matrix3D *)const ",
+    "expected": "public: void __thiscall Thing::convertBonePosToWorldPos(class Coord3D const *,class Matrix3D const *,class Coord3D *,class Matrix3D *)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?erase@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEPAUCoord3D@@PAU3@0@Z",
+    "new": "?erase@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEPAVCoord3D@@PAV3@0@Z",
+    "before": "public: struct Coord3D * __thiscall _STL::vector<struct Coord3D,class _STL::allocator<struct Coord3D> >::erase(struct Coord3D *,struct Coord3D *)",
+    "after": "public: class Coord3D * __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::erase(class Coord3D *,class Coord3D *)",
+    "expected": "public: class Coord3D * __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::erase(class Coord3D *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?fillInsert@Rva00082719Vector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?fillInsert@Rva00082719Vector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "before": "public: void __thiscall Rva00082719Vector::fillInsert(struct Coord3D *,unsigned int,struct Coord3D const &)",
+    "after": "public: void __thiscall Rva00082719Vector::fillInsert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "expected": "public: void __thiscall Rva00082719Vector::fillInsert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "?fillInsert@Rva000CA1EEVector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?fillInsert@Rva000CA1EEVector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "before": "public: void __thiscall Rva000CA1EEVector::fillInsert(struct Coord3D *,unsigned int,struct Coord3D const &)",
+    "after": "public: void __thiscall Rva000CA1EEVector::fillInsert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "expected": "public: void __thiscall Rva000CA1EEVector::fillInsert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "?findNearestLabeledContactPointOnTarget@AIUpdateInterface@@QAE_NPAVObject@@PAUCoord3D@@PBU3@_N@Z",
+    "new": "?findNearestLabeledContactPointOnTarget@AIUpdateInterface@@QAE_NPAVObject@@PAVCoord3D@@PBV3@_N@Z",
+    "before": "public: bool __thiscall AIUpdateInterface::findNearestLabeledContactPointOnTarget(class Object *,struct Coord3D *,struct Coord3D const *,bool)",
+    "after": "public: bool __thiscall AIUpdateInterface::findNearestLabeledContactPointOnTarget(class Object *,class Coord3D *,class Coord3D const *,bool)",
+    "expected": "public: bool __thiscall AIUpdateInterface::findNearestLabeledContactPointOnTarget(class Object *,class Coord3D *,class Coord3D const *,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "?findPositionAround@PartitionManager@@SA_NPBUCoord3D@@PBUFindPositionOptions@@PAU2@@Z",
+    "new": "?findPositionAround@PartitionManager@@SA_NPBVCoord3D@@PBUFindPositionOptions@@PAV2@@Z",
+    "before": "public: static bool __cdecl PartitionManager::findPositionAround(struct Coord3D const *,struct FindPositionOptions const *,struct Coord3D *)",
+    "after": "public: static bool __cdecl PartitionManager::findPositionAround(class Coord3D const *,struct FindPositionOptions const *,class Coord3D *)",
+    "expected": "public: static bool __cdecl PartitionManager::findPositionAround(class Coord3D const *,struct FindPositionOptions const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?getWorldspaceBestContactPoint@Object@@QBE_NPAUCoord3D@@PBU2@PBDHH_N@Z",
+    "new": "?getWorldspaceBestContactPoint@Object@@QBE_NPAVCoord3D@@PBV2@PBDHH_N@Z",
+    "before": "public: bool __thiscall Object::getWorldspaceBestContactPoint(struct Coord3D *,struct Coord3D const *,char const *,int,int,bool)const ",
+    "after": "public: bool __thiscall Object::getWorldspaceBestContactPoint(class Coord3D *,class Coord3D const *,char const *,int,int,bool)const ",
+    "expected": "public: bool __thiscall Object::getWorldspaceBestContactPoint(class Coord3D *,class Coord3D const *,char const *,int,int,bool)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?rva002153C7@Rva002153C7@@QAEPAUCoord3D@@PAU2@@Z",
+    "new": "?rva002153C7@Rva002153C7@@QAEPAVCoord3D@@PAV2@@Z",
+    "before": "public: struct Coord3D * __thiscall Rva002153C7::rva002153C7(struct Coord3D *)",
+    "after": "public: class Coord3D * __thiscall Rva002153C7::rva002153C7(class Coord3D *)",
+    "expected": "public: class Coord3D * __thiscall Rva002153C7::rva002153C7(class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva0028D4E0@Object@@UAEPBUCoord3D@@PAU2@0@Z",
+    "new": "?rva0028D4E0@Object@@UAEPBVCoord3D@@PAV2@0@Z",
+    "before": "public: virtual struct Coord3D const * __thiscall Object::rva0028D4E0(struct Coord3D *,struct Coord3D *)",
+    "after": "public: virtual class Coord3D const * __thiscall Object::rva0028D4E0(class Coord3D *,class Coord3D *)",
+    "expected": "public: virtual class Coord3D const * __thiscall Object::rva0028D4E0(class Coord3D *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva002E7D3F@Rva002E7D6DInfo@@QAEPAU1@PAVRva002E6DC4@@PAUCoord3D@@HABURva002E7D3FQuery@@_N@Z",
+    "new": "?rva002E7D3F@Rva002E7D6DInfo@@QAEPAU1@PAVRva002E6DC4@@PAVCoord3D@@HABURva002E7D3FQuery@@_N@Z",
+    "before": "public: struct Rva002E7D6DInfo * __thiscall Rva002E7D6DInfo::rva002E7D3F(class Rva002E6DC4 *,struct Coord3D *,int,struct Rva002E7D3FQuery const &,bool)",
+    "after": "public: struct Rva002E7D6DInfo * __thiscall Rva002E7D6DInfo::rva002E7D3F(class Rva002E6DC4 *,class Coord3D *,int,struct Rva002E7D3FQuery const &,bool)",
+    "expected": "public: struct Rva002E7D6DInfo * __thiscall Rva002E7D6DInfo::rva002E7D3F(class Rva002E6DC4 *,class Coord3D *,int,struct Rva002E7D3FQuery const &,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "?CircleClipsTallBuilding@Pathfinder@@QAE_NPBUCoord3D@@0MIPAU2@@Z",
+    "new": "?CircleClipsTallBuilding@Pathfinder@@QAE_NPBVCoord3D@@0MIPAV2@@Z",
+    "before": "public: bool __thiscall Pathfinder::CircleClipsTallBuilding(struct Coord3D const *,struct Coord3D const *,float,unsigned int,struct Coord3D *)",
+    "after": "public: bool __thiscall Pathfinder::CircleClipsTallBuilding(class Coord3D const *,class Coord3D const *,float,unsigned int,class Coord3D *)",
+    "expected": "public: bool __thiscall Pathfinder::CircleClipsTallBuilding(class Coord3D const *,class Coord3D const *,float,unsigned int,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva00474B51@Rva00474B51@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z",
+    "new": "?rva00474B51@Rva00474B51@@QAEPAVCoord3D@@PAV2@PAVObject@@H@Z",
+    "before": "public: struct Coord3D * __thiscall Rva00474B51::rva00474B51(struct Coord3D *,class Object *,int)",
+    "after": "public: class Coord3D * __thiscall Rva00474B51::rva00474B51(class Coord3D *,class Object *,int)",
+    "expected": "public: class Coord3D * __thiscall Rva00474B51::rva00474B51(class Coord3D *,class Object *,int)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva00739820@ShroudManager@@QAEXPBUCoord3D@@HHHPAU2@@Z",
+    "new": "?rva00739820@ShroudManager@@QAEXPBVCoord3D@@HHHPAV2@@Z",
+    "before": "public: void __thiscall ShroudManager::rva00739820(struct Coord3D const *,int,int,int,struct Coord3D *)",
+    "after": "public: void __thiscall ShroudManager::rva00739820(class Coord3D const *,int,int,int,class Coord3D *)",
+    "expected": "public: void __thiscall ShroudManager::rva00739820(class Coord3D const *,int,int,int,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?Rva00284AC6TryPosition@@YA_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU1@@Z",
+    "new": "__ehhandler$?Rva00284AC6TryPosition@@YA_NPBVCoord3D@@MMPBUFindPositionOptions@@PAV1@@Z",
+    "before": "bool __cdecl Rva00284AC6TryPosition(struct Coord3D const *,float,float,struct FindPositionOptions const *,struct Coord3D *)",
+    "after": "bool __cdecl Rva00284AC6TryPosition(class Coord3D const *,float,float,struct FindPositionOptions const *,class Coord3D *)",
+    "expected": "bool __cdecl Rva00284AC6TryPosition(class Coord3D const *,float,float,struct FindPositionOptions const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBUCoord3D@@PAMPAU3@@Z",
+    "new": "__ehhandler$?rva00375C28@AerialPathfinder@@QAE_NPAVObject@@PBVCoord3D@@PAMPAV3@@Z",
+    "before": "public: bool __thiscall AerialPathfinder::rva00375C28(class Object *,struct Coord3D const *,float *,struct Coord3D *)",
+    "after": "public: bool __thiscall AerialPathfinder::rva00375C28(class Object *,class Coord3D const *,float *,class Coord3D *)",
+    "expected": "public: bool __thiscall AerialPathfinder::rva00375C28(class Object *,class Coord3D const *,float *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva0039E9A1@Team@@QBEPAUCoord3D@@PAU2@@Z",
+    "new": "?rva0039E9A1@Team@@QBEPAVCoord3D@@PAV2@@Z",
+    "before": "public: struct Coord3D * __thiscall Team::rva0039E9A1(struct Coord3D *)const ",
+    "after": "public: class Coord3D * __thiscall Team::rva0039E9A1(class Coord3D *)const ",
+    "expected": "public: class Coord3D * __thiscall Team::rva0039E9A1(class Coord3D *)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?rva00276952@Rva002768AC@@QAE_NPBUCoord3D@@PAU2@@Z",
+    "new": "?rva00276952@Rva002768AC@@QAE_NPBVCoord3D@@PAV2@@Z",
+    "before": "public: bool __thiscall Rva002768AC::rva00276952(struct Coord3D const *,struct Coord3D *)",
+    "after": "public: bool __thiscall Rva002768AC::rva00276952(class Coord3D const *,class Coord3D *)",
+    "expected": "public: bool __thiscall Rva002768AC::rva00276952(class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBUCoord3D@@IHIPAU2@@Z",
+    "new": "?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBVCoord3D@@IHIPAV2@@Z",
+    "before": "public: bool __thiscall ShroudManagerImpl::GetNearestGroupWithValue(struct Coord3D const *,unsigned int,int,unsigned int,struct Coord3D *)",
+    "after": "public: bool __thiscall ShroudManagerImpl::GetNearestGroupWithValue(class Coord3D const *,unsigned int,int,unsigned int,class Coord3D *)",
+    "expected": "public: bool __thiscall ShroudManagerImpl::GetNearestGroupWithValue(class Coord3D const *,unsigned int,int,unsigned int,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?findMeACrashSite@AIUpdateInterface@@QAE_NMPBUCoord3D@@PAU2@VBfmeFixedStorage0004543D@@@Z",
+    "new": "?findMeACrashSite@AIUpdateInterface@@QAE_NMPBVCoord3D@@PAV2@VBfmeFixedStorage0004543D@@@Z",
+    "before": "public: bool __thiscall AIUpdateInterface::findMeACrashSite(float,struct Coord3D const *,struct Coord3D *,class BfmeFixedStorage0004543D)",
+    "after": "public: bool __thiscall AIUpdateInterface::findMeACrashSite(float,class Coord3D const *,class Coord3D *,class BfmeFixedStorage0004543D)",
+    "expected": "public: bool __thiscall AIUpdateInterface::findMeACrashSite(float,class Coord3D const *,class Coord3D *,class BfmeFixedStorage0004543D)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva00472620@Rva00472620@@QAEPAUCoord3D@@PAU2@PAVObject@@H@Z",
+    "new": "?rva00472620@Rva00472620@@QAEPAVCoord3D@@PAV2@PAVObject@@H@Z",
+    "before": "public: struct Coord3D * __thiscall Rva00472620::rva00472620(struct Coord3D *,class Object *,int)",
+    "after": "public: class Coord3D * __thiscall Rva00472620::rva00472620(class Coord3D *,class Object *,int)",
+    "expected": "public: class Coord3D * __thiscall Rva00472620::rva00472620(class Coord3D *,class Object *,int)",
+    "status": "pass"
+  },
+  {
+    "old": "?getClosestPointOnLand@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z",
+    "new": "?getClosestPointOnLand@Pathfinder@@QAE_NPBVCoord3D@@PAVObject@@PAV2@@Z",
+    "before": "public: bool __thiscall Pathfinder::getClosestPointOnLand(struct Coord3D const *,class Object *,struct Coord3D *)",
+    "after": "public: bool __thiscall Pathfinder::getClosestPointOnLand(class Coord3D const *,class Object *,class Coord3D *)",
+    "expected": "public: bool __thiscall Pathfinder::getClosestPointOnLand(class Coord3D const *,class Object *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?insert@Rva00082719Vector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?insert@Rva00082719Vector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "before": "public: void __thiscall Rva00082719Vector::insert(struct Coord3D *,unsigned int,struct Coord3D const &)",
+    "after": "public: void __thiscall Rva00082719Vector::insert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "expected": "public: void __thiscall Rva00082719Vector::insert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "?insertFill@Rva000CA1EEVector@@QAEXPAUCoord3D@@IABU2@@Z",
+    "new": "?insertFill@Rva000CA1EEVector@@QAEXPAVCoord3D@@IABV2@@Z",
+    "before": "public: void __thiscall Rva000CA1EEVector::insertFill(struct Coord3D *,unsigned int,struct Coord3D const &)",
+    "after": "public: void __thiscall Rva000CA1EEVector::insertFill(class Coord3D *,unsigned int,class Coord3D const &)",
+    "expected": "public: void __thiscall Rva000CA1EEVector::insertFill(class Coord3D *,unsigned int,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "?Rva0030D241Intersect@@YA_NPAVRva0030D111Shape@@PBUCoord3D@@1PAU2@@Z",
+    "new": "?Rva0030D241Intersect@@YA_NPAVRva0030D111Shape@@PBVCoord3D@@1PAV2@@Z",
+    "before": "bool __cdecl Rva0030D241Intersect(class Rva0030D111Shape *,struct Coord3D const *,struct Coord3D const *,struct Coord3D *)",
+    "after": "bool __cdecl Rva0030D241Intersect(class Rva0030D111Shape *,class Coord3D const *,class Coord3D const *,class Coord3D *)",
+    "expected": "bool __cdecl Rva0030D241Intersect(class Rva0030D111Shape *,class Coord3D const *,class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva002814EF@TerrainLogic@@QAE_NPBUCoord3D@@0PAU2@@Z",
+    "new": "?rva002814EF@TerrainLogic@@QAE_NPBVCoord3D@@0PAV2@@Z",
+    "before": "public: bool __thiscall TerrainLogic::rva002814EF(struct Coord3D const *,struct Coord3D const *,struct Coord3D *)",
+    "after": "public: bool __thiscall TerrainLogic::rva002814EF(class Coord3D const *,class Coord3D const *,class Coord3D *)",
+    "expected": "public: bool __thiscall TerrainLogic::rva002814EF(class Coord3D const *,class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?findMeleeAttackPosition@HordeMeleeSwarm@@QAE_NPAVObject@@PAUCoord3D@@0PBU3@_NPAH3@Z",
+    "new": "?findMeleeAttackPosition@HordeMeleeSwarm@@QAE_NPAVObject@@PAVCoord3D@@0PBV3@_NPAH3@Z",
+    "before": "public: bool __thiscall HordeMeleeSwarm::findMeleeAttackPosition(class Object *,struct Coord3D *,class Object *,struct Coord3D const *,bool,int *,bool)",
+    "after": "public: bool __thiscall HordeMeleeSwarm::findMeleeAttackPosition(class Object *,class Coord3D *,class Object *,class Coord3D const *,bool,int *,bool)",
+    "expected": "public: bool __thiscall HordeMeleeSwarm::findMeleeAttackPosition(class Object *,class Coord3D *,class Object *,class Coord3D const *,bool,int *,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "?findMeleeAttackPosition@HordeMeleeFormation@@QAE_NPAVObject@@PAUCoord3D@@0PBU3@_NPAH3@Z",
+    "new": "?findMeleeAttackPosition@HordeMeleeFormation@@QAE_NPAVObject@@PAVCoord3D@@0PBV3@_NPAH3@Z",
+    "before": "public: bool __thiscall HordeMeleeFormation::findMeleeAttackPosition(class Object *,struct Coord3D *,class Object *,struct Coord3D const *,bool,int *,bool)",
+    "after": "public: bool __thiscall HordeMeleeFormation::findMeleeAttackPosition(class Object *,class Coord3D *,class Object *,class Coord3D const *,bool,int *,bool)",
+    "expected": "public: bool __thiscall HordeMeleeFormation::findMeleeAttackPosition(class Object *,class Coord3D *,class Object *,class Coord3D const *,bool,int *,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "?Get2DBorderVectorTo@Object@@QBE?AUCoord3D@@PBU2@@Z",
+    "new": "?Get2DBorderVectorTo@Object@@QBE?AVCoord3D@@PBV2@@Z",
+    "before": "public: struct Coord3D __thiscall Object::Get2DBorderVectorTo(struct Coord3D const *)const ",
+    "after": "public: class Coord3D __thiscall Object::Get2DBorderVectorTo(class Coord3D const *)const ",
+    "expected": "public: class Coord3D __thiscall Object::Get2DBorderVectorTo(class Coord3D const *)const ",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?findMeACrashSite@AIUpdateInterface@@QAE_NMPBUCoord3D@@PAU2@VBfmeFixedStorage0004543D@@@Z",
+    "new": "__ehhandler$?findMeACrashSite@AIUpdateInterface@@QAE_NMPBVCoord3D@@PAV2@VBfmeFixedStorage0004543D@@@Z",
+    "before": "public: bool __thiscall AIUpdateInterface::findMeACrashSite(float,struct Coord3D const *,struct Coord3D *,class BfmeFixedStorage0004543D)",
+    "after": "public: bool __thiscall AIUpdateInterface::findMeACrashSite(float,class Coord3D const *,class Coord3D *,class BfmeFixedStorage0004543D)",
+    "expected": "public: bool __thiscall AIUpdateInterface::findMeACrashSite(float,class Coord3D const *,class Coord3D *,class BfmeFixedStorage0004543D)",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?CircleClipsTallBuilding@Pathfinder@@QAE_NPBUCoord3D@@0MIPAU2@@Z",
+    "new": "__ehhandler$?CircleClipsTallBuilding@Pathfinder@@QAE_NPBVCoord3D@@0MIPAV2@@Z",
+    "before": "public: bool __thiscall Pathfinder::CircleClipsTallBuilding(struct Coord3D const *,struct Coord3D const *,float,unsigned int,struct Coord3D *)",
+    "after": "public: bool __thiscall Pathfinder::CircleClipsTallBuilding(class Coord3D const *,class Coord3D const *,float,unsigned int,class Coord3D *)",
+    "expected": "public: bool __thiscall Pathfinder::CircleClipsTallBuilding(class Coord3D const *,class Coord3D const *,float,unsigned int,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?getClosestPointOnLand@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z",
+    "new": "__ehhandler$?getClosestPointOnLand@Pathfinder@@QAE_NPBVCoord3D@@PAVObject@@PAV2@@Z",
+    "before": "public: bool __thiscall Pathfinder::getClosestPointOnLand(struct Coord3D const *,class Object *,struct Coord3D *)",
+    "after": "public: bool __thiscall Pathfinder::getClosestPointOnLand(class Coord3D const *,class Object *,class Coord3D *)",
+    "expected": "public: bool __thiscall Pathfinder::getClosestPointOnLand(class Coord3D const *,class Object *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBUCoord3D@@IHIPAU2@@Z",
+    "new": "__ehhandler$?GetNearestGroupWithValue@ShroudManagerImpl@@QAE_NPBVCoord3D@@IHIPAV2@@Z",
+    "before": "public: bool __thiscall ShroudManagerImpl::GetNearestGroupWithValue(struct Coord3D const *,unsigned int,int,unsigned int,struct Coord3D *)",
+    "after": "public: bool __thiscall ShroudManagerImpl::GetNearestGroupWithValue(class Coord3D const *,unsigned int,int,unsigned int,class Coord3D *)",
+    "expected": "public: bool __thiscall ShroudManagerImpl::GetNearestGroupWithValue(class Coord3D const *,unsigned int,int,unsigned int,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?computeApproachTarget@Weapon@@QBE_NPBVObject@@0PBUCoord3D@@MAAU3@@Z",
+    "new": "?computeApproachTarget@Weapon@@QBE_NPBVObject@@0PBVCoord3D@@MAAV3@@Z",
+    "before": "public: bool __thiscall Weapon::computeApproachTarget(class Object const *,class Object const *,struct Coord3D const *,float,struct Coord3D &)const ",
+    "after": "public: bool __thiscall Weapon::computeApproachTarget(class Object const *,class Object const *,class Coord3D const *,float,class Coord3D &)const ",
+    "expected": "public: bool __thiscall Weapon::computeApproachTarget(class Object const *,class Object const *,class Coord3D const *,float,class Coord3D &)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@PAU5@_NM4@Z",
+    "new": "?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBVCoord3D@@PAV5@_NM4@Z",
+    "before": "public: class Path * __thiscall Pathfinder::FindClosestPath(class Object *,class LocomotorSet const &,struct Coord3D const *,struct Coord3D *,bool,float,bool)",
+    "after": "public: class Path * __thiscall Pathfinder::FindClosestPath(class Object *,class LocomotorSet const &,class Coord3D const *,class Coord3D *,bool,float,bool)",
+    "expected": "public: class Path * __thiscall Pathfinder::FindClosestPath(class Object *,class LocomotorSet const &,class Coord3D const *,class Coord3D *,bool,float,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@PAU5@_NM4@Z",
+    "new": "__ehhandler$?FindClosestPath@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBVCoord3D@@PAV5@_NM4@Z",
+    "before": "public: class Path * __thiscall Pathfinder::FindClosestPath(class Object *,class LocomotorSet const &,struct Coord3D const *,struct Coord3D *,bool,float,bool)",
+    "after": "public: class Path * __thiscall Pathfinder::FindClosestPath(class Object *,class LocomotorSet const &,class Coord3D const *,class Coord3D *,bool,float,bool)",
+    "expected": "public: class Path * __thiscall Pathfinder::FindClosestPath(class Object *,class LocomotorSet const &,class Coord3D const *,class Coord3D *,bool,float,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "?getBridgeHeight@Bridge@@QAEMPBUCoord3D@@PAU2@@Z",
+    "new": "?getBridgeHeight@Bridge@@QAEMPBVCoord3D@@PAV2@@Z",
+    "before": "public: float __thiscall Bridge::getBridgeHeight(struct Coord3D const *,struct Coord3D *)",
+    "after": "public: float __thiscall Bridge::getBridgeHeight(class Coord3D const *,class Coord3D *)",
+    "expected": "public: float __thiscall Bridge::getBridgeHeight(class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?AdjustFlingDestination@Pathfinder@@QAEXPAVObject@@PBUCoord3D@@PAU3@@Z",
+    "new": "?AdjustFlingDestination@Pathfinder@@QAEXPAVObject@@PBVCoord3D@@PAV3@@Z",
+    "before": "public: void __thiscall Pathfinder::AdjustFlingDestination(class Object *,struct Coord3D const *,struct Coord3D *)",
+    "after": "public: void __thiscall Pathfinder::AdjustFlingDestination(class Object *,class Coord3D const *,class Coord3D *)",
+    "expected": "public: void __thiscall Pathfinder::AdjustFlingDestination(class Object *,class Coord3D const *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?rva0047AC8F@AODHordeContain@@UAEPAUCoord3D@@PAU2@PAVObject@@H@Z",
+    "new": "?rva0047AC8F@AODHordeContain@@UAEPAVCoord3D@@PAV2@PAVObject@@H@Z",
+    "before": "public: virtual struct Coord3D * __thiscall AODHordeContain::rva0047AC8F(struct Coord3D *,class Object *,int)",
+    "after": "public: virtual class Coord3D * __thiscall AODHordeContain::rva0047AC8F(class Coord3D *,class Object *,int)",
+    "expected": "public: virtual class Coord3D * __thiscall AODHordeContain::rva0047AC8F(class Coord3D *,class Object *,int)",
+    "status": "pass"
+  },
+  {
+    "old": "?getPortTransform@BuildAssistant@@QAE_NPBUCoord3D@@PBVThingTemplate@@MPAMPAU2@@Z",
+    "new": "?getPortTransform@BuildAssistant@@QAE_NPBVCoord3D@@PBVThingTemplate@@MPAMPAV2@@Z",
+    "before": "public: bool __thiscall BuildAssistant::getPortTransform(struct Coord3D const *,class ThingTemplate const *,float,float *,struct Coord3D *)",
+    "after": "public: bool __thiscall BuildAssistant::getPortTransform(class Coord3D const *,class ThingTemplate const *,float,float *,class Coord3D *)",
+    "expected": "public: bool __thiscall BuildAssistant::getPortTransform(class Coord3D const *,class ThingTemplate const *,float,float *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?internal_findHierarchicalPath@Pathfinder@@IAEPAVPath@@_NHPAVObject@@PBUCoord3D@@200PAU4@@Z",
+    "new": "?internal_findHierarchicalPath@Pathfinder@@IAEPAVPath@@_NHPAVObject@@PBVCoord3D@@200PAV4@@Z",
+    "before": "protected: class Path * __thiscall Pathfinder::internal_findHierarchicalPath(bool,int,class Object *,struct Coord3D const *,struct Coord3D const *,bool,bool,struct Coord3D *)",
+    "after": "protected: class Path * __thiscall Pathfinder::internal_findHierarchicalPath(bool,int,class Object *,class Coord3D const *,class Coord3D const *,bool,bool,class Coord3D *)",
+    "expected": "protected: class Path * __thiscall Pathfinder::internal_findHierarchicalPath(bool,int,class Object *,class Coord3D const *,class Coord3D const *,bool,bool,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "?getBestContactPoint@GeometryInfo@@QBE_NPAUCoord3D@@PBU2@PBDHH_N@Z",
+    "new": "?getBestContactPoint@GeometryInfo@@QBE_NPAVCoord3D@@PBV2@PBDHH_N@Z",
+    "before": "public: bool __thiscall GeometryInfo::getBestContactPoint(struct Coord3D *,struct Coord3D const *,char const *,int,int,bool)const ",
+    "after": "public: bool __thiscall GeometryInfo::getBestContactPoint(class Coord3D *,class Coord3D const *,char const *,int,int,bool)const ",
+    "expected": "public: bool __thiscall GeometryInfo::getBestContactPoint(class Coord3D *,class Coord3D const *,char const *,int,int,bool)const ",
+    "status": "pass"
+  },
+  {
+    "old": "?rva002E3AA8@PolygonTrigger@@QAE_NPBUCoord3D@@0PAU2@_N@Z",
+    "new": "?rva002E3AA8@PolygonTrigger@@QAE_NPBVCoord3D@@0PAV2@_N@Z",
+    "before": "public: bool __thiscall PolygonTrigger::rva002E3AA8(struct Coord3D const *,struct Coord3D const *,struct Coord3D *,bool)",
+    "after": "public: bool __thiscall PolygonTrigger::rva002E3AA8(class Coord3D const *,class Coord3D const *,class Coord3D *,bool)",
+    "expected": "public: bool __thiscall PolygonTrigger::rva002E3AA8(class Coord3D const *,class Coord3D const *,class Coord3D *,bool)",
+    "status": "pass"
+  },
+  {
+    "old": "??$__copy_ptrs@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z",
+    "new": "??$__copy_ptrs@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "before": "struct Coord3D * __cdecl _STL::__copy_ptrs<struct Coord3D *,struct Coord3D *>(struct Coord3D *,struct Coord3D *,struct Coord3D *,struct _STL::__false_type const &)",
+    "after": "class Coord3D * __cdecl _STL::__copy_ptrs<class Coord3D *,class Coord3D *>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::__false_type const &)",
+    "expected": "class Coord3D * __cdecl _STL::__copy_ptrs<class Coord3D *,class Coord3D *>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::__false_type const &)",
+    "status": "pass"
+  },
+  {
+    "old": "?insert@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXPAUCoord3D@@IABU3@@Z",
+    "new": "?insert@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEXPAVCoord3D@@IABV3@@Z",
+    "before": "public: void __thiscall _STL::vector<struct Coord3D,class _STL::allocator<struct Coord3D> >::insert(struct Coord3D *,unsigned int,struct Coord3D const &)",
+    "after": "public: void __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::insert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "expected": "public: void __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::insert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "?_M_fill_insert@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXPAUCoord3D@@IABU3@@Z",
+    "new": "?_M_fill_insert@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEXPAVCoord3D@@IABV3@@Z",
+    "before": "public: void __thiscall _STL::vector<struct Coord3D,class _STL::allocator<struct Coord3D> >::_M_fill_insert(struct Coord3D *,unsigned int,struct Coord3D const &)",
+    "after": "public: void __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::_M_fill_insert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "expected": "public: void __thiscall _STL::vector<class Coord3D,class _STL::allocator<class Coord3D> >::_M_fill_insert(class Coord3D *,unsigned int,class Coord3D const &)",
+    "status": "pass"
+  },
+  {
+    "old": "??$__copy@PAUCoord3D@@PAU1@H@_STL@@YAPAUCoord3D@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "new": "??$__copy@PAVCoord3D@@PAV1@H@_STL@@YAPAVCoord3D@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "before": "struct Coord3D * __cdecl _STL::__copy<struct Coord3D *,struct Coord3D *,int>(struct Coord3D *,struct Coord3D *,struct Coord3D *,struct _STL::random_access_iterator_tag const &,int *)",
+    "after": "class Coord3D * __cdecl _STL::__copy<class Coord3D *,class Coord3D *,int>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::random_access_iterator_tag const &,int *)",
+    "expected": "class Coord3D * __cdecl _STL::__copy<class Coord3D *,class Coord3D *,int>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::random_access_iterator_tag const &,int *)",
+    "status": "pass"
+  },
+  {
+    "old": "?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z",
+    "new": "?Rva00506CF5@@YA?AVCoord3D@@PAXPAV1@@Z",
+    "before": "struct Coord3D __cdecl Rva00506CF5(void *,struct Coord3D *)",
+    "after": "class Coord3D __cdecl Rva00506CF5(void *,class Coord3D *)",
+    "expected": "class Coord3D __cdecl Rva00506CF5(void *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "__ehhandler$?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z",
+    "new": "__ehhandler$?Rva00506CF5@@YA?AVCoord3D@@PAXPAV1@@Z",
+    "before": "struct Coord3D __cdecl Rva00506CF5(void *,struct Coord3D *)",
+    "after": "class Coord3D __cdecl Rva00506CF5(void *,class Coord3D *)",
+    "expected": "class Coord3D __cdecl Rva00506CF5(void *,class Coord3D *)",
+    "status": "pass"
+  },
+  {
+    "old": "??$__uninitialized_fill_n@PAUCoord3D@@IU1@@_STL@@YAPAUCoord3D@@PAU1@IABU1@ABU__false_type@0@@Z",
+    "new": "??$__uninitialized_fill_n@PAVCoord3D@@IV1@@_STL@@YAPAVCoord3D@@PAV1@IABV1@ABU__false_type@0@@Z",
+    "before": "struct Coord3D * __cdecl _STL::__uninitialized_fill_n<struct Coord3D *,unsigned int,struct Coord3D>(struct Coord3D *,unsigned int,struct Coord3D const &,struct _STL::__false_type const &)",
+    "after": "class Coord3D * __cdecl _STL::__uninitialized_fill_n<class Coord3D *,unsigned int,class Coord3D>(class Coord3D *,unsigned int,class Coord3D const &,struct _STL::__false_type const &)",
+    "expected": "class Coord3D * __cdecl _STL::__uninitialized_fill_n<class Coord3D *,unsigned int,class Coord3D>(class Coord3D *,unsigned int,class Coord3D const &,struct _STL::__false_type const &)",
+    "status": "pass"
+  },
+  {
+    "old": "??$__uninitialized_copy@PAUCoord3D@@PAU1@@_STL@@YAPAUCoord3D@@PAU1@00ABU__false_type@0@@Z",
+    "new": "??$__uninitialized_copy@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "before": "struct Coord3D * __cdecl _STL::__uninitialized_copy<struct Coord3D *,struct Coord3D *>(struct Coord3D *,struct Coord3D *,struct Coord3D *,struct _STL::__false_type const &)",
+    "after": "class Coord3D * __cdecl _STL::__uninitialized_copy<class Coord3D *,class Coord3D *>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::__false_type const &)",
+    "expected": "class Coord3D * __cdecl _STL::__uninitialized_copy<class Coord3D *,class Coord3D *>(class Coord3D *,class Coord3D *,class Coord3D *,struct _STL::__false_type const &)",
+    "status": "pass"
+  }
+]

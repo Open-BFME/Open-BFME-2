@@ -61,6 +61,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import class_contract  # noqa: E402
 import class_layouts  # noqa: E402
+import wb_gold  # noqa: E402
 
 BFME2 = (ROOT / "reverse" / "functions.csv").exists()
 REVERSE = class_contract.REVERSE
@@ -1520,30 +1521,230 @@ def gate_many(sources, _depth=0):
     return {**gate_many(sources[:middle], _depth + 1), **gate_many(sources[middle:], _depth + 1)}
 
 
-def key_backref_names(rows, scope, other):
-    """Row names whose class-key this lane cannot flip, because MSVC spelled it as a back-reference.
+class _ClassKeyParser(wb_gold._Parser):
+    """Resolve type-key positions, retaining the name table's exact identities.
 
-    The rename below rewrites the spelled type, `U<scope>@@` -> `V<scope>@@`. But
-    MSVC also writes a class-key letter in front of a *name* back-reference:
-    `?Rva003AFA64FillUnitVector@@YAPAUCoord3D@@PAU1@@Z` names Coord3D once and
-    refers to it again as `U1@`, and a Coord3D member taking one by const
-    reference can spell it only as `ABU0@`, with no `UCoord3D@@` anywhere. The
-    spelled-type substitution leaves every such `U<digit>@` behind and writes a
-    name that is half struct-keyed and half class-keyed - one no compiler emits
-    and nothing in the image carries.
-
-    Flipping the back-reference as well needs the name's own back-reference
-    table, which this lane does not parse: the index is positional, so `U1@` in
-    one name and the next may mean different types, and a blind swap would
-    re-key a back-reference to some other, genuinely other-keyed type. So these
-    rows are named and refused rather than guessed at. For Coord3D that is 84 of
-    its 1,117 struct-keyed rows across 51 units.
+    The WB parser supplies the ten-entry, deduplicated name tables and nested
+    template contexts. Template identities use their source spans, not WB's
+    display names (which omit arguments). This also lets a second parse prove
+    every resolved identity unchanged after editing only the key characters.
     """
-    keyed = re.compile(r"[UV]" + re.escape(scope) + r"@@")
-    enclosing = re.compile(r"@" + re.escape(scope) + r"@@")      # `?m@Scope@@...`, no key letter
-    backref = re.compile(other + r"[0-9]@")
-    return [r["name"] for r in rows
-            if (keyed.search(r["name"]) or enclosing.search(r["name"])) and backref.search(r["name"])]
+
+    def __init__(self, text):
+        super().__init__(text)
+        self.records = []
+        self.memo_shape = []
+        self.argument_types = []
+        self.argument_refs = []
+        self.symbol_depth = 0
+
+    def memorize(self, key, name):
+        before = [k for k, _ in self.names]
+        value = ("name", name) if isinstance(name, str) else name
+        super().memorize(key, value)
+        self.memo_shape.append((len(before), len(self.names),
+                                before.index(key) if key in before else -1))
+
+    def unqualified_name(self):
+        if self.peek().isdigit():
+            index = int(self.take())
+            if index >= len(self.names):
+                raise wb_gold.DemangleError("name back-reference out of range")
+            return self.names[index][1]
+        if self.peek(2) == "?$":
+            start = self.i
+            key, _ = self.template_name()
+            value = ("template", start, self.i)
+        elif self.peek() == "?":
+            return ("special", self.special_name())
+        else:
+            key = self.simple_name()
+            value = ("name", key)
+        self.memorize(key, value)
+        return next((v for k, v in self.names if k == key), value)
+
+    def type(self):
+        start = self.i
+        if self.peek().isdigit():
+            raise wb_gold.DemangleError("type reference outside a parameter list")
+        if self.peek() in ("U", "V", "T"):
+            key = self.take()
+            self.records.append((start, key, tuple(self.qualified_name())))
+            return
+        return super().type()
+
+    def encoded_symbol(self):
+        self.symbol_depth += 1
+        if self.symbol_depth != 1:
+            raise wb_gold.DemangleError("nested encoded symbol not supported")
+        self.expect("?")
+        if self.peek(2) == "?$":
+            # A function-template identifier does not enter the enclosing
+            # name table. Its arguments use template_name's local table.
+            self.template_name()
+        else:
+            self.unqualified_name()
+        self.scopes()
+        code = self.take()
+        if code in "01234":
+            self.type()
+            self.storage_cv()
+        elif code in "67":
+            self.storage_cv()
+            if self.peek() != "@":
+                self.qualified_name()
+            else:
+                self.i += 1
+        elif code in "YZCDKLSTABEFIJMNQRUV":
+            self.function_signature(code)
+        else:
+            raise wb_gold.DemangleError("unsupported function/header class")
+
+    def throw_spec(self):
+        self.expect("Z")
+
+    def arg_list(self):
+        # Parameter-type references have a separate, non-deduplicated table.
+        # Nested function types SHARE it, including those in return types.
+        # Only completed multi-character parameters enter it; returns do not.
+        if self.peek() == "X":
+            self.i += 1
+            return
+        while self.peek() not in ("@", "Z"):
+            if not self.peek():
+                raise wb_gold.DemangleError("unterminated argument list")
+            start = self.i
+            if self.peek().isdigit():
+                index = int(self.take())
+                if index >= len(self.argument_types):
+                    raise wb_gold.DemangleError("argument-type back-reference out of range")
+                self.argument_refs.append((start, index, self.argument_types[index]))
+            else:
+                self.type()
+                if self.i - start > 1 and len(self.argument_types) < 10:
+                    self.argument_types.append((start, self.i))
+        self.i += 1
+
+
+def _parse_class_keys(symbol):
+    import rename
+    rename.fragments(symbol)  # Full supported grammar, including trailing input.
+    prefix = next((p for p in rename.FUNCLET_PREFIXES if symbol.startswith(p)), "")
+    text = symbol[len(prefix):]
+    if prefix:
+        text = re.sub(r"\$[0-9]+$", "", text)
+    parser = _ClassKeyParser(text)
+    parser.encoded_symbol()
+    if parser.i != len(text):
+        raise wb_gold.DemangleError("unconsumed signature")
+    return parser, len(prefix)
+
+
+def rekey_symbol(symbol, scope, other):
+    """Change only U/V TYPE keys resolving to this exact plain qualified scope.
+
+    Never change a backreference digit. Unknown grammar, mixed target keys or
+    changed name-table/identity structure refuse the whole unit. Byte, EH,
+    data and provider/caller verification are still required by the lane.
+    """
+    import rename
+    parts = scope.split("@")
+    if other not in ("U", "V") or not all(rename.IDENT.fullmatch(p) for p in parts):
+        raise ValueError("class-key rewrite needs a plain qualified scope and U/V key")
+    if parts[0] + "@" not in symbol:
+        return symbol
+    if not symbol.startswith(("?", "__ehhandler$?", "__unwindfunclet$?")):
+        rename.fragments(symbol)  # A plain C name has no class-key positions.
+        return symbol
+    target = tuple(("name", p) for p in reversed(parts))
+    parser, offset = _parse_class_keys(symbol)
+    have = "V" if other == "U" else "U"
+    kinds = {key for _, key, name in parser.records if name == target}
+    if other in kinds and kinds - {other}:
+        raise ValueError("mixed existing keys for the same target")
+    out = list(symbol)
+    expected = []
+    for position, key, name in parser.records:
+        if key == other and name == target:
+            out[position + offset] = have
+            key = have
+        expected.append((position, key, name))
+    result = "".join(out)
+    checked, _ = _parse_class_keys(result)
+    if (parser.memo_shape != checked.memo_shape or expected != checked.records
+            or parser.argument_types != checked.argument_types or parser.argument_refs != checked.argument_refs):
+        raise ValueError("class-key rewrite changed name-table or resolved type identities")
+    return result
+
+
+def _key_renames(rows, scope, other):
+    """Plan the entire unit, refusing it if any relevant name is unsupported."""
+    import rename
+    renames, blocked = [], []
+    for row in rows:
+        old = row["name"]
+        try:
+            new = rekey_symbol(old, scope, other)
+        except (rename.Unparsed, wb_gold.DemangleError, ValueError):
+            blocked.append(old)
+            continue
+        if new != old:
+            renames.append((old, new))
+    return ([], blocked) if blocked else (renames, [])
+
+
+def key_backref_names(rows, scope, other):
+    """Unsupported relevant row names; resolved name backreferences are safe."""
+    return _key_renames(rows, scope, other)[1]
+
+
+def key_metadata_blockers(items):
+    """Refuse renames the lane's name-column-only writer cannot carry safely.
+
+    A later full key-migration transaction must own pins, funclet parents,
+    body-owner identities and other embedded names together. Resolving a
+    backreference is not permission to leave that metadata on the old name.
+    Discovery is read-only and batched before preparing or writing a unit.
+    """
+    owners = collections.defaultdict(set)
+    targets = collections.defaultdict(set)
+    for source, _, _, renames in items:
+        for old, new in renames:
+            owners[old].add(source)
+            targets[new].add(source)
+    if not owners or not BFME2:
+        return {}
+    pattern = re.compile("|".join(re.escape(n) for n in sorted(owners, key=len, reverse=True)))
+    hits = collections.defaultdict(set)
+
+    def inspect(text, label):
+        for match in pattern.finditer(text):
+            for source in owners[match.group()]:
+                hits[source].add(label)
+
+    with LEDGER.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            inspect(row.get("notes", ""), "functions.csv notes")
+            if row["name"] not in owners:
+                inspect(row["name"], "functions.csv unplanned row family")
+            if row["name"] in targets and row["name"] not in owners:
+                for source in targets[row["name"]]:
+                    hits[source].add("functions.csv existing target name")
+    for filename in ("symbols.csv", "data_rows.csv", "body_owners.csv", "data_converged.csv",
+                     "gate_baseline.txt", "code_identity_baseline.tsv", "header_queue.tsv",
+                     "hatch_baseline.tsv", "data_check_baseline.txt", "flag_overrides.csv"):
+        path = ROOT / "reverse" / filename
+        if path.is_file():
+            inspect(path.read_text(encoding="utf-8-sig"), filename)
+    path = ROOT / "reverse/deleted_rows.csv"
+    if path.is_file():
+        with path.open(newline="", encoding="utf-8-sig") as handle:
+            for row in csv.DictReader(handle):
+                if row.get("name") in targets:
+                    for source in targets[row["name"]]:
+                        hits[source].add("deleted_rows.csv target tombstone")
+    return {s: "class-key metadata requires a coordinated name transaction: " + ", ".join(sorted(labels))
+            for s, labels in hits.items()}
 
 
 def key_backref_blockers(sources, name, key):
@@ -1560,38 +1761,49 @@ def key_backref_blockers(sources, name, key):
     for source in sources:
         blocked = key_backref_names(rows.get(source, []), scope, other)
         if blocked:
-            blockers[source] = (f"class-key: {len(blocked)} row(s) spell the key on a name "
-                                f"back-reference, which this lane cannot rewrite: "
+            blockers[source] = (f"class-key: {len(blocked)} row(s) cannot be safely resolved "
+                                f"for a type-key rewrite: "
                                 f"{', '.join(sorted(blocked)[:3])}")
     return blockers
 
 
 def ledger_renames(source, name, want_key):
     """([(old, new)], why) for the unit's row names that mangle the other class-key."""
-    have, other = ("U", "V") if want_key == "struct" else ("V", "U")
+    _, other = ("U", "V") if want_key == "struct" else ("V", "U")
     scope = class_contract.mangled_scope(name)
-    pattern = re.compile(other + re.escape(scope) + r"@@")
     with LEDGER.open(newline="", encoding="utf-8") as handle:
         rows = [r for r in csv.DictReader(handle) if r["source"] == source]
-    blocked = key_backref_names(rows, scope, other)
+    renames, blocked = _key_renames(rows, scope, other)
     if blocked:
-        return [], (f"{len(blocked)} row(s) spell the class-key on a name back-reference, which this "
-                    f"lane cannot rewrite: {', '.join(sorted(blocked)[:3])}")
-    return [(r["name"], pattern.sub(have + scope + "@@", r["name"])) for r in rows
-            if pattern.search(r["name"])], None
+        return [], (f"{len(blocked)} row(s) cannot be safely resolved for a class-key rewrite: "
+                    f"{', '.join(sorted(blocked)[:3])}")
+    metadata = key_metadata_blockers([(source, None, None, renames)])
+    if metadata:
+        return [], metadata[source]
+    return renames, None
 
 
 def rewrite_ledger(renames):
     if not renames:
         return
+    blocked = key_metadata_blockers([("ledger rewrite", None, None, renames)])
+    if blocked:
+        raise ValueError(blocked["ledger rewrite"])
+    import ledger_io
     table = dict(renames)
-    text = LEDGER.read_text(encoding="utf-8")
-    lines = text.splitlines(keepends=True)
-    for i, line in enumerate(lines):
-        first = line.split(",", 1)[0]
-        if first in table:
-            lines[i] = table[first] + line[len(first):]
-    LEDGER.write_text("".join(lines), encoding="utf-8", newline="")
+    records = []
+    for payload, terminator in ledger_io.split_records(LEDGER.read_bytes()):
+        fields = ledger_io.fields(payload)
+        if fields and fields[0] in table:
+            old, new = fields[0].encode("utf-8"), table[fields[0]].encode("utf-8")
+            if payload.startswith(old + b","):
+                payload = new + payload[len(old):]
+            elif payload.startswith(b'"' + old + b'",'):
+                payload = b'"' + new + payload[len(old) + 1:]
+            else:
+                raise ValueError("unsupported CSV name spelling; ledger left unchanged")
+        records.append(payload + terminator)
+    LEDGER.write_bytes(b"".join(records))
 
 
 FIELD_RENAMES = {}     # source -> {Class::private field: canonical field} of its last swap, for reports
@@ -1607,21 +1819,17 @@ def prospective_renames(sources, name, key):
     if not changed:
         return []
     scope = class_contract.mangled_scope(name)
-    have, other = ("U", "V") if key == "struct" else ("V", "U")
-    pattern = re.compile(other + re.escape(scope) + r"@@")
-    names = collections.defaultdict(list)
+    _, other = ("U", "V") if key == "struct" else ("V", "U")
     per_source = collections.defaultdict(list)
     with LEDGER.open(newline="", encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             if row["source"] in changed:
                 per_source[row["source"]].append(row)
-                if pattern.search(row["name"]):
-                    names[row["source"]].append((row["name"], pattern.sub(have + scope + "@@", row["name"])))
-    # A unit holding a back-referenced key predicts no renames: it is refused in
-    # try_units before preparation, so it must not be predicted as adoptable.
+    names = {}
     for source, rows in per_source.items():
-        if key_backref_names(rows, scope, other):
-            names.pop(source, None)
+        renames, blocked = _key_renames(rows, scope, other)
+        if renames and not blocked:
+            names[source] = renames
     return [(s, None, None, renames) for s, renames in names.items()]
 
 
@@ -1786,7 +1994,8 @@ def try_units(sources, strip, header, key, jobs=1, dependency_plan=None):
         plan = adoption_dependencies(prospective)
     except (Exception, SystemExit) as exc:
         return [(s, f"symbol dependency discovery unavailable: {exc}", None, []) for s in sources]
-    early = {**key_backref_blockers(sources, strip[0], key), **dependency_blockers(plan, sources)}
+    early = {**key_backref_blockers(sources, strip[0], key), **key_metadata_blockers(prospective),
+             **dependency_blockers(plan, sources)}
     pending = [s for s in sources if s not in early]
     with cf.ThreadPoolExecutor(jobs) as pool:
         prepared = dict(zip(pending, pool.map(lambda s: prepare_unit(s, strip, header, key), pending)))
@@ -1851,9 +2060,9 @@ def try_renamed(items, jobs):
     if not items:
         return results
     backup = LEDGER.read_bytes()
+    originals = {s: (ROOT / s).read_bytes() for s, _, _, _ in items}
     try:
         rewrite_ledger([r for _, _, _, renames in items for r in renames])
-        originals = {s: (ROOT / s).read_bytes() for s, _, _, _ in items}
         for source, _, text, _ in items:
             (ROOT / source).write_bytes(text.encode("latin-1"))
         with cf.ThreadPoolExecutor(jobs) as pool:
