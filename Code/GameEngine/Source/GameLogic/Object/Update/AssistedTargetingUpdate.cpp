@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/zh_outofline /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// TU Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define BFME_SNAPSHOT_NAME_SLOT
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum UpdateSleepTime { UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
@@ -11,16 +12,30 @@ enum CommandSourceType { CMD_FROM_AI = 2 };
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Weapon.h"
 #include "../object.h"
-class UnicodeString; class PooledString; class Coord3DBase;
-struct ICoord3D; struct Region3D; struct IRegion3D;
-class Coord2D; struct ICoord2D; struct Region2D; struct IRegion2D;
-class RealRange; struct RGBColor; class RGBAColorReal; class RGBAColorInt;
+class UnicodeString;
+ class PooledString;
+ class Coord3DBase;
+struct ICoord3D;
+ struct Region3D;
+ struct IRegion3D;
+class Coord2D;
+ struct ICoord2D;
+ struct Region2D;
+ struct IRegion2D;
+class RealRange;
+ struct RGBColor;
+ class RGBAColorReal;
+ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+class AsciiString;
+
 class AICommandInterface {
 public:
     void rva0026C2D9(Object *victim, int shots, CommandSourceType source);
 };
+
 struct BfmeAssistedLaserTemplates {
     char prefix[8];
     int m_clipSize;
@@ -28,6 +43,7 @@ struct BfmeAssistedLaserTemplates {
     const ThingTemplate *fromAssisted;
     const ThingTemplate *toTarget;
 };
+
 class AssistedTargetingUpdate : public UpdateModule {
 public:
     AssistedTargetingUpdate(Thing *thing, const ModuleData *data);
@@ -43,8 +59,12 @@ protected:
 private:
     void makeFeedbackLaser(const ThingTemplate *laserTemplate, const Object *from, const Object *to);
 };
+
 typedef char AssistedExtent[sizeof(AssistedTargetingUpdate) == 0x20 ? 1 : -1];
 
+// tu-skeleton: 0x00486E18 25B ??1AssistedTargetingUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp
 
 bool AssistedTargetingUpdate::isFreeToAssist() const
 {
@@ -54,6 +74,7 @@ bool AssistedTargetingUpdate::isFreeToAssist() const
     bool ready = me->getCurrentWeapon(0) && me->getCurrentWeapon(0)->getStatus() == READY_TO_FIRE;
     return ready;
 }
+
 void AssistedTargetingUpdate::assistAttack(const Object *requestingObject, Object *victimObject)
 {
     const BfmeAssistedLaserTemplates *md = reinterpret_cast<const BfmeAssistedLaserTemplates *>(getModuleData());
@@ -69,12 +90,38 @@ void AssistedTargetingUpdate::assistAttack(const Object *requestingObject, Objec
     if (lasers->toTarget)
         makeFeedbackLaser(lasers->toTarget, me, victimObject);
 }
-UpdateSleepTime AssistedTargetingUpdate::update() { return UPDATE_SLEEP_FOREVER; }
-void AssistedTargetingUpdate::loadPostProcess() { UpdateModule::loadPostProcess(); }
 
+UpdateSleepTime AssistedTargetingUpdate::update() { return UPDATE_SLEEP_FOREVER; }
+
+void AssistedTargetingUpdate::loadPostProcess() { UpdateModule::loadPostProcess(); }
 
 NameKeyType AssistedTargetingUpdate::getModuleNameKey() const
 {
     static NameKeyType nk = TheNameKeyGenerator->nameToKey("AssistedTargetingUpdate");
     return nk;
 }
+
+// tu-skeleton: 0x00486E76 6B ?GetSnapshotName@AssistedTargetingUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00486E7C 17B ?buildFieldParse@AssistedTargetingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateCtor.cpp
+
+AssistedTargetingUpdate::AssistedTargetingUpdate(Thing *thing, const ModuleData *data) : UpdateModule(thing, data)
+{
+    setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+}
+
+void AssistedTargetingUpdate::xfer(Xfer *xfer)
+{
+    xfer->Version1();
+    UpdateModule::xfer(xfer);
+}
+
+// tu-skeleton: 0x00486F35 219B ?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C15D 8B uw_0078c15d -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C16F 13B $L619 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C17C 10B __ehhandler$?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp (not merged yet)
