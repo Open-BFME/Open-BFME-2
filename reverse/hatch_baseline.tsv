@@ -165,6 +165,7 @@ address_global	Code/GameEngine/Source/Common/INI/FormationSelectionCriteriaRva00
 address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E03168	2
 address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E03174	2
 address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E0319C	2
+address_global	Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/GameEngine/Source/Common/INI/INIEnvironment.cpp	g_Va00DFF494	2
 address_global	Code/GameEngine/Source/Common/INI/LivingWorldConnectionParserRva003F348F.cpp	g_Va00C36FD4	3
 address_global	Code/GameEngine/Source/Common/LivingWorldLogic.cpp	g_Rva0107301CEmptyString	2
@@ -1400,7 +1401,6 @@ address_global	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	g_Va00DEC40C	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp	g_Va00E03174	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp	g_Va00BBB8D8	2
-address_global	Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva002EE9E0Reset.cpp	g_Va00DBD4B8	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva002EEA1DReset.cpp	g_Va00DBD4C8	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva0030E7D0Ctor.cpp	g_Va00BBB8D8	2

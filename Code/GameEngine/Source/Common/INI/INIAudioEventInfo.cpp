@@ -66,7 +66,6 @@ template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(Constru
 	{ \
 		m_floatValue = newValue; \
 	}
-
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
@@ -74,9 +73,7 @@ template void _STL::_Construct<ConstructProbePairC, ConstructProbePairC>(Constru
 // placement-copy owner directly. Keep only that neutral footprint here;
 // original element identity and the provider's inherited type view are unknown.
 struct Rva001D9B62Element { unsigned words[2]; };
-
 void Rva001D9B0FConstruct(void *, const void *);
-
 namespace _STL {
 // TU-local forwarding glue; its discardable out-of-line copy has no retail entry.
 // ?_STL::_Construct absent-from-retail
@@ -86,11 +83,8 @@ static __forceinline void _Construct(Rva001D9B62Element *destination,
     Rva001D9B0FConstruct(destination, &value);
 }
 }
-
 struct RvaPair001D9F62 { AsciiString m_key; int m_value; ~RvaPair001D9F62(); };
-
 class BfmeStringTailRecord156;
-
 enum AudioType
 {
 	AT_Music,
@@ -100,21 +94,13 @@ enum AudioType
 	AT_Type4,		// BFME 2 addition, name unknown
 	AT_Multisound	// 5: getVolumeSlider's jump table case WB reports as multisound
 };
-
 // Zero Hour's SoundType bit for voice events.
 enum { ST_VOICE = 0x0010 };
-
 #include "../../../Include/Common/INI/FieldParse.h"
-
 struct FieldParse;
-
 class INI;
-
-
 #include "../../../Include/Common/INI/INI.h"
-
 extern const struct FieldParse g_00BD9D68[];
-
 // AudioEventInfo's INI field tables (.rdata 0x00BD9D58..0x00BD9F4B) and the
 // name lists they index (.data 0x00DB8A80..0x00DB8B07), read from retail.
 // Both tables sit together with their userData ints, so one unit owned them;
@@ -123,9 +109,7 @@ extern const struct FieldParse g_00BD9D68[];
 // second). Entry order, tokens, parsers and offsets are retail's; the list
 // names follow Zero Hour's AudioEventInfo.cpp where it has the same list.
 void parsePitchShift(INI *ini, void *instance, void *store, const void *userData);
-
 void parseDelay(INI *ini, void *instance, void *store, const void *userData);
-
 class AudioEventInfo
 {
 public:
@@ -183,37 +167,29 @@ public:
 public:
 	static void parseVolumeSliderMultiplier(INI *ini, void *instance, void *store, const void *userData);
 };
-
 static const char *theAudioPriorityNames[] =
 {
 	"LOWEST", "LOW", "NORMAL", "HIGH", "CRITICAL", 0
 };
-
 static const char *theSoundTypeNames[] =
 {
 	"UI", "WORLD", "SHROUDED", "GLOBAL", "VOICE", "PLAYER", "ALLIES",
 	"ENEMIES", "EVERYONE", "FAKE", "DEFAULT", 0
 };
-
 static const char *theAudioControlNames[] =
 {
 	"LOOP", "SEQUENTIAL", "RANDOMSTART", "INTERRUPT", "FADE_ON_KILL",
 	"FADE_ON_START", "\not used by INI files", "PLAY_ONE", 0
 };
-
 // Also the slider list parseVolumeSliderMultiplier scans.
 extern const char *theSubmixSliderNames[] =
 {
 	"SOUNDFX", "VOICE", "MUSIC", "AMBIENT", "MOVIE", "NONE", 0
 };
-
 // parseSoundsList's userData: offsets 0x5C / 0x6C / 0x7C.
 static const int theSoundsListOffset = 0x5C;
-
 static const int theAttackListOffset = 0x6C;
-
 static const int theDecayListOffset = 0x7C;
-
 extern const FieldParse g_00BD9D68[] =
 {
 	{ "Filename", INI::parseAsciiString, 0, 0x0C },
@@ -244,21 +220,16 @@ extern const FieldParse g_00BD9D68[] =
 	{ "VolumeSliderMultiplier", AudioEventInfo::parseVolumeSliderMultiplier, 0, 0xB8 },
 	{ 0, 0, 0, 0 }
 };
-
 // parseSubsoundsList's userData: the total-weight offset 0x8C.
 static const int theSubsoundsWeightOffset = 0x8C;
-
 extern const FieldParse g_00BD9F1C[] =
 {
 	{ "Control", INI::parseBitString32, theAudioControlNames, 0x4C },
 	{ "Subsounds", AudioEventInfo::parseSubsoundsList, &theSubsoundsWeightOffset, 0x80 },
 	{ 0, 0, 0, 0 }
 };
-
 #include "../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
-
 #include "../../../Include/Common/OpaqueRefElement4.h"
-
 class Rva001DA379
 {
 public:
@@ -289,7 +260,6 @@ public:
 };
 // The audio event an owning handle refers to.
 inline Rva001DA379 *audioInfo(const OpaqueRefElement4 &handle) { return (Rva001DA379 *)handle.referent; }
-
 class AudioManager
 {
 public:
@@ -316,19 +286,12 @@ public:
 	virtual void slot74();
 	virtual OpaqueRefElement4 findAudioEventInfo(const AsciiString &name) const;
 };
-
 extern AudioManager *TheAudio;
-
 #include "../debug.h"
-
 extern Debug *theDebug;
-
 void _bfme_debugRecordCallsite(int kind);
-
 bool bfmeRva000387C0();
-
 void __cdecl helper001DA770(INI *ini, int kind, AsciiString *def, const char *name);
-
 // ?rva001D98BD@Rva001D98BD@@QAE_NH@Z @0x001D98BD 79B unlock
 // Recursive predicate: +0xB0 type; 5 means internal node over vector at +0x80/+0x84
 // of 8B entries whose first dword is child pointer, else compare type to arg.
@@ -363,7 +326,6 @@ private:
 	unsigned char m_pad88[0xB0 - 0x88];
 	int m_B0;
 };
-
 //
 // 0x001DAB71 / 0x001DAB88 / 0x001DAB9F (23B each): three thiscall forwarders
 // right after the range helper Rva001DAB3F (0x001DAB3F, Rva001DAB3FRangeSum.cpp),
@@ -373,15 +335,12 @@ private:
 // their own TU. The owning class is not recovered: address-derived names.
 
 class Rva001DA112;
-
 void Rva001DAB3F(int *range, Rva001DA112 *a, Rva001DA112 *b);
-
 struct Rva001DAB71Slot
 {
 	char target[0x0C];									// +0x00
 	char total[0x04];									// +0x0C
 };
-
 class Rva001DAB71
 {
 public:
@@ -394,12 +353,9 @@ private:
 	Rva001DAB71Slot m_60;
 	Rva001DAB71Slot m_70;
 };
-
 struct Rva001D973CElement { char bytes[8]; bool operator<(const Rva001D973CElement&)const; bool operator==(const Rva001D973CElement&)const; };
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva001D973CElement * _STL::__copy<Rva001D973CElement *, Rva001D973CElement *, int>(Rva001D973CElement *, Rva001D973CElement *, Rva001D973CElement *, _STL::random_access_iterator_tag const &, int *);
-
 // ?rva001D990C@Rva001D990C@@QAE_NH@Z @0x001D990C 105B unlock
 // Recursive predicate: +0xB0 type; 5 means internal node over vector at +0x80/+0x84
 // of 8B entries whose first dword is child pointer, else compare type to arg.
@@ -424,23 +380,11 @@ private:
 	unsigned char m_pad88[0xB0 - 0x88];
 	int m_B0;
 };
-
-//
-// ??0BfmeStringTailRecord156@@QAE@ABV0@@Z @0x001D9975, 27 bytes.
-// Identity is inferred from the called template specialization
-// _STL::_Construct<BfmeStringTailRecord156,BfmeStringTailRecord156> at
-// 0x001D9A4F. Retail bytes call the matched Rva0036CA00Str copy constructor
-// at +0, copy a dword at +4, and return this; this supports the member view
-// below. Ghidra boundary and size are 0x001D9975/27, checked against retail
-// disassembly. No matching ZH/Open-BFME-1 donor was found.
-
 #include "../../../Include/Common/Rva0036CA00Str.h"
-
 class Rva00436290StrideDifference {
 public:
     static int difference(const int *left, const int *right);
 };
-
 //
 // 0x001D9B3C (38B): STLport's __uninitialized_copy loop over 0x8-byte records.
 // Each element goes through the placement copy at 0x001D9B0F, which the ledger owns
@@ -450,34 +394,25 @@ public:
 // pushed by the caller and never read.
 
 namespace _STL { struct __false_type; }
-
 struct Rva001D9B3CRecord
 {
 	unsigned char m_bytes[0x8];
 };
-
 void Rva001D9B0FConstruct(void *dest, const void *source);
-
 // ?Rva001DAB3F@@YAXPAHPAVRva001DA112@@1@Z @0x001DAB3F 50B: copies a (begin,end) pointer pair into a
 // string-like target through the rowed 0x001DA112 range ctor and sums the second word of every 8-byte pair
 // into *b. Codegen: the empty allocator argument is a const-ref temp (named) living in the dead
 // first-param slot [ebp+0xb]; taking &range instead made it an escaped variable.
 struct EmptyAlloc {};
-
 class Rva001DA112
 {
 public:
 	void rva001DA112(int lhs, int rhs, char *p);
 };
-
 class __declspec(novtable) AudioInfoRefCountBase { public: AudioInfoRefCountBase() : m_04(0) {} virtual ~AudioInfoRefCountBase(); int m_04; };
-
 struct AudioInfoRange { float lo, hi; AudioInfoRange() : lo(0), hi(0) {} };
-
 struct AudioInfoDelay { int lo, hi; AudioInfoDelay() : lo(0), hi(0) {} };
-
 struct BfmeE8 { int m_slider; float m_multiplier; };
-
 class Rva001DA2D5 : public AudioInfoRefCountBase
 {
 public:
@@ -512,13 +447,11 @@ private:
 	int m_B4;
 	_STL::vector<BfmeE8> m_B8;
 };
-
 struct VecPair
 {
 	void *beg;
 	void *end;
 };
-
 class Rva001D9A00
 {
 public:
@@ -540,7 +473,6 @@ private:
 	unsigned char m_pad88[0xB0 - 0x88];
 	int m_B0;
 };
-
 class BfmeStringTailRecord156
 {
     Rva0036CA00Str m_string;
@@ -549,19 +481,14 @@ public:
 	BfmeStringTailRecord156(const BfmeStringTailRecord156 &) throw();
 	~BfmeStringTailRecord156() throw();
 };
-
 namespace _STL
 {
 template <> void _Construct<BfmeStringTailRecord156, BfmeStringTailRecord156>(BfmeStringTailRecord156 *, const BfmeStringTailRecord156 &);
 }
-
 template BfmeStringTailRecord156 *_STL::vector<BfmeStringTailRecord156, _STL::allocator<BfmeStringTailRecord156> >::_M_allocate_and_copy(unsigned int, BfmeStringTailRecord156 *, BfmeStringTailRecord156 *);
-
 template void _STL::vector<BfmeStringTailRecord156>::reserve(unsigned int);
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva001D9B62Element * _STL::__uninitialized_fill_n<Rva001D9B62Element *, unsigned int, Rva001D9B62Element>(Rva001D9B62Element *, unsigned int, Rva001D9B62Element const &, _STL::__false_type const &);
-
 // ?Rva000DFB80@@YAPAVR1DwordPair@@PAV1@HH@Z, retail 0x005E6A11 (18B).
 // Ported from Open-BFME-1 Code/GameEngine/Source/Common/R1SmallFieldInitialisers.cpp
 // (BFME1 0x000DFB80), recompiled /Os by the bfme1_csweep placement.
@@ -592,7 +519,6 @@ public:
 	int m_first;
 	int m_second;
 };
-
 // Clean BF1 9cbfb551fe Common/MidTwoStoreCtors.cpp supplies two-field
 // initialization semantics only; donor constructor/class identity is not
 // asserted for these target bodies. Actual native ECX receiver/EAX return,
@@ -606,7 +532,6 @@ struct Rva001D976EFields {
     unsigned int word00; float value04;
     Rva001D976EFields *initialize();
 };
-
 // BF1 9cbfb551fe Common/Q1ConstantFieldConstructors.cpp is the clean
 // zero-field/receiver-return semantic guide only. The target bodies are
 // independently RET-bounded: 23DC7F..23DC86 writes dword18=0 after RET23DC7E;
@@ -626,7 +551,6 @@ public:
 private:
 	ConstructProbePair m_value;
 };
-
 // Disp8 dword mask set/clear: __thiscall members with one stack mask argument:
 //
 //     mov eax,[esp+4] / or [ecx+<DISP>],eax / ret 4                      (10 B)
@@ -650,7 +574,6 @@ public:
 	char m_lead[0x4C];
 	int m_flags4C;
 };
-
 class Rva001D96FF
 {
 public:
@@ -659,7 +582,6 @@ public:
 	char m_lead[0x4C];
 	int m_flags4C;
 };
-
 // BF1 f98983a7d3 WW3D2/w3d_util_convert_shader.cpp and shader.h are the clean
 // clear-and-shift expression guide, compiled /O1 /x87 /G7 in discovery.
 // Retail65F73..65F85 lies after rowed65F66 RET4 and before rowed65F85.
@@ -671,12 +593,32 @@ public:
 // preserves the complete observed operation for every raw32 input, without
 // re-declaring ShaderClass or altering its independently unresolved copies.
 BFME_DISP32_FLOAT_SETTER(Rva001D972BFloatField, 0x94)
-
-// 0x002A9E25 is a Player member: ScavengerSpecialPower::doSpecialPower
-// 0x004C4401, 0x004C4430 and the linear campaign carryover call it on
-// Object::getControllingPlayer() results and Player pointers. The field
-// purpose at +0x314 is unresolved.
 #include "../../../Include/Common/Player.h"
+// ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z
+// ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z, retail 0x001D9E91, 209 bytes (complete epilogue; prior queue extent 208 truncated final RET byte).
+// BFME1 donor reference/open-bfme-1/game/GameEngine/Source/Common/INI/AudioEventInfoParseVolumeSliderMultiplier.cpp
+// proves class AudioEventInfo and verb parseVolumeSliderMultiplier plus Slider/Multiplier token flow,
+// 8-byte {int slider, float multiplier} entry with -1/1.0 defaults and vector push_back.
+// BFME2 deltas retail-measured: INI sepsColon at +0x420, member scanIndexList/dup_002EE10 via ecx,
+// _strcmpi through IAT, name list 0x00DB8AEC (theSubmixSliderNames, the
+// SubmixSlider list AudioEventInfoParseDefinition.cpp defines; it was spelled theArmorBlockParse+0x78). REF slot 0x007D9EFC neighbours
+// VolumeSliderMultiplier; strings Slider/Multiplier plus both INIException formats.
+typedef const char *ConstCharPtr;
+typedef const ConstCharPtr *ConstCharPtrArray;
+extern const char *theSubmixSliderNames[];
+namespace _STL
+{
+// Bind the append to the rowed 8-byte-element worker.
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
+}
+#include <new>
+#define _OPERATOR_NEW_DEFINED_
+#include <string.h>
+// Retail calls both through the IAT; the TU builds with _CRTIMP= empty.
+namespace SoundsListCRT {
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
+}
 
 // Native30F2BA..30F2C7 is a complete float-argument store at ECX+0,
 // between independently bounded RET4 at30F2B7 and known getter30F2C7.
@@ -695,6 +637,62 @@ class Rva004362B0StrideAdd {
 public:
     static void add(int *value, int index);
 };
+
+// INI block registrations. BFME's INI keeps its block types on a list of
+// 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD024..0x007AD08D,
+// nodes 0x00DB8B08..0x00DB8B44 in definition order, right after this unit's
+// name lists).
+typedef void (*INIBlockParse)( INI *ini );
+
+extern struct BlockParse *theBlockParseList;
+
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+// The seed TU builds with _CRTIMP= empty; retail calls _strcmpi through the IAT.
+namespace VolumeSliderCRT {
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *left, const char *right);
+}
+
+struct Rva001DAAF2Element {
+	AsciiString name;
+	int weight;
+	Rva001DAAF2Element(const AsciiString &text, int value) : name(text), weight(value) {}
+};
+
+typedef _STL::vector<Rva001DAAF2Element> Rva001DAAF2Vec;
+
+namespace _STL { template <> void Rva001DAAF2Vec::push_back(const Rva001DAAF2Element &x); }
+
+extern const char g_Rva0107301CEmptyString[];
+
+// ---- from Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp
+
+//
+// ??0BfmeStringTailRecord156@@QAE@ABV0@@Z @0x001D9975, 27 bytes.
+// Identity is inferred from the called template specialization
+// _STL::_Construct<BfmeStringTailRecord156,BfmeStringTailRecord156> at
+// 0x001D9A4F. Retail bytes call the matched Rva0036CA00Str copy constructor
+// at +0, copy a dword at +4, and return this; this supports the member view
+// below. Ghidra boundary and size are 0x001D9975/27, checked against retail
+// disassembly. No matching ZH/Open-BFME-1 donor was found.
+
+// 0x002A9E25 is a Player member: ScavengerSpecialPower::doSpecialPower
+// 0x004C4401, 0x004C4430 and the linear campaign carryover call it on
+// Object::getControllingPlayer() results and Player pointers. The field
+// purpose at +0x314 is unresolved.
 
 // f989 BF1 OnlineShellShutdown.cpp O2/x87/G6 emits an iterator-advance lead.
 // Native6CFEA0..6CFEA6 is independently complete after INT3 padding and
@@ -1257,18 +1255,18 @@ Rva000A8CAE *__cdecl Rva001D9BA4Copy(Rva000A8CAE *first, Rva000A8CAE *last, Rva0
     return dest;
 }
 
-// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
-
-// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
-
-// tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004362B0StrideAdd.cpp
 
 void Rva004362B0StrideAdd::add(int *value, int index)
 {
     *value += index * 8;
 }
+
+// tu-skeleton: 0x001D9715 10B ?rva001D9715@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
+
+// tu-skeleton: 0x001D971F 12B ?rva001D971F@Rva001D9715@@QAEXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE49.cpp (not merged yet)
+
+// tu-skeleton: 0x001D9990 27B ??4FXBoneInfo@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
 
 // tu-skeleton: 0x001D99E7 25B ??0BfmeStringTailRecord156@@QAE@ABVRva0036CA00Str@@H@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
 
@@ -1300,7 +1298,42 @@ void Rva004362B0StrideAdd::add(int *value, int index)
 
 // tu-skeleton: 0x001D9D75 180B ??4?$vector@VBfmeStringTailRecord156@@V?$allocator@VBfmeStringTailRecord156@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorAssignFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x001D9E91 209B ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseVolumeSliderMultiplier.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/INI/AudioEventInfoParseVolumeSliderMultiplier.cpp
+
+// ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z
+void AudioEventInfo::parseVolumeSliderMultiplier(INI *ini, void *, void *store, const void *)
+{
+	{
+	BfmeE8 entry;
+	entry.m_slider = -1;
+	entry.m_multiplier = 1.0f;
+	const char *token = ini->getNextTokenOrNull(ini->m_sepsColon);
+	if (token == 0)
+		goto slider_error;
+	if (VolumeSliderCRT::_strcmpi(token, "Slider") == 0) {
+		const char *slider = ini->getNextToken(ini->m_sepsColon);
+		entry.m_slider = ini->scanIndexList(slider, theSubmixSliderNames);
+		token = ini->getNextTokenOrNull(ini->m_sepsColon);
+		if (token != 0 && VolumeSliderCRT::_strcmpi(token, "Multiplier") == 0) {
+			entry.m_multiplier = ini->dup_002EE10(ini->getNextToken(ini->m_sepsColon));
+			((_STL::vector<BfmeE8> *)store)->push_back(entry);
+			return;
+		}
+		goto multiplier_error;
+	}
+	goto slider_error;
+	}
+
+slider_error:
+	{
+		throw INIException(3, "Slider:slidername expected after VolumeSliderMultiplier");
+	}
+
+multiplier_error:
+	{
+		throw INIException(3, "Multiplier:number expected after VolumeSliderMultiplier = Slider:slidername");
+	}
+}
 
 // tu-skeleton: 0x001D9F62 63B ??1?$vector@URvaPair001D9F62@@V?$allocator@URvaPair001D9F62@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp (not merged yet)
 
@@ -1330,11 +1363,52 @@ void Rva004362B0StrideAdd::add(int *value, int index)
 
 // tu-skeleton: 0x001DAB29 22B ?rva001DAB29@Rva001DAB29@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/EbpParamForwarders.cpp (not merged yet)
 
-// tu-skeleton: 0x001DABB6 391B ?Rva001DABB6Parse@@YAXPAVINI@@PAXPAH1@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp
+
+// adapted from BFME1 AudioEventRTSParseSoundsList.cpp: file[:weight] tokens
+// default weight 1000 appended as owning string/int entry with optional total
+// accumulation; both INIException messages are retail literals. Evidence: rowed
+// 0x0002DEED 0x00037B80 0x000366F0 0x00036410 0x000365F0 0x001DAAF2 0x0002F681
+// plus pin 0x00629094 plus IAT isdigit atoi plus literals plus empty-string
+// global g_Rva0107301CEmptyString plus TI1?AVINIException@@.
+
+void __cdecl Rva001DABB6Parse(INI *ini, void *store, int *totalWeight, void *instance)
+{
+	const char *token = ini->getNextTokenOrNull(0);
+	while (token) {
+		int tokenLength = strlen(token);
+		if (tokenLength) {
+			const char *end = token + tokenLength - 1;
+			while (end > token && SoundsListCRT::isdigit(*end))
+				--end;
+			int weight;
+			AsciiString name;
+			if (*end == ':') {
+				weight = SoundsListCRT::atoi(++end);
+				if (weight < 1)
+					throw INIException(3, "Weight of sound files must be >= 1. Sound '%s' for audio event '%s'", token, *(const char **)instance ? *(const char **)instance + 8 : g_Rva0107301CEmptyString);
+				name = AsciiString(token, (store ? (end - token - 1) : (end - token - 1)));
+			} else {
+				weight = 1000;
+				name = AsciiString(token, tokenLength);
+			}
+			if (name.isEmpty())
+				throw INIException(3, "Sound file has no file name. Sound '%s' for audio event '%s'", token, *(const char **)instance ? *(const char **)instance + 8 : g_Rva0107301CEmptyString);
+			((Rva001DAAF2Vec *)store)->push_back(Rva001DAAF2Element(name, weight));
+			if (totalWeight)
+				*totalWeight += weight;
+		}
+		token = ini->getNextTokenOrNull(0);
+	}
+}
 
 // tu-skeleton: 0x001DAD3E 42B ?parseSoundsList@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
 
 // tu-skeleton: 0x001DAD68 329B ?parseSubsoundsList@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
+
+// tu-skeleton: 0x00769698 8B uw_00769698 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x007696A0 10B __ehhandler$??1?$vector@VBfmeStringTailRecord156@@V?$allocator@VBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
 // tu-skeleton: 0x007696AA 8B $L5966 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001DA2D5Finish.cpp (not merged yet)
 
@@ -1362,16 +1436,6 @@ void Rva004362B0StrideAdd::add(int *value, int index)
 
 // tu-skeleton: 0x00769727 10B __ehhandler$?parseMultisoundDefinition@AudioEventInfo@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseMultisound.cpp (not merged yet)
 
-// tu-skeleton: 0x0076976D 8B Unwind@00b6976d -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00769775 8B Unwind@00b69775 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0076977D 8B Unwind@00b6977d -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp (not merged yet)
-
-// tu-skeleton: 0x00769785 8B $L1552 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0076978D 10B __ehhandler$?Rva001DABB6Parse@@YAXPAVINI@@PAXPAH1@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp (not merged yet)
-
 // tu-skeleton: 0x00769797 8B uw_00769797 -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
 
 // tu-skeleton: 0x0076979F 8B Unwind@00b6979f -- matched in Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp (not merged yet)
@@ -1396,30 +1460,14 @@ void Rva004362B0StrideAdd::add(int *value, int index)
 
 // tu-skeleton: 0x00787B3E 10B __ehhandler$??0Rva001DA2D5@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004335BCFinish.cpp (not merged yet)
 
-// INI block registrations. BFME's INI keeps its block types on a list of
-// 12-byte BlockParse nodes; each unit links its own nodes onto
-// theBlockParseList from a file-scope object whose inline constructor does the
-// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
-// initializer is only the 21-byte link (retail .CRT$XCU 0x007AD024..0x007AD08D,
-// nodes 0x00DB8B08..0x00DB8B44 in definition order, right after this unit's
-// name lists).
-typedef void (*INIBlockParse)( INI *ini );
-extern struct BlockParse *theBlockParseList;
-struct BlockParse
-{
-	BlockParse *next;
-	const char *token;
-	INIBlockParse parse;
-
-	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
-	{
-		theBlockParseList = this;
-	}
-};
-
 BlockParse theMusicTrackBlockParse( "MusicTrack", parseMusicTrackDefinition );
+
 BlockParse theAudioEventBlockParse( "AudioEvent", parseAudioEventDefinition );
+
 BlockParse theDialogEventBlockParse( "DialogEvent", parseDialogDefinition );
+
 BlockParse theAmbientStreamBlockParse( "AmbientStream", parseAmbientStreamDefinition );
+
 BlockParse theStreamedSoundBlockParse( "StreamedSound", parseStreamedSoundDefinition );
+
 BlockParse theMultisoundBlockParse( "Multisound", AudioEventInfo::parseMultisoundDefinition );
