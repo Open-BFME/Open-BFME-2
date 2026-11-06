@@ -17,9 +17,12 @@
 //    UpdateModule::xfer). Slot 4, getModuleNameKey, stays __purecall.
 //  - loadPostProcess 0x00497805 is the body many module tables fold onto (rowed as Rva00497805 and
 //    as ICF twins); the helpers' own override 0x00483CEF is `jmp 0x00497805`, so it calls this one.
-// Not declared here yet: GetSnapshotName and xfer. Their rows are placeholders (Rva0028C933Get,
-// Rva004DF81B), and a derived class that does not override a slot would reference ObjectHelper's
-// name there; until they carry ObjectHelper's name a view inherits UpdateModule's.
+//  - xfer 0x004DF81B is another retail ICF fold (the same body sits in slot 3 of AssistedTargetingUpdate's
+//    and other module tables); ObjectHelper's name is rowed there as a twin of Rva004DF81B.
+// Not declared here yet: GetSnapshotName. Its row is the free-function placeholder
+// ?Rva0028C933Get@@YAHXZ, which no class move can respell yet, and a derived class that does not
+// override slot 2 would reference ObjectHelper's name there; until then a view inherits
+// UpdateModule's.
 // Donor (Zero Hour ObjectHelper.h) facts: the class name and that it derives from UpdateModule.
 // Zero Hour's ObjectHelper overrides getDisabledTypesToProcess; BFME2's (0x00BFBCE4 at +0x10) does not.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,6 +42,7 @@ public:
 
 protected:
 	virtual void loadPostProcess();										// slot 1
+	virtual void xfer( Xfer *xfer );									// slot 3
 };
 
 #endif // __BFME2_OBJECTHELPER_H_

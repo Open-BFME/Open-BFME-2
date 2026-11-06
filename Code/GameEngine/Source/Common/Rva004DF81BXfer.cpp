@@ -44,3 +44,12 @@ void ObjectHelper::loadPostProcess()
 {
 	UpdateModule::loadPostProcess();
 }
+
+// ObjectHelper's own slot-3 override, 0x004DF81B: the body Rva004DF81B::xfer
+// above compiles to (retail folds it across several module tables, ICF), in
+// slot 3 of ObjectHelper's table 0x00BFBCF0.
+void ObjectHelper::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpdateModule::xfer(xfer);
+}
