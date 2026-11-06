@@ -2365,7 +2365,6 @@ alternatename	Code/GameEngine/Source/Common/System/Rva000ABB87ParserRegistration
 alternatename	Code/GameEngine/Source/Common/System/Rva000ABB87ParserRegistration.cpp	?bfmeSlot1@BfmeParserBindingBaseVE@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Rva003F1E87DeleteRange.cpp	?doDelete@Rva003F1E87Holder@@QAEXPAVRva003F0C6C@@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/Rva005D0034Handler.cpp	?c0@Rva005D0034Callback@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/System/Rva005D0034Handler.cpp	?reset@Rva000AD6F4@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/System/Rva005D00A6Ctor.cpp	??0Rva00221635@@QAE@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/Rva005D00A6Ctor.cpp	?f0@Rva00221635@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/Rva005D00A6Ctor.cpp	?g0@Rva005D00A6@@UAEXXZ	1
@@ -2693,10 +2692,10 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/AIPlayer_Rva004F0499.cpp	?firs
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIPlayer_Rva004F0499.cpp	?rva004F0479@Rva004F0479@@QAEXPAVTeamInQueue@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	?slot01@State@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	?slot02@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp	?slot01@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp	?slot02@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp	?slot03@State@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp	?update@State@@UAE?AW4StateReturnType@@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?slot01@State@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?slot02@State@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?slot03@State@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp	?update@State@@UAE?AW4StateReturnType@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	?insert_unique_noresize@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@6@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removeGoal@Pathfinder@@QAEXPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removePos@Pathfinder@@QAEXPAVObject@@@Z	1
@@ -12118,7 +12117,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirSlotRef::PalantirSlotRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirSlotRef::~PalantirSlotRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirToggleHolder::~PalantirToggleHolder	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	Rva000AD6F4::Rva000AD6F4	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	Rva00528FE6::Rva00528FE6	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromBottom@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@	1

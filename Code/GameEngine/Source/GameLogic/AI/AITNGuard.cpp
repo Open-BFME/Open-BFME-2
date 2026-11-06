@@ -307,7 +307,6 @@ public:
 	void addNeed(int a);
 };
 #include "../../../Include/Common/Overridable.h"
-
 class TunnelTracker
 {
 public:
@@ -318,7 +317,6 @@ private:
 	unsigned char m_pad00[0x08];
 	_STL::list<ObjectID> m_tunnelIDs; // +0x08
 };
-
 class Player
 {
 public:
@@ -327,22 +325,16 @@ private:
 	unsigned char m_pad00[0x2E8];
 	TunnelTracker *m_tunnelSystem; // +0x2E8
 };
-
 extern GameLogic *TheGameLogic;
-
 struct TnLookupNode { TnLookupNode *next; ObjectID key; Object *object; };
-
 struct TnLookupBuckets {
  TnLookupNode **begin,**end,**capacity;
  unsigned int size() const { return end-begin; }
  TnLookupNode *const &operator[](unsigned int i) const { return begin[i]; }
 };
-
 struct TnLookupMap { unsigned char hashEqual[4]; TnLookupBuckets buckets; };
-
 #include "../../../Include/GameLogic/TAiData.h"
 #include "../../../Include/GameLogic/AI.h"
-
 class AITNGuardMachine : public StateMachine
 {
 public:
@@ -352,18 +344,15 @@ private:
 	unsigned char m_pad3C[0x48 - 0x3C];
 	ObjectID m_nemesisToAttack; // +0x48
 };
-
 // ??0Rva00545DB0@@QAE@PAVStateMachine@@@Z @ 0x00545DB0 28B
 // Derived ctor: base Rva00342EAC plus vtable 0x0086A1F0 and dword 0x54 zero.
 // Evidence: retail vtable store plus and [esi+0x54],0; callee row ??0Rva00342EAC@@QAE@PAVStateMachine@@@Z; caller 0x0054605A.
 class StateMachine;
-
 class Rva00342EAC
 {
 public:
 	Rva00342EAC(StateMachine *machine);
 };
-
 // The retail table at RVA 0x0086A1F0: 18 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
@@ -378,7 +367,6 @@ void __identifier("?disable@Rva0033F2D7ByteSetter@@QAEXXZ")();
 void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
 void __identifier("?computePath@AIInternalMoveToState@@MAE_NXZ")();
 }
-
 extern const void *const g_00C6A1F0[18] = {
 	(const void *)&__identifier("??_GAIFollowWaypointPathExactState@@UAEPAXI@Z"), // slot 0 0x00346CFB
 	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 1 0x000B3FD0
@@ -399,7 +387,6 @@ extern const void *const g_00C6A1F0[18] = {
 	(const void *)&__identifier("??1BfmeRadarMapPoint@@QAE@XZ"), // slot 16 0x000B3FD0
 	(const void *)&__identifier("?computePath@AIInternalMoveToState@@MAE_NXZ"), // slot 17 0x003441F7
 };
-
 class Rva00545DB0 : public Rva00342EAC
 {
 public:
@@ -408,41 +395,27 @@ private:
 	char m_pad[0x54 - sizeof(Rva00342EAC)];
 	int m_54;
 };
-
 extern PartitionManager *ThePartitionManager;
-
-// The inherited static range helper belongs to AIGuardMachine; its
-// verified definition in AIGuardStates.cpp is the native 0x00542C2A call.
 #include "../../../Include/GameLogic/AIGuardMachine.h"
-
 struct DamageInfo;
-
-
 class Rva00420B2AZeroSetter
 {
 public:
 	void disable();
 };
-
 class Rva005FD8C1
 {
 public:
 	void rva005FD8C1();
 };
-
 #include "../../../../Libraries/Source/Apt/AptCIHClass.h"
-
 #include "../../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
-
 namespace Debug_Statistics
 {
 int Get_Draw_Calls();
 }
-
 int Rva000A8F58Get();
-
 int Rva000A8F5EGet();
-
 // 0x00034D00: tail jump to Rva006C1F60::rva00033D50.
 // 0x00041A06: tail jump to Rva001EDDBBForwarder::rva001EDDBB.
 class Rva00041A06 : public Rva001EDDBBForwarder
@@ -450,7 +423,6 @@ class Rva00041A06 : public Rva001EDDBBForwarder
 public:
 	void rva00041A06();
 };
-
 // 0x00099109: tail jump to Rva00041A06::rva00041A06 (W3DMouse vftable slot
 // 9, the Zero Hour reset position; the existing W3DMouse::reset row sits in
 // slot 1, so this keeps an address-derived name).
@@ -503,7 +475,6 @@ class Rva00494E4D : public SpecialAbilityUpdate
 public:
 	void rva00494E4D(bool a, bool b);
 };
-
 // 0x00494E52: tail jump to SpecialAbilityUpdate::update.
 // 0x00498CAC: tail jump to GateOpenAndCloseBehavior::xfer.
 // 0x004A976F: tail jump to AIUpdateInterface::privateIdle; slot 81 of the
@@ -515,7 +486,6 @@ protected:
 public:
 	void rva004A976F(CommandSourceType a);
 };
-
 // 0x004C38D0: tail jump to Rva00493009::xfer.
 // 0x0050B928: tail jump to Rva00507823::rva00507877.
 // 0x00521111: tail jump to _bfme_AptGameWindow::rva0051274F.
@@ -527,7 +497,6 @@ class Rva00545CAA : public AIEnterState
 public:
 	void rva00545CAA(StateExitType a);
 };
-
 // 0x0057BC20: tail jump to SelectionDetailsUIImpl::rva0057BA90 (the Open body).
 // 0x005CE344: tail jump to Rva005E717ENamed::name.
 // 0x005CEB76: tail jump to Rva005CC5DFNamed::name.
@@ -541,7 +510,6 @@ public:
 // 0x0070DFD0: tail jump to Rva006D6360::rva006DCC00.
 // Constant and field slots.
 typedef int Int;
-
 // 0x00444680 (22 tables): answers 1 for any two arguments.
 // 0x005B8012 (three tables): answers 1 for any four arguments.
 // 0x004BF8DF (eleven tables): 0 while +0xC6 is set, else +0x48.
@@ -554,14 +522,7 @@ typedef int Int;
 // address-derived names (argument counts from each callee's ret).
 
 class LargeGroupAudioKeyMap;
-
-// Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
-// accessor at 0x002862C9, copies the returned object through the rowed
-// Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
-// address-derived class and accessor result view preserve the target behavior;
-// no named identity or broader layout is inferred.
 #include "../../../Include/GameLogic/Rva003ED658.h"
-
 // Native slot3497C2 forwards the StateReturnType result of the recovered
 // 433B internal update. Bind the call to its real provider instead of the
 // older unprovided void-return pin; this wrapper keeps its neutral spelling.
@@ -571,17 +532,32 @@ class LargeGroupAudioKeyMap;
 // and VictorySystem::newMap both call it on their own this. Method and field
 // names are unknown.
 class CellGrid { public: void rva0056C065(); };
-
 class Rva0056C3E5
 {
 public:
     ~Rva0056C3E5();
     /* the rowed CellGrid::rva0056C065 */ __declspec(dllimport) __forceinline void rva0056C065() { ((CellGrid *)this)->rva0056C065(); }
 };
-
 #include "../../../Include/Common/Rva00404781.h"
-
 #include "../../../Include/Common/VictorySystem.h"
+// ??0AITNGuardInnerState@@QAE@PAVStateMachine@@@Z @0x00545D50 40B
+// AITNGuardInnerState ctor: State(machine, 0xD405C261), vtable 0x00C6A140,
+// exitConditions vtable 0x00C6A13C at +0x20 with giveUpFrame 0 at +0x24.
+// Prev/next neighbours live in AITNGuardStates.cpp (same dir, // cl: /O1
+// /DNDEBUG /MD /arch:SSE /EHsc); this unit uses the precedent
+// AIStatesSmallUpdates.cpp flags (no /EHsc, same 40B ctor shape) plus a
+// compiler barrier to pin the derived vptr store ahead of the body stores.
+// Evidence: pinned State hash ctor 0x004D73FC, vtable slot 5 onExit 0x00545BB7,
+// caller 0x005460D0, hash 0xD405C261.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+#include "../../../Include/GameLogic/AITNGuard.h"
+#pragma comment(linker, "/alternatename:?update@State@@UAE?AW4StateReturnType@@XZ=?update@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ")
+typedef UnsignedInt StateID;
+#include "../../../Include/Common/StateMachine.h"
+#pragma comment(linker, "/alternatename:?slot01@State@@UAEXXZ=?rva005CB26A@Rva005CB26A@@QAEHXZ")
+#pragma comment(linker, "/alternatename:?slot02@State@@UAEXXZ=?Rva00545EACGet@@YAHXZ")
+#pragma comment(linker, "/alternatename:?slot03@State@@UAEXXZ=?Rva00306A9BDoXfer@@YGXPAVXfer@@@Z")
 
 // Retail 0x005680F9 (74 bytes) returns the instance-list storage at VA
 // 0x00E062D8; its one-time guard is VA 0x00E062DC. The named Impl constructor
@@ -597,6 +573,37 @@ namespace _STL {
  template<> _List_base<int, allocator<int> >::~_List_base();
 }
 
+extern "C" const void *const __identifier("??_7Rva00545D43@@6B@")[];
+
+struct Rva00545D7EExitConditions
+{
+	const void *m_vptr;
+	UnsignedInt m_04;
+};
+
+extern const void *const g_00C6A198[];
+
+class Rva00545D7E : public State
+{
+public:
+	Rva00545D7E(StateMachine *machine);
+private:
+	Rva00545D7EExitConditions m_exit;
+	void *m_28;
+};
+
+class AITNGuardAttackAggressorState : public State
+{
+public:
+	AITNGuardAttackAggressorState(StateMachine *machine);
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+private:
+	TunnelNetworkExitConditions m_exitConditions; // +0x20
+	void *m_attackState; // +0x28
+};
+
 // tu-skeleton: 0x00545B84 11B ??1AITNGuardMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00545B8F 6B ?name@AITNGuardMachine@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
@@ -611,26 +618,23 @@ namespace _STL {
 
 // tu-skeleton: 0x00545C4D 93B ?update@AITNGuardReturnState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
+
+// The inherited static range helper belongs to AIGuardMachine; its
+// verified definition in AIGuardStates.cpp is the native 0x00542C2A call.
+
+// Target boundary at 0x00286356 is 29 bytes: it calls the adjacent pinned
+// accessor at 0x002862C9, copies the returned object through the rowed
+// Rva003ED658 copy constructor at 0x003ED658, and returns that object. The
+// address-derived class and accessor result view preserve the target behavior;
+// no named identity or broader layout is inferred.
+
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp
 
 void Rva00545CAA::rva00545CAA(StateExitType a)
 {
 	AIEnterState::onExit(a);
 }
-
-// tu-skeleton: 0x00545CAF 72B ?onEnter@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00545CF7 76B ?onExit@AITNGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00545D43 13B ??0Rva00545D43@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x00545D50 40B ??0AITNGuardInnerState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00545D78 6B ?Rva00545D78Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00545D7E 44B ??0Rva00545D7E@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/Rva00545D7ECtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00545DAA 6B ?Rva00545DAAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 
@@ -826,9 +830,72 @@ Bool rva00545F10(State *thisState, void * /*userData*/)
 	return false;
 }
 
+// tu-skeleton: 0x00545CAF 72B ?onEnter@AITNGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00545CF7 76B ?onExit@AITNGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00545D43 13B ??0Rva00545D43@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp
+
+AITNGuardInnerState::AITNGuardInnerState(StateMachine *machine)
+	: State(machine, 0xD405C261u)
+{
+	_ReadWriteBarrier();
+	m_exitConditions.m_attackGiveUpFrame = 0;
+	m_exitConditions.m_vptr = __identifier("??_7Rva00545D43@@6B@");
+}
+
+// Retail vtable 0x00C6A140 slot 1 points at 0x005CB26A (mov eax,[ecx];
+// jmp [eax+0x10]): a tail call to slot 4, onEnter. The body is shared by
+// identical code folding with the rowed forwarder in Rva005CB26AForwarder.cpp.
+void AITNGuardInnerState::loadPostProcess()
+{
+	onEnter();
+}
+
+// Retail vtable 0x00C6A140 slot 2 points at 0x00545D78, which returns the
+// literal "AITNGuardInnerState" at VA 0x00C6A184.
+const char *AITNGuardInnerState::GetSnapshotName() const
+{
+	return "AITNGuardInnerState";
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/Common/Rva00545D7ECtor.cpp
+
+Rva00545D7E::Rva00545D7E(StateMachine *machine)
+	: State(machine, 0xCDECC1F9u)
+{
+	_ReadWriteBarrier();
+	m_exit.m_04 = 0;
+	m_exit.m_vptr = __identifier("??_7Rva00545D43@@6B@");
+	_ReadWriteBarrier();
+	m_28 = 0;
+}
+
+// tu-skeleton: 0x00545DAA 6B ?Rva00545DAAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
 // tu-skeleton: 0x00545DCC 6B ?Rva00545DCCGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00545E80 44B ??0AITNGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp
+
+AITNGuardAttackAggressorState::AITNGuardAttackAggressorState(StateMachine *machine)
+	: State(machine, 0x33E96013u)
+{
+	_ReadWriteBarrier();
+	m_exitConditions.m_attackGiveUpFrame = 0;
+	m_exitConditions.m_vptr = __identifier("??_7Rva00545D43@@6B@");
+	_ReadWriteBarrier();
+	m_attackState = 0;
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x00545EAC 6B ?Rva00545EACGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -869,3 +936,7 @@ Bool rva00545F10(State *thisState, void * /*userData*/)
 // tu-skeleton: 0x0079804B 10B $L554 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00798055 10B __ehhandler$??0AITNGuardMachine@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0079805F 10B $L1367 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00798069 10B __ehhandler$?onEnter@AITNGuardInnerState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)

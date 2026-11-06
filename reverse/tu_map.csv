@@ -45309,15 +45309,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00545CAF,72,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp S=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp N=Code/GameEngine/Source/GameLogic/AI/AITNGuardIdleState.cpp,Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp
 0x00545CF7,76,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp S=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp N=Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorState.cpp,Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp
 0x00545D43,13,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545D50,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
-0x00545D50,40,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545D78,Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp
+0x00545D50,40,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545D78,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 0x00545D78,6,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545D7E,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-0x00545D7E,44,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545DAA,Code/GameEngine/Source/Common/Rva00545D7ECtor.cpp
+0x00545D7E,44,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545DAA,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 0x00545DAA,6,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545DB0,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00545DB0,28,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545DCC,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 0x00545DCC,6,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545DEE,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00545DD2,28,code,,displaced,-,N=Code/GameEngine/Source/Common/AITNGuardMachine.cpp,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp
 0x00545DEE,146,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545CF7..0x00545E80,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
-0x00545E80,44,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp S=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp N=Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorState.cpp,Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp
+0x00545E80,44,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp S=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp N=Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorState.cpp,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 0x00545EAC,6,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545E80..0x00545EB2,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00545EB2,94,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp S=Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp N=Code/GameEngine/Source/GameLogic/AI/AITNGuardMachine.cpp,Code/GameEngine/Source/GameLogic/AI/AITNGuardXfer.cpp
 0x00545F10,112,code,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,approved,C,C=0x00545EB2..0x00545F80,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
