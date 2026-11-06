@@ -190,3 +190,46 @@ candidates into SAME ones.
 Clearance: none claimed (no new real link measured). Census confirmation: none claimed.
 
 2026-11-06 AIDockState lifecycle follow-up (base30b22402f4): the packed constructor and destructor now declare the existing canonical transfer/onEnter/onExit/update overrides. Both emitted17-slot tables resolve native slots3..6 to3415F5/341695/341723/341770. Normal40/40, three EXACT EH graphs, frozen and normal/private provider equality pass; preview retains3/3 LINKS and1639B. No executable body/row/header/flag/pin/alias change. The unused destructor-side State::onEnter copy remains identically provided by the packed constructor. Slot2 name getter33565 was held elsewhere and remains untouched/pure; this is not full-table or runtime clearance. Other states' recorded signature prerequisites remain. [Scoped proof and remaining getter prerequisite](../../reverse/attempt_support/aidock-native-lifecycle-table-20261106/README.md).
+
+2026-11-06 Snapshot table 0x007BB554 (24 kept names), seat leosmare (base `0f70da5432`, census index `f07300675e`):
+- Completed, one commit per unit: BoredUpdateModuleDataDtor.cpp, EvacuateDamageModuleDataDtor.cpp,
+  W3DBuffDraw.cpp, System/TBuff.cpp (Rva006DABB0) and TransitionDamageFXModuleDataDestructorThunk.cpp now
+  derive from canonical Snapshot (reference/shims/moduledata/Common/Snapshot.h) in place of a private
+  one-slot `...Base`. Each emits `??_7Snapshot@@6B@` as retail's [0x00401750, __purecall x3] and no longer
+  emits `??_7BoredUpdateModuleDataBase@@6B@`, `??_7EvacuateDamageModuleDataBase@@6B@`,
+  `??_7W3DBuffDrawModuleDataBase@@6B@`, `??_7Rva006DABB0Base@@6B@` or `??_7TransitionDamageFXModuleDataBase@@6B@`.
+  TransitionDamageFX's alias row `??1TransitionDamageFXModuleDataBase@@UAE@XZ` (0x0049B47C) is tombstoned in
+  deleted_rows.csv: its funclets now call `??1Snapshot@@UAE@XZ`, Snapshot.cpp's row at that address.
+  All rows exact, EH EXACT, link_check LINKS per unit; all 395 cached `??_7Snapshot@@6B@` copies agree.
+- Caveat (target fact): those derived tables grow from one slot to four with __purecall in slots 1-3, where
+  retail has ModuleData's bodies (0x000B3FD0, 0x00065212, 0x0047A69C) or, for 0x007CE310, 0x000B3FD0,
+  0x000D1BA0, 0x000D211D. W3DBuffDrawModuleData (0x007CD270) is bridged in the queue either way;
+  BoredUpdateModuleData and EvacuateDamageModuleData have no data row and their constructors install the
+  retail table through a bound global, so the emitted copies are orphans. Short-to-wrong, not fixed.
+- Still kept on 0x007BB554, with the prerequisite each needs:
+  - `BfmeSnapshotBase` (GODupBase.cpp) and `Rva00426745SnapshotBase` (BfmeStringRecord00426A5B.cpp):
+    multiple inheritance, so the swap renames the secondary-qualified table (`??_7GODupBase@@6BBfmeSnapshotBase@@@`,
+    bound at 0x00807D2C and bridged). The data_ledger name must move with the source; rename.py
+    `class --fold` refuses both as readable names.
+  - `Base001F4C67` (Rva001F4C67Finish.cpp): the real base is Rva001F376E, whose views in
+    ParticleBaseConstructor.cpp and RenderParticleConstructor.cpp also emit `??_7Rva001F4C67@@6B@`; a
+    one-unit swap makes the copies differ (link_check: LINKED 187 -> 0). Put Rva001F376E on Snapshot in
+    all three together.
+  - `TerrainResourceModuleDataBase`: FamilyDeletingDtors_muse-eeab.cpp emits the same derived table, retail
+    0x00849440 is 82 slots, and link_check refuses the four-slot copy when two units emit it
+    ("selected ... not retail's"). Needs ModuleData's real slots, not __purecall.
+  - `ShareExperienceBehaviorModuleDataBase`: the unit instantiates the module data, which Snapshot's pure
+    slots make abstract (C2259). Same prerequisite.
+  - `Rva000E59D3Base`: Rva000E59D3 is W3DFloorBuffer. Its table 0x007CE9E0 holds 0x000E4886
+    (`?rva000E4886@Rva000E4886`), 0x000E5A25 (`?name@Rva000E5A25Named`) and 0x000E6186
+    (`?DoXfer@W3DFloorBuffer`), all rowed in W3DFloorBuffer.cpp as non-virtual placeholders. Fold the class
+    and make those Snapshot's three overrides, in W3DFloorBuffer.cpp and Rva000E59D3Dtor.cpp together.
+  - Not examined this pass: `Rva003B4100` and `Rva0025EF18` (own 14B/11B destructors, so the Snapshot alias
+    may be a ledger error), `SnapC8` (Rva0006D0D7Dtor.cpp), `ResourceGatheringManagerBase`,
+    `Rva0022CE19SnapshotBase` (4 emitters, GameInfoSlotView.h), `W3DTreeDrawModuleDataBase` (the derived
+    class adds a virtual, so slots shift), the FXParticleSystem infos, MemoryPoolObject, ModuleData and
+    UpdateModuleData.
+- Lesson: before swapping a base, list every object that emits the derived table (`rg -l -a -F` over
+  build/match) and read retail's slots; link_check judges a table against retail only when two units emit it.
+
+Clearance: none claimed (no new real link measured).
