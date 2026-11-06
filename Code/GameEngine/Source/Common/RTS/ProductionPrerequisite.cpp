@@ -55,6 +55,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 //
 //-----------------------------------------------------------------------------
 
+// PrereqUnitRec's destructor calls the retail out-of-line ~AsciiString (0x0048BA39),
+// not the Zero Hour inline releaseBuffer whose freeBytes retail lacks.
+#define BFME_ASCIISTRING_DTOR_OUTOFLINE
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
 #include "Common/ProductionPrerequisite.h"

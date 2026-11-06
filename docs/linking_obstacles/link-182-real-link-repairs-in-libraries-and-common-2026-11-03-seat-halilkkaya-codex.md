@@ -241,6 +241,30 @@ Order:
 3. Adopt the header in the callers.
 4. Run cx-o5's steps 1 and 2 as one commit, then step 3.
 
+### ProductionPrerequisite freeBytes repaired without the PerTurnStats readmission (2026-11-06, halilkkaya-lk36)
+
+Base `bd49217dc8`; real link at `306f01e6f6` listed `?freeBytes@AsciiString@@AAEXXZ`,
+referenced from the unit's `?releaseBuffer@AsciiString@@IAEXXZ` COMDAT.
+
+- Cause (target fact, current object): the unit inlines nothing from Zero Hour's
+  AsciiString, so `??1PrereqUnitRec` tail-jumps to an emitted `releaseBuffer` copy,
+  and that copy calls Zero Hour's `freeBytes`. Retail has neither body; its
+  out-of-line `??1AsciiString@@QAE@XZ` is the row 0x0048BA39 in ascii_string.cpp
+  (`jmp` to StringBase<char>'s releaseBuffer 0x00036410), and every kept copy of
+  that name has the one retail digest.
+- Fix: `reference/shims/zh_ascii_outofline/Common/AsciiString.h` skips its inline
+  `~AsciiString` when a TU defines `BFME_ASCIISTRING_DTOR_OUTOFLINE` (the guard
+  pattern of its noinline constructor). Only ProductionPrerequisite.cpp defines it.
+  `??1PrereqUnitRec` now jumps to `??1AsciiString@@QAE@XZ`; the `releaseBuffer` and
+  `~AsciiString` COMDATs and the `freeBytes`/`InterlockedDecrement` references are
+  gone. No other external changed.
+- Verified: 6/6 rows exact; ControlBar_Rva0035B03E.cpp (the shim's other user)
+  rebuilt with identical non-debug sections; scoped DIR32 OK; link_check
+  ProductionPrerequisite.cpp 0 -> 0 (its census unresolved `freeBytes` is gone; the
+  PerTurnStats COMDAT losers above remain), ControlBar_Rva0035B03E.cpp and
+  ascii_string.cpp LINKS unchanged. The PerTurnStats readmission is still the
+  route to make the unit link in the census; the real link needs no more here.
+
 ### W6 native tree-find readmission (2026-11-04, halilkkaya-codex)
 
 After retraction `39508a56f6`, ordinary `add_match.py` admission recovers the

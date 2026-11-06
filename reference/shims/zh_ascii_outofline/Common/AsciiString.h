@@ -427,11 +427,19 @@ inline void AsciiString::releaseBuffer()
 }
 
 // -----------------------------------------------------
+// A TU that defines BFME_ASCIISTRING_DTOR_OUTOFLINE calls the retail out-of-line
+// destructor instead (??1AsciiString@@QAE@XZ, 0x0048BA39 in ascii_string.cpp, a tail
+// jump to StringBase<char>'s releaseBuffer 0x00036410). The inline copy below makes a
+// TU that does not inline it emit releaseBuffer, whose freeBytes call is Zero Hour's
+// and has no body in retail. Guarded like the noinline constructor above, so a TU
+// that expands the destructor keeps it.
+#ifndef BFME_ASCIISTRING_DTOR_OUTOFLINE
 inline AsciiString::~AsciiString()
 {
 	validate();
 	releaseBuffer();
 }
+#endif
 
 // -----------------------------------------------------
 inline int AsciiString::getLength() const
