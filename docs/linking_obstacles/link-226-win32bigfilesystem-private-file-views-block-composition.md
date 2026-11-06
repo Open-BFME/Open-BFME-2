@@ -17,3 +17,20 @@ Conflicting retail-address assignments or slot sequences refuse the group.
 Strong/common definitions, target-provider checks and displaced-slot evidence
 remain enforced. No source recovery or runtime pass is claimed by this bridge.
 Diagnostic topic proof and independent review are required before master landing.
+
+P8's candidate `5be80f76ec` reached P9 instead:
+`2026-11-06T165013Z-boot_smoke-297dfd3f4ffe` reports a null virtual call
+from SubsystemInterfaceList::initSubsystem. Its SubsystemLegend spelling was
+absent from the stale data ledger at retail table RVA 0x7D7678. The current
+matched ctor/dtor rows use SubsystemLegend; the index still names Rva0022E0E5.
+
+The follow-up derives current compiler vftable names from matched code rows:
+whole-row bytes must agree outside recognized relocation fields; a complete,
+zero-addend external DIR32 operand supplies the retail address. Only an
+already indexed vtable address and its existing bounded retail slot run can
+generate a copy. Conflicting name addresses refuse, and rejected row evidence
+and bindings to unindexed addresses stay visible in JSON. No pin/name heuristic
+or missing extent is guessed, and no persistent data-ledger row changes.
+The normal regeneration command is `python3 tools/data_ledger.py`; the ledger's
+active owner was LeonardBuhl@DESKTOP-TCMKKT2/10d48df1 when checked. This lane
+leaves that scope alone. Branch CI and a new queue receipt must prove past P9.
