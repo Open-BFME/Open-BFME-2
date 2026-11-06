@@ -97,3 +97,9 @@ to its actual Assisted compiler label via add_match. Parent84B resolves unmasked
 and EHEXACT; cleanup8B + Update dtor relocation exact,16/16 main rows and data
 retained. Generator file untouched with201 remaining rows; no pin/ASM/alias.
 [Proof and final owner audit](../../reverse/attempt_support/assisted-ctor-cleanup-native-20261106/README.md).
+
+2026-11-06 publication boundary: retain the RespawnBodyModuleData header queue
+entry. It passed on the full81-row donor, but after the approved17B split the
+hook's single-source retirement check treats residual1460 ->1443B as a loss.
+The source remains canonical and both objects link-clean. False reject recorded;
+no landed header-debt retirement claimed and no gate bypass or check edit.

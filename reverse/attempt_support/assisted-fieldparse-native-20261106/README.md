@@ -86,3 +86,13 @@ Publication audit foref649c78a7: INCONCLUSIVE index38cd9fd913,
 basebe8c03bf8292661107daf0f9db7d9e778674e440,3 missing current receipts
 (first AssistedTargetingUpdate.cpp). Scoped117/117+11data,3EH,59float andDIR32
 checks passed; current outside-consumer/real-image confirmation remains pending.
+
+## Header retirement false reject after the approved move
+
+The outgoing hook rechecks the earlier Respawn queue retirement on the residual
+alone. The supported17B move leaves it link-clean at1443B, below its old1460B;
+header acceptance mistakes the conserved moved bytes for a regression. Restore
+exactly the inherited Respawn queue entry. Keep the correct canonical source,
+record the false reject, and claim no landed header-debt retirement. No tool or
+check is changed and no smaller-body loss is hidden; the split guard proves
+both units and outside consumers together.
