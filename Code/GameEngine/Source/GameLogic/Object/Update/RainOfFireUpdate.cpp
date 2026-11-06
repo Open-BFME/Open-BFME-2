@@ -72,6 +72,8 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateModuleDataCtor.cpp
 
   // folded nine-class vftable 0x00C4ED70, by its data-ledger name
@@ -217,12 +219,6 @@ NameKeyType RainOfFireUpdate::getModuleNameKey() const
 	return TheRainOfFireUpdatePoolKey;
 }
 
-// tu-skeleton: 0x004AC097 17B ?buildFieldParse@RainOfFireUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC0A8 135B ??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC12F 6B ?Rva004AC12FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp
 
 RainOfFireUpdate::~RainOfFireUpdate()
@@ -234,3 +230,25 @@ RainOfFireUpdate::~RainOfFireUpdate()
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
+
+// tu-skeleton: 0x004AC097 17B ?buildFieldParse@RainOfFireUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateCtor.cpp
+
+RainOfFireUpdate::RainOfFireUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	const RainOfFireUpdateModuleData *data =
+		reinterpret_cast<const RainOfFireUpdateModuleData *>(m_moduleData);
+	frame = UPDATE_SLEEP_FOREVER;
+	darkness = 0.0f;
+	scale = 1.0f;
+	pending = 0.0f;
+	ramp = 0.0f;
+	if (data) {
+		frame = TheGameLogic->getFrame();
+		ramp = data->rampup == 0.0f ? 1.0f : 0.0f;
+	}
+}
+
+// tu-skeleton: 0x004AC12F 6B ?Rva004AC12FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
