@@ -246,6 +246,7 @@ template <> int VectorClassWide<TextureStatisticsStructWide>::ID(const TextureSt
 template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::operator==(const VectorClass &) const;
 template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Resize(int, const Render2DSentenceClass::PendingSurfaceStruct *);
 template <> int VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::ID(const Render2DSentenceClass::PendingSurfaceStruct &);
+template <> int VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::ID(const Render2DSentenceClass::PendingSurfaceStruct *);
 template <> bool VectorClass<EnumParameterClass::_ENUM_VALUE>::Resize(int, const EnumParameterClass::_ENUM_VALUE *);
 
 // ??1Render2DSentenceClass@@QAE@XZ

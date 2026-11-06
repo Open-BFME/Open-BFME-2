@@ -198,7 +198,9 @@ bool VectorClass<T>::Resize(int newsize, T const *array)
 
 // Force emission of the Resize instantiation even though nothing else in
 // this isolated TU calls it.
-template VectorClass<PendingSurfaceStruct>::VectorClass(int, PendingSurfaceStruct const *);
+// The vector constructor (rowed in render2dsentence.cpp) is not instantiated
+// here: it emitted the class's vtable and a ??_G that calls ~VectorClass out
+// of line, ahead of retail's inlined 0x00157BC0 in link order.
 template bool VectorClass<PendingSurfaceStruct>::Resize(int, PendingSurfaceStruct const *);
 
 template <class T>
