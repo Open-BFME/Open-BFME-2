@@ -21,3 +21,5 @@ Remaining / next check: the global is still constructed twice in a bridged image
 ends when the bridge stops bridging 0x007AD7DD once a native registration covers it.
 Clearance: pending a master receipt with this fix and the bridge.
 Census confirmation: not claimed.
+
+Update (2026-11-07): the same accepted double registration now also covers `BfmeINICurrentFilename` (bridged 0x007ABBC9 and INI_loadFile.obj's native `_$E1`); evidence and retirement path in LINK-621.

@@ -59,3 +59,20 @@ INIMacroTable belongs in INI/INI.cpp, not a separate INIMacroTable.cpp: the nami
 rename. Approving them needs a TU-evidence rule that folds an unanchored class hint into the one
 anchored unit whose span holds all of its rows; 0x007ABBB3 and 0x007B6A6E need an initializer rule
 (I is unpromoted and unanchored). Both are tooling, not done here.
+
+Update (2026-11-07, swarm crash-triage, P10 family fix): the shape-credit family is classified in
+seat2 `build/drift_review/swarm/p10_family.md` (36 shape-only native registrations: 0 A, 7 B, 6 C,
+23 D). Four C entries, the Zero Hour W3D loader statics `_AggregateLoader`, `_BoxLoader`, `_NullLoader`
+and `_ParticleEmitterLoader`, are removed (no Chunk_Type body for them anywhere in retail .text; no
+consumers). With them gone the existing bridge registers 0x007AB8A0, 0x007ABB80, 0x007ABBB3 and
+0x007ABBC9 (672 -> 676). `_DistLODLoader` stays: retail keeps its Chunk_Type (0x00064825) as
+unreferenced code, which this unit only emits through the static's vtable.
+Accepted debt, retire with the TU-approved fix above: 0x007ABBC9 (bridged, retail's initializer of
+`BfmeINICurrentFilename`, VA 0x00DDF5B4) and INI_loadFile.obj's native `_$E1` both register that
+AsciiString's cleanup. Checked on the matched bodies: the bridged initializer runs in the bridge block
+ahead of every native registration, before WinMain, and is the only constructor call (the native `_$E1`
+calls no constructor, only atexit); no other initializer references 0x00DDF5B4; the constructor
+0x00326BE6 is `mov eax, ecx; and dword [eax], 0; ret` (empties, no allocation); both cleanups reach
+`StringBase<char>::releaseBuffer` 0x00036410, which stores 0 after releasing and skips the release when
+the pointer is 0, so the second cleanup only takes and drops the lock. Same pattern as LINK-616's
+`TheFXParticleEditor`.
