@@ -63,8 +63,13 @@ Before the repairs below, 251 agreed and 66 differed. Most of the 66 are the dum
 - **Repaired:** `StrategicHUD.cpp`'s `s_table` (0x0086F030), which `SetPhaseTitleString` searches for the game-text
   key of a phase, held invented placeholders (`{0,"A"}`, `{1,"B"}`, `{2,"C"}`). Retail's: phases 0, 2 and 4 with
   `APT:TacticalPhaseTitle`, `APT:BattlePhaseTitle` and `APT:RetreatPhaseTitle`. Compared with retail: equal.
+- **Repaired:** the glow, ring and fire effect statics (`Drawable_Rva00309fb3.cpp`, `Drawable_Rva00309ffd.cpp`,
+  `Drawable_Rva0030a040.cpp`), which their INI blocks start from, were zero; retail's `.data` holds defaults
+  (GlowDiameter 17, GlowTextureWidth 256, Scale 4.0, Blend 0.7, colors 1.0, TextureRepeatCount 5.0, ...). They now
+  start from retail's bytes; compared with retail: equal. Retail's ring and fire statics differ from what the matched
+  initializer `RingEffect::rva00309E85` writes (its first and third `m_unknown28` triples are zero), so the statics
+  are written from the image, not from that function.
 - Still open: initial values retail has in `.data` that ours leaves zero:
-  the glow, ring and fire effect statics (`Drawable/Rva00309FB3.cpp`, `Rva00309FFD.cpp`, `Rva0030A040.cpp`),
   `animationDisableOverride` (`W3DGhostObjectScene.cpp`), `AXIS_ROTATION` (`camerashakesystem_shaker.cpp`),
   `detailAlphaShader` (`W3DBibBuffer.cpp`) and `g_Rva012C3BC4` (`Y4FeslBuddyRequests.cpp`).
 

@@ -231,8 +231,12 @@ inline INILoadType retailLoadType( const INI *ini )
 	return reinterpret_cast<const RetailINI *>( ini )->m_loadType;
 }
 
-static FireEffect s_fireEffectSaved;		// 0x12b5100
-static FireEffect s_fireEffectActive;		// 0x12b5158
+// Retail's .data holds both at load (0x009BD8C0, 0x009BD918), the ring effect's values without
+// its two blur fields. The INI block starts from them.
+static FireEffect s_fireEffectSaved = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
+	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f };		// 0x12b5100
+static FireEffect s_fireEffectActive = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
+	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f };		// 0x12b5158
 
 void parseFireEffect( INI *ini )
 {

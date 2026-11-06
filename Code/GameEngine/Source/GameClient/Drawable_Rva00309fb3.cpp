@@ -207,8 +207,10 @@ inline INILoadType retailLoadType( const INI *ini )
 	return reinterpret_cast<const RetailINI *>( ini )->m_loadType;
 }
 
-static GlowEffect s_glowEffectSaved;		// 0x12b4ff8
-static GlowEffect s_glowEffectActive;		// 0x12b501c
+// Retail's .data holds both at load (0x009BD7B8, 0x009BD7DC): GlowDiameter 17, GlowIntensity
+// 1.0, GlowTextureWidth 256, everything else zero; the INI block starts from them.
+static GlowEffect s_glowEffectSaved = { FALSE, 17, 1.0f, 256 };		// 0x12b4ff8
+static GlowEffect s_glowEffectActive = { FALSE, 17, 1.0f, 256 };		// 0x12b501c
 Bool g_bfmeDirtyCU;					// 0x12f13fc; shared dirty flag (bfmeReset and the screen-filter preRenders)
 
 void parseGlowEffect( INI *ini )

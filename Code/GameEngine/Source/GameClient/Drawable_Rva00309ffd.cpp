@@ -170,8 +170,8 @@ struct RingEffect
 	Int m_effectBlurDiameter;		// 0x58  EffectBlurDiameter
 	union
 	{
+		UnsignedInt m_baseBlurDiameterBits;	// first, so the statics below can hold the bits 1
 		Real m_baseBlurDiameter;		// 0x5c: parsed as Real by the native table
-		UnsignedInt m_baseBlurDiameterBits;
 	};
 
 	static const FieldParse m_fieldParseTable[];
@@ -243,8 +243,12 @@ inline INILoadType retailLoadType( const INI *ini )
 	return reinterpret_cast<const RetailINI *>( ini )->m_loadType;
 }
 
-static RingEffect s_ringEffectSaved;		// 0x12b5040
-static RingEffect s_ringEffectActive;		// 0x12b50a0
+// Retail's .data holds both at load (0x009BD800, 0x009BD860), and not what rva00309E85
+// writes: the first and third m_unknown28 triples are zero. The INI block starts from them.
+static RingEffect s_ringEffectSaved = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
+	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f, 3, 1 };		// 0x12b5040
+static RingEffect s_ringEffectActive = { 4.0f, 0.7f, { 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f, 1.0f }, 1.0f, 1.0f,
+	{ { 0.0f, 0.0f, 0.0f }, { 0.5f, 0.5f, 0.5f }, { 0.0f, 0.0f, 0.0f } }, 1.0f, 1.0f, 5.0f, 3, 1 };		// 0x12b50a0
 
 void parseRingEffect( INI *ini )
 {
