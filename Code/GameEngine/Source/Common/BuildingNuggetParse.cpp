@@ -53,16 +53,11 @@ Rva0052B7F8Owner *rva0052B84F();			// 0x0052B84F, the factory table
 #include "../../Include/GameClient/Rva00056F61.h"
 
 // The owning holder: its destructor is the folded 0x000AD6F4.
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-	Rva0052B685Pointee *ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva0052B685Holder : public Rva000AD6F4
 {
 public:
-	Rva0052B685Holder(Rva0052B685Pointee *p) { ptr = p; }
+	Rva0052B685Holder(Rva0052B685Pointee *p) : Rva000AD6F4(p) {}
 	_STL::auto_ptr<Rva0052B685Pointee> release();	// 0x0052B685
 };
 
