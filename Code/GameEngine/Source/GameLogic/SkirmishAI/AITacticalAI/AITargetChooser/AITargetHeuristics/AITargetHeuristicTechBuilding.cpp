@@ -33,13 +33,7 @@ enum Relationship
  
 }
 ;
-class Player
-
-{
- public:Relationship getRelationship(const Object*)const;
- 
-}
-;
+#include "../../../../../../Include/Common/Player.h"
 class Rva004EBF4B
 
 {

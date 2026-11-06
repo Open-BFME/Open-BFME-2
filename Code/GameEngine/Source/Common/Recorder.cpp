@@ -198,7 +198,7 @@ class Team;
 
 enum Relationship{REL_INVALID=-1};
 
-class Player {public:Relationship getRelationship(const Team*)const;};
+#include "../../Include/Common/Player.h"
 
 class PlayerList {public:Player*getNthPlayer(int);};
 

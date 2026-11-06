@@ -71,13 +71,7 @@ public:
 	int m_flag3C;
 };
 
-class Player
-{
-public:
-	Relationship getRelationship(const Player *other) const;
-	char m_pad[0x5C];
-	int m_val5C;
-};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 
@@ -208,7 +202,7 @@ bool Object::rva002943B2(const Player *other)
 			if (!testStatus(STATUS_0F))
 				return false;
 		player_gate:
-			if (other == 0 || other->m_val5C != 1)
+			if (other == 0 || other->m_playerType != 1)
 				goto template_gate;
 			if (rva0028C1CC())
 				return false;

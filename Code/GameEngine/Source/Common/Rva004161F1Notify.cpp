@@ -63,12 +63,7 @@ public:
 	bool bfmeAskRV();
 };
 
-class Player
-{
-public:
-	char m_pad[0x280];
-	int m_color280;
-};
+#include "../../Include/Common/Player.h"
 
 enum NameKeyType
 {
@@ -111,7 +106,7 @@ void __cdecl Rva004162B7Notify(AsciiString a, UnicodeString message)
 		if (*(const unsigned char *)((const char *)lslot + 0xa) != 0)
 			goto done;
 		RGBColor color;
-		color.setFromInt(player->m_color280);
+		color.setFromInt(player->m_color);
 		TheInGameUI->messageColor(&color, UnicodeString(L"%s"), message.str());
 	done:;
 	}

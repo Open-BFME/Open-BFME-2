@@ -323,9 +323,7 @@ void _STLP_alloc_proxy<ScienceType *, ScienceType, allocator<ScienceType> >::dea
 class Rva0029FCB4 { public: _STL::vector<ScienceType> rva0029FCB4(); };
 class Rva0023C6A4 { public: bool rva00200084(); };
 class GameLogic; extern GameLogic *TheGameLogic;
-class Player { public: bool hasScience(ScienceType) const;
- bool hasAnyRequiredSciences(const _STL::vector<ScienceType>&) const;
- const ThingTemplate *rva002AA857(int); };
+#include "../../../../Include/Common/Player.h"
 class Rva0037EE4C { public: int rva0037EE4C(const ThingTemplate *,int,int); };
 class Image; class ModuleData;
 class Rva0037EDC6 { public: const Image *rva0037EDC6(int); };

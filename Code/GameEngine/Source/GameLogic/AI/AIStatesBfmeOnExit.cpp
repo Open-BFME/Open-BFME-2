@@ -421,12 +421,7 @@ extern ActionManager *TheActionManager;
 extern GameLogic *TheGameLogic;
 
 class RadarObject;
-class Player
-{
-public:
-	unsigned char m_pad00[0x5C];
-	int m_playerType; // +0x5C
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/AIGroup.h"
 
 class AIUpdateInterface : public AIStateAISlots<135>
