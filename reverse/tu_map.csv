@@ -47016,7 +47016,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00571B75,235,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x00571C60,61,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,C,C=0x00571B75..0x00571C9D,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x00571C9D,2260,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
-0x00572571,193,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,C,C=0x00571C9D..0x00572632,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp
+0x00572571,193,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,C,C=0x00571C9D..0x00572632,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x00572632,310,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x00572768,265,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x00572871,20,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,C,C=0x00572768..0x00572885,Code/GameEngine/Source/Common/BfmeConv816O1.cpp
@@ -86103,8 +86103,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079AD8B,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00571C9D@FuncInfo0x0094FF74,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x0079AD96,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00571C9D@FuncInfo0x0094FF74,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x0079ADA1,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00571C9D@FuncInfo0x0094FF74,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
-0x0079ADAB,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00572571@FuncInfo0x0094FF98,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp
-0x0079ADB3,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00572571@FuncInfo0x0094FF98,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp
+0x0079ADAB,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00572571@FuncInfo0x0094FF98,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
+0x0079ADB3,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00572571@FuncInfo0x0094FF98,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x0079ADBD,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x0079ADC5,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 0x0079ADCF,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp,approved,P,P=0x00572885@FuncInfo0x00950038,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginConstructor.cpp

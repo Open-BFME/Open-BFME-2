@@ -42,27 +42,18 @@ typedef int Int;
 #define NULL 0
 #endif
 #include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
-
 // Inline _String_base<char>'s dtor everywhere so this unit emits no copy of
 // its own; the kept retail copy serves any out-of-line call.
 namespace _STL { template <> __declspec(dllimport) __declspec(nothrow) __forceinline
 _String_base<char, allocator<char> >::~_String_base() { _M_deallocate_block(); } }
-
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &); }
-
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(); }
-
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(char const *); }
-
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::assign(char const *, char const *); }
-
 namespace _STL { template <> char * __char_traits_base<char, int>::copy(char *, char const *, unsigned int); }
-
 namespace _STL { template <> char * basic_string<char, char_traits<char>, allocator<char> >::erase(char *, char *); }
-
 namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, char const *, unsigned int); }
-
 // bfme link decl-only end
 // Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
 // out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
@@ -71,7 +62,6 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
 { allocator<char>::deallocate(__p, __n); }
 }
-
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -81,7 +71,6 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-
 // Compare tree nodes locally, as for the list iterators above, so this
 // unit emits no competing external tree-base comparison.
 namespace _STL {
@@ -90,116 +79,68 @@ static inline bool operator!=(const _Rb_tree_iterator<Value, LeftTraits> &a,
                               const _Rb_tree_iterator<Value, RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-
 extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
-
 bool operator<(const UnicodeString &,const UnicodeString &);
-
 namespace _STL { template<> struct less<UnicodeString> {
     bool operator()(const UnicodeString &a,const UnicodeString &b)const { return a<b; }
 }; }
-
 typedef _STL::pair<const UnicodeString,int> CountryPair;
-
 typedef _STL::map<UnicodeString,int> CountryLocaleMap;
-
 typedef _STL::_Rb_tree<UnicodeString,CountryPair,_STL::_Select1st<CountryPair>,_STL::less<UnicodeString>,_STL::allocator<CountryPair> > CountryTree;
-
 // Use the reconciled /EHs provider's native 56-byte destructor. This /EHsc
 // callback unit must not emit a different definition of that same member.
 extern template CountryTree::~_Rb_tree();
-
 extern template CountryLocaleMap::map();
-
 extern template CountryTree::iterator CountryTree::insert_unique(CountryTree::iterator,const CountryPair &);
-
 extern template _STL::pair<CountryTree::iterator,bool> CountryTree::insert_unique(const CountryPair &);
-
 extern "C" __declspec(dllimport) void *__stdcall ShellExecuteW(void *,const unsigned short *,const unsigned short *,const unsigned short *,const unsigned short *,int);
-
 bool GetStringFromRegistry(AsciiString,AsciiString,AsciiString &);
-
 void GSMessageBoxOk(UnicodeString,UnicodeString,void (*)());
-
 void bfmeMinimizeCurrentThreadWindow();
-
 class BfmeObjELB;
-
 extern BfmeObjELB *g_bfmeObjELB;
-
 #include "../../../../../Include/GameClient/GameText.h"
-
 extern GameTextInterface *TheGameText;
-
 #include "../../../../../Include/Common/GameSpyMiscPreferencesClass.h"
-
-
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
-
 class BfmeAptWindowManager;
-
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 struct AptOnlineLoginOwner
 {
 public:
 	char m_pad00[0x274];
 	void *movie; // +0x274
 };
-
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
-
 // The country callback reads only this ledger-owned first word.
 extern int GameSpyColor[];
-
 AsciiString GetRegistryLanguage();
-
 int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int,bool);
-
 void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
-
 void GadgetListBoxSetSelected(GameWindow *,int);
-
 void GadgetCheckBoxSetChecked(GameWindow *,bool);
-
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
-
 #include "../../../../../Include/GameClient/GameSpyLoginPreferences.h"
-
 void GadgetComboBoxReset(GameWindow *);
-
 void GadgetComboBoxSetIsEditable(GameWindow *,bool);
-
 int GadgetComboBoxAddEntry(GameWindow *,UnicodeString,int);
-
 void GadgetComboBoxSetSelectedPos(GameWindow *,int,bool);
-
 void GadgetComboBoxSetText(GameWindow *,UnicodeString);
-
 // InitGadgets 0x0057047F: gadget setup calls, the user-data byte at +0x12
 // and the window manager's tab-list slots 44/45 (+0xB0/+0xB4).
 class BfmeKeyLC;
-
 extern "C" int __cdecl strcmp(const char *,const char *);
-
 void GadgetListBoxReset(GameWindow *);
-
 void GadgetComboBoxSetMaxChars(GameWindow *,int);
-
 void GadgetComboBoxSetValidationFlags(GameWindow *,int);
-
 void GadgetTextEntrySetMaxChars(BfmeKeyLC *,unsigned short);
-
 void GadgetTextEntrySetValidationFlags(GameWindow *,int);
-
 struct GadgetUserData { unsigned char pad[0x12]; unsigned char m_field12; };
-
 // Retail copies the tab list through 0x00445E8B, the four-byte list copy
 // whose range insert is 0x000BB975 (list<int>); the ledger's list<GameWindow *>
 // range insert is the distinct body 0x00423890. The window pointers are
 // therefore carried in the list<int> instantiation, as the rowed workers name it.
 typedef _STL::list<int> GameWindowList;
-
 class GameWindowManager { public:
 #define V(n) virtual void unusedSlot##n();
     V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
@@ -211,25 +152,17 @@ class GameWindowManager { public:
     virtual void registerTabList(GameWindowList);
     virtual void clearTabList();
 };
-
 extern GameWindowManager *TheWindowManager;
-
 static bool g_cachedLoginPopulationBusy;
-
 struct SkirmishFindNode { unsigned char pad[0x14]; AsciiString value; };
-
 class SkirmishFindMap { public:
     SkirmishFindNode *find(const AsciiString &) const throw();
     SkirmishFindNode *end() const { return head; }
     SkirmishFindNode *head; unsigned char remainder[8];
 };
-
 #include "../../../../../Include/GameNetwork/GameSpyConfigInterface.h"
-
 extern GameSpyConfigInterface *TheGameSpyConfig;
-
 class PingRequest { public: _STL::string hostname;int repetitions,timeout; };
-
 class PingerInterface { public:
     virtual ~PingerInterface();
     virtual void startThreads()=0;
@@ -240,17 +173,11 @@ class PingerInterface { public:
     virtual bool arePingsInProgress();virtual void slot24();virtual void slot28();
     virtual AsciiString getPingString(int);
 };
-
 extern PingerInterface *ThePinger;
-
 struct LoginPingStringData { int refs;unsigned short length,capacity;char text[1]; };
-
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
-
 extern "C" unsigned char *__cdecl _mbscpy(unsigned char *,const unsigned char *);
-
 class Rva0056EBA1 { public: UnicodeString rva0056EB15(); };
-
 // Donor request fields retained only where retail accesses them. Native
 // proves this request's prefix and 0x2B8 stack extent; remaining bytes opaque.
 struct LoginSubmitRequest {
@@ -258,25 +185,19 @@ struct LoginSubmitRequest {
  char nickname[31],email[51],password[31];bool hasFirewall;
  unsigned char opaque[0x200];char registryKey[65];unsigned char tail;
 };
-
 class GameSpyBuddyMessageQueueInterface { public:
  virtual void slot00();virtual void slot04();virtual void slot08();
  virtual void slot0C();virtual void slot10();virtual void slot14();
  virtual void addRequest(const LoginSubmitRequest &);
 };
-
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
-
 typedef _STL::map<AsciiString,AsciiString> LoginPreferenceMap;
-
 extern template AsciiString &LoginPreferenceMap::operator[](const AsciiString &);
-
 class OptionPreferences { public:
     OptionPreferences();virtual ~OptionPreferences();
     bool hasGotOnline();
     LoginPreferenceMap settings;AsciiString filename;
 };
-
 class PSPlayerAllStats { public:
     PSPlayerAllStats(int=0); PSPlayerAllStats(const PSPlayerAllStats &);~PSPlayerAllStats();
     PSPlayerAllStats &operator=(const PSPlayerAllStats &);
@@ -286,58 +207,37 @@ class PSPlayerAllStats { public:
     // the response pump reads the id/locale prefix at +0/+4 only.
     int id,locale; unsigned opaque[(0x548-8)/4];
 };
-
 // The stats queue interface, viewed only for its static cached-stats reader
 // (PersistentStorageThread.cpp, retail 0x00556DFF).
 class GameSpyPSMessageQueueInterface { public: static PSPlayerAllStats readLocalCachedStats(); };
-
 void Rva003B3371Call(int);
-
 bool GadgetCheckBoxIsChecked(GameWindow *);
-
 class AptOnlineShell { public:void LoadChildScreen(const char *); };
-
 class FirewallHelperClass { public:
     virtual ~FirewallHelperClass();
     bool behaviorDetectionUpdate();void writeFirewallBehavior();
     void flagNeedToRefresh(bool);
 };
-
 // Existing owning unit models the native slot0 allocation-release result.
 struct Rva00A063B0Obj { virtual void *Unknown00(int); };
-
 extern Rva00A063B0Obj *g_a063b0;
-
 #include "../../../../../Include/GameNetwork/GameSpyInfoInterface.h"
-
 extern GameSpyInfoInterface *TheGameSpyInfo;
-
 extern "C" __declspec(dllimport) int __cdecl iswgraph(unsigned short);
-
 class Gen_0054EC50 { public: Gen_0054EC50() {} bool bfmeDiffers(const Gen_0054EC50 &)const; unsigned head,value; };
-
 class Gen_0054EC80 { public: Gen_0054EC80() {} bool bfmeDiffers(const Gen_0054EC80 &)const; unsigned head,value; };
-
 class Rva0056FA50 { public: Rva0056FA50() {} bool rva0056FA50(const Rva0056FA50 &)const; unsigned head,value; };
-
 class Rva0056FA72 { public: Rva0056FA72() {} bool rva0056FA72(const Rva0056FA72 &)const; unsigned head,value; };
-
 int Rva0056F84DHook(int,int);
-
 template<class T> struct BfmeStringData { int refs;unsigned short length,capacity;T text[1]; };
-
 template<class T> struct LoginApplyStringView {
     BfmeStringData<T> *data;
     __forceinline short shortLength()const { if(data) return (short)data->length;return 0; }
     __forceinline T charAt(int i)const { if(data) return data->text[i];return 0; }
 };
-
 void b_00042a50();
-
 void MessageBoxOkCancel(UnicodeString,UnicodeString,void (*)(),void (*)());
-
 void Rva00516E92Enable();
-
 // Native 00571C9D..00572571: the AptOnlineLogin response pump. The BFME1
 // OnlineLoginUpdate.cpp at 9e3be919b10ae956e3c8a13995e0d62f2be1d016 supplies
 // the semantic spine; the target adds the nickname list and cached-locale
@@ -345,7 +245,6 @@ void Rva00516E92Enable();
 // Layout/slot evidence: reverse/identity_evidence/
 // apt-online-login-response-pump.md. Unaccessed record fields remain opaque.
 struct LoginPingResponse { _STL::string hostname; int avgPing,repetitions; };
-
 class PeerResponse {
 public:
  PeerResponse(); ~PeerResponse();
@@ -354,33 +253,25 @@ public:
  int profileOrReason; unsigned char pad110[0x130-0x110];
  unsigned internalIP,externalIP; unsigned char tail[0x348-0x138];
 };
-
 class GameSpyPeerMessageQueueInterface {
 public:
  virtual void s0();virtual void s1();virtual void s2();virtual void s3();
  virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();
  virtual bool getResponse(PeerResponse &);
 };
-
 extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
-
 struct BfmeOpaqueOwnedRecord1432 {
  BfmeOpaqueOwnedRecord1432(); ~BfmeOpaqueOwnedRecord1432();
  int type,unknown4; PSPlayerAllStats player;
  _STL::string string550,nick,password,email; bool flag580,flag581;
  unsigned char pad582[10]; _STL::string string58c;
 };
-
 // The existing stats-response provider witnesses the 0x580-byte record;
 // its only owning member is the PSPlayerAllStats at +8.
 struct LoginPSResponse { int type,unused; PSPlayerAllStats player; unsigned char tail[0x30]; };
-
 typedef char LoginPeerResponseSize[sizeof(PeerResponse)==0x348 ? 1 : -1];
-
 typedef char LoginPSRequestSize[sizeof(BfmeOpaqueOwnedRecord1432)==0x598 ? 1 : -1];
-
 typedef char LoginPSResponseSize[sizeof(LoginPSResponse)==0x580 ? 1 : -1];
-
 class LoginPSQueueView {
 public:
  virtual void s0();virtual void s1();virtual void s2();virtual void s3();
@@ -389,41 +280,121 @@ public:
  virtual void trackPlayerStats(PSPlayerAllStats); virtual void s9();virtual void s10();virtual void s11();
  virtual PSPlayerAllStats findPlayerStatsByID(int);
 };
-
 class GameSpyPSMessageQueueInterface;
-
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
-
 // BFME1 34f59164 OnlineLoginApplyGadgets0054FB10 is the semantic donor.
 // Native 5706D4..5709CC establishes all fields and encoded-word operations.
 
 unsigned bfmeHash0002BB70(unsigned,unsigned);
-
 unsigned bfmeHash00013412(unsigned,unsigned);
-
 int Rva0056F5DEHook(int,int),Rva0056F637Hook(int,int);
-
 int Rva0056F690Hook(int,int),Rva0056F7F4Hook(int,int);
-
 int Rva0056F742Hook(int,int),Rva0056F79BHook(int,int);
-
 class Rva00595D95 { public: bool rva00595D95(); };
-
 FirewallHelperClass *Rva00595143Get();
-
 void HandleBuddyResponses();
-
 void HandlePersistentStorageResponses();
-
 #include "../../../../../Include/GameClient/AptMessengerOnline.h"
-
 void TearDownGameSpy();
-
 void SetUpGameSpy(const char *,const char *);
-
 bool __cdecl GetStringFromRegistry(AsciiString path, AsciiString key, AsciiString &val);
-
 class Rva0056EE5F { public: unsigned char rva0056EE5F(); };
+class Rva00571C60
+{
+public:
+	void rva00571C60();
+
+private:
+	char m_pad00[0xC5];
+	Bool8 m_c5;
+	char m_padC6[0x0C];
+	Bool8 m_d2;
+};
+class GameWindow;
+void GadgetComboBoxSetText(GameWindow *comboBox, UnicodeString text);
+UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
+class Rva0056EA91
+{
+public:
+	UnicodeString rva0056EA91();
+	bool rva0056F495(const UnicodeString &text);
+private:
+	unsigned char m_pad[0xA8];
+	GameWindow *m_combo;
+};
+// Small GameEngine bodies from .text gaps no Ghidra function covers (second
+// batch; see GapBodiesGE01.cpp). Retail bytes establish every shape; owning
+// classes are not recovered, so each keeps an address-derived name and a view
+// of only the members it touches. Callees and globals use the ledger's
+// existing spellings.
+
+// --- 0x00367E31 / 0x00545393 (40B each): a vtable (0x00C17640 / 0x00C69F34)
+// over two cleared words (+0x04, +0x18) and four zero floats (+0x08..+0x14).
+// --- 0x005E7026 (17B): clamp the second argument at zero and forward both to
+// virtual slot 12; 0x005E7037 (18B): parse this from INI with the field
+// table at VA 0x00C77E98; 0x005E7049 (5B): forward to the rowed 0x004E0625.
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+#include "../../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../../Include/Common/INI/INI.h"
+class Rva004E0625
+{
+public:
+	int rva004E0625() const;								// 0x004E0625
+};
+#include "../../../../../Include/Common/Player.h"
+class PlayerList;
+extern PlayerList *ThePlayerList;
+#include "../../../../../Include/GameClient/View.h"
+extern View *TheTacticalView;
+class Rva0056FCDB {
+public:
+	Rva0056FCDB() {}
+public:
+	void rva0056FCDB(short);
+public:
+	unsigned head,value;
+public:
+	Rva0056FCDB *rva00570405(const short &value);
+};
+class Rva0056FAA5 {
+public:
+	Rva0056FAA5() {}
+public:
+	void rva0056FD14(int);
+public:
+	void rva0056FD2D(int);
+public:
+	void rva0056FD46(short);
+public:
+	Rva0056FAA5 *rva0057042F(Rva0056FAA5 *);
+public:
+	unsigned head,value;
+public:
+	Rva0056FAA5 *rva0057041B(const int &value);
+public:
+	Rva0056FAA5 *rva00570455(const int &value);
+public:
+	Rva0056FAA5 *rva00570469(const short &value);
+};
+// --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
+// +0x04 cleared, +0x08 = 1.0f.
+template <class T> struct GapClassVector
+{
+	T *m_begin;
+	T *m_end;
+	T *m_storage;
+	unsigned int size() const { return (unsigned int)(m_end - m_begin); }
+	T &operator[](unsigned int i) { return m_begin[i]; }
+};
+#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
+void GadgetListBoxGetSelected(GameWindow *listBox, int *selected);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
+#include "../../../../../Include/Common/UserPreferences.h"
+
+class Rva00222A8BTarget;
+
+class BfmeAptWindowManager;
 
 class AptOnlineLogin {
 public:
@@ -463,118 +434,39 @@ private:
     AsciiString m_deleteNickname; bool accountDeleted;
 };
 
-class Rva00571C60
+class BfmeObjELB;
+
+// Set when no locale is selected.
+// Retail loader-zeroed byte at VA 0x00E062F0; one owner for the flag.
+bool g_Va00E062F0 = false;
+
+namespace AptOnline
+{
+class Login
 {
 public:
-	void rva00571C60();
+	void AcceptLocale(const char *unused);
 
 private:
-	char m_pad00[0xC5];
-	Bool8 m_c5;
-	char m_padC6[0x0C];
-	Bool8 m_d2;
+	unsigned char m_pad000[0x58];
+	AptOnlineLoginOwner *m_owner; // +0x58
+	unsigned char m_pad05c[0xB8 - 0x5C];
+	GameWindow *m_locales; // +0xB8
+	unsigned char m_pad0bc[0xD0 - 0xBC];
+	bool m_d0; // +0xD0
+	unsigned char m_pad0d1[0xD4 - 0xD1];
+	int m_locale; // +0xD4
 };
+}
 
-class GameWindow;
-
-void GadgetComboBoxSetText(GameWindow *comboBox, UnicodeString text);
-
-UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
-
-class Rva0056EA91
-{
-public:
-	UnicodeString rva0056EA91();
-	bool rva0056F495(const UnicodeString &text);
-private:
-	unsigned char m_pad[0xA8];
-	GameWindow *m_combo;
-};
-
-// Small GameEngine bodies from .text gaps no Ghidra function covers (second
-// batch; see GapBodiesGE01.cpp). Retail bytes establish every shape; owning
-// classes are not recovered, so each keeps an address-derived name and a view
-// of only the members it touches. Callees and globals use the ledger's
-// existing spellings.
-
-// --- 0x00367E31 / 0x00545393 (40B each): a vtable (0x00C17640 / 0x00C69F34)
-// over two cleared words (+0x04, +0x18) and four zero floats (+0x08..+0x14).
-// --- 0x005E7026 (17B): clamp the second argument at zero and forward both to
-// virtual slot 12; 0x005E7037 (18B): parse this from INI with the field
-// table at VA 0x00C77E98; 0x005E7049 (5B): forward to the rowed 0x004E0625.
-class INI;
-
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-
-#include "../../../../../Include/Common/INI/FieldParse.h"
-
-#include "../../../../../Include/Common/INI/INI.h"
-
-class Rva004E0625
-{
-public:
-	int rva004E0625() const;								// 0x004E0625
-};
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
 
 // --- 0x00428DC1 (41B, cdecl): when the player list's +0x10 player has a
 // rowed 0x002ABCF0(1, 0) result, the tactical view takes its +0x38 point
 // (virtual slot 21).
-#include "../../../../../Include/Common/Player.h"
-
-class PlayerList;
-
-extern PlayerList *ThePlayerList;
-
-#include "../../../../../Include/GameClient/View.h"
-
-extern View *TheTacticalView;
-
-class Rva0056FCDB {
-public:
-	Rva0056FCDB() {}
-public:
-	void rva0056FCDB(short);
-public:
-	unsigned head,value;
-public:
-	Rva0056FCDB *rva00570405(const short &value);
-};
-
-class Rva0056FAA5 {
-public:
-	Rva0056FAA5() {}
-public:
-	void rva0056FD14(int);
-public:
-	void rva0056FD2D(int);
-public:
-	void rva0056FD46(short);
-public:
-	Rva0056FAA5 *rva0057042F(Rva0056FAA5 *);
-public:
-	unsigned head,value;
-public:
-	Rva0056FAA5 *rva0057041B(const int &value);
-public:
-	Rva0056FAA5 *rva00570455(const int &value);
-public:
-	Rva0056FAA5 *rva00570469(const short &value);
-};
-
-// --- 0x005C8774 (19B): +0x00 = 1.0f, +0x04 = 0; 0x005C8787 (23B): +0x00 and
-// +0x04 cleared, +0x08 = 1.0f.
-template <class T> struct GapClassVector
-{
-	T *m_begin;
-	T *m_end;
-	T *m_storage;
-	unsigned int size() const { return (unsigned int)(m_end - m_begin); }
-	T &operator[](unsigned int i) { return m_begin[i]; }
-};
 
 // --- 0x0021A18B (42B): bounds-checked dispatch into the +0x14C table of
 // 32-byte CreateAHero classes (rowed 0x00219D3B), else 0.
-#include "../../../../../Include/GameLogic/CreateAHeroManager.h"
 
 // --- 0x002C902A (43B): five zero floats, then FLT_MAX at +0x14.
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLogin.cpp
@@ -1382,10 +1274,6 @@ bool Rva0056EA91::rva0056F495(const UnicodeString &text)
 	return ok;
 }
 
-// tu-skeleton: 0x0056EE16 45B ??$_Construct@U?$pair@$$CBVUnicodeString@@H@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVUnicodeString@@H@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp (not merged yet)
-
-// tu-skeleton: 0x0056F9D4 56B ??1?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/GapBodiesGE02.cpp
 
 Rva0056FCDB *Rva0056FCDB::rva00570405(const short &value)
@@ -1412,11 +1300,35 @@ Rva0056FAA5 *Rva0056FAA5::rva00570469(const short &value)
 	return this;
 }
 
+// tu-skeleton: 0x0056EE16 45B ??$_Construct@U?$pair@$$CBVUnicodeString@@H@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVUnicodeString@@H@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp (not merged yet)
+
+// tu-skeleton: 0x0056F9D4 56B ??1?$_Rb_tree@VUnicodeString@@U?$pair@$$CBVUnicodeString@@H@_STL@@U?$_Select1st@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@U?$less@VUnicodeString@@@3@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp (not merged yet)
+
 // tu-skeleton: 0x0057042F 38B ?rva0057042F@Rva0056FAA5@@QAEPAV1@PAV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0056FAA5Assign.cpp (not merged yet)
 
 // tu-skeleton: 0x005709CC 5B ?rva005709CC@Rva005709CC@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
 
-// tu-skeleton: 0x00572571 193B ?AcceptLocale@Login@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp
+
+// Retail 0x00572571, 193 bytes: "AptOnline::Login::AcceptLocale" saves the
+// selected locale (or flags that none was chosen), tells the movie
+// "DoCloseLocale" and hands the screen's flag on.
+void AptOnline::Login::AcceptLocale(const char *unused)
+{
+	int selected = -1;
+	GadgetListBoxGetSelected(m_locales, &selected);
+	if (selected >= 0)
+	{
+		m_locale = (int)GadgetListBoxGetItemData(m_locales, selected, 0);
+		GameSpyMiscPreferences prefs;
+		prefs.rva005597CB(m_locale);
+		prefs.write();
+	}
+	else
+		g_Va00E062F0 = true;
+	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_owner->movie, "CallChild", 1, "DoCloseLocale", 0, 0, 0, 0);
+	((AptOnlineLogin *)(*(int *)&g_bfmeObjELB))->rva0057179D(m_d0);
+}
 
 // tu-skeleton: 0x00572871 20B ?bfmeGoELB@@YGXH@Z -- matched in Code/GameEngine/Source/Common/BfmeConv816O1.cpp (not merged yet)
 
@@ -1433,10 +1345,6 @@ Rva0056FAA5 *Rva0056FAA5::rva00570469(const short &value)
 // tu-skeleton: 0x0079A9E1 8B $L6153 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp (not merged yet)
 
 // tu-skeleton: 0x0079A9E9 10B __ehhandler$??A?$map@VUnicodeString@@HU?$less@VUnicodeString@@@_STL@@V?$allocator@U?$pair@$$CBVUnicodeString@@H@_STL@@@3@@_STL@@QAEAAHABVUnicodeString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_online_country_tree.cpp (not merged yet)
-
-// tu-skeleton: 0x0079ADAB 8B $L386 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp (not merged yet)
-
-// tu-skeleton: 0x0079ADB3 10B __ehhandler$?AcceptLocale@Login@AptOnline@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginLocale.cpp (not merged yet)
 
 // tu-skeleton: 0x0079ADCF 8B $L5255 -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineLoginConstructor.cpp (not merged yet)
 
