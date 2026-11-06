@@ -1,10 +1,10 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?rva0056468E@Rva0056468E@@QAEPBVFXList@@XZ, retail 0x0056468E, 46 bytes.
+// ?getEventFX@TerrainCollisionModuleInfo@FXParticleSystem@@QAEPBVFXList@@XZ, retail 0x0056468E, 46 bytes; export ordinal 1686.
 // Lazy FXList cache twin of LifeEventModuleInfo::getEventFX @0x0056410F (same
 // 46B shape, same callees): on first call resolves the event name (m_data at
 // +4 with the +8 header skip, else the pinned empty string at 0x00BBAC1C)
 // through TheFXListStore::findFXList (rowed 0x001E281A) and caches it at
-// +0x18 (this class carries 4 extra bytes before the cache vs +0x14).
+// +0x18 (this class carries a bool before the cache that LifeEvent lacks).
 // Evidence: callers at 0x00564719 and 0x0056495A; unblocks 0x005646BC/135
 // and 0x005648FE/157.
 
@@ -15,26 +15,16 @@ class FXList
 };
 
 #include "../../../../Include/GameClient/FXListStore.h"
+#include "../../../../Include/GameClient/TerrainCollisionModuleInfo.h"
 
 extern FXListStore *TheFXListStore;
 
-class Rva0056468E
+const FXList *FXParticleSystem::TerrainCollisionModuleInfo::getEventFX()
 {
-public:
-	const FXList *rva0056468E();
-private:
-	char m_pad0[4];
-	AsciiString m_eventName;
-	char m_pad8[16];
-	const FXList *m_cached;
-};
-
-const FXList *Rva0056468E::rva0056468E()
-{
-	if (m_cached == 0)
+	if (m_18 == 0)
 	{
-		const char *name = m_eventName.str();
-		m_cached = TheFXListStore->findFXList(name);
+		const char *name = m_04.str();
+		m_18 = TheFXListStore->findFXList(name);
 	}
-	return m_cached;
+	return m_18;
 }

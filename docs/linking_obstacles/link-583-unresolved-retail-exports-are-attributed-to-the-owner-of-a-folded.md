@@ -325,3 +325,11 @@ to the reference-taking Snapshot mode with the rows. The LifeEvent vtable's
 `LoadPostProcess` slot no longer holds `__purecall`. The build passes **17/17**; the
 preview stays **LINKS 963 -> 963 B** against index `d707d2f53b`. Awaiting the automated
 real link. [Evidence](../../reverse/attempt_support/fx-doxfer-exports-20261106-noro.md).
+
+2026-11-06, TerrainCollision getEventFX (base `7a08207b34d`): export ordinal 1686 identifies
+the placeholder `0x0056468E`. The row now carries the exact name in the canonical class.
+The two callers that blocked the earlier attempt are repaired: `Rva003AEE16CopyCtor.cpp`
+uses its existing view, and `Rva005646BC.cpp` includes the header and replaces its
+hand-spelled Snapshot table with the inline destructor. The build passes **18/18**; the
+preview stays **LINKS 899 -> 899 B** against index `d707d2f53b`. Awaiting the automated
+real link. [Evidence](../../reverse/attempt_support/terrain-collision-geteventfx-export-20261106-noro.md).

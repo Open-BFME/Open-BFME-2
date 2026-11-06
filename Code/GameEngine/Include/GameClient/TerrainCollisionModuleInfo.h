@@ -24,6 +24,8 @@ The folded primary destructor also serves LifeEventModuleInfo, whose table VA 0x
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "GameClientRandomVariable.h"
 
+class FXList;
+
 namespace FXParticleSystem
 {
 
@@ -59,10 +61,12 @@ public:
     virtual void xfer(Xfer *xfer);
 #endif
 
+    const FXList *getEventFX();
+
     AsciiString m_04;
     GameClientRandomVariable m_08;
     bool m_14;
-    unsigned int m_18;
+    const FXList *m_18;
 };
 
 }

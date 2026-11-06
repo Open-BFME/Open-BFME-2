@@ -10,7 +10,6 @@ struct Rva005648FEInput;
 struct Rva005641EDInput;
 class GameClientRandomVariable {public:float getValue()const;int mode;float minimum,maximum;};
 class FXList;
-class Rva0056468E {public:const FXList *rva0056468E();};
 class RvaSmartPtr12_3AEE16
 {
 public:
@@ -76,6 +75,7 @@ public:
 class TerrainCollisionModuleInfo {
 public:
 	TerrainCollisionModuleInfo();
+ const FXList*getEventFX();
 	TerrainCollisionModuleInfo(const TerrainCollisionModuleInfo &other);
 	virtual ~TerrainCollisionModuleInfo();
 public:
@@ -147,7 +147,7 @@ Rva003AF076::Rva003AF076(const RvaSmartPtr12&smart,const Rva005648FEInput&input)
  :Rva005641BB(smart,(int)&input),FXParticleSystem::TerrainCollisionModuleInfo()
 {
  eventTime=input.eventTime;
- cached=((Rva0056468E*)((char*)&input+0xC))->rva0056468E();
+ cached=((FXParticleSystem::TerrainCollisionModuleInfo*)((char*)&input+0xC))->getEventFX();
  flag=input.flag;
  ((bool*)&m_word)[0]=input.a;
  ((bool*)&m_word)[1]=input.b;
