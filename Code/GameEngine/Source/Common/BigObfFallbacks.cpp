@@ -23,6 +23,15 @@ struct FallbackCtx
 	unsigned int m_mask, m_18, m_1c, m_20, m_24, m_28, m_2c, m_30, m_34;
 };
 
+// The six fallback key contexts (names: reverse/name_agreed.csv), retail's initial bytes.
+// Each getter in ConstIntGettersAddr.cpp returns one context's address.
+FallbackCtx g_engineLoopIndexKeys = { { '\x41', '\x13', '\x23', '\x67', '\x84', '\x01', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00' }, 0x5CAC5AC5, 0x29FDDBF3, 0x4BFD7FCD, 0x0742F06E, 0xE1B3EE35, 0x2371E3A6, 0x6ECEF435, 0xCC45E78D, 0x32E6B04C }; // RVA 0x009C2274
+FallbackCtx g_loginEmailLengthKeys = { { '\x41', '\x13', '\x23', '\x67', '\x84', '\x01', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x05', '\x00', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00' }, 0x5CAC5AC5, 0xBBABB917, 0x49E737EF, 0x763A8C61, 0x24A14DC1, 0x71A29F83, 0x9D365BDA, 0x8EE5D6AA, 0x1780FC70 }; // RVA 0x009C2884
+FallbackCtx g_nicknameCharIndexKeys = { { '\x41', '\x13', '\x23', '\x67', '\x84', '\x01', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x08', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00' }, 0x5CAC5AC5, 0x7EE87841, 0x29C2AAC0, 0xCBA0C394, 0x9578B91A, 0xAFAC3592, 0x7BC3106F, 0x0ECF21BB, 0xC2F4139D }; // RVA 0x009C2D10
+FallbackCtx g_gameSlotIndexKeys = { { '\x41', '\x13', '\x23', '\x67', '\x84', '\x01', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x0d', '\x00', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00' }, 0x5CAC5AC5, 0x52D0362D, 0x6F22478D, 0x550F6755, 0x5192767A, 0x7D5B191C, 0xFCB361B3, 0x2C66FCB9, 0x6ED933EB }; // RVA 0x009C34A4
+FallbackCtx g_loginFieldLengthKeys = { { '\x41', '\x13', '\x23', '\x67', '\x84', '\x01', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x1c', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00' }, 0x5CAC5AC5, 0x5B8F1DB7, 0x963DDCB4, 0xAF7ABE43, 0xC9E1121C, 0xC2AD42BA, 0xC3175136, 0xF3D7AEAA, 0x8D8FDF83 }; // RVA 0x009C4B60
+FallbackCtx g_externHandlerIndexKeys = { { '\x41', '\x13', '\x23', '\x67', '\x84', '\x01', '\x00', '\x00', '\x01', '\x00', '\x00', '\x00', '\x20', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00', '\x00' }, 0x5CAC5AC5, 0x5596E8DD, 0x77DC459F, 0x55ED9FE4, 0xD266FAB4, 0x4C067BF0, 0x3CB742FC, 0x02D16A90, 0x95D61099 }; // RVA 0x009C5170
+
 int __cdecl Rva00226140Get(void);
 int __cdecl Rva003EFE9AGet(void);
 int __cdecl Rva00434091Get(void);

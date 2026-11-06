@@ -9064,3 +9064,9 @@ carry,Rva001E6731::rva001E71FA::count,Rva001E6731::eraseKey::count,inferred,scop
 carry,Rva001E6731::rva001E71FA::key,Rva001E6731::eraseKey::key,inferred,scope renamed by Rename rva001E71FA to eraseKey (inferred),Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp,0x001E71FA
 class,Rva005648FEInput,TerrainCollisionModuleInput,inferred,agree:nl-29aeb725dadb,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AEE16CopyCtor.cpp,
 class,Rva0008026BWaveInfo,StandingWaveInfo,inferred,agree:nl-95bbe28ee91e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterStandingWaveQuery.cpp,
+global,unrowedData,?g_engineLoopIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-2c430ac57e25a48aabcacc16,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C2274
+global,unrowedData,?g_loginEmailLengthKeys@@3UFallbackCtx@@A,inferred,agree:nr-16d4248a66d749e59550d35c,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C2884
+global,unrowedData,?g_nicknameCharIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-ebf65e24bfac2db632dd8629,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C2D10
+global,unrowedData,?g_gameSlotIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-4322fbf7f85a5166c9660eaa,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C34A4
+global,unrowedData,?g_loginFieldLengthKeys@@3UFallbackCtx@@A,inferred,agree:nr-a08b68611fba5b35eb3a254d,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C4B60
+global,unrowedData,?g_externHandlerIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-98681c4fc101df5ab1e8230a,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C5170
