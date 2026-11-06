@@ -1,14 +1,7 @@
-# real link at 6e5fe55db8dc5d05854f35d462aa911f13699d5c: tools/exit_link.py --blockers
+# real link at 1a5f4a11143f74be71ff30bc940004ba91068d04: tools/exit_link.py --blockers
 source	missing	sample
-(export unowned)	277	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA
+(export unowned)	276	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA
 Code/GameEngine/Source/Common/System/Snapshot.cpp	2	??0Matrix4D@@QAE@ABVCoord3D@@M@Z
-Code/GameEngine/Source/GameClient/Rva0055FB37Write.cpp	2	?writeINI@?$DefaultModuleTemplate@$01@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildComplete@LockWeaponCreate@@UAEXXZ
-Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	1	?releaseBuffer@AsciiString@@IAEXXZ
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
-Code/GameEngine/Source/GameClient/Rva0055F368Write.cpp	1	?writeINI@?$DefaultModuleTemplate@$02@FXParticleSystem@@UBEXAAVFile@@I@Z
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp	1	??0OutwardEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0056468E.cpp	1	?getEventFX@TerrainCollisionModuleInfo@FXParticleSystem@@QAEPBVFXList@@XZ
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp	1	??0CylinderEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z
-Code/GameEngine/Source/GameClient/System/ParticleSystemTemplateCreateSlave.cpp	1	?createSlaveSystem@ParticleSystemTemplate@FXParticleSystem@@QBE?AV?$TrackingPtr@VParticleSystem@FXParticleSystem@@@@_N@Z
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
