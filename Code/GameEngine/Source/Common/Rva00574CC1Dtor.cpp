@@ -99,14 +99,7 @@ public:
 	virtual ~Rva00574338() {}
 };
 
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-private:
-	void *m_ptr;
-	int m_04;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva005CC254
 {
@@ -145,6 +138,7 @@ private:
 	Rva005C9B76 m_28;
 	Rva00574338 m_48;
 	Rva000AD6F4 m_54;
+	int m_58;
 	Rva005CC254 m_5C;
 	Rva0057Owner *m_6C;
 	Gen_uw_005f8f96 m_70;

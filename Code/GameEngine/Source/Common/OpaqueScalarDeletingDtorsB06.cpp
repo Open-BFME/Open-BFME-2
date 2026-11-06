@@ -341,16 +341,7 @@ int GameState::rva002DF2F6(const UnicodeString &filename)
 // loading Apt\\ with the empty AsciiString cell at VA DFF030.
 #include "Common/Snapshot.h"
 
-class Rva000AD6F4
-{
-public:
-    // ?Rva000AD6F4::Rva000AD6F4 absent-from-retail
-    Rva000AD6F4() : pointer(0) {}
-    ~Rva000AD6F4();
-private:
-    void *pointer;
-    unsigned int opaque04;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva002D3573 : public SubsystemInterface, public Snapshot
 {
 public:
@@ -358,6 +349,7 @@ public:
     virtual ~Rva002D3573();
 private:
     Rva000AD6F4 holder;
+    unsigned int opaque14;
 };
 class Rva002D57B6
 {
