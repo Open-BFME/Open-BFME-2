@@ -344,6 +344,7 @@ extern const FieldParse BfmeRadiateFearUpdateFields[] = {
 int Rva0033A495Get(void);
 void Rva0033DC9CParse(INI *, void *, void *, const void *);
 #include "../../../../Include/GameLogic/Module/GiveUpgradeUpdateModuleData.h"
+#include "../../../../Include/GameClient/Drawable.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
 	class NAME \

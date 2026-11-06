@@ -210,6 +210,7 @@ public:
 };
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class AIUpdateInterfaceHead
 {

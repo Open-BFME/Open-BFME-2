@@ -281,6 +281,7 @@ public:
 bool pickAndPlayUnitVoiceResponse(const DrawableList *, GameMessage::Type, PickAndPlayInfo *);
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

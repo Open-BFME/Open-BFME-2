@@ -109,6 +109,7 @@ class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

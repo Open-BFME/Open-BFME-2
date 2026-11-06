@@ -137,6 +137,7 @@ public:
 };
 
 #include "../../../../Include/GameLogic/Module/Rva00045411BitSet.h"
+#include "../../../../Include/GameClient/Drawable.h"
 template<int Bits> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
 

@@ -272,6 +272,7 @@ void objectAuraUpdate(Object *obj, void *userData);
 // The join-append is the shared Rva0049B6AE::append member (rowed, body
 // ignores ecx); the string temporaries are the canonical AsciiString.
 #include "../../../../Include/Common/INI/INI.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva0049B6AE
 {

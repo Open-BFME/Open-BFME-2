@@ -298,6 +298,7 @@ class ControlBar;
 extern ControlBar *TheControlBar;
 
 #include "../object.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdate.cpp
 

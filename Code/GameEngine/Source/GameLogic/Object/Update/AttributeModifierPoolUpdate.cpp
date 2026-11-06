@@ -379,6 +379,7 @@ struct ModifierObjectView {
 class Rva001E42F2 { public: void rva001E42F2(const int *flags); };
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

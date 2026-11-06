@@ -290,6 +290,7 @@ public:
 // The ObjectID set at +0xA4; its ctor is the 25-byte STLport set ctor
 // 0x000D3A71, its dtor the one the rowed dtor runs.
 #include "../../../../Include/GameLogic/Rva002EE9B7.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase
 {

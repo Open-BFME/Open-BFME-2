@@ -202,6 +202,7 @@ struct ArrowStormUpdateModuleData
 
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class ArrowStormUpdate : public SpecialAbilityUpdate
 {

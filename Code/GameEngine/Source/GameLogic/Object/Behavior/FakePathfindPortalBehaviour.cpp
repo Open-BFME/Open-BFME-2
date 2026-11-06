@@ -149,6 +149,7 @@ class Player;
 #include "../object.h"
 struct Rva002A8AB1Record;
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern TerrainLogic *TheTerrainLogic;
 

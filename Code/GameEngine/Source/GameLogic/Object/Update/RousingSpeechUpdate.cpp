@@ -162,6 +162,7 @@ public:
 #pragma intrinsic(_ReadWriteBarrier)
 #define _STLP_NO_EXCEPTIONS 1
 #include <hash_map>
+#include "../../../../Include/GameClient/Drawable.h"
 #pragma intrinsic(_ReadWriteBarrier)
 
 extern PartitionManager *ThePartitionManager;

@@ -222,6 +222,7 @@ public:
 	void rva004AE8FA();	// 0x004AE8FA
 };
 #include "../../../Common/PartitionRangeQueryCallView.h"
+#include "../../../../Include/GameClient/Drawable.h"
 class BehaviorModuleBase
 {
 public:

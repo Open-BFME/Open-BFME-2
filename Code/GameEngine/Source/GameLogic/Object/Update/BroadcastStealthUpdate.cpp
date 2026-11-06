@@ -235,6 +235,7 @@ enum UpdateSleepTime
 };
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/ObjectModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 enum ObjectID;
 #define BFME_SNAPSHOT_NAME_SLOT
 #pragma comment(linker, "/alternatename:?f3@BroadcastStealthUpdate_B3@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")

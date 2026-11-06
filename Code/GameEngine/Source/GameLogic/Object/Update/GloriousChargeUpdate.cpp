@@ -236,6 +236,7 @@ public:
 	const Object *m_obj;
 };
 #include "../../../Common/PartitionRangeQueryCallView.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern PartitionManager *ThePartitionManager;
 

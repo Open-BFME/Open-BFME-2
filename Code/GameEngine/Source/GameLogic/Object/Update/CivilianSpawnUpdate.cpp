@@ -177,6 +177,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 #include "../../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../../Include/Common/INI/INI.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
 

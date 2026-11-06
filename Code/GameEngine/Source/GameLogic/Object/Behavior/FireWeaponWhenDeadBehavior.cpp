@@ -123,6 +123,7 @@ protected:
 };
 #include "../../../../Include/GameLogic/Module/DamageModuleClass.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 // Existing verified getters rehomed after naming their actual providers.
 // Integer return representation retained; provider addresses now relocate.

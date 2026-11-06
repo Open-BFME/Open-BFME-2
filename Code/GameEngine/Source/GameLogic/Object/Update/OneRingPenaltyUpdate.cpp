@@ -33,6 +33,7 @@ float Sin(float value);
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "OneRingPenaltyModuleDataView.h"
 #include "Common/BfmeAudioEventPrefix136.h"
+#include "../../../../Include/GameClient/Drawable.h"
 class AudioManager;
 extern AudioManager *TheAudio;
 enum ObjectStatusTypes

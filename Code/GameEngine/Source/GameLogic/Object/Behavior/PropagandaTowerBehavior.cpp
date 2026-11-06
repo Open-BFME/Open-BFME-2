@@ -309,6 +309,7 @@ typedef unsigned short UnsignedShort;
 // Retail ThrowInfo identifies the 8-byte XferException class and its
 // established constructor, copy constructor and destructor providers.
 #include "../../../../Include/Common/XferException.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
