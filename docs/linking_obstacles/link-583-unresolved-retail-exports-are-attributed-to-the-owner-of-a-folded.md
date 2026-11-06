@@ -168,3 +168,15 @@ slot 3. The naming rules prohibit a hand virtual respell, so source and row
 identity remain untouched. A tool-supported scoped-template reconciliation or
 proper installer/table ownership is prerequisite; no alias or second body was
 added. [Boundary evidence and next step](../../reverse/attempt_support/default3-writeini-tool-boundary-20261106-round2-seat1.md).
+
+2026-11-06, Ortho emission-velocity writer (`codex-20261106-round2-seat1`,
+base `85d0ac929f8`): reconciled existing `0x0055E969` owner with exact export
+ordinal 1950, `OrthoEmissionVelocityModuleTemplate::writeINI(File &, unsigned) const`.
+The existing virtual remains virtual; no second body or alias. Normal build
+passes **1/1** and **3 literals**; strict `--prepare-current` verifies **1 provider**.
+COFF preserves **275 body bytes**, **21 relocations**, all **556 non-debug
+sections** after the expected EH-label rename and **552 external definitions**
+with only the writer spelling replaced. Old-name source/index search finds
+only the owner and no alternatename edge. Bounded preview remains **LINKS
+275 -> 275 B** against `47fd56b879`; current full batch audit and automated
+real-link confirmation remain pending. [Scoped evidence and limits](../../reverse/attempt_support/ortho-writeini-export-20261106-round2-seat1.md).

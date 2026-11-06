@@ -1,7 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0055E969@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055E969 275B chain lane writeINI via WriteVelocityHeader.
-// Evidence: vslot 3 of OrthoEmissionVelocityModuleTemplate 0x0081BC10 and 0x0081BFFC; calls rowed WriteVelocityHeader 0x0055E891 then ostringstream then rowed IsZero 0x001F3744 gated 3 fields via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Cylindrical Rva0055EBFA plus one field.
+// ?writeINI@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z @0x0055E969 275B chain lane writeINI via WriteVelocityHeader.
+// Retail export ordinal 1950 identifies writeINI(File &, unsigned int) const.
+// Evidence: vslot 3 of OrthoEmissionVelocityModuleTemplate at retail RVAs 0x0081BC10 and 0x0081BFFC; calls rowed WriteVelocityHeader 0x0055E891 then ostringstream then rowed IsZero 0x001F3744 gated 3 fields via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Cylindrical Rva0055EBFA plus one field.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
@@ -99,7 +100,7 @@ namespace FXParticleSystem {
 
 class OrthoEmissionVelocityModuleTemplate {
 public:
-    virtual void rva0055E969(File *file, unsigned int flags);
+    virtual void writeINI(File &file, unsigned int flags) const;
 private:
     char m_pad04[12 - 4];
     S001F87D5 m_field0C;
@@ -107,9 +108,9 @@ private:
     S001F87D5 m_field24;
 };
 
-void OrthoEmissionVelocityModuleTemplate::rva0055E969(File *file, unsigned int flags)
+void OrthoEmissionVelocityModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-    Rva0055E891WriteVelocityHeader(this, file, &flags);
+    Rva0055E891WriteVelocityHeader(this, &file, &flags);
     _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_field0C))
         Rva001F8B5FWrite(oss, flags, "X", m_field0C);
@@ -117,8 +118,8 @@ void OrthoEmissionVelocityModuleTemplate::rva0055E969(File *file, unsigned int f
         Rva001F8B5FWrite(oss, flags, "Y", m_field18);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_field24))
         Rva001F8B5FWrite(oss, flags, "Z", m_field24);
-    Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-    Rva003AFC6BWrite(file, &flags);
+    Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+    Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem
