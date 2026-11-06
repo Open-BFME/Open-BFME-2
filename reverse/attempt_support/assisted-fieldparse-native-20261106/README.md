@@ -65,3 +65,24 @@ all10 data rows pass; every old external code/data provider fact and property
 is unchanged. Respawn header acceptance retires one queue row. Direct ActiveBody
 acceptance also passes (no queued row to retire). No header/gate/pin changes,
 no source-path move and no claim of completed split in this prerequisite.
+
+## Approved registration split completed
+
+The supported split moves only486E7C/17 into AssistedTargetingUpdate.cpp. Its
+80B table stays at its already admitted source. Normal15 destination +80 residual
+rows (95/95 total), all11 data rows,3 EXACT EH graphs and63 table slots pass.
+The constructor also resolves all84 bytes unmasked, with no unresolved names.
+The split guard preserves both objects and outside consumers. TU map changes
+only the builder's source column; no regenerated assignments are committed.
+
+The outgoing audit afteref649c78a7 finds no hardcoded symbol/RVA/source consumer,
+protected key or fold proof requiring another edit. Both source paths remain;
+generic old-source consumers remain valid. The completed naming request keeps
+its original caller hash/line as historical admission evidence. move-audit.md
+also describes the separate pending funclet migration; that8B row is not yet
+repointed by this split commit.
+
+Publication audit foref649c78a7: INCONCLUSIVE index38cd9fd913,
+basebe8c03bf8292661107daf0f9db7d9e778674e440,3 missing current receipts
+(first AssistedTargetingUpdate.cpp). Scoped117/117+11data,3EH,59float andDIR32
+checks passed; current outside-consumer/real-image confirmation remains pending.

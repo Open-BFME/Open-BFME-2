@@ -296,7 +296,6 @@ FIELD_PROC(SpecialEnemySenseUpdateModuleData, (unsigned int)&g_00BF1B88, Special
 FIELD_PROC(OneRingPenaltyUpdateModuleData, (unsigned int)&g_00C503B0, RingTable)
 FIELD_PROC(SiegeDockingBehaviorModuleData, (unsigned int)&g_00C413E4, DUMMY)
 FIELD_PROC_INLINE(AutoDepositUpdateModuleData, (unsigned int)&g_00BF1CC8, DepositTable)
-FIELD_PROC(AssistedTargetingUpdateModuleData, AssistedTargetingUpdateModuleDataFieldParse, AssistedTargetingTable)
 FIELD_PROC(SpawnUnitBehaviorModuleData, BfmeSpawnUnitBehaviorFields, SpawnUnitTable)
 FIELD_PROC(EmotionTrackerUpdateModuleData, (unsigned int)&g_00C56858, TauntAndPointDistance)
 FIELD_PROC(PartTheHeavensUpdateModuleData, (unsigned int)&g_00C54DD8, Texture)

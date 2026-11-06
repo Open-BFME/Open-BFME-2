@@ -83,3 +83,11 @@ private RespawnBodyModuleData declaration carried by shared macro text; the
 pending split was reverted. Canonical Respawn/ActiveBody donor headers now
 preserve81/81+10data and all old provider facts; Respawn acceptance retires one
 header queue row. The supported builder split is retried only after this repair.
+
+2026-11-06 approved registration split completed:486E7C/17 now joins its80B
+table in AssistedTargetingUpdate.cpp via tu_skeleton, with residual80 and
+destination15 rows. Normal95/95+11data,3EXACT EH,63table slots and unmasked84B
+ctor pass. No protected owner/fold-proof/path consumer is lost. Funclet78C15D
+remains a separate pending generated-row cleanup. See parser packet move audit.
+Publication audit foref649c78a7 was INCONCLUSIVE (index38cd9fd913,
+basebe8c03bf82,3 missing current receipts); carry current/image confirmation.
