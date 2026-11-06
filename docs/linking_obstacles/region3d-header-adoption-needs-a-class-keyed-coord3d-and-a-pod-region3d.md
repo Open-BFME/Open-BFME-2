@@ -145,3 +145,14 @@ silent.
 
 Not attempted: no contract was written, no header regenerated and no row renamed in this
 pass. `class:Coord3D` was claimed for the measurement and released after.
+
+2026-11-06, the indirect 138 traced: 96 of them reach Coord3D through a header they include
+that itself carries it (421 headers do, transitively). The chokepoints rank PreRTS.h 14
+units, thing.h 8, AIUpdate.h 8, ThingTemplate.h 7, Region3D.h 6, Weapon.h 5, then
+Drawable.h, TerrainLogic.h, Coord3DBase.h and GlobalData.h at 3-4 each. PreRTS.h at the
+head is the Zero Hour seed this entry already names as the prerequisite after the key flip,
+now measured rather than inferred: those 14 units re-key through the seed, so they move when
+the seed does, not when the canonical header changes. 42 units are still unexplained by a
+four-level include closure and need individual tracing before the atomic batch is counted
+final; they are listed by the same query, and Coord3DVectorFillInsertO1.cpp among them is a
+sibling of a unit already refused for back-references.
