@@ -16,7 +16,8 @@ and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; h
 the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in their owners, bridged
 683 -> 679, then the AttributeModifierStore and BannerUI copies, bridged 679 -> 677, and
 AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, bridged
-676 -> 674, and AIStates' IDLE_COUNTDOWN_DELAY, bridged 674 -> 673; next seat continues).
+676 -> 674, and AIStates' IDLE_COUNTDOWN_DELAY, bridged 674 -> 673; halilkkaya-lk39: GameEngine.cpp's
+copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -578,8 +579,17 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
     Their globals 0x00DFEA2C and 0x00DFEA30 lie in Network.cpp's `.bss` run, before
     NetworkTimingOverruns. Network.cpp now defines them as `= timeGetTime()`. MSVC numbers
     them `_$E1` and `_$E3`. Both files link (+24 / -24 bytes), and bridged went 685 -> 683.
-  - *Still open.* 0x007B4439's global 0x00E063FC is read by `Rva005A6709Predicate.cpp`.
-    0x007ADBD1 (`g_00DFE718 = MessageBoxA == MessageBoxW`) is the second entry of GameEngine.cpp's
-    run, after its copy 0x007ADBC1, whose static 0x00DFE714 follows TheGameEngine. Its bool
-    0x00DFE718 is defined in the grab-bag today.
+  - *GameEngine.cpp and g_00E063FC (halilkkaya-lk39, rowed).* GameEngine.cpp's run is its
+    Drawable.h copy 0x007ADBC1 (static 0x00DFE714 after TheGameEngine), then 0x007ADBD1
+    (`g_00DFE718 = MessageBoxA == MessageBoxW`), then the marker 0x007ADBE5. The unit now includes
+    the canonical Drawable.h after its first includes and defines the bool with its initializer at
+    the end, so it emits `_$E1` and `_$E3` in retail's order. GameEngine::init reads the bool on its
+    crash path. Zero Hour and BFME 1 define `TheSystemIsUnicode` the same way at the end of
+    GameEngine.cpp (donor fact; the name is not adopted). 0x007B4439 (`g_00E063FC =
+    timeGetTime()`) is alone in its run, and the global sits between TheNAT and NAT::update's
+    stats-wait static. Its definition and its reader 0x005A671D are in `Rva005A6709Predicate.cpp`,
+    which now gives it the initializer as `_$E1`. `Rva007ADBD1ImportInits.cpp` held nothing else
+    and is gone. link_check: 4/4 link (GameEngine +36, Predicate +12, HalfRate -16; the deleted
+    file held the other 32). image_report: bridged 673 -> 670 (exactly these three), twice 6 -> 6,
+    unidentified 524 -> 524.
 - Separately, decide the HalfRate header constant.
