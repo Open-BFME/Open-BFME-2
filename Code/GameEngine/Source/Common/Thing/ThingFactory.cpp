@@ -46,6 +46,15 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
+// Retail's releaseBuffer is StringBase<char>'s (export at 0x00036410), which AsciiString
+// befriends. The unit's AsciiString shim only declares its own, which nothing provides.
+#include "../../../../../reference/shims/bfme2_ascii/string_base.h"
+// ?AsciiString::releaseBuffer absent-from-retail
+__forceinline void AsciiString::releaseBuffer()
+{
+	((StringBase<char> *)this)->releaseBuffer();
+}
+
 // PrereqUnitRec is private in the reference header; open only that header so
 // the declaration-only vector assignment below can name it.
 #include "Common/Science.h"

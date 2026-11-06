@@ -645,3 +645,11 @@ VersionBlockParser.cpp, and ThingFactory.cpp's two anchors dropped. ThingFactory
 VersionBlockParser LINKS. The next real link should confirm this.
 
 - 2026-11-04: the 0x0051F7AD caller now lives in AptTimeLine.cpp after a verified TU merge; its assignment uses real STLport vector, retaining the bounded external allocation specialization. PerTurnStats caller/header reconciliation is still required. [Updated caller scope and checks](../../reverse/attempt_support/apt-timeline-vector-reconcile-20261104.md).
+
+### ThingFactory.cpp releaseBuffer forwarded to the retail export (2026-11-06)
+
+Base `36261d4a996`; real link `cd7b00691f` listed `?releaseBuffer@AsciiString@@IAEXXZ`. The unit's
+AsciiString shim only declares it. The unit now defines it as a forced-inline forward to
+`StringBase<char>::releaseBuffer` (`0x00036410`), so its calls name the retail export.
+Build **3/3**; preview **LINKS 60 -> 60 B** against index `d707d2f53b`. Awaiting the automated
+real link. [Evidence](../../reverse/attempt_support/thingfactory-releasebuffer-20261106-noro.md).
