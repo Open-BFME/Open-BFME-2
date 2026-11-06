@@ -1,0 +1,723 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp",
+  "control_sha256": "d0a52fabfe9b9d0417703b3802d363c931bdcf5ec4a074f52132cf7a5e734216",
+  "matched": [
+    "0x000B3FD0",
+    "0x003A653B"
+  ],
+  "missing": [],
+  "errors": [],
+  "row_count": 3,
+  "before_facts": [
+    {
+      "??1Snapshot@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??_7Snapshot@@6B@": {
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ESnapshot@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "__purecall"
+          ],
+          [
+            8,
+            6,
+            "__purecall"
+          ],
+          [
+            12,
+            6,
+            "__purecall"
+          ]
+        ]
+      },
+      "??0Snapshot@@QAE@ABV0@@Z": {
+        "bytes": "8bc1c70000000000c20400",
+        "relocations": [
+          [
+            4,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??_GSnapshot@@UAEPAXI@Z": {
+        "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            10,
+            6,
+            "??_7Snapshot@@6B@"
+          ],
+          [
+            18,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??1EventModuleInfo@FXParticleSystem@@IAE@XZ": {
+        "bytes": "c3",
+        "relocations": []
+      },
+      "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "bytes": "8bc18b4c2404c700000000008a4904884804c20400",
+        "relocations": [
+          [
+            8,
+            6,
+            "??_7EmissionVolumeInfo@FXParticleSystem@@6B@"
+          ]
+        ]
+      },
+      "??_7EmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_EEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+          ]
+        ]
+      },
+      "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??0LineEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "bytes": "8bc18b4c2404c700000000008a5104885004c700000000008b51088950088b510c89500c8b51108950108b51148950148b51188950188b491c89481cc20400",
+        "relocations": [
+          [
+            8,
+            6,
+            "??_7EmissionVolumeInfo@FXParticleSystem@@6B@"
+          ],
+          [
+            20,
+            6,
+            "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@"
+          ]
+        ]
+      },
+      "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ELineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+          ]
+        ]
+      },
+      "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      }
+    },
+    {
+      "??1Snapshot@@UAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_7Snapshot@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??0Snapshot@@QAE@ABV0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_GSnapshot@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??1EventModuleInfo@FXParticleSystem@@IAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_7EmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0LineEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      }
+    },
+    {
+      "defined": [
+        "??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z",
+        "??0LineEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z",
+        "??0Snapshot@@QAE@ABV0@@Z",
+        "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ",
+        "??1EventModuleInfo@FXParticleSystem@@IAE@XZ",
+        "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ",
+        "??1Snapshot@@UAE@XZ",
+        "??_7EmissionVolumeInfo@FXParticleSystem@@6B@",
+        "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@",
+        "??_7Snapshot@@6B@",
+        "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GSnapshot@@UAEPAXI@Z"
+      ],
+      "undefined": [
+        "??3@YAXPAX@Z",
+        "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GSnapshot@@UAEPAXI@Z",
+        "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ",
+        "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ",
+        "__fltused",
+        "__purecall"
+      ],
+      "weak": [
+        [
+          "??_ESnapshot@@UAEPAXI@Z",
+          "??_GSnapshot@@UAEPAXI@Z"
+        ],
+        [
+          "??_EEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+          "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+        ],
+        [
+          "??_ELineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+          "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+        ]
+      ],
+      "alternates": {},
+      "includes": []
+    }
+  ],
+  "after_facts": [
+    {
+      "??1Snapshot@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??_7Snapshot@@6B@": {
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ESnapshot@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "__purecall"
+          ],
+          [
+            8,
+            6,
+            "__purecall"
+          ],
+          [
+            12,
+            6,
+            "__purecall"
+          ]
+        ]
+      },
+      "??0Snapshot@@QAE@ABV0@@Z": {
+        "bytes": "8bc1c70000000000c20400",
+        "relocations": [
+          [
+            4,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??_GSnapshot@@UAEPAXI@Z": {
+        "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            10,
+            6,
+            "??_7Snapshot@@6B@"
+          ],
+          [
+            18,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??1EventModuleInfo@FXParticleSystem@@IAE@XZ": {
+        "bytes": "c3",
+        "relocations": []
+      },
+      "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "bytes": "8bc18b4c2404c700000000008a4904884804c20400",
+        "relocations": [
+          [
+            8,
+            6,
+            "??_7EmissionVolumeInfo@FXParticleSystem@@6B@"
+          ]
+        ]
+      },
+      "??_7EmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_EEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+          ]
+        ]
+      },
+      "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??0CylinderEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "bytes": "8bc18b4c2404c700000000008a5104885004c700000000008b51088950088b510c89500c8b51108950108b51148950148b51188950188b491c89481cc20400",
+        "relocations": [
+          [
+            8,
+            6,
+            "??_7EmissionVolumeInfo@FXParticleSystem@@6B@"
+          ],
+          [
+            20,
+            6,
+            "??_7CylinderEmissionVolumeInfo@FXParticleSystem@@6B@"
+          ]
+        ]
+      },
+      "??_7CylinderEmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ECylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+          ]
+        ]
+      },
+      "??0LineEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "bytes": "8bc18b4c2404c700000000008a5104885004c700000000008b51088950088b510c89500c8b51108950108b51148950148b51188950188b491c89481cc20400",
+        "relocations": [
+          [
+            8,
+            6,
+            "??_7EmissionVolumeInfo@FXParticleSystem@@6B@"
+          ],
+          [
+            20,
+            6,
+            "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@"
+          ]
+        ]
+      },
+      "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "bytes": "00000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ELineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ"
+          ],
+          [
+            12,
+            6,
+            "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"
+          ]
+        ]
+      },
+      "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      },
+      "??_GCylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1CylinderEmissionVolumeInfo@FXParticleSystem@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??1CylinderEmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "bytes": "c70100000000c3",
+        "relocations": [
+          [
+            2,
+            6,
+            "??_7Snapshot@@6B@"
+          ]
+        ]
+      }
+    },
+    {
+      "??1Snapshot@@UAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_7Snapshot@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??0Snapshot@@QAE@ABV0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_GSnapshot@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??1EventModuleInfo@FXParticleSystem@@IAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_7EmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0CylinderEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7CylinderEmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??0LineEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_GCylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??1CylinderEmissionVolumeInfo@FXParticleSystem@@UAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      }
+    },
+    {
+      "defined": [
+        "??0CylinderEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z",
+        "??0EmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z",
+        "??0LineEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z",
+        "??0Snapshot@@QAE@ABV0@@Z",
+        "??1CylinderEmissionVolumeInfo@FXParticleSystem@@UAE@XZ",
+        "??1EmissionVolumeInfo@FXParticleSystem@@UAE@XZ",
+        "??1EventModuleInfo@FXParticleSystem@@IAE@XZ",
+        "??1LineEmissionVolumeInfo@FXParticleSystem@@UAE@XZ",
+        "??1Snapshot@@UAE@XZ",
+        "??_7CylinderEmissionVolumeInfo@FXParticleSystem@@6B@",
+        "??_7EmissionVolumeInfo@FXParticleSystem@@6B@",
+        "??_7LineEmissionVolumeInfo@FXParticleSystem@@6B@",
+        "??_7Snapshot@@6B@",
+        "??_GCylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GSnapshot@@UAEPAXI@Z"
+      ],
+      "undefined": [
+        "??3@YAXPAX@Z",
+        "??_GCylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+        "??_GSnapshot@@UAEPAXI@Z",
+        "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ",
+        "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ",
+        "__fltused",
+        "__purecall"
+      ],
+      "weak": [
+        [
+          "??_ESnapshot@@UAEPAXI@Z",
+          "??_GSnapshot@@UAEPAXI@Z"
+        ],
+        [
+          "??_EEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+          "??_GEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+        ],
+        [
+          "??_ECylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+          "??_GCylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+        ],
+        [
+          "??_ELineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z",
+          "??_GLineEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+        ]
+      ],
+      "alternates": {},
+      "includes": []
+    }
+  ],
+  "removed": [],
+  "added": [
+    "??0CylinderEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z",
+    "??1CylinderEmissionVolumeInfo@FXParticleSystem@@UAE@XZ",
+    "??_7CylinderEmissionVolumeInfo@FXParticleSystem@@6B@",
+    "??_GCylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z"
+  ],
+  "changed": [],
+  "binding_changes": [],
+  "routes_identical": false
+}

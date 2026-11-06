@@ -1,0 +1,8 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp",
+  "source_sha256": "b1c50f445b63b435266dddff9820bb52c968f312ca34783a04bf7bc29d8469ee",
+  "object_sha256": "0b451179ede429068d07313eb80f6d9b1549fcaba536ddc4b975273519508e3e",
+  "normal_equals_private_winner": true,
+  "definitions": 17,
+  "eh": {}
+}

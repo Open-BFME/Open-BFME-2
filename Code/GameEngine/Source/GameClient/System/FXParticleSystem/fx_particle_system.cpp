@@ -59,4 +59,25 @@ LineEmissionVolumeInfo::LineEmissionVolumeInfo(const LineEmissionVolumeInfo &tha
     m_unk[4] = that.m_unk[4];
     m_unk[5] = that.m_unk[5];
 }
+// Retail export225 identifies the Cylinder copy folded with Line at3A653B.
+class CylinderEmissionVolumeInfo : public EmissionVolumeInfo
+{
+public:
+    CylinderEmissionVolumeInfo(const CylinderEmissionVolumeInfo &that);
+
+private:
+    float m_unk[6];
+};
+
+// ??0CylinderEmissionVolumeInfo@FXParticleSystem@@QAE@ABV01@@Z
+CylinderEmissionVolumeInfo::CylinderEmissionVolumeInfo(const CylinderEmissionVolumeInfo &that)
+    : EmissionVolumeInfo(that)
+{
+    m_unk[0] = that.m_unk[0];
+    m_unk[1] = that.m_unk[1];
+    m_unk[2] = that.m_unk[2];
+    m_unk[3] = that.m_unk[3];
+    m_unk[4] = that.m_unk[4];
+    m_unk[5] = that.m_unk[5];
+}
 }

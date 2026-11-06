@@ -1,0 +1,12 @@
+{
+  "slot_rvas": {
+    "??_ECylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z": "0x3a69b4",
+    "?LoadPostProcess@EmissionVolumeInfo@FXParticleSystem@@UAEXXZ": "0xb3fd0",
+    "?GetSnapshotName@EmissionVolumeInfo@FXParticleSystem@@UAEPBDXZ": "0x1f354a",
+    "?DoXfer@EmissionVolumeInfo@FXParticleSystem@@UAEXAAVXfer@@@Z": "0x47a69c"
+  },
+  "native_array_stride": 32,
+  "strong_vector_provider_present": true,
+  "implicit_complete_destructor_size": 7,
+  "image_confirmation": "pending automated real link"
+}
