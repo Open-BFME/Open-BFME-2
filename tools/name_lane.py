@@ -268,7 +268,7 @@ def record_typedef_names(text):
 
 
 DATA_REQUESTS = 'reverse/name_data_requests.csv'
-DATA_REQUEST_COLUMNS = ['source', 'rva', 'size', 'type', 'users', 'evidence']
+DATA_REQUEST_COLUMNS = ['source', 'rva', 'size', 'type', 'users', 'evidence', 'registrant']
 UNROWED_IDENT = 'unrowedData'
 
 
@@ -287,6 +287,8 @@ def check_unrowed(lane, row, *, check_users=True):
     """One unowned retail data range; this names nothing and admits no bytes."""
     import data_rows
     source = row['source']
+    if not name_agreement.WORKER.fullmatch(row.get('registrant', '')):
+        raise rename.Refusal('unrowed data needs its original registrant')
     if (not source.startswith('Code/') or Path(source).suffix not in ('.cpp', '.c')
             or any(p in ('', '.', '..') for p in source.split('/')) or '\\' in source
             or rename.is_generated(source) or lane.text(source) is None
@@ -335,13 +337,14 @@ def register_data(lane, *, source, address, address_kind, size, type_name, users
     rva = int(address, 0) - (data_rows.IMAGE_BASE if address_kind == 'va' else 0)
     row = dict(source=source, rva=f'0x{rva:08X}', size=str(size), type=type_name,
                users=json.dumps({p: hashlib.sha256(lane.ctx.read(p) or b'').hexdigest() for p in sorted(set(users))},
-                                sort_keys=True, separators=(',', ':')), evidence=evidence)
+                                sort_keys=True, separators=(',', ':')), evidence=evidence, registrant=lane.worker())
     check_unrowed(lane, row)
     existing = lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS)
     for other in existing:
         if int(other['rva'], 16) < rva + size and rva < int(other['rva'], 16) + int(other['size']):
-            if other == row:
-                return data_request_key(row)
+            if all(other[c] == row[c] for c in DATA_REQUEST_COLUMNS if c != 'registrant'):
+                return data_request_key(other)  # first registrant is immutable
+
             try:
                 check_unrowed(lane, other)
             except (rename.Refusal, ValueError):
@@ -355,11 +358,39 @@ def request_for_key(lane, key):
     return next((r for r in lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS) if data_request_key(r) == key), None)
 
 
+def evidence_references(lane, evidence):
+    """Only validated repository file/line references enter a blind packet."""
+    references = []
+    for path, number in re.findall(r'\b((?:Code|reference)/[A-Za-z0-9_./-]+):(\d+)\b', evidence):
+        text = lane.text(path)
+        line = int(number)
+        if (any(p in ('', '.', '..') for p in path.split('/')) or text is None
+                or not 1 <= line <= len(text.splitlines())):
+            continue
+        reference = dict(file=path, line=line)
+        if reference not in references:
+            references.append(reference)
+    return references
+
+
 def request_packet(lane, key):
     request = request_for_key(lane, key)
     if request is None:
         return None
-    return {**request, 'user_sources': {p: lane.text(p) for p in json.loads(request['users'])}}
+    return {**{c: request[c] for c in ('source', 'rva', 'size', 'type', 'users')},
+            'evidence': evidence_references(lane, request['evidence']),
+            'user_sources': {p: lane.text(p) for p in json.loads(request['users'])}}
+
+
+def check_unrowed_agreement(lane, approval):
+    """Recompute quorum without the registrant, including hand-forged votes."""
+    request = request_for_key(lane, approval['key'])
+    if request is None or not name_agreement.WORKER.fullmatch(request.get('registrant', '')):
+        raise rename.Refusal('unrowed request needs its original registrant')
+    votes = [v for v in lane.votes() if v.get('worker') != request['registrant']]
+    problems = name_agreement.verify(votes, lane.agreed_rows(), approval['key'], approval['new'])
+    if problems:
+        raise rename.Refusal('unrowed agreement excludes the registrant: ' + '; '.join(problems))
 
 
 def packet_target(lane, source, item):
@@ -373,7 +404,7 @@ def packet_target(lane, source, item):
 def data_request_items(lane, source):
     items = []
     for row in lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS):
-        if row['source'] == source:
+        if row['source'] == source and row.get('registrant') != lane.worker():
             try:
                 check_unrowed(lane, row)
             except (rename.Refusal, ValueError):
@@ -469,7 +500,10 @@ class Lane:
 
     def tally(self):
         """key -> hash -> {worker: model}: distinct workers, not session labels."""
-        return name_agreement.tally(self.votes(), self.table(MEANINGS, MEANING_COLUMNS))
+        registrants = {data_request_key(r): r.get('registrant')
+                       for r in self.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS)}
+        votes = [v for v in self.votes() if v.get('worker') != registrants.get(v.get('key'), '__not_a_registrant__')]
+        return name_agreement.tally(votes, self.table(MEANINGS, MEANING_COLUMNS))
 
     def worker(self):
         """This environment's worker id (tools/name_agreement.py)."""
@@ -558,6 +592,8 @@ class Lane:
                 if row is None:
                     return 'unknown unrowed data request'
                 check_unrowed(self, row)
+                if row.get('registrant') == self.worker():
+                    return 'the registrant cannot vote on this unrowed key'
             except (rename.Refusal, ValueError) as exc:
                 return str(exc)
             return None
@@ -911,7 +947,7 @@ def queue(lane, worker, model, only=None, *, reviews=None, clarifications=None):
     clarifications = clarifications or {}
     state, tally, refused = lane.state(), lane.tally(), lane.disputed()
     pending_data = {r['source'] for r in lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS)
-                    if needs_review(data_request_key(r), state, tally, refused)
+                    if r.get('registrant') != worker and needs_review(data_request_key(r), state, tally, refused)
                     and worker not in {w for voters in tally[data_request_key(r)].values() for w in voters}}
     files = [f for f in files if worker not in voted_sessions[f] or reviews.get(f) or clarifications.get(f)
              or f in pending_data]
@@ -996,7 +1032,9 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
     for kind, scope, ident, rva in items:
         request = request_for_key(lane, key_of(rel, kind, scope, ident)) if scope.startswith('unrowed:') else None
         if request:
-            evidence.append('UNROWED DATA REQUEST (caller facts, not a proposed name): ' + json.dumps(request, sort_keys=True))
+            blind = request_packet(lane, key_of(rel, kind, scope, ident))
+            evidence.append('UNROWED DATA REQUEST (caller facts, not a proposed name): ' +
+                            json.dumps({k: v for k, v in blind.items() if k != 'user_sources'}, sort_keys=True))
             for user in json.loads(request['users']):
                 evidence.append('USER ' + user + ':\n' + (lane.text(user) or ''))
     for kind, scope, ident, rva in items:

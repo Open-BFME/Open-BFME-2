@@ -1322,7 +1322,7 @@ An unrowed datum has no C++ placeholder to rename. Register caller evidence
 without creating an address-named global:
 
 ```sh
-python3 tools/name_lane.py register-data --source Code/GameEngine/Source/Common/BigObfFallbacks.cpp --address 0xDC2274 --address-kind va --size 0x38 --type FallbackCtx --users Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp --evidence "context used by the fallback getter; extent and users established from retail"
+python3 tools/name_lane.py register-data --source Code/GameEngine/Source/Common/BigObfFallbacks.cpp --address 0xDC2274 --address-kind va --size 0x38 --type FallbackCtx --users Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp --evidence "Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp:254"
 ```
 
 This records facts only in `reverse/name_data_requests.csv` and prints a naming
@@ -1332,8 +1332,14 @@ Stage the request register with the later votes, approval, definition and row.
 The register is created on first use; requests must fit unowned, non-executable
 retail data and may not overlap either data ledger or a converged global owner.
 VA inputs are normalized to RVA. Type is a caller-supplied type/struct hint,
-not proof of original source identity. User sources and their hashes travel in
-both the human brief and machine packet; proposals and competing names do not.
+not proof of original source identity. The first registrant's worker identity
+is recorded in the key and cannot vote on that request. Two other independent
+workers must agree. Re-registering identical facts preserves that registrant.
+User sources and their hashes travel in the human brief and machine packet.
+Free-text evidence prose does not: only validated repository file:line references
+are shown, so an evidence sentence cannot plant a proposed name in blind briefs.
+Admission recomputes quorum with registrant votes excluded, including forged
+historical vote rows. Proposals and competing names remain hidden.
 The key binds address, extent, type, users and evidence, so changing those facts
 cannot reuse an old agreement.
 
@@ -1356,10 +1362,15 @@ python3 tools/data_rows.py --admit-agreed APPROVAL_ID --symbol 'EXACT_COFF_SYMBO
 
 Admission rechecks the registered range and the original blind votes, requires
 the exact agreed non-address-derived identifier and a current compiler receipt,
+refuses names already used by data rows, functions or pins (including identifier
+fragments), and refuses names already present in `data_converged.csv`,
 and uses the existing data verifier for compiled sizeof/allocation extent,
 retail bytes and all relocations. It never compiles a replacement source into
 `build/match`; ordinary sizeof probes remain under `build/data_rows`. Failure
 restores the data ledger, basis and agreement status through the rename journal.
+The normal `rename.ledger_checks` run before and after the transaction against
+its private index, including the caller's unchanged source and naming-input
+snapshots. A ledger refusal rolls back the admission too.
 Success writes the matched row, a `global` basis record with `inferred` and
 `agree:APPROVAL_ID`, and a landed approval. It keeps the source/RVA claims until
 publication and prints the explicit paths to stage and claims to release.

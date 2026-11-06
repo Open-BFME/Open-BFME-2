@@ -2348,6 +2348,7 @@ def admission_fixture(tree, monkeypatch, *, actual_size=56, wrong_byte=False):
     write_coff(obj, [('.data', DATA, body, len(body), [])], [(symbol, 0, 1, data_rows.EXTERNAL)])
     image = image_with(data=b'\0' * 0x100 + initializer)
     build = data_rows._tools()[0]
+    monkeypatch.setattr(rename, 'ledger_checks', lambda ctx, plan: [])
     monkeypatch.setattr(build, 'obj_path', lambda source: obj)
     monkeypatch.setattr(build, 'compile_is_current', lambda *a, **kw: True)
     monkeypatch.setattr(reloc_ledger, 'Image', lambda: image)
@@ -2489,6 +2490,7 @@ def test_unrowed_data_stale_user_request_can_be_served_with_fresh_key(unrowed):
     (tree / other).write_text('// new user evidence\n')
     second = name_lane.register_data(lane_of(tree), **kwargs)
     assert first != second
+    be('fresh-reviewer')
     live = {name_lane.key_of(SOURCE, *item[:3]) for item in name_lane.data_request_items(lane_of(tree), SOURCE)}
     assert second in live and first not in live
 
@@ -2515,3 +2517,134 @@ def test_normal_submit_auto_workflow_defers_unrowed_approval_to_admission(unrowe
     assert result['status'] == 'agreed'
     assert (tree / SOURCE).read_bytes() == original
     assert not (tree / rename.NAME_BASIS).exists()
+
+
+
+@pytest.mark.parametrize('ledger', ['function', 'pin', 'shared_identifier', 'data_row', 'converged'])
+def test_unrowed_admission_refuses_name_collisions(unrowed, tmp_path, monkeypatch, ledger):
+    import data_rows
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    if ledger == 'pin':
+        with (tree / 'reverse/symbols.csv').open('a') as f:
+            csv.writer(f).writerow([symbol, '0x00002000', 'existing pin'])
+    elif ledger in ('function', 'shared_identifier'):
+        name = '?g_sampleContext@@YAXXZ' if ledger == 'function' else '?useContext@@YAXPAUg_sampleContext@@@Z'
+        with (tree / 'reverse/functions.csv').open('a') as f:
+            csv.writer(f).writerow([name, '', '0x00001010', '1', SOURCE, 'matched', ''])
+    elif ledger == 'data_row':
+        with (tree / 'reverse/data_rows.csv').open('a') as f:
+            csv.writer(f).writerow([symbol, '0x00003500', 'rva', '56', '.data', SOURCE, 'matched', 'existing', 'fixture'])
+    else:
+        (tree / 'reverse/data_converged.csv').write_text('address,name,evidence\n0x00403500,' + symbol + ',existing owner\n')
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    with pytest.raises(rename.Refusal, match='already names|already spells'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+def test_unrowed_admission_refuses_second_thewritableglobaldata_address(unrowed, tmp_path):
+    import data_rows
+    tree, _ = unrowed
+    key = name_lane.register_data(lane_of(tree), source=SOURCE, address='0x3200', address_kind='rva', size=4,
+                                 type_name='GlobalData *', users=[SOURCE], evidence='fixture 4-byte global')
+    unrowed_vote(tree, key, 'pointer-first', 'first-worker', 'TheWritableGlobalData', tmp_path)
+    approval = unrowed_vote(tree, key, 'pointer-second', 'second-worker', 'TheWritableGlobalData', tmp_path)
+    symbol = '?TheWritableGlobalData@@3PAVGlobalData@@A'
+    (tree / 'reverse/data_converged.csv').write_text('address,name,evidence\n0x009FE758,' + symbol + ',existing owner\n')
+    with pytest.raises(rename.Refusal, match='already names a converged global'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+def test_unrowed_admission_runs_ordinary_ledger_checks(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    checked = []
+    monkeypatch.setattr(rename, 'ledger_checks', lambda ctx, plan: checked.append(bool(plan.after)) or [])
+    data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert checked == [False, True]
+
+
+def test_unrowed_registrant_cannot_be_served_or_submit_a_vote(unrowed, tmp_path):
+    tree, key = unrowed
+    lane = lane_of(tree)
+    request = name_lane.request_for_key(lane, key)
+    assert request['registrant'] == lane.worker()
+    args = SimpleNamespace(session='registrant', model='fixture', count=1, file=SOURCE, key=[key], list_only=False)
+    assert name_lane.cmd_next(lane, args) == 0
+    record = tree / 'build/name_lane/sessions/registrant.json'
+    assert not record.exists()
+    # A manually restored session cannot bypass the submit-time eligibility check.
+    _, kind, scope, ident = name_lane.split_key(key)
+    text = lane.text(SOURCE)
+    import hashlib
+    record.parent.mkdir(parents=True, exist_ok=True)
+    record.write_text(json.dumps(dict(model='fixture', worker=lane.worker(), files={SOURCE: dict(
+        sha=hashlib.sha256(text.encode()).hexdigest(), items=[[kind, scope, ident, 0x3100]])})))
+    answer = tmp_path / 'registrant-answer.json'
+    answer.write_text(json.dumps({name_lane.answer_key(kind, scope, ident): 'g_keyContext'}))
+    submit = SimpleNamespace(session='registrant', model='fixture', answer=str(answer), propose_only=True)
+    assert name_lane.cmd_submit(lane, submit) == 0
+    assert lane_of(tree).votes() == []
+
+
+def test_unrowed_blind_packets_hide_evidence_prose_and_keep_only_references(unrowed):
+    tree, _ = unrowed
+    key = name_lane.register_data(lane_of(tree), source=SOURCE, address='0x3200', address_kind='rva', size=56,
+                                 type_name='SampleContext', users=[SOURCE],
+                                 evidence='this is g_keyContext; see ' + SOURCE + ':2')
+    serve_unrowed(tree, key, 'blind-prose', 'independent-reviewer')
+    brief = (tree / 'build/name_lane/briefs/blind-prose.txt').read_text()
+    assert 'g_keyContext' not in brief and 'this is' not in brief
+    packet = name_lane.request_packet(lane_of(tree), key)
+    assert 'g_keyContext' not in json.dumps(packet)
+    assert packet['evidence'] == [{'file': SOURCE, 'line': 2}]
+    assert packet['type'] == 'SampleContext' and packet['size'] == '56'
+
+
+def test_unrowed_admission_recomputes_quorum_excluding_registrant(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    registrant = name_lane.request_for_key(lane_of(tree), key)['registrant']
+    path = tree / name_agreement.VOTES
+    votes = rows(tree, name_agreement.VOTES)
+    votes[0]['worker'] = registrant  # forged historical vote, not counted at admission
+    with path.open('w') as f:
+        writer = csv.DictWriter(f, name_agreement.VOTE_COLUMNS); writer.writeheader(); writer.writerows(votes)
+    with pytest.raises(rename.Refusal, match='excludes the registrant'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+
+def test_unrowed_admission_rolls_back_on_ordinary_ledger_refusal(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    def reject(ctx, plan):
+        if plan.after:
+            assert SOURCE in plan.after and name_lane.VOTES in plan.after and name_lane.DATA_REQUESTS in plan.after
+            return ['fixture ledger refusal']
+        return []
+    monkeypatch.setattr(rename, 'ledger_checks', reject)
+    with pytest.raises(rename.VerifyFailed, match='fixture ledger refusal'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+    assert lane_of(tree).state()[key]['status'] == 'agreed'
+
+
+def test_reregistering_data_does_not_replace_original_registrant(unrowed):
+    tree, key = unrowed
+    original = name_lane.request_for_key(lane_of(tree), key)['registrant']
+    be('another-worker')
+    repeated = name_lane.register_data(lane_of(tree), source=SOURCE, address='0x403100', address_kind='va', size=56,
+                                      type_name='SampleContext', users=[SOURCE], evidence='fixture consumer returns this context')
+    assert repeated == key
+    assert name_lane.request_for_key(lane_of(tree), key)['registrant'] == original

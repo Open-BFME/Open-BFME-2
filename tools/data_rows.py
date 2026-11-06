@@ -972,6 +972,18 @@ def admit_agreed(record_id, symbol, model):
     rva = int(request['rva'], 16)
     evidence = 'agree:' + record_id
     rename.check_agreement(lane.ctx, 'global', evidence, {approval['old']}, {new}, rva)
+    if (any(r.get('name') == symbol for r in lane.ctx.dicts(rename.DATA_ROWS))
+            or any(r.get('name') == symbol for r in lane.ctx.rows())
+            or any(p.get('name') == symbol for p in lane.ctx.pins())):
+        raise rename.Refusal(f'{symbol} already names a data row, function or pin')
+    clash = rename.shared_identifier(lane.ctx, new, re.compile(r'(?!)'))
+    if clash:
+        raise rename.Refusal(f'{new} already spells {clash}')
+    for owned in lane.ctx.dicts('reverse/data_converged.csv'):
+        other = owned.get('name', '')
+        if other in (symbol, new) or data_identifier(other) == new or new in (rename.fragments_text(other) or ()):
+            raise rename.Refusal(f'{new} already names a converged global: {other}')
+    name_lane.check_unrowed_agreement(lane, approval)
     source = request['source']
     if not model.strip():
         raise rename.Refusal('model is required')
@@ -997,6 +1009,12 @@ def admit_agreed(record_id, symbol, model):
     plan.edit(lane.ctx, name_lane.AGREED, rename.appended(lane.ctx.read(name_lane.AGREED), [line.getvalue().encode()],
                                                        header=','.join(name_lane.AGREED_COLUMNS)))
     plan.verify = [source]
+    # The ordinary checks use a private git index. Include the caller's already
+    # written definition and naming inputs in that view, without changing them.
+    for path in (source, name_lane.DATA_REQUESTS, name_lane.VOTES, name_lane.MEANINGS):
+        content = lane.ctx.read(path)
+        if content is not None:
+            plan.edit(lane.ctx, path, content)
     held = rename.take_claims([f'file:{source}', rva], True, root=ROOT)
     try:
         def verify_admission(ctx, sources):
@@ -1013,9 +1031,10 @@ def admit_agreed(record_id, symbol, model):
             if snapshot != ((ROOT / source).read_bytes(), obj.read_bytes()):
                 raise rename.Refusal('source/object changed during data admission')
             rename.check_agreement(ctx, 'global', evidence, {approval['old']}, {new}, rva)
+            name_lane.check_unrowed_agreement(lane, approval)
             print('data_rows: ' + why)
             return True
-        rename.apply_rename(plan, ctx=lane.ctx, verify=verify_admission, checks=None, claimed=held)
+        rename.apply_rename(plan, ctx=lane.ctx, verify=verify_admission, checks=rename.ledger_checks, claimed=held)
     except BaseException:
         held.release(ROOT)
         raise
