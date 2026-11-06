@@ -172,3 +172,20 @@ Update (2026-11-05, seat halilkkaya-ha-o1, base d86761221d, census index c95fcfc
     available spelling is address-derived, which the hatch rules forbid adding.
   - re_attempts.log carries a 2026-11-05 `blocked` row for each of the six BigObf getters and for
     0x00433B18.
+
+Update (2026-11-06, swarm static-defects lane P7b, base 35c0259989, image_iso on image 0a36813ed0): the
+getters are unrelocated retail addresses that crash at our 0x10000000 base, not only link debt.
+- Fixed in the same family: ConstIntGetters5.cpp Rva0041F286Get now returns
+  ArmyMemberDefinitionFieldParse (0x00C3B000). LINK-617 covers the hand-built vtable arrays.
+- Still open in this file (11 flagged, unchanged):
+  - The three Drawable statics: no approved TU for the getters.
+  - 0x00E032DC: the only owner is the address-named g_Va00E032DC. `name_globals.py --dry-run` finds
+    no candidate, so referencing it here would add an address_global hatch.
+  - 0x00DC2274: crash triage (P7).
+  - 0x00DC2884/0x00DC2D10/0x00DC34A4/0x00DC4B60/0x00DC5170 and 0x00C6D690: `name_lane.py
+    register-data` refuses each with "address already has an overlapping data_ledger.csv row". The
+    unowned g_ObfSlot* rows' extents run over the 0x38-byte contexts, and a string-literal row overlaps
+    0x00C6D690. They wait for the register-data overlap fix.
+- FireSpreadUpdateModuleData's table at 0x00C4C000 (ModuleDataBuildFieldParse.cpp, 4 fields and the
+  sentinel, 0x50 bytes) is refused the same way. The FireSpreadUpdate vtable row at 0x0084BF90 claims
+  192 bytes; retail's vtable is 13 slots (52 bytes), followed by the field-name strings.
