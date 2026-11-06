@@ -12,6 +12,7 @@
 enum StateReturnType { STATE_CONTINUE = 0 };
 class StateMachine;
 #include "../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../Include/GameClient/Drawable.h"
 struct SubP00346FD0
 {
 	char m_pad00[0x64];
