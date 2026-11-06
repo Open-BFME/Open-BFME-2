@@ -87,7 +87,6 @@ public:
 };
 class ParticleSystemTemplate : public ParticleSystemInfo {
 public:
- BfmeParticleSystemHandle rva001F9CF3(bool)const;
  char unknown9C[4];::ParticleSystemTemplate *cached;
 };
 }

@@ -333,3 +333,10 @@ uses its existing view, and `Rva005646BC.cpp` includes the header and replaces i
 hand-spelled Snapshot table with the inline destructor. The build passes **18/18**; the
 preview stays **LINKS 899 -> 899 B** against index `d707d2f53b`. Awaiting the automated
 real link. [Evidence](../../reverse/attempt_support/terrain-collision-geteventfx-export-20261106-noro.md).
+
+2026-11-06, createSlaveSystem (base `5f3c26f35a9`): export ordinal 1552 identifies `0x001F9CF3`.
+The row and its caller now use the exported `TrackingPtr<FXParticleSystem::ParticleSystem>`
+return, and the destructor its funclet calls is rowed as a verified ICF fold at
+`0x002115C5`. The build passes **20/20**; the preview shows **LINKS 1,860 -> 1,871 B**
+against index `d707d2f53b`. Awaiting the automated real link.
+[Evidence](../../reverse/attempt_support/create-slave-system-export-20261106-noro.md).

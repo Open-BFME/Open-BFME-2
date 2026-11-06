@@ -38,6 +38,13 @@ public:
  Rva001F5467 *operator->()const {return (Rva001F5467*)(ptr?ptr:Make001FCBD7());}
  void *ptr; int prev,next;
 };
+// Retail export 1552: createSlaveSystem returns TrackingPtr<FXParticleSystem::ParticleSystem>.
+template <class T> class TrackingPtr {
+public:
+ TrackingPtr(const TrackingPtr &x) { ((RvaSmartPtr12*)this)->RvaSmartPtr12::RvaSmartPtr12(*(const RvaSmartPtr12*)&x); }
+ ~TrackingPtr() { if(ptr)((RvaSmartPtr12*)this)->rva0004CBC0(); }
+ void *ptr; int prev,next;
+};
 #include "../../../Include/GameClient/ParticleSys.h"
 extern ParticleSystemManager *TheParticleSystemManager;
 
@@ -80,6 +87,7 @@ public:
 	unsigned data[12]; // +0x00
 };
 namespace FXParticleSystem {
+class ParticleSystem;
 class ParticleSystemInfo :public Snapshot {
 public:
  ParticleSystemInfo();virtual ~ParticleSystemInfo();virtual const char *GetSnapshotName();virtual void LoadPostProcess();virtual void DoXfer(Xfer&);
@@ -91,7 +99,7 @@ public:
 };
 class ParticleSystemTemplate : public ParticleSystemInfo {
 public:
- BfmeParticleSystemHandle rva001F9CF3(bool)const;
+ TrackingPtr<ParticleSystem> createSlaveSystem(bool)const;
  char unknown9C[4];::ParticleSystemTemplate *cached;
 };
 }
@@ -180,7 +188,7 @@ ParticleSystem::ParticleSystem(const FXParticleSystem::ParticleSystemTemplate *t
  else drawer=new Rva003B0152(*(const RvaSmartPtr12*)&RvaSmartPtr12(this));
  masterId=0;slaveId=0;
  if(createSlaves) {
-  BfmeParticleSystemHandle child=t->rva001F9CF3(true);
+  TrackingPtr<FXParticleSystem::ParticleSystem> child=t->createSlaveSystem(true);
   if(child.ptr) {
    ((Rva001F5496*)this)->rva001F5496(*(const RvaSmartPtr12*)&child);
    slave->rva001F5467(RvaSmartPtr12(this));
