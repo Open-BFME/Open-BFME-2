@@ -158,15 +158,7 @@ void AssistedTargetingUpdate::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?AssistedTargetingUpdate::loadPostProcess present-unmatched
 void AssistedTargetingUpdate::loadPostProcess( void )
 {
-  const AssistedTargetingUpdateModuleData *assistedTargetingUpdateModuleData = getAssistedTargetingUpdateModuleData();
-
-	m_laserFromAssisted = TheThingFactory->findTemplate( assistedTargetingUpdateModuleData->m_laserFromAssistedName );
-	m_laserToTarget =TheThingFactory->findTemplate( assistedTargetingUpdateModuleData->m_laserFromAssistedName );
-
-	// extend base class
 	UpdateModule::loadPostProcess();
-
-}  // end loadPostProcess
+}
