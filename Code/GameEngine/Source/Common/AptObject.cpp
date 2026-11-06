@@ -16,10 +16,20 @@ class AptValue;
 
 class EAStringC;
 
-class AptObject {
+class AptValueWithHash
+{
+public:
+    virtual void DestroyGCPointers();
+};
+
+// Retail vtable 0x008EA264: slot 7 objectMemberLookup, slot 11 DestroyGCPointers.
+class AptObject : public AptValueWithHash
+{
 public:
     virtual AptValue *objectMemberLookup(AptValue *const, const EAStringC *const) const;
+    virtual void DestroyGCPointers();
 };
+
 
 // ---- from Code/GameEngine/Source/Common/Rva0070DFB0Pred.cpp
 
