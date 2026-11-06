@@ -1,0 +1,46 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp",
+  "row_count": 3,
+  "matched": [
+    "0x0029B2C4",
+    "0x0029B694",
+    "0x007B0C0F"
+  ],
+  "errors": [],
+  "removed": [
+    "?crc@SpawnBehavior@@MAEXPAVXfer@@@Z"
+  ],
+  "added": [],
+  "changed": [],
+  "before_undefined": [
+    "?BfmeLogicFramesPerSecond@@3HA",
+    "?TheGameLogic@@3PAVGameLogic@@A",
+    "?aiIdle@AICommandInterface@@QAEXW4CommandSourceType@@@Z",
+    "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+    "?clearDisabled@Object@@QAE_NW4DisabledType@@@Z",
+    "?crc@BehaviorModule@@MAEXPAVXfer@@@Z",
+    "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z",
+    "?getAI@Object@@QAEPAVAIUpdateInterface@@XZ",
+    "?setDisabledUntil@Object@@QAEXW4DisabledType@@I@Z",
+    "__fltused",
+    "_free"
+  ],
+  "after_undefined": [
+    "?BfmeLogicFramesPerSecond@@3HA",
+    "?TheGameLogic@@3PAVGameLogic@@A",
+    "?aiIdle@AICommandInterface@@QAEXW4CommandSourceType@@@Z",
+    "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z",
+    "?clearDisabled@Object@@QAE_NW4DisabledType@@@Z",
+    "?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z",
+    "?getAI@Object@@QAEPAVAIUpdateInterface@@XZ",
+    "?setDisabledUntil@Object@@QAEXW4DisabledType@@I@Z",
+    "__fltused",
+    "_free"
+  ],
+  "outside_referencers": [],
+  "normal_private_code_and_provider_routes_identical": true,
+  "retained_external_code_definitions": 579,
+  "before_prediction": "unlinked: BehaviorModule::crc unresolved",
+  "after_prediction": "LINKS:93 bytes",
+  "retired_hatch_keys": 1
+}
