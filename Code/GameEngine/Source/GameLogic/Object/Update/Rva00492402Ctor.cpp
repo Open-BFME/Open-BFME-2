@@ -9,7 +9,7 @@
 // uses the complete shared interface table below. No trailing members
 // (factory stub news 0x88).
 // Identity unproven (opaque Rva name); serves the 0x24DA7C factory stub.
-// The paired dtor Rva00492439 is rowed and references the same table.
+// The paired dtor (0x00492439, ModuleUpdateDtors.cpp) is rowed and references the same table.
 class Thing;
 class ModuleData;
 
@@ -74,7 +74,5 @@ Rva00492402::Rva00492402(Thing *thing, const ModuleData *moduleData)
 	m_p20 = s_dummy20;
 }
 
-// ?Rva00492402::~Rva00492402 present-unmatched
-Rva00492402::~Rva00492402()
-{
-}
+// ~Rva00492402 (retail 0x00492439) and its deleting destructor are defined in
+// ModuleUpdateDtors.cpp.

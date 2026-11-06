@@ -109,13 +109,13 @@ static int s_dummyEB30;
 static int s_dummyE184;
 static int s_dummyEB0C;
 
-class Rva00492439 : public Rva0044EF5E
+class Rva00492402 : public Rva0044EF5E
 {
 public:
-	virtual ~Rva00492439();
+	virtual ~Rva00492402();
 };
 
-Rva00492439::~Rva00492439()
+Rva00492402::~Rva00492402()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;

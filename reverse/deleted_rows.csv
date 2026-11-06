@@ -5226,3 +5226,5 @@ __ehhandler$??1Rva0017FB94@@UAE@XZ,0x007680EB,"Renamed to __ehhandler$??1Rva0017
 ??_GRva00490D76@@UAEPAXI@Z,0x00490EB3,"Renamed to ??_GRva00490D3F@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4D7C8)"
 ??1Rva004921B0@@UAE@XZ,0x004921B0,"Renamed to ??1Rva00492179@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4DEF8)"
 ??_GRva004921B0@@UAEPAXI@Z,0x00492215,"Renamed to ??_GRva00492179@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4DEF8)"
+??1Rva00492439@@UAE@XZ,0x00492439,"Renamed to ??1Rva00492402@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4DFF8)"
+??_GRva00492439@@UAEPAXI@Z,0x0049249E,"Renamed to ??_GRva00492402@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4DFF8)"
