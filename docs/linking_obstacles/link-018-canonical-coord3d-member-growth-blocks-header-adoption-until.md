@@ -78,6 +78,26 @@ Carry the declarations and consumer into the next normal census. The hook's
 shadow Coord3D copy-constructor divergence has the identical pre/post-edit
 25-byte fingerprint; that inherited selection prerequisite remains open.
 
+**Real-link Matrix4D exports blocked by the canonical class key (2026-11-06, halilkkaya-lk36; base `bd49217dc8`, real link `306f01e6f6`):**
+- The real link reports two unresolved retail exports, `??0Matrix4D@@QAE@ABVCoord3D@@M@Z` and
+  `?Set@Matrix4D@@QAEAAV1@ABVCoord3D@@M@Z`, both at 0x00004079 (an ICF fold: the axis-angle
+  constructor and `Set` have one body). No object defines or references either spelling.
+- Cause: the row is `??0Matrix4D@@QAE@ABUCoord3D@@M@Z` in Snapshot.cpp (its approved TU), which
+  includes the canonical `struct Coord3D`. ed350ebef22 ("Adopt canonical Coord3D in 425 units")
+  respelled the row from the export's `ABV` to `ABU`.
+- Target fact: all 15 retail exports that spell Coord3D spell it `V`, a `class`. The contract's
+  "class-key struct (bytes)" comes from `class_contract.ledger_key`, a majority of matched ledger
+  names (1,471 `UCoord3D` against 28 `VCoord3D`). Agents chose those names, and the count gives
+  the exports no precedence.
+- Measured: the class key comes from the definition. A `class Coord3D;` forward declaration
+  ahead of the canonical `struct` still mangles `U` (VC7.1 scratch compile). A TU-local
+  `class Coord3D` would be a private copy (class_gate). Moving the row to matrix4d.cpp, whose
+  private view is a `class`, would leave its approved TU.
+- Route: decide Coord3D's key from the exports (`class`) in a class-reconciliation commit: the
+  contract, the header and the dependents' row respellings together. Then Snapshot.cpp's row takes
+  the export spelling, and an `--icf-owner` twin row with fold-proof gives `Set` its name. The
+  matrix4d.cpp exports need the same key when that file merges into Snapshot.cpp. Not attempted.
+
 **Matrix4D class-key prerequisite (2026-10-28):** The canonical struct changes
 eight existing class-key decorated Matrix4D symbols; a class forward declaration
 does not preserve them. The trial was reverted and the original unit passes
