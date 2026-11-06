@@ -98,3 +98,31 @@ Status for this writer: repair verified locally, awaiting automated real-link
 confirmation; the latest inspected run `42174078539` still reports it missing
 among **308** unresolved, **0** duplicates and no image. Broader LINK-583 and
 Point tag/vtable exports remain open. [Scoped evidence and limits](../../reverse/attempt_support/point-writeini-export-20261106-seat1.md).
+
+2026-11-06 combined publication check (`codex-20261106-coordinator`): the Line,
+Box and Point repairs landed as `e4d9af0c900`, `96ddcc5a9db` and `8858a90aa54`.
+Status for this three-writer subset: **Repair landed / awaiting verification**.
+The publication checkout verifies 9/9 rows, six string literals and three EXACT
+EH graphs. Each object defines its required export once and has zero occurrences
+of its removed parent name; the outgoing `name_dependents` check finds zero
+referencing units among 18,026 scanned.
+
+The pre-push batch audit was **INCONCLUSIVE**, not clean: the index at
+`47fd56b879` predates outgoing base `d707d2f53bf`, and the three source objects
+initially lacked strict-current receipts. After landing, the supported
+`python3 tools/link_check.py --prepare-current` on exactly the three writer
+sources prepares 3/3 strict reusable receipts and repeats the 9/9 byte and six
+literal checks. Ordinary `link_check.py` on the same three sources then reports
+3/3 LINKS, 691 -> 691 bytes (Point 186, Line 272, Box 233), against the published
+2026-11-06 05:39 index; this is a bounded preview, not a real-link measurement.
+
+Rerunning `tools/link_batch_audit.py --base d707d2f53bf --tip 8858a90aa54`
+with those three explicit verified sources still exits 2: the baseline differs
+and the first affected consumer without a current receipt is
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp`. The audit therefore
+has not verified the affected-consumer scope. Carry this into the next census:
+obtain current consumer receipts, repeat the batch/provider-selection checks
+against a matching baseline, then confirm all three names disappear from the
+scheduled authoritative real-link errors. No new real-link count, linked image
+or runtime improvement is claimed; the inspected pre-repair run remains
+42174078539 (308 unresolved, zero duplicates, no image).
