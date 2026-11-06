@@ -489,8 +489,6 @@ UnsignedInt SpecialPowerModule::getReadyFrame( void ) const
 void SpecialPowerModule::crc( Xfer *xfer )
 {
 
-	// extend base class
-	BehaviorModule::crc( xfer );
 
 }  // end crc
 
