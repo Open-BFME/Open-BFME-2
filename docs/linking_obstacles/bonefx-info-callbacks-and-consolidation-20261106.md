@@ -20,3 +20,12 @@ providers. The constructor's existing table binding is not cleared by callback
 proof. Current-consumer and actual-image confirmation remain unverified.
 Publication567b2048da audit was INCONCLUSIVE (index7bd55416c6 versus
 basea8ae5cd6f1520abd3f581701e282c3a2ef240eda,1 missing current main receipt).
+
+Follow-up: the supported merge still accepts no donor. Update has duplicate
+Coord3D/getDamageTypeFlag surfaces; module-data donors meet the seed's old
+random-value declaration. A private native-value-header trial in the seed then
+fails VC7.1 C2620 because its donor particle header puts the now-nontrivial value
+class inside unions. Code is untouched by that failed trial. Native particle
+header/Coord3D lifetime adoption is the next separate prerequisite, followed by
+module-data base reconciliation. Do not weaken the native value class or force
+a source move. [Full boundary](../../reverse/attempt_support/bonefx-info-callbacks-20261106/consolidation-boundary.md).

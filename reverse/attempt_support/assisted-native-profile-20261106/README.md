@@ -1,5 +1,11 @@
 # AssistedTargetingUpdate native profile prerequisite
 
+2026-11-06 bounded lifetime follow-up: [current provider boundary](lifetime-boundary.md)
+isolates the remaining complete destructor's three one-slot placeholder tables
+from the destination's native13/47/3 profile. Scalar28B copies already agree.
+The shared fake12B UpdateModule in the current mixed owner must be reconciled
+before a truthful supported two-body move; no guard or linkage policy is changed.
+
 Target facts: factory allocation is 0x20. Constructor 0x486E8D/84 and
 complete destructor 0x486E18/25 install the same primary C4AF64,
 Behavior BEFF90 and Update C4B1E0 tables. Their native extents are 13/47/3
