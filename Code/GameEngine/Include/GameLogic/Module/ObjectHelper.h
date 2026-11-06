@@ -15,10 +15,11 @@
 //    deleting destructor 0x0028C939, loadPostProcess 0x00497805 (`jmp 0x0058B03E`, UpdateModule's),
 //    the name getter 0x0028C933 ("ObjectHelper") and xfer 0x004DF81B (version, then
 //    UpdateModule::xfer). Slot 4, getModuleNameKey, stays __purecall.
-// Not declared here yet: loadPostProcess, GetSnapshotName and xfer. Their rows are placeholders
-// (Rva00497805, Rva0028C933Get, Rva004DF81B), and a derived class that does not override a slot
-// would reference ObjectHelper's name there. Until they carry ObjectHelper's name a view inherits
-// UpdateModule's: slot 1 reaches the same body, slots 2 and 3 do not.
+//  - loadPostProcess 0x00497805 is the body many module tables fold onto (rowed as Rva00497805 and
+//    as ICF twins); the helpers' own override 0x00483CEF is `jmp 0x00497805`, so it calls this one.
+// Not declared here yet: GetSnapshotName and xfer. Their rows are placeholders (Rva0028C933Get,
+// Rva004DF81B), and a derived class that does not override a slot would reference ObjectHelper's
+// name there; until they carry ObjectHelper's name a view inherits UpdateModule's.
 // Donor (Zero Hour ObjectHelper.h) facts: the class name and that it derives from UpdateModule.
 // Zero Hour's ObjectHelper overrides getDisabledTypesToProcess; BFME2's (0x00BFBCE4 at +0x10) does not.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +36,9 @@ class ObjectHelper : public UpdateModule
 public:
 	ObjectHelper( Thing *thing, const ModuleData *moduleData );
 	virtual ~ObjectHelper();
+
+protected:
+	virtual void loadPostProcess();										// slot 1
 };
 
 #endif // __BFME2_OBJECTHELPER_H_

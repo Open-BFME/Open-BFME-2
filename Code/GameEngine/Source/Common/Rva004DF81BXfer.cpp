@@ -33,3 +33,14 @@ void Rva004DF81B::xfer(Xfer *xfer)
 	xfer->Version1();
 	((UpdateModule *)this)->UpdateModule::xfer(xfer);
 }
+
+// ObjectHelper's own slot-1 override, 0x00497805: `jmp 0x0058B03E` to
+// UpdateModule::loadPostProcess (slot 1 of ObjectHelper's table 0x00BFBCF0;
+// the same 5 bytes serve many module tables, ICF). The derived helpers'
+// 0x00483CEF jumps here. This unit is ObjectHelper's xfer (slot 3 above).
+#include "../../Include/GameLogic/Module/ObjectHelper.h"
+
+void ObjectHelper::loadPostProcess()
+{
+	UpdateModule::loadPostProcess();
+}

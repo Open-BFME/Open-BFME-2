@@ -29,6 +29,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
+	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 
@@ -47,4 +48,12 @@ ObjectDefectionHelper::ObjectDefectionHelper(Thing *thing, const ModuleData *mod
 	m_defectionDetectionStart = 0;
 	m_doDefectorFX = false;
 	m_defectionDetectionFlashPhase = 0.0f;
+}
+
+// Slot 1 of 0x00BFBD40: 0x00483CEF, `jmp 0x00497805` to ObjectHelper's; folded
+// with the other helpers' overrides (Recovery 0x00BFBD98, Repulsor 0x00BFBDF0,
+// WeaponStatus 0x00BFBE48 hold it too).
+void ObjectDefectionHelper::loadPostProcess()
+{
+	ObjectHelper::loadPostProcess();
 }
