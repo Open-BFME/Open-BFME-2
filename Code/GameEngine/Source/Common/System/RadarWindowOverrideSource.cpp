@@ -11,13 +11,9 @@
 // /O1 flags; EH shape follows Rva005C3549Dtor (clear in dtor body with /EHsc)
 // and RadarDtor (MI with Snapshot restore to g_00BBB554).
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-private:
-	char m_pad[8];
-};
+// +0x10 is cleared through the canonical holder's clear 0x000AD6F4 in the
+// destructor body and has no destructor of its own, so it is a raw pointer.
+#include "../../../Include/Common/Rva000AD6F4.h"
 // Retail base vtable BD77A0 and destructor 1B4E74 prove the canonical 12-byte subsystem base.
 typedef bool Bool;
 #include "subsystem_interface.h"
@@ -30,7 +26,8 @@ class Rva002D3573 : public SubsystemInterface, public Snapshot
 public:
 	virtual ~Rva002D3573();
 private:
-	Rva000AD6F4 m10;
+	void *m10;
+	int m14;
 };
 
 #include "../../../Include/Common/Rva0052413E.h"
@@ -133,7 +130,7 @@ private:
 
 Rva002D3573::~Rva002D3573()
 {
-	m10.clear();
+	((Rva000AD6F4 *)&m10)->clear();
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva00527E53Dtor.cpp

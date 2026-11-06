@@ -203,13 +203,9 @@ struct Rva00319D01RegionHolder
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4():m_summary(0) {}
-	~Rva000AD6F4();
-	ArmySummaryView *m_summary;
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
+// summary78 owns an ArmySummary.
+__forceinline ArmySummaryView *heldSummary(const Rva000AD6F4 &holder) { return static_cast<ArmySummaryView *>(holder.m_ptr); }
 
 class PlayingAudioUnknown0C {public: PlayingAudioUnknown0C(); void *words[2];};
 class Rva00538F61
@@ -350,8 +346,8 @@ LivingWorldArmy::LivingWorldArmy(int owner,SpawnArmy *desc,Rva002B6A04Player *pl
  if(!b74)((LivingWorldArmyLine*)&member90)->rva00539141();
  ((Rva00575674*)&summary78)->rva00575674((Object*)new ArmySummary);
  if(desc->rva00319CED())((LivingWorldArmy*)this)->UseArmySummary(desc);
- ((ArmySummaryView*)summary78.m_summary)->owner1C=owner;
- ((AsciiString*)((char*)summary78.m_summary+0x20))->setCopyInline(name28);
+ ((ArmySummaryView*)heldSummary(summary78))->owner1C=owner;
+ ((AsciiString*)((char*)heldSummary(summary78)+0x20))->setCopyInline(name28);
  createVisualObjects(&desc->a04);
  ((Rva003193EC*)this)->rva003190E7(false);
  if(desc->a28.isEmpty()) {
@@ -376,11 +372,11 @@ void LivingWorldArmy::UseArmySummary(SpawnArmy *source)
     if (!TheCampaignManager) return;
     void *summary = source->rva004E23C1();
     if (!summary) return;
-    *reinterpret_cast<ArmySummary *>(summary78.m_summary) = *static_cast<ArmySummary *>(summary);
-    summary78.m_summary->owner1C = owner20;
-    int count = summary78.m_summary->size();
+    *reinterpret_cast<ArmySummary *>(heldSummary(summary78)) = *static_cast<ArmySummary *>(summary);
+    heldSummary(summary78)->owner1C = owner20;
+    int count = heldSummary(summary78)->size();
     for (int i = 0; i < count; ++i) {
-        ArmySummaryEntryView *entry = reinterpret_cast<ArmySummaryEntryView *>(reinterpret_cast<Rva0040CB2CIndexedField *>(summary78.m_summary)->get(i));
+        ArmySummaryEntryView *entry = reinterpret_cast<ArmySummaryEntryView *>(reinterpret_cast<Rva0040CB2CIndexedField *>(heldSummary(summary78))->get(i));
         ThingTemplate *thing = static_cast<ThingTemplate *>(reinterpret_cast<Rva0037DCA5 *>(entry)->GetThingTemplate());
         if (!thing) continue;
         int level = thing->rva0033B479();
@@ -394,7 +390,7 @@ void LivingWorldArmy::UseArmySummary(SpawnArmy *source)
 
 void LivingWorldArmy::TakeUnitFromArmy_Internal(LivingWorldArmy *source, const Rva004F6093Holder &entry)
 {
-    reinterpret_cast<ArmySummary *>(summary78.m_summary)->AddArmyEntry(entry);
+    reinterpret_cast<ArmySummary *>(heldSummary(summary78))->AddArmyEntry(entry);
     if (reinterpret_cast<Rva00318C79Owner *>(this)->rva00318C32() != reinterpret_cast<Rva00318C79Owner *>(source)->rva00318C32())
         entry.entry->CancelUpgrades();
     reinterpret_cast<Rva003193EC *>(this)->rva003198B8(reinterpret_cast<Rva003193EC *>(source));
@@ -454,21 +450,21 @@ void XferOwningLivingWorldArmyVec(Xfer *xfer, _STL::vector<const ModuleData *> *
 void LivingWorldArmy::KillSummaryEntry(int index)
 {
     if (index < 0) return;
-    Rva0040DD3ARef entry(reinterpret_cast<Rva004F69C3Target *>(reinterpret_cast<Rva0040CB2CIndexedField *>(summary78.m_summary)->get(index)));
+    Rva0040DD3ARef entry(reinterpret_cast<Rva004F69C3Target *>(reinterpret_cast<Rva0040CB2CIndexedField *>(heldSummary(summary78))->get(index)));
     void *thing = reinterpret_cast<Rva0037DCA5 *>(entry.value)->GetThingTemplate();
     if (thing && (static_cast<HeroTemplateKindView *>(thing)->kind113 & 4)) {
         Rva002E2903Player *player = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(owner54,0);
         if (!player) return;
         reinterpret_cast<Rva002E34A9 *>(player)->rva002E34A9(entry,1);
     }
-    reinterpret_cast<ArmySummary *>(summary78.m_summary)->RemoveEntry(index);
+    reinterpret_cast<ArmySummary *>(heldSummary(summary78))->RemoveEntry(index);
 }
 
 // Native319EF9..319F4F owns the returned reference through the transfer.
 void LivingWorldArmy::rva00319EF9(LivingWorldArmy *source,int key)
 {
  LivingWorldArmy *from=(source?source:source);
- Rva0040DD3ARef entry=reinterpret_cast<ArmySummary *>(from->summary78.m_summary)->rva0040E672(key);
+ Rva0040DD3ARef entry=reinterpret_cast<ArmySummary *>(heldSummary(from->summary78))->rva0040E672(key);
  TakeUnitFromArmy_Internal(from,*reinterpret_cast<const Rva004F6093Holder *>(&entry));
 }
 
@@ -479,7 +475,7 @@ void LivingWorldArmy::rva00319EF9(LivingWorldArmy *source,int key)
 void LivingWorldArmy::rva00319EA3(LivingWorldArmy *source,ArmySummaryEntry *entryToTake)
 {
  LivingWorldArmy *from=(source?source:source);
- Rva0040DD3ARef entry=reinterpret_cast<ArmySummary *>(from->summary78.m_summary)->rva0040E6A4(entryToTake);
+ Rva0040DD3ARef entry=reinterpret_cast<ArmySummary *>(heldSummary(from->summary78))->rva0040E6A4(entryToTake);
  TakeUnitFromArmy_Internal(from,*reinterpret_cast<const Rva004F6093Holder *>(&entry));
 }
 
@@ -501,7 +497,7 @@ LivingWorldArmy::~LivingWorldArmy()
 		}
 	}
 	::delete status88;
-	for (int i = summary78.m_summary->nativeSize() - 1; i >= 0; --i)
+	for (int i = heldSummary(summary78)->nativeSize() - 1; i >= 0; --i)
 		KillSummaryEntry(i);
 	reinterpret_cast<ArmyDestructorLogicView *>(TheLivingWorldLogic)->registry1C.rva002B7250(
 		reinterpret_cast<CreateAHeroData *>(static_cast<Rva00319D01ObserverBase *>(this)));
@@ -561,7 +557,7 @@ void LivingWorldArmy::rva003191E2(int mode, int keepPresentation)
 	{
 	case 0:
 		((Rva003193EC*)this)->rva003191B1();
-		((ArmySummary*)summary78.m_summary)->rva0040CC8F();
+		((ArmySummary*)heldSummary(summary78))->rva0040CC8F();
 		((Rva003193EC*)this)->rva003190E7(true);
 		break;
 	case 1:
@@ -572,8 +568,8 @@ void LivingWorldArmy::rva003191E2(int mode, int keepPresentation)
 	{
 		((Rva003193EC*)this)->rva003190E7(true);
 		((Rva003FE05E*)status88)->rva003FE05E();
-		text68 = GetArmySummaryName((Rva00220808 *)summary78.m_summary);
-		Rva0040CFC7 *army = (Rva0040CFC7 *)summary78.m_summary;
+		text68 = GetArmySummaryName((Rva00220808 *)heldSummary(summary78));
+		Rva0040CFC7 *army = (Rva0040CFC7 *)heldSummary(summary78);
 		text6C = GetArmySummaryDescription(army, 1);
 		((Rva005392C2 *)status88)->rva005392C2();
 	}
@@ -597,7 +593,7 @@ void LivingWorldArmy::loadPostProcess()
     if (!b74)
         ((LivingWorldArmyLine*)&member90)->rva00539141();
     reinterpret_cast<Rva00319AA0 *>(this)->rva00319AA0((const Coord2D*)&pos44);
-    Rva0031A02ASummary *currentSummary = *(Rva0031A02ASummary *volatile *)&summary78.m_summary;
+    Rva0031A02ASummary *currentSummary = *(Rva0031A02ASummary *volatile *)&summary78.m_ptr;
     currentSummary->owner = *(volatile int*)&owner20;
     Rva00538E22 *wheel = reinterpret_cast<Rva00538E22 *>(const_cast<TWheelInfo *>(
         reinterpret_cast<const Drawable *>(this)->getWheelInfo()));
