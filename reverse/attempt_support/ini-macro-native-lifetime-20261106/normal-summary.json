@@ -1,0 +1,23 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/INI/INI.cpp",
+    "name": "??1?$hashtable@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@_STL@@QAE@XZ",
+    "rva": "0x2ccc3",
+    "size": 57,
+    "all_normal_private_code_and_provider_routes_identical": true,
+    "fully_resolved_native_bytes": "b8e5c9b500e8bbc45f0051568bf18975f08365fc00e821681f008b7604834dfcff85f6740756e8423b0000598b4df45e64890d00000000c9c3",
+    "eh": [
+      "EXACT",
+      ""
+    ]
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CD71.cpp",
+    "name": "??1Rva0002CD71@@QAE@XZ",
+    "rva": "0x2cd71",
+    "size": 5,
+    "all_normal_private_code_and_provider_routes_identical": true,
+    "fully_resolved_native_bytes": "e94dffffff",
+    "eh": null
+  }
+]

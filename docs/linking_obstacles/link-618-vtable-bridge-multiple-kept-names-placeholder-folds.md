@@ -233,3 +233,4 @@ Clearance: none claimed (no new real link measured). Census confirmation: none c
   build/match) and read retail's slots; link_check judges a table against retail only when two units emit it.
 
 Clearance: none claimed (no new real link measured).
+Publication audit for the preceding AIDockState lifecycle repair0f70da5432: link_batch_audit was INCONCLUSIVE against indexfaee62b0b2/base95c9bc54ac759acf01788b6da141d85d5bf63806, with two missing current receipts, first Rva0034159ADtor.cpp. The scoped40/40, EH and table checks above remain valid; a fresh census/current-consumer pass is still required. No runtime clearance claimed.

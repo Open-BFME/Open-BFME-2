@@ -1070,26 +1070,19 @@ template MacroMap::iterator MacroMap::find(const AsciiString &);
 typedef char AsciiStringExtent[sizeof(AsciiString) == 4 ? 1 : -1];
 
 // bfme link decl-only end
-struct Rva0002CCC3Record {char bytes[1];bool operator<(const Rva0002CCC3Record&)const;bool operator==(const Rva0002CCC3Record&)const;};
-
-namespace _STL {template<>struct hash<Rva0002CCC3Record> {unsigned int operator()(const Rva0002CCC3Record&)const;};}
-
-// Retail 0x0002CCC3 calls 0x002234FE, the rowed clear of
-// hash_map<AsciiString, AsciiString, rts::hash<AsciiString> > (INIMacroTable.cpp).
-// Instantiating the whole set over this unit's own record left its operator==
-// and hash unresolved and emitted a non-retail clear, so only the destructor is
-// defined here and it calls that rowed clear by its own type.
+// The macro map uses the same nocase equality/mapped view as its native find caller.
+typedef _STL::hashtable<_STL::pair<const AsciiString,Rva0002C9E7Value>,AsciiString,rts::hash<AsciiString>,_STL::_Select1st<_STL::pair<const AsciiString,Rva0002C9E7Value> >,rts::equal_to<AsciiString>,_STL::allocator<_STL::pair<const AsciiString,Rva0002C9E7Value> > > IniMacroTableHash;
+// Retail's clear call is the existing ICF owner at2234FE. Preserve that
+// real call rather than instantiating an unverified second clear provider.
 typedef _STL::hashtable<_STL::pair<AsciiString const, AsciiString>, AsciiString, rts::hash<AsciiString>, _STL::_Select1st<_STL::pair<AsciiString const, AsciiString> >, _STL::equal_to<AsciiString>, _STL::allocator<_STL::pair<AsciiString const, AsciiString> > > Rva002234FETable;
-
 namespace _STL {
-template <> void Rva002234FETable::clear();
-typedef hashtable<Rva0002CCC3Record,Rva0002CCC3Record,hash<Rva0002CCC3Record>,_Identity<Rva0002CCC3Record>,equal_to<Rva0002CCC3Record>,allocator<Rva0002CCC3Record> > Rva0002CCC3Table;
-template <> Rva0002CCC3Table::~hashtable()
+template<> void Rva002234FETable::clear();
+template<> IniMacroTableHash::~hashtable()
 {
     reinterpret_cast<Rva002234FETable *>(this)->clear();
 }
-template Rva0002CCC3Table::~hashtable();
 }
+template IniMacroTableHash::~hashtable();
 
 // The genuine erase-all caller below emits this header-inline erase and
 // its copy-dispatch helper naturally; no synthetic emission caller is needed.

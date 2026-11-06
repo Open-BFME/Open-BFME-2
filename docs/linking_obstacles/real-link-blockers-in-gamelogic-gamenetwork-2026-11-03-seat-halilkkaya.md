@@ -581,3 +581,5 @@ view consumers already reference that spelling. Nothing referenced `UAE`. `Grant
 3,049 -> 3,054 B over the 11 checked units. `LockWeaponCreate.cpp` keeps its 2 names. Remaining: the
 `--prepared` fold of `Rva004B8CDE` into `CreateModule`, then LockWeaponCreate's own view. Real link
 confirmation: not claimed.
+
+2026-11-06 INI lifetime prerequisite (base da93446935): native2CCC3's existing source and2CD71 consumer now share INI.cpp's nocase MacroMap view; fake one-byte hash-set identity removed with EH names/parent and tombstones kept. Normal137/137, EXACT destructor EH and fully resolved native57B/5B pass; preview preserves9185B, EvacuateDamage remains unlinked. This does not re-identify2CD7B or clear PB_DeepBase/DamageModule. [Scoped proof and remaining order](../../reverse/attempt_support/ini-macro-native-lifetime-20261106/README.md).
