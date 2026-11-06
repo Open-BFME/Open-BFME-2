@@ -18,8 +18,14 @@
 // with ATL's _AtlGetThreadACPReal). 0x00BFBE3C: update 0x0028F976,
 // getDisabledTypesToProcess 0x004DF8C2 (bits 3 and 8), then UpdateModule's
 // wake slot.
-// The name getter is not declared yet: its row (Rva0028CBDBNamed, 0x0028CBDB)
-// sits in a unit another seat holds, so slot 2 still inherits UpdateModule's.
+// Not declared yet:
+//  - the name getter: its row (Rva0028CBDBNamed, 0x0028CBDB) sits in a unit
+//    another seat holds, so slot 2 still inherits UpdateModule's;
+//  - update (0x00BFBE3C slot 0, 0x0028F976): its row ?update@Rva0028F976@@UAEHXZ
+//    guessed an int return, which no override of UpdateModuleInterface::update
+//    can spell, and rename.py --to-class keeps the return type (false reject
+//    recorded in re_attempts.log); the slot stays UpdateModuleInterface's pure
+//    one until the row can move.
 
 class Snapshot;
 class AsciiString;
@@ -54,7 +60,6 @@ public:
 	virtual ~ObjectWeaponStatusHelper();
 
 	virtual NameKeyType getModuleNameKey() const;
-	virtual UpdateSleepTime update();
 	virtual DisabledMaskType getDisabledTypesToProcess() const;
 
 protected:
