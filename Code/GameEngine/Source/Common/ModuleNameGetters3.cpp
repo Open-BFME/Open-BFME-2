@@ -68,7 +68,7 @@ const char *DozerActionState::GetSnapshotName() const
 BFME_SNAPSHOT_NAME_GETTER(DozerPrimaryStateMachine, "DozerPrimaryStateMachine")
 BFME_SNAPSHOT_NAME_GETTER(FireSpreadUpdate, "FireSpreadUpdate")
 BFME_SNAPSHOT_NAME_GETTER(FloatUpdate, "FloatUpdate")
-BFME_LITERAL_NAME_GETTER(Rva0048FBD3Named, "HeightDieUpdate")
+BFME_SNAPSHOT_NAME_GETTER(HeightDieUpdate, "HeightDieUpdate")
 BFME_LITERAL_NAME_GETTER(ArrowStormUpdate, "ArrowStormUpdate")
 BFME_LITERAL_NAME_GETTER(Rva004918A6Named, "AttachUpdate")
 BFME_LITERAL_NAME_GETTER(PickupStuffUpdate, "PickupStuffUpdate")
