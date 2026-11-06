@@ -283,19 +283,19 @@ void __cdecl rva007B71C0()
 }
 #pragma optimize("", on)
 
-class EvacuateDamage
+class INIMacroTable
 {
 public:
-	virtual ~EvacuateDamage();
+	~INIMacroTable();
 };
 
 extern unsigned BfmeINIMacroTableStorage[8];
 
-// ?rva007B6A6E@@YAXXZ @ 0x007B6A6E (10B). Global EvacuateDamage dtor thunk: ecx=&BfmeINIMacroTableStorage then tail-jmp to rowed ??1EvacuateDamage@@UAE@XZ (0x0002CD7B).
+// ?rva007B6A6E@@YAXXZ @ 0x007B6A6E (10B). BfmeINIMacroTableStorage's atexit thunk: ecx=&BfmeINIMacroTableStorage then tail-jmp to rowed ??1INIMacroTable@@QAE@XZ (0x0002CD7B).
 void __cdecl rva007B6A6E()
 {
-	EvacuateDamage *receiver = (EvacuateDamage *)&BfmeINIMacroTableStorage;
-	return receiver->EvacuateDamage::~EvacuateDamage();
+	INIMacroTable *receiver = (INIMacroTable *)&BfmeINIMacroTableStorage;
+	return receiver->INIMacroTable::~INIMacroTable();
 }
 
 #include "../../Include/Common/Rva00041004Lock.h"
