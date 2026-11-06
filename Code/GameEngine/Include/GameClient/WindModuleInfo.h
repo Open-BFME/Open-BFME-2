@@ -50,6 +50,14 @@ public:
     virtual void xfer(Xfer *xfer);
 #endif
 
+    static const float DEFAULT_STRENGTH;
+    static const float DEFAULT_FULL_STRENGTH_DIST;
+    static const float DEFAULT_ZERO_STRENGTH_DIST;
+    static const float DEFAULT_ANGLE_CHANGE;
+    static const float DEFAULT_ANGLE_CHANGE_MAX;
+    static const float DEFAULT_MOTION_START_ANGLE_MAX;
+    static const float DEFAULT_MOTION_END_ANGLE_MIN;
+
     int m_04;
     float m_08;
     float m_0C;

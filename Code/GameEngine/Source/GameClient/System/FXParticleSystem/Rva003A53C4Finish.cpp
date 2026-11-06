@@ -39,15 +39,15 @@ namespace FXParticleSystem {
 inline WindModuleInfo::~WindModuleInfo() {}
 inline void WindModuleInfo::LoadPostProcess() {}
 
-extern "C" const float kG1; const float kG1 = 2.0;
-extern "C" const float kG2; const float kG2 = 75.0;
-extern "C" const float kG3; const float kG3 = 200.0;
-extern "C" const float kG4; const float kG4 = 0.15;
-extern "C" const float kG5; const float kG5 = 0.45;
-extern "C" const float kG6; const float kG6 = 0.78539818525314331;
+const float WindModuleInfo::DEFAULT_STRENGTH = 2.0;
+const float WindModuleInfo::DEFAULT_FULL_STRENGTH_DIST = 75.0;
+const float WindModuleInfo::DEFAULT_ZERO_STRENGTH_DIST = 200.0;
+const float WindModuleInfo::DEFAULT_ANGLE_CHANGE = 0.15;
+const float WindModuleInfo::DEFAULT_ANGLE_CHANGE_MAX = 0.45;
+const float WindModuleInfo::DEFAULT_MOTION_START_ANGLE_MAX = 0.78539818525314331;
 extern "C" float windDefault_00E02904;
 float windDefault_00E02904 = 0.0f;
-extern "C" const float kG8; const float kG8 = 5.4977874755859375;
+const float WindModuleInfo::DEFAULT_MOTION_END_ANGLE_MIN = 5.4977874755859375;
 extern "C" const float kG9; const float kG9 = 6.2831854820251465;
 extern "C" float windDefault_00DC0A9C;
 float windDefault_00DC0A9C = 5.4977874755859375f;
@@ -55,17 +55,17 @@ float windDefault_00DC0A9C = 5.4977874755859375f;
 WindModuleInfo::WindModuleInfo()
 {
 	m_04 = 1;
-	m_08 = kG1;
-	m_0C = kG2;
-	m_10 = kG3;
+	m_08 = DEFAULT_STRENGTH;
+	m_0C = DEFAULT_FULL_STRENGTH_DIST;
+	m_10 = DEFAULT_ZERO_STRENGTH_DIST;
 	m_14 = 0.0f;
-	m_18 = kG4;
-	m_1C = kG4;
-	m_20 = kG5;
+	m_18 = DEFAULT_ANGLE_CHANGE;
+	m_1C = DEFAULT_ANGLE_CHANGE;
+	m_20 = DEFAULT_ANGLE_CHANGE_MAX;
 	m_28 = 0.0f;
-	m_2C = kG6;
+	m_2C = DEFAULT_MOTION_START_ANGLE_MAX;
 	m_24 = windDefault_00E02904;
-	m_34 = kG8;
+	m_34 = DEFAULT_MOTION_END_ANGLE_MIN;
 	m_38 = kG9;
 	m_30 = windDefault_00DC0A9C;
 	m_3C = true;

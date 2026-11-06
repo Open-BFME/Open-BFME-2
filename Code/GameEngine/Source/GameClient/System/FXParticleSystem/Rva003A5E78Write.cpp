@@ -17,7 +17,7 @@
 //   table at VA 0x00C1B6C4 (NONE, Unused, PingPong, Circular). It is skipped
 //   when it equals the default 1.
 // - Eleven floats are written through rowed 0x003A5D34 when they differ from
-//   the ctor defaults. Those defaults are the owned kG1..kG9 globals or 0.0f.
+//   the ctor defaults. Those defaults are the shared WindModuleInfo constants or 0.0f.
 // - The rowed str, File write and footer 0x003AFC6B follow.
 //
 // The shape is the same as the rowed sibling Rva0055FB37Write.cpp.
@@ -71,6 +71,7 @@ namespace _STL { template <> int basic_stringbuf<char,char_traits<char>,allocato
 namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,char *,char *); }
 
 #include "../../../../Include/Common/File.h"
+#include "../../../../Include/GameClient/WindModuleInfo.h"
 #include "../../../../Include/GameClient/Rva001F458BText.h"
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
 #include <stdlib.h>
@@ -80,13 +81,6 @@ void Rva003AFC6BWrite(File *file, unsigned int *flags);
 
 // The wind-motion name table rowed at 0x00C1B6C4 (Rva003A547EXfer.cpp).
 namespace FXParticleSystem { extern const char * const WindMotionNames[]; }
-extern "C" const float kG1;
-extern "C" const float kG2;
-extern "C" const float kG3;
-extern "C" const float kG4;
-extern "C" const float kG5;
-extern "C" const float kG6;
-extern "C" const float kG8;
 extern "C" const float kG9;
 
 void Rva001F82ABWrite(
@@ -131,21 +125,21 @@ void WindModuleTemplate::rva003A5E78(File *file, unsigned int flags)
     _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
     if (m_windMotion != 1)
         Rva001F82ABWrite(oss, flags, "WindMotion", const_cast<const char **>(&FXParticleSystem::WindMotionNames[m_windMotion]));
-    if (m_windStrength != kG1)
+    if (m_windStrength != WindModuleInfo::DEFAULT_STRENGTH)
         Rva003A5D34Write(oss, flags, "WindStrength", m_windStrength);
-    if (m_windFullStrengthDist != kG2)
+    if (m_windFullStrengthDist != WindModuleInfo::DEFAULT_FULL_STRENGTH_DIST)
         Rva003A5D34Write(oss, flags, "WindFullStrengthDist", m_windFullStrengthDist);
-    if (m_windZeroStrengthDist != kG3)
+    if (m_windZeroStrengthDist != WindModuleInfo::DEFAULT_ZERO_STRENGTH_DIST)
         Rva003A5D34Write(oss, flags, "WindZeroStrengthDist", m_windZeroStrengthDist);
-    if (m_windAngleChangeMin != kG4)
+    if (m_windAngleChangeMin != WindModuleInfo::DEFAULT_ANGLE_CHANGE)
         Rva003A5D34Write(oss, flags, "WindAngleChangeMin", m_windAngleChangeMin);
-    if (m_windAngleChangeMax != kG5)
+    if (m_windAngleChangeMax != WindModuleInfo::DEFAULT_ANGLE_CHANGE_MAX)
         Rva003A5D34Write(oss, flags, "WindAngleChangeMax", m_windAngleChangeMax);
     if (m_windPingPongStartAngleMin != 0.0f)
         Rva003A5D34Write(oss, flags, "WindPingPongStartAngleMin", m_windPingPongStartAngleMin);
-    if (m_windPingPongStartAngleMax != kG6)
+    if (m_windPingPongStartAngleMax != WindModuleInfo::DEFAULT_MOTION_START_ANGLE_MAX)
         Rva003A5D34Write(oss, flags, "WindPingPongStartAngleMax", m_windPingPongStartAngleMax);
-    if (m_windPingPongEndAngleMin != kG8)
+    if (m_windPingPongEndAngleMin != WindModuleInfo::DEFAULT_MOTION_END_ANGLE_MIN)
         Rva003A5D34Write(oss, flags, "WindPingPongEndAngleMin", m_windPingPongEndAngleMin);
     if (m_windPingPongEndAngleMax != kG9)
         Rva003A5D34Write(oss, flags, "WindPingPongEndAngleMax", m_windPingPongEndAngleMax);

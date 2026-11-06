@@ -51,3 +51,6 @@ link_check shows no LINKS loss.
 
 Evidence: [probe and counts](../../reverse/attempt_support/fx-export-dllexport-20261106-lk34/README.md).
 Census confirmation: not claimed.
+
+
+**2026-11-06 Wind defaults.** Retail export ordinals 1154, 1145, 1157, 1142, 1143, 1152, 1149 now have their existing four-byte float providers under the exported names. The owner and writer keep their matched code and bind the same retail addresses. All 7 exported data definitions verify against the image. The COFF comparison retains 34 external code bodies; 15 DIR32 edges use the replacement name. The two .data constants and the shared 0x0081B310 provider still need separate reconciliation. A new real-link run is the remaining closure check.
