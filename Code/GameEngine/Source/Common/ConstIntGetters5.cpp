@@ -197,12 +197,16 @@ int Rva002AA2C9Get(void)
 	return 218;
 }
 
-// ?Rva0041F286Get@@YAHXZ @ 0x0041f286 (6B): returns 0x00c3b000.
+// ?Rva0041F286Get@@YAHXZ @ 0x0041f286 (6B): returns VA 0x00c3b000, the
+// rowed ArmyMemberDefinitionFieldParse table (INIAllocListParsers.cpp).
 // Follows an x87-load plus ret tail. No direct callers. Opaque
 // address-derived name.
+#include "../../Include/Common/INI/FieldParse.h"
+extern const FieldParse ArmyMemberDefinitionFieldParse[];
+
 int Rva0041F286Get(void)
 {
-	return 0x00c3b000;
+	return (int)ArmyMemberDefinitionFieldParse;
 }
 
 // ?Rva004D949FGet@@YAHXZ @ 0x004d949f (6B): returns INT_MIN.

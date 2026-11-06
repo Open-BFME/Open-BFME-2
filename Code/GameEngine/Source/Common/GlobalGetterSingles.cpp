@@ -28,8 +28,9 @@ int getPageSize(void)
 // ?Rva00020E80Get@@YAHXZ @ 0x00020E80 (6B) over 0x00DA7188.
 
 extern int g_Va00DA7188;
-// g_Va00DA7188: matched references place it at VA 0xda7188 (retail .data initial value 12305416).
-int g_Va00DA7188 = 12305416;
+// g_Va00DA7188: matched references place it at VA 0xda7188. Retail .data holds
+// VA 0x00BBC408, the pooled literal "true".
+int g_Va00DA7188 = (int)"true";
 
 int Rva00020E80Get(void)
 {
@@ -39,8 +40,9 @@ int Rva00020E80Get(void)
 // ?Rva00020E90Get@@YAHXZ @ 0x00020E90 (6B) over 0x00DA718C.
 
 extern int g_Va00DA718C;
-// g_Va00DA718C: matched references place it at VA 0xda718c (retail .data initial value 12305424).
-int g_Va00DA718C = 12305424;
+// g_Va00DA718C: matched references place it at VA 0xda718c. Retail .data holds
+// VA 0x00BBC410, the pooled literal "false".
+int g_Va00DA718C = (int)"false";
 
 int Rva00020E90Get(void)
 {
@@ -95,8 +97,11 @@ void Rva00117C20Get(int *out)
 // ?Rva000A8F36Get@@YAHXZ @ 0x000A8F36 (6B) over 0x00DB5FC8.
 
 extern int g_Va00DB5FC8;
-// g_Va00DB5FC8: matched references place it at VA 0xdb5fc8 (retail .data initial value 10568192).
-int g_Va00DB5FC8 = 10568192;
+// g_Va00DB5FC8: matched references place it at VA 0xdb5fc8. It is the Render2D
+// color-converter callback; retail .data holds VA 0x00A14200, the rowed
+// identity converter rva00614200 (TARGA.CPP).
+void *rva00614200(void *);
+int g_Va00DB5FC8 = (int)&rva00614200;
 
 int Rva000A8F36Get(void)
 {

@@ -46,6 +46,9 @@ class ParticleSystemTemplate;
 
 extern ParticleSystemManager *TheParticleSystemManager;
 
+struct GapWord15C;
+void rva000B2D3A(GapWord15C *target, int value);
+
 struct BfmePod32
 {
 	AsciiString m_00;
@@ -62,10 +65,9 @@ void __cdecl Rva000B9887Init(void *owner, struct BfmePod32 *b)
 {
 	BfmeThingVKE tmp(*(const BfmeThingVKE *)((const char *)owner + 0x148));
 	b->m_10 = owner;
-	// Magic cookie 0x4B2D3A (decimal below: the hard-coded-address heuristic
-	// scans hex literals, and this immediate is owner tag, not an address --
-	// retail stores the same imm32 here, then zeroes the slot below).
-	b->m_14 = 4926778;
+	// Retail stores VA 0x4B2D3A, the entry of rowed rva000B2D3A (the
+	// optional-object +0x15C setter), then zeroes the slot below.
+	b->m_14 = (int)&rva000B2D3A;
 	((StringBase<char> &)b->m_00).set((const StringBase<char> &)tmp);
 	b->m_1c = tmp.m_04;
 	b->m_14 = 0;

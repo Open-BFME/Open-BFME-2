@@ -1,14 +1,10 @@
-// cl: -GR- -EHsc-
+// cl: -GR- -EHsc- /Ireference/shims/bfme2_ascii
 // ?Run@Rva005B5AC3Box@@QAEXXZ @0x005B5AC3 32B: non-negative one-shot. When
-// +0x24 reads non-negative, forward the twice-repeated runtime constant
-// (outside all PE sections, composed arithmetically so the link-debt gate
-// aimed at in-image addresses stays quiet) plus 0 through the pinned cdecl
-// 3-arg callee, then set +0x24 to -1. Target read from retail REL32.
-enum Rva005B5AC3Const
-{
-	Rva005B5AC3_K = 0xDE0000 + 0x878
-};
-
+// +0x24 reads non-negative, forward AsciiString::TheEmptyString (VA
+// 0x00DE0878) twice plus 0 through the pinned cdecl 3-arg callee, then set
+// +0x24 to -1. Target read from retail REL32.
+#define BFME_ASCII_DTOR_DECL
+#include "ascii_string.h"
 struct Rva005B5AC3Box
 {
 	char pad[0x24];
@@ -19,14 +15,13 @@ struct Rva005B5AC3Box
 };
 
 void Rva005B23D7Wrap(int a, int b, int c);
-class AsciiString;
 void __cdecl Rva005B23D7HeroPowersDescription(void *a, const AsciiString &b, const AsciiString &c); // rowed 0x005B23D7
 void __cdecl Rva00513866();
 
 void Rva005B5AC3Box::Run()
 {
 	if (m_24 >= 0) {
-		Rva005B23D7HeroPowersDescription((void*)0, *(const AsciiString*)(void*)Rva005B5AC3_K, *(const AsciiString*)(void*)Rva005B5AC3_K);
+		Rva005B23D7HeroPowersDescription((void*)0, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 		m_24 |= -1;
 	}
 }
