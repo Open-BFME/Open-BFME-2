@@ -28,7 +28,7 @@ __forceinline long fast_float2long_round(float f)
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 #define REAL_TO_INT_CEIL(x) (fast_float2long_round(ceilf(x)))
 class RefRenderObjListIterator;
-class WorldHeightMap { public: virtual void Delete_This(); int m_refs; };
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 class Rva00113110Holder { public: void rva00113110(void *); };
 class W3DTerrainBackground { public: void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, bool doTextures, bool flag); };
 struct TerrainTileView { char data[0xd4]; };
@@ -50,9 +50,9 @@ private:
 void FlatHeightMapRenderObjClass::doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, RefRenderObjListIterator *)
 {
 	if (htMap) {
-		++htMap->m_refs;
+		++htMap->NumRefs;
 		WorldHeightMap *old = m_map;
-		if (old && 0 == --old->m_refs)
+		if (old && 0 == --old->NumRefs)
 			old->Delete_This();
 		m_map = htMap;
 	}

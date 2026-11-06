@@ -90,17 +90,7 @@ extern OVERRIDE<WeatherSetting> TheWeatherSetting;
 #include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 
-class WorldHeightMap
-{
-public:
-	char m_pad00[8];
-	int m_width;
-	int m_height;
-	int m_borderSize;
-	char m_pad14[0x120E0 - 0x14];
-	int m_originX;
-	int m_originY;
-};
+#include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
 
 // VertexMaterialClass already includes the retail RefCountClass definition.
 #define REFCOUNT_H
@@ -171,8 +161,8 @@ void W3DSnowManager::render(RenderInfoClass &rinfo)
 	TheTacticalView->get3DCameraPosition();
 	WorldHeightMap *map = TheTerrainRenderObject->m_map;
 	int border = map->m_borderSize * 2;
-	int originX = (int)((float)map->m_originX * 10.0f);
-	int originY = (int)((float)map->m_originY * 10.0f);
+	int originX = (int)((float)map->m_drawOriginX * 10.0f);
+	int originY = (int)((float)map->m_drawOriginY * 10.0f);
 	int dimX = (int)((float)(map->m_width - border) * 10.0f);
 	int dimY = (int)((float)(map->m_height - border) * 10.0f);
 	m_snowCeiling = m_boxDimensions;

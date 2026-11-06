@@ -9,3 +9,6 @@ The generator reports a decided contract but selects size 16 by majority despite
 2026-11-04 audit follow-up: strict receipts now pass for the three edited providers; the broader consumer audit remains inconclusive on the old index and missing current receipt for `0CreateAHeroManager21FE49.cpp`. Carry the scope into the next official census; see the [outgoing audit handoff](../../reverse/attempt_support/worldheightmap-baseheightmap-queries-20261104-codex4.md#outgoing-consumer-audit-handoff).
 
 2026-11-04: Three terrain query consumers now adopt the canonical map header; local RefCountClass guard and const-accessor selection preserve complete runtime objects, nine matched rows and 2,446 census-linked bytes in prediction. Three header-debt rows retired; remaining family prerequisites unchanged. [Evidence](../../reverse/attempt_support/worldheightmap-terrain-query-header-20261104-codex5.md).
+
+
+2026-11-06 stopped-fleet recovery: FlatHeightMapDoPartialUpdate and W3DSnowManagerRender now adopt the existing WorldHeightMap header; 2/2 rows remain exact, strict providers pass and owning acceptance passed; two queue rows await separate retirement. Constructor/parser and remaining cohort/TU prerequisites stay open. [Current five-consumer verification and remaining audit limits](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md).

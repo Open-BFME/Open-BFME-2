@@ -164,3 +164,6 @@ verified guard-freshness repair, then reconcile the remaining reference-header
 conflicts. No merge, guard workaround, link gain or census clearance is claimed.
 The preceding publication's batch-link audit was also inconclusive against
 the older index and its receipt requirements; carry this into the next census.
+
+
+2026-11-06 stopped-fleet recovery: FontLibrary Apt allocation consumer now adopts the existing header; 1/1 row remains exact and owning acceptance passed; one queue row awaits separate retirement. The remaining FontLibrary cohort and merge prerequisites stay open. [Current five-consumer verification and remaining audit limits](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md).

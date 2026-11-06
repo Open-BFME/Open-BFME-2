@@ -33,56 +33,26 @@ void XferParticleShaderType(Xfer *xfer, int *value);
 
 #include "ascii_string.h"
 
-namespace FXParticleSystem
-{
-
-class RenderObjectDrawModuleInfoBase
-{
-};
-
-class RenderObjectDrawModuleInfo : public RenderObjectDrawModuleInfoBase
-{
-public:
-	RenderObjectDrawModuleInfo();
-	virtual ~RenderObjectDrawModuleInfo();
-	virtual void DoXfer(Xfer &xfer);
-
-private:
-	bool m_enabled;
-	float m_type;
-	bool m_flag;
-	AsciiString m_name0;
-	int m_value00;
-	float m_value01;
-	int m_value02;
-	AsciiString m_name1;
-	int m_value10;
-	float m_value11;
-	int m_value12;
-	AsciiString m_name2;
-	int m_value20;
-	float m_value21;
-	int m_value22;
-};
-
-}
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#include "../../../../Include/GameClient/RenderObjectDrawModuleInfo.h"
 
 void FXParticleSystem::RenderObjectDrawModuleInfo::DoXfer(Xfer &xfer)
 {
 	xfer.Version1();
-	xfer == m_flag;
-	xfer == m_name0;
-	xfer == m_value00;
-	xfer == m_value01;
-	XferParticleShaderType(&xfer, &m_value02);
-	xfer == m_name1;
-	xfer == m_value10;
-	xfer == m_value11;
-	XferParticleShaderType(&xfer, &m_value12);
-	xfer == m_name2;
-	xfer == m_value20;
-	xfer == m_value21;
-	XferParticleShaderType(&xfer, &m_value22);
-	xfer == m_enabled;
-	xfer == m_type;
+	xfer == m_0C;
+	xfer == m_10;
+	xfer == m_14;
+	xfer == m_18;
+	XferParticleShaderType(&xfer, &m_1C);
+	xfer == m_20;
+	xfer == m_24;
+	xfer == m_28;
+	XferParticleShaderType(&xfer, &m_2C);
+	xfer == m_30;
+	xfer == m_34;
+	xfer == m_38;
+	XferParticleShaderType(&xfer, &m_3C);
+	xfer == m_04;
+	xfer == m_08;
 }

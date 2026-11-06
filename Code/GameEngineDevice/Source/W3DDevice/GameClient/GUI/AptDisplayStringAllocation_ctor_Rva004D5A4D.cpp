@@ -18,7 +18,7 @@
 #include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 std::wstring MultiByteToWideCharSingleLine(const char*);
 class GameFont;
-class FontLibrary { public: GameFont *getFont(AsciiString*,float,unsigned char); };
+#include "../../../../../GameEngine/Include/GameClient/FontLibrary.h"
 extern FontLibrary *TheFontLibrary;
 class DisplayString {
 public:
