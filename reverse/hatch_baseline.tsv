@@ -2452,7 +2452,6 @@ alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cp
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp	??1Rva003A690DVec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp	??1Rva003A71D4Vec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp	??1Rva003A73ADVec@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp	??1Rva003A77A7Vec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp	??1Rva003A7853Vec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp	??1Rva003A7A06Vec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp	??1Rva003A7B9FVec@@UAE@XZ	1
@@ -7867,7 +7866,7 @@ pin	reverse/symbols.csv	0x00499C46	1
 pin	reverse/symbols.csv	0x0049A64B	1
 pin	reverse/symbols.csv	0x0049A7EE	1
 pin	reverse/symbols.csv	0x0049AC5F	1
-pin	reverse/symbols.csv	0x0049B47C	15
+pin	reverse/symbols.csv	0x0049B47C	14
 pin	reverse/symbols.csv	0x0049BBD5	1
 pin	reverse/symbols.csv	0x0049C38A	3
 pin	reverse/symbols.csv	0x0049C391	1

@@ -17,7 +17,6 @@
 //   0x003A690D  0x003A6201  0x14  0x00C1BB80#0
 //   0x003A71D4  0x003A6201  0x30  0x00C1BC10#0
 //   0x003A73AD  0x003A6201  0x18  0x00C1BC40#0
-//   0x003A77A7  0x0049B47C  0x24  0x00C1BCB0#0
 //   0x003A7853  0x003A6201  0x2C  0x00C1BCC0#0
 //   0x003A7A06  0x003A6201  0x70  0x00C1BCF0#0
 //   0x003A7B9F  0x003A6201  0x0C  0x00C1BD60#0
@@ -152,13 +151,6 @@ public:
 };
 
 
-class Rva003A77A7Vec
-{
-public:
-	virtual ~Rva003A77A7Vec();
-private:
-	char m_unmodelled_04[0x24 - 0x04];
-};
 
 class __declspec(novtable) Rva003A7853VecBase0
 {
@@ -240,7 +232,6 @@ void bfmeVectorDeleteAnchorV03Unresolved()
 	new Rva003A690DVec[2];
 	new Rva003A71D4Vec[2];
 	new Rva003A73ADVec[2];
-	new Rva003A77A7Vec[2];
 	new Rva003A7853Vec[2];
 	new Rva003A7A06Vec[2];
 	new Rva003A7B9FVec[2];
@@ -253,7 +244,6 @@ void bfmeVectorDeleteAnchorV03Unresolved()
 #pragma comment(linker, "/alternatename:??1Rva003A690DVec@@UAE@XZ=??1?$CategoryModuleTemplate@$06@FXParticleSystem@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva003A71D4Vec@@UAE@XZ=??1?$CategoryModuleTemplate@$06@FXParticleSystem@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva003A73ADVec@@UAE@XZ=??1?$CategoryModuleTemplate@$06@FXParticleSystem@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva003A77A7Vec@@UAE@XZ=??1BfmeBaseVNH@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva003A7853Vec@@UAE@XZ=??1?$CategoryModuleTemplate@$06@FXParticleSystem@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva003A7A06Vec@@UAE@XZ=??1?$CategoryModuleTemplate@$06@FXParticleSystem@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva003A7B9FVec@@UAE@XZ=??1?$CategoryModuleTemplate@$06@FXParticleSystem@@UAE@XZ")

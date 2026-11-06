@@ -1,0 +1,12 @@
+{
+  "old_name": "??_ERva003A77A7Vec@@UAEPAXI@Z",
+  "old_rva": "0x003A77A7",
+  "replacement": "??_EDefaultPhysicsModuleInfo@FXParticleSystem@@UAEPAXI@Z",
+  "source": "Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp",
+  "provider_source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultPhysicsModuleInfoVectorDeletingDestructor_Rva003A69B4.cpp",
+  "function_before_sha256": "b594668f377553ef2b8c3ebd7095b7f66788250e281ce9658f0683ad2e87c93c",
+  "function_after_sha256": "7af46edcfe5941f09bcf9ac10d0d07e5217133dbc38de3a9b0cae673440f1979",
+  "retained_function_and_pin_records_unchanged": true,
+  "map_only_one_source_cell_changed": true,
+  "tu_approval_unchanged": true
+}

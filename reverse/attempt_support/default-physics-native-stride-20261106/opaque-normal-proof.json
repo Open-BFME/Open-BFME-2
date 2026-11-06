@@ -1,0 +1,8 @@
+{
+  "source": "Code/GameEngine/Source/Common/VectorDeletingDtorsV03_Unresolved.cpp",
+  "source_sha256": "277bf27ee0a146acb8164dbc0210e94bafa2045b586411d9587e461d10b9d941",
+  "object_sha256": "a34baa380687c5cb44273b4060b4559081b07547f94139ef19ab873331024c86",
+  "normal_equals_private_winner": true,
+  "definitions": 57,
+  "eh": {}
+}
