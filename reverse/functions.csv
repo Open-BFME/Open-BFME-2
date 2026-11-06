@@ -6434,8 +6434,8 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1SupplyCenterDockUpdate@@UAE@XZ,,0x004CDC33,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque-base dtor pattern; vtab plus consts plus tail-jmp base pin
 ??_GSupplyCenterDockUpdate@@UAEPAXI@Z,,0x004CDC98,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor; flag plus free via pinned delete
 ??_GMissileLauncherBuildingUpdate@@UAEPAXI@Z,,0x004CDA19,28,Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp,matched,emitted scalar deleting dtor; dtor call via pin; flag plus free
-??1Rva00490D76@@UAE@XZ,,0x00490D76,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; vtab pairs with 0x490D3F ctor; same consts as OCL; upgrade when stub order names it
-??1Rva004921B0@@UAE@XZ,,0x004921B0,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; vtab pairs with 0x492179 ctor; same consts as OCL; upgrade when stub order names it
+??1Rva00490D3F@@UAE@XZ,,0x00490D76,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; vtab pairs with 0x490D3F ctor; same consts as OCL; upgrade when stub order names it
+??1Rva00492179@@UAE@XZ,,0x004921B0,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; vtab pairs with 0x492179 ctor; same consts as OCL; upgrade when stub order names it
 ??1Rva00492439@@UAE@XZ,,0x00492439,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; vtab pairs with 0x492402 ctor; distinct +0x20 dummy
 ??1Rva00494F1B@@UAE@XZ,,0x00494F1B,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; OCL consts; upgrade when stub order names it
 ?Get_Bone_Name@HTreeClass@@QBEPBDH@Z,,0x00160BB0,22,Code/Libraries/Source/WWVegas/WW3D2/htree.cpp,matched,HTree bone name accessor; 0x58 pivots
@@ -6448,8 +6448,8 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004AE4E2@@UAE@XZ,,0x004AE4E2,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; distinct +0x20 dummy
 ??1UnleashSpecialPower@@UAE@XZ,,0x004CE03D,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; distinct +0x20 dummy
 ??1Rva004AD9B0@@UAE@XZ,,0x004AD9B0,42,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor with trailing const; reuses +0x0C dummy
-??_GRva00490D76@@UAEPAXI@Z,,0x00490EB3,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
-??_GRva004921B0@@UAEPAXI@Z,,0x00492215,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
+??_GRva00490D3F@@UAEPAXI@Z,,0x00490EB3,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
+??_GRva00492179@@UAEPAXI@Z,,0x00492215,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ??_GRva00492439@@UAEPAXI@Z,,0x0049249E,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ??_GRva00494F1B@@UAEPAXI@Z,,0x00494FB0,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ??_GRva004B0164@@UAEPAXI@Z,,0x004B02E7,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row

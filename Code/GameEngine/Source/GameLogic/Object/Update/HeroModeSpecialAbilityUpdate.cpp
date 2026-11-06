@@ -129,7 +129,7 @@ HeroModeSpecialAbilityUpdateModuleData::HeroModeSpecialAbilityUpdateModuleData()
 	m_flagD1 = false;
 }
 
-// tu-skeleton: 0x00492215 28B ??_GRva004921B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+// tu-skeleton: 0x00492215 28B ??_GRva00492179@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x00492231 59B ?startUnpacking@Rva00492179@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot22Overrides.cpp (not merged yet)
 

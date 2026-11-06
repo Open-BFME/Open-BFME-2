@@ -8,7 +8,7 @@
 // pointer slots (address-of TU-local dummies, DIR32-patched: 0xC4D640 /
 // 0xC4DEE8 / 0xC552A4). No trailing members (factory stub news 0x88).
 // Identity unproven (opaque Rva name); serves the 0x24D9D2 factory stub.
-// The paired dtor Rva004921B0 is already rowed (same consts).
+// The paired dtor (0x004921B0, ModuleUpdateDtors.cpp) is already rowed (same consts).
 class Thing;
 class ModuleData;
 
@@ -48,7 +48,5 @@ Rva00492179::Rva00492179(Thing *thing, const ModuleData *moduleData)
 	m_p20 = &s_dummy20;
 }
 
-// ?Rva00492179::~Rva00492179 present-unmatched
-Rva00492179::~Rva00492179()
-{
-}
+// ~Rva00492179 (retail 0x004921B0) and its deleting destructor are defined in
+// ModuleUpdateDtors.cpp.

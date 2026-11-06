@@ -191,7 +191,7 @@ ModelConditionSpecialAbilityUpdateModuleData::ModelConditionSpecialAbilityUpdate
 
 // tu-skeleton: 0x00490E7B 56B ??1ModelConditionSpecialAbilityUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00490EB3 28B ??_GRva00490D76@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+// tu-skeleton: 0x00490EB3 28B ??_GRva00490D3F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateSlots.cpp
 

@@ -47,7 +47,5 @@ Rva00490D3F::Rva00490D3F(Thing *thing, const ModuleData *moduleData)
 	m_p20 = &s_dummy20;
 }
 
-// ?Rva00490D3F::~Rva00490D3F present-unmatched
-Rva00490D3F::~Rva00490D3F()
-{
-}
+// ~Rva00490D3F (retail 0x00490D76) and its deleting destructor are defined in
+// ModuleUpdateDtors.cpp.

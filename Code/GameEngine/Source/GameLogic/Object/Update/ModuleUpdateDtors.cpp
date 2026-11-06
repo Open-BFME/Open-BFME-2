@@ -78,26 +78,26 @@ SupplyCenterDockUpdate::~SupplyCenterDockUpdate()
 	m_p20 = vtbl_00C552A4;
 }
 
-class Rva00490D76 : public Rva0044EF5E
+class Rva00490D3F : public Rva0044EF5E
 {
 public:
-	virtual ~Rva00490D76();
+	virtual ~Rva00490D3F();
 };
 
-Rva00490D76::~Rva00490D76()
+Rva00490D3F::~Rva00490D3F()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
 	m_p20 = vtbl_00C552A4;
 }
 
-class Rva004921B0 : public Rva0044EF5E
+class Rva00492179 : public Rva0044EF5E
 {
 public:
-	virtual ~Rva004921B0();
+	virtual ~Rva00492179();
 };
 
-Rva004921B0::~Rva004921B0()
+Rva00492179::~Rva00492179()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;
