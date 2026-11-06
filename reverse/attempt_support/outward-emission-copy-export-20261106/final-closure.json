@@ -1,0 +1,17 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp",
+  "all_17_provider_payloads_and_properties_preserved": true,
+  "only_route_change": "removed obsolete copy-shim alternatename",
+  "native_table_bytes": 16,
+  "slot_rvas": {
+    "??_EOutwardEmissionVelocityInfo@FXParticleSystem@@UAEPAXI@Z": "0x3a7532",
+    "?LoadPostProcess@EmissionVelocityInfo@FXParticleSystem@@UAEXXZ": "0xb3fd0",
+    "?GetSnapshotName@EmissionVelocityInfo@FXParticleSystem@@UAEPBDXZ": "0x1f35bf",
+    "?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z": "0x47a69c"
+  },
+  "full_vector_provider_source": "Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp",
+  "full_vector_bytes": 75,
+  "normal_source_sha256": "6d13aa75b39c908a4187d5fcfcf36ddadea897775831a9d778ead270f4605430",
+  "strong_native_vector_provider_supplied": true,
+  "image_selection_confirmation": "pending next automated real link"
+}

@@ -91,9 +91,6 @@ SphericalEmissionVelocityInfo::SphericalEmissionVelocityInfo(const SphericalEmis
 
 }
 
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?construct_from@OutwardEmissionVelocityModuleTemplateSubCopyShim@FXParticleSystem@@QAEXPBX@Z=??0CylindricalEmissionVelocityInfo@FXParticleSystem@@QAE@ABV01@@Z")
 
 // Target exports identify the empty volume transfer as the same RET4 fold.
 void FXParticleSystem::EmissionVolumeInfo::DoXfer(Xfer &) {}

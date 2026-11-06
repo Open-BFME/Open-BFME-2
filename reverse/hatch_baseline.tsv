@@ -2640,7 +2640,6 @@ alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultM
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEF9B_v14b	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEF9B_v18a	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplateCopyCtors.cpp	_Rva003AEF9B_v18b	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp	?construct_from@OutwardEmissionVelocityModuleTemplateSubCopyShim@FXParticleSystem@@QAEXPBX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoDefaultCtors.cpp	??0OutwardEmissionVelocityInfo@FXParticleSystem@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/LineEmissionVolumeModuleTemplateCopyCtorThunk.cpp	_s_slot3E4first	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateCopyCtors.cpp	_Rva003AF184_v14a	1
@@ -7149,7 +7148,7 @@ pin	reverse/symbols.csv	0x003A6E0E	1
 pin	reverse/symbols.csv	0x003A706F	1
 pin	reverse/symbols.csv	0x003A7270	1
 pin	reverse/symbols.csv	0x003A7489	1
-pin	reverse/symbols.csv	0x003A7501	2
+pin	reverse/symbols.csv	0x003A7501	1
 pin	reverse/symbols.csv	0x003A789E	1
 pin	reverse/symbols.csv	0x003A7AB2	1
 pin	reverse/symbols.csv	0x003A7BEA	1

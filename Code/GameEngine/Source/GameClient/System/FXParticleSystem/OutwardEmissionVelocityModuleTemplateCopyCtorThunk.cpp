@@ -13,11 +13,11 @@ public:
 	CategoryModuleTemplate(const CategoryModuleTemplate &that);
 };
 
-class OutwardEmissionVelocityModuleTemplateSubCopyShim
+// Declared call view only: the owned native constructor receives this+8 and a reference.
+class OutwardEmissionVelocityInfo
 {
 public:
-	void construct_from(const void *src_sub_or_null);
-	virtual void dummy();
+	OutwardEmissionVelocityInfo(const OutwardEmissionVelocityInfo &that);
 };
 
 // OutwardEmissionVelocityModuleTemplate_cvtbl0: matched references place it at VA 0xc1bca0 (retail .rdata value 20).
@@ -46,9 +46,9 @@ OutwardEmissionVelocityModuleTemplate::OutwardEmissionVelocityModuleTemplate(
 	((CategoryModuleTemplate<0> *)this)->CategoryModuleTemplate<0>::CategoryModuleTemplate(
 		*(const CategoryModuleTemplate<0> *)src);
 	const void *sub_src = src ? (const char *)src + 8 : 0;
-	OutwardEmissionVelocityModuleTemplateSubCopyShim *sub =
-		(OutwardEmissionVelocityModuleTemplateSubCopyShim *)((char *)this + 8);
-	sub->construct_from(sub_src);
+	OutwardEmissionVelocityInfo *sub =
+		(OutwardEmissionVelocityInfo *)((char *)this + 8);
+	sub->OutwardEmissionVelocityInfo::OutwardEmissionVelocityInfo(*static_cast<const OutwardEmissionVelocityInfo *>(sub_src));
 	// Sub vtbl then outer dual vtbls (retail store order).
 	*(void **)sub = &CylindricalEmissionVelocityModuleTemplate_csub_vtbl;
 	m_v0 = &OutwardEmissionVelocityModuleTemplate_cvtbl0;
