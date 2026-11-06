@@ -443,3 +443,58 @@ def test_unverified_row_cannot_supply_new_vtable_name(tmp_path):
     rows[0]["status"] = "pending"
     result = plan(code, [table], rows, data, retail=retail)
     assert result["tables"] == 0 and not result["name_discovery"]["bindings"]
+
+
+def comdat_code(path, body=b"\xe8\0\0\0\0\xc3", callee="_callee", callee_class=L.EXTERNAL,
+                associated=None):
+    """_first and _second as SELECT_ANY code COMDATs calling one callee; an
+    optional (flags) associative section hangs off _first's section."""
+    sections = [(".text", 0x60501020, body, V.SELECT_ANY), (".text", 0x60501020, body, V.SELECT_ANY)]
+    if associated is not None:
+        sections.append((".xdata", associated | V.COMDAT, b"\0" * 4, V.ASSOCIATIVE))
+    symbols = [("_first", 1, 0, L.EXTERNAL), ("_second", 2, 0, L.EXTERNAL),
+               (callee, 0, 0, callee_class)]
+    path = L.write_coff(path, sections, symbols, {1: [(1, callee, L.DIR32)], 2: [(1, callee, L.DIR32)]})
+    if associated is not None:  # write_coff leaves the associated section number zero
+        raw = bytearray(path.read_bytes())
+        _sections, syms = L.parse_coff(bytes(raw))
+        symptr = struct.unpack_from("<I", raw, 8)[0]
+        aux = next(y for y in syms.values() if y.cls == L.STATIC and y.sec == 3)
+        struct.pack_into("<H", raw, symptr + 18 * aux.i + 18 + 12, 1)
+        path.write_bytes(bytes(raw))
+    return path
+
+
+def twin_plan(tmp_path, earlier, **ours):
+    code = comdat_code(tmp_path / "code.obj", **ours)
+    table = table_object(tmp_path / "table.obj")
+    rows = [{"target_rva": hex(rva), "name": name, "source": "Code/code.cpp", "status": "matched"}
+            for rva, name in ((0x1000, "_first"), (0x1010, "_second"))]
+    data = [{"address": "0x3000", "size": "8", "name": "_vtable", "kind": "vtable"}]
+    return V.plan(rows, [table, earlier, code], [], Retail(), data,
+                  object_for=lambda row: code, symbol_for=lambda row: row["name"])
+
+
+def test_earlier_byte_and_relocation_twin_provides_the_ledger_body(tmp_path):
+    # P9: ??_GSubsystemLegend is one inline COMDAT in two TUs; the earlier TU
+    # wins the link, and its discardable .debug$F does not load.
+    result = twin_plan(tmp_path, comdat_code(tmp_path / "earlier.obj", associated=0x42101040))
+    assert (result["tables"], result["refused_tables"], result["twin_target_slots"]) == (1, 0, 2)
+    slot = result["entries"][0]["slots"][0]
+    assert slot["object"] == str((tmp_path / "earlier.obj").resolve())
+    assert slot["twin_of"] == str((tmp_path / "code.obj").resolve())
+
+
+LOCAL = dict(callee="_local", callee_class=L.STATIC)
+
+
+@pytest.mark.parametrize("earlier,ours", [
+    (dict(body=b"\xe8\0\0\0\0\x90"), {}),
+    (dict(callee="_other"), {}),
+    (LOCAL, LOCAL),  # one spelling, but each object's own static
+    (dict(associated=0x40300040), {}),
+])
+def test_earlier_copy_that_is_not_a_proven_twin_still_refuses(tmp_path, earlier, ours):
+    result = twin_plan(tmp_path, comdat_code(tmp_path / "earlier.obj", **earlier), **ours)
+    assert result["tables"] == 0
+    assert result["refusals"][0]["reason"] == "target-not-winning-provider"

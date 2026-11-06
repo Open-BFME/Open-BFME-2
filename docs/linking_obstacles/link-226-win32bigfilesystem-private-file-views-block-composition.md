@@ -34,3 +34,16 @@ or missing extent is guessed, and no persistent data-ledger row changes.
 The normal regeneration command is `python3 tools/data_ledger.py`; the ledger's
 active owner was LeonardBuhl@DESKTOP-TCMKKT2/10d48df1 when checked. This lane
 leaves that scope alone. Branch CI and a new queue receipt must prove past P9.
+
+The P9 image (`2026-11-06T175200Z-boot_smoke-60bf0b30dd65`, run 42258145195)
+crashed at the same `call [eax+4]` in initSubsystem: discovery bound
+SubsystemLegend to 0x7D7678, but slot 0 refused as target-not-winning-provider.
+`??_GSubsystemLegend` is one inline COMDAT in SubsystemLegend.cpp (the row) and
+Rva0022E0E5Dtor.cpp (the earlier, winning input). The bridge now accepts an
+earlier kept COMDAT that is the ledger body byte for byte, with the same
+selection and external-only relocations and nothing loaded beside it
+(discardable associative sections such as .debug$F only), and counts those
+slots as `twin_target_slots`. Replayed on the P9 object snapshot: refusals
+800 -> 298, generated name copies 3,662 -> 4,254, twin slots 5,952; the
+SubsystemLegend copy has all 14 retail slots. Merging Rva0022E0E5Dtor.cpp into
+the SubsystemLegend TU remains the source fix.
