@@ -18,6 +18,9 @@
 // Length2); that inline shape is what keeps retail's (x*x + y*y) + z*z
 // association and register order. The returns copy result member-wise
 // at each return site, so Coord3D here carries a user copy constructor.
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 #include "ascii_string.h"
@@ -78,7 +81,7 @@ class Rva003F468D;
 class Rva0020E6B7RegionManager {public:Rva003F468D*rva0020E6B7();};
 struct TacticWorldView {char pad[0xb0];Rva0020E6B7RegionManager*manager;};
 struct TacticBattleParticipantView {char pad[0x14];int army;};
-class LivingWorldBattle {public:void *rva003F4D09();};
+#include "../../Include/GameLogic/LivingWorldBattle.h"
 class Rva0040D701ArmySummary;
 #include "../../Include/GameLogic/ArmySummary.h"
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
