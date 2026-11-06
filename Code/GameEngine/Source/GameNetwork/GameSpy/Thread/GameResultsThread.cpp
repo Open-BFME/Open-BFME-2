@@ -30,6 +30,7 @@
 #include <stdlib.h>
 void __cdecl Rva00030830GameFree(void *);
 #include "BfmeNarrowRecord0041A5D2.h"
+#include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -321,6 +322,26 @@ struct Rva0041A843QueueSlots
 	virtual Bool slot48(BfmeNarrowRecord0041A5D2 &req);
 };
 
+struct Rva00419F7C : _STL::_Deque_iterator_base<BfmeE16> {
+    Rva00419F7C &increment();
+};
+
+struct Rva00419F70 : _STL::_Deque_iterator_base<BfmePod28> {
+    Rva00419F70 &increment();
+};
+
+// tu-skeleton: 0x00419CD4 11B ??1GameResultsInterface@@UAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x00419CFB 29B ??0Rva00419CFB@@QAE@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva00419CFBConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00419D18 18B ??0GameResultsInterface@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x00419D2A 40B ?areThreadsRunning@Rva0041A644@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup.cpp (not merged yet)
+
+// tu-skeleton: 0x00419D52 74B ?areGameResultsBeingSent@Rva0041A644@@UAE_NXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThread.cpp
 
 // The worker imports isdigit; the queue helpers call CRT free directly.
@@ -504,64 +525,6 @@ void Rva0041A3C4::rva0041A486()
 	rva0041A3C4();
 }
 
-// tu-skeleton: 0x0041A1CA 5B ??$copy@PAPAUBfmeOpaque40@@PAPAU1@@_STL@@YAPAPAUBfmeOpaque40@@PAPAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDeque40Iterators.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A1CF 49B ??0BfmeNarrowRecord0041A5D2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A200 65B ??1BfmeNarrowRecord0041A5D2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecord0041A5D2Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A25D 246B ?_M_reallocate_map@?$deque@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEXI_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_deque_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A353 9B ??$_Destroy@UBfmeNarrowRecord0041A5D2@@@_STL@@YAXPAUBfmeNarrowRecord0041A5D2@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A35C 38B ?_M_reserve_map_at_back@?$deque@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_deque_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A382 33B ??$__destroy_aux@U?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@0@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A3A3 33B ??$__destroy_aux@U?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@0@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A3F7 53B ?rva0041A3F7@Rva0041A3F7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecord16DequePop.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A42C 45B ??$__destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@UBfmeNarrowRecord0041A5D2@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@0@0PAUBfmeNarrowRecord0041A5D2@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A459 45B ??$__destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@UBfmeNarrowRecord0041A617@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@0@0PAUBfmeNarrowRecord0041A617@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A4A7 33B ?rva0041A4A7@Rva0041A3F7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecord16DequePop.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A4C8 41B ??$_Destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A4F1 41B ??$_Destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A51A 5B ?j_0041a51a@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A51F 87B ??1?$deque@UBfmeNarrowRecord0041A5D2@@V?$allocator@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A576 5B ?j_0041a576@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A57B 87B ??1?$deque@UBfmeNarrowRecord0041A617@@V?$allocator@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A5D2 69B ??0BfmeNarrowRecord0041A5D2@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A617 35B ??0BfmeNarrowRecord0041A617@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A63A 5B ?rva0041A63A@Rva0041A63A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A63F 5B ?rva0041A63F@Rva0041A63F@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A644 140B ??1Rva0041A644@@UAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A6FA 45B ??$_Construct@UBfmeNarrowRecord0041A5D2@@U1@@_STL@@YAXPAUBfmeNarrowRecord0041A5D2@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A727 45B ??$_Construct@UBfmeNarrowRecord0041A617@@U1@@_STL@@YAXPAUBfmeNarrowRecord0041A617@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A754 135B ??0Rva0041A644@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A7DB 28B ??_GRva0041A644@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A7F7 41B ??4BfmeNarrowRecord0041A5D2@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x0041A820 35B ??4BfmeNarrowRecord0041A617@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClassThreadFunction.cpp
 
 //
@@ -663,6 +626,96 @@ void GameResultsThreadClass::Thread_Function()
 	} catch ( ... ) {
 	}
 }
+
+// tu-skeleton: 0x00419DD2 36B ?_M_increment@?$_Deque_iterator_base@UBfmePod28@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_deque_bodies.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_deque_prefix_increment.cpp
+
+// STLport 4.5.3 _deque.h at BFME1 6583b3c1ff is the semantic source.
+// Retail facts: Ghidra 00419F7C..00419F88 is a 12-byte thiscall wrapper;
+// it calls the rowed 00419DF6 increment helper and returns the incoming this.
+// That helper proves four pointer fields and a 16-byte element stride.
+// BfmeE16 is the existing size-only stand-in used by the matched helper.
+// Const/nonconst iterator traits fold to identical code, so no original
+// iterator type or constness is claimed: retain the target address name.
+
+Rva00419F7C &Rva00419F7C::increment()
+{
+    _M_increment();
+    return *this;
+}
+
+Rva00419F70 &Rva00419F70::increment()
+{
+    _M_increment();
+    return *this;
+}
+
+// tu-skeleton: 0x00419E1C 28B ??_GRva00419E38@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
+
+// tu-skeleton: 0x00419E38 5B ??1Rva00419E38@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00419F88 135B ?startThreads@Rva0041A644@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A00F 56B ?endThreads@Rva0041A644@@UAEXXZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A1CA 5B ??$copy@PAPAUBfmeOpaque40@@PAPAU1@@_STL@@YAPAPAUBfmeOpaque40@@PAPAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportDeque40Iterators.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A1CF 49B ??0BfmeNarrowRecord0041A5D2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A200 65B ??1BfmeNarrowRecord0041A5D2@@QAE@XZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecord0041A5D2Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A25D 246B ?_M_reallocate_map@?$deque@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEXI_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_deque_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A353 9B ??$_Destroy@UBfmeNarrowRecord0041A5D2@@@_STL@@YAXPAUBfmeNarrowRecord0041A5D2@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A35C 38B ?_M_reserve_map_at_back@?$deque@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_deque_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A382 33B ??$__destroy_aux@U?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@0@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A3A3 33B ??$__destroy_aux@U?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@0@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A3F7 53B ?rva0041A3F7@Rva0041A3F7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecord16DequePop.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A42C 45B ??$__destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@UBfmeNarrowRecord0041A5D2@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@0@0PAUBfmeNarrowRecord0041A5D2@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A459 45B ??$__destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@UBfmeNarrowRecord0041A617@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@0@0PAUBfmeNarrowRecord0041A617@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A4A7 33B ?rva0041A4A7@Rva0041A3F7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecord16DequePop.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A4C8 41B ??$_Destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A5D2@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A5D2@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A4F1 41B ??$_Destroy@U?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@@_STL@@YAXU?$_Deque_iterator@UBfmeNarrowRecord0041A617@@U?$_Nonconst_traits@UBfmeNarrowRecord0041A617@@@_STL@@@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A51A 5B ?j_0041a51a@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A51F 87B ??1?$deque@UBfmeNarrowRecord0041A5D2@@V?$allocator@UBfmeNarrowRecord0041A5D2@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord28DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A576 5B ?j_0041a576@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A57B 87B ??1?$deque@UBfmeNarrowRecord0041A617@@V?$allocator@UBfmeNarrowRecord0041A617@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A5D2 69B ??0BfmeNarrowRecord0041A5D2@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A617 35B ??0BfmeNarrowRecord0041A617@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A63A 5B ?rva0041A63A@Rva0041A63A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A63F 5B ?rva0041A63F@Rva0041A63F@@QAEXXZ -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A644 140B ??1Rva0041A644@@UAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A6FA 45B ??$_Construct@UBfmeNarrowRecord0041A5D2@@U1@@_STL@@YAXPAUBfmeNarrowRecord0041A5D2@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A727 45B ??$_Construct@UBfmeNarrowRecord0041A617@@U1@@_STL@@YAXPAUBfmeNarrowRecord0041A617@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A754 135B ??0Rva0041A644@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A7DB 28B ??_GRva0041A644@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A7F7 41B ??4BfmeNarrowRecord0041A5D2@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x0041A820 35B ??4BfmeNarrowRecord0041A617@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x00786807 10B $L6451 -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup.cpp (not merged yet)
 
