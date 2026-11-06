@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /arch:SSE /G7
 //
-// ??0BfmeAptScreenInGameChat@@QAE@PAX@Z @0x0056DB9B 143B.
+// ??0Rva0056D915@@QAE@PAX@Z @0x0056DB9B 143B.
 // Ctor via rowed _bfme_AptGameWindow base, vtable 0x00C6DB40 with second base
 // vtable 0x00C6DB3C at +0x218, member Rva005C9B76 at +0x27c via rowed ctor,
 // zeroes +0x29c/+0x2a0, rowed rva002BED10 plus virtual slots 0x50 and 0x28
@@ -74,13 +74,13 @@ public:
 	void SelectCampaign(int v);
 };
 
-class BfmeAptScreenInGameChat : public _bfme_AptGameWindow
+class Rva0056D915 : public _bfme_AptGameWindow
 {
 public:
-	BfmeAptScreenInGameChat(void *context);
-	// Compiler-generated destruction (members, then the rowed base dtor), the
-	// body retail's vtable slot 0 reaches.
-	virtual ~BfmeAptScreenInGameChat() {}
+	Rva0056D915(void *context);
+	// Retail 0x0056D915 (members, then the rowed base dtor), defined in
+	// Rva0056D915Dtor.cpp; an inline body here would emit a second copy.
+	virtual ~Rva0056D915();
 private:
 	char m_pad274[8];
 	Rva005C9B76 m_member27C;
@@ -89,7 +89,7 @@ private:
 	unsigned char m_2A0;
 };
 
-BfmeAptScreenInGameChat::BfmeAptScreenInGameChat(void *context)
+Rva0056D915::Rva0056D915(void *context)
 	: _bfme_AptGameWindow(context)
 	, m_member27C(((Rva002D3627Host *)TheLivingWorld))
 	, m_29C(0)

@@ -16,10 +16,10 @@
 // reverse/symbols.csv at 0x0056DB9B.
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/BfmeAptScreenBaseLayout.h
-class BfmeAptScreenInGameChat
+class Rva0056D915
 {
 public:
-	BfmeAptScreenInGameChat( void *context );
+	Rva0056D915( void *context );
 
 private:
 	char m_unmodelled[ 0x2A4 ];
@@ -28,5 +28,5 @@ private:
 // ?createAptScreenInGameChat@@YGPAXPAX@Z
 void * __stdcall createAptScreenInGameChat( void *context )
 {
-	return new BfmeAptScreenInGameChat( context );
+	return new Rva0056D915( context );
 }

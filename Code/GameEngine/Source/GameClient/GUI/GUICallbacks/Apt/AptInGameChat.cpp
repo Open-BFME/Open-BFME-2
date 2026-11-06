@@ -424,7 +424,7 @@ void Rva004E8220::rva004E8220(int)
 // screen and binds its callbacks by name (InitGadgets, OnInitialized and
 // OnClosed are in AptLobbyScreenInitCallbacks.cpp), the opener that picks
 // the receiver type, the slash-command filter and the Send command. BFME
-// 1's AptScreenFactories.cpp (BfmeAptScreenInGameChat) is the donor.
+// 1's AptScreenFactories.cpp (Rva0056D915) is the donor.
 
 __forceinline FunctorBinding MakeBinding(FunctorMethod method, FunctorTarget *target)
 {

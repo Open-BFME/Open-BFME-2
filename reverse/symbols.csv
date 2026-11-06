@@ -1259,7 +1259,6 @@ name,address,notes
 ??0BFU_BehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z,0x00253330,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0BaseUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B371C,(Thing*;ModuleData*) ctor called by BaseUpgrade::friend_newModuleInstance (0x0024FDFF); class from the ModuleFactory registration literal
 ??0BezierProjectileBehaviorModuleData@@QAE@XZ,0x0045B4F1,EBO-empty base of MissileUpdateModuleData ctor 0x4A77B8 (2 raw callers 0x24B1A7 plus 0x4A77CA shared-fold like SlotToLock); sole-caller factory 0x24EFA0 news 0x120; corrected by native ModuleFactory registration 2026-10-05
-??0BfmeAptScreenInGameChat@@QAE@PAX@Z,0x0056DB9B,callee of ?createAptScreenInGameChat@@YGPAXPAX@Z at retail 0x0041025D read from its REL32 displacement; body unrowed
 ??0BfmeAptScreenQuickMatchMenu@@QAE@PAX@Z,0x00436259,callee of ?createAptScreenQuickMatchMenu@@YGPAXPAX@Z at retail 0x002D20D3 read from its REL32 displacement; body unrowed
 ??0BfmeAsciiScalarValue8@@QAE@ABU0@@Z,0x00466EA7,Complete27-byte AsciiString plus scalar copy independently byte-verified; alias of established NoCaseTree pair copy; direct ConstructBBA1A callee
 ??0BfmeAsciiStringStorage000BDD48@@QAE@ABUBfmeAsciiStringAllocator000BDD48@@@Z,0x00211E58,Constructor-only ABI view; BDD48 native call with stateless allocator ref and 12-byte vector storage; rowed Vector_base211E58/29 plus proxy14F3C4/11 prove same initialization and nonthrowing body; linker alternate binds existing typed AsciiString provider
