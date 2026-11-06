@@ -589,13 +589,13 @@ def test_real_constant_capacity_accessor_is_ambiguous_not_a_defect(tmp_path):
     assert not c.defects
 
 
-def test_arithmetic_and_comparison_constants_are_ambiguous(tmp_path):
+def test_comparison_and_add_without_owner_remain_unresolved(tmp_path):
     for prefix in (b"\x3d", b"\x05"):  # cmp eax,imm / add eax,imm
         body = prefix + struct.pack("<I", 0x403100) + b"\xc3"
         c, ledger, data = absolute_case(tmp_path, body)
         result = iso.unrelocated_retail_addresses(c, ledger, data)
         assert result["counts"]["defects"] == 0
-        assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_context"
+        assert result["ambiguous"][0]["ambiguity_reason"] == "integer_or_pointer_use_unresolved"
 
 
 def test_arithmetic_that_then_dereferences_is_not_numeric_only(tmp_path):
@@ -619,16 +619,22 @@ def test_typed_nonaddress_data_collision_is_ambiguous_but_untyped_word_is_not(tm
             assert result["ambiguous"][0]["numeric_data_witnesses"][0]["kind"] == "float"
 
 
-def test_object_relocation_is_checked_at_the_operand_not_pe_fixups(tmp_path):
+def test_object_relocation_also_requires_image_fixup(tmp_path):
     body = b"\xb8" + struct.pack("<I", 0x403100) + b"\xc3"
     object_body = b"\xb8" + bytes(4) + b"\xc3"
     linked_body = b"\xb8" + struct.pack("<I", 0x10003100) + b"\xc3"
     c, ledger, data = absolute_case(tmp_path, body, object_body=object_body,
                                    linked_body=linked_body, relocs=[(1, 6)])
     result = iso.unrelocated_retail_addresses(c, ledger, data)
-    assert result["counts"]["defects"] == 0
+    assert result["counts"]["defects"] == 1
+    assert result["by_family"] == {"missing_image_relocation": 1}
+    assert result["defects"][0]["linked_operand"] == "0x10003100"
     assert result["counts"]["operands_with_object_relocation"] == 1
-    assert not c.ours.relocations  # object evidence alone is authoritative here
+    c.ours.relocations.add(0x301)
+    c.defects.clear()
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"]
+    assert result["counts"]["operands_with_object_and_image_relocation"] == 1
 
 
 def test_partial_relocation_does_not_falsely_pass_operand(tmp_path):
@@ -698,6 +704,7 @@ def test_coff_operand_offset_includes_symbol_start(tmp_path):
     c, ledger, data = absolute_case(tmp_path, body)
     c.publics[0]["coff"] = dict(offset=3, section=dict(
         body=b"\x90" * 3 + body, size=9, flags=0x60000020, relocations=((4, 6),)))
+    c.ours.relocations.add(0x301)
     result = iso.unrelocated_retail_addresses(c, ledger, data)
     assert result["counts"]["operands_with_object_relocation"] == 1
     assert result["counts"]["defects"] == 0
@@ -781,7 +788,7 @@ def test_address_only_cli_keeps_ambiguous_out_of_defects_tsv(tmp_path, monkeypat
     assert defects[0]["family"] == "unrelocated_retail_address"
     assert json.loads(defects[0]["evidence"])["offset"] == 1
     assert ambiguous[0]["family"] == "unrelocated_retail_address_ambiguous"
-    assert json.loads((out / "report.json").read_text())["analysis_scope"] == "unrelocated_retail_address only"
+    assert json.loads((out / "report.json").read_text())["analysis_scope"] == "absolute address code/data audit only"
 
 
 def test_float_literal_gap_is_not_nonaddress_payload(tmp_path):
@@ -794,12 +801,12 @@ def test_float_literal_gap_is_not_nonaddress_payload(tmp_path):
     assert result["counts"]["defects"] == 1 and result["counts"]["ambiguous"] == 0
 
 
-def test_numeric_constant_then_overwrite_is_ambiguous(tmp_path):
+def test_untyped_value_then_comparison_and_overwrite_is_ambiguous(tmp_path):
     body = b"\xb8" + struct.pack("<I", 0x403100) + b"\x83\xf8\x01\xb8\x00\x00\x00\x00\xc3"
     c, ledger, data = absolute_case(tmp_path, body)
     result = iso.unrelocated_retail_addresses(c, ledger, data)
     assert result["counts"]["defects"] == 0
-    assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_context"
+    assert result["ambiguous"][0]["ambiguity_reason"] == "integer_or_pointer_use_unresolved"
 
 
 def test_printable_class_tag_getter_is_not_claimed_as_address(tmp_path):
@@ -821,7 +828,7 @@ def test_inline_month_store_is_ambiguous_not_a_pointer_claim(tmp_path):
     assert not result["defects"] and len(result["ambiguous"]) == 1
 
 
-def test_stored_rgb_scalar_and_push_without_type_evidence_are_ambiguous(tmp_path):
+def test_stored_rgb_scalar_and_push_without_owner_or_type_are_ambiguous(tmp_path):
     for body in (b"\xc7\x00" + struct.pack("<I", 0x403100) + b"\xc3",
                  b"\x68" + struct.pack("<I", 0x403100) + b"\xc3"):
         c, ledger, data = absolute_case(tmp_path, body)
@@ -842,9 +849,9 @@ def test_numeric_witness_elsewhere_demotes_getter_but_not_absolute_displacement(
     value = 0x403100
     body = b"\xb8" + struct.pack("<I", value) + b"\xc3"
     c, ledger, data = absolute_case(tmp_path, body)
-    # A separate comparison supplies an explicit numeric interpretation of the same bits.
+    # A separate bitmask supplies an explicit numeric interpretation of the same bits.
     p = public("number", 0x500, 6)
-    numeric = b"\x3d" + struct.pack("<I", value) + b"\xc3"
+    numeric = b"\x25" + struct.pack("<I", value) + b"\xc3"
     p["coff"] = dict(offset=0, section=dict(body=numeric, size=6, flags=0x60000020, relocations=()))
     c.publics.append(p)
     c.retail.put(0x200, numeric); c.ours.put(0x500, numeric)
@@ -901,3 +908,142 @@ def test_missing_source_data_register_is_unknown_not_no_global(tmp_path):
     result = iso.unrelocated_retail_addresses(c, ledger, data)
     assert result["counts"]["source_data_rows_available"] == 0
     assert result["defects"][0]["source_global_exists"] is None
+
+
+def test_pushed_pointer_to_exact_global_start_is_a_defect(tmp_path):
+    body = b"\x68" + struct.pack("<I", 0x403100) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body, data_rows=[row("table", 0x3100, 16)])
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["by_origin"] == {"code": 1}
+    assert result["defects"][0]["address_evidence"] == "exact_ledger_start"
+    assert not result["ambiguous"]
+
+
+def test_printable_tag_that_is_exact_function_start_is_a_defect(tmp_path):
+    value = 0x4b2d3a
+    body = b"\x68" + struct.pack("<I", value) + b"\xc3"
+    owner = dict(name="function_target", target_rva=hex(value - 0x400000), target_size="10",
+                 source="Code/target.cpp", status="matched", notes="")
+    c, ledger, data = absolute_case(tmp_path, body, extra_rows=[owner])
+    c.retail.sections[0].Misc_VirtualSize = 0x100000
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert len(result["defects"]) == 1 and not result["ambiguous"]
+
+
+def test_exact_pointer_comparison_is_not_numeric_proof(tmp_path):
+    body = b"\x3d" + struct.pack("<I", 0x403100) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body, data_rows=[row("table", 0x3100, 16)])
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert len(result["defects"]) == 1 and not result["ambiguous"]
+
+
+def test_exact_start_with_real_numeric_witness_stays_ambiguous(tmp_path):
+    body = b"\x25" + struct.pack("<I", 0x403100) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body, data_rows=[row("coincidence", 0x3100, 16)])
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"]
+    assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_context"
+
+
+def test_exact_string_object_start_is_an_address_argument(tmp_path):
+    body = b"\x68" + struct.pack("<I", 0x403100) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body, data_rows=[row("empty_string", 0x3100, 8, "string")])
+    c.retail.put(0x3100, bytes(8))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert len(result["defects"]) == 1 and not result["ambiguous"]
+
+
+def test_typed_first_pointer_argument_without_ledger_owner_is_detected(tmp_path):
+    body = b"\x6a\x00\x68" + struct.pack("<I", 0x403100) + b"\xe8" + struct.pack("<i", 0x200 - 0x10c) + b"\xc3"
+    callee = dict(name="?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z", target_rva="0x200", target_size="5",
+                  source="Code/parser.cpp", status="matched", notes="")
+    c, ledger, data = absolute_case(tmp_path, body, extra_rows=[callee])
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert len(result["defects"]) == 1 and not result["ambiguous"]
+    assert result["defects"][0]["address_evidence"] == "typed_first_pointer_argument"
+    # A later push means the literal is not the first stack argument.
+    body = b"\x68" + struct.pack("<I", 0x403100) + b"\x6a\x00\xe8" + struct.pack("<i", 0x200 - 0x10c) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body, extra_rows=[callee])
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"] and len(result["ambiguous"]) == 1
+
+
+def with_data_section(c):
+    from types import SimpleNamespace
+    c.ours.sections = [SimpleNamespace(Name=b".data", VirtualAddress=0x2000,
+        Misc_VirtualSize=0x20, SizeOfRawData=0x10)]
+    return c
+
+
+def test_data_word_exact_function_start_and_unknown_interior_are_distinct(tmp_path):
+    target = dict(name="code_target", target_rva="0x200", target_size="16",
+                  source="Code/target.cpp", status="matched", notes="")
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", extra_rows=[target])
+    with_data_section(c)
+    c.publics.append(public("manual_vtable", 0x2000, 16))
+    c.ours.put(0x2000, struct.pack("<IIII", 0x400200, 0x400204, 0x403100, 0x400200))
+    c.ours.relocations.add(0x200c)
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["by_origin"] == {"data": 1}
+    d = result["defects"][0]
+    assert d["symbol"] == "manual_vtable" and d["offset"] == 0
+    assert d["row_rva"] is None and d["image_rva"] == "0x2000"
+    assert d["target_kind"] == "text"
+    assert len(result["ambiguous"]) == 2
+    assert result["counts"]["data_words_with_image_relocation"] == 1
+    assert result["counts"]["data_virtual_zerofill_bytes_not_scanned"] == 0x10
+    assert result["counts"]["data_aligned_words_considered"] == 4
+
+
+def test_data_literal_payload_and_import_directory_are_excluded(tmp_path):
+    from types import SimpleNamespace
+    target = dict(name="code_target", target_rva="0x200", target_size="4",
+                  source="Code/target.cpp", status="matched", notes="")
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", extra_rows=[target])
+    with_data_section(c)
+    c.ours.put(0x2000, struct.pack("<IIII", 0x400200, 0, 0x400200, 0x400200))
+    c.publics.append(public("??_C@_1wide", 0x2000, 8))
+    c.publics.append(public("next", 0x2008, 4))
+    directories = [SimpleNamespace(VirtualAddress=0, Size=0) for _ in range(13)]
+    directories[12] = SimpleNamespace(VirtualAddress=0x200c, Size=4)
+    c.ours.pe = SimpleNamespace(OPTIONAL_HEADER=SimpleNamespace(DATA_DIRECTORY=directories))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"]["data_literal_payload_candidates_excluded"] == 1
+    assert result["counts"]["data_directory_words_excluded"] == 1
+    assert result["by_origin"] == {"data": 1}
+    assert result["defects"][0]["image_rva"] == "0x2008"
+
+
+def test_data_word_matching_exact_global_start_is_a_defect(tmp_path):
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", data_rows=[row("global", 0x3100, 4)])
+    with_data_section(c)
+    c.ours.put(0x2000, struct.pack("<I", 0x403100))
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["by_origin"] == {"data": 1}
+    assert result["defects"][0]["ledger_global_exists"]
+    assert result["counts"]["data_candidate_attribution_unresolved"] == 1
+
+
+def test_overwritten_stack_argument_does_not_prove_pointer_use(tmp_path):
+    body = b"\x68" + struct.pack("<I", 0x403100) + b"\xc7\x04\x24\x00\x00\x00\x00\xe8" + struct.pack("<i", 0x200 - 0x111) + b"\xc3"
+    callee = dict(name="?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z", target_rva="0x200", target_size="5",
+                  source="Code/parser.cpp", status="matched", notes="")
+    c, ledger, data = absolute_case(tmp_path, body, extra_rows=[callee])
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"] and len(result["ambiguous"]) == 1
+
+
+def test_merged_import_lookup_and_hint_names_are_not_absolute_pointers(tmp_path):
+    from types import SimpleNamespace
+    target = dict(name="code_target", target_rva="0x200", target_size="4",
+                  source="Code/target.cpp", status="matched", notes="")
+    c, ledger, data = absolute_case(tmp_path, b"\xc3", extra_rows=[target])
+    with_data_section(c)
+    c.ours.put(0x2000, struct.pack("<IIII", 0x400200, 0x400200, 0x400200, 0x400200))
+    entry = SimpleNamespace(hint_name_table_rva=0x2008, name=b"import")
+    descriptor = SimpleNamespace(struct=SimpleNamespace(OriginalFirstThunk=0x2000,
+        FirstThunk=0x4000, Name=0x4010), dll=b"x.dll", imports=[entry])
+    c.ours.pe = SimpleNamespace(DIRECTORY_ENTRY_IMPORT=[descriptor])
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"]["data_directory_words_excluded"] == 4
+    assert not result["defects"] and not result["ambiguous"]

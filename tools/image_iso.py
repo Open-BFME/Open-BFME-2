@@ -391,7 +391,7 @@ class Checker:
 
     def defect(self, family, rva, p, evidence):
         self.counts[family] += 1
-        self.defects.append(dict(family=family, retail_rva=hex(rva),
+        self.defects.append(dict(family=family, retail_rva=hex(rva) if rva is not None else "",
                                  name=p.get("name", ""), object=p.get("object", ""),
                                  source=p.get("source", ""), evidence=evidence))
 
@@ -754,11 +754,8 @@ def numeric_operand_use(md, instructions, origin, operand_kind):
     if operand_kind != "immediate":
         return False
     ins = instructions[origin]
-    arithmetic = {"add", "sub", "adc", "sbb", "and", "or", "xor", "imul", "mul",
-                  "div", "idiv", "shl", "shr", "sal", "sar", "rol", "ror"}
-    if ins.mnemonic in ("cmp", "test", "bt", "and", "or", "xor", "shl", "shr", "sal", "sar", "rol", "ror"):
-        return True
-    if ins.mnemonic in arithmetic and ins.operands and ins.operands[0].type == X86_OP_MEM:
+    arithmetic = {"and", "or", "xor", "test", "shl", "shr"}
+    if ins.mnemonic in arithmetic:
         return True
     if not ins.operands or ins.operands[0].type != X86_OP_REG:
         return False
@@ -785,7 +782,7 @@ def numeric_operand_use(md, instructions, origin, operand_kind):
         reads, writes = following.regs_access()
         read = {root(r) for r in reads} & tracked
         if read:
-            if following.mnemonic in arithmetic | {"cmp", "test", "inc", "dec", "neg", "not"}:
+            if following.mnemonic in arithmetic:
                 numeric = True
             elif following.mnemonic == "mov" and following.operands[0].type == X86_OP_REG:
                 tracked.add(root(following.operands[0].reg))
@@ -829,6 +826,136 @@ def address_operand_use(md, instructions, origin, operand_kind):
         if not tracked:
             return False
     return False
+
+
+def first_pointer_argument_call(instructions, origin):
+    """Only a literal last PUSH before a direct call; no stack/control guessing.
+    The callee's restricted MSVC signature is checked after ledger resolution.
+    """
+    import capstone
+    from capstone.x86_const import X86_OP_IMM, X86_OP_REG, X86_REG_ESP
+    ins = instructions[origin]
+    if ins.mnemonic != "push" or ins.operands[0].type != X86_OP_IMM:
+        return None
+    for following in instructions[origin + 1:origin + 9]:
+        if following.group(capstone.CS_GRP_CALL):
+            if following.operands[0].type == X86_OP_IMM:
+                return following.operands[0].imm
+            return None
+        if (following.mnemonic not in ("mov", "lea", "nop")
+                or (following.mnemonic != "nop" and following.operands[0].type != X86_OP_REG)
+                or X86_REG_ESP in following.regs_access()[1]):
+            return None
+    return None
+
+
+def data_address_words(checker, limit, counts):
+    """Raw aligned words in .data/.rdata, independent of MAP/COFF coverage.
+    Virtual zero-fill, other sections and PE import/export directory extents
+    are explicitly outside this scan. Known terminated strings/floats are
+    counted separately, never decoded as pointer words.
+    """
+    ours, retail = checker.ours, checker.retail
+    by_start = collections.defaultdict(list)
+    for p in checker.publics:
+        by_start[p["rva"]].append(p)
+    starts = sorted(by_start)
+    excluded = []
+    pe = getattr(ours, "pe", None)
+    directories = getattr(getattr(pe, "OPTIONAL_HEADER", None), "DATA_DIRECTORY", [])
+    for index in (0, 1, 12):  # export, import descriptors, IAT
+        if index < len(directories):
+            d = directories[index]
+            if d.VirtualAddress and d.Size:
+                excluded.append((d.VirtualAddress, d.VirtualAddress + d.Size))
+    counts["data_pe_directory_extents_excluded"] = len(excluded)
+    for descriptor in getattr(pe, "DIRECTORY_ENTRY_IMPORT", []):
+        length = 4 * (len(descriptor.imports) + 1)
+        for start in (descriptor.struct.OriginalFirstThunk, descriptor.struct.FirstThunk):
+            if start:
+                excluded.append((start, start + length))
+        excluded.append((descriptor.struct.Name, descriptor.struct.Name + len(descriptor.dll) + 1))
+        for entry in descriptor.imports:
+            start = getattr(entry, "hint_name_table_rva", None)
+            if start is not None and entry.name is not None:
+                excluded.append((start, start + 2 + len(entry.name) + 1))
+    counts["data_import_structure_extents_excluded"] = len(excluded) - counts["data_pe_directory_extents_excluded"]
+    # The import directory size bounds descriptors, NOT lookup/name tables.
+    # Merge the parsed graph's extents so a word costs one binary search.
+    merged = []
+    for start, end in sorted(excluded):
+        if merged and start <= merged[-1][1]:
+            merged[-1] = (merged[-1][0], max(end, merged[-1][1]))
+        else:
+            merged.append((start, end))
+    exclusion_starts = [start for start, _end in merged]
+    sections = []
+    result = []
+    for sec in getattr(ours, "sections", []):
+        name = sec.Name.rstrip(b"\0").decode(errors="replace")
+        if name not in (".data", ".rdata"):
+            continue
+        counts["data_sections_scanned"] += 1
+        size = sec.SizeOfRawData
+        counts["data_raw_bytes_scanned"] += size
+        counts["data_virtual_zerofill_bytes_not_scanned"] += max(0, sec.Misc_VirtualSize - size)
+        raw = ours.read(sec.VirtualAddress, size)
+        if raw is None:
+            counts["data_raw_bytes_unavailable"] += size
+            continue
+        sections.append(dict(name=name, rva=hex(sec.VirtualAddress), raw_bytes=size,
+                             virtual_bytes=sec.Misc_VirtualSize))
+        for offset in range((-sec.VirtualAddress) % 4, len(raw) - 3, 4):
+            image_rva = sec.VirtualAddress + offset
+            counts["data_aligned_words_considered"] += 1
+            exclusion = bisect.bisect_right(exclusion_starts, image_rva + 3) - 1
+            if exclusion >= 0 and merged[exclusion][1] > image_rva:
+                counts["data_directory_words_excluded"] += 1
+                continue
+            if any(at in ours.relocations for at in range(image_rva - 3, image_rva + 4)):
+                counts["data_words_with_image_relocation"] += 1
+                continue
+            value = struct.unpack_from("<I", raw, offset)[0]
+            if not retail.base <= value < limit:
+                continue
+            counts["data_unrelocated_image_range_words"] += 1
+            index = bisect.bisect_right(starts, image_rva) - 1
+            choices = [] if index < 0 else [p for p in by_start[starts[index]]
+                if p.get("extent") and image_rva + 4 <= p["rva"] + p["extent"]]
+            # Attribution requires agreement; a nearest symbol alone is no extent proof.
+            identities = {(p["rva"], p["object"], p.get("source", "")) for p in choices}
+            public = choices[0] if len(identities) == 1 else None
+            literal = None
+            for p in choices:
+                if p["name"].startswith("??_C@_"):
+                    width = 2 if p["name"].startswith("??_C@_1") else 1
+                    payload = ours.read(p["rva"], p["extent"]) or b""
+                    end = next((at + width for at in range(0, len(payload) - width + 1, width)
+                                if payload[at:at + width] == bytes(width)), 0)
+                elif re.fullmatch(r"__real@(?:[0-9a-fA-F]{8}|[0-9a-fA-F]{16})", p["name"]):
+                    end = len(p["name"].split("@", 1)[1]) // 2
+                else:
+                    continue
+                if image_rva + 4 <= p["rva"] + end:
+                    literal = p["name"]
+            if literal:
+                counts["data_literal_payload_candidates_excluded"] += 1
+                continue
+            target_rva = value - retail.base
+            target_section = next((s.Name.rstrip(b"\0").decode(errors="replace") for s in retail.sections
+                if s.VirtualAddress <= target_rva < s.VirtualAddress + max(s.Misc_VirtualSize, s.SizeOfRawData)), "none")
+            mapped = checker.mapping.resolve(public["rva"]) if public else None
+            detail = dict(origin="data", family="unrelocated_retail_address", row=public["name"] if public else "",
+                symbol=public["name"] if public else "", source=public.get("source", "") if public else "",
+                object=public["object"] if public else "", row_rva=hex(mapped) if mapped is not None else None,
+                image_rva=hex(image_rva), source_section=name,
+                offset=image_rva - public["rva"] if public else None, operand_kind="aligned_data_word",
+                retail_address=hex(value), target_rva=hex(target_rva), target_section=target_section,
+                target_kind=target_section.removeprefix(".") if target_section in (".data", ".rdata", ".text") else "other")
+            if public is None:
+                counts["data_candidate_attribution_unresolved"] += 1
+            result.append(detail)
+    return result, sections
 
 
 def unrelocated_retail_addresses(checker, function_ledger, data_rows):
@@ -969,27 +1096,40 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
                     if width != 4 or not field or target[offset:offset + 4] != struct.pack("<I", value):
                         counts["operand_encoding_unanalyzed"] += 1
                         continue
-                    if offset in relocation_fields and relocation_fields[offset][1] == 4:
+                    object_relocated = offset in relocation_fields and relocation_fields[offset][1] == 4
+                    if object_relocated:
                         counts["operands_with_object_relocation"] += 1
-                        continue
-                    if any(at in masked for at in range(offset, offset + 4)):
+                        if public["rva"] + offset in ours.relocations:
+                            counts["operands_with_object_and_image_relocation"] += 1
+                            continue
+                    if not object_relocated and any(at in masked for at in range(offset, offset + 4)):
                         counts["partial_operand_relocation_unanalyzed"] += 1
                         continue
                     # The linked operand must still contain the literal, rather
                     # than an independently patched/rebased replacement.
-                    if linked[offset:offset + 4] != struct.pack("<I", value):
+                    if not object_relocated and linked[offset:offset + 4] != struct.pack("<I", value):
                         counts["linked_operand_changed_unanalyzed"] += 1
                         continue
                     target_rva = value - retail.base
                     target_section = next((s.Name.rstrip(b"\0").decode(errors="replace") for s in retail.sections
                         if s.VirtualAddress <= target_rva < s.VirtualAddress + max(s.Misc_VirtualSize, s.SizeOfRawData)), "none")
-                    detail = dict(row=row["name"], symbol=symbol, source=row["source"],
+                    detail = dict(origin="code", family="unrelocated_retail_address",
+                        row=row["name"], symbol=symbol, source=row["source"],
                         object_source=public.get("source", ""), row_size=size,
                         row_rva=hex(rva), object=public["object"], image_rva=hex(public["rva"]),
                         offset=offset, instruction_offset=ins.address - retail.base - rva,
                         instruction=ins.mnemonic + " " + ins.op_str, operand_kind=kind,
                         retail_address=hex(value), target_rva=hex(target_rva), target_section=target_section,
                         target_kind=target_section.removeprefix(".") if target_section in (".data", ".rdata", ".text") else "other")
+                    if object_relocated:
+                        detail.update(family="missing_image_relocation", object_relocation=relocation_fields[offset][0],
+                                      linked_operand=hex(struct.unpack_from("<I", linked, offset)[0]))
+                        findings.append(detail)
+                        counts["operands_object_relocation_missing_from_image"] += 1
+                        continue
+                    call = first_pointer_argument_call(instructions, ordinal)
+                    if call is not None:
+                        detail["first_argument_callee_rva"] = hex(call - retail.base)
                     suffix = instructions[ordinal + 1:]
                     literal_return = (kind == "immediate" and ins.mnemonic == "mov"
                         and ins.operands and md.reg_name(ins.operands[0].reg) == "eax"
@@ -1026,6 +1166,9 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
                 instruction=detail["instruction"]))
     definitive = []
     for detail in findings:
+        if detail["family"] == "missing_image_relocation":
+            definitive.append(detail)
+            continue
         reason = None
         if detail["operand_kind"] == "immediate":
             witness = numeric_witnesses.get(detail["retail_address"])
@@ -1045,8 +1188,11 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
             definitive.append(detail)
     findings = definitive
 
-    # Resolve only the discovered target values: no wholesale function-row load.
-    values = sorted({int(d["target_rva"], 16) for d in findings + ambiguous})
+    data_candidates, data_sections = data_address_words(checker, limit, counts)
+    # Resolve only discovered target/callee values, streaming the code ledger.
+    values = sorted({int(d["target_rva"], 16) for d in findings + ambiguous + data_candidates} |
+                    {int(d["first_argument_callee_rva"], 16) for d in findings + ambiguous
+                     if "first_argument_callee_rva" in d})
     owners = collections.defaultdict(list)
     def own(row, start, size, register):
         first, last = bisect.bisect_left(values, start), bisect.bisect_left(values, start + max(size, 1))
@@ -1077,7 +1223,7 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
                 own(row, int(row["target_rva"], 16), int(row["target_size"] or 0), "functions")
             except ValueError:
                 continue
-    for detail in findings + ambiguous:
+    for detail in findings + ambiguous + data_candidates:
         value = int(detail["target_rva"], 16)
         detail["retail_owners"] = owners.get(value, []) or "none"
         global_rows = [r for r in owners.get(value, []) if r["kind"] == "global"]
@@ -1086,18 +1232,62 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
         source_globals = [r for r in global_rows if r["register"] == "data_rows" and r["status"] == "matched"]
         detail["source_global_exists"] = (any(r["exact"] for r in source_globals)
                                           if counts["source_data_rows_available"] else None)
+    # Exact starts override tag/unknown-scalar heuristics, never an actual
+    # bitwise/data-payload numeric witness. A CMP alone is not such a witness.
+    def exact_address(detail):
+        return any(r["exact"] and (r["register"] == "functions" or r["kind"] != "float")
+                   for r in owners.get(int(detail["target_rva"], 16), []))
+    def typed_argument(detail):
+        callee = detail.get("first_argument_callee_rva")
+        rows = [] if callee is None else [r for r in owners.get(int(callee, 16), [])
+            if r["register"] == "functions" and r["exact"]]
+        # Restricted void cdecl/thiscall signature with class/struct pointer or
+        # reference FIRST argument. Unsupported signatures remain ambiguous.
+        pointer = re.compile(r"^\?[^?]*@@(?:YAX|[QU][A-D]EX)(?:P[A-D][UV]|A[A-D][UV])")
+        if rows and all(pointer.search(r["name"]) for r in rows):
+            detail["pointer_argument_callees"] = rows
+            return True
+        return False
+    retained = []
+    numeric_reasons = {"typed_nonaddress_data_collision", "arithmetic_or_comparison_context",
+                       "capacity_accessor_numeric_interpretation", "numeric_interpretation_elsewhere"}
+    for detail in ambiguous:
+        reason = detail["ambiguity_reason"]
+        numeric = reason in numeric_reasons or detail["retail_address"] in numeric_witnesses
+        if (not numeric and reason != "base_relative_displacement_unresolved"
+                and (exact_address(detail) or typed_argument(detail))):
+            detail["address_evidence"] = "exact_ledger_start" if exact_address(detail) else "typed_first_pointer_argument"
+            counts["ambiguous_" + reason] -= 1
+            detail.pop("ambiguity_reason")
+            findings.append(detail)
+            counts["code_exact_or_typed_address_promotions"] += 1
+        else:
+            retained.append(detail)
+    ambiguous = retained
+    for detail in data_candidates:
+        if exact_address(detail):
+            detail["address_evidence"] = "exact_ledger_start"
+            findings.append(detail)
+        else:
+            detail["ambiguity_reason"] = "data_word_without_exact_ledger_start"
+            ambiguous.append(detail)
+            counts["ambiguous_data_word_without_exact_ledger_start"] += 1
     counts["defects"] = len(findings)
     counts["ambiguous"] = len(ambiguous)
     for d in findings:
-        checker.defect("unrelocated_retail_address", int(d["row_rva"], 16),
+        checker.defect(d["family"], int(d["row_rva"], 16) if d["row_rva"] is not None else None,
                        dict(name=d["symbol"], object=d["object"], source=d["source"]),
                        json.dumps(d, sort_keys=True, separators=(",", ":")))
     return dict(counts=dict(counts), defects=findings, ambiguous=ambiguous,
         by_kind=dict(collections.Counter(d["target_kind"] for d in findings)),
+        by_origin=dict(collections.Counter(d["origin"] for d in findings)),
+        by_family=dict(collections.Counter(d["family"] for d in findings)),
         by_source=dict(collections.Counter(d["source"] for d in findings)),
         ambiguous_by_kind=dict(collections.Counter(d["target_kind"] for d in ambiguous)),
+        ambiguous_by_origin=dict(collections.Counter(d["origin"] for d in ambiguous)),
         ambiguous_by_source=dict(collections.Counter(d["source"] for d in ambiguous)),
-        rule="Exact matched COFF/image bytes; literal IMM32/DISP32 with no object relocation. Numeric payload collisions, arithmetic/comparison witnesses, literal capacity accessors and printable integer tags remain ambiguous; non-getter scalar/argument escapes without address-use proof are also ambiguous. Absolute memory fields, local pointer uses and unwitnessed literal returns are defects; base-relative offsets remain ambiguous. Relative controls are excluded. Ledger extents do not prove layout.")
+        data_coverage=dict(sections=data_sections, scope="aligned raw words in .data/.rdata; virtual zero-fill, other sections, PE import/export directory extents, parsed import lookup/name tables and known terminated string/float payloads excluded"),
+        rule="Matched code bytes: literal IMM32/DISP32 need COFF and image relocations. Exact ledger object/function starts and restricted typed first pointer arguments override unknown scalar/tag heuristics unless a numeric witness exists. Only bitwise/test/shift or typed numeric payload/capacity uses supply numeric witnesses; CMP is not numeric proof. Aligned data words without image relocations: exact ledger starts are defects, other range values ambiguous. Relative control operands excluded. Unknown coverage never passes G2.")
 
 
 def main(argv=None):
@@ -1107,7 +1297,7 @@ def main(argv=None):
     parser.add_argument("--retail", type=Path, default=build.EXE)
     parser.add_argument("--objects", type=Path)
     parser.add_argument("--address-only", action="store_true",
-                        help="only audit absolute retail operands; no other image checks")
+                        help="only audit absolute code operands and aligned data words")
     parser.add_argument("--out", type=Path, default=Path("build/image_iso"))
     args = parser.parse_args(argv)
     tool_sha256 = digest(Path(__file__))
@@ -1164,7 +1354,7 @@ def main(argv=None):
     absolute = unrelocated_retail_addresses(checker, build.ROOT / "reverse/functions.csv", rows)
     report = checker.report()
     report["unrelocated_retail_addresses"] = absolute
-    report["analysis_scope"] = "unrelocated_retail_address only" if args.address_only else "bounded image comparison"
+    report["analysis_scope"] = "absolute address code/data audit only" if args.address_only else "bounded image comparison"
     report.update(inputs=dict(tool_sha256=tool_sha256,
                               image=str(args.image), map=str(args.map), retail=str(args.retail),
                               image_sha256=digest(args.image), map_sha256=digest(args.map),
