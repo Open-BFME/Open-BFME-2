@@ -98,7 +98,7 @@ class Base2 {public:virtual void b2()=0;~Base2(){}};
 // Rva005F2CBAProgress.cpp; novtable so only Base3 (its pinned dtor at 0x0057A235) stores a vptr.
 class __declspec(novtable) Rva0086EE20 {public:virtual void slot0(int);virtual void rva005F267E(int,float);};
 class Base3:public Rva0086EE20 {public:~Base3(){}};
-class Rva000AD6F4 {public:void clear();Rva000AD6F4():ptr(0){}~Rva000AD6F4();void*ptr;};
+#include "../../../../../Include/Common/Rva000AD6F4.h"
 #include "../../../../../Include/GameClient/GameText.h"
 extern GameTextInterface *TheGameText;
 #include "../../../../../../Libraries/Source/Apt/BfmeAptWindowManager.h"

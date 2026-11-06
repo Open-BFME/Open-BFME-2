@@ -18,7 +18,7 @@ void*__cdecl rva005ED198(const void*);
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Object;
 #include "../../../../Include/Common/Rva00575674.h"
-class Rva000AD6F4{public:Rva000AD6F4():ptr(0){}~Rva000AD6F4();void clear();void*ptr;};
+#include "../../../../Include/Common/Rva000AD6F4.h"
 class Rva005D10B0State {public:virtual void slot0();virtual void slot1();};
 struct Rva005D10B0Owner{Rva005D10B0State*state;};
 class Rva0005D10D6DwordImmSetter{public:void apply();};

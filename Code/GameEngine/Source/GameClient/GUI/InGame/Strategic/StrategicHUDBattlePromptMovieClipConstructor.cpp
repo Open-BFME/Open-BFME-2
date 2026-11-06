@@ -105,10 +105,7 @@ template<> vector<Rva005FA1CEElement>::~vector();
 // Actual19-state native unwind map has no destructor at18 or60.
 // +2C/+3C owning slots call canonical29B clear0AD6F4; +20/+30
 // vector cleanup5F97D4, +40/+50 page vectors5F9813 are separate states.
-class Rva000AD6F4 {
-public: Rva000AD6F4():ptr(0){} ~Rva000AD6F4(); void clear();
-private: void *ptr;
-};
+#include "../../../../../Include/Common/Rva000AD6F4.h"
 
 // The ally / enemy record AddAlly copies through the rowed converting copy
 // 0x005F91F3 (address-named; WorldBuilder asserts allyData.pageFactory).
