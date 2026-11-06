@@ -232,21 +232,21 @@ Rva0033F51D::Rva0033F51D(StateMachine *machine)
 {
 }
 
-// Rva0033F540: retail 0x0033F540 (37B), hash 0xe84618b6, vtable 0xc11368 callers 0x003524BD
-class Rva0033F540 : public State
+// AIDockState: retail 0x0033F540 (37B), hash 0xe84618b6, vtable 0xc11368 callers 0x003524BD
+class AIDockState : public State
 {
 public:
-	Rva0033F540(StateMachine *machine);
+	AIDockState(StateMachine *machine);
 	// the rowed destructor 0x0034159A (Rva0034159ADtor.cpp); declared so this
 	// unit does not emit an implicit copy
-	virtual ~Rva0033F540();
+	virtual ~AIDockState();
 
 private:
 	int m_20; // +0x20
 	bool m_24; // +0x24
 };
 
-Rva0033F540::Rva0033F540(StateMachine *machine)
+AIDockState::AIDockState(StateMachine *machine)
 	: State(machine, 0xE84618B6u)
 	, m_20(0)
 	, m_24(false)

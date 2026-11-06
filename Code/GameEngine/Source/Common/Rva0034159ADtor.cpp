@@ -1,5 +1,6 @@
 // cl: /MD /EHsc
-// ??1Rva0033F540@@UAE@XZ @0x0034159A 91B: Rva0033F540 public virtual dtor.
+// ??1AIDockState@@UAE@XZ @0x0034159A 91B: AIDockState public virtual dtor (slot 2 of
+// its table 0x00C11368 is the getter 0x0033F565 returning the literal AIDockState).
 // Vptr install plus member at +0x20 via virtual slot15 then slot0 with 0 plus
 // delete 0x0002FD60, then the base State destructor (the rowed
 // ??1State@@UAE@XZ, the 7-byte fold body at 0x0049B47C).
@@ -30,14 +31,14 @@ public:
 	virtual void v14();
 	virtual void v15();
 };
-class Rva0033F540 : public State {
+class AIDockState : public State {
 public:
-	virtual ~Rva0033F540();
+	virtual ~AIDockState();
 private:
 	Rva0034159AMember *m_20;
 };
 #include <new>
-Rva0033F540::~Rva0033F540()
+AIDockState::~AIDockState()
 {
 	if (m_20) {
 		m_20->v15();
