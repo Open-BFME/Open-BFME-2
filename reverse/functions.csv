@@ -6161,7 +6161,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva005D7AC5@@UAE@XZ,,0x005D7AC5,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
 ??1Rva005D7B3E@@UAE@XZ,,0x005D7B3E,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
 ??1Rva005D7D88@@UAE@XZ,,0x005D7D88,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
-??1Rva005D7E1E@@UAE@XZ,,0x005D7E1E,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
+??1Rva005D7F5D@@UAE@XZ,,0x005D7E1E,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
 ??1Rva005D817D@@UAE@XZ,,0x005D817D,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
 ??1Rva005D8223@@UAE@XZ,,0x005D8223,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
 ??1Rva005D8317@@UAE@XZ,,0x005D8317,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
@@ -10845,7 +10845,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ??_GRva005D7A1B@@UAEPAXI@Z,,0x005D7A26,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D7A1B plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005D7AC5@@UAEPAXI@Z,,0x005D7AD0,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D7AC5 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005D7B3E@@UAEPAXI@Z,,0x005D7B49,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D7B3E plus operator delete 0x2FD60; /O1 pop-ecx shape
-??_GRva005D7E1E@@UAEPAXI@Z,,0x005D7E29,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D7E1E plus operator delete 0x2FD60; /O1 pop-ecx shape
+??_GRva005D7F5D@@UAEPAXI@Z,,0x005D7E29,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D7E1E plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005D817D@@UAEPAXI@Z,,0x005D8188,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D817D plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005D8223@@UAEPAXI@Z,,0x005D822E,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D8223 plus operator delete 0x2FD60; /O1 pop-ecx shape
 ??_GRva005D8317@@UAEPAXI@Z,,0x005D8322,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,Scalar deleting dtor via ??_G harvest; calls rowed dtor 0x5D8317 plus operator delete 0x2FD60; /O1 pop-ecx shape

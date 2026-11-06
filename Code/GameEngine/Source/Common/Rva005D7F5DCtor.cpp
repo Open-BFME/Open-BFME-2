@@ -44,6 +44,9 @@ class Rva005D7F5D : public Rva005EE30C
 {
 public:
     Rva005D7F5D();
+    // Retail 0x005D7E1E, defined in Rva005EE30CDerived.cpp; declaring it keeps this unit
+    // from emitting a second, implicit copy.
+    virtual ~Rva005D7F5D();
 private:
     int m_28;
     unsigned int m_starts[8];

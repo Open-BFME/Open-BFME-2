@@ -101,13 +101,13 @@ Rva005D7D88::~Rva005D7D88()
 {
 }
 
-class Rva005D7E1E : public Rva005EE30C
+class Rva005D7F5D : public Rva005EE30C
 {
 public:
-	virtual ~Rva005D7E1E();
+	virtual ~Rva005D7F5D();
 };
 
-Rva005D7E1E::~Rva005D7E1E()
+Rva005D7F5D::~Rva005D7F5D()
 {
 }
 
