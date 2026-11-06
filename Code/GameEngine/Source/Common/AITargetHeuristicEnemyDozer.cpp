@@ -28,14 +28,7 @@ struct Rva002A8AB1Record
     int m_16C;
 };
 // class key matches the data ledger primary ?TheSkirmishAIManager@@3PAVRva002A8F24@@A (Rva005EEA20Find.cpp).
-class Rva002A8F24
-{
-public:
-    Rva002A8AB1Record *rva002A8AB1(void *owner);
-    void *rva002A8F24(class Player *);
-    char pad[0x884];
-    float fallbackWeight;
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 class AITargetHeuristicEnemyStructure
 {
@@ -138,7 +131,7 @@ void AITargetHeuristicEnemyDozer::findBestTarget(AITarget *target, Player *attac
         for (ObjectID *objectID = units->first; objectID != units->last; ++objectID)
         {
             Object *object = TheGameLogic->findObjectByID(*objectID);
-            if (object) target->setTarget(object, TheSkirmishAIManager->fallbackWeight);
+            if (object) target->setTarget(object, TheSkirmishAIManager->field_884);
         }
     }
 }

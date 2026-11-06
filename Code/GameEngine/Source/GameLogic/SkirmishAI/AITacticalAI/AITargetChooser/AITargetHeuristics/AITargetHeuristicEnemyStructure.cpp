@@ -26,7 +26,7 @@
 namespace _STL { template <> int &map<ObjectID, int>::operator[](const ObjectID &); }
 
 class Player;
-class Rva002A8F24 { public: void *rva002A8F24(Player *); char pad[0x884]; float fallbackWeight; };
+#include "../../../../../../Include/GameLogic/Rva002A8F24.h"
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 class Rva005C4AD1LeaField { public: void *get() const; };
@@ -84,6 +84,6 @@ void AITargetHeuristicEnemyStructure::findBestTarget(AITarget *target, Player *a
 				maximum = i->second;
 			}
 		}
-		target->setTarget(TheGameLogic->findObjectByID(building), TheSkirmishAIManager->fallbackWeight);
+		target->setTarget(TheGameLogic->findObjectByID(building), TheSkirmishAIManager->field_884);
 	}
 }
