@@ -22,7 +22,6 @@ class CreateModule : public BehaviorModule, public CreateModuleInterface
 {
 public:
     CreateModule(Thing *thing, const ModuleData *moduleData);
-    virtual ~CreateModule();
 
     virtual CreateModuleInterface *getCreate() { return this; }
     virtual void onCreate() = 0;
@@ -31,6 +30,7 @@ public:
     virtual bool shouldDoOnBuildComplete() const { return m_needToRunOnBuildComplete; }
 
 protected:
+    virtual ~CreateModule();
     virtual void loadPostProcess();
     virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *xfer);

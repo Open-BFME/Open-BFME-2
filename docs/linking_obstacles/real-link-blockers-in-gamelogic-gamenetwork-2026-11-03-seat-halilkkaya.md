@@ -571,3 +571,13 @@ COMDAT a changed object held first had a `link_check` over all its definers and 
      - the pin `??1DamageModule@@UAE@XZ` is dropped.
   4. EvacuateDamageCtorModuleFactoryBody.cpp declares `~DamageModule` out of line. That removes
      `~PB_DeepBase`, and the unit can then merge into EvacuateDamage.cpp.
+
+2026-11-06 `LockWeaponCreate.cpp` chain: `CreateModule.cpp` now builds on canonical `CreateModuleClass.h`
+and supplies the two providers the earlier handoff asked for first: `CreateModule::GetSnapshotName`
+(0x004B8D2C, moved from `ConstIntGetters4.cpp`) and `CreateModule::loadPostProcess` (ICF twin at
+0x0058B03E). `~CreateModule` is spelled protected (`MAE`) in the header, because the six Zero Hour
+view consumers already reference that spelling. Nothing referenced `UAE`. `GrantUpgradeCreate.cpp` and
+`SupplyWarehouseCreate.cpp` no longer call the removed `CreateModule::crc`. link_check: no unit lost, LINKED
+3,049 -> 3,054 B over the 11 checked units. `LockWeaponCreate.cpp` keeps its 2 names. Remaining: the
+`--prepared` fold of `Rva004B8CDE` into `CreateModule`, then LockWeaponCreate's own view. Real link
+confirmation: not claimed.

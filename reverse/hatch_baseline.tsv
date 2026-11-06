@@ -2913,7 +2913,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp	?b7@B7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp	?b8@B8@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	??0ExperienceLevelCreateBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	?crc@BehaviorModule@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	?f2@Rva004B8CDE_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	?crc@LockWeaponCreate@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	?loadPostProcess@LockWeaponCreate@@MAEXXZ	1
@@ -12359,8 +12358,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineCon
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f20@SiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f30@SiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f34@SiegeEngineContain@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	CreateModule::crc	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	CreateModule::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	CreateModule::~CreateModule	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate.cpp	1GrantUpgradeCreate@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate.cpp	crc@GrantUpgradeCreate@@MAEXPAVXfer@@@Z	1

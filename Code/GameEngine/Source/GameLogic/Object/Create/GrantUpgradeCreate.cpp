@@ -126,8 +126,6 @@ GrantUpgradeCreate::~GrantUpgradeCreate( void )
 void GrantUpgradeCreate::crc( Xfer *xfer )
 {
 
-	// extend base class
-	CreateModule::crc( xfer );
 
 }
 

@@ -98,8 +98,6 @@ void SupplyWarehouseCreate::onCreate( void )
 void SupplyWarehouseCreate::crc( Xfer *xfer )
 {
 
-	// extend base class
-	CreateModule::crc( xfer );
 
 }  // end crc
 
