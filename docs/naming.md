@@ -1394,3 +1394,11 @@ Success writes the matched row, a `global` basis record with `inferred` and
 publication and prints the explicit paths to stage and claims to release.
 Neither command commits, pushes, weakens a gate, or admits a hatch. Hand-added
 address-named source/data rows remain subject to the existing hatch gate.
+
+Registered data requests bypass the ordinary 15,000-character picker limit.
+Oversized defining/user files are represented by numbered excerpts around the
+validated evidence references in manual and automatic review packets. The full
+source hashes still protect serving and submission; excerpts do not weaken
+staleness checks. Missing references are reported in the packet so the voter
+can inspect the file or skip. Picker exclusions report reasons and a bounded
+sample of paths instead of silently dropping oversized files.

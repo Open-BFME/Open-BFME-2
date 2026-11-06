@@ -16,7 +16,7 @@ import name_lane
 import name_review
 import rename
 from test_name_lane import (tree, seat, lane_of, vote, rows, SOURCE, FN_KEY,
-                            FN_ANSWER, no_checks, ok_verify, unrowed, unrowed_vote)
+                            FN_ANSWER, no_checks, ok_verify, unrowed, unrowed_vote, register_large_data_request)
 
 
 def enable(root, **options):
@@ -712,3 +712,18 @@ def test_unrowed_automatic_second_vote_receives_sanitized_request_facts(unrowed,
     result = name_review.dispatch(lane_of(tree), keys=[key], runner=runner)
     assert result['newly_agreed'] == [key]
     assert len({row['worker'] for row in rows(tree, name_lane.VOTES)}) == 2
+
+
+def test_automatic_second_vote_serves_large_data_request_as_excerpts(unrowed, tmp_path):
+    tree, _ = unrowed
+    key = register_large_data_request(tree, 80327)
+    unrowed_vote(tree, key, 'large-first', 'first-worker', 'g_sampleContext', tmp_path)
+    enable(tree)
+    def runner(packet, config, job):
+        assert len(json.dumps(packet)) < config['max_chars']
+        assert 'EXCERPTS' in packet['sources'][0]['source']
+        assert 'EVIDENCE_CONTEXT_MARKER' in packet['sources'][0]['source']
+        assert 'EXCERPTS' in packet['targets'][0]['data_request']['user_sources'][SOURCE]
+        return answer(packet, 'g_sampleContext')
+    result = name_review.dispatch(lane_of(tree), keys=[key], runner=runner)
+    assert result['newly_agreed'] == [key]

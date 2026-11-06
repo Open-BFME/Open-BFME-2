@@ -2698,3 +2698,40 @@ def test_unrowed_admission_splits_unowned_bound_and_keeps_own_verified_extent(un
     assert ledger[0x30E0]['size'] == 32
     assert ledger[0x3100]['size'] == '56' and ledger[0x3100]['name'] == symbol
     assert cache.read_bytes() == before  # the tool-written cache is reconciled on read
+
+
+def register_large_data_request(tree, length):
+    (tree / name_lane.DATA_REQUESTS).unlink()
+    original = (tree / SOURCE).read_text()
+    padding = '// padding outside evidence\n' * (length // 28 + 1)
+    content = original + padding + '// EVIDENCE_CONTEXT_MARKER\n'
+    (tree / SOURCE).write_text(content)
+    line = len(content.splitlines())
+    return name_lane.register_data(lane_of(tree), source=SOURCE, address='0x403100', address_kind='va', size=56,
+                                   type_name='SampleContext', users=[SOURCE], evidence=f'{SOURCE}:{line}')
+
+
+@pytest.mark.parametrize('length', [19089, 80327])
+def test_large_defining_file_serves_registered_data_with_evidence_excerpts(unrowed, length):
+    import hashlib
+    tree, _ = unrowed
+    key = register_large_data_request(tree, length)
+    record = serve_unrowed(tree, key, 'large-data', 'independent-worker')
+    entry = record['files'][SOURCE]
+    assert entry['sha'] == hashlib.sha256((tree / SOURCE).read_bytes()).hexdigest()
+    assert len(entry['items']) == 1
+    brief = (tree / 'build/name_lane/briefs/large-data.txt').read_text()
+    assert 'EXCERPTS' in brief and 'EVIDENCE_CONTEXT_MARKER' in brief
+    assert len(brief) < name_lane.MAX_CHARS
+    assert (tree / SOURCE).read_text() not in brief
+    request = name_lane.request_packet(lane_of(tree), key)
+    assert 'EXCERPTS' in request['user_sources'][SOURCE]
+
+
+def test_oversized_file_without_registered_data_reports_skip_reason(tree, capsys):
+    (tree / SOURCE).write_text((tree / SOURCE).read_text() + '// large\n' * 3000)
+    args = SimpleNamespace(session='large-no-data', model='fixture', count=1, file=SOURCE, list_only=False)
+    assert name_lane.cmd_next(lane_of(tree), args) == 0
+    err = capsys.readouterr().err
+    assert SOURCE in err and '15000 character limit' in err and 'no eligible registered data request' in err
+    assert not (tree / 'build/name_lane/sessions/large-no-data.json').exists()

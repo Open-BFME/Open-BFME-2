@@ -383,13 +383,39 @@ def evidence_references(lane, evidence):
     return references
 
 
+def evidence_source(lane, path, references):
+    """Bounded, line-numbered source context; full source hashes still fence votes."""
+    text = lane.text(path) or ''
+    if len(text) <= MAX_CHARS:
+        return text
+    lines = text.splitlines()
+    anchors = sorted({r['line'] for r in references if r['file'] == path})
+    selected = sorted({i for line in anchors[:12]
+                       for i in range(max(0, line - 9), min(len(lines), line + 8))})
+    heading = f'// EXCERPTS from {path} ({len(text)} characters; full source omitted)\n'
+    if not selected:
+        return heading + '// No evidence line references for this file; inspect it before naming or skip.\n'
+    return heading + '\n'.join(f'{i + 1}: {lines[i][:400]}' +
+                               (' /* line truncated */' if len(lines[i]) > 400 else '') for i in selected)
+
+
+def packet_source(lane, rel, items):
+    requests = [request_for_key(lane, key_of(rel, *item[:3])) for item in items]
+    references = [ref for request in requests if request
+                  for ref in evidence_references(lane, request['evidence'])]
+    text = (evidence_source(lane, rel, references) if requests and all(requests)
+            else lane.text(rel) or '')
+    return dict(file=rel, source=text)
+
+
 def request_packet(lane, key):
     request = request_for_key(lane, key)
     if request is None:
         return None
     return {**{c: request[c] for c in ('source', 'rva', 'size', 'type', 'users')},
             'evidence': evidence_references(lane, request['evidence']),
-            'user_sources': {p: lane.text(p) for p in json.loads(request['users'])}}
+            'user_sources': {p: evidence_source(lane, p, evidence_references(lane, request['evidence']))
+                             for p in json.loads(request['users'])}}
 
 
 def check_unrowed_agreement(lane, approval):
@@ -1046,7 +1072,7 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
             evidence.append('UNROWED DATA REQUEST (caller facts, not a proposed name): ' +
                             json.dumps({k: v for k, v in blind.items() if k != 'user_sources'}, sort_keys=True))
             for user in json.loads(request['users']):
-                evidence.append('USER ' + user + ':\n' + (lane.text(user) or ''))
+                evidence.append('USER ' + user + ':\n' + blind['user_sources'][user])
     for kind, scope, ident, rva in items:
         if kind == "function":
             found = callers(lane, rel, ident)
@@ -1061,6 +1087,7 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
     for e in hints[:10]:
         evidence.append(f"  hint 0x{rename._rva(e['rva']):08X} {e.get('current')} ~ {e.get('candidate')} "
                         f"({e.get('evidence_kind')}, {e.get('strength')}): {(e.get('detail') or '')[:140]}")
+    text = packet_source(lane, rel, items)["source"]
     return f"""NAME THE PLACEHOLDERS IN {rel}  (session {session}, model {model})
 {"INDEPENDENT SECOND REVIEW: only the shared identifiers awaiting another worker are served; previous proposals remain hidden." if review else ""}
 
@@ -1224,7 +1251,9 @@ def cmd_next(lane, args):
     available = [rel for rel in files if claims.file_key(rel) not in busy]
     skipped = len(files) - len(available)
     if skipped:
-        print(f"name_lane: skipped {skipped} source file(s) held by other workers", file=sys.stderr)
+        held = [rel for rel in files if claims.file_key(rel) in busy]
+        print(f"name_lane: skipped {skipped} source file(s) held by other workers: " +
+              ', '.join(held[:3]) + (f' (+{skipped - 3} more)' if skipped > 3 else ''), file=sys.stderr)
     files = [rel for rel in available if not selected_keys or any(k.startswith(rel + "|") for k in selected_keys)]
     sticky = lane.path(f"{LANE_DIR}/subsystems/{worker}.json")
     preferred = current.get("subsystem")
@@ -1241,11 +1270,14 @@ def cmd_next(lane, args):
     packet_targets, packet_sources = [], []
     if max_chars is not None:
         for rel, entry in current["files"].items():
-            packet_sources.append(dict(file=rel, source=lane.text(rel) or ""))
+            packet_sources.append(packet_source(lane, rel, entry["items"]))
             packet_targets.extend(packet_target(lane, rel, i) for i in entry["items"])
     def key_count():
         return (sum(len(entry["items"]) for entry in current["files"].values())
                 + sum(sum(entry["kinds"].values()) for entry in metadata))
+    skipped_files = collections.defaultdict(list)
+    def skipped(rel, reason):
+        skipped_files[reason].append(rel)
     for rel in files:
         if max_keys is not None and key_count() >= max_keys:
             break
@@ -1253,15 +1285,29 @@ def cmd_next(lane, args):
         if prefix and not (under(group, prefix) or under(rel, prefix)):
             if args.file:
                 fail(f"{rel} is outside subsystem {prefix}")
+            skipped(rel, 'outside requested subsystem')
             continue
         if not mixed and selected is not None and group != selected:
+            skipped(rel, 'outside selected subsystem batch')
             continue
-        if rel in current["files"] or not lane.servable(rel):
+        if rel in current["files"]:
+            skipped(rel, 'already in this session')
+            continue
+        if not lane.servable(rel):
+            skipped(rel, 'not an eligible source (ownership, vendor/export or request protections)')
             continue
         text = lane.text(rel)
-        if text is None or len(text) > MAX_CHARS:
+        if text is None:
+            skipped(rel, 'source is missing')
             continue
-        items = [i for i in cache.items(rel, text)
+        if len(text) > MAX_CHARS:
+            candidates = data_request_items(lane, rel)
+            if not candidates:
+                skipped(rel, f'exceeds {MAX_CHARS} character limit; no eligible registered data request')
+                continue
+        else:
+            candidates = cache.items(rel, text)
+        items = [i for i in candidates
                  if i[0] in NAMED and (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
                  and (worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}
                       or key_of(rel, *i[:3]) in clarifications.get(rel, ()))]
@@ -1283,15 +1329,17 @@ def cmd_next(lane, args):
             remaining = max_keys - key_count()
             items = items[:max(0, remaining)]
         if not items:
+            skipped(rel, 'no eligible unvoted keys match the selection')
             continue
         targets = [packet_target(lane, rel, i)
                    for i in items]
-        source = dict(file=rel, source=text)
+        source = packet_source(lane, rel, items)
         if max_chars is not None:
             while targets and len(json.dumps(dict(targets=packet_targets + targets,
                     sources=packet_sources + [source]), ensure_ascii=True)) > max_chars:
                 targets.pop()
                 items.pop()
+                source = packet_source(lane, rel, items)
             if not items:
                 print(f"name_lane: {rel}: no target fits --max-chars {max_chars}; left pending", file=sys.stderr)
                 continue
@@ -1313,6 +1361,9 @@ def cmd_next(lane, args):
             served.append((rel, text, items))
         if len(served) + len(metadata) >= (len(requested_files) or args.count):
             break
+    for reason, paths in skipped_files.items():
+        print(f"name_lane: passed over {len(paths)} file(s): {reason}: " + ', '.join(paths[:3]) +
+              (f' (+{len(paths) - 3} more)' if len(paths) > 3 else ''), file=sys.stderr)
     if args.list_only:
         print(json.dumps(metadata, indent=1))
         return 0

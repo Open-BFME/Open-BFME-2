@@ -764,7 +764,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
         served = json.loads(path.read_text(encoding="utf-8"))
         targets, sources = [], []
         for rel, entry in served["files"].items():
-            sources.append({"file": rel, "source": lane.text(rel)})
+            sources.append(name_lane.packet_source(lane, rel, entry["items"]))
             for kind, scope, old, rva in entry["items"]:
                 targets.append(name_lane.packet_target(lane, rel, (kind, scope, old, rva)))
         packet = {"targets": targets, "sources": sources}
