@@ -669,10 +669,11 @@ struct Rva0057A685Entry
 	int m_id;
 	const char *m_label;
 };
+// The phase-title labels, retail .rdata 0x0086F030: phases 0, 2 and 4 and their game-text keys.
 static const Rva0057A685Entry s_table[3] = {
-	{ 0, "A" },
-	{ 1, "B" },
-	{ 2, "C" },
+	{ 0, "APT:TacticalPhaseTitle" },
+	{ 2, "APT:BattlePhaseTitle" },
+	{ 4, "APT:RetreatPhaseTitle" },
 };
 AsciiString __cdecl Rva00222834Get(int val);
 // WorldBuilder StrategicHUD::ParseRowNum, WB VA 0x014C10A0 (callgraph lead, score 1.0).

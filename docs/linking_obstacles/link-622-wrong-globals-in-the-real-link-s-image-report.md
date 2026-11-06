@@ -39,7 +39,7 @@ The four:
 
 The 296 static-defined rows (397 against a regenerated ledger with data rows applied) were compared by hand with a
 one-off script: each static the ledger keys to its own source (`name@source`), bytes outside relocations against retail's.
-251 agree; 66 differ. Most of the 66 are the dummy-vptr statics LINK-514 already lists (`s_vtable`, `s_secondary*`,
+Before the repairs below, 251 agreed and 66 differed. Most of the 66 are the dummy-vptr statics LINK-514 already lists (`s_vtable`, `s_secondary*`,
 `*VTableAnchor`). The rest are wrong data:
 
 - `ObjectCreationList.cpp`'s three OCL nugget tables were one null entry each (placeholders from the byte-matching phase,
@@ -60,8 +60,10 @@ one-off script: each static the ledger keys to its own source (`name@source`), b
   entry: it runs on into the three AudioLOD entries, as `g_007E3308` in the same file already reproduces. Ours now holds
   those seven entries and a null one; the script compares all 128 bytes with retail: equal. The 16-byte element and
   this field set are Zero Hour's dynamic LOD, so the parser's name may be the static one's; not changed here.
-- Still open:
-  `StrategicHUD.cpp`'s `s_table`, whose contents differ; and initial values retail has in `.data` that ours leaves zero:
+- **Repaired:** `StrategicHUD.cpp`'s `s_table` (0x0086F030), which `SetPhaseTitleString` searches for the game-text
+  key of a phase, held invented placeholders (`{0,"A"}`, `{1,"B"}`, `{2,"C"}`). Retail's: phases 0, 2 and 4 with
+  `APT:TacticalPhaseTitle`, `APT:BattlePhaseTitle` and `APT:RetreatPhaseTitle`. Compared with retail: equal.
+- Still open: initial values retail has in `.data` that ours leaves zero:
   the glow, ring and fire effect statics (`Drawable/Rva00309FB3.cpp`, `Rva00309FFD.cpp`, `Rva0030A040.cpp`),
   `animationDisableOverride` (`W3DGhostObjectScene.cpp`), `AXIS_ROTATION` (`camerashakesystem_shaker.cpp`),
   `detailAlphaShader` (`W3DBibBuffer.cpp`) and `g_Rva012C3BC4` (`Y4FeslBuddyRequests.cpp`).
