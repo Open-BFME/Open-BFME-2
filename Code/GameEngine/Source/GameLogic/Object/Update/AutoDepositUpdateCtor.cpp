@@ -2,69 +2,97 @@
 //
 // ??0AutoDepositUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0049A20F,
 // 68 bytes. AutoDepositUpdate behavior ctor over the rowed UpdateModule base
-// (0x253390, thing plus data): materialize the owner into a named local (pins
-// the early +0x04 load above the vtable stores), re-store the primary vtable
-// slot and the +0x0C/+0x10 secondary slots (address-of TU-local dummies,
-// DIR32-masked), clear two flags, then accumulate +0x20 from the owner word
-// at +0x08 plus TheGameLogic+0x40.
+// (0x253390, thing plus data): stores the class's three vftables (0x00C504EC
+// at +0, UpdateModule's 0x00BEFF90 at +0x0C, 0x00C504E0 at +0x10), clears two
+// flags, then sets the deposit frame at +0x20 from the module data's +0x08
+// plus TheGameLogic's frame. The class is declared over the canonical
+// UpdateModule.h, so the compiler stores the vptrs.
 //
 // The rowed ModuleData pair (ctor 0x2540ED plus factory 0x254152) and the
 // rowed instance factory 0x24E4ED (sole caller, ModuleFactory registration
 // literal) prove the class. Row supersedes the ctor pin.
+//
+// Retail 0x00C504EC (13 slots): deleting dtor 0x0049A253, loadPostProcess
+// 0x00497805 (`jmp 0x0058B03E`, UpdateModule's own; inherited here), the name
+// getter 0x0049A1C4, xfer 0x004A0CC3 (a body retail folds with
+// RadarUpdate::xfer: the same +0x20 uint and +0x24/+0x25 bools),
+// getModuleNameKey 0x0049A1CA, then UpdateModule's slots. 0x00C504E0: update
+// 0x0049A3AE, then UpdateModule's getDisabledTypesToProcess and wake slots.
 
-class ModuleData;
-
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-
-class Thing
-{
-public:
-	int m_pad[2];
-	int m_08;
-};
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
-// Opaque UpdateModule base; ctor resolves to its row. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class UpdateModule
+enum UpdateSleepTime;
+
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
+
+// The one module-data field the constructor reads (AutoDepositUpdate.cpp's
+// view of the same class).
+class AutoDepositUpdateModuleData
 {
 public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
+	char m_unknown00[0x08];
+	unsigned int m_depositFrame; // +0x08
 };
 
 class AutoDepositUpdate : public UpdateModule
 {
 public:
 	AutoDepositUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~AutoDepositUpdate();
+
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 
 private:
-	int m_20;
-	bool m_flag24;
-	bool m_flag25;
+	unsigned int m_depositOnFrame; // +0x20
+	bool m_awardInitialCaptureBonus; // +0x24
+	bool m_initialized; // +0x25
 };
 
 // ??0AutoDepositUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x49A20F
 AutoDepositUpdate::AutoDepositUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	Thing *owner = m_owner;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_flag24 = false;
-	m_flag25 = false;
-	m_20 = owner->m_08 + TheGameLogic->getFrame();
+	const AutoDepositUpdateModuleData *data = (const AutoDepositUpdateModuleData *)getModuleData();
+	m_awardInitialCaptureBonus = false;
+	m_initialized = false;
+	m_depositOnFrame = data->m_depositFrame + TheGameLogic->getFrame();
+}
+
+// Slot 3 of 0x00C504EC: 0x004A0CC3, UpdateModule's xfer, then (unless a light
+// CRC) version 1 and the three fields; retail folds it with RadarUpdate::xfer.
+void AutoDepositUpdate::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+	*xfer == m_depositOnFrame;
+	*xfer == m_awardInitialCaptureBonus;
+	*xfer == m_initialized;
 }
