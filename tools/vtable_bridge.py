@@ -92,8 +92,38 @@ def definitions(objects, names, archives=()):
     return found
 
 
+def first_providers(objects, names, archives=()):
+    """First external definition in response order; archives follow kept objects.
+    Archive candidates are conservative: a possible earlier member is never
+    presumed absent just because extraction has not been observed.
+    """
+    first = {}
+    for path in objects.paths:
+        obj = objects.get(path)
+        if obj is None:
+            raise ValueError(f"vtable target cannot inspect missing input {path}")
+        for sym in obj[1].values():
+            if sym.name in names and sym.cls == link_cycle.EXTERNAL and (
+                    sym.sec != 0 or sym.value):
+                first.setdefault(sym.name, str(Path(path).resolve()))
+    for archive in archives:
+        for member, raw in coffar.read_archive(archive):
+            origin = f"{Path(archive).resolve()}({member})"
+            if raw[:4] == b"\0\0\xff\xff":
+                symbol = raw[20:].split(b"\0", 1)[0].decode("latin-1")
+                for name in {symbol, "__imp_" + symbol} & names:
+                    first.setdefault(name, origin)
+                continue
+            _sections, symbols = link_cycle.parse_coff(raw)
+            for sym in symbols.values():
+                if sym.name in names and sym.cls == link_cycle.EXTERNAL and (
+                        sym.sec != 0 or sym.value):
+                    first.setdefault(sym.name, origin)
+    return first
+
+
 class Targets:
-    def __init__(self, rows, objects, omitted, object_for=None, symbol_for=None):
+    def __init__(self, rows, objects, omitted, object_for=None, symbol_for=None, archives=()):
         self.objects = objects
         self.kept = {Path(path).resolve() for path in objects.paths}
         self.omitted = {Path(path).resolve() for path in omitted}
@@ -110,6 +140,7 @@ class Targets:
             name = self.symbol_for(row) or row["name"]
             self.by_rva[rva].append((name, row))
             self.addresses[name].add(rva)
+        self.first = first_providers(objects, set(self.addresses), archives)
 
     def path(self, row):
         key = (row["source"], build.ledger_member(row) if row["source"].lower().endswith(".lib") else None)
@@ -149,6 +180,9 @@ class Targets:
                     continue
                 if section.sel == 5:
                     failures.append("associative-target")
+                    continue
+                if self.first.get(name) != str(path):
+                    failures.append("target-not-winning-provider")
                     continue
                 choices.append(dict(name=name, rva=rva, source=row["source"], object=str(path)))
             result = (min(choices, key=lambda entry: (entry["name"], entry["source"])), None) if choices \
@@ -191,13 +225,36 @@ def matches(found, slots, addresses):
     return True
 
 
+def source_slot_mismatches(found, slots, addresses):
+    """Keep the source copy's names and ledger RVAs, even when the bridge hides it."""
+    result = []
+    for index, expected in enumerate(slots):
+        pointer = found["pointers"].get(index * 4)
+        if pointer is not None:
+            name, kind, addend = pointer
+            rvas = sorted(addresses.get(name, ()))
+            if kind == link_cycle.DIR32 and not addend and rvas == [expected]:
+                continue
+            result.append(dict(slot=index, name=name, ledger_rvas=rvas,
+                               relocation_kind=kind, addend=addend,
+                               retail_target_rva=expected))
+        else:
+            result.append(dict(slot=index, name="", ledger_rvas=[],
+                               retail_target_rva=expected, reason="missing-source-slot"))
+    return result
+
+
 def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
-         object_for=None, symbol_for=None):
+         object_for=None, symbol_for=None, source_of=None):
     """Return generated entries and explicit refusal reasons; input order is significant."""
     objects = objects or link_cycle.Objects(inputs)
     names = set().union(*(row_names(row) for row in tables)) if tables else set()
     found = definitions(objects, names, archives)
-    targets = Targets(rows, objects, omitted, object_for, symbol_for)
+    targets = Targets(rows, objects, omitted, object_for, symbol_for, archives)
+    sources = {str(Path(path).resolve()): str(source).replace(str(build.ROOT) + "/", "")
+               for path, source in (source_of or {}).items()}
+    for row in rows:
+        sources.setdefault(str(targets.path(row)), row["source"])
     table_addresses = collections.defaultdict(set)
     for row in tables:
         for name in row_names(row):
@@ -212,6 +269,12 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         entry = dict(rva=rva, name=row["name"], names=sorted({name for name, _copy in kept}))
         slots, reason = retail_slots(retail, row)
         entry["slots"] = len(slots or [])
+        previous = next((copy for name, copy in kept if name == row["name"]),
+                        kept[0][1] if kept else None)
+        entry["source"] = sources.get(previous["object"], "") if previous else row.get("source", "")
+        if previous and slots:
+            entry.update(previous_object=previous["object"], previous_extent=previous["extent"],
+                         source_slot_mismatches=source_slot_mismatches(previous, slots, targets.addresses))
         imported = [copy["object"] for _name, copy in copies if copy.get("import_member")]
         common = [copy["object"] for _name, copy in copies if copy.get("common")]
         strong = [copy["object"] for _name, copy in copies
@@ -243,7 +306,13 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         for index, target in enumerate(slots):
             selected, reason = targets.resolve(target)
             if reason:
-                blocked.append(dict(slot=index, target_rva=target, reason=reason))
+                detail = dict(slot=index, target_rva=target, reason=reason)
+                if reason == "target-not-winning-provider":
+                    detail["providers"] = [dict(name=name, source=owner["source"],
+                                                ledger_object=str(targets.path(owner)),
+                                                first_object=targets.first.get(name))
+                                           for name, owner in targets.by_rva[target]]
+                blocked.append(detail)
             else:
                 resolved.append(selected)
         if blocked:
@@ -254,7 +323,10 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
             correct.append({**entry, "object": first["object"]})
             continue
         generated.append(dict(rva=rva, name=name, slots=resolved,
-                              previous_object=first["object"], previous_extent=first["extent"]))
+                              source=sources.get(first["object"], ""),
+                              previous_object=first["object"], previous_extent=first["extent"],
+                              source_slot_mismatches=source_slot_mismatches(
+                                  first, slots, targets.addresses)))
     return dict(tables=len(generated), slots=sum(len(entry["slots"]) for entry in generated),
                 refused_tables=len(refused), refusal_reasons=dict(collections.Counter(
                     entry["reason"] for entry in refused)), already_correct=len(correct),
@@ -275,24 +347,42 @@ def write_object(entries, path):
     return link_cycle.write_coff(path, sections, symbols, relocations)
 
 
-def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tables=None):
+def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tables=None, source_of=None):
     tables = table_rows(build.ROOT) if tables is None else tables
-    metadata = plan(rows, inputs, omitted, retail, tables, archives, objects)
+    metadata = plan(rows, inputs, omitted, retail, tables, archives, objects, source_of=source_of)
     path = Path(out) / "retail_vtables.obj"
     path.unlink(missing_ok=True)
     if metadata["entries"]:
         write_object(metadata["entries"], path)
     metadata["object"] = path.name if metadata["entries"] else None
     metadata["queue"] = "vtable_bridge_queue.tsv"
-    with (Path(out) / metadata["queue"]).open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=["rva", "name", "reason", "slots", "evidence"],
-                                delimiter="\t", lineterminator="\n")
-        writer.writeheader()
-        for entry in metadata["refusals"]:
-            writer.writerow(dict(rva=f"0x{entry['rva']:08X}", name=entry["name"],
-                                 reason=entry["reason"], slots=entry["slots"],
-                                 evidence=json.dumps({key: value for key, value in entry.items()
-                                                      if key not in {"rva", "name", "reason", "slots"}},
-                                                     sort_keys=True)))
+    write_queue(metadata, Path(out) / metadata["queue"])
     (Path(out) / "vtable_bridge.json").write_text(json.dumps(metadata, indent=1) + "\n")
     return (path if metadata["entries"] else None), metadata
+
+
+QUEUE_FIELDS = ["state", "table", "class", "reason", "source", "retail_rva", "slots", "evidence"]
+
+
+def write_queue(metadata, path, commit=None):
+    """All refusals, followed by bridge retirement work; no omission of unowned rows."""
+    with Path(path).open("w", newline="", encoding="utf-8") as handle:
+        if commit is not None:
+            handle.write(f"# real link at {commit}: tools/exit_link.py --blockers\n")
+        writer = csv.DictWriter(handle, fieldnames=QUEUE_FIELDS, delimiter="\t", lineterminator="\n")
+        writer.writeheader()
+        for state, entries in (("refused", metadata["refusals"]), ("bridged", metadata["entries"])):
+            for entry in entries:
+                name = entry["name"]
+                # Preserve exact MSVC scope for templates instead of guessing a spelling.
+                scope = name[4:].split("@@6", 1)[0] if name.startswith("??_7") else ""
+                if scope and not scope.startswith("?$"):
+                    scope = "::".join(reversed(scope.split("@")))
+                writer.writerow(dict(
+                    state=state, table=name, **{"class": scope},
+                    reason=entry.get("reason", "bridge-retirement"), source=entry.get("source", ""),
+                    retail_rva=f"0x{entry['rva']:08X}",
+                    slots=len(entry["slots"]) if isinstance(entry["slots"], list) else entry["slots"],
+                    evidence=json.dumps({key: value for key, value in entry.items()
+                                         if key not in {"rva", "name", "source", "slots", "reason"}},
+                                        sort_keys=True)))

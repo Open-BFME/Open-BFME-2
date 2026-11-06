@@ -244,3 +244,77 @@ def test_absolute_and_common_definitions_are_not_overridden(tmp_path, section, r
     result = plan(code, [table, provider], rows, data)
     assert result["tables"] == 0
     assert result["refusals"][0]["reason"] == reason
+
+
+def test_target_must_win_from_ledger_owner_not_just_exist(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    other = code_object(tmp_path / "earlier.obj")
+    result = plan(code, [table, other], rows, data)
+    refused = result["refusals"][0]
+    assert refused["reason"] == "target-not-winning-provider"
+    assert refused["blocked"][0]["providers"][0]["first_object"] == str(other.resolve())
+    assert refused["blocked"][0]["providers"][0]["ledger_object"] == str(code.resolve())
+    result = V.plan(rows, [table, code, other], [], Retail(), data,
+                    object_for=lambda row: code, symbol_for=lambda row: row["name"])
+    assert result["tables"] == 1
+
+
+def test_target_provider_index_covers_archive_order_and_kept_objects(tmp_path, monkeypatch):
+    a = code_object(tmp_path / "a.obj")
+    b = code_object(tmp_path / "b.obj")
+    archives = [tmp_path / "a.lib", tmp_path / "b.lib"]
+    monkeypatch.setattr(V.coffar, "read_archive",
+                        lambda path: [("member.obj", (a if path == archives[0] else b).read_bytes())])
+    index = V.first_providers(L.Objects([]), {"_first"}, archives)
+    assert index["_first"] == str(archives[0].resolve()) + "(member.obj)"
+    index = V.first_providers(L.Objects([b, a]), {"_first"}, archives)
+    assert index["_first"] == str(b.resolve())
+
+
+def test_source_slot_names_and_all_ledger_rvas_survive_bridge_and_queue(tmp_path):
+    code, table, rows, data = inputs(tmp_path, ("_second", "_first"))
+    rows.append({**rows[0], "target_rva": "0x1100"})
+    # _first's ambiguous target prevents generation, but source evidence survives.
+    refused = plan(code, [table], rows, data)["refusals"][0]
+    assert refused["source_slot_mismatches"] == [
+        {"slot": 0, "name": "_second", "ledger_rvas": [0x1010], "relocation_kind": 6,
+         "addend": 0, "retail_target_rva": 0x1000},
+        {"slot": 1, "name": "_first", "ledger_rvas": [0x1000, 0x1100], "relocation_kind": 6,
+         "addend": 0, "retail_target_rva": 0x1010}]
+    result = plan(code, [table], rows[:2], data)
+    entry = result["entries"][0]
+    assert entry["source_slot_mismatches"][0]["name"] == "_second"
+    V.write_queue(result, tmp_path / "queue.tsv", "a" * 40)
+    text = (tmp_path / "queue.tsv").read_text()
+    assert "source_slot_mismatches" in text and "_second" in text and "4112" in text
+    assert "bridge-retirement" in text
+
+
+def test_short_copy_records_missing_source_slots(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    entry = plan(code, [table], rows, data)["entries"][0]
+    assert entry["source_slot_mismatches"] == [
+        {"slot": 1, "name": "", "ledger_rvas": [], "retail_target_rva": 0x1010,
+         "reason": "missing-source-slot"}]
+
+
+def test_queue_exports_refusals_before_retirement_with_sources(tmp_path):
+    import csv
+    code, table, rows, data = inputs(tmp_path)
+    data.append({"address": "0x3004", "size": "4", "name": "_missing", "kind": "vtable"})
+    result = plan(code, [table], rows, data)
+    result["entries"][0]["source"] = "Code/table.cpp"
+    V.write_queue(result, tmp_path / "queue.tsv")
+    with (tmp_path / "queue.tsv").open() as f:
+        queued = list(csv.DictReader(f, delimiter="\t"))
+    assert [row["state"] for row in queued] == ["refused", "bridged"]
+    assert queued[1]["source"] == "Code/table.cpp"
+    assert queued[0]["source"] == ""
+
+
+def test_queue_source_can_come_from_a_data_only_object_mapping(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    result = V.plan(rows, [table, code], [], Retail(), data,
+                    object_for=lambda row: code, symbol_for=lambda row: row["name"],
+                    source_of={table: "Code/TableOnly.cpp"})
+    assert result["entries"][0]["source"] == "Code/TableOnly.cpp"

@@ -1062,6 +1062,52 @@ def exit_link_items(path=None):
     return items, note
 
 
+VTABLE_QUEUE = "reverse/vtable_bridge_queue.tsv"
+
+
+def vtable_bridge_items(path=None):
+    """Refusals then retirement, one file claim per source; retain unowned work visibly."""
+    path = Path(path) if path else ROOT / VTABLE_QUEUE
+    if not path.is_file():
+        return [], None
+    lines = path.read_text(encoding="utf-8").splitlines()
+    measured = lines[0].lstrip("# ") if lines and lines[0].startswith("#") else "a real link"
+    rows = list(csv.DictReader((line for line in lines if not line.startswith("#")), delimiter="\t"))
+    grouped = {}
+    unowned = 0
+    for row in sorted(rows, key=lambda row: row["state"] != "refused"):
+        source = row["source"]
+        if not source or not (ROOT / source).is_file():
+            # The data ledger is the known work file for an unowned table.
+            # Do not invent a Code owner or silently discard a refusal.
+            source = "reverse/data_ledger.csv"
+            unowned += 1
+        grouped.setdefault(source, []).append(row)
+    rows_of = rows_by_source()
+    items = []
+    for source, tables in grouped.items():
+        owned = rows_of.get(source, ())
+        size = sum(int(row[2] or 0) for row in owned)
+        refusals = sum(row["state"] == "refused" for row in tables)
+        sample = tables[0]
+        items.append(dict(
+            tier="link", check="vtable-bridge", source=source, target_rva=sample["retail_rva"],
+            function=sample["table"], size=size, credit=0, placed=False,
+            blockers=refusals, urgent=bool(refusals), fresh=measured, claim=[f"file:{source}"],
+            vtable_queue=VTABLE_QUEUE, tables=tables,
+            why=(f"{refusals} refused and {len(tables) - refusals} bridged table(s); "
+                 f"first: {sample['table']} at {sample['retail_rva']} ({sample['reason']}). "
+                 "Recover the actual class/target in its source; do not delete the queue or ledger row. "
+                 "Unknown source work is grouped under reverse/data_ledger.csv for ownership investigation. "
+                 f"Source-slot evidence is preserved in {VTABLE_QUEUE}: {sample['evidence']}"),
+            pass_test=("the next published real link no longer bridges or refuses these tables "
+                       "(neither state in reverse/vtable_bridge_queue.tsv); preserve their ledger coverage")))
+    note = f"{len(items)} source file(s) for {len(rows)} vtable refusal/retirement rows, from {measured}"
+    if unowned:
+        note += f"; {unowned} unowned or vanished-source table(s) served under file:reverse/data_ledger.csv"
+    return items, note
+
+
 def link_items(path=None):
     """BFME2 link repairs, with a note naming the source read and the commit it describes: the real
     link's blockers while any remain; else a link cycle's rows not placed at retail RVA or placed but
@@ -1071,8 +1117,16 @@ def link_items(path=None):
         return [], "BFME1 has no link cycle yet"
     if path is None:
         items, note = exit_link_items()
+        bridge, bridge_note = vtable_bridge_items()
+        blocked_sources = {item["source"] for item in items}
+        # next_work partitions urgent work before its weighted draw. Keep real
+        # blockers in that same partition (its exit-link rule serves them first),
+        # then refusals; retirement-only work follows both.
+        if bridge:
+            items = [dict(item, urgent=True) for item in items]
+        items += [item for item in bridge if item["source"] not in blocked_sources]
         if items:
-            return items, note
+            return items, "; ".join(part for part in (note, bridge_note) if part)
     kind, path, note = link_source(path)
     if kind is None:
         return [], note

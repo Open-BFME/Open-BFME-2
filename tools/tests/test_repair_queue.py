@@ -3082,3 +3082,62 @@ def test_exit_link_items_absent_file_is_no_queue(tmp_path):
     rq, _, _ = load(tmp_path, "bfme2", LEDGER)
     assert rq.exit_link_items(tmp_path / "absent.tsv") == ([], None)
 
+
+
+def test_vtable_queue_groups_files_serves_refusals_first_and_keeps_unowned(tmp_path, monkeypatch):
+    import csv
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, files=[
+        ("Code/A.cpp", ""), ("Code/B.cpp", ""), ("reverse/data_ledger.csv", "")])
+    path = rev / "vtable_bridge_queue.tsv"
+    fields = ["state", "table", "class", "reason", "source", "retail_rva", "slots", "evidence"]
+    rows = [
+        ["bridged", "_b", "B", "bridge-retirement", "Code/B.cpp", "0x3000", "2", "{}"],
+        ["refused", "_a", "A", "omitted-target", "Code/A.cpp", "0x4000", "4", '{"slot":1}'],
+        ["bridged", "_a2", "A", "bridge-retirement", "Code/A.cpp", "0x5000", "3", "{}"],
+        ["refused", "_unowned", "", "no-kept-definition", "", "0x6000", "2", "{}"],
+        ["refused", "_gone", "", "strong-definition", "Code/Gone.cpp", "0x7000", "2", "{}"]]
+    with path.open("w", newline="") as f:
+        f.write("# real link at abc123: tools/exit_link.py --blockers\n")
+        writer = csv.writer(f, delimiter="\t"); writer.writerow(fields); writer.writerows(rows)
+    items, note = rq.vtable_bridge_items()
+    assert [item["source"] for item in items] == [
+        "Code/A.cpp", "reverse/data_ledger.csv", "Code/B.cpp"]
+    assert sum(len(item["tables"]) for item in items) == 5
+    assert [item["urgent"] for item in items] == [True, True, False]
+    assert items[0]["claim"] == ["file:Code/A.cpp"] and len(items[0]["tables"]) == 2
+    assert items[0]["check"] == "vtable-bridge" and items[0]["credit"] == 0
+    assert "next published real link" in items[0]["pass_test"]
+    assert "no longer bridges or refuses" in items[0]["pass_test"]
+    assert "2 unowned" in note and items[1]["claim"] == ["file:reverse/data_ledger.csv"]
+
+
+def test_vtable_queue_follows_real_blockers_without_duplicate_file_claims(tmp_path, monkeypatch):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER)
+    blocker = {"source": "Code/A.cpp", "check": "exit-link"}
+    monkeypatch.setattr(rq, "exit_link_items", lambda: ([blocker], "strict"))
+    monkeypatch.setattr(rq, "vtable_bridge_items", lambda: ([
+        {"source": "Code/A.cpp", "check": "vtable-bridge"},
+        {"source": "Code/B.cpp", "check": "vtable-bridge"}], "bridge"))
+    monkeypatch.setattr(rq, "link_source", lambda path: pytest.fail("must serve bridge before census"))
+    items, note = rq.link_items()
+    assert items == [dict(blocker, urgent=True), {"source": "Code/B.cpp", "check": "vtable-bridge"}]
+    assert note == "strict; bridge"
+
+
+def test_vtable_queue_absent_is_no_work(tmp_path):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER)
+    assert rq.vtable_bridge_items() == ([], None)
+
+def test_vtable_queue_draw_prioritizes_real_blockers_then_refusals_then_retirement(monkeypatch):
+    import argparse
+    import next_work as nw
+    blocker = dict(source="Code/A.cpp", check="exit-link", urgent=True, credit=0)
+    refused = dict(source="Code/B.cpp", check="vtable-bridge", urgent=True, credit=0)
+    retired = dict(source="Code/C.cpp", check="vtable-bridge", urgent=False, credit=0)
+    monkeypatch.setattr(nw, "unreproducible", lambda candidate: False)
+    monkeypatch.setattr(nw, "candidate_weight", lambda candidate: 1)
+    args = argparse.Namespace(claim=False)
+    for pool, expected in [([blocker, refused, retired], blocker),
+                           ([refused, retired], refused), ([retired], retired)]:
+        got = nw.draw_debt("link", pool, pool, args, [], 0)
+        assert got["candidate"] is expected

@@ -499,6 +499,11 @@ def blockers_from_errors(lines, exports_of=None):
 
 def write_blockers(errors, commit):
     """reverse/exit_link_blockers.tsv: what the fleet's link tier serves first."""
+    result_path = Path(errors).with_name("result.json")
+    record = json.loads(result_path.read_text()) if result_path.exists() else None
+    if record is not None and (record.get("mode") != "exit-link" or record.get("stubs")
+                               or record.get("force") or record.get("commit") != commit):
+        raise ValueError("bridge queue requires the matching unstubbed real-link result")
     with open(errors, encoding="utf-8", errors="replace", newline="") as handle:
         blockers = blockers_from_errors(handle, export_sources(census.ledger()))
     with open(ROOT / BLOCKERS, "w", encoding="utf-8", newline="\n") as out:
@@ -507,6 +512,12 @@ def write_blockers(errors, commit):
         for source, count, sample in blockers:
             out.write(f"{source}\t{count}\t{sample}\n")
     print(f"{BLOCKERS}: {len(blockers)} source(s), {sum(b[1] for b in blockers)} missing name(s) by source")
+    if record is not None and record.get("vtable_bridge") is not None:
+        import vtable_bridge
+        vtable_bridge.write_queue(record["vtable_bridge"], ROOT / "reverse/vtable_bridge_queue.tsv", commit)
+        print("reverse/vtable_bridge_queue.tsv: refusals then bridge retirement work")
+    else:
+        print("bridge queue unchanged: this artifact has no real-link bridge metadata")
     return 0
 
 
@@ -888,7 +899,8 @@ def link_setup(rows, present):
     import vtable_bridge
     vtables, vtable_info = vtable_bridge.build_bridge(
         rows, inputs, omitted, libs, OUT,
-        image_report.Retail(build.EXE.read_bytes()), objects=objects)
+        image_report.Retail(build.EXE.read_bytes()), objects=objects,
+        source_of=census._object_sources(rows))
     metadata["vtable_bridge"] = vtable_info
     return ([vtables] if vtables else []) + [table] + inputs + libs + [absolute], metadata
 

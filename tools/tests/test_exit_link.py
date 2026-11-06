@@ -845,8 +845,10 @@ def test_link_setup_puts_vtable_bridge_first_without_changing_original_order(tmp
     retail.write_bytes(b"retail")
     monkeypatch.setattr(E.build, "EXE", retail)
     monkeypatch.setattr(image_report, "Retail", lambda raw: object())
-    def generated(rows, inputs, omitted, libraries, out, retail, objects=None):
-        assert inputs == original and omitted == set()
+    sources = {original[0]: "Code/A.cpp", original[1]: "Code/B.cpp"}
+    monkeypatch.setattr(E.census, "_object_sources", lambda rows: sources)
+    def generated(rows, inputs, omitted, libraries, out, retail, objects=None, source_of=None):
+        assert inputs == original and omitted == set() and source_of == sources
         return vtables, {"object": vtables.name, "tables": 2, "slots": 9}
     monkeypatch.setattr(vtable_bridge, "build_bridge", generated)
     inputs, metadata = E.link_setup([], original)
@@ -869,3 +871,52 @@ def test_report_shows_generated_vtable_retirement_count(tmp_path, monkeypatch, c
     text = capsys.readouterr().out
     assert "vtable bridge 2 table(s), 9 slot(s)" in text
     assert "must reach 0 for G1" in text
+
+
+def test_blockers_publish_real_link_bridge_queue_and_preserve_source_evidence(tmp_path, monkeypatch):
+    import csv
+    import json
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E.census, "ledger", lambda: [])
+    monkeypatch.setattr(E, "export_sources", lambda rows: {})
+    (tmp_path / "reverse").mkdir()
+    errors = tmp_path / "errors.tsv"
+    errors.write_text("code\tsource\tsymbol\nLNK2001\tCode/A.cpp\t_missing\n")
+    bridge = {"refusals": [{"rva": 0x3000, "name": "_refused", "reason": "omitted-target",
+                            "source": "Code/A.cpp", "slots": 2}],
+              "entries": [{"rva": 0x4000, "name": "_bridged", "source": "Code/B.cpp", "slots": [],
+                           "source_slot_mismatches": [{"name": "_wrong", "ledger_rvas": [0x1111]}]}]}
+    record = {"mode": "exit-link", "force": False, "stubs": False,
+              "commit": "a" * 40, "vtable_bridge": bridge}
+    (tmp_path / "result.json").write_text(json.dumps(record))
+    assert E.main(["--blockers", str(errors), "--blockers-commit", "a" * 40]) == 0
+    lines = (tmp_path / "reverse/vtable_bridge_queue.tsv").read_text().splitlines()
+    queued = list(csv.DictReader(lines[1:], delimiter="\t"))
+    assert [row["state"] for row in queued] == ["refused", "bridged"]
+    assert "_wrong" in queued[1]["evidence"] and "4369" in queued[1]["evidence"]
+
+
+@pytest.mark.parametrize("mode,commit,stubs", [
+    ("diagnostic-link", "a" * 40, True), ("exit-link", "b" * 40, False)])
+def test_blockers_refuse_diagnostic_or_wrong_commit_before_writing(tmp_path, monkeypatch, mode, commit, stubs):
+    import json
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    (tmp_path / "result.json").write_text(json.dumps(
+        {"mode": mode, "commit": commit, "force": False, "stubs": stubs}))
+    errors = tmp_path / "errors.tsv"
+    errors.write_text("code\tsource\tsymbol\n")
+    with pytest.raises(ValueError, match="matching unstubbed real-link"):
+        E.write_blockers(errors, "a" * 40)
+    assert not (tmp_path / "reverse").exists()
+
+def test_old_artifact_without_bridge_metadata_does_not_erase_last_queue(tmp_path, monkeypatch):
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E.census, "ledger", lambda: [])
+    monkeypatch.setattr(E, "export_sources", lambda rows: {})
+    (tmp_path / "reverse").mkdir()
+    queue = tmp_path / "reverse/vtable_bridge_queue.tsv"
+    queue.write_text("last measured queue\n")
+    errors = tmp_path / "errors.tsv"
+    errors.write_text("code\tsource\tsymbol\n")
+    assert E.write_blockers(errors, "a" * 40) == 0
+    assert queue.read_text() == "last measured queue\n"

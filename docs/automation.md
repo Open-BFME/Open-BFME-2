@@ -42,10 +42,23 @@ count must reach 0 for the exit test.
 copies and their positive virtual slots. `exit_link.py` emits them first, only for
 already-defined select-any tables with no supplied strong definition and with every
 retail slot resolved through a matched ledger row to an external kept code target.
+The first external provider in response order must be that row's owner; a later
+owner cannot justify using an earlier conflicting copy.
 A first kept copy whose slot pointers already match needs no bridge. Missing tables,
 ambiguous names, omitted targets and other refused cases are listed in
-`vtable_bridge_queue.tsv`; `vtable_bridge.json` records the full decision.
-Neither list changes `reverse/exit_link_blockers.tsv` or the picker.
+the artifact's `vtable_bridge_queue.tsv`; `vtable_bridge.json` records the full
+decision, including the displaced source-slot names and all their ledger RVAs.
+`exit_link.py --blockers ERRORS --blockers-commit SHA` publishes the measured real
+result's bridge work to `reverse/vtable_bridge_queue.tsv`, refusals first and then
+bridged tables as retirement work. It keeps the existing real-link blockers
+unchanged. Diagnostic results cannot publish this queue.
+
+The link tier serves this family immediately after real-link blockers, grouped
+by source with a `file:` claim and no byte credit. Tables without a known existing
+source stay visible in an ownership-investigation item claiming
+`file:reverse/data_ledger.csv`; no Code owner is guessed. The pass test is the next
+published real link no longer bridging or refusing those tables while retaining
+their ledger coverage. The dispatcher stages both committed queue files.
 
 These copies are a runtime bridge, not recovered class definitions. G1 requires both
 vtable counters and `initializers_bridged` to be zero in addition to its other
