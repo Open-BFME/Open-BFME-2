@@ -133,16 +133,9 @@ struct Rva004EA4E5Settings
 	Real m_farmDangerRadius;	// +0x868
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);	// 0x002A8AB1
-	void *rva002A8F24(Player *player);	// 0x002A8F24
-	const Rva004EA4E5Settings &getSettings() const { return m_settings; }
-private:
-	char m_pad00[0x10];
-	Rva004EA4E5Settings m_settings;	// +0x10
-};
+#include "../../../../Include/GameLogic/Rva002A8F24.h"
+// The skirmish-AI settings block starts at +0x10.
+__forceinline const Rva004EA4E5Settings &skirmishSettings(const Rva002A8F24 *manager) { return *(const Rva004EA4E5Settings *)manager->m_pad10; }
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 struct Rva004EA4E5IDs
@@ -319,7 +312,7 @@ Rva004EA4E5Farm *AIEconomyBuilder::findAvailableFarm()
 			Rva004EA4E5Mask rejectKinds;
 			rejectKinds.set(205);
 			BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&farm->getPosition(),
-				TheSkirmishAIManager->getSettings().m_farmDangerRadius, 0,
+				skirmishSettings(TheSkirmishAIManager).m_farmDangerRadius, 0,
 				Rva0026119DFilter().link(&Rva00261409Filter(m_player, true, 4))->link(
 					Rva003959FA(*(BfmeFixedStorage0004543D *)&kinds).link(&Rva0027231F(*(BfmeFixedStorage0004543D *)&rejectKinds))),
 				0);

@@ -76,19 +76,14 @@ void parseFireLogicSystemDefinition(INI *ini)
 // 0x002A8A31 (24B): "SkirmishAIData" (registration VA 0x00DBBC28). No null
 // check: initFromINI the +0x10 member of the singleton at 0x00DFEEF8 against
 // VA 0x00BFDA50.
-class Rva002A8F24
-{
-public:
-	char m_unreconstructed_00[0x10];
-	char m_skirmishAIData[0x10];
-};
+#include "../../../Include/GameLogic/Rva002A8F24.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern const FieldParse SkirmishAIDataFields[];
 
 void parseSkirmishAIDataDefinition(INI *ini)
 {
-	ini->initFromINI(TheSkirmishAIManager->m_skirmishAIData, SkirmishAIDataFields);
+	ini->initFromINI(TheSkirmishAIManager->m_pad10, SkirmishAIDataFields);
 }
 
 // 0x00210F64 (40B): "LivingWorldMapInfo" (registration VA 0x00DB9A2C). Skips

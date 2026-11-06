@@ -109,14 +109,9 @@ struct Rva002A8F24Data
 	char m_pad000[0x874];
 	float m_expansionRadius;	// +0x874
 };
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *owner);	// 0x002A8AB1
-	const Rva002A8F24Data *getData() const { return &m_data; }
-	char m_pad00[0x10];
-	Rva002A8F24Data m_data;	// +0x10
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
+// The skirmish-AI settings block starts at +0x10.
+__forceinline const Rva002A8F24Data *skirmishData(const Rva002A8F24 *manager) { return (const Rva002A8F24Data *)manager->m_pad10; }
 extern Rva002A8F24 *TheSkirmishAIManager;
 #include "../../Include/GameLogic/AITarget.h"
 
@@ -252,7 +247,7 @@ void AITargetHeuristicExpansionBase::findBestTarget(AITarget *choice, Player *pl
 		float dist = dx * dx + dy * dy;
 		if (bestDist < 0.0f || dist < bestDist) {
 			BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos,
-				TheSkirmishAIManager->getData()->m_expansionRadius, 0,
+				skirmishData(TheSkirmishAIManager)->m_expansionRadius, 0,
 				Rva0026119DFilter().link(&Rva00261409Filter(player, true, 6)), 1);
 			unsigned count = 0;
 			for (Object *obj = hits.next(); obj; obj = hits.next())
@@ -265,7 +260,7 @@ void AITargetHeuristicExpansionBase::findBestTarget(AITarget *choice, Player *pl
 		}
 	}
 	if (bestDist > 0.0f)
-		choice->rva002C5CF7(&best, TheSkirmishAIManager->getData()->m_expansionRadius, 0);
+		choice->rva002C5CF7(&best, skirmishData(TheSkirmishAIManager)->m_expansionRadius, 0);
 }
 
 // ?getWaypointByName@@YAPAVWaypoint@@VAsciiString@@@Z retail 0x0057322B 83B

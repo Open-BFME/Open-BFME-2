@@ -21,23 +21,14 @@ public:
 	void *rva004E95D4(void *p);
 };
 
-class Rva002A8F24
-{
-public:
-	Rva002A8AB1Record *rva002A8AB1(void *key);
-
-private:
-	char m_pad[0x914];
-	Rva004E9600 **m_begin;	// +0x914
-	Rva004E9600 **m_end;	// +0x918
-};
+#include "../../Include/GameLogic/Rva002A8F24.h"
 
 Rva002A8AB1Record *Rva002A8F24::rva002A8AB1(void *key)
 {
 	Rva002A8AB1Record *result = 0;
 	if (key)
 	{
-		for (Rva004E9600 **it = m_begin; result == 0 && it != m_end; ++it)
+		for (Rva004E9600 **it = field_914; result == 0 && it != field_918; ++it)
 		{
 			result = (Rva002A8AB1Record *)(*it)->rva004E95D4(key);
 			if (result)
