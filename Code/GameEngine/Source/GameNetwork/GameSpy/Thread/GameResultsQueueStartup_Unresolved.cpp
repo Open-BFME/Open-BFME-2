@@ -47,6 +47,9 @@
 // records carry several placeholder names in the ledger. Each call here uses
 // the name its callee is rowed under.
 
+// Tables 0x00C3AD08 and 0x00C3AD70 hold SubsystemInterface's fourteen slots
+// before the queue's eight, so the base declares them.
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // The request and response records (assignments 0x0041A7F7, 0x0041A820).
@@ -187,6 +190,12 @@ class Rva0041A644 : public GameResultsInterface
 public:
 	Rva0041A644();
 	virtual ~Rva0041A644();
+
+	// Zero Hour's empty GameResultsQueue overrides: retail 0x00C3AD70 slots 1,
+	// 9 and 10 are the shared bare RET 0x000B3FD0.
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 
 	virtual void startThreads();
 	virtual void endThreads();
