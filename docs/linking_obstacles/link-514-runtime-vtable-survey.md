@@ -371,3 +371,18 @@ Still open in the family:
   `extern "C"` array at +0x10. No tool path names it yet: `class --fold` needs T (0x00C61588) already named by
   NEW and refuses a placeholder NEW, and a plain class rename collides with the rowed getModuleNameKey.
 
+**Dummy-vptr ctors over UpdateModule.h (2026-11-07, seat halilkkaya-lk43).** The same recipe works for a
+module that derives from UpdateModule directly, with no helper header: declare the class over the
+canonical UpdateModule.h in its ctor unit, move the name getter with `--to-class` (the
+ModuleNameGetters3.cpp line becomes its `BFME_SNAPSHOT_NAME_GETTER` form), fold the destructor placeholder
+from Rva0024A797Derived.cpp, and leave `loadPostProcess` to UpdateModule when retail's slot 1 is 0x00497805
+(`jmp 0x0058B03E`, the same body).
+- HeightDieUpdate 0x0048FCB2: `Rva0048FBBA` folded; tables 11/13 + 2 equivalent, 45/47 + 2 inline, 3/3.
+- AutoDepositUpdate 0x0049A20F: `Rva0049A1AB` folded; slot 3 0x004A0CC3 is a retail fold with
+  RadarUpdate::xfer (same +0x20 uint and +0x24/+0x25 bools), rowed as a twin; tables as HeightDieUpdate's.
+- link_check: HeightDieUpdateCtor.cpp 77 B and AutoDepositUpdateCtor.cpp 68 -> 144 B LINK, with their
+  update, getter, factory and scaffold units unchanged.
+- Walled in the same family: AutoFindHealingUpdate (its update 0x0049520B is rowed non-virtual with an
+  int return, the 0x0028F976 false reject) and HijackerUpdate (getModuleNameKey 0x004A4010 is rowed as a
+  static member). OCLUpdate keeps its dtor identity conflict (above).
+
