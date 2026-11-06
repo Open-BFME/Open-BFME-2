@@ -56,6 +56,7 @@ public:
 
 
 
+
 #endif
 #include "ascii_string.h"
 #include "../../../Include/Common/Rva0036CA00Str.h"
@@ -86,6 +87,7 @@ struct Rva00423BD8Element { int word0; bool operator<(const Rva00423BD8Element&)
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::deque<Rva00423BD8Element, _STL::allocator<Rva00423BD8Element> >::push_back(Rva00423BD8Element const &);
 #include <queue>
+#pragma comment(linker, "/alternatename:??1ScriptListElementName@@QAE@XZ=??1PrereqUnitRec@ProductionPrerequisite@@QAE@XZ")
 
 static Script *s_mtScript = NULL;
 
@@ -962,9 +964,6 @@ private:
 
 struct Rva003B5603Element { _STL::basic_string<wchar_t> strings[1]; bool operator<(const Rva003B5603Element&)const; bool operator==(const Rva003B5603Element&)const; };
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva003B5603Element & _STL::deque<Rva003B5603Element, _STL::allocator<Rva003B5603Element> >::back(void);
-
 class Rva003B44EE
 {
 public:
@@ -1000,10 +999,6 @@ class Rva003B448C { public: ~Rva003B448C(); };
 class ModuleData;
 
 typedef const ModuleData *Elem;
-
-template _STL::vector<Elem>::iterator _STL::vector<Elem>::insert(
-    _STL::vector<Elem>::iterator,
-    const Elem &);
 
 // ??0Rva003B6831@@QAE@XZ @0x003B6831 (21B): default ctor for a deque holder.
 // Calls rowed _Deque_base<BfmeWordValue4> ctor with 0; returns this in eax.
@@ -1127,13 +1122,44 @@ private:
 
 typedef char Rva003B872ASetExtent[sizeof(Rva003B872ASet)==32?1:-1];
 
-template void _STL::queue<Rva00423BD8Element, _STL::deque<Rva00423BD8Element,_STL::allocator<Rva00423BD8Element> > >::push(const Rva00423BD8Element &);
+void clearRva00359330Nodes(Rva00359330Record *record);
+
+void clearRva003B675BNodes(Rva003B675BRecord *record);
+
+class ScriptListElementName
+{
+public:
+	~ScriptListElementName();
+};
+
+struct Rva003B678ARange
+{
+	Rva00359330Record *m_start;
+	Rva00359330Record *m_finish;
+};
+
+class Rva003B7C1E
+{
+public:
+	void rva003B7C1E();
+};
 
 // tu-skeleton: 0x003B23DE 25B ?addGroupRef@ScriptList@@QAEXPAURva0034F9D0Head@@PAURva0034F9D0Node@@1@Z -- matched in Code/GameEngine/Source/Common/Rva0034F9D0ListInsert.cpp (not merged yet)
 
 // tu-skeleton: 0x003B23F7 35B ?addScriptRef@ScriptList@@QAEXPAUBfmeHeadXZ@@PAUBfmeNodeXZ@@1@Z -- matched in Code/GameEngine/Source/Common/BfmeOneHundredFortyEight_bfmeInsertXZ_YGXPAUBfmeHeadXZ_PAUBfmeNodeXZ_1_Z.cpp (not merged yet)
 
 // tu-skeleton: 0x003B2467 49B ?xfer@ScriptGroup@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva003B5603Element & _STL::deque<Rva003B5603Element, _STL::allocator<Rva003B5603Element> >::back(void);
+
+template _STL::vector<Elem>::iterator _STL::vector<Elem>::insert(
+    _STL::vector<Elem>::iterator,
+    const Elem &);
+
+template void _STL::queue<Rva00423BD8Element, _STL::deque<Rva00423BD8Element,_STL::allocator<Rva00423BD8Element> > >::push(const Rva00423BD8Element &);
 
 // ---- from Code/GameEngine/Source/Common/Rva003B2498StringRecordCopy.cpp
 
@@ -1159,22 +1185,6 @@ void Rva003B24C7::rva003B24C7(Bool val)
 		m_b = 0;
 	}
 }
-
-// tu-skeleton: 0x003B24DB 23B ?rva003B24DB@Rva003B24DB@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
-
-// tu-skeleton: 0x003B24F2 66B ?WriteScriptSubRecord_Rva003B24F2@@YAXAAVDataChunkOutput@@PBUScriptSubRecord@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptSubRecordWrite.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2534 12B ?rva003B2534@Rva003B0C9F@@QAEXPBH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2540 79B ?xfer@Script@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x003B258F 62B ?deleteOrCondition@Script@@QAEXPAVOrCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDeleteClauses.cpp (not merged yet)
-
-// tu-skeleton: 0x003B25CD 66B ?rva003B25CD@Script@@QAEXHPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDeleteClauses.cpp (not merged yet)
-
-// tu-skeleton: 0x003B260F 31B ?rva003B260F@Rva003B260F@@QBEPAURva003B260FNode@@PAU2@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
-
-// tu-skeleton: 0x003B262E 68B ??1Rva003B262E@@MAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003B262EFinish.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp
 
@@ -1657,8 +1667,6 @@ void Rva003B3EEAOwner::rva003B3EEA()
 	}
 }
 
-// tu-skeleton: 0x003B26DF 48B ??0Condition@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0034FE00Assign.cpp
 
 Rva0034FE00 &Rva0034FE00::operator=(const Rva0034FE00 &other)
@@ -1673,8 +1681,6 @@ Rva0034FE00 &Rva0034FE00::operator=(const Rva0034FE00 &other)
 	m_24 = other.m_24;
 	return *this;
 }
-
-// tu-skeleton: 0x003B275A 17B ?rva003B275A@Condition@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B275AGet.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/TemplateGetUiStrings.cpp
 
@@ -1694,32 +1700,6 @@ int Template::getUiStrings(AsciiString * const strings) const
 	}
 	return m_numUiStrings;
 }
-
-// tu-skeleton: 0x003B27A3 24B ?getParameterType@Template@@QBE?AW4ParameterType@Parameter@@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003B27BB 39B ?getCoord3D@Parameter@@QBEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetCoord3D.cpp (not merged yet)
-
-// tu-skeleton: 0x003B27E2 22B ?setCoord3D@Parameter@@IAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterSetCoord3D.cpp (not merged yet)
-
-// tu-skeleton: 0x003B27F8 12B ?checkAndSet@Rva0034FF50@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2804 46B ??0ScriptAction@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2832 17B ?rva003B2832@Rva003B2832@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B2832Get.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2843 21B ?getUiStrings@ScriptAction@@QAEHQAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetUiStrings.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2858 595B ?rva003B2858@Rva003B3AE2ActionPrefix@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2AAB 600B ?rva003B2AAB@Rva003B3AE2ActionPrefix@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2D03 555B ?rva003B2D03@Rva003B3AE2ActionPrefix@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x003B2F2E 633B ?rva003B2F2E@Rva003B3AE2ActionPrefix@@QBEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x003B31AD 20B ??0?$BitFlags@$0L@@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x003B31C1 6B ?Rva003B31C1Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptTagCheck.cpp
 
@@ -1762,8 +1742,6 @@ void Rva003B3204::clear()
 		operator delete(next);
 	}
 }
-
-// tu-skeleton: 0x003B321B 6B ?Rva003B321BGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva003BCopyLeaves.cpp
 
@@ -1808,10 +1786,6 @@ Rva003B32E5 &Rva003B32E5::operator=(const Rva003B32E5 &other)
 	m_e = other.m_e;
 	return *this;
 }
-
-// tu-skeleton: 0x003B333A 55B ??0Parameter@@QAE@W4ParameterType@0@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionParseAction.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3371 81B ?Rva003B3371Call@@YAXH@Z -- matched in Code/GameEngine/Source/Common/Rva003B3371Call.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva003BDeletingDtors.cpp
 
@@ -1868,20 +1842,6 @@ Rva003B3485::Rva003B3485(void *a, void *b, BfmeParserRegistryVE *registry, const
 {
 }
 
-// tu-skeleton: 0x003B34F3 20B ??0Rva003B3536@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3507 47B ??0Rva003B3536@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003B3536Load.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3536 123B ?rva003B3536@Rva003B3536@@QAEXAAVDataChunkInput@@G@Z -- matched in Code/GameEngine/Source/Common/Rva003B3536Load.cpp (not merged yet)
-
-// tu-skeleton: 0x003B35B1 177B ??1Script@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3662 6B ?GetSnapshotName@Script@@MBEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3668 197B ?updateFrom@Script@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDeleteClauses.cpp (not merged yet)
-
-// tu-skeleton: 0x003B372D 155B ?WriteScriptPlayerMask_Rva003B372D@@YAXAAVDataChunkOutput@@PBI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva003B37C8Ctor.cpp
 
 // ??0Rva003B37C8@@QAE@PAX0PAVBfmeParserRegistryVE@@PBVAsciiString@@@Z @0x003B37C8 110B
@@ -1894,12 +1854,6 @@ Rva003B37C8::Rva003B37C8(void *a, void *b, BfmeParserRegistryVE *registry, const
 	m_a(a), m_b(b)
 {
 }
-
-// tu-skeleton: 0x003B3836 339B ?rva003B3836@Script@@QAEXPAVAssetList@@PAUAssetLoadMode@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptAssets.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3989 41B ?text@Rva003B3989ConditionPrefix@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp (not merged yet)
-
-// tu-skeleton: 0x003B39B2 21B ?getUiStrings@Condition@@QAEHQAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionGetUiStrings.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva003B39C7Ctor.cpp
 
@@ -1919,18 +1873,6 @@ Rva003B39C7::Rva003B39C7()
 		m4C[i] = 0;
 }
 
-// tu-skeleton: 0x003B3A38 129B ?WriteParameter@Parameter@@QAEXAAVDataChunkOutput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Parameter_WriteParameter.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3AB9 41B ?text@Rva003B3AB9ActionPrefix@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3AE2 659B ?getTeam@Rva003B3AE2ActionPrefix@@QBEPAVTeam@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3D75 138B ?rva003B3D75@ScriptAction@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3DFF 169B ?WriteActionDataChunk@@YAXPADAAVDataChunkOutput@@PAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionWriteAction.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3EA8 35B ?_M_decrement@?$_Deque_iterator_base@H@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3F09Lookup.cpp
 
 // ?lookupTableEntry@Rva003B3F09Holder@@QAEPAXHH@Z
@@ -1948,20 +1890,6 @@ void *Rva003B3F09Holder::lookupTableEntry(int entryIndex, int linkIndex)
 	}
 	return (char *)chainLink + 4;
 }
-
-// tu-skeleton: 0x003B3F2F 47B ?_M_pop_back_aux@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3F66 7B ?getBits@Rva003B3F66WordOffset@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3F6D 11B ?clear@Rva003B3F6DZeroView@@QAEPAV1@XZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3FB1 28B ??_GPrereqUnitRec@ProductionPrerequisite@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors3.cpp (not merged yet)
-
-// tu-skeleton: 0x003B3FCD 164B ??0Rva003525E0Pair@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003529B0Clone.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4039 32B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x003B4071 48B ?clear@Rva003B4071@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupCapture.cpp
 
@@ -2030,20 +1958,6 @@ int Rva003B7EC2View::rva003B7EC2(int key)
 	return index;
 }
 
-// tu-skeleton: 0x003B40FA 6B ?name@Rva003B40FANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x003B417E 122B ??0Script@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4214 28B ??_GRva000B9AAA@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000BDD08Destroy.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4230 92B ??1Condition@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionActionDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x003B428C 183B ?WriteConditionDataChunk@Condition@@SAXAAVDataChunkOutput@@PAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4343 137B ?setActionType@ScriptAction@@QAEXW4ScriptActionType@1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003B43CC 92B ??1ScriptAction@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionActionDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupLeafCheck.cpp
 
 // ?check@Rva003B483DHolder@@QBE_NPBX@Z
@@ -2091,10 +2005,6 @@ int Rva003B444AHolder::getSignedWord(int index)
     return *reinterpret_cast<const short *>(items[index].m_bytes + 0x0E);
 }
 
-// tu-skeleton: 0x003B445C 20B ?pop_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x003B448C 15B ??1Rva003B448C@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeRva003B44AB.cpp
 
 Rva003B44AB::Rva003B44AB(const Rva003B44AB *other) : m_00(0), m_04(&other->m_04)
@@ -2104,22 +2014,6 @@ Rva003B44AB::Rva003B44AB(const Rva003B44AB *other) : m_00(0), m_04(&other->m_04)
 Rva003B44AB::Rva003B44AB(const Rva003529B0 *other) : m_04(other)
 {
 }
-
-// tu-skeleton: 0x003B44DC 18B ??0Rva003B44DC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x003B44EE 308B ?rva003B44EE@Rva003B44EE@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4622 45B ??$_Construct@UBfmeStringRecord003B3F78@@U1@@_STL@@YAXPAUBfmeStringRecord003B3F78@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x003B464F 38B ??$__uninitialized_copy@PBUBfmeStringRecord003B3F78@@PAU1@@_STL@@YAPAUBfmeStringRecord003B3F78@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4675 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord003B3F78@@IU1@@_STL@@YAPAUBfmeStringRecord003B3F78@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x003B469A 45B ??$_M_allocate_and_copy@PBUBfmeStringRecord003B3F78@@@?$vector@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL@@IAEPAUBfmeStringRecord003B3F78@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x003B46C7 25B ?Rva003B46C7Destroy@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_prereq_destroy_3b46c7.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4716 272B ?xfer@ScriptList@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupSkipCheck.cpp
 
@@ -2260,24 +2154,6 @@ void Rva003B4982::rva003B4982(void *arg)
 	}
 }
 
-// tu-skeleton: 0x003B4A20 28B ??_GRva003B4100@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4A3C 60B ?WriteOrConditionDataChunk@OrCondition@@SAXAAVDataChunkOutput@@PAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionWriteOrConditionDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4A94 137B ?setConditionType@Condition@@QAEXW4ConditionType@1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003B4B1D 2266B ?getUiText@Parameter@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetUiTextBody.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5413 54B ??0ScriptAction@@QAE@W4ScriptActionType@0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5449 147B ?duplicate@ScriptAction@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionDuplicate.cpp (not merged yet)
-
-// tu-skeleton: 0x003B54DC 285B ?getUiText@ScriptAction@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetUiText.cpp (not merged yet)
-
-// tu-skeleton: 0x003B55F9 5B ??1?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x003B55FE 5B ?pop@?$stack@PAXV?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva003B5603.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
@@ -2301,12 +2177,6 @@ void Rva003B44EE::rva003B5624(AsciiString text)
 			break;
 	}
 }
-
-// tu-skeleton: 0x003B56A5 55B ?swap@Rva003B56A5@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003B56A5Swap.cpp (not merged yet)
-
-// tu-skeleton: 0x003B56DC 98B ?rva003B56DC@Rva003B573E@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListClearRva003B56DC.cpp (not merged yet)
-
-// tu-skeleton: 0x003B573E 80B ?rva003B573E@Rva003B573E@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003B573ESearch.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00359330StringRecordClearNodes.cpp
 
@@ -2341,38 +2211,6 @@ void clearRva00359330Nodes(Rva00359330Record *record)
 
 void famgenDelete(Rva003B448C *p) { delete p; }
 
-// tu-skeleton: 0x003B57D9 12B ?removeLastStringTail@Rva003B57D9@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_prereq_destroy_3b46c7.cpp (not merged yet)
-
-// tu-skeleton: 0x003B57E5 250B ?_M_reallocate_map@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXI_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x003B58DF 57B ?swap@ScriptList@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSwap.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5918 124B ?ReadScriptPlayerMask_Rva003B5918@@YA?AVBfmeFixedStorage002CF0F0@@AAVDataChunkInput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5994 307B ?WriteScriptDataChunk@@YAXAAVDataChunkOutput@@PAVScriptList@@PAVScript@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5AC7 64B ??0Condition@@QAE@W4ConditionType@0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5B07 157B ?duplicate@Condition@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionDuplicate.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5CA1 516B ?ReadParameter@Parameter@@SAPAV1@AAVDataChunkInput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp (not merged yet)
-
-// tu-skeleton: 0x003B5EA5 1818B ?ParseAction@ScriptAction@@KAPAV1@AAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003B65BF 58B ?ParseActionDataChunk@ScriptAction@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptRetailChunkReader.cpp (not merged yet)
-
-// tu-skeleton: 0x003B65F9 58B ?ParseActionFalseDataChunk@ScriptAction@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptRetailChunkReader.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6633 67B ?rva003B6633@Rva003B573E@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6676 98B ?rva003B6676@Rva003B573E@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B573ERva003B6676.cpp (not merged yet)
-
-// tu-skeleton: 0x003B66D8 131B ?deallocateEntry@Rva003B573E@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x003B675B 47B ?clearRva003B675BNodes@@YAXPAURva003B675BRecord@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDrain.cpp (not merged yet)
-
-// tu-skeleton: 0x003B678A 41B ?destroyRva003B678ARange@@YAXPAURva003B678ARange@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_moduledatalist_insert.cpp
 
 //
@@ -2399,40 +2237,6 @@ Rva003B6831::Rva003B6831()
 {
 }
 
-// tu-skeleton: 0x003B6846 30B ?rva003B6846@Rva003B6846Vec@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_prereq_destroy_3b46c7.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6864 116B ?reserve@?$vector@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
-
-// tu-skeleton: 0x003B68D8 8B ?rva003B68D8@Rva003B68D8Owner@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x003B68E0 8B ?rva003B68E0@Rva003B68E0Owner@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x003B68E8 41B ?rva003B68E8@ScriptList@@QAEPAXABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B6911.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6911 41B ?rva003B6911@ScriptList@@QAEPAXABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B6911.cpp (not merged yet)
-
-// tu-skeleton: 0x003B693A 59B ?rva003B693A@ScriptList@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B693AClear.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6975 166B ?WriteGroupDataChunk@@YAXAAVDataChunkOutput@@PAVScriptList@@PAVScriptGroup@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupWriteGroup.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6A1B 31B ?rva003B6A1B@@YA_NPAVScriptList@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6A3A 120B ?fixupGroupName@@YAXPAVScriptList@@AAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6AB2 445B ?getUiText@Script@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGetUiText.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6C6F 31B ?rva003B6C6F@@YA_NPAVScriptList@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6C8E 120B ?fixupScriptName@@YAXPAVScriptList@@AAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
-
-// tu-skeleton: 0x003B6D92 709B ?ParseConditionDataChunk@Condition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x003B713E 41B ?destroyRva003B713ERange@@YAXPAURva003B713ERange@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp (not merged yet)
-
-// tu-skeleton: 0x003B725C 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord003B3F78@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x003B7313 79B ?_M_push_back_aux_v@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Gen0035B3A0Cleanup.cpp
 
 // @?cleanup@Gen0035B3A0@@QAEXXZ 0x0035B3A0
@@ -2442,18 +2246,6 @@ void Gen0035B3A0::cleanup(void)
 	m_at0C.cleanup();
 	m_at2C.cleanup();
 }
-
-// tu-skeleton: 0x003B7389 60B ?deleteScriptRef@ScriptList@@QAEXPAXPAURva003B3204@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_deleteScriptRef.cpp (not merged yet)
-
-// tu-skeleton: 0x003B73C5 49B ?WriteScriptListDataChunk@ScriptList@@QAEXAAVDataChunkOutput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_WriteScriptsDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B73F6 82B ?WriteScriptsDataChunk@ScriptList@@SAXAAVDataChunkOutput@@QAPAV1@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_WriteScriptsDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B7448 264B ??0Script@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x003B7550 55B ?duplicate@Script@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDuplicate.cpp (not merged yet)
-
-// tu-skeleton: 0x003B7587 151B ?ParseOrConditionDataChunk@OrCondition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordCtor.cpp
 
@@ -2515,6 +2307,281 @@ Rva003B872ASet::~Rva003B872ASet()
 	destroyRva003B713ERange(reinterpret_cast<Rva003B713ERange *>(&records));
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00423BD8.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Native 0x003B7C42: STLport4.5.3 queue push forwarding to its owned provider.
+
+// tu-skeleton: 0x003B24DB 23B ?rva003B24DB@Rva003B24DB@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x003B24F2 66B ?WriteScriptSubRecord_Rva003B24F2@@YAXAAVDataChunkOutput@@PBUScriptSubRecord@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptSubRecordWrite.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2534 12B ?rva003B2534@Rva003B0C9F@@QAEXPBH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2540 79B ?xfer@Script@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x003B258F 62B ?deleteOrCondition@Script@@QAEXPAVOrCondition@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDeleteClauses.cpp (not merged yet)
+
+// tu-skeleton: 0x003B25CD 66B ?rva003B25CD@Script@@QAEXHPAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDeleteClauses.cpp (not merged yet)
+
+// tu-skeleton: 0x003B260F 31B ?rva003B260F@Rva003B260F@@QBEPAURva003B260FNode@@PAU2@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
+
+// tu-skeleton: 0x003B262E 68B ??1Rva003B262E@@MAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003B262EFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x003B26DF 48B ??0Condition@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003B275A 17B ?rva003B275A@Condition@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B275AGet.cpp (not merged yet)
+
+// tu-skeleton: 0x003B27A3 24B ?getParameterType@Template@@QBE?AW4ParameterType@Parameter@@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x003B27BB 39B ?getCoord3D@Parameter@@QBEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetCoord3D.cpp (not merged yet)
+
+// tu-skeleton: 0x003B27E2 22B ?setCoord3D@Parameter@@IAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterSetCoord3D.cpp (not merged yet)
+
+// tu-skeleton: 0x003B27F8 12B ?checkAndSet@Rva0034FF50@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2804 46B ??0ScriptAction@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2832 17B ?rva003B2832@Rva003B2832@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B2832Get.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2843 21B ?getUiStrings@ScriptAction@@QAEHQAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetUiStrings.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2858 595B ?rva003B2858@Rva003B3AE2ActionPrefix@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2AAB 600B ?rva003B2AAB@Rva003B3AE2ActionPrefix@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2D03 555B ?rva003B2D03@Rva003B3AE2ActionPrefix@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x003B2F2E 633B ?rva003B2F2E@Rva003B3AE2ActionPrefix@@QBEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x003B31AD 20B ??0?$BitFlags@$0L@@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x003B31C1 6B ?Rva003B31C1Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
+
+// tu-skeleton: 0x003B321B 6B ?Rva003B321BGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
+
+// tu-skeleton: 0x003B333A 55B ??0Parameter@@QAE@W4ParameterType@0@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionParseAction.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3371 81B ?Rva003B3371Call@@YAXH@Z -- matched in Code/GameEngine/Source/Common/Rva003B3371Call.cpp (not merged yet)
+
+// tu-skeleton: 0x003B34F3 20B ??0Rva003B3536@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3507 47B ??0Rva003B3536@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003B3536Load.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3536 123B ?rva003B3536@Rva003B3536@@QAEXAAVDataChunkInput@@G@Z -- matched in Code/GameEngine/Source/Common/Rva003B3536Load.cpp (not merged yet)
+
+// tu-skeleton: 0x003B35B1 177B ??1Script@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3662 6B ?GetSnapshotName@Script@@MBEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3668 197B ?updateFrom@Script@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDeleteClauses.cpp (not merged yet)
+
+// tu-skeleton: 0x003B372D 155B ?WriteScriptPlayerMask_Rva003B372D@@YAXAAVDataChunkOutput@@PBI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3836 339B ?rva003B3836@Script@@QAEXPAVAssetList@@PAUAssetLoadMode@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptAssets.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3989 41B ?text@Rva003B3989ConditionPrefix@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp (not merged yet)
+
+// tu-skeleton: 0x003B39B2 21B ?getUiStrings@Condition@@QAEHQAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionGetUiStrings.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3A38 129B ?WriteParameter@Parameter@@QAEXAAVDataChunkOutput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Parameter_WriteParameter.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3AB9 41B ?text@Rva003B3AB9ActionPrefix@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B3989TemplateText.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3AE2 659B ?getTeam@Rva003B3AE2ActionPrefix@@QBEPAVTeam@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3D75 138B ?rva003B3D75@ScriptAction@@QAEXPAX0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3DFF 169B ?WriteActionDataChunk@@YAXPADAAVDataChunkOutput@@PAVScriptAction@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionWriteAction.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3EA8 35B ?_M_decrement@?$_Deque_iterator_base@H@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3F2F 47B ?_M_pop_back_aux@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3F66 7B ?getBits@Rva003B3F66WordOffset@@QBEIXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3F6D 11B ?clear@Rva003B3F6DZeroView@@QAEPAV1@XZ -- matched in Code/GameEngine/Source/Common/Disp8DwordClearers.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3FB1 28B ??_GPrereqUnitRec@ProductionPrerequisite@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors3.cpp (not merged yet)
+
+// tu-skeleton: 0x003B3FCD 164B ??0Rva003525E0Pair@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva003529B0Clone.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4039 32B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x003B4071 48B ?clear@Rva003B4071@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x003B40FA 6B ?name@Rva003B40FANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x003B417E 122B ??0Script@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4214 28B ??_GRva000B9AAA@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva000BDD08Destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4230 92B ??1Condition@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionActionDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x003B428C 183B ?WriteConditionDataChunk@Condition@@SAXAAVDataChunkOutput@@PAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4343 137B ?setActionType@ScriptAction@@QAEXW4ScriptActionType@1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x003B43CC 92B ??1ScriptAction@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditionActionDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x003B445C 20B ?pop_back@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x003B448C 15B ??1Rva003B448C@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003B44DC 18B ??0Rva003B44DC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaChainedCtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x003B44EE 308B ?rva003B44EE@Rva003B44EE@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4622 45B ??$_Construct@UBfmeStringRecord003B3F78@@U1@@_STL@@YAXPAUBfmeStringRecord003B3F78@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x003B464F 38B ??$__uninitialized_copy@PBUBfmeStringRecord003B3F78@@PAU1@@_STL@@YAPAUBfmeStringRecord003B3F78@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4675 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord003B3F78@@IU1@@_STL@@YAPAUBfmeStringRecord003B3F78@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x003B469A 45B ??$_M_allocate_and_copy@PBUBfmeStringRecord003B3F78@@@?$vector@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL@@IAEPAUBfmeStringRecord003B3F78@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x003B46C7 25B ?Rva003B46C7Destroy@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_prereq_destroy_3b46c7.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4716 272B ?xfer@ScriptList@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4A20 28B ??_GRva003B4100@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4A3C 60B ?WriteOrConditionDataChunk@OrCondition@@SAXAAVDataChunkOutput@@PAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionWriteOrConditionDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4A94 137B ?setConditionType@Condition@@QAEXW4ConditionType@1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x003B4B1D 2266B ?getUiText@Parameter@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterGetUiTextBody.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5413 54B ??0ScriptAction@@QAE@W4ScriptActionType@0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5449 147B ?duplicate@ScriptAction@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionDuplicate.cpp (not merged yet)
+
+// tu-skeleton: 0x003B54DC 285B ?getUiText@ScriptAction@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionGetUiText.cpp (not merged yet)
+
+// tu-skeleton: 0x003B55F9 5B ??1?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x003B55FE 5B ?pop@?$stack@PAXV?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x003B56A5 55B ?swap@Rva003B56A5@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003B56A5Swap.cpp (not merged yet)
+
+// tu-skeleton: 0x003B56DC 98B ?rva003B56DC@Rva003B573E@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListClearRva003B56DC.cpp (not merged yet)
+
+// tu-skeleton: 0x003B573E 80B ?rva003B573E@Rva003B573E@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003B573ESearch.cpp (not merged yet)
+
+// tu-skeleton: 0x003B57D9 12B ?removeLastStringTail@Rva003B57D9@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_prereq_destroy_3b46c7.cpp (not merged yet)
+
+// tu-skeleton: 0x003B57E5 250B ?_M_reallocate_map@?$deque@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEXI_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x003B58DF 57B ?swap@ScriptList@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSwap.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5918 124B ?ReadScriptPlayerMask_Rva003B5918@@YA?AVBfmeFixedStorage002CF0F0@@AAVDataChunkInput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5994 307B ?WriteScriptDataChunk@@YAXAAVDataChunkOutput@@PAVScriptList@@PAVScript@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5AC7 64B ??0Condition@@QAE@W4ConditionType@0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5B07 157B ?duplicate@Condition@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ConditionDuplicate.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5CA1 516B ?ReadParameter@Parameter@@SAPAV1@AAVDataChunkInput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp (not merged yet)
+
+// tu-skeleton: 0x003B5EA5 1818B ?ParseAction@ScriptAction@@KAPAV1@AAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x003B65BF 58B ?ParseActionDataChunk@ScriptAction@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptRetailChunkReader.cpp (not merged yet)
+
+// tu-skeleton: 0x003B65F9 58B ?ParseActionFalseDataChunk@ScriptAction@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptRetailChunkReader.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6633 67B ?rva003B6633@Rva003B573E@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6676 98B ?rva003B6676@Rva003B573E@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B573ERva003B6676.cpp (not merged yet)
+
+// tu-skeleton: 0x003B66D8 131B ?deallocateEntry@Rva003B573E@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x003B675B 47B ?clearRva003B675BNodes@@YAXPAURva003B675BRecord@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDrain.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp
+
+//
+// Element destroy loops at 0x003B678A and 0x003B713E (41B each): they
+// drain the 0x14-byte string-record elements in [start,finish),
+// stepping one record back per iteration. Each element is torn down in
+// two calls: the node-list drain (rowed clearRva00359330Nodes at
+// 0x003B578E for the 0x678A loop, rowed clearRva003B675BNodes at
+// 0x003B675B for the 0x713E loop) plus the shared 8B name-string tail
+// through the ?destroy@ScriptListElementName pin at 0x00577998,
+// invoked as an explicit destructor call on the re-read finish pointer
+// (the Iter precedent). The typed record pointers give the 0x14 stride
+// (sub for the local, add-to-memory for the range update); the loop
+// condition reads start first. Same /EHsc scheduling as the drains.
+// Both names reach the same +0x08 AsciiString adjust-and-tail destructor.
+
+// ?destroyRva003B678ARange@@YAXPAURva003B678ARange@@@Z
+void destroyRva003B678ARange(Rva003B678ARange *range)
+{
+	while (range->m_start != range->m_finish) {
+		Rva00359330Record *last = range->m_finish - 1;
+		clearRva00359330Nodes(last);
+		range->m_finish -= 1;
+		((ScriptListElementName *)range->m_finish)->~ScriptListElementName();
+	}
+}
+
+// ?destroyRva003B713ERange@@YAXPAURva003B713ERange@@@Z
+void destroyRva003B713ERange(Rva003B713ERange *range)
+{
+	while (range->m_start != range->m_finish) {
+		Rva003B675BRecord *last = range->m_finish - 1;
+		clearRva003B675BNodes(last);
+		range->m_finish -= 1;
+		((ScriptListElementName *)range->m_finish)->~ScriptListElementName();
+	}
+}
+
+// tu-skeleton: 0x003B6846 30B ?rva003B6846@Rva003B6846Vec@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_prereq_destroy_3b46c7.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6864 116B ?reserve@?$vector@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x003B68D8 8B ?rva003B68D8@Rva003B68D8Owner@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x003B68E0 8B ?rva003B68E0@Rva003B68E0Owner@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x003B68E8 41B ?rva003B68E8@ScriptList@@QAEPAXABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B6911.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6911 41B ?rva003B6911@ScriptList@@QAEPAXABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B6911.cpp (not merged yet)
+
+// tu-skeleton: 0x003B693A 59B ?rva003B693A@ScriptList@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B693AClear.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6975 166B ?WriteGroupDataChunk@@YAXAAVDataChunkOutput@@PAVScriptList@@PAVScriptGroup@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupWriteGroup.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6A1B 31B ?rva003B6A1B@@YA_NPAVScriptList@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6A3A 120B ?fixupGroupName@@YAXPAVScriptList@@AAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6AB2 445B ?getUiText@Script@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGetUiText.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6C6F 31B ?rva003B6C6F@@YA_NPAVScriptList@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6C8E 120B ?fixupScriptName@@YAXPAVScriptList@@AAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptFixupNames.cpp (not merged yet)
+
+// tu-skeleton: 0x003B6D92 709B ?ParseConditionDataChunk@Condition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003b6d92Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x003B725C 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord003B3F78@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x003B7313 79B ?_M_push_back_aux_v@?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXABQAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x003B7389 60B ?deleteScriptRef@ScriptList@@QAEXPAXPAURva003B3204@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_deleteScriptRef.cpp (not merged yet)
+
+// tu-skeleton: 0x003B73C5 49B ?WriteScriptListDataChunk@ScriptList@@QAEXAAVDataChunkOutput@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_WriteScriptsDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B73F6 82B ?WriteScriptsDataChunk@ScriptList@@SAXAAVDataChunkOutput@@QAPAV1@H@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_WriteScriptsDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B7448 264B ??0Script@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x003B7550 55B ?duplicate@Script@@QBEPAV1@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptDuplicate.cpp (not merged yet)
+
+// tu-skeleton: 0x003B7587 151B ?ParseOrConditionDataChunk@OrCondition@@SA_NAAVDataChunkInput@@PAUDataChunkInfo@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionParse.cpp (not merged yet)
+
 // tu-skeleton: 0x003B76B8 55B ?push_back@?$vector@UBfmeStringRecord003B3F78@@V?$allocator@UBfmeStringRecord003B3F78@@@_STL@@@_STL@@QAEXABUBfmeStringRecord003B3F78@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_3b3f78_allocate_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x003B76EF 28B ??0Rva003B76EF@@QAE@PAH@Z -- matched in Code/GameEngine/Source/Common/Rva003B76EFCtor.cpp (not merged yet)
@@ -2539,14 +2606,21 @@ Rva003B872ASet::~Rva003B872ASet()
 
 // tu-skeleton: 0x003B79F1 557B ?parse@Script@@QAE_NAAVDataChunkInput@@G@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
 
-// tu-skeleton: 0x003B7C1E 36B ?rva003B7C1E@Rva003B7C1E@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B7C1EReset.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B7C1EReset.cpp
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00423BD8.cpp
+//
+// ?rva003B7C1E@Rva003B7C1E@@QAEXXZ, retail 0x003B7C1E..0x003B7C42 (36 bytes):
+// empties the object by swapping it with a freshly built 0x20-byte one
+// (rowed constructor 0x003B761E, rowed swap 0x003B56A5) which the
+// destructor 0x003B766B then tears down. Built without EH, as retail.
 
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-
-// Native 0x003B7C42: STLport4.5.3 queue push forwarding to its owned provider.
+void Rva003B7C1E::rva003B7C1E()
+{
+	char storage[sizeof(Rva003B761E)];
+	Rva003B761E *tmp = new (storage) Rva003B761E;
+	((Rva003B56A5*)tmp)->swap((Rva003B56A5*)this);
+	((Rva003B872ASet*)storage)->~Rva003B872ASet();
+}
 
 // tu-skeleton: 0x003B7C47 329B ?rva003B7C47@Rva003B573E@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptSetAllocateEntry.cpp (not merged yet)
 
