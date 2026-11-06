@@ -288,3 +288,15 @@ bindings remain open; no clearance or census gain is claimed.
 
 
 **GeneralAllocator destructor identity resolved in scoped proof (2026-11-03, base8661f15284):** the split-name paragraph's allocator prerequisite now has a genuine canonical destructor provider at34D00, replacing only its same-source address-placeholder row. Native normal6C3D08 and unwind7A7CF0 both reach34D00->33D50; exported MemoryPool allocator types independently prove the class spelling. The separate309B bool cleanup is preserved; its incorrectly addressed destructor pin is removed. Cluster adopts the canonical0x510 GeneralAllocator base with0x174 remaining padding, preserving member684. Normal22/22, parent EH EXACT, provider payload/properties preserved apart from the5B name; exactly1header queue retired through accept and1pin retired through owning refresh. Preview keeps provider LINKS111B and clears Cluster0->103B against23b85ddde5. No official linker/census/runtime clearance claimed. Rva006C1F60's own member-lifetime header surface and all unrelated split-name prerequisites above remain open. [Native, export, provider, consumer and retirement evidence](../../reverse/attempt_support/generalallocator-native-destructor-20261103/README.md). Prior8661f15284 batch audit remains INCONCLUSIVE (5receipt gaps, first DeferredWalkers; index23b85ddde5/based83ee506516b1e311c77658f28d1c40a6ad1bf90); carry recorded scope into the next scheduled census.
+
+
+**Apt scalar-delete emission boundary (2026-11-06, base bd49217dc81, chat10 seat2):**
+The identity queue serves Rva006CBF40Siblings.cpp's70A560 binding to existing
+complete-destructor owner709B80. Removing the three local empty complete
+bodies (70A530/560/590 names) preserves declarations/pins but suppresses all
+three scalar deleting COMDATs: normal build fails symbol-not-found3/5,
+other2 checks and data1 pass. Original source restored; all three debt keys
+remain. No new famgen/tagged-constructor scaffolding, body, pin or alias was
+added. This correct byte-gate refusal requires genuine class/emission
+reconciliation before retrying; no preview, full-link or runtime gain claimed.
+[Trial, exact scope and prerequisites](../../reverse/attempt_support/apt-sibling-emission-20261106-c10-seat2.md).
