@@ -19,7 +19,6 @@ typedef unsigned short WideChar;
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../Include/Common/BfmeAccessorMacros.h"
-
 //
 // ?rva00094CEA@Rva009519B@@UAEXXZ, retail 0x00094CEA (80 bytes): slot 44
 // (+0xB0) of the CloudEffect record class Rva009519B (vtable 0x00BC81A8,
@@ -39,9 +38,7 @@ struct Rva00094CEAState
 	bool m_69;
 	bool m_6A;
 };
-
 extern int g_get_00710fb0;
-
 class Rva009519B
 {
 public:
@@ -56,15 +53,12 @@ private:
 	unsigned char m_pad21[0xB8 - 0x21];
 	int m_mode;		// +0xB8
 };
-
 class TextureClass
 {
 public:
 	void Release_Ref(void);
 };
-
 class TextureBaseClass;
-
 class StageTextureRef
 {
 	TextureClass *Texture;
@@ -81,11 +75,8 @@ public:
 		return *(TextureBaseClass **)&Texture;
 	}
 };
-
 void BoxSetTexture(unsigned int stage, TextureBaseClass *&texture);
-
 #include "../../../Libraries/Source/WWVegas/WWLib/StringClassData.h"
-
 #pragma optimize("t", off)
 #pragma optimize("s", on)
 inline StringClass::StringClass(int length, bool temporary) : m_Buffer(m_EmptyString)
@@ -94,25 +85,16 @@ inline StringClass::StringClass(int length, bool temporary) : m_Buffer(m_EmptySt
 	m_Buffer[0] = m_NullChar;
 }
 #pragma optimize("", on)
-
 __forceinline StringClass::~StringClass(void) { Free_String(); }
-
 // The device keeps its D3D8 type name but is a Direct3D 9 device
 // (SetTextureStageState, vtable slot 67).
 struct IDirect3DDevice8;
-
 class DX8Wrapper;
-
 #include "../../../Libraries/Source/WWVegas/WW3D2/WW3DClass.h"
-
 extern bool ScreenSnapshot;
-
 extern unsigned number_of_DX8_calls;
-
 extern unsigned ScreenTextureStageStateChanges;
-
 #include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
-
 __forceinline void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned int stage,
 	unsigned long state, unsigned int value)
 {
@@ -136,9 +118,7 @@ __forceinline void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned int stage,
 	++number_of_DX8_calls;
 	++texture_stage_state_changes;
 }
-
 #include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
-
 class BfmeTexHold1137
 {
 public:
@@ -151,7 +131,6 @@ public:
 private:
 	TextureClass *m_texture;
 };
-
 // Retail ctor 0x00094EBF and dtor 0x00094F38 establish the 0x38-byte
 // MaterialPassClass base and four owning texture holders at +0x58..+0x64.
 // UnInstall_Materials reads +0x54 and clears +0x68; retain those accesses
@@ -173,7 +152,6 @@ private:
 	BfmeTexHold1137 m_tex3;
 	mutable volatile unsigned char m_clear68;
 };
-
 class Rva00274DB6AsciiField
 {
 public:
@@ -183,7 +161,6 @@ private:
 	char m_pad[0x79C];
 	AsciiString m_value; // +0x79C
 };
-
 class Rva00291775AsciiField
 {
 public:
@@ -193,7 +170,6 @@ private:
 	char m_pad[0x318];
 	AsciiString m_value; // +0x318
 };
-
 class Rva003821B9AsciiField
 {
 public:
@@ -203,7 +179,6 @@ private:
 	char m_pad[0x1A8];
 	AsciiString m_value; // +0x1A8
 };
-
 class Rva00382216AsciiField
 {
 public:
@@ -213,7 +188,6 @@ private:
 	char m_pad[0x1B8];
 	AsciiString m_value; // +0x1B8
 };
-
 class Rva00095224AsciiField
 {
 public:
@@ -223,7 +197,6 @@ private:
 	char m_pad[0xAC];
 	AsciiString m_value; // +0xAC
 };
-
 class Rva0046AA11AsciiField
 {
 public:
@@ -233,7 +206,6 @@ private:
 	char m_pad[0x308];
 	AsciiString m_value; // +0x308
 };
-
 class Rva004CFB6DAsciiField
 {
 public:
@@ -244,7 +216,6 @@ private:
 	char m_pad[0x1D8];
 	AsciiString m_value; // +0x1D8
 };
-
 class Rva004DC902AsciiField
 {
 public:
@@ -254,7 +225,6 @@ private:
 	char m_pad[0x188];
 	AsciiString m_value; // +0x188
 };
-
 class Rva004FDCE1AsciiField
 {
 public:
@@ -265,7 +235,6 @@ private:
 	char m_pad[0x1B0];
 	AsciiString m_value; // +0x1B0
 };
-
 class Rva004FDD36AsciiField
 {
 public:
@@ -275,7 +244,6 @@ private:
 	char m_pad[0x1B4];
 	AsciiString m_value; // +0x1B4
 };
-
 class Rva004FDD6DAsciiField
 {
 public:
@@ -285,7 +253,6 @@ private:
 	char m_pad[0x1DC];
 	AsciiString m_value; // +0x1DC
 };
-
 class Rva0056D653AsciiField
 {
 public:
@@ -295,7 +262,6 @@ private:
 	char m_pad[0x258];
 	AsciiString m_value; // +0x258
 };
-
 class Rva00581777AsciiField
 {
 public:
@@ -306,7 +272,6 @@ private:
 	char m_pad[0x1C8];
 	AsciiString m_value; // +0x1C8
 };
-
 class Rva0059F322AsciiField
 {
 public:
@@ -316,7 +281,6 @@ private:
 	char m_pad[0xFFC];
 	AsciiString m_value; // +0xFFC
 };
-
 class Rva0059F340AsciiField
 {
 public:
@@ -326,7 +290,6 @@ private:
 	char m_pad[0xFDC];
 	AsciiString m_value; // +0xFDC
 };
-
 class Rva002D9BC1AsciiField
 {
 public:
@@ -336,7 +299,6 @@ private:
 	char m_pad[0x20];
 	AsciiString m_value; // +0x20
 };
-
 class Rva004DC8E7AsciiField
 {
 public:
@@ -346,7 +308,6 @@ private:
 	char m_pad[0x3c];
 	AsciiString m_value; // +0x3c
 };
-
 class Rva0029173EAsciiField
 {
 public:
@@ -356,7 +317,6 @@ private:
 	char m_pad[0x308];
 	AsciiString m_value; // +0x308
 };
-
 class Rva004CFBC2AsciiField
 {
 public:
@@ -366,14 +326,7 @@ private:
 	char m_pad[0x1DC];
 	AsciiString m_value; // +0x1DC
 };
-
 BFME_DISP_FLOAT_GETTER(Rva0009533CFloatField, 0xD0)
-
-// Two getters that read a GameClientRandomVariable field through its rowed
-// getValue (0x002341A1): add ecx, <field>; tail jump. They bracket the 0x80
-// float getter above: 0x00094AEE (8B, field +0x74) ends where it begins and
-// 0x00094AFD (11B, field +0x84) starts where it ends. Receiver classes are
-// unknown; names follow this file's per-address convention.
 #include "../../Include/GameClient/GameClientRandomVariable.h"
 
 //
@@ -420,6 +373,23 @@ private:
 	Rva00SlotFloat3Copy m_valueD4;
 };
 
+// tu-skeleton: 0x00094EBF 93B ??0BfmeB1137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Ctor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp
+
+// ??1BfmeB1137@@UAE@XZ
+BfmeB1137::~BfmeB1137(void)
+{
+}
+
+// ---- from Code/GameEngine/Source/Common/BfmeB1137.cpp
+
+// Two getters that read a GameClientRandomVariable field through its rowed
+// getValue (0x002341A1): add ecx, <field>; tail jump. They bracket the 0x80
+// float getter above: 0x00094AEE (8B, field +0x74) ends where it begins and
+// 0x00094AFD (11B, field +0x84) starts where it ends. Receiver classes are
+// unknown; names follow this file's per-address convention.
+
 // 0x0004C6C6 (slot 51 of W3DGameClient's table): truncates its float
 // argument into the global at 0x00DE204C.
 // 0x00062E4F: ten times the +0x10 integer of the terrain render object's
@@ -437,11 +407,8 @@ private:
 // 0x003ABEFD / 0x003A3700 / 0x003A36F7 / 0x003F7257: float constants
 // (0.7, 1.0 and 0.0) taking none, one, one and two arguments.
 // 0x00101CA0: the byte at +0x18 as a float (through a stack slot, fild).
-// tu-skeleton: 0x00094EBF 93B ??0BfmeB1137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x00094F1C 28B ??_GBfmeB1137@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00094F38 114B ??1BfmeB1137@@UAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/BfmeB1137.cpp
 
@@ -561,11 +528,8 @@ AsciiString Rva00095224AsciiField::get() const
 // reference/open-bfme-1/Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp.
 // No // cl: line (defaults match the frameless 7-byte shape).
 
-// tu-skeleton: 0x0009519B 113B ??1Rva009519B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x00095242 28B ??_GRva009519B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x0009525E 222B ??0Gen006E2310@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Ctor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp
 
@@ -574,21 +538,17 @@ Rva00SlotFloat3Copy Rva00095343::rva00095343()
 	return m_valueD4;
 }
 
+// tu-skeleton: 0x0009519B 113B ??1Rva009519B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00095242 28B ??_GRva009519B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0009525E 222B ??0Gen006E2310@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Ctor.cpp (not merged yet)
+
 // tu-skeleton: 0x00095360 83B ??1Gen006E2310@@UAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeDtor006e2480.cpp (not merged yet)
 
 // tu-skeleton: 0x000953B3 1134B ?rva000953B3@Gen006E2310@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Gen006E2310Update.cpp (not merged yet)
 
 // tu-skeleton: 0x00095821 10940B ?Install_Materials@BfmeB1137@@UBEXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv1137InstallMaterials.cpp (not merged yet)
-
-// tu-skeleton: 0x007600BD 8B Unwind@00b600bd -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007600C5 11B Unwind@00b600c5 -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007600D0 11B Unwind@00b600d0 -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007600DB 11B Unwind@00b600db -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007600E6 10B __ehhandler$??1BfmeB1137@@UAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv1137Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076012A 8B Unwind@00b6012a -- matched in Code/GameEngine/Source/Common/SubsystemDerivedDtors.cpp (not merged yet)
 
