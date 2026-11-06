@@ -93,14 +93,7 @@ public:
  void detach(){pointer=0;}
  Rva002E3E2AObject *pointer;
 };
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4(PolygonTrigger *polygonTrigger) : m_ptr(polygonTrigger) {}
-	~Rva000AD6F4();
-	Rva002E3E2AOut rva002E3E2A();
-	PolygonTrigger *m_ptr;
-};
+#include "../../../Include/Common/Rva000AD6F4.h"
 
 // Visible copies of the two rowed callees that receive the owner's address
 // (PolygonTrigger.cpp 0x002E3E2A, Disp8DivAvgDwordGetters.cpp 0x000AD6F4):
@@ -133,7 +126,7 @@ void __cdecl Rva00328DE4Add(void *record, void **linkPtr)
 	Out *data = static_cast<Out *>(record);
 	Rva000AD6F4 trigger(new PolygonTrigger(*static_cast<int *>(record),
 		data->m_pointsEnd - data->m_pointsBegin));
-	PolygonTrigger *const object=trigger.m_ptr;
+	PolygonTrigger *const object=static_cast<PolygonTrigger *>(trigger.m_ptr);
 	void (BoundaryView::*setBoundary)(const void *) = &BoundaryView::setBoundary;
 	(reinterpret_cast<BoundaryView*>(object)->*setBoundary)(&data->m_pointsBegin);
 	object->name = *reinterpret_cast<AsciiString *>(static_cast<char *>(record) + 4);

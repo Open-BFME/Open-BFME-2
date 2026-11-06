@@ -63,7 +63,7 @@ class Rva005C9B76 { public: Rva005C9B76(void *arg); virtual ~Rva005C9B76(); char
 // derived constructor 0x0057431D and destructor 0x00574338 (vtable 0x00C6E39C).
 class Rva005CB8D4 { public: virtual ~Rva005CB8D4(); char m_data[0x4]; };
 class Rva00574338 : public Rva005CB8D4 { public: Rva00574338(void *parts); virtual ~Rva00574338(); void *m_08; };
-class Rva000AD6F4 { public: Rva000AD6F4() : m_ptr(0) {} ~Rva000AD6F4(); Rva00574910SubTranslator *m_ptr; };
+#include "../../../../Include/Common/Rva000AD6F4.h"
 // The +0x5C member: constructor 0x005CC254 and destructor 0x005CC287 both
 // install vtable 0x00C74E04; only the unwind funclets reach the destructor here.
 class Rva005CC254 { public: Rva005CC254(void *parts); virtual ~Rva005CC254(); char m_data[0xC]; };
@@ -134,7 +134,7 @@ GameMessageDisposition StrategicInGameUI::CommonBehavior::Impl::translateGameMes
 	Rva00574910SubTranslator *sub;
 	if (reinterpret_cast<Rva005CC26E *>(&m_translator5C)->rva005CC26E((void *)msg) == 1)
 		return DESTROY_MESSAGE;
-	if ((sub = m_sub.m_ptr) != 0 && sub->Translate(msg) == DESTROY_MESSAGE)
+	if ((sub = static_cast<Rva00574910SubTranslator *>(m_sub.m_ptr)) != 0 && sub->Translate(msg) == DESTROY_MESSAGE)
 		return DESTROY_MESSAGE;
 	if (reinterpret_cast<Rva005C9BE3Call *>(&m_translator28)->rva005C9BE3((void *)msg) == DESTROY_MESSAGE)
 		return DESTROY_MESSAGE;
