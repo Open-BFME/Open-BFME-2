@@ -1,7 +1,10 @@
-### LINK-622: Wrong globals in the real link's image report
+### LINK-623: Wrong globals in the real link's image report
 
 Status: Open. Updated: 2026-11-07 (seat halilkkaya-lk42); inspected: `image_report.json` of real link `1d41894d2a`
 (2026-11-06 20:05 UTC), tree at `88ce76fc444`.
+
+Numbered LINK-622 in this seat's first commits (`911b7e9cef7` .. `47f1c3c62ff`); origin took that ID first for
+another entry, so this one is LINK-623.
 
 Evidence / affected units: the `globals` section of `tools/image_report.py` over the kept objects. Every address below is
 a retail RVA unless marked VA; retail bytes are `game.dat`'s.
