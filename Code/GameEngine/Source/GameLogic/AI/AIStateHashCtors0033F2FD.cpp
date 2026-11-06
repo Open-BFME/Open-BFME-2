@@ -243,6 +243,12 @@ public:
 	// unit does not emit an implicit copy
 	virtual ~AIDockState();
 
+public:
+    virtual StateReturnType onEnter();
+    virtual void onExit(StateExitType status);
+    virtual StateReturnType update();
+protected:
+    virtual void xfer(Xfer *xfer);
 private:
 	int m_20; // +0x20
 	bool m_24; // +0x24

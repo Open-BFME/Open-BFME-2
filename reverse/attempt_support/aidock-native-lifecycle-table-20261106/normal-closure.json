@@ -1,0 +1,94 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp",
+    "rows": 33,
+    "source_sha256": "f6f15fa25d83e7c2c8cd4898baf6a8e547b0ab8ffbf6cf670cc4472c19dd582c",
+    "object_sha256": "d9acbb369d860b3bf202aca6bb8ed3f9e44799f208ac336bd6f162d8fb79f62b",
+    "normal_equals_private": true,
+    "eh": {},
+    "verified_lifecycle_slots": [
+      {
+        "slot": 3,
+        "symbol": "?xfer@AIDockState@@MAEXPAVXfer@@@Z",
+        "rva": "0x3415f5"
+      },
+      {
+        "slot": 4,
+        "symbol": "?onEnter@AIDockState@@UAE?AW4StateReturnType@@XZ",
+        "rva": "0x341695"
+      },
+      {
+        "slot": 5,
+        "symbol": "?onExit@AIDockState@@UAEXW4StateExitType@@@Z",
+        "rva": "0x341723"
+      },
+      {
+        "slot": 6,
+        "symbol": "?update@AIDockState@@UAE?AW4StateReturnType@@XZ",
+        "rva": "0x341770"
+      }
+    ],
+    "getter_slot_2_still_pending": true
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0034159ADtor.cpp",
+    "rows": 2,
+    "source_sha256": "502579b20c75102948452909e4060b277ba1c4d4cf5b9d253cac16470c2131d3",
+    "object_sha256": "a9382445cb4ee4448e33bc8b02283738c6548b373178a84319acbc3a4b1185d4",
+    "normal_equals_private": true,
+    "eh": {
+      "??1AIDockState@@UAE@XZ": [
+        "EXACT",
+        ""
+      ]
+    },
+    "verified_lifecycle_slots": [
+      {
+        "slot": 3,
+        "symbol": "?xfer@AIDockState@@MAEXPAVXfer@@@Z",
+        "rva": "0x3415f5"
+      },
+      {
+        "slot": 4,
+        "symbol": "?onEnter@AIDockState@@UAE?AW4StateReturnType@@XZ",
+        "rva": "0x341695"
+      },
+      {
+        "slot": 5,
+        "symbol": "?onExit@AIDockState@@UAEXW4StateExitType@@@Z",
+        "rva": "0x341723"
+      },
+      {
+        "slot": 6,
+        "symbol": "?update@AIDockState@@UAE?AW4StateReturnType@@XZ",
+        "rva": "0x341770"
+      }
+    ],
+    "getter_slot_2_still_pending": true
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIDockStateOnExit.cpp",
+    "rows": 5,
+    "source_sha256": "87bb4d09be2acbbcb0413e7e4689ea95d782c502be5d407749b04c0c7ce8618e",
+    "object_sha256": "c6b9cfb51a82bd20d53abb0256e404f821df41adccf8d44937790ef86a21c191",
+    "normal_equals_private": false,
+    "eh": {
+      "?onEnter@AIDockState@@UAE?AW4StateReturnType@@XZ": [
+        "EXACT",
+        ""
+      ],
+      "?xfer@AIDockState@@MAEXPAVXfer@@@Z": [
+        "EXACT",
+        ""
+      ]
+    }
+  },
+  {
+    "removed_redundant_header_copy": "?onEnter@State@@UAE?AW4StateReturnType@@XZ",
+    "retained_current_provider": "Code/GameEngine/Source/GameLogic/AI/AIStateHashCtors0033F2FD.cpp",
+    "body": {
+      "bytes": "33c0c3",
+      "relocations": []
+    }
+  }
+]

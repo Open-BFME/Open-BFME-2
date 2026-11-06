@@ -188,3 +188,5 @@ Re-run the dry-run sweep after other seats' header adoptions, because each adopt
 candidates into SAME ones.
 
 Clearance: none claimed (no new real link measured). Census confirmation: none claimed.
+
+2026-11-06 AIDockState lifecycle follow-up (base30b22402f4): the packed constructor and destructor now declare the existing canonical transfer/onEnter/onExit/update overrides. Both emitted17-slot tables resolve native slots3..6 to3415F5/341695/341723/341770. Normal40/40, three EXACT EH graphs, frozen and normal/private provider equality pass; preview retains3/3 LINKS and1639B. No executable body/row/header/flag/pin/alias change. The unused destructor-side State::onEnter copy remains identically provided by the packed constructor. Slot2 name getter33565 was held elsewhere and remains untouched/pure; this is not full-table or runtime clearance. Other states' recorded signature prerequisites remain. [Scoped proof and remaining getter prerequisite](../../reverse/attempt_support/aidock-native-lifecycle-table-20261106/README.md).

@@ -34,8 +34,15 @@ public:
 class AIDockState : public State {
 public:
 	virtual ~AIDockState();
+public:
+    virtual StateReturnType onEnter();
+    virtual void onExit(StateExitType status);
+    virtual StateReturnType update();
+protected:
+    virtual void xfer(Xfer *xfer);
 private:
 	Rva0034159AMember *m_20;
+    bool m_24; // native constructor33F540 and transfer3415F5 establish +24
 };
 #include <new>
 AIDockState::~AIDockState()
