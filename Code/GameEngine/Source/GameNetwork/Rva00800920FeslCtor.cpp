@@ -144,7 +144,9 @@ Rva00800920Owner::Rva00800920Owner( Rva00800920Host *host )
 }
 
 // ?vftable_0112B89C@@3HA: matched references place it at VA 0xc1c780; also referenced as _s_slot3E4first, _Rva003ADEBF_v8, _DefaultModuleTemplate6_vtbl4.
-int vftable_0112B89C = 4438032;
+// Its one slot is retail VA 0x0043B810, the rowed _purecall (debug_purecall.cpp).
+extern "C" int __cdecl _purecall(void);
+int vftable_0112B89C = (int)&_purecall;
 #pragma comment(linker, "/alternatename:_s_slot3E4first=?vftable_0112B89C@@3HA")
 #pragma comment(linker, "/alternatename:_Rva003ADEBF_v8=?vftable_0112B89C@@3HA")
 #pragma comment(linker, "/alternatename:_DefaultModuleTemplate6_vtbl4=?vftable_0112B89C@@3HA")
