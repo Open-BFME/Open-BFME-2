@@ -236,16 +236,16 @@ public:
 	virtual ~Rva00355D66();
 };
 
-class Rva0043A351 : public Rva00355D66
+class Rva0043A278 : public Rva00355D66
 {
 public:
-	Rva0043A351(EmitVtableTag *);
+	Rva0043A278(EmitVtableTag *);
 public:
-	virtual ~Rva0043A351();
+	virtual ~Rva0043A278();
 };
 
-// ?<Rva0043A351::Rva0043A351> absent-from-retail
-Rva0043A351::Rva0043A351(EmitVtableTag *)
+// ?<Rva0043A278::Rva0043A278> absent-from-retail
+Rva0043A278::Rva0043A278(EmitVtableTag *)
 {
 }
 

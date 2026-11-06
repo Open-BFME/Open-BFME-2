@@ -155,10 +155,10 @@ extern Shell *TheShell;
 
 extern void Rva0043A31ECleanup(void);
 
-class Rva0043A351 : public Rva00355D66
+class Rva0043A278 : public Rva00355D66
 {
 public:
-	virtual ~Rva0043A351();
+	virtual ~Rva0043A278();
 };
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScreen.cpp
@@ -233,13 +233,13 @@ UnicodeString __cdecl Rva0043A568Get(int rank)
 
 // tu-skeleton: 0x0043A5F6 2070B ?init@AptLoadScreen@@UAEXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScreenInit.cpp (not merged yet)
 
-// tu-skeleton: 0x0043AE0C 28B ??_GRva0043A351@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
+// tu-skeleton: 0x0043AE0C 28B ??_GRva0043A278@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp (not merged yet)
 
 // tu-skeleton: 0x0043AE44 621B ??0AptLoadScreen@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScreenCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0043A351Dtor.cpp
 
-Rva0043A351::~Rva0043A351()
+Rva0043A278::~Rva0043A278()
 {
 	Rva0043A31ECleanup();
 	TheShell->showShell(true);
