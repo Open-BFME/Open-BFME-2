@@ -276,3 +276,43 @@ Canonical0x20 UpdateModule view removes the old CRC table dependency; ctor is
 merged into the approved TU,10/10 rows and2 EXACT EH graphs retained. Lifetime
 source still awaits a guard-approved split; no actual image/runtime clearance
 claimed. [Proof and remaining prerequisites](../../reverse/attempt_support/assisted-native-profile-20261106/README.md).
+
+**ObjectHelper family: shared header and the first helper (2026-11-07, seat halilkkaya-lk41, base
+`4b2bb61eb1d`).** `Code/GameEngine/Include/GameLogic/Module/ObjectHelper.h` is the canonical
+ObjectHelper over canonical `UpdateModule.h`, written from retail's tables: ObjectHelper installs
+UpdateModule's two interface tables unchanged (0x00BEFF90/+0x0C, 0x00BFBCE4/+0x10) and overrides
+slots 0-3 of its primary 0x00BFBCF0. It declares the constructor, the virtual destructor and
+`loadPostProcess`; `GetSnapshotName` and `xfer` wait for their placeholder rows (below).
+- ObjectDefectionHelperCtor.cpp adopts it. Its constructor (0x0028C955, still 61/61 exact) now lets the
+  compiler store `??_7ObjectDefectionHelper@@6BObjectModule@@@`, `...6BBehaviorModuleInterface@@@` and
+  `...6B@` where it stored three TU-local zero ints. Survey on the current objects: 13/13, 47/47 and 2/3
+  slots equal retail (0x00BFBD40, 0x00BEFF90, 0x00BFBD34).
+- Names given on the way (each byte-verified): ICF twins `?loadPostProcess@ObjectHelper@@MAEXXZ` at
+  0x00497805 (in Rva004DF81BXfer.cpp, ObjectHelper's xfer unit) and
+  `?loadPostProcess@ObjectDefectionHelper@@MAEXXZ` at 0x00483CEF (`jmp 0x00497805`); the two must sit in
+  different units or MSVC inlines the base. `--to-class` moved 0x0028C9D7 to
+  `?GetSnapshotName@ObjectDefectionHelper@@MBEPBDXZ`; `class --fold Rva004DF52E --into
+  ObjectDefectionHelper` named the destructor 0x004DF52E and deleting destructor 0x0028C9DD.
+- link_check: ObjectDefectionHelperCtor.cpp LINKS 61 -> 66 B, Rva004DF81BXfer.cpp 27 -> 32 B; the
+  dtor, getter, xfer/update, pool-key units and the fold owners are unchanged (AssistedTargetingUpdate.cpp,
+  another 0x00497805 twin, needs its post-census providers rebuilt to show LINKS).
+- Left wrong: slot 1 of 0x00BFBD34 is UpdateModule's `getDisabledTypesToProcess` (DISABLEDMASK_NONE);
+  retail's 0x004DF396 returns DISABLEDMASK_ALL and is an ICF fold of 8 tables
+  (`Rva004DF396`, UpdateModuleSetWakeFrame.cpp). It needs an ICF twin under this class with a BitFlags<11>
+  view. The defection helper then does not update while its Object is disabled.
+
+Next, in this order (each a wall found this pass):
+1. ObjectRepulsorHelper (0x0028CAB4, no EH): the same recipe. Its xfer 0x004DF87C is an ICF fold of the
+   Recovery/Repulsor/WeaponStatus tables (`Rva004DF87C`): add a twin that calls ObjectHelper's xfer under its
+   current placeholder spelling. Its update 0x004DF897 is `Rva004DF897` in VslotSmallBodiesU.cpp (`this` at
+   +0x10), getter 0x0028CB23 `Rva0028CB23Named` (Object.cpp), dtor `Rva004DF863`.
+2. ObjectHelper's own names: `GetSnapshotName` 0x0028C933 is the scaffold `?Rva0028C933Get@@YAHXZ`
+   (ConstIntGetters4.cpp, no approved TU); `xfer` 0x004DF81B is `Rva004DF81B` but also carries the ICF twin
+   `?xfer@AssistedTargetingUpdate@@MAEXPAVXfer@@@Z`, so `--to-class` refuses it as a shared body.
+3. `~ObjectHelper` (0x004DF7C2, `Rva004DF7C2`): the fold needs ObjectHelper's own table named, i.e.
+   Object.cpp's ctor (0x0028C8DF) on the header, and Object.cpp's private `UpdateModule` view goes. Three
+   units declare both `Rva004DF7C2` and a private `ObjectHelper` (ObjectRecoveryHelperCtor.cpp,
+   ObjectWeaponStatusHelperCtor.cpp, ObjectSMCHelper_Rva002927f8.cpp), so the token fold refuses them;
+   either register ObjectHelper (then fold with those units `--prepared` on the header) or reconcile them
+   first. Recovery's and WeaponStatus's constructors have EH frames whose unwind calls `~ObjectHelper`,
+   so they adopt the header only together with this fold.
