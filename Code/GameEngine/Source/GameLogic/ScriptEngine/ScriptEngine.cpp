@@ -3923,3 +3923,27 @@ void Rva00203BE1ByteOneSetter::enable()
 // tu-skeleton: 0x0076D2D0 8B Unwind@00b6d2d0 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp (not merged yet)
 
 // tu-skeleton: 0x0076D2D8 10B __ehhandler$?update@ScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp (not merged yet)
+
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so each node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007AD801 and 0x007AD816, nodes 0x00DB97D0 and 0x00DB97DC). They
+// close this unit's run (its Drawable.h copy 0x007AD7B0, then its other
+// statics), before its pool-init marker 0x007AD82B.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theScriptActionBlockParse( "ScriptAction", parseScriptAction );
+BlockParse theScriptConditionBlockParse( "ScriptCondition", parseScriptCondition );

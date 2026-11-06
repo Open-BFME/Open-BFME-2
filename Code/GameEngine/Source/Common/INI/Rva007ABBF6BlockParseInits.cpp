@@ -39,8 +39,6 @@ void parseAmbientStreamDefinition(INI *);
 void parseStreamedSoundDefinition(INI *);
 void parseAerialPathfindNoFlyZoneDefinition(INI *);
 void Rva00202BB2Parse(INI *);
-void parseScriptAction(INI *);
-void parseScriptCondition(INI *);
 void parseLivingWorldMapInfoDefinition(INI *);
 void Rva0021376BParse(INI *);
 void parseCloudEffectDefinition(INI *);
@@ -203,8 +201,6 @@ BlockParse theAerialPathfindNoFlyZoneBlockParse = { 0, "AerialPathfindNoFlyZone"
 BlockParse theWeatherBlockParse = { 0, "Weather", INI::parseWeatherDefinition };	// VA 0x00DB9588 "Weather", parse 0x0020187A
 BlockParse theWeaponBlockParse = { 0, "Weapon", WeaponStore::parseWeaponTemplateDefinition };	// VA 0x00DB95B8 "Weapon", parse 0x002CE102
 BlockParse theHeaderTemplateBlockParse = { 0, "HeaderTemplate", INI::parseHeaderTemplateDefinition };	// VA 0x00DB95C4 "HeaderTemplate", parse 0x00201CAF
-BlockParse theScriptActionBlockParse = { 0, "ScriptAction", parseScriptAction };	// VA 0x00DB97D0 "ScriptAction", parse 0x00206DFF
-BlockParse theScriptConditionBlockParse = { 0, "ScriptCondition", parseScriptCondition };	// VA 0x00DB97DC "ScriptCondition", parse 0x00206E63
 BlockParse theSkyboxTextureSetBlockParse = { 0, "SkyboxTextureSet", iniParseEnvironmentSkyboxTextureDefinition };	// VA 0x00DB984C "SkyboxTextureSet", parse 0x0020D6F5
 BlockParse theGlowEffectBlockParse = { 0, "GlowEffect", parseGlowEffect };	// VA 0x00DB9858 "GlowEffect", parse 0x00309FB3
 BlockParse theRingEffectBlockParse = { 0, "RingEffect", parseRingEffect };	// VA 0x00DB9864 "RingEffect", parse 0x00309FFD
@@ -278,8 +274,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD6B4();
 	static void rva007AD6C9();
 	static void rva007AD6DE();
-	static void rva007AD801();
-	static void rva007AD816();
 	static void rva007AD845();
 	static void rva007AD85A();
 	static void rva007AD86F();
@@ -379,10 +373,6 @@ BLOCK_PARSE_INIT( rva007AD6B4, theWeatherBlockParse )
 BLOCK_PARSE_INIT( rva007AD6C9, theWeaponBlockParse )
 // ?rva007AD6DE@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD6DE (21B): "HeaderTemplate"
 BLOCK_PARSE_INIT( rva007AD6DE, theHeaderTemplateBlockParse )
-// ?rva007AD801@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD801 (21B): "ScriptAction"
-BLOCK_PARSE_INIT( rva007AD801, theScriptActionBlockParse )
-// ?rva007AD816@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD816 (21B): "ScriptCondition"
-BLOCK_PARSE_INIT( rva007AD816, theScriptConditionBlockParse )
 // ?rva007AD845@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD845 (21B): "SkyboxTextureSet"
 BLOCK_PARSE_INIT( rva007AD845, theSkyboxTextureSetBlockParse )
 // ?rva007AD85A@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD85A (21B): "GlowEffect"
