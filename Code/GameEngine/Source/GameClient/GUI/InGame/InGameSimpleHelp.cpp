@@ -45,4 +45,5 @@ InGameSimpleHelp::InGameSimpleHelp(const UnicodeString &title, const UnicodeStri
 }
 
 #pragma comment(linker, "/alternatename:??1Rva005398CDRefCounted@@UAE@XZ=??1Coord2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:??1InGameSimpleHelp@@UAE@XZ=??1Coord2D@@QAE@XZ")
+// ~InGameSimpleHelp (retail 0x00539926, installs this class's vftable 0x00C69268)
+// and its deleting destructor 0x00539961 are defined in Rva005396E6Dtor.cpp.

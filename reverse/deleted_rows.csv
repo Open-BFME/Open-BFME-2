@@ -5215,3 +5215,6 @@ __ehhandler$?rva0055D525@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UA
 ??_GRva004CDD39@@UAEPAXI@Z,0x004CDD9E,"Renamed to ??_GActivateModuleSpecialPower@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5FC88)"
 ??1Rva004CE03D@@UAE@XZ,0x004CE03D,"Renamed to ??1UnleashSpecialPower@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5FDC0)"
 ??_GRva004CE03D@@UAEPAXI@Z,0x004CE0A2,"Renamed to ??_GUnleashSpecialPower@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5FDC0)"
+??1Rva00539926@@UAE@XZ,0x00539926,"Renamed to ??1InGameSimpleHelp@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C69268)"
+??_GRva00539926@@UAEPAXI@Z,0x00539961,"Renamed to ??_GInGameSimpleHelp@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C69268)"
+__ehhandler$??1Rva00539926@@UAE@XZ,0x007979EB,"Renamed to __ehhandler$??1InGameSimpleHelp@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C69268)"

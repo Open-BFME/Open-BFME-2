@@ -74,7 +74,8 @@ void Rva005398B3::reset()
 	delete entry;
 }
 
-// ??1Rva00539926@@UAE@XZ @0x00539926 59B:
+// ??1InGameSimpleHelp@@UAE@XZ @0x00539926 59B (InGameSimpleHelp.cpp's constructor
+// 0x005398CD installs the same vftable):
 // Virtual dtor: vtable 0x00869268 then member at +8 via rowed rva005398B3
 // then base dtor pinned at 0x004E84A4 (ICF twin of rowed apply 7B mov plus
 // ret setting vptr to 0x00BC6F20). Caller 0x00539964 (??_G 28B). Evidence:
@@ -85,16 +86,16 @@ public:
 	virtual ~Rva00539926Base();
 };
 
-class Rva00539926 : public Rva00539926Base
+class InGameSimpleHelp : public Rva00539926Base
 {
 public:
-	virtual ~Rva00539926();
+	virtual ~InGameSimpleHelp();
 private:
 	int m_04;
 	Rva005398B3 m_08;
 };
 
-Rva00539926::~Rva00539926()
+InGameSimpleHelp::~InGameSimpleHelp()
 {
 	m_08.reset();
 }
