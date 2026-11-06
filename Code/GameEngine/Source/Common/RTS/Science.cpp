@@ -260,12 +260,8 @@ private:
 class UnicodeString;
 class ScienceInfo;
 #include "../../../Include/Common/INI/FieldParse.h"
-// BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f ScienceStoreFriendGetScienceNames semantic donor.
-// Retail1FFCA3..1FFD2C keeps the donor's name-collection purpose and loop.
-// Native: ScienceStore vector+C/+10, ScienceInfo key+10, override pointer+4;
-// keyToName148C95 returns a reference, so BFME2 constructs no string temporary.
-// Return vector copyBC07E and cleanup2CC70 are existing verified providers.
 #pragma intrinsic(_ReadWriteBarrier)
+
 // Retail already provides these concrete string-vector operations. Declare
 // them here so this caller uses those providers with their established ABI.
 namespace _STL {
@@ -273,8 +269,10 @@ template <> vector<AsciiString, allocator<AsciiString> >::vector(const vector<As
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &);
 }
+
 // Existing name-key operations used by the two inverse query consumers.
 enum NameKeyType { NAMEKEY_INVALID = -1 };
+
 namespace _STL {
 // The memo map's constructor (0x001FFA00) is the implicit COMDAT this TU's
 // Science.cpp also emits; only its tree-base step stays the out-of-line
@@ -289,7 +287,111 @@ template <> ScienceMemoTree::~_Rb_tree();
 // The concrete memo insertion provider is already byte-verified at1FF875.
 template <> pair<ScienceMemoTree::iterator, bool> ScienceMemoTree::insert_unique(const ScienceMemoValue &);
 }
+
 typedef std::vector<ScienceInfo *> ScienceInfoVec;
+
+class Rva001FF6D7
+{
+public:
+	void rva001FF6AE();
+	void rva001FF6D7();
+	// Keep the recursive cleanup eligible for inline expansion when its body joins this TU.
+	inline void rva001FF55F(Rva001FF6D7Node *head);
+
+private:
+	Rva001FF6D7Head *m_head; // +0
+	int m_count; // +4
+};
+
+extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
+
+struct FriendLookupThrowInfoAnchor { int a; int b; int c; int d; };
+
+static const FriendLookupThrowInfoAnchor friendLookupThrowInfoAnchor = { 0, 0, 0, 0 };
+
+typedef _STL::allocator<SciencePair> ScienceAlloc;
+
+typedef _STL::vector<ScienceType, _STL::allocator<ScienceType> > FillSciVec;
+
+namespace _STL {
+template <> FillSciVec *allocator<FillSciVec>::allocate(unsigned int n, const void *hint) const;
+template <> FillSciVec *__uninitialized_copy<FillSciVec *, FillSciVec *>(FillSciVec *first, FillSciVec *last, FillSciVec *result, const __false_type &tag);
+
+template <> template <>
+FillSciVec *vector<FillSciVec, allocator<FillSciVec> >::_M_allocate_and_copy<FillSciVec *>(size_type n, FillSciVec *first, FillSciVec *last)
+{
+    FillSciVec *result = this->_M_end_of_storage.allocate(n);
+    __false_type tag;
+    __uninitialized_copy(first, last, result, tag);
+    return result;
+}
+}
+
+namespace _STL {
+template <> void ScienceMemoTree::clear() {
+    if (_M_node_count != 0) {
+        reinterpret_cast<Rva001FF6D7 *>(this)->rva001FF55F(reinterpret_cast<Rva001FF6D7Node *>(_M_root()));
+        _M_leftmost() = _M_header._M_data;
+        _M_root() = 0;
+        _M_rightmost() = _M_header._M_data;
+        _M_node_count = 0;
+    }
+}
+template <> _Rb_tree_base<ScienceMemoValue, allocator<ScienceMemoValue> >::~_Rb_tree_base() {
+    void *node = _M_header._M_data;
+    if (node) {
+        *reinterpret_cast<void **>(node) = g_Va00DB9440.m_head;
+        g_Va00DB9440.m_head = node;
+    }
+}
+}
+
+namespace _STL {
+template <> ScienceMemoTree::~_Rb_tree() { clear(); }
+}
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// node's entry 0x007AD594 (node 0x00DB9434) after the pool-less INITerrainRoad
+// node, then 0x007AD5A9, then the unit's pool-init marker 0x007AD5C3.
+typedef void (*INIBlockParse)( INI *ini );
+
+extern struct BlockParse *theBlockParseList;
+
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+struct Rva001FF743Element { char bytes[1]; bool operator<(const Rva001FF743Element&)const; bool operator==(const Rva001FF743Element&)const; };
+
+// Emit only the verified destructor and its required dependencies.
+typedef _STL::pair<int const, Rva001FF743Element> Rva001FF743Pair;
+
+typedef _STL::_Rb_tree<int, Rva001FF743Pair, _STL::_Select1st<Rva001FF743Pair>,
+ _STL::less<int>, _STL::allocator<Rva001FF743Pair> > Rva001FF743Tree;
+
+typedef _STL::_Rb_tree_base<Rva001FF743Pair,
+ _STL::allocator<Rva001FF743Pair> > Rva001FF743Base;
+
+// ---- from Code/GameEngine/Source/Common/RTS/Science.cpp
+
+// BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f ScienceStoreFriendGetScienceNames semantic donor.
+// Retail1FFCA3..1FFD2C keeps the donor's name-collection purpose and loop.
+// Native: ScienceStore vector+C/+10, ScienceInfo key+10, override pointer+4;
+// keyToName148C95 returns a reference, so BFME2 constructs no string temporary.
+// Return vector copyBC07E and cleanup2CC70 are existing verified providers.
+
 std::vector<AsciiString> ScienceStore::friend_getScienceNames() const
 {
 	std::vector<AsciiString> v;
@@ -303,6 +405,7 @@ std::vector<AsciiString> ScienceStore::friend_getScienceNames() const
 	}
 	return v;
 }
+
 // Existing 47-byte lookup keeps the same null-guarded native override hop.
 const ScienceInfo *ScienceStore::findScienceInfo(ScienceType st) const
 {
@@ -315,6 +418,7 @@ const ScienceInfo *ScienceStore::findScienceInfo(ScienceType st) const
     }
     return 0;
 }
+
 // BFME1 Science.cpp nested prerequisite groups guide; retail1FF47D..1FF4D3
 // tests each group through the holder's virtual slot0 and accepts any full group.
 bool ScienceStore::playerHasPrereqsForScience(const Rva0043D3A8 *holder, ScienceType st) const
@@ -338,6 +442,7 @@ bool ScienceStore::playerHasPrereqsForScience(const Rva0043D3A8 *holder, Science
     }
     return false;
 }
+
 // Native1FFAA1..1FFB64 memoizes the recursive ANY-group/ALL-key predicate.
 // Its virtual query uses the same slot0 ABI witnessed in1FF47D. The original
 // callback-interface and private-helper spellings remain unproven.
@@ -387,6 +492,7 @@ next_group:
 	values->insert(std::make_pair(st, result));
 	return result;
 }
+
 void ScienceStore::getPurchasableSciences(const Player *player, std::vector<ScienceType> &purchasable,
     std::vector<ScienceType> &potentiallyPurchasable) const
 {
@@ -409,67 +515,8 @@ void ScienceStore::getPurchasableSciences(const Player *player, std::vector<Scie
             potentiallyPurchasable.push_back(si->m_science);
     }
 }
-class Rva001FF6D7
-{
-public:
-	void rva001FF6AE();
-	void rva001FF6D7();
-	// Keep the recursive cleanup eligible for inline expansion when its body joins this TU.
-	inline void rva001FF55F(Rva001FF6D7Node *head);
-
-private:
-	Rva001FF6D7Head *m_head; // +0
-	int m_count; // +4
-};
-
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-
-struct FriendLookupThrowInfoAnchor { int a; int b; int c; int d; };
-
-static const FriendLookupThrowInfoAnchor friendLookupThrowInfoAnchor = { 0, 0, 0, 0 };
-
-typedef _STL::allocator<SciencePair> ScienceAlloc;
 
 template _STL::_Rb_tree_base<SciencePair, ScienceAlloc>::_Rb_tree_base(const ScienceAlloc &);
-
-typedef _STL::vector<ScienceType, _STL::allocator<ScienceType> > FillSciVec;
-
-namespace _STL {
-template <> FillSciVec *allocator<FillSciVec>::allocate(unsigned int n, const void *hint) const;
-template <> FillSciVec *__uninitialized_copy<FillSciVec *, FillSciVec *>(FillSciVec *first, FillSciVec *last, FillSciVec *result, const __false_type &tag);
-
-template <> template <>
-FillSciVec *vector<FillSciVec, allocator<FillSciVec> >::_M_allocate_and_copy<FillSciVec *>(size_type n, FillSciVec *first, FillSciVec *last)
-{
-    FillSciVec *result = this->_M_end_of_storage.allocate(n);
-    __false_type tag;
-    __uninitialized_copy(first, last, result, tag);
-    return result;
-}
-}
-
-namespace _STL {
-template <> void ScienceMemoTree::clear() {
-    if (_M_node_count != 0) {
-        reinterpret_cast<Rva001FF6D7 *>(this)->rva001FF55F(reinterpret_cast<Rva001FF6D7Node *>(_M_root()));
-        _M_leftmost() = _M_header._M_data;
-        _M_root() = 0;
-        _M_rightmost() = _M_header._M_data;
-        _M_node_count = 0;
-    }
-}
-template <> _Rb_tree_base<ScienceMemoValue, allocator<ScienceMemoValue> >::~_Rb_tree_base() {
-    void *node = _M_header._M_data;
-    if (node) {
-        *reinterpret_cast<void **>(node) = g_Va00DB9440.m_head;
-        g_Va00DB9440.m_head = node;
-    }
-}
-}
-
-namespace _STL {
-template <> ScienceMemoTree::~_Rb_tree() { clear(); }
-}
 
 // ---- from Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp
 
@@ -833,7 +880,17 @@ void Rva001FF6D7::rva001FF55F(Rva001FF6D7Node *head)
 
 // tu-skeleton: 0x001FF6EB 24B ?allocate@Rva001FF547@@QAEPAXIPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE53.cpp (not merged yet)
 
-// tu-skeleton: 0x001FF743 43B ??1?$_Rb_tree@HU?$pair@$$CBHURva001FF743Element@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva001FF743Element@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva001FF743Element@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001FF743.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001FF743.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Retail calls both helpers out of line, independently of TU inlining settings.
+template __declspec(noinline) void Rva001FF743Tree::clear();
+
+template __declspec(noinline) Rva001FF743Base::~_Rb_tree_base();
+
+template Rva001FF743Tree::~_Rb_tree();
 
 // tu-skeleton: 0x001FF791 136B ?_M_insert@?$_Rb_tree@W4ScienceType@@U?$pair@$$CBW4ScienceType@@_N@_STL@@U?$_Select1st@U?$pair@$$CBW4ScienceType@@_N@_STL@@@3@U?$less@W4ScienceType@@@3@V?$allocator@U?$pair@$$CBW4ScienceType@@_N@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4ScienceType@@_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ScienceType@@_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBW4ScienceType@@_N@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp (not merged yet)
 
@@ -884,26 +941,5 @@ void Rva001FF6D7::rva001FF55F(Rva001FF6D7Node *head)
 // tu-skeleton: 0x0076C2DF 11B Unwind@00b6c2df -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp (not merged yet)
 
 // tu-skeleton: 0x0076C2EA 10B __ehhandler$??1Rva001FFE93@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLinkVector.cpp (not merged yet)
-
-// INI block registration (LINK-236). BFME's INI keeps its block types on a
-// list of 12-byte BlockParse nodes; each unit links its own nodes onto
-// theBlockParseList from a file-scope object whose inline constructor does the
-// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
-// initializer is only the 21-byte link. Retail's table holds this
-// node's entry 0x007AD594 (node 0x00DB9434) after the pool-less INITerrainRoad
-// node, then 0x007AD5A9, then the unit's pool-init marker 0x007AD5C3.
-typedef void (*INIBlockParse)( INI *ini );
-extern struct BlockParse *theBlockParseList;
-struct BlockParse
-{
-	BlockParse *next;
-	const char *token;
-	INIBlockParse parse;
-
-	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
-	{
-		theBlockParseList = this;
-	}
-};
 
 BlockParse theScienceBlockParse( "Science", ScienceStore::friend_parseScienceDefinition );

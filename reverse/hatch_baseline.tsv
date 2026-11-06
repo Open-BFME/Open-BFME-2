@@ -1880,7 +1880,6 @@ alternatename	Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp	??1Rva004F
 alternatename	Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp	??1Rva004FFE96@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001EB63CDtorFamily.cpp	??1Rva00502D48@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001F4D06Ctor.cpp	??0Rva001F4D06Base@@QAE@PAX0@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva001F4D06Ctor.cpp	??1Rva001F4D06Base@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0020DAE0.cpp	?g_00DFE1AC@@3V?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0021DE75Wrapper.cpp	?rva002191FE@Rva002191FEHost@@QAEPAXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0021DE75Wrapper.cpp	?rva0021DAA8@Rva0021DE75Table@@QAEPAXPAX0@Z	1
@@ -2547,7 +2546,6 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cp
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeGetENK@BfmeObjENK@@QAEPAUBfmeSubENK@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp	?winSetText@GameWindow@@QAEHVUnicodeString@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenu_PositionButton.cpp	?Move@ButtonShell@Impl@AptRadialMenu@@QAEXVCoord2D@@0@Z	2
-alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/InGameSimpleHelp.cpp	??1InGameSimpleHelp@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/InGameSimpleHelp.cpp	??1Rva005398CDRefCounted@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?GetStateString@Rva00215EA4BannerState@@SAPBDH@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	?bfmeShowDN@ControlBar@@QAEXPAUBfmeMsgDN@@@Z	1
@@ -8700,7 +8698,6 @@ pin	reverse/symbols.csv	0x0056B498	1
 pin	reverse/symbols.csv	0x0056BC3D	1
 pin	reverse/symbols.csv	0x0056C065	1
 pin	reverse/symbols.csv	0x0056C0A5	1
-pin	reverse/symbols.csv	0x0056DB9B	1
 pin	reverse/symbols.csv	0x0056DC2A	1
 pin	reverse/symbols.csv	0x0056DC6B	1
 pin	reverse/symbols.csv	0x0056F473	2
@@ -12127,7 +12124,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	PalantirToggleHolder::~PalantirToggleHolder	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	Rva000AD6F4::Rva000AD6F4	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	Rva00528FE6::Rva00528FE6	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/LoadScreen.cpp	1Rva0035615D@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromBottom@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp	initReverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@	1
@@ -12596,9 +12592,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStrea
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp	ProjectileStreamUpdate::setPosition	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp	ProjectileStreamUpdate::~ProjectileStreamUpdate	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/Rva002553F6Ctor.cpp	rva002553F6_dummy@Rva002553F6@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/Rva00490D3FCtor.cpp	Rva00490D3F::~Rva00490D3F	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/Rva00492179Ctor.cpp	Rva00492179::~Rva00492179	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/Rva00492402Ctor.cpp	Rva00492402::~Rva00492402	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/Rva00492C59Ctor.cpp	Rva00492C59::~Rva00492C59	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/Rva004A466EFinish.cpp	StructureCollapseUpdate::StructureCollapseUpdate	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ScaleWallSpecialAbilityUpdate.cpp	Rva00494DCA::~Rva00494DCA	1

@@ -14189,7 +14189,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001FF6EB,24,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF65D..0x001FF703,Code/GameEngine/Source/Common/GapBodiesGE53.cpp
 0x001FF703,34,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF65D..0x001FF725,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF725,30,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Science.cpp S=Code/GameEngine/Source/Common/RTS/Science.cpp N=Code/GameEngine/Source/Common/RTS/ScienceStore.cpp,Code/GameEngine/Source/Common/RTS/Science.cpp
-0x001FF743,43,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF725..0x001FF76E,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001FF743.cpp
+0x001FF743,43,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF725..0x001FF76E,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF76E,35,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF725..0x001FF791,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF791,136,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF725..0x001FF819,Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp
 0x001FF819,45,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF725..0x001FF846,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
