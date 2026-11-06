@@ -230,3 +230,22 @@ zero duplicates, no image, 673 initializer bridges and 1,757 vtable bridges /
 19,323 slots. Confirm this exported name disappears in the next scheduled
 real link; no new full-link count or runtime improvement is claimed.
 [Evidence and audit limits](../../reverse/attempt_support/cylindrical-writeini-export-20261106-pass3-c01-seat1.md).
+
+2026-11-06 pass3, Cylindrical single-result publication check
+(`codex-fleet-20261106-c01-coordinator`, repair integrated as `9632edf969e`):
+the publication checkout's supported `link_check.py --prepare-current` on the
+one explicit writer prepares a strict reusable receipt and verifies 4/4 rows
+and two literals. The ordinary preview reports 1/1 LINKS, 247 -> 247 bytes
+against index `47fd56b879` (05:39 UTC), with no compilation in that preview.
+
+`link_batch_audit.py --base 64ff2f11655 --tip 9632edf969e` with the same
+one-source NUL-delimited verified list exits 2, **INCONCLUSIVE**. The index
+predates the outgoing base, and the first affected consumer lacking a current
+receipt is still `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp`.
+The failed ControlBar adoption cohort did not supply that receipt. This is
+not a clean consumer audit: obtain strict-current consumer receipts and a
+matching baseline, recheck selection/closure, and carry the result into the
+next census. Confirm the export in the scheduled authoritative real link.
+The inspected pre-repair run remains 42180682743: 308 unresolved, zero
+duplicates, no image. No smoke run, new full-link count or runtime gain is
+claimed. Publish this verified provider repair independently of other seats.
