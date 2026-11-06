@@ -29257,7 +29257,7 @@ _CpuProbe_Sse2Executes,,0x001D5540,126,Code/Libraries/Source/VP6/CpuProbeSse2.cp
 ?rva001D9709@Rva001D9709@@QAEXH@Z,,0x001D9709,12,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,matched,leaf mask-clear via 2 unclaimed callers neighbours 1D96F8-1D972B
 ?rva001D96FF@Rva001D96FF@@QAEXH@Z,,0x001D96FF,10,Code/GameEngine/Source/Common/INI/INIAudioEventInfo.cpp,matched,leaf mask-set same word-callers as 1D9709
 ??_GRva0022A9DDSubsystem@@UAEPAXI@Z,,0x0022DFB0,28,Code/GameEngine/Source/GameClient/Rva00418298Dtor.cpp,matched,deleting dtor slot0 vtable 0x007E76D0 calls rowed 0x00418298
-?swap@Rva003B56A5@@QAEXPAV1@@Z,,0x003B56A5,55,Code/GameEngine/Source/Common/System/Rva003B56A5Swap.cpp,matched,Two-vector plus two-int swap via rowed vector swap and barrier-ordered tail
+?swap@Rva003B56A5@@QAEXPAV1@@Z,,0x003B56A5,55,Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp,matched,Two-vector plus two-int swap via rowed vector swap and barrier-ordered tail
 ?Rva005F8EDAAptCall@@YAHPAVRva00222A8BTarget@@PAXPBD22PAPAX@Z,,0x005F8EDA,38,Code/GameEngine/Source/Common/Rva005F8EDAAptCall.cpp,matched,chain via twin pin deref local
 ?rva006572A0@Rva006572A0@@QAEXXZ,,0x006572A0,8,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,leaf forwarder to rowed m via ptr at 4 caller 5521F8
 ?rva006575F0@Rva006575F0@@QAEXXZ,,0x006575F0,8,Code/Libraries/Source/Fesl/servicehub.cpp,matched,leaf forwarder to pinned m via ptr at 4 same caller

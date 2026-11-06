@@ -57,6 +57,7 @@ public:
 
 
 
+
 #endif
 #include "ascii_string.h"
 #include "../../../Include/Common/Rva0036CA00Str.h"
@@ -1058,16 +1059,6 @@ private:
 
 struct Rva00390729Element { int opaque[3]; };
 
-class Rva003B56A5
-{
-public:
-	void swap(Rva003B56A5 *other);
-	void rva003B7647(void);
-
-private:
-	char m_opaque[0x20];
-};
-
 class Rva003B761E
 {
 public:
@@ -1144,11 +1135,39 @@ public:
 	void rva003B7C1E();
 };
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+// ?swap@Rva003B56A5@@QAEXPAV1@@Z @0x003B56A5 (55B).
+// Swaps two 12B vectors through rowed vector<UBfmeE12>::swap 0x00567ECD
+// plus two int members. The _ReadWriteBarrier between the int swaps stops
+// the scheduler hoisting the second load above the first store; it emits
+// no code. Callers: ScriptList::swap plus two INI list bodies.
+struct BfmeE12 { float x, y, z; };
+
+class Rva003B56A5
+{
+public:
+	void swap(Rva003B56A5 *other);
+private:
+	_STL::vector<BfmeE12> m_a;
+private:
+	_STL::vector<BfmeE12> m_b;
+private:
+	int m_first;
+private:
+	int m_second;
+public:
+	void rva003B7647(void);
+};
+
 // tu-skeleton: 0x003B23DE 25B ?addGroupRef@ScriptList@@QAEXPAURva0034F9D0Head@@PAURva0034F9D0Node@@1@Z -- matched in Code/GameEngine/Source/Common/Rva0034F9D0ListInsert.cpp (not merged yet)
 
 // tu-skeleton: 0x003B23F7 35B ?addScriptRef@ScriptList@@QAEXPAUBfmeHeadXZ@@PAUBfmeNodeXZ@@1@Z -- matched in Code/GameEngine/Source/Common/BfmeOneHundredFortyEight_bfmeInsertXZ_YGXPAUBfmeHeadXZ_PAUBfmeNodeXZ_1_Z.cpp (not merged yet)
 
 // tu-skeleton: 0x003B2467 49B ?xfer@ScriptGroup@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp
 
@@ -2314,6 +2333,153 @@ Rva003B872ASet::~Rva003B872ASet()
 
 // Native 0x003B7C42: STLport4.5.3 queue push forwarding to its owned provider.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp
+
+//
+// Element destroy loops at 0x003B678A and 0x003B713E (41B each): they
+// drain the 0x14-byte string-record elements in [start,finish),
+// stepping one record back per iteration. Each element is torn down in
+// two calls: the node-list drain (rowed clearRva00359330Nodes at
+// 0x003B578E for the 0x678A loop, rowed clearRva003B675BNodes at
+// 0x003B675B for the 0x713E loop) plus the shared 8B name-string tail
+// through the ?destroy@ScriptListElementName pin at 0x00577998,
+// invoked as an explicit destructor call on the re-read finish pointer
+// (the Iter precedent). The typed record pointers give the 0x14 stride
+// (sub for the local, add-to-memory for the range update); the loop
+// condition reads start first. Same /EHsc scheduling as the drains.
+// Both names reach the same +0x08 AsciiString adjust-and-tail destructor.
+
+// ?destroyRva003B678ARange@@YAXPAURva003B678ARange@@@Z
+void destroyRva003B678ARange(Rva003B678ARange *range)
+{
+	while (range->m_start != range->m_finish) {
+		Rva00359330Record *last = range->m_finish - 1;
+		clearRva00359330Nodes(last);
+		range->m_finish -= 1;
+		((ScriptListElementName *)range->m_finish)->~ScriptListElementName();
+	}
+}
+
+// ?destroyRva003B713ERange@@YAXPAURva003B713ERange@@@Z
+void destroyRva003B713ERange(Rva003B713ERange *range)
+{
+	while (range->m_start != range->m_finish) {
+		Rva003B675BRecord *last = range->m_finish - 1;
+		clearRva003B675BNodes(last);
+		range->m_finish -= 1;
+		((ScriptListElementName *)range->m_finish)->~ScriptListElementName();
+	}
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B7C1EReset.cpp
+
+//
+// ?rva003B7C1E@Rva003B7C1E@@QAEXXZ, retail 0x003B7C1E..0x003B7C42 (36 bytes):
+// empties the object by swapping it with a freshly built 0x20-byte one
+// (rowed constructor 0x003B761E, rowed swap 0x003B56A5) which the
+// destructor 0x003B766B then tears down. Built without EH, as retail.
+
+void Rva003B7C1E::rva003B7C1E()
+{
+	char storage[sizeof(Rva003B761E)];
+	Rva003B761E *tmp = new (storage) Rva003B761E;
+	((Rva003B56A5*)tmp)->swap((Rva003B56A5*)this);
+	((Rva003B872ASet*)storage)->~Rva003B872ASet();
+}
+
 // tu-skeleton: 0x003B24DB 23B ?rva003B24DB@Rva003B24DB@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp (not merged yet)
 
 // tu-skeleton: 0x003B24F2 66B ?WriteScriptSubRecord_Rva003B24F2@@YAXAAVDataChunkOutput@@PBUScriptSubRecord@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptSubRecordWrite.cpp (not merged yet)
@@ -2464,7 +2630,22 @@ Rva003B872ASet::~Rva003B872ASet()
 
 // tu-skeleton: 0x003B55FE 5B ?pop@?$stack@PAXV?$deque@PAXV?$allocator@PAX@_STL@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x003B56A5 55B ?swap@Rva003B56A5@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003B56A5Swap.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/System/Rva003B56A5Swap.cpp
+
+void Rva003B56A5::swap(Rva003B56A5 *other)
+{
+	m_a.swap(other->m_a);
+	m_b.swap(other->m_b);
+	int first = other->m_first;
+	int mine = m_first;
+	m_first = first;
+	other->m_first = mine;
+	_ReadWriteBarrier();
+	int second = other->m_second;
+	int mine2 = m_second;
+	m_second = second;
+	other->m_second = mine2;
+}
 
 // tu-skeleton: 0x003B56DC 98B ?rva003B56DC@Rva003B573E@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListClearRva003B56DC.cpp (not merged yet)
 
@@ -2499,44 +2680,6 @@ Rva003B872ASet::~Rva003B872ASet()
 // tu-skeleton: 0x003B66D8 131B ?deallocateEntry@Rva003B573E@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
 
 // tu-skeleton: 0x003B675B 47B ?clearRva003B675BNodes@@YAXPAURva003B675BRecord@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDrain.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp
-
-//
-// Element destroy loops at 0x003B678A and 0x003B713E (41B each): they
-// drain the 0x14-byte string-record elements in [start,finish),
-// stepping one record back per iteration. Each element is torn down in
-// two calls: the node-list drain (rowed clearRva00359330Nodes at
-// 0x003B578E for the 0x678A loop, rowed clearRva003B675BNodes at
-// 0x003B675B for the 0x713E loop) plus the shared 8B name-string tail
-// through the ?destroy@ScriptListElementName pin at 0x00577998,
-// invoked as an explicit destructor call on the re-read finish pointer
-// (the Iter precedent). The typed record pointers give the 0x14 stride
-// (sub for the local, add-to-memory for the range update); the loop
-// condition reads start first. Same /EHsc scheduling as the drains.
-// Both names reach the same +0x08 AsciiString adjust-and-tail destructor.
-
-// ?destroyRva003B678ARange@@YAXPAURva003B678ARange@@@Z
-void destroyRva003B678ARange(Rva003B678ARange *range)
-{
-	while (range->m_start != range->m_finish) {
-		Rva00359330Record *last = range->m_finish - 1;
-		clearRva00359330Nodes(last);
-		range->m_finish -= 1;
-		((ScriptListElementName *)range->m_finish)->~ScriptListElementName();
-	}
-}
-
-// ?destroyRva003B713ERange@@YAXPAURva003B713ERange@@@Z
-void destroyRva003B713ERange(Rva003B713ERange *range)
-{
-	while (range->m_start != range->m_finish) {
-		Rva003B675BRecord *last = range->m_finish - 1;
-		clearRva003B675BNodes(last);
-		range->m_finish -= 1;
-		((ScriptListElementName *)range->m_finish)->~ScriptListElementName();
-	}
-}
 
 // tu-skeleton: 0x003B6846 30B ?rva003B6846@Rva003B6846Vec@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_prereq_destroy_3b46c7.cpp (not merged yet)
 
@@ -2605,22 +2748,6 @@ void destroyRva003B713ERange(Rva003B713ERange *range)
 // tu-skeleton: 0x003B7951 160B (unledgered) -- unmatched, no code, never credited
 
 // tu-skeleton: 0x003B79F1 557B ?parse@Script@@QAE_NAAVDataChunkInput@@G@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B7C1EReset.cpp
-
-//
-// ?rva003B7C1E@Rva003B7C1E@@QAEXXZ, retail 0x003B7C1E..0x003B7C42 (36 bytes):
-// empties the object by swapping it with a freshly built 0x20-byte one
-// (rowed constructor 0x003B761E, rowed swap 0x003B56A5) which the
-// destructor 0x003B766B then tears down. Built without EH, as retail.
-
-void Rva003B7C1E::rva003B7C1E()
-{
-	char storage[sizeof(Rva003B761E)];
-	Rva003B761E *tmp = new (storage) Rva003B761E;
-	((Rva003B56A5*)tmp)->swap((Rva003B56A5*)this);
-	((Rva003B872ASet*)storage)->~Rva003B872ASet();
-}
 
 // tu-skeleton: 0x003B7C47 329B ?rva003B7C47@Rva003B573E@@QAEHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptSetAllocateEntry.cpp (not merged yet)
 
