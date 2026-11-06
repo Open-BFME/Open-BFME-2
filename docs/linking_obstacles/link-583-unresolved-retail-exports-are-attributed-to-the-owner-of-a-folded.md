@@ -180,3 +180,30 @@ with only the writer spelling replaced. Old-name source/index search finds
 only the owner and no alternatename edge. Bounded preview remains **LINKS
 275 -> 275 B** against `47fd56b879`; current full batch audit and automated
 real-link confirmation remain pending. [Scoped evidence and limits](../../reverse/attempt_support/ortho-writeini-export-20261106-round2-seat1.md).
+
+2026-11-06 round2 combined publication preparation (`codex-20261106-round2-coordinator`):
+Cylinder, Sphere and Ortho repairs are integrated as `6c470c45809`, `c49b74099ed`
+and `66aba882889`, with the untouched Default-template blocker recorded in
+`b9c9756eccd`. Status for these three repairs: **locally verified / awaiting
+real-link and affected-consumer verification**.
+
+In the publication checkout, `link_check.py --prepare-current` on exactly the
+three repaired sources produces 3 strict reusable provider receipts and passes
+9/9 rows and 10 string literals. COFF inspection finds one required export
+definition per object and zero old-parent-name occurrences, including old EH
+names. `link_check.py --paths-from` with those three explicit sources reports
+3/3 LINKS, 857 -> 857 bytes (Cylinder 349, Sphere 233, Ortho 275), against
+the published index `47fd56b879` (2026-11-06 05:39 UTC). These are bounded
+provider checks, not a new real-link count or linked image.
+
+The pre-publication `link_batch_audit.py --base 85d0ac929f8 --tip 66aba882889`
+with the same three-source NUL-delimited list exits 2, **INCONCLUSIVE**. The
+index predates the outgoing base; its first affected consumer without a current
+receipt remains `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp`.
+The repaired providers have strict receipts, but the wider consumer scope is
+still unverified. Carry this batch into the next census: obtain current
+consumer receipts and a matching baseline, recheck provider selection, then
+confirm all three exported names disappear from scheduled authoritative
+real-link errors. No new run was dispatched and no runtime improvement is
+claimed. The last inspected real-link result remains run42174078539: 308
+unresolved, zero duplicates, no image.
