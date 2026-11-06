@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ??1Rva0033F4DF@@UAE@XZ @0x0034149B 91B: Rva0033F4DF public virtual dtor.
+// ??1AIAttackSquadState@@UAE@XZ @0x0034149B 91B: AIAttackSquadState public virtual dtor.
 // Vptr install plus member at +0x20 via virtual slot15 then slot0 with 0 plus
 // delete 0x0002FD60, then the base State destructor (the rowed
 // ??1State@@UAE@XZ, the 7-byte fold body at 0x0049B47C).
@@ -30,9 +30,9 @@ public:
 	virtual void v14();
 	virtual void v15();
 };
-class Rva0033F4DF : public State {
+class AIAttackSquadState : public State {
 public:
-	virtual ~Rva0033F4DF();
+	virtual ~AIAttackSquadState();
 protected:
 	// retail slot 3: the rowed xfer 0x003414F6 (Rva003414F6Xfer.cpp)
 	virtual void xfer(Xfer *xfer);
@@ -40,7 +40,7 @@ private:
 	Rva0034149BMember *m_20;
 };
 #include <new>
-Rva0033F4DF::~Rva0033F4DF()
+AIAttackSquadState::~AIAttackSquadState()
 {
 	if (m_20) {
 		m_20->v15();

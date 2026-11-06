@@ -222,10 +222,10 @@ public:
 private:
 	unsigned char m_pad00[0x24];
 };
-class Rva0033F4DF
+class AIAttackSquadState
 {
 public:
-	Rva0033F4DF(StateMachine *machine, int a0);
+	AIAttackSquadState(StateMachine *machine, int a0);
 private:
 	unsigned char m_pad00[0x28];
 };
@@ -552,7 +552,7 @@ AIStateMachine::AIStateMachine(Object *owner, UnsignedInt nameKey) : StateMachin
 	defineState( 51, (State *)new AIAttackState( this, false, true, true, NULL ), 0, 0 );
 	defineState( 43, (State *)new Rva0033FC42( this ), 0, 0 );
 	defineState( 12, (State *)new AIAttackState( this, true, true, false, NULL ), 0, 0 );
-	defineState( 23, (State *)new Rva0033F4DF( this, 0 ), 0, 0 );
+	defineState( 23, (State *)new AIAttackSquadState( this, 0 ), 0, 0 );
 	defineState( 18, (State *)new Rva00342C97( this ), 0, 40 );
 	defineState( 19, (State *)new Rva00342D19( this ), 0, 40 );
 	defineState( 20, (State *)new Rva003428AF( this ), 21, 0 );

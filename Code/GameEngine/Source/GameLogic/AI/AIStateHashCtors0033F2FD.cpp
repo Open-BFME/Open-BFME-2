@@ -195,17 +195,17 @@ Rva0033F4B1::Rva0033F4B1(StateMachine *machine, int arg0)
 {
 }
 
-// Rva0033F4DF: retail 0x0033F4DF (37B), hash 0x4502d596, vtable 0xc112c0 callers 0x003522D8
-class Rva0033F4DF : public State
+// AIAttackSquadState: retail 0x0033F4DF (37B), hash 0x4502d596, vtable 0xc112c0 callers 0x003522D8
+class AIAttackSquadState : public State
 {
 public:
-	Rva0033F4DF(StateMachine *machine, int unused); // ret 8, second argument unread
+	AIAttackSquadState(StateMachine *machine, int unused); // ret 8, second argument unread
 	// the rowed destructor 0x0034149B (Rva0034149BDtor.cpp); declared so this
 	// unit does not emit an implicit copy
-	virtual ~Rva0033F4DF();
+	virtual ~AIAttackSquadState();
 
 protected:
-	// retail slot 3: the rowed ?xfer@Rva0033F4DF@@MAEXPAVXfer@@@Z 0x003414F6
+	// retail slot 3: the rowed ?xfer@AIAttackSquadState@@MAEXPAVXfer@@@Z 0x003414F6
 	virtual void xfer(Xfer *xfer);
 
 private:
@@ -213,7 +213,7 @@ private:
 	bool m_24; // +0x24
 };
 
-Rva0033F4DF::Rva0033F4DF(StateMachine *machine, int)
+AIAttackSquadState::AIAttackSquadState(StateMachine *machine, int)
 	: State(machine, 0x4502D596u)
 	, m_20(0)
 	, m_24(false)
