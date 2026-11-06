@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ??0Rva00573E7C@@QAE@XZ @0x00573E7C (60B).
+// ??0Rva00573F03@@QAE@XZ @0x00573E7C (60B).
 // Ctor of Rva00573F03-family (vtable 0x0086E2C8): calls base Rva00573B23
 // then zeroes Coord + init flags in retail order.
 // Evidence: base row 0x00573A9B ??0Rva00573B23; same vtable as 0x00573F03
@@ -22,11 +22,11 @@ private:
 	char m_pad04[0x40 - 0x04];
 };
 
-class Rva00573E7C : public Rva00573B23
+class Rva00573F03 : public Rva00573B23
 {
 public:
-	Rva00573E7C();
-	virtual ~Rva00573E7C();
+	Rva00573F03();
+	virtual ~Rva00573F03();
 private:
 	Coord3DBase m_40;
 	float m_4c;
@@ -37,7 +37,7 @@ private:
 	unsigned int m_5c;
 };
 
-Rva00573E7C::Rva00573E7C()
+Rva00573F03::Rva00573F03()
 {
 	m_40.x = 0.0f;
 	m_40.y = 0.0f;

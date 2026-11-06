@@ -17,7 +17,7 @@ struct Rva002A8AB1Record {char pad[0x16c];int phase;};
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 class Rva004E9378 {public:bool rva004E9378();};
-class Rva00573E7C {public:
+class Rva00573F03 {public:
  virtual void slot00();virtual void slot04();virtual float slot08();
  virtual void slot0c();virtual void slot10();virtual void slot14();
  virtual void slot18(void *,int);virtual void slot1c(int);
@@ -26,7 +26,7 @@ class Rva00573E7C {public:
 };
 class Rva005AD9C0Hit;
 class BuildPhase {public:
- bool complete,started,costsSet;_STL::vector<Rva00573E7C*> orders;int phase;void *player;
+ bool complete,started,costsSet;_STL::vector<Rva00573F03*> orders;int phase;void *player;
  void update();
  void rva005DCC60();	// 0x005DCC60 (Rva005DCC60.cpp): starts each pending order
 };
@@ -38,19 +38,19 @@ void BuildPhase::update(){
  if(phase>ai->phase)return;
  if(!started){rva005DCC60();started=true;}
  if(phase<ai->phase && !complete && !costsSet){
-  Rva00573E7C **last=orders.end();
-  for(Rva00573E7C **it=orders.begin();it!=last;++it){if((*it)->state==0)(*it)->cost=(*it)->slot08();}
+  Rva00573F03 **last=orders.end();
+  for(Rva00573F03 **it=orders.begin();it!=last;++it){if((*it)->state==0)(*it)->cost=(*it)->slot08();}
   costsSet=true;
  }
- Rva00573E7C **last=orders.end();
- for(Rva00573E7C **it=orders.begin();it!=last;++it){
+ Rva00573F03 **last=orders.end();
+ for(Rva00573F03 **it=orders.begin();it!=last;++it){
   if((*it)->state==3 && (*it)->attempts<10 && TheGameLogic->getFrame()>=(*it)->deadline){
    (*it)->slot1c(0);(*it)->retries=0;(*it)->slot18(player,0);
   }
  }
  if(!complete){
   if(!orders.empty()){
-   for(Rva00573E7C **it=orders.begin();it!=last;++it){
+   for(Rva00573F03 **it=orders.begin();it!=last;++it){
     if((*it)->required && !((Rva004E9378*)*it)->rva004E9378())return;
    }
   }
@@ -72,9 +72,9 @@ extern BuildAssistant*TheBuildAssistant;
 // string key and the outer AIBase caller only tests the returned pointer.
 // Native loop deliberately returns the LAST compatible unfinished order.
 Rva005AD9C0Hit*Rva005DCE08::rva005DCC86(void*key) {
- Rva00573E7C*selected=0;
- for(Rva00573E7C**it=orders.begin();it!=orders.end();++it) {
-  Rva00573E7C*order=*it;
+ Rva00573F03*selected=0;
+ for(Rva00573F03**it=orders.begin();it!=orders.end();++it) {
+  Rva00573F03*order=*it;
   if(!((Rva004E9378*)order)->rva004E9378()) {
    const ThingTemplate*first=TheThingFactory->findTemplate(order->templateName);
    const ThingTemplate*second=TheThingFactory->findTemplate(*((const AsciiString*)key));

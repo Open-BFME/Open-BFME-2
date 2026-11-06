@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ??0Rva00573E7C@@QAE@ABV0@@Z @0x00573EB8 75B (existing pin): order-object
+// ??0Rva00573F03@@QAE@ABV0@@Z @0x00573EB8 75B (existing pin): order-object
 // copy constructor. It copies the base through the rowed Rva00573B23 copy
 // 0x00573AC8, installs vtable 0x00C6E2C8 (same as the rowed ctor 0x00573E7C)
 // and copies the +0x40..+0x5C fields (layout from Rva00573E7CCtor.cpp; the
@@ -15,11 +15,13 @@ private:
 	char m_pad04[0x40 - 0x04];
 };
 
-class Rva00573E7C : public Rva00573B23
+class Rva00573F03 : public Rva00573B23
 {
 public:
-	Rva00573E7C(const Rva00573E7C &other);
-	virtual ~Rva00573E7C() {}
+	Rva00573F03(const Rva00573F03 &other);
+	// Retail 0x00573F03, defined in Rva00573B23Dtor.cpp; an inline body here would
+	// emit a second, non-retail copy.
+	virtual ~Rva00573F03();
 private:
 	float m_40;
 	float m_44;
@@ -31,7 +33,7 @@ private:
 	unsigned int m_5c;
 };
 
-Rva00573E7C::Rva00573E7C(const Rva00573E7C &other) :
+Rva00573F03::Rva00573F03(const Rva00573F03 &other) :
 	Rva00573B23(other),
 	m_40(other.m_40),
 	m_44(other.m_44),

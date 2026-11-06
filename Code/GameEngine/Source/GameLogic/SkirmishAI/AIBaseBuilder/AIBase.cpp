@@ -54,7 +54,7 @@ class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
 #include "../../../../Include/Common/XferVersion.h"
-class Rva00573E7C;
+class Rva00573F03;
 class BuildPhase
 {
 public:
@@ -66,7 +66,7 @@ public:
 	~Rva005DCE08();
 	Rva005AD9C0Hit *rva005DCC86(void *arg);
 	void rva005DCEAD(Xfer *xfer);
-	void rva005DCE62(Rva00573E7C *order);
+	void rva005DCE62(Rva00573F03 *order);
 };
 class Rva005DCDD9
 {
@@ -96,12 +96,12 @@ public:
 	virtual void xfer(Xfer *xfer, void *owner);	// slot 12
 	virtual Coord3D getOffset() const;		// slot 13
 };
-class Rva00573E7C : public Rva005ADA40Owned
+class Rva00573F03 : public Rva005ADA40Owned
 {
 public:
-	Rva00573E7C();
-	Rva00573E7C(const Rva00573E7C &that);
-	~Rva00573E7C();
+	Rva00573F03();
+	Rva00573F03(const Rva00573F03 &that);
+	~Rva00573F03();
 	int m_04;
 	char m_pad08[4];
 	AsciiString m_name;
@@ -195,7 +195,7 @@ public:
 	AsciiString m_name;			// +0x08
 	_STL::vector<int> m_starts;		// +0x0C
 	bool m_18;				// +0x18
-	_STL::vector<Rva00573E7C *> m_orders;	// +0x1C
+	_STL::vector<Rva00573F03 *> m_orders;	// +0x1C
 };
 
 #include "../../../../Include/GameClient/MapMetaData.h"
@@ -242,7 +242,7 @@ private:
 	void *m_owner; // +0x14
 	Coord3D m_point; // +0x18
 	float m_angle; // +0x24
-	Rva00573E7C *m_owned; // +0x28
+	Rva00573F03 *m_owned; // +0x28
 };
 
 class ModuleData;
@@ -367,8 +367,8 @@ void AIBase::parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E
 {
 	Matrix3D rotation(true);
 	rotation.Rotate_Z(angle);
-	for (Rva00573E7C **it = baseTemplate->m_orders.begin(); it != baseTemplate->m_orders.end(); ++it) {
-		Rva00573E7C *order = new Rva00573E7C(**it);
+	for (Rva00573F03 **it = baseTemplate->m_orders.begin(); it != baseTemplate->m_orders.end(); ++it) {
+		Rva00573F03 *order = new Rva00573F03(**it);
 		int slot = order->m_50;
 		int missing = slot - m_items.size();
 		for (int i = 0; i < missing; ++i) {
@@ -388,7 +388,7 @@ void AIBase::parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E
 // WB 0x01534F60 AIBase::buildFortressIfNeeded (AIBase.cpp), native RVA 0x005ADAB2.
 // The held pointer and fence preserve the native load before the branch;
 // visibility of the rowed terrain setter preserves scheduling around zero.
-__forceinline Rva00573E7C*heldOwned(Rva00573E7C*const&ownedOrder){Rva00573E7C*heldOrder=ownedOrder;_ReadWriteBarrier();return heldOrder;}
+__forceinline Rva00573F03*heldOwned(Rva00573F03*const&ownedOrder){Rva00573F03*heldOrder=ownedOrder;_ReadWriteBarrier();return heldOrder;}
 
 // ---- from Code/GameEngine/Source/Common/Rva005AD99C.cpp
 

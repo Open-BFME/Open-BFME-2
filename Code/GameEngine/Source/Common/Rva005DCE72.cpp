@@ -83,11 +83,11 @@ public:
 	AsciiString m_name; // +0xC
 };
 
-class Rva00573E7C
+class Rva00573F03
 {
 public:
-	Rva00573E7C();
-	virtual ~Rva00573E7C();
+	Rva00573F03();
+	virtual ~Rva00573F03();
 private:
 	char m_pad[0x60 - 4];
 };
@@ -142,7 +142,7 @@ void Rva005DCE72::rva005DCEB7(Rva005DCEB7Arg *xfer)
 		goto second;
 	do
 	{
-		Rva00573E7C *nn = new Rva00573E7C;
+		Rva00573F03 *nn = new Rva00573F03;
 		const ModuleData *moduleData = (const ModuleData *)nn;
 		((_STL::vector<const ModuleData *> *)base)->push_back(moduleData);
 		++i;

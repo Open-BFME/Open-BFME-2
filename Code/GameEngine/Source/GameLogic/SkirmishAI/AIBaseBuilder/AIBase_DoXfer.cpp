@@ -103,7 +103,7 @@ class Snapshot;
 #include "../../../../Include/Common/XferVersion.h"
 
 
-class Rva00573E7C;
+class Rva00573F03;
 
 class BuildPhase
 {
@@ -118,7 +118,7 @@ public:
 	~Rva005DCE08();
 	Rva005AD9C0Hit *rva005DCC86(void *arg);
 	void rva005DCEAD(Xfer *xfer);
-	void rva005DCE62(Rva00573E7C *order);
+	void rva005DCE62(Rva00573F03 *order);
 };
 
 class Rva005DCDD9
@@ -161,12 +161,12 @@ public:
 	virtual Coord3D getOffset() const;		// slot 13
 };
 
-class Rva00573E7C : public Rva005ADA40Owned
+class Rva00573F03 : public Rva005ADA40Owned
 {
 public:
-	Rva00573E7C();
-	Rva00573E7C(const Rva00573E7C &that);
-	~Rva00573E7C();
+	Rva00573F03();
+	Rva00573F03(const Rva00573F03 &that);
+	~Rva00573F03();
 	int m_04;
 	char m_pad08[4];
 	AsciiString m_name;
@@ -252,7 +252,7 @@ enum NameKeyType
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Rva00573E7C;
+class Rva00573F03;
 
 // One base layout from TheBaseTemplateLibrary (+0x08 map name, +0x0C start
 // positions it fits).
@@ -263,7 +263,7 @@ public:
 	AsciiString m_name;			// +0x08
 	_STL::vector<int> m_starts;		// +0x0C
 	bool m_18;				// +0x18
-	_STL::vector<Rva00573E7C *> m_orders;	// +0x1C
+	_STL::vector<Rva00573F03 *> m_orders;	// +0x1C
 };
 
 #include "../../../../Include/GameClient/MapMetaData.h"
@@ -333,7 +333,7 @@ private:
 	void *m_owner; // +0x14
 	Coord3D m_point; // +0x18
 	float m_angle; // +0x24
-	Rva00573E7C *m_owned; // +0x28
+	Rva00573F03 *m_owned; // +0x28
 };
 
 
@@ -341,7 +341,7 @@ private:
 
 void AIBase::rva005ADC63()
 {
-	Rva00573E7C *owned = m_owned;
+	Rva00573F03 *owned = m_owned;
 	if (owned) {
 		if (((Rva004E9378 *)owned)->rva004E9378()) {
 			((Rva00506FE9Hit *)owned)->unRegisterWithBuilder(m_owner);
@@ -382,7 +382,7 @@ void AIBase::DoXfer(Xfer *xfer)
 	*xfer == hasOwned;
 	if (hasOwned) {
 		if (xfer->IsLoading())
-			m_owned = new Rva00573E7C;
+			m_owned = new Rva00573F03;
 		m_owned->xfer(xfer, m_owner);
 	}
 }
@@ -451,7 +451,7 @@ static inline void copyVector(Coord3D *dst, const Vector3 &vec)
 // WB 0x01534F60 AIBase::buildFortressIfNeeded (AIBase.cpp), native RVA 0x005ADAB2.
 // The held pointer and fence preserve the native load before the branch;
 // visibility of the rowed terrain setter preserves scheduling around zero.
-__forceinline Rva00573E7C*heldOwned(Rva00573E7C*const&p){Rva00573E7C*q=p;_ReadWriteBarrier();return q;}
+__forceinline Rva00573F03*heldOwned(Rva00573F03*const&p){Rva00573F03*q=p;_ReadWriteBarrier();return q;}
 void AIBase::buildFortressIfNeeded()
 {
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_owner);
@@ -483,7 +483,7 @@ void AIBase::buildFortressIfNeeded()
 	if (!clear)
 		return;
 	if (!heldOwned(m_owned)) {
-		m_owned = new Rva00573E7C;
+		m_owned = new Rva00573F03;
 		m_owned->m_point = m_point;
 		Coord3D zero;
 		zero.zero();

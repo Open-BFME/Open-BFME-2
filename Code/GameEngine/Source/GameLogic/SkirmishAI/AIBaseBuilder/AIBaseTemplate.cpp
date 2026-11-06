@@ -64,11 +64,11 @@ struct Rva00573A00
 };
 
 // The base-template record, rowed under its constructor's address name.
-class Rva00573E7C : public Rva00573A00
+class Rva00573F03 : public Rva00573A00
 {
 public:
-	Rva00573E7C();						// 0x00573E7C
-	virtual ~Rva00573E7C();
+	Rva00573F03();						// 0x00573E7C
+	virtual ~Rva00573F03();
 
 	Coord3D m_40;						// +0x40
 	float m_4c;							// +0x4C
@@ -97,7 +97,7 @@ bool BaseTemplateLibrary::parseBaseTemplateDataChunk(DataChunkInput &file, DataC
 	int count = file.readInt();
 	for (int i = 0; i < count; ++i)
 	{
-		Rva00573E7C *base = new Rva00573E7C;
+		Rva00573F03 *base = new Rva00573F03;
 		AsciiString name = file.readAsciiString();
 		if (name != AsciiString::TheEmptyString)
 			base->m_name = name;
