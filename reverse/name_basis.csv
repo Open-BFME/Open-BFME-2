@@ -3162,8 +3162,8 @@ param,ScriptActions::Rva003C1EC2Set::v,ScriptActions::Rva003C1EC2Set::experience
 local,ScriptActions::Rva003C1EC2Set::t,ScriptActions::Rva003C1EC2Set::theTeam,inferred,agree:nl-cec83cddf094,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C1EC2.cpp,0x003C1EC2
 member,Rva00DFF0F8Obj::m_p10,Rva00DFF0F8Obj::m_pathfinder,inferred,agree:nl-2fe0630e8694,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C35AA.cpp,
 local,AIDozerManager::preEmptivelyBuildDozers::c,AIDozerManager::preEmptivelyBuildDozers::candidate,inferred,agree:nl-fcb41f4a0ff1,Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp,0x00599D56
-member,Anim2DCallView::field0c,Anim2DCallView::m_template,inferred,agree:nl-5456760e114c,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp,
-member,Anim2DCallView::field1c,Anim2DCallView::m_alpha,inferred,agree:nl-a3795a3507db,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp,
+member,Anim2DCallView::field0c,Anim2DCallView::m_template,inferred,agree:nl-5456760e114c,Code/GameEngine/Source/Common/FadeInTextRender.cpp,
+member,Anim2DCallView::field1c,Anim2DCallView::m_alpha,inferred,agree:nl-a3795a3507db,Code/GameEngine/Source/Common/FadeInTextRender.cpp,
 local,Rva005DAC85::updatePriority::m,Rva005DAC85::updatePriority::priority,inferred,agree:nl-8ed32194e786,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/Rva005DAC85Slot5.cpp,0x005DACC0
 local,Rva005DAC85::updatePriority::x,Rva005DAC85::updatePriority::maxPriority,inferred,agree:nl-6b2109164b63,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/Rva005DAC85Slot5.cpp,0x005DACC0
 member,Rva004F9F39Unit::m_0c,Rva004F9F39Unit::m_health,inferred,agree:nl-f1995d186f6d,Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveBattleLeadership.cpp,
@@ -3668,7 +3668,7 @@ param,Rva005258B2::rva005258B2::p,Rva005258B2::rva005258B2::hero,inferred,agree:
 local,Rva001F52CC::rva001F52CC::d,Rva001F52CC::rva001F52CC::zRotationDamping,inferred,agree:nl-af306568e6a4,Code/GameEngine/Source/Common/Rva001F52CC.cpp,0x001F52CC
 function,?Rva004D6B6E@@YAMM@Z,?focalLengthToFov@@YAMM@Z,inferred,agree:nl-45e83b04049f,Code/GameEngine/Source/Common/Rva004D6B6EAngle.cpp,0x004D6B6E
 function,?Rva004D6BB8@@YAMM@Z,?focalLengthToFovDegrees@@YAMM@Z,inferred,agree:nl-97cfabd7bab2,Code/GameEngine/Source/Common/Rva004D6B6EAngle.cpp,0x004D6BB8
-local,FadeInTextRender::rva00596908::w,FadeInTextRender::rva00596908::textWidth,inferred,agree:nl-40ce7034084c,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp,0x00596908
+local,FadeInTextRender::rva00596908::w,FadeInTextRender::rva00596908::textWidth,inferred,agree:nl-40ce7034084c,Code/GameEngine/Source/Common/FadeInTextRender.cpp,0x00596908
 param,Rva00167ED8::rva00167ED8::f,Rva00167ED8::rva00167ED8::width,inferred,agree:nl-9f782f1217c1,Code/GameEngine/Source/Common/Rva00167E5AFamily.cpp,0x00167ED8
 function,?rva005C44C3@Rva005C44C3@@UBE?AVAsciiString@@XZ,?getName@Rva005C44C3@@UBE?AVAsciiString@@XZ,inferred,agree:nl-7f7821a94718,Code/GameEngine/Source/Common/RvaAsciiStringNameGetters.cpp,0x005C44C3
 global,?g_00C78D64@@3QBQBDB,?s_iconSlotStateNames@@3QBQBDB,inferred,agree:nl-694655dc510e,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,0x00878D64

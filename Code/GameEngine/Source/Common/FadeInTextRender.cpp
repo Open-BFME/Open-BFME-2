@@ -3,9 +3,7 @@
 #include "ascii_string.h"
 #include <string.h>
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-
 extern int BfmeClientFramesPerSecond;
-
 class Text004721F0;
 struct ICoord2D;
 class GameFont;
@@ -19,14 +17,6 @@ public:
     virtual int rva002A98A7() const = 0;
     virtual int rva005C4ACD() const = 0;
 };
-class Anim2D;
-
-class GameFont;
-
-class Text004721F0;
-
-struct ICoord2D;
-
 // Retail vftable 0x00C70A70: slot 0 deleting dtor, slot 1 LoadAssets, slot 2
 // the text draw at 0x00596908, then two ICF-folded getters this view does not
 // declare yet: slot 3 returns +0x4C (0x002A98A7), slot 4 +0x2C (0x005C4ACD).
@@ -59,15 +49,22 @@ class Gen_003F6A20
 public:
 	void bfmeDetach(void);
 };
-
 class Display;
-
 extern Display *TheDisplay;
-
 class FadeDisplayCalls {public:
  virtual void p00();virtual void p04();virtual void p08();virtual void p0c();virtual void p10();virtual void p14();virtual void p18();virtual void p1c();virtual void p20();virtual void p24();virtual void p28();virtual void p2c();virtual void p30();virtual void p34();virtual void p38();virtual void p3c();virtual unsigned width();};
-
 #include "../../Include/GameClient/FontLibrary.h"
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
+// FadeInTextRender rendering, native 0x00596908..0x00596AE9.
+// BFME 1 cee35b7d8 FadeInTextRenderDraw004721F0 is the semantic guide;
+// target-specific bounds, frame phases and cloud animation are described below.
+// LoadAssets belongs to FadeInTextRender.cpp; this unit only needs
+// its virtual declaration, not a second definition of the asset loader.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+#include "unicode_string.h"
+#include "Lib/ICoord2D.h"
 
 extern FontLibrary*TheFontLibrary;
 
@@ -92,6 +89,51 @@ public:
 	char m_pad00[0x34];
 };
 
+class Text004721F0;
+
+struct ICoord2D;
+
+class GameFont;
+
+class Anim2D;
+
+struct Rva0059675AInner
+{
+	virtual void *slot0(int flag);
+};
+
+class Text004721F0 {
+public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual UnicodeString getText();
+ virtual void slot0c();
+ virtual void slot10();
+ virtual void slot14();
+ virtual void slot18();
+ virtual void slot1c();
+ virtual void slot20();
+ virtual void slot24();
+ virtual void colors(unsigned, unsigned);
+ virtual void slot2c();
+ virtual void slot30();
+ virtual void slot34();
+ virtual void draw(int,int,int,int);
+ virtual void size(int*,int*);
+};
+
+struct Template004721F0 { char field00[16]; unsigned short field10;
+ unsigned short getNumFrames() const { return field10; } };
+
+class Anim2DCallView { public:
+ void draw(int,int,int,int);
+ char field00[12]; Template004721F0* m_template; char field10[12]; float m_alpha;
+ const Template004721F0* getAnimTemplate() const { return m_template; }
+ void setAlpha(float a) { m_alpha = a; }
+};
+
+// ---- from Code/GameEngine/Source/Common/FadeInTextRender.cpp
+
 // ---- from Code/GameEngine/Source/Common/Bfme5SeventyOne.cpp
 
 // ?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z
@@ -110,8 +152,6 @@ void FadeInTextRender::bfmeExtend(int left, int top, int right, int bottom)
 		m_bfmeBottom = bottom;
 }
 
-// tu-skeleton: 0x005966C0 29B ??_GRva0059675ABase@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0059675ADtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/FadeInTextRender.cpp
 
 // Target Ghidra5966DD+125 and named owner from virtual destructor59675A.
@@ -125,8 +165,6 @@ void FadeInTextRender::bfmeExtend(int left, int top, int right, int bottom)
 FadeInTextRender::FadeInTextRender():anim(0),scale(0.0f),fontName("SachaWynter"),color((220 << 16) | (240 << 8) | 250),delay(BfmeClientFramesPerSecond/4+1),fontSize(14) {
  memset(starts,0,sizeof(starts));memset(ends,0,sizeof(ends));
 }
-
-// tu-skeleton: 0x0059675A 89B ??1FadeInTextRender@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0059675ADtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/FadeInTextRender_LoadAssets.cpp
 
@@ -156,16 +194,80 @@ void FadeInTextRender::LoadAssets() {
  height=(int)((float)anim->getCurrentFrameHeight()*scale);
 }
 
-// tu-skeleton: 0x00596908 481B ?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
 
-// tu-skeleton: 0x00596AE9 28B ??_GFadeInTextRender@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0059675ADtor.cpp (not merged yet)
+// ??1FadeInTextRender@@UAE@XZ @0x0059675A 89B
+// Dtor with EH frame: vptr store, delete of interface ptr at +0x1c via virtual
+// slot0 plus operator delete, StringBase<char> at +0x24 via releaseBuffer,
+// then base vtable store. Empty body plus delete.
+// Evidence: mov [esi] 0x00870A70, virtual call [eax] with push 0, call delete
+// at 0x2FD60, lea ecx [esi+24] call 0x36410, mov [esi] 0x00870A5C.
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
 
-// tu-skeleton: 0x0079D303 8B $L372 -- matched in Code/GameEngine/Source/Common/Rva0059675ADtor.cpp (not merged yet)
+Rva0059675ABase::~Rva0059675ABase()
+{
+}
 
-// tu-skeleton: 0x0079D30B 11B Unwind@00b9d30b -- matched in Code/GameEngine/Source/Common/Rva0059675ADtor.cpp (not merged yet)
+FadeInTextRender::~FadeInTextRender()
+{
+	void *tmp = anim ? reinterpret_cast<Rva0059675AInner *>(anim)->slot0(0) : 0;
+	::operator delete(tmp);
+	anim = 0;
+}
 
-// tu-skeleton: 0x0079D316 10B __ehhandler$??1FadeInTextRender@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0059675ADtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp
 
-// tu-skeleton: 0x0079D34D 8B Unwind@00b9d34d -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp (not merged yet)
+// LoadAssets is supplied by FadeInTextRender.cpp at 0x005967B3.
+// Keep its virtual declaration; this draw unit must not emit a second owner.
 
-// tu-skeleton: 0x0079D355 10B __ehhandler$?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp (not merged yet)
+// Native596908..596AE9 is FadeInTextRender tableC70A70 slot2. BF1 cee35b7d8
+// FadeInTextRenderDraw004721F0 is the semantic guide; target bounds worker
+// 59668D and the single cloud animation are target-specific. Original method
+// spelling is retained as unknown; the class follows the named LoadAssets slot.
+void FadeInTextRender::rva00596908(Text004721F0* text, const ICoord2D* pos, unsigned frame) {
+ int textWidth, h;
+ text->size(&textWidth, &h);
+ UnicodeString s = text->getText();
+ const ICoord2D &point = *pos;
+ int y=point.y-(height-h)/2;
+ int x = point.x;
+ int width = 0;
+ text->size(&width, 0);
+ int bottom = y + height;
+
+ bfmeExtend(x,y,(x + width),bottom);
+ int i;
+ i=0;
+ for(;i<3;++i) {
+  unsigned start=starts[i], end=ends[i];
+  if(*(volatile unsigned*)&frame>=start && frame<=end) {
+   float progress=float(frame-start)/float(end-start);
+   switch(i) {
+   case 0: {
+    unsigned frames=((Anim2DCallView*)anim)->getAnimTemplate()->getNumFrames();
+    if(frames) {
+     anim->setCurrentFrame(((frame-start)/4)%frames);
+     unsigned color=effectColor;
+     ((Anim2DCallView*)anim)->setAlpha(float(color>>24)/255.0f);
+     anim->draw(x-width/2,y,width*2,height);
+     anim->draw(x-width/2,y,width*2,height);
+    }
+    break;
+   }
+   case 1: {
+    unsigned alpha=(unsigned)(int)((1.0f<progress ? 1.0f:progress)*255.0f)<<24;
+    unsigned textColor=(color&0xffffff)|alpha;
+    text->colors(textColor,alpha);
+    text->draw(point.x,point.y,1,1);
+    break;
+   }
+   case 2:
+    text->colors(color|effectColor,effectColor);
+    text->draw(point.x,point.y,1,1);
+    break;
+   }
+  }
+ }
+}
