@@ -47,10 +47,14 @@ one-off script: each static the ledger keys to its own source (`name@source`), b
   **Repaired:** retail's 40 common, 17 object and 5 debris entries, with BFME 2's 19 disposition names (0x009B92F8; ours
   had Zero Hour's 9 and no terminator) and BFME 2's 16 shadow names (0x009B9298; the Zero Hour header's list has 7).
   A script compared every token, parser, user-data pointer and offset with retail: all equal.
-- Still open, the same pattern, all zero with no relocations where retail has a table: `audioLODFieldParseTable`
-  (`INIParseAudioLODDefinition.cpp`, 64 zero bytes), `s_statusBitsTable` (`UpgradeModuleDataGetterBuildFieldParse.cpp`),
-  `s_chinookFieldTable` (`DetachableRiderBody.cpp`), `s_table0050AD97` (`Rva0050AD97BuildFieldParse.cpp`) and
-  `s_extraFieldTable` (`FXListDieModuleDataBuildFieldParse.cpp`), one null entry each; `TheBFMEStaticGameLODFieldParseTable` (`GameLOD.cpp`) and
+- **Repaired, the same pattern** (zero, no relocations, where retail has a table): `audioLODFieldParseTable`
+  (`INIParseAudioLODDefinition.cpp`, 3 entries at 0x007E34B8), `s_statusBitsTable`
+  (`UpgradeModuleDataGetterBuildFieldParse.cpp`, 2 at 0x00857984), `s_chinookFieldTable` (`DetachableRiderBody.cpp`, 3 at
+  0x0085BECC; retail's ends with a 4-byte null token where the next table starts, ours with a whole null entry),
+  `s_table0050AD97` (`Rva0050AD97BuildFieldParse.cpp`, 4 at 0x00864B60, with that unit's 24-name `TheDeathNames` copy at
+  0x009D0FA0) and `s_extraFieldTable` (`FXListDieModuleDataBuildFieldParse.cpp`, 2 at 0x00864C08). Each compared with
+  retail by the same script: all equal.
+- Still open: `TheBFMEStaticGameLODFieldParseTable` (`GameLOD.cpp`) and
   `StrategicHUD.cpp`'s `s_table`, whose contents differ; and initial values retail has in `.data` that ours leaves zero:
   the glow, ring and fire effect statics (`Drawable/Rva00309FB3.cpp`, `Rva00309FFD.cpp`, `Rva0030A040.cpp`),
   `animationDisableOverride` (`W3DGhostObjectScene.cpp`), `AXIS_ROTATION` (`camerashakesystem_shaker.cpp`),

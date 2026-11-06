@@ -88,7 +88,18 @@ protected:
 
 int Rva004CE29DGet();
 
-static const FieldParse s_chinookFieldTable;
+#include "../../../../../Include/Common/INI/INI.h"
+// The DetachableRiderBody fields, retail .rdata 0x0085BECC: three entries read from retail's
+// words (the rowed INI::parsePercentToReal 0x0002F1BA and INI::parseBool 0x0002E850).
+// Retail's table ends after a 4-byte null token, where the next table begins; this one
+// keeps a whole null entry.
+static const FieldParse s_chinookFieldTable[] =
+{
+	{ "HealthPercentageWhenRiderDies", INI::parsePercentToReal, 0, 0x174 },
+	{ "StartsActive", INI::parseBool, 0, 0x178 },
+	{ "RiderlessDeathChance", INI::parsePercentToReal, 0, 0x17C },
+	{ 0, 0, 0, 0 }
+};
 
 class ActiveBody : public BodyModule, public BehaviorModuleInterface, public BodyModuleInterface
 {
@@ -132,7 +143,7 @@ private:
 {
 	ActiveBodyModuleData::buildFieldParse(parse);
 	parse.add((const FieldParse *)Rva004CE29DGet(), 0x64);
-	parse.add(&s_chinookFieldTable, 0);
+	parse.add(s_chinookFieldTable, 0);
 }
 
 // tu-skeleton: 0x004C1BAB 35B ??1Rva004C1BAB@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp (not merged yet)

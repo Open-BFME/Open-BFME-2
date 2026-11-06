@@ -20,7 +20,16 @@ struct Rva005088C8
 	static void *opaqueCall();
 };
 
-static const FieldParse s_extraFieldTable;
+#include "../../../../Include/Common/INI/INI.h"
+
+// The table at retail .rdata 0x00864C08: DamageInterval@0x1A4 and DamageDuration@0x1A8 via
+// the rowed INI::parseDurationUnsignedInt (0x00338B30), then the null entry.
+static const FieldParse s_extraFieldTable[] =
+{
+	{ "DamageInterval", INI::parseDurationUnsignedInt, 0, 0x1A4 },
+	{ "DamageDuration", INI::parseDurationUnsignedInt, 0, 0x1A8 },
+	{ 0, 0, 0, 0 }
+};
 
 class Rva0050B107
 {
@@ -33,5 +42,5 @@ void Rva0050B107::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add((const FieldParse *)Rva00507552::opaqueCall(), 0);
 	parse.add((const FieldParse *)Rva005088C8::opaqueCall(), 0);
-	parse.add(&s_extraFieldTable, 0);
+	parse.add(s_extraFieldTable, 0);
 }

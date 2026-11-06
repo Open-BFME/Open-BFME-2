@@ -47,7 +47,15 @@ typedef bool Bool;
 
 extern GameLODManager *TheGameLODManager;  // defined in GameLOD.cpp
 
-static const FieldParse audioLODFieldParseTable[4] = { { 0 }, { 0 }, { 0 }, { 0 } };
+// The AudioLOD fields, retail .rdata 0x007E34B8: three entries and the null entry, read
+// from retail's words; the rowed INI::parseInt (0x0002EF56) and INI::parseBool (0x0002E850).
+static const FieldParse audioLODFieldParseTable[] =
+{
+	{ "MaximumAmbientStreams", INI::parseInt, 0, 0x0 },
+	{ "AllowDolby", INI::parseBool, 0, 0x4 },
+	{ "AllowReverb", INI::parseBool, 0, 0x5 },
+	{ 0, 0, 0, 0 }
+};
 
 
 

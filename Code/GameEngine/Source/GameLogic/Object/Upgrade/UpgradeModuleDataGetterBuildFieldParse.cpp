@@ -131,7 +131,18 @@ static ArmorUpgradeFieldParse s_armorTable[4] = {
 	{ 0, 0, 0, 0 }
 };
 
-static const FieldParse s_statusBitsTable;
+// StatusBits 0x00C57984 48B: StatusToSet@0x118 and StatusToClear@0x128 via the rowed
+// Rva003B1017::parseFromINI (0x003B1327), then the null entry.
+class Rva003B1017
+{
+public:
+	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+};
+static const FieldParse s_statusBitsTable[] = {
+	{ "StatusToSet", &Rva003B1017::parseFromINI, 0, 0x118 },
+	{ "StatusToClear", &Rva003B1017::parseFromINI, 0, 0x128 },
+	{ 0, 0, 0, 0 }
+};
 
 // AttributeModifier 0x00C58818 32B: AttributeModifier@0x118 via rowed 0x2F11E.
 static BaselineFieldParse s_attributeModifierTable[2] = {
@@ -182,7 +193,7 @@ static BaselineFieldParse s_spellRechargeTable[4] = {
 void StatusBitsUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 8);
-	parse.add(&s_statusBitsTable, 0);
+	parse.add(s_statusBitsTable, 0);
 }
 
 // ?buildFieldParse@AttributeModifierUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z
