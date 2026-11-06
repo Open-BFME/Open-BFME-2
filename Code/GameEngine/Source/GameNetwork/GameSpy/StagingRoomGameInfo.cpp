@@ -53,19 +53,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
 typedef unsigned short WideChar;
 #include <windows.h>
-
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
-
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> >::~basic_string(); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
-
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -75,29 +71,18 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-
 typedef int Int;
-
 typedef bool Bool;
-
 typedef unsigned char UnsignedByte;
-
 typedef unsigned short UnsignedShort;
-
 typedef unsigned int UnsignedInt;
-
 enum
 {
 	MAX_SLOTS = 8
 };
-
 struct NAT;
-
 class Transport;
-
-// An address as BFME 2's NetworkInterface::setLocalAddress takes it.
 #include "../../../Include/GameNetwork/BfmeNetAddress.h"
-
 // Vtable gaps: VSlots<N> declares slots 0..N-1 and VPad<B, N> the N slots
 // after B's.
 template <int N> class VSlots : public VSlots<N - 1>
@@ -105,21 +90,17 @@ template <int N> class VSlots : public VSlots<N - 1>
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class VSlots<0>
 {
 };
-
 template <class B, int N> class VPad : public VPad<B, N - 1>
 {
 public:
 	virtual void pad(B *, char (*)[N]) = 0;
 };
-
 template <class B> class VPad<B, 0> : public B
 {
 };
-
 class GameSlot
 {
 public:
@@ -142,7 +123,6 @@ public:
 	bool m_bfme1A4;					// +0x1A4
 	unsigned char m_pre1AC[0x1AC - 0x1A5];
 };
-
 class GameSpyGameSlot : public GameSlot
 {
 public:
@@ -161,11 +141,8 @@ private:
 	int m_rankPoints;				// +0x1C8
 	int m_favoriteSide;				// +0x1CC
 };
-
 class Image;
-
 class Xfer;
-
 class GameInfo
 {
 public:
@@ -222,7 +199,6 @@ public:
 private:
 	char m_pad74[0xDC - 0x74];
 };
-
 class Rva00382398 : public GameSlot
 {
 public:
@@ -242,9 +218,7 @@ public:
 	AsciiString m_1DC;
 	Rva00382398();
 };
-
 struct Rva003EFDDBOut;
-
 class Rva003EFDDBHolder
 {
 public:
@@ -253,7 +227,6 @@ public:
 	UnsignedByte m_pre18[0x18];
 	AsciiString m_mapName;			// +0x18
 };
-
 class LivingWorldBattle
 {
 public:
@@ -262,81 +235,25 @@ public:
 	UnsignedByte m_pre24[0x24];
 	Rva003EFDDBHolder *m_holder;		// +0x24
 };
-
 class LivingWorldBattle;
-
 class GameSpyGameSlot;
-
-class GameSpyStagingRoom : public GameInfo
-{
-public:
-	GameSpyStagingRoom();
-	virtual ~GameSpyStagingRoom();
-	// Retail table VA 00C19440 overrides slot 3 with RVA 004FDAC7.
-	virtual void xfer(Xfer *);
-	virtual void reset(void);
-	virtual void startGame(int gameID);
-	virtual bool amIHost(void) const;
-	virtual int getLocalSlotNum(void) const;
-	virtual void resetAccepted(void);
-	virtual const Image *rva00401015(int column);
-	GameSpyGameSlot *getGameSpySlot(int index);
-	bool getBfmeFEC(void) const { return m_bfmeFEC; }
-	void cleanUpSlotPointers(void);
-	void launchGame(void);
-	void rva004FDEFF(LivingWorldBattle *battle);
-	void launchWOTRMPGame(void);
-	AsciiString generateGameSpyGameResultsPacket(bool sawCRCMismatch, bool playerQuit);
-	bool isQMGame(void) { return m_isQM; }
-private:
-	Rva00382398 m_GameSpySlot[8]; // +0xDC
-	AsciiString m_gameName;     // +0xFDC
-	int m_id;                   // +0xFE0
-	NAT *m_transport;           // +0xFE4
-	AsciiString m_localName;    // +0xFE8
-	bool m_bfmeFEC;             // +0xFEC
-	bool m_bfmeFED;             // +0xFED
-	unsigned int m_bfmeFF0;      // +0xFF0
-	bool m_isQM;                // +0xFF4
-	int m_qmLadderType;         // +0xFF8
-	AsciiString m_ladderIP;     // +0xFFC
-	AsciiString m_pingStr;     // +0x1000
-	int m_pingInt;             // +0x1004
-	unsigned short m_ladderPort; // +0x1008
-	int m_bfme100C;             // +0x100C
-	int m_bfme1010;             // +0x1010
-	int m_bfme1014;             // +0x1014
-	int m_reportedMaxPlayers;   // +0x1018
-	int m_reportedNumObservers; // +0x101C
-};
-
 class GameSpyStagingRoom;
-
-// BFME 2's PlayerInfo as PeerDefs.cpp lays it out (0x34 bytes).
 #include "../../../Include/GameNetwork/PlayerInfo.h"
-
 struct AsciiComparator
 {
 	bool operator()(AsciiString s1, AsciiString s2) const;
 };
-
 typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
-
 extern GameSpyInfoInterface *TheGameSpyInfo;
-
 extern GameSpyStagingRoom *TheGameSpyGame;
-
 extern NAT *TheNAT;
-
 // The object at 0x00E063EC, cleared through the rowed 0x0059EE7F.
 class Rva0059EE7FDwordClearer
 {
 public:
 	void clear();
 };
-
 extern int g_currentAptOnlineCustomMatch;
-
 class GameTextInterface
 {
 public:
@@ -346,19 +263,12 @@ public:
 	virtual void v12(); virtual void v13(); virtual void v14();
 	virtual UnicodeString fetch(const char *label, Bool *exists = 0);	// slot 15 (+0x3C)
 };
-
 extern GameTextInterface *TheGameText;
-
 class MapMetaData;
-
 #include "../../../Include/GameClient/MapCache.h"
-
 extern MapCache *TheMapCache;
-
 #include "../../../Include/Common/GlobalData.h"
-
 extern GlobalData *TheWritableGlobalData;
-
 class NetworkInterface
 {
 public:
@@ -372,34 +282,22 @@ public:
 	virtual void attachTransport(Transport *transport);		// slot 19 (+0x4C)
 	virtual void initTransport(void);				// slot 20 (+0x50)
 };
-
 extern NetworkInterface *TheNetwork;
-
 Bool DoAnyHeroTransfer(void);
-
 Bool DoAnyMapTransfers(GameInfo *game);
-
 void InitGameLogicRandom(UnsignedInt seed);
-
 void GSMessageBoxOk(UnicodeString titleString, UnicodeString bodyString, void (*okFunc)(void));
-
 void CreateTheNetwork(void);
-
 extern GameLogic *TheGameLogic;
-
 #include "../../../Include/GameLogic/LivingWorldManager.h"
-
 extern LivingWorldManager *TheLivingWorldManager;
-
 class LivingWorldLogic
 {
 public:
 	UnsignedByte m_preEC[0xEC];
 	Int m_bfmeEC;					// +0xEC
 };
-
 extern LivingWorldLogic *TheLivingWorldLogic;
-
 class Rva002D3627Host
 {
 public:
@@ -408,12 +306,36 @@ public:
 	virtual void v8(); virtual void v9();
 	virtual void rva10(Int value);			// slot 10 (+0x28)
 };
-
 class LivingWorld;
-
  extern LivingWorld *TheLivingWorld;
-
 #include "../../../Include/Common/MessageStream.h"
+// ?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z @0x004FDAC7 39B: slot 3 (offset 0x0C)
+// of vtable 0x00819440; IsLightCRC guard via Xfer slot 0x10, Version1 via rowed
+// 0x000053EE, then rowed SkirmishGameInfo::xfer 0x003FFA3C. Evidence: vslot,
+// callers none, donor GameSpyStagingRoomCopy layout, PoisonedBehaviorXfer Xfer
+// order recipe.
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+class DamageInfo;
+#include "../../../Include/Common/BfmeXfer.h"
 
 extern class MessageStream *TheMessageStream;
 
@@ -879,6 +801,61 @@ private:
 	char m_pad[0x1DC];
 	AsciiString m_value; // +0x1DC
 };
+
+class SkirmishGameInfo
+{
+public:
+	virtual void xfer(Xfer *xfer);
+};
+
+class GameSpyStagingRoom : public GameInfo
+{
+public:
+	GameSpyStagingRoom();
+	virtual ~GameSpyStagingRoom();
+	// Retail table VA 00C19440 overrides slot 3 with RVA 004FDAC7.
+	virtual void xfer(Xfer *);
+	virtual void reset(void);
+	virtual void startGame(int gameID);
+	virtual bool amIHost(void) const;
+	virtual int getLocalSlotNum(void) const;
+	virtual void resetAccepted(void);
+	virtual const Image *rva00401015(int column);
+	GameSpyGameSlot *getGameSpySlot(int index);
+	bool getBfmeFEC(void) const { return m_bfmeFEC; }
+	void cleanUpSlotPointers(void);
+	void launchGame(void);
+	void rva004FDEFF(LivingWorldBattle *battle);
+	void launchWOTRMPGame(void);
+	AsciiString generateGameSpyGameResultsPacket(bool sawCRCMismatch, bool playerQuit);
+	bool isQMGame(void) { return m_isQM; }
+private:
+	Rva00382398 m_GameSpySlot[8]; // +0xDC
+	AsciiString m_gameName;     // +0xFDC
+	int m_id;                   // +0xFE0
+	NAT *m_transport;           // +0xFE4
+	AsciiString m_localName;    // +0xFE8
+	bool m_bfmeFEC;             // +0xFEC
+	bool m_bfmeFED;             // +0xFED
+	unsigned int m_bfmeFF0;      // +0xFF0
+	bool m_isQM;                // +0xFF4
+	int m_qmLadderType;         // +0xFF8
+	AsciiString m_ladderIP;     // +0xFFC
+	AsciiString m_pingStr;     // +0x1000
+	int m_pingInt;             // +0x1004
+	unsigned short m_ladderPort; // +0x1008
+	int m_bfme100C;             // +0x100C
+	int m_bfme1010;             // +0x1010
+	int m_bfme1014;             // +0x1014
+	int m_reportedMaxPlayers;   // +0x1018
+	int m_reportedNumObservers; // +0x101C
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp
+
+// An address as BFME 2's NetworkInterface::setLocalAddress takes it.
+
+// BFME 2's PlayerInfo as PeerDefs.cpp lays it out (0x34 bytes).
 
 // ---- from Code/GameEngine/Source/GameNetwork/GameSpy/StagingRoomGameInfo.cpp
 
@@ -2009,10 +1986,6 @@ GameSpyStagingRoom::GameSpyStagingRoom()
 	m_reportedNumObservers = 0;
 }
 
-// tu-skeleton: 0x004FDAC7 39B ?xfer@GameSpyStagingRoom@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004FDAEE 22B ??$_Construct@UBfmePod20@@U1@@_STL@@YAXPAUBfmePod20@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
 
 // ?get@Rva004FDCE1AsciiField@@QBE?AVAsciiString@@XZ
@@ -2047,3 +2020,15 @@ AsciiString Rva004FDD6DAsciiField::get() const
 {
 	return m_value;
 }
+
+// ---- from Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomXfer.cpp
+
+void GameSpyStagingRoom::xfer(Xfer *xfer)
+{
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
+	reinterpret_cast<SkirmishGameInfo *>(this)->SkirmishGameInfo::xfer(xfer);
+}
+
+// tu-skeleton: 0x004FDAEE 22B ??$_Construct@UBfmePod20@@U1@@_STL@@YAXPAUBfmePod20@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
