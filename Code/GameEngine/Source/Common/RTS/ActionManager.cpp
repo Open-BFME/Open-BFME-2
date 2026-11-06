@@ -124,14 +124,12 @@ public:
 	virtual int CheckActive(int v);
 };
 #include "ascii_string.h"
-
 // ABI repair: retail 29C823 and named WB DBA3A0 dispatch through TheActionManager.
 // The unused manager this is still part of the calling convention. Existing
 // return representations are preserved. No additional name or pin is introduced.
 // ?Rva0041B8D2Check@ActionManager@@QAEEPAVRva0041B8D2Obj@@0H@Z @0x0041B8D2 70B
 // Evidence: caller 0x0029C8B9 in 0x0029C823; unblocks 0x0029C823; offsets +4/+0x5ec/+0x258; virtual slots +0x178/+0x18.
 struct Rva0041B8D2Inner { char pad[0x5ec]; unsigned char flag; };
-
 struct Rva0041B8D2Holder {
  virtual void d00();
  virtual void d01();
@@ -229,7 +227,6 @@ struct Rva0041B8D2Holder {
  virtual void d93();
  virtual void *Get();
 };
-
 struct Rva0041B8D2Iface {
  virtual void e00();
  virtual void e01();
@@ -239,7 +236,6 @@ struct Rva0041B8D2Iface {
  virtual void e05();
  virtual unsigned char Check();
 };
-
 class Rva0041B8D2Obj {
 public:
  char _0[4];
@@ -247,7 +243,6 @@ public:
  char _8[0x258-8];
  Rva0041B8D2Holder *m_holder;
 };
-
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/RTS/ActionManagerGetCanAttackObject.cpp (donor
@@ -263,28 +258,21 @@ public:
 // the RET at 0x0041B949. Retarget the row to this complete boundary.
 
 typedef int Int;
-
 typedef unsigned int UnsignedInt;
-
 typedef bool Bool;
-
 enum KindOfType
 {
 	KINDOF_STRUCTURE = 7,
 	KINDOF_SPAWNS_ARE_THE_WEAPONS = 84
 };
-
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_0 = 0,
 	OBJECT_STATUS_1 = 1,
 	OBJECT_STATUS_2 = 2
 };
-
 class Object;
-
 typedef void (*BfmeContainIterateFunc)( Object *obj, void *userData );
-
 // BFME2's ContainModuleInterface places iterateContained at vtable +0x110
 // (BFME1: +0xfc).
 // Only that slot is named; the preceding entries preserve the ABI slice.
@@ -310,7 +298,6 @@ public:
 	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
 	virtual void iterateContained( BfmeContainIterateFunc func, void *userData, Bool reverse );
 };
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/SpawnBehavior.h
 class SpawnBehaviorInterface
 {
@@ -319,7 +306,6 @@ public:
 	virtual void slot04();
 	virtual Object *getClosestSlave( const Coord3D *pos );
 };
-
 // BuildAssistant.cpp declares eight UnsignedInt KindOf words at +0x108 (0x20 bytes); this byte view preserves the call site's mask indexing.
 class ThingTemplate
 {
@@ -327,9 +313,7 @@ public:
 	unsigned char m_pre108[0x108];
 	unsigned char m_kindOfBytes[0x20]; // +0x108; byte +0x109 bit 0x40
 };
-
 class ActionManager;
-
 struct BfmeContainedAttackContext
 {
 	CanAttackResult result;
@@ -338,30 +322,22 @@ struct BfmeContainedAttackContext
 	CommandSourceType commandSource;
 	AbleToAttackType attackType;
 };
-
 class Weapon;
-
 #include "../../../Include/GameLogic/WeaponSetClass.h"
-
 struct Rva0041BB87Iface
 {
 	virtual void d00();
 	virtual void d01();
 	virtual unsigned char Check(Object *obj);
 };
-
 enum SpecialPowerType { SPECIAL_INVALID = 0 };
-
 #include "../../../Include/Common/Overridable.h"
 #include "../../../Include/Common/SpecialPower.h"
-
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
-
 // LINK: the counted object destroys through the rowed destructor of an STLport
 // vector<BfmeE8>; the head words are the vector plus its owner, so the delete
 // below binds that destructor.
 struct BfmeE8;
-
 namespace _STL
 {
 template <class T> class allocator;
@@ -374,39 +350,29 @@ public:
 	int m_bfmeCountCF;
 };
 }
-
 typedef _STL::vector<BfmeE8, _STL::allocator<BfmeE8> > BfmeObjCF;
-
 class BfmeRefCF
 {
 public:
 	BfmeRefCF *bfmeAssignCF(const BfmeRefCF &other);
 	BfmeObjCF *m_bfmePtrCF; // +0x00
 };
-
 extern PartitionManager *TheShroudManager;
-
 enum ObjectID
 {
 	OBJECTID_INVALID = 0
 };
-
 class ThingTemplate;
-
 class VisIface;
-
 class SpawnBehaviorInterface;
-
 class BfmeContainModule;
-
 class SpecialPowerTemplate;
-
 class SpecialPowerModuleInterface;
-
 class Player;
-
 class SpecialAbilityUpdate;
-
+#include "../../../Include/Common/MessageStream.h"
+class DrawableList;
+#include "../../../Include/GameLogic/ActionManager.h"
 class Object
 {
 public:
@@ -467,12 +433,10 @@ public:
 	ObjectID getSoleHealingBenefactor() const;
 	SpecialAbilityUpdate *findSpecialAbilityUpdate(SpecialPowerType type) const;
 };
-
-#include "../../../Include/Common/MessageStream.h"
-
-class DrawableList;
-
-#include "../../../Include/GameLogic/ActionManager.h"
+class Pathfinder;
+#include "../../../Include/GameLogic/AI.h"
+extern AI *TheAI;
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 struct Provider28
 {
@@ -528,6 +492,8 @@ extern InGameUI *TheInGameUI;
 // tu-skeleton: 0x0041B8B5 18B ??0ActionManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x0041B8C7 11B ??1ActionManager@@UAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/ActionManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/ActionManager.cpp
 
@@ -943,22 +909,6 @@ bool BFMEActionManager::rva000C4080(const Object *obj, const Object *target, Com
 	}
 }
 
-// tu-skeleton: 0x0041B9B0 108B ?canConvertObjectToCarBomb@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BA1C 64B ?canMakeObjectDefector@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BA5C 5B ?rva0041BA5C@Rva0041BA5C@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BA61 113B ?rva0041BA61@ActionManager@@QAE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BBE4 189B ?canGetRepairedAt@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BCA1 409B ?canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BE3A 89B ?canDockAt@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@_N@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BE93 180B ?canGetHealedAt@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ActionManager_canResumeConstructionOf.cpp
 
 bool ActionManager::canResumeConstructionOf(const Object *object, const Object *b, CommandSourceType)
@@ -980,12 +930,6 @@ bool ActionManager::canResumeConstructionOf(const Object *object, const Object *
 	return true;
 }
 
-// tu-skeleton: 0x0041C001 132B ?canHijackVehicle@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C085 179B ?canFireWeaponAtLocation@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@W4CommandSourceType@@W4WeaponSlotType@@0@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C138 227B ?rva0041C138@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ActionManager_canPlayerGarrison.cpp
 
 bool ActionManager::canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource)
@@ -1003,34 +947,6 @@ bool ActionManager::canPlayerGarrison(const Player *player, const Object *obj, C
 		return false;
 	return vis->CheckActive(0) == 0;
 }
-
-// tu-skeleton: 0x0041C295 23B ?rva0041C295@Rva0041C295@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C2AC 9B ?rva0041C2AC@Rva0041C295@@QBEMXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C2B5 9B ?rva0041C2B5@Rva0041C295@@QBEPBXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C2BE 9B ?rva0041C2BE@Rva0041C295@@QBEPBXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C2C7 9B ?rva0041C2C7@Rva0041C295@@QBEMXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C2D0 806B ?canEnterObject@BFMEActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@W4CanEnterType@@_NPA_N@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C5F6 217B ?getEnterMessage@ActionManager@@QAE?AW4Type@GameMessage@@PBVObject@@PBVDrawableList@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C79C 464B ?rva0041C79C@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@PAVCapturePowerView@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C96C 88B ?rva0041C96C@Rva0041C96C@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C9C4 52B ?rva0041C9C4@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/Rva0041C9C4.cpp (not merged yet)
-
-// tu-skeleton: 0x0041C9F8 166B ?validateLocationForForbiddenObjects@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041CA9E 114B ?rva0041CA9E@ActionManager@@QAE_NPBUCoord3D@@0PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041CB10 341B ?rva0041CB10@ActionManager@@QAE_NPBUCoord3D@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041CC65 112B ?rva0041CC65@ActionManager@@QAE_NPBVSpecialPowerTemplate@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0041CE27Check.cpp
 
@@ -1069,6 +985,71 @@ GameMessage::Type ActionManager::rva0041CE06(const Object *obj)
 	const DrawableList *draws = TheInGameUI->slot124();
 	return getEnterMessage(obj, draws);
 }
+
+// tu-skeleton: 0x0041B9B0 108B ?canConvertObjectToCarBomb@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BA1C 64B ?canMakeObjectDefector@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BA5C 5B ?rva0041BA5C@Rva0041BA5C@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BA61 113B ?rva0041BA61@ActionManager@@QAE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BBE4 189B ?canGetRepairedAt@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BCA1 409B ?canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BE3A 89B ?canDockAt@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@_N@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BE93 180B ?canGetHealedAt@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C001 132B ?canHijackVehicle@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C085 179B ?canFireWeaponAtLocation@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@W4CommandSourceType@@W4WeaponSlotType@@0@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C138 227B ?rva0041C138@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C295 23B ?rva0041C295@Rva0041C295@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C2AC 9B ?rva0041C2AC@Rva0041C295@@QBEMXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C2B5 9B ?rva0041C2B5@Rva0041C295@@QBEPBXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C2BE 9B ?rva0041C2BE@Rva0041C295@@QBEPBXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C2C7 9B ?rva0041C2C7@Rva0041C295@@QBEMXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE08.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C2D0 806B ?canEnterObject@BFMEActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@W4CanEnterType@@_NPA_N@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C5F6 217B ?getEnterMessage@ActionManager@@QAE?AW4Type@GameMessage@@PBVObject@@PBVDrawableList@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C79C 464B ?rva0041C79C@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@PAVCapturePowerView@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041C96C 88B ?rva0041C96C@Rva0041C96C@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0041C9C4.cpp
+
+// ?rva0041C9C4@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@PBVSpecialPowerTemplate@@@Z, retail 0x0041C9C4, 52 bytes.
+// Caller evidence: canDoSpecialPowerAtLocation at RVA 0x0041D6ED loads
+// ECX=ActionManager before passing (object, location, special-power template).
+// The implementation ignores its this pointer; RET 0xC alone did not prove
+// the former free-stdcall declaration. The original helper name is unknown.
+// The template override's flag bit 6 gates Pathfinder::QuickDoesPathExist.
+
+bool ActionManager::rva0041C9C4(const Object *obj, const Coord3D *coord, const SpecialPowerTemplate *over)
+{
+	if ((((unsigned char)(over->getFO()->m_flags >> 6)) & 1) == 0)
+		return true;
+	Pathfinder *pf = TheAI->m_pathfinder;
+	return pf->QuickDoesPathExist((Object *)obj, &obj->m_pos38, coord, 0);
+}
+
+// tu-skeleton: 0x0041C9F8 166B ?validateLocationForForbiddenObjects@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041CA9E 114B ?rva0041CA9E@ActionManager@@QAE_NPBUCoord3D@@0PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041CB10 341B ?rva0041CB10@ActionManager@@QAE_NPBUCoord3D@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041CC65 112B ?rva0041CC65@ActionManager@@QAE_NPBVSpecialPowerTemplate@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
 
 // tu-skeleton: 0x0041CE99 307B ?canRepairObject@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
 
