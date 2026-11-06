@@ -14,7 +14,6 @@ template <typename T> struct StringInlineData
 	T m_text[ 1 ];
 };
 #include "ascii_string.h"
-#pragma comment(linker, "/alternatename:?Rva0081D7C0FieldParseTable@@3QBUFieldParse@@B=??_C@_01GBGANLPD@0?$AA@")
 #include <string.h>
 #include "string_base.h"
 #include "unicode_string.h"
@@ -86,7 +85,8 @@ public:
 
 extern VideoPlayerInterface *TheVideoPlayer;
 
-extern const FieldParse Rva0081D7C0FieldParseTable[];
+// VA 0x00CE43B0: the subtitle fields table INIThinFieldParsers2.cpp defines (a data row).
+extern const FieldParse g_00CE43B0[];
 
 #include "../../Include/Common/INI/FieldParse.h"
 
@@ -204,7 +204,7 @@ void parseSubtitle( INI *ini, void *, void *, const void * )
 	{
 		if ( ini->getNextToken( 0 ) != 0 )
 		{
-			ini->initFromINI( const_cast<void *>( subtitle ), Rva0081D7C0FieldParseTable );
+			ini->initFromINI( const_cast<void *>( subtitle ), g_00CE43B0 );
 		}
 	}
 	else
