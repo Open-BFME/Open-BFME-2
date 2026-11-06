@@ -45,6 +45,10 @@ against retail and the readers:
 - 0x009E1F24: **repaired.** `W3DShaderManager.cpp` defined both `W3DShaders[2]`, which init (0x000F5B43) fills, and
   `g_00DE1F24[1]`, which only `setShader` (0x00075655) read. Retail's `setShader` indexes 0x00DE1F24, so ours never
   reached a shader's `set` and always returned 0. It now reads `W3DShaders` through the same volatile view.
+- 0x00A0312C: **repaired.** `AIGameTeam.cpp` defined `ArmorStore *g_00E0312C = 0` and `AIGameTeam::addPlayer`
+  (0x004E9823, `8b 0d 2c 31 e0 00`) called through it, while `GameEngine::init` stores the subsystem it creates in
+  `TheArmyDefinitionManager` (`ArmyDefinitionManager.cpp`). Ours called the armor lookup on a null receiver for every AI
+  player a skirmish adds. It now reads `TheArmyDefinitionManager`, as `SkirmishAIManager.cpp` does.
 
 Remaining / next check: regenerate `reverse/data_ledger.csv` (a separate decision; LINK-619 measured the same staleness)
 and re-read this counter; most of the 183 should then name their current owners.

@@ -4,7 +4,7 @@
 //
 // ?addPlayer@AIGameTeam@@QAEXPBVModuleData@@@Z @ 0x004E9823, 137 bytes.
 // Armor-gated registry fill: look up parent's armor name through the ArmorStore
-// at g_00E0312C via rowed find 0x0041F474, new a 0x188-byte SkirmishAI with
+// at VA 0x00E0312C via rowed find 0x0041F474, new a 0x188-byte SkirmishAI with
 // (parent, armor, map-empty) via rowed ctor 0x002C6EE0, file it under the
 // parent's +0x54 key via rowed map<int,int>::operator[] 0x0028932C, push the
 // parent via rowed vector<const ModuleData*>::push_back 0x004DFCB0, set +0x24.
@@ -50,7 +50,10 @@ class ArmorStore
 public:
 	const ArmorTemplate *rva0041F474(const AsciiString &name) const;
 };
-ArmorStore *g_00E0312C = 0;
+// VA 0x00E0312C is TheArmyDefinitionManager (ArmyDefinitionManager.cpp), the subsystem
+// GameEngine::init creates; addPlayer reads its armor lookup through this view.
+class Rva0022BD25Subsystem;
+extern Rva0022BD25Subsystem *TheArmyDefinitionManager;
 class SkirmishAI
 {
 public:
@@ -313,7 +316,7 @@ bool Rva004E9600::rva004E9600(void *record)
 void AIGameTeam::addPlayer(const ModuleData *player)
 {
 	const AsciiString *name = (const AsciiString *)((const char *)player + 0x58);
-	const ArmorTemplate *armorTemplate = g_00E0312C->rva0041F474(*name);
+	const ArmorTemplate *armorTemplate = ((ArmorStore *)TheArmyDefinitionManager)->rva0041F474(*name);
 	SkirmishAI *skirmishAI = new SkirmishAI((Player *)player, (void *)armorTemplate, m_map.size() == 0);
 	int key = *(const int *)((const char *)player + 0x54);
 	m_map[key] = (int)skirmishAI;
