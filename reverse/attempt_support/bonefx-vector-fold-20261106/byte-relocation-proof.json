@@ -1,0 +1,702 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp",
+  "owner": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+  "owner_current": true,
+  "variants": {
+    "control": {
+      "matched": 6,
+      "rows": 6,
+      "errors": [],
+      "helpers": {
+        "?size@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QBEIXZ": {
+          "owner_symbol": "?size@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QBEIXZ",
+          "size": 9,
+          "owner_size": 9,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?_M_set@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@00@Z": {
+          "owner_symbol": "?_M_set@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@00@Z",
+          "size": 23,
+          "owner_size": 23,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?allocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEPAW4ParticleSystemID@@IPBX@Z": {
+          "owner_symbol": "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z",
+          "size": 25,
+          "owner_size": 28,
+          "body_equal": false,
+          "normalized_relocations_equal": false,
+          "relocations": [
+            [
+              13,
+              20,
+              "?allocate@?$__node_alloc@$00$0A@@_STL@@SAPAXI@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              15,
+              20,
+              "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+            ]
+          ],
+          "owner_row": {
+            "name": "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z",
+            "export_rva": "",
+            "target_rva": "0x00068E15",
+            "target_size": "28",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "actual native NameKey list four-byte storage allocator; full28 bytes and relocation twin; zero unique bytes"
+          }
+        },
+        "?deallocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEXPAW4ParticleSystemID@@I@Z": {
+          "owner_symbol": "?deallocate@?$allocator@W4NameKeyType@@@_STL@@QBEXPAW4NameKeyType@@I@Z",
+          "size": 29,
+          "owner_size": 20,
+          "body_equal": false,
+          "normalized_relocations_equal": false,
+          "relocations": [
+            [
+              20,
+              20,
+              "?deallocate@?$__node_alloc@$00$0A@@_STL@@SAXPAXI@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": null
+        },
+        "??$_Construct@W4ParticleSystemID@@W41@@_STL@@YAXPAW4ParticleSystemID@@ABW41@@Z": {
+          "owner_symbol": "??$_Construct@W4NameKeyType@@W41@@_STL@@YAXPAW4NameKeyType@@ABW41@@Z",
+          "size": 17,
+          "owner_size": 17,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$__uninitialized_copy@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z": {
+          "owner_symbol": "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z",
+          "size": 31,
+          "owner_size": 31,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": {
+            "name": "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z",
+            "export_rva": "",
+            "target_rva": "0x001DD10D",
+            "target_size": "31",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "NameKey parser native enum vector; full31 byte-and-relocation copy twin; zero unique bytes"
+          }
+        },
+        "??$__uninitialized_fill_n@PAW4ParticleSystemID@@IW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@IABW41@ABU__false_type@0@@Z": {
+          "owner_symbol": "??$__uninitialized_fill_n@PAW4NameKeyType@@IW41@@_STL@@YAPAW4NameKeyType@@PAW41@IABW41@ABU__false_type@0@@Z",
+          "size": 31,
+          "owner_size": 31,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": {
+            "name": "??$__uninitialized_fill_n@PAW4NameKeyType@@IW41@@_STL@@YAPAW4NameKeyType@@PAW41@IABW41@ABU__false_type@0@@Z",
+            "export_rva": "",
+            "target_rva": "0x0020E400",
+            "target_size": "31",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "NameKey parser native enum vector; full31 byte-and-relocation fill twin; zero unique bytes"
+          }
+        },
+        "??$__stl_alloc_rebind@W4ParticleSystemID@@W41@@_STL@@YAAAV?$allocator@W4ParticleSystemID@@@0@AAV10@PBW4ParticleSystemID@@@Z": {
+          "owner_symbol": "??$__stl_alloc_rebind@W4NameKeyType@@W41@@_STL@@YAAAV?$allocator@W4NameKeyType@@@0@AAV10@PBW4NameKeyType@@@Z",
+          "size": 5,
+          "owner_size": 5,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$_Destroy@W4ParticleSystemID@@@_STL@@YAXPAW4ParticleSystemID@@@Z": {
+          "owner_symbol": "??$_Destroy@W4NameKeyType@@@_STL@@YAXPAW4NameKeyType@@@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?allocate@?$_STLP_alloc_proxy@PAW4ParticleSystemID@@W41@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEPAW4ParticleSystemID@@I@Z": {
+          "owner_symbol": "?allocate@?$_STLP_alloc_proxy@PAW4NameKeyType@@W41@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEPAW4NameKeyType@@I@Z",
+          "size": 25,
+          "owner_size": 14,
+          "body_equal": false,
+          "normalized_relocations_equal": false,
+          "relocations": [
+            [
+              13,
+              20,
+              "?allocate@?$__node_alloc@$00$0A@@_STL@@SAPAXI@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              7,
+              20,
+              "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z"
+            ]
+          ],
+          "owner_row": null
+        },
+        "?deallocate@?$_STLP_alloc_proxy@PAW4ParticleSystemID@@W41@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEXPAW4ParticleSystemID@@I@Z": {
+          "owner_symbol": "?deallocate@?$_STLP_alloc_proxy@PAW4NameKeyType@@W41@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEXPAW4NameKeyType@@I@Z",
+          "size": 5,
+          "owner_size": 20,
+          "body_equal": false,
+          "normalized_relocations_equal": false,
+          "relocations": [
+            [
+              1,
+              20,
+              "?deallocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEXPAW4ParticleSystemID@@I@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": null
+        },
+        "??$__destroy_aux@PAW4ParticleSystemID@@@_STL@@YAXPAW4ParticleSystemID@@0ABU__false_type@0@@Z": {
+          "owner_symbol": "??$__destroy_aux@PAW4NameKeyType@@@_STL@@YAXPAW4NameKeyType@@0ABU__false_type@0@@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$__destroy@PAW4ParticleSystemID@@W41@@_STL@@YAXPAW4ParticleSystemID@@00@Z": {
+          "owner_symbol": "??$__destroy@PAW4NameKeyType@@W41@@_STL@@YAXPAW4NameKeyType@@00@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$_Destroy@PAW4ParticleSystemID@@@_STL@@YAXPAW4ParticleSystemID@@0@Z": {
+          "owner_symbol": "??$_Destroy@PAW4NameKeyType@@@_STL@@YAXPAW4NameKeyType@@0@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?_M_clear@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXXZ": {
+          "owner_symbol": "?_M_clear@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXXZ",
+          "size": 20,
+          "owner_size": 14,
+          "body_equal": false,
+          "normalized_relocations_equal": false,
+          "relocations": [
+            [
+              15,
+              20,
+              "?deallocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEXPAW4ParticleSystemID@@I@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              8,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": null
+        },
+        "?_M_insert_overflow@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@ABW43@ABU__false_type@2@I_N@Z": {
+          "owner_symbol": "?_M_insert_overflow@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@ABW43@ABU__false_type@2@I_N@Z",
+          "size": 172,
+          "owner_size": 179,
+          "body_equal": false,
+          "normalized_relocations_equal": false,
+          "relocations": [
+            [
+              42,
+              20,
+              "?allocate@?$_STLP_alloc_proxy@PAW4ParticleSystemID@@W41@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEPAW4ParticleSystemID@@I@Z"
+            ],
+            [
+              60,
+              20,
+              "??$__uninitialized_copy@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              104,
+              20,
+              "??$__uninitialized_fill_n@PAW4ParticleSystemID@@IW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@IABW41@ABU__false_type@0@@Z"
+            ],
+            [
+              132,
+              20,
+              "??$__uninitialized_copy@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              145,
+              20,
+              "?_M_clear@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXXZ"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              44,
+              20,
+              "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z"
+            ],
+            [
+              62,
+              20,
+              "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              103,
+              20,
+              "??$__uninitialized_fill_n@PAW4NameKeyType@@IW41@@_STL@@YAPAW4NameKeyType@@PAW41@IABW41@ABU__false_type@0@@Z"
+            ],
+            [
+              133,
+              20,
+              "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              151,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": {
+            "name": "?_M_insert_overflow@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@ABW43@ABU__false_type@2@I_N@Z",
+            "export_rva": "",
+            "target_rva": "0x00148D00",
+            "target_size": "179",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "actual NameKey parser native four-byte enum vector; full179 bytes and all five resolved allocation-copy-fill-free relocations twin; zero unique bytes"
+          }
+        },
+        "?push_back@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEXABW4ParticleSystemID@@@Z": {
+          "owner_symbol": "?push_back@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEXABW4NameKeyType@@@Z",
+          "size": 49,
+          "owner_size": 49,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              41,
+              20,
+              "?_M_insert_overflow@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@ABW43@ABU__false_type@2@I_N@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              41,
+              20,
+              "?_M_insert_overflow@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@ABW43@ABU__false_type@2@I_N@Z"
+            ]
+          ],
+          "owner_row": {
+            "name": "?push_back@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEXABW4NameKeyType@@@Z",
+            "export_rva": "",
+            "target_rva": "0x002E01C6",
+            "target_size": "49",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "actual NameKey parser enum vector; complete49 bytes and179B overflow relocation twin; zero unique bytes"
+          }
+        }
+      },
+      "eh": {
+        "?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z": [
+          "EXACT",
+          ""
+        ]
+      }
+    },
+    "malloc": {
+      "matched": 6,
+      "rows": 6,
+      "errors": [],
+      "helpers": {
+        "?size@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QBEIXZ": {
+          "owner_symbol": "?size@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QBEIXZ",
+          "size": 9,
+          "owner_size": 9,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?_M_set@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@00@Z": {
+          "owner_symbol": "?_M_set@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@00@Z",
+          "size": 23,
+          "owner_size": 23,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?allocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEPAW4ParticleSystemID@@IPBX@Z": {
+          "owner_symbol": "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z",
+          "size": 28,
+          "owner_size": 28,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              15,
+              20,
+              "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              15,
+              20,
+              "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+            ]
+          ],
+          "owner_row": {
+            "name": "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z",
+            "export_rva": "",
+            "target_rva": "0x00068E15",
+            "target_size": "28",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "actual native NameKey list four-byte storage allocator; full28 bytes and relocation twin; zero unique bytes"
+          }
+        },
+        "?deallocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEXPAW4ParticleSystemID@@I@Z": {
+          "owner_symbol": "?deallocate@?$allocator@W4NameKeyType@@@_STL@@QBEXPAW4NameKeyType@@I@Z",
+          "size": 20,
+          "owner_size": 20,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": null
+        },
+        "??$_Construct@W4ParticleSystemID@@W41@@_STL@@YAXPAW4ParticleSystemID@@ABW41@@Z": {
+          "owner_symbol": "??$_Construct@W4NameKeyType@@W41@@_STL@@YAXPAW4NameKeyType@@ABW41@@Z",
+          "size": 17,
+          "owner_size": 17,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$__uninitialized_copy@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z": {
+          "owner_symbol": "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z",
+          "size": 31,
+          "owner_size": 31,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": {
+            "name": "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z",
+            "export_rva": "",
+            "target_rva": "0x001DD10D",
+            "target_size": "31",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "NameKey parser native enum vector; full31 byte-and-relocation copy twin; zero unique bytes"
+          }
+        },
+        "??$__uninitialized_fill_n@PAW4ParticleSystemID@@IW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@IABW41@ABU__false_type@0@@Z": {
+          "owner_symbol": "??$__uninitialized_fill_n@PAW4NameKeyType@@IW41@@_STL@@YAPAW4NameKeyType@@PAW41@IABW41@ABU__false_type@0@@Z",
+          "size": 31,
+          "owner_size": 31,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": {
+            "name": "??$__uninitialized_fill_n@PAW4NameKeyType@@IW41@@_STL@@YAPAW4NameKeyType@@PAW41@IABW41@ABU__false_type@0@@Z",
+            "export_rva": "",
+            "target_rva": "0x0020E400",
+            "target_size": "31",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "NameKey parser native enum vector; full31 byte-and-relocation fill twin; zero unique bytes"
+          }
+        },
+        "??$__stl_alloc_rebind@W4ParticleSystemID@@W41@@_STL@@YAAAV?$allocator@W4ParticleSystemID@@@0@AAV10@PBW4ParticleSystemID@@@Z": {
+          "owner_symbol": "??$__stl_alloc_rebind@W4NameKeyType@@W41@@_STL@@YAAAV?$allocator@W4NameKeyType@@@0@AAV10@PBW4NameKeyType@@@Z",
+          "size": 5,
+          "owner_size": 5,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$_Destroy@W4ParticleSystemID@@@_STL@@YAXPAW4ParticleSystemID@@@Z": {
+          "owner_symbol": "??$_Destroy@W4NameKeyType@@@_STL@@YAXPAW4NameKeyType@@@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?allocate@?$_STLP_alloc_proxy@PAW4ParticleSystemID@@W41@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEPAW4ParticleSystemID@@I@Z": {
+          "owner_symbol": "?allocate@?$_STLP_alloc_proxy@PAW4NameKeyType@@W41@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEPAW4NameKeyType@@I@Z",
+          "size": 14,
+          "owner_size": 14,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              7,
+              20,
+              "?allocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEPAW4ParticleSystemID@@IPBX@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              7,
+              20,
+              "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z"
+            ]
+          ],
+          "owner_row": null
+        },
+        "?deallocate@?$_STLP_alloc_proxy@PAW4ParticleSystemID@@W41@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEXPAW4ParticleSystemID@@I@Z": {
+          "owner_symbol": "?deallocate@?$_STLP_alloc_proxy@PAW4NameKeyType@@W41@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEXPAW4NameKeyType@@I@Z",
+          "size": 20,
+          "owner_size": 20,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              12,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": null
+        },
+        "??$__destroy_aux@PAW4ParticleSystemID@@@_STL@@YAXPAW4ParticleSystemID@@0ABU__false_type@0@@Z": {
+          "owner_symbol": "??$__destroy_aux@PAW4NameKeyType@@@_STL@@YAXPAW4NameKeyType@@0ABU__false_type@0@@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$__destroy@PAW4ParticleSystemID@@W41@@_STL@@YAXPAW4ParticleSystemID@@00@Z": {
+          "owner_symbol": "??$__destroy@PAW4NameKeyType@@W41@@_STL@@YAXPAW4NameKeyType@@00@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "??$_Destroy@PAW4ParticleSystemID@@@_STL@@YAXPAW4ParticleSystemID@@0@Z": {
+          "owner_symbol": "??$_Destroy@PAW4NameKeyType@@@_STL@@YAXPAW4NameKeyType@@0@Z",
+          "size": 1,
+          "owner_size": 1,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [],
+          "owner_relocations": [],
+          "owner_row": null
+        },
+        "?_M_clear@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXXZ": {
+          "owner_symbol": "?_M_clear@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXXZ",
+          "size": 14,
+          "owner_size": 14,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              8,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              8,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": null
+        },
+        "?_M_insert_overflow@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@ABW43@ABU__false_type@2@I_N@Z": {
+          "owner_symbol": "?_M_insert_overflow@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@ABW43@ABU__false_type@2@I_N@Z",
+          "size": 179,
+          "owner_size": 179,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              44,
+              20,
+              "?allocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEPAW4ParticleSystemID@@IPBX@Z"
+            ],
+            [
+              62,
+              20,
+              "??$__uninitialized_copy@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              103,
+              20,
+              "??$__uninitialized_fill_n@PAW4ParticleSystemID@@IW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@IABW41@ABU__false_type@0@@Z"
+            ],
+            [
+              133,
+              20,
+              "??$__uninitialized_copy@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              151,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              44,
+              20,
+              "?allocate@?$allocator@W4NameKeyType@@@_STL@@QBEPAW4NameKeyType@@IPBX@Z"
+            ],
+            [
+              62,
+              20,
+              "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              103,
+              20,
+              "??$__uninitialized_fill_n@PAW4NameKeyType@@IW41@@_STL@@YAPAW4NameKeyType@@PAW41@IABW41@ABU__false_type@0@@Z"
+            ],
+            [
+              133,
+              20,
+              "??$__uninitialized_copy@PAW4NameKeyType@@PAW41@@_STL@@YAPAW4NameKeyType@@PAW41@00ABU__false_type@0@@Z"
+            ],
+            [
+              151,
+              20,
+              "_free"
+            ]
+          ],
+          "owner_row": {
+            "name": "?_M_insert_overflow@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@ABW43@ABU__false_type@2@I_N@Z",
+            "export_rva": "",
+            "target_rva": "0x00148D00",
+            "target_size": "179",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "actual NameKey parser native four-byte enum vector; full179 bytes and all five resolved allocation-copy-fill-free relocations twin; zero unique bytes"
+          }
+        },
+        "?push_back@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@QAEXABW4ParticleSystemID@@@Z": {
+          "owner_symbol": "?push_back@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEXABW4NameKeyType@@@Z",
+          "size": 49,
+          "owner_size": 49,
+          "body_equal": true,
+          "normalized_relocations_equal": true,
+          "relocations": [
+            [
+              41,
+              20,
+              "?_M_insert_overflow@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@ABW43@ABU__false_type@2@I_N@Z"
+            ]
+          ],
+          "owner_relocations": [
+            [
+              41,
+              20,
+              "?_M_insert_overflow@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@IAEXPAW4NameKeyType@@ABW43@ABU__false_type@2@I_N@Z"
+            ]
+          ],
+          "owner_row": {
+            "name": "?push_back@?$vector@W4NameKeyType@@V?$allocator@W4NameKeyType@@@_STL@@@_STL@@QAEXABW4NameKeyType@@@Z",
+            "export_rva": "",
+            "target_rva": "0x002E01C6",
+            "target_size": "49",
+            "source": "Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp",
+            "status": "matched",
+            "notes": "actual NameKey parser enum vector; complete49 bytes and179B overflow relocation twin; zero unique bytes"
+          }
+        }
+      },
+      "eh": {
+        "?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z": [
+          "EXACT",
+          ""
+        ]
+      }
+    }
+  },
+  "boundary": "Read-only fold comparison: enum spelling normalization is a hypothesis/proof relation only, never a published alias, pin, address map, or admission."
+}

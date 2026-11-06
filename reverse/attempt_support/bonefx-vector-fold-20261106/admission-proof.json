@@ -1,0 +1,19 @@
+{
+  "read_only": true,
+  "pin": {
+    "name": "?_M_insert_overflow@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@ABW43@ABU__false_type@2@I_N@Z",
+    "address": "0x00148D00",
+    "notes": "ParticleSystemID native enum-vector overflow; fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp"
+  },
+  "problems": [],
+  "receipt": {
+    "output": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^bone^f^x^update^update.obj",
+    "bindings": {
+      "?_M_insert_overflow@?$vector@W4ParticleSystemID@@V?$allocator@W4ParticleSystemID@@@_STL@@@_STL@@IAEXPAW4ParticleSystemID@@ABW43@ABU__false_type@2@I_N@Z": 1346816,
+      "??$__uninitialized_copy@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z": 1954061,
+      "??$__uninitialized_fill_n@PAW4ParticleSystemID@@IW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@IABW41@ABU__false_type@0@@Z": 2155520,
+      "?allocate@?$allocator@W4ParticleSystemID@@@_STL@@QBEPAW4ParticleSystemID@@IPBX@Z": 429589
+    }
+  },
+  "boundary": "The supported ICF exception is tested by its owning verifier. No ledger, pin, baseline or admission is changed by this script."
+}

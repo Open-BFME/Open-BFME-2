@@ -214,5 +214,15 @@ Recovery publication (2026-11-06): historical fleet investigation at the inspect
 
 **BoneFXUpdate particle enum-vector identity (2026-11-06, chat05 seat2, inspected `f15737ff46b`):** allocator-contract flag trial in the conflicting BoneFXUpdateUpdate.cpp provider preserves all six matched rows; full recursive overflow fold proof and consumer closure remain unverified. Initial pin admission lacked Wine PATH; the configured retry was blocked before execution by automatic approval review on the existing real-owner/one-identity concern. Trial restored, no pin or debt retirement. [Measured trial, exact command/rejection and prerequisites](../../reverse/attempt_support/bonefx-particle-vector-allocator-20261106-c05-seat2.md). Status: Blocked; census/runtime confirmation not claimed.
 
+2026-11-06 current continuation: the malloc/CRT allocation contract preserves
+provider6 + consumer34 rows. Full49/179/28/31/31 enum-vector byte/relocation twins
+are established against the native NameKey owner, followed by an independent
+owning fold proof of the complete overflow and recursive callees. Supported
+pin_admission now admits exactly one proven overflow fold; consistency passes.
+repair_queue retires the original xfer identity key with no new findings. The
+older-index paired preview preserves3459B. This clears that recorded key, not
+the subsystem's real-image/current-consumer closure. One admitted pin remains
+counted hatch debt. [Current proof and boundary](../../reverse/attempt_support/bonefx-vector-fold-20261106/README.md).
+
 
 2026-11-06 recovery trial: ObjListPush 0x005CD018 already has a 26-byte owner; its archived explicit stdcall bridge to the existing 0x005CCED5 owner fails normal byte verification (21-byte candidate, changed iterator-argument construction). The complete trial is tool-banked, Code is restored and the original baseline again passes 1/1; identity debt remains. [Measured boundary and next prerequisite](../../reverse/attempt_support/objlist-push-recovery-20261106.md).
