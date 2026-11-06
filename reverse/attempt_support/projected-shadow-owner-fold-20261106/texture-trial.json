@@ -1,0 +1,98 @@
+{
+ "tu": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp",
+ "classes": {
+  "TextureClass": {
+   "status": "reverted",
+   "files": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp"
+   ],
+   "notes": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp declare no base or virtual: they take `TextureClass : public TextureBaseClass`"
+   ],
+   "renames": {},
+   "fields": [],
+   "block": "class TextureClass : public TextureBaseClass\n{\npublic:\n\tvoid Release_Ref(void);\n};\n",
+   "why": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp: the rewrite changes the object's external symbols (lost ['?Release_Ref@TextureBaseClass@@QAEXXZ'], gained ['?Release_Ref@TextureClass@@QAEXXZ'])"
+  }
+ },
+ "canonical": {
+  "AssetReference": {
+   "files": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp"
+   ],
+   "header": "Code/GameEngine/Include/Common/AssetReference.h",
+   "action": "python3 tools/header_adopt_lane.py accept --class AssetReference FILE..."
+  },
+  "CameraClass": {
+   "files": [
+    "Code/GameEngine/Source/Common/Rva00108DBCInit.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp"
+   ],
+   "header": "Code/Libraries/Source/WWVegas/WW3D2/CameraClass.h",
+   "action": "python3 tools/header_adopt_lane.py accept --class CameraClass FILE..."
+  },
+  "WW3D": {
+   "files": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp"
+   ],
+   "header": "Code/Libraries/Source/WWVegas/WW3D2/WW3DClass.h",
+   "action": "python3 tools/header_adopt_lane.py accept --class WW3D FILE..."
+  },
+  "DX8Wrapper": {
+   "files": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp"
+   ],
+   "header": "Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h",
+   "action": "python3 tools/header_adopt_lane.py accept --class DX8Wrapper FILE..."
+  }
+ },
+ "applied": [],
+ "failed": {
+  "TextureClass": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp: the rewrite changes the object's external symbols (lost ['?Release_Ref@TextureBaseClass@@QAEXXZ'], gained ['?Release_Ref@TextureClass@@QAEXXZ'])"
+ },
+ "seed": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp",
+ "files": [
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp"
+ ],
+ "touched": [
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp"
+ ],
+ "merge_before": [],
+ "rejected_before": {
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\RefCountData.h(9) : error C2011: 'RefCountClass' : 'class' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\S",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.c3924c83ed434f0f.tu_skeleton.cpp(245) : error C2084: function 'Vector3 operator *(const Vector3 &,float)' already has a body | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.c3924c83ed434f0f.tu",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\RefCountData.h(9) : error C2011: 'RefCountClass' : 'class' type redefinition | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjec",
+  "Code/GameEngine/Source/Common/Rva00108DBCInit.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\HashableClass.h(11) : error C2011: 'HashableClass' : 'class' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngin",
+  "Code/GameEngine/Source/Common/Rva0010959E.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.525a5dce2bd55b57.tu_skeleton.cpp(1092) : error C2990: 'Node' : non-template class has already been defined as a template class | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.525a5dce2bd55b57.",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\Include\\Lib\\Coord3D.h(7) : error C2011: 'Coord3D' : 'struct' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Include\\Lib\\Region3D",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp": "compile: C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\PlatformSDK\\Include\\persist.h(36) : error C2146: syntax error : missing ';' before identifier 'CLSID_MSPersist' | C:\\Users\\clemens\\Documents\\Experimen",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5f8e79d2eb0a9a18.tu_skeleton.cpp(1092) : error C2373: 'const Rva007AFF00Owner::`vftable'' : redefinition; different type modifiers | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5f8e79d2eb0a9",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.1908c90a1a8bf105.tu_skeleton.cpp(251) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.1908c90a1a8bf105.tu_skeleton.cpp(251) : error C2501: ",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C785TimedDecals.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.c83085b352b323d3.tu_skeleton.cpp(256) : error C2084: function 'long fast_float2long_round(float)' already has a body | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\Source\\subsystem\\../../../../reference",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C065AddDecal.cpp": "compile: reference\\shims\\bfme2_ascii\\ascii_string.h(65) : error C2011: 'AsciiString' : 'class' type redefinition | reference\\shims\\bfme2_ascii\\ascii_string.h(223) : error C2084: function 'Bool operator ==(const AsciiString &,const AsciiString &)' already has a body | reference\\shims\\bfme2_ascii\\ascii_string.",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C2D5.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5e437f7dbf42f932.tu_skeleton.cpp(735) : error C2504: 'Rva007B1380' : base class undefined | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5e437f7dbf42f932.tu_skeleton.cpp(1506) : error C2872: ",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp": "compile: Code\\Libraries\\Include\\Lib\\Coord3D.h(7) : error C2011: 'Coord3D' : 'struct' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WW3D2\\RenderInfoClass.h(52) : error C2011: 'RenderInfoCl"
+ },
+ "merge_after": [],
+ "still_rejected": {
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\RefCountData.h(9) : error C2011: 'RefCountClass' : 'class' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\S",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.c3924c83ed434f0f.tu_skeleton.cpp(245) : error C2084: function 'Vector3 operator *(const Vector3 &,float)' already has a body | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.c3924c83ed434f0f.tu",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\RefCountData.h(9) : error C2011: 'RefCountClass' : 'class' type redefinition | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjec",
+  "Code/GameEngine/Source/Common/Rva00108DBCInit.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\HashableClass.h(11) : error C2011: 'HashableClass' : 'class' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngin",
+  "Code/GameEngine/Source/Common/Rva0010959E.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.525a5dce2bd55b57.tu_skeleton.cpp(1092) : error C2990: 'Node' : non-template class has already been defined as a template class | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.525a5dce2bd55b57.",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\Include\\Lib\\Coord3D.h(7) : error C2011: 'Coord3D' : 'struct' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Include\\Lib\\Region3D",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp": "compile: C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\PlatformSDK\\Include\\persist.h(36) : error C2146: syntax error : missing ';' before identifier 'CLSID_MSPersist' | C:\\Users\\clemens\\Documents\\Experimen",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5f8e79d2eb0a9a18.tu_skeleton.cpp(1092) : error C2373: 'const Rva007AFF00Owner::`vftable'' : redefinition; different type modifiers | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5f8e79d2eb0a9",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.1908c90a1a8bf105.tu_skeleton.cpp(251) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.1908c90a1a8bf105.tu_skeleton.cpp(251) : error C2501: ",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C785TimedDecals.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.c83085b352b323d3.tu_skeleton.cpp(256) : error C2084: function 'long fast_float2long_round(float)' already has a body | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\Source\\subsystem\\../../../../reference",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C065AddDecal.cpp": "compile: reference\\shims\\bfme2_ascii\\ascii_string.h(65) : error C2011: 'AsciiString' : 'class' type redefinition | reference\\shims\\bfme2_ascii\\ascii_string.h(223) : error C2084: function 'Bool operator ==(const AsciiString &,const AsciiString &)' already has a body | reference\\shims\\bfme2_ascii\\ascii_string.",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C2D5.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5e437f7dbf42f932.tu_skeleton.cpp(735) : error C2504: 'Rva007B1380' : base class undefined | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5e437f7dbf42f932.tu_skeleton.cpp(1506) : error C2872: ",
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp": "compile: Code\\Libraries\\Include\\Lib\\Coord3D.h(7) : error C2011: 'Coord3D' : 'struct' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WW3D2\\RenderInfoClass.h(52) : error C2011: 'RenderInfoCl"
+ }
+}

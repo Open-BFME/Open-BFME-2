@@ -429,27 +429,7 @@ protected:
     char m_body[0x68 - 0x58];
 };
 
-class Rva0010BA2COwner : public Rva000F0F2B
-{
-public:
-    Rva0010BA2COwner() throw();
-    void rva00108895();
-private:
-    unsigned int retained68[2];
-    void *retained70;
-    unsigned char flag74;
-    char unknown75[3];
-    float value78;
-    float value7C;
-    unsigned int word80;
-    unsigned char flag84;
-    unsigned char flag85;
-    char unknown86[2];
-    Rva00108895Triplet sentinel88;
-    unsigned int array94[16];
-    unsigned int arrayD4[16];
-    Rva0010BA2COwner *next114;
-};
+
 
 // ?rva00109DCF@Rva00109DCF@@QAEXXZ retail 0x00109DCF 66 bytes.
 // Calls rowed Rva00108AD8 finish at this+0x24C then releases two refcounted
@@ -504,11 +484,25 @@ private:
 class Rva007AFF00Owner : public Rva007AFF00Base
 {
 public:
-	virtual ~Rva007AFF00Owner();
+    Rva007AFF00Owner() throw();
+    virtual ~Rva007AFF00Owner();
+    void rva00108895();
 private:
-	Rva007AFF00Ref *m_first;
-	int m_padding;
-	Rva007AFF00Ref *m_second;
+    Rva007AFF00Ref *m_first;
+    int m_padding;
+    Rva007AFF00Ref *m_second;
+    unsigned char flag74;
+    char unknown75[3];
+    float value78;
+    float value7C;
+    unsigned int word80;
+    unsigned char flag84;
+    unsigned char flag85;
+    char unknown86[2];
+    Rva00108895Triplet sentinel88;
+    unsigned int array94[16];
+    unsigned int arrayD4[16];
+    Rva007AFF00Owner *next114;
 };
 
 extern class W3DProjectedShadowManager *TheW3DProjectedShadowManager;
@@ -816,7 +810,7 @@ private:
 
 // ?rva0010BA61@Rva0010BA61@@QAEXXZ
 // recovered from packet 0x0010BA61 16B lane=unlock
-// Evidence: rowed call 0x00109D64 ?rva00109D64@Rva007B1380@@QAEXXZ; pin 0x00108895 ?rva00108895@Rva0010BA2COwner@@QAEXXZ; caller 0x0010BB4F; prev/next // cl: /O1 /DNDEBUG /MD
+// Evidence: rowed call 0x00109D64 ?rva00109D64@Rva007B1380@@QAEXXZ; pin 0x00108895 ?rva00108895@Rva007AFF00Owner@@QAEXXZ; caller 0x0010BB4F; prev/next // cl: /O1 /DNDEBUG /MD
 
 class Rva0010BA61
 {
@@ -1259,12 +1253,12 @@ float Rva001084D6Table::getValue(unsigned int index) const { return entries[inde
 // method names remain unknown. Measured writes establish the field offsets;
 // native literal at VA 0x00BCF9B0 is -100.0f. Two arrays are reset in lockstep.
 
-void Rva0010BA2COwner::rva00108895()
+void Rva007AFF00Owner::rva00108895()
 {
-    memset(retained68, 0, sizeof(retained68));
+    memset(&m_first, 0, sizeof(m_first) + sizeof(m_padding));
     value78 = 0.0f;
     value7C = 0.0f;
-    retained70 = 0;
+    m_second = 0;
     flag74 = 0;
     word80 = 0;
     flag84 = 0;
@@ -1497,7 +1491,7 @@ Rva001095B2::~Rva001095B2()
 void Rva0010BA61::rva0010BA61()
 {
 	((Rva007B1380 *)this)->rva00109D64();
-	((Rva0010BA2COwner *)this)->rva00108895();
+	((Rva007AFF00Owner *)this)->rva00108895();
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva007AECC0Slot.cpp
@@ -1665,7 +1659,7 @@ __declspec(noinline) W3DProjectedShadow *Rva0010BB11ShadowFactory::create(W3DSha
 	}
 	else
 	{
-		Rva0010BA2COwner *owner = new Rva0010BA2COwner;
+		Rva007AFF00Owner *owner = new Rva007AFF00Owner;
 		shadow = reinterpret_cast<Rva0010BB11DecalView *>(owner);	// allocated through a local, as retail merges the new result once
 	}
 
@@ -1954,7 +1948,7 @@ Rva00109610::~Rva00109610()
 
 // tu-skeleton: 0x0010B9E5 71B ?rva0010B9E5@Rva0010B9E5@@QAEXPAUNode@@@Z -- matched in Code/GameEngine/Source/Common/Rva0010959E.cpp (not merged yet)
 
-// tu-skeleton: 0x0010BA2C 25B ??0Rva0010BA2COwner@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp (not merged yet)
+// tu-skeleton: 0x0010BA2C 25B ??0Rva007AFF00Owner@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0010BA9F 101B ??BWinMainTitlePair@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
 

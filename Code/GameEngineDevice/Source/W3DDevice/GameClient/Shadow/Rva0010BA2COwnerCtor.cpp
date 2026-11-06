@@ -17,13 +17,13 @@ public:
     Rva000F0F2B();
 };
 extern "C" const void *const __identifier("??_7Rva007AFF00Owner@@6B@")[];
-class Rva0010BA2COwner : public Rva000F0F2B
+class Rva007AFF00Owner : public Rva000F0F2B
 {
 public:
-    Rva0010BA2COwner();
+    Rva007AFF00Owner();
     void rva00108895();
 };
-Rva0010BA2COwner::Rva0010BA2COwner()
+Rva007AFF00Owner::Rva007AFF00Owner()
 {
     *(const void *const **)this = __identifier("??_7Rva007AFF00Owner@@6B@");
     rva00108895();

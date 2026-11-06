@@ -54,12 +54,12 @@ Rva005961D6::Rva005961D6() : Rva0025BFE3(), m_e10(), m_e54(), m_vec98()
 // 0x005E6BA3: helper rowed trivial 0x000B3FD0, tail 0x005E6A9D (+0x20).
 // 0x005E6BB4: helper rowed trivial 0x000B3FD0, tail 0x005E6AD8 (+0x20).
 
-class Rva0010BA2COwner
+class Rva007AFF00Owner
 {
 public:
 	void rva00108895();
 };
-class Rva0010BA61 : public Rva0010BA2COwner
+class Rva0010BA61 : public Rva007AFF00Owner
 {
 public:
 	void rva0010BA61();

@@ -1,0 +1,62 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp",
+  "control_sha256": "04826630d339c7c061749bc0c88dda505bb6063a492c557956caf2fabbdfafa5",
+  "candidate_sha256": "19cf56028cf88506b992730ce432df4e6cb92e3c086087f938d863470036879d",
+  "rows": 59,
+  "unique_addresses": 59,
+  "matched": 59,
+  "missing": [],
+  "errors": [],
+  "eh": {
+    "??1Rva007AFF00Owner@@UAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??1Rva00109610@@UAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "?ReAcquireResources@Rva00108660ResourceManager@@QAE_NXZ": [
+      "EXACT",
+      ""
+    ],
+    "??0Rva00108A0B@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "?invalidateCachedLightPositions@Rva00108AD8@@QAEXXZ": [
+      "EXACT",
+      ""
+    ],
+    "??0W3DProjectedShadowManager@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??1Rva001095B2@@UAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??0W3DShadowTexture@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??1W3DProjectedShadowManager@@UAE@XZ": [
+      "EXACT",
+      ""
+    ]
+  },
+  "normalized_facts_equal": true,
+  "provider_changes": {
+    "definitions": {
+      "changed": [],
+      "removed": [],
+      "added": []
+    },
+    "properties": {
+      "changed": [],
+      "removed": [],
+      "added": []
+    },
+    "routes": {}
+  }
+}
