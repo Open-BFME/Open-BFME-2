@@ -61,7 +61,7 @@ public:
 struct Rva000806F3Owner
 {
 	char m_pad000[0x260];
-	Rva003093F6Bases *m_260;
+	Rva003093F6Bases *m_standingWaterArea;
 };
 
 extern void *W3DGCData00DE2000;
@@ -73,7 +73,7 @@ void Rva00080858Mean(ID3DXEffect *effect, D3DXHANDLE handle)
 	value.y = 0.0f;
 	value.z = 1.0f;
 	value.w = 0.0f;
-	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
+	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_standingWaterArea : 0;
 	if (bases)
 	{
 		float time = (WW3D::Get_Sync_Time() / 1000.0f) * BfmeClientFramesPerSecond;
@@ -91,7 +91,7 @@ void Rva00080858Mean(ID3DXEffect *effect, D3DXHANDLE handle)
 		value.y = 0.0f;                                                   \
 		value.z = 0.0f;                                                   \
 		value.w = 0.0f;                                                   \
-		Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0; \
+		Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_standingWaterArea : 0; \
 		if (bases)                                                        \
 		{                                                                 \
 			float time = (WW3D::Get_Sync_Time() / 1000.0f) * BfmeClientFramesPerSecond;     \
@@ -143,7 +143,7 @@ void Rva00080F95Mean2(ID3DXEffect *effect, D3DXHANDLE handle)
 	value.y = 0.0f;
 	value.z = 1.0f;
 	value.w = 0.0f;
-	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
+	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_standingWaterArea : 0;
 	if (bases)
 	{
 		float time = (WW3D::Get_Sync_Time() / 1000.0f) * BfmeClientFramesPerSecond;
@@ -176,7 +176,7 @@ static inline float Rva0008103ASum(const Rva000806F3Vector4 &vector)
 // registers across the stores to v, so both are literals.
 void __cdecl Rva0008103AAdjust(float *v)
 {
-	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
+	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_standingWaterArea : 0;
 	if (!bases)
 		return;
 	float time = (WW3D::Get_Sync_Time() / 1000.0f) * BfmeClientFramesPerSecond;
@@ -200,7 +200,7 @@ void Rva00081242Bases03X2(ID3DXEffect *effect, D3DXHANDLE handle)
 	value.y = 0.0f;
 	value.z = 0.0f;
 	value.w = 0.0f;
-	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
+	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_standingWaterArea : 0;
 	if (bases)
 	{
 		float time = (WW3D::Get_Sync_Time() / 1000.0f) * BfmeClientFramesPerSecond;
@@ -219,7 +219,7 @@ void Rva00081242Bases03X2(ID3DXEffect *effect, D3DXHANDLE handle)
 		value.y = 0.0f;                                                   \
 		value.z = 0.0f;                                                   \
 		value.w = 0.0f;                                                   \
-		Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0; \
+		Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_standingWaterArea : 0; \
 		if (bases)                                                        \
 		{                                                                 \
 			float time = (WW3D::Get_Sync_Time() / 1000.0f) * BfmeClientFramesPerSecond;  \
