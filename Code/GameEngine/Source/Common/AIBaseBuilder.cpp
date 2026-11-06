@@ -52,11 +52,9 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../Include/Common/BfmeXfer.h"
-
 // Retail .data at VA 0x00DD0870 stores the three -1.0f components of the
 // 12-byte Coord3DBase value used by the matched comparison.
 Coord3DBase Gen00DD0870 = { -1.0f, -1.0f, -1.0f };
-
 // ?distanceSquared@@YAMPBURva00506BADCoord@@0@Z retail 0x00506BAD (47 B,
 // cdecl): squared distance between two float triples, kept on the x87 stack.
 // Unreferenced in the image; the name is address-derived. The sum is spelled
@@ -66,27 +64,20 @@ struct Rva00506BADCoord
 {
 	float x, y, z;
 };
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
 };
-
 #include "../../Include/GameNetwork/GameInfo.h"
-
 #include "../../Include/Common/NameKeyGenerator.h"
-
 extern GameInfo *TheGameInfo;
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 struct Rva00506C82Arg
 {
 public:
 	char m_pad00[0x50];
 	int m_50; // +0x50
 };
-
 class Xfer::Version
 {
 public:
@@ -96,22 +87,17 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-
 class Rva00506FE9Hit;
-
 // Legacy vector spelling is an opaque pointer handle. Its existing container
 // ABI is retained; only AIBase objects are constructed and accessed through it.
 class Rva005ADA40;
-
 class ModuleData;
-
 // 0x005AD99C is rowed as Rva005AD99C::rva005AD99C over a vector<const ModuleData *>.
 class Rva005AD99C
 {
 public:
 	void rva005AD99C(const AsciiString &name, _STL::vector<const ModuleData *> *hits);
 };
-
 class AIBase
 {
 public:
@@ -124,7 +110,6 @@ public:
 private:
 	unsigned char m_data[0x2C];	// new'd at 0x2C by 0x005073D6
 };
-
 class Rva00506B1B
 {
 public:
@@ -135,21 +120,16 @@ public:
 private:
 	bool m_04;
 };
-
 // 0x00506FE9's collaborators. Object and RebuildHoleBehaviorInterface stay
 // opaque; the views below carry only what that body reads.
 class Object;
-
 class RebuildHoleBehaviorInterface;
-
 #include "../../Include/GameLogic/Module/RebuildHoleBehaviorClass.h"
-
 struct Rva00506FE9Template
 {
 	char m_pad00[0x64];
 	AsciiString m_name;		// +0x64
 };
-
 class Rva00506FE9RebuildView
 {
 public:
@@ -158,7 +138,6 @@ public:
 	virtual void v2();
 	virtual const Rva00506FE9Template *getRebuildTemplate();	// slot 3
 };
-
 struct Rva00506FE9ObjectView
 {
 	void *m_vptr;
@@ -166,7 +145,6 @@ struct Rva00506FE9ObjectView
 	char m_pad08[0x74 - 8];
 	int m_id;				// +0x74
 };
-
 class Rva00506FE9Hit
 {
 public:
@@ -178,19 +156,14 @@ public:
 	char m_pad08[0x24 - 8];
 	int m_24;
 };
-
 struct Rva002A8B59Data
 {
 	char m_pad00[0x88];
 	float m_88;
 };
-
 #include "../../Include/GameLogic/Rva002A8F24.h"
-
 extern Rva002A8F24 *TheSkirmishAIManager;
-
 Coord3D __cdecl Rva00506CF5(void *owner, Coord3D *point);
-
 class AIBaseBuilder : public Rva00506B1B
 {
 public:
@@ -214,26 +187,41 @@ private:
 	bool m_24;
 	Coord3D m_28;
 };
-
-// 0x00506CC3: the waypoint with this name, walking TheTerrainLogic's list from
-// its first-waypoint virtual (+0x84) along the +0x1C links and comparing the
-// +0x08 name through AsciiString::compare (0x000069D6). Eight callers in the
-// script-engine range (0x0023FDBD..) plus two in this cluster.
-class Waypoint
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	Waypoint *getNext() const { return m_pNext; }
-private:
-	int m_00;
-	int m_04;
-	AsciiString m_name;		// +0x08
-	Coord3DBase m_location;	// +0x0C
-	int m_18;
-	Waypoint *m_pNext;		// +0x1C
-};
-
 #include "../../Include/GameLogic/TerrainLogic.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#define __PLACEMENT_VEC_NEW_INLINE
+#define COORD3D_VIEW_INLINE
+#define COORD3D_VIEW_INLINE_ONLY
+// WWMath Vector3's Distance2 and Length2 as the WorldBuilder twin calls them.
+struct HomeVector3
+{
+	float X, Y, Z;
+	HomeVector3() {}
+	HomeVector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	HomeVector3(const Coord3DBase &coord3DBase) { X = coord3DBase.x; Y = coord3DBase.y; Z = coord3DBase.z; }
+	float Length2() const { return X * X + Y * Y + Z * Z; }
+	friend __forceinline HomeVector3 operator-(const HomeVector3 &a, const HomeVector3 &b) { return HomeVector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z); }
+	static __forceinline float Distance2(const HomeVector3 &homeVector3, const HomeVector3 &p2) { HomeVector3 temp = homeVector3 - p2; return temp.Length2(); }
+};
+#include "../../Include/GameLogic/Waypoint.h"
+Waypoint *Rva00506CC3FindWaypoint(const AsciiString &);
+GameSlot*Rva00506C82Find(const Rva00506C82Arg*);
+class GameLogic;
+extern GameLogic*TheGameLogic;
+struct TacticGameLogicView {char pad[0x114];int mode;};
+struct TacticPlayerView {char pad[0x3ac];int army;__forceinline int getArmyID()const{return army;}};
+class LivingWorldLogic;
+extern LivingWorldLogic*TheLivingWorldLogic;
+class Rva003F468D;
+class Rva0020E6B7RegionManager {public:Rva003F468D*rva0020E6B7();};
+struct TacticWorldView {char pad[0xb0];Rva0020E6B7RegionManager*manager;};
+struct TacticBattleParticipantView {char pad[0x14];int army;};
+#include "../../Include/GameLogic/LivingWorldBattle.h"
+class Rva0040D701ArmySummary;
+#include "../../Include/GameLogic/ArmySummary.h"
+#include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 
 extern TerrainLogic *TheTerrainLogic;
 
@@ -246,6 +234,8 @@ struct Rva0050722AExtent
 	Coord3DBase lo;
 	Coord3DBase hi;
 };
+
+// ---- from Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 
 // ---- from Code/GameEngine/Source/Common/AIBaseBuilder.cpp
 
@@ -485,14 +475,63 @@ void AIBaseBuilder::rva0050722A(Coord3D *placementPosition)
 	reinterpret_cast<AIBase *>(newBase)->loadBestFitTemplate(placementPosition, facingAngle, index != 0);
 }
 
-// tu-skeleton: 0x00506CF5 756B ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z -- matched in Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp
 
-// tu-skeleton: 0x007940D1 8B Unwind@00b940d1 -- matched in Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp (not merged yet)
+// stlport46
+//
+// ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z
+// Retail 0x00506CF5..0x00506FE9 (756 bytes, cdecl, Coord3D returned through
+// the hidden pointer). AIBaseBuilder's home point: sole caller the
+// AIBaseBuilder ctor 0x005070E9 (m_28 = Rva00506CF5(m_08, &m_18)).
+// In skirmish (TheGameLogic +0x114 == 3) it takes the player's slot
+// (rowed 0x00506C82) and returns the Player_%d_Start waypoint (rowed
+// 0x00506CC3) dropped to the ground (TheTerrainLogic slot 6) or else the
+// caller's point when it is set; otherwise it asks the living-world logic
+// (rowed 0x002B323C) for the player's army summaries and the first
+// spawn position (pinned ArmySummary::getSpawnPositions 0x0040CCC6) and
+// returns the nearest of Player_1..8_Start (skipping the first when the
+// current battle's participant +0x14 is another army).
+// WorldBuilder twin 0x01375140 has the same callees and measures the
+// distance with Vector3::Distance2 (a copy-initialised temp = p1 - p2 then
+// Length2); that inline shape is what keeps retail's (x*x + y*y) + z*z
+// association and register order. The returns copy result member-wise
+// at each return site, so Coord3D here carries a user copy constructor.
 
-// tu-skeleton: 0x007940D9 8B $L5117 -- matched in Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp (not merged yet)
-
-// tu-skeleton: 0x007940E1 8B Unwind@00b940e1 -- matched in Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp (not merged yet)
-
-// tu-skeleton: 0x007940E9 10B __ehhandler$?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z -- matched in Code/GameEngine/Source/Common/Rva00506CF5HomePoint.cpp (not merged yet)
+Coord3D Rva00506CF5(void *owner,Coord3D *point) {
+ Coord3D result;result.x=Gen00DD0870.x;result.y=Gen00DD0870.y;result.z=Gen00DD0870.z;
+ if(((TacticGameLogicView*)TheGameLogic)->mode==3) {
+  GameSlot*slot=Rva00506C82Find((Rva00506C82Arg*)owner);
+  if(slot) {
+   int start=slot->m_startPos;AsciiString name;name.format("Player_%d_Start",start+1);
+   Waypoint *way=Rva00506CC3FindWaypoint(name);
+   if(way){result=*way->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
+  }else if(point&&!point->equals(Gen00DD0870)){result=*point;}
+ }else {
+  float bestDistance=0.0f;Waypoint*best=0;
+  bool found=false;
+  _STL::vector<Rva0040D701ArmySummary*>armies;
+  ((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B323C(&armies,((TacticPlayerView*)owner)->getArmyID());
+  Coord3D position,other;
+  Rva0040D701ArmySummary**end=armies.end();
+  for(Rva0040D701ArmySummary**it=armies.begin();it!=end&&!found;++it) {
+   int armyID=((TacticPlayerView*)owner)->getArmyID();
+   if(((ArmySummary*)*it)->getSpawnPositions(armyID,&position,&other,false))found=true;
+  }
+  if(found){
+   TacticBattleParticipantView*tacticBattleParticipantView=(TacticBattleParticipantView*)((LivingWorldBattle*)((TacticWorldView*)TheLivingWorldLogic)->manager->rva0020E6B7())->rva003F4D09();
+   bool skipFirst=tacticBattleParticipantView&&((TacticPlayerView*)owner)->getArmyID()!=tacticBattleParticipantView->army;
+   for(int i=skipFirst?1:0;i<8;++i){
+    AsciiString name;name.format("Player_%d_Start",i+1);
+    Waypoint*way=Rva00506CC3FindWaypoint(name);
+    if(way){
+     float distance=HomeVector3::Distance2(HomeVector3(asBase(*way->getLocation())),HomeVector3(asBase(position)));
+     if(!best||distance<bestDistance){best=way;bestDistance=distance;}
+    }
+   }
+   if(best){result=*best->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
+  }
+ }
+ return result;
+}
 
 // tu-skeleton: 0x00794115 11B uw_00794115 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
