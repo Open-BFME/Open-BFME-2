@@ -9,7 +9,10 @@ class Rva000A2137
 public:
 	Rva000A2137(void *context);
 };
-const void *const g_00BC9020[11] = { (const void *)4784068, (const void *)4858191, (const void *)4858215, (const void *)4859420, (const void *)4783958, (const void *)4849016, (const void *)7420179, (const void *)4858269, (const void *)7420218, (const void *)4783992, (const void *)8890009 };
+// Slot 7 is retail VA 0x004A219D, the rowed Rva000A219DGet (ConstIntGetters2.cpp);
+// the other slots belong to other placeholder classes (LINK-617).
+int Rva000A219DGet(void);
+const void *const g_00BC9020[11] = { (const void *)4784068, (const void *)4858191, (const void *)4858215, (const void *)4859420, (const void *)4783958, (const void *)4849016, (const void *)7420179, (const void *)&Rva000A219DGet, (const void *)7420218, (const void *)4783992, (const void *)8890009 };
 class Rva000A217F : public Rva000A2137
 {
 public:
