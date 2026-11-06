@@ -6131,7 +6131,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1DualWeaponBehavior@@UAE@XZ,,0x0045ADC1,25,Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp,matched,opaque MI dtor
 ??1AimWeaponBehavior@@UAE@XZ,,0x0045B134,25,Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp,matched,opaque MI dtor
 ??1Rva0047F92D@@UAE@XZ,,0x0047F92D,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
-??1Rva00486E18@@UAE@XZ,,0x00486E18,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
+??1AssistedTargetingUpdate@@UAE@XZ,,0x00486E18,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva00488338@@UAE@XZ,,0x00488338,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva0048B671@@UAE@XZ,,0x0048B671,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva0048D742@@UAE@XZ,,0x0048D742,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
@@ -9855,7 +9855,7 @@ _math_floor,,0x00748570,41,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored
 _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.mod via check_number x2 + CIfmod + pushnumber; callees pinned
 ?name@CarryoverUnit@@QBEPBDXZ,,0x0037DC84,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning CarryoverUnit; vtable ref in .rdata; address-derived placeholder name
 ??_GRva000CAEC6@@UAEPAXI@Z,,0x000CAF6E,28,Code/GameEngine/Source/Common/Rva000C79C9Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva00486E18@@UAEPAXI@Z,,0x00486EE1,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GAssistedTargetingUpdate@@UAEPAXI@Z,,0x00486EE1,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0048B671@@UAEPAXI@Z,,0x0048B7BD,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0048FBBA@@UAEPAXI@Z,,0x0048FCFF,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0049188D@@UAEPAXI@Z,,0x00491A68,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
@@ -99526,3 +99526,4 @@ _$E1,,0x007AEBAA,13,Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,matched
 ?rva005C4ACD@FadeInTextRender@@UBEHXZ,,0x005C4ACD,4,Code/GameEngine/Source/Common/FadeInTextRender.cpp,matched,gen-alias; native C70A70 slot4 reads the complete4B dword getter at this+2C; current recovered field is delay; original callback spelling unproven; whole4B no-relocation body equals existing owner; no unique coverage
 ?update@AssistedTargetingUpdate@@UAE?AW4UpdateSleepTime@@XZ,,0x004A6563,6,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,matched,ICF fold; fold-proof=Code/GameEngine/Source/Common/ConstIntGetters.cpp; native update-interface C4B1E0 slot0 is constant FOREVER; no instance fields; exact6B; parent profile and lifetime reconciliation remain separate
 ?loadPostProcess@AssistedTargetingUpdate@@MAEXXZ,,0x00497805,5,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,matched,ICF fold; fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp; native primary C4AF64 slot1 forwards to UpdateModule post-load; exact5B; no instance cache fields
+?xfer@AssistedTargetingUpdate@@MAEXPAVXfer@@@Z,,0x004DF81B,27,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateCtor.cpp,matched,ICF fold; fold-proof=Code/GameEngine/Source/Common/Rva004DF81BXfer.cpp; native primary C4AF64 slot3; Version1 then UpdateModule transfer; canonical0x20 view; no instance fields

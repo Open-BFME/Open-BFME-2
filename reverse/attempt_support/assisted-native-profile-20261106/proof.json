@@ -1,0 +1,32 @@
+{
+  "Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp": {
+    "rows": 7,
+    "object_sha256": "156ff37ff583883845160ef852c91a2be39fad86cf1fe59668f08e8303a8c1a1",
+    "source_sha256": "6fa2c70e30e8ed19e192d024b639da3a4b646f1a4e05faf0bf59c96f8e451145",
+    "normal_private_code_and_properties_equal": true,
+    "key_eh": [
+      "EXACT",
+      ""
+    ]
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateCtor.cpp": {
+    "rows": 3,
+    "object_sha256": "080d5653e7a935c027a5f4bbc4fd54ead4ee3d4880f655ebb34b7245de99b6d7",
+    "source_sha256": "a4d9d7b51930d7d1e7c5d737648d18c2a172ec8c551e07a7341629f6c4cd023f",
+    "normal_private_code_and_properties_equal": true,
+    "ctor_eh": [
+      "EXACT",
+      ""
+    ],
+    "table_lengths": {
+      "??_7AssistedTargetingUpdate@@6B@": 12,
+      "??_7AssistedTargetingUpdate@@6BBehaviorModuleInterface@@@": 188,
+      "??_7AssistedTargetingUpdate@@6BObjectModule@@@": 52
+    }
+  },
+  "Code/GameEngine/Source/Common/Rva0024A797Derived.cpp": {
+    "rows": 59,
+    "object_sha256": "52266a47d0e2fa6fe4c5b765d13d54c92e9405059480d1a76c85adc6fc10e280",
+    "source_sha256": "40f139743672c96d5c32aa02598cb976e8f6527dcc1d1e3db8dc3f052d40493b"
+  }
+}

@@ -179,13 +179,13 @@ public:
 	virtual void f2();
 };
 
-class Rva00486E18 : public UpdateModule, public MiBase1, public Rva00486E18_B2
+class AssistedTargetingUpdate : public UpdateModule, public MiBase1, public Rva00486E18_B2
 {
 public:
-	virtual ~Rva00486E18();
+	virtual ~AssistedTargetingUpdate();
 };
 
-Rva00486E18::~Rva00486E18()
+AssistedTargetingUpdate::~AssistedTargetingUpdate()
 {
 }
 

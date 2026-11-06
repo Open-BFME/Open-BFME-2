@@ -12484,8 +12484,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfa
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp	friend_getRadarData@Object@@QAEPAVRadarObject@@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp	rva001E48E8@Rva001E48E8@@QAEPAXI@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceRva00263FA7.cpp	rva0028B511@Object@@QBEHXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp	AssistedTargetingUpdate::xfer	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp	AssistedTargetingUpdate::~AssistedTargetingUpdate	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp	loadPostProcess@BoneFXUpdate@@MAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp	copy	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp	1CurseSpecialPowerModuleData@@	1
