@@ -116,3 +116,31 @@ Strong non-COMDAT definitions are refused: the fixture gives LNK2005/LNK1169
 in either order. A reference in a losing SELECT_ANY copy still reports missing
 with or without the bridge. These observations are toolchain facts, not an
 assumption that strong definitions automatically win.
+
+**2026-11-06, review corrections.** Slot generation now requires the first
+external provider in response order, across kept objects and archives, to be
+the ledger owner's object. Other copies refuse as
+`target-not-winning-provider`, with both providers recorded. The displaced
+source slots retain their names and every ledger RVA in JSON and queue evidence;
+a linked slot comparing equal no longer erases that source-identity lead.
+
+`exit_link.py --blockers` now publishes `reverse/vtable_bridge_queue.tsv`
+from the matching unstubbed real-link result. The fleet link tier serves real
+blockers, then refusals, then bridge retirement, with one claim per source file
+and zero byte credit. Unknown or vanished owners remain visible in a
+`file:reverse/data_ledger.csv` ownership-investigation item. No Code owner is
+invented. Diagnostic or mismatched results cannot publish this work; old
+artifacts without bridge metadata leave the last queue intact.
+
+Validation: 627 tests passed and the existing empty-fixture test skipped; one
+unrelated header-acceptance fixture fails because it lacks `reverse/symbols.csv`,
+also reproduced from origin/master's test. Four picker integration tests passed,
+including the fallthrough priority when higher-priority work is claimed.
+
+At the maintainer's request, the queued local build and measurement were
+cancelled before taking the compiler lock. No new native counts or image are
+claimed for these corrections. The committed queue starts with its schema and
+an explicit pending-publication comment; the next hourly measured real-link
+artifact populates it and its diagnostic measures the new image defects.
+The earlier paired measurements above remain historical evidence at their
+named commit, not measurements of the corrected eligibility rule.
