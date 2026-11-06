@@ -45,12 +45,14 @@ const float WindModuleInfo::DEFAULT_ZERO_STRENGTH_DIST = 200.0;
 const float WindModuleInfo::DEFAULT_ANGLE_CHANGE = 0.15;
 const float WindModuleInfo::DEFAULT_ANGLE_CHANGE_MAX = 0.45;
 const float WindModuleInfo::DEFAULT_MOTION_START_ANGLE_MAX = 0.78539818525314331;
-extern "C" float windDefault_00E02904;
-float windDefault_00E02904 = 0.0f;
+#pragma const_seg(".data")
+const float WindModuleInfo::DEFAULT_MOTION_START_ANGLE = 0.0f;
+#pragma const_seg()
 const float WindModuleInfo::DEFAULT_MOTION_END_ANGLE_MIN = 5.4977874755859375;
 const float WindModuleInfo::DEFAULT_MOTION_END_ANGLE_MAX = 6.2831854820251465;
-extern "C" float windDefault_00DC0A9C;
-float windDefault_00DC0A9C = 5.4977874755859375f;
+#pragma const_seg(".data")
+const float WindModuleInfo::DEFAULT_MOTION_END_ANGLE = 5.4977874755859375f;
+#pragma const_seg()
 const float WindModuleInfo::DEFAULT_ANGLE = 0.0f;
 const float WindModuleInfo::DEFAULT_ANGLE_CHANGE_MIN = 0.15f;
 const float WindModuleInfo::DEFAULT_MOTION_START_ANGLE_MIN = 0.0f;
@@ -58,9 +60,11 @@ const char WindModuleInfo::DEFAULT_MOTION_MOVING_TO_END_ANGLE = 1;
 const float WindModuleInfo::DEFAULT_TURBULENCE_AMPLITUDE = 0.0f;
 const float WindModuleInfo::DEFAULT_TURBULENCE_FREQUENCY = 0.0f;
 
+const WindMotion WindModuleInfo::DEFAULT_MOTION = WIND_MOTION_NOT_USED;
+
 WindModuleInfo::WindModuleInfo()
 {
-	m_04 = 1;
+	m_04 = DEFAULT_MOTION;
 	m_08 = DEFAULT_STRENGTH;
 	m_0C = DEFAULT_FULL_STRENGTH_DIST;
 	m_10 = DEFAULT_ZERO_STRENGTH_DIST;
@@ -70,10 +74,10 @@ WindModuleInfo::WindModuleInfo()
 	m_20 = DEFAULT_ANGLE_CHANGE_MAX;
 	m_28 = 0.0f;
 	m_2C = DEFAULT_MOTION_START_ANGLE_MAX;
-	m_24 = windDefault_00E02904;
+	m_24 = static_cast<const volatile float &>(DEFAULT_MOTION_START_ANGLE);
 	m_34 = DEFAULT_MOTION_END_ANGLE_MIN;
 	m_38 = DEFAULT_MOTION_END_ANGLE_MAX;
-	m_30 = windDefault_00DC0A9C;
+	m_30 = static_cast<const volatile float &>(DEFAULT_MOTION_END_ANGLE);
 	m_3C = true;
 	m_40 = 0.0f;
 	m_44 = 0.0f;

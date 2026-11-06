@@ -72,3 +72,8 @@ They had no definition anywhere; their contents are read from retail. Every data
 relocation-verifies, and link_check is unchanged for all five units. At this run, every unowned
 export outside the template statics, vtables and GetValue locals has a provider (Wind defaults:
 `d05bc315e1` and the two commits after it). A new real link is the closure check.
+
+
+**2026-11-06 measured Wind confirmation.** The authoritative [real link at e185a327a7](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42251863906) lists none of the fourteen earlier Wind exports. It reports 269 unresolved symbols, zero duplicates, and no image. The same run still lists DEFAULT_MOTION and the two start/end angle data names.
+
+The follow-up defines those three. The retail export establishes the WindMotion namespace/type; its four values follow the native WindMotionNames table and the pinned Zero Hour donor ParticleSys.h. MSVC places the start/end float exports in .data, matching retail, and the enum constant in .rdata. The existing external code bodies retain their bytes and relocations except two same-address DIR32 references (memory-read). Confirmation of these three exports awaits a real link containing this change.

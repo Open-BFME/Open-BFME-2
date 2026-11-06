@@ -18,6 +18,14 @@
 namespace FXParticleSystem
 {
 
+enum WindMotion
+{
+    WIND_MOTION_INVALID = 0,
+    WIND_MOTION_NOT_USED,
+    WIND_MOTION_PING_PONG,
+    WIND_MOTION_CIRCULAR
+};
+
 class WindModuleInfo : public ::Snapshot
 {
 public:
@@ -66,6 +74,10 @@ public:
     static const float DEFAULT_TURBULENCE_FREQUENCY;
 
     static const float DEFAULT_MOTION_END_ANGLE_MAX;
+
+    static const WindMotion DEFAULT_MOTION;
+    static const float DEFAULT_MOTION_START_ANGLE;
+    static const float DEFAULT_MOTION_END_ANGLE;
 
     int m_04;
     float m_08;
