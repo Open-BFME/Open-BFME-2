@@ -473,15 +473,9 @@ public:
 	int m_refCount;
 };
 
-class Rva007AFF00Base
-{
-public:
-	virtual ~Rva007AFF00Base();
-private:
-	char m_padding[0x64];
-};
 
-class Rva007AFF00Owner : public Rva007AFF00Base
+
+class Rva007AFF00Owner : public Rva000F0F2B
 {
 public:
     Rva007AFF00Owner() throw();
@@ -1304,10 +1298,6 @@ void Rva00109DCF::rva00108E28()
 
 // ---- from Code/GameEngine/Source/Common/Rva007AFF00OwnerDtor.cpp
 
-// ??1Rva007AFF00Base@@UAE@XZ present-unmatched
-Rva007AFF00Base::~Rva007AFF00Base()
-{
-}
 
 Rva007AFF00Owner::~Rva007AFF00Owner()
 {

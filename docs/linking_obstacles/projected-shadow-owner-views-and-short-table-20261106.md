@@ -20,6 +20,19 @@ The minimum prefix header and the old padding-base views also remain to be
 reconciled with exact lifetime/provider checks. This fold does not clear the
 short table, establish a semantic class name, or prove a buildable image.
 
+Follow-up prerequisite: the constructor now emits its own table store and uses
+the measured0x118-byte owner view. Its table and28-byte deleting destructor
+exactly match the seed's existing providers. The seed's unused padding-only
+Rva007AFF00Base and present-unmatched destructor are removed in favor of the
+already rowed Rva000F0F2B base relationship. Both sources retain60/60 normal
+matched rows and exact EH. [Lifetime/provider evidence](../../reverse/attempt_support/projected-shadow-native-ctor-20261106/README.md).
+The constructor retains a flat0x68-byte base projection; complete shared-header
+adoption and the native three-slot interface remain open.
+
+Publication fc7590d725 audit: INCONCLUSIVE, index7bd55416c6 against outgoing
+base7523f06674513d785f41dd50cc0af713ce5edd26; three source objects lack current
+receipts, first AIStatBase.cpp. No link clearance or census gain is inferred.
+
 The completed supported14-file merge survey accepted no donor. Remaining
 compile boundaries include canonical RefCountClass/HashableClass/Coord3D
 versus the seed's donor header tree, AsciiString and Node declarations,
