@@ -440,4 +440,4 @@ HeightDieUpdateModuleData::HeightDieUpdateModuleData()
 
 // tu-skeleton: 0x0048FCB2 77B ??0HeightDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0048FCFF 28B ??_GRva0048FBBA@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x0048FCFF 28B ??_GHeightDieUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)

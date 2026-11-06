@@ -243,13 +243,13 @@ public:
 	virtual void f2();
 };
 
-class Rva0048FBBA : public UpdateModule, public MiBase1, public Rva0048FBBA_B2
+class HeightDieUpdate : public UpdateModule, public MiBase1, public Rva0048FBBA_B2
 {
 public:
-	virtual ~Rva0048FBBA();
+	virtual ~HeightDieUpdate();
 };
 
-Rva0048FBBA::~Rva0048FBBA()
+HeightDieUpdate::~HeightDieUpdate()
 {
 }
 

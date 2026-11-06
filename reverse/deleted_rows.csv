@@ -5464,3 +5464,5 @@ _$E1,0x007AEBAA,Retracted for readmission as _$E3 in Rva0033FE65OnEnter.cpp: the
 ??1Rva004DF8A9@@UAE@XZ,0x004DF8A9,"Renamed to ??1ObjectWeaponStatusHelper@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BFBE48)"
 ??_GRva004DF8A9@@UAEPAXI@Z,0x0028CBE1,"Renamed to ??_GObjectWeaponStatusHelper@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BFBE48)"
 ?name@Rva0048FBD3Named@@QBEPBDXZ,0x0048FBD3,"Renamed to ?GetSnapshotName@HeightDieUpdate@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C4CF18 slot 2)"
+??1Rva0048FBBA@@UAE@XZ,0x0048FBBA,"Renamed to ??1HeightDieUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4CF18)"
+??_GRva0048FBBA@@UAEPAXI@Z,0x0048FCFF,"Renamed to ??_GHeightDieUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4CF18)"
