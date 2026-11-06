@@ -46,14 +46,7 @@ private:
 	unsigned char m_pad00[0x08];
 	ObjectIDList m_tunnelIDs; // +0x08
 };
-class Player
-{
-public:
-	TunnelTracker *getTunnelSystem() { return m_tunnelSystem; }
-private:
-	unsigned char m_pad00[0x2E8];
-	TunnelTracker *m_tunnelSystem; // +0x2E8
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/GameLogic/Module/ExitInterface.h"
 template <int N> class VSlotsC : public VSlotsC<N - 1>
 {
@@ -75,7 +68,7 @@ int GetGameLogicRandomValue(int low, int high, char *file, int line);
 static __declspec(noinline) Object *findBestTunnel(Player *ownerPlayer, const Coord3D *pos)
 {
 	if (!ownerPlayer) return NULL; // should never happen, but hey.  jba.
-	TunnelTracker *tunnels = ownerPlayer->getTunnelSystem();
+	TunnelTracker *tunnels = ownerPlayer->m_tunnelSystem;
 	Object *bestTunnel = NULL;
 	Real bestDistSqr = 0;
 	const ObjectIDList *allTunnels = tunnels->getContainerList();

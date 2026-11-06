@@ -141,7 +141,7 @@ public:
     void *header;
     unsigned int count;
 };
-class Player { public: char pad[0x54]; int key; };
+#include "../../../../Include/Common/Player.h"
 // MineshaftPortalNetworkManager's snapshot transfer, native 003732BF..00373357
 // RET4: the vtable slot (00817E10) after the "MineshaftPortalNetworkManager"
 // name getter 00373411, reached through the Snapshot sub-object at +0C.
@@ -707,7 +707,7 @@ void MineshaftPortalNetworkManager::xfer(Xfer *xfer)
 void MineshaftPortalNetworkManager::rva003731CB(Rva00373373Portal *portal, Player *player)
 {
     if (((Rva0037381CMap *)&m_map)->count) {
-        int key=player->key;
+        int key=player->m_playerIndex;
         Rva00373158Node *node=(Rva00373158Node *)((MapIntIntTree *)&m_map)->find(key)._M_node;
         if (node != ((Rva0037381CMap *)&m_map)->header) {
             Rva00373158Group *group=node->group;
@@ -1034,15 +1034,15 @@ Waypoint *MineshaftPortalBehaviour::rva00372DFA(const Coord3D *pos)
 
 void MineshaftPortalNetworkManager::addWaypoint(Waypoint *waypoint, Player *player)
 {
-    int key = player->key;
+    int key = player->m_playerIndex;
     NetworkMap::iterator it = ((NetworkMap *)&m_map)->find(key);
     if (it == ((NetworkMap *)&m_map)->end()) {
         // Retail's allocation has no unwind state: the record constructor cannot throw.
         Rva0037307F *record = (Rva0037307F *)::operator new(sizeof(Rva0037307F));
         Rva0037307F *network = record ? &record->Rva0037307F::Rva0037307F() : 0;
-        int insertionKey = player->key;
+        int insertionKey = player->m_playerIndex;
         (*(NetworkMap *)&m_map)[insertionKey] = network;
-        int lookupKey = player->key;
+        int lookupKey = player->m_playerIndex;
         it = ((NetworkMap *)&m_map)->find(lookupKey);
     }
     ObjectID id = (ObjectID)waypoint->id;

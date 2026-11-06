@@ -9,7 +9,7 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern "C" int __cdecl fprintf(void *,const char *,...);
 extern "C" void *theLogicRandomLogFile;
-class Player { public: char pad[0x4C]; AsciiString name; };
+#include "../../../../Include/Common/Player.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object {
 public:
@@ -31,7 +31,7 @@ bool Rva00397EAC::isPlayerAllowedToCapture(Player *player,int arg)
  union DecisionWord { bool allowed; int alignmentWord; } decision;
  decision.allowed = reinterpret_cast<Rva003973EB *>(this)->rva003973EB(player,arg);
  if (theLogicRandomLogFile) {
-  const char *callerName=object->getControllingPlayer()->name.str();
+  const char *callerName=object->getControllingPlayer()->m_playerName.str();
   int id=object->id;
   const char *castleName=object->type->m_nameString.str();
   fprintf(theLogicRandomLogFile,

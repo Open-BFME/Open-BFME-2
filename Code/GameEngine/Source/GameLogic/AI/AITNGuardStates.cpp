@@ -89,14 +89,7 @@ public:
 	Object *getCurNemesis();
 	void updateNemesis(const Object *target);
 };
-class Player
-{
-public:
-	TunnelTracker *getTunnelSystem() { return m_tunnelSystem; }
-private:
-	unsigned char m_pad00[0x2E8];
-	TunnelTracker *m_tunnelSystem; // +0x2E8
-};
+#include "../../../Include/Common/Player.h"
 struct DamageInfoInput
 {
 	unsigned char m_pad00[0x08];
@@ -334,7 +327,7 @@ StateReturnType AITNGuardReturnState::update( void )
 	// Check tunnel for target.
 	TunnelTracker *tunnels = NULL;
 	if (ownerPlayer) {
-		tunnels = ownerPlayer->getTunnelSystem();
+		tunnels = ownerPlayer->m_tunnelSystem;
 	}
 
 	if (tunnels) {
@@ -375,7 +368,7 @@ StateReturnType AITNGuardAttackAggressorState::update( void )
 		Player *ownerPlayer = machine->getOwner()->getControllingPlayer();
 		TunnelTracker *tunnels = NULL;
 		if (ownerPlayer) {
-			tunnels = ownerPlayer->getTunnelSystem();
+			tunnels = ownerPlayer->m_tunnelSystem;
 		}
 		if (tunnels) tunnels->updateNemesis(nemesis);
 	}
@@ -443,7 +436,7 @@ StateReturnType AITNGuardInnerState::update( void )
 	Player *ownerPlayer = machine->getOwner()->getControllingPlayer();
 	TunnelTracker *tunnels = NULL;
 	if (ownerPlayer) {
-		tunnels = ownerPlayer->getTunnelSystem();
+		tunnels = ownerPlayer->m_tunnelSystem;
 	}
 
 	Object* owner = getMachineOwner();
@@ -539,7 +532,7 @@ StateReturnType AITNGuardAttackAggressorState::onEnter( void )
 	Player *ownerPlayer = machine->getOwner()->getControllingPlayer();
 	TunnelTracker *tunnels = NULL;
 	if (ownerPlayer) {
-		tunnels = ownerPlayer->getTunnelSystem();
+		tunnels = ownerPlayer->m_tunnelSystem;
 	}
 	if (tunnels) tunnels->updateNemesis(nemesis);
 

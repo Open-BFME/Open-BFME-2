@@ -251,6 +251,7 @@
   or machine constructor declaration. See the
   [trial evidence](../../reverse/attempt_support/aitnguard-partial-merge-20261104.md).
   The census-linked LinkGuard passed; no merge or census gain is claimed.
+  2026-11-06: canonical Player adoption retires eleven guard/castle/portal header rows, including the three AITNGuard consumers; 118 functions remain exact, all-object provider checks pass and ordinary link predictions retain 19,060 bytes. Other merge prerequisites remain ([evidence](../../reverse/attempt_support/player-guard-header-adoption-20261106-codexb.md)).
 - **DefaultProductionExitUpdate Xfer prerequisite (2026-10-26):**
   [canonical operand adoption](../../reverse/attempt_support/consolidation-default-exit-xfer-prerequisite-20261026-codex.md)
   retires one header-queue row while preserving all three matched rows, the

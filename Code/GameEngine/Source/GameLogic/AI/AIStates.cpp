@@ -374,15 +374,7 @@ inline DLINK_ITERATOR<Team> iterate_TeamInstanceList(const TeamPrototype *proto)
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 
-class Player
-{
-public:
-	unsigned char m_pad00[0x5C];
-	Int m_playerType; // +0x5C
-	unsigned char m_pad60[0x32C - 0x60];
-	PlayerTeamNode *m_playerTeamPrototypes; // +0x32C
-	PlayerTeamNode *getPlayerTeams() const { return m_playerTeamPrototypes; }
-};
+#include "../../../Include/Common/Player.h"
 
 // Object +0xA8 geometry-shape list (index accessor 0x006BD980, rowed under
 // this name); each shape carries its bounding radius at +0x08.
@@ -1154,7 +1146,7 @@ Bool AIFollowPathAsTeamState::canMoveToNextFormationPathPoint()
 
 	Bool ready = true;
 	Player *player = owner->getControllingPlayer();
-	for (PlayerTeamNode *it = player->getPlayerTeams()->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	for (PlayerTeamNode *it = player->m_playerTeamPrototypes->m_next; it != player->m_playerTeamPrototypes; it = it->m_next)
 	{
 		for (DLINK_ITERATOR<Team> iter = iterate_TeamInstanceList(it->m_value); !iter.done(); iter.advance())
 		{

@@ -317,14 +317,9 @@ private:
 	unsigned char m_pad00[0x08];
 	_STL::list<ObjectID> m_tunnelIDs; // +0x08
 };
-class Player
-{
-public:
-	TunnelTracker *getTunnelSystem() { return m_tunnelSystem; }
-private:
-	unsigned char m_pad00[0x2E8];
-	TunnelTracker *m_tunnelSystem; // +0x2E8
-};
+
+#include "../../../Include/Common/Player.h"
+
 extern GameLogic *TheGameLogic;
 struct TnLookupNode { TnLookupNode *next; ObjectID key; Object *object; };
 struct TnLookupBuckets {
@@ -708,7 +703,7 @@ Bool AITNGuardMachine::lookForInnerTarget(void)
 	// Scan my tunnels.
 	Player *ownerPlayer = getOwner()->getControllingPlayer();
 	if (!ownerPlayer) return false; // should never happen, but hey.  jba.
-	TunnelTracker *tunnels = ownerPlayer->getTunnelSystem();
+	TunnelTracker *tunnels = ownerPlayer->m_tunnelSystem;
 	if (tunnels==NULL) return false;
 	if (tunnels->getCurNemesis()) {
 		setNemesisID(tunnels->getCurNemesis()->getID());

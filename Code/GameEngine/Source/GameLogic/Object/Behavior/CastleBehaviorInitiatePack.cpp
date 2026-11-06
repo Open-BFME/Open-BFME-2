@@ -12,7 +12,7 @@
 #include "GameLogicObjectLookupView.h"
 #include "../../../../Include/GameClient/Drawable.h"
 struct TemplateNameView {char prefix[0x64];AsciiString name;};
-class Player {public:char prefix[0x4C];AsciiString name;};
+#include "../../../../Include/Common/Player.h"
 enum ObjectStatusTypes {STATUS3=3,STATUS5=5};
 struct NativeModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}};
 class Object {public:Drawable*getDrawable()const;Player*getControllingPlayer()const;void rva0028AE6D();void setStatus(ObjectStatusTypes,bool);char prefix[4];TemplateNameView*tmplate;char pad08[0x6C];int id;char pad78[0x94];NativeModelFlags flags;};
@@ -42,7 +42,7 @@ void CastleBehavior::initiatePack(){
  self->setStatus(STATUS3,false);self->getDrawable()->rva00274176(false);
  rva00397B03(STATUS5,true);wait40=moduleData->wait;mapA0.rva0039611E();
  if(((LogicLogView*)TheGameLogic)->enabled>0 && theLogicRandomLogFile){
-  const char*caller=self->getControllingPlayer()->name.str();int id=self->id;const char*name=self->tmplate->name.str();
+  const char*caller=self->getControllingPlayer()->m_playerName.str();int id=self->id;const char*name=self->tmplate->name.str();
   fprintf(theLogicRandomLogFile,"CAMP: Frame %d: Castle %s(%d) ::initiatePack(aka:DIE) called by %s",TheGameLogic->getFrame(),name,id,caller);
  }
 }

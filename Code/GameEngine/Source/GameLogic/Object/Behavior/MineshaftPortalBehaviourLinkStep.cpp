@@ -92,7 +92,7 @@ public:
     void *header;
     unsigned int count;
 };
-class Player { public: char pad[0x54]; int key; };
+#include "../../../../Include/Common/Player.h"
 class Waypoint;
 class MineshaftPortalNetworkManager : public SubsystemInterface, public Snapshot
 {
