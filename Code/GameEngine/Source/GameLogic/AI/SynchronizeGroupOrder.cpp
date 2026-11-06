@@ -4,6 +4,8 @@
 #include "../../../Include/GameLogic/Rva002EE9B7.h"
 
 class Rva0036E346;
+struct Coord3D;
+struct GroupOrderCommand;
 
 class GroupOrder
 {
@@ -12,6 +14,10 @@ public:
 	GroupOrder(const GroupOrder &other);
 	GroupOrder(Rva0036E346 *holder);
 	virtual ~GroupOrder();
+	virtual void loadPostProcess() {}
+	virtual void slot07Set(int unused) {}
+	virtual bool isNearDestination(const Coord3D *position) { return false; }
+	virtual int slot10() { return -1; }
 private:
 	unsigned char m_pad04[0x18 - 4];
 };
@@ -24,6 +30,8 @@ public:
 	SynchronizeGroupOrder(Rva0036E346 *holder);
 	virtual ~SynchronizeGroupOrder();
 	SynchronizeGroupOrder *rva005469FD();
+	virtual Coord3D *getDestination(int position) { return reinterpret_cast<Coord3D *>(position); }
+	virtual bool slot11Command(int *outType, GroupOrderCommand *command) { return false; }
 private:
 	Rva002EE9B7 m_18;
 	bool m_24;

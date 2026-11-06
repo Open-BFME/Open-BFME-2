@@ -1,0 +1,25 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp",
+  "source_sha256": "111caa4cb9f9dc2be37c635f5515cc82f0962db97f577bec1d0b2ca3d8655d43",
+  "object_sha256": "0416c47adfaf977eb977fe59cc09d47c24794f8317344f3fce468071fb5d21b7",
+  "normal_equals_private_winner": true,
+  "definitions": 12,
+  "eh": {
+    "??0SynchronizeGroupOrder@@QAE@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??0SynchronizeGroupOrder@@QAE@ABV0@@Z": [
+      "EXACT",
+      ""
+    ],
+    "?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ": [
+      "EXACT",
+      ""
+    ],
+    "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z": [
+      "EXACT",
+      ""
+    ]
+  }
+}

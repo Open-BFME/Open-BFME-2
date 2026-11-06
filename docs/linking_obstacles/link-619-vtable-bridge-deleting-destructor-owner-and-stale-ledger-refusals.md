@@ -95,3 +95,5 @@ tables as target-not-winning-provider (they should be bridged). The `vtables_bri
 35 as refusals turn into generated copies. Neither is measured yet.
 
 Clearance: none claimed (no new real link measured). Census confirmation: none claimed.
+
+2026-11-06, SynchronizeGroupOrder prerequisite (base `c1b6ebfd3a`): private views explain the refused approved merge and selected-table conflict. The constructor seed emitted one slot; retail C6A314 has fourteen. Six native constant/passthrough callbacks are now supplied as independently verified real ICF bodies in the existing seed, with14/14 rows and four EXACT EH graphs retained. No pin/alias added. This is a dependency, not a table clearance: a coupled fourteen-slot view and supported virtual-clone reconciliation, then the approved merge and current provider-selection checks, remain. [Native table and proof](../../reverse/attempt_support/synchronize-group-order-native-table-20261106/README.md).

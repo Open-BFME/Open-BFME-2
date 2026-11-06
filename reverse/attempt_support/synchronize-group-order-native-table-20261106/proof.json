@@ -1,0 +1,613 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp",
+  "base_rows": 8,
+  "rows": 14,
+  "new_rows": [
+    [
+      "?loadPostProcess@GroupOrder@@UAEXXZ",
+      737232,
+      1
+    ],
+    [
+      "?slot07Set@GroupOrder@@UAEXH@Z",
+      4695708,
+      3
+    ],
+    [
+      "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+      6076927,
+      5
+    ],
+    [
+      "?slot10@GroupOrder@@UAEHXZ",
+      3591290,
+      4
+    ],
+    [
+      "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z",
+      2201658,
+      7
+    ],
+    [
+      "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+      5289457,
+      5
+    ]
+  ],
+  "matched": [
+    "0x00546926",
+    "0x00546982",
+    "0x005469BD",
+    "0x005469FD",
+    "0x00798073",
+    "0x0079807B",
+    "0x00798085",
+    "0x0079808F",
+    "0x21983a",
+    "0x36cc7a",
+    "0x47a69c",
+    "0x50b5f1",
+    "0x5cb9ff",
+    "0xb3fd0"
+  ],
+  "missing": [],
+  "errors": [],
+  "before_facts": [
+    {
+      "??0SynchronizeGroupOrder@@QAE@XZ": {
+        "bytes": "b800000000e80000000051568bf18975f0e8000000008365fc008d4e18c70600000000e8000000008b4df4c64624008bc65e64890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0SynchronizeGroupOrder@@QAE@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            18,
+            20,
+            "??0GroupOrder@@QAE@XZ"
+          ],
+          [
+            31,
+            6,
+            "??_7SynchronizeGroupOrder@@6B@"
+          ],
+          [
+            36,
+            20,
+            "??0Rva002EE9B7@@QAE@XZ"
+          ],
+          [
+            53,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_7SynchronizeGroupOrder@@6B@": {
+        "bytes": "00000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ESynchronizeGroupOrder@@UAEPAXI@Z"
+          ]
+        ]
+      },
+      "??_GSynchronizeGroupOrder@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1SynchronizeGroupOrder@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??0SynchronizeGroupOrder@@QAE@ABV0@@Z": {
+        "bytes": "b800000000e8000000005156ff75088bf18975f0e8000000008365fc008d4e18c70600000000e8000000008b4df4c64624008bc65e64890d00000000c9c20400",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0SynchronizeGroupOrder@@QAE@ABV0@@Z"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            21,
+            20,
+            "??0GroupOrder@@QAE@ABV0@@Z"
+          ],
+          [
+            34,
+            6,
+            "??_7SynchronizeGroupOrder@@6B@"
+          ],
+          [
+            39,
+            20,
+            "??0Rva002EE9B7@@QAE@XZ"
+          ],
+          [
+            56,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ": {
+        "bytes": "b800000000e80000000051566a288bf1e800000000598bc8894df033c03bc88945fc740656e8000000008b4df45e64890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            17,
+            20,
+            "??2@YAPAXI@Z"
+          ],
+          [
+            38,
+            20,
+            "??0SynchronizeGroupOrder@@QAE@ABV0@@Z"
+          ],
+          [
+            49,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z": {
+        "bytes": "b800000000e8000000005156ff75088bf18975f0e8000000008365fc008d4e18c70600000000e8000000008b4df4c64624008bc65e64890d00000000c9c20400",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            21,
+            20,
+            "??0GroupOrder@@QAE@PAVRva0036E346@@@Z"
+          ],
+          [
+            34,
+            6,
+            "??_7SynchronizeGroupOrder@@6B@"
+          ],
+          [
+            39,
+            20,
+            "??0Rva002EE9B7@@QAE@XZ"
+          ],
+          [
+            56,
+            6,
+            "__except_list"
+          ]
+        ]
+      }
+    },
+    {
+      "??0SynchronizeGroupOrder@@QAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7SynchronizeGroupOrder@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "??_GSynchronizeGroupOrder@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0SynchronizeGroupOrder@@QAE@ABV0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      }
+    },
+    {
+      "defined": [
+        "??0SynchronizeGroupOrder@@QAE@ABV0@@Z",
+        "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z",
+        "??0SynchronizeGroupOrder@@QAE@XZ",
+        "??_7SynchronizeGroupOrder@@6B@",
+        "??_GSynchronizeGroupOrder@@UAEPAXI@Z",
+        "?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ"
+      ],
+      "undefined": [
+        "??0GroupOrder@@QAE@ABV0@@Z",
+        "??0GroupOrder@@QAE@PAVRva0036E346@@@Z",
+        "??0GroupOrder@@QAE@XZ",
+        "??0Rva002EE9B7@@QAE@XZ",
+        "??1GroupOrder@@UAE@XZ",
+        "??1SynchronizeGroupOrder@@UAE@XZ",
+        "??2@YAPAXI@Z",
+        "??3@YAXPAX@Z",
+        "??_GSynchronizeGroupOrder@@UAEPAXI@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list"
+      ],
+      "weak": [
+        [
+          "??_ESynchronizeGroupOrder@@UAEPAXI@Z",
+          "??_GSynchronizeGroupOrder@@UAEPAXI@Z"
+        ]
+      ],
+      "alternates": {},
+      "includes": []
+    }
+  ],
+  "after_facts": [
+    {
+      "??0SynchronizeGroupOrder@@QAE@XZ": {
+        "bytes": "b800000000e80000000051568bf18975f0e8000000008365fc008d4e18c70600000000e8000000008b4df4c64624008bc65e64890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0SynchronizeGroupOrder@@QAE@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            18,
+            20,
+            "??0GroupOrder@@QAE@XZ"
+          ],
+          [
+            31,
+            6,
+            "??_7SynchronizeGroupOrder@@6B@"
+          ],
+          [
+            36,
+            20,
+            "??0Rva002EE9B7@@QAE@XZ"
+          ],
+          [
+            53,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??_7SynchronizeGroupOrder@@6B@": {
+        "bytes": "00000000000000000000000000000000000000000000000000000000",
+        "relocations": [
+          [
+            0,
+            6,
+            "??_ESynchronizeGroupOrder@@UAEPAXI@Z"
+          ],
+          [
+            4,
+            6,
+            "?loadPostProcess@GroupOrder@@UAEXXZ"
+          ],
+          [
+            8,
+            6,
+            "?slot07Set@GroupOrder@@UAEXH@Z"
+          ],
+          [
+            12,
+            6,
+            "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z"
+          ],
+          [
+            16,
+            6,
+            "?slot10@GroupOrder@@UAEHXZ"
+          ],
+          [
+            20,
+            6,
+            "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z"
+          ],
+          [
+            24,
+            6,
+            "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z"
+          ]
+        ]
+      },
+      "?loadPostProcess@GroupOrder@@UAEXXZ": {
+        "bytes": "c3",
+        "relocations": []
+      },
+      "?slot07Set@GroupOrder@@UAEXH@Z": {
+        "bytes": "c20400",
+        "relocations": []
+      },
+      "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z": {
+        "bytes": "32c0c20400",
+        "relocations": []
+      },
+      "?slot10@GroupOrder@@UAEHXZ": {
+        "bytes": "83c8ffc3",
+        "relocations": []
+      },
+      "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z": {
+        "bytes": "8b442404c20400",
+        "relocations": []
+      },
+      "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z": {
+        "bytes": "32c0c20800",
+        "relocations": []
+      },
+      "??_GSynchronizeGroupOrder@@UAEPAXI@Z": {
+        "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+        "relocations": [
+          [
+            4,
+            20,
+            "??1SynchronizeGroupOrder@@UAE@XZ"
+          ],
+          [
+            17,
+            20,
+            "??3@YAXPAX@Z"
+          ]
+        ]
+      },
+      "??0SynchronizeGroupOrder@@QAE@ABV0@@Z": {
+        "bytes": "b800000000e8000000005156ff75088bf18975f0e8000000008365fc008d4e18c70600000000e8000000008b4df4c64624008bc65e64890d00000000c9c20400",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0SynchronizeGroupOrder@@QAE@ABV0@@Z"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            21,
+            20,
+            "??0GroupOrder@@QAE@ABV0@@Z"
+          ],
+          [
+            34,
+            6,
+            "??_7SynchronizeGroupOrder@@6B@"
+          ],
+          [
+            39,
+            20,
+            "??0Rva002EE9B7@@QAE@XZ"
+          ],
+          [
+            56,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ": {
+        "bytes": "b800000000e80000000051566a288bf1e800000000598bc8894df033c03bc88945fc740656e8000000008b4df45e64890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            17,
+            20,
+            "??2@YAPAXI@Z"
+          ],
+          [
+            38,
+            20,
+            "??0SynchronizeGroupOrder@@QAE@ABV0@@Z"
+          ],
+          [
+            49,
+            6,
+            "__except_list"
+          ]
+        ]
+      },
+      "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z": {
+        "bytes": "b800000000e8000000005156ff75088bf18975f0e8000000008365fc008d4e18c70600000000e8000000008b4df4c64624008bc65e64890d00000000c9c20400",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            21,
+            20,
+            "??0GroupOrder@@QAE@PAVRva0036E346@@@Z"
+          ],
+          [
+            34,
+            6,
+            "??_7SynchronizeGroupOrder@@6B@"
+          ],
+          [
+            39,
+            20,
+            "??0Rva002EE9B7@@QAE@XZ"
+          ],
+          [
+            56,
+            6,
+            "__except_list"
+          ]
+        ]
+      }
+    },
+    {
+      "??0SynchronizeGroupOrder@@QAE@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??_7SynchronizeGroupOrder@@6B@": {
+        "symbol_storage": 2,
+        "section": ".rdata",
+        "comdat_selection": 2
+      },
+      "?loadPostProcess@GroupOrder@@UAEXXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot07Set@GroupOrder@@UAEXH@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot10@GroupOrder@@UAEHXZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??_GSynchronizeGroupOrder@@UAEPAXI@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 2
+      },
+      "??0SynchronizeGroupOrder@@QAE@ABV0@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      },
+      "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z": {
+        "symbol_storage": 2,
+        "section": ".text",
+        "comdat_selection": 1
+      }
+    },
+    {
+      "defined": [
+        "??0SynchronizeGroupOrder@@QAE@ABV0@@Z",
+        "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z",
+        "??0SynchronizeGroupOrder@@QAE@XZ",
+        "??_7SynchronizeGroupOrder@@6B@",
+        "??_GSynchronizeGroupOrder@@UAEPAXI@Z",
+        "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "?rva005469FD@SynchronizeGroupOrder@@QAEPAV1@XZ",
+        "?slot07Set@GroupOrder@@UAEXH@Z",
+        "?slot10@GroupOrder@@UAEHXZ",
+        "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z"
+      ],
+      "undefined": [
+        "??0GroupOrder@@QAE@ABV0@@Z",
+        "??0GroupOrder@@QAE@PAVRva0036E346@@@Z",
+        "??0GroupOrder@@QAE@XZ",
+        "??0Rva002EE9B7@@QAE@XZ",
+        "??1GroupOrder@@UAE@XZ",
+        "??1SynchronizeGroupOrder@@UAE@XZ",
+        "??2@YAPAXI@Z",
+        "??3@YAXPAX@Z",
+        "??_GSynchronizeGroupOrder@@UAEPAXI@Z",
+        "__EH_prolog",
+        "___CxxFrameHandler",
+        "__except_list"
+      ],
+      "weak": [
+        [
+          "??_ESynchronizeGroupOrder@@UAEPAXI@Z",
+          "??_GSynchronizeGroupOrder@@UAEPAXI@Z"
+        ]
+      ],
+      "alternates": {},
+      "includes": []
+    }
+  ],
+  "added": [
+    "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z",
+    "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+    "?loadPostProcess@GroupOrder@@UAEXXZ",
+    "?slot07Set@GroupOrder@@UAEXH@Z",
+    "?slot10@GroupOrder@@UAEHXZ",
+    "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z"
+  ],
+  "removed": [],
+  "changed": [
+    "??_7SynchronizeGroupOrder@@6B@"
+  ]
+}
