@@ -128,25 +128,38 @@ void Rva0043DA9D::reset()
 	m_2C3 = false;
 }
 
-// --- 0x004B96C4 (8B): the slot after onBuildComplete (0x004B96A9) in
-// InheritUpgradeCreate's +0x10 interface table (VA 0x00C596EC): forwards to
-// the pinned create work 0x004B959C on the primary this, the same call
-// onBuildComplete tail-jumps.
-class InheritUpgradeCreate
+// --- 0x004B96C4 (8B): slot 2 (CreateModuleInterface's slot02, after
+// onBuildComplete 0x004B96A9) of InheritUpgradeCreate's +0x10 interface table
+// (VA 0x00C596E4), which its constructor 0x004B9428 installs (the class's view:
+// InheritUpgradeCreate.cpp): forwards to the pinned create work 0x004B959C on
+// the primary this, the same call onBuildComplete tail-jumps. The two bases
+// model only the interface's offset and slot order.
+class Rva004B96C4Primary
+{
+public:
+	virtual void primarySlot();
+private:
+	char m_pad04[0x10 - 4];
+};
+
+class Rva004B96C4Iface
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02() = 0;
+};
+
+class InheritUpgradeCreate : public Rva004B96C4Primary, public Rva004B96C4Iface
 {
 public:
 	void rva004B959C();									// 0x004B959C (pinned)
+	virtual void slot02();
 };
 
-class Rva004B96C4
+void InheritUpgradeCreate::slot02()
 {
-public:
-	void rva004B96C4();
-};
-
-void Rva004B96C4::rva004B96C4()
-{
-	((InheritUpgradeCreate *)((char *)this - 0x10))->rva004B959C();
+	rva004B959C();
 }
 
 // --- 0x004F68A8 (8B): assign the TreeHintRef member at +0x20 through the
