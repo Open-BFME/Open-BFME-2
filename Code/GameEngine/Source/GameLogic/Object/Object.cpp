@@ -4872,7 +4872,7 @@ void *Rva0028C783::rva0028C783(unsigned int idx)
 
 // tu-skeleton: 0x0028CADE 69B ?getModuleNameKey@ObjectRepulsorHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRepulsorHelperPoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0028CB29 28B ??_GRva004DF863@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
+// tu-skeleton: 0x0028CB29 28B ??_GObjectRepulsorHelper@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CB45 81B ??0ObjectWeaponStatusHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectWeaponStatusHelperCtor.cpp (not merged yet)
 

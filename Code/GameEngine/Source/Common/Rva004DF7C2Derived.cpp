@@ -75,13 +75,13 @@ public:
 // ?f2@Rva004DF863_B2@@UAEXXZ present-unmatched
 void Rva004DF863_B2::f2() {}
 
-class Rva004DF863 : public Rva004DF7C2, public MiBase1, public Rva004DF863_B2
+class ObjectRepulsorHelper : public Rva004DF7C2, public MiBase1, public Rva004DF863_B2
 {
 public:
-	virtual ~Rva004DF863();
+	virtual ~ObjectRepulsorHelper();
 };
 
-Rva004DF863::~Rva004DF863()
+ObjectRepulsorHelper::~ObjectRepulsorHelper()
 {
 }
 
