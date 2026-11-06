@@ -53,8 +53,6 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-
 //
 // ??_GRva00482A4DRecord@@QAEPAXI@Z at 0x00482A4D (28B): a non-virtual scalar
 // deleting destructor. Retail saves this, calls the destructor at 0x00482551,
@@ -71,17 +69,69 @@ struct Rva00482A4DRecord
 	~Rva00482A4DRecord();
 	char bytes[1];
 };
-
-// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
-// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
-// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
+//
+// ?xfer@Rva00482641@@MAEXPAVXfer@@@Z, retail 0x00482641, 361 bytes.
+// Virtual slot 3 of vtable 0x0084965C (primary of FireWeaponWhenDamagedBehavior
+// ctor 0x00482803 and dtor 0x00482551); true FireWeaponWhenDamagedBehavior xfer
+// with eight Weapon slots at +0x2C..0x48 via base UpdateModule xfer 0x0044DF9F
+// plus UpgradeMux 0x004CE397 plus Version1 plus IsLightCRC early-out. Donor:
+// BFME1 FireWeaponWhenDamagedBehaviorXfer.cpp (same eight-weapon order).
+// Honest Rva name: real name ?xfer@FireWeaponWhenDamagedBehavior@@MAEXPAVXfer@@@Z
+// already rowed at 0x004A4EE9 for vtable 0x00852868 (Rva004A4C19 class diverging
+// from donor); this body matches the donor and the rowed ctor/dtor layout.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 // 0x00460A98 and 0x00460AA2 are UpgradeModule's UpgradeMux slots 13 and 14:
 // Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp.
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004827EFByteChase32Field, 0x1C, 0x114)
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004827F9ByteChase32Field, 0x1C, 0x115)
+
+class Rva00482641 : public UpdateModule, public UpgradeMux, public DamageModuleInterface
+{
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	Weapon *m_reactionWeaponPristine; // +0x2C
+	Weapon *m_reactionWeaponDamaged; // +0x30
+	Weapon *m_reactionWeaponReallyDamaged; // +0x34
+	Weapon *m_reactionWeaponRubble; // +0x38
+	Weapon *m_continuousWeaponPristine; // +0x3C
+	Weapon *m_continuousWeaponDamaged; // +0x40
+	Weapon *m_continuousWeaponReallyDamaged; // +0x44
+	Weapon *m_continuousWeaponRubble; // +0x48
+};
+
+typedef bool Bool;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp
 
@@ -278,9 +328,7 @@ void Rva00482A4DRecord_Delete(Rva00482A4DRecord *p)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
-// tu-skeleton: 0x0048263B 6B ?name@FireWeaponWhenDamagedBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00482641 361B ?xfer@Rva00482641@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00482641Xfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorPoolKey.cpp
 
@@ -292,6 +340,135 @@ NameKeyType FireWeaponWhenDamagedBehavior::getModuleNameKey() const
 	return TheFireWeaponWhenDamagedBehaviorPoolKey;
 }
 
-// tu-skeleton: 0x00482A69 187B ?onDamage@FireWeaponWhenDamagedBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp (not merged yet)
+// tu-skeleton: 0x0048263B 6B ?name@FireWeaponWhenDamagedBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00482B24 149B ?update@FireWeaponWhenDamagedBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00482641Xfer.cpp
+
+void Rva00482641::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	UpgradeMux::upgradeMuxXfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+
+	xfer->Version1();
+
+	Bool weaponPresent = m_reactionWeaponPristine != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_reactionWeaponPristine;
+
+	weaponPresent = m_reactionWeaponDamaged != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_reactionWeaponDamaged;
+
+	weaponPresent = m_reactionWeaponReallyDamaged != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_reactionWeaponReallyDamaged;
+
+	weaponPresent = m_reactionWeaponRubble != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_reactionWeaponRubble;
+
+	weaponPresent = m_continuousWeaponPristine != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_continuousWeaponPristine;
+
+	weaponPresent = m_continuousWeaponDamaged != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_continuousWeaponDamaged;
+
+	weaponPresent = m_continuousWeaponReallyDamaged != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_continuousWeaponReallyDamaged;
+
+	weaponPresent = m_continuousWeaponRubble != 0;
+	*xfer == weaponPresent;
+	if (weaponPresent)
+		*xfer == *m_continuousWeaponRubble;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp
+
+// ?update@FireWeaponWhenDamagedBehavior@@UAE?AW4UpdateSleepTime@@XZ @0x00482B24 149B
+// UpdateModuleInterface slot 0 via vtable 0x00849594 of FireWeaponWhenDamagedBehavior; donor ZH FireWeaponWhenDamagedBehavior.cpp update.
+// Evidence: slot 0 with slot 1 getDisabledTypesToProcess neighbour and +0x10 interface this giving lea ecx esi+0x10 and mov edi esi-8 and continuous weapons esi+0x2c-0x38.
+// ?onDamage@FireWeaponWhenDamagedBehavior@@UAEXPAVDamageInfo@@@Z @0x00482A69 187B
+// DamageModuleInterface slot 0 via vtable 0x00849588 of FireWeaponWhenDamagedBehavior; donor ZH FireWeaponWhenDamagedBehavior.cpp onDamage.
+// Evidence: slot 0 and UpgradeMux active check and damage type bit test moduleData+0x11C with DamageInfo+0x10 and amount comiss moduleData+0x120 vs DamageInfo+0x70 and reaction weapons.
+
+UpdateSleepTime FireWeaponWhenDamagedBehavior::update()
+{
+	if (!isUpgradeActive())
+		return UPDATE_SLEEP_FOREVER;
+
+	const Object *obj = getObject();
+	BodyDamageType bdt = obj->getBodyModule()->getDamageState();
+
+	if (bdt == BODY_RUBBLE)
+	{
+		if (m_continuousWeaponRubble && m_continuousWeaponRubble->getStatus() == READY_TO_FIRE)
+			m_continuousWeaponRubble->forceFireWeapon(obj, obj->getPosition());
+	}
+	else if (bdt == BODY_REALLYDAMAGED)
+	{
+		if (m_continuousWeaponReallyDamaged && m_continuousWeaponReallyDamaged->getStatus() == READY_TO_FIRE)
+			m_continuousWeaponReallyDamaged->forceFireWeapon(obj, obj->getPosition());
+	}
+	else if (bdt == BODY_DAMAGED)
+	{
+		if (m_continuousWeaponDamaged && m_continuousWeaponDamaged->getStatus() == READY_TO_FIRE)
+			m_continuousWeaponDamaged->forceFireWeapon(obj, obj->getPosition());
+	}
+	else
+	{
+		if (m_continuousWeaponPristine && m_continuousWeaponPristine->getStatus() == READY_TO_FIRE)
+			m_continuousWeaponPristine->forceFireWeapon(obj, obj->getPosition());
+	}
+
+	return UPDATE_SLEEP_NONE;
+}
+
+void FireWeaponWhenDamagedBehavior::onDamage(DamageInfo *damageInfo)
+{
+	if (!isUpgradeActive())
+		return;
+
+	const FireWeaponWhenDamagedBehaviorModuleData *fireWeaponWhenDamagedBehaviorModuleData = getFireWeaponWhenDamagedBehaviorModuleData();
+
+	if ((fireWeaponWhenDamagedBehaviorModuleData->m_damageTypes & (1 << (damageInfo->m_damageType - 1))) == 0)
+		return;
+
+	if (damageInfo->m_actualDamageDealt < fireWeaponWhenDamagedBehaviorModuleData->m_damageAmount)
+		return;
+
+	const Object *obj = getObject();
+	BodyDamageType bdt = obj->getBodyModule()->getDamageState();
+
+	if (bdt == BODY_RUBBLE)
+	{
+		if (m_reactionWeaponRubble && m_reactionWeaponRubble->getStatus() == READY_TO_FIRE)
+			m_reactionWeaponRubble->forceFireWeapon(obj, obj->getPosition());
+	}
+	else if (bdt == BODY_REALLYDAMAGED)
+	{
+		if (m_reactionWeaponReallyDamaged && m_reactionWeaponReallyDamaged->getStatus() == READY_TO_FIRE)
+			m_reactionWeaponReallyDamaged->forceFireWeapon(obj, obj->getPosition());
+	}
+	else if (bdt == BODY_DAMAGED)
+	{
+		if (m_reactionWeaponDamaged && m_reactionWeaponDamaged->getStatus() == READY_TO_FIRE)
+			m_reactionWeaponDamaged->forceFireWeapon(obj, obj->getPosition());
+	}
+	else
+	{
+		if (m_reactionWeaponPristine && m_reactionWeaponPristine->getStatus() == READY_TO_FIRE)
+			m_reactionWeaponPristine->forceFireWeapon(obj, obj->getPosition());
+	}
+}
