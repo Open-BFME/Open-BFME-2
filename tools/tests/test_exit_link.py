@@ -909,6 +909,21 @@ def test_blockers_refuse_diagnostic_or_wrong_commit_before_writing(tmp_path, mon
         E.write_blockers(errors, "a" * 40)
     assert not (tmp_path / "reverse").exists()
 
+def test_blockers_accept_the_abbreviated_commit_result_json_records(tmp_path, monkeypatch):
+    import json
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E.census, "ledger", lambda: [])
+    monkeypatch.setattr(E, "export_sources", lambda rows: {})
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "result.json").write_text(json.dumps(
+        {"mode": "exit-link", "commit": "c63ea1df21", "force": False, "stubs": False}))
+    errors = tmp_path / "errors.tsv"
+    errors.write_text("code\tsource\tsymbol\n")
+    assert E.write_blockers(errors, "c63ea1df21" + "0" * 30) == 0
+    with pytest.raises(ValueError, match="matching unstubbed real-link"):
+        E.write_blockers(errors, "d" * 40)
+
+
 def test_old_artifact_without_bridge_metadata_does_not_erase_last_queue(tmp_path, monkeypatch):
     monkeypatch.setattr(E, "ROOT", tmp_path)
     monkeypatch.setattr(E.census, "ledger", lambda: [])

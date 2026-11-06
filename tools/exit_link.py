@@ -501,8 +501,10 @@ def write_blockers(errors, commit):
     """reverse/exit_link_blockers.tsv: what the fleet's link tier serves first."""
     result_path = Path(errors).with_name("result.json")
     record = json.loads(result_path.read_text()) if result_path.exists() else None
+    recorded = str(record.get("commit") or "") if record is not None else ""
+    same_commit = len(recorded) >= 7 and (commit.startswith(recorded) or recorded.startswith(commit))
     if record is not None and (record.get("mode") != "exit-link" or record.get("stubs")
-                               or record.get("force") or record.get("commit") != commit):
+                               or record.get("force") or not same_commit):
         raise ValueError("bridge queue requires the matching unstubbed real-link result")
     with open(errors, encoding="utf-8", errors="replace", newline="") as handle:
         blockers = blockers_from_errors(handle, export_sources(census.ledger()))
