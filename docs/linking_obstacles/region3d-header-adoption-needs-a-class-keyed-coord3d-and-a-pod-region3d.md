@@ -100,7 +100,7 @@ consulted first; retail exports spelling both keys queue the attribute instead o
 voted. Measured over all 568 contracts: 17 have export evidence, 16 confirm the key they
 carry, none are ambiguous, and Coord3D alone changes - struct to class, on 15 `V` exports
 against 0 `U`. `class_contract.py --class Coord3D` now prints `class (exports)` with the
-layout unchanged (sizeof 12, three floats). Landed as f2313cbb912 with a regression test
+layout unchanged (sizeof 12, three floats). Landed as 2b6d25c8174 with a regression test
 (`tools/tests/test_class_contract_key.py`).
 
 What remains is exactly the coordinated rename this entry already described, now unblocked
