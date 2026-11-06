@@ -47,14 +47,9 @@ struct Rva005C3549Inputs
 	void *second;
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-	__forceinline void setNew(Rva005C33D2 *value) { pointer = value; }
-private:
-	Rva005C33D2 *pointer;
-};
+// +8 owns the Rva005C33D2 and is cleared through the canonical holder's clear
+// 0x000AD6F4; it has no destructor of its own, so it is held as a raw pointer.
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva005C3549Base
 {
@@ -72,22 +67,22 @@ public:
 	Rva005C3549(void *first, const Rva005C3549Inputs &inputs);
 	virtual ~Rva005C3549();
 private:
-	Rva000AD6F4 m08;
+	Rva005C33D2 *m08;
 };
 
 // 92B target constructor: zero count +4; allocate 1C; store owner at +8.
 Rva005C3549::Rva005C3549(void *first, void *second, void *third)
 {
-	m08.setNew(new Rva005C33D2(this, first, second, third));
+	m08 = new Rva005C33D2(this, first, second, third);
 }
 
 // 94B sibling uses the same implementation with the two-word input pair.
 Rva005C3549::Rva005C3549(void *first, const Rva005C3549Inputs &inputs)
 {
-	m08.setNew(new Rva005C33D2(this, first, inputs.first, inputs.second));
+	m08 = new Rva005C33D2(this, first, inputs.first, inputs.second);
 }
 
 Rva005C3549::~Rva005C3549()
 {
-	m08.clear();
+	((Rva000AD6F4 *)&m08)->clear();
 }
