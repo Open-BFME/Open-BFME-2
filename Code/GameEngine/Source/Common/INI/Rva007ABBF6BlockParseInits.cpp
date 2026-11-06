@@ -115,11 +115,6 @@ public:
 #include "../../../Include/GameClient/Eva.h"
 #include "../../../Include/GameClient/FontLibrary.h"
 #include "../../../Include/Common/GlobalData.h"
-class GlobalWeatherSystem
-{
-public:
-	static void parseWeatherData(INI *);
-};
 #include "../../../Include/Common/INI/INI.h"
 class LargeGroupAudio
 {
@@ -231,7 +226,6 @@ BlockParse theSkirmishAIDataBlockParse = { 0, "SkirmishAIData", parseSkirmishAID
 BlockParse theLivingWorldBuildingBlockParse = { 0, "LivingWorldBuilding", parseLivingWorldBuildingDefinition };	// VA 0x00DBD078 "LivingWorldBuilding", parse 0x002E048C
 BlockParse theLivingWorldPlayerTemplateBlockParse = { 0, "LivingWorldPlayerTemplate", parseLivingWorldPlayerTemplateDefinition };	// VA 0x00DBD0A8 "LivingWorldPlayerTemplate", parse 0x002E2386
 BlockParse theFireBlockParse = { 0, "Fire", parseFireDefinition };	// VA 0x00DBD9AC "Fire", parse 0x0030AFFB
-BlockParse theWeatherDataBlockParse = { 0, "WeatherData", GlobalWeatherSystem::parseWeatherData };	// VA 0x00DBE4C4 "WeatherData", parse 0x0031842A
 BlockParse theCloudBreakEffectBlockParse = { 0, "CloudBreakEffect", parseCloudBreakEffectDefinition };	// VA 0x00DBE4D0 "CloudBreakEffect", parse 0x00318ABB
 BlockParse theLivingWorldRegionEffectsBlockParse = { 0, "LivingWorldRegionEffects", parseLivingWorldRegionEffectsDefinition };	// VA 0x00DC14B8 "LivingWorldRegionEffects", parse 0x003EF467
 BlockParse theLivingWorldArmyIconBlockParse = { 0, "LivingWorldArmyIcon", parseLivingWorldArmyIconDefinition };	// VA 0x00DC177C "LivingWorldArmyIcon", parse 0x003F9EDF
@@ -307,7 +301,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AE489();
 	static void rva007AE4AE();
 	static void rva007AE7CA();
-	static void rva007AE908();
 	static void rva007AE963();
 	static void rva007AFC11();
 	static void rva007AFC56();
@@ -432,8 +425,6 @@ BLOCK_PARSE_INIT( rva007AE489, theLivingWorldBuildingBlockParse )
 BLOCK_PARSE_INIT( rva007AE4AE, theLivingWorldPlayerTemplateBlockParse )
 // ?rva007AE7CA@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE7CA (21B): "Fire"
 BLOCK_PARSE_INIT( rva007AE7CA, theFireBlockParse )
-// ?rva007AE908@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE908 (21B): "WeatherData"
-BLOCK_PARSE_INIT( rva007AE908, theWeatherDataBlockParse )
 // ?rva007AE963@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AE963 (21B): "CloudBreakEffect"
 BLOCK_PARSE_INIT( rva007AE963, theCloudBreakEffectBlockParse )
 // ?rva007AFC11@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFC11 (21B): "LivingWorldRegionEffects"

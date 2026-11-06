@@ -219,3 +219,26 @@ void *Rva0031852F::rva0031852F(unsigned int idx)
 // tu-skeleton: 0x0077A838 11B $L5363 -- matched in Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystemCtorDeferred.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A843 10B __ehhandler$??0GlobalWeatherSystem@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/GlobalWeatherSystemCtorDeferred.cpp (not merged yet)
+
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so the node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007AE908, node 0x00DBE4C4). Its .text$yc run is
+// GameWindowManagerScript's four string initializers (a marker-less object),
+// then this node, then this unit's pool-init marker 0x007AE91D.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theWeatherDataBlockParse( "WeatherData", GlobalWeatherSystem::parseWeatherData );
