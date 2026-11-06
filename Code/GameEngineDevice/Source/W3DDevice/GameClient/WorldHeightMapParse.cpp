@@ -89,15 +89,13 @@ class Rva00330528 : public BfmeParserBindingBaseVE { public: Rva00330528(void *o
 // The heap-owned registrations: a one-pointer owner reset with the new
 // object and destroyed (deleting it) at scope exit; the polygon one has its
 // own owner.
-class Rva000AD6F4
+#include "../../../../GameEngine/Include/Common/Rva000AD6F4.h"
+#include "../../../../GameEngine/Include/Common/Rva00575674.h"
+// The owner is set through the rowed holder setter 0x00575674.
+__forceinline void resetHolder(Rva000AD6F4 &holder, void *object)
 {
-public:
-	Rva000AD6F4() : m_object(0) {}
-	~Rva000AD6F4();
-	void reset(void *object);
-private:
-	void *m_object;
-};
+	((Rva00575674 *)&holder)->rva00575674((Object *)object);
+}
 
 class Rva000AD71D;
 class Rva000AF160 { public: void reset(Rva000AD71D *object); };
@@ -237,7 +235,7 @@ void WorldHeightMap::parse(DataChunkInput &file, void *polygonOwner, void *owner
 		file.registerParser(AsciiString("WorldInfo"), AsciiString::TheEmptyString, ParseWorldDictDataChunk, 0);
 		Rva000AD6F4 objectsList;
 		if (!selectionLocked)
-			objectsList.reset(new Rva0030D8B1(&WorldMapObjects, BFME_REG(file), 0));
+			resetHolder(objectsList, new Rva0030D8B1(&WorldMapObjects, BFME_REG(file), 0));
 		Rva000ABD70Clear();
 		Rva000AF146 polygonTriggers;
 		if (!selectionLocked)
@@ -245,10 +243,10 @@ void WorldHeightMap::parse(DataChunkInput &file, void *polygonOwner, void *owner
 		Rva000AD6F4 waypoints, owned10, owned14, owned10b;
 		if (!selectionLocked)
 		{
-			waypoints.reset(new Rva002E3DE3((Int)BFME_REG(file), 0));
-			owned10.reset(new Rva003085FB(polygonOwner, BFME_REG(file), 0));
-			owned14.reset(new Rva0030BF80(owner10, BFME_REG(file), 0));
-			owned10b.reset(new Rva0030C97E(owner14, BFME_REG(file), 0));
+			resetHolder(waypoints, new Rva002E3DE3((Int)BFME_REG(file), 0));
+			resetHolder(owned10, new Rva003085FB(polygonOwner, BFME_REG(file), 0));
+			resetHolder(owned14, new Rva0030BF80(owner10, BFME_REG(file), 0));
+			resetHolder(owned10b, new Rva0030C97E(owner14, BFME_REG(file), 0));
 		}
 		TheSidesList->emptySides();
 		BfmeParserBindingVE teams(TheSidesList, reinterpret_cast<SidesListChunkParser>(&SidesList::rva0032F0AA),
@@ -262,7 +260,7 @@ void WorldHeightMap::parse(DataChunkInput &file, void *polygonOwner, void *owner
 		{
 		Rva000AD6F4 extra;
 		if (!selectionLocked)
-			extra.reset(new Rva00330528(TheCameraAnimationList, BFME_REG(file), 0));
+			resetHolder(extra, new Rva00330528(TheCameraAnimationList, BFME_REG(file), 0));
 		if (!file.parse(this))
 			throw ERROR_CORRUPT_FILE_FORMAT;
 		TheSidesList->rva0032FEF5();
