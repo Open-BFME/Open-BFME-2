@@ -1,0 +1,7 @@
+# Cylinder volume copy export closure
+
+The current real-link queue lists the missing CylinderEmissionVolumeInfo copy constructor. Export225 identifies it at3A653B/63B, folded with the existing Line copy; table exports Cylinder and Line both identify81BB00. Native63B copies the base flag at+4 and six floats at+8..1C, installs the shared derived table and returns with RET4. The native table has four slots:3A69B4/B3FD0/1F354A/47A69C.
+
+As with the completed Outward repair, supply native array deletion before the copy. The existing V03 collector now emits genuine _ECylinder at3A69B4/75B, using its existing array-emission anchor and the already supplied Cylinder default constructor. Its canonical EmissionVolumeInfo base is8B and its six-float tail is24B: stride20. The full body supports both array/cookie and scalar flags and binds the actual owned Cylinder destructor49B47C, iterator629110 and native delete operators. It is an explicit verified ICF twin; no new unique bytes, pin, alias, compiler flag or shared header.
+
+Private proof retains all seven collector rows and verifies the complete added75B body; normal admission passes8/8 and strict frozen annotation count is unchanged. The63B copy export is separately banked after this dependency. Existing generic/incorrectly attributed aliases are not claimed as source recovery or repaired by this prerequisite. Real-link and runtime confirmation remain with the scheduled pipeline.

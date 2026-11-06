@@ -71,6 +71,14 @@ private: ::GameClientRandomVariable m_04; ::GameClientRandomVariable m_10;
 };
 }
 
+namespace FXParticleSystem {
+// Retail's exported Cylinder table has a32-byte array-deletion stride.
+class CylinderEmissionVolumeInfo : public EmissionVolumeInfo {
+public: CylinderEmissionVolumeInfo(); virtual ~CylinderEmissionVolumeInfo();
+private: float m_08[6];
+};
+}
+
 // ?<bfmeVectorDeleteAnchorV03> absent-from-retail
 void bfmeVectorDeleteAnchorV03()
 {
@@ -80,5 +88,6 @@ void bfmeVectorDeleteAnchorV03()
 	new FXParticleSystem::SphericalEmissionVelocityInfo[2];
 	new FXParticleSystem::CylindricalEmissionVelocityInfo[2];
 	new FXParticleSystem::OutwardEmissionVelocityInfo[2];
+	new FXParticleSystem::CylinderEmissionVolumeInfo[2];
 	new FXParticleSystem::DefaultUpdateModuleInfo[2];
 }

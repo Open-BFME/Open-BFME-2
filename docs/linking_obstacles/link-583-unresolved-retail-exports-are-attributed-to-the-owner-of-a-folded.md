@@ -352,3 +352,5 @@ against index `d707d2f53b`. Awaiting the automated real link.
 
 
 2026-11-06. 1 RenderObjectUpdate writer export now emits their exact retail signatures, with the full existing body and relocation matches. The authoritative follow-up remains pending. [Scoped verification](../../reverse/attempt_support/particle-renderobject-writer-export-20261106-codex.md).
+
+2026-11-06, Cylinder volume copy dependency: export225 identifies missing63B copy3A653B, folded with Line; both table exports name81BB00. Collector now supplies native75B _ECylinder3A69B4 with stride20 and complete destructor/iterator/free closure. Normal8/8 and frozen pass; no new pin/alias/header/flags or unique bytes. Copy admission follows separately; automated real-link confirmation pending. [Native bytes and proof](../../reverse/attempt_support/cylinder-volume-copy-export-20261106/README.md).
