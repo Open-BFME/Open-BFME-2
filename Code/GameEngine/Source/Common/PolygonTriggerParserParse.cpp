@@ -162,38 +162,26 @@ class Rva002E3E2AOut
  
 }
 ;
-class Rva000AD6F4 
+#include "../../Include/Common/Rva000AD6F4.h"
+// Retail's destructor is the folded 29-byte clear body at 0x000AD6F4
+// (Disp8DivAvgDwordGetters.cpp spells the same copy).
+inline Rva000AD6F4::~Rva000AD6F4()
 {
- public:
- explicit Rva000AD6F4(Rva002E3E2AObject*ownedObject):pointer(ownedObject)
- {
-  
- }
- // Retail's destructor is the folded 29-byte clear body at 0x000AD6F4
- // (Disp8DivAvgDwordGetters.cpp spells the same copy).
- ~Rva000AD6F4()
- {
-  struct Slot0 { virtual void *virt0(unsigned int); };
-  Rva002E3E2AObject *m_objectToDelete=pointer;
-  pointer=0;
-  void *deletedStorage;
-  if(m_objectToDelete)
-   deletedStorage=((Slot0 *)m_objectToDelete)->virt0(0);
-  else
-   deletedStorage=0;
-  ::operator delete(deletedStorage);
- }
- void clear();
- Rva002E3E2AOut rva002E3E2A();
- Rva002E3E2AObject *pointer;
- 
+ struct Slot0 { virtual void *virt0(unsigned int); };
+ Rva002E3E2AObject *m_objectToDelete=static_cast<Rva002E3E2AObject *>(m_ptr);
+ m_ptr=0;
+ void *deletedStorage;
+ if(m_objectToDelete)
+  deletedStorage=((Slot0 *)m_objectToDelete)->virt0(0);
+ else
+  deletedStorage=0;
+ ::operator delete(deletedStorage);
 }
-;
 inline __declspec(noinline) Rva002E3E2AOut Rva000AD6F4::rva002E3E2A()
 
 {
- Rva002E3E2AOut temporary(pointer);
- pointer=0;
+ Rva002E3E2AOut temporary(static_cast<Rva002E3E2AObject *>(m_ptr));
+ m_ptr=0;
  return temporary;
  
 }
@@ -206,8 +194,8 @@ struct Rva000AD6F4Base
 inline __declspec(noinline) void Rva000AD6F4::clear()
 
 {
- Rva000AD6F4Base *p = (Rva000AD6F4Base *)pointer;
- pointer = 0;
+ Rva000AD6F4Base *p = (Rva000AD6F4Base *)m_ptr;
+ m_ptr = 0;
  void *q;
  if (p) q = p->virt0(0);
  else q = 0;
@@ -251,7 +239,7 @@ bool PolygonTriggerDataChunkParserBase::parse(DataChunkInput& file,const DataChu
   AsciiString layerName=file.readAsciiString();
   int identifier=file.readInt();
   Rva000AD6F4 owner(reinterpret_cast<Rva002E3E2AObject*>(new PolygonTrigger(identifier,2)));
-  PolygonTrigger *trigger=reinterpret_cast<PolygonTrigger*>(owner.pointer);
+  PolygonTrigger *trigger=static_cast<PolygonTrigger*>(owner.m_ptr);
   trigger->name=triggerName;
   trigger->layer=layerName;
   ElevatedAreaPolygon &polygon=*reinterpret_cast<ElevatedAreaPolygon*>(reinterpret_cast<char*>(trigger)+8);
