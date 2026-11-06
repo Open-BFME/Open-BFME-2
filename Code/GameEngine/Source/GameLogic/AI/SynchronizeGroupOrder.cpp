@@ -7,36 +7,57 @@ class Rva0036E346;
 struct Coord3D;
 struct GroupOrderCommand;
 
+class Rva0036E346;
+class Xfer;
+struct Coord3D;
+struct GroupOrderCommand;
+enum NameKeyType;
 class GroupOrder
 {
 public:
-	GroupOrder();
-	GroupOrder(const GroupOrder &other);
-	GroupOrder(Rva0036E346 *holder);
-	virtual ~GroupOrder();
-	virtual void loadPostProcess() {}
-	virtual void slot07Set(int unused) {}
-	virtual bool isNearDestination(const Coord3D *position) { return false; }
-	virtual int slot10() { return -1; }
-private:
-	unsigned char m_pad04[0x18 - 4];
+    GroupOrder();
+    GroupOrder(const GroupOrder &other);
+    GroupOrder(Rva0036E346 *holder);
+    virtual ~GroupOrder();
+    virtual void loadPostProcess() {}
+    virtual const char *getClassName() = 0;
+    virtual void xfer(Xfer *xfer);
+    virtual void rva00546A78(int val) = 0;
+    virtual bool rva005468AB(int unused) = 0;
+    virtual unsigned int rva00546AC0(int val) = 0;
+    virtual void slot07Set(int unused) {}
+    virtual Coord3D *getDestination(int position) = 0;
+    virtual bool isNearDestination(const Coord3D *position) { return false; }
+    virtual int slot10() { return -1; }
+    virtual bool slot11Command(int *outType, GroupOrderCommand *command) = 0;
+    virtual NameKeyType getClassKey() = 0;
+    virtual GroupOrder *rva005469FD() = 0;
+    int *m_04;
+    int *m_08;
+    void *m_0C;
+    void *m_10;
+    void *m_14;
 };
-
 class SynchronizeGroupOrder : public GroupOrder
 {
 public:
-	SynchronizeGroupOrder();
-	SynchronizeGroupOrder(const SynchronizeGroupOrder &other);
-	SynchronizeGroupOrder(Rva0036E346 *holder);
-	virtual ~SynchronizeGroupOrder();
-	SynchronizeGroupOrder *rva005469FD();
-	virtual Coord3D *getDestination(int position) { return reinterpret_cast<Coord3D *>(position); }
-	virtual bool slot11Command(int *outType, GroupOrderCommand *command) { return false; }
+    SynchronizeGroupOrder();
+    SynchronizeGroupOrder(const SynchronizeGroupOrder &other);
+    SynchronizeGroupOrder(Rva0036E346 *holder);
+    virtual ~SynchronizeGroupOrder();
+    virtual const char *getClassName();
+    virtual void xfer(Xfer *xfer);
+    virtual void rva00546A78(int val);
+    virtual bool rva005468AB(int unused);
+    virtual unsigned int rva00546AC0(int val);
+    virtual Coord3D *getDestination(int position) { return reinterpret_cast<Coord3D *>(position); }
+    virtual bool slot11Command(int *outType, GroupOrderCommand *command) { return false; }
+    virtual NameKeyType getClassKey();
+    virtual SynchronizeGroupOrder *rva005469FD();
 private:
-	Rva002EE9B7 m_18;
-	bool m_24;
+    Rva002EE9B7 m_18;
+    bool m_24;
 };
-
 // tu-skeleton: 0x005468AB 16B ?rva005468AB@SynchronizeGroupOrder@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderSlot4.cpp (not merged yet)
 
 // tu-skeleton: 0x005468BB 38B ?getClassName@SynchronizeGroupOrder@@UAEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp (not merged yet)

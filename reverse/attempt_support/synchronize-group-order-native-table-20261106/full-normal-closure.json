@@ -1,0 +1,224 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp",
+    "source_sha256": "7ee5a5d049bd2516eb1e4452843f95a83ccbf0e39815ec0fdc65232daebc307e",
+    "object_sha256": "9582cabd6874cdcea2fe5d80656b8a3e4b82af4e079e81e6d1fd7e18d11534eb",
+    "normal_equals_private": true,
+    "eh": {
+      "??0SynchronizeGroupOrder@@QAE@XZ": [
+        "EXACT",
+        ""
+      ],
+      "??0SynchronizeGroupOrder@@QAE@ABV0@@Z": [
+        "EXACT",
+        ""
+      ],
+      "?rva005469FD@SynchronizeGroupOrder@@UAEPAV1@XZ": [
+        "EXACT",
+        ""
+      ],
+      "??0SynchronizeGroupOrder@@QAE@PAVRva0036E346@@@Z": [
+        "EXACT",
+        ""
+      ]
+    },
+    "native_table": [
+      {
+        "slot": 0,
+        "symbol": "??_ESynchronizeGroupOrder@@UAEPAXI@Z",
+        "resolved_symbol": "??_GSynchronizeGroupOrder@@UAEPAXI@Z",
+        "target_rva": "0x546966"
+      },
+      {
+        "slot": 1,
+        "symbol": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "resolved_symbol": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "target_rva": "0xb3fd0"
+      },
+      {
+        "slot": 2,
+        "symbol": "?getClassName@SynchronizeGroupOrder@@UAEPBDXZ",
+        "resolved_symbol": "?getClassName@SynchronizeGroupOrder@@UAEPBDXZ",
+        "target_rva": "0x5468bb"
+      },
+      {
+        "slot": 3,
+        "symbol": "?xfer@SynchronizeGroupOrder@@UAEXPAVXfer@@@Z",
+        "resolved_symbol": "?xfer@SynchronizeGroupOrder@@UAEXPAVXfer@@@Z",
+        "target_rva": "0x546a34"
+      },
+      {
+        "slot": 4,
+        "symbol": "?rva00546A78@SynchronizeGroupOrder@@UAEXH@Z",
+        "resolved_symbol": "?rva00546A78@SynchronizeGroupOrder@@UAEXH@Z",
+        "target_rva": "0x546a78"
+      },
+      {
+        "slot": 5,
+        "symbol": "?rva005468AB@SynchronizeGroupOrder@@UAE_NH@Z",
+        "resolved_symbol": "?rva005468AB@SynchronizeGroupOrder@@UAE_NH@Z",
+        "target_rva": "0x5468ab"
+      },
+      {
+        "slot": 6,
+        "symbol": "?rva00546AC0@SynchronizeGroupOrder@@UAEIH@Z",
+        "resolved_symbol": "?rva00546AC0@SynchronizeGroupOrder@@UAEIH@Z",
+        "target_rva": "0x546ac0"
+      },
+      {
+        "slot": 7,
+        "symbol": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "resolved_symbol": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "target_rva": "0x47a69c"
+      },
+      {
+        "slot": 8,
+        "symbol": "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "resolved_symbol": "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "target_rva": "0x21983a"
+      },
+      {
+        "slot": 9,
+        "symbol": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "resolved_symbol": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "target_rva": "0x5cb9ff"
+      },
+      {
+        "slot": 10,
+        "symbol": "?slot10@GroupOrder@@UAEHXZ",
+        "resolved_symbol": "?slot10@GroupOrder@@UAEHXZ",
+        "target_rva": "0x36cc7a"
+      },
+      {
+        "slot": 11,
+        "symbol": "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "resolved_symbol": "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "target_rva": "0x50b5f1"
+      },
+      {
+        "slot": 12,
+        "symbol": "?getClassKey@SynchronizeGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "resolved_symbol": "?getClassKey@SynchronizeGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "target_rva": "0x54691c"
+      },
+      {
+        "slot": 13,
+        "symbol": "?rva005469FD@SynchronizeGroupOrder@@UAEPAV1@XZ",
+        "resolved_symbol": "?rva005469FD@SynchronizeGroupOrder@@UAEPAV1@XZ",
+        "target_rva": "0x5469fd"
+      }
+    ]
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderDtor.cpp",
+    "source_sha256": "4d5f4aad89187de087edd716ec44603e4d00ee66a768ae9ad51d297ee5c93b31",
+    "object_sha256": "21d7e6a6a4a0ef5864e738c55b904aa3aa9278b6a7cc94145f7dff0d6d603477",
+    "normal_equals_private": true,
+    "eh": {
+      "??1SynchronizeGroupOrder@@UAE@XZ": [
+        "EXACT",
+        ""
+      ]
+    },
+    "native_table": [
+      {
+        "slot": 0,
+        "symbol": "??_ESynchronizeGroupOrder@@UAEPAXI@Z",
+        "resolved_symbol": "??_GSynchronizeGroupOrder@@UAEPAXI@Z",
+        "target_rva": "0x546966"
+      },
+      {
+        "slot": 1,
+        "symbol": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "resolved_symbol": "?loadPostProcess@GroupOrder@@UAEXXZ",
+        "target_rva": "0xb3fd0"
+      },
+      {
+        "slot": 2,
+        "symbol": "?getClassName@SynchronizeGroupOrder@@UAEPBDXZ",
+        "resolved_symbol": "?getClassName@SynchronizeGroupOrder@@UAEPBDXZ",
+        "target_rva": "0x5468bb"
+      },
+      {
+        "slot": 3,
+        "symbol": "?xfer@SynchronizeGroupOrder@@UAEXPAVXfer@@@Z",
+        "resolved_symbol": "?xfer@SynchronizeGroupOrder@@UAEXPAVXfer@@@Z",
+        "target_rva": "0x546a34"
+      },
+      {
+        "slot": 4,
+        "symbol": "?rva00546A78@SynchronizeGroupOrder@@UAEXH@Z",
+        "resolved_symbol": "?rva00546A78@SynchronizeGroupOrder@@UAEXH@Z",
+        "target_rva": "0x546a78"
+      },
+      {
+        "slot": 5,
+        "symbol": "?rva005468AB@SynchronizeGroupOrder@@UAE_NH@Z",
+        "resolved_symbol": "?rva005468AB@SynchronizeGroupOrder@@UAE_NH@Z",
+        "target_rva": "0x5468ab"
+      },
+      {
+        "slot": 6,
+        "symbol": "?rva00546AC0@SynchronizeGroupOrder@@UAEIH@Z",
+        "resolved_symbol": "?rva00546AC0@SynchronizeGroupOrder@@UAEIH@Z",
+        "target_rva": "0x546ac0"
+      },
+      {
+        "slot": 7,
+        "symbol": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "resolved_symbol": "?slot07Set@GroupOrder@@UAEXH@Z",
+        "target_rva": "0x47a69c"
+      },
+      {
+        "slot": 8,
+        "symbol": "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "resolved_symbol": "?getDestination@SynchronizeGroupOrder@@UAEPAUCoord3D@@H@Z",
+        "target_rva": "0x21983a"
+      },
+      {
+        "slot": 9,
+        "symbol": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "resolved_symbol": "?isNearDestination@GroupOrder@@UAE_NPBUCoord3D@@@Z",
+        "target_rva": "0x5cb9ff"
+      },
+      {
+        "slot": 10,
+        "symbol": "?slot10@GroupOrder@@UAEHXZ",
+        "resolved_symbol": "?slot10@GroupOrder@@UAEHXZ",
+        "target_rva": "0x36cc7a"
+      },
+      {
+        "slot": 11,
+        "symbol": "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "resolved_symbol": "?slot11Command@SynchronizeGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z",
+        "target_rva": "0x50b5f1"
+      },
+      {
+        "slot": 12,
+        "symbol": "?getClassKey@SynchronizeGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "resolved_symbol": "?getClassKey@SynchronizeGroupOrder@@UAE?AW4NameKeyType@@XZ",
+        "target_rva": "0x54691c"
+      },
+      {
+        "slot": 13,
+        "symbol": "?rva005469FD@SynchronizeGroupOrder@@UAEPAV1@XZ",
+        "resolved_symbol": "?rva005469FD@SynchronizeGroupOrder@@UAEPAV1@XZ",
+        "target_rva": "0x5469fd"
+      }
+    ]
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderSlot4.cpp",
+    "source_sha256": "316b0e9b56ba988a8908cf54f772a40e7ffb33f181a61fe870a4c281618a436f",
+    "object_sha256": "1453cf3e7ff27e19543322b83dd22ec045ec11ce24d446a34958160fc09ffa28",
+    "normal_equals_private": true,
+    "eh": {}
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderXfer.cpp",
+    "source_sha256": "0a07ab611716116fff5dcb5b7125798b4475eddccc43fbd51429406390fd40fe",
+    "object_sha256": "c98b4892108dd695b3fc656cd222f5766a84c98fdc40f6c226540b7425ade69b",
+    "normal_equals_private": true,
+    "eh": {}
+  }
+]
