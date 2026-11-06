@@ -16,6 +16,12 @@ order research 11 fixed, stopping at the first rule that decides:
                   Retail is /GR-, so these are the only layout facts the image
                   carries; they outrank every view. Retail facts that disagree
                   with each other are queued, never voted;
+  0. exports      the class-key retail's own export table mangles for the name
+                  (reverse/exports.csv). Retail's linker wrote those spellings
+                  from retail's declarations, so like the sizeof above it is a
+                  retail fact and outranks the ledger vote below - which is a
+                  majority of names we wrote, and therefore cannot settle a key
+                  our own canonical header already decided;
   1. bytes        what byte-matched code proves: an attribute every compiled
                   view agrees on, and the class-key the ledger's matched names
                   mangle (each row's name is verified by the gate);
@@ -54,6 +60,7 @@ if (ROOT / "reverse" / "functions.csv").exists():                    # Open-BFME
 else:                                                                 # Open-BFME-1
     REVERSE, CODE = ROOT / "targets" / "game" / "reverse", ("game/",)
 LEDGER = REVERSE / "functions.csv"
+EXPORTS = REVERSE / "exports.csv"
 CONTRACTS = REVERSE / "class_contracts"
 GENERATED = ("Code/gen_asm/", "Code/gen_small/", "game/gen_small/", "game/gen_asm/")
 PRIMK = {"float": "f4", "double": "f8", "int": "i4", "uint": "i4", "long": "i4", "ulong": "i4", "short": "i2",
@@ -441,6 +448,31 @@ def ledger_key(name, rows):
     return marks
 
 
+def export_key(name):
+    """Counter of the class-key retail's own export table mangles for `name`.
+
+    The ledger's key (`ledger_key`) is a majority of names *we* wrote, so it
+    cannot settle a key our header already decided: a struct-keyed canonical
+    header makes every unit that includes it emit `U` rows, which then outvote
+    the handful of `V` rows and re-decide the key as struct. Retail's export
+    table is outside that loop - the linker wrote those names from retail's own
+    declarations - so an export spelling is a retail fact, like the `sizeof`
+    retail allocates, and outranks the vote. Coord3D is the case that proved it:
+    15 exports spell it `V`, none `U`, against 461 `U` ledger rows.
+
+    exports.csv is a generated artefact; its absence costs only this rule.
+    """
+    marks = collections.Counter()
+    if not EXPORTS.exists():
+        return marks
+    scope = re.compile(r"([UV])" + re.escape(mangled_scope(name)) + r"@@")
+    with EXPORTS.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            for found in scope.finditer(row.get("name", "")):
+                marks["struct" if found.group(1) == "U" else "class"] += 1
+    return marks
+
+
 def zh_layout(name, builder):
     """The Zero Hour header's layout of `name`, compiled with the ZH flags; None if absent."""
     zh_root = getattr(builder, "ZH_REFERENCE_ROOT", None)
@@ -614,7 +646,14 @@ def decide(name, sources=None, jobs=8, sample=None):
             queue.append({"class": name, "attribute": "size", "candidates": dict(sizes)})
 
     keys = ledger_key(name, rows)
-    if keys and (len(keys) == 1 or keys.most_common(2)[0][1] > keys.most_common(2)[1][1]):
+    exported = export_key(name)
+    if len(exported) == 1:
+        key, key_rule = next(iter(exported)), "exports"
+    elif exported:
+        queue.append({"class": name, "attribute": "key", "candidates": dict(exported),
+                      "why": "retail's export table spells both class-keys for this name"})
+        key, key_rule = exported.most_common(1)[0][0], "exports"
+    elif keys and (len(keys) == 1 or keys.most_common(2)[0][1] > keys.most_common(2)[1][1]):
         key, key_rule = keys.most_common(1)[0][0], "bytes"
     elif zh and "layout" in zh:
         key, key_rule = zh["layout"]["key"], "zh"
