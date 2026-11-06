@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ??1Rva00342228@@UAE@XZ, retail 0x00342228, 91 bytes.
+// ??1Rva0033F79D@@UAE@XZ, retail 0x00342228, 91 bytes.
 // Sibling of ??1Rva00342157 at 0x00342157 (same 91B shape): dtor restoring
 // vtable 0x00811900, calling member +0x20 slot 0x3C when present then deleting
 // it via slot-0 scalarDeletingDestructor(0) plus operator delete with null->0
@@ -39,16 +39,19 @@ public:
 	virtual void method3C();
 };
 
-class Rva00342228 : public State
+class Rva0033F79D : public State
 {
 public:
-	virtual ~Rva00342228();
+	virtual ~Rva0033F79D();
+protected:
+	// retail slot 3: the rowed xfer 0x00342283
+	virtual void xfer(Xfer *xfer);
 
 private:
 	Rva00342228Member *m_ptr20;
 };
 
-Rva00342228::~Rva00342228()
+Rva0033F79D::~Rva0033F79D()
 {
 	if (m_ptr20 != 0) {
 		m_ptr20->method3C();

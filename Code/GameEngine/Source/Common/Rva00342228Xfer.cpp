@@ -1,17 +1,17 @@
 // cl: /MD /Ireference/shims/moduledata
 //
-// ?xfer@Rva00342228@@MAEXPAVXfer@@@Z, retail 0x00342283, 108 bytes.
-// Slot 3 (offset 0x0C) of vtable 0x00811900 (class of ??1Rva00342228@@UAE@XZ,
+// ?xfer@Rva0033F79D@@MAEXPAVXfer@@@Z, retail 0x00342283, 108 bytes.
+// Slot 3 (offset 0x0C) of vtable 0x00811900 (class of ??1Rva0033F79D@@UAE@XZ,
 // rowed in Rva00342228Dtor.cpp) and also of twin vtable 0x008118B0 (class of
 // ??1Rva0033F772@@UAE@XZ); both slots share this one body. It sits directly
-// after the Rva00342228 dtor (0x00342228+91). Shape is the PoisonedBehavior /
+// after the Rva0033F79D dtor (0x00342228+91). Shape is the PoisonedBehavior /
 // Rva003424B1 slot-3 recipe: IsLightCRC early-out (Xfer slot 0x10), Version1
 // (rowed 0x000053EE), a stack bool streaming m_ptr20 presence via ==(bool&)
 // (slot 0x90), on-demand m_ptr20 creation through m_ptr18 slot 0x24, the
 // pointee streamed via ==(Snapshot&) (slot 0x30, so the member is modelled
 // Snapshot*), then m_24 via ==(unsigned int&) (slot 0x78). Xfer declaration
 // copied verbatim from Rva003424B1Xfer.cpp; member offsets from the matched
-// Rva00342228 ctor/slot-4 TUs.
+// Rva0033F79D ctor/slot-4 TUs.
 
 class AsciiString;
 class UnicodeString;
@@ -62,7 +62,7 @@ private:
 	char m_pad04[8];
 };
 
-class Rva00342228 : public Rva0049B47C
+class Rva0033F79D : public Rva0049B47C
 {
 protected:
 	virtual void _slot01();
@@ -77,7 +77,7 @@ private:
 	unsigned int m_24;
 };
 
-void Rva00342228::xfer(Xfer *xfer)
+void Rva0033F79D::xfer(Xfer *xfer)
 {
 	if (xfer->IsLightCRC())
 		return;

@@ -419,6 +419,13 @@ class Rva0033F79D : public State
 {
 public:
 	Rva0033F79D(StateMachine *machine);
+	// the rowed destructor 0x00342228 (Rva00342228Dtor.cpp); declared so this
+	// unit does not emit an implicit copy
+	virtual ~Rva0033F79D();
+
+protected:
+	// retail slot 3: the rowed ?xfer@Rva0033F79D@@MAEXPAVXfer@@@Z 0x00342283
+	virtual void xfer(Xfer *xfer);
 
 private:
 	int m_20; // +0x20
