@@ -72,3 +72,43 @@ ignored the `s >= end` filter, so it counted contracts whose vote is already fil
 its INI row (2172 -> 12) was an artefact of that mistake. The figures above come from
 applying the rule as written, computing `end` from each contract's own decided fields. If
 anyone finds the number 48 in a scratch note, it is superseded by the 38 here.
+
+## A sharper invariant, and a correction to the above
+
+The empty-view analysis above is about one rule. There is a rule-independent check that
+catches more, and it needs no new evidence: a contract already records
+`evidence.retail_layout.facts.extent_lower_bound`, the bytes retail's own constructor
+writes into the object. **A decided size below that is a self-contradiction.** 66 of the
+568 contracts violate it - 54 decided by `majority`, 10 by `tie`, and 2 by `zh`.
+
+The worst are not subtle:
+
+| class | recorded size | retail ctor writes | rule |
+|---|---|---|---|
+| Pathfinder | 1124 | 119280 | majority |
+| WorldHeightMap | 40 | 73940 | majority |
+| Debug | 4 | 40805 | majority |
+| Mouse | 4 | 20496 | majority |
+| TerrainLogic | 4 | 6428 | majority |
+| Player | 1 | 1876 | majority |
+| ThingTemplate | 1 | 1600 | majority |
+
+Team is the clearest single case to fix first, because three independent sources already
+agree against its contract: the contract records size 60, while its own evidence has
+retail allocating 0x13C at three sites and the constructor writing 297 bytes, and the
+canonical header carries a hard assertion - `typedef char CanonicalTeamSizeCheck[sizeof(Team)
+== 0x13C ? 1 : -1];` - with a comment naming the three allocation sites. The contract
+contradicts the header it is supposed to describe.
+
+**The correction.** The section above named MeshModelClass alongside ThingTemplate and Team
+as a contract "that cannot support a size check", implying the same voting defect. That was
+wrong: MeshModelClass's size of 192 was decided by the `zh` rule, not by a vote, and its
+problem is only that 192 sits one byte below the 193 its constructor writes. It is caught
+by the extent invariant here, not by excluding empty views. The same applies to the other
+`zh`-decided violation. Grouping it with the vote defect misattributed the cause.
+
+So the two findings are distinct and the second is the better place to start: excluding
+empty views from the vote fixes a plurality artefact in up to 38 contracts, while refusing
+or queueing any size below the recorded ctor-write extent is one comparison, covers 66
+contracts across three different deciding rules, and cannot be wrong - the contract is
+disagreeing with evidence it already carries.
