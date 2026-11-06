@@ -6,6 +6,19 @@
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+	return a < b ? b : a;
+}
+}
+#include "ascii_string.h"
+#include "../../Include/GameNetwork/MultiplayerColorDefinition.h"
+class BfmeEmotionName;
+class EmotionNugget;
+class ModuleData;
+
 // Retain the bfmealloc primary bodies inline without competing external copies.
 namespace _STL {
 template<> __declspec(dllimport) __forceinline
@@ -18,15 +31,21 @@ void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int* p, size_t n)
  __stl_alloc_rebind(static_cast<allocator<int>&>(*this),(int*)0).deallocate(p,n);
 }
 }
+
 class Rva004DC9EDEntry
 {
 public:
 	~Rva004DC9EDEntry();
 };
+
 class BfmeEmotionName;
+
 class EmotionNugget;
+
 class ModuleData;
+
 class MultiplayerColorDefinition;
+
 enum ObjectID;
 
 // Nugget templates at +0x0C, +0x18 and the scary-object ids at +0x24
@@ -54,6 +73,8 @@ private:
 	_STL::vector<Rva004DC9EDEntry *> m_vec18;
 	_STL::vector<int> m_vec24;
 };
+
+// ---- from Code/GameEngine/Source/Common/EmotionSystem.cpp
 
 // ---- from Code/GameEngine/Source/Common/EmotionSystem.cpp
 
@@ -90,10 +111,23 @@ Rva0042643D::~Rva0042643D()
 
 // tu-skeleton: 0x004264F4 98B ?findNugget@EmotionSystem@@QAEPAVEmotionNugget@@ABVBfmeEmotionName@@@Z -- matched in Code/GameEngine/Source/Common/Rva004DCAD2Parse.cpp (not merged yet)
 
-// tu-skeleton: 0x00426572 14B ?rva00426572@EmotionSystem@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00426580Emotion.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00426580Emotion.cpp
 
-// tu-skeleton: 0x00426580 89B ?AddEmotionNuggetTemplate@EmotionSystem@@QAEXPAVMultiplayerColorDefinition@@@Z -- matched in Code/GameEngine/Source/Common/Rva00426580Emotion.cpp (not merged yet)
+// ?AddEmotionNuggetTemplate@EmotionSystem@@QAEXPAVMultiplayerColorDefinition@@@Z retail 0x00426580 89B
+// Evidence: thiscall ret4 Splits via calls rowed getTooltipName 0x002E4336 pinned findNugget 0x004264F4 rowed releaseBuffer 0x00036410 rowed push_back 0x004DFCB0; vector at this+0xC; caller 0x004DCBCD unblocks 0x004DCAE4; neighbours 0x00426556/0x00426612 share O1 bfmealloc flags
 
-// tu-skeleton: 0x007872A1 8B $L5292 -- matched in Code/GameEngine/Source/Common/Rva00426580Emotion.cpp (not merged yet)
+// ?rva00426572@EmotionSystem@@QAEXXZ @0x00426572 (14B)
+void EmotionSystem::rva00426572()
+{
+	m_vec24.clear();
+}
 
-// tu-skeleton: 0x007872A9 10B __ehhandler$?AddEmotionNuggetTemplate@EmotionSystem@@QAEXPAVMultiplayerColorDefinition@@@Z -- matched in Code/GameEngine/Source/Common/Rva00426580Emotion.cpp (not merged yet)
+void EmotionSystem::AddEmotionNuggetTemplate(MultiplayerColorDefinition *def)
+{
+	if (!def)
+		return;
+	EmotionNugget *nug = findNugget((const BfmeEmotionName &)def->getTooltipName());
+	if (nug)
+		return;
+	m_vec0C.push_back(*(const ModuleData * const *)&def);
+}
