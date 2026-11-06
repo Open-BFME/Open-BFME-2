@@ -47,3 +47,15 @@ initializer report then gives 0x007ABBB3's shape credit to the next tie in retai
 unrowed static only moves the credit, so the trial was reverted and not landed. 0x007ABBB3 needs
 either the compiler-native static above (TU approvals and the 0x0002CD7B respelling) or the shape
 credit to stop crediting ties, which is the parked tool route in LINK-620.
+
+Update (2026-11-07, swarm crash-triage): 0x0002CD7B is now rowed as `??1INIMacroTable@@QAE@XZ` (with
+its EH handler 0x0075C9F7) in its existing file, and the atexit thunk 0x007B6A6E names it; the
+`EvacuateDamage` misidentification is retracted with tombstones. TU evidence (read-only, tu_map
+rebuilt in memory): every INIMacroTable body lies inside `Code/GameEngine/Source/Common/INI/INI.cpp`'s
+approved span (0x0002C9A6 and 0x0002DC1D are approved there by T; 0x0002CD7B and the ctor 0x0002DC3C sit
+between approved INI.cpp rows), and the table's owner INI_loadFile.cpp is approved into INI.cpp. So
+INIMacroTable belongs in INI/INI.cpp, not a separate INIMacroTable.cpp: the naming-convention hint
+`INIMacroTable.cpp` is what leaves 0x0002CD7B and 0x0002DC3C only `proposed` (noncontiguous) after the
+rename. Approving them needs a TU-evidence rule that folds an unanchored class hint into the one
+anchored unit whose span holds all of its rows; 0x007ABBB3 and 0x007B6A6E need an initializer rule
+(I is unpromoted and unanchored). Both are tooling, not done here.
