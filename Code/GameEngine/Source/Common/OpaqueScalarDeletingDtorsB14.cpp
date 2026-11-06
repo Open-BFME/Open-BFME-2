@@ -17,7 +17,6 @@
 //   0x0059EAA3  0x0059EA42  0x00C71138#0
 //   0x005A0B62  0x005A0009  0x00C71414#0
 //   0x005AE38A  0x005AE30A  0x00C726A0#0
-//   0x005AE76E  0x005AE66B  0x00C72760#0
 //   0x005B1A50  0x005B190D  0x00C72A80#0
 //   0x005B4541  0x005B3D94  0x00C72F3C#0
 //   0x005B576B  0x005B5420  0x00C73450#0
@@ -92,19 +91,6 @@ public:
 
 // ?<Rva005AE30A::Rva005AE30A> absent-from-retail
 Rva005AE30A::Rva005AE30A(EmitVtableTag *)
-{
-}
-
-class AptMessengerOnline
-{
-public:
-	AptMessengerOnline(EmitVtableTag *);
-public:
-	virtual ~AptMessengerOnline();
-};
-
-// ?<AptMessengerOnline::AptMessengerOnline> absent-from-retail
-AptMessengerOnline::AptMessengerOnline(EmitVtableTag *)
 {
 }
 

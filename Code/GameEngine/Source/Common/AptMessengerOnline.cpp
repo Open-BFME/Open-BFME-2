@@ -448,7 +448,7 @@ void AptMessengerOnline::UpdatePlayerTabButtons()
 // pin: native sets ECX=this before both appends. The fallback is retail's
 // actual one-byte empty string. Original driver name remains unknown.
 
-// tu-skeleton: 0x005AE76E 28B ??_GAptMessengerOnline@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB14.cpp (not merged yet)
+// 0x005AE76E 28B ??_GAptMessengerOnline@@UAEPAXI@Z: the scalar deleting destructor this unit's AptMessengerOnline vtable emits
 
 // tu-skeleton: 0x005AE7C6 192B ?OnBttnInvite@AptMessengerOnline@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessenger.cpp (not merged yet)
 

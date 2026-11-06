@@ -322,7 +322,7 @@ UnicodeString Rva00448280::rva00448280()
 
 // tu-skeleton: 0x00448276 6B ?name@Rva00448276Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004482DF 28B ??_GLANGameInfo@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/LANGameInfoDeleter.cpp (not merged yet)
+// 0x004482DF 28B ??_GLANGameInfo@@UAEPAXI@Z: the scalar deleting destructor this unit's LANGameInfo vtable emits
 
 // tu-skeleton: 0x004482FB 87B ??1LANGameInfo@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004482FBDtor.cpp (not merged yet)
 
