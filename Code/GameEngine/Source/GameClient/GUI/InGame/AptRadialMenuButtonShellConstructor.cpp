@@ -144,16 +144,8 @@ public:
 	int m_references;
 };
 
-// +0x14: a three-pointer list the shell owns.
-class Rva00577FE2List
-{
-public:
-	Rva00577FE2List() : m_start(0), m_finish(0), m_end(0) {}
-	~Rva00577FE2List();
-	void *m_start;
-	void *m_finish;
-	void *m_end;
-};
+// The +0x14 holder uses the same destructor as the complete ButtonShell dtor.
+#include "../../../../Include/Common/Rva000AD6F4.h"
 
 class AptRadialMenu::Impl::ButtonShell : public Rva00577FE2Base
 {
@@ -165,7 +157,9 @@ private:
 	Impl *m_impl;
 	int m_slot;
 	int m_index;
-	Rva00577FE2List m_14;
+	Rva000AD6F4 m_14;
+	void *m_18;
+	void *m_1C;
 	int m_20;
 	int m_24;
 	bool m_enabled;
@@ -175,6 +169,8 @@ AptRadialMenu::Impl::ButtonShell::ButtonShell(Impl *impl, int slot)
 	: m_impl(impl),
 	  m_slot(slot),
 	  m_index(impl->OnButtonCreated()),
+	  m_18(0),
+	  m_1C(0),
 	  m_20(0),
 	  m_24(0),
 	  m_enabled(true)
