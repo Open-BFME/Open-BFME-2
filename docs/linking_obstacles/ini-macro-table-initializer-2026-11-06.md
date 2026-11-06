@@ -76,3 +76,4 @@ calls no constructor, only atexit); no other initializer references 0x00DDF5B4; 
 `StringBase<char>::releaseBuffer` 0x00036410, which stores 0 after releasing and skips the release when
 the pointer is 0, so the second cleanup only takes and drops the lock. Same pattern as LINK-616's
 `TheFXParticleEditor`.
+Caveat (independent review): both cleanups take `releaseBuffer`'s shared string lock, so the double registration assumes that lock is still valid when the second (bridged, earlier-registered, so later-run) cleanup runs at exit; retail runs that same bridged cleanup at the same point.
