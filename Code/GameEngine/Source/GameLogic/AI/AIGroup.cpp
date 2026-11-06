@@ -267,11 +267,8 @@ NameKeyType Rva0045EE2CGet(void);
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../Common/GameLogicObjectLookupView.h"
-
 class UpgradeTemplate;
-
 #include "../../../Include/GameLogic/Module/ProductionUpdateInterface.h"
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class Traits>
@@ -279,23 +276,14 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
                               const _List_iterator<T, Traits>& b)
 { return a._M_node != b._M_node; }
 }
-
 typedef unsigned int UnsignedInt;
-
 enum { MAX_COMMANDS_PER_SET = 20 };
-
 enum GUICommandType {};
-
 class AsciiString;
-
 template<class T> class StringBase;
-
 class Player;
-
 class SpecialPowerTemplate;
-
 class SpecialPowerModuleInterface;
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 class CommandButton
 {
@@ -306,31 +294,25 @@ private:
 	unsigned char m_thingTemplate[0x10];			// +0x00 .. +0x0F
 	GUICommandType m_command;				// +0x10
 };
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 class CommandSet
 {
 public:
 	const CommandButton *getCommandButton(Int i) const;	// ILT 0x00003F80
 };
-
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
 #include "../../../Include/GameClient/ControlBar.h"
-
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/SpecialPower.h
 class SpecialPowerStore
 {
 public:
 	const SpecialPowerTemplate *findSpecialPowerTemplateByID(UnsignedInt id);	// ILT 0x000034B8
 };
-
 template<int N>
 class BitFlags
 {
 public:
 	unsigned int m_words[7];
 };
-
 class Provider250
 {
 public:
@@ -350,11 +332,8 @@ public:
 	virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55();
 	virtual Player *slotE0();
 };
-
 extern ControlBar *TheControlBar;
-
 extern SpecialPowerStore *TheSpecialPowerStore;
-
 // ?rva00372BB9@AIGroup@@QAEXPBXH@Z @0x00372BB9 76B
 // Unlock over AIGroup pin 0x00372571 plus virtual 0x158.
 // Evidence: calls pin 0x00372571; callees rowed/pinned; unblocks 0x004ED2ED.
@@ -369,27 +348,18 @@ struct Rva00372571Params
 	int m_18;
 	bool m_1C;
 };
-
 class V86;
-
 struct VTable86
 {
 	void *m_pad[86];
 	void *(__fastcall *m_f158)(V86 *p);
 };
-
 class AIGroup;
-
 class CommandButton;
-
 struct TargetRef00217D4C;
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
-
 class FunctorNotSet {public: FunctorNotSet(); virtual ~FunctorNotSet(); private: char pad[8];};
-
 class Rva0036E474Op {public: virtual ~Rva0036E474Op(); virtual unsigned char invoke(Object*);};
-
 class Rva0036E474Ref {
 public:
  unsigned char invoke(Object*) const;
@@ -397,17 +367,14 @@ public:
  ~Rva0036E474Ref() {if(m_op) ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_op);}
  Rva0036E474Op* m_op;
 };
-
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class VSlots<0>
 {
 };
-
 class Rva00A027B8
 {
 public:
@@ -439,42 +406,31 @@ public:
 	virtual void slot25();
 	virtual void slot26(void *arg);
 };
-
 // Project data ledger binds RVA A027B8 to the defined BuildAssistant global.
 // Keep the observed slot26 interface view until its method identity is recovered.
 extern class BuildAssistant *TheBuildAssistant;
-
 class Rva0036D6B4Ret : public VSlots<52>
 {
 public:
 	virtual void slotD0();
 };
-
 class Rva0036D6B4Iface : public VSlots<31>
 {
 public:
 	virtual Rva0036D6B4Ret *slot7C();
 };
-
 template<int N> class BitFlags;
-
 class AIUpdateInterface;
-
 class Coord2D;
-
 class Rva00373EC6;
-
 class ThingTemplate;
-
 class Provider250;
-
 struct RvaListNode
 {
 	RvaListNode *m_next;
 	char m_pad04[4];
 	void *m_payload; // +0x08
 };
-
 class Rva0036ListOwner
 {
 public:
@@ -485,13 +441,11 @@ public:
 private:
 	RvaListNode *m_head; // +0x04
 };
-
 class Rva00352F2FOpaque
 {
 public:
 	void invoke(const Waypoint *waypoint, int maxShots, CommandSourceType cmdSource);
 };
-
 class AIUpdateInterface
 {
  public:
@@ -557,15 +511,10 @@ class AIUpdateInterface
  char m_pad3CD[0x3DA - 0x3CD];
  unsigned char m_flag3DA; // +0x3DA
 };
-
 class Module;
-
 class BodyModuleInterface;
-
 class ExperienceTracker;
-
 typedef void (*ContainIterateFunc)(Object *obj, void *userData);
-
 class ContainModuleInterface
 {
 #define CONTAIN_SLOT(name) virtual void slot##name();
@@ -591,9 +540,7 @@ public:
 	virtual void iterateContained(ContainIterateFunc func, void *userData, bool reverse); // +0x110
 #undef CONTAIN_SLOT
 };
-
 class SpawnBehaviorInterface;
-
 class Object : public Thing
 {
 public:
@@ -702,13 +649,11 @@ private:
 	char m_pad41C[0x438 - 0x41C];
 	unsigned char m_privateStatus; // +0x438
 };
-
 class Rva00352F9D
 {
 public:
 	void rva00352F9D(const void *waypoint, int intVal, CommandSourceType cmdSource);
 };
-
 struct EmitVtableTag;
 class AIGroup : public Snapshot
 {
@@ -850,29 +795,18 @@ public:
 public:
 	void rva003704D3(const PolygonTrigger *trigger, int x, CommandSourceType cmdSource, const Coord3D *coord);
 };
-
 // Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
 // Keep the existing slot placeholder: no original method name is proven.
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
-
 class WinInstanceData;
-
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
-
-// Zero-displacement members: the compared dword is the first field, so no
-// lead padding is emitted (a zero-length pad array is not legal C++).
-// 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
-// Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
 #include "../../../Include/GameLogic/Module/ToppleUpdateClass.h"
-
 BFME_DISP8_PTR_TERNARY_BOOL_GETTER(Rva0036CC7ECmpBoolField, 0x04, 0x1C)
-
 struct Rva0036CC89Inner
 {
 	char m_pad[0x1C];
 	unsigned int m_flags;
 };
-
 class Rva0036CC89CmpBoolField
 {
 public:
@@ -880,7 +814,6 @@ public:
 	char m_lead[4];
 	Rva0036CC89Inner *m_ptr;
 };
-
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
 // Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
 // (1/2/4/8); returns true when a set field lacks its bit, false when covered.
@@ -895,7 +828,6 @@ public:
 	unsigned char m_4B;
 	unsigned char m_4C;
 };
-
 // Native 0x0026FFF7..0x0027000E RET: int at +B8 equals either 1 or 2.
 // Full EAX returns 0/1; field signedness and enum meaning remain unknown.
 // BF1 9cbfb551fe Common/Rva00694830Accessors.cpp is the clean semantic guide.
@@ -905,7 +837,6 @@ public:
 // xor/cmp-je/cmp-je/inc shape of HordeUpdate::isTrueHordeMember 0x0049001F).
 // Owner unresolved; address-derived name.
 class ExperienceLevelList;
-
 class ExperienceLevelIterator
 {
 public:
@@ -913,7 +844,6 @@ public:
 	ExperienceLevelIterator(const ExperienceLevelIterator &other) : m_node(other.m_node) {}
 	void *m_node; // +0x00
 };
-
 struct ExperienceLevelHandle
 {
 public:
@@ -922,29 +852,19 @@ public:
 	ExperienceLevelList *m_list; // +0x00
 	ExperienceLevelIterator m_iter; // +0x04
 };
-
 #include "../../../Include/GameLogic/ExperienceLevelStore.h"
-
 class ExperienceLevelSystem;
-
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
-
 #include "../../../Include/GameLogic/ExperienceTracker.h"
-
 enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
-
 enum AbleToAttackType { ATTACK_NEW_TARGET=0, ATTACK_NEW_TARGET_FORCED=1 };
-
 #include "../../../Include/GameLogic/ActionManager.h"
-
 extern ActionManager *TheActionManager;
-
 struct AIGroupDistanceEntry
 {
 	Object *m_object;
 	Real m_distance;
 };
-
 namespace _STL {
 template<> __declspec(noinline) _List_node<AIGroupDistanceEntry> *list<AIGroupDistanceEntry,allocator<AIGroupDistanceEntry> >::_M_create_node(const AIGroupDistanceEntry &);
 template<> __declspec(noinline) _List_node<AIGroupDistanceEntry> *list<AIGroupDistanceEntry,allocator<AIGroupDistanceEntry> >::_M_create_node(const AIGroupDistanceEntry &x) {
@@ -953,22 +873,15 @@ template<> __declspec(noinline) _List_node<AIGroupDistanceEntry> *list<AIGroupDi
  return p;
 }
 }
-
 struct IndividualTemplate {char pad[0x114];unsigned flags114;unsigned pad118;unsigned flags11c;};
-
 class Path;
-
 class Rva002627E8 {
 public:
 	float rva002627E8() const;
 };
-
 #include "../../../Include/GameLogic/Module/BodyModule.h"
-
 #include "../../../Include/Common/GlobalData.h"
-
 extern GlobalData *TheWritableGlobalData;
-
 class PathDeleteArgument
 {
 public:
@@ -987,32 +900,25 @@ private:
 	Path *m_path;
 	AIGroup *m_owner;
 };
-
 // 0x0036D6B4 is matched as Rva0036ListOwner::rva0036D6B4 (same receiver).
 class Rva0036E474Ref;
-
 struct RvaListNode;
-
 template <int N>
 class BfmeVirtualSlots : public BfmeVirtualSlots<N - 1>
 {
 public:
 	virtual void unused(char (*)[N]) = 0;
 };
-
 template <>
 class BfmeVirtualSlots<0>
 {
 };
-
 extern float g_00BBB9AC;
-
 class Rva0008BB38FloatField
 {
 public:
 	float get() const;
 };
-
 struct Rva0028AC4EEntry
 {
 	char m_pad00[0x2C];
@@ -1020,16 +926,13 @@ struct Rva0028AC4EEntry
 	char m_pad30[0x40 - 0x30];
 	float m_40;
 };
-
 #include "../../../Include/GameLogic/LocomotorClass.h"
-
 struct ListNode
 {
 	ListNode *m_next; // +0x00
 	char m_pad4[4]; // +0x04
 	class Object *m_obj; // +0x08
 };
-
 class Rva0036E346
 {
 public:
@@ -1039,7 +942,6 @@ private:
 	char m_pad0[4]; // +0x00
 	ListNode *m_head; // +0x04
 };
-
 class Rva0036E1F7Result
 {
 public:
@@ -1047,7 +949,6 @@ public:
 	virtual void slot04();
 	virtual void slot05(int v);
 };
-
 class Rva0036E1F7
 {
 public:
@@ -1057,7 +958,6 @@ private:
 	char m_pad0[4];
 	ListNode *m_head;
 };
-
 // ?rva0036E2A7@Rva0036E2A7@@QAEXPAVSequentialScript@@H@Z, retail 0x0036E2A7, 59 bytes.
 // Chain from 0x00262453: same list holder (+0x04 head, [node+0x00] next,
 // [node+0x08] Object, Object+0x258 AIUpdateInterface), AIUpdateInterface+0x3D0 is the
@@ -1066,13 +966,11 @@ private:
 
 // [node+0x08] Object, Object+0x258 AIHolder), AIHolder+0x3D0 is the
 class SequentialScript;
-
 class ScriptTracker
 {
 public:
 	void setCurScript(SequentialScript *p, bool b, int dummy);
 };
-
 class Rva0036E2A7
 {
 public:
@@ -1082,9 +980,7 @@ private:
 	char m_pad0[4]; // +0x00
 	ListNode *m_head; // +0x04
 };
-
 #include "../../../Include/GameClient/Drawable.h"
-
 #include "../../../Include/GameLogic/StancesBehavior.h"
 
 class Rva0036FAF8
@@ -1154,9 +1050,37 @@ public:
 	char privateGatherAndMoveInFormationToPosition(int pos, int a, int b, int c, int d);
 };
 
+//
+// ??_GAIGroup@@MAEPAXI@Z, retail 0x0036E8EA (28 bytes): slot 0
+// of vtable 0x00C17D00, whose slot-2 name getter returns "AIGroup" (the only
+// vtable using that getter). Scalar deleting destructor: calls the
+// destructor at 0x0036E564 and then the global operator delete when bit 0 of
+// the flags is set. That destructor re-stores vtable 0x00C17D00, which
+// identifies it as AIGroup::~AIGroup (pinned in reverse/symbols.csv).
+// Class shape from Zero Hour's GameLogic/AI.h (pooled).
+// Zero Hour pools the class (MEMORY_POOL_GLUE: protected virtual
+// destructor and an inline class operator delete); BFME 2's form frees
+// through the global operator delete, so the class is modelled with none.
+// The destructor is declared, not defined, so the call resolves to the pin;
+// the dummy tag constructor (no retail counterpart) only makes this TU emit
+// the vtable and with it the deleting destructor.
+
+struct EmitVtableTag;
+
+class Xfer;
+
 // tu-skeleton: 0x0036CBF9 129B ?rotateOffset@AIGroup@@SAXPBUCoord3D@@0PAVCoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp (not merged yet)
 
 // tu-skeleton: 0x0036CC7A 4B ?Get_File_Handle@FileClass@@UAEPAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp
+
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/ControlBar.h
+
+// Zero-displacement members: the compared dword is the first field, so no
+// lead padding is emitted (a zero-length pad array is not legal C++).
+// 0x004A8125 is ToppleUpdate::isAbleToBeToppled (pinned under that name from
+// Object::topple 0x0028CF37; ZH: m_toppleState == TOPPLE_UPRIGHT, state at +0x38).
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp
 
@@ -2520,12 +2444,6 @@ void AIGroup::recompute()
 	m_dirty = false;
 }
 
-// tu-skeleton: 0x0036CF07 108B ?remove@AIGroup@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D14F 374B ?getMinMaxAndCenter@AIGroup@@QAE_NPAVCoord2D@@0PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D3A3 785B ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupSetPositionInFormation.cpp
 
 // AIGroup::groupSetPositionInFormation, retail 0x0036D6F4 (178 bytes):
@@ -2562,12 +2480,6 @@ void AIGroup::groupSetPositionInFormation(const Coord3D *position, const Coord3D
 		obj->setOrientation(obj->GetRelativeAngle(goalPosition));
 	}
 }
-
-// tu-skeleton: 0x0036D7A6 95B ?removeInvalidObjectsFromGroup@AIGroup@@QAE_NPAURva0036D7A6Outer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D805 50B ?rva0036D805@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036D837 50B ?rva0036D837@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroup_groupDoSpecialPower.cpp
 
@@ -2748,26 +2660,6 @@ bool AIGroup::groupDoSpecialPowerAtLocation(UnsignedInt id, const Coord3D *loc, 
 	}
 	return done;
 }
-
-// tu-skeleton: 0x0036DBBA 99B ?rva0036DBBA@AIGroup@@QAEXHHI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DC1D 41B ?rva0036DC1D@AIGroup@@QAEXW4ModelConditionFlagType@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DC6F 30B ?rva0036DC6F@AIGroup@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DC8D 43B ?groupDoCommandButton@AIGroup@@QAEXPBVCommandButton@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupBroadcastOrders.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DD16 47B ?setAttitude@AIGroup@@QAEXW4AttitudeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DD45 136B ?setWeaponLockForGroup@AIGroup@@QAE_NW4WeaponSlotType@@W4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DDCD 37B ?rva0036DDCD@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DDF2 37B ?releaseWeaponLockForGroup@AIGroup@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DE17 114B ?setWeaponSetFlag@AIGroup@@QAEXW4WeaponSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036DE89 139B ?queueUpgrade@AIGroup@@QAEXPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupIsIdle.cpp
 
@@ -3009,8 +2901,6 @@ bool AIGroup::rva0036E357() {
  return true;
 }
 
-// tu-skeleton: 0x0036E158 107B ?getCommandButtonSourceObject@AIGroup@@QAEPAVObject@@W4GUICommandType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupGetCommandButtonSourceObject.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupRva0036E1C3.cpp
 
 // ?groupSetEmoticon@AIGroup@@QAEXABV?$StringBase@D@@H@Z @0x0036E1C3 52B: AIGroup walk members at +0x04 calling Drawable setEmoticon via Thing getDrawable; neighbours AIGroupGetCommandButtonSourceObject Rva0036E346Count; caller 0x003C1F0A.
@@ -3048,8 +2938,6 @@ void AIGroup::groupChangeStance(int v)
 	}
 }
 
-// tu-skeleton: 0x0036E30E 37B ?insert@?$list@UBfmeSpecialPowerTimer8@@V?$allocator@UBfmeSpecialPowerTimer8@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeSpecialPowerTimer8@@U?$_Nonconst_traits@UBfmeSpecialPowerTimer8@@@_STL@@@2@U32@ABUBfmeSpecialPowerTimer8@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/SpecialPowerTimerList.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupGetSpeed.cpp
 
 Real AIGroup::getSpeed(void)
@@ -3059,8 +2947,6 @@ Real AIGroup::getSpeed(void)
 
 	return m_speed;
 }
-
-// tu-skeleton: 0x0036E3C6 174B ?xfer@AIGroup@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupConstructor.cpp
 
@@ -3108,10 +2994,6 @@ AIGroup::~AIGroup()
     }
     rva0036CE87();
 }
-
-// tu-skeleton: 0x0036E55E 6B ?name@AIGroup@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x0036E5F1 103B ?add@AIGroup@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAdd.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroup_groupDoSpecialPowerAtObject.cpp
 
@@ -3247,12 +3129,6 @@ void AIGroup::groupDoSpecialPowerAtObject(UnsignedInt specialPowerID, Object *ta
 		}
 	}
 }
-
-// tu-skeleton: 0x0036E8EA 28B ??_GAIGroup@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupDeleter.cpp (not merged yet)
-
-// tu-skeleton: 0x0036F710 71B ?getAllIDs@AIGroup@@QBEABV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036F757 448B ?groupScatter@AIGroup@@QAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupTightenToPosition.cpp
 
@@ -3617,14 +3493,6 @@ void AIGroup::groupIdle(CommandSourceType cmdSource)
 	}
 }
 
-// tu-skeleton: 0x0036FD64 463B ?groupAttackObjectPrivate@AIGroup@@AAEX_NPAVObject@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036FF33 65B ?groupAttackTeam@AIGroup@@QAEXPBVTeam@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0036FF74 282B ?groupAttackPosition@AIGroup@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
-// tu-skeleton: 0x0037008E 50B ?groupHunt@AIGroup@@QAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupGroupEnter.cpp
 
 //
@@ -3781,12 +3649,6 @@ PHASE2:
 	}
 }
 
-// tu-skeleton: 0x003706C8 205B ?groupRotateFiringarc@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupScatter.cpp (not merged yet)
-
-// tu-skeleton: 0x00371166 2428B ?moveFormationToPos@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@H_N2@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp (not merged yet)
-
-// tu-skeleton: 0x00372571 1432B ?groupMoveToPosition@AIGroup@@QAEXPAURva00372571Params@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupAttackMoveToPosition.cpp
 
 // ?groupAttackMoveToPosition@AIGroup@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z,
@@ -3826,6 +3688,73 @@ void AIGroup::groupAttackMoveToPosition(const Coord3D *pos, Int maxShotsToFire, 
 		}
 	}
 }
+
+// tu-skeleton: 0x0036CF07 108B ?remove@AIGroup@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D14F 374B ?getMinMaxAndCenter@AIGroup@@QAE_NPAVCoord2D@@0PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D3A3 785B ?computeGroundPath@AIGroup@@QAE_NPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D7A6 95B ?removeInvalidObjectsFromGroup@AIGroup@@QAE_NPAURva0036D7A6Outer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D805 50B ?rva0036D805@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036D837 50B ?rva0036D837@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DBBA 99B ?rva0036DBBA@AIGroup@@QAEXHHI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DC1D 41B ?rva0036DC1D@AIGroup@@QAEXW4ModelConditionFlagType@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DC6F 30B ?rva0036DC6F@AIGroup@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DC8D 43B ?groupDoCommandButton@AIGroup@@QAEXPBVCommandButton@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupBroadcastOrders.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DD16 47B ?setAttitude@AIGroup@@QAEXW4AttitudeType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DD45 136B ?setWeaponLockForGroup@AIGroup@@QAE_NW4WeaponSlotType@@W4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DDCD 37B ?rva0036DDCD@AIGroup@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DDF2 37B ?releaseWeaponLockForGroup@AIGroup@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DE17 114B ?setWeaponSetFlag@AIGroup@@QAEXW4WeaponSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036DE89 139B ?queueUpgrade@AIGroup@@QAEXPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036E158 107B ?getCommandButtonSourceObject@AIGroup@@QAEPAVObject@@W4GUICommandType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupGetCommandButtonSourceObject.cpp (not merged yet)
+
+// tu-skeleton: 0x0036E30E 37B ?insert@?$list@UBfmeSpecialPowerTimer8@@V?$allocator@UBfmeSpecialPowerTimer8@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeSpecialPowerTimer8@@U?$_Nonconst_traits@UBfmeSpecialPowerTimer8@@@_STL@@@2@U32@ABUBfmeSpecialPowerTimer8@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/SpecialPowerTimerList.cpp (not merged yet)
+
+// tu-skeleton: 0x0036E3C6 174B ?xfer@AIGroup@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0036E55E 6B ?name@AIGroup@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0036E5F1 103B ?add@AIGroup@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAdd.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGroupDeleter.cpp
+
+// ?<AIGroup::AIGroup> absent-from-retail
+AIGroup::AIGroup(EmitVtableTag *)
+{
+}
+
+// tu-skeleton: 0x0036F710 71B ?getAllIDs@AIGroup@@QBEABV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036F757 448B ?groupScatter@AIGroup@@QAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
+
+// tu-skeleton: 0x0036FD64 463B ?groupAttackObjectPrivate@AIGroup@@AAEX_NPAVObject@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036FF33 65B ?groupAttackTeam@AIGroup@@QAEXPBVTeam@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0036FF74 282B ?groupAttackPosition@AIGroup@@QAEXPBUCoord3D@@HW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x0037008E 50B ?groupHunt@AIGroup@@QAEXW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupAttackTeam.cpp (not merged yet)
+
+// tu-skeleton: 0x003706C8 205B ?groupRotateFiringarc@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupScatter.cpp (not merged yet)
+
+// tu-skeleton: 0x00371166 2428B ?moveFormationToPos@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@H_N2@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp (not merged yet)
+
+// tu-skeleton: 0x00372571 1432B ?groupMoveToPosition@AIGroup@@QAEXPAURva00372571Params@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRva00372571.cpp (not merged yet)
 
 // tu-skeleton: 0x0077E639 8B uw_0077e639 -- matched in Code/gen_small/uw_gen_009.cpp (not merged yet)
 
