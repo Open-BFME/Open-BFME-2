@@ -112,6 +112,10 @@ public:
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
+#include "../../../GameEngine/Include/Common/Rva006DB270.h"
+
+extern Rva006DB270 *g_pChainBlockAllocator;   // 0x00E176E8
+
 class AptRef
 {
 public:
@@ -313,7 +317,24 @@ Rva006DE6C0::~Rva006DE6C0()
 
 // ---- from Code/Libraries/Source/Apt/AptValue/Rva006DE2C0Ctors.cpp
 
-// tu-skeleton: 0x006DE320 35B ??_GRva006DE320@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/PoolDeleteDeletingDtors01.cpp (not merged yet)
+// 0x006DE320 35B ??_GRva006DE320@@UAEPAXI@Z: the scalar deleting destructor of an
+// Rva006DE350 subclass with an empty inline destructor. It calls the base destructor
+// 0x006DE350 (REL32 +4), tests the delete flag, then returns 8 bytes to the chain-block
+// pool at VA 0x00E176E8 (Rva006DB270::freeBlock 0x006DB270). It fills slot 14 of the
+// vftables 0x00CEB19C and 0x00CEB1D8 (two classes ICF folded into one body), so the
+// class name is a view name. Re-homed from the PoolDeleteDeletingDtors01.cpp grab-bag,
+// whose view also emitted a non-retail ??_GRva006DE350 copy ahead of this unit's.
+// The pushed size 8 is the base's vptr and flag word: the subclass adds no field.
+class Rva006DE320 : public Rva006DE350
+{
+public:
+	static void operator delete(void *p, unsigned int size)
+	{
+		g_pChainBlockAllocator->freeBlock(p, size);
+	}
+};
+
+void Rva006DE320_CtorAnchor(Rva006DE320 *p) { p->Rva006DE320::Rva006DE320(); }
 
 // ---- from Code/Libraries/Source/Apt/AptValue/Rva006DE350Dtor.cpp
 
