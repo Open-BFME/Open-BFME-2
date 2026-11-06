@@ -23,6 +23,50 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/GameLogic/Module/DieModule.h"
+// platformsdk
+//
+// InstantDeathBehaviorModuleData FieldParse procs, BFME 2 layout. The table
+// at VA 0x00C41FA8 (read by the rowed buildFieldParse 0x0045D35F) maps FX ->
+// the shared list parser 0x00339B9A at +0x38, OCL -> 0x0045D1BD, Weapon ->
+// 0x0045D200 and Sound -> 0x0045D2F6. The OCL and Weapon procs are Zero
+// Hour's InstantDeathBehavior.cpp file statics (scoped to the module data
+// class here so the ledger names stay unique; several ZH units carry a static
+// parseOCL), with the BFME 2 vector offsets
+// (+0x44 / +0x50; the module data ctor 0x0045D176 builds four vectors from
+// +0x38) and the BFME 2 findWeaponTemplate taking a const AsciiString &.
+// Sound is a BFME 2 addition: each token goes through the pinned audio
+// token parser 0x00339184 into a ref-counted handle that is appended to the
+// vector at +0x5C and released (rowed Release_Ref) at scope exit; its name
+// stays address-derived.
+
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+#include "ascii_string.h"
+#include <windows.h>
+#include "../../../../Include/Common/INI/INI.h"
+class ObjectCreationListStore
+{
+public:
+	const ObjectCreationList *findObjectCreationList(const char *name) const;
+};
+extern ObjectCreationListStore *TheObjectCreationListStore;
+#include "../../../../Include/GameLogic/WeaponStore.h"
+// Use the complete retail push_back at 0x0005A084 from StlportVectorPushBackFamily.
+// push_back on this element is rowed in its overflow owner as vector<Rva00058BBDElement>.
+struct Rva00058BBDElement { int a[1]; };
+namespace _STL {
+template <> void vector<Rva00058BBDElement>::push_back(const Rva00058BBDElement &);
+template <> __declspec(dllimport) __forceinline void vector<Rva0005A084Element>::push_back(const Rva0005A084Element &x)
+{ ((vector<Rva00058BBDElement> *)this)->push_back(*(const Rva00058BBDElement *)&x); }
+}
+#include "../../../../../Libraries/Source/WWVegas/WWLib/OpaqueRefCounted.h"
+
 //
 // ??0InstantDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0045CF55,
 // 42 bytes. Behavior-side ctor completing the InstantDeathBehavior file-unit
@@ -38,11 +82,14 @@ enum NameKeyType
 // existing DieModule pin).
 
 extern "C" const void *const __identifier("??_7CreateCrateDie@@6BBehaviorModuleInterface@@@")[];
+
   // folded vftable 0x00C4A650 (21 classes), by its data-ledger name
 
 extern "C" const void *const __identifier("??_7Rva0045CE6D@@6BRva0045CE6D_B2@@@")[];
+
   // vftable 0x00C41E44
 extern "C" const void *const __identifier("??_7Rva0045CE6D@@6BDieModule@@@")[];
+
 // vector<int>/char destruction otherwise instantiates per-TU allocator
 // deallocate COMDATs (one byte shape per TU flags); explicit
 // dllimport+forceinline specializations take those calls inline so this
@@ -79,6 +126,11 @@ public:
 	virtual void onDie(const DamageInfo*);
 };
 
+extern WeaponStore *TheWeaponStore;
+
+// Audio handle the Sound proc fills: one ref-counted pointer, released on exit.
+void Rva00339184(const char *token, void *store);
+
 class InstantDeathBehaviorModuleData : public DestroyDieModuleData
 {
 public:
@@ -97,6 +149,21 @@ private:
     _STL::vector<const WeaponTemplate *> m_weapons;
     _STL::vector<Rva0005A084Element> m_sounds;
 };
+
+// Audio handle the Sound proc fills: one ref-counted pointer, released on exit.
+class Rva0045D2F6SoundRef
+{
+public:
+	Rva0045D2F6SoundRef() : m_ref(NULL) {}
+	~Rva0045D2F6SoundRef()
+	{
+		if (m_ref)
+			m_ref->Release_Ref();
+	}
+	OpaqueRefCounted *m_ref;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorPoolKey.cpp
 
@@ -118,12 +185,6 @@ InstantDeathBehavior::InstantDeathBehavior(Thing *thing, const ModuleData *modul
 	*(unsigned int *)((char *)this + 0xC) = ((unsigned int)__identifier("??_7CreateCrateDie@@6BBehaviorModuleInterface@@@"));
 	*(unsigned int *)((char *)this + 0x10) = ((unsigned int)__identifier("??_7Rva0045CE6D@@6BRva0045CE6D_B2@@@"));
 }
-
-// tu-skeleton: 0x0045CF7F 28B ??_GRva0045CE6D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x0045CF9B 412B ?onDie@InstantDeathBehavior@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
-
-// tu-skeleton: 0x0045D137 63B ??1Rva0045D137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataCtor.cpp
 
@@ -155,13 +216,9 @@ InstantDeathBehaviorModuleData::InstantDeathBehaviorModuleData()
 // InstantDeathBehavior -> data factory 0x0024B213 -> ctor 0x0045D176, primary
 // vptr store 0x0045D189.
 
-// tu-skeleton: 0x0045D1BD 67B ?parseOCL@InstantDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp (not merged yet)
 
-// tu-skeleton: 0x0045D200 113B ?parseWeapon@InstantDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp (not merged yet)
 
-// tu-skeleton: 0x0045D28D 105B ??1InstantDeathBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0045D2F6 105B ?Rva0045D2F6Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers_Rva0045D2F6Parse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp
 
@@ -216,6 +273,52 @@ void InstantDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
     parse.add(dataFieldParse);
 }
 
+// tu-skeleton: 0x0045CF7F 28B ??_GRva0045CE6D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x0045CF9B 412B ?onDie@InstantDeathBehavior@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0045D137 63B ??1Rva0045D137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp
+
+// ?parseOCL@InstantDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z
+void InstantDeathBehaviorModuleData::parseOCL(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	InstantDeathBehaviorModuleData *self = (InstantDeathBehaviorModuleData *)instance;
+	for (const char *token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
+	{
+		const ObjectCreationList *ocl = TheObjectCreationListStore->findObjectCreationList(token);	// could be null! this is OK!
+		self->m_ocls.push_back(ocl);
+	}
+}
+
+// ?parseWeapon@InstantDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z
+void InstantDeathBehaviorModuleData::parseWeapon(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	InstantDeathBehaviorModuleData *self = (InstantDeathBehaviorModuleData *)instance;
+	for (const char *token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
+	{
+		const WeaponTemplate *wt = TheWeaponStore->findWeaponTemplate(AsciiString(token));	// could be null! this is OK!
+		self->m_weapons.push_back(wt);
+	}
+}
+
+// tu-skeleton: 0x0045D28D 105B ??1InstantDeathBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers_Rva0045D2F6Parse.cpp
+
+// ?Rva0045D2F6Parse@@YAXPAVINI@@PAX1PBX@Z
+void Rva0045D2F6Parse(INI *ini, void *instance, void * /*store*/, const void * /*userData*/)
+{
+	InstantDeathBehaviorModuleData *self = (InstantDeathBehaviorModuleData *)instance;
+	for (const char *token = ini->getNextToken(); token != NULL; token = ini->getNextTokenOrNull())
+	{
+		Rva0045D2F6SoundRef sound;
+		Rva00339184(token, &sound);
+		self->m_sounds.push_back(*(const Rva0005A084Element *)&sound);
+	}
+}
+
 // tu-skeleton: 0x0078A556 8B Unwind@00b8a556 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A55E 11B Unwind@00b8a55e -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorOnDie.cpp (not merged yet)
@@ -226,10 +329,6 @@ void InstantDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x0078A57B 10B __ehhandler$??1Rva0045D137@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x0078A585 8B $L5939 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A58D 10B __ehhandler$?parseWeapon@InstantDeathBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp (not merged yet)
-
 // tu-skeleton: 0x0078A597 8B $L4266 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A59F 11B Unwind@00b8a59f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
@@ -239,7 +338,3 @@ void InstantDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // tu-skeleton: 0x0078A5B5 11B Unwind@00b8a5b5 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A5C0 10B __ehhandler$??1InstantDeathBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A5CA 8B $L5580 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers_Rva0045D2F6Parse.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A5D2 10B __ehhandler$?Rva0045D2F6Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers_Rva0045D2F6Parse.cpp (not merged yet)
