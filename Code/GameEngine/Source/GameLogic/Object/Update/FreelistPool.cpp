@@ -26,15 +26,12 @@ typedef unsigned short WideChar;
 	{ \
 		return scale * IMM + m_value; \
 	}
-
 #include "../../../../Include/GameLogic/ObjectTypesClass.h"
-
 struct Rva001EB023Elem {
 	unsigned char m_pad[4];
 	StringBase<char> m_str;
 	unsigned char m_tail[0xA4];
 };
-
 // ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ @0x001EAF7B 32B: honest pool clear loop
 // head at +0x04 popped via *node then deleter at +0x10 called as
 // __cdecl (node at +0x04 plus ctx at +0x14) with caller cleanup; returns
@@ -53,7 +50,6 @@ private:
 	void (__cdecl *m_10)(void *node, int ctx);
 	int m_14;
 };
-
 // ?rva001EAF5E@@YAXPAX0@Z, retail 0x001EAF5E (29 bytes): destroy a contiguous
 // run of 0xAC-byte elements through virtual slot 0 with argument 0.
 class Rva001EAF5EElement
@@ -62,7 +58,6 @@ public:
 	virtual void rva001EAF5ESlot0(int);
 	unsigned char m_pad04[0xAC - 4];
 };
-
 // ?rva001EB0CA@Rva001EB0CAHolder@@QAEXXZ @0x001EB0CA 15B: null-checked byte set.
 // Loads pointer at this+0x10 and stores 1 at pointee+0xC1. Callers at
 // 0x003BE6F5 0x003BE7C6 0x003BE8C0. No donor; honest address names.
@@ -72,7 +67,6 @@ struct Rva001EB0CAPointee
 	unsigned char m_flagC0;
 	unsigned char m_flagC1;
 };
-
 class Rva001EB0CAHolder
 {
 public:
@@ -82,11 +76,6 @@ private:
 	char m_pad[0x10];
 	Rva001EB0CAPointee *m_ptr;
 };
-
-// ?rva001EB0B1@Rva001EB0B1Holder@@QAEXXZ @0x001EB0B1 8B: add ecx 0x10 plus jmp.
-// Tail-jmp thunk to pinned ?clear@Rva000AD6F4@@QAEXXZ at 0x000AD6F4; same
-// shape as Rva000A89C1Thunk (return member clear gives add plus jmp at /O1).
-// Callers at 0x0023D131 and 0x003777A4. No donor; honest address names.
 #include "../../../../Include/Common/Rva000AD6F4.h"
 
 class Rva001EB0B1Holder
@@ -227,6 +216,25 @@ public:
 private:
 	bool grow( int arena, int size );
 };
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+class Rva001EAFFE
+{
+public:
+	AsciiString &rva001EAFFE(int index);
+	char m_pad[0x0C];
+	AsciiString *m_begin;
+	AsciiString *m_end;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp
+
+// ?rva001EB0B1@Rva001EB0B1Holder@@QAEXXZ @0x001EB0B1 8B: add ecx 0x10 plus jmp.
+// Tail-jmp thunk to pinned ?clear@Rva000AD6F4@@QAEXXZ at 0x000AD6F4; same
+// shape as Rva000A89C1Thunk (return member clear gives add plus jmp at /O1).
+// Callers at 0x0023D131 and 0x003777A4. No donor; honest address names.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolPop.cpp
 
@@ -464,7 +472,22 @@ Rva001EB15A::Rva001EB15A()
 
 // tu-skeleton: 0x001EAFB0 17B ?advanceCursor@@YAXAAUGapRecordCursor@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
-// tu-skeleton: 0x001EAFFE 37B ?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z -- matched in Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp
+
+// ?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z
+// Retail 0x001EAFFE, 37 bytes: bounds-checked AsciiString element access of
+// the array whose begin/end sit at +0xC/+0x10; out of range returns
+// AsciiString::TheEmptyString (retail 0x009E0878). Owner address-derived.
+
+AsciiString &Rva001EAFFE::rva001EAFFE(int index)
+{
+	if (index >= 0 && (unsigned int)index < (unsigned int)(m_end - m_begin))
+	{
+		_ReadWriteBarrier();
+		return m_begin[index];
+	}
+	return (AsciiString &)AsciiString::TheEmptyString;
+}
 
 // tu-skeleton: 0x001EB0EA 17B ?rva001EB0EA@Rva001EB0EA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
