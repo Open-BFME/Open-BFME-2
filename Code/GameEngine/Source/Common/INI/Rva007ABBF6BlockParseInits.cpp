@@ -114,7 +114,6 @@ public:
 	static void friend_parseEmotionNugget(INI *);
 };
 #include "../../../Include/GameClient/Eva.h"
-#include "../../../Include/GameClient/FXListStore.h"
 #include "../../../Include/GameClient/FontLibrary.h"
 #include "../../../Include/Common/GlobalData.h"
 class GlobalWeatherSystem
@@ -201,7 +200,6 @@ BlockParse theCrateDataBlockParse = { 0, "CrateData", CrateSystem::parseCrateTem
 BlockParse theWindowTransitionBlockParse = { 0, "WindowTransition", INI::parseWindowTransitions };	// VA 0x00DB8CEC "WindowTransition", parse 0x001DC66F
 BlockParse theDamageFXBlockParse = { 0, "DamageFX", DamageFXStore::parseDamageFXDefinition };	// VA 0x00DB8D1C "DamageFX", parse 0x00360B0F
 BlockParse theMiscEvaDataBlockParse = { 0, "MiscEvaData", INI::parseMiscEvaData };	// VA 0x00DB8D94 "MiscEvaData", parse 0x001DCFE5
-BlockParse theFXListBlockParse = { 0, "FXList", FXListStore::parseFXListDefinition };	// VA 0x00DB8DDC "FXList", parse 0x001E2CAE
 BlockParse theGameDataBlockParse = { 0, "GameData", GlobalData::parseGameDataDefinition };	// VA 0x00DB8DF4 "GameData", parse 0x00237AB1
 BlockParse theOnlineChatColorsBlockParse = { 0, "OnlineChatColors", INI::parseOnlineChatColorDefinition };	// VA 0x00DB918C "OnlineChatColors", parse 0x001EF471
 BlockParse theFXParticleSystemBlockParse = { 0, "FXParticleSystem", INI::parseParticleSystemDefinition };	// VA 0x00DB938C "FXParticleSystem", parse 0x001FD0B4
@@ -280,7 +278,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD174();
 	static void rva007AD189();
 	static void rva007AD202();
-	static void rva007AD241();
 	static void rva007AD270();
 	static void rva007AD424();
 	static void rva007AD521();
@@ -376,8 +373,6 @@ BLOCK_PARSE_INIT( rva007AD174, theWindowTransitionBlockParse )
 BLOCK_PARSE_INIT( rva007AD189, theDamageFXBlockParse )
 // ?rva007AD202@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD202 (21B): "MiscEvaData"
 BLOCK_PARSE_INIT( rva007AD202, theMiscEvaDataBlockParse )
-// ?rva007AD241@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD241 (21B): "FXList"
-BLOCK_PARSE_INIT( rva007AD241, theFXListBlockParse )
 // ?rva007AD270@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD270 (21B): "GameData"
 BLOCK_PARSE_INIT( rva007AD270, theGameDataBlockParse )
 // ?rva007AD424@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD424 (21B): "OnlineChatColors"

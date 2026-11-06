@@ -119,3 +119,27 @@ void FXListStore::parseFXListDefinition(INI*ini){
  TheFXListStore->fxmap[key]=fxl;
  ini->initFromINI(fxl,TheFXListFieldParse);
 }
+
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so the node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007AD241, node 0x00DB8DDC). Retail's FXList.cpp run is its
+// Drawable.h copy 0x007AD231 (static after TheFXListStore), this node, then
+// the pool-init marker; this fragment of the FXList.cpp TU defines the
+// node's callback.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theFXListBlockParse( "FXList", FXListStore::parseFXListDefinition );
