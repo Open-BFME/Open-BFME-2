@@ -96,6 +96,17 @@ Before the repairs below, 251 agreed and 66 differed. Most of the 66 are the dum
   gradient 6 instead of GRADIENT_MODULATE; and `g_Rva012C3BC4` (`Y4FeslBuddyRequests.cpp`, 0x009D831C), the PROT
   value of the FESL CONN request, points at `"2"` (ours was null). Each compared with retail: equal.
 
+A second pass checked every relocation in those statics against retail's word (code by ledger RVA, literals by
+content, data by ledger address): 1,454 agree, 89 have targets the ledgers do not place, and 7 disagree.
+
+- **Repaired:** `AptTimeLine.cpp`'s `s_statusQueries` (0x008671A0) listed the six `TimeLine:` extern-handler names in
+  reverse. The registration loop passes the index as the query id, so every query was bound to another query's
+  answer. Retail's order starts with ScreenMode; compared with retail: equal.
+- Open, STLport (left to that lane): `_Null_messages` in `stlport_classic_locale.cpp` (0x009DEB24) holds a vptr where
+  retail's load-time word is 0.
+- Harmless: `BoredUpdate.cpp`'s `s_boredUpdateFile` and `StealthDetectorUpdateCtor.cpp`'s `s_file` are the file names
+  passed to `GetGameLogicRandomValue`'s debug arguments; retail's are full `C:\projectsfme2patch103\...` paths.
+
 #### One address, several names (23)
 
 Two definitions for one retail datum link as two objects: one side writes, the other reads its own copy. Read

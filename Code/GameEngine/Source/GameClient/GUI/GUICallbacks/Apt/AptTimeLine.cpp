@@ -1034,13 +1034,14 @@ public:
 };
 struct Pair0051E31A;
 // The six status queries, by index (0x00C671A0).
+// Retail .rdata 0x008671A0: the query id is the index, ScreenMode first.
 static const char *s_statusQueries[] = {
-	"TimeLine:StrategicEnd",
-	"TimeLine:LocalPlayerIsObserver",
-	"TimeLine:NumCahAwards",
-	"TimeLine:NumOfPlayers",
+	"TimeLine:ScreenMode",
 	"TimeLine:ShowSaveReplay",
-	"TimeLine:ScreenMode"
+	"TimeLine:NumOfPlayers",
+	"TimeLine:NumCahAwards",
+	"TimeLine:LocalPlayerIsObserver",
+	"TimeLine:StrategicEnd"
 };
 // Native callback words 0091E3A3 and 0091E766 already have rowed owners.
 // Both bindings use the complete time-line receiver without adjustment.
