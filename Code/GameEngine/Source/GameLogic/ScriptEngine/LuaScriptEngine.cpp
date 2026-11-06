@@ -131,13 +131,7 @@ enum SpecialPowerType
 	SPECIAL_POWER_TYPE_UNKNOWN = 0
 };
 #include "../../../Include/Common/Overridable.h"
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	void *m_name10;
-	char m_pad14[0x1C - 0x14];
-	SpecialPowerType m_type1C;
-};
+#include "../../../Include/Common/SpecialPower.h"
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 #define TheAudioClientUpdate ((void *)TheAudio)
 extern "C" int lua_gettop(lua_State *s);
@@ -2079,7 +2073,7 @@ int ObjectDoSpecialPower(lua_State *state)
 		return 0;
 	const Overridable *finalOverride = power->friend_getFinalOverride();
 	SpecialPowerModuleInterface *module = object->findSpecialPowerModuleInterface(
-		((const SpecialPowerTemplate *)finalOverride)->m_type1C);
+		((const SpecialPowerTemplate *)finalOverride)->m_type);
 	if (!module)
 		return 0;
 	if (module->isReady())
