@@ -385,4 +385,13 @@ from Rva0024A797Derived.cpp, and leave `loadPostProcess` to UpdateModule when re
 - Walled in the same family: AutoFindHealingUpdate (its update 0x0049520B is rowed non-virtual with an
   int return, the 0x0028F976 false reject) and HijackerUpdate (getModuleNameKey 0x004A4010 is rowed as a
   static member). OCLUpdate keeps its dtor identity conflict (above).
+- WeaponBonusUpgrade 0x004B5633 (UpgradeModule family, its approved TU WeaponBonusUpgrade.cpp): the
+  novtable WeaponBonusUpgradeView.h is gone; a shared `Code/GameEngine/Include/GameLogic/Module/WeaponBonusUpgrade.h`
+  declares the class over UpgradeModule.h (UpgradeMux slot 8 is retail's shared empty body, an inline empty
+  override). Slot 3 0x004B8710 is a twin of ArmorUpgrade::xfer. Folding `Rva004B55C8` needed one more step:
+  its scaffold (FireWeaponWhenDeadBehaviorDerived.cpp) derives from canonical UpgradeModule, so the token fold
+  made it emit dtor-only `??_7WeaponBonusUpgrade@@6BObjectModule@@@`-named tables (slots 2-4 and UpgradeMux
+  8/10 base or `__purecall`) earlier in link order than the real ones. In the fold commit the scaffold
+  includes the shared header instead; every copy is now byte-identical. Check any fold whose scaffold
+  derives from a canonical base the same way (`rename.py` takes `--prepared` only for a registered NEW).
 
