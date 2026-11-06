@@ -42,6 +42,9 @@ against retail and the readers:
   that `AptScriptFunction.cpp` defines as `AptScriptFunctionBase::spFrameStack` and the interpreter sets. Retail's
   `Rva006FBE80::find2` (0x006FBE80, `8b 35 5c 83 e1 00`) reads that one pointer, so ours always took the scope fallback
   and never saw a script frame's variables. It now declares the owner as `Rva006FBED0Cluster.cpp` does.
+- 0x009E1F24: **repaired.** `W3DShaderManager.cpp` defined both `W3DShaders[2]`, which init (0x000F5B43) fills, and
+  `g_00DE1F24[1]`, which only `setShader` (0x00075655) read. Retail's `setShader` indexes 0x00DE1F24, so ours never
+  reached a shader's `set` and always returned 0. It now reads `W3DShaders` through the same volatile view.
 
 Remaining / next check: regenerate `reverse/data_ledger.csv` (a separate decision; LINK-619 measured the same staleness)
 and re-read this counter; most of the 183 should then name their current owners.

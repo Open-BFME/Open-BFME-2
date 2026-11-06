@@ -256,9 +256,8 @@ struct ShaderSlotObj
 {
 	virtual int slot00(int b);
 };
-extern ShaderSlotObj * volatile g_00DE1F24[];
-// Owned here (its only reader); retail .bss zero-initializes it (VA 0x00DE1F24).
-ShaderSlotObj * volatile g_00DE1F24[1] = { 0 };
+// VA 0x00DE1F24 is W3DShaders (defined above); setShader reads its slots through this view.
+#define BFME_SHADER_SLOTS ((ShaderSlotObj * volatile *)W3DShaders)
 class Rva00075655
 {
 public:
@@ -1109,8 +1108,8 @@ int Rva00075655::setShader(int a, int b)
 		return 1;
 	W3DShaderManager::m_currentShader = a;
 	g_00DE1F18 = b;
-	if (g_00DE1F24[a] != 0)
-		return g_00DE1F24[a]->slot00(b);
+	if (BFME_SHADER_SLOTS[a] != 0)
+		return BFME_SHADER_SLOTS[a]->slot00(b);
 	return 0;
 }
 
