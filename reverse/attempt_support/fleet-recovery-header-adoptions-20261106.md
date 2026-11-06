@@ -49,3 +49,9 @@ Rebased onto `ffc7c6bdc9d` after concurrent master updates. Documentation confli
 ## Completed combined-batch publication checks
 
 The combined source/debt attempts passed the normal pre-push gates: 11/11 rows, 13-symbol DIR32 consistency, EXACT 1 EH graph, six float literals, four imports and converged data checks. Rebases reused five source receipts. Their audit remained INCONCLUSIVE/UNVERIFIED: index d707d2f53b predates each outgoing base (including 71fdc054f3a90042ea6bfa0a1b921548378c22e1), and 0CreateAHeroManager21FE49.cpp lacks a current affected-consumer receipt. These cases remain for the next authoritative census; no closure or runtime result is inferred. Repeated successful gates lost publication races, so source adoption and owning queue retirement are now published separately. No hook was bypassed or changed.
+
+## Owning retirement after source publication
+
+Source batch `2f02f6e984e` landed on master, including source commit `60c0dabc72c`. The four owning acceptance commands were then rerun against that published source with HEAD held steady: FontLibrary PASS/1 row, DataChunkInfo PASS/1 row, WorldHeightMap PASS twice/2 rows and RenderObjectDrawModuleInfo PASS/1 row. The tool alone removes these **5** queue rows; no source, header, symbol, ledger, baseline or compiler change accompanies this retirement.
+
+The source publication's normal pre-push check passed 11/11 rows, one data row, six float literals, four imports, 13-symbol DIR32 consistency and EXACT 1 EH graph. Its actual outgoing base was `8ff67a87b55d231d1506a10f4daf9fa91367cd0e`; the link batch audit remained INCONCLUSIVE/UNVERIFIED on old index d707d2f53b and the missing current affected-consumer receipt for 0CreateAHeroManager21FE49.cpp. Carry that exact scope into the next authoritative census. This debt-only follow-up does not clear consumer closure or establish a real linked image/runtime result.

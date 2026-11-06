@@ -367,7 +367,7 @@ Recovery publication (2026-11-06): historical fleet investigation at the inspect
 
 Recovery reconciliation: the historical c05-seat1 Cylinder copy boundary above is superseded by the current typed Cylinder provider/copy and retirement entries. Retain its original inspected-revision evidence; it is not a current blocker verdict. Automated real-link confirmation and the separate DefaultPhysics identity gap remain as recorded by the current repair.
 
-2026-11-06 stopped-fleet recovery: RenderObjectDrawModuleInfo transfer now adopts its existing canonical header with current DoXfer(Xfer &) identity preserved; 1/1 row remains exact and owning acceptance passed; one queue row awaits separate retirement. The export-signature repair was already on master; no new export or real-link gain is claimed. [Current five-consumer verification and remaining audit limits](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md).
+2026-11-06 stopped-fleet recovery: RenderObjectDrawModuleInfo transfer now adopts its existing canonical header with current DoXfer(Xfer &) identity preserved; 1/1 row remains exact and owning acceptance has now retired one queue row. The export-signature repair was already on master; no new export or real-link gain is claimed. [Current five-consumer verification and remaining audit limits](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md).
 
 
 **2026-11-06 measured writer confirmation.** The authoritative real link at
