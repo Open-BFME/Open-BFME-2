@@ -1,5 +1,13 @@
 ### LINK-095: generated EH funclets whose parent TU emits an unpinned or wrong dtor callee
 
+**2026-11-06 BoneFX constructor cleanup:** native UpdateModule's existing UAE
+destructor now resolves the old QAE-callee blocker. Retail FuncInfo93B80C and
+EXACT307B parent4878E6 place the whole8B cleanup78C1DD in its approved
+BoneFXUpdate.cpp TU. Supported add_match repoints its row to the actual compiler
+label, with no new pin or generated source edit. All other rows keep their
+owners. [Body, graph and path evidence](../../reverse/attempt_support/bonefx-ctor-cleanup-20261106/README.md).
+This is scoped placeholder recovery; no real-image/current-consumer closure.
+
 **2026-11-05 Foundation constructor:** canonical UpdateModule adoption repairs the nonvirtual cleanup callee and the parent EH graph is EXACT; `uw_00789ed4` stays generated until its parent can merge into the approved FoundationAIUpdate.cpp TU (LINK-452). [Scoped verification and TU boundary](../../reverse/attempt_support/foundation-canonical-update-20261105-codex4.md).
 
 **2026-11-04:** Reused the existing counted-holder destructor for constructor `0x00180649` and repointed cleanup `0x007682C7` to its EXACT C++ parent; 220/220 rows pass and paired destination/provider previews retain 2/2 LINKS. Scoped audit remains inconclusive: refresh the `AICowerState_onEnter.cpp` receipt and older index in the next census; remaining generated rows stay open: [evidence](../../reverse/attempt_support/bfme-reset-holder-unwind-20261104-codexb4.md).

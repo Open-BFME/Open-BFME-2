@@ -799,7 +799,7 @@ BoneFXUpdate::~BoneFXUpdate()
 
 // tu-skeleton: 0x00487DEE 332B ?update@BoneFXUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0078C1DD 8B uw_0078c1dd -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// Constructor cleanup0x0078C1DD is emitted here and verified through its parent EH graph.
 
 // tu-skeleton: 0x0078C2A6 8B uw_0078c2a6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
 

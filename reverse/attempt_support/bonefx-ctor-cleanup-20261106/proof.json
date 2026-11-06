@@ -1,0 +1,38 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp",
+  "source_sha256": "0e4a80f2280f01c6115afb5406668eecbcaf851a6c8602e7e981149421cc68f9",
+  "object_sha256": "28b698f9ed2aaffdc00e02316c11b8fc91fbe813776c6b42ca078fc83f7f8d5e",
+  "parent": "??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z",
+  "parent_rva": "0x004878E6",
+  "parent_size": 307,
+  "parent_unmasked_exact": true,
+  "parent_eh": [
+    "EXACT",
+    ""
+  ],
+  "label": "$L55436",
+  "row": {
+    "name": "$L55436",
+    "target_rva": "0x0078C1DD",
+    "target_size": "8",
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp",
+    "status": "matched",
+    "notes": "gen-funclet;parent=??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z"
+  },
+  "native": "8b4df0e9b2e5abff",
+  "relocations": [
+    [
+      4,
+      20,
+      "??1UpdateModule@@UAE@XZ"
+    ]
+  ],
+  "section_relocations_beyond_row": 7,
+  "unresolved": [],
+  "all_parent_locations": {
+    "$L55439": "0x78c208",
+    "$L55438": "0x78c1f0",
+    "$L55437": "0x78c1e5",
+    "$L55436": "0x78c1dd"
+  }
+}
