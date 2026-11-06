@@ -126,3 +126,17 @@ against a matching baseline, then confirm all three names disappear from the
 scheduled authoritative real-link errors. No new real-link count, linked image
 or runtime improvement is claimed; the inspected pre-repair run remains
 42174078539 (308 unresolved, zero duplicates, no image).
+
+2026-11-06, Cylinder emission writer (base `85d0ac929f8`): existing row
+`0x0055D815` now emits exact exported
+`CylinderEmissionVolumeModuleTemplate::writeINI(File &, unsigned int) const`.
+The private view's pointer/nonconst placeholder signature was reconciled locally;
+no second body, alias or table was added. Normal byte gate and supported strict
+preparation pass 4/4 rows and five literals; COFF defines the required export
+once with zero old-parent occurrences. `name_dependents --staged` finds zero
+referencing units among 18,026 scanned. Current-object preview LINKS 349 -> 349
+bytes against index `47fd56b879` (2026-11-06 05:39 UTC). This closes only the
+scoped provider-identity repair; no reduction of run `42174078539`'s historical
+308 missing names, new image or runtime result is claimed. Await automated
+real-link confirmation; separate Cylinder vtable/data prerequisites remain.
+[Evidence](../../reverse/attempt_support/cylinder-writer-export-20261106-round2-seat2.md).

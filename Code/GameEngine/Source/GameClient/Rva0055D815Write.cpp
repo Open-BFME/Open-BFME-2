@@ -1,6 +1,7 @@
 // cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0055D815@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z at 0x0055D815 size 339
+// ?writeINI@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z at 0x0055D815 size 339
+// Retail export reverse/exports.csv names this existing body writeINI(File &, unsigned int) const.
 // Evidence: chain via 0x003A5D34; vslot 3 CylinderEmissionVolumeModuleTemplate; WriteHeader 0x0055CB5D then IsHollow 0x001F89C3 then IsZero-gated Radius RadiusRate Length floats 0x003A5D34 then IsZero-gated Offset Vec 0x001F89E2 then str Write 0x001F458B then 0x003AFC6B; bool at +0xC floats at +0x10/+0x14/+0x18 Vec at +0x1C.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -94,7 +95,7 @@ namespace FXParticleSystem {
 
 class CylinderEmissionVolumeModuleTemplate {
 public:
-	virtual void rva0055D815(File *file, unsigned int flags);
+	virtual void writeINI(File &file, unsigned int flags) const;
 private:
 	char m_pad04[12 - 4];
 	bool m_isHollow;
@@ -105,9 +106,9 @@ private:
 	Vec001F8810 m_offset;
 };
 
-void CylinderEmissionVolumeModuleTemplate::rva0055D815(File *file, unsigned int flags)
+void CylinderEmissionVolumeModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-	Rva0055CB5DWriteHeader(this, file, &flags);
+	Rva0055CB5DWriteHeader(this, &file, &flags);
 	_STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
 	Rva001F89C3Write(oss, flags, "IsHollow", &m_isHollow);
 	if (!(unsigned char)t4IsZero005F4180(&m_radius))
@@ -118,8 +119,8 @@ void CylinderEmissionVolumeModuleTemplate::rva0055D815(File *file, unsigned int 
 		Rva003A5D34Write(oss, flags, "Length", m_length);
 	if (!(unsigned char)Rva0055CCEFIsZero(reinterpret_cast<const RGBColor &>(m_offset)))
 		Rva001F89E2Write(oss, flags, "Offset", m_offset);
-	Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-	Rva003AFC6BWrite(file, &flags);
+	Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+	Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem
