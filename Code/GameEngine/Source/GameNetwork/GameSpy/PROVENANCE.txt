@@ -210,6 +210,9 @@ excluded, against bisc67/Area51 at master:
     gp/gpiConnect.c            -3  `#if 0 ... #else #endif` gone     yes
     qr2/qr2.c                  -1  `cr->hbsock = INVALID_SOCKET`     yes (2007 has only qrec->)
                                    initialiser gone
+    qr2/qr2.c                  +1  `static_qr2_rec = {INVALID_SOCKET}` the carrier's own INEV*BW
+                                   restored: retail .data 0x009DB710  comment quotes it as the text
+                                   holds ff ff ff ff, then zeros      it commented out
     ghttp/ghttpBuffer.c        +2 -4  `== SOCKET_ERROR` +            textual: 2007 spells it
                                       WSAGetLastError()                gsiSocketIsError/GOAGetLastError,
                                                                        a wrapper over the same call

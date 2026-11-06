@@ -30,8 +30,10 @@ The four:
   `INIThinFieldParsers2.cpp`. `parseSubtitle` now names that owner and the alias is gone (one `/alternatename` fewer).
   The ledger row lists only the old name, which is why the report counted it.
 - `_static_qr2_rec` (0x009DB710, 280 bytes, `GameSpy/qr2/qr2.c`): retail initializes the first word to `INVALID_SOCKET`
-  (`ff ff ff ff`, the rest zero); ours is a zero COMMON definition, because the carrier's initializer is commented out.
-  Online hosting only.
+  (`ff ff ff ff`, the rest zero); ours was a zero COMMON definition, because the carrier's initializer is commented out.
+  **Repaired:** `qr2.c` restores `= {INVALID_SOCKET}` (marked in place and in `GameSpy/PROVENANCE.txt`); the object is
+  now 280 bytes of `.data` followed by `current_rec`, as in retail. `qr2.c` did not link before or after (an unrelated
+  `qr2_create_socket` COMDAT).
 
 #### One address, several names (23)
 

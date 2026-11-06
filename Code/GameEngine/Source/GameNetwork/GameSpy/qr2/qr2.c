@@ -132,7 +132,9 @@ struct qr2_buffer_s
 /********
 VARS
 ********/
-struct qr2_implementation_s static_qr2_rec; //* INEV*BW need a full list of initializers! Not just for first param = {INVALID_SOCKET};
+/* Retail initialises the first field: .data 0x009DB710 holds INVALID_SOCKET, then
+   zeros. The carrier commented the initialiser out; upstream keeps it. */
+struct qr2_implementation_s static_qr2_rec = {INVALID_SOCKET};
 static qr2_t current_rec = &static_qr2_rec;
 char qr2_hostname[64];
 
