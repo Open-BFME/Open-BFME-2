@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0055FB37@Rva0055FB37@@QAEXPAVFile@@I@Z @0x0055FB37 504B chain lane writeINI via WriteHeader.
+// ?writeINI@?$DefaultModuleTemplate@$01@FXParticleSystem@@UBEXAAVFile@@I@Z @0x0055FB37 504B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of DefaultModuleTemplate $01 0x0081BCF0 and ConcreteModuleTag $01 0x0081BF84; calls rowed WriteHeader 0x0055FA5F then ostringstream then 8x rowed IsZero 0x001F3744 gated SizeRate SizeRateDamping AngleZ AngularRateZ AngularDamping AngleXY AngularRateXY AngularDampingXY via rowed 0x001F8B5F plus Rotation enum via rowed 0x001F82AB with table FXParticleSystem::RotationTypeNames (RVA 0x0081B6D8) then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -91,11 +91,15 @@ void Rva001F82ABWrite(
     char const *key,
     char const **value);
 
-class Rva0055FB37 {
+namespace FXParticleSystem {
+
+template <int Category> class DefaultModuleTemplate;
+
+template <> class DefaultModuleTemplate<2> {
 public:
-    void rva0055FB37(File *file, unsigned int flags);
+    virtual void writeINI(File &file, unsigned int flags) const;
 private:
-    char m_pad[12];
+    char m_pad[8];
     S001F87D5 m_sizeRate;
     S001F87D5 m_sizeRateDamping;
     S001F87D5 m_angleZ;
@@ -107,9 +111,9 @@ private:
     S001F87D5 m_angularDampingXY;
 };
 
-void Rva0055FB37::rva0055FB37(File *file, unsigned int flags)
+void DefaultModuleTemplate<2>::writeINI(File &file, unsigned int flags) const
 {
-    Rva0055FA5FWriteHeader(this, file, &flags);
+    Rva0055FA5FWriteHeader(this, &file, &flags);
     _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_sizeRate))
         Rva001F8B5FWrite(oss, flags, "SizeRate", m_sizeRate);
@@ -129,9 +133,11 @@ void Rva0055FB37::rva0055FB37(File *file, unsigned int flags)
         Rva001F8B5FWrite(oss, flags, "AngularRateXY", m_angularRateXY);
     if (!Rva001F3744IsZero((const S001F3744 *)&m_angularDampingXY))
         Rva001F8B5FWrite(oss, flags, "AngularDampingXY", m_angularDampingXY);
-    Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-    Rva003AFC6BWrite(file, &flags);
+    Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+    Rva003AFC6BWrite(&file, &flags);
 }
+
+} // namespace FXParticleSystem
 
 // Native5625C5..56285E is a complete665B INI serializer. The retail
 // field-parse table C6C710 independently agrees with all12 variable names

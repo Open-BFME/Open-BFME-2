@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0055F368@Rva0055F368@@QAEXPAVFile@@I@Z @0x0055F368 326B chain lane writeINI via WriteHeader.
+// ?writeINI@?$DefaultModuleTemplate@$02@FXParticleSystem@@UBEXAAVFile@@I@Z @0x0055F368 326B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of DefaultModuleTemplate $02 0x0081BCC0 and ConcreteModuleTag $02 0x0081BF60; calls rowed WriteHeader 0x0055F290 then ostringstream then rowed t4IsZero float Gravity via rowed float Write 0x003A5D34 then rowed IsZero 0x001F3744 VelocityDamping via rowed 0x001F8B5F then rowed RGB IsZero 0x0055CCEF DriftVelocity via rowed Vec 0x001F89E2 then bool Swirly ParticlesAttachToBone via rowed 0x001F89C3 then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -110,11 +110,15 @@ void Rva001F89C3Write(
     char const *key,
     bool const *value);
 
-class Rva0055F368 {
+namespace FXParticleSystem {
+
+template <int Category> class DefaultModuleTemplate;
+
+template <> class DefaultModuleTemplate<3> {
 public:
-    void rva0055F368(File *file, unsigned int flags);
+    virtual void writeINI(File &file, unsigned int flags) const;
 private:
-    char m_pad[12];
+    char m_pad[8];
     Vec001F8810 m_driftVelocity;
     float m_gravity;
     S001F87D5 m_velocityDamping;
@@ -122,9 +126,9 @@ private:
     bool m_particlesAttachToBone;
 };
 
-void Rva0055F368::rva0055F368(File *file, unsigned int flags)
+void DefaultModuleTemplate<3>::writeINI(File &file, unsigned int flags) const
 {
-    Rva0055F290WriteHeader(this, file, &flags);
+    Rva0055F290WriteHeader(this, &file, &flags);
     _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
     if (!(unsigned char)t4IsZero005F4180(&m_gravity))
         Rva003A5D34Write(oss, flags, "Gravity", m_gravity);
@@ -134,6 +138,8 @@ void Rva0055F368::rva0055F368(File *file, unsigned int flags)
         Rva001F89E2Write(oss, flags, "DriftVelocity", m_driftVelocity);
     Rva001F89C3Write(oss, flags, "Swirly", &m_swirly);
     Rva001F89C3Write(oss, flags, "ParticlesAttachToBone", &m_particlesAttachToBone);
-    Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-    Rva003AFC6BWrite(file, &flags);
+    Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+    Rva003AFC6BWrite(&file, &flags);
 }
+
+} // namespace FXParticleSystem

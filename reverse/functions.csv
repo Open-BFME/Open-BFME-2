@@ -35912,8 +35912,8 @@ _HorizontalLine_4_5_Scale_C,,0x001B9C10,247,Code/Libraries/Source/VP6/Horizontal
 ?reset@MineshaftPortalNetworkManager@@UAEXXZ,,0x003734C0,61,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp,matched,map values delete then clear caller dtor 37381C
 ??1MineshaftPortalNetworkManager@@UAE@XZ,,0x0037381C,85,Code/GameEngine/Source/Common/Rva0037381CDtor.cpp,matched,MI dtor calls values-delete then map and base dtors
 ?rva0037341F@Rva00373357@@QAEPAX_N@Z,,0x0037341F,28,Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp,matched,calls rva00373357 then conditional delete returns this
-?rva0055F368@Rva0055F368@@QAEXPAVFile@@I@Z,,0x0055F368,326,Code/GameEngine/Source/GameClient/Rva0055F368Write.cpp,matched,vslot3 DefaultModule02 writeINI gravity damping drift swirly
-?rva0055FB37@Rva0055FB37@@QAEXPAVFile@@I@Z,,0x0055FB37,504,Code/GameEngine/Source/GameClient/Rva0055FB37Write.cpp,matched,vslot3 DefaultModule01 writeINI size angle rotation
+?writeINI@?$DefaultModuleTemplate@$02@FXParticleSystem@@UBEXAAVFile@@I@Z,0x0055F368,0x0055F368,326,Code/GameEngine/Source/GameClient/Rva0055F368Write.cpp,matched,vslot3 DefaultModule02 writeINI gravity damping drift swirly; exact retail export 1938
+?writeINI@?$DefaultModuleTemplate@$01@FXParticleSystem@@UBEXAAVFile@@I@Z,0x0055FB37,0x0055FB37,504,Code/GameEngine/Source/GameClient/Rva0055FB37Write.cpp,matched,vslot3 DefaultModule01 writeINI size angle rotation; exact retail export 1937
 ??0Rva005D7F5D@@QAE@XZ,,0x005D7F5D,73,Code/GameEngine/Source/Common/Rva005D7F5DCtor.cpp,matched,unlock ctor via base memset waypoint starts
 ?rva00514B66@Rva00514B66@@QAEEXZ,,0x00514B66,39,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp,matched,unlock guard via BfmeThingTTD init added not enabled
 ?Rva0012641FClear@@YAXXZ,,0x0012641F,20,Code/Libraries/Source/WWVegas/WW3D2/Rva0012641FClear.cpp,matched,unlock free clear two holders via release
