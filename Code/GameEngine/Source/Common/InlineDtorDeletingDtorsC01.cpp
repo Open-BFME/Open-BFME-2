@@ -11,7 +11,7 @@
 //
 //   wrapper     vtable
 //   0x00051E4D  0x00BC5128  Rva00051E4D
-//   0x000723C7  0x00BC64B0  Rva000723C7
+//   0x000723C7  0x00BC64B0  BfmeBaseCC
 //   0x00072899  0x00BC650C  RefCountClass
 //   0x00074626  0x00BC65A8  Rva00074626
 //   0x0007827B  0x00BC6778  FileFactoryClass
@@ -56,15 +56,15 @@ Rva00051E4D::Rva00051E4D(C01VtableEmissionTag *)
 {
 }
 
-class Rva000723C7
+class BfmeBaseCC
 {
 public:
-	Rva000723C7(EmitVtableTag *);
-	virtual ~Rva000723C7() {}
+	BfmeBaseCC(EmitVtableTag *);
+	virtual ~BfmeBaseCC() {}
 };
 
-// ?<Rva000723C7::Rva000723C7> absent-from-retail
-Rva000723C7::Rva000723C7(EmitVtableTag *)
+// ?<BfmeBaseCC::BfmeBaseCC> absent-from-retail
+BfmeBaseCC::BfmeBaseCC(EmitVtableTag *)
 {
 }
 

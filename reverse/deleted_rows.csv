@@ -5218,3 +5218,4 @@ __ehhandler$?rva0055D525@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UA
 ??1Rva00539926@@UAE@XZ,0x00539926,"Renamed to ??1InGameSimpleHelp@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C69268)"
 ??_GRva00539926@@UAEPAXI@Z,0x00539961,"Renamed to ??_GInGameSimpleHelp@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C69268)"
 __ehhandler$??1Rva00539926@@UAE@XZ,0x007979EB,"Renamed to __ehhandler$??1InGameSimpleHelp@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C69268)"
+??_GRva000723C7@@UAEPAXI@Z,0x000723C7,"Renamed to ??_GBfmeBaseCC@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BC64B0)"
