@@ -20,7 +20,8 @@ AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, 
 copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the four held BlockParse
 nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored units freed since round 2,
 bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642, and two private Drawable views
-replaced, bridged 642 -> 640; next seat continues).
+replaced, bridged 642 -> 640, then 8 units by their guard's approved function, bridged 640 -> 632;
+next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -272,6 +273,22 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     declares `rva00274176`). GiveUpgradeUpdate's word at +0xB0 is the canonical `field_0b0`; the
     unit still copies its bits with an int store. Both copies are rowed as `_$E1`, every `??_7`
     keeps its digest, 3/3 link with the grab-bag, bridged 642 -> 640.
+- *Guard's function approved to the file (halilkkaya-lk39).* For each bridged copy, read the
+  data-ledger entry just before its static; when it is a function-local guard, look up the guarded
+  function's row and its approved TU. Where that TU file exists, includes no Drawable.h and holds
+  only this copy's guard, the trial took the header in 8 more units: W3DSailModelDraw,
+  FadeAndDieOrnamentUpdate, GettingBuiltBehavior, RampageBehavior, ProductionUpdate,
+  HijackerUpdate, UnleashSpecialPower and Made002CCAA1 (after its first include; after its last,
+  an earlier ordinal made the copy `_$E2`). Four of them had only a fragment including the header;
+  those fragments' copies stay unidentified until their merges. AnimationSoundClientBehavior was
+  reverted (private views; C2227 at `->position`). link_check 9/9; bridged 640 -> 632.
+  - Not taken: tu_map approves five special powers' guards (ElvenWood, CloudBreak, Taint,
+    FreezingRain, Darkness) to `ElvenWoodSpecialPower.cpp` and both siege containers' guards to
+    `HordeSiegeEngineContain.cpp`, while retail gives each copy its own run, so those approvals do
+    not settle the unit. InstantDeathBehavior, SlowDeathBehavior, CreateObjectDie and CrushDie were
+    left for the contributor working on DieModule. ControlBar's guard
+    (`updateConstructionTextDisplay`) is approved to `ControlBarUnderConstruction.cpp`, which does
+    not exist yet.
 - *Copies a unit already compiles (halilkkaya-lk39).* A TU file that includes the canonical header
   compiles its copy, but with no row image_report counts it as unidentified (an unplaced static
   breaks no tie). Cross the unidentified list with the bridged copies' guard units: W3DStreakDraw
