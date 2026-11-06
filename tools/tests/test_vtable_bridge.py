@@ -515,3 +515,24 @@ def test_later_largest_copy_can_win_so_an_earlier_twin_is_not_proof(tmp_path, se
     result = twin_plan(tmp_path, earlier, later, selection=selection)
     assert result["tables"] == 0
     assert result["refusals"][0]["reason"] == "target-not-winning-provider"
+
+
+def test_later_non_comdat_provider_refuses_even_with_selection_metadata(tmp_path, monkeypatch):
+    # Re-review of dc58e0ef6d: [earlier, ledger, later] with identical SELECT_ANY
+    # earlier/ledger copies and a later plain (non-COMDAT) definition whose
+    # section still carries selection 2. parse_coff reads a selection only for
+    # COMDAT sections; report it anyway so the bridge's own COMDAT test is what
+    # refuses.
+    later = comdat_code(tmp_path / "later.obj", flags=0x60500020)
+    raw_later, parse = later.read_bytes(), L.parse_coff
+
+    def parse_with_metadata(data):
+        sections, symbols = parse(data)
+        if data == raw_later:
+            for sec in sections:
+                sec.sel = V.SELECT_ANY
+        return sections, symbols
+    monkeypatch.setattr(L, "parse_coff", parse_with_metadata)
+    result = twin_plan(tmp_path, comdat_code(tmp_path / "earlier.obj"), later)
+    assert result["tables"] == 0
+    assert result["refusals"][0]["reason"] == "target-not-winning-provider"
