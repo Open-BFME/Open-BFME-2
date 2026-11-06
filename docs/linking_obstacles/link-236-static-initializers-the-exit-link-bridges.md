@@ -22,7 +22,11 @@ units' copies, 670 -> 664; 19 guard-anchored units freed since round 2, 664 -> 6
 their units already compiled, 645 -> 642; two private Drawable views replaced, 642 -> 640; 8 units
 by their guard's approved function, 640 -> 632; MetaEvent's copy, 632 -> 631; two private Thing
 views replaced, 631 -> 629; AIStates' copy, 629 -> 628; RayEffect's, 628 -> 627 (bridge_entries on
-`24abddc449`'s objects); next seat continues).
+`24abddc449`'s objects); halilkkaya-lk44: the LinearCampaign node and SlavedUpdate's interval,
+627 -> 625; five copies their TU's only compiling fragment registers, 625 -> 620; FXList's node
+and copy and ObjectCreationList's copy, 620 -> 617; eleven BlockParse nodes in Chat,
+FireLogicSystem, GlobalWeatherSystem, ScriptEngine, GameFont, INIVictorySystem, INIEnvironment and
+Eva, 617 -> 606 (bridge_entries on `ca33e08df9`'s objects); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -726,3 +730,71 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
     its digest.
   - `g_00DFE718` keeps its address name; `TheSystemIsUnicode` is the donors' name for it, a lead for
     the naming lane, not this one.
+
+**Round lk44 (halilkkaya-lk44, 2026-11-07, bridged 627 -> 606).** Each entry below was retracted
+from its grab-bag and readmitted in its owner by relocation target; every touched object kept its
+`??_7` digests, link_check passed on the owners with their callbacks' files, and image_report
+removed exactly the named RVAs.
+- *LinearCampaign (lk39's question, answered).* Every run that holds a copy of the pool
+  0x00DB8FEC ends with that pool's initializer and then a 0x00DA60E8 marker: the pair is one
+  includer's (0x007AD348/0x007AD362, 0x007ADCC4/0x007ADCDE, 0x007AE0B8, 0x007AEE7B, 0x007AFEAC,
+  0x007B030B, 0x007B0844, 0x007B0DF0, 0x007B1190, 0x007B3D36). The node 0x007AD333 opens that pair's
+  run and its `.data` precedes the pool's, so LinearCampaignManager.cpp (callback approved there)
+  is the pool's first includer; GlobalLanguage's node opens the run with no marker of its own.
+  The node is LinearCampaignManager.cpp's `_$E1`. The pool entry 0x007AD348 stays bridged: it is a
+  select-any static our source does not define (a hatch to write by hand).
+- *A `.data` marker for object starts (target fact).* Two header name lists, {NONE, HOLD, KILL,
+  SPAWN, 0} and {NONE, CATAPULT_ROCK, TREBUCHET_ROCK, 0} (36 bytes at 0x00BBB50C...), open the
+  `.data` of every object that includes their header. A node right after them starts a new object;
+  nodes 12 bytes apart with no lists between belong to one object (or to list-less objects). Read
+  with the runs, this placed the OnlineChatColors node (after the lists, before Chat.cpp's
+  GameSpyColor) in Chat.cpp and the two victory nodes in INIVictorySystem.cpp.
+- *Ledger-owned global.* SlavedUpdateRepair.cpp (SlavedUpdate.cpp TU) defines
+  `BfmeSlavedUpdateIntervalFrames = LOGICFRAMES_PER_SECOND / 4` (0x007B1A27, `_$E1`); its run is
+  SlavedUpdate's copy 0x007B1A17, then this entry.
+- *Copies their TU's only compiling fragment already registers.* Where a copy's static follows a
+  guard of its own class (or the copy opens a run that its unit's rowed node closes) and exactly
+  one file of that TU compiles the copy, the copy is rowed there with no source change, as
+  AIStates' was: UnitRevivalTracker.cpp `_$E1` 0x007AF039, ProjectileStreamUpdateGetAllPoints.cpp
+  `_$E1` 0x007AEB70, Rva0037441ELeaf.cpp (StealthUpdate) `_$E1` 0x007AEED9,
+  StructureToppleUpdateCrushing.cpp `_$E2` 0x007B1B4E, W3DPropDrawReact.cpp `_$E1` 0x007AC4E5,
+  FXListAtBonePosFXNugget_doFxAtBones.cpp `_$E1` 0x007AD231 (FXList.cpp's run) and
+  GenericObjectCreationNuggetDoStuffToObj.cpp `_$E2` 0x007AD4BC (ObjectCreationList.cpp's run). A
+  merge that brings one of these fragments home must keep or re-read its ordinal.
+- *Nodes rowed in their units.* FXListStoreParse.cpp (FXList.cpp fragment that defines the callback
+  and links) `_$E1` 0x007AD241; Chat.cpp `_$E21` 0x007AD424; FireLogicSystem.cpp `_$E4` 0x007ADFCA
+  (`.data` between theFireLogicSystemParseRegistration and Rva00285FA9Parse's field table);
+  GlobalWeatherSystem.cpp `_$E10` 0x007AE908 (after GameWindowManagerScript's marker-less strings);
+  ScriptEngine.cpp `_$E2`/`_$E4` 0x007AD801/0x007AD816 (they close its run); GameFont.cpp
+  `_$E1`/`_$E3` 0x007ADA7B/0x007ADA90 (right after BannerUI's node; FontSubstitution's callback
+  directly follows GameFont's parseFontSizeMapping); INIVictorySystem.cpp `_$E1`/`_$E3`
+  0x007ADA12/0x007ADA27 (WorldBuilder names the file); INIEnvironment.cpp `_$E1` 0x007AD845
+  (WorldBuilder names the file); Eva.cpp `_$E7` 0x007AD202 (its INI view gains the static
+  `parseMiscEvaData`).
+- *Leads found, not taken.*
+  - GameLogic.cpp's copy is 0x007B0615: its run is the copy, g_Va00E032E8's UnicodeString
+    0x007B0625, g_Va00E032EC's map 0x007B063B, then the marker, and the copy's static 0x00E032E4
+    directly precedes g_Va00E032E8. GameLogic.cpp compiles the copy as `_$E4` after g_Va00E032E8's
+    `_$E1`; moving that definition below the Drawable.h include (line 1897) gives retail's order.
+    GameLogic.cpp was held (class:UpdateModule, Burachi-3D).
+  - MapUtil.cpp's run is copy 0x007AE595 (static right after TheMapCache), m_boundaries 0x007AE5A5
+    (MapUtil compiles it as `_$E30`, unidentified because the ledger names 0x00DFF134
+    g_Va00DFF134), worldDict, the supply/tech lists and TheSupplyAndTechImageLocations. MapUtil is
+    Zero Hour-shaped with `object-symbol=` rows.
+  - CreateAHeroSystem 0x007ADAD2: its run (copy 0x007ADAA5, vector 0x007ADAB5, node) follows
+    GameFont's nodes; `.bss` has TheCreateAHeroManager (0x00DFE344) before the copy's static, and
+    WorldBuilder names CreateAHero.cpp for the callback. tu_map approves CreateAHero.cpp's rows to
+    GameLogic/Object/CreateAHeroManager.cpp, whose own run is the next one (copy 0x007ADB01,
+    ArmySummaryDescription), so retail has two units there; settle the approval first.
+  - AsciiString atexit family: readers name the units. "<!TRUE!>" 0x007AF334 -> Team.cpp,
+    "ALL" 0x007AF7FE -> Scripts.cpp, "FarmTemplate" 0x007B31DF and the vector 0x007B31FA ->
+    AIEconomyBuilder.cpp, "CreateAHero" 0x007B434E -> AIUnitBuilder.cpp, "<ANY>" 0x007B46C3 ->
+    AIBase.cpp, "GuiFX.apt" 0x007AF0F1 -> AptGuiFX. Each global is an `unsigned` placeholder in the
+    AtexitInits grab-bag; rowing needs its AsciiString type and a name (data identity) and the
+    `.text$yd` cleanup row moved with it.
+  - CrowdResponse 0x007B003F: WorldBuilder names CrowdResponseSystem.cpp, which the tree lacks.
+    Glow/Ring/Fire (0x007AD85A..0x007AD884) follow Skybox as one list-less group, callbacks in
+    Drawable_Rva0030xxxx.cpp without a TU. CloudEffect/PlayerAIType (0x007AD9E8/0x007AD9FD) are one
+    object just before INIVictorySystem in `.data` and code; its file is unnamed. The INI wrapper
+    sequences (CommandSet..DamageFX, SpecialPower..HeaderTemplate, Bridge) need wrapper files the
+    tree lacks.
