@@ -63,6 +63,14 @@ private:
 };
 }
 
+namespace FXParticleSystem {
+// Retail exports share size0x1C and vector destructor3A7532 with Cylindrical.
+class OutwardEmissionVelocityInfo : public EmissionVelocityInfo {
+public: OutwardEmissionVelocityInfo(); virtual ~OutwardEmissionVelocityInfo();
+private: ::GameClientRandomVariable m_04; ::GameClientRandomVariable m_10;
+};
+}
+
 // ?<bfmeVectorDeleteAnchorV03> absent-from-retail
 void bfmeVectorDeleteAnchorV03()
 {
@@ -71,5 +79,6 @@ void bfmeVectorDeleteAnchorV03()
 	new FXParticleSystem::OrthoEmissionVelocityInfo[2];
 	new FXParticleSystem::SphericalEmissionVelocityInfo[2];
 	new FXParticleSystem::CylindricalEmissionVelocityInfo[2];
+	new FXParticleSystem::OutwardEmissionVelocityInfo[2];
 	new FXParticleSystem::DefaultUpdateModuleInfo[2];
 }

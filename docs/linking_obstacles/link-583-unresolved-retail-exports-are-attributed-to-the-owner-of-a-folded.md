@@ -340,3 +340,5 @@ return, and the destructor its funclet calls is rowed as a verified ICF fold at
 `0x002115C5`. The build passes **20/20**; the preview shows **LINKS 1,860 -> 1,871 B**
 against index `d707d2f53b`. Awaiting the automated real link.
 [Evidence](../../reverse/attempt_support/create-slave-system-export-20261106-noro.md).
+
+2026-11-06, Outward copy dependency (base8371a98e65): exports229/295 fold the existing Cylindrical and missing Outward copy at3A7501/49B. A clean typed copy trial passes, but its new table also needs the full75B vector destructor3A7532. Existing collector now supplies that real Outward operation through its existing array-emission anchor: normal7/7, six-row private control retained, no removed providers and clean saved guard. No new pin/alias/header/flags. The49B copy export follows separately; this prerequisite alone does not clear the real-link blocker. [Native closure and evidence](../../reverse/attempt_support/outward-emission-copy-export-20261106/README.md).

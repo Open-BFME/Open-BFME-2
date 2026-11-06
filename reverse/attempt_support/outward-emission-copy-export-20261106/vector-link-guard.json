@@ -1,0 +1,7 @@
+{
+  "prepare": null,
+  "refusals": [],
+  "linked": [
+    "Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp"
+  ]
+}
