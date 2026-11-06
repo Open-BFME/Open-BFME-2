@@ -69,9 +69,12 @@ Before the repairs below, 251 agreed and 66 differed. Most of the 66 are the dum
   start from retail's bytes; compared with retail: equal. Retail's ring and fire statics differ from what the matched
   initializer `RingEffect::rva00309E85` writes (its first and third `m_unknown28` triples are zero), so the statics
   are written from the image, not from that function.
-- Still open: initial values retail has in `.data` that ours leaves zero:
-  `animationDisableOverride` (`W3DGhostObjectScene.cpp`), `AXIS_ROTATION` (`camerashakesystem_shaker.cpp`),
-  `detailAlphaShader` (`W3DBibBuffer.cpp`) and `g_Rva012C3BC4` (`Y4FeslBuddyRequests.cpp`).
+- **Repaired, initial values:** `AXIS_ROTATION` (`camerashakesystem_shaker.cpp`, 0x009B4068) is 80 degrees about each
+  axis in BFME 2, not Zero Hour's 7.5/15/5; `animationDisableOverride` (`W3DGhostObjectScene.cpp`, 0x009B4014) carries
+  the id 0x01234567 the renderer checks, as `W3DTankDraw.cpp`'s layout has it (ours was 16 zero bytes);
+  `detailAlphaShader` (`W3DBibBuffer.cpp`, 0x009B5370) is 0x000198B7, Zero Hour's SC_ALPHA_DETAIL with primary
+  gradient 6 instead of GRADIENT_MODULATE; and `g_Rva012C3BC4` (`Y4FeslBuddyRequests.cpp`, 0x009D831C), the PROT
+  value of the FESL CONN request, points at `"2"` (ours was null). Each compared with retail: equal.
 
 #### One address, several names (23)
 

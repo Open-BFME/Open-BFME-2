@@ -181,7 +181,8 @@ void __stdcall Rva007FB9F0( FeslTxnMessage *msg, const char *addr, bool enab )
 // The PROT value is read from a fixed data address AFTER reset(), so it is an
 // ordinary mutable global rather than the const-hoisted TXN pointers of
 // V2FeslTxnRequests.cpp.  Its four bytes are a DIR32 site copied from retail.
-static char *g_Rva012C3BC4;
+// Retail .data 0x009D831C holds 0x00C194C0 at load, the string "2".
+static char *g_Rva012C3BC4 = "2";
 
 void __stdcall Rva007FC170( FeslTxnMessage *msg, const char *prod,
 	const char *vers, const char *plat, const char *locale )

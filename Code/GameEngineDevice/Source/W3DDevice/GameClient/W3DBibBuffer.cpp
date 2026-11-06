@@ -30,7 +30,13 @@ class BFME2ParticleTextureHandle { public:
 };
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
 
-static ShaderClass detailAlphaShader(SC_ALPHA_DETAIL);
+// Retail .data 0x009B5370 holds 0x000198B7 at load: SC_ALPHA_DETAIL with primary gradient 6,
+// a BFME 2 mode past Zero Hour's GRADIENT_MODULATE2X (5), where Zero Hour has GRADIENT_MODULATE.
+static ShaderClass detailAlphaShader( SHADE_CNST(ShaderClass::PASS_ALWAYS, ShaderClass::DEPTH_WRITE_DISABLE,
+	ShaderClass::COLOR_WRITE_ENABLE, ShaderClass::SRCBLEND_SRC_ALPHA, ShaderClass::DSTBLEND_ONE_MINUS_SRC_ALPHA,
+	ShaderClass::FOG_DISABLE, (ShaderClass::PriGradientType)6, ShaderClass::SECONDARY_GRADIENT_DISABLE,
+	ShaderClass::TEXTURING_ENABLE, ShaderClass::ALPHATEST_DISABLE, ShaderClass::CULL_MODE_DISABLE,
+	ShaderClass::DETAILCOLOR_DISABLE, ShaderClass::DETAILALPHA_DISABLE) );
 
 //-----------------------------------------------------------------------------
 //         Private Functions                                               

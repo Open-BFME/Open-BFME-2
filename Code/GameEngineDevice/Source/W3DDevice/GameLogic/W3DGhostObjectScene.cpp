@@ -564,11 +564,14 @@ protected:
 
 //Dummy material override which we assign to all ghost objects to disable their
 //texture animation.
+// W3DTankDraw.cpp's layout: an id the renderer checks, then the UV offset. Retail .data
+// 0x009B4014 holds the id 0x01234567 and a zero offset at load.
 struct Material_Override
 {
-	char m_unrecovered00[ 0x10 ];
+	int Struct_ID;
+	float customUVOffset[ 2 ];
 };
-static Material_Override animationDisableOverride;
+static Material_Override animationDisableOverride = { 0x01234567 };
 
 //Helper function used to disable all UV mapper animations on a given model.
 //BFME 2 no longer hides MUZZLEFX sub-objects here.

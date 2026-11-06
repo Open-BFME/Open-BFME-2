@@ -133,7 +133,9 @@ const float MAX_OMEGA			= DEG_TO_RADF(15.0f*360.0f);
 const float END_OMEGA			= DEG_TO_RADF(360.0f);
 const float MIN_PHI				= DEG_TO_RADF(0.0f);
 const float MAX_PHI				= DEG_TO_RADF(360.0f);
-const Vector3 AXIS_ROTATION	= Vector3(DEG_TO_RADF(7.5f),DEG_TO_RADF(15.0f),DEG_TO_RADF(5.0f));
+// BFME 2 shakes 80 degrees about each axis (retail .data 0x009B4068 holds 0x3FB2B8C3 three times);
+// Zero Hour used 7.5, 15 and 5.
+const Vector3 AXIS_ROTATION	= Vector3(DEG_TO_RADF(80.0f),DEG_TO_RADF(80.0f),DEG_TO_RADF(80.0f));
 
 
 /************************************************************************************************
