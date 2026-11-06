@@ -71,12 +71,8 @@ public:
 };
 // g_012EF4F0 is only an alias of the owned global TheBuffLogic (ledger names column); this unit reads the owner through its own view type.
 extern class BuffLogic *TheBuffLogic;
-class Rva006DABB0Base
-{
-public:
-	virtual ~Rva006DABB0Base() {}
-};
-class Rva006DABB0 : public Rva006DABB0Base
+#include "Common/Snapshot.h"
+class Rva006DABB0 : public Snapshot
 {
 public:
 	virtual ~Rva006DABB0();
