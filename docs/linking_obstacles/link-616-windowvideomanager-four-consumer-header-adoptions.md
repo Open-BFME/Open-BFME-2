@@ -4,3 +4,5 @@ Evidence / completed: [four-consumer adoption and provider audit](../../reverse/
 Remaining / next check: none for this cohort; real-link and runtime effects remain for the scheduled runners.
 Clearance: PlayerInitFromDict.cpp, ControlBar.cpp, ControlBarConstructor.cpp and Rva001D92C0Dtor.cpp use the canonical header and preserve census-linked bytes in the adoption tool's joint preview.
 Census confirmation: not claimed.
+
+2026-11-06 recovery: reopened for PlayerInitFromDict.cpp and ControlBar.cpp; outgoing acceptance now predicts loss of 4,707 and 10,339 census-linked bytes, both on unresolved `?TheEmptyString@UnicodeString@@2V1@B`. Their two queue rows are restored pending a passing owning acceptance; the constructor and armor-store consumers still preserve 898 bytes. [Recovery evidence](../../reverse/attempt_support/windowvideo-recovery-20261106-codex.md).
