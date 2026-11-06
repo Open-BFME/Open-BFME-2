@@ -676,6 +676,60 @@ class DonorTests(unittest.TestCase):
         don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x2000: "Code/W.cpp"})
         self.assertEqual(mixed, {"Code/A.cpp": 1})
 
+    def test_independently_approved_deleting_dtor_of_an_unplaced_fold_alias(self):
+        # FadeInTextRender: the map places the deleting dtor independently by C,
+        # while its complete dtor folds into another address identity with no TU.
+        for kind in ("G", "E"):
+            with self.subTest(kind=kind):
+                ledger = [("?apply@Identity@@QAEXXZ", 0x2000, "Code/W.cpp"),
+                          ("?t@@YAXXZ", 0x1000, self.TU),
+                          ("??1Folded@@UAE@XZ", 0x2000, "Code/A.cpp"),
+                          (f"??_{kind}Folded@@UAEPAXI@Z", 0x1010, "Code/A.cpp")]
+                don, mixed, refused = self.donors(
+                    ledger, {0x1000: self.TU, 0x1010: (self.TU, "approved", "C=0x00001000..0x00001020")},
+                    {0x2000: ("", "")})
+                self.assertEqual((mixed, refused), ({}, {}))
+                self.assertEqual(len(don["Code/A.cpp"]), 2)
+
+    def test_fold_alias_parent_never_approves_a_proposed_or_foreign_child(self):
+        ledger = [("?apply@Identity@@QAEXXZ", 0x2000, "Code/W.cpp"),
+                  ("?t@@YAXXZ", 0x1000, self.TU), ("?a@@YAXXZ", 0x1008, "Code/A.cpp"),
+                  ("??1Folded@@UAE@XZ", 0x2000, "Code/A.cpp"),
+                  ("??_GFolded@@UAEPAXI@Z", 0x1010, "Code/A.cpp")]
+        for child in ((self.TU, "proposed", "C=0x00001000..0x00001020"), "Code/Other.cpp"):
+            with self.subTest(child=child):
+                don, mixed, refused = self.donors(
+                    ledger, {0x1000: self.TU, 0x1008: self.TU, 0x1010: child}, {0x2000: ("", "")})
+                self.assertNotIn("Code/A.cpp", don)
+                self.assertTrue(mixed or refused)
+
+    def test_deleting_dtor_does_not_excuse_an_unapproved_primary_parent(self):
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU),
+                  ("??1Primary@@UAE@XZ", 0x2000, "Code/A.cpp"),
+                  ("??_GPrimary@@UAEPAXI@Z", 0x1010, "Code/A.cpp")]
+        don, mixed, refused = self.donors(
+            ledger, {0x1000: self.TU, 0x1010: self.TU}, {0x2000: ("", "inline")})
+        self.assertEqual(mixed, {})
+        self.assertNotIn("Code/A.cpp", don)
+        self.assertIn("not approved", refused["Code/A.cpp"])
+
+    def test_approved_deleting_dtor_retains_fold_parent_ownership_constraints(self):
+        ledger = [("?apply@Identity@@QAEXXZ", 0x2000, "Code/W.cpp"),
+                  ("?t@@YAXXZ", 0x1000, self.TU),
+                  ("??1Folded@@UAE@XZ", 0x2000, "Code/A.cpp"),
+                  ("??_GFolded@@UAEPAXI@Z", 0x1010, "Code/A.cpp")]
+        for evidence in ("F", "Z", "S", "L", "W"):
+            with self.subTest(evidence=evidence):
+                don, mixed, refused = self.donors(
+                    ledger, {0x1000: self.TU, 0x1010: self.TU},
+                    {0x2000: ("", f"{evidence}=Code/Other.cpp")})
+                self.assertNotIn("Code/A.cpp", don)
+                self.assertTrue(mixed or refused)
+        don, mixed, refused = self.donors(
+            ledger, {0x1000: self.TU, 0x1010: self.TU, 0x2000: "Code/Other.cpp"})
+        self.assertNotIn("Code/A.cpp", don)
+        self.assertTrue(mixed or refused)
+
 
     def test_homeless_comdats_follow_their_donor_into_the_merge(self):
         # A displaced template COMDAT, a header inline (the map's `inline` token), a template

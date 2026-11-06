@@ -593,11 +593,25 @@ def donors(tu, sk):
         # what a donor moves must be approved here: the row itself when the map places it,
         # and a companion's parent
         ok = {r["name"]: approved.get(int(r["target_rva"], 16)) for r in own}
+        own_by_name = {r["name"]: r for r in own}
 
         def approved_here(r):
             p = parent_of(r, dtors)
-            return ((mine[id(r)] is None or ok[r["name"]] == tu.lower())
-                    and not (p and p in ok and ok[p] != tu.lower()))
+            if mine[id(r)] is not None and ok[r["name"]] != tu.lower():
+                return False
+            if not (p and p in ok and ok[p] != tu.lower()):
+                return True
+            # A deleting dtor can have independent approved placement even
+            # when its complete dtor folds into an address identity with no TU
+            # (FadeInTextRender). The alias already travels with this donor;
+            # it cannot veto the child's own approval. Keep every other parent
+            # constraint, including foreign evidence and p-group approval.
+            parent = own_by_name.get(p)
+            return bool(DELETING.match(r["name"])
+                        and mine[id(r)] == tu.lower() and ok[r["name"]] == tu.lower()
+                        and parent is not None and mine[id(parent)] is None
+                        and int(parent["target_rva"], 16) in unplaced
+                        and fold_alias(parent) and not names_other_tu(parent, unplaced, tu))
         unapproved = [] if f.lower() == tu.lower() else [r for r in own if where[id(r)] == tu.lower() and not approved_here(r)]
         if foreign:
             mixed[f] = len(foreign)
