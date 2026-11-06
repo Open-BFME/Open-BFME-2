@@ -46,16 +46,7 @@ public:
 	void rva0057C394(const AsciiString &name, const TreeHintRef00217D4C &callback);
 };
 
-class Rva000AD6F4
-{
-public:
-	__forceinline Rva000AD6F4() : m_ptr(0) {}
-	__forceinline bool empty() const { return m_ptr == 0; }
-	void clear();
-	~Rva000AD6F4();
-private:
-	void *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva005F501E
 {
@@ -133,7 +124,7 @@ Rva005F54DA::~Rva005F54DA()
 // The +14 frame holder uses the existing one-pointer setter ABI.
 void Rva005F54DA::rva005F4EED(void *inputA, void *inputB)
 {
-	if (m_b14.empty())
+	if (m_b14.m_ptr == 0)
 	{
 		((Rva00575674 *)&m_b14)->rva00575674((Object *)new Rva005F4EE8((Rva005F4EE8Source *)this, (int)inputA, *(const AsciiString *)inputB));
 		rva005F4BB4(m_a0c.m_ptr);
