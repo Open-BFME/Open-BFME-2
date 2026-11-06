@@ -28,6 +28,9 @@ class RealRange;
  class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/Common/INI/INI.h"
+extern const LookupListRec TheWeaponSlotTypeNamesLookupList[6];
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
