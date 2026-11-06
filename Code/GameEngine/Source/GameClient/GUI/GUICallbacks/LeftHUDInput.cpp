@@ -1,4 +1,5 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 // LeftHUDInput 0x004020CE (903B): Zero Hour ControlBarCallback.cpp's radar
 // window input callback, through BFME1's ControlBarCallback.cpp donor.
 //
@@ -42,14 +43,8 @@ enum GameWindowMessage
 
 class Drawable;
 
-struct DrawableListNode { DrawableListNode *m_next; };
 
-class DrawableList
-{
-public:
-	Bool empty() const { return m_node->m_next == m_node; }
-	DrawableListNode *m_node;
-};
+#include "../../../../Include/GameClient/DrawableList.h"
 
 class PickAndPlayInfo
 {
