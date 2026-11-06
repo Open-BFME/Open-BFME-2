@@ -65,6 +65,7 @@ void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 
 #include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 // DX8Wrapper::render_state (VA 0x00DEE5D8, defined in dx8wrapper.cpp): Zero

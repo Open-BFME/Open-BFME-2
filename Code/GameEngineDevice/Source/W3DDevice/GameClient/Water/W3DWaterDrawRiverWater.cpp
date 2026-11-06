@@ -98,6 +98,7 @@ extern unsigned number_of_DX8_calls;
 
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 
 // DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
