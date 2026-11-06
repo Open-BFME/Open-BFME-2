@@ -31367,7 +31367,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
 ??0Rva0035D74A@@QAE@XZ,,0x0035D789,72,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,derived ctor with explicit vtable store pinned by novtable plus first-member pointer write
 ??0Rva0035E00F@@QAE@XZ,,0x0035E206,86,Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp,matched,derived ctor; novtable plus a split eax run plus an early m_14 reload reproduce retail store order
 ??0ProgressIndicator@@QAE@XZ,,0x00355C60,23,Code/GameEngine/Source/Common/ProgressIndicator.cpp,matched,ctor stores vtable links head g_00E01E1C
-??1Rva001F4D22@@UAE@XZ,,0x001F4D22,11,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,virtual dtor tail-jmps to base Rva001F4C67
+??1Rva001F4D06@@UAE@XZ,,0x001F4D22,11,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,virtual dtor tail-jmps to base Rva001F4C67
 ?rva0028B35B@Object@@QBE_NPBV1@@Z,,0x0028B35B,50,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B35B.cpp,matched,Object geometry intersect via bfmeIntersects rowed pin
 ?Rva003AD4AEInit@@YAXXZ,,0x003AD4AE,33,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AD4AEInit.cpp,matched,guarded init calls rowed DefaultModuleTag2 getInstance and rowed atexit
 ?Rva003AD4CFInit@@YAXXZ,,0x003AD4CF,33,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AD4CFInit.cpp,matched,guarded init calls rowed DefaultModuleTag7 getInstance and rowed atexit
@@ -31429,7 +31429,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
 ??0Rva003ADEFB@@QAE@ABV0@@Z,,0x003ADEFB,38,Code/GameEngine/Source/Common/Rva003ADEFBCopy.cpp,matched,derived copy via rowed base 0x003ADF21 with three derived vptrs
 ??0Rva0055B32B@@QAE@ABV0@@Z,,0x003ADCC7,30,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055B32BCopy.cpp,matched,copy via Block struct assign same vtable as default 0x0055B32B
 ?rva001F4696@ParticleSystem@@QAEXPAX0_N0@Z,,0x001F4696,354,Code/GameEngine/Source/GameClient/System/ParticleSystemRva001F4696.cpp,matched,ParticleSystem slave chain via destroy neighbour offsets burst vars via getValue rows virtual slot 9 barrier keeps lea cmp and Make call
-??_GRva001F4D22@@UAEPAXI@Z,,0x001F61E5,28,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,deleting dtor emitted from own dtor TU vtable slot 0
+??_GRva001F4D06@@UAEPAXI@Z,,0x001F61E5,28,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,deleting dtor emitted from own dtor TU vtable slot 0
 ?Rva004EA124Find@@YAPAXPAX@Z,,0x004EA124,37,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilder.cpp,matched,linear search table g_00E04494 to g_00E04498 field plus 0x70 matches key
 ?rva004EAC8C@Rva004EAC8C@@QAEXM@Z,,0x004EAC8C,39,Code/Libraries/Source/WWVegas/WWLib/Rva004EAC8CSetFloat.cpp,matched,sets float plus 4 on single and array range
 ?rva004EABB9@Rva004EABB9@@QAE_NXZ,,0x004EABB9,14,Code/Libraries/Source/WWVegas/WWLib/Rva004EABB9Check.cpp,matched,both plus 0x34 and plus 0x3C zero predicate

@@ -590,10 +590,10 @@ public:
 // No receiver adjustment no stack arguments RET0. Original wrapper name
 // enclosing class and lifetime role unknown; existing receiver view reused.
 struct Rva001F45EFCleanupForward { void cleanup(); };
-class Rva001F4D22 : public Rva001F4C67
+class Rva001F4D06 : public Rva001F4C67
 {
 public:
-	virtual ~Rva001F4D22();
+	virtual ~Rva001F4D06();
 };
 //
 // ?rva001F3C9A@Rva001F3C9A@@QAE_NXZ, retail 0x001F3C9A, 105 bytes.
@@ -2500,7 +2500,7 @@ void* Rva001F5E24Slot::get(void* arg)
 
 // ---- from Code/GameEngine/Source/Common/Rva001F4D22Dtor.cpp
 
-Rva001F4D22::~Rva001F4D22()
+Rva001F4D06::~Rva001F4D06()
 {
 }
 

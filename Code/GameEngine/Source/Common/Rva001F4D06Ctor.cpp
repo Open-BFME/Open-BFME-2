@@ -19,13 +19,15 @@ class Rva001F4D06 : public Rva001F4D06Base
 {
 public:
 	Rva001F4D06(void *a, void *b);
+	// Retail 0x001F4D22, defined in ParticleSys.cpp; declaring it keeps this unit
+	// from emitting a second, implicit copy.
+	virtual ~Rva001F4D06();
 };
 
 Rva001F4D06::Rva001F4D06(void *a, void *b) : Rva001F4D06Base(a, b)
 {
 }
 
-// The base constructor is the body at 0x001F4B63 that this constructor calls; the base destructor is the body at
-// 0x001F4C67 that the deleting dtor 0x001F61E5 reaches through 0x001F4D22.
+// The base constructor is the body at 0x001F4B63 that this constructor calls. The base destructor,
+// 0x001F4C67, is reached through the destructor 0x001F4D22 that ParticleSys.cpp defines.
 #pragma comment(linker, "/alternatename:??0Rva001F4D06Base@@QAE@PAX0@Z=??0Rva001F4C67@@QAE@ABVRvaSmartPtr12@@ABVRva001F376E@@@Z")
-#pragma comment(linker, "/alternatename:??1Rva001F4D06Base@@UAE@XZ=??1Rva001F4C67@@UAE@XZ")

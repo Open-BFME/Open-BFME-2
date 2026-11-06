@@ -244,16 +244,16 @@ Rva001F4B01::Rva001F4B01(EmitVtableTag *)
 {
 }
 
-class Rva001F4D22
+class Rva001F4D06
 {
 public:
-	Rva001F4D22(EmitVtableTag *);
+	Rva001F4D06(EmitVtableTag *);
 public:
-	virtual ~Rva001F4D22();
+	virtual ~Rva001F4D06();
 };
 
-// ?<Rva001F4D22::Rva001F4D22> absent-from-retail
-Rva001F4D22::Rva001F4D22(EmitVtableTag *)
+// ?<Rva001F4D06::Rva001F4D06> absent-from-retail
+Rva001F4D06::Rva001F4D06(EmitVtableTag *)
 {
 }
 
