@@ -33,7 +33,7 @@
   retail gives a value. No strong data is defined twice; 24 addresses have several defined names.
 
 
-**2026-11-05, generated vtable bridge (pending link measurement).** The Link lane
+**2026-11-05, generated vtable bridge; paired native measurements completed 2026-11-06 UTC.** The Link lane
 implements the P1 bridge in `tools/vtable_bridge.py`, called by `exit_link.py`.
 It emits only existing select-any names, refuses strong/common/absolute providers
 and ambiguous or unkept targets, and records every refusal in a separate list.
@@ -46,5 +46,73 @@ including a vtable from a compiled C++ class. A non-COMDAT strong definition ins
 causes LNK2005 in either order, so detecting it before generation is mandatory.
 A losing select-any copy's unresolved reference still appears in linker errors.
 No source edit or source-recovery credit is claimed by this bridge. G1 requires its
-table and slot counters to reach zero. Final paired-link evidence will be recorded
-here before the Link lane requests review.
+table and slot counters to reach zero.
+
+Measured at `1622f06c577e91584f9af06a9412af91170ddf29`, rebased on the
+writable-initializer correction `473dfd265a`. Evidence remains on srv1 in the
+Link worktree under `build/vtable-p1/comparison.json`, with the input hashes,
+native logs, MAPs, receipts, object snapshots and both `linked_report/` results.
+Four VC7.1 links ran serially at nice priority, using `/FIXED:NO /OPT:NOREF
+/OPT:NOICF` and no `/FORCE`. The baseline response differs only by removal of
+`retail_vtables.obj`; all common input hashes and the original scoreboard stayed
+unchanged. Neither strict link produced an image: both have exactly the same
+377 unresolved names and zero duplicates. The paired image measurements therefore
+use diagnostic images with the identical 377-name stub set, not runnable real
+images or G1 passes.
+
+The planner generated **2,241 tables / 25,542 positive slots**, retained 163
+provably matching first copies, and refused 1,038 tables: 453 multiple kept names,
+397 without a kept definition, 134 with strong definitions, 27 with omitted
+targets, 19 with ambiguous target names, four ambiguous table names and four
+unrowed targets. The complete refusal evidence is `with/exit_link/vtable_bridge_queue.tsv`;
+the picker and `reverse/exit_link_blockers.tsv` are unchanged.
+
+| Image check | Without bridge | With bridge |
+| --- | ---: | ---: |
+| Short winning tables | 1,304 | 40 |
+| Wrong compared slots | 1,622 | 48 |
+| Equal compared slots | 6,072 | 24,873 |
+| Unanalyzed slots | 21,820 | 4,593 |
+| Image bytes | 12,988,416 | 13,078,528 |
+
+Only these vtable-related report counts changed. The 40 remaining short tables
+are 27 omitted-target, five ambiguous-target-name, four unrowed-target and four
+strong-definition refusals. Of the remaining 48 wrong compared slots, 23 belong
+to generated tables, 12 to ambiguous-target refusals and 13 to omitted-target
+refusals. A pointer to the ledger-selected external name is not proof that the
+winning code body or its dependencies agree with retail: seven of those 23
+generated-slot defects select a different object than the ledger owner, while
+16 select the owner's object. These remain visible defects, not bridge credit;
+`remaining-vtable-defects.json` records the selected names and MAP providers.
+For example, `VectorClass<StringClass>`'s deleting destructor wins from
+`INIStatsRecordTextures.cpp` rather than the ledger's `dx8wrapper.cpp`.
+No game-source repair or checker relaxation is included.
+
+Both diagnostic images pass `real_image.py check` with no problems: non-retail
+base `0x10000000`, relocations retained, receipt/MAP/image agreement and exactly
+one named slot for each required harness API. All 674 bridged initializers occur
+as the complete ordered block within `___xc_a..___xc_z` in both images, with no
+`.CRT` LNK4078. All 2,241 generated vtables win from `retail_vtables.obj` and
+all 25,542 actual pointer values equal their resolved target MAP addresses.
+Generated vtable sections use native C++ vtable attributes `0x40301040`;
+initializer sections use native writable `0xC0300040`. This verifies placement,
+not runtime execution or class recovery. No game was started. Both image reports
+exit 1 because defects remain.
+
+The bridged diagnostic is `with/diagnostic_link/exit.exe`, SHA-256
+`74d455c6a31e9e4ab1b205bc3c9dd5036c6e983ccb3d55d075c04ac781f7a9ff`.
+Its MAP SHA-256 is
+`cc941c59c002cb003c858046e080925c4336b5d4301534391861654c4bd9de9b`.
+The snapshot/manifest/receipt total is 149,486,825 bytes, versus 148,324,277 for
+the control; nothing was dropped. Both images have `.text` virtual size
+10,078,228 bytes; `.rdata` grows from 2,126,614 to 2,186,822 bytes.
+
+Direct native fixture evidence is `native/results.json` and
+`native/cpp_results.json`. A generated SELECT_ANY copy **can beat a real C++
+SELECT_ANY definition**, even one with the right size; the compiled fixture
+demonstrates the selected first virtual method changing. The generator avoids
+provably matching first copies, but this is not a universal semantic guarantee.
+Strong non-COMDAT definitions are refused: the fixture gives LNK2005/LNK1169
+in either order. A reference in a losing SELECT_ANY copy still reports missing
+with or without the bridge. These observations are toolchain facts, not an
+assumption that strong definitions automatically win.
