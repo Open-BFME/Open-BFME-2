@@ -102,25 +102,14 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Overridable
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
+// ?getRadius@SpecialPowerTemplate@@QBEMXZ 0x0029B6E2: this unit emits the row's
+// body, the final override's cursor radius at +0x54.
+inline float SpecialPowerTemplate::getRadius() const
 {
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	float getRadius() const
-	{
-		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_radiusCursorRadius;
-	}
-	bool rva0029B6D9() const;
-	char m_pad00[0x54];
-	float m_radiusCursorRadius;	// +0x54
-	char m_pad58[1];
-	bool m_sharedSyncedTimer;	// +0x59
-};
+	return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_radiusCursorRadius;
+}
 
 // Native 29B6D9..29B6E2 (9B), just before the getRadius copy at 0x0029B6E2:
 // the final override's +0x59 flag, the same getFO() accessor shape. Which

@@ -326,17 +326,11 @@ private:
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	Int getSpecialPowerType() const
-	{
-		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_type;
-	}
-private:
-	unsigned char m_pad[0x1C - 0x10];
-	Int m_type;				// +0x1C
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
+// Retail inlines the final override's +0x1C type read here (the canonical
+// getSpecialPowerType is the out-of-line row 0x002AAE3D).
+__forceinline Int spType(const SpecialPowerTemplate *power) { return power->getFO()->m_type; }
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -778,7 +772,7 @@ void AIPlayer::computeSuperweaponTarget(const SpecialPowerTemplate *power,
 	}
 
 	// Special power types 0x7C and 0x7B (enumerator names unknown).
-	if (power->getSpecialPowerType() == 0x7C || power->getSpecialPowerType() == 0x7B) {
+	if (spType(power) == 0x7C || spType(power) == 0x7B) {
 		FindPositionOptions fpOptions;
 		fpOptions.minRadius = 0.0f;
 		fpOptions.maxRadius = 300.0f;

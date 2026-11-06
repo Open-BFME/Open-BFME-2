@@ -74,16 +74,11 @@ static __forceinline UnsignedInt thingTemplateIsKindOf(const ThingTemplate *tmpl
 static __forceinline const WeaponTemplate *thingTemplateExtraWeapon(const ThingTemplate *tmpl, Int index)
 { return ((const WeaponTemplate *const *)&tmpl->m_crushWeapon)[index]; }
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	UnsignedInt getSpecialPowerType() const
-	{
-		return static_cast<const SpecialPowerTemplate *>(friend_getFinalOverride())->m_type;
-	}
-	char m_pad10[0x1C - 0x10];
-	UnsignedInt m_type;	// +0x1C
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
+// Retail inlines the final override's +0x1C type read here (the canonical
+// getSpecialPowerType is the out-of-line row 0x002AAE3D).
+__forceinline UnsignedInt spType(const SpecialPowerTemplate *power) { return power->getFO()->m_type; }
 
 #include "../../../Include/GameLogic/Module/SpecialPowerModule.h"
 
@@ -330,7 +325,7 @@ void Object::initObject()
 		const SpecialPowerTemplate *spTemplate = sp->getSpecialPowerTemplate();
 		if (spTemplate)
 		{
-			UnsignedInt type = spTemplate->getSpecialPowerType();
+			UnsignedInt type = spType(spTemplate);
 			m_specialPowerBits[type >> 5] |= 1U << (type & 0x1f);
 		}
 	}
