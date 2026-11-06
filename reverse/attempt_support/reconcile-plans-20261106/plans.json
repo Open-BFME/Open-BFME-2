@@ -1,0 +1,992 @@
+[
+  {
+    "key": "Code/GameEngine/Source/GameClient/DrawableRva0027B18C.cpp|class||BfmeDamageTemplate",
+    "proposed_type": "ThingTemplate",
+    "feasibility": "blocked",
+    "contract": {
+      "size": 1,
+      "size_by": "majority",
+      "key": "class",
+      "bases": [],
+      "bases_by": "majority",
+      "fields_listed": 0,
+      "note": "size 1 is a placeholder; retail_layout facts say operator new 0x640 (1600) and ctor extent lower bound 1600; bases [] conflicts with header line 37 class ThingTemplate : public Overridable"
+    },
+    "standin_key": "struct",
+    "key_mismatch": false,
+    "highest_offset_used": "0x598",
+    "field_map": [
+      {
+        "standin": "flag10e (uchar, pad 0x10E)",
+        "offset": "0x10E",
+        "canonical": "m_kindof[1] byte 2 (m_kindof is unsigned int[7] at 0x108, line 120)",
+        "agrees": false,
+        "note": "sub-word byte test; keep it a byte test, not a word test"
+      },
+      {
+        "standin": "flag113 (uchar)",
+        "offset": "0x113",
+        "canonical": "m_kindof[2] byte 3",
+        "agrees": false,
+        "note": "sub-word byte test inside the kind mask"
+      },
+      {
+        "standin": "flag118 (uchar)",
+        "offset": "0x118",
+        "canonical": "m_kindof[4] byte 0",
+        "agrees": false,
+        "note": "sub-word byte test inside the kind mask"
+      },
+      {
+        "standin": "m_evaEventDamagedOwner (int)",
+        "offset": "0x580",
+        "canonical": "m_evaEventDamagedOwner (unsigned int, line 208)",
+        "agrees": true,
+        "note": "both 4-byte; signedness differs, compares against -1 keep the same bits"
+      },
+      {
+        "standin": "m_evaEventDamagedFromShroudedSourceOwner (int)",
+        "offset": "0x584",
+        "canonical": "m_evaEventDamagedFromShroudedSourceOwner (unsigned int, line 209)",
+        "agrees": true,
+        "note": "both 4-byte; signedness differs"
+      },
+      {
+        "standin": "m_evaEventDamagedByFireOwner (int)",
+        "offset": "0x588",
+        "canonical": "m_evaEventDamagedByFireOwner (unsigned int, line 210)",
+        "agrees": true,
+        "note": "both 4-byte; signedness differs"
+      },
+      {
+        "standin": "m_evaEventSecondDamageFarFromFirstOwner (int)",
+        "offset": "0x58C",
+        "canonical": "m_evaEventSecondDamageFarFromFirstOwner (unsigned int, line 211)",
+        "agrees": true,
+        "note": "both 4-byte; signedness differs"
+      },
+      {
+        "standin": "range (float)",
+        "offset": "0x590",
+        "canonical": "m_evaEventSecondDamageFarFromFirstScanRange (float, line 212)",
+        "agrees": true,
+        "note": "float/float"
+      },
+      {
+        "standin": "delay (unsigned)",
+        "offset": "0x594",
+        "canonical": "m_evaEventSecondDamageFarFromFirstTimeoutMS (unsigned int, line 213)",
+        "agrees": true,
+        "note": "declared but not read in this unit"
+      },
+      {
+        "standin": "event598 (int)",
+        "offset": "0x598",
+        "canonical": "m_evaEventAmbushed (unsigned int, line 214)",
+        "agrees": true,
+        "note": "both 4-byte; the name event598 is an unused placeholder"
+      }
+    ],
+    "blockers": [
+      "contract size is 1 (size_by majority), so no size check can pass against it; retail evidence in the contract and header (new 0x640, ctor end +0x63C) says the real size is about 1600",
+      "contract bases [] conflicts with header line 37 (class ThingTemplate : public Overridable) and the header's note that the ctor writes the base prefix at +4, +8, +0xC",
+      "contract fields list is empty, so the field comparison was done against the header, not the contract"
+    ],
+    "include_line": "#include \"../../Include/Common/ThingTemplate.h\"",
+    "frozen": false,
+    "prior_attempts": "no re_attempts.log entry names DrawableRva0027B18C or BfmeDamageTemplate; no docs/linking_obstacles file names this unit. link-236 round 5 has the DamageInfo class-key rule, which does not apply here because ThingTemplate.h does not declare DamageInfo. Its line 31 forward-declares enum KindOfType, and the stand-in defines enum KindOfType at line 13, so the include must come before that definition.",
+    "plan": "1. In a separate contract lane, correct class_contracts/ThingTemplate.json: size to 1600 with its retail source, bases to [Overridable], and regenerate fields. Do not adopt until this is done. 2. Add the include at the top of the file, before the enum KindOfType at line 13, so the header's forward declaration comes first. 3. Delete struct BfmeDamageTemplate (lines 42-56) and change Object::data (line 62) and Drawable::data (line 134) to ThingTemplate*; both are at +4 in the private views and the header's first own member is at +0x10. 4. In rva0027B18C, read the EVA fields by their canonical names: m_evaEventDamagedOwner, m_evaEventDamagedFromShroudedSourceOwner, m_evaEventDamagedByFireOwner, m_evaEventSecondDamageFarFromFirstOwner, m_evaEventSecondDamageFarFromFirstScanRange, and m_evaEventAmbushed for event598. 5. Keep the three flag reads as byte tests at 0x10E, 0x113 and 0x118. 6. Make the declaration change in its own commit; no ledger row needs a rename because no functions.csv row mangles BfmeDamageTemplate. 7. The lead builds the unit once, then runs byte verify on the 4 rows and the affected-consumer link check on ThingTemplate.",
+    "risk": "high - the contract has size 1 and wrong bases, so a size or layout check would pass or fail for the wrong reason; the Drawable and Object views are private and their pointer type change is part of this edit",
+    "packet": 1
+  },
+  {
+    "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRva000E8365.cpp|class||Rva000E8365Model",
+    "proposed_type": "MeshModelClass",
+    "feasibility": "needs-evidence",
+    "contract": {
+      "size": 192,
+      "size_by": "zh",
+      "key": "class",
+      "bases": [
+        "MeshGeometryClass"
+      ],
+      "bases_by": "retail-ctor",
+      "fields_listed": 39,
+      "note": "retail_layout extent_lower_bound 193 and operator new 0xC4 (196) both exceed the contract size 192"
+    },
+    "standin_key": "struct",
+    "key_mismatch": false,
+    "highest_offset_used": "0x30",
+    "field_map": [
+      {
+        "standin": "m_vertexCount (int)",
+        "offset": "0x28",
+        "canonical": "VertexCount (int, MeshGeometryClass.h, inherited by MeshModelClass)",
+        "agrees": true,
+        "note": "4-byte int; reached through the base, not declared in MeshModelClass"
+      },
+      {
+        "standin": "m_gap2c (4 bytes, not a member)",
+        "offset": "0x2C",
+        "canonical": "Poly (ShareBufferClass<Vector3i16>*, MeshGeometryClass.h)",
+        "agrees": true,
+        "note": "the stand-in never touches it; it is a pointer in the canonical"
+      },
+      {
+        "standin": "m_vertexBuffer (Rva000E8365VertexBuffer*)",
+        "offset": "0x30",
+        "canonical": "Vertex (ShareBufferClass<Vector3>*, MeshGeometryClass.h line 168)",
+        "agrees": false,
+        "note": "pointer width agrees (4 bytes); pointee differs: stand-in has m_array Vector3* at +0x0C, while reference/shims/sweep/sharebuf.h puts Array after RefCountClass (8 bytes) so Array would be +0x08"
+      }
+    ],
+    "blockers": [
+      "pointee layout is unproven: the stand-in reads m_array at +0x0C of its buffer struct, but the ShareBufferClass shim puts Array at +0x08 (RefCountClass is 8 bytes per class_contracts/RefCountClass.json). Retail rva000E8365 (753 bytes) decides which is right; no evidence found in the repo for +0x0C",
+      "contract size 192 is below the retail extent lower bound 193 (byte written at +0xC0 by the ctor at 0x1727E0) and below allocation 0xC4; the contract size needs a fix before any size check",
+      "the stand-in's inline Get_Vertex_Array and Get_Vertex_Count (lines 57-58) disappear: the canonical Get_Vertex_Array is out of line at 0x00709BE0 (functions.csv row), so the two calls at lines 169-170 change codegen and must be byte-verified",
+      "including MeshModelClass.h pulls in Vector3Data.h through MeshGeometryClass.h; the unit forward-declares __declspec(dllimport) Vector3 at line 22 to avoid competing Vector3 COMDATs, so the closure may conflict (see link-184 for the same pattern)"
+    ],
+    "include_line": "#include \"../../../../Libraries/Source/WWVegas/WW3D2/MeshModelClass.h\"",
+    "frozen": false,
+    "prior_attempts": "no re_attempts.log entry names Rva000E8365Model or this unit. Open related docs: link-565 (MeshModelClass header adoption, still open for nine packet members; its remaining items are constructor/destructor list specialization, legacy reader inline forwarding and include collisions) and link-184 (a W3DShrubBuffer header closure dragged duplicate COMDATs into a consumer; a different header, but the same include-closure risk).",
+    "plan": "1. Settle the pointee first: read the retail body of rva000E8365 (0x000E8365, 753 bytes) and decide whether the vertex array is read at +0x08 or +0x0C of the ShareBufferClass; if the stand-in is wrong, drop its buffer struct. 2. In a separate contract lane, fix class_contracts/MeshModelClass.json size to at least 193 (retail extent) and confirm 196 (allocation). 3. Replace struct Rva000E8365Model (lines 51-59) with the include placed after the existing VertexBufferClass.h include (line 34) and remove the dllimport forward declaration at line 22 only if the build needs it; test that first. 4. Delete the inline Get_Vertex_Count and Get_Vertex_Array (lines 57-58) and let the calls at lines 169-170 use the base accessors. 5. MeshClass (lines 61-67) stays a private view: no canonical_classes row and no contract exists for it; its m_model at 0xC4 keeps the private type. 6. Make the declaration change in its own commit; no ledger row mangles Rva000E8365Model, so there is no row rename. 7. The lead builds the unit and byte-verifies rva000E8365 (753 bytes), then runs the link check on the MeshModelClass consumers (14/63 sampled units adopt).",
+    "risk": "medium-high - the pointee layout is the open question; if the inline body is retained, the stand-in pointee would be wrong for the canonical ShareBufferClass; the include closure may also collide with the Vector3 declaration",
+    "packet": 1
+  },
+  {
+    "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawDistanceOpacity.cpp|class||Arg000B5A72",
+    "proposed_type": "W3DModelDrawModuleData",
+    "feasibility": "blocked",
+    "contract": {
+      "size": null,
+      "size_by": null,
+      "key": null,
+      "bases": null,
+      "note": "no class_contracts/W3DModelDrawModuleData.json exists; the canonical_ref is a .cpp, not a header"
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x158",
+    "field_map": [
+      {
+        "standin": "m144 (float)",
+        "offset": "0x144",
+        "canonical": "m_alphaCameraFadeOuterRadius (float, WWLib/W3DModelDrawModuleData.cpp line 210)",
+        "agrees": true,
+        "note": "float/float, same meaning per the canonical comment"
+      },
+      {
+        "standin": "m148 (float)",
+        "offset": "0x148",
+        "canonical": "m_alphaCameraFadeInnerRadius (float, line 211)",
+        "agrees": true,
+        "note": "float/float"
+      },
+      {
+        "standin": "m14C (float)",
+        "offset": "0x14C",
+        "canonical": "m_alphaCameraAtInnerRadius (float, line 212)",
+        "agrees": true,
+        "note": "float/float"
+      },
+      {
+        "standin": "m_staticSortLevelWhileFading (int)",
+        "offset": "0x158",
+        "canonical": "m_staticSortLevelWhileFading (int, line 216)",
+        "agrees": true,
+        "note": "int/int; canonical is class W3DModelDrawModuleData : public Snapshot (line 150)"
+      }
+    ],
+    "blockers": [
+      "no registered canonical header: canonical_classes.csv has no W3DModelDrawModuleData row, class_views.py reports header '-', and the class body is in Code/Libraries/Source/WWVegas/WWLib/W3DModelDrawModuleData.cpp (line 150), which cannot be included as a header",
+      "no class contract exists, so bases (Snapshot per the .cpp), size and key cannot be checked against a registered contract",
+      "key mismatch with a ledger row: functions.csv line 64639 (?rva000B5A72@Rva000B5C41@@QAEXPAUArg000B5A72@@@Z) mangles the stand-in as PAU; the canonical would be PAVW3DModelDrawModuleData, so that row needs a rename in its own commit",
+      "25 units hold private W3DModelDrawModuleData views (class_views.py), so the header adoption affects a larger cohort than this one unit"
+    ],
+    "include_line": "",
+    "frozen": false,
+    "prior_attempts": "no adoption attempt is logged. re_attempts.log has repeated blocked or partial attempts on the canonical class's own methods: dtor ??1W3DModelDrawModuleData 0x000C8BE0 (lines 9939, 9976) and ctor ??0W3DModelDrawModuleData 0x000C8EEF (lines 10065-10069, where attempt 6 'designated 6-provider closure trial FAILED same gate'). rva000B5A72 has only partial attempts (lines 5401, 10405). name_agreed.csv binds Arg000B5A72 to W3DModelDrawModuleData (3 agreeing agents).",
+    "plan": "1. Stop this unit until a canonical header exists. Prerequisite lane: move the class definition from WWLib/W3DModelDrawModuleData.cpp line 150 into a header, or choose a header if one is already planned, and register it in canonical_classes.csv. 2. Write class_contracts/W3DModelDrawModuleData.json covering the Snapshot base and the size, and check the fields 0x144, 0x148, 0x14C and 0x158 against it. 3. Given the ctor and dtor attempts above, check that the header closure does not trigger the same gate before adopting. 4. Rename functions.csv line 64639 from PAUArg000B5A72 to PAVW3DModelDrawModuleData in its own commit, after the header is registered. 5. Replace struct Arg000B5A72 (lines 131-139) with the include and retype rva000B5A72's parameter to W3DModelDrawModuleData*. Keep the m_staticSortLevelWhileFading name; rename m144, m148 and m14C to m_alphaCameraFadeOuterRadius, m_alphaCameraFadeInnerRadius and m_alphaCameraAtInnerRadius. 6. The lead builds and byte-verifies rva000B5A72 (463 bytes), then runs the link check on the 25 private-view units.",
+    "risk": "high - no header or contract exists yet, the ctor and dtor have failed closure trials, and the ledger rename touches the matched row for rva000B5A72",
+    "packet": 1
+  },
+  {
+    "key": "Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Rva005084FC.cpp|class||Rva005086CETemplate",
+    "proposed_type": "WeaponTemplate",
+    "feasibility": "blocked",
+    "contract": {
+      "size": 364,
+      "size_by": "majority",
+      "key": "class",
+      "bases": []
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x141",
+    "field_map": [
+      {
+        "standin": "scaleByCount",
+        "offset": "0x140",
+        "canonical": "m_field140",
+        "agrees": true,
+        "note": "bool at +0x140 in both (WeaponTemplate.h line 169); canonical name unrecovered"
+      },
+      {
+        "standin": "divisor",
+        "offset": "0x141",
+        "canonical": "m_field141",
+        "agrees": true,
+        "note": "unsigned char at +0x141 in both (WeaponTemplate.h line 170); canonical name unrecovered"
+      },
+      {
+        "standin": "pad[0x140] (no member)",
+        "offset": "0x000-0x13F",
+        "canonical": "m_attackRange..m_field13C and earlier named fields",
+        "agrees": true,
+        "note": "stand-in only pads; no stand-in member to match"
+      }
+    ],
+    "blockers": [
+      "Size conflict: contract size is 364 (0x16C) but the canonical header declares m_field17C (void*, +0x17C, ends 0x180 = 384). Contract view_sizes show 384 in 4 views and 364 in 7. The stand-in itself only reaches 0x142, so the conflict is between the header and the contract, not the stand-in.",
+      "Base clause conflict: canonical WeaponTemplate.h declares `class WeaponTemplate : public MemoryPoolObject` with a virtual destructor (vptr at +0x0), while the contract has bases [] and its only field is m_unrecovered00 char[8] at 0x0. The stand-in has no base and no vptr. Unresolved whether the retail object has a vptr.",
+      "Prior failed attempt on this exact unit: reverse/re_attempts.log line 34907 (rva00508120, blocked, t=5, gpt-6.1-sol) says 24 weapon/source/template const-accessor and PHI variants either kept the old call merge or regressed the function, and the prior .97 bank was preserved with no production change. Line 31726 (blocked, t=9) records the same regression for a canonical adoption in this file. Line 10082 (rva005086CE, partial, 88B exact prefix, 349 vs 370 bytes) is the function that reads parameters->scaleByCount and divisor, so a template-view change lands on it directly.",
+      "Naming ledger state: reverse/name_agreed.csv row nl-0cca2773eb10 is recorded 'blocked' (WeaponTemplate already appears in Weapon.h, WeaponStore.h, WeaponTemplate.h). This is a naming guard, not a layout finding, but it must be cleared before the rename is recorded."
+    ],
+    "include_line": "#include \"../../../Include/GameLogic/WeaponTemplate.h\"",
+    "frozen": false,
+    "prior_attempts": "FAILED ATTEMPTS ON THIS UNIT: re_attempts.log lines 34907 and 31726 (rva00508120, blocked, template const-accessor variants and canonical adoption both regressed byte-exactness, 975 vs 988 bytes). Prior .97 bank kept at reverse/attempts/0x00508120.cpp. name_agreed.csv nl-0cca2773eb10 blocked. No obstacle doc in docs/linking_obstacles/ names WeaponTemplate for this unit. WeaponTemplate.h is already included by 68 .cpp files, so the header itself is in wide use.",
+    "plan": "1. Resolve the contract conflict first: run `python3 tools/class_views.py --class WeaponTemplate` and inspect the 384-byte views to decide whether the retail size is 364 or 384 (witness for +0x17C). Record the decision in the contract in its own commit; do not edit the header to fit the contract. 2. Resolve the base question: confirm the stand-in offsets are absolute from object start (the header comments use absolute offsets such as +0x14 and +0x140) and that a vptr at +0x0 is retail; record in the contract. 3. Read reverse/attempts/0x00508120.cpp and the two blocked rva00508120 rows (re_attempts 34907, 31726) before any change to rva00508120 or rva005086CE. 4. Declaration commit (only after 1-3): add `#include \"../../../Include/GameLogic/WeaponTemplate.h\"` near the existing module include; delete `struct Rva005086CETemplate {char pad[0x140];bool scaleByCount;unsigned char divisor;};`; change `Rva005084FCWeaponView::parameters` to `WeaponTemplate *parameters`; rewrite `parameters->scaleByCount` as `parameters->m_field140` and `parameters->divisor` as `parameters->m_field141` (keep the local names as comments). The stand-in's `Rva005084FCWeaponView` stays private. No mangled row changes: this unit's two rows (rva005084FC 186B, rva005086CE 349B) name no template type. 5. Byte verification by the lead on one build: rva005084FC (186B at 0x005084FC), rva005086CE (349B at 0x005086CE), and the rva00508120 helper (988B) in the same TU. 6. Affected-consumer link check on the 68 TUs that already include WeaponTemplate.h, plus the Weapon.h consumers of parameters.",
+    "risk": "high - the contract size and base clause disagree with the header, and this TU's template-accessor shape has already regressed byte-exactness twice.",
+    "packet": 2
+  },
+  {
+    "key": "Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp|class||Rva001E3647Result",
+    "proposed_type": "PathfindCell",
+    "feasibility": "ready",
+    "contract": {
+      "size": 16,
+      "size_by": "majority",
+      "key": "class",
+      "bases": []
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x0C",
+    "field_map": [
+      {
+        "standin": "m_flags",
+        "offset": "0x0C",
+        "canonical": "m_0C",
+        "agrees": true,
+        "note": "unsigned int (4 bytes) at +0x0C in both (PathfindCell.h line 61); contract m_flags uint at 0xC, retail_access 4-byte x12"
+      },
+      {
+        "standin": "m_pad[0x0C] (no member)",
+        "offset": "0x00-0x0B",
+        "canonical": "m_info (0x0), field04 (0x4), m_zone (0x8), field0A (0xA)",
+        "agrees": true,
+        "note": "stand-in only pads; the stand-in reads nothing below 0x0C"
+      }
+    ],
+    "blockers": [],
+    "include_line": "#include \"../../../Include/GameLogic/PathfindCell.h\"",
+    "frozen": false,
+    "prior_attempts": "No re_attempts.log entry for this class adoption in this unit. docs/linking_obstacles/aipathfind-canonical-mask-prerequisite-2026-11-03.md records that PathfindCell already adopted its registered header in another unit (F600C callback), which is a precedent for this adoption. name_agreed.csv row nl-b359a142c7c7 is recorded 'blocked' (PathfindCell already appears in Disp8DwordClearers.cpp, Disp8WordChaseGetters.cpp, PathfindCell_CalcCostSoFar.cpp), the same naming-guard state as WeaponTemplate.",
+    "plan": "1. Confirm the name ledger state for nl-b359a142c7c7 (naming guard only) and record the rename there. 2. Confirm the 9 Pathfinder predicate rows in this file are still matched (functions.csv lines 44686-44695: IsWaterCell 47B, IsCliffCell 36B, IsImpassableCell 38B, GetCellType 60B, GetGroundLayer 38B, IsPointOnWall 51B, isBlockedGateObstacleCell 47B, IsNonPinchedCliffCell 47B, IsBuildRestrictedCell 79B). 3. Declaration commit: add `#include \"../../../Include/GameLogic/PathfindCell.h\"` after the existing AIPathfind.h include; delete `struct Rva001E3647Result { char m_pad[0x0C]; unsigned int m_flags; };`; replace the 9 `(Rva001E3647Result *)` casts of rva001E3647Pos with `(PathfindCell *)`; replace the 11 `->m_flags` reads with `->m_0C`. Keep the raw bit expressions ((flags>>4)&0x3F, flags&0x0F) rather than getLayer()/getType() so the emitted code stays the same. Do not touch rva001E3647Pos (AIPathfind.h line 209 returns void*). 4. Byte verification by the lead on one build for the 9 rows above and the Rva002E9ACC ctor row at functions.csv line 41698 (101B), which is in the same file. 5. Affected-consumer link check on the callers of the 9 predicates (the Pathfinder methods are exported, and their names and signatures do not change). Include cycle check: PathfindCell.h has no #include lines, so the include cannot cycle.",
+    "risk": "low - size 16 and the +0x0C uint match the contract exactly, the change touches only the view type, no mangled ledger rows name the stand-in, and the 47 VPathfindCell rows are unaffected.",
+    "packet": 2
+  },
+  {
+    "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModLookTowardBfme.cpp|class||Rva0073FF30CameraPath",
+    "proposed_type": "CameraPath",
+    "feasibility": "blocked",
+    "contract": {
+      "size": null,
+      "size_by": "no contract file reverse/class_contracts/CameraPath.json",
+      "key": null,
+      "bases": null
+    },
+    "standin_key": "class",
+    "key_mismatch": false,
+    "highest_offset_used": "0x2354 in W3DView (cameraMovementMode); the stand-in CameraPath itself ends at 0x2074 (numWaypoints at 0x2070)",
+    "field_map": [
+      {
+        "standin": "W3DView::cameraPath (Rva0073FF30CameraPath)",
+        "offset": "0x280",
+        "canonical": "cameraPath (CameraPath)",
+        "agrees": true,
+        "note": "same offset in W3DViewCameraModFinalLookTowardBfme.cpp line 107; type name differs; canonical type is not in a header"
+      },
+      {
+        "standin": "W3DView::doingRotateCamera",
+        "offset": "0x1DD",
+        "canonical": "doingRotateCamera",
+        "agrees": true,
+        "note": "Bool in both"
+      },
+      {
+        "standin": "W3DView::cameraMovementMode",
+        "offset": "0x2354",
+        "canonical": "cameraMovementMode",
+        "agrees": true,
+        "note": "Int in both"
+      },
+      {
+        "standin": "Rva0073FF30CameraPath::numWaypoints",
+        "offset": "0x2070",
+        "canonical": "numWaypoints",
+        "agrees": true,
+        "note": "Int in both"
+      },
+      {
+        "standin": "Rva0073FF30CameraPath::waypoints[259] (Rva0073FF30Elem)",
+        "offset": "base+0x2C (after base ends at 0x2C)",
+        "canonical": "waypoints[259] (Rva00740AE0Elem)",
+        "agrees": true,
+        "note": "Elem = Coord3D + AsciiString + Int in both; member name differs (unknown0c vs name)"
+      },
+      {
+        "standin": "Rva0073FF30Base (vptr, m_totalTimeMilliseconds@4, unknown08..unknown28)",
+        "offset": "0x0-0x2C",
+        "canonical": "Rva00740AE0Base (vptr, unknown04..unknown28)",
+        "agrees": true,
+        "note": "same visible offsets, but base names differ; no contract decides the base"
+      }
+    ],
+    "blockers": [
+      "No canonical header: class CameraPath is defined inside W3DViewCameraModFinalLookTowardBfme.cpp (not in any Include header) and is not registered in reverse/canonical_classes.csv. Adoption would mean creating a new canonical declaration, which is not a replacement.",
+      "No class contract: reverse/class_contracts/CameraPath.json does not exist, so size, key and bases cannot be checked against a registered contract.",
+      "Base class name differs: stand-in Rva0073FF30Base vs canonical Rva00740AE0Base. Offsets agree by visible layout only; whether they are the same retail base is not established.",
+      "Naming ledger state: reverse/name_agreed.csv row nl-c67515b59f37 is recorded 'blocked' (CameraPath already appears in W3DViewCameraModFinalLookTowardBfme.cpp)."
+    ],
+    "include_line": "none available: no canonical header exists for CameraPath",
+    "frozen": false,
+    "prior_attempts": "No re_attempts.log or docs/linking_obstacles entry for this adoption. name_agreed.csv nl-c67515b59f37 blocked. re_attempts lines 6276-6286 are BFME1 CameraPath ctor/dtor rows (Rva0008990C/Rva0089971, base 851F3), a different donor, not this adoption.",
+    "plan": "1. Do not replace the stand-in now. Keep the name_agreed nl-c67515b59f37 blocked state. 2. Decide, with the owner, whether CameraPath gets a canonical header and a class contract. That is a new canonical declaration, so it needs its own commit: move the class from W3DViewCameraModFinalLookTowardBfme.cpp into a header and generate the contract. 3. Resolve the base: once the contract exists, run `python3 tools/class_views.py --class CameraPath` and confirm Rva0073FF30Base and Rva00740AE0Base are the same retail base (vptr at +0, unknown04 Int at +4). 4. Only then do the declaration commit: replace the private Elem, Base and CameraPath in W3DViewCameraModLookTowardBfme.cpp with the include, and keep the W3DView::cameraPath offset 0x280 and cameraMovementMode 0x2354. 5. Byte verification by the lead for cameraModLookToward (498B, functions.csv line 51784) and the rows in W3DViewCameraModFinalLookTowardBfme.cpp. 6. Affected-consumer link check on W3DView::cameraModLookToward and moveAlongWaypointPath callers.",
+    "risk": "high - two definitions of the same class live in .cpp files with no header and no contract; a name-only merge would hide a base-class question that affects the W3DView offsets.",
+    "packet": 2
+  },
+  {
+    "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawTurretInfo.cpp|class||Rva000BBE86Rec",
+    "proposed_type": "TurretInfo",
+    "feasibility": "blocked",
+    "contract": {
+      "file": "reverse/class_contracts/TurretInfo.json (missing)",
+      "size": null,
+      "size_by": null,
+      "key": null,
+      "bases": null
+    },
+    "standin_key": "struct",
+    "key_mismatch": false,
+    "highest_offset_used": "0x14 (int m_slot14, ends 0x18; stand-in struct is 0x18 bytes, matching the canonical 0x18 from the parser's own note)",
+    "field_map": [
+      {
+        "standin": "m_key0",
+        "offset": "0x00",
+        "canonical": "m_turretAngleNameKey",
+        "agrees": true,
+        "note": "both int"
+      },
+      {
+        "standin": "m_key4",
+        "offset": "0x04",
+        "canonical": "m_turretPitchNameKey",
+        "agrees": true,
+        "note": "both int"
+      },
+      {
+        "standin": "m_pad[8]",
+        "offset": "0x08-0x0F",
+        "canonical": "m_turretArtAngle (Real @0x08) and m_turretArtPitch (Real @0x0C)",
+        "agrees": true,
+        "note": "stand-in has no member here; keep it as pad and never write it, or the art floats are clobbered"
+      },
+      {
+        "standin": "m_turretAngleBone",
+        "offset": "0x10",
+        "canonical": "m_turretAngleBone",
+        "agrees": true,
+        "note": "both int; agreed name in reverse/name_agreed.csv"
+      },
+      {
+        "standin": "m_slot14",
+        "offset": "0x14",
+        "canonical": "m_turretPitchBone",
+        "agrees": true,
+        "note": "both int; agreed name is m_turretPitchBone per name_agreed.csv, source still says m_slot14"
+      }
+    ],
+    "blockers": [
+      "No registered canonical header: reverse/canonical_classes.csv has no TurretInfo row (header column is '-'), and class_views.py lists only one unit, W3DModelDrawConditionParsers.cpp:30, as a file-local struct.",
+      "Scope conflict: the canonical struct is at namespace scope in W3DModelDrawConditionParsers.cpp:30, but the ledger names the class ModelConditionInfo::TurretInfo (reverse/functions.csv row ?clear@TurretInfo@ModelConditionInfo@@ at 0x000B2945, in W3DModelDraw.cpp). Pick one name before any edit.",
+      "Third competing view: W3DModelDrawClientTurret.cpp:96 defines a local TurretInfoView with the same fields. It must be reconciled or it will keep a private copy alive.",
+      "No class contract: reverse/class_contracts/TurretInfo.json does not exist, so size and key cannot be checked against the registry."
+    ],
+    "include_line": "",
+    "frozen": false,
+    "prior_attempts": "re_attempts.log line 32945 is the landed validateTurretInfo row (0x000BBE86, 197B) that uses this stand-in on purpose: the note says a real STL vector plus a signed donor index resolved an earlier 196B allocation wall, and it asks for no new pins or aliases. No failed attempt names Rva000BBE86Rec or TurretInfo as an adoption. docs/linking_obstacles/ has no turret file.",
+    "plan": "1. Get a decision from the owner on the canonical home: a registered header for TurretInfo, and its scope (global TurretInfo vs ModelConditionInfo::TurretInfo). Nothing else can be planned until that exists. 2. Register TurretInfo in reverse/canonical_classes.csv and create reverse/class_contracts/TurretInfo.json (struct, no bases, size 0x18, fields at 0x00/0x04/0x08/0x0C/0x10/0x14) through the normal registry step, not by hand. 3. Reconcile W3DModelDrawClientTurret.cpp TurretInfoView onto the same header in its own commit, or document it as an allowed second view. 4. Declarations commit: in W3DScriptedModelDrawTurretInfo.cpp, delete the private struct Rva000BBE86Rec and include the header; keep the m_pad[8] bytes at 0x08 and do not touch validateTurretInfo's body. 5. Byte-verify validateTurretInfo at 0x000BBE86 (197B) and the TurretNames unit that uses the same +0xD0 vector. 6. Affected-consumer link check: W3DModelDrawConditionParsers.cpp, W3DModelDraw.cpp, W3DModelDrawClientTurret.cpp, W3DScriptedModelDrawTurretNames.cpp.",
+    "risk": "medium-high - the scope conflict and the second TurretInfoView mean the change touches three units, and the matched 197B body must stay byte-identical after the type swap",
+    "packet": 3
+  },
+  {
+    "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDrawBfmeDoDraw.cpp|class||Rva00756F00LaserUpdate",
+    "proposed_type": "LaserUpdate",
+    "feasibility": "blocked",
+    "contract": {
+      "file": "reverse/class_contracts/LaserUpdate.json (missing)",
+      "size": null,
+      "size_by": null,
+      "key": null,
+      "bases": null
+    },
+    "standin_key": "class",
+    "key_mismatch": false,
+    "highest_offset_used": "0x3C (float m_currentWidthScalar, ends 0x40). Canonical source class ends at m_targetID @0x50 (ends 0x54), so the view fits in the canonical size, but that size is derived from source, not from a contract",
+    "field_map": [
+      {
+        "standin": "m_at00[0xC]",
+        "offset": "0x00-0x0B",
+        "canonical": "Rva0049B47C base (vptr, m_moduleData, m_drawable)",
+        "agrees": true,
+        "note": "stand-in has no vptr; canonical base is polymorphic (virtual dtor), so the view is non-polymorphic and must not be used for virtual calls"
+      },
+      {
+        "standin": "m_startPos (Coord3D)",
+        "offset": "0x0C",
+        "canonical": "m_startPos (Coord3D)",
+        "agrees": true,
+        "note": "both 12 bytes"
+      },
+      {
+        "standin": "m_endPos (Coord3D)",
+        "offset": "0x18",
+        "canonical": "m_endPos (Coord3D)",
+        "agrees": true,
+        "note": "both 12 bytes"
+      },
+      {
+        "standin": "m_dirty (Bool)",
+        "offset": "0x24",
+        "canonical": "m_dirty (bool)",
+        "agrees": true,
+        "note": "agrees only if Bool is typedef bool (1 byte); the stand-in TU does not show the typedef, so confirm"
+      },
+      {
+        "standin": "m_at25[0x17]",
+        "offset": "0x25-0x3B",
+        "canonical": "m_pad25[3] @0x25, m_particleSystemID @0x28, m_targetParticleSystemID @0x2C, m_widening @0x30, m_decaying @0x31, m_pad32 @0x32, m_widenStartFrame @0x34, m_widenFinishFrame @0x38",
+        "agrees": true,
+        "note": "stand-in pads over canonical fields the view does not read"
+      },
+      {
+        "standin": "m_currentWidthScalar (Real)",
+        "offset": "0x3C",
+        "canonical": "m_currentWidthScalar (float)",
+        "agrees": true,
+        "note": "both 4 bytes"
+      }
+    ],
+    "blockers": [
+      "No registered canonical header: reverse/canonical_classes.csv has no LaserUpdate row and the header column is '-'. The class is defined in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp, a .cpp TU, so there is no header to include.",
+      "No class contract: reverse/class_contracts/LaserUpdate.json does not exist.",
+      "Base mismatch: the canonical class derives from Rva0049B47C (polymorphic, 0x0C bytes, defined only inside LaserUpdate.cpp). The stand-in has no base and no vptr. Adopting the canonical type would pull that base into the include."
+    ],
+    "include_line": "",
+    "frozen": false,
+    "prior_attempts": "re_attempts.log line 35321 has clientUpdate@LaserUpdate landed at 0x00363233 (809B) against the canonical LaserUpdate layout, so the canonical member layout is already proven by matched code. Line 761 records the LaserUpdate ctor 0x000CA752 as blocked because the 'BFME2 LaserUpdate layout differs (no string members)'. Line 26816 shows a rope-draw ctor colliding with that address. No logged attempt covers this stand-in or the doDrawModule row at 0x000C9360. docs/linking_obstacles/ has no laser file.",
+    "plan": "1. Owner decision: where the canonical LaserUpdate definition lives. It is in a .cpp (LaserUpdate.cpp) and has no registered header, so the declaration must first be moved to a header through the normal registry process. 2. Create reverse/class_contracts/LaserUpdate.json and its canonical_classes.csv row (struct/class key, base Rva0049B47C, size 0x54 derived from source, members at 0x0C/0x18/0x24/0x3C). 3. Confirm Bool is typedef bool (1 byte) so m_dirty at 0x24 agrees. 4. Declarations commit: in W3DLaserDrawBfmeDoDraw.cpp, replace Rva00756F00LaserUpdate with the canonical type and its accessors, keeping the cast at line 109 and its pool key. 5. Byte-verify doDrawModule at 0x000C9360 (1689B, matched) and the EH funclet at 0x00762273. 6. Affected-consumer link check: LaserUpdate.cpp and its ctor/dtor/xfer/clientUpdate TUs (LaserUpdateCtor.cpp, LaserUpdateXfer.cpp, LaserUpdateClientUpdate.cpp), plus W3DLaserDrawBfmeDoDraw.cpp.",
+    "risk": "high - the canonical class is defined only inside a .cpp, and adopting it means moving a declaration plus its polymorphic base into a header, which touches the ctor and dtor TUs that are not yet matched",
+    "packet": 3
+  },
+  {
+    "key": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DAptRendererBeginTriangleList.cpp|class||BfmeAptVertexBufferInterface",
+    "proposed_type": "IDirect3DVertexBuffer8",
+    "feasibility": "needs-evidence",
+    "contract": {
+      "file": "reverse/class_contracts/IDirect3DVertexBuffer8.json (missing)",
+      "size": null,
+      "size_by": null,
+      "key": "struct (from the shim)",
+      "bases": []
+    },
+    "standin_key": "struct",
+    "key_mismatch": false,
+    "highest_offset_used": "vtable slot 11 (Lock, 0x2C on 4-byte entries). The stand-in is a 12-slot prefix (0x30 bytes); the canonical vtable has 14 slots (0x38 bytes). Used only through a pointer, so no object size is needed",
+    "field_map": [
+      {
+        "standin": "slot0..slot10 (pure virtual placeholders)",
+        "offset": "vtable 0x00-0x28",
+        "canonical": "D3DRESOURCE_METHODS: QueryInterface, AddRef, Release, GetDevice, SetPrivateData, GetPrivateData, FreePrivateData, SetPriority, GetPriority, PreLoad, GetType (11 entries)",
+        "agrees": true,
+        "note": "same count and order as the shim macro, so slot indexes match"
+      },
+      {
+        "standin": "Lock(unsigned, unsigned, void**, unsigned)",
+        "offset": "vtable slot 11 (0x2C)",
+        "canonical": "Lock(UINT, UINT, BYTE**, DWORD)",
+        "agrees": true,
+        "note": "same ABI (4-byte args, one pointer out). The C++ types differ: void** vs BYTE**. The call site passes &memory where memory is void*, so it will not compile against BYTE** without a cast or retyping"
+      },
+      {
+        "standin": "(not declared)",
+        "offset": "vtable slots 12-13 (0x30, 0x34)",
+        "canonical": "Unlock(), GetDesc(void*)",
+        "agrees": true,
+        "note": "stand-in is a prefix view; it never calls these, so the prefix note stays"
+      }
+    ],
+    "blockers": [
+      "No class contract: reverse/class_contracts/IDirect3DVertexBuffer8.json does not exist, and canonical_classes.csv has no row. The only authority is the vendored shim, reference/shims/d3d8_shim_validated.h:219.",
+      "Call-site type mismatch inside a matched function: BeginTriangleList (0x00111224, 238B, matched) passes &memory (void**) to Lock, which takes BYTE**. Fixing it means either a reinterpret_cast on &memory (no codegen change expected) or retyping memory to BYTE* (changes the local and the end computation). Either one needs a byte check."
+    ],
+    "include_line": "#include <d3d8.h>",
+    "frozen": false,
+    "prior_attempts": "No re_attempts.log entry names BfmeAptVertexBufferInterface or IDirect3DVertexBuffer8. docs/linking_obstacles/ has no matching file. IDirect3DVertexBuffer8 is already used by two linked units (W3DBuffBuffer.cpp and W3DVolumetricShadowRenderDynamicMeshVolume.cpp per class_views.py), and W3DBufferManager.cpp already includes <d3d8.h>. Git log: 91610c5cc5c named the stand-in's placeholders by two-agent agreement.",
+    "plan": "1. Include path: add #include <d3d8.h>. The unit's cl line already has /Ireference/shims/sweep, and sweep/d3d8.h includes ../d3d8_shim_validated.h, which includes only winbase_shim.h. There is no Code-level include, so no cycle. 2. Compile check (owner runs the build): the shim's typedefs (DWORD, UINT, BOOL, RECT, POINT, GUID, D3DVECTOR, PALETTEENTRY) may collide with matrix4.h, shader.h or RenderStateStruct.h, which this TU already includes. 3. Replace the struct BfmeAptVertexBufferInterface with IDirect3DVertexBuffer8 in BfmeAptVertexBufferView::deviceBuffer. Keep the 11 placeholder slots out of the new type, since the shim already has them. 4. Keep the Lock call without changing codegen: cast &memory to BYTE** (reinterpret_cast) rather than retyping memory. 5. Create the contract reverse/class_contracts/IDirect3DVertexBuffer8.json (struct, no bases, 14 slots) or record that the shim is its only authority. 6. Declarations commit, then byte-verify BeginTriangleList (0x00111224, 238B) and rva00110CFE (0x00110CFE, 705B). 7. Affected-consumer link check: W3DBuffBuffer.cpp, W3DVolumetricShadowRenderDynamicMeshVolume.cpp and W3DBufferManager.cpp.",
+    "risk": "low-medium - the vtable layout is a clean match, but the call-site type change sits inside a matched 238B body and needs a byte check; the shim's typedefs may clash with this TU's includes",
+    "packet": 3
+  },
+  {
+    "key": "Code/GameEngine/Source/Common/Rva00262045Unlink.cpp|class||Node00262045",
+    "proposed_type": "DisplayString",
+    "feasibility": "blocked",
+    "contract": {
+      "size": 4,
+      "size_by": "majority",
+      "key": "class",
+      "bases": [],
+      "note": "contract size 4 is contradicted by 5 views at size 20 (extent_lower_bound 20, retail ctor writes 0x04..0x10)"
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x10 (m_prev, 4 bytes, ends 0x14)",
+    "field_map": [
+      {
+        "standin": "m_pad00[0x0C]",
+        "offset": "0x00-0x0B",
+        "canonical": "__vfptr (0x00), m_textString (0x04), m_font (0x08)",
+        "agrees": true,
+        "note": "opaque pad; unLink never touches these bytes"
+      },
+      {
+        "standin": "m_next",
+        "offset": "0x0C",
+        "canonical": "DisplayString::m_next (DisplayString.h:56)",
+        "agrees": true,
+        "note": "both 4-byte pointers; canonical member is protected"
+      },
+      {
+        "standin": "m_prev",
+        "offset": "0x10",
+        "canonical": "DisplayString::m_prev (DisplayString.h:57)",
+        "agrees": true,
+        "note": "both 4-byte pointers; canonical member is protected"
+      }
+    ],
+    "blockers": [
+      "size: reverse/class_contracts/DisplayString.json size 4 (size_by majority, 46 views at 4 vs 5 at 20) under-reports the layout. m_prev at 0x10 ends at 0x14, which DisplayString.h:2 and the W3D ctor bound at 0x14. The contract must be corrected before adoption.",
+      "access: DisplayString.h:56-57 declares m_next and m_prev protected, and the only friend is class DisplayStringManager (DisplayString.h:21). Rva00262045::unLink is not a friend, so the rewritten body would not compile (C2248). The owner Rva00262045 is probably DisplayStringManager per reverse/attempt_support/tu-evidence-00262045-displaystringmanager-20261105.md; that owner merge is not yet possible (rename.py refuses it), so the friend route is unproven.",
+      "class key: the stand-in is struct; the contract key is class (bytes). The unit's one ledger row (reverse/functions.csv:21960, ?unLink@Rva00262045@@QAEXPAUNode00262045@@@Z) mangles PAUNode00262045 and would respell to PAVDisplayString@@."
+    ],
+    "include_line": "#include \"../../Include/GameClient/DisplayString.h\"",
+    "frozen": false,
+    "prior_attempts": "No reverse/re_attempts.log entry for Node00262045, Rva00262045 or unLink. No docs/linking_obstacles file matches. Closest record: reverse/attempt_support/tu-evidence-00262045-displaystringmanager-20261105.md, which is about the owner class (Rva00262045 and Rva0026201C as DisplayStringManager), not a failed DisplayString adoption; it records that rename.py class refuses the merge. Commit 914754cfb0b renamed the function to unLink. reverse/name_agreed.csv:5218 is blocked only because DisplayString already appears in other units, which is a ledger gate.",
+    "plan": "1. Correct reverse/class_contracts/DisplayString.json size from 4 to 0x14 using the 5 size-20 views and the W3D ctor evidence (contract tooling step; not done here). 2. Decide the owner: prove Rva00262045 is DisplayStringManager (the ZH file-order argument in the tu-evidence note), which satisfies the existing friend; otherwise add friend class Rva00262045 to DisplayString.h (a shared header used by 21 units). Decide before editing. 3. Declarations-only commit: in Rva00262045Unlink.cpp, delete struct Node00262045 (lines 10-15), add the include line, and type the parameter and members as DisplayString*; keep the unLink body. The include has no cycle: DisplayString.h includes only reference/shims/bfme2_ascii/unicode_string.h, which includes string_base.h, and neither includes a GameEngine unit. 4. Respell the single unLink row at functions.csv:21960 with tools/rename.py rather than by hand, and update the name_basis/name_agreed rows for param n. 5. Byte verification by the lead: unLink must stay 50 bytes and exact. 6. Affected-consumer link check: W3DDisplayStringManager.cpp:66-67 and :160, freeDisplayString 0x00090381 (which calls unLink on its this), and the other DisplayString units in class_views (21 units, 21 layouts). 7. Clear name_agreed.csv:5218 once the link check passes.",
+    "risk": "medium-high - the contract size fix and the owner or friend decision both touch shared surfaces; the single ledger row respell is low risk.",
+    "packet": 4
+  },
+  {
+    "key": "Code/GameEngine/Source/Common/System/Rva002F1BD5Finish.cpp|class||Rva002F1BD5Data",
+    "proposed_type": "PathfindCellInfo",
+    "feasibility": "blocked",
+    "contract": {
+      "size": null,
+      "size_by": null,
+      "key": null,
+      "bases": null,
+      "note": "no reverse/class_contracts/PathfindCellInfo.json and no reverse/canonical_classes.csv row; the nearest contract (PathfindCell, size 16, key class) is a different class"
+    },
+    "standin_key": "struct",
+    "key_mismatch": null,
+    "highest_offset_used": "Data: 0x2B (m_objectID, int at 0x28-0x2B). PathfindCell view Rva002F1BD5Arg: 0x0F (m_flags at 0x0C-0x0F).",
+    "field_map": [
+      {
+        "standin": "Rva002F1BD5Data::m_pad[0x28]",
+        "offset": "0x00-0x27",
+        "canonical": "PathfindCellInfo::m_pad00[0x28] (AIPathfind.cpp:10)",
+        "agrees": true,
+        "note": "opaque pad in both"
+      },
+      {
+        "standin": "Rva002F1BD5Data::m_objectID",
+        "offset": "0x28",
+        "canonical": "PathfindCellInfo::m_obstacleID (AIPathfind.cpp:11, ObjectID enum)",
+        "agrees": true,
+        "note": "both 4 bytes; stand-in int versus enum ObjectID is a type-only difference"
+      },
+      {
+        "standin": "Rva002F1BD5Arg::m_00",
+        "offset": "0x00",
+        "canonical": "PathfindCell::m_info (PathfindCell.h:57, PathfindCellInfo*)",
+        "agrees": true,
+        "note": "4-byte pointer; the stand-in's Data* and the canonical PathfindCellInfo* match in width"
+      },
+      {
+        "standin": "Rva002F1BD5Arg::m_04[8]",
+        "offset": "0x04-0x0B",
+        "canonical": "PathfindCell field04 uint (0x04), m_zone ushort (0x08), field0A ushort (0x0A)",
+        "agrees": "partial",
+        "note": "same 8-byte span; the stand-in leaves it opaque, the canonical splits it into three fields"
+      },
+      {
+        "standin": "Rva002F1BD5Arg::m_flags",
+        "offset": "0x0C",
+        "canonical": "PathfindCell::m_flags (uint, 4 bytes at 0x0C)",
+        "agrees": true,
+        "note": "width agrees; signedness differs (int versus uint), and the & 15 test is sign-neutral"
+      }
+    ],
+    "blockers": [
+      "no registered canonical header: PathfindCellInfo has no canonical_classes.csv row, no class contract and no header under Code/GameEngine/Include. Its only definition is a private struct PathfindCellInfo inside Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp (line 187), so there is no include line to adopt.",
+      "class versus struct conflict: PathfindCell.h:10 forward-declares class PathfindCellInfo, while AIPathfind.cpp defines struct PathfindCellInfo. Any future mangled name for this type would be ambiguous between U and V until one key is chosen. No functions.csv row mangles PathfindCellInfo today.",
+      "size unknown: with no contract, the only proven extent of PathfindCellInfo is 0x2C (highest offset 0x2B). The PathfindCell side does fit: highest offset 0x0F is inside the contract size 16.",
+      "ledger gate: reverse/name_agreed.csv:3689 (nl-8a736da3dd37) is blocked because PathfindCellInfo already appears in other units, which is a ledger gate and not a compile issue. The first listed file, Code/GameEngine/Source/Common/PathfindCell_IsObstaclePresent.cpp, does not exist in this worktree."
+    ],
+    "include_line": "No include yet: no canonical header exists. Once one exists, from this file's directory the path would be \"../../../Include/GameLogic/PathfindCellInfo.h\" (a new file, needs a decision). The current include line 9 is \"../GameLogicObjectLookupView.h\".",
+    "frozen": false,
+    "prior_attempts": "reverse/re_attempts.log lines 3904 and 21681 are the cellCallback body (0x002F1BD5, 80B; earlier partial 76B vs 80B), not this class adoption. No attempt on Rva002F1BD5Data to PathfindCellInfo. docs/linking_obstacles/aipathfind-canonical-mask-prerequisite-2026-11-03.md is the closest doc: PathfindCellInfo lives in AIPathfind.cpp, and that doc records declaration-order, private-view, template and byte obstacles on the AIPathfind canonical mask adoption. Read it before choosing a home for the type.",
+    "plan": "1. Do not edit now: no canonical home exists. 2. Decide the home with Dave before creating anything: either a new Code/GameEngine/Include/GameLogic/PathfindCellInfo.h carrying m_obstacleID at 0x28, or keep it in AIPathfind.cpp and do not adopt. 3. Choose the key (struct or class) and align PathfindCell.h:10 with it in a declarations-only commit. 4. Register the class in reverse/canonical_classes.csv and write reverse/class_contracts/PathfindCellInfo.json (size, key, m_obstacleID at 0x28). 5. Declarations commit: in Rva002F1BD5Finish.cpp replace struct Rva002F1BD5Data with PathfindCellInfo, rename m_objectID to m_obstacleID, and optionally split Rva002F1BD5Arg::m_04[8] into field04 and m_zone and field0A (keep char[8] if the ABI-neutral route is preferred). 6. Respell any name_basis and name_agreed rows through tools/rename.py. The cellCallback row (functions.csv:30626) does not mangle the Data type, so it does not change. 7. Byte verification of cellCallback (80B, must stay exact) by the lead. 8. Affected-consumer link check: Pathfinder::iterateCellsAlongLine 0x002F203F (PathfinderCellLineWalks.cpp) and the other PathfindCell-using units, including the 3 units named in name_agreed.csv:3689.",
+    "risk": "medium - a new canonical header and a class versus struct choice touch PathfindCell.h, AIPathfind.cpp and the AIPathfind mask work recorded in docs/linking_obstacles.",
+    "packet": 4
+  },
+  {
+    "key": "Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp|class||Rva00419CD4",
+    "proposed_type": "GameResultsInterface",
+    "feasibility": "blocked",
+    "contract": {
+      "size": null,
+      "size_by": null,
+      "key": null,
+      "bases": null,
+      "note": "no reverse/class_contracts/GameResultsInterface.json and no canonical_classes.csv row; canonical_ref is a .cpp, not a header"
+    },
+    "standin_key": "class",
+    "key_mismatch": null,
+    "highest_offset_used": "n/a: the stand-in no longer exists in the source",
+    "field_map": [],
+    "blockers": [
+      "stale candidate: already folded. Commit b85670a7fb0 'Fold class Rva00419CD4 into GameResultsInterface' is an ancestor of HEAD. GameEngineDeletingBaseDerived.cpp now declares class GameResultsInterface (line 129), and rg finds no Rva00419CD4 in that file or in GameResultsQueueStartup_Unresolved.cpp. This entry has nothing left to reconcile.",
+      "ledger residue (not a source blocker): reverse/name_agreed.csv:4859 and :4864 still carry the Rva00419CD4 class row (4864 blocked); reverse/data_ledger.csv:10084 keeps ??_7Rva00419CD4@@6B@ as an alias of 0x0083AD08; reverse/name_tiers.csv:11624-11625 and reverse/wb_name_leads.csv:15583 and :17915 still show PLACEHOLDER rows for the old name.",
+      "no registry contract: no contract or canonical_classes row exists for GameResultsInterface, so size, layout and key cannot be compared to a registered contract. The queue unit (GameResultsQueueStartup_Unresolved.cpp:62) is the other declaration."
+    ],
+    "include_line": null,
+    "frozen": false,
+    "prior_attempts": "No reverse/re_attempts.log entry for Rva00419CD4. docs/linking_obstacles/link-618-vtable-bridge-multiple-kept-names-placeholder-folds.md (lines 67-76) records this fold under the hash 72c2fc0e8da, while the landed commit on this HEAD is b85670a7fb0. The same doc records the duplicate-constructor failure that the dllimport forceinline change resolved. link-135-gameresultsthread-complete-donors-remain-incompatible-in.md concerns the queue donors, not this fold.",
+    "plan": "1. Close this candidate as already done; no source edit. 2. Re-confirm during the lead's verification with rg -n Rva00419CD4 Code/GameEngine/Source. 3. Clear the stale ledger residue in a ledger-only commit made through the rename tooling, not by hand: name_agreed.csv:4859 and :4864 (blocked to superseded), data_ledger.csv:10084 alias, name_tiers.csv:11624-11625, wb_name_leads.csv:15583 and :17915. 4. Ask the lead whether the data_ledger alias still affects the vtable bridge at 0x0083AD08; the fold commit's 9-unit link check reported 34,688 linked before and after. 5. No contract is needed for this fold.",
+    "risk": "low - the source fold is already on HEAD; only ledger residue remains, and it is outside the source link path unless the data_ledger alias still matters.",
+    "packet": 4
+  },
+  {
+    "key": "Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorPrimarySlots.cpp|class||Rva004534F5PlayerPart",
+    "proposed_type": "PlayerTemplate",
+    "feasibility": "ready",
+    "contract": {
+      "size": 476,
+      "size_by": "majority",
+      "key": "class",
+      "bases": []
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x1BC (bool m_isEvil, 1 byte; ends 0x1BD). Contract size 476 (0x1DC) fits.",
+    "field_map": [
+      {
+        "standin": "m_pad000[0x1BC] (opaque char pad, Rva004534F5PlayerPart +0x000..+0x1BB)",
+        "offset": "0x000",
+        "canonical": "(Overridable base and earlier members; padding only, never read)",
+        "agrees": null,
+        "note": "padding, not a member in use; no blocker"
+      },
+      {
+        "standin": "m_isEvil",
+        "offset": "0x1BC",
+        "canonical": "bool m_isEvil (PlayerTemplate.h:120, +0x1BC); contract field name m_1BC bool size 1 at offset 444 (0x1BC)",
+        "agrees": true,
+        "note": "offset, width (1 byte) and type (bool) agree; contract's placeholder name differs, canonical header name is m_isEvil"
+      },
+      {
+        "standin": "Player::m_34 (Rva004534F5PlayerPart *) at Player+0x34",
+        "offset": "0x034",
+        "canonical": "const PlayerTemplate *m_playerTemplate in Common/Player.h:255, placed directly before m_opaque38 at 0x38",
+        "agrees": true,
+        "note": "both 4-byte pointers; the 0x34 position is inferred from the 0x38 member, Player.h does not state it. Stand-in's Player class is a private second view of Player and stays private in this plan"
+      }
+    ],
+    "blockers": [],
+    "include_line": "#include \"../../../../Include/Common/PlayerTemplate.h\"",
+    "include_cycle": "none: PlayerTemplate.h includes only Overridable.h and the ascii_string shim",
+    "frozen": false,
+    "frozen_check": "tools/find_declared_unmatched.py printed 'All defined functions are already matched.'",
+    "prior_attempts": "No re_attempts.log entry for this unit or its row ?onObjectCreated@GettingBuiltBehavior@@UAEXXZ (0x004534F5). No docs/linking_obstacles note names this unit; link-507 concerns GettingBuiltBehaviorModuleData and is a different header.",
+    "plan": "1. Add the include line above next to the unit's existing include block.\n2. Delete struct Rva004534F5PlayerPart (lines 67-71) and retype the private Player view member to const PlayerTemplate *m_34; // +0x34 (match Player.h's const).\n3. Leave the body at line 114 (player->m_34->m_isEvil) unchanged; m_isEvil is at +0x1BC in PlayerTemplate.h, which is the same offset.\n4. Make this declaration-only change as its own commit; do not touch the Player private view beyond the member type.\n5. Dave's build runs the byte check for row 0x004534F5 (194 bytes) and the link check for PlayerTemplate consumers (layout 3d80ccf86f and cd12039382 units first). Expect byte-identical output.\n6. Record the keyword struct->class change as a no-op for mangling: the unit's only row (?onObjectCreated@GettingBuiltBehavior@@) does not spell the stand-in type, so no ledger rename is needed.",
+    "risk": "low - one member retyped and one include added; the stand-in's Player view remains a private competing view, which is out of scope here",
+    "packet": 5
+  },
+  {
+    "key": "Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp|class||Rva002E9ACCTemplate",
+    "proposed_type": "ThingTemplate",
+    "feasibility": "blocked",
+    "contract": {
+      "size": 1,
+      "size_by": "majority",
+      "key": "class",
+      "bases": []
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x634 (unsigned char m_canPathThroughGates, 1 byte; ends 0x635). Retail extent is 0x640 (contract evidence allocation_observed 0x640 and extent_lower_bound 1600 at ctor 0x33E1B8), so the stand-in fits the real extent but not the registered contract size.",
+    "field_map": [
+      {
+        "standin": "_00[0x56C] (opaque char pad)",
+        "offset": "0x000",
+        "canonical": "ThingTemplate members before +0x56C",
+        "agrees": null,
+        "note": "padding; no blocker"
+      },
+      {
+        "standin": "m_slopeLimitIndex (int)",
+        "offset": "0x56C",
+        "canonical": "unsigned int m_slopeLimitIndex (ThingTemplate.h:203, +0x56C)",
+        "agrees": true,
+        "note": "offset and width (4 bytes) agree; signedness differs (int vs unsigned int). Rva002E9ACCCount returns int, so the value is reinterpreted, not changed; ABI unaffected"
+      },
+      {
+        "standin": "_570[0x634-0x570] (opaque pad)",
+        "offset": "0x570..0x633",
+        "canonical": "ThingTemplate members in that range",
+        "agrees": null,
+        "note": "padding; no blocker"
+      },
+      {
+        "standin": "m_canPathThroughGates (unsigned char)",
+        "offset": "0x634",
+        "canonical": "unsigned char m_canPathThroughGates (ThingTemplate.h:277, +0x634)",
+        "agrees": true,
+        "note": "offset, width and type agree"
+      },
+      {
+        "standin": "Object::m_04 (Rva002E9ACCTemplate *) at Object+0x04",
+        "offset": "0x004",
+        "canonical": "not a ThingTemplate field (pointer held by the stand-in's private Object view)",
+        "agrees": null,
+        "note": "stays with the private Object view; out of scope"
+      }
+    ],
+    "blockers": [
+      "registered contract class_contracts/ThingTemplate.json records size 1 (size_by majority), but its own retail evidence gives 0x640 (allocation_observed; extent_lower_bound 1600 at 0x33E1B8). The size gate cannot pass against a size of 1; the contract must be repaired first",
+      "ThingTemplate contract has an empty fields list (0 entries), so the field comparison above relies on ThingTemplate.h's offset comments, not the contract",
+      "key mismatch: stand-in says struct, contract and canonical say class. No ledger row spells the stand-in type (the unit's only type-bearing row is ??0Rva002E9ACC@@QAE@PAXPAVObject@@PBURva002E8BCFSrc@@EE@Z, which takes Object*), so the rename is a source keyword change, not a row rename"
+    ],
+    "include_line": "#include \"../../../Include/Common/ThingTemplate.h\"",
+    "include_cycle": "none found: ThingTemplate.h includes ascii_string shim and Overridable.h; Overridable.h has no includes; neither reaches an AI/Pathfinder header",
+    "frozen": false,
+    "frozen_check": "tools/find_declared_unmatched.py printed 'All defined functions are already matched.'",
+    "prior_attempts": "No re_attempts.log entry for this unit; the 0x002E9ACC row is 'converted' (line 23666) for the stand-in's ctor. Precedent: link-202 cleared four AI state units onto the canonical ThingTemplate header on 2026-11-04 with byte matches; link-582 cleared three W3D consumers. No failed attempt for this exact adoption found.",
+    "plan": "1. Run the contract repair first as its own commit: correct class_contracts/ThingTemplate.json size from 1 to 0x640 (1600) with the ctor evidence at 0x33E1B8, using the contract tooling (tools/class_contract.py) rather than a hand edit. Re-run the size gate.\n2. Confirm the stand-in's highest offset 0x634 (+1 = 0x635) fits 0x640.\n3. In the source commit, add the include line above, remove struct Rva002E9ACCTemplate (lines 166-172), and point Object::m_04 at ThingTemplate * (keeping the private Object view).\n4. Keep int vs unsigned int as-is or cast explicitly in Rva002E9ACCCount/Flag; document the signedness difference in the commit message.\n5. Dave's build: byte-verify the 101-byte ctor row 0x002E9ACC and the predicate rows in this file (0x002E9871, 0x002E9897, 0x002E98C6, 0x002E9919, 0x002E9948, 0x002E996E, 0x002E99BD, 0x002E940F, 0x002E98EA).\n6. Affected-consumer link check on the ThingTemplate header's users (102 units, including the AI units cleared under link-202).",
+    "risk": "medium - the contract size defect affects every ThingTemplate size gate, not only this unit; the field match itself is clean at 0x56C and 0x634",
+    "packet": 5
+  },
+  {
+    "key": "Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp|class||Rva004A4214",
+    "proposed_type": "StructureCollapseUpdate",
+    "feasibility": "blocked",
+    "contract": {
+      "size": 68,
+      "size_by": "retail-new",
+      "key": "class",
+      "bases": [
+        "UpdateModule",
+        "DieModuleInterface"
+      ]
+    },
+    "standin_key": "class",
+    "key_mismatch": false,
+    "highest_offset_used": "0x20 (vptr of Rva004A4214_E1, 4 bytes; ends 0x24). Contract size 68 (0x44) fits. No stand-in data members.",
+    "field_map": [
+      {
+        "standin": "UpdateModule base (vptr at +0x00)",
+        "offset": "0x000",
+        "canonical": "UpdateModule base, vptr 0x00C52648 (contract vftables 0x0)",
+        "agrees": true,
+        "note": "same base at same offset"
+      },
+      {
+        "standin": "Rva004A4214_E1 base (vptr at +0x20; virtual fe)",
+        "offset": "0x020",
+        "canonical": "DieModuleInterface base at +0x20 (contract bases offset 32, vptr 0x00C52638; virtual onDie)",
+        "agrees": true,
+        "note": "offset, width and single-virtual slot agree; the base name differs (fe vs onDie). The binding fe->onDie is made by an /alternatename pragma at Rva0024A797Grandchildren.cpp:455"
+      },
+      {
+        "standin": "(no data members)",
+        "offset": "0x024..0x40",
+        "canonical": "m_collapseFrame 0x24, m_burstFrame 0x28, m_collapseState 0x2C, m_collapseVelocity 0x30, m_currentHeight 0x34, m_collapsePosition 0x38..0x40 (StructureCollapseUpdateClass.h:75-80)",
+        "agrees": null,
+        "note": "stand-in uses none of these; not a blocker for size or layout"
+      },
+      {
+        "standin": "other vptr writes (ledger row: 4 vptrs to +0x20)",
+        "offset": "0x00C, 0x010",
+        "canonical": "contract unknown_subobject_vptrs: 0x0C -> 0x00C49188, 0x10 -> 0x0085263C",
+        "agrees": null,
+        "note": "stand-in comment models a three-vptr middle; the offsets of its extra vptr writes were not separately verified"
+      }
+    ],
+    "blockers": [
+      "dtor-holder with live link bindings: the stand-in's destructor rows are ??1Rva004A4214@@UAE@XZ (0x004A4214, 32 B) and ??_GRva004A4214@@UAEPAXI@Z (0x004A436F, 28 B) in Rva0024A797Grandchildren.cpp, and the registered contract's vtable slot 0 is named ??_GRva004A4214@@UAEPAXI@Z. Renaming the stand-in touches all of them",
+      "link-level alias: Rva0024A797Grandchildren.cpp:455 binds /alternatename:?fe@Rva004A4214_E1@@UAEXXZ to StructureCollapseUpdate::onDie; this must be re-expressed or the binding is lost",
+      "canonical ctor unit StructureCollapseUpdateCtor.cpp:24-25 defines __identifier vtables ??_7Rva004A4214@@6BRva004A4214_E1@@ (0x00C52638) and ??_7Rva004A4214@@6BUpdateModule@@ (0x00C5263C) under the stand-in names; those would change with a rename",
+      "canonical dtor is declaration-only (StructureCollapseUpdateClass.h: 'The destructor remains declaration-only'); the stand-in defines an empty body with the 0x004A4214 row. Adoption needs the 4-table restore + jump to ~UpdateModule (0x0024A797) expressed in the canonical class, which has no evidence yet",
+      "LINK-177 (docs/linking_obstacles/link-177-...md) documents the regression mechanism for exactly this shape: a dtor-holder unit adopting the canonical base emits full canonical tables while its ctor unit keeps a one-slot copy, which broke 35 census-linked units",
+      "key_mismatch false, bases match by count and offset (UpdateModule at 0, DieModuleInterface at 0x20); the second-base name difference (Rva004A4214_E1 vs DieModuleInterface) is the only base-level mismatch"
+    ],
+    "include_line": "#include \"../../Include/GameLogic/Module/StructureCollapseUpdateClass.h\"",
+    "include_cycle": "none in the direct includes: StructureCollapseUpdateClass.h includes UpdateModule.h, DieModuleInterface.h and Coord3D.h; none includes Rva0024A797Grandchildren.cpp. The transitive chain under BehaviorModule.h was not walked",
+    "frozen": false,
+    "frozen_check": "tools/find_declared_unmatched.py printed 'All defined functions are already matched.'",
+    "prior_attempts": "Found: docs/linking_obstacles/link-177-header-adoptions-of-dtor-holder-units-broke-35-census-linked.md (open regression, same dtor-holder shape). re_attempts.log line 98586 blocked UpdateModule-header-Rva0024A797DeletingDtor (0x002533E0) because the canonical UpdateModule lacks a default ctor/update surface; lines 82581 (StructureToppleUpdate dtor, 0x004A54A8) and 81601 (Rva004A4C19 dtor, landed) are siblings in the same file. Lines 6457 (onDie, landed) and 14420/16702 (doPhaseStuff/update) concern canonical methods, not this dtor. No attempt on this exact adoption found; the file has no record of a rename.",
+    "plan": "1. Do not rename or adopt now; this is blocked.\n2. Prerequisite evidence: pin the canonical 4-table dtor body (0x004A4214: restores 0x00C52648 at +0, 0x00C49188 at +0x0C, 0x00C5263C at +0x10, 0x00C52638 at +0x20, then jumps to ~UpdateModule at 0x0024A797) and decide whether it can live in StructureCollapseUpdate's declared dtor without changing the grandchild siblings.\n3. Re-express the pragma at Rva0024A797Grandchildren.cpp:455 so fe@Rva004A4214_E1 still resolves to StructureCollapseUpdate::onDie after any rename; check that no other unit defines the same alias.\n4. Single bundled commit (follow LINK-177 advice): rename rows ??1Rva004A4214 -> ??1StructureCollapseUpdate and ??_GRva004A4214 -> ??_GStructureCollapseUpdate (no existing duplicate rows found), change StructureCollapseUpdateCtor.cpp:24-25 identifiers, update the contract slot-0 name, and adopt the header in the holder and the ctor unit together.\n5. Dave's build: byte-verify the two rows (0x004A4214 32 B, 0x004A436F 28 B) and the sibling dtors in the file; run the census link check on the holder and the four StructureCollapseUpdate consumers, plus the sibling dtor-holder units, before anything lands.",
+    "risk": "high - a dtor-holder rename is the same mechanism as LINK-177, and the aliased and identifier-bound names span two units and the contract",
+    "packet": 5
+  },
+  {
+    "key": "Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateSlot8.cpp|class||Rva0044EDA6Outer",
+    "proposed_type": "SpecialAbilityUpdateModuleData",
+    "feasibility": "ready",
+    "contract": {
+      "size": 200,
+      "size_by": "majority",
+      "key": "class",
+      "bases": []
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x38 (m_specialPowerTemplate, 4-byte pointer, bytes 0x38-0x3B); the stand-in's m_pad00[0x38] is never read",
+    "field_map": [
+      {
+        "standin": "m_pad00[0x38]",
+        "offset": "0x00-0x37",
+        "canonical": "ModuleData prefix plus SpecialAbilityUpdateModuleData fields 0x00-0x37",
+        "agrees": true,
+        "note": "not read by vslot08; no conflict"
+      },
+      {
+        "standin": "m_specialPowerTemplate",
+        "offset": "0x38",
+        "canonical": "m_specialPowerTemplate (const SpecialPowerTemplate *, SpecialAbilityUpdateModuleData.h:37)",
+        "agrees": true,
+        "note": "both 4-byte pointers to const SpecialPowerTemplate. Contract types the same field as Overridable * (decided by majority), so the contract is stale on the type name, not the offset"
+      }
+    ],
+    "blockers": [],
+    "include_line": "#include \"../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h\"",
+    "frozen": false,
+    "prior_attempts": "reverse/re_attempts.log has no entry naming Rva0044EDA6Outer or this header swap. Related but different: reverse/attempt_support/consolidation-specialabilityupdate-blocked-20261025.md records this file failing a consolidation trial into SpecialAbilityUpdate.cpp with C2039 'rva0044EDA6 is not a member of SpecialAbilityUpdate'. That was a donor-merge failure, not this swap, but do not fold the swap into a consolidation. docs/linking_obstacles/link-600-specialability-moduledata-consumer-header-adoption.md (2026-11-05) says six queued SpecialAbilityUpdateModuleData consumers are blocked on vtable views, DockUpdate's private hierarchy and ref-wrapper lifetimes; this unit is not named there. Stale vote: reverse/name_votes.csv still lists Rva0044EDA6Outer::m_over38, but the source now names m_specialPowerTemplate.",
+    "plan": "1. Re-run tools/find_declared_unmatched.py on the file before editing (it reports frozen=false today). 2. Declarations commit only: reconcile the contract's m_specialPowerTemplate type (Overridable * -> const SpecialPowerTemplate *) in reverse/class_contracts/SpecialAbilityUpdateModuleData.json, or record it as the reason for the later header-type change. 3. Source commit: delete the forward decl 'class Rva0044EDA6ModuleData;' (line 15) and 'struct Rva0044EDA6Outer' (lines 52-56); add the include line after line 18. 4. Change line 64 to 'const SpecialAbilityUpdateModuleData *data=(const SpecialAbilityUpdateModuleData *)m_moduleData;'. Line 66 (data->m_specialPowerTemplate->getFO()->m_type) stays unchanged because the field sits at +0x38 in both views. 5. Lead runs the build; byte-verify SpecialAbilityUpdate::vslot08 (0x0044EDA6, 97 bytes) is identical. 6. Affected-consumer link check on the 7 units/7 layouts that use SpecialAbilityUpdateModuleData per tools/class_views.py: DockUpdate.cpp, SpecialAbilityUpdate.cpp, GiveOrRestoreUpgradeSpecialPowerModuleDataCtor.cpp, WeaponFireSpecialAbilityUpdateModuleDataCtor.cpp, DominateEnemySpecialPower.cpp, SpecialAbilityUpdateModuleData.cpp, SpecialAbilityUpdateTriggerAbilityEffect.cpp.",
+    "risk": "low - the stand-in is a pad plus one pointer, and only one cast changes. The main risk is the contract's stale type name for +0x38, which tools may read; the 7 existing consumers must still link.",
+    "packet": 6
+  },
+  {
+    "key": "Code/GameEngine/Source/GameLogic/Object/WeaponRva002CB2D1Range.cpp|class||Rva002CB35CAI",
+    "proposed_type": "AIUpdateInterface",
+    "feasibility": "ready",
+    "contract": {
+      "size": 996,
+      "size_by": "retail-new",
+      "key": "class",
+      "bases": [
+        "UpdateModule",
+        "AICommandInterface",
+        "AIUpdateInterface24"
+      ]
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x1F0 (void *m_1F0, bytes 0x1F0-0x1F3). Contract size 0x3E4 covers it.",
+    "field_map": [
+      {
+        "standin": "m_pad000[0x1F0] + m_1F0",
+        "offset": "0x1F0",
+        "canonical": "m_curLocomotor (Locomotor *, AIUpdate.h:554), read by inline getCurLocomotor() (AIUpdate.h:441)",
+        "agrees": true,
+        "note": "both 4-byte pointers, null-tested. Offset is not recorded in the contract (its fields list holds only __vfptr). Offset comes from LocomotorSet.h's header note: set at +0x1CC, next pointer at +0x1F0, sizeof 0x24"
+      },
+      {
+        "standin": "Object::m_258 (Rva002CB35CAI *)",
+        "offset": "0x258 (on the Object stand-in, not on the AI)",
+        "canonical": "no canonical Object in this file; retype the pointer to AIUpdateInterface *",
+        "agrees": "n/a",
+        "note": "this retype is the only change to the file's private Object view"
+      }
+    ],
+    "blockers": [],
+    "include_line": "#include \"../../../Include/GameLogic/Module/AIUpdate.h\"",
+    "frozen": false,
+    "prior_attempts": "reverse/re_attempts.log has no entry for Rva002CB35CAI or this swap. AIUpdateInterface has 510 log lines, all for other functions. Related but different: p12-erase-link-20261014 link-after.txt shows an unresolved ?rva002CB35C@Rva002CB35CObj@@ (a different stand-in name for the same area). docs/linking_obstacles has no note on Rva002CB35CAI. Git: commit 5bb39909244 adopted WeaponTemplate.h in this file, so the file is already a header-adoption target.",
+    "plan": "1. Re-run tools/find_declared_unmatched.py before editing (frozen=false today). 2. Declarations commit: add '#include \"../../../Include/GameLogic/Module/AIUpdate.h\"' before the 'class Object' definition (line 56), after the Coord3D include at line 15, so AIUpdateInterface is complete before getCurLocomotor is called. Check include order against line 44 (Module.h) with a compile. 3. Delete 'struct Rva002CB35CAI' (lines 38-42). Change the Object member at line 70 to 'AIUpdateInterface *m_258;'. 4. In Weapon::isWithinAttackRange (line 145), change '!ai->m_1F0' to '!ai->getCurLocomotor()'. 5. Lead runs the build and checks that Weapon::isSourceObjectWithGoalPositionWithinAttackRange (0x002CB2D1, 139 bytes) and Weapon::isWithinAttackRange (0x002CB35C, 568 bytes) stay byte-identical. 6. Affected-consumer link check across the 208 AIUpdateInterface units (198 layouts) the lead already tracks with tools/class_views.py --class AIUpdateInterface, with extra attention to units that include AI.h and Weapon.h.",
+    "risk": "medium - the AIUpdateInterface header touches 208 units. This file's change is small, but the include can reorder definitions in a TU that also defines its own 'class Object'; a compile must confirm no collision. Include-cycle check: AIUpdate.h's include closure (11 files) does not reach AI.h, Weapon.h or any of this unit's headers.",
+    "packet": 6
+  },
+  {
+    "key": "Code/GameEngine/Source/Common/TeamInQueue.cpp|class||Rva004F05F0Flags",
+    "proposed_type": "Team",
+    "feasibility": "blocked",
+    "contract": {
+      "size": 60,
+      "size_by": "majority",
+      "key": "class",
+      "bases": [
+        "Snapshot"
+      ]
+    },
+    "standin_key": "struct",
+    "key_mismatch": true,
+    "highest_offset_used": "0x5E (m_created, bool, byte 0x5E)",
+    "field_map": [
+      {
+        "standin": "pad[0x5D]",
+        "offset": "0x00-0x5C",
+        "canonical": "Team fields 0x00-0x5C (m_proto 0x30, m_id 0x34, m_dlinkhead_TeamMemberList 0x38, ...)",
+        "agrees": true,
+        "note": "not read by the destructor"
+      },
+      {
+        "standin": "m_active (unsigned char)",
+        "offset": "0x5D",
+        "canonical": "m_active (bool, public, TeamBFME2.h:202)",
+        "agrees": true,
+        "note": "width 1 on both sides; the destructor only tests ==0 and stores 1"
+      },
+      {
+        "standin": "m_created (unsigned char)",
+        "offset": "0x5E",
+        "canonical": "m_created (bool, public, TeamBFME2.h:203)",
+        "agrees": true,
+        "note": "width 1 on both sides; the stand-in destructor stores 1, the same as Team::setActive()"
+      }
+    ],
+    "blockers": [
+      "Contract size is wrong: reverse/class_contracts/Team.json says size 60 (majority), but +0x5E needs at least 0x5F bytes. Its own evidence shows allocation 0x13c (3 sites) and an extent lower bound of 297, and TeamBFME2.h:227-228 asserts sizeof(Team)==0x13C. Fix the contract before any adoption.",
+      "The contract's fields list records only __vfptr, so +0x5D/+0x5E are not checked against it. The canonical header is the only source for those offsets.",
+      "Contract bases ['Snapshot'] disagree with the header, which has 'class Team : public Snapshot, public Rva0055B0CC' (TeamBFME2.h:61). Reconcile this with the size fix."
+    ],
+    "include_line": "#include \"../../Include/Common/TeamBFME2.h\"",
+    "frozen": false,
+    "prior_attempts": "No re_attempts.log entry names Rva004F05F0Flags. The header queue (reverse/header_queue.tsv, Team rows) has a failure for a neighboring unit: Code/GameEngine/Source/GameLogic/AI/AISkirmishPlayer.cpp, error C2259 'TeamInQueue': cannot instantiate abstract class, when TeamBFME2.h was adopted there. That unit is not this one, but it shows TeamInQueue composition with the Team header has failed before. docs/linking_obstacles/gamelogic-canonical-team-fields-2026-10-30.md proposes this same Team-field adoption for another unit and says its acceptance retires a key; it does not cover TeamInQueue.cpp. The stand-in's own ledger rows are matched: '??1TeamInQueue@@' 0x004F05F0 (102 bytes) and '??_GTeamInQueue@@' 0x004EF606 (28 bytes).",
+    "plan": "1. Do not start source edits. First, in its own contract commit, correct reverse/class_contracts/Team.json: size 60 -> 0x13C (316), and record m_active/m_created in the fields list, with bases Snapshot and Rva0055B0CC. 2. Re-run tools/find_declared_unmatched.py on TeamInQueue.cpp before editing (frozen=false today). 3. Declarations commit: replace the comment and 'struct Rva004F05F0Flags' (lines 5-11) with '#include \"../../Include/Common/TeamBFME2.h\"' after the existing includes (line 3). Include-cycle check: TeamBFME2.h's include closure (Snapshot shim and Source/Common/Rva0055B0CC.h) does not reach TeamInQueue.h or WorkOrder.h. 4. In the destructor (lines 20-23), replace the cast with 'Team *flag=m_team; if(flag!=0 && !flag->m_active) { flag->m_created=true; flag->m_active=true; }', matching Team::setActive(). 5. Lead runs the build and byte-verifies the destructor 0x004F05F0 (102 bytes) and the deleting destructor 0x004EF606 (28 bytes), and checks that the TeamInQueue vtable at 0xC62B78 is unchanged. 6. Affected-consumer link check across the 44 Team units / 39 layouts, including AISkirmishPlayer.cpp (the C2259 neighbor).",
+    "risk": "high until the contract is fixed - a size of 60 would make any size-based check pass a value the destructor overruns. After the fix, medium: Team has 44 units and 39 layouts, and TeamInQueue has a known abstract-class failure in a neighboring TU.",
+    "packet": 6
+  }
+]
