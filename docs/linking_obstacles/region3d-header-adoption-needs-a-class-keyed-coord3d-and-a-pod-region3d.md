@@ -88,3 +88,32 @@ Snapshot.cpp export error, 1799 `?lineSegmentIntersects@Region2D@@QAE_NABVCoord2
 separate: it needs a non-const `lineSegmentIntersects` declaration in the canonical
 Region2D.h, the body on Region2D's lo/hi, the one caller Rva00261D2EFilter.cpp and a row
 rename; `class:Region2D` was held by another seat, so nothing was changed.
+
+2026-11-06 (claude-opus-5): the rule that kept choosing the wrong key is fixed; the
+rename is not done. `class_contract.py` decided the key by `ledger_key`, a majority of
+the key our own matched row names mangle, and that vote is circular: the struct-keyed
+canonical header makes every including unit emit `U` rows, which outvote the `V` rows and
+re-decide the key as struct, so no amount of evidence inside the loop could correct it.
+Retail's export table is outside the loop, and `sizeof` already had this precedence
+(`retail-new` outranks the vote), so `export_key` was added as a rule-0 fact and is
+consulted first; retail exports spelling both keys queue the attribute instead of being
+voted. Measured over all 568 contracts: 17 have export evidence, 16 confirm the key they
+carry, none are ambiguous, and Coord3D alone changes - struct to class, on 15 `V` exports
+against 0 `U`. `class_contract.py --class Coord3D` now prints `class (exports)` with the
+layout unchanged (sizeof 12, three floats). Landed as f2313cbb912 with a regression test
+(`tools/tests/test_class_contract_key.py`).
+
+What remains is exactly the coordinated rename this entry already described, now unblocked
+at the rule level: write the contract, regenerate `Lib/Coord3D.h` class-keyed (the
+generator must emit `public:`, since a bare `class` would make the three floats private to
+1,082 including units), and rename the U-keyed ledger names with it - 1,427 `[AP][AB]U`
+fragments across 1,835 Coord3D rows in `reverse/functions.csv` plus 88 in `symbols.csv`,
+through `header_adopt_lane`'s existing class-key rename path (`class_key_renames`,
+`prospective_renames`), never by hand. A class key changes mangled names only, not
+codegen, so every body should still byte-match; the companion `Coord3DCtorView.h` is
+struct-keyed too and flips with it. The TerrainLogic mixed-key rows (0x0028077A and
+0x0027F383 `V`, 0x0027FD2A and 0x0027EDBC `U`) are the one case that cannot be a pure
+rename and still need their own verdict: no single definition compiled all four, so the
+`U` pair is either misnamed or reached through a Zero Hour seed, and the seed-header
+prerequisite below still applies to them. Not attempted in this pass: the rename touches
+more than a thousand rows and belongs in its own verified batch, not behind a rule change.
