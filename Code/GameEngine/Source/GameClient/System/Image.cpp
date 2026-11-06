@@ -114,6 +114,14 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 #include "../../../Include/Common/NameKeyGenerator.h"
+// Preserve the native inline unsigned comparison without an external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
+extern NameKeyGenerator *TheNameKeyGenerator;
+#include "../../../Include/GameClient/ImageSubscriptMap.h"
 
 struct ImageTextureOptions { unsigned char pad[12]; int optionC,option10; };
 
@@ -166,6 +174,8 @@ namespace _STL { template <> void _Rb_tree<unsigned int,_STL::pair<unsigned int 
 namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,unsigned int); }
 
 namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<unsigned int const,Image *> > *,unsigned int) const; }
+
+// ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
 
@@ -445,12 +455,6 @@ void Image::rva002D937E()
  }
 }
 
-// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
-
-// tu-skeleton: 0x002D9186 41B ?clear@?$_Rb_tree@URva002D9186Element@@U?$pair@$$CBURva002D9186Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@U?$less@URva002D9186Element@@@3@V?$allocator@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D9186.cpp (not merged yet)
-
-// tu-skeleton: 0x002D922A 56B (unledgered) -- unmatched, no code, never credited
-
 // ---- from Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp
 
 //
@@ -470,9 +474,40 @@ ImageCollection::~ImageCollection()
 		::delete it->second;
 }
 
-// tu-skeleton: 0x002D92F6 53B ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp (not merged yet)
+// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
 
-// tu-skeleton: 0x002D9457 48B ?addImage@ImageCollection@@QAEXPAVImage@@@Z -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp (not merged yet)
+// tu-skeleton: 0x002D9186 41B ?clear@?$_Rb_tree@URva002D9186Element@@U?$pair@$$CBURva002D9186Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@U?$less@URva002D9186Element@@@3@V?$allocator@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D9186.cpp (not merged yet)
+
+// tu-skeleton: 0x002D922A 56B (unledgered) -- unmatched, no code, never credited
+
+// ---- from Code/GameEngine/Source/GameClient/System/ImageCollectionFindImage.cpp
+
+//
+// ImageCollection::findImageByName, BFME2 retail 0x002D92F6 (53B).
+// Ported from Open-BFME-1 Code/GameEngine/Source/GameClient/System/Image.cpp
+// (BFME1 0x005D1D10): the key comes from the rowed AsciiString lowercase-key
+// wrapper at 0x2D91AF through TheNameKeyGenerator (global 0xDF36A4, DIR32
+// from retail), then a map<unsigned,Image*>::find with a NULL-on-miss return.
+// Image and ImageCollection (map at +0xC behind the 12-byte
+// SubsystemInterface base) come from the canonical GameClient/Image.h.
+
+// Declaration-only view of ImageNameMap whose subscript stays out-of-line:
+// retail folds every unsigned-key pointer-map operator[] into the single
+// shared worker at 0x2077D6 (which drives the rowed PAX _M_lower_bound at
+// 0x4FF3B6), so the call below is pinned there instead of inlining.
+
+// ?findImageByName@ImageCollection@@QAEPBVImage@@ABVAsciiString@@@Z, retail 0x002D92F6 (53B).
+const Image *ImageCollection::findImageByName(const AsciiString &name)
+{
+	ImageNameMap::const_iterator it = m_imageMap.find(TheNameKeyGenerator->Rva002D91AF(name));
+	return it == m_imageMap.end() ? NULL : it->second;
+}
+
+// ?addImage@ImageCollection@@QAEXPAVImage@@@Z, retail 0x002D9457 (48B).
+void ImageCollection::addImage(Image *image)
+{
+	((ImageSubscriptMap *)&m_imageMap)->operator[](TheNameKeyGenerator->Rva002D91AF(image->getName())) = image;
+}
 
 // tu-skeleton: 0x00777AC1 8B $L5516 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
 
