@@ -38,26 +38,27 @@ enum ParticleType
     PARTICLE_TYPE_DEFAULT
 };
 
-// Retail's pointer tables are at these .rdata VAs. Their target strings were
+// Retail's pointer tables are at these .rdata VAs; retail exports each as
+// const char *const (?...@FXParticleSystem@@3QBQBDB, reverse/exports.csv). Their target strings were
 // read from retail; local literals preserve the pointed-to text, not pointer
 // identity. Each array includes its null terminator and stops before the next
 // known table/data symbol.
 // VA 0x00C1B610 (.rdata), 12 slots through the sentinel; next table is
 // ParticleTypeNames at VA 0x00C1B640.
-const char *ParticleShaderTypeNames[12] = {
+extern const char *const ParticleShaderTypeNames[12] = {
     "NONE", "ADDITIVE", "ADDITIVE_ALPHA_TEST", "ALPHA", "ALPHA_TEST",
     "MULTIPLY", "ADDITIVE_NO_DEPTH_TEST", "ALPHA_NO_DEPTH_TEST",
     "W3D_DIFFUSE", "W3D_ALPHA", "W3D_EMISSIVE", NULL,
 };
 // VA 0x00C1B640 (.rdata), 10 slots through the sentinel; next table is
 // ParticlePriorityNames at VA 0x00C1B6A4.
-const char *ParticleTypeNames[10] = {
+extern const char *const ParticleTypeNames[10] = {
     "NONE", "PARTICLE", "DRAWABLE", "STREAK", "VOLUME_PARTICLE",
     "SMUDGE", "TERRAIN_PARTICLE", "GPU_PARTICLE", "GPU_TERRAINFIRE", NULL,
 };
 // VA 0x00C1B6A4 (.rdata), 8 slots through the sentinel, before the next known
 // data symbol Rva003AF184_v0a at VA 0x00C1C84C.
-const char *ParticlePriorityNames[8] = {
+extern const char *const ParticlePriorityNames[8] = {
     "NONE", "ULTRA_HIGH_ONLY", "HIGH_OR_ABOVE", "MEDIUM_OR_ABOVE",
     "LOW_OR_ABOVE", "VERY_LOW_OR_ABOVE", "ALWAYS_RENDER", NULL,
 };

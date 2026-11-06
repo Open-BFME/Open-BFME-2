@@ -20,7 +20,7 @@ extern const char *const RotationTypeNames[] = {
 };
 }
 
-namespace FXParticleSystem { extern const char *ParticleShaderTypeNames[]; }
+namespace FXParticleSystem { extern const char *const ParticleShaderTypeNames[]; }
 // Retail VA 0x00C6C230 (.rdata): 1 field records and a zero sentinel.
 extern const FieldParse g_00C6C230[] = {
 	{ "Speed", &INI::parseGameClientRandomVariable, 0, 0xC },

@@ -488,8 +488,9 @@ extern const char *const g_00DB968C[16] = { "Low", "Medium", "High", "UltraHigh"
 // The retail name list at RVA 0x009B9644 (33 names and the null terminator).
 extern const char *const g_00DB9644[34] = { "Off", "Low", "High", "Low", "Medium", "High", "UltraHigh", "Off", "Low", "Medium", "High", "UltraHigh", "Low", "Medium", "High", "Low", "Medium", "High", "Low", "Medium", "High", "UltraHigh", "VeryLow", "Low", "Medium", "High", "VeryHigh", "Low", "High", "XX", "P3", "P4", "K7", 0 };
 
-// The retail name list at RVA 0x0081B6A4 (7 names and the null terminator).
-extern const char *const g_00C1B6A4[8] = { "NONE", "ULTRA_HIGH_ONLY", "HIGH_OR_ABOVE", "MEDIUM_OR_ABOVE", "LOW_OR_ABOVE", "VERY_LOW_OR_ABOVE", "ALWAYS_RENDER", 0 };
+// The particle priority name list at RVA 0x0081B6A4 is the exported
+// FXParticleSystem::ParticlePriorityNames, defined in ParticleSystemTemplate.cpp.
+namespace FXParticleSystem { extern const char *const ParticlePriorityNames[]; }
 
 extern "C" {
 void __identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -521,8 +522,8 @@ extern const FieldParse g_007E3308[31] = {
 	{ "ShaderMaterialReplacement", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3C },
 	{ "UseHeatEffects", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3D },
 	{ "DecalLOD", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), g_00DB9644, 0x40 },
-	{ "MinParticlePriority", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), g_00C1B6A4, 0x44 },
-	{ "MinParticleSkipPriority", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), g_00C1B6A4, 0x48 },
+	{ "MinParticlePriority", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), FXParticleSystem::ParticlePriorityNames, 0x44 },
+	{ "MinParticleSkipPriority", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), FXParticleSystem::ParticlePriorityNames, 0x48 },
 	{ "MinimumFPS", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x0 },
 	{ "ParticleSkipMask", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
 	{ "DebrisSkipMask", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
