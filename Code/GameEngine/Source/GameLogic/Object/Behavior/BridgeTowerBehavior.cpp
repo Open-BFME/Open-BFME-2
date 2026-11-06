@@ -204,8 +204,6 @@ void BridgeTowerBehavior::onDie( const DamageInfo *damageInfo )
 void BridgeTowerBehavior::crc( Xfer *xfer )
 {
 
-	// extend base class
-	BehaviorModule::crc( xfer );
 
 }
 
