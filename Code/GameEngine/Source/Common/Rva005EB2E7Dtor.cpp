@@ -43,17 +43,8 @@ struct Rva0057C2CC
 	void rva0057C2CC();
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-	void *m_ptr;
-};
-struct WrapClear005EB2E7
-{
-	~WrapClear005EB2E7() { m_c.clear(); }
-	Rva000AD6F4 m_c;
-};
+// The +0x14 and +0x34 holders' destructor is 0x000AD6F4, the body clear shares.
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva005EDFF8
 {
@@ -70,10 +61,10 @@ private:
 	Rva0057C2CC *m_08;
 	int m_0C;
 	int m_10;
-	WrapClear005EB2E7 m_14;
+	Rva000AD6F4 m_14;
 	int m_18;
 	_STL::vector<GeometryShape> m_1C[2];
-	WrapClear005EB2E7 m_34;
+	Rva000AD6F4 m_34;
 };
 
 Rva005EB2E7::~Rva005EB2E7()

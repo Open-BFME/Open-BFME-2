@@ -27,15 +27,8 @@ public:
     virtual void f3();
     virtual void f4();
 };
-class Rva000AD6F4 {
-public:
-    void clear();
-    void *m_ptr;
-};
-struct WrapClear005CEFD3 {
-    ~WrapClear005CEFD3() { m_c.clear(); }
-    Rva000AD6F4 m_c;
-};
+// The holder's destructor is 0x000AD6F4, the body clear shares.
+#include "../../Include/Common/Rva000AD6F4.h"
 class Rva003EE966 {
 public:
     void rva003EE966(int v);
@@ -58,7 +51,7 @@ private:
     Rva0042D6FDPtrChaseField *m_10;
     int m_14;
     Parent005CEFD3 *m_parent18;
-    WrapClear005CEFD3 m_1c;
+    Rva000AD6F4 m_1c;
 };
 Rva005CEFD3::~Rva005CEFD3()
 {
