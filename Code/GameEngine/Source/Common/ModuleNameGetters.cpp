@@ -1,3 +1,5 @@
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 // Module literal name getters: six-byte const members with one shape:
 //
 //     mov eax,<offset string literal> / ret
@@ -62,7 +64,18 @@ BFME_SNAPSHOT_NAME_GETTER(SlavedUpdate, "SlavedUpdate")
 BFME_LITERAL_NAME_GETTER(GateOpenAndCloseBehavior, "GateOpenAndCloseBehavior")
 BFME_LITERAL_NAME_GETTER(WeaponFireSpecialAbilityUpdate, "WeaponFireSpecialAbilityUpdate")
 BFME_SNAPSHOT_NAME_GETTER(DozerAIUpdate, "DozerAIUpdate")
-BFME_SNAPSHOT_NAME_GETTER(AssistedTargetingUpdate, "AssistedTargetingUpdate")
+class AssistedTargetingUpdate : public UpdateModule {
+public:
+ AssistedTargetingUpdate(Thing *, const ModuleData *);
+ virtual ~AssistedTargetingUpdate();
+ virtual NameKeyType getModuleNameKey() const;
+ virtual UpdateSleepTime update();
+protected:
+ virtual void loadPostProcess();
+ virtual const char *GetSnapshotName() const;
+ virtual void xfer(Xfer *);
+};
+const char *AssistedTargetingUpdate::GetSnapshotName() const { return "AssistedTargetingUpdate"; }
 BFME_LITERAL_NAME_GETTER(RebuildHoleExposeDie, "RebuildHoleExposeDie")
 BFME_LITERAL_NAME_GETTER(FireWeaponWhenDamagedBehavior, "FireWeaponWhenDamagedBehavior")
 BFME_LITERAL_NAME_GETTER(RiderChangeContain, "RiderChangeContain")
