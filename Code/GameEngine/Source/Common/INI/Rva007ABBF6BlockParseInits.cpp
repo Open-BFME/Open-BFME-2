@@ -67,8 +67,6 @@ void parseAIBaseDefinition(INI *);
 void parseMeshNameMatchesDefinition(INI *);
 void parseLivingWorldAITemplateDefinition(INI *);
 void iniParseEnvironmentSkyboxTextureDefinition(INI *);
-void iniParseFactionVictoryDefinition(INI *);
-void iniParseVictorySystemDefinition(INI *);
 void iniParseWaterTexturesDefinition(INI *);
 void parseAnimationSoundClientBehaviorGlobalSetting(INI *);
 void parseAudioLowMHz(INI *);
@@ -207,8 +205,6 @@ BlockParse theLivingWorldObjectBlockParse = { 0, "LivingWorldObject", Rva0021376
 BlockParse theLivingWorldMapInfoBlockParse = { 0, "LivingWorldMapInfo", parseLivingWorldMapInfoDefinition };	// VA 0x00DB9A2C "LivingWorldMapInfo", parse 0x00210F64
 BlockParse theCloudEffectBlockParse = { 0, "CloudEffect", parseCloudEffectDefinition };	// VA 0x00DB9B68 "CloudEffect", parse 0x0021526C
 BlockParse thePlayerAITypeBlockParse = { 0, "PlayerAIType", parsePlayerAITypeDefinition };	// VA 0x00DB9B74 "PlayerAIType", parse 0x00215C38
-BlockParse theVictorySystemDataBlockParse = { 0, "VictorySystemData", iniParseVictorySystemDefinition };	// VA 0x00DB9BA4 "VictorySystemData", parse 0x00215C54
-BlockParse theFactionVictoryDataBlockParse = { 0, "FactionVictoryData", iniParseFactionVictoryDefinition };	// VA 0x00DB9BB0 "FactionVictoryData", parse 0x00215D0B
 BlockParse theCreateAHeroSystemBlockParse = { 0, "CreateAHeroSystem", CreateAHeroManager::iniParseCreateAHeroSystem };	// VA 0x00DB9D38 "CreateAHeroSystem", parse 0x0022044C
 BlockParse theStrategicHUDBlockParse = { 0, "StrategicHUD", StrategicHUD::ParseSettings };	// VA 0x00DBA190 "StrategicHUD", parse 0x0022157B
 BlockParse theInGameNotificationBoxBlockParse = { 0, "InGameNotificationBox", parseInGameNotificationBoxDefinition };	// VA 0x00DBA19C "InGameNotificationBox", parse 0x0022232E
@@ -278,8 +274,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD94E();
 	static void rva007AD9E8();
 	static void rva007AD9FD();
-	static void rva007ADA12();
-	static void rva007ADA27();
 	static void rva007ADAD2();
 	static void rva007ADB4C();
 	static void rva007ADB6D();
@@ -383,10 +377,6 @@ BLOCK_PARSE_INIT( rva007AD94E, theLivingWorldMapInfoBlockParse )
 BLOCK_PARSE_INIT( rva007AD9E8, theCloudEffectBlockParse )
 // ?rva007AD9FD@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD9FD (21B): "PlayerAIType"
 BLOCK_PARSE_INIT( rva007AD9FD, thePlayerAITypeBlockParse )
-// ?rva007ADA12@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA12 (21B): "VictorySystemData"
-BLOCK_PARSE_INIT( rva007ADA12, theVictorySystemDataBlockParse )
-// ?rva007ADA27@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA27 (21B): "FactionVictoryData"
-BLOCK_PARSE_INIT( rva007ADA27, theFactionVictoryDataBlockParse )
 // ?rva007ADAD2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADAD2 (21B): "CreateAHeroSystem"
 BLOCK_PARSE_INIT( rva007ADAD2, theCreateAHeroSystemBlockParse )
 // ?rva007ADB4C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB4C (21B): "StrategicHUD"
