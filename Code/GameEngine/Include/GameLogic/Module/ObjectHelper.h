@@ -8,7 +8,7 @@
 //    UpdateModule's BehaviorModuleInterface table 0x00BEFF90 at +0x0C and UpdateModule's own
 //    UpdateModuleInterface table 0x00BFBCE4 at +0x10, and calls setWakeFrame(UPDATE_SLEEP_FOREVER).
 //    ObjectHelper therefore overrides nothing in either interface table.
-//  - The destructor 0x004DF7C2 (rowed under the placeholder Rva004DF7C2) stores the same three
+//  - The destructor 0x004DF7C2 (??1ObjectHelper, folded from its placeholder) stores the same three
 //    tables and tail-jumps to ~UpdateModule 0x0024A797. The first derived field sits at +0x20
 //    (ObjectDefectionHelper's constructor 0x0028C955), so sizeof(ObjectHelper) is UpdateModule's.
 //  - 0x00BFBCF0 has 13 slots and differs from UpdateModule's 0x00BF004C in slots 0-3 only: the

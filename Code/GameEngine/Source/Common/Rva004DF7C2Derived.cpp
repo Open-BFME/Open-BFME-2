@@ -1,7 +1,7 @@
 // cl: /O1 /MD
 //
-// Opaque multiple-inheritance destructors tail-calling Rva004DF7C2::~
-// Rva004DF7C2 at 0x004DF7C2 (pinned opaque MI base; identity unproven). Each
+// Opaque multiple-inheritance destructors tail-calling ObjectHelper::~
+// ObjectHelper at 0x004DF7C2 (pinned opaque MI base; identity unproven). Each
 // class below derives (in order) from the opaque base, a shared empty
 // polymorphic base, and its own empty polymorphic base, giving vptrs at
 // +0x00/+0x0C/+0x10; the empty bases have implicit trivial destructors, so
@@ -10,10 +10,10 @@
 // Owner identities are unproven (opaque Rva names). One ledger row per
 // destructor, landed one commit at a time.
 
-class Rva004DF7C2
+class ObjectHelper
 {
 public:
-	virtual ~Rva004DF7C2();
+	virtual ~ObjectHelper();
 
 private:
 	char m_pad04[8];
@@ -37,7 +37,7 @@ public:
 // ?f2@Rva004DF52E_B2@@UAEXXZ present-unmatched
 void Rva004DF52E_B2::f2() {}
 
-class ObjectDefectionHelper : public Rva004DF7C2, public MiBase1, public Rva004DF52E_B2
+class ObjectDefectionHelper : public ObjectHelper, public MiBase1, public Rva004DF52E_B2
 {
 public:
 	virtual ~ObjectDefectionHelper();
@@ -56,7 +56,7 @@ public:
 // ?f2@Rva004DF836_B2@@UAEXXZ present-unmatched
 void Rva004DF836_B2::f2() {}
 
-class Rva004DF836 : public Rva004DF7C2, public MiBase1, public Rva004DF836_B2
+class Rva004DF836 : public ObjectHelper, public MiBase1, public Rva004DF836_B2
 {
 public:
 	virtual ~Rva004DF836();
@@ -75,7 +75,7 @@ public:
 // ?f2@Rva004DF863_B2@@UAEXXZ present-unmatched
 void Rva004DF863_B2::f2() {}
 
-class ObjectRepulsorHelper : public Rva004DF7C2, public MiBase1, public Rva004DF863_B2
+class ObjectRepulsorHelper : public ObjectHelper, public MiBase1, public Rva004DF863_B2
 {
 public:
 	virtual ~ObjectRepulsorHelper();
@@ -94,7 +94,7 @@ public:
 // ?f2@Rva004DF8A9_B2@@UAEXXZ present-unmatched
 void Rva004DF8A9_B2::f2() {}
 
-class Rva004DF8A9 : public Rva004DF7C2, public MiBase1, public Rva004DF8A9_B2
+class Rva004DF8A9 : public ObjectHelper, public MiBase1, public Rva004DF8A9_B2
 {
 public:
 	virtual ~Rva004DF8A9();

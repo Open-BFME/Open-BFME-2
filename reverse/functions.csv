@@ -6153,7 +6153,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1EntEnragedUpdate@@UAE@XZ,,0x004B237B,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,EntEnragedUpdate dtor: stores the three vftables its ctor 0x004B2516 stores (0x00856948/0x007EFF90/0x0085693C) then tail-jumps UpdateModule dtor
 ??1OathbreakersFadeAwayBehavior@@UAE@XZ,,0x004B89C4,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva004CC63A@@UAE@XZ,,0x004CC63A,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
-??1Rva004DF7C2@@UAE@XZ,,0x004DF7C2,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
+??1ObjectHelper@@UAE@XZ,,0x004DF7C2,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva005EE30C@@UAE@XZ,,0x005EE30C,11,Code/GameEngine/Source/Common/Rva005EE30CChain.cpp,matched,opaque derived dtor tail-jmp opaque base
 ??1Rva005D736E@@UAE@XZ,,0x005D736E,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor tail-jmp chain base via row
 ??1Rva005D7855@@UAE@XZ,,0x005D7855,11,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,opaque derived dtor
@@ -9874,7 +9874,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva004AE78E@@UAEPAXI@Z,,0x004AE8DE,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GEntEnragedUpdate@@UAEPAXI@Z,,0x004B2593,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004CC63A@@UAEPAXI@Z,,0x004CC710,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva004DF7C2@@UAEPAXI@Z,,0x0028C939,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GObjectHelper@@UAEPAXI@Z,,0x0028C939,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GBackAwayAndCowerStateMachine@@UAEPAXI@Z,,0x0034457C,28,Code/GameEngine/Source/GameLogic/AI/BackAwayAndCowerStateMachine.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva00544C51@@UAEPAXI@Z,,0x00544FAA,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GSupplyTruckStateMachine@@UAEPAXI@Z,,0x004A7185,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting dtor: slot 0 of vtable 0x008532A8 (slot 2 returns the name string SupplyTruckStateMachine); calls the rowed ~SupplyTruckStateMachine; emitted via the TU vtable; byte-exact

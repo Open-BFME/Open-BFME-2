@@ -507,13 +507,13 @@ public:
 	virtual void f2();
 };
 
-class Rva004DF7C2 : public UpdateModule, public MiBase1, public Rva004DF7C2_B2
+class ObjectHelper : public UpdateModule, public MiBase1, public Rva004DF7C2_B2
 {
 public:
-	virtual ~Rva004DF7C2();
+	virtual ~ObjectHelper();
 };
 
-Rva004DF7C2::~Rva004DF7C2()
+ObjectHelper::~ObjectHelper()
 {
 }
 

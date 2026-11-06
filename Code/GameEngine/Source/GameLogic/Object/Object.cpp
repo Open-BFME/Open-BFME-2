@@ -4826,7 +4826,7 @@ void *Rva0028C783::rva0028C783(unsigned int idx)
 
 // tu-skeleton: 0x0028C933 6B ?Rva0028C933Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x0028C939 28B ??_GRva004DF7C2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x0028C939 28B ??_GObjectHelper@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x0028C955 61B ??0ObjectDefectionHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectDefectionHelperCtor.cpp (not merged yet)
 

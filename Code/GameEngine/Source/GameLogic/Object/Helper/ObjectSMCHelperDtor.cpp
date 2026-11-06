@@ -65,13 +65,13 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
-class Rva004DF7C2 : public Rva0024A797, public MiBase1, public Rva004DF7C2_B2
+class ObjectHelper : public Rva0024A797, public MiBase1, public Rva004DF7C2_B2
 {
 public:
-	virtual ~Rva004DF7C2();
+	virtual ~ObjectHelper();
 };
 
-class ObjectSMCHelper : public Rva004DF7C2
+class ObjectSMCHelper : public ObjectHelper
 {
 public:
 	virtual ~ObjectSMCHelper();

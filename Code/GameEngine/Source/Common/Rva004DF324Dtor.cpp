@@ -20,16 +20,16 @@ private:
 
 // Base dtor resolves to the opaque pin at 0x004DF7C2 (same 12B layout as
 // the Rva004DF7C2Derived family TU: vptr + 8 pad).
-class Rva004DF7C2
+class ObjectHelper
 {
 public:
-	virtual ~Rva004DF7C2();
+	virtual ~ObjectHelper();
 
 private:
 	char m_pad04[8];
 };
 
-class Rva004DF324 : public Rva004DF7C2
+class Rva004DF324 : public ObjectHelper
 {
 public:
 	virtual ~Rva004DF324();
