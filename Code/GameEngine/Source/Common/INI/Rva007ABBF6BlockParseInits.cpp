@@ -79,7 +79,6 @@ void parseReallyLowMHz(INI *);
 void parseRingEffect(INI *);
 void parseShadowMapBlock(INI *);
 void parseSubsystemLegendDefinition(INI *);
-void parseFontSubstitutionDefinition(INI *);
 void parseCloudBreakEffectDefinition(INI *);
 void parseFormationAssistantDefinition(INI *);
 namespace StrategicHUD { void ParseSettings(INI *); }
@@ -111,7 +110,6 @@ public:
 	static void friend_parseEmotionNugget(INI *);
 };
 #include "../../../Include/GameClient/Eva.h"
-#include "../../../Include/GameClient/FontLibrary.h"
 #include "../../../Include/Common/GlobalData.h"
 #include "../../../Include/Common/INI/INI.h"
 class LargeGroupAudio
@@ -211,8 +209,6 @@ BlockParse theCloudEffectBlockParse = { 0, "CloudEffect", parseCloudEffectDefini
 BlockParse thePlayerAITypeBlockParse = { 0, "PlayerAIType", parsePlayerAITypeDefinition };	// VA 0x00DB9B74 "PlayerAIType", parse 0x00215C38
 BlockParse theVictorySystemDataBlockParse = { 0, "VictorySystemData", iniParseVictorySystemDefinition };	// VA 0x00DB9BA4 "VictorySystemData", parse 0x00215C54
 BlockParse theFactionVictoryDataBlockParse = { 0, "FactionVictoryData", iniParseFactionVictoryDefinition };	// VA 0x00DB9BB0 "FactionVictoryData", parse 0x00215D0B
-BlockParse theFontDefaultSettingsBlockParse = { 0, "FontDefaultSettings", FontLibrary::ParseFontDefaultSettings };	// VA 0x00DB9C04 "FontDefaultSettings", parse 0x00218C82
-BlockParse theFontSubstitutionBlockParse = { 0, "FontSubstitution", parseFontSubstitutionDefinition };	// VA 0x00DB9C10 "FontSubstitution", parse 0x00219005
 BlockParse theCreateAHeroSystemBlockParse = { 0, "CreateAHeroSystem", CreateAHeroManager::iniParseCreateAHeroSystem };	// VA 0x00DB9D38 "CreateAHeroSystem", parse 0x0022044C
 BlockParse theStrategicHUDBlockParse = { 0, "StrategicHUD", StrategicHUD::ParseSettings };	// VA 0x00DBA190 "StrategicHUD", parse 0x0022157B
 BlockParse theInGameNotificationBoxBlockParse = { 0, "InGameNotificationBox", parseInGameNotificationBoxDefinition };	// VA 0x00DBA19C "InGameNotificationBox", parse 0x0022232E
@@ -284,8 +280,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD9FD();
 	static void rva007ADA12();
 	static void rva007ADA27();
-	static void rva007ADA7B();
-	static void rva007ADA90();
 	static void rva007ADAD2();
 	static void rva007ADB4C();
 	static void rva007ADB6D();
@@ -393,10 +387,6 @@ BLOCK_PARSE_INIT( rva007AD9FD, thePlayerAITypeBlockParse )
 BLOCK_PARSE_INIT( rva007ADA12, theVictorySystemDataBlockParse )
 // ?rva007ADA27@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA27 (21B): "FactionVictoryData"
 BLOCK_PARSE_INIT( rva007ADA27, theFactionVictoryDataBlockParse )
-// ?rva007ADA7B@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA7B (21B): "FontDefaultSettings"
-BLOCK_PARSE_INIT( rva007ADA7B, theFontDefaultSettingsBlockParse )
-// ?rva007ADA90@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADA90 (21B): "FontSubstitution"
-BLOCK_PARSE_INIT( rva007ADA90, theFontSubstitutionBlockParse )
 // ?rva007ADAD2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADAD2 (21B): "CreateAHeroSystem"
 BLOCK_PARSE_INIT( rva007ADAD2, theCreateAHeroSystemBlockParse )
 // ?rva007ADB4C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB4C (21B): "StrategicHUD"

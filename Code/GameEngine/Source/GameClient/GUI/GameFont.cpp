@@ -1744,3 +1744,29 @@ void Rva0021887C::rva0021887C()
 // tu-skeleton: 0x0076E525 8B Unwind@00b6e525 -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E52D 10B __ehhandler$?parseFontSizeMapping@FontLibrary@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp (not merged yet)
+
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so each node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007ADA7B and 0x007ADA90, nodes 0x00DB9C04 and 0x00DB9C10, the
+// first right after BannerUI's node in .data). Both open their run with no
+// pool-init marker of this unit's; parseFontSubstitutionDefinition
+// (0x00219005) directly follows this unit's parseFontSizeMapping.
+void parseFontSubstitutionDefinition( INI *ini );
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theFontDefaultSettingsBlockParse( "FontDefaultSettings", FontLibrary::ParseFontDefaultSettings );
+BlockParse theFontSubstitutionBlockParse( "FontSubstitution", parseFontSubstitutionDefinition );
