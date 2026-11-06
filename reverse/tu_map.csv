@@ -15073,7 +15073,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0021494B,56,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,C,C=0x002148C3..0x00214983 provisional,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp
 0x00214983,34,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,N,N=Code/GameEngine/Source/Common/AttributeModifierStore.cpp provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
 0x002149A5,5,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,N,N=Code/GameEngine/Source/Common/AttributeModifierStore.cpp provisional,Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp
-0x002149AA,196,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,C,C=0x002149A5..0x00214A6E provisional,Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp
+0x002149AA,196,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,C,C=0x002149A5..0x00214A6E provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
 0x00214A6E,28,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,C,C=0x002149A5..0x00214A8A provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
 0x00214A8A,61,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,C,C=0x002149A5..0x00214AC7 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
 0x00214AC7,5,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,C,C=0x002149A5..0x00214ACC provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAC.cpp
@@ -67967,10 +67967,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076E063,10,code,Code/GameEngine/Source/Common/LivingWorldManager.cpp,approved,P,P=0x00214405@FuncInfo0x00913B00 p-group provisional,Code/GameEngine/Source/Common/LivingWorldManagerDtor.cpp
 0x0076E06D,8,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x00214917@FuncInfo0x00913B24 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
 0x0076E075,10,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x00214917@FuncInfo0x00913B24 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
-0x0076E07F,8,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp
-0x0076E087,11,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp
-0x0076E092,11,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp
-0x0076E09D,10,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp
+0x0076E07F,8,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
+0x0076E087,11,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
+0x0076E092,11,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
+0x0076E09D,10,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x002149AA@FuncInfo0x00913B58 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp
 0x0076E0A7,8,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x00214B22@FuncInfo0x00913B7C provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00214B22.cpp
 0x0076E0AF,10,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x00214B22@FuncInfo0x00913B7C provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00214B22.cpp
 0x0076E0B9,8,code,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,approved,P,P=0x00214B61@FuncInfo0x00913BA8 provisional,Code/GameEngine/Source/Common/AttributeModifierStore.cpp

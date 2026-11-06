@@ -101,6 +101,18 @@ extern "C" void _ReadWriteBarrier();
 #pragma function(memset)
 #include "../../Include/Common/WeaponTemplateSetHead.h"
 #include <new>
+class Rva002146F7;
+void __cdecl Rva00030830GameFree(void *);
+namespace _STL {
+template<> inline _Vector_base<Rva002146F7 *, allocator<Rva002146F7 *> >::~_Vector_base() { if (_M_start) Rva00030830GameFree(_M_start); }
+}
+namespace _STL {
+template <> inline _Vector_base<BfmeE16, allocator<BfmeE16> >::~_Vector_base()
+{ if (_M_start) Rva00030830GameFree(_M_start); }
+template <> inline vector<BfmeE16, allocator<BfmeE16> >::~vector() {}
+}
+#define BFME_SUBSYSTEM_SLOTS
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 struct Rva004DFCB0Element { unsigned word0; };
 
@@ -192,6 +204,57 @@ struct Rva00214713Slot { char _pad[0x14]; int m_14; };
 struct Rva00214738Slot { char _pad[0x18]; void *m_duration; };
 
 struct Rva002148C3Slot { char _pad[0xCC]; void *m_cc; };
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00214adc_destroy.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this
+// unit's Drawable.h copy 0x007AD97D (static 0x00DFE1DC after
+// TheAttributeModifierStore), then this node's entry 0x007AD98D (node
+// 0x00DB9AD0), then its pool-init marker 0x007AD9A2.
+typedef void (*INIBlockParse)( INI *ini );
+
+extern struct BlockParse *theBlockParseList;
+
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+struct Rva00214B22Record;
+
+class AsciiString;
+
+struct ModifierStorePointerFields
+{
+    unsigned char base[0x0C];
+    _STL::vector<Rva002146F7 *> first;
+    _STL::vector<Rva002146F7 *> second;
+};
+
+// ---- from Code/GameEngine/Source/Common/AttributeModifierStore.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva002147D1Get.cpp
 
@@ -488,13 +551,37 @@ Rva00214ADC::~Rva00214ADC()
 // ?famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z present-unmatched
 void famgenDelete00214ADC(Rva00214ADC *p) { delete p; }
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00214adc_destroy.cpp
-
 // tu-skeleton: 0x0021494B 56B ?rva0021494B@Rva0022CA95@@UAE_NH@Z -- matched in Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp (not merged yet)
 
 // tu-skeleton: 0x002149A5 5B ?rva002149A5@AttributeModifierStore@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp (not merged yet)
 
-// tu-skeleton: 0x002149AA 196B ??1Rva0022CA95@@MAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp
+
+// ??1Rva0022CA95@@MAE@XZ, retail 0x002149AA..0x00214A6E (196 bytes, EH): the
+// AttributeModifier store's destructor (constructor 0x0022CA95, table
+// 0x00BE5348, slot-0 scalar deleting destructor 0x00214A6E; its slots 4 and
+// 5 are the RIF reload notices in ReloadIniFileNotices.cpp). It deletes
+// every entry of its two pointer vectors at +0xC and +0x18 by index (entry
+// destructor rowed 0x004043FF); then both vectors' storage goes to GameFree
+// (unwind copies 0x0007FAB3) and SubsystemInterface dies last. The vectors
+// are spelled with their entry pointer type: vector<void *>'s out-of-line
+// destructor is the /Od body 0x00027370, not that unwind copy.
+
+// The constructor's existing BfmeE16 spelling names only the empty header.
+// Keep that header owner in both views; native iteration proves pointer-sized
+// entries, so read those entries through the established pointer-vector view.
+
+Rva0022CA95::~Rva0022CA95()
+{
+	unsigned int i;
+	for (i = 0; i < reinterpret_cast<ModifierStorePointerFields *>(this)->first.size(); ++i)
+		delete reinterpret_cast<ModifierStorePointerFields *>(this)->first[i];
+	for (i = 0; i < reinterpret_cast<ModifierStorePointerFields *>(this)->second.size(); ++i)
+		delete reinterpret_cast<ModifierStorePointerFields *>(this)->second[i];
+}
+
+// Retain the existing ICF-proven row while its unwind callers use this name.
+template _STL::vector<Rva002146F7 *>::~vector();
 
 // tu-skeleton: 0x00214AC7 5B ?rva00214AC7@Rva00214A8A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAC.cpp (not merged yet)
 
@@ -502,38 +589,8 @@ void famgenDelete00214ADC(Rva00214ADC *p) { delete p; }
 
 // tu-skeleton: 0x00214B22 63B ??1?$vector@URva00214B22Record@@V?$allocator@URva00214B22Record@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00214B22.cpp (not merged yet)
 
-// tu-skeleton: 0x0076E07F 8B $L5486 -- matched in Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E087 11B $L5487 -- matched in Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E092 11B $L5488 -- matched in Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076E09D 10B __ehhandler$??1Rva0022CA95@@MAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0022CA95Dtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0076E0A7 8B $L4396 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00214B22.cpp (not merged yet)
 
 // tu-skeleton: 0x0076E0AF 10B __ehhandler$??1?$vector@URva00214B22Record@@V?$allocator@URva00214B22Record@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00214B22.cpp (not merged yet)
-
-// INI block registration (LINK-236). BFME's INI keeps its block types on a
-// list of 12-byte BlockParse nodes; each unit links its own nodes onto
-// theBlockParseList from a file-scope object whose inline constructor does the
-// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
-// initializer is only the 21-byte link. Retail's table holds this
-// unit's Drawable.h copy 0x007AD97D (static 0x00DFE1DC after
-// TheAttributeModifierStore), then this node's entry 0x007AD98D (node
-// 0x00DB9AD0), then its pool-init marker 0x007AD9A2.
-typedef void (*INIBlockParse)( INI *ini );
-extern struct BlockParse *theBlockParseList;
-struct BlockParse
-{
-	BlockParse *next;
-	const char *token;
-	INIBlockParse parse;
-
-	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
-	{
-		theBlockParseList = this;
-	}
-};
 
 BlockParse theModifierListBlockParse( "ModifierList", AttributeModifierStore::parseModifierListDefinition );

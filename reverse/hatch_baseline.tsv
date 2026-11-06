@@ -1690,7 +1690,6 @@ alternatename	Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp	?slot7@Rva
 alternatename	Code/GameEngine/Source/Common/FamilyVectorDtors_CodexSep26.cpp	??1Rva00297360Element@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/FunctorNotSetCtor.cpp	_vtbl_00BD3B54	1
 alternatename	Code/GameEngine/Source/Common/GameClient_addIconLayer.cpp	?pushBack@DrawableList@@QAEXAAPBVDrawable@@@Z	1
-alternatename	Code/GameEngine/Source/Common/GameModePreferences.cpp	??1LANPreferences@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/GapForwardersSeat8.cpp	??1Rva003AA6BD@@UAE@XZ	2
 alternatename	Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	??1BfmeParserRegistrationVE@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	?bfmeChunkParserVE@@YAXXZ	1
@@ -7694,7 +7693,7 @@ pin	reverse/symbols.csv	0x00449969	1
 pin	reverse/symbols.csv	0x0044BA4E	1
 pin	reverse/symbols.csv	0x0044BD79	1
 pin	reverse/symbols.csv	0x0044BE39	1
-pin	reverse/symbols.csv	0x0044D285	3
+pin	reverse/symbols.csv	0x0044D285	2
 pin	reverse/symbols.csv	0x0044D56A	1
 pin	reverse/symbols.csv	0x0044D5EE	1
 pin	reverse/symbols.csv	0x0044DF71	6
@@ -12567,7 +12566,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface2Anchor@WeaponModeSpecialPowerUpdateIface2@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface3Anchor@WeaponModeSpecialPowerUpdateIface3@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface4Anchor@WeaponModeSpecialPowerUpdateIface4@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp	1ActivateModuleSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvaAnnounceClientCreate.cpp	1EvaAnnounceClientCreateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPower.cpp	1EvacuateGarrisonSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::loadPostProcess	1
@@ -12617,7 +12615,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureTopple
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdateCtor.cpp	1EvacuateGarrisonSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyTruckAIUpdateCtor.cpp	1HordeDispatchSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp	1TeleportToCasterSpecialPowerModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/UnleashSpecialPower.cpp	1UnleashSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/UntamedAllegianceSpecialPowerModuleDataCtor.cpp	1UntamedAllegianceSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofModuleDataDtor.cpp	1StatusBitsUpgradeModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataDtor.cpp	0UpgradeModuleData@@QAE@XZ	1
