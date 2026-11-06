@@ -83,12 +83,15 @@ DisabledMaskType Rva004AE972::getDisabledTypesToProcess() const
 {
 	return DisabledMaskType(DisabledMaskType::kInit, 3, 4);
 }
-class Rva004DF8C2
+// Slot 1 of ObjectWeaponStatusHelper's UpdateModuleInterface table 0x00BFBE3C,
+// which its constructor 0x0028CB45 installs (the class's view:
+// ObjectWeaponStatusHelperCtor.cpp).
+class ObjectWeaponStatusHelper
 {
 public:
 	virtual DisabledMaskType getDisabledTypesToProcess() const;
 };
-DisabledMaskType Rva004DF8C2::getDisabledTypesToProcess() const
+DisabledMaskType ObjectWeaponStatusHelper::getDisabledTypesToProcess() const
 {
 	return DisabledMaskType(DisabledMaskType::kInit, 3, 8);
 }
