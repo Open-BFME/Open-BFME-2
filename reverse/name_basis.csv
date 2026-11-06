@@ -9070,3 +9070,5 @@ global,unrowedData,?g_nicknameCharIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-
 global,unrowedData,?g_gameSlotIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-4322fbf7f85a5166c9660eaa,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C34A4
 global,unrowedData,?g_loginFieldLengthKeys@@3UFallbackCtx@@A,inferred,agree:nr-a08b68611fba5b35eb3a254d,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C4B60
 global,unrowedData,?g_externHandlerIndexKeys@@3UFallbackCtx@@A,inferred,agree:nr-98681c4fc101df5ab1e8230a,Code/GameEngine/Source/Common/BigObfFallbacks.cpp,0x009C5170
+global,unrowedData,?FireSpreadUpdateModuleDataFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-d64c0c845213,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp,0x0084C000
+global,unrowedData,?LivingWorldIconSubObjectTemplateFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-2ba537801e6e,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,0x0086D690

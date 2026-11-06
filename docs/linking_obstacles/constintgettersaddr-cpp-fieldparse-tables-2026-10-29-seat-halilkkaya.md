@@ -204,3 +204,24 @@ through the fallback with foreign keys; the branch test (run 42243146946, receip
 2026-11-06T155837Z-boot_smoke-5f14318d61dc) gets past the constructor into GameEngine::init. An
 interim relocation through `g_ObfSlot - 0x38` was rejected: in the linked image that range holds
 unrelated globals, and the fallback writes +0x18. Remaining in this file: the getters P7b owns.
+
+Update (2026-11-06, swarm static-defects lane P7b, base e185a327a7): both FieldParse tables are defined,
+rowed and referenced.
+- 0x00C6D690 is `LivingWorldIconSubObjectTemplateFieldParse` (blind-agreed, nl-2ba537801e6e), 23 fields
+  and the zero sentinel. Rva0056B7DEGet now returns its address. Its four userData lists are this
+  unit's per-TU statics:
+  - TheShadowNames (already here) for retail 0x00DD2770.
+  - TheAnimModeNames: WW3D2 rendobj.h's DEFINE_W3DANIMMODE_NAMES list, whose BFME 2 copy adds
+    PLAY_TO_FRAME. It stands for retail 0x00DD27B4.
+  - s_iconFadeTypeNames: Rva0056BDFCParse.cpp's 7-entry list, standing for retail 0x00C37BF4.
+    FadeMethod passes `&s_iconFadeTypeNames[5]`, retail 0x00C37C08.
+  - The data row places them by content: 384 B equal to retail, 53 relocations on target.
+- 0x00C4C000 is `FireSpreadUpdateModuleDataFieldParse` (nl-d64c0c845213) in
+  ModuleDataBuildFieldParse.cpp. FireSpreadUpdateModuleData::buildFieldParse now passes it. Its data
+  row has 80 B equal to retail and 8 relocations on target.
+- Both were admitted by `data_rows.py --admit-agreed` (basis inferred). No hatch was added. `./build.sh`
+  on both sources: 95/95 functions and 50 data rows exact.
+- The BigObf contexts landed in 5e4eb79ff5/85d5d5e331 (crash triage, P7).
+- Still open in this file (4 flagged):
+  - The three Drawable statics 0x00DBD7DC/0x00DBD860/0x00DBD918: no approved TU for the getters.
+  - 0x00E032DC: its only owner is the address-named g_Va00E032DC.

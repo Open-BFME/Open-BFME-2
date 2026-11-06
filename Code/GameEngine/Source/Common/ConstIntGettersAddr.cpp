@@ -144,6 +144,22 @@ static const char *TheShadowNames[] = {
 	"SHADOW_DECAL_TERRAIN_CLAIM", "SHADOW_VOLUME_OR_DECAL", "SHADOW_VOLUME_NEW_OR_DECAL", 0
 };
 
+// Two more per-TU lists, for LivingWorldIconSubObjectTemplateFieldParse below.
+// TheAnimModeNames is WW3D2 rendobj.h's DEFINE_W3DANIMMODE_NAMES header static;
+// BFME 2's copy adds PLAY_TO_FRAME (retail VA 0x00DD27B4, right after this
+// TU's TheShadowNames copy at 0x00DD2770). s_iconFadeTypeNames is the LivingWorld
+// icon fade-type list Rva0056BDFCParse.cpp also keeps (retail VA 0x00C37BF4,
+// 7 entries, no null); FadeMethod passes its tail at 0x00C37C08 (Opacity,
+// Additive).
+static const char *TheAnimModeNames[] = {
+	"MANUAL", "LOOP", "ONCE", "LOOP_PINGPONG", "PLAY_TO_FRAME", "LOOP_BACKWARDS",
+	"ONCE_BACKWARDS", 0
+};
+
+static const char *const s_iconFadeTypeNames[] = {
+	"NONE", "IN", "OUT", "INOUT", "STOP", "Opacity", "Additive",
+};
+
 extern const int g_emptyFieldParseTable[4];
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva005088C8@@SAPAXXZ=?Rva005088C8Get@@YAHXZ")
@@ -275,13 +291,43 @@ int Rva00434091Get(void)
 }
 
 
-// ?Rva0056B7DEGet@@YAHXZ @ 0x0056B7DE (6B): returns 0x00C6D690.
+// Retail VA 0x00C6D690: 23 fields and the zero sentinel (384B). Name agreed
+// blind (reverse/name_agreed.csv nl-2ba537801e6e).
+extern const FieldParse LivingWorldIconSubObjectTemplateFieldParse[24] = {
+    { "Model", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
+    { "SubObjects", (FieldParseProc)&__identifier("?parseAsciiStringVector@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+    { "Pickbox", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14 },
+    { "ZOffset", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1C },
+    { "Scale", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x20 },
+    { "OrientAngle", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x24 },
+    { "HideWhenHilighted", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x50 },
+    { "HideWhenUnhilighted", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x51 },
+    { "HideWhenSelected", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x52 },
+    { "HideWhenUnselected", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x53 },
+    { "Shadow", (FieldParseProc)&__identifier("?parseBitString32@INI@@SAXPAV1@PAX1PBX@Z"), TheShadowNames, 0x28 },
+    { "AnimMode", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheAnimModeNames, 0x2C },
+    { "UseHouseColor", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x54 },
+    { "FadeMethod", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), &s_iconFadeTypeNames[5], 0x30 },
+    { "FadeTypeForSelection", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), s_iconFadeTypeNames, 0x34 },
+    { "FadeTypeForDeselection", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), s_iconFadeTypeNames, 0x38 },
+    { "FadeTypeForHilighting", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), s_iconFadeTypeNames, 0x3C },
+    { "FadeTypeForUnhilighting", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), s_iconFadeTypeNames, 0x40 },
+    { "FadeInTime", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
+    { "FadeOutTime", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x48 },
+    { "FadeHoldPercent", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4C },
+    { "ShowOnlyForLocalPlayer", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x55 },
+    { "ShowOnlyForAllies", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x56 },
+    { 0, 0, 0, 0 }
+};
+
+// ?Rva0056B7DEGet@@YAHXZ @ 0x0056B7DE (6B): returns VA 0x00C6D690,
+// LivingWorldIconSubObjectTemplateFieldParse.
 // Follows a ret-4 (0x56B7DB-DD) with a B8-imm/call function after.
 // 3 direct E8 callers (0x56B71B/0x56BEAF/0x56BFD2), no Ghidra entry
 // (dead emission), no branch sources. Opaque address-derived name.
 int Rva0056B7DEGet(void)
 {
-	return 0x00C6D690;
+	return (int)LivingWorldIconSubObjectTemplateFieldParse;
 }
 
 // ?Rva000EF29AGet@@YAHXZ @ 0x000EF29A (6B): returns 'TEX' (0x00544558), a

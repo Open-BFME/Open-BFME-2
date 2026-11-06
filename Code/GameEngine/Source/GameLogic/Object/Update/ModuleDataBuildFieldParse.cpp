@@ -192,6 +192,16 @@ extern const FieldParse BfmeRadarMarkerClientUpdateFields[] = {
 	{ "MarkerType", &INI::parseAsciiString, 0, 0x8 },
 	{ 0, 0, 0, 0 }
 };
+
+// Retail VA 0x00C4C000: 4 fields and the zero sentinel. Name agreed blind
+// (reverse/name_agreed.csv nl-d64c0c845213).
+extern const FieldParse FireSpreadUpdateModuleDataFieldParse[] = {
+	{ "OCLEmbers", &INI::parseObjectCreationList, 0, 0x8 },
+	{ "MinSpreadDelay", &INI::parseDurationUnsignedInt, 0, 0xC },
+	{ "MaxSpreadDelay", &INI::parseDurationUnsignedInt, 0, 0x10 },
+	{ "SpreadTryRange", &INI::parseReal, 0, 0x14 },
+	{ 0, 0, 0, 0 }
+};
 extern const int g_emptyFieldParseTable[4];
 
 
@@ -289,7 +299,7 @@ FIELD_PROC(InvisibilityUpdateModuleData, (unsigned int)&g_00C52468, Invisibility
 FIELD_PROC(TemporarilyDefectUpdateModuleData, (unsigned int)&g_00C5F5E4, DefectDurationTable)
 FIELD_PROC(PoisonedBehaviorModuleData, (unsigned int)&g_00C49918, PoisonTable)
 FIELD_PROC(SupplyWarehouseCripplingBehaviorModuleData, (unsigned int)&g_00C49B40, SelfHealTable)
-FIELD_PROC(FireSpreadUpdateModuleData, 0x00C4C000, FireSpreadTable)
+FIELD_PROC(FireSpreadUpdateModuleData, FireSpreadUpdateModuleDataFieldParse, FireSpreadTable)
 FIELD_PROC_WITH_DIE_BASE(SlowDeathBehaviorModuleData, (unsigned int)&g_00C42290)
 FIELD_PROC(TerrainResourceBehaviorModuleData, (unsigned int)&g_00C494F0, IncomeTable)
 FIELD_PROC(MonitorConditionUpdateModuleData, (unsigned int)&g_00C4DA00, ModelConditionTable)
