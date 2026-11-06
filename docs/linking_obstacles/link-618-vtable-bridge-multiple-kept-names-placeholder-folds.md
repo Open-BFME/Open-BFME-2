@@ -1,7 +1,8 @@
 ### LINK-618: vtable bridge "multiple-kept-names": one retail class kept under two names
-Status: Open (partly repaired). Updated: 2026-11-06; seats halilkkaya-lk36 (base `bd49217dc8`) and
-halilkkaya-lk37 (base `b616c8a1db`), real link `306f01e6f6` (433 multiple-kept-names refusals in its
-`vtable_bridge_queue.tsv`), census index `47fd56b879`.
+Status: Open (partly repaired). Updated: 2026-11-06; seats halilkkaya-lk36 (base `bd49217dc8`),
+halilkkaya-lk37 (base `b616c8a1db`) and halilkkaya-lk38 (base `3d70a843d39`), real link `306f01e6f6`
+(433 multiple-kept-names refusals in its `vtable_bridge_queue.tsv`), census index `47fd56b879`
+(lk38: `d707d2f53b`).
 
 **Problem.** The bridge (`tools/vtable_bridge.py`) refuses a retail table when the kept objects bind it
 under more than one `??_7` name. Many of these are one class rowed twice: a constructor unit names it,
@@ -76,12 +77,49 @@ them.
 - 10 refusal rows should leave the multiple-kept-names list at the next real link (unmeasured). Each fold's
   link_check covered every unit naming either spelling plus the units the earlier folds changed (the
   census objects are stale for them): at most 22 units, all LINKS, LINKED unchanged against the census.
-- Naming lead, not applied: each AI-state table's slot 2 is a 6-byte getter returning the class-name
-  literal, and its onEnter/update rows already carry those names. 0x008112C0 AIAttackSquadState,
-  0x00811368 AIDockState, 0x008113B8 AIHarvestState, 0x00811798 AIGoingIdleState, 0x008117F0
-  AIGuardRetaliateState, 0x00811850 AITunnelNetworkGuardState, 0x008118B0 AIHuntState, 0x00811900
-  AIAttackAreaState. `rename.py class` collides with those existing rows and `--fold` needs the readable
-  name on the table, so merging the placeholder classes into them needs a naming-lane decision.
+- Naming lead, applied by lk38 (below): each AI-state table's slot 2 is a 6-byte getter returning the
+  class-name literal, and its onEnter/update rows already carry those names. 0x008112C0
+  AIAttackSquadState, 0x00811368 AIDockState, 0x008113B8 AIHarvestState, 0x00811798 AIGoingIdleState,
+  0x008117F0 AIGuardRetaliateState, 0x00811850 AITunnelNetworkGuardState, 0x008118B0 AIHuntState,
+  0x00811900 AIAttackAreaState. `rename.py class` collides with those existing rows and `--fold` needs
+  the readable name on the table.
+
+**Completed by lk38 (2026-11-06; base `3d70a843d39`, one commit per class).**
+- The eight placeholder classes are folded into their readable names: Rva0033F4DF into
+  AIAttackSquadState, Rva0033F540 into AIDockState, Rva0033F56B into AIHarvestState, Rva0033F701 into
+  AIGoingIdleState, Rva0033F724 into AIGuardRetaliateState, Rva0033F74B into AITunnelNetworkGuardState,
+  Rva0033F772 into AIHuntState and Rva0033F79D into AIAttackAreaState. 32 rows (each class's constructor,
+  destructor, deleting destructor and its placeholder-class slot bodies) now carry the real class.
+- Evidence, re-read from retail for each table: slot 2 is `mov eax,imm32; ret` and the immediate is the
+  class-name literal (0x00C11304 "AIAttackSquadState", 0x00C113AC "AIDockState", 0x00C113FC
+  "AIHarvestState", 0x00C117DC "AIGoingIdleState", 0x00C11834 "AIGuardRetaliateState", 0x00C11894
+  "AITunnelNetworkGuardState", 0x00C118F4 "AIHuntState", 0x00C11944 "AIAttackAreaState"). None of the
+  names is in `canonical_classes.csv`.
+- Method: a hand fold per docs/naming.md ("Renaming by hand"). rename.py has no route for it: `class`
+  collides with the readable rows; `class --fold` refuses first on the stale data_ledger.csv name
+  (`??_7Rva0034159A@@6B@` is still listed at 0x00811368) and then its virtual-slot route would refuse on
+  the inherited State slots, which are ICF bodies shared with other classes (0x000B3FD0, 0x0047A699).
+  The token is respelled in every source and row, each old (name, rva) is tombstoned with the getter
+  evidence, re_attempts records each row `landed`, and name_basis.csv is untouched (the tier stays
+  unverified, which is accurate for a hand rename).
+- Verification per commit: `./build.sh` exact over the changed units; every `??_7` each changed object
+  emits is identical to its pre-fold object under the new name, and the two `??_7NEW` copies
+  (constructor unit and destructor unit) are identical, 17 slots; find_declared_unmatched clean; scoped
+  DIR32 OK; pin_consistency --check OK; link_check over the 44 units that spell or touch either name or
+  that the LINK-618 folds changed after census index d707d2f53b: 44 of 44 link, LINKED 34,030 -> 34,030
+  bytes, for every commit.
+- Rva000647D4Xfer.cpp calls the ICF body 0x00341E2D through a private base view. That body is rowed
+  twice, as AIGoingIdleState::xfer and Locomotor::xfer, so the view now spells AIGoingIdleState with a
+  note that it proves no AIGoingIdleState base.
+- Follow-up, not done: several placeholder-class rows keep `int` signatures that cannot override State's
+  virtuals (`?onExit@AIHarvestState@@UAEXH@Z`, `?update@AIGuardRetaliateState@@UAEHXZ`,
+  `?onEnter@AIHuntState@@UAEHXZ`, `?onEnter@AIAttackAreaState@@UAEHXZ`, `?rva00342120@...`), and three
+  slot units keep private State copies (Rva003418EAMethod.cpp and Rva00341E70VSlot.cpp derive from a
+  `FXParticleSystem::WindModuleInfo` copy). Once those are respelled, the constructor and destructor views
+  can declare the overrides. That makes slots 3-8 of each table name retail's bodies in place of
+  `__purecall` or State's defaults. AIDockState can do this now: all four of its rows (xfer, onEnter,
+  onExit, update) already have State's signatures. Slot 2 needs each 6-byte getter (rowed as a free
+  `?Rva0033F565Get@@YAHXZ` in ConstIntGetters4.cpp) to become the class's `GetSnapshotName`.
 - Sweep (method step 2) re-run over lk36's 134 dry-run plans with current objects: no new SAME candidate.
   The SAME ones are lk36's blocked Bucket, Rva005D078BSecond/Rva005D0C31Second and
   Rva007F4900CleanupDeleting/Rva00661350; the NO-NEW-COPY ones are the MI scaffold folds lk36 excluded.
