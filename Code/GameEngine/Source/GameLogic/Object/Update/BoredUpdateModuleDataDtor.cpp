@@ -1,4 +1,4 @@
-// cl: /O1 /GX /arch:SSE /MD /DNDEBUG
+// cl: /O1 /GX /arch:SSE /MD /DNDEBUG /Ireference/shims/moduledata
 // ??1BoredUpdateModuleData@@UAE@XZ @ 0x004969B7 48B
 // Implicit virtual dtor restoring Snapshot base vtable 0x00BBB554 with no
 // base call. Member filter at +0x10 via pinned ??1Rva003623E5Filter at
@@ -7,6 +7,7 @@
 // filter +10 canScan +14 specialPower +18 size 0x1C).
 // Vtable 0x0084F590 slot 0 is ??_G 0x0049699B.
 // ShareExperienceBehaviorModuleDataDtor precedent.
+#include "Common/Snapshot.h"
 class Rva003623E5Filter
 {
 public:
@@ -15,12 +16,7 @@ public:
 private:
 	unsigned char m_data[4];
 };
-class BoredUpdateModuleDataBase
-{
-public:
-	virtual ~BoredUpdateModuleDataBase() {}
-};
-class BoredUpdateModuleData : public BoredUpdateModuleDataBase
+class BoredUpdateModuleData : public Snapshot
 {
 public:
 	BoredUpdateModuleData(); // rowed in BoredUpdateModuleDataCtor.cpp
