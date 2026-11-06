@@ -100,9 +100,20 @@ def test_indented_private_view_is_still_refused_by_class_gate(monkeypatch):
 
 @pytest.mark.parametrize("source", ["Rva00034D10Snapshot.cpp", "Rva000353F0Trace.cpp", "memory_pool.cpp"])
 def test_allocator_false_reject_sources_do_not_declare_game_snapshot(source):
+    """These units mean EA::Allocator's nested Snapshot record, never the game's class.
+
+    The record reaches them either as their own declaration or, since the
+    canonical GeneralAllocator header was adopted in them (9489e5d051d), from
+    that header - so requiring the literal text in the .cpp would now fail on
+    an adoption that is exactly what the lane is for. What must stay true is
+    that neither scanner reads a Snapshot *class body* out of these units.
+    """
+    allocator_header = "Code/GameEngine/Include/Common/GeneralAllocator.h"
     path = class_layouts.ROOT / "Code/GameEngine/Source/Common/System" / source
     text = path.read_text(encoding="latin-1")
-    assert "struct Snapshot" in text
+    assert "struct Snapshot" in text or allocator_header.rsplit("/", 1)[1] in text, \
+        "the allocator's Snapshot record must be in scope, declared here or by its canonical header"
+    assert "struct Snapshot" in (class_layouts.ROOT / allocator_header).read_text(encoding="latin-1")
     assert "Snapshot" not in class_layouts.class_bodies(text)
     assert "Snapshot" not in class_views.class_bodies(text)
 
