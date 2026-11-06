@@ -23776,7 +23776,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva0058D4BA@NetPacket@@IAE_NPAVNetCommandRef@@@Z,,0x0058D4BA,89,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,NetPacket capacity check charges 2 1+1 5 1+1 plus 2 unblocks 0058F7D8
 ?rva005358C3@UserPreferences@@QAEHVAsciiString@@@Z,,0x005358C3,74,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences Points getter via slot18 same TU
 ?rva00535BF6@UserPreferences@@QAEHVAsciiString@@@Z,,0x00535BF6,74,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences Wins getter via slot18 same TU
-?rva002897A8@Rva0028951F@@QAEPBVOverridable@@PAXH@Z,,0x002897A8,106,Code/Libraries/Source/WWVegas/WWLib/Rva002897A8Find.cpp,matched,chain threshold best scan via ESI Check copy
+?rva002897A8@Rva0028951F@@QAEPBVOverridable@@PAXH@Z,,0x002897A8,106,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,matched,chain threshold best scan via ESI Check copy
 ?rva0027248A@Drawable@@QAEXHH@Z,,0x0027248A,58,Code/GameEngine/Source/GameClient/Drawable.cpp,matched,Drawable guarded 0xFC 0x14C walk via 0xA8 to 0x7C
 ??1Rva003ABC58@@UAE@XZ,,0x003ABC58,22,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABC58Dtor.cpp,matched,dtor via guarded BBB554 plus base tail-jmp
 ??1Rva003ABA4C@@UAE@XZ,,0x003ABA4C,55,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA4CDtor.cpp,matched,MI dtor via guarded base plus throw base
@@ -29862,7 +29862,7 @@ _$E6,,0x007B7200,35,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?PreCollectGameData@AptScoreScreen@@SAXPAURva0051C0E7@@@Z,,0x0051C241,161,Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp,matched,fill via ThePlayerList and g_00E031E8 vector size loop with rowed StringBase set and Rva004266A1 getters
 ?contains@Rva003EF8E1@@QAE_NPAURva003EF6D6Span@@PAURva003EF6D6Entry@@@Z,,0x003EF6D6,45,Code/GameEngine/Source/Common/Rva003EF6D6Contains.cpp,matched,span contains pointer compare loop no callees callers 003EF955 003EF965; native caller ECX receiver proves member RET8 ABI
 ?remove@Rva003EF8E1@@QAEXPAURva003C4CF0Span@@H@Z,,0x003EF703,37,Code/GameEngine/Source/Common/Rva003EF703Remove.cpp,matched,indexOf then vector erase via rowed callees; native caller ECX receiver proves member RET8 ABI
-?Rva00288940Find@@YGPBXPBX@Z,,0x00288940,56,Code/GameEngine/Source/Common/Rva00288940Find.cpp,matched,callers 0x00288D0F and 0x0028D7CF with TheLevelSys plus Rva002897A8Find walk
+?Rva00288940Find@@YGPBXPBX@Z,,0x00288940,56,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,matched,callers 0x00288D0F and 0x0028D7CF with TheLevelSys plus Rva002897A8Find walk
 ??0Rva00288BBA@@QAE@ABVAsciiString@@@Z,,0x00288BBA,58,Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp,matched,rowed VectorBase plus StringBase copy via shared AsciiString
 ?rva0021545C@Rva0021545C@@QAEXPAV1@@Z,,0x0021545C,29,Code/Libraries/Source/WWVegas/WWLib/Rva0021545CSwap.cpp,matched,swap first word at +0 and E12 vector at +4 via 0x00567ECD with callers in 0x00215B14
 ?Fast_Slerp@@YAXAAVQuaternion@@ABV1@1M@Z,,0x007187B0,1080,Code/Libraries/Source/WWVegas/WWMath/FastSlerp.cpp,matched,BFME1 4367fc698 quat.cpp/wwmath.h; complete1080B spherical quaternion interpolation plus runtime D3DX dispatch; PE import establishes fallback ABI; switch initial0 and bytewrites1/0 verified; shared tables; original spelling unproven

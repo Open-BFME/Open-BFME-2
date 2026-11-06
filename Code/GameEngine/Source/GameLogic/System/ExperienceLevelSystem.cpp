@@ -88,8 +88,6 @@ struct ExperienceLevelHandle
 	ExperienceLevelList *m_list;
 	ExperienceLevelIterator m_iter;
 };
-// The object FindCurrentLevel and FindExperienceLevelList read: current level
-// at +0x0C, level-list key at +0x30.
 #include "../../../Include/GameLogic/ExperienceTracker.h"
 // The NameKeyType -> level-list hash_map at the store's +0x0C. Its STLport
 // find instantiation is identical to every other NameKeyType hash_map find
@@ -559,10 +557,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma pop_macro("_CRTIMP")
 // ExperienceLevel copy assignment, rowed at 0x00289902 under its address name.
 class Rva00289902 { public: Rva00289902 &rva00289902(const Rva00289902 &); };
-// Native and WB both pass this ExperienceLevel FieldParse table (VA
-// 0x00BFBAC0, .rdata). Its 22 16-byte entries and zero terminator were read
-// from the retail image; every parser pointer resolves to a rowed body. The
-// table name is descriptive (no donor or retail name is known).
 #include "../../../Include/GameClient/RadiusDecalTemplate.h"
 class EmotionNuggetTemplate { public: static void IniParseEmotionType(INI *, void *, void *, const void *); };
 void Rva00289C24Parse(INI *, void *, void *, const void *);
@@ -743,6 +737,8 @@ template <> _List_base<BfmePod264, allocator<BfmePod264> >::~_List_base();
 }
 typedef _STL::pair<const int, _STL::list<BfmePod264> > Rva00288B89;
 #include <stdlib.h>
+#define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
+#define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
 
 class UpgradeTemplate : public ModuleData {};
 
@@ -759,6 +755,70 @@ struct Rva00289371HashTable::Node
     Node *m_next;
     Rva00288B89 m_value04;
 };
+
+// INI block registrations (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
+// initializer is only the 21-byte link. Retail's table holds this unit's
+// entries 0x007ADFDF (its Drawable.h copy, whose static 0x00DFECCC follows
+// this unit's 0x00DFECC8/0x00DFECC9), 0x007ADFEF and 0x007AE004 (nodes
+// 0x00DBB88C and 0x00DBB898 in definition order), then its pool-init marker.
+void parseExperienceScalarTableDefinition( INI *ini );
+
+typedef void (*INIBlockParse)( INI *ini );
+
+extern struct BlockParse *theBlockParseList;
+
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+struct Node
+{
+Node *m_prev;
+Node *m_next;
+Overridable m_over;
+};
+
+struct Sentinel
+{
+Node *m_head;
+};
+
+struct ListNode
+{
+	ListNode *m_next;
+	int m_pad04;
+};
+
+struct Inner
+{
+	ListNode *m_head;
+};
+
+struct Outer
+{
+	Inner *m_inner;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
+
+// The object FindCurrentLevel and FindExperienceLevelList read: current level
+// at +0x0C, level-list key at +0x30.
+
+// Native and WB both pass this ExperienceLevel FieldParse table (VA
+// 0x00BFBAC0, .rdata). Its 22 16-byte entries and zero terminator were read
+// from the retail image; every parser pointer resolves to a rowed body. The
+// table name is descriptive (no donor or retail name is known).
 
 // ---- from Code/GameEngine/Source/GameLogic/System/ExperienceLevelSystem.cpp
 
@@ -1074,11 +1134,75 @@ int SplitUpgrades(void *vecPtr, const AsciiString &list)
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Rva00289371HashClear.cpp
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+void Rva00289371HashTable::clear()
+{
+	for (UnsignedInt i = 0; i < (UnsignedInt)(m_bucketsEnd - m_bucketsBegin); ++i)
+	{
+		Node *cur = m_bucketsBegin[i];
+		while (cur != 0)
+		{
+			Node *next = cur->m_next;
+			deleteNode(cur);
+			cur = next;
+		}
+		m_bucketsBegin[i] = 0;
+	}
+	m_numElements = 0;
+}
+
+void Rva00289371HashTable::deleteNode(Node *node)
+{
+	node->m_value04.~pair();
+	if (node)
+		free(node);
+}
+
 // tu-skeleton: 0x0028881C 45B ?rva0028881C@Rva0028881C@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x002888D4 47B ??$_M_find@W4NameKeyType@@@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@ABW4NameKeyType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Armor.cpp (not merged yet)
 
-// tu-skeleton: 0x00288940 56B ?Rva00288940Find@@YGPBXPBX@Z -- matched in Code/GameEngine/Source/Common/Rva00288940Find.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00288940Find.cpp
+
+const void * __stdcall Rva00288940Find(const void *arg)
+{
+Sentinel *sentinel = (Sentinel *)arg;
+Node *node = sentinel->m_head;
+if (node != *(Node **)node)
+{
+do
+{
+// Retail calls the const overload at 0x00288609.
+const Overridable *overridable = ((const Overridable *)((char *)node->m_next + 8))->friend_getFinalOverride();
+if (Rva0028867DCheck(overridable))
+return overridable;
+node = node->m_next;
+} while (node != *(Node **)sentinel->m_head);
+}
+return 0;
+}
 
 // tu-skeleton: 0x00288978 44B ??0?$_List_base@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod264@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
 
@@ -1110,34 +1234,6 @@ int SplitUpgrades(void *vecPtr, const AsciiString &list)
 
 // tu-skeleton: 0x00289147 29B ?insert@?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@2@@2@U32@ABU?$pair@$$CBHH@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00289371HashClear.cpp
-
-// Retail calls free directly (the game allocator), not through the CRT
-// import: read <stdlib.h> without dllimport.
-
-void Rva00289371HashTable::clear()
-{
-	for (UnsignedInt i = 0; i < (UnsignedInt)(m_bucketsEnd - m_bucketsBegin); ++i)
-	{
-		Node *cur = m_bucketsBegin[i];
-		while (cur != 0)
-		{
-			Node *next = cur->m_next;
-			deleteNode(cur);
-			cur = next;
-		}
-		m_bucketsBegin[i] = 0;
-	}
-	m_numElements = 0;
-}
-
-void Rva00289371HashTable::deleteNode(Node *node)
-{
-	node->m_value04.~pair();
-	if (node)
-		free(node);
-}
-
 // tu-skeleton: 0x00289180 91B ?rva00289180@ExperienceLevelSystem@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00289180Finish.cpp (not merged yet)
 
 // tu-skeleton: 0x00289265 136B ?parseExperienceScalarTableDefinition@@YAXPAVINI@@@Z -- matched in Code/GameEngine/Source/Common/INI/INIBfmeBlockParsers_Rva00210F64Parse.cpp (not merged yet)
@@ -1166,7 +1262,35 @@ void Rva00289371HashTable::deleteNode(Node *node)
 
 // tu-skeleton: 0x00289706 5B ?rva00289706@Rva00289706@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp (not merged yet)
 
-// tu-skeleton: 0x002897A8 106B ?rva002897A8@Rva0028951F@@QAEPBVOverridable@@PAXH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva002897A8Find.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva002897A8Find.cpp
+
+const Overridable *Rva0028951F::rva002897A8(void *outer, int key)
+{
+	const Overridable *overridable = rva0028951F(key);
+	int threshold = 0;
+	if (overridable)
+		// +0x18 belongs to the complete object, beyond the Overridable base.
+		threshold = *(const int *)((const char *)overridable + 0x18);
+	const Overridable *best = 0;
+	int bestVal = 0x7fffffff;
+	Outer *o = (Outer *)outer;
+	Inner *inner = o->m_inner;
+	ListNode *listNode = inner->m_head;
+	for (; listNode != (ListNode *)o->m_inner; listNode = listNode->m_next)
+	{
+		const Overridable *g = ((const Overridable *)((char *)listNode + 8))->friend_getFinalOverride();
+		if (!Rva0028867DCheck(g))
+			continue;
+		int v = *(const int *)((const char *)g + 0x18);
+		if (v <= threshold)
+			continue;
+		if (v >= bestVal)
+			continue;
+		bestVal = v;
+		best = g;
+	}
+	return best;
+}
 
 // tu-skeleton: 0x002898AC 55B ?push_back@?$vector@URva002898ACElement@@V?$allocator@URva002898ACElement@@@_STL@@@_STL@@QAEXABURva002898ACElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
 
@@ -1326,28 +1450,6 @@ void Rva00289371HashTable::deleteNode(Node *node)
 
 // tu-skeleton: 0x00774276 10B __ehhandler$?AddExperienceLevel@ExperienceLevelStore@@QAEXPAXPBUBfmePod264@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ExperienceLevelStoreAddExperienceLevel.cpp (not merged yet)
 
-// INI block registrations (LINK-236). BFME's INI keeps its block types on a
-// list of 12-byte BlockParse nodes; each unit links its own nodes onto
-// theBlockParseList from a file-scope object whose inline constructor does the
-// link. MSVC 7.1 builds token and parse in .data, so each node's .text$yc
-// initializer is only the 21-byte link. Retail's table holds this unit's
-// entries 0x007ADFDF (its Drawable.h copy, whose static 0x00DFECCC follows
-// this unit's 0x00DFECC8/0x00DFECC9), 0x007ADFEF and 0x007AE004 (nodes
-// 0x00DBB88C and 0x00DBB898 in definition order), then its pool-init marker.
-void parseExperienceScalarTableDefinition( INI *ini );
-typedef void (*INIBlockParse)( INI *ini );
-extern struct BlockParse *theBlockParseList;
-struct BlockParse
-{
-	BlockParse *next;
-	const char *token;
-	INIBlockParse parse;
-
-	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
-	{
-		theBlockParseList = this;
-	}
-};
-
 BlockParse theExperienceLevelBlockParse( "ExperienceLevel", ExperienceLevelStore::friend_parseExperienceLevelDefinition );
+
 BlockParse theExperienceScalarTableBlockParse( "ExperienceScalarTable", parseExperienceScalarTableDefinition );
