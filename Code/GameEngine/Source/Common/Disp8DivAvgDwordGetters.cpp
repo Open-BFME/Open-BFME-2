@@ -53,18 +53,11 @@ struct Rva000AD6F4Base
 	virtual void *virt0(unsigned int);
 };
 
-class Rva000AD6F4
-{
-public:
-	~Rva000AD6F4();
-	void clear();
-private:
-	Rva000AD6F4Base *m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 __declspec(noinline) inline void Rva000AD6F4::clear()
 {
-	Rva000AD6F4Base *p = m_ptr;
+	Rva000AD6F4Base *p = static_cast<Rva000AD6F4Base *>(m_ptr);
 	m_ptr = 0;
 	void *q;
 	if (p)
@@ -82,7 +75,7 @@ __declspec(noinline) inline void Rva000AD6F4::clear()
 // HUD::Impl dtor 0x0042D92E and 40+ EH unwind entries reference it as the dtor).
 __declspec(noinline) inline Rva000AD6F4::~Rva000AD6F4()
 {
-	Rva000AD6F4Base *p = m_ptr;
+	Rva000AD6F4Base *p = static_cast<Rva000AD6F4Base *>(m_ptr);
 	m_ptr = 0;
 	void *q;
 	if (p)
