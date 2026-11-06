@@ -7513,7 +7513,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000E912A,164,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x000E91CE,1254,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,F,F=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer_addShrub.cpp
 0x000E96B4,1272,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferDoXfer.cpp
-0x000E9BAC,99,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,C,C=0x000E96B4..0x000E9C0F,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp
+0x000E9BAC,99,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,C,C=0x000E96B4..0x000E9C0F,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x000E9C0F,6,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,C,C=0x000E96B4..0x000E9C15,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x000E9C15,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,C,C=0x000E96B4..0x000E9C1D,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x000E9C1D,194,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
@@ -64109,10 +64109,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007636C8,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,P,P=0x000E96B4@FuncInfo0x0090733C,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferDoXfer.cpp
 0x007636D0,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,P,P=0x000E96B4@FuncInfo0x0090733C,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferDoXfer.cpp
 0x007636D8,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,P,P=0x000E96B4@FuncInfo0x0090733C,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferDoXfer.cpp
-0x007636E2,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp
-0x007636EA,14,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp
-0x007636F8,24,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp
-0x00763710,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp
+0x007636E2,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
+0x007636EA,14,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
+0x007636F8,24,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
+0x00763710,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x0076371A,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,P,P=0x000E9D18@FuncInfo0x00907394,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRemoveShrubsForConstruction.cpp
 0x00763722,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,P,P=0x000E9D18@FuncInfo0x00907394,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRemoveShrubsForConstruction.cpp
 0x0076372C,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp,approved,P,P=0x000EA24D@FuncInfo0x009073B8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp

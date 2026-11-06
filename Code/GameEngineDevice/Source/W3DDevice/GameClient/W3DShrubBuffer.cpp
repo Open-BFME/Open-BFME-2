@@ -32,14 +32,12 @@
 #include "scene.h"
 #define TheBfmeAwakenDebug (*(BfmeAwakenDebug **)&theDebug)
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
-
 class Rva000E6AC0Base
 {
 public:
 	Rva000E6AC0Base() {}
 	virtual ~Rva000E6AC0Base() {}
 };
-
 class Rva000E6AC0 : public Rva000E6AC0Base
 {
 public:
@@ -50,9 +48,7 @@ protected:
 	// Push-aside donor's retail float at +0x5BC; base extent stays 0x5C0.
 	float m_pushRateScale;
 };
-
 #include "../../../../GameEngine/Include/Common/Rva0052413E.h"
-
 class Rva000E9C1DRecord
 {
 public:
@@ -60,7 +56,6 @@ public:
 private:
 	unsigned char m_storage[0xA0];
 };
-
 class Rva000E9C1DType
 {
 public:
@@ -69,23 +64,18 @@ public:
 private:
 	unsigned char m_storage[0x5C];
 };
-
 class Rva00066A9ASub
 {
 public:
 	void tailB();
 };
-
 class GlobalData;
-
 extern GlobalData *TheWritableGlobalData;
-
 struct Rva00DFE758Holder
 {
 	char m_pad[0x20];
 	int m_20;
 };
-
 // ?rva000E73CE@Rva000E73CE@@QAEXXZ 0x000E73CE 46B
 // Fill byte-flag dword at +0x19F4 stride 0xA0 with (TheShroudManager==0),
 // bounded by count at +0x4FB58. Same array base +0x199C stride 0xA0 count
@@ -93,16 +83,13 @@ struct Rva00DFE758Holder
 // Evidence: global TheShroudManager 0x009FE74C; caller jmp at 0x000683F9.
 
 class PartitionManager;
-
 extern PartitionManager *TheShroudManager;
-
 struct E73Elem
 {
 	char _0[0x58];
 	int m_val;
 	char _1[0xA0 - 0x5C];
 };
-
 class Rva000E73CE
 {
 public:
@@ -113,7 +100,6 @@ private:
 	char _gap[0x5C];
 	int m_count;
 };
-
 // ?rva000E7B04@Rva000E7B04@@QAEXXZ @0x000E7B04 59B.
 // Signed count at +0x4FB58. Each 0xA0 record at +0x1998 calls
 // thiscall 0x000E7A40 with the index when dword +0 is non-negative
@@ -126,7 +112,6 @@ struct Rva000E7B04Elem
 	int m_slot;
 	char m_tail[0x58];
 };
-
 class Rva000E7B04
 {
 public:
@@ -137,7 +122,6 @@ public:
 	char m_mid[0x60];
 	int m_count;
 };
-
 // ?rva000E9CFB@Rva000E9BAC@@QAEXABVRva000E3A8D@@@Z @0x000E9CFB 29B: vector assign at +0x4FB60 plus flag at +0x4FB5E.
 // Evidence: retail lea ecx [esi+0x4FB60] calls rowed 0x000E3A8D then mov byte [esi+0x4FB5E],1; offsets match Rva000E9BAC member at 0x4FB60; caller 0x00069CE6.
 
@@ -148,20 +132,14 @@ public:
 private:
 	char m_pad[12];
 };
-
 class Rva000E86B8
 {
 public:
 	~Rva000E86B8();
 	char m_pad[0x5C];
 };
-
-// Native W3DPropBuffer ctor EF008 and dtor EEEF4 install 7CEECC, whose slot 2
-// is EEFE6: the canonical Snapshot GetSnapshotName slot.
 #include "../../../Include/W3DDevice/GameClient/W3DPropBufferClass.h"
-
 class Rva000E3A8D;
-
 class Rva000E9BAC : public Rva000E6AC0
 {
 public:
@@ -175,7 +153,6 @@ private:
 	char m_memberStorage[0xF]; // next array starts at +0x4FB70
 	Rva000E86B8 m_4FB70[0x40];
 };
-
 //
 // W3DShrubBuffer method at retail 0x000E70D9 (103 bytes, ret 4). Open-BFME-1 twin: W3DShrubBuffer_resetMatchingRow.cpp
 // (0x0071C940). BFME2 layout read from retail: record stride 0xA0 with the cursor parked 8 bytes into the row
@@ -183,9 +160,7 @@ private:
 // The BFME2 build clears the position and fade fields as floats.
 
 typedef int Int;
-
 typedef float Real;
-
 struct Rva000E7140Record
 {
     Vector3 position;
@@ -197,14 +172,12 @@ struct Rva000E7140Record
     void *key;
     unsigned char reserved5c[0x44];
 };
-
 struct Rva000E7140Type
 {
     unsigned char reserved00[0x10];
     SphereClass bounds;
     unsigned char reserved20[0x3c];
 };
-
 struct Rva000E73FC
 {
 	Rva000E73FC(const Rva000E73FC &that);
@@ -248,7 +221,6 @@ struct Rva000E73FC
 	int m_98;
 	int m_9c;
 };
-
 class Rva000E75F5RenderObjClass
 {
 public:
@@ -268,7 +240,6 @@ public:
 
 	Int m_refCount;
 };
-
 struct Rva000E75F5Tree
 {
 	Coord3D m_position; float m_scale;
@@ -285,25 +256,19 @@ struct Rva000E75F5Tree
 	Rva000E75F5RenderObjClass *m_pushAside;
 	unsigned char m_pad9c[0xa0 - 0x9c];
 };
-
 struct Rva000E7546TypeRecord {
  void *m_valid; char at04[0x2C-4];
  Coord2D m_shadowA; char at34[0x3C-0x34];
  Coord2D m_shadowB; bool m_ready; char at45[0x5C-0x45];
 };
-
 typedef unsigned int UnsignedInt;
-
 class RenderObjClass;
-
 bool Rva0010E87A_SetOpacity(RenderObjClass *object, float value);
-
 struct Rva000E7A40TypeData
 {
 	char m_pad00[0x4c];
 	UnsignedInt m_toppleFrames;
 };
-
 struct Rva000E7A40Tree
 {
 	char m_pad00[0x40];
@@ -314,14 +279,12 @@ struct Rva000E7A40Tree
 	RenderObjClass *m_pushAside;
 	char m_pad9c[4];
 };
-
 struct Rva000E7A40Type
 {
 	char m_pad00[0x20];
 	Rva000E7A40TypeData *m_data;
 	char m_pad24[0x5c - 0x24];
 };
-
 struct Rva000E912ATree
 {
 	Coord3D m_position; float m_scale;
@@ -331,19 +294,14 @@ struct Rva000E912ATree
 	Int m_key;
 	unsigned char m_pad5c[0xa0 - 0x5c];
 };
-
 typedef bool Bool;
-
 struct Rva000E72B3GlobalData
 {
 	unsigned char m_pad00[0x1c];
 	bool m_flag1c;
 };
-
 class GameLogic;
-
 extern GameLogic *TheGameLogic;
-
 struct Rva000E72B3Tree
 {
 	Real m_locationX;
@@ -361,35 +319,29 @@ struct Rva000E72B3Tree
 	UnsignedInt m_lastFrameUpdated;
 	unsigned char m_pad74[0xa0 - 0x74];
 };
-
 struct Rva000E72B3TypeData
 {
 	unsigned char m_pad00[0x10];
 	UnsignedInt m_framesToMoveOutward;
 };
-
 struct Rva000E72B3Type
 {
 	unsigned char m_pad00[0x20];
 	Rva000E72B3TypeData *m_data;
 	unsigned char m_pad24[0x5c - 0x24];
 };
-
 typedef short Short;
-
 struct Rva000E7734GlobalData
 {
 	unsigned char m_pad00[0x1c];
 	bool m_flag1c;
 	bool m_flag1d;
 };
-
 struct Rva000E7734Template
 {
 	unsigned char m_pad00[0x108];
 	unsigned char m_kindOf;
 };
-
 class Thing
 {
 public:
@@ -406,7 +358,6 @@ public:
 	unsigned char m_pad78[0xb8 - 0x78];
 	Real m_majorRadius;
 };
-
 struct Rva000E7734Region
 {
 	Real lox;
@@ -414,20 +365,17 @@ struct Rva000E7734Region
 	Real hix;
 	Real hiy;
 };
-
 struct Rva000E7734TreeData
 {
 	char m_pad00[0x10];
 	UnsignedInt m_framesToMoveOutward;
 };
-
 struct Rva000E7734Type
 {
 	char m_pad00[0x20];
 	Rva000E7734TreeData *m_data;
 	char m_pad24[0x5c - 0x24];
 };
-
 struct Rva000E7734Tree
 {
 	Coord3D m_location;
@@ -439,12 +387,10 @@ struct Rva000E7734Tree
 	Int m_nextInPartition;
 	char m_pad78[0xa0 - 0x78];
 };
-
 struct Vec2
 {
 	Real x, y;
 };
-
 class ProxyClass
 {
 public:
@@ -452,7 +398,6 @@ public:
 	{
 	};
 };
-
 // Callees rowed under other class views: the 16-bit-count release 0x0061ED10
 // (TextureBaseClass::Release_Ref), the holder size getters 0x0013275A and
 // 0x00132784 (TextureBaseClass, a one-pointer view), and the packer's clear,
@@ -464,7 +409,6 @@ public:
 	int rva0013275A() const;
 	int rva00132784() const;
 };
-
 // One-pointer texture handles returned by value and released on scope exit.
 class BFME2ParticleTextureHandle
 {
@@ -472,13 +416,10 @@ public:
 	~BFME2ParticleTextureHandle() { if (m_data) ((TextureBaseClass *)m_data)->Release_Ref(); }
 	ProxyClass::ProxyData *m_data;
 };
-
 #include "../../../Include/W3DDevice/GameClient/TextureAsset.h"
-
 class HierarchyPrototype : public ProxyClass::ProxyData
 {
 };
-
 template <class T> class RefCountPtr
 {
 public:
@@ -486,36 +427,30 @@ public:
 	const RefCountPtr &operator=(const RefCountPtr &other);
 	T *m_data;
 };
-
 class AssetReference : public RefCountPtr<HierarchyPrototype>
 {
 };
-
 class Rva00132D0FHolder : public RefCountPtr<HierarchyPrototype>
 {
 public:
 	using RefCountPtr<HierarchyPrototype>::operator=;
 	const TextureBaseClass *texture() const { return (const TextureBaseClass *)this; }
 };
-
 class Rva00170EBC
 {
 public:
 	void rva00170EBC(Bool shadow);
 };
-
 class Rva00171583
 {
 public:
 	Bool rva00171583(const unsigned int &texture, Vec2 *topLeft, Vec2 *bottomRight);
 };
-
 class Rva00171024
 {
 public:
 	AssetReference rva00171625();
 };
-
 class TexturePacker
 {
 public:
@@ -526,7 +461,6 @@ public:
 private:
 	unsigned char m_bytes[0x28];
 };
-
 class BfmeAwakenLog
 {
 public:
@@ -538,7 +472,6 @@ public:
 	virtual void slot3C(); virtual void slot40(); virtual void slot44(); virtual void slot48();
 	virtual void slot4C(int report);
 };
-
 class BfmeAwakenDebug
 {
 public:
@@ -552,21 +485,15 @@ public:
 	virtual void v64(); virtual void v68();
 	virtual BfmeAwakenLog *v6c(int first, int second, int third);
 };
-
 class Debug;
-
 extern Debug *theDebug;
-
 extern bool _bfme_debugReportingEnabled();
-
 extern void _bfme_debugRecordCallsite(int kind);
-
 struct ShrubTypeData
 {
 	unsigned char m_pad00[0x0C];
 	AsciiString m_textureName;		// +0x0C
 };
-
 struct ShrubType
 {
 	const ShrubTypeData *m_data;		// +0x00
@@ -578,48 +505,31 @@ struct ShrubType
 	AsciiString m_shadowTextureName;	// +0x28
 	unsigned char m_pad2c[0x5C - 0x2C];
 };
-
 struct BreezeInfo;
-
 class ScriptEngine;
-
 class PlayerList;
-
 enum ObjectShroudStatus { SHROUD_STATUS_A = 0 };
-
 class Rva00203ACEByteField { public: unsigned char get() const; };
-
 class Rva00203B08 { public: bool rva0020424FF(); };
-
 class Rva00739800 { public: ObjectShroudStatus rva00739800(int, const Coord3D *) const; };
-
 class Rva000EC9C6 { public: void rva000E663B(int); };
-
 struct Rva000E89BDPlayer { unsigned char pad[0x54]; int index; };
-
 struct Rva000E89BDPlayerList { unsigned char pad[0x10]; Rva000E89BDPlayer *local; };
-
 struct Rva000E89BDGlobalData { unsigned char pad[0x1c]; bool flag1c; };
-
 struct Rva000E89BDScriptEngine { unsigned char pad[0x1a4a8]; unsigned char breeze[1]; };
-
 extern ScriptEngine *TheScriptEngine;
-
 extern PlayerList *ThePlayerList;
-
 struct Rva000E89BDData
 {
 	unsigned char pad[0x14];
 	unsigned int framesToMoveInward;
 };
-
 struct Rva000E89BDType
 {
 	unsigned char pad[0x20];
 	const Rva000E89BDData *data;
 	unsigned char pad24[0x5c - 0x24];
 };
-
 struct Rva000E89BDTree
 {
 	Coord3D location;
@@ -634,44 +544,34 @@ struct Rva000E89BDTree
 	unsigned char pad88[0x9c - 0x88];
 	int shroudState;
 };
-
 class Rva000E6406SwayView
 {
 public:
 	void rva000E6406(const BreezeInfo &info);
 };
-
 class FXList
 {
 public:
 	static void doFXPos(const FXList *list, const Coord3D *position, const Matrix3D *matrix, Real speed,
 		const Coord3D *direction);
 };
-
 class Rva0027F2D6
 {
 public:
 	void rva0027F2D6(Int id);
 };
-
 // retail singleton: TerrainLogic *TheTerrainLogic (mangled ?TheTerrainLogic@@3PAVTerrainLogic@@A),
 // defined in GameLogic/Map/TerrainLogic.cpp. Uses go through this TU's Rva0027F2D6 view.
 class TerrainLogic;
-
 extern TerrainLogic *TheTerrainLogic;
-
 // Retail global 0x012F8058 is W3DDisplay::m_3DScene
 // (?m_3DScene@W3DDisplay@@2PAVRTS3DScene@@A, defined in W3DDisplay's own TU).
 // RTS3DScene is forward declared: the two scene calls go through scene.h's
 // SceneClass view, which is what the retail call sites do.
 class RTS3DScene;
-
 class W3DDisplay { public: static RTS3DScene *m_3DScene; };
-
 RenderObjClass *Create_Render_Obj(const char *name);
-
 void rva0010E4F6(void *object, bool geometry);
-
 struct Rva000E8C2DTypeData
 {
 	unsigned char m_pad00[8];
@@ -681,7 +581,6 @@ struct Rva000E8C2DTypeData
 	const FXList *m_effect;
 	bool m_flag54;
 };
-
 struct Rva000E8C2DType
 {
 	unsigned char m_pad00[0x20];
@@ -691,7 +590,6 @@ struct Rva000E8C2DType
 	unsigned char m_pad50[0x58 - 0x50];
 	Int m_field58;
 };
-
 struct Rva000E8C2DTree
 {
 	Coord3D m_location;
@@ -707,21 +605,15 @@ struct Rva000E8C2DTree
 	RenderObjClass *m_pushAside;
 	unsigned char m_pad9c[0xa0 - 0x9c];
 };
-
 struct Rva000E8F9DTreeDrawData
 {
 	unsigned char moduleDataBase[8];
 	AsciiString m_modelName;
 	AsciiString m_nameC;
 };
-
 #include "../../../../GameEngine/Include/Common/ModuleData.h"
-
 #include "../../../../GameEngine/Include/Common/ModuleInfoClass.h"
-
-// ThingTemplate keeps +0x2F0 (the draw-module ModuleInfo) as opaque storage; this unit reads it through a ModuleInfo view.
 #include "../../../../GameEngine/Include/Common/ThingTemplate.h"
-
 #include "../../../../GameEngine/Include/Common/ThingFactory.h"
 
 extern ThingFactory *TheThingFactory;
@@ -736,6 +628,29 @@ struct Rva000E8F9DTreeType
 	AsciiString m_modelName;
 	AsciiString m_nameC;
 	unsigned char suffix[0x5c - 0x54];
+};
+
+BFME_LITERAL_NAME_GETTER(Rva000E9C0FNamed, "W3DShrubBuffer")
+
+// Byte one-setters: eight-byte __thiscall members with one shape:
+//
+//     mov byte ptr [ecx+<DISP>],1 / ret
+//
+// One byte at a fixed displacement from `this` is set to 1 and nothing is
+// read back. Ported from Open-BFME-1's RvaB7F70Offset8ByteOneSetterThunk
+// pattern (`void enable() { enabled = 1; }`); only the class names follow
+// this tree's Disp* convention (address-derived Rva<addr>ByteOneSetter,
+// identity unrecoverable from 8 bytes). Every displacement here is a disp32
+// (MSVC 7.1 uses disp8 whenever the offset fits, so every offset is at
+// least 0x80).
+// No // cl: line (defaults match the frameless 8-byte shape).
+class Rva000E9C15ByteOneSetter
+{
+public:
+	void enable();
+
+	char m_lead[0x4FB5C];
+	unsigned char m_enabled;
 };
 
 class W3DShrubBuffer : public Rva000E6AC0
@@ -813,28 +728,16 @@ public:
 	Int rva000E8F9D(const AsciiString &templateName, Int shadowKind, const AsciiString &textureName);
 };
 
-BFME_LITERAL_NAME_GETTER(Rva000E9C0FNamed, "W3DShrubBuffer")
+extern const void *const g_00BCECB8[];
 
-// Byte one-setters: eight-byte __thiscall members with one shape:
-//
-//     mov byte ptr [ecx+<DISP>],1 / ret
-//
-// One byte at a fixed displacement from `this` is set to 1 and nothing is
-// read back. Ported from Open-BFME-1's RvaB7F70Offset8ByteOneSetterThunk
-// pattern (`void enable() { enabled = 1; }`); only the class names follow
-// this tree's Disp* convention (address-derived Rva<addr>ByteOneSetter,
-// identity unrecoverable from 8 bytes). Every displacement here is a disp32
-// (MSVC 7.1 uses disp8 whenever the offset fits, so every offset is at
-// least 0x80).
-// No // cl: line (defaults match the frameless 8-byte shape).
-class Rva000E9C15ByteOneSetter
-{
-public:
-	void enable();
+class Rva000E3A8D;
 
-	char m_lead[0x4FB5C];
-	unsigned char m_enabled;
-};
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
+
+// Native W3DPropBuffer ctor EF008 and dtor EEEF4 install 7CEECC, whose slot 2
+// is EEFE6: the canonical Snapshot GetSnapshotName slot.
+
+// ThingTemplate keeps +0x2F0 (the draw-module ModuleInfo) as opaque storage; this unit reads it through a ModuleInfo view.
 
 // Native 39B78D is ScoreKeeper::LoadPostProcess, owned by ScoreKeeperDtor.cpp.
 
@@ -1574,6 +1477,22 @@ Int W3DShrubBuffer::rva000E8F9D(const AsciiString &asciiString, Int shadowKind, 
 // reference behind a C3 predecessor; verify_string_refs re-reads the string.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/DispByteOneSetters.cpp
+
+void Rva000E9C15ByteOneSetter::enable()
+{
+	m_enabled = 1;
+}
+
 // tu-skeleton: 0x000E7529 29B ?rva000E7529@Rva000E7529@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
 // tu-skeleton: 0x000E7DF3 1394B ?loadShrubsInVertexAndIndexBuffers@W3DShrubBuffer@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer_loadShrubsInVertexAndIndexBuffers.cpp (not merged yet)
@@ -1590,13 +1509,11 @@ Int W3DShrubBuffer::rva000E8F9D(const AsciiString &asciiString, Int shadowKind, 
 
 // tu-skeleton: 0x000E96B4 1272B ?DoXfer@W3DShrubBuffer@@QAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferDoXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x000E9BAC 99B ??1Rva000E9BAC@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E9BACDtor.cpp
 
-// ---- from Code/GameEngine/Source/Common/DispByteOneSetters.cpp
-
-void Rva000E9C15ByteOneSetter::enable()
+Rva000E9BAC::~Rva000E9BAC()
 {
-	m_enabled = 1;
+	((W3DShrubBuffer *)this)->rva000E7016();
 }
 
 // tu-skeleton: 0x000E9CDF 28B ??_GRva000E9BAC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
