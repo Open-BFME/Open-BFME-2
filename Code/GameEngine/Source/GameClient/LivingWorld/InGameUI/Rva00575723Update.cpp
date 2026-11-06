@@ -47,12 +47,9 @@ public:
 	virtual void run();				// slot 1
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-	Rva000AD6F4Action *m_action;
-};
+#include "../../../../Include/Common/Rva000AD6F4.h"
+// The two holders own Rva000AD6F4Action objects.
+__forceinline Rva000AD6F4Action *heldAction(const Rva000AD6F4 &holder) { return static_cast<Rva000AD6F4Action *>(holder.m_ptr); }
 
 class Rva002B2B66
 {
@@ -101,9 +98,9 @@ void Rva00575723::rva00575723()
 	m_owner->rva0057539C();
 	m_manualPhaseEnder.Update();
 	m_notifier.rva005CD708();
-	if (m_pendingAction.m_action)
+	if (heldAction(m_pendingAction))
 	{
-		m_pendingAction.m_action->run();
+		heldAction(m_pendingAction)->run();
 		m_pendingAction.clear();
 	}
 	int phase = reinterpret_cast<Rva002B2B66 *>(TheLivingWorldLogic)->rva002B2B66();
@@ -113,8 +110,8 @@ void Rva00575723::rva00575723()
 		reinterpret_cast<Rva005CD010 &>(m_checklist).rva005CD010();
 		m_phase = phase;
 	}
-	if (m_action.m_action)
-		m_action.m_action->run();
+	if (heldAction(m_action))
+		heldAction(m_action)->run();
 	else
 		reinterpret_cast<Rva005CB84A *>(m_owner->m_04->get())->rva005CB84A(0);
 	m_checklist.rva005CCEB6();
