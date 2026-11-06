@@ -23860,3 +23860,4 @@ Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x001E7
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x003899C4|rva003899C4,a8a6bec8bd9c78df4f5d335a,claude-haiku-5-5,nc13,w-b730aa9a1dbc,2026-11-06
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|function|0x0047003C|rva0047003C,70360483198e561e9f836a09,claude-haiku-5-5,nc13,w-b730aa9a1dbc,2026-11-06
 Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp|global|unrowed:05c1af8307922aa14390e733fcbe957cb9cbb032f492f833daeab17995ace5f1|unrowedData,6fb9901351bc6ae098878e08,grok-4.7,voter-e-fp,w-27673ba3acc5,2026-11-06
+Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp|global|unrowed:5fb6b16ba9bbda5cd92ffb22748e397c552306a0c28795aee7a30ebb1f8d7ff5|unrowedData,2c308e27655ad07d78aa079a,claude-opus-5-5,voter-f,w-6845c0f579a3,2026-11-06
