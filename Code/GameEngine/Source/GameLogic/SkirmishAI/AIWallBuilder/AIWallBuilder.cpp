@@ -52,19 +52,13 @@ struct XferUnknown11;
 #pragma comment(linker, "/alternatename:?v1@Rva004E9B46@@UAEXXZ=?update@AIWallBuilder@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?v2@Rva004E9B46@@UAEXXZ=?rva004E9B70@Rva004E9B70@@QAEXXZ")
 typedef unsigned int UnsignedInt;
-
 class ModuleData;
-
 // Keep the real STL append definition visible: a declaration-only
 // specialization changes aliasing spills in tryToStartWallProduction.
 void *rva004E99B1(void *key);
-
 struct AIWallIDView { unsigned char unknown[0x44]; unsigned int id; };
-
 class AIWall;
-
 enum NameKeyType {NAMEKEY_INVALID=0,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
-
 class AIWallBuilder {
 public: void DoXfer(Xfer *); float rva004E98B4(AIWall *);
     unsigned char canBuildAnyWall();
@@ -74,23 +68,17 @@ public: void DoXfer(Xfer *); float rva004E98B4(AIWall *);
 private: unsigned char m_prefix[8]; void *m_owner;
     _STL::vector<AIWallIDView*> m_walls;
 };
-
 // Retail 4E98B4/42 and WB13809B0/44: member float result, unused wall
 // argument and ret 4. Caller 4E9DA8 passes its builder in ECX and the selected
 // wall on the stack. The prior free-stdcall spelling hid this member ABI.
 // The address name remains because the original method name is unknown.
 float __cdecl GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
-
 extern float g_00C62800;
-
 // g_00C62800: matched references place it at VA 0xc62800 (retail .rdata value 1.1e+02f).
 float g_00C62800 = 1.1e+02f;
-
 extern float g_00C62804;
-
 // g_00C62804: matched references place it at VA 0xc62804 (retail .rdata value 7e+01f).
 float g_00C62804 = 7e+01f;
-
 // Native 4E9DA8..4E9EA1 and WB1380720 name this builder member. The
 // global at E04484 is a three-word pointer range. The two eligibility calls
 // precede append; selection uses inclusive random [0,size-1], file line165.
@@ -100,11 +88,8 @@ float g_00C62804 = 7e+01f;
 // Preserve the registered data owner's RvaVector type name. Field labels
 // describe its three-word storage without asserting the original typedef.
 struct RvaVector { void **begin, **end, **capacity; void **erase(void **first, void **last); };
-
 extern RvaVector g_00E04484;
-
 class Rva004EABB9 { public: bool rva004EABB9(); int rva004EABC7(); };
-
 // Full native 4EB7CC/310 and WB137BE20 prove bool result and ret4 owner
 // argument, on the wall selected here. Its original method name is unknown.
 // Full native 4EAF18/165 and named WB137BB30 prove activate's three argument
@@ -120,17 +105,11 @@ public:
     unsigned char m_pad00[0x48];
     NameKeyType m_nameKey; // +0x48
 };
-
 struct Rva002A8B59Data { char unknown[0x28]; };
-
 struct Rva002A8AB1Record;
-
 #include "../../../../Include/GameLogic/Rva002A8F24.h"
-
 extern Rva002A8F24 *TheSkirmishAIManager;
-
 int __cdecl GetGameLogicRandomValue(int, int, char *, int);
-
 // Full native 4E98F7/186 and WB1381340/371 search a four-byte pointer
 // range in groups of four, comparing each wall's key+48 through rowed
 // Rva004EAB9FCmp. They return the matching iterator or the end in EAX.
@@ -144,7 +123,6 @@ int __cdecl GetGameLogicRandomValue(int, int, char *, int);
 // control-flow lead, not the original template or element spelling. Keep the
 // default return in the switch: it reproduces the retail shared return blocks.
 bool __cdecl Rva004EAB9FCmp(const void *, const void *);
-
 // Native 4E9C13/405 and WB1380060/1385 name loadWallLibrary and prove
 // the map-list traversal, flag bit5 at44, group-key finder, allocations4C/5C,
 // position copy40, duplicate-node deletion and init/erase loop. The boolean
@@ -155,7 +133,6 @@ bool __cdecl Rva004EAB9FCmp(const void *, const void *);
 // Node slot0 and size5C are independently proven by its rowed provider and
 // native ::delete call (scalar flags0 then global operator delete).
 class BfmeRetBWF {public:float x,y,z;};
-
 class MapObject {
 public:
     void *unknown00;
@@ -164,37 +141,27 @@ public:
     unsigned int flags;
     bool isWall() const { return (flags & 0x20) != 0; }
 };
-
 class BfmeMapObjectListHolder {public: MapObject *m_head;};
-
 extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
-
 class Rva0030D4F2 {public:int rva0030D4F2();int rva0030D50C();};
-
 class Rva0030D808 {public:AsciiString rva0030D808();};
-
 class Rva0030D631 {public:BfmeRetBWF *rva0030D631();};
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 // The 0x4C-byte wall: built here and by the library Xfer's throwaway wall,
 // destroyed through the rowed virtual 0x004EB5E9.
 class Rva004EB5E9 {
 public:Rva004EB5E9(int value);virtual ~Rva004EB5E9();
 private:unsigned char m_pad04[0x4C - 0x04];
 };
-
 class Rva00596CDF {
 public:Rva00596CDF(unsigned int);virtual ~Rva00596CDF();
 unsigned char unknown04[0x3c];BfmeRetBWF position;unsigned char unknown4c[0x10];
 };
-
 class Rva004EB794 {public:bool rva004EB794(const ModuleData *);};
-
-
 #include "../../../../Include/GameLogic/Rva00506B1B.h"
+#pragma comment(linker, "/alternatename:?v1@Rva004E9B46@@UAEXXZ=?update@AIWallBuilder@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?v2@Rva004E9B46@@UAEXXZ=?rva004E9B70@Rva004E9B70@@QAEXXZ")
 
 class Rva004E9B46 : public Rva00506B1B
 {
@@ -248,6 +215,8 @@ class Rva004E9B70
 public:
 	void rva004E9B70();
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp
 
@@ -501,14 +470,18 @@ void Rva004E9B70::rva004E9B70()
 	}
 }
 
-// tu-skeleton: 0x004E9BC6 77B ??1Rva004E9B46@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp
 
-// tu-skeleton: 0x004E9F52 28B ??_GRva004E9B46@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)
+// ??1Rva004E9B46@@UAE@XZ @0x004E9BC6 77B. Identity: dtor storing vtable 0x00862874 then member cleanup via 0x004E9B70 and free of +0x0C then base vtable via 0x00506B28.
+// Evidence: vtable store at [this]; callees rowed 0x004E9B70 0x00506B28 free 0x00030830; unblocks 0x004E9F52.
+// Written against AIWallBuilder.cpp's view: the +0x0C member is the
+// vector<BfmeE16> the constructor 0x004E9B46 builds, whose inlined teardown
+// is the native null test and direct free; its unwind funclets call the
+// folded vector destructor 0x0007FAB3.
+
+Rva004E9B46::~Rva004E9B46()
+{
+	((Rva004E9B70 *)this)->rva004E9B70();
+}
 
 // tu-skeleton: 0x004E9F6E 68B ?postInit@AIWallBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp (not merged yet)
-
-// tu-skeleton: 0x0079257A 8B $L350 -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00792582 11B $L351 -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0079258D 10B __ehhandler$??1Rva004E9B46@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)

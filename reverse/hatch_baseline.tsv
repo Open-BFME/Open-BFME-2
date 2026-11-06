@@ -2103,8 +2103,6 @@ alternatename	Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp	?f
 alternatename	Code/GameEngine/Source/Common/Rva004CE36Dtor.cpp	??0Rva0004CDAFSlot@@QAE@XZ	2
 alternatename	Code/GameEngine/Source/Common/Rva004CE36Dtor.cpp	??1Rva0004CDAFSlot@@QAE@XZ	2
 alternatename	Code/GameEngine/Source/Common/Rva004E32D5Ctor.cpp	??0BfmeVNITree@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp	?v1@Rva004E9B46@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp	?v2@Rva004E9B46@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004FAE34Loop.cpp	?push_back@?$vector@W4EvaMessage@@V?$allocator@W4EvaMessage@@@_STL@@@_STL@@QAEXABW4EvaMessage@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva004FAE34Loop.cpp	?rva002B3325@Rva002B3325@@QAE_NPAUArg54@@0@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00500BF5TreeInsert.cpp	?Rva00500BA6Opaque@@YGPAXABVRva00500500@@@Z	1
@@ -3105,8 +3103,8 @@ alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuilda
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp	?slot7@Rva0055B0CC@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp	?slot8@Rva0055B0CC@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIBuildableUnit.cpp	?slot9@Rva0055B0CC@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp	?v1@Rva004E9B46@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp	?v2@Rva004E9B46@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp	?v1@Rva004E9B46@@UAEXXZ	2
+alternatename	Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp	?v2@Rva004E9B46@@UAEXXZ	2
 alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	??0?$_Vector_base@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVCrateTemplate@@@1@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	?erase@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEPAPAVCrateTemplate@@PAPAV3@0@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/CrateSystemLifetime.cpp	?erase@?$vector@PAVCrateTemplate@@V?$allocator@PAVCrateTemplate@@@_STL@@@_STL@@QAEPAPAVCrateTemplate@@PAPAV3@@Z	1
