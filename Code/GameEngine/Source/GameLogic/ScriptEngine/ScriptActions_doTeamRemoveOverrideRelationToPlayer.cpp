@@ -19,12 +19,7 @@ enum NameKeyType
 };
 #include "../../../Include/Common/NameKeyGenerator.h"
 #include "../../../Include/Common/PlayerList.h"
-class Player
-{
-public:
-	char m_pad[0x54];
-	NameKeyType m_key;
-};
+#include "../../../Include/Common/Player.h"
 class Rva003A28ED
 {
 public:
@@ -42,5 +37,5 @@ void ScriptActions::doTeamRemoveOverrideRelationToPlayer(const AsciiString &team
 		return;
 	if (player == 0)
 		return;
-	((Rva003A28ED *)team)->rva003A28ED(player->m_key);
+	((Rva003A28ED *)team)->rva003A28ED((NameKeyType)player->m_playerIndex);
 }

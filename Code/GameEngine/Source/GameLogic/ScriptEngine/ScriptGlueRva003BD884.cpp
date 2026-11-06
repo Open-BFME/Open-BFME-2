@@ -25,12 +25,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_0 = 0
 };
 
-class Player
-{
-public:
-	unsigned char m_pad[0x2EC];
-	Team *m_team; // +0x2EC
-};
+#include "../../../Include/Common/Player.h"
 
 class Object
 {
@@ -58,7 +53,7 @@ void ScriptActions::Rva003BD884Set(Parameter *parameter, const AsciiString *name
 		return;
 	if (pl == 0)
 		return;
-	Team *team = pl->m_team;
+	Team *team = pl->m_defaultTeam;
 	if (team == 0)
 		return;
 	Player *ctrl = obj->getControllingPlayer();

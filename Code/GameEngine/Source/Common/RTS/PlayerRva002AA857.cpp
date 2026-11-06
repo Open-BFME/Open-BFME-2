@@ -15,20 +15,15 @@ struct PlayerTemplateStringList { AsciiString *begin,*end,*capacity;
 struct RevivalPlayerTemplateView {
  char unknown00[0x18C]; _STL::vector<AsciiString> secondary,primary;
 };
-class Player {
-public:
- const ThingTemplate *rva002AA857(int index);
-private:
- char unknown00[0x34]; RevivalPlayerTemplateView *playerTemplate;
-};
+#include "../../../Include/Common/Player.h"
 // ?rva002AA857@Player@@QAEPBVThingTemplate@@H@Z
 const ThingTemplate *Player::rva002AA857(int index)
 {
- if(index<playerTemplate->primary.size())
-  return TheThingFactory->findTemplate(playerTemplate->primary[index]);
- int secondIndex=index-playerTemplate->primary.size();
- if(secondIndex<playerTemplate->secondary.size())
-  return TheThingFactory->findTemplate(playerTemplate->secondary[secondIndex]);
+ if(index<((const RevivalPlayerTemplateView *)m_playerTemplate)->primary.size())
+  return TheThingFactory->findTemplate(((const RevivalPlayerTemplateView *)m_playerTemplate)->primary[index]);
+ int secondIndex=index-((const RevivalPlayerTemplateView *)m_playerTemplate)->primary.size();
+ if(secondIndex<((const RevivalPlayerTemplateView *)m_playerTemplate)->secondary.size())
+  return TheThingFactory->findTemplate(((const RevivalPlayerTemplateView *)m_playerTemplate)->secondary[secondIndex]);
  return 0;
 }
 

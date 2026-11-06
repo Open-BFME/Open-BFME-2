@@ -113,12 +113,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 class Object;
 
-class Player {
-public:
-    void rva002AF614(void *);
-    unsigned char unknown00[0x54];
-    int index54;
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "../../../../Include/GameLogic/PartitionFilter.h"
 
@@ -748,14 +743,14 @@ void __cdecl AIWall::informInstanceOnTriggerEntered(Object *object, void *contex
         BfmeE8 *found = 0;
         _STL::vector<BfmeE8>::iterator end = wall->triggerCounts28.end();
         for (_STL::vector<BfmeE8>::iterator entry = wall->triggerCounts28.begin(); entry != end; ++entry) {
-            if (entry->a == object->getControllingPlayer()->index54) {
+            if (entry->a == object->getControllingPlayer()->m_playerIndex) {
                 found = entry;
                 break;
             }
         }
         if (!found) {
             BfmeE8 entry;
-            entry.setPlayerIndex(object->getControllingPlayer()->index54);
+            entry.setPlayerIndex(object->getControllingPlayer()->m_playerIndex);
             wall->triggerCounts28.push_back(entry);
             found = &wall->triggerCounts28[wall->triggerCounts28.size()-1];
         }

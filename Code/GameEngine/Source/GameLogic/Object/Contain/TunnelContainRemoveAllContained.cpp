@@ -40,12 +40,7 @@ public:
 	Rva0036AE51ListView rva00466398();
 };
 
-class Player
-{
-public:
-	unsigned char m_pad000[0x2E8];
-	Rva00466398 *m_2E8;
-};
+#include "../../../../Include/Common/Player.h"
 
 class TunnelContainPrimary
 {
@@ -125,7 +120,7 @@ void Rva0047DAEARemoveVisit( Object *obj, void *userData )
 void TunnelContain::removeAllContained( int exposeStealthUnits )
 {
 	Player *owningPlayer = getObject()->getControllingPlayer();
-	Rva00466398 *tunnelTracker = owningPlayer->m_2E8;
+	Rva00466398 *tunnelTracker = (Rva00466398 *)owningPlayer->m_tunnelSystem;
 	ContainmentList objects = tunnelTracker->rva00466398().rva0036AE51();
 	ContainmentList::iterator it = objects.begin();
 	while (it != objects.end())

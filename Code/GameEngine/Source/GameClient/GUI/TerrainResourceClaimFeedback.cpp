@@ -89,12 +89,7 @@ public:
 	Coord3D m_position;
 };
 
-class Player
-{
-public:
-	char m_pad[0x54];
-	int m_index;
-};
+#include "../../../Include/Common/Player.h"
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
@@ -138,7 +133,7 @@ void TerrainResourceClaimFeedback::Impl::updateClaimedDecalForClaimant(ClaimedDe
 {
 	Object *obj = TheGameLogic->findObjectByID(id);
 	Player *local = ThePlayerList->getLocalPlayer();
-	if (obj->getShroudStatusForPlayer(local ? local->m_index : 0) > CELLSHROUD_SHROUDED)
+	if (obj->getShroudStatusForPlayer(local ? local->m_playerIndex : 0) > CELLSHROUD_SHROUDED)
 		obj = 0;
 	ClaimedDecalMap::iterator it = m_claimedDecalMap.find(id);
 	if (it != m_claimedDecalMap.end())

@@ -136,12 +136,7 @@ public:
 	unsigned char m_438;		// +0x438
 };
 
-class Player
-{
-public:
-	char m_pad000[0x4C];AsciiString m_4C;char m_pad050[0x2EC-0x50];
-	Team *m_defaultTeam;		// +0x2EC
-};
+#include "../../../../../../Include/Common/Player.h"
 
 // The lookup chain is visible in this unit, as in AIUpgradeBuild.cpp: storage
 // and traversal from native _M_find 0x002888D4 and GameLogic::findObjectByID
@@ -676,7 +671,7 @@ void AIStructureCreepTactic::run()
 				unsigned tacticId = m_id;
 				Player *player = m_owner;
 				Rva003A2FD4Proto *proto = TheTeamFactory->initTeamForTacticalAI(
-					teamName, &player->m_4C, -1, tacticId);
+					teamName, &player->m_playerName, -1, tacticId);
 				if (proto != 0) {
 					proto->m_31C = false;
 					proto->m_2CC = 4;

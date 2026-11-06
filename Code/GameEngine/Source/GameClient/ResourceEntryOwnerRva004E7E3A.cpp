@@ -63,12 +63,7 @@ public:
 class GameLogic;
 extern GameLogic *TheGameLogic;
 
-class Player
-{
-public:
-	char m_pad[0x54];
-	int m_index;
-};
+#include "../../Include/Common/Player.h"
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 
@@ -100,7 +95,7 @@ void ResourceEntryOwner::rva004E7E3A()
 				int mask = 0;
 				if (ThePlayerList && ThePlayerList->m_local)
 				{
-					int index = ThePlayerList->m_local->m_index;
+					int index = ThePlayerList->m_local->m_playerIndex;
 					mask = ThePlayerList->getPlayersWithRelationship(index, 3, false);
 				}
 				resources->enumerateRegisteredClaimants(mask, &callback);
