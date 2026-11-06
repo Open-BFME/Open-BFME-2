@@ -1,6 +1,6 @@
 // cl: /MD /EHsc
 //
-// ??1Rva0033F74B@@UAE@XZ, retail 0x00341F99, 91 bytes.
+// ??1AITunnelNetworkGuardState@@UAE@XZ, retail 0x00341F99, 91 bytes.
 // Twin of 0x00342157 (vtable 0x008118B0) and 0x00341E70: dtor restoring vtable,
 // calling member +0x20 slot 0x3C when present then deleting it via slot-0
 // scalarDeletingDestructor(0) plus operator delete with null->0 ternary
@@ -38,16 +38,16 @@ public:
 	virtual void method3C();
 };
 
-class Rva0033F74B : public State
+class AITunnelNetworkGuardState : public State
 {
 public:
-	virtual ~Rva0033F74B();
+	virtual ~AITunnelNetworkGuardState();
 
 private:
 	Rva00341F99Member *m_ptr20;
 };
 
-Rva0033F74B::~Rva0033F74B()
+AITunnelNetworkGuardState::~AITunnelNetworkGuardState()
 {
 	if (m_ptr20 != 0) {
 		m_ptr20->method3C();
