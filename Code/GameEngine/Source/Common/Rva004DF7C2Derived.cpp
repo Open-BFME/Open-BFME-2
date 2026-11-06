@@ -56,13 +56,13 @@ public:
 // ?f2@Rva004DF836_B2@@UAEXXZ present-unmatched
 void Rva004DF836_B2::f2() {}
 
-class Rva004DF836 : public ObjectHelper, public MiBase1, public Rva004DF836_B2
+class ObjectRecoveryHelper : public ObjectHelper, public MiBase1, public Rva004DF836_B2
 {
 public:
-	virtual ~Rva004DF836();
+	virtual ~ObjectRecoveryHelper();
 };
 
-Rva004DF836::~Rva004DF836()
+ObjectRecoveryHelper::~ObjectRecoveryHelper()
 {
 }
 

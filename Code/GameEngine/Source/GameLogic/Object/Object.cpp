@@ -4845,7 +4845,7 @@ void *Rva0028C783::rva0028C783(unsigned int idx)
 
 // tu-skeleton: 0x0028C9DD 28B ??_GObjectDefectionHelper@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x0028CA98 28B ??_GRva004DF836@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
+// tu-skeleton: 0x0028CA98 28B ??_GObjectRecoveryHelper@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CAB4 42B ??0ObjectRepulsorHelper@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Helper/ObjectRepulsorHelperCtor.cpp (not merged yet)
 
