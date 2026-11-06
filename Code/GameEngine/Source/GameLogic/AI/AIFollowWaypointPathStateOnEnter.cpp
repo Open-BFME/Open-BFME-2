@@ -54,8 +54,10 @@ enum ModelConditionFlagType
 #include "../../../Include/GameClient/ModelConditionFlags.h"
 // The calls at 0x0034EF3F and 0x0034EF85 reach the game format-and-append
 // helper at 0x002CEC42, not CRT fprintf. Its receiver stays opaque here.
-struct FprintfTarget;
-extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+// Statically linked CRT fprintf: read <stdio.h> without dllimport.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 typedef float Real;
@@ -271,7 +273,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
     {
         if (g_00E03745)
         {
-            FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+            FILE *log = (FILE *)theLogicRandomLogFile;
             if (log != NULL)
                 fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 54");
         }
@@ -282,7 +284,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
         if (g_00E03745)
         {
             if (theLogicRandomLogFile != 0)
-                fprintf((FprintfTarget *)theLogicRandomLogFile,
+                fprintf((FILE *)theLogicRandomLogFile,
                     "CritterDesync: setAdjustDestination(ai->isDoingGroundMovement()=%s) 55",
                     ai->isDoingGroundMovement() ? "TRUE" : "FALSE");
         }
