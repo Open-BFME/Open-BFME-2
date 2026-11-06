@@ -213,3 +213,6 @@ Recovery publication (2026-11-06): historical fleet investigation at the inspect
 
 
 **BoneFXUpdate particle enum-vector identity (2026-11-06, chat05 seat2, inspected `f15737ff46b`):** allocator-contract flag trial in the conflicting BoneFXUpdateUpdate.cpp provider preserves all six matched rows; full recursive overflow fold proof and consumer closure remain unverified. Initial pin admission lacked Wine PATH; the configured retry was blocked before execution by automatic approval review on the existing real-owner/one-identity concern. Trial restored, no pin or debt retirement. [Measured trial, exact command/rejection and prerequisites](../../reverse/attempt_support/bonefx-particle-vector-allocator-20261106-c05-seat2.md). Status: Blocked; census/runtime confirmation not claimed.
+
+
+2026-11-06 recovery trial: ObjListPush 0x005CD018 already has a 26-byte owner; its archived explicit stdcall bridge to the existing 0x005CCED5 owner fails normal byte verification (21-byte candidate, changed iterator-argument construction). The complete trial is tool-banked, Code is restored and the original baseline again passes 1/1; identity debt remains. [Measured boundary and next prerequisite](../../reverse/attempt_support/objlist-push-recovery-20261106.md).
