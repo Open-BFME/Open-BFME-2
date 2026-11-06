@@ -44,20 +44,7 @@ struct HomeVector3
 	static __forceinline float Distance2(const HomeVector3 &homeVector3, const HomeVector3 &p2) { HomeVector3 temp = homeVector3 - p2; return temp.Length2(); }
 };
 
-class Waypoint
-{
-public:
-	const AsciiString &getName() const { return m_name; }
- const Coord3DBase &getLocation()const{return m_location;}
-	Waypoint *getNext() const { return m_pNext; }
-private:
-	int m_00;
-	int m_04;
-	AsciiString m_name;		// +0x08
-	Coord3DBase m_location;	// +0x0C
-	int m_18;
-	Waypoint *m_pNext;		// +0x1C
-};
+#include "../../Include/GameLogic/Waypoint.h"
 
 class Region3D;
 #include "../../Include/GameLogic/TerrainLogic.h"
@@ -92,7 +79,7 @@ Coord3D Rva00506CF5(void *owner,Coord3D *point) {
   if(slot) {
    int start=slot->m_startPos;AsciiString name;name.format("Player_%d_Start",start+1);
    Waypoint *way=Rva00506CC3FindWaypoint(name);
-   if(way){result=*(const Coord3D*)&way->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
+   if(way){result=*way->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
   }else if(point&&!point->equals(Gen00DD0870)){result=*point;}
  }else {
   float bestDistance=0.0f;Waypoint*best=0;
@@ -112,11 +99,11 @@ Coord3D Rva00506CF5(void *owner,Coord3D *point) {
     AsciiString name;name.format("Player_%d_Start",i+1);
     Waypoint*way=Rva00506CC3FindWaypoint(name);
     if(way){
-     float distance=HomeVector3::Distance2(HomeVector3(way->getLocation()),HomeVector3(asBase(position)));
+     float distance=HomeVector3::Distance2(HomeVector3(asBase(*way->getLocation())),HomeVector3(asBase(position)));
      if(!best||distance<bestDistance){best=way;bestDistance=distance;}
     }
    }
-   if(best){result=*(const Coord3D*)&best->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
+   if(best){result=*best->getLocation();result.z=TheTerrainLogic->getGroundHeight(result.x,result.y,0);return result;}
   }
  }
  return result;
