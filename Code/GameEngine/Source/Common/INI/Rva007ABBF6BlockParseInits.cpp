@@ -186,7 +186,6 @@ BlockParse theControlBarResizerBlockParse = { 0, "ControlBarResizer", (INIBlockP
 BlockParse theCrateDataBlockParse = { 0, "CrateData", CrateSystem::parseCrateTemplateDefinition };	// VA 0x00DB8CBC "CrateData", parse 0x0035CFEA
 BlockParse theWindowTransitionBlockParse = { 0, "WindowTransition", INI::parseWindowTransitions };	// VA 0x00DB8CEC "WindowTransition", parse 0x001DC66F
 BlockParse theDamageFXBlockParse = { 0, "DamageFX", DamageFXStore::parseDamageFXDefinition };	// VA 0x00DB8D1C "DamageFX", parse 0x00360B0F
-BlockParse theMiscEvaDataBlockParse = { 0, "MiscEvaData", INI::parseMiscEvaData };	// VA 0x00DB8D94 "MiscEvaData", parse 0x001DCFE5
 BlockParse theGameDataBlockParse = { 0, "GameData", GlobalData::parseGameDataDefinition };	// VA 0x00DB8DF4 "GameData", parse 0x00237AB1
 BlockParse theFXParticleSystemBlockParse = { 0, "FXParticleSystem", INI::parseParticleSystemDefinition };	// VA 0x00DB938C "FXParticleSystem", parse 0x001FD0B4
 BlockParse theSpecialPowerBlockParse = { 0, "SpecialPower", SpecialPowerStore::parseSpecialPowerDefinition };	// VA 0x00DB94A4 "SpecialPower", parse 0x003B15D6
@@ -254,7 +253,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD15F();
 	static void rva007AD174();
 	static void rva007AD189();
-	static void rva007AD202();
 	static void rva007AD270();
 	static void rva007AD521();
 	static void rva007AD60C();
@@ -338,8 +336,6 @@ BLOCK_PARSE_INIT( rva007AD15F, theCrateDataBlockParse )
 BLOCK_PARSE_INIT( rva007AD174, theWindowTransitionBlockParse )
 // ?rva007AD189@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD189 (21B): "DamageFX"
 BLOCK_PARSE_INIT( rva007AD189, theDamageFXBlockParse )
-// ?rva007AD202@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD202 (21B): "MiscEvaData"
-BLOCK_PARSE_INIT( rva007AD202, theMiscEvaDataBlockParse )
 // ?rva007AD270@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD270 (21B): "GameData"
 BLOCK_PARSE_INIT( rva007AD270, theGameDataBlockParse )
 // ?rva007AD521@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD521 (21B): "FXParticleSystem"

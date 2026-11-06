@@ -289,6 +289,8 @@ class INI
 {
  public:
  const char *getNextToken(const char *seps = 0);
+// 0x001DCFE5: the MiscEvaData block parser, registered by this unit's node.
+ static void parseMiscEvaData( INI *ini );
 // 0x0002DF97
  int getLoadType() const
  {
@@ -924,3 +926,6 @@ struct BlockParse
 BlockParse thePredefinedEvaEventBlockParse( "PredefinedEvaEvent", Eva::iniParsePredefinedEvaEvent );
 BlockParse theNewEvaEventBlockParse( "NewEvaEvent", Eva::iniParseNewEvaEvent );
 BlockParse theEvaEventForwardReferenceBlockParse( "EvaEventForwardReference", Eva::iniParseEvaEventForwardReference );
+// MiscEvaData (retail .CRT$XCU 0x007AD202, node 0x00DB8D94) closes this unit's
+// run and directly follows its other three nodes in .data.
+BlockParse theMiscEvaDataBlockParse( "MiscEvaData", INI::parseMiscEvaData );
