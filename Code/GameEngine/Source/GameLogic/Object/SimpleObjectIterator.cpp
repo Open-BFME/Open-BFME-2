@@ -103,14 +103,19 @@ namespace _STL { template <> void __push_heap<_Deque_iterator<BfmeCopyRecord8,_N
 
 namespace _STL { template <> void __push_heap<_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,int,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(_Deque_iterator<BfmeCopyRecord8,_Nonconst_traits<BfmeCopyRecord8> >,int,int,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending); }
 
-template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8KeyAscending);
-
-template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8KeyDescending);
-
 namespace _STL {
 template<> void deque<BfmeE8,allocator<BfmeE8> >::_M_reserve_map_at_back(unsigned int);
 template<> void _Construct<BfmeE8,BfmeE8>(BfmeE8 *,const BfmeE8 &);
 }
+
+typedef char BfmeTrivialDequeElement8_is_8_bytes[
+    sizeof(BfmeTrivialDequeElement8) == 8 ? 1 : -1];
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
+
+template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8KeyAscending);
+
+template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8KeyDescending);
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SimpleObjectIterator.cpp
 
@@ -213,7 +218,6 @@ void SimpleObjectIterator::insert(int a, float b)
 // partition fold into the bodies already rowed at 0x00549F02 and 0x0054A355,
 // and the ascending unguarded insertion sort into its rowed CmpKey twin.
 
-// tu-skeleton: 0x0054B41C 58B ??1?$deque@UBfmeTrivialDequeElement8@@V?$allocator@UBfmeTrivialDequeElement8@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_pushback_aux.cpp
 
@@ -243,6 +247,17 @@ template<> void _STL::deque<BfmeE8,_STL::allocator<BfmeE8> >::_M_push_back_aux_v
  setDequeNode(this->_M_finish, this->_M_finish._M_node + 1);
  this->_M_finish._M_cur = this->_M_finish._M_first;
 }
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlportTrivialDeque8Cleanup.cpp
+
+// STLport 4.5.3 instantiation used as a target-local structural view.
+// Retail helper calls establish an 8-byte deque element with trivial destruction;
+// the original element name and fields are not identified. This neutral view
+// preserves only those supported facts.
+// Keep this inlined unsigned max overload local; retail has one external owner.
+
+template class _STL::deque<BfmeTrivialDequeElement8,
+                           _STL::allocator<BfmeTrivialDequeElement8> >;
 
 // tu-skeleton: 0x0054B4BB 99B ??$__insertion_sort@U?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@_STL@@UBfmeCopyRecord8Cmp@@@_STL@@YAXU?$_Deque_iterator@UBfmeCopyRecord8@@U?$_Nonconst_traits@UBfmeCopyRecord8@@@_STL@@@0@0UBfmeCopyRecord8Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_deque_copyrecord8_sort.cpp (not merged yet)
 
