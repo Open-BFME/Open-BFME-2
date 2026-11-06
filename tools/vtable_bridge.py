@@ -14,6 +14,7 @@ import coffar
 import link_cycle
 
 COMDAT, EXECUTE, SELECT_ANY = 0x1000, 0x20000000, 2
+ASSOCIATIVE, DISCARDABLE = 5, 0x02000000
 RDATA = 0x40301040
 
 
@@ -181,14 +182,57 @@ class Targets:
                 if section.sel == 5:
                     failures.append("associative-target")
                     continue
-                if self.first.get(name) != str(path):
-                    failures.append("target-not-winning-provider")
+                winner = self.first.get(name)
+                if winner != str(path):
+                    if not self.twin(path, winner, name):
+                        failures.append("target-not-winning-provider")
+                        continue
+                    choices.append(dict(name=name, rva=rva, source=row["source"], object=winner,
+                                        twin_of=str(path)))
                     continue
                 choices.append(dict(name=name, rva=rva, source=row["source"], object=str(path)))
             result = (min(choices, key=lambda entry: (entry["name"], entry["source"])), None) if choices \
                 else (None, sorted(set(failures))[0])
         self.cache[rva] = result
         return result
+
+
+    def twin(self, ledger, winner, name):
+        """The earlier kept COMDAT copy is the ledger body: same loaded bytes,
+        selection and relocations, every relocation to an external name."""
+        if winner is None or Path(winner) not in self.kept:
+            return False
+        ours = comdat_body(self.objects, ledger, name)
+        return ours is not None and ours == comdat_body(self.objects, Path(winner), name)
+
+
+def comdat_body(objects, path, name):
+    """A whole-section COMDAT code body, or None when anything loaded beside it
+    (a non-discardable associative section, a local relocation) is unproven."""
+    obj = objects.get(path)
+    if obj is None:
+        return None
+    sections, symbols, raw = obj
+    sym = objects.defined(obj)[0].get(name)
+    if sym is None or sym.cls != link_cycle.EXTERNAL or sym.sec <= 0 or sym.value:
+        return None
+    sec = sections[sym.sec - 1]
+    if not sec.flags & COMDAT or not sec.flags & EXECUTE or sec.sel in (0, ASSOCIATIVE):
+        return None
+    symptr = struct.unpack_from("<I", raw, 8)[0]
+    for item in symbols.values():
+        if item.cls != link_cycle.STATIC or not 0 < item.sec <= len(sections) or item.value:
+            continue
+        other = sections[item.sec - 1]
+        if other.sel == ASSOCIATIVE and other.name == item.name and not other.flags & DISCARDABLE                 and struct.unpack_from("<H", raw, symptr + 18 * item.i + 18 + 12)[0] == sym.sec:
+            return None
+    relocs = []
+    for off, index, kind in sec.relocs:
+        target = symbols[index]
+        if target.cls != link_cycle.EXTERNAL:
+            return None
+        relocs.append((off, target.name, kind))
+    return sec.size, sec.sel, sec.flags, raw[sec.ptr:sec.ptr + sec.size], relocs
 
 
 def retail_slots(retail, row):
@@ -436,6 +480,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
                 source_slot_mismatches=source_slot_mismatches(first, slots, targets.addresses)
                     if first else []))
     return dict(tables=len(generated), retail_tables=len({entry["rva"] for entry in generated}), slots=sum(len(entry["slots"]) for entry in generated),
+                twin_target_slots=sum(1 for entry in generated for slot in entry["slots"] if "twin_of" in slot),
                 refused_tables=len(refused), refusal_reasons=dict(collections.Counter(
                     entry["reason"] for entry in refused)), already_correct=len(correct),
                 entries=generated, refusals=refused, correct=correct, name_discovery=discovery,
@@ -474,7 +519,8 @@ def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tab
         new_name_bindings=len(metadata["name_discovery"]["new_name_bindings"])),
         sort_keys=True))
     print("vtable_bridge: " + json.dumps({key: metadata[key] for key in
-          ("tables", "retail_tables", "slots", "refused_tables", "refusal_reasons", "already_correct")},
+          ("tables", "retail_tables", "slots", "twin_target_slots", "refused_tables", "refusal_reasons",
+           "already_correct")},
           sort_keys=True))
     return (path if metadata["entries"] else None), metadata
 
