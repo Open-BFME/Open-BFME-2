@@ -260,16 +260,16 @@ Rva0059EB41::Rva0059EB41(EmitVtableTag *)
 {
 }
 
-// ??_GRva005A66EC@@UAEPAXI@Z @0x005A66EC 29B: slot 0 of the vtable it stores, VA 0x00C71AE0
-class Rva005A66EC
+// ??_GRva005A66B8Elem@@UAEPAXI@Z @0x005A66EC 29B: slot 0 of the vtable it stores, VA 0x00C71AE0
+class Rva005A66B8Elem
 {
 public:
-	Rva005A66EC(EmitVtableTag *);
-	virtual ~Rva005A66EC() {}
+	Rva005A66B8Elem(EmitVtableTag *);
+	virtual ~Rva005A66B8Elem() {}
 };
 
-// ?<Rva005A66EC::Rva005A66EC> absent-from-retail
-Rva005A66EC::Rva005A66EC(EmitVtableTag *)
+// ?<Rva005A66B8Elem::Rva005A66B8Elem> absent-from-retail
+Rva005A66B8Elem::Rva005A66B8Elem(EmitVtableTag *)
 {
 }
 
