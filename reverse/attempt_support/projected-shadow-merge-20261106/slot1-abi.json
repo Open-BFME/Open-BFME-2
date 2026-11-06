@@ -1,0 +1,97 @@
+{
+  "scope": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/",
+  "rows": 364,
+  "bytes": 62104,
+  "hits": [],
+  "model_scope": {
+    "description": "W3DModelDraw named/member sources plus native B1C00..B3FBF row starts",
+    "rows": 273,
+    "bytes": 28515,
+    "hits": [
+      {
+        "rva": "0xb1e0d",
+        "row": "0xb1dc3",
+        "name": "?xfer@W3DDebrisDraw@@MAEXPAVXfer@@@Z",
+        "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDraw.cpp",
+        "context": [
+          "000B1DF8: push eax",
+          "000B1DF9: mov ecx, esi",
+          "000B1DFB: call dword ptr [edx + 0x6c]",
+          "000B1DFE: mov eax, dword ptr [esi]",
+          "000B1E00: lea ebx, [edi + 0x14]",
+          "000B1E03: push ebx",
+          "000B1E04: mov ecx, esi",
+          "000B1E06: call dword ptr [eax + 0x7c]",
+          "000B1E09: mov eax, dword ptr [esi]",
+          "000B1E0B: mov ecx, esi",
+          "000B1E0D: call dword ptr [eax + 4]",
+          "000B1E10: test al, al",
+          "000B1E12: je 0x4b1e2e",
+          "000B1E14: push 0",
+          "000B1E16: push dword ptr [ebx]",
+          "000B1E18: lea eax, [edi + 0x10]",
+          "000B1E1B: push ecx",
+          "000B1E1C: mov dword ptr [ebp + 8], esp"
+        ]
+      },
+      {
+        "rva": "0xb1e53",
+        "row": "0xb1dc3",
+        "name": "?xfer@W3DDebrisDraw@@MAEXPAVXfer@@@Z",
+        "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDraw.cpp",
+        "context": [
+          "000B1E3E: push eax",
+          "000B1E3F: mov ecx, esi",
+          "000B1E41: call dword ptr [edx + 0x6c]",
+          "000B1E44: mov edx, dword ptr [esi]",
+          "000B1E46: lea eax, [edi + 0x20]",
+          "000B1E49: push eax",
+          "000B1E4A: mov ecx, esi",
+          "000B1E4C: call dword ptr [edx + 0x6c]",
+          "000B1E4F: mov eax, dword ptr [esi]",
+          "000B1E51: mov ecx, esi",
+          "000B1E53: call dword ptr [eax + 4]",
+          "000B1E56: test al, al",
+          "000B1E58: je 0x4b1e9a",
+          "000B1E5A: push 0",
+          "000B1E5C: push ecx",
+          "000B1E5D: lea eax, [edi + 0x20]",
+          "000B1E60: mov dword ptr [ebp + 8], esp",
+          "000B1E63: mov ecx, esp"
+        ]
+      },
+      {
+        "rva": "0xb1e97",
+        "row": "0xb1dc3",
+        "name": "?xfer@W3DDebrisDraw@@MAEXPAVXfer@@@Z",
+        "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDraw.cpp",
+        "context": [
+          "000B1E79: call 0x4365f0",
+          "000B1E7E: push ecx",
+          "000B1E7F: mov dword ptr [ebp - 0x14], esp",
+          "000B1E82: mov ecx, esp",
+          "000B1E84: push ebx",
+          "000B1E85: mov byte ptr [ebp - 4], 1",
+          "000B1E89: call 0x4365f0",
+          "000B1E8E: or dword ptr [ebp - 4], 0xffffffff",
+          "000B1E92: lea ecx, [edi + 0xc]",
+          "000B1E95: mov eax, dword ptr [ecx]",
+          "000B1E97: call dword ptr [eax + 4]",
+          "000B1E9A: mov eax, dword ptr [esi]",
+          "000B1E9C: lea ecx, [edi + 0x38]",
+          "000B1E9F: push ecx",
+          "000B1EA0: mov ecx, esi",
+          "000B1EA2: call dword ptr [eax + 0x7c]",
+          "000B1EA5: mov eax, dword ptr [esi]",
+          "000B1EA7: lea ecx, [edi + 0x3c]"
+        ]
+      }
+    ]
+  },
+  "register_call_scope": {
+    "rows": 637,
+    "bytes": 90619,
+    "load_to_branch_window": 8,
+    "hits": []
+  }
+}

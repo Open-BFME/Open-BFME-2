@@ -1,0 +1,58 @@
+{
+  "approved": 143,
+  "mixed": {
+    "Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp": 48,
+    "Code/GameEngine/Source/Common/Disp8BinaryAddGetters.cpp": 2,
+    "Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp": 34,
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp": 4,
+    "Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp": 114,
+    "Code/GameEngine/Source/Common/VslotMiscForwarders.cpp": 20,
+    "Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp": 78,
+    "Code/GameEngine/Source/Main/WinMainPairUnicode.cpp": 44,
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp": 1,
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp": 3,
+    "Code/Libraries/Source/WWVegas/WW3D2/hanimmgr.cpp": 3,
+    "Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp": 11
+  },
+  "refused": {},
+  "accepted": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp"
+  ],
+  "rejected": {
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\RefCountData.h(9) : error C2011: 'RefCountClass' : 'class' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\S",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdateTexture.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.0e4509e7d8a9e52b.tu_skeleton.cpp(245) : error C2084: function 'Vector3 operator *(const Vector3 &,float)' already has a body | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.0e4509e7d8a9e52b.tu",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureDestructor.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\RefCountData.h(9) : error C2011: 'RefCountClass' : 'class' type redefinition | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjec",
+    "Code/GameEngine/Source/Common/Rva00108DBCInit.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WWLib\\HashableClass.h(11) : error C2011: 'HashableClass' : 'class' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngin",
+    "Code/GameEngine/Source/Common/Rva0010959E.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5644d24a1f363819.tu_skeleton.cpp(1076) : error C2990: 'Node' : non-template class has already been defined as a template class | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.5644d24a1f363819.",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp": "compile: c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\Include\\Lib\\Coord3D.h(7) : error C2011: 'Coord3D' : 'struct' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Include\\Lib\\Region3D",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp": "compile: C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\PlatformSDK\\Include\\persist.h(36) : error C2146: syntax error : missing ';' before identifier 'CLSID_MSPersist' | C:\\Users\\clemens\\Documents\\Experimen",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C145.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.b1fd344c1e50c5cc.tu_skeleton.cpp(251) : error C2143: syntax error : missing ';' before '*' | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.b1fd344c1e50c5cc.tu_skeleton.cpp(251) : error C2501: ",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C785TimedDecals.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.7c5776262b2079c2.tu_skeleton.cpp(256) : error C2084: function 'long fast_float2long_round(float)' already has a body | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\Libraries\\Source\\subsystem\\../../../../reference",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010C065AddDecal.cpp": "compile: reference\\shims\\bfme2_ascii\\ascii_string.h(65) : error C2011: 'AsciiString' : 'class' type redefinition | reference\\shims\\bfme2_ascii\\ascii_string.h(223) : error C2084: function 'Bool operator ==(const AsciiString &,const AsciiString &)' already has a body | reference\\shims\\bfme2_ascii\\ascii_string.",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerRva0010C2D5.cpp": "compile: Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.6807423e98847e39.tu_skeleton.cpp(719) : error C2504: 'Rva007B1380' : base class undefined | Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\.W3DProjectedShadow.6807423e98847e39.tu_skeleton.cpp(1486) : error C2872: ",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowRenderShadows.cpp": "compile: Code\\Libraries\\Include\\Lib\\Coord3D.h(7) : error C2011: 'Coord3D' : 'struct' type redefinition | c:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\Shadow\\../../../../../Libraries\\Source\\WWVegas\\WW3D2\\RenderInfoClass.h(52) : error C2011: 'RenderInfoCl"
+  },
+  "rows": 60,
+  "carried": {
+    "reverse/hatch_baseline.tsv": "hatch_counters --update"
+  },
+  "repointed": {
+    "reverse/functions.csv": 1,
+    "reverse/tu_map.csv": 1,
+    "reverse/hatch_baseline.tsv": "updated"
+  },
+  "index": {
+    "updated_to": "88ce76fc44",
+    "original_census_commit": "d707d2f53b",
+    "original_census_date": "2026-11-06 11:04"
+  },
+  "path_consumer_matches": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp:1947:// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp",
+    "docs/linking_obstacles/projected-shadow-owner-views-and-short-table-20261106.md:6:W3DProjectedShadow.cpp and Rva0010BA2COwnerCtor.cpp row the same resource-owner",
+    "reverse/attempt_support/projected-shadow-native-ctor-20261106/proof.json:93:  \"Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp\": {",
+    "reverse/attempt_support/projected-shadow-owner-fold-20261106/texture-trial.json:75:  \"Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp\": \"compile: Code\\\\GameEngineDevice\\\\Source\\\\W3DDevice\\\\GameClient\\\\Shadow\\\\.W3DProjectedShadow.5f8e79d2eb0a9a18.tu_skeleton.cpp(1092) : error C2373: 'const Rva007AFF00Owner::`vftable'' : redefinition; different type modifiers | Code\\\\GameEngineDevice\\\\Source\\\\W3DDevice\\\\GameClient\\\\Shadow\\\\.W3DProjectedShadow.5f8e79d2eb0a9\",",
+    "reverse/attempt_support/projected-shadow-owner-fold-20261106/texture-trial.json:91:  \"Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp\": \"compile: Code\\\\GameEngineDevice\\\\Source\\\\W3DDevice\\\\GameClient\\\\Shadow\\\\.W3DProjectedShadow.5f8e79d2eb0a9a18.tu_skeleton.cpp(1092) : error C2373: 'const Rva007AFF00Owner::`vftable'' : redefinition; different type modifiers | Code\\\\GameEngineDevice\\\\Source\\\\W3DDevice\\\\GameClient\\\\Shadow\\\\.W3DProjectedShadow.5f8e79d2eb0a9\",",
+    "reverse/link_status.csv:13906:Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp,yes,0,0,0,0,0"
+  ]
+}

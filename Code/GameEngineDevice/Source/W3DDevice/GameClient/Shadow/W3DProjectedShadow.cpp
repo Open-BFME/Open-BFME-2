@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /D_STLP_USE_STATIC_LIB -Ireference/shims/bfme2_projectedshadow -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /Ireference/shims/sweep /Ireference/shims/wwmath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/GameEngine/Source/Common -Ireference/open-bfme-1/inputs/reference/shims/projectedshadow /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc /D_STLP_USE_STATIC_LIB -Ireference/shims/bfme2_projectedshadow -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /Ireference/shims/sweep /Ireference/shims/wwmath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmecamera /Ireference/open-bfme-1/Code/GameEngine/Source/Common -Ireference/open-bfme-1/inputs/reference/shims/projectedshadow /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -ICode/Libraries/Source/WWVegas/WW3D2
 // stlport
 // TU Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define Matrix4x4 Matrix4  // BFME renamed it
@@ -201,12 +201,14 @@ class W3DShadowManager;
 
 
 
+
 #endif
 #define DEFAULT_RENDER_TARGET_WIDTH			512
 #define DEFAULT_RENDER_TARGET_HEIGHT		512
 #define SHADOW_DECAL_FVF	D3DFVF_XYZ|D3DFVF_TEX1|D3DFVF_DIFFUSE
 #if defined(_DEBUG) || defined(_INTERNAL)
 // ?getRenderCost@W3DProjectedShadow@@ present-unmatched
+
 
 
 
@@ -353,6 +355,7 @@ virtual void getBounds(ShadowBounds&);
 };
 
 class HAnimManagerClass;
+
 class Rva0010BC90ShadowManager
 {
 public:
@@ -429,8 +432,6 @@ protected:
     char m_body[0x68 - 0x58];
 };
 
-
-
 // ?rva00109DCF@Rva00109DCF@@QAEXXZ retail 0x00109DCF 66 bytes.
 // Calls rowed Rva00108AD8 finish at this+0x24C then releases two refcounted
 // members at +0x258 and +0x254 via dec [ecx+4] with virtual slot-0 call and
@@ -472,8 +473,6 @@ public:
 	virtual void deleteThis();
 	int m_refCount;
 };
-
-
 
 class Rva007AFF00Owner : public Rva000F0F2B
 {
@@ -622,7 +621,9 @@ TextureClass *snow=NULL;
 
 
 
+
 TextureClass *grass=NULL;
+
 
 
 
@@ -644,6 +645,7 @@ enum BlendDirection
 	B_TR,	//visible on top/right 
 	B_BL	//visilbe on bottom/left
 };
+
 
 
 
@@ -672,7 +674,9 @@ DWORD BDToVA[9][4]=
 
 
 
+
 //Debug code used to draw some dummy polygons.
+
 
 
 
@@ -1070,6 +1074,8 @@ private:
 };
 
 // tu-skeleton: 0x0010713A 24B ?rva0010713A@W3DProjectedShadowManager@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 
@@ -1864,6 +1870,28 @@ if(m_shadowCamera){m_shadowCamera->Release_Ref();m_shadowCamera=0;}
 BfmeSub928F *q=(BfmeSub928F*)m_W3DShadowTextureManager; if(q){q->BfmeSub928F::~BfmeSub928F();::operator delete(q);}m_W3DShadowTextureManager=0;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva00109610Dtor.cpp
+
+// ??1Rva00109610@@UAE@XZ @0x00109610 51B
+// Derived dtor sets derived vtable 0x007CFA00 calls rowed base
+// W3DProjectedShadow::rva00108951 on same this then restores base vtable
+// 0x007CEFA0; caller is ??_G at 0x0010BA83; chain from 0x00108951.
+// The base vtable 0x007CEFA0 is BfmeShadowBufferOwnerBase's (its slot 0 is the
+// rowed ??_GBfmeShadowBufferOwnerBase 0x000EFAD2). W3DProjectedShadow is the
+// sibling class with vtable 0x007CF9F4 (Rva001095B2Dtor.cpp); 0x00108951 is
+// rowed under its name, so the call goes through a vtable-free view.
+// The base's deleting destructor must keep the out-of-line call to the base
+// teardown that the rowed copy has (the owner unit compiles it /Ob0); with /O1
+// this TU inlined the empty teardown into the copy and the census held the
+// differing COMDAT against the unit.
+
+Rva00109610::~Rva00109610()
+{
+	reinterpret_cast<W3DProjectedShadow *>(this)->rva00108951();
+}
+
+// 0x0010B9C9 28B ??_GRva001095B2@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
+
 // tu-skeleton: 0x0010716D 127B ?ReAcquireResources@W3DProjectedShadowManager@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
 
 // tu-skeleton: 0x001072C9 125B ?rva001072C9@W3DProjectedShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp (not merged yet)
@@ -1906,26 +1934,6 @@ BfmeSub928F *q=(BfmeSub928F*)m_W3DShadowTextureManager; if(q){q->BfmeSub928F::~B
 
 // tu-skeleton: 0x0010959E 20B ?rva0010959E@Rva0010959E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0010959E.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00109610Dtor.cpp
-
-// ??1Rva00109610@@UAE@XZ @0x00109610 51B
-// Derived dtor sets derived vtable 0x007CFA00 calls rowed base
-// W3DProjectedShadow::rva00108951 on same this then restores base vtable
-// 0x007CEFA0; caller is ??_G at 0x0010BA83; chain from 0x00108951.
-// The base vtable 0x007CEFA0 is BfmeShadowBufferOwnerBase's (its slot 0 is the
-// rowed ??_GBfmeShadowBufferOwnerBase 0x000EFAD2). W3DProjectedShadow is the
-// sibling class with vtable 0x007CF9F4 (Rva001095B2Dtor.cpp); 0x00108951 is
-// rowed under its name, so the call goes through a vtable-free view.
-// The base's deleting destructor must keep the out-of-line call to the base
-// teardown that the rowed copy has (the owner unit compiles it /Ob0); with /O1
-// this TU inlined the empty teardown into the copy and the census held the
-// differing COMDAT against the unit.
-
-Rva00109610::~Rva00109610()
-{
-	reinterpret_cast<W3DProjectedShadow *>(this)->rva00108951();
-}
-
 // tu-skeleton: 0x00109643 5B ?rva00109643@Rva00109643@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
 // tu-skeleton: 0x00109648 1443B ?updateBounds@W3DShadowTexture@@QAEXAAVVector3@@PAVRenderObjClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowTextureUpdateBounds.cpp (not merged yet)
@@ -1934,11 +1942,14 @@ Rva00109610::~Rva00109610()
 
 // tu-skeleton: 0x0010A736 4737B ?queueDualDecal@W3DProjectedShadowManager@@QAEXPAVW3DDualProjectedShadow@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp (not merged yet)
 
-// 0x0010B9C9 28B ??_GRva001095B2@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
-
 // tu-skeleton: 0x0010B9E5 71B ?rva0010B9E5@Rva0010B9E5@@QAEXPAUNode@@@Z -- matched in Code/GameEngine/Source/Common/Rva0010959E.cpp (not merged yet)
 
-// tu-skeleton: 0x0010BA2C 25B ??0Rva007AFF00Owner@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp
+
+Rva007AFF00Owner::Rva007AFF00Owner()
+{
+    rva00108895();
+}
 
 // tu-skeleton: 0x0010BA9F 101B ??BWinMainTitlePair@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
 

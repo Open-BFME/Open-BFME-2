@@ -8147,7 +8147,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0010B9B7,18,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010B9C9,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x0010B9C9,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010B9E5,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp
 0x0010B9E5,71,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010BA2C,Code/GameEngine/Source/Common/Rva0010959E.cpp
-0x0010BA2C,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010BA45,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/Rva0010BA2COwnerCtor.cpp
+0x0010BA2C,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010BA45,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x0010BA45,28,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010BA61,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x0010BA61,16,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010BA71,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
 0x0010BA71,18,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp,approved,C,C=0x0010A736..0x0010BA83,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadow.cpp
