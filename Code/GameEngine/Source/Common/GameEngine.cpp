@@ -409,7 +409,8 @@ BfmeThingVTD *bfmeCreateVTD()
 // translated MessageBoxA on it. Retail .CRT$XCU entry 0x007ADBD1 is this
 // unit's dynamic initializer: it follows the unit's Drawable.h copy
 // 0x007ADBC1 (whose static 0x00DFE714 follows TheGameEngine) in the unit's
-// .text$yc run, before its pool-init marker 0x007ADBE5 (LINK-236). Zero Hour
-// and BFME 1 define TheSystemIsUnicode the same way at the end of their
-// GameEngine.cpp (donor fact; the name is not adopted here).
+// .text$yc run, before its pool-init marker 0x007ADBE5 (LINK-236). Zero
+// Hour's GameEngine.cpp defines TheSystemIsUnicode the same way at its end
+// (donor fact), and Open-BFME-1's reconstruction keeps it there; the name is
+// not adopted here.
 bool g_00DFE718 = ((void *)::MessageBoxA) == ((void *)::MessageBoxW);

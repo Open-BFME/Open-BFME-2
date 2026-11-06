@@ -2,27 +2,27 @@
 
 Status: open (lane started 2026-11-04 by halilkkaya-in-o1 at `993e6014c8`; halilkkaya-in-o2 at
 `f2cec2a7f8`: report tie fix, Drawable.h constant and 84 rowed copies, bridged 969 -> 885 on the
-fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 40
-rowed in their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr service records are
-file-scope objects of the 0x0065D090 constructor, 64 registered, and the 62 transaction records
-of its 0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; halilkkaya-in-o5: 17
-private-view units adopt the canonical Drawable.h and row their copies, bridged 717 -> 700, then 3
-more, bridged 702 -> 699 on the report with `registered_comdat_copies_discarded`;
-halilkkaya-fix-o1: 7 round-2 includes moved below their units' Snapshot includes, restoring the
-vtables they had shifted, bridged 699 unchanged; halilkkaya-in-o5 then 7 units free since round 2,
-bridged 699 -> 692; halilkkaya-in-o6: 7 BlockParse nodes rowed in the units whose `.text$yc` run
-holds them, bridged 692 -> 685, then Network.cpp's two timeGetTime initializers, bridged 685 -> 683,
-and the ZeroInits masks traced to a giant-bird header, not AerialPathfinder.h; halilkkaya-in-o7:
-the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in their owners, bridged
-683 -> 679, then the AttributeModifierStore and BannerUI copies, bridged 679 -> 677, and
-AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, bridged
-676 -> 674, and AIStates' IDLE_COUNTDOWN_DELAY, bridged 674 -> 673; halilkkaya-lk39: GameEngine.cpp's
-copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the four held BlockParse
-nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored units freed since round 2,
-bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642, and two private Drawable views
-replaced, bridged 642 -> 640, then 8 units by their guard's approved function, bridged 640 -> 632,
-and MetaEvent's copy, bridged 632 -> 631, and two private Thing views replaced, bridged 631 -> 629,
-and AIStates' copy, bridged 629 -> 628, and RayEffect's, bridged 628 -> 627; next seat continues).
+fixed report; halilkkaya-in-o3: BlockParse registrations are per-unit file-scope nodes, 40 rowed in
+their units, bridged 885 -> 845; halilkkaya-in-o4: the msgr/thtr service records are file-scope
+objects of the 0x0065D090 constructor, 64 registered, and the 62 transaction records of its
+0x0065D070 sibling, plus 2 BlockParse nodes, bridged 845 -> 717; halilkkaya-in-o5: 17 private-view
+units adopt the canonical Drawable.h and row their copies, bridged 717 -> 700, then 3 more, bridged
+702 -> 699 on the report with `registered_comdat_copies_discarded`; halilkkaya-fix-o1: 7 round-2
+includes moved below their units' Snapshot includes, restoring the vtables they had shifted, bridged
+699 unchanged; halilkkaya-in-o5 then 7 units free since round 2, bridged 699 -> 692;
+halilkkaya-in-o6: 7 BlockParse nodes rowed in the units whose `.text$yc` run holds them, bridged 692
+-> 685, then Network.cpp's two timeGetTime initializers, bridged 685 -> 683, and the ZeroInits masks
+traced to a giant-bird header, not AerialPathfinder.h; halilkkaya-in-o7: the small grab-bags' forms
+recorded, 4 FrameRate/GlobalInits entries rowed in their owners, bridged 683 -> 679, then the
+AttributeModifierStore and BannerUI copies, bridged 679 -> 677, and AISpellBookShroudReveal's
+`g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, bridged 676 -> 674, and AIStates'
+IDLE_COUNTDOWN_DELAY, bridged 674 -> 673; halilkkaya-lk39: GameEngine.cpp's copy and MessageBox
+initializer and `g_00E063FC`, bridged 673 -> 670; the four held BlockParse nodes and two of their
+units' copies, 670 -> 664; 19 guard-anchored units freed since round 2, 664 -> 645; three copies
+their units already compiled, 645 -> 642; two private Drawable views replaced, 642 -> 640; 8 units
+by their guard's approved function, 640 -> 632; MetaEvent's copy, 632 -> 631; two private Thing
+views replaced, 631 -> 629; AIStates' copy, 629 -> 628; RayEffect's, 628 -> 627 (bridge_entries on
+`24abddc449`'s objects); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -326,8 +326,10 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   (0x007AC563, since its 11-05 merge), BuildingBehavior (0x007B0920) and BannerCarrierUpdate
   (0x007B17BD, guard of 0x00496B48, approved to the unit) each sit alone in their run with the
   static right after the unit's own guard. Rowing them needs no source change: bridged 645 -> 642,
-  unidentified 524 -> 521. ControlBar.cpp (0x007B3BCE) is the same case but held by Burachi-3D,
-  and AssistedTargetingUpdate (0x007B13C0) waits for a codex seat's merge into that file. 227
+  unidentified 524 -> 521. ControlBar.cpp also compiles a copy, but the copy that follows a
+  ControlBar guard (0x007B3BCE, `updateConstructionTextDisplay`) has its guard's function approved
+  to `ControlBarUnderConstruction.cpp`, which does not exist yet, and ControlBar.cpp is held by
+  Burachi-3D. AssistedTargetingUpdate (0x007B13C0) waits for a codex seat's merge into that file. 227
   other files still compile an unidentified copy (image_report at `318099a57f`); most are
   fragments whose TU file is not merged yet.
 
@@ -681,17 +683,46 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
     Their globals 0x00DFEA2C and 0x00DFEA30 lie in Network.cpp's `.bss` run, before
     NetworkTimingOverruns. Network.cpp now defines them as `= timeGetTime()`. MSVC numbers
     them `_$E1` and `_$E3`. Both files link (+24 / -24 bytes), and bridged went 685 -> 683.
-  - *GameEngine.cpp and g_00E063FC (halilkkaya-lk39, rowed).* GameEngine.cpp's run is its
-    Drawable.h copy 0x007ADBC1 (static 0x00DFE714 after TheGameEngine), then 0x007ADBD1
-    (`g_00DFE718 = MessageBoxA == MessageBoxW`), then the marker 0x007ADBE5. The unit now includes
-    the canonical Drawable.h after its first includes and defines the bool with its initializer at
-    the end, so it emits `_$E1` and `_$E3` in retail's order. GameEngine::init reads the bool on its
-    crash path. Zero Hour and BFME 1 define `TheSystemIsUnicode` the same way at the end of
-    GameEngine.cpp (donor fact; the name is not adopted). 0x007B4439 (`g_00E063FC =
-    timeGetTime()`) is alone in its run, and the global sits between TheNAT and NAT::update's
-    stats-wait static. Its definition and its reader 0x005A671D are in `Rva005A6709Predicate.cpp`,
-    which now gives it the initializer as `_$E1`. `Rva007ADBD1ImportInits.cpp` held nothing else
-    and is gone. link_check: 4/4 link (GameEngine +36, Predicate +12, HalfRate -16; the deleted
-    file held the other 32). image_report: bridged 673 -> 670 (exactly these three), twice 6 -> 6,
-    unidentified 524 -> 524.
+  - *GameEngine.cpp and g_00E063FC (halilkkaya-lk39, rowed).* GameEngine.cpp's run is its Drawable.h
+    copy 0x007ADBC1 (static 0x00DFE714 after TheGameEngine), then 0x007ADBD1 (`g_00DFE718 =
+    MessageBoxA == MessageBoxW`), then the marker 0x007ADBE5. The unit now includes the canonical
+    Drawable.h after its first includes and defines the bool with its initializer at the end, so it
+    emits `_$E1` and `_$E3` in retail's order. GameEngine::init reads the bool on its crash path.
+    Zero Hour's GameEngine.cpp defines `TheSystemIsUnicode` the same way at its end (donor fact),
+    and Open-BFME-1's reconstruction keeps it there; the name is not adopted. 0x007B4439
+    (`g_00E063FC = timeGetTime()`) is alone in its run, and the global sits between TheNAT and
+    NAT::update's stats-wait static. Its definition and its reader 0x005A671D are in
+    `Rva005A6709Predicate.cpp`, which now gives it the initializer as `_$E1`.
+    `Rva007ADBD1ImportInits.cpp` held nothing else and is gone (path audit: only generated reports
+    name it now, `reverse/tu_map.csv`'s source column for five initializer rows and
+    `reverse/link_status.csv`; no tool, hook or include). link_check: 4/4 link (GameEngine +36,
+    Predicate +12, HalfRate -16; the deleted file held the other 32). image_report: bridged 673 ->
+    670 (exactly these three), twice 6 -> 6, unidentified 524 -> 524.
 - Separately, decide the HalfRate header constant.
+- *Next leads after halilkkaya-lk39 (bridged 627 on `24abddc449`'s objects).* The cheap groups the
+  entry marked ready are done; what is left needs views reconciled, merges, or one more fact:
+  - Singleton-anchored copies (about 45, see "Singleton anchors" above): each needs a second fact
+    (a guard, a rowed entry of the unit in the same run, or a donor include) before it is rowed.
+  - Units whose run proves the copy but whose view refuses the canonical header: Mouse, INIObject,
+    GameLOD, SpawnBehavior and the other Zero Hour-shaped units (they build against Zero Hour's
+    Drawable.h), W3DView (Coord3D, LINK-018), FloodUpdate (Matrix3D::buildTransformMatrix),
+    AnimationSoundClientBehavior (its view calls an out-of-line Drawable::getPosition) and
+    BuildAssistant (private Drawable and Thing; its run also holds two FrameScaleSse entries).
+  - 227 files compile an unidentified copy, most of them fragments; each TU merge that brings the
+    TU file's copy home lets its row move there.
+  - LinearCampaign node 0x007AD333 (target facts, not rowed): its run closes with 0x007AD348, the
+    table's one registration of a second select-any pool object at 0x00DB8FEC (its later copies
+    0x007AFEAC and 0x007B030B are unregistered markers). That object's data sits right after this
+    node (0x00DB8FE0 + 12) in `.data`, so the node's unit is the pool header's first includer in
+    link order; the callback 0x001ED580 is approved to LinearCampaignManager.cpp. GlobalLanguage's
+    rowed node opens the same run, so check which of the two units owns the pool before rowing.
+  - Held or left to their owners: ControlBar.cpp (Burachi-3D), AssistedTargetingUpdate
+    (0x007B13C0, a codex merge), and the die modules InstantDeathBehavior, SlowDeathBehavior,
+    CreateObjectDie and CrushDie (DieModule work).
+  - Vtable siblings: link_check over every changed unit, its consumers and its 31 Ctor/Dtor
+    sibling files gives 75/76; the one failure, ReplaceObjectUpdateModuleDataDtor.cpp
+    (`??_7ReplaceObjectUpdateModuleData` differs from the first copy), already failed in the census
+    (`reverse/link_status.csv`: no, one COMDAT loser), and every `??_7` the changed units emit kept
+    its digest.
+  - `g_00DFE718` keeps its address name; `TheSystemIsUnicode` is the donors' name for it, a lead for
+    the naming lane, not this one.
