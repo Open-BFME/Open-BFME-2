@@ -114,3 +114,13 @@ preview links618 own bytes; no real-image/current-consumer clearance claimed.
 Lifetime split and the inherited feedback guard inventory issue remain open;
 publication09c6c95a0a is confirmed, with broader census/image confirmation still
 required. Header debt is preserved as documented above.
+
+2026-11-06 module-data laser member types corrected in the existing factory
+view: offsets10/14 hold ThingTemplate pointers, as proven by the native parser
+table, parseThingTemplate and the matched attack consumer. Both constructor27B
+and factory68B retain all code/provider facts; no table binding is changed.
+[Evidence](../../reverse/attempt_support/assisted-moduledata-pointers-20261106/README.md).
+Publication92b1dc257f audit remains INCONCLUSIVE (index7bd55416c6,
+base6f332c985e87903d3c1450f8a58b2ffcbb22e3db,1 missing current main receipt).
+The factory's explicit folded-table view and unapproved source placement remain
+separate recovery work; no inferred TU approval or native-table completion.

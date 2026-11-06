@@ -3,7 +3,7 @@
 // ?friend_newModuleData@AssistedTargetingUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z,
 // retail 0x00253C23, 68 bytes. Dedicated TU: the factory news 0x18 with an
 // inline trivial ctor (assisting clip size 1 plus zeroed weapon slot and laser
-// name pointers plus explicit m_vtable literal), then feeds the new data plus
+// template pointers plus explicit m_vtable literal), then feeds the new data plus
 // the class parse proc (rowed at 0x486E7C, pushed immediate, no pin) to
 // INI::initFromINIMultiProc (rowed at 0x2DEB5) when ini is non-null. Operator
 // new resolves via its row. The TU-local class keeps only size and layout
@@ -17,6 +17,7 @@
 extern "C" const void *const __identifier("??_7ObjectHelperModuleData@@6B@")[];  // folded nine-class vftable 0x00C4ED70, by its data-ledger name
 
 class ModuleData;
+class ThingTemplate;
 class INI;
 class MultiIniFieldParse;
 
@@ -41,8 +42,8 @@ private:
 	int m_basePad;
 	int m_assistingClipSize;
 	int m_assistingWeaponSlot;
-	const char *m_laserFromAssisted;
-	const char *m_laserToTarget;
+	const ThingTemplate *m_laserFromAssisted;
+	const ThingTemplate *m_laserToTarget;
 };
 
 // ?friend_newModuleData@AssistedTargetingUpdateModuleData@@SAPAVModuleData@@PAVINI@@@Z
