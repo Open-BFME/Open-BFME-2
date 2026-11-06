@@ -23,6 +23,9 @@ class Rva0017FB41_Prototype : public GenBase009EB7D0
 {
 public:
 	Rva0017FB41_Prototype(const char *name, int arg1, int arg2);
+	// Retail 0x0017FB94, defined in Rva0017FB94Dtor.cpp; declaring it keeps
+	// this unit from emitting a second, implicit copy.
+	virtual ~Rva0017FB41_Prototype();
 
 	char m_pad04[0x10]; // +0x04..+0x13, untouched by this body
 	HTreeClass *m_tree; // +0x14

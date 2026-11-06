@@ -1,6 +1,6 @@
 // cl: /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // ??1Rva001805E0@@UAE@XZ @0x00180527 90B
-// Virtual dtor twin of Rva0017FB94 (89B) and Rva00151632 (90B): stores
+// Virtual dtor twin of ~Rva0017FB41_Prototype 0x0017FB94 (89B) and Rva00151632 (90B): stores
 // vtable 0x007D4FD0, deletes +0x14 link via slot-0 virtual get(0) plus
 // operator delete 0x0002FD60 row, tears down +0x18 StringClass via
 // 0x00610A40 pin, delegates to base 0x0061ED80 pin. Called from 0x0018062D.
