@@ -84,3 +84,17 @@ verification. Authoritative run42174078539 (`da59156dc4f2`) still lists this
 export among 308 unresolved; no post-repair count or runtime result is claimed.
 Next: confirm disappearance in the scheduled real link.
 [Scoped change and measurements](../../reverse/attempt_support/box-writeini-export-20261106-seat3.md).
+
+2026-11-06, Point writer (`codex-20261106-seat1`, base `d707d2f53bf`):
+reconciled the existing 186-byte owner at `0x0055CC35` with retail export
+ordinal 1953, `PointEmissionVolumeModuleTemplate::writeINI(File &, unsigned) const`.
+No second body, alias or shared-header edit. Normal build passes **1/1**, one
+literal; **550** external definitions are retained with only the writer spelling
+replaced. All **186** body bytes and **14** relocations are preserved (the
+compiler's EH-handler label follows the signature). Old-name source/index
+searches find only the owner and no alternatename user. Bounded preview remains
+**LINKS 186 -> 186 B** against index `47fd56b879` (05:39 UTC).
+Status for this writer: repair verified locally, awaiting automated real-link
+confirmation; the latest inspected run `42174078539` still reports it missing
+among **308** unresolved, **0** duplicates and no image. Broader LINK-583 and
+Point tag/vtable exports remain open. [Scoped evidence and limits](../../reverse/attempt_support/point-writeini-export-20261106-seat1.md).

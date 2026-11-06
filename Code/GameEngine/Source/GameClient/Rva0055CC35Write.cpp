@@ -1,7 +1,8 @@
 // cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
-// ?rva0055CC35@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z at 0x0055CC35 size 186
-// Evidence: chain via just-landed 0x003AFC6B; vslot 3 of PointEmissionVolumeModuleTemplate; calls rowed WriteHeader 0x0055CB5D then rowed bool-line 0x001F89C3 IsHollow then rowed str then rowed Write 0x001F458B then rowed 0x003AFC6B; member bool at +0xC.
+// ?writeINI@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z at 0x0055CC35 size 186
+// Retail export ordinal 1953 names this RVA writeINI(File &, unsigned int) const.
+// Evidence: chain via 0x003AFC6B; vslot 3 of PointEmissionVolumeModuleTemplate; calls rowed WriteHeader 0x0055CB5D then rowed bool-line 0x001F89C3 IsHollow then rowed str then rowed Write 0x001F458B then rowed 0x003AFC6B; member bool at +0xC.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
@@ -82,19 +83,19 @@ namespace FXParticleSystem {
 
 class PointEmissionVolumeModuleTemplate {
 public:
-	virtual void rva0055CC35(File *file, unsigned int flags);
+	virtual void writeINI(File &file, unsigned int flags) const;
 private:
 	char m_pad04[12 - 4];
 	bool m_isHollow;
 };
 
-void PointEmissionVolumeModuleTemplate::rva0055CC35(File *file, unsigned int flags)
+void PointEmissionVolumeModuleTemplate::writeINI(File &file, unsigned int flags) const
 {
-	Rva0055CB5DWriteHeader(this, file, &flags);
+	Rva0055CB5DWriteHeader(this, &file, &flags);
 	_STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
 	Rva001F89C3Write(oss, flags, "IsHollow", &m_isHollow);
-	Rva001F458BWrite(*file, (const Rva001F458BText &)oss.str());
-	Rva003AFC6BWrite(file, &flags);
+	Rva001F458BWrite(file, (const Rva001F458BText &)oss.str());
+	Rva003AFC6BWrite(&file, &flags);
 }
 
 } // namespace FXParticleSystem
