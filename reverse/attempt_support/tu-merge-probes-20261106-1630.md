@@ -1,0 +1,13 @@
+# Translation-unit composition trials
+
+Each row below is a native tu_skeleton --merge trial at base ffc7c6bdc9. The approved TU map, existing MSVC per-file settings and LinkGuard were used. No composition retained two donors with the original bytes and link checks. The trials left their files and ledger entries in place.
+
+- `Code/GameEngine/Source/GameLogic/SkirmishAI/AIDozerManager.cpp`. The constructor donor redeclares STLport allocator deallocate (C2995). The list donor redeclares _List_iterator (C2953). The nearest-pick donor expects rva00599870 and m_list on the private Rva005997CD view. Reconcile the class and allocator views first.
+- `Code/Libraries/Source/Apt/AptInput.cpp`. The cluster donor loses an identifier. The input-dispatch donor expects a member absent from the AptButtonCharacter view. Reconcile the shared Apt declarations before merging.
+- `Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp`. The search donor redeclares an STL template. The interest-zone donor expects an Object member absent from the target view. Verify both declarations under one header before composition.
+- `Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLLoginMenu.cpp`. The red-black-tree donor explicitly specializes a list constructor after implicit instantiation (C2908). The password donor redefines a class. Preserve template ordering and reconcile the duplicate view.
+- `Code/GameEngine/Source/GameLogic/Object/Update/AutoPickUpUpdate.cpp`. Both module-data lifetime donors fail at a pointer declaration in the composed source. Resolve the missing type before retesting either body.
+- `Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp`. OCLUpdateCtor lacks the expected overload in the target declaration. The pool-key donor expects a member the same view does not declare. Align the two class views first.
+- `Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdate.cpp`. The constructor thunk loses a declaration. The module-data destructor compiles and loses a byte match. Both are prerequisites for a merge.
+- `Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp`. The constructor has a differing class redeclaration, the module-data ctor is absent from its class declaration, and the destructor changes bytes. Resolve the shared declarations and preserve the destructor body.
+- `Code/GameEngine/Source/Common/System/Radar.cpp`. The destructor and one helper redeclare classes. The frame-tick and list-resource donors fail at pointer declarations. Reconcile the shared types before retrying the donor cohort.
