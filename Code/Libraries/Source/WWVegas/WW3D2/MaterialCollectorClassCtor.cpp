@@ -11,6 +11,8 @@
 // (??0TextureVectorBaseCtorShim@@QAE@HPBV?$RefCountPtr@VTextureClass@@@@@Z)
 // lives at 0x0016ED80 (ghidra FUN_0056ed80, 191B, same size as BFME1's 191B
 // construct); declared only here and pinned, defined in its own TU next.
+#include <new>
+
 extern "C" const void *__identifier("??_7?$DynamicVectorClass@VBfmeHandleCX@@@@6B@")[];
 
 class ShaderClass;
@@ -27,9 +29,35 @@ public:
 	virtual int ID(const T *);
 	virtual int ID(const T &);
 
-private:
-	unsigned char m_data[0x0c];
+protected:
+	T *Vector;
+	int VectorMax;
+	bool IsValid;
+	bool IsAllocated;
+	bool VectorClassPad[2];
 };
+
+// The destructor and Clear are inline in WW vector.h. This unit emits
+// VectorClass<VertexMaterialClass *>'s vtable (the inline constructor below
+// installs it), so its ??_G inlines both, as retail's 0x0016FF30 (rowed in
+// matinfo.cpp) does.
+template <class T>
+VectorClass<T>::~VectorClass()
+{
+	VectorClass<T>::Clear();
+}
+
+template <class T>
+void VectorClass<T>::Clear()
+{
+	if (Vector && IsAllocated)
+	{
+		delete[] Vector;
+		Vector = 0;
+	}
+	IsAllocated = false;
+	VectorMax = 0;
+}
 
 class TextureClass
 {
