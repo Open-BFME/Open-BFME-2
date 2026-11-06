@@ -45759,7 +45759,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00550618,14,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp
 0x00550626,14,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp
 0x00550634,5,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
-0x00550639,24,code,,,-,,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GetNickForMessage.cpp
+0x00550639,24,code,,,-,,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp
 0x00550651,64,code,,,-,,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadCallbacks.cpp
 0x00550691,143,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp S=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp N=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadClass.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadCallbacks.cpp
 0x00550720,79,code,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThread.cpp N=Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadClass.cpp,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadCallbacks.cpp
