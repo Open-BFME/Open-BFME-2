@@ -43,16 +43,19 @@ Rva00252B68::~Rva00252B68()
 {
 }
 
-// Rva00341E22 derives from the canonical State (its retail table 0x00811798
+// Rva0033F701 derives from the canonical State (its retail table 0x00811798
 // is the one the State-derived constructor 0x0033F701 installs); its empty
 // destructor tail-calls the rowed ??1State@@UAE@XZ at the same fold body.
-class Rva00341E22 : public State
+class Rva0033F701 : public State
 {
 public:
-	virtual ~Rva00341E22();
+	virtual ~Rva0033F701();
+protected:
+	// retail slot 3: the rowed xfer 0x00341E2D
+	virtual void xfer(Xfer *xfer);
 };
 
-Rva00341E22::~Rva00341E22()
+Rva0033F701::~Rva0033F701()
 {
 }
 

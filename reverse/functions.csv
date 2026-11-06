@@ -6239,7 +6239,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1PorcupineFormationBodyModule@@UAE@XZ,,0x004C2016,25,Code/GameEngine/Source/GameLogic/Object/Body/PorcupineFormationBody.cpp,matched,PorcupineFormationBodyModule destructor: stores its three vptrs and tail-jumps ActiveBody dtor 0x004BF951; +0x10 table 0x0085C318 slot 0 is the rowed PorcupineFormationBodyModule::attemptDamage 0x004C2230; was opaque Rva004C2016
 ??1Rva000CEB6F@@UAE@XZ,,0x000CEB6F,11,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque derived dtor tail-jmp opaque fold base
 ??1Rva00252B68@@UAE@XZ,,0x00254C4B,11,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque derived dtor
-??1Rva00341E22@@UAE@XZ,,0x00341E22,11,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque derived dtor
+??1Rva0033F701@@UAE@XZ,,0x00341E22,11,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque derived dtor
 ??1Rva00362EE3@@UAE@XZ,,0x00362EE3,11,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque derived dtor
 ??1Rva004607E1@@UAE@XZ,,0x004607E1,18,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,opaque MI dtor two vptrs tail-jmp opaque fold base
 ??1Rva002E4272@@UAE@XZ,,0x002E4272,11,Code/GameEngine/Source/Common/Rva003B1F65Derived.cpp,matched,opaque derived dtor tail-jmp opaque SEH base
@@ -9937,7 +9937,7 @@ _math_deg,,0x00748710,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ?get@Rva00574AA5AddDwordField@@QBEHXZ,,0x00574AA5,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
 ??_GRva000CEB6F@@UAEPAXI@Z,,0x000CEF83,28,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva00252B68@@UAEPAXI@Z,,0x00254C2F,28,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva00341E22@@UAEPAXI@Z,,0x00342F41,28,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GRva0033F701@@UAEPAXI@Z,,0x00342F41,28,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva00362EE3@@UAEPAXI@Z,,0x003630E6,28,Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ?name@Rva001F37BENamed@@QBEPBDXZ,,0x001F37BE,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning FXParticleInfo; vtable ref in .rdata; address-derived placeholder name
 ??_GRva00484F5D@@UAEPAXI@Z,,0x00484F41,28,Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
@@ -20039,7 +20039,7 @@ _$E5,,0x007B7060,10,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?xfer@AutoAbilityBehavior@@MAEXPAVXfer@@@Z,,0x0045A291,86,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,matched,slot 3 of 0x0084175C plus UpdateModule base 0x0044DF9F plus ctor 0x0045A78F layout
 ?rva004B6B04@GeometryUpgrade@@QAEXPAVBfmeObjF9@@PAXD@Z,,0x004B6B04,37,Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp,matched,primary-this member view supported by native GeometryUpgrade caller ECX setup; unused receiver; setFlag 0x006BF3C0 plus vector begin end
 ?xfer@AudioLoopUpgrade@@MAEXPAVXfer@@@Z,,0x004B7E75,72,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeXfer.cpp,matched,slot3 of vtable 0xC58CC4 via rowed dtor 0x4B7B20 plus TheAudio slot 0x160 plus Update base plus mux
-?xfer@Rva00341E22@@MAEXPAVXfer@@@Z,,0x00341E2D,27,Code/GameEngine/Source/Common/Rva00341E22Xfer.cpp,matched,slot3 plus IsLightCRC plus Version1 plus prev dtor abut plus Ship precedent
+?xfer@Rva0033F701@@MAEXPAVXfer@@@Z,,0x00341E2D,27,Code/GameEngine/Source/Common/Rva00341E22Xfer.cpp,matched,slot3 plus IsLightCRC plus Version1 plus prev dtor abut plus Ship precedent
 ?reloadWithBonus@Weapon@@IAEXPBVObject@@ABVWeaponBonus@@_N@Z,,0x002CDB99,164,Code/GameEngine/Source/GameLogic/Object/WeaponReloadWithBonus.cpp,matched,BFME1 donor Weapon.cpp with provider-gated ammo and setDisabledUntil sharing
 ?rva004B7E3C@AudioLoopUpgrade@@UAEXH@Z,,0x004B7E3C,57,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp,matched,between getter 0x4B7E23 and rowed xfer 0x4B7E75 plus TheAudio slot 0x6c plus setWakeFrame plus killOnDeath flag
 ?xfer@Rva000647D4@@MAEXPAVXfer@@@Z,,0x000647E6,27,Code/GameEngine/Source/GameLogic/Object/Rva000647D4Xfer.cpp,matched,slot3 plus Version1 plus Locomotor base pin plus ICF twin
