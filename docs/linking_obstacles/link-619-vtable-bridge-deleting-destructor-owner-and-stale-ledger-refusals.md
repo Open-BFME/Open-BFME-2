@@ -151,3 +151,59 @@ Published as `d117bf74a1`, `0a1151cb9e` and `67435ce87e` on2026-11-06. The norma
   default, aux bytes on a non-weak target, another weak name, and plain against weak); each of the seven
   new guards fails a test when removed. 156 bridge/exit-link tests pass. Next check: the next real link's `vtable_bridge_queue.tsv`
   lists these 48 tables (0x007C5320 ... 0x00879594) as bridged or already correct, not refused.
+
+**2026-11-07, lk40 continued: source repairs for the byte-difference and EH-copy slots.** Each is its own
+commit, verified by `./build.sh`, find_declared_unmatched, scoped DIR32, an object A/B of every emitted
+`??_7` (unchanged unless noted) and link_check over every unit that defines or references the class's
+symbols (no unit changed status). The simulation after each: target-not-winning-provider 40 -> 36.
+- 0x008EAED0 (Apt value classes, 15 slots; names AptValue, RvaAptValueBase, Rva006DE350,
+  BfmeAptValue006DCD20): `??_GRva006DE320` (0x006DE320) re-homed with `add_match.py --replace-existing`
+  from the grab-bag PoolDeleteDeletingDtors01.cpp into AptValue.cpp, its approved TU (fresh in-memory
+  map); the grab-bag held no other row and is deleted, so its non-retail `??_GRva006DE350` copy (first in
+  link order) is gone. Its code-identity key transfers to AptValue.cpp (the finding remains:
+  `??_GRva006DE320` calls `??1Rva006DE320`, a pinned twin name of 0x006DE350, not the row's own symbol).
+  link_check 10/12 (AptValue.cpp and Rva006CBF40Deferred.cpp did not link before either).
+- 0x007D3C48 (VectorClass<PendingSurfaceStruct>): PendingSurfaceStructResize.cpp no longer explicitly
+  instantiates the vector constructor (rowed in render2dsentence.cpp), so it stops emitting the vtable
+  and a `??_G` calling `~VectorClass` out of line; Render2DSentenceDestructorBFME2.cpp declares the
+  `ID(const T *)` specialization beside the other three, dropping its `return 0` stub. 15/15 link.
+- 0x007D4628 (VectorClass<VertexMaterialClass *>): MaterialCollectorClassCtor.cpp's private template
+  now spells vector.h's members and inline destructor/Clear and includes `<new>`, so its `??_G` equals
+  matinfo.cpp's 0x0016FF30. It also emits `??_7VectorClass<ShaderClass>` and its `??_G`, both equal to
+  matinfo.cpp's. 14/14 link.
+- 0x007D4EB4 (VectorClass<Vector4>): Rva007B7280Siblings.cpp declares `Resize` for Vector3 and Vector4
+  as specializations, like its operator==/ID, so its /O2 EH copies (uncomparable: local relocations,
+  loaded `.xdata$x`) leave the link. 13/13 link.
+
+**Remaining target-not-winning-provider after lk40 (36, simulation at lk40's last commit).**
+- 20 RenderObjClass-derived tables (RenderObjClass, MeshClass, CameraClass, LightClass,
+  ParticleEmitterClass, CompositeRenderObjClass, Animatable3DObjClass, Box/AABox/OBBoxRenderObjClass,
+  Null3DObjClass, SegmentedLineClass, Line3DClass, StreakLineClass, ParticleBufferClass,
+  TerrainTracksRenderObjClass, BaseHeightMapRenderObjClass, SimpleDynVecClass<float>, two placeholders).
+  Each has 7 blocked slots: the six alignment-only inline virtuals above, and slot 93
+  `?Set_ObjectScale@RenderObjClass@@UAEXM@Z`, an ambiguous-target-name: the gen-alias row 0x005AD93A in
+  collect.cpp carries `object-symbol=?Set_ObjectScale@RenderObjClass@@UAEXM@Z`, but retail's bytes
+  there store at +0x4C (`f3 0f 11 41 4c`) where RenderObjClass::Set_ObjectScale (0x0006CEBF, rowed in
+  RenderObjCopy.cpp) stores at +0x48, and it sits in the AI code region between
+  Pathfinder::setDebugPathPosition and AIBase. It is another class's float setter. A what-if that ignores
+  alignment bits moves these 20 tables to ambiguous-target-name; with the gen-alias recovered under its
+  own name as well they would bridge. Retail keeps the /O1 copies of all these RenderObjClass inlines in
+  one block (0x0006CE71..0x0006D03E) beside BaseHeightMapRenderObjClass's code; the six rows are owned
+  by /O2 units (hlod.cpp, distlod.cpp) and their addresses have no approved TU (inline/displaced), so
+  this pass did not move them.
+- 9 more alignment-only tables, where the first provider's flags are fixed by its own matched rows:
+  `Get_ObjectScale` x3 (U4GlobalGuardedNotifies.cpp), `Get_Vertex_Array` (W3DBridgeBuffer.cpp),
+  VectorClass<int> (Render2DSentenceAllocateSurfaceBFME2.cpp), VectorClass<StringClass>
+  (INIStatsRecordTextures.cpp), Bucket (BucketDtor.cpp), W3DShroudMaterialPassClass (W3DScene.cpp),
+  SimpleVecClass<float> (streak.cpp), VectorClass<Vector3> (Rva007B7280Siblings.cpp, which must emit the
+  vtable for its teardowns; its Resize slot's first copy is now vector_class_vector3_ctor.cpp's EH body).
+  The ignore-alignment what-if clears four of them outright (Get_ObjectScale x3, Get_Vertex_Array).
+- STLport EH bodies (not touched: the STLport 4.6 move is another lane): 0x007BB9D8 `money_get::do_get`
+  x2 (stlport_money_get.cpp first), 0x007BBD50 `basic_filebuf::seekoff`
+  (FstreamDefaultProtectionNameCtors.cpp first). The same decl-only specialization would hand them to
+  their owners.
+- Different bodies, not repaired: 0x008394CC `??_GRva0040DB52` (the constructor unit is built /Oy- for
+  its own row and emits a framed copy; retail's 0x0040E09B follows that constructor directly, approved
+  TU only proposed: ArmySummary.cpp), 0x008E3D14/0x008E3D28 Fesl browser owners (the constructor units'
+  views lack the base class and inline destructor that Y2FeslBrowserDestructors.cpp's rows inline; the
+  addresses have no approved TU).
