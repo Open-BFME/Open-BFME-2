@@ -316,23 +316,8 @@ private:
 
 extern GlobalData *TheWritableGlobalData;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const AsciiString &getName() const
-	{
-		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_name;
-	}
-private:
-	unsigned char m_pad[0x10];
-	AsciiString m_name;			// +0x10
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 
