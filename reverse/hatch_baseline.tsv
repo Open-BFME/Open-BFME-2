@@ -2570,6 +2570,7 @@ alternatename	Code/GameEngine/Source/GameClient/GameText.cpp	??RRva002E5C61Comp@
 alternatename	Code/GameEngine/Source/GameClient/GameText.cpp	?rva002E6184@Rva002E6329Owner@@SAXPAX0000H@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GlobalLanguage.cpp	??1Rva001EAD69Entry@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GlobalLanguage.cpp	?push_front@Rva001EAD69List@@QAEXABURva001EAD69Entry@@@Z	1
+alternatename	Code/GameEngine/Source/GameClient/InGameUI.cpp	??0BfmeElemVVD@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/InGameUICtor.cpp	??0Rva0029B63A@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp	??1Rva0023DAA5List@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp	?clear@Rva0023DAA5List@@QAEXXZ	1
@@ -2603,7 +2604,6 @@ alternatename	Code/GameEngine/Source/GameClient/Rva00222B19AptCallLevel.cpp	?rva
 alternatename	Code/GameEngine/Source/GameClient/Rva00224818.cpp	?g_00BBFDDC@@3QBDB	1
 alternatename	Code/GameEngine/Source/GameClient/Rva00224818.cpp	?g_00BBFDE0@@3QBDB	1
 alternatename	Code/GameEngine/Source/GameClient/Rva00224C95Ctor.cpp	?init@Rva00224C95Table@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/GameClient/Rva0029B2E7Zero.cpp	??0BfmeElemVVD@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Rva005E2237PageCtor.cpp	??0Rva0022167C@@QAE@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Rva005E2237PageCtor.cpp	??1Rva0022167C@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F8348Ctor.cpp	?init@Rva000F8348@@UAEHXZ	1

@@ -20359,7 +20359,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0029B060,8,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,S,S=Code/GameEngine/Source/GameClient/InGameUI.cpp N=Code/GameEngine/Source/GameClient/InGameUI.cpp,Code/GameEngine/Source/GameClient/InGameUI_Rva0029B04D.cpp
 0x0029B068,65,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/InGameUI.cpp S=Code/GameEngine/Source/GameClient/InGameUI.cpp N=Code/GameEngine/Source/GameClient/InGameUI.cpp,Code/GameEngine/Source/GameClient/InGameUI_Rva0029B04D.cpp
 0x0029B0A9,137,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B132,Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp
-0x0029B132,56,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B16A,Code/GameEngine/Source/GameClient/Rva0029B132Init.cpp
+0x0029B132,56,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B16A,Code/GameEngine/Source/GameClient/InGameUI.cpp
 0x0029B16A,18,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,W=Code/GameEngine/Source/GameClient/InGameUI.cpp C=0x0029B068..0x0029B17C,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp
 0x0029B17C,11,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,W=Code/GameEngine/Source/GameClient/InGameUI.cpp C=0x0029B068..0x0029B187,Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp
 0x0029B187,26,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B1A1,Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp
@@ -20378,7 +20378,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0029B27B,28,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B297,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x0029B297,45,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B2C4,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_allocate_copy.cpp
 0x0029B2C4,35,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B2E7,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp
-0x0029B2E7,44,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B313,Code/GameEngine/Source/GameClient/Rva0029B2E7Zero.cpp
+0x0029B2E7,44,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B313,Code/GameEngine/Source/GameClient/InGameUI.cpp
 0x0029B313,26,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B32D,Code/GameEngine/Source/GameClient/Rva0029B313.cpp
 0x0029B32D,25,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B346,Code/GameEngine/Source/Common/Rva0059B7CBCtor.cpp
 0x0029B346,5,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029B068..0x0029B34B,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
@@ -20464,7 +20464,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0029DE76,164,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029DCA9..0x0029DF1A,Code/GameEngine/Source/GameClient/Rva0029DE76Method.cpp
 0x0029DF1A,171,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,W=Code/GameEngine/Source/GameClient/InGameUI.cpp C=0x0029DCA9..0x0029DFC5,Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp
 0x0029DFC5,36,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029DCA9..0x0029DFE9,Code/GameEngine/Source/Common/System/FormationBuildRow.cpp
-0x0029DFE9,36,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029DCA9..0x0029E00D,Code/GameEngine/Source/GameClient/InGameUI_RemoveRecycle0029DFE9.cpp
+0x0029DFE9,36,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029DCA9..0x0029E00D,Code/GameEngine/Source/GameClient/InGameUI.cpp
 0x0029E00D,8,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029DCA9..0x0029E015,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002A3FAF.cpp
 0x0029E015,41,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029DCA9..0x0029E03E,Code/GameEngine/Source/Common/Rva0029E015Clear.cpp
 0x0029E03E,41,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029DCA9..0x0029E067,Code/GameEngine/Source/Common/Rva0029E03EClear.cpp
@@ -20497,7 +20497,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0029F7C8,34,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/InGameUI.cpp S=Code/GameEngine/Source/GameClient/InGameUI.cpp N=Code/GameEngine/Source/GameClient/InGameUI.cpp,Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp
 0x0029F7EA,206,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/InGameUI.cpp S=Code/GameEngine/Source/GameClient/InGameUI.cpp N=Code/GameEngine/Source/GameClient/InGameUI.cpp,Code/GameEngine/Source/GameClient/InGameUIMessages.cpp
 0x0029F8B8,130,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029F7EA..0x0029F93A,Code/GameEngine/Source/Common/Rva0029F8B8.cpp
-0x0029F93A,26,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029F7EA..0x0029F954,Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_remove_guard.cpp
+0x0029F93A,26,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029F7EA..0x0029F954,Code/GameEngine/Source/GameClient/InGameUI.cpp
 0x0029F954,350,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,S,S=Code/GameEngine/Source/GameClient/InGameUI.cpp N=Code/GameEngine/Source/GameClient/InGameUI.cpp W=Code/GameEngine/Source/GameClient/InGameUI.cpp,Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp
 0x0029FAB2,5,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029F954..0x0029FAB7,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
 0x0029FAB7,56,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x0029F954..0x0029FAEF,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
@@ -20594,7 +20594,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002A4523,270,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,S,S=Code/GameEngine/Source/GameClient/InGameUI.cpp N=Code/GameEngine/Source/GameClient/InGameUI.cpp W=Code/GameEngine/Source/GameClient/InGameUI.cpp,Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp
 0x002A4631,5,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x002A4523..0x002A4636,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
 0x002A4636,5,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x002A4523..0x002A463B,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
-0x002A463B,11,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x002A4523..0x002A4646,Code/Libraries/Source/WWVegas/WWLib/Rva002A463BMapClear.cpp
+0x002A463B,11,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x002A4523..0x002A4646,Code/GameEngine/Source/GameClient/InGameUI.cpp
 0x002A4646,201,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x002A4523..0x002A470F,Code/GameEngine/Source/GameClient/Rva002A4646BurstEntries.cpp
 0x002A470F,164,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,S,S=Code/GameEngine/Source/GameClient/InGameUI.cpp N=Code/GameEngine/Source/GameClient/InGameUI.cpp,Code/GameEngine/Source/GameClient/Rva0029B1C2.cpp
 0x002A47B3,17,code,Code/GameEngine/Source/GameClient/InGameUI.cpp,approved,C,C=0x002A470F..0x002A47C4,Code/GameEngine/Source/GameClient/InGameUISuperweapons.cpp
