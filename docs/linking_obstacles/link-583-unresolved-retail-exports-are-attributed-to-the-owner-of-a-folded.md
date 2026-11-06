@@ -349,3 +349,6 @@ against index `d707d2f53b`. Awaiting the automated real link.
 
 
 2026-11-06. 2 DefaultModuleTemplate writer exports now emit their exact retail signatures, with the full existing body and relocation matches. The authoritative follow-up remains pending. [Scoped verification](../../reverse/attempt_support/particle-default-writer-exports-20261106-codex.md).
+
+
+2026-11-06. 1 RenderObjectUpdate writer export now emits their exact retail signatures, with the full existing body and relocation matches. The authoritative follow-up remains pending. [Scoped verification](../../reverse/attempt_support/particle-renderobject-writer-export-20261106-codex.md).

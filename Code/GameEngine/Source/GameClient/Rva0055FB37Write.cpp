@@ -143,10 +143,14 @@ void DefaultModuleTemplate<2>::writeINI(File &file, unsigned int flags) const
 // field-parse table C6C710 independently agrees with all12 variable names
 // and offsets0C..90 and the Rotation field9C. BF1 donor874e38488c7d
 // DefaultModuleTemplate_writeINI and the verified BF2 sibling55FB37 give
-// the writer/ostringstream pattern; original class/method name unproven.
-class Rva005625C5 {
-public:void rva005625C5(File *file,unsigned flags);
-private:char pad[12];
+// the writer/ostringstream pattern. Retail export 1956 identifies the writer.
+namespace FXParticleSystem {
+
+class RenderObjectUpdateModuleTemplate {
+public:
+    virtual void writeINI(File &file, unsigned int flags) const;
+private:
+    char m_pad[8];
  S001F87D5 m_StartSizeX;
  S001F87D5 m_StartSizeY;
  S001F87D5 m_StartSizeZ;
@@ -161,8 +165,10 @@ private:char pad[12];
  S001F87D5 m_AngularDamping;
  int rotation;
 };
-void Rva005625C5::rva005625C5(File *file,unsigned flags) {
- Rva0055FA5FWriteHeader(this,file,&flags);
+
+void RenderObjectUpdateModuleTemplate::writeINI(File &file, unsigned int flags) const
+{
+ Rva0055FA5FWriteHeader(this,&file,&flags);
  _STL::basic_ostringstream<char, _STL::char_traits<char>, _STL::allocator<char> > oss(16);
  if(!Rva001F3744IsZero((const S001F3744*)&m_StartSizeX))
   Rva001F8B5FWrite(oss,flags,"StartSizeX",m_StartSizeX);
@@ -189,6 +195,8 @@ void Rva005625C5::rva005625C5(File *file,unsigned flags) {
  if(!Rva001F3744IsZero((const S001F3744*)&m_AngularDamping))
   Rva001F8B5FWrite(oss,flags,"AngularDamping",m_AngularDamping);
  if(rotation!=1)Rva001F82ABWrite(oss,flags,"Rotation",const_cast<const char **>(&FXParticleSystem::RotationTypeNames[rotation]));
- Rva001F458BWrite(*file,(const Rva001F458BText&)oss.str());
- Rva003AFC6BWrite(file,&flags);
+ Rva001F458BWrite(file,(const Rva001F458BText&)oss.str());
+ Rva003AFC6BWrite(&file,&flags);
 }
+
+} // namespace FXParticleSystem
