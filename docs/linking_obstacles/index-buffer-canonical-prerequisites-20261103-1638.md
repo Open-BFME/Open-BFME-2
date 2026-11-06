@@ -130,3 +130,6 @@ The follow-up preparation verifies all nine selected files. Under the newer f44c
 
 
 2026-11-05 follow-up. Current receipts cover AIBaseBuilder.cpp, AIBuildable.cpp and AIGameTeam.cpp. The broader check reaches AIHarvestPrepareSiteState.cpp under the earlier f44cbcf5b0 index. [Scoped checks](../../reverse/attempt_support/current-link-receipts-20261105-1800.md#upgrade-layout-and-consumer-checks-at-ce21580655).
+
+
+2026-11-06 index refresh. AIHarvestPrepareSiteState.cpp passes four of four matched functions and one data row with a strict reusable receipt. The same six-source audit at 47fd56b879 uses the newer published index 2d7376f084. Its since-index evidence remains provisional and the first affected consumer lacking a current receipt is 0CreateAHeroManager21FE49.cpp.
