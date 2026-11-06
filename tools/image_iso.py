@@ -756,7 +756,9 @@ def numeric_operand_use(md, instructions, origin, operand_kind):
     ins = instructions[origin]
     arithmetic = {"add", "sub", "adc", "sbb", "and", "or", "xor", "imul", "mul",
                   "div", "idiv", "shl", "shr", "sal", "sar", "rol", "ror"}
-    if ins.mnemonic in ("cmp", "test", "bt"):
+    if ins.mnemonic in ("cmp", "test", "bt", "and", "or", "xor", "shl", "shr", "sal", "sar", "rol", "ror"):
+        return True
+    if ins.mnemonic in arithmetic and ins.operands and ins.operands[0].type == X86_OP_MEM:
         return True
     if not ins.operands or ins.operands[0].type != X86_OP_REG:
         return False
@@ -796,6 +798,37 @@ def numeric_operand_use(md, instructions, origin, operand_kind):
         if not tracked:
             return numeric
     return numeric
+
+
+
+def address_operand_use(md, instructions, origin, operand_kind):
+    """Direct local dereference/indirect-call evidence; unknown escapes stay unknown."""
+    import capstone
+    from capstone.x86_const import X86_OP_REG, X86_OP_MEM
+    if operand_kind == "displacement":
+        memory = next((op for op in instructions[origin].operands if op.type == X86_OP_MEM), None)
+        return memory is not None and not memory.mem.base
+    ins = instructions[origin]
+    if ins.mnemonic != "mov" or not ins.operands or ins.operands[0].type != X86_OP_REG:
+        return False
+    tracked = {ins.operands[0].reg}
+    for following in instructions[origin + 1:]:
+        for op in following.operands:
+            if op.type == X86_OP_MEM and ({op.mem.base, op.mem.index} & tracked):
+                return True
+        if following.group(capstone.CS_GRP_CALL) or following.group(capstone.CS_GRP_JUMP):
+            return bool(following.operands and following.operands[0].type == X86_OP_REG
+                        and following.operands[0].reg in tracked)
+        if following.group(capstone.CS_GRP_RET):
+            return False
+        reads, writes = following.regs_access()
+        if following.mnemonic == "mov" and following.operands[0].type == X86_OP_REG and set(reads) & tracked:
+            tracked.add(following.operands[0].reg)
+        elif not set(reads) & tracked:
+            tracked.difference_update(writes)
+        if not tracked:
+            return False
+    return False
 
 
 def unrelocated_retail_addresses(checker, function_ledger, data_rows):
@@ -951,31 +984,66 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
                     target_section = next((s.Name.rstrip(b"\0").decode(errors="replace") for s in retail.sections
                         if s.VirtualAddress <= target_rva < s.VirtualAddress + max(s.Misc_VirtualSize, s.SizeOfRawData)), "none")
                     detail = dict(row=row["name"], symbol=symbol, source=row["source"],
+                        object_source=public.get("source", ""), row_size=size,
                         row_rva=hex(rva), object=public["object"], image_rva=hex(public["rva"]),
                         offset=offset, instruction_offset=ins.address - retail.base - rva,
                         instruction=ins.mnemonic + " " + ins.op_str, operand_kind=kind,
                         retail_address=hex(value), target_rva=hex(target_rva), target_section=target_section,
                         target_kind=target_section.removeprefix(".") if target_section in (".data", ".rdata", ".text") else "other")
+                    suffix = instructions[ordinal + 1:]
+                    literal_return = (kind == "immediate" and ins.mnemonic == "mov"
+                        and ins.operands and md.reg_name(ins.operands[0].reg) == "eax"
+                        and any(later.group(capstone.CS_GRP_RET) for later in suffix)
+                        and all(later.mnemonic in ("ret", "retf", "pop", "leave", "nop") for later in suffix))
+                    detail["literal_return"] = bool(literal_return)
+                    detail["local_address_use"] = address_operand_use(md, instructions, ordinal, kind)
                     reason = None
                     if value in numeric_data:
                         reason = "typed_nonaddress_data_collision"
                         detail["numeric_data_witnesses"] = numeric_data[value]
+                    elif kind == "displacement" and not detail["local_address_use"]:
+                        reason = "base_relative_displacement_unresolved"
                     elif numeric_operand_use(md, instructions, ordinal, kind):
-                        reason = "arithmetic_or_comparison_only"
-                    elif (kind == "immediate" and ins.mnemonic == "mov"
-                          and re.search(r"(?:^|[?_:])max_size(?:@|\b)", symbol)
-                          and ins.operands and md.reg_name(ins.operands[0].reg) == "eax"
-                          and all(later.mnemonic in ("ret", "retf", "pop", "leave", "nop")
-                                  for later in instructions[ordinal + 1:])):
-                        # A capacity accessor has a plausible numeric meaning.
-                        # This is an ambiguity classification, NOT a proof of safety.
+                        reason = "arithmetic_or_comparison_context"
+                    elif literal_return and re.search(r"(?:^|[?_:])max_size(?:@|\b)", symbol):
                         reason = "capacity_accessor_numeric_interpretation"
+                    elif kind == "immediate":
+                        tag = value.to_bytes(4, "big").lstrip(b"\0")
+                        if len(tag) >= 3 and all(32 <= byte < 127 for byte in tag):
+                            reason = "printable_integer_tag_or_address"
                     if reason:
                         detail["ambiguity_reason"] = reason
                         ambiguous.append(detail)
                         counts["ambiguous_" + reason] += 1
                     else:
                         findings.append(detail)
+
+    numeric_witnesses = {}
+    for detail in ambiguous:
+        if detail["ambiguity_reason"] in ("arithmetic_or_comparison_context", "capacity_accessor_numeric_interpretation"):
+            numeric_witnesses.setdefault(detail["retail_address"], dict(
+                row=detail["row"], row_rva=detail["row_rva"], offset=detail["offset"],
+                instruction=detail["instruction"]))
+    definitive = []
+    for detail in findings:
+        reason = None
+        if detail["operand_kind"] == "immediate":
+            witness = numeric_witnesses.get(detail["retail_address"])
+            if witness:
+                reason = "numeric_interpretation_elsewhere"
+                detail["numeric_use_witness"] = witness
+            elif not detail["literal_return"] and not detail["local_address_use"]:
+                # PUSH arguments, stored scalars and values escaping local CFG
+                # have no recoverable pointer type. They block G2 as ambiguous,
+                # rather than becoming claimed address defects.
+                reason = "integer_or_pointer_use_unresolved"
+        if reason:
+            detail["ambiguity_reason"] = reason
+            ambiguous.append(detail)
+            counts["ambiguous_" + reason] += 1
+        else:
+            definitive.append(detail)
+    findings = definitive
 
     # Resolve only the discovered target values: no wholesale function-row load.
     values = sorted({int(d["target_rva"], 16) for d in findings + ambiguous})
@@ -985,9 +1053,24 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
         for value in values[first:last]:
             owners[value].append(dict(register=register, kind=row.get("kind", "code"),
                 name=row["name"], rva=hex(start), size=size, offset=value - start,
-                source=row.get("source", ""), exact=value == start))
+                source=row.get("source", ""), status=row.get("status", ""), exact=value == start))
     for row in data_rows:
         own(row, int(row["address"], 16), int(row["size"] or 0), "data_ledger")
+    source_data = Path(function_ledger).with_name("data_rows.csv")
+    counts["source_data_rows_available"] = int(source_data.exists())
+    if source_data.exists():
+        with source_data.open(newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                try:
+                    start = int(row["address"], 16)
+                    if row["address_kind"] == "va":
+                        start -= retail.base
+                    elif row["address_kind"] != "rva":
+                        counts["source_data_rows_address_kind_unanalyzed"] += 1
+                        continue
+                    own(dict(row, kind="global"), start, int(row["size"] or 0), "data_rows")
+                except ValueError:
+                    counts["source_data_rows_extent_unanalyzed"] += 1
     with Path(function_ledger).open(newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f):
             try:
@@ -1000,6 +1083,9 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
         global_rows = [r for r in owners.get(value, []) if r["kind"] == "global"]
         detail["ledger_global_exists"] = any(r["exact"] for r in global_rows)
         detail["ledger_global_extent_covers"] = bool(global_rows)
+        source_globals = [r for r in global_rows if r["register"] == "data_rows" and r["status"] == "matched"]
+        detail["source_global_exists"] = (any(r["exact"] for r in source_globals)
+                                          if counts["source_data_rows_available"] else None)
     counts["defects"] = len(findings)
     counts["ambiguous"] = len(ambiguous)
     for d in findings:
@@ -1011,7 +1097,7 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
         by_source=dict(collections.Counter(d["source"] for d in findings)),
         ambiguous_by_kind=dict(collections.Counter(d["target_kind"] for d in ambiguous)),
         ambiguous_by_source=dict(collections.Counter(d["source"] for d in ambiguous)),
-        rule="Exact matched COFF/image bytes; literal IMM32/DISP32 with no object relocation. Typed float/string payload collisions, locally numeric uses and literal-return capacity accessors remain ambiguous. Relative controls are not absolute literals. Owners are ledger extents, not layout proof.")
+        rule="Exact matched COFF/image bytes; literal IMM32/DISP32 with no object relocation. Numeric payload collisions, arithmetic/comparison witnesses, literal capacity accessors and printable integer tags remain ambiguous; non-getter scalar/argument escapes without address-use proof are also ambiguous. Absolute memory fields, local pointer uses and unwitnessed literal returns are defects; base-relative offsets remain ambiguous. Relative controls are excluded. Ledger extents do not prove layout.")
 
 
 def main(argv=None):
@@ -1083,7 +1169,9 @@ def main(argv=None):
                               image=str(args.image), map=str(args.map), retail=str(args.retail),
                               image_sha256=digest(args.image), map_sha256=digest(args.map),
                               retail_sha256=digest(args.retail), receipt=receipt,
-                              objects_sha256=digest(args.objects) if args.objects else None),
+                              objects_sha256=digest(args.objects) if args.objects else None,
+                              data_rows_sha256=digest(build.ROOT / "reverse/data_rows.csv")
+                                  if (build.ROOT / "reverse/data_rows.csv").exists() else None),
                   object_analysis=dict(object_counts), map_symbols=len(publics))
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "report.json").write_text(json.dumps(report, indent=2) + "\n")

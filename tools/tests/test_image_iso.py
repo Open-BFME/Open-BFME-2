@@ -595,7 +595,7 @@ def test_arithmetic_and_comparison_constants_are_ambiguous(tmp_path):
         c, ledger, data = absolute_case(tmp_path, body)
         result = iso.unrelocated_retail_addresses(c, ledger, data)
         assert result["counts"]["defects"] == 0
-        assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_only"
+        assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_context"
 
 
 def test_arithmetic_that_then_dereferences_is_not_numeric_only(tmp_path):
@@ -688,8 +688,9 @@ def test_absolute_instruction_with_both_displacement_and_immediate(tmp_path):
     body = b"\xc7\x05" + struct.pack("<I", 0x402100) + struct.pack("<I", 0x403100) + b"\xc3"
     c, ledger, data = absolute_case(tmp_path, body)
     result = iso.unrelocated_retail_addresses(c, ledger, data)
-    assert [(d["offset"], d["operand_kind"]) for d in result["defects"]] == [
-        (2, "displacement"), (6, "immediate")]
+    assert [(d["offset"], d["operand_kind"]) for d in result["defects"]] == [(2, "displacement")]
+    assert [(d["offset"], d["operand_kind"]) for d in result["ambiguous"]] == [(6, "immediate")]
+    assert result["ambiguous"][0]["ambiguity_reason"] == "integer_or_pointer_use_unresolved"
 
 
 def test_coff_operand_offset_includes_symbol_start(tmp_path):
@@ -752,11 +753,11 @@ def test_address_only_cli_keeps_ambiguous_out_of_defects_tsv(tmp_path, monkeypat
         write_pe(path, base)
         raw = bytearray(path.read_bytes())
         raw[0x220:0x226] = b"\xb8" + struct.pack("<I", 0x402004) + b"\xc3"
-        raw[0x230:0x236] = b"\x3d" + struct.pack("<I", 0x402004) + b"\xc3"
+        raw[0x230:0x236] = b"\x3d" + struct.pack("<I", 0x402008) + b"\xc3"
         path.write_bytes(raw)
     for name, opcode in (("getter", b"\xb8"), ("constant", b"\x3d")):
         obj = tmp_path / (name + ".obj")
-        body = opcode + struct.pack("<I", 0x402004) + b"\xc3"
+        body = opcode + struct.pack("<I", 0x402004 if name == "getter" else 0x402008) + b"\xc3"
         iso.link_cycle.write_coff(obj, [(".text", 0x60000020, body, 0)],
                                   [(name, 1, 0, iso.link_cycle.EXTERNAL)])
         entries.append(dict(path=obj.name, sha256=iso.digest(obj), source="Code/" + name + ".cpp"))
@@ -798,4 +799,105 @@ def test_numeric_constant_then_overwrite_is_ambiguous(tmp_path):
     c, ledger, data = absolute_case(tmp_path, body)
     result = iso.unrelocated_retail_addresses(c, ledger, data)
     assert result["counts"]["defects"] == 0
-    assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_only"
+    assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_context"
+
+
+def test_printable_class_tag_getter_is_not_claimed_as_address(tmp_path):
+    # TEX happens to lie in .text in retail, but is an integer class ID.
+    body = b"\xb8" + struct.pack("<I", int.from_bytes(b"TEX", "big")) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body)
+    c.retail.sections[-1].Misc_VirtualSize = 0x400000
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"]["defects"] == 0 and result["counts"]["ambiguous"] == 1
+    assert result["ambiguous"][0]["ambiguity_reason"] == "printable_integer_tag_or_address"
+
+
+def test_inline_month_store_is_ambiguous_not_a_pointer_claim(tmp_path):
+    value = int.from_bytes(b"Mon", "big")
+    body = b"\xc7\x44\x24\x04" + struct.pack("<I", value) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body)
+    c.retail.sections[-1].Misc_VirtualSize = 0x400000
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"] and len(result["ambiguous"]) == 1
+
+
+def test_stored_rgb_scalar_and_push_without_type_evidence_are_ambiguous(tmp_path):
+    for body in (b"\xc7\x00" + struct.pack("<I", 0x403100) + b"\xc3",
+                 b"\x68" + struct.pack("<I", 0x403100) + b"\xc3"):
+        c, ledger, data = absolute_case(tmp_path, body)
+        result = iso.unrelocated_retail_addresses(c, ledger, data)
+        assert not result["defects"]
+        assert result["ambiguous"][0]["ambiguity_reason"] == "integer_or_pointer_use_unresolved"
+
+
+def test_bitmask_integer_is_numeric_even_when_result_indexes_memory(tmp_path):
+    body = b"\x25" + struct.pack("<I", 0x403100) + b"\x8b\x04\x85\x00\x00\x00\x00\xc3"
+    c, ledger, data = absolute_case(tmp_path, body)
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert not result["defects"]
+    assert result["ambiguous"][0]["ambiguity_reason"] == "arithmetic_or_comparison_context"
+
+
+def test_numeric_witness_elsewhere_demotes_getter_but_not_absolute_displacement(tmp_path):
+    value = 0x403100
+    body = b"\xb8" + struct.pack("<I", value) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body)
+    # A separate comparison supplies an explicit numeric interpretation of the same bits.
+    p = public("number", 0x500, 6)
+    numeric = b"\x3d" + struct.pack("<I", value) + b"\xc3"
+    p["coff"] = dict(offset=0, section=dict(body=numeric, size=6, flags=0x60000020, relocations=()))
+    c.publics.append(p)
+    c.retail.put(0x200, numeric); c.ours.put(0x500, numeric)
+    with ledger.open("a") as f:
+        f.write("number,0x200,6,Code/number.cpp,matched,\n")
+    q = public("absolute_load", 0x700, 6)
+    load = b"\xa1" + struct.pack("<I", value) + b"\xc3"
+    q["coff"] = dict(offset=0, section=dict(body=load, size=6, flags=0x60000020, relocations=()))
+    c.publics.append(q)
+    c.retail.put(0x280, load); c.ours.put(0x700, load)
+    with ledger.open("a") as f:
+        f.write("absolute_load,0x280,6,Code/absolute_load.cpp,matched,\n")
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"]["defects"] == 1
+    assert result["defects"][0]["operand_kind"] == "displacement"
+    assert any(d["ambiguity_reason"] == "numeric_interpretation_elsewhere" for d in result["ambiguous"])
+
+
+def test_p7_literal_getter_is_a_data_address_even_without_a_ledger_owner(tmp_path):
+    body = b"\xb8" + struct.pack("<I", 0xdc2274) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body, symbol="?Rva00226140Get@@YAHXZ")
+    c.retail.sections[-1].Misc_VirtualSize = 0xaa7000
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"]["defects"] == 1 and result["counts"]["ambiguous"] == 0
+    d = result["defects"][0]
+    assert d["retail_address"] == "0xdc2274" and d["target_kind"] == "data"
+    assert d["retail_owners"] == "none" and not d["ledger_global_exists"]
+
+
+def test_large_base_relative_field_offset_is_ambiguous_not_absolute_address(tmp_path):
+    body = b"\x8b\x83" + struct.pack("<I", 0x403100) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body)
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"]["defects"] == 0 and result["counts"]["ambiguous"] == 1
+    assert result["ambiguous"][0]["ambiguity_reason"] == "base_relative_displacement_unresolved"
+
+
+def test_source_data_row_owner_is_reported_independently_of_inventory(tmp_path):
+    body = b"\xb8" + struct.pack("<I", 0x403100) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body)
+    ledger.with_name("data_rows.csv").write_text(
+        "name,address,address_kind,size,source,status\n"
+        "RealGlobal,0x403100,va,8,Code/RealGlobal.cpp,matched\n")
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    d = result["defects"][0]
+    assert d["ledger_global_exists"] and d["source_global_exists"]
+    assert d["retail_owners"][0]["register"] == "data_rows"
+    assert d["retail_owners"][0]["name"] == "RealGlobal"
+
+
+def test_missing_source_data_register_is_unknown_not_no_global(tmp_path):
+    body = b"\xb8" + struct.pack("<I", 0x403100) + b"\xc3"
+    c, ledger, data = absolute_case(tmp_path, body)
+    result = iso.unrelocated_retail_addresses(c, ledger, data)
+    assert result["counts"]["source_data_rows_available"] == 0
+    assert result["defects"][0]["source_global_exists"] is None
