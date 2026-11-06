@@ -5,6 +5,7 @@
 #include <string.h>
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
+#include "../../Include/GameClient/Drawable.h"
 extern "C" __declspec(dllimport) char *__stdcall GetEnvironmentStrings(void);
 extern "C" void __cdecl free(void *);
 extern "C" void *__cdecl memset(void *,int,unsigned int);
@@ -401,3 +402,14 @@ BfmeThingVTD *bfmeCreateVTD()
 // tu-skeleton: 0x0076F7A0 10B $L309 -- matched in Code/GameEngine/Source/Common/GameEngine_createMessageStream.cpp (not merged yet)
 
 // tu-skeleton: 0x0076F7AA 10B __ehhandler$?createMessageStream@GameEngine@@MAEPAVMessageStream@@XZ -- matched in Code/GameEngine/Source/Common/GameEngine_createMessageStream.cpp (not merged yet)
+
+// Whether the system's MessageBox is the Unicode one: the two IAT slots hold
+// the same address only where MessageBoxA forwards to MessageBoxW. Release
+// crash reporting in GameEngine::init (0x0023027C) picks MessageBoxW or the
+// translated MessageBoxA on it. Retail .CRT$XCU entry 0x007ADBD1 is this
+// unit's dynamic initializer: it follows the unit's Drawable.h copy
+// 0x007ADBC1 (whose static 0x00DFE714 follows TheGameEngine) in the unit's
+// .text$yc run, before its pool-init marker 0x007ADBE5 (LINK-236). Zero Hour
+// and BFME 1 define TheSystemIsUnicode the same way at the end of their
+// GameEngine.cpp (donor fact; the name is not adopted here).
+bool g_00DFE718 = ((void *)::MessageBoxA) == ((void *)::MessageBoxW);
