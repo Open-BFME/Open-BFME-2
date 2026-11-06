@@ -38,17 +38,7 @@ class LivingWorldScoreKeeper {
  char beforeD8[0x3c];int counterD8,counterDC,counterE0,counterE4,counterE8,counterEC;
 };
 class LivingWorldSideView {public:char beforeName[4];AsciiString name;const AsciiString&getName()const{return name;}};
-class LivingWorldPlayer {
- public:
- bool isLost()const{return lost;}bool isGuarded()const{return guarded;}
- LivingWorldScoreKeeper*getScoreKeeper(){return &score;}
- const LivingWorldSideView*getSide()const{return side;}
- int getPlayerKind()const{return playerKind;}
- char prefix[0x40];LivingWorldSideView*side;int playerKind;
- char beforeScore[0x280];LivingWorldScoreKeeper score;
- char beforeFlags[0xC];bool lost,guarded;
- void*rva002E06EF();
-};
+#include "../../Include/GameLogic/LivingWorldPlayer.h"
 class Rva002E2903Player;
 #include "../../Include/GameLogic/Rva002BA8F1Logic.h"
 class Rva002E071E {public:bool rva002E071E(const Rva002E071E*)const;};
@@ -84,13 +74,15 @@ public:
 	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);
 };
 template<class T>inline const T&counterMax(const T&a,const T&b){return a>b?a:b;}
+inline bool isLost(const LivingWorldPlayer*player){return player->field3C4;}
+inline bool isGuarded(const LivingWorldPlayer*player){return player->field3C5;}
 inline bool allied(const LivingWorldPlayer*firstPlayer,const LivingWorldPlayer*secondPlayer){return reinterpret_cast<const Rva002E071E*>(firstPlayer)->rva002E071E(reinterpret_cast<const Rva002E071E*>(secondPlayer));}
 inline const int&clampPoints(const int&points,const int&minimum){return points<minimum?minimum:points;}
 inline int difficultyPoints(const int*difficultyCounts){int middle=difficultyCounts[3];middle+=difficultyCounts[5]*2;return middle*2+difficultyCounts[4]*3+difficultyCounts[2];}
 void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
- if(player->isGuarded())return;
- LivingWorldScoreKeeper*m_scoreKeeper=player->getScoreKeeper();
- const PlayerTemplate*playerTemplate=ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(player->getSide()->getName()));
+ if(isGuarded(player))return;
+ LivingWorldScoreKeeper*m_scoreKeeper=reinterpret_cast<LivingWorldScoreKeeper*>(player->field2B8+0x10);
+ const PlayerTemplate*playerTemplate=ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(static_cast<const LivingWorldSideView*>(player->field40)->getName()));
  if(!playerTemplate)return;
  const AsciiString&side=playerTemplate->getSide();
  SkirmishPreferences profile(1);
@@ -99,7 +91,7 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
  unsigned int firstSeconds=m_scoreKeeper->rva004EE037();
  firstSeconds+=m_scoreKeeper->rva004EE016();
  prefs.rva00537A9B(side,(float)firstSeconds);
- if(!player->isLost()) {
+ if(!isLost(player)) {
   prefs.rva00535BAF(side,prefs.rva00535BF6(side)+1);
   prefs.rva00535D2E(side,prefs.rva00535D75(side)+1);
   prefs.rva00535E50(side,counterMax(prefs.rva00535E97(side),prefs.rva00535D75(side)));
@@ -116,12 +108,12 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
   prefs.rva00535D2E(side,0);prefs.rva00535F72(0);
   reinterpret_cast<Rva0021937D*>(TheCreateAHeroManager)->rva002193AB(static_cast<Rva0021937DTarget*>(player->rva002E06EF()));
  }
- if(!player->isLost()) {
+ if(!isLost(player)) {
   int enemies[7];int allies[7];memset(enemies,0,sizeof(enemies));memset(allies,0,sizeof(allies));
   int numEnemies=0;
   for(int i=0;i<TheLivingWorldLogic->getPlayerCount();++i) {
    LivingWorldPlayer*otherPlayer=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->GetPlayerAtIndex(i));
-   if(otherPlayer!=player && otherPlayer->getPlayerKind()==1) {
+   if(otherPlayer!=player && otherPlayer->field44==1) {
     int difficulty=reinterpret_cast<const Rva0009AAA4DwordField*>(otherPlayer)->get();
     if(allied(otherPlayer,player))++allies[difficulty];
     else {++numEnemies;++enemies[difficulty];}
@@ -142,11 +134,11 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
  for(int i=0;i<TheLivingWorldLogic->getPlayerCount();++i) {
   LivingWorldPlayer*otherPlayer=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->GetPlayerAtIndex(i));
   if(!allied(otherPlayer,player)) {
-   const PlayerTemplate*enemyTemplate=ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(otherPlayer->getSide()->getName()));
+   const PlayerTemplate*enemyTemplate=ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(static_cast<const LivingWorldSideView*>(otherPlayer->field40)->getName()));
    if(enemyTemplate) {
     const AsciiString&enemy=enemyTemplate->getSide();
-    if(!player->isLost())prefs.rva0053740C(side,enemy,prefs.rva0053745E(side,enemy)+1);
-    else if(!otherPlayer->isLost())prefs.rva005374B3(side,enemy,prefs.rva00537505(side,enemy)+1);
+    if(!isLost(player))prefs.rva0053740C(side,enemy,prefs.rva0053745E(side,enemy)+1);
+    else if(!isLost(otherPlayer))prefs.rva005374B3(side,enemy,prefs.rva00537505(side,enemy)+1);
    }
   }
  }

@@ -201,7 +201,7 @@ class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva0004
 
 class LivingWorldScoreKeeper {public:int GetBuildingsOfTypeBuilt(int);int rva004EE33B();int rva004EE043();char pad0[0x34];_STL::vector<unsigned>v34;_STL::vector<unsigned>v40;char pad4c[0x48];int value94,value98;char pad9c[0xc];int valueA8,valueAC,valueB0;char padB4[0x24];int valueD8,valueDC,valueE0,valueE4,valueE8,valueEC,valueF0;int getD8()const{return valueD8;}int getDC()const{return valueDC;}int getE0()const{return valueE0;}int getE4()const{return valueE4;}int getA8()const{return valueA8;}int getAC()const{return valueAC;}};
 
-class LivingWorldPlayer {public:char pad0[0x2c8];LivingWorldScoreKeeper score;char pad3bc[8];bool lost;};
+#include "../../Include/GameLogic/LivingWorldPlayer.h"
 
 class Rva002E2903Player;
 
@@ -330,7 +330,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  }else{BfmeOpaqueOwnedRecord1432 req;req.requestType=7;TheGameSpyPSMessageQueue->addRequest(req);}
  if(!player->playerTemplate)return;int faction=player->playerTemplate->rva001FD234();
  if(stats.m_id==0){if(noData||reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync){BfmeOpaqueOwnedRecord1432 req;req.requestType=1;req.m_04=1;req.email=retailStr(TheGameSpyInfo->getLocalEmail());req.nick=retailStr(TheGameSpyInfo->getLocalBaseName());req.password="";req.player=stats;req.addDesync=reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync;req.addDiscon=noData;req.lastHouse=faction;TheGameSpyPSMessageQueue->addRequest(req);}return;}
- bool win=false;if(mode==2){if(lw)win=!lw->lost;}else win=reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedVictory()&&!reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->quit(local);
+ bool win=false;if(mode==2){if(lw)win=!lw->field3C4;}else win=reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->isLocalAlliedVictory()&&!reinterpret_cast<VictoryConditionsInterface*>(TheVictoryConditions)->quit(local);
  if(reinterpret_cast<StatsGameLogicView*>(TheGameLogic)->desync)++core->m_140;else if(noData)++core->m_13c;else if(win){
  ++core->m_maps04_0[(unsigned char)faction];core->m_14a=0;core->m_maps04_3[(unsigned char)faction]=0;++core->m_146;++core->m_maps04_2[(unsigned char)faction];core->m_148=maxRef(core->m_146,core->m_148);
  word(core->m_maps04_5[(unsigned char)faction])=maxRef(word(core->m_maps04_5[(unsigned char)faction]),word(core->m_maps04_2[(unsigned char)faction]));
@@ -355,7 +355,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  n=reinterpret_cast<Rva005B8053*>(&rt->m_map16c)->rva005B8053(&static_cast<const unsigned char&>((unsigned char)faction));
  if(n!=*reinterpret_cast<void**>(&rt->m_map16c)&&*reinterpret_cast<unsigned short*>(static_cast<char*>(n)+0x12)){unsigned short&old=*reinterpret_cast<unsigned short*>(static_cast<char*>(n)+0x12);old=minRef(reinterpret_cast<const unsigned short&>(seconds),old);}else word(rt->m_map16c[(unsigned char)faction])=(unsigned short)seconds;
 }
- }else{LivingWorldScoreKeeper*s=&lw->score;{const unsigned char buildKey=(unsigned char)faction;for(int i=0;i<5;++i)strategic.m_map19c[buildKey]+=(float)s->GetBuildingsOfTypeBuilt(i);}
+ }else{LivingWorldScoreKeeper*s=reinterpret_cast<LivingWorldScoreKeeper*>(lw->field2B8+0x10);{const unsigned char buildKey=(unsigned char)faction;for(int i=0;i<5;++i)strategic.m_map19c[buildKey]+=(float)s->GetBuildingsOfTypeBuilt(i);}
  strategic.m_map1a8[(unsigned char)faction]+=(float)s->value98;strategic.m_map190[(unsigned char)faction]+=(float)s->value94;strategic.m_map184[(unsigned char)faction]+=(float)s->rva004EE33B();strategic.m_map16c[(unsigned char)faction]+=(float)s->valueB0;strategic.m_map178[(unsigned char)faction]+=(float)(s->getA8()+s->getAC());
  core->m_mapsdc_5[(unsigned char)faction]+=(float)reinterpret_cast<Rva004EE35D*>(s)->rva004EE35D(Rva00045411BitSet(0,7),reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE));
  core->m_mapsdc_3[(unsigned char)faction]+=(float)reinterpret_cast<Rva004EE3F9*>(s)->rva004EE3F9(Rva00045411BitSet(0,7),reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE));
