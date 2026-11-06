@@ -104,13 +104,6 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class Drawable
-{
-public:
-	char m_pad00[0xb0];
-	int m_bitsB0;
-};
-
 #include "../../../Common/Thing/thing.h"
 
 class AICommandInterface
@@ -354,6 +347,7 @@ public:
 };
 
 #include "../../../../Include/Common/ThingTemplate.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class AIUpdate;
 
@@ -555,7 +549,7 @@ int Rva0049C93F::update()
 			m_value = 0.0f;
 		}
 		else if (Drawable *drawable = ((Thing *)owner)->getDrawable())
-			drawable->m_bitsB0 = *(int *)&m_value;
+			*(int *)&drawable->field_0b0 = *(int *)&m_value;
 	}
 	return m_flag89 ? 1 : code;
 }

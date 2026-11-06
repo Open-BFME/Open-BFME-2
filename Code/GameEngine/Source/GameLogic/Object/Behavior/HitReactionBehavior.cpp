@@ -156,6 +156,21 @@ public:
 
 // Body module: slot 4 (+0x10) returns the current health.
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
+
+// The canonical Drawable keeps its model-condition words (+0x258) opaque;
+// this unit tests them through a view.
+struct HitReactionDrawableConditionView
+{
+	char m_pad000[0x258];
+	unsigned int m_conditionWords[19];	// +0x258
+};
+
+static __forceinline bool testModelCondition(const Drawable *draw, unsigned int bit)
+{
+	const HitReactionDrawableConditionView *view = (const HitReactionDrawableConditionView *)draw;
+	return (view->m_conditionWords[bit >> 5] & (1U << (bit & 0x1f))) != 0;
+}
 
 // Interface returned by 0x0028BD3A: slot 2 takes one argument.
 class Rva0028BD3AInterface : public Rva004592A1Slots<2>
@@ -183,18 +198,7 @@ private:
 	unsigned int m_words[19];
 };
 
-class Drawable
-{
-public:
-	void rva00274176(bool immediate);	// 0x00274176
-	__forceinline bool testModelCondition(unsigned int bit) const
-	{
-		return (m_conditionWords[bit >> 5] & (1U << (bit & 0x1f))) != 0;
-	}
-private:
-	char m_pad000[0x258];
-	unsigned int m_conditionWords[19];	// +0x258
-};
+class Drawable;
 
 class Object
 {
@@ -316,7 +320,7 @@ NameKeyType HitReactionBehavior::getModuleNameKey() const
 
 __forceinline void clearHitReaction(Object *obj, Drawable *draw)
 {
-	if (draw->testModelCondition(MODELCONDITION_HIT_REACTION))
+	if (testModelCondition(draw, MODELCONDITION_HIT_REACTION))
 	{
 		obj->clearModelConditionState(MODELCONDITION_HIT_REACTION);
 		obj->clearModelConditionState(MODELCONDITION_HIT_LEVEL1);
@@ -361,7 +365,7 @@ UpdateSleepTime HitReactionBehavior::update()
 			if (level != -1)
 			{
 				m_framesLeft = data->m_lifeTimer[level];
-				if (m_framesLeft > 0 && !draw->testModelCondition(MODELCONDITION_HIT_REACTION))
+				if (m_framesLeft > 0 && !testModelCondition(draw, MODELCONDITION_HIT_REACTION))
 				{
 					obj->setModelConditionState(MODELCONDITION_HIT_REACTION);
 					switch (level)
