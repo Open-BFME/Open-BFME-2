@@ -15,3 +15,22 @@ Publication audit carried from424d4d55df: INCONCLUSIVE index4d5e6a2f0f,
 base9d04d5d0ac0fe0e83a9aae58bbe00fcd3ff0a8b6, one missing current receipt
 (AssistedTargetingUpdate.cpp). Scoped13/13,3EXACT EH and63table checks passed;
 current outside-consumer/image/census confirmation remains necessary.
+
+## Supported split completed
+
+After the explicit native-view prerequisite and documented local index refresh,
+tu_skeleton accepts the same approved getter split. One6B row moves into its
+approved TU;48 rows remain in the shared source. Normal62/62 and51 literals pass,
+with3 EXACT EH graphs and all63 destination table slots verified. The split
+link guard preserves both sources and outside providers; ordinary preview has
+residual288B and destination601B, both link-clean. No new census/image claim.
+
+The outgoing range424d4d55df..HEAD changes this one row's source path. Both source
+files remain; protected identity/data/header/MS-header/hatch keys need no target
+transfer. The only existing ModuleNameGetters fold-proof is SupplyTruck's
+separate retained provider and stays valid. move-audit.md records the consumer
+search. Doxygen adds the destination INPUT; it does not remove the residual.
+TU map changes only the moved row's source column, not its approval/assignment.
+
+Existing lifetime and field-registration mixed-source boundaries remain; no
+unapproved row was moved and no gate or pin was altered.

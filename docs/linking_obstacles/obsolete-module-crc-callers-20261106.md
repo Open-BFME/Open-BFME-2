@@ -61,3 +61,12 @@ one missing current receipt; carry real-link/current-consumer confirmation.
 combined TU13/13,2 literals,3 EXACT EH and63/63 table slots pass. Both data owners
 follow the body. Current preview LINKS595B; broader real-link/image selection
 still awaits measurement. See feedback packet move audit and merged proof.
+
+2026-11-06 native snapshot-name getter now sits in AssistedTargetingUpdate.cpp
+through supported split after a49/49 explicit-view prerequisite. Residual48 and
+destination14 give normal62/62,51 literal refs,3 EXACT EH and63table slots.
+Both link previews remain clean; row approval/extent and fold proofs preserved.
+[Split proof and audit](../../reverse/attempt_support/assisted-name-getter-native-20261106/README.md).
+Publication audit carried from424d4d55df: INCONCLUSIVE index4d5e6a2f0f,
+base9d04d5d0ac0fe0e83a9aae58bbe00fcd3ff0a8b6, one missing current receipt.
+Current scoped checks pass; no broader actual image/census clearance claimed.

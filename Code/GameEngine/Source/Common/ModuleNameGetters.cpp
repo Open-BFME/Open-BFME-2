@@ -75,7 +75,6 @@ protected:
  virtual const char *GetSnapshotName() const;
  virtual void xfer(Xfer *);
 };
-const char *AssistedTargetingUpdate::GetSnapshotName() const { return "AssistedTargetingUpdate"; }
 BFME_LITERAL_NAME_GETTER(RebuildHoleExposeDie, "RebuildHoleExposeDie")
 BFME_LITERAL_NAME_GETTER(FireWeaponWhenDamagedBehavior, "FireWeaponWhenDamagedBehavior")
 BFME_LITERAL_NAME_GETTER(RiderChangeContain, "RiderChangeContain")

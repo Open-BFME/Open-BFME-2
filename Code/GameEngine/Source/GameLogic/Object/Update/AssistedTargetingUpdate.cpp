@@ -43,11 +43,38 @@ class ClientUpdateModule;
 #include "../../../../Include/GameClient/Drawable.h"
 struct CreateMask {unsigned words[4];};
 #include "../../../../Include/Common/ThingFactory.h"
-extern NameKeyGenerator *TheNameKeyGenerator;
-class ClientUpdateModule {};
-class LaserUpdate:public ClientUpdateModule {public:void initLaser(const Object *,const Coord3D *,const Coord3D *,int);};
-extern GameLogic *TheGameLogic;
 #define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class ClientUpdateModule {};
+
+class LaserUpdate:public ClientUpdateModule {public:void initLaser(const Object *,const Coord3D *,const Coord3D *,int);};
+
+extern GameLogic *TheGameLogic;
 
 class AsciiString;
 
@@ -86,6 +113,8 @@ private:
 typedef char AssistedExtent[sizeof(AssistedTargetingUpdate) == 0x20 ? 1 : -1];
 
 // tu-skeleton: 0x00486E18 25B ??1AssistedTargetingUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp
 
@@ -133,10 +162,6 @@ void AssistedTargetingUpdate::xfer(Xfer *xfer)
     UpdateModule::xfer(xfer);
 }
 
-// tu-skeleton: 0x00486E76 6B ?GetSnapshotName@AssistedTargetingUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00486E7C 17B ?buildFieldParse@AssistedTargetingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp
 
 // BF1 AssistedTargetingUpdate_makeFeedbackLaser.cpp9cbfb551 and ZH
@@ -156,5 +181,26 @@ void AssistedTargetingUpdate::makeFeedbackLaser(const ThingTemplate *laserTempla
  if(!update){TheGameLogic->destroyObject(laser);return;}
  update->initLaser(m_object,&from->m_cachedPos,&to->m_cachedPos,0);
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+const char *AssistedTargetingUpdate::GetSnapshotName() const { return "AssistedTargetingUpdate"; }
+
+// tu-skeleton: 0x00486E7C 17B ?buildFieldParse@AssistedTargetingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C15D 8B uw_0078c15d -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
