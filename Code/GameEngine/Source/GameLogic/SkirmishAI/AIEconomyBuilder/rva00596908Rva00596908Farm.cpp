@@ -50,12 +50,19 @@ public:
 	char m_pad00[0x34];
 };
 
+class Text004721F0;
+struct ICoord2D;
+class GameFont;
+class Anim2D;
 class Rva0059675ABase
 {
 public:
     virtual ~Rva0059675ABase();
+    virtual void LoadAssets() = 0;
+    virtual void rva00596908(Text004721F0 *text, const ICoord2D *pos, unsigned frame) = 0;
+    virtual int rva002A98A7() const = 0;
+    virtual int rva005C4ACD() const = 0;
 };
-
 class GameFont;
 
 // Slot 2 of FadeInTextRender's vftable 0x00C70A70 (slot 0 is its deleting
@@ -66,15 +73,13 @@ struct FadeInTextRender : Rva0059675ABase
     virtual ~FadeInTextRender();
     virtual void LoadAssets();
     virtual void rva00596908(Text004721F0 *text, const ICoord2D *pos, unsigned frame);
-    void bfmeExtend(int left, int top, int right, int bottom); // grow the +8..+0x14 bounds (0x0059668D)
-
-    GameFont* font;
-    int m_bfmeLeft;
-    int m_bfmeTop;
-    int m_bfmeRight;
-    int m_bfmeBottom;
+    virtual int rva002A98A7() const { return width; }
+    virtual int rva005C4ACD() const { return delay; }
+    void bfmeExtend(int left, int top, int right, int bottom);
+    GameFont *font;
+    int m_bfmeLeft, m_bfmeTop, m_bfmeRight, m_bfmeBottom;
     unsigned effectColor;
-    Anim2D* anim;
+    Anim2D *anim;
     float scale;
     AsciiString fontName;
     unsigned color;
@@ -82,8 +87,7 @@ struct FadeInTextRender : Rva0059675ABase
     unsigned fontSize;
     unsigned starts[3], ends[3];
     int width, height;
-};
-// LoadAssets is supplied by FadeInTextRender.cpp at 0x005967B3.
+};// LoadAssets is supplied by FadeInTextRender.cpp at 0x005967B3.
 // Keep its virtual declaration; this draw unit must not emit a second owner.
 
 // Native596908..596AE9 is FadeInTextRender tableC70A70 slot2. BF1 cee35b7d8

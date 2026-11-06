@@ -1,0 +1,178 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/FadeInTextRender.cpp",
+    "source_sha256": "4dc44463cb7eb16b922b9113b281605d3389c616ebff974d1c4b4af75c0cfb5f",
+    "object_sha256": "b2dc7ea52991cb6dc951835f0796f8d079eec8e5da4ca116d803b701239fa9bd",
+    "rows": 10,
+    "normal_equals_private": true,
+    "tables": {
+      "??_7FadeInTextRender@@6B@": [
+        {
+          "slot": 0,
+          "symbol": "??_EFadeInTextRender@@UAEPAXI@Z",
+          "resolved_symbol": "??_GFadeInTextRender@@UAEPAXI@Z",
+          "target_rva": "0x596ae9"
+        },
+        {
+          "slot": 1,
+          "symbol": "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "resolved_symbol": "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "target_rva": "0x5967b3"
+        },
+        {
+          "slot": 2,
+          "symbol": "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "resolved_symbol": "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "target_rva": "0x596908"
+        },
+        {
+          "slot": 3,
+          "symbol": "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+          "resolved_symbol": "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+          "target_rva": "0x2a98a7"
+        },
+        {
+          "slot": 4,
+          "symbol": "?rva005C4ACD@FadeInTextRender@@UBEHXZ",
+          "resolved_symbol": "?rva005C4ACD@FadeInTextRender@@UBEHXZ",
+          "target_rva": "0x5c4acd"
+        }
+      ],
+      "??_7Rva0059675ABase@@6B@": [
+        {
+          "slot": 0,
+          "symbol": "??_ERva0059675ABase@@UAEPAXI@Z",
+          "resolved_symbol": "??_GRva0059675ABase@@UAEPAXI@Z",
+          "target_rva": "0x5966c0"
+        },
+        {
+          "slot": 1,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        },
+        {
+          "slot": 2,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        },
+        {
+          "slot": 3,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        },
+        {
+          "slot": 4,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        }
+      ]
+    },
+    "eh": {
+      "??0FadeInTextRender@@QAE@XZ": [
+        "EXACT",
+        ""
+      ],
+      "?LoadAssets@FadeInTextRender@@UAEXXZ": [
+        "EXACT",
+        ""
+      ]
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0059675ADtor.cpp",
+    "source_sha256": "2f491d91b73bbfe163b8b7904b854a8f146c47a60dc47fa5726c63c7c3c54f2a",
+    "object_sha256": "7721faf617a278dcd701e17ea019a5e71e15a8609b507cb5075eb9108007d33d",
+    "rows": 7,
+    "normal_equals_private": true,
+    "tables": {
+      "??_7FadeInTextRender@@6B@": [
+        {
+          "slot": 0,
+          "symbol": "??_EFadeInTextRender@@UAEPAXI@Z",
+          "resolved_symbol": "??_GFadeInTextRender@@UAEPAXI@Z",
+          "target_rva": "0x596ae9"
+        },
+        {
+          "slot": 1,
+          "symbol": "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "resolved_symbol": "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "target_rva": "0x5967b3"
+        },
+        {
+          "slot": 2,
+          "symbol": "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "resolved_symbol": "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "target_rva": "0x596908"
+        },
+        {
+          "slot": 3,
+          "symbol": "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+          "resolved_symbol": "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+          "target_rva": "0x2a98a7"
+        },
+        {
+          "slot": 4,
+          "symbol": "?rva005C4ACD@FadeInTextRender@@UBEHXZ",
+          "resolved_symbol": "?rva005C4ACD@FadeInTextRender@@UBEHXZ",
+          "target_rva": "0x5c4acd"
+        }
+      ],
+      "??_7Rva0059675ABase@@6B@": [
+        {
+          "slot": 0,
+          "symbol": "??_ERva0059675ABase@@UAEPAXI@Z",
+          "resolved_symbol": "??_GRva0059675ABase@@UAEPAXI@Z",
+          "target_rva": "0x5966c0"
+        },
+        {
+          "slot": 1,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        },
+        {
+          "slot": 2,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        },
+        {
+          "slot": 3,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        },
+        {
+          "slot": 4,
+          "symbol": "__purecall",
+          "resolved_symbol": "__purecall",
+          "target_rva": "0x3b810"
+        }
+      ]
+    },
+    "eh": {
+      "??1FadeInTextRender@@UAE@XZ": [
+        "EXACT",
+        ""
+      ]
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp",
+    "source_sha256": "dea2e2e6f8f69ba2d1a61247a03975f74167eef73ebf8b6e85b150f783c05703",
+    "object_sha256": "39722c6e75c26436ece9fe92abc5bac33ba74f51a92b5b15239dc2731ed2a1b9",
+    "rows": 3,
+    "normal_equals_private": true,
+    "tables": {},
+    "eh": {
+      "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z": [
+        "EXACT",
+        ""
+      ]
+    }
+  }
+]

@@ -1,0 +1,1864 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/FadeInTextRender.cpp",
+    "candidate": "build/fade-full-view-proof-20261106/FadeInTextRender.cpp.txt",
+    "row_count": 10,
+    "matched": [
+      "0x0059668D",
+      "0x005966DD",
+      "0x005967B3",
+      "0x0079D2F1",
+      "0x0079D2F9",
+      "0x0079D320",
+      "0x0079D32A",
+      "0x0079D343",
+      "0x2a98a7",
+      "0x5c4acd"
+    ],
+    "missing": [],
+    "errors": [],
+    "before_facts": [
+      {
+        "??0AsciiString@@QAE@PBD@Z": {
+          "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+          "relocations": [
+            [
+              8,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ]
+          ]
+        },
+        "??1AsciiString@@QAE@XZ": {
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ]
+          ]
+        },
+        "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z": {
+          "bytes": "8b4424043941087e038941088b44240c3941107d038941108b44240839410c7e0389410c8b4424103941147d03894114c21000",
+          "relocations": []
+        },
+        "??0Rva0059675ABase@@QAE@XZ": {
+          "bytes": "8bc1c70000000000c3",
+          "relocations": [
+            [
+              4,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ]
+          ]
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "bytes": "00000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_ERva0059675ABase@@UAEPAXI@Z"
+            ]
+          ]
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              4,
+              20,
+              "??1Rva0059675ABase@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        },
+        "?LoadAssets@FadeInTextRender@@UAEXXZ": {
+          "bytes": "b800000000e80000000083ec14565733ff897df08bf18b0d000000008b01ff504085c08945e0db45e07d06d80500000000d95de8f30f1045e8f30f590500000000f30f5905000000000f2e46209ff6c444f30f1145e47b08897e04f30f114620397e04752a8b4630db463085c0577d06d80500000000d84de4518b0d000000008d4624d91c2450e800000000894604397e1c0f85840000006a34e800000000598945e03bc7897dfc743368000000008d4dece8000000008b0d00000000518d45ec50c645fc01c745f001000000e8000000008b4de050e800000000eb0233c0834dfcfff645f00189461c74088d4dece800000000897e38a100000000834e48ff8d4801894644894e3ca100000000992bc2d1f803c1834e40ff894634f30f2c45e88b4e1c89464ce80000000085c08945e0db45e07d06d80500000000d84de4e8000000008b4df48946505f5e64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?LoadAssets@FadeInTextRender@@UAEXXZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              24,
+              6,
+              "?TheDisplay@@3PAVDisplay@@A"
+            ],
+            [
+              45,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              61,
+              6,
+              "__real@3aa3d70a"
+            ],
+            [
+              69,
+              6,
+              "__real@3f400000"
+            ],
+            [
+              114,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              124,
+              6,
+              "?TheFontLibrary@@3PAVFontLibrary@@A"
+            ],
+            [
+              136,
+              20,
+              "?getFont@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_N@Z"
+            ],
+            [
+              155,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              171,
+              6,
+              "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@"
+            ],
+            [
+              179,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ],
+            [
+              185,
+              6,
+              "?TheAnim2DCollection@@3PAVAnim2DCollection@@A"
+            ],
+            [
+              206,
+              20,
+              "?rva002D752D@Rva002D752D@@QAEPAURva002D752DNode@@ABV?$StringBase@D@@@Z"
+            ],
+            [
+              215,
+              20,
+              "??0Anim2D@@QAE@PAVAnim2DTemplate@@PAVAnim2DCollection@@@Z"
+            ],
+            [
+              240,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ],
+            [
+              248,
+              6,
+              "?BfmeClientFramesPerSecond@@3HA"
+            ],
+            [
+              266,
+              6,
+              "?BfmeClientFramesPerSecond@@3HA"
+            ],
+            [
+              296,
+              20,
+              "?getCurrentFrameHeight@Anim2D@@QBEIXZ"
+            ],
+            [
+              312,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              320,
+              20,
+              "__ftol2"
+            ],
+            [
+              335,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@": {
+          "bytes": "54657874456c76656e436c6f75647300",
+          "relocations": []
+        },
+        "__real@3f400000": {
+          "bytes": "0000403f",
+          "relocations": []
+        },
+        "__real@3aa3d70a": {
+          "bytes": "0ad7a33a",
+          "relocations": []
+        },
+        "__real@4f800000": {
+          "bytes": "0000804f",
+          "relocations": []
+        },
+        "??0FadeInTextRender@@QAE@XZ": {
+          "bytes": "b800000000e80000000051568bf18975f00f57c08365fc0083661c0068000000008d4e24c70600000000f30f114620e800000000c74628faf0dc00a1000000006a049959f7f96a0c6a00c746300e0000004089462c8d463450e8000000006a0c8d46406a0050e8000000008b4df483c4188bc65e64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$??0FadeInTextRender@@QAE@XZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              29,
+              6,
+              "??_C@_0M@MEKKKDBG@SachaWynter?$AA@"
+            ],
+            [
+              38,
+              6,
+              "??_7FadeInTextRender@@6B@"
+            ],
+            [
+              48,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ],
+            [
+              60,
+              6,
+              "?BfmeClientFramesPerSecond@@3HA"
+            ],
+            [
+              90,
+              20,
+              "_memset"
+            ],
+            [
+              103,
+              20,
+              "_memset"
+            ],
+            [
+              119,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "bytes": "000000000000000000000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_EFadeInTextRender@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "?LoadAssets@FadeInTextRender@@UAEXXZ"
+            ],
+            [
+              8,
+              6,
+              "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z"
+            ]
+          ]
+        },
+        "??_C@_0M@MEKKKDBG@SachaWynter?$AA@": {
+          "bytes": "536163686157796e74657200",
+          "relocations": []
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              4,
+              20,
+              "??1FadeInTextRender@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        }
+      },
+      {
+        "??0AsciiString@@QAE@PBD@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1AsciiString@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??0Rva0059675ABase@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?LoadAssets@FadeInTextRender@@UAEXXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@3f400000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@3aa3d70a": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@4f800000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??0FadeInTextRender@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_C@_0M@MEKKKDBG@SachaWynter?$AA@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        }
+      },
+      {
+        "defined": [
+          "??0AsciiString@@QAE@PBD@Z",
+          "??0FadeInTextRender@@QAE@XZ",
+          "??0Rva0059675ABase@@QAE@XZ",
+          "??1AsciiString@@QAE@XZ",
+          "??_7FadeInTextRender@@6B@",
+          "??_7Rva0059675ABase@@6B@",
+          "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@",
+          "??_C@_0M@MEKKKDBG@SachaWynter?$AA@",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z",
+          "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z",
+          "__real@3aa3d70a",
+          "__real@3f400000",
+          "__real@4f800000"
+        ],
+        "undefined": [
+          "??0?$StringBase@D@@AAE@PBD@Z",
+          "??0Anim2D@@QAE@PAVAnim2DTemplate@@PAVAnim2DCollection@@@Z",
+          "??1FadeInTextRender@@UAE@XZ",
+          "??1Rva0059675ABase@@UAE@XZ",
+          "??2@YAPAXI@Z",
+          "??3@YAXPAX@Z",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z",
+          "?BfmeClientFramesPerSecond@@3HA",
+          "?TheAnim2DCollection@@3PAVAnim2DCollection@@A",
+          "?TheDisplay@@3PAVDisplay@@A",
+          "?TheFontLibrary@@3PAVFontLibrary@@A",
+          "?getCurrentFrameHeight@Anim2D@@QBEIXZ",
+          "?getFont@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_N@Z",
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?rva002D752D@Rva002D752D@@QAEPAURva002D752DNode@@ABV?$StringBase@D@@@Z",
+          "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "__EH_prolog",
+          "___CxxFrameHandler",
+          "__except_list",
+          "__fltused",
+          "__ftol2",
+          "_memset"
+        ],
+        "weak": [
+          [
+            "??_ERva0059675ABase@@UAEPAXI@Z",
+            "??_GRva0059675ABase@@UAEPAXI@Z"
+          ],
+          [
+            "??_EFadeInTextRender@@UAEPAXI@Z",
+            "??_GFadeInTextRender@@UAEPAXI@Z"
+          ]
+        ],
+        "alternates": {
+          "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+          "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+          "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+          "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+          "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+          "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+        },
+        "includes": []
+      }
+    ],
+    "after_facts": [
+      {
+        "??0AsciiString@@QAE@PBD@Z": {
+          "bytes": "56ff7424088bf1e8000000008bc65ec20400",
+          "relocations": [
+            [
+              8,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ]
+          ]
+        },
+        "??1AsciiString@@QAE@XZ": {
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ]
+          ]
+        },
+        "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z": {
+          "bytes": "8b4424043941087e038941088b44240c3941107d038941108b44240839410c7e0389410c8b4424103941147d03894114c21000",
+          "relocations": []
+        },
+        "??0Rva0059675ABase@@QAE@XZ": {
+          "bytes": "8bc1c70000000000c3",
+          "relocations": [
+            [
+              4,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ]
+          ]
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "bytes": "0000000000000000000000000000000000000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_ERva0059675ABase@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "__purecall"
+            ],
+            [
+              8,
+              6,
+              "__purecall"
+            ],
+            [
+              12,
+              6,
+              "__purecall"
+            ],
+            [
+              16,
+              6,
+              "__purecall"
+            ]
+          ]
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              4,
+              20,
+              "??1Rva0059675ABase@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        },
+        "?LoadAssets@FadeInTextRender@@UAEXXZ": {
+          "bytes": "b800000000e80000000083ec14565733ff897df08bf18b0d000000008b01ff504085c08945e0db45e07d06d80500000000d95de8f30f1045e8f30f590500000000f30f5905000000000f2e46209ff6c444f30f1145e47b08897e04f30f114620397e04752a8b4630db463085c0577d06d80500000000d84de4518b0d000000008d4624d91c2450e800000000894604397e1c0f85840000006a34e800000000598945e03bc7897dfc743368000000008d4dece8000000008b0d00000000518d45ec50c645fc01c745f001000000e8000000008b4de050e800000000eb0233c0834dfcfff645f00189461c74088d4dece800000000897e38a100000000834e48ff8d4801894644894e3ca100000000992bc2d1f803c1834e40ff894634f30f2c45e88b4e1c89464ce80000000085c08945e0db45e07d06d80500000000d84de4e8000000008b4df48946505f5e64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?LoadAssets@FadeInTextRender@@UAEXXZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              24,
+              6,
+              "?TheDisplay@@3PAVDisplay@@A"
+            ],
+            [
+              45,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              61,
+              6,
+              "__real@3aa3d70a"
+            ],
+            [
+              69,
+              6,
+              "__real@3f400000"
+            ],
+            [
+              114,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              124,
+              6,
+              "?TheFontLibrary@@3PAVFontLibrary@@A"
+            ],
+            [
+              136,
+              20,
+              "?getFont@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_N@Z"
+            ],
+            [
+              155,
+              20,
+              "??2@YAPAXI@Z"
+            ],
+            [
+              171,
+              6,
+              "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@"
+            ],
+            [
+              179,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ],
+            [
+              185,
+              6,
+              "?TheAnim2DCollection@@3PAVAnim2DCollection@@A"
+            ],
+            [
+              206,
+              20,
+              "?rva002D752D@Rva002D752D@@QAEPAURva002D752DNode@@ABV?$StringBase@D@@@Z"
+            ],
+            [
+              215,
+              20,
+              "??0Anim2D@@QAE@PAVAnim2DTemplate@@PAVAnim2DCollection@@@Z"
+            ],
+            [
+              240,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ],
+            [
+              248,
+              6,
+              "?BfmeClientFramesPerSecond@@3HA"
+            ],
+            [
+              266,
+              6,
+              "?BfmeClientFramesPerSecond@@3HA"
+            ],
+            [
+              296,
+              20,
+              "?getCurrentFrameHeight@Anim2D@@QBEIXZ"
+            ],
+            [
+              312,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              320,
+              20,
+              "__ftol2"
+            ],
+            [
+              335,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@": {
+          "bytes": "54657874456c76656e436c6f75647300",
+          "relocations": []
+        },
+        "__real@3f400000": {
+          "bytes": "0000403f",
+          "relocations": []
+        },
+        "__real@3aa3d70a": {
+          "bytes": "0ad7a33a",
+          "relocations": []
+        },
+        "__real@4f800000": {
+          "bytes": "0000804f",
+          "relocations": []
+        },
+        "??0FadeInTextRender@@QAE@XZ": {
+          "bytes": "b800000000e80000000051568bf18975f00f57c08365fc0083661c0068000000008d4e24c70600000000f30f114620e800000000c74628faf0dc00a1000000006a049959f7f96a0c6a00c746300e0000004089462c8d463450e8000000006a0c8d46406a0050e8000000008b4df483c4188bc65e64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$??0FadeInTextRender@@QAE@XZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              29,
+              6,
+              "??_C@_0M@MEKKKDBG@SachaWynter?$AA@"
+            ],
+            [
+              38,
+              6,
+              "??_7FadeInTextRender@@6B@"
+            ],
+            [
+              48,
+              20,
+              "??0?$StringBase@D@@AAE@PBD@Z"
+            ],
+            [
+              60,
+              6,
+              "?BfmeClientFramesPerSecond@@3HA"
+            ],
+            [
+              90,
+              20,
+              "_memset"
+            ],
+            [
+              103,
+              20,
+              "_memset"
+            ],
+            [
+              119,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "bytes": "0000000000000000000000000000000000000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_EFadeInTextRender@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "?LoadAssets@FadeInTextRender@@UAEXXZ"
+            ],
+            [
+              8,
+              6,
+              "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z"
+            ],
+            [
+              12,
+              6,
+              "?rva002A98A7@FadeInTextRender@@UBEHXZ"
+            ],
+            [
+              16,
+              6,
+              "?rva005C4ACD@FadeInTextRender@@UBEHXZ"
+            ]
+          ]
+        },
+        "??_C@_0M@MEKKKDBG@SachaWynter?$AA@": {
+          "bytes": "536163686157796e74657200",
+          "relocations": []
+        },
+        "?rva002A98A7@FadeInTextRender@@UBEHXZ": {
+          "bytes": "8b414cc3",
+          "relocations": []
+        },
+        "?rva005C4ACD@FadeInTextRender@@UBEHXZ": {
+          "bytes": "8b412cc3",
+          "relocations": []
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              4,
+              20,
+              "??1FadeInTextRender@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        }
+      },
+      {
+        "??0AsciiString@@QAE@PBD@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1AsciiString@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??0Rva0059675ABase@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?LoadAssets@FadeInTextRender@@UAEXXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@3f400000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@3aa3d70a": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@4f800000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??0FadeInTextRender@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_C@_0M@MEKKKDBG@SachaWynter?$AA@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "?rva002A98A7@FadeInTextRender@@UBEHXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?rva005C4ACD@FadeInTextRender@@UBEHXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        }
+      },
+      {
+        "defined": [
+          "??0AsciiString@@QAE@PBD@Z",
+          "??0FadeInTextRender@@QAE@XZ",
+          "??0Rva0059675ABase@@QAE@XZ",
+          "??1AsciiString@@QAE@XZ",
+          "??_7FadeInTextRender@@6B@",
+          "??_7Rva0059675ABase@@6B@",
+          "??_C@_0BA@BLIGONM@TextElvenClouds?$AA@",
+          "??_C@_0M@MEKKKDBG@SachaWynter?$AA@",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z",
+          "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z",
+          "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+          "?rva005C4ACD@FadeInTextRender@@UBEHXZ",
+          "__real@3aa3d70a",
+          "__real@3f400000",
+          "__real@4f800000"
+        ],
+        "undefined": [
+          "??0?$StringBase@D@@AAE@PBD@Z",
+          "??0Anim2D@@QAE@PAVAnim2DTemplate@@PAVAnim2DCollection@@@Z",
+          "??1FadeInTextRender@@UAE@XZ",
+          "??1Rva0059675ABase@@UAE@XZ",
+          "??2@YAPAXI@Z",
+          "??3@YAXPAX@Z",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z",
+          "?BfmeClientFramesPerSecond@@3HA",
+          "?TheAnim2DCollection@@3PAVAnim2DCollection@@A",
+          "?TheDisplay@@3PAVDisplay@@A",
+          "?TheFontLibrary@@3PAVFontLibrary@@A",
+          "?getCurrentFrameHeight@Anim2D@@QBEIXZ",
+          "?getFont@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_N@Z",
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?rva002D752D@Rva002D752D@@QAEPAURva002D752DNode@@ABV?$StringBase@D@@@Z",
+          "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "__EH_prolog",
+          "___CxxFrameHandler",
+          "__except_list",
+          "__fltused",
+          "__ftol2",
+          "__purecall",
+          "_memset"
+        ],
+        "weak": [
+          [
+            "??_ERva0059675ABase@@UAEPAXI@Z",
+            "??_GRva0059675ABase@@UAEPAXI@Z"
+          ],
+          [
+            "??_EFadeInTextRender@@UAEPAXI@Z",
+            "??_GFadeInTextRender@@UAEPAXI@Z"
+          ]
+        ],
+        "alternates": {
+          "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+          "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+          "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+          "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+          "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+          "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+        },
+        "includes": []
+      }
+    ],
+    "added": [
+      "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+      "?rva005C4ACD@FadeInTextRender@@UBEHXZ"
+    ],
+    "removed": [],
+    "changed": [
+      "??_7FadeInTextRender@@6B@",
+      "??_7Rva0059675ABase@@6B@"
+    ]
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva0059675ADtor.cpp",
+    "candidate": "build/fade-full-view-proof-20261106/Rva0059675ADtor.cpp.txt",
+    "row_count": 7,
+    "matched": [
+      "0x00596686",
+      "0x005966C0",
+      "0x0059675A",
+      "0x00596AE9",
+      "0x0079D303",
+      "0x0079D30B",
+      "0x0079D316"
+    ],
+    "missing": [],
+    "errors": [],
+    "before_facts": [
+      {
+        "??1Rva0059675ABase@@UAE@XZ": {
+          "bytes": "c70100000000c3",
+          "relocations": [
+            [
+              2,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ]
+          ]
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "bytes": "00000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_ERva0059675ABase@@UAEPAXI@Z"
+            ]
+          ]
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              10,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ],
+            [
+              18,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        },
+        "??1FadeInTextRender@@UAE@XZ": {
+          "bytes": "b800000000e80000000051568bf18975f0c706000000008b4e1c85c9c745fc0100000074088b016a00ff10eb0233c050e80000000083661c00598d4e24c645fc00e8000000008b4df4c706000000005e64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$??1FadeInTextRender@@UAE@XZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              19,
+              6,
+              "??_7FadeInTextRender@@6B@"
+            ],
+            [
+              49,
+              20,
+              "??3@YAXPAX@Z"
+            ],
+            [
+              66,
+              20,
+              "??1?$StringBase@D@@QAE@XZ"
+            ],
+            [
+              75,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ],
+            [
+              83,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "bytes": "000000000000000000000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_EFadeInTextRender@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "?LoadAssets@FadeInTextRender@@UAEXXZ"
+            ],
+            [
+              8,
+              6,
+              "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z"
+            ]
+          ]
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              4,
+              20,
+              "??1FadeInTextRender@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        }
+      },
+      {
+        "??1Rva0059675ABase@@UAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1FadeInTextRender@@UAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        }
+      },
+      {
+        "defined": [
+          "??1FadeInTextRender@@UAE@XZ",
+          "??1Rva0059675ABase@@UAE@XZ",
+          "??_7FadeInTextRender@@6B@",
+          "??_7Rva0059675ABase@@6B@",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z"
+        ],
+        "undefined": [
+          "??1?$StringBase@D@@QAE@XZ",
+          "??3@YAXPAX@Z",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z",
+          "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "__EH_prolog",
+          "___CxxFrameHandler",
+          "__except_list"
+        ],
+        "weak": [
+          [
+            "??_ERva0059675ABase@@UAEPAXI@Z",
+            "??_GRva0059675ABase@@UAEPAXI@Z"
+          ],
+          [
+            "??_EFadeInTextRender@@UAEPAXI@Z",
+            "??_GFadeInTextRender@@UAEPAXI@Z"
+          ]
+        ],
+        "alternates": {},
+        "includes": []
+      }
+    ],
+    "after_facts": [
+      {
+        "??1AsciiString@@QAE@XZ": {
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ]
+          ]
+        },
+        "??1Rva0059675ABase@@UAE@XZ": {
+          "bytes": "c70100000000c3",
+          "relocations": [
+            [
+              2,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ]
+          ]
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "bytes": "0000000000000000000000000000000000000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_ERva0059675ABase@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "__purecall"
+            ],
+            [
+              8,
+              6,
+              "__purecall"
+            ],
+            [
+              12,
+              6,
+              "__purecall"
+            ],
+            [
+              16,
+              6,
+              "__purecall"
+            ]
+          ]
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              10,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ],
+            [
+              18,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        },
+        "??1FadeInTextRender@@UAE@XZ": {
+          "bytes": "b800000000e80000000051568bf18975f0c706000000008b4e1c85c9c745fc0100000074088b016a00ff10eb0233c050e80000000083661c00598d4e24c645fc00e8000000008b4df4c706000000005e64890d00000000c9c3",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$??1FadeInTextRender@@UAE@XZ"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              19,
+              6,
+              "??_7FadeInTextRender@@6B@"
+            ],
+            [
+              49,
+              20,
+              "??3@YAXPAX@Z"
+            ],
+            [
+              66,
+              20,
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ"
+            ],
+            [
+              75,
+              6,
+              "??_7Rva0059675ABase@@6B@"
+            ],
+            [
+              83,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "bytes": "0000000000000000000000000000000000000000",
+          "relocations": [
+            [
+              0,
+              6,
+              "??_EFadeInTextRender@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "?LoadAssets@FadeInTextRender@@UAEXXZ"
+            ],
+            [
+              8,
+              6,
+              "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z"
+            ],
+            [
+              12,
+              6,
+              "?rva002A98A7@FadeInTextRender@@UBEHXZ"
+            ],
+            [
+              16,
+              6,
+              "?rva005C4ACD@FadeInTextRender@@UBEHXZ"
+            ]
+          ]
+        },
+        "?rva002A98A7@FadeInTextRender@@UBEHXZ": {
+          "bytes": "8b414cc3",
+          "relocations": []
+        },
+        "?rva005C4ACD@FadeInTextRender@@UBEHXZ": {
+          "bytes": "8b412cc3",
+          "relocations": []
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+          "relocations": [
+            [
+              4,
+              20,
+              "??1FadeInTextRender@@UAE@XZ"
+            ],
+            [
+              17,
+              20,
+              "??3@YAXPAX@Z"
+            ]
+          ]
+        }
+      },
+      {
+        "??1AsciiString@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1Rva0059675ABase@@UAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_7Rva0059675ABase@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "??_GRva0059675ABase@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1FadeInTextRender@@UAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "??_7FadeInTextRender@@6B@": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "?rva002A98A7@FadeInTextRender@@UBEHXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?rva005C4ACD@FadeInTextRender@@UBEHXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??_GFadeInTextRender@@UAEPAXI@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        }
+      },
+      {
+        "defined": [
+          "??1AsciiString@@QAE@XZ",
+          "??1FadeInTextRender@@UAE@XZ",
+          "??1Rva0059675ABase@@UAE@XZ",
+          "??_7FadeInTextRender@@6B@",
+          "??_7Rva0059675ABase@@6B@",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z",
+          "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+          "?rva005C4ACD@FadeInTextRender@@UBEHXZ"
+        ],
+        "undefined": [
+          "??3@YAXPAX@Z",
+          "??_GFadeInTextRender@@UAEPAXI@Z",
+          "??_GRva0059675ABase@@UAEPAXI@Z",
+          "?LoadAssets@FadeInTextRender@@UAEXXZ",
+          "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "__EH_prolog",
+          "___CxxFrameHandler",
+          "__except_list",
+          "__purecall"
+        ],
+        "weak": [
+          [
+            "??_ERva0059675ABase@@UAEPAXI@Z",
+            "??_GRva0059675ABase@@UAEPAXI@Z"
+          ],
+          [
+            "??_EFadeInTextRender@@UAEPAXI@Z",
+            "??_GFadeInTextRender@@UAEPAXI@Z"
+          ]
+        ],
+        "alternates": {
+          "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+          "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+          "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+          "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+          "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+          "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+        },
+        "includes": []
+      }
+    ],
+    "added": [
+      "??1AsciiString@@QAE@XZ",
+      "?rva002A98A7@FadeInTextRender@@UBEHXZ",
+      "?rva005C4ACD@FadeInTextRender@@UBEHXZ"
+    ],
+    "removed": [],
+    "changed": [
+      "??1FadeInTextRender@@UAE@XZ",
+      "??_7FadeInTextRender@@6B@",
+      "??_7Rva0059675ABase@@6B@"
+    ]
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp",
+    "candidate": "build/fade-full-view-proof-20261106/rva00596908Rva00596908Farm.cpp.txt",
+    "row_count": 3,
+    "matched": [
+      "0x00596908",
+      "0x0079D34D",
+      "0x0079D355"
+    ],
+    "missing": [],
+    "errors": [],
+    "before_facts": [
+      {
+        "?getNumFrames@Template004721F0@@QBEGXZ": {
+          "bytes": "668b4110c3",
+          "relocations": []
+        },
+        "?getAnimTemplate@Anim2DCallView@@QBEPBUTemplate004721F0@@XZ": {
+          "bytes": "8b410cc3",
+          "relocations": []
+        },
+        "?setAlpha@Anim2DCallView@@QAEXM@Z": {
+          "bytes": "f30f10442404f30f11411cc20400",
+          "relocations": []
+        },
+        "?validate@?$StringBase@G@@ABEXXZ": {
+          "bytes": "c3",
+          "relocations": []
+        },
+        "??1?$StringBase@G@@AAE@XZ": {
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+            ]
+          ]
+        },
+        "??1UnicodeString@@QAE@XZ": {
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+            ]
+          ]
+        },
+        "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z": {
+          "bytes": "b800000000e80000000083ec1c53568bf1578b7d088b078d4de4518d4dd8518bcfff503c8b078d4ddc518bcfff50088b46502b45e48b5d0c992bc28bd08b430433c9d1fa2bc251894dfc89450c8b03894df08d4df08945ec8b07518bcfff503c8b465003450c8b4df0508b45ec03c851ff750c8bce50e800000000836508008b45088b5486343955108b4c86400f82240100008b45103bc10f87190100002bc285c08945e0db45e07d06d805000000002bca85c9894de0db45e07d06d80500000000def98b4d0883e900d95de0746849742d490f85de0000008b46188b4e288b170bc850518bcfff52288b076a016a01ff73048bcfff33ff5038e9b8000000f30f100500000000f30f104de00f2fc8f30f1145e87705f30f114de8d945e8d80d00000000e8000000008b4e28c1e01881e1ffffff00eba88b4e1c8b490c0fb7491085c97472c1e80233d2f7f18b4e1c52e8000000008b46188b4e1cc1e81885c08945e0db45e07d06d80500000000d80d00000000d9591c8b45f0ff76508d0c009951ff750c8b4dec2bc2d1f82bc8518b4e1ce8000000008b45f0ff76508d0c009951ff750c8b4dec2bc2d1f82bc8518b4e1ce800000000ff4508837d08030f8cbbfeffff834dfcff8d4ddce8000000008b4df45f5e5b64890d00000000c9c20c00",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              119,
+              20,
+              "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z"
+            ],
+            [
+              172,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              190,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              259,
+              6,
+              "__real@3f800000"
+            ],
+            [
+              288,
+              6,
+              "__real@437f0000"
+            ],
+            [
+              293,
+              20,
+              "__ftol2"
+            ],
+            [
+              337,
+              20,
+              "?setCurrentFrame@Anim2D@@QAEXG@Z"
+            ],
+            [
+              362,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              368,
+              6,
+              "__real@3b808081"
+            ],
+            [
+              403,
+              20,
+              "?draw@Anim2D@@QAEXHHHH@Z"
+            ],
+            [
+              435,
+              20,
+              "?draw@Anim2D@@QAEXHHHH@Z"
+            ],
+            [
+              460,
+              20,
+              "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+            ],
+            [
+              473,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "__real@3b808081": {
+          "bytes": "8180803b",
+          "relocations": []
+        },
+        "__real@437f0000": {
+          "bytes": "00007f43",
+          "relocations": []
+        },
+        "__real@3f800000": {
+          "bytes": "0000803f",
+          "relocations": []
+        },
+        "__real@4f800000": {
+          "bytes": "0000804f",
+          "relocations": []
+        }
+      },
+      {
+        "?getNumFrames@Template004721F0@@QBEGXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?getAnimTemplate@Anim2DCallView@@QBEPBUTemplate004721F0@@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?setAlpha@Anim2DCallView@@QAEXM@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?validate@?$StringBase@G@@ABEXXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1?$StringBase@G@@AAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1UnicodeString@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "__real@3b808081": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@437f0000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@3f800000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@4f800000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        }
+      },
+      {
+        "defined": [
+          "??1?$StringBase@G@@AAE@XZ",
+          "??1UnicodeString@@QAE@XZ",
+          "?getAnimTemplate@Anim2DCallView@@QBEPBUTemplate004721F0@@XZ",
+          "?getNumFrames@Template004721F0@@QBEGXZ",
+          "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "?setAlpha@Anim2DCallView@@QAEXM@Z",
+          "?validate@?$StringBase@G@@ABEXXZ",
+          "__real@3b808081",
+          "__real@3f800000",
+          "__real@437f0000",
+          "__real@4f800000"
+        ],
+        "undefined": [
+          "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z",
+          "?draw@Anim2D@@QAEXHHHH@Z",
+          "?releaseBuffer@?$StringBase@G@@AAEXXZ",
+          "?setCurrentFrame@Anim2D@@QAEXG@Z",
+          "__EH_prolog",
+          "___CxxFrameHandler",
+          "__except_list",
+          "__fltused",
+          "__ftol2"
+        ],
+        "weak": [],
+        "alternates": {
+          "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+          "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+          "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+          "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+          "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+          "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+        },
+        "includes": []
+      }
+    ],
+    "after_facts": [
+      {
+        "?getNumFrames@Template004721F0@@QBEGXZ": {
+          "bytes": "668b4110c3",
+          "relocations": []
+        },
+        "?getAnimTemplate@Anim2DCallView@@QBEPBUTemplate004721F0@@XZ": {
+          "bytes": "8b410cc3",
+          "relocations": []
+        },
+        "?setAlpha@Anim2DCallView@@QAEXM@Z": {
+          "bytes": "f30f10442404f30f11411cc20400",
+          "relocations": []
+        },
+        "?validate@?$StringBase@G@@ABEXXZ": {
+          "bytes": "c3",
+          "relocations": []
+        },
+        "??1?$StringBase@G@@AAE@XZ": {
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+            ]
+          ]
+        },
+        "??1UnicodeString@@QAE@XZ": {
+          "bytes": "e900000000",
+          "relocations": [
+            [
+              1,
+              20,
+              "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+            ]
+          ]
+        },
+        "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z": {
+          "bytes": "b800000000e80000000083ec1c53568bf1578b7d088b078d4de4518d4dd8518bcfff503c8b078d4ddc518bcfff50088b46502b45e48b5d0c992bc28bd08b430433c9d1fa2bc251894dfc89450c8b03894df08d4df08945ec8b07518bcfff503c8b465003450c8b4df0508b45ec03c851ff750c8bce50e800000000836508008b45088b5486343955108b4c86400f82240100008b45103bc10f87190100002bc285c08945e0db45e07d06d805000000002bca85c9894de0db45e07d06d80500000000def98b4d0883e900d95de0746849742d490f85de0000008b46188b4e288b170bc850518bcfff52288b076a016a01ff73048bcfff33ff5038e9b8000000f30f100500000000f30f104de00f2fc8f30f1145e87705f30f114de8d945e8d80d00000000e8000000008b4e28c1e01881e1ffffff00eba88b4e1c8b490c0fb7491085c97472c1e80233d2f7f18b4e1c52e8000000008b46188b4e1cc1e81885c08945e0db45e07d06d80500000000d80d00000000d9591c8b45f0ff76508d0c009951ff750c8b4dec2bc2d1f82bc8518b4e1ce8000000008b45f0ff76508d0c009951ff750c8b4dec2bc2d1f82bc8518b4e1ce800000000ff4508837d08030f8cbbfeffff834dfcff8d4ddce8000000008b4df45f5e5b64890d00000000c9c20c00",
+          "relocations": [
+            [
+              1,
+              6,
+              "__ehhandler$?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z"
+            ],
+            [
+              6,
+              20,
+              "__EH_prolog"
+            ],
+            [
+              119,
+              20,
+              "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z"
+            ],
+            [
+              172,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              190,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              259,
+              6,
+              "__real@3f800000"
+            ],
+            [
+              288,
+              6,
+              "__real@437f0000"
+            ],
+            [
+              293,
+              20,
+              "__ftol2"
+            ],
+            [
+              337,
+              20,
+              "?setCurrentFrame@Anim2D@@QAEXG@Z"
+            ],
+            [
+              362,
+              6,
+              "__real@4f800000"
+            ],
+            [
+              368,
+              6,
+              "__real@3b808081"
+            ],
+            [
+              403,
+              20,
+              "?draw@Anim2D@@QAEXHHHH@Z"
+            ],
+            [
+              435,
+              20,
+              "?draw@Anim2D@@QAEXHHHH@Z"
+            ],
+            [
+              460,
+              20,
+              "?releaseBuffer@?$StringBase@G@@AAEXXZ"
+            ],
+            [
+              473,
+              6,
+              "__except_list"
+            ]
+          ]
+        },
+        "__real@3b808081": {
+          "bytes": "8180803b",
+          "relocations": []
+        },
+        "__real@437f0000": {
+          "bytes": "00007f43",
+          "relocations": []
+        },
+        "__real@3f800000": {
+          "bytes": "0000803f",
+          "relocations": []
+        },
+        "__real@4f800000": {
+          "bytes": "0000804f",
+          "relocations": []
+        }
+      },
+      {
+        "?getNumFrames@Template004721F0@@QBEGXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?getAnimTemplate@Anim2DCallView@@QBEPBUTemplate004721F0@@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?setAlpha@Anim2DCallView@@QAEXM@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?validate@?$StringBase@G@@ABEXXZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1?$StringBase@G@@AAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "??1UnicodeString@@QAE@XZ": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 2
+        },
+        "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z": {
+          "symbol_storage": 2,
+          "section": ".text",
+          "comdat_selection": 1
+        },
+        "__real@3b808081": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@437f0000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@3f800000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        },
+        "__real@4f800000": {
+          "symbol_storage": 2,
+          "section": ".rdata",
+          "comdat_selection": 2
+        }
+      },
+      {
+        "defined": [
+          "??1?$StringBase@G@@AAE@XZ",
+          "??1UnicodeString@@QAE@XZ",
+          "?getAnimTemplate@Anim2DCallView@@QBEPBUTemplate004721F0@@XZ",
+          "?getNumFrames@Template004721F0@@QBEGXZ",
+          "?rva00596908@FadeInTextRender@@UAEXPAVText004721F0@@PBUICoord2D@@I@Z",
+          "?setAlpha@Anim2DCallView@@QAEXM@Z",
+          "?validate@?$StringBase@G@@ABEXXZ",
+          "__real@3b808081",
+          "__real@3f800000",
+          "__real@437f0000",
+          "__real@4f800000"
+        ],
+        "undefined": [
+          "?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z",
+          "?draw@Anim2D@@QAEXHHHH@Z",
+          "?releaseBuffer@?$StringBase@G@@AAEXXZ",
+          "?setCurrentFrame@Anim2D@@QAEXG@Z",
+          "__EH_prolog",
+          "___CxxFrameHandler",
+          "__except_list",
+          "__fltused",
+          "__ftol2"
+        ],
+        "weak": [],
+        "alternates": {
+          "?concat@AsciiString@@QAEXPBD@Z": "?concat@?$StringBase@D@@QAEXPBD@Z",
+          "?set@AsciiString@@QAEXPBD@Z": "?set@?$StringBase@D@@QAEXPBD@Z",
+          "?concat@AsciiString@@QAEXABV1@@Z": "?concat@?$StringBase@D@@QAEXABV1@@Z",
+          "?clear@AsciiString@@QAEXXZ": "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+          "?compare@AsciiString@@QBEHABV1@@Z": "?compare@?$StringBase@D@@QBEHABV1@@Z",
+          "?trim@AsciiString@@QAEXXZ": "?trim@?$StringBase@D@@QAEXXZ",
+          "?compare@AsciiString@@QBEHPBD@Z": "?compare@?$StringBase@D@@QBEHPBD@Z"
+        },
+        "includes": []
+      }
+    ],
+    "added": [],
+    "removed": [],
+    "changed": []
+  }
+]

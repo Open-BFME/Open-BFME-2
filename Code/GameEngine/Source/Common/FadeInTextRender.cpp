@@ -6,12 +6,19 @@
 
 extern int BfmeClientFramesPerSecond;
 
+class Text004721F0;
+struct ICoord2D;
+class GameFont;
+class Anim2D;
 class Rva0059675ABase
 {
 public:
     virtual ~Rva0059675ABase();
+    virtual void LoadAssets() = 0;
+    virtual void rva00596908(Text004721F0 *text, const ICoord2D *pos, unsigned frame) = 0;
+    virtual int rva002A98A7() const = 0;
+    virtual int rva005C4ACD() const = 0;
 };
-
 class Anim2D;
 
 class GameFont;
@@ -30,15 +37,13 @@ struct FadeInTextRender : Rva0059675ABase
     virtual ~FadeInTextRender();
     virtual void LoadAssets();
     virtual void rva00596908(Text004721F0 *text, const ICoord2D *pos, unsigned frame);
+    virtual int rva002A98A7() const { return width; }
+    virtual int rva005C4ACD() const { return delay; }
     void bfmeExtend(int left, int top, int right, int bottom);
-
-    GameFont* font;
-    int m_bfmeLeft;
-    int m_bfmeTop;
-    int m_bfmeRight;
-    int m_bfmeBottom;
+    GameFont *font;
+    int m_bfmeLeft, m_bfmeTop, m_bfmeRight, m_bfmeBottom;
     unsigned effectColor;
-    Anim2D* anim;
+    Anim2D *anim;
     float scale;
     AsciiString fontName;
     unsigned color;
@@ -47,7 +52,6 @@ struct FadeInTextRender : Rva0059675ABase
     unsigned starts[3], ends[3];
     int width, height;
 };
-
 // Two more: the twin of the owner unlink and a bounds update.
 
 class Gen_003F6A20
