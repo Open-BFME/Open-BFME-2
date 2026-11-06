@@ -4376,7 +4376,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00079662,60,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x0007969E provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x0007969E,30,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000796BC provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000796BC,15,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000796CB provisional,Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp
-0x000796CB,29,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000796E8 provisional,Code/GameEngine/Source/GameLogic/Object/Rva000796CBPairInit.cpp
+0x000796CB,29,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x000796E8 provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 0x000796E8,45,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x00079715 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp
 0x00079715,28,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x00079731 provisional,Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp
 0x00079731,45,code,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,approved,C,C=0x000793E5..0x0007975E provisional,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp

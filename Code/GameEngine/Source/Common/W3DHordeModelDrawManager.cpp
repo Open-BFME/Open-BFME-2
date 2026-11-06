@@ -754,6 +754,7 @@ typedef InGameSimpleHelp::Impl Rva0053973F;
 struct FloatPair;
 #include "../../Include/GameClient/InGameCommandButtonHelp.h"
 #include "../../Include/Common/INI/FieldParse.h"
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 
 typedef InGameCommandButtonHelp::Impl Rva0056CA31;
 
@@ -926,6 +927,36 @@ public:
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::begin() { return this->_M_start; } }
 
 namespace _STL { template <> __declspec(dllimport) __forceinline void * * vector<void *,allocator<void *> >::end() { return this->_M_finish; } }
+
+// __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
+// COMDATs (one byte shape per TU malloc/free wiring); explicit
+// dllimport+forceinline specializations take those calls inline so this
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void *__malloc_alloc<0>::allocate(size_t __n)
+{ void *__r = malloc(__n); if (!__r) __r = _S_oom_malloc(__n); return __r; }
+template <> __declspec(dllimport) __forceinline
+void __malloc_alloc<0>::deallocate(void *__p, size_t)
+{ free((char *)__p); }
+}
+
+// Suppress this TU's non-retail copy of ?allocate@?$allocator@PBVLocomotorTemplate@@@_STL@@QBEPAPBVLocomotorTemplate@@IPBX@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+class LocomotorTemplate;
+
+namespace _STL { template <> LocomotorTemplate const * * allocator<LocomotorTemplate const *>::allocate(unsigned int,void const *) const; }
+
+typedef _STL::vector<const LocomotorTemplate *> LocomotorTemplateVector;
+
+struct Rva000796CBPair
+{
+	int first;
+	LocomotorTemplateVector second;
+
+	Rva000796CBPair(const int *key, const LocomotorTemplateVector &vec);
+};
+
+// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
@@ -1712,26 +1743,6 @@ W3DHordeModelDrawModuleData::W3DHordeModelDrawModuleData()
 	m_lods[2].m_start = 100;
 }
 
-// tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00078B7D 6B ?name@Rva00078B7DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00078BBB 51B ?xfer@W3DHordeModelDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp (not merged yet)
-
-// tu-skeleton: 0x00079111 28B ??_GRva000D089D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
-
-// tu-skeleton: 0x000791C1 28B ??_GRva0078B83@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x000791DD 8B ?rva000791DD@Rva000791DDForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x000791E5 8B ?rva000791E5@Rva000791E5Forwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x000791ED 50B ?Rva000791EDCopy@@YAPAVRva00752630@@PAV1@00@Z -- matched in Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x000793FA 53B ??1ShadowTypeInfo@Shadow@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0007942F 29B ??$__copy_ptrs@PAURva00079EA1Element@@PAU1@@_STL@@YAPAURva00079EA1Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00079554RecordDtor.cpp
 
 //
@@ -1745,20 +1756,6 @@ W3DHordeModelDrawModuleData::W3DHordeModelDrawModuleData()
 Rva00079554Record::~Rva00079554Record()
 {
 }
-
-// tu-skeleton: 0x000795C1 29B ??0?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hero_integer_vector_tree.cpp (not merged yet)
-
-// tu-skeleton: 0x0007961D 28B ??_G?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecord16DequePop.cpp (not merged yet)
-
-// tu-skeleton: 0x000796BC 15B ??1?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
-
-// tu-skeleton: 0x000796CB 29B ??0Rva000796CBPair@@QAE@PBHABV?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva000796CBPairInit.cpp (not merged yet)
-
-// tu-skeleton: 0x000796E8 45B ??$_Construct@V?$vector@IV?$allocator@I@_STL@@@_STL@@V12@@_STL@@YAXPAV?$vector@IV?$allocator@I@_STL@@@0@ABV10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
-
-// tu-skeleton: 0x00079715 28B ??_G?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp (not merged yet)
-
-// tu-skeleton: 0x0007975E 45B ?Rva0007975EConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00079911Clear.cpp
 
@@ -1789,6 +1786,51 @@ void W3DHordeModelDrawManager::rva00079911()
 	v2.erase(v2.begin(), v2.end());
 	m_list.clear();
 }
+
+// tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00078B7D 6B ?name@Rva00078B7DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00078BBB 51B ?xfer@W3DHordeModelDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp (not merged yet)
+
+// tu-skeleton: 0x00079111 28B ??_GRva000D089D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
+
+// tu-skeleton: 0x000791C1 28B ??_GRva0078B83@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x000791DD 8B ?rva000791DD@Rva000791DDForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x000791E5 8B ?rva000791E5@Rva000791E5Forwarder@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x000791ED 50B ?Rva000791EDCopy@@YAPAVRva00752630@@PAV1@00@Z -- matched in Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x000793FA 53B ??1ShadowTypeInfo@Shadow@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0007942F 29B ??$__copy_ptrs@PAURva00079EA1Element@@PAU1@@_STL@@YAPAURva00079EA1Element@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x000795C1 29B ??0?$pair@$$CBHV?$vector@IV?$allocator@I@_STL@@@_STL@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hero_integer_vector_tree.cpp (not merged yet)
+
+// tu-skeleton: 0x0007961D 28B ??_G?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecord16DequePop.cpp (not merged yet)
+
+// tu-skeleton: 0x000796BC 15B ??1?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva000796CBPairInit.cpp
+
+//
+// Shared pair initializer for LocomotorSetType maps (AIUpdate parse cluster).
+// Layout-identical non-const view of the map node pair; constructs from a
+// key pointer plus a template vector. The vector copy folds to the rowed
+// unsigned-int spelling (twin pin).
+
+Rva000796CBPair::Rva000796CBPair(const int *key, const LocomotorTemplateVector &vec)
+	: first(*key), second(vec)
+{
+}
+
+// tu-skeleton: 0x000796E8 45B ??$_Construct@V?$vector@IV?$allocator@I@_STL@@@_STL@@V12@@_STL@@YAXPAV?$vector@IV?$allocator@I@_STL@@@0@ABV10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
+
+// tu-skeleton: 0x00079715 28B ??_G?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapInstantiation.cpp (not merged yet)
+
+// tu-skeleton: 0x0007975E 45B ?Rva0007975EConstruct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
 // tu-skeleton: 0x0007981B 34B ?_M_create_node@?$list@V?$vector@IV?$allocator@I@_STL@@@_STL@@V?$allocator@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@@_STL@@IAEPAU?$_List_node@V?$vector@IV?$allocator@I@_STL@@@_STL@@@2@ABV?$vector@IV?$allocator@I@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_node_vecuint.cpp (not merged yet)
 
