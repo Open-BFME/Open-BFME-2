@@ -117,16 +117,16 @@ Rva00355BDA::Rva00355BDA(EmitVtableTag *)
 {
 }
 
-class Rva003561BE
+class Rva0035615D
 {
 public:
-	Rva003561BE(EmitVtableTag *);
+	Rva0035615D(EmitVtableTag *);
 public:
-	virtual ~Rva003561BE();
+	virtual ~Rva0035615D();
 };
 
-// ?<Rva003561BE::Rva003561BE> absent-from-retail
-Rva003561BE::Rva003561BE(EmitVtableTag *)
+// ?<Rva0035615D::Rva0035615D> absent-from-retail
+Rva0035615D::Rva0035615D(EmitVtableTag *)
 {
 }
 

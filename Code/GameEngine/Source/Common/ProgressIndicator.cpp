@@ -265,9 +265,9 @@ void Rva00355DD4::rva00355DD4()
 
 // tu-skeleton: 0x00355E20 44B ?rva00355E20@Rva003560ED@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
 
-// tu-skeleton: 0x00355E4C 57B ?rva00355E4C@Rva003561BE@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
+// tu-skeleton: 0x00355E4C 57B ?rva00355E4C@Rva0035615D@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
 
-// tu-skeleton: 0x00355E85 92B ?rva00355E85@Rva003561BE@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
+// tu-skeleton: 0x00355E85 92B ?rva00355E85@Rva0035615D@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
 
 // tu-skeleton: 0x00355EE1 27B ?rva00355EE1@Rva003563A7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00355D66Dtor.cpp (not merged yet)
 

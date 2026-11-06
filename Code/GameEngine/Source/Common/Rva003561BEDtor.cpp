@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /G7 /MD /EHsc
-// ??1Rva003561BE@@UAE@XZ @0x003561BE 198B
-// The destructor vtable and deleting-dtor anchor identify Rva003561BE.
+// ??1Rva0035615D@@UAE@XZ @0x003561BE 198B
+// The destructor vtable and deleting-dtor anchor identify Rva0035615D.
 // Target cleanup proves the +0x14/+0x18 references, +0x1c/+0x20 audio
 // handles, and +0x24 flag; the constructor neighbor provides the +0x10
 // AsciiString and 16-byte base extent. Unknown virtual slots are kept as
@@ -43,9 +43,9 @@ private:
 	char m_pad[12];
 };
 
-class Rva003561BE : public Rva00355D66 {
+class Rva0035615D : public Rva00355D66 {
 public:
-	virtual ~Rva003561BE();
+	virtual ~Rva0035615D();
 private:
 	AsciiString m_s10;
 	Rva0036CA00Str m_s14;
@@ -55,7 +55,7 @@ private:
 	bool m_flag24;
 };
 
-Rva003561BE::~Rva003561BE()
+Rva0035615D::~Rva0035615D()
 {
 	if (m_handle1c != 1) {
 		TheAudio->removeAudioEvent(m_handle1c);

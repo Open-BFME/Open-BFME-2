@@ -389,10 +389,8 @@ Rva0035615D::Rva0035615D(const AsciiString &asciiString, const Rva0036CA00Str &b
 {
 }
 
-// ??1Rva0035615D@@UAE@XZ present-unmatched
-Rva0035615D::~Rva0035615D()
-{
-}
+// ~Rva0035615D (retail 0x003561BE) and its deleting destructor 0x0035686D are
+// defined in Rva003561BEDtor.cpp.
 
 // ---- from Code/GameEngine/Source/Common/Rva00356413Method.cpp
 
@@ -423,7 +421,7 @@ void Rva00355F3E::rva00356413(int x)
 
 // tu-skeleton: 0x003560ED 112B ??1Rva003560ED@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003560EDDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x003561BE 198B ??1Rva003561BE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003561BEDtor.cpp (not merged yet)
+// tu-skeleton: 0x003561BE 198B ??1Rva0035615D@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003561BEDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00356367 64B ??0Rva003563A7@@QAE@ABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva00355D66Dtor.cpp (not merged yet)
 
@@ -482,9 +480,9 @@ void Rva00355DC5::init(GameInfo *game)
 
 // tu-skeleton: 0x00356724 329B ?rva00356724@Rva003560ED@@UAEXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
 
-// tu-skeleton: 0x0035686D 28B ??_GRva003561BE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003561BEDtor.cpp (not merged yet)
+// tu-skeleton: 0x0035686D 28B ??_GRva0035615D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva003561BEDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00356889 625B ?rva00356889@Rva003561BE@@UAEXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
+// tu-skeleton: 0x00356889 625B ?rva00356889@Rva0035615D@@UAEXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
 
 // tu-skeleton: 0x00356AFA 28B ??_GRva003563A7@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00355D66Dtor.cpp (not merged yet)
 
@@ -512,7 +510,7 @@ void Rva00355DC5::init(GameInfo *game)
 
 // tu-skeleton: 0x0077D596 11B Unwind@00b7d596 -- matched in Code/GameEngine/Source/Common/Rva003561BEDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0077D5A1 10B __ehhandler$??1Rva003561BE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003561BEDtor.cpp (not merged yet)
+// tu-skeleton: 0x0077D5A1 10B __ehhandler$??1Rva0035615D@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003561BEDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077D5CB 8B $L1529 -- matched in Code/GameEngine/Source/Common/Rva00355D66Dtor.cpp (not merged yet)
 
@@ -544,7 +542,7 @@ void Rva00355DC5::init(GameInfo *game)
 
 // tu-skeleton: 0x0077D672 8B Unwind@00b7d672 -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
 
-// tu-skeleton: 0x0077D67A 10B __ehhandler$?rva00356889@Rva003561BE@@UAEXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
+// tu-skeleton: 0x0077D67A 10B __ehhandler$?rva00356889@Rva0035615D@@UAEXPAVGameInfo@@@Z -- matched in Code/GameEngine/Source/Common/Rva003560EDEngineRefresh.cpp (not merged yet)
 
 // tu-skeleton: 0x0077D684 8B Unwind@00b7d684 -- matched in Code/GameEngine/Source/GameClient/GUI/LoadScreen_MapTransferProcessProgress.cpp (not merged yet)
 

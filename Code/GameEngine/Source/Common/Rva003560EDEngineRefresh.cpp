@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00355DF4@Rva003560ED@@UAEXH@Z @0x00355DF4 44B
 // ?rva00355E20@Rva003560ED@@UAEXHH@Z @0x00355E20 44B
-// ?rva00356889@Rva003561BE@@UAEXPAVGameInfo@@@Z @0x00356889 625B (SSE: /G7 /arch:SSE)
+// ?rva00356889@Rva0035615D@@UAEXPAVGameInfo@@@Z @0x00356889 625B (SSE: /G7 /arch:SSE)
 // ?rva00356724@Rva003560ED@@UAEXPAVGameInfo@@@Z @0x00356724 329B
 // Slots 1 and 4 of vtable 0x00C14EA4 (class of the rowed dtor 0x003560ED and
 // of rva00355DDD, slot 3), shared by the derived vtable 0x00C14EBC: both call
@@ -76,13 +76,13 @@ void Rva003560ED::rva00355E20(int, int)
 		TheDisplay->rva0025CF2A(0);
 }
 
-// ?rva00355E4C@Rva003561BE@@UAE_NXZ @0x00355E4C 57B
+// ?rva00355E4C@Rva0035615D@@UAE_NXZ @0x00355E4C 57B
 // Slot 5 of the derived vtable 0x00C14EBC (class of the rowed deleting dtor
 // 0x0035686D): true without TheAudio; otherwise TheAudio slot 10, then, unless
 // the +0x1C value is 1, true only when TheAudio slot 52 refuses that value.
 #include "../../Include/Common/GameAudio.h"
 extern AudioManager *TheAudio;
-class Rva003561BE
+class Rva0035615D
 {
 public:
 	virtual bool rva00355E4C();
@@ -98,7 +98,7 @@ private:
 	int m_1c; // +0x1C
 	int m_20; // +0x20
 };
-bool Rva003561BE::rva00355E4C()
+bool Rva0035615D::rva00355E4C()
 {
 	bool result = true;
 	if (TheAudio)
@@ -126,13 +126,13 @@ public:
 	void rva00356284();
 };
 
-// ?rva00355E85@Rva003561BE@@UAEXXZ @0x00355E85 92B
+// ?rva00355E85@Rva0035615D@@UAEXXZ @0x00355E85 92B
 // Slot 3 of the derived vtable 0x00C14EBC: hands each of the +0x1C/+0x20
 // values that is not 1 to TheAudio slot 27 and resets it to 1, clears
 // TheGameLogic's +0x78 flag, runs TheDisplay slot 68 and the rowed
 // W3DDisplay 0x0025D2F6, and clears +0x08 (the base slot 3 rva00355DDD runs
 // the same slot 68 then clears +0x08).
-void Rva003561BE::rva00355E85()
+void Rva0035615D::rva00355E85()
 {
 	if (m_1c != 1)
 	{
@@ -150,7 +150,7 @@ void Rva003561BE::rva00355E85()
 	m_08 &= 0;
 }
 
-// ?rva00356889@Rva003561BE@@UAEXPAVGameInfo@@@Z @0x00356889 625B
+// ?rva00356889@Rva0035615D@@UAEXPAVGameInfo@@@Z @0x00356889 625B
 // Slot 2 of the derived vtable 0x00C14EBC (RET 4, argument unused): the
 // load screen's start. TheAudio slot 20 (2) and slot 10; the
 // "LoadScreenForeground" image on display layer 2 over the whole screen and
@@ -161,7 +161,7 @@ void Rva003561BE::rva00355E85()
 // TheWritableGlobalData +0x11C8, slot 66 (0x14, -1, -1); the audio start
 // (rowed 0x00356284); and the "GUI:Loading" text in 18-point "SachaWynter"
 // at (0.5, 1/32) through the rowed W3DDisplay text setter 0x0025D358.
-void Rva003561BE::rva00356889(GameInfo *)
+void Rva0035615D::rva00356889(GameInfo *)
 {
 	TheAudio->setViewFocus(2);
 	TheAudio->update();
