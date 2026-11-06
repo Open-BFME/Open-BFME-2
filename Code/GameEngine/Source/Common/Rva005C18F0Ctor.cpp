@@ -20,16 +20,16 @@ private:
 	char m_pad[4];
 };
 
-class Rva005C18F0Base
+class Rva005C1860
 {
 public:
-	Rva005C18F0Base(char *tag=g_00E06034) : m_04(tag) {}
-	virtual ~Rva005C18F0Base() {}
+	Rva005C1860(char *tag=g_00E06034) : m_04(tag) {}
+	virtual ~Rva005C1860() {}
 protected:
 	char *m_04;
 };
 
-class Rva005C18F0 : public Rva005C18F0Base
+class Rva005C18F0 : public Rva005C1860
 {
 public:
 	Rva005C18F0();
@@ -47,5 +47,5 @@ Rva005C18F0::Rva005C18F0()
 // Its rowed destructor5C1980 and scalar5C1964 own vtableC743D0;
 // +4 points44 bytes into the same100-byte static span as the strategic twin.
 class RealTimeStatsPreferences { public: RealTimeStatsPreferences(const UnicodeString &); private: char m_storage[4]; };
-class Rva005C1980 : public Rva005C18F0Base { public: Rva005C1980(); virtual ~Rva005C1980(); private: RealTimeStatsPreferences m_08; };
-Rva005C1980::Rva005C1980() : Rva005C18F0Base(g_00E06034+44), m_08(UnicodeString::TheEmptyString) { }
+class Rva005C1980 : public Rva005C1860 { public: Rva005C1980(); virtual ~Rva005C1980(); private: RealTimeStatsPreferences m_08; };
+Rva005C1980::Rva005C1980() : Rva005C1860(g_00E06034+44), m_08(UnicodeString::TheEmptyString) { }

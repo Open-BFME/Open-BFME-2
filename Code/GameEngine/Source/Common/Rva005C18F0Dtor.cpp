@@ -14,13 +14,13 @@ private:
 	char m_pad[4];
 };
 
-class Rva005C18F0Base
+class Rva005C1860
 {
 public:
-	virtual ~Rva005C18F0Base() {}
+	virtual ~Rva005C1860() {}
 };
 
-class Rva005C18F0 : public Rva005C18F0Base
+class Rva005C18F0 : public Rva005C1860
 {
 public:
 	virtual ~Rva005C18F0();
@@ -46,7 +46,7 @@ void _bfmeRva005C18F0DtorInlineAnchor()
 // 0x005C18F0 dtor above (derived vtable 0x008743D0 here, same member at +8
 // through rowed 0x00535776, same base vtable 0x008743B8). Caller is its ??_G
 // at 0x005C1964.
-class Rva005C1980 : public Rva005C18F0Base
+class Rva005C1980 : public Rva005C1860
 {
 public:
 	virtual ~Rva005C1980();
