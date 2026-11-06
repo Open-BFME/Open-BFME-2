@@ -345,6 +345,7 @@ list<Rva00453B06Obj *>::_M_create_node(Rva00453B06Obj *const &value)
 template void _STL::list<Rva00453B06Obj *>::push_back(Rva00453B06Obj *const &);
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

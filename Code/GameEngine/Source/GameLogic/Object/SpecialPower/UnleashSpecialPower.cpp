@@ -50,6 +50,7 @@ public:
 };
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva004CE0BE : public SpecialAbilityUpdate
 {

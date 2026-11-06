@@ -787,6 +787,7 @@ unsigned int ProductionDoorWaitingOpenFlags[4] = {
 };
 
 #include "../../../../Include/Common/ThingFactory.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern class ThingFactory *TheThingFactory;
 

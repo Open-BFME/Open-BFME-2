@@ -111,6 +111,7 @@ private:
 };
 
 #include "../../../../Include/Common/GlobalData.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern GlobalData *TheWritableGlobalData;
 

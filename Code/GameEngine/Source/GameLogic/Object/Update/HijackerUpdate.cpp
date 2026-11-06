@@ -74,6 +74,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern GameLogic *TheGameLogic;
 
