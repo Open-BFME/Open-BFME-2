@@ -18,7 +18,8 @@ the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in th
 AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, bridged
 676 -> 674, and AIStates' IDLE_COUNTDOWN_DELAY, bridged 674 -> 673; halilkkaya-lk39: GameEngine.cpp's
 copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the four held BlockParse
-nodes and two of their units' copies, bridged 670 -> 664; next seat continues).
+nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored units freed since round 2,
+bridged 664 -> 645; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -246,6 +247,24 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 - *Next.* The handoff table lists each copy's state. ActiveBody and the Zero Hour-shaped units
   need their views or header graph reconciled first. Held units follow the same steps once they
   are free.
+- *Units free since round 2, second pass (halilkkaya-lk39, 2026-11-07).* 24 guard-anchored units
+  that rounds 2 and 4 found held were claimable (CrushDie was left alone: another contributor is
+  working on DieModule). A trial script built each with the include after its last include, then
+  after its first, and kept a position only if the unit stayed exact, emitted exactly one new
+  `_$E1` with the copy's 16 bytes, and kept every `??_7` digest. 19 took it after their last
+  include and are rowed as `_$E1`: AttributeModifierPoolUpdate, BloodthirstyUpdate,
+  FakePathfindPortalBehaviour, CivilianSpawnUpdate, PropagandaTowerBehavior,
+  FireWeaponWhenDeadBehavior, ReplenishUnitsBehavior, ArrowStormUpdate, CommandButtonHuntUpdate,
+  OneRingPenaltyUpdate, AttributeModifierAuraUpdate, RadiateFearUpdate, BroadcastStealthUpdate,
+  DestroyEnvironmentUpdate, RousingSpeechUpdate, GloriousChargeUpdate, EmotionTrackerUpdate,
+  WoundArrowUpdate and ManTheWallsSpecialPower. link_check: 20/20 with the grab-bag.
+  image_report: bridged 664 -> 645, twice 6 -> 6, unidentified 524 -> 524.
+  - Reverted (private views): HitReactionBehavior (private `Drawable` with an inline
+    `testModelCondition` over +0x258), GiveUpgradeUpdate (private `Drawable` with one field at
+    +0xB0), FloodUpdate (private `Matrix3D` and `Thing`), DemoTrapUpdate and ReplaceObjectUpdate
+    (private `Thing`; ReplaceObjectUpdate reads `m_id` through it). The two `Drawable` views need
+    only a cast view over the canonical class; the `Thing` views follow SquishCollide's recipe
+    (round 5).
 
 **BlockParseInits (130 rows): per-unit `BlockParse` nodes (halilkkaya-in-o3, 2026-11-04).**
 - *Target facts.* All 130 entries are one 21-byte body, `mov eax, [0x00DDF578]; mov [node], eax;
