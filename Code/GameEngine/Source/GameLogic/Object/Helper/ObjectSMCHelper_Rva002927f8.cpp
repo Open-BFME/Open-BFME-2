@@ -27,48 +27,13 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 { if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
 }
 
-class Thing;
-class ModuleData;
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-
-private:
-	unsigned char m_moduleData[8];
-};
-
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-#include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-// Retail's ObjectHelper base destructor is 0x004DF7C2 (the last call of the
-// matched ~ObjectSMCHelper 0x004DE767), rowed under this placeholder name.
-class Rva004DF7C2
-{
-public:
-	virtual ~Rva004DF7C2();
-};
-
-class ObjectHelper : public ModuleInterface,
-	public BehaviorModuleInterface,
-	public UpdateModuleInterface
-{
-public:
-	ObjectHelper(Thing *, const ModuleData *);
-	// Forwards to the rowed body, as ObjectRecoveryHelperCtor.cpp does.
-	virtual ~ObjectHelper() { ((Rva004DF7C2 *)this)->Rva004DF7C2::~Rva004DF7C2(); }
-	// Stand-in slots, pure as in ObjectSMCHelper below: this unit never
-	// instantiates ObjectHelper, so the vtable its inline destructor emits
-	// binds _purecall instead of undefined names.
-	virtual void moduleInterfaceAnchor() = 0;
-	virtual void behaviorModuleInterfaceAnchor() = 0;
-	virtual void updateModuleInterfaceAnchor() = 0;
-
-private:
-	unsigned char m_helperData[0xc];
-};
+// The canonical ObjectHelper (UpdateModule's two interface tables at +0x0C
+// and +0x10); the constructor below lets the compiler store
+// ObjectSMCHelper's three tables, and its EH frame unwinds the constructed
+// base through ~ObjectHelper 0x004DF7C2 (the last call of the matched
+// ~ObjectSMCHelper 0x004DE767 too).
+enum UpdateSleepTime;
+#include "../../../../Include/GameLogic/Module/ObjectHelper.h"
 
 // Named setModelConditionState (0x002572A0) stores the condition argument
 // and current frame + duration in this eight-byte element before push_back
@@ -84,14 +49,27 @@ struct Gen_p8pod
 
 typedef Gen_p8pod Rva002571A0Elem;
 
+// Retail 0x00BFC088 (13 slots): deleting dtor 0x00292894, loadPostProcess
+// 0x00483CEF (`jmp 0x00497805`, the helpers' shared body), the name getter
+// 0x0029288E, xfer 0x004DE906, getModuleNameKey 0x00292849, then
+// UpdateModule's slots. 0x00BFC07C: update 0x004DE7C2, getDisabledTypesToProcess
+// 0x004DF396 (a body retail folds across 8 tables), UpdateModule's wake slot.
+// Not declared yet: the name getter (rowed ?name@ObjectSMCHelper@@QBEPBDXZ, a
+// non-virtual spelling, in a unit another seat holds) and
+// getDisabledTypesToProcess (rowed only under the placeholder Rva004DF396);
+// both slots inherit UpdateModule's until then.
 class ObjectSMCHelper : public ObjectHelper
 {
 public:
 	ObjectSMCHelper(Thing *thing, const ModuleData *moduleData);
 	virtual ~ObjectSMCHelper();
-	virtual void moduleInterfaceAnchor() = 0;
-	virtual void behaviorModuleInterfaceAnchor() = 0;
-	virtual void updateModuleInterfaceAnchor() = 0;
+
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+
+protected:
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
 
 private:
 	_STL::list<Rva002571A0Elem> m_timers;
@@ -100,4 +78,10 @@ private:
 ObjectSMCHelper::ObjectSMCHelper(Thing *thing, const ModuleData *moduleData)
 	: ObjectHelper(thing, moduleData)
 {
+}
+
+// Slot 1 of 0x00BFC088: 0x00483CEF, `jmp 0x00497805` to ObjectHelper's.
+void ObjectSMCHelper::loadPostProcess()
+{
+	ObjectHelper::loadPostProcess();
 }
