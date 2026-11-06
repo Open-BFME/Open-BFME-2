@@ -470,9 +470,9 @@ def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tab
         names=metadata["name_discovery"]["names"],
         rejected=len(metadata["name_discovery"]["rejected"]),
         unindexed=len(metadata["name_discovery"]["unindexed"]),
-        native_names_without_address_binding=len(metadata["name_discovery"]["native_names_without_address_binding"])),
+        native_names_without_address_binding=len(metadata["name_discovery"]["native_names_without_address_binding"]),
+        new_name_bindings=len(metadata["name_discovery"]["new_name_bindings"])),
         sort_keys=True))
-    print("vtable_new_name_bindings: " + json.dumps(metadata["name_discovery"]["new_name_bindings"], sort_keys=True))
     print("vtable_bridge: " + json.dumps({key: metadata[key] for key in
           ("tables", "retail_tables", "slots", "refused_tables", "refusal_reasons", "already_correct")},
           sort_keys=True))
