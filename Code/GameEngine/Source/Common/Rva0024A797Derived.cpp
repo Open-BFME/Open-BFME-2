@@ -355,13 +355,13 @@ public:
 	virtual void f2();
 };
 
-class Rva0049A1AB : public UpdateModule, public MiBase1, public Rva0049A1AB_B2
+class AutoDepositUpdate : public UpdateModule, public MiBase1, public Rva0049A1AB_B2
 {
 public:
-	virtual ~Rva0049A1AB();
+	virtual ~AutoDepositUpdate();
 };
 
-Rva0049A1AB::~Rva0049A1AB()
+AutoDepositUpdate::~AutoDepositUpdate()
 {
 }
 

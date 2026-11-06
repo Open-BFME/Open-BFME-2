@@ -148,7 +148,7 @@ NameKeyType AutoDepositUpdate::getModuleNameKey() const
 
 // tu-skeleton: 0x0049A20F 68B ??0AutoDepositUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049A253 28B ??_GRva0049A1AB@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x0049A253 28B ??_GAutoDepositUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateUpdate.cpp
 

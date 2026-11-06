@@ -6143,7 +6143,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1BoredUpdate@@UAE@XZ,,0x0049669A,25,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,matched,opaque MI dtor
 ??1Rva004969FF@@UAE@XZ,,0x004969FF,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva00499F45@@UAE@XZ,,0x00499F45,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
-??1Rva0049A1AB@@UAE@XZ,,0x0049A1AB,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
+??1AutoDepositUpdate@@UAE@XZ,,0x0049A1AB,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva0049B2A2@@UAE@XZ,,0x0049B2A2,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva0049FE7B@@UAE@XZ,,0x0049FE7B,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva004A0C0E@@UAE@XZ,,0x004A0C0E,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
@@ -9865,7 +9865,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GBoredUpdate@@UAEPAXI@Z,,0x004967F3,28,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004969FF@@UAEPAXI@Z,,0x00496AC2,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva00499F45@@UAEPAXI@Z,,0x00499FFA,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva0049A1AB@@UAEPAXI@Z,,0x0049A253,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GAutoDepositUpdate@@UAEPAXI@Z,,0x0049A253,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0049B2A2@@UAEPAXI@Z,,0x0049B3B6,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0049FE7B@@UAEPAXI@Z,,0x0049FF34,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004A0C0E@@UAEPAXI@Z,,0x004A0CA7,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
