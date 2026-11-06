@@ -368,3 +368,15 @@ Recovery publication (2026-11-06): historical fleet investigation at the inspect
 Recovery reconciliation: the historical c05-seat1 Cylinder copy boundary above is superseded by the current typed Cylinder provider/copy and retirement entries. Retain its original inspected-revision evidence; it is not a current blocker verdict. Automated real-link confirmation and the separate DefaultPhysics identity gap remain as recorded by the current repair.
 
 2026-11-06 stopped-fleet recovery: RenderObjectDrawModuleInfo transfer now adopts its existing canonical header with current DoXfer(Xfer &) identity preserved; 1/1 row remains exact and owning acceptance passed; one queue row awaits separate retirement. The export-signature repair was already on master; no new export or real-link gain is claimed. [Current five-consumer verification and remaining audit limits](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md).
+
+
+**2026-11-06 measured writer confirmation.** The authoritative real link at
+`1a5f4a11143f74be71ff30bc940004ba91068d04`
+([run 42242536864](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42242536864))
+includes `dd866a9ea8` and `28968470e4`. The unresolved-symbol list no longer
+contains `DefaultModuleTemplate<2>::writeINI` (ordinal 1937, RVA 0x0055FB37),
+`DefaultModuleTemplate<3>::writeINI` (ordinal 1938, RVA 0x0055F368), or
+`RenderObjectUpdateModuleTemplate::writeINI` (ordinal 1956, RVA 0x005625C5).
+All three were present in the previous authoritative list at `6e5fe55db8`.
+The new run reports 282 unresolved symbols, zero duplicates, and no image.
+It predates the Wind data-export repairs tracked in LINK-584.
