@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ??1Rva0034159A@@UAE@XZ @0x0034159A 91B: Rva0034159A public virtual dtor.
+// ??1Rva0033F540@@UAE@XZ @0x0034159A 91B: Rva0033F540 public virtual dtor.
 // Vptr install plus member at +0x20 via virtual slot15 then slot0 with 0 plus
 // delete 0x0002FD60, then the base State destructor (the rowed
 // ??1State@@UAE@XZ, the 7-byte fold body at 0x0049B47C).
@@ -30,14 +30,14 @@ public:
 	virtual void v14();
 	virtual void v15();
 };
-class Rva0034159A : public State {
+class Rva0033F540 : public State {
 public:
-	virtual ~Rva0034159A();
+	virtual ~Rva0033F540();
 private:
 	Rva0034159AMember *m_20;
 };
 #include <new>
-Rva0034159A::~Rva0034159A()
+Rva0033F540::~Rva0033F540()
 {
 	if (m_20) {
 		m_20->v15();
