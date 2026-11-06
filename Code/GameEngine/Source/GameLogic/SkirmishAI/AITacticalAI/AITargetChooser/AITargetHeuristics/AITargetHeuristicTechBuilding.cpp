@@ -65,17 +65,8 @@ struct Rva002A8AB1Record:public Rva004EBF4B
  
 }
 ;
-class Rva002A8F24
-
-{
- public:Rva002A8AB1Record *rva002A8AB1(void*);
- char pad[0x884];
- float fallbackWeight;
- char pad888[0x934-0x888];
- _STL::vector<ObjectID> techBuildings;
- 
-}
-;
+#include "../../../../../../Include/GameLogic/Rva002A8F24.h"
+// The tech-building list is the vector at +0x934, inside the manager's opaque tail.
 extern Rva002A8F24 *TheSkirmishAIManager;
 extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
@@ -145,7 +136,7 @@ void AITargetHeuristicTechBuilding::findBestTarget(AITarget *target,Player *owne
  Rva002A8AB1Record *stats=TheSkirmishAIManager->rva002A8AB1(((&(owner)) ? (owner) : (owner)));
  int value=stats->mode;
  bool mode=value!=0;
- _STL::vector<ScienceType> buildings(*(const _STL::vector<ScienceType> *)&TheSkirmishAIManager->techBuildings);
+ _STL::vector<ScienceType> buildings(*(const _STL::vector<ScienceType> *)(TheSkirmishAIManager->m_pad91C + (0x934 - 0x91C)));
  TacticalAI *tactics=stats->tactics;
  Coord3D center=stats->rva004EBF4B();
  Object *best=0;
@@ -196,6 +187,6 @@ void AITargetHeuristicTechBuilding::findBestTarget(AITarget *target,Player *owne
   }
   
  }
- if(best)target->setTarget(best,(float)(double)TheSkirmishAIManager->fallbackWeight);
+ if(best)target->setTarget(best,(float)(double)TheSkirmishAIManager->field_884);
  
 }
