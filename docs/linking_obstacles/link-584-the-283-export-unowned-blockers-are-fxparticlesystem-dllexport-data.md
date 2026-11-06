@@ -60,3 +60,15 @@ A second scoped check provides six additional, previously unowned literal defaul
 
 
 Retail export 1148 now owns the shared 0x0081B310 constant. The constructor and writer used kG9, while the wind update used a second named copy. All three use the same const provider now. The original four data bytes and all 37 external code bodies verify, with 3 same-address DIR32 edges rebound. The two .data constants and enum declaration remain open.
+
+
+**2026-11-06 FX name tables (claude-opus-leosmare-1; real link 6e5fe55db8, run 42233431149, 277 unowned).**
+All five FX name-table exports now have defining objects in ParticleSystemTemplate.cpp, as retail's
+`const char *const` (`3QBQBDB`). `4397ec04fa` respells ParticleShaderTypeNames, ParticleTypeNames and
+ParticlePriorityNames (ordinals 1360, 1361, 1359), which were defined mutable (`3PAPBDA`). It also drops
+GameLOD.cpp's second, address-named copy of the priority table (`g_00C1B6A4`). `4be08349e1` defines
+EmissionVelocityTypeNames and EmissionVolumeTypeNames (ordinals 1178, 1179; 0x0081B668, 0x0081B684).
+They had no definition anywhere; their contents are read from retail. Every data row byte- and
+relocation-verifies, and link_check is unchanged for all five units. At this run, every unowned
+export outside the template statics, vtables and GetValue locals has a provider (Wind defaults:
+`d05bc315e1` and the two commits after it). A new real link is the closure check.
