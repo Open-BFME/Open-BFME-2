@@ -31,3 +31,13 @@ base3b1f72628ff56035f0e132848d11c71b34aee679, one missing current receipt
 (AssistedTargetingUpdate.cpp). Current scoped bytes/EH/data checks passed;
 future current-consumer/image measurement remains necessary. No actual image
 or runtime claim is made.
+
+## Remaining registered factory view reconciled
+
+The first supported merge passed byte/link verification, but its commit hook
+correctly refused the donor's private ThingFactory in the destination. Revert
+that pending move and replace the donor's factory declaration with the existing
+canonical ThingFactory.h in a separate prerequisite commit. Its newObject
+signature is unchanged. Normal3/3, literal, frozen check, EXACT EH and independent
+canonical factory acceptance pass; normal/private code/provider properties
+agree. No check is changed or bypassed. Retry the merge only after this repair.

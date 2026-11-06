@@ -14,7 +14,7 @@ class Team;class ThingTemplate;class Drawable;class ClientUpdateModule;
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../object.h"
 struct CreateMask {unsigned words[4];};
-enum ObjectID; class ThingFactory {public:Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);};extern ThingFactory *TheThingFactory;
+#include "../../../../Include/Common/ThingFactory.h"
 enum NameKeyType {NAMEKEY_INVALID=0};
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;

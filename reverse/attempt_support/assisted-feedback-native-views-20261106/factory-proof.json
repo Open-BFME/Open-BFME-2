@@ -1,0 +1,16 @@
+{
+  "rows": 3,
+  "normal_private_code_and_properties_equal": true,
+  "before_properties_equal": true,
+  "before_definitions": 3,
+  "after_definitions": 3,
+  "removed": [],
+  "added": [],
+  "changed_retained_code": [],
+  "source_sha256": "381f0da73e7d25a2b1cbcb1fb7535be2f19134ad20b14a8249b6f76b0c2b9de0",
+  "object_sha256": "898aae5617423cc28f4ff8b7538b667dfcf2a5f390c0e5dc20645da5a558a74b",
+  "eh": [
+    "EXACT",
+    ""
+  ]
+}
