@@ -1,8 +1,8 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?onEnter@Rva0033F79D@@UAEHXZ, retail 0x0034230C, 64 bytes.
+// ?onEnter@AIAttackAreaState@@UAEHXZ, retail 0x0034230C, 64 bytes.
 // Virtual slot 4 (offset 0x10) of vtable 0x00811900, the class whose dtor
-// ??1Rva0033F79D@@UAE@XZ is rowed in Rva00342228Dtor.cpp (same // cl: line,
+// ??1AIAttackAreaState@@UAE@XZ is rowed in Rva00342228Dtor.cpp (same // cl: line,
 // sibling of the landed AIHuntState slot-4 body at 0x003421B2). Body:
 // m_ptr20 = m_ptr18->slot9() (call [eax+0x24]); frame = TheGameLogic->getFrame()
 // (kept in edi across the next call); r = GetGameLogicRandomValue(0,
@@ -62,7 +62,7 @@ private:
 	char m_pad04[8];
 };
 
-class Rva0033F79D : public Rva0049B47C
+class AIAttackAreaState : public Rva0049B47C
 {
 public:
 	virtual void _slot01();
@@ -78,7 +78,7 @@ private:
 	unsigned int m_24;
 };
 
-int Rva0033F79D::onEnter()
+int AIAttackAreaState::onEnter()
 {
 	m_ptr20 = m_ptr18->getPtr20();
 	unsigned int frame = TheGameLogic->getFrame();

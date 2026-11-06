@@ -414,17 +414,17 @@ AIHuntState::AIHuntState(StateMachine *machine)
 {
 }
 
-// Rva0033F79D: retail 0x0033F79D (37B), hash 0xd08836d8, vtable 0xc11900 callers 0x003527C1
-class Rva0033F79D : public State
+// AIAttackAreaState: retail 0x0033F79D (37B), hash 0xd08836d8, vtable 0xc11900 callers 0x003527C1
+class AIAttackAreaState : public State
 {
 public:
-	Rva0033F79D(StateMachine *machine);
+	AIAttackAreaState(StateMachine *machine);
 	// the rowed destructor 0x00342228 (Rva00342228Dtor.cpp); declared so this
 	// unit does not emit an implicit copy
-	virtual ~Rva0033F79D();
+	virtual ~AIAttackAreaState();
 
 protected:
-	// retail slot 3: the rowed ?xfer@Rva0033F79D@@MAEXPAVXfer@@@Z 0x00342283
+	// retail slot 3: the rowed ?xfer@AIAttackAreaState@@MAEXPAVXfer@@@Z 0x00342283
 	virtual void xfer(Xfer *xfer);
 
 private:
@@ -432,7 +432,7 @@ private:
 	int m_24; // +0x24
 };
 
-Rva0033F79D::Rva0033F79D(StateMachine *machine)
+AIAttackAreaState::AIAttackAreaState(StateMachine *machine)
 	: State(machine, 0xD08836D8u)
 	, m_20(0)
 	, m_24(0)
