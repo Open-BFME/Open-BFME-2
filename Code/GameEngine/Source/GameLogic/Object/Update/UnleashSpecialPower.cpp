@@ -90,7 +90,5 @@ UnleashSpecialPower::UnleashSpecialPower(Thing *thing, const ModuleData *moduleD
 	m_p20 = &s_dummyFD98;
 }
 
-// ??1UnleashSpecialPower@@ present-unmatched
-UnleashSpecialPower::~UnleashSpecialPower()
-{
-}
+// ??1UnleashSpecialPower@@UAE@XZ (retail 0x004CE03D) and its deleting
+// destructor 0x004CE0A2 are defined in ModuleUpdateDtors.cpp.

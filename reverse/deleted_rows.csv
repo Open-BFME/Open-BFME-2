@@ -5213,3 +5213,5 @@ __ehhandler$?rva0055D525@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UA
 ??_GRva0044D285@@UAEPAXI@Z,0x0044D290,"Renamed to ??_GLANPreferences@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C3EF04)"
 ??1Rva004CDD39@@UAE@XZ,0x004CDD39,"Renamed to ??1ActivateModuleSpecialPower@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5FC88)"
 ??_GRva004CDD39@@UAEPAXI@Z,0x004CDD9E,"Renamed to ??_GActivateModuleSpecialPower@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5FC88)"
+??1Rva004CE03D@@UAE@XZ,0x004CE03D,"Renamed to ??1UnleashSpecialPower@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5FDC0)"
+??_GRva004CE03D@@UAEPAXI@Z,0x004CE0A2,"Renamed to ??_GUnleashSpecialPower@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5FDC0)"

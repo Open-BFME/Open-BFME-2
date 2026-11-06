@@ -67,7 +67,7 @@ NameKeyType UnleashSpecialPower::getModuleNameKey() const
 	return TheUnleashSpecialPowerPoolKey;
 }
 
-// tu-skeleton: 0x004CE0A2 28B ??_GRva004CE03D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+// tu-skeleton: 0x004CE0A2 28B ??_GUnleashSpecialPower@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva004CE0BEXfer.cpp
 

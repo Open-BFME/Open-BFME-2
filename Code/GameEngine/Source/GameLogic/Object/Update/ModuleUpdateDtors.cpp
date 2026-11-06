@@ -328,13 +328,13 @@ Rva004AE4E2::~Rva004AE4E2()
 
 
 
-class Rva004CE03D : public Rva0044EF5E
+class UnleashSpecialPower : public Rva0044EF5E
 {
 public:
-	virtual ~Rva004CE03D();
+	virtual ~UnleashSpecialPower();
 };
 
-Rva004CE03D::~Rva004CE03D()
+UnleashSpecialPower::~UnleashSpecialPower()
 {
 	m_p0C = &s_dummy0C;
 	m_p10 = &s_dummy10;

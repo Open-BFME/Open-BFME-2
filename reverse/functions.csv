@@ -6446,7 +6446,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva004CC9BF@@UAE@XZ,,0x004CC9BF,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; OCL consts
 ??1ActivateModuleSpecialPower@@UAE@XZ,,0x004CDD39,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; OCL consts
 ??1Rva004AE4E2@@UAE@XZ,,0x004AE4E2,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; distinct +0x20 dummy
-??1Rva004CE03D@@UAE@XZ,,0x004CE03D,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; distinct +0x20 dummy
+??1UnleashSpecialPower@@UAE@XZ,,0x004CE03D,32,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor; distinct +0x20 dummy
 ??1Rva004AD9B0@@UAE@XZ,,0x004AD9B0,42,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,opaque module dtor with trailing const; reuses +0x0C dummy
 ??_GRva00490D76@@UAEPAXI@Z,,0x00490EB3,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ??_GRva004921B0@@UAEPAXI@Z,,0x00492215,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
@@ -6457,7 +6457,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??_GRva004CC9BF@@UAEPAXI@Z,,0x004CCAF2,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ??_GActivateModuleSpecialPower@@UAEPAXI@Z,,0x004CDD9E,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ??_GRva004AE4E2@@UAEPAXI@Z,,0x004AE567,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
-??_GRva004CE03D@@UAEPAXI@Z,,0x004CE0A2,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
+??_GUnleashSpecialPower@@UAEPAXI@Z,,0x004CE0A2,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ??_GRva004AD9B0@@UAEPAXI@Z,,0x004ADAFF,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp,matched,emitted scalar deleting dtor for opaque row
 ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@2@U32@ABU?$pair@QBVThingTemplate@@H@2@@Z,,0x00759DB0,592,Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp,matched,ScoreKeeper ObjectCountMap hint insert_unique; /G6 member instantiation
 ?insert_unique@?$_Rb_tree@PBVThingTemplate@@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Select1st@U?$pair@QBVThingTemplate@@H@_STL@@@3@U?$less@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@H@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@QBVThingTemplate@@H@_STL@@U?$_Nonconst_traits@U?$pair@QBVThingTemplate@@H@_STL@@@2@@_STL@@_N@2@ABU?$pair@QBVThingTemplate@@H@2@@Z,,0x00759C80,145,Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp,matched,ScoreKeeper ObjectCountMap no-hint insert_unique
