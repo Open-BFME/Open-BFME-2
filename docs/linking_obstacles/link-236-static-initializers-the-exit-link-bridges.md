@@ -20,8 +20,8 @@ AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, 
 copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the four held BlockParse
 nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored units freed since round 2,
 bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642, and two private Drawable views
-replaced, bridged 642 -> 640, then 8 units by their guard's approved function, bridged 640 -> 632;
-next seat continues).
+replaced, bridged 642 -> 640, then 8 units by their guard's approved function, bridged 640 -> 632,
+and MetaEvent's copy, bridged 632 -> 631; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -289,6 +289,16 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     left for the contributor working on DieModule. ControlBar's guard
     (`updateConstructionTextDisplay`) is approved to `ControlBarUnderConstruction.cpp`, which does
     not exist yet.
+- *Copies that open a rowed unit's run (halilkkaya-lk39).* A copy followed in its run by `_$E<n>`
+  rows of one unit, before that run's marker, is that unit's (wrappers come before units in a run,
+  never inside one). MetaEvent.cpp: copy 0x007AD0CC, static right after TheMetaMap, then its two
+  nodes. It now includes the header after FieldParse.h; the nodes move from `_$E1`/`_$E3` to
+  `_$E3`/`_$E5` and were retracted and readmitted by relocation target. Bridged 632 -> 631. The same
+  shape, reverted or not tried: Mouse.cpp (0x007AD3A6, Zero Hour `Thing.h` collides), INIObject.cpp
+  (0x007AD453, `PreRTS.h`), W3DView.cpp (0x007AC07C before `_$E6`, Coord3D collides; LINK-018 is
+  out of scope), GameLOD.cpp (0x007AD6F3, `PreRTS.h`), SpawnBehavior.cpp (0x007B0BFF before
+  `_$E86`, Zero Hour `Drawable.h`) and Eva (0x007AD1B3 before Eva.cpp's nodes; TheEva's definer is
+  not settled).
 - *Copies a unit already compiles (halilkkaya-lk39).* A TU file that includes the canonical header
   compiles its copy, but with no row image_report counts it as unidentified (an unplaced static
   breaks no tie). Cross the unidentified list with the bridged copies' guard units: W3DStreakDraw

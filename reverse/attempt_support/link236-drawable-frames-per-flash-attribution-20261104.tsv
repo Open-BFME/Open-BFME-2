@@ -18,7 +18,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7abfb9	0xde1fbc	?TheW3DHordeModelDrawManager@@3PAVW3DHordeModelDra	W3DHordeModelDrawManager.cpp	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	0	TU does not include Drawable.h yet
 0x7ac012	0xde2004	?W3DGCData00DE2000@@3PAXA	W3DGameClient_setTimeOfDay.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
 0x7ac052	0xde2018	?TheTerrainTracksRenderObjClassSystem@@3PAVTerrain	W3DTerrainTracks.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
-0x7ac07c	0xde2048	?g_Va00DE203C@@3MA		Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp	5	only fragments of the TU include Drawable.h
+0x7ac07c	0xde2048	?g_Va00DE203C@@3MA		Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp	5	W3DView.cpp's copy (run [copy, TheW3DFrameLengthInMsec _$E6]); include tried by lk39 and reverted (Coord3D collision)
 0x7ac0d0	0xde2080	?g_trackDirty@@3EA	TerrainTracksRenderObjClassCreateBuffers.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7ac112	0xde2094	?g_Va00DE2084@@3IA		Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameFont.cpp	0	TU does not include Drawable.h yet
 0x7ac173	0xde487c	?g_Va00DE4878@@3IA			0	no contiguous .bss neighbour with a TU
@@ -60,12 +60,12 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7acb33	0xdec2ec	?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManage	W3DShadow.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7acb92	0xdec3bc	?g_00DEC3B8@@3V?$StringBase@D@@B			0	no contiguous .bss neighbour with a TU
 0x7acfe5	0xdfdbcc	_g_Va00DFDBC8	ArmorStoreReload.cpp	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	0	Drawable.h include tried by in-o7 and reverted: Armor.cpp is Zero Hour-shaped (PreRTS.h); the canonical header collides with Zero Hour's Thing
-0x7ad0cc	0xdfdbfc	?TheMetaMap@@3PAVMetaMap@@A			0	no contiguous .bss neighbour with a TU
+0x7ad0cc	0xdfdbfc	?TheMetaMap@@3PAVMetaMap@@A			0	rowed by lk39 as MetaEvent.cpp _$E1 (run [copy, CommandMap _$E3, DebugCommandMap _$E5]; static after TheMetaMap)
 0x7ad1b3	0xdfdc34	?TheEva@@3PAVEva@@A	EvaEventFXNuggetDoFXObj.cpp	Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
 0x7ad231	0xdfdc40	?TheFXListStore@@3PAVFXListStore@@A	FXList.cpp	Code/GameEngine/Source/GameClient/FXList.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
 0x7ad285	0xdfdc68	?g_Va00DFDC64@@3HA	Locomotor.cpp	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	0	rowed by lk39 as Locomotor.cpp _$E1 (run [copy, five flag sets, Locomotor node _$E3])
-0x7ad3a6	0xdfdca4	?TheMouse@@3PAVMouse@@A	Mouse.cpp	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
-0x7ad453	0xdfdcc4	?busy@?1??updateMouseData@Mouse@@IAEXXZ@4_NA	Mouse.cpp	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
+0x7ad3a6	0xdfdca4	?TheMouse@@3PAVMouse@@A	Mouse.cpp	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	1	Mouse.cpp's copy (run [copy, Mouse nodes]; static after TheMouse); include tried by lk39 and reverted (Zero Hour Thing.h)
+0x7ad453	0xdfdcc4	?busy@?1??updateMouseData@Mouse@@IAEXXZ@4_NA	Mouse.cpp	Code/GameEngine/Source/GameClient/Input/Mouse.cpp	1	INIObject.cpp's copy (run [copy, INIObject nodes]); not tried: the unit is Zero Hour-shaped (PreRTS.h)
 0x7ad4bc	0xdfdcd0	?TheObjectCreationListStore@@3PAVObjectCreationLis	ObjectCreationList.cpp	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
 0x7ad4fb	0xdfdd08	?TheParticleSystemManager@@3PAVParticleSystemManag	INI_parseParticleSystemTemplate.cpp		0	no contiguous .bss neighbour with a TU
 0x7ad6f3	0xdfe148	?TheGameLODManager@@3PAVGameLODManager@@A	GameLOD.cpp	Code/GameEngine/Source/Common/GameLOD.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
