@@ -11,41 +11,29 @@
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-typedef bool Bool;
-typedef unsigned int UnsignedInt;
-typedef UnsignedInt StateID;
-#include "../../../Include/Common/StateMachineClass.h"
-struct TunnelNetworkExitConditions
-{
-	const void *m_vptr;
-	UnsignedInt m_attackGiveUpFrame; // +0x04 (state +0x24)
-};
+#include "../../../Include/GameLogic/AITNGuard.h"
 extern "C" const void *const __identifier("??_7Rva00545D43@@6B@")[];
-class AITNGuardMachine;
-class AITNGuardInnerState : public State
-{
-public:
-	AITNGuardInnerState(StateMachine *machine);
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-private:
-	TunnelNetworkExitConditions m_exitConditions; // +0x20
-	Bool m_scanForEnemy; // +0x28
-	void *m_attackState; // +0x2C
-protected:
-	// retail slot 3: the rowed ?xfer@AITNGuardInnerState@@MAEXPAVXfer@@@Z
-	virtual void xfer(Xfer *xfer);
-public:
-	// retail vftable slot: the rowed override
-	virtual StateReturnType update();
-};
-
 AITNGuardInnerState::AITNGuardInnerState(StateMachine *machine)
 	: State(machine, 0xD405C261u)
 {
 	_ReadWriteBarrier();
 	m_exitConditions.m_attackGiveUpFrame = 0;
 	m_exitConditions.m_vptr = __identifier("??_7Rva00545D43@@6B@");
+}
+
+// Retail vtable 0x00C6A140 slot 1 points at 0x005CB26A (mov eax,[ecx];
+// jmp [eax+0x10]): a tail call to slot 4, onEnter. The body is shared by
+// identical code folding with the rowed forwarder in Rva005CB26AForwarder.cpp.
+void AITNGuardInnerState::loadPostProcess()
+{
+	onEnter();
+}
+
+// Retail vtable 0x00C6A140 slot 2 points at 0x00545D78, which returns the
+// literal "AITNGuardInnerState" at VA 0x00C6A184.
+const char *AITNGuardInnerState::GetSnapshotName() const
+{
+	return "AITNGuardInnerState";
 }
 
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
