@@ -2035,7 +2035,18 @@ const char *ObjectDefectionHelper::GetSnapshotName() const
 
 BFME_LITERAL_NAME_GETTER(Rva0028CA92Named, "ObjectRecoveryHelper")
 
-BFME_LITERAL_NAME_GETTER(Rva0028CB23Named, "ObjectRepulsorHelper")
+// Slot 2 of ObjectRepulsorHelper's primary vftable 0x00BFBDF0, which its
+// constructor 0x0028CAB4 installs (the class's view: ObjectRepulsorHelperCtor.cpp).
+class ObjectRepulsorHelper
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+const char *ObjectRepulsorHelper::GetSnapshotName() const
+{
+	return "ObjectRepulsorHelper";
+}
 
 BFME_DISP_BYTE_GETTER(Rva0028A69AByteField, 0x43C)
 
