@@ -140,15 +140,16 @@ Rva006FC130::Rva006FC130() : Rva006FC130Base(0x1e, 8), Rva006DBits()
 // WB175E910 calls the same scope lookup on a global first, then this+28.
 // PC inlines only the global path. Donor+2C is not the native member layout.
 class AptFrameStack;
-// LINK: defined once here, loader-zeroed. Every reader null-checks first
-// (see below), so zero is behavior-preserving. No ledger address claimed.
-AptFrameStack *g_bfmeFrameStackAtE1835C = 0;
+// The global is VA 0x00E1835C, AptScriptFunctionBase::spFrameStack, which
+// AptScriptFunction.cpp defines and the interpreter sets (Rva006FBED0Cluster.cpp
+// declares it the same way).
+extern "C" AptFrameStack *__identifier("?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A");
 struct Rva006FBE80 {
  BfmeN1034 *find2(int);
  char padding[0x28];
  Rva006FBBE0 *scope;
 };
 BfmeN1034 *Rva006FBE80::find2(int key) {
- if(!g_bfmeFrameStackAtE1835C) return scope ? scope->find(key) : 0;
- return ((Rva006FBBE0 *)g_bfmeFrameStackAtE1835C)->find(key);
+ if(!__identifier("?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A")) return scope ? scope->find(key) : 0;
+ return ((Rva006FBBE0 *)__identifier("?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A"))->find(key);
 }

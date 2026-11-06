@@ -33,6 +33,16 @@ The four:
   (`ff ff ff ff`, the rest zero); ours is a zero COMMON definition, because the carrier's initializer is commented out.
   Online hosting only.
 
+#### One address, several names (23)
+
+Two definitions for one retail datum link as two objects: one side writes, the other reads its own copy. Read
+against retail and the readers:
+
+- 0x00A1835C: **repaired.** `Rva006FB960Cluster.cpp` defined `g_bfmeFrameStackAtE1835C = 0` for the Apt frame stack
+  that `AptScriptFunction.cpp` defines as `AptScriptFunctionBase::spFrameStack` and the interpreter sets. Retail's
+  `Rva006FBE80::find2` (0x006FBE80, `8b 35 5c 83 e1 00`) reads that one pointer, so ours always took the scope fallback
+  and never saw a script frame's variables. It now declares the owner as `Rva006FBED0Cluster.cpp` does.
+
 Remaining / next check: regenerate `reverse/data_ledger.csv` (a separate decision; LINK-619 measured the same staleness)
 and re-read this counter; most of the 183 should then name their current owners.
 
