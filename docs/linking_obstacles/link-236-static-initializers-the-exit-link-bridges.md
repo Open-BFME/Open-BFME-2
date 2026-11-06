@@ -22,7 +22,7 @@ nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored
 bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642, and two private Drawable views
 replaced, bridged 642 -> 640, then 8 units by their guard's approved function, bridged 640 -> 632,
 and MetaEvent's copy, bridged 632 -> 631, and two private Thing views replaced, bridged 631 -> 629,
-and AIStates' copy, bridged 629 -> 628; next seat continues).
+and AIStates' copy, bridged 629 -> 628, and RayEffect's, bridged 628 -> 627; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -312,6 +312,14 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   AIStates (0x007AEB9A before IDLE_COUNTDOWN_DELAY) is rowed the same way in the fragment that
   in-o7 gave the global, `Rva0033FE65OnEnter.cpp`: it includes the header before the definition,
   the copy is `_$E1` and IDLE_COUNTDOWN_DELAY moves to `_$E3`. Bridged 629 -> 628.
+- *Singleton anchors (halilkkaya-lk39, weaker than the guard rule).* About 45 bridged copies sit
+  right after a unit's singleton (`TheX`) in `.bss` with no guard between. The singleton's unit
+  owns the copy unless a unit with no other `.bss` sits between, so these need a second fact.
+  RayEffect.cpp is rowed (0x007AE33C): the copy is alone in its run, its static follows
+  TheRayEffects, the file's only global, and Zero Hour's RayEffect.cpp includes Drawable.h (donor
+  fact). Bridged 628 -> 627. Display.cpp (0x007ADD9D after `g_bfmeVM0Scale`) lacks the donor
+  fact, and View.cpp, W3DTerrainTracks.cpp, GameClient.cpp and the other Zero Hour-shaped
+  singleton units build against Zero Hour's Drawable.h, whose constant is not dynamic.
 - *Copies a unit already compiles (halilkkaya-lk39).* A TU file that includes the canonical header
   compiles its copy, but with no row image_report counts it as unidentified (an unplaced static
   breaks no tie). Cross the unidentified list with the bridged copies' guard units: W3DStreakDraw

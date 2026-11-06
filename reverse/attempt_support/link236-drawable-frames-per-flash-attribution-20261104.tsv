@@ -95,7 +95,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ae240	0xdfef20	?TheWindowManager@@3PAVGameWindowManager@@A	GameWindowManager.cpp	Code/GameEngine/Source/GameClient/GUI/GameWindowManager.cpp	0	TU does not include Drawable.h yet
 0x7ae2be	0xdfefd0	?g_00DFEFCC@@3HA		Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp	0	TU does not include Drawable.h yet
 0x7ae2f8	0xdfefe4	?g_Va00DFEFE0@@3_NA	ReloadIniFileNotices.cpp	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
-0x7ae33c	0xdfeff8	?TheRayEffects@@3PAVRayEffectSystem@@A	RayEffect.cpp	Code/GameEngine/Source/GameClient/System/RayEffect.cpp	0	TU does not include Drawable.h yet
+0x7ae33c	0xdfeff8	?TheRayEffects@@3PAVRayEffectSystem@@A	RayEffect.cpp	Code/GameEngine/Source/GameClient/System/RayEffect.cpp	0	rowed by lk39 as RayEffect.cpp _$E1 (singleton anchor: static after TheRayEffects; Zero Hour's RayEffect.cpp includes Drawable.h)
 0x7ae366	0xdff008	?g_flag2@@3_NA	Rva004CA13Reload.cpp		0	no contiguous .bss neighbour with a TU
 0x7ae39c	0xdff02c	?theRadarWindowOverrideSource@@3PAVRadarWindowOver			0	no contiguous .bss neighbour with a TU
 0x7ae3e1	0xdff06c	?TheAnim2DCollection@@3PAVAnim2DCollection@@A	Anim2D.cpp	Code/GameEngine/Source/GameClient/System/Anim2D.cpp	3	3 fragments of the TU include Drawable.h: row one after merging
