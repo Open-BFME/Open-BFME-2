@@ -1,0 +1,16 @@
+{
+ "commit": "0e8f5c6e8f3cfa35270f176457bbfaaac16a151c",
+ "run_id": "42136415666",
+ "when": "2026-11-06 00:54 UTC",
+ "build": "success",
+ "refusal": null,
+ "authoritative": true,
+ "link_seconds_with_proofs": 345,
+ "linker_exit": 1120,
+ "image_written": false,
+ "unresolved": 310,
+ "duplicates": 0,
+ "objects": 18030,
+ "initializers_bridged": 674,
+ "omitted_funclets": []
+}

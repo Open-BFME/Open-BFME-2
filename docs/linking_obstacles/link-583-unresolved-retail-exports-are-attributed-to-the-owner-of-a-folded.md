@@ -45,3 +45,14 @@ row or provider was added by this recheck. Keep the historical real-link
 count pending the next automated real-link run; this clears only the current
 provider-presence investigation. The Coord3D/Region3D key prerequisites are
 separate. [Exact named definitions and checks](../../reverse/attempt_support/region-export-recheck-20261106/readme.md).
+
+2026-11-06 measurement confirmation: authoritative run42136415666 at
+0e8f5c6e8f3c (00:54 UTC) has310 missing names,0 duplicates and no image.
+Its errors.tsv contains none of the seven IntRange/LineSegment2D names and
+no error attributed to coord3d.cpp. The checked current coord3d.cpp passes
+67/67. Regenerated exit_link_blockers.tsv with the owning --blockers command
+from the SHA256-checked hosted artifact:32 source buckets/311 attributions
+for310 distinct symbols. All old history above is retained. The residual277
+unowned data exports and33 other missing symbols remain; this is confirmation
+of upstream work and queue freshness, not a new code fix by this worker.
+[Official scoreboard, exact errors and refresh evidence](../../reverse/attempt_support/real-link-blockers-refresh-20261106/readme.md).
