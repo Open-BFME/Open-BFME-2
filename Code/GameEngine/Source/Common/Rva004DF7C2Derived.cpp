@@ -37,13 +37,13 @@ public:
 // ?f2@Rva004DF52E_B2@@UAEXXZ present-unmatched
 void Rva004DF52E_B2::f2() {}
 
-class Rva004DF52E : public Rva004DF7C2, public MiBase1, public Rva004DF52E_B2
+class ObjectDefectionHelper : public Rva004DF7C2, public MiBase1, public Rva004DF52E_B2
 {
 public:
-	virtual ~Rva004DF52E();
+	virtual ~ObjectDefectionHelper();
 };
 
-Rva004DF52E::~Rva004DF52E()
+ObjectDefectionHelper::~ObjectDefectionHelper()
 {
 }
 
