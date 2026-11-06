@@ -6,24 +6,8 @@
 // 0x00288609. Retail keeps these out-of-line copies with no direct caller.
 // The fields they read are not identified, so the names are address-derived.
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;	// 0x00288609
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	int getLightPointCost() const;
-	int getEvaEventToPlayOnSuccess() const;
-
-private:
-	char m_pad00[0x30];
-	int m_lightPointCost;	// +0x30
-	char m_pad34[0x44 - 0x34];
-	int m_evaEventToPlayOnSuccess;	// +0x44
-};
+#include "../../../../Include/Common/Overridable.h"
+#include "../../../../Include/Common/SpecialPower.h"
 
 // 0x004210EF (9B)
 int SpecialPowerTemplate::getLightPointCost() const
@@ -47,7 +31,7 @@ public:
 	const int *rva004D9747() const;
 
 private:
-	char m_pad00[0x3C];
+	char m_pad10[0x3C - 0x10];	// after Overridable's +0x00..+0x0F
 	int m_3C;	// +0x3C
 	int m_40;	// +0x40
 };
