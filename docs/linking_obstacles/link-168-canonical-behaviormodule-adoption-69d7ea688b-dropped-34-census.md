@@ -395,3 +395,15 @@ Canonical0x20 UpdateModule view removes the old CRC table dependency; ctor is
 merged into the approved TU,10/10 rows and2 EXACT EH graphs retained. Lifetime
 source still awaits a guard-approved split; no actual image/runtime clearance
 claimed. [Proof and remaining prerequisites](../../reverse/attempt_support/assisted-native-profile-20261106/README.md).
+
+2026-11-06 FXListDie.cpp (real link at 1d41894d2a, seat Burachi-3D):
+- The unit exists to emit ~DieModule (row 0x0045CE54) through a DieModuleAnchor; that emits the Zero Hour
+  ??_7DieModule table whose slot 2 is ?crc@BehaviorModule.
+- Tried: the unit on canonical ObjectModule.h, DieModule.h and NameKeyGenerator.h with RefundDie.cpp's cl
+  line. rva000486598 and its EH graph stay exact, but the canonical header only declares ~DieModule.
+- An explicit DieModule::~DieModule(){} stores vptrs at +0, +0xC, +0x10. Retail 0x0045CE54 stores +0x10
+  (C1C780, DieModuleInterface), then +0 (BEEA7C), then +0xC (BEE9C0), then tail-jumps to ~BehaviorModule.
+  ??1BehaviorModule@@MAE@XZ has no symbols.csv row.
+- Remaining prerequisite: reconcile the canonical DieModule base order and destructor with retail's store
+  order and give ~BehaviorModule its row. Then FXListDie, CreateObjectDie and SpecialPowerCompletionDie can
+  move onto the canonical header. Reverted; nothing landed.
