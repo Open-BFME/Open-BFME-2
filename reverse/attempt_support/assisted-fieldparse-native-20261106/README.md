@@ -52,3 +52,16 @@ The automatic naming reviewer additionally completed two unrelated member
 names; those verified source changes and their records are banked separately.
 Its broad drain has ended; future automatic review is bounded to one file/key/
 batch, keeping this work under one main operator with bounded reviews.
+
+## Shared-donor header prerequisite
+
+The first builder split passed byte/link checks but its commit hook correctly
+refused the private RespawnBodyModuleData declaration carried by shared macro
+text. Revert that pending split. Reconcile the donor with canonical Respawn and
+ActiveBodyModuleData headers, remove its flat Respawn declaration, and unfold
+only the ActiveBody FIELD_PROC into the identical ordinary static definition.
+The original macro otherwise redeclared the canonical base. Normal81/81 and
+all10 data rows pass; every old external code/data provider fact and property
+is unchanged. Respawn header acceptance retires one queue row. Direct ActiveBody
+acceptance also passes (no queued row to retire). No header/gate/pin changes,
+no source-path move and no claim of completed split in this prerequisite.

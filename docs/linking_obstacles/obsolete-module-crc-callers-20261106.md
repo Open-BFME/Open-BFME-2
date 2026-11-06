@@ -77,3 +77,9 @@ lookup. The dummy char is gone; its17B caller resolves the one real table and
 2BC6E add. Normal95/95 +11data,3EXACT EH and63slots pass; bounded3-source preview
 preserves linking. [Admission proof](../../reverse/attempt_support/assisted-fieldparse-native-20261106/README.md).
 No real image or CRC clearance claimed; approved builder source move remains.
+
+2026-11-06 builder split prerequisite: the commit gate correctly refused a
+private RespawnBodyModuleData declaration carried by shared macro text; the
+pending split was reverted. Canonical Respawn/ActiveBody donor headers now
+preserve81/81+10data and all old provider facts; Respawn acceptance retires one
+header queue row. The supported builder split is retried only after this repair.

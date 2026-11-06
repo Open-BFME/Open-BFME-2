@@ -1,3 +1,5 @@
+#include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 char g_00BF1158;
 char g_00BF17BC;
 char g_00BF1B88;
@@ -274,7 +276,10 @@ FIELD_PROC_INLINE(SlavedUpdateModuleData, (unsigned int)&g_00BF2110, SlavedTable
 FIELD_PROC(BoredUpdateModuleData, (unsigned int)&g_00C4F618, BoredFilterTable)
 FIELD_PROC(ModelConditionSoundSelectorClientBehaviorModuleData, (unsigned int)&g_00C5F150, SoundStateTable)
 FIELD_PROC(BannerCarrierUpdateModuleData, (unsigned int)&g_00C4F9E8, HordeTable)
-FIELD_PROC(ActiveBodyModuleData, (unsigned int)&g_00C5B228, SupplyTruckTable)
+void ActiveBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+    parse.add(reinterpret_cast<const FieldParse *>((unsigned int)&g_00C5B228), 0);
+}
 FIELD_PROC(ReflectDamageModuleData, (unsigned int)&g_00C59C70, ReflectDamageTable)
 FIELD_PROC(AISpecialPowerUpdateModuleData, (unsigned int)&g_00C56ED8, SpecialPowerAITable)
 FIELD_PROC(EntEnragedUpdateModuleData, (unsigned int)&g_00C56A98, EnragedTable)
@@ -370,11 +375,7 @@ FIELD_PROC(StealthDetectorUpdateModuleData, (unsigned int)&g_00C52188, Detection
 // 0x4C184F) call this one as their base. Identity: ModuleFactory registers
 // ctor 0x4C14DF and this proc under "RespawnBody"; formerly misnamed
 // RespawnUpdateModuleData.
-class RespawnBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+
 
 void RespawnBodyModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
