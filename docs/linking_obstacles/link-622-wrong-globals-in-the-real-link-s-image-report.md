@@ -6,6 +6,26 @@ Status: Open. Updated: 2026-11-07 (seat halilkkaya-lk42); inspected: `image_repo
 Evidence / affected units: the `globals` section of `tools/image_report.py` over the kept objects. Every address below is
 a retail RVA unless marked VA; retail bytes are `game.dat`'s.
 
+#### The nine named rows
+
+- `contents_differ`, both report artifacts, no image defect. `_vtbl_00C5D608` (`ElvenWoodSpecialPower.cpp`): retail's
+  table is 31 code pointers, then the float -99999.9 (`f3 4f c3 c7`) and "BurnRate". Ours has the same 31 slots, then 4
+  bytes of 8-byte alignment padding before the next hand-built array, `_vtbl_00C5D468`. The ledger records the address as
+  kind `global` with a 248-byte gap, so the report compares 128 bytes instead of the vtable's length. `_Rva012C4C24`
+  (`Y4CommTickIdle.c`): the 57-byte format string is equal; retail's next string, "SRP", starts at +60, while ours pads
+  to +64. The lasting fix for the first is the class's real vtable (ModuleData.h already declares its 31 slots), header
+  lane work.
+- `ours_zero_retail_not`, **repaired**: `g_Va00DD828C`, `g_Va00DD8314` and `g_Va00DD83B4` (`Rva007B6880Thunks.cpp`) are
+  objects of vptr-only classes (`Rva006655B0`, `Rva006680E0`, `Rva00669510`). MSVC folded the inline constructor into
+  the static data, so retail's `.data` holds the table address at load and the initializer only registers the destructor
+  stub (0x007B9B90 and its siblings, the only other writers). Ours were zero, so the getters in `ConstIntGetters.cpp`
+  (0x006655E0 and its siblings) returned objects with a null vptr. Each now holds the address of its table (the existing
+  `_vtbl_00CE3168`-style names) as static data; compared with retail: equal.
+- `constructed_undersized`: `g_Va00E06634` (16 bytes) and `g_Va00E02FF8` (20 bytes) **repaired**, recorded in
+  `globals-constructed-into-storage-smaller-than-retail-2026-11-04.md`. `g_Va00DFF0C4` and `g_00E02EAC` are false alarms,
+  re-read against retail: `UnicodeString`'s constructor 0x00326BE6 writes only +0 (`8b c1 83 20 00 c3`), and `Region2D`'s
+  0x00004C06 writes +0..+0xC; the gaps of 12 and 20 are padding or unreferenced neighbours.
+
 #### No object defines it, and retail's data is not zero (483)
 
 The counter counts ledger rows of kind `global` for which no kept object defines any of the row's names as an external
