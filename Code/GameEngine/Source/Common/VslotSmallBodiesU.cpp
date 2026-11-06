@@ -222,12 +222,14 @@ class Rva004DF897Iface
 public:
 	virtual UpdateSleepTime update() = 0;
 };
-class Rva004DF897 : public Rva00452EDDPrimary<0x10>, public Rva004DF897Iface
+// Slot 0 of ObjectRepulsorHelper's UpdateModuleInterface table 0x00BFBDE4, which
+// its constructor 0x0028CAB4 installs (the class's view: ObjectRepulsorHelperCtor.cpp).
+class ObjectRepulsorHelper : public Rva00452EDDPrimary<0x10>, public Rva004DF897Iface
 {
 public:
 	UpdateSleepTime update();
 };
-UpdateSleepTime Rva004DF897::update()
+UpdateSleepTime ObjectRepulsorHelper::update()
 {
 	m_object->setStatus(OBJECT_STATUS_8, false);
 	return UPDATE_SLEEP_FOREVER;
