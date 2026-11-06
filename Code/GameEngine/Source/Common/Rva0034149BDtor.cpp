@@ -1,23 +1,16 @@
 // cl: /MD /EHsc
 // ??1Rva0034149B@@UAE@XZ @0x0034149B 91B: Rva0034149B public virtual dtor.
-// Vptr install plus member at +0x20 via virtual slot15 then slot0 with 0 plus delete 0x0002FD60 plus base WindModuleInfo 0x0049B47C via row.
-// Precedent Code/GameEngine/Source/Common/Rva0033F33DDtor.cpp (slot0 plus delete plus base WindModuleInfo) plus Rva0041A00FMethod inner if-else for v0.
+// Vptr install plus member at +0x20 via virtual slot15 then slot0 with 0 plus
+// delete 0x0002FD60, then the base State destructor (the rowed
+// ??1State@@UAE@XZ, the 7-byte fold body at 0x0049B47C).
+// The class derives from the canonical State (Include/Common/StateMachine.h):
+// the retail table it installs, 0x008112C0, is the one the State-derived
+// constructor 0x0033F4DF installs, with State's 17-slot shape.
 // Unblocks deleting dtor at 0x00342E58.
 class StateMachine;
-namespace FXParticleSystem {
-class WindModuleInfo {
-public:
-	virtual ~WindModuleInfo();
-	int m_id;
-	int m_successStateID;
-	int m_failureStateID;
-	void *m_transitionsFirst;
-	void *m_transitionsLast;
-	StateMachine *m_machine;
-	bool m_tail1C;
-	char m_pad1D[0x20 - 0x1D];
-};
-}
+
+#include "../../Include/Common/StateMachine.h"
+
 class Rva0034149BMember {
 public:
 	virtual void *v0(int);
@@ -37,7 +30,7 @@ public:
 	virtual void v14();
 	virtual void v15();
 };
-class Rva0034149B : public FXParticleSystem::WindModuleInfo {
+class Rva0034149B : public State {
 public:
 	virtual ~Rva0034149B();
 private:

@@ -4,20 +4,18 @@
 // Twin of 0x0033FC42 (vtable 0x00811DB0): dtor restoring vtable 0x008118B0,
 // calling member +0x20 slot 0x3C when present then deleting it via slot-0
 // scalarDeletingDestructor(0) plus operator delete with null->0 ternary
-// then nulling it inside the if, then calling the fold base at 0x0049B47C.
-// Caller is the deleting dtor 0x00342F95. Layout is base 0x0C plus pad to
-// +0x20 plus pointer. Uses the inside-if shape that gives pop-before-or.
+// then nulling it inside the if, then calling the base State destructor (the
+// rowed ??1State@@UAE@XZ, the 7-byte fold body at 0x0049B47C).
+// Caller is the deleting dtor 0x00342F95. The class derives from the canonical
+// State (Include/Common/StateMachine.h, 0x20 bytes) plus the pointer at
+// +0x20; its retail table is the one the State-derived constructor
+// 0x0033F772 installs. Uses the inside-if shape that gives pop-before-or.
 
 #include <new>
 
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
+class StateMachine;
 
-private:
-	char m_pad04[8];
-};
+#include "../../Include/Common/StateMachine.h"
 
 class Rva00342157Member
 {
@@ -40,13 +38,12 @@ public:
 	virtual void method3C();
 };
 
-class Rva00342157 : public Rva0049B47C
+class Rva00342157 : public State
 {
 public:
 	virtual ~Rva00342157();
 
 private:
-	char m_pad0C[0x20 - 0x0C];
 	Rva00342157Member *m_ptr20;
 };
 

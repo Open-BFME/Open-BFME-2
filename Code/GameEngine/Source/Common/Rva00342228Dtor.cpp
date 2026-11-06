@@ -4,21 +4,19 @@
 // Sibling of ??1Rva00342157 at 0x00342157 (same 91B shape): dtor restoring
 // vtable 0x00811900, calling member +0x20 slot 0x3C when present then deleting
 // it via slot-0 scalarDeletingDestructor(0) plus operator delete with null->0
-// ternary then nulling it inside the if, then calling the fold base at
-// 0x0049B47C (pinned ??1Rva0049B47C). Caller is the unclaimed deleting dtor
-// at 0x00342FB1. Layout is base 0x0C plus pad to +0x20 plus pointer. Uses the
-// inside-if shape that gives pop-before-or.
+// ternary then nulling it inside the if, then calling the base State
+// destructor (the rowed ??1State@@UAE@XZ, the 7-byte fold body at
+// 0x0049B47C). Caller is the deleting dtor at 0x00342FB1. The class derives
+// from the canonical State (Include/Common/StateMachine.h, 0x20 bytes) plus
+// the pointer at +0x20; its retail table is the one the State-derived
+// constructor 0x0033F79D installs. Uses the inside-if shape that gives
+// pop-before-or.
 
 #include <new>
 
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
+class StateMachine;
 
-private:
-	char m_pad04[8];
-};
+#include "../../Include/Common/StateMachine.h"
 
 class Rva00342228Member
 {
@@ -41,13 +39,12 @@ public:
 	virtual void method3C();
 };
 
-class Rva00342228 : public Rva0049B47C
+class Rva00342228 : public State
 {
 public:
 	virtual ~Rva00342228();
 
 private:
-	char m_pad0C[0x20 - 0x0C];
 	Rva00342228Member *m_ptr20;
 };
 

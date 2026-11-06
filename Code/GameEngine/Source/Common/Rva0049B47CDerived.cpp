@@ -10,6 +10,10 @@
 // (opaque Rva names). One ledger row per destructor, landed one commit at
 // a time.
 
+class StateMachine;
+
+#include "../../Include/Common/StateMachine.h"
+
 class Rva0049B47C
 {
 public:
@@ -39,7 +43,10 @@ Rva00252B68::~Rva00252B68()
 {
 }
 
-class Rva00341E22 : public Rva0049B47C
+// Rva00341E22 derives from the canonical State (its retail table 0x00811798
+// is the one the State-derived constructor 0x0033F701 installs); its empty
+// destructor tail-calls the rowed ??1State@@UAE@XZ at the same fold body.
+class Rva00341E22 : public State
 {
 public:
 	virtual ~Rva00341E22();
