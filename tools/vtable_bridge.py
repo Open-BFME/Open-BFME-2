@@ -249,16 +249,34 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
     """Return generated entries and explicit refusal reasons; input order is significant."""
     objects = objects or link_cycle.Objects(inputs)
     names = set().union(*(row_names(row) for row in tables)) if tables else set()
+    # A name must have a unique retail address even when several ledger rows
+    # describe one table. Never pick one conflicting row or slot extent.
+    addresses = collections.defaultdict(set)
+    grouped = collections.defaultdict(list)
+    for row in tables:
+        grouped[int(row["address"], 16)].append(row)
+        for name in row_names(row):
+            addresses[name].add(int(row["address"], 16))
+    merged = []
+    for rva, group in grouped.items():
+        row = dict(group[0])
+        row["names"] = ";".join(sorted(set().union(*(row_names(item) for item in group))))
+        sequences = [retail_slots(retail, item) for item in group]
+        row["_slot_conflict"] = any(sequence != sequences[0] for sequence in sequences[1:])
+        merged.append(row)
+    tables = merged
+    referenced = collections.defaultdict(list)
+    for path in objects.paths:
+        for sym in objects.get(path)[1].values():
+            if sym.name in names and sym.cls == link_cycle.EXTERNAL and sym.sec == 0 and not sym.value:
+                referenced[sym.name].append(str(path))
     found = definitions(objects, names, archives)
     targets = Targets(rows, objects, omitted, object_for, symbol_for, archives)
     sources = {str(Path(path).resolve()): str(source).replace(str(build.ROOT) + "/", "")
                for path, source in (source_of or {}).items()}
     for row in rows:
         sources.setdefault(str(targets.path(row)), row["source"])
-    table_addresses = collections.defaultdict(set)
-    for row in tables:
-        for name in row_names(row):
-            table_addresses[name].add(int(row["address"], 16))
+    table_addresses = addresses
     generated, refused, correct = [], [], []
     for row in tables:
         rva = int(row["address"], 16)
@@ -266,7 +284,8 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         copies = [(name, entry) for name in sorted(names) for entry in found.get(name, [])]
         kept = [(name, entry) for name, entry in copies if not entry["archive"]
                 and not entry.get("common") and not entry.get("absolute")]
-        entry = dict(rva=rva, name=row["name"], names=sorted({name for name, _copy in kept}))
+        active = {name for name, _copy in kept} | (names & referenced.keys())
+        entry = dict(rva=rva, name=row["name"], names=sorted(active))
         slots, reason = retail_slots(retail, row)
         entry["slots"] = len(slots or [])
         previous = next((copy for name, copy in kept if name == row["name"]),
@@ -290,13 +309,13 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
             entry["providers"] = imported
         elif not kept:
             reason = "no-kept-definition"
-        elif len(entry["names"]) != 1:
-            reason = "multiple-kept-names"
-        elif table_addresses[entry["names"][0]] != {rva}:
+        elif row["_slot_conflict"]:
+            reason = "conflicting-retail-slots"
+        elif any(table_addresses[name] != {rva} for name in active):
             reason = "ambiguous-table-name"
         elif any(copy["selection"] != SELECT_ANY for _name, copy in copies):
             reason = "unsupported-selection"
-        elif any(copy["offset"] or copy["other_publics"] or copy["executable"]
+        elif any(copy["offset"] or set(copy["other_publics"]) - names or copy["executable"]
                  for _name, copy in kept):
             reason = "shared-or-prefixed-comdat"
         if reason:
@@ -318,16 +337,20 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         if blocked:
             refused.append({**entry, "reason": blocked[0]["reason"], "blocked": blocked})
             continue
-        name, first = kept[0]
-        if matches(first, slots, targets.addresses):
-            correct.append({**entry, "object": first["object"]})
-            continue
-        generated.append(dict(rva=rva, name=name, slots=resolved,
-                              source=sources.get(first["object"], ""),
-                              previous_object=first["object"], previous_extent=first["extent"],
-                              source_slot_mismatches=source_slot_mismatches(
-                                  first, slots, targets.addresses)))
-    return dict(tables=len(generated), slots=sum(len(entry["slots"]) for entry in generated),
+        for name in sorted(active):
+            first = next((copy for candidate, copy in kept if candidate == name), None)
+            if first is not None and matches(first, slots, targets.addresses):
+                correct.append({**entry, "name": name, "object": first["object"]})
+                continue
+            origin = first["object"] if first else referenced[name][0]
+            generated.append(dict(
+                rva=rva, name=name, names=sorted(active), slots=resolved,
+                source=sources.get(origin, ""), referenced_by=referenced.get(name, []),
+                previous_object=first["object"] if first else None,
+                previous_extent=first["extent"] if first else 0,
+                source_slot_mismatches=source_slot_mismatches(first, slots, targets.addresses)
+                    if first else []))
+    return dict(tables=len(generated), retail_tables=len({entry["rva"] for entry in generated}), slots=sum(len(entry["slots"]) for entry in generated),
                 refused_tables=len(refused), refusal_reasons=dict(collections.Counter(
                     entry["reason"] for entry in refused)), already_correct=len(correct),
                 entries=generated, refusals=refused, correct=correct,
@@ -358,6 +381,9 @@ def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tab
     metadata["queue"] = "vtable_bridge_queue.tsv"
     write_queue(metadata, Path(out) / metadata["queue"])
     (Path(out) / "vtable_bridge.json").write_text(json.dumps(metadata, indent=1) + "\n")
+    print("vtable_bridge: " + json.dumps({key: metadata[key] for key in
+          ("tables", "retail_tables", "slots", "refused_tables", "refusal_reasons", "already_correct")},
+          sort_keys=True))
     return (path if metadata["entries"] else None), metadata
 
 
