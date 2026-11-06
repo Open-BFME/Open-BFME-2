@@ -104,6 +104,7 @@ public:
 class BfmeDualVtableReleaseDtor : public BfmeDualVtableReleaseBase
 {
 public:
+	BfmeDualVtableReleaseDtor(void);
 	BfmeDualVtableReleaseDtor(int unused);
 	virtual ~BfmeDualVtableReleaseDtor(void);
 
@@ -118,7 +119,9 @@ private:
 	void *m_target;  // +0x08
 };
 
-BfmeDualVtableReleaseDtor TheFXParticleEditor(0);
+// Default-constructed, as retail's initializer 0x007AD7DD does (0x00203618,
+// no LoadLibrary). Only init() builds the loading object, inside its catch.
+BfmeDualVtableReleaseDtor TheFXParticleEditor;
 
 void rva00203C21();
 
