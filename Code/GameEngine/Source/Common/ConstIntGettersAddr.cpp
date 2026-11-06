@@ -17,6 +17,15 @@
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 #include "../../Include/Common/INI/FieldParse.h"
 
+// The BigObf fallback key contexts BigObfFallbacks.cpp defines; their getters below
+// return each context's address.
+extern struct FallbackCtx g_engineLoopIndexKeys;
+extern struct FallbackCtx g_loginEmailLengthKeys;
+extern struct FallbackCtx g_nicknameCharIndexKeys;
+extern struct FallbackCtx g_gameSlotIndexKeys;
+extern struct FallbackCtx g_loginFieldLengthKeys;
+extern struct FallbackCtx g_externHandlerIndexKeys;
+
 struct LookupListRec { const char *name; int value; };
 extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
 
@@ -182,14 +191,14 @@ int Rva00309E7FGet(void)
 // call + leave/ret. 2 direct E8 callers, Ghidra-6. Opaque name.
 int Rva0056DD52Get(void)
 {
-	return 0x00DC2884;
+	return (int)&g_loginEmailLengthKeys;
 }
 
 // ?Rva0056DD58Get@@YAHXZ @ 0x0056DD58 (6B): returns 0x00DC2D10. Middle
 // of the triple. 4 direct E8 callers, Ghidra-6. Opaque name.
 int Rva0056DD58Get(void)
 {
-	return 0x00DC2D10;
+	return (int)&g_nicknameCharIndexKeys;
 }
 
 // ?Rva0056DD5EGet@@YAHXZ @ 0x0056DD5E (6B): returns 0x00DC4B60. Closes
@@ -197,7 +206,7 @@ int Rva0056DD58Get(void)
 // Ghidra-6. Opaque name.
 int Rva0056DD5EGet(void)
 {
-	return 0x00DC4B60;
+	return (int)&g_loginFieldLengthKeys;
 }
 
 // ?Rva003EFE9AGet@@YAHXZ @ 0x003EFE9A (6B): returns 0x00DC34A4.
@@ -205,7 +214,7 @@ int Rva0056DD5EGet(void)
 // Ghidra-6, no branch sources. Opaque name.
 int Rva003EFE9AGet(void)
 {
-	return 0x00DC34A4;
+	return (int)&g_gameSlotIndexKeys;
 }
 
 // ?Rva0056B767Get@@YAHXZ @ 0x0056B767 (6B): returns 0x00C6BB18.
@@ -253,7 +262,7 @@ int Rva00433B18Get(void)
 // Ghidra-6, no branch sources. Opaque address-derived name.
 int Rva00226140Get(void)
 {
-	return 0x00DC2274;
+	return (int)&g_engineLoopIndexKeys;
 }
 
 // ?Rva00434091Get@@YAHXZ @ 0x00434091 (6B): returns 0x00DC5170.
@@ -262,7 +271,7 @@ int Rva00226140Get(void)
 // Ghidra-6, no branch sources. Opaque address-derived name.
 int Rva00434091Get(void)
 {
-	return 0x00DC5170;
+	return (int)&g_externHandlerIndexKeys;
 }
 
 
