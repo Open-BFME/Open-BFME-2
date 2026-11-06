@@ -71,3 +71,16 @@ occurrences. Current-object preview LINKS, 272 -> 272 bytes against index
 repair; run `42174078539` still records the missing export, and its 308-name
 real-link count awaits automated measurement of this change. [Evidence and
 remaining checks](../../reverse/attempt_support/line-emission-writer-export-20261106-seat2.md).
+
+2026-11-06 Box writer reconciliation (base `d707d2f53bf`, seat3): the existing
+0x0055D2E8 body now defines retail export ordinal 1941,
+`BoxEmissionVolumeModuleTemplate::writeINI(File &, unsigned int) const`, instead
+of its pointer-taking placeholder. The 4/4 parent/EH rows and EXACT EH graph
+remain; compiled export definitions change 0 -> 1, all 551 external definitions
+are retained after parent/handler rename normalization, and undefined names are
+unchanged. Unit preview stays LINKS 233 -> 233 against `47fd56b879`; it is not
+an export-link check. Status for this subset: repair prepared / awaiting real-link
+verification. Authoritative run42174078539 (`da59156dc4f2`) still lists this
+export among 308 unresolved; no post-repair count or runtime result is claimed.
+Next: confirm disappearance in the scheduled real link.
+[Scoped change and measurements](../../reverse/attempt_support/box-writeini-export-20261106-seat3.md).
