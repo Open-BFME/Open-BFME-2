@@ -33,33 +33,31 @@ class FXList;
 class ObjectCreationList;
 class ParticleSystemTemplate;
 
-struct BoneFXListInfo
+struct BoneLocInfo
 {
-	AsciiString boneName;
+	AsciiString boneName;					// bone name to use for effect pos
+};
+
+struct BaseBoneListInfo
+{
+	BoneLocInfo locInfo;
 	GameClientRandomVariable gameClientDelay;
 	GameLogicRandomVariable gameLogicDelay;
 	bool onlyOnce;
-	unsigned char m_pad[3];
+};
+
+struct BoneFXListInfo : public BaseBoneListInfo
+{
 	const FXList *fx;
 };
 
-struct BoneOCLInfo
+struct BoneOCLInfo : public BaseBoneListInfo
 {
-	AsciiString boneName;
-	GameClientRandomVariable gameClientDelay;
-	GameLogicRandomVariable gameLogicDelay;
-	bool onlyOnce;
-	unsigned char m_pad[3];
 	const ObjectCreationList *ocl;
 };
 
-struct BoneParticleSystemInfo
+struct BoneParticleSystemInfo : public BaseBoneListInfo
 {
-	AsciiString boneName;
-	GameClientRandomVariable gameClientDelay;
-	GameLogicRandomVariable gameLogicDelay;
-	bool onlyOnce;
-	unsigned char m_pad[3];
 	const ParticleSystemTemplate *particleSysTemplate;
 };
 

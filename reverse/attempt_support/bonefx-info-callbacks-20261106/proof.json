@@ -1,0 +1,123 @@
+{
+  "normal_build": "47/47 across the4-source BoneFX cohort",
+  "sources": {
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp": {
+      "source_sha256": "4bd881cb87a2453e51fcc2ea00d6383f385f6c149dab7307674ac8dd1ef10694",
+      "object_sha256": "5d44b6d3ecd0bb1c8245ece48dff50b50d4399ed58c267575b5623a0a95d8a76",
+      "rows": [
+        {
+          "name": "??0BoneFXUpdateModuleData@@QAE@XZ",
+          "target_rva": "0x00487797",
+          "target_size": "196"
+        },
+        {
+          "name": "uw_0078c1a5",
+          "target_rva": "0x0078C1A5",
+          "target_size": "22"
+        },
+        {
+          "name": "uw_0078c1bb",
+          "target_rva": "0x0078C1BB",
+          "target_size": "24"
+        },
+        {
+          "name": "__ehhandler$??0BoneFXUpdateModuleData@@QAE@XZ",
+          "target_rva": "0x0078C1D3",
+          "target_size": "10"
+        },
+        {
+          "name": "$L55676",
+          "target_rva": "0x0078C19D",
+          "target_size": "8"
+        }
+      ],
+      "eh": {
+        "??0BoneFXUpdateModuleData@@QAE@XZ": [
+          "EXACT",
+          ""
+        ]
+      },
+      "canonical_value_ctor": {
+        "name": "??0GameClientRandomVariable@@QAE@XZ",
+        "rva": "0x000B4979",
+        "size": 19,
+        "exact": true,
+        "comdat_selection": 2
+      }
+    },
+    "Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataDtor.cpp": {
+      "source_sha256": "3978fa72c9a912331b481a462bbeb2b68e42057c14fa80310e66393f517b6a9f",
+      "object_sha256": "d019044863fd98ea8bd852b0d7041b645b9070170a1abc4a1c2b49871c9e54a1",
+      "rows": [
+        {
+          "name": "??1BoneFXUpdateModuleData@@UAE@XZ",
+          "target_rva": "0x00487877",
+          "target_size": "111"
+        }
+      ],
+      "eh": {
+        "??1BoneFXUpdateModuleData@@UAE@XZ": [
+          "EXACT",
+          ""
+        ]
+      }
+    }
+  },
+  "callbacks": [
+    {
+      "name": "??1BoneFXListInfo@@QAE@XZ",
+      "parent_offset": 22,
+      "retail_rva": "0x48ba39",
+      "retail_extent": 5,
+      "exact": true,
+      "native": "e9d2a9baff",
+      "unresolved": []
+    },
+    {
+      "name": "??0BoneFXListInfo@@QAE@XZ",
+      "parent_offset": 27,
+      "retail_rva": "0x4874f4",
+      "retail_extent": 23,
+      "exact": true,
+      "native": "0f57c08bc183200083600400f30f114008f30f11400cc3",
+      "unresolved": []
+    },
+    {
+      "name": "??1BoneOCLInfo@@QAE@XZ",
+      "parent_offset": 51,
+      "retail_rva": "0x48ba39",
+      "retail_extent": 5,
+      "exact": true,
+      "native": "e9d2a9baff",
+      "unresolved": []
+    },
+    {
+      "name": "??0BoneOCLInfo@@QAE@XZ",
+      "parent_offset": 56,
+      "retail_rva": "0x4874f4",
+      "retail_extent": 23,
+      "exact": true,
+      "native": "0f57c08bc183200083600400f30f114008f30f11400cc3",
+      "unresolved": []
+    },
+    {
+      "name": "??1BoneParticleSystemInfo@@QAE@XZ",
+      "parent_offset": 81,
+      "retail_rva": "0x48ba39",
+      "retail_extent": 5,
+      "exact": true,
+      "native": "e9d2a9baff",
+      "unresolved": []
+    },
+    {
+      "name": "??0BoneParticleSystemInfo@@QAE@XZ",
+      "parent_offset": 86,
+      "retail_rva": "0x4874f4",
+      "retail_extent": 23,
+      "exact": true,
+      "native": "0f57c08bc183200083600400f30f114008f30f11400cc3",
+      "unresolved": []
+    }
+  ],
+  "boundary": "Old47B info constructors do not match the23B retail callback; only the verified canonical inline-body variant is applied. The module-data bases, novtable policy and table binding remain unchanged. No real image/run or full merge claimed."
+}
