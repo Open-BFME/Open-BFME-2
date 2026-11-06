@@ -31,8 +31,11 @@ refuses a signature change beyond the identifier.
 - `link_check.py --prepare-current`: 6 providers byte-verified.
 - `link_check.py`: 6 of 6 LINKS, 2,245 -> 2,245 bytes against index `d707d2f53b`.
   This is a preview, not an export-link check.
-- A search of `Code/` and the reverse registers finds the old names only in the
-  tombstones and in `reverse/wb_name_leads.csv`, which holds old name leads.
+- No code or ledger row binds an old name. What remains is history and prose: the
+  tombstones, `reverse/re_attempts.log`, `reverse/wb_name_leads.csv`, the older
+  `QAE` spellings in the generated `reverse/name_tiers.csv`, "same shape as" notes on
+  two `functions.csv` rows and evidence comments in `Rva00561DB3Write.cpp` and
+  `Rva0055E6D4Write.cpp`.
 
 No real-link or runtime result is claimed. The last real link in the blocker list,
 at `95341e20cc`, predates this change.
