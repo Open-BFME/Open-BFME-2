@@ -1402,3 +1402,12 @@ source hashes still protect serving and submission; excerpts do not weaken
 staleness checks. Missing references are reported in the packet so the voter
 can inspect the file or skip. Picker exclusions report reasons and a bounded
 sample of paths instead of silently dropping oversized files.
+
+For reviewed (`nr-`) unrowed data admissions, the tool recovers the exact source
+from the commit recording the resolution. Only inserted file-scope definitions
+of registered, agreed globals with their exact registered type are allowed;
+initializers must be literal aggregates. Comments and whitespace may accompany
+these definitions. Removed/replaced lines, extra symbols, directives and runtime
+initializer expressions are refused. Every added agreed definition (including
+peers awaiting admission) must pass compiled extent, retail-byte and relocation
+verification. The ordinary rename source fingerprint rule is unchanged.

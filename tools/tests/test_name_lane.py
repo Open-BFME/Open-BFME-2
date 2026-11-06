@@ -2735,3 +2735,109 @@ def test_oversized_file_without_registered_data_reports_skip_reason(tree, capsys
     err = capsys.readouterr().err
     assert SOURCE in err and '15000 character limit' in err and 'no eligible registered data request' in err
     assert not (tree / 'build/name_lane/sessions/large-no-data.json').exists()
+
+
+
+def resolved_unrowed(tree, key, tmp_path):
+    unrowed_vote(tree, key, 'r-first', 'first-worker', 'g_otherContext', tmp_path)
+    unrowed_vote(tree, key, 'r-second', 'second-worker', 'g_sampleContext', tmp_path)
+    unrowed_vote(tree, key, 'r-third', 'third-worker', 'g_sampleContext', tmp_path)
+    be('first-worker')
+    name_lane.cmd_resolve(lane_of(tree), SimpleNamespace(key=key, name='g_sampleContext',
+                                                       reason='Reviewed the context users and accepted their role'))
+    paths = [SOURCE, name_lane.DATA_REQUESTS, name_lane.VOTES, name_lane.AGREED, name_lane.RESOLUTIONS]
+    _git(tree, 'add', '--', *paths)
+    _git(tree, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'Resolved data name')
+    return lane_of(tree).state()[key]
+
+
+def test_unrowed_resolution_accepts_only_added_definition_and_preserves_ordinary_rename(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = resolved_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    source = tree / SOURCE
+    source.write_text(source.read_text().replace('SampleContext g_sampleContext;', 'SampleContext g_sampleContext = {0};'))
+    with pytest.raises(rename.Refusal, match='source changed'):
+        rename.check_agreement(lane_of(tree).ctx, 'global', 'agree:' + approval['id'],
+                               {approval['old']}, {approval['new']}, 0x3100)
+    data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert lane_of(tree).state()[key]['status'] == 'landed'
+
+
+@pytest.mark.parametrize('edit', ['unrelated', 'removed', 'wrong-name', 'wrong-type', 'extra-symbol', 'call', 'size'])
+def test_unrowed_resolution_refuses_changes_outside_agreed_definition(unrowed, tmp_path, monkeypatch, edit):
+    tree, key = unrowed
+    approval = resolved_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch, actual_size=52 if edit == 'size' else 56)
+    source = tree / SOURCE
+    text = source.read_text().replace('SampleContext g_sampleContext;', 'SampleContext g_sampleContext = {0};')
+    if edit == 'unrelated': text = text.replace('return iVar3;', 'return 7;')
+    elif edit == 'removed': text = text.replace('    int m_count;\n', '')
+    elif edit == 'wrong-name': text = text.replace('SampleContext g_sampleContext =', 'SampleContext g_wrongContext =')
+    elif edit == 'wrong-type': text = text.replace('SampleContext g_sampleContext =', 'int g_sampleContext =')
+    elif edit == 'extra-symbol': text += '\nint unrelatedGlobal = {0};\n'
+    elif edit == 'call': text = text.replace('= {0};', '= {sideEffect()};')
+    source.write_text(text)
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    with pytest.raises(rename.Refusal):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert lane_of(tree).state()[key]['status'] == 'agreed'
+
+
+def test_unrowed_delta_allows_six_literal_contexts_only():
+    import data_rows
+    base = b'struct Context { int value[14]; };\n\nint getter();\n'
+    candidates = {f'g_context{i}': (dict(type='Context'), {}) for i in range(6)}
+    definitions = ''.join(f'Context g_context{i} = {{ {{ 0x41, 0x13, 0 }} }}; // context\n' for i in range(6))
+    current = base.replace(b'\nint getter();', ('\n// data definitions\n' + definitions + '\nint getter();').encode())
+    assert data_rows._admission_definitions(base, current, candidates) == list(candidates)
+    with pytest.raises(rename.Refusal):
+        data_rows._admission_definitions(base, current + b'int extra = {0};\n', candidates)
+
+
+
+def test_six_resolved_definitions_admit_sequentially_and_verify_peer_sizes(unrowed, tmp_path, monkeypatch):
+    import hashlib, data_rows, reloc_ledger
+    from test_data_rows import write_coff, image_with, DATA
+    tree, key = unrowed
+    first = resolved_unrowed(tree, key, tmp_path)
+    sha = hashlib.sha256((tree / SOURCE).read_bytes()).hexdigest()
+    approvals = [first]
+    names = ['g_sampleContext', 'g_alphaKeys', 'g_betaKeys', 'g_gammaKeys', 'g_deltaKeys', 'g_epsilonKeys']
+    for i, name in enumerate(names[1:], 1):
+        be('registrant-peer')
+        lane = lane_of(tree)
+        k = name_lane.register_data(lane, source=SOURCE, address=hex(0x3100 + i * 56), address_kind='rva',
+                                   size=56, type_name='SampleContext', users=[SOURCE], evidence='synthetic context')
+        votes = [dict(key=k, hash=name_agreement.digest(k, name), worker='w-' + digit * 12,
+                      model='fixture', session='fixture', date='2026-11-06') for digit in ('a', 'b')]
+        lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, votes)
+        row = dict(first, id='nr-' + hashlib.sha256(f'{k}|{name}|{sha}'.encode()).hexdigest()[:24],
+                   key=k, new=name, rva=hex(0x3100 + i * 56), agents='', detail='fixture resolution')
+        lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [row])
+        approvals.append(row)
+    _git(tree, 'add', '--', name_lane.DATA_REQUESTS, name_lane.VOTES, name_lane.AGREED)
+    _git(tree, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', 'commit', '-qm', 'Resolve peer names')
+    image_class = reloc_ledger.Image
+    data_rows, _ = admission_fixture(tree, monkeypatch)
+    source = tree / SOURCE
+    source.write_text(source.read_text().replace('SampleContext g_sampleContext;',
+        '\n'.join(f'SampleContext {name} = {{0}};' for name in names)))
+    obj = tree / 'build/fixture.obj'
+    symbols = [f'?{name}@@3USampleContext@@A' for name in names]
+    initializer = bytes(range(56))
+    write_coff(obj, [('.data', DATA, initializer * 6, 56 * 6, [])],
+               [(name, i * 56, 1, data_rows.EXTERNAL) for i, name in enumerate(symbols)])
+    monkeypatch.setattr(reloc_ledger, 'Image', image_class)
+    image = image_with(data=b'\0' * 0x100 + initializer * 6)
+    monkeypatch.setattr(reloc_ledger, 'Image', lambda: image)
+    # Even an admission of the first symbol must refuse a wrong-sized peer.
+    monkeypatch.setattr(data_rows, 'compiled_size', lambda source, symbol: (52 if symbol == symbols[-1] else 56, 'fixture'))
+    with pytest.raises(rename.Refusal, match='size 56 unproven'):
+        data_rows.admit_agreed(first['id'], symbols[0], 'fixture')
+    assert not rows(tree, 'reverse/data_rows.csv')
+    monkeypatch.setattr(data_rows, 'compiled_size', lambda *args: (56, 'fixture'))
+    for approval, symbol in zip(approvals, symbols):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert len(rows(tree, 'reverse/data_rows.csv')) == 6

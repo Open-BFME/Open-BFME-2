@@ -943,6 +943,138 @@ def verify(rows=None, sources=None, compile=True, log=print):
 
 
 
+def _admission_definitions(base, current, candidates):
+    """Only inserted file-scope literal aggregates; no expressions or directives."""
+    import difflib
+    import name_metric
+    import rename
+    before, after = base.decode('utf-8').splitlines(True), current.decode('utf-8').splitlines(True)
+    added = []
+    for tag, i, j, a, b in difflib.SequenceMatcher(None, before, after, autojunk=False).get_opcodes():
+        if tag == 'equal':
+            continue
+        if tag != 'insert':
+            raise rename.Refusal('unrowed admission allows added definitions only; resolved lines changed or removed')
+        prefix = name_metric.strip(''.join(before[:i]))
+        if prefix.count('{') != prefix.count('}') or (i and before[i - 1].rstrip().endswith('\\')):
+            raise rename.Refusal('unrowed definitions must be added at file scope')
+        block = ''.join(after[a:b])
+        if re.search(r'\\\r?\n', block):
+            raise rename.Refusal('line splicing is forbidden in added definitions')
+        added.append(block)
+    # Tokenize comments separately so comment delimiters inside character
+    # literals cannot conceal executable tokens. Strings/macros/calls refuse.
+    token = re.compile(r"(?P<comment>//[^\n]*|/\*[\s\S]*?\*/)|(?P<space>\s+)|"
+                       r"(?P<char>'(?:\\.|[^'\\\r\n])+')|"
+                       r"(?P<number>(?:0[xX][0-9a-fA-F]+|\d+)(?:[uUlL]*))|"
+                       r"(?P<word>[A-Za-z_]\w*)|(?P<punct>::|[{}=;,*+\-])")
+    found = []
+    for block in added:
+        tokens, pos = [], 0
+        while pos < len(block):
+            m = token.match(block, pos)
+            if not m:
+                raise rename.Refusal('unsupported added text in unrowed definition')
+            if m.lastgroup not in ('comment', 'space'):
+                tokens.append((m.lastgroup, m.group()))
+            pos = m.end()
+        pos = 0
+        while pos < len(tokens):
+            matches = []
+            for name, (request, approval) in candidates.items():
+                head = re.findall(r'\w+|::|\*', request['type']) + [name, '=', '{']
+                if [v for _, v in tokens[pos:pos + len(head)]] == head:
+                    matches.append((name, len(head)))
+            if len(matches) != 1:
+                raise rename.Refusal('added definition must use exactly an agreed symbol and its registered type')
+            name, length = matches[0]
+            if name in found:
+                raise rename.Refusal('duplicate added definition')
+            pos += length
+            depth = 1
+            while pos < len(tokens) and depth:
+                kind, value = tokens[pos]
+                if value == '{': depth += 1
+                elif value == '}': depth -= 1
+                elif kind not in ('number', 'char') and value not in (',', '+', '-'):
+                    raise rename.Refusal('unrowed initializer must contain literals only')
+                pos += 1
+            if depth or pos == len(tokens) or tokens[pos][1] != ';':
+                raise rename.Refusal('incomplete unrowed aggregate definition')
+            pos += 1
+            found.append(name)
+    return found
+
+
+def _unrowed_resolution_view(lane, approval, request):
+    """Admission-only source view, anchored to the committed resolution bytes."""
+    import hashlib
+    import subprocess
+    import name_lane
+    import name_agreement
+    import rename
+    source = request['source']
+    base = None
+    revisions = ['--all']
+    seen = set()
+    while True:
+        commits = lane.git('log', '-1', *revisions, '--format=%H', '-G', approval['id'], '--', name_lane.AGREED).splitlines()
+        if not commits:
+            break
+        commit = commits[0]
+        if commit in seen:
+            break
+        seen.add(commit)
+        revisions = [commit + '^@']
+        result = subprocess.run(['git', 'show', f'{commit}:{source}'], cwd=lane.root, capture_output=True)
+        if result.returncode:
+            continue
+        sha = hashlib.sha256(result.stdout).hexdigest()
+        rid = 'nr-' + hashlib.sha256(f"{approval['key']}|{approval['new']}|{sha}".encode()).hexdigest()[:24]
+        if rid == approval['id']:
+            base = result.stdout
+            break
+    if base is None:
+        raise rename.Refusal('cannot recover the exact committed source for this unrowed resolution')
+    candidates = {}
+    for row in lane.state().values():
+        if row['status'] not in ('agreed', 'landed') or not name_lane.unrowed_key(row['key']):
+            continue
+        req = name_lane.request_for_key(lane, row['key'])
+        if req and req['source'] == source:
+            if row['new'] in candidates:
+                raise rename.Refusal('ambiguous agreed data identifier')
+            candidates[row['new']] = (req, row)
+    original = lane.ctx
+    class AdmissionView(rename.Context):
+        def read(self, rel):
+            return original.read(rel)
+
+        def resolution_source_sha(self, rel):
+            if rel == source:
+                _admission_definitions(base, self.read(rel), candidates)
+                return hashlib.sha256(base).hexdigest()
+            return super().resolution_source_sha(rel)
+    view = AdmissionView(lane.root, object_scan=False)
+    def check(row, req):
+        rename.check_agreement(view, 'global', 'agree:' + row['id'], {row['old']}, {row['new']}, int(req['rva'], 16))
+        if row['id'].startswith('nr-'):
+            votes = [v for v in lane.votes() if v['worker'] != req['registrant']]
+            problems = name_agreement.verify_resolution(votes, lane.agreed_rows(), lane.resolutions(),
+                         row['key'], row['new'], view.resolution_source_sha(source))
+            if problems:
+                raise rename.Refusal('unrowed resolution excludes the registrant: ' + '; '.join(problems))
+        else:
+            name_lane.check_unrowed_agreement(lane, row)
+    found = _admission_definitions(base, original.read(source), candidates)
+    if approval['new'] not in found:
+        raise rename.Refusal('the agreed definition must be added before admission')
+    for name in found:
+        req, row = candidates[name]
+        check(row, req)
+    return view, [(candidates[name][0], candidates[name][1]) for name in found], check
+
+
 def admit_agreed(record_id, symbol, model):
     """Admit an agreed unrowed global through the ordinary retail verifier.
 
@@ -971,6 +1103,9 @@ def admit_agreed(record_id, symbol, model):
         raise rename.Refusal('symbol must spell the agreed, non-address-derived global identifier')
     rva = int(request['rva'], 16)
     evidence = 'agree:' + record_id
+    additions, resolution_check = [], None
+    if record_id.startswith('nr-'):
+        lane.ctx, additions, resolution_check = _unrowed_resolution_view(lane, approval, request)
     rename.check_agreement(lane.ctx, 'global', evidence, {approval['old']}, {new}, rva)
     if (any(r.get('name') == symbol for r in lane.ctx.dicts(rename.DATA_ROWS))
             or any(r.get('name') == symbol for r in lane.ctx.rows())
@@ -983,7 +1118,10 @@ def admit_agreed(record_id, symbol, model):
         other = owned.get('name', '')
         if other in (symbol, new) or data_identifier(other) == new or new in (rename.fragments_text(other) or ()):
             raise rename.Refusal(f'{new} already names a converged global: {other}')
-    name_lane.check_unrowed_agreement(lane, approval)
+    if resolution_check:
+        resolution_check(approval, request)
+    else:
+        name_lane.check_unrowed_agreement(lane, approval)
     source = request['source']
     if not model.strip():
         raise rename.Refusal('model is required')
@@ -1011,7 +1149,7 @@ def admit_agreed(record_id, symbol, model):
     plan.verify = [source]
     # The ordinary checks use a private git index. Include the caller's already
     # written definition and naming inputs in that view, without changing them.
-    for path in (source, name_lane.DATA_REQUESTS, name_lane.VOTES, name_lane.MEANINGS):
+    for path in (source, name_lane.DATA_REQUESTS, name_lane.VOTES, name_lane.MEANINGS, name_lane.RESOLUTIONS):
         content = lane.ctx.read(path)
         if content is not None:
             plan.edit(lane.ctx, path, content)
@@ -1025,13 +1163,38 @@ def admit_agreed(record_id, symbol, model):
             snapshot = ((ROOT / source).read_bytes(), obj.read_bytes())
             # Uses the existing sizeof/allocation, retail-byte and relocation
             # checks, including a home for self-references in this candidate.
-            ok, why = verify_row(row, rl.Image(), Resolver(existing + [row]), compile=False, sizer=compiled_size)
+            extra_rows = []
+            symbols = rl.parse_coff(obj.read_bytes())[1]
+            for q, a in additions:
+                matches = [s['name'] for s in symbols.values() if s['section'] > 0
+                           and s['storage'] == EXTERNAL and data_identifier(s['name']) == a['new']]
+                if len(matches) != 1:
+                    raise rename.Refusal('added definition needs one external object symbol')
+                va, extent = IMAGE_BASE + int(q['rva'], 16), int(q['size'])
+                homes = [s[0] for s in retail_sections() if s[1] <= va and va + extent <= s[2]
+                         and not s[3] & EXECUTABLE]
+                if len(homes) != 1:
+                    raise rename.Refusal('added definition does not fit one retail data section')
+                extra_rows.append(dict(name=matches[0], address=q['rva'], address_kind='rva', size=q['size'],
+                                       section=homes[0], source=source, status='matched',
+                                       evidence='agree:' + a['id'], model=model))
+            resolve = Resolver([r for r in existing if r['name'] not in {x['name'] for x in extra_rows}] + extra_rows +
+                               ([] if any(x['name'] == row['name'] for x in extra_rows) else [row]))
+            for extra in extra_rows:
+                ok, why = verify_row(extra, rl.Image(), resolve, compile=False, sizer=compiled_size)
+                if not ok:
+                    raise rename.Refusal('added data definition refused: ' + why)
+            ok, why = verify_row(row, rl.Image(), resolve, compile=False, sizer=compiled_size)
             if not ok:
                 raise rename.Refusal('data admission refused: ' + why)
             if snapshot != ((ROOT / source).read_bytes(), obj.read_bytes()):
                 raise rename.Refusal('source/object changed during data admission')
             rename.check_agreement(ctx, 'global', evidence, {approval['old']}, {new}, rva)
-            name_lane.check_unrowed_agreement(lane, approval)
+            if resolution_check:
+                for q, a in additions:
+                    resolution_check(a, q)
+            else:
+                name_lane.check_unrowed_agreement(lane, approval)
             print('data_rows: ' + why)
             return True
         rename.apply_rename(plan, ctx=lane.ctx, verify=verify_admission, checks=rename.ledger_checks, claimed=held)
