@@ -112,6 +112,28 @@ void INI::parseOnlineChatColorDefinition( INI* ini )
 	ini->initFromINI( GameSpyColor, GameSpyColorFieldParse );
 }
 
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so the node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007AD424). Retail's .data puts this node (0x00DB918C) directly
+// before GameSpyColor (0x00DB9198), and its .text$yc run is INIMultiplayer's
+// two nodes, then this one, then this unit's pool-init marker.
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theOnlineChatColorsBlockParse( "OnlineChatColors", INI::parseOnlineChatColorDefinition );
+
 
 // Retail's 29-entry OnlineChatColors table, VA 0x00DB9198. These defaults
 // include the two offline-player slots and match the on-disk values.

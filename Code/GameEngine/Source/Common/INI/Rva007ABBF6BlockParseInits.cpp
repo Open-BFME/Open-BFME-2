@@ -201,7 +201,6 @@ BlockParse theWindowTransitionBlockParse = { 0, "WindowTransition", INI::parseWi
 BlockParse theDamageFXBlockParse = { 0, "DamageFX", DamageFXStore::parseDamageFXDefinition };	// VA 0x00DB8D1C "DamageFX", parse 0x00360B0F
 BlockParse theMiscEvaDataBlockParse = { 0, "MiscEvaData", INI::parseMiscEvaData };	// VA 0x00DB8D94 "MiscEvaData", parse 0x001DCFE5
 BlockParse theGameDataBlockParse = { 0, "GameData", GlobalData::parseGameDataDefinition };	// VA 0x00DB8DF4 "GameData", parse 0x00237AB1
-BlockParse theOnlineChatColorsBlockParse = { 0, "OnlineChatColors", INI::parseOnlineChatColorDefinition };	// VA 0x00DB918C "OnlineChatColors", parse 0x001EF471
 BlockParse theFXParticleSystemBlockParse = { 0, "FXParticleSystem", INI::parseParticleSystemDefinition };	// VA 0x00DB938C "FXParticleSystem", parse 0x001FD0B4
 BlockParse theSpecialPowerBlockParse = { 0, "SpecialPower", SpecialPowerStore::parseSpecialPowerDefinition };	// VA 0x00DB94A4 "SpecialPower", parse 0x003B15D6
 BlockParse theShellMenuSchemeBlockParse = { 0, "ShellMenuScheme", INI::parseShellMenuSchemeDefinition };	// VA 0x00DB94D4 "ShellMenuScheme", parse 0x00200984
@@ -279,7 +278,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD189();
 	static void rva007AD202();
 	static void rva007AD270();
-	static void rva007AD424();
 	static void rva007AD521();
 	static void rva007AD60C();
 	static void rva007AD621();
@@ -375,8 +373,6 @@ BLOCK_PARSE_INIT( rva007AD189, theDamageFXBlockParse )
 BLOCK_PARSE_INIT( rva007AD202, theMiscEvaDataBlockParse )
 // ?rva007AD270@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD270 (21B): "GameData"
 BLOCK_PARSE_INIT( rva007AD270, theGameDataBlockParse )
-// ?rva007AD424@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD424 (21B): "OnlineChatColors"
-BLOCK_PARSE_INIT( rva007AD424, theOnlineChatColorsBlockParse )
 // ?rva007AD521@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD521 (21B): "FXParticleSystem"
 BLOCK_PARSE_INIT( rva007AD521, theFXParticleSystemBlockParse )
 // ?rva007AD60C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD60C (21B): "SpecialPower"
