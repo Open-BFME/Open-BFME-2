@@ -179,6 +179,7 @@ class Rva0040AAD5 {public:
 Rva0040AAD5 *TheAwardSystemManager=0;
 class Image;
 #include "../../Include/GameClient/Image.h"
+#include <string.h>
 
 extern ImageCollection *TheMappedImageCollection;
 
@@ -546,6 +547,45 @@ struct Rva0040AFF3
 	unsigned char m_data[0x68];
 };
 
+// Retail's assignment callers pass the tag's address: STLport's own const-reference
+// signature, which this unit's allocator shim replaces with a by-value inline.
+namespace _STL {
+template <class _InputIter, class _OutputIter>
+_OutputIter __copy_ptrs(_InputIter __first, _InputIter __last, _OutputIter __result, const __false_type &)
+{
+    return __copy(__first, __last, __result,
+        _STLP_ITERATOR_CATEGORY(__first, _InputIter),
+        _STLP_DISTANCE_TYPE(__first, _InputIter));
+}
+}
+
+//
+// binary_search<int*, int> @0x0040AD75 56B: lower_bound through the rowed
+// __lower_bound<int*, int, less<int>, int> worker 0x0040AC58, then
+// i != last && !(val < *i) with a signed compare. Evidence: sole callee is
+// that worker; callers 0x0040AE1F and 0x0040AE51; unique masked hit.
+//
+// Retail zero-fills the one-byte comparator before passing it by value.
+// Preserve that initialization while using the shared STL comparator type.
+namespace _STL {
+
+template <> int* __lower_bound<int*, int, less<int>, int>(
+    int*, int*, const int&, less<int>, int*);
+
+// ??$binary_search@PAHH@_STL@@YA_NPAH0ABH@Z @0x0040AD75
+template <>
+bool binary_search<int*, int>(int* __first, int* __last, const int& __val)
+{
+	less<int> comparator;
+	memset(&comparator, 0, sizeof(comparator));
+	int* __i = __lower_bound(__first, __last, __val, comparator, (int*)0);
+	return __i != __last && !(__val < *__i);
+}
+
+}
+
+// ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
+
 // ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
@@ -560,17 +600,6 @@ template Rva0040C0C7Element *_STL::__uninitialized_copy<Rva0040C0C7Element *, Rv
 
 template Rva0040C0C7Element *_STL::__uninitialized_fill_n<Rva0040C0C7Element *, unsigned int, Rva0040C0C7Element>(Rva0040C0C7Element *, unsigned int, const Rva0040C0C7Element &, const _STL::__false_type &);
 
-// Retail's assignment callers pass the tag's address: STLport's own const-reference
-// signature, which this unit's allocator shim replaces with a by-value inline.
-namespace _STL {
-template <class _InputIter, class _OutputIter>
-_OutputIter __copy_ptrs(_InputIter __first, _InputIter __last, _OutputIter __result, const __false_type &)
-{
-    return __copy(__first, __last, __result,
-        _STLP_ITERATOR_CATEGORY(__first, _InputIter),
-        _STLP_DISTANCE_TYPE(__first, _InputIter));
-}
-}
 template Rva0040AEE3 *_STL::__copy_ptrs<Rva0040AEE3 *, Rva0040AEE3 *>(Rva0040AEE3 *, Rva0040AEE3 *, Rva0040AEE3 *, const _STL::__false_type &);
 
 // ---- from Code/GameEngine/Source/Common/AwardSystemManager.cpp
@@ -1085,6 +1114,16 @@ template <> void _STL::_Construct<Rva0040AF66, Rva0040AF66>(Rva0040AF66 *__p, co
 	new (__p) Rva0040AF66(__val);
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp
+
+// ??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z @ 0x0040B547 (25B). Range destroy stride 0x68 via rowed dtor.
+// Evidence: retail loop calls rowed ??1Rva0040AFF3@@QAE@XZ 0x0040AFF3 with add esi 0x68; callers 0x0040B59F 0x0040B5FC vector dtors; same 25B shape as rowed 0x0040B52E.
+
+template <> void _STL::_Destroy<Rva0040AFF3 *>(Rva0040AFF3 *__first, Rva0040AFF3 *__last)
+{
+	_STL::__destroy(__first, __last, (Rva0040AFF3 *)0);
+}
+
 // tu-skeleton: 0x0040AAD5 35B ?rva0040AAD5@Rva0040AAD5@@QAEPAUBfmePod40@@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
 // tu-skeleton: 0x0040AC58 57B ??$__lower_bound@PAHHU?$less@H@_STL@@H@_STL@@YAPAHPAH0ABHU?$less@H@0@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
@@ -1099,7 +1138,7 @@ template <> void _STL::_Construct<Rva0040AF66, Rva0040AF66>(Rva0040AF66 *__p, co
 
 // tu-skeleton: 0x0040AD3C 30B ??$__pop_heap_aux@PAHHU?$less@H@_STL@@@_STL@@YAXPAH00U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
 
-// tu-skeleton: 0x0040AD75 56B ??$binary_search@PAHH@_STL@@YA_NPAH0ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_binary_search_int.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_binary_search_int.cpp
 
 // tu-skeleton: 0x0040ADAD 25B ??$make_heap@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
 
@@ -1118,16 +1157,6 @@ template <> void _STL::_Construct<Rva0040AF66, Rva0040AF66>(Rva0040AF66 *__p, co
 // tu-skeleton: 0x0040B247 45B ??$__insertion_sort@PAHU?$less@H@_STL@@@_STL@@YAXPAH0U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp (not merged yet)
 
 // tu-skeleton: 0x0040B274 81B ??$__partial_sort@PAHHU?$less@H@_STL@@@_STL@@YAXPAH000U?$less@H@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp
-
-// ??$_Destroy@PAURva0040AFF3@@@_STL@@YAXPAURva0040AFF3@@0@Z @ 0x0040B547 (25B). Range destroy stride 0x68 via rowed dtor.
-// Evidence: retail loop calls rowed ??1Rva0040AFF3@@QAE@XZ 0x0040AFF3 with add esi 0x68; callers 0x0040B59F 0x0040B5FC vector dtors; same 25B shape as rowed 0x0040B52E.
-
-template <> void _STL::_Destroy<Rva0040AFF3 *>(Rva0040AFF3 *__first, Rva0040AFF3 *__last)
-{
-	_STL::__destroy(__first, __last, (Rva0040AFF3 *)0);
-}
 
 // tu-skeleton: 0x0040B2FD 38B ??$__uninitialized_copy@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0040B2FDUninitCopy.cpp (not merged yet)
 
