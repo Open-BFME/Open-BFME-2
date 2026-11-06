@@ -89,3 +89,24 @@ void *Rva00056F61::rva0020D67C(const AsciiString *key)
         : (char *)node + 8;
 }
 
+// INI block registration (LINK-236). Each unit links its own 12-byte
+// BlockParse nodes onto theBlockParseList from a file-scope object whose
+// inline constructor does the link; MSVC 7.1 builds token and parse in .data,
+// so the node's .text$yc initializer is only the 21-byte link (retail
+// .CRT$XCU 0x007AD845, node 0x00DB984C). It opens the marker-less entries
+// that follow ScriptEngine.cpp's pool-init marker, as INI wrappers do.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theSkyboxTextureSetBlockParse( "SkyboxTextureSet", iniParseEnvironmentSkyboxTextureDefinition );
