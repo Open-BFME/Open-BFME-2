@@ -41,3 +41,30 @@ canonical ThingFactory.h in a separate prerequisite commit. Its newObject
 signature is unchanged. Normal3/3, literal, frozen check, EXACT EH and independent
 canonical factory acceptance pass; normal/private code/provider properties
 agree. No check is changed or bypassed. Retry the merge only after this repair.
+
+## Supported merge completion
+
+tu_skeleton accepts the reconciled feedback donor and absorbs it into the
+approved TU, source files-1. All13 destination rows, two literals and three
+EXACT EH graphs pass the normal build. Its primary13, behavior47 and update3
+table slots remain63/63 verified against retail in the final normal object;
+merged-proof.json records the source/object hashes. Current prediction LINKS595B.
+The two data-owner keys travel with the three code rows; no map assignment is
+regenerated (only source columns are repointed). No matched row is lost.
+
+The complete outgoing move batch since83c586e5fb contains only this absorption.
+move-audit.md finds no active stale consumer, fold-proof or register owner;
+retained old paths are history/census/provenance. The already accepted Player
+queue key leaves with its source in the outgoing net diff; the merge commit
+therefore carries the exact vanished-source Debt-Retired provenance permitted
+by AGENTS.md. No baseline/check edits are used. Its local guard-label inventory
+finding remains in shadow and is not advertised as retired data debt.
+
+Lifetime, module-name and field-parse mixed donors remain separate. No game
+image, runtime behavior or CRC clearance is claimed by these scoped checks.
+
+Final audit currency: the only change after the single-move consumer search was
+the donor's adoption of the canonical ThingFactory header before reapplying the
+same absorption. That header introduces no consumer of the deleted source path.
+The audited move and path consumers remain the same. Final normal13/13,3 EXACT
+EH and63/63 table slots pass after this reconciliation.

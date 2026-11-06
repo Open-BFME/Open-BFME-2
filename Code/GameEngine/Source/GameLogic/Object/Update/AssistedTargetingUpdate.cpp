@@ -29,6 +29,26 @@ class RealRange;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 #define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+#include <string.h>
+#pragma function(memset)
+class Team;
+class ThingTemplate;
+class Drawable;
+class ClientUpdateModule;
+#include "../../../../Include/Common/Player.h"
+#include "../../../Common/Thing/thing.h"
+#include "../../../../Include/GameClient/Drawable.h"
+struct CreateMask {unsigned words[4];};
+#include "../../../../Include/Common/ThingFactory.h"
+extern NameKeyGenerator *TheNameKeyGenerator;
+class ClientUpdateModule {};
+class LaserUpdate:public ClientUpdateModule {public:void initLaser(const Object *,const Coord3D *,const Coord3D *,int);};
+extern GameLogic *TheGameLogic;
+#define BFME_SNAPSHOT_NAME_SLOT
+
 class AsciiString;
 
 class AICommandInterface {
@@ -69,6 +89,8 @@ typedef char AssistedExtent[sizeof(AssistedTargetingUpdate) == 0x20 ? 1 : -1];
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp
+
 bool AssistedTargetingUpdate::isFreeToAssist() const
 {
     const Object *me = getObject();
@@ -98,12 +120,6 @@ UpdateSleepTime AssistedTargetingUpdate::update() { return UPDATE_SLEEP_FOREVER;
 
 void AssistedTargetingUpdate::loadPostProcess() { UpdateModule::loadPostProcess(); }
 
-
-
-// tu-skeleton: 0x00486E76 6B ?GetSnapshotName@AssistedTargetingUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00486E7C 17B ?buildFieldParse@AssistedTargetingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateCtor.cpp
 
 AssistedTargetingUpdate::AssistedTargetingUpdate(Thing *thing, const ModuleData *data) : UpdateModule(thing, data)
@@ -117,10 +133,28 @@ void AssistedTargetingUpdate::xfer(Xfer *xfer)
     UpdateModule::xfer(xfer);
 }
 
-// tu-skeleton: 0x00486F35 219B ?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp (not merged yet)
+// tu-skeleton: 0x00486E76 6B ?GetSnapshotName@AssistedTargetingUpdate@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00486E7C 17B ?buildFieldParse@AssistedTargetingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp
+
+// BF1 AssistedTargetingUpdate_makeFeedbackLaser.cpp9cbfb551 and ZH
+// makeFeedbackLaser supply identity/creation spine. BFME2 native486F35
+// removes ZH setPosition and uses4-arg Laser init36355C, team Player+2EC.
+// Native486F35..487010 RET12; static key LaserUpdate nativeguardE038B8.
+
+void AssistedTargetingUpdate::makeFeedbackLaser(const ThingTemplate *laserTemplate,const Object *from,const Object *to) {
+ if(!m_object->getControllingPlayer()) return;
+ Team *team=m_object->getControllingPlayer()->m_defaultTeam;
+ CreateMask mask;memset(&mask,0,sizeof(mask));
+ Object *laser=TheThingFactory->newObject(laserTemplate,team,&mask,(ObjectID)0);
+ if(!laser) return;
+ Drawable *draw=laser->getDrawable();
+ static const NameKeyType key=TheNameKeyGenerator->nameToKey("LaserUpdate");
+ LaserUpdate *update=(LaserUpdate*)draw->findClientUpdateModule(key);
+ if(!update){TheGameLogic->destroyObject(laser);return;}
+ update->initLaser(m_object,&from->m_cachedPos,&to->m_cachedPos,0);
+}
 
 // tu-skeleton: 0x0078C15D 8B uw_0078c15d -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C16F 13B $L619 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C17C 10B __ehhandler$?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp (not merged yet)

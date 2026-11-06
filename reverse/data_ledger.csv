@@ -20089,8 +20089,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A038A8,4,.data,global,_s_rva007B1396,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A038AC,4,.data,global,?nk@?1??getModuleNameKey@AssistedTargetingUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,owned,,1,2
 0x00A038B0,4,.data,global,??_B?1??getModuleNameKey@AssistedTargetingUpdate@@UBE?AW4NameKeyType@@XZ@51,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,owned,,1,4
-0x00A038B4,4,.data,global,?key@?5??makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp,owned,,1,2
-0x00A038B8,4,.data,global,?$S1@?5??makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdateFeedbackLaser.cpp,owned,,1,2
+0x00A038B4,4,.data,global,?key@?5??makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z@4W4NameKeyType@@B,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,owned,,1,2
+0x00A038B8,4,.data,global,?$S1@?5??makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,owned,,1,2
 0x00A038BC,8,.data,global,_s_rva007B13C0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A038C4,4,.data,global,?g_Va00E038C4@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E038xx.cpp,owned,,1,2
 0x00A038C8,4,.data,global,?TheBoneFXUpdatePoolKey@?1??getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp,owned,,1,2

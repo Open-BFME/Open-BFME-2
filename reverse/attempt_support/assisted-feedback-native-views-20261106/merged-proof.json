@@ -1,0 +1,20 @@
+{
+  "object": "build\\match\\^code_^game^engine_^source_^game^logic_^object_^update_^assisted^targeting^update.obj",
+  "object_sha256": "cffb0f0583263cba27742b8a09e7a410cec8313c9d3e589a6d4afbf5ef9adaab",
+  "source_sha256": "6bf36c87a37a36110776b8048f89bb27010d8085a91f259a5636c2dedcb79819",
+  "base": "0x400000",
+  "exact": 63,
+  "total": 63,
+  "rows": 13,
+  "eh_graphs_exact": 3,
+  "literals": 2,
+  "link_preview": {
+    "own_bytes": 595,
+    "links": true
+  },
+  "tables": {
+    "primary_slots": 13,
+    "behavior_slots": 47,
+    "update_slots": 3
+  }
+}

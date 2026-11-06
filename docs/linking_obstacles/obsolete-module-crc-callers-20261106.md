@@ -56,3 +56,8 @@ the owning data-ledger regeneration. No pin/alias or hand inventory edit.
 [Donor proof](../../reverse/attempt_support/assisted-feedback-native-views-20261106/README.md).
 Publication audit for83c586e5fb: INCONCLUSIVE indexc4354285e7/base3b1f72628f,
 one missing current receipt; carry real-link/current-consumer confirmation.
+
+2026-11-06 supported feedback merge completes: one more source file removed;
+combined TU13/13,2 literals,3 EXACT EH and63/63 table slots pass. Both data owners
+follow the body. Current preview LINKS595B; broader real-link/image selection
+still awaits measurement. See feedback packet move audit and merged proof.
