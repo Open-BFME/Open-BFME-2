@@ -21,21 +21,8 @@
 #include <vector>
 #include "ascii_string.h"
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-
-private:
-	void *m_vtbl;
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	unsigned char m_pad0C[0x10 - 0x04];
-	AsciiString m_name10;
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
 
 class Rva004B555F
 {
@@ -167,7 +154,7 @@ const AsciiString &Object::rva00292330(const AsciiString &name)
 	{
 		const SpecialPowerTemplate *power = GetCreateAHeroSpecialPower(i);
 		const SpecialPowerTemplate *finalOverride = (const SpecialPowerTemplate *)power->friend_getFinalOverride();
-		if (((const StringBase<char> &)name).compareNoCase((const StringBase<char> &)finalOverride->m_name10) == 0)
+		if (((const StringBase<char> &)name).compareNoCase((const StringBase<char> &)finalOverride->m_name) == 0)
 		{
 			BehaviorModule *module = rva0028F2C4(m_createAHeroPowers[i]);
 			if (module != 0)

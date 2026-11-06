@@ -215,14 +215,7 @@ class SpecialAbilityUpdate;
 
 #include "../../../../Include/Common/Overridable.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	int getType() const { return m_type; }
-private:
-	char m_pad10[0x1C - 0x10];
-	int m_type; // +0x1C
-};
+#include "../../../../Include/Common/SpecialPower.h"
 
 class SpecialPowerModuleData
 {
@@ -332,7 +325,7 @@ bool SpecialPowerModule::rva00493620()
 	Object *obj = getObject();
 	if (obj == 0)
 		return true;
-	if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->getType() == 0x20)
+	if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->m_type == 0x20)
 	{
 		if (obj->rva0028C1CC())
 			return false;
@@ -412,7 +405,7 @@ void SpecialPowerModule::initiateIntentToDoSpecialPower(const Object *targetObj,
 	if (targetObj)
 		m_2c = targetObj->getID();
 	const SpecialPowerModuleData *data = getSpecialPowerModuleData();
-	switch (((const SpecialPowerTemplate *)data->m_specialPowerTemplate->friend_getFinalOverride())->getType())
+	switch (((const SpecialPowerTemplate *)data->m_specialPowerTemplate->friend_getFinalOverride())->m_type)
 	{
 	case 0x33:
 	{
