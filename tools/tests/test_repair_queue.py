@@ -1606,6 +1606,13 @@ def _header_fixture(tmp_path, monkeypatch):
     rq, rev, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES[:2] + [DEBT_FILES[3]] + [
         ("Code/Include/Coord3D.h", "struct Coord3D { float x, y, z; };\n"),
         ("Code/Other/Coord3D.h", "// another header of the same name\n")])
+    # Acceptance runs symbol-dependency discovery, which reads the pin and data
+    # ledgers; without them every unit fails as "discovery unavailable" and the
+    # include cases below pass or fail for the wrong reason. This fixture is
+    # about the include, so both ledgers are present and empty.
+    (rev / "symbols.csv").write_text("name,address,notes\n", newline="\n")
+    (rev / "data_rows.csv").write_text(
+        "name,address,address_kind,size,section,source,status,evidence,model\n", newline="\n")
     git = _git_repo(tmp_path)
     monkeypatch.setattr(hal, "ROOT", tmp_path)
     monkeypatch.setattr(hal, "QUEUE", rev / "header_queue.tsv")
