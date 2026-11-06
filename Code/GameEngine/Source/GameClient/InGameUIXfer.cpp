@@ -142,21 +142,8 @@ extern FontLibrary *TheFontLibrary;
 #include "../../Include/Common/GlobalLanguageClass.h"
 extern GlobalLanguage *TheGlobalLanguageData;
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const AsciiString &getName() const { return getFO()->m_name; }
-private:
-	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
-	char m_opaque000[0x10];
-	AsciiString m_name;						// +0x10
-};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 class SpecialPowerStore
 {
