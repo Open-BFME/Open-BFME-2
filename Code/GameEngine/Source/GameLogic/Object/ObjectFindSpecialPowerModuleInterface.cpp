@@ -21,26 +21,8 @@ enum SpecialPowerType
 	SPECIAL_INVALID = 0
 };
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-
-private:
-	void *m_vptr; // +0x00
-public:
-	Overridable *m_nextOverride; // +0x04
-	unsigned char m_isAllocated; // +0x08
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	char m_pad0C[0x10 - 0x0C];
-	void *m_name10; // +0x10 AsciiString, compared at 0x003B11D2
-	char m_pad14[0x1C - 0x14];
-	SpecialPowerType m_type1C; // +0x1C
-};
+#include "../../../Include/Common/Overridable.h"
+#include "../../../Include/Common/SpecialPower.h"
 
 class SpecialPowerModuleInterface;
 
@@ -68,7 +50,7 @@ SpecialPowerModuleInterface *Object::findSpecialPowerModuleInterface(SpecialPowe
 		if (!specialPowerTemplate)
 			continue;
 		const Overridable *finalOverride = specialPowerTemplate->friend_getFinalOverride();
-		if (((const SpecialPowerTemplate *)finalOverride)->m_type1C == type)
+		if (((const SpecialPowerTemplate *)finalOverride)->m_type == type)
 			return sp;
 	}
 	return 0;

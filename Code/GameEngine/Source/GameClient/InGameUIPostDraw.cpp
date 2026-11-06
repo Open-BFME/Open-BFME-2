@@ -124,23 +124,8 @@ extern LivingWorld *TheLivingWorld;
 extern Int BfmeLogicFramesPerSecond;			// LOGICFRAMES_PER_SECOND
 extern float g_secondsPerLogicFrame;			// SECONDS_PER_LOGICFRAME_REAL
 
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
-
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	Bool isSharedNSync() const
-	{
-		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_sharedNSync;
-	}
-
-	char m_opaque00[0x59];
-	Bool m_sharedNSync;							// +0x59
-};
+#include "../../Include/Common/Overridable.h"
+#include "../../Include/Common/SpecialPower.h"
 
 #include "../../Include/GameLogic/Module/SpecialPowerModule.h"
 
