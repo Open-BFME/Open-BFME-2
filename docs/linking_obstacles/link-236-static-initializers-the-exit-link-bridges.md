@@ -17,7 +17,8 @@ the small grab-bags' forms recorded, 4 FrameRate/GlobalInits entries rowed in th
 683 -> 679, then the AttributeModifierStore and BannerUI copies, bridged 679 -> 677, and
 AISpellBookShroudReveal's `g_00E06648`, bridged 677 -> 676, Drawable.cpp's two, bridged
 676 -> 674, and AIStates' IDLE_COUNTDOWN_DELAY, bridged 674 -> 673; halilkkaya-lk39: GameEngine.cpp's
-copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670; next seat continues).
+copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the four held BlockParse
+nodes and two of their units' copies, bridged 670 -> 664; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -329,6 +330,23 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
 
   FXList stays in the grab-bag (above). The other runs hold several callbacks' nodes, or a copy
   whose unit tu_map does not settle, for example AptButtonTooltipMap's run.
+- *The four held nodes, rowed (halilkkaya-lk39).* All four owners were free on 2026-11-07. Each
+  defines its node at the end of the file, and the two that compile the canonical header also
+  take their copy:
+  - `Locomotor.cpp`: Drawable.h after its `GameLogicObjectLookupView.h` include; copy `_$E1`
+    0x007AD285, node `_$E3` 0x007AD2EF. Retail puts the five flag sets between them, so the node's
+    ordinal moves when those are recovered. LocomotorStore's view gains only the static callback.
+  - `AwardSystemManager.cpp`: Drawable.h after its first include block; copy `_$E1` 0x007AFE1E,
+    node `_$E5` 0x007AFE2E (the object skips `_$E3`).
+  - `GameLogic/Object/CreateAHeroManager.cpp`: node `_$E4` 0x007ADB1D after its rowed copy. The
+    atexit-only 0x007ADB11 is still registered by the AtexitInits grab-bag.
+  - `ObjectCreationList.cpp`: node `_$E116` 0x007AD4CC, after its `debrisModelNamesGlobalHack`
+    `_$E113`. It builds against Zero Hour's Drawable.h, so its copy 0x007AD4BC stays bridged until
+    it takes the canonical header.
+
+  Every `??_7` the four objects emit keeps its digest. link_check over the owners, both grab-bags
+  and the callbacks' files: 8/8 link. image_report: bridged 670 -> 664 (exactly these six), twice
+  6 -> 6, unidentified 524 -> 524.
 - *Hazard.* A unit that later takes Drawable.h, or adds a dynamic initializer before these nodes,
   moves their ordinals. Read each `_$E<n>`'s relocation target (its node) again.
 
