@@ -220,12 +220,17 @@ def test_emitted_comdats_are_independent_select_any_with_real_target_relocations
             (0, "_first", L.DIR32), (4, "_second", L.DIR32)]
 
 
-def test_build_bridge_writes_counted_plan_and_refusal_queue(tmp_path, monkeypatch):
+def test_build_bridge_writes_counted_plan_and_refusal_queue(tmp_path, monkeypatch, capsys):
     code, table, rows, data = inputs(tmp_path)
     data.append({"address": "0x3004", "size": "4", "name": "_missing", "kind": "vtable"})
     monkeypatch.setattr(V.build, "row_object", lambda row: code)
     monkeypatch.setattr(V.build, "ledger_object_symbol", lambda row: row["name"])
     path, metadata = V.build_bridge(rows, [table, code], [], [], tmp_path, Retail(), tables=data)
+    # CI logs lost every later line after one unbounded binding dump: print counts only.
+    printed = capsys.readouterr().out.splitlines()
+    assert [line.split(":")[0] for line in printed] == ["vtable_name_discovery", "vtable_bridge"]
+    assert json.loads(printed[1].split(": ", 1)[1])["tables"] == 1
+    assert "new_name_bindings" in json.loads(printed[0].split(": ", 1)[1])
     assert path.name == "retail_vtables.obj"
     assert (metadata["tables"], metadata["slots"], metadata["refused_tables"]) == (1, 2, 1)
     disk = json.loads((tmp_path / "vtable_bridge.json").read_text())
