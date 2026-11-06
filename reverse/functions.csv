@@ -14202,7 +14202,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ZH
 ??0CostModifierUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B5A06,67,Code/GameEngine/Source/GameLogic/Object/Upgrade/CostModifierUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0BuildingBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00456217,89,Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehavior.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0EntEnragedUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B2516,125,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-??0SpawnUnitBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B87E3,65,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0SpawnUnitBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B87E3,65,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004819CF,105,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0ClearanceTestingSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z,,0x00483D39,70,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorCtorThunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0DestroyDie@@QAE@PAVThing@@PBVModuleData@@@Z,,0x0048650E,42,Code/GameEngine/Source/GameLogic/Object/Die/DestroyDie.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls

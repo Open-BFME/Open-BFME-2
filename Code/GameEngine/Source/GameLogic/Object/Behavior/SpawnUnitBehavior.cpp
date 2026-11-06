@@ -48,20 +48,43 @@ enum NameKeyType
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class SpawnUnitBehavior
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
 #include "../../../../Include/Common/XferVersion.h"
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/Common/BfmeAccessorMacros.h"
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
+class SpawnUnitBehaviorGrandBase
+{
+public:
+    SpawnUnitBehaviorGrandBase(Thing *, const ModuleData *);
+    virtual ~SpawnUnitBehaviorGrandBase();
 
+protected:
+    // ObjectModule constructor 0x00113C60 receives the same ModuleData
+    // second argument and stores it at +4 (0x00113C83), as in Module.h.
+    const ModuleData *m_moduleData;
 
-
+private:
+    unsigned char m_pad[4];
+};
+class SpawnUnitBehaviorIface1
+{
+public:
+    virtual ~SpawnUnitBehaviorIface1();
+};
+class SpawnUnitBehaviorIface2
+{
+public:
+    virtual ~SpawnUnitBehaviorIface2();
+};
+// Retail's base vftable 0x00C1C780 (stored at +0x20 before the derived one) starts with
+// a __purecall slot, overridden at 0x00C59120 by the AsciiString getter 0x004B8851; the
+// derived table there holds that one slot, so the interface has no virtual destructor.
+class SpawnUnitBehaviorIface3
+{
+public:
+    virtual void slot0() const = 0;
+};
 
 class Rva004B8732_E1
 {
@@ -79,6 +102,23 @@ private:
 };
 
 BFME_LITERAL_NAME_GETTER(Rva004B8797Named, "SpawnUnitBehavior")
+
+class SpawnUnitBehavior : public UpdateModule, public SpawnUnitBehaviorIface3
+{
+public:
+    SpawnUnitBehavior(Thing *, const ModuleData *);
+
+private:
+    // Factory 0x00125D70 -> callback 0x0020D260 binds SpawnOnce at
+    // ModuleData+0x1c to parseBool (table RVA 0x00CA7008). Retail
+    // 0x0020D147/0x0020D14A copies that byte into this+0x24.
+    unsigned char m_spawnOnce;
+public:
+	// retail slot 4: the rowed ?getModuleNameKey@SpawnUnitBehavior@@UBE?AW4NameKeyType@@XZ
+	virtual NameKeyType getModuleNameKey() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp
 
@@ -123,4 +163,14 @@ void Rva004B8732::xfer(Xfer *xfer)
 
 // tu-skeleton: 0x004B879D 6B ?Rva004B879DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004B87E3 65B ??0SpawnUnitBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorConstructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorConstructor.cpp
+
+// The base is retail's UpdateModule: its constructor (0x00253390) and
+// destructor are rowed elsewhere, so they are declared, never defined here.
+
+// ??0SpawnUnitBehavior@@QAE@PAVThing@@PBVModuleData@@@Z
+SpawnUnitBehavior::SpawnUnitBehavior(Thing *thing, const ModuleData *moduleData)
+    : UpdateModule(thing, moduleData)
+{
+    m_spawnOnce = *(reinterpret_cast<const unsigned char *>(m_moduleData) + 0x1C);
+}
