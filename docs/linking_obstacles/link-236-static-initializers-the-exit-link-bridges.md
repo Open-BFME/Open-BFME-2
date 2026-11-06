@@ -21,8 +21,8 @@ copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the f
 nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored units freed since round 2,
 bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642, and two private Drawable views
 replaced, bridged 642 -> 640, then 8 units by their guard's approved function, bridged 640 -> 632,
-and MetaEvent's copy, bridged 632 -> 631, and two private Thing views replaced, bridged 631 -> 629;
-next seat continues).
+and MetaEvent's copy, bridged 632 -> 631, and two private Thing views replaced, bridged 631 -> 629,
+and AIStates' copy, bridged 629 -> 628; next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -309,6 +309,9 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
   out of scope), GameLOD.cpp (0x007AD6F3, `PreRTS.h`), SpawnBehavior.cpp (0x007B0BFF before
   `_$E86`, Zero Hour `Drawable.h`) and Eva (0x007AD1B3 before Eva.cpp's nodes; TheEva's definer is
   not settled).
+  AIStates (0x007AEB9A before IDLE_COUNTDOWN_DELAY) is rowed the same way in the fragment that
+  in-o7 gave the global, `Rva0033FE65OnEnter.cpp`: it includes the header before the definition,
+  the copy is `_$E1` and IDLE_COUNTDOWN_DELAY moves to `_$E3`. Bridged 629 -> 628.
 - *Copies a unit already compiles (halilkkaya-lk39).* A TU file that includes the canonical header
   compiles its copy, but with no row image_report counts it as unidentified (an unplaced static
   breaks no tie). Cross the unidentified list with the bridged copies' guard units: W3DStreakDraw

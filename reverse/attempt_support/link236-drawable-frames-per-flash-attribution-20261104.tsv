@@ -122,7 +122,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7aeb1c	0xe01dd0	?$S1@?3??bfmeLogMsg574@@YAXPBD@Z@4IA	BfmeLogMsg574.cpp		0	no contiguous .bss neighbour with a TU
 0x7aeb46	0xe01dd8	_s_flammabilityInit	ThingTemplateFlammabilityParse.cpp	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	1	TU file includes Drawable.h but its object has no copy (receipt stale or include conditional)
 0x7aeb70	0xe01de4	?$S1@?1??rva0033EE84@ProjectileStreamUpdate@@SA?AW	ProjectileStreamUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp	1	only fragments of the TU include Drawable.h
-0x7aeb9a	0xe01e00	?$S1@?CA@??computePath@AIAttackMeleeApproachState@	AIStatesBfmeComputePath.cpp	Code/GameEngine/Source/GameLogic/AI/AIStates.cpp	3	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
+0x7aeb9a	0xe01e00	?$S1@?CA@??computePath@AIAttackMeleeApproachState@	AIStatesBfmeComputePath.cpp	Code/GameEngine/Source/GameLogic/AI/AIStates.cpp	3	rowed by lk39 as Rva0033FE65OnEnter.cpp _$E1 (AIStates fragment; run [copy, IDLE_COUNTDOWN_DELAY _$E3, 0x007AEBB7])
 0x7aec1a	0xe01e24	?warnCount@?DB@??getTeamNamed@ScriptEngine@@QAEPAV	ScriptEngineGetTeamNamed.cpp		0	no contiguous .bss neighbour with a TU
 0x7aecc6	0xe01e44	?g_00E01E41@@3IA			0	no contiguous .bss neighbour with a TU
 0x7aecf0	0xe01e60	?TheDamageFXStore@@3PAVDamageFXStore@@A	DamageFX.cpp	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	3	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
