@@ -18,13 +18,9 @@ public:
 	void rva005E2540();
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-private:
-	char m_pad[8];
-};
+// +0x0C is cleared through the canonical holder's clear 0x000AD6F4 but has no
+// destructor of its own in the unwind map, so it is held as a raw pointer.
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva00539926Base
 {
@@ -40,12 +36,13 @@ public:
 private:
 	int m_04;
 	int m_08;
-	Rva000AD6F4 m_0C;
+	void *m_0C;
+	int m_10;
 };
 
 Rva005E21EB::~Rva005E21EB()
 {
-	m_0C.clear();
+	((Rva000AD6F4 *)&m_0C)->clear();
 }
 void Rva005E21EB::rva005E25CD()
 {
