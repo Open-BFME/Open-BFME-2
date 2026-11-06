@@ -287,3 +287,30 @@ void CreateAHeroManager::parseCreateAHeroSubClass(INI *ini, void *, void *store,
 // tu-skeleton: 0x0076ED96 13B $L10689 -- matched in Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp (not merged yet)
 
 // tu-skeleton: 0x0076EDA3 10B __ehhandler$?iniParseCreateAHeroSystem@CreateAHeroManager@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp (not merged yet)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's run for this unit is its
+// Drawable.h copy 0x007ADB01 (_$E1 here), the atexit-only entry 0x007ADB11,
+// then this node's entry 0x007ADB1D (node 0x00DBA184, right after
+// _CreateAHeroSubClassFieldParse in .data) before its pool-init marker
+// 0x007ADB32. The callback 0x00221012 is rowed in
+// INIBfmeBlockParsers_Rva00210F64Parse.cpp.
+void parseArmySummaryDescriptionDefinition(INI *ini);
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theArmySummaryDescriptionBlockParse( "ArmySummaryDescription", parseArmySummaryDescriptionDefinition );

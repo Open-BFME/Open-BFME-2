@@ -45,7 +45,6 @@ void parseLivingWorldMapInfoDefinition(INI *);
 void Rva0021376BParse(INI *);
 void parseCloudEffectDefinition(INI *);
 void parsePlayerAITypeDefinition(INI *);
-void parseArmySummaryDescriptionDefinition(INI *);
 void parseInGameNotificationBoxDefinition(INI *);
 void parseFireLogicSystemDefinition(INI *);
 void parseSkirmishAIDataDefinition(INI *);
@@ -58,7 +57,6 @@ void parseLivingWorldArmyIconDefinition(INI *);
 void Rva003FD7CEParse(INI *);
 void parseLivingWorldBuildingIconDefinition(INI *);
 void parseLivingWorldBuildPlotIconDefinition(INI *);
-void parseAwardSystemDefinition(INI *);
 void parseLivingWorldPlayerArmyDefinition(INI *);
 void parseAutoResolveHandicapLevelDefinition(INI *);
 void parseAutoResolveReinforcementScheduleDefinition(INI *);
@@ -166,11 +164,6 @@ class LivingWorldSound
 public:
 	static void ParseSound(INI *);
 };
-class LocomotorStore
-{
-public:
-	static void parseLocomotorTemplateDefinition(INI *);
-};
 class MetaMap
 {
 public:
@@ -180,11 +173,6 @@ class MissionObjectiveTracker
 {
 public:
 	static void ParseMapMissionObjective(INI *);
-};
-class ObjectCreationListStore
-{
-public:
-	static void parseObjectCreationListDefinition(INI *);
 };
 class Rva00425F10
 {
@@ -220,10 +208,8 @@ BlockParse theDamageFXBlockParse = { 0, "DamageFX", DamageFXStore::parseDamageFX
 BlockParse theMiscEvaDataBlockParse = { 0, "MiscEvaData", INI::parseMiscEvaData };	// VA 0x00DB8D94 "MiscEvaData", parse 0x001DCFE5
 BlockParse theFXListBlockParse = { 0, "FXList", FXListStore::parseFXListDefinition };	// VA 0x00DB8DDC "FXList", parse 0x001E2CAE
 BlockParse theGameDataBlockParse = { 0, "GameData", GlobalData::parseGameDataDefinition };	// VA 0x00DB8DF4 "GameData", parse 0x00237AB1
-BlockParse theLocomotorBlockParse = { 0, "Locomotor", LocomotorStore::parseLocomotorTemplateDefinition };	// VA 0x00DB8F84 "Locomotor", parse 0x001E8A94
 BlockParse theLinearCampaignBlockParse = { 0, "LinearCampaign", LinearCampaignManager::parseLinearCampaignIniBlock };	// VA 0x00DB8FE0 "LinearCampaign", parse 0x001ED580
 BlockParse theOnlineChatColorsBlockParse = { 0, "OnlineChatColors", INI::parseOnlineChatColorDefinition };	// VA 0x00DB918C "OnlineChatColors", parse 0x001EF471
-BlockParse theObjectCreationListBlockParse = { 0, "ObjectCreationList", ObjectCreationListStore::parseObjectCreationListDefinition };	// VA 0x00DB9344 "ObjectCreationList", parse 0x001F0C0B
 BlockParse theFXParticleSystemBlockParse = { 0, "FXParticleSystem", INI::parseParticleSystemDefinition };	// VA 0x00DB938C "FXParticleSystem", parse 0x001FD0B4
 BlockParse theSpecialPowerBlockParse = { 0, "SpecialPower", SpecialPowerStore::parseSpecialPowerDefinition };	// VA 0x00DB94A4 "SpecialPower", parse 0x003B15D6
 BlockParse theShellMenuSchemeBlockParse = { 0, "ShellMenuScheme", INI::parseShellMenuSchemeDefinition };	// VA 0x00DB94D4 "ShellMenuScheme", parse 0x00200984
@@ -247,7 +233,6 @@ BlockParse theFactionVictoryDataBlockParse = { 0, "FactionVictoryData", iniParse
 BlockParse theFontDefaultSettingsBlockParse = { 0, "FontDefaultSettings", FontLibrary::ParseFontDefaultSettings };	// VA 0x00DB9C04 "FontDefaultSettings", parse 0x00218C82
 BlockParse theFontSubstitutionBlockParse = { 0, "FontSubstitution", parseFontSubstitutionDefinition };	// VA 0x00DB9C10 "FontSubstitution", parse 0x00219005
 BlockParse theCreateAHeroSystemBlockParse = { 0, "CreateAHeroSystem", CreateAHeroManager::iniParseCreateAHeroSystem };	// VA 0x00DB9D38 "CreateAHeroSystem", parse 0x0022044C
-BlockParse theArmySummaryDescriptionBlockParse = { 0, "ArmySummaryDescription", parseArmySummaryDescriptionDefinition };	// VA 0x00DBA184 "ArmySummaryDescription", parse 0x00221012
 BlockParse theStrategicHUDBlockParse = { 0, "StrategicHUD", StrategicHUD::ParseSettings };	// VA 0x00DBA190 "StrategicHUD", parse 0x0022157B
 BlockParse theInGameNotificationBoxBlockParse = { 0, "InGameNotificationBox", parseInGameNotificationBoxDefinition };	// VA 0x00DBA19C "InGameNotificationBox", parse 0x0022232E
 extern BlockParse theAptButtonTooltipMapBlockParse;	// VA 0x00DBA1CC "AptButtonTooltipMap", parse 0x00224DFF
@@ -265,7 +250,6 @@ BlockParse theLivingWorldSoundBlockParse = { 0, "LivingWorldSound", LivingWorldS
 BlockParse theLivingWorldAnimObjectBlockParse = { 0, "LivingWorldAnimObject", Rva003FD7CEParse };	// VA 0x00DC18EC "LivingWorldAnimObject", parse 0x003FD7CE
 BlockParse theLivingWorldBuildingIconBlockParse = { 0, "LivingWorldBuildingIcon", parseLivingWorldBuildingIconDefinition };	// VA 0x00DC1AB4 "LivingWorldBuildingIcon", parse 0x00402B19
 BlockParse theLivingWorldBuildPlotIconBlockParse = { 0, "LivingWorldBuildPlotIcon", parseLivingWorldBuildPlotIconDefinition };	// VA 0x00DC1B04 "LivingWorldBuildPlotIcon", parse 0x00402E30
-BlockParse theAwardSystemBlockParse = { 0, "AwardSystem", parseAwardSystemDefinition };	// VA 0x00DC1D9C "AwardSystem", parse 0x0040C32B
 BlockParse theLivingWorldPlayerArmyBlockParse = { 0, "LivingWorldPlayerArmy", parseLivingWorldPlayerArmyDefinition };	// VA 0x00DC1F68 "LivingWorldPlayerArmy", parse 0x0040F0F0
 BlockParse theAutoResolveHandicapLevelBlockParse = { 0, "AutoResolveHandicapLevel", parseAutoResolveHandicapLevelDefinition };	// VA 0x00DC2044 "AutoResolveHandicapLevel", parse 0x0041355D
 BlockParse theLivingWorldAutoResolveSciencePurchasePointBonusBlockParse = { 0, "LivingWorldAutoResolveSciencePurchasePointBonus", LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore::parseLivingWorldAutoResolveSciencePurchasePointBonusBlock };	// VA 0x00DC2050 "LivingWorldAutoResolveSciencePurchasePointBonus", parse 0x00413B4D
@@ -304,10 +288,8 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD202();
 	static void rva007AD241();
 	static void rva007AD270();
-	static void rva007AD2EF();
 	static void rva007AD333();
 	static void rva007AD424();
-	static void rva007AD4CC();
 	static void rva007AD521();
 	static void rva007AD60C();
 	static void rva007AD621();
@@ -331,7 +313,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007ADA7B();
 	static void rva007ADA90();
 	static void rva007ADAD2();
-	static void rva007ADB1D();
 	static void rva007ADB4C();
 	static void rva007ADB6D();
 	static void rva007ADB92();
@@ -349,7 +330,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AFCE3();
 	static void rva007AFD4C();
 	static void rva007AFD61();
-	static void rva007AFE2E();
 	static void rva007AFE97();
 	static void rva007AFFBC();
 	static void rva007AFFD1();
@@ -407,14 +387,10 @@ BLOCK_PARSE_INIT( rva007AD202, theMiscEvaDataBlockParse )
 BLOCK_PARSE_INIT( rva007AD241, theFXListBlockParse )
 // ?rva007AD270@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD270 (21B): "GameData"
 BLOCK_PARSE_INIT( rva007AD270, theGameDataBlockParse )
-// ?rva007AD2EF@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD2EF (21B): "Locomotor"
-BLOCK_PARSE_INIT( rva007AD2EF, theLocomotorBlockParse )
 // ?rva007AD333@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD333 (21B): "LinearCampaign"
 BLOCK_PARSE_INIT( rva007AD333, theLinearCampaignBlockParse )
 // ?rva007AD424@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD424 (21B): "OnlineChatColors"
 BLOCK_PARSE_INIT( rva007AD424, theOnlineChatColorsBlockParse )
-// ?rva007AD4CC@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD4CC (21B): "ObjectCreationList"
-BLOCK_PARSE_INIT( rva007AD4CC, theObjectCreationListBlockParse )
 // ?rva007AD521@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD521 (21B): "FXParticleSystem"
 BLOCK_PARSE_INIT( rva007AD521, theFXParticleSystemBlockParse )
 // ?rva007AD60C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD60C (21B): "SpecialPower"
@@ -461,8 +437,6 @@ BLOCK_PARSE_INIT( rva007ADA7B, theFontDefaultSettingsBlockParse )
 BLOCK_PARSE_INIT( rva007ADA90, theFontSubstitutionBlockParse )
 // ?rva007ADAD2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADAD2 (21B): "CreateAHeroSystem"
 BLOCK_PARSE_INIT( rva007ADAD2, theCreateAHeroSystemBlockParse )
-// ?rva007ADB1D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB1D (21B): "ArmySummaryDescription"
-BLOCK_PARSE_INIT( rva007ADB1D, theArmySummaryDescriptionBlockParse )
 // ?rva007ADB4C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB4C (21B): "StrategicHUD"
 BLOCK_PARSE_INIT( rva007ADB4C, theStrategicHUDBlockParse )
 // ?rva007ADB6D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB6D (21B): "InGameNotificationBox"
@@ -497,8 +471,6 @@ BLOCK_PARSE_INIT( rva007AFCE3, theLivingWorldAnimObjectBlockParse )
 BLOCK_PARSE_INIT( rva007AFD4C, theLivingWorldBuildingIconBlockParse )
 // ?rva007AFD61@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFD61 (21B): "LivingWorldBuildPlotIcon"
 BLOCK_PARSE_INIT( rva007AFD61, theLivingWorldBuildPlotIconBlockParse )
-// ?rva007AFE2E@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFE2E (21B): "AwardSystem"
-BLOCK_PARSE_INIT( rva007AFE2E, theAwardSystemBlockParse )
 // ?rva007AFE97@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFE97 (21B): "LivingWorldPlayerArmy"
 BLOCK_PARSE_INIT( rva007AFE97, theLivingWorldPlayerArmyBlockParse )
 // ?rva007AFFBC@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFFBC (21B): "AutoResolveHandicapLevel"

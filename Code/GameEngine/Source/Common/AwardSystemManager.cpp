@@ -15,6 +15,7 @@ typedef bool Bool;
 #include <algorithm>
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../Include/GameClient/Drawable.h"
 class Rva0040A7D5;
 struct Rva0040ABA5Item;
 const Rva0040ABA5Item *Rva0040AD5AFind(const Rva0040ABA5Item *,const Rva0040ABA5Item *,const Rva0040A7D5 *);
@@ -1245,3 +1246,29 @@ template <> void _STL::_Destroy<Rva0040AFF3 *>(Rva0040AFF3 *__first, Rva0040AFF3
 // tu-skeleton: 0x00785625 8B uw_00785625 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
 // tu-skeleton: 0x0078562D 10B __ehhandler$??1Rva0040B560@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's run for this unit is its
+// Drawable.h copy 0x007AFE1E (static 0x00E02F7C after g_00E02F78), then this
+// node's entry 0x007AFE2E (node 0x00DC1D9C) before its pool-init marker
+// 0x007AFE43. The callback 0x0040C32B is rowed in
+// INIBfmeBlockParsers_Rva00210F64Parse.cpp.
+void parseAwardSystemDefinition(INI *ini);
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theAwardSystemBlockParse( "AwardSystem", parseAwardSystemDefinition );

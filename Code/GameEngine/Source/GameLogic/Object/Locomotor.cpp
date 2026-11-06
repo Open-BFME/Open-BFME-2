@@ -51,6 +51,7 @@ class Xfer;
 typedef bool Bool;
 #include "../../Common/Thing/thing.h"
 #include "../../Common/GameLogicObjectLookupView.h"
+#include "../../../Include/GameClient/Drawable.h"
 #pragma function(memset)
 #include <string.h>
 //
@@ -564,11 +565,17 @@ struct Rva001E6731Head
 	struct Rva001E6731Head *m_0c;
 };
 
+class INI;
+
 class LocomotorStore : public SubsystemInterface
 {
 public:
 	virtual void init();
 	virtual void reset();
+
+	// The INI callback 0x001E8A94 (rowed in Rva001E72B4Reload.cpp); this
+	// unit's Locomotor BlockParse node names it.
+	static void parseLocomotorTemplateDefinition(INI *ini);
 
 private:
 	_STL::map<int, void *> m_locomotorTemplates;
@@ -1365,3 +1372,27 @@ int Locomotor::getLegalSurfaces() const
 {
 	return m_template->m_surfaces;
 }
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's run for this unit is its
+// Drawable.h copy 0x007AD285, five 4-byte flag sets (0x007AD295..0x007AD2DD,
+// not recovered yet), then this node's entry 0x007AD2EF (node 0x00DB8F84)
+// before its pool-init marker 0x007AD304.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theLocomotorBlockParse( "Locomotor", LocomotorStore::parseLocomotorTemplateDefinition );

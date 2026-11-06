@@ -1671,3 +1671,28 @@ void Rva001F01E8::rva001F01E8(int, int, int, int)
 // tu-skeleton: 0x0076B2C5 14B Unwind@00b6b2c5 -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076B2D3 10B __ehhandler$??1GenericObjectCreationNugget@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDtor.cpp (not merged yet)
+
+// INI block registration (LINK-236). BFME's INI keeps its block types on a
+// list of 12-byte BlockParse nodes; each unit links its own nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the
+// link. MSVC 7.1 builds token and parse in .data, so the node's .text$yc
+// initializer is only the 21-byte link. Retail's run for this unit is its
+// Drawable.h copy 0x007AD4BC (static 0x00DFDCD0 after
+// TheObjectCreationListStore), then this node's entry 0x007AD4CC (node
+// 0x00DB9344) before its pool-init marker 0x007AD4E1. This unit still builds
+// against Zero Hour's Drawable.h, whose flash constant is not dynamic, so the
+// copy stays in the grab-bag.
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theObjectCreationListBlockParse( "ObjectCreationList", ObjectCreationListStore::parseObjectCreationListDefinition );
