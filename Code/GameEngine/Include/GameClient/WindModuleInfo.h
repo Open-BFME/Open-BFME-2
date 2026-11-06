@@ -58,6 +58,13 @@ public:
     static const float DEFAULT_MOTION_START_ANGLE_MAX;
     static const float DEFAULT_MOTION_END_ANGLE_MIN;
 
+    static const float DEFAULT_ANGLE;
+    static const float DEFAULT_ANGLE_CHANGE_MIN;
+    static const float DEFAULT_MOTION_START_ANGLE_MIN;
+    static const char DEFAULT_MOTION_MOVING_TO_END_ANGLE;
+    static const float DEFAULT_TURBULENCE_AMPLITUDE;
+    static const float DEFAULT_TURBULENCE_FREQUENCY;
+
     int m_04;
     float m_08;
     float m_0C;

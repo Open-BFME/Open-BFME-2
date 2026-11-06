@@ -54,3 +54,6 @@ Census confirmation: not claimed.
 
 
 **2026-11-06 Wind defaults.** Retail export ordinals 1154, 1145, 1157, 1142, 1143, 1152, 1149 now have their existing four-byte float providers under the exported names. The owner and writer keep their matched code and bind the same retail addresses. All 7 exported data definitions verify against the image. The COFF comparison retains 34 external code bodies; 15 DIR32 edges use the replacement name. The two .data constants and the shared 0x0081B310 provider still need separate reconciliation. A new real-link run is the remaining closure check.
+
+
+A second scoped check provides six additional, previously unowned literal defaults at their retail export names. The six .rdata data definitions match retail exactly and leave all 10 existing external code bodies and relocations unchanged. The enum-valued default still needs its original WindMotion declaration; the two .data constants and the shared 0x0081B310 provider are separate.

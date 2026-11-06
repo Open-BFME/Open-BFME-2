@@ -51,6 +51,12 @@ const float WindModuleInfo::DEFAULT_MOTION_END_ANGLE_MIN = 5.4977874755859375;
 extern "C" const float kG9; const float kG9 = 6.2831854820251465;
 extern "C" float windDefault_00DC0A9C;
 float windDefault_00DC0A9C = 5.4977874755859375f;
+const float WindModuleInfo::DEFAULT_ANGLE = 0.0f;
+const float WindModuleInfo::DEFAULT_ANGLE_CHANGE_MIN = 0.15f;
+const float WindModuleInfo::DEFAULT_MOTION_START_ANGLE_MIN = 0.0f;
+const char WindModuleInfo::DEFAULT_MOTION_MOVING_TO_END_ANGLE = 1;
+const float WindModuleInfo::DEFAULT_TURBULENCE_AMPLITUDE = 0.0f;
+const float WindModuleInfo::DEFAULT_TURBULENCE_FREQUENCY = 0.0f;
 
 WindModuleInfo::WindModuleInfo()
 {
