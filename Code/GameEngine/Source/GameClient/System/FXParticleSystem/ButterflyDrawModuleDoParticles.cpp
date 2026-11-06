@@ -65,6 +65,7 @@ class RenderInfoClass;
 class RefCountClass;
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector3Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 /*
 ** Multiply a Matrix4x4 by a Vector4

@@ -32,6 +32,7 @@ class RefCountClass;
 // Keep the native inline Vector4 constructor while using its existing external owner.
 #include <vector4.h>
 #include "vector3.h"
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix4Data.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
 // Zero Hour matrix4.h's Matrix4x4 * Vector4, which the canonical Matrix4 does not declare.
 __forceinline Vector4 operator * (const Matrix4 & a, const Vector4 & v) {
