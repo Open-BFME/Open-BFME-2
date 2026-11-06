@@ -104,7 +104,7 @@ int t4IsZero005F4180(const float *v);
 
 namespace FXParticleSystem {
 
-extern const char *ParticleShaderTypeNames[];
+extern const char *const ParticleShaderTypeNames[];
 
 struct RenderObjectGroup {
 	AsciiString m_renderGroup;
@@ -137,21 +137,21 @@ void RenderObjectDrawModuleTemplate::writeINI(File &file, unsigned int flags) co
 	if (!(unsigned char)t4IsZero005F4180(&m_groups[0].m_percent))
 		Rva003A5D34Write(oss, flags, "Percent1", m_groups[0].m_percent);
 	if (m_groups[0].m_shader != 8)
-		Rva001F82ABWrite(oss, flags, "Shader1", &ParticleShaderTypeNames[m_groups[0].m_shader]);
+		Rva001F82ABWrite(oss, flags, "Shader1", const_cast<const char **>(&ParticleShaderTypeNames[m_groups[0].m_shader]));
 	if (!m_groups[1].m_renderGroup.isEmpty())
 		Rva001F82EEWrite(oss, flags, "RenderGroup2", m_groups[1].m_renderGroup);
 	Rva00563636Write(oss, flags, "NumObjects2", m_groups[1].m_numObjects);
 	if (!(unsigned char)t4IsZero005F4180(&m_groups[1].m_percent))
 		Rva003A5D34Write(oss, flags, "Percent2", m_groups[1].m_percent);
 	if (m_groups[1].m_shader != 8)
-		Rva001F82ABWrite(oss, flags, "Shader2", &ParticleShaderTypeNames[m_groups[1].m_shader]);
+		Rva001F82ABWrite(oss, flags, "Shader2", const_cast<const char **>(&ParticleShaderTypeNames[m_groups[1].m_shader]));
 	if (!m_groups[2].m_renderGroup.isEmpty())
 		Rva001F82EEWrite(oss, flags, "RenderGroup3", m_groups[2].m_renderGroup);
 	Rva00563636Write(oss, flags, "NumObjects3", m_groups[2].m_numObjects);
 	if (!(unsigned char)t4IsZero005F4180(&m_groups[2].m_percent))
 		Rva003A5D34Write(oss, flags, "Percent3", m_groups[2].m_percent);
 	if (m_groups[2].m_shader != 8)
-		Rva001F82ABWrite(oss, flags, "Shader3", &ParticleShaderTypeNames[m_groups[2].m_shader]);
+		Rva001F82ABWrite(oss, flags, "Shader3", const_cast<const char **>(&ParticleShaderTypeNames[m_groups[2].m_shader]));
 	Rva001F89C3Write(oss, flags, "SinkOnTerrainCollision", &m_sinkOnTerrainCollision);
 	if (!(unsigned char)t4IsZero005F4180(&m_sinkRate))
 		Rva003A5D34Write(oss, flags, "SinkRate", m_sinkRate);

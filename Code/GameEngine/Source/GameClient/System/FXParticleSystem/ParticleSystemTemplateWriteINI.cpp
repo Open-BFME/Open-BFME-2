@@ -87,9 +87,9 @@ void Rva001F9006Write(Stream&,unsigned,const char*,const TreeHintPayload001F8ACB
 class AssetList;
 namespace FXParticleSystem {
 // Defined by ParticleSystemTemplate.cpp (retail VAs 0x00C1B6A4, 0x00C1B610, 0x00C1B640).
-extern const char *ParticlePriorityNames[];
-extern const char *ParticleShaderTypeNames[];
-extern const char *ParticleTypeNames[];
+extern const char *const ParticlePriorityNames[];
+extern const char *const ParticleShaderTypeNames[];
+extern const char *const ParticleTypeNames[];
 class ParticleSystemTemplate { public: void writeINI(File&,unsigned) const; void GetAssetList(AssetList&) const;
 private:
  void *m_vtable; bool m_isOneShot; char gap5[3]; int m_shader,m_type;
@@ -104,10 +104,10 @@ void ParticleSystemTemplate::writeINI(File &file,unsigned flags) const {
  Rva003AFBC1Write(Rva001F9524Concat(Rva001F949DConvert((const WideString&)NarrowString("FXParticleSystem"),' '),m_name.str()).c_str(),&file,&flags);
  Rva003AFBC1Write("System",&file,&flags);
  _STL::basic_ostringstream<char,_STL::char_traits<char>,_STL::allocator<char> > stream(16);
- if(m_priority != 1) Rva001F82ABWrite(stream,flags,"Priority",&ParticlePriorityNames[m_priority]);
+ if(m_priority != 1) Rva001F82ABWrite(stream,flags,"Priority",const_cast<const char **>(&ParticlePriorityNames[m_priority]));
  Rva001F89C3Write(stream,flags,"IsOneShot",&m_isOneShot);
- if(m_shader != 1) Rva001F82ABWrite(stream,flags,"Shader",&ParticleShaderTypeNames[m_shader]);
- if(m_type != 1) Rva001F82ABWrite(stream,flags,"Type",&ParticleTypeNames[m_type]);
+ if(m_shader != 1) Rva001F82ABWrite(stream,flags,"Shader",const_cast<const char **>(&ParticleShaderTypeNames[m_shader]));
+ if(m_type != 1) Rva001F82ABWrite(stream,flags,"Type",const_cast<const char **>(&ParticleTypeNames[m_type]));
  Rva001F82EEWrite(stream,flags,"ParticleName",m_particleName);
  if(!m_slaveSystem.isEmpty()) {
   Rva001F82EEWrite(stream,flags,"SlaveSystem",m_slaveSystem);
