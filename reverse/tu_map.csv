@@ -23025,12 +23025,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002DFBEC,47,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,C,C=0x002DFBA0..0x002DFC1B provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
 0x002DFC1B,219,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/BfmePod72.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
 0x002DFCF6,140,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,C,C=0x002DFC1B..0x002DFD82 provisional,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp
-0x002DFD82,29,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,C,C=0x002DFC1B..0x002DFD9F provisional,Code/Libraries/Source/WWVegas/WWLib/StlportPairConstructFamily.cpp
+0x002DFD82,29,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,C,C=0x002DFC1B..0x002DFD9F provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
 0x002DFD9F,151,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplateCommandPointBonus.cpp
 0x002DFE36,104,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplateCommandPointBonus.cpp
 0x002DFE9E,529,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
-0x002E00AF,29,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportPairConstructFamily.cpp
-0x002E00CC,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportPairConstructFamily.cpp
+0x002E00AF,29,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
+0x002E00CC,45,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
 0x002E00F9,52,code,,,-,,Code/GameEngine/Source/Common/Rva002E00F9Method.cpp
 0x002E012D,153,code,,,-,,Code/GameEngine/Source/Common/INI/Rva002E012DParseBuildingNugget.cpp
 0x002E01C6,49,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/NameKeyListHelpersBFME2.cpp
@@ -72052,8 +72052,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077861C,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,P,P=0x002DFE9E@FuncInfo0x009206AC provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
 0x00778624,8,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,P,P=0x002DFE9E@FuncInfo0x009206AC provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
 0x0077862C,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp,approved,P,P=0x002DFE9E@FuncInfo0x009206AC provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
-0x00778636,14,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportPairConstructFamily.cpp
-0x00778644,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportPairConstructFamily.cpp
+0x00778636,14,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
+0x00778644,10,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingTemplate.cpp
 0x0077864E,8,code,,,-,,Code/GameEngine/Source/Common/INI/Rva002E012DParseBuildingNugget.cpp
 0x00778656,10,code,,,-,,Code/GameEngine/Source/Common/INI/Rva002E012DParseBuildingNugget.cpp
 0x00778660,8,code,,,-,,Code/GameEngine/Source/Common/Rva002E0427Dtor.cpp
