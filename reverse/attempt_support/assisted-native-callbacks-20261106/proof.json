@@ -1,0 +1,48 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp",
+  "row_count": 7,
+  "matched": [
+    "0x00486E31",
+    "0x00486EFD",
+    "0x00487010",
+    "0x00497805",
+    "0x004A6563",
+    "0x0078C146",
+    "0x0078C153"
+  ],
+  "missing": [],
+  "errors": [],
+  "added": [],
+  "removed": [
+    "?findTemplate@ThingFactory@@QAEPBVThingTemplate@@ABVAsciiString@@_N@Z"
+  ],
+  "changed": [
+    "?loadPostProcess@AssistedTargetingUpdate@@MAEXXZ",
+    "?update@AssistedTargetingUpdate@@UAE?AW4UpdateSleepTime@@XZ"
+  ],
+  "checks": [
+    {
+      "name": "?update@AssistedTargetingUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+      "exact": true,
+      "unresolved": [],
+      "native": "b8ffffff3fc3",
+      "relocs": []
+    },
+    {
+      "name": "?loadPostProcess@AssistedTargetingUpdate@@MAEXXZ",
+      "exact": true,
+      "unresolved": [],
+      "native": "e934380f00",
+      "relocs": [
+        [
+          1,
+          20,
+          "?loadPostProcess@UpdateModule@@MAEXXZ"
+        ]
+      ]
+    }
+  ],
+  "normal_private_code_and_provider_routes_identical": true,
+  "retired_hatch_keys": 2,
+  "retained_external_code_definitions": 613
+}

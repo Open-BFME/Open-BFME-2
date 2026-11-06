@@ -1,0 +1,36 @@
+{
+  "rows": 3,
+  "matched": [
+    "0x00486E8D",
+    "0x004DF81B",
+    "0x0078C165"
+  ],
+  "missing": [],
+  "errors": [],
+  "eh": [
+    "EXACT",
+    ""
+  ],
+  "xfer": {
+    "exact": true,
+    "unresolved": [],
+    "native": "568bf18b4c2408e8c75bb2ffff7424088bcee86de7f6ff5ec20400",
+    "relocs": [
+      [
+        8,
+        20,
+        "?Version1@Xfer@@QAEXXZ"
+      ],
+      [
+        19,
+        20,
+        "?xfer@UpdateModule@@UAEXPAVXfer@@@Z"
+      ]
+    ]
+  },
+  "table_sizes": {
+    "??_7AssistedTargetingUpdate@@6B@": 12,
+    "??_7AssistedTargetingUpdate@@6BBehaviorModuleInterface@@@": 188,
+    "??_7AssistedTargetingUpdate@@6BObjectModule@@@": 52
+  }
+}
