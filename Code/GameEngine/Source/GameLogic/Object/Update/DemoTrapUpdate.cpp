@@ -115,6 +115,7 @@ struct Rva00495A2B_H04
 	const WeaponTemplate *m_detonationWeaponTemplate;
 };
 #include "../../../../Include/Common/XferVersion.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 BFME_LITERAL_NAME_GETTER(Rva0049592FNamed, "DemoTrapUpdate")
 
@@ -228,7 +229,7 @@ UpdateSleepTime DemoTrapUpdate::update()
 		return UPDATE_SLEEP_NONE;
 	m_nextScanFrames = data->m_scanRate;
 	bool shallDetonate = false;
-	BfmeWideResult iterator = ThePartitionManager->rva006255D0(&me->m_pos38, data->m_triggerDetonationRange, 0, 0);
+	BfmeWideResult iterator = ThePartitionManager->rva006255D0(&me->m_cachedPos, data->m_triggerDetonationRange, 0, 0);
 	for (Object *other = iterator.next(); other; other = iterator.next())
 	{
 		if (other->isAnyKindOf(reinterpret_cast<const BitFlags<69> &>(data->m_zeroBlock)))
@@ -243,7 +244,7 @@ UpdateSleepTime DemoTrapUpdate::update()
 		}
 		if (other->isAboveTerrain())
 			continue;
-		float dist = ((Rva000CBA20 *)me)->distSq((const Rva000CBA20Point *)&other->m_pos38);
+		float dist = ((Rva000CBA20 *)me)->distSq((const Rva000CBA20Point *)&other->m_cachedPos);
 		if (dist <= data->m_triggerDetonationRange * data->m_triggerDetonationRange)
 		{
 			shallDetonate = true;
@@ -281,7 +282,7 @@ void Rva00495A2B::rva00495A2B()
 		goto doKill;
 	if (obj->testStatus(STATUS_SOLD))
 		goto doKill;
-	TheWeaponStore->createAndFireTempWeapon(m_p04->m_detonationWeaponTemplate, obj, &obj->m_pos38);
+	TheWeaponStore->createAndFireTempWeapon(m_p04->m_detonationWeaponTemplate, obj, &obj->m_cachedPos);
 doKill:
 	obj->kill(DAMAGE_8, DEATH_0);
 	m_b24 = 1;

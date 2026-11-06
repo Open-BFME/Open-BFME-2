@@ -236,17 +236,6 @@ class DamageInfo;
 
 class Rva00263895Member;
 
-class Thing
-{
-public:
-	virtual void unused00();
-	virtual void unused04();
-	virtual Object *asObject();
-
-	unsigned char m_pad04[0x70];
-	unsigned int m_id;
-};
-
 class Object
 {
 public:
@@ -460,6 +449,7 @@ int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 struct FieldParse;
 
 #include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class INI
 {
@@ -556,7 +546,7 @@ void Rva004B2A60::rva004B2A60(Object *obj)
 {
 	Rva00263895Member info;
 	((DamageInfoView *)&info)->m_flag = true;
-	((DamageInfoView *)&info)->m_id = m_thing->m_id;
+	((DamageInfoView *)&info)->m_id = ((Object *)m_thing)->m_id;
 	obj->attemptDamage((DamageInfo *)&info);
 	TheGameLogic->destroyObject(obj);
 }

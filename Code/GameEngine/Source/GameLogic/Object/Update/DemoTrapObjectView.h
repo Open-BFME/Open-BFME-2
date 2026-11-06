@@ -2,7 +2,8 @@
 #define BFME2_DEMO_TRAP_OBJECT_VIEW_H
 
 // Local call/storage views shared by the rowed update and detonation helper.
-// Both retail bodies use Object position +0x38; the helper reads its module
+// Both retail bodies use Object position +0x38 (the canonical Thing's
+// m_cachedPos); the helper reads its module
 // data at +4, Object at +8 and stores the detonation byte at +0x24.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -39,12 +40,7 @@ public:
 	unsigned char m_pad00[0x0c];
 	WeaponSlotType m_slot;
 };
-class Thing
-{
-public:
-	bool isAnyKindOf(const BitFlags<69> &mask) const;
-	bool isAboveTerrain() const;
-};
+#include "../../../Common/Thing/thing.h"
 enum WeaponSetType;
 enum WeaponLockType;
 
@@ -57,9 +53,8 @@ public:
 	void kill(DamageType d, DeathType t);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	Relationship getRelationship(const Object *other) const;
-	unsigned char m_pad00[0x38];
-	Coord3D m_pos38;
-	unsigned char m_pad44[0x438 - 0x44];
+	// The canonical Thing ends at +0x60 (position +0x38 is its m_cachedPos).
+	unsigned char m_pad60[0x438 - 0x60];
 	unsigned char m_dead438;
 };
 struct Rva00495A2B_H04;
