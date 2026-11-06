@@ -140,3 +140,19 @@ scoped provider-identity repair; no reduction of run `42174078539`'s historical
 308 missing names, new image or runtime result is claimed. Await automated
 real-link confirmation; separate Cylinder vtable/data prerequisites remain.
 [Evidence](../../reverse/attempt_support/cylinder-writer-export-20261106-round2-seat2.md).
+
+2026-11-06 round2, Sphere writer (base `85d0ac929f8`, seat3): reconciled the
+existing 0x0055D525 placeholder with retail export ordinal 1957,
+`SphereEmissionVolumeModuleTemplate::writeINI(File &, unsigned int) const`.
+Status for this subset: **Repair prepared / awaiting real-link verification**.
+The supported strict preparation checks 4/4 rows (252B including EH), 2 literals
+and one reusable provider receipt; the EH graph is EXACT. COFF required export
+0 -> 1, all 551 external definitions retained after parent/handler rename
+normalization, with unchanged undefined names and linker directives. Ordinary
+preview stays 1/1 LINKS, 233 -> 233 authored bytes against `47fd56b879`.
+No new code row, body, alias, stub, table or shared-header edit. The previous
+batch's wider affected-consumer prerequisite above remains unproven by this
+provider-only check. Next: bounded publication audit, then confirm disappearance
+in the scheduled real link. Inspected run42174078539 still lists this name
+among 308 unresolved, zero duplicates and no image; no new count is claimed.
+[Scoped evidence and limits](../../reverse/attempt_support/sphere-writeini-export-20261106-round2-seat3.md).
