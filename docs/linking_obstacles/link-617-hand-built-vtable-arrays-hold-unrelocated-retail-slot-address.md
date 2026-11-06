@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Blocked (class identity). Updated: 2026-11-06; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989).
+Status: Blocked (TU evidence, then class identity; header lane). Updated: 2026-11-06; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989).
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -36,6 +36,32 @@ virtual functions in retail slot order (a header via `tools/header_adopt_lane.py
 rename the slot rows into that class with `tools/rename.py`, and let the compiler emit `??_7`, so the
 vptr store relocates. Then delete the address-named array and its ledger alias. Verify with
 `./build.sh` on every touched source and the next image_iso run (the words must leave `defects.tsv`).
+
+Owner: the header lane, with TU evidence first (agreed 2026-11-06). A pilot in the static-defects lane
+(about 50 minutes, nothing landed) found the same blocker in four of the twelve classes. A
+compiler-generated `??_G` has to be emitted by its class's own TU, but none of these deleting-destructor
+rows has an approved TU, and rows move only into an approved unit. Some classes also need a base class
+identified first: HordeMeleeAmoeba's slot 0 at 0x587752 calls a base destructor at 0x468A3F and is
+ICF-folded with two HordeContain destructors.
+
+Queue-ready leads (TU evidence first, then the class):
+- `Rva007EB2C0Object`: 0x658150 (ctor, Rva007EB2C0ObjectDestructor.cpp), 0x658260 (virtual dtor,
+  same file) and 0x6582B0 (its scalar deleting destructor, rowed as `Rva007EB310Owner::destroy` in
+  Rva007EB310Destroy.cpp with the hand-built vptr store). The class is already polymorphic and the
+  compiler already emits its one-slot vtable. Once one TU is approved for the three rows, the row at
+  0x6582B0 becomes the compiler's `??_GRva007EB2C0Object@@UAEPAXI@Z` in that TU, and
+  vftable_01129CB4 and Rva007EB310Destroy.cpp's destroy() are deleted.
+- The CZ class: 0x68A0E0 (ctor `Gen_0081E480`, Bfme5ThirtyTwo.cpp), 0x68A110 (dtor body
+  `BfmeThingUC::bfmeResetUC`, BfmeThreeHundredFiftyFour.cpp, TU proposed BfmeThingUC.cpp), 0x68A130
+  (slot 7 `Rva0068A130::rva0068A130`, Rva0068A130Cluster.cpp) and 0x68A160 (slot 0 deleting destructor
+  `BfmeThingVIH::bfmeDelVIH`, BfmeConv1374.cpp, TU proposed BfmeThingVIH.cpp). These are four
+  placeholder classes for one class with a 19-slot vtable (16 slots are `__purecall`; slot 1 is the
+  ICF twin at 0x7244B0). The cluster sits directly before the approved CompressionManager.cpp
+  (0x68A190), a lead for its TU.
+
+Side fix landed separately: vftable_0112B89C (0x00C1C780, one `__purecall` slot, bound by name in about
+50 FX particle files) now holds `(int)&_purecall` in Rva00800920FeslCtor.cpp. The array stays, because
+those consumers name it.
 
 Not pointers (left as they are):
 - Huff.cpp `LZHLEncoderStat::symbolTable0`: henc.tbl packed {nBits, code} shorts (0x00B70008,
