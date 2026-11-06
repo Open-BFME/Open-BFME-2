@@ -992,13 +992,21 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 #include <cstddef>
-class ModuleData;
-struct NoCaseTreeValue4;
-struct VideoPair;
-class Rva000411084;
-struct StaleCommandSetView { char opaque00[0x0C]; int stale; };
-struct CommandSetNodeView { void *next; AsciiString key; StaleCommandSetView *value; };
 #define BFME_SUBSYSTEM_SLOTS
+#define _STLP_NO_EXCEPTIONS 1
+#include <stl/_algobase.h>
+
+class ModuleData;
+
+struct NoCaseTreeValue4;
+
+struct VideoPair;
+
+class Rva000411084;
+
+struct StaleCommandSetView { char opaque00[0x0C]; int stale; };
+
+struct CommandSetNodeView { void *next; AsciiString key; StaleCommandSetView *value; };
 
 // The canonical ScriptEngine keeps +0x10..+0x1A4E0 opaque; this unit reads
 // the int at +0x1A104 through its own view.
@@ -1400,6 +1408,27 @@ class Image;
 class Drawable;
 
 class WindowLayout;
+
+// Opaque record offsets; keep the canonical ModuleData pointer in the ABI.
+struct Rva0031BF1BRecordView
+{
+	char m_pad00[0xC];
+	int m_removed; // +0x0C
+	char m_pad10[0x8];
+	ModuleData *m_next; // +0x18
+};
+
+class Rva0031BF1B
+{
+public:
+    unsigned char m_pad00[0x2c];
+    ModuleData *m_head;
+    unsigned char m_pad30[0x20c];
+    _STL::vector<const ModuleData *> m_removed;
+    void rva0031BF1B(ModuleData *data);
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
@@ -2901,6 +2930,52 @@ void ControlBar::setControlBarSchemeByPlayer(Player *player)
 
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0031BEF1Create.cpp
+
+// ?rva0031BEF1@Rva0031BEF1@@QAEPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z @0x0031BEF1 37B
+// Hashtable node create: allocate 12B via rowed allocator 0x000307F0, null
+// next, construct pair at +4 via rowed dup 0x0031BDC1 (true _Construct
+// pair<const AsciiString,NoCaseTreeValue4> at 0x000A7849). Caller 0x0031C7D6.
+// Evidence: push 0/push 0xc/allocate/push arg/construct shape; unlocks 0x0031C7D6.
+
+void *Rva0031BEF1::rva0031BEF1(Bef1Pair const &src)
+{
+    Bef1Node *bef1Node = (Bef1Node *)_STL::allocator<char>::allocate(12, 0);
+    bef1Node->m_next = 0;
+    Rva0031BDC1Construct(&bef1Node->m_pair, &src);
+    return bef1Node;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031DBFC.cpp
+
+// Only the rowed hashtable constructor is instantiated: the whole hash_map
+// would emit members that reference the element's undefined ctors and ==.
+template _STL::hashtable<_STL::pair<int const, Rva0031DBFCElement>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, Rva0031DBFCElement> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva0031DBFCElement> > >::hashtable(
+	unsigned int, const _STL::hash<int> &, const _STL::equal_to<int> &, const _STL::allocator<_STL::pair<int const, Rva0031DBFCElement> > &);
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp
+
+// ControlBar.cpp WB 0x00C2D580: forgetStaleCommandSet; native 0x0031E879..0x0031E8D5.
+// Native map cursor has {node, owner}; its value at node+8 is removed from
+// map +0x30 and retained in the pointer vector +0x230; stale word +0x0C becomes 1.
+// Existing cursor/find/erase owners retain their actual ledger spellings.
+// The pointer append uses the existing ModuleData-pointer implementation;
+// no inheritance or original vector instantiation is inferred from ICF.
+
+void ControlBar::forgetStaleCommandSet(const AsciiString &name)
+{
+    Rva00056F61 *table = (Rva00056F61 *)((char *)this+0x30);
+    Rva0041534BIter it=table->rva0041534B(&name);
+    if (it.m_node) {
+        StaleCommandSetView *set=((CommandSetNodeView *)it.m_node)->value;
+        ((Rva000427195 *)table)->rva003A37DC(VideoPair(it));
+        if (set) {
+            ((_STL::vector<const ModuleData *> *)((char *)this+0x230))->push_back(reinterpret_cast<const ModuleData *const &>(set));
+            set->stale=1;
+        }
+    }
+}
+
 // tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
 
 // tu-skeleton: 0x0031ABCF 5B ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
@@ -2927,25 +3002,41 @@ void ControlBar::setControlBarSchemeByPlayer(Player *player)
 
 // tu-skeleton: 0x0031BDEE 25B ??$_Destroy@PAVRva002390CB@@@_STL@@YAXPAVRva002390CB@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0031BEF1Create.cpp
-
-// ?rva0031BEF1@Rva0031BEF1@@QAEPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z @0x0031BEF1 37B
-// Hashtable node create: allocate 12B via rowed allocator 0x000307F0, null
-// next, construct pair at +4 via rowed dup 0x0031BDC1 (true _Construct
-// pair<const AsciiString,NoCaseTreeValue4> at 0x000A7849). Caller 0x0031C7D6.
-// Evidence: push 0/push 0xc/allocate/push arg/construct shape; unlocks 0x0031C7D6.
-
-void *Rva0031BEF1::rva0031BEF1(Bef1Pair const &src)
-{
-    Bef1Node *bef1Node = (Bef1Node *)_STL::allocator<char>::allocate(12, 0);
-    bef1Node->m_next = 0;
-    Rva0031BDC1Construct(&bef1Node->m_pair, &src);
-    return bef1Node;
-}
-
 // tu-skeleton: 0x0031BF16 5B ?rva0031BF16@Rva0031BF16@@QAEHPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x0031BF1B 73B ?rva0031BF1B@Rva0031BF1B@@QAEXPAVModuleData@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0031BF1BRemove.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0031BF1BRemove.cpp
+
+// ?rva0031BF1B@Rva0031BF1B@@QAEXPAVModuleData@@@Z @0x0031BF1B 73B
+// Removes a ModuleData node from the singly linked chain at this+0x2c,
+// queues it in the vector at this+0x23c, then sets its flag at +0xc.
+// Evidence: retail offsets and the rowed vector<ModuleData const *>::push_back call;
+// class identity is unproven, so the address-based class name is retained.
+// Donor: none.
+
+void Rva0031BF1B::rva0031BF1B(ModuleData *data)
+{
+    if (data == 0)
+        return;
+    ModuleData *node = m_head;
+    ModuleData *previous = 0;
+    goto check_node;
+find_node:
+    if (node == data)
+        goto found_node;
+    previous = node;
+    node = reinterpret_cast<Rva0031BF1BRecordView *>(node)->m_next;
+check_node:
+    if (node != 0)
+        goto find_node;
+    return;
+found_node:
+    if (previous != 0)
+        reinterpret_cast<Rva0031BF1BRecordView *>(previous)->m_next = reinterpret_cast<Rva0031BF1BRecordView *>(node)->m_next;
+    else
+        m_head = reinterpret_cast<Rva0031BF1BRecordView *>(node)->m_next;
+    m_removed.push_back(data);
+    reinterpret_cast<Rva0031BF1BRecordView *>(data)->m_removed = 1;
+}
 
 // tu-skeleton: 0x0031BF64 1194B ?switchToContext@ControlBar@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSwitchContext.cpp (not merged yet)
 
@@ -2959,13 +3050,6 @@ void *Rva0031BEF1::rva0031BEF1(Bef1Pair const &src)
 
 // tu-skeleton: 0x0031D85D 667B ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0031DBFC.cpp
-
-// Only the rowed hashtable constructor is instantiated: the whole hash_map
-// would emit members that reference the element's undefined ctors and ==.
-template _STL::hashtable<_STL::pair<int const, Rva0031DBFCElement>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, Rva0031DBFCElement> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva0031DBFCElement> > >::hashtable(
-	unsigned int, const _STL::hash<int> &, const _STL::equal_to<int> &, const _STL::allocator<_STL::pair<int const, Rva0031DBFCElement> > &);
-
 // tu-skeleton: 0x0031DC3C 180B ??4?$vector@UBfmeAsciiScalarValue8@@V?$allocator@UBfmeAsciiScalarValue8@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_scalar8_assign.cpp (not merged yet)
 
 // tu-skeleton: 0x0031DCF0 665B ??1Rva0031DCF0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp (not merged yet)
@@ -2973,29 +3057,6 @@ template _STL::hashtable<_STL::pair<int const, Rva0031DBFCElement>, int, _STL::h
 // tu-skeleton: 0x0031E25E 604B ?update@ControlBar@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp (not merged yet)
 
 // tu-skeleton: 0x0031E7F0 137B ?rva0031E7F0@Rva0031DCF0@@QAE_NPA_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarForgetStaleCommandSet.cpp
-
-// ControlBar.cpp WB 0x00C2D580: forgetStaleCommandSet; native 0x0031E879..0x0031E8D5.
-// Native map cursor has {node, owner}; its value at node+8 is removed from
-// map +0x30 and retained in the pointer vector +0x230; stale word +0x0C becomes 1.
-// Existing cursor/find/erase owners retain their actual ledger spellings.
-// The pointer append uses the existing ModuleData-pointer implementation;
-// no inheritance or original vector instantiation is inferred from ICF.
-
-void ControlBar::forgetStaleCommandSet(const AsciiString &name)
-{
-    Rva00056F61 *table = (Rva00056F61 *)((char *)this+0x30);
-    Rva0041534BIter it=table->rva0041534B(&name);
-    if (it.m_node) {
-        StaleCommandSetView *set=((CommandSetNodeView *)it.m_node)->value;
-        ((Rva000427195 *)table)->rva003A37DC(VideoPair(it));
-        if (set) {
-            ((_STL::vector<const ModuleData *> *)((char *)this+0x230))->push_back(reinterpret_cast<const ModuleData *const &>(set));
-            set->stale=1;
-        }
-    }
-}
 
 // tu-skeleton: 0x0031E92D 31B ??0?$hash_map@HURva0031DBFCElement@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHURva0031DBFCElement@@@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0031E92D.cpp (not merged yet)
 

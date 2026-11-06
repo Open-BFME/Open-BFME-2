@@ -44058,7 +44058,7 @@ uw_0077af8b,,0x0077AF8B,24,Code/GameEngine/Source/GameClient/GUI/ControlBar/Cont
 ?rva003F9048@Rva003F9048@@QAEXPBVModuleData@@@Z,,0x003F9048,23,Code/GameEngine/Source/Common/Rva003F9048.cpp,matched,caller supplies pointer vector append layout inferred from retail
 ??1Rva005CCDDD@@UAE@XZ,,0x005CCDDD,54,Code/GameEngine/Source/Common/Rva005CCDDDDtor.cpp,matched,empty virtual dtor: member +0x08 dtor 0x005CCD3E then inline base dtor (vptr 0x00BC6F20)
 ?findMessage@NetCommandList@@QAEPAVNetCommandRef@@GEW4NetCommandType@@I@Z,,0x0058B121,83,Code/GameEngine/Source/GameNetwork/NetCommandList.cpp,matched,same TU four argument findMessage exact retail bytes
-?rva0031BF1B@Rva0031BF1B@@QAEXPAVModuleData@@@Z,,0x0031BF1B,73,Code/Libraries/Source/WWVegas/WWLib/Rva0031BF1BRemove.cpp,matched,unlinks a ModuleData entry using retail offsets and queues it in the rowed vector
+?rva0031BF1B@Rva0031BF1B@@QAEXPAVModuleData@@@Z,,0x0031BF1B,73,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,matched,unlinks a ModuleData entry using retail offsets and queues it in the rowed vector
 ?Rva002040E7GetFrameNumber@@YAXXZ,,0x002040E7,79,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_setFrame.cpp,matched,debug SetFrameNumber callback reads selected frame field via mode gate
 ?rva002047CF@ScriptEngine@@QAEXXZ,,0x002047CF,55,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_rva002047CF.cpp,matched,ScriptEngine field offset and debug frame state inferred from adjacent updater
 ?setSlotPointer@GameInfo@@QAEXHPAVGameSlot@@@Z,,0x003FF332,24,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,Zero Hour GameInfo donor and target m_slot layout guard matches
