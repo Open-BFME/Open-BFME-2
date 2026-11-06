@@ -62,6 +62,11 @@ struct BfmePod16;
 class GameResultsInterface : public SubsystemInterface
 {
 public:
+	// Inline, as in Zero Hour: the queue constructor 0x0041A754 expands it
+	// (SubsystemInterface 0x001B4E63, then its own vptr). The out-of-line copy
+	// retail kept, 0x00419D18, is rowed in GameEngineDeletingBaseDerived.cpp;
+	// this surface keeps cl from emitting a second definition here.
+	__declspec(dllimport) __forceinline GameResultsInterface() {}
 	virtual ~GameResultsInterface() {}
 	virtual void startThreads() = 0;
 	virtual void endThreads() = 0;

@@ -117,18 +117,31 @@ Rva003E3BD4::~Rva003E3BD4()
 {
 }
 
-class Rva00419CD4 : public SubsystemInterface
+struct BfmeNarrowRecord0041A5D2;
+struct BfmeNarrowRecord0041A617;
+struct BfmePod16;
+
+// Retail table 0x00C3AD08: SubsystemInterface's fourteen slots, then the
+// queue interface's eight pure slots (14-21), as GameResultsQueueStartup_
+// Unresolved.cpp declares them. The destructor is inline, as in Zero Hour:
+// GameResultsQueue's destructor 0x0041A644 inlines it, and the deleting
+// destructor 0x00419CDF calls this unit's out-of-line copy 0x00419CD4.
+class GameResultsInterface : public SubsystemInterface
 {
 public:
-	Rva00419CD4();
-	virtual ~Rva00419CD4();
+	GameResultsInterface();
+	virtual ~GameResultsInterface() {}
+	virtual void startThreads() = 0;
+	virtual void endThreads() = 0;
+	virtual bool areThreadsRunning() = 0;
+	virtual void addRequest(const BfmeNarrowRecord0041A5D2 &request) = 0;
+	virtual bool getRequest(BfmeNarrowRecord0041A5D2 &request) = 0;
+	virtual void addResponse(const BfmePod16 &response) = 0;
+	virtual bool getResponse(BfmeNarrowRecord0041A617 &response) = 0;
+	virtual bool areGameResultsBeingSent() = 0;
 };
 
-Rva00419CD4::Rva00419CD4()
-{
-}
-
-Rva00419CD4::~Rva00419CD4()
+GameResultsInterface::GameResultsInterface()
 {
 }
 

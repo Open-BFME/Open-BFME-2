@@ -5293,3 +5293,6 @@ __ehhandler$?writeINI@Rva0055C263@@UAEXPAVFile@@I@Z,0x0079986B,Renamed to __ehha
 __ehhandler$?rva0053F915@Rva0053FB33@@UAE_NPAVDataChunkInput@@PAX@Z,0x00797CF4,"Renamed to __ehhandler$?rva0053F915@Rva0053FADE@@UAE_NPAVDataChunkInput@@PAX@Z by tools/rename.py (fold: retail vftable 0x00C694DC)"
 __ehhandler$??1Rva0053FB33@@UAE@XZ,0x00797D39,"Renamed to __ehhandler$??1Rva0053FADE@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C694DC)"
 ??1Rva0053FB33@@UAE@XZ,0x0053FB33,"Renamed to ??1Rva0053FADE@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C694DC)"
+??1Rva00419CD4@@UAE@XZ,0x00419CD4,"Renamed to ??1GameResultsInterface@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C3AD08)"
+??_GRva00419CD4@@UAEPAXI@Z,0x00419CDF,"Renamed to ??_GGameResultsInterface@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C3AD08)"
+??0Rva00419CD4@@QAE@XZ,0x00419D18,"Renamed to ??0GameResultsInterface@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C3AD08)"
