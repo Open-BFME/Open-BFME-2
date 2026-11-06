@@ -121,7 +121,7 @@ void Rva003FD321::rva003FD1C5(Xfer *xfer)
 // 0x0053F915 that chains to it, then the pinned 0x00540B48 on the +0x24
 // member; answers true.
 class DataChunkInput;
-class Rva0053FB33
+class Rva0053FADE
 {
 public:
 	virtual bool rva0053F915(DataChunkInput *in, void *user);
@@ -131,7 +131,7 @@ class Rva00540B48
 public:
 	bool rva00540B48(DataChunkInput *in, void *user);
 };
-class Rva00540BE4 : public Rva0053FB33
+class Rva00540BE4 : public Rva0053FADE
 {
 public:
 	virtual bool rva0053F915(DataChunkInput *in, void *user);
@@ -141,7 +141,7 @@ private:
 };
 bool Rva00540BE4::rva0053F915(DataChunkInput *in, void *user)
 {
-	Rva0053FB33::rva0053F915(in, user);
+	Rva0053FADE::rva0053F915(in, user);
 	m_24.rva00540B48(in, user);
 	return true;
 }

@@ -16,7 +16,9 @@ class Rva0053FADE : public Rva00330757Member
 {
 public:
 	Rva0053FADE(const Rva0053FADE &other);
-	virtual ~Rva0053FADE() {}
+	// the rowed destructor 0x0053FB33 (Rva0053FB33Dtor.cpp); declared so this
+	// unit does not emit an implicit copy
+	virtual ~Rva0053FADE();
 
 private:
 	int m_14;

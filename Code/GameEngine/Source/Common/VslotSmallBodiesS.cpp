@@ -235,7 +235,7 @@ private:
 // 0x00540131 and 0x005411A3: overrides of the rowed chunk writer 0x0053F8E9
 // that chain to it and then write their members.
 class DataChunkOutput;
-class Rva0053FB33
+class Rva0053FADE
 {
 public:
 	virtual void rva0053F8E9(DataChunkOutput *out);
@@ -255,7 +255,7 @@ class Rva00540F4D
 public:
 	void rva00540F4D(DataChunkOutput *out);
 };
-class Rva00540131 : public Rva0053FB33
+class Rva00540131 : public Rva0053FADE
 {
 public:
 	virtual void rva0053F8E9(DataChunkOutput *out);
@@ -265,10 +265,10 @@ private:
 };
 void Rva00540131::rva0053F8E9(DataChunkOutput *out)
 {
-	Rva0053FB33::rva0053F8E9(out);
+	Rva0053FADE::rva0053F8E9(out);
 	m_24.rva0053FF1D(out);
 }
-class Rva005411A3 : public Rva0053FB33
+class Rva005411A3 : public Rva0053FADE
 {
 public:
 	virtual void rva0053F8E9(DataChunkOutput *out);
@@ -280,7 +280,7 @@ private:
 };
 void Rva005411A3::rva0053F8E9(DataChunkOutput *out)
 {
-	Rva0053FB33::rva0053F8E9(out);
+	Rva0053FADE::rva0053F8E9(out);
 	m_24.rva00540F0B(out);
 	m_44.rva00540F4D(out);
 }

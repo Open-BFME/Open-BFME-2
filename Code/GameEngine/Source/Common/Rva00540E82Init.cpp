@@ -280,15 +280,15 @@ bool Rva005422CF::read(DataChunkInput *file,DataChunkInfo *info){
  return true;
 }
 
-class Rva0053FB33 {public:
+class Rva0053FADE {public:
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();
  virtual bool rva0053F915(DataChunkInput*,void*);
 private:char opaque[32];
 };
-class Rva005423BC:public Rva0053FB33 {public:bool read(DataChunkInput*,DataChunkInfo*);private:Rva00542225 camera;Rva005422CF lookAt;};
+class Rva005423BC:public Rva0053FADE {public:bool read(DataChunkInput*,DataChunkInfo*);private:Rva00542225 camera;Rva005422CF lookAt;};
 // Native5423BC..5423F052B combines the established base reader and
 // two32B camera tracks at24/44. Original parent source name remains unknown.
 // ?read@Rva005423BC@@QAE_NPAVDataChunkInput@@PAUDataChunkInfo@@@Z
 bool Rva005423BC::read(DataChunkInput*file,DataChunkInfo*info){
- Rva0053FB33::rva0053F915(file,info);camera.read(file,info);lookAt.read(file,info);return true;
+ Rva0053FADE::rva0053F915(file,info);camera.read(file,info);lookAt.read(file,info);return true;
 }

@@ -1,6 +1,6 @@
 // cl: /EHs /MD
-// Rva0053FB33::rva0053F915, retail 0x0053F915, 106 bytes.
-// Vslot 4 of 0x008694DC (Rva0053FB33): reads AsciiString via rowed
+// Rva0053FADE::rva0053F915, retail 0x0053F915, 106 bytes.
+// Vslot 4 of 0x008694DC (Rva0053FADE): reads AsciiString via rowed
 // DataChunkInput::readAsciiString into +0x18 via an inline AsciiString::op=
 // forwarding to the rowed StringBase<char>::set 0x000366F0 (member address
 // formed before the push, as retail does), reads
@@ -31,7 +31,7 @@ struct Rva0053FB33Holder
 	void *m_ptr;
 };
 
-class Rva0053FB33
+class Rva0053FADE
 {
 public:
 	virtual bool rva0053F915(DataChunkInput *input, void *ver);
@@ -43,7 +43,7 @@ private:
 	int m_20;
 };
 
-bool Rva0053FB33::rva0053F915(DataChunkInput *input, void *ver)
+bool Rva0053FADE::rva0053F915(DataChunkInput *input, void *ver)
 {
 	m_str18 = input->readAsciiString();
 	m_1C = input->readInt();

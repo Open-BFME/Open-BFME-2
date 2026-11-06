@@ -1,5 +1,5 @@
 // cl: /EHs /MD /Ireference/shims/bfme2_ascii
-// ??1Rva0053FB33@@UAE@XZ, retail 0x0053FB33, 66 bytes.
+// ??1Rva0053FADE@@UAE@XZ, retail 0x0053FB33, 66 bytes.
 // Virtual dtor: installs vtable 0x008694DC, destroys StringBase<char> at
 // +0x18 via rowed releaseBuffer 0x00036410, frees heap pointer at +4 via
 // rowed _free 0x00030830, with __EH_prolog frame 0x00629188. Same EH plus
@@ -32,15 +32,15 @@ struct Rva0053FB33Holder
 	char m_opaque04[0xC];
 };
 
-class Rva0053FB33 : private Rva0053FB33Holder
+class Rva0053FADE : private Rva0053FB33Holder
 {
 public:
-	virtual ~Rva0053FB33();
+	virtual ~Rva0053FADE();
 private:
 	char m_pad14[0x18 - 0x14];
 	StringBase<char> m_str18;
 };
 
-Rva0053FB33::~Rva0053FB33()
+Rva0053FADE::~Rva0053FADE()
 {
 }

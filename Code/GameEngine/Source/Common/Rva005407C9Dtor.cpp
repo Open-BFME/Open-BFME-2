@@ -2,7 +2,7 @@
 // ??1Rva005407C9@@QAE@XZ @0x005407C9 65B inner dtor.
 // Retail frees +0x10 then +0 via rowed _free with __EH_prolog frame.
 // Evidence: unlock lane; caller 0x0054080A lea ecx [esi+0x24] then base
-// ??1Rva0053FB33@@UAE@XZ; pattern copied from Rva0053FB33Dtor TU.
+// ??1Rva0053FADE@@UAE@XZ; pattern copied from Rva0053FB33Dtor TU.
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
