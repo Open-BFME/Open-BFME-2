@@ -446,15 +446,15 @@ def test_unverified_row_cannot_supply_new_vtable_name(tmp_path):
 
 
 def comdat_code(path, body=b"\xe8\0\0\0\0\xc3", callee="_callee", callee_class=L.EXTERNAL,
-                associated=None):
-    """_first and _second as SELECT_ANY code COMDATs calling one callee; an
-    optional (flags) associative section hangs off _first's section."""
-    sections = [(".text", 0x60501020, body, V.SELECT_ANY), (".text", 0x60501020, body, V.SELECT_ANY)]
+                associated=None, flags=0x60501020, selection=V.SELECT_ANY, offset=1, kind=L.DIR32):
+    """_first and _second as code COMDATs calling one callee; an optional
+    (flags) associative section hangs off _first's section."""
+    sections = [(".text", flags, body, selection), (".text", flags, body, selection)]
     if associated is not None:
         sections.append((".xdata", associated | V.COMDAT, b"\0" * 4, V.ASSOCIATIVE))
     symbols = [("_first", 1, 0, L.EXTERNAL), ("_second", 2, 0, L.EXTERNAL),
                (callee, 0, 0, callee_class)]
-    path = L.write_coff(path, sections, symbols, {1: [(1, callee, L.DIR32)], 2: [(1, callee, L.DIR32)]})
+    path = L.write_coff(path, sections, symbols, {1: [(offset, callee, kind)], 2: [(offset, callee, kind)]})
     if associated is not None:  # write_coff leaves the associated section number zero
         raw = bytearray(path.read_bytes())
         _sections, syms = L.parse_coff(bytes(raw))
@@ -465,13 +465,13 @@ def comdat_code(path, body=b"\xe8\0\0\0\0\xc3", callee="_callee", callee_class=L
     return path
 
 
-def twin_plan(tmp_path, earlier, **ours):
+def twin_plan(tmp_path, earlier, later=None, **ours):
     code = comdat_code(tmp_path / "code.obj", **ours)
     table = table_object(tmp_path / "table.obj")
     rows = [{"target_rva": hex(rva), "name": name, "source": "Code/code.cpp", "status": "matched"}
             for rva, name in ((0x1000, "_first"), (0x1010, "_second"))]
     data = [{"address": "0x3000", "size": "8", "name": "_vtable", "kind": "vtable"}]
-    return V.plan(rows, [table, earlier, code], [], Retail(), data,
+    return V.plan(rows, [table, earlier, code] + ([later] if later else []), [], Retail(), data,
                   object_for=lambda row: code, symbol_for=lambda row: row["name"])
 
 
@@ -489,12 +489,29 @@ LOCAL = dict(callee="_local", callee_class=L.STATIC)
 
 
 @pytest.mark.parametrize("earlier,ours", [
-    (dict(body=b"\xe8\0\0\0\0\x90"), {}),
-    (dict(callee="_other"), {}),
+    (dict(body=b"\xe8\0\0\0\0\x90"), {}),             # bytes
+    (dict(body=b"\xe8\0\0\0\0\xc3\xcc"), {}),         # size: same prefix, longer section
+    (dict(flags=0x60301020), {}),                     # flags (alignment)
+    (dict(offset=2), {}),                             # relocation offset
+    (dict(kind=L.REL32), {}),                         # relocation kind
+    (dict(callee="_other"), {}),                      # relocation target
     (LOCAL, LOCAL),  # one spelling, but each object's own static
-    (dict(associated=0x40300040), {}),
+    (dict(associated=0x40300040), {}),                # loaded associative section
+    (dict(selection=4), dict(selection=4)),           # EXACT_MATCH twins: SELECT_ANY only
+    (dict(selection=4), {}),                          # selections differ
 ])
 def test_earlier_copy_that_is_not_a_proven_twin_still_refuses(tmp_path, earlier, ours):
     result = twin_plan(tmp_path, comdat_code(tmp_path / "earlier.obj", **earlier), **ours)
+    assert result["tables"] == 0
+    assert result["refusals"][0]["reason"] == "target-not-winning-provider"
+
+
+@pytest.mark.parametrize("selection", [6, V.SELECT_ANY])
+def test_later_largest_copy_can_win_so_an_earlier_twin_is_not_proof(tmp_path, selection):
+    # Review of 3f603f990a: [earlier, ledger, later] with identical short
+    # earlier/ledger copies; a larger LARGEST later copy would win the link.
+    later = comdat_code(tmp_path / "later.obj", body=b"\xe8\0\0\0\0\x90\xc3", selection=6)
+    earlier = comdat_code(tmp_path / "earlier.obj", selection=selection)
+    result = twin_plan(tmp_path, earlier, later, selection=selection)
     assert result["tables"] == 0
     assert result["refusals"][0]["reason"] == "target-not-winning-provider"

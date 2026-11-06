@@ -132,7 +132,7 @@ class Targets:
         self.symbol_for = symbol_for or build.ledger_object_symbol
         self.by_rva = collections.defaultdict(list)
         self.addresses = collections.defaultdict(set)
-        self.paths, self.cache = {}, {}
+        self.paths, self.cache, self._selections = {}, {}, None
         for row in rows:
             try:
                 rva = int(row["target_rva"], 16)
@@ -199,11 +199,27 @@ class Targets:
 
     def twin(self, ledger, winner, name):
         """The earlier kept COMDAT copy is the ledger body: same loaded bytes,
-        selection and relocations, every relocation to an external name."""
+        selection and relocations, every relocation to an external name.
+        Only SELECT_ANY keeps the first copy, so every kept definition of the
+        name must be SELECT_ANY; LARGEST or another rule could pick a later one."""
         if winner is None or Path(winner) not in self.kept:
+            return False
+        if self.selections().get(name) != {SELECT_ANY}:
             return False
         ours = comdat_body(self.objects, ledger, name)
         return ours is not None and ours == comdat_body(self.objects, Path(winner), name)
+
+    def selections(self):
+        """Target name -> COMDAT selections of its kept definitions (0: not COMDAT)."""
+        if self._selections is None:
+            self._selections = collections.defaultdict(set)
+            for path in self.objects.paths:
+                sections, symbols, _raw = self.objects.get(path)
+                for sym in symbols.values():
+                    if sym.name in self.addresses and sym.cls == link_cycle.EXTERNAL and sym.sec > 0:
+                        sec = sections[sym.sec - 1]
+                        self._selections[sym.name].add(sec.sel if sec.flags & COMDAT else 0)
+        return self._selections
 
 
 def comdat_body(objects, path, name):
@@ -217,14 +233,13 @@ def comdat_body(objects, path, name):
     if sym is None or sym.cls != link_cycle.EXTERNAL or sym.sec <= 0 or sym.value:
         return None
     sec = sections[sym.sec - 1]
-    if not sec.flags & COMDAT or not sec.flags & EXECUTE or sec.sel in (0, ASSOCIATIVE):
-        return None
     symptr = struct.unpack_from("<I", raw, 8)[0]
     for item in symbols.values():
         if item.cls != link_cycle.STATIC or not 0 < item.sec <= len(sections) or item.value:
             continue
         other = sections[item.sec - 1]
-        if other.sel == ASSOCIATIVE and other.name == item.name and not other.flags & DISCARDABLE                 and struct.unpack_from("<H", raw, symptr + 18 * item.i + 18 + 12)[0] == sym.sec:
+        if other.sel == ASSOCIATIVE and other.name == item.name and not other.flags & DISCARDABLE \
+                and struct.unpack_from("<H", raw, symptr + 18 * item.i + 18 + 12)[0] == sym.sec:
             return None
     relocs = []
     for off, index, kind in sec.relocs:
@@ -232,7 +247,9 @@ def comdat_body(objects, path, name):
         if target.cls != link_cycle.EXTERNAL:
             return None
         relocs.append((off, target.name, kind))
-    return sec.size, sec.sel, sec.flags, raw[sec.ptr:sec.ptr + sec.size], relocs
+    # The selection is judged once across every provider (Targets.selections);
+    # the byte slice carries the section size.
+    return sec.flags, raw[sec.ptr:sec.ptr + sec.size], relocs
 
 
 def retail_slots(retail, row):
