@@ -59,3 +59,15 @@ of upstream work and queue freshness, not a new code fix by this worker.
 
 
 2026-11-06. ParticleSys.cpp now emits the exact retail export for ParticleSystemTemplate::setSlaveSystemName at 0x001F3FD0. The 26-byte body and its relocations match; the next real link will confirm clearance. [Verification](../../reverse/attempt_support/particle-slave-name-export-20261106-codex.md).
+
+2026-11-06, Line emission writer (base `d707d2f53bf`): the existing row at
+`0x0055CEAA` now emits the exact exported
+`LineEmissionVolumeModuleTemplate::writeINI(File &, unsigned int) const`.
+The private writer had the wrong placeholder name, pointer parameter and const
+qualification. No second body or alias was added. Normal build verifies 4/4
+rows and three literals; COFF has one exact export definition and zero old-name
+occurrences. Current-object preview LINKS, 272 -> 272 bytes against index
+`47fd56b879` (2026-11-06 05:39 UTC). This clears only the local provider-identity
+repair; run `42174078539` still records the missing export, and its 308-name
+real-link count awaits automated measurement of this change. [Evidence and
+remaining checks](../../reverse/attempt_support/line-emission-writer-export-20261106-seat2.md).
