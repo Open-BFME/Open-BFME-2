@@ -4,7 +4,7 @@
 // MI receiver is SpecialPowerModuleInterface subobject at primary+10;
 // layout agrees with rowed getPowerName 0x004934B8; callees rowed testStatus/getControllingPlayer/friend_getFinalOverride/getOrStart/TheGameLogic.
 #include "../../../../Include/Common/Overridable.h"
-class SpecialPowerTemplate : public Overridable { public: unsigned unknown10; unsigned id; unsigned flags; char pad1C[4]; unsigned reloadTime; char pad24[0x59-0x24]; bool shared; };
+#include "../../../../Include/Common/SpecialPower.h"
 class Rva002AC6B1PlayerTimers { public: unsigned getOrStart(const SpecialPowerTemplate *); void resetOrStart(const SpecialPowerTemplate *); };
 class Rva002AA0B1FloatField { public: float get() const; };
 class Player;
@@ -34,7 +34,7 @@ bool SpecialPowerModule::isReady() const
   Player *player = obj->getControllingPlayer();
   if (player) {
    const SpecialPowerTemplate *power = modData->power;
-   if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->shared)
+   if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->m_sharedSyncedTimer)
     return frame() >= ((Rva002AC6B1PlayerTimers *)player)->getOrStart(power);
   }
  }
@@ -60,7 +60,7 @@ void SpecialPowerModule::startPowerRecharge(float percent)
  if (player == 0)
   return;
  const SpecialPowerTemplate *power = modData->power;
- if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->shared)
+ if (((const SpecialPowerTemplate *)power->friend_getFinalOverride())->m_sharedSyncedTimer)
  {
   ((Rva002AC6B1PlayerTimers *)player)->resetOrStart(power);
  }
@@ -69,9 +69,9 @@ void SpecialPowerModule::startPowerRecharge(float percent)
   float modifier = 1.0f;
   obj->rva0028C15E(12, &modifier, 0, 1);
   float bonus = 1.0f;
-  if (testBit(((const SpecialPowerTemplate *)modData->power->friend_getFinalOverride())->flags, 5))
+  if (testBit(((const SpecialPowerTemplate *)modData->power->friend_getFinalOverride())->m_flags, 5))
    bonus = ((Rva002AA0B1FloatField *)player)->get() + 1.0f;
-  unsigned frames = (unsigned)(((const SpecialPowerTemplate *)getSpecialPowerTemplate()->friend_getFinalOverride())->reloadTime * modifier * bonus);
+  unsigned frames = (unsigned)(((const SpecialPowerTemplate *)getSpecialPowerTemplate()->friend_getFinalOverride())->m_reloadTime * modifier * bonus);
   if (frames == 0)
    frames = 1;
   if (percent < 1.0f)
