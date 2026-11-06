@@ -179,9 +179,12 @@ def comdat_owners(raw, sections, symbols):
     return {sec: public[number] for sec, number in associated.items() if number in public}
 
 
-def scan_objects(paths):
+def scan_objects(paths, bodies=None):
     """({external name: [Definition]} for non-code symbols, [(object, symbol, body, masked, relocs,
-    local statics, owning public COMDAT or None)] registered, {external names defined in code})."""
+    local statics, owning public COMDAT or None)] registered, {external names defined in code}).
+    `bodies`, when given, receives every code symbol's bytes up to the next symbol in its section
+    with its relocations, keyed by its name, or (object, name) for a static: [(bytes, {offset:
+    (target identity, kind)})], one per copy."""
     definitions = collections.defaultdict(list)
     registered = []
     code = set()
@@ -193,6 +196,16 @@ def scan_objects(paths):
             if symbol.sec > 0:
                 starts[symbol.sec].append(symbol.value)
         for symbol in symbols.values():
+            if (bodies is not None and symbol.sec > 0 and not symbol.name.startswith(".")
+                    and symbol.cls in (link_cycle.EXTERNAL, link_cycle.STATIC)
+                    and sections[symbol.sec - 1].name.startswith(".text")):
+                section = sections[symbol.sec - 1]
+                end = min((v for v in starts[symbol.sec] if v > symbol.value), default=section.size)
+                relocs = {off - symbol.value: (symbols[i].name if symbols[i].cls == link_cycle.EXTERNAL
+                                               else (path.name, symbols[i].name), kind)
+                          for off, i, kind in section.relocs if i in symbols and symbol.value <= off < end}
+                identity = symbol.name if symbol.cls == link_cycle.EXTERNAL else (path.name, symbol.name)
+                bodies.setdefault(identity, []).append((raw[section.ptr + symbol.value:section.ptr + end], relocs))
             if symbol.sec <= 0 or symbol.cls != link_cycle.EXTERNAL:
                 continue
             section = sections[symbol.sec - 1]
@@ -423,11 +436,179 @@ def known_addresses(rows):
     return addresses
 
 
+# Callees a construction proof accepts: a constructor whose `this` is a global, its destructor in
+# an atexit cleanup, atexit itself, and the ones that write through their first argument.
+WRITERS = ("_memset", "??_H", "??_I", "??_L", "??_M")
+
+
+def construction(bodies, identity, cleanup=False):
+    """(frozenset of what this body constructs, "ok"), or (None, why) when any of it is unclassified.
+
+    Every instruction is decoded with capstone and must be one of: `mov ecx, offset g`; a register
+    load or immediate; a store whose memory operand is an absolute, relocated g; push, pop, `add
+    esp, n`; a call or tail jump to a constructor (g is its `this`), to atexit (the pushed cleanup is
+    decoded the same way, once), to memset or a vector constructor/destructor iterator (g is the
+    pushed first argument), or in a cleanup to a destructor; then `ret` and padding. Every relocation
+    must be an operand field of one of those instructions, and every copy must decode alike. A lone
+    `ret` cleanup is an identity of its own. Anything else is unresolved, never "constructs nothing".
+    """
+    try:
+        import capstone
+        from capstone import x86
+    except ImportError:
+        return None, "no capstone"
+    copies = bodies.get(identity)
+    if not copies:
+        return None, "no body"
+    decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    decoder.detail = True
+    results = set()
+    for body, relocs in copies:
+        results.add(_construction(decoder, x86, bodies, body, relocs, cleanup))
+    if len(results) != 1:
+        return None, "copies differ"
+    return results.pop()
+
+
+def _construction(decoder, x86, bodies, body, relocs, cleanup):
+    found, used, ecx, pushes, end = set(), set(), None, [], None
+
+    def absolute(op):
+        return (op.type == x86.X86_OP_MEM and op.mem.base == 0 and op.mem.index == 0
+                and op.mem.segment == 0)
+
+    for ins in decoder.disasm(body, 0):
+        fields = {}
+        for kind, offset in (("disp", ins.disp_offset), ("imm", ins.imm_offset)):
+            if offset and ins.address + offset in relocs:
+                fields[kind] = relocs[ins.address + offset]
+                used.add(ins.address + offset)
+        mnemonic, ops = ins.mnemonic, ins.operands
+        if mnemonic == "ret":
+            end = ins.address + ins.size
+            break
+        if mnemonic in ("call", "jmp") and len(ops) == 1 and ops[0].type == x86.X86_OP_IMM:
+            target, kind = fields.get("imm", (None, None))
+            if not isinstance(target, str) or kind != link_cycle.REL32:
+                return None, f"{mnemonic} without a named target"
+            pushed = pushes[-1] if pushes and pushes[-1] not in ("imm", "reg") else None
+            if target.startswith("??0") and not cleanup and ecx is not None:
+                found.add(ecx)
+            elif target.startswith("??1") and cleanup and ecx is not None:
+                found.add(ecx)
+            elif target == "_atexit" and not cleanup and pushed is not None:
+                inner, why = construction(bodies, pushed, cleanup=True)
+                if inner is None:
+                    return None, f"cleanup {pushed}: {why}"
+                found |= inner
+                if not inner and all(b.rstrip(b"\xcc\x90") == b"\xc3" for b, _r in bodies[pushed]):
+                    found.add(("empty cleanup", pushed))
+            elif target.startswith(WRITERS) and pushed is not None:
+                found.add(pushed)
+            else:
+                return None, f"{mnemonic} {target}"
+            ecx, pushes = None, []
+            if mnemonic == "jmp":
+                end = ins.address + ins.size
+                break
+            continue
+        if mnemonic == "mov" and len(ops) == 2:
+            dst, src = ops
+            if dst.type == x86.X86_OP_REG and src.type == x86.X86_OP_IMM:
+                if "imm" in fields and dst.reg != x86.X86_REG_ECX:
+                    return None, "an address into a register other than ecx"
+                if dst.reg == x86.X86_REG_ECX:
+                    ecx = fields["imm"][0] if "imm" in fields else None
+                continue
+            if dst.type == x86.X86_OP_REG and absolute(src) and "disp" in fields:
+                if dst.reg == x86.X86_REG_ECX:
+                    ecx = None
+                continue
+            if absolute(dst) and "disp" in fields and src.type in (x86.X86_OP_REG, x86.X86_OP_IMM):
+                found.add(fields["disp"][0])
+                continue
+            return None, f"mov {ins.op_str}"
+        if (mnemonic == "xor" and len(ops) == 2 and ops[0].type == ops[1].type == x86.X86_OP_REG
+                and ops[0].reg == ops[1].reg):
+            if ops[0].reg == x86.X86_REG_ECX:
+                ecx = None
+            continue
+        if mnemonic == "push" and len(ops) == 1 and ops[0].type in (x86.X86_OP_IMM, x86.X86_OP_REG):
+            pushes.append(fields["imm"][0] if "imm" in fields
+                          else "imm" if ops[0].type == x86.X86_OP_IMM else "reg")
+            continue
+        if mnemonic == "pop" and len(ops) == 1 and ops[0].type == x86.X86_OP_REG:
+            if ops[0].reg == x86.X86_REG_ECX:
+                ecx = None
+            continue
+        if (mnemonic == "add" and len(ops) == 2 and ops[0].type == x86.X86_OP_REG
+                and ops[0].reg == x86.X86_REG_ESP and ops[1].type == x86.X86_OP_IMM):
+            continue
+        return None, f"{mnemonic} {ins.op_str}".strip()
+    if end is None:
+        return None, "no ret"
+    if body[end:].strip(b"\xcc\x90"):
+        return None, "bytes after ret"
+    if set(relocs) - used:
+        return None, "a relocation outside every operand"
+    return frozenset(found), "ok"
+
+
+def shape_credit_proof(report, registered, bodies, rowed):
+    """Of the retail entries `report` credits by shape alone, those whose rowed kept-code body
+    (`rowed`: rva -> symbol) is safe to bridge as well: (rva, symbol) bridged and [rva, why] left.
+
+    P10: nullrobj.cpp's own `_$E1` took retail's INIMacroTable initializer 0x007ABBB3 by shape, so
+    the bridge left the rowed body out and the macro table was never built. Bridging the rowed body
+    is safe only when it and the crediting registration both decode fully (`construction`) and what
+    the rowed body constructs is disjoint from what the crediting registration and every other
+    native registration constructs, and from every global an undecodable registration or a cleanup
+    it hands over refers to. Everything else stays as it was and is listed with its reason."""
+    def identity(entry):
+        return (entry[0], entry[1]) if (entry[0], entry[1]) in bodies else entry[1]
+
+    natives = {(entry[0], entry[1]): construction(bodies, identity(entry))[0] for entry in registered}
+    unknown_refs = set()
+    for entry in registered:
+        if natives[(entry[0], entry[1])] is None:
+            refs = {target for _body, relocs in bodies.get(identity(entry), ()) for target, _kind in relocs.values()}
+            refs |= {target for ref in list(refs) for _body, relocs in bodies.get(ref, ())
+                     for target, _kind in relocs.values()}
+            unknown_refs |= refs
+    bridged, left = [], []
+    for obj, symbol, hit in report["by_shape_only"]:
+        rva = int(hit, 16)
+        if rva not in rowed:
+            continue
+        ours, why = construction(bodies, rowed[rva])
+        credit = natives[(obj, symbol)]
+        others = set().union(*(found for key, found in natives.items() if found and key != (obj, symbol)))
+        if ours is None:
+            left.append([hit, f"rowed body unresolved: {why}"])
+        elif credit is None:
+            left.append([hit, "crediting registration unresolved: "
+                         + construction(bodies, identity((obj, symbol)))[1]])
+        elif not ours:
+            left.append([hit, "rowed body constructs nothing"])
+        elif ours & credit:
+            left.append([hit, "constructs what the crediting registration constructs"])
+        elif ours & others:
+            left.append([hit, "constructs what another native registration constructs"])
+        elif ours & unknown_refs:
+            left.append([hit, "an unresolved native registration refers to what it constructs"])
+        else:
+            bridged.append((rva, rowed[rva]))
+    return bridged, left
+
+
 def bridge_entries(rows, paths):
     """([(rva, symbol)] of retail's initializers nothing registers, in retail's order, for a table
-    built at link time; [rva] of those no kept object defines externally)."""
+    built at link time, with the shape-credited ones `shape_credit_proof` proves safe; [rva] of those
+    no kept object defines externally; {"shape_credit_bridged": [rva], "shape_credit_left": [[rva,
+    why]]})."""
     retail = Retail(build.EXE.read_bytes())
-    _definitions, registered, code = scan_objects(paths)
+    bodies = {}
+    _definitions, registered, code = scan_objects(paths, bodies)
     report = initializer_report(retail, rows, registered, known_addresses(rows))
     symbols = collections.defaultdict(list)
     for row in rows:
@@ -444,7 +625,13 @@ def bridge_entries(rows, paths):
             unreachable.append(text)
         else:
             entries.append((rva, name))
-    return entries, unreachable
+    rowed = {rva: next(n for n in names if n in code) for rva, names in symbols.items()
+             if any(n in code for n in names)}
+    proven, left = shape_credit_proof(report, registered, bodies, rowed)
+    order = {rva: index for index, rva in enumerate(retail.initializers())}
+    entries = sorted(entries + proven, key=lambda entry: order.get(entry[0], len(order)))
+    return entries, unreachable, {"shape_credit_bridged": [hex(rva) for rva, _name in proven],
+                                  "shape_credit_left": left}
 
 
 def ledger_report(retail, definitions, addresses, constructed=frozenset()):
@@ -512,7 +699,8 @@ def ledger_report(retail, definitions, addresses, constructed=frozenset()):
 
 
 def summary(report):
-    keys = {"initializers": ("retail", "registered_retail_entries", "not_registered", "registered_twice"),
+    keys = {"initializers": ("retail", "registered_retail_entries", "not_registered", "registered_twice",
+                             "shape_credit_bridged", "shape_credit_left"),
             "vtables": ("same_length", "ours_shorter", "ours_longer", "no_object_defines_it"),
             "globals": ("same", "contents_differ", "ours_zero_retail_not", "with_wrong_pointers",
                         "pointers_unchecked", "no_object_retail_nonzero", "constructed_undersized"),
@@ -549,10 +737,24 @@ def main(argv=None):
     kept = [path for path in census._object_sources(rows) if path not in omitted]
     present = [path for path in kept if path.exists()]
     retail = Retail(build.EXE.read_bytes())
-    definitions, registered, _code = scan_objects(present)
+    bodies = {}
+    definitions, registered, code = scan_objects(present, bodies)
     addresses = known_addresses(rows)
     report = {"objects_kept": len(kept), "objects_missing": len(kept) - len(present),
               "initializers": initializer_report(retail, rows, registered, addresses)}
+    rowed = {}
+    for row in rows:
+        name = build.ledger_object_symbol(row) or row["name"]
+        try:
+            rva = int(row["target_rva"], 16)
+        except ValueError:
+            continue
+        if name in code:
+            rowed.setdefault(rva, name)
+    proven, left = shape_credit_proof(report["initializers"], registered, bodies, rowed)
+    report["initializers"].update(shape_credit_bridged=len(proven), shape_credit_left=len(left),
+                                  shape_credit_bridged_rvas=[hex(rva) for rva, _name in proven],
+                                  shape_credit_left_rvas=left)
     sources = (path.read_text(encoding="utf-8", errors="replace") for path in (build.ROOT / "Code").rglob("*.cpp"))
     report["vtables"], report["globals"], report["fieldparse"], report["duplicates"] = \
         ledger_report(retail, definitions, addresses, constructed_names(sources))

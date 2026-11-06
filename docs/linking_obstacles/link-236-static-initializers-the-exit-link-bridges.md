@@ -583,3 +583,6 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
     run, after its copy 0x007ADBC1, whose static 0x00DFE714 follows TheGameEngine. Its bool
     0x00DFE718 is defined in the grab-bag today.
 - Separately, decide the HalfRate header constant.
+
+- 2026-11-06, ancalgonn-swarm-link: [LINK-620](link-620-a-shape-only-initializer-credit-hides-a-rowed-initializer-from-the-bridge-p10.md): shape-only credits hid 36 rowed
+  initializers (0x007ABBB3 among them) from the bridge; P10. Four double constructions recorded there.

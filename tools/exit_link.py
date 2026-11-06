@@ -829,7 +829,7 @@ def initializer_table(rows, inputs):
     before the initializers objects register themselves; their order against those is not retail's.
     """
     import image_report
-    entries, unreachable = image_report.bridge_entries(rows, inputs)
+    entries, unreachable, shape_credits = image_report.bridge_entries(rows, inputs)
     names = sorted({name for _rva, name in entries})
     number = {name: index for index, name in enumerate(names)}
     path = link_cycle.write_coff(
@@ -838,7 +838,7 @@ def initializer_table(rows, inputs):
         [(name, 0, 0, link_cycle.EXTERNAL) for name in names],
         {1: [(4 * slot, name, link_cycle.DIR32) for slot, (_rva, name) in enumerate(entries)]})
     assert len(number) == len(names)
-    return path, {"entries": len(entries), "unreachable": unreachable,
+    return path, {"entries": len(entries), "unreachable": unreachable, **shape_credits,
                   "note": "generated from retail's table; must reach 0 for the exit test"}
 
 

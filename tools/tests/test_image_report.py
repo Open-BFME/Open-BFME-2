@@ -2,6 +2,8 @@
 import sys
 from pathlib import Path
 
+import pytest
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import image_report as ir
 
@@ -79,9 +81,14 @@ def test_initializer_table_is_an_object_of_named_slots(tmp_path, monkeypatch):
     import exit_link
     import link_cycle
     monkeypatch.setattr(exit_link, "OUT", tmp_path)
-    monkeypatch.setattr(ir, "bridge_entries", lambda rows, inputs: ([(0x20, "?b@@YAXXZ"), (0x10, "?a@@YAXXZ")], ["0x30"]))
+    monkeypatch.setattr(ir, "bridge_entries", lambda rows, inputs: (
+        [(0x20, "?b@@YAXXZ"), (0x10, "?a@@YAXXZ")], ["0x30"],
+        {"shape_credit_bridged": ["0x10"], "shape_credit_left": [["0x40", "rowed body unresolved: no ret"]]}))
     path, bridge = exit_link.initializer_table([], [])
     assert bridge["entries"] == 2 and bridge["unreachable"] == ["0x30"]
+    # The two shape-credit categories stay apart in the link's record.
+    assert bridge["shape_credit_bridged"] == ["0x10"]
+    assert bridge["shape_credit_left"] == [["0x40", "rowed body unresolved: no ret"]]
     sections, symbols = link_cycle.parse_coff(path.read_bytes())
     assert sections[0].name == ".CRT$XCU" and sections[0].size == 8
     # VC7.1 native .CRT$XCU slots are read/write, initialized data, aligned to 4.
@@ -255,3 +262,221 @@ def test_a_template_static_slot_runs_once_however_many_objects_emit_it(tmp_path)
     rowed = [(build.row_object(row).name if obj == "b.obj" else obj, symbol, *entry) for obj, symbol, *entry in registered]
     report = ir.initializer_report(Image(), [row], rowed)
     assert report["registered_retail_entries"] == 1 and report["unidentified"] == [] and report["twice"] == []
+
+
+def code(*parts):
+    """(bytes, {offset: (target, kind)}) from bytes and (target, kind) relocation fields."""
+    import link_cycle
+
+    raw, relocs = b"", {}
+    for part in parts:
+        if isinstance(part, bytes):
+            raw += part
+        else:
+            target, kind = part
+            relocs[len(raw)] = (target, link_cycle.DIR32 if kind == "dir" else link_cycle.REL32)
+            raw += bytes(4)
+    return raw, relocs
+
+
+def built(bodies, identity="init", cleanup=False):
+    return ir.construction(bodies, identity, cleanup)
+
+
+# 0x007ABBB3: mov ecx, offset g; call ctor; push offset cleanup; call atexit; pop ecx; ret.
+MACRO_INIT = code(b"\xb9", ("?g@@3HA", "dir"), b"\xe8", ("??0Table@@QAE@XZ", "rel"), b"\x68", ("?cleanup@@YAXXZ", "dir"),
+                  b"\xe8", ("_atexit", "rel"), b"\x59\xc3")
+MACRO_CLEANUP = code(b"\xb9", ("?g@@3HA", "dir"), b"\xe9", ("??1Table@@QAE@XZ", "rel"), b"\xcc\xcc")
+
+
+def test_construction_reads_the_initializer_p10_needs():
+    bodies = {"init": [MACRO_INIT], "?cleanup@@YAXXZ": [MACRO_CLEANUP]}
+    assert built(bodies) == ({"?g@@3HA"}, "ok")
+
+
+def test_construction_counts_only_constructing_operations():
+    store = code(b"\xc7\x05", ("?g@@3HA", "dir"), b"\x01\x00\x00\x00\xc3")
+    assert built({"init": [store]}) == ({"?g@@3HA"}, "ok")
+    assert built({"init": [code(b"\xa3", ("?g@@3HA", "dir"), b"\xc3")]}) == ({"?g@@3HA"}, "ok")
+    zeroed = code(b"\x6a\x1c\x6a\x00\x68", ("?g@@3HA", "dir"), b"\xe8", ("_memset", "rel"), b"\x83\xc4\x0c\xc3")
+    assert built({"init": [zeroed]}) == ({"?g@@3HA"}, "ok")
+    # A load is no construction; nor is an address left in ecx with no constructor call.
+    assert built({"init": [code(b"\xa1", ("?rate@@3HA", "dir"), b"\xc3")]}) == (frozenset(), "ok")
+    assert built({"init": [code(b"\xb9", ("?g@@3HA", "dir"), b"\xc3")]}) == (frozenset(), "ok")
+    # atexit of a lone `ret` is an effect of its own.
+    empty = code(b"\x68", ("?noop@@YAXXZ", "dir"), b"\xe8", ("_atexit", "rel"), b"\x59\xc3")
+    assert built({"init": [empty], "?noop@@YAXXZ": [(b"\xc3\xcc", {})]}) == (
+        {("empty cleanup", "?noop@@YAXXZ")}, "ok")
+
+
+def test_counterexample_1_an_address_in_ecx_that_is_only_read_is_no_construction():
+    # mov ecx, offset g; mov eax, [ecx]; ret reads g.
+    found, why = built({"init": [code(b"\xb9", ("?g@@3HA", "dir"), b"\x8b\x01\xc3")]})
+    assert found is None and why.startswith("mov eax")
+
+
+def test_counterexample_4_bytes_are_decoded_at_instruction_boundaries():
+    # B8 89 05 <g>: mov eax, imm32 swallows the 89 05 a byte matcher took for a store.
+    found, why = built({"init": [(b"\xb8\x89\x05\x00\x00\x00\x00\xc3", {3: ("?g@@3HA", 6)})]})
+    assert found is None
+    # A store the classifier does not know (fistp qword [g], DF /7) is unresolved, never missed.
+    found, why = built({"init": [code(b"\xdf\x3d", ("?g@@3HA", "dir"), b"\xc3")]})
+    assert found is None and why.startswith("fistp")
+
+
+@pytest.mark.parametrize("body,cleanup_body", [
+    (code(b"\xb9", ("?g@@3HA", "dir"), b"\xe8", ("?helper@@YAXXZ", "rel"), b"\xc3"), None),   # a helper
+    (code(b"\xb9", ("?g@@3HA", "dir"), b"\xe8", ("??1Table@@QAE@XZ", "rel"), b"\xc3"), None),  # dtor outside a cleanup
+    (code(b"\xe8", ("??0Table@@QAE@XZ", "rel"), b"\xc3"), None),                               # no known this
+    (MACRO_INIT, code(b"\xb9", ("?g@@3HA", "dir"), b"\xe9", ("?releaseBuffer@@QAEXXZ", "rel"))),  # inlined dtor
+])
+def test_construction_through_anything_unrecognised_is_unresolved(body, cleanup_body):
+    bodies = {"init": [body], "?cleanup@@YAXXZ": [cleanup_body or MACRO_CLEANUP]}
+    assert built(bodies)[0] is None
+
+
+def test_construction_of_comdat_copies_that_differ_is_unresolved():
+    other = code(b"\xb9", ("?h@@3HA", "dir"), b"\xe8", ("??0Table@@QAE@XZ", "rel"), b"\xc3")
+    bodies = {"init": [MACRO_INIT, other], "?cleanup@@YAXXZ": [MACRO_CLEANUP]}
+    assert built(bodies) == (None, "copies differ")
+
+
+def ctor_of(global_name):
+    return code(b"\xb9", (global_name, "dir"), b"\xe8", ("??0Thing@@QAE@XZ", "rel"), b"\xc3")
+
+
+def stores(*globals_):
+    parts = []
+    for name in globals_:
+        parts += [b"\xa3", (name, "dir")]
+    return code(*parts, b"\xc3")
+
+
+def proof(bodies, natives):
+    """shape_credit_proof for one credit: n.obj's `_$E1` credited with rowed 0x100, ?rowed@@YAXXZ."""
+    report = {"by_shape_only": [["n.obj", "_$E1", "0x100"]]}
+    registered = [(obj, symbol) for obj, symbol in natives]
+    return ir.shape_credit_proof(report, registered, bodies, {0x100: "?rowed@@YAXXZ"})
+
+
+def test_a_shape_credited_rowed_initializer_is_bridged_when_provably_disjoint():
+    # P10: nullrobj.cpp's `_$E1` builds its loader; the rowed 0x007ABBB3 builds the macro table.
+    bodies = {("n.obj", "_$E1"): [ctor_of("?_NullLoader@@3VNullLoaderClass@@A")],
+              "?rowed@@YAXXZ": [ctor_of("?BfmeINIMacroTableStorage@@3PAIA")]}
+    assert proof(bodies, [("n.obj", "_$E1")]) == ([(0x100, "?rowed@@YAXXZ")], [])
+
+
+def test_counterexample_2_any_overlap_with_the_credit_leaves_it_as_it_was():
+    # Native {A} against rowed {A, B}: the native already builds A, so neither is touched.
+    bodies = {("n.obj", "_$E1"): [stores("?A@@3HA")], "?rowed@@YAXXZ": [stores("?A@@3HA", "?B@@3HA")]}
+    bridged, left = proof(bodies, [("n.obj", "_$E1")])
+    assert bridged == [] and left == [["0x100", "constructs what the crediting registration constructs"]]
+
+
+def test_counterexample_3_a_global_several_natives_build_is_never_built_again():
+    # Natives {G, A} and {G, B} against rowed {G, C}: G is built natively, so the rowed one stays out.
+    bodies = {("n.obj", "_$E1"): [stores("?X@@3HA")], ("a.obj", "_$E1"): [stores("?G@@3HA", "?A@@3HA")],
+              ("b.obj", "_$E1"): [stores("?G@@3HA", "?B@@3HA")], "?rowed@@YAXXZ": [stores("?G@@3HA", "?C@@3HA")]}
+    bridged, left = proof(bodies, [("n.obj", "_$E1"), ("a.obj", "_$E1"), ("b.obj", "_$E1")])
+    assert bridged == [] and left == [["0x100", "constructs what another native registration constructs"]]
+
+
+def test_an_unresolved_registration_referring_to_the_global_through_its_cleanup_blocks_it():
+    # INI_loadFile.cpp: `_$E1` is atexit(_$E2); _$E2 inlines ~AsciiString on BfmeINICurrentFilename.
+    filename = "?BfmeINICurrentFilename@@3VAsciiString@@A"
+    bodies = {("n.obj", "_$E1"): [ctor_of("?_ParticleEmitterLoader@@3VParticleEmitterLoaderClass@@A")],
+              "?rowed@@YAXXZ": [ctor_of(filename)],
+              ("i.obj", "_$E1"): [code(b"\x68", (("i.obj", "_$E2"), "dir"), b"\xe8", ("_atexit", "rel"), b"\x59\xc3")],
+              ("i.obj", "_$E2"): [code(b"\xb9", (filename, "dir"), b"\xe9", ("?releaseBuffer@@AAEXXZ", "rel"))]}
+    bridged, left = proof(bodies, [("n.obj", "_$E1"), ("i.obj", "_$E1")])
+    assert bridged == [] and left == [["0x100", "an unresolved native registration refers to what it constructs"]]
+
+
+def test_an_unresolved_side_leaves_the_entry_as_it_was():
+    helper = code(b"\xe8", ("?helper@@YAXXZ", "rel"), b"\xc3")
+    bodies = {("n.obj", "_$E1"): [helper], "?rowed@@YAXXZ": [ctor_of("?g@@3HA")]}
+    assert proof(bodies, [("n.obj", "_$E1")])[1][0][1].startswith("crediting registration unresolved")
+    bodies = {("n.obj", "_$E1"): [ctor_of("?x@@3HA")], "?rowed@@YAXXZ": [helper]}
+    assert proof(bodies, [("n.obj", "_$E1")])[1][0][1].startswith("rowed body unresolved")
+    bodies = {("n.obj", "_$E1"): [ctor_of("?x@@3HA")], "?rowed@@YAXXZ": [code(b"\xc3")]}
+    assert proof(bodies, [("n.obj", "_$E1")])[1] == [["0x100", "rowed body constructs nothing"]]
+    # An entry no rowed kept code backs is not this check's.
+    assert ir.shape_credit_proof({"by_shape_only": [["n.obj", "_$E1", "0x200"]]}, [("n.obj", "_$E1")],
+                                 bodies, {0x100: "?rowed@@YAXXZ"}) == ([], [])
+
+
+def test_scan_objects_keeps_bodies_up_to_the_next_symbol(tmp_path):
+    import link_cycle
+
+    text = b"\xb9" + bytes(4) + b"\xc3" + b"\xa3" + bytes(4) + b"\xc3"
+    path = link_cycle.write_coff(
+        tmp_path / "u.obj", [(".text", 0x60500020, text, 0)],
+        [("?f@@YAXXZ", 1, 0, link_cycle.EXTERNAL), ("_$E1", 1, 6, link_cycle.STATIC),
+         ("?g@@3HA", 0, 0, link_cycle.EXTERNAL)],
+        {1: [(1, "?g@@3HA", link_cycle.DIR32), (7, "?g@@3HA", link_cycle.DIR32)]})
+    bodies = {}
+    assert len(ir.scan_objects([path], bodies)) == 3
+    assert bodies["?f@@YAXXZ"] == [(b"\xb9" + bytes(4) + b"\xc3", {1: ("?g@@3HA", link_cycle.DIR32)})]
+    assert bodies[("u.obj", "_$E1")] == [(b"\xa3" + bytes(4) + b"\xc3", {1: ("?g@@3HA", link_cycle.DIR32)})]
+
+
+def test_construction_needs_every_relocation_on_an_operand_and_a_clean_end():
+    # A relocation in the padding after ret is in no operand.
+    assert built({"init": [(b"\xc3\xcc\xcc\xcc\xcc", {1: ("?g@@3HA", 6)})]}) == (
+        None, "a relocation outside every operand")
+    assert built({"init": [(b"\xc3\x00", {})]}) == (None, "bytes after ret")
+    assert built({"init": [code(b"\xa1", ("?rate@@3HA", "dir"))]}) == (None, "no ret")
+
+
+def test_bridge_entries_adds_only_proven_shape_credits_in_retail_order(tmp_path, monkeypatch):
+    import build
+
+    exe = tmp_path / "game.dat"
+    exe.write_bytes(b"")
+    monkeypatch.setattr(build, "EXE", exe)
+
+    class Image:
+        def initializers(self):
+            return [0x30, 0x20, 0x10, 0x40]
+
+    monkeypatch.setattr(ir, "Retail", lambda raw: Image())
+    monkeypatch.setattr(ir, "known_addresses", lambda rows: {})
+
+    def scan(paths, bodies):
+        bodies.update({("n.obj", "_$E1"): [ctor_of("?loader@@3HA")], ("m.obj", "_$E1"): [ctor_of("?x@@3HA")],
+                       "?b@@YAXXZ": [ctor_of("?table@@3HA")], "?d@@YAXXZ": [ctor_of("?x@@3HA")]})
+        return {}, [("n.obj", "_$E1"), ("m.obj", "_$E1")], {"?a@@YAXXZ", "?b@@YAXXZ", "?d@@YAXXZ"}
+
+    monkeypatch.setattr(ir, "scan_objects", scan)
+    monkeypatch.setattr(ir, "initializer_report", lambda *args: {
+        "not_registered_rvas": ["0x30", "0x10"],
+        "by_shape_only": [["n.obj", "_$E1", "0x20"], ["m.obj", "_$E1", "0x40"]]})
+    rows = [{"name": name, "target_rva": rva, "source": "Code/A.cpp", "notes": ""}
+            for name, rva in (("?a@@YAXXZ", "0x10"), ("?b@@YAXXZ", "0x20"), ("?d@@YAXXZ", "0x40"))]
+    entries, unreachable, credits = ir.bridge_entries(rows, [])
+    assert entries == [(0x20, "?b@@YAXXZ"), (0x10, "?a@@YAXXZ")] and unreachable == ["0x30"]
+    assert credits == {"shape_credit_bridged": ["0x20"],
+                       "shape_credit_left": [["0x40", "constructs what the crediting registration constructs"]]}
+
+
+def test_the_summary_keeps_both_shape_credit_counts():
+    initializers = {"shape_credit_bridged": 7, "shape_credit_left": 29}
+    summary = ir.summary({"initializers": initializers, "vtables": {}, "globals": {}, "fieldparse": {},
+                          "duplicates": {}})
+    assert summary["initializers"]["shape_credit_bridged"] == 7
+    assert summary["initializers"]["shape_credit_left"] == 29
+
+
+@pytest.mark.parametrize("body,cleanup", [
+    (code(b"\xb9", ("?g@@3HA", "dir"), b"\xe8", ("??0Table@@QAE@XZ", "rel"), b"\xc3"), True),     # ctor in a cleanup
+    (code(b"\x68", ("?f@@YAXXZ", "dir"), b"\xe8", ("_atexit", "rel"), b"\x59\xc3"), True),        # atexit in a cleanup
+    (code(b"\x6a\x00\xe8", ("_memset", "rel"), b"\xc3"), False),                               # memset of no global
+    (code(b"\xe8\x00\x00\x00\x00\xc3"), False),                                                 # a call with no relocation
+    (code(b"\xb8", ("?g@@3HA", "dir"), b"\xc3"), False),                                        # an address into eax
+    (code(b"\xb9", ("?g@@3HA", "dir"), b"\x8b\x0d", ("?p@@3PAHA", "dir"), b"\xe8",
+          ("??0Table@@QAE@XZ", "rel"), b"\xc3"), False),                                         # ecx reloaded first
+    (code(b"\xb9", ("?g@@3HA", "dir"), b"\x89\x01\xc3"), False),                               # a store through ecx
+])
+def test_construction_refuses_what_it_cannot_attribute(body, cleanup):
+    bodies = {"init": [body], "?f@@YAXXZ": [(b"\xc3", {})]}
+    assert built(bodies, cleanup=cleanup)[0] is None
