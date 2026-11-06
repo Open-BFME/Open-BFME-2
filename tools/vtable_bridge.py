@@ -15,6 +15,7 @@ import link_cycle
 
 COMDAT, EXECUTE, SELECT_ANY = 0x1000, 0x20000000, 2
 ASSOCIATIVE, DISCARDABLE = 5, 0x02000000
+WEAK_EXTERNAL = 105  # IMAGE_SYM_CLASS_WEAK_EXTERNAL
 RDATA = 0x40301040
 
 
@@ -199,7 +200,8 @@ class Targets:
 
     def twin(self, ledger, winner, name):
         """The earlier kept COMDAT copy is the ledger body: same loaded bytes,
-        selection and relocations, every relocation to an external name.
+        selection and relocations, every relocation to an external name or to
+        one weak external with the same default (weak_default).
         Only SELECT_ANY keeps the first copy, so every kept definition of the
         name must be SELECT_ANY; LARGEST or another rule could pick a later one."""
         if winner is None or Path(winner) not in self.kept:
@@ -244,12 +246,36 @@ def comdat_body(objects, path, name):
     relocs = []
     for off, index, kind in sec.relocs:
         target = symbols[index]
-        if target.cls != link_cycle.EXTERNAL:
+        if target.cls == link_cycle.EXTERNAL:
+            relocs.append((off, target.name, kind))
+            continue
+        default = weak_default(raw, symbols, target)
+        if default is None:
             return None
-        relocs.append((off, target.name, kind))
+        relocs.append((off, target.name, kind) + default)
     # The selection is judged once across every provider (Targets.selections);
     # the byte slice carries the section size.
     return sec.flags, raw[sec.ptr:sec.ptr + sec.size], relocs
+
+
+def weak_default(raw, symbols, target):
+    """(default name, characteristics) of an undefined weak external whose
+    IMAGE_WEAK_EXTERN aux record names an external default, else None.
+
+    A vftable adjustor thunk `??_EX@@W..` jumps to `??_EX@@UAEPAXI@Z`, a weak
+    external defaulting to `??_GX`. The linker resolves a name once for the
+    whole image, so two copies relocating to the same weak name reach the same
+    code; the default and its search characteristics must agree as well."""
+    if target.cls != WEAK_EXTERNAL or target.sec != 0 or target.value:
+        return None
+    symptr, count = struct.unpack_from("<II", raw, 8)
+    if target.i + 1 >= count or raw[symptr + 18 * target.i + 17] < 1:
+        return None
+    tag, characteristics = struct.unpack_from("<II", raw, symptr + 18 * (target.i + 1))
+    default = symbols.get(tag)
+    if default is None or default.cls != link_cycle.EXTERNAL:
+        return None
+    return default.name, characteristics
 
 
 def retail_slots(retail, row):

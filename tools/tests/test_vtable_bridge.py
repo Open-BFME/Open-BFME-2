@@ -506,6 +506,68 @@ def test_earlier_copy_that_is_not_a_proven_twin_still_refuses(tmp_path, earlier,
     assert result["refusals"][0]["reason"] == "target-not-winning-provider"
 
 
+def weak_code(path, default="_dflt", characteristics=3, aux=True, default_class=L.EXTERNAL,
+              body=b"\xe9\0\0\0\0", callee="_weak", callee_class=V.WEAK_EXTERNAL):
+    """_first and _second as adjustor-thunk COMDATs jumping to a weak external
+    (`??_EX` defaulting to `??_GX`). The record after the callee always holds
+    IMAGE_WEAK_EXTERN aux bytes (TagIndex, Characteristics); aux=False leaves
+    the callee's aux count zero, so they are not its aux record."""
+    sections = [(".text", 0x60501020, body, V.SELECT_ANY), (".text", 0x60501020, body, V.SELECT_ANY)]
+    symbols = [("_first", 1, 0, L.EXTERNAL), ("_second", 2, 0, L.EXTERNAL),
+               (callee, 0, 0, callee_class), ("_aux", 0, 0, 0), (default, 0, 0, default_class)]
+    path = L.write_coff(path, sections, symbols, {1: [(1, callee, L.REL32)], 2: [(1, callee, L.REL32)]})
+    raw = bytearray(path.read_bytes())
+    symptr = struct.unpack_from("<I", raw, 8)[0]
+    _sections, syms = L.parse_coff(bytes(raw))
+    weak = next(y.i for y in syms.values() if y.name == callee)
+    raw[symptr + 18 * (weak + 1):symptr + 18 * (weak + 2)] = struct.pack("<II", weak + 2, characteristics) + bytes(10)
+    raw[symptr + 18 * weak + 17] = 1 if aux else 0
+    path.write_bytes(bytes(raw))
+    return path
+
+
+def weak_twin_plan(tmp_path, earlier, **ours):
+    code = weak_code(tmp_path / "code.obj", **ours)
+    table = table_object(tmp_path / "table.obj")
+    rows = [{"target_rva": hex(rva), "name": name, "source": "Code/code.cpp", "status": "matched"}
+            for rva, name in ((0x1000, "_first"), (0x1010, "_second"))]
+    data = [{"address": "0x3000", "size": "8", "name": "_vtable", "kind": "vtable"}]
+    return V.plan(rows, [table, earlier, code], [], Retail(), data,
+                  object_for=lambda row: code, symbol_for=lambda row: row["name"])
+
+
+def test_earlier_adjustor_thunk_twin_through_the_same_weak_external_provides_the_ledger_body(tmp_path):
+    # LINK-619: ??_ETeam@@O3AEPAXI@Z in TeamCtor.cpp (first) and TeamDeleter.cpp
+    # (the ledger row) both jump to the weak ??_ETeam@@MAEPAXI@Z -> ??_GTeam.
+    result = weak_twin_plan(tmp_path, weak_code(tmp_path / "earlier.obj"))
+    assert (result["tables"], result["refused_tables"], result["twin_target_slots"]) == (1, 0, 2)
+    slot = result["entries"][0]["slots"][0]
+    assert slot["object"] == str((tmp_path / "earlier.obj").resolve())
+    assert slot["twin_of"] == str((tmp_path / "code.obj").resolve())
+
+
+@pytest.mark.parametrize("earlier,ours", [
+    (dict(default="_other"), {}),                         # weak default differs
+    (dict(characteristics=2), {}),                        # weak search characteristics differ
+    (dict(aux=False), {}),                                # one weak record without its aux record
+    (dict(aux=False), dict(aux=False)),                   # no aux record: no default to compare
+    (dict(default_class=L.STATIC), dict(default_class=L.STATIC)),  # default is not an external name
+    (dict(callee_class=L.STATIC), dict(callee_class=L.STATIC)),    # aux bytes on a non-weak target
+    (dict(callee="_wother"), {}),                         # another weak name
+])
+def test_weak_external_relocations_must_agree_to_be_twins(tmp_path, earlier, ours):
+    result = weak_twin_plan(tmp_path, weak_code(tmp_path / "earlier.obj", **earlier), **ours)
+    assert result["tables"] == 0
+    assert result["refusals"][0]["reason"] == "target-not-winning-provider"
+
+
+def test_plain_external_and_weak_external_relocations_are_not_twins(tmp_path):
+    earlier = comdat_code(tmp_path / "earlier.obj", body=b"\xe9\0\0\0\0", callee="_weak", kind=L.REL32)
+    result = weak_twin_plan(tmp_path, earlier)
+    assert result["tables"] == 0
+    assert result["refusals"][0]["reason"] == "target-not-winning-provider"
+
+
 @pytest.mark.parametrize("selection", [6, V.SELECT_ANY])
 def test_later_largest_copy_can_win_so_an_earlier_twin_is_not_proof(tmp_path, selection):
     # Review of 3f603f990a: [earlier, ledger, later] with identical short

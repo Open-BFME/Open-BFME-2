@@ -1,6 +1,7 @@
 ### LINK-619: vtable bridge refusals: deleting destructors rowed away from the TU that emits them first, and a stale data ledger
-Status: Open (partly repaired). Updated: 2026-11-06; seat halilkkaya-lk38 (base `3d70a843d39`), queue
-`reverse/vtable_bridge_queue.tsv` from real link `95341e20cc`, census index `d707d2f53b`.
+Status: Open (partly repaired). Updated: 2026-11-07; seats halilkkaya-lk38 (base `3d70a843d39`) and
+halilkkaya-lk40 (base `4b2bb61eb1d`), queue `reverse/vtable_bridge_queue.tsv` from real links `95341e20cc`
+and `1d41894d2a`, census index `d707d2f53b` (lk40: `94d8ffa1ad`).
 
 **Problem.** Besides multiple-kept-names (LINK-618), the bridge (`tools/vtable_bridge.py`) refuses tables
 for three reasons the queue lists: strong-definition (134), no-kept-definition (421) and
@@ -103,3 +104,50 @@ Same pass, full-view repair: the four sources now agree on the complete14-slot A
 Same pass, approved merge: all three donors are absorbed by tu_skeleton.py after the documented current-object index refresh clears the stale nonvirtual-name/table evidence. Three source files disappear; all20 rows and five EXACT EH graphs remain, and the merged table's14 pointers again equal native. The guard passes, normal/private composed facts agree, and no donor debt/header/hatch key is lost. The merged521B preview conserves the repaired cohort's521B. The tooling/path audit finds no independent active consumer edit; the mixed GroupOrderClassNames.cpp donor stays. This repairs the source/table prerequisites of the earlier SynchronizeGroupOrder exception; actual next-image selection and runtime verification remain open. [Composition and audit](../../reverse/attempt_support/synchronize-group-order-native-table-20261106/README.md).
 
 Published as `d117bf74a1`, `0a1151cb9e` and `67435ce87e` on2026-11-06. The normal pre-push hook verified20/20 and five EXACT EH graphs and proved no remaining old-clone consumer among17996 units. Its broader audit stays **INCONCLUSIVE**: provider index faee62b0b2, actual outgoing base7d5bb0f61e8f0802df8a6530171c18316e112468, four consumer objects without current receipts (first ChangeStanceGroupOrder.cpp). Carry those consumer/selection checks into the next census and real image; no broader link/runtime clearance is claimed. The push tool rebased and reused verification receipts after a lost race, then landed on its second attempt.
+
+**2026-11-07, seat halilkkaya-lk40 (base `4b2bb61eb1d`): the twin rule re-measured, and weak-external thunks.**
+- The published queue (real link `1d41894d2a`, 488 target-not-winning-provider) predates the twin rule
+  (`fad073e21b1`, `b4c05ad2fe5`): neither commit is an ancestor of `1d41894d2a`. The same read-only
+  `vtable_bridge.plan()` simulation over the current kept objects (full `./build.sh` green) gives
+  generated 4,256, already correct 264, refused 297: target-not-winning-provider 88, strong-definition 134,
+  omitted-target 33, ambiguous-table-name 28, no-kept-definition 8, unrowed-target 5,
+  ambiguous-target-name 1, multiple-kept-names 0.
+- No remaining refusal has LINK-619's shape (first provider = the slot row's approved TU). The
+  "about 24 tables" above (Weapon, WeaponSet, Team, Rva002AC340, GameEngine, Rva002FED8D, OilSpillUpdate,
+  SiegeEngineContain, TransportContain's horde tables, ...) no longer refuse: their donor copies are
+  byte-and-relocation twins (checked per slot), so the twin rule bridges them without a merge.
+- The 88, by what makes the earlier copy fail the twin check (per blocked slot):
+  - 48 tables: a `??_EX@@W..` adjustor thunk (`sub ecx,N; jmp ??_EX@@UAEPAXI@Z`) whose jump target is a
+    weak external (`IMAGE_SYM_CLASS_WEAK_EXTERNAL`, default `??_GX`). `comdat_body` refused every
+    non-external relocation target. **Repaired**: `tools/vtable_bridge.py` now compares such a target by
+    name plus its IMAGE_WEAK_EXTERN default and characteristics (the linker resolves a name once for the
+    image, so equal weak relocations reach the same code). Simulation: target-not-winning-provider
+    88 -> 40, generated 4,256 -> 4,300, already correct 264 -> 280, no table lost or newly refused.
+    Examples: `??_ETeam@@O3AEPAXI@Z` (TeamCtor.cpp first, TeamDeleter.cpp owner), the eight
+    `Rva0056A..`/`Rva0056B..` screen tables, ScriptEngine/PlayerList/SidesList/GameState's `WM@` thunks,
+    five FXParticleSystem module-template tables (bridged by the tool rule only; no FXParticleSystem
+    source touched).
+  - 29 tables: alignment only. The copies have equal bytes and relocations, but one object is built `/O1`
+    (`IMAGE_SCN_ALIGN_1BYTES`, 0x60101020) and the other `/O2` (`ALIGN_16BYTES`, 0x60501020). 20 are
+    RenderObjClass-derived tables whose first provider of six header-inline virtuals
+    (`Get_Bounding_Sphere`, `Get_Bounding_Box`, `Get_Current_LOD`, `_bfme_ro_flag111/113/115`) is
+    BaseHeightMapConstructor.cpp (`/O1`), owners hlod.cpp and distlod.cpp; the rest are
+    `Get_ObjectScale` (U4GlobalGuardedNotifies.cpp), VectorClass/SimpleVecClass deleting destructors,
+    `??_GBucket`, `??_GW3DShroudMaterialPassClass`, `??_G?$basic_ios`, `Get_Vertex_Array`. The twin
+    rule's tests refuse a flags (alignment) difference on purpose; not changed here. Proposal for the
+    Link lane: compare flags without `IMAGE_SCN_ALIGN_MASK` (0x00F00000), which only moves where the
+    linker places the kept copy.
+  - 6 tables: different bytes; the first provider's private view compiles another body (for example
+    PendingSurfaceStructResize.cpp's `??_G?$VectorClass@UPendingSurfaceStruct..` calls an out-of-line
+    `??1` where retail's 93-byte copy in render2dsentence.cpp inlines it; MaterialCollectorClassCtor.cpp,
+    Rva0040DB52Ctor.cpp, the two Fesl browser owners, PoolDeleteDeletingDtors01.cpp). These need the
+    first provider's view reconciled with the owner's.
+  - 5 slots: EH bodies with local relocations and loaded `.xdata$x`/`.text$x` associative sections
+    (STLport `money_get::do_get`, `basic_filebuf::seekoff`, `VectorClass<Vector3/Vector4>::Resize`),
+    which no twin check can compare; their owner must be the first provider.
+
+- Verification of the tool change: 69 bridge tests, nine of them new (a weak-thunk twin; refusals for a
+  different default, different characteristics, a missing aux record on one or both sides, a non-external
+  default, aux bytes on a non-weak target, another weak name, and plain against weak); each of the seven
+  new guards fails a test when removed. 156 bridge/exit-link tests pass. Next check: the next real link's `vtable_bridge_queue.tsv`
+  lists these 48 tables (0x007C5320 ... 0x00879594) as bridged or already correct, not refused.
