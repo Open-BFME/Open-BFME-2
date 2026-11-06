@@ -80,10 +80,17 @@ and `g_Va00DEDC80`.
   repaired it: the save/load screen (`AptSaveLoadCallbacks.cpp`) and its atexit destructor 0x007B83A5 read address 0x3E8.
   Still open: +8 and +0xC as fields of this object. That needs a real name for it first; the hatch register counts
   `g_Va00E06634` per file, and neither file has an allowance for the name.
-- `g_Va00E01E08` (gap 16): `AIBurningDeathStateUpdate.cpp` names it and another worker held that file. It has no data
-  row, so the first repair works without touching that file.
-- `g_Va00E02FF8` (gap 20): has a data row, so it needs the array form, and `BfmeConv1292DeferredWalkers.cpp` names it. That
-  file is frozen (`PointerSJATable::_M_bkt_num_key` and `::_M_delete_node` have no rows), so remedy those first.
+- `g_Va00E01E08` (gap 16): done in `8ebe20b9d1b`; `Rva007ABEF3ArgCtorInits.cpp` defines it as four words.
+- `g_Va00E02FF8` (gap 20): the third of four contiguous 0x14-byte hashtables at 0x00E02FD0, 0x00E02FE4, 0x00E02FF8 and
+  0x00E0300C, each built by the 31-byte `Rva004121B2` constructor from `Rva004121B2HashMapInits.cpp`.
+  **Storage repaired 2026-11-07 (seat halilkkaya-lk42):** that unit now defines the name as five words, keeping the mangled
+  name `BfmeConv1292DeferredWalkers.cpp` (frozen), `Rva007B6880Thunks.cpp` and `Rva004110DCGet.cpp` declare, and its
+  4-byte data row is removed. The name was alone in its unit's `.bss`, so before this the constructor wrote 16 bytes into
+  whatever the link placed next.
+  Still open, a second object: `Rva004118B4AssetCreate.cpp` defines its own `g_00E02FF8` and inserts Apt render objects
+  into it (0x004118B4), while `Rva004110DCGet.cpp` looks them up in `g_Va00E02FF8`. Ours is never constructed and nothing
+  reads it. `data_check.py` reports it (`duplicate-def`, `wrong-name`). Respelling it to the owner adds an address-named
+  token to that file, so it needs the owner's real name or an admission first.
 - `g_00DFE7B0`: the ledger's name for +8 of the object at `g_00DFE7A8`, typed as a string. It should be read against that
   object now that the object has its storage.
 
