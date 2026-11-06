@@ -70,7 +70,6 @@ public:
 #include <stdlib.h>
 #define _CRTIMP
 #undef _CRTIMP
-
 // Target4E2F54/4E2F7A are38B/37B construction loops called by the
 // rowed push_back4E3E5A family's overflow4E3D52. Both step32 and call
 // the same full45B rowed _Construct4E2F27. Preserve that existing element
@@ -86,19 +85,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-
 class Rva004E2E58Value;
-
 struct FieldParse;
-
 struct Rva004E16D9Pair {
 	float x;
 	float y;
 	Rva004E16D9Pair() : x(0.0f), y(0.0f) {}
 };
-
 struct EmitVtableTag;
-
 class Rva004E16D9Record {
 public:
 	Rva004E16D9Record();
@@ -115,7 +109,6 @@ private:
 	char m_pad1E[2];
 	Rva004E16D9Pair m_20;
 };
-
 class Rva003B7190Record
 {
 public:
@@ -127,7 +120,6 @@ private:
 	bool m_flag08;
 	Int m_flashTime;
 };
-
 // BFME 2's complete table at RVA 0x008619E0. Each callback and offset
 // comes from the native table, independently of the donor's addresses.
 extern const FieldParse FlashRegionsEventFieldParseTable[4] = {
@@ -136,15 +128,12 @@ extern const FieldParse FlashRegionsEventFieldParseTable[4] = {
     { "SummaryEvent", INI::parseBool, 0, 8 },
     { 0, 0, 0, 0 }
 };
-
 struct Elem003AF9E0;
-
 class Rva0056655FOwner
 {
 public:
 	void rva0056655F(const Elem003AF9E0 &record);
 };
-
 class Rva003B7BA0Record
 {
 public:
@@ -153,38 +142,30 @@ public:
 private:
 	AsciiString m_name;
 };
-
 // BFME 2's complete table at RVA 0x00861A50: the string at +4 and
 // the four-zero terminator. The donor's table address is not used here.
 extern const FieldParse Rva003B7BA0RecordFieldParseTable[2] = {
     { "Region", INI::parseAsciiString, 0, 4 },
     { 0, 0, 0, 0 }
 };
-
 class FXList;
-
 class Rva00566527
 {
 public:
 	void rva00566527( const FXList &record );
 };
-
 class Rva0052BEF0
 {
 	char m_pad[0xC];
 };
-
 class Rva0056656AOwner
 {
 public:
 	void append(const Rva0052BEF0 &record);
 };
-
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
-
 struct Rva004E1FE4Element { char bytes[8]; };
-
 struct Rva004E1D4EElement
 {
 public:
@@ -192,22 +173,17 @@ public:
 	bool operator==(const Rva004E1D4EElement&)const;
 	char bytes[12]; // +0x00
 };
-
 typedef _STL::_Rb_tree<Rva004E1FE4Element, Rva004E1FE4Element,
     _STL::_Identity<Rva004E1FE4Element>, _STL::less<Rva004E1FE4Element>,
     _STL::allocator<Rva004E1FE4Element> > Rva004E1FE4Tree;
-
 typedef _STL::set<Rva004E1FE4Element> Rva004E1FE4TreeCopyView;
-
 typedef _STL::vector<Rva004E1D4EElement> Rva004E1D4EVectorCopyView;
-
 namespace _STL {
 template <> Rva004E1FE4Tree::_Rb_tree(const Rva004E1FE4Tree &);
 template <> Rva004E1FE4Tree::~_Rb_tree();
 template <> Rva004E1D4EVectorCopyView::vector(const Rva004E1D4EVectorCopyView &);
 template <> Rva004E1D4EVectorCopyView::~vector();
 }
-
 class Rva004E2C66
 {
 public:
@@ -218,18 +194,13 @@ private:
     Rva004E1FE4TreeCopyView m_tree08;
     Rva004E1D4EVectorCopyView m_vector14;
 };
-
 struct Rva0020F58E
 {
     operator AsciiString();
 };
-
 class LivingWorldCampaignManager;
-
 class Rva00E02D6C;
-
  extern Rva00E02D6C *TheCampaignManager;
-
 	// defined once, in Rva002B47B1Get.cpp
 
 class SpawnArmy
@@ -245,38 +216,32 @@ private:
 	unsigned char m_00[0x2C];
 	AsciiString m_2C;
 };
-
 class Rva003B8E89
 {
 public:
 	void *rva003B8E89(void *key);
 };
-
 class BfmeY1038
 {
 public:
 	int bfmeVal1038();
 };
-
 class Rva0040CB2CIndexedField
 {
 public:
 	int get(int index) const;
 };
-
 class Rva0037DCA5
 {
 public:
 	void *GetThingTemplate();
 };
-
 struct Rva004E23E2Pair
 {
 	char m_pad[0x40];
 	int m_40;
 	int m_44;
 };
-
 class Rva004E194E
 {
 public:
@@ -289,7 +254,6 @@ private:
 	AsciiString m_text;
 	bool m_flag10;
 };
-
 // The native table at 0x00861CE8 parses the two delays, text tag and summary flag.
 extern const FieldParse Rva003B8610RecordFieldParseTable[] = {
 	{ "DelayFromActStart", &INI::dup_002F0F7, 0, 4 },
@@ -298,13 +262,11 @@ extern const FieldParse Rva003B8610RecordFieldParseTable[] = {
 	{ "SummaryEvent", &INI::parseBool, 0, 16 },
 	{ 0, 0, 0, 0 }
 };
-
 class Rva00566557
 {
 public:
 	void rva00566557(const Rva004E194E &record);
 };
-
 // Opaque dtor at 0x004E18A2 (vptr store plus conditional member-method
 // tail-jump). The +8 slot calls OpaqueRefCounted::Release_Ref at 0x50ED3;
 // a null member returns directly. The containing class remains unidentified.
@@ -322,7 +284,6 @@ private:
 	bool m_0C; // +0x0C
 	char m_pad0D[0x3];
 };
-
 class Rva004E2382 {
 public:
 	Rva004E2382();
@@ -337,7 +298,6 @@ private:
 public:
 	~Rva004E2382();
 };
-
 namespace _STL {
 template <class _ForwardIterator>
 void _Destroy(_ForwardIterator __first, _ForwardIterator __last);
@@ -353,7 +313,6 @@ inline void _Destroy<Rva004E2382 *>(Rva004E2382 *__first, Rva004E2382 *__last)
         __first->~Rva004E2382();
 }
 }
-
 //
 // Opaque destructor at 0x004E32F2 (14B): stores its vtable, adjusts this to
 // the member at +0x0C, and tail-calls the vector destructor at 0x002B80CE
@@ -376,7 +335,6 @@ private:
 	void *m_end;
 	void *m_storage;
 };
-
 class Rva004E32F2
 {
 public:
@@ -387,7 +345,6 @@ private:
 	char m_head0C[8];
 	RvaVec002B80CE m_vector0C;
 };
-
 // Native FlashRegionsEvent record: parser4E14E8 creates the 16-byte local,
 // ctor4E14CD/20 installs VA C619A0, and copy52BB9A/33 preserves fields4/8/C.
 // C619A0 contains one pointer, VA8E19E7, followed by the FlashTime literal.
@@ -406,7 +363,6 @@ private:
     bool opaque08;
     unsigned opaque0C;
 };
-
 // ?Rva004E1AD5Get@@YAXPAURva004E1AD5Item@@0PAX@Z, RVA 0x004E1AD5, 26B.
 // Unlock lane: range loop over 0x58-stride objects calling virtual slot 0
 // with 0; frameless push-esi loop with late-entry jmp to cmp. Caller at
@@ -418,15 +374,12 @@ struct Rva004E1AD5Item
 	virtual void f(int);
 	char m_pad[0x58 - 4];
 };
-
 struct AsciiRange002ADD75
 {
 	StringBase<char> *m_begin;
 	StringBase<char> *m_end;
 };
-
 int __cdecl Rva002ADD75Equal(const AsciiRange002ADD75 *lhs, const AsciiRange002ADD75 *rhs);
-
 struct Rva004E2CF7Data
 {
 	char _00[4];
@@ -452,22 +405,14 @@ struct Rva004E2CF7Data
 	unsigned char m_54;
 	unsigned char m_55;
 };
-
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree_base<_STL::pair<int const,void *>,_STL::allocator<_STL::pair<int const,void *> > >::_Rb_tree_base(_STL::allocator<_STL::pair<int const,void *> > const &); }
-
 namespace _STL { template <> _Rb_tree<int,_STL::pair<int const,void *>,_STL::_Select1st<_STL::pair<int const,void *> >,_STL::less<int>,_STL::allocator<_STL::pair<int const,void *> > >::~_Rb_tree(); }
-
 namespace _STL { template <> _Rb_tree_base<_STL::pair<int const,void *>,_STL::allocator<_STL::pair<int const,void *> > >::~_Rb_tree_base(); }
-
 namespace _STL { template <> void _Rb_tree<int,_STL::pair<int const,void *>,_STL::_Select1st<_STL::pair<int const,void *> >,_STL::less<int>,_STL::allocator<_STL::pair<int const,void *> > >::_M_erase(_STL::_Rb_tree_node<_STL::pair<int const,void *> > *); }
-
 namespace _STL { template <> _STL::_Rb_tree_node<_STL::pair<int const,void *> > * allocator<_STL::_Rb_tree_node<_STL::pair<int const,void *> > >::allocate(unsigned int,void const *) const; }
-
 namespace _STL { template <> void _STLP_alloc_proxy<_STL::_Rb_tree_node<_STL::pair<int const,void *> > *,_STL::_Rb_tree_node<_STL::pair<int const,void *> >,_STL::allocator<_STL::_Rb_tree_node<_STL::pair<int const,void *> > > >::deallocate(_STL::_Rb_tree_node<_STL::pair<int const,void *> > *,unsigned int); }
-
 namespace _STL { template <> void allocator<_STL::_Rb_tree_node<_STL::pair<int const,void *> > >::deallocate(_STL::_Rb_tree_node<_STL::pair<int const,void *> > *,unsigned int) const; }
-
 // bfme link decl-only end
 
 class Rva004E35A3
@@ -478,13 +423,10 @@ public:
 private:
 	_STL::map<int, void *> m_map;
 };
-
 struct BfmePod8 { int a[2]; };
-
 // erase is called out of line: bind it to the rowed retail copy at 0x003FA4DB
 // (stlport_pod_vector_malloc_bodies.cpp) instead of emitting this unit's own.
 namespace _STL { template <> __declspec(nothrow) BfmePod8 *vector<BfmePod8, allocator<BfmePod8> >::erase(BfmePod8 *, BfmePod8 *); }
-
 class Rva004E364F
 {
 public:
@@ -493,7 +435,6 @@ public:
 private:
 	_STL::vector<BfmePod8> m_vec;
 };
-
 struct BfmePod88
 {
 public:
@@ -502,14 +443,12 @@ public:
 	~BfmePod88();
 	char m_body[88]; // +0x00
 };
-
 class Rva000C0513
 {
 public:
 	void rva004E38B9(unsigned int n);
 	void rva000C0513(unsigned int n, Coord3D val);
 };
-
 // SplineCameraParseINIBlock's record is Rva004E32F2: native 0x004E3300 calls
 // its rowed ctor 0x004E32D5, appends it through the rowed 0x00566D7B and
 // destroys it inline (vptr 0x00C61F68, then the tree dtor 0x002B80CE), the
@@ -519,12 +458,10 @@ class Rva00566D7B
 public:
 	void rva00566D7B( const Rva004E32F2 &record ); // rowed 0x00566D7B
 };
-
 extern "C" {
 void __identifier("?parseControlPointBlock@Rva00064680@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva003B70F0@@YAXPAVRva003B70F0Owner@@PAVGenForwardedArg@@@Z")();
 }
-
 // The native table at RVA 0x00861FB8 that 0x004E3300 passes to initFromINI:
 // three 16-byte entries and the null terminator. DelayFromActStart uses the
 // rowed callback 0x0002F0F7 at offset 4, SummaryEvent parseBool 0x0002E850 at
@@ -537,7 +474,6 @@ extern const FieldParse Rva003BA660FieldParseTable[4] = {
 		(const void *)&__identifier("?Rva003B70F0@@YAXPAVRva003B70F0Owner@@PAVGenForwardedArg@@@Z"), 0 },
 	{ 0, 0, 0, 0 }
 };
-
 // Retail VA 0x00C61D84 (.rdata, file offset 0x0085DD84): the AnimObjectUpdate
 // block's two field records plus the zero sentinel - AnimObjectName through the
 // rowed INI::parseAsciiString (0x0002F11E) at +0 and WorldPos through the rowed
@@ -552,7 +488,6 @@ extern const struct FieldParse g_00C61D84[] =
 	{ "WorldPos",        &INI::parseCoord3D,      0, 0x4 },
 	{ 0, 0, 0, 0 }
 };
-
 class Rva004E1A04
 {
 public:
@@ -564,18 +499,15 @@ private:
 	float m_f2;
 	float m_f3;
 };
-
 struct Rva00566575Element
 {
 	char m_pad[0x10];
 };
-
 class Rva005666BA
 {
 public:
 	void rva005666BA(const Rva00566575Element &e);
 };
-
 struct Rva004E1F62Payload
 {
 	virtual void v0();
@@ -586,20 +518,16 @@ struct Rva004E1F62Payload
 	virtual void Apply();
 	virtual bool ShouldApply();
 };
-
 struct Rva004E1F62
 {
 	_STL::_Rb_tree_node_base *m_header;
 	void rva004E1F62();
 };
-
 void __cdecl Rva004E1AD5Get(Rva004E1AD5Item *first, Rva004E1AD5Item *last, void *tag);
-
 struct Rva004E1FCCTag
 {
 	char x;
 };
-
 // ?rva004E2227@Rva004E2227@@QAEXXZ, RVA 0x004E2227, 30B. Chain lane: calls
 // rowed 0x004E1FCC range destroy with first/last at this+0/+4 then frees
 // first via rowed free 0x00030830 when non-null; push-esi this plus
@@ -611,7 +539,6 @@ struct Rva004E2227
 	Rva004E1AD5Item *m_last;
 	void rva004E2227();
 };
-
 // Only the two called vslots and reference word are recovered. The names
 // and signatures of unused slots remain opaque in this local call view.
 class Rva003EE9F1Ref {
@@ -720,7 +647,6 @@ public:
     virtual void slot194(int value) = 0;
     unsigned references;
 };
-
 struct Rva00072F7CNode {
     unsigned unknown00;
     Rva00072F7CNode *parent04;
@@ -728,7 +654,6 @@ struct Rva00072F7CNode {
     Rva00072F7CNode *right0C;
     unsigned value10;
 };
-
 #include "../../../../GameEngine/Include/Common/Rva00072FE6.h"
 
 struct Rva004E2199Record {
@@ -815,6 +740,17 @@ class Rva004E2CD5 {
 public:
 	bool rva004E2CD5(const StringBase<char> &val);
 };
+
+struct Rva004E20ABRec
+{
+	char m_pad[4];
+	StringBase<char> m_04;
+	StringBase<char> m_08;
+	StringBase<char> m_0C;
+	unsigned char m_10;
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 
@@ -1380,6 +1316,59 @@ void ParseEyeTowerPointData( INI *ini, void *instance, void *, const void * )
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva004E3E5AGrowth.cpp
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Rva004E2CD5Contains.cpp
+
+bool Rva004E2CD5::rva004E2CD5(const StringBase<char> &val)
+{
+	StringBase<char> *last = m_end;
+	StringBase<char> *first = m_begin;
+	return Rva000BD22FFind(first, last, val) != last;
+}
+
 // tu-skeleton: 0x004E1780 20B ??0Rva004E1780@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004E1794 6B ?GetSnapshotName@Rva004E179A@@UAEPBDXZ -- matched in Code/GameEngine/Source/Common/Rva004E179ADtor.cpp (not merged yet)
@@ -1436,7 +1425,23 @@ void ParseEyeTowerPointData( INI *ini, void *instance, void *, const void * )
 
 // tu-skeleton: 0x004E2089 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_004e2aab.cpp (not merged yet)
 
-// tu-skeleton: 0x004E20AB 76B ?rva004E20AB@@YA_NPBURva004E20ABRec@@0@Z -- matched in Code/GameEngine/Source/Common/Rva004E20ABEqual.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004E20ABEqual.cpp
+
+//
+// ?rva004E20AB@@YA_NPBURva004E20ABRec@@0@Z @0x004E20AB 76B.
+// Three-string-plus-flag equality: rowed StringBase compare 0x00069D6 on
+// the +0x04/+0x08/+0x0C members (each must compare equal) and the +0x10 flag
+// byte, as one AND chain sharing the xor epilogue with return-1 out of the
+// zeroed eax as inc eax. Bind the four-byte string storage directly to
+// the retail StringBase<char> owner; no AsciiString wrapper is needed.
+
+bool rva004E20AB(const Rva004E20ABRec *lhs, const Rva004E20ABRec *rhs)
+{
+	return lhs->m_04.compare(rhs->m_04) == 0
+		&& lhs->m_08.compare(rhs->m_08) == 0
+		&& lhs->m_0C.compare(rhs->m_0C) == 0
+		&& lhs->m_10 == rhs->m_10;
+}
 
 // tu-skeleton: 0x004E2199 60B ?rva004E2199@Rva004E2E58Value@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
 
@@ -1467,15 +1472,6 @@ void ParseEyeTowerPointData( INI *ini, void *instance, void *, const void * )
 // tu-skeleton: 0x004E29C8 227B ?_M_fill_insert@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXPAUCoord3D@@IABU3@@Z -- matched in Code/GameEngine/Source/Common/Coord3DVectorFillInsertO1.cpp (not merged yet)
 
 // tu-skeleton: 0x004E2AAB 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload004E2257@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_004e2aab.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva004E2CD5Contains.cpp
-
-bool Rva004E2CD5::rva004E2CD5(const StringBase<char> &val)
-{
-	StringBase<char> *last = m_end;
-	StringBase<char> *first = m_begin;
-	return Rva000BD22FFind(first, last, val) != last;
-}
 
 // tu-skeleton: 0x004E2E53 5B ?rva004E2E53@Rva004E2E53@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
 
