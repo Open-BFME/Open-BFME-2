@@ -30,7 +30,7 @@ extern "C" const void *const __identifier("??_7Rva005754FF@@6B@")[];  // folded 
 
 extern "C" const void *const __identifier("??_7Rva000421C8@@6B@")[];  // vftable 0x00BC26E0
 extern "C" const void *const __identifier("??_7Rva0030D346@@6B@")[];  // vftable 0x00C089EC
-extern "C" const void *const __identifier("??_7Rva0054E79D@@6B@")[];  // vftable 0x00C6A894
+extern "C" const void *const __identifier("??_7Rva0054F434Base@@6B@")[];  // vftable 0x00C6A894
 extern "C" const void *const __identifier("??_7Listener00576C4B@@6B@")[];  // vftable 0x00C6E788
 extern "C" const void *const __identifier("??_7Rva005CF872@@6B@")[];  // vftable 0x00C75290
 
@@ -337,7 +337,7 @@ public:
 
 void Rva0054E796DwordImmSetter::apply()
 {
-	m_value = ((unsigned int)__identifier("??_7Rva0054E79D@@6B@"));
+	m_value = ((unsigned int)__identifier("??_7Rva0054F434Base@@6B@"));
 }
 
 class Rva00596686DwordImmSetter

@@ -116,23 +116,23 @@ Rva00549C74::Rva00549C74(EmitVtableTag *)
 {
 }
 
-// ??_GRva0054E79D@@UAEPAXI@Z @0x0054E79D 29B: slot 0 of the vtable it stores, VA 0x00C6A894
-class Rva0054E79D
+// ??_GRva0054F434Base@@UAEPAXI@Z @0x0054E79D 29B: slot 0 of the vtable it stores, VA 0x00C6A894
+class Rva0054F434Base
 {
 public:
-	Rva0054E79D();
-	Rva0054E79D(EmitVtableTag *);
-	virtual ~Rva0054E79D() {}
+	Rva0054F434Base();
+	Rva0054F434Base(EmitVtableTag *);
+	virtual ~Rva0054F434Base() {}
 };
 
-// ??0Rva0054E79D@@QAE@XZ @0x0054E7BA 9B: the default constructor, storing the
+// ??0Rva0054F434Base@@QAE@XZ @0x0054E7BA 9B: the default constructor, storing the
 // class's own vtable (VA 0x00C6A894) and returning this.
-Rva0054E79D::Rva0054E79D()
+Rva0054F434Base::Rva0054F434Base()
 {
 }
 
-// ?<Rva0054E79D::Rva0054E79D> absent-from-retail
-Rva0054E79D::Rva0054E79D(EmitVtableTag *)
+// ?<Rva0054F434Base::Rva0054F434Base> absent-from-retail
+Rva0054F434Base::Rva0054F434Base(EmitVtableTag *)
 {
 }
 
