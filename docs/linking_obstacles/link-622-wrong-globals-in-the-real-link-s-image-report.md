@@ -35,6 +35,27 @@ The four:
   now 280 bytes of `.data` followed by `current_rec`, as in retail. `qr2.c` did not link before or after (an unrelated
   `qr2_create_socket` COMDAT).
 
+#### TU-local tables the report cannot compare
+
+The 296 static-defined rows (397 against a regenerated ledger with data rows applied) were compared by hand with a
+one-off script: each static the ledger keys to its own source (`name@source`), bytes outside relocations against retail's.
+251 agree; 66 differ. Most of the 66 are the dummy-vptr statics LINK-514 already lists (`s_vtable`, `s_secondary*`,
+`*VTableAnchor`). The rest are wrong data:
+
+- `ObjectCreationList.cpp`'s three OCL nugget tables were one null entry each (placeholders from the byte-matching phase,
+  `f484f94159e`), so every field of every `ObjectCreationList` block in the INI would be an unknown token.
+  **Repaired:** retail's 40 common, 17 object and 5 debris entries, with BFME 2's 19 disposition names (0x009B92F8; ours
+  had Zero Hour's 9 and no terminator) and BFME 2's 16 shadow names (0x009B9298; the Zero Hour header's list has 7).
+  A script compared every token, parser, user-data pointer and offset with retail: all equal.
+- Still open, the same pattern, all zero with no relocations where retail has a table: `audioLODFieldParseTable`
+  (`INIParseAudioLODDefinition.cpp`, 64 zero bytes), `s_statusBitsTable` (`UpgradeModuleDataGetterBuildFieldParse.cpp`),
+  `s_chinookFieldTable` (`DetachableRiderBody.cpp`), `s_table0050AD97` (`Rva0050AD97BuildFieldParse.cpp`) and
+  `s_extraFieldTable` (`FXListDieModuleDataBuildFieldParse.cpp`), one null entry each; `TheBFMEStaticGameLODFieldParseTable` (`GameLOD.cpp`) and
+  `StrategicHUD.cpp`'s `s_table`, whose contents differ; and initial values retail has in `.data` that ours leaves zero:
+  the glow, ring and fire effect statics (`Drawable/Rva00309FB3.cpp`, `Rva00309FFD.cpp`, `Rva0030A040.cpp`),
+  `animationDisableOverride` (`W3DGhostObjectScene.cpp`), `AXIS_ROTATION` (`camerashakesystem_shaker.cpp`),
+  `detailAlphaShader` (`W3DBibBuffer.cpp`) and `g_Rva012C3BC4` (`Y4FeslBuddyRequests.cpp`).
+
 #### One address, several names (23)
 
 Two definitions for one retail datum link as two objects: one side writes, the other reads its own copy. Read
