@@ -2,45 +2,40 @@
 //
 // ??0HeightDieUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x0048FCB2, 77 bytes.
 // HeightDieUpdate behavior ctor over the rowed UpdateModule base (0x253390):
-// sets +0x30 to -1, re-stores the primary vtable slot and the +0x0C/+0x10
-// secondary slots, zeroes the bytes at +0x20/+0x21, then stores -1.0f into
-// +0x24/+0x28/+0x2C (address-of TU-local dummies plus -1.0f literals that
-// pool-merge to retail 0xBBB9AC, DIR32-masked). The rowed name getter at
+// sets +0x30 to -1, stores the class's three vftables (0x00C4CF18 at +0,
+// UpdateModule's 0x00BEFF90 at +0x0C, 0x00C4CF0C at +0x10), zeroes the bytes
+// at +0x20/+0x21, then stores -1.0f into +0x24/+0x28/+0x2C (the -1.0f literal
+// pool-merges to retail 0xBBB9AC). The class is declared over the canonical
+// UpdateModule.h, so the compiler stores the vptrs. The rowed name getter at
 // 0x48FC30 proves the class; the rowed instance factory 0x24D37E is the sole
 // raw caller. Row supersedes the ctor pin.
+//
+// Retail 0x00C4CF18 (13 slots): deleting dtor 0x0048FCFF, loadPostProcess
+// 0x00497805 (`jmp 0x0058B03E`, UpdateModule's own; inherited here), the name
+// getter 0x0048FBD3, xfer 0x0048FBD9, getModuleNameKey 0x0048FC30, then
+// UpdateModule's slots. 0x00C4CF0C: update 0x0048FD1B, then UpdateModule's
+// getDisabledTypesToProcess and wake slots.
 
-class Thing;
-class ModuleData;
+enum UpdateSleepTime;
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-
-// Opaque UpdateModule base; ctor resolves to its row. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class HeightDieUpdate : public UpdateModule
 {
 public:
 	HeightDieUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~HeightDieUpdate();
+
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_20;
-	unsigned char m_21;
-	unsigned char m_pad22[2];
+	bool m_20;
+	bool m_21;
 	float m_24;
 	float m_28;
 	float m_2C;
@@ -51,12 +46,9 @@ private:
 HeightDieUpdate::HeightDieUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	m_30 |= -1;
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	m_20 = 0;
-	m_21 = 0;
+	m_30 = -1;
+	m_20 = false;
+	m_21 = false;
 	m_24 = -1.0f;
 	m_28 = -1.0f;
 	m_2C = -1.0f;
