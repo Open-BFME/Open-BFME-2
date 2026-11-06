@@ -156,3 +156,15 @@ provider-only check. Next: bounded publication audit, then confirm disappearance
 in the scheduled real link. Inspected run42174078539 still lists this name
 among 308 unresolved, zero duplicates and no image; no new count is claimed.
 [Scoped evidence and limits](../../reverse/attempt_support/sphere-writeini-export-20261106-round2-seat3.md).
+
+2026-11-06, Default physics writer (`codex-20261106-round2-seat1`, base
+`85d0ac929f8`): **blocked at supported rename boundary**. Export ordinal 1938
+identifies the sole existing `0x0055F368` owner as
+`FXParticleSystem::DefaultModuleTemplate<3>::writeINI(File &, unsigned) const`.
+Baseline build passes **1/1** and **5 literals**. Ordinary rename refuses the
+signature/owner change, `--to-class` rejects the scoped template identifier,
+and `--virtual` lacks ledger ownership for tables `0x00C1BCC0`/`0x00C1BF60`
+slot 3. The naming rules prohibit a hand virtual respell, so source and row
+identity remain untouched. A tool-supported scoped-template reconciliation or
+proper installer/table ownership is prerequisite; no alias or second body was
+added. [Boundary evidence and next step](../../reverse/attempt_support/default3-writeini-tool-boundary-20261106-round2-seat1.md).
