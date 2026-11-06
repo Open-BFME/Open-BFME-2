@@ -1,0 +1,12 @@
+{
+  "removed_name": "??_ERva003A69B4Vec@@UAEPAXI@Z",
+  "rva": "0x003A69B4",
+  "size": 75,
+  "removed_pin": "??1Rva003A69B4Vec@@UAE@XZ",
+  "ledger_before_sha256": "5adb9877fd781e08acd0de05a9f30d9ec365a3a58e62ed404cb59aa3b7d542be",
+  "ledger_after_sha256": "22f892377e8f5c73210d05b4a23a63879b780d191138db2b482847295e35436d",
+  "pin_before_sha256": "fa610a286932b759d12eea880cc33d9dd3e6e5005a324b22e1d7717f5071ff1c",
+  "pin_after_sha256": "9d795931e1760bcbf5b4482c3aea1f0464d2864563a473afb404ac8ede945726",
+  "other_records_preserved": true,
+  "replacement": "??_ECylinderEmissionVolumeInfo@FXParticleSystem@@UAEPAXI@Z in Code/GameEngine/Source/Common/VectorDeletingDtorsV03.cpp"
+}

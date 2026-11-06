@@ -3066,7 +3066,6 @@ name,address,notes
 ??1Rva003A64F0Vec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x003A64F0 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A64FF); opaque address name"
 ??1Rva003A679DVec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x003A679D calls and hands to the eh vector destructor iterator (DIR32 at 0x003A67AC); opaque address name"
 ??1Rva003A690DVec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x003A690D calls and hands to the eh vector destructor iterator (DIR32 at 0x003A691C); opaque address name"
-??1Rva003A69B4Vec@@UAE@XZ,0x0049B47C,"destructor the vector deleting destructor 0x003A69B4 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A69C3); opaque address name"
 ??1Rva003A6D11Vec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x003A6D11 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A6D20); opaque address name"
 ??1Rva003A6F85Vec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x003A6F85 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A6F94); opaque address name"
 ??1Rva003A71D4Vec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x003A71D4 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A71E3); opaque address name"
