@@ -3006,9 +3006,9 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUp
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp	?anchor@BehaviorModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp	?anchor@UpdateModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp	?setDelay@DelayedUpgradeUpdateInterface@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateCtor.cpp	?unused@BehaviorModuleBase@@EAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateCtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdateCtor.cpp	?update@UpdateModule@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp	?unused@BehaviorModuleBase@@EAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp	?update@UpdateModule@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp	?slot@DRU_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdateCtorModuleFactoryBody.cpp	?slot@DRU_Iface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp	??0SupplyCenterDockUpdateBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
