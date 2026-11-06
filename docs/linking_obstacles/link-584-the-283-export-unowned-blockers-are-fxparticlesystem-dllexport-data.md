@@ -80,3 +80,19 @@ The follow-up defines those three. The retail export establishes the WindMotion 
 
 
 **2026-11-06 final Wind confirmation.** The authoritative [real link at 1d41894d2a](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42278649602) contains e4e031a8d0. DEFAULT_MOTION, DEFAULT_MOTION_START_ANGLE and DEFAULT_MOTION_END_ANGLE are absent from the unresolved list, after all three were reported at 63d697e218. All 17 WindModuleInfo defaults now have measured export closure. The real linker reports 262 unresolved symbols overall, zero duplicates, and no image.
+
+
+**2026-11-06 measured remainder (ancalgonn-swarm-link; real link 12de5b58b2, run 42296273754).** 261
+unresolved, 0 duplicates; 254 are `(export unowned)`, all FXParticleSystem. None of the "other" names is
+left: the Wind defaults, FX name tables, PooledString statics and `UnicodeString::TheEmptyString` all
+resolve. The Hemispherical `operator=` code lead is done too (exports 666 and 570 have matched rows at
+0x003A8EFC). What remains is template machinery only:
+- `ModuleTag<...>` statics (KEY/NAME/CATEGORY/IS_DEFAULT): 108, 54 of them sharing an address.
+- vtables: 82 (50 `ConcreteModuleTemplate`), 30 sharing an address.
+- `CategoryModuleInfo::CATEGORY`, `CategoryModuleClass(Base)::s_first`/`s_default`: 26, 9 sharing.
+- `GetValue` locals 24 and guards 14.
+None of the 254 retail addresses has an approved TU (107 of the ModuleTag statics have no tu_map row),
+and 93 share an address with another export, so one global per address applies. Rows need the FX unit's
+TU evidence and a fold decision before any definition; the dllexport question stays with the maintainer.
+The other 7 unresolved names are LINK-168 (`BehaviorModule::crc`), LINK-018 (`Matrix4D`), LINK-073,
+LINK-181 and LINK-622 (LockWeaponCreate).
