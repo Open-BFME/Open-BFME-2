@@ -21,7 +21,8 @@ copy and MessageBox initializer and `g_00E063FC`, bridged 673 -> 670, then the f
 nodes and two of their units' copies, bridged 670 -> 664, then 19 guard-anchored units freed since round 2,
 bridged 664 -> 645, and three copies their units already compiled, bridged 645 -> 642, and two private Drawable views
 replaced, bridged 642 -> 640, then 8 units by their guard's approved function, bridged 640 -> 632,
-and MetaEvent's copy, bridged 632 -> 631; next seat continues).
+and MetaEvent's copy, bridged 632 -> 631, and two private Thing views replaced, bridged 631 -> 629;
+next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -273,6 +274,15 @@ Most rows say "owning TU unrecovered". The work is attribution first, then step 
     declares `rva00274176`). GiveUpgradeUpdate's word at +0xB0 is the canonical `field_0b0`; the
     unit still copies its bits with an int store. Both copies are rowed as `_$E1`, every `??_7`
     keeps its digest, 3/3 link with the grab-bag, bridged 642 -> 640.
+  - *Two `Thing` views, fixed.* `DemoTrapObjectView.h` (one includer) now includes the canonical
+    thing.h; its Object pads from +0x60 to its byte at +0x438 and the unit reads the position as
+    `m_cachedPos`. ReplaceObjectUpdate's private Thing served one read of the owner's id at +0x74;
+    the read now goes through its Object view. Both copies are rowed as `_$E1`; bridged
+    631 -> 629.
+  - *Still refused.* FloodUpdate's private `Matrix3D` declares `buildTransformMatrix`, which the
+    canonical Matrix3D storage header does not carry (a shared-header change).
+    AnimationSoundClientBehavior's private `Drawable` (`enabled` at +0x44A, `parent` at +0xFC)
+    needs the same cast-view treatment as HitReactionBehavior.
 - *Guard's function approved to the file (halilkkaya-lk39).* For each bridged copy, read the
   data-ledger entry just before its static; when it is a function-local guard, look up the guarded
   function's row and its approved TU. Where that TU file exists, includes no Drawable.h and holds
