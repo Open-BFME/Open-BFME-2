@@ -7,13 +7,8 @@ class Rva0057C2CC
 public:
     void rva0057C2CC();
 };
-class Rva000AD6F4
-{
-public:
-    void clear();
-private:
-    char m_pad[4];
-};
+// m_0C's destructor is 0x000AD6F4, the body clear shares.
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport. /EHs lets free throw,
@@ -22,11 +17,6 @@ private:
 #include <stdlib.h>
 #undef _CRTIMP
 
-struct W0C
-{
-    Rva000AD6F4 m;
-    ~W0C() { m.clear(); }
-};
 struct W10
 {
     void *p;
@@ -40,7 +30,7 @@ private:
     char m_00[4];
     Rva0057C2CC *m_04;
     char m_08[4];
-    W0C m_0C;
+    Rva000AD6F4 m_0C;
     W10 m_10;
 };
 Rva005D1846::~Rva005D1846()

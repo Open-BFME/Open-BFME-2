@@ -20,13 +20,9 @@ public:
 	virtual void translate();
 };
 
-class Rva000AD6F4
-{
-public:
-	void clear();
-private:
-	void *m_ptr;
-};
+// +8 is cleared through the canonical holder's clear 0x000AD6F4 and has no
+// destructor of its own in the unwind map, so it is held as a raw pointer.
+#include "../../Include/Common/Rva000AD6F4.h"
 
 // VA 0x00E0322C: the FormationTranslator pointer Rva00431F61Ctor.cpp defines.
 class FormationTranslator;
@@ -39,11 +35,11 @@ public:
 	virtual ~Rva00431FB5();
 private:
 	int m_04;
-	Rva000AD6F4 m_08;
+	void *m_08;
 };
 
 Rva00431FB5::~Rva00431FB5()
 {
 	TheFormationTranslator = 0;
-	m_08.clear();
+	((Rva000AD6F4 *)&m_08)->clear();
 }
