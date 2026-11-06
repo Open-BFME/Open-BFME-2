@@ -91,19 +91,11 @@ extern ScriptEngine *TheScriptEngine;
 
 #include "../../../../Include/Common/Overridable.h"
 
-class SpecialPowerTemplate : public Overridable
-{
-public:
-	const AsciiString &getName() const { return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_name; }
-	const OpaqueRefElement4 *getInitiateSound() const { return &((const SpecialPowerTemplate *)friend_getFinalOverride())->m_initiateSound; }
-	const OpaqueRefElement4 *getInitiateAtTargetSound() const { return &((const SpecialPowerTemplate *)friend_getFinalOverride())->m_initiateAtLocationSound; }
-	int get30() const { return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_30; }
-	AsciiString m_name;
-	char m_pad14[0x30 - 0x14];
-	int m_30;
-	OpaqueRefElement4 m_initiateSound;
-	OpaqueRefElement4 m_initiateAtLocationSound;
-};
+#include "../../../../Include/Common/SpecialPower.h"
+// The final override's initiate sounds at +0x34/+0x38 are audio-event records.
+__forceinline const OpaqueRefElement4 *initiateSound(const SpecialPowerTemplate *t) { return (const OpaqueRefElement4 *)&t->getFO()->field34; }
+__forceinline const OpaqueRefElement4 *initiateAtTargetSound(const SpecialPowerTemplate *t) { return (const OpaqueRefElement4 *)&t->getFO()->field38; }
+__forceinline int lightPointCost(const SpecialPowerTemplate *t) { return t->getFO()->m_lightPointCost; }
 
 class Rva002A9EFB { public: void rva002A9EFB(int v); };
 
@@ -315,12 +307,12 @@ void SpecialPowerModule::aboutToDoSpecialPower(const Coord3D *location)
 		TheScriptEngine->rva00357E7B(idx, specialPowerModuleData->m_specialPowerTemplate->getName(), id);
 	}
 	const SpecialPowerModuleData *specialPowerModuleData = getSpecialPowerModuleData();
-	BfmeAudioEventPrefix136 soundToPlay(*specialPowerModuleData->m_specialPowerTemplate->getInitiateSound(), 0);
+	BfmeAudioEventPrefix136 soundToPlay(*initiateSound(specialPowerModuleData->m_specialPowerTemplate), 0);
 	((Rva002D9531 *)&soundToPlay)->rva002D9531(getObject()->getID());
 	TheAudio->addAudioEvent(&soundToPlay);
 	if (location)
 	{
-		BfmeAudioEventPrefix136 soundAtLocation(*specialPowerModuleData->m_specialPowerTemplate->getInitiateAtTargetSound(), 0);
+		BfmeAudioEventPrefix136 soundAtLocation(*initiateAtTargetSound(specialPowerModuleData->m_specialPowerTemplate), 0);
 		((Rva002D9508 *)&soundAtLocation)->rva002D9508(location);
 		((Rva0033F15DDwordSlot *)&soundAtLocation)->set(getObject()->getControllingPlayer()->getPlayerIndex());
 		TheAudio->addAudioEvent(&soundAtLocation);
@@ -355,7 +347,7 @@ void SpecialPowerModule::triggerSpecialPower(const Coord3D *location)
 
 	Player *player = getObject()->getControllingPlayer();
 	if (player)
-		((Rva002A9EFB *)player)->rva002A9EFB(specialPowerModuleData->m_specialPowerTemplate->get30());
+		((Rva002A9EFB *)player)->rva002A9EFB(lightPointCost(specialPowerModuleData->m_specialPowerTemplate));
 
 	if (specialPowerModuleData->m_setModelCondition != MODELCONDITION_INVALID && specialPowerModuleData->m_setModelConditionTime > 0.0f)
 	{
