@@ -5255,3 +5255,5 @@ __ehhandler$??1Rva0054080A@@UAE@XZ,0x00797DC1,"Renamed to __ehhandler$??1Rva0054
 ??1Rva005D7E1E@@UAE@XZ,0x005D7E1E,"Renamed to ??1Rva005D7F5D@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C75ED0)"
 ??_GRva005D7E1E@@UAEPAXI@Z,0x005D7E29,"Renamed to ??_GRva005D7F5D@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C75ED0)"
 ??0BfmeAptScreenInGameChat@@QAE@PAX@Z,0x0056DB9B,"Renamed to ??0Rva0056D915@@QAE@PAX@Z by tools/rename.py (fold: retail vftable 0x00C6DB40)"
+?rva0055EBFA@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z,0x0055EBFA,Renamed to ?writeINI@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z: retail export ordinal 1944 at exact RVA; existing virtual declaration retains virtual status; const File reference signature reconciliation
+__ehhandler$?rva0055EBFA@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z,0x00799A38,Renamed to __ehhandler$?writeINI@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z: retail export ordinal 1944 identifies existing parent at 0x0055EBFA; compiler EH identity follows its const File-reference signature

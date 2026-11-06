@@ -207,3 +207,26 @@ confirm all three exported names disappear from scheduled authoritative
 real-link errors. No new run was dispatched and no runtime improvement is
 claimed. The last inspected real-link result remains run42174078539: 308
 unresolved, zero duplicates, no image.
+
+
+2026-11-06 pass3, Cylindrical emission-velocity writer (base `64ff2f11655`,
+`codex-fleet-20261106-c01-seat1`): existing 0x0055EBFA owner now emits exact
+retail export ordinal 1944,
+`CylindricalEmissionVelocityModuleTemplate::writeINI(File &, unsigned) const`.
+Status for this subset: **locally verified / awaiting real-link and
+publication affected-consumer verification**. Its already-virtual declaration
+retains that status; no second body, alias, pin, table or shared header change.
+Normal before/after builds and strict preparation pass 4/4 parent/EH rows and
+two string literals; the EH graph is EXACT. COFF preserves all 237 body bytes,
+18 relocations, 555 normalized non-debug sections, 551 normalized external
+definitions and 15 undefined names. The export changes 0 -> 1 definition;
+old parent/EH names disappear. Published-index old-name scope names only this
+owner and no alternatename user. Bounded preview remains 1/1 LINKS,
+247 -> 247 bytes against `47fd56b879` (05:39 UTC). Full outgoing audit remains
+the coordinator's responsibility; prior consumer-receipt gaps above remain
+unverified until checked against current inputs. Inspected authoritative run
+42180682743 (`306f01e6f65`, 08:42 UTC) predates this repair: 308 unresolved,
+zero duplicates, no image, 673 initializer bridges and 1,757 vtable bridges /
+19,323 slots. Confirm this exported name disappears in the next scheduled
+real link; no new full-link count or runtime improvement is claimed.
+[Evidence and audit limits](../../reverse/attempt_support/cylindrical-writeini-export-20261106-pass3-c01-seat1.md).
