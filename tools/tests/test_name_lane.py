@@ -2264,3 +2264,254 @@ def test_missing_header_state_detects_header_added_to_an_ignored_search_director
     (include / "missing.h").write_text("// now supplied\n")
     after = name_lane._missing_header_state(lane, [SOURCE], "missing.h")
     assert after is not None and before != after
+
+
+
+@pytest.fixture
+def unrowed(tree, monkeypatch):
+    import data_rows
+    from test_data_rows import SECTIONS
+    monkeypatch.setattr(data_rows, 'ROOT', tree)
+    monkeypatch.setattr(data_rows, 'DATA_ROWS', tree / 'reverse/data_rows.csv')
+    monkeypatch.setattr(data_rows, 'retail_sections', lambda: SECTIONS)
+    (tree / 'reverse/data_rows.csv').write_text(data_rows.HEADER + '\n')
+    lane = lane_of(tree)
+    key = name_lane.register_data(lane, source=SOURCE, address='0x403100', address_kind='va', size=56,
+                                 type_name='SampleContext', users=[SOURCE], evidence='fixture consumer returns this context')
+    return tree, key
+
+
+def serve_unrowed(tree, key, session, worker):
+    be(worker)
+    args = SimpleNamespace(session=session, model='fixture', count=1, file=SOURCE, key=[key], list_only=False)
+    assert name_lane.cmd_next(lane_of(tree), args) == 0
+    return json.loads((tree / f'build/name_lane/sessions/{session}.json').read_text())
+
+
+def unrowed_vote(tree, key, session, worker, name, tmp_path, *, auto_workflow=False):
+    record = serve_unrowed(tree, key, session, worker)
+    item = record['files'][SOURCE]['items'][0]
+    answer_key = name_lane.answer_key(*item[:3])
+    answer = tmp_path / (session + '-answer.json')
+    answer.write_text(json.dumps({answer_key: name}))
+    args = SimpleNamespace(session=session, model='fixture', answer=str(answer), propose_only=not auto_workflow,
+                           auto_workflow=auto_workflow, no_auto_review=True)
+    assert name_lane.cmd_submit(lane_of(tree), args) == 0
+    return lane_of(tree).state().get(key)
+
+
+def agree_unrowed(tree, key, tmp_path):
+    assert unrowed_vote(tree, key, 'first', 'first-worker', 'g_sampleContext', tmp_path) is None
+    row = unrowed_vote(tree, key, 'second', 'second-worker', 'g_sampleContext', tmp_path)
+    assert row['status'] == 'agreed'
+    return row
+
+
+def test_unrowed_data_uses_normal_blind_agreement_without_creating_placeholder(unrowed, tmp_path):
+    tree, key = unrowed
+    original = (tree / SOURCE).read_bytes()
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    row = agree_unrowed(tree, key, tmp_path)
+    assert row['kind'] == 'global' and row['rva'] == '0x00003100'
+    assert (tree / SOURCE).read_bytes() == original
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+    brief = (tree / 'build/name_lane/briefs/second.txt').read_text()
+    assert 'SampleContext' in brief and '0x00003100' in brief
+    assert 'g_sampleContext' not in brief  # the second packet is blind
+
+
+def test_unrowed_data_disagreement_adds_no_name_or_data_row(unrowed, tmp_path):
+    tree, key = unrowed
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    unrowed_vote(tree, key, 'first', 'first-worker', 'g_sampleContext', tmp_path)
+    assert unrowed_vote(tree, key, 'second', 'second-worker', 'g_sampleState', tmp_path) is None
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+def test_unrowed_agreement_waits_for_data_admission_not_a_rename(unrowed, tmp_path, capsys):
+    tree, key = unrowed
+    agree_unrowed(tree, key, tmp_path)
+    assert apply(tree, key=[key]) == 0
+    assert lane_of(tree).state()[key]['status'] == 'agreed'
+    assert '--admit-agreed' in capsys.readouterr().out
+
+
+def admission_fixture(tree, monkeypatch, *, actual_size=56, wrong_byte=False):
+    import data_rows, reloc_ledger
+    from test_data_rows import write_coff, image_with, DATA
+    obj = tree / 'build' / 'fixture.obj'; obj.parent.mkdir(exist_ok=True)
+    symbol = '?g_sampleContext@@3USampleContext@@A'
+    initializer = bytes(range(56))
+    body = bytes([255]) + initializer[1:] if wrong_byte else initializer
+    write_coff(obj, [('.data', DATA, body, len(body), [])], [(symbol, 0, 1, data_rows.EXTERNAL)])
+    image = image_with(data=b'\0' * 0x100 + initializer)
+    build = data_rows._tools()[0]
+    monkeypatch.setattr(build, 'obj_path', lambda source: obj)
+    monkeypatch.setattr(build, 'compile_is_current', lambda *a, **kw: True)
+    monkeypatch.setattr(reloc_ledger, 'Image', lambda: image)
+    monkeypatch.setattr(data_rows, 'compiled_size', lambda source, symbol: (actual_size, 'fixture compiler sizeof'))
+    (tree / SOURCE).write_text((tree / SOURCE).read_text() + '\nSampleContext g_sampleContext;\n')
+    return data_rows, symbol
+
+
+def test_unrowed_admission_records_inferred_basis_and_no_new_hatch(unrowed, tmp_path, monkeypatch):
+    import hatch_counters
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    before = hatch_counters.scan(SOURCE, (tree / SOURCE).read_text())
+    row = data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert row['name'] == symbol and row['size'] == '56'
+    basis = rows(tree, rename.NAME_BASIS)[-1]
+    assert basis['basis'] == 'inferred' and basis['evidence'] == 'agree:' + approval['id']
+    assert lane_of(tree).state()[key]['status'] == 'landed'
+    assert hatch_counters.scan(SOURCE, (tree / SOURCE).read_text()) == before
+
+
+@pytest.mark.parametrize('actual_size,wrong_byte,message', [(52, False, 'size 56 unproven'), (56, True, 'initializer differs')])
+def test_unrowed_admission_refuses_size_and_byte_mismatches(unrowed, tmp_path, monkeypatch, actual_size, wrong_byte, message):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch, actual_size=actual_size, wrong_byte=wrong_byte)
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    with pytest.raises(rename.Refusal, match=message):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+    assert lane_of(tree).state()[key]['status'] == 'agreed'
+
+
+def test_unrowed_admission_cannot_use_a_forged_agreement(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    # Forged approval metadata is not a vote: the admission recomputes support.
+    (tree / name_agreement.VOTES).write_text(','.join(name_agreement.VOTE_COLUMNS) + '\n')
+    with pytest.raises(rename.Refusal, match='does not agree'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+def test_unrowed_data_rejects_address_derived_proposals_and_hand_added_hatches(unrowed, tmp_path):
+    import hatch_counters
+    tree, key = unrowed
+    assert unrowed_vote(tree, key, 'first', 'first-worker', 'g_00403100', tmp_path) is None
+    assert not lane_of(tree).votes()
+    # Hand writing a source/global row still creates the existing address hatch;
+    # the new admission path has not whitelisted or grown its baseline.
+    source = (tree / SOURCE).read_text() + '\nint g_Va00403100;\n'
+    grown = hatch_counters.scan(SOURCE, source) - hatch_counters.scan(SOURCE, (tree / SOURCE).read_text())
+    assert grown[('address_global', SOURCE, 'g_Va00403100')] == 1
+
+
+
+def test_unrowed_data_va_and_rva_register_same_key(unrowed):
+    tree, key = unrowed
+    again = name_lane.register_data(lane_of(tree), source=SOURCE, address='0x3100', address_kind='rva', size=56,
+                                   type_name='SampleContext', users=[SOURCE], evidence='fixture consumer returns this context')
+    assert again == key
+    assert len(rows(tree, name_lane.DATA_REQUESTS)) == 1
+
+
+def test_unrowed_data_changed_user_evidence_cannot_reuse_votes(unrowed):
+    tree, key = unrowed
+    other = 'Code/Game/Slow.cpp'
+    request = name_lane.register_data(lane_of(tree), source=SOURCE, address='0x3200', address_kind='rva', size=56,
+                                     type_name='SampleContext', users=[other], evidence='fixture second context')
+    (tree / other).write_text('// changed evidence\n')
+    row = name_lane.request_for_key(lane_of(tree), request)
+    with pytest.raises(rename.Refusal, match='user evidence changed'):
+        name_lane.check_unrowed(lane_of(tree), row)
+
+
+def test_unrowed_admission_rejects_forged_address_name(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    lane = lane_of(tree)
+    lane.append(name_agreement.AGREED, name_agreement.AGREED_COLUMNS,
+                [{**approval, 'new': 'g_Va00403100'}])
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    with pytest.raises(rename.Refusal):
+        data_rows.admit_agreed(approval['id'], '?g_Va00403100@@3HA', 'fixture')
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+def test_unrowed_request_metadata_change_invalidates_agreement(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    path = tree / name_lane.DATA_REQUESTS
+    path.write_text(path.read_text().replace(',56,', ',52,'))
+    with pytest.raises(rename.Refusal, match='registered unrowed'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+
+def test_new_unrowed_key_can_be_served_after_worker_voted_on_same_file(unrowed, tmp_path):
+    tree, key = unrowed
+    vote(tree, tmp_path, 'prior-function', {'rva00401000': 'sumBox'}, worker='first-worker')
+    record = serve_unrowed(tree, key, 'new-data', 'first-worker')
+    assert any(name_lane.key_of(SOURCE, *item[:3]) == key for item in record['files'][SOURCE]['items'])
+
+
+
+def test_unrowed_admission_rolls_back_if_object_moves_during_size_probe(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    build = data_rows._tools()[0]
+    obj = build.obj_path(tree / SOURCE)
+    original = data_rows.compiled_size
+    def mutate(source, symbol):
+        result = original(source, symbol)
+        obj.write_bytes(obj.read_bytes() + b'changed')
+        return result
+    monkeypatch.setattr(data_rows, 'compiled_size', mutate)
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    with pytest.raises(rename.Refusal, match='changed during data admission'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+
+def test_unrowed_data_stale_user_request_can_be_served_with_fresh_key(unrowed):
+    tree, _ = unrowed
+    other = 'Code/Game/Slow.cpp'
+    kwargs = dict(source=SOURCE, address='0x3200', address_kind='rva', size=56,
+                  type_name='SampleContext', users=[other], evidence='fixture refreshed user context')
+    first = name_lane.register_data(lane_of(tree), **kwargs)
+    (tree / other).write_text('// new user evidence\n')
+    second = name_lane.register_data(lane_of(tree), **kwargs)
+    assert first != second
+    live = {name_lane.key_of(SOURCE, *item[:3]) for item in name_lane.data_request_items(lane_of(tree), SOURCE)}
+    assert second in live and first not in live
+
+
+
+def test_unrowed_admission_requires_current_compiled_object(unrowed, tmp_path, monkeypatch):
+    tree, key = unrowed
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    monkeypatch.setattr(data_rows._tools()[0], 'compile_is_current', lambda *a, **kw: False)
+    before = (tree / 'reverse/data_rows.csv').read_bytes()
+    with pytest.raises(rename.Refusal, match='current compiler receipt'):
+        data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert (tree / 'reverse/data_rows.csv').read_bytes() == before
+    assert not (tree / rename.NAME_BASIS).exists()
+
+
+
+def test_normal_submit_auto_workflow_defers_unrowed_approval_to_admission(unrowed, tmp_path):
+    tree, key = unrowed
+    original = (tree / SOURCE).read_bytes()
+    unrowed_vote(tree, key, 'first', 'first-worker', 'g_sampleContext', tmp_path)
+    result = unrowed_vote(tree, key, 'second', 'second-worker', 'g_sampleContext', tmp_path, auto_workflow=True)
+    assert result['status'] == 'agreed'
+    assert (tree / SOURCE).read_bytes() == original
+    assert not (tree / rename.NAME_BASIS).exists()

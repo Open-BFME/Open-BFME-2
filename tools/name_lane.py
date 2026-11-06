@@ -13,6 +13,7 @@ spike measured why: one model alone named about 60% of placeholders right and
 2-9% misleadingly; two independent proposals that agreed were about 80% right
 and never misleading.
 
+    python3 tools/name_lane.py register-data --source SOURCE --address ADDRESS --address-kind va --size SIZE --type TYPE --users USER --evidence TEXT
     python3 tools/name_lane.py next --session S --model M [--count N] [--subsystem Code/...] [--file F] [--list-only]
     python3 tools/name_lane.py submit ANSWER.json --session S --model M
     python3 tools/name_lane.py submit ANSWER.json --session S --model M --propose-only
@@ -265,6 +266,122 @@ def record_typedef_names(text):
 
 # ---------------------------------------------------------------- the lane
 
+
+DATA_REQUESTS = 'reverse/name_data_requests.csv'
+DATA_REQUEST_COLUMNS = ['source', 'rva', 'size', 'type', 'users', 'evidence']
+UNROWED_IDENT = 'unrowedData'
+
+
+def data_request_key(row):
+    payload = json.dumps({c: row[c] for c in DATA_REQUEST_COLUMNS}, sort_keys=True, separators=(',', ':'))
+    scope = 'unrowed:' + hashlib.sha256(payload.encode()).hexdigest()
+    return key_of(row['source'], 'global', scope, UNROWED_IDENT)
+
+
+def unrowed_key(key):
+    parts = key.split('|')
+    return len(parts) == 4 and parts[1] == 'global' and parts[2].startswith('unrowed:') and parts[3] == UNROWED_IDENT
+
+
+def check_unrowed(lane, row, *, check_users=True):
+    """One unowned retail data range; this names nothing and admits no bytes."""
+    import data_rows
+    source = row['source']
+    if (not source.startswith('Code/') or Path(source).suffix not in ('.cpp', '.c')
+            or any(p in ('', '.', '..') for p in source.split('/')) or '\\' in source
+            or rename.is_generated(source) or lane.text(source) is None
+            or not lane.git('ls-files', '--error-unmatch', '--', source).strip()):
+        raise rename.Refusal('unrowed data needs an existing tracked, non-generated Code/ source')
+    rva, size = int(row['rva'], 16), int(row['size'])
+    if size <= 0 or not re.fullmatch(r'[A-Za-z_]\w*(?:::[A-Za-z_]\w*)*(?:\s*\*)?', row['type']):
+        raise rename.Refusal('provide a positive size and a C++ type/struct name')
+    if not row['evidence'].strip():
+        raise rename.Refusal('unrowed data needs caller evidence')
+    va = data_rows.IMAGE_BASE + rva
+    homes = [s for s in data_rows.retail_sections() if s[1] <= va and va + size <= s[2]
+             and not s[3] & data_rows.EXECUTABLE]
+    if len(homes) != 1:
+        raise rename.Refusal('unrowed range must fit one non-executable retail section')
+    for owned in lane.ctx.dicts(rename.DATA_ROWS):
+        start = data_rows.va_of(owned)
+        if start < va + size and va < start + int(owned['size']):
+            raise rename.Refusal('address already has an overlapping data_rows.csv owner')
+    for owned in lane.ctx.dicts('reverse/data_ledger.csv'):
+        start = data_rows.IMAGE_BASE + int(owned['address'], 16)
+        if start < va + size and va < start + int(owned['size'], 0):
+            raise rename.Refusal('address already has an overlapping data_ledger.csv row')
+    for owned in lane.ctx.dicts('reverse/data_converged.csv'):
+        if int(owned['address'], 16) == va:
+            raise rename.Refusal('address already has a converged global owner')
+    users = json.loads(row['users'])
+    if not isinstance(users, dict) or not users:
+        raise rename.Refusal('unrowed data needs its user source paths')
+    for path, sha in users.items():
+        text = lane.ctx.read(path)
+        if (not path.startswith('Code/') or any(p in ('', '.', '..') for p in path.split('/'))
+                or '\\' in path or text is None):
+            raise rename.Refusal('invalid or missing user source: ' + path)
+        if check_users and path != source and hashlib.sha256(text).hexdigest() != sha:
+            raise rename.Refusal('user evidence changed; register a fresh naming key: ' + path)
+    rename.inferred_guards(lane.ctx, 'global', UNROWED_IDENT, UNROWED_IDENT, rva)
+    return homes[0][0]
+
+
+def register_data(lane, *, source, address, address_kind, size, type_name, users, evidence):
+    """Persist caller facts only, so both blind seats see the identical request."""
+    import data_rows
+    if address_kind not in ('va', 'rva'):
+        raise rename.Refusal('address_kind must be va or rva')
+    rva = int(address, 0) - (data_rows.IMAGE_BASE if address_kind == 'va' else 0)
+    row = dict(source=source, rva=f'0x{rva:08X}', size=str(size), type=type_name,
+               users=json.dumps({p: hashlib.sha256(lane.ctx.read(p) or b'').hexdigest() for p in sorted(set(users))},
+                                sort_keys=True, separators=(',', ':')), evidence=evidence)
+    check_unrowed(lane, row)
+    existing = lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS)
+    for other in existing:
+        if int(other['rva'], 16) < rva + size and rva < int(other['rva'], 16) + int(other['size']):
+            if other == row:
+                return data_request_key(row)
+            try:
+                check_unrowed(lane, other)
+            except (rename.Refusal, ValueError):
+                continue  # stale evidence gets a fresh key, never its old votes
+            raise rename.Refusal('a different unrowed request already covers this range')
+    lane.append(DATA_REQUESTS, DATA_REQUEST_COLUMNS, [row])
+    return data_request_key(row)
+
+
+def request_for_key(lane, key):
+    return next((r for r in lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS) if data_request_key(r) == key), None)
+
+
+def request_packet(lane, key):
+    request = request_for_key(lane, key)
+    if request is None:
+        return None
+    return {**request, 'user_sources': {p: lane.text(p) for p in json.loads(request['users'])}}
+
+
+def packet_target(lane, source, item):
+    key = key_of(source, *item[:3])
+    target = dict(key=key, kind=item[0], scope=item[1], placeholder=item[2], rva=item[3])
+    if unrowed_key(key):
+        target['data_request'] = request_packet(lane, key)
+    return target
+
+
+def data_request_items(lane, source):
+    items = []
+    for row in lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS):
+        if row['source'] == source:
+            try:
+                check_unrowed(lane, row)
+            except (rename.Refusal, ValueError):
+                continue
+            _, kind, scope, ident = split_key(data_request_key(row))
+            items.append((kind, scope, ident, int(row['rva'], 16)))
+    return items
+
 class Lane:
     """The lane's view of one tree; tests point it at a miniature repository."""
 
@@ -435,6 +552,15 @@ class Lane:
         """Read-only protection preflight; the planner still rechecks at apply."""
         if kind in ("param", "local"):
             return None
+        if unrowed_key(key_of(rel, kind, scope, ident)):
+            row = request_for_key(self, key_of(rel, kind, scope, ident))
+            try:
+                if row is None:
+                    return 'unknown unrowed data request'
+                check_unrowed(self, row)
+            except (rename.Refusal, ValueError) as exc:
+                return str(exc)
+            return None
         old = ident
         if kind == "function":
             old = next((r["name"] for r in self.ledger().get(rel, ())
@@ -553,9 +679,9 @@ class Lane:
     # ------------------------------------------------------------ what a file decides
 
     def servable(self, rel):
-        """A matched, hand-written Code/ C/C++ unit with no vendored, export or .lib row."""
+        """A matched or registered-unrowed Code/ unit with no vendor/export owner."""
         rows = self.ledger().get(rel, [])
-        if not rows or not rel.startswith("Code/") or not rel.endswith((".cpp", ".c")):
+        if (not rows and not data_request_items(self, rel)) or not rel.startswith("Code/") or not rel.endswith((".cpp", ".c")):
             return False
         if rename.is_generated(rel) or "stlport" in rel.lower() or rename.is_vendored_path(self.ctx, rel):
             return False
@@ -637,9 +763,10 @@ class Lane:
             word = rename._identifier(r.get("name", ""))
             if word and word in file_globals and name_metric.placeholder(word):
                 items.append(("global", "", word, rename.data_rva(r)))
+        items.extend(data_request_items(self, rel))
         seen, out = set(), []
         for kind, scope, ident, rva in items:
-            slot = (scope, ident) if kind in ("param", "local") else ident
+            slot = (scope, ident) if kind in ("param", "local") or scope.startswith("unrowed:") else ident
             if slot not in seen:
                 seen.add(slot)
                 if wanted is None or kind in wanted:
@@ -732,7 +859,7 @@ def answer_key(kind, scope, ident):
         return f"{scope}:{ident}"
     if kind == "member":
         return f"{scope}::{ident}"
-    return ident
+    return scope + ':' + ident if kind == 'global' and scope.startswith('unrowed:') else ident
 
 
 # ---------------------------------------------------------------- next
@@ -778,10 +905,16 @@ def queue(lane, worker, model, only=None, *, reviews=None, clarifications=None):
         rel = v["key"].split("|")[0]
         voted_sessions[rel].add(v.get("worker") or "")
         voted_models[rel].add(v["model"])
-    files = [only] if only else [f for f in lane.ledger() if f.endswith((".cpp", ".c"))]
+    files = [only] if only else sorted({f for f in lane.ledger() if f.endswith((".cpp", ".c"))}
+                                     | {r['source'] for r in lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS)})
     reviews = reviews or {}
     clarifications = clarifications or {}
-    files = [f for f in files if worker not in voted_sessions[f] or reviews.get(f) or clarifications.get(f)]
+    state, tally, refused = lane.state(), lane.tally(), lane.disputed()
+    pending_data = {r['source'] for r in lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS)
+                    if needs_review(data_request_key(r), state, tally, refused)
+                    and worker not in {w for voters in tally[data_request_key(r)].values() for w in voters}}
+    files = [f for f in files if worker not in voted_sessions[f] or reviews.get(f) or clarifications.get(f)
+             or f in pending_data]
     random.shuffle(files)
     files.sort(key=lambda f: (not reviews.get(f), not clarifications.get(f),
                               not (voted_models[f] - {model}), not voted_sessions[f]))
@@ -860,6 +993,12 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
     listing = "\n".join(f"  {answer_key(k, s, i):44} {k:8} {declared_at(i)}"
                         for k, s, i, _ in items)
     evidence = []
+    for kind, scope, ident, rva in items:
+        request = request_for_key(lane, key_of(rel, kind, scope, ident)) if scope.startswith('unrowed:') else None
+        if request:
+            evidence.append('UNROWED DATA REQUEST (caller facts, not a proposed name): ' + json.dumps(request, sort_keys=True))
+            for user in json.loads(request['users']):
+                evidence.append('USER ' + user + ':\n' + (lane.text(user) or ''))
     for kind, scope, ident, rva in items:
         if kind == "function":
             found = callers(lane, rel, ident)
@@ -1055,8 +1194,7 @@ def cmd_next(lane, args):
     if max_chars is not None:
         for rel, entry in current["files"].items():
             packet_sources.append(dict(file=rel, source=lane.text(rel) or ""))
-            packet_targets.extend(dict(key=key_of(rel, *i[:3]), kind=i[0], scope=i[1],
-                                       placeholder=i[2], rva=i[3]) for i in entry["items"])
+            packet_targets.extend(packet_target(lane, rel, i) for i in entry["items"])
     def key_count():
         return (sum(len(entry["items"]) for entry in current["files"].values())
                 + sum(sum(entry["kinds"].values()) for entry in metadata))
@@ -1098,7 +1236,7 @@ def cmd_next(lane, args):
             items = items[:max(0, remaining)]
         if not items:
             continue
-        targets = [dict(key=key_of(rel, *i[:3]), kind=i[0], scope=i[1], placeholder=i[2], rva=i[3])
+        targets = [packet_target(lane, rel, i)
                    for i in items]
         source = dict(file=rel, source=text)
         if max_chars is not None:
@@ -1981,6 +2119,10 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 else:
                     print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
                 continue
+            if unrowed_key(key):
+                print(f"{key}: agreed {row['new']}; define it in {split_key(key)[0]}, then run "
+                      f"python3 tools/data_rows.py --admit-agreed {row['id']} --symbol COFF_SYMBOL --model MODEL")
+                continue
             if (row["status"] == "blocked" and args.retry_blocked
                     and not getattr(args, "retry_unchanged", False)
                     and _same_blocker(lane, key, row, blockers, max_files=max_files)):
@@ -2216,6 +2358,14 @@ def cmd_status(lane, args):
 def main(argv=None, lane=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
+    request = sub.add_parser('register-data', help='register an unrowed retail data range for blind global naming')
+    request.add_argument('--source', required=True)
+    request.add_argument('--address', required=True)
+    request.add_argument('--address-kind', choices=('va', 'rva'), required=True)
+    request.add_argument('--size', type=lambda v: int(v, 0), required=True)
+    request.add_argument('--type', dest='type_name', required=True)
+    request.add_argument('--users', nargs='+', required=True)
+    request.add_argument('--evidence', required=True)
     n = sub.add_parser("next", help="serve only function, class, member and global names for voting")
     n.add_argument("--session", required=True, help="a label for this brief; who votes is the worker identity, not this")
     n.add_argument("--model", required=True, help="the label you vote under, e.g. seat-a")
@@ -2312,6 +2462,15 @@ def main(argv=None, lane=None):
         except (name_review.ReviewError, OSError, ValueError) as exc:
             print(f"name_lane: reviewer failed: {exc}", file=sys.stderr)
             return 2
+    if args.cmd == 'register-data':
+        try:
+            key = register_data(lane, source=args.source, address=args.address, address_kind=args.address_kind,
+                                size=args.size, type_name=args.type_name, users=args.users, evidence=args.evidence)
+        except (rename.Refusal, ValueError) as exc:
+            fail(str(exc))
+        print(key)
+        print(f"Stage {DATA_REQUESTS}; then: python3 tools/name_lane.py next --file {args.source} --key '{key}' --session SESSION --model MODEL")
+        return 0
     if args.cmd == "next":
         return cmd_next(lane, args)
     if args.cmd == "submit":

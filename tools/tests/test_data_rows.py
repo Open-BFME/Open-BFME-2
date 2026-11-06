@@ -902,3 +902,27 @@ def test_private_probe_helper_cannot_be_spoofed(extra):
     for probe in (data_rows.compiled_size, data_rows.compiled_arithmetic):
         value, how = probe(source, "?counts@Owner@@0PAHA")
         assert value is None and "does not compile" in how
+
+
+
+def test_hand_added_address_named_data_row_is_still_refused_by_hatch_gate(tmp_path):
+    import shutil
+    from test_hatch_counters import Repo, STUB_INVENTORY, TOOLS, T0
+    repo = Repo(tmp_path, 'bfme2')
+    repo.git('init', '-q')
+    (tmp_path / 'tools').mkdir()
+    shutil.copy(TOOLS / 'hatch_counters.py', tmp_path / 'tools')
+    (tmp_path / 'tools/retail_inventory.py').write_text(STUB_INVENTORY)
+    repo.write(repo.lay['src'], 'int ordinaryGlobal;\n')
+    repo.write('reverse/functions.csv', 'name,export_rva,target_rva,target_size,source,status,notes\n')
+    repo.write('reverse/symbols.csv', 'name,address,notes\n')
+    repo.git('add', 'Code', 'reverse', 'tools')
+    assert repo.tool('--write-baseline').returncode == 0
+    repo.commit('fixture baseline')
+    repo.write(repo.lay['src'], 'int ordinaryGlobal;\nint g_Va00403100;\n')
+    repo.write('reverse/data_rows.csv', ledger(row(name='?g_Va00403100@@3HA', address='0x00403100',
+                                                source=repo.lay['src'])).decode())
+    repo.git('add', repo.lay['src'], 'reverse/data_rows.csv')
+    done = repo.tool('--staged')
+    assert done.returncode == 1
+    assert 'address_global' in done.stderr and 'g_Va00403100' in done.stderr

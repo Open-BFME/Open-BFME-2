@@ -1315,3 +1315,53 @@ when repository and reference inputs are unchanged. Sources, headers, ledgers,
 tooling and reference worktree changes invalidate it; naming votes and reviewed
 acceptances are read fresh. Claims are refreshed on every pick. Submission and
 application always run their ordinary current-input checks.
+
+## Naming an unrowed data address
+
+An unrowed datum has no C++ placeholder to rename. Register caller evidence
+without creating an address-named global:
+
+```sh
+python3 tools/name_lane.py register-data --source Code/GameEngine/Source/Common/BigObfFallbacks.cpp --address 0xDC2274 --address-kind va --size 0x38 --type FallbackCtx --users Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp --evidence "context used by the fallback getter; extent and users established from retail"
+```
+
+This records facts only in `reverse/name_data_requests.csv` and prints a naming
+key plus the `next --file ... --key ... --session ... --model ...` command.
+It proposes no name, creates no source definition or data row, and adds no hatch.
+Stage the request register with the later votes, approval, definition and row.
+The register is created on first use; requests must fit unowned, non-executable
+retail data and may not overlap either data ledger or a converged global owner.
+VA inputs are normalized to RVA. Type is a caller-supplied type/struct hint,
+not proof of original source identity. User sources and their hashes travel in
+both the human brief and machine packet; proposals and competing names do not.
+The key binds address, extent, type, users and evidence, so changing those facts
+cannot reuse an old agreement.
+
+Use the ordinary `next` and `submit` flow on two independent seats with their
+existing distinct worker identities. The ordinary worker-count, spelling,
+source-snapshot, canonical-name and collision protections apply. A single vote,
+a disagreement, or a hand-written approval does not authorize admission.
+Normal submit/apply leaves an agreed unrowed key waiting and prints an admission
+command, since there is no old C++ symbol to rename. No inferred-name basis or
+matched-data credit is recorded merely for agreeing on a spelling.
+
+After agreement, claim the data RVA and defining source, check the frozen-file
+rule, write a real typed C++ definition with the agreed identifier and retail
+initializer, and byte-build that source normally. Then admit its exact external
+COFF symbol:
+
+```sh
+python3 tools/data_rows.py --admit-agreed APPROVAL_ID --symbol 'EXACT_COFF_SYMBOL' --model MODEL
+```
+
+Admission rechecks the registered range and the original blind votes, requires
+the exact agreed non-address-derived identifier and a current compiler receipt,
+and uses the existing data verifier for compiled sizeof/allocation extent,
+retail bytes and all relocations. It never compiles a replacement source into
+`build/match`; ordinary sizeof probes remain under `build/data_rows`. Failure
+restores the data ledger, basis and agreement status through the rename journal.
+Success writes the matched row, a `global` basis record with `inferred` and
+`agree:APPROVAL_ID`, and a landed approval. It keeps the source/RVA claims until
+publication and prints the explicit paths to stage and claims to release.
+Neither command commits, pushes, weakens a gate, or admits a hatch. Hand-added
+address-named source/data rows remain subject to the existing hatch gate.
