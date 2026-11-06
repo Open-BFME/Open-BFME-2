@@ -1,0 +1,4526 @@
+{
+  "base": "8ff67a87b55d231d1506a10f4daf9fa91367cd0e",
+  "tip": "2f02f6e984e9bce072abddb082b18bdbb19fa76a",
+  "providers": [
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp",
+      "runtime_equal": true,
+      "sections": 2,
+      "relocations": 0,
+      "extern_definitions": 1,
+      "special_externals": 1,
+      "weak_defaults": 0,
+      "before_object_sha256": "171f771f6ed9e8a70394f568ec4fea6f37ba7e1eb031ce74cc03653989a2d508",
+      "after_object_sha256": "10dd5e5253d4e91772a42db82fe2dab25b651c151c8a332995de764bdb527b16",
+      "runtime_graph_sha256": "5b43d872e6cfb70244c5ca3e79ff04d5baafb5fdc33688f2f3e74743c4bd2644"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp",
+      "runtime_equal": true,
+      "sections": 14,
+      "relocations": 44,
+      "extern_definitions": 10,
+      "special_externals": 19,
+      "weak_defaults": 0,
+      "before_object_sha256": "6354497b5adeece527433dcbf3dae5d45bc6b605bb758b86d40b5848ec53e114",
+      "after_object_sha256": "ef4d79af8882002154be06efc38ca9cebd65a02e702397b946858a4ff3a60e75",
+      "runtime_graph_sha256": "4614a62211a4015caa9575a20d8b756c679fc44f88424121458519da03533513"
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapDoPartialUpdate.cpp",
+      "runtime_equal": true,
+      "sections": 6,
+      "relocations": 12,
+      "extern_definitions": 4,
+      "special_externals": 5,
+      "weak_defaults": 0,
+      "before_object_sha256": "46e7b1d0bc68270b90b53abcfd82aed39d86e40f462bb8329143b2c7b74dc201",
+      "after_object_sha256": "b20aba768841f1ea3b77887a4c2206c689eaa7d9d804f37f5ec108866910c505",
+      "runtime_graph_sha256": "bcf345662a8482f58195a2432c3fd7b191e2ca12361f94afc63d0434576df4ec"
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+      "runtime_equal": true,
+      "sections": 16,
+      "relocations": 39,
+      "extern_definitions": 15,
+      "special_externals": 19,
+      "weak_defaults": 0,
+      "before_object_sha256": "ba8aced7ff5055eac9d43bfdf64ecf690befd376d7f2e6da9db5cb41093e004b",
+      "after_object_sha256": "a90fec3021fe8672cd9a180d92155b0d45960134ded95f0f5ba7e90ca83a0863",
+      "runtime_graph_sha256": "3c0445947d20dceb4397b647ad0fb567bd17daba8ac68f7bee7ac674a1f309fa"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoXfer.cpp",
+      "runtime_equal": true,
+      "sections": 2,
+      "relocations": 4,
+      "extern_definitions": 1,
+      "special_externals": 2,
+      "weak_defaults": 0,
+      "before_object_sha256": "62c2ae28f973e2fefe87d9f91e24baa5c4bd71844f32e0c140d83baba3f25d5f",
+      "after_object_sha256": "3af0ad40af0abdce9730ebb5600d290d2712511b5dbe1993bdb6fbb079af0de1",
+      "runtime_graph_sha256": "4f4501fbc6f6da055d71ab4317b0a6e356351ccae2dfd4669608395664a5d38b"
+    }
+  ],
+  "providers_equal": 5,
+  "negative_controls_rejected": 10,
+  "indexed_consumers": 4464,
+  "provider_names": 31,
+  "snapshots": {
+    "before": {
+      "commit": "8ff67a87b55d231d1506a10f4daf9fa91367cd0e",
+      "providers": [
+        {
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp",
+          "source_sha256": "8b4581b85ec82e8ba0184d80cadf66498a34df951cb87e8d4e264925d60a8e83",
+          "object_sha256": "171f771f6ed9e8a70394f568ec4fea6f37ba7e1eb031ce74cc03653989a2d508",
+          "receipt_sha256": "907e1189e773f4221e38f68c4a0c33a25bcb8f6a58c078151e8dcca4ae211dff",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 659,
+                "characteristics": 1051136,
+                "sha256": "b1177b689a37d7940eed81d7b2f7dc8aec987e496e4090da051ccc120d1f4954",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 17,
+                "characteristics": 1611665440,
+                "sha256": "193268339386645f78f3e13d5c84067a0f1a041a2164598b8375db0b257689f8",
+                "relocs": [],
+                "comdat": [
+                  1,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "?setSize@Rva00788290Allocation@@QAEXMM@Z": [
+                1,
+                0,
+                32
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp",
+          "source_sha256": "50e42c56651360825445795905d2c05a42ffa8b067afdd2bd2495b1724a61af7",
+          "object_sha256": "6354497b5adeece527433dcbf3dae5d45bc6b605bb758b86d40b5848ec53e114",
+          "receipt_sha256": "34a080075ee414ced00046aa3411fa460fb194dfb3237b3e6e46682edf560f86",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "??0Rva0030B9DD@@QAE@H@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "??0Rva0030CAA9Owner@@QAE@H@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "??2@YAPAXI@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "??3@YAXPAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?free@_STL@@YAXPAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?insert@StandingWaveAreaSetView@@QAEXHUAreaRefValueView@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?parse@ElevatedAreaPolygon@@QAEXAAVDataChunkInput@@H@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?parse@WaterArea@@QAEXAAVDataChunkInput@@PAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?readInt@DataChunkInput@@QAEHXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?rva00282135@Rva00282135@@QAEXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?set@?$StringBase@D@@QAEXABV1@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__EH_prolog",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "___CxxFrameHandler",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__except_list",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 697,
+                "characteristics": 1051136,
+                "sha256": "3666bc8d2810a825b0ff0eae92652131e88ae877aa362be6d5564b117345974e",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 5,
+                "characteristics": 1611665440,
+                "sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+                "relocs": [
+                  [
+                    1,
+                    20,
+                    [
+                      "external",
+                      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "1cfc432c9161c8ac51e5671c0f85cb4d061592e34b7e2367129a2cf1e96b9824",
+                "relocs": [
+                  [
+                    8,
+                    20,
+                    [
+                      "external",
+                      "?set@?$StringBase@D@@QAEXABV1@@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 20,
+                "characteristics": 1611665440,
+                "sha256": "4e154ebff18243a3c34d3c74671dabeb6084765b4b8ec1681682cc949ae6e21a",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 12,
+                "characteristics": 1611665440,
+                "sha256": "cc2b9e15b34473193e17dbbcc5ffd546fcafbdbcf8749198cf70faeb349b09cc",
+                "relocs": [
+                  [
+                    7,
+                    20,
+                    [
+                      "external",
+                      "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 14,
+                "characteristics": 1611665440,
+                "sha256": "351519bb1d967b9ee56d861614802879a0a3a004a25657d4f6f1db6df43cee14",
+                "relocs": [
+                  [
+                    8,
+                    20,
+                    [
+                      "external",
+                      "?free@_STL@@YAXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "0f44d97c9f42d2e1a1e7956b0bb8e4b07c70feb205b095c08c6fc79b67e90094",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "6ced1c2aada57b071553a1911d1348095f0947cb2cc2d5d2afaab711d78782b4",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 12,
+                "characteristics": 1611665440,
+                "sha256": "cc2b9e15b34473193e17dbbcc5ffd546fcafbdbcf8749198cf70faeb349b09cc",
+                "relocs": [
+                  [
+                    7,
+                    20,
+                    [
+                      "external",
+                      "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 3,
+                "characteristics": 1611665440,
+                "sha256": "19d200194d49b34530548575f37a1bb4203ee60f18d42f0084e86b7a8c899faa",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 510,
+                "characteristics": 1611665440,
+                "sha256": "0dfb773609bbdc994a7907f7588f54e8cbca8544f117da01d2fd2ac0279c7120",
+                "relocs": [
+                  [
+                    1,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      34
+                    ]
+                  ],
+                  [
+                    6,
+                    20,
+                    [
+                      "external",
+                      "__EH_prolog",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    23,
+                    20,
+                    [
+                      "external",
+                      "?rva00282135@Rva00282135@@QAEXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    33,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    51,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    64,
+                    20,
+                    [
+                      "external",
+                      "??2@YAPAXI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    87,
+                    20,
+                    [
+                      "external",
+                      "??0Rva0030CAA9Owner@@QAE@H@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    118,
+                    20,
+                    [
+                      "external",
+                      "?parse@WaterArea@@QAEXAAVDataChunkInput@@PAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    128,
+                    20,
+                    [
+                      "external",
+                      "??0Rva0030B9DD@@QAE@H@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    142,
+                    20,
+                    [
+                      "external",
+                      "?parse@ElevatedAreaPolygon@@QAEXAAVDataChunkInput@@H@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    154,
+                    20,
+                    [
+                      "external",
+                      "?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    171,
+                    20,
+                    [
+                      "external",
+                      "?free@_STL@@YAXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    179,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    189,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    198,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    208,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    218,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    228,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    238,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    248,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    258,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    272,
+                    20,
+                    [
+                      "external",
+                      "?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    297,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    411,
+                    20,
+                    [
+                      "external",
+                      "?set@?$StringBase@D@@QAEXABV1@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    455,
+                    20,
+                    [
+                      "external",
+                      "?insert@StandingWaveAreaSetView@@QAEXHUAreaRefValueView@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    467,
+                    20,
+                    [
+                      "external",
+                      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    478,
+                    20,
+                    [
+                      "external",
+                      "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    501,
+                    6,
+                    [
+                      "external",
+                      "__except_list",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              },
+              {
+                "name": ".text$x",
+                "size": 44,
+                "characteristics": 1611665440,
+                "sha256": "a0cd2c2ef534008034377617be7c21ba340dd2e653942ff83869790e7a666456",
+                "relocs": [
+                  [
+                    4,
+                    20,
+                    [
+                      "external",
+                      "??3@YAXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    14,
+                    20,
+                    [
+                      "defined",
+                      8,
+                      0,
+                      "??1StandingWaveAreaRef@@QAE@XZ"
+                    ]
+                  ],
+                  [
+                    22,
+                    20,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "??1Rva0030B9DD@@QAE@XZ"
+                    ]
+                  ],
+                  [
+                    30,
+                    20,
+                    [
+                      "defined",
+                      1,
+                      0,
+                      "??1AsciiString@@QAE@XZ"
+                    ]
+                  ],
+                  [
+                    35,
+                    6,
+                    [
+                      "defined",
+                      12,
+                      32
+                    ]
+                  ],
+                  [
+                    40,
+                    20,
+                    [
+                      "external",
+                      "___CxxFrameHandler",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  5,
+                  10
+                ]
+              },
+              {
+                "name": ".xdata$x",
+                "size": 60,
+                "characteristics": 1076891712,
+                "sha256": "8e43a84605629e46ce870d0189edfb7937b60366858745dd70ed7b6f861bf08f",
+                "relocs": [
+                  [
+                    4,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      0
+                    ]
+                  ],
+                  [
+                    12,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      10
+                    ]
+                  ],
+                  [
+                    20,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      18
+                    ]
+                  ],
+                  [
+                    28,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      26
+                    ]
+                  ],
+                  [
+                    40,
+                    6,
+                    [
+                      "defined",
+                      12,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  5,
+                  10
+                ]
+              },
+              {
+                "name": ".sxdata",
+                "size": 4,
+                "characteristics": 3146240,
+                "sha256": "b2dad12f48da4b2c5077dff12e78fba64f78c28b0a8171db7a92a403ebebd956",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "??1AsciiString@@QAE@XZ": [
+                1,
+                0,
+                32
+              ],
+              "??4AsciiString@@QAEAAV0@ABV0@@Z": [
+                2,
+                0,
+                32
+              ],
+              "??0AreaRefValueView@@QAE@ABU0@@Z": [
+                3,
+                0,
+                32
+              ],
+              "??1AreaRefValueView@@QAE@XZ": [
+                4,
+                0,
+                32
+              ],
+              "??1Rva0030B9DD@@QAE@XZ": [
+                5,
+                0,
+                32
+              ],
+              "?getPolygon@Rva0030CAA9Owner@@QAEAAVRva005CB283@@XZ": [
+                6,
+                0,
+                32
+              ],
+              "??0StandingWaveAreaRef@@QAE@PAVRva0030CAA9Owner@@@Z": [
+                7,
+                0,
+                32
+              ],
+              "??1StandingWaveAreaRef@@QAE@XZ": [
+                8,
+                0,
+                32
+              ],
+              "??CStandingWaveAreaRef@@QBEPAVRva0030CAA9Owner@@XZ": [
+                9,
+                0,
+                32
+              ],
+              "?parse@StandingWaveAreasDataChunkParser@@UAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z": [
+                10,
+                0,
+                32
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapDoPartialUpdate.cpp",
+          "source_sha256": "8fe77cf156a4df19074b621b00221169d4225f066c8683a0e582c23c338f785a",
+          "object_sha256": "46e7b1d0bc68270b90b53abcfd82aed39d86e40f462bb8329143b2c7b74dc201",
+          "receipt_sha256": "4b29708fed9599eb4b65ab5ccff5237f5e9eb57c90bbfa966d180c13c5b39de9",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?rva00113110@Rva00113110Holder@@QAEXPAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__imp__ceil",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "__imp__floor",
+              0,
+              0,
+              0,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 44,
+                "characteristics": 1051136,
+                "sha256": "79cf6d889e5cad5bc77119a55bc81f96a140ba4459b14c3ce886d049be3dc101",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "b528e8d316f079838bf839f219acfd16777d99c8730f34579642fc43338834ef",
+                "relocs": [
+                  [
+                    11,
+                    6,
+                    [
+                      "external",
+                      "__imp__ceil",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "b528e8d316f079838bf839f219acfd16777d99c8730f34579642fc43338834ef",
+                "relocs": [
+                  [
+                    11,
+                    6,
+                    [
+                      "external",
+                      "__imp__floor",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 13,
+                "characteristics": 1611665440,
+                "sha256": "f34575f0a2790b6643da2c03d6d7fdb1d9c6df1a9d9f9c98b9644401ccf7f347",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 340,
+                "characteristics": 1611665440,
+                "sha256": "23c490466a017046c4e68b76be9fe2ffc5560ea7423d2f724a106dc00e296354",
+                "relocs": [
+                  [
+                    53,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    62,
+                    6,
+                    [
+                      "external",
+                      "__imp__floor",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    86,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    96,
+                    6,
+                    [
+                      "external",
+                      "__imp__floor",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    120,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    133,
+                    6,
+                    [
+                      "external",
+                      "__imp__ceil",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    157,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    170,
+                    6,
+                    [
+                      "external",
+                      "__imp__ceil",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    280,
+                    20,
+                    [
+                      "external",
+                      "?rva00113110@Rva00113110Holder@@QAEXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    300,
+                    20,
+                    [
+                      "external",
+                      "?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              },
+              {
+                "name": ".rdata",
+                "size": 4,
+                "characteristics": 1076891712,
+                "sha256": "b1801134f2c71f5540537dc8ab78eb44398b15f76af4ab4fdf3a24468d8e50d6",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "_ceilf": [
+                1,
+                0,
+                32
+              ],
+              "?fast_float2long_round@@YAJM@Z": [
+                3,
+                0,
+                32
+              ],
+              "?doPartialUpdate@FlatHeightMapRenderObjClass@@QAEXABUIRegion2D@@PAVWorldHeightMap@@PAVRefRenderObjListIterator@@@Z": [
+                4,
+                0,
+                32
+              ],
+              "__real@3d800000": [
+                5,
+                0,
+                0
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+          "source_sha256": "dcfe8f19af8b5334b86ed59c1b239b7fcd7cd19cb8f2d12a8c98e41b9ae79efd",
+          "object_sha256": "ba8aced7ff5055eac9d43bfdf64ecf690befd376d7f2e6da9db5cb41093e004b",
+          "receipt_sha256": "becf4372f334ec75d9ecbed80a332f46e252bcbdff3e55abc13b9172a7779fce",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "?Apply_Render_State_Changes@DX8Wrapper@@SAXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?BFME2Set_Texture@@YAXIABUBFME2TextureRef@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?Get_Preset@VertexMaterialClass@@SAPAV1@W4PresetType@1@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?IsCurrentlyRenderingShadowMap@WW3D@@0_NA",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?ReAcquireResources@W3DSnowManager@@QAE_NXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?Set_Shader@DX8Wrapper@@SAXABVShaderClass@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?TheTacticalView@@3PAVView@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?TheWeatherSetting@@3V?$OVERRIDE@VWeatherSetting@@@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?number_of_DX8_calls@@3IA",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?render_state_changed@DX8Wrapper@@1IA",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 146,
+                "characteristics": 1051136,
+                "sha256": "e8eacd0422668fe671657a56728c5d1858eca8aa7652a6a5a3c9b282d4963618",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 11,
+                "characteristics": 1611665440,
+                "sha256": "0d9d4797ad8c81da5b9f78b6e3eba5066720c9a41fbd098a5dac1e8581c3c29c",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "3ff8df4115042f97b1f321f549bbc629c8cad0cdd903c4a757abb62f112c7e56",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 10,
+                "characteristics": 1611665440,
+                "sha256": "96a13c032b62951f48b5cc4b643dc4ef2fc2af39de75909f6c26e477098924f5",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 6,
+                "characteristics": 1611665440,
+                "sha256": "76811197299fd7215ff45276752d25eaa8889353ee70ada1fd839c8a55d34ffc",
+                "relocs": [
+                  [
+                    1,
+                    6,
+                    [
+                      "external",
+                      "?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 6,
+                "characteristics": 1611665440,
+                "sha256": "76811197299fd7215ff45276752d25eaa8889353ee70ada1fd839c8a55d34ffc",
+                "relocs": [
+                  [
+                    1,
+                    6,
+                    [
+                      "external",
+                      "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 52,
+                "characteristics": 1611665440,
+                "sha256": "ac839b8420dac6496bd2a843351674b1cfc425965804ff92608822375740e6ba",
+                "relocs": [
+                  [
+                    13,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    39,
+                    6,
+                    [
+                      "external",
+                      "?render_state_changed@DX8Wrapper@@1IA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    46,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "f7e0208f5e988ae39c7a45dfddbd12921d02f9c3deb5695d4c534c8ab0ccdb0f",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "f7e0208f5e988ae39c7a45dfddbd12921d02f9c3deb5695d4c534c8ab0ccdb0f",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 34,
+                "characteristics": 1611665440,
+                "sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 21,
+                "characteristics": 1611665440,
+                "sha256": "3c8445e78fcb759cd1c364af143eb6501ac5f3c6aa219c51eff5a328825f1a2c",
+                "relocs": [
+                  [
+                    17,
+                    20,
+                    [
+                      "external",
+                      "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 5,
+                "characteristics": 1611665440,
+                "sha256": "6d072d11a5144359746b0e9d2eaf5a06531a0162b9f7d07a44dd01f51006e142",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 714,
+                "characteristics": 1611665440,
+                "sha256": "b35b12b52d88bf96bee1ee7191e71dcf67bab7d50c4ac251a6ee95bc580c7600",
+                "relocs": [
+                  [
+                    10,
+                    6,
+                    [
+                      "external",
+                      "?TheWeatherSetting@@3V?$OVERRIDE@VWeatherSetting@@@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    32,
+                    20,
+                    [
+                      "external",
+                      "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    72,
+                    6,
+                    [
+                      "external",
+                      "?IsCurrentlyRenderingShadowMap@WW3D@@0_NA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    84,
+                    6,
+                    [
+                      "external",
+                      "?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    113,
+                    20,
+                    [
+                      "external",
+                      "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    142,
+                    6,
+                    [
+                      "external",
+                      "?TheTacticalView@@3PAVView@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    156,
+                    6,
+                    [
+                      "external",
+                      "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    178,
+                    6,
+                    [
+                      "defined",
+                      14,
+                      0,
+                      "__real@41200000"
+                    ]
+                  ],
+                  [
+                    255,
+                    6,
+                    [
+                      "defined",
+                      15,
+                      0,
+                      "?BfmeSnowPointSpriteShader@@3VShaderClass@@A"
+                    ]
+                  ],
+                  [
+                    272,
+                    20,
+                    [
+                      "external",
+                      "?Set_Shader@DX8Wrapper@@SAXABVShaderClass@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    279,
+                    20,
+                    [
+                      "external",
+                      "?Get_Preset@VertexMaterialClass@@SAPAV1@W4PresetType@1@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    295,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    321,
+                    6,
+                    [
+                      "external",
+                      "?render_state_changed@DX8Wrapper@@1IA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    330,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    367,
+                    20,
+                    [
+                      "external",
+                      "?ReAcquireResources@W3DSnowManager@@QAE_NXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    378,
+                    20,
+                    [
+                      "external",
+                      "?BFME2Set_Texture@@YAXIABUBFME2TextureRef@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    413,
+                    20,
+                    [
+                      "external",
+                      "?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    423,
+                    20,
+                    [
+                      "external",
+                      "?Apply_Render_State_Changes@DX8Wrapper@@SAXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    436,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    449,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    472,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    495,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    518,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    539,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    560,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    568,
+                    6,
+                    [
+                      "defined",
+                      13,
+                      0,
+                      "__real@3f800000"
+                    ]
+                  ],
+                  [
+                    586,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    591,
+                    6,
+                    [
+                      "external",
+                      "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    617,
+                    6,
+                    [
+                      "external",
+                      "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    637,
+                    6,
+                    [
+                      "external",
+                      "?number_of_DX8_calls@@3IA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    684,
+                    20,
+                    [
+                      "external",
+                      "?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    692,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    700,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              },
+              {
+                "name": ".rdata",
+                "size": 4,
+                "characteristics": 1076891712,
+                "sha256": "e00e5eb9444182f352323374ef4e08ebcb784725fdd4fd612d7730540b3e0c8c",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".rdata",
+                "size": 4,
+                "characteristics": 1076891712,
+                "sha256": "80c8a717ccd70c8809eb78e6a9591c003e11c721fe0ccaf62fd592abda1a5593",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".data",
+                "size": 4,
+                "characteristics": 3224371264,
+                "sha256": "27ca55f86332ae2fc2a93fdc2cb3c70ebd4026a7ea3e9c678fbf7553bd59448e",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "??0ShaderClass@@QAE@I@Z": [
+                1,
+                0,
+                32
+              ],
+              "?Add_Ref@RefCountClass@@QAEXXZ": [
+                2,
+                0,
+                32
+              ],
+              "?Release_Ref@RefCountClass@@QAEXXZ": [
+                3,
+                0,
+                32
+              ],
+              "?Get_Current_Caps@DX8Wrapper@@SAPBVDX8Caps@@XZ": [
+                4,
+                0,
+                32
+              ],
+              "?_Get_D3D_Device8@DX8Wrapper@@SAPAUIDirect3DDevice8@@XZ": [
+                5,
+                0,
+                32
+              ],
+              "?Set_Material@DX8Wrapper@@SAXPAVVertexMaterialClass@@@Z": [
+                6,
+                0,
+                32
+              ],
+              "?getNextOverride@Overridable@@QBEPBV1@XZ": [
+                7,
+                0,
+                32
+              ],
+              "?friend_getNextOverride@Overridable@@QAEPAV1@XZ": [
+                8,
+                0,
+                32
+              ],
+              "??_H@YGXPAXIHP6EPAX0@Z@Z": [
+                9,
+                0,
+                32
+              ],
+              "?weather@W3DSnowManager@@SAPBVWeatherSetting@@PBV2@@Z": [
+                10,
+                0,
+                32
+              ],
+              "?FtoDW@W3DSnowManager@@SAKM@Z": [
+                11,
+                0,
+                32
+              ],
+              "?render@W3DSnowManager@@QAEXAAVRenderInfoClass@@@Z": [
+                12,
+                0,
+                32
+              ],
+              "__real@3f800000": [
+                13,
+                0,
+                0
+              ],
+              "__real@41200000": [
+                14,
+                0,
+                0
+              ],
+              "?BfmeSnowPointSpriteShader@@3VShaderClass@@A": [
+                15,
+                0,
+                0
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoXfer.cpp",
+          "source_sha256": "8d20a60be0b5937c05a025a2ca8c2e75598366447fccfbec18ea340ffbf09a5b",
+          "object_sha256": "62c2ae28f973e2fefe87d9f91e24baa5c4bd71844f32e0c140d83baba3f25d5f",
+          "receipt_sha256": "93479bca2b4f2f70afc0fad5fcc7c7be2f06a24a596d7045d116fc0874443095",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "?Version1@Xfer@@QAEXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 600,
+                "characteristics": 1051136,
+                "sha256": "862521b5d91cc18fdfdc5ac4b3e0c417926c5eabbee2c7d7cf9c173399068ec4",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 194,
+                "characteristics": 1611665440,
+                "sha256": "23f8c1b46f9eb027272d155dc926cf3d4c3bc36345ee5758ef046555ccde6a3c",
+                "relocs": [
+                  [
+                    11,
+                    20,
+                    [
+                      "external",
+                      "?Version1@Xfer@@QAEXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    68,
+                    20,
+                    [
+                      "external",
+                      "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    113,
+                    20,
+                    [
+                      "external",
+                      "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    158,
+                    20,
+                    [
+                      "external",
+                      "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "?DoXfer@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z": [
+                1,
+                0,
+                32
+              ]
+            },
+            "weak": {}
+          }
+        }
+      ]
+    },
+    "after": {
+      "commit": "2f02f6e984e9bce072abddb082b18bdbb19fa76a",
+      "providers": [
+        {
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp",
+          "source_sha256": "23c5033259a7c51fa4c62d4c86c1752881a37f86d1d84b79e8e46019cef1d2d9",
+          "object_sha256": "10dd5e5253d4e91772a42db82fe2dab25b651c151c8a332995de764bdb527b16",
+          "receipt_sha256": "167096596a7701a0422eac3868f9e111036d8e7c9eaf087023b1ae60c562f3af",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 659,
+                "characteristics": 1051136,
+                "sha256": "b1177b689a37d7940eed81d7b2f7dc8aec987e496e4090da051ccc120d1f4954",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 17,
+                "characteristics": 1611665440,
+                "sha256": "193268339386645f78f3e13d5c84067a0f1a041a2164598b8375db0b257689f8",
+                "relocs": [],
+                "comdat": [
+                  1,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "?setSize@Rva00788290Allocation@@QAEXMM@Z": [
+                1,
+                0,
+                32
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngine/Source/GameLogic/Map/StandingWaveAreasDataChunkParser.cpp",
+          "source_sha256": "34836dcf540f8df5efd39ac94a3d1835bbf9187696b12e1c66822b15f47ea857",
+          "object_sha256": "ef4d79af8882002154be06efc38ca9cebd65a02e702397b946858a4ff3a60e75",
+          "receipt_sha256": "bab2a28d6f849cd5ece8cef57391b3117928498a814465557a9488fd378e43fd",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "??0Rva0030B9DD@@QAE@H@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "??0Rva0030CAA9Owner@@QAE@H@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "??2@YAPAXI@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "??3@YAXPAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?free@_STL@@YAXPAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?insert@StandingWaveAreaSetView@@QAEXHUAreaRefValueView@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?parse@ElevatedAreaPolygon@@QAEXAAVDataChunkInput@@H@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?parse@WaterArea@@QAEXAAVDataChunkInput@@PAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?readInt@DataChunkInput@@QAEHXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?rva00282135@Rva00282135@@QAEXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?set@?$StringBase@D@@QAEXABV1@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__EH_prolog",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "___CxxFrameHandler",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__except_list",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 697,
+                "characteristics": 1051136,
+                "sha256": "3666bc8d2810a825b0ff0eae92652131e88ae877aa362be6d5564b117345974e",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 5,
+                "characteristics": 1611665440,
+                "sha256": "e8ebd827d1f36d7cfa5e5220610aa6370284d1589989363f48ac40166362d449",
+                "relocs": [
+                  [
+                    1,
+                    20,
+                    [
+                      "external",
+                      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "1cfc432c9161c8ac51e5671c0f85cb4d061592e34b7e2367129a2cf1e96b9824",
+                "relocs": [
+                  [
+                    8,
+                    20,
+                    [
+                      "external",
+                      "?set@?$StringBase@D@@QAEXABV1@@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 20,
+                "characteristics": 1611665440,
+                "sha256": "4e154ebff18243a3c34d3c74671dabeb6084765b4b8ec1681682cc949ae6e21a",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 12,
+                "characteristics": 1611665440,
+                "sha256": "cc2b9e15b34473193e17dbbcc5ffd546fcafbdbcf8749198cf70faeb349b09cc",
+                "relocs": [
+                  [
+                    7,
+                    20,
+                    [
+                      "external",
+                      "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 14,
+                "characteristics": 1611665440,
+                "sha256": "351519bb1d967b9ee56d861614802879a0a3a004a25657d4f6f1db6df43cee14",
+                "relocs": [
+                  [
+                    8,
+                    20,
+                    [
+                      "external",
+                      "?free@_STL@@YAXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "0f44d97c9f42d2e1a1e7956b0bb8e4b07c70feb205b095c08c6fc79b67e90094",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "6ced1c2aada57b071553a1911d1348095f0947cb2cc2d5d2afaab711d78782b4",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 12,
+                "characteristics": 1611665440,
+                "sha256": "cc2b9e15b34473193e17dbbcc5ffd546fcafbdbcf8749198cf70faeb349b09cc",
+                "relocs": [
+                  [
+                    7,
+                    20,
+                    [
+                      "external",
+                      "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 3,
+                "characteristics": 1611665440,
+                "sha256": "19d200194d49b34530548575f37a1bb4203ee60f18d42f0084e86b7a8c899faa",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 510,
+                "characteristics": 1611665440,
+                "sha256": "0dfb773609bbdc994a7907f7588f54e8cbca8544f117da01d2fd2ac0279c7120",
+                "relocs": [
+                  [
+                    1,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      34
+                    ]
+                  ],
+                  [
+                    6,
+                    20,
+                    [
+                      "external",
+                      "__EH_prolog",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    23,
+                    20,
+                    [
+                      "external",
+                      "?rva00282135@Rva00282135@@QAEXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    33,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    51,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    64,
+                    20,
+                    [
+                      "external",
+                      "??2@YAPAXI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    87,
+                    20,
+                    [
+                      "external",
+                      "??0Rva0030CAA9Owner@@QAE@H@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    118,
+                    20,
+                    [
+                      "external",
+                      "?parse@WaterArea@@QAEXAAVDataChunkInput@@PAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    128,
+                    20,
+                    [
+                      "external",
+                      "??0Rva0030B9DD@@QAE@H@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    142,
+                    20,
+                    [
+                      "external",
+                      "?parse@ElevatedAreaPolygon@@QAEXAAVDataChunkInput@@H@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    154,
+                    20,
+                    [
+                      "external",
+                      "?rva005CB283@Rva005CB283@@QAEXPBVRva0030B9DD@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    171,
+                    20,
+                    [
+                      "external",
+                      "?free@_STL@@YAXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    179,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    189,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    198,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    208,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    218,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    228,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    238,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    248,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    258,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    272,
+                    20,
+                    [
+                      "external",
+                      "?readAsciiString@DataChunkInput@@QAE?AVAsciiString@@XZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    297,
+                    20,
+                    [
+                      "external",
+                      "?readInt@DataChunkInput@@QAEHXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    411,
+                    20,
+                    [
+                      "external",
+                      "?set@?$StringBase@D@@QAEXABV1@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    455,
+                    20,
+                    [
+                      "external",
+                      "?insert@StandingWaveAreaSetView@@QAEXHUAreaRefValueView@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    467,
+                    20,
+                    [
+                      "external",
+                      "?releaseBuffer@?$StringBase@D@@AAEXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    478,
+                    20,
+                    [
+                      "external",
+                      "?ReleaseTreeHintRef00217D4C@@YIXPAUTargetRef00217D4C@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    501,
+                    6,
+                    [
+                      "external",
+                      "__except_list",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              },
+              {
+                "name": ".text$x",
+                "size": 44,
+                "characteristics": 1611665440,
+                "sha256": "a0cd2c2ef534008034377617be7c21ba340dd2e653942ff83869790e7a666456",
+                "relocs": [
+                  [
+                    4,
+                    20,
+                    [
+                      "external",
+                      "??3@YAXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    14,
+                    20,
+                    [
+                      "defined",
+                      8,
+                      0,
+                      "??1StandingWaveAreaRef@@QAE@XZ"
+                    ]
+                  ],
+                  [
+                    22,
+                    20,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "??1Rva0030B9DD@@QAE@XZ"
+                    ]
+                  ],
+                  [
+                    30,
+                    20,
+                    [
+                      "defined",
+                      1,
+                      0,
+                      "??1AsciiString@@QAE@XZ"
+                    ]
+                  ],
+                  [
+                    35,
+                    6,
+                    [
+                      "defined",
+                      12,
+                      32
+                    ]
+                  ],
+                  [
+                    40,
+                    20,
+                    [
+                      "external",
+                      "___CxxFrameHandler",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  5,
+                  10
+                ]
+              },
+              {
+                "name": ".xdata$x",
+                "size": 60,
+                "characteristics": 1076891712,
+                "sha256": "8e43a84605629e46ce870d0189edfb7937b60366858745dd70ed7b6f861bf08f",
+                "relocs": [
+                  [
+                    4,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      0
+                    ]
+                  ],
+                  [
+                    12,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      10
+                    ]
+                  ],
+                  [
+                    20,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      18
+                    ]
+                  ],
+                  [
+                    28,
+                    6,
+                    [
+                      "defined",
+                      11,
+                      26
+                    ]
+                  ],
+                  [
+                    40,
+                    6,
+                    [
+                      "defined",
+                      12,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  5,
+                  10
+                ]
+              },
+              {
+                "name": ".sxdata",
+                "size": 4,
+                "characteristics": 3146240,
+                "sha256": "b2dad12f48da4b2c5077dff12e78fba64f78c28b0a8171db7a92a403ebebd956",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "??1AsciiString@@QAE@XZ": [
+                1,
+                0,
+                32
+              ],
+              "??4AsciiString@@QAEAAV0@ABV0@@Z": [
+                2,
+                0,
+                32
+              ],
+              "??0AreaRefValueView@@QAE@ABU0@@Z": [
+                3,
+                0,
+                32
+              ],
+              "??1AreaRefValueView@@QAE@XZ": [
+                4,
+                0,
+                32
+              ],
+              "??1Rva0030B9DD@@QAE@XZ": [
+                5,
+                0,
+                32
+              ],
+              "?getPolygon@Rva0030CAA9Owner@@QAEAAVRva005CB283@@XZ": [
+                6,
+                0,
+                32
+              ],
+              "??0StandingWaveAreaRef@@QAE@PAVRva0030CAA9Owner@@@Z": [
+                7,
+                0,
+                32
+              ],
+              "??1StandingWaveAreaRef@@QAE@XZ": [
+                8,
+                0,
+                32
+              ],
+              "??CStandingWaveAreaRef@@QBEPAVRva0030CAA9Owner@@XZ": [
+                9,
+                0,
+                32
+              ],
+              "?parse@StandingWaveAreasDataChunkParser@@UAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z": [
+                10,
+                0,
+                32
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapDoPartialUpdate.cpp",
+          "source_sha256": "0a6337b404e34ebee5420a49ceffb859e0c0211db5f67154a0bce5fc7943e72c",
+          "object_sha256": "b20aba768841f1ea3b77887a4c2206c689eaa7d9d804f37f5ec108866910c505",
+          "receipt_sha256": "2bf7e5ed8f119708d9efd8a18458e3fa94b3f913f5ecdc49f2c250622dd9ffd7",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?rva00113110@Rva00113110Holder@@QAEXPAX@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "__imp__ceil",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "__imp__floor",
+              0,
+              0,
+              0,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 44,
+                "characteristics": 1051136,
+                "sha256": "79cf6d889e5cad5bc77119a55bc81f96a140ba4459b14c3ce886d049be3dc101",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "b528e8d316f079838bf839f219acfd16777d99c8730f34579642fc43338834ef",
+                "relocs": [
+                  [
+                    11,
+                    6,
+                    [
+                      "external",
+                      "__imp__ceil",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 18,
+                "characteristics": 1611665440,
+                "sha256": "b528e8d316f079838bf839f219acfd16777d99c8730f34579642fc43338834ef",
+                "relocs": [
+                  [
+                    11,
+                    6,
+                    [
+                      "external",
+                      "__imp__floor",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 13,
+                "characteristics": 1611665440,
+                "sha256": "f34575f0a2790b6643da2c03d6d7fdb1d9c6df1a9d9f9c98b9644401ccf7f347",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 340,
+                "characteristics": 1611665440,
+                "sha256": "23c490466a017046c4e68b76be9fe2ffc5560ea7423d2f724a106dc00e296354",
+                "relocs": [
+                  [
+                    53,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    62,
+                    6,
+                    [
+                      "external",
+                      "__imp__floor",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    86,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    96,
+                    6,
+                    [
+                      "external",
+                      "__imp__floor",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    120,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    133,
+                    6,
+                    [
+                      "external",
+                      "__imp__ceil",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    157,
+                    6,
+                    [
+                      "defined",
+                      5,
+                      0,
+                      "__real@3d800000"
+                    ]
+                  ],
+                  [
+                    170,
+                    6,
+                    [
+                      "external",
+                      "__imp__ceil",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    280,
+                    20,
+                    [
+                      "external",
+                      "?rva00113110@Rva00113110Holder@@QAEXPAX@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    300,
+                    20,
+                    [
+                      "external",
+                      "?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              },
+              {
+                "name": ".rdata",
+                "size": 4,
+                "characteristics": 1076891712,
+                "sha256": "b1801134f2c71f5540537dc8ab78eb44398b15f76af4ab4fdf3a24468d8e50d6",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "_ceilf": [
+                1,
+                0,
+                32
+              ],
+              "?fast_float2long_round@@YAJM@Z": [
+                3,
+                0,
+                32
+              ],
+              "?doPartialUpdate@FlatHeightMapRenderObjClass@@QAEXABUIRegion2D@@PAVWorldHeightMap@@PAVRefRenderObjListIterator@@@Z": [
+                4,
+                0,
+                32
+              ],
+              "__real@3d800000": [
+                5,
+                0,
+                0
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp",
+          "source_sha256": "f2b71472b077823389b6c7db5bdbeca60cb85165432a611a6330cf4cc7217b32",
+          "object_sha256": "a90fec3021fe8672cd9a180d92155b0d45960134ded95f0f5ba7e90ca83a0863",
+          "receipt_sha256": "78bf6b966ee658e1a8f9a985f26123e0d3c998a84c3203fd54aa376aa863f832",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "?Apply_Render_State_Changes@DX8Wrapper@@SAXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?BFME2Set_Texture@@YAXIABUBFME2TextureRef@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?Get_Preset@VertexMaterialClass@@SAPAV1@W4PresetType@1@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?IsCurrentlyRenderingShadowMap@WW3D@@0_NA",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?ReAcquireResources@W3DSnowManager@@QAE_NXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?Set_Shader@DX8Wrapper@@SAXABVShaderClass@@@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?TheTacticalView@@3PAVView@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?TheWeatherSetting@@3V?$OVERRIDE@VWeatherSetting@@@@A",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?number_of_DX8_calls@@3IA",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?render_state_changed@DX8Wrapper@@1IA",
+              0,
+              0,
+              0,
+              2
+            ],
+            [
+              "__fltused",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 146,
+                "characteristics": 1051136,
+                "sha256": "e8eacd0422668fe671657a56728c5d1858eca8aa7652a6a5a3c9b282d4963618",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 11,
+                "characteristics": 1611665440,
+                "sha256": "0d9d4797ad8c81da5b9f78b6e3eba5066720c9a41fbd098a5dac1e8581c3c29c",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "3ff8df4115042f97b1f321f549bbc629c8cad0cdd903c4a757abb62f112c7e56",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 10,
+                "characteristics": 1611665440,
+                "sha256": "96a13c032b62951f48b5cc4b643dc4ef2fc2af39de75909f6c26e477098924f5",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 6,
+                "characteristics": 1611665440,
+                "sha256": "76811197299fd7215ff45276752d25eaa8889353ee70ada1fd839c8a55d34ffc",
+                "relocs": [
+                  [
+                    1,
+                    6,
+                    [
+                      "external",
+                      "?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 6,
+                "characteristics": 1611665440,
+                "sha256": "76811197299fd7215ff45276752d25eaa8889353ee70ada1fd839c8a55d34ffc",
+                "relocs": [
+                  [
+                    1,
+                    6,
+                    [
+                      "external",
+                      "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 52,
+                "characteristics": 1611665440,
+                "sha256": "ac839b8420dac6496bd2a843351674b1cfc425965804ff92608822375740e6ba",
+                "relocs": [
+                  [
+                    13,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    39,
+                    6,
+                    [
+                      "external",
+                      "?render_state_changed@DX8Wrapper@@1IA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    46,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "f7e0208f5e988ae39c7a45dfddbd12921d02f9c3deb5695d4c534c8ab0ccdb0f",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 4,
+                "characteristics": 1611665440,
+                "sha256": "f7e0208f5e988ae39c7a45dfddbd12921d02f9c3deb5695d4c534c8ab0ccdb0f",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 34,
+                "characteristics": 1611665440,
+                "sha256": "020df369b760640548bbcf9316008af700d4d7b064148b929b47c1c543a0e90d",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 21,
+                "characteristics": 1611665440,
+                "sha256": "3c8445e78fcb759cd1c364af143eb6501ac5f3c6aa219c51eff5a328825f1a2c",
+                "relocs": [
+                  [
+                    17,
+                    20,
+                    [
+                      "external",
+                      "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 5,
+                "characteristics": 1611665440,
+                "sha256": "6d072d11a5144359746b0e9d2eaf5a06531a0162b9f7d07a44dd01f51006e142",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 714,
+                "characteristics": 1611665440,
+                "sha256": "b35b12b52d88bf96bee1ee7191e71dcf67bab7d50c4ac251a6ee95bc580c7600",
+                "relocs": [
+                  [
+                    10,
+                    6,
+                    [
+                      "external",
+                      "?TheWeatherSetting@@3V?$OVERRIDE@VWeatherSetting@@@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    32,
+                    20,
+                    [
+                      "external",
+                      "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    72,
+                    6,
+                    [
+                      "external",
+                      "?IsCurrentlyRenderingShadowMap@WW3D@@0_NA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    84,
+                    6,
+                    [
+                      "external",
+                      "?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    113,
+                    20,
+                    [
+                      "external",
+                      "?friend_getFinalOverride@Overridable@@QAEPAV1@XZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    142,
+                    6,
+                    [
+                      "external",
+                      "?TheTacticalView@@3PAVView@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    156,
+                    6,
+                    [
+                      "external",
+                      "?TheTerrainRenderObject@@3PAVBaseHeightMapRenderObjClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    178,
+                    6,
+                    [
+                      "defined",
+                      14,
+                      0,
+                      "__real@41200000"
+                    ]
+                  ],
+                  [
+                    255,
+                    6,
+                    [
+                      "defined",
+                      15,
+                      0,
+                      "?BfmeSnowPointSpriteShader@@3VShaderClass@@A"
+                    ]
+                  ],
+                  [
+                    272,
+                    20,
+                    [
+                      "external",
+                      "?Set_Shader@DX8Wrapper@@SAXABVShaderClass@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    279,
+                    20,
+                    [
+                      "external",
+                      "?Get_Preset@VertexMaterialClass@@SAPAV1@W4PresetType@1@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    295,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    321,
+                    6,
+                    [
+                      "external",
+                      "?render_state_changed@DX8Wrapper@@1IA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    330,
+                    6,
+                    [
+                      "external",
+                      "?ScreenMaterial@@3PAVVertexMaterialClass@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    367,
+                    20,
+                    [
+                      "external",
+                      "?ReAcquireResources@W3DSnowManager@@QAE_NXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    378,
+                    20,
+                    [
+                      "external",
+                      "?BFME2Set_Texture@@YAXIABUBFME2TextureRef@@@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    413,
+                    20,
+                    [
+                      "external",
+                      "?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    423,
+                    20,
+                    [
+                      "external",
+                      "?Apply_Render_State_Changes@DX8Wrapper@@SAXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    436,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    449,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    472,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    495,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    518,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    539,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    560,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    568,
+                    6,
+                    [
+                      "defined",
+                      13,
+                      0,
+                      "__real@3f800000"
+                    ]
+                  ],
+                  [
+                    586,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    591,
+                    6,
+                    [
+                      "external",
+                      "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    617,
+                    6,
+                    [
+                      "external",
+                      "?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    637,
+                    6,
+                    [
+                      "external",
+                      "?number_of_DX8_calls@@3IA",
+                      2,
+                      0
+                    ]
+                  ],
+                  [
+                    684,
+                    20,
+                    [
+                      "external",
+                      "?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    692,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    700,
+                    20,
+                    [
+                      "external",
+                      "?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              },
+              {
+                "name": ".rdata",
+                "size": 4,
+                "characteristics": 1076891712,
+                "sha256": "e00e5eb9444182f352323374ef4e08ebcb784725fdd4fd612d7730540b3e0c8c",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".rdata",
+                "size": 4,
+                "characteristics": 1076891712,
+                "sha256": "80c8a717ccd70c8809eb78e6a9591c003e11c721fe0ccaf62fd592abda1a5593",
+                "relocs": [],
+                "comdat": [
+                  2,
+                  null
+                ]
+              },
+              {
+                "name": ".data",
+                "size": 4,
+                "characteristics": 3224371264,
+                "sha256": "27ca55f86332ae2fc2a93fdc2cb3c70ebd4026a7ea3e9c678fbf7553bd59448e",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "??0ShaderClass@@QAE@I@Z": [
+                1,
+                0,
+                32
+              ],
+              "?Add_Ref@RefCountClass@@QAEXXZ": [
+                2,
+                0,
+                32
+              ],
+              "?Release_Ref@RefCountClass@@QAEXXZ": [
+                3,
+                0,
+                32
+              ],
+              "?Get_Current_Caps@DX8Wrapper@@SAPBVDX8Caps@@XZ": [
+                4,
+                0,
+                32
+              ],
+              "?_Get_D3D_Device8@DX8Wrapper@@SAPAUIDirect3DDevice8@@XZ": [
+                5,
+                0,
+                32
+              ],
+              "?Set_Material@DX8Wrapper@@SAXPAVVertexMaterialClass@@@Z": [
+                6,
+                0,
+                32
+              ],
+              "?getNextOverride@Overridable@@QBEPBV1@XZ": [
+                7,
+                0,
+                32
+              ],
+              "?friend_getNextOverride@Overridable@@QAEPAV1@XZ": [
+                8,
+                0,
+                32
+              ],
+              "??_H@YGXPAXIHP6EPAX0@Z@Z": [
+                9,
+                0,
+                32
+              ],
+              "?weather@W3DSnowManager@@SAPBVWeatherSetting@@PBV2@@Z": [
+                10,
+                0,
+                32
+              ],
+              "?FtoDW@W3DSnowManager@@SAKM@Z": [
+                11,
+                0,
+                32
+              ],
+              "?render@W3DSnowManager@@QAEXAAVRenderInfoClass@@@Z": [
+                12,
+                0,
+                32
+              ],
+              "__real@3f800000": [
+                13,
+                0,
+                0
+              ],
+              "__real@41200000": [
+                14,
+                0,
+                0
+              ],
+              "?BfmeSnowPointSpriteShader@@3VShaderClass@@A": [
+                15,
+                0,
+                0
+              ]
+            },
+            "weak": {}
+          }
+        },
+        {
+          "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoXfer.cpp",
+          "source_sha256": "3126a831bbb6c6ec356437373bf12f57342f3880d31b9ca09b05e2a9e0d79de9",
+          "object_sha256": "3af0ad40af0abdce9730ebb5600d290d2712511b5dbe1993bdb6fbb079af0de1",
+          "receipt_sha256": "4c8d953e84cc8ddffb1a4bd0e2c1b601bc5495cee062c04b7587afe6ec721801",
+          "strict_current": true,
+          "coff_machine_flags": [
+            332,
+            0
+          ],
+          "special_externals": [
+            [
+              "?Version1@Xfer@@QAEXXZ",
+              0,
+              0,
+              32,
+              2
+            ],
+            [
+              "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+              0,
+              0,
+              32,
+              2
+            ]
+          ],
+          "runtime": {
+            "sections": [
+              {
+                "name": ".drectve",
+                "size": 600,
+                "characteristics": 1051136,
+                "sha256": "862521b5d91cc18fdfdc5ac4b3e0c417926c5eabbee2c7d7cf9c173399068ec4",
+                "relocs": [],
+                "comdat": [
+                  0,
+                  null
+                ]
+              },
+              {
+                "name": ".text",
+                "size": 194,
+                "characteristics": 1611665440,
+                "sha256": "23f8c1b46f9eb027272d155dc926cf3d4c3bc36345ee5758ef046555ccde6a3c",
+                "relocs": [
+                  [
+                    11,
+                    20,
+                    [
+                      "external",
+                      "?Version1@Xfer@@QAEXXZ",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    68,
+                    20,
+                    [
+                      "external",
+                      "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    113,
+                    20,
+                    [
+                      "external",
+                      "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+                      2,
+                      32
+                    ]
+                  ],
+                  [
+                    158,
+                    20,
+                    [
+                      "external",
+                      "?XferParticleShaderType@@YAXPAVXfer@@PAH@Z",
+                      2,
+                      32
+                    ]
+                  ]
+                ],
+                "comdat": [
+                  1,
+                  null
+                ]
+              }
+            ],
+            "extern_definitions": {
+              "?DoXfer@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z": [
+                1,
+                0,
+                32
+              ]
+            },
+            "weak": {}
+          }
+        }
+      ]
+    }
+  },
+  "resolved_receipt": {
+    "commit": "da93446935f9b572156e973cc84a71d8a6735421",
+    "providers": [
+      {
+        "source": "Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp",
+        "source_sha256": "a12c262be08b884ef97f2e519b9e8c0148b03ecfd9da359d557b69c10614e585",
+        "object_sha256": "d832f06112afeb1c75d7e987828ef91af5f8d88475cad145975172f17a81dddc",
+        "receipt_sha256": "8c3801403c68b61fe76d16abe1f6aed07143dd9080db8299f67b6c83d2b0f7eb",
+        "strict_current": true,
+        "coff_machine_flags": [
+          332,
+          0
+        ]
+      }
+    ]
+  },
+  "census_index": {
+    "commit": "f07300675e",
+    "provider_definitions": [
+      {
+        "symbol": "??1AsciiString@@QAE@XZ",
+        "consumers": 2380,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "d08bf29c9c2b",
+            5
+          ]
+        ]
+      },
+      {
+        "symbol": "??_H@YGXPAXIHP6EPAX0@Z@Z",
+        "consumers": 1907,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "6246c280fc30",
+            34
+          ]
+        ]
+      },
+      {
+        "symbol": "__real@3f800000",
+        "consumers": 866,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "5bb96baed2a6",
+            4
+          ]
+        ]
+      },
+      {
+        "symbol": "??4AsciiString@@QAEAAV0@ABV0@@Z",
+        "consumers": 458,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "db5e00c5a164",
+            18
+          ]
+        ]
+      },
+      {
+        "symbol": "?Release_Ref@RefCountClass@@QAEXXZ",
+        "consumers": 137,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "7f419470c995",
+            10
+          ]
+        ]
+      },
+      {
+        "symbol": "__real@41200000",
+        "consumers": 126,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "400bec6bce4c",
+            4
+          ]
+        ]
+      },
+      {
+        "symbol": "?_Get_D3D_Device8@DX8Wrapper@@SAPAUIDirect3DDevice8@@XZ",
+        "consumers": 79,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "b9748d11086d",
+            6
+          ]
+        ]
+      },
+      {
+        "symbol": "?Add_Ref@RefCountClass@@QAEXXZ",
+        "consumers": 73,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "4f998886577e",
+            4
+          ]
+        ]
+      },
+      {
+        "symbol": "?fast_float2long_round@@YAJM@Z",
+        "consumers": 50,
+        "providers": [
+          [
+            "FlatHeightMapDoPartialUpdate.cpp",
+            "975c9cad6d6e",
+            13
+          ]
+        ]
+      },
+      {
+        "symbol": "_ceilf",
+        "consumers": 29,
+        "providers": [
+          [
+            "FlatHeightMapDoPartialUpdate.cpp",
+            "def4f95b7445",
+            18
+          ]
+        ]
+      },
+      {
+        "symbol": "??0ShaderClass@@QAE@I@Z",
+        "consumers": 22,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "431f5c99fd6f",
+            11
+          ]
+        ]
+      },
+      {
+        "symbol": "?Get_Current_Caps@DX8Wrapper@@SAPBVDX8Caps@@XZ",
+        "consumers": 15,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "5cf338ae750b",
+            6
+          ]
+        ]
+      },
+      {
+        "symbol": "?friend_getNextOverride@Overridable@@QAEPAV1@XZ",
+        "consumers": 8,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "78e4fbf1d9d9",
+            4
+          ]
+        ]
+      },
+      {
+        "symbol": "__real@3d800000",
+        "consumers": 7,
+        "providers": [
+          [
+            "FlatHeightMapDoPartialUpdate.cpp",
+            "11b1b49ca84a",
+            4
+          ]
+        ]
+      },
+      {
+        "symbol": "??1AreaRefValueView@@QAE@XZ",
+        "consumers": 6,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "361dbf55f6ea",
+            12
+          ]
+        ]
+      },
+      {
+        "symbol": "?Set_Material@DX8Wrapper@@SAXPAVVertexMaterialClass@@@Z",
+        "consumers": 6,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "c0b7cdf7e449",
+            52
+          ]
+        ]
+      },
+      {
+        "symbol": "??0AreaRefValueView@@QAE@ABU0@@Z",
+        "consumers": 5,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "b01c37ea7f5f",
+            20
+          ]
+        ]
+      },
+      {
+        "symbol": "??1Rva0030B9DD@@QAE@XZ",
+        "consumers": 4,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "e757478fc539",
+            14
+          ]
+        ]
+      },
+      {
+        "symbol": "?getNextOverride@Overridable@@QBEPBV1@XZ",
+        "consumers": 4,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "78e4fbf1d9d9",
+            4
+          ]
+        ]
+      },
+      {
+        "symbol": "?render@W3DSnowManager@@QAEXAAVRenderInfoClass@@@Z",
+        "consumers": 2,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "caf71e56e7c2",
+            714
+          ],
+          [
+            "W3DSnowManagerRender.cpp",
+            "strong",
+            null
+          ]
+        ]
+      },
+      {
+        "symbol": "?setSize@Rva00788290Allocation@@QAEXMM@Z",
+        "consumers": 1,
+        "providers": [
+          [
+            "AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp",
+            "095b926d4a0d",
+            17
+          ],
+          [
+            "AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp",
+            "strong",
+            null
+          ]
+        ]
+      },
+      {
+        "symbol": "?getPolygon@Rva0030CAA9Owner@@QAEAAVRva005CB283@@XZ",
+        "consumers": 1,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "692f2380bcee",
+            4
+          ]
+        ]
+      },
+      {
+        "symbol": "??0StandingWaveAreaRef@@QAE@PAVRva0030CAA9Owner@@@Z",
+        "consumers": 1,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "04f1537294aa",
+            18
+          ]
+        ]
+      },
+      {
+        "symbol": "??1StandingWaveAreaRef@@QAE@XZ",
+        "consumers": 1,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "361dbf55f6ea",
+            12
+          ]
+        ]
+      },
+      {
+        "symbol": "??CStandingWaveAreaRef@@QBEPAVRva0030CAA9Owner@@XZ",
+        "consumers": 1,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "afd9af583299",
+            3
+          ]
+        ]
+      },
+      {
+        "symbol": "?parse@StandingWaveAreasDataChunkParser@@UAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z",
+        "consumers": 1,
+        "providers": [
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "bf3d0059df1e",
+            510
+          ],
+          [
+            "StandingWaveAreasDataChunkParser.cpp",
+            "strong",
+            null
+          ]
+        ]
+      },
+      {
+        "symbol": "?doPartialUpdate@FlatHeightMapRenderObjClass@@QAEXABUIRegion2D@@PAVWorldHeightMap@@PAVRefRenderObjListIterator@@@Z",
+        "consumers": 1,
+        "providers": [
+          [
+            "FlatHeightMapDoPartialUpdate.cpp",
+            "05936cceba25",
+            340
+          ],
+          [
+            "FlatHeightMapDoPartialUpdate.cpp",
+            "strong",
+            null
+          ]
+        ]
+      },
+      {
+        "symbol": "?weather@W3DSnowManager@@SAPBVWeatherSetting@@PBV2@@Z",
+        "consumers": 1,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "e3dc42dc6fa9",
+            21
+          ]
+        ]
+      },
+      {
+        "symbol": "?FtoDW@W3DSnowManager@@SAKM@Z",
+        "consumers": 1,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "341dc3ec187f",
+            5
+          ]
+        ]
+      },
+      {
+        "symbol": "?BfmeSnowPointSpriteShader@@3VShaderClass@@A",
+        "consumers": 1,
+        "providers": [
+          [
+            "W3DSnowManagerRender.cpp",
+            "strong",
+            null
+          ]
+        ]
+      },
+      {
+        "symbol": "?DoXfer@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z",
+        "consumers": 0,
+        "providers": [
+          [
+            "RenderObjectDrawModuleInfoXfer.cpp",
+            "6340f706dad0",
+            194
+          ],
+          [
+            "RenderObjectDrawModuleInfoXfer.cpp",
+            "strong",
+            null
+          ]
+        ]
+      }
+    ],
+    "affected_consumer_list_sha256": "973dd3fefed55869e2458ff60705bed1bc38824cd9535dea591082296c9273ce",
+    "affected_consumer_count": 4464,
+    "date": "2026-11-06 15:57"
+  },
+  "note": "Source-only historical batch: complete runtime object equivalence proves unchanged consumer bindings independently of the older census. Not a new census, real-link, retail-identity repair or runtime result.",
+  "ordinary_snapshot_gates": {
+    "before": {
+      "matched": 11,
+      "total": 11,
+      "data_rows": 1,
+      "floats": 6,
+      "imports": 4,
+      "strict_providers": 5
+    },
+    "after": {
+      "matched": 11,
+      "total": 11,
+      "data_rows": 1,
+      "floats": 6,
+      "imports": 4,
+      "strict_providers": 5
+    }
+  },
+  "comparison_tests_passed": 21
+}

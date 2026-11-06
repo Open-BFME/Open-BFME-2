@@ -369,6 +369,8 @@ Recovery reconciliation: the historical c05-seat1 Cylinder copy boundary above i
 
 2026-11-06 stopped-fleet recovery: RenderObjectDrawModuleInfo transfer now adopts its existing canonical header with current DoXfer(Xfer &) identity preserved; 1/1 row remains exact and owning acceptance has now retired one queue row. The export-signature repair was already on master; no new export or real-link gain is claimed. [Current five-consumer verification and remaining audit limits](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md).
 
+2026-11-06 recovery consumer audit: clean builds at the exact recovery base/tip preserve all five complete runtime objects, including RenderObjectDraw transfer. Strict preparation passes 11/11 at both snapshots; all 31 provider names and their bindings are unchanged across 4,464 indexed consumers. CreateAHero's missing current strict receipt is also repaired locally (24/24). This closes only the five-source recovery's consumer-preservation handoff by direct equivalence; the historical census-based gate remains INCONCLUSIVE, and no export-count or runtime improvement is inferred. Other LINK-583 repairs above retain their own verification limits. [Complete graphs, commands and scope](../../reverse/attempt_support/fleet-recovery-header-adoptions-20261106.md#consumer-preservation-audit-2026-11-06).
+
 
 **2026-11-06 measured writer confirmation.** The authoritative real link at
 `1a5f4a11143f74be71ff30bc940004ba91068d04`
