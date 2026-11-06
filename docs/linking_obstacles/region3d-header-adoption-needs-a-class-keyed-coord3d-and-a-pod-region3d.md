@@ -117,3 +117,31 @@ rename and still need their own verdict: no single definition compiled all four,
 `U` pair is either misnamed or reached through a Zero Hour seed, and the seed-header
 prerequisite below still applies to them. Not attempted in this pass: the rename touches
 more than a thousand rows and belongs in its own verified batch, not behind a rule change.
+
+2026-11-06 (claude-opus-5), scope of the rename, measured: the previous note said "1,427
+`[AP][AB]U` fragments across 1,835 Coord3D rows". Counting matched rows rather than regex
+fragments, it is 1,117 struct-keyed rows in 522 units. Those units split three ways, and
+only the first group has to move with the header: 338 units (756 rows) include
+`Lib/Coord3D.h` directly and re-key the moment it changes; 84 units (292 rows) carry their
+own private Coord3D view and are unaffected until they adopt; 138 units (295 rows) reach
+the header indirectly and need their include path established before they can be counted
+either way. So the atomic batch is 338 units at minimum, not six queue rows - large enough
+that it conflicts with most other workers and cannot be one commit. It needs its own
+scheduled pass, with the indirect 138 resolved first.
+
+A prerequisite inside the rename itself, now fixed in the lane: 84 of the 1,117 rows,
+across 51 units, spell the class key on an MSVC *name* back-reference rather than on the
+spelled type - `?Rva003AFA64FillUnitVector@@YAPAUCoord3D@@PAU1@@Z` refers to Coord3D a
+second time as `PAU1@`, and `?equals@Coord3D@@QBE_NABU0@@Z` spells it only as `ABU0@` with
+no `UCoord3D@@` anywhere. `ledger_renames` substituted the spelled type only, so it would
+have written 84 names that are half struct-keyed and half class-keyed: names no compiler
+emits and nothing in the image carries. Those rows are now named and refused before any
+unit is prepared (8f1e9f5e67b, with a regression test over the real row names). Resolving
+them needs either a back-reference-aware rename that parses the name's own back-reference
+table - the index is positional, so a blind `U<digit>@` swap would re-key a back-reference
+to a different struct - or a per-row hand verdict. Until then the flip stops on those 51
+units, which is the correct behaviour and not a new blocker: it was always true, just
+silent.
+
+Not attempted: no contract was written, no header regenerated and no row renamed in this
+pass. `class:Coord3D` was claimed for the measurement and released after.
