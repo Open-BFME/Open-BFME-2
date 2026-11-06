@@ -586,3 +586,15 @@ confirmation: not claimed.
 
 
 2026-11-06 INI destructor proof: the existing INI.cpp view emits a fully resolved 53-byte match at 0x0002CD7B with an EXACT EH graph and the rowed 0x0002CC38 and 0x0002CCC3 calls. All 136 original INI.cpp rows remained exact. The trial was reverted because the current map still marks 0x0002CD7B displaced, with no approved placement for the new body or its handler. The EvacuateDamage link blocker remains open. [Source trial and proof](../../reverse/attempt_support/ini-macro-destructor-20261106/README.md).
+
+2026-11-07 `LockWeaponCreate.cpp` (seat halilkkaya-lk41, base `4b2bb61eb1d`): the `--prepared` fold of
+`Rva004B8CDE` into `CreateModule` now has its access path (`396dd703351`, `class --fold --access protected`:
+the rows become `??1CreateModule@@MAE@XZ`/`??_GCreateModule@@MAEPAXI@Z`, the header's spelling). Measured with
+five prepared units: 112/112 rows exact. Not landed: `find_declared_unmatched` refuses the
+`inline BehaviorModule::~BehaviorModule() {}` that retail's 0x004B8CDE shape needs, because that body is
+also emitted out of line and no row names `??1BehaviorModule@@`. Retail's out-of-line `~BehaviorModule` is
+0x004607E1 (`??1Rva004607E1@@UAE@XZ`); its fold is refused while 0x00BEEA7C also carries the private names
+`PrimaryP`, `PrimaryP24A797`, `PrimaryP4B8CDE` and `UpgradeBehaviorBaseView`. `LockWeaponCreate.cpp` keeps
+its 2 names. Next step and prepared-unit recipe:
+[lockweaponcreate-createmodule-fold-20261107-lk41.md](../../reverse/attempt_support/lockweaponcreate-createmodule-fold-20261107-lk41.md).
+Real link confirmation: not claimed.
