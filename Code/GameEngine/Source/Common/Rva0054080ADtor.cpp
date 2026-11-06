@@ -1,5 +1,5 @@
 // cl: /EHs /MD
-// ??1Rva0054080A@@UAE@XZ @0x0054080A 59B outer dtor.
+// ??1Rva00540845@@UAE@XZ @0x0054080A 59B outer dtor.
 // Retail stores vtable 0x008694F8, destroys inner at +0x24 via rowed
 // ??1Rva005407C9@@QAE@XZ, then base ??1Rva0053FB33@@UAE@XZ with
 // __EH_prolog frame. Evidence: chain lane; caller 0x00540A6C; pattern
@@ -20,14 +20,14 @@ private:
 	unsigned char m_pad[0x24 - 4];
 };
 
-class Rva0054080A : public Rva0053FB33
+class Rva00540845 : public Rva0053FB33
 {
 public:
-	virtual ~Rva0054080A();
+	virtual ~Rva00540845();
 private:
 	Rva005407C9 m_24;
 };
 
-Rva0054080A::~Rva0054080A()
+Rva00540845::~Rva00540845()
 {
 }

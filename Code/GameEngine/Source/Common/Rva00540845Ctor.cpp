@@ -32,6 +32,9 @@ class Rva00540845 : public Rva0053FADE
 {
 public:
 	Rva00540845();
+	// Retail 0x0054080A, defined in Rva0054080ADtor.cpp; declaring it keeps this unit
+	// from emitting a second, implicit copy.
+	virtual ~Rva00540845();
 private:
 	char m_sub24[0x20];
 };

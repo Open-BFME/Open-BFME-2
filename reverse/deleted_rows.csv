@@ -5242,3 +5242,6 @@ __ehhandler$?rva00356889@Rva003561BE@@UAEXPAVGameInfo@@@Z,0x0077D67A,"Renamed to
 __ehhandler$??1Rva0043A351@@UAE@XZ,0x00788268,"Renamed to __ehhandler$??1Rva0043A278@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C3D478)"
 ??1Rva0050B6ED@@UAE@XZ,0x0050B6ED,"Renamed to ??1Made002CCB67@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C64D80)"
 ??_GRva0050B6ED@@UAEPAXI@Z,0x0050B6D1,"Renamed to ??_GMade002CCB67@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C64D80)"
+??1Rva0054080A@@UAE@XZ,0x0054080A,"Renamed to ??1Rva00540845@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C694F8)"
+??_GRva0054080A@@UAEPAXI@Z,0x00540A6C,"Renamed to ??_GRva00540845@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C694F8)"
+__ehhandler$??1Rva0054080A@@UAE@XZ,0x00797DC1,"Renamed to __ehhandler$??1Rva00540845@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C694F8)"
