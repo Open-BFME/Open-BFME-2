@@ -1330,7 +1330,12 @@ key plus the `next --file ... --key ... --session ... --model ...` command.
 It proposes no name, creates no source definition or data row, and adds no hatch.
 Stage the request register with the later votes, approval, definition and row.
 The register is created on first use; requests must fit unowned, non-executable
-retail data and may not overlap either data ledger or a converged global owner.
+retail data and may not overlap a verified data row, a ledger row with a source
+owner, or a converged global owner. An unowned ledger row has only a next-address
+upper bound: registration reports overlapping bounds as notes and allows them.
+After admission, loading or regenerating the ledger inserts the verified extent
+and shortens the preceding heuristic bound to the new address; the following
+row and verified extents keep their own bounds.
 VA inputs are normalized to RVA. Type is a caller-supplied type/struct hint,
 not proof of original source identity. The first registrant's worker identity
 is recorded in the key and cannot vote on that request. Two other independent
@@ -1342,6 +1347,19 @@ Admission recomputes quorum with registrant votes excluded, including forged
 historical vote rows. Proposals and competing names remain hidden.
 The key binds address, extent, type, users and evidence, so changing those facts
 cannot reuse an old agreement.
+
+Registration does not start either voter. An independent first agent uses
+`next --file SOURCE --key 'KEY' --session S --model MODEL`, reads the printed
+brief, writes its answer JSON, and runs `submit ANSWER.json --session S --model MODEL`.
+Normal `submit` records that first vote and can dispatch a fresh independent
+reviewer CLI for the second vote, with the same sanitized request facts.
+`review status` reports the configured runner; `review configure` discovers an
+installed CLI, and `review run --key 'KEY'` retries pending second reviews.
+An unavailable or explicitly disabled runner leaves the second vote pending.
+Alternatively a second independent agent uses `next --review-only --file SOURCE
+--key 'KEY' --session S2 --model MODEL2` and `submit` under its own stable worker
+identity. Neither changing a session label nor changing a model label creates
+an independent voter; the registrant must not adopt another identity to vote.
 
 Use the ordinary `next` and `submit` flow on two independent seats with their
 existing distinct worker identities. The ordinary worker-count, spelling,

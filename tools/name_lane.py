@@ -283,7 +283,7 @@ def unrowed_key(key):
     return len(parts) == 4 and parts[1] == 'global' and parts[2].startswith('unrowed:') and parts[3] == UNROWED_IDENT
 
 
-def check_unrowed(lane, row, *, check_users=True):
+def check_unrowed(lane, row, *, check_users=True, notes=None):
     """One unowned retail data range; this names nothing and admits no bytes."""
     import data_rows
     source = row['source']
@@ -311,7 +311,14 @@ def check_unrowed(lane, row, *, check_users=True):
     for owned in lane.ctx.dicts('reverse/data_ledger.csv'):
         start = data_rows.IMAGE_BASE + int(owned['address'], 16)
         if start < va + size and va < start + int(owned['size'], 0):
-            raise rename.Refusal('address already has an overlapping data_ledger.csv row')
+            # Ledger sizes are next-address upper bounds, not allocation proof.
+            # Proven extents live in data_rows and were checked above; an
+            # observed source owner still fences its whole current range.
+            if owned.get('source', '').strip():
+                raise rename.Refusal('address already has an overlapping data_ledger.csv owner')
+            if notes is not None:
+                notes.append(f"unowned data_ledger.csv upper bound overlaps: {owned['name']} "
+                             f"at {owned['address']} + {owned['size']} bytes; not a proven extent")
     for owned in lane.ctx.dicts('reverse/data_converged.csv'):
         if int(owned['address'], 16) == va:
             raise rename.Refusal('address already has a converged global owner')
@@ -338,7 +345,10 @@ def register_data(lane, *, source, address, address_kind, size, type_name, users
     row = dict(source=source, rva=f'0x{rva:08X}', size=str(size), type=type_name,
                users=json.dumps({p: hashlib.sha256(lane.ctx.read(p) or b'').hexdigest() for p in sorted(set(users))},
                                 sort_keys=True, separators=(',', ':')), evidence=evidence, registrant=lane.worker())
-    check_unrowed(lane, row)
+    notes = []
+    check_unrowed(lane, row, notes=notes)
+    for note in notes:
+        print('name_lane: note: ' + note, file=sys.stderr)
     existing = lane.table(DATA_REQUESTS, DATA_REQUEST_COLUMNS)
     for other in existing:
         if int(other['rva'], 16) < rva + size and rva < int(other['rva'], 16) + int(other['size']):

@@ -16,7 +16,7 @@ import name_lane
 import name_review
 import rename
 from test_name_lane import (tree, seat, lane_of, vote, rows, SOURCE, FN_KEY,
-                            FN_ANSWER, no_checks, ok_verify)
+                            FN_ANSWER, no_checks, ok_verify, unrowed, unrowed_vote)
 
 
 def enable(root, **options):
@@ -690,3 +690,25 @@ def test_source_carry_checks_disk_instead_of_a_cached_source(tree, tmp_path):
     name_lane.carry_verified_proposals(lane, [argparse.Namespace(before={SOURCE: before}, after={SOURCE: after})])
     proposal = json.loads(name_lane.proposal_path(lane, FN_KEY, lane.worker()).read_text())
     assert "verified_source_carry" not in proposal
+
+
+def test_unrowed_automatic_second_vote_receives_sanitized_request_facts(unrowed, tmp_path):
+    tree, _ = unrowed
+    (tree / name_lane.DATA_REQUESTS).unlink()
+    key = name_lane.register_data(lane_of(tree), source=SOURCE, address='0x403100', address_kind='va', size=56,
+                                 type_name='SampleContext', users=[SOURCE],
+                                 evidence=f'{SOURCE}:1 this is g_plantedContext')
+    unrowed_vote(tree, key, 'first', 'first-worker', 'g_sampleContext', tmp_path)
+    enable(tree)
+    def runner(packet, config, job):
+        request = packet['targets'][0]['data_request']
+        assert request['type'] == 'SampleContext' and request['size'] == '56'
+        assert request['evidence'] == [dict(file=SOURCE, line=1)]
+        assert request['user_sources'][SOURCE] == (tree / SOURCE).read_text()
+        raw = json.dumps(packet)
+        assert 'g_plantedContext' not in raw and 'g_sampleContext' not in raw
+        assert 'registrant' not in raw
+        return answer(packet, 'g_sampleContext')
+    result = name_review.dispatch(lane_of(tree), keys=[key], runner=runner)
+    assert result['newly_agreed'] == [key]
+    assert len({row['worker'] for row in rows(tree, name_lane.VOTES)}) == 2

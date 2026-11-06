@@ -14,7 +14,8 @@ reverse/data_ledger.csv (tool-written; never edit by hand), one row per retail
 address, sorted:
 
   address   rva of the global (retail base of the bound symbol)
-  size      bytes to the next ledger address or the section end (an upper bound)
+  size      verified data_rows extent, otherwise bytes to the next ledger
+            address or the section end (an upper bound)
   section   retail section (.rdata, .data, .bss is .data past its raw size)
   kind      string | wstring | float | vtable (including vbtable) | rtti | import | global
   name      the canonical symbol: a compiler-emitted literal/vtable name if one
@@ -291,8 +292,10 @@ def with_verified_owners(index):
     if problems:
         raise ValueError("cannot use data ownership: " + "; ".join(problems))
     result = {address: dict(row) for address, row in index.items()}
+    verified = set()
     for _line, owner in data_rows.parse(raw):
         address = data_rows.va_of(owner) - IMAGE_BASE
+        verified.add(address)
         row = result.get(address, {})
         names = set(filter(None, row.get("names", "").split(";")))
         names.update(filter(None, (row.get("name"), owner["name"])))
@@ -303,7 +306,14 @@ def with_verified_owners(index):
                    names=";".join(sorted(names)) if len(names) > 1 else "",
                    defs=row.get("defs", 0), refs=row.get("refs", 0))
         result[address] = row
-    return dict(sorted(result.items()))
+    # A data-only owner may have no DIR32 binding yet. It still splits the
+    # preceding heuristic upper bound, both on load and on regeneration. Do
+    # not shrink a verified allocation or extend a bound beyond its old end.
+    addresses = sorted(result)
+    for address, following in zip(addresses, addresses[1:]):
+        if address not in verified:
+            result[address]["size"] = min(int(str(result[address]["size"]), 0), following - address)
+    return {address: result[address] for address in addresses}
 
 
 def load(path=LEDGER):

@@ -2648,3 +2648,53 @@ def test_reregistering_data_does_not_replace_original_registrant(unrowed):
                                       type_name='SampleContext', users=[SOURCE], evidence='fixture consumer returns this context')
     assert repeated == key
     assert name_lane.request_for_key(lane_of(tree), key)['registrant'] == original
+
+
+def write_upper_bound(tree, *, source=''):
+    import data_ledger
+    row = dict(address='0x000030E0', size=88, section='.data', kind='global',
+               name='?g_previous@@3HA', source=source,
+               status='owned' if source else 'unowned', names='', defs=1 if source else 0, refs=2)
+    (tree / 'reverse/data_ledger.csv').write_text(data_ledger.render([row]))
+
+
+def test_unrowed_registration_allows_and_notes_unowned_upper_bound(unrowed, capsys):
+    tree, key = unrowed
+    write_upper_bound(tree)
+    again = name_lane.register_data(lane_of(tree), source=SOURCE, address='0x403100', address_kind='va', size=56,
+                                   type_name='SampleContext', users=[SOURCE], evidence='fixture consumer returns this context')
+    assert again == key
+    note = capsys.readouterr().err
+    assert 'note:' in note and 'unowned data_ledger.csv upper bound overlaps' in note
+    assert '?g_previous@@3HA' in note and '0x000030E0' in note
+    assert 'not a proven extent' in note
+
+
+@pytest.mark.parametrize('overlap', ['owned', 'proven'])
+def test_unrowed_registration_refuses_owned_or_proven_overlap(unrowed, overlap):
+    tree, _ = unrowed
+    write_upper_bound(tree, source=SOURCE if overlap == 'owned' else '')
+    if overlap == 'proven':
+        import data_rows
+        row = dict(name='?g_previous@@3HA', address='0x30E0', address_kind='rva', size='88',
+                   section='.data', source=SOURCE, status='matched', evidence='verified', model='fixture')
+        (tree / 'reverse/data_rows.csv').write_text(data_rows.HEADER + '\n' + ','.join(row[c] for c in data_rows.FIELDS) + '\n')
+    with pytest.raises(rename.Refusal, match='overlapping .* owner'):
+        name_lane.register_data(lane_of(tree), source=SOURCE, address='0x403100', address_kind='va', size=56,
+                                type_name='SampleContext', users=[SOURCE], evidence='fixture consumer returns this context')
+
+
+def test_unrowed_admission_splits_unowned_bound_and_keeps_own_verified_extent(unrowed, tmp_path, monkeypatch):
+    import data_ledger
+    tree, key = unrowed
+    write_upper_bound(tree)
+    approval = agree_unrowed(tree, key, tmp_path)
+    data_rows, symbol = admission_fixture(tree, monkeypatch)
+    cache = tree / 'reverse/data_ledger.csv'
+    before = cache.read_bytes()
+    row = data_rows.admit_agreed(approval['id'], symbol, 'fixture')
+    assert row['size'] == '56'
+    ledger = data_ledger.load(cache)
+    assert ledger[0x30E0]['size'] == 32
+    assert ledger[0x3100]['size'] == '56' and ledger[0x3100]['name'] == symbol
+    assert cache.read_bytes() == before  # the tool-written cache is reconciled on read

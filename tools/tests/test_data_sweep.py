@@ -165,6 +165,29 @@ class VerifiedOwnership(unittest.TestCase):
         ledger = dl.load(self.index)
         self.assertEqual(ledger[self.ADDRESS]["name"], self.OWNER)
 
+    def test_data_only_owner_splits_upper_bound_on_load_and_generation(self):
+        # As with the BigObf contexts, this owner ends at the next known slot
+        # and is not yet reached by a relocation in any matched code object.
+        preceding, following = self.ADDRESS - 0x194, self.ADDRESS + 0x38
+        self.write_owners([dict(self.row, size="56")])
+        before = dict(address=f"0x{preceding:08X}", size=following - preceding,
+                      section=".data", kind="global", name="_previous", source="",
+                      status="unowned", names="", defs=0, refs=2)
+        after = dict(before, address=f"0x{following:08X}", size=16, name="_next")
+        self.index.write_text(dl.render([before, after]))
+        cached = self.index.read_bytes()
+        loaded = dl.load(self.index)
+        bind = {preceding: collections.Counter({("_previous", None): 2}),
+                following: collections.Counter({("_next", None): 2})}
+        with patch.object(dl, "retail_sections", return_value=[(".data", 0x900000, 0x100000, 0x100000)]):
+            generated = {int(r["address"], 16): r for r in dl.ledger_rows(bind, {})}
+        for index in (loaded, generated):
+            self.assertEqual(index[preceding]["size"], 0x194)
+            self.assertEqual(index[self.ADDRESS]["size"], "56")
+            self.assertEqual(index[self.ADDRESS]["name"], self.OWNER)
+        self.assertEqual(loaded[following]["size"], "16")
+        self.assertEqual(self.index.read_bytes(), cached)
+
     def test_ambiguous_ownership_is_refused(self):
         self.write_owners([self.row, dict(self.row, name=self.ALIAS)])
         with self.assertRaises(ValueError):

@@ -766,8 +766,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
         for rel, entry in served["files"].items():
             sources.append({"file": rel, "source": lane.text(rel)})
             for kind, scope, old, rva in entry["items"]:
-                targets.append(dict(key=name_lane.key_of(rel, kind, scope, old), kind=kind,
-                                    scope=scope, placeholder=old, rva=rva))
+                targets.append(name_lane.packet_target(lane, rel, (kind, scope, old, rva)))
         packet = {"targets": targets, "sources": sources}
         if len(json.dumps(packet, ensure_ascii=True)) > config["max_chars"]:
             raise ReviewError("packet exceeds configured character budget; reduce count/max_keys")
