@@ -37666,7 +37666,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0048B9B4,28,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp
 0x0048B9D0,74,code,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/FireWeaponUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Rva0048B9D0Replace.cpp
 0x0048BA1A,31,code,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,approved,C,C=0x0048B9D0..0x0048BA39,Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp
-0x0048BA39,5,code,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,approved,C,C=0x0048B9D0..0x0048BA3E,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp
+0x0048BA39,5,code,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,approved,C,C=0x0048B9D0..0x0048BA3E,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 0x0048BA3E,105,code,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 0x0048BAA7,332,code,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 0x0048BBF3,16,code,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,approved,C,C=0x0048BAA7..0x0048BC03,Code/GameEngine/Source/Common/GapBodiesGE22.cpp
@@ -49304,7 +49304,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005B8018,18,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesG.cpp
 0x005B802A,8,code,,,-,,Code/GameEngine/Source/Common/Rva005B7FA4Dtor.cpp
 0x005B8032,28,code,,,-,,Code/GameEngine/Source/Common/Rva005B7FA4Dtor.cpp
-0x005B804E,5,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp
+0x005B804E,5,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 0x005B8053,58,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva005B8053Finish.cpp
 0x005B808D,34,code,,,-,,Code/GameEngine/Source/Common/Rva005B8116Stats.cpp
 0x005B80AF,33,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva005B80AFFinish.cpp

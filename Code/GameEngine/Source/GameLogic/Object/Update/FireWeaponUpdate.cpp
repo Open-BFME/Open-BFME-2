@@ -61,7 +61,6 @@ struct Coord3D
 	void set(float ax, float ay, float az) { x = ax; y = ay; z = az; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
 };
-// Retail slot 2 is the name getter 0x0048BDAD, not crc.
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 // _List_iterator comparisons otherwise instantiate the base-class
@@ -276,12 +275,8 @@ enum NameKeyType
 	}
 #include "../../AI/WorkOrder.h"
 #include "../../AI/TeamInQueue.h"
-
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
-
-
 // The entry list holds Rva0048BDF8Entry pointers; retail runs it through the
 // rowed list<int> bodies (construct, clear, erase, push_back, destroy).
 class FireWeaponUpdate : public UpdateModule
@@ -307,9 +302,7 @@ private:
 	_STL::list<int> m_entries; // +0x24
 	Bool m_entriesReady; // +0x28
 };
-
 struct Rva0048B95FTracked;
-
 // The watch-list value; its dtor is rowed at 0x0048B95F (Rva0048B95FDtor.cpp).
 class Rva0048B95F
 {
@@ -318,23 +311,61 @@ public:
 private:
 	Rva0048B95FTracked *m_tracked;	// +0
 };
-
 class Weapon;
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// BFME1 StringBase cleanup entry points transferred to BFME2.  The wrappers
+// tail-jump to the existing BFME2 releaseBuffer workers, so this mirror keeps
+// the shared header and the worker implementations untouched.  The nulling
+// default constructor and the no-op leak hook ride in the same mirror for the
+// same reason: each folds onto an existing retail body by bytes alone.
+
+typedef unsigned short wchar_t;
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-const char *FireWeaponUpdate::GetSnapshotName() const
-{
-	return "FireWeaponUpdate";
-}
 
 // tu-skeleton: 0x0048B9D0 74B ?rva0048B9D0@FireWeaponUpdate@@QAEXPBVWeaponTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0048B9D0Replace.cpp (not merged yet)
 
 // tu-skeleton: 0x0048BA1A 31B ??0Rva0048BCBBNugget@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
 
-// tu-skeleton: 0x0048BA39 5B ??1?$StringBase@D@@AAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp
+
+// Reuse the shared declaration so this donor composes with string users.
+
+template <typename T>
+void StringBase<T>::debugIgnoreLeaks()
+{
+}
+
+template void StringBase<char>::clear();
+
+template void StringBase<wchar_t>::clear();
+
+template void StringBase<char>::debugIgnoreLeaks();
+
+template void StringBase<wchar_t>::debugIgnoreLeaks();
+
+template void StringBase<char>::validate() const;
+
+template void StringBase<wchar_t>::validate() const;
+
+template StringBase<char>::StringBase();
+
+template StringBase<wchar_t>::StringBase();
+
+template StringBase<char>::~StringBase();
+
+template StringBase<wchar_t>::~StringBase();
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
+
+// Retail slot 2 is the name getter 0x0048BDAD, not crc.
+
+const char *FireWeaponUpdate::GetSnapshotName() const
+{
+	return "FireWeaponUpdate";
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 
@@ -634,12 +665,6 @@ FireWeaponUpdateModuleData::~FireWeaponUpdateModuleData()
 	}
 }
 
-// tu-skeleton: 0x0048BBF3 16B ?rva0048BBF3@Rva0048BBF3@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x0048BC03 67B ??0FireWeaponUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048BCBB 86B ?Rva0048BCBBParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
 
 // Module literal name getters: six-byte const members with one shape:
@@ -656,6 +681,12 @@ FireWeaponUpdateModuleData::~FireWeaponUpdateModuleData()
 // this tree's address-derived convention (identity unrecoverable from 6
 // bytes, string carried in source where verify_string_refs re-reads it).
 // No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x0048BBF3 16B ?rva0048BBF3@Rva0048BBF3@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0048BC03 67B ??0FireWeaponUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0048BCBB 86B ?Rva0048BCBBParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
 
 // tu-skeleton: 0x0048C0B4 17B ?buildFieldParse@FireWeaponUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
