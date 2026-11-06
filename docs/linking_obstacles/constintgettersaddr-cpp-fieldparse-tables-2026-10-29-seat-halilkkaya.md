@@ -189,3 +189,18 @@ getters are unrelocated retail addresses that crash at our 0x10000000 base, not 
 - FireSpreadUpdateModuleData's table at 0x00C4C000 (ModuleDataBuildFieldParse.cpp, 4 fields and the
   sentinel, 0x50 bytes) is refused the same way. The FireSpreadUpdate vtable row at 0x0084BF90 claims
   192 bytes; retail's vtable is 13 slots (52 bytes), followed by the field-name strings.
+
+Update (2026-11-06, swarm crash-triage P7, base d80c141e27): the six BigObf getters are fixed and
+their name blocker is cleared. The contexts got blind-agreed inferred names through
+`name_lane.py register-data` (register 9853d7b627; agreements 2544667e26) and were admitted with
+`data_rows.py --admit-agreed` as `FallbackCtx` definitions in BigObfFallbacks.cpp, 56 B each equal
+to retail, no hatch: g_engineLoopIndexKeys (0x9C2274), g_loginEmailLengthKeys (0x9C2884),
+g_nicknameCharIndexKeys (0x9C2D10), g_gameSlotIndexKeys (0x9C34A4), g_loginFieldLengthKeys
+(0x9C4B60), g_externHandlerIndexKeys (0x9C5170). Rva00226140Get, Rva0056DD52Get, Rva0056DD58Get,
+Rva003EFE9AGet, Rva0056DD5EGet and Rva00434091Get now return their context's address
+(`mov eax, offset`, DIR32); ./build.sh 34/34 and 14/14. The literal 0x00DC2274 had sent P7
+(GameEngine::GameEngine+0xa1, index 0x0790a442, receipt 2026-11-06T050651Z on 0a36813ed0)
+through the fallback with foreign keys; the branch test (run 42243146946, receipt
+2026-11-06T155837Z-boot_smoke-5f14318d61dc) gets past the constructor into GameEngine::init. An
+interim relocation through `g_ObfSlot - 0x38` was rejected: in the linked image that range holds
+unrelated globals, and the fallback writes +0x18. Remaining in this file: the getters P7b owns.
