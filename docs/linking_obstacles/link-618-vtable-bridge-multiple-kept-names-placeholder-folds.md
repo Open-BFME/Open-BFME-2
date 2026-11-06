@@ -234,3 +234,13 @@ Clearance: none claimed (no new real link measured). Census confirmation: none c
 
 Clearance: none claimed (no new real link measured).
 Publication audit for the preceding AIDockState lifecycle repair0f70da5432: link_batch_audit was INCONCLUSIVE against indexfaee62b0b2/base95c9bc54ac759acf01788b6da141d85d5bf63806, with two missing current receipts, first Rva0034159ADtor.cpp. The scoped40/40, EH and table checks above remain valid; a fresh census/current-consumer pass is still required. No runtime clearance claimed.
+
+2026-11-07, seat halilkkaya-lk40 (base `4b2bb61eb1d`), measurement only: the published queue (real link
+`1d41894d2a`, 401 multiple-kept-names) predates the P8/P9 bridge commits (`ee341cc5d99` bridges every used
+vtable name at one proven retail address; `3d1a86c6c18` discovers current names from row relocations;
+neither is an ancestor of `1d41894d2a`). A read-only `vtable_bridge.plan()` over the current kept objects
+(full `./build.sh` green) gives multiple-kept-names 0: a table kept under several names now gets one full
+copy per used name. The folds above therefore no longer gate bridging; they still matter for one class
+identity per table and for the first kept copy being retail's (fewer bridges). The AIInternalMoveToState
+chain was not started: its first step's address 0x0033F2F7 was held by another seat's `class:UpdateModule`
+claim.
