@@ -1261,3 +1261,26 @@ Rva001ECF66::Rva001ECF66(const Rva001ECF66 &src)
 // tu-skeleton: 0x0076A715 10B __ehhandler$??0Rva001ED41B@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva001ED41BConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076A758 8B uw_0076a758 -- matched in Code/gen_small/uw_gen_001.cpp (not merged yet)
+
+// INI block registration. Each unit links its own 12-byte BlockParse nodes
+// onto theBlockParseList from a file-scope object whose inline constructor
+// does the link; MSVC 7.1 builds token and parse in .data, so the node's
+// .text$yc initializer is only the 21-byte link (retail .CRT$XCU 0x007AD333,
+// node 0x00DB8FE0). Its .text$yc run is this node, then this unit's two
+// pool-init markers (0x007AD348 registers pool 0x00DB8FEC, whose .data
+// follows the node); GlobalLanguage's node 0x007AD31E opens the run.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theLinearCampaignBlockParse( "LinearCampaign", LinearCampaignManager::parseLinearCampaignIniBlock );

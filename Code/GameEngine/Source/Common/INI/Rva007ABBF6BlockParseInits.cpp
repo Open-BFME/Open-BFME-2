@@ -134,11 +134,6 @@ class LightPointSystem
 public:
 	static void friend_parseLightPointLevelDefinition(INI *);
 };
-class LinearCampaignManager
-{
-public:
-	static void parseLinearCampaignIniBlock(INI *);
-};
 class LivingWorldAutoResolveArmorStore
 {
 public:
@@ -208,7 +203,6 @@ BlockParse theDamageFXBlockParse = { 0, "DamageFX", DamageFXStore::parseDamageFX
 BlockParse theMiscEvaDataBlockParse = { 0, "MiscEvaData", INI::parseMiscEvaData };	// VA 0x00DB8D94 "MiscEvaData", parse 0x001DCFE5
 BlockParse theFXListBlockParse = { 0, "FXList", FXListStore::parseFXListDefinition };	// VA 0x00DB8DDC "FXList", parse 0x001E2CAE
 BlockParse theGameDataBlockParse = { 0, "GameData", GlobalData::parseGameDataDefinition };	// VA 0x00DB8DF4 "GameData", parse 0x00237AB1
-BlockParse theLinearCampaignBlockParse = { 0, "LinearCampaign", LinearCampaignManager::parseLinearCampaignIniBlock };	// VA 0x00DB8FE0 "LinearCampaign", parse 0x001ED580
 BlockParse theOnlineChatColorsBlockParse = { 0, "OnlineChatColors", INI::parseOnlineChatColorDefinition };	// VA 0x00DB918C "OnlineChatColors", parse 0x001EF471
 BlockParse theFXParticleSystemBlockParse = { 0, "FXParticleSystem", INI::parseParticleSystemDefinition };	// VA 0x00DB938C "FXParticleSystem", parse 0x001FD0B4
 BlockParse theSpecialPowerBlockParse = { 0, "SpecialPower", SpecialPowerStore::parseSpecialPowerDefinition };	// VA 0x00DB94A4 "SpecialPower", parse 0x003B15D6
@@ -288,7 +282,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD202();
 	static void rva007AD241();
 	static void rva007AD270();
-	static void rva007AD333();
 	static void rva007AD424();
 	static void rva007AD521();
 	static void rva007AD60C();
@@ -387,8 +380,6 @@ BLOCK_PARSE_INIT( rva007AD202, theMiscEvaDataBlockParse )
 BLOCK_PARSE_INIT( rva007AD241, theFXListBlockParse )
 // ?rva007AD270@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD270 (21B): "GameData"
 BLOCK_PARSE_INIT( rva007AD270, theGameDataBlockParse )
-// ?rva007AD333@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD333 (21B): "LinearCampaign"
-BLOCK_PARSE_INIT( rva007AD333, theLinearCampaignBlockParse )
 // ?rva007AD424@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD424 (21B): "OnlineChatColors"
 BLOCK_PARSE_INIT( rva007AD424, theOnlineChatColorsBlockParse )
 // ?rva007AD521@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD521 (21B): "FXParticleSystem"

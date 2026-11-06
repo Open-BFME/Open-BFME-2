@@ -38,7 +38,6 @@ int g_00E063E0 = 0;	// owned here; retail .data starts it at 0
 extern int g_00E063E8;
 int g_00E063E8 = 0;	// owned here; retail .data starts it at 0
 extern int g_Va00DFE18C;
-extern int BfmeSlavedUpdateIntervalFrames;
 extern unsigned g_00E063CC;
 unsigned g_00E063CC = 0;	// owned here; retail .data starts it at 0
 extern unsigned int g_00DFEE08;
@@ -77,7 +76,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007B0BA0();
 	static void rva007B1122();
 	static void rva007B1328();
-	static void rva007B1A27();
 	static void rva007B3B50();
 	static void rva007B3FCA();
 	static void rva007B4316();
@@ -191,12 +189,6 @@ void Rva007ABC6FFrameRateInits::rva007B1122()
 void Rva007ABC6FFrameRateInits::rva007B1328()
 {
 	s_rva007B1328 = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007B1A27@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B1A27 (17B): global at VA 0x00E03BBC, named as the TU that reads it names it
-void Rva007ABC6FFrameRateInits::rva007B1A27()
-{
-	BfmeSlavedUpdateIntervalFrames = BfmeLogicFramesPerSecond / 4;
 }
 
 // ?rva007B3B50@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B3B50 (16B): global at VA 0x00E05F24, named as the TU that reads it names it

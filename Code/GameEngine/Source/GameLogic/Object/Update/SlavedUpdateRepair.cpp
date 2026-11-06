@@ -636,10 +636,11 @@ public:
 	UnsignedInt m_fadeTime; // +0x68
 	Bool m_markUnselectable; // +0x6C
 };
-// Native E03BBC is the mutable update interval. Initializer7B1A27 writes
-// logic frames/second divided by four; endRepair and update read it. The
-// original identifier is unknown; this source owns the zero-initialized int.
-int BfmeSlavedUpdateIntervalFrames;
+// Native E03BBC is the mutable update interval: logic frames/second divided
+// by four, built by this TU's .text$yc dynamic initializer (retail .CRT$XCU
+// 0x007B1A27, after SlavedUpdate's Drawable.h copy 0x007B1A17 in its run);
+// endRepair and update read it. The original identifier is unknown.
+int BfmeSlavedUpdateIntervalFrames = LOGICFRAMES_PER_SECOND / 4;
 // SlavedUpdateInterface (vptr at +0x20), Zero Hour's slot order: retail
 // vftable 0x00851E30 holds getSlaverID, onEnslave 0x004A1BFD, onSlaverDie
 // 0x004A1C05, onSlaverDamage 0x004A1C59, isSelfTasking, then BFME2's
