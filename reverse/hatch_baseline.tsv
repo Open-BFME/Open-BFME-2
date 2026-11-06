@@ -2708,11 +2708,11 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?remo
 alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?removePos@Pathfinder@@QAEXPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp	??1Rva0036B8E6@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioAudioMap.cpp	??1Rva003EE1BE@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp	?Rva00194810@@YA?AURva0019B780Key@@ABVAsciiString@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp	?find@Rva0019B780Tree@@QBEPAURva0019B780Node@@ABURva0019B780Key@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp	?find@Rva0032C07COwner@@QAEPAUTeamMapNode@@AAURva0002C4FD@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	??1Rva00329EE9StringValue@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	??1Rva0032B4B2Element@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?Rva00194810@@YA?AURva0019B780Key@@ABVAsciiString@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?find@Rva0019B780Tree@@QBEPAURva0019B780Node@@ABURva0019B780Key@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?getAsciiString@Rva00329EE9Dict@@QBE?AVRva00329EE9StringValue@@HPA_N@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?isEmpty@Rva00329EE9StringValue@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	??0?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@I@Z	1

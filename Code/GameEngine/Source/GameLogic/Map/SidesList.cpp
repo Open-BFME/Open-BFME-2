@@ -65,34 +65,21 @@ class AsciiString;
 #include <memory>
 #pragma comment(linker, "/alternatename:??1Rva0032B4B2Element@@UAE@XZ=??1Rva002046BBValue@@QAE@XZ")
 #include <new>
-
 extern void friend_xferObjectID(Xfer *xfer, ObjectID *objectID);
-
 static const Int K_SIDES_DATA_VERSION_1 = 1;
-
 static const Int K_SIDES_DATA_VERSION_2 = 2;
-
 	// includes Team list.
 static const Int K_SIDES_DATA_VERSION_3 = 3;
-
 extern GameLogic *TheGameLogic;
-
 class PlayerList;
-
 extern PlayerList *ThePlayerList;
-
 class Rva002A7DDEArg;
-
 class Rva005C3F02;
-
 class Rva005677B9 { public: struct Payload { int v[2]; }; };
-
 void Rva00567B6DAdd(Rva005C3F02 *,const Rva005677B9::Payload *);
-
 // Prefix-only factory view: unused vslots specify layout, not signatures.
 // Provider declarations above preserve their existing ABI, not class extents.
 class StancesBehavior;
-
 // Neutral observer-base identity: retail restores table VA 0x00C6CE84.
 // Two slots, and no destructor slot: RET4 at RVA 0x0047A69C and RET12 at
 // 0x000D1407. The derived table at VA 0x00C6CF6C has the named unregister
@@ -100,20 +87,14 @@ class StancesBehavior;
 // supplies the behavior reference and signed old/new stance arguments; their
 // original enum spelling remains unresolved, so this view uses integer ABI.
 class CreateAHeroData;
-
 struct TargetRef00217D4C;
-
 // The existing release provider touches only the 12-byte prefix (ref +8).
 // Retail's hotkey vector advances 16 bytes and tests its active flag at +12.
 // Keep that extra flag in a distinct record instead of widening the prefix.
 class HotKeyManager;
-
 extern HotKeyManager *TheHotKeyManager;
-
 class HotKeyManager { public: unsigned int removeMessageAction(int); };
-
 int GetAssociatedMessageType(int);
-
 //
 // Vtable-slot bodies with no ledger owner and no Ghidra entry, batch AJ:
 // each is a single tail jump to a rowed or pinned function on the same
@@ -122,91 +103,75 @@ int GetAssociatedMessageType(int);
 // declared with the target's own signature; nothing else is modeled.
 
 class Object;
-
 class Xfer;
-
 enum StateReturnType
 {
 	STATE_CONTINUE = 0
 };
-
 enum StateExitType
 {
 	EXIT_NORMAL = 0
 };
-
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
-
 class Rva006C1F60
 {
 public:
 	bool rva00033D50();
 };
-
 class Rva001EDDBBForwarder
 {
 public:
 	void rva001EDDBB();
 };
-
 class Win32GameEngine
 {
 public:
 	virtual void * createAudioManager();
 };
-
 class VideoPlayer
 {
 public:
 	virtual void Rva00689180();
 };
-
 class Rva0030ADE8Forwarder
 {
 public:
 	void rva0030ADE8();
 };
-
 class Rva005CB260
 {
 public:
 	void rva005CB260();
 };
-
 class Rva00131CEAForwarder
 {
 public:
 	void rva00131CEA(int a);
 };
-
 class Rva002D35C7Forwarder
 {
 public:
 	void rva002D35C7();
 };
-
 class Rva002D6AE2Forwarder
 {
 public:
 	void rva002D6AE2();
 };
-
 class W3DProjectedShadow
 {
 public:
 	void rva00108951();
 };
-
 class GameInfo
 {
 public:
 	int getNumPlayers() const;
 	int getNumOpenOrOccupiedSlots() const;
 };
-
 class AIUpdateInterface
 {
 public:
@@ -218,100 +183,83 @@ protected:
 	virtual void loadPostProcess();
 	virtual void privateIdle(CommandSourceType a);
 };
-
 class Rva0030BBE5
 {
 public:
 	void rva0030BBE5(int a);
 };
-
 class StateMachine
 {
 public:
 	virtual void setGoalObject(const Object *a);
 };
-
 class AIExitState
 {
 public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 };
-
 class BfmeThing932E
 {
 public:
 	void bfmeTail932E();
 };
-
 class AIPickUpCrateState
 {
 public:
 	virtual StateReturnType update();
 };
-
 class Rva00262CB6DwordClearer
 {
 public:
 	void clear();
 };
-
 class GiantBirdNormalFlightState
 {
 public:
 	virtual void onExit(StateExitType a);
 };
-
 class StealthUpdate
 {
 public:
 	void rva003748BD();
 };
-
 class Rva0038404A
 {
 public:
 	void rva00384E8E();
 };
-
 #include "../../../Include/GameLogic/Module/CreateModuleClass.h"
-
 class Rva000B56F0Object
 {
 public:
 	void * selectStorage();
 };
-
 class Rva003145B1
 {
 public:
 	int Rva003145B1Dispatch(int a, int b, int c);
 };
-
 class HordeContain
 {
 public:
 	virtual void slot42(const Object *a);
 };
-
 class TransportContain
 {
 public:
 	virtual void onCapture(int a, int b);
 };
-
 class Rva00497805
 {
 protected:
 	virtual void loadPostProcess();
 };
-
 class Rva002645FF
 {
 public:
 	bool rva002645FF();
 };
-
 class SpecialAbilityUpdate
 {
 public:
@@ -322,49 +270,41 @@ private:
 	void onExit(bool a, bool b);
 	friend class Rva00494E4D;
 };
-
 class GateOpenAndCloseBehavior
 {
 protected:
 	virtual void xfer(Xfer *a);
 };
-
 class Rva00493009
 {
 protected:
 	virtual void xfer(Xfer *a);
 };
-
 class Rva00507823
 {
 public:
 	virtual void rva00507877();
 };
-
 class _bfme_AptGameWindow
 {
 public:
 	int rva0051274F(int a, unsigned int b, unsigned int c);
 };
-
 class MovieWindowPlayback
 {
 public:
 	void clear();
 };
-
 class XferSave
 {
 public:
 	virtual void endBlock();
 };
-
 class AIEnterState
 {
 public:
 	virtual void onExit(StateExitType a);
 };
-
 namespace StrategicHUD {
 class SelectionDetailsUIImpl
 {
@@ -372,50 +312,44 @@ public:
 	void rva0057BA90();
 };
 }
-
 class Rva005E717ENamed
 {
 public:
 	const char * name() const;
 };
-
 class Rva005CC5DFNamed
 {
 public:
 	const char * name() const;
 };
-
 class Rva005E39E0Named
 {
 public:
 	const char * name() const;
 };
-
 class AIBuildable
 {
 public:
 	void addNeed(int a);
 };
-
 class Rva00420B2AZeroSetter
 {
 public:
 	void disable();
 };
-
 class Rva005FD8C1
 {
 public:
 	void rva005FD8C1();
 };
-
 class AptCIH
 {
 public:
 	void rva006dbd80();
 };
-
 #include "../../../../Libraries/Source/Apt/BfmeAptValue006DCD20.h"
+#pragma comment(linker, "/alternatename:?find@Rva0019B780Tree@@QBEPAURva0019B780Node@@ABURva0019B780Key@@@Z=??$_M_find@U?$pair@VAsciiString@@V1@@_STL@@@?$_Rb_tree@U?$pair@VAsciiString@@V1@@_STL@@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@2@U?$_Select1st@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@UTeamLess0019B850@@V?$allocator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@1@ABU?$pair@VAsciiString@@V1@@1@@Z")
+#pragma comment(linker, "/alternatename:?Rva00194810@@YA?AURva0019B780Key@@ABVAsciiString@@@Z=?Rva00194810@@YA?AUBfmePairEL@@ABVBfmeWordEL@@@Z")
 
 namespace Debug_Statistics
 {
@@ -629,14 +563,6 @@ struct FXBoneInfo {
 	FXBoneInfo &operator=(const FXBoneInfo &);
 };
 
-template Rva002B2F97 *_STL::copy_backward<Rva002B2F97 *, Rva002B2F97 *>(Rva002B2F97 *, Rva002B2F97 *, Rva002B2F97 *);
-
-template SidesInfo *_STL::copy<SidesInfo *, SidesInfo *>(SidesInfo *, SidesInfo *, SidesInfo *);
-
-template BfmeAssignRecord172 *_STL::copy<BfmeAssignRecord172 *, BfmeAssignRecord172 *>(BfmeAssignRecord172 *, BfmeAssignRecord172 *, BfmeAssignRecord172 *);
-
-template FXBoneInfo *_STL::copy<FXBoneInfo *, FXBoneInfo *>(FXBoneInfo *, FXBoneInfo *, FXBoneInfo *);
-
 class Rva0032E538
 {
 public:
@@ -780,9 +706,6 @@ namespace _STL {
 template <> __declspec(nothrow) void _Construct<BfmePod128, BfmePod128>(
     BfmePod128 *, const BfmePod128 &);
 }
-
-template BfmePod128 *_STL::vector<BfmePod128>::_M_allocate_and_copy<const BfmePod128 *>(
-    unsigned int, const BfmePod128 *, const BfmePod128 *);
 
 // ?Rva0032AF02Compare@@YAHHHH@Z @0x0032AF02 84B unlock caller 0x0032B624 globals 0x007FDC60 0x0080D938
 // Evidence: builds two stack Reader adaptors with vtables g_00BFDC60/g_00C0D938 around first two args then cdecl Compare with third arg. Same shape as Rva002ABC22Compare (84B).
@@ -952,9 +875,6 @@ struct Rva0032EAA1Node
 };
 
 struct Rva0032EA7FRecord {  int word0;int word1;int word2; };
-
-// Instantiate the recovered member; retain only its required template dependencies.
-template _STL::_Rb_tree_node<_STL::pair<int const, Rva0032EA7FRecord> > * _STL::_Rb_tree<int, _STL::pair<int const, Rva0032EA7FRecord>, _STL::_Select1st<_STL::pair<int const, Rva0032EA7FRecord> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva0032EA7FRecord> > >::_M_create_node(_STL::pair<int const, Rva0032EA7FRecord> const &);
 
  
  
@@ -1193,9 +1113,6 @@ template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Constr
 { Rva0032ACFCConstruct(__p, &__val); }
 }
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva0032AD7DElement * _STL::__uninitialized_copy<Rva0032AD7DElement const *, Rva0032AD7DElement *>(Rva0032AD7DElement const *, Rva0032AD7DElement const *, Rva0032AD7DElement *, _STL::__false_type const &);
-
 struct Rva0032ADA3Element {Rva0032ADA3Element();Rva0032ADA3Element(const Rva0032ADA3Element&);Rva0032ADA3Element&operator=(const Rva0032ADA3Element&);virtual void slot0();virtual ~Rva0032ADA3Element();char bytes[4]; bool operator==(const Rva0032ADA3Element&)const;};
 
 namespace _STL {
@@ -1203,13 +1120,7 @@ template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Constr
 { Rva0032ACFCConstruct(__p, &__val); }
 }
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva0032ADA3Element * _STL::__uninitialized_fill_n<Rva0032ADA3Element *, unsigned int, Rva0032ADA3Element>(Rva0032ADA3Element *, unsigned int, Rva0032ADA3Element const &, _STL::__false_type const &);
-
 struct Rva0032B4B2Element {Rva0032B4B2Element();Rva0032B4B2Element(const Rva0032B4B2Element&);Rva0032B4B2Element&operator=(const Rva0032B4B2Element&);virtual void slot0();virtual void slot1();virtual ~Rva0032B4B2Element();char bytes[4]; bool operator==(const Rva0032B4B2Element&)const;};
-
-// Instantiate the recovered operation and its required template dependencies.
-template void _STL::_Rb_tree<int, _STL::pair<int const, Rva0032B4B2Element>, _STL::_Select1st<_STL::pair<int const, Rva0032B4B2Element> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva0032B4B2Element> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva0032B4B2Element>, _STL::_Nonconst_traits<_STL::pair<int const, Rva0032B4B2Element> > >);
 
 // bfme link decl-only begin
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
@@ -1231,8 +1142,6 @@ struct BfmeE8 { int a, b; };
 
 typedef _STL::vector<BfmeE8> ConstructE8Vec;
 
-template void _STL::_Construct<ConstructE8Vec, ConstructE8Vec>(ConstructE8Vec *, const ConstructE8Vec &);
-
  
  
  
@@ -1253,10 +1162,6 @@ public:
 };
 
 namespace _STL {template<> void _Construct<Rva0032CD3BRecord,Rva0032CD3BRecord>(Rva0032CD3BRecord*,const Rva0032CD3BRecord&);}
-
-template Rva0032CD3BRecord *_STL::__copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,Rva0032CD3BRecord*,const _STL::random_access_iterator_tag&,int*);
-
-template Rva0032CD3BRecord *_STL::copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,Rva0032CD3BRecord*);
 
 typedef float Real;
 
@@ -1375,7 +1280,70 @@ class LANAPI;
 
 extern LANAPI *TheLAN;
 
+// Complete typed record-copy twin, preserving the existing placeholder identity.
+struct Rva00196D90Element {
+    volatile short m_word0, m_word2, m_word4, m_word6;
+    volatile int m_word8;
+    Dict m_dict;
+    Rva00196D90Element(const Rva00196D90Element &source);
+};
+
+namespace _STL {
+template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(Rva00196D90Element *, const Rva00196D90Element &);
+
+inline Rva00196D90Element *__uninitialized_fill_n(
+    Rva00196D90Element *first, unsigned int count,
+    const Rva00196D90Element &value, const __false_type &)
+{
+    Rva00196D90Element *current = first;
+    for (; count > 0; --count, ++current)
+        _Construct(current, value);
+    return current;
+}
+
+// Concrete18B helper ->58B copy contains only scalar copies/refcount increment.
+// Its placement operator new is nonthrowing; this contract covers no other type.
+template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(
+    Rva00196D90Element *dest, const Rva00196D90Element &source)
+{
+    new (dest) Rva00196D90Element(source);
+}
+}
+
+extern Rva0019B780Key __cdecl Rva00194810( const AsciiString &name );
+
 // tu-skeleton: 0x003297F3 8B ?setScriptList@SidesInfo@@QAEXPAVScriptList@@@Z -- matched in Code/GameEngine/Source/Common/RTS/SidesInfoSetScriptList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
+
+template Rva002B2F97 *_STL::copy_backward<Rva002B2F97 *, Rva002B2F97 *>(Rva002B2F97 *, Rva002B2F97 *, Rva002B2F97 *);
+
+template SidesInfo *_STL::copy<SidesInfo *, SidesInfo *>(SidesInfo *, SidesInfo *, SidesInfo *);
+
+template BfmeAssignRecord172 *_STL::copy<BfmeAssignRecord172 *, BfmeAssignRecord172 *>(BfmeAssignRecord172 *, BfmeAssignRecord172 *, BfmeAssignRecord172 *);
+
+template FXBoneInfo *_STL::copy<FXBoneInfo *, FXBoneInfo *>(FXBoneInfo *, FXBoneInfo *, FXBoneInfo *);
+
+template BfmePod128 *_STL::vector<BfmePod128>::_M_allocate_and_copy<const BfmePod128 *>(
+    unsigned int, const BfmePod128 *, const BfmePod128 *);
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::_Rb_tree_node<_STL::pair<int const, Rva0032EA7FRecord> > * _STL::_Rb_tree<int, _STL::pair<int const, Rva0032EA7FRecord>, _STL::_Select1st<_STL::pair<int const, Rva0032EA7FRecord> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva0032EA7FRecord> > >::_M_create_node(_STL::pair<int const, Rva0032EA7FRecord> const &);
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva0032AD7DElement * _STL::__uninitialized_copy<Rva0032AD7DElement const *, Rva0032AD7DElement *>(Rva0032AD7DElement const *, Rva0032AD7DElement const *, Rva0032AD7DElement *, _STL::__false_type const &);
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva0032ADA3Element * _STL::__uninitialized_fill_n<Rva0032ADA3Element *, unsigned int, Rva0032ADA3Element>(Rva0032ADA3Element *, unsigned int, Rva0032ADA3Element const &, _STL::__false_type const &);
+
+// Instantiate the recovered operation and its required template dependencies.
+template void _STL::_Rb_tree<int, _STL::pair<int const, Rva0032B4B2Element>, _STL::_Select1st<_STL::pair<int const, Rva0032B4B2Element> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva0032B4B2Element> > >::erase(_STL::_Rb_tree_iterator<_STL::pair<int const, Rva0032B4B2Element>, _STL::_Nonconst_traits<_STL::pair<int const, Rva0032B4B2Element> > >);
+
+template void _STL::_Construct<ConstructE8Vec, ConstructE8Vec>(ConstructE8Vec *, const ConstructE8Vec &);
+
+template Rva0032CD3BRecord *_STL::__copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,Rva0032CD3BRecord*,const _STL::random_access_iterator_tag&,int*);
+
+template Rva0032CD3BRecord *_STL::copy(Rva0032CD3BRecord*,Rva0032CD3BRecord*,Rva0032CD3BRecord*);
 
 // ---- from Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
 
@@ -2094,6 +2062,72 @@ Rva00193660 *__cdecl Rva0032AD58Fill(Rva00193660 *first, unsigned count, const R
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
+
+//
+// Small vtable-slot bodies with no ledger owner and no Ghidra entry, batch
+// AG: each calls a rowed function whose ledger name types its return (or
+// convention) differently from what this call site needs, so the callee
+// is bound through an alias pin in reverse/symbols.csv under an
+// address-derived name (the rowed bodies answer 0/1 in eax, i.e. bool, and
+// 0x0023C7F5 ignores ECX, so the thiscall spelling reaches the same
+// bytes). As in VslotSmallBodiesA-AF, classes and methods are
+// address-derived and model only what each body touches.
+
+Int Rva0032AFA4::rva0032AFA4(char *buf)
+{
+	Rva0032AFA4Pair *stringPair = m_04;
+	Int bytesWritten = stringPair->m_a.write(buf);
+	return stringPair->m_b.write(buf + bytesWritten) + bytesWritten;
+}
+
+Rva00196D90Element::Rva00196D90Element(const Rva00196D90Element &source)
+    : m_word0(source.m_word0), m_word2(source.m_word2),
+      m_word4(source.m_word4), m_word6(source.m_word6),
+      m_word8(source.m_word8), m_dict(source.m_dict)
+{}
+
+template Rva00196D90Element *_STL::uninitialized_fill_n<Rva00196D90Element *, unsigned int, Rva00196D90Element>(Rva00196D90Element *, unsigned int, const Rva00196D90Element &);
+
 // tu-skeleton: 0x00329880 31B ??4SubsystemInterface@@QAEAAV0@ABV0@@Z -- matched in Code/Libraries/Source/subsystem/SubsystemInterfaceCopy.cpp (not merged yet)
 
 // tu-skeleton: 0x00329906 104B ?rva00329906@Rva0032989F@@UAE_NAAVDataChunkInput@@PAUDataChunkInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListPlayerScriptsParse.cpp (not merged yet)
@@ -2166,30 +2200,17 @@ Rva00193660 *__cdecl Rva0032AD58Fill(Rva00193660 *first, unsigned count, const R
 
 // tu-skeleton: 0x0032ADC8 93B ??0?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x0032AF56 25B ?Rva0032AF56Destroy@@YAXPAVRva00329D0E@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0032AF56Destroy.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0032AF56Destroy.cpp
+
+void Rva0032AF56Destroy(Rva00329D0E *first, Rva00329D0E *last)
+{
+	for (; first != last; ++first)
+		first->~Rva00329D0E();
+}
 
 // tu-skeleton: 0x0032AF6F 45B ??$_Construct@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@UTreeOpaqueMapped0032CB55@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_0032cb55.cpp (not merged yet)
 
 // tu-skeleton: 0x0032AF9C 8B ?rva0032AF9C@Rva0032AF9CForwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
-
-//
-// Small vtable-slot bodies with no ledger owner and no Ghidra entry, batch
-// AG: each calls a rowed function whose ledger name types its return (or
-// convention) differently from what this call site needs, so the callee
-// is bound through an alias pin in reverse/symbols.csv under an
-// address-derived name (the rowed bodies answer 0/1 in eax, i.e. bool, and
-// 0x0023C7F5 ignores ECX, so the thiscall spelling reaches the same
-// bytes). As in VslotSmallBodiesA-AF, classes and methods are
-// address-derived and model only what each body touches.
-
-Int Rva0032AFA4::rva0032AFA4(char *buf)
-{
-	Rva0032AFA4Pair *stringPair = m_04;
-	Int bytesWritten = stringPair->m_a.write(buf);
-	return stringPair->m_b.write(buf + bytesWritten) + bytesWritten;
-}
 
 // tu-skeleton: 0x0032AFCC 8B ?rva0032AFCC@Rva0032AFCCForwarder@@QAEXHHH@Z -- matched in Code/GameEngine/Source/Common/VslotMemberForwarders.cpp (not merged yet)
 
@@ -2351,7 +2372,31 @@ Int Rva0032AFA4::rva0032AFA4(char *buf)
 
 // tu-skeleton: 0x0032D076 63B ?addSide@SidesList@@QAEHPBVDict@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp (not merged yet)
 
-// tu-skeleton: 0x0032D0B5 78B ?lookup@Rva0019C520Member@@QAEHPAVAsciiString@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp
+
+int Rva0019C520Member::lookup( AsciiString *name, int extra )
+{
+	AsciiString *input;
+	input = name;
+	Rva0019B780Node *found;
+	{
+		found = m_tree.find( Rva00194810( *input ) );
+	}
+	if (found == *(Rva0019B780Node **)&m_tree)
+		return 0;
+	int index = *(int *)((char *)found + 0x18);
+	Rva0019B780Entry *entry = m_entries + index;
+	if (extra)
+		*(int *)extra = index;
+	return (int)((char *)entry + 0x0c);
+}
+
+// Each retail call in this body reads an address the ledger already carries
+// under the rowed name below. Bind the donor spelling to that owner so one
+// address keeps one definition and the unit links.
+//   0x0032C07C reads ??$_M_find@U?$pair@VAsciiString@@V1@@_STL@@@?$_Rb_tree@U?$pair@VAsciiString@@V1@@_STL@@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@2@U?$_Select1st@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@UTeamLess0019B850@@V?$allocator@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBU?$pair@VAsciiString@@V1@@_STL@@H@_STL@@@1@ABU?$pair@VAsciiString@@V1@@1@@Z
+
+//   0x0032ABDA reads ?Rva00194810@@YA?AUBfmePairEL@@ABVBfmeWordEL@@@Z
 
 // tu-skeleton: 0x0032D103 288B ?addToIndex@TeamsInfoRec@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp (not merged yet)
 
@@ -2598,6 +2643,10 @@ Int Rva0032AFA4::rva0032AFA4(char *buf)
 // tu-skeleton: 0x0077B748 8B $L12429 -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp (not merged yet)
 
 // tu-skeleton: 0x0077B750 10B __ehhandler$?rva0032C88F@SidesList@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp (not merged yet)
+
+// tu-skeleton: 0x0077B75A 8B $L320 -- matched in Code/GameEngine/Source/Common/BfmeConv1768.cpp (not merged yet)
+
+// tu-skeleton: 0x0077B762 10B __ehhandler$??1TeamsInfoRec@@QAE@XZ -- matched in Code/GameEngine/Source/Common/BfmeConv1768.cpp (not merged yet)
 
 // tu-skeleton: 0x0077B76C 11B $L11247 -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp (not merged yet)
 
@@ -2906,40 +2955,3 @@ Int Rva0032AFA4::rva0032AFA4(char *buf)
 // tu-skeleton: 0x0077BE26 8B $L5692 -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListPrepareSkirmish.cpp (not merged yet)
 
 // tu-skeleton: 0x0077BE2E 10B __ehhandler$?rva0032FF91@SidesList@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListPrepareSkirmish.cpp (not merged yet)
-
-// Complete typed record-copy twin, preserving the existing placeholder identity.
-struct Rva00196D90Element {
-    volatile short m_word0, m_word2, m_word4, m_word6;
-    volatile int m_word8;
-    Dict m_dict;
-    Rva00196D90Element(const Rva00196D90Element &source);
-};
-Rva00196D90Element::Rva00196D90Element(const Rva00196D90Element &source)
-    : m_word0(source.m_word0), m_word2(source.m_word2),
-      m_word4(source.m_word4), m_word6(source.m_word6),
-      m_word8(source.m_word8), m_dict(source.m_dict)
-{}
-
-namespace _STL {
-template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(Rva00196D90Element *, const Rva00196D90Element &);
-
-inline Rva00196D90Element *__uninitialized_fill_n(
-    Rva00196D90Element *first, unsigned int count,
-    const Rva00196D90Element &value, const __false_type &)
-{
-    Rva00196D90Element *current = first;
-    for (; count > 0; --count, ++current)
-        _Construct(current, value);
-    return current;
-}
-
-// Concrete18B helper ->58B copy contains only scalar copies/refcount increment.
-// Its placement operator new is nonthrowing; this contract covers no other type.
-template <> __declspec(nothrow) void _Construct<Rva00196D90Element, Rva00196D90Element>(
-    Rva00196D90Element *dest, const Rva00196D90Element &source)
-{
-    new (dest) Rva00196D90Element(source);
-}
-}
-
-template Rva00196D90Element *_STL::uninitialized_fill_n<Rva00196D90Element *, unsigned int, Rva00196D90Element>(Rva00196D90Element *, unsigned int, const Rva00196D90Element &);

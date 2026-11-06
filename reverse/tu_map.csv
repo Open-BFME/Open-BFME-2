@@ -25375,7 +25375,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00329D34,28,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x00329D50,20,code,,,-,,Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
 0x00329D64,52,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_copy_buildlistinfo.cpp
-0x00329D98,28,code,,,-,,Code/GameEngine/Source/Common/Rva0032AF56Destroy.cpp
+0x00329D98,28,code,,,-,,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
 0x00329DB4,9,code,,,-,,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp
 0x00329DBD,5,code,,,-,,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
 0x00329DC2,36,code,Code/GameEngine/Source/Common/BfmeThingUBB.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingUBB.cpp,Code/GameEngine/Source/Common/BfmeConv1329.cpp
@@ -25429,7 +25429,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0032AE25,109,code,Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp noncontiguous,Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp
 0x0032AE92,112,code,Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Map/SidesListNotifier.cpp noncontiguous,Code/GameEngine/Source/GameLogic/Map/SidesListNotifierDispatch.cpp
 0x0032AF02,84,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,E,"E=0x0077B581..0x0077B5E3@0x0032A942,0x0032B1E1",Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
-0x0032AF56,25,code,,,-,,Code/GameEngine/Source/Common/Rva0032AF56Destroy.cpp
+0x0032AF56,25,code,,,-,,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
 0x0032AF6F,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_0032cb55.cpp
 0x0032AF9C,8,code,,,-,,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
 0x0032AFA4,40,code,,,-,,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
@@ -25526,7 +25526,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0032D04A,18,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,Code/GameEngine/Source/GameLogic/Map/SidesListDataChunks.cpp
 0x0032D05C,26,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp
 0x0032D076,63,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp
-0x0032D0B5,78,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,C,C=0x0032D076..0x0032D103,Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp
+0x0032D0B5,78,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,C,C=0x0032D076..0x0032D103,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp
 0x0032D103,288,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/TeamsInfoRec.cpp,Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp
 0x0032D223,86,code,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp N=Code/GameEngine/Source/GameLogic/Map/TeamsInfoRec.cpp W=Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecMoveTeams.cpp
 0x0032D279,84,code,Code/GameEngine/Source/Common/LibraryMapCache.cpp,proposed,N,N=Code/GameEngine/Source/Common/LibraryMapCache.cpp,Code/GameEngine/Source/Common/LibraryMapCache.cpp
