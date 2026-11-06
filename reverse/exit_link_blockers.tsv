@@ -1,4 +1,4 @@
-# real link at 306f01e6f65f29c07f9bf372666966d5363d6cb4: tools/exit_link.py --blockers
+# real link at 64ff2f11655b25e69a47795e9c510d8c8702d303: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	277	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA
 Code/GameEngine/Source/Common/System/Snapshot.cpp	2	??0Matrix4D@@QAE@ABVCoord3D@@M@Z
@@ -6,11 +6,6 @@ Code/GameEngine/Source/GameClient/Rva0055FB37Write.cpp	2	?writeINI@?$DefaultModu
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildComplete@LockWeaponCreate@@UAEXXZ
 Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp	1	?freeBytes@AsciiString@@AAEXXZ
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
-Code/GameEngine/Source/GameClient/Rva0055CC35Write.cpp	1	?writeINI@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
-Code/GameEngine/Source/GameClient/Rva0055CEAAWrite.cpp	1	?writeINI@LineEmissionVolumeModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
-Code/GameEngine/Source/GameClient/Rva0055D2E8Write.cpp	1	?writeINI@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
-Code/GameEngine/Source/GameClient/Rva0055D525Write.cpp	1	?writeINI@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
-Code/GameEngine/Source/GameClient/Rva0055D815Write.cpp	1	?writeINI@CylinderEmissionVolumeModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameClient/Rva0055F368Write.cpp	1	?writeINI@?$DefaultModuleTemplate@$02@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/AlphaModuleTemplateWriteINI.cpp	1	?writeINI@?$DefaultModuleTemplate@$00@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultAlphaModuleInfoWriteINI.cpp	1	?writeINI@?$DefaultModuleTemplate@$00@FXParticleSystem@@UBEXAAVFile@@I@Z
@@ -19,7 +14,6 @@ Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoXfe
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoXfer.cpp	1	?DoXfer@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055E39EWrite.cpp	1	?writeINI@LightningEmissionModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055E6D4Write.cpp	1	?writeINI@TerrainFireEmissionModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055E969Write.cpp	1	?writeINI@OrthoEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055EAADWrite.cpp	1	?writeINI@SphericalEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055EBFAWrite.cpp	1	?writeINI@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0055ED5FWrite.cpp	1	?writeINI@OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UBEXAAVFile@@I@Z
