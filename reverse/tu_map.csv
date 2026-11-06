@@ -41770,7 +41770,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E59DB,25,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,C,C=0x004E58C5..0x004E59F4 provisional,Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp
 0x004E59F4,48,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp provisional,Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp
 0x004E5A24,84,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,C,C=0x004E59F4..0x004E5A78 provisional,Code/GameEngine/Source/Common/Bfme/Rva004E5A24Ctor.cpp
-0x004E5A78,118,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,C,C=0x004E59F4..0x004E5AEE provisional,Code/GameEngine/Source/Common/Bfme/Rva004E5A78Method.cpp
+0x004E5A78,118,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,C,C=0x004E59F4..0x004E5AEE provisional,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp
 0x004E5AEE,28,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,C,C=0x004E59F4..0x004E5B0A provisional,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp
 0x004E5B0A,422,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,C,C=0x004E59F4..0x004E5CB0 provisional,Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp
 0x004E5CB0,27,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,C,C=0x004E59F4..0x004E5CCB provisional,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp
@@ -82460,8 +82460,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00792005,8,code,,,-,,Code/gen_small/uw_gen_014.cpp
 0x0079200D,11,code,,,-,,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
 0x00792018,10,code,,,-,,Code/GameEngine/Source/GameClient/InGameUIResourceEntries.cpp
-0x00792022,8,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,P,P=0x004E5A78@FuncInfo0x0094456C provisional,Code/GameEngine/Source/Common/Bfme/Rva004E5A78Method.cpp
-0x0079202A,10,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,P,P=0x004E5A78@FuncInfo0x0094456C provisional,Code/GameEngine/Source/Common/Bfme/Rva004E5A78Method.cpp
+0x00792022,8,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,P,P=0x004E5A78@FuncInfo0x0094456C provisional,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp
+0x0079202A,10,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,P,P=0x004E5A78@FuncInfo0x0094456C provisional,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp
 0x00792034,8,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,P,P=0x004E5B0A@FuncInfo0x009445A8 provisional,Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp
 0x0079203C,8,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,P,P=0x004E5B0A@FuncInfo0x009445A8 provisional,Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp
 0x00792044,10,code,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,approved,P,P=0x004E5B0A@FuncInfo0x009445A8 provisional,Code/GameEngine/Source/GameClient/GUI/IngameNoticeDisplay.cpp
