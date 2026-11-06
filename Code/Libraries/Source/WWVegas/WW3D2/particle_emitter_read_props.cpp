@@ -86,7 +86,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 //
 //	Global variable initialization
 //
-ParticleEmitterLoaderClass	_ParticleEmitterLoader;
 
 //	This array is declared in "W3D_File.H"
 extern const char *EMITTER_TYPE_NAMES[EMITTER_TYPEID_COUNT];

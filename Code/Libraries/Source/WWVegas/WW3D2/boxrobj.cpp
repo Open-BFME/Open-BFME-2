@@ -274,7 +274,6 @@ not_changed:
 /*
 ** Global instance of the box loader
 */
-BoxLoaderClass _BoxLoader;
 
 // matrix3d.h's Matrix3D::Get_Translation() under a unit-local name: called as the
 // Matrix3D member, this unit emitted an external copy that differs from the kept

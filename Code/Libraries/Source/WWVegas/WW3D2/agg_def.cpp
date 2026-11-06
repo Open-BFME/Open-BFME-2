@@ -66,7 +66,6 @@ public:
 //
 //	Global variable initialization
 //
-AggregateLoaderClass	_AggregateLoader;
 
 // LINK: offset-mirror for RefCountClass's private NumRefs (vtable +0, NumRefs
 // +4: proven by this TU's own Add_Ref copy `add [ecx+4],1` and retail's dtor

@@ -61,7 +61,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include <string.h>
 
 
-NullLoaderClass _NullLoader;
 
 
 
