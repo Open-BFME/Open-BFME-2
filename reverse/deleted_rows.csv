@@ -5461,3 +5461,5 @@ _$E1,0x007AEBAA,Retracted for readmission as _$E3 in Rva0033FE65OnEnter.cpp: the
 ?name@Rva0028CA92Named@@QBEPBDXZ,0x0028CA92,"Renamed to ?GetSnapshotName@ObjectRecoveryHelper@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00BFBD98 slot 2)"
 ??1Rva004DF836@@UAE@XZ,0x004DF836,"Renamed to ??1ObjectRecoveryHelper@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BFBD98)"
 ??_GRva004DF836@@UAEPAXI@Z,0x0028CA98,"Renamed to ??_GObjectRecoveryHelper@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BFBD98)"
+??1Rva004DF8A9@@UAE@XZ,0x004DF8A9,"Renamed to ??1ObjectWeaponStatusHelper@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BFBE48)"
+??_GRva004DF8A9@@UAEPAXI@Z,0x0028CBE1,"Renamed to ??_GObjectWeaponStatusHelper@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BFBE48)"

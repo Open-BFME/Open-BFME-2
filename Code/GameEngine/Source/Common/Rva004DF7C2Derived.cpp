@@ -94,12 +94,12 @@ public:
 // ?f2@Rva004DF8A9_B2@@UAEXXZ present-unmatched
 void Rva004DF8A9_B2::f2() {}
 
-class Rva004DF8A9 : public ObjectHelper, public MiBase1, public Rva004DF8A9_B2
+class ObjectWeaponStatusHelper : public ObjectHelper, public MiBase1, public Rva004DF8A9_B2
 {
 public:
-	virtual ~Rva004DF8A9();
+	virtual ~ObjectWeaponStatusHelper();
 };
 
-Rva004DF8A9::~Rva004DF8A9()
+ObjectWeaponStatusHelper::~ObjectWeaponStatusHelper()
 {
 }
