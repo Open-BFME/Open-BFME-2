@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?xfer@RenderObjectDrawModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z
+// ?DoXfer@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z
 // @0x00562871 194B: slot 3 xfer over vtable 0x81C1B8; Version1 then bool
 // +0xC, AsciiString/uint/float/int-enum triples at +0x10/+0x20/+0x30, header
 // bool/float at +0x4/+0x8. Layout mirrors DefaultCtor; Xfer decl verbatim
@@ -45,9 +45,7 @@ class RenderObjectDrawModuleInfo : public RenderObjectDrawModuleInfoBase
 public:
 	RenderObjectDrawModuleInfo();
 	virtual ~RenderObjectDrawModuleInfo();
-
-protected:
-	virtual void xfer(Xfer *xfer);
+	virtual void DoXfer(Xfer &xfer);
 
 private:
 	bool m_enabled;
@@ -69,22 +67,22 @@ private:
 
 }
 
-void FXParticleSystem::RenderObjectDrawModuleInfo::xfer(Xfer *xfer)
+void FXParticleSystem::RenderObjectDrawModuleInfo::DoXfer(Xfer &xfer)
 {
-	xfer->Version1();
-	*xfer == m_flag;
-	*xfer == m_name0;
-	*xfer == m_value00;
-	*xfer == m_value01;
-	XferParticleShaderType(xfer, &m_value02);
-	*xfer == m_name1;
-	*xfer == m_value10;
-	*xfer == m_value11;
-	XferParticleShaderType(xfer, &m_value12);
-	*xfer == m_name2;
-	*xfer == m_value20;
-	*xfer == m_value21;
-	XferParticleShaderType(xfer, &m_value22);
-	*xfer == m_enabled;
-	*xfer == m_type;
+	xfer.Version1();
+	xfer == m_flag;
+	xfer == m_name0;
+	xfer == m_value00;
+	xfer == m_value01;
+	XferParticleShaderType(&xfer, &m_value02);
+	xfer == m_name1;
+	xfer == m_value10;
+	xfer == m_value11;
+	XferParticleShaderType(&xfer, &m_value12);
+	xfer == m_name2;
+	xfer == m_value20;
+	xfer == m_value21;
+	XferParticleShaderType(&xfer, &m_value22);
+	xfer == m_enabled;
+	xfer == m_type;
 }

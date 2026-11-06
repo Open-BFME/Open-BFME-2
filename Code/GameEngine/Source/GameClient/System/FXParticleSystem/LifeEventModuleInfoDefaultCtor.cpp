@@ -11,6 +11,8 @@
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 #include "../../../../Include/GameClient/GameClientRandomVariableInlines.h"
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
@@ -24,9 +26,8 @@ public:
 	LifeEventModuleInfo();
 	virtual ~LifeEventModuleInfo();
 	virtual const char *GetSnapshotName();
-
-protected:
-	virtual void xfer(Xfer *xfer);
+	virtual void LoadPostProcess();
+	virtual void DoXfer(Xfer &xfer);
 
 private:
 	AsciiString m_name;

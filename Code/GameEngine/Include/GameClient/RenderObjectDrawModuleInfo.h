@@ -29,7 +29,7 @@ public:
     virtual ~RenderObjectDrawModuleInfo();
 
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
-    virtual void LoadPostProcess() {}
+    virtual void LoadPostProcess();
 #else
     virtual void loadPostProcess() {}
 #endif
@@ -59,15 +59,17 @@ public:
     float m_38;
     int m_3C;
 
-protected:
-#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
-#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) && defined(BFME_SNAPSHOT_REFERENCE_XFER)
+public:
+    // Retail export ?DoXfer@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z (0x00562871).
     virtual void DoXfer(Xfer &xfer);
 #else
+protected:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void DoXfer(Xfer *xfer);
-#endif
 #else
     virtual void xfer(Xfer *xfer);
+#endif
 #endif
 };
 

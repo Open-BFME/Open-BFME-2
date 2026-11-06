@@ -52,15 +52,17 @@ public:
     GameClientRandomVariable m_08;
     const FXList *m_14;
 
-protected:
-#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
-#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+#if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) && defined(BFME_SNAPSHOT_REFERENCE_XFER)
+public:
+    // Retail export ?DoXfer@LifeEventModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z (0x00563E72).
     virtual void DoXfer(Xfer &xfer);
 #else
+protected:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void DoXfer(Xfer *xfer);
-#endif
 #else
     virtual void xfer(Xfer *xfer);
+#endif
 #endif
 };
 

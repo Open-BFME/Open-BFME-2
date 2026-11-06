@@ -317,3 +317,11 @@ exact `writeINI(File &, unsigned) const` spelling, with no second body or alias.
 The build passes **25/25** and **32 literals**; the preview stays **LINKS 2,245 ->
 2,245 B** against index `d707d2f53b`. Awaiting the automated real link.
 [Evidence](../../reverse/attempt_support/fx-writeini-exports-batch-20261106-noro.md).
+
+2026-11-06, LifeEvent and RenderObjectDraw info (base `c628ead017b`): export ordinals 1169
+and 1173 identify the existing `0x00563E72` and `0x00562871` owners as `DoXfer(Xfer &)`.
+Four vtables and two direct callers bound the old `xfer` spelling, so those units moved
+to the reference-taking Snapshot mode with the rows. The LifeEvent vtable's
+`LoadPostProcess` slot no longer holds `__purecall`. The build passes **17/17**; the
+preview stays **LINKS 963 -> 963 B** against index `d707d2f53b`. Awaiting the automated
+real link. [Evidence](../../reverse/attempt_support/fx-doxfer-exports-20261106-noro.md).

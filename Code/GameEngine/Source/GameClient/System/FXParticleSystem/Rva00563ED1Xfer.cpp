@@ -1,6 +1,6 @@
 // cl: /MD /Ireference/shims/bfme2_ascii
 // ?rva00563ED1@Rva00563ED1@@UAEXPAVXfer@@@Z, retail 0x00563ED1, 82 bytes.
-// Chain of just-landed ?xfer@LifeEventModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z
+// Chain of just-landed ?DoXfer@LifeEventModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z
 // at 0x00563E72. IsLightCRC early-out via Xfer slot 0x10, Version1 via rowed
 // 0x000053EE, LifeEventModuleInfo subobject at +0x20 via rowed 0x00563E72,
 // flags at +0x1C +0x1D +0x3C via Xfer slot 0x90 (bool per LightningDrawModuleInfoXfer
@@ -35,6 +35,8 @@ class DamageInfo;
 
 #include "../../../../Include/GameClient/GameClientRandomVariable.h"
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem
 {
@@ -75,7 +77,7 @@ void Rva00563ED1::rva00563ED1(Xfer *xfer)
 	if (xfer->IsLightCRC())
 		return;
 	xfer->Version1();
-	FXParticleSystem::LifeEventModuleInfo::xfer(xfer);
+	FXParticleSystem::LifeEventModuleInfo::DoXfer(*xfer);
 	*xfer == m_1c;
 	*xfer == m_1d;
 	*xfer == m_3c;

@@ -24916,7 +24916,7 @@ _piChannelMessageA,,0x006AACB0,305,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?rva002B6498@Rva002B6498@@QAEPAVArmorTemplate@@W4NameKeyType@@@Z,,0x002B6498,32,Code/GameEngine/Source/Common/Rva002B6498Find.cpp,matched,Hashtable find via rowed _M_find 0x002888D4 callers 0x002B6F42 0x002B933F
 ?Rva00512CCDShutdown@@YAXXZ,,0x00512CCD,18,Code/GameEngine/Source/Common/Rva00512C88Shutdown.cpp,matched,guarded slot2 via g_Va00A048CC
 ??0Rva0031F7AB@@QAE@XZ,,0x0031F7AB,64,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp,matched,finish ctor via base init plus releaseBuffer plus members
-?xfer@RenderObjectDrawModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z,,0x00562871,194,Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoXfer.cpp,matched,slot3 xfer Version1 plus members plus enum helper
+?DoXfer@RenderObjectDrawModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z,0x00562871,0x00562871,194,Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleInfoXfer.cpp,matched,slot3 xfer Version1 plus members plus enum helper
 ?rva004D3906@Rva004D3906@@QAEXH@Z,,0x004D3906,52,Code/GameEngine/Source/Common/Rva004D3906Clear.cpp,matched,flag guarded shutdown plus strided column clear
 ?invoke@Rva0038BDEEReceiver@@QAEXPAX@Z,,0x0038BDEE,41,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/Rva0038BDEEInvoke.cpp,matched,called by stopHostingAlready via rowed peerStopGame and string assign
 ?Rva0031FA40Create@@YAXPAVINI@@PAURva0031FA40Out@@@Z,,0x0031FA40,78,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme.cpp,matched,chain factory via new ctor initFromINI plus store
@@ -26645,7 +26645,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?rva0035AFE4@Rva0035AFE4@@QAE_NH@Z,,0x0035AFE4,44,Code/GameEngine/Source/Common/Rva0035AFE4Pred.cpp,matched,bool pred on mask m_1c via sibling pattern
 ?rva0035ABC0@Rva0035ABC0@@QAEXI@Z,,0x0035ABC0,32,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,matched,pod8 resize wrapper with zeroed fill via intrinsic memset
 ?winBringToTop@GameWindow@@QAEHXZ,,0x0031475A,128,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,ZH GameWindow winBringToTop plus native IME openCandidateList call; native parent200 next1F8 and layout210; exact128B; replaces address method spelling
-?xfer@LifeEventModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z,,0x00563E72,54,Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoXfer.cpp,matched,slot3 vtable 0081C188 IsLightCRC Version1 xferRandomVariable AsciiString
+?DoXfer@LifeEventModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z,0x00563E72,0x00563E72,54,Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoXfer.cpp,matched,slot3 vtable 0081C188 IsLightCRC Version1 xferRandomVariable AsciiString
 ?rva00563ED1@Rva00563ED1@@UAEXPAVXfer@@@Z,,0x00563ED1,82,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00563ED1Xfer.cpp,matched,chain of 00563E72 IsLightCRC Version1 subxfer flags via 0x90
 ?Rva005635DEPut@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABURva005635DEPayload@@@Z,,0x005635DE,22,Code/Libraries/Source/WWVegas/WWLib/Rva005635DEPut.cpp,matched,ostream long put via J caller prints key value newline
 ?rva0056394A@Rva0056394A@@QAE?AVAsciiString@@XZ,,0x0056394A,27,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0056394AGetter.cpp,matched,AsciiString at 0x24 via StringBase copy getter

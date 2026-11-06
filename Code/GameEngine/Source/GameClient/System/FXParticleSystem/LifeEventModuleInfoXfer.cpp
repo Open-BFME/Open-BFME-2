@@ -1,5 +1,5 @@
 // cl: /MD /Ireference/shims/bfme2_ascii
-// ?xfer@LifeEventModuleInfo@FXParticleSystem@@MAEXPAVXfer@@@Z, retail 0x00563E72, 54 bytes.
+// ?DoXfer@LifeEventModuleInfo@FXParticleSystem@@UAEXAAVXfer@@@Z, retail 0x00563E72, 54 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x0081C188 (class of ??0LifeEventModuleInfo@FXParticleSystem@@QAE@ABV01@@Z)
 // and slot 5 of 0x0081C2DC. IsLightCRC early-out via Xfer slot 0x10, Version1 via rowed
 // 0x000053EE, GameClientRandomVariable at +8 via rowed xferRandomVariable 0x00306183,
@@ -47,7 +47,7 @@ public:
 	virtual ~SnapshotBase();
 	virtual void crc(Xfer *xfer) = 0;
 	virtual void loadPostProcess() = 0;
-	virtual void xfer(Xfer *xfer) = 0;
+	virtual void DoXfer(Xfer &xfer) = 0;
 };
 
 class LifeEventModuleInfo : public SnapshotBase
@@ -55,9 +55,7 @@ class LifeEventModuleInfo : public SnapshotBase
 public:
 	LifeEventModuleInfo();
 	virtual ~LifeEventModuleInfo();
-
-protected:
-	virtual void xfer(Xfer *xfer);
+	virtual void DoXfer(Xfer &xfer);
 
 private:
 	AsciiString m_name;
@@ -67,11 +65,11 @@ private:
 
 }
 
-void FXParticleSystem::LifeEventModuleInfo::xfer(Xfer *xfer)
+void FXParticleSystem::LifeEventModuleInfo::DoXfer(Xfer &xfer)
 {
-	if (xfer->IsLightCRC())
+	if (xfer.IsLightCRC())
 		return;
-	xfer->Version1();
-	xferRandomVariable(*xfer, m_var);
-	*xfer == m_name;
+	xfer.Version1();
+	xferRandomVariable(xfer, m_var);
+	xfer == m_name;
 }
