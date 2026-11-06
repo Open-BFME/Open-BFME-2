@@ -105,7 +105,7 @@ content, data by ledger address): 1,454 agree, 89 have targets the ledgers do no
 - Open, STLport (left to that lane): `_Null_messages` in `stlport_classic_locale.cpp` (0x009DEB24) holds a vptr where
   retail's load-time word is 0.
 - Harmless: `BoredUpdate.cpp`'s `s_boredUpdateFile` and `StealthDetectorUpdateCtor.cpp`'s `s_file` are the file names
-  passed to `GetGameLogicRandomValue`'s debug arguments; retail's are full `C:\projectsfme2patch103\...` paths.
+  passed to `GetGameLogicRandomValue`'s debug arguments; retail's are full `C:\projects\bfme2patch103\...` paths.
 
 #### One address, several names (23)
 
@@ -124,7 +124,26 @@ against retail and the readers:
   `TheArmyDefinitionManager` (`ArmyDefinitionManager.cpp`). Ours called the armor lookup on a null receiver for every AI
   player a skirmish adds. It now reads `TheArmyDefinitionManager`, as `SkirmishAIManager.cpp` does.
 
+Leads read but not changed here (this counter now belongs to the duplicates lane):
+
+- 0x009EBE0C and 0x009EBE24: `Rva000F1A32Ctor.cpp` defines both as `DynamicVectorClass<TCBSpline3DClass::TCBClass>`
+  objects with their own compiler initializers, read by the shadow code (`W3DShadowGeometryMesh.cpp`,
+  `W3DVolumetricShadow.cpp`), while `Rva007ABEF3ArgCtorInits.cpp` defines `g_Va00DEBE0C`/`g_Va00DEBE24` as 4-byte
+  `unsigned` and retail's initializers there construct a 24-byte `DynamicVectorClass` into each (the regex behind
+  `constructed_undersized` misses the `KeyVector::DynamicVectorClass` spelling). Their atexit thunks are in
+  `Rva007B6880Thunks.cpp`. One object per address needs those three units to agree on one name and one 24-byte storage.
+- 0x00A032E8: `GameLogic.cpp` defines `UnicodeString g_Va00E032E8` and writes it; `Rva007ABBB3CtorInits.cpp` defines
+  the `unsigned` of the same name that `AptSaveLoadCallbacks.cpp` reads and retail's 0x007B0625 constructs.
+- 0x009B5F88: `ConstGlobalGetters2.cpp`'s `G00DB5F88 = 1` (read by `meshmdlio.cpp`, written by `GapBodiesGE25.cpp`) is
+  `WW3D::PrelitMode` (`ww3d.cpp`, also 1, set by `W3DDisplayInit.cpp`).
+- 0x009FE490: the atexit thunk in `Rva007B6A00AtexitThunks.cpp` clears `g_Va00DFE490` (a data row) instead of
+  `ArmySummaryDescription.cpp`'s `g_00DFE490`; exit only.
+
 Remaining / next check: regenerate `reverse/data_ledger.csv` (a separate decision; LINK-619 measured the same staleness)
-and re-read this counter; most of the 183 should then name their current owners.
+and re-read the 483; against a regeneration with data rows applied, every one is a TU-local static, an `/alternatename`
+or the CRT's `___xc_a`. `image_report.py` could compare TU-local statics (the ledger keys them `name@source`) and read
+`data_ledger.load()` instead of the CSV; this pass's comparisons were one-off scripts. The open rows of
+`globals-constructed-into-storage-smaller-than-retail-2026-11-04.md` (`g_Va00E06634`'s +8 and +0xC, the second
+`g_00E02FF8`) need real names first.
 
 Clearance: pending. Census confirmation: not claimed.
