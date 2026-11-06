@@ -379,6 +379,9 @@ class Rva0033F74B : public State
 {
 public:
 	Rva0033F74B(StateMachine *machine);
+	// the rowed destructor 0x00341F99 (Rva00341F99Dtor.cpp); declared so this
+	// unit does not emit an implicit copy
+	virtual ~Rva0033F74B();
 
 private:
 	int m_20; // +0x20

@@ -24,7 +24,7 @@
 // vendored under reference/open-bfme-1/inputs/reference). Each is slot 3 of
 // the vftable whose name getter returns its class: 0x00C117F0
 // (0x0033F745, "AIGuardRetaliateState"; the ledger's Rva0033F724) and
-// 0x00C11850 (0x0033F76C, "AITunnelNetworkGuardState"; Rva00341F99).
+// 0x00C11850 (0x0033F76C, "AITunnelNetworkGuardState"; Rva0033F74B).
 //
 // BFME 2 opens with the light-CRC gate and Version1. The machine member sits
 // at +0x20, and the owner comes from the state's machine (+0x18) at +0x14. The

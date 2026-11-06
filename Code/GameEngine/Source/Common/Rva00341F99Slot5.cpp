@@ -1,7 +1,7 @@
 // cl: /MD /EHsc
 //
-// ?rva00342120@Rva00341F99@@UAEXH@Z, retail 0x00342120, 55 bytes.
-// Slot 5 (offset 0x14) of vtable 0x00811850 (class of ??1Rva00341F99@@UAE@XZ,
+// ?rva00342120@Rva0033F74B@@UAEXH@Z, retail 0x00342120, 55 bytes.
+// Slot 5 (offset 0x14) of vtable 0x00811850 (class of ??1Rva0033F74B@@UAE@XZ,
 // rowed in Rva00341F99Dtor.cpp, same // cl: line) and also of twin vtable
 // 0x008117F0 (class of ??1Rva0033F724@@UAE@XZ); both slots share this body.
 // Shape: delete m_ptr20 when present through slot-0
@@ -174,7 +174,7 @@ private:
 	char m_pad04[8];
 };
 
-class Rva00341F99 : public Rva0049B47C
+class Rva0033F74B : public Rva0049B47C
 {
 public:
 	virtual void _s01();
@@ -190,7 +190,7 @@ private:
 	Rva00341F99Slot5Member *m_ptr20;
 };
 
-void Rva00341F99::rva00342120(int)
+void Rva0033F74B::rva00342120(int)
 {
 	::operator delete(m_ptr20 != 0 ? m_ptr20->scalarDeletingDestructor(0) : 0);
 	m_ptr20 = 0;
