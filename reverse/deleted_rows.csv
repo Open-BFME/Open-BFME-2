@@ -5263,3 +5263,6 @@ __ehhandler$?rva0055E6D4@TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAE
 ?writeINI@Rva0055C263@@UAEXPAVFile@@I@Z,0x0055C263,Renamed to ?writeINI@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@UBEXAAVFile@@I@Z: retail export ordinal 1940 at 0x0055C263; const File-reference signature
 __ehhandler$?writeINI@Rva0055C263@@UAEXPAVFile@@I@Z,0x0079986B,Renamed to __ehhandler$?writeINI@?$DefaultModuleTemplate@$0A@@FXParticleSystem@@UBEXAAVFile@@I@Z: handler of the parent renamed by retail export ordinal 1940
 ?rva0055B735@DefaultAlphaModuleInfo@FXParticleSystem@@QAEXPAVFile@@I@Z,0x0055B735,Duplicate over-claim of 0x0055B735 (302 B): the same body is rowed as ?writeINI@?$DefaultModuleTemplate@$00@FXParticleSystem@@UBEXAAVFile@@I@Z in Code/GameEngine/Source/GameClient/System/FXParticleSystem/AlphaModuleTemplateWriteINI.cpp; identical COMDAT digest 9cd879571e54 in link index d707d2f53b; retail export ordinal 1936 names the survivor
+??1Rva0034149B@@UAE@XZ,0x0034149B,"Renamed to ??1Rva0033F4DF@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C112C0)"
+?xfer@Rva0034149B@@MAEXPAVXfer@@@Z,0x003414F6,"Renamed to ?xfer@Rva0033F4DF@@MAEXPAVXfer@@@Z by tools/rename.py (fold: retail vftable 0x00C112C0)"
+??_GRva0034149B@@UAEPAXI@Z,0x00342E58,"Renamed to ??_GRva0033F4DF@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C112C0)"

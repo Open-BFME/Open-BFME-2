@@ -200,6 +200,13 @@ class Rva0033F4DF : public State
 {
 public:
 	Rva0033F4DF(StateMachine *machine, int unused); // ret 8, second argument unread
+	// the rowed destructor 0x0034149B (Rva0034149BDtor.cpp); declared so this
+	// unit does not emit an implicit copy
+	virtual ~Rva0033F4DF();
+
+protected:
+	// retail slot 3: the rowed ?xfer@Rva0033F4DF@@MAEXPAVXfer@@@Z 0x003414F6
+	virtual void xfer(Xfer *xfer);
 
 private:
 	int m_20; // +0x20
