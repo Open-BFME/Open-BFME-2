@@ -91,3 +91,9 @@ ctor pass. No protected owner/fold-proof/path consumer is lost. Funclet78C15D
 remains a separate pending generated-row cleanup. See parser packet move audit.
 Publication audit foref649c78a7 was INCONCLUSIVE (index38cd9fd913,
 basebe8c03bf82,3 missing current receipts); carry current/image confirmation.
+
+2026-11-06 native constructor cleanup78C15D/8 repointed from generated scaffold
+to its actual Assisted compiler label via add_match. Parent84B resolves unmasked
+and EHEXACT; cleanup8B + Update dtor relocation exact,16/16 main rows and data
+retained. Generator file untouched with201 remaining rows; no pin/ASM/alias.
+[Proof and final owner audit](../../reverse/attempt_support/assisted-ctor-cleanup-native-20261106/README.md).

@@ -350,4 +350,4 @@ const char *AssistedTargetingUpdate::GetSnapshotName() const { return "AssistedT
 // collided with select-any copies. The anchor keeps this unit's row copies;
 // it is not retail code.
 
-// tu-skeleton: 0x0078C15D 8B uw_0078c15d -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// Constructor cleanup 0x0078C15D is emitted here and verified through its parent EH graph.

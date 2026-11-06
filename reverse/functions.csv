@@ -16043,7 +16043,6 @@ uw_0078bb78,,0x0078BB78,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;obje
 uw_0078bcac,,0x0078BCAC,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L10886
 uw_0078bd23,,0x0078BD23,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L10886
 uw_0078bffa,,0x0078BFFA,11,Code/gen_small/uw_gen_009.cpp,matched,gen-funclet;object-symbol=$L3431
-uw_0078c15d,,0x0078C15D,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L10886
 uw_0078c1dd,,0x0078C1DD,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L10886
 uw_0078c2cf,,0x0078C2CF,8,Code/gen_small/uw_gen_011.cpp,matched,gen-funclet;object-symbol=$L10886
 uw_0078c551,,0x0078C551,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L4797
@@ -99528,3 +99527,4 @@ _$E1,,0x007AEBAA,13,Code/GameEngine/Source/Common/Rva0033FE65OnEnter.cpp,matched
 ?xfer@AssistedTargetingUpdate@@MAEXPAVXfer@@@Z,,0x004DF81B,27,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,matched,ICF fold; fold-proof=Code/GameEngine/Source/Common/Rva004DF81BXfer.cpp; native primary C4AF64 slot3; Version1 then UpdateModule transfer; canonical0x20 view; no instance fields
 ?GetSnapshotName@AITNGuardInnerState@@MBEPBDXZ,,0x00545D78,6,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,matched,AITNGuardInnerState vtable C6A140 slot2 returns the class-name literal C6A184
 ?loadPostProcess@AITNGuardInnerState@@MAEXXZ,,0x005CB26A,5,Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp,matched,AITNGuardInnerState vtable C6A140 slot1 tail-calls slot4 onEnter; mov eax [ecx] jmp [eax+10] byte twin of the owner;fold-proof=Code/GameEngine/Source/Common/Rva005CB26AForwarder.cpp
+$L6272,,0x0078C15D,8,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,matched,gen-funclet;parent=??0AssistedTargetingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z; native constructor cleanup at78C15D; exact EH graph and unmasked parent; full8B UpdateModule destructor forwarding verified
