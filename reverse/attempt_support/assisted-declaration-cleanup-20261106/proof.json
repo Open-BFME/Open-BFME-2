@@ -1,0 +1,127 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp",
+  "source_sha256": "bc28fc28090654e30ad6ae44ffbf84238d213c99a90731d27862c85e0df06969",
+  "object_sha256": "cb18e08a44b55577040fae312467b68a4bf58a5f7bf71d15468032f58c70e2e3",
+  "rows": [
+    {
+      "name": "?isFreeToAssist@AssistedTargetingUpdate@@QBE_NXZ",
+      "target_rva": "0x00486EFD",
+      "target_size": "56",
+      "unresolved": []
+    },
+    {
+      "name": "?getModuleNameKey@AssistedTargetingUpdate@@UBE?AW4NameKeyType@@XZ",
+      "target_rva": "0x00486E31",
+      "target_size": "69",
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "?GetSnapshotName@AssistedTargetingUpdate@@MBEPBDXZ",
+      "target_rva": "0x00486E76",
+      "target_size": "6",
+      "unresolved": []
+    },
+    {
+      "name": "?buildFieldParse@AssistedTargetingUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z",
+      "target_rva": "0x00486E7C",
+      "target_size": "17",
+      "unresolved": []
+    },
+    {
+      "name": "??0AssistedTargetingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z",
+      "target_rva": "0x00486E8D",
+      "target_size": "84",
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "?assistAttack@AssistedTargetingUpdate@@QAEXPBVObject@@PAV2@@Z",
+      "target_rva": "0x00487010",
+      "target_size": "101",
+      "unresolved": []
+    },
+    {
+      "name": "?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z",
+      "target_rva": "0x00486F35",
+      "target_size": "219",
+      "unresolved": [],
+      "eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    {
+      "name": "__ehhandler$??0AssistedTargetingUpdate@@QAE@PAVThing@@PBVModuleData@@@Z",
+      "target_rva": "0x0078C165",
+      "target_size": "10",
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$?getModuleNameKey@AssistedTargetingUpdate@@UBE?AW4NameKeyType@@XZ",
+      "target_rva": "0x0078C153",
+      "target_size": "10",
+      "unresolved": []
+    },
+    {
+      "name": "__ehhandler$?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z",
+      "target_rva": "0x0078C17C",
+      "target_size": "10",
+      "unresolved": []
+    },
+    {
+      "name": "$L306",
+      "target_rva": "0x0078C146",
+      "target_size": "13",
+      "unresolved": []
+    },
+    {
+      "name": "$L619",
+      "target_rva": "0x0078C16F",
+      "target_size": "13",
+      "unresolved": []
+    },
+    {
+      "name": "?update@AssistedTargetingUpdate@@UAE?AW4UpdateSleepTime@@XZ",
+      "target_rva": "0x004A6563",
+      "target_size": "6",
+      "unresolved": []
+    },
+    {
+      "name": "?loadPostProcess@AssistedTargetingUpdate@@MAEXXZ",
+      "target_rva": "0x00497805",
+      "target_size": "5",
+      "unresolved": []
+    },
+    {
+      "name": "?xfer@AssistedTargetingUpdate@@MAEXPAVXfer@@@Z",
+      "target_rva": "0x004DF81B",
+      "target_size": "27",
+      "unresolved": []
+    },
+    {
+      "name": "$L6272",
+      "target_rva": "0x0078C15D",
+      "target_size": "8",
+      "unresolved": []
+    }
+  ],
+  "data": [
+    true,
+    "80 B at 0x00C4AFE8 equal to retail, 9 relocation(s) on target (sizeof(::AssistedTargetingUpdateModuleDataFieldParse) under the build's flags = 80 (allocation extent 80))"
+  ],
+  "slots": {
+    "exact": 63,
+    "total": 63
+  },
+  "normal_external_definitions_properties_routes_equal_to_control": true,
+  "old_source_sha256": "93f083ec8b6a5d2e44dd619f65b2689b9b38a136512e3c690b4b0af330159041",
+  "scope": "remove unused declarations and four unrelated includes; unfold sole parser macro; no actual body or table value change",
+  "remaining_boundary": "No real image, menu, CRC or current affected-consumer closure is claimed. Feedback local guard name remains an inherited shadow inventory issue."
+}

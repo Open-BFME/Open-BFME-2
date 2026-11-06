@@ -103,3 +103,14 @@ entry. It passed on the full81-row donor, but after the approved17B split the
 hook's single-source retirement check treats residual1460 ->1443B as a loss.
 The source remains canonical and both objects link-clean. False reject recorded;
 no landed header-debt retirement claimed and no gate bypass or check edit.
+
+2026-11-06 Assisted declaration cleanup: remove the unused parser/name macros,
+four unrelated declaration-only classes and their four headers carried by the
+supported split. Control and candidate16/16; the normal object preserves all
+external bytes/relocations, provider/COMDAT properties and symbol routes. Normal
+16/16,3 EXACT EH,63 slots and80B/9relocation FieldParse pass. Bounded older-index
+preview links618 own bytes; no real-image/current-consumer clearance claimed.
+[Final proof](../../reverse/attempt_support/assisted-declaration-cleanup-20261106/README.md).
+Lifetime split and the inherited feedback guard inventory issue remain open;
+publication09c6c95a0a is confirmed, with broader census/image confirmation still
+required. Header debt is preserved as documented above.

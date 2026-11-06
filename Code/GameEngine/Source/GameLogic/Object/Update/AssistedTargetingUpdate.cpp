@@ -48,82 +48,6 @@ struct CreateMask {unsigned words[4];};
 #include "../../../../Include/Common/ThingFactory.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #define BFME_SNAPSHOT_NAME_SLOT
-#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	protected: \
-		virtual const char *GetSnapshotName() const; \
-	}; \
-	const char *NAME::GetSnapshotName() const \
-	{ \
-		return TEXT; \
-	}
-#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
-	class NAME \
-	{ \
-	public: \
-		const char *name() const; \
-	}; \
-	const char *NAME::name() const \
-	{ \
-		return TEXT; \
-	}
-#include "../../AI/WorkOrder.h"
-#include "../../AI/TeamInQueue.h"
-#include "../../../../Include/GameLogic/Module/RespawnBodyModuleData.h"
-#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
-//
-// Five single-field ModuleData::buildFieldParse procs (11 bytes each):
-// ?buildFieldParse@BeaconClientUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x004C9663 (field RadarPulseFrequency), plus PilotFindVehicle (announcement),
-// DynamicGeometryInfo (FX), BattlePlan (SoundUpgrade) and RepairDock (ModelCondition)
-// sibs, plus LifetimeUpdate (table (unsigned int)&g_00C1B0F0, factory 0x24E3A3 pushes its VA).
-// Each registers exactly one FieldParse table with
-// MultiIniFieldParse::add (pinned at 0x2BC6E). Provenance: the ZH
-// MAKE_STANDARD_MODULE_DATA_MACRO_ABC macro passes clsmd::buildFieldParse to
-// INI::initFromINIMultiProc, and each landed friend_newModuleData factory in
-// this directory pushes its class proc immediate (no pin needed there, none
-// needed here: the FieldParse address is a pushed absolute). Recipe: the
-// factory TUs (*FriendNew.cpp) name the owning class per stub.
-
-class MultiIniFieldParse;
-class INI;
-typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
-extern const FieldParse AssistedTargetingUpdateModuleDataFieldParse[5];
-#define FIELD_PROC(cls, addr, field) \
-class cls \
-{ \
-public: \
-	static void buildFieldParse(MultiIniFieldParse &parse); \
-}; \
-\
-void cls::buildFieldParse(MultiIniFieldParse &parse) \
-{ \
-	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
-}
-#define FIELD_PROC_INLINE(cls, addr, field) \
-class cls \
-{ \
-public: \
-	static void buildFieldParse(MultiIniFieldParse &parse); \
-}; \
-\
-inline void cls::buildFieldParse(MultiIniFieldParse &parse) \
-{ \
-	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
-}
-#define FIELD_PROC_WITH_DIE_BASE(cls, addr) \
-class cls \
-{ \
-public: \
-	static void buildFieldParse(MultiIniFieldParse &parse); \
-}; \
-\
-void cls::buildFieldParse(MultiIniFieldParse &parse) \
-{ \
-	parse.add(reinterpret_cast<const FieldParse *>(addr), 0); \
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8); \
-}
 #pragma inline_depth(0)
 #pragma inline_depth()
 
@@ -180,72 +104,16 @@ extern const FieldParse AssistedTargetingUpdateModuleDataFieldParse[5] = {
  { 0, 0, 0, 0 }
 };
 
-class Rva003B1017
+class AssistedTargetingUpdateModuleData
 {
 public:
-	static void parseFromINI(INI *ini, void *instance, void *store, const void *userData);
+    static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
-
-void Rva001DEE74Parse(INI *ini, void *instance, void *store, const void *userData);
-
-void parseFloodMember(INI *ini, void *instance, void *store, const void *userData);
-
-void iniParseFXListVec(INI *ini, void *instance, void *store, const void *userData);
-
-extern const int g_emptyFieldParseTable[4];
-
-int Rva004CE52EGet(void);
-
-FIELD_PROC(AssistedTargetingUpdateModuleData, AssistedTargetingUpdateModuleDataFieldParse, AssistedTargetingTable)
-
-// Chained proc: ?buildFieldParse@GiantBirdSlowDeathBehaviorModuleData@@,
-// retail 0x00461E3D, 27 bytes. Calls the rowed SlowDeath base proc above,
-// then registers the GiantBird table (unsigned int)&g_00C42D08 (FXHitGround,
-// OCLHitGround, DelayFromGroundToFinalDeath, CrashAvoidKindOfs). The base
-// call resolves to the rowed SlowDeath proc in this same TU; factory
-// 0x24B5D1 pushes this proc VA.
-class GiantBirdSlowDeathBehaviorModuleData
+void AssistedTargetingUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-// Chained proc: ?buildFieldParse@ClearanceTestingSlowDeathBehaviorModuleData@@,
-// retail 0x00483C1A, 27 bytes. Calls the rowed SlowDeath base proc above,
-// then registers the Clearance table (unsigned int)&g_00C49CB0 (ClearanceGeometry at +0x190
-// plus ClearanceGeometryOffset at +0x1EC plus ClearanceMaxHeight at +0x1F8).
-// The base call resolves to the rowed SlowDeath proc in this same TU; factory
-// 0x24C545 pushes this proc VA; the rowed ClearanceTestingSlowDeathBehavior
-// pool key at 0x483CF4 names the class.
-class ClearanceTestingSlowDeathBehaviorModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-// Chained proc: ?buildFieldParse@StructureBodyModuleData@@,
-// retail 0x002514AF, 27 bytes. Calls the ActiveBodyModuleData base proc
-// above (0x4BFDF6, in this same TU), then registers the Structure table
-// 0x00C6BB18. Factory pushes this proc VA; ModuleFactory registers it
-// under "StructureBody". Row supersedes the pin.
-class StructureBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
-
-// Chained proc: ?buildFieldParse@SymbioticStructuresBodyModuleData@@,
-// retail 0x00251505, 27 bytes. Calls the ActiveBodyModuleData base proc
-// above (0x4BFDF6, in this same TU), then registers the SymbioticStructures
-// table (unsigned int)&g_00BEFCD4. Factory pushes this proc VA; ModuleFactory registers it
-// under "SymbioticStructuresBody". Row supersedes the pin.
-class SymbioticStructuresBodyModuleData
-{
-public:
-	static void buildFieldParse(MultiIniFieldParse &parse);
-};
+    parse.add(reinterpret_cast<const FieldParse *>(AssistedTargetingUpdateModuleDataFieldParse), 0);
+}
 
 // tu-skeleton: 0x00486E18 25B ??1AssistedTargetingUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
