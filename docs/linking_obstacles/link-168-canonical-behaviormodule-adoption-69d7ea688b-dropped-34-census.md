@@ -407,3 +407,17 @@ claimed. [Proof and remaining prerequisites](../../reverse/attempt_support/assis
 - Remaining prerequisite: reconcile the canonical DieModule base order and destructor with retail's store
   order and give ~BehaviorModule its row. Then FXListDie, CreateObjectDie and SpecialPowerCompletionDie can
   move onto the canonical header. Reverted; nothing landed.
+
+2026-11-06 ~DieModule shape (retail 0x0045CE54, 25 B), Burachi-3D, read from target bytes:
+- Retail order: [+0x10] = C1C780 (DieModuleInterface's own table), [+0] = BEEA7C, [+0xC] = BEE9C0
+  (BehaviorModule's tables), then jmp 0x0049B47C.
+- 0x0049B47C is the 7-byte `mov [ecx],0x00BBB554; ret` base destructor that many classes fold onto
+  (Snapshot's table).
+- So DieModule's own vptr stores are dead and elided, and ~DieModuleInterface, ~BehaviorModule and
+  ~ObjectModule are all inline in retail. Only the Snapshot-level destructor is called.
+- The canonical BehaviorModule/ObjectModule headers declare those destructors out of line. That yields
+  +0/+0xC/+0x10 stores and a call to ??1BehaviorModule.
+- Prerequisite for FXListDie, CreateObjectDie and SpecialPowerCompletionDie: make those base destructors
+  inline in the canonical headers and gate their consumers (shared-header change, full gate). The
+  SpecialPowerCompletionDie trial confirmed that dropping its unrowed crc leaves its ZH vtable naming
+  ?crc@SpecialPowerCompletionDie.
