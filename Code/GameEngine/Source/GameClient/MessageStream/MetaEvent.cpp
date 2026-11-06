@@ -254,6 +254,7 @@ public:
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 
 #include "../../../Include/Common/INI/FieldParse.h"
+#include "../../../Include/GameClient/Drawable.h"
 
 class MetaMap;
 
