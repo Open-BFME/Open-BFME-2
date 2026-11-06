@@ -5458,3 +5458,4 @@ _$E1,0x007AEBAA,Retracted for readmission as _$E3 in Rva0033FE65OnEnter.cpp: the
 ?getDisabledTypesToProcess@Rva004DF8C2@@UBE?AV?$BitFlags@$0L@@@XZ,0x004DF8C2,"Renamed to ?getDisabledTypesToProcess@ObjectWeaponStatusHelper@@UBE?AV?$BitFlags@$0L@@@XZ by tools/rename.py (to-class: retail vftable 0x00BFBE3C slot 1)"
 ??1Rva004DF7C2@@UAE@XZ,0x004DF7C2,"Renamed to ??1ObjectHelper@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00BFBCF0)"
 ??_GRva004DF7C2@@UAEPAXI@Z,0x0028C939,"Renamed to ??_GObjectHelper@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00BFBCF0)"
+?name@Rva0028CA92Named@@QBEPBDXZ,0x0028CA92,"Renamed to ?GetSnapshotName@ObjectRecoveryHelper@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00BFBD98 slot 2)"

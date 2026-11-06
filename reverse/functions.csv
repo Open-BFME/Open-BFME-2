@@ -10073,7 +10073,7 @@ _read_word,,0x0074A700,184,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,stri
 ?set@Rva003140E4DwordSlot@@QAEXH@Z,,0x003140E4,13,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,Disp32 dword setter
 ?rva006C4E50@@YAXXZ,,0x006C4E50,61,Code/Libraries/Source/WWVegas/WWDebug/Rva006C4CD0InitDbghelp.cpp,matched,
 ?name@Rva0026E7E4Named@@QBEPBDXZ,,0x0026E7E4,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning LuaSpyData; vtable ref in .rdata; address-derived placeholder name
-?name@Rva0028CA92Named@@QBEPBDXZ,,0x0028CA92,6,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,literal name getter returning ObjectRecoveryHelper; vtable ref in .rdata; address-derived placeholder name
+?GetSnapshotName@ObjectRecoveryHelper@@MBEPBDXZ,,0x0028CA92,6,Code/GameEngine/Source/GameLogic/Object/Object.cpp,matched,literal name getter returning ObjectRecoveryHelper; vtable ref in .rdata; address-derived placeholder name
 ?name@AIUpdateInterface@@QBEPBDXZ,,0x0026E982,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning AIUpdateInterface; vtable ref in .rdata; address-derived placeholder name
 ?name@Upgrade@@QBEPBDXZ,,0x0026EDF9,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning Upgrade; vtable ref in .rdata; address-derived placeholder name
 ?name@GhostObject@@QBEPBDXZ,,0x00305B30,6,Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp,matched,literal name getter returning GhostObject; vtable ref in .rdata; address-derived placeholder name
