@@ -13,16 +13,10 @@ namespace AptUtils {
 const char *__cdecl SkipLevelN(const char *);
 int __cdecl LevelIndexFromTarget(const char *);
 }
-class Rva000AD6F4 {
-public:
- Rva000AD6F4(): m_ptr(0) {}
- ~Rva000AD6F4();
- void clear();
- // WB13C8B90 reads the slot's owning frame. Keep this pure access visible:
- // the native new-expression evaluates it as the constructor argument.
- void *get() const { return m_ptr; }
- void *m_ptr;
-};
+// WB13C8B90 reads the slot's owning frame through the holder's pointer:
+// the native new-expression evaluates it as the constructor argument.
+#include "../../../../../Include/Common/Rva000AD6F4.h"
+__forceinline void *heldFrame(const Rva000AD6F4 &holder) { return holder.m_ptr; }
 class Rva00528309 { public: void reset(); };
 class Object;
 #include "../../../../../Include/Common/Rva00575674.h"
@@ -262,7 +256,7 @@ bool AptInGameSideCommandBar::Impl::UpdateButtonVisiblity(Object *)
   SideBarSlot &slot = m_buttons[slotNum];
   if (slotNum >= m_count) {
    Rva00525338Fire(g_bfmeAptWindowManager, (void *)m_level, m_prefixString.str(), "SetButtonState", &slotNum, (void *)"_show");
-   Rva005C3549 *updater = new Rva005C3549(slot.m_button.get(), window, (void *)m_displayedObject);
+   Rva005C3549 *updater = new Rva005C3549(heldFrame(slot.m_button), window, (void *)m_displayedObject);
    ((Rva002BED91 *)&slot.m_updater)->set((TargetRef00217D4C *)updater);
    slot.m_key = i;
    m_count = slotNum + 1;

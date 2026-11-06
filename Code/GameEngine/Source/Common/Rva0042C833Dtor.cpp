@@ -17,17 +17,7 @@ public:
 	void rva002B230F(int impl);
 };
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-	__forceinline int getPointer() const { return m_ptr; }
-
-private:
-	int m_ptr;
-};
+#include "../../Include/Common/Rva000AD6F4.h"
 
 class Rva0042C833Base
 {
@@ -94,7 +84,7 @@ public:
 // and this TU's destructor establish the receiver. Original names unknown.
 int Rva0042C833::rva0042C879(GameMessage *message)
 {
-    Rva005E6817Mid *callback = reinterpret_cast<Rva005E6817Mid *>(m_14.getPointer());
+    Rva005E6817Mid *callback = reinterpret_cast<Rva005E6817Mid *>(m_14.m_ptr);
     if (callback) {
         int result=callback->fwd(message);
         if (result==1) return result;
