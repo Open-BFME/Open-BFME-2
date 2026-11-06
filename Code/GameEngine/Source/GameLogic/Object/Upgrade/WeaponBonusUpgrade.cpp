@@ -20,36 +20,12 @@ struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
 
 #define BFME_SNAPSHOT_NAME_SLOT
-#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+#include "../../../../Include/GameLogic/Module/WeaponBonusUpgrade.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
-
-// The canonical UpgradeModule (BehaviorModule at +0, its interface at +0x0C,
-// UpgradeMux at +0x10, the three-slot +0x18 interface). Retail 0x00C57F68 (the
-// primary): deleting dtor 0x004B5664, loadPostProcess 0x00497805 (`jmp
-// 0x0058B03E`, UpgradeModule's own body), the name getter 0x004B55E8, xfer
-// 0x004B8710 (Version1 then UpgradeModule::xfer, a body retail folds with
-// ArmorUpgrade's), getModuleNameKey 0x004B55EE, then UpgradeModule's slots.
-// 0x00C57F20 (UpgradeMux, +0x10) is UpgradeModule's except slot 8,
-// upgradeRemovalImplementation (0x000B3FD0, the shared empty body), and slot
-// 10, upgradeImplementation (0x004B5680); +0x0C and +0x18 are UpgradeModule's.
-class WeaponBonusUpgrade : public UpgradeModule
-{
-public:
-	WeaponBonusUpgrade(Thing *thing, const ModuleData *moduleData);
-	virtual ~WeaponBonusUpgrade();
-
-	virtual NameKeyType getModuleNameKey() const;
-
-protected:
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *xfer);
-	virtual void upgradeImplementation();
-	virtual void upgradeRemovalImplementation() { }
-};
 
 // ---- from Code/GameEngine/Source/Common/System/WeaponBonusUpgradePoolKey.cpp
 
@@ -79,7 +55,7 @@ NameKeyType WeaponBonusUpgrade::getModuleNameKey() const
 // (0x460AEC, thing plus data): stores the class's four vftables (0x00C57F68 at
 // +0, UpgradeModule's 0x00C57328 at +0x0C, 0x00C57F20 at +0x10 and
 // UpgradeModule's 0x00C58790 at +0x18); the compiler stores them over the
-// canonical view above. The pool-key proc at 0x4B55EE
+// class's declaration in WeaponBonusUpgrade.h. The pool-key proc at 0x4B55EE
 // (nameToKey("WeaponBonusUpgrade")) ends exactly where this ctor begins, and the
 // rowed instance factory 0x2501E2 (registered under "WeaponBonusUpgrade") is the
 // sole raw caller. Row supersedes the ctor pin.
