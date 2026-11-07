@@ -47,6 +47,7 @@ Usage:
                                            (default build/class_gate_shadow), nothing staged
 """
 import argparse
+import collections
 import re
 import subprocess
 import sys
@@ -376,11 +377,37 @@ def fallback_keys(text, canon):
     return {key for key in canon if key.split("::")[-1] in names}
 
 
+def head_identities(text, canon):
+    """{(key, args)} from every class head in `text`, read without scope proof, for comparing a
+    unit the reader refuses: a key's head with new or different arguments still shows. A head whose
+    argument list cannot be read is ("?"), which matches nothing, so it is reported, not hidden."""
+    code = class_layouts._masked(text)
+    by_last = {}
+    for key in canon:
+        by_last.setdefault(key.split("::")[-1], set()).add(key)
+    found = set()
+    for match in class_layouts.CLASS_KEY.finditer(code):
+        try:
+            head = class_layouts._class_head(code, match)
+        except class_layouts.Ambiguous:
+            name = re.match(r"\s*(\w+)", code[match.end():])
+            head = (name.group(1), "?", None) if name else None
+        if not head or head[0] is None:
+            continue
+        name, args = head[0].split("::")[-1].split("<")[0], head[1]
+        for key in by_last.get(name, ()):
+            found.add((key, args))
+    for key in fallback_keys(text, canon):
+        if not any(k == key for k, _a in found):
+            found.add((key, None))
+    return found
+
+
 def identities(text, canon):
-    """({(key, args)}, ambiguous) for a text; args is None in the ambiguous fallback."""
+    """({(key, args)}, ambiguous) for a text; an unreadable text gives its head identities."""
     bodies = identity_bodies(text, canon)
     if bodies is None:
-        return {(key, None) for key in fallback_keys(text, canon)}, True
+        return head_identities(text, canon), True
     return set(bodies), False
 
 
@@ -425,21 +452,43 @@ def introduced_identities(path, text, canon, renamed_from=None, moved=None):
             had_ambiguous |= unreadable
     allowed = set(ALLOW_KEY.findall(text))
     if ambiguous or had_ambiguous:
-        fresh = {(key, None) for key, _args in now} - {(key, None) for key, _args in had}
-        why = "an unreadable unit, compared by key"
+        # Both sides by their heads, so a new or different specialization still shows.
+        now_heads = now if ambiguous else head_identities(text, canon)
+        had_heads = set()
+        for spec in [f"{parent}:{path}" for parent in ("HEAD", "MERGE_HEAD")] + (
+                [f"HEAD:{renamed_from}"] if renamed_from else []):
+            before = git_text(spec)
+            if before:
+                had_heads |= head_identities(before, canon)
+        fresh = now_heads - had_heads
+        why = "an unreadable unit, compared by heads"
     else:
         fresh = now - had
         why = "a new body"
     fresh = {item for item in fresh if item[0] not in allowed and item[0].split("::")[-1] not in allowed}
     if moved and not ambiguous:
+        # A body a staged deletion carried verbatim is moved, not introduced, whichever unit it came
+        # from: the credit checks identity, scope and body, not TU-merge provenance, which is safe
+        # because each deleted copy credits at most one staged copy, so the count cannot grow.
         bodies = identity_bodies(text, canon)
         for key, args in sorted(fresh, key=str):
             items = bodies.get((key, args), [])
-            if items and all(body is not None and moved.get((key, args, scope, body)) for scope, body in items):
-                for scope, body in items:
-                    moved[(key, args, scope, body)].pop()
+            need = collections.Counter((key, args, scope, body) for scope, body in items)
+            if items and all(body is not None for _scope, body in items) and \
+                    all(len(moved.get(item, ())) >= count for item, count in need.items()):
+                for item, count in need.items():
+                    del moved[item][:count]
                 fresh.discard((key, args))
     return [(key, args, why) for key, args in sorted(fresh, key=str)]
+
+
+def identity_failure(where, error, mode):
+    """Report a failure of the identity check: shadow reports and passes, enforce refuses."""
+    tag = "refused" if mode == "enforce" else "shadow"
+    print(f"class_gate [{tag}] identity check failed on {where}: {type(error).__name__}: {error}", file=sys.stderr)
+    if mode != "enforce":
+        shadow_log({"path": where, "key": None, "args": None, "why": f"check failed: {type(error).__name__}"})
+    return 1 if mode == "enforce" else 0
 
 
 def label(key, args):
@@ -550,9 +599,13 @@ def main(argv=None):
     if args.staged:
         renames = staged_renames()
         moved = staged_deletions(renames)
-        identity_moved = staged_identity_deletions(renames, canon)
         checks = [(p, git_text(f":{p}"), renames.get(p)) for p in staged_sources()]
         mode = gate_mode(git_text(f":{MODE_FILE}"))
+        try:
+            identity_moved = staged_identity_deletions(renames, canon)
+        except Exception as error:  # noqa: BLE001 - the identity check must not break the gate
+            identity_moved = {}
+            bad |= identity_failure("move credit", error, mode)
         if gate_mode(git_text(f"HEAD:{MODE_FILE}")) == "enforce" and mode != "enforce":
             print(f"  {MODE_FILE}: the identity check never returns from enforce to shadow", file=sys.stderr)
             bad = 1
@@ -572,7 +625,12 @@ def main(argv=None):
             print(f"  {path}: declares its own `{name}`; include {canon[name]} instead "
                   f"(or `// class-gate: allow {name} <reason>` for a proved codegen view)", file=sys.stderr)
             bad = 1
-        for key, args, why in introduced_identities(path, text, canon, renamed_from, identity_moved):
+        try:
+            found = introduced_identities(path, text, canon, renamed_from, identity_moved)
+        except Exception as error:  # noqa: BLE001 - the identity check must not break the gate
+            found = []
+            bad |= identity_failure(path, error, mode)
+        for key, args, why in found:
             if key in refused:
                 continue                     # the name check above already refuses this class here
             if mode == "enforce":
