@@ -27,10 +27,10 @@ static __declspec(noinline) bool equalTag_Rva003B31C7(const void *record, const 
  return memcmp(record,tag,4)==0;
 }
 extern unsigned int g_Va00E02D64;
-extern unsigned int g_Va00E02D68;
+extern AsciiString g_Va00E02D68;
 extern const char *g_Va00DD263CNames[8];
 inline const unsigned int &ScriptAllPlayersMask() { return g_Va00E02D64; }
-inline const AsciiString &ScriptAllPlayersName() { return *(const AsciiString *)&g_Va00E02D68; }
+inline const AsciiString &ScriptAllPlayersName() { return g_Va00E02D68; }
 // ?WriteScriptPlayerMask_Rva003B372D@@YAXAAVDataChunkOutput@@PBI@Z
 static __declspec(noinline) void WriteScriptPlayerMask_Rva003B372D(DataChunkOutput &writer, const unsigned int *mask) {
  if(equalTag_Rva003B31C7(mask,&ScriptAllPlayersMask(),0)) {
@@ -221,6 +221,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
+#include "../../../Include/GameClient/Drawable.h"
 struct ScriptListXferRecord
 {
     int previous, next;
@@ -284,3 +285,11 @@ void ScriptList::xfer(Xfer *xfer)
         }
     }
 }
+
+// The all-players name. Retail builds it last in the Scripts.cpp TU's .text$yc run
+// (0x007AF7FE, after the unit's Drawable.h copy 0x007AF7DD and the all-players mask
+// 0x007AF7ED, before the pool-init marker 0x007AF819) through the out-of-line
+// AsciiString(const char *) 0x0000654A. Address name kept; the original name is unknown.
+#pragma inline_depth( 0 )
+AsciiString g_Va00E02D68("ALL");
+#pragma inline_depth()

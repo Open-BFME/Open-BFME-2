@@ -335,7 +335,6 @@ address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits_Rva007ACC20.cp
 address_global	Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp	g_Va00DEC3B8	2
 address_global	Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp	g_Va00DFF030	2
 address_global	Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp	g_Va00E022E8	2
-address_global	Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp	g_Va00E02D68	2
 address_global	Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp	g_Va00E02E70	2
 address_global	Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp	g_Va00E02E74	2
 address_global	Code/GameEngine/Source/Common/Rva007AB8D0StringInits.cpp	g_Va00DDEEE4	2
@@ -562,7 +561,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00D
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF0C4	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF168	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E022E8	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E02D68	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E02D90	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E02D94	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E02E70	2
@@ -950,7 +948,7 @@ address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cp
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp	g_Va00E02D64	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00DD263CNames	2
 address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00E02D64	2
-address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00E02D68	2
+address_global	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	g_Va00E02D68	3
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp	g_Va00E06444	1
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp	g_Va00E06448	1
 address_global	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase_DoXfer.cpp	g_Va00E06448	2

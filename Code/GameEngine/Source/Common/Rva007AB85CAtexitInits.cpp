@@ -28,7 +28,6 @@ void __cdecl rva007B770E();
 void __cdecl rva007B796E();
 void __cdecl rva007B7979();
 void __cdecl rva007B7DB3();
-void __cdecl rva007B80A1();
 void __cdecl rva007B8119();
 void __cdecl rva007B8123();
 void __cdecl rva007B9B40();
@@ -38,7 +37,6 @@ unsigned BfmeLiveCameraModeNameStorage;
 unsigned g_Va00DEC3B8;	// retail RVA 0x009EC3B8 (.bss), defined here
 unsigned g_Va00DFF030;
 unsigned g_Va00E022E8;
-unsigned g_Va00E02D68;
 unsigned g_Va00E02E70;
 unsigned g_Va00E02E74;
 
@@ -59,7 +57,6 @@ struct Rva007AB85CAtexitInits
 	static void rva007AE390();
 	static void rva007AE3AC();
 	static void rva007AF0F1();
-	static void rva007AF7FE();
 	static void rva007AF934();
 	static void rva007AF94F();
 	static void rva007B55D0();
@@ -148,15 +145,6 @@ void Rva007AB85CAtexitInits::rva007AF0F1()
 {
 	( (AsciiString *)&g_Va00E022E8 )->AsciiString::AsciiString( "GuiFX.apt" );
 	atexit( rva007B7DB3 );
-}
-#pragma inline_depth()
-
-#pragma inline_depth( 0 )
-// ?rva007AF7FE@Rva007AB85CAtexitInits@@SAXXZ @ 0x007AF7FE (27B): AsciiString at VA 0x00E02D68 = literal at VA 0x00C0E900, then atexit(0x007B80A1)
-void Rva007AB85CAtexitInits::rva007AF7FE()
-{
-	( (AsciiString *)&g_Va00E02D68 )->AsciiString::AsciiString( "ALL" );
-	atexit( rva007B80A1 );
 }
 #pragma inline_depth()
 
