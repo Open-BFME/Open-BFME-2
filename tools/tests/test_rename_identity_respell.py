@@ -41,6 +41,10 @@ NEW_WRAP = "??4?$set@UBfmeStringRecord002CF550@@@@QAEAAV0@ABV0@@Z"
 CLEAR_NAME = "?clear@?$_Rb_tree@UBfmeStringRecord002CF550@@U1@@@QAEXXZ"
 COPY_NAME = "?_M_copy@?$_Rb_tree@UBfmeStringRecord002CF550@@U1@@@AAEPAXPAX0@Z"
 PLAIN = "?helper@@YAXXZ"
+OLD_SCOPE = "?$_Rb_tree@URva002D07F4Element@@U?$pair@HH@@@@"
+OLD_CLEAR = f"?clear@{OLD_SCOPE}QAEXXZ"
+OLD_COPY = f"?_M_copy@{OLD_SCOPE}AAEPAXPAX0@Z"
+PINS = f"name,address,notes\n{OLD_CLEAR},0x002572AE,sweep\n{OLD_COPY},0x002D0326,sweep\n"
 OWNER = "Code/Lib/StlSweepW5Rva002D07F4.cpp"
 TU = "Code/Thing/ThingFactory.cpp"
 CALLER = "Code/Thing/ThingTemplateAssignment.cpp"
@@ -98,7 +102,7 @@ def tree(tmp_path):
     return tmp_path
 
 
-MAP_STATE = {"stale": [], "error": None}
+MAP_STATE = {"stale": [], "error": None, "rows": None}
 
 
 @pytest.fixture(autouse=True)
@@ -106,11 +110,13 @@ def fresh_map(monkeypatch):
     """tu_map.current_rows over the fixture's map: fresh unless a test says otherwise."""
     import csv
     import tu_map
-    MAP_STATE.update(stale=[], error=None)
+    MAP_STATE.update(stale=[], error=None, rows=None)
 
     def current_rows(layout):
         if MAP_STATE["error"]:
             raise tu_map.NoZhTree(MAP_STATE["error"])
+        if MAP_STATE["rows"] is not None:
+            return list(MAP_STATE["rows"]), list(MAP_STATE["stale"])
         with open(layout.root / "reverse/tu_map.csv", newline="") as handle:
             return list(csv.DictReader(handle)), list(MAP_STATE["stale"])
     monkeypatch.setattr(tu_map, "current_rows", current_rows)
@@ -126,8 +132,8 @@ def ref(row, rva, target, cls, symbol="x", source=OWNER):
     return dict(source=source, row=row, rva=rva, symbol=symbol, target=target, cls=cls)
 
 
-BEFORE = [ref(OLD_OP, OP, CLEAR, "wrong", "?clear@?$_Rb_tree@URva002D07F4Element@@"),
-          ref(OLD_OP, OP, COPY, "wrong", "?_M_copy@?$_Rb_tree@URva002D07F4Element@@"),
+BEFORE = [ref(OLD_OP, OP, CLEAR, "wrong", OLD_CLEAR),
+          ref(OLD_OP, OP, COPY, "wrong", OLD_COPY),
           ref(OLD_WRAP, WRAP, OP, "owner", OLD_OP),
           ref("??4ThingTemplate@@QAEAAV0@ABV0@@Z", 0x002D1101, OP, "owner", OLD_OP, CALLER)]
 AFTER = [ref(NEW_OP, OP, CLEAR, "owner", CLEAR_NAME, TU),
@@ -412,13 +418,13 @@ def test_refused_when_a_respelled_row_binds_nothing_directly(tree):
     assert "binds no retail row directly" in str(error.value)
 
 
-def test_refused_when_a_callee_carries_a_pin(tree):
-    """Finding 2: a pinned callee binds by the pin, not by its row."""
+def test_refused_when_a_callee_carries_an_unrelated_pin(tree):
+    """Finding 2: a pinned callee binds by the pin, not by its row; a pin on an unrelated name refuses."""
     recommit(tree, "reverse/symbols.csv", "name,address,notes\n?clearPin@@YAXXZ,0x002572AE,pin\n")
     ctx, _ = context(tree, BEFORE)
     with pytest.raises(Refusal) as error:
         plan(ctx)
-    assert "carries pin ?clearPin@@YAXXZ" in str(error.value)
+    assert "carries pin ?clearPin@@YAXXZ" in str(error.value) and "proves nothing" in str(error.value)
 
 
 def test_a_free_function_taking_a_template_is_hand_written():
@@ -439,13 +445,22 @@ def test_refused_for_a_free_function_taking_a_template(tree):
     assert "hand-written name" in str(error.value)
 
 
-def test_move_refused_on_a_stale_map(tree):
-    """Finding 4: the committed map is read only when it is fresh."""
+def test_move_plans_by_the_rebuilt_map_when_the_committed_one_is_stale(tree):
+    """Finding 4: a stale map is rebuilt in memory from current inputs, as tu_skeleton reads it."""
     MAP_STATE["stale"] = ["functions.csv"]
+    ctx, _ = context(tree, BEFORE)
+    assert plan(ctx).removed == [OWNER]
+
+
+def test_move_refused_when_the_rebuilt_map_does_not_approve(tree):
+    """Finding 4: the committed map approves, the rebuild from current inputs does not."""
+    MAP_STATE["stale"] = ["functions.csv"]
+    MAP_STATE["rows"] = [dict(rva="0x002D07F4", tu=TU, confidence="approved"),
+                         dict(rva="0x002D0B36", tu=TU, confidence="hinted")]
     ctx, _ = context(tree, BEFORE)
     with pytest.raises(Refusal) as error:
         plan(ctx)
-    assert "stale against its inputs (functions.csv)" in str(error.value)
+    assert "0x002D0B36 is not approved for" in str(error.value) and "rebuilt in memory" in str(error.value)
 
 
 def test_move_refused_when_the_map_cannot_be_checked(tree):
@@ -453,7 +468,7 @@ def test_move_refused_when_the_map_cannot_be_checked(tree):
     ctx, _ = context(tree, BEFORE)
     with pytest.raises(Refusal) as error:
         plan(ctx)
-    assert "cannot read a fresh" in str(error.value)
+    assert "cannot rebuild reverse/tu_map.csv from current inputs: no ZH tree" in str(error.value)
 
 
 def test_a_touched_rows_wrong_binding_of_another_symbol_is_new(tree):
@@ -490,3 +505,110 @@ def test_evidence_names_the_class_proof(tree):
     ctx, _ = context(tree, BEFORE)
     got = plan(ctx)
     assert "(wrong before: 0x002572AE, 0x002D0326; class of 0x002572AE, 0x002D0326)" in got.evidence
+
+
+
+# ------------------------------------------- old-type callee pins (P29's pins)
+
+def test_the_old_type_callee_pins_are_retired(tree):
+    recommit(tree, "reverse/symbols.csv", PINS)
+    ctx, _ = context(tree, BEFORE)
+    got = plan(ctx)
+    assert sorted(got.dropped_pins) == sorted([(OLD_CLEAR, CLEAR_NAME, "0x002572AE"),
+                                               (OLD_COPY, COPY_NAME, "0x002D0326")])
+    assert got.after["reverse/symbols.csv"].decode() == "name,address,notes\n"
+    assert "retires the old-type pin(s) at 0x002572AE, 0x002D0326" in got.evidence
+    assert CLEAR in got.claims and COPY in got.claims
+
+
+def test_apply_retires_the_pins_when_the_row_binds_the_real_rows(tree):
+    recommit(tree, "reverse/symbols.csv", PINS)
+    ctx, state = context(tree, BEFORE)
+    got = plan(ctx)
+
+    def verify(c, sources):
+        state["refs"] = AFTER
+        return True
+    rename.apply_rename(got, ctx=ctx, verify=verify, checks=None)
+    assert OLD_CLEAR not in (tree / "reverse/symbols.csv").read_text()
+
+
+def test_refused_when_the_row_still_binds_the_pin_name_after_the_build(tree):
+    recommit(tree, "reverse/symbols.csv", PINS)
+    ctx, state = context(tree, BEFORE)
+    got = plan(ctx)
+    via_pin = [dict(r, symbol=OLD_CLEAR) if r["row"] == NEW_OP and r["target"] == CLEAR else r for r in AFTER]
+
+    def verify(c, sources):
+        state["refs"] = via_pin
+        return True
+    with pytest.raises(VerifyFailed) as error:
+        rename.apply_rename(got, ctx=ctx, verify=verify, checks=None)
+    assert "still binds the retired pin" in str(error.value)
+    assert OLD_CLEAR in (tree / "reverse/symbols.csv").read_text()      # restored
+
+
+def test_refused_for_an_old_type_pin_of_another_member(tree):
+    """The pin must spell the callee itself (its identifier) under the old class."""
+    other = f"?_M_erase@{OLD_SCOPE}AAEXPAX@Z"
+    recommit(tree, "reverse/symbols.csv", f"name,address,notes\n{other},0x002572AE,sweep\n")
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert f"carries pin {other}" in str(error.value)
+
+
+def test_refused_for_an_old_type_pin_the_row_does_not_bind(tree):
+    recommit(tree, "reverse/symbols.csv", PINS)
+    before = [dict(r, symbol="?clear@other@@QAEXXZ") if r["target"] == CLEAR else r for r in BEFORE]
+    ctx, _ = context(tree, before)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert f"carries pin {OLD_CLEAR}" in str(error.value)
+
+
+def test_refused_for_a_pin_naming_a_second_address(tree):
+    recommit(tree, "reverse/symbols.csv", PINS + f"{OLD_CLEAR},0x00700000,elsewhere\n")
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert f"carries pin {OLD_CLEAR}" in str(error.value)
+
+
+def test_refused_for_an_old_type_pin_at_a_callee_the_class_proof_does_not_cover(tree):
+    """A callee rowed as a free function proves no class; its old-type pin is not retired."""
+    loose = f"?swap@{OLD_SCOPE}QAEXAAV1@@Z"
+    recommit(tree, "reverse/functions.csv", FUNCTIONS + f"?swap@@YAXXZ,,0x00600000,8,Code/Lib/Plain.cpp,matched,x\n")
+    recommit(tree, "reverse/symbols.csv", PINS + f"{loose},0x00600000,sweep\n")
+    ctx, _ = context(tree, BEFORE + [ref(OLD_OP, OP, 0x00600000, "wrong", loose)])
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert f"calls 0x00600000, which carries pin {loose}" in str(error.value)
+
+
+def test_refused_when_an_untouched_unit_binds_a_retired_pin(tree):
+    recommit(tree, "reverse/symbols.csv", PINS)
+    recommit(tree, "Code/Lib/Other.cpp", "struct Rva002D07F4Element; void o() {}\n")
+    recommit(tree, "reverse/functions.csv", FUNCTIONS + "?o@@YAXXZ,,0x00650000,8,Code/Lib/Other.cpp,matched,x\n")
+    user = ref("?o@@YAXXZ", 0x00650000, CLEAR, "owner", OLD_CLEAR, "Code/Lib/Other.cpp")
+    ctx, _ = context(tree, BEFORE + [user])
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert "?o@@YAXXZ in Code/Lib/Other.cpp binds pin" in str(error.value)
+
+
+def test_refused_when_an_untouched_unit_with_rows_has_no_object(tree):
+    recommit(tree, "reverse/symbols.csv", PINS)
+    recommit(tree, "Code/Lib/Other.cpp", "struct Rva002D07F4Element; void o() {}\n")
+    recommit(tree, "reverse/functions.csv", FUNCTIONS + "?o@@YAXXZ,,0x00650000,8,Code/Lib/Other.cpp,matched,x\n")
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert "Code/Lib/Other.cpp spells the old type" in str(error.value)
+
+
+def test_a_header_spelling_the_old_type_is_not_a_consumer(tree):
+    recommit(tree, "reverse/symbols.csv", PINS)
+    recommit(tree, "Code/Lib/Other.h", "struct Rva002D07F4Element;\n")
+    ctx, _ = context(tree, BEFORE)
+    assert len(plan(ctx).dropped_pins) == 2

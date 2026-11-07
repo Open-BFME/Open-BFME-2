@@ -3429,16 +3429,6 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
     if not any(e["wrong"] for e in entries):
         raise Refusal("the code-identity check reports no wrong binding for any row of this plan")
 
-    # a pinned callee's binding says nothing about the caller's types
-    pinned = {}
-    for p in ctx.pins():
-        pinned.setdefault(_rva(p.get("address")), p.get("name", ""))
-    for e in entries:
-        held = [t for t in e["bound"] if t in pinned]
-        if held:
-            raise Refusal(f"{e['old']} calls 0x{held[0]:08X}, which carries pin {pinned[held[0]]}: a pinned "
-                          "callee proves nothing for an identity respell")
-
     # the class: each respelled row's new class is spelled exactly as a retail callee's
     # thiscall member's, or (a --also wrapper) takes a proved row's class or key as a
     # template argument and calls that row
@@ -3480,26 +3470,74 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
                           "a respelled row it calls as a template argument: a wrapper is proved only through "
                           "the row it wraps")
 
+    # Callee pins. A pinned callee's binding says nothing about the caller's types, so a
+    # pin refuses, except the one the respell makes obsolete: the callee spelled under the
+    # respelled row's OLD class (the symbol that row's object binds there), at a callee the
+    # class proof covers, whose real row has the new class. It is retired: the plan drops it
+    # and, after the build, the row must bind that real row directly with the pin gone.
+    pins_at = collections.defaultdict(list)
+    for p in ctx.pins():
+        pins_at[_rva(p.get("address"))].append(p.get("name", ""))
+    pin_count = collections.Counter(p.get("name", "") for p in ctx.pins())
+    row_names = {r["name"] for r in rows}
+    matched = {r["name"] for r in rows if r.get("status") == "matched"}
+    retire = {}
+    for e in entries:
+        old_cls = identity_class(e["old"])
+        for t in e["bound"]:
+            for name in pins_at.get(t, ()):
+                callee = min(named[t]) if len(named.get(t, ())) == 1 else None
+                bound = {r["symbol"] for r in before if r["row"] == e["old"] and r["rva"] == e["rva"]
+                         and r["target"] == t}
+                pin_cls = identity_class(name)
+                if not (t in e["class_of"] and callee in matched and old_cls and pin_cls
+                        and pin_cls[0] == old_cls[0] and identity_head(name) == identity_head(callee)
+                        and name in bound and pin_count[name] == 1 and name not in row_names):
+                    raise Refusal(f"{e['old']} calls 0x{t:08X}, which carries pin {name}: only a pin spelling "
+                                  "that callee under the respelled row's old class, which the row binds and the "
+                                  "class proof covers, is retired; any other pinned callee proves nothing")
+                retire[(name, t)] = callee
+    if retire:
+        # a unit the plan does not rebuild must not bind a retired pin
+        words = sorted({w for name, _t in retire for w in placeholder_types(name)})
+        consumers = set()
+        for word in words:
+            consumers |= set(ctx.grep_files(word, roots=("Code",)))
+        consumers -= owner_sources | set(prepared)
+        names = {name for name, _t in retire}
+        consumers &= {r["source"] for r in rows}
+        scanned = identity_refs(ctx, consumers) if consumers else []
+        unread = sorted(consumers - {r["source"] for r in scanned})
+        if unread:
+            raise Refusal(f"{unread[0]} spells the old type of a pin this respell would retire, and the code-identity "
+                          "check reads no object of it (./build.sh it first)")
+        users = [r for r in scanned if r["symbol"] in names]
+        if users:
+            u = users[0]
+            raise Refusal(f"{u['row']} in {u['source']} binds pin {u['symbol']}, which this respell would retire: "
+                          "prepare that unit too")
+
     # --move-to: the approved TU of every respelled row; every row of the owner source moves with them
     removed = []
     if move_to:
         move_to = move_to.replace("\\", "/")
         import tu_map
+        # a stale committed map is rebuilt in memory from current inputs (as tools/tu_skeleton.py
+        # reads it); the rebuild's approval decides
         try:
             map_rows, stale = tu_map.current_rows(tu_map.Layout(ctx.root))
         except tu_map.NoZhTree as error:
-            raise Refusal(f"--move-to cannot read a fresh {TU_MAP}: {error}") from None
-        if stale:
-            raise Refusal(f"{TU_MAP} is stale against its inputs ({', '.join(stale[:4])}): --move-to moves rows "
-                          "only by a fresh map")
+            raise Refusal(f"--move-to cannot rebuild {TU_MAP} from current inputs: {error}") from None
         approved = {}
         for row in map_rows:
             approved.setdefault(_rva(row.get("rva")), (row.get("tu", ""), row.get("confidence", "")))
         for e in entries:
             tu, confidence = approved.get(e["rva"], ("", ""))
             if tu != move_to or confidence != "approved":
-                raise Refusal(f"0x{e['rva']:08X} is not approved for {move_to} in {TU_MAP} "
-                              f"({tu or 'no TU'}, {confidence or 'unlisted'}): rows move only into their approved unit")
+                raise Refusal(f"0x{e['rva']:08X} is not approved for {move_to} in {TU_MAP}"
+                              + (" (rebuilt in memory: the committed map is stale)" if stale else "") +
+                              f" ({tu or 'no TU'}, {confidence or 'unlisted'}): rows move only into their "
+                              "approved unit")
         if move_to not in prepared:
             raise Refusal(f"--move-to {move_to} needs its prepared bytes (the moved definitions)")
         moved_names = {e["old"] for e in entries}
@@ -3531,7 +3569,8 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         "; ".join(([f"wrong before: {hexes(e['wrong'])}"] if e["wrong"] else []) +
                   ([f"class of {hexes(e['class_of'])}"] if e["class_of"] else
                    [f"wrapper of the respelled {hexes(e['wraps'])}"])) + ")"
-        for e in entries)
+        for e in entries) + ("; retires the old-type pin(s) at " + hexes(sorted({t for _n, t in retire}))
+                             if retire else "")
     plan = Plan("function", primary["old"], primary["new"], "inferred", evidence,
                 move_to or primary["source"], primary["rva"])
 
@@ -3549,6 +3588,22 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         for src in removed:
             raw, _count = repoint_column(raw, FUNCTIONS, "source", src, move_to)
     plan.edit(ctx, FUNCTIONS, raw)
+    if retire:
+        raw = ctx.read(SYMBOLS)
+        ledger_io.lf_terminator(raw, "symbols.csv")
+        out = []
+        for index, (payload, term) in enumerate(ledger_io.split_records(raw)):
+            flds = ledger_io.fields(payload)
+            if index and len(flds) >= 2 and (flds[0], _rva(flds[1])) in retire:
+                plan.dropped_pins.append((flds[0], retire[(flds[0], _rva(flds[1]))], flds[1]))
+                continue
+            out.append(payload + term)
+        plan.edit(ctx, SYMBOLS, b"".join(out))
+        hatches = (ctx.read(HATCH_BASELINE) or b"").decode("utf-8", "replace")
+        for _name, t in sorted(retire, key=lambda k: k[1]):
+            if f"pin\t{SYMBOLS}\t0x{t:08X}\t" in hatches:
+                plan.warnings.append(f"{HATCH_BASELINE} still grants pin 0x{t:08X}: python3 tools/hatch_counters.py "
+                                     "--update tightens it (Verifier-Change)")
     if move_to:
         for rel, column in PATH_COLUMNS:
             if rel == FUNCTIONS or ctx.read(rel) is None:
@@ -3590,8 +3645,10 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         rows=[(e["rva"], e["old"], e["new"]) for e in entries],
         sources=sorted(set(plan.verify)),
         wrong_before=sorted({_identity_key(r, renames) for r in identity_wrong(before)}),
-        callees={e["rva"]: callees[e["rva"]] for e in entries})
-    plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows}) + \
+        callees={e["rva"]: callees[e["rva"]] for e in entries},
+        retired=sorted((name, t, callee) for (name, t), callee in retire.items()))
+    plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows} |
+                         {t for _n, t in retire}) + \
         [f"file:{s}" for s in sorted(owner_sources | ({move_to} if move_to else set()))]
     edited = set(plan.after) | {"reverse/re_attempts.log"}
     plan.mentions = sorted({m for e in entries for m in ctx.grep_files(e["old"], roots=("docs", "reverse"))}
@@ -3614,6 +3671,22 @@ def identity_problems(ctx, identity):
             if not identity_direct(r):
                 problems.append(f"{new} (0x{at:08X}) still binds {r['symbol']} at 0x{r['target']:08X} "
                                 f"({r['cls']}), not retail's row")
+    # the pins as written now (ctx.pins() is the plan-time snapshot)
+    written = ctx.path(SYMBOLS).read_bytes().decode("utf-8") if ctx.path(SYMBOLS).exists() else ""
+    pins = {(p.get("name", ""), _rva(p.get("address"))) for p in csv.DictReader(io.StringIO(written))}
+    for name, t, callee in identity.get("retired", ()):
+        if (name, t) in pins:
+            problems.append(f"pin {name} at 0x{t:08X} is still in {SYMBOLS}")
+        if any(r["symbol"] == name for r in refs):
+            problems.append(f"a rebuilt object still binds the retired pin {name}")
+        if not any(r["symbol"] == callee and r["target"] == t and r["cls"] == "owner"
+                   for at, _old, new in identity["rows"] for r in refs if r["row"] == new and r["rva"] == at):
+            problems.append(f"no respelled row binds {callee} at 0x{t:08X} directly after the pin is retired")
+    if identity.get("retired") and (ctx.root / "tools/pin_consistency.py").exists():
+        result = subprocess.run([sys.executable, "tools/pin_consistency.py", "--check"], cwd=str(ctx.root),
+                                capture_output=True, text=True)
+        if result.returncode:
+            problems.append("pin_consistency --check: " + (result.stdout + result.stderr).strip()[-300:])
     known = {tuple(k) for k in identity["wrong_before"]}
     for r in identity_wrong(refs):
         if any(r["row"] == new and r["rva"] == at for at, _old, new in identity["rows"]):
