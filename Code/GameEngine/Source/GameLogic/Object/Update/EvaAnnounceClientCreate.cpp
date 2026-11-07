@@ -4,19 +4,17 @@
 // Identity: ModuleFactory registers this data class under "EvaAnnounceClientCreateModuleData" (addModule
 // pairs the name with this factory); formerly misnamed PilotFindVehicleUpdate/PilotFindVehicleUpdateModuleData.
 // Trial: ??0EvaAnnounceClientCreateModuleData@@QAE@XZ.
-// Root-class default ctor: three INVALID_ID ors, vtable hand-placed late
-// (novtable), then zeroed tail. Factory stub order names it.
-// PilotFindVehicleUpdate_vftable: matched references place it at VA 0xc4ed70 (retail .rdata value -3).
-extern "C" char PilotFindVehicleUpdate_vftable = -3;
+// Retail 0x004C999D installs 0x00C4ED70, ModuleData's 31 default slots (the
+// table every ModuleData class without overrides folds to), between the three
+// INVALID_ID ors and the zeroed tail; ModuleData's tag key at +4 is left alone.
+#include "../../../../Include/Common/ModuleData.h"
 
-class __declspec(novtable) EvaAnnounceClientCreateModuleData
+class EvaAnnounceClientCreateModuleData : public ModuleData
 {
 public:
 	EvaAnnounceClientCreateModuleData();
-	virtual ~EvaAnnounceClientCreateModuleData();
 
 private:
-	int m_pad04;
 	int m_b08;
 	int m_c0C;
 	int m_d10;
@@ -32,17 +30,11 @@ EvaAnnounceClientCreateModuleData::EvaAnnounceClientCreateModuleData()
 	m_b08 = -1;
 	m_c0C = -1;
 	m_d10 = -1;
-	*reinterpret_cast<char **>(this) = &PilotFindVehicleUpdate_vftable;
 	m_e14 = zero;
 	m_f18[0] = (unsigned char)zero;
 	m_f18[1] = (unsigned char)zero;
 	m_f18[2] = (unsigned char)zero;
 	m_f18[3] = (unsigned char)zero;
-}
-
-// ??1EvaAnnounceClientCreateModuleData@@ present-unmatched
-EvaAnnounceClientCreateModuleData::~EvaAnnounceClientCreateModuleData()
-{
 }
 
 // tu-skeleton: 0x004C99C3 17B ?buildFieldParse@EvaAnnounceClientCreateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
