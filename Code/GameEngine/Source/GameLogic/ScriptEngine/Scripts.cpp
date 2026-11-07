@@ -813,23 +813,17 @@ private:
 // that keeps the allocation under an EH cleanup state and uses the call's
 // eax as the node. Compiled /O1 both are exact matches:
 //   ??0Rva003B44AB@@QAE@PBV0@@Z                 retail 0x003B44AB 28B
-//   ??0Rva003B44AB@@QAE@PBVRva003529B0@@@Z      retail 0x003B44C7 21B
-// Clear +0x00 then copy the Rva003529B0 member at +0x04 from other+0x04 /
-// copy the payload into +0x04. Callee ??0Rva003529B0@@QAE@PBV0@@Z rowed.
-class Rva003529B0
-{
-public:
-	Rva003529B0(const Rva003529B0 *other);
-};
-
+//   ??0Rva003B44AB@@QAE@PBVScriptGroup@@@Z      retail 0x003B44C7 21B
+// Clear +0x00 then copy the ScriptGroup member at +0x04 from other+0x04 /
+// copy the payload into +0x04. Callee ??0ScriptGroup@@QAE@PBV0@@Z rowed.
 class Rva003B44AB
 {
 public:
 	Rva003B44AB(const Rva003B44AB *other);
-	Rva003B44AB(const Rva003529B0 *other);
+	Rva003B44AB(const ScriptGroup *other);
 private:
 	Rva003B44AB *m_00;		// +0x00
-	Rva003529B0 m_04;		// +0x04
+	ScriptGroup m_04;		// +0x04
 };
 
 struct Rva003B489CEntry
@@ -2014,7 +2008,7 @@ Rva003B44AB::Rva003B44AB(const Rva003B44AB *other) : m_00(0), m_04(&other->m_04)
 {
 }
 
-Rva003B44AB::Rva003B44AB(const Rva003529B0 *other) : m_04(other)
+Rva003B44AB::Rva003B44AB(const ScriptGroup *other) : m_04(other)
 {
 }
 
@@ -2737,7 +2731,7 @@ void Rva003B56A5::swap(Rva003B56A5 *other)
 
 // tu-skeleton: 0x003B7DAC 141B ?takeGroups@ScriptList@@QAEXPAV1@PAPAUScriptGroupLink@@1@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListTakeGroups.cpp (not merged yet)
 
-// tu-skeleton: 0x003B7E39 137B ?rva003B7E39@Rva003B573E@@QAEHABV?$StringBase@D@@PBVRva003529B0@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7E39.cpp (not merged yet)
+// tu-skeleton: 0x003B7E39 137B ?rva003B7E39@Rva003B573E@@QAEHABV?$StringBase@D@@PBVScriptGroup@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7E39.cpp (not merged yet)
 
 // tu-skeleton: 0x003B7EAD 20B (unledgered) -- unmatched, no code, never credited
 
@@ -2947,7 +2941,7 @@ void Rva003B56A5::swap(Rva003B56A5 *other)
 
 // tu-skeleton: 0x00782633 10B uw_00782633 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7E39.cpp (not merged yet)
 
-// tu-skeleton: 0x0078263D 10B __ehhandler$?rva003B7E39@Rva003B573E@@QAEHABV?$StringBase@D@@PBVRva003529B0@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7E39.cpp (not merged yet)
+// tu-skeleton: 0x0078263D 10B __ehhandler$?rva003B7E39@Rva003B573E@@QAEHABV?$StringBase@D@@PBVScriptGroup@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7E39.cpp (not merged yet)
 
 // tu-skeleton: 0x00782651 8B uw_00782651 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp (not merged yet)
 

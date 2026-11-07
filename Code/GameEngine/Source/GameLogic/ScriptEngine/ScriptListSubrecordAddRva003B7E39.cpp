@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
 //
-// ?rva003B7E39@Rva003B573E@@QAEHABV?$StringBase@D@@PBVRva003529B0@@@Z,
+// ?rva003B7E39@Rva003B573E@@QAEHABV?$StringBase@D@@PBVScriptGroup@@@Z,
 // retail 0x003B7E39..0x003B7EC2 (137B: 116B body plus the 21B catch funclet
 // 0x003B7EAD), thiscall ret 8.
 //
@@ -19,17 +19,17 @@
 // _CxxThrowException(0 0). Record layout (+0x10 node head) as rowed by
 // deallocateEntry and rva003B7F8E. WorldBuilder twin 0xAB2080 (score 0.5)
 // names the key lookup ScriptSetBase<ScriptGroup>::allocateEntry and builds
-// the node in place (Rva003529B0 copy at node +4). The method name stays
+// the node in place (ScriptGroup copy at node +4). The method name stays
 // address-derived.
 #include "ascii_string.h"
 
-class Rva003529B0;
+class ScriptGroup;
 
 // 0x14-byte list node: next link then the payload copy at +4.
 class Rva003B44AB
 {
 public:
-	Rva003B44AB(const Rva003529B0 *other);
+	Rva003B44AB(const ScriptGroup *other);
 
 	Rva003B44AB *m_next;	// +0x00
 	char m_payload[0x10];	// +0x04
@@ -51,14 +51,14 @@ class Rva003B573E
 public:
 	void deallocateEntry(int index);
 	int rva003B7C47(const StringBase<char> &key);
-	int rva003B7E39(const StringBase<char> &key, const Rva003529B0 *value);
+	int rva003B7E39(const StringBase<char> &key, const ScriptGroup *value);
 
 private:
 	void *m_sorted[3];		// +0x00
 	Rva003B675BRecord *m_records;	// +0x0C
 };
 
-int Rva003B573E::rva003B7E39(const StringBase<char> &key, const Rva003529B0 *value)
+int Rva003B573E::rva003B7E39(const StringBase<char> &key, const ScriptGroup *value)
 {
 	int index = rva003B7C47(key);
 	if (index != -1)

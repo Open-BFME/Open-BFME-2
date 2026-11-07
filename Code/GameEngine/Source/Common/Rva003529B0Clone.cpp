@@ -5,16 +5,16 @@
 // 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled
 // that way each body below places uniquely on unclaimed game.dat .text by
 // masked whole-.text search, and ./build.sh reproduces it byte for byte:
-// Rva003529B0::Rva003529B0 0x003B410E (57B), Rva003529B0::rva00352a00
+// ScriptGroup::ScriptGroup 0x003B410E (57B), ScriptGroup::rva00352a00
 // 0x003B4147 (55B). Callee addresses are read off retail's call sites
 // (reverse/symbols.csv). Only the placed bodies are carried; the donor's other
 // definitions are omitted.
-// The 0x00352A00 body allocates and copies the 0x000E855C-vtable record.
-// The vtable and the exact Rva003529B0 copy constructor at 0x003529B0 identify
-// the record. The method name remains address-derived because retail exposes no
-// named caller or vtable slot for this non-virtual copy operation.
+// The 0x00352A00 body allocates and copies a ScriptGroup (retail table
+// 0x00C1F470, whose slot 2 getter returns "ScriptGroup"). The method name
+// remains address-derived because retail exposes no named caller or vtable
+// slot for this non-virtual copy operation.
 
-extern int Gen00C1F470;
+class Xfer;
 
 // The pair's two leaf chains (copy constructors and the first chain's clear
 // rowed in Rva003BCopyLeaves.cpp and Rva003BClearLeaves.cpp).
@@ -71,29 +71,38 @@ Rva003525E0Pair::Rva003525E0Pair(const Rva003525E0Pair &other)
 	}
 }
 
-class Rva003529B0
+// ScriptGroup's pointer copy constructor 0x003B410E copies the list heads
+// through 0x003B3FCD before it stores the vptr, so the heads are a
+// non-virtual base under the vptr (Scripts.cpp's view, the scripts_orcondition
+// shim, spells it Rva003B4071 for its teardown). Retail table 0x00C1F470: the deleting
+// destructor, an empty loadPostProcess, GetSnapshotName and xfer. The
+// destructor is the one Scripts.cpp emits (see the shim).
+class ScriptGroup : public Rva003525E0Pair
 {
 public:
-	Rva003529B0(const Rva003529B0 *other)
-		: m_pair(*(other ? &other->m_pair : 0))
+	ScriptGroup(const ScriptGroup *other)
+		: Rva003525E0Pair(*static_cast<const Rva003525E0Pair *>(other))
 	{
-		m_vptr = &Gen00C1F470;
-		m_0C = other->m_0C;
-		m_0D = other->m_0D;
-		m_0E = 0;
+		m_isGroupActive = other->m_isGroupActive;
+		m_isGroupSubroutine = other->m_isGroupSubroutine;
+		m_hasWarnings = 0;
 	}
+	virtual ~ScriptGroup();
 
-	Rva003529B0 *rva00352a00() const;
+	ScriptGroup *rva00352a00() const;
+
+protected:
+	virtual void loadPostProcess() {}
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 
 private:
-	void *m_vptr;
-	Rva003525E0Pair m_pair;
-	char m_0C;
-	char m_0D;
-	char m_0E;
+	char m_isGroupActive;		// +0x0C
+	char m_isGroupSubroutine;	// +0x0D
+	char m_hasWarnings;		// +0x0E
 };
 
-Rva003529B0 *Rva003529B0::rva00352a00() const
+ScriptGroup *ScriptGroup::rva00352a00() const
 {
-	return new Rva003529B0(this);
+	return new ScriptGroup(this);
 }

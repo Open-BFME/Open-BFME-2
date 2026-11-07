@@ -1510,7 +1510,7 @@ name,address,notes
 ??0Rva00342843@@QAE@PAVStateMachine@@I@Z,0x0034286E,second Rva00342843 ctor forwarding (machine hash) to the AIInternalMoveToState pin 0x0033F279; same vtable 0x008124D8 and member shape as rowed 0x00342843; base for leaf ctors 0x00342892 0x003428AF 0x003428CC
 ??0Rva00342A50@@QAE@PAVStateMachine@@@Z,0x00342A50,unrowed 0x6C AI-state ctor called from 0x3435FB; RETAIL REL32 at 0x0034363B
 ??0Rva00342BAE@@QAE@PAVStateMachine@@_N@Z,0x00342BAE,AIInternalMoveToState-derived ctor (machine flag) with float/int/bool members; true size 70 (ghidra 33B extent is short); base for leaf ctors 0x00342C47 0x00342D19
-??0Rva003529B0@@QAE@PBV0@@Z,0x003B410E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
+??0ScriptGroup@@QAE@PBV0@@Z,0x003B410E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva00360BB8Store@@QAE@XZ,0x00360BB8,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ??0Rva003623E5Filter@@QAE@XZ,0x003623E5,opaque nullary thiscall filter member constructed at PickupStuffUpdateModuleData plus 0x10 and sibs; sole shape is lea plus call with no pushes
 ??0Rva003642DFResult@@QAE@XZ,0x00326BE6,"default ctor of the 16-byte node+position value 0x003642DF returns; REL32 in AIUpdate slot 141 0x0026343C; ICF null-first-word body"
