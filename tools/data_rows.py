@@ -539,6 +539,30 @@ VFTABLE = re.compile(r"^\?\?_7.+@6B.*@$")
 IMAGE_SCN_CNT_INITIALIZED_DATA, IMAGE_SCN_MEM_WRITE = 0x40, 0x80000000
 
 
+PUBLIC_TEMPLATE_POINTER_REFERENCE = re.compile(r"^\?\w+@\?\$\w+@.+@@2ABQBDB$")
+
+
+def _template_pointer_reference_size(sec, symbols, sym):
+    """Size a public template static of type const char *const &.
+
+    VC7.1 gives these dynamically initialized x86 references a four-byte
+    writable COMDAT. Their mangling identifies the reference type even when
+    the template arguments cannot be written as a sizeof expression.
+    """
+    flags = sec["flags"]
+    needed = IMAGE_SCN_LNK_COMDAT | IMAGE_SCN_MEM_WRITE | UNINIT
+    if (not PUBLIC_TEMPLATE_POINTER_REFERENCE.fullmatch(sym["name"])
+            or sym["storage"] != EXTERNAL or sym["type"] != 0 or sym["value"]
+            or sec["name"] != ".bss" or sec["size"] != 4
+            or flags & needed != needed or flags & (EXECUTABLE | IMAGE_SCN_CNT_INITIALIZED_DATA)
+            or sec["body"] is not None or sec["relocs"]):
+        return None
+    if any(s is not sym and s["section"] == sym["section"]
+           and s["name"] and not s["name"].startswith(".") for s in symbols.values()):
+        return None
+    return 4, "the x86 template pointer reference's own COMDAT section"
+
+
 def _vftable_size(sec, symbols, sym):
     """(bytes, how) for a vftable, which no probe TU can name: BFME 2 is built
     without RTTI (no ??_R4 locator precedes any table), and MSVC 7.1 then emits
@@ -595,6 +619,7 @@ def symbol_size(sections, symbols, sym, source=None, sizer=compiled_size):
     size, how = sizer(source, sym["name"])
     if size is None:
         size, how = (_local_static_size(sec, symbols, sym) or _vftable_size(sec, symbols, sym)
+                     or _template_pointer_reference_size(sec, symbols, sym)
                      or (None, how))
     if size is None:
         return set(), how

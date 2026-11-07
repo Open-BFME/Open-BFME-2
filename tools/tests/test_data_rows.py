@@ -407,6 +407,37 @@ def test_only_a_static_local_alone_in_its_comdat_takes_the_section_size(tmp_path
 
 
 VFTABLE = "??_7X@@6B@"
+TEMPLATE_REFERENCE = "?KEY@?$Tag@$00$E?Source@FX@@3QBDB@FX@@2ABQBDB"
+REFERENCE_BSS = 0xC0301080
+
+
+def test_a_template_pointer_reference_has_one_four_byte_comdat(tmp_path, monkeypatch):
+    compiled(tmp_path, monkeypatch, [(".bss", REFERENCE_BSS, None, 4, [])],
+             [(TEMPLATE_REFERENCE, 0, 1)])
+    assert verify(image_with(data=bytes(8)), row(TEMPLATE_REFERENCE), {})[0]
+    assert "size 8 unproven" in verify(image_with(data=bytes(8)), row(TEMPLATE_REFERENCE, size="8"), {})[1]
+    assert "retail holds non-zero bytes" in verify(image_with(data=b"\x01" + bytes(7)), row(TEMPLATE_REFERENCE), {})[1]
+
+
+@pytest.mark.parametrize(("name", "flags", "size", "value", "type_code", "shared"), [
+    (TEMPLATE_REFERENCE, REFERENCE_BSS & ~0x1000, 4, 0, 0, False),
+    (TEMPLATE_REFERENCE, REFERENCE_BSS | 0x20, 4, 0, 0, False),
+    (TEMPLATE_REFERENCE, REFERENCE_BSS, 8, 0, 0, False),
+    (TEMPLATE_REFERENCE, REFERENCE_BSS, 4, 1, 0, False),
+    (TEMPLATE_REFERENCE, REFERENCE_BSS, 4, 0, 0x20, False),
+    (TEMPLATE_REFERENCE, REFERENCE_BSS, 4, 0, 0, True),
+    (TEMPLATE_REFERENCE.replace("2ABQBDB", "2QBDB"), REFERENCE_BSS, 4, 0, 0, False),
+    (TEMPLATE_REFERENCE.replace("2ABQBDB", "0ABQBDB"), REFERENCE_BSS, 4, 0, 0, False),
+])
+def test_template_reference_size_requires_the_compiler_shape(tmp_path, monkeypatch, name, flags,
+                                                            size, value, type_code, shared):
+    symbols = [(name, value, 1, type_code)]
+    if shared:
+        symbols.append(("?another@@3HA", 0, 1))
+    compiled(tmp_path, monkeypatch, [(".bss", flags, None, size, [])], symbols)
+    assert "size 4 unproven" in verify(image_with(data=bytes(8)), row(name), {})[1]
+
+
 COMDAT_RDATA = 0x40301040  # .rdata with IMAGE_SCN_LNK_COMDAT, as MSVC 7.1 emits a vftable
 COMDAT_TEXT = 0x60501020
 SLOT_F, SLOT_E, SLOT_G = "?f@X@@UAEXXZ", "??_EX@@UAEPAXI@Z", "??_GX@@UAEPAXI@Z"
