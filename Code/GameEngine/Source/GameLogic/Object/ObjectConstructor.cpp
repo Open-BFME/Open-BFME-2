@@ -121,21 +121,20 @@ class Rva0033A951 { public: bool rva0033A951(); };
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ModuleDataBase
-{
-public:
-	virtual ~ModuleDataBase() {}
-	NameKeyType m_moduleTagNameKey;
-};
+#include "../../../Include/Common/ModuleData.h"
 
-// Helper module data: vftable 0x00C4ED70 and the tag key at +4.
-class ObjectHelperModuleData : public ModuleDataBase
+// Helper module data: a plain ModuleData, so its table is ModuleData's 31
+// default slots, retail's shared 0x00C4ED70 (the ModuleData constructors that
+// store ??_7ObjectHelperModuleData@@6B@ by name install this copy), and the
+// tag key at +4. The destructor 0x0049B47C restores Snapshot's 0x00BBB554:
+// ModuleData's empty destructor is expanded here, as in Rva004ABFD9Dtor.cpp.
+class ObjectHelperModuleData : public ModuleData
 {
 public:
 	ObjectHelperModuleData() {}
 	virtual ~ObjectHelperModuleData() {}
-	void setModuleTagNameKey(NameKeyType key) { m_moduleTagNameKey = key; }
 };
+inline ModuleData::~ModuleData() {}
 
 class BehaviorModule;
 class BodyModuleInterface;
