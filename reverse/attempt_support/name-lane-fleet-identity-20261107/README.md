@@ -29,16 +29,32 @@ three voters.
   filters out keys the worker has already voted on. Every refused seat had already done the work.
 - Three seats earlier the same day did record three distinct ids on
   `W3DGadgetTabControlImageDraw.cpp` (`w-8b75d40078dd`, `w-0c2d8999ffef`, `w-195c4306f7eb`), and
-  all 27 keys agreed. **What gave those seats distinct identities is not established**: neither
-  `BFME_RUN_ID` nor `BFME_CLAIM_OWNER`, tried with every worktree on this machine as the root,
-  reproduces any of those three hashes. Do not assume an env var will separate your seats.
+  all 27 keys agreed.
+
+## What separates seats, and the trap in checking it
+
+`AGENTS.md` already says it: *"An orchestrator sets a stable, distinct `BFME_CLAIM_OWNER` per seat
+and one claim namespace per fleet."* That is the whole mechanism, and a seat briefed without it
+inherits the coordinator's identity, which is what happened above.
+
+A warning about verifying it after the fact: the vote rows record the seat's `model` **label**, not
+the `BFME_CLAIM_OWNER` string that produced the identity, so you cannot work backwards from a
+recorded hash to the owner that cast it. Guessing the owner string from the label does not
+reproduce the hash - trying `BFME_RUN_ID=b2r1` and `BFME_CLAIM_OWNER=b2r1` against every worktree
+on this machine reproduced none of the three hashes above, which says only that the label is not
+the owner. Check a seat forwards, from its own environment, before it votes.
 
 ## The rule
 
-Have each seat print its own identity before it names anything, and only continue if the ids
-differ:
+Give each seat its own `BFME_CLAIM_OWNER`, and have it print its identity before it names
+anything, continuing only if the ids differ:
 
+    export BFME_CLAIM_OWNER=<something stable and distinct per seat>
     python3 -c "import sys;sys.path.insert(0,'tools');import name_agreement;print(name_agreement.worker_identity('.'))"
+
+Check the printed id against the coordinator's own, and against the `worker` column of
+`reverse/name_votes.csv`, so a seat cannot silently reuse an identity another fleet is voting
+under.
 
 If two seats print the same id, the packet can take exactly one vote from them, and the rest of
 that work is wasted. Stop and get a genuinely separate voter instead.
@@ -54,4 +70,5 @@ behaviour to keep.
 under `w-0bfb01cf5d54` with the label `b2s2`: `get` + state + field + the literal index from the
 body (`getEnabledColor3`, `getEnabledBorderColor6`, `getHiliteBorderColor8`, ...), in the style of
 the committed sibling `W3DGadgetTabControlImageDraw.cpp`. It needs two more independent workers to
-reach agreement, and none of them can come from the session that cast this one.
+reach agreement. Those can come from the same orchestrator, as long as each seat is given its own
+`BFME_CLAIM_OWNER` and checks its identity before naming - which is the point of this note.

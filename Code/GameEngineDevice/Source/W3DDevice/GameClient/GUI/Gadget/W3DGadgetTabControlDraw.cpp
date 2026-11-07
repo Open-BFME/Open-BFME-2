@@ -220,127 +220,127 @@ void W3DGadgetTabControlDraw( GameWindow *tabControl,
 // (A3155 follows the existing A3143 draw callback's RET4). Address-owned
 // names retain uncertainty about original callable names and color signedness.
 // Native0x000A3155..0x000A315D; offset0x70: EnabledColor index3.
-unsigned Rva000A3155TabDrawField(GameWindow *window)
+unsigned getEnabledColor3(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledColor(3);
 }
 
 // Native0x000A3165..0x000A3170; offset0x88: EnabledColor index5.
-unsigned Rva000A3165TabDrawField(GameWindow *window)
+unsigned getEnabledColor5(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledColor(5);
 }
 
 // Native0x000A317B..0x000A3186; offset0x94: EnabledColor index6.
-unsigned Rva000A317BTabDrawField(GameWindow *window)
+unsigned getEnabledColor6(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledColor(6);
 }
 
 // Native0x000A3186..0x000A3191; offset0x98: EnabledBorderColor index6.
-unsigned Rva000A3186TabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor6(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(6);
 }
 
 // Native0x000A319C..0x000A31A7; offset0xA0: EnabledColor index7.
-unsigned Rva000A319CTabDrawField(GameWindow *window)
+unsigned getEnabledColor7(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledColor(7);
 }
 
 // Native0x000A31A7..0x000A31B2; offset0xA4: EnabledBorderColor index7.
-unsigned Rva000A31A7TabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor7(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(7);
 }
 
 // Native0x000A31BD..0x000A31C8; offset0xAC: EnabledColor index8.
-unsigned Rva000A31BDTabDrawField(GameWindow *window)
+unsigned getEnabledColor8(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledColor(8);
 }
 
 // Native0x000A31E9..0x000A31F4; offset0xDC: DisabledColor index3.
-unsigned Rva000A31E9TabDrawField(GameWindow *window)
+unsigned getDisabledColor3(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(3);
 }
 
 // Native0x000A31FF..0x000A320A; offset0xF4: DisabledColor index5.
-unsigned Rva000A31FFTabDrawField(GameWindow *window)
+unsigned getDisabledColor5(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(5);
 }
 
 // Native0x000A3215..0x000A3220; offset0x100: DisabledColor index6.
-unsigned Rva000A3215TabDrawField(GameWindow *window)
+unsigned getDisabledColor6(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(6);
 }
 
 // Native0x000A3220..0x000A322B; offset0x104: DisabledBorderColor index6.
-unsigned Rva000A3220TabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor6(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(6);
 }
 
 // Native0x000A3236..0x000A3241; offset0x10C: DisabledColor index7.
-unsigned Rva000A3236TabDrawField(GameWindow *window)
+unsigned getDisabledColor7(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(7);
 }
 
 // Native0x000A3241..0x000A324C; offset0x110: DisabledBorderColor index7.
-unsigned Rva000A3241TabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor7(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(7);
 }
 
 // Native0x000A3257..0x000A3262; offset0x118: DisabledColor index8.
-unsigned Rva000A3257TabDrawField(GameWindow *window)
+unsigned getDisabledColor8(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(8);
 }
 
 // Native0x000A3283..0x000A328E; offset0x148: HiliteColor index3.
-unsigned Rva000A3283TabDrawField(GameWindow *window)
+unsigned getHiliteColor3(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(3);
 }
 
 // Native0x000A3299..0x000A32A4; offset0x160: HiliteColor index5.
-unsigned Rva000A3299TabDrawField(GameWindow *window)
+unsigned getHiliteColor5(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(5);
 }
 
 // Native0x000A32AF..0x000A32BA; offset0x16C: HiliteColor index6.
-unsigned Rva000A32AFTabDrawField(GameWindow *window)
+unsigned getHiliteColor6(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(6);
 }
 
 // Native0x000A32BA..0x000A32C5; offset0x170: HiliteBorderColor index6.
-unsigned Rva000A32BATabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor6(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(6);
 }
 
 // Native0x000A32D0..0x000A32DB; offset0x178: HiliteColor index7.
-unsigned Rva000A32D0TabDrawField(GameWindow *window)
+unsigned getHiliteColor7(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(7);
 }
 
 // Native0x000A32DB..0x000A32E6; offset0x17C: HiliteBorderColor index7.
-unsigned Rva000A32DBTabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor7(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(7);
 }
 
 // Native0x000A32F1..0x000A32FC; offset0x184: HiliteColor index8.
-unsigned Rva000A32F1TabDrawField(GameWindow *window)
+unsigned getHiliteColor8(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(8);
 }
@@ -354,51 +354,51 @@ unsigned Rva000A32F1TabDrawField(GameWindow *window)
 // Raw donor image labels use the older4-byte-short view and are not target
 // identities. Original callable names and color signedness remain unknown.
 
-// ?Rva000A3170TabDrawField@@YAIPAVGameWindow@@@Z
+// ?getEnabledBorderColor5@@YAIPAVGameWindow@@@Z
 // Native000A3170..000A317B: full RET-bounded rawword8C read; EnabledBorderColor index5.
-unsigned Rva000A3170TabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor5(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(5);
 }
 
-// ?Rva000A0C66TabDrawField@@YAIPAVGameWindow@@@Z
+// ?getEnabledColor4@@YAIPAVGameWindow@@@Z
 // Native000A0C66..000A0C6E: full RET-bounded rawword7C read; EnabledColor index4.
-unsigned Rva000A0C66TabDrawField(GameWindow *window)
+unsigned getEnabledColor4(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledColor(4);
 }
 
-// ?Rva000A0C6ETabDrawField@@YAIPAVGameWindow@@@Z
+// ?getEnabledBorderColor4@@YAIPAVGameWindow@@@Z
 // Native000A0C6E..000A0C79: full RET-bounded rawword80 read; EnabledBorderColor index4.
-unsigned Rva000A0C6ETabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor4(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(4);
 }
 
-// ?Rva000A0C8FTabDrawField@@YAIPAVGameWindow@@@Z
+// ?getDisabledColor4@@YAIPAVGameWindow@@@Z
 // Native000A0C8F..000A0C9A: full RET-bounded rawwordE8 read; DisabledColor index4.
-unsigned Rva000A0C8FTabDrawField(GameWindow *window)
+unsigned getDisabledColor4(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(4);
 }
 
-// ?Rva000A0C9ATabDrawField@@YAIPAVGameWindow@@@Z
+// ?getDisabledBorderColor4@@YAIPAVGameWindow@@@Z
 // Native000A0C9A..000A0CA5: full RET-bounded rawwordEC read; DisabledBorderColor index4.
-unsigned Rva000A0C9ATabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor4(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(4);
 }
 
-// ?Rva000A0CBBTabDrawField@@YAIPAVGameWindow@@@Z
+// ?getHiliteColor4@@YAIPAVGameWindow@@@Z
 // Native000A0CBB..000A0CC6: full RET-bounded rawword154 read; HiliteColor index4.
-unsigned Rva000A0CBBTabDrawField(GameWindow *window)
+unsigned getHiliteColor4(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(4);
 }
 
-// ?Rva000A0CC6TabDrawField@@YAIPAVGameWindow@@@Z
+// ?getHiliteBorderColor4@@YAIPAVGameWindow@@@Z
 // Native000A0CC6..000A0CD1: full RET-bounded rawword158 read; HiliteBorderColor index4.
-unsigned Rva000A0CC6TabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor4(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(4);
 }
@@ -412,115 +412,115 @@ unsigned Rva000A0CC6TabDrawField(GameWindow *window)
 // Original wrapper names and total argument counts remain unknown. No donor offset is transferred.
 
 // Native000A2639..000A2644: rawwordC4; winGetDisabledColor(1).
-unsigned Rva000A2639TabDrawField(GameWindow *window)
+unsigned getDisabledColor1(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(1);
 }
 
 // Native000A2644..000A264F: rawwordC8; winGetDisabledBorderColor(1).
-unsigned Rva000A2644TabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor1(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(1);
 }
 
 // Native000A265A..000A2665: rawword130; winGetHiliteColor(1).
-unsigned Rva000A265ATabDrawField(GameWindow *window)
+unsigned getHiliteColor1(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(1);
 }
 
 // Native000A2665..000A2670: rawword134; winGetHiliteBorderColor(1).
-unsigned Rva000A2665TabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor1(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(1);
 }
 
 // Native000A315D..000A3165: rawword74; winGetEnabledBorderColor(3).
-unsigned Rva000A315DTabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor3(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(3);
 }
 
 // Native000A31C8..000A31D3: rawwordB0; winGetEnabledBorderColor(8).
-unsigned Rva000A31C8TabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor8(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(8);
 }
 
 // Native000A31D3..000A31DE: rawwordD0; winGetDisabledColor(2).
-unsigned Rva000A31D3TabDrawField(GameWindow *window)
+unsigned getDisabledColor2(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledColor(2);
 }
 
 // Native000A31DE..000A31E9: rawwordD4; winGetDisabledBorderColor(2).
-unsigned Rva000A31DETabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor2(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(2);
 }
 
 // Native000A31F4..000A31FF: rawwordE0; winGetDisabledBorderColor(3).
-unsigned Rva000A31F4TabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor3(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(3);
 }
 
 // Native000A320A..000A3215: rawwordF8; winGetDisabledBorderColor(5).
-unsigned Rva000A320ATabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor5(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(5);
 }
 
 // Native000A3262..000A326D: rawword11C; winGetDisabledBorderColor(8).
-unsigned Rva000A3262TabDrawField(GameWindow *window)
+unsigned getDisabledBorderColor8(GameWindow *window)
 {
     return (unsigned)window->winGetDisabledBorderColor(8);
 }
 
 // Native000A326D..000A3278: rawword13C; winGetHiliteColor(2).
-unsigned Rva000A326DTabDrawField(GameWindow *window)
+unsigned getHiliteColor2(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteColor(2);
 }
 
 // Native000A3278..000A3283: rawword140; winGetHiliteBorderColor(2).
-unsigned Rva000A3278TabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor2(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(2);
 }
 
 // Native000A328E..000A3299: rawword14C; winGetHiliteBorderColor(3).
-unsigned Rva000A328ETabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor3(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(3);
 }
 
 // Native000A32A4..000A32AF: rawword164; winGetHiliteBorderColor(5).
-unsigned Rva000A32A4TabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor5(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(5);
 }
 
 // Native000A32FC..000A3307: rawword188; winGetHiliteBorderColor(8).
-unsigned Rva000A32FCTabDrawField(GameWindow *window)
+unsigned getHiliteBorderColor8(GameWindow *window)
 {
     return (unsigned)window->winGetHiliteBorderColor(8);
 }
 
 // Native000A434C..000A4354: rawword64; winGetEnabledColor(2).
-unsigned Rva000A434CTabDrawField(GameWindow *window)
+unsigned getEnabledColor2(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledColor(2);
 }
 
 // Native000A4354..000A435C: rawword68; winGetEnabledBorderColor(2).
-unsigned Rva000A4354TabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor2(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(2);
 }
 
 // Native000A47B6..000A47BE: rawword5C; winGetEnabledBorderColor(1).
-unsigned Rva000A47B6TabDrawField(GameWindow *window)
+unsigned getEnabledBorderColor1(GameWindow *window)
 {
     return (unsigned)window->winGetEnabledBorderColor(1);
 }
