@@ -28,5 +28,23 @@ wrong-globals lane.
 0x00A032E8 (GameLogic.cpp held); 0x009EBE0C/24 (lk42's note: retail-constructed copies in 4-byte
 storage).
 
-**Not yet handled / notes.** mixfile.obj `_$E1` (0x007B54F0), Rva003B242CGet.obj `_$E1`
-(0x007AE806), MapUtil `_$E33` (0x007AE5C2): see below if investigated.
+- 0x007AE806 Dict `g_Va00E00944` (VA 0x00E00944) `initializers.twice` (halilkkaya-sn4). Rva003B242CGet.cpp
+  defines the Dict, and its object emits `_$E1` (Dict(0), atexit) and `_$E2` (cleanup) itself;
+  Rva007ABEF3ArgCtorInits.cpp rowed the same retail initializer again. Fix: retract the ArgCtorInits row
+  (deleted_rows.csv), drop its body, extern and the unused cleanup declaration, readmit 0x007AE806 as
+  Get.cpp `_$E1` (add_match, exact). link_check: Get.cpp 59 -> 83 bytes, ArgCtorInits 472 -> 448, both LINKS;
+  dir32_scope OK; find_declared_unmatched clean. Correction to the earlier lead: MapUtil `_$E33` (0x007AE5C2)
+  builds `worldDict` at VA 0x00DFF140, a different global (retail bytes read `mov ecx,0xDFF140`), so there
+  is no Dict duplicate on the MapUtil side. Not changed.
+
+**Blocked: lk46's file claim on Rva007B6A00AtexitThunks.cpp and Rva007B6880Thunks.cpp (LINK-236).**
+- Cleanup 0x007B7B14 (Rva007B6880Thunks.cpp `rva007B7B14`) is the same retail body as Get.obj `_$E2`; once
+  the Thunks claim is free, retract it and readmit it as Get.cpp `_$E2` (until then Get.obj's `_$E2` is an
+  unrowed body that its `_$E1` registers; the Thunks copy is orphaned, not registered).
+- mixfile (0x007B54F0 / 0x007B9AB0): mixfile.cpp defines `SimpleFileFactoryClass _SimpleFileFactory` (no data row
+  yet; the data ledger gives 0x00A08D48 to `g_Va00E08D48`, with the definition and cleanup thunk
+  `rva007B9AB0` in AtexitThunks.cpp and the initializer in Rva007AB81ACtorInits_Rva007ACC20.cpp). Plan:
+  retract both rows, drop `g_Va00E08D48`, give `_SimpleFileFactory` the data row (retire the old one with
+  `repair_queue.py retire data`), readmit as mixfile.cpp `_$E1`/`_$E2`.
+- 0x009FE490 `g_Va00DFE490` (AtexitThunks.cpp:136) vs `g_00DFE490` (ArmySummaryDescription.cpp, the
+  data ledger's owner): drop the AtexitThunks definition (extern to the real global) and retire its data row.
