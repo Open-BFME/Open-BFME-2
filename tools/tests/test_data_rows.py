@@ -969,6 +969,26 @@ def test_private_data_without_explicit_friendship_is_still_refused():
         assert value is None and "does not compile" in how
 
 
+@pytest.mark.parametrize("friend", [True, False])
+def test_private_probe_names_a_class_template_specialization(friend):
+    _toolchain()
+    work = data_rows.ROOT / "build" / "data_rows" / f"test_private_template_{friend}"
+    work.mkdir(parents=True, exist_ok=True)
+    source = work / "private_data.cpp"
+    grant = "template<class T> friend struct ::DataRowPrivateProbe;" if friend else ""
+    source.write_text(
+        "template<class T> struct DataRowPrivateProbe;\n"
+        "namespace FX {\n"
+        "template<int N> class Owner { " + grant + " static int slots[N]; };\n"
+        "template<int N> int Owner<N>::slots[N] = {};\n"
+        "template class Owner<2>;\n}\n")
+    symbol = "?slots@?$Owner@$01@FX@@0PAHA"
+    size, why = data_rows.compiled_size(source, symbol)
+    assert size == (8 if friend else None), why
+    arithmetic, why = data_rows.compiled_arithmetic(source, symbol)
+    assert arithmetic is (True if friend else None), why
+
+
 @pytest.mark.parametrize("extra", [
     "#define DataRowPrivateProbe ForgedProbe\n",
     "template<class T> struct DataRowPrivateProbe { enum { size_value = 1, kind_value = 1 }; };\n",

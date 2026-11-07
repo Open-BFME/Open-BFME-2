@@ -363,7 +363,8 @@ def _access_probe(source, symbol, tag, owner, access, value, member):
     if access == "private":
         helper = "DataRowPrivateProbe"
         scope = (f"template<class T> struct {helper} {{ enum {{ {member} = {value} }}; }};\n")
-        return helper, scope, f"{helper}<{owner}>::{member}"
+        # The owner can itself be a template specialization. VC7.1 reads >> as a shift.
+        return helper, scope, f"{helper}< {owner} >::{member}"
     if access:
         helper = _protected_probe_name(source, symbol, tag)
         scope = f"class {helper} : public {owner} {{ public: enum {{ {member} = {value} }}; }};\n"
