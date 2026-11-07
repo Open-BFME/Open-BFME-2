@@ -31,7 +31,9 @@ Eva, 617 -> 606; five copies their own TU files already compile, 606 -> 601 (bri
 strings, the copies that open their runs, the CreateAHeroSystem node and three FX binder objects, 605
 -> 583, then AptDate's interpreter, the INI macro table and file name, ScriptEngine's and Eva's copies
 and seven run-closing BlockParse nodes, 583 -> 572 (bridge_entries on `2335dd1fbb`'s objects plus the
-round; see "Round lk46"); next seat continues).
+round; see "Round lk46"); halilkkaya-lk51: INIObject.cpp moved off Zero Hour's PreRTS.h and 23 copies
+placed by the function-local statics just before them, 572 -> 548 (see "Round lk51"); next seat
+continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -940,3 +942,83 @@ exactly the named RVAs.
     `??0Rva005F00FB@@QAE@XZ`: one class under two names. SkirmishAIData/AIDozerAssignment (run after the
     copy 0x007AE14A, static after g_00DFEEF8) have their callbacks in two files.
     FXParticleSystem's node (excluded) and LivingWorldMapInfo (class:LivingWorldManager) were left.
+
+**Round lk51 (halilkkaya-lk51, 2026-11-07, bridged 572 -> 548).** Measured with
+`image_report.bridge_entries` over the kept objects (exit_link's rule) on `154ad4a447`'s tree plus the
+round. Each copy was retracted from the HalfRate grab-bag (`reverse/deleted_rows.csv`) and readmitted in
+its file by relocation target; every touched object kept its `??_7` digests, link_check passed on the
+files with their TU siblings, and bridge_entries removed exactly the named RVAs at each step.
+- *INIObject.cpp off Zero Hour's headers (lk46's blocked list).* The unit's two callbacks only read a
+  token and build AsciiStrings, so it now builds on `ascii_string.h` and the canonical
+  `Common/INI/INI.h`, as the other INI units do, and then includes the canonical Drawable.h; its cl line
+  drops the Zero Hour include paths. Its copy 0x007AD453 opens the run its three nodes close, so it is
+  `_$E1` and the nodes move from `_$E10/_$E12/_$E14` to `_$E3/_$E5/_$E7` (the Zero Hour headers had used
+  the early ordinals). Small Zero Hour-shaped units whose bodies need only INI and AsciiString can take
+  the same route; Armor.cpp, Mouse.cpp, GameLOD.cpp and SpawnBehavior.cpp use much more of Zero Hour's
+  class graph and were not tried.
+- *The rule used for the rest (target and object facts).* In all 394 of our objects that compile a copy,
+  no non-dynamic static follows the copy's static in its section, so a unit's copy closes its `.bss`.
+  The statics of a non-inline function live in its own unit, and a `getModuleNameKey`'s pool key and
+  guard sit with the code retail placed in its class's region (the first definer). So when a bridged
+  copy's static directly follows a function-local static (at most a flag between), and no other copy
+  sits between, the copy belongs to the unit of the file that defines that function. A scratch scanner
+  (data-ledger entry below each bridged static, then the owning function's row, file and tu_map TU)
+  listed 86 such copies; held, excluded and refusing units were left (below).
+- *Taken (23).* Each file includes the canonical Drawable.h at the latest include position where the
+  unit compiles (trial: fresh object, no compile error, copy first, every `??_7` digest kept), or
+  already compiled the copy:
+  - module pool keys: SpellRechargeModifierUpgrade.cpp 0x007B219E, Collide/HordeMemberCollide.cpp
+    0x007B265A, Update/CivilianSpawnCollide.cpp 0x007B274A, ObjectGuardingHelperPoolKey.cpp 0x007B2FE0,
+    RunOffMapBehavior.cpp 0x007B0D45 (the flag between, 0x00E03624, and the run's `list<int>` 0x00E0362C
+    are read by code in the class's region and by the AI exit states), SiegeDeploySpecialPower.cpp
+    0x007B2A1C, CastleUpgrade.cpp 0x007B2270, and StructureCollapseUpdate's 0x007B1AFA in
+    Rva004A44B1.cpp (doCollapseDoneStuff; StructureCollapseUpdate.cpp refuses the header);
+  - other function guards: StrategicInGameUIQueueUnitButton.cpp 0x007B53AA (GetButtonImage
+    0x005F8BD4) and StrategicInGameUIGetButtonImage.cpp 0x007B521B (0x005F0383, another unit),
+    BfmeLogMsg574.cpp 0x007AEB1C, ScriptEngineGetTeamNamed.cpp 0x007AEC1A (ScriptEngine.cpp's own copy
+    is 0x007AD7B0, so getTeamNamed is another unit), Rva003FF02EPowerCap.cpp 0x007AFCF8,
+    AIPlayerQueueSupplyTruck.cpp 0x007B32E3, Rva0050AEE4KillContained.cpp 0x007B3664 (`_$E2`),
+    InGameHeroSelectInterfaceCtor.cpp 0x007B395B, SpecialPowerModuleRva0049402B.cpp 0x007B16AD (its
+    function reads the flag between), Rva005C7889Init.cpp 0x007B4922;
+  - files that already compiled the copy: PlayerBecomingLocal.cpp 0x007AE19E,
+    InGameToggleStanceCommandButtonCtor.cpp 0x007B3F1E, CastleBehaviorRegisterOwnedObject.cpp
+    0x007AF244 (`_$E2`; the copy closes the CastleBehavior block 0x00E027C8..0x00E0282C),
+    HordeContainChangeToFormation.cpp 0x007B0DE0, and ActionManagerSpecialPowerChecks.cpp 0x007B013F
+    (`_$E3`; the copy opens the run in-o6 gave ActionManager, its static follows TheActionManager, Zero
+    Hour's ActionManager.cpp includes GameClient/Drawable.h, and this is the TU's only compiling file).
+
+  A merge that brings one of these fragments home must keep or re-read its ordinal.
+- *Refused (re_attempts.log).* ToppleUpdate.cpp 0x007B1C10, FoundationAIUpdate.cpp 0x007B08F6 and
+  SpecialAbilityUpdate.cpp 0x007B078B (which opens its five ZeroInits masks) do not compile with the
+  canonical header at their latest include positions. AptMainMenu.cpp 0x007B3886 compiles, but the
+  copy shifts its two `object-symbol=_$E2/_$E4` campaign-string cleanup rows; those hatch rows need a
+  supported respelling first.
+- *Checked, not taken (one more fact needed).*
+  - TerrainResourceManager 0x007AECC6: between its guard and the copy sit the `ios_base::Init` and
+    `_Loc_init` objects 0x00E01E40/41, whose initializers 0x007AECA4/0x007AEC8E open the copy's run. The
+    run is one `<iostream>` includer's, but whether that is TerrainResourceManager.cpp is open.
+  - AptMapPreview 0x007B4194 and AptMyHero 0x007B4722: the globals between their statics and the copy
+    are read by other units (AptMpChat and FileTransfer; WWLib's Rva005B0E9F), so the copy may be a
+    unit with no other `.bss`.
+  - WanderAIUpdate 0x007B1C88: the flag between is `g_bfmeDockingTraceActive`, and the next entry is a
+    docking unit's key.
+  - SiegeEngineContain 0x007B0EF6 / HordeSiegeEngineContain 0x007B0F20 and SymbioticStructuresBody
+    0x007B27B8 / DetachableRiderBody 0x007B2830: each pair has its own runs, but tu_map approves both
+    guards' files to one TU (HordeSiegeEngineContain.cpp, ImmortalBody.cpp), so rowing both would put
+    two copies in one approved TU. Settle the approvals first.
+  - InvisibilityManagerRva00438E5B.cpp 0x007B0685: tu_map approves 0x00438E5B to GameLogic.cpp, whose
+    copy lk44 placed at 0x007B0615; one of the two is wrong. Rva005E936AGet 0x007B5197: a constructed
+    object 0x00E06778 sits between, and its initializer opens the run.
+  - AIUpdate 0x007ADE78 (six fragments compile a copy; the guard's pool-key file does not),
+    RiderChangeContain 0x007B0F74 (Zero Hour-shaped; two other fragments compile one), BoneFXUpdate
+    0x007B13EA (Zero Hour-shaped), FloatUpdate 0x007B14E0 and BoneFXDamage 0x007B24C0 (class claims
+    held by another contributor), the five special powers in ElvenWoodSpecialPower.cpp (held), and
+    GiantBirdAIUpdate 0x007AEDD7 (class claim held).
+- *Next.* Singleton-anchored copies still need a second fact. For each bridged copy, the nearest owned
+  `.bss` entry below it, whether that file compiles a copy, and whether Zero Hour's same-named `.cpp`
+  includes GameClient/Drawable.h give the shortlist (View, W3DTerrainTracks, W3DTerrainVisual,
+  MilesAudioManager, InGameUI and BuildAssistant have the donor include). The brief's harder items
+  (W3DCamTransform's private Matrix3D/Thing, the CreateAHero fragment's private `BitFlags<int, class>`,
+  Scripts' mask 0x007AF7ED, AIEconomyBuilder's `m_farmList`, the fire settings, 0x007B51EB and the
+  screen filters) are unchanged; the ctor families also need their `.text$yd` cleanup rows moved out of
+  `Rva007B6880Thunks.cpp`, which another seat holds.
