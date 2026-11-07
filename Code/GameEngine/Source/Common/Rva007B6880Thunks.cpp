@@ -150,7 +150,7 @@ extern unsigned int g_Va00DDEF08[3];
 extern unsigned int g_Va00DDEEFC[3];
 extern unsigned int g_Va00DDEF14[3];
 extern unsigned int g_Va00DDEEE4[3];
-extern unsigned g_Va00DDEF38;
+extern unsigned int g_Va00DDEF38[3];
 // RVA 0x009DEEF0, 0x009DEF20, 0x009DEF2C: the 12-byte wide string storage
 // Rva00017B00StringInit.cpp defines.
 extern unsigned char g_009DEEF0Static[12];
