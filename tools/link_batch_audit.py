@@ -17,6 +17,13 @@ import link_check
 import exit_link
 
 
+# A batch that leaves a referenced name with no definition anywhere costs the real link one
+# resolved name, whatever the census thought of the copy it removed (LINK-626: four pushes
+# removed wrong-but-present destructor bodies from a unit the census marked unlinked, and the
+# real link lost 13 names). `report` prints these; `refuse` fails the push. One-way: report first.
+REAL_LINK_LOSS_MODE = "report"
+
+
 def git(*args):
     return subprocess.run(("git", *args), cwd=link_check.ROOT, check=True,
                           capture_output=True, text=True).stdout.strip()
@@ -79,6 +86,41 @@ def selected(index, name, rank):
     verdict = link_census.judge_selected(holder, copies, definers, strong,
                                          index["selection"]["owners"].get(name, set()))
     return holder, verdict
+
+
+def definers(index, name, rank):
+    """Objects in `rank` that define `name` at all (strong, COMDAT or common), whatever the
+    census's verdict on the copy."""
+    copies, strong = definitions(index, name, rank)
+    common = {index["objects"][i] for i, _ in index["common"].get(name, ())
+              if index["objects"][i] in rank and index["objects"][i] not in index.get("forgotten", ())}
+    return set(copies) | strong | common
+
+
+def real_link_losses(index, updated, names, before_rank, after_rank):
+    """[(name, defined before by, still referenced by)] for names this batch leaves with no
+    definition in any kept object while a kept object still references them. Judged from object
+    symbol tables only: no census verdict, no symbols.csv pin (the real link reads none). A name
+    the toolchain resolves (runtime, import, stub) or an object's own /alternatename resolves is
+    not a loss."""
+    excuses = updated.get("excuses") or index.get("excuses") or {"runtime": set(), "imported": {}, "stubs": {}}
+    alternates = updated.get("alternates", {})
+    touches = updated.get("touches", {})
+    forgotten = updated.get("forgotten", set())
+    losses = []
+    for name in sorted(names):
+        before = definers(index, name, before_rank)
+        if not before or definers(updated, name, after_rank):
+            continue
+        if link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]):
+            continue
+        if any(updated["objects"][i] in after_rank for i, _target in alternates.get(name, ())):
+            continue
+        referrers = sorted(obj for obj, used in touches.items()
+                           if name in used and obj in after_rank and obj not in forgotten)
+        if referrers:
+            losses.append((name, sorted(before), referrers))
+    return losses
 
 
 def overlay(index, replacements, removed, truth):
@@ -235,6 +277,7 @@ def audit(base, tip, verified):
             findings.append((name, old_holder, new_holder, "wrong selected provider"))
         elif old_holder and not new_holder and old_verdict != "wrong":
             findings.append((name, old_holder, None, "provider disappeared"))
+    real_losses = real_link_losses(index, updated, touched, before_rank, after_rank)
     reorder(updated, after_rank)
     # A new destination must preserve the linked donors it absorbed too.
     retired_clean = {entry["object"]: source for source, entry in index["blockers"].items()
@@ -269,6 +312,16 @@ def audit(base, tip, verified):
         label = "LOST" if exact_base else "POSSIBLE LOSS"
         print(f"  {label} {byte_count:,} previously linked source bytes: {reason}: {name}; "
               f"provider {before or '(none)'} -> {after or '(none)'}")
+    for name, before, referrers in real_losses:
+        print(f"  REAL-LINK LOSS {name}: defined before this batch by {', '.join(before)}, by no kept object "
+              f"after; still referenced by {', '.join(referrers[:3])}"
+              f"{f' (+{len(referrers) - 3})' if len(referrers) > 3 else ''}")
+    if real_losses:
+        print(f"link batch audit: {len(real_losses)} name(s) the real link would no longer resolve "
+              f"({REAL_LINK_LOSS_MODE} mode: {'refused' if REAL_LINK_LOSS_MODE == 'refuse' else 'not refused'}); "
+              "define each in its owner's unit or point the reference at the owner's real symbol")
+        if REAL_LINK_LOSS_MODE == "refuse" and exact_base:
+            return 1
     if lost:
         print("link batch audit: " + ("FAILED" if exact_base else "INCONCLUSIVE") +
               "; verify affected consumers and record repairs")
