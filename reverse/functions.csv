@@ -68880,8 +68880,6 @@ __ehhandler$?init@W3DView@@UAEXXZ,,0x0075FD33,10,Code/GameEngineDevice/Source/W3
 ??0Rva0073EF3A@@QAE@XZ,,0x0073EF3A,10,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB18.cpp,matched,default ctor zeroing +0 and +8
 ?rva007AE7FB@@YAXXZ,,0x007AE7FB,11,Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp,matched,initializer storing WorldMapObjects+4 into map-object list holder E00940
 ?rva0061EE80@Rva0061EE80@@QAEHXZ,,0x0061EE80,8,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,matched,pre-increment +30 counter returning new value twin of Rva00665A30 increment
-?rva007AFC6B@@YAXXZ,,0x007AFC6B,73,Code/GameEngine/Source/Common/Rva007AFC6BRegionInit.cpp,matched,Region2D g_00E02EAC dynamic initializer -MAX..+MAX via rowed 0x00004C06 then atexit 0x007B816A
-?rva007B816A@@YAXXZ,,0x007B816A,1,Code/GameEngine/Source/Common/Rva007AFC6BRegionInit.cpp,matched,empty atexit cleanup registered by 0x007AFC6B
 ??1Rva00510D07@@QAE@XZ,,0x00510D07,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,dtor tail jump to tree member rowed dtor 0x0051097F; unwind-funclet reached
 ??1Rva00550634@@QAE@XZ,,0x00550634,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,dtor tail jump to BfmeMsg member rowed dtor 0x00655780; unwind-funclet reached
 ??1Rva00551983@@QAE@XZ,,0x00551983,5,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp,matched,dtor tail jump to deque member rowed dtor 0x00551868; unwind-funclet reached

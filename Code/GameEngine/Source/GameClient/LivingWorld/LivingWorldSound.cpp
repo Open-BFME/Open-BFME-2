@@ -7,7 +7,9 @@
 // flag-test order are witnessed by both bodies; CreateSound keeps its existing
 // opaque return type. This view describes only the fields the parser accesses.
 #include "ascii_string.h"
-#include "region.h"
+#include <float.h>
+#include "../../../../Libraries/Include/Lib/Coord2DCtorView.h"
+#include "../../../../Libraries/Include/Lib/Region2D.h"
 #include "Common/Snapshot.h"
 #include <string.h>
 
@@ -69,14 +71,15 @@ const FieldParse g_00C37938[] =
 	{ 0, 0, 0, 0 }
 };
 
-// Retail's all-zero default zoom region, VA 0x00E02EAC / RVA 0x00A02EAC: past
-// .data's raw end (file offset 0x009DCC08), so the file carries no initializer
-// and retail loads it zero.  The rowed constructor at 0x003FAE68 reads the four
-// words with four separate movss instructions and the rowed checker below
-// compares the parsed zoom against it, so it is a real memory object here.  A
-// tentative definition, for the same reason as g_Va00DB6218: an explicit "= 0"
-// would let MSVC learn the value and fold a load into a literal.
-Region2D g_00E02EAC;
+// Retail's default zoom region, VA 0x00E02EAC / RVA 0x00A02EAC, in .bss. This
+// unit's .text$yc initializer (.CRT$XCU 0x007AFC6B, just before its BlockParse
+// node 0x007AFCB4) builds it as the whole plane: two inline Coord2D temporaries,
+// {+FLT_MAX, +FLT_MAX} first, then {-FLT_MAX, -FLT_MAX} (literals VA 0x00BBB8E0 /
+// 0x00BBB8DC), passed to the two-endpoint constructor 0x00004C06; the inline
+// empty destructor leaves a lone ret as its atexit cleanup (0x007B816A). The
+// rowed constructor at 0x003FAE68 copies the four words with four movss
+// instructions and the rowed checker below compares the parsed zoom against it.
+Region2D g_00E02EAC(Coord2D(-FLT_MAX, -FLT_MAX), Coord2D(FLT_MAX, FLT_MAX));
 
 struct LivingWorldSoundParseView
 {
@@ -127,25 +130,25 @@ void LivingWorldSound::ParseSound(INI *ini)
 		REPORT_SOUND_ERROR(": No point in specifying a zoom region unless you have the flag ZOOMED_IN or ZOOMING_IN");
 		return;
 	}
-	if (sound->m_zoom.x_min > sound->m_zoom.x_max)
+	if (sound->m_zoom.lo.x > sound->m_zoom.hi.x)
 	{
 		REPORT_SOUND_ERROR(": ZoomRegionLow X: should be less than ZoomRegionHigh X:");
-		unsigned int high = *reinterpret_cast<unsigned int *>(&sound->m_zoom.x_max);
-		float low = sound->m_zoom.x_min;
-		*reinterpret_cast<unsigned int *>(&sound->m_zoom.x_min) = high;
-		sound->m_zoom.x_max = low;
+		unsigned int high = *reinterpret_cast<unsigned int *>(&sound->m_zoom.hi.x);
+		float low = sound->m_zoom.lo.x;
+		*reinterpret_cast<unsigned int *>(&sound->m_zoom.lo.x) = high;
+		sound->m_zoom.hi.x = low;
 	}
-	else if (sound->m_zoom.x_min == sound->m_zoom.x_max)
+	else if (sound->m_zoom.lo.x == sound->m_zoom.hi.x)
 		REPORT_SOUND_ERROR(": ZoomRegionLow X: is equal to ZoomRegionHigh X:. This sound cannot play");
-	if (sound->m_zoom.y_min > sound->m_zoom.y_max)
+	if (sound->m_zoom.lo.y > sound->m_zoom.hi.y)
 	{
 		REPORT_SOUND_ERROR(": ZoomRegionLow Y: should be less than ZoomRegionHigh Y:");
-		unsigned int high = *reinterpret_cast<unsigned int *>(&sound->m_zoom.y_max);
-		float low = sound->m_zoom.y_min;
-		*reinterpret_cast<unsigned int *>(&sound->m_zoom.y_min) = high;
-		sound->m_zoom.y_max = low;
+		unsigned int high = *reinterpret_cast<unsigned int *>(&sound->m_zoom.hi.y);
+		float low = sound->m_zoom.lo.y;
+		*reinterpret_cast<unsigned int *>(&sound->m_zoom.lo.y) = high;
+		sound->m_zoom.hi.y = low;
 	}
-	else if (sound->m_zoom.y_min == sound->m_zoom.y_max)
+	else if (sound->m_zoom.lo.y == sound->m_zoom.hi.y)
 		REPORT_SOUND_ERROR(": ZoomRegionLow Y: is equal to ZoomRegionHigh Y:. This sound cannot play");
 }
 
@@ -178,7 +181,7 @@ struct LivingWorldSoundPosition
 };
 struct LivingWorldSoundZoom
 {
-    LivingWorldSoundZoom(const Region2D &region2D) : x_min(region2D.x_min), y_min(region2D.y_min), x_max(region2D.x_max), y_max(region2D.y_max) {}
+    LivingWorldSoundZoom(const Region2D &region2D) : x_min(region2D.lo.x), y_min(region2D.lo.y), x_max(region2D.hi.x), y_max(region2D.hi.y) {}
     float x_min, y_min, x_max, y_max;
 };
 class Rva003FAFB9 : public Snapshot
