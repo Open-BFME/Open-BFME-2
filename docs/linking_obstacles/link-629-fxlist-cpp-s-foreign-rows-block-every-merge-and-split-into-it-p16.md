@@ -111,3 +111,28 @@ Update (2026-11-07, merge lane 2 / seat5, base 2e872048cd): who emits the Enable
 - So the record copy ctor's home is LivingWorldCampaign.cpp, and that unit must see the complete Act (with its
   vector<EnableRegionRecord>) and define the act forwarder out of line.
 - Evidence: reverse/attempt_support/livingworld-act-tu-evidence-20261107/readme.md.
+
+Update (2026-11-07, static-defects lane): the two "hashtable<pair<const NameKeyType,FXList>>" rows are XferSave's
+string table, not FXList's.
+- Retail bytes:
+  - `_M_delete_node` 0x0060CF5A destroys the pair at node+4 through 0x0007FAB3 (`mov eax,[ecx]; free if set`,
+    the STLport string key's buffer, ICF-folded with vector dtors) and frees the node with `_free` 0x00030830.
+  - `clear` 0x0060CFB6 walks the buckets at +4/+8 and zeroes the count at +0x10.
+  - The same table's `_M_new_node` 0x0060D089 allocates 0x14-byte nodes: next, a 12-byte STLport string and an
+    unsigned int.
+- Identity: XferSave.cpp's `XferNameTable`, `hashtable<pair<const string, unsigned int>, string, hash<string>, ...>`.
+  Its `_M_new_node`, `_M_bkt_num` and `_M_insert` rows sit beside these two.
+  - The only callers of `clear` are `??1Rva0060D031Member` 0x0060D031 and `XferSave::Open` 0x0060D10A, both
+    approved for XferSave.cpp.
+  - A third misnamed row belongs to the same table: `hash_map<NameKeyType,FXList>::clear` 0x0060D02C
+    (XferSave.cpp) is `jmp 0x0060CFB6`.
+- Where the FXList spelling came from: FXList.cpp's Zero Hour port instantiates a by-value
+  `hash_map<NameKeyType, FXList>` whose `clear`/`_M_delete_node` are masked byte twins of these. XferSave.cpp even
+  types `Rva0060D031Map` as that hash_map and declares `clear` only, because "the copy the link keeps is retail's
+  (FXList.cpp)".
+- BFME 2's own FXListStore stores pointers (`hash_map<NameKeyType, Rva001E2747*>`). No BFME 2 FXList code
+  instantiates a by-value FXList map, so these rows can never come back from FXList TU code.
+- re_attempts.log records all three as `identity-suspect`.
+- Next: respell the three rows onto the string table and its hash_map in XferSave.cpp (their approved TU),
+  which then emits them, and retype `Rva0060D031Member` as that map. FXList.cpp then emits none of them, and
+  the held-by-emission rule no longer applies to them.
