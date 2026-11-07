@@ -242,6 +242,9 @@ struct Rva004E23E2Pair
 	int m_40;
 	int m_44;
 };
+// Retail 0x004E1937 (23 bytes) is this inline default constructor, emitted
+// here: it installs the class's table 0x00C61CA8 (one slot, the deleting
+// destructor 0x004E1D32) and zeroes the fields.
 class Rva004E194E
 {
 public:
@@ -1384,8 +1387,6 @@ bool Rva004E2CD5::rva004E2CD5(const StringBase<char> &val)
 // tu-skeleton: 0x004E188E 20B ??0Rva000EC1E0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp (not merged yet)
 
 // tu-skeleton: 0x004E18B5 129B ?ParseAudioEventBlock@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/ParseAudioEventBlock.cpp (not merged yet)
-
-// tu-skeleton: 0x004E1937 23B ??0Rva003B85D0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp (not merged yet)
 
 // tu-skeleton: 0x004E194E 14B ??1Rva004E194E@@UAE@XZ -- matched in Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp (not merged yet)
 
