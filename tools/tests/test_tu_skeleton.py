@@ -623,8 +623,9 @@ class DonorTests(unittest.TestCase):
                                "notes": "gen-funclet;parent=?h@@YAXXZ" if n.startswith("$L") else ""}
                               for n, rva, s in ledger]
         placed = {rva: v if isinstance(v, tuple) else (v, "approved", "") for rva, v in placed.items()}
+        placed = {rva: v if len(v) == 4 else v + ("-",) for rva, v in placed.items()}     # (tu, conf, ev[, by])
         T._CACHE["map"] = [{"rva": f"0x{rva:08X}", "size": "8", "kind": "code", "tu": tu, "confidence": conf,
-                            "by": "-", "evidence": ev, "source": ""} for rva, (tu, conf, ev) in placed.items()]
+                            "by": by, "evidence": ev, "source": ""} for rva, (tu, conf, ev, by) in placed.items()]
         T._CACHE["map"] += [{"rva": f"0x{rva:08X}", "size": "8", "kind": "code", "tu": "", "confidence": conf,
                              "by": "-", "evidence": ev, "source": ""} for rva, (conf, ev) in (unplaced or {}).items()]
         T._CACHE["stale"] = False
@@ -865,6 +866,119 @@ class DonorTests(unittest.TestCase):
         self.assertEqual(len(don["Code/t.cpp"]), 2)
 
 
+class EmissionHeldTests(unittest.TestCase):
+    """LINK-629: an implicit template instantiation the map places by contiguity alone
+    (FXList.cpp's hashtable<NameKeyType, FXList> clear/_M_delete_node, in XferSave.cpp's
+    retail contribution) is kept by the TU file whose code emits it."""
+    TU = DonorTests.TU
+    donors = DonorTests.donors
+    CLEAR = "?clear@?$hashtable@U?$pair@$$CBHVFX@@@_STL@@HU?$hash@H@2@@_STL@@QAEXXZ"
+    C = ("Code/XferSave.cpp", "approved", "C=0x00001100..0x00001300", "C")
+
+    def test_template_instance_names(self):
+        for name in (self.CLEAR, "?_M_delete_node@?$hashtable@H@_STL@@AAEXPAU?$_Hashtable_node@H@2@@Z",
+                     "??0?$vector@H@_STL@@QAE@XZ", "??1?$hash_map@H@_STL@@QAE@XZ", "??_G?$Box@H@@QAEPAXI@Z",
+                     "??R?$hash@H@_STL@@QBEIH@Z", "??$max@H@std@@YAABHABH0@Z"):
+            self.assertTrue(T.TEMPLATE_INSTANCE.match(name), name)
+        for name in ("?f@@YAXV?$vector@H@_STL@@@Z", "?clear@FXList@@QAEXXZ", "??0FXList@@QAE@ABV0@@Z",
+                     "?rva0060CD16@Rva0060CD16@@QBEIABV?$basic_string@D@_STL@@@Z", "_memset"):
+            self.assertFalse(T.TEMPLATE_INSTANCE.match(name), name)
+
+    def held(self, name=CLEAR, tu="Code/XferSave.cpp", by="C", ev="C=0x00001100..0x00001300", spelled=False):
+        T._CACHE.clear()
+        T._CACHE["map"] = [{"rva": "0x00001200", "size": "8", "kind": "code", "tu": tu, "confidence": "approved",
+                            "by": by, "evidence": ev, "source": ""}]
+        row = {"name": name, "target_rva": "0x00001200", "source": self.TU}
+        try:
+            with patch.object(T, "spells_definition", return_value=spelled):
+                return T.emission_held(row)
+        finally:
+            T._CACHE.clear()
+
+    def test_held_needs_an_instance_placed_by_contiguity_alone_and_spelled_nowhere(self):
+        self.assertTrue(self.held())
+        self.assertFalse(self.held(name="?clear@FXList@@QAEXXZ"))                   # a spelled member's row
+        self.assertFalse(self.held(by="N"))                                          # a naming hint places it
+        self.assertFalse(self.held(by="-"))
+        for key in "FZSLW":                                                          # evidence naming its TU
+            self.assertFalse(self.held(ev=f"C=0x00001100..0x00001300 {key}=Code/XferSave.cpp"), key)
+        self.assertTrue(self.held(ev="C=0x00001100..0x00001300 N=Code/hashtable.cpp"))   # N only hints
+        self.assertFalse(self.held(tu=""))                                           # homeless(): its own rule
+        self.assertFalse(self.held(spelled=True))                                    # an explicit specialization
+
+    def test_spells_definition_reads_what_identify_does_not(self):
+        row = {"name": self.CLEAR, "target_rva": "0x00001200"}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            texts = {"use.cpp": "#include <hash_map>\nvoid f(H &m) { m.clear(); }\n",
+                     "decl.cpp": "class hashtable;\nvoid f(hashtable *);\n",
+                     "spec.cpp": "template <> void hashtable<pair<const int, FX>, int>::clear() { }\n",
+                     "body.cpp": "template <class V, class K> struct hashtable { void clear() { } };\n",
+                     "comment.cpp": "// template <class V> struct hashtable { };\nvoid f() { }\n"}
+            for name, text in texts.items():
+                (root / name).write_text(text)
+            with patch.object(T, "ROOT", root), patch.dict(T._CACHE, {}, clear=True):
+                got = {name: T.spells_definition(name, row) for name in [*texts, "missing.cpp"]}
+        self.assertEqual(got, {"use.cpp": False, "decl.cpp": False, "spec.cpp": True, "body.cpp": True,
+                               "comment.cpp": False, "missing.cpp": True})
+
+    def test_the_tu_file_keeps_an_instantiation_its_code_emits(self):
+        # FXList.cpp: its own rows, plus the instantiation retail kept from XferSave.obj
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), (self.CLEAR, 0x1200, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")]
+        placed = {0x1000: self.TU, 0x1010: self.TU, 0x1200: self.C}
+        with patch.object(T, "spells_definition", return_value=False):
+            don, mixed, _ = self.donors(ledger, placed)
+        self.assertEqual(mixed, {})
+        self.assertEqual(sorted(don), ["Code/A.cpp", self.TU])
+        self.assertEqual(len(don[self.TU]), 2)
+        with patch.object(T, "spells_definition", return_value=True):                # spelled: it has a home
+            _, mixed, _ = self.donors(ledger, placed)
+        self.assertEqual(mixed, {self.TU: 1})
+        placed[0x1200] = ("Code/XferSave.cpp", "approved", "Z=Code/XferSave.cpp", "Z")   # placed by Z: foreign
+        with patch.object(T, "spells_definition", return_value=False):
+            _, mixed, _ = self.donors(ledger, placed)
+        self.assertEqual(mixed, {self.TU: 1})
+
+    def test_a_donor_never_carries_one_away_from_its_tu(self):
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"), (self.CLEAR, 0x1200, "Code/B.cpp")]
+        with patch.object(T, "spells_definition", return_value=False):
+            don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU, 0x1200: self.C})
+        self.assertEqual(mixed, {"Code/B.cpp": 1})
+        self.assertNotIn("Code/B.cpp", don)
+
+    def test_a_donor_still_brings_one_into_its_own_tu(self):
+        # the map's contiguity names this TU: the donor moves in with it, as before
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"), (self.CLEAR, 0x1200, "Code/B.cpp")]
+        here = (self.TU, "approved", "C=0x00001000..0x00001300", "C")
+        with patch.object(T, "spells_definition", return_value=False):
+            don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU, 0x1200: here})
+        self.assertEqual(mixed, {})
+        self.assertEqual(len(don["Code/B.cpp"]), 2)
+
+    def test_a_split_destination_holding_one_is_not_mixed(self):
+        own = [{"name": "?t@@YAXXZ", "target_rva": "0x00001000", "source": self.TU},
+               {"name": self.CLEAR, "target_rva": "0x00001200", "source": self.TU}]
+        assigned = {0x1000: self.TU.lower(), 0x1200: "code/xfersave.cpp"}
+        with patch.object(T, "fold_alias", return_value=False):
+            with patch.object(T, "emission_held", side_effect=lambda r: r["name"] == self.CLEAR):
+                self.assertEqual(T.placed_elsewhere(self.TU, own, assigned), {})
+            with patch.object(T, "emission_held", return_value=False):
+                self.assertEqual(T.placed_elsewhere(self.TU, own, assigned), {"xfersave.cpp": 1})
+
+    def test_a_split_for_the_contiguity_tu_names_the_rows_instead_of_carving(self):
+        rows = [{"name": "?t@@YAXXZ", "target_rva": "0x00001000"}, {"name": self.CLEAR, "target_rva": "0x00001200"}]
+        groups = {self.TU: [rows[0]], "Code/XferSave.cpp": [rows[1]]}
+        with patch.object(T, "file_rows", return_value=rows), patch.object(T, "breakdown", return_value=groups):
+            with patch.object(T, "emission_held", side_effect=lambda r: r["name"] == self.CLEAR):
+                why, _, tu_rows = T.split_rows(self.TU, "Code/XferSave.cpp")
+            self.assertIn("implicit template instantiations placed by contiguity alone", why)
+            self.assertEqual(tu_rows, [])
+            with patch.object(T, "emission_held", return_value=False):
+                why, _, tu_rows = T.split_rows(self.TU, "Code/XferSave.cpp")
+            self.assertIsNone(why)
+            self.assertEqual(tu_rows, [rows[1]])
+
+
 class FoldAliasSplitTests(unittest.TestCase):
     """--split: an ICF alias only the carved bodies emitted rides with them."""
     SOURCE, TU = "Code/Mixed.cpp", "Code/T.cpp"
@@ -930,6 +1044,21 @@ class FoldAliasSplitTests(unittest.TestCase):
         report, _ = self.split(alias_identity_here=True)
         self.assertEqual(report["blocked"], "the residual loses matched rows (flag region or a shared helper)")
         self.assertEqual(report["residual_loses"], ["0x7000"])
+
+    def test_an_emission_held_identity_rides_only_into_its_own_tu(self):
+        # LINK-629: an instantiation only the carved bodies emitted moves with them when the map
+        # places it (by contiguity alone) in this TU, and never into another TU
+        held = lambda r: r["target_rva"] == "0x7000"
+        for placed, rides in ((self.TU.lower(), True), ("code/w.cpp", False)):
+            with self.subTest(placed=placed), patch.object(T, "emission_held", side_effect=held), \
+                    patch.object(T, "assigned_tu", side_effect=lambda r: placed if held(r) else None):
+                report, don = self.split(alias_identity_here=True)
+            if rides:
+                self.assertNotIn("blocked", report)
+                self.assertEqual(report["riders"], ["0x7000"])
+                self.assertEqual(sorted(r["target_rva"] for r in don[self.SOURCE]), ["0x1000", "0x7000"])
+            else:
+                self.assertEqual(report["residual_loses"], ["0x7000"])
 
     def test_breakdown_files_an_alias_as_unplaced(self):
         owner = dict(name="??1Owner@@QAE@XZ", target_rva="0x7000", source="Code/Owner.cpp", notes="", status="matched")

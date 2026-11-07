@@ -573,7 +573,11 @@ def donors(tu, sk):
     out, mixed, refused = {}, {}, {}
     for f in sorted(cands):
         own = [r for r in by_file[f] if r["status"] == "matched" and "gen-alias" not in (r["notes"] or "")]
-        mine = {id(r): assigned.get(int(r["target_rva"], 16)) for r in own}    # each row's own assignment
+        # The TU file's own code emits an implicit template instantiation the map places in
+        # another TU by contiguity alone (emission_held): the seed keeps it like an unplaced
+        # row. A donor's never: absorbing it would carry the row away from its approved TU.
+        held = {id(r) for r in own if emission_held(r)} if f.lower() == tu.lower() else set()
+        mine = {id(r): None if id(r) in held else assigned.get(int(r["target_rva"], 16)) for r in own}
         home = {r["name"]: mine[id(r)] for r in own}
         dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
         # a companion row (funclet, deleting dtor) the map does not place itself is emitted
@@ -652,6 +656,69 @@ def homeless(r, unplaced):
     """Does ledger row `r` (with no TU) sit at a map row tu_map leaves homeless on purpose?"""
     m = unplaced.get(int(r["target_rva"], 16))
     return m is not None and tu_map.homeless(m, r["name"])
+
+
+# A member of a class template specialization (`?clear@?$hashtable@...`, `??0?$vector@...`,
+# `??_G?$Box@...`) or a function template specialization (`??$max@H@...`): the symbol itself is
+# an instantiation, not a function that merely takes a template type (`?f@@YAXV?$vector@...`).
+TEMPLATE_INSTANCE = re.compile(r"^\?(?:\?\$|(?:\?_?[0-9A-Z]|[A-Za-z_]\w*@)\?\$)")
+
+
+def emission_held(r):
+    """Is ledger row `r` an implicit template instantiation the map places by retail
+    placement alone, so that it follows the file that emits it (LINK-629)?
+
+    MSVC emits an implicit instantiation as a COMDAT in every object that uses it and the
+    linker keeps one, inside the contribution of the object it took it from. The map's C
+    (contiguity) then names that object's TU, which is a fact about retail's link order,
+    not about where the body is written: no source spells it, and any TU instantiating
+    the template emits the same bytes. Such a row is held by emission, like a homeless
+    one: it makes no file mixed, names no donor, blocks no merge or split, and moves only
+    with the bodies that instantiate it (a split's riders), always re-verified where it
+    lands. It needs: a TEMPLATE_INSTANCE name, a map row whose TU rests on C alone (no
+    F/Z/S/L/W token naming one), and no definition in its own file spelling its name (an
+    explicit specialization is a real body with a home). An unreadable file is no proof."""
+    if "map_by_rva" not in _CACHE:
+        _CACHE["map_by_rva"] = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code")}
+    m = _CACHE["map_by_rva"].get(int(r["target_rva"], 16))
+    if not m or not m["tu"] or m.get("by") != "C" or not TEMPLATE_INSTANCE.match(r["name"]):
+        return False
+    if any(k in tu_map.TU_EVIDENCE and eq for k, eq, _ in (t.partition("=") for t in (m["evidence"] or "").split())):
+        return False
+    return not spells_definition(r["source"], r)
+
+
+def assigned_tu(r):
+    """The TU key (lowercase) the map assigns ledger row `r`'s address to, or None."""
+    if "assigned_tu" not in _CACHE:
+        _CACHE["assigned_tu"] = {int(m["rva"], 16): m["tu"].lower() for m in map_rows()
+                                 if m["kind"].startswith("code") and m["tu"]}
+    return _CACHE["assigned_tu"].get(int(r["target_rva"], 16))
+
+
+def spells_definition(path, r):
+    """Does a definition (or a macro invocation naming its class) in `path` spell row `r`'s
+    name (identify())? So does a body of the class itself (`struct hash<NameKeyType> {`,
+    a file-local template) or a member qualified through template arguments
+    (`hashtable<...>::clear(`, an explicit specialization), which identify() does not read.
+    True when the file cannot be read: no proof of absence."""
+    texts = _CACHE.setdefault("spell_texts", {})
+    if path not in texts:
+        try:
+            text = (ROOT / path).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n")
+        except OSError:
+            text = None
+        spans = def_spans(text) if text is not None else None
+        texts[path] = (spans, span_scopes(text, spans), strip(text)) if spans is not None else None
+    if texts[path] is None:
+        return True
+    spans, scopes, code = texts[path]
+    if identify([r], spans, scopes)[r["target_rva"]]:
+        return True
+    cls, meth = row_names(r["name"])
+    return bool(cls) and bool(
+        re.search(r"\b(?:class|struct|union)\s+" + re.escape(cls) + r"\b[^;{}]*\{", code)
+        or re.search(r"\b" + re.escape(cls) + r"\s*<[^;{}]*>\s*::\s*" + re.escape(meth) + r"\s*\(", code))
 
 
 def names_other_tu(r, unplaced, tu):
@@ -3109,6 +3176,14 @@ def split_rows(path, tu):
     tu = next((k for k in groups if k.lower() == tu.lower()), tu)
     dtors_all = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
     tu_rows = [r for r in groups.get(tu, []) if not parent_of(r, dtors_all)]
+    # nothing spells an emission-held instantiation, so no carve moves it: it rides only with
+    # carved bodies that emit it (split()'s riders)
+    held = [r for r in tu_rows if emission_held(r)]
+    tu_rows = [r for r in tu_rows if r not in held]
+    if not tu_rows and held:
+        return (f"no row of that file is approved for that TU: its {len(held)} row(s) there are implicit template "
+                "instantiations placed by contiguity alone, which follow the file that emits them and block "
+                "nothing (emission_held)"), tu, []
     if not tu_rows:
         return "no row of that file is approved for that TU", tu, []
     if len(groups.get(tu, [])) == len(rows):
@@ -3121,13 +3196,14 @@ def placed_elsewhere(tu, own, assigned):
 
     The rule donors() applies to the TU path in a merge: a row the map places nowhere
     stays in the seed, is moved by nothing and is re-verified, so only a row assigned
-    to a different TU calls for a split first. A companion row lives where its parent lives."""
-    home = {r["name"]: assigned.get(int(r["target_rva"], 16)) for r in own}
+    to a different TU calls for a split first. A companion row lives where its parent lives,
+    and an emission-held row where the file emitting it lives."""
+    home = {r["name"]: None if emission_held(r) else assigned.get(int(r["target_rva"], 16)) for r in own}
     dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
 
     def placed(r):
         p = parent_of(r, dtors)
-        return home[p] if p and p in home else assigned.get(int(r["target_rva"], 16))
+        return home[p] if p and p in home else home[r["name"]]
     return collections.Counter(placed(r).split("/")[-1] for r in own
                                if placed(r) not in (tu.lower(), None) and not fold_alias(r))
 
@@ -3259,8 +3335,11 @@ def split(path, tu, dry_run=False, claim=True):
     lost = sorted({r["target_rva"] for r in keep} - (got or set()))
     # An ICF alias no definition spells (an STLport COMDAT, an inline member) is
     # emitted by whatever body uses it; one only the carved bodies emitted rides
-    # with them, as --shatter's riders do, and must then match beside the TU.
-    riders = [r for r in keep if got is not None and r["target_rva"] in lost and fold_alias(r)
+    # with them, as --shatter's riders do, and must then match beside the TU. So does an
+    # emission-held instantiation (emission_held) the map places in this very TU: no carve
+    # moves it, only the bodies emitting it.
+    riders = [r for r in keep if got is not None and r["target_rva"] in lost
+              and (fold_alias(r) or emission_held(r) and assigned_tu(r) == tu.lower())
               and not all_ids.get(r["target_rva"]) and not parent_of(r)]
     if riders and {r["target_rva"] for r in riders} == set(lost) and \
             not any(r["target_rva"] in lost for r in keep if r not in riders):
@@ -3642,7 +3721,7 @@ def shatter(path, dry_run=False, claim=True):
         own = file_rows(t)
         assigned = _CACHE["assigned"]
         wrong = [r for r in own if assigned.get(int(r["target_rva"], 16)) not in (t.lower(), None)
-                 and not fold_alias(r)]
+                 and not fold_alias(r) and not emission_held(r)]
         if wrong:
             report["blocked"] = f"{t} holds rows the map places elsewhere (split it first): {wrong[0]['target_rva']}"
             return report

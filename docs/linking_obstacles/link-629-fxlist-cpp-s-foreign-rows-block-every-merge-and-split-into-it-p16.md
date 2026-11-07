@@ -1,5 +1,5 @@
 ### LINK-629: FXList.cpp's foreign rows block every merge and split into it (P16)
-Status: Blocked (tooling / tu_map question). Updated: 2026-11-07; inspected revision: fbdc0dccd0 (static-defects lane, P16).
+Status: Blocked (0x0052BD3A identity; the hashtable question is answered in tooling, below). Updated: 2026-11-07; inspected revision: fbdc0dccd0 (static-defects lane, P16); tooling: harness lane.
 
 Evidence / affected units: Code/GameEngine/Source/GameClient/FXList.cpp, the TU tu_map approves for the
 P16 rows (doFXObj@ParticleSystemFXNugget 0x001E24DC, ??0ParticleSystemFXNugget@@QAE@XZ 0x001E0AEF with its
@@ -33,10 +33,37 @@ first)". FXList.cpp holds 7 matched rows: 3 approved for FXList.cpp, and these 4
   - The merge's mixed check already ignores it: the dry run counts FXList.cpp as mixed by 3, not 4. It is not
     a blocker, recorded so it is not chased.
 
-Completed: none. Nothing was carved or edited; dry runs only.
+Completed: none by the consolidation lane (dry runs only). Tooling decision for the two hashtable rows
+(harness lane, `tools/tu_skeleton.py` `emission_held`):
+
+- Target facts: both rows are implicit instantiations of STLport's hashtable for hash_map<NameKeyType,
+  FXList>, and their map rows rest on C alone (`by=C`, `C=0x0060CE41..`), with no F/Z/S/L/W token.
+  XferSave.cpp has a matched `?clear@?$hash_map@...FXList...` row (0x0060D02C), so retail's XferSave.obj
+  used the same template. Retail kept the copy from XferSave.obj and placed it inside that object's
+  contribution.
+- Structural inference: C records retail's link order (the object the linker took the COMDAT from), not
+  where a body is written. Every TU that uses the template emits these bytes. tu_map stays as it is: it
+  is right about the placement, and the map's C remains what the rows are approved by.
+- Handling: a row that is a template instantiation by its own symbol (`?m@?$T@`, `??0?$T@`, `??$f@`),
+  is placed by C alone, and is spelled by no definition in its file (no explicit specialization, no
+  body of the class itself; an unreadable file counts as spelled) is held by emission. Only the TU
+  file whose code emits it keeps it, as the merge seed or as a split or shatter destination. A donor
+  still never carries it into another TU. A split moves it only as a rider: when the carved bodies
+  were its only emitters and the map places it in the destination. `--split FXList.cpp --for
+  XferSave.cpp` now says why it moves nothing, instead of "no definition spells its name".
+- Effect at 61cf52f345: FXList.cpp's foreign rows fall from 3 to 1 (0x0052BD3A). Across the tree, 35
+  merge decisions change, each only a TU file's own mixed count (2,990 rows qualify, in 987 files).
+  12 TUs become mergeable (DamageFX, ProductionPrerequisite, ScoreKeeper, ThingFactory, GameClient,
+  SpawnBehavior, StructureToppleUpdate, AITargetHeuristicEnemyStructure, MilesAudioManager,
+  W3DModelDraw, static_sort_list, pk). No donor is gained or lost, other than a TU file seeding
+  its own merge.
+- Not done: XferSave.cpp cannot take the rows today. Its private FXList view (a virtual dtor) does not
+  compile these bytes, so it declares `hashtable<...FXList...>::clear` as an explicit specialization to
+  suppress its own copy. Once FXList is one shared class, XferSave.cpp emits them too, and the rows can
+  be repointed there by emission (verified by ./build.sh).
 
 Remaining / next check:
-- The tooling or tu_map decision on the two hashtable rows.
+- (Answered in tooling above; lands with the tu_skeleton change.) The two hashtable rows block nothing.
 - An identity proof for 0x0052BD3A.
 - Then `--split FXList.cpp --for XferSave.cpp` and `--for LivingWorldCampaign.cpp` (or the rows' new homes),
   after which FXList.cpp is no longer mixed.
