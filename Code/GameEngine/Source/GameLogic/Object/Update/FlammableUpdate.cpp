@@ -63,6 +63,9 @@ private:
 namespace _STL { struct __false_type; }
 class FXList;
 #include "../../../../../Libraries/Source/WWVegas/WWLib/TreeKey00242F5E.h"
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 void Rva0048C81FConstruct(TreeKey00242F5E *dest, const TreeKey00242F5E &source);
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.

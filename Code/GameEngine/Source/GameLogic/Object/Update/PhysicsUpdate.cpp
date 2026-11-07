@@ -44,6 +44,9 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 
 // Address-derived codegen view; only the 12-byte stride is witnessed.
 struct Rva00390729Element { int opaque[3]; };

@@ -95,7 +95,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007AEFE5();
 	static void rva007AF00F();
 	static void rva007AF160();
-	static void rva007AF18A();
 	static void rva007AF288();
 	static void rva007AF2B2();
 	static void rva007AF393();
@@ -129,10 +128,7 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007B1266();
 	static void rva007B12AA();
 	static void rva007B13C0();
-	static void rva007B142E();
-	static void rva007B14B6();
 	static void rva007B14E0();
-	static void rva007B1A17();
 	static void rva007B24C0();
 	static void rva007B27B8();
 	static void rva007B2830();
@@ -366,8 +362,6 @@ HALF_RATE_INIT( rva007AEFE5 )
 HALF_RATE_INIT( rva007AF00F )
 // ?rva007AF160@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AF160 (16B), static at VA 0x00E0269C
 HALF_RATE_INIT( rva007AF160 )
-// ?rva007AF18A@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AF18A (16B), static at VA 0x00E027AC
-HALF_RATE_INIT( rva007AF18A )
 // ?rva007AF288@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AF288 (16B), static at VA 0x00E02834
 HALF_RATE_INIT( rva007AF288 )
 // ?rva007AF2B2@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AF2B2 (16B), static at VA 0x00E02848
@@ -434,14 +428,8 @@ HALF_RATE_INIT( rva007B1266 )
 HALF_RATE_INIT( rva007B12AA )
 // ?rva007B13C0@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B13C0 (16B), static at VA 0x00E038BC
 HALF_RATE_INIT( rva007B13C0 )
-// ?rva007B142E@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B142E (16B), static at VA 0x00E038F4
-HALF_RATE_INIT( rva007B142E )
-// ?rva007B14B6@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B14B6 (16B), static at VA 0x00E0394C
-HALF_RATE_INIT( rva007B14B6 )
 // ?rva007B14E0@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B14E0 (16B), static at VA 0x00E03958
 HALF_RATE_INIT( rva007B14E0 )
-// ?rva007B1A17@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B1A17 (16B), static at VA 0x00E03BB8
-HALF_RATE_INIT( rva007B1A17 )
 // ?rva007B24C0@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B24C0 (16B), static at VA 0x00E03FC0
 HALF_RATE_INIT( rva007B24C0 )
 // ?rva007B27B8@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007B27B8 (16B), static at VA 0x00E04144
