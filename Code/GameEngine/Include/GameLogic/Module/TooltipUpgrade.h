@@ -36,6 +36,7 @@ public:
 protected:
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
+	virtual void upgradeImplementation();									// UpgradeMux slot 10
 };
 
 #endif // __BFME2_TOOLTIPUPGRADE_H_

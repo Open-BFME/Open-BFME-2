@@ -40,11 +40,6 @@ struct BfmeWorldRV
 
 extern class ControlBar *TheControlBar;
 
-class Rva004B7A9D
-{
-public:
-	void upgradeImplementation();
-};
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
@@ -75,7 +70,7 @@ TooltipUpgrade::TooltipUpgrade( Thing *thing, const ModuleData *moduleData )
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B7A9D.cpp
 
 //
-// ?upgradeImplementation@Rva004B7A9D@@QAEXXZ, retail 0x004B7A9D, 62 bytes.
+// ?upgradeImplementation@TooltipUpgrade@@MAEXXZ, retail 0x004B7A9D, 62 bytes (UpgradeMux slot 10).
 // Chain from Drawable 0x00274C88: get Drawable via Thing at this-8 then
 // push AsciiStrings at base+0x118 and +0x11C via rowed 0x002793AF and
 // rowed 0x00274C88 then set global g_bfmeWorldRV +0x28 to 1.
@@ -83,13 +78,13 @@ TooltipUpgrade::TooltipUpgrade( Thing *thing, const ModuleData *moduleData )
 // rowed 0x002793AF plus rowed 0x00274C88 plus global g_bfmeWorldRV.
 //
 
-void Rva004B7A9D::upgradeImplementation()
+void TooltipUpgrade::upgradeImplementation()
 {
-	Thing *thing = *(Thing **)((char *)this - 8);
+	Thing *thing = (Thing *)getObject();
 	Drawable *drawable = thing->getDrawable();
 	if (drawable != 0) {
-		((Rva002793AF *)drawable)->rva002793AF(*(const AsciiString *)(*(char **)((char *)this - 0xC) + 0x118));
-		drawable->rva00274C88((AsciiString *)(*(char **)((char *)this - 0xC) + 0x11C));
+		((Rva002793AF *)drawable)->rva002793AF(*(const AsciiString *)((const char *)getModuleData() + 0x118));
+		drawable->rva00274C88((AsciiString *)((const char *)getModuleData() + 0x11C));
 	}
 	(*(BfmeWorldRV **)&TheControlBar)->m_28 = 1;
 }
