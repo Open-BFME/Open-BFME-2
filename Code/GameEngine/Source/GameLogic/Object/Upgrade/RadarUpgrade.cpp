@@ -42,8 +42,27 @@
 
 class MultiIniFieldParse;
 
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/INI/FieldParse.h"
-#include "../../../../Include/GameClient/Drawable.h"
 
 
 int Rva004CE29DGet();
@@ -139,48 +158,24 @@ class Object;
 
 typedef bool Bool;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-// UpgradeMux interface at +0x10: slot 0 isAlreadyUpgraded, slots 1-7 gaps,
-// slot 8 upgradeRemovalImplementation, slot 9 setUpgradeExecuted, slot 10
-// upgradeImplementation (the CommandSetUpgrade.cpp view).
-class UpgradeMux
-{
-public:
-	virtual Bool isAlreadyUpgraded() const = 0;
-	virtual void m01() = 0;
-	virtual void m02() = 0;
-	virtual void m03() = 0;
-	virtual void m04() = 0;
-	virtual void m05() = 0;
-	virtual void m06() = 0;
-	virtual void m07() = 0;
-
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(Bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-
-private:
-	bool m_upgradeExecuted;
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule( Thing *thing, const ModuleData *moduleData );
-protected:
-	virtual ~UpgradeModule();
-};
+// RadarUpgrade over the canonical UpgradeModule.h (target facts, VAs for
+// tables): ctor 0x004B478E calls ??0UpgradeModule 0x00460AEC, then installs
+// 0x00C57890 at +0, UpgradeModule's 0x00C57328 at +0x0C, 0x00C57848 at +0x10
+// and UpgradeModule's 0x00C58790 at +0x18; its destructor 0x004B46F9 (rowed
+// under the placeholder Rva004B46F9) restores the same four.
+//  - 0x00C57890 (12 slots): deleting dtor 0x004B47BF, loadPostProcess
+//    0x00497805 (`jmp 0x0058B03E`, UpgradeModule's own body), the name getter
+//    0x004B4719 (rowed under the placeholder Rva004B4719Named), xfer
+//    0x004B8710 (Version1 then UpgradeModule::xfer, the body retail folds with
+//    ArmorUpgrade::xfer), getModuleNameKey 0x004B4727, slot 8 onDelete
+//    0x004B47DB (rowed under Rva004B46F9), slot 9 onCapture 0x004B4828, then
+//    UpgradeModule's slots.
+//  - 0x00C57848 (UpgradeMux, 18 slots): UpgradeModule's except slot 8,
+//    upgradeRemovalImplementation 0x004B471F (setUpgradeExecuted(false)
+//    through slot 9; one body in five upgrade tables), and slot 10,
+//    upgradeImplementation 0x004B488F.
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/RadarUpgrade.h
 enum NameKeyType
@@ -265,9 +260,11 @@ public:
 	RadarUpgrade( Thing *thing, const ModuleData *moduleData );
 public:
 	virtual NameKeyType getModuleNameKey() const;
-	virtual void onCapture(Player *oldOwner, Player *newOwner);
+	virtual void onCapture(Player *oldOwner, Player *newOwner);				// primary slot 9
 protected:
-	virtual void upgradeImplementation();
+	virtual void xfer( Xfer *xfer );										// primary slot 3
+	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
+	virtual void upgradeImplementation();									// UpgradeMux slot 10
 private:
 	const RadarUpgradeModuleData *getRadarUpgradeModuleData() const { return (const RadarUpgradeModuleData *)m_moduleData; }
 };
@@ -361,4 +358,21 @@ void RadarUpgrade::onCapture(Player *oldOwner, Player *newOwner)
 		newOwner->addRadar(data->m_isDisableProof);
 		setUpgradeExecuted(true);
 	}
+}
+
+// ?upgradeRemovalImplementation@RadarUpgrade@@MAEXXZ: slot 8 of 0x00C57848 is
+// 0x004B471F, which only marks the upgrade not executed (slot 9 with false);
+// retail folds that body across five upgrade tables (VslotSmallBodiesAM.cpp).
+void RadarUpgrade::upgradeRemovalImplementation()
+{
+	setUpgradeExecuted(false);
+}
+
+// ?xfer@RadarUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C57890 is 0x004B8710,
+// version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+void RadarUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
 }
