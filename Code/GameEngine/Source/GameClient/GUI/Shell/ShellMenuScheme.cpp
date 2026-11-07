@@ -81,11 +81,17 @@ void allocator<_List_node<ShellMenuScheme *> >::deallocate(pointer node,
 // DEFINES ////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 
+// Retail's LinePart entry (table 0x00BE29EC + 0x10) points at 0x00200893, the matched
+// Rva00200893Parse (INIThinFieldParsers3.cpp), which news a ShellMenuSchemeLine, fills
+// it from retail's table and hands it to the scheme; Zero Hour's parseLinePart body
+// that used to stand here was not retail's code.
+void Rva00200893Parse(INI *ini, void *instance, void *store, const void *userData);
+
 const FieldParse ShellMenuSchemeManager::m_shellMenuSchemeFieldParseTable[] =
 {
 
 	{ "ImagePart",						ShellMenuSchemeManager::parseImagePart,			NULL, NULL },
-	{ "LinePart",							ShellMenuSchemeManager::parseLinePart,	NULL, NULL },
+	{ "LinePart",							Rva00200893Parse,	NULL, NULL },
 	{ NULL,										NULL,													NULL, 0 }  // keep this last
 
 };
@@ -369,26 +375,6 @@ void ShellMenuSchemeManager::parseImagePart(INI *ini, void *instance, void* /*st
 	ShellMenuSchemeImage *schemeImage = NEW ShellMenuSchemeImage;
 	ini->initFromINI(schemeImage, myFieldParse);
 	((ShellMenuScheme*)instance)->addImage(schemeImage);
-
-}
-
-// byte-exact reconstruction: game/GameEngine/Source/Common/ShellMenuSchemeManager_parseLinePart_Thunk.cpp
-// ?parseLinePart@ShellMenuSchemeManager@@ present-unmatched
-void ShellMenuSchemeManager::parseLinePart(INI *ini, void *instance, void* /*store*/, const void* /*userData*/)
-{
-	static const FieldParse myFieldParse[] =
-		{
-			{ "StartPosition",		INI::parseICoord2D,				NULL, offsetof( ShellMenuSchemeLine, m_startPos ) },
-			{ "EndPosition",			INI::parseICoord2D,				NULL, offsetof( ShellMenuSchemeLine, m_endPos ) },
-      { "Color",						INI::parseColorInt,				NULL, offsetof( ShellMenuSchemeLine, m_color ) },
-			{ "Width",						INI::parseInt,						NULL, offsetof( ShellMenuSchemeLine, m_width ) },
-
-			{ NULL,								NULL,											NULL, 0 }  // keep this last
-		};
-
-	ShellMenuSchemeLine *schemeLine = NEW ShellMenuSchemeLine;
-	ini->initFromINI(schemeLine, myFieldParse);
-	((ShellMenuScheme*)instance)->addLine(schemeLine);
 
 }
 
