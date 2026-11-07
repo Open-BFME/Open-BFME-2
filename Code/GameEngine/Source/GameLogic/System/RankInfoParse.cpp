@@ -1,5 +1,3 @@
-char g_00BE2870;
-
 // cl: /DNDEBUG /MD /GX- /Oi- /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 //
@@ -93,6 +91,25 @@ private:
 extern RankInfoStore *TheRankInfoStore;
 
 #include "../../../Include/Common/INI/FieldParse.h"
+
+// The rank block's field table, read from retail: every token, parser and offset
+// is retail's (it was a 1-byte zero placeholder, so a linked game parsed no Rank
+// field).
+// Retail VA 0x00BE2870: 11 fields and the zero sentinel.
+extern const FieldParse g_00BE2870[] = {
+	{ "RankName", &INI::parseAndTranslateLabel, 0, 0x10 },
+	{ "SkillPointsNeededDefault", &INI::parseInt, 0, 0x14 },
+	{ "SkillPointsNeededCampaign", &INI::parseInt, 0, 0x18 },
+	{ "SkillPointsNeededMen", &INI::parseInt, 0, 0x1C },
+	{ "SkillPointsNeededElves", &INI::parseInt, 0, 0x20 },
+	{ "SkillPointsNeededDwarves", &INI::parseInt, 0, 0x24 },
+	{ "SkillPointsNeededIsengard", &INI::parseInt, 0, 0x28 },
+	{ "SkillPointsNeededMordor", &INI::parseInt, 0, 0x2C },
+	{ "SkillPointsNeededWild", &INI::parseInt, 0, 0x30 },
+	{ "SciencesGranted", &INI::parseScienceVector, 0, 0x38 },
+	{ "SciencePurchasePointsGranted", &INI::parseUnsignedInt, 0, 0x34 },
+	{ 0, 0, 0, 0 }
+};
 
 // ?friend_parseRankDefinition@RankInfoStore@@SAXPAVINI@@@Z
 void RankInfoStore::friend_parseRankDefinition(INI *ini)
