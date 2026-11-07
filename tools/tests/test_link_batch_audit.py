@@ -720,3 +720,109 @@ def test_a_weak_default_for_one_spelling_does_not_cover_another():
     losses = A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj"), rank("caller.obj"),
                                 weak_defaults=lambda obj: {"public": "fallback"})
     assert losses == [("api", ["provider.obj"], ["caller.obj"], "loss")]
+
+
+# Re-check of 3448a035de: aliases from the before-state, and one proof outweighs any doubt.
+def unlinked(saved):
+    for entry in saved["blockers"].values():
+        entry["linked"] = False
+
+
+def test_a_changed_object_dropping_its_alias_and_definition_strands_the_caller(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["alternates"] = {"public": [(0, "api")]}                   # provider.obj: /alternatename:public=api
+    saved["touches"]["caller.obj"] = {"caller", "public"}
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    facts["provider.obj"] = ([], [], [], [])                          # both the definition and the directive go
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS api: defined before this batch by provider.obj, by no kept object after; " \
+           "still referenced by caller.obj" in capsys.readouterr().out
+
+
+def test_a_deleted_object_holding_the_alias_strands_the_caller(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["alternates"] = {"public": [(0, "api")]}
+    saved["touches"]["caller.obj"] = {"caller", "public"}
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    monkeypatch.setattr(A.link_census, "ledger", lambda: [{"source": "Code/caller.cpp"}])
+    monkeypatch.setattr(A.link_check, "link_rank", lambda rows: {"caller.obj": 0})
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS api:" in capsys.readouterr().out
+
+
+def test_an_old_alias_the_kept_inputs_resolve_another_way_is_no_spelling():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]},
+                    alternates={"public": [(0, "api")]}, touches={"caller.obj": {"public"}})
+    after = tables(["caller.obj", "new.obj"], strong={"public": [1]}, touches={"caller.obj": {"public"}})
+    assert A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj"),
+                              rank("caller.obj", "new.obj"), referenced=set()) == []
+
+
+def test_an_old_alias_held_only_by_an_omitted_object_is_no_spelling():
+    before = tables(["provider.obj", "caller.obj", "thunks.obj"], strong={"api": [0]},
+                    alternates={"public": [(2, "api")]}, touches={"caller.obj": {"public"}})
+    after = tables(["caller.obj", "thunks.obj"], touches={"caller.obj": {"public"}})
+    assert A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj", "thunks.obj"),
+                              rank("caller.obj", "thunks.obj"), omitted={"thunks.obj"}, referenced=set()) == []
+
+
+def test_an_unreadable_referrer_does_not_downgrade_a_proven_one(batch, weaks, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    facts["provider.obj"] = ([], [], ["api"], [])                    # loses `api`, still calls it
+    weaks["caller.obj"] = None                                       # caller's weak table unreadable
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS api: defined before this batch by provider.obj, by no kept object after; " \
+           "still referenced by caller.obj, provider.obj" in out
+    assert "CANDIDATE" not in out
+
+
+def test_an_include_proof_outweighs_an_unreadable_symbol_referrer(batch, weaks, includes, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    facts["provider.obj"] = ([], [], ["api"], [])
+    weaks["provider.obj"] = None
+    saved["touches"]["caller.obj"] = {"caller"}
+    facts["caller.obj"] = ([], ["caller"], [], [])
+    includes["caller.obj"] = {"api"}
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS api:" in out and "CANDIDATE" not in out
+
+
+def test_only_unreadable_referrers_make_a_candidate():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"api"}})
+    after = tables(["caller.obj"], touches={"caller.obj": {"api"}})
+    assert A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj"), rank("caller.obj"),
+                              weak_defaults=lambda obj: None) == [
+        ("api", ["provider.obj"], ["caller.obj"], "candidate")]
+
+
+def test_the_reference_graph_shortcut_passes_a_clean_batch_without_reading_unchanged_objects(
+        batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["references"]["referenced"] = {"caller"}                   # nothing the link keeps reaches `api`
+    saved["touches"]["caller.obj"] = {"caller"}
+    facts["caller.obj"] = ([], ["caller"], [], [])
+    facts["provider.obj"] = ([], [], [], [])
+    read = []
+
+    def reader(index, replacements):
+        def includes(obj):
+            read.append(obj)
+            return set()
+        return includes
+    monkeypatch.setattr(A, "include_reader", reader)
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS" not in out and "no linking regression found" in out
+    assert read == ["provider.obj"]                                  # the changed object only
