@@ -98,3 +98,37 @@ class's own matched constructors - and it returned nothing for these, which is t
 to close.
 
 Nothing was changed on the strength of this measurement.
+
+## Follow-up: why the 121 have no bases, traced (2026-11-07)
+
+Last note called `retail_bases` "the gap to close". It is not, and the chain is worth
+writing down because the conclusion is different from the guess.
+
+All 121 are cases where retail produced no `bases` fact at all - none were detected and
+then discarded by the view-agreement filter, which was the hypothesis. Retail cannot
+produce one here by design: it reads base offsets from vftable stores, so a polymorphic
+base at offset 0 under single inheritance is indistinguishable from the class's own vptr.
+That is a limit of the evidence, not a defect. 56 of the 121 have no matched constructor
+at all, so there is nothing to read in the first place - ordinary matching work.
+
+The ZH rule should have covered many of these, and it was failing for a mechanical reason:
+57 of the 121 had a ZH probe that would not compile, every one of them reporting the same
+three error codes. The cause was a missing STLport include on the probe's `PreRTS.h`
+attempt, so `#include <list>` resolved to MSVC 7.1's STL and collided in `xhash`. Fixed in
+d73d3dde8bd. A sample of eight of those 57 now gives seven compiling layouts, with bases
+that look right - AudioManager over SubsystemInterface, DieModule over BehaviorModule and
+DieModuleInterface, CommandButton over Overridable. AIPlayer still fails, on different
+codes (C2143, C2061), so there is at least one further probe cause behind this one.
+
+**That still does not settle the bases, and the reason is substantive.** The ZH base clause
+is used only when a private view declares exactly those bases, and after the probe fix
+AIGroup's bases still decide as none. The gate deserves to stay: ZH gives AIGroup
+MemoryPoolObject at 0 plus Snapshot where the BFME2 header declares only Snapshot, and ZH
+probes Team at 88 against a BFME2 object of 0x13C. The games differ, so a ZH base clause is
+a candidate, never an answer.
+
+So the honest state of the bases question: retail cannot see these bases, ZH can now be
+read for 57 more classes but disagrees with BFME2 often enough that it cannot be trusted
+unchecked, and the private views declare nothing. Settling them needs BFME2-specific
+evidence per class - a base constructor call in a matched ctor, a vbtable store, or a
+consumer that upcasts - which is per-class work, not another rule.
