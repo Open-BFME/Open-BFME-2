@@ -185,9 +185,9 @@ private:
 #include "../../../Include/Common/INI/INI.h"
 
 extern UpgradeCenter *TheUpgradeCenter;
-struct LookupListRec { const char *name; int value; };
-// The retail lookup list at RVA 0x009BB588 (1 names and the null terminator).
-extern const LookupListRec TheUpgradeTypeNames[2] = { { "PLAYER", 12561024 }, { 0, 0 } };
+// Upgrade.cpp's upgrade type names (retail RVA 0x009BB588: PLAYER, OBJECT, NULL), the
+// list parseIndexList reads for an upgrade's Type.
+extern const char *TheUpgradeTypeNames[];
 extern "C" {
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z")();
