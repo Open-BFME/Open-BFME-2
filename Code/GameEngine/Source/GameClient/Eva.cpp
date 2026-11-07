@@ -700,6 +700,7 @@ void Rva001DEE92Member::rva001DEE92(int count) {
 // EHs preserves the retail state ending before free; all pre-existing Eva
 // bodies remain byte-exact under this matched-sibling setting.
 #include "../../Include/GameLogic/Rva000427195.h"
+#include "../../Include/GameClient/Drawable.h"
 struct Rva001DDBF3Buckets
 {
 	void **begin, **end, **capacity;
