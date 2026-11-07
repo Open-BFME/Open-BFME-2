@@ -124,18 +124,13 @@ enum ObjectID; class ThingFactory {public:
 
 extern ThingFactory *TheThingFactory;
 extern AI *TheAI;
-class BaseUpgrade
-{
-protected:
-	virtual void upgradeImplementation();
-};
+#include "../../../../Include/GameLogic/Module/BaseUpgrade.h"
 
 void BaseUpgrade::upgradeImplementation()
 {
-	unsigned char *self = reinterpret_cast<unsigned char *>(this);
-	BaseUpgradeModuleData *moduleData =
-		*reinterpret_cast<BaseUpgradeModuleData **>(self - 0xc);
-	Object *object = *reinterpret_cast<Object **>(self - 8);
+	const BaseUpgradeModuleData *moduleData =
+		reinterpret_cast<const BaseUpgradeModuleData *>(getModuleData());
+	Object *object = getObject();
 	if (object == 0)
 		return;
 	Player *player = object->getControllingPlayer();
