@@ -401,4 +401,13 @@ from Rva0024A797Derived.cpp, and leave `loadPostProcess` to UpdateModule when re
   onCreate is retail's shared empty body (inline override); slot02 0x004B96C4 moved by `--to-class` into a
   two-base view in GapBodiesS9B.cpp; `Rva004B9458` folded. Its getter 0x004B9452 is, like ObjectHelper's, a
   free-function scaffold (`?Rva004B9452Get@@YAHXZ`), so slot 2 stays CreateModule's.
+- Walled (tried and reverted): StructureBody 0x004C0951 on ActiveBody.h compiles exact and emits real-length
+  tables, but ActiveBody.h's body-interface and primary slots name 34 members (getHealth, getMaxHealth,
+  getDamageState, vslot14/17/21, ...) whose bodies are rowed under placeholder or field-getter classes; the
+  unit would go from LINKS 49 B to unresolved on all 34. Every ActiveBody subclass ctor (SymbioticStructuresBody,
+  the RespawnBody family) waits for those rows to move into ActiveBody (`--to-class`, one slot each).
+- Not attempted, same reason class: the SpecialPowerModule family (PlayerHeal, UntamedAllegiance: a 24-slot
+  interface table with ten placeholder rows and a free-function getter scaffold), the SpecialAbilityUpdate
+  family (its ctor is still `??0Rva0044EF5E`), and the CrateCollide/CollideModule and DockUpdate families
+  (no shared header yet).
 
