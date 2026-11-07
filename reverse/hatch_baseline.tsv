@@ -2718,7 +2718,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLink
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f3@FakePathfindPortalBehaviour_B3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f4@FakePathfindPortalBehaviour_B4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	??1StatusBitsUpgrade@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	?fe@Rva004B5982_E@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	?fe@Rva004B5D0B_E@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorXfer.cpp	?push_back@?$list@VRva004530ED@@V?$allocator@VRva004530ED@@@_STL@@@_STL@@QAEXABVRva004530ED@@@Z	1
@@ -7873,7 +7872,7 @@ pin	reverse/symbols.csv	0x004B3C75	1
 pin	reverse/symbols.csv	0x004B3DC8	1
 pin	reverse/symbols.csv	0x004B3F0B	1
 pin	reverse/symbols.csv	0x004B40EA	1
-pin	reverse/symbols.csv	0x004B48D3	2
+pin	reverse/symbols.csv	0x004B48D3	1
 pin	reverse/symbols.csv	0x004B4960	1
 pin	reverse/symbols.csv	0x004B5378	1
 pin	reverse/symbols.csv	0x004B548C	1
@@ -12132,14 +12131,10 @@ present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::getPe
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::getScrollAmount	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::getSuperweaponDisplayEnabledByScript	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::isDrawableSelected	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::isScrolling	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::isSelecting	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::playMovie	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::registerWindowLayout	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::removeMessageAtIndex	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::resetIdleWorker	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setScrollAmount	1
-present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setSelecting	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::setSuperweaponDisplayEnabledByScript	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::showNamedTimerDisplay	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::triggerDoubleClickAttackMoveGuardHint	1

@@ -1,0 +1,29 @@
+{
+  "original-current": {
+    "rows": 8,
+    "matched": 8,
+    "missing": [],
+    "errors": [],
+    "object": "b7a33cc1ef445c5c.obj"
+  },
+  "original-region": {
+    "rows": 8,
+    "matched": 7,
+    "missing": [
+      {
+        "name": "??_GWorldAnimationData@@QAEPAXI@Z",
+        "rva": "0x007593F0",
+        "size": "25"
+      }
+    ],
+    "errors": [],
+    "object": "7de64a3dce901cb8.obj"
+  },
+  "pruned-current": {
+    "rows": 8,
+    "matched": 8,
+    "missing": [],
+    "errors": [],
+    "object": "5faf6d155855407a.obj"
+  }
+}

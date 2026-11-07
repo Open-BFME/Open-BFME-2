@@ -44,3 +44,16 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
 - **Outgoing audit follow-up:** byte gate passes after the fleet rebase, but the batch link audit is inconclusive (older index; host lacks census-grade receipt); carry provider/consumer checks into the next scheduled census: [evidence](../../reverse/attempt_support/ingameui-link-audit-followup-20261104-codex5.md).
 
 - **2026-11-05 selector-emitter cleanup:** removed four unused donor selectors and their private callback; both conflicting `BitFlags<116>` / `Drawable::isSelected` copies disappear, all four rows stay exact, host preview now LINKS (predicted 55 B). Next: scheduled census confirmation and a fresh guarded merge pass; [provider audit and scope](../../reverse/attempt_support/ingameui-bitflags-prune-20261105-codexb.md).
+
+- **2026-11-07 host cleanup and current merge boundary:** three stale,
+  non-emitting scrolling/selecting definitions and the unused struct-Coord2D
+  setScrollAmount body are removed. The class-Coord2D owner is unchanged;
+  no signature respell is inferred from a source-name hit. All eight code and
+  two data rows remain exact; 102 simple external code comparisons and CRT
+  order are preserved, with only the unused U setter definition removed.
+  Four live unmatched hatches retire. The current 114-donor trial accepts none:
+  the host's no-/O override rejects or mismatches most donors before composition,
+  and canonical/private header boundaries remain. A private /O1 /Ot host passes
+  all eight rows and LinkGuard; applying it needs the full repository gate and
+  another guarded merge trial. Existing expireHint/resetIdleWorker ABI leads
+  remain separate. [Proof and scope](../../reverse/attempt_support/ingameui-host-prune-20261107/README.md).

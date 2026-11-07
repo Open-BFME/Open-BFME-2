@@ -1605,49 +1605,15 @@ DrawableID InGameUI::getMousedOverDrawableID( void ) const
 //-------------------------------------------------------------------------------------------------
 /// are we scrolling?
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::isScrolling present-unmatched
-// Select-any: the rowed BFME2 body in InGameUIInputModes.cpp comes first in
-// link order, so this differing ZH-donor spelling folds without being kept.
-inline __declspec(noinline) Bool InGameUI::isScrolling( void )
-{
-	return m_isScrolling;
-}
-
 //-------------------------------------------------------------------------------------------------
 /// set drag select mode
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::setSelecting present-unmatched
-// Select-any, as isScrolling above.
-inline __declspec(noinline) void InGameUI::setSelecting( Bool isSelecting )
-{
-	if (m_isSelecting == isSelecting)
-	{
-		return;
-	}
-
-	//setMouseCursor( Mouse::SELECTING );
-	m_isSelecting = isSelecting;
-}
-
 //-------------------------------------------------------------------------------------------------
 /// are we selecting?
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::isSelecting present-unmatched
-// Select-any, as isScrolling above.
-inline __declspec(noinline) Bool InGameUI::isSelecting( void )
-{
-	return m_isSelecting;
-}
-
 //-------------------------------------------------------------------------------------------------
 /// get scroll amount
 //-------------------------------------------------------------------------------------------------
-// ?InGameUI::setScrollAmount present-unmatched
-void InGameUI::setScrollAmount( Coord2D amt )
-{
-	m_scrollAmt = amt;
-}
-
 //-------------------------------------------------------------------------------------------------
 /// get scroll amount
 //-------------------------------------------------------------------------------------------------
