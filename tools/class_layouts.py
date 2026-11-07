@@ -529,6 +529,16 @@ def _proven_brace(statement, owner=None):
     statement = ACCESS.sub("", statement).strip()
     if statement.endswith("=") or statement.endswith(","):
         return "initializer"
+    # A template prefix is no evidence of a return type: strip and validate every
+    # `template <...>` first, so `template <class T> MACRO(X) {` stays unproven.
+    while True:
+        prefix = re.match(r"template\s*<", statement)
+        if not prefix:
+            break
+        end = _angle_end(statement, prefix.end() - 1)
+        if end is None:
+            return None
+        statement = statement[end:].strip()
     if OTHER_SCOPE.match(statement):
         return "other"
     tail = FUNCTION_HEAD.search(statement)

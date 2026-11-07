@@ -232,6 +232,11 @@ def test_an_anonymous_typedef_recovers_its_name():
     assert class_layouts.class_identities("typedef struct { int a; } *const Px;") is None
 
 
+def test_a_templated_function_with_a_return_type_is_still_proven():
+    text = "template <class T> T *make(int n) { return 0; }\ntemplate <> int *make<int>(int n) { return 0; }\nclass K { };\n"
+    assert ident(text) == [("K", None, False, "class")]
+
+
 def test_function_bodies_initializers_and_enums_are_proven_scopes():
     text = ("namespace { struct A { int a; }; }\n"
             "void f() { struct Local { int b; }; }\n"
@@ -244,6 +249,9 @@ def test_function_bodies_initializers_and_enums_are_proven_scopes():
 
 @pytest.mark.parametrize("text", [
     '#include "heads.h"\nDECLARE_CLASS(X) { int x; };\n',        # review: a macro-made class gave []
+    "template <class T> DECLARE_CLASS(X) { int x; };\n",            # re-review: a template prefix is no type
+    "template <> DECLARE_CLASS(X) { int x; };\n",
+    "template <class T> template <class U> DECLARE_CLASS(X) { int x; };\n",
     "BEGIN_SCOPE { class X { }; }\n",
     "#define S X\n" + NS.format(PRIM),
     'const char *s = R"(x)";\n' + PRIM,
