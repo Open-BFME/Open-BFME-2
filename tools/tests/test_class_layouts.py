@@ -342,3 +342,19 @@ def test_a_member_type_in_a_return_type_is_not_a_member_definition():
 ])
 def test_member_reader_fails_closed(text):
     assert class_layouts.template_member_definitions(text, "X") is None
+
+
+def test_pragma_cases_the_review_probed():
+    # warning push/pop around a class, a quoted `//` in a pragma, an inline __pragma: still read.
+    text = ('#pragma warning(push)\n#pragma warning(disable: 4100)\n#pragma comment(lib, "a//b.lib")\n'
+            "__pragma(warning(disable: 4512))\n" + PRIM + "\n#pragma warning(pop)\n")
+    assert ident(text) == [("CategoryModuleTemplate", None, True, "class")]
+
+
+@pytest.mark.parametrize("text", [
+    "#pragma warning(disable: \\\n4100)\n" + PRIM,              # a backslash continuation splices lines
+    "#define NOWARN __pragma(warning(disable: 4100))\n" + PRIM,    # a macro around __pragma is a #define
+    "#define NOWARN _Pragma(\"once\")\n" + PRIM,
+])
+def test_pragma_lookalikes_that_still_refuse(text):
+    assert class_layouts.class_identities(text) is None
