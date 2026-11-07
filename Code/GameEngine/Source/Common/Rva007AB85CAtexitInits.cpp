@@ -14,7 +14,6 @@
 #include "ascii_string.h"
 
 void __cdecl rva007B6C9B();
-void __cdecl rva007B6F98();
 void __cdecl rva007B7024();
 void __cdecl rva007B7090();
 void __cdecl rva007B70A0();
@@ -30,7 +29,6 @@ void __cdecl rva007B8119();
 void __cdecl rva007B8123();
 void __cdecl rva007B9B40();
 
-unsigned g_Va00DEC3B8;	// retail RVA 0x009EC3B8 (.bss), defined here
 unsigned g_Va00DFF030;
 unsigned g_Va00E02E70;
 unsigned g_Va00E02E74;
@@ -38,7 +36,6 @@ unsigned g_Va00E02E74;
 struct Rva007AB85CAtexitInits
 {
 	static void rva007AC25C();
-	static void rva007ACB5D();
 	static void rva007ACCA6();
 	static void rva007ACD90();
 	static void rva007ACDA0();
@@ -60,15 +57,6 @@ void Rva007AB85CAtexitInits::rva007AC25C()
 {
 	atexit( rva007B6C9B );
 }
-
-#pragma inline_depth( 0 )
-// ?rva007ACB5D@Rva007AB85CAtexitInits@@SAXXZ @ 0x007ACB5D (27B): AsciiString at VA 0x00DEC3B8 = literal at VA 0x00BCFADC, then atexit(0x007B6F98)
-void Rva007AB85CAtexitInits::rva007ACB5D()
-{
-	( (AsciiString *)&g_Va00DEC3B8 )->AsciiString::AsciiString( "LookupTablePostEffect" );
-	atexit( rva007B6F98 );
-}
-#pragma inline_depth()
 
 // ?rva007ACCA6@Rva007AB85CAtexitInits@@SAXXZ @ 0x007ACCA6 (12B): atexit(0x007B7024)
 void Rva007AB85CAtexitInits::rva007ACCA6()

@@ -8,26 +8,20 @@
 
 #include "ascii_string.h"
 
-// VA 0x00DEC3B8 (.data, four bytes, retail holds zeros there): the lookup-table
-// key the factory and the two PostFX paths compare against. Nothing can define it
-// as its own StringBase<char> spelling -- that class's default constructor is
-// private in the shim (onlyfriendclass AsciiString opens it) -- but its public
-// derived spelling is AsciiString, whose base subobject sits at offset 0, so the
-// four readers keep passing the same address to the same rowed compare at RVA
-// 0x000069D6. Retail's storage is zero-filled and is filled at static-init
-// time, exactly like the zero slots defined elsewhere in .data.
+// VA 0x00DEC3B8 (zero-filled .data tail): the lookup-table post effect's name, the key the
+// factory and the two PostFX paths compare against. Retail builds it in this unit's
+// .text$yc run (0x007ACB5D, alone before the pool-init marker 0x007ACB78) from the literal
+// "LookupTablePostEffect" through the out-of-line AsciiString(const char *) 0x0000654A,
+// and registers the cleanup 0x007B6F98. The readers compare through the rowed StringBase
+// compare at RVA 0x000069D6; AsciiString's base subobject sits at offset 0.
 // The prior `extern` declaration is what makes the definition external: without
 // it MSVC gives a const namespace-scope object INTERNAL linkage and emits the
 // TU-local symbol instead, so the readers' reference to
-// ?g_00DEC3B8@@3VAsciiString@@B is unresolved. `AsciiString` is used because
-// StringBase<char>'s default constructor is private in the shim (only its
-// friend AsciiString opens it); AsciiString's own default ctor is public and
-// zeroes the buffer pointer, which is retail's content for this four-byte
-// slot. Nothing else defines the object, and the rowed compare at 0x000069D6
-// takes it by address so a default-constructed empty key keeps every reader's
-// bytes.
+// ?g_00DEC3B8@@3VAsciiString@@B is unresolved.
 extern const AsciiString g_00DEC3B8;
-const AsciiString g_00DEC3B8;
+#pragma inline_depth( 0 )
+const AsciiString g_00DEC3B8("LookupTablePostEffect");
+#pragma inline_depth()
 
 class LookupTablePostEffect
 {

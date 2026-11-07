@@ -965,20 +965,12 @@ void __cdecl rva007B6FAC()
 }
 
 unsigned g_Va00DEAF20;	// retail RVA 0x009EAF20 (.bss), defined here
-extern unsigned g_Va00DEC3B8;
 extern AsciiString g_00DEE93C;	// RVA 0x009EE93C, defined in Rva0012CAC3Run.cpp
 
 // ?rva007B6D09@@YAXXZ @ 0x007B6D09 (10B). Global AsciiString dtor thunk: ecx=&g_Va00DEAF20 then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39).
 void __cdecl rva007B6D09()
 {
 	AsciiString *receiver = (AsciiString *)&g_Va00DEAF20;
-	return receiver->~AsciiString();
-}
-
-// ?rva007B6F98@@YAXXZ @ 0x007B6F98 (10B). Global AsciiString dtor thunk: ecx=&g_Va00DEC3B8 then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39).
-void __cdecl rva007B6F98()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00DEC3B8;
 	return receiver->~AsciiString();
 }
 

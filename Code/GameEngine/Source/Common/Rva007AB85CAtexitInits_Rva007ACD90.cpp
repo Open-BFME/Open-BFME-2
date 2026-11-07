@@ -16,7 +16,6 @@
 #include "ascii_string.h"
 
 void __cdecl rva007B6C9B();
-void __cdecl rva007B6F98();
 void __cdecl rva007B7024();
 void __cdecl Rva007B7090Set();
 void __cdecl Rva007B70A0Set();
@@ -37,7 +36,6 @@ void __cdecl clearMissingVariant();
 struct Rva007AB85CAtexitInits
 {
 	static void rva007AC25C();
-	static void rva007ACB5D();
 	static void rva007ACCA6();
 	static void rva007ACD90();
 	static void rva007ACDA0();
