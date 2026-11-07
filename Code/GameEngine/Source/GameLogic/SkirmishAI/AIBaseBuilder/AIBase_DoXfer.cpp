@@ -275,7 +275,7 @@ extern MapCache *TheMapCache;
 extern class GlobalData *TheWritableGlobalData;
 
 // A file-level AsciiString in .bss that a template name may also match.
-extern unsigned int g_Va00E06448;	// the "<ANY>" AsciiString at RVA 0x00A06448 (data-rowed in Rva007AB85CAtexitInits.cpp)
+extern AsciiString g_Va00E06448;	// the "<ANY>" AsciiString at RVA 0x00A06448, defined in AIBase.cpp
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
@@ -398,7 +398,7 @@ Rva0041E912Template *AIBase::rva005ADCBE(int notFirst, const _STL::vector<Rva004
 		for (Rva0041E912Template *const *it = list.begin(); it != list.end(); ++it) {
 			Rva0041E912Template *tmpl = *it;
 			if (tmpl->m_name.compare(mapName) != 0) {
-				if (!open || tmpl->m_name.compare(*(const AsciiString *)&g_Va00E06448) != 0)
+				if (!open || tmpl->m_name.compare(g_Va00E06448) != 0)
 					continue;
 			}
 			if (tmpl->m_starts.begin() == tmpl->m_starts.end()) {

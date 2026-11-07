@@ -5264,26 +5264,6 @@ void __cdecl rva007B9676()
 	receiver->rva001EAF7B();
 }
 
-extern unsigned int g_Va00E06444;
-// g_00E06444: packet annotates VA 0x00E06444 (data RVA 0x00A06444), no name yet.
-
-// ?rva007B9680@@YAXXZ @ 0x007B9680 (10B). Global AsciiString dtor thunk: ecx=&g_00E06444 then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39). No callers. Between 0x007B9676 and 0x007B9694. Honest address name.
-void __cdecl rva007B9680()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E06444;
-	return receiver->~AsciiString();
-}
-
-extern unsigned int g_Va00E06448;
-// g_00E06448: packet annotates VA 0x00E06448 (data RVA 0x00A06448), no name yet.
-
-// ?rva007B968A@@YAXXZ @ 0x007B968A (10B). Global AsciiString dtor thunk: ecx=&g_00E06448 then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39). No callers. Between 0x007B9680 and 0x007B9694. Honest address name.
-void __cdecl rva007B968A()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E06448;
-	return receiver->~AsciiString();
-}
-
 // ?rva007B9694@@YAXXZ @ 0x007B9694 (10B). Global Rva001EAF7B thunk: ecx=&g_freelistPool then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B).
 void __cdecl rva007B9694()
 {

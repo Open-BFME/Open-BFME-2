@@ -205,11 +205,19 @@ public:
 extern MapCache *TheMapCache;
 
 #include "../../../../Include/Common/GlobalData.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern class GlobalData *TheWritableGlobalData;
 
-// A file-level AsciiString in .bss that a template name may also match.
-extern const AsciiString g_00E06448;
+// The unit's two file-scope AsciiStrings. Retail builds them in this TU's .text$yc run
+// (0x007B46A8 and 0x007B46C3, after the unit's Drawable.h copy 0x007B4698 and before its
+// pool-init marker 0x007B46DE) through the out-of-line AsciiString(const char *) 0x0000654A.
+// A base template named "<ANY>" matches any map (AIBase_DoXfer.cpp). Address names kept;
+// the original names are unknown.
+#pragma inline_depth( 0 )
+AsciiString g_Va00E06444("PrimaryAIBaseMarker");
+AsciiString g_Va00E06448("<ANY>");
+#pragma inline_depth()
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
