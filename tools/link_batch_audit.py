@@ -429,7 +429,7 @@ def bridge_copy_reader(paths):
     return bridge_copies
 
 
-INCLUDE = re.compile(r"/INCLUDE:(\"[^\"]+\"|[^\s,=]+)", re.I)
+INCLUDE = link_census.DIRECTIVE_INCLUDE
 
 
 def directive_includes(data):

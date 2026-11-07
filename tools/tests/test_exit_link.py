@@ -982,7 +982,7 @@ def test_stub_seed_leaves_an_alias_whose_target_this_build_defines(tmp_path, mon
         ("_Real", 0, 0, L.EXTERNAL, []),
         ("_ToLib", 0, 0, L.EXTERNAL, []),
         ("_Gone", 0, 0, L.EXTERNAL, [])],
-        drectve=b"/alternatename:_Alias=_Real /alternatename:_ToLib=_LibReal ")
+        drectve=b"/alternatename:_Alias=_Real -ALTERNATENAME:_ToLib=_LibReal ")
     real = coff(tmp_path / "real.obj", [("_Real", 1, 0, L.EXTERNAL, [])])
     monkeypatch.setattr(E.census, "library_symbols", lambda path: {"_LibReal"})
     seed = _seed(tmp_path, ["_Alias", "_Weak", "_ToLib", "_Gone"])

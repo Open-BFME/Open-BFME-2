@@ -1,5 +1,7 @@
 """predicted_unresolved: the selection link's names, predicted from the objects."""
 import struct
+
+import pytest
 import sys
 from pathlib import Path
 
@@ -85,3 +87,32 @@ def test_extra_references_and_definitions_join_the_objects(tmp_path):
         "_lib", "?exported@@3HA", "_viaLib"}
     assert L.predicted_unresolved([a], references={"?exported@@3HA", "_viaLib"},
                                   definitions={"_lib", "_lib2"}) == {"?exported@@3HA"}
+
+
+@pytest.mark.parametrize("spelling", ["/alternatename", "-alternatename", "/ALTERNATENAME", "-AlternateName"])
+def test_every_alternatename_spelling_link_accepts_resolves(tmp_path, spelling):
+    # Codex re-check of 6fc2babc76: LINK takes `-alternatename` too, in any case.
+    a = coff(tmp_path / "a.obj", [("_WinMainCRTStartup", 1, 0, L.EXTERNAL, []), ("_Real", 1, 4, L.EXTERNAL, []),
+                                 ("_Alias", 0, 0, L.EXTERNAL, [])],
+             drectve=f"{spelling}:_Alias=_Real ".encode())
+    assert L.predicted_unresolved([a]) == set()
+    assert L._alternate_names(a.read_bytes()) == {"_Alias": "_Real"}
+
+
+@pytest.mark.parametrize("spelling", ["/INCLUDE", "-INCLUDE", "/include", "-Include"])
+def test_every_include_spelling_link_accepts_is_a_reference(tmp_path, spelling):
+    a = coff(tmp_path / "a.obj", [("_WinMainCRTStartup", 1, 0, L.EXTERNAL, [])],
+             drectve=f"   {spelling}:_forced\0\0".encode())
+    assert L.predicted_unresolved([a]) == {"_forced"}
+
+
+@pytest.mark.parametrize("spelling", ["/EXPORT", "-EXPORT", "/export", "-Export", "/INCLUDE", "-include"])
+def test_every_root_spelling_link_accepts_roots_the_census_graph(spelling):
+    assert L.DIRECTIVE_ROOT.findall(f'/DEFAULTLIB:x {spelling}:"_name" /MERGE:a=b') == ['"_name"']
+
+
+def test_a_directive_spelling_inside_another_option_is_not_a_directive(tmp_path):
+    a = coff(tmp_path / "a.obj", [("_WinMainCRTStartup", 1, 0, L.EXTERNAL, []), ("_x", 0, 0, L.EXTERNAL, [])],
+             drectve=b'/INCLUDE:"_a-alternatename:_x=_WinMainCRTStartup" /EXPORT:_b-include:_c ')
+    assert L._alternate_names(a.read_bytes()) == {}
+    assert L.predicted_unresolved([a]) == {"_x", "_a-alternatename:_x=_WinMainCRTStartup"}

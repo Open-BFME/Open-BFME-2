@@ -1150,7 +1150,12 @@ def keep_rule(copies, referenced=True, retail_kept=True, retail_first=True):
 
 SELECT_NODUPLICATES, SELECT_ASSOCIATIVE = 1, 5
 LNK_INFO, LNK_REMOVE = 0x200, 0x800  # .drectve, and sections the linker never places
-DIRECTIVE_ROOT = re.compile(r"/(?:INCLUDE|EXPORT):(\"[^\"]+\"|[^\s,=]+)", re.I)
+# LINK takes a directive's option after `/` or `-`, in any case (`-alternatename:`, `/include:`), and
+# a .drectve separates options by whitespace (or pads with NULs). Every directive reader here uses these.
+DIRECTIVE_START = r"(?<![^\s\0])[/-]"
+DIRECTIVE_ROOT = re.compile(DIRECTIVE_START + r"(?:INCLUDE|EXPORT):(\"[^\"]+\"|[^\s\0,=]+)", re.I)
+DIRECTIVE_INCLUDE = re.compile(DIRECTIVE_START + r"INCLUDE:(\"[^\"]+\"|[^\s\0,=]+)", re.I)
+DIRECTIVE_ALTERNATENAME = re.compile(DIRECTIVE_START + r"alternatename:([^=\s\0]+)=([^\s\0]+)", re.I)
 
 
 def object_references(obj, data=None):
@@ -2405,7 +2410,7 @@ def object_symbols(obj, data=None):
         if data[header:header + 8].rstrip(b"\0") == b".drectve":
             size, pointer = struct.unpack_from("<II", data, header + 16)
             text = data[pointer:pointer + size].decode("latin-1")
-            includes.update(found.strip('"') for found in re.findall(r"/INCLUDE:(\"[^\"]+\"|[^\s,=]+)", text, re.I))
+            includes.update(found.strip('"') for found in DIRECTIVE_INCLUDE.findall(text))
     return defined, referenced, _weak_externals(data), _alternate_names(data), includes
 
 
@@ -2421,7 +2426,7 @@ def _alternate_names(data):
             continue
         size, pointer = struct.unpack_from("<II", data, header + 16)
         text = data[pointer:pointer + size].decode("latin-1")
-        for alias, target in re.findall(r"/alternatename:([^=\s]+)=(\S+)", text, re.I):
+        for alias, target in DIRECTIVE_ALTERNATENAME.findall(text):
             found.setdefault(alias.strip('"'), target.strip('"'))
     return found
 
