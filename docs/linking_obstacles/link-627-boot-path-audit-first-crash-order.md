@@ -128,6 +128,29 @@ FloatUpdate, DelayedLuaEventUpdate, SupplyCenterDockUpdate, BeaconClientUpdate, 
 `??_7LaserFXNugget@@6B@` is not planned (0x00BDD7B8 has no ledger vtable row; our copy already has retail's five slots).
 Full `./build.sh` on these commits: FULL GATE OK, 99,551/99,551.
 
+Update (2026-11-07, crash-triage seat2, P15): the first runtime crash on this list. With P14's INI name
+lists fixed (landed c15069ea09) the diagnostic image boots past Upgrade.ini and calls 0x0 from
+`SubsystemInterfaceList::initSubsystem`+0x39, the `call [eax+4]` to init (receipts
+`2026-11-07T041937Z-boot_smoke-eac0848531c4`, image 8543e241f8, and `2026-11-07T051058Z-boot_smoke-363e5e6cf17a`,
+image c4a441f662 on the 7487438dd4 base; 30-31 s, exit 0x29a, no dialog). Item 4 is the site: in the image,
+`??_7Rva004134AE@@6B@` is 4 bytes and its slot 1 reads the next symbol's 0, the only init slot in
+GameEngine::init's chain that is 0. Items 2 and 3 run earlier but their slot 1 happens to hold code. The kept
+copy is short because `Rva004134AECtor.cpp` includes `SubsystemInterface.h` without `BFME_SUBSYSTEM_SLOTS`,
+which hides every slot but the destructor (header lines 18-32).
+- Repaired (branch `swarm/triage/p15-subsystem-slots`, pending review): `Rva004134AECtor.cpp` defines
+  `BFME_SUBSYSTEM_SLOTS` and gives the class empty `init`/`reset`/`update` overrides, rowed as verified ICF
+  aliases of 0x000B3FD0. The unit emits 14 slots in retail's order (0x008399B8), each body byte-identical to
+  retail's target; the ctor still matches.
+- Item 3 (TheLocomotorStore) and item 7 (TheLivingWorldManager, `Rva0022B12DSubsystem`, 0x007E5234) are
+  recorded blocked in re_attempts.log rather than given private overrides: retail's slots 4/5 and 1/9/10
+  point at matched bodies rowed as non-virtual members of placeholder classes
+  (`?rva001E51AC@Rva001E72B4@@QAE_NPA_N@Z`, `?rva001E3934@Rva001E72B4@@QAE_NXZ`,
+  `?disable@Rva00210D0DByteZeroSetter@@QAEXXZ`, `?rva002123BE@Rva0021237E@@QAEXXZ`), so their tables need
+  the class identities (`LocomotorStore`, `LivingWorldManager`) first.
+- In every `BFME_SUBSYSTEM_SLOTS` unit the base's inline slots (`postProcessLoad`, `vslot04`..`vslot08`,
+  `vslot11`..`vslot13`) link as `SubsystemInterface`'s own unrowed COMDAT copies: same bytes as retail's
+  folded targets, so a slot-identity audit cannot credit them yet.
+
 Remaining / next check: Finding 1 first (per-name strong refusal, then the ledger); then lk52's MessageStream and
 translator commits; LINK-625's walled module data; W3DRadar's identity; the object-creation rows.
 
