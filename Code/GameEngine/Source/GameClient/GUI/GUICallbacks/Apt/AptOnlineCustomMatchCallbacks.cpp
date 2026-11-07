@@ -224,11 +224,9 @@ extern MapCache *TheMapCache;
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-// The online chat colors: 0x009B9198 and, inside the 148-byte table
-// 0x009B91B4, the dword at +0x44 (0x009B91F8).
-// Chat.cpp owns the colour array at VA 0x00DB9198; index/addend unchanged.
+// The online chat colours: Chat.cpp owns BFME 2's 29-entry GameSpyColor array
+// at VA 0x00DB9198.
 extern int GameSpyColor[];
-extern unsigned int g_00DB91B4;
 
 // Unrowed 0x0044C0A8 (pinned; as AptLanLobby::MpOwnerPrintMessage uses it)
 // and the flag it is skipped under.
@@ -932,7 +930,7 @@ void AptOnlineCustomMatch::MpOwnerPrintMessage(const UnicodeString &text, int ki
 	case 1:
 		if (!AptMessenger::s_instance)
 			MessageBoxOk(UnicodeString(L""), text, 0);
-		TheGameSpyInfo->addText(text, (&g_00DB91B4)[17]);
+		TheGameSpyInfo->addText(text, GameSpyColor[24]);
 		break;
 	case 2:
 		TheGameSpyInfo->slot65(text);

@@ -133,14 +133,8 @@ struct NativeSelectionSet:public Rva002EE9B7 {
  __forceinline _STL::set<int> &set(){return *reinterpret_cast<_STL::set<int>*>(this);}
 };
 
-extern unsigned int g_00DB91B4;
-
-extern unsigned int g_00DB91B0;
-
-// Owned here (their only reader); retail .data initial colors.
-unsigned int g_00DB91B4 = 0xFFFF00FF;
-
-unsigned int g_00DB91B0 = 0xFFFF0000;
+// The LAN chat colours are GameSpyColor[7] (VA 0x00DB91B4) and [6] (0x00DB91B0),
+// entries of Chat.cpp's array, not globals of their own.
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
 
@@ -254,7 +248,7 @@ void ChatWindowsLan::rva005D5648(_STL::vector<BfmeStringRecord005D511F> *vec, Ga
     int i = 0;
     if (info == 0)
         return;
-    unsigned int arg = g_00DB91B4;
+    unsigned int arg = GameSpyColor[7];
     for (; i < 8; ++i)
     {
         GameSlot *slot = info->getSlot(i);
@@ -266,6 +260,6 @@ void ChatWindowsLan::rva005D5648(_STL::vector<BfmeStringRecord005D511F> *vec, Ga
             *reinterpret_cast<const unsigned int *>(&slot->m_field3C),
             UnicodeString::TheEmptyString, arg);
         vec->push_back(tmp);
-        arg = g_00DB91B0;
+        arg = GameSpyColor[6];
     }
 }

@@ -205,11 +205,6 @@ extern MapCache *TheMapCache;
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-// The online chat colors: 0x009B9198 and, inside the 148-byte table
-// 0x009B91B4, the dword at +0x44 (0x009B91F8).
-extern int g_00DB9198;
-extern unsigned int g_00DB91B4;
-
 // Unrowed 0x0044C0A8 (pinned; as AptLanLobby::MpOwnerPrintMessage uses it)
 // and the flag it is skipped under.
 void MessageBoxOk(UnicodeString title, UnicodeString text, void (*callback)());
