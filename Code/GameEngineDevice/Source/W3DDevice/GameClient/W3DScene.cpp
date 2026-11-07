@@ -307,13 +307,6 @@ Bool RTS3DScene::castRay(RayCollisionTestClass & raytest, Bool testAll, Int coll
 	return hit;
 }
 
-typedef bool (CameraClass::*BfmeCameraCullSphereMethod)(const SphereClass &) const;
-// ?bfmeAnchorCameraCullSphere absent-from-retail
-BfmeCameraCullSphereMethod bfmeAnchorCameraCullSphere()
-{
-	return &CameraClass::Cull_Sphere;
-}
-
 //============================================================================
 // RTS3DScene::renderSingleDrawable
 //=============================================================================
