@@ -110,8 +110,11 @@ def test_qualified_class_key_rewrite_preserves_scope(tmp_path, monkeypatch):
     before = "?use@@YAXPAUImpl@BattlePromptArmyPanelMovieClip@StrategicHUD@@@Z"
     ledger.write_text("name,source\n" + before + ",clip.cpp\n", encoding="utf-8")
     monkeypatch.setattr(lane, "LEDGER", ledger)
-    assert lane.ledger_renames("clip.cpp", NAME, "class") == [
-        (before, before.replace("PAUImpl", "PAVImpl"))]
+    # ledger_renames reports ([(old, new)], why): a row it cannot safely rewrite
+    # blocks the whole unit rather than being half-flipped, so the refusal
+    # travels with the renames.
+    assert lane.ledger_renames("clip.cpp", NAME, "class") == (
+        [(before, before.replace("PAUImpl", "PAVImpl"))], None)
 
 
 COORD2D = {"size": 8, "bases": [], "fields": [[0, "x", "float", 4], [4, "y", "float", 4]]}
