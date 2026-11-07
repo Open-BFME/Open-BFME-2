@@ -6733,22 +6733,6 @@ void __cdecl rva007B6EF4()
 	return receiver->Rva004E5A24::~Rva004E5A24();
 }
 
-class VegetationFXShaderParameterSourceNamespace
-{
-public:
-	virtual ~VegetationFXShaderParameterSourceNamespace();
-};
-
-extern unsigned g_Va00DEBC98;
-unsigned int g_Va00DEBC98;
-
-// ?rva007B6E18@@YAXXZ @ 0x007B6E18 (10B). Global VegetationFXShaderParameterSourceNamespace dtor thunk: ecx=&g_Va00DEBC98 then tail-jmp to pinned ??1VegetationFXShaderParameterSourceNamespace@@UAE@XZ (0x000E6387). No callers. Honest address name.
-void __cdecl rva007B6E18()
-{
-	VegetationFXShaderParameterSourceNamespace *receiver = (VegetationFXShaderParameterSourceNamespace *)&g_Va00DEBC98;
-	return receiver->VegetationFXShaderParameterSourceNamespace::~VegetationFXShaderParameterSourceNamespace();
-}
-
 // g_Va00E02838 is the function-local static map of
 // ScoreKeeper::getObjectsDestroyedMap (0x0039C3AC builds it with the folded
 // map ctor 0x0033C432 and registers this thunk). Map dtors fold at

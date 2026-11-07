@@ -38,8 +38,6 @@ public:
 	Rva0057A4E7();
 };
 
-void __cdecl rva007B6E18();
-void rva007AC747();
 
 
 void __cdecl rva007B6ED6();

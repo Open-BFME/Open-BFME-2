@@ -189,6 +189,7 @@ typedef _STL::vector<RefCountPtr<FXShader::RenderingMethod>, _STL::allocator<Ref
 class LightEnvironmentClass;
 
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderInfoClass.h"
+#include "../../../../GameEngine/Include/GameClient/Drawable.h"
 
 // Rendering-method stack walkers (element array, count): rows Rva001688FFShift
 // 0x001688FF and Rva00168952Clear 0x00168952 (RenderingMethodLinkArray.cpp).
@@ -298,6 +299,13 @@ VegetationFXShaderParameterSourceNamespace::VegetationFXShaderParameterSourceNam
 {
     Rva00153565Register("Vegetation", this);
 }
+
+// The Vegetation binder object. Retail constructs it at 0x00DEBC98 in this unit's .text$yc run
+// (0x007AC747, after the unit's Drawable.h copy 0x007AC737 and before the pool-init marker
+// 0x007AC75D) and registers the cleanup 0x007B6E18, which runs the destructor 0x000E6387. In
+// .bss it follows this unit's g_009EBC90 and the copy's static. Address name kept; the
+// original name is unknown.
+VegetationFXShaderParameterSourceNamespace g_Va00DEBC98;
 
 // tu-skeleton: 0x000E6387 57B ??1VegetationFXShaderParameterSourceNamespace@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E6387VegetationBinderDtor.cpp (not merged yet)
 

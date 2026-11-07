@@ -30,12 +30,6 @@ namespace _STL
 struct BfmeUiResourceEntryState;
 class MappedImageCache;
 
-class VegetationFXShaderParameterSourceNamespace
-{
-public:
-	VegetationFXShaderParameterSourceNamespace();
-};
-
 class Rva000FA83B
 {
 public:
@@ -109,16 +103,6 @@ public:
 };
 
 
-
-extern unsigned g_Va00DEBC98;
-void __cdecl rva007B6E18();
-
-// ?rva007AC747@@YAXXZ @0x007AC747 22B: ctor 0x000E6350 on &g_Va00DEBC98, atexit(0x007B6E18).
-void rva007AC747()
-{
-	new (&g_Va00DEBC98) VegetationFXShaderParameterSourceNamespace;
-	atexit(rva007B6E18);
-}
 
 extern unsigned g_Va00DEC0E0;
 void __cdecl rva007B6ED6();
