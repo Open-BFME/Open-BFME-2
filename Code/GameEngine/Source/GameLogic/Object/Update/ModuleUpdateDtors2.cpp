@@ -1,5 +1,5 @@
 // cl: /O1 /GX- /MD /DNDEBUG
-// Trial: opaque dtor at 0x004907C9 (vtab + consts + member-method call).
+// ArrowStormUpdate's scalar deleting destructor (0x00490A58) over an opaque view.
 
 
 class PoolMember
@@ -33,15 +33,14 @@ private:
 	PoolMember m_mem88;
 };
 
-static int s_07C9_0C;
-static int s_07C9_10;
-static int s_07C9_20;
+// The destructor is retail's ArrowStormUpdate::~ArrowStormUpdate (0x004907C0, rowed
+// in ArrowStormUpdateBehaviorDtor.cpp); this unit only emits the deleting
+// destructor that calls it. Deleting a freshly-newed object devirtualizes to a
+// direct ??_G call, which emits that COMDAT; the anchor itself is unclaimed.
+#include <new>
 
-// ?Rva004907C0::~Rva004907C0 present-unmatched
-Rva004907C0::~Rva004907C0()
+void Rva004907C0_Anchor()
 {
-	m_p0C = &s_07C9_0C;
-	m_p10 = &s_07C9_10;
-	m_p20 = &s_07C9_20;
-	m_mem88.Rva00268902();
+	Rva004907C0 *p = new Rva004907C0;
+	delete p;
 }

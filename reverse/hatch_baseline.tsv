@@ -2609,7 +2609,6 @@ alternatename	Code/GameEngine/Source/GameClient/Rva005E2237PageCtor.cpp	??1Rva00
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F8348Ctor.cpp	?init@Rva000F8348@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F9C3CCtor.cpp	?slot0@Rva000F9C3C@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameClient/Shadow.cpp	?SetTexture@Rva00330995@@QAEXPAX@Z	1
-alternatename	Code/GameEngine/Source/GameClient/SubtitleEntry.cpp	?Rva0081D7C0FieldParseTable@@3QBUFieldParse@@B	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleTemplateCopyCtorThunk.cpp	_ButterflyDrawModuleTemplate_cvtbl0	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14a	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14b	1
@@ -12563,7 +12562,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpd
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp	bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNewData.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp	1StoreObjectsSpecialPowerModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors2.cpp	Rva004907C0::~Rva004907C0	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp	1TeleportToCasterSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PrisonDockUpdateCtor.cpp	1TemporarilyDefectUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdate.cpp	getExitPosition@DefaultProductionExitUpdate@@	1
