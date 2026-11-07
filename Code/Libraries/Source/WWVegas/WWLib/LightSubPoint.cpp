@@ -258,9 +258,11 @@ void sort<_Deque_iterator<BfmeE12, _Nonconst_traits<BfmeE12> >, BfmeE12Cmp004222
 
 extern unsigned char g_00DC84F5;
 
-extern _STL::deque<BfmeE12>::iterator g_00E031A8;
-
-extern _STL::deque<BfmeE12>::iterator g_00E031B8;
+extern unsigned int g_00E031A8[10];
+// P30 test-branch diagnostic: retail keeps one 40-byte deque<BfmeE12> at 0x00E031A8; its start and
+// finish iterators (+0, +0x10) are views of that object.
+#define g_00E031A8 (*(_STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > *)g_00E031A8)
+#define g_00E031B8 (*(_STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > *)((char *)&g_00E031A8 + 0x10))
 
 enum INILoadType
 {

@@ -32142,8 +32142,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03168,12,.data,global,?g_Va00E03168@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,9
 0x00A03174,40,.data,global,?g_Va00E03174@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,9
 0x00A0319C,12,.data,global,?g_Va00E0319C@@3PAIA,Code/GameEngine/Source/Common/INI/FormationSelectionCriteriaRva00424185.cpp,owned,,1,9
-0x00A031A8,16,.data,global,?g_00E031A8@@3U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@A,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_findnode.cpp,owned,,1,10
-0x00A031B8,16,.data,global,?g_00E031B8@@3U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@A,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_findnode.cpp,owned,,1,3
+0x00A031A8,40,.data,global,?g_00E031A8@@3PAIA,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_findnode.cpp,owned,,1,10
 0x00A031D4,4,.data,global,?TheStancesStore@@3PAVRva00425F10@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp,owned,,1,5
 0x00A031DC,4,.data,global,?TheEmotionSystem@@3PAVEmotionSystem@@A,Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp,owned,,1,13
 0x00A031E0,8,.data,global,?g_rva00426378Pending@@3_NA,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp,owned,,1,4

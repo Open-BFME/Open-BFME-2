@@ -71,7 +71,11 @@ extern unsigned g_Va00DF29A8;
 extern unsigned int g_00DFE358[3];
 extern unsigned g_Va00DFF134;
 namespace _STL { template <class T> struct _Nonconst_traits; template <class T, class Traits> struct _Deque_iterator; }
-extern _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > g_00E031A8;	// deque<BfmeE12>; stlport_deque_e12_findnode.cpp's view names its first iterator
+extern unsigned int g_00E031A8[10];
+// P30 test-branch diagnostic: retail keeps one 40-byte deque<BfmeE12> at 0x00E031A8; its start and
+// finish iterators (+0, +0x10) are views of that object.
+#define g_00E031A8 (*(_STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > *)g_00E031A8)
+#define g_00E031B8 (*(_STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > *)((char *)&g_00E031A8 + 0x10))
 extern unsigned g_Va00E04920[3];
 extern unsigned g_Va00E0657C;
 extern unsigned g_Va00E06654[3];
