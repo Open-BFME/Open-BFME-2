@@ -136,3 +136,50 @@ string table, not FXList's.
 - Next: respell the three rows onto the string table and its hash_map in XferSave.cpp (their approved TU),
   which then emits them, and retype `Rva0060D031Member` as that map. FXList.cpp then emits none of them, and
   the held-by-emission rule no longer applies to them.
+
+Update (2026-11-07, static-defects lane): scratch measurements for P4 (the record chain into LivingWorldCampaign.cpp)
+and for A3 (`Rva001DFEAABase` -> `FXNugget`). Scratch texts only, judged with `tu_skeleton.Verifier`; nothing in
+`Code/` changed. Scripts: srv1 `~/bfme2-ops/seat3/build/scratch_defects/`.
+- P2 folds into P4. `_Construct<EnableRegionRecord>` 0x0052C2F3 calls the record's implicit copy ctor out of line,
+  by name, even under `/Ob2`. So the 8 respelled rows (with `vector::~vector` 0x0052CB26) and the move of the
+  copy ctor 0x0052BD3A into LivingWorldCampaign.cpp form one change, and it waits on the emission mover.
+- The Act copy ctor 0x0052D555, left implicit, is retail's 333 bytes; all 59 rows of Glo012F1024Item.cpp stay exact.
+- Act members, each as its real class with an implicit copy ctor in LivingWorldCampaign.cpp:
+
+  | Member | Real element type | Copy ctor | Result |
+  |---|---|---|---|
+  | +0x08 | EnableRegionRecord | 0x0052BD3A | exact |
+  | +0x2C | Rva004E1B00 (Snapshot) | 0x0052BDE6 | exact |
+  | +0x38 | Rva004E179A (Snapshot) | 0x0052BE33 | exact |
+  | +0xA8 | Rva004E1B72 (Snapshot) | 0x0052BEF0 | exact |
+  | +0x54 | Rva003A6F70 | 0x0052BB34 | exact |
+  | +0x6C element | Rva004E194E | 0x0052BE96 | exact |
+  | +0x78 element | Rva004E18A2 | 0x0052BB6D | exact |
+  | +0x84 element | Rva004E14E1FlashRecord | 0x0052BB9A | exact |
+  | +0x60 | Rva004E32F2 (`map<int, AsciiString>` member) | 0x0052D477 | exact |
+
+  - Caveat: three Unwind funclets of the Snapshot records (0x0079713A, 0x00797157, 0x00797162) are unjudged.
+    Their `$L` labels renumber; `./build.sh` rebinds them through the EH graph, the scratch verifier cannot.
+  - P4 can retire two hatches: the hand-declared `??_7Rva004E1B00/179A/1B72@@6B@` externs and the
+    `/alternatename` for `R2Data010EC760`. The real classes install their own vftables.
+  - The vector-shaped members (+0x6C, +0x78, +0x84) are not yet real vectors. A real `vector<Rva004E194E>` copy ctor
+    is 0x0052CD81's bytes except two callees:
+    - `get_allocator` (ICF 0x0021983A): one more `fold-proof=` pin through `pin_admission.py`, like the ~70
+      existing ones.
+    - `__uninitialized_copy<const T*>` (`PBV`): 0x0052C987 is rowed as the placeholder `Rva0052C987Get` and
+      pinned `<T*>`. Respell it to the `PBV` spelling rather than pin.
+- A3 group A (seat6's scope, `build/bridge_lane/fxnugget_scope.md`): `merge_definitions` refuses all six private
+  `FXNugget` views, which have pads, no vptr or own method names. On the canonical class they byte-match with
+  these reshapes:
+
+  | Unit | Rows | Reshape |
+  |---|---|---|
+  | FXNuggetSlotBodies, LightPulseFXNuggetEffects, SoundFXNuggetSlots | 4/4, 1/1, 4/4 | view -> header |
+  | RayEffectFXNuggetDoFXPos | 1/1 | drop the derived `m_pad04` |
+  | FXListNuggetParse | 34/34 | 15 derived pads shrink by 0x148; declare their `doFXPos`/`slot03` overrides |
+  | FXListDoFXPos | 2/2 | calls spell `rva001DFF5D`/`doFXPos`/`m_144`; slot 4 takes `const Object *` |
+
+  - The slot-4 body 0x001DFF5D is rowed with non-const `Object *` parameters, but its only real caller
+    `FXList::doFXObj` passes its own `const Object *`. Respelling it (`function --respell`, with the vtable
+    declarations in AttachedModel, LightPulse and DynamicDecal) comes just before A3.
+  - Plan: the six reshaped units go as `--prepared` texts in A3's plan, so they verify with the rename.
