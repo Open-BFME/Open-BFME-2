@@ -66,3 +66,34 @@ destructor, and its own comment says native `C62A20` is "exactly two three-byte 
 callbacks, without a virtual destructor". The shapes differ, so the fold's destructor
 handling matters here; `--access` exists for respelling that family, and the byte gate is
 the judge.
+
+## Tracing the unblock to its real owner
+
+The two extra names are not an editable field. `reverse/data_ledger.csv` is a protected
+path with a dedicated tool, and that tool only *derives* it - `data_ledger.py` takes
+`--check` and `--out` and nothing else, producing "one row per retail global the matched
+code reaches". The alias list is computed, so the stale aliases are a symptom of what the
+code spells, not a line to retire.
+
+And the code no longer spells them: **neither `Rva003FA62BBase` nor `Rva005D0643B3` appears
+anywhere under `Code/`.** They have no rows in `reverse/functions.csv` and no contracts
+either. The committed ledger is simply behind the sources, which its own check confirms:
+
+```
+data_ledger: 17101 matched source(s) have no object; build first
+data_ledger: reverse/data_ledger.csv is stale; run python3 tools/data_ledger.py
+```
+
+So the fold's blocker clears by regenerating the derived ledger - but **not from here, and
+not now.** The same check says the derivation is missing objects for 17,101 matched
+sources, so regenerating in this worktree would compute the ledger from incomplete data and
+publish a worse file than the stale one. That needs a tree with the objects built, and the
+file is protected, so it belongs to whoever runs the full build rather than to a lane seat.
+
+The chain, end to end, for whoever picks it up: regenerate the data ledger from a fully
+built tree; the two stale aliases drop because nothing spells them; table `0x00862A20` is
+then named only `??_7RegionTurnObserverView@@6B@`; `rename.py class --fold Rva0020E346
+--into RegionTurnObserverView` becomes admissible; RegionTurnObserverView gains the
+constructor it lacks; and LivingWorldArmy, LivingWorldBuilding and LivingWorldBuildPlot get
+a named base instead of a placeholder. Every step after the regeneration is a supported
+tool call with the byte gate as judge.
