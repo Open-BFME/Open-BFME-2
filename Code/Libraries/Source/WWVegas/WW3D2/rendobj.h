@@ -511,7 +511,9 @@ public:
 	virtual int		Get_LOD_Count(void) const																	{ return 1; }
 	virtual void	Set_LOD_Bias(float bias)																	{ }
 	virtual int	Calculate_Cost_Value_Arrays(float screen_area, float *values, float *costs) const;
-	virtual RenderObjClass *	Get_Current_LOD(void)														{ Add_Ref(); return this; }
+	// The verified shared body is emitted by distlod.cpp (retail 0x0007E4AF).
+	// Keep other includers from supplying a differently aligned COMDAT copy.
+	virtual RenderObjClass *	Get_Current_LOD(void);
 
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -616,19 +618,21 @@ public:
 #else
 	virtual void					_bfme_ro_flag110(int onoff);
 #endif
-	virtual int						_bfme_ro_flag111(void) const												{ return Bits & 0x04000000; }
+	// These three shared getters are rowed in distlod.cpp at 0x0006CFBD,
+	// 0x0006CFDA and 0x0006CFF7; their declarations retain the same slots.
+	virtual int						_bfme_ro_flag111(void) const;
 #ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					_bfme_ro_flag112(int onoff)												{ if (onoff) { Bits |= 0x04000000; } else { Bits &= ~0x04000000; } }
 #else
 	virtual void					_bfme_ro_flag112(int onoff);
 #endif
-	virtual int						_bfme_ro_flag113(void) const												{ return Bits & 0x08000000; }
+	virtual int						_bfme_ro_flag113(void) const;
 #ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					_bfme_ro_flag114(int onoff)												{ if (onoff) { Bits |= 0x08000000; } else { Bits &= ~0x08000000; } }
 #else
 	virtual void					_bfme_ro_flag114(int onoff);
 #endif
-	virtual int						_bfme_ro_flag115(void) const												{ return Bits & 0x01000000; }
+	virtual int						_bfme_ro_flag115(void) const;
 #ifdef BFME_RO_DEFINE_FLAGS
 	virtual void					_bfme_ro_flag116(int onoff)												{ if (onoff) { Bits |= 0x01000000; } else { Bits &= ~0x01000000; } }
 #else

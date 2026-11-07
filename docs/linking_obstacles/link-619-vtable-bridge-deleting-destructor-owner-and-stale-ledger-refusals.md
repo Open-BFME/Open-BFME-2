@@ -242,3 +242,20 @@ Authored C++ rises 14 bytes, with coverage kept. The original class and TU are
 still unknown; no original name is asserted or source moved. Six alignment-only
 provider prerequisites remain, so no full MeshClass/table clearance is claimed.
 [Native facts and verification](../../reverse/attempt_support/collect-float-setter-recovery-20261107/README.md).
+
+Same pass, shared-body ownership: the canonical rendobj.h now declares
+Get_Current_LOD and flag111/113/115 without emitting competing copies. Their
+verified distlod.cpp owner selects the unchanged reference header. Normal
+849/849 rows in the 21 known canonical-header emitters pass; current COFF
+inspection of all 23 indexed providers leaves only the owner for each of
+these four names. The other three previously blocked names have exact
+first-provider twins under the existing strict flags/bytes/relocations rule.
+Mesh's table stays 129 slots and the four affected pointer names keep slots
+84/114/116/118. No bridge rule, row, pin, flag or path changes. The ordinary
+three-unit preview conserves 2,294 authored linking bytes. These are provider
+prerequisites, not a new actual-image/table/runtime clearance.
+[Proof and remaining scope](../../reverse/attempt_support/renderobj-inline-provider-ownership-20261107/README.md).
+The prior setter push's broader audit remains INCONCLUSIVE: index 9c81acd297
+versus outgoing base 009791f6a9183bdf2a15fa583f1c30927c4b7013, with 23 consumers
+without current receipts (first BaseHeightMapConstructor.cpp). Byte/EH checks
+passed; carry the broader selection check into the next census and real image.
