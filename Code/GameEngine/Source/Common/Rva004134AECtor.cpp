@@ -11,6 +11,9 @@
 // the rowed callee spellings.
 #include <map>
 
+// Retail installs the 14-slot SubsystemInterface table 0x008399B8, so this unit needs
+// the header's full slot list.
+#define BFME_SUBSYSTEM_SLOTS
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 #include "../../Include/GameNetwork/LadderPref.h"
@@ -27,6 +30,11 @@ class Rva004134AE : public SubsystemInterface
 {
 public:
 	Rva004134AE();
+	// Retail 0x008399B8 slots 1, 9 and 10: empty bodies, folded into the shared ret at
+	// 0x000B3FD0 like the base class's empty slots.
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 
 private:
 	_STL::map<long, LadderPref> m_tree0C;
