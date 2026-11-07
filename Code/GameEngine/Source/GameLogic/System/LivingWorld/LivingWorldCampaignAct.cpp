@@ -95,7 +95,7 @@ struct FieldParse;
 #include "../../../../Include/Common/INI/INI.h"
 #include "../../../../Include/Common/INI/FieldParse.h"
 struct Rva0052D801Record;
-class Rva0052D83B { public:void rva0052D83B(const Rva0052D801Record &); };
+class LivingWorldCampaign { public:void AddAct(const Rva0052D801Record &); };
 void ParseEnableRegion(INI*,void*,void*,const void*);
 void ParseForceBattle(INI*,void*,void*,const void*);
 void Rva004E324DParse(INI*,void*,void*,const void*);
@@ -133,7 +133,7 @@ void ParseLivingWorldCampaignAct(INI *ini,void *instance,void*,const void*) {
  if(!name.getLength()) throw INIException(3,"ParseLivingWorldCampaignAct::No act name specified.");
  Rva0056616B record(name);
  ini->initFromINI(&record,Rva0056616B::m_fieldParseTable);
- ((Rva0052D83B*)instance)->rva0052D83B((const Rva0052D801Record&)record);
+ ((LivingWorldCampaign*)instance)->AddAct((const Rva0052D801Record&)record);
 }
 
 // Native5666C5..5668E9 (548B), complete RET0; WB1439F00 identifies
