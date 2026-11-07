@@ -2562,7 +2562,7 @@ void Rva003B7C1E::rva003B7C1E()
 
 // tu-skeleton: 0x003B4071 48B ?clear@Rva003B4071@@QAEXXZ -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x003B40FA 6B ?name@Rva003B40FANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+// tu-skeleton: 0x003B40FA 6B ?GetSnapshotName@ScriptGroup@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x003B417E 122B ??0Script@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp (not merged yet)
 

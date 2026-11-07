@@ -5484,3 +5484,4 @@ _$E1,0x007AEBAA,Retracted for readmission as _$E3 in Rva0033FE65OnEnter.cpp: the
 ??_GRva004907C0@@UAEPAXI@Z,0x00490A58,"Renamed to ??_GArrowStormUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4D700)"
 ?name@Rva004F59ACNamed@@QBEPBDXZ,0x004F59AC,"Renamed to ?GetSnapshotName@Rva004F599E@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C63254 slot 2)"
 ??0Rva00352900@@QAE@XZ,0x003B40DF,"Renamed to ??0ScriptGroup@@QAE@XZ: the constructor installs retail vftable 0x00C1F470, whose slot 2 getter 0x003B40FA returns the literal ScriptGroup and whose slot 3 is the rowed ?xfer@ScriptGroup@@MAEXPAVXfer@@@Z (0x003B2467); hand rename because ScriptGroup had no special member for rename.py class --fold to key on (LINK-617)"
+?name@Rva003B40FANamed@@QBEPBDXZ,0x003B40FA,"Renamed to ?GetSnapshotName@ScriptGroup@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C1F470 slot 2)"
