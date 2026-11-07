@@ -82,13 +82,12 @@ RadarUpgrade::~RadarUpgrade()
 {
 }
 
-class Rva004B48D3 : public UpgradeModule
-{
-public:
-	virtual ~Rva004B48D3();
-};
+// StatusBitsUpgrade's destructor 0x004B48D3: its constructor 0x004B4960
+// installs the same four tables. The class is StatusBitsUpgrade.h's, so this
+// unit's copies of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/StatusBitsUpgrade.h"
 
-Rva004B48D3::~Rva004B48D3()
+StatusBitsUpgrade::~StatusBitsUpgrade()
 {
 }
 
@@ -288,10 +287,6 @@ int Rva004B554FHolder::rva004B554F() const
 		ret = p->m_val;
 	return ret;
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??1StatusBitsUpgrade@@UAE@XZ=??1Rva004B48D3@@UAE@XZ")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

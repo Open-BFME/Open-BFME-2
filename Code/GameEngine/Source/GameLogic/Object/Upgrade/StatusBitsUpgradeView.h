@@ -22,60 +22,9 @@ public:
 
 class Thing;
 class ModuleData;
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-	Object *getObject() const { return m_object; }
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
-
-template <int N> class StatusBitsUpgradeMuxSlots : public StatusBitsUpgradeMuxSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-
-template <> class StatusBitsUpgradeMuxSlots<0>
-{
-};
-
-class UpgradeMux : public StatusBitsUpgradeMuxSlots<8>
-{
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-
-private:
-	bool m_upgradeExecuted; // +0x14 of the module
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-class UpgradeModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpgradeMux,
-	public ModuleInterface
-{
-public:
-	UpgradeModule(Thing *thing, const ModuleData *moduleData);
-	void rva004CE4A0();
-	void rva004CE4A8();
-};
+// The class is StatusBitsUpgrade.h's, over the canonical UpgradeModule.h.
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/GameLogic/Module/StatusBitsUpgrade.h"
 
 class StatusBitsUpgradeModuleData
 {
@@ -85,15 +34,5 @@ public:
 	Rva00346BC0 m_statusToClear;
 };
 
-class StatusBitsUpgrade : public UpgradeModule
-{
-public:
-	StatusBitsUpgrade(Thing *thing, const ModuleData *moduleData);
-	virtual NameKeyType getModuleNameKey() const;
-
-protected:
-	virtual void upgradeRemovalImplementation();
-	virtual void upgradeImplementation();
-};
 
 #endif

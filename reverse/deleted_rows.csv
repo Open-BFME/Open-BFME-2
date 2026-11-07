@@ -5695,3 +5695,5 @@ _$E1,0x007B1A27,"Retracted for readmission as _$E3 in SlavedUpdateRepair.cpp: th
 ??1Rva004B79AD@@UAE@XZ,0x004B79AD,"Renamed to ??1TooltipUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C58C08)"
 ??_GRva004B79AD@@UAEPAXI@Z,0x004B7A81,"Renamed to ??_GTooltipUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C58C08)"
 ?name@Rva004B850ANamed@@QBEPBDXZ,0x004B850A,"Renamed to ?GetSnapshotName@AllowBannerSpawnUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C59030 slot 2)"
+??1Rva004B48D3@@UAE@XZ,0x004B48D3,"Renamed to ??1StatusBitsUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57938)"
+??_GRva004B48D3@@UAEPAXI@Z,0x004B4991,"Renamed to ??_GStatusBitsUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57938)"

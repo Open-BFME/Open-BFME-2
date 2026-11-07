@@ -3281,7 +3281,6 @@ name,address,notes
 ??1ShroudManagerImpl008FBA40Element@@QAE@XZ,0x0069E440,Target configure73DBF0 pushes this destructor at73DD28 and73DE84 with element strideA8; native69E440 is empty ret folded with DX8_Assert. Refutes donor68-byte virtual Snapshot owner3A795A.
 ??1SidesInfoStringVector@@QAE@XZ,0x0002CC70,retail REL32 from SidesInfo destructor 0x32D4E6; TU vector stand-in destructor; same body as matched AsciiString vector destructor
 ??1SpecialPowerCompletionDie@@UAE@XZ,0x00486B01,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1StatusBitsUpgrade@@UAE@XZ,0x004B48D3,twin of rowed Rva004B48D3 dtor for StatusBitsUpgradeIfEldestKindof base call
 ??1StrategicStatsPreferences@@UAE@XZ,0x00535776,ICF twin of rowed Rva00535776 dtor via Strategic construction at 0x0043C612
 ??1T2VBaseA@@UAE@XZ,0x00013420,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1T2VBaseB@@UAE@XZ,0x00013440,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
