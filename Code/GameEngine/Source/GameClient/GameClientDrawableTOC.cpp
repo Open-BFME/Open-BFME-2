@@ -254,14 +254,26 @@ enum { TRANSLATOR_ID_INVALID = -1 };
 
 // ZH MessageStream.h GameMessage: only the type GameClient returns.
 
+// GameMessageTranslator: translateGameMessage in slot 0, an inline empty
+// virtual destructor in slot 1.
+#include "../../Include/GameClient/FormationTranslator.h"
+
 // ZH CommandXlat.h CommandTranslator: the context-command evaluator
-// GameClient slot 18 forwards to (retail 0x00429E11).
-class CommandTranslator
+// GameClient slot 18 forwards to (retail 0x00429E11). GameClient::init news it
+// (0x30 bytes, constructor 0x004296C2) and attaches it at priority 70.
+class CommandTranslator : public GameMessageTranslator
 {
 public:
 	enum CommandEvaluateType { DO_COMMAND, DO_HINT, EVALUATE_ONLY };
 
+	CommandTranslator();
+	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+	virtual ~CommandTranslator();
+
 	GameMessage::Type evaluateContextCommand(Drawable *draw, const Coord3D *pos, CommandEvaluateType cmdType);
+
+private:
+	unsigned char m_pad[0x30 - 4];
 };
 class FontLibrary;
 class InGameUI;
@@ -891,11 +903,13 @@ private:
 };
 
 
-class Rva005B1A00 : public GameMessageTranslator
+// Constructor 0x0043132D, priority 40.
+class GUICommandTranslator : public GameMessageTranslator
 {
 public:
-	Rva005B1A00();
+	GUICommandTranslator();
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+	virtual ~GUICommandTranslator();
 
 private:
 	unsigned char m_pad[0x3C - 4];
@@ -920,16 +934,6 @@ public:
 
 private:
 	unsigned char m_pad[0x158 - 4];
-};
-
-class Rva005A7A90 : public GameMessageTranslator
-{
-public:
-	Rva005A7A90();
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
-
-private:
-	unsigned char m_pad[0x30 - 4];
 };
 
 // vftable 0x00BED668, translate 0x00428C43.
@@ -1281,10 +1285,10 @@ void GameClient::init()
 	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new Rva0042CBB6, 27);
 	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new PlaceEventTranslator, 30);
 	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new FormationTranslator, 35);
-	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new Rva005B1A00, 40);
+	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new GUICommandTranslator, 40);
 	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new SelectionTranslator, 50);
 	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new BfmeOwnVVD, 60);
-	m_translators[m_numTranslators] = TheMessageStream->attachTranslator(new Rva005A7A90, 70);
+	m_translators[m_numTranslators] = TheMessageStream->attachTranslator(new CommandTranslator, 70);
 	// we keep a pointer to the command translator because it's useful
 	m_commandTranslator = (CommandTranslator *)TheMessageStream->findTranslator(m_translators[m_numTranslators++]);
 	m_translators[m_numTranslators++] = TheMessageStream->attachTranslator(new HintSpyTranslator, 100);

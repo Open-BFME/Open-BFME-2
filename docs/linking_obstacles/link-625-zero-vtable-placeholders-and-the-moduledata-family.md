@@ -87,6 +87,22 @@ Recipes that worked (reusable):
   retail's 18. Both copies of `??_7MessageStream@@6B@` (ctor and dtor units) are identical, 20 slots against retail's 20.
   link_check: the ten MessageStream/CommandList units LINKS, bytes unchanged. Still wrong by name: slots 16/17 (seed
   Zero Hour removeMessage/containsMessageOfType) and CommandList slot 9 (see LINK-557); the bridge covers them.
+- **GameClient::init's translators, boot path: repaired 2026-11-07 (seat halilkkaya-lk52).** GameClient::init news
+  ten message translators and attaches them to TheMessageStream; two constructors stored a zero static anchor:
+  `??0Rva005A7A90@@QAE@XZ` (0x004296C2, CommandXlat.cpp, priority 70, `_Rva005A7A90VTableAnchor`) and
+  `??0Rva005B1A00@@QAE@XZ` (0x0043132D, Rva005B1A00Ctor.cpp, priority 40, `_Rva005B1A00VTableAnchor`). The tables they
+  install, 0x00C3C6AC and 0x00C3C968, hold the real-named rows CommandTranslator::translateGameMessage (0x0042B0DE) and
+  GUICommandTranslator::translateGameMessage (0x004314B1) in slot 0, so the first message any translator passed on
+  jumped through zero. Both constructors are now those classes' own (hand renames, tombstoned; rename.py has no mode
+  for a constructor into a class that already names rows), derive from FormationTranslator.h's GameMessageTranslator,
+  and install `??_7CommandTranslator@@6B@` / `??_7GUICommandTranslator@@6B@`: 2 slots each, both resolving to rows at
+  retail's words. Each unit defines its class's empty destructor (Zero Hour has both out of line) and emits the
+  deleting destructor; they are rowed as fold-proof ICF twins of the translators' folded 0x00429191 (7 B) and
+  0x004296EE (28 B). GameClientDrawableTOC.cpp's views and `new` calls follow the names (GameClient::init: bytes
+  unchanged, only the two call relocations renamed). Seventeen units (both translators, TOC, WindowXlat, the
+  SelectionXlat pair, the Rva0042CBB6/Rva00431F61/Rva00431FB5/Rva00575F38/Rva00576C4B/Rva0042C5C3 translator units,
+  GUICommandTranslatorTranslateGameMessage and the MessageStream units) LINKS with bytes unchanged
+  (Rva005B1A00Ctor.cpp 53 -> 88 B with its two twin rows).
 - ToggleMountedSpecialAbilityUpdateModuleData (`s_vtableAnchor`): retail stores the vptr second; a compiler store sinks
   fourth (probe-proven in the unit's comment), so a class view alone does not match.
 - BoredUpdate (the module, `s_dummy0C`/`s_dummy10` at +0x0C/+0x10): UpdateModule.h would give it retail's three tables

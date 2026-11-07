@@ -309,7 +309,11 @@ int Rva00459060(bool);
 int rva005A9B00(Object*,void*);
 class DrawableList;
 bool pickAndPlayUnitVoiceResponse(const DrawableList*,GameMessage::Type,PickAndPlayInfo* = 0);
-class CommandTranslator {public:void rva0042AF97(GameMessage*); public:
+// GameMessageTranslator (translateGameMessage in slot 0, an inline empty
+// virtual destructor in slot 1) comes from FormationTranslator.h.
+#include "../../../Include/GameClient/FormationTranslator.h"
+class CommandTranslator : public GameMessageTranslator {public:void rva0042AF97(GameMessage*); public:
+ CommandTranslator();
  virtual GameMessageDisposition translateGameMessage(const GameMessage*);
  virtual ~CommandTranslator();
 private:
@@ -872,30 +876,6 @@ public:
 	virtual int translateGameMessage(const void *msg);
 };
 
-// The BFME1 donor baked its own vtable VA as a literal, which cannot
-// transfer (same repair as Rva0081C2F0Set): the address of a sacrificial
-// anchor stands in (mov-imm-DIR32, patched from retail).
-static int Rva005A7A90VTableAnchor;
-
-class Rva005A7A90
-{
-	void *m_vptr;
-	int m_04;
-	char m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	char m_2C;
-
-public:
-	Rva005A7A90();
-};
-
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -1198,20 +1178,31 @@ GameMessageDisposition CommandTranslator::translateGameMessage(const GameMessage
 
 // ---- from Code/GameEngine/Source/Common/Rva005A7A90Ctor.cpp
 
-Rva005A7A90::Rva005A7A90()
+// CommandTranslator's constructor, retail 0x004296C2 (44 bytes): GameClient::init
+// (0x0023A640) news it and attaches it to TheMessageStream at priority 70. It
+// installs CommandTranslator's own table 0x00C3C6AC (slot 0 translateGameMessage
+// 0x0042B0DE, slot 1 the deleting destructor 0x004296EE that follows this body),
+// then clears the fields in Zero Hour's initializer order and the drag anchors.
+CommandTranslator::CommandTranslator() :
+	opaque04(0),
+	m_teamExists(false),
+	m_mouseRightDown(0),
+	m_mouseRightUp(0),
+	field24(0),
+	field28(0),
+	field2c(false)
 {
-	m_vptr = (void *)&Rva005A7A90VTableAnchor;
-	m_04 = 0;
-	m_08 = 0;
-	m_1C = 0;
-	m_20 = 0;
-	m_24 = 0;
-	m_28 = 0;
-	m_2C = 0;
-	m_0C = 0;
-	m_10 = 0;
-	m_14 = 0;
-	m_18 = 0;
+	m_mouseRightDragAnchor.x = 0;
+	m_mouseRightDragAnchor.y = 0;
+	m_mouseRightDragLift.x = 0;
+	m_mouseRightDragLift.y = 0;
+}
+
+// CommandTranslator's destructor, retail 0x00429191 (7 bytes): with the base's
+// inline empty destructor expanded only the base table store 0x00BDBA74 remains.
+// Retail ICF-folded the translators' identical destructors onto this body.
+CommandTranslator::~CommandTranslator()
+{
 }
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0042B038.cpp

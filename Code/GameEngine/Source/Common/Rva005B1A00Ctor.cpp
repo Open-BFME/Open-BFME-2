@@ -1,47 +1,62 @@
-// cl: /Ob0
+// cl: /Ob1
+//
+// GUICommandTranslator's constructor, retail 0x0043132D (53 bytes): GameClient::init
+// (0x0023A580) news it (0x3C bytes) and attaches it to TheMessageStream at priority
+// 40. It installs GUICommandTranslator's own table 0x00C3C968 (slot 0
+// translateGameMessage 0x004314B1, slot 1 the translators' folded deleting
+// destructor 0x004296EE) and clears every field. Zero Hour's GUICommandTranslator.cpp
+// defines the constructor and an empty destructor; retail ICF-folded that
+// destructor with the other translators' at 0x00429191. The field labels follow
+// GUICommandTranslatorTranslateGameMessage.cpp's view.
 
-// The BFME1 donor baked its own vtable VA as a literal, which cannot
-// transfer (same repair as Rva0081C2F0Set): the address of a sacrificial
-// anchor stands in (mov-imm-DIR32, patched from retail).
-static int Rva005B1A00VTableAnchor;
+#include "../../Include/GameClient/FormationTranslator.h"
 
-class Rva005B1A00
+struct ICoord2DFields
 {
-	void *m_vptr;
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-	char m_14;
-	int m_18;
-	int m_1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_2C;
-	char m_30;
-	int m_34;
-	int m_38;
-
-public:
-	Rva005B1A00();
+	int x;
+	int y;
 };
 
-Rva005B1A00::Rva005B1A00()
+class GUICommandTranslator : public GameMessageTranslator
 {
-	m_vptr = (void *)&Rva005B1A00VTableAnchor;
+public:
+	GUICommandTranslator();
+	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+	virtual ~GUICommandTranslator();
+
+private:
+	int m_04;
+	int m_08;
+	ICoord2DFields m_leftMouseUpPosition;	// +0x0C
+	bool m_14;
+	int m_leftMouseDownTime;				// +0x18
+	int m_leftMouseUpTime;					// +0x1C
+	int m_20;
+	int m_24;
+	ICoord2DFields m_rightMouseUpPosition;	// +0x28
+	bool m_rightMouseDragged;				// +0x30
+	int m_rightMouseDownTime;				// +0x34
+	int m_rightMouseUpTime;					// +0x38
+};
+
+GUICommandTranslator::GUICommandTranslator()
+{
 	m_04 = 0;
 	m_08 = 0;
-	m_0C = 0;
-	m_10 = 0;
-	m_14 = 0;
-	m_18 = 0;
-	m_1C = 0;
+	m_leftMouseUpPosition.x = 0;
+	m_leftMouseUpPosition.y = 0;
+	m_14 = false;
+	m_leftMouseDownTime = 0;
+	m_leftMouseUpTime = 0;
 	m_20 = 0;
 	m_24 = 0;
-	m_28 = 0;
-	m_2C = 0;
-	m_30 = 0;
-	m_34 = 0;
-	m_38 = 0;
+	m_rightMouseUpPosition.x = 0;
+	m_rightMouseUpPosition.y = 0;
+	m_rightMouseDragged = false;
+	m_rightMouseDownTime = 0;
+	m_rightMouseUpTime = 0;
+}
+
+GUICommandTranslator::~GUICommandTranslator()
+{
 }
