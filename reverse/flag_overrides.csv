@@ -216,7 +216,6 @@ Code/GameEngine/Source/Common/Rva0087FA50UpdateFlags.cpp,-O2 -G6,1,1,region defa
 Code/GameEngine/Source/Common/Rva00880D10CircleBoxTest.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/Rva00880D90SphereOverlap.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva009F66F0.cpp,-O2,2,1,region default loses rows
-Code/GameEngine/Source/Common/Rva00E08D3CString.cpp,-G7 -arch:SSE,2,1,region default loses rows
 Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,-O2,35,4,region default loses rows
 Code/GameEngine/Source/Common/S1ZeroingConstructors.cpp,,3,1,region default loses rows
 Code/GameEngine/Source/Common/S3FieldInitialisers.cpp,,1,1,region default loses rows
