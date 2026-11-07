@@ -6,7 +6,10 @@
 #include "ascii_string.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
-// Retail .CRT$XCU 0x007AEB1C is this unit's Drawable.h copy (static 0x00E01DD0).
+// Retail .CRT$XCU 0x007AEAF2 is this unit's Drawable.h copy (static 0x00E01DC4).
+// bfmeLogMsg574 sits in LuaScriptEngine's code region, and that object's .bss
+// is its plain globals (TheLuaScriptEngine, g_activeObj12F0610), this copy,
+// then the function-local output and guard below (LINK-236 round lk54).
 #include "../../../Include/GameClient/Drawable.h"
 
 class GlobalData;
