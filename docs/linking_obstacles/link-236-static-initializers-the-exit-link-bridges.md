@@ -35,8 +35,8 @@ round; see "Round lk46"); halilkkaya-lk51: INIObject.cpp moved off Zero Hour's P
 placed by the function-local statics just before them, 572 -> 548 (see "Round lk51"); halilkkaya-lk54:
 MSVC 7.1's .bss layout read from scratch objects and a scratch link (function-local statics follow a
 unit's main .bss whenever the unit has a plain zero-initialized global), and with it the MapObject,
-AptMainMenu, AptOptions, AptCreateAHero and AptLanLobby copies, 548 -> 543 (see "Round lk54"); next
-seat continues).
+AptMainMenu, AptOptions, AptCreateAHero and AptLanLobby copies, 548 -> 543, then 14 copies that sit
+inside or close their own unit's statics, 543 -> 529 (see "Round lk54"); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -1026,7 +1026,7 @@ files with their TU siblings, and bridge_entries removed exactly the named RVAs 
   screen filters) are unchanged; the ctor families also need their `.text$yd` cleanup rows moved out of
   `Rva007B6880Thunks.cpp`, which another seat holds.
 
-**Round lk54 (halilkkaya-lk54, 2026-11-07, bridged 548 -> 543).** Measured with
+**Round lk54 (halilkkaya-lk54, 2026-11-07, bridged 548 -> 529).** Measured with
 `image_report.bridge_entries` over the kept objects (exit_link's rule) on `0aff0e89c0`'s tree plus the
 round. Each entry was retracted (`reverse/deleted_rows.csv`) and readmitted by relocation target; every
 touched object kept its `??_7` digests, link_check passed on the files with their TU siblings, and
@@ -1110,8 +1110,49 @@ bridge_entries removed exactly the named RVAs.
     header name lists at 0x009C17CC, not to LivingWorldSound.
   - Rva007B6880Thunks.cpp and Rva007ABB96AllocCtorInits.cpp are claimed by ancalgonn-swarm-defects, so
     the ctor-family moves (with their cleanup rows) and the AllocCtor entries wait.
+- *Copies inside or closing their own unit (543 -> 529, 14 more).* Two readings of the layout rule
+  settle a copy without a guard of its own class:
+  - *Sandwich.* The copy's static sits between a plain global and a function-local static of the same
+    unit (readers or tu_map put both in one TU). One object's sections are contiguous, so the copy is
+    that object's: TerrainLogic.cpp `_$E2` 0x007ADF88 (TheTerrainLogic, g_waypointListHead, then
+    Bridge::Bridge's statics; no `_$E1` is emitted), ScriptConditions.cpp 0x007AF889, GameStateMap.cpp
+    0x007B0115, W3DHordeModelDrawManager.cpp 0x007ABFB9, WinMain.cpp 0x007AB7F0 (retail's first entry;
+    ApplicationHWnd..gLoadScreenBitmap, then nextParam's buffer), AIPathfind.cpp 0x007AE51D (g_00DFF0D0,
+    read only by AIPathfind code, then Pathfinder::rva002EC479's guard), MineshaftPortalBehaviour.cpp
+    0x007AEEAF and MilesAudioManager.cpp `_$E3` 0x007ABDC1 (AudioEventsReloaded, then rva00058314's
+    function-local vector 0x00DE1E54: a "G" in the ledger, an F by its readers).
+  - *Closing.* The copy follows statics that only unit X's code reads and precedes the next object's
+    function-local statics; that next object therefore has no plain global and its own copy comes after
+    its statics (all four are registered), so the copy closes X: W3DTreeDraw.cpp 0x007AC491,
+    W3DScriptedModelDraw.cpp 0x007AC36B, ControlBarCommand.cpp 0x007B3B7A and Made002CC774.cpp
+    0x007B35C2.
+  - Plus SelectionXlat.cpp 0x007B04B3 (after TheSelectionTranslator; Zero Hour's SelectionXlat.cpp
+    defines it and includes GameClient/Drawable.h) and TacticalAI.cpp 0x007AE2BE (after g_00DFEFCC,
+    read only by TacticalAI code; its run continues with the logic-rate /2 constant 0x007AE2CE, whose
+    static directly follows the copy's, so both are TacticalAI's dynamic statics; the constant's header
+    is still unknown and it stays bridged).
+
+  No copy static taken this round is read by any code but its initializer (raw DIR32 scan), so the
+  grab-bag retractions leave nothing uninitialized. That check matters for the FrameRate-shaped copy
+  0x007AF85F: its static 0x00E02D9C is ScriptActions' flash interval, read by the flash actions through
+  the grab-bag's `g_00E02D9C`, so its readers must move to the TU's own constant in the same change.
+- *Refused this round (re_attempts.log).* Weapon.cpp 0x007AE2F8 (TheWeaponStore and the weapon reload
+  flag, then makeAssistanceRequest's statics) and GameClient.cpp 0x007ADC48 (TheGameClient, then
+  GameClient::update's lastStallTime) are sandwiches, but both files are Zero Hour-shaped (PreRTS.h) and
+  the canonical header stops compilation (C1903). InGameUI.cpp 0x007AE087 is the same case untried: its
+  run is the copy, the Rva004E5610 object 0x00DFEDFC and the frame constant 0x00DFEE08, all after
+  TheInGameUI and m_replayWindow.
+- *A misplaced lk51 row.* bfmeLogMsg574 (0x00333B36) lies in LuaScriptEngine's code region, and
+  LuaScriptEngine has plain globals (g_activeObj12F0610, read only by LuaScriptEngine code), so its
+  object is [TheLuaScriptEngine, g_activeObj, copy 0x007AEAF2][bfmeLogMsg574's output and guard]. The
+  copy lk51 rowed in BfmeLogMsg574.cpp, 0x007AEB1C, is the next object's; BfmeLogMsg574.cpp's `_$E1`
+  is retail 0x007AEAF2. Moving that row changes no count (0x007AEB1C becomes bridged again until its
+  unit is found).
 - *Next.* Take the singleton-anchored copies with the layout rule: a copy directly after a unit's plain
-  global is that unit's when the unit includes Drawable.h (a run entry of the unit after the copy, or a
-  donor include, settles it). 52 bridged copies directly follow another copy, so copy-only units are
-  common and that second fact is needed. Units whose views refuse the header (GiantBirdAIUpdate,
-  AptMyHero, WorkerAIUpdate, SidesList and lk51's list) need their private views reconciled first.
+  global is that unit's when the unit includes Drawable.h (a run entry of the unit after the copy, a
+  function-local static of the unit after it, or a donor include, settles it). 52 bridged copies
+  directly follow another copy, so copy-only units are common and that second fact is needed. Read who
+  uses a ledger "global" before classifying it: flags in `GlobalFlagClearers*` are often guards, and
+  address-named entries can be function-local objects. Units whose views refuse the header
+  (GiantBirdAIUpdate, AptMyHero, WorkerAIUpdate, SidesList, Weapon, GameClient, InGameUI and lk51's
+  list) need their private views reconciled or their Zero Hour headers replaced first.
