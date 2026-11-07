@@ -15,8 +15,6 @@
 // getter 0x00495087, xfer 0x0049508D, getModuleNameKey 0x004950B4, then
 // UpdateModule's slots. 0x00C4EC04: update 0x0049520B, then UpdateModule's
 // getDisabledTypesToProcess and wake slots.
-// Not declared yet: the name getter, whose row (Rva00495087Named, 0x00495087)
-// sits in a unit another seat holds, so slot 2 still inherits UpdateModule's.
 
 enum UpdateSleepTime;
 
@@ -32,6 +30,7 @@ public:
 	virtual UpdateSleepTime update();
 
 protected:
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 
 private:
