@@ -110,15 +110,7 @@ void __cdecl rva007B7070()
 #include "ascii_string.h"
 
 extern unsigned g_Va00DE0878;
-extern AsciiString BfmeINICurrentFilename;
 unsigned g_Va00DEAF18;	// retail RVA 0x009EAF18 (.bss), defined here
-
-// ?rva007B6A5A@@YAXXZ @ 0x007B6A5A (10B). Global AsciiString dtor thunk: ecx=&BfmeINICurrentFilename then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39). No callers. Honest address name.
-void __cdecl rva007B6A5A()
-{
-	AsciiString *receiver = (AsciiString *)&BfmeINICurrentFilename;
-	return receiver->~AsciiString();
-}
 
 // ?rva007B6AA0@@YAXXZ @ 0x007B6AA0 (10B). Global AsciiString dtor thunk: ecx=&g_Va00DE0878 then tail-jmp to rowed ??1AsciiString@@QAE@XZ (0x0048BA39). No callers. Prev is our 0x007B7070 row in this TU (same page). Honest address name.
 void __cdecl rva007B6AA0()
@@ -282,21 +274,6 @@ void __cdecl rva007B71C0()
 	return receiver->~SegLineRendererClass();
 }
 #pragma optimize("", on)
-
-class INIMacroTable
-{
-public:
-	~INIMacroTable();
-};
-
-extern unsigned BfmeINIMacroTableStorage[8];
-
-// ?rva007B6A6E@@YAXXZ @ 0x007B6A6E (10B). BfmeINIMacroTableStorage's atexit thunk: ecx=&BfmeINIMacroTableStorage then tail-jmp to rowed ??1INIMacroTable@@QAE@XZ (0x0002CD7B).
-void __cdecl rva007B6A6E()
-{
-	INIMacroTable *receiver = (INIMacroTable *)&BfmeINIMacroTableStorage;
-	return receiver->INIMacroTable::~INIMacroTable();
-}
 
 #include "../../Include/Common/Rva00041004Lock.h"
 

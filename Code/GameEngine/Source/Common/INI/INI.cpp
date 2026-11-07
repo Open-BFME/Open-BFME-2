@@ -17,7 +17,7 @@ extern "C" void __cdecl free(void *) throw(...);
 #include "ascii_string.h"
 #include <hash_map>
 #include <set>
-#define TheINIMacroTable (*(INIMacroTable *)BfmeINIMacroTableStorage)
+#define TheINIMacroTable BfmeINIMacroTableStorage
 #define ERROR_BUG ((ErrorCode)1)
 #include <cstddef>
 #include <stdio.h>
@@ -142,7 +142,7 @@ struct INIMacroTable
 
 extern AsciiString BfmeINICurrentFilename;
 
-extern unsigned BfmeINIMacroTableStorage[8];
+extern INIMacroTable BfmeINIMacroTableStorage;	// defined in INI_loadFile.cpp
 
 //
 // MultiIniFieldParse::add, retail 0x0002BC6E (60 bytes).

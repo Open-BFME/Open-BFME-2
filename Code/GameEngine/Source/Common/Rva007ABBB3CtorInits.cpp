@@ -68,12 +68,6 @@ public:
 	RefCountPtr();
 };
 
-class INIMacroTable
-{
-public:
-	INIMacroTable();
-};
-
 class Rva003818F4
 {
 public:
@@ -110,8 +104,6 @@ public:
 	Rva005EA635();
 };
 
-void __cdecl rva007B6A6E();
-void __cdecl rva007B6A5A();
 void __cdecl rva007B6AA0();
 void __cdecl rva007B6AD2();
 void __cdecl rva007B6ADC();
@@ -141,8 +133,6 @@ void __cdecl rva007B7786();
 void __cdecl rva007B83B9();
 void __cdecl rva007B9071();
 
-extern unsigned BfmeINIMacroTableStorage[8];
-extern AsciiString BfmeINICurrentFilename;
 extern unsigned g_Va00DE1CCC;
 extern unsigned int g_00DE1CCD;
 // VA 0x00DEC008: the cross-fade mask texture ScreenCrossFadeFilterUpdateFadeLevel.cpp defines.
@@ -185,8 +175,6 @@ extern unsigned int g_Va00E04544;
 
 struct Rva007ABBB3CtorInits
 {
-	static void rva007ABBB3();
-	static void rva007ABBC9();
 	static void rva007ABBE0();
 	static void rva007ABCAF();
 	static void rva007ABCC5();
@@ -221,20 +209,6 @@ struct Rva007ABBB3CtorInits
 // retail does (AsciiString's is the folded null-first-word body at 0x00326BE6);
 // the canonical AsciiString() would otherwise expand to an inline store.
 #pragma inline_depth(0)
-
-// 0x007ABBB3 (22B): ??0INIMacroTable@@QAE@XZ on VA 0x00DDF58C, atexit(0x007B6A6E)
-void Rva007ABBB3CtorInits::rva007ABBB3()
-{
-	( (INIMacroTable *)&BfmeINIMacroTableStorage )->INIMacroTable::INIMacroTable();
-	atexit( rva007B6A6E );
-}
-
-// 0x007ABBC9 (22B): ??0AsciiString@@QAE@XZ on VA 0x00DDF5B4, atexit(0x007B6A5A -> AsciiString dtor 0x0048BA39)
-void Rva007ABBB3CtorInits::rva007ABBC9()
-{
-	( (AsciiString *)&BfmeINICurrentFilename )->AsciiString::AsciiString();
-	atexit( rva007B6A5A );
-}
 
 // 0x007ABBE0 (22B): ??0AsciiString@@QAE@XZ on VA 0x00DE0878, atexit(0x007B6AA0 -> AsciiString dtor 0x0048BA39)
 void Rva007ABBB3CtorInits::rva007ABBE0()

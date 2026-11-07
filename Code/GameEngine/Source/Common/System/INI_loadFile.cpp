@@ -73,13 +73,25 @@ enum INILoadType
 #include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
-AsciiString BfmeINICurrentFilename;
-extern int BfmeINIMacroGeneration;
-extern int BfmeINISavedMacroGeneration;
 // Native 2DC3C constructs the 20-byte macro hash and 12-byte file set.
 // The adjacent generation words are separately owned by the timestamp updater.
 // These descriptive identifiers record proven roles; original names are unknown.
-unsigned BfmeINIMacroTableStorage[8];
+// Retail builds both objects in the INI unit's .text$yc run: 0x007ABBB3 runs the rowed
+// constructor 0x0002DC3C on the macro table and registers 0x007B6A6E (the destructor
+// 0x0002CD7B), then 0x007ABBC9 calls the out-of-line AsciiString() 0x00326BE6 on the
+// current file name and registers 0x007B6A5A. INI.cpp's view spells the same struct.
+struct INIMacroTable
+{
+	INIMacroTable();
+	~INIMacroTable();
+	unsigned m_storage[8];
+};
+INIMacroTable BfmeINIMacroTableStorage;
+#pragma inline_depth( 0 )
+AsciiString BfmeINICurrentFilename;
+#pragma inline_depth()
+extern int BfmeINIMacroGeneration;
+extern int BfmeINISavedMacroGeneration;
 
 typedef unsigned short WORD;
 

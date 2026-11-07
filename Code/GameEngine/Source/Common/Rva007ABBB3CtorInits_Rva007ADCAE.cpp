@@ -79,8 +79,6 @@ public:
 	__declspec(dllimport) __forceinline Rva0023DBF9() { ((Rva0023C641 *)this)->Rva0023C641::Rva0023C641(); }
 };
 
-void __cdecl rva007B6A6E();
-void __cdecl rva007B6A5A();
 void __cdecl rva007B6AA0();
 void __cdecl rva007B6AD2();
 void __cdecl rva007B6ADC();
@@ -110,8 +108,6 @@ void __cdecl rva007B7786();
 void __cdecl rva007B83B9();
 void __cdecl rva007B9071();
 
-extern unsigned BfmeINIMacroTableStorage[8];
-extern AsciiString BfmeINICurrentFilename;
 extern unsigned g_Va00DE0878;
 extern unsigned g_Va00DE1CCC;
 extern unsigned int g_00DE1CCD;
@@ -141,8 +137,6 @@ extern unsigned int g_Va00E04544;
 
 struct Rva007ABBB3CtorInits
 {
-	static void rva007ABBB3();
-	static void rva007ABBC9();
 	static void rva007ABBE0();
 	static void rva007ABCAF();
 	static void rva007ABCC5();
