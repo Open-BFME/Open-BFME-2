@@ -1,21 +1,21 @@
-char g_00BF4028;
-
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /Oy- /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // ??0StructureBodyModuleData@@QAE@XZ, retail 0x00257006, 101 bytes.
 // Structure-body module data: the rowed StructureBody pool key at
 // 0x4C09B5, the rowed chained proc at 0x2514AF (ActiveBody base plus own
 // table), the rowed behavior ctor at 0x4C0951 and the rowed ModuleData
 // factory at 0x25708C (ModuleFactory registers StructureBody with it)
-// prove the class; the factory sole-calls this ctor. Shape follows the
-// ChinookAIUpdate precedent (opaque empty ActiveBody base through the
-// rowed 0x4BF59F spelling, explicit vtable first member) with the
-// SupplyTruck HealingBuffFx tail verbatim: materialized healing-default
+// prove the class; the factory sole-calls this ctor. The class derives
+// from the canonical ActiveBodyModuleData (rowed ctor 0x004BF59F, virtual
+// dtor 0x00256CB0), so the compiler installs retail's 31-slot table
+// 0x00BF4028 (slot 7 true from ActiveBodyModuleData, the rest ModuleData's)
+// after the base call; the base dtor arms the single EH state. The body is
+// the SupplyTruck HealingBuffFx tail verbatim: materialized healing-default
 // reference out of TheGlobalData plus inline c_str plus rowed isEmpty
-// 0x1E2F plus rowed findFXList 0x1E281A. The empty base carries a
-// declared-only dtor so single-state EH arms with zero code (Topple
-// precedent); the base leaves +0x48 alone so no zero store precedes the
-// guarded fill.
+// 0x1E2F plus rowed findFXList 0x1E281A into the base's +0x48 FX pointer
+// (StructureBody adds no storage; the factory news ActiveBody's 0x64).
+
+#include "../../../../Include/GameLogic/Module/ActiveBodyModuleData.h"
 
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
@@ -28,30 +28,19 @@ class FXList;
 
 extern FXListStore *TheFXListStore;
 
-class ActiveBodyModuleData
-{
-public:
-	ActiveBodyModuleData();
-	virtual ~ActiveBodyModuleData(); // virtual, as rowed (0x00256CB0)
-};
-
-class __declspec(novtable) StructureBodyModuleData : public ActiveBodyModuleData
+class StructureBodyModuleData : public ActiveBodyModuleData
 {
 public:
 	StructureBodyModuleData();
-
-private:
-	unsigned char m_pad[0x48 - 4]; // +4
-	const FXList *m_healingBuffFx; // +0x48
+	virtual ~StructureBodyModuleData();
 };
 
 // ??0StructureBodyModuleData@@QAE@XZ @0x257006
 inline StructureBodyModuleData::StructureBodyModuleData()
 {
-	*(const void **)this = reinterpret_cast<const void *>((unsigned int)&g_00BF4028);
 	AsciiString &healingDefault = TheWritableGlobalData->m_defaultStructureRepairBuffFxList;
 	if (!reinterpret_cast<const StringBase<char> *>(&healingDefault)->isEmpty())
-		m_healingBuffFx = TheFXListStore->findFXList(healingDefault.str());
+		field48 = TheFXListStore->findFXList(healingDefault.str());
 }
 
 // Header inlines that the units including the header emit as select-any

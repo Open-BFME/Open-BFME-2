@@ -141,7 +141,12 @@ SpawnBehaviorModuleData::SpawnBehaviorModuleData(EmitVtableTag *) {}
 
 // ??_GStructureBodyModuleData@@UAEPAXI@Z @0x25706B: calls the rowed dtor 0x257087.
 // Moved from ModuleFactory.cpp, whose StructureBody data factory also emitted
-// Zero Hour ctor/dtor copies that are not retail's.
-class StructureBodyModuleData { public: StructureBodyModuleData(EmitVtableTag *); virtual ~StructureBodyModuleData(); };
+// Zero Hour ctor/dtor copies that are not retail's. The class derives from the
+// canonical ActiveBodyModuleData, as its constructor unit
+// (StructureBodyModuleDataCtor.cpp) declares it, so this unit's copy of the
+// 31-slot vftable (retail 0x00BF4028) is the same table instead of a one-slot one
+// that link order would keep.
+#include "../../Include/GameLogic/Module/ActiveBodyModuleData.h"
+class StructureBodyModuleData : public ActiveBodyModuleData { public: StructureBodyModuleData(EmitVtableTag *); virtual ~StructureBodyModuleData(); };
 // ?<StructureBodyModuleData::StructureBodyModuleData> absent-from-retail
 StructureBodyModuleData::StructureBodyModuleData(EmitVtableTag *) {}
