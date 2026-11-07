@@ -5865,7 +5865,6 @@ Code/GameEngine/Source/Common/Rva007AE5E0RefPtr.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007AE680Name.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007AE7EFStaticInstance.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva007AF1DEFrameScaleSseInits.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007B49B3ButtonNameInits.cpp,yes,0,0,0,0,0
