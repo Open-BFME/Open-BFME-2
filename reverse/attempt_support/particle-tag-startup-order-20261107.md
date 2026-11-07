@@ -89,3 +89,5 @@ With the specializations in place, the build verifies all 42 data rows in
 scope, including the four new ones. Both fresh object comparisons confirm
 the startup order and DIR32 homes. Real-link closure for these four names
 is pending.
+
+The default-tag follow-up tried a ModuleTag partial specialization keyed on the default module, template and particle types, with the two reference members defined at the original source positions. VC7.1 rejects the reference non-type parameters with C2755 even when both arguments are simple identifiers. The source trial was restored. This route supplies no evidence about startup ordering because the compiler produced no object.

@@ -115,3 +115,6 @@ The Point and Ortho follow-up found a class specialization that preserves the fo
 
 
 **2026-11-07 category registration slots.** The eight default-registration pointers now use the private CategoryModuleClassBase::s_default identity, and the nine list heads use the private CategoryModuleClass::s_first identity. Each export has a distinct zero-filled four-byte slot already read or written by the matched class code. The original object remains the sole provider. All 17 rows pass native size and byte verification. The original initializer actions, code section graph and DIR32 bases are preserved. Real-link confirmation awaits a measurement containing this change.
+
+
+The partial specialization follow-up for the twelve default references is blocked by VC7.1 C2755. The trial was reverted. [Compiler boundary](../../reverse/attempt_support/particle-tag-startup-order-20261107.md).
