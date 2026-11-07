@@ -32,6 +32,11 @@ OLD = "?Cull_Sphere@Rva007C454@@UAE_NABVSphereClass@@@Z"
 NEW = "?Cull_Sphere@Rva007C454@@UBE_NABVSphereClass@@@Z"
 BASE = "?Cull_Sphere@CameraClass@@UBE_NABVSphereClass@@@Z"
 BASE_RVA = 0x00135960
+BOX_RVA = 0x0007BEDA
+OLD_BOX = "?Cull_Box@Rva007C454@@UAE_NABVAABoxClass@@@Z"
+NEW_BOX = "?Cull_Box@Rva007C454@@UBE_NABVAABoxClass@@@Z"
+BASE_BOX = "?Cull_Box@CameraClass@@UBE_NABVAABoxClass@@@Z"
+BASE_BOX_RVA = 0x00135990
 RENDER = "?Render@CameraClass@@UAEXXZ"          # slot 0 of both tables
 CTOR = "??0Rva007C454@@QAE@XZ"
 CAM_DTOR = "??1CameraClass@@UAE@XZ"
@@ -40,15 +45,18 @@ BASE_TABLE = 0x007D26E0     # CameraClass's table (rva)
 CTOR_STORE = 0x0007C3D0     # inside the ctor row
 CAM_STORE = 0x00133A10      # inside CameraClass's dtor row
 OVERLAP = "Code/Game/Rva0007BEA7Overlap.cpp"
+BOX_SRC = "Code/Game/Rva0007BEDAOverlap.cpp"
 CTOR_SRC = "Code/Game/Rva007C454Ctor.cpp"
 CAMERA = "Code/WW3D2/camera.cpp"
 EVIDENCE = "signature-only: CameraClass declares Cull_Sphere const"
 
 FUNCTIONS = f"""name,export_rva,target_rva,target_size,source,status,notes
 {OLD},,0x0007BEA7,51,{OVERLAP},matched,slot 129
+{OLD_BOX},,0x0007BEDA,128,{BOX_SRC},matched,slot 130
 {CTOR},,0x0007C3CD,43,{CTOR_SRC},matched,ctor
 {RENDER},,0x00001000,16,{CAMERA},matched,slot 0
 {BASE},,0x00135960,42,{CAMERA},matched,slot 129 of CameraClass
+{BASE_BOX},,0x00135990,214,{CAMERA},matched,slot 130 of CameraClass
 {CAM_DTOR},,0x00133A00,64,{CAMERA},matched,dtor
 """
 CANONICAL = "class,header,notes\nCameraClass,Code/WW3D2/CameraClass.h,existing header\n"
@@ -57,6 +65,7 @@ class CameraClass {
 public:
     virtual void Render();
     virtual bool Cull_Sphere(const SphereClass &) const;
+    virtual bool Cull_Box(const AABoxClass &) const;
 };
 """
 OVERLAP_SRC = f"""// {OLD}
@@ -64,16 +73,23 @@ OVERLAP_SRC = f"""// {OLD}
 struct Rva007C454 : public CameraClass {{ bool Cull_Sphere(const SphereClass &); }};
 bool Rva007C454::Cull_Sphere(const SphereClass &) {{ return false; }}
 """
+BOX_TEXT = f"""// {OLD_BOX}
+#include "CameraClass.h"
+struct Rva007C454 : public CameraClass {{ bool Cull_Box(const AABoxClass &); }};
+bool Rva007C454::Cull_Box(const AABoxClass &) {{ return false; }}
+"""
+BOX_PREPARED = BOX_TEXT.replace(OLD_BOX, NEW_BOX).replace("&);", "&) const;").replace("&) {", "&) const {")
 CTOR_TEXT = """#include "CameraClass.h"
 struct Rva007C454 : public CameraClass { Rva007C454(); bool Cull_Sphere(const SphereClass &); };
 Rva007C454::Rva007C454() {}
 """
 OVERLAP_PREPARED = OVERLAP_SRC.replace(OLD, NEW).replace("&);", "&) const;").replace("&) {", "&) const {")
 CTOR_PREPARED = CTOR_TEXT.replace("&); }", "&) const; }")
-TABLES = {TABLE: ([0x00001000, RVA], {CTOR_STORE: 0}),
-          BASE_TABLE: ([0x00001000, BASE_RVA], {CAM_STORE: 0})}
-BUILT_BEFORE = {CTOR_SRC: {"??_7Rva007C454@@6B@": [RENDER, OLD]}}
-BUILT_AFTER = {CTOR_SRC: {"??_7Rva007C454@@6B@": [RENDER, NEW]}}
+TABLES = {TABLE: ([0x00001000, RVA, BOX_RVA], {CTOR_STORE: 0}),
+          BASE_TABLE: ([0x00001000, BASE_RVA, BASE_BOX_RVA], {CAM_STORE: 0})}
+BUILT_BEFORE = {CTOR_SRC: {"??_7Rva007C454@@6B@": [RENDER, OLD, OLD_BOX]}}
+BUILT_AFTER = {CTOR_SRC: {"??_7Rva007C454@@6B@": [RENDER, NEW, OLD_BOX]}}
+BUILT_BOTH = {CTOR_SRC: {"??_7Rva007C454@@6B@": [RENDER, NEW, NEW_BOX]}}
 
 
 def _git(root, *args):
@@ -93,6 +109,7 @@ def tree(tmp_path):
         "reverse/canonical_classes.csv": CANONICAL,
         "Code/WW3D2/CameraClass.h": HEADER,
         OVERLAP: OVERLAP_SRC,
+        BOX_SRC: BOX_TEXT,
         CTOR_SRC: CTOR_TEXT,
         CAMERA: "void camera() {}\n",
     }
@@ -212,8 +229,8 @@ def test_refused_when_the_base_slot_holds_another_virtual(tree, objects):
 
 
 def test_refused_when_no_retail_table_installs_the_row(tree, objects):
-    objects["tables"] = {TABLE: ([0x00001000, 0x00001000], {CTOR_STORE: 0}),
-                         BASE_TABLE: ([0x00001000, BASE_RVA], {CAM_STORE: 0})}
+    objects["tables"] = {TABLE: ([0x00001000, 0x00001000, BOX_RVA], {CTOR_STORE: 0}),
+                         BASE_TABLE: ([0x00001000, BASE_RVA, BASE_BOX_RVA], {CAM_STORE: 0})}
     with pytest.raises(Refusal) as error:
         plan(tree)
     assert "no retail vftable slot holds 0x0007BEA7" in str(error.value)
@@ -249,3 +266,99 @@ def test_still_a_labelled_inference(tree, objects):
     with pytest.raises(Refusal) as error:
         plan(tree, basis="canonical:zh")
     assert "--basis inferred" in str(error.value)
+
+
+
+# ------------------------------------------------- --also: P24's two slots in one apply
+
+def batch(root, **overrides):
+    kwargs = dict(also=[(BOX_RVA, NEW_BOX)],
+                  prepared={OVERLAP: OVERLAP_PREPARED.encode(), BOX_SRC: BOX_PREPARED.encode(),
+                            CTOR_SRC: CTOR_PREPARED.replace("&); }", "&) const; }").encode()})
+    kwargs.update(overrides)
+    return plan(root, **kwargs)
+
+
+def test_also_respells_both_slots_in_one_plan(tree, objects):
+    recommit(tree, "reverse/name_basis.csv", "kind,old,new,basis,evidence,source,rva\n"
+             f"function,?rva0007BEDA@Rva007C454@@UAE_NABVAABoxClass@@@Z,{OLD_BOX},inferred,agree:nl-x,{BOX_SRC},0x0007BEDA\n")
+    got = batch(tree)
+    assert (OLD, NEW, RVA) in got.renamed_rows and (OLD_BOX, NEW_BOX, BOX_RVA) in got.renamed_rows
+    rows = got.after["reverse/functions.csv"].decode()
+    assert f"{NEW},,0x0007BEA7,51,{OVERLAP}," in rows and f"{NEW_BOX},,0x0007BEDA,128,{BOX_SRC}," in rows
+    assert got.this_cv["slots"] == {1: NEW, 2: NEW_BOX}
+    assert got.this_cv["moved"] == {NEW: RVA, NEW_BOX: BOX_RVA}
+    assert f"overrides {BASE} (0x00135960" in got.evidence and f"overrides {BASE_BOX} (0x00135990" in got.evidence
+    basis = got.after["reverse/name_basis.csv"].decode()
+    assert f"function,{OLD},{NEW}" in basis and f"function,{OLD_BOX},{NEW_BOX}" in basis
+    assert f"carry,{OLD_BOX}," not in basis and not got.carried
+    assert {OVERLAP, BOX_SRC, CTOR_SRC} <= set(got.verify)
+    assert f"file:{BOX_SRC}" in got.claims and BOX_RVA in got.claims
+    assert got.subject().startswith("Respell `this` cv of 2 Rva007C454 virtuals")
+
+
+def test_also_apply_checks_every_slot_after_one_build(tree, objects):
+    got = batch(tree)
+
+    def verify(c, sources):
+        objects["built"] = BUILT_BOTH
+        return True
+    rename.apply_rename(got, ctx=rename.Context(tree, object_scan=False), verify=verify, checks=None)
+    text = (tree / "reverse/functions.csv").read_text()
+    assert NEW in text and NEW_BOX in text
+
+
+def test_also_refused_after_the_build_when_one_slot_is_wrong(tree, objects):
+    got = batch(tree)
+
+    def verify(c, sources):
+        objects["built"] = BUILT_AFTER          # slot 2 still names the non-const Cull_Box
+        return True
+    with pytest.raises(VerifyFailed) as error:
+        rename.apply_rename(got, ctx=rename.Context(tree, object_scan=False), verify=verify, checks=None)
+    assert f"slot 2 names {OLD_BOX}, not {NEW_BOX}" in str(error.value)
+    assert OLD_BOX in (tree / "reverse/functions.csv").read_text()
+
+
+def test_also_refused_when_a_sibling_fails_its_proof(tree, objects):
+    """Each sibling needs its own base virtual with the new cv."""
+    nonconst = BASE_BOX.replace("@@UBE", "@@UAE")
+    recommit(tree, "reverse/functions.csv", FUNCTIONS.replace(BASE_BOX, nonconst))
+    with pytest.raises(Refusal) as error:
+        batch(tree)
+    assert f"{nonconst} (CameraClass's retail table 0x00BD26E0 slot 2) has `this` cv 'A', not 'B'" \
+        in str(error.value)
+
+
+def test_also_refused_when_a_sibling_is_in_no_retail_table(tree, objects):
+    objects["tables"] = {TABLE: ([0x00001000, RVA, 0x00001000], {CTOR_STORE: 0}),
+                         BASE_TABLE: ([0x00001000, BASE_RVA, BASE_BOX_RVA], {CAM_STORE: 0})}
+    with pytest.raises(Refusal) as error:
+        batch(tree)
+    assert "no retail vftable slot holds 0x0007BEDA" in str(error.value)
+
+
+def test_also_refused_when_a_sibling_changes_more_than_this_cv(tree, objects):
+    with pytest.raises(Refusal) as error:
+        batch(tree, also=[(BOX_RVA, NEW_BOX.replace("ABVAABox", "AAVAABox"))])
+    assert "with only `this`'s cv changed" in str(error.value)
+
+
+def test_also_refused_when_a_siblings_unit_is_not_prepared(tree, objects):
+    with pytest.raises(Refusal) as error:
+        batch(tree, prepared={OVERLAP: OVERLAP_PREPARED.encode(),
+                              CTOR_SRC: CTOR_PREPARED.replace("&); }", "&) const; }").encode()})
+    assert f"{BOX_SRC} still spells {OLD_BOX}" in str(error.value)
+
+
+def test_also_refused_when_a_sibling_repeats_the_row(tree, objects):
+    with pytest.raises(Refusal) as error:
+        batch(tree, also=[(RVA, NEW_BOX)])
+    assert "each RVA and each new name once" in str(error.value)
+
+
+def test_also_refused_without_a_this_cv_primary(tree, objects):
+    pointer = OLD.replace("ABVSphere", "PBVSphere")     # a signature-only respell, not this-cv
+    with pytest.raises(Refusal) as error:
+        batch(tree, new=pointer)
+    assert "adds rows to a this-cv respell only" in str(error.value)

@@ -539,6 +539,63 @@ def this_cv_proof(ctx, rva, old, new, source, prepared):
     return evidence, check
 
 
+def this_cv_siblings(ctx, rva, proof, also, prepared):
+    """[{rva, old, new, source, evidence}] for the --also rows of a this-cv
+    respell, each passing the same proof as the primary row (this_cv_proof),
+    and `proof`'s slot check widened to every slot: one retail table, judged
+    after one build with each slot by the others. Refusal otherwise."""
+    check = dict(proof[1], slots={proof[1]["slot"]: proof[1]["new"]}, moved=dict(proof[1]["moved"]))
+    rows = ctx.rows()
+    seen_rvas, seen_names = {rva}, {proof[1]["new"]}
+    out = []
+    for at, new in also:
+        if at in seen_rvas or new in seen_names:
+            raise Refusal("a this-cv --also batch names each RVA and each new name once")
+        seen_rvas.add(at)
+        seen_names.add(new)
+        owners = [r for r in rows if _rva(r.get("target_rva")) == at
+                  and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) and "parent=" not in r.get("notes", "")]
+        names = sorted({r["name"] for r in owners})
+        if len(names) != 1:
+            raise Refusal(f"0x{at:08X} carries {len(names)} function names ({', '.join(names) or 'none'})")
+        old, owner = names[0], owners[0]
+        if is_generated(owner["source"]):
+            raise Refusal(f"{old} lives in generated source {owner['source']}")
+        refuse_vendored(ctx, [owner["source"]], f"respelling {old}")
+        reason = is_protected(ctx, "function", old, rva=at)
+        if reason:
+            raise Refusal(f"canonical name: {reason}")
+        if not this_cv_change(old, new):
+            raise Refusal(f"--also 0x{at:08X}: {new} is not {old} with only `this`'s cv changed")
+        if any(r["name"] == new for r in rows) or any(p.get("name") == new for p in ctx.pins()):
+            raise Refusal(f"{new} already names a row or pin")
+        if (new, at) in _tombstones(ctx):
+            raise Refusal(f"({new}, 0x{at:08X}) is tombstoned in deleted_rows.csv")
+        old_re = mangled_re(old)
+        if any(old_re.search(p.get("name", "")) for p in ctx.pins()) or \
+                old_re.search((ctx.read(BODY_OWNERS) or b"").decode("utf-8", "replace")):
+            raise Refusal(f"--also {old} is named by a pin or body_owners.csv: respell it in its own plan")
+        if any(old_re.search(d.get("name", "")) for d in ctx.dicts(DATA_ROWS)):
+            raise Refusal(f"a data row (a local static) embeds {old}")
+        frozen = frozen_mentions(ctx, old)
+        if frozen:
+            raise Refusal(f"{old} is a key in {', '.join(frozen)} (frozen, shrink-only)")
+        evidence, sibling = this_cv_proof(ctx, at, old, new, owner["source"], prepared)
+        if (sibling["cls"], sibling["table"]) != (check["cls"], check["table"]):
+            raise Refusal(f"--also 0x{at:08X} sits in {sibling['cls']}'s retail table "
+                          f"0x{sibling['table'] + IMAGE_BASE:08X}, not 0x{check['table'] + IMAGE_BASE:08X}: a this-cv "
+                          "batch respells slots of one retail table")
+        if sibling["slot"] in check["slots"]:
+            raise Refusal(f"--also 0x{at:08X} sits in slot {sibling['slot']}, which the batch already respells")
+        check["slots"][sibling["slot"]] = new
+        check["moved"][new] = at
+        check["sources"] = sorted(set(check["sources"]) | set(sibling["sources"]))
+        out.append(dict(rva=at, old=old, new=new, source=owner["source"], evidence=evidence))
+    proof[1].clear()
+    proof[1].update(check)
+    return out
+
+
 def check_signature_basis(basis, evidence):
     """A signature-only respell's record: basis `inferred` and evidence `signature-only: <reason>`."""
     if basis != "inferred":
@@ -1313,6 +1370,10 @@ class Plan:
         if self.to_class:
             return (f"Move {self.old} into {self.to_class['cls']} as {self.new} "
                     f"(retail vftable 0x{self.to_class['table'] + IMAGE_BASE:08X} slot {self.to_class['slot']})")
+        if self.this_cv and len(self.this_cv.get("slots") or ()) > 1:
+            slots = sorted(self.this_cv["slots"])
+            return (f"Respell `this` cv of {len(slots)} {self.this_cv['cls']} virtuals (retail vftable "
+                    f"0x{self.this_cv['table'] + IMAGE_BASE:08X} slots {', '.join(map(str, slots))})")
         if getattr(self, "signature_only", False):
             return f"Respell {self.old} as {self.new} (signature only: qualifiers or pointer-ness)"
         if self.kind == "carry":
@@ -2961,7 +3022,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
             raise Refusal("--identity and --move-to go with --respell --identity only")
         return plan_identity_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
                                      basis=basis, max_files=max_files)
-    if also:
+    if also and not respell:
         raise Refusal("--also adds slots of one retail table to a --to-class move only")
     if prepared and not (virtual or respell):
         raise Refusal("--prepared sources go with --to-class, --virtual or --respell only")
@@ -3025,6 +3086,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     new_name = literal or rename_function_symbol(old_name, new_word)
 
     signature_only = respell and new_word == old_word
+    this_cv, siblings = None, []
     reason = is_protected(ctx, "function", old_name, rva=rva, identifier=old_word)
     if reason:
         raise Refusal(f"canonical name: {reason}")
@@ -3033,16 +3095,20 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         # The same function, the same identifier: no naming claim. Only a parameter's or the return
         # type's cv-qualifier or pointer-ness changes, the prepared units are rebuilt byte-exact, and
         # the record is labelled inference with its reason.
-        this_cv = None
         if this_cv_change(old_name, new_name):
             # only `this`'s cv: proved by the base virtual the row overrides at its retail slot
             this_cv = this_cv_proof(ctx, rva, old_name, new_name, owner["source"], prepared)
+            if also:
+                # siblings: the same proof each, every slot judged after one build
+                siblings = this_cv_siblings(ctx, rva, this_cv, also, prepared)
         else:
             signature_only_change(old_name, new_name)
         which = check_signature_basis(basis, evidence)
     else:
         which = check_basis(ctx, "function", basis, evidence, old_name, old_word, rva, new_name=new_name,
                             new_word=new_word)
+    if also and not this_cv:
+        raise Refusal("--also with --respell (no --identity) adds rows to a this-cv respell only")
 
     # Collisions: one name, one identity.
     if any(r["name"] == new_name for r in ctx.rows()) or any(p.get("name") == new_name for p in ctx.pins()):
@@ -3088,7 +3154,8 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
                 old_word=old_word, new_word=new_word)
     plan.signature_only = signature_only
     if signature_only and this_cv:
-        plan.evidence = f"{plan.evidence}; {this_cv[0]}"
+        plan.evidence = "; ".join([plan.evidence, this_cv[0]] + [f"0x{b['rva']:08X}: {b['evidence']}"
+                                                                  for b in siblings])
         plan.this_cv = this_cv[1]
 
     # Ledgers.
@@ -3107,6 +3174,13 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
             if before[0] != after[0]:
                 raise Refusal(f"functions.csv row {before[0]} embeds the alias pin {alias} in its name")
             plan.notes_rows.append((before[0], _rva(before[2])))
+    for b in siblings:
+        new_raw, changed = rewrite_records(new_raw, "functions.csv", mangled_re(b["old"]), b["new"])
+        for before, after in changed:
+            if before[0] != after[0]:
+                plan.renamed_rows.append((before[0], after[0], _rva(before[2])))
+            else:
+                plan.notes_rows.append((before[0], _rva(before[2])))
     plan.edit(ctx, FUNCTIONS, new_raw)
     raw = ctx.read(SYMBOLS)
     if raw is not None:
@@ -3136,7 +3210,9 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
                                          [tombstone_line(old_row, at, reason_text.format(new=new_row))],
                                          header="name,target_rva,reason"))
     plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
-        ["function", old_name, new_name, basis, plan.evidence, owner["source"], f"0x{rva:08X}"])],
+        ["function", old_name, new_name, basis, plan.evidence, owner["source"], f"0x{rva:08X}"])] + [csv_line(
+            ["function", b["old"], b["new"], basis, plan.evidence, b["source"], f"0x{b['rva']:08X}"])
+            for b in siblings],
         header=NAME_BASIS_HEADER))
 
     old_scope, new_scope = scope_of(old_name), scope_of(new_name)
@@ -3148,6 +3224,10 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
             return new_scope + spelling[len(old_scope):]
         return None
     carry_records(ctx, plan, carried)
+    for b in siblings:
+        # its own spelling is recorded by its function line, as the primary row's is
+        carry_records(ctx, plan, lambda spelling, b=b: mangled_re(b["old"]).sub(lambda _m: b["new"], spelling)
+                      if spelling != b["old"] and mangled_re(b["old"]).search(spelling) else None)
     scope = scope_of(old_name) or ""
     if respell:
         # The prepared C++ is the whole source change: a word rewrite cannot turn
@@ -3160,10 +3240,15 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
                       if rel in prepared and mangled_re(old_name).search(data.decode("utf-8", "replace")))
         if left:
             raise Refusal(f"prepared {', '.join(left)} still spells {old_name}")
-        elsewhere = sorted(set(ctx.grep_files(old_name, roots=("Code",))) - set(prepared))
-        if elsewhere:
-            raise Refusal(f"{', '.join(elsewhere[:4])} still spells {old_name}: prepare every unit that "
-                          "names it, so no source disagrees with the respelled row")
+        for spelled in [old_name] + [b["old"] for b in siblings]:
+            left = sorted(rel for rel, data in plan.after.items()
+                          if rel in prepared and mangled_re(spelled).search(data.decode("utf-8", "replace")))
+            if left:
+                raise Refusal(f"prepared {', '.join(left)} still spells {spelled}")
+            elsewhere = sorted(set(ctx.grep_files(spelled, roots=("Code",))) - set(prepared))
+            if elsewhere:
+                raise Refusal(f"{', '.join(elsewhere[:4])} still spells {spelled}: prepare every unit that "
+                              "names it, so no source disagrees with the respelled row")
     else:
         verify = rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner["source"], max_files,
                                cls=scope.rsplit("::", 1)[0].split("::")[-1] if "::" in scope else None,
@@ -3176,9 +3261,10 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
 
     plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows}) + \
-        [f"file:{owner['source']}"]
+        [f"file:{src}" for src in sorted({owner["source"]} | {b["source"] for b in siblings})]
     edited = set(plan.after) | {"reverse/re_attempts.log"}
-    plan.mentions = sorted(set(ctx.grep_files(old_name, roots=("docs", "reverse"))) - edited) + \
+    plan.mentions = sorted({m for spelled in [old_name] + [b["old"] for b in siblings]
+                            for m in ctx.grep_files(spelled, roots=("docs", "reverse"))} - edited) + \
         sorted(set(ctx.grep_files(old_word, word=True, roots=("docs",))) - edited
                - set(ctx.grep_files(old_name, roots=("docs",))))
     return plan
@@ -12249,7 +12335,9 @@ def main(argv=None):
                           help="with --to-class: move another slot of the same retail table in the same plan "
                                "(repeatable); a table whose slots are all still rowed under other placeholders "
                                "is proved only by moving them together; with --respell --identity: respell "
-                               "another row in the same plan (NEW is its whole mangled name)")
+                               "another row in the same plan (NEW is its whole mangled name); with a this-cv "
+                               "--respell: another slot of the same retail table, each proved by its base "
+                               "virtual and all checked after one build")
     function.add_argument("--identity", action="store_true",
                           help="with --respell: respell compiler-spelled rows (operators, special members, "
                                "template members) by code identity, no --basis: refused unless the "
@@ -12407,8 +12495,8 @@ def main(argv=None):
                      "retail's vftable: pass no --basis")
     also = []
     for item in (args.also if args.kind == "function" else []):
-        if not to_class and not identity:
-            parser.error("--also goes with --to-class or --respell --identity")
+        if not to_class and not identity and not respell:
+            parser.error("--also goes with --to-class, --respell --identity or a this-cv --respell")
         at, sep, word = item.partition("=")
         try:
             also.append((int(at, 16), word))
@@ -12470,10 +12558,10 @@ def main(argv=None):
     if respell:
         kwargs["respell"] = True
         kwargs["prepared"] = prepared
+    if respell and also:
+        kwargs["also"] = also
     if identity:
         kwargs.update(identity=True, move_to=args.move_to, basis=None, evidence="")
-        if also:
-            kwargs["also"] = also
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
                       prepared=prepared or None)
