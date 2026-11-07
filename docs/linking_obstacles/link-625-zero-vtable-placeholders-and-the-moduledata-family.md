@@ -203,3 +203,26 @@ scaffold's view the same bases in the same commit so both copies are identical.
   Retail 0x00C5F778 has 31 slots, ICF-shared with Curse, EvacuateGarrison and TeleportToCaster, whose units compile 31.
   The TU takes the capitalized Snapshot spelling before SpecialAbilityUpdateModuleData.h. It needs this entry's
   one-spelling fix before the vtable bridge retires.
+
+**2026-11-07, crash-prevention lane (seat ancalgonn-swarm-seat4): Tier 1 module data after P18.**
+- AttributeModifierAuraUpdateModuleData (P19, f7a542e290) and SpawnBehaviorModuleData (ec91896fc6): the vector-member
+  wall above holds for the canonical headers (most of their includers are not STLport units, so the headers cannot take
+  the vector types). Each constructor unit therefore keeps its own typed view, but on canonical ModuleData instead of the
+  explicit vptr member over an empty local base. Each deleting-dtor scaffold view gets the same base in the same commit
+  (BuildingBehavior.cpp for AMA, FamilyDeletingDtors.cpp for Spawn). Both copies of each `??_7` are identical: 31 slots
+  in ModuleData order, retail 0x00C50EE8 / 0x00BF4128, with byte-identical `??_G`. The ctor unwinds now call the rowed
+  `??1ModuleData@@UAE@XZ` 0x0049B47C. AMA's alias row `??1UpdateBase@@QAE@XZ` is retired in deleted_rows.csv; Spawn's
+  unwind used to call `??1BehaviorModuleData@@QAE@XZ`, which no row names.
+- AutoDepositUpdateModuleData (0x002540ED) and StructureToppleUpdateModuleData (0x00257A5E): still walled, now
+  measured. The same constructor change compiles exact (branch `scan/adst-interim-vptr`, 000641716b, parked), but
+  ModuleFactory.cpp, first in link order, emits Zero Hour 8-slot copies of both names (`crc`, `xfer`,
+  `loadPostProcess`, `??_E`, four Zero Hour getters) beside the rowed `??_G` it owns (0x0025528B, 0x00257B5E, both
+  displaced in tu_map), so the constructor units' 31-slot tables lose the SELECT_ANY selection. An offline
+  `vtable_bridge.plan()` over the exit link's own inputs, with the parked change built:
+  - committed `reverse/data_ledger.csv`: both names (and AMA's and Spawn's) are unindexed bindings and are not
+    planned. Retail 0x007F1BC8 / 0x007F43A8 / 0x00850EE8 / 0x007F4128 are still kind=global under the placeholder
+    names, so the interim would leave the Zero Hour copy kept. Not landed;
+  - regenerated ledger (`data_ledger.py --out`, scratch): all four are planned at 31 slots with no refusal.
+  Interim route: land 000641716b with the next ledger refresh (Link tooling lane), checked by the same offline plan.
+  The bridged state is debt, not progress. Lasting fix: TU approval for 0x0025528B and 0x00257B5E so the `??_G` rows can
+  leave ModuleFactory.cpp for a unit on canonical ModuleData; queued for the TU-evidence work.
