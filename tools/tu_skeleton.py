@@ -3548,12 +3548,21 @@ SPECIAL_MEMBERS = (
 def unit_text(path):
     """(the unit's preprocessed text, None), or (None, why): `path` through cl -E under its
     own build command (rename.preprocess_unit, no object written), so macros, includes and
-    aliases are what the compiler sees."""
+    aliases are what the compiler sees, in the form the rules read (flatten_preprocessed)."""
     cache = _CACHE.setdefault("unit_text", {})
     if path not in cache:
         ctx = SimpleNamespace(root=ROOT, path=lambda rel: ROOT / rel)
-        cache[path] = rename.preprocess_unit(ctx, path)
+        text, why = rename.preprocess_unit(ctx, path)
+        cache[path] = (flatten_preprocessed(text), None) if text is not None else (None, why)
     return cache[path]
+
+
+def flatten_preprocessed(text):
+    """cl -E output with every directive line gone (`#line 10 "copy.h"`, `# 10 "semi;h.h"`,
+    `#pragma ...`) and all whitespace, newlines included, collapsed to one space: a directive
+    between `Rec` and `(Rec const &)`, or a `;` in a #line file name between `template<>` and
+    `_Construct(`, must not split what the rules match (review of e81c016950)."""
+    return " ".join(" ".join(line for line in text.splitlines() if not line.lstrip().startswith("#")).split())
 
 
 def instance_tokens(owner):
@@ -3707,14 +3716,21 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
 
     Two stages. A scratch compile beside each file (Verifier) screens the rows and is
     re-judged with exactly the rows that move, since region flags follow the row set. The
-    apply then proves the committed state: the ledger is repointed, ./build.sh builds the
-    real files at their real paths (rename.build_verify), the rebuilt objects are read again
-    (COMDAT in the TU, no strong copy in the file), and on any other exit (a refusal, an
-    exception, an interrupt) the ledger is put back, both files' build/match objects and
-    receipts are deleted (drop_objects) and the claims are released.
+    apply then proves the committed state: the before-state is journalled to disk, the
+    ledger is repointed, build.py verifies exactly the two real files at their real paths
+    (exact_build), the rebuilt objects are read again (COMDAT in the TU, no strong copy in
+    the file), and on any other exit (a refusal, an exception, an interrupt) undo_emit puts
+    the ledger back, deletes both files' build/match objects and receipts and releases the
+    claims, each step on its own. A killed run leaves the journal: --recover-emit undoes it,
+    and no move starts while one is pending.
     Nothing but the ledger rows moves: no text, hatch or unit key. Without `rvas` a row that
     does not qualify stays and is reported; with `rvas`, any refusal blocks all."""
     report = {"file": path, "tu": tu}
+    pending = emit_journals()
+    if pending:
+        report["blocked"] = (f"an emit move did not finish (journal {pending[0][0].name}): "
+                             "run python3 tools/tu_skeleton.py --recover-emit first")
+        return report
     rows = file_rows(path)
     if not rows:
         report["blocked"] = "no matched rows in that file"
@@ -3851,7 +3867,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         return report
     report["moved"] = [r["target_rva"] for r in moved]
     if dry_run:
-        report["verify"] = f"screened by a scratch compile; the apply proves it with ./build.sh {path} {dest}"
+        report["verify"] = f"screened by a scratch compile; the apply proves it by building exactly {path} {dest}"
         return report
     don = {path: moved}
     if claim:
@@ -3862,10 +3878,14 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
             return report
     import build
     before = {rel: (ROOT / rel).read_bytes() for rel, _ in ROW_KEYED if (ROOT / rel).exists()}
-    repointed, done, problem = {}, False, "interrupted before ./build.sh finished"
-    # Any exit short of a verified, staged move (a refusal, an exception, KeyboardInterrupt)
-    # puts the ledger back, drops both files' cached objects and releases the claims (review
-    # of 692da8fc04).
+    # The before-state goes to disk (fsynced) before the ledger is touched: a SIGKILL or power
+    # loss mid-verify leaves the journal, and `--recover-emit` puts the move back (review of
+    # e81c016950). Any other exit short of a verified, staged move (a refusal, an exception,
+    # KeyboardInterrupt) undoes it here, each step on its own.
+    journal = write_emit_journal({"subject": f"emit-move {path} -> {dest}", "sources": [path, dest],
+                                  "before": {rel: rename._b64(raw) for rel, raw in before.items()},
+                                  "claims": [str(k) for k in claim_keys(dest, don)] if claim else []})
+    repointed, done, problem = {}, False, "interrupted before the build finished"
     try:
         for rel, keycol in ROW_KEYED:
             if rel in before:
@@ -3873,49 +3893,149 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
                 if n:
                     (ROOT / rel).write_bytes(raw)
                     repointed[rel] = n
-        # the committed state: the real files at their real paths, under the flags their build picks
-        # from the repointed ledger (no scratch sibling: __FILE__, __LINE__ and region flags are theirs)
+        # the committed state: exactly the two real files at their real paths, under the flags
+        # their build picks from the repointed ledger (__FILE__, __LINE__ and region flags theirs)
         _CACHE.clear()
-        ctx = rename.Context(ROOT)
-        if rename.build_verify(ctx, [path, dest]):
+        ok, output = exact_build([path, dest])
+        if ok:
             problem = committed_problem(movers, dest, build.obj_path(ROOT / dest), build.obj_path(ROOT / path))
         else:
-            problem = "./build.sh did not pass the repointed rows: " + " | ".join(
-                (getattr(ctx, "_build_diagnostics", "") or "").strip().splitlines()[-3:])[:400]
+            problem = "the build did not pass the repointed rows: " + " | ".join(output.strip().splitlines()[-3:])[:400]
         if problem is None:
             subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
             done = True
     finally:
-        if not done:
-            for rel, raw in before.items():
-                (ROOT / rel).write_bytes(raw)
-            drop_objects(build, [path, dest])
-            _CACHE.clear()
-            if claim:
-                claims.release(claim_keys(dest, don))
+        record = json.loads(journal.read_text(encoding="utf-8"))
+        errors = [] if done else undo_emit(record, release=claim)
+        if not errors:
+            journal.unlink()            # an undo that failed keeps its journal for --recover-emit
     if problem:
-        report["blocked"] = problem + " (the ledger was put back and both objects dropped)"
+        report["blocked"] = problem + (" (the ledger was put back, both objects dropped and the claims released)"
+                                       if not errors else
+                                       " (undo incomplete, run tu_skeleton.py --recover-emit: " + "; ".join(errors)[:300] + ")")
         return report
     report["repointed"] = repointed
     report["stage"] = "staged: " + " ".join(repointed)
-    report["verified"] = f"./build.sh {path} {dest}"
+    report["verified"] = f"build.py over exactly {path} {dest}"
     report["subject"] = (f"Move {len(moved)} emitted rows of {posixpath.basename(path)} into "
                          f"{posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact)")
     return report
 
 
 def drop_objects(build, sources):
-    """Delete each source's build/match object and its .deps.json receipt. After a failed
-    ./build.sh under a repointed ledger an object may be partly rewritten; with the ledger put
-    back its receipt could revalidate it as current (the build cache trap, docs/matching.md).
-    With neither file there, the next build compiles the unit afresh."""
+    """Delete each source's build/match object and its .deps.json receipt; [errors]. After a
+    failed build under a repointed ledger an object may be partly rewritten; with the ledger
+    put back its receipt could revalidate it as current (the build cache trap,
+    docs/matching.md). With neither file there, the next build compiles the unit afresh. Each
+    file is its own step: one that cannot be removed (a locked .obj on Windows) is reported
+    and the rest still go."""
+    errors = []
     for source in sources:
-        obj = build.obj_path(ROOT / source)
-        for path in (obj, build._deps_sidecar(obj)):
+        try:
+            obj = build.obj_path(ROOT / source)
+            paths = (obj, build._deps_sidecar(obj))
+        except Exception as error:                       # noqa: BLE001 - reported, never skips the rest
+            errors.append(f"{source}: no object path ({error})")
+            continue
+        for path in paths:
             try:
                 Path(path).unlink()
             except FileNotFoundError:
                 pass
+            except OSError as error:
+                errors.append(f"could not remove {Path(path).name}: {error}")
+    return errors
+
+
+def exact_build(sources):
+    """(ok, output) of build.py's own verification over exactly `sources` (build.main's
+    exact_sources, the membership scope its cross-source re-verify uses): ./build.sh's
+    selectors are substrings, so `Code/Campaign.cpp` would also rebuild
+    `Code/Campaign.cpp.extra.cpp`, whose artefacts no rollback would know (review of
+    e81c016950). Same environment defaults as build.sh; ok on exit 0 with `Functions: OK`."""
+    code = ("import sys; sys.path.insert(0, 'tools'); import build; "
+            f"sys.exit(build.main(exact_sources={sorted(sources)!r}) or 0)")
+    env = dict(os.environ, WINEDEBUG=os.environ.get("WINEDEBUG", "-all"), DISPLAY=os.environ.get("DISPLAY", ""))
+    print(f"tu_skeleton: verifying exactly {len(sources)} source(s): {' '.join(sources)}", flush=True)
+    result = subprocess.run([sys.executable, "-c", code], cwd=ROOT, capture_output=True, text=True, env=env)
+    output = result.stdout + result.stderr
+    print("\n".join(output.rstrip().splitlines()[-25:]))
+    return result.returncode == 0 and re.search(r"^Functions: OK \d+/\d+", output, re.M) is not None, output
+
+
+# An emit move's before-state, written (fsynced) before the ledger is touched: a SIGKILL or a
+# power loss mid-verify leaves an unverified move, and recover_emit() puts it back.
+EMIT_JOURNAL = "build/tu_skeleton/emit-journal"
+
+
+def emit_journals():
+    """[(path, record or None)] of every emit-move journal in this tree."""
+    folder = ROOT / EMIT_JOURNAL
+    out = []
+    for path in sorted(folder.glob("*.json")) if folder.is_dir() else []:
+        try:
+            out.append((path, json.loads(path.read_text(encoding="utf-8"))))
+        except (OSError, ValueError):
+            out.append((path, None))
+    return out
+
+
+def write_emit_journal(record):
+    """Persist `record` atomically (rename.py's journal discipline: tmp, fsync, replace)."""
+    import socket
+    import uuid
+    record = dict(record, id=uuid.uuid4().hex, pid=os.getpid(), host=socket.gethostname(), boot=rename._boot_id(),
+                  started=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    folder = ROOT / EMIT_JOURNAL
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"{record['id']}.json"
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(record), encoding="utf-8")
+    with tmp.open("r+b") as handle:
+        os.fsync(handle.fileno())
+    os.replace(tmp, path)
+    return path
+
+
+def undo_emit(record, release=True):
+    """Put one emit move back from its journal record; [errors]. Every step is its own: each
+    ledger file restored, each object and receipt dropped, the claims released, whatever
+    failed before it (review of e81c016950)."""
+    import build
+    errors = []
+    for rel, data in (record.get("before") or {}).items():
+        try:
+            (ROOT / rel).write_bytes(rename._unb64(data))
+        except OSError as error:
+            errors.append(f"could not restore {rel}: {error}")
+    errors += drop_objects(build, record.get("sources") or [])
+    if release and record.get("claims"):
+        try:
+            claims.release(record["claims"])
+        except Exception as error:                       # noqa: BLE001 - reported, the rest already ran
+            errors.append(f"could not release the claims: {error}")
+    _CACHE.clear()
+    return errors
+
+
+def recover_emit():
+    """Undo every emit move whose process is gone (its journal remains); (restored, busy, errors).
+    A journal is removed only once its undo had no error."""
+    restored, busy, errors = [], [], []
+    for path, record in emit_journals():
+        if record is None:
+            errors.append(f"{path} is unreadable; inspect it by hand (the before-state is in it)")
+            continue
+        if rename.journal_alive(record):
+            busy.append(record.get("subject", path.name))
+            continue
+        problems = undo_emit(record)
+        if problems:
+            errors += problems
+            continue
+        path.unlink()
+        restored.append(record.get("subject", path.name))
+    return restored, busy, errors
 
 
 def defined_symbols(obj):
@@ -5198,6 +5318,8 @@ def main(argv=None):
     g.add_argument("--split", metavar="FILE", help="carve the rows approved for --for TU out of a mixed FILE")
     g.add_argument("--emit-move", metavar="FILE",
                    help="repoint FILE's implicit COMDAT rows approved for --for TU, which the TU emits byte-exact")
+    g.add_argument("--recover-emit", action="store_true",
+                   help="undo every --emit-move a killed run left (its journal under build/tu_skeleton/emit-journal)")
     g.add_argument("--shatter", metavar="FILE",
                    help="carve a mixed FILE into every TU its rows are approved for, verified together, and delete it")
     g.add_argument("--merge-all", action="store_true",
@@ -5228,6 +5350,15 @@ def main(argv=None):
         list_tus(a.list)
     elif a.plan:
         plan(a.plan)
+    elif a.recover_emit:
+        restored, busy, errors = recover_emit()
+        for subject in restored:
+            print(f"restored: {subject}")
+        for subject in busy:
+            print(f"still running, left alone: {subject}")
+        for error in errors:
+            print(f"error: {error}")
+        return 1 if errors else 0
     elif a.emit_move:
         if not a.for_tu:
             ap.error("--emit-move takes --for TU")

@@ -1118,12 +1118,17 @@ class EmitMoveTests(unittest.TestCase):
                 patch.object(T, "unit_text", side_effect=unit_text), \
                 patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats.get(Path(obj), set())), \
                 patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]), \
-                patch.object(T.rename, "build_verify", return_value=built, side_effect=build_effect), \
+                patch.object(T, "exact_build", side_effect=build_effect if build_effect is not None
+                             else (lambda sources: (built, "Functions: OK 2/2" if built else "boom"))) as exact_build, \
                 patch.object(T, "claim_scope", return_value=[]), patch.object(T.claims, "release") as release, \
-                patch.object(T.rename, "Context", side_effect=lambda root: SimpleNamespace(root=root)), \
-                patch.object(build, "obj_path", side_effect=lambda source: real[Path(source).relative_to(self.root).as_posix()]):
-            self.released = release
+                patch.object(build, "obj_path", side_effect=self.obj_path):
+            self.released, self.exact = release, exact_build
             return T.emit_move(self.SOURCE, self.TU, rvas, dry_run=dry_run, claim=claim)
+
+    def obj_path(self, source):
+        """build.obj_path in the fixture: the two files' real build/match objects."""
+        rel = Path(source).relative_to(self.root).as_posix()
+        return self.root / "build" / {self.TU: "real_t.obj", self.SOURCE: "real_x.obj"}[rel]
 
     def test_an_emitted_instantiation_and_copy_ctor_move(self):
         report = self.move()
@@ -1182,14 +1187,23 @@ class EmitMoveTests(unittest.TestCase):
             ("struct Rec { ~Rec(); int a; };\n", "??1Rec@@QAE@XZ", True),
             ("struct Rec { Rec &operator=(Rec const volatile &o); };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
             ("struct Rec { virtual ~Rec(); };\n", "??_GRec@@UAEPAXI@Z", False),             # always the compiler's
+            # review of e81c016950: a directive between the pieces, a `;` in a #line file name
+            ('struct Rec { Rec\n#line 10 "copy.h"\n(Rec const &r); int a; };\n', self.COPY, True),
+            ('template<>\n#line 10 "semi;header.h"\ninline void _Construct(Rec *p, const Rec &v) { }\n', self.CTOR, True),
+            ('template <>\n# 12 "a;b.h"\nclass Box<int> { };\n', box_call, True),
+            ('struct Rec {\n#pragma pack(push, 4)\nRec(int n);\n#pragma pack(pop)\n};\n', self.COPY, True),
         ]
         for i, (text, name, refused) in enumerate(cases):
             with self.subTest(text=text, name=name):
                 rel = f"Code/u{i}.cpp"
                 with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
-                        patch.object(T, "unit_text", return_value=(text, None)):
+                        patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
                     why = T.implicit_comdat({"name": name, "target_rva": "0x00001200"}, rel)
                 self.assertEqual(bool(why), refused, why)
+
+    def test_flattening_drops_every_directive_and_joins_lines(self):
+        text = '#line 1 "a.h"\nstruct Rec\n# 3 "semi;colon.h"\n{\n  #pragma once\n  int a;\n};\n'
+        self.assertEqual(T.flatten_preprocessed(text), "struct Rec { int a; };")
 
     def test_the_rules_read_the_preprocessed_unit(self):
         # a header (or a macro) declares the copy ctor; the raw text never shows it
@@ -1270,7 +1284,9 @@ class EmitMoveTests(unittest.TestCase):
         texts = {p: (self.root / p).read_bytes() for p in (self.SOURCE, self.TU)}
         report = self.move(rvas=["0x00002000"], dry_run=False)
         self.assertNotIn("blocked", report)
-        self.assertEqual(report["verified"], f"./build.sh {self.SOURCE} {self.TU}")
+        self.assertEqual(report["verified"], f"build.py over exactly {self.SOURCE} {self.TU}")
+        self.exact.assert_called_once_with([self.SOURCE, self.TU])     # exact selection, no substring
+        self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])          # journal gone once staged
         funcs = (self.root / "reverse/functions.csv").read_text()
         self.assertIn(f"{self.CTOR},,0x00002000,8,{self.TU},matched", funcs)
         self.assertIn(f"{self.COPY},,0x00002100,8,{self.SOURCE},matched", funcs)       # not requested: stays
@@ -1280,7 +1296,7 @@ class EmitMoveTests(unittest.TestCase):
 
     def test_a_failing_build_or_committed_object_puts_the_ledger_back(self):
         # review of 3db7ced4b4: a scratch sibling proves nothing about the committed paths
-        for kw, why in (({"built": False}, "./build.sh did not pass"),
+        for kw, why in (({"built": False}, "the build did not pass"),
                         ({"built_comdat": set()}, "outside a COMDAT"),
                         ({"built_defined": set()}, "does not define")):
             with self.subTest(kw=kw):
@@ -1311,6 +1327,72 @@ class EmitMoveTests(unittest.TestCase):
         self.assertNotIn("blocked", report)
         self.assertEqual(len(self.objects_left()), 4)
         self.released.assert_not_called()
+
+    def recover(self):
+        """recover_emit in the fixture's tree; (result, claims.release mock)."""
+        import build
+        with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
+                patch.object(build, "obj_path", side_effect=self.obj_path), \
+                patch.object(T.claims, "release") as release:
+            return T.recover_emit(), release
+
+    def test_a_killed_verify_is_recovered_from_its_journal(self):
+        # review of e81c016950: os._exit mid-verify skips every finally; the journal on disk is all
+        # that is left, and --recover-emit restores from it
+        before = self.ledger()
+        child = ("import os, sys\nfrom pathlib import Path\n"
+                 f"sys.path[:0] = [{str(Path(__file__).resolve().parents[1])!r}, {str(Path(__file__).resolve().parent)!r}]\n"
+                 "import test_tu_skeleton as M\n"
+                 "t = M.EmitMoveTests('test_an_emitted_instantiation_and_copy_ctor_move')\n"
+                 "t.root = Path(sys.argv[1])\n"
+                 "t.move(rvas=['0x00002000'], dry_run=False, claim=True, build_effect=lambda sources: os._exit(3))\n")
+        result = subprocess.run([sys.executable, "-c", child, str(self.root)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 3, result.stderr[-500:])
+        journals = list((self.root / T.EMIT_JOURNAL).glob("*.json"))
+        self.assertEqual(len(journals), 1)
+        self.assertNotEqual((self.root / "reverse/functions.csv").read_bytes(), before["reverse/functions.csv"])
+        self.assertIn("did not finish", self.move(rvas=["0x00002000"])["blocked"])     # nothing starts meanwhile
+        (restored, busy, errors), release = self.recover()
+        self.assertEqual((len(restored), busy, errors), (1, [], []))
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+        self.assertEqual(self.objects_left(), [])
+        self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])
+        release.assert_called_once()
+        self.assertIn("file:Code/Campaign.cpp", release.call_args[0][0])
+
+    def test_one_failed_cleanup_step_skips_none_of_the_others(self):
+        # review of e81c016950: a locked .obj (Windows) must not stop the receipt, the other object
+        # or the claim release; the journal stays so --recover-emit can finish the undo
+        before = self.ledger()
+        locked = self.root / "build" / "real_t.obj"
+        real_unlink = Path.unlink
+
+        def unlink(path, *a, **k):
+            if Path(path) == locked:
+                raise PermissionError("locked")
+            return real_unlink(path, *a, **k)
+        with patch.object(Path, "unlink", unlink):
+            report = self.move(rvas=["0x00002000"], dry_run=False, claim=True, built=False)
+        self.assertIn("undo incomplete", report["blocked"])
+        self.assertIn("could not remove real_t.obj", report["blocked"])
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+        self.assertEqual(self.objects_left(), ["real_t.obj"])           # everything else went
+        self.released.assert_called_once()
+        self.assertEqual(len(list((self.root / T.EMIT_JOURNAL).glob("*.json"))), 1)
+        (restored, busy, errors), _ = self.recover()                    # the lock gone: the undo completes
+        self.assertEqual((len(restored), errors), (1, []))
+        self.assertEqual(self.objects_left(), [])
+
+    def test_exact_build_names_exactly_its_sources(self):
+        # review of e81c016950: build.sh's selectors are substrings (Code/Campaign.cpp would also pick
+        # Code/Campaign.cpp.extra.cpp); build.main(exact_sources=...) takes membership
+        with patch.object(T, "ROOT", self.root), patch.object(T.subprocess, "run") as run:
+            run.return_value = SimpleNamespace(returncode=0, stdout="Functions: OK 2/2 matched\n", stderr="")
+            ok, _ = T.exact_build([self.TU, self.SOURCE])
+        self.assertTrue(ok)
+        code = run.call_args[0][0][2]
+        self.assertIn("exact_sources=['Code/Campaign.cpp', 'Code/Mixed.cpp']", code)
+        self.assertNotIn("build.sh", " ".join(run.call_args[0][0]))
 
 
 class FoldAliasSplitTests(unittest.TestCase):
