@@ -1515,16 +1515,72 @@ def defined_data_pointers(checker, manifest, root):
     return report
 
 
-def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None):
-    """Retail vptr stores and table lengths from one decode of every row.
+def _register_family(md, reg):
+    """Full 32-bit register containing reg (so a write to cl clobbers ecx)."""
+    from capstone import x86_const as X
+    families = {
+        X.X86_REG_EAX: (X.X86_REG_AL, X.X86_REG_AH, X.X86_REG_AX, X.X86_REG_EAX),
+        X.X86_REG_EBX: (X.X86_REG_BL, X.X86_REG_BH, X.X86_REG_BX, X.X86_REG_EBX),
+        X.X86_REG_ECX: (X.X86_REG_CL, X.X86_REG_CH, X.X86_REG_CX, X.X86_REG_ECX),
+        X.X86_REG_EDX: (X.X86_REG_DL, X.X86_REG_DH, X.X86_REG_DX, X.X86_REG_EDX),
+        X.X86_REG_ESI: (X.X86_REG_SI, X.X86_REG_ESI),
+        X.X86_REG_EDI: (X.X86_REG_DI, X.X86_REG_EDI),
+        X.X86_REG_EBP: (X.X86_REG_BP, X.X86_REG_EBP),
+        X.X86_REG_ESP: (X.X86_REG_SP, X.X86_REG_ESP),
+    }
+    for full, members in families.items():
+        if reg in members:
+            return full
+    return reg
+
+
+def _overwritten_in_line(md, instructions, index, memop):
+    """Is store `index` provably overwritten by a later store to the same
+    operand in the same straight-line run? Any branch, call or return, or any
+    write to the operand's base or index register, ends the run first."""
+    import capstone
+    from capstone.x86_const import X86_OP_IMM, X86_OP_MEM
+    _segment, base, index_reg, _scale, _disp = memop
+    watched = {_register_family(md, r) for r in (base, index_reg) if r}
+    for ins in instructions[index + 1:]:
+        if ins.id == 0:
+            return False
+        ops = ins.operands
+        if (len(ops) == 2 and ops[0].type == X86_OP_MEM and ops[0].size == 4 and ops[1].type == X86_OP_IMM
+                and (ops[0].mem.segment, ops[0].mem.base, ops[0].mem.index, ops[0].mem.scale,
+                     ops[0].mem.disp) == memop and ins.mnemonic == "mov"):
+            return True
+        if any(ins.group(g) for g in (capstone.CS_GRP_JUMP, capstone.CS_GRP_CALL,
+                                       capstone.CS_GRP_RET, capstone.CS_GRP_INT, capstone.CS_GRP_IRET)):
+            return False
+        try:
+            written = ins.regs_access()[1]
+        except capstone.CsError:
+            return False
+        if watched & {_register_family(md, r) for r in written}:
+            return False
+    return False
+
+
+def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None, ledger_extents=None):
+    """Retail vptr stores found in rowed retail functions, with table lengths.
 
     rows is [(rva, size)]. A store is `mov dword [m], imm32` whose immediate
     is a non-code address holding a code word, and whose slot 0 is a rowed
     start or a jmp (a pushed string whose bytes look like a code address is
-    not a table). Retail is /FIXED with no RTTI: there are no relocations
-    and tables abut, so a run is bounded by the next referenced data
-    address (decoded imm/disp operands, aligned data words, ledger starts),
-    not only by its first non-code word.
+    not a table). This finds the stores of that one pattern in rowed bodies;
+    what it cannot see is counted in the returned counts (unreadable rows,
+    undecodable bytes, slot-0 words that are unrowed adjustors or other
+    unrowed code).
+
+    Retail is /FIXED with no RTTI: tables abut and there are no relocations.
+    A ledger vtable extent (ledger_extents, rva -> bytes) bounds a run when
+    known (extent "ledger"). Otherwise the run ends at the next referenced
+    data address (decoded imm/disp operands, aligned data words, ledger
+    starts), which an unrelated reference can shorten (extent "unproven").
+    A store is transient only when a later store to the same operand
+    follows in the same straight-line run (see _overwritten_in_line).
+    Returns (stores, counts).
     """
     import capstone
     from capstone.x86_const import X86_INS_MOV, X86_OP_IMM, X86_OP_MEM
@@ -1532,6 +1588,8 @@ def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None):
     md.detail = True
     md.skipdata = True
     base = retail.base
+    ledger_extents = ledger_extents or {}
+    counts = collections.Counter()
     if data_ranges is None:
         data_ranges = [(s.VirtualAddress, s.VirtualAddress + s.Misc_VirtualSize)
                        for s in retail.sections if not s.Characteristics & 0x20000000]
@@ -1542,9 +1600,12 @@ def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None):
     for rva, size in rows:
         raw = retail.read(rva, size) if 0 < size < 0x100000 else None
         if not raw:
+            counts["discovery_rows_unreadable"] += 1
             continue
-        for ins in md.disasm(raw, rva):
+        instructions = list(md.disasm(raw, rva))
+        for at, ins in enumerate(instructions):
             if ins.id == 0:
+                counts["discovery_undecoded_bytes"] += ins.size
                 continue
             ops = ins.operands
             for op in ops:
@@ -1552,18 +1613,27 @@ def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None):
                          op.mem.disp if op.type == X86_OP_MEM else 0) & 0xffffffff
                 if lo <= value < hi:
                     boundaries.add(value - base)
-            if (ins.id == X86_INS_MOV and len(ops) == 2 and ops[0].type == X86_OP_MEM
+            if not (ins.id == X86_INS_MOV and len(ops) == 2 and ops[0].type == X86_OP_MEM
                     and ops[0].size == 4 and ops[1].type == X86_OP_IMM):
-                table = (ops[1].imm & 0xffffffff) - base
-                word = retail.read(table, 4) if lo - base <= table < hi - base else None
-                if word is None:
-                    continue
-                first = struct.unpack("<I", word)[0]
-                if retail.in_text(first) and (first - base in starts or
-                                              retail.read(first - base, 1) == b"\xe9"):
-                    m = ops[0].mem
-                    found.append(dict(function=rva, offset=ins.address - rva, table=table,
-                                      memop=(m.segment, m.base, m.index, m.scale, m.disp)))
+                continue
+            table = (ops[1].imm & 0xffffffff) - base
+            word = retail.read(table, 4) if lo - base <= table < hi - base else None
+            if word is None:
+                continue
+            first = struct.unpack("<I", word)[0]
+            if not retail.in_text(first):
+                continue
+            head = retail.read(first - base, 6) or b""
+            if first - base not in starts and head[:1] != b"\xe9":
+                if head[:2] in (b"\x83\xe9", b"\x83\xc1") and head[3:4] == b"\xe9":
+                    counts["discovery_slot0_unrowed_adjustor"] += 1
+                else:
+                    counts["discovery_slot0_unrowed"] += 1
+                continue
+            m = ops[0].mem
+            memop = (m.segment, m.base, m.index, m.scale, m.disp)
+            found.append(dict(function=rva, offset=ins.address - rva, table=table, memop=memop,
+                              transient=_overwritten_in_line(md, instructions, at, memop)))
     for start, end in data_ranges:
         raw = retail.read(start, end - start) or b""
         for at in range(0, len(raw) - 3, 4):
@@ -1573,19 +1643,49 @@ def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None):
     boundaries = sorted(boundaries)
     for store in found:
         table, words = store["table"], 0
-        following = bisect.bisect_right(boundaries, table)
-        limit = (boundaries[following] - table) // 4 if following < len(boundaries) else 1024
+        if ledger_extents.get(table):
+            limit, store["extent"] = ledger_extents[table] // 4, "ledger"
+        else:
+            following = bisect.bisect_right(boundaries, table)
+            limit = (boundaries[following] - table) // 4 if following < len(boundaries) else 1024
+            store["extent"] = "unproven"
         while words < limit:
             raw = retail.read(table + 4 * words, 4)
             if raw is None or not retail.in_text(struct.unpack("<I", raw)[0]):
                 break
             words += 1
         store["slots"] = words
-    # A later store to the same operand in the same function overwrites this one.
-    for store in found:
-        store["transient"] = any(o["function"] == store["function"] and o["memop"] == store["memop"]
-                                 and o["offset"] > store["offset"] for o in found)
-    return found
+    counts["discovery_stores"] = len(found)
+    return found, counts
+
+
+def _layout_equal(checker, image_rva, retail_rva, size):
+    """Same instruction sequence over the retail row: equal sizes and bytes,
+    except relocated image fields and relative branch operands. True proves
+    that offsets inside the row correspond; False or None does not."""
+    import capstone
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    a, b = checker.ours.read(image_rva, size), checker.retail.read(retail_rva, size)
+    if a is None or b is None:
+        return None
+    aa, bb = list(md.disasm(a, image_rva)), list(md.disasm(b, retail_rva))
+    if sum(i.size for i in aa) != size or sum(i.size for i in bb) != size:
+        return None
+    if len(aa) != len(bb):
+        return False
+    for x, y in zip(aa, bb):
+        if x.id != y.id or x.size != y.size:
+            return False
+        masked = set()
+        for start, width in ((x.imm_offset, x.imm_size), (x.disp_offset, x.disp_size)):
+            if width == 4 and x.address + start in checker.ours.relocations:
+                masked.update(range(start, start + width))
+        if (x.group(capstone.CS_GRP_JUMP) or x.group(capstone.CS_GRP_CALL)) and x.imm_size:
+            masked.update(range(x.imm_offset, x.imm_offset + x.imm_size))
+        if any(x.bytes[k] != y.bytes[k] for k in range(x.size) if k not in masked):
+            return False
+    return True
 
 
 def _chase(checker, image, value):
@@ -1599,14 +1699,17 @@ def _chase(checker, image, value):
 
 
 def _vptr_slot(checker, slot_rva, actual, expected, end, sizes, by_rva):
-    """One installed slot against retail's: ok, equiv, wrong, null, data,
-    past-end, purecall, stub or unk, with the image symbol as evidence."""
+    """One installed slot against retail's: match, equiv, wrong, null, data,
+    past-extent, purecall, stub or unk, with the image symbol as evidence.
+    A slot at or past the installed table's extent is past-extent whatever
+    it holds: the word belongs to another symbol."""
     ours, retail = checker.ours, checker.retail
-    past = end is not None and slot_rva >= end
+    if end is None or slot_rva >= end:
+        return "past-extent", hex(actual)
     if actual == 0:
-        return ("past-end" if past else "null"), ""
+        return "null", ""
     if not ours.in_text(actual):
-        return ("past-end" if past else "data"), hex(actual)
+        return "data", hex(actual)
     actual, expected = _chase(checker, ours, actual), _chase(checker, retail, expected)
     a, b = actual - ours.base, expected - retail.base
     here = by_rva.get(a, [])
@@ -1615,31 +1718,36 @@ def _vptr_slot(checker, slot_rva, actual, expected, end, sizes, by_rva):
         return "stub", name
     if name == "__purecall":
         return "purecall", name
-    # One address carries many alias names; any ledgered at retail's target proves it.
-    if any(b in checker.addresses.get(p["name"], ()) for p in here):
-        return "ok", name
+    # Alias names at one image address prove the slot only when every retail
+    # address they stand for is the expected one or a proven fold of it.
+    targets = set()
+    for p in here:
+        targets |= set(checker.addresses.get(p["name"], ()))
+    if b in targets and (targets == {b} or frozenset(targets) in checker.mapping.proven_folds):
+        return "match", name
     verdict = checker.slot(actual, expected, sizes)
     if verdict is True:
-        return "ok", name
+        return "match", name
     if sizes.get(b) and checker.code_equal(a, b, sizes[b]) is True:
         return "equiv", name
-    if verdict is False:
-        return ("past-end" if past else "wrong"), name
-    return ("past-end" if past else "unk"), name
+    return ("wrong" if verdict is False else "unk"), name
 
 
 def vptr_store_report(checker, stores, sizes, order=None):
     """Judge each retail vptr store on the linked image (crash prevention).
 
-    The image's copy of the storing row is found by correspondence; its
-    instruction at the same offset must have the same opcode bytes (the
-    immediate, and a relocated absolute displacement, masked) and an image
-    fixup on the immediate. The installed table is compared slot by slot
-    over retail's run. A store of a non-??_7 symbol whose every slot is
-    null, data or past its extent is a zero placeholder (P18); any other
-    slot that is not ok or byte-equivalent makes the store bad. Transient
-    stores are counted, not judged. Stores are not reachability: order is
-    an optional {(function, offset): rank} from a boot walk.
+    A store is judged only when the image's copy of its row has the retail
+    row's layout (_layout_equal), so the instruction at the store's offset is
+    the same instruction, and only when that instruction carries an image
+    fixup on its immediate. The installed table is compared slot by slot over
+    retail's run, bounded by the installed symbol's COFF extent, else by the
+    next map symbol. Verdicts: zero-placeholder (a non-??_7 symbol whose
+    every slot is null, data or past-extent: P18), bad (any slot that is not
+    match or equiv), extent-unproven (no defect within a run whose retail
+    extent is only the next referenced address), no-defect-found (ledger
+    extent, every slot match or equiv; not a proof of correctness), and the
+    unanalyzed-* verdicts. Transient stores are counted, not judged. Stores
+    are not reachability: order is an optional {(function, offset): rank}.
     """
     import capstone
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
@@ -1656,42 +1764,46 @@ def vptr_store_report(checker, stores, sizes, order=None):
         raw = image.read(rva, 16)
         return next(md.disasm(raw, rva), None) if raw else None
 
+    def unanalyzed(result, why):
+        result["verdict"] = "unanalyzed-" + why
+        counts["vptr_stores_unanalyzed_" + why.replace("-", "_")] += 1
+
     for store in stores:
         if store.get("transient"):
             counts["vptr_stores_transient"] += 1
             continue
         fa, at, table, n = store["function"], store["offset"], store["table"], store["slots"]
         result = dict(function_rva=hex(fa), offset=hex(at), retail_table=hex(table + retail.base),
-                      retail_slots=n, order=(order or {}).get((fa, at), ""))
+                      retail_slots=n, retail_extent=store.get("extent", "unproven"),
+                      order=(order or {}).get((fa, at), ""))
         results.append(result)
-        locations = {p["rva"] for p in checker.by_retail.get(fa, [])}
+        owners = checker.by_retail.get(fa, [])
+        locations = {p["rva"] for p in owners}
         if len(locations) != 1:
-            result["verdict"] = "unanalyzed-function"
-            counts["vptr_stores_unanalyzed"] += 1
+            unanalyzed(result, "function")
             continue
         image_fa = next(iter(locations))
-        result["function"] = checker.by_retail[fa][0]["name"]
-        r, i = decode(retail, fa + at), decode(ours, image_fa + at)
-        masked = bool(i) and i.disp_size == 4 and i.address + i.disp_offset in ours.relocations
-
-        def opcode(x):
-            b = bytearray(x.bytes[:x.imm_offset])
-            if masked:
-                b[x.disp_offset:x.disp_offset + 4] = bytes(4)
-            return bytes(b)
-        if (not r or not i or r.size != i.size or opcode(r) != opcode(i)
-                or i.address + i.imm_offset not in ours.relocations):
-            result["verdict"] = "unanalyzed-instruction"
-            counts["vptr_stores_unanalyzed"] += 1
+        result["function"] = owners[0]["name"]
+        size = sizes.get(fa)
+        if not size or _layout_equal(checker, image_fa, fa, size) is not True:
+            unanalyzed(result, "layout")
+            continue
+        i = decode(ours, image_fa + at)
+        if not i or i.imm_size != 4 or i.address + i.imm_offset not in ours.relocations:
+            unanalyzed(result, "fixup")
+            continue
+        if n == 0:
+            unanalyzed(result, "empty-table")
             continue
         installed = struct.unpack("<I", ours.read(i.address + i.imm_offset, 4))[0] - ours.base
         index = bisect.bisect_right(starts, installed) - 1
         owner = by_rva[starts[index]][0] if index >= 0 else {}
         exact = index >= 0 and starts[index] == installed
         if exact and owner.get("extent"):
-            end = installed + owner["extent"]
+            end, result["image_extent"] = installed + owner["extent"], "coff"
         else:
             end = starts[index + 1] if index + 1 < len(starts) else None
+            result["image_extent"] = "next-map-symbol"
         symbol = owner.get("name", "")
         if owner and not exact:
             symbol += "+%#x" % (installed - starts[index])
@@ -1701,18 +1813,24 @@ def vptr_store_report(checker, stores, sizes, order=None):
             b = struct.unpack("<I", retail.read(table + 4 * k, 4))[0]
             kind, note = _vptr_slot(checker, installed + 4 * k, a, b, end, sizes, by_rva)
             slots[kind] += 1
-            if kind not in ("ok", "equiv"):
+            if kind not in ("match", "equiv"):
                 bad.append("slot %d %s %s retail=%#x" % (k, kind, note, b))
-        zero = bool(n) and not symbol.startswith("??_7") and \
-            slots["null"] + slots["data"] + slots["past-end"] == n
+        zero = not symbol.startswith("??_7") and slots["null"] + slots["data"] + slots["past-extent"] == n
+        if zero:
+            verdict = "zero-placeholder"
+        elif bad:
+            verdict = "bad"
+        elif result["retail_extent"] != "ledger":
+            verdict = "extent-unproven"
+        else:
+            verdict = "no-defect-found"
         result.update(image_symbol=symbol, object=owner.get("object", ""), source=owner.get("source", ""),
-                      slots=dict(slots), bad=bad,
-                      verdict="zero-placeholder" if zero else "bad" if bad else "ok")
-        counts["vptr_stores_" + result["verdict"].replace("-", "_")] += 1
+                      slots=dict(slots), bad=bad, verdict=verdict)
+        counts["vptr_stores_" + verdict.replace("-", "_")] += 1
         if bad:
             checker.defect("vptr_store_zero" if zero else "vptr_store_slot", fa, owner,
-                           "store +%#x installs %s for retail %#x (%d slots): %s" % (
-                               at, symbol, table + retail.base, n, "; ".join(bad[:3])))
+                           "store +%#x installs %s for retail %#x (%d slots, %s extent): %s" % (
+                               at, symbol, table + retail.base, n, result["retail_extent"], "; ".join(bad[:3])))
     checker.counts.update(counts)
     return dict(counts=dict(counts), stores=results)
 
@@ -1727,8 +1845,10 @@ def vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_cou
             except ValueError:
                 continue
     checker.mapping.prove_folds(checker.retail, sizes)
-    stores = retail_vptr_stores(checker.retail, sorted(set(function_rows)),
-                                ledger_starts=[int(r["address"], 16) for r in rows])
+    extents = {int(r["address"], 16): int(r["size"] or 0) for r in rows if r["kind"] == "vtable"}
+    stores, discovery = retail_vptr_stores(checker.retail, sorted(set(function_rows)),
+                                           ledger_starts=[int(r["address"], 16) for r in rows],
+                                           ledger_extents=extents)
     order = {}
     if args.boot_order:
         with args.boot_order.open(newline="") as f:
@@ -1737,11 +1857,12 @@ def vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_cou
                 order.setdefault(key, int(r["order"]))
     result = vptr_store_report(checker, stores, sizes, order)
     report = checker.report()
-    report["vptr_stores"] = result["counts"]
+    report["vptr_stores"] = dict(result["counts"], **discovery)
     report["analysis_scope"] = "retail vptr stores against installed image tables only"
     report["limitations"] = report["limitations"] + [
-        "Vptr stores are every rowed retail store, not a trace; --boot-order only ranks them.",
-        "Retail tables abut (no RTTI): runs end at the next referenced data address."]
+        "Vptr stores are the mov [m],imm32 stores found in rowed retail bodies (discovery_* counts what it cannot see), not a trace; --boot-order only ranks them.",
+        "Retail tables abut (no RTTI): without a ledger vtable extent a run ends at the next referenced data address (extent-unproven).",
+        "no-defect-found is the absence of a found defect, not proof of a correct table."]
     report.update(inputs=dict(tool_sha256=tool_sha256, image=str(args.image), map=str(args.map),
                               retail=str(args.retail), image_sha256=digest(args.image),
                               map_sha256=digest(args.map), retail_sha256=digest(args.retail),
@@ -1756,13 +1877,13 @@ def vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_cou
     rank = lambda r: (r["order"] == "", r["order"] if r["order"] != "" else 0, r["function_rva"], r["offset"])
     with (args.out / "vptr_stores.tsv").open("w", newline="") as f:
         fields = ["order", "verdict", "function_rva", "offset", "function", "retail_table", "retail_slots",
-                  "image_symbol", "object", "source", "slots", "bad"]
+                  "retail_extent", "image_symbol", "image_extent", "object", "source", "slots", "bad"]
         writer = csv.DictWriter(f, fieldnames=fields, delimiter="\t", extrasaction="ignore")
         writer.writeheader()
         for r in sorted(result["stores"], key=rank):
             writer.writerow(dict(r, slots=json.dumps(r.get("slots", {}), sort_keys=True),
                                  bad="; ".join(r.get("bad", []))))
-    print(json.dumps({"vptr_stores": result["counts"], "complete": False}, indent=2))
+    print(json.dumps({"vptr_stores": report["vptr_stores"], "complete": False}, indent=2))
     return 1
 
 

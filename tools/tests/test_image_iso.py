@@ -1257,15 +1257,20 @@ def test_data_pointers_only_cli_catches_plain_number_string_pointer(tmp_path,mon
         assert "defined_data_unrelocated_pointer" in (out/"defects.tsv").read_text()
 
 
-def vptr_retail():
-    """Retail: ctor 0x200 stores table 0x2000 (2 slots, abutting a third code
-    word at 0x2008 that a data word references), ctor 0x240 stores it twice,
-    and 0x280 stores a string whose first word only looks like code."""
+STORE_ECX = b"\xc7\x01"          # mov dword [ecx], imm32
+DATA = [(0x1000, 0x5000)]
+
+
+def vptr_retail(extra=b""):
+    """Retail: ctor 0x200 stores table 0x2000 (2 slots, then a third code
+    word at 0x2008 that a data word references), 0x280 stores a string whose
+    first word only looks like code, 0x2c0 holds `extra` (each test's
+    store pattern) and ends in ret."""
     retail = Memory(0x400000)
-    store = lambda table: b"\xc7\x01" + struct.pack("<I", retail.base + table)
+    store = lambda table: STORE_ECX + struct.pack("<I", retail.base + table)
     retail.put(0x200, store(0x2000) + b"\xc3")
-    retail.put(0x240, store(0x2000) + store(0x2000) + b"\xc3")
     retail.put(0x280, store(0x2100) + b"\xc3")
+    retail.put(0x2c0, extra + b"\xc3")
     retail.put(0x300, b"\xc3")
     retail.put(0x310, b"\x33\xc0\xc3")
     retail.put(0x320, b"\xc3")
@@ -1274,25 +1279,42 @@ def vptr_retail():
         retail.put(0x2000 + 4 * slot, struct.pack("<I", retail.base + target))
     retail.put(0x2100, struct.pack("<I", retail.base + 0x330))
     retail.put(0x3000, struct.pack("<I", retail.base + 0x2008))
-    rows = [(0x200, 7), (0x240, 13), (0x280, 7), (0x300, 1), (0x310, 3), (0x320, 1)]
+    rows = [(0x200, 7), (0x280, 7), (0x2c0, len(extra) + 1), (0x300, 1), (0x310, 3), (0x320, 1)]
     return retail, rows
 
 
-def test_retail_vptr_stores_bound_tables_skip_strings_and_mark_transient():
+def stores_at(retail, rows, function, **kw):
+    stores, counts = iso.retail_vptr_stores(retail, rows, data_ranges=DATA, **kw)
+    return [s for s in stores if s["function"] == function], counts
+
+
+def test_retail_vptr_stores_bound_tables_and_skip_strings():
     retail, rows = vptr_retail()
-    stores = iso.retail_vptr_stores(retail, rows, data_ranges=[(0x1000, 0x5000)])
-    found = {(s["function"], s["offset"]): s for s in stores}
-    assert set(found) == {(0x200, 0), (0x240, 0), (0x240, 6)}
-    assert all(s["table"] == 0x2000 and s["slots"] == 2 for s in stores)
-    assert found[(0x240, 0)]["transient"] and not found[(0x240, 6)]["transient"]
-    assert not found[(0x200, 0)]["transient"]
+    stores, counts = iso.retail_vptr_stores(retail, rows, data_ranges=DATA)
+    assert [(s["function"], s["table"], s["slots"], s["extent"]) for s in stores] == [(0x200, 0x2000, 2, "unproven")]
+    assert counts["discovery_slot0_unrowed"] == 1   # the string at 0x2100
+    stores, _ = iso.retail_vptr_stores(retail, rows, data_ranges=DATA, ledger_extents={0x2000: 12})
+    assert (stores[0]["slots"], stores[0]["extent"]) == (3, "ledger")
 
 
-def vptr_case(table_symbol, extent, words, follower=None, filler=b"AAAA"):
+def test_transient_only_when_overwritten_in_one_straight_line():
+    base = 0x400000
+    store = lambda table: STORE_ECX + struct.pack("<I", base + table)
+    straight = store(0x2000) + store(0x2000)
+    branched = store(0x2000) + b"\x74\x06" + store(0x2000)      # je over the second store
+    rebased = store(0x2000) + b"\x8b\xce" + store(0x2000)       # mov ecx, esi: another object
+    called = store(0x2000) + b"\xe8\x00\x00\x00\x00" + store(0x2000)
+    for body, first_transient in ((straight, True), (branched, False), (rebased, False), (called, False)):
+        retail, rows = vptr_retail(body)
+        stores, _ = stores_at(retail, rows, 0x2c0)
+        assert [s["transient"] for s in stores] == [first_transient, False], body.hex()
+
+
+def vptr_case(table_symbol, extent, words, follower=None, filler=b"AAAA", **kw):
     """Image: the ctor's copy at 0x400 installs `table_symbol` at 0x3000."""
     retail, rows = vptr_retail()
     ours = Memory(0x10000000)
-    ours.put(0x400, b"\xc7\x01" + bytes(4) + b"\xc3")
+    ours.put(0x400, STORE_ECX + bytes(4) + b"\xc3")
     ours.pointer(0x402, 0x3000)
     ours.put(0x500, b"\xc3")
     ours.put(0x510, b"\x33\xc0\xc3")
@@ -1306,50 +1328,75 @@ def vptr_case(table_symbol, extent, words, follower=None, filler=b"AAAA"):
         ours.put(0x3000 + extent, filler)
     addresses = {"ctor": {0x200}, "f300": {0x300}, "f310": {0x310}}
     c = iso.Checker(ours, retail, publics, addresses)
-    stores = [s for s in iso.retail_vptr_stores(retail, rows, data_ranges=[(0x1000, 0x5000)])
-              if s["function"] == 0x200]
-    return c, iso.vptr_store_report(c, stores, {0x300: 1, 0x310: 3})
+    stores, _ = stores_at(retail, rows, 0x200, **kw)
+    return c, stores
 
 
-def test_vptr_store_full_table_is_ok():
-    c, result = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510))
-    assert [s["verdict"] for s in result["stores"]] == ["ok"]
+def judge(c, stores, sizes=None):
+    return iso.vptr_store_report(c, stores, sizes or {0x200: 7, 0x300: 1, 0x310: 3})["stores"]
+
+
+def test_full_table_is_no_defect_found_only_with_a_ledger_extent():
+    c, stores = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510), ledger_extents={0x2000: 8})
+    assert [s["verdict"] for s in judge(c, stores)] == ["no-defect-found"]
     assert not c.defects
+    c, stores = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510))
+    assert [s["verdict"] for s in judge(c, stores)] == ["extent-unproven"]
 
 
-def test_vptr_store_zero_placeholder_is_p18_shape():
-    c, result = vptr_case("?g_00C59B20@@3DA", 1, (), follower="next", filler=b"")
-    store = result["stores"][0]
+def test_incidental_reference_truncating_a_table_to_zero_is_never_ok():
+    retail, rows = vptr_retail()
+    retail.put(0x3004, struct.pack("<I", retail.base + 0x2001))   # unrelated word holds T+1
+    stores, _ = iso.retail_vptr_stores(retail, rows, data_ranges=DATA)
+    assert stores[0]["slots"] == 0
+    c, _ = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510))
+    assert [s["verdict"] for s in judge(c, stores)] == ["unanalyzed-empty-table"]
+
+
+def test_zero_placeholder_is_p18_shape():
+    c, stores = vptr_case("?g_00C59B20@@3DA", 1, (), follower="next", filler=b"")
+    store = judge(c, stores)[0]
     assert store["verdict"] == "zero-placeholder"
-    assert store["slots"] == {"null": 1, "past-end": 1}
+    assert store["slots"] == {"null": 1, "past-extent": 1}
     assert [d["family"] for d in c.defects] == ["vptr_store_zero"]
 
 
-def test_vptr_store_short_named_table_reads_the_next_symbol():
-    c, result = vptr_case("??_7Short@@6B@", 4, (0x500,), follower="other")
-    store = result["stores"][0]
-    assert store["verdict"] == "bad" and store["slots"] == {"ok": 1, "past-end": 1}
+def test_slot_past_the_image_extent_fails_even_when_it_holds_the_expected_target():
+    # A one-slot ??_7 followed by an unrelated global that happens to hold f310.
+    c, stores = vptr_case("??_7Short@@6B@", 4, (0x500, 0x510), follower="g_unrelated",
+                          ledger_extents={0x2000: 8})
+    c.ours.pointer(0x3004, 0x510)
+    store = judge(c, stores)[0]
+    assert store["verdict"] == "bad" and store["slots"] == {"match": 1, "past-extent": 1}
     assert c.defects[0]["family"] == "vptr_store_slot"
 
 
-def test_vptr_store_wrong_target_and_byte_equal_body():
-    # Slot 1 points at f300's `ret` where retail has `xor eax,eax; ret`: wrong.
-    c, result = vptr_case("??_7Swap@@6B@", 8, (0x500, 0x500))
-    assert result["stores"][0]["slots"] == {"ok": 1, "wrong": 1}
+def test_alias_name_needs_a_proven_fold_to_credit_a_slot():
+    # f300's image address also carries g, ledgered at retail 0x310 (`xor eax,eax; ret`);
+    # their retail bodies differ, so the name proves nothing and the body decides.
+    c, stores = vptr_case("??_7Alias@@6B@", 8, (0x500, 0x500), ledger_extents={0x2000: 8})
+    c.publics.append(public("g", 0x500, 1))
+    c.addresses["g"] = {0x310}
+    store = judge(c, stores)[0]
+    # The correspondence maps 0x500 to 0x300 alone; the alias g does not rescue slot 1.
+    assert store["slots"] == {"match": 1, "wrong": 1} and store["verdict"] == "bad"
     # An unrowed body with retail's bytes is equivalent, not wrong.
-    c, result = vptr_case("??_7Copy@@6B@", 8, (0x500, 0x520))
+    c, stores = vptr_case("??_7Copy@@6B@", 8, (0x500, 0x520), ledger_extents={0x2000: 8})
     c.ours.put(0x520, b"\x33\xc0\xc3")
     c.publics.append(public("copy", 0x520, 3))
-    stores = [s for s in iso.retail_vptr_stores(c.retail, vptr_retail()[1], data_ranges=[(0x1000, 0x5000)])
-              if s["function"] == 0x200]
-    result = iso.vptr_store_report(c, stores, {0x300: 1, 0x310: 3})
-    assert result["stores"][0]["slots"] == {"ok": 1, "equiv": 1}
+    assert judge(c, stores)[0]["slots"] == {"match": 1, "equiv": 1}
 
 
-def test_vptr_store_without_image_fixup_is_unanalyzed():
-    c, _ = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510))
+def test_store_in_a_differently_laid_out_image_copy_is_unanalyzed():
+    c, stores = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510), ledger_extents={0x2000: 8})
+    # A relocated mov [ecx], imm32 at the retail offset, but the rest of the
+    # function differs, so the offset proves no correspondence.
+    c.ours.put(0x406, b"\x90")
+    assert judge(c, stores)[0]["verdict"] == "unanalyzed-layout"
+
+
+def test_store_without_image_fixup_is_unanalyzed():
+    c, stores = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510), ledger_extents={0x2000: 8})
     c.ours.relocations.discard(0x402)
-    stores = [s for s in iso.retail_vptr_stores(c.retail, vptr_retail()[1], data_ranges=[(0x1000, 0x5000)])
-              if s["function"] == 0x200]
-    result = iso.vptr_store_report(c, stores, {})
-    assert result["stores"][0]["verdict"] == "unanalyzed-instruction"
+    # Without the fixup the immediate is compared raw, so the layout check refuses first.
+    assert judge(c, stores)[0]["verdict"] in ("unanalyzed-layout", "unanalyzed-fixup")
