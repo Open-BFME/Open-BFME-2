@@ -472,4 +472,14 @@ bytes is insufficient. [Exact private evidence and next checks](../../reverse/at
   ?rva0004859EA@CreateObjectDie). EldestKindof: GetSnapshotName 0x0048599C (?name@Rva0048599CNamed)
   and xfer 0x00485BD4 (?xfer@Rva00485BD4). DieModule's primary 0xC41E78 has GetSnapshotName
   0x0045CEEE (?Rva45CEEEGet). Renaming those rows and declaring the overrides fixes the slots.
-- Still blocked on ?crc@BehaviorModule: BridgeTowerBehavior.cpp (real link at c1bcebdd2e).
+- Done (e909b38e9c): BridgeTowerBehavior.cpp, the last ?crc@BehaviorModule blocker (real link at
+  58826f19a7). It is rewritten on the canonical BehaviorModule/DamageModuleClass/DieModuleInterface
+  headers and object.h with the inline ~BehaviorModule. Layout comes from constructor 0x00458704:
+  tower interface +0x10, die +0x14, damage +0x18. Zero Hour's getBridgeTowerBehaviorInterface is
+  BehaviorModuleInterface slot13. All 10 rows match. getBridgeID, setTowerType and
+  onBodyDamageStateChange are ICF folds onto 0x001DB0A8, 0x005F69CE and 0x000D1407. link_check
+  reports only the BehaviorModule table-copy question. Primary slots 1-2 (0x0058B03E, 0x00458759)
+  stay purecall in the emitted table.
+- Confirmation pending: the real link at 58826f19a7 predates all four conversions. The next run
+  should drop FXListDie, SpecialPowerCompletionDie, CreateObjectDie, DieModule and BridgeTowerBehavior
+  from reverse/exit_link_blockers.tsv.
