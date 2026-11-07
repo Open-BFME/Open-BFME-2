@@ -29,6 +29,9 @@ class Object;
 class Team;
 class ThingTemplate;
 class ClientUpdateModule {public:virtual void s0()=0;virtual void s1()=0;virtual void s2()=0;virtual void s3()=0;virtual NameKeyType getModuleNameKey()const=0;char pad04[0x1E];bool sway;};
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own Drawable view, so it takes only the header's constant (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Drawable {public:void rva00272A02(bool);char pad[0x150];ClientUpdateModule **modules;char pad154[0x10E];unsigned char flags262;};
 class Thing {public:const Matrix3D *getTransformMatrix()const{return (const Matrix3D*)((const char*)this+8);}void setTransformMatrix(const Matrix3D*);Drawable *getDrawable()const;void setPosition(const Coord3D *);void setOrientation(float);};
 class ToppleBits {public:unsigned words[19];

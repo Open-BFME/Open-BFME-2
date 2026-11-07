@@ -278,7 +278,9 @@ enum TerrainDecalType
 
 //-----------------------------------------------------------------------------
 
-const Int DRAWABLE_FRAMES_PER_FLASH = LOGICFRAMES_PER_SECOND / 2;
+// BFME 2: the constant divides the frame-rate variable, so the unit registers its .CRT$XCU
+// copy (retail 0x007B13EA, static 0x00E038D0, after BoneFXUpdate's pool key and guard).
+#include "../../../../Code/GameEngine/Include/GameClient/DrawableFramesPerFlash.h"
 
 //-----------------------------------------------------------------------------
 /**
