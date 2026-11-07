@@ -6364,10 +6364,6 @@ name,address,notes
 ?sMethod_sort@AptArray@@SAPAVAptValue@@PAV2@H@Z,0x006D9F00,Native AptArray lookup6DA630 call/constructor payload; target switch13 entries associates exact case-sensitive property names and callbacks; donor4416f7dfadc1781e plus original callback macro41843bcb3e6f8e37 supplies static cdecl context/count ABI; existing providers aliased where available
 ?sMethod_sortOn@AptArray@@SAPAVAptValue@@PAV2@H@Z,0x006DA0C0,Native AptArray lookup6DA630 call/constructor payload; target switch13 entries associates exact case-sensitive property names and callbacks; donor4416f7dfadc1781e plus original callback macro41843bcb3e6f8e37 supplies static cdecl context/count ABI; existing providers aliased where available
 ?sMethod_unshift@AptArray@@SAPAVAptValue@@PAV2@H@Z,0x006D9CE0,Native AptArray lookup6DA630 call/constructor payload; target switch13 entries associates exact case-sensitive property names and callbacks; donor4416f7dfadc1781e plus original callback macro41843bcb3e6f8e37 supplies static cdecl context/count ABI; existing providers aliased where available
-?s_head@?$CategoryModuleClass@$01@FXParticleSystem@@2PAV12@A,0x009FDD44,0x001F852B reads DFDD44 twin of 05 pin and exports s_first 01 at same VA
-?s_head@?$CategoryModuleClass@$02@FXParticleSystem@@2PAV12@A,0x009FDD48,0x001F8599 reads DFDD48 twin of 05 pin and exports s_first 02 at same VA
-?s_head@?$CategoryModuleClass@$03@FXParticleSystem@@2PAV12@A,0x009FDD4C,0x001F8607 reads DFDD4C twin of 05 pin and exports s_first 03 at same VA
-?s_head@?$CategoryModuleClass@$05@FXParticleSystem@@2PAV12@A,0x009FDD54,getFirst 05 0x001F4422 reads DFDD54 and 0x001F86E3 reads same s_head 05
 ?sample@Gen00458270@@QAEMI@Z,0x00330D3E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?scanUnsignedInt@@YAHPBDAAI@Z,0x00314E96,address read from the REL32 displacement at a placed body
 ?second@Gen_00943CF0@@AAEXPAX000@Z,0x001415B0
