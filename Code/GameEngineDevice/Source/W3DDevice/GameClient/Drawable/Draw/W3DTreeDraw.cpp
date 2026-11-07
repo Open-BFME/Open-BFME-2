@@ -21,6 +21,25 @@ char g_00BCCCF8;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Thing;
 class ModuleData;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Object;
+#include "../../../../../../GameEngine/Include/Common/BfmeXfer.h"
+#include "../../../../../../GameEngine/Include/Common/XferVersion.h"
 #include "../../../../../../GameEngine/Include/GameLogic/Module/DrawModule.h"
 class W3DTreeDrawModuleDataBase
 {
@@ -35,7 +54,20 @@ class W3DTreeDraw : public DrawModule
 public:
 	W3DTreeDraw(Thing *thing, const ModuleData *moduleData);
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
+
+// ?xfer@W3DTreeDraw@@MAEXPAVXfer@@@Z: slot 3 of W3DTreeDraw's vftable 0x00BCCCF8 is
+// 0x000B221A, the one body W3DDefaultDraw, W3DBuffDraw, W3DPropDraw and W3DStreakDraw
+// also hold at slot 3 (DrawModule's own slot 3 is 0x004CBF58): the same override,
+// folded. Version 1, then the base (W3DPropDrawXfer.cpp holds the primary row).
+void W3DTreeDraw::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	DrawModule::xfer(xfer);
+}
 //
 // ?buildFieldParse@W3DTreeDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z
 // retail 0x000CED03 (17 bytes: a single MultiIniFieldParse::add of the class
