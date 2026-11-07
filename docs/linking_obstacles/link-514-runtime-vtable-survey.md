@@ -1,5 +1,5 @@
 ### LINK-514: kept `??_7` copies differ from retail's vftables (runtime vtable survey)
-Status: Open (partly repaired). Updated: 2026-11-07 (lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
+Status: Open (partly repaired). Updated: 2026-11-07 (lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
@@ -608,3 +608,88 @@ Still walled:
   `?getModuleNameKey@TeleportToCasterSpecialPower` 0x004CD3FB and which TeleportToCasterSpecialPower's
   constructor 0x004CD3A4 installs). Readable names never fold, so this is a naming-lane identity correction
   before OCLUpdate's constructor can store its table.
+
+**The Upgrade family's private views, part 1 (2026-11-07, seat halilkkaya-lk56, base `2f3e43c2c1`, census
+index `0aff0e89c0`).** Eight upgrade classes now let the compiler store their real tables over the canonical
+UpgradeModule.h. Before, each emitted a primary table with `__purecall` in slots 1-3 (only two slots long for
+RemoveUpgradeUpgrade), an UpgradeMux (+0x10) table of ONE anchor slot (Delayed, Base, Castle, DoCommand) or of
+11 slots with 9-10 `__purecall` (Stealth, Radar, RemoveUpgrade) where retail has 18, a one-slot +0x18 table,
+and a BehaviorModuleInterface table whose getDamage/getUpgrade returned 0. CommandSetUpgrade (already on the
+header) had `__purecall` in UpgradeMux slot 10, so applying any command-set upgrade aborted.
+
+Recipe (one class at a time; three commits when the destructor and the getter are placeholders):
+1. Ctor unit on the header: drop the private UpgradeMux/ModuleInterface/UpgradeModule, define
+   `BFME_SNAPSHOT_NAME_SLOT` before the first Snapshot.h (three units read Snapshot.h in crc mode first:
+   BaseUpgrade's `Common/Snapshot.h`, CastleUpgrade through CastleUpgradeModuleData.h, RemoveUpgradeUpgrade
+   through its view) and read UpgradeModule.h before Drawable.h. Declare only overrides rowed under the class;
+   an UpgradeMux slot 8 that is retail's shared empty 0x000B3FD0 becomes an inline empty override. Slot 3
+   0x004B8710 (Version1, then UpgradeModule::xfer) is added per class as an ICF twin of
+   `?xfer@ArmorUpgrade@@MAEXPAVXfer@@@Z` (add_match `--icf-owner`, fold-proof ArmorUpgradeXfer.cpp). When the
+   unit has its own `AsciiString` (BaseUpgrade's StringBase typedef, ascii_string.h), include BfmeXfer.h at
+   the end of the unit with only the other operand forward declarations.
+2. `rename.py function --to-class X --new ?GetSnapshotName@X@@MBEPBDXZ` for the `RvaXXXXXXXXNamed` getter,
+   with ModuleNameGetters3.cpp prepared in its `BFME_SNAPSHOT_NAME_GETTER` form. Rebuild the ctor unit with
+   the declaration first: the dry run judges the current object.
+3. A shared `Code/GameEngine/Include/GameLogic/Module/X.h` (the WeaponBonusUpgrade.h recipe) with the public
+   virtual destructor, then `rename.py class --fold <dtor placeholder> --into X`. In the same commit the
+   scaffold FireWeaponWhenDeadBehaviorDerived.cpp includes X.h instead of the token fold's dtor-only view,
+   whose ObjectModule/UpgradeMux tables differ under the same names. Every COMDAT the two units share was
+   digest-identical (62-63 per class).
+
+| class (ctor; primary / UpgradeMux table) | commits | primary vs retail by address | UpgradeMux | left |
+|---|---|---|---|---|
+| StealthUpgrade 0x004B5378 (0x00C57E30 / 0x00C57DE8) | 1d10fe35dfd | 6/12 -> 8/12 + 3 equiv | 2/11 -> 18/18 | slot 2: readable non-virtual `?name@StealthUpgrade` (Wall 1) |
+| RadarUpgrade 0x004B478E (0x00C57890 / 0x00C57848) | ddfb43d0d95, 0e6e0be8088, dead0784778 | 5/12 -> 9/12 + 3 equiv | 1/11 -> 18/18 | none: slot 8 `onDelete` (was `?rva004B47DB@Rva004B46F9`) moved with the getter (`--also`); UpgradeMux slot 8 0x004B471F is a five-table fold, rowed as a twin of `?rva004B471F@Rva004523E9`; `Rva004B46F9` folded with RadarUpgrade.h |
+| DoCommandUpgrade 0x004B4C2E (0x00C57B58 / 0x00C57B10) | 1903b9d4b9d | 6/12 -> 8/12 + 3 equiv | 1 slot -> 18/18 | slot 2 Wall 1 (`?name@DoCommandUpgrade`); the ctor, dtor and slots units share DoCommandUpgrade.h, and the ctor's extern `__identifier` stores are gone |
+| RemoveUpgradeUpgrade 0x004B7FA4 (0x00C58E20 / 0x00C58DD8) | f1699b78f69 | 2 slots -> 8/12 + 3 equiv | 2/11 -> 18/18 | slot 2 Wall 1; RemoveUpgradeUpgradeView.h now derives the class from UpgradeModule.h |
+| DelayedUpgrade 0x004B3C75 (0x00C573E4 / 0x00C572E0) | ca86272f99b, 8f23a7ff6a5, e8e156de5ec | 6/12 -> 9/12 + 3 equiv | 1 slot -> 17/18 + inline slot 8 | none |
+| BaseUpgrade 0x004B371C (0x00C57120 / 0x00C570D8) | 66129a1ccd2, 35695d8351b, e14181773d9 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 17/18 + inline slot 8 | none |
+| CastleUpgrade 0x004B6869 (0x00C58880 / 0x00C58838) | 9e828df3c3f, 5dead9e635f, d9291776684 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 17/18 + inline slot 8 | none |
+| CommandSetUpgrade 0x004B3AB2 (0x00C57290 / 0x00C57248) | five commits, "CommandSetUpgrade: declare postUpgradeCheck ..." to "Fold class Rva004B39FC ..." | 6/12 -> 9/12 + 3 equiv | 16/18 (slot 10 `__purecall`) -> 18/18 | none |
+
+"3 equiv" is slot 0 (the unit's `??_E` for the rowed `??_G`), slot 1 (UpgradeModule's 0x0058B03E for retail's
+`jmp` 0x00497805) and slot 5 (the inline `ret`). Every class's BehaviorModuleInterface table is now 42/47 plus
+5 inline bodies of retail's shapes, and its +0x18 table 3 inline bodies (`ret 4`, `ret 4`, `ret 0xC`).
+CommandSetUpgrade's slot 6 postUpgradeCheck 0x004B3B42 is one body with TooltipUpgrade's slot 6, so
+`--to-class` refuses it; it is rowed as an ICF twin of `?rva004B3B42@Rva004B3B42` (the owner's own unit),
+which let the slot-10 move (`?upgradeImplementation@Rva004B3AFF` -> CommandSetUpgrade) prove itself.
+
+link_check: every commit keeps its ctor, scaffold, factory, pool-key, implementation and getter units
+linking at census bytes or more (Stealth 226 -> 252, Radar 416 -> 450, DoCommand 145 -> 171, RemoveUpgrade
+295 -> 321, Delayed 49 -> 75, Base 270 -> 296, Castle 271 -> 297, CommandSet 443 -> 469 B). Check these units
+with the current objects of FireWeaponWhenDeadBehaviorDerived.cpp and ModuleNameGetters3.cpp in the list: the
+census copies predate the folds and getter moves, and fake `??1X` duplicates and unresolved
+`GetSnapshotName`s (the getter commit 5dead9e635f's "6/6" holds only with the scaffold included: 7/7).
+Census confirmation: not claimed.
+
+Still walled in the family:
+- Wall 1 getters (readable non-virtual `?name@X@@QBEPBDXZ`: StealthUpgrade, DoCommandUpgrade,
+  RemoveUpgradeUpgrade): an identifier rename to GetSnapshotName needs a canonical basis; vtable slot order is
+  only a hint.
+- WeaponSetUpgrade: UpgradeMux slots 8/10 (0x004B5783, 0x004B5765) are rowed non-virtual under the readable
+  class WeaponSetUpgradeSecondary; `--to-class` takes only placeholder classes (re_attempts 0x004B5765).
+- TooltipUpgrade: slot 6 needs the postUpgradeCheck twin above (the body reads the Player's 128-bit mask at
+  +0x13C; Player is registered, so no private Player view, only an offset cast), then slot 10
+  `?upgradeImplementation@Rva004B7A9D` can move, then the getter and the `Rva004B79AD` fold.
+- Not attempted this pass: LevelUpUpgrade (UpgradeMux slot 2 is
+  `?rva004CE2B0@LevelUpUpgrade@@UAE_NPAVRva00406F9C@@@Z`, a wouldUpgrade override with a placeholder
+  parameter type), CostModifierUpgrade and SpellRechargeModifierUpgrade (the ReplaceSelfUpgrade +0x1C
+  interface shape), GeometryUpgrade, StatusBitsUpgrade, LocomotorSetUpgrade, AllowBannerSpawnUpgrade and
+  SubObjectsUpgrade.
+
+Items 2 and 3 of the lk53 handoff, re-checked this pass and still walled:
+- SpecialAbilityUpdate (`class --fold Rva0044EF5E --into SpecialAbilityUpdate`) is refused before planning by
+  frozen keys. reverse/dup_defs_baseline.tsv holds `divergent ??_GRva0044EF5E@@UAEPAXI@Z` and
+  `duplicate ??1Rva0044EF5E@@UAE@XZ`. Both are stale (dup_defs.py at this tree reports neither), but
+  `dup_defs.py --write-baseline` refuses because 298 current shadow keys are not in the baseline, so no tool
+  shrinks only these two. reverse/hatch_baseline.tsv holds the `/alternatename:??1Rva0044EF5E@@UAE@XZ=
+  ??1SpecialAbilityUpdate@@UAE@XZ` of SpecialAbilityUpdateDtor.cpp, through which about 30 derived
+  destructors resolve until the fold. After both, the fold still needs all 40 units that spell the
+  placeholder prepared on SpecialAbilityUpdate.h in one change (re_attempts 0x0044EF5E). It needs a
+  maintainer decision on the two registers.
+- RampageBehavior/EnragedBehavior: no supported tool retires or retargets the data pins
+  `??_7RampageBehavior@@6B@` -> 0x00840DA8 and `??_7EnragedBehavior@@6B@` -> 0x00840FBC. pin_admission.py
+  only adds (and refuses data addresses, so a retarget to 0x00840D9C is refused too), and
+  pin_consistency.py --symbol reports both consistent. The only precedent is a hand deletion plus a
+  hatch_counters shrink under Verifier-Change (baa896fe561), which needs maintainer approval (re_attempts
+  0x00458B60).
