@@ -1,0 +1,134 @@
+[
+  {
+    "class": "FXShaderSetup",
+    "recorded_size": 8,
+    "recorded_size_by": "majority",
+    "ctor_writes": 40,
+    "allocations": {
+      "0x34": 1
+    },
+    "header": "Code/Libraries/Source/WWVegas/WW3D2/FXShaderSetup.h",
+    "header_states_size": "line 1 leading comment only: `// Target facts: FXShaderSetup has virtual functions and sizeof 0x34: RVA 0x00152C64 allocates 0x34 before ctor 0x001525FB; RVA 0x0015B129 does likewise before copy ctor 0x00152DE9.` No trailing `// sizeof` comment on the class (line 21 `class FXShaderSetup : public RefCountClass`, closing `};` near line 52) and no compile-time size assertion anywhere in the 57-line header.",
+    "derived_classes": [],
+    "verdict": "settled",
+    "proposed_size": 52,
+    "proposed_size_by": "retail-new: 0x00152C64 allocation, 0x001525FB constructor call; 0x0015B129 allocation, 0x00152DE9 copy constructor call",
+    "evidence": "Both retail allocations that precede an FXShaderSetup constructor request 0x34 bytes: 0x00152C64 before default ctor 0x001525FB (inside the setup factory Rva00152C47Create, 0x152C47 + 147 bytes) and 0x0015B129 before copy ctor 0x00152DE9 (inside the 0x0015B110 factory, which ledger row 30287 records as operator new 0x34 then ctor 0x00152DE9). The header's own field layout (vptr +0, field08, field0c[3], AsciiString +0x18, int +0x1C, +0x20/+0x24 handles, field28[3] ending at +0x34) sums to exactly 0x34. The contract's 8-byte size is contradicted by the 0x34 allocations and by extent_lower_bound 40 (0x28) from ctor sites 0x1525FB and 0x152DE9, which is itself a lower bound and not the full extent. No class in Code/ or any contract derives from FXShaderSetup (the only FXShaderSetup-subclass-like hits are RenderingMethod-related comments), so the allocations are this class's own sizeof. Note: the contract records bases [] but the header declares public RefCountClass; that is a separate base-claim issue, not a size issue.",
+    "prior_work": "reverse/re_attempts.log has 79 FXShaderSetup mentions; none settles or rejects a size (grep for size/sizeof/0x34 found nothing decisive). docs/linking_obstacles/ has only link-204-fxshadersetup-vector-view-consolidation-prerequisites.md, which concerns vector-view consolidation and says nothing about size. The header's own line-1 comment (sizeof 0x34) and the RenderingMethod.h line-2 comment both already cite the 0x34 allocation.",
+    "confidence": "high"
+  },
+  {
+    "class": "GenBase009EB7D0",
+    "recorded_size": 4,
+    "recorded_size_by": "majority",
+    "ctor_writes": 20,
+    "allocations": {
+      "0x14": 1
+    },
+    "header": "Code/Libraries/Source/WWVegas/WWLib/GenBase009EB7D0.h",
+    "header_states_size": "no trailing sizeof comment and no compile-time size assertion; line 6 gives 51 bytes for the constructor code (not the object); lines 9-10 give sizeof 0x14 for derived constructors, not for this class",
+    "derived_classes": [
+      "BfmeThingSJ (Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp, ctor 0x001320D0; first member at +0x14)",
+      "Rva00180E40Derived (Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp, empty derived ctor 0x00180E40 over base ctor 0x0061ED40)",
+      "Rva00135E35 (Code/GameEngine/Source/Common/Rva00135E35Ctor.cpp, ctor 0x00135E23, no state beyond base)",
+      "Rva00136794 (Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp)",
+      "Rva00131BE5 (Code/Libraries/Source/WWVegas/WW3D2/Rva00131BE5Ctor.cpp)"
+    ],
+    "verdict": "ambiguous",
+    "proposed_size": 20,
+    "proposed_size_by": "retail-ctor-writes 0x14 extent, derived first member at 0x14",
+    "evidence": "Retail constructor 0x0061ED40 stores the vptr at +0x0 and dwords at +0x4, +0x8, +0xC and +0x10, so the extent lower bound is 0x14 (20 bytes); the recorded size 4 is therefore wrong. The only allocation fact is one 0x14 observation with no recorded site, and the class has 15 vtable slots, several of them pure (__purecall), so it is abstract and cannot itself be the object new'd before 0x0061ED40; that allocation must size a derived class, most plausibly the empty Rva00180E40Derived or Rva00135E35 (both 0x14 with no state). The 0x14 base size is still supported because derived constructors place their first member at +0x14 (BfmeThingSJ, header line 9-10), which implies the base data ends at 0x14, but that claim rests on the donor-ported source and header comments rather than a recorded allocation, so the allocation cannot settle the size on its own.",
+    "prior_work": "reverse/re_attempts.log:753 blocked the base ctor on a vptr/bitfield issue (no size decision); line 22657 later landed the ctor as a stale-verdict backfill; line 31374 landed the Rva00135E35 derived ctor over 0x61ED40; line 91498 landed a destructor fold to 0x135E35. docs/linking_obstacles/link-354-genbase-header-slot-providers-block-constructor-adoption.md (LINK-354, blocked 2026-11-04) concerns unresolved slot providers in header adoption and does not address size. No prior attempt settled or rejected a size.",
+    "confidence": "medium"
+  },
+  {
+    "class": "ImageCollection",
+    "recorded_size": 1,
+    "recorded_size_by": "majority",
+    "ctor_writes": 4,
+    "allocations": {
+      "0x18": 1
+    },
+    "header": "Code/GameEngine/Include/GameClient/Image.h",
+    "header_states_size": "line 86: `typedef char ImageCollectionSizeCheck[sizeof(ImageCollection) == 0x18 ? 1 : -1];` (no trailing // sizeof comment on the class closing brace); line 8 comment: 'Allocation before call 0x0023A2D9 requests 0x18 bytes'; line 11 comment: map storage 'ending at ImageCollection+0x18'",
+    "derived_classes": [],
+    "verdict": "settled",
+    "proposed_size": 24,
+    "proposed_size_by": "retail-new: 0x0023A2D9 allocation, 0x002D932B constructor call",
+    "evidence": "Contract allocation_observed records one 0x18 allocation and the extent_lower_bound is 4, so size 1 is contradicted by both facts. The ImageCollection ctor at 0x002D932B calls the SubsystemInterface base ctor (12-byte base span [0,12] per inherited_spans) and then builds the STL map member at +0x0C, which the header (Image.h line 11) says ends at +0x18; 12 + 12 = 0x18 matches the observed allocation and the header's own assertion. The allocation at 0x0023A2D9 sits inside GameClient::init (0x0023A1BB, the sole recorded caller of 0x002D932B per functions.csv and symbols.csv), before the ctor call. Caveat: the contract's allocation_observed has an empty sites list, so the link from 0x0023A2D9 to this ctor comes from the header comment and the caller-level ledger, not a recorded site; no derived class was found in Code/ or in any class contract, so the allocation is not ambiguous from derivation.",
+    "prior_work": "reverse/re_attempts.log has only dtor (0x002D9283) and map/Image-tree attempts; none settles or rejects a size. symbols.csv and functions.csv ImageCollection rows are matched/landed but state no size. docs/linking_obstacles/link-409-imagecollection-header-adoption-in-five-w3d-consumers.md is about header adoption for five W3D consumers and says nothing about size; it is cleared with census confirmation pending.",
+    "confidence": "medium"
+  },
+  {
+    "class": "LivingWorldBattle",
+    "recorded_size": 60,
+    "recorded_size_by": "majority",
+    "ctor_writes": 64,
+    "allocations": {
+      "0x40": 2
+    },
+    "header": "Code/GameEngine/Include/GameLogic/LivingWorldBattle.h",
+    "header_states_size": "none: no sizeof comment or SizeCheck typedef anywhere in the 120-line header; class declaration at line 54 carries no size annotation",
+    "derived_classes": [],
+    "verdict": "settled",
+    "proposed_size": 64,
+    "proposed_size_by": "retail-new: 0x00210143 push 0x40 in 0x002100E6, 0x003F6A3A constructor call",
+    "evidence": "The recorded size 60 (0x3C) is contradicted by both retail facts: extent_lower_bound is 64 (sites 0x3F6A3A and 0x3F6F0D, last write is the 4-byte field at +0x3C, so the extent ends at 0x40), and allocation_observed records 0x40 twice. The allocation is 0x40 pushed before operator new in the deserializer 0x002100E6 (header line 6 gives the push at RVA 0x00210143; functions.csv row 54206 notes 'target 64B Battle allocation with 3F6A3A constructor'), and the constructor 0x003F6A3A runs on it (functions.csv row 41405; LivingWorldBattleCtor.cpp line 126 comment). No class derives from LivingWorldBattle in Code/ or in any class contract bases list, so the 0x40 allocation is this class's sizeof. Caveat: the contract's allocation_observed sites list is empty, and the second 0x40 observation was not independently located; the size conclusion rests on the extent fact plus the one located allocation. The header's class declaration (line 54) lists three bases while the contract's bases array is empty, which is a separate discrepancy and does not change the size.",
+    "prior_work": "No prior attempt settled or rejected a LivingWorldBattle size. reverse/re_attempts.log hits (lines 16205, 18201, 19349, 19393, 19537, 20097-20099) concern method bodies, not class size. No docs/linking_obstacles file names a LivingWorldBattle size; link-098 and link-546 mention the class only for header adoption. The functions.csv rows (41405, 54206) already record the 64B allocation as matched.",
+    "confidence": "high"
+  },
+  {
+    "class": "LivingWorldLogic",
+    "recorded_size": 180,
+    "recorded_size_by": "majority",
+    "ctor_writes": 380,
+    "allocations": {
+      "0x17c": 1
+    },
+    "header": "Code/GameEngine/Include/GameLogic/LivingWorldLogic.h",
+    "header_states_size": "no size stated: line 7 comment says GameEngine::init pushes 0x17C at 0x0022F2EF, scalar new at 0x0022F2F4, ctor at 0x0022F307; line 177 opens the class and line 314 is the closing brace with no sizeof comment or size assertion",
+    "derived_classes": [],
+    "verdict": "settled",
+    "proposed_size": 380,
+    "proposed_size_by": "retail-new: 0x0022F2F4 allocation, 0x0022F307 constructor call",
+    "evidence": "Contract extent_lower_bound is 380 (0x17C) from retail-ctor-writes at 0x002B93B3: the constructor stores end at +0x178 with 4 bytes (header line 7). The only allocation observation is 0x17c x1, which matches exactly. Recorded 180 (0xB4) is below both facts. No class derives from LivingWorldLogic: no public-base match in Code/, and no contract lists it in bases; the LivingWorldScoreKeeper and Rva0042C5C3 hits inherit only LivingWorldLogicObserver. Caveat: the allocation site 0x0022F2F4 is cited only in the header comment; it is not in reverse/functions.csv and the contract records sites []. The allocation is therefore taken from the comment, not a recorded fact.",
+    "prior_work": "re_attempts.log: no size decision for LivingWorldLogic. Obstacle docs livingworldlogicctorbfme-link-repair-2026-11-02.md and link-156-livingworldlogic-destructor-s-vtables-and-override-names-2026.md are about link repairs and say nothing about size. GameEngineInit.cpp:246 has a placeholder class LivingWorldLogic with m_data[0x17c], which agrees with 380 but is not independent evidence.",
+    "confidence": "medium"
+  },
+  {
+    "class": "WindowVideoManager",
+    "recorded_size": 1,
+    "recorded_size_by": "majority",
+    "ctor_writes": 34,
+    "allocations": {
+      "0x24": 1
+    },
+    "header": "Code/GameEngine/Include/GameClient/WindowVideoManagerClass.h",
+    "header_states_size": "line 1 comment: `allocation 0x0031CFCD requests 0x24 bytes ... sizeof 0x24, with a 0x0C-byte base and no intervening gap`; no `// sizeof` trailer or compile-time assertion in the 51-line header; no 0x13C anywhere in it",
+    "derived_classes": [],
+    "verdict": "settled",
+    "proposed_size": 36,
+    "proposed_size_by": "retail-allocation 0x24 at 0x0031CFE2 constructor call, extent 0x22",
+    "evidence": "Header line 1 says allocation 0x0031CFCD requests 0x24 bytes via global new 0x0002FDA0 and calls ctor 0x0053F85C at 0x0031CFE2. The ctor's own writes reach 0x21 (flag at +0x21, extent_lower_bound 34), which fits inside 36. No class in Code/ derives from WindowVideoManager, and no contract lists it as a base. ControlBar.cpp:196 and ControlBarConstructor.cpp:118 each declare a local WindowVideoManager stub with m_opaque[0x24 - 0x0C], matching 36. Caveat: 0x0031CFCD is absent from reverse/functions.csv and allocation_observed has empty sites, so the allocator was not cross-checked in the registry.",
+    "prior_work": "No prior attempt in re_attempts.log settles or rejects a WindowVideoManager size (the 42 hits are method and hashtable rows). No WindowVideoManager entry in docs/linking_obstacles/.",
+    "confidence": "medium"
+  },
+  {
+    "class": "WorldHeightMap",
+    "recorded_size": 40,
+    "recorded_size_by": "majority",
+    "ctor_writes": 73940,
+    "allocations": {
+      "0x120f0": 1
+    },
+    "header": "Code/GameEngineDevice/Include/W3DDevice/GameClient/WorldHeightMap.h",
+    "header_states_size": "no sizeof comment and no compile-time size assertion in the 115-line header; line 2 states the allocation: `the allocation at 0x00092193 pushes 0x120F0, calls operator new at 0x00092198 and calls the stream constructor at 0x000921AB`; the last member m_drawHeightY (line ~113) ends the layout at +0x120EC",
+    "derived_classes": [],
+    "verdict": "settled",
+    "proposed_size": 73968,
+    "proposed_size_by": "retail-new: 0x00092193 allocation, 0x000921AB constructor call",
+    "evidence": "The only retail allocation is W3DTerrainVisual::load (0x0009213F) pushing 0x120F0 at 0x00092193, calling operator new at 0x00092198, then calling the one-argument stream constructor WorldHeightMap::WorldHeightMap(ChunkInputStream*) at 0x000921AB (functions.csv maps that constructor to 0x000B0ACD). That constructor is the matched body of the same class, and no class in Code/ or any contract derives from WorldHeightMap (no 'public WorldHeightMap' or similar base clause found; no contract lists it in bases), so the allocation is this class's sizeof. The constructor-write lower bound 73940 (sites 0x000B098A, 0x000B0ACD, 0x000B0C38) is below 73968, and the header's own layout ends at +0x120EC, which is 0x120F0 bytes. The recorded 40 comes from 40-byte views, not from retail, and is contradicted by both facts. Side note: the contract lists bases=[] yet the header and constructors show a RefCountClass/BfmeDynamicVBRefCount prefix (+0 vptr, +4 count) that is a base, not a derived class; this does not change the size.",
+    "prior_work": "docs/linking_obstacles/worldheightmap-size-header-boundary-qc-11-2026-10-31.md and reverse/attempt_support/world-height-map-qc11.md (2026-10-31) already state that retail allocates 0x120F0 at 0x00092193 before the constructor at 0x000921AB and that the 16-byte size from the generator is refuted; they did not adopt a size or write a sizeof. Later 2026-11-04 and 2026-11-06 notes concern header consumer adoption and do not revisit the size. re_attempts.log has only matched-row entries for the constructors, no size verdict.",
+    "confidence": "high"
+  }
+]
