@@ -15,7 +15,7 @@ char g_00C4D700;
 // separate reset() call: retail has a single call (lea ecx,[esi+0x88] then
 // call 0x268902), and 0x268902 itself calls reset (0x26549E) internally.
 //
-// Identity proof (upgrades opaque Rva004907C0): ArrowStorm's primary vtable
+// Identity proof (upgrades opaque ArrowStormUpdate): ArrowStorm's primary vtable
 // 0xC4D700 (installed by the rowed ctor) has slot0 = ??_G at 0x490A58, and
 // that ??_G calls 0x4907C0. The 4 installs match the ctor's 4 installs.
 // Zero new pins (base dtor via ??1Rva0044EF5E pin, pool-free via Rva00268902

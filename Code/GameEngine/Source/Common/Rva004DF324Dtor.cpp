@@ -3,7 +3,7 @@
 // Retail: push esi/mov esi,ecx/lea ecx,[esi+0x24]/mov [esi],0xC61588/
 // mov [esi+0xC],0xBEFF90/mov [esi+0x10],0xC6157C/call 0x268902/
 // mov ecx,esi/pop esi/jmp 0x4DF7C2 (35B). Models the ModuleUpdateDtors2
-// precedent (Rva004907C0 49B): single polymorphic base declared-only (its
+// precedent (ArrowStormUpdate 49B): single polymorphic base declared-only (its
 // dtor resolves to the opaque pin at 0x004DF7C2), two const members assigned
 // from secondary-table addresses (DIR32 sites), and an opaque
 // PoolMember at +0x24 whose method resolves to the pin at 0x00268902.

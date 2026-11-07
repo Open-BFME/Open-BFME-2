@@ -18,10 +18,10 @@ public:
 	virtual ~Rva00451F45();
 };
 
-class Rva004907C0 : public Rva00451F45
+class ArrowStormUpdate : public Rva00451F45
 {
 public:
-	virtual ~Rva004907C0();
+	virtual ~ArrowStormUpdate();
 
 private:
 	unsigned char m_pad04[8];
@@ -41,6 +41,6 @@ private:
 
 void Rva004907C0_Anchor()
 {
-	Rva004907C0 *p = new Rva004907C0;
+	ArrowStormUpdate *p = new ArrowStormUpdate;
 	delete p;
 }

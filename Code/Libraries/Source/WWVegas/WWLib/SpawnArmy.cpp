@@ -271,7 +271,7 @@ public:
 // tail-jump). The +8 slot calls OpaqueRefCounted::Release_Ref at 0x50ED3;
 // a null member returns directly. The containing class remains unidentified.
 // /GX- suppresses handler-SEH around the opaque member call (retail is a
-// frameless 18B leaf), cf. the Rva004907C0 member-call precedent.
+// frameless 18B leaf), cf. the ArrowStormUpdate member-call precedent.
 
 class Rva004E18A2
 {

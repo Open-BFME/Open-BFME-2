@@ -11195,7 +11195,7 @@ _VP6_DeletePBInstance,,0x001B56A0,66,Code/Libraries/Source/VP6/PbInstanceTeardow
 ??1ProgressIndicator@@UAE@XZ,,0x00355C77,23,Code/GameEngine/Source/Common/ProgressIndicator.cpp,matched,BFME1 donor trimmed to dtor; b1 0x004902A0; list head at 0xE01E1C
 ?read_prelit_material@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z,,0x0018B4F0,245,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,BFME1 meshmdlio port as bool reader family with inline 16B MatInfo Read plus CurMatDesc PassCount store and 3 switch-case pins same commit
 ?Remove_All@?$SList@VTagBlockIndex@@@@UAEXXZ,,0x00620870,63,Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,matched,BFME1 byte-identical donor; b1 0x009EDD30
-??_GRva004907C0@@UAEPAXI@Z,,0x00490A58,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors2.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
+??_GArrowStormUpdate@@UAEPAXI@Z,,0x00490A58,28,Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors2.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva004C0988@@UAEPAXI@Z,,0x004C09FA,28,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva004DF324@@UAEPAXI@Z,,0x004DF480,28,Code/GameEngine/Source/Common/Rva004DF324Dtor.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
 ??_GRva005D7C17@@UAEPAXI@Z,,0x005D7C22,28,Code/GameEngine/Source/Common/Rva005D7D88Derived.cpp,matched,scalar deleting dtor; constrained ??_G harvest FULLMATCH
