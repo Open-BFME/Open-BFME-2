@@ -129,3 +129,41 @@ The partial specialization follow-up for the twelve default references is blocke
 **2026-11-07 category registration measurement.** The [real link at 50a776d8b4](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42376713708) contains f138620c0c. All 17 registration exports are absent from the unresolved list. The same run adds nine unresolved s_head references, one per INI parser, so the total changes from 217 to 209, with zero duplicates and no image.
 
 The nine parsers now bind the existing private s_first definitions. Each 110-byte body and EH graph verifies. The one changed DIR32 reference per parser keeps its retail address; each new name has a definition in FXParticleSystem.cpp and none of the parser objects retains the old reference. A real-link run including the parser repair remains pending.
+
+
+**2026-11-07 claimed, and handed back: the ConcreteModuleTemplate tables (swarm Link lane).**
+Claimed by the swarm Link lane (`ancalgonn-swarm-link`) from 2026-11-07: only the two
+`ConcreteModuleTemplate` tables `VectorDeletingDtorsV06.cpp` emits, LifeEvent's and TerrainCollision's
+own one-slot `6B?$CategoryModuleInfo@$07@1@@` tables (retail 0x0081CA00 and 0x0081CAA0). The
+data-export half and the CategoryModuleInfo path (the 0x0081C780 fold, the `CategoryModuleTemplateBase`
+tables and the shared category constructor COMDATs) stay with McMickey93.
+
+*Landed with this note:* `VectorDeletingDtorsV06.cpp`'s `CategoryModuleTemplate<8>` is retail's nested
+shape, `: CategoryModuleTemplateBase<8>, EventModuleInfo` with `CategoryModuleTemplateBase<8> :
+ModuleTemplate, CategoryModuleInfo<8>` (one pure slot, protected non-virtual destructor). The unit now
+defines both export names; its 4 rows stay exact; it defines no category constructor. It no longer
+defines the two `6BSecondaryModuleBase@1@@` tables and their `W3` deleting-destructor thunks, which
+`FXParticleSystemModules.cpp` (both) and `FXParticleSystemFactories.cpp` (LifeEvent) still define for
+their one referrer, `ModuleCtorChainsA.obj`. Expected: 209 -> 207 at the next real link (with the nine
+`s_head` names, about 198).
+
+*Handoff for the rest (McMickey93).* The other 48 `ConcreteModuleTemplate` names (25 own
+CategoryModuleInfo-path tables, 23 `6B@` tables) and 5 concrete `6B@` tables (Point 0x0081BAE0,
+Cylinder and Line 0x0081BB10, Box 0x0081BB40, Sphere 0x0081BB70; Hemispherical's 0x0081BC60 and
+0x0081C00C with them) wait on the CategoryModuleInfo path. These tables are emitted only by
+three units, all on the flattened shape `X : ModuleTemplate, SecondaryModuleBase, XInfo` (the source
+of the `6BSecondaryModuleBase@1@@` and `6BXInfo@1@@` names retail spells `6B?$CategoryModuleInfo@N@1@@`
+and `6B@`):
+
+| unit | FX tables defined | shared `CategoryModuleTemplate(Base)<N>` ctor/dtor COMDATs |
+|---|---:|---:|
+| `FXParticleSystemModules.cpp` | 80 | 0 |
+| `FXParticleSystemFactories.cpp` | 71 | 2 |
+| `FXParticleSystem.cpp` | 33 | 53 |
+
+(scan of srv1's full object set at 9c81acd297.) Within each of these units the concrete-template names
+cannot be separated from the 0x0081C780 names: the nested base that gives a `ConcreteModuleTemplate` its
+retail names also renames that unit's concrete templates' category tables to the 0x0081C780 spellings.
+The shared constructor COMDATs that broke the ButterflyDraw trial (above) sit in `FXParticleSystem.cpp`
+(53) and `FXParticleSystemFactories.cpp` (2); `FXParticleSystemModules.cpp` has none, so it is the unit
+where the nested shape costs no COMDAT conflict.
