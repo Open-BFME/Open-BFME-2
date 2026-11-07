@@ -848,13 +848,17 @@ CategoryModuleClass<8>::CategoryModuleClass(bool isDefault, const char *key, con
 //
 // Its destructor is protected and non-virtual (IAE, not MAE), so the vptr store
 // it makes is the one a derived destructor inherits rather than dispatches to.
-template <int CATEGORY>
+template <int CATEGORY_ARG>
 class CategoryModuleInfo
 {
 public:
+    // Retail exports this category number as data (a W4ModuleCategory, folded with other
+    // constants there; /OPT:NOICF keeps each one apart here).
+    static const ModuleCategory CATEGORY;
+
     CategoryModuleInfo() {}
-    CategoryModuleInfo(const CategoryModuleInfo<CATEGORY> &that);
-    CategoryModuleInfo<CATEGORY> &operator=(const CategoryModuleInfo<CATEGORY> &that);
+    CategoryModuleInfo(const CategoryModuleInfo<CATEGORY_ARG> &that);
+    CategoryModuleInfo<CATEGORY_ARG> &operator=(const CategoryModuleInfo<CATEGORY_ARG> &that);
 
     virtual void v1() = 0;
 
@@ -866,22 +870,25 @@ protected:
 // nothing in this file can name the generated copy constructor to force it out.
 // Both bodies are what the generated ones would be - the copy restores the
 // vtable it just overwrote, the assignment copies nothing at all.
-template <int CATEGORY>
-CategoryModuleInfo<CATEGORY>::CategoryModuleInfo(const CategoryModuleInfo<CATEGORY> &)
+template <int CATEGORY_ARG>
+CategoryModuleInfo<CATEGORY_ARG>::CategoryModuleInfo(const CategoryModuleInfo<CATEGORY_ARG> &)
 {
 }
 
-template <int CATEGORY>
-CategoryModuleInfo<CATEGORY> &CategoryModuleInfo<CATEGORY>::operator=(
-    const CategoryModuleInfo<CATEGORY> &)
+template <int CATEGORY_ARG>
+CategoryModuleInfo<CATEGORY_ARG> &CategoryModuleInfo<CATEGORY_ARG>::operator=(
+    const CategoryModuleInfo<CATEGORY_ARG> &)
 {
     return *this;
 }
 
-template <int CATEGORY>
-CategoryModuleInfo<CATEGORY>::~CategoryModuleInfo()
+template <int CATEGORY_ARG>
+CategoryModuleInfo<CATEGORY_ARG>::~CategoryModuleInfo()
 {
 }
+
+template <int CATEGORY_ARG>
+const ModuleCategory CategoryModuleInfo<CATEGORY_ARG>::CATEGORY = (ModuleCategory)CATEGORY_ARG;
 
 template class CategoryModuleInfo<0>;
 template class CategoryModuleInfo<1>;
