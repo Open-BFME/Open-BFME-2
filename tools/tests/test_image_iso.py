@@ -1047,3 +1047,79 @@ def test_merged_import_lookup_and_hint_names_are_not_absolute_pointers(tmp_path)
     result = iso.unrelocated_retail_addresses(c, ledger, data)
     assert result["counts"]["data_directory_words_excluded"] == 4
     assert not result["defects"] and not result["ambiguous"]
+
+
+def bounds_case(tmp_path, addend=24, size=24, kind=6):
+    body = b"\x68" + struct.pack("<i", addend) + b"\xc3"
+    linked = b"\x68" + struct.pack("<I", (0x10002000 + addend if kind == 6 else
+        0x2000 + addend - 0x305) & 0xffffffff) + b"\xc3"
+    c, ledger, _ = absolute_case(tmp_path, body, linked_body=linked, relocs=[(1, kind)])
+    c.publics[0]["coff"]["section"]["relocation_targets"] = {1:dict(name="CPUNames", cls=2, section=0)}
+    c.publics.extend([public("CPUNames", 0x2000, size), public("unrelated", 0x2000 + size, 16)])
+    c.mapping = iso.Correspondence(c.publics, {"getter":{0x100}, "CPUNames":{0x3000}, "unrelated":{0x4000}})
+    return c, ledger
+
+
+def test_out_of_object_detects_p12_even_when_retail_arithmetic_is_correct(tmp_path):
+    c, ledger = bounds_case(tmp_path)
+    data = [row("CPUNames", 0x3000, 24), row("VideoNames", 0x3018, 16)]
+    result = iso.relocation_bounds(c, data, ledger)
+    assert result["counts"]["defects"] == 1
+    d = result["defects"][0]
+    assert d["symbol"] == "CPUNames" and d["addend"] == d["symbol_size"] == 24
+    assert d["one_past"] and d["actual_va"] == "0x10002018"
+    assert d["actual_owners"][0]["name"] == "unrelated"
+    assert d["retail_va"] == "0x403018" and d["retail_owners"][0]["name"] == "VideoNames"
+    assert c.defects[0]["family"] == "out_of_object_pointer"
+
+
+def test_bounds_inside_negative_and_beyond_end_are_distinct(tmp_path):
+    for addend, expected in [(0,0),(23,0),(24,1),(28,1),(-4,1)]:
+        c, ledger = bounds_case(tmp_path, addend)
+        result = iso.relocation_bounds(c, [], ledger)
+        assert result["counts"]["defects"] == expected
+
+
+def test_bounds_requires_actual_selected_target_and_extent(tmp_path):
+    c, ledger = bounds_case(tmp_path)
+    c.publics.append(public("CPUNames", 0x2800, 24))
+    assert iso.relocation_bounds(c, [], ledger)["counts"]["target_map_ambiguous_or_absent"] == 1
+    c, ledger = bounds_case(tmp_path)
+    c.publics[1]["extent"] = None
+    assert iso.relocation_bounds(c, [], ledger)["counts"]["target_extent_unanalyzed"] == 1
+    c, ledger = bounds_case(tmp_path)
+    c.ours.put(0x301, struct.pack("<I",0x10003018))
+    assert iso.relocation_bounds(c, [], ledger)["counts"]["linked_target_resolution_differs_unanalyzed"] == 1
+
+
+def test_rel32_bounds_and_static_symbol_object_qualification(tmp_path):
+    c, ledger = bounds_case(tmp_path, kind=20)
+    target = c.publics[0]["coff"]["section"]["relocation_targets"][1]
+    target["cls"] = iso.link_cycle.STATIC
+    c.publics[1]["object"] = c.publics[0]["object"]
+    c.publics.append(public("CPUNames", 0x2800, 100))
+    result = iso.relocation_bounds(c, [], ledger)
+    assert result["counts"]["defects"] == 1
+
+
+def test_bounds_only_cli_is_wired_and_writes_defects(tmp_path, monkeypatch):
+    root=tmp_path/"root"; (root/"reverse").mkdir(parents=True)
+    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name,source,names\n0x3000,24,global,CPUNames,Code/names.cpp,\n0x3018,16,global,VideoNames,Code/names.cpp,\n")
+    (root/"reverse/functions.csv").write_text("name,target_rva,target_size,status,notes,source\ngetter,0x1020,6,matched,,Code/getter.cpp\n")
+    monkeypatch.setattr(iso.build,"ROOT",root)
+    ours,retail=tmp_path/"exit.exe",tmp_path/"retail.exe"
+    for path,base in [(ours,0x10000000),(retail,0x400000)]:
+        write_pe(path,base)
+        raw=bytearray(path.read_bytes());raw[0x220:0x226]=b"\x68"+struct.pack("<I",base+0x3018)+b"\xc3";path.write_bytes(raw)
+    obj=tmp_path/"getter.obj"
+    iso.link_cycle.write_coff(obj,[(".text",0x60000020,b"\x68"+struct.pack("<I",24)+b"\xc3",0),
+        (".data",0xc0000040,bytes(40),0)],[("getter",1,0,2),("CPUNames",2,0,2),("unrelated",2,24,2)],{1:[(1,"CPUNames",6)]})
+    manifest=tmp_path/"objects.json";manifest.write_text(json.dumps([dict(path=obj.name,sha256=iso.digest(obj),source="Code/getter.cpp")]))
+    mapfile=tmp_path/"exit.map";mapfile.write_text(" 0001:00000020 getter 10001020 f getter.obj\n 0002:00000000 CPUNames 10003000 getter.obj\n 0002:00000018 unrelated 10003018 getter.obj\n")
+    (tmp_path/"image_receipt.json").write_text(json.dumps(dict(kind="diagnostic",base="0x10000000",stubbed=[],image_sha256=iso.digest(ours),map_sha256=iso.digest(mapfile))))
+    out=tmp_path/"out"
+    assert iso.main(["--image",str(ours),"--map",str(mapfile),"--retail",str(retail),"--objects",str(manifest),"--out",str(out),"--relocation-bounds-only"])==1
+    r=json.loads((out/"report.json").read_text())
+    assert r["relocation_bounds"]["counts"]["defects"]==1
+    assert r["defects"][0]["family"]=="out_of_object_pointer"
+    assert "out_of_object_pointer" in (out/"defects.tsv").read_text()
