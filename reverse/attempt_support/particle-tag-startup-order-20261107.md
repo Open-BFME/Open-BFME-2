@@ -52,3 +52,29 @@ startup sequence. Re-run the scoped data and EH gates as well as the checks
 above. These four names have no measured export closure.
 
 Neither trial produced or ran a linked image.
+
+## Point and Ortho follow-up
+
+VC7.1 accepts an extern template declaration before the helper in Factories.
+This keeps the four references undefined there, but explicit instantiation
+in Modules creates four SELECT_ANY COMDATs and moves the startup actions
+from zero-based positions 1/2 and 11/12 to 37/38 and 48/49. The build fails
+the four corresponding initializer rows. Reverted.
+
+A separate trial fully specialized each of the two ModuleTag classes with
+public KEY and NAME declarations. It defined the four reference members in
+Modules at the original source positions and kept Factories declaration-only.
+Both freshly built objects preserve the code and data section graphs after
+the four intended name substitutions and compiler-local label renumbering.
+All 306 existing code rows and 58 EH records verify. The ordered CRT actions
+(121 and 55) and each unit's DIR32 address sets are unchanged. The four
+renamed symbols keep their offsets 208, 768, 928 and 1504 in Modules' 1,688-byte
+non-COMDAT .bss and stay undefined in Factories.
+
+The four new data rows fail size proof in data_rows.py. The existing probe
+cannot decode their reference template arguments into a C++ expression,
+and the separate COMDAT size rule does not apply to this shared .bss. This
+candidate is reverted. A tooling follow-up needs a compiler-backed size
+probe that identifies these exact symbols. Keep the code and data checks
+independent and rerun both, plus the CRT, DIR32 and EH comparisons, after
+that proof is available.
