@@ -707,6 +707,7 @@ __declspec(noinline) inline void RadarWindowOverrideSource::rva002D55EF()
 // 0x00F43790): unload the palantir movie, destroy the movie playback and
 // the input window, detach the listed observers, then the members in reverse.
 #include "../../../../../Libraries/Source/Apt/AptPlayerClass.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva00224BC9Owner
 {
@@ -820,3 +821,12 @@ void AptPalantir::xfer(Xfer *xfer)
 // Select-any: another unit compiles a copy of the same names; the anchor keeps the rowed bodies emitted.
 // ?bfmeAnchorAptPalantir absent-from-retail
 void bfmeAnchorAptPalantir(AptPalantir *p, Rva002D3573 *o, int l, RadarWindowOverrideSource *r) { p->AptPalantir::AptPalantir(o, l); p->init(); p->AptPalantir::~AptPalantir(); r->rva002D55EF(); }
+
+// The palantir's movie name, which the Palantir subsystem's constructor (0x002D638E) loads
+// from Apt\. Retail builds it in this unit's .text$yc run (0x007AE3AC, after the unit's
+// Drawable.h copy 0x007AE39C and before its pool-init marker 0x007AE3C7) through the
+// out-of-line AsciiString(const char *) 0x0000654A. Address name kept; the original name is
+// unknown.
+#pragma inline_depth( 0 )
+AsciiString g_Va00DFF030("Palantir.apt");
+#pragma inline_depth()

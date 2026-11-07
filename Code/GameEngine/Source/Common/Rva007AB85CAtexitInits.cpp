@@ -24,10 +24,8 @@ void __cdecl rva007B7380();
 void __cdecl rva007B76E6();
 void __cdecl rva007B770E();
 void __cdecl rva007B796E();
-void __cdecl rva007B7979();
 void __cdecl rva007B9B40();
 
-unsigned g_Va00DFF030;
 
 struct Rva007AB85CAtexitInits
 {
@@ -42,7 +40,6 @@ struct Rva007AB85CAtexitInits
 	static void rva007ADB11();
 	static void rva007ADB61();
 	static void rva007AE390();
-	static void rva007AE3AC();
 	static void rva007B55D0();
 };
 
@@ -95,14 +92,5 @@ void Rva007AB85CAtexitInits::rva007ADB61()
 	atexit( rva007B770E );
 }
 
-
-#pragma inline_depth( 0 )
-// ?rva007AE3AC@Rva007AB85CAtexitInits@@SAXXZ @ 0x007AE3AC (27B): AsciiString at VA 0x00DFF030 = literal at VA 0x00C031DC, then atexit(0x007B7979)
-void Rva007AB85CAtexitInits::rva007AE3AC()
-{
-	( (AsciiString *)&g_Va00DFF030 )->AsciiString::AsciiString( "Palantir.apt" );
-	atexit( rva007B7979 );
-}
-#pragma inline_depth()
 
 

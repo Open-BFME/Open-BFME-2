@@ -334,7 +334,6 @@ address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits.cpp	g_Va00DEDC
 address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits.cpp	g_Va00E065EC	2
 address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits_Rva007ACC20.cpp	g_Va00E06724	2
 address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits_Rva007ACC20.cpp	g_Va00E08D48	2
-address_global	Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp	g_Va00DFF030	2
 address_global	Code/GameEngine/Source/Common/Rva007AB8D0StringInits.cpp	g_Va00DDEEE4	2
 address_global	Code/GameEngine/Source/Common/Rva007AB8D0StringInits.cpp	g_Va00DDEEFC	2
 address_global	Code/GameEngine/Source/Common/Rva007AB8D0StringInits.cpp	g_Va00DDEF08	2
@@ -552,7 +551,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00D
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE49C	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE6DC	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE940	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF030	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF0A0	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF0A4	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF0C4	2
@@ -843,6 +841,7 @@ address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Rva0
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots.cpp	g_Va00E0333C	6
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Rva00E02EEC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp	g_Va00E0333C	1
+address_global	Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirConstructor.cpp	g_Va00DFF030	1
 address_global	Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirUpdate.cpp	g_Va00A04450	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	g_Va00DC85C4Names	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	g_Va00A03314	2

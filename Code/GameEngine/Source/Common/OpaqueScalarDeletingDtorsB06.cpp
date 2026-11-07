@@ -369,12 +369,12 @@ public:
     virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
     virtual int load(AsciiString path, AsciiString prefix, int flags, int mode);
 };
-extern unsigned int g_Va00DFF030;
+extern AsciiString g_Va00DFF030;	// the palantir's movie name, defined in AptPalantirConstructor.cpp
 void setUiCallbackOwner(void *);
 Rva002D3573::Rva002D3573()
 {
     int level = reinterpret_cast<Rva002D638EMovieSource *>(g_bfmeAptWindowManager)->load(
-        AsciiString("Apt\\"), reinterpret_cast<const AsciiString &>(g_Va00DFF030), 0, 0);
+        AsciiString("Apt\\"), g_Va00DFF030, 0, 0);
     setUiCallbackOwner(reinterpret_cast<void *>(level));
     reinterpret_cast<Rva00575674Sub *>(&holder)->rva00575674(new Rva002D57B6(this, level));
 }

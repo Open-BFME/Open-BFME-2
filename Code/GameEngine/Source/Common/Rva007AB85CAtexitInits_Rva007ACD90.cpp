@@ -27,7 +27,6 @@ void __cdecl rva007B7340();
 void __cdecl rva007B7380();
 void __cdecl rva007B76E6();
 void __cdecl rva007B770E();
-void __cdecl rva007B7979();
 void __cdecl clearMissingVariant();
 
 
@@ -45,7 +44,6 @@ struct Rva007AB85CAtexitInits
 	static void rva007ACEF0();
 	static void rva007ADB11();
 	static void rva007ADB61();
-	static void rva007AE3AC();
 	static void rva007B55D0();
 };
 
