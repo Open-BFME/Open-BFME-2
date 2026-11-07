@@ -191,6 +191,7 @@ class CommandSetUpgrade : public UpgradeModule
 {
 public:
 	CommandSetUpgrade( Thing *thing, const ModuleData *moduleData );
+	virtual void postUpgradeCheck();										// UpgradeMux slot 6
 
 protected:
 	virtual void upgradeRemovalImplementation();
@@ -270,6 +271,22 @@ void Rva004B3B42::rva004B3B42()
 	((_STL::_Base_bitset<32> *)&local)->_M_do_or(
 		*(_STL::_Base_bitset<32> *)((char *)obj + 0x284));
 	s1(&local);
+}
+
+// ?postUpgradeCheck@CommandSetUpgrade@@UAEXXZ: slot 6 of CommandSetUpgrade's
+// UpgradeMux table 0x00C57248 is 0x004B3B42, the body above: run the removal
+// (slot 8), then attempt the upgrade again (slot 1) with the controlling
+// player's 128-bit mask ORed with the Object's at +0x284. Retail folds it with
+// TooltipUpgrade's slot 6 (0x00C58BC0).
+void CommandSetUpgrade::postUpgradeCheck()
+{
+	upgradeRemovalImplementation();
+	Player *player = getObject()->getControllingPlayer();
+	BfmeFixedStorage128 local(player->m_storage);
+	Object *obj = getObject();
+	((_STL::_Base_bitset<32> *)&local)->_M_do_or(
+		*(_STL::_Base_bitset<32> *)((char *)obj + 0x284));
+	attemptUpgrade(*(const BitFlags<128> *)&local);
 }
 
 // tu-skeleton: 0x004B3AE3 28B ??_GRva004B39FC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
