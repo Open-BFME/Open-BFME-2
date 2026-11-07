@@ -74,9 +74,7 @@ struct BfmeE12
 #include <hash_set>
 #pragma inline_depth(3)
 #define _STLP_NO_EXCEPTIONS 1
-
 #include "../../../Include/Common/BfmeStringData.h"
-
 namespace rts
 {
 	template <class T> struct hash
@@ -98,7 +96,6 @@ namespace rts
 		}
 	};
 }
-
 // Keep the inline bucket-vector access while binding outlined copies to
 // the shared retail helpers instead of emitting this unit's /O1 variants.
 // This unit's insert_unique copy differs from retail's 0x0002C908 and, first in
@@ -118,31 +115,25 @@ template <> __declspec(dllimport) __forceinline
 vector<void *>::const_reference vector<void *>::operator[](size_type __n) const
 { return *(begin() + __n); }
 }
-
 struct BfmeStringNoCaseLess
 {
 public:
 	bool operator()(const AsciiString &a, const AsciiString &b) const;
 };
-
 struct Rva0002C9E7Value
 {
 	AsciiString m_text;
 };
-
 typedef _STL::hash_map<AsciiString, Rva0002C9E7Value, rts::hash<AsciiString>, rts::equal_to<AsciiString> > MacroMap;
-
 typedef _STL::set<AsciiString, BfmeStringNoCaseLess> NoCaseStringSet;
-
 struct INIMacroTable
 {
 	MacroMap m_macros;
 	NoCaseStringSet m_used;
 };
-
 extern AsciiString BfmeINICurrentFilename;
-
-extern INIMacroTable BfmeINIMacroTableStorage;	// defined in INI_loadFile.cpp
+extern INIMacroTable BfmeINIMacroTableStorage;
+	// defined in INI_loadFile.cpp
 
 //
 // MultiIniFieldParse::add, retail 0x0002BC6E (60 bytes).
@@ -151,13 +142,9 @@ extern INIMacroTable BfmeINIMacroTableStorage;	// defined in INI_loadFile.cpp
 // Dedicated TU so INI_initFromINI.cpp keeps calling it out of line.
 
 struct FieldParse;
-
 typedef int ErrorCode;
-
 struct Out0002CA72;
-
 struct Pair0002CA72;
-
 class Rva0002C7FD
 {
 public:
@@ -169,14 +156,11 @@ private:
 	_STL::vector<void*> buckets; // +0x04
 	unsigned int count; // +0x10
 };
-
 enum BuildableStatus
 {
 	BUILDABLE_STATUS_UNKNOWN = 0
 };
-
 class Rva0002CA72;
-
 // The rowed out-of-line size (0x005D5847) and erase (0x0002CCFC): explicit
 // specialization declarations keep the calls instead of inlining STLport's
 // in-class bodies.
@@ -210,7 +194,6 @@ private:
 	size_type _M_num_elements;
 };
 }
-
 class Rva0002CA72
 {
 private:
@@ -221,7 +204,6 @@ public:
 private:
 	Table m_table; // +0x00
 };
-
 class Rva0002CD2F
 {
     char m_pad[16];
@@ -230,7 +212,6 @@ public:
     struct Out0002CA72 *rva0002CD2F(struct Out0002CA72 *out, const struct Pair0002CA72 *obj);
     struct Out0002CA72 *rva0002D1BB(struct Out0002CA72 *out, const struct Pair0002CA72 *obj);
 };
-
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
@@ -241,7 +222,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-
 // bfme link decl-only begin
 namespace _STL {
 // The allocator is stateless; only the stored pointers need exchanging.
@@ -251,44 +231,31 @@ template <> inline void swap(_STLP_alloc_proxy<void **, void *, allocator<void *
     swap(left._M_data, right._M_data);
 }
 }
-
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_clear(); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_fill_insert(void **, unsigned int, void *const &); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_overflow(void **, void *const &, __true_type const &, unsigned int, bool); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
-
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
-
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-
 // Native bucket initialization forwards insertion directly to _M_fill_insert.
 namespace _STL {
 template <> __declspec(dllimport) __forceinline void
 vector<void *>::insert(void **position, size_t count, void *const &value)
 { _M_fill_insert(position, count, value); }
 }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ??A?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEABQAXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void *const &vector<void *>::operator[](size_t) const; }
-
 // The rehash and teardown code expand the bucket access in place.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector<void *,allocator<void *> >::operator[](unsigned int n) { return *(this->_M_start + n); } }
-
 // Suppress this TU's non-retail const-begin copy (row 47 family2-LK3): the
 // /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
 namespace _STL {
 template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 }
-
 // map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
 // COMDAT (one byte shape per TU flags); a declaration-only specialization
 // stops this TU emitting its copy so callers bind the kept copy.
@@ -296,7 +263,6 @@ template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
 namespace _STL {
 template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
 }
-
 // Suppress this TU's non-retail vector<void*> size copy (family2-LK3 row 17):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
@@ -306,21 +272,15 @@ template <> void **vector<void*>::begin();
 template <> __declspec(dllimport) __forceinline void **vector<void*>::end()
 { return this->_M_finish; }
 }
-
 struct Rva0002D281Element {Rva0002D281Element();Rva0002D281Element(const Rva0002D281Element&);Rva0002D281Element&operator=(const Rva0002D281Element&);~Rva0002D281Element(){}char bytes[8]; bool operator==(const Rva0002D281Element&)const;};
-
 // Instantiate only the rowed constructor: a whole-class instantiation also emitted members
 // needing the element's undefined operations and kept the unit from linking.
 template _STL::hashtable<_STL::pair<int const, Rva0002D281Element>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, Rva0002D281Element> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva0002D281Element> > >::hashtable(unsigned int, _STL::hash<int> const &, _STL::equal_to<int> const &, _STL::allocator<_STL::pair<int const, Rva0002D281Element> > const &);
-
 #include "../../../Include/Common/INI/FieldParse.h"
-
 // Retail inlines these into initFromINIMulti and keeps copies at 0x0002BABA and 0x0002BAC4.
 inline const FieldParse *MultiIniFieldParse::getNthFieldParse(int i) const { return m_fieldParse[i]; }
 inline unsigned int MultiIniFieldParse::getNthExtraOffset(int i) const { return m_extraOffset[i]; }
-
 typedef void (__cdecl *BuildMultiIniFieldProc)(MultiIniFieldParse &);
-
 // INI::getNextQuotedAsciiString (retail 0x002E93F, 272 bytes). BFME2
 // adaptation of the Zero Hour donor: reads one (possibly quoted,
 // space-spanning) token into a line buffer, then materializes it as the
@@ -329,21 +289,15 @@ typedef void (__cdecl *BuildMultiIniFieldProc)(MultiIniFieldParse &);
 // inline quote seps at INI+0x424; CRT pieces ride their IAT thunks.
 
 typedef int Int;
-
 template <typename T> struct BfmeStringData;
-
 typedef const char *ConstCharPtr;
-
 typedef const ConstCharPtr *ConstCharPtrArray;
-
 struct LookupListRec
 {
 	const char *name;
 	int value;
 };
-
 const float RADS_PER_DEGREE = 0.017453292f;
-
 class Rva00601BBCHelper
 {
 public:
@@ -354,11 +308,8 @@ public:
 private:
 	char m_body[0x30]; // after the vptr: 0x34 bytes in all
 };
-
 typedef unsigned int UnsignedInt;
-
 typedef bool Bool;
-
 // Retail's range erase goes through a by-reference __copy_ptrs that forwards to
 // the five-argument __copy worker rowed at 0x000B4431, unlike the vendored by-value one.
 namespace _STL {
@@ -381,7 +332,6 @@ vector<AsciiString, allocator<AsciiString> >::erase(iterator first, iterator las
 	return first;
 }
 }
-
 struct RGBAColorInt
 {
 	unsigned int red;
@@ -389,13 +339,10 @@ struct RGBAColorInt
 	unsigned int blue;
 	unsigned int alpha;
 };
-
 // BFME2's Color is a 32-bit ARGB pack (retail packs A<<24|R<<16|G<<8|B;
 // GameMakeColor(r, g, b, a) callers pass components in R,G,B,A order).
 typedef unsigned int Color;
-
 class Xfer;
-
 enum INILoadType
 {
 	INI_LOAD_INVALID,
@@ -403,18 +350,14 @@ enum INILoadType
 	INI_LOAD_CREATE_OVERRIDES,
 	INI_LOAD_MULTIFILE
 };
-
 typedef void (*INIBlockParse)(class INI *ini);
-
 struct BlockParse
 {
 	BlockParse *next;
 	const char *token;
 	INIBlockParse parse;
 };
-
 extern BlockParse *theBlockParseList;
-
 class INI
 {
 public:
@@ -581,21 +524,15 @@ public:
 public:
 	const char *getSepsQuote() const { return m_sepsQuote; }
 };
-
 // One definition, no typedef or separate extern declaration: a merged TU
 // emits declarations ahead of the INI class body, definitions after it.
 extern const char *(INI::*const g_iniSeparatorGetters[4])() const = {
 	&INI::getSeps, &INI::getSepsPercent, &INI::getSepsColon, &INI::getSepsQuote
 };
-
 extern void *g_00DDF57C;
-
 struct BlockParse;
-
 struct _s__ThrowInfo;
-
 extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-
 // Retail's own 92-byte literal at RVA 0x007BDC80 (.rdata, file offset
 // 0x007BD8C0): the INI error banner the rowed body below formats into the
 // destination with the current directory, the block name and the line number.
@@ -607,7 +544,6 @@ extern const char g_00BBDC80[] =
 	"\nINI ERROR:\n"
 	"===================================================================\n"
 	"%s\\%s(%d):\n";
-
 struct Rva0002CF86View
 {
 	int count;             // +0x000
@@ -615,11 +551,8 @@ struct Rva0002CF86View
 	char fieldName[32];    // +0x024
 	char tokens[12][32];   // +0x044
 };
-
 class ModuleData;
-
 extern _STL::vector<const ModuleData *> g_vec00200D38;
-
  // Rva00200D38Ctor.cpp, VA 0x00DDF580
 
 // The registry entries 0x00200D38 constructs: three-slot table at +0, name at +4.
@@ -632,7 +565,6 @@ public:
 
 	AsciiString m_name;
 };
-
 // A SubsystemInterface found by name; table slot 6 (+0x18) yields its field table.
 class Rva0002CF86Subsystem
 {
@@ -645,24 +577,19 @@ public:
 	virtual void slot5();
 	virtual const FieldParse *slot6();
 };
-
 class Rva001B4F8B
 {
 public:
 	void *rva001B4F8B(const StringBase<char> &name);
 };
-
 class SubsystemInterfaceList;
-
 extern SubsystemInterfaceList *TheSubsystemList;
-
 // The rowed out-of-line size (0x005D5847): an explicit specialization
 // declaration keeps the call instead of inlining STLport's in-class body.
 namespace _STL
 {
 template <> unsigned int vector<BfmeE12, allocator<BfmeE12> >::size() const;
 }
-
 class INIFileTable
 {
 public:
@@ -672,7 +599,6 @@ public:
 	_STL::vector<BfmeE12> m_lineVec;
 	char m_tail[0x86C - 0x848];
 };
-
 // Target proves a raw buffer/size call through slot 9, not its class or method name.
 class BfmeIniTransferSlot09
 {
@@ -688,24 +614,18 @@ public:
 	virtual void _d8() = 0;
 	virtual void slot09(void *data, int dataSize) = 0;
 };
-
 // Sole provider: retail VA 0x00DDF57C contains four initial zero bytes.
 // The clear routine and reader share this pointer without naming its runtime class.
 void *g_00DDF57C = 0;
-
 class INI;
-
 typedef void (*INIBlockParse)(INI *ini);
-
 extern void setFPMode();
-
 // The rowed out-of-line push_back (0x002DBE6): an explicit specialization
 // declaration keeps the call instead of inlining STLport's in-class body.
 namespace _STL
 {
 template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &value);
 }
-
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -715,7 +635,6 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
                               const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL {
 template <> void _STLP_alloc_proxy<_Rb_tree_node<AsciiString>*, _Rb_tree_node<AsciiString>, allocator<_Rb_tree_node<AsciiString> > >::deallocate(_Rb_tree_node<AsciiString>*, size_t);
@@ -723,11 +642,8 @@ template <> void allocator<_Rb_tree_node<AsciiString> >::deallocate(_Rb_tree_nod
 template <> _Rb_tree_base<AsciiString, allocator<AsciiString> >::_Rb_tree_base(const allocator<AsciiString>&);
 template <> _Rb_tree_base<AsciiString, allocator<AsciiString> >::~_Rb_tree_base();
 }
-
 namespace _STL { template <> _Rb_tree<AsciiString,AsciiString,_Identity<AsciiString>,BfmeStringNoCaseLess,allocator<AsciiString> >::~_Rb_tree(); }
-
 typedef std::set<AsciiString, BfmeStringNoCaseLess> FilenameList;
-
 #include "../../../Include/Common/FileSystem.h"
 
 extern FileSystem *TheFileSystem;
@@ -888,8 +804,6 @@ template void _Destroy<AsciiString *>(AsciiString *, AsciiString *);
 #pragma inline_depth()
 }
 
-template _STL::vector<AsciiString>::~vector();
-
 void __cdecl Rva0002C237Get(INI *ini);
 
 // Retail's element here is AsciiString, but the vector<AsciiString> COMDAT this
@@ -952,11 +866,6 @@ namespace _STL
 	unsigned int __stl_hash_string(const char *s);
 }
 
-// Rowed helper at 0x0002C485:
-// ??$_Construct@VAsciiString@@V1@@_STL@@YAXPAVAsciiString@@ABV1@@Z
-// (void __cdecl _STL::_Construct<class AsciiString,class AsciiString>).
-template AsciiString *_STL::__uninitialized_copy(const AsciiString *, const AsciiString *, AsciiString *, const _STL::__false_type &);
-
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
 // overloads take those calls instead so this TU emits no external copy.
@@ -978,9 +887,6 @@ _STLP_alloc_proxy<_List_node<short> *, _List_node<short>, allocator<_List_node<s
 
 struct Rva0002C4D8Element { _STL::list<short> values[1]; bool operator==(const Rva0002C4D8Element&) const; };
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva0002C4D8Element * _STL::__uninitialized_fill_n<Rva0002C4D8Element *, unsigned int, Rva0002C4D8Element>(Rva0002C4D8Element *, unsigned int, Rva0002C4D8Element const &, _STL::__false_type const &);
-
 // Teardown resolves to the verified 133-byte releaseBuffer worker at RVA 0x36410.
 struct Rva0002C4FD
 {
@@ -990,12 +896,6 @@ struct Rva0002C4FD
 };
 
 typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > NoCaseSetTree;
-
-template NoCaseSetTree::iterator NoCaseSetTree::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *, const AsciiString &, _STL::_Rb_tree_node_base *);
-
-template _STL::pair<NoCaseSetTree::iterator, bool> NoCaseSetTree::insert_unique(const AsciiString &);
-
-template _STL::pair<NoCaseStringSet::iterator, bool> NoCaseStringSet::insert(const AsciiString &);
 
 // bfme link decl-only end
 class Rva0002C7FD;
@@ -1061,20 +961,16 @@ typedef _STL::hashtable<NoCaseAsciiValue, AsciiString, rts::hash<AsciiString>,
 	_STL::_Select1st<NoCaseAsciiValue>, rts::equal_to<AsciiString>,
 	_STL::allocator<NoCaseAsciiValue> > NoCaseAsciiHashtable;
 
-template NoCaseAsciiHashtable::iterator NoCaseAsciiHashtable::find<AsciiString>(const AsciiString &);
-
-// The outer hash_map::find at retail 0x0002CCAF (20 bytes): forwards the
-// result slot and the argument to the table member above.
-template MacroMap::iterator MacroMap::find(const AsciiString &);
-
 typedef char AsciiStringExtent[sizeof(AsciiString) == 4 ? 1 : -1];
 
 // bfme link decl-only end
 // The macro map uses the same nocase equality/mapped view as its native find caller.
 typedef _STL::hashtable<_STL::pair<const AsciiString,Rva0002C9E7Value>,AsciiString,rts::hash<AsciiString>,_STL::_Select1st<_STL::pair<const AsciiString,Rva0002C9E7Value> >,rts::equal_to<AsciiString>,_STL::allocator<_STL::pair<const AsciiString,Rva0002C9E7Value> > > IniMacroTableHash;
+
 // Retail's clear call is the existing ICF owner at2234FE. Preserve that
 // real call rather than instantiating an unverified second clear provider.
 typedef _STL::hashtable<_STL::pair<AsciiString const, AsciiString>, AsciiString, rts::hash<AsciiString>, _STL::_Select1st<_STL::pair<AsciiString const, AsciiString> >, _STL::equal_to<AsciiString>, _STL::allocator<_STL::pair<AsciiString const, AsciiString> > > Rva002234FETable;
+
 namespace _STL {
 template<> void Rva002234FETable::clear();
 template<> IniMacroTableHash::~hashtable()
@@ -1082,7 +978,6 @@ template<> IniMacroTableHash::~hashtable()
     reinterpret_cast<Rva002234FETable *>(this)->clear();
 }
 }
-template IniMacroTableHash::~hashtable();
 
 // The genuine erase-all caller below emits this header-inline erase and
 // its copy-dispatch helper naturally; no synthetic emission caller is needed.
@@ -1097,6 +992,40 @@ public:
 private:
     _STL::vector<AsciiString, _STL::allocator<AsciiString> > m_values;
 };
+
+// 4-byte narrow-string slot: retail's range destroy 0x0002CB64 steps by 4 and calls
+// the out-of-line AsciiString destructor 0x0048BA39.
+struct Rva0002CD53Element
+{
+	__forceinline ~Rva0002CD53Element() { ((AsciiString *)this)->AsciiString::~AsciiString(); }
+	char bytes[4];
+};
+
+// ---- from Code/GameEngine/Source/Common/INI/INI.cpp
+
+template _STL::vector<AsciiString>::~vector();
+
+// Rowed helper at 0x0002C485:
+// ??$_Construct@VAsciiString@@V1@@_STL@@YAXPAVAsciiString@@ABV1@@Z
+// (void __cdecl _STL::_Construct<class AsciiString,class AsciiString>).
+template AsciiString *_STL::__uninitialized_copy(const AsciiString *, const AsciiString *, AsciiString *, const _STL::__false_type &);
+
+// Instantiate the recovered operation and its required template dependencies.
+template Rva0002C4D8Element * _STL::__uninitialized_fill_n<Rva0002C4D8Element *, unsigned int, Rva0002C4D8Element>(Rva0002C4D8Element *, unsigned int, Rva0002C4D8Element const &, _STL::__false_type const &);
+
+template NoCaseSetTree::iterator NoCaseSetTree::_M_insert(_STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *, const AsciiString &, _STL::_Rb_tree_node_base *);
+
+template _STL::pair<NoCaseSetTree::iterator, bool> NoCaseSetTree::insert_unique(const AsciiString &);
+
+template _STL::pair<NoCaseStringSet::iterator, bool> NoCaseStringSet::insert(const AsciiString &);
+
+template NoCaseAsciiHashtable::iterator NoCaseAsciiHashtable::find<AsciiString>(const AsciiString &);
+
+// The outer hash_map::find at retail 0x0002CCAF (20 bytes): forwards the
+// result slot and the argument to the table member above.
+template MacroMap::iterator MacroMap::find(const AsciiString &);
+
+template IniMacroTableHash::~hashtable();
 
 // ---- from Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp
 
@@ -1217,8 +1146,6 @@ void INI::initFromINIMulti(void *what, const MultiIniFieldParse &parseTableList)
 		}
 	}
 }
-
-// tu-skeleton: 0x0002BACF 6B ?getBlockParseList@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/INI/INI.cpp
 
@@ -2710,16 +2637,6 @@ void Rva0002CBB4::rva0002CBB4(const AsciiString &v)
 	m_set.insert(v);
 }
 
-// tu-skeleton: 0x0002BAF1 7B ?get@Rva0002BAF1ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BAF8 36B ??0SaveDate@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BB71 14B ?rva0002BB71@Rva0002BB71@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BB7F 68B ?isValidINIFilename@INI@@KA_NPBD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BBC3 6B ?Rva0002BBC3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/INI/ini_parsers_findFieldParse.cpp
 
 //
@@ -2784,22 +2701,6 @@ int INI::scanIndexList(const char *token, ConstCharPtrArray nameList)
 	return index;
 }
 
-// tu-skeleton: 0x0002BDF2 170B ?isEndOfBlock@INI@@SA_NPAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BE9C 37B ?startsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BEC1 37B ?endsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BEE6 21B ??$swapRange@M@@YAXAAM0@Z -- matched in Code/GameEngine/Source/Common/INI/INIAudioEventInfoRangeParsers.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BEFB 19B ?rva0002BEFB@@YAXPAH0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BF0E 19B ??Rvalue_compare@?$map@IPAXU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QBE_NABU?$pair@$$CBIPAX@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BF21 14B ?rva0002BF21@Rva0002BF21@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
-
-// tu-skeleton: 0x0002BF2F 27B ??H@YA?AUAsciiStringRefWithChar@@ABVAsciiString@@D@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/System/RtsAsciiStringHash.cpp
 
 unsigned int rts::hash<AsciiString>::operator()(const AsciiString &key) const
@@ -2809,20 +2710,6 @@ unsigned int rts::hash<AsciiString>::operator()(const AsciiString &key) const
 	const char *s = tmp.str();
 	return _STL::__stl_hash_string(s);
 }
-
-// tu-skeleton: 0x0002C0C0 53B ??1?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C18D 59B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002C1C8 53B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002C230 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0002C2C7 360B ?isDeclarationOfType@INI@@SA_NVAsciiString@@0PAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C42F 42B ?startsWithNoCase@?$StringBase@D@@QBE_NABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C459 44B ?find@?$StringBase@D@@QBEPBDD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Thing/AsciiStringUninitializedCopy.cpp
 
@@ -2854,18 +2741,6 @@ Rva0002C4FD::Rva0002C4FD(const StringBase<char> &lhs, const StringBase<char> &rh
 {
 }
 
-// tu-skeleton: 0x0002C536 28B ??_G?$pair@$$CBVAsciiString@@V1@@_STL@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C552 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VAsciiString@@@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C574 61B ??0?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C5E6 59B ?Rva0002C5E6@@YA_NABV?$StringBase@D@@PBURva0002C5E6Range@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C655 20B ?rva0002C655@Rva0002C655@@QBEIABVAsciiString@@I@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C669 29B ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@@_STL@@ABEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_insert.cpp
 
 // ?_M_insert@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABVAsciiString@@0@Z @0x0002C686 149B
@@ -2877,15 +2752,10 @@ Rva0002C4FD::Rva0002C4FD(const StringBase<char> &lhs, const StringBase<char> &rh
 
 // STLport frees through the game's plain _free at 0x00030830, not the CRT import.
 
-// tu-skeleton: 0x0002C71B 45B ??$_Construct@U?$pair@$$CBVAsciiString@@V1@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@V1@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
-// tu-skeleton: 0x0002C748 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@V1@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@V1@@0@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
 
-// tu-skeleton: 0x0002C7C1 19B ??8@YA_NABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_remove.cpp (not merged yet)
 
-// tu-skeleton: 0x0002C7D4 20B ??9@YA_NABVAsciiString@@0@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp (not merged yet)
 
-// tu-skeleton: 0x0002C7E8 21B ?rva0002C7E8@Rva0002C7E8@@QBE_NABVAsciiString@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0002C7FD.cpp
 
@@ -2939,18 +2809,6 @@ void Rva0002C7FD::resize(unsigned int hint) {
  }
 }
 
-// tu-skeleton: 0x0002C8D3 53B ?_M_erase@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VAsciiString@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C9A1 5B ?_M_bkt_num@?$hashtable@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBVAsciiString@@W4BuildableStatus@@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C9A6 28B ?_M_delete_node@?$hashtable@U?$pair@$$CBVAsciiString@@V1@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/Common/System/INIMacroTable.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C9C2 37B ?write@Rva0002C9C2@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
-
-// tu-skeleton: 0x0002C9E7 63B ??$_M_find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@1@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_nocase_asciistring_m_find.cpp (not merged yet)
-
-// tu-skeleton: 0x0002CA49 41B ?clear@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/System/GameLogicBuildableMapInsert.cpp
 
 //
@@ -3000,7 +2858,6 @@ Out0002CA72 *Rva0002CA72::rva0002CA72(Out0002CA72 *out, const Pair0002CA72 *obj)
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-// tu-skeleton: 0x0002CC38 56B ??1?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp
 
@@ -3039,6 +2896,96 @@ void Rva0002D1B0Range::rva0002D1B0Clear()
 {
     m_values.erase(m_values.begin(), m_values.end());
 }
+
+// tu-skeleton: 0x0002BACF 6B ?getBlockParseList@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BAF1 7B ?get@Rva0002BAF1ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BAF8 36B ??0SaveDate@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BB71 14B ?rva0002BB71@Rva0002BB71@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BB7F 68B ?isValidINIFilename@INI@@KA_NPBD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BBC3 6B ?Rva0002BBC3Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters5.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BDF2 170B ?isEndOfBlock@INI@@SA_NPAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BE9C 37B ?startsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BEC1 37B ?endsWith@?$StringBase@D@@QBE_NPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BEE6 21B ??$swapRange@M@@YAXAAM0@Z -- matched in Code/GameEngine/Source/Common/INI/INIAudioEventInfoRangeParsers.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BEFB 19B ?rva0002BEFB@@YAXPAH0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BF0E 19B ??Rvalue_compare@?$map@IPAXU?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QBE_NABU?$pair@$$CBIPAX@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BF21 14B ?rva0002BF21@Rva0002BF21@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002BF2F 27B ??H@YA?AUAsciiStringRefWithChar@@ABVAsciiString@@D@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C0C0 53B ??1?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C18D 59B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002C1C8 53B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002C230 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0002C2C7 360B ?isDeclarationOfType@INI@@SA_NVAsciiString@@0PAD@Z -- matched in Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C42F 42B ?startsWithNoCase@?$StringBase@D@@QBE_NABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C459 44B ?find@?$StringBase@D@@QBEPBDD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C536 28B ??_G?$pair@$$CBVAsciiString@@V1@@_STL@@QAEPAXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_string_pair_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C552 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@IAEPAU?$_Rb_tree_node@VAsciiString@@@2@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_set.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C574 61B ??0?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C5E6 59B ?Rva0002C5E6@@YA_NABV?$StringBase@D@@PBURva0002C5E6Range@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C655 20B ?rva0002C655@Rva0002C655@@QBEIABVAsciiString@@I@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C669 29B ?_M_bkt_num_key@?$hashtable@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@@_STL@@ABEIABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C71B 45B ??$_Construct@U?$pair@$$CBVAsciiString@@V1@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@V1@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C748 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@V1@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@V1@@0@@Z -- matched in Code/GameEngine/Source/Common/GameSpyLoginPreferences.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C7C1 19B ??8@YA_NABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_remove.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C7D4 20B ??9@YA_NABVAsciiString@@0@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplateParseModuleName.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C7E8 21B ?rva0002C7E8@Rva0002C7E8@@QBE_NABVAsciiString@@0@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE19.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C8D3 53B ?_M_erase@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@VAsciiString@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9A1 5B ?_M_bkt_num@?$hashtable@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@2@@_STL@@ABEIABU?$pair@$$CBVAsciiString@@W4BuildableStatus@@@2@@Z -- matched in Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9A6 28B ?_M_delete_node@?$hashtable@U?$pair@$$CBVAsciiString@@V1@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@U?$equal_to@VAsciiString@@@2@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@_STL@@AAEXPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@Z -- matched in Code/GameEngine/Source/Common/System/INIMacroTable.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9C2 37B ?write@Rva0002C9C2@@QAEHPAD@Z -- matched in Code/GameEngine/Source/Common/System/RegistryAsciiPath.cpp (not merged yet)
+
+// tu-skeleton: 0x0002C9E7 63B ??$_M_find@VAsciiString@@@?$hashtable@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@VAsciiString@@U?$hash@VAsciiString@@@rts@@U?$_Select1st@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@U?$equal_to@VAsciiString@@@5@V?$allocator@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBVAsciiString@@URva0002C9E7Value@@@_STL@@@1@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_hashtable_nocase_asciistring_m_find.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CA49 41B ?clear@?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CC38 56B ??1?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_nocase_asciistring_set_cleanup.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0002CD53.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+// Instantiate the recovered operation and its required template dependencies.
+template void _STL::vector<Rva0002CD53Element, _STL::allocator<Rva0002CD53Element> >::_M_clear(void);
+
+// tu-skeleton: 0x0002CD71 5B ??1Rva0002CD71@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CD71.cpp (not merged yet)
+
+// tu-skeleton: 0x0002CD76 5B (unledgered) -- unmatched, no code, never credited
 
 // tu-skeleton: 0x0002CF5E 6B (unledgered) -- unmatched, no code, never credited
 

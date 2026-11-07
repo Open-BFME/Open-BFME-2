@@ -2408,7 +2408,6 @@ alternatename	Code/GameEngine/Source/Common/Thing/Thing.cpp	?m@Gen_007f9590@@QAE
 alternatename	Code/GameEngine/Source/Common/Thing/Thing.cpp	?setPeer@Rva007F9B80@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	?dup_002ca82c@@YAXXZ	1
 alternatename	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	?bfmeCallJA@BfmeHookJA@@QAEPAUBfmeSlotJA@@XZ	1
-alternatename	Code/GameEngine/Source/Common/Thing/UpgradeMuxData_getUpgradeActivationMasks.cpp	?_CxxThrowException@@YGXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV01_Unresolved.cpp	??1Rva003A6201@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV01_Unresolved.cpp	??1Rva003A743EVec@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/VectorDeletingDtorsV01_Unresolved.cpp	??1Rva003A9397@@UAE@XZ	1
@@ -3034,7 +3033,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleSetWake
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponFireSpecialAbilityUpdate.cpp	?slot@WFS_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdate.cpp	??0WeaponSetSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdateModuleDataCtor.cpp	??0FellBeastSwoopPowerModuleData@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandPointsUpgradeModuleDataCtor.cpp	??1Rva00253487Base@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/WeaponLoadAmmoNow.cpp	?Rva002CE1AC@Weapon@@QAEXPAVObject@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeOwnZC_rva00204F3B.cpp	?rva00204E64@BfmeOwnZC@@QAEPAVScriptList@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdateModuleDataCtorThunk.cpp	??0DelayedWeaponSetUpgradeUpdateModuleData@@QAE@XZ	1
@@ -12096,7 +12094,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/Rva005FBC20PlayerPanel.c
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	1ShellMenuSchemeImage@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	1ShellMenuSchemeLine@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	addLine@ShellMenuScheme@@QAEXPAVShellMenuSchemeLine@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme.cpp	parseLinePart@ShellMenuSchemeManager@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp	setVideoBuffer@WinInstanceData@@QAEXPAVVideoBuffer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoManager.cpp	0WindowVideoHashtableHolder@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoManager.cpp	1WindowVideoHashtableHolder@@QAE@XZ	1
@@ -12512,7 +12509,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface2Anchor@WeaponModeSpecialPowerUpdateIface2@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface3Anchor@WeaponModeSpecialPowerUpdateIface3@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdateConstructor.cpp	weaponModeIface4Anchor@WeaponModeSpecialPowerUpdateIface4@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvaAnnounceClientCreate.cpp	1EvaAnnounceClientCreateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPower.cpp	1EvacuateGarrisonSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::xfer	1
