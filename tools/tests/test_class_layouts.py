@@ -160,14 +160,16 @@ if __name__ == "__main__":
     unittest.main()
 
 
-# The opt-in scope-aware reader (class_identities, template_member_definitions).
+# The opt-in scope-aware reader (class_identities, template_member_definitions). It fails closed.
 NS = "namespace FXParticleSystem {{\n{}\n}}\n"
 PRIM = "template <int N> class CategoryModuleTemplate : public CategoryModuleTemplateBase<N> { };"
 SPEC7 = "template <> class CategoryModuleTemplate<7> : public ModuleTemplate { };"
 
 
 def ident(text):
-    return [(q, a, t, k) for q, _n, a, t, _s, _e, k in class_layouts.class_identities(text)]
+    found = class_layouts.class_identities(text)
+    assert found is not None, "expected a reading, got ambiguous"
+    return [(q, a, t, k) for q, _n, a, t, _s, _e, k in found]
 
 
 def test_identity_of_a_namespaced_template_primary():
@@ -176,18 +178,29 @@ def test_identity_of_a_namespaced_template_primary():
 
 def test_identity_of_explicit_and_partial_specializations():
     assert ident(NS.format(SPEC7)) == [("FXParticleSystem::CategoryModuleTemplate", "7", True, "class")]
-    partial = "template <int N> class CategoryModuleClassBase<N, 0> { };"
-    assert ident(partial) == [("CategoryModuleClassBase", "N,0", True, "class")]
+    assert ident("template <int N> class CategoryModuleClassBase<N, 0> { };") == [
+        ("CategoryModuleClassBase", "N,0", True, "class")]
 
 
-def test_specialization_arguments_nest():
+def test_specialization_arguments_nest_and_compact_closers():
     text = "template <> class ConcreteModuleClass<ModuleTag<6, K, N, M, T, B> > { };"
     assert ident(text) == [("ConcreteModuleClass", "ModuleTag<6,K,N,M,T,B>", True, "class")]
+    assert ident("template <> class X<A<B<int>>> { };") == [("X", "A<B<int>>", True, "class")]
 
 
 def test_multi_line_head_and_base_clause():
     text = "template <int N, int H = (N != 8)>\nclass X\n:\npublic B<N>\n{\n};\n"
     assert ident(text) == [("X", None, True, "class")]
+
+
+def test_a_parenthesised_comparison_in_a_template_parameter_is_not_a_closer():
+    # review: `template<bool B = (1 > 0)> class X {}` was read as not a template.
+    assert ident("template <bool B = (1 > 0)> class X { };") == [("X", None, True, "class")]
+
+
+def test_template_template_parameters():
+    assert ident("template <template <class> class C, class T> class Holder { C<T> c; };") == [
+        ("Holder", None, True, "class")]
 
 
 def test_member_template_keeps_its_class_path():
@@ -196,49 +209,112 @@ def test_member_template_keeps_its_class_path():
                            ("FXParticleSystem::Outer::CategoryModuleTemplate", None, True, "class")]
 
 
+def test_a_qualified_nested_template_head_is_kept():
+    # review: `template<class T> class X<T>::Y {}` lost Y.
+    assert ident("template <class T> class X<T>::Y { };") == [("X<T>::Y", None, True, "class")]
+
+
+def test_reopened_namespaces_keep_their_path():
+    text = "namespace A { class X { }; }\nnamespace B { }\nnamespace A { class Y { }; }\n"
+    assert ident(text) == [("A::X", None, False, "class"), ("A::Y", None, False, "class")]
+
+
 def test_declarations_instantiations_and_uses_define_no_body():
-    text = ("template <int N> class X;\ntemplate class X<6>;\nX<6> *p;\nclass Y;\nfriend class Z;\n"
-            "struct S *f(struct T *t);\n")
-    assert ident(text) == []
+    text = ("template <int N> class X;\ntemplate class X<6>;\nX<6> *p;\nclass Y;\n"
+            "struct S *f(struct T *t);\nclass Z { friend class W; };\n")
+    assert ident(text) == [("Z", None, False, "class")]
 
 
-def test_ambiguous_text_is_refused_not_guessed():
-    assert class_layouts.class_identities("#define S X\n" + NS.format(PRIM)) is None
-    assert class_layouts.class_identities('const char *s = R"(x)";\n' + PRIM) is None
-    assert class_layouts.class_identities(PRIM + "\n}") is None          # unbalanced
-    assert class_layouts.class_identities('#include "a.h"\n' + PRIM) is not None
+def test_an_anonymous_typedef_recovers_its_name():
+    # review: `typedef struct { int a; } X;` returned [].
+    assert ident("typedef struct { int a; } X;") == [("X", None, False, "struct")]
+    assert ident("typedef struct Tag { int a; } Tag_t;") == [("Tag", None, False, "struct")]
+    assert class_layouts.class_identities("typedef struct { int a; } *const Px;") is None
 
 
-def test_anonymous_namespace_and_function_local_and_typedef_heads():
+def test_function_bodies_initializers_and_enums_are_proven_scopes():
     text = ("namespace { struct A { int a; }; }\n"
             "void f() { struct Local { int b; }; }\n"
-            "typedef struct Tag { int c; } Tag_t;\n"
-            "class __declspec(dllexport) D { };\n")
-    assert ident(text) == [("(anonymous)::A", None, False, "struct"), ("Tag", None, False, "struct"),
-                           ("D", None, False, "class")]
+            "int Table[] = { 1, 2 };\n"
+            "enum Mode { ON, OFF };\n"
+            "class __declspec(dllexport) D { public: D() : m(0) { } ~D() { } virtual int g() const { return 0; } int m; };\n"
+            "D::D2 D::make() { return D2(); }\n")
+    assert ident(text) == [("(anonymous)::A", None, False, "struct"), ("D", None, False, "class")]
 
 
-def test_class_bodies_are_unchanged_by_the_new_reader():
-    # The default readers keep their spelling-only, template-free behaviour.
-    for text in (NS.format(PRIM), NS.format(SPEC7), "class Outer { template <int N> class X {}; };"):
-        assert class_layouts.class_body_spans(text) == [s for s in class_layouts.class_body_spans(text)]
-    assert class_layouts.class_bodies(NS.format(PRIM)) == []
-    assert class_layouts.class_bodies(NS.format(SPEC7)) == []
-    assert class_layouts.class_bodies("class Outer { template <int N> class X {}; };") == ["Outer"]
+@pytest.mark.parametrize("text", [
+    '#include "heads.h"\nDECLARE_CLASS(X) { int x; };\n',        # review: a macro-made class gave []
+    "BEGIN_SCOPE { class X { }; }\n",
+    "#define S X\n" + NS.format(PRIM),
+    'const char *s = R"(x)";\n' + PRIM,
+    PRIM + "\n}",
+    "class X { int a;\n",
+])
+def test_text_the_reader_cannot_prove_is_ambiguous(text):
+    assert class_layouts.class_identities(text) is None
+
+
+def test_includes_are_not_ambiguous():
+    assert ident('#include "a.h"\n' + PRIM) == [("CategoryModuleTemplate", None, True, "class")]
+
+
+# Master's readers, frozen: these are origin/master's outputs (tools/class_layouts.py before the
+# opt-in reader), so a change to the legacy behaviour fails here.
+LEGACY = {
+    "namespace FXParticleSystem {\ntemplate <int N> class CategoryModuleTemplate : public B<N> { };\n}\n":
+        ([], [("CategoryModuleTemplate", 29, 92, "class")], []),
+    "namespace FXParticleSystem {\ntemplate <> class CategoryModuleTemplate<7> : public ModuleTemplate { };\n}\n":
+        ([], [], []),
+    "class Outer { template <int N> class X {}; struct Inner { int a; }; };\n":
+        ([("Outer", 0, 69, "class")], [("Outer", 0, 69, "class")], ["Outer"]),
+    "struct A { int a; };\nclass B : public A { };\nvoid f() { struct L { int b; }; }\n":
+        ([("A", 0, 19, "struct"), ("B", 21, 43, "class")], [("A", 0, 19, "struct"), ("B", 21, 43, "class")],
+         ["A", "B"]),
+    "class A::B { };\n": ([("A::B", 0, 14, "class")], [("A::B", 0, 14, "class")], ["A::B"]),
+}
+
+
+@pytest.mark.parametrize("text", list(LEGACY))
+def test_legacy_readers_keep_masters_outputs(text):
+    spans, with_templates, bodies = LEGACY[text]
+    assert class_layouts.class_body_spans(text) == spans
+    assert class_layouts.class_body_spans(text, include_templates=True) == with_templates
+    assert class_layouts.class_bodies(text) == bodies
+
+
+def members(text, name):
+    found = class_layouts.template_member_definitions(text, name)
+    return None if found is None else [text[s:e] for s, e in found]
 
 
 def test_template_member_definitions_find_functions_and_static_data():
     text = ("template <int N> class CategoryModuleClass { static const CategoryModuleClass *const s_first; };\n"
             "template <int N> const CategoryModuleClass<N> *const CategoryModuleClass<N>::s_first = 0;\n"
             "template <int N> const char *CategoryModuleClass<N>::getKey() const { if (N) { return 0; } return 0; }\n"
+            "template <int N> CategoryModuleClass<N>::~CategoryModuleClass() { }\n"
             "template <int N> const int Table<N>::s_values[2] = { 1, 2 };\n"
             "const char *Other::getKey() const { return 0; }\n")
-    spans = class_layouts.template_member_definitions(text, "CategoryModuleClass")
-    defs = [text[s:e] for s, e in spans]
-    assert len(defs) == 2
+    defs = members(text, "CategoryModuleClass")
+    assert len(defs) == 3
     assert defs[0].endswith("::s_first = 0;")
     assert defs[1].startswith("template <int N> const char *CategoryModuleClass<N>::getKey()") and defs[1].endswith("}")
-    table = [text[s:e] for s, e in class_layouts.template_member_definitions(text, "Table")]
-    assert table == ["template <int N> const int Table<N>::s_values[2] = { 1, 2 };"]
-    assert class_layouts.template_member_definitions(text, "Other") == []
-    assert class_layouts.template_member_definitions("#if 1\n" + text, "Table") is None
+    assert defs[2].endswith("~CategoryModuleClass() { }")
+    assert members(text, "Table") == ["template <int N> const int Table<N>::s_values[2] = { 1, 2 };"]
+    assert members(text, "Other") == []
+
+
+def test_a_member_type_in_a_return_type_is_not_a_member_definition():
+    # review: `template<class T> typename X<T>::type f() {}` was taken for X's member.
+    assert members("template <class T> typename X<T>::type f() { return 0; }", "X") == []
+    both = "template <class T> typename X<T>::type X<T>::get() { return 0; }"
+    assert members(both, "X") == [both]
+
+
+@pytest.mark.parametrize("text", [
+    "template <int N> void X<N>::f() { }\n}",                       # review: a trailing brace
+    "template <int N> void X<N>::f() {\n",                          # review: an unfinished function
+    "template <int N> int X<N>::s = 0",                             # a definition that never closes
+    "#if 1\ntemplate <int N> int X<N>::s = 0;\n",
+])
+def test_member_reader_fails_closed(text):
+    assert class_layouts.template_member_definitions(text, "X") is None
