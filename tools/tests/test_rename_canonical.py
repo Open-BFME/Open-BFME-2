@@ -1001,3 +1001,41 @@ def test_a_member_the_contract_disagrees_with_refuses(registered, evidence_stubb
         run(registered, "add", "-A")
     with pytest.raises(evidence_stubbed.Refusal, match=message):
         plan_of(registered, "member", cls=OLD, member=member, new=new)
+
+
+# ---------------------------------------------------------------- prose never collides
+
+NOTES = "Code/Game/NuggetNotes.cpp"
+
+
+@pytest.mark.parametrize("text,collides", [
+    (f"// a {NEW}-family base ctor; BFME1 {NEW}::m_field04\nint notes() {{ return 0; }}\n", False),
+    (f'/* {NEW} */\nconst char *pool = "{NEW}";\nint notes() {{ return 0; }}\n', False),
+    (f"class {NEW};\nint notes() {{ return 0; }}\n", True),
+    (f"int notes({NEW} *n);\n", True),
+])
+def test_only_a_code_spelling_of_the_new_name_collides(registered, evidence_stubbed, text, collides):
+    write(registered, NOTES, text)
+    run(registered, "add", "-A")
+    if collides:
+        with pytest.raises(evidence_stubbed.Refusal, match=f"{NEW} already appears in {NOTES}"):
+            plan_of(registered)
+    else:
+        assert NOTES not in plan_of(registered).after          # prose stays as written
+
+
+# ---------------------------------------------------------------- mangled names the tokenizer reads
+
+@pytest.mark.parametrize("symbol,classes", [
+    # the guard of a function-local static: a compiler-generated `$S4`, then the function's scope
+    ("?$S4@?7??doFXPos@LaserFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z@4IA",
+     {"LaserFXNugget", "Coord3D", "Matrix3D", "doFXPos"}),
+    # a function-local static whose scope discriminator is a multi-letter encoded number
+    ("?deltaX@?BC@??rva002F83F5@Pathfinder@@QAEHPAVPathfindCell@@0ABVLocomotorSet@@_N2HPAUICoord2D@@PAVObject@@H@Z@4PAHA",
+     {"deltaX", "rva002F83F5", "Pathfinder", "PathfindCell", "LocomotorSet", "ICoord2D", "Object"}),
+])
+def test_local_static_names_tokenize(symbol, classes):
+    import rename
+    assert {symbol[a:b] for a, b in rename.fragments(symbol)} == classes
+    assert not rename.ClassText("FXNugget").search(symbol)
+    assert rename.ClassText(sorted(classes)[0]).search(symbol)

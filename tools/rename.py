@@ -663,8 +663,10 @@ def _parse_qualified(s, i, out):
         elif c == "?":
             if s[i + 1] == "A":                  # anonymous namespace ?A0x...@
                 i = s.index("@", i) + 1
-            elif s[i + 1].isdigit() and s[i + 2] == "?":   # ?1? + a nested function symbol
-                i = _parse_symbol(s, i + 3, out)
+            elif re.match(r"\?(?:\d|[A-P]+@)\?", s[i:]):    # ?1? / ?BC@? + a nested function symbol
+                # a function-local scope: its discriminator is an encoded number (a digit, or
+                # hex letters A-P ended by `@`), then the enclosing function's own symbol
+                i = _parse_symbol(s, i + re.match(r"\?(?:\d|[A-P]+@)\?", s[i:]).end(), out)
             else:
                 raise ValueError(f"scope at {i}")
         elif c.isalpha() or c == "_":
@@ -673,6 +675,10 @@ def _parse_qualified(s, i, out):
                 raise ValueError(f"fragment {s[i:j]!r}")
             out.append((i, j))
             i = j + 1
+        elif c == "$" and re.match(r"\$[A-Za-z0-9_]+@", s[i:]):
+            # a compiler-generated name: `?$S4@?7??f@C@@...@4IA` is the guard of a function-local
+            # static inside C::f. It names no class or member, so it is no fragment.
+            i = s.index("@", i) + 1
         else:
             raise ValueError(f"name at {i}")
 
@@ -6467,6 +6473,14 @@ def existing_definers(ctx, plan, new):
     return found
 
 
+def spells_in_code(ctx, rel, word):
+    """`rel` spells the type `word` in code: outside comments, string literals and
+    #include paths. Prose ("FXNugget-family base ctor") never collides with a class."""
+    text = (ctx.read(rel) or b"").decode("utf-8", errors="replace")
+    code = name_metric.strip("\n".join(line for line in text.splitlines() if not INCLUDE_LINE.match(line)))
+    return re.search(r"(?<![A-Za-z0-9_])%s(?![A-Za-z0-9_])" % re.escape(word), code) is not None
+
+
 def prepare_merge_sources(ctx, plan, prepared, old, new, registration):
     """Put prepared units into a --merge-existing plan: units whose private NEW view the
     caller already reshaped onto the canonical class, spelled as they read after the
@@ -6719,10 +6733,9 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
     # Collisions: the new token must be free everywhere a mangled name or a
     # source could spell it -- or, merging, spelled only as a type nothing owns.
     # An #include path is a file name, not a spelling of the type (a revert's
-    # placeholder still names its kept header).
-    taken = [rel for rel in ctx.grep_files(new, word=True)
-             if ClassText(new).search("\n".join(line for line in (ctx.read(rel) or b"").decode(
-                 "utf-8", errors="replace").splitlines() if not INCLUDE_LINE.match(line)))]
+    # placeholder still names its kept header), and prose in a comment or string
+    # declares nothing: only code can collide.
+    taken = [rel for rel in ctx.grep_files(new, word=True) if spells_in_code(ctx, rel, new)]
     new_frag = type_fragment_re(new)
     if merge:
         problems = merge_problems(ctx, new, names)
