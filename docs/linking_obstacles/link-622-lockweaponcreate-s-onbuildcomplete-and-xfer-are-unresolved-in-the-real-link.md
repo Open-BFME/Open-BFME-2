@@ -35,3 +35,18 @@ hatches.
 its own verified commit. Then the vftable proves slot 1, the rename lands, and the map can approve
 0x004B8CC9 into `LockWeaponCreate.cpp`. `xfer` follows the ICF-fold rules once its sibling classes are
 known.
+
+**2026-11-08 (Burachi-3D, claude-opus-5-5).** Steps 1-2 of the lk41 order
+(`reverse/attempt_support/lockweaponcreate-createmodule-fold-20261107-lk41.md`) are done:
+- `~BehaviorModule` has its row. `??1BehaviorModule@@MAE@XZ` 0x004607E1 and `??_GBehaviorModule@@MAEPAXI@Z`
+  0x0025335A are ICF folds onto `??1/??_GRva004607E1` (FXListDie.cpp, ae2bc4d6eb). This took the fold-row
+  route, not the class fold (whose 0x00BEEA7C third names are still there).
+- `Rva004B8CDE` is folded into `CreateModule` (acc0d98cc9, landed d88c3448da): `??1CreateModule@@MAE@XZ`
+  0x004B8CDE and `??_GCreateModule@@MAEPAXI@Z` 0x004B8D32. The five lk41 units were rebuilt and prepared
+  on CreateModuleClass.h; 112/112 rows exact; 8 alternatenames retired. data_ledger.csv was regenerated
+  (aa3afb41ca).
+- Rva004B8CDEDerived.cpp's LockWeaponCreate is now `class LockWeaponCreate : public CreateModule`
+  (destructor 0x004B8C3E, `??_G` 0x004B8CAD). Remaining: step 3, LockWeaponCreate.cpp on
+  CreateModuleClass.h with one LockWeaponCreate view shared with Rva004B8CDEDerived.cpp
+  (tu_map approves the destructor 0x004B8C3E into LockWeaponCreate.cpp, `??_G` is only proposed),
+  then onBuildComplete/xfer/GetSnapshotName as the lk41 note lists.
