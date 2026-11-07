@@ -58,7 +58,6 @@ struct Rva007AB7F0HalfRateInits
 	static void rva007ACB92();
 	static void rva007ACFE5();
 	static void rva007AD3A6();
-	static void rva007AD453();
 	static void rva007AD4FB();
 	static void rva007AD6F3();
 	static void rva007AD929();
@@ -361,8 +360,6 @@ HALF_RATE_INIT( rva007ACB92 )
 HALF_RATE_INIT( rva007ACFE5 )
 // ?rva007AD3A6@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AD3A6 (16B), static at VA 0x00DFDCA4
 HALF_RATE_INIT( rva007AD3A6 )
-// ?rva007AD453@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AD453 (16B), static at VA 0x00DFDCC4
-HALF_RATE_INIT( rva007AD453 )
 // ?rva007AD4FB@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AD4FB (16B), static at VA 0x00DFDD08
 HALF_RATE_INIT( rva007AD4FB )
 // ?rva007AD6F3@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AD6F3 (16B), static at VA 0x00DFE148
