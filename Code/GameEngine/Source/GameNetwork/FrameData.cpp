@@ -44,7 +44,7 @@ public:
 
 private:
 	unsigned char m_bfmeHead[0x10];		// 0x00
-	BfmePairYL m_bfmePairs[13];		// 0x10
+	BfmePairYL m_pairs[13];		// 0x10
 };
 
 struct BfmeItemYN
@@ -238,8 +238,8 @@ BfmePairYL *BfmeTableYL::bfmeFindYL(int key)
 {
 	for (int i = 0; i < 13; ++i)
 	{
-		if (m_bfmePairs[i].m_bfmeKey == key)
-			return &m_bfmePairs[i];
+		if (m_pairs[i].m_bfmeKey == key)
+			return &m_pairs[i];
 	}
 
 	return 0;
