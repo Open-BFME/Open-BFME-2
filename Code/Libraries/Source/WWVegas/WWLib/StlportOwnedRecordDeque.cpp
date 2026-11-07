@@ -179,6 +179,17 @@ template class _STL::deque<BfmeOpaqueOwnedRecord1408,
 template class _STL::deque<BfmeOpaqueOwnedRecord1432,
 	_STL::allocator<BfmeOpaqueOwnedRecord1432> >;
 template _STL::deque<BfmeOpaqueOwnedRecord2148>::deque(const _STL::allocator<BfmeOpaqueOwnedRecord2148> &);
+
+// BuddyThread.cpp's queue<BuddyResponse> (0x864-byte records, built with exceptions)
+// reaches the same no-exception deque base bodies at 0x00550858/0x00550A83/0x00550C06;
+// it only declares them, so this unit emits the BuddyResponse-named copies (ICF folds).
+// Only the record's size is consumed here.
+class BuddyResponse
+{
+	unsigned int m_words[0x864 / 4];
+};
+template _STL::_Deque_base<BuddyResponse, _STL::allocator<BuddyResponse> >::_Deque_base(
+	const _STL::allocator<BuddyResponse> &, unsigned int);
 typedef _STL::queue<BfmeOpaqueOwnedRecord492> BfmeQueue492;
 typedef _STL::queue<BfmeOpaqueOwnedRecord840> BfmeQueue840;
 template _STL::queue<BfmeOpaqueOwnedRecord492>::queue();
