@@ -56,7 +56,7 @@ class Rva0035D133
 public:
 	virtual void vslot00(); virtual void vslot01();
 	virtual void vslot02(Int value);
-	void rva0035D133(Int unused);
+	void reset(Int unused);
 private:
 	char m_pad04[0x08 - 0x04];
 	Bool m_08;
@@ -66,7 +66,7 @@ private:
 	char m_pad14[0x24 - 0x14];
 	Bool m_24;
 };
-void Rva0035D133::rva0035D133(Int unused)
+void Rva0035D133::reset(Int unused)
 {
 	m_09 = true;
 	m_08 = false;
@@ -97,13 +97,13 @@ public:
 	Bool rva0041513D();
 private:
 	char m_pad00[0x20];
-	Bool m_20;
+	Bool m_pending;
 };
 Bool Rva0041513D::rva0041513D()
 {
-	if (m_20)
+	if (m_pending)
 	{
-		m_20 = false;
+		m_pending = false;
 		return true;
 	}
 	return false;

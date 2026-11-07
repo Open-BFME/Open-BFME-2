@@ -9080,3 +9080,7 @@ member,BfmeTableYL::m_bfmePairs,BfmeTableYL::m_pairs,inferred,agree:nl-77cca089a
 member,Gen_004655b0::m_bfmeHandler,Gen_004655b0::m_dispatchHandler,inferred,agree:nl-7804251d394b,Code/GameEngine/Source/Common/S3SplitDispatchers.cpp,
 function,?rva005FA8C5@Rva005FAF5D@@QAEX_N@Z,?setSelected@Rva005FAF5D@@QAEX_N@Z,inferred,agree:nl-ebf507abfb3b,Code/GameEngine/Source/Common/Rva005FA89C.cpp,0x005FA8C5
 function,?rva005FAF9F@Rva005FAF5D@@QAEXXZ,?returnToOwner@Rva005FAF5D@@QAEXXZ,inferred,agree:nl-3e1b7ab0ff4c,Code/GameEngine/Source/Common/Rva005FA89C.cpp,0x005FAF9F
+member,Rva0041513D::m_20,Rva0041513D::m_pending,inferred,agree:nl-216f3fec48ec,Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp,
+member,Rva0006E27DWords::word0,Rva0006E27DWords::m_first,inferred,agree:nl-6082c6f2156b,Code/GameEngine/Source/Common/W3SmallValueInitializers.cpp,
+member,Rva0006E27DWords::word4,Rva0006E27DWords::m_second,inferred,agree:nl-c79b07f36f0d,Code/GameEngine/Source/Common/W3SmallValueInitializers.cpp,
+function,?rva0035D133@Rva0035D133@@QAEXH@Z,?reset@Rva0035D133@@QAEXH@Z,inferred,agree:nl-cff29a374181,Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp,0x0035D133

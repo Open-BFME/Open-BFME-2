@@ -86,12 +86,12 @@ class Rva0006E27DWords
 public:
     Rva0006E27DWords *initialize(unsigned int first, unsigned int second);
 private:
-    unsigned int word0, word4, word8;
+    unsigned int m_first, m_second, word8;
 };
 Rva0006E27DWords *Rva0006E27DWords::initialize(unsigned int first, unsigned int second)
 {
-    word0 = first;
-    word4 = second;
+    m_first = first;
+    m_second = second;
     word8 = 0;
     return this;
 }

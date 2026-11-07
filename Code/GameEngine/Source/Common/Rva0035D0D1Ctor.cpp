@@ -51,7 +51,7 @@ Rva0035D0D1::Rva0035D0D1() : m_10(0), m_14(30), m_18(7), m_1C(false), m_20(1.0f)
 // Placeholder virtuals this unit's vftables hold.  In retail each such slot
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?slot1@Rva0035D0D1@@UAEXH@Z=?rva0035D133@Rva0035D133@@QAEXH@Z")
+#pragma comment(linker, "/alternatename:?slot1@Rva0035D0D1@@UAEXH@Z=?reset@Rva0035D133@@QAEXH@Z")
 #pragma comment(linker, "/alternatename:?slot2@Rva0035D0D1@@UAEXH@Z=?update@Rva0035D0D1@@UAEXH@Z")
 #pragma comment(linker, "/alternatename:?slot3@Rva0035D0D1@@UAEXXZ=?rva0035D1BD@Rva0035D1BD@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?slot4@Rva0035D0D1@@UAEXXZ=?draw@Rva0035D0D1@@UAEXXZ")
