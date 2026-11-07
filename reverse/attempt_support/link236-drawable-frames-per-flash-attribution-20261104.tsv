@@ -43,7 +43,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ac58d	0xdebc08	?$S1@?1??getModuleNameKey@W3DSailModelDraw@@UBE?AW	W3DSailModelDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSailModelDraw.cpp	1	rowed by lk39 as W3DSailModelDraw.cpp _$E1 (guard's function approved to the file; include added)
 0x7ac5b7	0xdebc14	?$S1@?1??getModuleNameKey@W3DBoatWakeModelDraw@@UB	W3DBoatWakeModelDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBoatWakeModelDraw.cpp	1	rowed in this series
 0x7ac5e1	0xdebc28	?$S1@?3??doDrawModule@W3DProjectileStreamDraw@@UAE	W3DProjectileStreamDraw.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDraw.cpp	1	rowed in this series
-0x7ac60b	0xdebc34	?$S1@?1??getModuleNameKey@W3DTornadoDraw@@UBE?AW4N	W3DTornadoDrawPoolKey.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDraw.cpp	0	TU does not include Drawable.h yet
+0x7ac60b	0xdebc34	?$S1@?1??getModuleNameKey@W3DTornadoDraw@@UBE?AW4N	W3DTornadoDrawPoolKey.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DTornadoDraw.cpp	0	rowed by lk44 as W3DTornadoDraw.cpp _$E1 (static directly after its getModuleNameKey guard; the TU file compiles the copy)
 0x7ac635	0xdebc3c	?g_012F801C@@3HA		Code/GameEngine/Source/Common/System/TBuff.cpp	0	TU does not include Drawable.h yet
 0x7ac65f	0xdebc44	_s_dynamic	W3DRoadBuffer.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7ac689	0xdebc48	_s_dynamic	W3DRoadBuffer.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
@@ -164,7 +164,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7aff0a	0xe02fcc	?AptShutdownReceiverInstance@@3PAVAptShutdownRecei	BfmeConv1292.cpp		0	no contiguous .bss neighbour with a TU
 0x7b0115	0xe030dc	?TheGameStateMap@@3PAXA	GameStateInit.cpp	Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7b013f	0xe030ec	?TheActionManager@@3PAVActionManager@@A	GameClient.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpGameRules.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
-0x7b0241	0xe03148	?TheDelayedExperienceLevelGrantSystem@@3PAVDelayed			0	no contiguous .bss neighbour with a TU
+0x7b0241	0xe03148	?TheDelayedExperienceLevelGrantSystem@@3PAVDelayed			0	rowed by lk44 as DelayedExperienceLevelGrantSystem.cpp _$E1 (static between TheDelayedExperienceLevelGrantSystem and the unit's guard; the TU file compiles the copy)
 0x7b0280	0xe03164	?TheFormationAssistant@@3PAVRva0022AD10Subsystem@@			0	no contiguous .bss neighbour with a TU
 0x7b03c7	0xe031fc	_Dstring	IMECandidate.cpp		0	no contiguous .bss neighbour with a TU
 0x7b03f1	0xe03200	_Dstring	IMECandidate.cpp		0	no contiguous .bss neighbour with a TU
@@ -258,7 +258,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b19a9	0xe03b90	?$S1@?1??getModuleNameKey@RadarUpdate@@UBE?AW4Name	RadarUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/RadarUpdate.cpp	0	rowed in this series (Drawable.h include added)
 0x7b19ed	0xe03bac	?$S1@?1??getModuleNameKey@MonsterDockUpdate@@UBE?A	MonsterDockUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/MonsterDockUpdate.cpp	2	rowed in this series (TU file copy; one fragment copy stays unidentified until the merge)
 0x7b1a17	0xe03bb8	?$S1@?1??rva0004A1875@SlavedUpdate@@SA?AW4NameKeyT	SlavedUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/SlavedUpdate.cpp	0	Drawable.h include added and reverted: the unit does not compile with the canonical header
-0x7b1a52	0xe03bd0	?g_Va00E03BCC@@3IA	GlobalFlagClearers_E03Bxx.cpp		0	no contiguous .bss neighbour with a TU
+0x7b1a52	0xe03bd0	?g_Va00E03BCC@@3IA	GlobalFlagClearers_E03Bxx.cpp		0	rowed by lk44 as StealthDetectorUpdate.cpp _$E1 (static after the unit's pool key, guard and flag; the TU file compiles the copy)
 0x7b1a7c	0xe03bdc	?$S1@?1??getModuleNameKey@BroadcastStealthUpdate@@	BroadcastStealthUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdate.cpp	0	rowed by lk39 (Drawable.h include added after the unit's last include)
 0x7b1aa6	0xe03bf8	?$S1@?1??getModuleNameKey@SpawnPointProductionExit	SpawnPointProductionExitUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp	1	rowed in this series (round 4: guard file and class pick the unit; Drawable.h include added)
 0x7b1ad0	0xe03c04	?$S1@?1??rva0004A4010@HijackerUpdate@@SA?AW4NameKe	HijackerUpdatePoolKey.cpp	Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp	2	rowed by lk39 as HijackerUpdate.cpp _$E1 (guard's function approved to the file; include added)
@@ -274,7 +274,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b1cf2	0xe03d04	?$S1@?1??getModuleNameKey@DestroyEnvironmentUpdate	DestroyEnvironmentUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp	0	rowed by lk39 (Drawable.h include added after the unit's last include)
 0x7b1d1c	0xe03d18	?$S1@?1??getModuleNameKey@RousingSpeechUpdate@@UBE	RousingSpeechUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdate.cpp	0	rowed by lk39 (Drawable.h include added after the unit's last include)
 0x7b1d46	0xe03d24	?$S1@?1??getModuleNameKey@GloriousChargeUpdate@@UB	GloriousChargeUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/GloriousChargeUpdate.cpp	0	rowed by lk39 (Drawable.h include added after the unit's last include)
-0x7b1d70	0xe03d38	?g_Va00E03D34@@3IA	GlobalFlagClearers_E03Dxx.cpp		0	no contiguous .bss neighbour with a TU
+0x7b1d70	0xe03d38	?g_Va00E03D34@@3IA	GlobalFlagClearers_E03Dxx.cpp		0	rowed by lk44 as ToggleMountedSpecialAbilityUpdate.cpp _$E1 (static after the unit's pool key, guard and flag; the TU file compiles the copy)
 0x7b1dce	0xe03d64	?$S1@?1??getModuleNameKey@DetachableRiderUpdate@@U	DetachableRiderUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderUpdate.cpp	1	rowed in this series
 0x7b1df8	0xe03d70	?$S1@?1??getModuleNameKey@RespawnUpdate@@UBE?AW4Na	RespawnUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp	0	rowed by in-o5 (canonical Drawable.h adopted: include after its Snapshot include)
 0x7b1e22	0xe03d7c	?$S1@?1??getModuleNameKey@SpecialDisguiseUpdate@@U	SpecialDisguiseUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp	1	rowed in this series
