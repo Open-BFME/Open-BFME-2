@@ -182,6 +182,7 @@ def test_the_push_hook_runs_it_on_the_outgoing_range_before_any_gate_that_builds
     call = ('spawn "empty commit(s) in the outgoing range" python3 tools/empty_commits.py '
             '--range "$base" "$local_sha"')
     assert hook.count(call) == 1
-    assert hook.index(call) < hook.index("python3 tools/conversion_gate.py")
+    # the range gate (a push with no known base runs only `conversion_gate.py --cl-tree`, above)
+    assert hook.index(call) < hook.index('python3 tools/conversion_gate.py "$base"')
     assert hook.index(call) < hook.index("    join_jobs\n", hook.index(call))
     assert hook.index('if [ -z "$base" ]; then') < hook.index(call)

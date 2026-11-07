@@ -489,6 +489,14 @@ def test_added_cl_line_of_flags_passes(repo, monkeypatch, line):
     "// cl: /O2 /clang:-fplugin=x.so",
     "// cl: /O2 /I../../../../etc",
     '// cl: /I"unterminated /MD',
+    # Codex security review of f30e3b5270: a response file as an argument, a directive behind
+    # a line break git does not split at, a quoted /FI value.
+    "// cl: /O2 /I @Code/evil.rsp",
+    "// cl: /O2 /clang:-mllvm @Code/evil.rsp",
+    "// harmless\u2028// cl: /B1evil.dll",
+    "// harmless\x85// cl: /B1evil.dll",
+    "// harmless\v// cl: /B1evil.dll",
+    '// cl: /O2 /FI"Z:\\secret\\evil.h"',
 ])
 def test_added_cl_line_with_a_refused_flag_is_refused(repo, monkeypatch, capsys, line):
     _, write, commit, base = repo
@@ -517,3 +525,21 @@ def test_added_absolute_include_is_refused(repo, monkeypatch, line, code):
     _, write, commit, base = repo
     write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
     assert check_main(monkeypatch, base, commit()) == code
+
+
+@pytest.mark.parametrize("line, code", [("// cl: /O2 /MD", 0), ("// cl: /O2 /B1 evil.dll", 1),
+                                        ("// harmless // cl: /B1evil.dll", 1)])
+def test_cl_tree_judges_every_source_of_a_commit(repo, monkeypatch, line, code):
+    # pre-push runs this when a push has no known base: there is no diff to judge.
+    git, write, commit, _base = repo
+    write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
+    tip = commit()
+    monkeypatch.setattr(sys, "argv", ["conversion_gate.py", "--cl-tree", tip])
+    assert gate.main() == code
+
+
+def test_pre_push_runs_rule_f_when_a_push_has_no_known_base():
+    hook = (TOOLS.parent / ".githooks" / "pre-push").read_text()
+    branch = hook[hook.index('if [ -z "$base" ]; then'):]
+    branch = branch[:branch.index("continue")]
+    assert "conversion_gate.py --cl-tree" in branch and branch.index("--cl-tree") < branch.index("join_jobs")

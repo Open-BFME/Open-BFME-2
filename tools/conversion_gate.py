@@ -41,10 +41,13 @@ Rule E: an added #include under Code/ names no absolute path. `W:/...` compiles 
         one such pair kept master red for 6.6 hours.
 
 Rule F: an added `// cl:` line under Code/ carries only the flags tools/cl_flags.py
-        allows, with include paths inside the checkout. cl.exe does what a flag says:
-        /B1 loads another compiler DLL and /Fa writes a file anywhere, on every seat,
-        worker and runner that builds the commit. build.source_extra_flags refuses the
-        same flags at compile time.
+        allows, with include paths inside the checkout, and no line break other than a
+        newline joins or splits it (build.py's str.splitlines breaks at U+2028 and the
+        like, git only at \n). cl.exe does what a flag says: /B1 loads another compiler
+        DLL and /Fa writes a file anywhere, on every seat, worker and runner that builds
+        the commit. `--cl-tree COMMIT` judges every Code/ source of a tree (pre-push, when
+        a push has no known base). build.source_extra_flags refuses the same at compile
+        time, for every source, judged here or not.
 """
 
 from collections import Counter
@@ -116,26 +119,60 @@ def cl_non_flags(line):
     return bad
 
 
-def added_cl_unsafe(old, new):
-    """[(path, refusal)] for each added `// cl:` line under Code/ with a flag cl_flags refuses
-    (Rule D reports plain words that are not flags; this reports everything else)."""
+def cl_text_refusals(text, plain_words=True):
+    """Rule F's refusals for source text: a `// cl:` line build.py and git read differently, and
+    every `// cl:` line (as build.py splits lines) with a flag cl_flags refuses. plain_words=False
+    leaves words that are not flags to Rule D."""
     import build
     import cl_flags
+    split = cl_flags.directive_split(text)
+    found = [split] if split else []
+    for line in text.splitlines():
+        if not line.lstrip("\ufeff").startswith(CL_MARK):
+            continue
+        try:
+            tokens = build._source_flag_tokens(line.lstrip("\ufeff")[len(CL_MARK):])
+        except SystemExit as malformed:
+            found.append(str(malformed))
+            continue
+        refused = [(token, reason) for token, reason in cl_flags.problems(tokens)
+                   if plain_words or reason != "is not a flag"]
+        if refused:
+            found.append(cl_flags.describe(refused)[:300])
+    return found
+
+
+def added_cl_unsafe(old, new):
+    """[(path, refusal)] for each added line under Code/ holding a `// cl:` directive with a flag
+    cl_flags refuses, or one a line break other than a newline hides (Rule D reports plain words
+    that are not flags; this reports everything else)."""
     found, path = [], None
     for line in diff_lines(old, new, "Code/"):
         if line.startswith("+++ b/"):
             path = line[6:]
-        elif line.startswith("+") and line[1:].lstrip("\ufeff").startswith(CL_MARK):
-            text = line[1:].lstrip("\ufeff")
-            try:
-                tokens = build._source_flag_tokens(text[len(CL_MARK):])
-            except SystemExit as malformed:
-                found.append((path, str(malformed)))
-                continue
-            refused = [(token, reason) for token, reason in cl_flags.problems(tokens)
-                       if reason != "is not a flag"]
-            if refused:
-                found.append((path, cl_flags.describe(refused)[:300]))
+        elif line.startswith("+") and not line.startswith("+++") and CL_MARK in line:
+            found.extend((path, refusal) for refusal in cl_text_refusals(line[1:], plain_words=False))
+    return found
+
+
+def tree_cl_refusals(commit):
+    """[(path, refusal)] for every Code/ source of `commit` holding `// cl:`: Rule F over a whole
+    tree, for a push with no known base (nothing to diff against)."""
+    listing = subprocess.run(["git", "grep", "-l", "-z", "-I", "-F", CL_MARK, commit, "--", "Code/"],
+                             capture_output=True)
+    if listing.returncode not in (0, 1):
+        raise SystemExit("conversion gate: git grep failed: " + listing.stderr.decode(errors="replace"))
+    names = [name for name in listing.stdout.split(b"\0") if name]           # b"<commit>:<path>"
+    batch = subprocess.run(["git", "cat-file", "--batch"], input=b"".join(name + b"\n" for name in names),
+                           capture_output=True, check=True).stdout
+    found, at = [], 0
+    for name in names:
+        header_end = batch.index(b"\n", at)
+        size = int(batch[at:header_end].split()[2])
+        text = batch[header_end + 1:header_end + 1 + size].decode("utf-8-sig", errors="replace")
+        at = header_end + 1 + size + 1
+        path = name.decode("utf-8", "replace").split(":", 1)[1]
+        found.extend((path, refusal) for refusal in cl_text_refusals(text))
     return found
 
 
@@ -162,13 +199,22 @@ GEN_ASM_LINE_RE = re.compile(
     r"    db (?:0?[0-9A-F]{2}h)(?:, 0?[0-9A-F]{2}h)*|)$")
 
 
+def newline_lines(text):
+    """git's lines: split at \n only (str.splitlines also breaks at U+2028, \v, \f... and would
+    hand a rule half of one diff line as another, unprefixed one), each \r\n's \r dropped."""
+    lines = text.split("\n")
+    if lines and lines[-1] == "":
+        lines.pop()
+    return [line[:-1] if line.endswith("\r") else line for line in lines]
+
+
 def diff_lines(old, new, *paths):
     if old is None:
-        return run("git", "diff-tree", "--root", "-p", "--unified=0", *DIFF_OPTS, new,
-                   "--", *paths).splitlines()
+        return newline_lines(run("git", "diff-tree", "--root", "-p", "--unified=0", *DIFF_OPTS, new,
+                                 "--", *paths))
     cmd = ["git", "diff", "--unified=0", *RENAMES, *DIFF_OPTS]
     cmd += ["--cached", old] if new == ":" else [old, new]
-    return run(*cmd, "--", *paths).splitlines()
+    return newline_lines(run(*cmd, "--", *paths))
 
 
 def _gen_asm_diff_offences(old, new):
@@ -420,6 +466,12 @@ def clean_coverage_lost(old, new):
 
 
 def main():
+    if len(sys.argv) == 3 and sys.argv[1] == "--cl-tree":
+        found = tree_cl_refusals(sys.argv[2])
+        for path, refusal in found:
+            print(f"conversion gate: {path}: a `// cl:` line tools/cl_flags.py refuses: {refusal}",
+                  file=sys.stderr)
+        return 1 if found else 0
     if len(sys.argv) != 3:
         raise SystemExit(__doc__.strip().splitlines()[2].strip())
     old, new = sys.argv[1], sys.argv[2]

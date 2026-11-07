@@ -684,8 +684,10 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         base="$(git merge-base "$local_sha" origin/master 2>/dev/null || true)"
     fi
     if [ -z "$base" ]; then
+        # Nothing to diff against, so Rule F judges the whole pushed tree instead.
+        spawn "\`// cl:\` flags over the pushed tree" python3 tools/conversion_gate.py --cl-tree "$local_sha"
         join_jobs
-        echo "pre-push: no known remote base; static ledger check only" >&2
+        echo "pre-push: no known remote base; static ledger and \`// cl:\` checks only" >&2
         continue
     fi
 

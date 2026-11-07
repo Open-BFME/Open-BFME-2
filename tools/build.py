@@ -983,7 +983,9 @@ def source_needs_dxsdk(source):
 
 
 def compiler_environment(root, source=None):
-    env = os.environ.copy()
+    # Never the caller's CL, _CL_, LINK, ML, CCC_OVERRIDE_OPTIONS...: cl.exe, link.exe, ml.exe and
+    # clang read flags from them (tools/cl_flags.py OPTION_ENV), in any case.
+    env = {name: value for name, value in os.environ.items() if name.upper() not in cl_flags.OPTION_ENV}
     bin_dir = root / "Vc7" / "bin"
     ide_dir = root / "Common7" / "IDE"
     base_dir = root.parents[1]
@@ -1325,10 +1327,14 @@ def source_extra_flags(source):
             return _ZH_FLAGS
         return _GENERALS_FLAGS
     with source.open("r", encoding="utf-8-sig", errors="replace") as handle:
-        for line in handle.read().splitlines():
+        text = handle.read()
+        split = cl_flags.directive_split(text)
+        if split:
+            raise cl_flags.Refused(f"cl flags: {source}: {split}")
+        for line in text.splitlines():
             if line.startswith("// cl:"):
                 tokens = _source_flag_tokens(line[len("// cl:") :])
-                _allowed_flags(source, tokens, paths=True)
+                _allowed_flags(source, tokens)
                 # Use '-' style options so MSYS/Cygwin shells don't rewrite
                 # leading '/' arguments as Windows paths.
                 flags = [f.replace("/", "-", 1) if f.startswith("/") else f
@@ -1343,17 +1349,34 @@ def source_extra_flags(source):
                 in_donor = _is_bfme1_donor(source) if needs_owner else False
                 return _allowed_flags(source, flag_defaults.apply(
                     source, [_current_bfme1_include_flag(
-                        flag, source, cnc_variant, _in_donor=in_donor) for flag in flags]), paths=False)
+                        flag, source, cnc_variant, _in_donor=in_donor) for flag in flags]))
     # The region decides /O, /arch and /G for Code/ sources (tools/flag_defaults.py).
-    return _allowed_flags(source, flag_defaults.apply(source, []), paths=False)
+    return _allowed_flags(source, flag_defaults.apply(source, []))
 
 
-def _allowed_flags(source, flags, *, paths):
+def _include_roots():
+    """Where a /I or /FI path may resolve: this checkout (the compiler's working directory, first),
+    Open-BFME-1 and its top-level trees, which a seat may link in from another checkout."""
+    return _include_roots_of(str(ROOT), str(BFME1_ROOT))
+
+
+@functools.lru_cache(maxsize=4)
+def _include_roots_of(root, bfme1_root):
+    roots = [root, bfme1_root]
+    try:
+        roots += [os.path.realpath(entry) for entry in Path(bfme1_root).iterdir() if entry.is_dir()]
+    except OSError:
+        pass
+    return tuple(dict.fromkeys(roots))
+
+
+def _allowed_flags(source, flags):
     """`flags`, refusing any tools/cl_flags.py does not allow: a flag that loads code or writes
-    files would run on every machine that builds the source. The `// cl:` tokens are checked as
-    written, include paths too (paths=True); the final list again without paths (they are
-    rewritten in between), because flag_defaults adds tokens from reverse/ data."""
-    refused = cl_flags.problems(flags, paths=paths)
+    files would run on every machine that builds the source. This is the backstop for every
+    source conversion_gate's Rule F does not judge. The `// cl:` tokens are checked as written
+    and the final list again (its include paths are rewritten in between, and flag_defaults adds
+    tokens from reverse/ data), include paths resolved, links followed."""
+    refused = cl_flags.problems(flags, roots=_include_roots())
     if refused:
         raise cl_flags.Refused(f"cl flags: {source}: {cl_flags.describe(refused)}; tools/cl_flags.py "
                                "lists the flags a source may carry")
