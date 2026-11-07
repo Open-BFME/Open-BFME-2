@@ -10,15 +10,13 @@
 // CancelDisguiseWhenDismounting@CD/MountedTemplate@D0/
 // SynchronizeTimerOnSpecialPower@D4). Row supersedes the ctor pin.
 //
-// Scheduling (all probe-proven, in order tried): the retail vtable store sits
-// second (right after the two flag bytes, before the float/int stores), but a
-// virtual derived sinks the compiler vtable fourth, so the vtable is an
-// explicit pointer-cast store with no virtuals declared. A _ReadWriteBarrier
-// after the float store pins the vtable above the int/vector setups (bare
-// setups hoist above an explicit vtable; the barrier is too coarse before the
-// float because it traps xorps below the vtable). A sourced-before float
-// pointer anchors the movss above the vector call setups (pure lea setups
-// otherwise hoist above it). The 16-byte vector element is a stand-in: its
+// +0xD0 MountedTemplate is an AsciiString: retail's destructor 0x004AE10B
+// releases it through 0x00036410. With that member type and the float and both
+// flags in the initializer list, the compiler installs the class's own vftable
+// (retail 0x00C55220, 31 ModuleData slots) second, after the two flag bytes, as
+// retail does; the earlier explicit store of a zero s_vtableAnchor (a schedule
+// forced by a pointer-typed +0xD0) is gone (crash-prevention, 2026-11-07).
+// The 16-byte vector element is a stand-in: its
 // Vector_base call resolves through the ICF-folded rowed 0x211E58 body, and
 // the qualified explicit init call emits the bare call with no guard (the
 // allocator temp materializes at [esp+7] exactly as retail). Row supersedes
@@ -26,12 +24,9 @@
 
 #include <vector>
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
 
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 
-static int s_vtableAnchor;
 
 #include "../../../../Include/GameLogic/Module/SpecialAbilityUpdateModuleData.h"
 
@@ -39,25 +34,22 @@ class ToggleMountedSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateM
 {
 public:
 	ToggleMountedSpecialAbilityUpdateModuleData();
+	virtual ~ToggleMountedSpecialAbilityUpdateModuleData();
 
 private:
 	float m_opacityTarget;	// +0xC8 OpacityTarget
 	bool m_triggerInstantlyOnCreate;	// +0xCC TriggerInstantlyOnCreate
 	bool m_cancelDisguiseWhenDismounting;	// +0xCD CancelDisguiseWhenDismounting
-	const void *m_mountedTemplate;	// +0xD0 MountedTemplate
-	unsigned char m_synchronizeTimerPad[12];	// +0xD4 SynchronizeTimerOnSpecialPower (_STL::vector<BfmeE16> raw; explicit body init)
+	AsciiString m_mountedTemplate;	// +0xD0 MountedTemplate (retail dtor releases it through 0x00036410)
+	unsigned char m_synchronizeTimerPad[12];	// +0xD4 SynchronizeTimerOnSpecialPower (_STL::vector raw; explicit body init)
 };
 
 // ??0ToggleMountedSpecialAbilityUpdateModuleData@@QAE@XZ @0x004AE0AC
 ToggleMountedSpecialAbilityUpdateModuleData::ToggleMountedSpecialAbilityUpdateModuleData()
-	: m_triggerInstantlyOnCreate(false),
+	: m_opacityTarget(0.0f),
+	  m_triggerInstantlyOnCreate(false),
 	  m_cancelDisguiseWhenDismounting(false)
 {
-	float *opacity = &m_opacityTarget;
-	*(const void **)this = (const void *)&s_vtableAnchor;
-	*opacity = 0.0f;
-	_ReadWriteBarrier();
-	m_mountedTemplate = 0;
 	_STL::vector<BfmeE16> &synchronizeTimer = (_STL::vector<BfmeE16> &)m_synchronizeTimerPad;
 	synchronizeTimer._STL::vector<BfmeE16>::vector();
 }
