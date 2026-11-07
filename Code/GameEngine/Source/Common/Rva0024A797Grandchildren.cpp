@@ -431,7 +431,7 @@ Rva0045232D::~Rva0045232D()
 #pragma comment(linker, "/alternatename:?fe@Rva0049BFB7_E1@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
 #pragma comment(linker, "/alternatename:?fe@Rva004A1855_E1@@UAEXXZ=?getKey@?$CategoryModuleClass@$0A@@FXParticleSystem@@QBEPBDXZ")
 #pragma comment(linker, "/alternatename:?fe@Rva004A653D_E1@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
-#pragma comment(linker, "/alternatename:?fe@Rva004B8732_E1@@UAEXXZ=?rva004B8851@Rva004B8732@@UBE?AVAsciiString@@XZ")
+#pragma comment(linker, "/alternatename:?fe@Rva004B8732_E1@@UAEXXZ=?rva004B8851@SpawnUnitBehavior@@UBE?AVAsciiString@@XZ")
 #pragma comment(linker, "/alternatename:?ff@Rva0045232D_E2@@UAEXXZ=?onDamage@AutoHealBehavior@@UAEXPAVDamageInfo@@@Z")
 #pragma comment(linker, "/alternatename:?fe@Rva0045232D_E1@@UAEXXZ=?Is_Valid@RegistryClass@@QAE_NXZ")
 

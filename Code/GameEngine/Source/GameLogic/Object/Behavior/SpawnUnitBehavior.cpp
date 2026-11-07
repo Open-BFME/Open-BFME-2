@@ -83,7 +83,7 @@ public:
 class SpawnUnitBehaviorIface3
 {
 public:
-    virtual void slot0() const = 0;
+    virtual AsciiString rva004B8851() const = 0;
 };
 
 // Retail 0x00C591EC (13 slots): deleting dtor 0x004B8824, loadPostProcess
@@ -105,6 +105,8 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 	// slot 0 of the UpdateModuleInterface table 0x00C59124 at +0x10: 0x004B886F
 	virtual UpdateSleepTime update();
+	// slot 0 of the +0x20 interface table 0x00C59120: 0x004B8851 (Rva004B8732Getter.cpp)
+	virtual AsciiString rva004B8851() const;
 
 protected:
 	virtual const char *GetSnapshotName() const;
