@@ -84,7 +84,17 @@ const char *LivingWorldRegionManager::GetSnapshotName() const
 	return "LivingWorldRegionManager";
 }
 BFME_LITERAL_NAME_GETTER(SkirmishGameInfo, "SkirmishGameInfo")
-BFME_LITERAL_NAME_GETTER(Rva0028CBDBNamed, "ObjectWeaponStatusHelper")
+// Slot 2 of ObjectWeaponStatusHelper's primary table 0x00BFBE48.
+class ObjectWeaponStatusHelper
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+const char *ObjectWeaponStatusHelper::GetSnapshotName() const
+{
+	return "ObjectWeaponStatusHelper";
+}
 BFME_LITERAL_NAME_GETTER(ObjectSMCHelper, "ObjectSMCHelper")
 BFME_LITERAL_NAME_GETTER(Rva002A92E4Named, "SkirmishAIManager")
 BFME_LITERAL_NAME_GETTER(Rva002AC360Named, "LightPointSystem")

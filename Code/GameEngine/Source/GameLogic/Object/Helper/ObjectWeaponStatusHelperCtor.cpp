@@ -18,8 +18,6 @@
 // with ATL's _AtlGetThreadACPReal). 0x00BFBE3C: update 0x0028F976,
 // getDisabledTypesToProcess 0x004DF8C2 (bits 3 and 8), then UpdateModule's
 // wake slot.
-// Not declared yet: the name getter, whose row (Rva0028CBDBNamed, 0x0028CBDB)
-// sits in a unit another seat holds, so slot 2 still inherits UpdateModule's.
 
 class Snapshot;
 class AsciiString;
@@ -59,6 +57,7 @@ public:
 
 protected:
 	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	virtual SleepyUpdatePhase getUpdatePhase() const;
 };

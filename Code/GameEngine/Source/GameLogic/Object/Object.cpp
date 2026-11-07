@@ -4857,7 +4857,7 @@ void *Rva0028C783::rva0028C783(unsigned int idx)
 
 // tu-skeleton: 0x0028CB96 69B ?getModuleNameKey@ObjectWeaponStatusHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0028CBDB 6B ?name@Rva0028CBDBNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
+// tu-skeleton: 0x0028CBDB 6B ?GetSnapshotName@ObjectWeaponStatusHelper@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters2.cpp (not merged yet)
 
 // tu-skeleton: 0x0028CBE1 28B ??_GObjectWeaponStatusHelper@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004DF7C2Derived.cpp (not merged yet)
 
