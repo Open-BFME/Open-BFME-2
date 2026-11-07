@@ -1,13 +1,23 @@
-// RemoveUpgradeUpgradeView.h: the one view of RemoveUpgradeUpgrade, its
-// UpgradeModule bases and its ModuleData, shared by RemoveUpgradeUpgrade.cpp
-// and the donors that merge into it. Layout: BehaviorModule +0 (vptr,
-// m_moduleData +4, m_object +8), BehaviorModuleInterface +0xC, UpgradeMux
-// +0x10 (state +0x14), ModuleInterface +0x18 (size 0x1C); retail ctor 0x004B7FA4
-// and dtor 0x004B7F01 store the four vptrs at +0/+0xC/+0x10/+0x18.
+// RemoveUpgradeUpgradeView.h: the one view of RemoveUpgradeUpgrade over the
+// canonical UpgradeModule.h, and of its ModuleData, shared by
+// RemoveUpgradeUpgrade.cpp and the donors that merge into it.
+// Target facts (code RVAs, table VAs): ctor 0x004B7FA4 and dtor 0x004B7F01
+// store 0x00C58E20 at +0, UpgradeModule's 0x00C57328 at +0x0C, 0x00C58DD8 at
+// +0x10 and UpgradeModule's 0x00C58790 at +0x18 (size 0x1C).
+//  - 0x00C58E20 (12 slots): ??_G 0x004B7FD5, loadPostProcess 0x00497805
+//    (`jmp 0x0058B03E`, UpgradeModule's own body), the name getter 0x004B7F21
+//    (rowed as the non-virtual ?name@RemoveUpgradeUpgrade, so slot 2 stays
+//    UpgradeModule's here), xfer 0x004B8710 (Version1 then UpgradeModule::xfer,
+//    the body retail folds with ArmorUpgrade::xfer), getModuleNameKey
+//    0x004B7F3D, then UpgradeModule's slots.
+//  - 0x00C58DD8 (UpgradeMux, 18 slots): UpgradeModule's except slot 8,
+//    upgradeRemovalImplementation 0x004B7F27, and slot 10,
+//    upgradeImplementation 0x004B8095 (RemoveUpgradeUpgradeImplementation.cpp).
 #ifndef REMOVEUPGRADEUPGRADEVIEW_H
 #define REMOVEUPGRADEUPGRADEVIEW_H
 
 #include <vector>
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "ascii_string.h"
 
@@ -55,46 +65,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class BehaviorModule
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-struct BehaviorModuleInterface { virtual void iface() {} };
-
-// UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
-// setUpgradeExecuted, slot 10 upgradeImplementation.
-class UpgradeMux
-{
-public:
-	UpgradeMux();
-	virtual bool executed() const = 0;
-	virtual void f1() = 0; virtual void f2() = 0; virtual void f3() = 0;
-	virtual void f4() = 0; virtual void f5() = 0; virtual void f6() = 0;
-	virtual void f7() = 0;
-protected:
-	virtual void upgradeRemovalImplementation() = 0;
-	virtual void setUpgradeExecuted(bool executed) = 0;
-	virtual void upgradeImplementation() = 0;
-	int state;
-};
-
-struct ModuleInterface { virtual void iface() {} };
-
-class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule(Thing *thing, const ModuleData *moduleData);
-	void rva004CE4A0();
-	void rva004CE4A8();
-protected:
-	virtual ~UpgradeModule(); // retail ??1UpgradeModule@@MAE@XZ, 0x0046089D
-};
+#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 class RemoveUpgradeUpgrade : public UpgradeModule
 {
@@ -103,8 +74,9 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 protected:
 	virtual ~RemoveUpgradeUpgrade();
-	virtual void upgradeRemovalImplementation();
-	virtual void upgradeImplementation();
+	virtual void xfer(Xfer *xfer);											// primary slot 3
+	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
+	virtual void upgradeImplementation();									// UpgradeMux slot 10
 };
 
 #endif
