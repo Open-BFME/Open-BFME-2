@@ -52,10 +52,10 @@ def inputs(tmp_path, slots=("_first",), **kw):
     return code, table, rows, data
 
 
-def plan(code, tables, rows, data, omitted=(), retail=None, object_for=None, archives=()):
+def plan(code, tables, rows, data, omitted=(), retail=None, object_for=None, archives=(), source_of=None):
     return V.plan(rows, tables + [code], omitted, retail or Retail(), data,
                   archives=archives, object_for=object_for or (lambda row: code),
-                  symbol_for=lambda row: row["name"])
+                  symbol_for=lambda row: row["name"], source_of=source_of)
 
 
 def test_short_select_any_copy_gets_complete_kept_targets(tmp_path):
@@ -93,11 +93,134 @@ def test_any_strong_copy_refuses_bridge_in_both_orders(tmp_path, strong_first):
     assert result["refusals"][0]["reason"] == "strong-definition"
 
 
-def test_strong_definition_under_another_ledger_name_also_refuses(tmp_path):
+@pytest.mark.parametrize("strong_names", [("_other",), ("_other", "_third")])
+def test_strong_name_is_refused_alone_and_its_comdat_neighbour_is_bridged(tmp_path, strong_names):
+    """A strong definition keeps its own symbol; the COMDAT names bound at the
+    same retail address are other symbols and still get the complete copy."""
     code, table, rows, data = inputs(tmp_path)
-    data[0]["names"] = "_other"
+    data[0]["names"] = ";".join(strong_names)
+    strong = [table_object(tmp_path / f"{name[1:]}.obj", name=name, selection=0) for name in strong_names]
+    result = plan(code, [table] + strong, rows, data,
+                  source_of={path: f"Code/{path.stem}.cpp" for path in [table] + strong})
+    assert [(entry["name"], entry["reason"], entry["source"], entry["providers"])
+            for entry in result["refusals"]] == [
+        (name, "strong-definition", f"Code/{name[1:]}.cpp", [str(path)])
+        for name, path in zip(strong_names, strong)]
+    assert all(entry["names"] == [entry["name"]] for entry in result["refusals"])
+    assert [(entry["name"], entry["names"], [slot["name"] for slot in entry["slots"]])
+            for entry in result["entries"]] == [("_vtable", ["_vtable"], ["_first", "_second"])]
+    assert (result["tables"], result["retail_tables"], result["refused_tables"]) == (1, 1, len(strong_names))
+    path = V.write_object(result["entries"], tmp_path / "bridge.obj")
+    _sections, symbols = L.parse_coff(path.read_bytes())
+    assert {sym.name for sym in symbols.values() if sym.sec > 0 and sym.cls == L.EXTERNAL} == {"_vtable"}
+    V.write_queue(result, tmp_path / "queue.tsv")
+    queued = [line.split("\t")[:5] for line in (tmp_path / "queue.tsv").read_text().splitlines()[1:]]
+    assert queued == [["refused", name, "", "strong-definition", f"Code/{name[1:]}.cpp"]
+                      for name in strong_names] + [["bridged", "_vtable", "", "bridge-retirement", "Code/table.cpp"]]
+
+
+def test_strong_ledger_primary_name_does_not_label_its_bridged_neighbour(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    data[0].update(name="_other", names="_vtable")
     strong = table_object(tmp_path / "other.obj", name="_other", selection=0)
-    assert plan(code, [table, strong], rows, data)["refusals"][0]["reason"] == "strong-definition"
+    result = plan(code, [table, strong], rows, data)
+    assert [(entry["name"], entry["reason"]) for entry in result["refusals"]] == [
+        ("_other", "strong-definition")]
+    assert [entry["name"] for entry in result["entries"]] == ["_vtable"]
+    # A refusal of the remaining names is filed under one of them, not under the strong name.
+    result = plan(code, [table, strong], rows[:1], data)
+    assert [(entry["name"], entry["names"], entry["reason"]) for entry in result["refusals"]] == [
+        ("_other", ["_other"], "strong-definition"), ("_vtable", ["_vtable"], "unrowed-target")]
+
+
+def test_strong_only_address_is_refused_once(tmp_path):
+    code, _table, rows, data = inputs(tmp_path)
+    data[0]["names"] = "_stale_unbound_name"
+    strong = table_object(tmp_path / "strong.obj", ("_first", "_second"), selection=0)
+    result = plan(code, [strong], rows, data)
+    assert result["refusal_reasons"] == {"strong-definition": 1}
+    assert result["tables"] == 0
+
+
+def strong_neighbour(tmp_path, data, name="_other", **kw):
+    data[0]["names"] = ";".join(filter(None, [data[0].get("names"), name]))
+    return table_object(tmp_path / "strong.obj", name=name, selection=0, **kw)
+
+
+@pytest.mark.parametrize("selection", [1, 3, 4, 5, 6])
+def test_strong_neighbour_does_not_admit_an_unsupported_selection(tmp_path, selection):
+    code, table, rows, data = inputs(tmp_path, selection=selection)
+    result = plan(code, [table, strong_neighbour(tmp_path, data)], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"strong-definition": 1, "unsupported-selection": 1}
+
+
+def test_strong_neighbour_does_not_admit_a_section_shared_with_it(tmp_path):
+    # _vtable's COMDAT section also defines _other_public, which has a strong
+    # definition elsewhere: the shared section is still never guessed.
+    code, table, rows, data = inputs(tmp_path, other_public=True)
+    result = plan(code, [table, strong_neighbour(tmp_path, data, "_other_public")], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"strong-definition": 1, "shared-or-prefixed-comdat": 1}
+
+
+def test_strong_neighbour_does_not_admit_a_prefixed_copy(tmp_path):
+    code, table, rows, data = inputs(tmp_path, prefix=4)
+    result = plan(code, [table, strong_neighbour(tmp_path, data)], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"strong-definition": 1, "shared-or-prefixed-comdat": 1}
+
+
+def test_strong_neighbour_does_not_admit_a_name_bound_elsewhere(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    strong = strong_neighbour(tmp_path, data)
+    data.append({**data[0], "address": "0x3004", "names": ""})
+    result = plan(code, [table, strong], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"strong-definition": 1, "ambiguous-table-name": 2}
+
+
+def test_strong_neighbour_does_not_admit_a_common_or_absolute_copy(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    strong = strong_neighbour(tmp_path, data)
+    common = L.write_coff(tmp_path / "common.obj", [], [("_vtable", 0, 8, L.EXTERNAL)])
+    result = plan(code, [table, strong, common], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"strong-definition": 1, "common-definition": 1}
+    absolute = L.write_coff(tmp_path / "absolute.obj", [], [("_vtable", -1, 8, L.EXTERNAL)])
+    result = plan(code, [table, strong, absolute], rows, data)
+    assert result["tables"] == 0
+    assert sorted((entry["name"], entry["reason"]) for entry in result["refusals"]) == [
+        ("_other", "strong-definition"), ("_vtable", "strong-definition")]
+
+
+def test_strong_neighbour_does_not_admit_an_unresolved_slot(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    result = plan(code, [table, strong_neighbour(tmp_path, data)], rows[:1], data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"strong-definition": 1, "unrowed-target": 1}
+
+
+def test_strong_neighbour_does_not_admit_a_synthesized_definition(tmp_path):
+    # _used is referenced but nothing defines it; the strong copy at the same
+    # address is not a kept COMDAT copy, so no definition is invented.
+    code, _table, rows, data = inputs(tmp_path)
+    data[0]["names"] = "_used"
+    strong = strong_neighbour(tmp_path, data, slots=("_first", "_second"))
+    consumer = L.write_coff(tmp_path / "consumer.obj", [], [("_used", 0, 0, L.EXTERNAL)])
+    result = plan(code, [strong, consumer], rows, data)
+    assert result["tables"] == 0
+    assert result["refusal_reasons"] == {"strong-definition": 1, "no-kept-definition": 1}
+
+
+def test_possible_strong_archive_neighbour_is_refused_alone(tmp_path, monkeypatch):
+    code, table, rows, data = inputs(tmp_path)
+    strong = strong_neighbour(tmp_path, data)
+    monkeypatch.setattr(V.coffar, "read_archive", lambda path: [("member.obj", strong.read_bytes())])
+    result = plan(code, [table], rows, data, archives=[tmp_path / "runtime.lib"])
+    assert [(entry["name"], entry["reason"]) for entry in result["refusals"]] == [
+        ("_other", "strong-definition")]
+    assert [entry["name"] for entry in result["entries"]] == ["_vtable"]
 
 
 def test_possible_strong_archive_definition_refuses(tmp_path, monkeypatch):
@@ -364,8 +487,10 @@ def test_multiple_names_do_not_hide_strong_duplicate(tmp_path):
     other = table_object(tmp_path / "other.obj", name="_other")
     strong = table_object(tmp_path / "strong.obj", name="_other", selection=0)
     result = plan(code, [table, other, strong], rows, data)
-    assert result["tables"] == 0
-    assert result["refusals"][0]["reason"] == "strong-definition"
+    # _other has a COMDAT and a strong copy: it is never given a generated copy.
+    assert [(entry["name"], entry["reason"]) for entry in result["refusals"]] == [
+        ("_other", "strong-definition")]
+    assert [entry["name"] for entry in result["entries"]] == ["_vtable"]
 
 
 def test_p8_destructor_only_names_get_all_ten_retail_slots(tmp_path):

@@ -40,8 +40,10 @@ count must reach 0 for the exit test.
 
 `vtables_bridged` and `vtable_slots_bridged` count generated select-any vtable
 copies and their positive virtual slots. `exit_link.py` emits them first, only for
-already-defined select-any tables with no supplied strong definition and with every
+already-defined select-any table names with no supplied strong definition and with every
 retail slot resolved through a matched ledger row to an external kept code target.
+A name with a strong definition keeps it and is refused alone; the other names bound
+at the same retail address are judged on their own copies.
 The first external provider in response order must be that row's owner; a later
 owner cannot justify using an earlier conflicting copy.
 A first kept copy whose slot pointers already match needs no bridge. Missing tables,

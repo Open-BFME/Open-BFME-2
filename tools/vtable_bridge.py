@@ -471,32 +471,52 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         sources.setdefault(str(targets.path(row)), row["source"])
     table_addresses = addresses
     generated, refused, correct = [], [], []
-    for row in tables:
-        rva = int(row["address"], 16)
-        names = row_names(row)
+
+    def describe(rva, row, names, preferred, slots):
         copies = [(name, entry) for name in sorted(names) for entry in found.get(name, [])]
         kept = [(name, entry) for name, entry in copies if not entry["archive"]
                 and not entry.get("common") and not entry.get("absolute")]
         active = {name for name, _copy in kept} | (names & referenced.keys())
-        entry = dict(rva=rva, name=row["name"], names=sorted(active),
+        primary = preferred if preferred is not None else min(active or names, default=row["name"])
+        entry = dict(rva=rva, name=primary, names=sorted(active),
                      name_bindings=[binding for binding in bindings if binding["name"] in names],
                      name_addresses={name: sorted(table_addresses[name]) for name in sorted(active)})
-        slots, reason = retail_slots(retail, row)
         entry["slots"] = len(slots or [])
-        previous = next((copy for name, copy in kept if name == row["name"]),
+        previous = next((copy for name, copy in kept if name == primary),
                         kept[0][1] if kept else None)
         entry["source"] = sources.get(previous["object"], "") if previous else row.get("source", "")
         if previous and slots:
             entry.update(previous_object=previous["object"], previous_extent=previous["extent"],
                          source_slot_mismatches=source_slot_mismatches(previous, slots, targets.addresses))
+        return entry, copies, kept, active
+
+    for row in tables:
+        rva = int(row["address"], 16)
+        names = row_names(row)
+        slots, reason = retail_slots(retail, row)
+        # A strong (non-COMDAT, absolute or possible archive) definition always
+        # keeps its own bytes: a generated SELECT_ANY copy of that name would be
+        # a duplicate, so the name is refused. Every other name bound at this
+        # address is a separate symbol; it is still bridged when it meets each
+        # rule below, judged without the strong names (their copies are not
+        # COMDATs, not SELECT_ANY and may share sections with other data).
+        strong = {}
+        for name in sorted(names):
+            providers = [copy["object"] for copy in found.get(name, [])
+                         if not copy["comdat"] and not copy.get("import_member") and not copy.get("common")]
+            if providers:
+                strong[name] = providers
+        for name, providers in strong.items():
+            entry, _copies, _kept, _active = describe(rva, row, {name}, name, slots)
+            refused.append({**entry, "reason": "strong-definition", "providers": providers})
+        names -= strong.keys()
+        entry, copies, kept, active = describe(
+            rva, row, names, None if row["name"] in strong else row["name"], slots)
+        if strong and not copies and not active:
+            continue  # nothing else is bound here: the strong refusals cover the address
         imported = [copy["object"] for _name, copy in copies if copy.get("import_member")]
         common = [copy["object"] for _name, copy in copies if copy.get("common")]
-        strong = [copy["object"] for _name, copy in copies
-                  if not copy["comdat"] and not copy.get("import_member") and not copy.get("common")]
-        if strong:
-            reason = "strong-definition"
-            entry["providers"] = strong
-        elif common:
+        if common:
             reason = "common-definition"
             entry["providers"] = common
         elif imported:
