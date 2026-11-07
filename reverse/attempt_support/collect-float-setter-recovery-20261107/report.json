@@ -1,0 +1,11 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/collect.cpp",
+  "before_sha256": "0109201f652c1f7f9fb7e56f65684c9581b345457cda7c7b6d3a8344d735941b",
+  "rows": 5,
+  "matched": 5,
+  "missing": [],
+  "errors": [],
+  "obj": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\c789cf440c044961.obj",
+  "old_set_scale_defined": false,
+  "new_setter_defined": true
+}

@@ -231,3 +231,14 @@ symbols (no unit changed status). The simulation after each: target-not-winning-
 
 Next check: the next real link's `vtable_bridge_queue.tsv` has no `no-kept-definition` rows and about 189
 `strong-definition` rows, one per strongly defined name. Clearance: none claimed (no real link measured).
+
+2026-11-07 MeshClass/RenderObjClass follow-up: the unrelated 0x005AD93A
+float setter is now ordinary C++ under an address placeholder, replacing the
+incorrect RenderObjClass gen-alias through add_match.py. Its +0x4C store differs
+from the real 0x0006CEBF setter's +0x48. The emission-anchor call is removed;
+collect.cpp no longer defines the false RenderObjClass copy. All five rows
+remain exact and all other external body/relocation/COMDAT facts are unchanged.
+Authored C++ rises 14 bytes, with coverage kept. The original class and TU are
+still unknown; no original name is asserted or source moved. Six alignment-only
+provider prerequisites remain, so no full MeshClass/table clearance is claimed.
+[Native facts and verification](../../reverse/attempt_support/collect-float-setter-recovery-20261107/README.md).

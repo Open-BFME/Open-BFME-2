@@ -1,0 +1,8 @@
+{
+  "rva": "0x005AD93A",
+  "bytes": "f30f10442404f30f11414cc20400",
+  "renderobj_rva": "0x0006CEBF",
+  "renderobj_bytes": "f30f10442404f30f114148c20400",
+  "callers": "0x005ad93a  ?rva005AD93A@Rva005AD93AOwner@@QAEXM@Z  (14 bytes)\n  no named caller reaches it directly\n",
+  "data_references": "0x005ad93a: no word in the image holds this address\n"
+}

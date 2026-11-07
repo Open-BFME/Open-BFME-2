@@ -151,7 +151,8 @@ template <> VectorClass<ProxyClass>::~VectorClass();
 
 // game.dat has no string naming a collection render object and no unit in this tree uses
 // one, so the Zero Hour class is gone. What rests in this file are the rows a masked search
-// placed here. The bodies follow the header definitions.
+// placed here. The unidentified +0x4C float setter is separate below; the
+// remaining bodies still follow their existing header definitions.
 int CollectionClass::Get_Num_Sub_Objects(void) const
 {
 	return SubObjects.Count();
@@ -164,7 +165,6 @@ int CollectionClass::Get_Num_Sub_Objects(void) const
 static void callInlineRows(RenderObjClass *object, DynamicVectorClass<ProxyClass> *proxies, const DynamicVectorClass<ProxyClass> *other)
 {
 	object->RenderObjClass::Set_Native_Screen_Size(0.0f);
-	object->RenderObjClass::Set_ObjectScale(0.0f);
 	object->RenderObjClass::Get_Native_Screen_Size(); // distlod.cpp's table binds to this copy
 	*proxies = *other;
 	new DynamicVectorClass<char *>(0, 0);
@@ -172,3 +172,20 @@ static void callInlineRows(RenderObjClass *object, DynamicVectorClass<ProxyClass
 #pragma inline_depth()
 
 extern const void *const g_collectRowsAnchor = (const void *)&callInlineRows;
+
+// Native 0x005AD93A stores one float at receiver+0x4C and returns with ret4.
+// No callers or table entries identify its original owner. Keep an address
+// placeholder rather than attributing this different field offset to RenderObjClass.
+class Rva005AD93AOwner
+{
+public:
+    void rva005AD93A(float value);
+private:
+    unsigned char m_unknown[0x4C];
+    float m_value;
+};
+
+void Rva005AD93AOwner::rva005AD93A(float value)
+{
+    m_value = value;
+}
