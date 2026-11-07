@@ -100,23 +100,28 @@ def definers(index, name, rank):
     return set(copies) | strong | common
 
 
-def import_resolves(name, requested, runtime, imported):
-    """True when exit_link.py's own link would supply `name` without a tree definition: the
-    runtime libraries it always links (msvcrt.lib, oldnames.lib), or an import library entry it
-    generates. It generates entries only for names a kept object references directly
-    (link_cycle.undefined_imports, undefined_plain_imports), never for an alias's target, and it
-    links no census stub."""
-    if name in runtime:
-        return True
-    if name not in requested:
-        return False
-    if name.startswith("__imp_"):
-        return bool(link_cycle.import_def_entries([name], imported)[0])
-    if name.startswith("_") and not name.startswith("__"):
-        dlls = imported.get(re.sub(r"@\d+$", "", name[1:]))
-        return bool(dlls and "msvcr71.dll" not in dlls
-                    and link_cycle.import_def_entries(["__imp_" + name], imported)[0])
-    return False
+def import_supplies(referenced, imported, defined):
+    """Every symbol the import libraries exit_link.py generates would define: it requests the
+    `__imp_` names kept objects reference (link_cycle.undefined_imports) and `__imp_` + a plain
+    `_X@N` they reference that nothing defines and retail imports outside msvcr71
+    (undefined_plain_imports); import_def_entries turns those into exports, and each export's
+    import member defines `__imp_` + its symbol and, unless the tree already defines the symbol
+    (make_import_libs' DATA entry), the symbol's own thunk. `defined(name)` is the state's tree
+    definitions. Never an alias's target alone, never a census stub."""
+    requests = {name for name in referenced if name.startswith("__imp_")}
+    for name in referenced:
+        if name.startswith("_") and not name.startswith("__") and not defined(name):
+            dlls = imported.get(re.sub(r"@\d+$", "", name[1:]))
+            if dlls and "msvcr71.dll" not in dlls:
+                requests.add("__imp_" + name)
+    supplied = set()
+    for entries in link_cycle.import_def_entries(requests, imported)[0].values():
+        for entry in entries:
+            symbol = entry if entry.startswith("?") else "_" + entry
+            supplied.add("__imp_" + symbol)
+            if not defined(symbol):
+                supplied.add(symbol)
+    return supplied
 
 
 def unindexed_facts(found):
@@ -138,7 +143,8 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
     exit_link.py leaves out; they define, declare and reference nothing there.
 
     A name resolves when a real-link input defines it (strong, COMDAT or common), the real link's
-    own libraries supply it (import_resolves), or an input's /alternatename leads to a name that
+    own libraries supply it (the runtime libraries, or a member of the import libraries it would
+    generate for that state: import_supplies), or an input's /alternatename leads to a name that
     resolves (cycle-safe); a referrer whose own weak external for it has a default that resolves
     is satisfied. Spellings judged: `names` (what this batch's objects define or defined), every
     alias a changed or removed object declares or declared, and every alias a kept input declares
@@ -198,12 +204,14 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
     requested_after = referenced_by(touches, real_after)
 
     def resolver(state, holders, aliases, requested):
+        def defined(name):
+            return bool(definers(state, name, holders)) or name in extra_defined
+        supplied = import_supplies(requested, imported, defined)
+
         def resolves(name, seen=frozenset()):
             if name in seen:
                 return False                               # an alias cycle resolves nothing
-            if definers(state, name, holders) or name in extra_defined:
-                return True
-            if import_resolves(name, requested, runtime, imported):
+            if defined(name) or name in runtime or name in supplied:
                 return True
             return any(resolves(target, seen | {name}) for target in aliases.get(name, ()))
         return resolves
