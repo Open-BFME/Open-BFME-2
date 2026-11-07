@@ -51,11 +51,11 @@ Completed: none by the consolidation lane (dry runs only). Tooling decision for 
   still never carries it into another TU. A split moves it only as a rider: when the carved bodies
   were its only emitters and the map places it in the destination. `--split FXList.cpp --for
   XferSave.cpp` now says why it moves nothing, instead of "no definition spells its name".
-- Effect at 61cf52f345: FXList.cpp's foreign rows fall from 3 to 1 (0x0052BD3A). Across the tree, 35
-  merge decisions change, each only a TU file's own mixed count (2,990 rows qualify, in 987 files).
-  12 TUs become mergeable (DamageFX, ProductionPrerequisite, ScoreKeeper, ThingFactory, GameClient,
-  SpawnBehavior, StructureToppleUpdate, AITargetHeuristicEnemyStructure, MilesAudioManager,
-  W3DModelDraw, static_sort_list, pk). No donor is gained or lost, other than a TU file seeding
+- Effect at 61cf52f345: FXList.cpp's foreign rows fall from 3 to 1 (0x0052BD3A). Across the tree, 32
+  merge decisions change, each only a TU file's own mixed count (2,102 rows qualify, in 755 files,
+  after explicit operators and explicit instantiations count as spelled). 11 TUs become mergeable
+  (DamageFX, ProductionPrerequisite, ScoreKeeper, ThingFactory, GameClient, SpawnBehavior,
+  AITargetHeuristicEnemyStructure, MilesAudioManager, W3DModelDraw, static_sort_list, pk). No donor is gained or lost, other than a TU file seeding
   its own merge.
 - Not done: XferSave.cpp cannot take the rows today. Its private FXList view (a virtual dtor) does not
   compile these bytes, so it declares `hashtable<...FXList...>::clear` as an explicit specialization to

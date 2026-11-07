@@ -922,6 +922,57 @@ class EmissionHeldTests(unittest.TestCase):
         self.assertEqual(got, {"use.cpp": False, "decl.cpp": False, "spec.cpp": True, "body.cpp": True,
                                "comment.cpp": False, "missing.cpp": True})
 
+    def test_instance_owner_reads_every_admitted_shape(self):
+        self.assertEqual(T.instance_owner(self.CLEAR), ("hashtable", "clear"))
+        self.assertEqual(T.instance_owner("??0?$Box@H@@QAE@XZ"), ("Box", "Box"))
+        for op in ("1", "_G", "_E"):
+            self.assertEqual(T.instance_owner(f"??{op}?$Box@H@@QAE@XZ"), ("Box", "~Box"), op)
+        for op in ("R", "4", "A", "B", "8"):          # operator(), =, [], a conversion, ==
+            self.assertEqual(T.instance_owner(f"??{op}?$Box@H@@QBEHXZ"), ("Box", "operator"), op)
+        self.assertEqual(T.instance_owner("??$max@H@std@@YAABHABH0@Z"), (None, "max"))
+        self.assertIsNone(T.instance_owner("?f@@YAXXZ"))
+
+    def test_explicit_specializations_bodies_and_instantiations_spell_the_row(self):
+        # review of 9356f06742: explicit operators and explicit instantiations are not implicit
+        op, clear, ctor, fn = "??R?$Box@H@@QBEHXZ", "?clear@?$Box@H@@QAEXXZ", "??0?$Box@H@@QAE@XZ", "??$f@H@@YAXXZ"
+        cases = [
+            ("template<> int Box<int>::operator()() const { return 7; }\n", op, True),
+            ("template <class T> class Box { public: int operator()() const { return 0; } };\n", op, True),
+            ("template <class T> struct Box { Box() { } };\n", ctor, True),
+            ("template<> Box<int>::Box() { }\n", ctor, True),
+            ("#include \"Box.h\"\ntemplate class Box<int>;\nvoid t() {}\n", clear, True),
+            ("template struct Box<int>;\n", clear, True),
+            ("template struct ns::Box<int>;\n", clear, True),
+            ("template void Box<int>::clear();\n", clear, True),
+            ("template void f<int>();\n", fn, True),
+            ("template<> void f<int>() {}\n", fn, True),
+            ("#include \"Box.h\"\nint g(const Box<int> &b) { return b(); }\n", op, False),     # a use emits it
+            ("#include \"Box.h\"\nvoid g(Box<int> &b) { b.clear(); }\n", clear, False),
+            ("void g() { f<int>(); }\n", fn, False),
+            ("void g() { }\n", "?f@@YAXXZ", True),                  # no owner derivable: fail closed
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for i, (text, name, want) in enumerate(cases):
+                (root / f"c{i}.cpp").write_text(text)
+                with patch.object(T, "ROOT", root), patch.dict(T._CACHE, {}, clear=True):
+                    got = T.spells_definition(f"c{i}.cpp", {"name": name, "target_rva": "0x00001200"})
+                self.assertEqual(got, want, (text, name))
+
+    def test_an_explicit_operator_body_makes_the_tu_file_mixed(self):
+        # the reviewer's donor probe: Code/T.cpp spells Box<int>::operator() itself
+        name = "??R?$Box@H@@QBEHXZ"
+        for text in ("template<> int Box<int>::operator()() const {return 7;}\nvoid t() {}\n",
+                     '#include "Box.h"\ntemplate class Box<int>;\nvoid t() {}\n'):
+            with self.subTest(text=text), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                (root / "Code").mkdir()
+                (root / "Code/T.cpp").write_text(text)
+                ledger = [("?t@@YAXXZ", 0x1000, self.TU), (name, 0x1200, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")]
+                with patch.object(T, "ROOT", root):
+                    _, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x1200: self.C})
+                self.assertEqual(mixed, {self.TU: 1})
+
     def test_the_tu_file_keeps_an_instantiation_its_code_emits(self):
         # FXList.cpp: its own rows, plus the instantiation retail kept from XferSave.obj
         ledger = [("?t@@YAXXZ", 0x1000, self.TU), (self.CLEAR, 0x1200, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")]

@@ -696,12 +696,35 @@ def assigned_tu(r):
     return _CACHE["assigned_tu"].get(int(r["target_rva"], 16))
 
 
+def instance_owner(name):
+    """(class template or None, what a definition of the member spells) for a TEMPLATE_INSTANCE
+    name, or None when it cannot be read. `?clear@?$hashtable@...` -> ("hashtable", "clear");
+    `??0?$Box@` -> ("Box", "Box"); `??1?$Box@`, `??_G`/`??_E` -> ("Box", "~Box"); any other
+    operator, conversions included (`??R`, `??4`, `??B`) -> ("Box", "operator");
+    `??$max@H@...` -> (None, "max"), a function template. row_names() reads none of the
+    operators of a class template (review of 9356f06742)."""
+    m = re.match(r"^\?\?\$([A-Za-z_]\w*)@", name)
+    if m:
+        return None, m.group(1)
+    m = re.match(r"^\?([A-Za-z_]\w*)@\?\$([A-Za-z_]\w*)@", name)
+    if m:
+        return m.group(2), m.group(1)
+    m = re.match(r"^\?\?(_?[0-9A-Z])\?\$([A-Za-z_]\w*)@", name)
+    if m:
+        op, cls = m.groups()
+        return cls, cls if op == "0" else "~" + cls if op in ("1", "_G", "_E") else "operator"
+    return None
+
+
 def spells_definition(path, r):
     """Does a definition (or a macro invocation naming its class) in `path` spell row `r`'s
-    name (identify())? So does a body of the class itself (`struct hash<NameKeyType> {`,
-    a file-local template) or a member qualified through template arguments
-    (`hashtable<...>::clear(`, an explicit specialization), which identify() does not read.
-    True when the file cannot be read: no proof of absence."""
+    name (identify())? So does, for its class template (instance_owner): a body of the class
+    itself (`struct hash<NameKeyType> {`, a file-local template, an operator written inside
+    it), a member qualified through template arguments (`hashtable<...>::clear(`,
+    `Box<int>::operator()(`, an explicit specialization or an explicit member instantiation)
+    or an explicit instantiation of the class (`template class Box<int>;`); for a function
+    template, any `f<...>(` after `template`. True when the file cannot be read or the row's
+    owner cannot be derived: no proof of absence."""
     texts = _CACHE.setdefault("spell_texts", {})
     if path not in texts:
         try:
@@ -715,10 +738,17 @@ def spells_definition(path, r):
     spans, scopes, code = texts[path]
     if identify([r], spans, scopes)[r["target_rva"]]:
         return True
-    cls, meth = row_names(r["name"])
-    return bool(cls) and bool(
+    owner = instance_owner(r["name"])
+    if owner is None:
+        return True
+    cls, meth = owner
+    if cls is None:
+        return bool(re.search(r"\btemplate\b[^;{}]*\b" + re.escape(meth) + r"\s*<[^;{}]*>\s*\(", code))
+    member = r"operator\b" if meth == "operator" else re.escape(meth) + r"\s*\("
+    return bool(
         re.search(r"\b(?:class|struct|union)\s+" + re.escape(cls) + r"\b[^;{}]*\{", code)
-        or re.search(r"\b" + re.escape(cls) + r"\s*<[^;{}]*>\s*::\s*" + re.escape(meth) + r"\s*\(", code))
+        or re.search(r"\btemplate\s+(?:class|struct|union)\s+(?:[A-Za-z_]\w*\s*::\s*)*" + re.escape(cls) + r"\s*<", code)
+        or re.search(r"\b" + re.escape(cls) + r"\s*<[^;{}]*>\s*::\s*" + member, code))
 
 
 def names_other_tu(r, unplaced, tu):
