@@ -9084,3 +9084,11 @@ member,Rva0041513D::m_20,Rva0041513D::m_pending,inferred,agree:nl-216f3fec48ec,C
 member,Rva0006E27DWords::word0,Rva0006E27DWords::m_first,inferred,agree:nl-6082c6f2156b,Code/GameEngine/Source/Common/W3SmallValueInitializers.cpp,
 member,Rva0006E27DWords::word4,Rva0006E27DWords::m_second,inferred,agree:nl-c79b07f36f0d,Code/GameEngine/Source/Common/W3SmallValueInitializers.cpp,
 function,?rva0035D133@Rva0035D133@@QAEXH@Z,?reset@Rva0035D133@@QAEXH@Z,inferred,agree:nl-cff29a374181,Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp,0x0035D133
+member,Rva000519DF::m_ptr0,Rva000519DF::m_ptr,inferred,agree:nl-7b5652ecdb37,Code/GameEngine/Source/Common/Rva000519DF.cpp,
+member,Rva00664EA0::m_word28,Rva00664EA0::m_first,inferred,agree:nl-98669fb3975d,Code/GameEngine/Source/Common/SmallGaps/Rva00664EA0FieldSetter.cpp,
+member,Rva00664EA0::m_word2C,Rva00664EA0::m_second,inferred,agree:nl-4d4c5f78b3c0,Code/GameEngine/Source/Common/SmallGaps/Rva00664EA0FieldSetter.cpp,
+member,Rva0059B115::m_opaque_10,Rva0059B115::m_extraLength,inferred,agree:nl-cc2223b3e1d3,Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp,
+class,Rva000519DF,PoolRefPair,inferred,agree:nl-fdda799b3f94,Code/GameEngine/Source/Common/Rva000519DF.cpp,
+carry,Rva000519DF::Rva000519DF::source,PoolRefPair::PoolRefPair::source,inferred,scope renamed by Rename Rva000519DF to PoolRefPair (inferred),Code/GameEngine/Source/Common/Rva000519DF.cpp,0x000519DF
+carry,Rva000519DF::Rva000519DF::ref,PoolRefPair::PoolRefPair::ref,inferred,scope renamed by Rename Rva000519DF to PoolRefPair (inferred),Code/GameEngine/Source/Common/Rva000519DF.cpp,0x000519DF
+carry,Rva000519DF::m_ptr,PoolRefPair::m_ptr,inferred,scope renamed by Rename Rva000519DF to PoolRefPair (inferred),Code/GameEngine/Source/Common/Rva000519DF.cpp,

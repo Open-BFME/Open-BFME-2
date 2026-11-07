@@ -11,8 +11,8 @@
 class Rva00664EA0
 {
 	unsigned char m_prefix[0x28];
-	unsigned int m_word28;
-	unsigned int m_word2C;
+	unsigned int m_first;
+	unsigned int m_second;
 
 public:
 	void rva00664EA0(unsigned int first, unsigned int second);
@@ -20,6 +20,6 @@ public:
 
 void Rva00664EA0::rva00664EA0(unsigned int first, unsigned int second)
 {
-	m_word28 = first;
-	m_word2C = second;
+	m_first = first;
+	m_second = second;
 }

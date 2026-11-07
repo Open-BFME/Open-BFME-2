@@ -96,12 +96,12 @@ struct Rva0059B115 : AsciiStringPlusText
 	int rva0059B115() const;
 
 	char m_opaque_0C[4];
-	int m_opaque_10;
+	int m_extraLength;
 };
 
 int Rva0059B115::rva0059B115() const
 {
-	return AsciiStringPlusText::length() + m_opaque_10;
+	return AsciiStringPlusText::length() + m_extraLength;
 }
 
 // ?length@Rva005F1BAA@@QBEHXZ @0x005F1BAA 13B: four-part extension (three-part string base at 0x005F1B75 plus fourth pair len at +0x14); chain from 0x005F1B75 landing.
