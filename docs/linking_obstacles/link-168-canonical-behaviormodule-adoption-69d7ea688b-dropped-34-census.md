@@ -455,3 +455,21 @@ bytes is insufficient. [Exact private evidence and next checks](../../reverse/at
   39 rows) defines Zero Hour crc/xfer/loadPostProcess bodies that call DieModule's, which call
   ?crc@BehaviorModule; its table is emitted from the Zero Hour header. Its retail destructor is
   the opaque ??1Rva00485983 0x00485983 rowed in the same file.
+- Done (9fdf41458c): CreateObjectDie.cpp and DieModule.cpp. CreateObjectDie.cpp is rewritten on
+  canonical DieModule/DestroyDieModuleData/object.h/Player/Upgrade/Team/INI/FieldParse headers.
+  Besides the inline ~BehaviorModule it supplies inline empty ~ModuleData and
+  ~DestroyDieModuleData: the module-data destructor 0x00485DDA expands both down to Snapshot's
+  table store. All 39 rows match. Retail's primary tables 0xC4A7E0 (CreateObjectDie) and 0xC4A8D4
+  (CreateObjectDieIfEldestKindof) prove the opaque destructors: ??1/??_GRva0048593D
+  (0x0048593D/0x00485AC0) are CreateObjectDie's and ??1/??_GRva00485983 (0x00485983/0x00485B80)
+  are CreateObjectDieIfEldestKindof's, now also rowed as ICF folds. The EldestKindof destructor
+  must be declared, because a compiler-generated one stores no tables. DieModule.cpp drops its
+  invented crc/xfer/loadPostProcess bodies and keeps its two rows (link_check: LINKS, 19 bytes).
+  CreateObjectDie.cpp's local link_check shows only the BehaviorModule table-copy question above.
+- The same tables also identify slots the unit leaves at purecall. CreateObjectDie:
+  loadPostProcess 0x00497805, GetSnapshotName 0x00485956, xfer 0x0045CE8C (rowed
+  ?xfer@Rva0045CE8C) and getModuleNameKey 0x004859EA (rowed as the static
+  ?rva0004859EA@CreateObjectDie). EldestKindof: GetSnapshotName 0x0048599C (?name@Rva0048599CNamed)
+  and xfer 0x00485BD4 (?xfer@Rva00485BD4). DieModule's primary 0xC41E78 has GetSnapshotName
+  0x0045CEEE (?Rva45CEEEGet). Renaming those rows and declaring the overrides fixes the slots.
+- Still blocked on ?crc@BehaviorModule: BridgeTowerBehavior.cpp (real link at c1bcebdd2e).
