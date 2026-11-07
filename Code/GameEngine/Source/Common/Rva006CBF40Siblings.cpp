@@ -152,9 +152,12 @@ public:
 	char m_pad[0x40]; // sizeof 0x44
 };
 
-// ?Rva0070A530::~Rva0070A530 present-unmatched
-Rva0070A530::~Rva0070A530()
+// The destructor is retail's 0x00709B80 (pinned); declared only, so the link keeps
+// retail's body. new/delete devirtualizes to a direct ??_G call, emitting it.
+void Rva0070A530_Anchor()
 {
+	Rva0070A530 *p = new Rva0070A530;
+	delete p;
 }
 
 void deleteRva0070A530(Rva0070A530 *p)
@@ -173,9 +176,12 @@ public:
 	char m_pad[0x2C]; // sizeof 0x30
 };
 
-// ?Rva0070A560::~Rva0070A560 present-unmatched
-Rva0070A560::~Rva0070A560()
+// The destructor is retail's 0x00709B80 (pinned); declared only, so the link keeps
+// retail's body. new/delete devirtualizes to a direct ??_G call, emitting it.
+void Rva0070A560_Anchor()
 {
+	Rva0070A560 *p = new Rva0070A560;
+	delete p;
 }
 
 void deleteRva0070A560(Rva0070A560 *p)
@@ -194,9 +200,12 @@ public:
 	char m_pad[0x30]; // sizeof 0x34
 };
 
-// ?Rva0070A590::~Rva0070A590 present-unmatched
-Rva0070A590::~Rva0070A590()
+// The destructor is retail's 0x00709B80 (pinned); declared only, so the link keeps
+// retail's body. new/delete devirtualizes to a direct ??_G call, emitting it.
+void Rva0070A590_Anchor()
 {
+	Rva0070A590 *p = new Rva0070A590;
+	delete p;
 }
 
 void deleteRva0070A590(Rva0070A590 *p)
