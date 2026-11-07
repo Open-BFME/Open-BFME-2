@@ -1127,21 +1127,24 @@ def test_an_updated_index_does_not_trust_its_graph_for_an_indexed_unit(batch, in
 
 
 # Round 4 (98ce5bd575): the real link's own import requests.
-IMPORTS = {"runtime": {"_strcpy"}, "imported": {"socket": {"wsock32.dll"}, "GetTickCount": {"kernel32.dll"}},
+IMPORTS = {"runtime": {"_strcpy"}, "imported": {"socket": {"wsock32.dll"}, "GetTickCount": {"kernel32.dll"},
+                                               "strlen": {"msvcr71.dll"}},
            "stubs": {"_socket@12": {("wsock32.dll", "socket")}, "_htons@4": {("wsock32.dll", "htons")}}}
 
 
-@pytest.mark.parametrize("name, refs, resolves", [
-    ("_strcpy", set(), True),                       # msvcrt.lib is always linked
-    ("_socket@12", {"_socket@12"}, True),           # a direct reference requests the import
-    ("_socket@12", {"public"}, False),              # an alias's target is never requested
-    ("__imp__GetTickCount@0", {"__imp__GetTickCount@0"}, True),
-    ("__imp__GetTickCount@0", set(), False),
-    ("_htons@4", {"_htons@4"}, False),              # a census stub retail does not import
-    ("_free_name", {"_free_name"}, False),
+@pytest.mark.parametrize("refs, defined, supplied", [
+    ({"_socket@12"}, set(), {"_socket@12", "__imp__socket@12"}),          # a direct call: CODE member
+    ({"__imp__socket@12"}, set(), {"_socket@12", "__imp__socket@12"}),    # dllimport: the same member
+    ({"__imp__socket@12"}, {"_socket@12"}, {"__imp__socket@12"}),         # tree defines _X: DATA member
+    ({"public"}, set(), set()),                                           # an alias's target alone
+    ({"__imp__GetTickCount@0"}, set(), {"_GetTickCount@0", "__imp__GetTickCount@0"}),
+    ({"_htons@4"}, set(), set()),                                         # a stub retail does not import
+    ({"_free_name"}, set(), set()),
+    ({"_socket@12"}, {"_socket@12"}, set()),                              # the tree defines it: no request
+    ({"_strlen"}, set(), set()),                                          # msvcr71 stays with msvcrt.lib
 ])
-def test_import_resolution_follows_the_real_link_s_requests(name, refs, resolves):
-    assert A.import_resolves(name, refs, IMPORTS["runtime"], IMPORTS["imported"]) is resolves
+def test_import_supplies_every_symbol_of_the_generated_members(refs, defined, supplied):
+    assert A.import_supplies(refs, IMPORTS["imported"], lambda name: name in defined) == supplied
 
 
 def test_an_alias_to_an_import_the_real_link_never_requests_strands_its_callers(batch, monkeypatch, capsys):
@@ -1181,3 +1184,22 @@ def test_an_include_reader_hit_counts_for_a_unit_the_index_never_read(batch, inc
     includes["new_unit.obj"] = {"api"}                            # the directive reader's view of the unit
     assert A.audit("a" * 40, "b" * 40, []) == 1
     assert "REAL-LINK LOSS api:" in capsys.readouterr().out
+
+
+def test_an_alias_to_an_import_another_reference_requests_still_resolves(batch, monkeypatch, capsys):
+    # Round 5: `public=_socket@12` alone requests nothing, but the caller's own `__imp__socket@12`
+    # makes exit_link.py generate socket@12, whose CODE member also defines the `_socket@12` thunk.
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    name = "_socket@12"
+    saved["comdat"] = {name: [(0, "good", "retail")]}
+    saved["touches"] = {"provider.obj": {name}, "caller.obj": {"caller", "public", "__imp__socket@12"}}
+    saved["alternates"] = {"public": [(1, name)]}
+    saved["excuses"] = IMPORTS
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([], ["caller"], ["public", "__imp__socket@12"], [])
+    monkeypatch.setattr(A.link_check, "alternate_names",
+                        lambda obj: {"public": name} if obj.name == "caller.obj" else {})
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    assert "REAL-LINK LOSS" not in capsys.readouterr().out
