@@ -354,11 +354,12 @@ def _ambiguous(text, code):
     """Constructs that can manufacture or hide scope: the refusals moved_bodies uses."""
     return bool(re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
                 or re.search(r"\?\?[=/'()!<>-]", text)
-                or re.search(r"^[ \t\f\v]*(?:#|%:)(?![ \t]*include\b)", code, re.M))
+                or re.search(r"^[ \t\f\v]*(?:#|%:)(?![ \t]*(?:include|pragma)\b)", code, re.M))
 
 
 def _without_includes(code):
-    return re.sub(r"^[ \t]*#[ \t]*include\b[^\n]*", lambda m: " " * len(m.group()), code, flags=re.M)
+    """`code` with #include and #pragma lines blanked: neither can open or close a scope."""
+    return re.sub(r"^[ \t]*#[ \t]*(?:include|pragma)\b[^\n]*", lambda m: " " * len(m.group()), code, flags=re.M)
 
 
 def _skip_space(code, pos):

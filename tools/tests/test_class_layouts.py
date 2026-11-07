@@ -266,6 +266,22 @@ def test_includes_are_not_ambiguous():
     assert ident('#include "a.h"\n' + PRIM) == [("CategoryModuleTemplate", None, True, "class")]
 
 
+@pytest.mark.parametrize("pragma", [
+    "#pragma once", "#pragma pack(push, 1)", "  #  pragma warning(disable: 4100)",
+    '#pragma comment(linker, "/alternatename:a=b")', "#pragma message(\"{\")", "#pragma foo {",
+])
+def test_pragmas_open_no_scope(pragma):
+    assert ident(pragma + "\n" + PRIM + "\n#pragma pack(pop)\n") == [
+        ("CategoryModuleTemplate", None, True, "class")]
+    defs = class_layouts.template_member_definitions(pragma + "\ntemplate <int N> int X<N>::s = 0;\n", "X")
+    assert defs is not None and len(defs) == 1
+
+
+@pytest.mark.parametrize("directive", ["#define X Y", "#if 1", "#ifdef A", "#undef A", "#error no", "%:define X"])
+def test_other_directives_stay_ambiguous(directive):
+    assert class_layouts.class_identities(directive + "\n" + PRIM + "\n") is None
+
+
 # Master's readers, frozen: these are origin/master's outputs (tools/class_layouts.py before the
 # opt-in reader), so a change to the legacy behaviour fails here.
 LEGACY = {
