@@ -135,7 +135,9 @@ def attach_objects(publics, manifest, mapfile=None):
                 if sec.name.startswith(".text"):
                     section_evidence[sec.idx] = dict(
                         body=raw[sec.ptr:sec.ptr + sec.size], size=sec.size, flags=sec.flags,
-                        relocations=tuple((offset, kind) for offset, _index, kind in sec.relocs))
+                        relocations=tuple((offset, kind) for offset, _index, kind in sec.relocs),
+                        relocation_targets={offset: dict(name=symbols[index].name, cls=symbols[index].cls,
+                            section=symbols[index].sec) for offset, index, _kind in sec.relocs if index in symbols})
             starts = collections.defaultdict(set)
             for sym in symbols.values():
                 if sym.sec > 0:
@@ -1290,6 +1292,135 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
         rule="Matched code bytes: literal IMM32/DISP32 need COFF and image relocations. Exact ledger object/function starts and restricted typed first pointer arguments override unknown scalar/tag heuristics unless a numeric witness exists. Only bitwise/test/shift or typed numeric payload/capacity uses supply numeric witnesses; CMP is not numeric proof. Aligned data words without image relocations: exact ledger starts are defects, other range values ambiguous. Relative control operands excluded. Unknown coverage never passes G2.")
 
 
+def relocation_bounds(checker, data_rows, function_ledger):
+    """Flag DIR32/REL32 S+A outside the selected symbol's COFF upper bound.
+    COFF next-symbol/section-end extents are upper bounds, not recovered C++
+    sizeof values. Reaching that bound (including one-past) is a flag, not a
+    claim of dereference or runtime reachability. Section-relative fixups,
+    unknown targets and unresolved aliases remain unanalyzed.
+    """
+    counts = collections.Counter()
+    names = collections.defaultdict(list)
+    by_rva = collections.defaultdict(list)
+    for p in checker.publics:
+        names[p["name"]].append(p)
+        by_rva[p["rva"]].append(p)
+    starts = sorted(by_rva)
+    findings, seen, relocation_index = [], set(), {}
+    for p in checker.publics:
+        coff = p.get("coff")
+        if not coff or not p.get("extent"):
+            continue
+        counts["code_symbols_with_coff_extent"] += 1
+        sec, start = coff["section"], coff["offset"]
+        end = start + p["extent"]
+        targets = sec.get("relocation_targets", {})
+        key = id(sec)
+        if key not in relocation_index:
+            ordered = sorted(sec["relocations"])
+            relocation_index[key] = ([offset for offset, _kind in ordered], ordered)
+        offsets, ordered = relocation_index[key]
+        for offset, kind in ordered[bisect.bisect_left(offsets, start):bisect.bisect_left(offsets, end)]:
+            field = offset - start
+            field_rva = p["rva"] + field
+            if field_rva in seen:
+                continue
+            seen.add(field_rva)
+            counts["relocations_considered"] += 1
+            if kind not in (6, 20):
+                counts["unsupported_relocation_kind_unanalyzed"] += 1
+                continue
+            target = targets.get(offset)
+            if not target or target["name"].startswith(".") or target["section"] < 0:
+                counts["section_absolute_or_unknown_target_unanalyzed"] += 1
+                continue
+            if offset + 4 > len(sec["body"]) or offset + 4 > end:
+                counts["relocation_field_extent_unanalyzed"] += 1
+                continue
+            addend = struct.unpack_from("<i", sec["body"], offset)[0]
+            candidates = names.get(target["name"], [])
+            if target["cls"] == link_cycle.STATIC:
+                candidates = [q for q in candidates if q["object"] == p["object"]]
+            locations = {(q["rva"], q.get("extent")) for q in candidates}
+            if len(locations) != 1:
+                counts["target_map_ambiguous_or_absent"] += 1
+                continue
+            symbol_rva, size = next(iter(locations))
+            if not size or size < 0:
+                counts["target_extent_unanalyzed"] += 1
+                continue
+            linked = checker.ours.read(field_rva, 4)
+            intended = (checker.ours.base + symbol_rva + addend) & 0xffffffff
+            encoded = intended if kind == 6 else (intended - (checker.ours.base + field_rva + 4)) & 0xffffffff
+            if linked is None or struct.unpack("<I", linked)[0] != encoded:
+                counts["linked_target_resolution_differs_unanalyzed"] += 1
+                continue
+            counts["relocations_analyzed"] += 1
+            if 0 <= addend < size:
+                counts["inside_symbol_upper_bound"] += 1
+                continue
+            actual_rva = intended - checker.ours.base
+            index = bisect.bisect_right(starts, actual_rva) - 1
+            anchor = by_rva[starts[index]] if index >= 0 else []
+            image_owners = [dict(name=q["name"], source=q.get("source", ""), object=q["object"],
+                rva=hex(q["rva"]), offset=actual_rva - q["rva"], size=q["extent"])
+                for q in anchor if q.get("extent") and actual_rva < q["rva"] + q["extent"]]
+            mapped = checker.mapping.resolve(symbol_rva)
+            reference = checker.mapping.resolve(p["rva"])
+            detail = dict(function=p["name"], function_image_rva=hex(p["rva"]),
+                function_retail_rva=hex(reference) if reference is not None else None,
+                source=p.get("source", ""), object=p["object"], operand_offset=field,
+                operand_image_rva=hex(field_rva), relocation_kind=kind, symbol=target["name"],
+                symbol_image_rva=hex(symbol_rva), addend=addend, symbol_size=size,
+                extent_basis="COFF next-symbol/section-end upper bound", one_past=addend == size,
+                actual_va=hex(intended), actual_rva=hex(actual_rva), actual_owners=image_owners,
+                retail_symbol_rva=hex(mapped) if mapped is not None else None,
+                retail_va=hex(checker.retail.base + mapped + addend) if mapped is not None else None,
+                retail_rva=hex(mapped + addend) if mapped is not None else None)
+            if not image_owners:
+                counts["defect_actual_owner_unresolved"] += 1
+            if mapped is None:
+                counts["defect_retail_correspondence_unresolved"] += 1
+            findings.append(detail)
+    # Stream only rows owning discovered retail pointees.
+    values = sorted({int(d["retail_rva"], 16) for d in findings if d["retail_rva"] is not None})
+    owners = collections.defaultdict(list)
+    def own(name, start, size, source, register):
+        for value in values[bisect.bisect_left(values, start):bisect.bisect_left(values, start + max(size, 1))]:
+            owners[value].append(dict(name=name, source=source, register=register,
+                                      rva=hex(start), offset=value - start))
+    for row in data_rows:
+        own(row["name"], int(row["address"], 16), int(row["size"] or 0), row.get("source", ""), "data_ledger")
+    with Path(function_ledger).open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            own(row["name"], int(row["target_rva"], 16), int(row["target_size"] or 0), row["source"], "functions")
+    source_data = Path(function_ledger).with_name("data_rows.csv")
+    counts["source_data_rows_available"] = int(source_data.exists())
+    if source_data.exists():
+        with source_data.open(newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                address = int(row["address"], 16)
+                if row["address_kind"] == "va":
+                    address -= checker.retail.base
+                elif row["address_kind"] != "rva":
+                    counts["source_data_address_kind_unanalyzed"] += 1
+                    continue
+                own(row["name"], address, int(row["size"] or 0), row["source"], "data_rows")
+    for d in findings:
+        d["retail_owners"] = owners.get(int(d["retail_rva"], 16), []) if d["retail_rva"] is not None else []
+        checker.defect("out_of_object_pointer", int(d["function_retail_rva"], 16) if d["function_retail_rva"] is not None else None,
+            dict(name=d["function"], object=d["object"], source=d["source"]), json.dumps(d, sort_keys=True))
+    counts["defects"] = len(findings)
+    return dict(counts=dict(counts), defects=findings,
+        by_boundary=dict(collections.Counter("negative" if d["addend"] < 0 else
+            "one_past" if d["one_past"] else "beyond_end" for d in findings)),
+        by_source=dict(collections.Counter(d["source"] for d in findings)),
+        limitations=["Only MAP-selected text symbols with COFF extents; data-origin relocations not scanned.",
+            "Upper bounds can miss overruns into padding; in-bound is not a C++ layout proof.",
+            "One-past formation may be legal; no dereference/reachability proof.",
+            "Retail pointees use unique symbol correspondence plus addend, not instruction equivalence."])
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--image", required=True, type=Path)
@@ -1299,6 +1430,8 @@ def main(argv=None):
     parser.add_argument("--address-only", action="store_true",
                         help="only audit absolute code operands and aligned data words")
     parser.add_argument("--out", type=Path, default=Path("build/image_iso"))
+    parser.add_argument("--relocation-bounds-only", action="store_true",
+                        help="only audit object-relative relocation bounds")
     args = parser.parse_args(argv)
     tool_sha256 = digest(Path(__file__))
     receipt_path = args.image.with_name("image_receipt.json")
@@ -1341,7 +1474,7 @@ def main(argv=None):
                 for name in (symbol, row["name"]):
                     qualified[(name, source_key(row["source"]))].add(rva)
     checker = Checker(ours, retail, publics, addresses, qualified)
-    if not args.address_only:
+    if not args.address_only and not args.relocation_bounds_only:
         checker.ledger(rows, sizes)
         checker.initializers()
         evidence = storage_evidence(retail, rows)
@@ -1351,10 +1484,15 @@ def main(argv=None):
         checker.counts["storage_globals_without_proven_access"] = sum(
             r["kind"] == "global" and int(r["address"], 16) not in proven for r in rows)
         checker.storage(evidence)
-    absolute = unrelocated_retail_addresses(checker, build.ROOT / "reverse/functions.csv", rows)
+    bounds = relocation_bounds(checker, rows, build.ROOT / "reverse/functions.csv")
+    absolute = (dict(counts={}, by_kind={}, ambiguous=[]) if args.relocation_bounds_only else
+                unrelocated_retail_addresses(checker, build.ROOT / "reverse/functions.csv", rows))
     report = checker.report()
+    report["relocation_bounds"] = bounds
     report["unrelocated_retail_addresses"] = absolute
     report["analysis_scope"] = "absolute address code/data audit only" if args.address_only else "bounded image comparison"
+    if args.relocation_bounds_only:
+        report["analysis_scope"] = "object-relative relocation bounds only"
     report.update(inputs=dict(tool_sha256=tool_sha256,
                               image=str(args.image), map=str(args.map), retail=str(args.retail),
                               image_sha256=digest(args.image), map_sha256=digest(args.map),
