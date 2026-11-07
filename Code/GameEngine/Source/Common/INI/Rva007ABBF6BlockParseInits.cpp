@@ -57,14 +57,12 @@ void parseLivingWorldBuildPlotIconDefinition(INI *);
 void parseLivingWorldPlayerArmyDefinition(INI *);
 void parseAutoResolveHandicapLevelDefinition(INI *);
 void parseAutoResolveReinforcementScheduleDefinition(INI *);
-void parseCrowdResponseDefinition(INI *);
 void parseHouseColorDefinition(INI *);
 void parseAutoResolveLeadershipDefinition(INI *);
 void parseAutoResolveBodyDefinition(INI *);
 void parseAutoResolveCombatChainDefinition(INI *);
 void parseAutoResolveWeaponDefinition(INI *);
 void parseAIBaseDefinition(INI *);
-void parseMeshNameMatchesDefinition(INI *);
 void parseLivingWorldAITemplateDefinition(INI *);
 void iniParseWaterTexturesDefinition(INI *);
 void parseAnimationSoundClientBehaviorGlobalSetting(INI *);
@@ -74,7 +72,6 @@ void parseFireEffect(INI *);
 void parseGlowEffect(INI *);
 void parseReallyLowMHz(INI *);
 void parseRingEffect(INI *);
-void parseShadowMapBlock(INI *);
 void parseSubsystemLegendDefinition(INI *);
 void parseCloudBreakEffectDefinition(INI *);
 void parseFormationAssistantDefinition(INI *);
@@ -99,11 +96,6 @@ class DamageFXStore
 {
 public:
 	static void parseDamageFXDefinition(INI *);
-};
-class EmotionNuggetTemplate
-{
-public:
-	static void friend_parseEmotionNugget(INI *);
 };
 #include "../../../Include/GameClient/Eva.h"
 #include "../../../Include/Common/GlobalData.h"
@@ -139,11 +131,6 @@ class LivingWorldCampaign
 public:
 	static void ParseLivingWorldCampaignBlock(INI *);
 };
-class LivingWorldSound
-{
-public:
-	static void ParseSound(INI *);
-};
 class MetaMap
 {
 public:
@@ -166,7 +153,6 @@ public:
 // The Apt tooltip node keeps its existing 44-byte owner in Rva00224A3F.cpp.
 
 BlockParse theAudioSettingsBlockParse = { 0, "AudioSettings", INI::parseAudioSettingsDefinition };	// VA 0x00DB3A08 "AudioSettings", parse 0x0004171A
-BlockParse theShadowMapBlockParse = { 0, "ShadowMap", parseShadowMapBlock };	// VA 0x00DB4488 "ShadowMap", parse 0x0007BE1E
 BlockParse theLoadSubsystemBlockParse = { 0, "LoadSubsystem", parseSubsystemLegendDefinition };	// VA 0x00DB7034 "LoadSubsystem", parse 0x001B4E07
 BlockParse theBridgeBlockParse = { 0, "Bridge", INI::parseTerrainBridgeDefinition };	// VA 0x00DB8B8C "Bridge", parse 0x001DAEB8
 BlockParse theCommandSetBlockParse = { 0, "CommandSet", ControlBar::parseCommandSetDefinition };	// VA 0x00DB8C50 "CommandSet", parse 0x0031EC03
@@ -202,7 +188,6 @@ BlockParse theFireBlockParse = { 0, "Fire", parseFireDefinition };	// VA 0x00DBD
 BlockParse theCloudBreakEffectBlockParse = { 0, "CloudBreakEffect", parseCloudBreakEffectDefinition };	// VA 0x00DBE4D0 "CloudBreakEffect", parse 0x00318ABB
 BlockParse theLivingWorldRegionEffectsBlockParse = { 0, "LivingWorldRegionEffects", parseLivingWorldRegionEffectsDefinition };	// VA 0x00DC14B8 "LivingWorldRegionEffects", parse 0x003EF467
 BlockParse theLivingWorldArmyIconBlockParse = { 0, "LivingWorldArmyIcon", parseLivingWorldArmyIconDefinition };	// VA 0x00DC177C "LivingWorldArmyIcon", parse 0x003F9EDF
-BlockParse theLivingWorldSoundBlockParse = { 0, "LivingWorldSound", LivingWorldSound::ParseSound };	// VA 0x00DC17EC "LivingWorldSound", parse 0x003FB07D
 BlockParse theLivingWorldAnimObjectBlockParse = { 0, "LivingWorldAnimObject", Rva003FD7CEParse };	// VA 0x00DC18EC "LivingWorldAnimObject", parse 0x003FD7CE
 BlockParse theLivingWorldBuildingIconBlockParse = { 0, "LivingWorldBuildingIcon", parseLivingWorldBuildingIconDefinition };	// VA 0x00DC1AB4 "LivingWorldBuildingIcon", parse 0x00402B19
 BlockParse theLivingWorldBuildPlotIconBlockParse = { 0, "LivingWorldBuildPlotIcon", parseLivingWorldBuildPlotIconDefinition };	// VA 0x00DC1B04 "LivingWorldBuildPlotIcon", parse 0x00402E30
@@ -211,7 +196,6 @@ BlockParse theAutoResolveHandicapLevelBlockParse = { 0, "AutoResolveHandicapLeve
 BlockParse theLivingWorldAutoResolveSciencePurchasePointBonusBlockParse = { 0, "LivingWorldAutoResolveSciencePurchasePointBonus", LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore::parseLivingWorldAutoResolveSciencePurchasePointBonusBlock };	// VA 0x00DC2050 "LivingWorldAutoResolveSciencePurchasePointBonus", parse 0x00413B4D
 BlockParse theAutoResolveReinforcementScheduleBlockParse = { 0, "AutoResolveReinforcementSchedule", parseAutoResolveReinforcementScheduleDefinition };	// VA 0x00DC205C "AutoResolveReinforcementSchedule", parse 0x00413D58
 BlockParse theLivingWorldAutoResolveResourceBonusBlockParse = { 0, "LivingWorldAutoResolveResourceBonus", LivingWorldAutoResolveResourceBonusScheduleStore::parseLivingWorldAutoResolveResourceBonusBlock };	// VA 0x00DC2068 "LivingWorldAutoResolveResourceBonus", parse 0x0041428F
-BlockParse theCrowdResponseBlockParse = { 0, "CrowdResponse", parseCrowdResponseDefinition };	// VA 0x00DC20E0 "CrowdResponse", parse 0x00415D33
 BlockParse theHouseColorBlockParse = { 0, "HouseColor", parseHouseColorDefinition };	// VA 0x00DC822C "HouseColor", parse 0x00417A94
 BlockParse theAutoResolveLeadershipBlockParse = { 0, "AutoResolveLeadership", parseAutoResolveLeadershipDefinition };	// VA 0x00DC8238 "AutoResolveLeadership", parse 0x004183AC
 BlockParse theAutoResolveBodyBlockParse = { 0, "AutoResolveBody", parseAutoResolveBodyDefinition };	// VA 0x00DC8244 "AutoResolveBody", parse 0x00418AC6
@@ -219,18 +203,15 @@ BlockParse theAutoResolveCombatChainBlockParse = { 0, "AutoResolveCombatChain", 
 BlockParse theAutoResolveWeaponBlockParse = { 0, "AutoResolveWeapon", parseAutoResolveWeaponDefinition };	// VA 0x00DC825C "AutoResolveWeapon", parse 0x0041999F
 BlockParse theAIBaseBlockParse = { 0, "AIBase", parseAIBaseDefinition };	// VA 0x00DC83F4 "AIBase", parse 0x0041EC73
 BlockParse theArmyDefinitionBlockParse = { 0, "ArmyDefinition", ArmyDefinitionManager::parseArmyDefinition };	// VA 0x00DC8424 "ArmyDefinition", parse 0x0041F871
-BlockParse theMeshNameMatchesBlockParse = { 0, "MeshNameMatches", parseMeshNameMatchesDefinition };	// VA 0x00DC8430 "MeshNameMatches", parse 0x0041FD3D
 BlockParse theLivingWorldAITemplateBlockParse = { 0, "LivingWorldAITemplate", parseLivingWorldAITemplateDefinition };	// VA 0x00DC8478 "LivingWorldAITemplate", parse 0x00420A29
 BlockParse theLightPointLevelBlockParse = { 0, "LightPointLevel", LightPointSystem::friend_parseLightPointLevelDefinition };	// VA 0x00DC84C4 "LightPointLevel", parse 0x00421572
 BlockParse theFormationAssistantBlockParse = { 0, "FormationAssistant", parseFormationAssistantDefinition };	// VA 0x00DC84F8 "FormationAssistant", parse 0x00425B90
 BlockParse theStanceTemplateBlockParse = { 0, "StanceTemplate", Rva00425F10::parseStanceTemplateDefinition };	// VA 0x00DC8540 "StanceTemplate", parse 0x00426203
-BlockParse theEmotionNuggetBlockParse = { 0, "EmotionNugget", EmotionNuggetTemplate::friend_parseEmotionNugget };	// VA 0x00DC8570 "EmotionNugget", parse 0x004DCAE4
 BlockParse theAutoResolveArmorBlockParse = { 0, "AutoResolveArmor", LivingWorldAutoResolveArmorStore::parseArmorDefinition };	// VA 0x00DC85E8 "AutoResolveArmor", parse 0x00427392
 
 struct Rva007ABBF6BlockParseInits
 {
 	static void rva007ABBF6();
-	static void rva007ABFE3();
 	static void rva007ACFBB();
 	static void rva007AD0A2();
 	static void rva007AD120();
@@ -266,7 +247,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AE963();
 	static void rva007AFC11();
 	static void rva007AFC56();
-	static void rva007AFCB4();
 	static void rva007AFCE3();
 	static void rva007AFD4C();
 	static void rva007AFD61();
@@ -275,7 +255,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AFFD1();
 	static void rva007AFFE6();
 	static void rva007AFFFB();
-	static void rva007B003F();
 	static void rva007B0088();
 	static void rva007B009D();
 	static void rva007B00B2();
@@ -283,12 +262,10 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007B00DC();
 	static void rva007B01D3();
 	static void rva007B01E8();
-	static void rva007B01FD();
 	static void rva007B022C();
 	static void rva007B026B();
 	static void rva007B02F6();
 	static void rva007B033F();
-	static void rva007B0354();
 	static void rva007B03B2();
 };
 
@@ -301,8 +278,6 @@ struct Rva007ABBF6BlockParseInits
 
 // ?rva007ABBF6@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ABBF6 (21B): "AudioSettings"
 BLOCK_PARSE_INIT( rva007ABBF6, theAudioSettingsBlockParse )
-// ?rva007ABFE3@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ABFE3 (21B): "ShadowMap"
-BLOCK_PARSE_INIT( rva007ABFE3, theShadowMapBlockParse )
 // ?rva007ACFBB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ACFBB (21B): "LoadSubsystem"
 BLOCK_PARSE_INIT( rva007ACFBB, theLoadSubsystemBlockParse )
 // ?rva007AD0A2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD0A2 (21B): "Bridge"
@@ -373,8 +348,6 @@ BLOCK_PARSE_INIT( rva007AE963, theCloudBreakEffectBlockParse )
 BLOCK_PARSE_INIT( rva007AFC11, theLivingWorldRegionEffectsBlockParse )
 // ?rva007AFC56@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFC56 (21B): "LivingWorldArmyIcon"
 BLOCK_PARSE_INIT( rva007AFC56, theLivingWorldArmyIconBlockParse )
-// ?rva007AFCB4@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFCB4 (21B): "LivingWorldSound"
-BLOCK_PARSE_INIT( rva007AFCB4, theLivingWorldSoundBlockParse )
 // ?rva007AFCE3@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFCE3 (21B): "LivingWorldAnimObject"
 BLOCK_PARSE_INIT( rva007AFCE3, theLivingWorldAnimObjectBlockParse )
 // ?rva007AFD4C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFD4C (21B): "LivingWorldBuildingIcon"
@@ -391,8 +364,6 @@ BLOCK_PARSE_INIT( rva007AFFD1, theLivingWorldAutoResolveSciencePurchasePointBonu
 BLOCK_PARSE_INIT( rva007AFFE6, theAutoResolveReinforcementScheduleBlockParse )
 // ?rva007AFFFB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFFFB (21B): "LivingWorldAutoResolveResourceBonus"
 BLOCK_PARSE_INIT( rva007AFFFB, theLivingWorldAutoResolveResourceBonusBlockParse )
-// ?rva007B003F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B003F (21B): "CrowdResponse"
-BLOCK_PARSE_INIT( rva007B003F, theCrowdResponseBlockParse )
 // ?rva007B0088@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B0088 (21B): "HouseColor"
 BLOCK_PARSE_INIT( rva007B0088, theHouseColorBlockParse )
 // ?rva007B009D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B009D (21B): "AutoResolveLeadership"
@@ -407,8 +378,6 @@ BLOCK_PARSE_INIT( rva007B00DC, theAutoResolveWeaponBlockParse )
 BLOCK_PARSE_INIT( rva007B01D3, theAIBaseBlockParse )
 // ?rva007B01E8@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B01E8 (21B): "ArmyDefinition"
 BLOCK_PARSE_INIT( rva007B01E8, theArmyDefinitionBlockParse )
-// ?rva007B01FD@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B01FD (21B): "MeshNameMatches"
-BLOCK_PARSE_INIT( rva007B01FD, theMeshNameMatchesBlockParse )
 // ?rva007B022C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B022C (21B): "LivingWorldAITemplate"
 BLOCK_PARSE_INIT( rva007B022C, theLivingWorldAITemplateBlockParse )
 // ?rva007B026B@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B026B (21B): "LightPointLevel"
@@ -417,7 +386,5 @@ BLOCK_PARSE_INIT( rva007B026B, theLightPointLevelBlockParse )
 BLOCK_PARSE_INIT( rva007B02F6, theFormationAssistantBlockParse )
 // ?rva007B033F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B033F (21B): "StanceTemplate"
 BLOCK_PARSE_INIT( rva007B033F, theStanceTemplateBlockParse )
-// ?rva007B0354@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B0354 (21B): "EmotionNugget"
-BLOCK_PARSE_INIT( rva007B0354, theEmotionNuggetBlockParse )
 // ?rva007B03B2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B03B2 (21B): "AutoResolveArmor"
 BLOCK_PARSE_INIT( rva007B03B2, theAutoResolveArmorBlockParse )
