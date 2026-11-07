@@ -165,10 +165,17 @@ void *Rva000A2137::fetchCreateInstance()
 	return reinterpret_cast<void *>(&Rva0008FA81Create);
 }
 
-// ?Rva000A219DGet@@YAHXZ @ 0x000A219D: verified existing getter.
-int Rva000A219DGet(void)
+// ?fetchCreateInstance@Rva000A217F@@UAEPAXXZ @ 0x000A219D: slot 7 of the
+// combo box image window's table 0x00BC9020 (installed by its constructor
+// 0x000A217F) returns that class's factory.
+class Rva000A217F : public Rva000A2137
 {
-	return reinterpret_cast<int>(&Rva0008FABBCreate);
+public:
+	virtual void *fetchCreateInstance();
+};
+void *Rva000A217F::fetchCreateInstance()
+{
+	return reinterpret_cast<void *>(&Rva0008FABBCreate);
 }
 
 // ?Rva000A2727Get@@YAHXZ @ 0x000A2727: verified existing getter.

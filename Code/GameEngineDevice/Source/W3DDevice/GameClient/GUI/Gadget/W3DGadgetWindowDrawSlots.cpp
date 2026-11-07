@@ -520,15 +520,17 @@ Int Rva000A0C54Window::draw(WinInstanceData *instData)
 	return 1;
 }
 
-class Rva000A261CWindow : public Rva000A2137
+// The combo box's image variant: retail's constructor 0x000A217F installs
+// table 0x00BC9020, slot 3 0x000A261C (canonical draw(void *)).
+class Rva000A217F : public Rva000A2137
 {
 public:
-	virtual Int draw(WinInstanceData *instData);
+	virtual Int draw(void *instData);
 };
 
-Int Rva000A261CWindow::draw(WinInstanceData *instData)
+Int Rva000A217F::draw(void *instData)
 {
-	W3DGadgetComboBoxImageDraw(this, instData);
+	W3DGadgetComboBoxImageDraw(this, (WinInstanceData *)instData);
 	return 1;
 }
 

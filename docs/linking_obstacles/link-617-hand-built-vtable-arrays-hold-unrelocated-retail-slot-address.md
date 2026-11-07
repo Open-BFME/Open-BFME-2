@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Partly repaired (3 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162.
+Status: Partly repaired (4 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162 and 10748c0b80c.
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -11,7 +11,7 @@ rowed under a different placeholder class in another file, so no one class owns 
 | Source | Array (retail VA) | Slots flagged | Slot rows (target facts) |
 |---|---|---|---|
 | Common/Bfme5ThirtyTwo.cpp | g_bfmeVtableCZ (0x00CE4A10, 19 slots + string bytes) | 19 | 0x68A160 BfmeThingVIH::bfmeDelVIH (BfmeConv1374.cpp), 0x7244B0 ICF twin, 16x __purecall, 0x68A130 Rva0068A130::rva0068A130 (Rva0068A130Cluster.cpp). Ctor 0x68A0E0 Gen_0081E480 here, dtor body 0x68A110 |
-| Common/Rva000A217FCtor.cpp | g_00BC9020 (0x00BC9020) | 11 | GameWindow-family slots (??_GRva0008FF3E, Rva000A260AWindow::input/system, Rva000A261CWindow::draw, GameWindow::vslot6/8/9, Xfer::IsCRC twin, ...) |
+| Common/Rva000A217FCtor.cpp | g_00BC9020 (0x00BC9020) | 11 | FIXED 2026-11-07 (below). GameWindow-family slots (??_GRva0008FF3E, Rva000A260AWindow::input/system, Rva000A261CWindow::draw, GameWindow::vslot6/8/9, Xfer::IsCRC twin, ...) |
 | Common/Rva004F599EClear.cpp | g_00C63254 (0x00C63254) | 4 | FIXED 2026-11-07 (below). ??_GObjectModule twin 0x4A10FD, ~Region2D twin 0xB3FD0, Rva004F59ACNamed::name, Rva004F599E::xfer |
 | Common/Rva005C44A3Ctor.cpp | g_00C745D4 (0x00C745D4, char blob with trailing strings) | 4 | FIXED 2026-11-07 (below). 0x5C4537 (rowed ??_GRva004FA830), Rva005C44DF, Rva005C44C3::getName, Rva005C4352 |
 | Common/R2ZeroingConstructors.cpp | R2Data010EC784 (0x00C61CA8), R2Data01085DBC (0x00C61C30) | 2 | ??_GRva004E194E, ??_GRva004E18A2; the ledger already lists ??_7Rva004E194E and ??_7Rva003B8610Record at 0x00C61CA8 |
@@ -122,7 +122,44 @@ Not fixed this pass, with what each needs:
   VslotSmallBodiesAG_Rva00131CF2.cpp does not link before or after (0 B). Pass test: the next image_iso
   run no longer lists 0x00C745D4's words in `defects.tsv`. Not claimed until that run.
 - g_00BC9020 (Rva000A217F, a W3D gadget window): needs the canonical GameWindow (Bfme2GameWindow.h)
-  reconciled with the BfmeAptScreenBase chain its base ctor 0x00104F8F uses; header lane.
+  reconciled with the BfmeAptScreenBase chain its base ctor 0x00104F8F uses; header lane. CLEARED
+  2026-11-07 (seat halilkkaya-lk59, base 10748c0b80c), see the section below.
+
+Completed (2026-11-07, seat halilkkaya-lk59, base 10748c0b80c): g_00BC9020, the combo box image window.
+Target facts: the class chain is GameWindow (table 0x00C0BBCC, 11 slots) <- Rva0078D310Host (ctors
+0x00104F32/0x00104F8F, dtor 0x00104E03, table 0x00BCF818; its member at +0x218 follows GameWindow's
+0x218 bytes) <- Rva000A2137 (ctor 0x000A2137, table 0x00BC8FF4, the combo box window) <- Rva000A217F
+(ctor 0x000A217F, table 0x00BC9020). Retail's 0x00BC9020: slot 0 0x0008FFC4 (ICF-shared ??_G calling
+0x000A43C8, a `jmp 0x00104E03`), slots 1/2 Rva000A2137's 0x000A214F/0x000A2167, slot 3 0x000A261C,
+slots 4-6/8/9 GameWindow's own rows, slot 7 0x000A219D (returns the factory Rva0008FABBCreate),
+slot 10 0x0047A699 (`xor eax, eax; ret`, Rva0078D310Host's override; GameWindow's own is 0x0050B5C6).
+- `b5c3e44baf0`: `rename.py function --to-class Rva000A2137` moves 0x000A214F (input) and 0x000A2167
+  (system -> bfmeGoEHCb, the canonical slot-2 identifier) out of the placeholder Rva000A260AWindow.
+- `7f047a8e50d`: hand renames (rename.py keeps parameters and moves only placeholder-class members)
+  give Rva000A2137 its draw 0x000A260A (`?draw@Rva000A2137@@UAEHPAX@Z`, the canonical `draw(void *)`
+  spelling) and slot-7 getter 0x000A2197 (`?fetchCreateInstance@Rva000A2137@@UAEPAXXZ`, was the free
+  `?Rva000A2197Get@@YAHXZ`). Rva000A2137's own table, emitted by Rva0078D310HostCtor_Rva00104f8f.obj,
+  goes from 1 slot to 4 (slots 1-3 equal retail).
+- The next commit does the same for Rva000A217F (0x000A261C draw, 0x000A219D getter) and declares
+  the chain over the canonical GameWindow in Rva000A217FCtor.cpp; the compiler stores
+  `??_7Rva000A217F@@6B@` and g_00BC9020 is deleted. Against retail 0x00BC9020 by address: 9/11 slots
+  equal (1-9). Slot 0 is this unit's `??_G` (retail's 28-byte shape) calling `??1Rva000A217F`, a
+  `jmp ??1Rva0078D310Host` like retail's folded 0x000A43C8; slot 10 is an inline `return false`
+  override on the Rva0078D310Host view (retail's 0x0047A699 is the ICF-shared `xor eax, eax; ret`).
+  Evidence: 89/89 exact; find_declared_unmatched clean; scoped DIR32 OK; link_check over the nine
+  units naming these classes (Rva000A217FCtor.cpp, W3DGadgetWindowDrawSlots.cpp, ConstIntGetters2.cpp,
+  Rva0078D310HostCtor_Rva00104f8f.cpp, Rva0008F8EBFactories.cpp, W3DGameWindowManagerGadgets.cpp,
+  ReplaceObjectUpdate.cpp, Rva00104E03Dtor.cpp, Rva0078D270GameWindowHostDtor_Rva00104f32.cpp): 9/9
+  LINK before and after, 3,164 B unchanged. Pass test: the next image_iso run no longer lists
+  0x00BC9020's words in `defects.tsv`. Not claimed until that run.
+- Left for this family (LINK-514 short tables, not unrelocated words): `??_7Rva0078D310Host@@6B@` is a
+  1-slot copy in all three of its definers (Rva0078D310HostCtor_Rva00104f8f.cpp,
+  Rva0078D270GameWindowHostDtor_Rva00104f32.cpp, Rva00104E03Dtor.cpp; the latter two keep private
+  GameWindow copies, header_queue rows), and `??_7Rva000A2137@@6B@` stops at slot 3, because that
+  unit's base is a one-slot BfmeAptScreenBase view. Moving the three definers to the canonical
+  GameWindow together (a ctor/dtor pair holds two copies of one table) completes both. The other 16
+  gadget tables' draw rows in W3DGadgetWindowDrawSlots.cpp still spell `draw(WinInstanceData *)`; the
+  canonical slot is `draw(void *)`, a parameter respelling rename.py cannot make.
 
 Remaining / next check: for each array, reconcile the class. Give the constructor's class its real
 virtual functions in retail slot order (a header via `tools/header_adopt_lane.py` where one exists),
