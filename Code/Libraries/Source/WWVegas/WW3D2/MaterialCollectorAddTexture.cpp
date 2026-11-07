@@ -16,7 +16,7 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
-void __cdecl operator delete[](void *) throw();
+
 #include "shader.h"
 #include "vector.h"
 // Reset accesses the target's RefCountClass prefix only.

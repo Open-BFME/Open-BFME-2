@@ -10,7 +10,7 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
-void __cdecl operator delete[](void *) throw();
+
 #include "vector3.h"
 #include "vector4.h"
 #include "vector.h"

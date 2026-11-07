@@ -19,7 +19,7 @@ template <> ShareBufferClass<Vector2>::~ShareBufferClass(void);
 // buffer through the free below: it must be the nothrow form so the inlined
 // destructor comes out at retail's 26 bytes (0x000D1DC8, no EH frame) instead of
 // the 68-byte throwing shape.
-void __cdecl operator delete[](void *) throw();
+
 #include "always.h"
 #undef W3DMPO_GLUE
 #define W3DMPO_GLUE(ARGCLASS)
