@@ -23,7 +23,7 @@ relocations, retail non-zero; padding, name lists and ThrowInfo anchors left out
 | other extern placeholders | 32 | module tables (DamageField, GloriousCharge, HordeTransportContain, Invisibility, the sound selectors, RunOffMap, W3DDefault/TreeDraw, UpgradeModule, UpgradeMux, ...) |
 | TU-local dummy vptrs (`s_dummy*`, `s_secondary*`, `s_vtable*`, `*VTableAnchor`) | 222 in 71 units | 151 already listed by LINK-514 (87 need-identity, 37 need-view, 7 safe transient first stores, 7 blocked); 69 not in LINK-514 |
 
-**Repaired: the ModuleData family.** Each constructor now derives from the canonical header and lets the compiler install
+**Repaired: the ModuleData family** (eight extern placeholders and one TU-local dummy). Each constructor now derives from the canonical header and lets the compiler install
 the class's `??_7`, and every other unit that emits the same table (the deleting-destructor scaffold or the destructor
 unit) uses the same view, so both copies have one digest. Every repaired table has 31 slots against retail's 31:
 GetSnapshotName equal by address, the other 30 inline bodies of retail's shapes (`ret`, `mov al,0/1; ret`, `xor eax,eax;
@@ -41,10 +41,11 @@ no verdict or byte change unless stated.
 | BoredUpdateModuleData (0x004966FE) | 0x00C4F590 | ModuleData.h | BoredUpdateModuleDataDtor.cpp (owns ??1) | 86/93 unchanged |
 | EvacuateDamageModuleData (0x004BAD10) | 0x00C59CF8 | ModuleData.h | EvacuateDamageModuleDataDtor.cpp (owns ??1) | 85/93 unchanged |
 | ExperienceLevelCreateModuleData (0x004B9220) | 0x00C595E8 | ModuleData.h (slot 9 override) | none existed | 79/86 unchanged |
+| FXListDieModuleData (0x00253A78, `s_vtable`, LINK-514 needs-view) | 0x00C4ED70 (shared fold) | DestroyDieModuleData.h | none existed | 72/79 unchanged |
 
 Taint's hand-built `vtbl_00C5D608` array (LINK-623 leftover) is gone; the CommandPoints unwind no longer goes through an
 `/alternatename` to operator delete (its hatch line over-grants by one until `hatch_counters.py --update`). Sweep after:
-267 -> 259 placeholders, none new.
+267 -> 259 placeholders, none new (before the FXListDie repair; 258 after it).
 
 Recipes that worked (reusable):
 - **ModuleData.h's constructor is `__declspec(dllimport) __forceinline`** (BfmeModuleData.h precedent). MSVC 7.1 emits an
