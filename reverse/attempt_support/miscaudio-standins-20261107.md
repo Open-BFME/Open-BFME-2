@@ -21,7 +21,36 @@ stand-in names are the evidence a member-kind vote needs.
   which is a stand-in spelling rather than a role, so this one needs its own evidence before a
   vote is worth running.
 
-## One contradiction to settle before that unit can adopt
+## Settled, same day: retail's own INI table names all three
+
+The canonical header's provenance comment points at the evidence the section below was missing:
+MiscAudio's FieldParse table at 0x007DF2D0 covers every four-byte offset up to +0xF0, and it is
+reconstructed and byte-matched in `Code/GameEngine/Source/Common/INI/INIMiscAudio.cpp` as 61
+entries of token plus offset. Those tokens are retail's own names for these members, so nothing
+here needed a vote or a donor:
+
+- **+0x2C** is `NoCanDoSound`, **+0xE8** is `BadBuildingPlacementSound`, **+0xBC** is
+  `MissionBriefingCharacterClick`, **+0xF0** is `TargetObjectWithSpecialPowerSound`.
+- The offsets I had already adopted check out against the same table: +0x20/+0x24 are
+  `DefectorTimerTickSound`/`DefectorTimerDingSound` and +0x38/+0x3C are
+  `MoneyDepositSound`/`MoneyWithdrawSound`.
+
+So the "contradiction" below was not one. The canonical header is right that `m_noCanDoSound`
+lives at +0x2C, and `PlaceEventTranslator.cpp`'s stand-in was simply misnamed: the member it reads
+at +0xE8 is the bad-building-placement sound, which fits its use site exactly - the body plays it
+on `MSG_CANNOT_BUILD_VOICE`, a refused placement. That member is now spelled
+`m_badBuildingPlacementSound` in that unit.
+
+Also superseded: the note below asks for "the body's own relocation" to decide which offset retail
+reads. That was the wrong instrument. The parse table already answers it, and it answers the other
+two members as well, which the naming-lane route could not have done - the header leaves them
+neutral precisely because Zero Hour has no counterpart for them, not because nobody had voted.
+
+What remains is to carry the three tokens into the canonical header's neutral names
+(`m_BC`, `m_E8`, `m_F0`), which is a shared-header change under `canonical:iniblock`, and then the
+last stand-ins can adopt it.
+
+## Superseded: the contradiction as first recorded
 
 `GameClient/MessageStream/PlaceEventTranslator.cpp` declares `char m_pad[0xE8];` followed by
 `OpaqueRefElement4 m_noCanDoSound;`, putting the no-can-do sound at **+0xE8**. The canonical
