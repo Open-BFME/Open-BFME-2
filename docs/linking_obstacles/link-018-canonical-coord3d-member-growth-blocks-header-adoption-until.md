@@ -237,3 +237,11 @@ carry both sources into the next scheduled census.
 
 
 2026-11-05 follow-up: The Coord3DBase-only follow-up still reaches the canonical Coord3D declaration. Coord3DCopy requires the existing member and DeflectSpecialPower requires a coordinated onCollide class-key migration. All trials were restored. [Native trial and prerequisite](../../reverse/attempt_support/header-composition-prerequisites-up-to-hundred-each-20261105-1425.md).
+
+
+**2026-11-07 ownership (swarm Link lane).** The class-key flip itself stays with Dave Razidlo's
+class-key rename (scope above: 338 directly including units at minimum, through the lane's class-key
+rename path). Once that lands, the swarm Link lane takes the two `Matrix4D` exports' follow-up only:
+respell `Snapshot.cpp`'s row to the export spelling `??0Matrix4D@@QAE@ABVCoord3D@@M@Z`, then give `Set`
+its name with an `--icf-owner` twin row (fold-proof) at 0x00004079. Real link `f98a8da771` still lists
+both as unresolved.
