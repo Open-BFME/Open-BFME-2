@@ -113,6 +113,22 @@ GloriousCharge, Rampage, Enraged, StealthDetector, the special powers; mostly Up
 LINK-514's recipe) and the 32 extern placeholders. Re-run the sweep (`lk45_sweep.py` over a scratch `data_ledger.py --out`)
 before and after; every repaired constructor must leave the inventory with its table's copies identical.
 
+**Boot-path triage of what is left (2026-11-07, lk52; retail call sites of each open constructor).** Constructed at
+engine init: only the walled ModuleData family (SpawnBehavior, TransitionDamageFX, AttributeModifierAura, AutoDeposit,
+StructureTopple and ToggleMounted, all built by their `friend_newModuleData` during INI load) and LaserFXNugget
+(`g_00BDD7B8`, built by `LaserFXNugget::parse` 0x001E1519 while FXList INI loads; its first virtual call is the first
+laser FX). LaserFXNugget's table 0x00BDD7B8 is [the nuggets' folded `??_G` 0x001E1152, its own doFXPos/doFXObj rows,
+`ret 8` 0x0050B238 for Rva001DFEAABase's slot03, the base's rva001DFF5D]; 0x001E1152 calls the folded destructor
+0x001E116E that releases a four-byte string at +0x148, so its +0x148 field is a string owner (as
+CursorParticleSystemFXNugget's in HelixContainModuleDataDtor.cpp), not the `const char *` the ctor unit declares.
+Constructed when objects are created (shell map, skirmish): W3DDefaultDraw (`g_00BC98B0`) and W3DTreeDraw
+(`g_00BCCCF8`); both tables are 62 DrawModule.h slots of shared default bodies, but their slot 2 (GetSnapshotName) and
+slot 0/`??1` rows sit under placeholders (`Rva000CEB69Named::name`, `Rva000CEB6F`) and slot 3 under
+`W3DPropDraw::xfer`, so each needs that identity first, then DrawModule.h's pure slots (11-14, 35, 38, 39) declared as
+the shared empty bodies. `VideoBuffer::VideoBuffer` (`_Rva0081C2F0VTableAnchor`, from W3DVideoBuffer's constructor)
+is a transient first store the derived constructor overwrites. Rva0057551C, the Aries/Fesl/BfmeThingDGD network units
+and the DirtySock debug print are off the boot path.
+
 Clearance: none claimed (no real link or census run since); the eight installers now name their tables, so the
 next real link's image report and bridge queue are the check.
 Census confirmation: none claimed.
