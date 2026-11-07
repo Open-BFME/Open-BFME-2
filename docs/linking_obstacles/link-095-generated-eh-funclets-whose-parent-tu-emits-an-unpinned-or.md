@@ -347,3 +347,6 @@ retried: they still name `??1Rva000F0F2B`, which has no row or pin.
 
 
 **2026-11-06 radial-menu holder.** The real link at 1d41894d2a reports the constructor's private Rva00577FE2List destructor. Retail actions 0x0079B7EE and 0x0079B82B both jump to the matched 29-byte Rva000AD6F4 destructor at 0x000AD6F4. The constructor now uses the same four-byte holder and two following pointer fields as the complete destructor. Scoped bytes and both EH graphs verify. The emitted canonical holder constructor is byte-and-relocation-identical to the existing copy in Rva00575F38Dtor.cpp. The generated actions stay in their current units pending approved TU placement. A real link containing this commit is needed to measure closure.
+
+
+**2026-11-07 radial-menu real-link confirmation.** The first authoritative [real link at 12de5b58b2](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42296273754) containing 157a2091e1 has no ??1Rva00577FE2List@@QAE@XZ. Its unresolved set differs from the previous c3598ad3d0 measurement only by removal of that symbol (262 to 261). [The next measurement at 66a5bf9c84](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42311534760) confirms its absence. Both reports show zero duplicates and no image. Approved placement of the generated unwind rows remains open.

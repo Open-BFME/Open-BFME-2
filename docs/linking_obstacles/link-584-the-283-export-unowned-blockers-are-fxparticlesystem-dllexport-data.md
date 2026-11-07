@@ -96,3 +96,6 @@ and 93 share an address with another export, so one global per address applies. 
 TU evidence and a fold decision before any definition; the dllexport question stays with the maintainer.
 The other 7 unresolved names are LINK-168 (`BehaviorModule::crc`), LINK-018 (`Matrix4D`), LINK-073,
 LINK-181 and LINK-622 (LockWeaponCreate).
+
+
+**2026-11-07 generic ModuleTag references.** 38 KEY/NAME exports have same-address s_key/s_name COMDAT owners in the existing particle module units. The data gate refuses the trial because it cannot form a sizeof expression for the encoded reference template arguments. The trial was reverted. [Reproduction and remaining checks](../../reverse/attempt_support/particle-module-tag-reference-admission-20261107.md).
