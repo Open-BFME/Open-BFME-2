@@ -14,10 +14,10 @@
 
 struct EmitVtableTag;
 
-// InvisibilitySpecialPowerModuleData below derives from SpecialPowerModuleData, as its family
-// unit declares it (MobNexusContainModuleDataCtor.cpp), so this unit's copy of its 31-slot
-// vftable (retail 0x00C5C558) is the same table instead of a one-slot one that link order would
-// keep. The Devastate, OCL, PlayerUpgrade, ProductionSpeedBonus, ElvenWood and WeaponChange
+// InvisibilitySpecialPowerModuleData and TaintSpecialPowerModuleData below derive from
+// SpecialPowerModuleData, as their family units declare them (MobNexusContainModuleDataCtor.cpp,
+// ElvenWoodSpecialPower.cpp), so this unit's copies of their 31-slot vftables (retail 0x00C5C558,
+// 0x00C5D608) are the same tables instead of one-slot ones that link order would keep. The Devastate, OCL, PlayerUpgrade, ProductionSpeedBonus, ElvenWood and WeaponChange
 // wrappers are rowed in their own TUs, which emit them with the vtable first in link order.
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
@@ -59,6 +59,6 @@ CloudBreakSpecialPowerModuleData::CloudBreakSpecialPowerModuleData(EmitVtableTag
 
 // ??_GTaintSpecialPowerModuleData@@UAEPAXI@Z @0x004C4AEB 28B: slot 0 of vtable 0x00C5D608; calls ??1 at 0x004C4B07.
 // Owner evidence (audited 2026-09-26): retail registration TaintSpecialPower -> data factory RVA 0x00251EE4 -> ctor RVA 0x004C4AB8; primary vptr store RVA 0x004C4ACA.
-class TaintSpecialPowerModuleData { public: TaintSpecialPowerModuleData(EmitVtableTag *); virtual ~TaintSpecialPowerModuleData(); };
+class TaintSpecialPowerModuleData : public SpecialPowerModuleData { public: TaintSpecialPowerModuleData(EmitVtableTag *); virtual ~TaintSpecialPowerModuleData(); };
 // ?<TaintSpecialPowerModuleData::TaintSpecialPowerModuleData> absent-from-retail
 TaintSpecialPowerModuleData::TaintSpecialPowerModuleData(EmitVtableTag *) {}

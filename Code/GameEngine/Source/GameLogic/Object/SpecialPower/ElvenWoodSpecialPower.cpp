@@ -125,15 +125,7 @@ extern ThingFactory *TheThingFactory;
 namespace _STL {
 template<> bitset<128> &bitset<128>::reset();
 }
-class SpecialPowerModuleData
-{
-public:
-	SpecialPowerModuleData();
-	virtual ~SpecialPowerModuleData();
-
-private:
-	unsigned char m_pad[0x7C - 4];
-};
+#include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 //
 // ?xfer@Rva004C447D@@MAEXPAVXfer@@@Z, retail 0x004C447D, 64 bytes. Virtual
 // slot 3 of vtable 0x0085D304 (ScavengerSpecialPower): Version(1,2) via slot
@@ -452,63 +444,14 @@ protected:
 };
 
 // ??0TaintSpecialPowerModuleData@@QAE@XZ at retail 0x004C4AB8 (51 bytes,
-// frameless): base call into the opaque intermediate 0x004930A0 (pinned),
-// explicit vtable store at +0, zeros at +0x7C/+0x84/+0x88, 10.0f at +0x80
-// matching the Taint table (TaintObject at +0x7C, TaintRadius at +0x80,
-// TaintFX at +0x84, TaintOCL at +0x88). Factory at 0x00251EE4 is the sole
-// caller. Row supersedes the ctor pin.
-// Retail VA 0x00C5D608 (.rdata): a 31-slot vftable no unit emits. Defined here as
-// data with retail's slot pointers, each bound to the ledger name at its
-// target (tools/vftable_map.py); its installers store this table.
-extern "C" void __identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ")();
-
-extern "C" void __identifier("??1Coord2D@@QAE@XZ")();
-
-extern "C" void __identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")();
-
-extern "C" void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
-
-extern "C" void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
-
-extern "C" void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
-
-extern "C" void __identifier("??_GTaintSpecialPowerModuleData@@UAEPAXI@Z")();
-
-extern "C" void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
-
-extern "C" const void *const vtbl_00C5D608[] = {
-	(const void *)&__identifier("??_GTaintSpecialPowerModuleData@@UAEPAXI@Z"),
-	(const void *)&__identifier("??1Coord2D@@QAE@XZ"),
-	(const void *)&__identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ"),
-	(const void *)&__identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z"),
-	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"),
-	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
-};
+// frameless): base call into SpecialPowerModuleData's constructor 0x004930A0,
+// the compiler's store of the class's 31-slot table 0x00C5D608 (ModuleData's
+// slots through the canonical SpecialPowerModuleData.h), zeros at
+// +0x7C/+0x84/+0x88, 10.0f at +0x80 matching the Taint table (TaintObject at
+// +0x7C, TaintRadius at +0x80, TaintFX at +0x84, TaintOCL at +0x88). Writing
+// +0x7C through a pointer keeps the vptr store ahead of the member stores, as
+// retail schedules it. Factory at 0x00251EE4 is the sole caller. Row
+// supersedes the ctor pin.
 
 class FXList;
 
@@ -518,6 +461,7 @@ class TaintSpecialPowerModuleData : public SpecialPowerModuleData
 {
 public:
 	TaintSpecialPowerModuleData();
+	virtual ~TaintSpecialPowerModuleData();
 
 	int m_taintObject; // +0x7C
 	Real m_taintRadius; // +0x80
@@ -675,6 +619,20 @@ private:
 	char m_pad[0x24];
 	unsigned char m_24;
 };
+
+extern "C" void __identifier("?GetSnapshotName@ModuleData@@UBEPBDXZ")();
+
+extern "C" void __identifier("??1Coord2D@@QAE@XZ")();
+
+extern "C" void __identifier("?rva000B69A1@Rva000B69A1@@QAE?AVAsciiString@@H@Z")();
+
+extern "C" void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
+
+extern "C" void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
+
+extern "C" void __identifier("?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")();
+
+extern "C" void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
 
 extern "C" void __identifier("??_GCloudBreakSpecialPowerModuleData@@UAEPAXI@Z")();
 
@@ -963,7 +921,6 @@ TaintSpecialPowerModuleData::TaintSpecialPowerModuleData()
 	: SpecialPowerModuleData()
 {
 	int *taintObject = &m_taintObject;
-	*(unsigned int *)this = ((unsigned int)vtbl_00C5D608);
 	*taintObject = 0;
 	m_taintFX = 0;
 	m_taintOCL = 0;
