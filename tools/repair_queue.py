@@ -1065,6 +1065,15 @@ def exit_link_items(path=None):
 VTABLE_QUEUE = "reverse/vtable_bridge_queue.tsv"
 
 
+def _checkout_relative(source):
+    """The real-link runner writes absolute paths (D:\\a\\Open-BFME-2\\Open-BFME-2\\Code\\...); serve Code/..."""
+    text = source.replace("\\", "/")
+    if not (text[1:3] == ":/" or text.startswith("/")):
+        return text
+    index = text.find("/Code/")
+    return text[index + 1:] if index >= 0 else text
+
+
 def vtable_bridge_items(path=None):
     """Refusals then retirement, one file claim per source; retain unowned work visibly."""
     path = Path(path) if path else ROOT / VTABLE_QUEUE
@@ -1072,7 +1081,11 @@ def vtable_bridge_items(path=None):
         return [], None
     lines = path.read_text(encoding="utf-8").splitlines()
     measured = lines[0].lstrip("# ") if lines and lines[0].startswith("#") else "a real link"
+    # An evidence cell holds a table's whole slot listing; a large class's passes csv's 128 KiB default.
+    csv.field_size_limit(max(csv.field_size_limit(), 1 << 26))
     rows = list(csv.DictReader((line for line in lines if not line.startswith("#")), delimiter="\t"))
+    for row in rows:
+        row["source"] = _checkout_relative(row["source"] or "")
     grouped = {}
     unowned = 0
     for row in sorted(rows, key=lambda row: row["state"] != "refused"):

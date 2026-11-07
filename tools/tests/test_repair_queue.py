@@ -3131,6 +3131,20 @@ def test_vtable_queue_follows_real_blockers_without_duplicate_file_claims(tmp_pa
     assert note == "strict; bridge"
 
 
+def test_vtable_queue_reads_runner_paths_and_large_evidence(tmp_path, monkeypatch):
+    import csv
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, files=[("Code/A.cpp", ""), ("reverse/data_ledger.csv", "")])
+    path = rev / "vtable_bridge_queue.tsv"
+    fields = ["state", "table", "class", "reason", "source", "retail_rva", "slots", "evidence"]
+    evidence = '{"slots":"' + "x" * 200000 + '"}'
+    with path.open("w", newline="") as f:
+        writer = csv.writer(f, delimiter="\t"); writer.writerow(fields)
+        writer.writerow(["refused", "_a", "A", "omitted-target",
+                         "D:\\a\\Open-BFME-2\\Open-BFME-2\\Code\\A.cpp", "0x4000", "4", evidence])
+    items, note = rq.vtable_bridge_items()
+    assert [item["source"] for item in items] == ["Code/A.cpp"] and "unowned" not in note
+
+
 def test_vtable_queue_absent_is_no_work(tmp_path):
     rq, _, _ = load(tmp_path, "bfme2", LEDGER)
     assert rq.vtable_bridge_items() == ([], None)
