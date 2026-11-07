@@ -19,6 +19,9 @@
 
 // The canonical LightClass over the canonical RenderObjClass: the unit then emits the class's
 // full table (retail 0x00BD23C0) instead of a six-slot one from private views (P21).
+// ~LightClass tail-jumps to the rowed ~RenderObjClass (0x0013BE20); keep rendobj.h from
+// emitting its own inline destructor and the tables it pulls in.
+#define BFME_RO_DTOR_DECL_ONLY
 #include "LightClass.h"
 
 // upstream: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/wwmath.h
@@ -119,6 +122,17 @@ void LightClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 	float r = FarAttenEnd;
 	box.Center.Set(0, 0, 0);
 	box.Extent.Set(r, r, r);
+}
+
+// Retail's table points slot 12 at the shared 'ret 4' (0x0047A69C) and slot 129 at the shared
+// 'mov al, 1; ret' (0x0050B5C6): a light renders nothing itself and is a vertex processor.
+void LightClass::Render(RenderInfoClass &)
+{
+}
+
+bool LightClass::Is_Vertex_Processor()
+{
+	return true;
 }
 
 // Anchor: emits the ??_G scalar-deleting-destructor COMDAT.
