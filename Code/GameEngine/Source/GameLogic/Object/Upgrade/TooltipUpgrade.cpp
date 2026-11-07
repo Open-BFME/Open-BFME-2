@@ -4,27 +4,10 @@
 class Thing;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
+// The class is TooltipUpgrade.h's, over the canonical UpgradeModule.h (retail's
+// table facts are there).
+#include "../../../../Include/GameLogic/Module/TooltipUpgrade.h"
 
-private:
-	bool m_upgradeExecuted;
-};
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule( Thing *thing, const ModuleData *moduleData );
-protected:
-	virtual ~UpgradeModule();
-};
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 // ?getModuleNameKey@TooltipUpgrade@@UBE?AW4NameKeyType@@XZ @0x004B79E9
@@ -65,12 +48,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class TooltipUpgrade : public UpgradeModule
-{
-public:
-	TooltipUpgrade( Thing *thing, const ModuleData *moduleData );
-	virtual NameKeyType getModuleNameKey() const;
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradePoolKey.cpp
 
@@ -120,3 +97,55 @@ void Rva004B7A9D::upgradeImplementation()
 // tu-skeleton: 0x004B7A81 28B ??_GRva004B79AD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B7ADB 69B ?upgradeRemovalImplementation@TooltipUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradeRemoval.cpp (not merged yet)
+
+// ?postUpgradeCheck@TooltipUpgrade@@UAEXXZ: slot 6 of 0x00C58BC0 is 0x004B3B42,
+// one body with CommandSetUpgrade's slot 6: run the removal (slot 8), then
+// attempt the upgrade again (slot 1) with the controlling player's 128-bit
+// mask at +0x13C ORed with the Object's at +0x284.
+#include "../object.h"
+#include "../../../../Include/Common/BfmeFixedStorage128.h"
+namespace _STL
+{
+	template<size_t N>
+	struct _Base_bitset
+	{
+		void _M_do_or(const _Base_bitset<N> &other);
+	};
+}
+void TooltipUpgrade::postUpgradeCheck()
+{
+	upgradeRemovalImplementation();
+	Player *player = getObject()->getControllingPlayer();
+	BfmeFixedStorage128 local(*(const BfmeFixedStorage128 *)((const char *)player + 0x13C));
+	Object *obj = getObject();
+	((_STL::_Base_bitset<32> *)&local)->_M_do_or(
+		*(_STL::_Base_bitset<32> *)((char *)obj + 0x284));
+	attemptUpgrade(*(const BitFlags<128> *)&local);
+}
+
+// The Xfer operand types (AsciiString is ascii_string.h's, above).
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+// ?xfer@TooltipUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C58C08 is 0x004B8710,
+// version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+void TooltipUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
+}
