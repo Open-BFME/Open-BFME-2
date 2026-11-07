@@ -155,6 +155,7 @@ extern Mouse *TheMouse;
 #include "../../../../../Include/Common/UserPreferences.h"
 
 #include "../../../../../Include/Common/OptionPreferences.h"
+#include "../../../../../Include/GameClient/Drawable.h"
 
 // The menu's title/version text block at +0x290 (constructor 0x005B6ED1).
 class BfmeThingTTD
