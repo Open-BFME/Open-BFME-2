@@ -191,6 +191,7 @@ symbols (no unit changed status). The simulation after each: target-not-winning-
   one block (0x0006CE71..0x0006D03E) beside BaseHeightMapRenderObjClass's code; the six rows are owned
   by /O2 units (hlod.cpp, distlod.cpp) and their addresses have no approved TU (inline/displaced), so
   this pass did not move them.
+  LightClass's table is since repaired in source (P21, the 2026-11-07 crash-triage entry below).
 - 9 more alignment-only tables, where the first provider's flags are fixed by its own matched rows:
   `Get_ObjectScale` x3 (U4GlobalGuardedNotifies.cpp), `Get_Vertex_Array` (W3DBridgeBuffer.cpp),
   VectorClass<int> (Render2DSentenceAllocateSurfaceBFME2.cpp), VectorClass<StringClass>
@@ -267,3 +268,28 @@ DIR32 clean. The broader outgoing audit is still INCONCLUSIVE: index
 without current audit receipts (first BaseHeightMapRenderObjClassRva0006846A.cpp).
 Keep that selection scope open for the next census and real image; no image
 or runtime clearance is inferred from the successful source gates.
+
+**2026-11-07, crash-triage seat2 (P21): LightClass repaired in source.** LightClass, one of the 20
+RenderObjClass-derived tables listed after lk40, is repaired in source rather than through the bridge.
+LightClassCopyCtor.cpp, the only unit that emitted LightClass's tables (6 of retail's 130 slots in
+`??_7LightClass@@6BRefCountClass@@@`), now includes the canonical LightClass.h over the canonical rendobj.h. Its
+compiler-flag line gains the WWVegas include paths and `/DNDEBUG` (Zero Hour's refcount.h, which rendobj.h includes,
+otherwise adds its debug members and the 0x120 size check fails); it defines BFME_RO_DTOR_DECL_ONLY (retail's
+~LightClass tail-jumps to the rowed ~RenderObjClass 0x0013BE20), and defines Render (slot 12, the shared ret 4 at
+0x0047A69C) and Is_Vertex_Processor (slot 129, mov al 1; ret at 0x0050B5C6) as fold-proof ICF aliases. `rename.py
+function --to-class` moved `?Class_ID@Rva0006DD63@@QAEHXZ` (0x0006DD63, slot 3, VtableSlotBodiesR3.cpp) into
+LightClass as `?Class_ID@LightClass@@UBEHXZ`. Result: 130 slots, 71 at retail's exact target, none wrong, 59 unrowed
+inline base bodies; ./build.sh exact; link_check of both units LINKS (1,170 -> 1,176, 630 -> 630).
+- Caveat: the canonical RenderObjClass has no PersistClass base, so the secondary table is now named
+  `??_7LightClass@@6BMultiListObjectClass@@@` (one slot, the -8 `??_E` thunk). `reverse/data_ledger.csv` still names
+  0x007D23B8 `??_7LightClass@@6BPersistClass@@@`, the stale-ledger case of cluster 2; no live consumer spells it.
+- Retained debt: LightClassCopyCtor.cpp's LightClass header-queue row stays. `header_adopt_lane accept` passes it
+  together with VtableSlotBodiesR3.cpp, but the pre-commit retirement judges the unit alone against the census copy of
+  VtableSlotBodiesR3.obj (which still defines the placeholder) and predicts a loss; recorded as a false reject in
+  re_attempts.log at 0x00130AC0, routed to the tooling queue. The unit's RenderObjClass, AABoxClass and SphereClass
+  rows also stay queued; their recorded reasons predate the adoption and were not re-judged here.
+- Runtime: not yet proven; the test receipt (2026-11-07T194022Z-boot_smoke-1e6b78e98671) stops in Object INI loading
+  before the shell map, where lights are built. P21 stays open until a receipt reaches the shell map.
+- Outgoing audit (index fetched at c5e492e56d, base 6b03ea70b8): INCONCLUSIVE, no loss named. Both objects hold the
+  ordinary dependency receipt, not a census-grade (include-inventory) one. link_check against that index: both units
+  LINK. Carry LightClassCopyCtor.cpp and VtableSlotBodiesR3.cpp into the next census.
