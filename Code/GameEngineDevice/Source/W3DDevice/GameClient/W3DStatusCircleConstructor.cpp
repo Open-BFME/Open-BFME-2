@@ -9,20 +9,8 @@
 // buffer pointers; the -1.0f pair and +0xD4 are BFME 2 additions whose
 // names are unknown (fieldCC/fieldD0/fieldD4).
 
-#include "../../../../Libraries/Source/WWVegas/WWLib/RefCountData.h"
-
-#include "../../../../Libraries/Source/WWVegas/WWLib/MultiListObjectClass.h"
-
-class RenderObjClass : public RefCountClass, public MultiListObjectClass
-{
-public:
-	RenderObjClass();
-	virtual int Class_ID() const;
-	virtual ~RenderObjClass();
-
-protected:
-	char m_tail[0xB4];
-};
+#define BFME_RO_DTOR_DECL_ONLY // call retail's RenderObjClass destructor 0x0013BE20, emit no copy
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
 struct StatusShaderBits
 {
@@ -37,6 +25,14 @@ public:
 	// Compiler-generated destruction (members, then the rowed base dtor), the
 	// body retail's vtable slot 0 reaches.
 	virtual ~W3DStatusCircle() {}
+	// Retail's table (VA 0x00BC7850) overrides six of RenderObjClass's 129 slots: the deleting
+	// destructor, these two, Render and the two bounding volumes. Clone and Class_ID are
+	// one-instruction bodies retail folded with others (0x000D43D0 xor eax,eax; 0x0036CC7A or eax,-1).
+	virtual RenderObjClass *Clone(void) const { return 0; }
+	virtual int Class_ID(void) const { return CLASSID_UNKNOWN; }
+	virtual void Render(RenderInfoClass &rinfo);
+	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;
+	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;
 
 private:
 	int m_numTriangles;
