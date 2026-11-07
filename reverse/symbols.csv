@@ -4859,7 +4859,6 @@ name,address,notes
 ?bfmeGrowV21@BfmeStrV21@@QAEXXZ,0x00023A40
 ?bfmeGrowV22@BfmeStrV22@@QAEXXZ,0x00023A40
 ?bfmeGrowV23@BfmeStrV23@@QAEXXZ,0x00023A40
-?bfmeHas1026@BfmeTab1026@@QAEDHH@Z,0x00362437
 ?bfmeHas992C@BfmeAsk992@@QAEDXZ,0x00655950
 ?bfmeHelper996070@@YAXPAX00PBD@Z,0x0074DD00,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeHitAEA@BfmeEntryAEA@@QAE_NPAUBfmeKeyAEA@@PAX@Z,0x0066DAE0

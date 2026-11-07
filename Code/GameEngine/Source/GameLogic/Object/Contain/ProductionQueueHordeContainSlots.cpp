@@ -15,8 +15,6 @@
 
 class BfmeTab1026
 {
-public:
-	char bfmeHas1026(int a, int b);
 };
 
 class Object;
