@@ -213,3 +213,18 @@ Update (2026-11-07, static-defects lane): the slot-4 const respell's prerequisit
 - Follow-up cleanup: give `Rva2225E0Filter` one shared header and adopt it in the 51 view units
   (`header_adopt_lane.py`). That removes 51 private class copies, and a later signature change would
   touch only the header, the definition and the units that spell the mangled name.
+
+Update (2026-11-07, static-defects lane): P16 route chosen: minimal B.
+- FXList.cpp keeps its Zero Hour FXList/FXListStore machinery (so 0x0052BD3A and the two hashtable rows keep
+  their emitter) and replaces only the Zero Hour `ParticleSystemFXNugget` view with BFME 2's on canonical
+  `Rva001DFEAABase`, with the rowed ctor 0x001E0AEF defined in the unit. FXList.obj then emits retail's ctor
+  and `??_G`, and no Zero Hour `parse`, pool glue or `addFXNugget`. In scratch: 15/15 exact (FXList.cpp's 7
+  rows plus the ctor family).
+- Landing it needs three Harness rules, queued with `tu_skeleton --emit-move`: (a) held-by-emission covers
+  an implicit copy ctor placed by contiguity alone (0x0052BD3A); (b) a displaced compiler-generated
+  special member (`??_G` 0x001E10CE) rides with the body that emits its vtable; (c) `--split` takes a
+  prepared target-TU text in the same transaction.
+- Pass test: a boot-queue run on an image with minimal B gets past P16 (FXList.ini loads).
+- Handoff, with the text, the refusing commands and their output: `reverse/attempt_support/p16_minimal_b/`.
+- The record chain respell, the shared Act header and the LivingWorldCampaign.cpp move (P2-P4, stage 0)
+  are later cleanup, no longer on P16's path; their stage-0 tool needs are in the same handoff.

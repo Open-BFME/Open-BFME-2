@@ -1,0 +1,13 @@
+file: Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp
+tu: Code/GameEngine/Source/GameClient/FXList.cpp
+candidates: 15
+carved: ['0x001DFAE0', '0x001DFB01', '0x001DFB22', '0x001E0829', '0x001E0965', '0x001DFD15', '0x001DFCF4', '0x001DFD57']
+refused_rows: {}
+copies: []
+data_moved: ['SoundFXNuggetFieldParse', 'RayEffectFXNuggetFieldParse', 'LightPulseFXNuggetFieldParse', 'FXListAtBonePosFXNuggetFieldParse', 'ParticleSystemFXNuggetFieldParse', 'ViewShakeFXNuggetFieldParse', 'TerrainScorchFXNuggetFieldParse']
+externs: ['FXNuggetFieldParse']
+hatches_move: False
+residual_keeps: 26
+alone: 8/17 carved rows match beside the TU under its flags
+flag_bound: {'0x001E1329': "matches only under the file's own flags", '0x001E13A5': "matches only under the file's own flags", '0x001E1421': "matches only under the file's own flags", '0x001E1611': "matches only under the file's own flags", '0x001E171C': "matches only under the file's own flags", '0x001E264F': "matches only under the file's own flags", '0x001E1814': "matches only under the file's own flags", '0x00769CF9': "matches only under the file's own flags", '0x00769D03': "matches only under the file's own flags"}
+blocked: TU path exists and holds rows the map places in another TU (split it first): livingworldcampaign.cpp 1

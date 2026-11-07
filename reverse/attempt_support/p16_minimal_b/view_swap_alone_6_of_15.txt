@@ -1,0 +1,16 @@
+6/15
+  MISS 0x001E0AEF ??0ParticleSystemFXNugget@@QAE@XZ
+  MISS 0x001E10CE ??_GParticleSystemFXNugget@@UAEPAXI@Z
+  OK   0x001E11A6 ?clear@FXList@@QAEXXZ
+  MISS 0x001E24DC ?doFXObj@ParticleSystemFXNugget@@UBEXPBVObject@@0@Z
+  OK   0x001E2DB3 ?doFXObj@FXListAtBonePosFXNugget@@UBEXPBVObject@@0@Z
+  OK   0x0023DAA5 ?clear@?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAEXXZ
+  OK   0x0052BD3A ??0FXList@@QAE@ABV0@@Z
+  OK   0x0060CF5A ?_M_delete_node@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKey
+  OK   0x0060CFB6 ?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@W4NameKeyType@@U?$
+  MISS 0x00769C4F Unwind@00b69c4f
+  MISS 0x00769C57 Unwind@00b69c57
+  MISS 0x00769C65 Unwind@00b69c65
+  MISS 0x00769C73 Unwind@00b69c73
+  MISS 0x00769C81 Unwind@00b69c81
+  MISS 0x00769C8F __ehhandler$??0ParticleSystemFXNugget@@QAE@XZ

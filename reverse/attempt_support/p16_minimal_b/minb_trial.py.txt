@@ -1,0 +1,86 @@
+"""Minimal B, question 1: FXList.cpp keeps its Zero Hour FXList/FXListStore machinery and swaps only the Zero
+Hour ParticleSystemFXNugget view for the BFME 2 one on canonical Rva001DFEAABase, with the rowed ctor
+0x001E0AEF defined out of line in the unit (no anchor), so its vtable and the in-class doFXObj are emitted
+naturally. The unreferenced BfmeReferenceFXListFieldParse table goes. Judged: FXList.cpp's 7 rows plus the
+ctor family (ctor, ??_G, EH handler, 5 unwinds) as if moved in. Scratch text only."""
+import sys, csv, re, io, contextlib
+sys.path.insert(0, "tools")
+import tu_skeleton as T, build as B
+from pathlib import Path
+
+S = "Code/GameEngine/Source/GameClient/FXList.cpp"
+CT = "Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp"
+t = Path(S).read_text(encoding="latin-1")
+a = t.index("class ParticleSystemFXNugget : public FXNugget\n")
+b = t.index("EMPTY_DTOR(ParticleSystemFXNugget)\n") + len("EMPTY_DTOR(ParticleSystemFXNugget)\n")
+old = t[a:b]
+m = re.search(r"\tvirtual void doFXObj\(const Object\* primary, const Object\* secondary\) const\n\t\{", old)
+i, depth = m.end(), 1
+while depth:
+    depth += {"{": 1, "}": -1}.get(old[i], 0); i += 1
+dofxobj = old[m.start():i].replace("*(const Bool *)((const char *)this + 0x195)", "m_ricochet")
+ct = Path(CT).read_text(encoding="latin-1")
+cbody = re.search(r"inline ParticleSystemFXNugget::ParticleSystemFXNugget\(\)\n\{.*?\n\}\n", ct, re.S).group(0)
+cbody = cbody.replace("inline ParticleSystemFXNugget::", "ParticleSystemFXNugget::")
+if "--no-ctor" in sys.argv:
+    cbody = ""   # the view swap alone: the ctor stays declared, its body elsewhere
+fields = re.search(r"private:\n(\tAsciiString m_name; // \+0x148.*?)\};", ct, re.S).group(1)
+VIEW = ("#include \"../../Include/GameClient/Rva001DFEAABase.h\"\n"
+        "// BFME 2's particle-system nugget (vftable 0x00BDD908): five slots, ??_G, doFXPos, doFXObj,\n"
+        "// slot 3 (rowed 0x001E0C77 under a placeholder) and the base's rva001DFF5D.\n"
+        "class ParticleSystemFXNugget : public Rva001DFEAABase\n{\npublic:\n"
+        "\tParticleSystemFXNugget();\n\tvirtual ~ParticleSystemFXNugget();\n"
+        "\tvirtual void doFXPos(const Coord3D *primary, const Matrix3D *primaryMtx, float primarySpeed, const Coord3D *secondary) const;\n"
+        + dofxobj + "\n"
+        "\tvoid reallyDoFX(const Coord3D *, const Matrix3D *, const Object *, const Object *) const;\n"
+        "\tstatic void parse(INI *ini, void *instance, void *store, const void *userData);\n"
+        "private:\n" + fields + "};\n\n" + cbody)
+t2 = t[:a] + VIEW + t[b:]
+if "--grv" in sys.argv:
+    pre = t2.index('#include "PreRTS.h"')
+    GRV = ("// BFME 2's GameClientRandomVariable (default constructor 0x000B4979, which the particle\n"
+           "// nugget's constructor runs) stands in place of Zero Hour's ClientRandomValue.h class.\n"
+           "#include \"../../Include/GameClient/GameClientRandomVariableInlines.h\"\n"
+           "#define _CLIENT_RANDOM_VALUE_H_\n"
+           "extern int GetGameClientRandomValue( int lo, int hi, char *file, int line );\n"
+           "extern float GetGameClientRandomValueReal( float lo, float hi, char *file, int line );\n"
+           "#define GameClientRandomValue( lo, hi ) GetGameClientRandomValue( lo, hi, __FILE__, __LINE__ )\n"
+           "#define GameClientRandomValueReal( lo, hi ) GetGameClientRandomValueReal( lo, hi, __FILE__, __LINE__ )\n")
+    t2 = t2[:pre] + GRV + t2[pre:]
+    if "--no-psys" in sys.argv:
+        assert t2.count('#include "GameClient/ParticleSys.h"\n') == 1
+        t2 = t2.replace('#include "GameClient/ParticleSys.h"\n', "")
+tab = re.search(r"\n// The native table and parsers are owned by FXListStoreParse\.cpp and\n.*?BfmeReferenceFXListFieldParse\[\] =\n\{.*?\n\};\n", t2, re.S)
+assert tab
+t2 = t2[:tab.start()] + "\n" + t2[tab.end():]
+Path("build/scratch_defects/minb").mkdir(parents=True, exist_ok=True)
+Path("build/scratch_defects/minb/FXList.cpp").write_text(t2, encoding="latin-1")
+
+ALL = list(csv.DictReader(open("reverse/functions.csv", encoding="utf-8")))
+rows = [dict(r) for r in ALL if r["source"] in (S, CT)]
+for r in rows:
+    r["source"] = S
+V = T.Verifier(S)
+ok = V.matched(t2, rows)
+if ok is None:
+    print("COMPILE FAIL"); print("\n".join(V.all_errors[:6])); sys.exit()
+want = {r["target_rva"]: r["name"] for r in rows}
+print("%d/%d" % (len(ok), len(want)))
+for rva in sorted(want):
+    print(" ", "OK  " if rva in ok else "MISS", rva, want[rva][:80])
+names = B.defined_code_symbols(V.obj)
+led = {r["name"] for r in ALL}
+for n in sorted(names):
+    if "FXNugget" in n:
+        print("  emits", "rowed " if n in led else "UNROWED", n[:110])
+
+if "--diff" in sys.argv:
+    md = __import__("capstone").Cs(__import__("capstone").CS_ARCH_X86, __import__("capstone").CS_MODE_32)
+    r = [r for r in rows if r["target_rva"] == "0x001E0AEF"][0]
+    with contextlib.redirect_stdout(io.StringIO()):
+        res = B.compile_function(r, V.sm, V.obj)
+    a = list(md.disasm(res["bytes"], 0)); b = list(md.disasm(res["target"], 0))
+    print("ours %d B, want %d B" % (len(res["bytes"]), len(res["target"])))
+    import difflib
+    for l in difflib.unified_diff(["%s %s" % (i.mnemonic, i.op_str) for i in b], ["%s %s" % (i.mnemonic, i.op_str) for i in a], "want", "ours", lineterm="", n=2):
+        print(l)

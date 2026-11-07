@@ -1,0 +1,12 @@
+file: Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
+tu: Code/GameEngine/Source/GameClient/FXList.cpp
+candidates: 1
+carved: ['0x001E0AEF']
+refused_rows: {}
+copies: []
+data_moved: []
+externs: []
+hatches_move: False
+residual_keeps: 0
+residual_loses: ['0x001E10CE']
+blocked: the residual loses matched rows (flag region or a shared helper)
