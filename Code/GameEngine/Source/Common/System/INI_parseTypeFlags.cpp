@@ -71,9 +71,6 @@ extern const char *const BFME2DeathTypeNames[] = {
 };
 #include <string.h>
 #include "../../../Include/Common/INI/FieldParse.h"
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct FlagsThrowInfoAnchor { int a,b,c,d; };
-static const FlagsThrowInfoAnchor flagsThrowInfoAnchor = {0,0,0,0};
 
 // PC RVA 0x338C0F, directly before parseDamageTypeFlags as in GeneralsMD INI.cpp:
 // the same 192 bytes over TheVeterancyNames (VA 0xDBA4C0, the table Upgrade.cpp
@@ -94,8 +91,7 @@ void INI::parseVeterancyLevelFlags(INI *ini, void *, void *store, const void *)
             flags &= ~(1 << (bit-1));
             continue;
         }
-        INIException e(5,"ALL, NONE, + or - expected");
-        _CxxThrowException(&e, (const _s__ThrowInfo *)&flagsThrowInfoAnchor); __assume(0);
+        throw INIException(5,"ALL, NONE, + or - expected");
     }
     *(unsigned int *)store=flags;
 }
@@ -116,8 +112,7 @@ void INI::parseDamageTypeFlags(INI *ini, void *, void *store, const void *)
             flags &= ~(1 << (bit-1));
             continue;
         }
-        INIException e(5,"ALL, NONE, + or - expected");
-        _CxxThrowException(&e, (const _s__ThrowInfo *)&flagsThrowInfoAnchor); __assume(0);
+        throw INIException(5,"ALL, NONE, + or - expected");
     }
     *(unsigned int *)store=flags;
 }
@@ -139,8 +134,7 @@ void INI::parseDeathTypeFlags(INI *ini, void *, void *store, const void *)
             flags &= ~(1 << (bit-1));
             continue;
         }
-        INIException e(5,"ALL, NONE, +, or - expected");
-        _CxxThrowException(&e, (const _s__ThrowInfo *)&flagsThrowInfoAnchor); __assume(0);
+        throw INIException(5,"ALL, NONE, +, or - expected");
     }
     *(unsigned int *)store=flags;
 }
