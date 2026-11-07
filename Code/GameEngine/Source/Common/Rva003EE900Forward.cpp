@@ -72,6 +72,11 @@ AsciiString g_Rva00E02E68("MouseoverEffectFlareup");
 AsciiString g_Rva00E02E6C("MouseoutEffectFlareup");
 // VA 0x00E02E64 (.data, zero-filled tail).
 AsciiString g_Rva00E02E64("BordersEffect");
+// VA 0x00E02E70 and 0x00E02E74 (.data, zero-filled tail): the conquered-region effect keys,
+// built by retail initializers 0x007AF934 and 0x007AF94F between MouseoutEffectFlareup's
+// and FilledOwnershipEffect's. Appended here so the earlier ordinals keep their rows.
+AsciiString g_Va00E02E70("ConqueredEffectEvenglow");
+AsciiString g_Va00E02E74("ConqueredEffectFlareup");
 #pragma inline_depth()
 
 class Rva003EE900

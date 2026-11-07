@@ -25,13 +25,9 @@ void __cdecl rva007B76E6();
 void __cdecl rva007B770E();
 void __cdecl rva007B796E();
 void __cdecl rva007B7979();
-void __cdecl rva007B8119();
-void __cdecl rva007B8123();
 void __cdecl rva007B9B40();
 
 unsigned g_Va00DFF030;
-unsigned g_Va00E02E70;
-unsigned g_Va00E02E74;
 
 struct Rva007AB85CAtexitInits
 {
@@ -47,8 +43,6 @@ struct Rva007AB85CAtexitInits
 	static void rva007ADB61();
 	static void rva007AE390();
 	static void rva007AE3AC();
-	static void rva007AF934();
-	static void rva007AF94F();
 	static void rva007B55D0();
 };
 
@@ -108,24 +102,6 @@ void Rva007AB85CAtexitInits::rva007AE3AC()
 {
 	( (AsciiString *)&g_Va00DFF030 )->AsciiString::AsciiString( "Palantir.apt" );
 	atexit( rva007B7979 );
-}
-#pragma inline_depth()
-
-#pragma inline_depth( 0 )
-// ?rva007AF934@Rva007AB85CAtexitInits@@SAXXZ @ 0x007AF934 (27B): AsciiString at VA 0x00E02E70 = literal at VA 0x00C364C0, then atexit(0x007B8119)
-void Rva007AB85CAtexitInits::rva007AF934()
-{
-	( (AsciiString *)&g_Va00E02E70 )->AsciiString::AsciiString( "ConqueredEffectEvenglow" );
-	atexit( rva007B8119 );
-}
-#pragma inline_depth()
-
-#pragma inline_depth( 0 )
-// ?rva007AF94F@Rva007AB85CAtexitInits@@SAXXZ @ 0x007AF94F (27B): AsciiString at VA 0x00E02E74 = literal at VA 0x00C364D8, then atexit(0x007B8123)
-void Rva007AB85CAtexitInits::rva007AF94F()
-{
-	( (AsciiString *)&g_Va00E02E74 )->AsciiString::AsciiString( "ConqueredEffectFlareup" );
-	atexit( rva007B8123 );
 }
 #pragma inline_depth()
 

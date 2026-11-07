@@ -55,7 +55,7 @@ void LivingWorldRegionEffectsManager::rva003EF13E(int regionId,int,int){SyncRegi
 #include "../../Include/Common/INI/INI.h"
 // Retail startup body7AF9D6 fills nine dynamic effect-key entries after the
 // five constant entries. Each uses the same AsciiString for token/user data.
-extern unsigned g_Va00E02E70,g_Va00E02E74;
+extern AsciiString g_Va00E02E70,g_Va00E02E74;
 extern AsciiString g_Rva00E02E68,g_Rva00E02E6C,g_Rva00E02E64,g_Rva00E02E78,g_Rva00E02E7C,g_Rva00E02E80,g_Rva00E02E84;
 void SplineEffectParseINIBlock(INI*,void*,void*,const char*);
 typedef void (__cdecl *S3FieldParser)(INI*,void*,void*,const void*);
@@ -80,8 +80,8 @@ static __forceinline void initializeRegionEffectField(FieldParse &entry,const As
 // Its stores fill the nine runtime entries and the final terminator; retain
 // the existing five constant entries and the same240-byte table storage.
 void initializeRegionEffectFields() {
- initializeRegionEffectField(LivingWorldRegionEffectsManager::s_parseTable[5],*(AsciiString*)&g_Va00E02E70);
- initializeRegionEffectField(LivingWorldRegionEffectsManager::s_parseTable[6],*(AsciiString*)&g_Va00E02E74);
+ initializeRegionEffectField(LivingWorldRegionEffectsManager::s_parseTable[5],g_Va00E02E70);
+ initializeRegionEffectField(LivingWorldRegionEffectsManager::s_parseTable[6],g_Va00E02E74);
  initializeRegionEffectField(LivingWorldRegionEffectsManager::s_parseTable[7],g_Rva00E02E68);
  initializeRegionEffectField(LivingWorldRegionEffectsManager::s_parseTable[8],g_Rva00E02E6C);
  initializeRegionEffectField(LivingWorldRegionEffectsManager::s_parseTable[9],g_Rva00E02E64);

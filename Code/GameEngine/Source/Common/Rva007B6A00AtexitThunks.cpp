@@ -148,8 +148,6 @@ extern unsigned g_Va00DFF0C4;
 unsigned g_Va00DFF168;	// retail RVA 0x009FF168 (.bss), defined here
 extern unsigned g_Va00E02D90;
 extern unsigned g_Va00E02D94;
-extern unsigned g_Va00E02E70;
-extern unsigned g_Va00E02E74;
 extern unsigned g_Va00E032E8;
 unsigned g_Va00E04444;	// retail RVA 0x00A04444 (.bss), defined here
 unsigned g_Va00E04448;	// retail RVA 0x00A04448 (.bss), defined here
@@ -286,20 +284,6 @@ void __cdecl rva007B80BF()
 void __cdecl rva007B80C9()
 {
 	AsciiString *receiver = (AsciiString *)&g_Va00E02D94;
-	receiver->~AsciiString();
-}
-
-// ?rva007B8119@@YAXXZ @ 0x007B8119 (10B): ecx=&g_Va00E02E70, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B8119()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E02E70;
-	receiver->~AsciiString();
-}
-
-// ?rva007B8123@@YAXXZ @ 0x007B8123 (10B): ecx=&g_Va00E02E74, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B8123()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E02E74;
 	receiver->~AsciiString();
 }
 
