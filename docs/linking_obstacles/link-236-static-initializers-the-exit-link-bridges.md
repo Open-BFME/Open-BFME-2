@@ -29,7 +29,9 @@ FireLogicSystem, GlobalWeatherSystem, ScriptEngine, GameFont, INIVictorySystem, 
 Eva, 617 -> 606; five copies their own TU files already compile, 606 -> 601 (bridge_entries on
 `006ca45a16`'s objects plus its readmission); halilkkaya-lk46: the AsciiString atexit family's twelve
 strings, the copies that open their runs, the CreateAHeroSystem node and three FX binder objects, 605
--> 583 on `2335dd1fbb`'s objects (see "Round lk46"); next seat continues).
+-> 583, then AptDate's interpreter, the INI macro table and file name, ScriptEngine's and Eva's copies
+and seven run-closing BlockParse nodes, 583 -> 572 (bridge_entries on `2335dd1fbb`'s objects plus the
+round; see "Round lk46"); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -816,7 +818,7 @@ removed exactly the named RVAs.
     sequences (CommandSet..DamageFX, SpecialPower..HeaderTemplate, Bridge) need wrapper files the
     tree lacks.
 
-**Round lk46 (halilkkaya-lk46, 2026-11-07, bridged 605 -> 583).** Measured with
+**Round lk46 (halilkkaya-lk46, 2026-11-07, bridged 605 -> 572).** Measured with
 `image_report.bridge_entries` over the kept objects (exit_link's rule); the same rule gave 605 on
 `2335dd1fbb`'s objects, not lk44's 601. Each entry was retracted from its grab-bag
 (`reverse/deleted_rows.csv`) and readmitted in its owner by relocation target; every touched object
@@ -898,3 +900,43 @@ exactly the named RVAs.
     each needs its object's real class in the unit that owns the run.
   - Copies whose views refuse the canonical header (W3DCamTransform, the CreateAHero fragment, and
     lk39's list), and 0x007B6600 (atexit-only, library tail).
+- *Round lk46, continued (bridged 583 -> 572).*
+  - AptDate.cpp `_$E1`/`_$E2` 0x007B67A0/0x007B9C50 (lk44's lead): the unit's view of
+    `AptActionInterpreter` declares the rowed constructor 0x006FE980 and destructor 0x006FE9C0, so its
+    existing `g_aptDateInterpreter` definition emits retail's initializer.
+  - INI_loadFile.cpp (INI.cpp TU): the macro table 0x007ABBB3 `_$E1`/`_$E2` and the current file name
+    0x007ABBC9 `_$E4`/`_$E5`, in retail's order. The table becomes `struct INIMacroTable` with the
+    rowed constructor 0x0002DC3C and destructor 0x0002CD7B (INI.cpp's key; its data row takes that
+    symbol); the name, already an AsciiString there, goes under `inline_depth( 0 )` so the
+    out-of-line `AsciiString()` 0x00326BE6 is called instead of folding to an atexit-only
+    initializer. That atexit-only `_$E1` had been a second false shape credit: 0x007B6190 (the thtr
+    codec's atexit-only entry) now counts as bridged (582 -> 581 for two real entries).
+  - *Units with `_$E` rows can take the header too.* lk39's trial refused a position whenever the build
+    failed, and a unit whose rows name `_$E<n>` fails once the copy shifts its ordinals. The
+    trial now judges the fresh object instead (no compile error, every `??_7` digest kept, the copy
+    first and the old initializers unchanged after it) and the shifted rows are retracted and
+    readmitted by relocation target. ScriptEngine.cpp (copy 0x007AD7B0 `_$E1`, static after
+    TheScriptEngine; nodes to `_$E4`/`_$E6`, Drawable.h after FieldParse.h) and Eva.cpp (copy
+    0x007AD1B3 `_$E1`, static after TheEva; nodes to `_$E3`..`_$E9`, after Rva000427195.h) took it.
+    SlavedUpdateRepair.cpp, Armor.cpp, Mouse.cpp, INIObject.cpp and SpawnBehavior.cpp still fail to
+    compile with it at their six latest include positions (Zero Hour-shaped views, as lk39 found).
+  - *Nodes that close their runs are their marker unit's.* The marker ends the unit that emits it and
+    the INI wrappers emit none, so a node directly before a marker is the marker unit's own node.
+    Seven such nodes moved beside their callbacks, each `_$E1` unless noted: ScoredKillEvaAnnouncer
+    0x007B0010 (ScoredKillEvaAnnouncerController.cpp; its `.data` follows the header name lists that
+    open a new object), MissionObjectiveList 0x007B0383
+    (MissionObjectiveTracker_ParseMapMissionObjective.cpp), ShadowMap 0x007ABFE3
+    (Rva0007BA35Method.cpp), CrowdResponse 0x007B003F (CrowdResponseBlockParse.cpp), MeshNameMatches
+    0x007B01FD (MeshInstancingParse.cpp), EmotionNugget 0x007B0354 (Rva004DCAD2Parse.cpp) and
+    LivingWorldSound 0x007AFCB4 (LivingWorldSound.cpp `_$E4`, after the unit's region initializer).
+  - *Leads checked, not taken.* AptButtonTooltipMap (copy 0x007ADB82 and node 0x007ADB92, one unit
+    after the Apt player's 0x00DFE4CC): Rva00224A3F.cpp defines the node and its two-entry field table
+    as one aggregate record, so the node needs splitting from the table first. The fire settings
+    0x007AE79E/0x007AE7B4 and the Fire node 0x007AE7CA (INIBfmeSettingsParsers.cpp, marker-less, before
+    a map-object unit's copy): their cleanups jump to 0x0030AF8F, rowed as
+    `??1Rva0030AF8FAudioEventRTS@@QAE@XZ`, which is the settings class's implicit destructor (two
+    AsciiString members), so that row's identity comes first. 0x007B51EB constructs
+    `Rva005F0152ImageGet.cpp`'s `MappedImageCache Rva00A06858` through the ctor rowed as
+    `??0Rva005F00FB@@QAE@XZ`: one class under two names. SkirmishAIData/AIDozerAssignment (run after the
+    copy 0x007AE14A, static after g_00DFEEF8) have their callbacks in two files.
+    FXParticleSystem's node (excluded) and LivingWorldMapInfo (class:LivingWorldManager) were left.
