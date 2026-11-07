@@ -677,6 +677,16 @@ def annotate_stashes(candidates):
     return candidates
 
 
+def _attempt_address(candidate):
+    """Use a data-debt address for history only, without making it a body RVA."""
+    if candidate.get("tier") != "data":
+        return _candidate_rva(candidate)
+    try:
+        return int(str(candidate.get("address", "")), 16)
+    except ValueError:
+        return None
+
+
 def annotate_attempts(candidates):
     """Expose the candidate's own standing verdict, without changing selection.
 
@@ -686,10 +696,11 @@ def annotate_attempts(candidates):
     """
     for candidate in candidates:
         candidate.pop("prior_attempt", None)
+        candidate.pop("related_attempts", None)
         symbol = candidate.get("function")
         if not symbol:
             continue
-        rva = _candidate_rva(candidate)
+        rva = _attempt_address(candidate)
         moved = "drift-corrected" in candidate.get("hint", "")
         status = re_log.standing_status(symbol, rva, boundary_moved=moved)
         if status is not None:
@@ -699,6 +710,14 @@ def annotate_attempts(candidates):
                     symbol, rva, boundary_moved=moved) or "",
                 "log": "reverse/re_attempts.log",
             }
+        if candidate.get("tier") == "data" and rva is not None:
+            related = re_log.verdicts_at(rva, exclude=symbol)
+            if related:
+                candidate["related_attempts"] = [
+                    {"symbol": name, "status": verdict, "evidence": evidence,
+                     "log": "reverse/re_attempts.log"}
+                    for name, verdict, evidence in related
+                ]
     return candidates
 
 
@@ -943,7 +962,7 @@ def _print_boundary_verdicts(candidate, limit=3):
             print(f"         {' '.join(prior['evidence'].split())}")
         print("       Read the prior evidence before retrying; do not repeat "
               "unchanged failed trials.")
-    rva = _candidate_rva(candidate)
+    rva = _attempt_address(candidate)
     if rva is None:
         return
     found = re_log.verdicts_at(rva, exclude=candidate.get("function"))

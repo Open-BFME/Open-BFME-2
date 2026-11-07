@@ -39,6 +39,33 @@ def test_unconfirmed_refusal_keeps_same_file_sibling_servable(monkeypatch):
     assert asked == [[0x100], [0x200]]
 
 
+def test_data_debt_shows_verdicts_at_its_own_address(monkeypatch, capsys):
+    import next_work
+
+    candidate = {"tier": "data", "function": "_mutex", "target_rva": "",
+                 "address": "0x009E4B34", "claim": ["file:Code/W3DMouse.cpp"]}
+
+    def same_address(rva, exclude=None):
+        assert exclude == "_mutex"
+        if rva == 0x009E4B34:
+            return [("data-_mutex", "blocked", "Previous same-address trial")]
+        return []
+
+    monkeypatch.setattr(next_work.re_log, "standing_status", lambda *a, **k: None)
+    monkeypatch.setattr(next_work.re_log, "verdicts_at", same_address)
+    next_work.annotate_attempts([candidate])
+    assert "prior_attempt" not in candidate
+    assert candidate["related_attempts"][0]["evidence"] == "Previous same-address trial"
+    assert next_work.claim_targets(candidate) == ["file:Code/W3DMouse.cpp"]
+    assert next_work._candidate_rva(candidate) is None
+
+    next_work._print_boundary_verdicts(candidate)
+    assert "Previous same-address trial" in capsys.readouterr().out
+    candidate["address"] = "0x009E5DA0"
+    next_work.annotate_attempts([candidate])
+    assert "related_attempts" not in candidate
+
+
 def run(args=(), cwd=ROOT, env=None):
     isolated = {**os.environ, "BFME_CLAIMS": "off"}
     if env:
