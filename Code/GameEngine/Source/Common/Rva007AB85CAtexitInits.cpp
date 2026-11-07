@@ -32,7 +32,6 @@ void __cdecl rva007B7E49();
 void __cdecl rva007B80A1();
 void __cdecl rva007B8119();
 void __cdecl rva007B8123();
-void __cdecl rva007B8FA9();
 void __cdecl rva007B9B40();
 
 // VA 0x00DEC290: zero-initialized AsciiString storage, explicitly constructed below.
@@ -44,7 +43,6 @@ unsigned g_Va00E028C4;
 unsigned g_Va00E02D68;
 unsigned g_Va00E02E70;
 unsigned g_Va00E02E74;
-unsigned g_Va00E04490;	// retail RVA 0x00A04490 (.bss), defined here
 
 struct Rva007AB85CAtexitInits
 {
@@ -67,7 +65,6 @@ struct Rva007AB85CAtexitInits
 	static void rva007AF7FE();
 	static void rva007AF934();
 	static void rva007AF94F();
-	static void rva007B31DF();
 	static void rva007B55D0();
 };
 
@@ -190,15 +187,6 @@ void Rva007AB85CAtexitInits::rva007AF94F()
 {
 	( (AsciiString *)&g_Va00E02E74 )->AsciiString::AsciiString( "ConqueredEffectFlareup" );
 	atexit( rva007B8123 );
-}
-#pragma inline_depth()
-
-#pragma inline_depth( 0 )
-// ?rva007B31DF@Rva007AB85CAtexitInits@@SAXXZ @ 0x007B31DF (27B): AsciiString at VA 0x00E04490 = literal at VA 0x00C628B0, then atexit(0x007B8FA9)
-void Rva007AB85CAtexitInits::rva007B31DF()
-{
-	( (AsciiString *)&g_Va00E04490 )->AsciiString::AsciiString( "FarmTemplate" );
-	atexit( rva007B8FA9 );
 }
 #pragma inline_depth()
 

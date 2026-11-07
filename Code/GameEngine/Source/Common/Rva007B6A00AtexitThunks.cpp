@@ -157,7 +157,6 @@ extern unsigned g_Va00E032E8;
 unsigned g_Va00E04444;	// retail RVA 0x00A04444 (.bss), defined here
 unsigned g_Va00E04448;	// retail RVA 0x00A04448 (.bss), defined here
 extern UnicodeString g_00E0447C;	// VA 0x00E0447C, defined in AptLobbyScreenInitCallbacks.cpp
-extern unsigned g_Va00E04490;
 unsigned g_Va00E0494C;	// retail RVA 0x00A0494C (.bss), defined here
 unsigned g_Va00E04954;	// retail RVA 0x00A04954 (.bss), defined here
 unsigned g_Va00E04964;	// retail RVA 0x00A04964 (.bss), defined here
@@ -357,13 +356,6 @@ void __cdecl rva007B8F6D()
 {
 	UnicodeString *receiver = &g_00E0447C;
 	receiver->~UnicodeString();
-}
-
-// ?rva007B8FA9@@YAXXZ @ 0x007B8FA9 (10B): ecx=&g_Va00E04490, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B8FA9()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E04490;
-	receiver->~AsciiString();
 }
 
 // 0x007B919E/0x007B91A8 are AptMainMenu.cpp's own atexit cleanups (_$E4/_$E2) of

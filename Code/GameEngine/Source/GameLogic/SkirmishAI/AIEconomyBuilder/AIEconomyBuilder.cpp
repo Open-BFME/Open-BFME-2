@@ -195,9 +195,13 @@ private:
 	_STL::vector<int> m_items24;			// +0x24
 };
 
-// The rowed initializer at 7B31DF constructs "FarmTemplate" in this
-// four-byte storage; its existing owner keeps the global address unique.
-extern unsigned g_Va00E04490;
+// The unit's file-scope "FarmTemplate" AsciiString. Retail builds it first in this TU's
+// .text$yc run (0x007B31DF, before m_farmList's vector 0x007B31FA and the pool-init marker
+// 0x007B3217) through the out-of-line AsciiString(const char *) 0x0000654A. Address name
+// kept; the original name is unknown.
+#pragma inline_depth( 0 )
+AsciiString g_Va00E04490("FarmTemplate");
+#pragma inline_depth()
 
 namespace _STL { template <> void _STLP_alloc_proxy<ModuleData const * *,ModuleData const *,allocator<ModuleData const *> >::deallocate(ModuleData const * *,unsigned int); }
 
