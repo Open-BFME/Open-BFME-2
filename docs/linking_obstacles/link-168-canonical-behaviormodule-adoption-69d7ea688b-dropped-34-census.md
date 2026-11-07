@@ -431,3 +431,27 @@ names, and the emitted canonical primary table has purecall at slots 1/2/3
 instead of retail's loadPostProcess/GetSnapshotName/xfer. Preserve the existing
 opt-in/leaf-table boundaries while reconciling this provider; matching destructor
 bytes is insufficient. [Exact private evidence and next checks](../../reverse/attempt_support/behavior-provider-canonical-boundary-20261107/README.md).
+
+2026-11-07 die units onto the canonical DieModule (Burachi-3D, claude-opus-5-5):
+- Recipe, no shared-header edit: the unit includes canonical DieModule.h and supplies
+  `inline BehaviorModule::~BehaviorModule() {}` itself (with an honest absent-from-retail
+  marker; retail keeps no out-of-line copy). ~DieModule then compiles to retail's 0x0045CE54
+  order: DieModule's +0/+0x0C stores die under ~BehaviorModule's inline stores, leaving +0x10
+  (DieModule's own interface table 0xC1C780), +0, +0x0C, tail jump to ~ObjectModule 0x0049B47C.
+  The earlier "make the base destructors inline in the shared headers" plan is unnecessary and
+  would reopen LINK-168 mechanism 2.
+- FXListDie.cpp (25d0277f30, landed 61cf52f345): 4/4 matched; link_check reports no unresolved
+  name. It now emits ??1BehaviorModule/??_7BehaviorModule@@6BObjectModule@@@ copies that differ
+  from the first copy in link order (the open provider question above). The pre-push link
+  audit was INCONCLUSIVE (no current receipt): confirm in the next census/real link.
+- SpecialPowerCompletionDie.cpp (c439dddac0): rewritten on canonical DieModule.h/DieMuxData.h/
+  NameKeyGenerator.h, 8/8 matched. DieModule's constructor 0x0045CEBD stays `inline` (other die
+  units emit the same COMDAT; a strong copy is a duplicate). Retail's destructor and deleting
+  destructor are the opaque ??1Rva004869FC/??_GRva004869FC bodies in DieModuleDerived.cpp
+  (0x004869FC/0x00486AA6), now also rowed as SpecialPowerCompletionDie's ICF folds.
+  link_check: LINKED 0 -> 288 bytes. Follow-up: fold Rva004869FC into SpecialPowerCompletionDie
+  and drop DieModuleDerived.cpp's /alternatename onto its onDie.
+- Remaining: DieModule.cpp and CreateObjectDie.cpp move together. CreateObjectDie.cpp (846 lines,
+  39 rows) defines Zero Hour crc/xfer/loadPostProcess bodies that call DieModule's, which call
+  ?crc@BehaviorModule; its table is emitted from the Zero Hour header. Its retail destructor is
+  the opaque ??1Rva00485983 0x00485983 rowed in the same file.
