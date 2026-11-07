@@ -10,6 +10,7 @@
 // player's index, report to the optional tracker 0x0039B795, return the
 // amount. cmova needs /arch:SSE; the deposit body is unchanged by it.
 #include "Common/BfmeAudioEventPrefix136.h"
+#include "Common/MiscAudioClass.h"
 
 class AudioManager;
 extern AudioManager *TheAudio;
@@ -20,7 +21,6 @@ extern StatsCollector *g_00E032F8;
 
 class Rva0033F15DDwordSlot { public: void set(int); };
 
-struct Rva003B0D7CMisc { char pad[0x38]; OpaqueRefElement4 ref38; OpaqueRefElement4 ref3C; };
 
 class Rva003B0D7CAudioView
 {
@@ -103,7 +103,7 @@ public:
 	virtual void slot75();
 	virtual void slot76();
 	virtual void slot77();
-	virtual const Rva003B0D7CMisc *getMiscAudio();
+	virtual const MiscAudio *getMiscAudio();
 };
 
 #include "../../../Include/Common/Player.h"
@@ -142,7 +142,7 @@ unsigned int Rva003B0D7C::withdraw(unsigned int amount, Rva0039B795 *tracker, bo
 	if (amount == 0)
 		return amount;
 	if (flag != false) {
-		BfmeAudioEventPrefix136 evt(reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->getMiscAudio()->ref3C, 0);
+		BfmeAudioEventPrefix136 evt(reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->getMiscAudio()->m_moneyWithdrawSound, 0);
 		reinterpret_cast<Rva0033F15DDwordSlot *>(&evt)->set(m_val08);
 		reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->addAudioEvent(&evt);
 	}
@@ -170,7 +170,7 @@ void Rva003B0D7C::rva003B0D7C(int amount, Rva0039B7AD *tracker, bool flag)
 	if (amount == 0)
 		return;
 	if (flag != false) {
-		BfmeAudioEventPrefix136 evt(reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->getMiscAudio()->ref38, 0);
+		BfmeAudioEventPrefix136 evt(reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->getMiscAudio()->m_moneyDepositSound, 0);
 		reinterpret_cast<Rva0033F15DDwordSlot *>(&evt)->set(m_val08);
 		reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->addAudioEvent(&evt);
 	}
