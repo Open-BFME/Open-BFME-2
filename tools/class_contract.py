@@ -645,6 +645,37 @@ def decide(name, sources=None, jobs=8, sample=None):
         if size_rule == "tie":
             queue.append({"class": name, "attribute": "size", "candidates": dict(sizes)})
 
+    # A size smaller than the object retail builds is a contradiction whichever
+    # rule settled it. retail_layout.py already raises this against its own
+    # `sizeof` fact, but only then: a size the views voted on, or one taken from
+    # the Zero Hour header, is settled here and never meets that check. 66
+    # contracts record a size their own evidence rules out.
+    #
+    # Both facts are needed before queueing, because a queued attribute refuses
+    # header generation and neither fact alone should carry that. The ctor-write
+    # extent is an inference from `this`-relative writes, so a mis-attributed
+    # write would block a class on its own; of the 66, 28 rest on it alone and
+    # are left to the measurement in
+    # reverse/attempt_support/class-contract-size-vote-20261106/. The other 38
+    # are contradicted twice, by the writes and by an allocation retail actually
+    # makes, and the two agree: Team records 60 while retail allocates 0x13c and
+    # the constructor writes 297; ThingTemplate records 1 against 0x640 and 1600.
+    #
+    # It is queued, never imposed: two facts can show the recorded size is wrong
+    # without establishing which of them is the sizeof.
+    facts = retail.get("facts", {})
+    reach = (facts.get("extent_lower_bound") or {}).get("value")
+    allocated = sorted(int(spelling, 16) for spelling in
+                       ((facts.get("allocation_observed") or {}).get("value") or {}))
+    bigger = [a for a in allocated if size is not None and a > size]
+    if size is not None and reach is not None and size < reach and bigger:
+        queue.append({"class": name, "attribute": "size",
+                      "candidates": {str(size): f"decided by {size_rule}",
+                                     str(reach): "retail constructor writes",
+                                     str(bigger[-1]): "retail allocates"},
+                      "why": "the decided size is below both the bytes retail's constructor "
+                             "writes and an allocation retail makes"})
+
     keys = ledger_key(name, rows)
     exported = export_key(name)
     if len(exported) == 1:
