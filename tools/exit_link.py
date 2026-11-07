@@ -715,31 +715,28 @@ def read_stub_seed(path):
         return {row["name"] for row in csv.DictReader(handle, delimiter="\t") if row.get("name")}
 
 
-def seeded_stubs(path, objects, extra_objects, libraries, exports=()):
-    """The seed's names this link is certain to leave unresolved, to stub before its first pass.
+def seeded_stubs(path, objects, libraries, exports=()):
+    """The seed's names this link predicts unresolved, to stub before its first pass.
 
-    A name qualifies only when the link references it (an undefined EXTERNAL of a linked
-    object, not COMMON, or a /DEF export: 193 of master's 198 stubs on 2026-11-07 were
-    exports) and no linked object or library defines it: link.exe reports exactly such a name
-    unresolved, and the next pass would stub it anyway. A name the seed lacks still costs a
-    pass, and a seeded trap that clashes with a definition drops the whole seed (run_link).
+    Only names census.predicted_unresolved gives for this link's own objects, /DEF exports
+    (193 of master's 198 stubs on 2026-11-07 were exports) and libraries' public names: the
+    real link's resolution, with /alternatename chains, weak externals' defaults and an
+    __imp_X bound to a local X. Name subtraction alone seeded an alias or import whose
+    target this build now defines, and the trap won without a clash. A name the seed lacks
+    still costs a pass; a seeded trap that clashes with a definition drops the seed (run_link).
     """
     names = read_stub_seed(path)
-    referenced, defined = set(exports), set()
-    for objs in (objects, link_cycle.Objects(extra_objects)):
-        for item in objs.paths:
-            parsed = objs.get(item)
-            for symbol in (parsed[1].values() if parsed else ()):
-                if symbol.cls != link_cycle.EXTERNAL:
-                    continue
-                if symbol.sec == 0 and not symbol.value:
-                    referenced.add(symbol.name)
-                else:
-                    defined.add(symbol.name)
+    defined = set()
     for library in libraries:
         defined |= census.library_symbols(library)
-    return {"file": str(path), "offered": len(names), "names": sorted(names & referenced - defined),
-            "dropped": False}
+    predicted = census.predicted_unresolved(objects, exports, defined)
+    return {"file": str(path), "offered": len(names), "names": sorted(names & predicted), "dropped": False}
+
+
+def seed_summary(seed):
+    """What result.json and image_receipt.json say of a seed; None for an unseeded link."""
+    return seed and {"file": seed["file"], "offered": seed["offered"], "seeded": len(seed["names"]),
+                     "dropped": seed["dropped"]}
 
 
 def image_commit():
@@ -760,8 +757,9 @@ def omission_status(proof):
     return "failed" if failed else "passed"
 
 
-def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None):
-    """Only an image and its fresh map can receive a receipt."""
+def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None, seed=None):
+    """Only an image and its fresh map can receive a receipt; a diagnostic one says whether
+    its first pass started from a stub seed (`seed`, seed_summary's)."""
     if stubbed and not diagnostic:
         raise ValueError("a real image cannot contain diagnostic stubs")
     receipt = image.parent / "image_receipt.json"
@@ -775,14 +773,17 @@ def image_receipt(image, diagnostic, stubbed, proof=None, vtables=None):
         exports = sum(1 for _ in csv.DictReader(handle))
     status = omission_status(proof)
     vtables = vtables or {}
-    receipt.write_text(json.dumps({
+    fields = {
         "authoritative": not diagnostic and status == "passed", "omission_proof": status,
         "vtables_bridged": vtables.get("tables", 0), "vtable_slots_bridged": vtables.get("slots", 0),
         "kind": "diagnostic" if diagnostic else "real", "commit": image_commit(),
         "base": f"0x{BASE:X}", "image_sha256": digest(image), "map_sha256": digest(mapfile),
         "stubbed": sorted(stubbed), "exports_requested": exports, "rsrc": True,
         "fixed_no": True, "opt": "NOREF,NOICF",
-    }, indent=1) + "\n", encoding="utf-8")
+    }
+    if diagnostic:
+        fields["stub_seed"] = seed
+    receipt.write_text(json.dumps(fields, indent=1) + "\n", encoding="utf-8")
 
 
 
@@ -905,9 +906,8 @@ def harness_import_roots(requests):
     return requests | roots, roots
 
 
-def link_setup(rows, present, parsed=None):
-    """(inputs, metadata) for the exit link, with every scaffold left out; `parsed`, when
-    given, receives the parsed kept objects under "objects"."""
+def link_setup(rows, present):
+    """(inputs, metadata) for the exit link, with every scaffold left out."""
     omitted = set(placement_objects(rows))
     inputs = [path for path in present if path not in omitted]
     bad, leaked = scaffold_free(inputs, omitted)
@@ -915,8 +915,6 @@ def link_setup(rows, present, parsed=None):
         raise SystemExit(f"exit_link: the link set is not scaffold-free (scaffolds {bad}, "
                          f"omitted objects {leaked}); nothing linked")
     objects = link_cycle.Objects(inputs)
-    if parsed is not None:
-        parsed["objects"] = objects
     retail_imports = census.retail_imports()
     requests, import_roots = harness_import_roots(
         link_cycle.undefined_imports(objects) | link_cycle.undefined_plain_imports(objects, retail_imports))
@@ -1066,8 +1064,7 @@ def run_link(rows, diagnostic=False, stub_seed=None):
     if eh["unproven"] or eh["missing_objects"]:
         raise SystemExit(f"exit_link: EH proof failed ({len(eh['unproven'])} row(s) not exact and not "
                          f"baselined, {eh['missing_objects']} without an object); nothing linked")
-    parsed = {}
-    inputs, setup = link_setup(rows, present, parsed)
+    inputs, setup = link_setup(rows, present)
     image = OUT / "exit.exe"
     command, rsp = link_command(inputs, image, OUT, setup["harness_import_symbols"])
     state, tools = census.census_state(present), tool_digests()
@@ -1087,9 +1084,7 @@ def run_link(rows, diagnostic=False, stub_seed=None):
         return run_native(command)
 
     if stub_seed is not None:
-        kept = set(parsed["objects"].paths)
-        seed = seeded_stubs(stub_seed, parsed["objects"],
-                            [path for path in inputs if path.suffix.lower() == ".obj" and path not in kept],
+        seed = seeded_stubs(stub_seed, [path for path in inputs if path.suffix.lower() == ".obj"],
                             [path for path in inputs if path.suffix.lower() == ".lib"], export_names())
         stubbed.update(seed["names"])
     result = relink() if stubbed else run_native(command)
@@ -1137,7 +1132,8 @@ def run_link(rows, diagnostic=False, stub_seed=None):
     exclusive = set(proof["exclusive_names"])
     still_wanted = sorted(name for name in detail if name in exclusive)
     image_written = image.exists()
-    image_receipt(image, diagnostic, stubbed, proof=proof, vtables=setup.get("vtable_bridge"))
+    image_receipt(image, diagnostic, stubbed, proof=proof, vtables=setup.get("vtable_bridge"),
+                  seed=seed_summary(seed))
     record = {
         "mode": "diagnostic-link" if diagnostic else "exit-link",
         "records": False,
@@ -1189,8 +1185,7 @@ def run_link(rows, diagnostic=False, stub_seed=None):
     }
     if diagnostic:
         record["link"]["passes"] = passes
-        record["stub_seed"] = seed and {"file": seed["file"], "offered": seed["offered"],
-                                        "seeded": len(seed["names"]), "dropped": seed["dropped"]}
+        record["stub_seed"] = seed_summary(seed)
     (OUT / "result.json").write_text(json.dumps(record, indent=1), encoding="utf-8")
     with (OUT / "errors.tsv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle, delimiter="\t", lineterminator="\n")

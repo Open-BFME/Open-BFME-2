@@ -2427,15 +2427,17 @@ def _alternate_names(data):
 
 
 @_timed('unresolved-name prediction')
-def predicted_unresolved(present):
+def predicted_unresolved(present, references=(), definitions=()):
     """The names the plain link of `present` should report unresolved: every
     name an object references, includes or declares weak (and the entry
     point) that no object defines, after weak externals' defaults and
     /alternatename targets; __imp_X resolves when X does, and __ImageBase
     always (link.exe defines it). Only a prediction, to start the selection link
     beside the plain link (selection_link uses that map only when the plain
-    link's log names exactly these); an unreadable object predicts nothing."""
-    defined, referenced, weak, alias = set(), {ENTRY_SYMBOL}, {}, {}
+    link's log names exactly these); an unreadable object predicts nothing.
+    `references` and `definitions` add what a link needs or provides outside the
+    objects: exit_link's /DEF exports and its libraries' public names."""
+    defined, referenced, weak, alias = set(definitions), {ENTRY_SYMBOL, *references}, {}, {}
     try:
         for obj, (names, refs, weaks, alternates, includes) in zip(present, memo_map("symbols", present, parallel=False)):
             defined |= names

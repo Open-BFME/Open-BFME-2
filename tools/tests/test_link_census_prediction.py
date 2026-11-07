@@ -76,3 +76,12 @@ def test_import_names_bind_to_local_definitions_and_image_base_is_the_linkers(tm
         ("___ImageBase", 0, 0, L.EXTERNAL, []),
     ])
     assert L.predicted_unresolved([a]) == {"__imp__imported"}
+
+
+def test_extra_references_and_definitions_join_the_objects(tmp_path):
+    a = coff(tmp_path / "a.obj", [("_WinMainCRTStartup", 1, 0, L.EXTERNAL, []), ("_lib", 0, 0, L.EXTERNAL, [])],
+             drectve=b"/alternatename:_viaLib=_lib2 ")
+    assert L.predicted_unresolved([a], references={"?exported@@3HA", "_viaLib"}) == {
+        "_lib", "?exported@@3HA", "_viaLib"}
+    assert L.predicted_unresolved([a], references={"?exported@@3HA", "_viaLib"},
+                                  definitions={"_lib", "_lib2"}) == {"?exported@@3HA"}

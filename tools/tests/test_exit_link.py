@@ -371,7 +371,8 @@ def test_receipt_hashes_and_kind(tmp_path, monkeypatch, diagnostic):
         "map_sha256": E.digest(image.with_suffix(".map")), "stubbed": names,
         "exports_requested": 1964, "rsrc": True, "fixed_no": True, "opt": "NOREF,NOICF",
         "authoritative": False, "omission_proof": "not-run",
-        "vtables_bridged": 0, "vtable_slots_bridged": 0}
+        "vtables_bridged": 0, "vtable_slots_bridged": 0,
+        **({"stub_seed": None} if diagnostic else {})}
 
 
 def test_receipt_requires_current_nonempty_map(tmp_path):
@@ -946,25 +947,63 @@ def test_parallel_currency_keeps_the_serial_answer_and_order(tmp_path, monkeypat
     assert E.stale_objects(present, sources) == serial == present[:-1]   # no object exists: all stale
 
 
-def test_stub_seed_keeps_only_names_this_link_leaves_unresolved(tmp_path, monkeypatch):
-    EXT = E.link_cycle.EXTERNAL
-    text = [(".text", 0x60500020, b"\xcc" * 4, 0)]
-    kept = E.link_cycle.write_coff(tmp_path / "kept.obj", text, [
-        ("_e", 1, 0, EXT), ("_a", 0, 0, EXT), ("_b", 0, 0, EXT), ("_c", 0, 0, EXT), ("_d", 0, 0, EXT),
-        ("_common", 0, 4, EXT), ("_w", 0, 0, E.census.WEAK_EXTERNAL)])
-    extra = E.link_cycle.write_coff(tmp_path / "bridge.obj", text, [("_b", 1, 0, EXT), ("_abs", -1, 0, EXT)])
-    monkeypatch.setattr(E.census, "library_symbols", lambda path: {"_c"})
+def _seed(tmp_path, names):
     seed = tmp_path / "stubbed.tsv"
-    seed.write_text("name\toffset\n" + "".join(f"{n}\t0x0\n" for n in
-                                                 ("_a", "_b", "_c", "_e", "_z", "_common", "_w", "_abs",
-                                                  "?x@@3HA", "?y@@3HA")))
-    got = E.seeded_stubs(seed, E.link_cycle.Objects([kept]), [extra], [tmp_path / "imp.lib"],
-                         {"?x@@3HA", "_e"})
-    # _b a generated object defines, _c a library, _e the object itself; _z and _abs nothing
-    # references; _common is a COMMON definition and _w a weak external with its own default.
-    # ?x@@3HA only an export references; ?y@@3HA nothing does.
+    seed.write_text("name\toffset\n" + "".join(f"{name}\t0x0\n" for name in names))
+    return seed
+
+
+def test_stub_seed_keeps_only_names_this_link_predicts_unresolved(tmp_path, monkeypatch):
+    from test_link_census_prediction import coff
+    L = E.census
+    kept = coff(tmp_path / "kept.obj", [
+        ("_WinMainCRTStartup", 1, 0, L.EXTERNAL, []), ("_e", 1, 4, L.EXTERNAL, []),
+        ("_a", 0, 0, L.EXTERNAL, []), ("_b", 0, 0, L.EXTERNAL, []), ("_c", 0, 0, L.EXTERNAL, []),
+        ("_common", 0, 4, L.EXTERNAL, [])])
+    bridge = coff(tmp_path / "bridge.obj", [("_b", 1, 0, L.EXTERNAL, [])])
+    monkeypatch.setattr(E.census, "library_symbols", lambda path: {"_c"})
+    seed = _seed(tmp_path, ["_a", "_b", "_c", "_e", "_z", "_common", "?x@@3HA", "?y@@3HA"])
+    got = E.seeded_stubs(seed, [kept, bridge], [tmp_path / "imp.lib"], {"?x@@3HA", "_e"})
+    # _b a generated object defines, _c a library, _e the object itself; _z and ?y@@3HA nothing
+    # references; _common is a COMMON definition; ?x@@3HA only an export references.
     assert got["names"] == ["?x@@3HA", "_a"]
-    assert got["offered"] == 10 and got["dropped"] is False
+    assert got["offered"] == 8 and got["dropped"] is False
+
+
+def test_stub_seed_leaves_an_alias_whose_target_this_build_defines(tmp_path, monkeypatch):
+    # Codex review of 38b5ca68d6: a name an earlier link stubbed, now reached through
+    # /alternatename or a weak external's default, must link to the real code, not a trap.
+    from test_link_census_prediction import coff, weak_aux
+    L = E.census
+    user = coff(tmp_path / "user.obj", [
+        ("_WinMainCRTStartup", 1, 0, L.EXTERNAL, []),
+        ("_Alias", 0, 0, L.EXTERNAL, []),
+        ("_Weak", 0, 0, L.WEAK_EXTERNAL, [weak_aux(4)]),      # default: symbol 4, _Real
+        ("_Real", 0, 0, L.EXTERNAL, []),
+        ("_ToLib", 0, 0, L.EXTERNAL, []),
+        ("_Gone", 0, 0, L.EXTERNAL, [])],
+        drectve=b"/alternatename:_Alias=_Real /alternatename:_ToLib=_LibReal ")
+    real = coff(tmp_path / "real.obj", [("_Real", 1, 0, L.EXTERNAL, [])])
+    monkeypatch.setattr(E.census, "library_symbols", lambda path: {"_LibReal"})
+    seed = _seed(tmp_path, ["_Alias", "_Weak", "_ToLib", "_Gone"])
+    assert E.seeded_stubs(seed, [user, real], [tmp_path / "msvcrt.lib"])["names"] == ["_Gone"]
+
+
+def test_stub_seed_leaves_an_import_this_build_defines_locally(tmp_path):
+    # Codex review of 38b5ca68d6: __imp__Local binds to a now-local _Local (LNK4217).
+    from test_link_census_prediction import coff
+    L = E.census
+    user = coff(tmp_path / "user.obj", [
+        ("_WinMainCRTStartup", 1, 0, L.EXTERNAL, []),
+        ("__imp__Local", 0, 0, L.EXTERNAL, []), ("__imp__Remote", 0, 0, L.EXTERNAL, [])])
+    local = coff(tmp_path / "local.obj", [("_Local", 1, 0, L.EXTERNAL, [])])
+    seed = _seed(tmp_path, ["__imp__Local", "__imp__Remote"])
+    assert E.seeded_stubs(seed, [user, local], [])["names"] == ["__imp__Remote"]
+
+
+def test_an_unreadable_object_seeds_nothing(tmp_path):
+    seed = _seed(tmp_path, ["_a"])
+    assert E.seeded_stubs(seed, [tmp_path / "gone.obj"], [])["names"] == []
 
 
 def test_a_seed_that_clashes_is_dropped_and_the_link_iterates_as_without_one(tmp_path, monkeypatch):
@@ -986,8 +1025,7 @@ def test_a_seed_that_clashes_is_dropped_and_the_link_iterates_as_without_one(tmp
         "funclet_covered": 0, "funclet_rows": 0})
     monkeypatch.setattr(E, "eh_proof", lambda rows: {"unproven": [], "missing_objects": 0})
 
-    def setup(rows, present, parsed):
-        parsed["objects"] = E.link_cycle.Objects([])
+    def setup(rows, present):
         return [root / "absolute.obj"], {"import_libraries": [], "harness_import_symbols": []}
     monkeypatch.setattr(E, "link_setup", setup)
     monkeypatch.setattr(E, "export_names", lambda: set())
@@ -1027,6 +1065,7 @@ def test_a_seed_that_clashes_is_dropped_and_the_link_iterates_as_without_one(tmp
     result = json.loads((diagnostic / "result.json").read_text())
     assert result["link"]["passes"] == 3
     assert result["stub_seed"] == {"file": "seed.tsv", "offered": 2, "seeded": 1, "dropped": True}
+    assert not (diagnostic / "image_receipt.json").exists()      # no image, no receipt
     assert [row.split("\t")[0] for row in (diagnostic / "stubbed.tsv").read_text().splitlines()[1:]] == [
         "__imp__Missing@4"]
     assert E.OUT == measured
@@ -1035,3 +1074,21 @@ def test_a_seed_that_clashes_is_dropped_and_the_link_iterates_as_without_one(tmp
 def test_stub_seed_is_for_the_diagnostic_link_only(tmp_path):
     with pytest.raises(SystemExit):
         E.main(["--link", "--stub-seed", str(tmp_path / "stubbed.tsv")])
+
+
+def test_a_seeded_diagnostic_receipt_says_so_and_a_real_one_has_no_seed_field(tmp_path, monkeypatch):
+    import json
+    image = tmp_path / "exit.exe"
+    image.write_bytes(b"MZ")
+    image.with_suffix(".map").write_text("map")
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/exports.csv").write_text("name,ordinal,kind\n")
+    monkeypatch.setattr(E, "ROOT", tmp_path)
+    monkeypatch.setattr(E, "image_commit", lambda: "c" * 40)
+    seed = {"file": "s.tsv", "offered": 198, "seeded": 198, "dropped": False}
+    E.image_receipt(image, True, {"_a"}, seed=seed)
+    assert json.loads((tmp_path / "image_receipt.json").read_text())["stub_seed"] == seed
+    E.image_receipt(image, True, {"_a"})
+    assert json.loads((tmp_path / "image_receipt.json").read_text())["stub_seed"] is None
+    E.image_receipt(image, False, set())
+    assert "stub_seed" not in json.loads((tmp_path / "image_receipt.json").read_text())
