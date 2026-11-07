@@ -3559,10 +3559,42 @@ def unit_text(path):
 
 def flatten_preprocessed(text):
     """cl -E output with every directive line gone (`#line 10 "copy.h"`, `# 10 "semi;h.h"`,
-    `#pragma ...`) and all whitespace, newlines included, collapsed to one space: a directive
-    between `Rec` and `(Rec const &)`, or a `;` in a #line file name between `template<>` and
-    `_Construct(`, must not split what the rules match (review of e81c016950)."""
-    return " ".join(" ".join(line for line in text.splitlines() if not line.lstrip().startswith("#")).split())
+    `#pragma ...`), literals and comments masked (mask_literals), and all whitespace,
+    newlines included, collapsed to one space: a directive between `Rec` and `(Rec const &)`,
+    or a `;` in a #line file name between `template<>` and `_Construct(`, must not split
+    what the rules match (review of e81c016950)."""
+    kept = "\n".join(line for line in text.splitlines() if not line.lstrip().startswith("#"))
+    return " ".join(mask_literals(kept).split())
+
+
+# A string, character or raw-string literal (any prefix) or a comment, so that nothing
+# inside one is read as code.
+LITERAL = re.compile(r'(?:u8|[uUL])?R"(?P<delim>[^ ()\\\t\n]{0,16})\((?P<raw>.*?)\)(?P=delim)"'
+                     r'|(?:u8|[uUL])?"(?:[^"\\\n]|\\.)*"'
+                     r"|(?:u8|[uUL])?'(?:[^'\\\n]|\\.)*'"
+                     r"|/\*.*?\*/|//[^\n]*", re.S)
+MASKED = "\x02"          # a brace, paren, quote, backslash or `;` that was inside a literal or a comment
+UNREADABLE = "\x03"      # a quote no literal closes: nothing in the text can be trusted
+
+
+def mask_literals(text):
+    """`text` with every literal's characters that could read as code (`{}()"'\\;`) replaced by
+    MASKED, the literal kept as `"..."` or `'...'`, and every comment replaced by MASKED (review
+    of 90fdd5d03d: a `"}"` in a member function closed the class body early). A quote left
+    over that no literal closes prefixes the text with UNREADABLE."""
+    def mask(m):
+        token = m.group(0)
+        if token.startswith(("/*", "//")):
+            return f" {MASKED} "
+        if m.group("raw") is not None:
+            inner, quote = m.group("raw"), '"'
+        else:
+            quote = '"' if '"' in token else "'"
+            inner = token[token.index(quote) + 1:-1]
+        return quote + re.sub(r"[{}()\"'\\;]", MASKED, inner) + quote
+    out = LITERAL.sub(mask, text)
+    stray = re.sub(r'"[^"]*"|\'[^\']*\'', "", out)
+    return (UNREADABLE + out) if ('"' in stray or "'" in stray) else out
 
 
 def instance_tokens(owner):
@@ -3578,6 +3610,8 @@ def explicit_instance_problem(code, owner):
     fail-closed (review of 692da8fc04): any explicit specialization (`template<>`, deduced
     arguments included) or explicit instantiation (`template` not followed by `<`) naming one of
     instance_tokens(owner) in its declaration refuses, whatever its arguments."""
+    if UNREADABLE in code:
+        return "an unbalanced quote: the unit cannot be read"
     words = "|".join(map(re.escape, sorted(instance_tokens(owner))))
     m = (re.search(r"\btemplate\s*<\s*>[^;{]*?\b(?:" + words + r")\b", code)
          or re.search(r"\btemplate\b(?!\s*<)[^;{]*?\b(?:" + words + r")\b[^;{]*;", code))
@@ -3625,11 +3659,19 @@ def special_member_problem(code, kind, cls):
     always the compiler's."""
     if kind == "deleting destructor":
         return None
+    if UNREADABLE in code:
+        return f"an unbalanced quote in the preprocessed unit: no proof {cls}'s {kind} is compiler-generated"
     bodies = class_bodies(code, cls)
     if not bodies:
         return f"no body of {cls} in the preprocessed unit: no proof its {kind} is compiler-generated"
     c = re.escape(cls)
     for body in bodies:
+        # fail-closed (review of 90fdd5d03d): a literal or comment in the body that held a brace,
+        # paren, quote or `;` (masked by mask_literals), or one that names the class, refuses
+        if MASKED in body:
+            return f"a literal or comment in {cls}'s body holds a brace, paren, quote or ';': no proof"
+        if re.search(r'"[^"]*\b' + c + r'\b[^"]*"|\'[^\']*\b' + c + r"\b[^']*'", body):
+            return f"a literal in {cls}'s body names {cls}: no proof"
         for params in re.findall(r"(?<![~\w])" + c + r"\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)", body):
             if kind == "default constructor" or (kind == "copy constructor" and one_parameter(params)):
                 return f"{cls} declares a constructor ({cls}({' '.join(params.split())[:60]}))"
@@ -3870,29 +3912,57 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         report["verify"] = f"screened by a scratch compile; the apply proves it by building exactly {path} {dest}"
         return report
     don = {path: moved}
-    if claim:
-        held = claim_scope(dest, don)
-        if held:
-            claims.release(claim_keys(dest, don))
-            report["blocked"] = held_message(held)
+    with ledger_locked():
+        pending = pending_journal()             # under the lock: two moves cannot both pass it
+        if pending:
+            report["blocked"] = f"a pending journal: {pending}"
             return report
+        tokens = {}
+        if claim:
+            held = claim_scope(dest, don)
+            if held:
+                claims.release(claim_keys(dest, don), tokens=getattr(held, "tokens", {}) or None)
+                report["blocked"] = held_message(held)
+                return report
+            tokens = dict(getattr(held, "tokens", {}) or {})
+        result = _apply_emit(path, dest, movers, report["moved"], claim, don, tokens)
+    if isinstance(result, str):
+        report["blocked"] = result
+        return report
+    repointed = result
+    report["repointed"] = repointed
+    report["stage"] = "staged: " + " ".join(repointed)
+    report["verified"] = f"build.py over exactly {path} {dest}"
+    report["subject"] = (f"Move {len(moved)} emitted rows of {posixpath.basename(path)} into "
+                         f"{posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact)")
+    return report
+
+
+def _apply_emit(path, dest, movers, rvas, claim, don, tokens):
+    """The write half of emit_move, under the ledger lock: {rel: rows repointed}, or why it
+    was undone. The journal (before and after bytes, each ledger file's index entry, the
+    claim keys with their fencing tokens) goes to disk, fsynced, before the ledger is
+    touched; a SIGKILL or power loss leaves it for --recover-emit, and any other exit short
+    of a verified, staged move undoes it here (undo_emit, row-level), each step on its own."""
     import build
     before = {rel: (ROOT / rel).read_bytes() for rel, _ in ROW_KEYED if (ROOT / rel).exists()}
-    # The before-state goes to disk (fsynced) before the ledger is touched: a SIGKILL or power
-    # loss mid-verify leaves the journal, and `--recover-emit` puts the move back (review of
-    # e81c016950). Any other exit short of a verified, staged move (a refusal, an exception,
-    # KeyboardInterrupt) undoes it here, each step on its own.
+    after, repointed = {}, {}
+    for rel, keycol in ROW_KEYED:
+        if rel in before:
+            raw, n = repoint_rows(before[rel], rel, keycol, rvas, "source", path, dest)
+            after[rel] = raw
+            if n:
+                repointed[rel] = n
+    keys = [str(k) for k in claim_keys(dest, don)] if claim else []
     journal = write_emit_journal({"subject": f"emit-move {path} -> {dest}", "sources": [path, dest],
                                   "before": {rel: rename._b64(raw) for rel, raw in before.items()},
-                                  "claims": [str(k) for k in claim_keys(dest, don)] if claim else []})
-    repointed, done, problem = {}, False, "interrupted before the build finished"
+                                  "after": {rel: rename._b64(raw) for rel, raw in after.items()},
+                                  "index": index_entries(list(before)),
+                                  "claims": keys, "tokens": {str(k): v for k, v in tokens.items()}})
+    done, problem = False, "interrupted before the build finished"
     try:
-        for rel, keycol in ROW_KEYED:
-            if rel in before:
-                raw, n = repoint_rows(before[rel], rel, keycol, report["moved"], "source", path, dest)
-                if n:
-                    (ROOT / rel).write_bytes(raw)
-                    repointed[rel] = n
+        for rel in repointed:
+            (ROOT / rel).write_bytes(after[rel])
         # the committed state: exactly the two real files at their real paths, under the flags
         # their build picks from the repointed ledger (__FILE__, __LINE__ and region flags theirs)
         _CACHE.clear()
@@ -3908,18 +3978,11 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         record = json.loads(journal.read_text(encoding="utf-8"))
         errors = [] if done else undo_emit(record, release=claim)
         if not errors:
-            journal.unlink()            # an undo that failed keeps its journal for --recover-emit
+            remove_emit_journal(journal)    # an undo that failed keeps its journal for --recover-emit
     if problem:
-        report["blocked"] = problem + (" (the ledger was put back, both objects dropped and the claims released)"
-                                       if not errors else
-                                       " (undo incomplete, run tu_skeleton.py --recover-emit: " + "; ".join(errors)[:300] + ")")
-        return report
-    report["repointed"] = repointed
-    report["stage"] = "staged: " + " ".join(repointed)
-    report["verified"] = f"build.py over exactly {path} {dest}"
-    report["subject"] = (f"Move {len(moved)} emitted rows of {posixpath.basename(path)} into "
-                         f"{posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact)")
-    return report
+        return problem + (" (the ledger was put back, both objects dropped and the claims released)" if not errors else
+                          " (undo incomplete, run tu_skeleton.py --recover-emit: " + "; ".join(errors)[:300] + ")")
+    return repointed
 
 
 def drop_objects(build, sources):
@@ -3966,6 +4029,22 @@ def exact_build(sources):
 # An emit move's before-state, written (fsynced) before the ledger is touched: a SIGKILL or a
 # power loss mid-verify leaves an unverified move, and recover_emit() puts it back.
 EMIT_JOURNAL = "build/tu_skeleton/emit-journal"
+LEDGER_LOCK = "reverse/.add_match.lock"      # rename.py's and add_match's ledger lock (rename.LOCK)
+
+
+@contextlib.contextmanager
+def ledger_locked():
+    """Hold the ledger lock rename.py and add_match take, for an emit move and its recovery:
+    no rename or append interleaves, and two emit moves cannot both pass the pending check
+    (review of 90fdd5d03d)."""
+    import portable_lock
+    (ROOT / LEDGER_LOCK).parent.mkdir(parents=True, exist_ok=True)
+    with (ROOT / LEDGER_LOCK).open("a") as handle:
+        portable_lock.lock(handle, exclusive=True, wait_notice="tu_skeleton: waiting for the ledger lock...")
+        try:
+            yield
+        finally:
+            portable_lock.unlock(handle)
 
 
 def emit_journals():
@@ -3980,38 +4059,125 @@ def emit_journals():
     return out
 
 
-def write_emit_journal(record):
-    """Persist `record` atomically (rename.py's journal discipline: tmp, fsync, replace)."""
-    import socket
-    import uuid
-    record = dict(record, id=uuid.uuid4().hex, pid=os.getpid(), host=socket.gethostname(), boot=rename._boot_id(),
-                  started=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
-    folder = ROOT / EMIT_JOURNAL
-    folder.mkdir(parents=True, exist_ok=True)
-    path = folder / f"{record['id']}.json"
+def pending_journal():
+    """The first pending emit-move or rename journal, as `kind name`, or None: neither tool
+    starts while the other's journal waits (review of 90fdd5d03d)."""
+    for path, _record in emit_journals():
+        return f"emit move {path.name} (run python3 tools/tu_skeleton.py --recover-emit)"
+    ctx = SimpleNamespace(root=ROOT, path=lambda rel: ROOT / rel)
+    for path, record in rename.journals(ctx):
+        if (record or {}).get("emit_journal"):
+            continue                                     # our own marker, beside its emit journal
+        return f"rename {path.name} (run python3 tools/rename.py recover)"
+    return None
+
+
+def _write_atomic(path, record):
+    path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(".tmp")
     tmp.write_text(json.dumps(record), encoding="utf-8")
     with tmp.open("r+b") as handle:
         os.fsync(handle.fileno())
     os.replace(tmp, path)
+
+
+def write_emit_journal(record):
+    """Persist `record` atomically (rename.py's journal discipline: tmp, fsync, replace), and a
+    rename-format marker in rename.py's journal folder naming it, with nothing to restore:
+    rename.py's pending-journal guard then refuses renames until the move finishes or is
+    recovered. The marker is removed with the journal."""
+    import socket
+    import uuid
+    record = dict(record, id=uuid.uuid4().hex, pid=os.getpid(), host=socket.gethostname(), boot=rename._boot_id(),
+                  started=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    path = ROOT / EMIT_JOURNAL / f"{record['id']}.json"
+    _write_atomic(path, record)
+    marker = {k: record[k] for k in ("id", "pid", "host", "boot", "started")}
+    marker.update(subject=f"{record.get('subject', 'emit move')} (pending: python3 tools/tu_skeleton.py --recover-emit)",
+                  before={}, moves=[], moved_bytes={}, claims=[], tokens={}, emit_journal=str(path.relative_to(ROOT)))
+    _write_atomic(ROOT / rename.JOURNAL_DIR / f"emit-{record['id']}.json", marker)
     return path
 
 
+def remove_emit_journal(path):
+    """Remove an emit journal and its rename.py marker."""
+    marker = ROOT / rename.JOURNAL_DIR / f"emit-{path.stem}.json"
+    for p in (path, marker):
+        try:
+            p.unlink()
+        except FileNotFoundError:
+            pass
+
+
+def index_entries(paths):
+    """{path: (mode, blob) or None} of `paths` in the index."""
+    out = {p: None for p in paths}
+    listed = subprocess.run(["git", "ls-files", "-s", "--", *paths], cwd=ROOT, capture_output=True, text=True).stdout
+    for line in listed.splitlines():
+        meta, _, rel = line.partition("\t")
+        mode, blob, _stage = meta.split()
+        out[rel] = (mode, blob)
+    return out
+
+
+def blob_of(data):
+    """The blob id git would give `data`."""
+    return subprocess.run(["git", "hash-object", "--stdin"], cwd=ROOT, input=data, capture_output=True,
+                          check=True).stdout.decode().strip()
+
+
+def undo_lines(current, before, after):
+    """`current` with each line the move changed (before -> after) put back, or None when one
+    of them is no longer there exactly once: row-level, so an edit made since to any other row
+    survives, and a moved row edited since refuses (review of 90fdd5d03d)."""
+    b_lines, a_lines = before.split(b"\n"), after.split(b"\n")
+    if len(b_lines) != len(a_lines):
+        return None
+    lines = current.split(b"\n")
+    for old, new in ((b, a) for b, a in zip(b_lines, a_lines) if b != a):
+        at = [i for i, line in enumerate(lines) if line == new]
+        if len(at) != 1:
+            return None
+        lines[at[0]] = old
+    return b"\n".join(lines)
+
+
 def undo_emit(record, release=True):
-    """Put one emit move back from its journal record; [errors]. Every step is its own: each
-    ledger file restored, each object and receipt dropped, the claims released, whatever
-    failed before it (review of e81c016950)."""
+    """Put one emit move back from its journal record; [errors]. Row-level (undo_lines): only
+    the lines the move changed go back, and a file whose moved lines changed since is left
+    alone and reported. The index entry of each ledger file goes back to what it was, when it
+    still holds what the move staged (or nothing was staged). Then each object and receipt is
+    dropped and the claims are released with their fencing tokens (rename.py's recovery
+    does the same; review of 90fdd5d03d). Every step is its own (review of e81c016950)."""
     import build
     errors = []
-    for rel, data in (record.get("before") or {}).items():
+    before = {rel: rename._unb64(data) for rel, data in (record.get("before") or {}).items()}
+    after = {rel: rename._unb64(data) for rel, data in (record.get("after") or {}).items()}
+    for rel, old in before.items():
         try:
-            (ROOT / rel).write_bytes(rename._unb64(data))
-        except OSError as error:
+            current = (ROOT / rel).read_bytes()
+            new = after.get(rel, old)
+            restored = current if current == old else undo_lines(current, old, new)
+            if restored is None:
+                errors.append(f"{rel}: the moved rows changed since the move; undo it by hand from the journal")
+                continue
+            if restored != current:
+                (ROOT / rel).write_bytes(restored)
+            entry, wrote = (record.get("index") or {}).get(rel), blob_of(new)
+            staged = index_entries([rel])[rel]
+            if staged is not None and staged[1] == wrote and (entry is None or entry[1] != wrote):
+                if entry is None:
+                    subprocess.run(["git", "rm", "-q", "--cached", "--", rel], cwd=ROOT, check=True)
+                else:
+                    subprocess.run(["git", "update-index", "--cacheinfo", f"{entry[0]},{entry[1]},{rel}"],
+                                   cwd=ROOT, check=True)
+        except (OSError, subprocess.CalledProcessError) as error:
             errors.append(f"could not restore {rel}: {error}")
     errors += drop_objects(build, record.get("sources") or [])
     if release and record.get("claims"):
         try:
-            claims.release(record["claims"])
+            claims.release(record["claims"], root=ROOT,
+                           tokens={claims.key_of(k): v for k, v in (record.get("tokens") or {}).items()})
         except Exception as error:                       # noqa: BLE001 - reported, the rest already ran
             errors.append(f"could not release the claims: {error}")
     _CACHE.clear()
@@ -4019,22 +4185,23 @@ def undo_emit(record, release=True):
 
 
 def recover_emit():
-    """Undo every emit move whose process is gone (its journal remains); (restored, busy, errors).
-    A journal is removed only once its undo had no error."""
+    """Undo every emit move whose process is gone (its journal remains), under the ledger lock;
+    (restored, busy, errors). A journal is removed only once its undo had no error."""
     restored, busy, errors = [], [], []
-    for path, record in emit_journals():
-        if record is None:
-            errors.append(f"{path} is unreadable; inspect it by hand (the before-state is in it)")
-            continue
-        if rename.journal_alive(record):
-            busy.append(record.get("subject", path.name))
-            continue
-        problems = undo_emit(record)
-        if problems:
-            errors += problems
-            continue
-        path.unlink()
-        restored.append(record.get("subject", path.name))
+    with ledger_locked():
+        for path, record in emit_journals():
+            if record is None:
+                errors.append(f"{path} is unreadable; inspect it by hand (the before-state is in it)")
+                continue
+            if rename.journal_alive(record):
+                busy.append(record.get("subject", path.name))
+                continue
+            problems = undo_emit(record)
+            if problems:
+                errors += problems
+                continue
+            remove_emit_journal(path)
+            restored.append(record.get("subject", path.name))
     return restored, busy, errors
 
 
@@ -5053,9 +5220,12 @@ def claim_keys(tu, don):
 class Held(list):
     """claim_scope's refused keys. `unconfirmed` names those whose claim push failed while no
     other worker held them (origin refused the push, e.g. no write access, or never confirmed
-    it); `unavailable` is set when origin could not be read at all."""
+    it); `unavailable` is set when origin could not be read at all. Empty (falsy) when every
+    key was claimed: `tokens` then holds their fencing tokens, for a release that must not
+    take a successor's claim (claims.release(tokens=...))."""
     unconfirmed = ()
     unavailable = ""
+    tokens = {}
 
 
 def claim_scope(tu, don, root=ROOT):
@@ -5072,7 +5242,9 @@ def claim_scope(tu, don, root=ROOT):
         held = Held(str(names.get(k, k)) for k in res.refused)
         held.unconfirmed = [str(names.get(k, k)) for k in getattr(res, "unconfirmed", ())]
         return held
-    return []
+    held = Held()
+    held.tokens = dict(getattr(res, "tokens", {}) or {})
+    return held
 
 
 def held_message(held):

@@ -1,6 +1,7 @@
 """tu_skeleton's merge lane: verified flags, redefinition repair, repointing and claims."""
 import contextlib
 import csv
+import json
 import os
 import re
 import subprocess
@@ -1104,10 +1105,11 @@ class EmitMoveTests(unittest.TestCase):
                     return (rvas_ & exact) - lost
                 return rvas_ - (set(residual_lost) if len(judged) < len(rows) else set())
 
-        def unit_text(path):
+        def unit_text(path):        # as the real one: the text flattened (directives, literals masked)
             if preprocessed is not None and path in preprocessed:
-                return (preprocessed[path], None) if preprocessed[path] is not None else (None, "cl -E failed")
-            return (self.root / path).read_text(encoding="utf-8"), None
+                text = preprocessed[path]
+                return (T.flatten_preprocessed(text), None) if text is not None else (None, "cl -E failed")
+            return T.flatten_preprocessed((self.root / path).read_text(encoding="utf-8")), None
 
         import build
         import name_dependents
@@ -1120,10 +1122,19 @@ class EmitMoveTests(unittest.TestCase):
                 patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]), \
                 patch.object(T, "exact_build", side_effect=build_effect if build_effect is not None
                              else (lambda sources: (built, "Functions: OK 2/2" if built else "boom"))) as exact_build, \
-                patch.object(T, "claim_scope", return_value=[]), patch.object(T.claims, "release") as release, \
+                patch.object(T, "claim_scope", side_effect=lambda *a, **k: self.claimed()), \
+                patch.object(T.claims, "release") as release, \
                 patch.object(build, "obj_path", side_effect=self.obj_path):
             self.released, self.exact = release, exact_build
             return T.emit_move(self.SOURCE, self.TU, rvas, dry_run=dry_run, claim=claim)
+
+    TOKEN = "claim-sha-of-this-move"
+
+    def claimed(self):
+        """claim_scope's answer when every key was claimed: an empty Held with fencing tokens."""
+        held = T.Held()
+        held.tokens = {T.claims.key_of(f"file:{self.TU}"): self.TOKEN}
+        return held
 
     def obj_path(self, source):
         """build.obj_path in the fixture: the two files' real build/match objects."""
@@ -1204,6 +1215,42 @@ class EmitMoveTests(unittest.TestCase):
     def test_flattening_drops_every_directive_and_joins_lines(self):
         text = '#line 1 "a.h"\nstruct Rec\n# 3 "semi;colon.h"\n{\n  #pragma once\n  int a;\n};\n'
         self.assertEqual(T.flatten_preprocessed(text), "struct Rec { int a; };")
+
+    HAND_WRITTEN = "Rec(Rec const &r):a(r.a){} int a; };\n"
+
+    def test_a_literal_or_comment_never_closes_the_class_body(self):
+        # review of 90fdd5d03d: `"}"` in a member function closed Rec's body before its hand-written
+        # copy ctor; every literal kind, and comments, are masked before braces are matched, and a
+        # body holding a masked brace, paren, quote or `;`, or a literal naming the class, refuses
+        literals = ['"}"', "'}'", 'L"}"', 'u8"}"', 'R"x(})x"', 'LR"(})"', '"a\\"}"', '"("', '";"',
+                    "/* } */", "// }\n"]
+        for literal in literals:
+            with self.subTest(literal=literal):
+                text = "struct Rec { void f() { const char *s = " + literal + "; } " + self.HAND_WRITTEN
+                with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
+                    why = T.implicit_comdat({"name": self.COPY, "target_rva": "0x00002100"}, "Code/u.cpp")
+                self.assertTrue(why, literal)
+        for text, refused in (('struct Rec { void f() { puts("Rec"); } int a; };\n', True),       # names the class
+                              ('struct Rec { void f() { puts("ok"); } int a; };\n', False),        # a harmless literal
+                              ('struct Rec { void f() { puts("ok); } int a; };\n', True)):         # unbalanced quote
+            with self.subTest(text=text), \
+                    patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
+                why = T.implicit_comdat({"name": self.COPY, "target_rva": "0x00002100"}, "Code/u.cpp")
+                self.assertEqual(bool(why), refused, why)
+
+    def test_the_string_brace_repro_is_refused_through_the_apply(self):
+        self.ledger()
+        self.write(self.TU, 'struct Rec { void f() { const char *s = "}"; } ' + self.HAND_WRITTEN)
+        report = self.move(rvas=["0x00002100"], dry_run=False)
+        self.assertIn("blocked", report)
+        self.assertIn("literal or comment", report["refused_rows"]["0x00002100"])
+        self.assertNotIn(self.TU.encode(), subprocess.run(["git", "show", ":reverse/functions.csv"], cwd=self.root,
+                                                          capture_output=True).stdout)
+
+    def test_mask_literals_keeps_code_and_blanks_what_could_read_as_code(self):
+        self.assertEqual(T.mask_literals('f("a{b", \'(\', R"d(x})d"); /* } */ g();'),
+                         'f("a\x02b", \'\x02\', "x\x02");  \x02  g();')
+        self.assertTrue(T.mask_literals('f("open);').startswith(T.UNREADABLE))
 
     def test_the_rules_read_the_preprocessed_unit(self):
         # a header (or a macro) declares the copy ctor; the raw text never shows it
@@ -1340,14 +1387,7 @@ class EmitMoveTests(unittest.TestCase):
         # review of e81c016950: os._exit mid-verify skips every finally; the journal on disk is all
         # that is left, and --recover-emit restores from it
         before = self.ledger()
-        child = ("import os, sys\nfrom pathlib import Path\n"
-                 f"sys.path[:0] = [{str(Path(__file__).resolve().parents[1])!r}, {str(Path(__file__).resolve().parent)!r}]\n"
-                 "import test_tu_skeleton as M\n"
-                 "t = M.EmitMoveTests('test_an_emitted_instantiation_and_copy_ctor_move')\n"
-                 "t.root = Path(sys.argv[1])\n"
-                 "t.move(rvas=['0x00002000'], dry_run=False, claim=True, build_effect=lambda sources: os._exit(3))\n")
-        result = subprocess.run([sys.executable, "-c", child, str(self.root)], capture_output=True, text=True)
-        self.assertEqual(result.returncode, 3, result.stderr[-500:])
+        self.kill_mid_verify()
         journals = list((self.root / T.EMIT_JOURNAL).glob("*.json"))
         self.assertEqual(len(journals), 1)
         self.assertNotEqual((self.root / "reverse/functions.csv").read_bytes(), before["reverse/functions.csv"])
@@ -1393,6 +1433,101 @@ class EmitMoveTests(unittest.TestCase):
         code = run.call_args[0][0][2]
         self.assertIn("exact_sources=['Code/Campaign.cpp', 'Code/Mixed.cpp']", code)
         self.assertNotIn("build.sh", " ".join(run.call_args[0][0]))
+
+    def kill_mid_verify(self):
+        """A child process moves 0x2000 and dies by os._exit inside the verify: its journal and
+        the unverified ledger are all that is left."""
+        child = ("import os, sys\nfrom pathlib import Path\n"
+                 f"sys.path[:0] = [{str(Path(__file__).resolve().parents[1])!r}, {str(Path(__file__).resolve().parent)!r}]\n"
+                 "import test_tu_skeleton as M\n"
+                 "t = M.EmitMoveTests('test_an_emitted_instantiation_and_copy_ctor_move')\n"
+                 "t.root = Path(sys.argv[1])\n"
+                 "t.move(rvas=['0x00002000'], dry_run=False, claim=True, build_effect=lambda sources: os._exit(3))\n")
+        result = subprocess.run([sys.executable, "-c", child, str(self.root)], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 3, result.stderr[-500:])
+
+    def test_recovery_keeps_a_later_edit_to_another_row(self):
+        # review of 90fdd5d03d: recovery restored whole snapshots, erasing a rename made since
+        before = self.ledger()
+        self.kill_mid_verify()
+        funcs = self.root / "reverse/functions.csv"
+        funcs.write_bytes(funcs.read_bytes().replace(b"?stay@@YAXXZ", b"?renamed@@YAXXZ"))
+        (restored, _busy, errors), _ = self.recover()
+        self.assertEqual((len(restored), errors), (1, []))
+        self.assertEqual(funcs.read_bytes(), before["reverse/functions.csv"].replace(b"?stay@@YAXXZ", b"?renamed@@YAXXZ"))
+
+    def test_recovery_refuses_when_a_moved_row_changed_since(self):
+        self.ledger()
+        self.kill_mid_verify()
+        funcs = self.root / "reverse/functions.csv"
+        edited = funcs.read_bytes().replace(f"0x00002000,8,{self.TU},matched,".encode(),
+                                            f"0x00002000,8,{self.TU},matched,touched".encode())
+        funcs.write_bytes(edited)
+        (restored, _busy, errors), _ = self.recover()
+        self.assertEqual(restored, [])
+        self.assertTrue(any("changed since the move" in e for e in errors), errors)
+        self.assertEqual(funcs.read_bytes(), edited)                       # nothing guessed
+        self.assertEqual(len(list((self.root / T.EMIT_JOURNAL).glob("*.json"))), 1)
+
+    def test_each_tool_sees_the_others_pending_journal(self):
+        # review of 90fdd5d03d: rename.py's guard ignored emit journals, and the reverse
+        self.ledger()
+        self.kill_mid_verify()
+        with self.assertRaises(T.rename.Refusal):
+            T.rename.refuse_pending_journal(T.rename.Context(self.root))
+        self.recover()
+        T.rename.refuse_pending_journal(T.rename.Context(self.root))       # gone with the emit journal
+        folder = self.root / T.rename.JOURNAL_DIR
+        (folder / "a-rename.json").write_text(json.dumps({"subject": "rename x", "pid": 0}))
+        report = self.move(rvas=["0x00002000"], dry_run=False)
+        self.assertIn("a pending journal: rename a-rename.json", report["blocked"])
+
+    def test_the_pending_check_runs_under_the_ledger_lock(self):
+        # two moves cannot both pass the check before either writes its journal
+        self.ledger()
+        held = []
+
+        @contextlib.contextmanager
+        def lock():
+            held.append(True)
+            yield
+            held.pop()
+        seen = []
+        with patch.object(T, "ledger_locked", lock), \
+                patch.object(T, "pending_journal", side_effect=lambda: seen.append(bool(held)) or None):
+            self.assertNotIn("blocked", self.move(rvas=["0x00002000"], dry_run=False))
+        self.assertEqual(seen, [True])
+
+    def test_recovery_releases_only_with_the_fencing_tokens(self):
+        # review of 90fdd5d03d: a release without tokens could delete a successor's claim
+        self.ledger()
+        self.kill_mid_verify()
+        _result, release = self.recover()
+        tokens = release.call_args.kwargs["tokens"]
+        self.assertEqual(list(tokens.values()), [self.TOKEN])
+
+    def test_an_interrupt_after_staging_restores_the_index(self):
+        # review of 90fdd5d03d: the moved rows were staged before the journal went, and recovery
+        # restored only the working files
+        before = self.ledger()
+        subprocess.run(["git", "-C", str(self.root), "add", "reverse"], check=True)
+        subprocess.run(["git", "-C", str(self.root), "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "base"],
+                       check=True)
+        real_unlink = Path.unlink
+
+        def unlink(path, *a, **k):
+            if Path(path).suffix == ".json" and Path(path).parent.name == "emit-journal":
+                raise KeyboardInterrupt                # dies after git add, before the journal goes
+            return real_unlink(path, *a, **k)
+        with patch.object(Path, "unlink", unlink), self.assertRaises(KeyboardInterrupt):
+            self.move(rvas=["0x00002000"], dry_run=False)
+        staged = lambda: subprocess.run(["git", "show", ":reverse/functions.csv"], cwd=self.root,
+                                        capture_output=True).stdout
+        self.assertIn(self.TU.encode(), staged())                         # the move was staged
+        (restored, _busy, errors), _ = self.recover()
+        self.assertEqual((len(restored), errors), (1, []))
+        self.assertEqual(staged(), before["reverse/functions.csv"])
+        self.assertEqual((self.root / "reverse/functions.csv").read_bytes(), before["reverse/functions.csv"])
 
 
 class FoldAliasSplitTests(unittest.TestCase):
