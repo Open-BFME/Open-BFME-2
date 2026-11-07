@@ -3543,61 +3543,6 @@ SPECIAL_MEMBERS = (
     ("destructor", r"^\?\?1([A-Za-z_]\w*)@@[QU]AE@XZ$"),
     ("deleting destructor", r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$"),     # never written by hand
 )
-CV = r"(?:\s*\b(?:const|volatile)\b)*"
-
-
-def special_member_decl(kind, cls, names):
-    """A pattern for a user declaration of `cls`'s `kind`, by its signature: the parameter type
-    spelled as any of `names` (the class and its aliases) with cv-qualifiers in either order
-    (`Rec(const Rec &)`, `Rec(Rec const&)`, `Rec(const volatile Alias &)`), in the class or
-    out of line (`Rec::Rec(`). The default constructor and destructor take no parameter and are
-    matched by name; a `Rec()` expression reads as a declaration too (fail-closed). None for a
-    deleting destructor, which no one writes."""
-    c = re.escape(cls)
-    ref = r"\(\s*" + CV + r"\s*(?:class\s+|struct\s+)?(?:" + "|".join(map(re.escape, sorted(names))) + r")\b" + CV + r"\s*&"
-    return {"copy constructor": r"(?<![~\w])" + c + r"\s*" + ref,
-            "copy assignment": r"\boperator\s*=\s*" + ref,
-            "default constructor": r"(?<![~\w])" + c + r"\s*\(\s*(?:void\s*)?\)",
-            "destructor": r"~\s*" + c + r"\s*\("}.get(kind)
-
-
-SCOPES = frozenset(("_STL", "std", "rts", "stlp_std"))      # namespaces, never template arguments
-# defaulted helper templates and tags every container repeats (vector<T, allocator<T> >): they
-# tell no instantiation from another, and `vector<X, allocator<X> >::vector(` must not spell
-# vector<FXList>'s
-HELPERS = frozenset(("allocator", "char_traits", "less", "equal_to", "hash", "_Select1st", "_Identity",
-                     "_Nonconst_traits", "_Const_traits", "__true_type", "__false_type"))
-
-
-def template_arg_names(name, owner):
-    """Class and enum names in the mangled text after `name`'s template (its arguments, and the
-    parameter types that repeat them), its own name and namespaces left out: what tells this
-    instantiation apart from the template's others (`??$_Construct@VFXList@@V1@@...` ->
-    {"FXList"})."""
-    cls, meth = owner
-    at = name.find("?$" + (cls or meth) + "@")
-    rest = name[at + len(cls or meth) + 3:] if at >= 0 else ""
-    # V class, U struct, W4 enum, ?$ a nested template; an extra name only widens what spells it
-    return {n for n in re.findall(r"(?:[VU]|W4|\?\$)([A-Za-z_]\w*)@", rest)} - SCOPES - HELPERS - {cls, meth}
-
-
-def type_aliases(code, words):
-    """`words` and every typedef or using-alias name whose declaration mentions one of them, to
-    a fixpoint (`typedef Rec Alias;`, `using A2 = Alias;`): the mangled name keeps the class,
-    the text may spell an alias (review of 3db7ced4b4)."""
-    names = set(words)
-    typedefs = [(m.group(1), rename._typedef_names(m.group(1)))
-                for m in re.finditer(r"\btypedef\b([^;{}]*(?:\{[^{}]*\}[^;{}]*)?);", code)]
-    usings = [(m.group(2), {m.group(1)}) for m in re.finditer(r"\busing\s+([A-Za-z_]\w*)\s*=\s*([^;]*);", code)]
-    grew = True
-    while grew:
-        grew = False
-        word = re.compile(r"\b(?:" + "|".join(map(re.escape, sorted(names))) + r")\b")
-        for body, declared in typedefs + usings:
-            if not declared <= names and word.search(body):
-                names |= declared
-                grew = True
-    return names
 
 
 def unit_text(path):
@@ -3611,60 +3556,106 @@ def unit_text(path):
     return cache[path]
 
 
-def spells_instance(path, r, code=None):
-    """Does `path` (or its text `code`, preprocessed by emit_move) spell row `r`'s instantiation
-    itself: an explicit specialization or instantiation, or a template-qualified member, for
-    this row's own arguments (template_arg_names, or an alias of one, inside the `<...>`)? A
-    primary template's definition, or a specialization for other arguments, leaves this
-    instantiation implicit. With no class argument to tell instances apart (`vector<int>`), or
-    an unreadable file, it is spells_definition's broader answer."""
-    owner = instance_owner(r["name"])
-    if owner is None:
-        return True
-    args = template_arg_names(r["name"], owner)
-    if not args:
-        return spells_definition(path, r)
-    if code is None:
-        try:
-            code = strip((ROOT / path).read_bytes().decode("utf-8-sig", errors="replace"))
-        except OSError:
-            return True
-    args = type_aliases(code, args)
-    angle = r"\s*<[^;{}]*\b(?:" + "|".join(map(re.escape, sorted(args))) + r")\b[^;{}]*>"
+def instance_tokens(owner):
+    """The identifier tokens an explicit specialization or instantiation of the row would name:
+    its member (`clear`, `operator`, `~Box` as `Box`) and, for a member, its class template, whose
+    explicit specialization or instantiation (`template class Box<int>;`) covers every member."""
     cls, meth = owner
-    if cls is None:          # a function template: f<FXList, FXList>( after `template`, or an explicit-argument call
-        return bool(re.search(r"\b" + re.escape(meth) + angle + r"\s*\(", code))
-    member = r"operator\b" if meth == "operator" else re.escape(meth) + r"\s*\("
-    return bool(
-        re.search(r"\b(?:class|struct|union)\s+" + re.escape(cls) + angle + r"[^;{}]*\{", code)
-        or re.search(r"\btemplate\s+(?:class|struct|union)\s+(?:[A-Za-z_]\w*\s*::\s*)*" + re.escape(cls) + angle, code)
-        or re.search(r"\b" + re.escape(cls) + angle + r"\s*::\s*" + member, code))
+    return {cls or meth} | ({"operator"} if meth == "operator" else {meth.lstrip("~")})
+
+
+def explicit_instance_problem(code, owner):
+    """Why the preprocessed `code` might spell row's instantiation itself, or None. Coarse and
+    fail-closed (review of 692da8fc04): any explicit specialization (`template<>`, deduced
+    arguments included) or explicit instantiation (`template` not followed by `<`) naming one of
+    instance_tokens(owner) in its declaration refuses, whatever its arguments."""
+    words = "|".join(map(re.escape, sorted(instance_tokens(owner))))
+    m = (re.search(r"\btemplate\s*<\s*>[^;{]*?\b(?:" + words + r")\b", code)
+         or re.search(r"\btemplate\b(?!\s*<)[^;{]*?\b(?:" + words + r")\b[^;{]*;", code))
+    return " ".join(m.group(0).split())[:120] if m else None
+
+
+def class_bodies(code, cls):
+    """The bodies of every `class|struct|union cls ... { ... }` in `code` (balanced braces)."""
+    out = []
+    for m in re.finditer(r"\b(?:class|struct|union)\s+" + re.escape(cls) + r"\b[^;{()]*\{", code):
+        end = _brace_end(code, m.end() - 1)
+        if end is not None:
+            out.append(code[m.end():end - 1])
+    return out
+
+
+def _brace_end(text, at):
+    """The index after the brace closing the one at `at`, or None."""
+    depth = 0
+    for i in range(at, len(text)):
+        depth += {"{": 1, "}": -1}.get(text[i], 0)
+        if depth == 0:
+            return i + 1
+    return None
+
+
+def one_parameter(params):
+    """Does a parameter list declare exactly one parameter (`void` or nothing is none)?"""
+    params = params.strip()
+    if not params or params == "void":
+        return False
+    depth, parts = 0, 1
+    for c in params:
+        depth += {"(": 1, "<": 1, "[": 1, ")": -1, ">": -1, "]": -1}.get(c, 0)
+        parts += c == "," and depth == 0
+    return parts == 1
+
+
+def special_member_problem(code, kind, cls):
+    """Why `cls`'s `kind` might be user-declared in the preprocessed `code`, or None. Coarse and
+    fail-closed (review of 692da8fc04): no body of the class -> refuse; a copy constructor
+    refuses on ANY constructor with exactly one parameter, a copy assignment on any operator=
+    with one, a default constructor on any constructor at all, a destructor on any destructor,
+    whatever the spelling (`Rec(::Rec const&)`, `Rec(CopyArg)`). A deleting destructor is
+    always the compiler's."""
+    if kind == "deleting destructor":
+        return None
+    bodies = class_bodies(code, cls)
+    if not bodies:
+        return f"no body of {cls} in the preprocessed unit: no proof its {kind} is compiler-generated"
+    c = re.escape(cls)
+    for body in bodies:
+        for params in re.findall(r"(?<![~\w])" + c + r"\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)", body):
+            if kind == "default constructor" or (kind == "copy constructor" and one_parameter(params)):
+                return f"{cls} declares a constructor ({cls}({' '.join(params.split())[:60]}))"
+        if kind == "copy assignment":
+            for params in re.findall(r"\boperator\s*=\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)", body):
+                if one_parameter(params):
+                    return f"{cls} declares an assignment operator (operator=({' '.join(params.split())[:60]}))"
+        if kind == "destructor" and re.search(r"~\s*" + c + r"\s*\(", body):
+            return f"{cls} declares a destructor"
+    return None
 
 
 def implicit_comdat(r, path):
     """Why row `r` is not an implicit COMDAT the unit `path` leaves to the compiler, or None,
-    judged on the unit's preprocessed text (unit_text; fail-closed when it cannot be made). A
-    template instantiation must not be spelled there (spells_instance: no explicit
-    specialization or instantiation for its arguments, aliases resolved); a special member
-    of a plain class must not be user-declared there or in anything it includes
-    (special_member_decl, by signature). Anything else is a body to carve (--split), not to
-    move by emission. emit_move asks it of the destination, whose own code must emit the row."""
+    judged on the unit's preprocessed text (unit_text; fail-closed when it cannot be made) with
+    coarse rules that over-refuse rather than read spellings: explicit_instance_problem for a
+    template instantiation, any argument types included; special_member_problem for a
+    compiler-generated special member of a plain class. Anything else is a body to carve
+    (--split), not to move by emission. emit_move asks it of the destination, whose own code
+    must emit the row."""
     name = r["name"]
     shape = next(((kind, m.group(1)) for kind, pattern in SPECIAL_MEMBERS if (m := re.match(pattern, name))), None)
-    if not TEMPLATE_INSTANCE.match(name) and shape is None:
-        return "not an implicit COMDAT by its name (a template instantiation or a compiler-generated special member)"
+    owner = instance_owner(name) if TEMPLATE_INSTANCE.match(name) else None
+    if owner is None and shape is None:
+        return ("not an implicit COMDAT by its name (a template instantiation or a compiler-generated special "
+                "member)" if not TEMPLATE_INSTANCE.match(name) else "its template owner cannot be read from the name")
     code, why = unit_text(path)
     if code is None:
         return f"{path} cannot be preprocessed ({why}): no proof it leaves the row to the compiler"
-    if TEMPLATE_INSTANCE.match(name):
-        return (f"{path} spells this instantiation (an explicit specialization or instantiation for its arguments, "
-                "aliases resolved): a stand-in or a real body, not an implicit instantiation"
-                if spells_instance(path, r, code) else None)
-    kind, cls = shape
-    declared = special_member_decl(kind, cls, type_aliases(code, {cls}))
-    if declared and re.search(declared, code):
-        return f"{path} (preprocessed) declares {cls}'s {kind}: user-declared, not compiler-generated"
-    return None
+    if owner is not None:
+        found = explicit_instance_problem(code, owner)
+        return (f"{path} (preprocessed) has an explicit specialization or instantiation naming "
+                f"{'/'.join(sorted(instance_tokens(owner)))}: `{found}`") if found else None
+    problem = special_member_problem(code, *shape)
+    return f"{path} (preprocessed): {problem}" if problem else None
 
 
 OBJECT_SYMBOL = re.compile(r"(?:^|;)\s*object-symbol=([^;]+)")
@@ -3718,7 +3709,9 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
     re-judged with exactly the rows that move, since region flags follow the row set. The
     apply then proves the committed state: the ledger is repointed, ./build.sh builds the
     real files at their real paths (rename.build_verify), the rebuilt objects are read again
-    (COMDAT in the TU, no strong copy in the file), and on any failure the ledger is put back.
+    (COMDAT in the TU, no strong copy in the file), and on any other exit (a refusal, an
+    exception, an interrupt) the ledger is put back, both files' build/match objects and
+    receipts are deleted (drop_objects) and the claims are released.
     Nothing but the ledger rows moves: no text, hatch or unit key. Without `rvas` a row that
     does not qualify stays and is reported; with `rvas`, any refusal blocks all."""
     report = {"file": path, "tu": tu}
@@ -3867,39 +3860,62 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
             claims.release(claim_keys(dest, don))
             report["blocked"] = held_message(held)
             return report
-    before = {rel: (ROOT / rel).read_bytes() for rel, _ in ROW_KEYED if (ROOT / rel).exists()}
-    repointed = {}
-    for rel, keycol in ROW_KEYED:
-        if rel in before:
-            raw, n = repoint_rows(before[rel], rel, keycol, report["moved"], "source", path, dest)
-            if n:
-                (ROOT / rel).write_bytes(raw)
-                repointed[rel] = n
-    # the committed state: the real files at their real paths, under the flags their build picks
-    # from the repointed ledger (no scratch sibling: __FILE__, __LINE__ and region flags are theirs)
-    _CACHE.clear()
     import build
-    ctx = rename.Context(ROOT)
-    if rename.build_verify(ctx, [path, dest]):
-        problem = committed_problem(movers, dest, build.obj_path(ROOT / dest), build.obj_path(ROOT / path))
-    else:
-        problem = "./build.sh did not pass the repointed rows: " + " | ".join(
-            (getattr(ctx, "_build_diagnostics", "") or "").strip().splitlines()[-3:])[:400]
-    if problem:
-        for rel, raw in before.items():
-            (ROOT / rel).write_bytes(raw)
+    before = {rel: (ROOT / rel).read_bytes() for rel, _ in ROW_KEYED if (ROOT / rel).exists()}
+    repointed, done, problem = {}, False, "interrupted before ./build.sh finished"
+    # Any exit short of a verified, staged move (a refusal, an exception, KeyboardInterrupt)
+    # puts the ledger back, drops both files' cached objects and releases the claims (review
+    # of 692da8fc04).
+    try:
+        for rel, keycol in ROW_KEYED:
+            if rel in before:
+                raw, n = repoint_rows(before[rel], rel, keycol, report["moved"], "source", path, dest)
+                if n:
+                    (ROOT / rel).write_bytes(raw)
+                    repointed[rel] = n
+        # the committed state: the real files at their real paths, under the flags their build picks
+        # from the repointed ledger (no scratch sibling: __FILE__, __LINE__ and region flags are theirs)
         _CACHE.clear()
-        if claim:
-            claims.release(claim_keys(dest, don))
-        report["blocked"] = problem + " (the ledger was put back)"
+        ctx = rename.Context(ROOT)
+        if rename.build_verify(ctx, [path, dest]):
+            problem = committed_problem(movers, dest, build.obj_path(ROOT / dest), build.obj_path(ROOT / path))
+        else:
+            problem = "./build.sh did not pass the repointed rows: " + " | ".join(
+                (getattr(ctx, "_build_diagnostics", "") or "").strip().splitlines()[-3:])[:400]
+        if problem is None:
+            subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
+            done = True
+    finally:
+        if not done:
+            for rel, raw in before.items():
+                (ROOT / rel).write_bytes(raw)
+            drop_objects(build, [path, dest])
+            _CACHE.clear()
+            if claim:
+                claims.release(claim_keys(dest, don))
+    if problem:
+        report["blocked"] = problem + " (the ledger was put back and both objects dropped)"
         return report
-    subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
     report["repointed"] = repointed
     report["stage"] = "staged: " + " ".join(repointed)
     report["verified"] = f"./build.sh {path} {dest}"
     report["subject"] = (f"Move {len(moved)} emitted rows of {posixpath.basename(path)} into "
                          f"{posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact)")
     return report
+
+
+def drop_objects(build, sources):
+    """Delete each source's build/match object and its .deps.json receipt. After a failed
+    ./build.sh under a repointed ledger an object may be partly rewritten; with the ledger put
+    back its receipt could revalidate it as current (the build cache trap, docs/matching.md).
+    With neither file there, the next build compiles the unit afresh."""
+    for source in sources:
+        obj = build.obj_path(ROOT / source)
+        for path in (obj, build._deps_sidecar(obj)):
+            try:
+                Path(path).unlink()
+            except FileNotFoundError:
+                pass
 
 
 def defined_symbols(obj):

@@ -1059,7 +1059,7 @@ class EmitMoveTests(unittest.TestCase):
 
     def move(self, *, rvas=None, approved=None, defined=None, comdat=None, exact=None, residual_lost=(),
              rows=None, dry_run=True, file_defined=(), file_comdat=(), final_lost=(), preprocessed=None,
-             built=True, built_defined=None, built_comdat=None):
+             built=True, built_defined=None, built_comdat=None, build_effect=None, claim=False):
         """emit_move over a file holding CTOR (0x2000), COPY (0x2100) and STAY (0x3000). `approved`
         {rva: tu}; the TU's scratch object `defined`/`comdat` names and the rvas it matches `exact`
         (`final_lost` lost when judged with only the rows that finally move); the file's object
@@ -1078,8 +1078,11 @@ class EmitMoveTests(unittest.TestCase):
         (self.root / "build").mkdir(exist_ok=True)
         objs = {self.TU: self.root / "build" / "t.obj", self.SOURCE: self.root / "build" / "x.obj"}
         real = {self.TU: self.root / "build" / "real_t.obj", self.SOURCE: self.root / "build" / "real_x.obj"}
+        import build
         for key, path in list(objs.items()) + [(k + "#real", p) for k, p in real.items()]:
             path.write_bytes(key.encode())
+        for path in real.values():                     # build/match's receipts beside the real objects
+            build._deps_sidecar(path).write_text("{}")
         names = {self.TU.encode(): set(defined), self.SOURCE.encode(): set(file_defined),
                  (self.TU + "#real").encode(): set(defined if built_defined is None else built_defined),
                  (self.SOURCE + "#real").encode(): set(file_defined)}
@@ -1115,10 +1118,12 @@ class EmitMoveTests(unittest.TestCase):
                 patch.object(T, "unit_text", side_effect=unit_text), \
                 patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats.get(Path(obj), set())), \
                 patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]), \
-                patch.object(T.rename, "build_verify", return_value=built), \
+                patch.object(T.rename, "build_verify", return_value=built, side_effect=build_effect), \
+                patch.object(T, "claim_scope", return_value=[]), patch.object(T.claims, "release") as release, \
                 patch.object(T.rename, "Context", side_effect=lambda root: SimpleNamespace(root=root)), \
                 patch.object(build, "obj_path", side_effect=lambda source: real[Path(source).relative_to(self.root).as_posix()]):
-            return T.emit_move(self.SOURCE, self.TU, rvas, dry_run=dry_run, claim=False)
+            self.released = release
+            return T.emit_move(self.SOURCE, self.TU, rvas, dry_run=dry_run, claim=claim)
 
     def test_an_emitted_instantiation_and_copy_ctor_move(self):
         report = self.move()
@@ -1140,33 +1145,59 @@ class EmitMoveTests(unittest.TestCase):
                             "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n")
         report = self.move(rvas=["0x00002000"])
         self.assertEqual(report["blocked"], "a requested row cannot move by emission")
-        self.assertIn("spells this instantiation", report["refused_rows"]["0x00002000"])
+        self.assertIn("explicit specialization or instantiation naming", report["refused_rows"]["0x00002000"])
         self.write(self.TU, "struct Rec { Rec(const Rec &o); int a; };\nvoid campaign() {}\n")
         report = self.move(rvas=["0x00002100"])
-        self.assertIn("user-declared", report["refused_rows"]["0x00002100"])
+        self.assertIn("declares a constructor", report["refused_rows"]["0x00002100"])
         report = self.move(rows=[self.row("?f@Rec@@QAEXXZ", "0x00002000"), self.row(self.STAY, "0x00003000")])
         self.assertIn("not an implicit COMDAT", report["refused_rows"]["0x00002000"])
 
-    def test_an_alias_or_another_signature_spelling_still_refuses(self):
-        # review of 3db7ced4b4: an alias keeps the mangled name, and `Rec(Rec const&)` is a copy ctor too
-        for text, rva in (("struct Rec { int a; };\ntypedef Rec Alias;\n"
-                           "template <> inline void _Construct<Alias, Alias>(Alias *p, const Alias &v) { }\n", "0x00002000"),
-                          ("struct Rec { int a; };\ntypedef Rec A1;\nusing A2 = A1;\n"
-                           "template void _STL::_Construct<A2, A2>(A2 *, const A2 &);\n", "0x00002000"),
-                          ("struct Rec { Rec(Rec const&o); int a; };\n", "0x00002100"),
-                          ("struct Rec { Rec(const volatile Rec &o); int a; };\n", "0x00002100"),
-                          ("struct Rec; typedef Rec Alias;\nstruct Rec { Rec(Alias const &o); int a; };\n", "0x00002100"),
-                          ("struct Rec { int a; };\nRec::Rec(const Rec &o) : a(o.a) { }\n", "0x00002100")):
-            with self.subTest(text=text):
-                self.write(self.TU, text)
-                report = self.move(rvas=[rva])
-                self.assertIn("blocked", report)
-                self.assertTrue(report["refused_rows"].get(rva), report)
+    def test_the_coarse_rules_refuse_whatever_the_spelling(self):
+        # review of 692da8fc04: refuse on any explicit specialization or instantiation naming the
+        # member or its class, and on any one-parameter constructor, rather than read spellings
+        box_clear, box_call = "?clear@?$Box@H@@QAEXXZ", "??R?$Box@H@@QBEHXZ"
+        cases = [
+            # (a) explicit specializations and instantiations, any arguments, deduced ones included
+            ("template<> inline void _Construct(Rec *p, Rec const &v) { }\n", self.CTOR, True),
+            ("template <> void _Construct<Other, Other>(Other *, const Other &);\n", self.CTOR, True),  # over-refuses
+            ("typedef Rec R2;\ntemplate <> inline void _Construct<R2, R2>(R2 *, const R2 &) { }\n", self.CTOR, True),
+            ("template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n", self.CTOR, True),
+            ("template<> inline void Box<int>::clear() {}\n", box_clear, True),           # builtin arguments
+            ("template class Box<int>;\n", box_clear, True),
+            ("template <> class Box<int> { };\n", box_call, True),
+            ("template<> int Box<int>::operator()() const { return 7; }\n", box_call, True),
+            ("template <class _T1, class _T2> void _Construct(_T1 *, const _T2 &);\n"
+             "void g(Rec *p, const Rec &v) { _STL::_Construct(p, v); }\n", self.CTOR, False),   # primary template, a use
+            ("template <class T> struct Box { void clear() { } };\nvoid g(Box<int> &b) { b.clear(); }\n", box_clear, False),
+            # (b) any one-parameter constructor, whatever its spelling
+            ("struct Rec { Rec(Rec const&o); int a; };\n", self.COPY, True),
+            ("struct Rec { Rec(::Rec const&o); int a; };\n", self.COPY, True),
+            ("struct Rec; typedef Rec const &CopyArg;\nstruct Rec { Rec(CopyArg o); int a; };\n", self.COPY, True),
+            ("struct Rec { Rec(int n); int a; };\n", self.COPY, True),                    # over-refuses
+            ("struct Rec { Rec(int n, int m); int a; };\n", self.COPY, False),
+            ("struct Rec { Rec(); int a; };\n", self.COPY, False),
+            ("struct Rec { int a; };\n", self.COPY, False),
+            ("struct Other { int a; };\n", self.COPY, True),                              # no body of Rec: refuse
+            ("struct Rec { Rec(); int a; };\n", "??0Rec@@QAE@XZ", True),                   # any ctor, for a default one
+            ("struct Rec { ~Rec(); int a; };\n", "??1Rec@@QAE@XZ", True),
+            ("struct Rec { Rec &operator=(Rec const volatile &o); };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
+            ("struct Rec { virtual ~Rec(); };\n", "??_GRec@@UAEPAXI@Z", False),             # always the compiler's
+        ]
+        for i, (text, name, refused) in enumerate(cases):
+            with self.subTest(text=text, name=name):
+                rel = f"Code/u{i}.cpp"
+                with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
+                        patch.object(T, "unit_text", return_value=(text, None)):
+                    why = T.implicit_comdat({"name": name, "target_rva": "0x00001200"}, rel)
+                self.assertEqual(bool(why), refused, why)
 
-    def test_the_spelling_is_judged_on_the_preprocessed_unit(self):
+    def test_the_rules_read_the_preprocessed_unit(self):
         # a header (or a macro) declares the copy ctor; the raw text never shows it
         report = self.move(rvas=["0x00002100"], preprocessed={self.TU: "struct Rec { Rec(const Rec &); int a; };\n"})
-        self.assertIn("user-declared", report["refused_rows"]["0x00002100"])
+        self.assertIn("declares a constructor", report["refused_rows"]["0x00002100"])
+        report = self.move(rvas=["0x00002000"], preprocessed={self.TU: "template<> inline void Box<int>::f();\n"
+                                                                       "template<> inline void _Construct(Rec *, const Rec &) { }\n"})
+        self.assertIn("explicit specialization or instantiation", report["refused_rows"]["0x00002000"])
         report = self.move(rvas=["0x00002000"], preprocessed={self.TU: None})
         self.assertIn("cannot be preprocessed", report["refused_rows"]["0x00002000"])
 
@@ -1175,37 +1206,6 @@ class EmitMoveTests(unittest.TestCase):
         rows = [self.row(self.CTOR, "0x00002000", notes="object-symbol=_standin"), self.row(self.STAY, "0x00003000")]
         report = self.move(rows=rows, rvas=["0x00002000"])
         self.assertIn("object-symbol=", report["refused_rows"]["0x00002000"])
-
-    def test_spells_instance_tells_this_instantiation_from_the_templates_others(self):
-        # LivingWorldCampaign.cpp's shape: the primary template declared, other arguments specialized
-        vector_copy = "??0?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@QAE@ABV01@@Z"
-        self.assertEqual(T.template_arg_names(vector_copy, ("vector", "vector")), {"FXList"})
-        construct = self.CTOR
-        clear = "?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@_STL@@QAEXXZ"
-        self.assertEqual(T.template_arg_names(construct, (None, "_Construct")), {"Rec"})
-        self.assertEqual(T.template_arg_names(clear, ("hashtable", "clear")), {"pair", "NameKeyType", "FXList"})
-        cases = [
-            ("template <class _T1, class _T2> void _Construct(_T1 *, const _T2 &);\n"
-             "template <> void _Construct<Other, Other>(Other *, const Other &);\n", construct, False),
-            ("template <> __forceinline void _Construct<Other, Other>(Other *p, const Other &v) { }\n", construct, False),
-            ("template <> void _Construct<Rec, Rec>(Rec *, const Rec &);\n", construct, True),
-            ("template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n", construct, True),
-            ("typedef Rec R2;\ntemplate <> inline void _Construct<R2, R2>(R2 *, const R2 &) { }\n", construct, True),
-            ("template <class V, class K> class hashtable { void clear() { } };\n", clear, False),
-            ("template <class V> void hashtable<V, int>::clear() { }\n", clear, False),
-            ("template class hashtable<pair<const NameKeyType, FXList>, NameKeyType>;\n", clear, True),
-            ("template <> void hashtable<pair<const NameKeyType, FXList>, NameKeyType>::clear() { }\n", clear, True),
-            ("template <> class hashtable<pair<const NameKeyType, FXList>, int> { };\n", clear, True),
-            ("template class Box<int>;\n", "?clear@?$Box@H@@QAEXXZ", True),     # no class argument: the broad check
-            # LivingWorldCampaign.cpp: another vector's copy ctor; allocator<> tells no instance apart
-            ("template <> vector<BfmePod40,allocator<BfmePod40> >::vector(const vector &o) { }\n", vector_copy, False),
-            ("template <> vector<FXList,allocator<FXList> >::vector(const vector &o) { }\n", vector_copy, True),
-        ]
-        for i, (text, name, want) in enumerate(cases):
-            self.write(f"Code/s{i}.cpp", text)
-            with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True):
-                got = T.spells_instance(f"Code/s{i}.cpp", {"name": name, "target_rva": "0x00001200"})
-            self.assertEqual(got, want, (text, name))
 
     def test_the_files_explicit_instantiation_stand_in_moves(self):
         # stlport_construct_game_structs.cpp's shape: the file hosts the row through an explicit
@@ -1289,6 +1289,28 @@ class EmitMoveTests(unittest.TestCase):
                 self.assertIn(why, report["blocked"])
                 self.assertIn("the ledger was put back", report["blocked"])
                 self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+                self.assertEqual(self.objects_left(), [])         # review of 692da8fc04: nothing to revalidate
+
+    def objects_left(self):
+        import build
+        real = [self.root / "build" / "real_t.obj", self.root / "build" / "real_x.obj"]
+        return [p.name for o in real for p in (o, build._deps_sidecar(o)) if p.exists()]
+
+    def test_an_interrupt_puts_everything_back_and_releases_the_claims(self):
+        # review of 692da8fc04: KeyboardInterrupt (or any exception) during ./build.sh
+        before = self.ledger()
+        with self.assertRaises(KeyboardInterrupt):
+            self.move(rvas=["0x00002000"], dry_run=False, build_effect=KeyboardInterrupt, claim=True)
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+        self.assertEqual(self.objects_left(), [])
+        self.released.assert_called_once()
+
+    def test_a_passing_move_keeps_its_objects_and_claims(self):
+        self.ledger()
+        report = self.move(rvas=["0x00002000"], dry_run=False, claim=True)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(len(self.objects_left()), 4)
+        self.released.assert_not_called()
 
 
 class FoldAliasSplitTests(unittest.TestCase):
