@@ -100,108 +100,149 @@ def definers(index, name, rank):
 
 
 def real_link_losses(index, updated, names, before_rank, after_rank, omitted=frozenset(),
-                     weak_defaults=lambda obj: {}, bridged=frozenset(), includes=lambda obj: set(),
-                     changed=frozenset(), referenced=None):
-    """[(name, defined before by, still referenced by, kind)] for names this batch leaves with no
-    definition among the real link's kept inputs while one of them still references the name.
-    Judged from object symbol tables only: no census verdict, no symbols.csv pin (the real link
-    reads none). `omitted` names the placement-only objects exit_link.py leaves out; they neither
-    define nor reference anything there. A name still resolves when the toolchain supplies it
-    (runtime, import, stub) or when an input's /alternatename leads, through a chain without a
-    cycle, to a name that resolves; a referrer whose own weak external for the name has a default
-    that resolves is satisfied. `weak_defaults(obj)` is {name: default} for one object, or None
-    when its weak externals could not be read. kind is `loss`, or `candidate` when the vtable
-    bridge may generate the name (`bridged`) or a referrer's weak externals were unreadable.
+                     weak_defaults=lambda obj: {}, bridged=None, includes=lambda obj: set(),
+                     changed=frozenset(), referenced=None, references=lambda obj: None,
+                     graph_trusted=True):
+    """[(spelling, defined before by, still referenced by, kind)]: every name a kept real-link
+    input references (symbol table or /INCLUDE) that resolved before this batch and resolves no
+    more after it. Judged from object symbol tables and directives only: no census verdict, no
+    symbols.csv pin (the real link reads none). `omitted` names the placement-only objects
+    exit_link.py leaves out; they define, declare and reference nothing there.
 
-    A referrer reaches the name through any spelling: the name itself, or an alias whose
-    /alternatename chain leads to it, declared before the batch (a removed or changed object's
-    old directives included) or after it, that the kept inputs no longer resolve another way. It
-    refers by a symbol-table reference (`touches`) or by a /INCLUDE directive (`includes(obj)`: a
-    set, or None when unreadable). /INCLUDE names are roots of the census's reference graph, so
-    the directives of every kept object are read only for a name that `referenced` (that graph's
-    names; None: unknown) holds; `changed` objects' always are. One proven referrer (readable,
-    unsatisfied) makes the name a `loss` whatever other referrers could not be read; it is a
-    `candidate` only when no referrer is proven and one could not be read."""
+    A name resolves when a real-link input defines it (strong, COMDAT or common), the toolchain
+    supplies it (runtime, import, stub), or an input's /alternatename leads to a name that
+    resolves (cycle-safe); a referrer whose own weak external for it has a default that resolves
+    is satisfied. Spellings judged: `names` (what this batch's objects define or defined), every
+    alias a changed or removed object declares or declared, and every alias a kept input declares
+    whose chain leads to one of those.
+
+    Referrers: `touches`, or `references(obj)` for a kept object the index never read (a set,
+    None when unreadable). /INCLUDE names (`includes(obj)`, None when unreadable) are roots of the
+    census reference graph, so when `graph_trusted` (an index the census itself wrote, at the
+    exact base) and `referenced` lacks the name, only changed and unindexed objects' directives
+    are read; otherwise every kept object's are. `weak_defaults(obj)` is {name: default}, None
+    when unreadable.
+
+    kind: `loss` when some referrer is proven (readable, unsatisfied); `candidate` when the only
+    referrers could not be read, or when the vtable bridge could still emit the name: `bridged`
+    maps a ledger vtable name with one retail address to the names at that address, and the
+    bridge emits a referenced name there only beside another name's kept COMDAT copy."""
     excuses = updated.get("excuses") or index.get("excuses") or {"runtime": set(), "imported": {}, "stubs": {}}
-    alternates = updated.get("alternates", {})
     touches = updated.get("touches", {})
     forgotten = updated.get("forgotten", set())
     real_before = {obj: i for obj, i in before_rank.items() if obj not in omitted}
     real_after = {obj: i for obj, i in after_rank.items() if obj not in omitted and obj not in forgotten}
+    removed = set(real_before) - set(after_rank)
+    moved = set(changed) | removed
 
-    def resolves(name, seen=frozenset()):
-        if name in seen:
-            return False                                   # an alias cycle resolves nothing
-        if definers(updated, name, real_after):
-            return True
-        if link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]):
-            return True
-        seen = seen | {name}
-        return any(resolves(target, seen) for i, target in alternates.get(name, ())
-                   if updated["objects"][i] in real_after)
-
-    # target -> aliases: a kept input's directive after the batch, or any real-link input's before
-    # it (a removed or changed object's old /alternatename strands its callers with the target).
-    aliases_of = collections.defaultdict(set)
-    for state, holders in ((updated, real_after), (index, real_before)):
+    def alias_map(state, holders, only=None):
+        found = collections.defaultdict(set)
         for alias, entries in state.get("alternates", {}).items():
             for i, target in entries:
-                if state["objects"][i] in holders:
-                    aliases_of[target].add(alias)
-
-    def spellings(name):
-        """The name and every alias whose alternate chain reaches it and that the kept inputs do not
-        resolve another way, cycle-safe."""
-        found, stack = {name}, [name]
-        while stack:
-            for alias in aliases_of.get(stack.pop(), ()):
-                if alias not in found and not resolves(alias):
-                    found.add(alias)
-                    stack.append(alias)
+                holder = state["objects"][i]
+                if holder in holders and (only is None or holder in only):
+                    found[alias].add(target)
         return found
+    before_aliases, after_aliases = alias_map(index, real_before), alias_map(updated, real_after)
+
+    def resolver(state, holders, aliases):
+        def resolves(name, seen=frozenset()):
+            if name in seen:
+                return False                               # an alias cycle resolves nothing
+            if definers(state, name, holders):
+                return True
+            if link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]):
+                return True
+            return any(resolves(target, seen | {name}) for target in aliases.get(name, ()))
+        return resolves
+    was = resolver(index, real_before, before_aliases)
+    now = resolver(updated, real_after, after_aliases)
+
+    spellings = set(names) | set(alias_map(index, real_before, moved)) | set(alias_map(updated, real_after, moved))
+    # target -> aliases after the batch. An alias only the before-state holds belongs to a removed
+    # or changed object, already a spelling above.
+    leading = collections.defaultdict(set)
+    for alias, targets in after_aliases.items():
+        for target in targets:
+            leading[target].add(alias)
+    stack = list(spellings)
+    while stack:
+        for alias in leading.get(stack.pop(), ()):
+            if alias not in spellings:
+                spellings.add(alias)
+                stack.append(alias)
+
+    unindexed = {obj for obj in real_after if obj not in touches}
+    known = {obj: (touches[obj] if obj in touches else references(obj)) for obj in real_after}
+    unknown_references = any(found is None for found in known.values())
+
+    def bridgeable(name):
+        neighbours = bridged.get(name, ()) if isinstance(bridged, dict) else ()  # names alone prove nothing
+        return any(other != name and definitions(updated, other, real_after)[0] for other in neighbours)
 
     losses = []
-    for name in sorted(names):
-        before = definers(index, name, real_before)
-        if not before or resolves(name):
+    for name in sorted(spellings):
+        if not was(name) or now(name):
             continue
-        spelled = spellings(name)
         proven, uncertain = set(), set()
-        for obj in sorted(obj for obj, used in touches.items() if spelled & used and obj in real_after):
+
+        def judge(obj):
             weaks = weak_defaults(obj)
             if weaks is None:
                 uncertain.add(obj)
-            elif not all(used in weaks and resolves(weaks[used], frozenset({used}))
-                         for used in spelled & touches[obj]):
-                proven.add(obj)                            # some spelling has no default that resolves
-        unread_directives = False
+            elif not (name in weaks and now(weaks[name], frozenset({name}))):
+                proven.add(obj)                            # no default that resolves
+
+        for obj in sorted(obj for obj, found in known.items() if found is not None and name in found):
+            judge(obj)
+        unread = unknown_references
         if not proven:                                     # look for a directive proof before settling for doubt
-            scan = (set(real_after) if referenced is None or spelled & referenced
-                    else set(changed) & set(real_after))
+            shortcut = graph_trusted and referenced is not None and name not in referenced
+            scan = (moved | unindexed) & set(real_after) if shortcut else set(real_after)
             for obj in sorted(scan):
                 forced = includes(obj)
                 if forced is None:
-                    unread_directives = True
-                elif spelled & forced:
-                    proven.add(obj)
+                    unread = True
+                elif name in forced:
+                    judge(obj)
+        before = sorted(definers(index, name, real_before)) or ["/alternatename"]
         if proven:
-            kind = "candidate" if name in bridged else "loss"
-            losses.append((name, sorted(before), sorted(proven | uncertain), kind))
+            kind = "candidate" if bridgeable(name) else "loss"
+            losses.append((name, before, sorted(proven | uncertain), kind))
         elif uncertain:
-            losses.append((name, sorted(before), sorted(uncertain), "candidate"))
-        elif unread_directives:
-            losses.append((name, sorted(before), ["(an unread object's /INCLUDE)"], "candidate"))
+            losses.append((name, before, sorted(uncertain), "candidate"))
+        elif unread:
+            losses.append((name, before, ["(an unread object)"], "candidate"))
     return losses
 
 
-def object_paths(index, replacements):
+def object_paths(index, replacements, sources=()):
     """{object name: path}: a replaced object's current file, any other the object its census
-    source names."""
+    source names, or its ledger source does (a unit the index never read)."""
     paths = {obj.name: obj for obj in replacements}
     for source, entry in index.get("blockers", {}).items():
         if entry.get("object") and entry["object"] not in paths:
             paths[entry["object"]] = build.obj_path(link_check.ROOT / source)
+    for source in sorted(sources):
+        path = build.obj_path(link_check.ROOT / source)
+        paths.setdefault(path.name, path)
     return paths
+
+
+def reference_reader(paths):
+    """references for real_link_losses: an object's undefined externals, weak externals and their
+    defaults; None when unreadable."""
+    cache = {}
+
+    def references(obj):
+        if obj not in cache:
+            try:
+                _defined, found, weaks, _alternates, _includes = link_census.object_symbols(Path(paths[obj]))
+                cache[obj] = set(found) | {name for pair in weaks for name in pair}
+            except Exception:  # noqa: BLE001 - unreadable: a finding without referrers is a candidate
+                cache[obj] = None
+        return cache[obj]
+    return references
 
 
 INCLUDE = re.compile(r"/INCLUDE:(\"[^\"]+\"|[^\s,=]+)", re.I)
@@ -220,9 +261,9 @@ def directive_includes(data):
     return found
 
 
-def include_reader(index, replacements):
+def include_reader(index, replacements, sources=()):
     """includes for real_link_losses: an object's /INCLUDE names, None when unreadable."""
-    paths = object_paths(index, replacements)
+    paths = object_paths(index, replacements, sources)
     cache = {}
 
     def includes(obj):
@@ -235,9 +276,9 @@ def include_reader(index, replacements):
     return includes
 
 
-def weak_reader(index, replacements):
+def weak_reader(index, replacements, sources=()):
     """weak_defaults for real_link_losses: an object's weak externals; None when unreadable."""
-    paths = object_paths(index, replacements)
+    paths = object_paths(index, replacements, sources)
     cache = {}
 
     def weak_defaults(obj):
@@ -251,10 +292,18 @@ def weak_reader(index, replacements):
 
 
 def bridged_names():
-    """Names exit_link.py's vtable bridge may define at link time (a SELECT_ANY copy of a vtable
-    the data ledger names). The initializer bridge defines no name a kept object can reference."""
+    """{name: names at its retail address} for each data-ledger vtable name with one address: the
+    only names exit_link.py's vtable bridge may emit. It never invents a table, so it emits a
+    referenced name only beside another name's kept COMDAT copy (else no-kept-definition), and
+    refuses a name bound at two addresses (ambiguous-table-name). The initializer bridge defines
+    no name a kept object can reference."""
     import vtable_bridge
-    return {name for row in vtable_bridge.table_rows(build.ROOT) for name in vtable_bridge.row_names(row)}
+    at, where = collections.defaultdict(set), collections.defaultdict(set)
+    for row in vtable_bridge.table_rows(build.ROOT):
+        for name in vtable_bridge.row_names(row):
+            at[row["address"]].add(name)
+            where[name].add(row["address"])
+    return {name: at[next(iter(addresses))] for name, addresses in where.items() if len(addresses) == 1}
 
 
 def report_real_link_losses(losses, exact_base):
@@ -263,7 +312,8 @@ def report_real_link_losses(losses, exact_base):
     certain = [entry for entry in losses if entry[3] == "loss"]
     for name, before, referrers, kind in losses:
         label = "REAL-LINK LOSS" if kind == "loss" else "REAL-LINK LOSS CANDIDATE"
-        print(f"  {label} {name}: defined before this batch by {', '.join(before)}, by no kept object "
+        how = "through /alternatename" if before == ["/alternatename"] else f"by {', '.join(before)}"
+        print(f"  {label} {name}: defined before this batch {how}, by no kept object "
               f"after; still referenced by {', '.join(referrers[:3])}"
               f"{f' (+{len(referrers) - 3})' if len(referrers) > 3 else ''}"
               f"{'; the vtable bridge or an unread object may still resolve or reference it' if kind != 'loss' else ''}")
@@ -440,11 +490,17 @@ def audit(base, tip, verified):
             findings.append((name, old_holder, None, "provider disappeared"))
     # Report mode must never block a push: any failure here prints and leaves the exit alone.
     try:
+        # The reference graph is the census's own only when no --update-index moved the index
+        # past it: that adds and rereads units without regrowing the graph.
+        graph_trusted = exact_base and meta.get("census_commit", meta.get("commit")) == meta.get("commit")
         real_losses = real_link_losses(index, updated, touched, before_rank, after_rank,
                                        {path.name for path in exit_link.placement_objects(rows)},
-                                       weak_reader(index, replacements), bridged_names(),
-                                       include_reader(index, replacements), {obj.name for obj in replacements},
-                                       (index.get("references") or {}).get("referenced"))
+                                       weak_reader(index, replacements, sources), bridged_names(),
+                                       include_reader(index, replacements, sources),
+                                       {obj.name for obj in replacements},
+                                       (index.get("references") or {}).get("referenced"),
+                                       reference_reader(object_paths(index, replacements, sources)),
+                                       graph_trusted)
         real_error = None
     except Exception as error:  # noqa: BLE001
         real_losses, real_error = [], error
