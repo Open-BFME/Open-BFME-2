@@ -507,3 +507,161 @@ def test_template_body_of_a_registered_class_is_never_credited(repo, capsys):
     merge_into(repo, FILLER + X_BODY + FRESH, OLD)
     rc, err = repo.gate(capsys)
     assert rc == 1 and '`X`' in err
+
+
+# Step 2: the scope-qualified identity check, its template move credit and its mode.
+HASH = ("namespace rts {\ntemplate <class K> struct hash {\n"
+        "    unsigned operator()(const K &k) const { return 0; }\n};\n}\n")
+HASH_INT = ("namespace rts {\ntemplate <> struct hash<int> {\n"
+            "    unsigned operator()(int k) const { return k; }\n};\n}\n")
+MODE_PATH = "reverse/class_gate_mode.txt"
+
+
+@pytest.fixture
+def trepo(tmp_path, monkeypatch):
+    r = Repo(tmp_path, monkeypatch)
+    r.write("reverse/canonical_classes.csv",
+            "class,header\nGameLogic,Code/Game/GameLogic.h\nrts::hash,Code/Game/RtsHashView.h\n")
+    r.write(OLD, "int old() { return 0; }\n")
+    r.write("Code/Game/Other.cpp", "int other() { return 0; }\n")
+    r.commit(".")
+    return r
+
+
+def set_mode(repo, mode, commit=True):
+    repo.write(MODE_PATH, f"# mode: {mode}\n")
+    if commit:
+        repo.commit(MODE_PATH)
+    else:
+        repo.stage(MODE_PATH)
+
+
+def test_a_new_template_copy_is_reported_in_shadow_and_logged(trepo, capsys):
+    set_mode(trepo, "shadow")
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    rc, err = trepo.gate(capsys)
+    assert rc == 0 and "class_gate [shadow] Code/Game/New.cpp: would refuse `rts::hash`" in err
+    log = (trepo.root / ".git" / "class_gate_shadow.jsonl").read_text()
+    assert '"key": "rts::hash"' in log and '"path": "Code/Game/New.cpp"' in log
+
+
+def test_a_missing_mode_file_is_shadow_never_off(trepo, capsys):
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    rc, err = trepo.gate(capsys)
+    assert rc == 0 and "[shadow]" in err and "rts::hash" in err
+
+
+def test_a_new_template_copy_is_refused_in_enforce(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and "class_gate [refused] Code/Game/New.cpp: defines its own `rts::hash`" in err
+
+
+def test_a_new_specialization_beside_an_existing_primary_is_refused(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(OLD, HASH + BODY)
+    trepo.commit(OLD)
+    trepo.write(OLD, HASH + HASH_INT + BODY)
+    trepo.stage(OLD)
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and "`rts::hash<int>`" in err and "`rts::hash` " not in err
+
+
+def test_using_the_template_without_a_copy_passes(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(NEW, '#include "RtsHashView.h"\nrts::hash<int> h;\nint f() { return h(1); }\n')
+    trepo.stage(NEW)
+    assert trepo.gate(capsys) == (0, "")
+
+
+def test_an_edit_beside_an_existing_copy_passes(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(OLD, HASH + BODY)
+    trepo.commit(OLD)
+    trepo.write(OLD, HASH + BODY + "int added() { return 4; }\n")
+    trepo.stage(OLD)
+    assert trepo.gate(capsys) == (0, "")
+
+
+def test_a_merge_moving_a_template_copy_verbatim_is_credited(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(OLD, HASH + BODY)
+    trepo.commit(OLD)
+    trepo.git("rm", "-q", "--", OLD)
+    trepo.write(NEW, FILLER + "// merged\n" + HASH + BODY)
+    trepo.stage(NEW)
+    assert trepo.gate(capsys) == (0, "")
+
+
+def test_a_merge_with_an_edited_template_body_is_refused(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(OLD, HASH + BODY)
+    trepo.commit(OLD)
+    trepo.git("rm", "-q", "--", OLD)
+    trepo.write(NEW, FILLER + HASH.replace("return 0;", "return 1;") + BODY)
+    trepo.stage(NEW)
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and "`rts::hash`" in err
+
+
+def test_one_deleted_template_body_credits_one_copy(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(OLD, HASH + BODY)
+    trepo.commit(OLD)
+    trepo.git("rm", "-q", "--", OLD)
+    trepo.write(NEW, FILLER + HASH + BODY)
+    trepo.write("Code/Game/Third.cpp", FILLER + HASH + "int third() { return 3; }\n")
+    trepo.stage(NEW, "Code/Game/Third.cpp")
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and err.count("[refused]") == 1
+
+
+def test_an_unreadable_unit_is_compared_by_key(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(NEW, "#define FLAG 1\n" + HASH + BODY)
+    trepo.stage(NEW)
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and "`rts::hash` (an unreadable unit, compared by key)" in err
+
+
+def test_an_allow_marker_names_a_qualified_key(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(NEW, "// class-gate: allow rts::hash proved codegen view\n" + HASH + BODY)
+    trepo.stage(NEW)
+    assert trepo.gate(capsys) == (0, "")
+
+
+def test_a_class_in_another_namespace_is_not_the_registered_one(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(NEW, "namespace other {\nstruct hash { int a; };\n}\n" + BODY)
+    trepo.stage(NEW)
+    assert trepo.gate(capsys) == (0, "")
+
+
+def test_enforce_never_returns_to_shadow(trepo, capsys):
+    set_mode(trepo, "enforce")
+    set_mode(trepo, "shadow", commit=False)
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and "never returns from enforce to shadow" in err
+
+
+def test_shadow_census_writes_a_dated_summary(trepo, monkeypatch, capsys):
+    import tu_skeleton
+    trepo.write("Code/Game/A.cpp", HASH + "int a() { return 1; }\n")
+    trepo.write("Code/Game/B.cpp", HASH.replace("return 0;", "return 2;") + "int b() { return 2; }\n")
+    trepo.write("Code/Game/C.cpp", HASH + "int c() { return 3; }\n")
+    trepo.commit(".")
+    monkeypatch.setattr(tu_skeleton, "queue_entries", lambda: [{"tu": "Code/Game/AB.cpp"}, {"tu": "Code/Game/AC.cpp"}])
+    monkeypatch.setattr(tu_skeleton, "skeleton", lambda tu: tu)
+    donors = {"Code/Game/AB.cpp": ["Code/Game/A.cpp", "Code/Game/B.cpp"],
+              "Code/Game/AC.cpp": ["Code/Game/A.cpp", "Code/Game/C.cpp"]}
+    monkeypatch.setattr(tu_skeleton, "donors", lambda tu, sk: ({d: [] for d in donors[tu]}, {}, {}))
+    assert class_gate.main(["--shadow-census", "build/class_gate_shadow"]) == 0
+    out = capsys.readouterr().out
+    assert "would refuse Code/Game/AB.cpp: rts::hash" in out and "AC.cpp" not in out
+    written = list((trepo.root / "build" / "class_gate_shadow").glob("class_gate_shadow_*.json"))
+    assert len(written) == 1 and '"copies_per_key"' in written[0].read_text()
