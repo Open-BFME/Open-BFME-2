@@ -152,13 +152,10 @@ class BaseUpgradeModuleData : public Rva00253487Base
 {
 public:
 	BaseUpgradeModuleData();
-private:
+	// INI fields (+0x118, +0x11C, +0x120); upgradeImplementation reads them.
 	AsciiString m_buildingTemplateName;
-private:
 	AsciiString m_placementPrefix;
-private:
 	int m_placementIndex;
-public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
