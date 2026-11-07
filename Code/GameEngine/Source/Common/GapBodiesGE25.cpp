@@ -76,9 +76,9 @@ class WW3D
 	static bool ThumbnailEnabled;
 	static bool IsScreenUVBiased;
 	static bool AreStaticSortListsEnabled;
+	enum PrelitModeEnum { PRELIT_MODE_VERTEX, PRELIT_MODE_LIGHTMAP_MULTI_PASS, PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE };
+	static PrelitModeEnum PrelitMode;	// VA 0x00DB5F88; ww3d.cpp defines it
 };
-
-extern int G00DB5F88;
 
 class Rva000422F3
 {
@@ -107,7 +107,7 @@ void Rva000422F3::rva00042303(bool on)
 
 void Rva000422F3::rva0004230D(int value)
 {
-	G00DB5F88 = value;
+	WW3D::PrelitMode = (WW3D::PrelitModeEnum)value;
 }
 
 void Rva000422F3::rva00042317(bool on)

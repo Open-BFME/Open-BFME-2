@@ -300,10 +300,6 @@ class AABTreeClass;
 
 typedef Vector3i16 TriIndex;
 
-// Target-established prelit-mode storage at 0xDB5F88 (ConstGlobalGetters2
-// G00DB5F88=1). Donor WW3D Get_Prelit_Mode() inlines to this load; direct
-// reference reproduces retail's mov eax,[0xDB5F88] + sub/je chain.
-extern int G00DB5F88;
 
 typedef char MeshMatDescSizeCheck[sizeof(MeshMatDescClass) == 0x118 ? 1 : -1];
 
@@ -1711,7 +1707,7 @@ bool MeshModelClass::read_chunks(ChunkLoadClass &cload, MeshLoadContextClass *co
 **   0x400+0x10000 SKIN+ALLOW_NPATCHES, 0x800 ORIENTED, 0x100 TWO_SIDED,
 **   0x1000 CAST_SHADOW, 0x10000 ALLOW_NPATCHES (NPATCHABLE), 0x4000
 **   PRELIT_LIGHTMAP_MULTI_PASS (obsolete 0x4000).
-** - Prelit switch via mov eax,[0xDB5F88] (global, target G00DB5F88=1) with
+** - Prelit switch via mov eax,[0xDB5F88] (global, target WW3D::PrelitMode=1) with
 **   sub/je chain, PrelitChunkID stores 0x26/0x25/0x24/0x23 to [ebx+0x88].
 ** - read_chunks call 0x18B790 (pinned, bool 2-arg, ret8) with this + cload
 **   + context; pre-3.0 skin fixup via get_bone_links 0x16A0C0 (matched);
@@ -1748,7 +1744,7 @@ bool MeshModelClass::read_chunks(ChunkLoadClass &cload, MeshLoadContextClass *co
 **   x2, texture/material transfer loops via Peek 0x188700 + Add 0x16FBF0 +
 **   vector virtuals, void ret4 ABI + call position after cull-tree (donor
 **   calls install_materials there).
-** - G00DB5F88 (target, 0xDB5F88=1) is WW3D::PrelitMode storage (donor);
+** - WW3D::PrelitMode (target, 0xDB5F88=1) is WW3D::PrelitMode storage (donor);
 **   direct global load in C++ reproduces inlined Get_Prelit_Mode().
 ** - Bool ABI (AL=1/0) replaces donor WW3DErrorType; 4-arg Reset with skin
 **   bool replaces donor 3-arg; Set_Name at +0x10 (not Set_User_Text).
@@ -1837,7 +1833,7 @@ bool MeshModelClass::Load_W3D(ChunkLoadClass &cload)
 	}
 
 	if (context->Header.Attributes & W3D_MESH_FLAG_PRELIT_MASK) {
-		switch (G00DB5F88) {
+		switch (WW3D::Get_Prelit_Mode()) {
 		case 2:
 			if (context->Header.Attributes & W3D_MESH_FLAG_PRELIT_LIGHTMAP_MULTI_TEXTURE) {
 				context->PrelitChunkID = W3D_CHUNK_PRELIT_LIGHTMAP_MULTI_TEXTURE;

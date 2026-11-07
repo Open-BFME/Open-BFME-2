@@ -26,9 +26,12 @@ class WW3D {
 public:
 	static __forceinline int Read_FrameCount() { return FrameCount; }
 	static __forceinline unsigned int Read_NPatchesLevel() { return NPatchesLevel; }
+	static __forceinline int Read_PrelitMode() { return PrelitMode; }
 private:
 	static int FrameCount;
 	static unsigned int NPatchesLevel;
+	enum PrelitModeEnum { PRELIT_MODE_VERTEX, PRELIT_MODE_LIGHTMAP_MULTI_PASS, PRELIT_MODE_LIGHTMAP_MULTI_TEXTURE };
+	static PrelitModeEnum PrelitMode; // VA 0xdb5f88, retail .data initial value 1; ww3d.cpp defines it
 };
 
 class CPUDetectClass {
@@ -218,12 +221,9 @@ void Rva001432F0Set(int value)
 // ?Rva00187F30Get@@YAHXZ @ 0x00187F30 (6B): returns global at 0xDB5F88.
 // Follows int3 (prev CC), followed by CC padding, no .rdata vtable slot,
 // no direct callers, no branch sources. Opaque address-derived name.
-extern int G00DB5F88;
-// G00DB5F88: matched references place it at VA 0xdb5f88 (retail .data initial value 1).
-int G00DB5F88 = 1;
 int Rva00187F30Get(void)
 {
-	return G00DB5F88;
+	return WW3D::Read_PrelitMode();
 }
 
 extern int G00DFDA54;

@@ -17,6 +17,13 @@ wrong-globals lane.
   unit, readmit as cpudetect.cpp `_$E7` / `_$E8` (add_match). link_check cpudetect.cpp: LINKED
   8,761 -> 8,821.
 
+- 0x009B5F88 `G00DB5F88` vs `WW3D::PrelitMode` (ww3d.cpp, initial value 1). ConstGlobalGetters2.cpp
+  defined a second `int G00DB5F88 = 1`; GapBodiesGE25.cpp wrote it and meshmdlio.cpp read it. Now the
+  getter and the setter reach `WW3D::PrelitMode` through the unit's WW3D view (private static, friend
+  or accessor, `PrelitModeEnum` nested so the name mangles to `?PrelitMode@WW3D@@0W4PrelitModeEnum@1@A`),
+  and meshmdlio.cpp switches on `WW3D::Get_Prelit_Mode()`. 65/65 + 31/31 exact; link_check unchanged
+  (LINKED 190/427/6,452/4,980 for the four units, all LINKS).
+
 **Skipped (done or held by another seat).** 0x00A1835C, 0x009E1F24, 0x00A0312C (lk42);
 0x00A032E8 (GameLogic.cpp held); 0x009EBE0C/24 (lk42's note: retail-constructed copies in 4-byte
 storage).
