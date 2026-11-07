@@ -24246,3 +24246,5 @@ Code/GameEngine/Include/GameClient/Rva001DFEAABase.h|member|Rva001DFEAABase|m_04
 Code/GameEngine/Include/GameClient/Rva001DFEAABase.h|member|Rva001DFEAABase|m_04,f05ae21b0482ffdb9dbf7df9,gpt-6.1-sol,voter-codex-2,w-8ec2693f00b5,2026-11-07
 Code/GameEngine/Source/Common/Rva0052D83B.cpp|function|0x0052D83B|rva0052D83B,9a446f62528b8d0dedffadef,claude-opus-5-5,seat5-act2,w-45f1d3732101,2026-11-07
 Code/GameEngine/Source/Common/Rva0052D83B.cpp|function|0x0052D83B|rva0052D83B,9a446f62528b8d0dedffadef,gpt-6.1-sol,voter-codex-3,w-8ec2693f00b5,2026-11-07
+Code/GameEngine/Source/Common/Rva0007BEA7Overlap.cpp|function|0x0007BEA7|rva0007BEA7,708ad8f1cf571b989ae725db,claude-opus-5-5,p24-cull,w-8bda9f41f7d6,2026-11-07
+Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp|function|0x0007BEDA|rva0007BEDA,e41496d5aa458fe501260f7a,claude-opus-5-5,p24-cull,w-8bda9f41f7d6,2026-11-07
