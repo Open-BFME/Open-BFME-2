@@ -40,7 +40,7 @@
 BFME_LITERAL_NAME_GETTER(DockUpdate, "DockUpdate")
 BFME_LITERAL_NAME_GETTER(Rva0052BA04Named, "LWPlayerDef")
 BFME_LITERAL_NAME_GETTER(ResourceGatheringManager, "ResourceGatheringManager")
-BFME_LITERAL_NAME_GETTER(Rva004F59ACNamed, "MissionStats")
+BFME_SNAPSHOT_NAME_GETTER(Rva004F599E, "MissionStats")
 #include "../GameLogic/AI/WorkOrder.h"
 const char *WorkOrder::GetSnapshotName() const { return "WorkOrder"; }
 #include "../GameLogic/AI/TeamInQueue.h"

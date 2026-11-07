@@ -5482,3 +5482,4 @@ _$E1,0x007AEBAA,Retracted for readmission as _$E3 in Rva0033FE65OnEnter.cpp: the
 ??1Rva004BB949@@UAE@XZ,0x004BB949,"Renamed to ??1SquishCollide@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C5A204)"
 ??_GRva004BB949@@UAEPAXI@Z,0x004BB9F9,"Renamed to ??_GSquishCollide@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C5A204)"
 ??_GRva004907C0@@UAEPAXI@Z,0x00490A58,"Renamed to ??_GArrowStormUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4D700)"
+?name@Rva004F59ACNamed@@QBEPBDXZ,0x004F59AC,"Renamed to ?GetSnapshotName@Rva004F599E@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C63254 slot 2)"
