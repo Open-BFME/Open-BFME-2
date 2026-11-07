@@ -154,91 +154,91 @@ void W3DGadgetTabControlImageDraw( GameWindow *tabControl,
 // every start follows a prior RET. The address-owned names preserve the
 // unknown original callable identities.
 // Native0x0009FCFD..0x0009FD08; offset0xD8: DisabledImage index3.
-const Image *Rva0009FCFDTabDrawField(GameWindow *window)
+const Image *getDisabledImage3(GameWindow *window)
 {
     return window->winGetDisabledImage(3);
 }
 
 // Native0x0009FD3F..0x0009FD4A; offset0x144: HiliteImage index3.
-const Image *Rva0009FD3FTabDrawField(GameWindow *window)
+const Image *getHiliteImage3(GameWindow *window)
 {
     return window->winGetHiliteImage(3);
 }
 
 // Native0x000A0C79..0x000A0C84; offset0x84: EnabledImage index5.
-const Image *Rva000A0C79TabDrawField(GameWindow *window)
+const Image *getEnabledImage5(GameWindow *window)
 {
     return window->winGetEnabledImage(5);
 }
 
 // Native0x000A0C84..0x000A0C8F; offset0x90: EnabledImage index6.
-const Image *Rva000A0C84TabDrawField(GameWindow *window)
+const Image *getEnabledImage6(GameWindow *window)
 {
     return window->winGetEnabledImage(6);
 }
 
 // Native0x000A0CA5..0x000A0CB0; offset0xF0: DisabledImage index5.
-const Image *Rva000A0CA5TabDrawField(GameWindow *window)
+const Image *getDisabledImage5(GameWindow *window)
 {
     return window->winGetDisabledImage(5);
 }
 
 // Native0x000A0CB0..0x000A0CBB; offset0xFC: DisabledImage index6.
-const Image *Rva000A0CB0TabDrawField(GameWindow *window)
+const Image *getDisabledImage6(GameWindow *window)
 {
     return window->winGetDisabledImage(6);
 }
 
 // Native0x000A0CD1..0x000A0CDC; offset0x15C: HiliteImage index5.
-const Image *Rva000A0CD1TabDrawField(GameWindow *window)
+const Image *getHiliteImage5(GameWindow *window)
 {
     return window->winGetHiliteImage(5);
 }
 
 // Native0x000A0CDC..0x000A0CE7; offset0x168: HiliteImage index6.
-const Image *Rva000A0CDCTabDrawField(GameWindow *window)
+const Image *getHiliteImage6(GameWindow *window)
 {
     return window->winGetHiliteImage(6);
 }
 
 // Native0x000A3191..0x000A319C; offset0x9C: EnabledImage index7.
-const Image *Rva000A3191TabDrawField(GameWindow *window)
+const Image *getEnabledImage7(GameWindow *window)
 {
     return window->winGetEnabledImage(7);
 }
 
 // Native0x000A31B2..0x000A31BD; offset0xA8: EnabledImage index8.
-const Image *Rva000A31B2TabDrawField(GameWindow *window)
+const Image *getEnabledImage8(GameWindow *window)
 {
     return window->winGetEnabledImage(8);
 }
 
 // Native0x000A322B..0x000A3236; offset0x108: DisabledImage index7.
-const Image *Rva000A322BTabDrawField(GameWindow *window)
+const Image *getDisabledImage7(GameWindow *window)
 {
     return window->winGetDisabledImage(7);
 }
 
 // Native0x000A324C..0x000A3257; offset0x114: DisabledImage index8.
-const Image *Rva000A324CTabDrawField(GameWindow *window)
+const Image *getDisabledImage8(GameWindow *window)
 {
     return window->winGetDisabledImage(8);
 }
 
 // Native0x000A32C5..0x000A32D0; offset0x174: HiliteImage index7.
-const Image *Rva000A32C5TabDrawField(GameWindow *window)
+const Image *getHiliteImage7(GameWindow *window)
 {
     return window->winGetHiliteImage(7);
 }
 
 // Native0x000A32E6..0x000A32F1; offset0x180: HiliteImage index8.
-const Image *Rva000A32E6TabDrawField(GameWindow *window)
+const Image *getHiliteImage8(GameWindow *window)
 {
     return window->winGetHiliteImage(8);
 }
 
 // Native0x000A47C6..0x000A47CE; offset0x6C: EnabledImage index3.
-const Image *Rva000A47C6TabDrawField(GameWindow *window)
+const Image *getEnabledImage3(GameWindow *window)
 {
     return window->winGetEnabledImage(3);
 }
@@ -253,73 +253,73 @@ const Image *Rva000A47C6TabDrawField(GameWindow *window)
 // Original wrapper names and total argument counts remain unknown. No donor offset is transferred.
 
 // Native0009FCC4..0009FCCC: rawword60; winGetEnabledImage(2).
-const Image *Rva0009FCC4TabDrawField(GameWindow *window)
+const Image *getEnabledImage2(GameWindow *window)
 {
     return window->winGetEnabledImage(2);
 }
 
 // Native0009FCDC..0009FCE7: rawwordB4; winGetDisabledImage(0).
-const Image *Rva0009FCDCTabDrawField(GameWindow *window)
+const Image *getDisabledImage0(GameWindow *window)
 {
     return window->winGetDisabledImage(0);
 }
 
 // Native0009FCE7..0009FCF2: rawwordC0; winGetDisabledImage(1).
-const Image *Rva0009FCE7TabDrawField(GameWindow *window)
+const Image *getDisabledImage1(GameWindow *window)
 {
     return window->winGetDisabledImage(1);
 }
 
 // Native0009FCF2..0009FCFD: rawwordCC; winGetDisabledImage(2).
-const Image *Rva0009FCF2TabDrawField(GameWindow *window)
+const Image *getDisabledImage2(GameWindow *window)
 {
     return window->winGetDisabledImage(2);
 }
 
 // Native0009FD1E..0009FD29: rawword120; winGetHiliteImage(0).
-const Image *Rva0009FD1ETabDrawField(GameWindow *window)
+const Image *getHiliteImage0(GameWindow *window)
 {
     return window->winGetHiliteImage(0);
 }
 
 // Native0009FD29..0009FD34: rawword12C; winGetHiliteImage(1).
-const Image *Rva0009FD29TabDrawField(GameWindow *window)
+const Image *getHiliteImage1(GameWindow *window)
 {
     return window->winGetHiliteImage(1);
 }
 
 // Native0009FD34..0009FD3F: rawword138; winGetHiliteImage(2).
-const Image *Rva0009FD34TabDrawField(GameWindow *window)
+const Image *getHiliteImage2(GameWindow *window)
 {
     return window->winGetHiliteImage(2);
 }
 
 // Native000A262E..000A2639: rawwordE4; winGetDisabledImage(4).
-const Image *Rva000A262ETabDrawField(GameWindow *window)
+const Image *getDisabledImage4(GameWindow *window)
 {
     return window->winGetDisabledImage(4);
 }
 
 // Native000A264F..000A265A: rawword150; winGetHiliteImage(4).
-const Image *Rva000A264FTabDrawField(GameWindow *window)
+const Image *getHiliteImage4(GameWindow *window)
 {
     return window->winGetHiliteImage(4);
 }
 
 // Native000A47BE..000A47C6: rawword54; winGetEnabledImage(1).
-const Image *Rva000A47BETabDrawField(GameWindow *window)
+const Image *getEnabledImage1(GameWindow *window)
 {
     return window->winGetEnabledImage(1);
 }
 
 // Native000A47CE..000A47D6: rawword78; winGetEnabledImage(4).
-const Image *Rva000A47CETabDrawField(GameWindow *window)
+const Image *getEnabledImage4(GameWindow *window)
 {
     return window->winGetEnabledImage(4);
 }
 
 // Native000A47D6..000A47DE: rawword48; winGetEnabledImage(0).
-const Image *Rva000A47D6TabDrawField(GameWindow *window)
+const Image *getEnabledImage0(GameWindow *window)
 {
     return window->winGetEnabledImage(0);
 }
