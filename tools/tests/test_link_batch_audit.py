@@ -124,7 +124,13 @@ def weaks():
 
 
 @pytest.fixture
-def batch(monkeypatch, tmp_path, weaks):
+def includes():
+    """{object: {name}} the batch fixture's /INCLUDE reader returns."""
+    return {}
+
+
+@pytest.fixture
+def batch(monkeypatch, tmp_path, weaks, includes):
     """Use the real overlay and link resolver; supply small object fact sets."""
     saved = index()
     saved.update(objects=["provider.obj", "caller.obj"],
@@ -163,6 +169,7 @@ def batch(monkeypatch, tmp_path, weaks):
         set(facts[obj.name][1]) | set(facts[obj.name][2]), {}))
     monkeypatch.setattr(A, "weak_reader", lambda index, replacements: lambda obj: weaks.get(obj, {}))
     monkeypatch.setattr(A, "bridged_names", lambda: set())
+    monkeypatch.setattr(A, "include_reader", lambda index, replacements: lambda obj: includes.get(obj, set()))
     return saved, facts, changes, paths
 
 
@@ -594,3 +601,122 @@ def test_a_reference_from_a_vtable_section_is_judged_through_its_weak_default(tm
                                 rank("dtor.obj", "vtable.obj"), weak_defaults=A.weak_reader(index, [obj]))
     assert [entry[0] for entry in losses] == ([lost] if loses else [])
     assert all(entry[2] == ["vtable.obj"] and entry[3] == "loss" for entry in losses)
+
+
+# Re-check of efda9b5a5b: referrers through an alias spelling and through /INCLUDE.
+def test_a_caller_reaching_the_lost_name_through_an_alias_is_a_referrer(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    saved["touches"]["caller.obj"] = {"caller", "public"}          # caller spells `public` ...
+    saved["alternates"] = {"public": [(1, "api")]}                   # ... and redirects it to `api`
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    monkeypatch.setattr(A.link_check, "alternate_names",
+                        lambda obj: {"public": "api"} if obj.name == "caller.obj" else {})
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS api: defined before this batch by provider.obj, by no kept object after; " \
+           "still referenced by caller.obj" in capsys.readouterr().out
+
+
+def test_an_alias_chain_reaches_the_lost_name_and_a_defined_alias_does_not():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"public"}})
+    chain = tables(["caller.obj"], alternates={"public": [(0, "mid")], "mid": [(0, "api")]},
+                   touches={"caller.obj": {"public"}})
+    defined = tables(["caller.obj", "own.obj"], strong={"public": [1]}, alternates={"public": [(0, "api")]},
+                     touches={"caller.obj": {"public"}})
+    cycle = tables(["caller.obj"], alternates={"public": [(0, "mid")], "mid": [(0, "public")], "x": [(0, "api")]},
+                   touches={"caller.obj": {"mid"}})
+    old = rank("provider.obj", "caller.obj")
+    assert A.real_link_losses(before, chain, {"api"}, old, rank("caller.obj")) == [
+        ("api", ["provider.obj"], ["caller.obj"], "loss")]
+    assert A.real_link_losses(before, defined, {"api"}, old, rank("caller.obj", "own.obj")) == []
+    assert A.real_link_losses(before, cycle, {"api"}, old, rank("caller.obj")) == []   # terminates; mid never reaches api
+
+
+def test_a_weak_default_satisfies_an_alias_spelling_only_when_it_resolves():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"public"}})
+    after = tables(["caller.obj"], strong={"fallback": [0]}, alternates={"public": [(0, "api")]},
+                   touches={"caller.obj": {"public"}})
+    old, new = rank("provider.obj", "caller.obj"), rank("caller.obj")
+    assert A.real_link_losses(before, after, {"api"}, old, new,
+                              weak_defaults=lambda obj: {"public": "fallback"}) == []
+    assert [entry[0] for entry in A.real_link_losses(before, after, {"api"}, old, new,
+                                                     weak_defaults=lambda obj: {"public": "nowhere"})] == ["api"]
+
+
+def include_object(path, text):
+    import struct
+    body = text.encode("latin-1")
+    header = struct.pack("<HHIIIHH", 0x14C, 1, 0, 20 + 40 + len(body), 0, 0, 0)
+    section = b".drectve" + struct.pack("<IIIIIIHHI", 0, 0, len(body), 60, 0, 0, 0, 0, 0x100A00)
+    path.write_bytes(header + section + body + struct.pack("<I", 4))
+    return path
+
+
+@pytest.mark.parametrize("directive", [" /INCLUDE:api ", ' /include:"api" ', " /INCLUDE:public "])
+def test_an_include_directive_is_a_referrer(tmp_path, directive):
+    obj = include_object(tmp_path / "include.obj", directive)
+    fact = A.link_census.object_facts(obj, object())
+    assert "api" not in A.link_census.touched_names(fact)          # the symbol table alone misses it
+    before = tables(["provider.obj", "include.obj"], strong={"api": [0]}, touches={"include.obj": set()})
+    after = tables(["include.obj"], alternates={"public": [(0, "api")]}, touches={"include.obj": set()})
+    losses = A.real_link_losses(before, after, {"api"}, rank("provider.obj", "include.obj"), rank("include.obj"),
+                                includes=A.include_reader({"blockers": {}}, [obj]))
+    assert losses == [("api", ["provider.obj"], ["include.obj"], "loss")]
+
+
+def test_includes_are_read_only_for_a_name_the_reference_graph_holds_or_from_changed_objects():
+    before = tables(["provider.obj", "include.obj"], strong={"api": [0]}, touches={"include.obj": set()})
+    after = tables(["include.obj"], touches={"include.obj": set()})
+    old, new = rank("provider.obj", "include.obj"), rank("include.obj")
+    read = []
+
+    def includes(obj):
+        read.append(obj)
+        return {"api"}
+    assert A.real_link_losses(before, after, {"api"}, old, new, includes=includes, referenced={"other"}) == []
+    assert read == []
+    assert [e[0] for e in A.real_link_losses(before, after, {"api"}, old, new, includes=includes,
+                                             referenced={"other"}, changed={"include.obj"})] == ["api"]
+    assert [e[0] for e in A.real_link_losses(before, after, {"api"}, old, new, includes=includes,
+                                             referenced={"api"})] == ["api"]
+    assert [e[0] for e in A.real_link_losses(before, after, {"api"}, old, new, includes=includes)] == ["api"]
+
+
+def test_an_unreadable_directive_table_makes_a_candidate_only_without_other_referrers():
+    before = tables(["provider.obj", "include.obj"], strong={"api": [0]}, touches={"include.obj": set()})
+    after = tables(["include.obj"], touches={"include.obj": set()})
+    losses = A.real_link_losses(before, after, {"api"}, rank("provider.obj", "include.obj"), rank("include.obj"),
+                                includes=lambda obj: None, referenced={"api"})
+    assert losses == [("api", ["provider.obj"], ["(an unread object's /INCLUDE)"], "candidate")]
+
+
+def test_an_include_in_a_batch_is_reported_by_the_audit(batch, includes, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    saved["touches"]["caller.obj"] = {"caller"}
+    facts["caller.obj"] = ([], ["caller"], [], [])
+    facts["provider.obj"] = ([], [], [], [])
+    includes["caller.obj"] = {"api"}
+    A.audit("a" * 40, "b" * 40, [])
+    assert "REAL-LINK LOSS api: defined before this batch by provider.obj, by no kept object after; " \
+           "still referenced by caller.obj" in capsys.readouterr().out
+
+
+def test_an_alias_only_an_omitted_object_declares_reaches_nothing():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"public"}})
+    after = tables(["caller.obj", "thunks.obj"], alternates={"public": [(1, "api")]},
+                   touches={"caller.obj": {"public"}})
+    assert A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj"),
+                              rank("caller.obj", "thunks.obj"), omitted={"thunks.obj"},
+                              referenced=set()) == []
+
+
+def test_a_weak_default_for_one_spelling_does_not_cover_another():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"api", "public"}})
+    after = tables(["caller.obj"], strong={"fallback": [0]}, alternates={"public": [(0, "api")]},
+                   touches={"caller.obj": {"api", "public"}})
+    losses = A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj"), rank("caller.obj"),
+                                weak_defaults=lambda obj: {"public": "fallback"})
+    assert losses == [("api", ["provider.obj"], ["caller.obj"], "loss")]

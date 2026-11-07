@@ -7,6 +7,8 @@ the pushed base supplies the before state; the byte gate supplies current object
 import argparse
 import collections
 import csv
+import re
+import struct
 import subprocess
 import sys
 from pathlib import Path
@@ -98,7 +100,8 @@ def definers(index, name, rank):
 
 
 def real_link_losses(index, updated, names, before_rank, after_rank, omitted=frozenset(),
-                     weak_defaults=lambda obj: {}, bridged=frozenset()):
+                     weak_defaults=lambda obj: {}, bridged=frozenset(), includes=lambda obj: set(),
+                     changed=frozenset(), referenced=None):
     """[(name, defined before by, still referenced by, kind)] for names this batch leaves with no
     definition among the real link's kept inputs while one of them still references the name.
     Judged from object symbol tables only: no census verdict, no symbols.csv pin (the real link
@@ -108,7 +111,15 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
     cycle, to a name that resolves; a referrer whose own weak external for the name has a default
     that resolves is satisfied. `weak_defaults(obj)` is {name: default} for one object, or None
     when its weak externals could not be read. kind is `loss`, or `candidate` when the vtable
-    bridge may generate the name (`bridged`) or a referrer's weak externals were unreadable."""
+    bridge may generate the name (`bridged`) or a referrer's weak externals were unreadable.
+
+    A referrer reaches the name through any spelling: the name itself, or an alias whose
+    /alternatename chain leads to it (an alias with a definition of its own does not). It refers
+    by a symbol-table reference (`touches`) or by a /INCLUDE directive (`includes(obj)`: a set, or
+    None when unreadable). /INCLUDE names are roots of the census's reference graph, so the
+    directives of every kept object are read only for a name with no other referrer that
+    `referenced` (that graph's names; None: unknown) holds; `changed` objects' always are. With
+    no referrer found and an unread object's directives, the name is a `candidate`."""
     excuses = updated.get("excuses") or index.get("excuses") or {"runtime": set(), "imported": {}, "stubs": {}}
     alternates = updated.get("alternates", {})
     touches = updated.get("touches", {})
@@ -127,32 +138,99 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
         return any(resolves(target, seen) for i, target in alternates.get(name, ())
                    if updated["objects"][i] in real_after)
 
+    aliases_of = collections.defaultdict(set)              # target -> aliases a kept input declares
+    for alias, entries in alternates.items():
+        for i, target in entries:
+            if updated["objects"][i] in real_after:
+                aliases_of[target].add(alias)
+
+    def spellings(name):
+        """The name and every alias whose alternate chain reaches it, cycle-safe."""
+        found, stack = {name}, [name]
+        while stack:
+            for alias in aliases_of.get(stack.pop(), ()):
+                if alias not in found and not definers(updated, alias, real_after):
+                    found.add(alias)
+                    stack.append(alias)
+        return found
+
     losses = []
     for name in sorted(names):
         before = definers(index, name, real_before)
         if not before or resolves(name):
             continue
-        referrers, unread = [], False
-        for obj in sorted(obj for obj, used in touches.items() if name in used and obj in real_after):
+        spelled = spellings(name)
+        referrers, unread = set(), False
+        for obj in sorted(obj for obj, used in touches.items() if spelled & used and obj in real_after):
             weaks = weak_defaults(obj)
             if weaks is None:
                 unread = True
-            elif name in weaks and resolves(weaks[name], frozenset({name})):
-                continue                                   # this referrer falls back to a default that resolves
-            referrers.append(obj)
+            elif all(used in weaks and resolves(weaks[used], frozenset({used}))
+                     for used in spelled & touches[obj]):
+                continue                                   # each spelling falls back to a default that resolves
+            referrers.add(obj)
+        unread_directives = False
+        if not referrers:
+            scan = (set(real_after) if referenced is None or spelled & referenced
+                    else set(changed) & set(real_after))
+            for obj in sorted(scan):
+                forced = includes(obj)
+                if forced is None:
+                    unread_directives = True
+                elif spelled & forced:
+                    referrers.add(obj)
         if referrers:
             kind = "candidate" if name in bridged or unread else "loss"
-            losses.append((name, sorted(before), referrers, kind))
+            losses.append((name, sorted(before), sorted(referrers), kind))
+        elif unread_directives:
+            losses.append((name, sorted(before), ["(an unread object's /INCLUDE)"], "candidate"))
     return losses
 
 
-def weak_reader(index, replacements):
-    """weak_defaults for real_link_losses: a replaced object's weak externals from its current
-    file, any other object's from the object its census source names; None when unreadable."""
+def object_paths(index, replacements):
+    """{object name: path}: a replaced object's current file, any other the object its census
+    source names."""
     paths = {obj.name: obj for obj in replacements}
     for source, entry in index.get("blockers", {}).items():
         if entry.get("object") and entry["object"] not in paths:
             paths[entry["object"]] = build.obj_path(link_check.ROOT / source)
+    return paths
+
+
+INCLUDE = re.compile(r"/INCLUDE:(\"[^\"]+\"|[^\s,=]+)", re.I)
+
+
+def directive_includes(data):
+    """The /INCLUDE: names in an object's .drectve sections (link_census.object_symbols' reader)."""
+    found = set()
+    count = struct.unpack_from("<H", data, 2)[0]
+    optional = struct.unpack_from("<H", data, 16)[0]
+    for number in range(count):
+        header = 20 + optional + number * 40
+        if data[header:header + 8].rstrip(b"\0") == b".drectve":
+            size, pointer = struct.unpack_from("<II", data, header + 16)
+            found.update(name.strip('"') for name in INCLUDE.findall(data[pointer:pointer + size].decode("latin-1")))
+    return found
+
+
+def include_reader(index, replacements):
+    """includes for real_link_losses: an object's /INCLUDE names, None when unreadable."""
+    paths = object_paths(index, replacements)
+    cache = {}
+
+    def includes(obj):
+        if obj not in cache:
+            try:
+                cache[obj] = directive_includes(Path(paths[obj]).read_bytes())
+            except Exception:  # noqa: BLE001 - unreadable: a finding without referrers is a candidate
+                cache[obj] = None
+        return cache[obj]
+    return includes
+
+
+def weak_reader(index, replacements):
+    """weak_defaults for real_link_losses: an object's weak externals; None when unreadable."""
+    paths = object_paths(index, replacements)
     cache = {}
 
     def weak_defaults(obj):
@@ -181,7 +259,7 @@ def report_real_link_losses(losses, exact_base):
         print(f"  {label} {name}: defined before this batch by {', '.join(before)}, by no kept object "
               f"after; still referenced by {', '.join(referrers[:3])}"
               f"{f' (+{len(referrers) - 3})' if len(referrers) > 3 else ''}"
-              f"{'; the vtable bridge or an unread weak external may still resolve it' if kind != 'loss' else ''}")
+              f"{'; the vtable bridge or an unread object may still resolve or reference it' if kind != 'loss' else ''}")
     if not losses:
         return None
     refuses = REAL_LINK_LOSS_MODE == "refuse" and exact_base and bool(certain)
@@ -357,7 +435,9 @@ def audit(base, tip, verified):
     try:
         real_losses = real_link_losses(index, updated, touched, before_rank, after_rank,
                                        {path.name for path in exit_link.placement_objects(rows)},
-                                       weak_reader(index, replacements), bridged_names())
+                                       weak_reader(index, replacements), bridged_names(),
+                                       include_reader(index, replacements), {obj.name for obj in replacements},
+                                       (index.get("references") or {}).get("referenced"))
         real_error = None
     except Exception as error:  # noqa: BLE001
         real_losses, real_error = [], error
