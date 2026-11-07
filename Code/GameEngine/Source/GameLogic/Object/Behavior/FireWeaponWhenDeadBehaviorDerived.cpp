@@ -45,13 +45,12 @@ BaseUpgrade::~BaseUpgrade()
 {
 }
 
-class Rva004B39FC : public UpgradeModule
-{
-public:
-	virtual ~Rva004B39FC();
-};
+// CommandSetUpgrade's destructor 0x004B39FC: its constructor 0x004B3AB2
+// installs the same four tables. The class is CommandSetUpgrade.h's, so this
+// unit's copies of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/CommandSetUpgrade.h"
 
-Rva004B39FC::~Rva004B39FC()
+CommandSetUpgrade::~CommandSetUpgrade()
 {
 }
 

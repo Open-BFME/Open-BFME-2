@@ -187,20 +187,8 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class CommandSetUpgrade : public UpgradeModule
-{
-public:
-	CommandSetUpgrade( Thing *thing, const ModuleData *moduleData );
-	virtual void postUpgradeCheck();										// UpgradeMux slot 6
-
-protected:
-	virtual const char *GetSnapshotName() const;							// primary slot 2
-	virtual void xfer( Xfer *xfer );										// primary slot 3
-	virtual void upgradeRemovalImplementation();
-	virtual void upgradeImplementation();									// UpgradeMux slot 10
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+// The class is CommandSetUpgrade.h's (retail's table facts are there).
+#include "../../../../Include/GameLogic/Module/CommandSetUpgrade.h"
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
@@ -286,7 +274,7 @@ void CommandSetUpgrade::postUpgradeCheck()
 	attemptUpgrade(*(const BitFlags<128> *)&local);
 }
 
-// tu-skeleton: 0x004B3AE3 28B ??_GRva004B39FC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B3AE3 28B ??_GCommandSetUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004B3AFFNotify.cpp
 
