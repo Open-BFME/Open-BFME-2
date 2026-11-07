@@ -89,6 +89,10 @@ Usage:
       carve the rows approved for TU out of a mixed FILE into the TU path (the
       split lane, documented in docs/consolidation.md): the residual keeps every
       other row
+  python3 tools/tu_skeleton.py --emit-move FILE --for TU [--rva 0xRVA,...] [--dry-run] [--no-claim]
+      repoint the implicit COMDAT rows (template instantiations, compiler-generated
+      special members) of a mixed FILE that the map approves for TU to the TU file,
+      once its own code emits each byte-exact (emit_move); no text moves
 """
 import argparse
 import collections
@@ -3523,6 +3527,287 @@ class UnitKeyRefusal(Exception):
     """A split's unit keys cannot be carried (unit_key_carry problems): nothing was written."""
 
 
+# ---------------------------------------------------------------- emission move
+# The move counterpart of emission_held. An implicit COMDAT (a template instantiation, a
+# compiler-generated special member) has no body a carve could move: every object using it
+# emits it. Once its approved TU's own code emits it byte-exact, the row's source moves there
+# and no text moves at all. P16: the LivingWorldCampaign Act chain sits in mixed STLport and
+# FXList files.
+
+# compiler-generated special members of a plain class: (name shape, what a user declaration
+# of that member spells in the text, with {c} the class)
+SPECIAL_MEMBERS = (
+    ("copy constructor", r"^\?\?0([A-Za-z_]\w*)@@Q[AB]E@AB[UV]0@@Z$",
+     r"\b{c}\s*\(\s*(?:const\s+)?(?:class\s+|struct\s+)?{c}\s*&"),
+    ("copy assignment", r"^\?\?4([A-Za-z_]\w*)@@QAEAA[UV]0@AB[UV]0@@Z$",
+     r"\boperator\s*=\s*\(\s*(?:const\s+)?(?:class\s+|struct\s+)?{c}\s*&"),
+    ("default constructor", r"^\?\?0([A-Za-z_]\w*)@@QAE@XZ$", r"\b{c}\s*\(\s*(?:void\s*)?\)"),
+    ("destructor", r"^\?\?1([A-Za-z_]\w*)@@[QU]AE@XZ$", r"~\s*{c}\s*\("),
+    ("deleting destructor", r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$", None),     # never written by hand
+)
+
+
+SCOPES = frozenset(("_STL", "std", "rts", "stlp_std"))      # namespaces, never template arguments
+# defaulted helper templates and tags every container repeats (vector<T, allocator<T> >): they
+# tell no instantiation from another, and `vector<X, allocator<X> >::vector(` must not spell
+# vector<FXList>'s
+HELPERS = frozenset(("allocator", "char_traits", "less", "equal_to", "hash", "_Select1st", "_Identity",
+                     "_Nonconst_traits", "_Const_traits", "__true_type", "__false_type"))
+
+
+def template_arg_names(name, owner):
+    """Class and enum names in the mangled text after `name`'s template (its arguments, and the
+    parameter types that repeat them), its own name and namespaces left out: what tells this
+    instantiation apart from the template's others (`??$_Construct@VFXList@@V1@@...` ->
+    {"FXList"})."""
+    cls, meth = owner
+    at = name.find("?$" + (cls or meth) + "@")
+    rest = name[at + len(cls or meth) + 3:] if at >= 0 else ""
+    # V class, U struct, W4 enum, ?$ a nested template; an extra name only widens what spells it
+    return {n for n in re.findall(r"(?:[VU]|W4|\?\$)([A-Za-z_]\w*)@", rest)} - SCOPES - HELPERS - {cls, meth}
+
+
+def spells_instance(path, r):
+    """Does `path` spell row `r`'s instantiation itself: an explicit specialization or
+    instantiation, or a template-qualified member, for this row's own arguments
+    (template_arg_names inside the `<...>`)? A primary template's definition, or a
+    specialization for other arguments, leaves this instantiation implicit. With no class
+    argument to tell instances apart (`vector<int>`), or an unreadable file, it is
+    spells_definition's broader answer."""
+    owner = instance_owner(r["name"])
+    if owner is None:
+        return True
+    args = template_arg_names(r["name"], owner)
+    if not args:
+        return spells_definition(path, r)
+    try:
+        code = strip((ROOT / path).read_bytes().decode("utf-8-sig", errors="replace"))
+    except OSError:
+        return True
+    angle = r"\s*<[^;{}]*\b(?:" + "|".join(map(re.escape, sorted(args))) + r")\b[^;{}]*>"
+    cls, meth = owner
+    if cls is None:          # a function template: f<FXList, FXList>( after `template`, or an explicit-argument call
+        return bool(re.search(r"\b" + re.escape(meth) + angle + r"\s*\(", code))
+    member = r"operator\b" if meth == "operator" else re.escape(meth) + r"\s*\("
+    return bool(
+        re.search(r"\b(?:class|struct|union)\s+" + re.escape(cls) + angle + r"[^;{}]*\{", code)
+        or re.search(r"\btemplate\s+(?:class|struct|union)\s+(?:[A-Za-z_]\w*\s*::\s*)*" + re.escape(cls) + angle, code)
+        or re.search(r"\b" + re.escape(cls) + angle + r"\s*::\s*" + member, code))
+
+
+def implicit_comdat(r, paths):
+    """Why row `r` is not an implicit COMDAT that `paths` leave to the compiler, or None. A
+    template instantiation must be spelled by none of them (spells_instance: no explicit
+    specialization or instantiation for its own arguments); a special member of a plain
+    class must be declared by none (a user-declared copy constructor is a real function with
+    a home). Anything else is a body to carve (--split), not to move by emission. emit_move
+    asks it of the destination, whose own code must emit the row."""
+    name = r["name"]
+    if TEMPLATE_INSTANCE.match(name):
+        spelled = [p for p in paths if spells_instance(p, r)]
+        return (f"{spelled[0]} spells this instantiation (an explicit specialization or instantiation for "
+                "its arguments): a stand-in or a real body, not an implicit instantiation") if spelled else None
+    for kind, shape, declared in SPECIAL_MEMBERS:
+        m = re.match(shape, name)
+        if not m:
+            continue
+        for p in paths if declared else ():
+            try:
+                code = strip((ROOT / p).read_bytes().decode("utf-8-sig", errors="replace"))
+            except OSError:
+                return f"{p} cannot be read: no proof the {kind} is compiler-generated"
+            if re.search(declared.format(c=re.escape(m.group(1))), code):
+                return f"{p} declares {m.group(1)}'s {kind}: user-declared, not compiler-generated"
+        return None
+    return "not an implicit COMDAT by its name (a template instantiation or a compiler-generated special member)"
+
+
+def comdat_symbols(obj):
+    """External symbols `obj` defines in COMDAT sections (link_census._comdat_sections); empty
+    when the object cannot be read."""
+    import struct
+    import link_census as LCe
+    try:
+        return {symbol["name"] for symbol, *_ in LCe._comdat_sections(Path(obj).read_bytes())}
+    except (OSError, ValueError, IndexError, KeyError, struct.error):
+        return set()
+
+
+def identity_debt(path, names):
+    """Rows of `names` with a code-identity debt line keyed to `path`: moving the row would
+    strand the line (it is retired only along its register's path)."""
+    reg = ROOT / "reverse/code_identity_baseline.tsv"
+    if not reg.exists():
+        return set()
+    out = set()
+    for line in reg.read_text(encoding="utf-8", errors="replace").splitlines():
+        parts = line.split("\t")
+        if len(parts) >= 2 and parts[0] == path and parts[1] in names:
+            out.add(parts[1])
+    return out
+
+
+def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
+    """Repoint the implicit COMDAT rows of mixed `path` the current map approves for `tu` to
+    the TU file, which must already emit each of them byte-exact. Fail-closed: every row
+    (an explicit `rvas` list, else every approved row) must be approved for `tu`, an
+    implicit COMDAT that the TU spells nowhere (implicit_comdat), defined by the TU's freshly
+    compiled object in a COMDAT section and byte-exact (the byte gate, beside the TU under the
+    flags its build will use), with no other row of `path` at its address and no identity
+    debt keyed to `path`. The file may keep a copy (the explicit instantiations and stand-in
+    views that host these rows today) only as a COMDAT, never a strong definition. The TU's
+    own rows and the residual's rows must keep every match they have.
+    Nothing but the ledger rows moves: no text, hatch or unit key. Without `rvas` a row
+    that does not qualify stays and is reported; with `rvas`, any refusal blocks all."""
+    report = {"file": path, "tu": tu}
+    rows = file_rows(path)
+    if not rows:
+        report["blocked"] = "no matched rows in that file"
+        return report
+    groups = breakdown(path)
+    key = next((k for k in groups if k and k.lower() == tu.lower()), tu)
+    report["tu"] = key
+    dest = tu_path(key)
+    if dest != key:
+        report["tu_file"] = dest
+    if not (ROOT / dest).exists():
+        report["blocked"] = f"{dest} does not exist: the approved TU must emit the rows from its own code first"
+        return report
+    if dest.lower() == path.lower():
+        report["blocked"] = "the file is the TU itself"
+        return report
+    dtors = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
+    approved = [r for r in groups.get(key, []) if not parent_of(r, dtors)]
+    if rvas:
+        want = {int(x, 16) for x in rvas}
+        mine = {int(r["target_rva"], 16) for r in rows}
+        missing = sorted(want - mine)
+        if missing:
+            report["blocked"] = "not a matched row of the file: " + ", ".join(f"0x{x:08X}" for x in missing)
+            return report
+        outside = sorted(want - {int(r["target_rva"], 16) for r in approved})
+        if outside:
+            report["blocked"] = (", ".join(f"0x{x:08X}" for x in outside) + f" not approved for {key} in the "
+                                 "current tu_map (only approved rows move)")
+            return report
+        approved = [r for r in approved if int(r["target_rva"], 16) in want]
+    if not approved:
+        report["blocked"] = f"no row of the file is approved for {key}"
+        return report
+    refused = {}
+    for r in approved:
+        why = implicit_comdat(r, [dest])
+        if why is None and fold_alias(r):
+            why = "an ICF alias: it lives where the bodies emitting its identity live"
+        if why is None and sum(1 for o in rows if o["target_rva"].lower() == r["target_rva"].lower()) > 1:
+            why = "another row of the file shares its address"
+        if why is None and identity_debt(path, {r["name"]}):
+            why = "carries code-identity debt keyed to this file"
+        if why:
+            refused[r["target_rva"]] = why
+    movers = [r for r in approved if r["target_rva"] not in refused]
+    moved = movers + companions(rows, {r["name"] for r in movers})
+    keep = [r for r in rows if r not in moved]
+    if movers and not keep:
+        report["blocked"] = "no row would remain in the file: it is a whole donor, use --merge"
+        return report
+    # The file keeps its text, so it may keep a copy: an explicit instantiation or an inline
+    # stand-in view (stlport_construct_game_structs.cpp's `template void _Construct<FXList,
+    # FXList>(...)`) compiles to a selectany COMDAT, which links beside the TU's. A strong
+    # definition there would collide with the TU's copy: refuse. Judged on the object its
+    # build compiles today (every row's flags).
+    import name_dependents
+    vx = Verifier(path)
+    text_x = (ROOT / path).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n")
+    before_x = vx.matched(text_x, rows)
+    if before_x is None:
+        report["blocked"] = "the file does not compile: " + " | ".join(vx.errors)[:300]
+        return report
+    data_x = vx.obj.read_bytes() if vx.obj and vx.obj.exists() else b""
+    strong_x = name_dependents.coff_symbol_names(data_x, include_local=False) - comdat_symbols(vx.obj)
+    for r in movers:
+        if r["name"] in strong_x:
+            refused[r["target_rva"]] = "the file defines it outside a COMDAT: a strong body has a home (--split)"
+    # the byte gate in the destination: the TU as it stands, judged with its own rows as its build will
+    vt = Verifier(dest)
+    text_t = (ROOT / dest).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n")
+    own = file_rows(dest)
+    before_t = vt.matched(text_t, own) if own else set()
+    got = vt.matched(text_t, own + moved) if moved else set()
+    if moved and got is None:
+        report["blocked"] = "the TU does not compile: " + " | ".join(vt.errors)[:300]
+        return report
+    if moved:
+        data = vt.obj.read_bytes() if vt.obj and vt.obj.exists() else b""
+        defined = name_dependents.coff_symbol_names(data, include_local=False)
+        comdats = comdat_symbols(vt.obj)
+        by_name = {o["name"]: o for o in movers}
+        for r in movers + [c for c in moved if c not in movers]:      # parents first
+            parent = by_name.get(parent_of(r, dtors) or "")
+            if r["target_rva"] in refused or (parent is not None and parent["target_rva"] in refused):
+                continue                                               # a companion rides its parent's refusal
+            if r["name"] not in defined and r in movers:
+                refused[r["target_rva"]] = f"{dest}'s object does not emit it (its code instantiates nothing of that name)"
+            elif r in movers and r["name"] not in comdats:
+                refused[r["target_rva"]] = f"{dest} defines it outside a COMDAT: a strong body has a home (--split)"
+            elif r["target_rva"] not in got:
+                refused[r["target_rva"]] = f"{dest}'s object emits it, but not byte-exact"
+        lost = sorted((before_t or set()) - got)
+        if lost:
+            report["blocked"] = f"{dest}'s own rows lose matches judged beside the moved rows: " + ", ".join(lost[:5])
+            return report
+    # a refused parent takes its companions with it; a refused companion takes its parent
+    for r in list(moved):
+        if r["target_rva"] in refused:
+            p = parent_of(r, dtors)
+            for o in moved:
+                if o["name"] == p or parent_of(o, dtors) == r["name"]:
+                    refused.setdefault(o["target_rva"], f"emitted with refused {r['target_rva']}")
+    report["refused_rows"] = refused
+    if refused and rvas:
+        report["blocked"] = "a requested row cannot move by emission"
+        return report
+    moved = [r for r in moved if r["target_rva"] not in refused]
+    if not moved:
+        report["blocked"] = "no row can move by emission"
+        return report
+    keep = [r for r in rows if r not in moved]
+    after_x = vx.matched(text_x, keep)
+    if after_x is None:
+        report["blocked"] = "the file does not compile: " + " | ".join(vx.errors)[:300]
+        return report
+    lost = sorted((before_x & {r["target_rva"] for r in keep}) - after_x)
+    if lost:
+        report["blocked"] = "the file's remaining rows lose matches once these rows leave: " + ", ".join(lost[:5])
+        return report
+    report["moved"] = [r["target_rva"] for r in moved]
+    if dry_run:
+        return report
+    don = {path: moved}
+    if claim:
+        held = claim_scope(dest, don)
+        if held:
+            claims.release(claim_keys(dest, don))
+            report["blocked"] = held_message(held)
+            return report
+    repointed = {}
+    for rel, keycol in ROW_KEYED:
+        p = ROOT / rel
+        if p.exists():
+            raw, n = repoint_rows(p.read_bytes(), rel, keycol, report["moved"], "source", path, dest)
+            if n:
+                p.write_bytes(raw)
+                repointed[rel] = n
+    subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
+    _CACHE.clear()
+    report["repointed"] = repointed
+    report["stage"] = "staged: " + " ".join(repointed)
+    report["verify"] = f"./build.sh {path} {dest}"
+    report["subject"] = (f"Move {len(moved)} emitted rows of {posixpath.basename(path)} into "
+                         f"{posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact)")
+    return report
+
+
 # ---------------------------------------------------------------- shatter
 # A mixed file carved into EVERY TU its rows are approved for at once, and
 # deleted: no residual has to stand on its own (a split's commonest refusal is
@@ -4773,11 +5058,14 @@ def main(argv=None):
     g.add_argument("--plan", metavar="TU")
     g.add_argument("--merge", metavar="TU")
     g.add_argument("--split", metavar="FILE", help="carve the rows approved for --for TU out of a mixed FILE")
+    g.add_argument("--emit-move", metavar="FILE",
+                   help="repoint FILE's implicit COMDAT rows approved for --for TU, which the TU emits byte-exact")
     g.add_argument("--shatter", metavar="FILE",
                    help="carve a mixed FILE into every TU its rows are approved for, verified together, and delete it")
     g.add_argument("--merge-all", action="store_true",
                    help="merge every queued TU (tools/merge_all.py): parallel worktrees, a decision queue")
     ap.add_argument("--for", dest="for_tu", metavar="TU", help="with --split: the destination TU (omit to list)")
+    ap.add_argument("--rva", help="with --emit-move: only these rows (comma-separated hex); all must move")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-claim", action="store_true", help="merge without claiming (fixtures, private trees)")
     ap.add_argument("--under", default="")
@@ -4802,6 +5090,14 @@ def main(argv=None):
         list_tus(a.list)
     elif a.plan:
         plan(a.plan)
+    elif a.emit_move:
+        if not a.for_tu:
+            ap.error("--emit-move takes --for TU")
+        rvas = [x for x in (a.rva or "").split(",") if x.strip()] or None
+        rep = emit_move(a.emit_move, a.for_tu, rvas, a.dry_run, claim=not a.no_claim)
+        for k, val in rep.items():
+            print(f"{k}: {val}")
+        return 0 if rep.get("subject") or (a.dry_run and rep.get("moved")) else 2
     elif a.shatter:
         rep = shatter(a.shatter, a.dry_run, claim=not a.no_claim)
         for k, val in rep.items():

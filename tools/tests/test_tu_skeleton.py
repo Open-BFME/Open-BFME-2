@@ -3,6 +3,7 @@ import contextlib
 import csv
 import os
 import re
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -1028,6 +1029,186 @@ class EmissionHeldTests(unittest.TestCase):
                 why, _, tu_rows = T.split_rows(self.TU, "Code/XferSave.cpp")
             self.assertIsNone(why)
             self.assertEqual(tu_rows, [rows[1]])
+
+
+class EmitMoveTests(unittest.TestCase):
+    """--emit-move: an implicit COMDAT row moves from a mixed file to its approved TU only
+    when the TU's own code emits it byte-exact (P16, the LivingWorldCampaign Act chain)."""
+    SOURCE, TU, OTHER = "Code/Mixed.cpp", "Code/Campaign.cpp", "Code/Other.cpp"
+    CTOR = "??$_Construct@VRec@@V1@@_STL@@YAXPAVRec@@ABV1@@Z"        # a function template instantiation
+    COPY = "??0Rec@@QAE@ABV0@@Z"                                       # a compiler-generated copy ctor
+    STAY = "?stay@@YAXXZ"
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name).resolve()
+        (self.root / "Code").mkdir()
+        (self.root / self.SOURCE).write_text("#include <memory>\nstruct Rec { int a; };\nvoid stay() {}\n")
+        (self.root / self.TU).write_text("struct Rec { int a; };\nvoid campaign(Rec *p, const Rec &r) { new (p) Rec(r); }\n")
+
+    def row(self, name, rva, source=None):
+        return {"name": name, "export_rva": "", "target_rva": rva, "target_size": "8",
+                "source": source or self.SOURCE, "status": "matched", "notes": ""}
+
+    def move(self, *, rvas=None, approved=None, defined=None, comdat=None, exact=None, residual_lost=(),
+             rows=None, dry_run=True, file_defined=(), file_comdat=()):
+        """emit_move over a file holding CTOR (0x2000), COPY (0x2100) and STAY (0x3000). `approved`
+        {rva: tu}; the TU's compiled object `defined`/`comdat` names and the rvas it matches `exact`;
+        the file's own object `file_defined`/`file_comdat` names."""
+        rows = rows if rows is not None else [self.row(self.CTOR, "0x00002000"), self.row(self.COPY, "0x00002100"),
+                                              self.row(self.STAY, "0x00003000")]
+        approved = approved if approved is not None else {"0x00002000": self.TU, "0x00002100": self.TU, "0x00003000": self.OTHER}
+        defined = {self.CTOR, self.COPY} if defined is None else defined
+        comdat = defined if comdat is None else comdat
+        exact = {"0x00002000", "0x00002100"} if exact is None else exact
+        groups = {}
+        for r in rows:
+            groups.setdefault(approved.get(r["target_rva"], ""), []).append(r)
+        (self.root / "build").mkdir(exist_ok=True)
+        objs = {self.TU: self.root / "build" / "t.obj", self.SOURCE: self.root / "build" / "x.obj"}
+        objs[self.TU].write_bytes(b"tu")
+        objs[self.SOURCE].write_bytes(b"file")
+        names = {b"tu": set(defined), b"file": set(file_defined)}
+        comdats = {objs[self.TU]: set(comdat), objs[self.SOURCE]: set(file_comdat)}
+
+        class Verifier:
+            errors = []
+
+            def __init__(self, tu):
+                self.tu = tu
+                self.obj = objs[tu]
+
+            def matched(self, text, judged):
+                rvas_ = {r["target_rva"] for r in judged}
+                if self.tu == EmitMoveTests.TU:
+                    return rvas_ & exact
+                return rvas_ - (set(residual_lost) if len(judged) < len(rows) else set())
+
+        import name_dependents
+        own = lambda p: rows if p == self.SOURCE else []
+        with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
+                patch.object(T, "file_rows", side_effect=own), patch.object(T, "breakdown", return_value=groups), \
+                patch.object(T, "fold_alias", return_value=False), patch.object(T, "Verifier", Verifier), \
+                patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats[obj]), \
+                patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]):
+            return T.emit_move(self.SOURCE, self.TU, rvas, dry_run=dry_run, claim=False)
+
+    def test_an_emitted_instantiation_and_copy_ctor_move(self):
+        report = self.move()
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
+        self.assertEqual(report["refused_rows"], {})
+
+    def test_a_row_approved_for_another_tu_refuses(self):
+        report = self.move(rvas=["0x00003000"])
+        self.assertIn("not approved for Code/Campaign.cpp", report["blocked"])
+        report = self.move(rvas=["0x00002000"], approved={"0x00002000": self.OTHER, "0x00002100": self.TU, "0x00003000": self.OTHER})
+        self.assertIn("0x00002000 not approved", report["blocked"])
+
+    def test_a_row_the_tu_spells_refuses(self):
+        # the TU must emit it from its own code: an explicit instantiation or a declared member there is
+        # a stand-in or a real body, not an implicit COMDAT
+        (self.root / self.TU).write_text("#include <memory>\nstruct Rec { int a; };\n"
+                                         "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n")
+        report = self.move(rvas=["0x00002000"])
+        self.assertEqual(report["blocked"], "a requested row cannot move by emission")
+        self.assertIn("spells this instantiation", report["refused_rows"]["0x00002000"])
+        (self.root / self.TU).write_text("struct Rec { Rec(const Rec &o); int a; };\nvoid campaign() {}\n")
+        report = self.move(rvas=["0x00002100"])
+        self.assertIn("user-declared", report["refused_rows"]["0x00002100"])
+        report = self.move(rows=[self.row("?f@Rec@@QAEXXZ", "0x00002000"), self.row(self.STAY, "0x00003000")])
+        self.assertIn("not an implicit COMDAT", report["refused_rows"]["0x00002000"])
+
+    def test_spells_instance_tells_this_instantiation_from_the_templates_others(self):
+        # LivingWorldCampaign.cpp's shape: the primary template declared, other arguments specialized
+        VECTOR_COPY = "??0?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@QAE@ABV01@@Z"
+        self.assertEqual(T.template_arg_names(VECTOR_COPY, ("vector", "vector")), {"FXList"})
+        construct = self.CTOR
+        clear = "?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@_STL@@QAEXXZ"
+        self.assertEqual(T.template_arg_names(construct, (None, "_Construct")), {"Rec"})
+        self.assertEqual(T.template_arg_names(clear, ("hashtable", "clear")), {"pair", "NameKeyType", "FXList"})
+        cases = [
+            ("template <class _T1, class _T2> void _Construct(_T1 *, const _T2 &);\n"
+             "template <> void _Construct<Other, Other>(Other *, const Other &);\n", construct, False),
+            ("template <> __forceinline void _Construct<Other, Other>(Other *p, const Other &v) { }\n", construct, False),
+            ("template <> void _Construct<Rec, Rec>(Rec *, const Rec &);\n", construct, True),
+            ("template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n", construct, True),
+            ("template <class V, class K> class hashtable { void clear() { } };\n", clear, False),
+            ("template <class V> void hashtable<V, int>::clear() { }\n", clear, False),
+            ("template class hashtable<pair<const NameKeyType, FXList>, NameKeyType>;\n", clear, True),
+            ("template <> void hashtable<pair<const NameKeyType, FXList>, NameKeyType>::clear() { }\n", clear, True),
+            ("template <> class hashtable<pair<const NameKeyType, FXList>, int> { };\n", clear, True),
+            ("template class Box<int>;\n", "?clear@?$Box@H@@QAEXXZ", True),     # no class argument: the broad check
+            # LivingWorldCampaign.cpp: another vector's copy ctor; allocator<> tells no instance apart
+            ("template <> vector<BfmePod40,allocator<BfmePod40> >::vector(const vector &o) { }\n", VECTOR_COPY, False),
+            ("template <> vector<FXList,allocator<FXList> >::vector(const vector &o) { }\n", VECTOR_COPY, True),
+        ]
+        for i, (text, name, want) in enumerate(cases):
+            (self.root / f"Code/s{i}.cpp").write_text(text)
+            with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True):
+                got = T.spells_instance(f"Code/s{i}.cpp", {"name": name, "target_rva": "0x00001200"})
+            self.assertEqual(got, want, (text, name))
+
+    def test_the_files_explicit_instantiation_stand_in_moves(self):
+        # stlport_construct_game_structs.cpp's shape: the file hosts the row through an explicit
+        # instantiation and a private view declaring the copy ctor; both compile to COMDATs
+        (self.root / self.SOURCE).write_text("struct Rec { Rec(const Rec &o) : a(o.a) {} int a; };\n"
+                                             "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n"
+                                             "void stay() {}\n")
+        report = self.move(file_defined={self.CTOR, self.COPY}, file_comdat={self.CTOR, self.COPY})
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
+
+    def test_a_strong_definition_in_the_file_refuses(self):
+        report = self.move(rvas=["0x00002100"], file_defined={self.COPY}, file_comdat=set())
+        self.assertIn("the file defines it outside a COMDAT", report["refused_rows"]["0x00002100"])
+
+    def test_a_destination_not_emitting_it_refuses(self):
+        report = self.move(rvas=["0x00002000"], defined={self.COPY})
+        self.assertIn("does not emit it", report["refused_rows"]["0x00002000"])
+        report = self.move(defined={self.COPY})          # without --rva the rest still moves
+        self.assertEqual(report["moved"], ["0x00002100"])
+
+    def test_a_byte_mismatch_refuses(self):
+        report = self.move(rvas=["0x00002000"], exact={"0x00002100"})
+        self.assertIn("not byte-exact", report["refused_rows"]["0x00002000"])
+        self.assertIn("blocked", report)
+
+    def test_a_strong_definition_in_the_tu_refuses(self):
+        report = self.move(rvas=["0x00002100"], comdat={self.CTOR})
+        self.assertIn("outside a COMDAT", report["refused_rows"]["0x00002100"])
+
+    def test_the_residual_keeping_its_matches_and_a_row_are_required(self):
+        report = self.move(residual_lost=["0x00003000"])
+        self.assertIn("remaining rows lose matches", report["blocked"])
+        report = self.move(rows=[self.row(self.CTOR, "0x00002000")], approved={"0x00002000": self.TU})
+        self.assertIn("whole donor", report["blocked"])
+
+    def test_a_missing_destination_refuses(self):
+        (self.root / self.TU).unlink()
+        self.assertIn("does not exist", self.move()["blocked"])
+
+    def test_the_move_repoints_only_the_ledger(self):
+        reverse = self.root / "reverse"
+        reverse.mkdir()
+        (reverse / "functions.csv").write_text(
+            "name,export_rva,target_rva,target_size,source,status,notes\n"
+            f"{self.CTOR},,0x00002000,8,{self.SOURCE},matched,\n{self.COPY},,0x00002100,8,{self.SOURCE},matched,\n"
+            f"{self.STAY},,0x00003000,8,{self.SOURCE},matched,\n")
+        (reverse / "tu_map.csv").write_text(
+            "rva,size,kind,tu,confidence,by,evidence,source\n"
+            f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.SOURCE}\n"
+            f"0x00003000,8,code,{self.OTHER},approved,F,F={self.OTHER},{self.SOURCE}\n")
+        subprocess.run(["git", "init", "-q", str(self.root)], check=True)
+        texts = {p: (self.root / p).read_bytes() for p in (self.SOURCE, self.TU)}
+        report = self.move(rvas=["0x00002000"], dry_run=False)
+        self.assertNotIn("blocked", report)
+        funcs = (reverse / "functions.csv").read_text()
+        self.assertIn(f"{self.CTOR},,0x00002000,8,{self.TU},matched", funcs)
+        self.assertIn(f"{self.COPY},,0x00002100,8,{self.SOURCE},matched", funcs)       # not requested: stays
+        self.assertIn(f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.TU}", (reverse / "tu_map.csv").read_text())
+        self.assertEqual({p: (self.root / p).read_bytes() for p in texts}, texts)        # no text moved
 
 
 class FoldAliasSplitTests(unittest.TestCase):
