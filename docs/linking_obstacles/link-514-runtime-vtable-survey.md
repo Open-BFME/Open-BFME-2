@@ -563,6 +563,15 @@ link_check unchanged with the post-census providers included):
   interface's slot-1 name first. SpellRechargeModifierUpgrade has the same shape (+0x1C table 0x00C58358) but its
   destructor fold and xfer touch SpellRechargeModifierUpgrade.cpp, held by lk51 this pass.
 
+- Two of the 21 dummy-secondary units beyond the TSV, the HeightDieUpdate recipe (canonical UpdateModule.h in
+  the unit that holds both ctor and dtor; every slot they declare was already rowed under the class):
+  37d61ba3773 StealthDetectorUpdate (ctor 0x004A2CB9, dtor 0x004A2BD1; 0x00C51FB4 2/3, 0x00C51FC0 9/13,
+  0x00BEFF90 45/47) and 55b6011a2e5 BoredUpdate (ctor 0x00496791, dtor 0x0049669A; 0x00C4F550 3/3,
+  0x00C4F55C 8/13, 0x00BEFF90 45/47). Before, both stored zero ints at +0x0C/+0x10, so each module's update
+  call reached a zero word. Their name getters are non-virtual readable rows (Wall 1); BoredUpdate's xfer
+  0x004ACAAA is one body with PartTheHeavensUpdate::xfer, StealthDetectorUpdate's +0x10 slot 1 0x004A2D67 a
+  folded free-function placeholder; those slots stay UpdateModule's.
+
 Still walled:
 - SpawnUnitBehavior's +0x20 interface slot 0x004B8851 (`?rva004B8851@Rva004B8732`, table 0x00C59120, today
   `__purecall` in the kept copy): the move builds exact and the rebuilt table names it, but rename.py's
@@ -571,6 +580,17 @@ Still walled:
   scaffold derives from canonical UpdateModule, so a token fold would emit `??_7SpawnUnitBehavior@@6BObjectModule@@@`
   and `6BBehaviorModuleInterface` copies that differ from the constructor unit's; it needs the WeaponBonusUpgrade
   recipe (a shared class header both units include) first.
+- RampageBehavior and EnragedBehavior (dummy secondaries): the same recipe builds exact for RampageBehavior.cpp
+  (0x00C40D9C 3/3, 0x00C40DA8 8/13), but the pins `??_7RampageBehavior@@6B@` -> 0x00840DA8 and
+  `??_7EnragedBehavior@@6B@` -> 0x00840FBC (symbols.csv) name the primary tables, which a canonical view names
+  `6BObjectModule` (its `6B@` is the +0x10 table), so link_check takes the unit from LINKS 338 B to not linking.
+  Retire or retarget those pins in the same change (re_attempts 0x00458B60); reverted.
+- The UpgradeModule family's private views: RadarUpgrade, StealthUpgrade, WeaponSetUpgrade, TooltipUpgrade,
+  DoCommandUpgrade (12 slots) and CostModifierUpgrade (10) compile primaries with `__purecall` in slots 1-3, and
+  RadarUpgrade, StealthUpgrade and RemoveUpgradeUpgrade an 11-slot UpgradeMux table where retail has 18, so an
+  upgrade that reaches getUpgradeActivationMasks or performUpgradeFX reads past it (current objects, this pass).
+  Each needs the ReplaceSelfUpgrade/WeaponBonusUpgrade recipe, after its placeholder-rowed slots (for example
+  RadarUpgrade's `?rva004B47DB@Rva004B46F9`, UpgradeMux slot 8) move into the class.
 - HijackerUpdate (static `getModuleNameKey` spelling) and CivilianSpawnCollide (three-int `onCollide`): re-tried,
   still refused (re_attempts 0x004A4010, 0x004BD6DA).
 - SpecialEnemySenseUpdate (Wall 2): every rename of Rva00499F45 respells a comment in
