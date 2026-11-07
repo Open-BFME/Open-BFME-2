@@ -245,7 +245,7 @@ void BaseUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // collided with select-any copies. The anchor keeps this unit's row copies;
 // it is not retail code.
 
-// tu-skeleton: 0x004B374D 28B ??_GRva004B362D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B374D 28B ??_GBaseUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B37CA 555B ?upgradeImplementation@BaseUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp (not merged yet)
 

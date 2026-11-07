@@ -36,13 +36,12 @@ public:
 	virtual void v10();
 };
 
-class Rva004B362D : public UpgradeModule
-{
-public:
-	virtual ~Rva004B362D();
-};
+// BaseUpgrade's destructor 0x004B362D: its constructor 0x004B371C installs the
+// same four tables. The class is BaseUpgrade.h's, so this unit's copies of its
+// vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/BaseUpgrade.h"
 
-Rva004B362D::~Rva004B362D()
+BaseUpgrade::~BaseUpgrade()
 {
 }
 

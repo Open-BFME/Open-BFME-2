@@ -6,7 +6,8 @@
 // Target facts (code addresses are RVAs, vftables VAs):
 //  - ??0BaseUpgrade 0x004B371C calls ??0UpgradeModule 0x00460AEC, then installs 0x00C57120 at +0,
 //    UpgradeModule's 0x00C57328 at +0x0C, 0x00C570D8 at +0x10 and UpgradeModule's 0x00C58790 at
-//    +0x18; its destructor 0x004B362D restores the same four tables.
+//    +0x18; its destructor 0x004B362D restores the same four tables and jumps to
+//    ??1UpgradeModule 0x0046089D.
 //  - 0x00C57120 (12 slots): deleting destructor 0x004B374D, loadPostProcess 0x00497805
 //    (`jmp 0x0058B03E`, UpgradeModule's own body), GetSnapshotName 0x004B364D ("BaseUpgrade"),
 //    xfer 0x004B8710 (Version1, then UpgradeModule::xfer; a body retail folds with
@@ -29,6 +30,7 @@ class BaseUpgrade : public UpgradeModule
 {
 public:
 	BaseUpgrade( Thing *thing, const ModuleData *moduleData );
+	virtual ~BaseUpgrade();
 
 	virtual NameKeyType getModuleNameKey() const;
 
