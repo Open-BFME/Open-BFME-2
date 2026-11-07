@@ -85,43 +85,6 @@ template unsigned long _STL::_Base_bitset<2>::_S_maskbit(size_t);
 //-------------------------------------------------------------------------------------------------
 // Target-specific applicability is owned by DieMuxDataInit.cpp.
 
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-// ?crc@DieModule@@ present-unmatched
-void DieModule::crc( Xfer *xfer )
-{
-
-	// extend base class
-	BehaviorModule::crc( xfer );
-
-}  // end crc
-
-// ------------------------------------------------------------------------------------------------
-/** Xfer Method */
-// ------------------------------------------------------------------------------------------------
-// ?xfer@DieModule@@ present-unmatched
-void DieModule::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// call base class
-	BehaviorModule::xfer( xfer );
-
-}  // end xfer
-
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@DieModule@@ present-unmatched
-void DieModule::loadPostProcess( void )
-{
-
-	// call base class
-	BehaviorModule::loadPostProcess();
-
-}  // end loadPostProcess
+// BFME2 has no crc (its Snapshot slot 2 is GetSnapshotName). DieModule's other
+// Snapshot slots are the shared 0x0058B03E (loadPostProcess) and 0x004CE56D
+// (xfer) rowed elsewhere, so this unit defines none of them.
