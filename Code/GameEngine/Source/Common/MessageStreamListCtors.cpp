@@ -6,83 +6,28 @@
 // ?destroyAllMessages@CommandList@@QAEXXZ, retail 0x0030F854 (44 bytes).
 // ??1CommandList@@UAE@XZ, retail 0x0031105A (56 bytes).
 // Message-list file-unit (the GameMessage append methods live rowed in
-// MessageStream.cpp, which keeps its own decls; this shard declares the
-// construction view). ZH MessageStream.cpp donor proves every semantic:
+// MessageStream.cpp). ZH MessageStream.cpp donor proves every semantic:
 // GameMessageList holds first/last message at +0xC/+0x10 over the
 // SubsystemInterface base (base ctor/dtor resolve via the existing
-// 0x001B4E63/0x001B4E74 pins, zero new pins), CommandList derives it with
-// an empty ctor, destroyAllMessages walks and deletes, and both dtors
-// tear down (CommandList via destroyAllMessages plus the base dtor).
-// Vtables install automatically (dtors defined here) with DIR32-masked
-// immediates (no ??_7 pin at either table; delete helpers force the
-// vtable and scalar-deleting dtor emission; operator delete resolves
-// via the rowed ??3).
+// 0x001B4E63/0x001B4E74 rows), CommandList derives it with an empty ctor,
+// destroyAllMessages walks and deletes, and both dtors tear down
+// (CommandList via destroyAllMessages plus the base dtor).
+// GameMessage, GameMessageList, MessageStream and CommandList come from the
+// canonical MessageStream.h and CommandList.h, so the constructors install
+// retail's own tables: GameMessageList 0x00C09848 (18 slots), MessageStream
+// 0x00C09890 (20 slots, stored at 0x0030F6A7 after the translator clears)
+// and CommandList 0x00C098E0 (18 slots). A message is destroyed with the
+// global delete: slot 0 with flag 0, then operator delete of its return.
+// The delete helpers force the scalar-deleting dtors' emission; operator
+// delete resolves via the rowed ??3.
 
-#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
-
-class GameMessage
-{
-public:
-	virtual void *deleteInstance(int flags);
-
-	void *m_next; // +0x04
-	void *m_prev; // +0x08
-	void *m_list; // +0x0C
-};
+#include "../../Include/Common/MessageStream.h"
+#include "../../Include/Common/CommandList.h"
 
 #include <new>
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-
-class GameMessageList : public SubsystemInterface
-{
-public:
-	GameMessageList();
-	virtual ~GameMessageList();
-	virtual void appendMessage(class GameMessage *msg);
-	virtual void insertMessage(class GameMessage *msg, class GameMessage *messageToInsertAfter);
-
-	GameMessage *m_firstMessage; // +0x0C
-	GameMessage *m_lastMessage; // +0x10
-};
-
-class CommandList : public GameMessageList
-{
-public:
-	CommandList();
-	virtual ~CommandList();
-	void destroyAllMessages();
-};
-
-static int s_messageStreamVtable;
-
-class __declspec(novtable) MessageStream : public GameMessageList
-{
-public:
-	MessageStream();
-	virtual ~MessageStream();
-
-	struct TranslatorData
-	{
-		TranslatorData() : m_next(0), m_prev(0), m_id(0), m_translator(0), m_priority(0) {}
-		TranslatorData *m_next; // +0x00
-		TranslatorData *m_prev; // +0x04
-		unsigned int m_id; // +0x08
-		class GameMessageTranslator *m_translator; // +0x0C
-		unsigned int m_priority; // +0x10
-		~TranslatorData();
-	};
-
-	class GameMessageTranslator *findTranslator(unsigned int id);
-	void removeTranslator(unsigned int id);
-	unsigned int attachTranslator(class GameMessageTranslator *translator, unsigned int priority);
-
-private:
-	void *m_firstTranslator; // +0x14
-	void *m_lastTranslator; // +0x18
-	int m_nextTranslatorID; // +0x1C
-};
 
 class GameMessageTranslator
 {
@@ -107,8 +52,8 @@ GameMessageList::~GameMessageList()
 	{
 		msg->m_list = 0;
 		_ReadWriteBarrier();
-		nextMsg = (GameMessage *)msg->m_next;
-		::operator delete(msg->deleteInstance(0));
+		nextMsg = msg->m_next;
+		::delete msg;
 	}
 }
 
@@ -134,8 +79,8 @@ void CommandList::destroyAllMessages()
 	GameMessage *msg, *nextMsg;
 	for (msg = m_firstMessage; msg; msg = nextMsg)
 	{
-		nextMsg = (GameMessage *)msg->m_next;
-		::operator delete(msg->deleteInstance(0));
+		nextMsg = msg->m_next;
+		::delete msg;
 	}
 	m_firstMessage = 0;
 	m_lastMessage = 0;
@@ -153,7 +98,6 @@ MessageStream::MessageStream() :
 	m_firstTranslator(0),
 	m_lastTranslator(0)
 {
-	*(unsigned int *)this = (unsigned int)&s_messageStreamVtable;
 	m_nextTranslatorID = 1;
 }
 

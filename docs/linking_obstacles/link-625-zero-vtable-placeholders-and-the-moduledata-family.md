@@ -78,19 +78,21 @@ Recipes that worked (reusable):
   headers need the vector types (STLport in the header and in their includers) first.
 
 **Other findings.**
-- **MessageStream, boot path:** `??0MessageStream@@QAE@XZ` (0x0030F697, MessageStreamListCtors.cpp) stores
-  `s_messageStreamVtable`, a zero int; the factory 0x00225F12 creates TheMessageStream with it, so its first virtual call
-  (init/update from the engine loop) jumps through zero. The kept `??_7MessageStream@@6B@` (MessageStreamDtor.cpp) is a
-  10-slot Zero Hour view; retail 0x00C09890 follows BFME 2's SubsystemInterface.h (loadIniFilesFromLegend in slot 2,
-  reset/update at 9/10). Canonical MessageStream.h already derives from that SubsystemInterface, but the unit's bodies use
-  a private GameMessage (`deleteInstance(int)`) and LINK-557 walls the destructor unit; header_queue rows 1251/2202/3270.
-  Highest-value next item in this family.
+- **MessageStream, boot path: repaired 2026-11-07 (seat halilkkaya-lk52, LINK-557).** `??0MessageStream@@QAE@XZ`
+  (0x0030F697, MessageStreamListCtors.cpp) stored `s_messageStreamVtable`, a zero int; the factory 0x00225F12 creates
+  TheMessageStream with it. After the seed's out-of-line init/reset/update were made inline (retail's slots hold the
+  shared empty body) and MessageStreamDtor.cpp adopted canonical MessageStream.h, the constructor unit adopted
+  MessageStream.h and CommandList.h: 19/19 rows exact, the constructor stores `??_7MessageStream@@6B@` (retail
+  0x00C09890), the placeholder is deleted, and the unit's GameMessageList/CommandList tables grow from 3 slots to
+  retail's 18. Both copies of `??_7MessageStream@@6B@` (ctor and dtor units) are identical, 20 slots against retail's 20.
+  link_check: the ten MessageStream/CommandList units LINKS, bytes unchanged. Still wrong by name: slots 16/17 (seed
+  Zero Hour removeMessage/containsMessageOfType) and CommandList slot 9 (see LINK-557); the bridge covers them.
 - ToggleMountedSpecialAbilityUpdateModuleData (`s_vtableAnchor`): retail stores the vptr second; a compiler store sinks
   fourth (probe-proven in the unit's comment), so a class view alone does not match.
 - BoredUpdate (the module, `s_dummy0C`/`s_dummy10` at +0x0C/+0x10): UpdateModule.h would give it retail's three tables
   (HeightDieUpdate recipe, LINK-514), but class:BoredUpdate is held (Burachi-3D, ArrowStormUpdate scope); not attempted.
 
-Remaining / next check: MessageStream first; then the 69 dummy-vptr units LINK-514 does not list (DamageField,
+Remaining / next check: (MessageStream done, LINK-557) the 69 dummy-vptr units LINK-514 does not list (DamageField,
 GloriousCharge, Rampage, Enraged, StealthDetector, the special powers; mostly UpdateModule.h or SpecialPowerModule views,
 LINK-514's recipe) and the 32 extern placeholders. Re-run the sweep (`lk45_sweep.py` over a scratch `data_ledger.py --out`)
 before and after; every repaired constructor must leave the inventory with its table's copies identical.
