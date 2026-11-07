@@ -5593,3 +5593,4 @@ _$E14,0x007AD48D,"Retracted for readmission as _$E7 in the same file: with the D
 ?name@Rva004561BBNamed@@QBEPBDXZ,0x004561BB,"Renamed to ?GetSnapshotName@BuildingBehavior@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C406D4 slot 2)"
 ??1Rva004561A2@@UAE@XZ,0x004561A2,"Renamed to ??1BuildingBehavior@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C406D4)"
 ??_GRva004561A2@@UAEPAXI@Z,0x00456270,"Renamed to ??_GBuildingBehavior@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C406D4)"
+?update@Rva004B886F@@UAEHXZ,0x004B886F,"Renamed to ?update@SpawnUnitBehavior@@UAE?AW4UpdateSleepTime@@XZ by tools/rename.py (to-class: retail vftable 0x00C59124 slot 0; return type: UpdateModule (registered, Code/GameEngine/Include/GameLogic/Module/UpdateModule.h) declares virtual UpdateSleepTime update(); return type: UpdateModuleInterface (registered, Code/GameEngine/Include/GameLogic/Module/UpdateModule.h) declares virtual UpdateSleepTime update())"

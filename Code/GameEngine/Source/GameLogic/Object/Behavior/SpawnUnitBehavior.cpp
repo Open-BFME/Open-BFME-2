@@ -116,6 +116,8 @@ private:
 public:
 	// retail slot 4: the rowed ?getModuleNameKey@SpawnUnitBehavior@@UBE?AW4NameKeyType@@XZ
 	virtual NameKeyType getModuleNameKey() const;
+	// slot 0 of the UpdateModuleInterface table 0x00C59124 at +0x10: 0x004B886F
+	virtual UpdateSleepTime update();
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehavior.cpp

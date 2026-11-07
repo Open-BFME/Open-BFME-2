@@ -35,9 +35,10 @@ AsciiString Rva004B8732::rva004B8851() const
 	return m_moduleData->m_08;
 }
 
-// Retail 0x004B886F, 341 bytes: the once-a-second tick of the same module
-// (slot 0 of its +0x10 base, so `this` is the +0x10 subobject and the module
-// data and object read at -0xC and -8). It answers the logic frame rate
+// Retail 0x004B886F, 341 bytes: SpawnUnitBehavior::update, the once-a-second
+// tick of the same module (slot 0 of its UpdateModuleInterface table
+// 0x00C59124 at +0x10, so `this` is the +0x10 subobject and the module data
+// and object read at -0xC and -8). It answers the logic frame rate
 // either way. WorldBuilder 0x01242D70 gives the shape: a controlling player
 // who may build, with the object neither of two kinds (bits 3 and 5 of the
 // first flag word), answers the production queue (a second queued entry of
@@ -130,30 +131,36 @@ extern ThingFactory *TheThingFactory;
 
 struct XB00 { virtual void f00(); const XModuleData *m_data; Object *m_object; };
 struct XB0C { virtual void f0C(); };
-struct XB10 { virtual int update() = 0; unsigned char m_pad[12]; };
+// UpdateModuleInterface::update's return type (UpdateModule.h): an int-sized
+// enum, returned in eax like an int.
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+struct XB10 { virtual UpdateSleepTime update() = 0; unsigned char m_pad[12]; };
 class XIface20 { public: virtual AsciiString rva004B8851() const = 0; };
-class Rva004B886F : public XB00, public XB0C, public XB10, public XIface20
+class SpawnUnitBehavior : public XB00, public XB0C, public XB10, public XIface20
 {
 public:
-	virtual int update();
+	virtual UpdateSleepTime update();
 
 private:
 	bool m_flag;
 };
 
-int Rva004B886F::update()
+UpdateSleepTime SpawnUnitBehavior::update()
 {
 	Object *object = m_object;
 	const XModuleData *data = m_data;
 	XPlayerView *player = (XPlayerView *)object->getControllingPlayer();
 	int frames = BfmeLogicFramesPerSecond;
 	if (!player || ((XLogicFrameView *)TheGameLogic)->m_frame < (unsigned int)frames || player->m_735 == 0)
-		return frames;
+		return (UpdateSleepTime)frames;
 	unsigned int flags = object->m_flags114;
 	if ((unsigned char)(flags >> 3) & 1)
-		return frames;
+		return (UpdateSleepTime)frames;
 	if ((unsigned char)(flags >> 5) & 1)
-		return frames;
+		return (UpdateSleepTime)frames;
 	XProductionQueue *queue = (XProductionQueue *)object->rva0028BC58(0);
 	if (queue && queue->count() > 0)
 	{
@@ -184,5 +191,5 @@ int Rva004B886F::update()
 			}
 		}
 	}
-	return BfmeLogicFramesPerSecond;
+	return (UpdateSleepTime)BfmeLogicFramesPerSecond;
 }
