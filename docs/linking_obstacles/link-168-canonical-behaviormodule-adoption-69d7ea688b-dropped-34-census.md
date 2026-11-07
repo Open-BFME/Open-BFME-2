@@ -487,3 +487,6 @@ bytes is insufficient. [Exact private evidence and next checks](../../reverse/at
   SpecialPowerCompletionDie.cpp, CreateObjectDie.cpp and DieModule.cpp are no longer in
   reverse/exit_link_blockers.tsv. BridgeTowerBehavior.cpp (e909b38e9c, landed 0a61b01eae) is still
   listed because that link predates its landing; confirm it in the next run.
+- Confirmed (real link at b033afb2ab): BridgeTowerBehavior.cpp is gone from
+  reverse/exit_link_blockers.tsv as well. No unit is blocked on ?crc@BehaviorModule any more. Scope:
+  the five die/behavior units above. The BehaviorModule table-provider question stays open.

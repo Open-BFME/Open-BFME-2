@@ -1,6 +1,6 @@
 ### LINK-622: LockWeaponCreate's onBuildComplete and xfer are unresolved in the real link
 
-Status: Repaired in source (a2fc5f3de7); awaiting the next real link to confirm. Updated: 2026-11-06; ancalgonn-swarm-link; real link
+Status: Cleared (a2fc5f3de7; confirmed by the real link at b033afb2ab). Updated: 2026-11-06; ancalgonn-swarm-link; real link
 `12de5b58b2` (run 42296273754, 261 unresolved, 0 duplicates). Related: LINK-584 (the rest of the
 unresolved names).
 
@@ -62,3 +62,7 @@ Left: slot 4 stays __purecall because getModuleNameKey's row is the static
 `?rva004B8C57@LockWeaponCreate`. Slot 1 inherits CreateModule's loadPostProcess (retail 0x00497805
 jumps to the same body). Verify with the next `reverse/exit_link_blockers.tsv`: LockWeaponCreate.cpp
 should be gone.
+
+**Cleared.** The real link at b033afb2ab (which includes b9bf30ea2c) no longer lists
+LockWeaponCreate.cpp in reverse/exit_link_blockers.tsv: onBuildComplete and xfer resolve. Scope: this
+unit's two names. Left: slot 4 (getModuleNameKey) is still __purecall because its row is a static.
