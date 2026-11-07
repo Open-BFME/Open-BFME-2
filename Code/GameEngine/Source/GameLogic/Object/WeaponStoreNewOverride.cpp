@@ -41,13 +41,12 @@ extern const char *const TheWeaponAffectsMaskNames[11] = { "SELF", "ALLIES", "EN
 extern const char *const TheWeaponCollideMaskNames[12] = { "ALLIES", "ENEMIES", "NEUTRAL", "STRUCTURES", "SHRUBBERY", "PROJECTILES", "WALLS", "SMALL_MISSILES", "BALLISTIC_MISSILES", "CONTROLLED_STRUCTURES", "MONSTERS", 0 };
 // The retail name list at RVA 0x009BC49C (3 names and the null terminator).
 extern const char *const g_00DBC49C[4] = { "NONE", "CATAPULT_ROCK", "TREBUCHET_ROCK", 0 };
-struct LookupListRec { const char *name; int value; };
-// The retail lookup list at RVA 0x009BC530 (15 names and the null terminator).
-extern const LookupListRec g_00DBC530[16] = { { "FORCE", 12426360 }, { "SLASH", 12426344 }, { "SIEGE", 12426324 }, { "FLAME", 12426308 }, { "UNRESISTABLE", 12426284 }, { "PENALTY", 12426268 }, { "TOPPLING", 12426244 }, { "PASSENGER", 12426224 }, { "CHOP", 12426208 }, { "SPECIALIST", 12426188 }, { "HERO_RANGED", 12426164 }, { "UNDEFINED", 12426136 }, { "CAVALRY", 12426112 }, { "POISON", 0 }, { "NORMAL", 12426080 }, { 0, 0 } };
+// The retail name list at RVA 0x009BC530 (27 names and the null terminator).
+extern const char *const g_00DBC530[28] = { "FORCE", "CRUSH", "SLASH", "PIERCE", "SIEGE", "STRUCTURAL", "FLAME", "HEALING", "UNRESISTABLE", "WATER", "PENALTY", "FALLING", "TOPPLING", "REFLECTED", "PASSENGER", "MAGIC", "CHOP", "HERO", "SPECIALIST", "URUK", "HERO_RANGED", "FLY_INTO", "UNDEFINED", "LOGICAL_FIRE", "CAVALRY", "CAVALRY_RANGED", "POISON", 0 };
 // The retail name list at RVA 0x009BC5B0 (24 names and the null terminator).
 extern const char *const TheDeathNames[25] = { "NORMAL", "NONE", "CRUSHED", "BURNED", "EXPLODED", "POISONED", "TOPPLED", "FLOODED", "SUICIDED", "LASERED", "DETONATED", "SPLATTED", "POISONED_BETA", "EXTRA_2", "EXTRA_3", "EXTRA_4", "EXTRA_5", "EXTRA_6", "EXTRA_7", "EXTRA_8", "KNOCKBACK", "SUPERNATURAL", "FADED", "SLAUGHTERED", 0 };
-// The retail lookup list at RVA 0x009BC4B0 (15 names and the null terminator).
-extern const LookupListRec g_00DBC4B0[16] = { { "SWORD_SLASH", 12591160 }, { "REFLECTED", 12591140 }, { "EVIL_ARROW_PIERCE", 12591108 }, { "BIG_ROCK", 12591084 }, { "FLAME", 12426224 }, { "BALROG_SWORD", 12591056 }, { "ELECTRIC", 12591032 }, { "STRUCTURAL", 12591020 }, { "BOLT", 12591004 }, { "MAGIC2", 12590988 }, { "FIRE1", 12590972 }, { "FIRE3", 12590956 }, { "SPARKS2", 12590940 }, { "EARTH2", 12426104 }, { "TORNADO", 12426152 }, { 0, 0 } };
+// The retail name list at RVA 0x009BC4B0 (30 names and the null terminator).
+extern const char *const g_00DBC4B0[31] = { "SWORD_SLASH", "WITCH_KING_MORGUL_BLADE", "REFLECTED", "GOOD_ARROW_PIERCE", "EVIL_ARROW_PIERCE", "SMALL_ROCK", "BIG_ROCK", "CLUBBING", "FLAME", "MAGIC", "BALROG_SWORD", "BALROG_WHIP", "ELECTRIC", "GIMLI_LEAP", "STRUCTURAL", "FLOOD_HORSE", "BOLT", "BOLT2", "MAGIC2", "MAGIC3", "FIRE1", "FIRE2", "FIRE3", "SPARKS1", "SPARKS2", "EARTH1", "EARTH2", "POISON", "TORNADO", "UNDEFINED", 0 };
 extern "C" {
 void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseAngleReal@INI@@SAXPAV1@PAX1PBX@Z")();
