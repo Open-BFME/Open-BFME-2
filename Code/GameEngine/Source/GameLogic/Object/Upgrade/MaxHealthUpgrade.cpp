@@ -14,8 +14,11 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
+// Retail's module tables hold GetSnapshotName in Snapshot slot 2; select it
+// before any header reads Snapshot (Drawable.h, below, would select the
+// capitalized slots).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/Common/NameKeyGenerator.h"
-#include "../../../../Include/GameClient/Drawable.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 //
 // ??0MaxHealthUpgradeModuleData@@QAE@XZ, retail 0x004B62C4, 36 bytes.
@@ -100,6 +103,7 @@ protected:
 	virtual void upgradeImplementation() = 0;
 };
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 // readable body of ??0MaxHealthUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z: Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgrade.cpp
 // readable body of ??0MaxHealthUpgradeModuleData@@QAE@XZ: Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgrade.cpp
 

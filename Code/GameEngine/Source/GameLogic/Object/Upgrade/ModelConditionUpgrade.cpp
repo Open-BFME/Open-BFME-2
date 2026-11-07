@@ -10,8 +10,11 @@
 // float zero at +0x1B4. The owning factory at 0x00250546 (news 0x1B8) is
 // the sole caller. Row supersedes the ctor pin.
 extern "C" const void *const __identifier("??_7WeaponSetUpgradeModuleData@@6B@")[];
+// Retail's module tables hold GetSnapshotName in Snapshot slot 2; select it
+// before any header reads Snapshot (Drawable.h, below, would select the
+// capitalized slots).
+#define BFME_SNAPSHOT_NAME_SLOT
 #include <cstring>
-#include "../../../../Include/GameClient/Drawable.h"
 #pragma inline_depth(0)
 #pragma inline_depth()
 // ?rva004B65E4@Rva004B65E4@@SAXPAVINI@@PAX1PBX@Z
@@ -268,6 +271,7 @@ void Rva0033DC9CParse(INI *, void *, void *, const void *);
 class Thing;
 class ModuleData;
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 
 // ?buildFieldParse@WeaponSetUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z

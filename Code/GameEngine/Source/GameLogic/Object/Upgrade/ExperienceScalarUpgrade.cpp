@@ -15,7 +15,6 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 #include "../../../../Include/Common/NameKeyGenerator.h"
-#include "../../../../Include/GameClient/Drawable.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 //
 // ??0ExperienceScalarUpgradeModuleData@@QAE@XZ, retail 0x004B6187, 29 bytes.
@@ -85,6 +84,7 @@ protected:
 	virtual void upgradeImplementation() = 0;
 };
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+#include "../../../../Include/GameClient/Drawable.h"
 // Open-BFME5: ExperienceScalarUpgrade module ctor via UpgradeModule multi-inheritance.
 
 class Thing;

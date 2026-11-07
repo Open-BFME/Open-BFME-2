@@ -31,7 +31,6 @@ public:
 	virtual ~OpenContain();
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../../Include/GameClient/Drawable.h"
 #pragma comment(linker, "/alternatename:?b1@B1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?b6@B6@@UAEXXZ=?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z")
 #pragma comment(linker, "/alternatename:?b0@B0@@UAEXXZ=??_GProductionQueueHordeContain@@UAEPAXI@Z")
@@ -130,6 +129,7 @@ class WinInstanceData;
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 #include "../../../../Include/GameClient/Bfme2GameWindow.h"
 #include "../../../../Include/GameLogic/Module/HordeGarrisonContainModuleData.h"
+#include "../../../../Include/GameClient/Drawable.h"
 //
 // ?xfer@ProductionQueueHordeContain@@MAEXPAVXfer@@@Z, retail 0x0048127E, 54 bytes.
 // Slot 3 of the ProductionQueueHordeContain vftable (slot 0 the rowed ??_G
