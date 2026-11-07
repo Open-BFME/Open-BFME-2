@@ -356,10 +356,18 @@ Still open in the family:
 - ObjectHelper slot 2, 0x0028C933: rowed as the free-function scaffold `?Rva0028C933Get@@YAHXZ`
   (ConstIntGetters4.cpp, no approved TU). `--to-class` moves only a placeholder class's member and
   `--replace-rva` only gen scaffolding, so no supported move exists (re_attempts 0x0028C933).
-- ObjectWeaponStatusHelper `update`, 0x0028F976 (+0x10 slot 0, now `__purecall`): rowed
-  `?update@Rva0028F976@@UAEHXZ` with a guessed int return; `--to-class` keeps the return type, and C++ forbids
-  an int override of UpdateModuleInterface::update. False reject recorded (re_attempts 0x0028F976). The
-  prepared VslotSmallBodiesAM.cpp view is the existing class body with `UpdateSleepTime` for `Int`.
+- CLEARED 2026-11-07 (seat halilkkaya-lk50, base cdb102e40d): ObjectWeaponStatusHelper `update`, 0x0028F976
+  (+0x10 slot 0, was `__purecall`). It was rowed `?update@Rva0028F976@@UAEHXZ` with a guessed int return,
+  and C++ forbids an int override of UpdateModuleInterface::update. The tooling fix f4fe1d2f893 lets
+  `--to-class` take a registered header's enum return (UpdateModule.h declares `virtual UpdateSleepTime
+  update()`). It also passes over the destructor scaffold Rva004DF7C2Derived.cpp, whose one-slot stand-in
+  tables (`6BRva004DF8A9_B2`, `6BMiBase1`, `6BObjectHelper`) resolve nothing. The row is now
+  `?update@ObjectWeaponStatusHelper@@UAE?AW4UpdateSleepTime@@XZ` (VslotSmallBodiesAM.cpp; the class
+  declares it in ObjectWeaponStatusHelperCtor.cpp). Evidence: 134/134 exact; the only `??_7` change is
+  ObjectWeaponStatusHelperCtor.obj's `??_7ObjectWeaponStatusHelper@@6B@` slot 0 `__purecall` -> update (now
+  3/3 with retail 0x00BFBE3C); scoped DIR32 OK; link_check over ObjectWeaponStatusHelperCtor.cpp,
+  VslotSmallBodiesAM.cpp, Rva004DF7C2Derived.cpp, Object.cpp and VslotSmallBodiesAC.cpp: 5/5 LINK, 7,729 B
+  unchanged. Census confirmation: not claimed.
 - Getters in SubsystemNameGetters2.cpp (WeaponStatus 0x0028CBDB, SMC 0x0029288E, the latter spelled as the
   non-virtual `?name@ObjectSMCHelper@@QBEPBDXZ`) and the DISABLEDMASK_ALL fold 0x004DF396 (Defection and SMC
   slot 1 of +0x10, owner UpdateModuleSetWakeFrame.cpp): their units sit under another seat's

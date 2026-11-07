@@ -368,13 +368,24 @@ void Rva005D99E4::rva005D99E4()
 }
 
 // Secondary-base slots (interface at +0x10, +0x0C, +0x0C resp. +0x04):
-// 0x0028F976 runs the pinned Object 0x0028DB3C on the owning object and
-// answers 1; 0x005E189B stores the complete object into +0x28 of the
-// interface's +0x04 object; 0x005E19B4 runs the rowed 0x005E197E of the
-// complete object; 0x0049CE63 dispatches to the complete object's virtual
-// slot 16 (the arguments are unused).
+// 0x0028F976 is ObjectWeaponStatusHelper::update (slot 0 of its
+// UpdateModuleInterface table 0x00BFBE3C, installed at +0x10 by the ctor
+// 0x0028CB45): it runs the pinned Object 0x0028DB3C on the owning object and
+// answers UPDATE_SLEEP_NONE (1); 0x005E189B stores the complete object into
+// +0x28 of the interface's +0x04 object; 0x005E19B4 runs the rowed 0x005E197E
+// of the complete object; 0x0049CE63 dispatches to the complete object's
+// virtual slot 16 (the arguments are unused).
 #include "../GameLogic/Object/object.h"
-class Rva0028F976Primary
+// UpdateModuleInterface::update's return type (UpdateModule.h): an int-sized
+// enum, returned in eax like an int.
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+// The two views below stand in for ObjectHelper's primary part (the owning
+// Object at +0x08) and the UpdateModuleInterface subobject at +0x10; update
+// overrides the latter, so its `this` is that subobject.
+class WeaponStatusHelperPrimaryView
 {
 public:
 	virtual void primarySlot();
@@ -383,20 +394,20 @@ protected:
 	Object *m_object; // +0x08
 	Int m_0C;
 };
-class Rva0028F976Iface
+class WeaponStatusHelperUpdateView
 {
 public:
-	virtual Int update() = 0;
+	virtual UpdateSleepTime update() = 0;
 };
-class Rva0028F976 : public Rva0028F976Primary, public Rva0028F976Iface
+class ObjectWeaponStatusHelper : public WeaponStatusHelperPrimaryView, public WeaponStatusHelperUpdateView
 {
 public:
-	Int update();
+	UpdateSleepTime update();
 };
-Int Rva0028F976::update()
+UpdateSleepTime ObjectWeaponStatusHelper::update()
 {
 	m_object->rva0028DB3C();
-	return 1;
+	return UPDATE_SLEEP_NONE;
 }
 class Rva0049CE63Primary
 {

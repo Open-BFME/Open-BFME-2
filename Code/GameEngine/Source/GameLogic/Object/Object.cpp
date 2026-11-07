@@ -5021,7 +5021,7 @@ void *Rva0028C783::rva0028C783(unsigned int idx)
 
 // tu-skeleton: 0x0028F92B 21B ?rva0028F92B@Rva0028F92B@@QBE?AVRva0028F633@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
-// tu-skeleton: 0x0028F976 12B ?update@Rva0028F976@@UAEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
+// tu-skeleton: 0x0028F976 12B ?update@ObjectWeaponStatusHelper@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp (not merged yet)
 
 // tu-skeleton: 0x0028FAD1 158B ?onContainedBy@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_onContainedBy.cpp (not merged yet)
 
