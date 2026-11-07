@@ -278,13 +278,14 @@ void Rva00816E70( struct Rva00816BF0Comm *comm )
  * Both are constructed and destroyed BY the register and unregister bodies
  * below rather than by any module init. */
 extern struct Rva00816BF0Comm *g_Rva0130B188List;
-extern char g_Rva0130AF38Lock[ 4 ];
+extern char g_Rva0130AF38Lock[ 0x250 ];
 extern int g_Rva0130AD08Count;
 
 // Owned here: the transport-registry lock both TUs pass to Rva007FEA20 and
-// friends. No retail bytes claimed (present-unmatched, unpinned); the data
-// ledger spans 592 zero bytes at the address but every view uses 4.
-char g_Rva0130AF38Lock[ 4 ] = { 0 };
+// friends. No retail bytes claimed (present-unmatched, unpinned). Retail's
+// region is 592 zero bytes: the 0x28-byte lock, then the packet copy that
+// commudp.cpp's CommUdpProcess fills (its CommUdpLockRegion view).
+char g_Rva0130AF38Lock[ 0x250 ] = { 0 };
 
 void Rva007FEBD0( void *lock );
 void Rva007FECB0( void *lock );

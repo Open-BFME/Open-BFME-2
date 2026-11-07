@@ -42,7 +42,7 @@ struct CommUdpBuf
 	int m_ident;             // +0x0C
 	unsigned int m_type;     // +0x10
 	int m_typeExtra;         // +0x14
-	unsigned char m_data[0x1000];   // +0x18
+	unsigned char m_data[0x218];    // +0x18
 };
 
 struct CommUdpLockRegion
@@ -52,11 +52,15 @@ struct CommUdpLockRegion
 	int m_97c;               // +0x2C
 	int m_980;               // +0x30
 	int m_984;               // +0x34
-	unsigned char m_payload[0x1F0];
+	unsigned char m_payload[0x218];
 };
 
+// Retail's two .data regions (VA 0xe0a720, 0x230 bytes; VA 0xe0a950, 0x250 bytes,
+// both zero): recvfrom fills 0x220 bytes at +0x10 of the first, and the second
+// copies a packet of the same shape behind its 0x28-byte lock. Defined at their
+// true sizes so the fields past +4 stay inside each object.
 extern "C" CommUdpLockRegion g_Rva0130AF38Lock;
-extern "C" int g_Rva0130AD08Count;	// C linkage: Y4CommTransportLife.c (C) shares it
+extern "C" CommUdpBuf g_Rva0130AD08Count;	// C linkage: Y4CommTransportLife.c (C) shares it
 
 int Rva007FE780Printf(const char *format, ...);
 // The C++ printf spelling and rowed C printer both resolve to retail VA 0x0066AC50.
@@ -210,9 +214,9 @@ struct CommUdpRef
 	void *m_value;           // +0x220
 };
 
-// The receive buffer's head is g_Rva0130AD08Count (VA 0xe0a720); its fields are
-// reached through the region view so the ledger's symbol keeps its own spelling.
-#define g_commUdpPacket (*(CommUdpBuf *)&g_Rva0130AD08Count)
+// The receive buffer is g_Rva0130AD08Count (VA 0xe0a720); the ledger's symbol
+// keeps its own spelling.
+#define g_commUdpPacket g_Rva0130AD08Count
 
 extern "C" int Rva007FDA50(void *socket, char *buffer, int length, int flags,
                            void *address, int *addressLength);
@@ -595,19 +599,19 @@ int CommUDPSend(void *ref, const void *buffer, int length, int flags)
 	if (queued < 0x10) {
 		Rva007FEBD0(&g_Rva0130AF38Lock);
 		Rva00817640(ref);
-		if (g_Rva0130AD08Count != 0) {
+		if (g_Rva0130AD08Count.m_count != 0) {
 			tick = Rva007FEA00();
 			while (CommUdpProcess(tick) > 0) {
 			}
-			g_Rva0130AD08Count = 0;
+			g_Rva0130AD08Count.m_count = 0;
 		}
 		Rva007FECB0(&g_Rva0130AF38Lock);
 	}
     return queued > 0 ? queued : 1;
 }
 
-// ?g_Rva0130AD08Count@@3HA: matched references place it at VA 0xe0a720; also referenced as _g_commUdpPacket.
-int g_Rva0130AD08Count;
+// _g_Rva0130AD08Count: matched references place it at VA 0xe0a720; also referenced as _g_commUdpPacket.
+CommUdpBuf g_Rva0130AD08Count;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
