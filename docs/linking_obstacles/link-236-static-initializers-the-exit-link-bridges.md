@@ -32,8 +32,11 @@ strings, the copies that open their runs, the CreateAHeroSystem node and three F
 -> 583, then AptDate's interpreter, the INI macro table and file name, ScriptEngine's and Eva's copies
 and seven run-closing BlockParse nodes, 583 -> 572 (bridge_entries on `2335dd1fbb`'s objects plus the
 round; see "Round lk46"); halilkkaya-lk51: INIObject.cpp moved off Zero Hour's PreRTS.h and 23 copies
-placed by the function-local statics just before them, 572 -> 548 (see "Round lk51"); next seat
-continues).
+placed by the function-local statics just before them, 572 -> 548 (see "Round lk51"); halilkkaya-lk54:
+MSVC 7.1's .bss layout read from scratch objects and a scratch link (function-local statics follow a
+unit's main .bss whenever the unit has a plain zero-initialized global), and with it the MapObject,
+AptMainMenu, AptOptions, AptCreateAHero and AptLanLobby copies, 548 -> 543 (see "Round lk54"); next
+seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -1022,3 +1025,93 @@ files with their TU siblings, and bridge_entries removed exactly the named RVAs 
   Scripts' mask 0x007AF7ED, AIEconomyBuilder's `m_farmList`, the fire settings, 0x007B51EB and the
   screen filters) are unchanged; the ctor families also need their `.text$yd` cleanup rows moved out of
   `Rva007B6880Thunks.cpp`, which another seat holds.
+
+**Round lk54 (halilkkaya-lk54, 2026-11-07, bridged 548 -> 543).** Measured with
+`image_report.bridge_entries` over the kept objects (exit_link's rule) on `0aff0e89c0`'s tree plus the
+round. Each entry was retracted (`reverse/deleted_rows.csv`) and readmitted by relocation target; every
+touched object kept its `??_7` digests, link_check passed on the files with their TU siblings, and
+bridge_entries removed exactly the named RVAs.
+- *Where MSVC 7.1 puts a unit's statics (object and link facts: scratch units such as `int *g; const
+  int C = f(); int fn(int v) { static int s = v; return s; }`, compiled through `build.compiler_command`
+  into `build/`, then linked with the toolchain's link.exe and read from the MAP).* A unit's plain
+  zero-initialized globals, then its dynamically initialized statics in definition order (the Drawable.h
+  copy first, since the header comes first), share the main `.bss` section. Every function-local static
+  and guard, of an inline or a non-inline function, gets its own COMDAT `.bss` section (`/O1`, `/O2`,
+  `/Od` and `/Gy-` alike). cl creates the main `.bss` as section 3 when the unit has any plain
+  zero-initialized global (even one defined last), and last, after every COMDAT, when it has none.
+  link.exe keeps one object's sections in section-table order (a scratch link of three objects, in both
+  link orders). So:
+  - a unit with a plain global (an Apt screen's instance, a singleton, a flag) lays out
+    `[plain globals][copy, dynamic statics][function-local statics]`;
+  - a unit without one lays out `[function-local statics][copy, dynamic statics]`.
+
+  Retail shows both: Team, AwardSystemManager, the palantir unit and Mouse (copies proven by their runs)
+  have their own function-local statics after the copy; SpawnBehavior and WallUpgradeUpdate (no plain
+  global) have their pool key and guard before it.
+- *What that changes.* Round lk51's rule (a copy whose static follows a unit's function-local static is
+  that unit's) holds only for a unit with no plain zero-initialized global. When the unit has one, its
+  copy precedes its own function-local statics, and a copy after them belongs to the next object. A
+  ledger entry that looks like a plain global can be a guard flag with a grab-bag home
+  (`GlobalFlagClearers*`) or a function-local AsciiString with an address name; read who uses it first.
+  Re-checked this way, none of lk51's 23 rows shows its own unit's plain global before the statics it
+  follows, so none is proven wrong; three have an unidentified entry in between and stay to be confirmed
+  (StrategicInGameUIGetButtonImage after the dynamic MappedImageCache 0x00A06858,
+  StrategicInGameUIQueueUnitButton after 0x00A06918, InGameHeroSelectInterfaceCtor after 0x00A04954 and
+  0x00A04964). The rule did reverse lk51's blocked AptMainMenu attribution below.
+- *Taken (5).*
+  - Rva003B242CGet.cpp (the MapObject unit's Dict file): copy 0x007AE7DF `_$E1` opens the run whose last
+    entry is this file's Dict initializer 0x007AE806, now `_$E3`. The `.bss` agrees (copy 0x00E0093C,
+    then the dynamic map-object list holder 0x00E00940 and the Dict 0x00E00944). Zero Hour's
+    WorldHeightMap.cpp defines the same pair (`MapObject::TheMapObjectListPtr`, `TheWorldDict`; donor
+    fact); in BFME 2 the unit sits in the MapObject code region. The holder's initializer 0x007AE7FB stays
+    bridged: our definition is in GameLogicInit.cpp, outside this lane's scope.
+  - AptMainMenu.cpp: copy 0x007B385C `_$E1` (static 0x00E048E4 after the instance 0x00E048DC and the
+    restart thread 0x00E048E0, before the statics of rva00514950, evilCampaign and goodCampaign). The two
+    campaign cleanups move to `_$E4` (good, 0x007B91A8) and `_$E6` (evil, 0x007B919E), read by relocation
+    target; the object-symbol= `??__Fcampaign@...` rows are gone and the file has none left. Round lk51's
+    0x007B3886 was the wrong copy.
+  - AptOptions.cpp: 0x007B3886 `_$E1` (static after AptOptions' instance 0x00E04908; AptOnline's instance
+    0x00E04904 has no copy). AptCreateAHero.cpp: 0x007B3832 `_$E1` (after `s_instance` 0x00E048D4).
+    AptLanLobby.cpp: 0x007B071D `_$E1` (after `s_instance` 0x00E03354). Each is the approved TU file and
+    takes the header after its last include.
+- *Refused (re_attempts.log).* GiantBirdAIUpdate.cpp 0x007AEDD7 (no plain global: its statics
+  0x00E01EAC..0x00E01EB8, then the copy and its five masks) does not compile with the header: its private
+  `Thing`/`Object` views collide (C2011). AptMyHero.cpp 0x007B46F8 (instance 0x00E06450, the copy, then
+  rva005B0A53's static AsciiString 0x00E06458 and guard) refuses it too: its private `Matrix3D` lacks
+  `Rotate_Vector`. Both need their views reconciled onto the canonical classes first.
+- *Leads settled, not taken.*
+  - 0x007AEA1C (copy after TheSidesList) is SidesList.cpp's. Zero Hour's SidesList.cpp defines
+    `TheSidesList` and then `static AsciiString static_readPlayerNames[MAX_PLAYER_COUNT]` (donor fact);
+    retail's run is the copy, then 0x007AEA2C, an `__ehvec_ctor` over 20 AsciiStrings at 0x00E01D60, and
+    BFME 2 code uses MAX_PLAYER_COUNT = 20. Our ScriptEngine.cpp's definition of TheSidesList is
+    misplaced (ScriptEngine.cpp's own copy is 0x007AD7B0). To row it, SidesList.cpp (Zero Hour-shaped,
+    PreRTS.h) needs the canonical Drawable.h, then the TheSidesList definition and the array (out of
+    Rva007AEA2CArrayInits.cpp), in that order.
+  - 0x007B1C88 is WorkerAIUpdate's, not WanderAIUpdate's: the plain global g_bfmeDockingTraceActive, the
+    copy, then WorkerAIUpdate's getActionDelayForDock statics 0x00E03CB0..0x00E03CB8 (Zero Hour's
+    `key_warehouseUpdate`/`key_centerUpdate`) and its pool key. Zero Hour's WorkerAIUpdate.cpp includes
+    GameClient/Drawable.h. Our WorkerAIUpdate.cpp is Zero Hour-shaped (PreRTS.h).
+  - TerrainResourceManager 0x007AECC6: the run is CAtlWinModule's selectany initializer (0x007AEC78, not
+    in the table), `_Loc_init` 0x007AEC8E, `ios_base::Init` 0x007AECA4, an atexit-only object 0x007AECBA
+    and the copy, so its unit includes ATL's atlbase.h, then `<iostream>`, then Drawable.h. The unit has
+    no plain global (its function-local statics 0x00E01E2C..0x00E01E3C, from code in its region
+    0x00359853.., come first), so the run is TerrainResourceManager's. The ATL include is the open
+    question; 0x007ABC99..0x007ABCE7 is a second unit of the same shape.
+  - 0x007B0615 (static after `AptSaveLoad::s_instance` 0x00E032E0) is AptSaveLoad's: its run continues
+    with g_Va00E032E8's UnicodeString and g_Va00E032EC's map, the dynamic statics after the copy. So
+    lk44's GameLogic.cpp lead is wrong, and GameLogic.cpp's `_$E1` for g_Va00E032E8 is misplaced.
+    GameLogic.cpp is held (Burachi-3D).
+  - LivingWorldSound.cpp's `_$E1` builds `Region2D g_00E02EAC` with the default constructor, but retail
+    0x007AFC6B builds it as (-FLT_MAX, -FLT_MAX)..(FLT_MAX, FLT_MAX) through the two-endpoint ctor
+    0x00004C06, so our image's zoom region starts at zero (a runtime defect). Retail inlines the Coord2D
+    temporaries and has an empty inline Region2D dtor (cleanup 0x007B816A is a lone `ret`), so the unit
+    needs the canonical Lib/Region2D.h and a Coord2D with an inline two-float ctor instead of WWMath's
+    region.h. The node before it, 0x007AFC56 (LivingWorldArmyIcon), belongs to the object before the
+    header name lists at 0x009C17CC, not to LivingWorldSound.
+  - Rva007B6880Thunks.cpp and Rva007ABB96AllocCtorInits.cpp are claimed by ancalgonn-swarm-defects, so
+    the ctor-family moves (with their cleanup rows) and the AllocCtor entries wait.
+- *Next.* Take the singleton-anchored copies with the layout rule: a copy directly after a unit's plain
+  global is that unit's when the unit includes Drawable.h (a run entry of the unit after the copy, or a
+  donor include, settles it). 52 bridged copies directly follow another copy, so copy-only units are
+  common and that second fact is needed. Units whose views refuse the header (GiantBirdAIUpdate,
+  AptMyHero, WorkerAIUpdate, SidesList and lk51's list) need their private views reconciled first.
