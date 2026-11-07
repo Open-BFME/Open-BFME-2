@@ -281,8 +281,22 @@ class TypeStream:
                 self.fields(fieldlist, out)
             out["methods"], out["virtual"] = sorted(out["methods"]), sorted(out["virtual"])
             out["vslots"] = {str(k // 4): v for k, v in sorted(out["vslots"].items())}
+            prior = found.get(name)
+            if prior is not None and not prior.get("fwd") and _shape(prior) != _shape(out):
+                # two complete classes of one name in one stream: which one a use means is unknown,
+                # so the name reads as unparsed and every fail-closed reader refuses it
+                found[name] = dict(prior, unparsed=f"conflicting complete records named {name}")
+                continue
+            if prior is not None and prior.get("unparsed"):
+                continue
             found[name] = out
         return found
+
+
+def _shape(layout):
+    """What two complete records of one name must agree on to be one class."""
+    return (layout.get("size"), layout.get("vfptr"), [tuple(b) for b in layout.get("bases", [])],
+            [tuple(f) for f in layout.get("fields", [])])
 
 
 def type_stream(obj_bytes):

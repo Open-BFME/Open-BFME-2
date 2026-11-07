@@ -128,6 +128,11 @@ VOTE_COLUMNS = name_agreement.VOTE_COLUMNS
 AGREED_COLUMNS = name_agreement.AGREED_COLUMNS
 MEANINGS = name_agreement.MEANINGS
 MEANING_COLUMNS = name_agreement.MEANING_COLUMNS
+# beside each vote, the sha256 of the source text it was served (append-only): a vote's
+# own row names its key and spelling but not the text, and a credit for a registered
+# class's rename binds every vote to the text it is applied to (rename.votes_bound_to_text)
+VOTE_SOURCES = rename.VOTE_SOURCES
+VOTE_SOURCE_COLUMNS = ["key", "hash", "worker", "session", "source_sha"]
 RESOLUTIONS = name_agreement.RESOLUTIONS
 RESOLUTION_COLUMNS = name_agreement.RESOLUTION_COLUMNS
 LANE_DIR = "build/name_lane"
@@ -1545,6 +1550,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     tally, state, refused = lane.tally(), lane.state(), lane.disputed()
     now = datetime.date.today().isoformat()
     votes, meanings, agreed, rejected, local_proposals = [], [], [], [], []
+    vote_sources = []
     invalid = []
     for rel, mapping in answers.items():
         entry = files[rel]
@@ -1617,6 +1623,8 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
             else:
                 vote = {"key": key, "hash": h, "model": model, "session": session, "worker": worker, "date": now}
                 votes.append(vote)
+                vote_sources.append({"key": key, "hash": h, "worker": worker, "session": session,
+                                     "source_sha": entry["sha"]})
                 tally[key][h][worker] = model
                 local_proposals.append(dict(key=key, name=answer, worker=worker,
                                             source_sha=entry["sha"], role=role))
@@ -1640,6 +1648,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
         return dict(session=session, valid=[v["key"] for v in votes], rejected=invalid,
                     proposed=len(votes) + len(invalid), rejection_messages=rejected)
     lane.append(VOTES, VOTE_COLUMNS, votes)
+    lane.append(VOTE_SOURCES, VOTE_SOURCE_COLUMNS, vote_sources)
     lane.append(MEANINGS, MEANING_COLUMNS, meanings)
     lane.append(AGREED, AGREED_COLUMNS, agreed)
     # Plaintext stays local and is never included in a blind review packet.

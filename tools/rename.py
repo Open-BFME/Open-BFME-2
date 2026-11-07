@@ -6079,42 +6079,39 @@ def check_registered_basis(ctx, header, basis, evidence, old, new):
     return which
 
 
-def _recorded_in(ctx, needle, ledger):
-    """The oldest commit of base's history whose `ledger` gained `needle`, or None."""
-    history = ctx.git("log", "--format=%H", f"-S{needle}", ctx.base or "HEAD", "--", ledger).split()
-    return history[-1] if history else None
+# tools/name_lane.py `submit` writes, beside each vote, the fingerprint of the source text
+# it served the voter (name_vote_sources.csv, append-only, one row per vote).
+VOTE_SOURCES = "reverse/name_vote_sources.csv"
 
 
 def votes_bound_to_text(ctx, rid, key, new, rel):
-    """A gate's credit is bound to the text each vote named. An `nl-` vote carries no
-    fingerprint (an `nr-` resolution does, and check_agreement checks it), but git history
-    does. For every vote counted towards `new` at `key`, and for agreement `rid` itself,
-    take the commit that recorded it: that commit must not change `rel` (the key's source:
-    the text a voter was served is its parent's), and base's `rel` must be that same blob.
-    So a header edited before, with, or after the votes earns no credit. Votes land in
-    their own commits before the rename, so the gates (RevisionContext) apply this; at
-    apply time the votes may not be committed yet."""
+    """A gate's credit is bound to the text each vote named. An `nl-` vote's row carries
+    no fingerprint (an `nr-` resolution does, and check_agreement checks it), so
+    `submit` records one beside it: the sha256 of the source it served (VOTE_SOURCES).
+    Every vote counted for `new` at `key` needs such a row in the base, and its
+    fingerprint must be the sha256 of base's `rel`, the text the rename is applied to.
+    A vote with no fingerprint, or one cast on any other text -- edited before, with,
+    or after the votes, in whatever order the commits land -- earns nothing."""
     base = ctx.base or "HEAD"
-    now = ctx.git("rev-parse", "--verify", "--quiet", f"{base}:{rel}").strip()
+    data = ctx.read(rel)
+    if data is None:
+        raise Refusal(f"{rel} is not in {base}")
+    applied = hashlib.sha256(data).hexdigest()
     wanted = name_agreement.digest(key, new)
     votes = [v for v in ctx.dicts(name_agreement.VOTES) if v.get("key") == key and v.get("hash") == wanted]
     if not votes:
         raise Refusal(f"no vote for {new} at {key} is in {base}'s {name_agreement.VOTES}")
-    records = [(f"vote by {v.get('worker')}", _recorded_in(ctx, ",".join(
-                   v.get(c) or "" for c in ("hash", "model", "session", "worker")), name_agreement.VOTES))
-               for v in votes] + [(f"agreement {rid}", _recorded_in(ctx, rid, AGREED))]
-    for what, commit in records:
-        if commit is None:
-            raise Refusal(f"the {what} is in no commit of {base}'s history: votes land before the rename "
-                          "that cites them")
-        served = ctx.git("rev-parse", "--verify", "--quiet", f"{commit}^:{rel}").strip()
-        recorded = ctx.git("rev-parse", "--verify", "--quiet", f"{commit}:{rel}").strip()
-        if not served or served != recorded:
-            raise Refusal(f"the commit recording the {what} ({commit[:10]}) also changes {rel}: the votes "
-                          "named another text; serve the key again and vote")
-        if served != now:
-            raise Refusal(f"{rel} changed after the {what} was recorded ({commit[:10]}): the votes named another "
-                          "text; serve the key again and vote")
+    sources = collections.defaultdict(set)
+    for row in ctx.dicts(VOTE_SOURCES):
+        sources[tuple(row.get(c) or "" for c in ("key", "hash", "worker", "session"))].add(row.get("source_sha") or "")
+    for vote in votes:
+        served = sources.get(tuple(vote.get(c) or "" for c in ("key", "hash", "worker", "session")), set())
+        if not served:
+            raise Refusal(f"the vote by {vote.get('worker')} records no fingerprint of the text it was served "
+                          f"({VOTE_SOURCES}); serve the key again and vote")
+        if served != {applied}:
+            raise Refusal(f"the vote by {vote.get('worker')} named another text of {rel} than {base} holds: "
+                          "serve the key again and vote")
 
 
 # The gates (tools/class_gate.py, tools/repair_queue.py) credit a registered class's
@@ -6546,106 +6543,57 @@ def prepare_merge_sources(ctx, plan, prepared, old, new, registration):
     return set(prepared)
 
 
-def prepared_references(ctx, plan, old, new, prepared, header):
-    """Units whose objects show the canonical class as its header lays it out: verified
-    ledger sources outside the prepared set that #include the canonical header, define no
-    body of NEW, and spell no OLD once rewritten (at most three; they must agree)."""
-    base = posixpath.basename(header).lower()
-    token, out = ClassText(old), []
-    for rel in plan.verify:
-        if rel in prepared:
-            continue
-        data = plan.after.get(rel, ctx.read(rel))
-        text = (data or b"").decode("utf-8", errors="replace")
-        includes = [m.group(1) for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*[<"]([^>"]+)[>"]', text)]
-        if not any(posixpath.basename(i.replace("\\", "/")).lower() == base for i in includes):
-            continue
-        if declares_type(name_metric.strip(text), new) or \
-                token.search("\n".join(line for line in text.splitlines() if not INCLUDE_LINE.match(line))):
-            continue
-        out.append(rel)
-        if len(out) == 3:
-            break
+LINE_MARKER = re.compile(r'(?m)^[ \t]*#[ \t]*line[ \t]+\d+[ \t]+"((?:[^"\\]|\\.)*)"')
+
+
+def _marker_path(raw):
+    """A `#line` marker's file as a comparable path: escapes undone, slashes forward,
+    lower case (the preprocessor reports Wine's case-folded absolute path or the
+    command line's relative one), `..` resolved."""
+    path = raw.replace("\\\\", "\\").replace("\\", "/").lower()
+    return posixpath.normpath(path)
+
+
+def class_definitions(text, word):
+    """[(file, offset)] of every definition of class/struct/union `word` in the
+    preprocessor's output, each attributed to the file its `#line` marker names:
+    heads carrying __declspec/__attribute__/alignas, macro expansions and anything
+    an #if left in are all already plain text there."""
+    head = re.compile(r"\b(?:class|struct|union)\s+(?:(?:__declspec|__attribute__|alignas)\s*\("
+                      r"(?:[^()]|\([^()]*\))*\)\s*)*%s\s*(?::[^;{]*)?\{" % re.escape(word))
+    markers = [(m.start(), _marker_path(m.group(1))) for m in LINE_MARKER.finditer(text)]
+    out = []
+    for match in head.finditer(text):
+        files = [path for at, path in markers if at < match.start()]
+        out.append((files[-1] if files else "", match.start()))
     return out
 
 
-def compiled_shape(every, type_name, depth=0):
-    """The structure of a compiled type, read from one unit's type stream (`every`): a
-    primitive's kind, a pointer, an array's element shape and count, or a class's sizeof,
-    vfptr, bases and every field (offset, name, shape) recursively. Unknown for anything
-    the stream does not state completely: a forward-only or unparsed class, a bitfield,
-    a type that is neither a primitive nor a class in the stream, or nesting too deep.
-    Two units' classes are the same class exactly when their shapes are equal."""
-    sys.path.insert(0, str(ROOT / "tools"))
-    import class_contract
-    if depth > 8:
-        raise Unknown(f"{type_name} nests too deep to compare")
-    if type_name == "bitfield":
-        raise Unknown("a bitfield's bits are not read")
-    if type_name.endswith("*"):
-        return ("P",)
-    array = re.fullmatch(r"(.+)\[(\d+)\]", type_name)
-    if array:
-        return ("A", int(array.group(2)), compiled_shape(every, array.group(1), depth + 1))
-    if type_name in class_contract.PRIMK:
-        return (class_contract.PRIMK[type_name],)
-    layout = every.get(type_name)
-    if not layout or layout.get("fwd") or not layout.get("size") or layout.get("unparsed") is not None:
-        raise Unknown(f"{type_name} has no complete layout in the compiled type stream")
-    bases = tuple((name, offset, compiled_shape(every, name.removeprefix("virtual "), depth + 1)
-                   if offset >= 0 else None) for name, offset in layout.get("bases", []))
-    if any(shape is None for _n, _o, shape in bases):
-        raise Unknown(f"{type_name} has a virtual base, whose placement is not read")
-    fields = tuple((offset, name, size, compiled_shape(every, field_type, depth + 1))
-                   for offset, name, field_type, size in layout.get("fields", []))
-    return ("class", layout.get("size"), bool(layout.get("vfptr")), bases, fields)
-
-
-def prepared_layout_problems(ctx, plan):
-    """After ./build.sh: each prepared unit's compiled type stream (view_layouts: its own
-    flags plus -Z7, CodeView) defines the class only as the canonical class. Its complete
-    NEW must have exactly the compiled shape (compiled_shape: sizeof, vfptr, bases, and
-    every field by offset, name, size and shape, member classes and arrays recursively)
-    of the NEW the reference units compile from the canonical header, which must agree
-    among themselves; a complete OLD, a missing or forward-only NEW, or anything the
-    stream does not state completely refuses. A text scan cannot see through `#if 0`,
-    `__declspec(...)` or macros; the compiler's type records can."""
+def prepared_attribution_problems(ctx, plan):
+    """After ./build.sh: each prepared unit, run through its own compiler's preprocessor
+    (preprocess_unit: cl -E under its build command, no object written), must see the
+    class only as the canonical header defines it. At least one definition of NEW must
+    come from the canonical header, as its `#line` markers attribute it, and none from
+    any other file (the unit itself, a macro expanded there, another header or a shim);
+    no definition of OLD may remain. A text scan cannot see through `#if 0`,
+    `__declspec(...)` or macros; the preprocessor's output has all of them resolved."""
     registered = plan.registered
-    old, new = registered["old"], registered["new"]
-
-    def shape(unit, every):
-        layout = every.get(new)
-        if not layout or layout.get("fwd"):
-            raise Unknown(f"{unit}'s object holds no complete {new}: its type info is missing")
-        return compiled_shape(every, new)
-    reference, problems = None, []
-    for unit in registered.get("references") or ():
-        try:
-            got = shape(unit, view_layouts(ctx, unit))
-        except Unknown as why:
-            return [f"the canonical {new} cannot be read from {unit}: {why}"]
-        if reference is not None and got != reference[0]:
-            return [f"the reference units disagree on the canonical {new} ({reference[1]} vs {unit})"]
-        reference = reference or (got, unit)
-    if reference is None:
-        return [f"no unit that adopts {registered['header']} is verified with this plan, so the prepared units' "
-                f"{new} has nothing to be compared with"]
+    old, new, header = registered["old"], registered["new"], registered["header"].lower()
+    problems = []
     for rel in registered.get("prepared") or ():
-        every = view_layouts(ctx, rel)
-        if every.get(old) and not every[old].get("fwd"):
-            problems.append(f"{rel}'s object still defines {old}")
-        try:
-            got = shape(rel, every)
-        except Unknown as why:
-            problems.append(f"{rel}: {why}")
+        text, why = preprocess_unit(ctx, rel)
+        if text is None:
+            problems.append(f"{rel} cannot be preprocessed to prove its {new}: {why}")
             continue
-        if got != reference[0]:
-            _k, size, vptr, _bases, fields = got
-            _k, want_size, want_vptr, _wbases, want_fields = reference[0]
-            extra = [f[:2] for f in fields if f not in want_fields]
-            missing = [f[:2] for f in want_fields if f not in fields]
-            problems.append(f"{rel}'s {new} is not the canonical class ({reference[1]}): sizeof {size} vs {want_size}, "
-                            f"vfptr {vptr} vs {want_vptr}, differing fields {extra[:2]}, canonical {missing[:2]}")
+        if class_definitions(text, old):
+            problems.append(f"{rel} still defines {old} once preprocessed")
+        definitions = class_definitions(text, new)
+        canonical = [f for f, _at in definitions if f == header or f.endswith("/" + header)]
+        others = sorted({f or "<no #line>" for f, _at in definitions if f not in canonical})
+        if others:
+            problems.append(f"{rel} defines its own {new} in {', '.join(others[:2])}, not only through {header}")
+        elif not canonical:
+            problems.append(f"{rel} never sees {header}'s {new} once preprocessed (a disabled or missing #include)")
     return problems
 
 
@@ -7012,13 +6960,8 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
     if len(plan.verify) > max_files:
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
     if prepared:
-        # the prepared units' class is judged after the build, from their compiled type records
+        # the prepared units' class is proved after the build, from their preprocessed text
         plan.registered["prepared"] = sorted(prepared)
-        plan.registered["references"] = prepared_references(ctx, plan, old, new, set(prepared),
-                                                            registration["header"])
-        if not plan.registered["references"]:
-            raise Refusal(f"no unit verified with this rename adopts {registration['header']} without a private "
-                          f"{new}: the prepared units' compiled class would have nothing to be compared with")
     if not plan.verify:
         raise Refusal(f"no ledger source compiles {old}; ./build.sh could not verify the rename")
 
@@ -10043,7 +9986,7 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
                 raise VerifyFailed(f"the rebuilt objects do not prove {plan.old} -> {plan.new}: "
                                    f"{stale[0][:300]}; every file restored")
             if plan.registered.get("prepared"):
-                copies = prepared_layout_problems(ctx, plan)
+                copies = prepared_attribution_problems(ctx, plan)
                 if copies:
                     raise VerifyFailed(f"a prepared unit keeps its own {plan.new}: {copies[0][:300]}; "
                                        "every file restored")

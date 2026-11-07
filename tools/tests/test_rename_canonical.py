@@ -599,103 +599,126 @@ def test_a_prepared_unit_must_name_the_class_through_its_header(spelled, evidenc
         plan_of(spelled, merge=True, prepared={VIEWS: text.encode()})
 
 
-CANONICAL_LAYOUT = {"fwd": False, "size": 12, "bases": [], "vfptr": True,
-                    "fields": [[4, "m_04", "int", 4], [8, "m_08", "int", 4]]}
 # a private copy no text scan sees: its include is compiled out, its head carries a __declspec
 HIDDEN = (f'// cl: /O2\n#if 0\n#include "{OLD}.h"\n#endif\n'
           f"class __declspec(align(4)) {NEW} {{ public: double m_unrelated[20]; }};\n"
           f"int nuggetType({NEW} *n) {{ return (int)n->m_unrelated[0]; }}\n")
+# how cl -E names the canonical header: Wine's case-folded absolute path through `..`
+WINE_HEADER = "z:\\\\home\\\\claude\\\\seat\\\\code\\\\game\\\\..\\\\Game\\\\Rva00401000Base.h"
+SHIM = "reference/shims/zh_outofline/GameClient/FXList.h"
 
 
-def compiled(monkeypatch, rename, streams):
-    """view_layouts as the compiler would answer after the build: `streams` maps a unit to
-    its classes; the reference units (BaseCtor.cpp, BaseSlots.cpp) compile the canonical class."""
+def unit_marker(line=1):
+    return f'#line {line} "{VIEWS}"\n'
+
+
+def header_part(cls=NEW):
+    return f'#line 1 "{WINE_HEADER}"\nclass {cls}\n{{\npublic:\n    int m_04;\n    int m_08;\n}};\n'
+
+
+CANONICAL_PP = unit_marker() + header_part() + unit_marker(3) + f"int nuggetType({NEW} *n) {{ return n->m_08; }}\n"
+
+
+def preprocessed(monkeypatch, rename, outputs):
+    """preprocess_unit as cl -E would answer after the build: `outputs` maps a unit to its
+    preprocessed text, or to an exception message for a unit the preprocessor refuses."""
     seen = []
 
-    def fake(ctx, unit):
-        seen.append(unit)
-        return streams.get(unit, {NEW: CANONICAL_LAYOUT})
-    monkeypatch.setattr(rename, "view_layouts", fake)
+    def fake(ctx, rel):
+        seen.append(rel)
+        out = outputs.get(rel, CANONICAL_PP)
+        return (None, out.args[0]) if isinstance(out, Exception) else (out, None)
+    monkeypatch.setattr(rename, "preprocess_unit", fake)
     monkeypatch.setattr(rename, "registered_object_problems", lambda ctx, plan: [])
     return seen
 
 
 def apply_prepared(root, rename, text):
     p = plan_of(root, merge=True, prepared={VIEWS: text.encode()})
-    assert p.registered["references"] == ["Code/Game/BaseCtor.cpp", "Code/Game/BaseSlots.cpp"]
+    assert p.registered["prepared"] == [VIEWS] and "references" not in p.registered
     return rename.apply_rename(p, ctx=rename.Context(root, object_scan=False), verify=lambda ctx, sources: True,
                                checks=None)
 
 
-def test_a_prepared_unit_compiling_the_canonical_class_lands(spelled, evidence_stubbed, monkeypatch):
+def test_a_prepared_unit_seeing_only_the_canonical_header_lands(spelled, evidence_stubbed, monkeypatch):
     defined(spelled, "    int m_nuggetType;\n")
-    seen = compiled(monkeypatch, evidence_stubbed, {VIEWS: {NEW: CANONICAL_LAYOUT}})
+    seen = preprocessed(monkeypatch, evidence_stubbed, {VIEWS: CANONICAL_PP})
     apply_prepared(spelled, evidence_stubbed, RESHAPED)
-    assert VIEWS in seen and "Code/Game/BaseCtor.cpp" in seen
+    assert seen == [VIEWS]                                         # no reference unit is consulted
     assert (spelled / VIEWS).read_bytes() == RESHAPED.encode()
 
 
-STORAGE = {"fwd": False, "size": 76, "bases": [], "vfptr": False, "fields": [[0, "m_bytes", "uchar[76]", 76]]}
-WITH_STORAGE = dict(CANONICAL_LAYOUT, size=88, fields=[[4, "m_04", "int", 4], [8, "m_08", "int", 4],
-                                                        [12, "m_10", "Storage", 76]])
-
-
-def test_byte_array_storage_compares_by_structure(spelled, evidence_stubbed, monkeypatch):
-    """The real FXNugget holds `Rva0042526Member { uchar m_bytes[76]; }` storage: compared by its compiled
-    shape (element kind and count), so the canonical class itself is readable."""
-    defined(spelled, "    int m_nuggetType;\n")
-    stream = {NEW: WITH_STORAGE, "Storage": STORAGE}
-    compiled(monkeypatch, evidence_stubbed, {"Code/Game/BaseCtor.cpp": stream, "Code/Game/BaseSlots.cpp": stream,
-                                             VIEWS: stream})
-    apply_prepared(spelled, evidence_stubbed, RESHAPED)
-    other = dict(STORAGE, fields=[[0, "m_bytes", "uchar[72]", 72], [72, "m_tail", "int", 4]])
-    compiled(monkeypatch, evidence_stubbed, {"Code/Game/BaseCtor.cpp": stream, "Code/Game/BaseSlots.cpp": stream,
-                                             VIEWS: {NEW: WITH_STORAGE, "Storage": other}})
-    run(spelled, "reset", "-q", "--hard")
-    run(spelled, "clean", "-qfd", "--", "reverse")
-    with pytest.raises(evidence_stubbed.VerifyFailed, match="is not the canonical class"):
-        apply_prepared(spelled, evidence_stubbed, RESHAPED)
-
-
-@pytest.mark.parametrize("stream,message", [
-    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_unrelated", "double[20]", 160]], size=164)},
-     "is not the canonical class"),
-    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_04", "float", 4], [8, "m_08", "int", 4]])}, "is not the canonical class"),
-    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_type", "int", 4], [8, "m_08", "int", 4]])}, "is not the canonical class"),
-    ({NEW: dict(CANONICAL_LAYOUT, size=16)}, "sizeof 16 vs 12"),
-    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_04", "Hidden", 4], [8, "m_08", "int", 4]])},
-     "Hidden has no complete layout"),
-    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_04", "bitfield", 0], [8, "m_08", "int", 4]])}, "bitfield"),
-    ({NEW: dict(CANONICAL_LAYOUT, bases=[["virtual Hidden", -1]])}, "virtual base"),
-    ({}, "type info is missing"),
-    ({NEW: {"fwd": True}}, "type info is missing"),
-    ({NEW: CANONICAL_LAYOUT, OLD: CANONICAL_LAYOUT}, "still defines Rva00401000Base"),
+@pytest.mark.parametrize("output,message", [
+    # round 5's probe: the include compiled out, a __declspec head, a 176-byte private class
+    (unit_marker() + f"class __declspec(align(4)) {NEW} {{ public: double m_unrelated[20]; }};\n",
+     "defines its own FXNugget in code/game/nuggetviews.cpp"),
+    (unit_marker() + f"int nuggetType({NEW} *n);\n", "never sees code/game/rva00401000base.h"),
+    # the canonical definition and a private one: a macro expanded in the unit
+    (CANONICAL_PP + unit_marker(9) + f"class {NEW} : public Base {{ int m_x; }};\n", "defines its own FXNugget"),
+    # another header (the Zero Hour shim) defining the same name
+    (unit_marker() + header_part() + f'#line 70 "{SHIM}"\nclass {NEW} {{ public: int m_type; }};\n',
+     "defines its own FXNugget in reference/shims/zh_outofline/gameclient/fxlist.h"),
+    (CANONICAL_PP + unit_marker(12) + f"class {OLD} {{ int m_x; }};\n", "still defines Rva00401000Base"),
+    (RuntimeError("the preprocessor refused it: C1083"), "cannot be preprocessed"),
 ])
-def test_a_prepared_unit_keeping_its_own_class_rolls_back(spelled, evidence_stubbed, monkeypatch, stream, message):
+def test_a_prepared_unit_keeping_its_own_class_rolls_back(spelled, evidence_stubbed, monkeypatch, output, message):
     defined(spelled, "    int m_nuggetType;\n")
     before = snapshot(spelled)
-    compiled(monkeypatch, evidence_stubbed, {VIEWS: stream})
+    preprocessed(monkeypatch, evidence_stubbed, {VIEWS: output})
     with pytest.raises(evidence_stubbed.VerifyFailed, match=message):
         apply_prepared(spelled, evidence_stubbed, RESHAPED)
     assert snapshot(spelled) == before
 
 
-def test_a_private_copy_the_text_scan_misses_is_caught_by_its_type_records(spelled, evidence_stubbed, monkeypatch):
+def test_a_private_copy_the_text_scan_misses_is_caught_by_the_preprocessor(spelled, evidence_stubbed, monkeypatch):
     """`#if 0` around the include and `class __declspec(align(4)) FXNugget` pass the text pre-filter."""
     defined(spelled, "    int m_nuggetType;\n")
     before = snapshot(spelled)
-    hidden = dict(CANONICAL_LAYOUT, vfptr=False, size=160, fields=[[0, "m_unrelated", "double[20]", 160]])
-    compiled(monkeypatch, evidence_stubbed, {VIEWS: {NEW: hidden}})
+    preprocessed(monkeypatch, evidence_stubbed, {VIEWS: unit_marker(4) + HIDDEN.split("#endif\n", 1)[1]})
     with pytest.raises(evidence_stubbed.VerifyFailed, match="keeps its own FXNugget"):
         apply_prepared(spelled, evidence_stubbed, HIDDEN)
     assert snapshot(spelled) == before
 
 
-def test_reference_units_that_disagree_refuse(spelled, evidence_stubbed, monkeypatch):
-    defined(spelled, "    int m_nuggetType;\n")
-    compiled(monkeypatch, evidence_stubbed, {"Code/Game/BaseSlots.cpp": {NEW: dict(CANONICAL_LAYOUT, size=16)}})
-    with pytest.raises(evidence_stubbed.VerifyFailed, match="reference units disagree"):
-        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+@pytest.mark.parametrize("head,defines", [
+    ("class FXNugget {", True),
+    ("struct FXNugget : public Base {", True),
+    ("class __declspec(align(4)) __declspec(novtable) FXNugget {", True),
+    ("class FXNugget;", False),
+    ("class LaserFXNugget : public FXNugget {", False),
+    ("void f(class FXNugget *p);", False),
+])
+def test_class_definitions_reads_preprocessed_heads(head, defines):
+    import rename
+    found = rename.class_definitions(unit_marker() + head + "\n", NEW)
+    assert bool(found) is defines and all(f == VIEWS.lower() for f, _at in found)
+
+
+def test_conflicting_complete_type_records_of_one_name_are_unparsed():
+    """class_layouts: two complete CodeView records of one name that differ mark the name unparsed."""
+    import struct
+    import class_layouts
+
+    def record(kind, payload):
+        return struct.pack("<HH", len(payload) + 2, kind) + payload
+
+    def member(type_index, offset, name):
+        sub = struct.pack("<HHIH", 0x150D, 3, type_index, offset) + name + b"\0"
+        return sub + bytes((0xF0 + (-len(sub)) % 4,)) * ((-len(sub)) % 4) if (-len(sub)) % 4 else sub
+
+    def klass(fieldlist, size, name):
+        return struct.pack("<HHIIIH", 1, 0, fieldlist, 0, 0, size) + name + b"\0"
+    int_t, double_t = 0x74, 0x41
+    stream = struct.pack("<I", 4)
+    stream += record(0x1203, member(int_t, 0, b"m_a"))                 # 0x1000
+    stream += record(0x1504, klass(0x1000, 4, b"Twin"))                # 0x1001
+    stream += record(0x1203, member(double_t, 0, b"m_a"))              # 0x1002
+    stream += record(0x1504, klass(0x1002, 8, b"Twin"))                # 0x1003
+    stream += record(0x1504, klass(0x1000, 4, b"Same"))                # 0x1004
+    stream += record(0x1504, klass(0x1000, 4, b"Same"))                # 0x1005
+    found = class_layouts.TypeStream(stream).classes()
+    assert found["Twin"].get("unparsed") == "conflicting complete records named Twin"
+    assert not found["Same"].get("unparsed") and found["Same"]["fields"] == [[0, "m_a", "int", 4]]
 
 
 def test_a_derived_class_in_a_prepared_unit_is_fine(spelled, evidence_stubbed, monkeypatch):
@@ -855,7 +878,7 @@ def test_votes_cast_against_another_text_are_no_credit(approved, monkeypatch, ca
     write(approved, HEADER, (approved / HEADER).read_text() + "// a later edit\n")
     run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qam", "header edited after the votes")
     land(approved, monkeypatch, f"agree:{agreement}")
-    assert_refused(approved, capsys, "changed after the vote by w-[0-9a-f]+ was recorded")
+    assert_refused(approved, capsys, "the vote by w-[0-9a-f]+ named another text")
 
 
 def test_a_header_edited_with_the_votes_is_no_credit(approved, monkeypatch, capsys):
@@ -865,7 +888,40 @@ def test_a_header_edited_with_the_votes_is_no_credit(approved, monkeypatch, caps
     run(approved, "add", "-A")
     run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "votes and a header edit")
     land(approved, monkeypatch, f"agree:{agreement}")
-    assert_refused(approved, capsys, "also changes Code/Game/Rva00401000Base.h")
+    assert_refused(approved, capsys, "the vote by w-[0-9a-f]+ named another text")
+
+
+def test_a_delayed_vote_commit_is_no_credit(approved, monkeypatch, capsys):
+    """Round 5's probe: votes cast on header A stay uncommitted while header B lands; then the
+    votes are committed. The commit graph shows B as their parent; the fingerprint shows A."""
+    agreement = vote_key(approved, f"{HEADER}|class||{OLD}", NEW, monkeypatch, commit=False)
+    write(approved, HEADER, (approved / HEADER).read_text().replace("int m_04;", "float m_04;"))
+    run(approved, "add", "--", HEADER)
+    run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "header B")
+    run(approved, "add", "--", "reverse")
+    run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "the votes, late")
+    land(approved, monkeypatch, f"agree:{agreement}")
+    assert_refused(approved, capsys, "the vote by w-[0-9a-f]+ named another text")
+
+
+def test_a_vote_without_a_fingerprint_is_no_credit(approved, monkeypatch, capsys):
+    """Votes recorded before submit wrote fingerprints count for nothing towards a credit."""
+    agreement = vote_key(approved, f"{HEADER}|class||{OLD}", NEW, monkeypatch)
+    import name_lane
+    (approved / name_lane.VOTE_SOURCES).unlink()
+    run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qam", "no fingerprints")
+    land(approved, monkeypatch, f"agree:{agreement}")
+    assert_refused(approved, capsys, "records no fingerprint")
+
+
+def test_submit_records_each_votes_served_fingerprint(approved, monkeypatch):
+    import csv as csv_module
+    import hashlib
+    import name_lane
+    vote_key(approved, f"{HEADER}|class||{OLD}", NEW, monkeypatch)
+    rows = list(csv_module.DictReader((approved / name_lane.VOTE_SOURCES).read_text().splitlines()))
+    assert len(rows) == 2 and {r["source_sha"] for r in rows} == {
+        hashlib.sha256((approved / HEADER).read_bytes()).hexdigest()}
 
 
 def test_a_forged_agreement_is_no_credit(approved, monkeypatch, capsys):
