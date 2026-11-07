@@ -551,6 +551,18 @@ link_check unchanged with the post-census providers included):
   UpdateSleepTime override) into slot 0 of 0x00C59124, where the constructor unit's table held `__purecall`
   (3/3 now); 9df93b0e363 moves xfer 0x004B87A3 and the getter 0x004B8797 (`--also`).
 
+- 6ebb40818aa: ReplaceSelfUpgrade (TSV needs-view), the WeaponBonusUpgrade recipe over UpgradeModule.h plus a
+  four-slot +0x1C interface (placeholder Rva004B70F0Iface1C). Its constructor now stores real tables where it
+  stored six zero ints: 0x00C58B10 8/12, 0x00C58AC8 17/18, 0x00C58110 41/47, 0x00C58AB8 1/4 by address, every
+  other slot an inline body of retail's shape, and the interface's own 0x00C4EF80 4/4. The deleting-destructor
+  scaffold FamilyDeletingDtors_muse-b1dd.cpp declares the class the same way, so its copies are digest-identical
+  (its one-slot `??_7ReplaceSelfUpgrade@@6B@` otherwise collided with the constructor unit's +0x1C table and
+  stopped linking). Left: slot 3 of 0x00C58110 returns 0 here, but retail 0x004B4A8C returns the +0x1C
+  subobject (`lea eax,[ecx-0xC]; add ecx,0x10; neg; sbb; and`), so the interface is CreateModuleInterface (target
+  fact; CreateModuleClass.h's four slots match the table's shapes). Adopting it needs `rva004B70F0` under that
+  interface's slot-1 name first. SpellRechargeModifierUpgrade has the same shape (+0x1C table 0x00C58358) but its
+  destructor fold and xfer touch SpellRechargeModifierUpgrade.cpp, held by lk51 this pass.
+
 Still walled:
 - SpawnUnitBehavior's +0x20 interface slot 0x004B8851 (`?rva004B8851@Rva004B8732`, table 0x00C59120, today
   `__purecall` in the kept copy): the move builds exact and the rebuilt table names it, but rename.py's
