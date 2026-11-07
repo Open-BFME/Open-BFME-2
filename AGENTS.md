@@ -106,6 +106,9 @@ verified and easy to rebase. Detail for the hook rules:
   admission and `data_check.py` outside `--converged` report in shadow; read
   `reverse/code_identity_baseline.tsv`'s mode line. Once it says `enforce`,
   findings outside the registers are refused and it never returns to shadow.
+- `class_gate.py`'s qualified-identity check for registered classes and class templates
+  reports in shadow (`reverse/class_gate_mode.txt`): `class_gate [shadow]` lines at commit and
+  `<git common dir>/class_gate_shadow.jsonl`; same one-way switch to `enforce`.
 - A full-gate hook run (header, vendored-reference and shared-shim edits,
   resolved merges): poll it, never relaunch it, never pipe a gate through
   anything that hides its exit code. Poll any build that returns a process or

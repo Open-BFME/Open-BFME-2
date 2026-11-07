@@ -1,0 +1,3 @@
+# class_gate's scope-qualified identity check (tools/class_gate.py): shadow reports would-be
+# refusals, enforce refuses them. Read from the staged copy; enforce never returns to shadow.
+# mode: shadow
