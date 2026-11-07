@@ -5559,3 +5559,4 @@ __ehhandler$?rva005C44DF@Rva005C44DF@@QAEPAVRva005C436E@@I@Z,0x007A0A69,"Renamed
 ??1Rva0049506E@@UAE@XZ,0x0049506E,"Renamed to ??1AutoFindHealingUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4EC10)"
 ??_GRva0049506E@@UAEPAXI@Z,0x00495167,"Renamed to ??_GAutoFindHealingUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4EC10)"
 ?xfer@Rva0049506E@@MAEXPAVXfer@@@Z,0x0049508D,"Renamed to ?xfer@AutoFindHealingUpdate@@MAEXPAVXfer@@@Z by tools/rename.py (fold: retail vftable 0x00C4EC10)"
+?update@Rva0049520B@@QAEHXZ,0x0049520B,"Renamed to ?update@AutoFindHealingUpdate@@UAE?AW4UpdateSleepTime@@XZ by tools/rename.py (to-class: retail vftable 0x00C4EC04 slot 0; return type: UpdateModule (registered, Code/GameEngine/Include/GameLogic/Module/UpdateModule.h) declares virtual UpdateSleepTime update(); return type: UpdateModuleInterface (registered, Code/GameEngine/Include/GameLogic/Module/UpdateModule.h) declares virtual UpdateSleepTime update())"

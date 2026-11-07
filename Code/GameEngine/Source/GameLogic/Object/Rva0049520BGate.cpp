@@ -1,8 +1,10 @@
 #include "../../Common/PartitionRangeQueryCallView.h"
 // cl: /O1 /arch:SSE /DNDEBUG /MD
 //
-// ?update@Rva0049520B@@QAEHXZ @0x0049520B 148B.
-// Player field +0x5c gates a counter at +0x10. Otherwise compare two
+// ?update@AutoFindHealingUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x0049520B 148B.
+// AutoFindHealingUpdate::update, slot 0 of the class's UpdateModuleInterface
+// table 0x00C4EC04 (installed at +0x10 by its constructor 0x00495139).
+// Player field +0x5c gates a counter at +0x20. Otherwise compare two
 // view floats and, when the actor slot 110 accepts, issue command 2.
 
 enum CommandSourceType
@@ -172,47 +174,56 @@ public:
 	Object *rva00495183();
 };
 
-class Rva0049520B
+// UpdateModuleInterface::update's return type (UpdateModule.h): an int-sized
+// enum, returned in eax like an int.
+enum UpdateSleepTime
 {
-public:
-	int update();
-
-private:
-	char m_pad[0x10];
-	int m_counter;
+	UPDATE_SLEEP_NONE = 1
 };
 
-int Rva0049520B::update()
+// update overrides UpdateModuleInterface::update (the subobject at +0x10), so
+// its `this` arrives as that subobject; the members below are the complete
+// object's.
+class AutoFindHealingUpdate : public UpdateModule
 {
-	Object *obj = *(Object **)((char *)this - 8);
+public:
+	virtual UpdateSleepTime update();
+
+private:
+	int m_counter; // +0x20
+};
+
+UpdateSleepTime AutoFindHealingUpdate::update()
+{
+	Object *obj = getObject();
 	Player *player = obj->getControllingPlayer();
 	if (player->m_playerType == 0)
-		return 1;
-	Other *other = *(Other **)((char *)this - 0xc);
+		return UPDATE_SLEEP_NONE;
+	const Other *other = (const Other *)getModuleData();
 	int counter = m_counter;
 	if (counter > 0) {
 		m_counter = counter - 1;
-		return 1;
+		return UPDATE_SLEEP_NONE;
 	}
 	m_counter = other->m_reset;
 	Actor *actor = obj->m_actor;
 	if (actor == 0)
-		return 1;
+		return UPDATE_SLEEP_NONE;
 	View *view = obj->m_view;
 	if (view == 0)
-		return 1;
+		return UPDATE_SLEEP_NONE;
 	float health = view->s4();
 	float scaled = view->s6() * other->m_scale;
 	if (health > scaled)
-		return 1;
+		return UPDATE_SLEEP_NONE;
 	if (actor->a110()) {
-		Object *created = ((Rva00495183 *)((char *)this - 0x10))->rva00495183();
+		Object *created = ((Rva00495183 *)(void *)this)->rva00495183();
 		if (created != 0) {
 			AICommandInterface *ai = (AICommandInterface *)((char *)actor + 0x20);
 			ai->aiGetHealed(created, CMD_FROM_AI);
 		}
 	}
-	return 1;
+	return UPDATE_SLEEP_NONE;
 }
 
 extern PartitionManager *ThePartitionManager;

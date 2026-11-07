@@ -394,9 +394,21 @@ from Rva0024A797Derived.cpp, and leave `loadPostProcess` to UpdateModule when re
   RadarUpdate::xfer (same +0x20 uint and +0x24/+0x25 bools), rowed as a twin; tables as HeightDieUpdate's.
 - link_check: HeightDieUpdateCtor.cpp 77 B and AutoDepositUpdateCtor.cpp 68 -> 144 B LINK, with their
   update, getter, factory and scaffold units unchanged.
-- Walled in the same family: AutoFindHealingUpdate (its update 0x0049520B is rowed non-virtual with an
-  int return, the 0x0028F976 false reject) and HijackerUpdate (getModuleNameKey 0x004A4010 is rowed as a
-  static member). OCLUpdate keeps its dtor identity conflict (above).
+- Walled in the same family: HijackerUpdate (getModuleNameKey 0x004A4010 is rowed as a static member).
+  OCLUpdate keeps its dtor identity conflict (above).
+- AutoFindHealingUpdate 0x00495139 (2026-11-07, seat halilkkaya-lk50; was walled by the int-return false
+  reject on its update 0x0049520B, cleared by the tooling fix f4fe1d2f893). The same recipe in three
+  commits: fe5e228b2fe declares the class over UpdateModule.h in its ctor unit; a3516e6ebcc folds
+  `Rva0049506E` (dtor 0x0049506E, `??_G` 0x00495167, xfer 0x0049508D); the update move respells
+  `?update@Rva0049520B@@QAEHXZ` as `?update@AutoFindHealingUpdate@@UAE?AW4UpdateSleepTime@@XZ`. Its body
+  (Rva0049520BGate.cpp) now reads getObject(), getModuleData() and the +0x20 counter from the complete
+  object. Tables against retail by address: 0x00C4EC04 3/3; 0x00BEFF90 45/47 + 2 inline; 0x00C4EC10 9/13
+  (slot 1 the jmp-equivalent base body, slot 5 the inline `ret`, slot 0 the unit's own `??_E`). Slot 2 is
+  still UpdateModule's getter: 0x00495087 (`Rva00495087Named`) sits in ModuleNameGetters3.cpp, which
+  Burachi-3D held (class:ArrowStormUpdate claim). Evidence: 62/62 exact; scoped DIR32 OK; link_check over
+  the ctor unit, Rva0024A797Derived.cpp, Rva0049508DXfer.cpp, Rva0049520BGate.cpp,
+  AutoFindHealingUpdateFriendNew.cpp, AutoFindHealingUpdate.cpp and ModuleFactory.cpp: 7/7 LINK, 4,532 B
+  unchanged. Census confirmation: not claimed.
 - WeaponBonusUpgrade 0x004B5633 (UpgradeModule family, its approved TU WeaponBonusUpgrade.cpp): the
   novtable WeaponBonusUpgradeView.h is gone; a shared `Code/GameEngine/Include/GameLogic/Module/WeaponBonusUpgrade.h`
   declares the class over UpgradeModule.h (UpgradeMux slot 8 is retail's shared empty body, an inline empty
