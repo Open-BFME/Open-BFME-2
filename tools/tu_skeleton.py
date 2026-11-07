@@ -108,6 +108,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tu_map  # noqa: E402
@@ -3534,17 +3535,30 @@ class UnitKeyRefusal(Exception):
 # and no text moves at all. P16: the LivingWorldCampaign Act chain sits in mixed STLport and
 # FXList files.
 
-# compiler-generated special members of a plain class: (name shape, what a user declaration
-# of that member spells in the text, with {c} the class)
+# compiler-generated special members of a plain class, by their mangled shape
 SPECIAL_MEMBERS = (
-    ("copy constructor", r"^\?\?0([A-Za-z_]\w*)@@Q[AB]E@AB[UV]0@@Z$",
-     r"\b{c}\s*\(\s*(?:const\s+)?(?:class\s+|struct\s+)?{c}\s*&"),
-    ("copy assignment", r"^\?\?4([A-Za-z_]\w*)@@QAEAA[UV]0@AB[UV]0@@Z$",
-     r"\boperator\s*=\s*\(\s*(?:const\s+)?(?:class\s+|struct\s+)?{c}\s*&"),
-    ("default constructor", r"^\?\?0([A-Za-z_]\w*)@@QAE@XZ$", r"\b{c}\s*\(\s*(?:void\s*)?\)"),
-    ("destructor", r"^\?\?1([A-Za-z_]\w*)@@[QU]AE@XZ$", r"~\s*{c}\s*\("),
-    ("deleting destructor", r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$", None),     # never written by hand
+    ("copy constructor", r"^\?\?0([A-Za-z_]\w*)@@Q[AB]E@AB[UV]0@@Z$"),
+    ("copy assignment", r"^\?\?4([A-Za-z_]\w*)@@QAEAA[UV]0@AB[UV]0@@Z$"),
+    ("default constructor", r"^\?\?0([A-Za-z_]\w*)@@QAE@XZ$"),
+    ("destructor", r"^\?\?1([A-Za-z_]\w*)@@[QU]AE@XZ$"),
+    ("deleting destructor", r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$"),     # never written by hand
 )
+CV = r"(?:\s*\b(?:const|volatile)\b)*"
+
+
+def special_member_decl(kind, cls, names):
+    """A pattern for a user declaration of `cls`'s `kind`, by its signature: the parameter type
+    spelled as any of `names` (the class and its aliases) with cv-qualifiers in either order
+    (`Rec(const Rec &)`, `Rec(Rec const&)`, `Rec(const volatile Alias &)`), in the class or
+    out of line (`Rec::Rec(`). The default constructor and destructor take no parameter and are
+    matched by name; a `Rec()` expression reads as a declaration too (fail-closed). None for a
+    deleting destructor, which no one writes."""
+    c = re.escape(cls)
+    ref = r"\(\s*" + CV + r"\s*(?:class\s+|struct\s+)?(?:" + "|".join(map(re.escape, sorted(names))) + r")\b" + CV + r"\s*&"
+    return {"copy constructor": r"(?<![~\w])" + c + r"\s*" + ref,
+            "copy assignment": r"\boperator\s*=\s*" + ref,
+            "default constructor": r"(?<![~\w])" + c + r"\s*\(\s*(?:void\s*)?\)",
+            "destructor": r"~\s*" + c + r"\s*\("}.get(kind)
 
 
 SCOPES = frozenset(("_STL", "std", "rts", "stlp_std"))      # namespaces, never template arguments
@@ -3567,23 +3581,55 @@ def template_arg_names(name, owner):
     return {n for n in re.findall(r"(?:[VU]|W4|\?\$)([A-Za-z_]\w*)@", rest)} - SCOPES - HELPERS - {cls, meth}
 
 
-def spells_instance(path, r):
-    """Does `path` spell row `r`'s instantiation itself: an explicit specialization or
-    instantiation, or a template-qualified member, for this row's own arguments
-    (template_arg_names inside the `<...>`)? A primary template's definition, or a
-    specialization for other arguments, leaves this instantiation implicit. With no class
-    argument to tell instances apart (`vector<int>`), or an unreadable file, it is
-    spells_definition's broader answer."""
+def type_aliases(code, words):
+    """`words` and every typedef or using-alias name whose declaration mentions one of them, to
+    a fixpoint (`typedef Rec Alias;`, `using A2 = Alias;`): the mangled name keeps the class,
+    the text may spell an alias (review of 3db7ced4b4)."""
+    names = set(words)
+    typedefs = [(m.group(1), rename._typedef_names(m.group(1)))
+                for m in re.finditer(r"\btypedef\b([^;{}]*(?:\{[^{}]*\}[^;{}]*)?);", code)]
+    usings = [(m.group(2), {m.group(1)}) for m in re.finditer(r"\busing\s+([A-Za-z_]\w*)\s*=\s*([^;]*);", code)]
+    grew = True
+    while grew:
+        grew = False
+        word = re.compile(r"\b(?:" + "|".join(map(re.escape, sorted(names))) + r")\b")
+        for body, declared in typedefs + usings:
+            if not declared <= names and word.search(body):
+                names |= declared
+                grew = True
+    return names
+
+
+def unit_text(path):
+    """(the unit's preprocessed text, None), or (None, why): `path` through cl -E under its
+    own build command (rename.preprocess_unit, no object written), so macros, includes and
+    aliases are what the compiler sees."""
+    cache = _CACHE.setdefault("unit_text", {})
+    if path not in cache:
+        ctx = SimpleNamespace(root=ROOT, path=lambda rel: ROOT / rel)
+        cache[path] = rename.preprocess_unit(ctx, path)
+    return cache[path]
+
+
+def spells_instance(path, r, code=None):
+    """Does `path` (or its text `code`, preprocessed by emit_move) spell row `r`'s instantiation
+    itself: an explicit specialization or instantiation, or a template-qualified member, for
+    this row's own arguments (template_arg_names, or an alias of one, inside the `<...>`)? A
+    primary template's definition, or a specialization for other arguments, leaves this
+    instantiation implicit. With no class argument to tell instances apart (`vector<int>`), or
+    an unreadable file, it is spells_definition's broader answer."""
     owner = instance_owner(r["name"])
     if owner is None:
         return True
     args = template_arg_names(r["name"], owner)
     if not args:
         return spells_definition(path, r)
-    try:
-        code = strip((ROOT / path).read_bytes().decode("utf-8-sig", errors="replace"))
-    except OSError:
-        return True
+    if code is None:
+        try:
+            code = strip((ROOT / path).read_bytes().decode("utf-8-sig", errors="replace"))
+        except OSError:
+            return True
+    args = type_aliases(code, args)
     angle = r"\s*<[^;{}]*\b(?:" + "|".join(map(re.escape, sorted(args))) + r")\b[^;{}]*>"
     cls, meth = owner
     if cls is None:          # a function template: f<FXList, FXList>( after `template`, or an explicit-argument call
@@ -3595,31 +3641,41 @@ def spells_instance(path, r):
         or re.search(r"\b" + re.escape(cls) + angle + r"\s*::\s*" + member, code))
 
 
-def implicit_comdat(r, paths):
-    """Why row `r` is not an implicit COMDAT that `paths` leave to the compiler, or None. A
-    template instantiation must be spelled by none of them (spells_instance: no explicit
-    specialization or instantiation for its own arguments); a special member of a plain
-    class must be declared by none (a user-declared copy constructor is a real function with
-    a home). Anything else is a body to carve (--split), not to move by emission. emit_move
-    asks it of the destination, whose own code must emit the row."""
+def implicit_comdat(r, path):
+    """Why row `r` is not an implicit COMDAT the unit `path` leaves to the compiler, or None,
+    judged on the unit's preprocessed text (unit_text; fail-closed when it cannot be made). A
+    template instantiation must not be spelled there (spells_instance: no explicit
+    specialization or instantiation for its arguments, aliases resolved); a special member
+    of a plain class must not be user-declared there or in anything it includes
+    (special_member_decl, by signature). Anything else is a body to carve (--split), not to
+    move by emission. emit_move asks it of the destination, whose own code must emit the row."""
     name = r["name"]
+    shape = next(((kind, m.group(1)) for kind, pattern in SPECIAL_MEMBERS if (m := re.match(pattern, name))), None)
+    if not TEMPLATE_INSTANCE.match(name) and shape is None:
+        return "not an implicit COMDAT by its name (a template instantiation or a compiler-generated special member)"
+    code, why = unit_text(path)
+    if code is None:
+        return f"{path} cannot be preprocessed ({why}): no proof it leaves the row to the compiler"
     if TEMPLATE_INSTANCE.match(name):
-        spelled = [p for p in paths if spells_instance(p, r)]
-        return (f"{spelled[0]} spells this instantiation (an explicit specialization or instantiation for "
-                "its arguments): a stand-in or a real body, not an implicit instantiation") if spelled else None
-    for kind, shape, declared in SPECIAL_MEMBERS:
-        m = re.match(shape, name)
-        if not m:
-            continue
-        for p in paths if declared else ():
-            try:
-                code = strip((ROOT / p).read_bytes().decode("utf-8-sig", errors="replace"))
-            except OSError:
-                return f"{p} cannot be read: no proof the {kind} is compiler-generated"
-            if re.search(declared.format(c=re.escape(m.group(1))), code):
-                return f"{p} declares {m.group(1)}'s {kind}: user-declared, not compiler-generated"
-        return None
-    return "not an implicit COMDAT by its name (a template instantiation or a compiler-generated special member)"
+        return (f"{path} spells this instantiation (an explicit specialization or instantiation for its arguments, "
+                "aliases resolved): a stand-in or a real body, not an implicit instantiation"
+                if spells_instance(path, r, code) else None)
+    kind, cls = shape
+    declared = special_member_decl(kind, cls, type_aliases(code, {cls}))
+    if declared and re.search(declared, code):
+        return f"{path} (preprocessed) declares {cls}'s {kind}: user-declared, not compiler-generated"
+    return None
+
+
+OBJECT_SYMBOL = re.compile(r"(?:^|;)\s*object-symbol=([^;]+)")
+
+
+def object_symbol_differs(r):
+    """The `object-symbol=` a row's bytes are verified under, when it is not the row's name:
+    build.py follows it (ledger_object_symbol), so a check by name would judge another symbol
+    (review of 3db7ced4b4)."""
+    m = OBJECT_SYMBOL.search(r.get("notes") or "")
+    return m.group(1).strip() if m and m.group(1).strip() != r["name"] else None
 
 
 def comdat_symbols(obj):
@@ -3650,15 +3706,21 @@ def identity_debt(path, names):
 def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
     """Repoint the implicit COMDAT rows of mixed `path` the current map approves for `tu` to
     the TU file, which must already emit each of them byte-exact. Fail-closed: every row
-    (an explicit `rvas` list, else every approved row) must be approved for `tu`, an
-    implicit COMDAT that the TU spells nowhere (implicit_comdat), defined by the TU's freshly
-    compiled object in a COMDAT section and byte-exact (the byte gate, beside the TU under the
-    flags its build will use), with no other row of `path` at its address and no identity
-    debt keyed to `path`. The file may keep a copy (the explicit instantiations and stand-in
-    views that host these rows today) only as a COMDAT, never a strong definition. The TU's
-    own rows and the residual's rows must keep every match they have.
-    Nothing but the ledger rows moves: no text, hatch or unit key. Without `rvas` a row
-    that does not qualify stays and is reported; with `rvas`, any refusal blocks all."""
+    (an explicit `rvas` list, else every approved row) must be approved for `tu`, verified
+    under its own name (no `object-symbol=` binding it to another symbol), an implicit
+    COMDAT that the TU's preprocessed text leaves to the compiler (implicit_comdat), defined
+    by the TU's object in a COMDAT section and byte-exact, with no other row of `path` at its
+    address and no identity debt keyed to `path`. The file may keep a copy (the explicit
+    instantiations and stand-in views that host these rows today) only as a COMDAT, never a
+    strong definition. The TU's own rows and the residual's rows must keep every match.
+
+    Two stages. A scratch compile beside each file (Verifier) screens the rows and is
+    re-judged with exactly the rows that move, since region flags follow the row set. The
+    apply then proves the committed state: the ledger is repointed, ./build.sh builds the
+    real files at their real paths (rename.build_verify), the rebuilt objects are read again
+    (COMDAT in the TU, no strong copy in the file), and on any failure the ledger is put back.
+    Nothing but the ledger rows moves: no text, hatch or unit key. Without `rvas` a row that
+    does not qualify stays and is reported; with `rvas`, any refusal blocks all."""
     report = {"file": path, "tu": tu}
     rows = file_rows(path)
     if not rows:
@@ -3696,7 +3758,11 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         return report
     refused = {}
     for r in approved:
-        why = implicit_comdat(r, [dest])
+        other = object_symbol_differs(r)
+        why = (f"its bytes are verified as {other} (object-symbol=), not under its name: every check here must "
+               "judge one symbol") if other else None
+        if why is None:
+            why = implicit_comdat(r, dest)
         if why is None and fold_alias(r):
             why = "an ICF alias: it lives where the bodies emitting its identity live"
         if why is None and sum(1 for o in rows if o["target_rva"].lower() == r["target_rva"].lower()) > 1:
@@ -3716,31 +3782,29 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
     # FXList>(...)`) compiles to a selectany COMDAT, which links beside the TU's. A strong
     # definition there would collide with the TU's copy: refuse. Judged on the object its
     # build compiles today (every row's flags).
-    import name_dependents
     vx = Verifier(path)
     text_x = (ROOT / path).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n")
     before_x = vx.matched(text_x, rows)
     if before_x is None:
         report["blocked"] = "the file does not compile: " + " | ".join(vx.errors)[:300]
         return report
-    data_x = vx.obj.read_bytes() if vx.obj and vx.obj.exists() else b""
-    strong_x = name_dependents.coff_symbol_names(data_x, include_local=False) - comdat_symbols(vx.obj)
     for r in movers:
-        if r["name"] in strong_x:
+        if r["name"] in strong_symbols(vx.obj):
             refused[r["target_rva"]] = "the file defines it outside a COMDAT: a strong body has a home (--split)"
     # the byte gate in the destination: the TU as it stands, judged with its own rows as its build will
     vt = Verifier(dest)
     text_t = (ROOT / dest).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n")
     own = file_rows(dest)
     before_t = vt.matched(text_t, own) if own else set()
+    if before_t is None:
+        report["blocked"] = "the TU does not compile: " + " | ".join(vt.errors)[:300]
+        return report
     got = vt.matched(text_t, own + moved) if moved else set()
     if moved and got is None:
         report["blocked"] = "the TU does not compile: " + " | ".join(vt.errors)[:300]
         return report
     if moved:
-        data = vt.obj.read_bytes() if vt.obj and vt.obj.exists() else b""
-        defined = name_dependents.coff_symbol_names(data, include_local=False)
-        comdats = comdat_symbols(vt.obj)
+        defined, comdats = defined_symbols(vt.obj), comdat_symbols(vt.obj)
         by_name = {o["name"]: o for o in movers}
         for r in movers + [c for c in moved if c not in movers]:      # parents first
             parent = by_name.get(parent_of(r, dtors) or "")
@@ -3752,7 +3816,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
                 refused[r["target_rva"]] = f"{dest} defines it outside a COMDAT: a strong body has a home (--split)"
             elif r["target_rva"] not in got:
                 refused[r["target_rva"]] = f"{dest}'s object emits it, but not byte-exact"
-        lost = sorted((before_t or set()) - got)
+        lost = sorted(before_t - got)
         if lost:
             report["blocked"] = f"{dest}'s own rows lose matches judged beside the moved rows: " + ", ".join(lost[:5])
             return report
@@ -3768,8 +3832,20 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         report["blocked"] = "a requested row cannot move by emission"
         return report
     moved = [r for r in moved if r["target_rva"] not in refused]
+    movers = [r for r in movers if r in moved]
     if not moved:
         report["blocked"] = "no row can move by emission"
+        return report
+    # Region flags follow the bytes of the rows a unit holds, so the TU is judged again with
+    # exactly the rows that move (review of 3db7ced4b4), COMDAT properties included.
+    final = vt.matched(text_t, own + moved)
+    if final is None or not {r["target_rva"] for r in moved} <= final or before_t - final:
+        report["blocked"] = (f"{dest} re-judged with exactly the rows that move loses a match: "
+                             + ", ".join(sorted(({r["target_rva"] for r in moved} | before_t) - (final or set()))[:5]))
+        return report
+    problem = committed_problem(movers, dest, vt.obj, vx.obj)
+    if problem:
+        report["blocked"] = problem
         return report
     keep = [r for r in rows if r not in moved]
     after_x = vx.matched(text_x, keep)
@@ -3782,6 +3858,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         return report
     report["moved"] = [r["target_rva"] for r in moved]
     if dry_run:
+        report["verify"] = f"screened by a scratch compile; the apply proves it with ./build.sh {path} {dest}"
         return report
     don = {path: moved}
     if claim:
@@ -3790,22 +3867,67 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
             claims.release(claim_keys(dest, don))
             report["blocked"] = held_message(held)
             return report
+    before = {rel: (ROOT / rel).read_bytes() for rel, _ in ROW_KEYED if (ROOT / rel).exists()}
     repointed = {}
     for rel, keycol in ROW_KEYED:
-        p = ROOT / rel
-        if p.exists():
-            raw, n = repoint_rows(p.read_bytes(), rel, keycol, report["moved"], "source", path, dest)
+        if rel in before:
+            raw, n = repoint_rows(before[rel], rel, keycol, report["moved"], "source", path, dest)
             if n:
-                p.write_bytes(raw)
+                (ROOT / rel).write_bytes(raw)
                 repointed[rel] = n
-    subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
+    # the committed state: the real files at their real paths, under the flags their build picks
+    # from the repointed ledger (no scratch sibling: __FILE__, __LINE__ and region flags are theirs)
     _CACHE.clear()
+    import build
+    ctx = rename.Context(ROOT)
+    if rename.build_verify(ctx, [path, dest]):
+        problem = committed_problem(movers, dest, build.obj_path(ROOT / dest), build.obj_path(ROOT / path))
+    else:
+        problem = "./build.sh did not pass the repointed rows: " + " | ".join(
+            (getattr(ctx, "_build_diagnostics", "") or "").strip().splitlines()[-3:])[:400]
+    if problem:
+        for rel, raw in before.items():
+            (ROOT / rel).write_bytes(raw)
+        _CACHE.clear()
+        if claim:
+            claims.release(claim_keys(dest, don))
+        report["blocked"] = problem + " (the ledger was put back)"
+        return report
+    subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
     report["repointed"] = repointed
     report["stage"] = "staged: " + " ".join(repointed)
-    report["verify"] = f"./build.sh {path} {dest}"
+    report["verified"] = f"./build.sh {path} {dest}"
     report["subject"] = (f"Move {len(moved)} emitted rows of {posixpath.basename(path)} into "
                          f"{posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact)")
     return report
+
+
+def defined_symbols(obj):
+    """External symbols `obj` defines (name_dependents.coff_symbol_names); empty when unreadable."""
+    import name_dependents
+    try:
+        return name_dependents.coff_symbol_names(Path(obj).read_bytes(), include_local=False) if obj else set()
+    except OSError:
+        return set()
+
+
+def strong_symbols(obj):
+    """External symbols `obj` defines outside COMDAT sections."""
+    return defined_symbols(obj) - comdat_symbols(obj)
+
+
+def committed_problem(movers, dest, obj_t, obj_x):
+    """Why the objects `obj_t` (the TU's) and `obj_x` (the file's) do not show each mover as the
+    TU's COMDAT with no strong copy left in the file, or None."""
+    defined, comdats, strong_x = defined_symbols(obj_t), comdat_symbols(obj_t), strong_symbols(obj_x)
+    for r in movers:
+        if r["name"] not in defined:
+            return f"{dest}'s object does not define {r['target_rva']} {r['name'][:60]}"
+        if r["name"] not in comdats:
+            return f"{dest} defines {r['target_rva']} outside a COMDAT"
+        if r["name"] in strong_x:
+            return f"the file still defines {r['target_rva']} outside a COMDAT"
+    return None
 
 
 # ---------------------------------------------------------------- shatter

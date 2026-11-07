@@ -1044,21 +1044,31 @@ class EmitMoveTests(unittest.TestCase):
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name).resolve()
         (self.root / "Code").mkdir()
-        (self.root / self.SOURCE).write_text("#include <memory>\nstruct Rec { int a; };\nvoid stay() {}\n")
-        (self.root / self.TU).write_text("struct Rec { int a; };\nvoid campaign(Rec *p, const Rec &r) { new (p) Rec(r); }\n")
+        self.write(self.SOURCE, "#include <memory>\nstruct Rec { int a; };\nvoid stay() {}\n")
+        self.write(self.TU, "struct Rec { int a; };\nvoid campaign(Rec *p, const Rec &r) { new (p) Rec(r); }\n")
 
-    def row(self, name, rva, source=None):
+    def write(self, rel, text):
+        """LF bytes on every host (a CRLF fixture would test another file)."""
+        path = self.root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(text.encode("utf-8"))
+
+    def row(self, name, rva, source=None, notes=""):
         return {"name": name, "export_rva": "", "target_rva": rva, "target_size": "8",
-                "source": source or self.SOURCE, "status": "matched", "notes": ""}
+                "source": source or self.SOURCE, "status": "matched", "notes": notes}
 
     def move(self, *, rvas=None, approved=None, defined=None, comdat=None, exact=None, residual_lost=(),
-             rows=None, dry_run=True, file_defined=(), file_comdat=()):
+             rows=None, dry_run=True, file_defined=(), file_comdat=(), final_lost=(), preprocessed=None,
+             built=True, built_defined=None, built_comdat=None):
         """emit_move over a file holding CTOR (0x2000), COPY (0x2100) and STAY (0x3000). `approved`
-        {rva: tu}; the TU's compiled object `defined`/`comdat` names and the rvas it matches `exact`;
-        the file's own object `file_defined`/`file_comdat` names."""
+        {rva: tu}; the TU's scratch object `defined`/`comdat` names and the rvas it matches `exact`
+        (`final_lost` lost when judged with only the rows that finally move); the file's object
+        `file_defined`/`file_comdat`; `preprocessed` {path: text or None} (default: the file's text);
+        for the apply, ./build.sh passing (`built`) and the real TU object's `built_defined`/`built_comdat`."""
         rows = rows if rows is not None else [self.row(self.CTOR, "0x00002000"), self.row(self.COPY, "0x00002100"),
                                               self.row(self.STAY, "0x00003000")]
-        approved = approved if approved is not None else {"0x00002000": self.TU, "0x00002100": self.TU, "0x00003000": self.OTHER}
+        approved = approved if approved is not None else {"0x00002000": self.TU, "0x00002100": self.TU,
+                                                          "0x00003000": self.OTHER}
         defined = {self.CTOR, self.COPY} if defined is None else defined
         comdat = defined if comdat is None else comdat
         exact = {"0x00002000", "0x00002100"} if exact is None else exact
@@ -1067,10 +1077,15 @@ class EmitMoveTests(unittest.TestCase):
             groups.setdefault(approved.get(r["target_rva"], ""), []).append(r)
         (self.root / "build").mkdir(exist_ok=True)
         objs = {self.TU: self.root / "build" / "t.obj", self.SOURCE: self.root / "build" / "x.obj"}
-        objs[self.TU].write_bytes(b"tu")
-        objs[self.SOURCE].write_bytes(b"file")
-        names = {b"tu": set(defined), b"file": set(file_defined)}
-        comdats = {objs[self.TU]: set(comdat), objs[self.SOURCE]: set(file_comdat)}
+        real = {self.TU: self.root / "build" / "real_t.obj", self.SOURCE: self.root / "build" / "real_x.obj"}
+        for key, path in list(objs.items()) + [(k + "#real", p) for k, p in real.items()]:
+            path.write_bytes(key.encode())
+        names = {self.TU.encode(): set(defined), self.SOURCE.encode(): set(file_defined),
+                 (self.TU + "#real").encode(): set(defined if built_defined is None else built_defined),
+                 (self.SOURCE + "#real").encode(): set(file_defined)}
+        comdats = {objs[self.TU]: set(comdat), objs[self.SOURCE]: set(file_comdat),
+                   real[self.TU]: set(comdat if built_comdat is None else built_comdat), real[self.SOURCE]: set(file_comdat)}
+        movers = {r["target_rva"] for r in rows if approved.get(r["target_rva"]) == self.TU}
 
         class Verifier:
             errors = []
@@ -1082,16 +1097,27 @@ class EmitMoveTests(unittest.TestCase):
             def matched(self, text, judged):
                 rvas_ = {r["target_rva"] for r in judged}
                 if self.tu == EmitMoveTests.TU:
-                    return rvas_ & exact
+                    lost = set(final_lost) if rvas_ & movers and not movers <= rvas_ else set()
+                    return (rvas_ & exact) - lost
                 return rvas_ - (set(residual_lost) if len(judged) < len(rows) else set())
 
+        def unit_text(path):
+            if preprocessed is not None and path in preprocessed:
+                return (preprocessed[path], None) if preprocessed[path] is not None else (None, "cl -E failed")
+            return (self.root / path).read_text(encoding="utf-8"), None
+
+        import build
         import name_dependents
         own = lambda p: rows if p == self.SOURCE else []
         with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
                 patch.object(T, "file_rows", side_effect=own), patch.object(T, "breakdown", return_value=groups), \
                 patch.object(T, "fold_alias", return_value=False), patch.object(T, "Verifier", Verifier), \
-                patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats[obj]), \
-                patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]):
+                patch.object(T, "unit_text", side_effect=unit_text), \
+                patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats.get(Path(obj), set())), \
+                patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]), \
+                patch.object(T.rename, "build_verify", return_value=built), \
+                patch.object(T.rename, "Context", side_effect=lambda root: SimpleNamespace(root=root)), \
+                patch.object(build, "obj_path", side_effect=lambda source: real[Path(source).relative_to(self.root).as_posix()]):
             return T.emit_move(self.SOURCE, self.TU, rvas, dry_run=dry_run, claim=False)
 
     def test_an_emitted_instantiation_and_copy_ctor_move(self):
@@ -1103,27 +1129,57 @@ class EmitMoveTests(unittest.TestCase):
     def test_a_row_approved_for_another_tu_refuses(self):
         report = self.move(rvas=["0x00003000"])
         self.assertIn("not approved for Code/Campaign.cpp", report["blocked"])
-        report = self.move(rvas=["0x00002000"], approved={"0x00002000": self.OTHER, "0x00002100": self.TU, "0x00003000": self.OTHER})
+        report = self.move(rvas=["0x00002000"], approved={"0x00002000": self.OTHER, "0x00002100": self.TU,
+                                                          "0x00003000": self.OTHER})
         self.assertIn("0x00002000 not approved", report["blocked"])
 
     def test_a_row_the_tu_spells_refuses(self):
         # the TU must emit it from its own code: an explicit instantiation or a declared member there is
         # a stand-in or a real body, not an implicit COMDAT
-        (self.root / self.TU).write_text("#include <memory>\nstruct Rec { int a; };\n"
-                                         "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n")
+        self.write(self.TU, "#include <memory>\nstruct Rec { int a; };\n"
+                            "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n")
         report = self.move(rvas=["0x00002000"])
         self.assertEqual(report["blocked"], "a requested row cannot move by emission")
         self.assertIn("spells this instantiation", report["refused_rows"]["0x00002000"])
-        (self.root / self.TU).write_text("struct Rec { Rec(const Rec &o); int a; };\nvoid campaign() {}\n")
+        self.write(self.TU, "struct Rec { Rec(const Rec &o); int a; };\nvoid campaign() {}\n")
         report = self.move(rvas=["0x00002100"])
         self.assertIn("user-declared", report["refused_rows"]["0x00002100"])
         report = self.move(rows=[self.row("?f@Rec@@QAEXXZ", "0x00002000"), self.row(self.STAY, "0x00003000")])
         self.assertIn("not an implicit COMDAT", report["refused_rows"]["0x00002000"])
 
+    def test_an_alias_or_another_signature_spelling_still_refuses(self):
+        # review of 3db7ced4b4: an alias keeps the mangled name, and `Rec(Rec const&)` is a copy ctor too
+        for text, rva in (("struct Rec { int a; };\ntypedef Rec Alias;\n"
+                           "template <> inline void _Construct<Alias, Alias>(Alias *p, const Alias &v) { }\n", "0x00002000"),
+                          ("struct Rec { int a; };\ntypedef Rec A1;\nusing A2 = A1;\n"
+                           "template void _STL::_Construct<A2, A2>(A2 *, const A2 &);\n", "0x00002000"),
+                          ("struct Rec { Rec(Rec const&o); int a; };\n", "0x00002100"),
+                          ("struct Rec { Rec(const volatile Rec &o); int a; };\n", "0x00002100"),
+                          ("struct Rec; typedef Rec Alias;\nstruct Rec { Rec(Alias const &o); int a; };\n", "0x00002100"),
+                          ("struct Rec { int a; };\nRec::Rec(const Rec &o) : a(o.a) { }\n", "0x00002100")):
+            with self.subTest(text=text):
+                self.write(self.TU, text)
+                report = self.move(rvas=[rva])
+                self.assertIn("blocked", report)
+                self.assertTrue(report["refused_rows"].get(rva), report)
+
+    def test_the_spelling_is_judged_on_the_preprocessed_unit(self):
+        # a header (or a macro) declares the copy ctor; the raw text never shows it
+        report = self.move(rvas=["0x00002100"], preprocessed={self.TU: "struct Rec { Rec(const Rec &); int a; };\n"})
+        self.assertIn("user-declared", report["refused_rows"]["0x00002100"])
+        report = self.move(rvas=["0x00002000"], preprocessed={self.TU: None})
+        self.assertIn("cannot be preprocessed", report["refused_rows"]["0x00002000"])
+
+    def test_a_row_bound_to_another_object_symbol_refuses(self):
+        # review of 3db7ced4b4: the byte check would follow object-symbol=, the COMDAT checks the name
+        rows = [self.row(self.CTOR, "0x00002000", notes="object-symbol=_standin"), self.row(self.STAY, "0x00003000")]
+        report = self.move(rows=rows, rvas=["0x00002000"])
+        self.assertIn("object-symbol=", report["refused_rows"]["0x00002000"])
+
     def test_spells_instance_tells_this_instantiation_from_the_templates_others(self):
         # LivingWorldCampaign.cpp's shape: the primary template declared, other arguments specialized
-        VECTOR_COPY = "??0?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@QAE@ABV01@@Z"
-        self.assertEqual(T.template_arg_names(VECTOR_COPY, ("vector", "vector")), {"FXList"})
+        vector_copy = "??0?$vector@VFXList@@V?$allocator@VFXList@@@_STL@@@_STL@@QAE@ABV01@@Z"
+        self.assertEqual(T.template_arg_names(vector_copy, ("vector", "vector")), {"FXList"})
         construct = self.CTOR
         clear = "?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VFXList@@@_STL@@@_STL@@QAEXXZ"
         self.assertEqual(T.template_arg_names(construct, (None, "_Construct")), {"Rec"})
@@ -1134,6 +1190,7 @@ class EmitMoveTests(unittest.TestCase):
             ("template <> __forceinline void _Construct<Other, Other>(Other *p, const Other &v) { }\n", construct, False),
             ("template <> void _Construct<Rec, Rec>(Rec *, const Rec &);\n", construct, True),
             ("template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n", construct, True),
+            ("typedef Rec R2;\ntemplate <> inline void _Construct<R2, R2>(R2 *, const R2 &) { }\n", construct, True),
             ("template <class V, class K> class hashtable { void clear() { } };\n", clear, False),
             ("template <class V> void hashtable<V, int>::clear() { }\n", clear, False),
             ("template class hashtable<pair<const NameKeyType, FXList>, NameKeyType>;\n", clear, True),
@@ -1141,11 +1198,11 @@ class EmitMoveTests(unittest.TestCase):
             ("template <> class hashtable<pair<const NameKeyType, FXList>, int> { };\n", clear, True),
             ("template class Box<int>;\n", "?clear@?$Box@H@@QAEXXZ", True),     # no class argument: the broad check
             # LivingWorldCampaign.cpp: another vector's copy ctor; allocator<> tells no instance apart
-            ("template <> vector<BfmePod40,allocator<BfmePod40> >::vector(const vector &o) { }\n", VECTOR_COPY, False),
-            ("template <> vector<FXList,allocator<FXList> >::vector(const vector &o) { }\n", VECTOR_COPY, True),
+            ("template <> vector<BfmePod40,allocator<BfmePod40> >::vector(const vector &o) { }\n", vector_copy, False),
+            ("template <> vector<FXList,allocator<FXList> >::vector(const vector &o) { }\n", vector_copy, True),
         ]
         for i, (text, name, want) in enumerate(cases):
-            (self.root / f"Code/s{i}.cpp").write_text(text)
+            self.write(f"Code/s{i}.cpp", text)
             with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True):
                 got = T.spells_instance(f"Code/s{i}.cpp", {"name": name, "target_rva": "0x00001200"})
             self.assertEqual(got, want, (text, name))
@@ -1153,9 +1210,9 @@ class EmitMoveTests(unittest.TestCase):
     def test_the_files_explicit_instantiation_stand_in_moves(self):
         # stlport_construct_game_structs.cpp's shape: the file hosts the row through an explicit
         # instantiation and a private view declaring the copy ctor; both compile to COMDATs
-        (self.root / self.SOURCE).write_text("struct Rec { Rec(const Rec &o) : a(o.a) {} int a; };\n"
-                                             "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n"
-                                             "void stay() {}\n")
+        self.write(self.SOURCE, "struct Rec { Rec(const Rec &o) : a(o.a) {} int a; };\n"
+                                "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n"
+                                "void stay() {}\n")
         report = self.move(file_defined={self.CTOR, self.COPY}, file_comdat={self.CTOR, self.COPY})
         self.assertNotIn("blocked", report)
         self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
@@ -1169,6 +1226,11 @@ class EmitMoveTests(unittest.TestCase):
         self.assertIn("does not emit it", report["refused_rows"]["0x00002000"])
         report = self.move(defined={self.COPY})          # without --rva the rest still moves
         self.assertEqual(report["moved"], ["0x00002100"])
+
+    def test_the_final_row_set_is_judged_again(self):
+        # review of 3db7ced4b4: with 0x2000 refused, the TU's flags follow 0x2100 alone and lose it
+        report = self.move(defined={self.COPY}, final_lost={"0x00002100"})
+        self.assertIn("re-judged with exactly the rows that move", report["blocked"])
 
     def test_a_byte_mismatch_refuses(self):
         report = self.move(rvas=["0x00002000"], exact={"0x00002100"})
@@ -1189,26 +1251,44 @@ class EmitMoveTests(unittest.TestCase):
         (self.root / self.TU).unlink()
         self.assertIn("does not exist", self.move()["blocked"])
 
-    def test_the_move_repoints_only_the_ledger(self):
+    def ledger(self):
         reverse = self.root / "reverse"
-        reverse.mkdir()
-        (reverse / "functions.csv").write_text(
-            "name,export_rva,target_rva,target_size,source,status,notes\n"
-            f"{self.CTOR},,0x00002000,8,{self.SOURCE},matched,\n{self.COPY},,0x00002100,8,{self.SOURCE},matched,\n"
-            f"{self.STAY},,0x00003000,8,{self.SOURCE},matched,\n")
-        (reverse / "tu_map.csv").write_text(
-            "rva,size,kind,tu,confidence,by,evidence,source\n"
-            f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.SOURCE}\n"
-            f"0x00003000,8,code,{self.OTHER},approved,F,F={self.OTHER},{self.SOURCE}\n")
+        reverse.mkdir(exist_ok=True)
+        self.write("reverse/functions.csv",
+                   "name,export_rva,target_rva,target_size,source,status,notes\n"
+                   f"{self.CTOR},,0x00002000,8,{self.SOURCE},matched,\n{self.COPY},,0x00002100,8,{self.SOURCE},matched,\n"
+                   f"{self.STAY},,0x00003000,8,{self.SOURCE},matched,\n")
+        self.write("reverse/tu_map.csv",
+                   "rva,size,kind,tu,confidence,by,evidence,source\n"
+                   f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.SOURCE}\n"
+                   f"0x00003000,8,code,{self.OTHER},approved,F,F={self.OTHER},{self.SOURCE}\n")
         subprocess.run(["git", "init", "-q", str(self.root)], check=True)
+        return {rel: (self.root / rel).read_bytes() for rel in ("reverse/functions.csv", "reverse/tu_map.csv")}
+
+    def test_the_move_repoints_only_the_ledger_after_build_sh_passes(self):
+        self.ledger()
         texts = {p: (self.root / p).read_bytes() for p in (self.SOURCE, self.TU)}
         report = self.move(rvas=["0x00002000"], dry_run=False)
         self.assertNotIn("blocked", report)
-        funcs = (reverse / "functions.csv").read_text()
+        self.assertEqual(report["verified"], f"./build.sh {self.SOURCE} {self.TU}")
+        funcs = (self.root / "reverse/functions.csv").read_text()
         self.assertIn(f"{self.CTOR},,0x00002000,8,{self.TU},matched", funcs)
         self.assertIn(f"{self.COPY},,0x00002100,8,{self.SOURCE},matched", funcs)       # not requested: stays
-        self.assertIn(f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.TU}", (reverse / "tu_map.csv").read_text())
+        self.assertIn(f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.TU}",
+                      (self.root / "reverse/tu_map.csv").read_text())
         self.assertEqual({p: (self.root / p).read_bytes() for p in texts}, texts)        # no text moved
+
+    def test_a_failing_build_or_committed_object_puts_the_ledger_back(self):
+        # review of 3db7ced4b4: a scratch sibling proves nothing about the committed paths
+        for kw, why in (({"built": False}, "./build.sh did not pass"),
+                        ({"built_comdat": set()}, "outside a COMDAT"),
+                        ({"built_defined": set()}, "does not define")):
+            with self.subTest(kw=kw):
+                before = self.ledger()
+                report = self.move(rvas=["0x00002000"], dry_run=False, **kw)
+                self.assertIn(why, report["blocked"])
+                self.assertIn("the ledger was put back", report["blocked"])
+                self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
 
 
 class FoldAliasSplitTests(unittest.TestCase):
