@@ -30,12 +30,7 @@ class AIUpdateInterface;
 
 extern GameLogic *TheGameLogic;
 
-struct MiscAudio
-{
-	unsigned char m_unmodelled00[0x20];
-	OpaqueRefElement4 m_defectorTimerTickSound;																///< 0x20
-	OpaqueRefElement4 m_defectorTimerDingSound;																///< 0x24
-};
+#include "Common/MiscAudioClass.h"
 
 #include "../../../../Include/Common/GameAudio.h"
 
