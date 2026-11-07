@@ -16,6 +16,7 @@
 // 0x002611AF, 0x0026119D and 0x002611DD (recorded blocked).
 
 #include <windows.h>
+#include "../../../Libraries/Source/WWVegas/WW3D2/LightClass.h"
 class GameLogic;
 class GlobalData;
 extern GameLogic *TheGameLogic;					// VA 0x00DFE78C
@@ -101,14 +102,9 @@ bool Rva00049F35::rva00049F35(bool *videoPassed, bool *cpuPassed, bool *memPasse
 	return true;
 }
 
-// 0x0006DD63 (slot 3 of LightClass's RefCountClass table): constant 14.
-class Rva0006DD63
-{
-public:
-	int Class_ID();
-};
-
-int Rva0006DD63::Class_ID()
+// 0x0006DD63, slot 3 of LightClass's RefCountClass table 0x00BD23C0: LightClass's own Class_ID,
+// the constant 14 (CLASSID_LIGHT).
+int LightClass::Class_ID() const
 {
 	return 14;
 }
