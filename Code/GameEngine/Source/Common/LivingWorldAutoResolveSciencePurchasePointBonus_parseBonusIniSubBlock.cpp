@@ -19,9 +19,6 @@ extern const FieldParse SciencePurchasePointBonusFieldParse[] =
 	{ "ArmorMultiplier",                  &INI::parseReal, 0, 0x8 },
 	{ 0, 0, 0, 0 }
 };
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva004135CDThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva004135CDThrowInfoAnchor rva004135CDThrowInfoAnchor = { 0, 0, 0, 0 };
 class LivingWorldAutoResolveSciencePurchasePointBonus
 {
 public:
@@ -35,7 +32,6 @@ void LivingWorldAutoResolveSciencePurchasePointBonus::parseBonusIniSubBlock(INI 
 	ini->initFromINI(this, SciencePurchasePointBonusFieldParse);
 	if (m_value00 < 0)
 	{
-		INIException exc(3, "Must provide a MinSciencePurchasePointsForBonus, and it must be >= 0");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva004135CDThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Must provide a MinSciencePurchasePointsForBonus, and it must be >= 0");
 	}
 }

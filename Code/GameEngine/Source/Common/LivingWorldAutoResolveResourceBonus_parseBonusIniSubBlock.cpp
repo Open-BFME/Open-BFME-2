@@ -19,9 +19,6 @@ extern const FieldParse ResourceBonusFieldParse[] =
 	{ "ArmorMultiplier",  &INI::parseReal, 0, 0x8 },
 	{ 0, 0, 0, 0 }
 };
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva00413DCCThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva00413DCCThrowInfoAnchor rva00413DCCThrowInfoAnchor = { 0, 0, 0, 0 };
 class LivingWorldAutoResolveResourceBonus
 {
 public:
@@ -35,7 +32,6 @@ void LivingWorldAutoResolveResourceBonus::parseBonusIniSubBlock(INI *ini)
 	ini->initFromINI(this, ResourceBonusFieldParse);
 	if (m_value00 < 0)
 	{
-		INIException exc(3, "Must provide a MinResourceBonus, and it must be >= 0");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva00413DCCThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Must provide a MinResourceBonus, and it must be >= 0");
 	}
 }

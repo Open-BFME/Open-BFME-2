@@ -37,9 +37,6 @@ struct Rva003F2576Outer
 };
 
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva003F2576ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva003F2576ThrowInfoAnchor rva003F2576ThrowInfoAnchor = { 0, 0, 0, 0 };
 
 extern const char *const LivingWorldBuildingTypeNames[];
 void Rva00339D26Parse(INI *, void *, void *, const void *);
@@ -56,8 +53,7 @@ void LivingWorldRegion::ModuleData::BuildingRestriction::ParseINI(INI *ini, void
 {
 	if (!ini || !outer)
 	{
-		INIException exc(3, "Invalid data in LivingWorldRegion::ModuleData::BuildingRestriction::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F2576ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in LivingWorldRegion::ModuleData::BuildingRestriction::ParseINI");
 	}
 	Rva003F255C *holder = &reinterpret_cast<Rva003F2576Outer *>(outer)->m_holder;
 	Rva003F1FB6 *restriction = new Rva003F1FB6;

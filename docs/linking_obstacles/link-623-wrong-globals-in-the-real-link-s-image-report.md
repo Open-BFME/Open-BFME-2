@@ -150,7 +150,7 @@ name, statics by `name@source`), compare the bytes outside relocations with reta
 (functions by ledger RVA, literals by content, data by ledger, data row or derived address). A placed table's
 relocations place the statics and externals it points at, which are then compared too. Base `9b62308701e`.
 
-Before: 1,668 external and 275 static symbols differed. After the commits below: 1,577 and 257. FieldParse tables:
+Before: 1,668 external and 275 static symbols differed. After the commits below: 1,577 and 254. FieldParse tables:
 406 of retail's 409 (`reverse/fieldparse_tables.tsv`) now equal retail; the other three are
 `s_radiusDecalFieldTable` (its Shadow entry points at this unit's other, identical shadow-name copy) and two tables
 no retail code reaches (0x0080EBE0, none; 0x00860C00, only the unrowed bytes at 0x0062AB87).
@@ -176,18 +176,16 @@ retail's target):
   and AptConnectionScreen's L" ": `657e1871766`.
 - 16 of 19 zero ThrowInfo anchors (16 bytes of zeros at retail's `__TI1?AVINIException@@`, so the first INI error
   would fault inside the C++ runtime's throw): the throws are `throw INIException(...)` again, bytes unchanged.
-  `032dbd2d129`, `aa8f2978258`, `590ce1d7dc9`.
+  `032dbd2d129`, `aa8f2978258`, `590ce1d7dc9` and the three LivingWorld parsers' commit after this entry's update.
 
 **Remaining**, by kind (after the commits above):
 
 - 1,523 `??_7` copies and 295 zero vptr or vtable placeholders (247 statics such as `s_dummy0C`, `*VTableAnchor`,
   and 48 externals such as the 1-byte `g_00BF1BC8`-style ModuleData vtables): LINK-514 and the vtable bridge.
-- 6 ThrowInfo anchors. `INI::parseBitString16`, `INI::dup_002EC6E` (`__TI1H`) and
+- 3 ThrowInfo anchors. `INI::parseBitString16`, `INI::dup_002EC6E` (`__TI1H`) and
   `INI::Rva003F1FD0_ParseGiveUpgrade` (`__TI1?AW4ErrorCode@@`) reuse a dead slot for the thrown value; `throw 1`
   compiles a fresh slot (tried, reverted, `reverse/re_attempts.log`). They need a way to name the compiler's
-  ThrowInfo without a hatch. The three LivingWorld parsers (`LivingWorldAutoResolveResourceBonus_*`,
-  `..SciencePurchasePointBonus_*`, `LivingWorldRegionBuildingRestrictionParseINI.cpp`) take the same
-  `throw INIException` fix; left to the seat holding the LivingWorld classes.
+  ThrowInfo without a hatch.
 - 17 explained: padding past a list's null (`TheDeathNames`, `s_buildCompletionNames`, `s_iconFadeTypeNames`, the
   `g_*Table00` arrays, two string statics), debug file names passed to `GetGameLogicRandomValue` (`s_file` in
   `StealthDetectorUpdateCtor.cpp`, `BoredUpdate.cpp`, `LivingWorldCampaign.cpp`), the 188-byte language buffer
