@@ -638,9 +638,34 @@ spelling); convention, return type and parameters are kept. It takes no
   which a view inheriting UpdateModule's slot calls too); a chain of jumps or
   a jump to another body still refuses. An installer unit that only
   references the class's `??_7` (a constructor storing the table another
-  unit emits) compiles no copy and is passed over; one installer must still
-  compile a matching table. It is checked on
-  the current objects when planning and on the rebuilt ones after ./build.sh.
+  unit emits) compiles no copy and is passed over, and so is a stand-in
+  installer: a destructor scaffold whose view keeps placeholder bases, so its
+  copies of the class's tables name nothing the ledger resolves (no row, pin
+  or moved name in any slot) under `??_7` symbols no judged installer
+  compiles (`??_7ObjectWeaponStatusHelper@@6BRva004DF8A9_B2@@@` = [f2] in
+  Rva004DF7C2Derived.cpp). One installer must still compile a matching table.
+  It is checked on the current objects when planning and on the rebuilt ones
+  after ./build.sh.
+
+An int-return placeholder override (`?update@Rva0028F976@@UAEHXZ`, where the
+base virtual returns an enum and C++ forbids an int override) may take the
+enum: a full mangled `--new` may differ from the row's tail only by the return
+type `H` -> `?AW4E@@` (thiscall, a global enum, `E` not spelled again in the
+signature), and only when a class registered in `canonical_classes.csv`, among
+C and the bases its installer units' views derive from, declares
+`virtual E WORD(` in its header (UpdateModuleInterface::update in
+UpdateModule.h returns UpdateSleepTime). MSVC returns an int-sized enum in eax
+like an int, so the byte gate still proves the body; the declaration is
+recorded in the evidence and the tombstone (`; return type: ...`).
+
+A table whose slots are all still rowed under other placeholders (Rva005C44A3's
+0x00C745D4) cannot prove its first move: no other slot resolves to agree with.
+`--also RVA=NEW` (repeatable) moves further slots of the same table in the same
+plan and verification. Every member passes the single-move checks, all sit in
+one table at distinct slots, each moved name resolves to its row's address, and
+every moved slot must agree with at least one other slot and clash with none:
+
+    python3 tools/rename.py function --rva 0x005C44DF --to-class Rva005C44A3 --new rva005C44DF         --also 0x005C44C3=getName --also 0x005C4352=rva005C4352 --prepared ... --dry-run
 
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under
 C, a caller that names the old member, a view declaring the override); the
@@ -683,7 +708,14 @@ refuses unless all of these hold:
   table: OLD's deleting destructor must sit in a slot of T, and each
   destructor of OLD must be called by one of them. Examples: DamageModule's
   0x004B96CC and CollideModule's 0x004BB68E (BehaviorModule's tables at `+0`
-  and `+0x0C`, the class's own at `+0x10`).
+  and `+0x0C`, the class's own at `+0x10`). When the base's constructor is
+  inline too, so no constructor of NEW calls one, a `+0` store may instead be
+  the own table of a class registered in `canonical_classes.csv` (one of its
+  special-member rows installs it as its own): ScriptGroup's 0x003B4100
+  restores Snapshot's 0x00BBB554. At each displacement the stores run in
+  order, the class's own table first and then its bases' (a base restore is
+  never followed by the class's own table; a later base must be a base of the
+  earlier one by its registered header).
 - T's `??_7X@@6B@` names (`data_rows.csv`, the `data_ledger.csv` names that
   matched rows' relocations bind at T, and, because that ledger is a cache that
   lags new rows, the DIR32 bindings the installing rows' own objects make at T

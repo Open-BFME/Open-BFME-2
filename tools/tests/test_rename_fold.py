@@ -1574,3 +1574,164 @@ def test_a_virtual_slot_tie_refuses_a_table_named_for_a_third_class(tmp_path, mo
     retail(monkeypatch, v_tables())
     with pytest.raises(Refusal, match=f"nothing ties {V_NEW} to it$"):
         v_plan(root)
+
+
+
+# ------------------------------------------------------------ a registered base's restore, no base constructor call
+#
+# ScriptGroup's destructor 0x003B4100 (placeholder Rva003B4100) is
+# `mov [ecx], 0x00BBB554; add ecx, 4; jmp clear`: its only +0 store is the
+# registered Snapshot's own table (??0Snapshot@@QAE@XZ 0x000053A6 installs it),
+# written by the inlined ~Snapshot after ScriptGroup's own store was dropped.
+# Snapshot's constructor is inline as well, so neither ScriptGroup constructor
+# (0x003B40DF, 0x003B410E) stores or calls one, and no base-constructor call
+# proves the restore. The deleting destructor 0x003B4A20 is slot 0 of
+# ScriptGroup's own table 0x00C1F470 and calls 0x003B4100 (re_attempts
+# ??1Rva003B4100@@UAE@XZ).
+SNAP_CTOR = 0x00408000
+SNAP_TABLE = 0x00800500
+MID_CTOR = 0x00409000
+MID_TABLE = 0x00800600
+SNAP_H = "Code/Game/Snap.h"
+
+
+def s_functions(extra=""):
+    return d_functions("??0Snap@@QAE@XZ,,0x00408000,9,Code/Game/Snap.cpp,matched,registered base ctor\n"
+                       "??0Mid@@QAE@XZ,,0x00409000,9,Code/Game/Mid.cpp,matched,registered middle ctor\n" + extra)
+
+
+def s_tables(dtor_stores=None, snap_store=0x00408002):
+    """NEW's ctor installs TABLE (its own) and calls nothing; the registered
+    Snap's ctor installs SNAP_TABLE, Mid's MID_TABLE; OLD's destructor stores
+    `dtor_stores` ({store: (table, disp)}; by default SNAP_TABLE at +0)."""
+    tables = {
+        TABLE: ([PURECALL, D_GDTOR, PURECALL], {0x00401002: 0}),
+        SNAP_TABLE: ([PURECALL], {snap_store: 0}),
+        MID_TABLE: ([PURECALL], {0x00409002: 0}),
+    }
+    stores = {0x00402001: (SNAP_TABLE, 0)} if dtor_stores is None else dtor_stores
+    for store, (table, disp) in stores.items():
+        tables.setdefault(table, ([PURECALL], {}))[1][store] = disp
+    return tables
+
+
+def s_tree(root, *, registered=("Snap", "Mid"), functions=None, mid_base="Snap"):
+    root = make_dtor_tree(root, functions or s_functions())
+    write(root, "reverse/canonical_classes.csv",
+          "class,header,notes\n" + "".join(f"{c},{SNAP_H},registered\n" for c in registered))
+    write(root, SNAP_H, "class Snap { public: Snap(); virtual ~Snap(); };\n"
+                        f"class Mid : public {mid_base} {{ public: Mid(); virtual ~Mid(); }};\n")
+    for rel in ("Code/Game/Snap.cpp", "Code/Game/Mid.cpp"):
+        write(root, rel, '#include "Snap.h"\n')
+    _git(root, "add", "-A")
+    return root
+
+
+def s_retail(monkeypatch, tables=None, calls=None):
+    calls = {D_GDTOR: {D_DTOR, 0x0002FD60}} if calls is None else calls
+    d_retail(monkeypatch, s_tables() if tables is None else tables, calls)
+
+
+def test_a_registered_bases_restore_takes_the_destructor_only_route(tmp_path, monkeypatch):
+    root = s_tree(tmp_path)
+    s_retail(monkeypatch)
+    p = d_plan(root)
+    assert p.fold == TABLE
+    assert (f"??1{D_OLD}@@QAE@XZ at 0x00402000 stores 0x00C00500 at +0x0, the own table of registered Snap "
+            "(??0Snap@@QAE@XZ at 0x00408000 installs it as its own), a base whose constructor is inline: an inlined "
+            "base destructor's restore") in p.evidence
+    assert f"??_G{D_OLD}@@QAEPAXI@Z at 0x00402010 is slot 1" in p.evidence
+    assert f"??1{D_OLD}@@QAE@XZ at 0x00402000 is called by ??_G{D_OLD}@@QAEPAXI@Z at 0x00402010" in p.evidence
+    rename.apply_rename(p, ctx=ctx_of(root), verify=lambda ctx, sources: True)
+    fns = (root / "reverse/functions.csv").read_text()
+    assert f"??1{D_NEW}@@QAE@XZ,,0x00402000,7,Code/Game/Dtor.cpp,matched," in fns
+
+
+def test_an_unregistered_classs_table_is_no_restore(tmp_path, monkeypatch):
+    root = s_tree(tmp_path, registered=())
+    s_retail(monkeypatch)
+    with pytest.raises(Refusal, match=f"{D_NEW} is not that class"):
+        d_plan(root)
+
+
+def test_a_registered_restore_needs_the_registered_class_to_own_the_table(tmp_path, monkeypatch):
+    # Snap's constructor installs another table first: SNAP_TABLE is no own table of it
+    root = s_tree(tmp_path)
+    tables = s_tables(snap_store=0x00408006)
+    tables[OTHER_TABLE] = ([PURECALL], {0x00408002: 0})
+    s_retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match=f"{D_NEW} is not that class"):
+        d_plan(root)
+
+
+def test_a_registered_restore_is_a_primary_vptr_store_only(tmp_path, monkeypatch):
+    # the registered table is stored at +0x10: the old route judges it (refused)
+    root = s_tree(tmp_path)
+    tables = s_tables({0x00402001: (SNAP_TABLE, 0x10), 0x00402003: (MID_TABLE, 0)})
+    s_retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="not that class|nothing ties"):
+        d_plan(root)
+
+
+def test_the_classs_own_table_never_follows_a_bases_restore(tmp_path, monkeypatch):
+    # stores in the wrong order: Snap's table, then NEW's own at +0
+    root = s_tree(tmp_path)
+    s_retail(monkeypatch, s_tables({0x00402001: (SNAP_TABLE, 0), 0x00402003: (TABLE, 0)}))
+    with pytest.raises(Refusal, match=f"{D_NEW} is not that class"):
+        d_plan(root)
+
+
+def test_the_classs_own_table_then_a_registered_base(tmp_path, monkeypatch):
+    # NEW's own store kept, then the base's restore: in order
+    root = s_tree(tmp_path)
+    s_retail(monkeypatch, s_tables({0x00402001: (TABLE, 0), 0x00402003: (SNAP_TABLE, 0)}))
+    p = d_plan(root)
+    assert f"stores 0x00C00000 at +0x0, which {D_NEW}'s constructor installs there last (its own)" in p.evidence
+    assert "the own table of registered Snap" in p.evidence
+
+
+def test_bases_restore_from_the_nearest_up(tmp_path, monkeypatch):
+    # Mid's table, then Snap's (Mid derives from Snap): the chain in order
+    root = s_tree(tmp_path)
+    s_retail(monkeypatch, s_tables({0x00402001: (MID_TABLE, 0), 0x00402003: (SNAP_TABLE, 0)}))
+    p = d_plan(root)
+    assert "the own table of registered Mid" in p.evidence and "the own table of registered Snap" in p.evidence
+
+
+def test_bases_restored_out_of_order_are_refused(tmp_path, monkeypatch):
+    # Snap's table, then Mid's: Mid is no base of Snap
+    root = s_tree(tmp_path)
+    s_retail(monkeypatch, s_tables({0x00402001: (SNAP_TABLE, 0), 0x00402003: (MID_TABLE, 0)}))
+    with pytest.raises(Refusal, match=f"{D_NEW} is not that class"):
+        d_plan(root)
+
+
+def test_unrelated_registered_tables_are_refused(tmp_path, monkeypatch):
+    # Mid's table, then Snap's, but Mid does not derive from Snap
+    root = s_tree(tmp_path, mid_base="Other")
+    s_retail(monkeypatch, s_tables({0x00402001: (MID_TABLE, 0), 0x00402003: (SNAP_TABLE, 0)}))
+    with pytest.raises(Refusal, match=f"{D_NEW} is not that class"):
+        d_plan(root)
+
+
+def test_a_registered_restore_still_needs_the_destructor_called_by_its_deleting_destructor(tmp_path, monkeypatch):
+    root = s_tree(tmp_path)
+    s_retail(monkeypatch, calls={D_GDTOR: {0x00499999}})
+    with pytest.raises(Refusal, match="called by no deleting destructor"):
+        d_plan(root)
+
+
+def test_a_registered_restore_still_needs_the_deleting_destructor_on_the_table(tmp_path, monkeypatch):
+    root = s_tree(tmp_path)
+    tables = s_tables()
+    tables[TABLE] = ([PURECALL, PURECALL, PURECALL], {0x00401002: 0})
+    s_retail(monkeypatch, tables)
+    with pytest.raises(Refusal, match="on no slot of retail vftable 0x00C00000"):
+        d_plan(root)
+
+
+def test_a_registered_restore_needs_a_destructor_family(tmp_path, monkeypatch):
+    root = s_tree(tmp_path, functions=s_functions(f"?run@{D_OLD}@@QAEXXZ,,0x00402200,5,Code/Game/Dtor.cpp,matched,m\n"))
+    s_retail(monkeypatch)
+    with pytest.raises(Refusal, match="not that class|nothing ties"):
+        d_plan(root)
