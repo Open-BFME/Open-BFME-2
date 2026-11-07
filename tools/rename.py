@@ -3949,7 +3949,12 @@ def to_class_slot_problems(ctx, check, *, current=True):
     symbol}; plan_to_class with --also) moves several slots of one table at
     once: each moved name resolves to its row's address, so each moved slot
     is judged against the others, and every moved slot must agree with at
-    least one slot other than itself and clash with none."""
+    least one slot other than itself and clash with none.
+
+    A retail table of exactly one slot has no other slot to agree with: a
+    compiled copy of exactly one slot that names the moved symbol in it is
+    the matching table (the plan already proved the class's special member
+    installs that table and that no other table holds the address)."""
     cls, retail = check["cls"], check["retail"]
     wanted = {int(k): v for k, v in (check.get("slots") or {check["slot"]: check["new"]}).items()}
     address = {}
@@ -3985,6 +3990,12 @@ def to_class_slot_problems(ctx, check, *, current=True):
             # each moved slot is judged by the slots other than itself
             agreeing = min(len(agree - {k}) for k in wanted)
             differing = max(len(clash - {k}) for k in wanted)
+            # A one-slot retail table has no other slot to agree with. Its
+            # compiled copy proves itself when it too is exactly one slot and
+            # that slot names the moved symbol (re_attempts 0x004B8851).
+            if (not agreeing and not differing and len(retail) == 1 and len(names) == 1
+                    and set(wanted) == {0} and names[0] == wanted[0]):
+                agreeing = 1
             verdicts.append((symbol, names, agreeing, differing))
         if verdicts and not any(name in address or name in wanted.values()
                                 for _s, names, _a, _c in verdicts for name in names):

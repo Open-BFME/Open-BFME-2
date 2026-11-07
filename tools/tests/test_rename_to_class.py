@@ -742,3 +742,62 @@ def test_a_copy_naming_anything_resolvable_is_judged(tree, monkeypatch, copy):
     problems = rename.to_class_slot_problems(ctx_of(tree), slot_check(["Code/Game/Widget.cpp", SCAFFOLD]),
                                              current=False)
     assert problems and problems[0].startswith(SCAFFOLD)
+
+
+# ------------------------------------------------------------ a one-slot table
+
+# Widget's ctor also installs a one-slot interface table at +4 (retail
+# SpawnUnitBehavior's +0x20 table 0x00C59120, re_attempts 0x004B8851): its
+# only slot holds the placeholder, so no other slot can agree with the move.
+IFACE = 0x00810000
+IFACE_STORE = 0x00402020    # inside the ctor row: mov dword ptr [ecx+4], IFACE
+ONE_SLOT = {TABLE: ([0x00403040, 0x00409000, 0x00404000], {CTOR_STORE: 0}),
+            IFACE: ([0x00401000], {IFACE_STORE: 4})}
+OTHER_SLOT = "?other@Widget@@UAEXXZ"
+
+
+def one_slot(compiled_iface):
+    return {"Code/Game/Widget.cpp": {"??_7Widget@@6B@": [GDTOR, OTHER_SLOT, STOP],
+                                     "??_7Widget@@6BIface@@@": compiled_iface}}
+
+
+def test_a_one_slot_table_proves_its_only_slot(tree, monkeypatch):
+    retail(monkeypatch, ONE_SLOT, compiled=one_slot([NEW]))
+    p = plan(tree)
+    assert p.new == NEW and p.to_class["slot"] == 0 and p.to_class["retail"] == [0x00401000]
+    assert "retail table 0x00C10000 slot 0, installed by ??0Widget@@QAE@XZ" in p.evidence
+    assert rename.to_class_slot_problems(ctx_of(tree), p.to_class, current=False) == []
+
+
+def test_a_one_slot_table_naming_another_symbol_is_refused(tree, monkeypatch):
+    retail(monkeypatch, ONE_SLOT, compiled=one_slot([OTHER_SLOT]))
+    with pytest.raises(Refusal, match=r"does not prove the slot.*0 slot\(s\) agree"):
+        plan(tree)
+
+
+def test_a_one_slot_retail_table_needs_a_one_slot_copy(tree, monkeypatch):
+    # the compiled interface grew a second slot: not retail's one-slot table
+    retail(monkeypatch, ONE_SLOT, compiled=one_slot([NEW, OTHER_SLOT]))
+    with pytest.raises(Refusal, match=r"does not prove the slot.*0 slot\(s\) agree"):
+        plan(tree)
+
+
+def test_a_one_slot_copy_does_not_excuse_a_multi_slot_retail_table(tree, monkeypatch):
+    # retail's table has a second, unresolved slot: the lone move stays refused
+    tables = {**ONE_SLOT, IFACE: ([0x00401000, 0x0040A000], {IFACE_STORE: 4})}
+    retail(monkeypatch, tables, compiled=one_slot([NEW]))
+    with pytest.raises(Refusal, match=r"does not prove the slot.*0 slot\(s\) agree"):
+        plan(tree)
+
+
+def test_a_one_slot_table_rebuilt_wrong_restores_everything(tree, monkeypatch):
+    retail(monkeypatch, ONE_SLOT, compiled=one_slot([NEW]))
+    before = {p.relative_to(tree).as_posix(): p.read_bytes()
+              for p in tree.rglob("*") if p.is_file() and ".git" not in p.parts}
+    p = plan(tree)
+    retail(monkeypatch, ONE_SLOT, compiled=one_slot([OTHER_SLOT]))
+    with pytest.raises(VerifyFailed, match="rebuilt vftable"):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    after = {p.relative_to(tree).as_posix(): p.read_bytes()
+             for p in tree.rglob("*") if p.is_file() and ".git" not in p.parts}
+    assert after == before

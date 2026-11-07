@@ -667,6 +667,12 @@ every moved slot must agree with at least one other slot and clash with none:
 
     python3 tools/rename.py function --rva 0x005C44DF --to-class Rva005C44A3 --new rva005C44DF         --also 0x005C44C3=getName --also 0x005C4352=rva005C4352 --prepared ... --dry-run
 
+A retail table of exactly one slot (SpawnUnitBehavior's +0x20 interface table
+0x00C59120) has no other slot at all. Its move proves itself when an
+installer's compiled copy is exactly one slot long too and that slot names the
+moved symbol; a longer copy, another name in the slot, or a longer retail table
+with its other slots unresolved still refuses.
+
 The C++ is the caller's, given as `--prepared REL=FILE` (the definition under
 C, a caller that names the old member, a view declaring the override); the
 files must be clean, tracked ledger sources. The tool respells rows, funclet
