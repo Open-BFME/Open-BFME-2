@@ -118,3 +118,6 @@ The Point and Ortho follow-up found a class specialization that preserves the fo
 
 
 The partial specialization follow-up for the twelve default references is blocked by VC7.1 C2755. The trial was reverted. [Compiler boundary](../../reverse/attempt_support/particle-tag-startup-order-20261107.md).
+
+
+**2026-11-07 ButterflyDraw category table.** The one-slot retail table at 0x0081C780 can be emitted with the exact export identity. That source variant changes two shared constructor COMDAT copies and drops the unit from 115 linked bytes to zero in the local preview. The imported-constructor variants lose the verified deleting destructor. All variants were reverted. [Reproduction and prerequisite](../../reverse/attempt_support/butterfly-draw-category-vftable-20261107.md).
