@@ -1,4 +1,4 @@
-# real link at f98a8da771643159a3c4cc77d0eee26b0555efa2: tools/exit_link.py --blockers
+# real link at 84f3ab358d74601f6d385cd557a8406305601902: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	193	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA
 Code/GameEngine/Source/Common/System/Snapshot.cpp	2	??0Matrix4D@@QAE@ABVCoord3D@@M@Z
@@ -10,12 +10,3 @@ Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	1	?crc@BehaviorM
 Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	1	?crc@BehaviorModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp	1	?crc@BehaviorModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp	1	?crc@BehaviorModule@@MAEXPAVXfer@@@Z
-Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp	1	?s_head@?$CategoryModuleClass@$07@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F83C9Parse.cpp	1	?s_head@?$CategoryModuleClass@$0A@@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F84BDParse.cpp	1	?s_head@?$CategoryModuleClass@$00@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F852BParse.cpp	1	?s_head@?$CategoryModuleClass@$01@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F8599Parse.cpp	1	?s_head@?$CategoryModuleClass@$02@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F8607Parse.cpp	1	?s_head@?$CategoryModuleClass@$03@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F8675Parse.cpp	1	?s_head@?$CategoryModuleClass@$04@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F86E3Parse.cpp	1	?s_head@?$CategoryModuleClass@$05@FXParticleSystem@@2PAV12@A
-Code/Libraries/Source/WWVegas/WWLib/Rva001F8751Parse.cpp	1	?s_head@?$CategoryModuleClass@$06@FXParticleSystem@@2PAV12@A
