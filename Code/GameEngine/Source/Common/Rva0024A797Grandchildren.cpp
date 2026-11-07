@@ -346,9 +346,6 @@ class Rva004B8732 : public UpdateModule, public Rva004B8732_E1
 {
 public:
 	virtual ~Rva004B8732();
-protected:
-	// retail vftable slot: the rowed override
-	virtual void xfer(Xfer *);
 };
 
 Rva004B8732::~Rva004B8732()
