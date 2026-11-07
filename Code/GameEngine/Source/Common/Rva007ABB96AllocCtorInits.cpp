@@ -72,9 +72,9 @@ extern unsigned g_00DFE358;
 extern unsigned g_Va00DFF134;
 namespace _STL { template <class T> struct _Nonconst_traits; template <class T, class Traits> struct _Deque_iterator; }
 extern _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > g_00E031A8;	// deque<BfmeE12>; stlport_deque_e12_findnode.cpp's view names its first iterator
-extern unsigned g_Va00E04920;
+extern unsigned g_Va00E04920[3];
 extern unsigned g_Va00E0657C;
-extern unsigned g_Va00E06654;
+extern unsigned g_Va00E06654[3];
 extern unsigned g_Va00E06670;
 extern unsigned g_Va00DE6194;
 extern unsigned g_Va00E032DC;

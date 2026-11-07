@@ -545,7 +545,7 @@ namespace _STL {
 template<> vector<Rva005334A4Element>::iterator vector<Rva005334A4Element>::erase(iterator first, iterator last);
 }
 // Use the data ledger owner; the vector remains a local view.
-extern unsigned int g_Va00E04920;
+extern unsigned int g_Va00E04920[3];
 class Rva005BEA22
 {
 public:

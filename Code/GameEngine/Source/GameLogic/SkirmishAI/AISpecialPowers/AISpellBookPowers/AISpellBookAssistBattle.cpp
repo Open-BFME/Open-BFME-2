@@ -27,7 +27,7 @@ namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(
 
 extern GameLogic *TheGameLogic;
 // The vector at 0x00E06654 is owned as g_Va00E06654 (Rva007B6880Thunks.cpp).
-extern unsigned int g_Va00E06654;
+extern unsigned int g_Va00E06654[3];
 #define g_00E06654 (*(_STL::vector<BfmeE8> *)&g_Va00E06654)
 extern int g_00E06650;
 // g_00E06650: matched references place it at VA 0xe06650 (zero-filled .bss).

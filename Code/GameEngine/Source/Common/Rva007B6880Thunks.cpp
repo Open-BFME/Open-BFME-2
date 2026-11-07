@@ -6114,8 +6114,8 @@ void __cdecl rva007B903F()
 	return receiver->~basic_string();
 }
 
-extern unsigned g_Va00E04920;
-unsigned int g_Va00E04920;
+extern unsigned g_Va00E04920[3];
+unsigned int g_Va00E04920[3];	// a 12-byte STLport vector (retail .data)
 
 void __cdecl rva007B91E4()
 {
@@ -6471,8 +6471,8 @@ void __cdecl rva007B9702()
 	return receiver->Rva005C47A3::~Rva005C47A3();
 }
 
-extern unsigned g_Va00E06654;
-unsigned int g_Va00E06654;
+extern unsigned g_Va00E06654[3];
+unsigned int g_Va00E06654[3];	// a 12-byte STLport vector (retail .data)
 
 // ?rva007B982F@@YAXXZ @ 0x007B982F (10B). Global basic_string<char> dtor thunk: ecx=&g_Va00E06654 then tail-jmp to rowed BasicStringCharDtor_dup (0x0007FAB3 object ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ). No callers. Honest address name.
 void __cdecl rva007B982F()

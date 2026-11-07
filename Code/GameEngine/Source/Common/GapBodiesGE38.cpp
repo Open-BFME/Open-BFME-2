@@ -38,7 +38,7 @@ Rva005D48BE::Rva005D48BE(int a, int b, float c) : m_a(a), m_b(b), m_c(c)
 // --- 0x005D833E (28B) / 0x005D851D (28B), cdecl: empty the 8-byte-record
 // vectors at 0x00E06654 / 0x00E06670 (rowed erase 0x003FA4DB).
 struct BfmePod8;
-extern unsigned g_Va00E06654;
+extern unsigned g_Va00E06654[3];
 extern unsigned g_Va00E06670;
 
 typedef _STL::vector<BfmePod8> Rva005D833EVector;

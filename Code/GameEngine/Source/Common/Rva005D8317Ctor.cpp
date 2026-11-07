@@ -21,7 +21,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 // The vector at 0x00E06654 is owned as g_Va00E06654 (Rva007B6880Thunks.cpp).
-extern unsigned int g_Va00E06654;
+extern unsigned int g_Va00E06654[3];
 #define g_00E06654 (*(_STL::vector<BfmePod8> *)&g_Va00E06654)
 
 class Rva005D8317 : public Rva005EE30C
