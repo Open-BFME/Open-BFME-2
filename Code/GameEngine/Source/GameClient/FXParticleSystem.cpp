@@ -71,6 +71,9 @@ struct RGBAColorInt;
 class INI;
 
 #include "../../Include/GameClient/GpuDrawModuleInfo.h"
+
+template <class T> struct DataRowPrivateProbe;
+
 namespace FXParticleSystem
 {
 
@@ -576,6 +579,10 @@ public:
 
 protected:
     CategoryModuleClassBase(const CategoryModuleClass<CATEGORY> &that, bool registerIt);
+
+private:
+    template <class T> friend struct ::DataRowPrivateProbe;
+    static const CategoryModuleClass<CATEGORY> *s_default;
 };
 
 // One load of the category's default slot. Unlike almost everything else in
@@ -584,7 +591,7 @@ protected:
 template <int CATEGORY, int MODULE_COUNT>
 const CategoryModuleClass<CATEGORY> &CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::getDefault()
 {
-    return *CategoryModuleClass<CATEGORY>::s_instance;
+    return *s_default;
 }
 
 // inline, and emitted anyway by the explicit instantiations below: without it
@@ -595,7 +602,7 @@ inline CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::CategoryModuleClassBase(
     const CategoryModuleClass<CATEGORY> &that, bool registerIt)
 {
     if (registerIt) {
-        CategoryModuleClass<CATEGORY>::s_instance = &that;
+        s_default = &that;
     }
 }
 
@@ -629,8 +636,9 @@ public:
     const char *getName() const { return m_name; }
     const CategoryModuleClass<CATEGORY> *getNext() const { return m_next; }
 
-    static const CategoryModuleClass<CATEGORY> *s_instance;
-    static CategoryModuleClass<CATEGORY> *s_head;
+private:
+    template <class T> friend struct ::DataRowPrivateProbe;
+    static const CategoryModuleClass<CATEGORY> *s_first;
 
 protected:
     CategoryModuleClass(bool isDefault, const char *key, const char *name);
@@ -642,14 +650,14 @@ protected:
 
     const char *m_key;
     const char *m_name;
-    CategoryModuleClass<CATEGORY> *m_next;
+    const CategoryModuleClass<CATEGORY> *m_next;
 };
 
-template <int CATEGORY>
-const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_instance;
+template <int CATEGORY, int MODULE_COUNT>
+const CategoryModuleClass<CATEGORY> *CategoryModuleClassBase<CATEGORY, MODULE_COUNT>::s_default;
 
 template <int CATEGORY>
-CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_head;
+const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::s_first;
 
 template <int CATEGORY>
 CategoryModuleClass<CATEGORY>::~CategoryModuleClass()
@@ -659,7 +667,7 @@ CategoryModuleClass<CATEGORY>::~CategoryModuleClass()
 template <int CATEGORY>
 const CategoryModuleClass<CATEGORY> *CategoryModuleClass<CATEGORY>::getFirst()
 {
-    return s_head;
+    return s_first;
 }
 
 
@@ -748,8 +756,8 @@ CategoryModuleClass<CATEGORY>::CategoryModuleClass(bool isDefault, const char *k
 {
     m_key = key;
     m_name = name;
-    m_next = s_head;
-    s_head = this;
+    m_next = s_first;
+    s_first = this;
 }
 
 template class CategoryModuleClassBase<0, 1>;
@@ -779,13 +787,15 @@ class CategoryModuleClass<8>
 public:
     friend void _bfmeFXParticleSystemHeaderInlineAnchor(void *);
 
-    static CategoryModuleClass<8> *s_head;
-
     static const CategoryModuleClass<8> *getFirst();
 
     const char *getKey() const { return m_key; }
     const char *getName() const { return m_name; }
     const CategoryModuleClass<8> *getNext() const { return m_next; }
+
+private:
+    template <class T> friend struct ::DataRowPrivateProbe;
+    static const CategoryModuleClass<8> *s_first;
 
 protected:
     CategoryModuleClass(bool isDefault, const char *key, const char *name);
@@ -796,7 +806,7 @@ protected:
 
     const char *m_key;
     const char *m_name;
-    CategoryModuleClass<8> *m_next;
+    const CategoryModuleClass<8> *m_next;
 };
 
 // The second template parameter is not a module count but a has-default flag.
@@ -806,10 +816,10 @@ template class CategoryModuleClassBase<8, 0>;
 
 const CategoryModuleClass<8> *CategoryModuleClass<8>::getFirst()
 {
-    return s_head;
+    return s_first;
 }
 
-CategoryModuleClass<8> *CategoryModuleClass<8>::s_head;
+const CategoryModuleClass<8> *CategoryModuleClass<8>::s_first;
 
 // A full specialization emits only the members something names, and nothing in
 // this file calls the event category's accessors; these force all three out.
@@ -826,8 +836,8 @@ CategoryModuleClass<8>::CategoryModuleClass(bool isDefault, const char *key, con
 {
     m_key = key;
     m_name = name;
-    m_next = s_head;
-    s_head = this;
+    m_next = s_first;
+    s_first = this;
 }
 
 // The per-category info base. Every module template carries one, which is what
