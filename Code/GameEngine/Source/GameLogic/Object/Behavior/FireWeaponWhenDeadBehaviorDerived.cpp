@@ -76,13 +76,12 @@ Rva004B3D3B::~Rva004B3D3B()
 {
 }
 
-class Rva004B46F9 : public UpgradeModule
-{
-public:
-	virtual ~Rva004B46F9();
-};
+// RadarUpgrade's destructor 0x004B46F9: its constructor 0x004B478E installs
+// the same four tables. The class is RadarUpgrade.h's, so this unit's copies
+// of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/RadarUpgrade.h"
 
-Rva004B46F9::~Rva004B46F9()
+RadarUpgrade::~RadarUpgrade()
 {
 }
 

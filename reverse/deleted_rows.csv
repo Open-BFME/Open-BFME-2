@@ -5675,3 +5675,5 @@ _$E1,0x007B1A27,"Retracted for readmission as _$E3 in SlavedUpdateRepair.cpp: th
 ?rva007ADDF9@Rva007AB7F0HalfRateInits@@SAXXZ,0x007ADDF9,"Retracted for readmission as _$E14 in View.cpp: retail 0x007ADDF9 is View's Drawable.h copy; its static 0x00DFEA40 directly follows TheTacticalView 0x00DFEA3C (plain, defined in View.cpp), alone in its run, and Zero Hour's View.cpp includes GameClient/Drawable.h (donor fact); the file includes Zero Hour's Drawable.h, so it takes the bfme2_drawable_flash shim (LINK-236)"
 ?name@Rva004B4719Named@@QBEPBDXZ,0x004B4719,"Renamed to ?GetSnapshotName@RadarUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C57890 slot 2)"
 ?rva004B47DB@Rva004B46F9@@UAEXXZ,0x004B47DB,"Renamed to ?onDelete@RadarUpgrade@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C57890 slot 8)"
+??1Rva004B46F9@@UAE@XZ,0x004B46F9,"Renamed to ??1RadarUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57890)"
+??_GRva004B46F9@@UAEPAXI@Z,0x004B47BF,"Renamed to ??_GRadarUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57890)"

@@ -158,21 +158,9 @@ class Object;
 
 typedef bool Bool;
 
-// RadarUpgrade over the canonical UpgradeModule.h (target facts, VAs for
-// tables): ctor 0x004B478E calls ??0UpgradeModule 0x00460AEC, then installs
-// 0x00C57890 at +0, UpgradeModule's 0x00C57328 at +0x0C, 0x00C57848 at +0x10
-// and UpgradeModule's 0x00C58790 at +0x18; its destructor 0x004B46F9 (rowed
-// under the placeholder Rva004B46F9) restores the same four.
-//  - 0x00C57890 (12 slots): deleting dtor 0x004B47BF, loadPostProcess
-//    0x00497805 (`jmp 0x0058B03E`, UpgradeModule's own body), GetSnapshotName
-//    0x004B4719 ("RadarUpgrade", ModuleNameGetters3.cpp), xfer 0x004B8710
-//    (Version1 then UpgradeModule::xfer, the body retail folds with
-//    ArmorUpgrade::xfer), getModuleNameKey 0x004B4727, slot 8 onDelete
-//    0x004B47DB, slot 9 onCapture 0x004B4828, then UpgradeModule's slots.
-//  - 0x00C57848 (UpgradeMux, 18 slots): UpgradeModule's except slot 8,
-//    upgradeRemovalImplementation 0x004B471F (setUpgradeExecuted(false)
-//    through slot 9; one body in five upgrade tables), and slot 10,
-//    upgradeImplementation 0x004B488F.
+// RadarUpgrade is declared over the canonical UpgradeModule.h in RadarUpgrade.h
+// (below, after this unit's private views; retail's table facts are there).
+// UpgradeModule.h comes before Drawable.h so Snapshot keeps its lowercase slots.
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
 #include "../../../../Include/GameClient/Drawable.h"
 
@@ -226,22 +214,7 @@ public:
 	void extendRadar();
 };
 
-class RadarUpgrade : public UpgradeModule
-{
-public:
-	RadarUpgrade( Thing *thing, const ModuleData *moduleData );
-public:
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void onDelete();												// primary slot 8
-	virtual void onCapture(Player *oldOwner, Player *newOwner);				// primary slot 9
-protected:
-	virtual const char *GetSnapshotName() const;							// primary slot 2
-	virtual void xfer( Xfer *xfer );										// primary slot 3
-	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
-	virtual void upgradeImplementation();									// UpgradeMux slot 10
-private:
-	const RadarUpgradeModuleData *getRadarUpgradeModuleData() const { return (const RadarUpgradeModuleData *)m_moduleData; }
-};
+#include "../../../../Include/GameLogic/Module/RadarUpgrade.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/RadarUpgrade.cpp
 
@@ -296,7 +269,7 @@ void RadarUpgrade::onDelete()
 	setUpgradeExecuted(false);
 }
 
-// tu-skeleton: 0x004B47BF 28B ??_GRva004B46F9@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B47BF 28B ??_GRadarUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/RadarUpgradeUpgradeImplementation.cpp
 
