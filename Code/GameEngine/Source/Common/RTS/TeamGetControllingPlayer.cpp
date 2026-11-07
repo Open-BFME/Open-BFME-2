@@ -450,7 +450,7 @@ public:
 	void *rva003573C4(const AsciiString &owner, const BfmeRoomZC &name, void *outName); // rowed 0x003573C4
 };
 extern int BfmeLogicFramesPerSecond;	// logic frames per second
-extern unsigned g_Va00E028C4;	// static AsciiString "<!TRUE!>"
+extern AsciiString g_Va00E028C4;	// the "<!TRUE!>" AsciiString, defined in Team.cpp
 
 enum GameDifficulty
 {
@@ -653,7 +653,7 @@ Bool TeamPrototype::evaluateProductionCondition()
 {
 	if (m_productionConditionAlwaysFalse)
 		return false;
-	if (m_productionCondition.compare(*(const AsciiString *)&g_Va00E028C4) == 0)
+	if (m_productionCondition.compare(g_Va00E028C4) == 0)
 		return true;
 	if (m_productionConditionScript)
 	{

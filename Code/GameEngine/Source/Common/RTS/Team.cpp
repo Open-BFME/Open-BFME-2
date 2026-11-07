@@ -1236,7 +1236,16 @@ struct VideoPair
  VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
 };
 #include "../../../Include/GameLogic/Rva000427195.h"
+#include "../../../Include/GameClient/Drawable.h"
 typedef char TeamMemberIteratorABI24[(sizeof(DLINK_ITERATOR<Object>)==24)?1:-1];
+// A production condition equal to this file-scope string is always true
+// (TeamPrototype::evaluateProductionCondition, TeamGetControllingPlayer.cpp). Retail builds
+// it in this TU's .text$yc run (0x007AF334, after the unit's Drawable.h copy 0x007AF324 and
+// before its pool-init marker 0x007AF34F) through the out-of-line AsciiString(const char *)
+// 0x0000654A. Address name kept; the original name is unknown.
+#pragma inline_depth( 0 )
+AsciiString g_Va00E028C4("<!TRUE!>");
+#pragma inline_depth()
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
