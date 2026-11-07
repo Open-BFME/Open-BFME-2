@@ -175,3 +175,14 @@ unchanged. Six local-static/adjustor forms remain unsupported. The broader
 migration still needs current header/include closure, already-adopted users,
 private views and seed headers reconciled, and one coherent metadata transaction.
 [Reproduction and exact scope](../../reverse/attempt_support/coord3d-class-key-resolver-20261107/README.md).
+
+2026-11-07, atomic-cohort follow-up at `50a776d8b4`: current receipt hashes
+confirm 2,003 canonical-selected sources and 60 companion-selected sources
+that still record the canonical input. Another 599 basename-graph sources
+have stale or missing evidence. A canonical-header-only flip does affect the
+unsupported WorkerAIUpdate adjustor; Dozer's companion wins the shared guard,
+so that adjustor changes only with a wider companion migration. The 85 legacy
+pins have 50 static second-name/fold-proof requirements and 35 without that
+particular refusal; none is thereby fully admitted. No current function row
+already owns the proposed V-form pin name. Keep this as an owning-transaction
+prerequisite, not a literal rename batch. [Bounded receipt audit and limits](../../reverse/attempt_support/coord3d-class-key-resolver-20261107/cohort-review.md).

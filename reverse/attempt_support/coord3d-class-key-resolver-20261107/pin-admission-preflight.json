@@ -1,0 +1,612 @@
+[
+  {
+    "name": "??$?0$$CBW4ObjectID@@VCoord3D@@@?$pair@W4ObjectID@@VCoord3D@@@_STL@@QAE@ABU?$pair@$$CBW4ObjectID@@VCoord3D@@@1@@Z",
+    "address": "0x0004254E",
+    "notes": "REL32 read at the byte-verified MoveTo map xfer 0x0054755B (save-loop converting pair copy); ICF-folded 16-byte memberwise copy",
+    "static_reason": [
+      "0x0004254E already carries the real name ??0BfmeFloat4Record00469C61@@QAE@ABU0@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??$_Construct@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@VCoord3D@@@0@ABU10@@Z",
+    "address": "0x0016CC80",
+    "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded",
+    "static_reason": [
+      "0x0016CC80 already carries the real name ??$_Construct@U?$pair@$$CBUGen_p12pod@@H@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUGen_p12pod@@H@0@ABU10@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??$_M_allocate_and_copy@PAVCoord3D@@@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@IAEPAVCoord3D@@IPAV2@0@Z",
+    "address": "0x000E016A",
+    "notes": "STLport callee for Coord3D: REL32 read at 0x002CD0DB in the byte-verified operator= 0x002CD098; ledger spelling there: ?rva000E016A@Rva000E016A@@QAEPAUBfmeE12@@IPAUCoord3D@@0@Z",
+    "static_reason": []
+  },
+  {
+    "name": "??$__uninitialized_copy@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "address": "0x000766F5",
+    "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded",
+    "static_reason": [
+      "0x000766F5 already carries the real name ??$__uninitialized_copy@PAUAutoPickUpEatObjectEntry@@PAU1@@_STL@@YAPAUAutoPickUpEatObjectEntry@@PAU1@00ABU__false_type@0@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??$fill@PAVCoord3D@@V1@@_STL@@YAXPAVCoord3D@@0ABV1@@Z",
+    "address": "0x000B431D",
+    "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded",
+    "static_reason": [
+      "0x000B431D already carries the real name ??$fill@PAUBfmeE12@@U1@@_STL@@YAXPAUBfmeE12@@0ABU1@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??$find@W4ObjectID@@@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@1@ABW4ObjectID@@@Z",
+    "address": "0x00148B27",
+    "notes": "REL32 read at the MoveTo map operator[] 0x005474E7; ICF-folded STLport hashtable find shared with the Armor dup row",
+    "static_reason": [
+      "0x00148B27 already carries the real name ??$find@H@?$hashtable@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@2@@1@ABH@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??$uninitialized_fill_n@PAVCoord3D@@IV1@@_STL@@YAPAVCoord3D@@PAV1@IABV1@@Z",
+    "address": "0x004E1ABA",
+    "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded",
+    "static_reason": [
+      "0x004E1ABA already carries the real name ??$uninitialized_fill_n@PAUBfmeE12@@IU1@@_STL@@YAPAUBfmeE12@@PAU1@IABU1@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??0?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@3@@_STL@@QAE@ABV01@@Z",
+    "address": "0x003025A5",
+    "notes": "Full165B tree copy already held under earlier opaque three-word payload; WaypointMap metadata member38 and reference Coord3D key-value model prove the typed alias; no duplicate byte claim",
+    "static_reason": [
+      "0x003025A5 already carries the real name ??0?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@@3@@_STL@@QAE@ABV01@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??0?$_STLP_alloc_proxy@PAU?$_List_node@VCoord3D@@@_STL@@U12@V?$allocator@U?$_List_node@VCoord3D@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_List_node@VCoord3D@@@_STL@@@1@PAU?$_List_node@VCoord3D@@@1@@Z",
+    "address": "0x0014F3C4",
+    "notes": "Full11B empty allocator proxy copies supplied sentinel pointer; independently exact typed Coord3D list base280A8D calls it before20B allocation; existing ICF bytes not recounted",
+    "static_reason": [
+      "0x0014F3C4 already carries the real name ??0?$_STLP_alloc_proxy@IHV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@I@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??0?$_STLP_alloc_proxy@PAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@_STL@@U12@V?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@_STL@@@1@PAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@1@@Z",
+    "address": "0x00007410",
+    "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded",
+    "static_reason": [
+      "0x00007410 already carries the real name ??0?$_STLP_alloc_proxy@IPAVSightingInfo@@V?$allocator@PAVSightingInfo@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVSightingInfo@@@1@I@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??0?$_STLP_alloc_proxy@PAVCoord3D@@V1@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@VCoord3D@@@1@PAVCoord3D@@@Z",
+    "address": "0x0014F3C4",
+    "notes": "11B empty allocator proxy; my TU emission byte-identical; ICF-shared vector proxy constructor",
+    "static_reason": [
+      "0x0014F3C4 already carries the real name ??0?$_STLP_alloc_proxy@IHV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@I@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??0?$_Vector_base@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@VCoord3D@@@1@@Z",
+    "address": "0x00211E58",
+    "notes": "ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); my TU emission byte-identical",
+    "static_reason": [
+      "0x00211E58 already carries the real name ??0?$_Vector_base@FV?$allocator@F@_STL@@@_STL@@QAE@ABV?$allocator@F@1@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??0?$_Vector_base@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE@IABV?$allocator@VCoord3D@@@1@@Z",
+    "address": "0x005C8C37",
+    "notes": "typed Coord3D count base ICF twin of rowed PrereqUnitRec base via call at 0x0007C2B7; same 12B stride template; needed for vector Coord3D ctor 0x0007C2AC",
+    "static_reason": [
+      "0x005C8C37 already carries the real name ??0?$_Vector_base@UBfmeContainerRecord005FDEC7@@V?$allocator@UBfmeContainerRecord005FDEC7@@@_STL@@@_STL@@QAE@IABV?$allocator@UBfmeContainerRecord005FDEC7@@@1@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??0?$list@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE@ABV01@@Z",
+    "address": "0x002820DD",
+    "notes": "Complete88B coordinate-list copy; base280A8D allocates20B nodes with8B links and12B coordinate payload; metadata supply and tech lists48/4C and reference corroborate",
+    "static_reason": []
+  },
+  {
+    "name": "??0?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@QAE@ABW4ObjectID@@ABVCoord3D@@@Z",
+    "address": "0x00547223",
+    "notes": "REL32 read at the MoveTo map operator[] 0x005474E7 (key plus default Coord3D value pair); rowed under the Rva00547223 placeholder",
+    "static_reason": []
+  },
+  {
+    "name": "??0?$pair@W4ObjectID@@VCoord3D@@@_STL@@QAE@XZ",
+    "address": "0x00326BE6",
+    "notes": "REL32 read at the byte-verified MoveTo map xfer 0x0054755B (load-loop default pair); ICF-folded first-dword zeroing ctor",
+    "static_reason": [
+      "0x00326BE6 already carries the real name ??0?$RefCountPtr@VTextureClass@@@@QAE@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??1?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@QAE@XZ",
+    "address": "0x0048BA39",
+    "notes": "Waypoint pair key is AsciiString and mapped coordinates are POD; metadata-source pair dtor independently emits exact5B tail to releaseBuffer36410; typed erase22CFB1 passes node+16",
+    "static_reason": [
+      "0x0048BA39 already carries the real name ??1?$StringBase@D@@AAE@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??8Coord3D@@QAE_NABV0@@Z",
+    "address": "0x00003702",
+    "notes": "DockUpdate getExitPosition native call at 0x00589A86; nonconst struct view of rowed Coord3D equality; three-float layout and thiscall ret4 agree",
+    "static_reason": [
+      "0x00003702 already carries the real name ??8Coord3D@@QBE_NABV0@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??E?$_Ht_iterator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@QAEAAU01@XZ",
+    "address": "0x0041E832",
+    "notes": "REL32 read at the byte-verified MoveTo map xfer 0x0054755B (save-loop ++); ICF-folded STLport hash iterator increment",
+    "static_reason": [
+      "0x0041E832 already carries the real name ??E?$_Ht_iterator@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@@_STL@@QAEAAU01@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?Rva004C20D5IsWithin@PorcupineFormationBodyModule@@QAE_NMPBVCoord3D@@0@Z",
+    "address": "0x004C20D5",
+    "notes": "thiscall spelling of the rowed distance test ?Rva004C20D5IsWithin@@YG_NMPBUCoord3D@@0@Z (ret 0xC, this unused): PorcupineFormationBodyModule slot 38 0x004C2127 loads its primary this into ecx before the call",
+    "static_reason": []
+  },
+  {
+    "name": "?_M_clone_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@2@PAU32@@Z",
+    "address": "0x00413E55",
+    "notes": null,
+    "static_reason": [
+      "0x00413E55 already carries the real name ?_M_clone_node@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?_M_copy@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@3@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@2@PAU32@0@Z",
+    "address": "0x00301F9B",
+    "notes": "Full115B Coord3D tree copy and30B clone301BBF independently exact under reference no-exceptions config; already held under opaque12B payload name; metadata WaypointMap and32B node3012CE prove typed alias",
+    "static_reason": [
+      "0x00301F9B already carries the real name ?_M_copy@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@@3@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@@2@PAU32@0@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?_M_initialize_buckets@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@AAEXI@Z",
+    "address": "0x00148DDF",
+    "notes": "REL32 displacement read from retail at the hashtable ctor 0x00547875 (GroupOrder MoveTo map instantiation); ICF-folded STLport body shared with the ArmorTemplate row",
+    "static_reason": [
+      "0x00148DDF already carries the real name ?_M_initialize_buckets@?$hashtable@HHU?$hash@H@_STL@@U?$_Identity@H@2@U?$equal_to@H@2@V?$allocator@H@2@@_STL@@AAEXI@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?_M_insert_overflow@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@IAEXPAVCoord3D@@ABV3@ABU__false_type@2@I_N@Z",
+    "address": "0x002A1C02",
+    "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded",
+    "static_reason": [
+      "0x002A1C02 already carries the real name ?_M_insert_overflow@?$vector@UPrereqUnitRec@@V?$allocator@UPrereqUnitRec@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@@ABU3@ABU__false_type@2@I_N@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?adjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAVCoord3D@@PBV4@@Z",
+    "address": "0x002FCFCF",
+    "notes": "REL32 callee of AIFollowPathState::update 0x0034E2A3 with ECX TheAI+0x10 (the pathfinder) and arguments (owner",
+    "static_reason": [
+      "0x002FCFCF already carries the real name ?AdjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAVCoord3D@@PBV4@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?allocate@?$allocator@VCoord3D@@@_STL@@QBEPAVCoord3D@@IPBX@Z",
+    "address": "0x00395928",
+    "notes": "typed 12-byte Coord3D vector allocator ICF twin of rowed BfmeE12 allocate at same address retail call at 0x002CDFB9",
+    "static_reason": [
+      "0x00395928 already carries the real name ?allocate@?$allocator@UAnimSet@GenericObjectCreationNugget@@@_STL@@QBEPAUAnimSet@GenericObjectCreationNugget@@IPBX@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?applyTopplingForce@ToppleUpdate@@QAEXPBVCoord3D@@MI@Z",
+    "address": "0x004A83D7",
+    "notes": "callee of ?topple@Object@@QAEXPBUCoord3D@@MI@Z at retail 0x0028CF37 read from its REL32 displacement; body unrowed",
+    "static_reason": []
+  },
+  {
+    "name": "?begin@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@2@XZ",
+    "address": "0x00427195",
+    "notes": "REL32 read at the byte-verified MoveTo map xfer 0x0054755B (save-loop begin); ICF-folded STLport hashtable begin",
+    "static_reason": [
+      "0x00427195 already carries the real name ?begin@?$hashtable@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@@_STL@@QAE?AU?$_Ht_iterator@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@@2@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?call@Rva001E19E8CallView@@QBEXPBVCoord3D@@PBVMatrix3D@@PBVObject@@2@Z",
+    "address": "0x001E19E8",
+    "notes": "address-derived thiscall ABI view for Ghidra function 0x001E19E8 size 2804; reverse evidence records ECX field reads +0x148 and +0x150 and manager 0x00DFDD04; 0x001E24DC carries four-pointer stack args and ECX receiver; helper identity remains unresolved",
+    "static_reason": []
+  },
+  {
+    "name": "?clear@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@QAEXXZ",
+    "address": "0x001DBCDC",
+    "notes": "REL32 displacement read from retail at the MoveTo GroupOrder map hashtable dtor 0x005473F7; ICF-folded STLport clear shared with the ArmorTemplate row",
+    "static_reason": [
+      "0x001DBCDC already carries the real name ?clear@?$hashtable@U?$pair@$$CBH_N@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEXXZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?equals@Coord3D@@QBE_NABV1@@Z",
+    "address": "0x00003702",
+    "notes": "Coord3D exact-equality member (the matched coord3d.cpp body, ret 4) under a struct-Coord3D view; REL32 callee of AttachUpdate::update 0x00491D2F at 0x00491D7A",
+    "static_reason": [
+      "0x00003702 already carries the real name ??8Coord3D@@QAE_NABV0@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?erase@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEPAVCoord3D@@PAV3@0@Z",
+    "address": "0x002A133B",
+    "notes": "STLport 12-byte vector erase(first / last) ICF-shared with the rowed Gen_p12pod instance; AIStateMachine::clear 0x00352B41 clears its goal path (vector<Coord3D> at +0x3C) through it at 0x00352B64",
+    "static_reason": [
+      "0x002A133B already carries the real name ?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?erase@AICommandCoordVector@@QAEPAVCoord3D@@PAV2@0@Z",
+    "address": "0x002A133B",
+    "notes": "TU-local vector erase spelling resolving to the rowed Gen_p12pod erase body (12B elements); alias for AICommandParmsCtor.cpp",
+    "static_reason": [
+      "0x002A133B already carries the real name ?erase@?$vector@UGen_p12pod@@V?$allocator@UGen_p12pod@@@_STL@@@_STL@@QAEPAUGen_p12pod@@PAU3@0@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?getAimPosition@WeaponTemplate@@QAEPAVCoord3D@@PAV2@PBVObject@@1H@Z",
+    "address": "0x002CAB3A",
+    "notes": "callee of ?bfmeGetLOSVictimPos@Weapon@@QBE?AUCoord3D@@PBVObject@@0H@Z at retail 0x002CB66D read from its REL32 displacement; body unrowed",
+    "static_reason": [
+      "0x002CAB3A already carries the real name ?adjustTargetPositionOnVictim@WeaponTemplate@@QAE?AUTargetCoord@@PAVObject@@0_N@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?getClosestObject@PartitionManager@@QAEPAVObject@@PBVCoord3D@@MHPAVPartitionFilter@@@Z",
+    "address": "0x00625360",
+    "notes": "donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1",
+    "static_reason": []
+  },
+  {
+    "name": "?getGoalPathPosition@AIStateMachine@@QBEPBVCoord3D@@H@Z",
+    "address": "0x00346FA5",
+    "notes": "ZH AIStateMachine::getGoalPathPosition shape (index bounds check over the +0x3C Coord3D vector then element address); same body as the Rva00346FA5 row; REL32 from AIFollowPathState::onEnter 0x0034DF1D with ECX the AI's +0x30 state machine",
+    "static_reason": []
+  },
+  {
+    "name": "?getPosition@BFMERopeDrawable@@QBEPBVCoord3D@@XZ",
+    "address": "0x002763E6",
+    "notes": "address read from the REL32 displacement at a placed body",
+    "static_reason": [
+      "0x002763E6 already carries the real name ?getPosition@Drawable@@QBEPBVCoord3D@@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?getRelativeAngle2D@PartitionManager@@QAEMPBVObject@@PBVCoord3D@@@Z",
+    "address": "0x002C9BC3",
+    "notes": "address read from the REL32 displacement at a placed body",
+    "static_reason": []
+  },
+  {
+    "name": "?getShroudStatusForPlayer@ShroudManager@@QBE?AW4CellShroudStatus@@HPBVCoord3D@@@Z",
+    "address": "0x0073B940",
+    "notes": "tail-call target of PartitionManager shroud-status thunk 0x7397F0 (mov ecx [ecx+0x10]; jmp); shroud-manager method by same-semantics forwarding",
+    "static_reason": [
+      "0x0073B940 already carries the real name ?GetShroudStatusForPlayer@ShroudManagerImpl@@QBE?AW4CellShroudStatus@@HPBVCoord3D@@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?get_allocator@?$_List_base@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QBE?AV?$allocator@VCoord3D@@@2@XZ",
+    "address": "0x0021983A",
+    "notes": "Full7B empty allocator-return ICF alias independently exact; coordinate-list copy2820DD uses it to construct typed list base280A8D; existing bytes not recounted",
+    "static_reason": [
+      "0x0021983A already carries the real name ?get_allocator@?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QBE?AV?$allocator@_N@2@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?get_allocator@?$_Rb_tree_base@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@2@@_STL@@QBE?AV?$allocator@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@2@XZ",
+    "address": "0x0021983A",
+    "notes": "get_allocator for _Rb_tree_base<pair<const AsciiString,Coord3D>>, called by ??0?$_Rb_tree at 0x603EEB. Address from the caller: its 'e8 2d 59 c1 ff' at 0x603F08 targets 0x21983A, which ghidra_functions.csv lists as a 7-byte function. That address is rowed under vector<AsciiString>::get_allocator and already carries 46 pins including several _Rb_tree_base spellings, so this is the established fold: every container's get_allocator returns a stateless allocator and emits the same 7 bytes. Additive candidate.",
+    "static_reason": [
+      "0x0021983A already carries the real name ?get_allocator@?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QBE?AV?$allocator@_N@2@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABVCoord3D@@01@Z",
+    "address": "0x002F314A",
+    "notes": "Retail `isViewBlockedByObstacle` target at 0x2F3B6B calls this on Pathfinder ECX with object and Coord3D references; the callee body is the identified 544-byte Pathfinder handler.",
+    "static_reason": []
+  },
+  {
+    "name": "?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@PBVCoord3D@@01@Z",
+    "address": "0x002F314A",
+    "notes": "donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1",
+    "static_reason": [
+      "0x002F314A already carries the real name ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABVCoord3D@@01@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?playMoveVoiceResponse@AIUpdateInterface@@IAEXPBVCoord3D@@@Z",
+    "address": "0x0026B403",
+    "notes": "address read from the REL32 displacement at 0x0026B6A8 in command 0x01 handler 0x0026B637 (and its siblings 0x0026B6B2 0x0026B86A); the body posts voice message 0x7E7",
+    "static_reason": []
+  },
+  {
+    "name": "?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBVCoord3D@@@Z",
+    "address": "0x0026B403",
+    "notes": "callee of ?privateFollowWaypointPathAsTeamExact@AIUpdateInterface@@MAE at retail 0x0026BA33 read from its REL32 displacement; body unrowed",
+    "static_reason": [
+      "0x0026B403 already carries the real name ?playMoveVoiceResponse@AIUpdateInterface@@IAEXPBVCoord3D@@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?queryPointImplAt001A4630@TerrainLogic@@QAEXPBVCoord3D@@MPAURva001A62D0TerrainQueryResult@@_N2@Z",
+    "address": "0x0027DCF2",
+    "notes": "donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1",
+    "static_reason": []
+  },
+  {
+    "name": "?rva0028ECDB@Object@@QBE_NPBVCoord3D@@@Z",
+    "address": "0x0028ECDB",
+    "notes": "address read from the REL32 displacement at 0x0026B952 in privateFollowWaypointPath 0x0026B8E5 (aiDoCommand command 0x06); thiscall on the Object with the last waypoint location; body unrowed",
+    "static_reason": []
+  },
+  {
+    "name": "?rva0029660C@Object@@QAEXPBVCoord3D@@H@Z",
+    "address": "0x0029660C",
+    "notes": "Object member, ret 8: (position, 0); REL32 callee of AttachUpdate::update 0x00491D2F on the AlwaysTeleport (+0x20) path, setPosition 0x0030AA80 on the other; address-named, teleport role inferred",
+    "static_reason": []
+  },
+  {
+    "name": "?rva00599870@Rva00599825@@QAEPAXABVCoord3D@@H@Z",
+    "address": "0x00599870",
+    "notes": "owner-record +0x140 object list: entry near a point; REL32 at 0x005AC079 in the StructureCreep slot 1",
+    "static_reason": []
+  },
+  {
+    "name": "?rva005CB265@Rva005CB265@@QAEXPBVCoord3D@@@Z",
+    "address": "0x005CB265",
+    "notes": "one-pointer use of the folded forwarder (mov eax [ecx]; jmp [eax+0xC]) by RadarMarkerClientUpdate::clientUpdate 0x004C9CF7 (push of Drawable position then call); the forwarder passes its arguments through to the referent slot 3",
+    "static_reason": []
+  },
+  {
+    "name": "?setGoalPositionClipped@AIUpdateInterface@@QAEXPBVCoord3D@@W4CommandSourceType@@@Z",
+    "address": "0x00265667",
+    "notes": "donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1",
+    "static_reason": []
+  },
+  {
+    "name": "?rva00628770@Rva00628770Impl@@QAE?AUBfmeWideResult@@PBVCoord3D@@MHHPAVRva000421C8@@H@Z",
+    "address": "0x00628770",
+    "notes": "PartitionManager range-query implementation (525 bytes, SEH frame) behind +0x10: position, float radius, 0, distance type, filter chain, order; called from iterateObjectsInRange 0x00625610; same address as the int-typed ?bfmeMakeWideResult pin",
+    "static_reason": []
+  },
+  {
+    "name": "?rva00599870@AIDozerManager@@QAEPAXABVCoord3D@@H@Z",
+    "address": "0x00599870",
+    "notes": "owner-record +0x140 object list: entry near a point; REL32 at 0x005AC079 in the StructureCreep slot 1",
+    "static_reason": []
+  },
+  {
+    "name": "?getLocation@MapObject@@QAEPBVCoord3D@@XZ",
+    "address": "0x0030D631",
+    "notes": "MapObject location getter (rowed Rva0030D631: +0x08 or the transformed +0x48); retail REL32 at the head of TerrainLogic::addWaypoint 0x002825AE",
+    "static_reason": []
+  },
+  {
+    "name": "??$_Construct@VCoord3D@@V1@@_STL@@YAXPAVCoord3D@@ABV1@@Z",
+    "address": "0x002CA82C",
+    "notes": "shared null-checked Coord3D construction helper called by the typed list node at 0x27F4A9; target boundary and call displacement establish the exact callee",
+    "static_reason": [
+      "0x002CA82C already carries the real name ??$_Construct@U?$pair@$$CBHUBfmePod8@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBHUBfmePod8@@@0@ABU10@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "??$__copy_backward_ptrs@PAVCoord3D@@PAV1@@_STL@@YAPAVCoord3D@@PAV1@00ABU__false_type@0@@Z",
+    "address": "0x000B6813",
+    "notes": "address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded",
+    "static_reason": [
+      "0x000B6813 already carries the real name ??$__copy_backward_ptrs@PAUBfmeE12@@PAU1@@_STL@@YAPAUBfmeE12@@PAU1@00ABU__false_type@0@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?erase@?$list@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE?AU?$_List_iterator@VCoord3D@@U?$_Nonconst_traits@VCoord3D@@@_STL@@@2@U32@0@Z",
+    "address": "0x00548267",
+    "notes": "Full52B POD-list erase range and32B single erase438539 independently exact; both already held as integer-list ICF bodies; metadata coordinate-list assignment301B54 proves typed alias",
+    "static_reason": [
+      "0x00548267 already carries the real name ?erase@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@0@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?reserve@?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEXI@Z",
+    "address": "0x00390729",
+    "notes": "STLport 12-byte vector reserve (rowed under the address-named Rva00390729Element instance); called by OilSpillUpdate::xfer 0x0048C415 at 0x0048C487 on the vector<Coord3D> at +0x2C whose push_back 0x002CE7DC and resize 0x000CA33C rows name the element type",
+    "static_reason": []
+  },
+  {
+    "name": "??$_M_find@VAsciiString@@@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$Rva0024485CAllocator@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@VCoord3D@@@_STL@@@1@ABVAsciiString@@@Z",
+    "address": "0x001F8437",
+    "notes": "ICF fold of the WaypointMap map<AsciiString;Coord3D> _M_find onto the rowed AsciiString find worker at this address (same 78B key-only body); called twice by populateRandomStartPosition at 0x00244927 and 0x00244934",
+    "static_reason": []
+  },
+  {
+    "name": "?rva00295A0F@AICommandInterface@@QAEXPBVCoord3D@@HW4CommandSourceType@@@Z",
+    "address": "0x00295A0F",
+    "notes": "ZH aiAttackMoveToPosition(&m_attackMoveGoalPos; NO_MAX_SHOTS_LIMIT; CMD_FROM_AI) call site in AssaultTransportAIUpdate::update 0x0048F828 (REL32 at 0x0048FB95; ecx = the +0x20 command interface)",
+    "static_reason": []
+  },
+  {
+    "name": "?equals@Rva00003702CoordEqualityView@@QBE_NABVCoord3D@@@Z",
+    "address": "0x00003702",
+    "notes": "callee of ?rva002FFFCA@Rva002FFFCA@@QAEPAXPAVObject@@PBUCoord3D@@MIHHH@Z",
+    "static_reason": []
+  },
+  {
+    "name": "?validMovementTerrain@Pathfinder@@QAE_NW4PathfindLayerEnum@@PBVLocomotor@@PBVCoord3D@@@Z",
+    "address": "0x002E7296",
+    "notes": "Zero Hour Pathfinder::validMovementTerrain: REL32 at 0x004672A1 in TransportContain::isSpecificRiderFreeToExit 0x004671AC (ZH tail: layer from Object::getLayer 0x0028B511 + rider locomotor + position); body is getCell 0x002E6D62 then cell-type tests and locomotor surfaces & per-type table 0x00DBD33C as ZH",
+    "static_reason": [
+      "0x002E7296 already carries the real name ?IsValidMovementTerrain@Pathfinder@@QAE_NW4PathfindLayerEnum@@PBVLocomotor@@PBVCoord3D@@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?snapClosestGoalPosition@Pathfinder@@QAEXPAVObject@@PAVCoord3D@@@Z",
+    "address": "0x002F2B88",
+    "notes": "REL32 at 0x0034C314 in AIInternalMoveToState::onEnter 0x0034C146 with ECX TheAI+0x10 after adjustDestination fails; logged as post-SnapClosestGoalPosition; Zero Hour AIStates.cpp onEnter",
+    "static_reason": [
+      "0x002F2B88 already carries the real name ?SnapClosestGoalPosition@Pathfinder@@QAEXPAVObject@@PAVCoord3D@@@Z; one address, one identity (rename the owner instead of stacking a second name)"
+    ]
+  },
+  {
+    "name": "?computeAerialPath@AerialPathfinder@@QAE_NPAXPBVCoord3D@@PAVRva00312C95@@PBE1_N@Z",
+    "address": "0x0037609C",
+    "notes": "callee of ?rva003681F2@Rva00368C7A@@QAEXPBUCoord3D@@PBE0_N@Z",
+    "static_reason": []
+  },
+  {
+    "name": "?Rva0036CBF9Rotate@@YAXPBVCoord3D@@0PAVCoord2D@@@Z",
+    "address": "0x0036CBF9",
+    "notes": "cdecl group-offset rotation (dir=to-from z=0 normalize at 0x35B6 then 2D rotate) called at 0x345E53 from computeGoal and 0x36D744/0x3716C6/0x3717B0/0x3718AD in AIGroup code; unrowed body banked partial",
+    "static_reason": []
+  },
+  {
+    "name": "?Rva002F1BA2@Pathfinder@@QAE_NPAX0W4PathfindLayerEnum@@PBVCoord3D@@2@Z",
+    "address": "0x002F1BA2",
+    "notes": "callee of ?rva00344D60@AIAttackMeleeHordeApproachTargetState@@QAE_NPAUCoord3D@@PAVObject@@1@Z",
+    "static_reason": []
+  },
+  {
+    "name": "?rva0026594F@AIUpdateInterface@@QAEXPBVCoord3D@@0HH00@Z",
+    "address": "0x0026594F",
+    "notes": "REL32 read at 0x00472905 in HordeContain slot 4 (0x00472790); ret 0x18 six-argument AI member; address-named",
+    "static_reason": []
+  },
+  {
+    "name": "?showRallyPoint@ControlBar@@QAEXPBVCoord3D@@@Z",
+    "address": "0x0031B892",
+    "notes": "callee of ?switchToContext@ControlBar@@QAEXHPAX@Z",
+    "static_reason": []
+  },
+  {
+    "name": "?_M_next_size@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@ABEII@Z",
+    "address": "0x0005571B",
+    "notes": "STLport instantiation instantiated for another element type; ICF-folded onto the rowed body at 0x0005571B that every tree copy of this name equals (2 copies); the kept caller definitions reach it by REL32 there (1 code-identity keys); fold-proof=Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp",
+    "static_reason": [
+      "0x0005571B already carries the real name ?_M_next_size@?$hashtable@U?$pair@$$CBHPAVObject@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVObject@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVObject@@@_STL@@@2@@_STL@@ABEII@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?_M_skip_to_next@?$_Hashtable_iterator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@XZ",
+    "address": "0x0039FD3E",
+    "notes": "STLport instantiation instantiated for another element type; ICF-folded onto the rowed body at 0x0039FD3E that every tree copy of this name equals (1 copies); the kept caller definitions reach it by REL32 there (1 code-identity keys); fold-proof=Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp",
+    "static_reason": [
+      "0x0039FD3E already carries the real name ?_M_skip_to_next@?$_Hashtable_iterator@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@@_STL@@QAEPAU?$_Hashtable_node@U?$pair@$$CBHPAUBaseTemplateFileRecord@@@_STL@@@2@XZ; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?erase@?$list@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE?AU?$_List_iterator@VCoord3D@@U?$_Nonconst_traits@VCoord3D@@@_STL@@@2@U32@@Z",
+    "address": "0x00438539",
+    "notes": "STLport instantiation instantiated for another element type; ICF-folded onto the rowed body at 0x00438539 that MapMetaDataCopy.cpp's copy equals (2 tree copies in 2 variants; the other variants differ from it); the kept caller definitions reach it by REL32 there (1 code-identity keys); fold-proof=Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp",
+    "static_reason": [
+      "0x00438539 already carries the real name ?erase@?$list@FV?$allocator@F@_STL@@@_STL@@QAE?AU?$_List_iterator@FU?$_Nonconst_traits@F@_STL@@@2@U32@@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?rva004C45CF@CloudBreakSpecialPower@@QAEXPBVCoord3D@@PBVAsciiString@@@Z",
+    "address": "0x004C45CF",
+    "notes": "thiscall spelling of the rowed stdcall-shaped CloudBreak object creator 0x004C45CF: CloudBreakSpecialPower 0x004C4737 loads ECX with this before the call",
+    "static_reason": []
+  },
+  {
+    "name": "?rva0027F108@Rva004C82E5Terrain@@QAEPAVBfmeX1035@@PBVCoord3D@@MHH@Z",
+    "address": "0x0027F108",
+    "notes": "thiscall spelling (Devastate view) of the rowed terrain query 0x0027F108 called by DevastateSpecialPower 0x004C8432",
+    "static_reason": []
+  },
+  {
+    "name": "?rva0028447F@Rva004C82E5Terrain@@QAEXPAVBfmeX1035@@PBVCoord3D@@@Z",
+    "address": "0x0028447F",
+    "notes": "thiscall spelling of the stdcall-rowed 0x0028447F: DevastateSpecialPower 0x004C8365 loads TheTerrainLogic into ECX first",
+    "static_reason": []
+  },
+  {
+    "name": "??0?$pair@VAsciiString@@VCoord3D@@@_STL@@QAE@ABU01@@Z",
+    "address": "0x0052BEC9",
+    "notes": "Native string0 Coord3D4 memberwise copy in ScriptEngine old-save list; whole39 and all owner relocations exact; fold-proof=Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp",
+    "static_reason": [
+      "0x0052BEC9 already carries the real name ??0?$pair@$$CBVAsciiString@@UTreeHintPayload003012F0@@@_STL@@QAE@ABU01@@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?rva0028D4E0@Object@@UAE?AVCoord3D@@PAV2@@Z",
+    "address": "0x0028D4E0",
+    "notes": "callee of ?rva000B31CB@Rva000B31CB@@QAEXIH@Z",
+    "static_reason": []
+  },
+  {
+    "name": "??1?$vector@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE@XZ",
+    "address": "0x0007FAB3",
+    "notes": "fold-proof=Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdatePrivateFollowPathAppend.cpp; NativeGiantBird278B parent and both EH actions77E5C4/77E5CC reach existing14B vector destructor7FAB3. Whole emitted14B null-checked free-first-pointer body and REL32 free30830 equal every owner; no distinct address for this trivial Coord3D vector instantiation. Original retail template spelling not claimed; no alias row or added bytes.",
+    "static_reason": [
+      "0x0007FAB3 already carries the real name ??1?$IconSlotVector@VIconSlot@Impl@ArmyDetailsMovieClip@StrategicHUD@@@@QAE@XZ; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "??$?0W4ObjectID@@VCoord3D@@@?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@QAE@ABU?$pair@W4ObjectID@@VCoord3D@@@1@@Z",
+    "address": "0x0004254E",
+    "notes": "ICF template dependency of native MoveTo helper5476C8; whole emitted body and all owner relocations proven; fold-proof=Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp",
+    "static_reason": [
+      "0x0004254E already carries the real name ??$?0$$CBW4ObjectID@@VCoord3D@@@?$pair@W4ObjectID@@VCoord3D@@@_STL@@QAE@ABU?$pair@$$CBW4ObjectID@@VCoord3D@@@1@@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?insert_unique@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4ObjectID@@VCoord3D@@@2@@Z",
+    "address": "0x005474C3",
+    "notes": "ICF template dependency of native MoveTo helper5476C8; whole emitted body and all owner relocations proven; fold-proof=Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp",
+    "static_reason": [
+      "0x005474C3 already carries the real name ?insert_unique@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@6@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@2@@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?rva004FBC02@Rva004FBCBE@@QAEXPBVCoord3D@@@Z",
+    "address": "0x004FBC02",
+    "notes": "callee of ?rva002BA654@LivingWorldLogic@@UAEXPBVRva002E0687@@PAVRva0020E89C@@PAVRva003F1241@@@Z",
+    "static_reason": []
+  },
+  {
+    "name": "?deallocate@?$_STLP_alloc_proxy@PAVCoord3D@@V1@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAEXPAVCoord3D@@I@Z",
+    "address": "0x0046264A",
+    "notes": "ICF fold onto the rowed allocator<char>::deallocate at 0x46264A; the image has one 20-byte _free deallocate body; the proxy forwards to its allocator and shares it; fold-proof=Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "static_reason": [
+      "0x0046264A already carries the real name ?deallocate@?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAEXPAHI@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?deallocate@?$allocator@VCoord3D@@@_STL@@QBEXPAVCoord3D@@I@Z",
+    "address": "0x0046264A",
+    "notes": "ICF fold onto the rowed allocator<char>::deallocate at 0x46264A; the image has one 20-byte _free deallocate body; an allocator<T>::deallocate instantiation that linked shares it; fold-proof=Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "static_reason": [
+      "0x0046264A already carries the real name ?deallocate@?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAEXPAHI@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "??1?$_Vector_base@VCoord3D@@V?$allocator@VCoord3D@@@_STL@@@_STL@@QAE@XZ",
+    "address": "0x00142D70",
+    "notes": "ICF fold onto the rowed ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ at 0x00142D70; the image keeps one body of this shape and this instantiation's section is byte-and-relocation identical; fold-proof=Code/GameEngine/Source/GameClient/DrawablePhysicsXformHugeFourLegs.cpp",
+    "static_reason": [
+      "0x00142D70 already carries the real name ??1?$_Rb_tree_base@U?$pair@$$CBHVAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@QAE@XZ; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?resize@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@QAEXI@Z",
+    "address": "0x0053F1EC",
+    "notes": "Native map operator[]5474E7 -> insert547430 -> resize53F1EC and twenty-byte node5472D3; full template bodies and relocations verified; fold-proof=Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp",
+    "static_reason": [
+      "0x0053F1EC already carries the real name ?resize@?$hashtable@U?$pair@$$CBHUBfmePod72@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHUBfmePod72@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHUBfmePod72@@@_STL@@@2@@_STL@@QAEXI@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: unverified: existing note requests a proof, not executed by this read-only preflight"
+    ]
+  },
+  {
+    "name": "?_M_new_node@?$hashtable@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@@_STL@@AAEPAU?$_Hashtable_node@U?$pair@$$CBW4ObjectID@@VCoord3D@@@_STL@@@2@ABU?$pair@$$CBW4ObjectID@@VCoord3D@@@2@@Z",
+    "address": "0x005472D3",
+    "notes": "Native map operator[]5474E7 -> insert547430 -> resize53F1EC and twenty-byte node5472D3; full template bodies and relocations verified; fold-proof=Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp",
+    "static_reason": []
+  }
+]
