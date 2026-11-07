@@ -259,3 +259,11 @@ The prior setter push's broader audit remains INCONCLUSIVE: index 9c81acd297
 versus outgoing base 009791f6a9183bdf2a15fa583f1c30927c4b7013, with 23 consumers
 without current receipts (first BaseHeightMapConstructor.cpp). Byte/EH checks
 passed; carry the broader selection check into the next census and real image.
+
+Header repair published as c8a28636a1: required gates pass 3,583 rows and
+297 EXACT EH graphs across 291 source units, with converged data and scoped
+DIR32 clean. The broader outgoing audit is still INCONCLUSIVE: index
+9c81acd297 versus base db29d3c6aada78a523d4b07b5086a1595f3638e7, 290 consumers
+without current audit receipts (first BaseHeightMapRenderObjClassRva0006846A.cpp).
+Keep that selection scope open for the next census and real image; no image
+or runtime clearance is inferred from the successful source gates.

@@ -46,6 +46,15 @@ placement. No row, pin, alias, compiler flag or source path changes.
   The normal commit and push hooks verify the affected cohort and outgoing
   consumer selection; their logs remain the publication receipts.
 
+Published as c8a28636a1 on 2026-11-07. The required header gates passed all
+3,583 affected code rows, 297 EXACT EH graphs, converged data identity and
+scoped DIR32 (505 additional witness rows). The push landed on its first
+attempt in 67.1 seconds. Its broader link audit remains INCONCLUSIVE: index
+9c81acd297 versus outgoing base db29d3c6aada78a523d4b07b5086a1595f3638e7;
+290 consumer objects lack current audit receipts, first
+Code/GameEngine/Source/Common/BaseHeightMapRenderObjClassRva0006846A.cpp.
+Those consumer/selection checks await the next census and actual image.
+
 No new real image or runtime result is claimed. The next real link must check
 the MeshClass/RenderObjClass table outcomes and remaining source identities.
 The previous setter push's broader audit was INCONCLUSIVE: index 9c81acd297
