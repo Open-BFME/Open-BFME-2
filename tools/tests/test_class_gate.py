@@ -625,7 +625,7 @@ def test_an_unreadable_unit_is_compared_by_key(trepo, capsys):
     trepo.write(NEW, "#define FLAG 1\n" + HASH + BODY)
     trepo.stage(NEW)
     rc, err = trepo.gate(capsys)
-    assert rc == 1 and "`rts::hash` (an unreadable unit, compared by key)" in err
+    assert rc == 1 and "`rts::hash` (an unreadable unit, compared by heads)" in err
 
 
 def test_an_allow_marker_names_a_qualified_key(trepo, capsys):
@@ -665,3 +665,70 @@ def test_shadow_census_writes_a_dated_summary(trepo, monkeypatch, capsys):
     assert "would refuse Code/Game/AB.cpp: rts::hash" in out and "AC.cpp" not in out
     written = list((trepo.root / "build" / "class_gate_shadow").glob("class_gate_shadow_*.json"))
     assert len(written) == 1 and '"copies_per_key"' in written[0].read_text()
+
+
+def test_two_identical_destinations_in_one_unit_never_exhaust_the_credit(trepo, capsys):
+    # Review of ad0a3497fc: one deleted body and two identical copies in one staged unit popped an
+    # empty pool (IndexError) and changed the gate's exit in shadow mode.
+    set_mode(trepo, "shadow")
+    trepo.write(OLD, HASH + BODY)
+    trepo.commit(OLD)
+    trepo.git("rm", "-q", "--", OLD)
+    trepo.write(NEW, FILLER + HASH + BODY + HASH)
+    trepo.stage(NEW)
+    rc, err = trepo.gate(capsys)
+    assert rc == 0 and "IndexError" not in err and "would refuse `rts::hash`" in err
+
+
+def test_an_identity_check_failure_cannot_change_the_gate_in_shadow(trepo, capsys, monkeypatch):
+    set_mode(trepo, "shadow")
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    monkeypatch.setattr(class_gate, "introduced_identities", lambda *a: 1 / 0)
+    rc, err = trepo.gate(capsys)
+    assert rc == 0 and "[shadow] identity check failed on Code/Game/New.cpp: ZeroDivisionError" in err
+    monkeypatch.setattr(class_gate, "staged_identity_deletions", lambda *a: [][1])
+    rc, err = trepo.gate(capsys)
+    assert rc == 0 and "identity check failed on move credit: IndexError" in err
+
+
+def test_an_identity_check_failure_fails_closed_in_enforce(trepo, capsys, monkeypatch):
+    set_mode(trepo, "enforce")
+    trepo.write(NEW, "int x() { return 0; }\n")
+    trepo.stage(NEW)
+    monkeypatch.setattr(class_gate, "introduced_identities", lambda *a: 1 / 0)
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and "[refused] identity check failed" in err
+
+
+@pytest.mark.parametrize("before_define,after_define", [(False, True), (True, True), (True, False)])
+def test_a_new_specialization_shows_when_a_side_is_unreadable(trepo, capsys, before_define, after_define):
+    # Review of ad0a3497fc: a #define made the unit unreadable and hash<int> vanished.
+    set_mode(trepo, "enforce")
+    trepo.write(OLD, ("#define FLAG 1\n" if before_define else "") + HASH + BODY)
+    trepo.commit(OLD)
+    trepo.write(OLD, ("#define FLAG 1\n" if after_define else "") + HASH + HASH_INT + BODY)
+    trepo.stage(OLD)
+    rc, err = trepo.gate(capsys)
+    assert rc == 1 and "`rts::hash<int>` (an unreadable unit, compared by heads)" in err
+
+
+def test_an_unchanged_unreadable_unit_reports_nothing(trepo, capsys):
+    set_mode(trepo, "enforce")
+    trepo.write(OLD, "#define FLAG 1\n" + HASH + HASH_INT + BODY)
+    trepo.commit(OLD)
+    trepo.write(OLD, "#define FLAG 1\n" + HASH + HASH_INT + BODY + "int more() { return 5; }\n")
+    trepo.stage(OLD)
+    assert trepo.gate(capsys) == (0, "")
+
+
+def test_move_credit_may_come_from_an_unrelated_deleted_unit(trepo, capsys):
+    # Accepted by design: credit checks identity, scope and body, not TU-merge provenance; one
+    # deleted copy credits one staged copy, so the number of private copies cannot grow.
+    set_mode(trepo, "enforce")
+    trepo.write("Code/Other/Far.cpp", HASH + "int far() { return 9; }\n")
+    trepo.commit("Code/Other/Far.cpp")
+    trepo.git("rm", "-q", "--", "Code/Other/Far.cpp")
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    assert trepo.gate(capsys) == (0, "")
