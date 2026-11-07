@@ -57,5 +57,34 @@ requests in the census index. Settle (b) with a native link of a one-object alia
 Then the switch to `refuse` is its own reviewed `Verifier-Change` commit; read the report-mode lines on
 real pushes first.
 
+Why most pushes print INCONCLUSIVE (measured 2026-11-07 on srv1, master 46c764cbb8): the audit proves an
+object current only through `link_census.object_current`, i.e. `build.compile_is_current(strict=True)`: a
+version-2 receipt whose include search inventory still matches, or a header-free version-1 one. Only
+`link_census.py --build` and `link_check.py --prepare-current` compile with `inventory=True`. The pre-push
+hook's scoped gate, `./build.sh` and every worker compile call `try_compile_source(inventory=False)`, which
+writes version 1, so a source the hook has just byte-verified fails the audit ("N source object(s) lack
+current receipts", exit 2), and so does any consumer compiled the same way ("affected consumer lacks current
+receipt"). Target facts:
+- Receipts in caches: worker seat5 `build/match` 337 version-2 of 18,431 (1.8%), 5,004 header-free version-1
+  (these pass), 13,090 (71%) fail strict. The census runner's cache: 16,400 version-2 of 22,802. An ops seat
+  restored from the object store after 3,443 commits: 6,419 version-2 of 18,578 (the store returns the
+  newest variant, a census-compiled one when the census compiled last).
+- Inventory durability, once written: for 400 sampled ledger TUs, the in-repo search roots' inventories
+  (tracked files, rebuilt from `git ls-tree`) were unchanged after 6 h, changed for 2% after 12 h and 5%
+  after 24 h (1,353 master commits in 48 h). So receipts are missing, not going stale.
+- Cost of writing them everywhere: `search_inventory` takes 0.07 s per TU uncached (50 TUs; 300 TUs share a
+  cache in 7.1 s), run before and again after each compile (`_inventory_problems`): about 0.14 s on a Wine
+  `cl` of 1-3 s, so +5-10% on TUs actually compiled and nothing on current ones.
+Remaining prerequisites (structural inference, not yet tried): (1) make ordinary compiles record the
+inventory (`compile_rows`/`try_compile_source` default), keeping `input_proof` census-only; (2) do not lose
+the object store: `try_compile_source` skips `_restore_object` whenever `inventory` is set, so (1) alone turns
+every restore into a compile; restore must instead prefer a stored version-2 variant and accept it only when
+its inventory matches now (one inventory per restored TU, cacheable per `compile_rows` call); (3) the ~1% of
+TUs whose search cannot be inventoried (226 version-1 receipts with headers in the census cache: macro or
+`..` includes, headers outside the roots) stay unprovable outside a census and keep the audit inconclusive
+when touched. Separately, `compiler_command` re-verifies the STLport overlay (`stlport_overlay.materialize`
+-> `verify_tree`) on every call: 210 s of a 330 s single-core currency check over 17,961 objects, so a
+per-process memo would cut every currency check, including this audit's.
+
 Clearance: pending (refuse mode). Census confirmation: not claimed; this check reads object files and the
 census index, it does not change census figures.
