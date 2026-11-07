@@ -10,16 +10,7 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "GameLogicObjectLookupView.h"
 
-namespace _STL
-{
-template <> struct less<AsciiString>
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const
-	{
-		return left < right;
-	}
-};
-}
+#include "AptOptionsConstructor_less.h"
 
 #include "../../../../../Include/GameClient/Bfme2GameWindow.h"
 
