@@ -167,3 +167,18 @@ retail names also renames that unit's concrete templates' category tables to the
 The shared constructor COMDATs that broke the ButterflyDraw trial (above) sit in `FXParticleSystem.cpp`
 (53) and `FXParticleSystemFactories.cpp` (2); `FXParticleSystemModules.cpp` has none, so it is the unit
 where the nested shape costs no COMDAT conflict.
+
+
+**2026-11-07 data-export half taken by the swarm Link lane.** With the orchestrator's agreement, the swarm
+Link lane (`ancalgonn-swarm-link`) takes the FX data exports from McMickey93: `ModuleTag<...>::CATEGORY` and
+`IS_DEFAULT` (27 + 27), `CategoryModuleInfo<N>::CATEGORY` (9), then `ModuleTag<...>::KEY`/`NAME` (12).
+Evidence it is free: no FX commit by McMickey93 since `e892c4321b` (15:15), who has moved to Apt since; no
+live claim on FXParticleSystemModules.cpp, FXParticleSystemFactories.cpp, FXParticleSystem.cpp or any of
+their 432 row addresses (claims.py, 2026-11-07 ~19:15 UTC). Claimed `file:` for the three units. Scope: the
+data members only; the vtable and CategoryModuleInfo-path work stays with McMickey93.
+
+Route: ordinary source definitions, each static const defined once. Retail folds these constants onto
+shared addresses (the 36 CATEGORY names at 9 addresses, the 27 IS_DEFAULT names at 0x007BAC1C); the real
+link runs `/OPT:NOICF`, so each definition keeps its own address here. Any image_iso or data_check report
+of one retail address with several names, or of a "wrong" global there, is this known `/OPT:NOICF`
+difference, not a defect.
