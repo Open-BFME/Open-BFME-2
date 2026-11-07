@@ -1,0 +1,200 @@
+[
+  {
+    "slot": 0,
+    "symbol": "??_EBehaviorModule@@MAEPAXI@Z",
+    "expected_rva": "0x25335a",
+    "known_rvas": []
+  },
+  {
+    "slot": 1,
+    "symbol": "__purecall",
+    "expected_rva": "0xb3fd0",
+    "known_rvas": [
+      "0x3b810"
+    ]
+  },
+  {
+    "slot": 2,
+    "symbol": "__purecall",
+    "expected_rva": "0x24a791",
+    "known_rvas": [
+      "0x3b810"
+    ]
+  },
+  {
+    "slot": 3,
+    "symbol": "__purecall",
+    "expected_rva": "0x4c9c7d",
+    "known_rvas": [
+      "0x3b810"
+    ]
+  },
+  {
+    "slot": 4,
+    "symbol": "__purecall",
+    "expected_rva": "0x3b810",
+    "known_rvas": [
+      "0x3b810"
+    ]
+  },
+  {
+    "slot": 5,
+    "symbol": "?onObjectCreated@Module@@UAEXXZ",
+    "expected_rva": "0xb3fd0",
+    "known_rvas": []
+  },
+  {
+    "slot": 6,
+    "symbol": "?onDrawableBoundToObject@Module@@UAEXXZ",
+    "expected_rva": "0xb3fd0",
+    "known_rvas": [
+      "0x35bd07",
+      "0x3fdd10",
+      "0x42d5c4",
+      "0x45f38e",
+      "0x482c45",
+      "0x4b3fd7",
+      "0x4b7bb6",
+      "0x5785f0",
+      "0x58b03e",
+      "0x5cddfc",
+      "0x5d13dc",
+      "0x5e5583",
+      "0x5e68a2",
+      "0x5fed5c",
+      "0x76094b",
+      "0x762736",
+      "0x76b14d",
+      "0x76b184",
+      "0x76b1b3",
+      "0x76b1d0",
+      "0x7719ca",
+      "0x7781f3",
+      "0x778267",
+      "0x77eb5a",
+      "0x788a15",
+      "0x788a59",
+      "0x7934f7",
+      "0x793505",
+      "0x79355a",
+      "0x793568",
+      "0x79fb61",
+      "0x79fbec",
+      "0x7ab133",
+      "0x7b7e94",
+      "0x7b7e9e",
+      "0xb3fd0"
+    ]
+  },
+  {
+    "slot": 7,
+    "symbol": "?preloadAssets@Module@@UAEXXZ",
+    "expected_rva": "0xb3fd0",
+    "known_rvas": [
+      "0x35bd07",
+      "0x3fdd10",
+      "0x42d5c4",
+      "0x45f38e",
+      "0x482c45",
+      "0x4b3fd7",
+      "0x4b7bb6",
+      "0x5785f0",
+      "0x58b03e",
+      "0x5cddfc",
+      "0x5d13dc",
+      "0x5e5583",
+      "0x5e68a2",
+      "0x5fed5c",
+      "0x76094b",
+      "0x762736",
+      "0x76b14d",
+      "0x76b184",
+      "0x76b1b3",
+      "0x76b1d0",
+      "0x7719ca",
+      "0x7781f3",
+      "0x778267",
+      "0x77eb5a",
+      "0x788a15",
+      "0x788a59",
+      "0x7934f7",
+      "0x793505",
+      "0x79355a",
+      "0x793568",
+      "0x79fb61",
+      "0x79fbec",
+      "0x7ab133",
+      "0x7b7e94",
+      "0x7b7e9e",
+      "0xb3fd0"
+    ]
+  },
+  {
+    "slot": 8,
+    "symbol": "?onDelete@Module@@UAEXXZ",
+    "expected_rva": "0xb3fd0",
+    "known_rvas": [
+      "0x35bd07",
+      "0x3fdd10",
+      "0x42d5c4",
+      "0x45f38e",
+      "0x482c45",
+      "0x4b3fd7",
+      "0x4b7bb6",
+      "0x5785f0",
+      "0x58b03e",
+      "0x5cddfc",
+      "0x5d13dc",
+      "0x5e5583",
+      "0x5e68a2",
+      "0x5fed5c",
+      "0x76094b",
+      "0x762736",
+      "0x76b14d",
+      "0x76b184",
+      "0x76b1b3",
+      "0x76b1d0",
+      "0x7719ca",
+      "0x7781f3",
+      "0x778267",
+      "0x77eb5a",
+      "0x788a15",
+      "0x788a59",
+      "0x7934f7",
+      "0x793505",
+      "0x79355a",
+      "0x793568",
+      "0x79fb61",
+      "0x79fbec",
+      "0x7ab133",
+      "0x7b7e94",
+      "0x7b7e9e",
+      "0xb3fd0"
+    ]
+  },
+  {
+    "slot": 9,
+    "symbol": "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z",
+    "expected_rva": "0x50b238",
+    "known_rvas": [
+      "0x464820",
+      "0x50b238"
+    ]
+  },
+  {
+    "slot": 10,
+    "symbol": "?vslot10@BehaviorModule@@UAEPAXXZ",
+    "expected_rva": "0xd43d0",
+    "known_rvas": [
+      "0xd43d0"
+    ]
+  },
+  {
+    "slot": 11,
+    "symbol": "?vslot11@BehaviorModule@@UAEPAXXZ",
+    "expected_rva": "0xd43d0",
+    "known_rvas": [
+      "0xd43d0"
+    ]
+  }
+]

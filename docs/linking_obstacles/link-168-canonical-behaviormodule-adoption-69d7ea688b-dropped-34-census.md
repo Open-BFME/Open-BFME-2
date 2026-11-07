@@ -421,3 +421,13 @@ claimed. [Proof and remaining prerequisites](../../reverse/attempt_support/assis
   inline in the canonical headers and gate their consumers (shared-header change, full gate). The
   SpecialPowerCompletionDie trial confirmed that dropping its unrowed crc leaves its ZH vtable naming
   ?crc@SpecialPowerCompletionDie.
+
+2026-11-07 canonical destructor provider follow-up: a private prepared
+Rva0049B47CDerived.cpp preserves 10/10 rows with the real protected BehaviorModule
+complete/scalar destructors. The UpgradeModuleCtor consumer preserves 2/2 only
+after suppressing its abstract view's implicit vptr stores with novtable.
+Nothing applied: the supported class fold still refuses five other table view
+names, and the emitted canonical primary table has purecall at slots 1/2/3
+instead of retail's loadPostProcess/GetSnapshotName/xfer. Preserve the existing
+opt-in/leaf-table boundaries while reconciling this provider; matching destructor
+bytes is insufficient. [Exact private evidence and next checks](../../reverse/attempt_support/behavior-provider-canonical-boundary-20261107/README.md).
