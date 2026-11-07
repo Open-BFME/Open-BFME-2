@@ -182,3 +182,33 @@ shared addresses (the 36 CATEGORY names at 9 addresses, the 27 IS_DEFAULT names 
 link runs `/OPT:NOICF`, so each definition keeps its own address here. Any image_iso or data_check report
 of one retail address with several names, or of a "wrong" global there, is this known `/OPT:NOICF`
 difference, not a defect.
+
+*Data-export progress (swarm Link lane, 2026-11-07).* `65ebadfcb3` defines the nine
+`CategoryModuleInfo<N>::CATEGORY` (FXParticleSystem.cpp, 392/392 exact, nine names added and nothing
+else); `cdeaf254ee` defines the 54 `ModuleTag<...>::IS_DEFAULT`/`CATEGORY` (FXParticleSystemModules.cpp,
+229/229 exact; plus the plain RenderObjectUpdate tag's two, which existing code instantiates implicitly
+and retail does not export). data_check: 0 findings on both units; link_check: both LINKS, LINKED
+unchanged. Against the real link at b033afb2ab (195 unresolved), the two commits define 63 of them:
+predicted 132.
+
+*The 12 `ModuleTag<N, DefaultModuleKey<N>::VALUE, ...>::KEY`/`NAME` are not missing definitions.*
+Retail's export table puts them at 0x00A02C88/8C, 0x00A02C98/9C, 0x00A02CA8/AC, 0x00A02CB8/BC,
+0x00A02CC8/CC and 0x00A02C48/4C (categories 1, 0, 3, 2, 7, 6). `data_ledger.csv` already rows those
+twelve slots, and `functions.csv` their twelve 11-byte dynamic initializers (0x007AF48B..0x007AF5F6),
+under an invented name: `DefaultModuleTag<N>::s_key`/`s_name`. Retail exports `DefaultModuleTag<N>`
+names (96 of them: vtables, `createTemplate`, ...) but no `s_key`/`s_name`. So the target fact is that
+the storage is the reference pair `DefaultModuleTag<N>` inherits from `ModuleTag<N,
+DefaultModuleKey<N>::VALUE, DefaultModuleName<N>::VALUE, DefaultModule<N>, DefaultModuleTemplate<N>,
+DefaultParticleModule<N> >`. Defining `KEY`/`NAME` beside `s_key`/`s_name` would bind a second global
+to each address. That is refused, so the twelve are left for a rename.
+
+Trial (not landed): `DefaultModuleTag<N>` derives from that `ModuleTag`, and `keyReference()` /
+`nameReference()` return `Base::KEY` / `Base::NAME`, with `s_key`/`s_name` dropped. FXParticleSystemModules.cpp
+stays 229/229 exact, and the object swaps the 12 invented names for exactly the 12 retail names, with no new
+references. data_check goes from 0 to 80 wrong-name findings across the unit, because the twelve data-ledger
+rows and twelve `??__E?s_key/s_name@?$DefaultModuleTag@...` initializer rows still spell the old names.
+To land: the source change, plus a rename of those 24 rows to `?KEY@`/`?NAME@?$ModuleTag@...` and
+`??__E?KEY@`/`??__E?NAME@...` (not a placeholder rename, and `rename.py` cannot express the scope change,
+so it needs the export-table evidence above, `deleted_rows.csv` tombstones and a `re_log.py` record),
+plus the same change to FXParticleSystemFactories.cpp's private `DefaultModuleTag` copy (lines ~719-752),
+which still defines `s_key`/`s_name`. Then re-run data_check; the 80 should fall to 0.
