@@ -195,6 +195,7 @@ address_global	Code/GameEngine/Source/Common/Rva000B3814.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva000B3A2D.cpp	g_Va00DB3BDC	2
 address_global	Code/GameEngine/Source/Common/Rva000B5C41.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/Rva000B992CBuild.cpp	g_Rva0107301CEmptyString	2
+address_global	Code/GameEngine/Source/Common/Rva000E19A3Dtor.cpp	g_Va00DEBC64	1
 address_global	Code/GameEngine/Source/Common/Rva000F630CGet.cpp	g_Va009E1F6C	3
 address_global	Code/GameEngine/Source/Common/Rva001363A1Get.cpp	g_Va00DF29B4	2
 address_global	Code/GameEngine/Source/Common/Rva0013676DClear.cpp	g_Va00DF29B4	2
@@ -416,7 +417,6 @@ address_global	Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp	g_Va00E0
 address_global	Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp	g_Va00E0669C	2
 address_global	Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp	g_Va00E06710	2
 address_global	Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp	g_Va00E06E60	2
-address_global	Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits_Rva007AC6DD.cpp	g_Va00DEBC64	2
 address_global	Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits_Rva007AC6DD.cpp	g_Va00E06360	2
 address_global	Code/GameEngine/Source/Common/Rva007AC7FFCosInit.cpp	g_Va00DEBE08	2
 address_global	Code/GameEngine/Source/Common/Rva007AC9B0FilterInits.cpp	g_Va00DEC1CC	2
@@ -544,7 +544,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E0669C	
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E06778	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E06E60	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E08D38	3
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DEBC64	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE490	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE49C	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE6DC	2

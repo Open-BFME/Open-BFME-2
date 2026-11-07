@@ -32,27 +32,11 @@ namespace _STL
 struct BfmeUiResourceEntryState;
 class MappedImageCache;
 
-class TerrainFXShaderParameterSourceNamespace
-{
-public:
-	TerrainFXShaderParameterSourceNamespace();
-};
-
 class Rva0057A4E7
 {
 public:
 	Rva0057A4E7();
 };
-
-extern unsigned int g_Va00DEBC64[10];
-void __cdecl rva007B6DFA();
-
-// ?rva007AC6DD@@YAXXZ @0x007AC6DD 22B: ctor 0x000E188F on &g_Va00DEBC64, atexit(0x007B6DFA).
-void rva007AC6DD()
-{
-	new (&g_Va00DEBC64) TerrainFXShaderParameterSourceNamespace;
-	atexit(rva007B6DFA);
-}
 
 void __cdecl rva007B6E18();
 void rva007AC747();

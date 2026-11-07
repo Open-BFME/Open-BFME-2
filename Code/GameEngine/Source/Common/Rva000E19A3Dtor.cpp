@@ -387,3 +387,9 @@ void TerrainFXShaderParameterSourceNamespace::ResolveBindings(const char *name,c
  else if(compare(path.m_name,"ResourceTexture")==0) registry->AddBinding(setResourceTexture,handle);
  else if(compare(path.m_name,"IsResourceTextureEnabled")==0) registry->AddBinding(setIsResourceTextureEnabled,handle);
 }
+
+// The Terrain binder object. Retail constructs it at 0x00DEBC64 (directly after its
+// singleton g_00DEBC60 above) in this unit's .text$yc run (0x007AC6DD, alone before the
+// pool-init marker 0x007AC6F3) and registers the cleanup 0x007B6DFA, which runs the
+// destructor above. Address name kept; the original name is unknown.
+TerrainFXShaderParameterSourceNamespace g_Va00DEBC64;

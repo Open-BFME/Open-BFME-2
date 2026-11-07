@@ -108,7 +108,6 @@ public:
 	Rva00579731();
 };
 
-void __cdecl rva007B6DFA();
 
 
 extern unsigned g_Va00DEBC98;
