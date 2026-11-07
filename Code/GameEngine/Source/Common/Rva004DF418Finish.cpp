@@ -18,15 +18,20 @@ class UpdateModule
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime when);
 };
 
+// ObjectHelper's destructor is virtual (0x004DF7C2, ??1ObjectHelper@@UAE@XZ,
+// which this constructor's EH unwind calls), as UpdateModule's is, so the view is
+// polymorphic and its vptr is the word at +0; the derived class below stores
+// into it itself.
 class ObjectHelper : public UpdateModule
 {
 public:
 	ObjectHelper(Thing *thing, const ModuleData *moduleData);
-	~ObjectHelper();
+	virtual ~ObjectHelper();
 };
 
 // Native 0x00268902 clears the list and returns its head to the shared pool.
@@ -60,12 +65,14 @@ static int s_secondary0C;
 extern "C" const void *const s_10[3];
 extern "C" const void *const __identifier("??_7Rva004DF324@@6B@")[];
 
-class Rva004DF418 : public ObjectHelper
+// novtable: this unit names no table of its own; the constructor stores the
+// destructor unit's ??_7Rva004DF324@@6B@ into the vptr word (+0) ahead of the
+// secondary words, as retail's stores precede the +0x24 member's construction.
+class __declspec(novtable) Rva004DF418 : public ObjectHelper
 {
 public:
 	Rva004DF418(Thing *thing, const ModuleData *moduleData);
 private:
-	const void *m_vtable;
 	int m_pad04;
 	Object *m_object;
 	const void *m_p0C;
@@ -77,8 +84,7 @@ private:
 
 Rva004DF418::Rva004DF418(Thing *thing, const ModuleData *moduleData)
 	: ObjectHelper(thing, moduleData)
-	, m_vtable(__identifier("??_7Rva004DF324@@6B@"))
-	, m_p0C(&s_secondary0C)
+	, m_p0C((*(const void **)this = __identifier("??_7Rva004DF324@@6B@"), &s_secondary0C))
 	, m_p10(&s_10)
 	, m_24((void *)((char *)&moduleData + 3))
 {
