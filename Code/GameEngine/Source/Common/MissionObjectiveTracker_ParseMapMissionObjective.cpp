@@ -40,16 +40,8 @@ void __cdecl _bfme_debugRecordCallsite(int kind);
 
 #include "debug.h"
 
-struct INIExceptionBuf
-{
-	char *mMsg;
-	int mCode;
-};
 
-extern "C" void rva002f681_fill(void *e, int argCount, const char *format, ...);
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct ThrowAnchor00426D14 { int a; int b; int c; int d; };
-static const ThrowAnchor00426D14 throwAnchor00426D14 = { 0, 0, 0, 0 };
+#include "../../Include/Common/INI/FieldParse.h"
 
 class MissionObjectiveTracker
 {
@@ -79,7 +71,5 @@ void MissionObjectiveTracker::ParseMapMissionObjective(INI *ini)
 	_bfme_debugRecordCallsite(1);
 	theDebug->SkipNext();
 	(theDebug->CrashBegin(0, 0, 0) << "A MissionObjectiveList may only appear in a map.ini file.").CrashDone(1);
-	INIExceptionBuf exception;
-	rva002f681_fill(&exception, 9, (const char *)0);
-	_CxxThrowException(&exception, (const _s__ThrowInfo *)&throwAnchor00426D14); __assume(0);
+	throw INIException(9, (const char *)0);
 }

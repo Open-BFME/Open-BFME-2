@@ -7,10 +7,11 @@
 // "UnitType" <name> and "Pos" <coord2d> with the colon separators (INI +0x420,
 // rowed getNextTokenOrNull / getNextToken / parseCoord2D), stores the slot in
 // the vector<HordeBannerSlot> field and raises an INIException otherwise.
-// The raise is spelled as the variadic INIException filler at 0x0002F681
-// (pinned alias _rva002f681_fill of the matched ??0INIException@@QAA@HPBDZZ)
-// plus _CxxThrowException with a DIR32-masked throw-info anchor: a literal
-// `throw INIException(3, ...)` makes cl copy the object first (292 bytes).
+// The raise is `throw INIException(3, ...)` with FieldParse.h's class
+// (constructor 0x0002F681), naming the compiler's __TI1?AVINIException@@
+// (retail .rdata 0x008FE2FC). An earlier private POD view made cl copy the
+// object first (292 bytes), so the raise was a hand-made _CxxThrowException
+// through a zero throw-info anchor.
 // Semantic donor: BFME1 reverse/attempts/0x0023e280.cpp.
 //
 // Byte lever (2026-10-01): the HordeBannerSlot local lives in a block opened
@@ -44,11 +45,7 @@ struct HordeBannerSlot { HordeContainUnitSlot *value; };
 namespace _STL {
 template <> void vector<HordeBannerSlot>::push_back(const HordeBannerSlot &);
 }
-struct INIException { char *message; int code; };
-extern "C" void rva002f681_fill(void *, int, const char *, ...);
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct BannerThrowInfoAnchor { int a,b,c,d; };
-static const BannerThrowInfoAnchor bannerThrowInfoAnchor = {0,0,0,0};
+#include "../../../../Include/Common/INI/FieldParse.h"
 void parseBannerCarrierPosition(INI *ini, void *instance, void *store, const void *userData)
 {
   {
@@ -72,16 +69,8 @@ void parseBannerCarrierPosition(INI *ini, void *instance, void *store, const voi
     }
   }
 badUnit:
-  {
-    INIException e;
-    rva002f681_fill(&e,3,"UnitType expected");
-    _CxxThrowException(&e, (const _s__ThrowInfo *)&bannerThrowInfoAnchor); __assume(0);
-  }
+  throw INIException(3,"UnitType expected");
 badPos:
-  {
-    INIException e;
-    rva002f681_fill(&e,3,"'Pos' expected");
-    _CxxThrowException(&e, (const _s__ThrowInfo *)&bannerThrowInfoAnchor); __assume(0);
-  }
+  throw INIException(3,"'Pos' expected");
 }
 
