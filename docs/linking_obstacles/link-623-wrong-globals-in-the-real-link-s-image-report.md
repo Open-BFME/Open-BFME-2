@@ -202,7 +202,10 @@ Leftovers of this entry, not done:
 
 - `_vtbl_00C5D608` is TaintSpecialPowerModuleData's table as data (31 slots on retail's folded targets), byte-equal;
   the compiler's own table needs the class's 31 virtuals declared through ModuleData.h with a row for each slot's
-  own name (header lane). No image defect.
+  own name (header lane). No image defect. **Done in LINK-625** (2026-11-07, lk49): the constructor stores the
+  compiler's table through the canonical SpecialPowerModuleData.h and the array is gone; the sweep's zero
+  placeholders (267 at f0cce4d912f, padding and anchors excluded) are inventoried and the ModuleData family's are
+  repaired there.
 - `Rva004118B4AssetCreate.cpp`'s `unsigned int g_00E02FF8` is a private copy of the hash map
   `Rva004121B2HashMapInits.cpp` constructs as `g_Va00E02FF8` (20 bytes), so the asset registration writes a copy
   no reader sees. `tools/name_globals.py --dry-run` proposes no edit (it replaces integer addresses, not a second
