@@ -1,11 +1,8 @@
-# real link at 6457872c28449f0b32f8bc204e4608a45ca028a1: tools/exit_link.py --blockers
+# real link at 94595b3044f41d8c464de45c5c763be5ca56859e: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	214	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA
-Code/Libraries/Source/WWVegas/WWLib/Rva00170C0Siblings.cpp	8	??1Rva00120FB0Dtor@@UAE@XZ
-Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp	3	??1Rva0070A530@@UAE@XZ
 Code/GameEngine/Source/Common/System/Snapshot.cpp	2	??0Matrix4D@@QAE@ABVCoord3D@@M@Z
 Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	2	?onBuildComplete@LockWeaponCreate@@UAEXXZ
-Code/GameEngine/Source/Common/Rva006F84C0DeletingDtor.cpp	1	??1Rva006F84C0@@UAE@XZ
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
 Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp	1	?crc@BehaviorModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp	1	??1PB_DeepBase@@UAE@XZ
@@ -13,4 +10,3 @@ Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	1	?crc@BehaviorM
 Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	1	?crc@BehaviorModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp	1	?crc@BehaviorModule@@MAEXPAVXfer@@@Z
 Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp	1	?crc@BehaviorModule@@MAEXPAVXfer@@@Z
-Code/Libraries/Source/Apt/AptValue.cpp	1	??1Rva006DE320@@UAE@XZ
