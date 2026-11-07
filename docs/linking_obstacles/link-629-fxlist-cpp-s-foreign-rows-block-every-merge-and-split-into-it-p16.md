@@ -51,3 +51,23 @@ Measured separately for P16 (static-defects lane, 2026-11-07, scratch only):
 
 Clearance: pending.
 Census confirmation: not claimed.
+
+Update (2026-11-07, static-defects lane, base 61cf52f345): the copy ctor 0x0052BD3A is not FXList's.
+- **Retail bytes (31 B):** `mov esi,ecx; mov [esi],0x00C61A20; lea ecx,[esi+4]; push src+4; call 0x000365F0
+  (StringBase<char> copy ctor); mov eax,esi; ret 4`. That is the implicit copy ctor of an 8-byte
+  `{vptr, AsciiString}` class: an implicit copy ctor copies every member, and this one copies only the string.
+- **Vtable 0x00C61A20:** one slot, `??_GRva004E156B` 0x004E1BC4, wrapping the ICF-shared 14-byte
+  `{vptr, AsciiString}` dtor 0x004E156B. The string "ParseEnableRegion::Invalid data passed in." follows it at
+  0x00861A24.
+- **Identity:** the class is the EnableRegion record SpawnArmy.cpp views as `Rva003B7BA0Record` (virtual dtor
+  plus `AsciiString m_name`; FieldParse `Region` at +4). SpawnArmy.cpp already notes that its FXList spelling of
+  the push-back thunk 0x00566527 "is a callable view, not this record's identity".
+- **Why it cannot be FXList:** BFME 2's FXList holds `list<FXNugget*>` at +4 (`FXList::clear` 0x001E11A6 walks
+  it, `addFXNugget` 0x0037D097 appends to it), not a string.
+- **The same misnaming covers two more rows:** `_Construct<FXList>` 0x0052C2F3, the copy ctor's only caller
+  (0x0052C30F), and `vector<FXList>::_M_insert_overflow` 0x00565ACB. re_attempts.log records all three as
+  `identity-suspect`.
+- **Next:** respell the three-row chain onto the record class (the class's name goes through the naming lane)
+  and let the unit that copies the record emit it. tu_map approves 0x0052BD3A for LivingWorldCampaign.cpp. The
+  respelled copy ctor then leaves FXList.cpp, which removes one of its three blocking foreign rows. The two
+  hashtable rows are routed to the Harness lane as a tooling question.
