@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../Common/PartitionRangeQueryCallView.h"
@@ -60,45 +61,10 @@ struct CastleMemberBehaviorView
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-class UpgradeMux
-{
-public:
- virtual void upgradeMuxAnchor();
-private:
- bool m_upgradeExecuted;
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-	UpgradeModule( Thing *thing, const ModuleData *moduleData );
-protected:
-	virtual ~UpgradeModule();
-};
-
-class CastleUpgrade : public UpgradeModule
-{
-public:
-	CastleUpgrade( Thing *thing, const ModuleData *moduleData );
-
-
-private:
-	const CastleUpgradeModuleData *getCastleUpgradeModuleData() const
-	{
-		return (const CastleUpgradeModuleData *)getModuleData();
-	}
-	void rva004B68B6(const UpgradeTemplate *upgrade); // unrowed: nearby-object pass at 0x004B68B6
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@CastleUpgrade@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
-};
+// The class is CastleUpgrade.h's, over the canonical UpgradeModule.h (retail's
+// table facts are there); BFME_SNAPSHOT_NAME_SLOT is defined before the first
+// Snapshot.h include above.
+#include "../../../../Include/GameLogic/Module/CastleUpgrade.h"
 
 // BFME1 CastleUpgradeImplementation donor874e38488 supplies upgrade grant
 // semantics; the target's additional radius pass is proven by 4B68B6 and
@@ -135,3 +101,30 @@ void CastleUpgrade::rva004B68B6(const UpgradeTemplate *upgrade)
 
 CastleUpgrade::CastleUpgrade(Thing *thing, const ModuleData *moduleData)
  : UpgradeModule(thing, moduleData) {}
+
+// The Xfer operand types (AsciiString is ascii_string.h's, above).
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+// ?xfer@CastleUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C58880 is 0x004B8710,
+// version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+void CastleUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
+}
