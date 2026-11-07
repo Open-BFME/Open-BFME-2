@@ -2952,7 +2952,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpd
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateParseLocomotorSet.cpp	?_CxxThrowException@@YGXPAX0@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeam.cpp	?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBUCoord3D@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp	?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBUCoord3D@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataCtor.cpp	_vtbl_00C4D5A0	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp	?updateSlot@UpdateModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp	?upgradeSlot@UpgradeMux@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
