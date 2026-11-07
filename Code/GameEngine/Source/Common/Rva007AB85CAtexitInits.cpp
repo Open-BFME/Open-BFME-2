@@ -33,7 +33,6 @@ void __cdecl rva007B80A1();
 void __cdecl rva007B8119();
 void __cdecl rva007B8123();
 void __cdecl rva007B8FA9();
-void __cdecl rva007B95A4();
 void __cdecl rva007B9680();
 void __cdecl rva007B968A();
 void __cdecl rva007B9B40();
@@ -48,7 +47,6 @@ unsigned g_Va00E02D68;
 unsigned g_Va00E02E70;
 unsigned g_Va00E02E74;
 unsigned g_Va00E04490;	// retail RVA 0x00A04490 (.bss), defined here
-unsigned g_Va00E063D4;	// retail RVA 0x00A063D4 (.bss), defined here
 unsigned g_Va00E06444;	// retail RVA 0x00A06444 (.bss), defined here
 unsigned g_Va00E06448;	// retail RVA 0x00A06448 (.bss), defined here
 
@@ -74,7 +72,6 @@ struct Rva007AB85CAtexitInits
 	static void rva007AF934();
 	static void rva007AF94F();
 	static void rva007B31DF();
-	static void rva007B434E();
 	static void rva007B46A8();
 	static void rva007B46C3();
 	static void rva007B55D0();
@@ -208,15 +205,6 @@ void Rva007AB85CAtexitInits::rva007B31DF()
 {
 	( (AsciiString *)&g_Va00E04490 )->AsciiString::AsciiString( "FarmTemplate" );
 	atexit( rva007B8FA9 );
-}
-#pragma inline_depth()
-
-#pragma inline_depth( 0 )
-// ?rva007B434E@Rva007AB85CAtexitInits@@SAXXZ @ 0x007B434E (27B): AsciiString at VA 0x00E063D4 = literal at VA 0x00BFB944, then atexit(0x007B95A4)
-void Rva007AB85CAtexitInits::rva007B434E()
-{
-	( (AsciiString *)&g_Va00E063D4 )->AsciiString::AsciiString( "CreateAHero" );
-	atexit( rva007B95A4 );
 }
 #pragma inline_depth()
 

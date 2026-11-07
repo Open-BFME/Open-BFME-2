@@ -288,10 +288,14 @@ struct Rva00506C82Arg
 	int m_50;
 };
 #include "../../../../Include/GameNetwork/GameInfo.h"
+#include "../../../../Include/GameClient/Drawable.h"
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
-// The "CreateAHero" AsciiString at RVA 0x00A063D4; Rva007AB85CAtexitInits.cpp owns and
-// constructs it, this TU reads it through its AsciiString view.
-extern unsigned g_Va00E063D4;
+// The "CreateAHero" AsciiString at RVA 0x00A063D4. Retail builds it in this TU's .text$yc
+// run (0x007B434E, between the unit's Drawable.h copy and its pool-init marker) through the
+// out-of-line AsciiString(const char *) 0x0000654A, and registers the cleanup 0x007B95A4.
+#pragma inline_depth( 0 )
+AsciiString g_Va00E063D4("CreateAHero");
+#pragma inline_depth()
 class Rva00598CBC
 {
 public:
@@ -509,7 +513,7 @@ void Rva00598CBC::rva00598CBC()
 	m_vec = src;
 	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_30);
 	if (slot && slot->m_field50 != 0) {
-		m_vec.push_back(*(const AsciiString *)&g_Va00E063D4);
+		m_vec.push_back(g_Va00E063D4);
 	}
 }
 
