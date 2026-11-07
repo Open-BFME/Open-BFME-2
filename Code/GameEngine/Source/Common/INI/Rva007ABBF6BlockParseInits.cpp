@@ -95,7 +95,6 @@ class CrateSystem
 public:
 	static void parseCrateTemplateDefinition(INI *);
 };
-#include "../../../Include/GameLogic/CreateAHeroManager.h"
 class DamageFXStore
 {
 public:
@@ -202,7 +201,6 @@ BlockParse theLivingWorldObjectBlockParse = { 0, "LivingWorldObject", Rva0021376
 BlockParse theLivingWorldMapInfoBlockParse = { 0, "LivingWorldMapInfo", parseLivingWorldMapInfoDefinition };	// VA 0x00DB9A2C "LivingWorldMapInfo", parse 0x00210F64
 BlockParse theCloudEffectBlockParse = { 0, "CloudEffect", parseCloudEffectDefinition };	// VA 0x00DB9B68 "CloudEffect", parse 0x0021526C
 BlockParse thePlayerAITypeBlockParse = { 0, "PlayerAIType", parsePlayerAITypeDefinition };	// VA 0x00DB9B74 "PlayerAIType", parse 0x00215C38
-BlockParse theCreateAHeroSystemBlockParse = { 0, "CreateAHeroSystem", CreateAHeroManager::iniParseCreateAHeroSystem };	// VA 0x00DB9D38 "CreateAHeroSystem", parse 0x0022044C
 BlockParse theStrategicHUDBlockParse = { 0, "StrategicHUD", StrategicHUD::ParseSettings };	// VA 0x00DBA190 "StrategicHUD", parse 0x0022157B
 BlockParse theInGameNotificationBoxBlockParse = { 0, "InGameNotificationBox", parseInGameNotificationBoxDefinition };	// VA 0x00DBA19C "InGameNotificationBox", parse 0x0022232E
 extern BlockParse theAptButtonTooltipMapBlockParse;	// VA 0x00DBA1CC "AptButtonTooltipMap", parse 0x00224DFF
@@ -269,7 +267,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AD94E();
 	static void rva007AD9E8();
 	static void rva007AD9FD();
-	static void rva007ADAD2();
 	static void rva007ADB4C();
 	static void rva007ADB6D();
 	static void rva007ADB92();
@@ -368,8 +365,6 @@ BLOCK_PARSE_INIT( rva007AD94E, theLivingWorldMapInfoBlockParse )
 BLOCK_PARSE_INIT( rva007AD9E8, theCloudEffectBlockParse )
 // ?rva007AD9FD@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AD9FD (21B): "PlayerAIType"
 BLOCK_PARSE_INIT( rva007AD9FD, thePlayerAITypeBlockParse )
-// ?rva007ADAD2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADAD2 (21B): "CreateAHeroSystem"
-BLOCK_PARSE_INIT( rva007ADAD2, theCreateAHeroSystemBlockParse )
 // ?rva007ADB4C@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB4C (21B): "StrategicHUD"
 BLOCK_PARSE_INIT( rva007ADB4C, theStrategicHUDBlockParse )
 // ?rva007ADB6D@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007ADB6D (21B): "InGameNotificationBox"

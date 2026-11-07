@@ -563,3 +563,25 @@ extern "C" const FieldParse CreateAHeroClassFieldParse[] =
 	{ "SubClass", CreateAHeroManager::parseCreateAHeroSubClass, 0, 0x14 },
 	{ 0, 0, 0, 0 }
 };
+
+// INI block registration (LINK-236). Each unit links its own 12-byte BlockParse nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the link; MSVC 7.1
+// builds token and parse in .data, so the node's .text$yc initializer is only the 21-byte
+// link (retail .CRT$XCU 0x007ADAD2, node 0x00DB9D38). Retail's CreateAHero unit run is its
+// Drawable.h copy 0x007ADAA5 (static after TheCreateAHeroManager), a vector 0x007ADAB5, this
+// node, then the pool-init marker 0x007ADAE7; this fragment defines the node's callback.
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theCreateAHeroSystemBlockParse( "CreateAHeroSystem", CreateAHeroManager::iniParseCreateAHeroSystem );
