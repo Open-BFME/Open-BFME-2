@@ -272,6 +272,8 @@ extern ControlBar *TheControlBar;
 void __stdcall rva005257F6(int unused);
 
 #include "../../../../../Include/GameClient/InGameHeroSelectInterface.h"
+// Retail .CRT$XCU 0x007B395B is this unit's Drawable.h copy (static 0x00E0496C).
+#include "../../../../../Include/GameClient/Drawable.h"
 
 class Gen_uwm_00524f5a
 {

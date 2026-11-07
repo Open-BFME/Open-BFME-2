@@ -13,6 +13,8 @@
 #include "unicode_string.h"
 
 #include "../../../Libraries/Source/Apt/BfmeAptWindowManager.h"
+// Retail .CRT$XCU 0x007AFCF8 is this unit's Drawable.h copy (static 0x00E02EE8).
+#include "../../Include/GameClient/Drawable.h"
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const unsigned short g_Va007C9260[];

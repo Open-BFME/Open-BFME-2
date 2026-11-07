@@ -6,6 +6,8 @@
 #include "ascii_string.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
+// Retail .CRT$XCU 0x007AEB1C is this unit's Drawable.h copy (static 0x00E01DD0).
+#include "../../../Include/GameClient/Drawable.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

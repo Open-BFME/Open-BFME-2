@@ -4,6 +4,9 @@
 // ctor via row 0x005C7792 plus _atexit). Evidence: EH_prolog frame,
 // guard byte at VA 0x00E065DC with object at VA 0x00E065D8, ctor row
 // ??0Rva005C7792@@QAE@XZ, _atexit row, 8 callers need void init.
+// Retail .CRT$XCU 0x007B4922 is this unit's Drawable.h copy (static 0x00E065E0).
+#include "../../Include/GameClient/Drawable.h"
+
 class Rva005C7792
 {
 public:

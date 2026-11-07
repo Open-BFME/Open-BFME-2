@@ -106,6 +106,8 @@ public:
 };
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
+// Retail .CRT$XCU 0x007AEC1A is this unit's Drawable.h copy (static 0x00E01E24).
+#include "../../../Include/GameClient/Drawable.h"
 
 // The TeamFactory singleton; its lookup/create entry points below keep
 // address-derived owner names until their identities are recovered.

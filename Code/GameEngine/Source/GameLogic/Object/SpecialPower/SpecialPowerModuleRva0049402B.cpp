@@ -76,6 +76,8 @@ class SpecialPowerModule;
 #include "../../../../Include/GameLogic/Module/AttributeModifierPoolUpdate.h"
 
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
+// Retail .CRT$XCU 0x007B16AD is this unit's Drawable.h copy (static 0x00E03A10).
+#include "../../../../Include/GameClient/Drawable.h"
 
 enum Relationship { REL_ENEMIES = 0, REL_NEUTRAL = 1, REL_ALLIES = 2 };
 

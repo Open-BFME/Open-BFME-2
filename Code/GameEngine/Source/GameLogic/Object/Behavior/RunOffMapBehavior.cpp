@@ -123,6 +123,8 @@ class RunOffTerrainView {public:
 };
 struct RunOffMapBehaviorModuleData {char pad00[0x10];bool m_10;AsciiString waypointName;bool dieOnMap;};
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+// Retail .CRT$XCU 0x007B0D45 is this unit's Drawable.h copy (static 0x00E03628).
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

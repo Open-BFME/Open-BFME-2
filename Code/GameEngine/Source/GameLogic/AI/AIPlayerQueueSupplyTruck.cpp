@@ -719,6 +719,8 @@ public:
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 #include "../../../Include/Common/Module.h"
+// Retail .CRT$XCU 0x007B32E3 is this unit's Drawable.h copy (static 0x00E044D4).
+#include "../../../Include/GameClient/Drawable.h"
 class SupplyWarehouseDockUpdate:public Module{public:char m_pad08[0x88-8];int m_boxesStored;int getBoxesStored()const{return m_boxesStored;}};
 
 /** Queue up a supply truck to be built. */

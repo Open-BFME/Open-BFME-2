@@ -28,6 +28,8 @@ class Rva002E2903Player;
 #include "../../../../Include/GameLogic/LivingWorldPlayer.h"
 class CreateAHeroHero;
 #include "../../../../Include/GameLogic/CreateAHeroManager.h"
+// Retail .CRT$XCU 0x007B521B is this unit's Drawable.h copy (static 0x00E068D0).
+#include "../../../../Include/GameClient/Drawable.h"
 extern CreateAHeroManager *TheCreateAHeroManager;
 struct StrategicButtonImageView { int unknown;AsciiString templateName; };
 namespace StrategicInGameUI {
