@@ -1240,6 +1240,167 @@ def data_identifier(symbol):
     match = re.fullmatch(r'_([A-Za-z_]\w*)', symbol)
     return match.group(1) if match else None
 
+def pointer_evidence_index(img, root):
+    """Small address/extent index streamed from ledgers, never a pointer oracle."""
+    import bisect
+    entities = {}
+    def add(start, size, name, kind):
+        entities.setdefault(start, []).append(dict(start=start, size=size, name=name, kind=kind))
+    for filename in ("data_rows.csv", "data_ledger.csv", "data_converged.csv", "functions.csv"):
+        path = Path(root) / "reverse" / filename
+        if not path.exists():
+            continue
+        with path.open(newline="", encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                if filename == "functions.csv":
+                    add(img.base + int(r["target_rva"],16), int(r["target_size"] or 0), r["name"], "function")
+                else:
+                    value = int(r["address"],16)
+                    if filename in ("data_ledger.csv", "data_converged.csv") or r.get("address_kind") == "rva":
+                        value += img.base
+                    add(value, int(r.get("size") or 0), r["name"], r.get("kind", "data"))
+    starts = sorted(entities)
+    ends, owners, best, owner = [], [], -1, None
+    for start in starts:
+        for e in entities[start]:
+            if start + e["size"] > best:
+                best, owner = start + e["size"], e
+        ends.append(best); owners.append(owner)
+    def classify(value):
+        if value in entities:
+            return "A", "entity_start", entities[value]
+        section = next((sec for sec in img.sections if sec["va"] <= value < sec["end"]), None)
+        if section and section["name"] in (".rdata", ".data") and (value % 4 == 0 or img.read(value-1,1) == b"\0"):
+            raw = img.read(value, min(4096,section["end"]-value))
+            end = raw.find(b"\0")
+            if end > 0 and all(32 <= b < 127 for b in raw[:end]):
+                return "A", "retail_string_start", [dict(name=raw[:end].decode("ascii"), start=value, size=end+1, kind="string")]
+        n = bisect.bisect_right(starts,value)-1
+        if n >= 0 and ends[n] > value:
+            return "B", "entity_interior", [owners[n]]
+        return "B", "unmapped_image_address", []
+    return classify
+
+
+def data_pointer_evidence(row, body, relocations, img, classify):
+    """Report-only evidence from bytes and COFF fields, not retail .reloc.
+    relocations are row-relative (offset, COFF type); only DIR32 is an absolute
+    pointer fixup. Other/partial relocation fields are excluded, not passed.
+    """
+    size, va = int(row["size"]), va_of(row)
+    counts = dict(aligned_words=0, byte_differences=0, relocation_overlap=0, trailing_bytes_not_scanned=size%4)
+    image_end = max(sec["end"] for sec in img.sections)
+    retail = img.read(va,size)
+    if len(body) != size or len(retail) != size:
+        return dict(counts=dict(extent_unanalyzed=1), findings=[])
+    result = []
+    for off in range(0,size-3,4):
+        counts["aligned_words"] += 1
+        overlap = [(at,kind) for at,kind in relocations if off-3 <= at < off+4]
+        if overlap:
+            counts["relocation_overlap"] += 1
+            continue
+        if body[off:off+4] != retail[off:off+4]:
+            counts["byte_differences"] += 1
+            continue
+        value=struct.unpack_from("<I",retail,off)[0]
+        if not img.base <= value < image_end:
+            continue
+        tier,reason,owners=classify(value)
+        result.append(dict(tier=tier,reason=reason,offset=off,retail_value=hex(value),object_value=hex(value),entities=owners))
+    for off,kind in relocations:
+        if kind != DIR32 or off < 0 or off+4 > size:
+            counts["unsupported_or_straddling_relocation"] = counts.get("unsupported_or_straddling_relocation",0)+1
+            continue
+        value=struct.unpack_from("<I",retail,off)[0]
+        if not img.base <= value < image_end:
+            result.append(dict(tier="B",reason="object_relocation_to_implausible_retail_va",offset=off,
+                retail_value=hex(value),object_value=hex(struct.unpack_from("<I",body,off)[0]),entities=[]))
+    return dict(counts=counts,findings=result)
+
+
+def defined_data_pointer_report(manifest, img, root):
+    """Inspect frozen objects without compiling or changing verification results."""
+    import hashlib, collections, json
+    build,rl=_tools()
+    classify=pointer_evidence_index(img,root)
+    manifest=Path(manifest)
+    entries=json.loads(manifest.read_text())
+    by_source=collections.defaultdict(list)
+    for entry in entries:
+        by_source[entry.get("source","").replace("\\","/")].append(entry)
+    parsed={}; findings=[]; counts=collections.Counter()
+    rows=load(Path(root)/"reverse/data_rows.csv")
+    # Converged has no extents. Cover a name there only through a defined data row;
+    # inventory extents alone never assert that we define a global.
+    for row in rows:
+        counts["rows_considered"]+=1
+        definitions=[]
+        for entry in by_source.get(row["source"],[]):
+            path=manifest.parent/entry["path"].replace("\\","/")
+            if path not in parsed:
+                raw=path.read_bytes()
+                if hashlib.sha256(raw).hexdigest()!=entry["sha256"]:
+                    raise ValueError("object manifest hash mismatch")
+                parsed[path]=rl.parse_coff(raw)
+            sections,symbols=parsed[path]
+            for sym in symbols.values():
+                if sym["name"]==row["name"] and sym["section"]>0 and sym["storage"]==EXTERNAL:
+                    definitions.append((entry,sections,symbols,sym))
+        if len(definitions)!=1:
+            counts["rows_object_definition_unresolved"]+=1
+            continue
+        entry,sections,symbols,sym=definitions[0]
+        sec=sections[sym["section"]-1];lo=sym["value"];size=int(row["size"])
+        body=sec["body"]
+        if body is None:
+            body=bytes(sec["size"])
+        if lo+size>len(body):
+            counts["rows_object_extent_unanalyzed"]+=1
+            continue
+        relocs=[(off-lo,kind) for off,_index,kind in sec["relocs"] if lo-3<=off<lo+size]
+        result=data_pointer_evidence(row,body[lo:lo+size],relocs,img,classify)
+        counts.update(result["counts"]);counts["rows_analyzed"]+=1
+        for d in result["findings"]:
+            d.update(row=row["name"],source=row["source"],retail_rva=hex(va_of(row)-img.base),
+                     symbol=row["name"],field_retail_rva=hex(va_of(row)-img.base+d["offset"]),
+                     size=size,object=entry.get("provider",Path(entry["path"]).name))
+            if d["reason"]=="object_relocation_to_implausible_retail_va":
+                fields=[(index,kind) for off,index,kind in sec["relocs"] if off-lo==d["offset"]]
+                d["relocation_targets"]=[symbols[index]["name"] for index,_kind in fields]
+                d["object_value_kind"]="COFF addend"
+            findings.append(d)
+    counts["tier_a"]=sum(d["tier"]=="A" for d in findings)
+    counts["tier_b"]=sum(d["tier"]=="B" for d in findings)
+    counts["rows_tier_a"]=len({d["row"] for d in findings if d["tier"]=="A"})
+    counts["rows_tier_b"]=len({d["row"] for d in findings if d["tier"]=="B"})
+    unbounded=[]
+    converged = Path(root)/"reverse/data_converged.csv"
+    if converged.exists():
+        with converged.open(newline="",encoding="utf-8") as f:
+            names={r["name"] for r in csv.DictReader(f)}
+        covered={r["name"] for r in rows}
+        unbounded=sorted(names-covered)
+        counts["converged_names_without_data_row_extent"] = len(unbounded)
+    ledger_hashes={}
+    for filename in ("data_rows.csv","data_ledger.csv","data_converged.csv","functions.csv"):
+        path=Path(root)/"reverse"/filename
+        if path.exists():
+            h=hashlib.sha256()
+            with path.open("rb") as f:
+                for block in iter(lambda:f.read(65536),b""):
+                    h.update(block)
+            ledger_hashes[filename]=h.hexdigest()
+    return dict(mode="report-only",counts=dict(counts),findings=findings,converged_without_extents=unbounded,
+        inputs=dict(manifest_sha256=hashlib.sha256(manifest.read_bytes()).hexdigest(),
+            retail_sha256=hashlib.sha256(img.data).hexdigest(),ledger_hashes=ledger_hashes,
+            detector_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()),
+        limitations=["No retail relocation oracle exists; tiers are address evidence, not runtime proof.",
+            "Forward scan uses four-byte words relative to the row start; unaligned fields without object fixups are unscanned.",
+            "Manifest must bind the intended objects; no compilation or build-refusal wiring.",
+            "Converged rows without data_rows extents are not analyzed."])
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--check", action="store_true", help="integrity only")
@@ -1247,7 +1408,18 @@ def main(argv=None):
     ap.add_argument('--admit-agreed', metavar='ID', help='admit a blind-agreed unrowed global from its current object')
     ap.add_argument('--symbol', help='exact COFF external defined by the source')
     ap.add_argument('--model', help='model/account label for the admitted data row')
+    ap.add_argument("--pointer-report", metavar="OBJECT_MANIFEST", help="report tiered pointer evidence from frozen objects; never compile/refuse rows")
+    ap.add_argument("--pointer-ledgers",type=Path,default=ROOT,help="repository root containing frozen reverse ledgers for pointer report")
+    ap.add_argument("--report-out", type=Path, default=Path("build/data_pointer_report.json"))
     args = ap.parse_args(argv)
+    if args.pointer_report:
+        import json
+        _build,rl=_tools()
+        report=defined_data_pointer_report(args.pointer_report,rl.Image(),args.pointer_ledgers)
+        args.report_out.parent.mkdir(parents=True,exist_ok=True)
+        args.report_out.write_text(json.dumps(report,indent=2)+"\n")
+        print(json.dumps(report["counts"],indent=2))
+        return 0
     if args.admit_agreed:
         import rename
         if not args.symbol or not args.model or args.check or args.verify is not None:

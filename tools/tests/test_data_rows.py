@@ -957,3 +957,82 @@ def test_hand_added_address_named_data_row_is_still_refused_by_hatch_gate(tmp_pa
     done = repo.tool('--staged')
     assert done.returncode == 1
     assert 'address_global' in done.stderr and 'g_Va00403100' in done.stderr
+
+
+def pointer_root(tmp_path):
+    root=tmp_path/"root";(root/"reverse").mkdir(parents=True)
+    (root/"reverse/functions.csv").write_text("name,target_rva,target_size\nfn,0x1010,16\n")
+    (root/"reverse/data_rows.csv").write_text(data_rows.HEADER+"\n")
+    return root
+
+
+def test_pointer_tiers_known_start_interior_and_unmapped(tmp_path):
+    root=pointer_root(tmp_path);img=image_with(data=bytes(32))
+    classify=data_rows.pointer_evidence_index(img,root)
+    body=struct.pack("<III",BASE+0x1010,BASE+0x1014,BASE+0x3050)
+    img=image_with(data=body)
+    r=dict(zip(data_rows.FIELDS,row(size="12")))
+    result=data_rows.data_pointer_evidence(r,body,[],img,classify)
+    assert [d["tier"] for d in result["findings"]]==["A","B","B"]
+    assert [d["reason"] for d in result["findings"]]==["entity_start","entity_interior","unmapped_image_address"]
+
+
+def test_pointer_string_start_catches_p14_plain_integer(tmp_path):
+    root=pointer_root(tmp_path)
+    # OBJECT is a retail string start without a data ledger entry.
+    value=BASE+0x2000;body=struct.pack("<II",0,value)
+    img=image_with(rdata=b"OBJECT\0",data=body)
+    classify=data_rows.pointer_evidence_index(img,root)
+    result=data_rows.data_pointer_evidence(dict(zip(data_rows.FIELDS,row(size="8"))),body,[],img,classify)
+    assert len(result["findings"])==1
+    d=result["findings"][0]
+    assert d["tier"]=="A" and d["offset"]==4 and d["entities"][0]["name"]=="OBJECT"
+
+
+def test_unaligned_non_boundary_string_is_only_a_lead(tmp_path):
+    root=pointer_root(tmp_path);value=BASE+0x2001;body=struct.pack("<I",value)
+    img=image_with(rdata=b"xOBJECT\0",data=body)
+    result=data_rows.data_pointer_evidence(dict(zip(data_rows.FIELDS,row())),body,[],img,data_rows.pointer_evidence_index(img,root))
+    assert result["findings"][0]["tier"]=="B"
+    img=image_with(rdata=b"\0OBJECT\0",data=body)
+    result=data_rows.data_pointer_evidence(dict(zip(data_rows.FIELDS,row())),body,[],img,data_rows.pointer_evidence_index(img,root))
+    assert result["findings"][0]["tier"]=="A"
+
+
+def test_pointer_fixup_reverse_implausible_value_is_only_a_lead(tmp_path):
+    root=pointer_root(tmp_path);img=image_with(data=struct.pack("<I",7))
+    result=data_rows.data_pointer_evidence(dict(zip(data_rows.FIELDS,row())),bytes(4),[(0,6)],img,data_rows.pointer_evidence_index(img,root))
+    assert result["findings"][0]["tier"]=="B"
+    assert result["findings"][0]["reason"]=="object_relocation_to_implausible_retail_va"
+
+
+def test_relocated_or_changed_word_does_not_become_unrelocated_pointer(tmp_path):
+    root=pointer_root(tmp_path);body=struct.pack("<I",BASE+0x1010);img=image_with(data=body)
+    r=dict(zip(data_rows.FIELDS,row()));classify=data_rows.pointer_evidence_index(img,root)
+    assert not data_rows.data_pointer_evidence(r,bytes(4),[],img,classify)["findings"]
+    assert not data_rows.data_pointer_evidence(r,body,[(0,6)],img,classify)["findings"]
+    assert not data_rows.data_pointer_evidence(r,body,[(1,6)],img,classify)["findings"]
+
+
+def test_defined_row_report_reads_manifest_and_finds_plain_number(tmp_path):
+    import json,hashlib
+    root=pointer_root(tmp_path)
+    raw=ledger(row(name="names",size="8"));(root/"reverse/data_rows.csv").write_bytes(raw)
+    obj=tmp_path/"names.obj";body=struct.pack("<II",0,BASE+0x2000)
+    write_coff(obj,[(".data",DATA,body,8,[])],[("names",0,1,2)])
+    manifest=tmp_path/"objects.json";manifest.write_text(json.dumps([dict(path=obj.name,sha256=hashlib.sha256(obj.read_bytes()).hexdigest(),source="Code/G.cpp",provider="names.obj")]))
+    report=data_rows.defined_data_pointer_report(manifest,image_with(rdata=b"OBJECT\0",data=body),root)
+    assert report["mode"]=="report-only" and report["counts"]["tier_a"]==1
+    assert report["findings"][0]["row"]=="names" and report["findings"][0]["offset"]==4
+    assert report["findings"][0]["entities"][0]["name"]=="OBJECT"
+
+
+def test_pointer_report_cli_returns_success_without_build_verification(tmp_path,monkeypatch):
+    from types import SimpleNamespace
+    called=[]
+    monkeypatch.setattr(data_rows,"_tools",lambda:(None,SimpleNamespace(Image=lambda:None)))
+    monkeypatch.setattr(data_rows,"defined_data_pointer_report",lambda *args:dict(mode="report-only",counts=dict(tier_a=3),findings=[]))
+    monkeypatch.setattr(data_rows,"verify",lambda *args,**kwargs:called.append("verify"))
+    out=tmp_path/"report.json"
+    assert data_rows.main(["--pointer-report","objects.json","--report-out",str(out)])==0
+    assert not called and out.exists()

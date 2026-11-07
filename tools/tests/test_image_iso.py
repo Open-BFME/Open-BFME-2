@@ -788,7 +788,7 @@ def test_address_only_cli_keeps_ambiguous_out_of_defects_tsv(tmp_path, monkeypat
     assert defects[0]["family"] == "unrelocated_retail_address"
     assert json.loads(defects[0]["evidence"])["offset"] == 1
     assert ambiguous[0]["family"] == "unrelocated_retail_address_ambiguous"
-    assert json.loads((out / "report.json").read_text())["analysis_scope"] == "absolute address code/data audit only"
+    assert json.loads((out / "report.json").read_text())["analysis_scope"] == "absolute address code/data and defined-data pointer evidence only"
     assert json.loads((out / "report.json").read_text())["relocation_bounds"]["counts"] == {}
 
 
@@ -1214,3 +1214,43 @@ def test_comparison_with_absolute_memory_beyond_end_is_still_a_defect(tmp_path):
     result=iso.relocation_bounds(c,[],ledger)
     assert result["counts"]["defects"] == 1 and not result["ambiguous"]
     assert result["defects"][0]["reason"] == "absolute_dereference"
+
+
+def test_defined_data_pointer_image_check_uses_kept_copy(tmp_path,monkeypatch):
+    import data_rows
+    p=public("names",0x2000,8);c=checker([p],{})
+    c.retail.data=b"unused fixture"
+    records=[dict(tier="A",reason="retail_string_start",row="names",source=p["source"],object=p["object"],
+        retail_rva="0x3000",offset=4,retail_value="0xbfaa80",object_value="0xbfaa80",entities=[])]
+    monkeypatch.setattr(data_rows,"defined_data_pointer_report",lambda *args:dict(mode="report-only",counts=dict(tier_a=1,tier_b=0),findings=records))
+    import reloc_ledger
+    monkeypatch.setattr(reloc_ledger,"Image",lambda *args:None)
+    c.ours.put(0x2004,struct.pack("<I",0xbfaa80))
+    r=iso.defined_data_pointers(c,tmp_path/"manifest.json",tmp_path)
+    assert r["counts"]["tier_a"]==1 and c.defects[0]["family"]=="defined_data_unrelocated_pointer"
+    c.defects.clear();c.ours.put(0x2004,struct.pack("<I",0x10003000))
+    r=iso.defined_data_pointers(c,tmp_path/"manifest.json",tmp_path)
+    assert r["counts"]["tier_a"]==0 and not c.defects
+
+
+def test_data_pointers_only_cli_catches_plain_number_string_pointer(tmp_path,monkeypatch):
+    root=tmp_path/"root";(root/"reverse").mkdir(parents=True)
+    monkeypatch.setattr(iso.build,"ROOT",root)
+    (root/"reverse/data_rows.csv").write_text("name,address,address_kind,size,section,source,status,evidence,model\nnames,0x2020,rva,4,.rdata,Code/names.cpp,matched,fixture,test\n")
+    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name,source,names\n")
+    (root/"reverse/functions.csv").write_text("name,target_rva,target_size,source,status,notes\n")
+    ours,retail=tmp_path/"exit.exe",tmp_path/"retail.exe"
+    for path,base in [(ours,0x10000000),(retail,0x400000)]:
+        write_pe(path,base);raw=bytearray(path.read_bytes())
+        raw[0x620:0x624]=struct.pack("<I",0x402100);raw[0x700:0x707]=b"OBJECT\0";path.write_bytes(raw)
+    obj=tmp_path/"names.obj"
+    iso.link_cycle.write_coff(obj,[(".rdata",0x40000040,struct.pack("<I",0x402100),0)],[("names",1,0,2)])
+    manifest=tmp_path/"objects.json";manifest.write_text(json.dumps([dict(path=obj.name,sha256=iso.digest(obj),source="Code/names.cpp",provider="names.obj")]))
+    mapfile=tmp_path/"exit.map";mapfile.write_text(" 0002:00000020 names 10002020 names.obj\n")
+    (tmp_path/"image_receipt.json").write_text(json.dumps(dict(kind="diagnostic",base="0x10000000",stubbed=[],image_sha256=iso.digest(ours),map_sha256=iso.digest(mapfile))))
+    out=tmp_path/"report"
+    assert iso.main(["--image",str(ours),"--map",str(mapfile),"--retail",str(retail),"--objects",str(manifest),"--out",str(out),"--data-pointers-only"])==1
+    r=json.loads((out/"report.json").read_text())
+    assert r["defined_data_pointers"]["counts"]["tier_a"]==1
+    assert r["defects"][0]["family"]=="defined_data_unrelocated_pointer"
+    assert "defined_data_unrelocated_pointer" in (out/"defects.tsv").read_text()
