@@ -5684,3 +5684,5 @@ _$E1,0x007B1A27,"Retracted for readmission as _$E3 in SlavedUpdateRepair.cpp: th
 ??1Rva004B362D@@UAE@XZ,0x004B362D,"Renamed to ??1BaseUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57120)"
 ??_GRva004B362D@@UAEPAXI@Z,0x004B374D,"Renamed to ??_GBaseUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57120)"
 ?name@Rva004B67FCNamed@@QBEPBDXZ,0x004B67FC,"Renamed to ?GetSnapshotName@CastleUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C58880 slot 2)"
+??1Rva004B67DC@@UAE@XZ,0x004B67DC,"Renamed to ??1CastleUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C58880)"
+??_GRva004B67DC@@UAEPAXI@Z,0x004B689A,"Renamed to ??_GCastleUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C58880)"

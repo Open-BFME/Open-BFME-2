@@ -174,13 +174,12 @@ Rva004B63BD::~Rva004B63BD()
 {
 }
 
-class Rva004B67DC : public UpgradeModule
-{
-public:
-	virtual ~Rva004B67DC();
-};
+// CastleUpgrade's destructor 0x004B67DC: its constructor 0x004B6869 installs
+// the same four tables. The class is CastleUpgrade.h's, so this unit's copies
+// of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/CastleUpgrade.h"
 
-Rva004B67DC::~Rva004B67DC()
+CastleUpgrade::~CastleUpgrade()
 {
 }
 
