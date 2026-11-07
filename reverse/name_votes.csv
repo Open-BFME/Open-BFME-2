@@ -24250,3 +24250,4 @@ Code/GameEngine/Source/Common/Rva0007BEA7Overlap.cpp|function|0x0007BEA7|rva0007
 Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp|function|0x0007BEDA|rva0007BEDA,e41496d5aa458fe501260f7a,claude-opus-5-5,p24-cull,w-8bda9f41f7d6,2026-11-07
 Code/GameEngine/Source/Common/Rva0007BEA7Overlap.cpp|function|0x0007BEA7|rva0007BEA7,708ad8f1cf571b989ae725db,gpt-6.1-sol,p24-cull,w-8ec2693f00b5,2026-11-07
 Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp|function|0x0007BEDA|rva0007BEDA,e41496d5aa458fe501260f7a,gpt-6.1-sol,p24-cull,w-8ec2693f00b5,2026-11-07
+Code/Libraries/Source/VP6/FilterBlockMmx.cpp|global|unrowed:d6b2d33689be30a61d9acf34192432da973954b292aebd1c633e9bd684d3cff4|unrowedData,7ea051adae68fd55e159a26c,claude-opus-5-5,vp6-bicubic-claude,w-7a817ebb434e,2026-11-07
