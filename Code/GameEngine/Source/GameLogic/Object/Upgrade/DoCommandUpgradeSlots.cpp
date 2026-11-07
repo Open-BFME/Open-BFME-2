@@ -27,15 +27,7 @@ struct DoCommandUpgradeModuleData
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-#include "../../../../Include/GameLogic/Module/UpgradeModule.h"
-
-
-class DoCommandUpgrade : public UpgradeModule
-{
-public:
-	virtual void upgradeRemovalImplementation();
-	virtual void upgradeImplementation();
-};
+#include "../../../../Include/GameLogic/Module/DoCommandUpgrade.h"
 
 // ?upgradeRemovalImplementation@DoCommandUpgrade@@UAEXXZ @0x004B4C7B
 void DoCommandUpgrade::upgradeRemovalImplementation()
