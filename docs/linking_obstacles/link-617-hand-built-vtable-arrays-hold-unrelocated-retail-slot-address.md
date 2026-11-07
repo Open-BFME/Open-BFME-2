@@ -90,8 +90,13 @@ Not fixed this pass, with what each needs:
   0x00658710, the variadic logger 0x00658820, assertFailed 0x00658890, errorFrom 0x00658930, a deleting
   destructor 0x006587E0 freeing 0x14 bytes); our array has one word, so slot-3 asserts read past it.
   Online only (created from createServiceHubImpl, called by BuddyThreadClass::Thread_Function).
-- Rva005C44A3 (g_00C745D4): the MissionStats recipe applies: ctor view over Rva004FA830, then
-  `--to-class` for 0x005C44DF, 0x005C44C3 (already UBE) and 0x005C4352. LivingWorld bonus registry.
+- Rva005C44A3 (g_00C745D4, the "IncreaseCommandPoints" LivingWorld bonus template): the ctor view
+  works (0x005C44A3 stays exact with the compiler's vptr store, three overrides declared in retail's
+  slot order), but the first `function --to-class` (0x005C44DF, 0x005C44C3 or 0x005C4352) is refused:
+  no slot of the installer's table resolves to a row yet (all three are under other placeholders and
+  slot 0's 0x005C4537 is ICF-shared), so the tool cannot show the order. Recorded as a false reject
+  (`re_attempts.log`, 0x005C44DF); the ctor attempt was reverted. Needs the tool to accept moving the
+  three together, then the same recipe.
 - g_00BC9020 (Rva000A217F, a W3D gadget window): needs the canonical GameWindow (Bfme2GameWindow.h)
   reconciled with the BfmeAptScreenBase chain its base ctor 0x00104F8F uses; header lane.
 
