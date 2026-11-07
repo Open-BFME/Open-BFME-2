@@ -15,6 +15,7 @@ from pathlib import Path
 
 import build
 import link_census
+import link_cycle
 import link_check
 import exit_link
 
@@ -99,41 +100,78 @@ def definers(index, name, rank):
     return set(copies) | strong | common
 
 
+def import_resolves(name, requested, runtime, imported):
+    """True when exit_link.py's own link would supply `name` without a tree definition: the
+    runtime libraries it always links (msvcrt.lib, oldnames.lib), or an import library entry it
+    generates. It generates entries only for names a kept object references directly
+    (link_cycle.undefined_imports, undefined_plain_imports), never for an alias's target, and it
+    links no census stub."""
+    if name in runtime:
+        return True
+    if name not in requested:
+        return False
+    if name.startswith("__imp_"):
+        return bool(link_cycle.import_def_entries([name], imported)[0])
+    if name.startswith("_") and not name.startswith("__"):
+        dlls = imported.get(re.sub(r"@\d+$", "", name[1:]))
+        return bool(dlls and "msvcr71.dll" not in dlls
+                    and link_cycle.import_def_entries(["__imp_" + name], imported)[0])
+    return False
+
+
+def unindexed_facts(found):
+    """A reference_reader result as {defined, references, weaks, alternates, includes}; None stays
+    None (unreadable), and a bare set is references only."""
+    if found is None or isinstance(found, dict):
+        return found
+    return {"defined": set(), "references": set(found), "weaks": {}, "alternates": {}, "includes": set()}
+
+
 def real_link_losses(index, updated, names, before_rank, after_rank, omitted=frozenset(),
                      weak_defaults=lambda obj: {}, bridged=None, includes=lambda obj: set(),
                      changed=frozenset(), referenced=None, references=lambda obj: None,
-                     graph_trusted=True):
+                     graph_trusted=True, bridge_copies=None):
     """[(spelling, defined before by, still referenced by, kind)]: every name a kept real-link
     input references (symbol table or /INCLUDE) that resolved before this batch and resolves no
     more after it. Judged from object symbol tables and directives only: no census verdict, no
     symbols.csv pin (the real link reads none). `omitted` names the placement-only objects
     exit_link.py leaves out; they define, declare and reference nothing there.
 
-    A name resolves when a real-link input defines it (strong, COMDAT or common), the toolchain
-    supplies it (runtime, import, stub), or an input's /alternatename leads to a name that
+    A name resolves when a real-link input defines it (strong, COMDAT or common), the real link's
+    own libraries supply it (import_resolves), or an input's /alternatename leads to a name that
     resolves (cycle-safe); a referrer whose own weak external for it has a default that resolves
     is satisfied. Spellings judged: `names` (what this batch's objects define or defined), every
     alias a changed or removed object declares or declared, and every alias a kept input declares
     whose chain leads to one of those.
 
-    Referrers: `touches`, or `references(obj)` for a kept object the index never read (a set,
-    None when unreadable). /INCLUDE names (`includes(obj)`, None when unreadable) are roots of the
-    census reference graph, so when `graph_trusted` (an index the census itself wrote, at the
-    exact base) and `referenced` lacks the name, only changed and unindexed objects' directives
-    are read; otherwise every kept object's are. `weak_defaults(obj)` is {name: default}, None
-    when unreadable.
+    A kept object the index never read (a unit --update-index added) is read whole by
+    `references(obj)` ({defined, references, weaks, alternates, includes}, None when unreadable)
+    and stands in both states. Other referrers come from `touches`. /INCLUDE names
+    (`includes(obj)`, None when unreadable) are roots of the census reference graph, so when
+    `graph_trusted` (an index the census itself wrote, at the exact base) and `referenced` lacks
+    the name, only changed and unindexed objects' directives are read; otherwise every kept
+    object's are. `weak_defaults(obj)` is {name: default}, None when unreadable.
 
     kind: `loss` when some referrer is proven (readable, unsatisfied); `candidate` when the only
     referrers could not be read, or when the vtable bridge could still emit the name: `bridged`
-    maps a ledger vtable name with one retail address to the names at that address, and the
-    bridge emits a referenced name there only beside another name's kept COMDAT copy."""
+    maps a ledger vtable name with one retail address to {rva, names, addresses}, and
+    `bridge_copies(names, holders)` reads the after-state copies with vtable_bridge.definitions (None when
+    unreadable); vtable_bridge.copy_refusal, the planner's own rules, decides the copies."""
+    import vtable_bridge
     excuses = updated.get("excuses") or index.get("excuses") or {"runtime": set(), "imported": {}, "stubs": {}}
+    runtime, imported = excuses["runtime"], excuses["imported"]
     touches = updated.get("touches", {})
     forgotten = updated.get("forgotten", set())
     real_before = {obj: i for obj, i in before_rank.items() if obj not in omitted}
     real_after = {obj: i for obj, i in after_rank.items() if obj not in omitted and obj not in forgotten}
     removed = set(real_before) - set(after_rank)
     moved = set(changed) | removed
+
+    # Kept objects the index never read: unchanged by this batch, so in both states.
+    unindexed = {obj for obj in real_after if obj not in touches}
+    extra = {obj: unindexed_facts(references(obj)) for obj in sorted(unindexed)}
+    readable = {obj: facts for obj, facts in extra.items() if facts is not None}
+    extra_defined = set().union(*(facts["defined"] for facts in readable.values())) if readable else set()
 
     def alias_map(state, holders, only=None):
         found = collections.defaultdict(set)
@@ -144,19 +182,33 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
                     found[alias].add(target)
         return found
     before_aliases, after_aliases = alias_map(index, real_before), alias_map(updated, real_after)
+    for facts in readable.values():
+        for alias, target in facts["alternates"].items():
+            before_aliases[alias].add(target)
+            after_aliases[alias].add(target)
 
-    def resolver(state, holders, aliases):
+    def referenced_by(state_touches, holders):
+        found = set()
+        for obj in holders:
+            found |= state_touches.get(obj, set())
+        for facts in readable.values():
+            found |= facts["references"] | set(facts["weaks"]) | set(facts["weaks"].values())
+        return found
+    requested_before = referenced_by(index.get("touches", {}), real_before)
+    requested_after = referenced_by(touches, real_after)
+
+    def resolver(state, holders, aliases, requested):
         def resolves(name, seen=frozenset()):
             if name in seen:
                 return False                               # an alias cycle resolves nothing
-            if definers(state, name, holders):
+            if definers(state, name, holders) or name in extra_defined:
                 return True
-            if link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]):
+            if import_resolves(name, requested, runtime, imported):
                 return True
             return any(resolves(target, seen | {name}) for target in aliases.get(name, ()))
         return resolves
-    was = resolver(index, real_before, before_aliases)
-    now = resolver(updated, real_after, after_aliases)
+    was = resolver(index, real_before, before_aliases, requested_before)
+    now = resolver(updated, real_after, after_aliases, requested_after)
 
     spellings = set(names) | set(alias_map(index, real_before, moved)) | set(alias_map(updated, real_after, moved))
     # target -> aliases after the batch. An alias only the before-state holds belongs to a removed
@@ -172,13 +224,40 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
                 spellings.add(alias)
                 stack.append(alias)
 
-    unindexed = {obj for obj in real_after if obj not in touches}
-    known = {obj: (touches[obj] if obj in touches else references(obj)) for obj in real_after}
-    unknown_references = any(found is None for found in known.values())
+    known = {obj: (touches[obj] if obj in touches else
+                   (None if extra[obj] is None else
+                    extra[obj]["references"] | set(extra[obj]["weaks"]) | set(extra[obj]["weaks"].values())))
+             for obj in real_after}
+
+    def weaks_of(obj):
+        return readable[obj]["weaks"] if obj in readable else weak_defaults(obj)
+
+    def includes_of(obj):
+        if obj in readable:                                # the whole-object read, and the directive reader
+            return readable[obj]["includes"] | (includes(obj) or set())
+        return None if obj in extra else includes(obj)
 
     def bridgeable(name):
-        neighbours = bridged.get(name, ()) if isinstance(bridged, dict) else ()  # names alone prove nothing
-        return any(other != name and definitions(updated, other, real_after)[0] for other in neighbours)
+        """The planner's copy rules (vtable_bridge.copy_refusal) admit a generated copy of `name`
+        beside its address's other names; slot targets are not judged here, so a pass is only a
+        candidate."""
+        info = bridged.get(name) if isinstance(bridged, dict) else None
+        if not isinstance(info, dict) or bridge_copies is None:
+            return False                                   # nothing shows the bridge could emit it
+        at = set(info["names"])
+        holders = {obj for other in at for obj in definers(updated, other, real_after)}
+        holders |= {obj for obj, facts in readable.items() if at & facts["defined"]}
+        found = bridge_copies(at, holders)
+        if found is None:
+            return True                                    # unreadable copies: the bridge might
+        remaining = at - set(vtable_bridge.strong_names(found, at))
+        copies = [(other, copy) for other in sorted(remaining) for copy in found.get(other, [])]
+        kept = [(other, copy) for other, copy in copies if not copy.get("archive")
+                and not copy.get("common") and not copy.get("absolute")]
+        active = {other for other, _copy in kept} | (remaining & (requested_after | {name}))
+        refusal, _providers = vtable_bridge.copy_refusal(copies, kept, remaining, active,
+                                                         info["addresses"], info["rva"])
+        return refusal is None
 
     losses = []
     for name in sorted(spellings):
@@ -187,7 +266,7 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
         proven, uncertain = set(), set()
 
         def judge(obj):
-            weaks = weak_defaults(obj)
+            weaks = weaks_of(obj)
             if weaks is None:
                 uncertain.add(obj)
             elif not (name in weaks and now(weaks[name], frozenset({name}))):
@@ -195,12 +274,12 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
 
         for obj in sorted(obj for obj, found in known.items() if found is not None and name in found):
             judge(obj)
-        unread = unknown_references
+        unread = False                                     # an unreadable unindexed unit shows in the scan
         if not proven:                                     # look for a directive proof before settling for doubt
             shortcut = graph_trusted and referenced is not None and name not in referenced
             scan = (moved | unindexed) & set(real_after) if shortcut else set(real_after)
             for obj in sorted(scan):
-                forced = includes(obj)
+                forced = includes_of(obj)
                 if forced is None:
                     unread = True
                 elif name in forced:
@@ -230,19 +309,34 @@ def object_paths(index, replacements, sources=()):
 
 
 def reference_reader(paths):
-    """references for real_link_losses: an object's undefined externals, weak externals and their
-    defaults; None when unreadable."""
+    """references for real_link_losses: a kept object the index never read, whole, through the
+    census's own reader (link_census.object_symbols): {defined, references, weaks, alternates,
+    includes}; None when unreadable."""
     cache = {}
 
     def references(obj):
         if obj not in cache:
             try:
-                _defined, found, weaks, _alternates, _includes = link_census.object_symbols(Path(paths[obj]))
-                cache[obj] = set(found) | {name for pair in weaks for name in pair}
+                defined, found, weaks, alternates, forced = link_census.object_symbols(Path(paths[obj]))
+                cache[obj] = {"defined": set(defined), "references": set(found), "weaks": dict(weaks),
+                              "alternates": dict(alternates), "includes": set(forced)}
             except Exception:  # noqa: BLE001 - unreadable: a finding without referrers is a candidate
                 cache[obj] = None
         return cache[obj]
     return references
+
+
+def bridge_copy_reader(paths):
+    """bridge_copies for real_link_losses: vtable_bridge.definitions of `names` over `holders`,
+    the after-state objects defining any of them; None when one cannot be read."""
+    def bridge_copies(names, holders):
+        import vtable_bridge
+        try:
+            objects = link_cycle.Objects([Path(paths[obj]) for obj in sorted(holders)])
+            return vtable_bridge.definitions(objects, set(names))
+        except Exception:  # noqa: BLE001 - unreadable copies: the bridge might still emit the name
+            return None
+    return bridge_copies
 
 
 INCLUDE = re.compile(r"/INCLUDE:(\"[^\"]+\"|[^\s,=]+)", re.I)
@@ -292,18 +386,24 @@ def weak_reader(index, replacements, sources=()):
 
 
 def bridged_names():
-    """{name: names at its retail address} for each data-ledger vtable name with one address: the
-    only names exit_link.py's vtable bridge may emit. It never invents a table, so it emits a
-    referenced name only beside another name's kept COMDAT copy (else no-kept-definition), and
-    refuses a name bound at two addresses (ambiguous-table-name). The initializer bridge defines
-    no name a kept object can reference."""
+    """{name: {rva, names, addresses}} for each data-ledger vtable name with one retail address:
+    the only names exit_link.py's vtable bridge may emit (it refuses a name bound at two,
+    ambiguous-table-name). `names` are the names at that address and `addresses` each one's
+    addresses, what vtable_bridge.copy_refusal reads. The initializer bridge defines no name a
+    kept object can reference."""
     import vtable_bridge
     at, where = collections.defaultdict(set), collections.defaultdict(set)
     for row in vtable_bridge.table_rows(build.ROOT):
+        rva = int(row["address"], 16)
         for name in vtable_bridge.row_names(row):
-            at[row["address"]].add(name)
-            where[name].add(row["address"])
-    return {name: at[next(iter(addresses))] for name, addresses in where.items() if len(addresses) == 1}
+            at[rva].add(name)
+            where[name].add(rva)
+    found = {}
+    for name, addresses in where.items():
+        if len(addresses) == 1:
+            rva = next(iter(addresses))
+            found[name] = {"rva": rva, "names": at[rva], "addresses": {other: where[other] for other in at[rva]}}
+    return found
 
 
 def report_real_link_losses(losses, exact_base):
@@ -327,11 +427,14 @@ def report_real_link_losses(losses, exact_base):
     elif not exact_base:
         verdict = "refuse mode: provisional baseline, not refused"
     else:
-        verdict = "refuse mode: candidates only, not refused"
+        verdict = "refuse mode: candidates only, unverified"
     print(f"link batch audit: {len(certain)} name(s) the real link would no longer resolve, "
           f"{len(losses) - len(certain)} candidate(s) ({verdict}); "
           "define each in its owner's unit or point the reference at the owner's real symbol")
-    return 1 if refuses else None
+    if refuses:
+        return 1
+    # Refuse mode: unproven evidence is inconclusive, never clean (report mode keeps its exit).
+    return 2 if REAL_LINK_LOSS_MODE == "refuse" else None
 
 
 def overlay(index, replacements, removed, truth):
@@ -499,8 +602,8 @@ def audit(base, tip, verified):
                                        include_reader(index, replacements, sources),
                                        {obj.name for obj in replacements},
                                        (index.get("references") or {}).get("referenced"),
-                                       reference_reader(object_paths(index, replacements, sources)),
-                                       graph_trusted)
+                                       reference_reader(paths := object_paths(index, replacements, sources)),
+                                       graph_trusted, bridge_copy_reader(paths))
         real_error = None
     except Exception as error:  # noqa: BLE001
         real_losses, real_error = [], error
@@ -541,8 +644,9 @@ def audit(base, tip, verified):
     try:
         if real_error is not None:
             raise real_error
-        if report_real_link_losses(real_losses, exact_base):
-            return 1
+        real_exit = report_real_link_losses(real_losses, exact_base)
+        if real_exit:
+            return real_exit
     except Exception as error:  # noqa: BLE001 - see above
         print(f"link batch audit: real-link loss check failed: {type(error).__name__}: {error} "
               f"({REAL_LINK_LOSS_MODE} mode: unverified)")
@@ -554,6 +658,8 @@ def audit(base, tip, verified):
         return 1 if exact_base else 2
     elif not exact_base:
         print("link batch audit: INCONCLUSIVE: no provisional finding from the older index")
+    elif real_losses:
+        print("link batch audit: no census linking regression found; the real-link findings above are reported only")
     else:
         print("link batch audit: no linking regression found in the checked scope")
     return 0 if exact_base else 2
