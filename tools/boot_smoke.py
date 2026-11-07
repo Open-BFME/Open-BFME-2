@@ -16,6 +16,9 @@ Outcome (build/boot/smoke.json, also printed):
   no-window             alive at the timeout without a visible window
   reached-menu          alive at the timeout with the main menu's button bar
                         visible (a screenshot is saved; compare with --retail)
+  crash-dialog          alive at the timeout behind the game's own crash box ("Game
+                        crash", "Error hit", "Assertion failed", "Exception"); its text
+                        and DebugStackwalk addresses, mapped, are in `crash.dialog`
   no-picture            alive with a window, but no picture was captured or it is
                         black (under Wine the client area comes from the Xvfb root,
                         since PrintWindow is black there)
@@ -197,6 +200,132 @@ def windows_of(pid):
         return True
     u.EnumWindows(cb, 0)
     return found
+
+
+# The game's own fatal boxes: Debug::CrashDone and Debug::AssertDone call
+# MessageBoxA(0, text, "Game crash") with the crash message and DebugStackwalk's
+# addresses; "Error hit" and "Assertion failed" are the same family, "Exception" the
+# release crash dialog. One of these up at the timeout is a crash, not a slow load.
+CRASH_DIALOGS = ("game crash", "error hit", "assertion failed", "exception")
+HEX_WORD = re.compile(r"(?<![0-9A-Za-z])(?:0[xX])?([0-9A-Fa-f]{8})(?![0-9A-Za-z])")
+
+
+def dialog_text(win):
+    """What a dialog says: its static controls' text in order (buttons left out), else
+    every child's text."""
+    kids = win.get("children") or []
+    statics = [c["text"] for c in kids if c.get("class", "").lower() == "static" and c.get("text")]
+    return "\n".join(statics or [c["text"] for c in kids if c.get("text")])
+
+
+def dialog_addresses(text, limit=48):
+    """The 8-digit hex words in a dialog's text (DebugStackwalk's addresses), in order,
+    each once; values below 0x10000 are not addresses."""
+    out = []
+    for m in HEX_WORD.finditer(text or ""):
+        v = int(m.group(1), 16)
+        if v >= 0x10000 and v not in out:
+            out.append(v)
+    return out[:limit]
+
+
+def crash_dialog(dialogs):
+    """{"title", "text", "addresses"} of the first of the game's windows titled as a crash
+    box (CRASH_DIALOGS), else None. Pure: `dialogs` is window_texts()'s list."""
+    for w in dialogs or []:
+        if (w.get("title") or "").strip().lower() in CRASH_DIALOGS:
+            text = dialog_text(w)
+            return {"title": w["title"], "text": text[:8000], "addresses": dialog_addresses(text)}
+    return None
+
+
+def window_texts(pid, limit=4096):
+    """[{"title", "class", "rect", "children": [{"class", "id", "text"}]}] of pid's visible
+    top-level windows. Text comes from InternalGetWindowText, which never sends a message,
+    so a game thread stopped in the debugger or a modal box cannot hang the read."""
+    u = ctypes.WinDLL("user32")
+    u.InternalGetWindowText.argtypes = [wt.HWND, wt.LPWSTR, ctypes.c_int]
+    u.GetClassNameW.argtypes = [wt.HWND, wt.LPWSTR, ctypes.c_int]
+    u.GetDlgCtrlID.argtypes = [wt.HWND]
+
+    def text(h):
+        buf = ctypes.create_unicode_buffer(limit)
+        u.InternalGetWindowText(h, buf, limit)
+        return buf.value
+
+    def cls(h):
+        buf = ctypes.create_unicode_buffer(256)
+        u.GetClassNameW(h, buf, 256)
+        return buf.value
+    tops = []
+
+    @ctypes.WINFUNCTYPE(wt.BOOL, wt.HWND, wt.LPARAM)
+    def top(h, _):
+        p = wt.DWORD()
+        u.GetWindowThreadProcessId(h, ctypes.byref(p))
+        if p.value == pid and u.IsWindowVisible(h):
+            tops.append(h)
+        return True
+    u.EnumWindows(top, 0)
+    out = []
+    for h in tops:
+        kids = []
+
+        @ctypes.WINFUNCTYPE(wt.BOOL, wt.HWND, wt.LPARAM)
+        def child(c, _):
+            kids.append({"class": cls(c), "id": u.GetDlgCtrlID(c) & 0xFFFF, "text": text(c)})
+            return len(kids) < 64
+        u.EnumChildWindows(h, child, 0)
+        rc = wt.RECT()
+        u.GetWindowRect(h, ctypes.byref(rc))
+        out.append({"title": text(h), "class": cls(h), "rect": [rc.left, rc.top, rc.right, rc.bottom],
+                    "children": kids})
+    return out
+
+
+def read_memory(k, hproc, va, n):
+    buf, got = ctypes.create_string_buffer(n), ctypes.c_size_t()
+    ok = k.ReadProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(va), buf, n, ctypes.byref(got))
+    return buf.raw[:got.value] if ok else b""
+
+
+def thrown_type(read, throw_info):
+    """The decorated name (".?AV...@@") of the first catchable type of the MSVC x86
+    ThrowInfo at throw_info (ThrowInfo+12 -> CatchableTypeArray, +4 -> CatchableType,
+    +4 -> TypeDescriptor, +8 -> name), or None. `read(va, n)` gives bytes, b"" if unreadable."""
+    try:
+        cta = struct.unpack("<I", read(throw_info + 12, 4))[0]
+        ct0 = struct.unpack("<I", read(cta + 4, 4))[0]
+        td = struct.unpack("<I", read(ct0 + 4, 4))[0]
+        name = read(td + 8, 256).split(b"\0")[0].decode("latin-1")
+    except (struct.error, TypeError):
+        return None
+    return name or None
+
+
+def quiet_exception(k, hproc, tid, exc, addr, params):
+    """A compact record of a first-chance exception the run lets the game handle: a C++
+    throw's thrown type and stack, or an OutputDebugString's text."""
+    out = {"code": hex(exc), "address": hex(addr)}
+    read = lambda va, n: read_memory(k, hproc, va, n)            # noqa: E731
+    if exc == 0x40010006 and len(params) >= 2:                   # OutputDebugStringA: length, text
+        out["text"] = read(params[1], max(0, min(params[0], 1024))).split(b"\0")[0].decode("latin-1")
+    elif exc == 0xE06D7363 and len(params) >= 3:                 # C++ throw: magic, object, ThrowInfo
+        out.update(magic=hex(params[0]), object=hex(params[1]), throw_info=hex(params[2]),
+                   type=thrown_type(read, params[2]))
+        out["stack"] = (stack_words(k, hproc, tid, n=128) or {}).get("words", [])
+    return out
+
+
+def main_stack(k, hproc, hthread, tid):
+    """The game's main thread's registers and stack, read with the thread suspended
+    (at the timeout it may sit in a modal box's message loop)."""
+    suspend = getattr(k, "Wow64SuspendThread", k.SuspendThread)
+    suspend(wt.HANDLE(hthread))
+    try:
+        return stack_words(k, hproc, tid, n=1024)
+    finally:
+        k.ResumeThread(wt.HANDLE(hthread))
 
 
 def snapshot(d):
@@ -538,7 +667,7 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
         raise SystemExit(f"boot_smoke: CreateProcess failed ({ctypes.get_last_error()})")
     ev = ctypes.create_string_buffer(256)
     procs = {}                                        # pid -> (hProcess, image path, base)
-    res = {"first_chance": [], "first_chance_count": 0, "processes": [], "probes_hit": [],
+    res = {"first_chance": [], "first_chance_count": 0, "quiet": [], "processes": [], "probes_hit": [],
            "debugger_errors": [], "cleanup": {"terminate": [], "exit_events": [], "wait": [],
                                                "close": [], "uncertain_handles": []}}
     armed, focus, stepping = {}, {}, {}
@@ -595,6 +724,7 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 procs[pid] = (h, buf.value, int.from_bytes(ev.raw[40:48], "little"))
                 if Path(buf.value).name.lower() == "game.dat":
                     res["main_thread"] = int.from_bytes(ev.raw[32:40], "little")
+                    res["main_tid"] = tid
                 res["processes"].append(Path(buf.value).name)
                 if Path(buf.value).name.lower() == "game.dat":
                     if "pid" in res:
@@ -620,7 +750,8 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 addr = int.from_bytes(ev.raw[32:40], "little")
                 first = int.from_bytes(ev.raw[168:172], "little")
                 nparam = int.from_bytes(ev.raw[40:44], "little")
-                info = [int.from_bytes(ev.raw[48 + 8 * i:56 + 8 * i], "little") for i in range(min(nparam, 2))]
+                params = [int.from_bytes(ev.raw[48 + 8 * i:56 + 8 * i], "little") for i in range(min(nparam, 3))]
+                info = params[:2]
                 if not first and game:
                     status = DBG_NOT_HANDLED
                     res.update(outcome="crash", code=hex(exc), address=res.get("fault", addr), info=info,
@@ -674,6 +805,8 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                         status = DBG_NOT_HANDLED
                     if status == DBG_NOT_HANDLED and first and game:
                         res["first_chance_count"] += 1
+                        if exc in QUIET and exc != 0x406D1388 and len(res["quiet"]) < 20:
+                            res["quiet"].append(quiet_exception(k, procs[pid][0], tid, exc, addr, params))
                         if exc not in QUIET and len(res["first_chance"]) < 10:
                             res["first_chance"].append([hex(exc), addr, info])
                             if (exc == 0xC0000005 or stray) and "stack" not in res:   # the fault, not the rethrow
@@ -689,7 +822,9 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 break
         if res["outcome"] == "timeout":
             res["main_eips"] = sample_eips(k, res["main_thread"])
+            res["main_stack"] = main_stack(k, procs[res["pid"]][0], res["main_thread"], res.get("main_tid"))
             res["windows"] = [(t, r) for t, r, _ in windows_of(res["pid"])]
+            res["dialogs"] = window_texts(res["pid"])
             res["screenshot"] = screenshot(res["pid"])
     finally:
         cleanup_targets = {pid: h for pid, (h, *_rest) in procs.items() if pid not in exited}
@@ -1210,10 +1345,23 @@ def smoke(a, rows=None, tag="boot"):
             eips.append([hex(e), hex(rva) if rva is not None else None, ledger_row(rva) if rva is not None else None])
         out["main_thread_samples"] = eips if ri is None else [
             [hex(e), ri.where(e - loaded + ri.base)["map_symbol"]] for e in res.get("main_eips", [])]
-        if "Exception" in titles:                   # the game's own crash dialog
+        st = res.get("main_stack") or {}
+        if st:
+            out["main_stack"] = {"regs": st.get("regs"), "esp": hex(st.get("esp", 0)),
+                                 "frames": image_frames(st.get("words", []), loaded, ri, pieces_map, 16)}
+        dialog = crash_dialog(res.get("dialogs") or [{"title": t} for t in titles])
+        if dialog:                                  # the game's own crash box: a crash, whatever the picture
+            addrs = dialog.pop("addresses")
+            dialog["frames"] = [[hex(v), label] for v, label in zip(addrs, map_addresses(addrs, loaded, ri, pieces_map))]
+            out["crash"] = {"exception": None, "address_image": None, "return_address_image": None,
+                            "map_symbol": None, "stubbed_name": None, "retail_rva": None, "dialog": dialog}
             out["outcome"] = "crash-dialog"
         else:
             out["outcome"] = classify_picture(shot)
+    if res.get("quiet"):
+        out["run"]["quiet"] = [dict({k: v for k, v in q.items() if k != "stack"},
+                                    **({"frames": image_frames(q["stack"], loaded, ri, pieces_map, 4)}
+                                       if q.get("stack") else {})) for q in res["quiet"]]
     for g, snap in before.items():
         after = snapshot(Path(g))
         changed = sorted(set(after) ^ set(snap) | {p for p in snap if p in after and after[p] != snap[p]})
@@ -1231,6 +1379,56 @@ def smoke(a, rows=None, tag="boot"):
     out["receipt"] = real_image.receipt_fields("boot_smoke", "boot", out["outcome"], image, out.get("crash"),
                                                started, time.time() - t_start)
     return out
+
+
+_ROWS = []
+
+
+def address_label(va, loaded, ri, pieces_map):
+    """'symbol+offset' of a run-time address: through the real image's map, or for retail
+    through functions.csv; None outside the image or for an overlay image."""
+    rva = va - loaded
+    if ri is not None:
+        if not ri.img.code(rva):
+            return None
+        sym, off = ri.map.holding(ri.base + rva)
+        return f"{'|'.join(ri.map.names_at(sym))}+{off:#x}" if sym else None
+    if pieces_map:
+        return None
+    if not _ROWS:
+        _ROWS.append(real_image.Rows())
+    held = _ROWS[0].holding(rva)
+    return "|".join(f"{n}+{rva - s:#x}" for s, _, n, _ in held) or None
+
+
+def map_addresses(vas, loaded, ri, pieces_map):
+    return [address_label(v, loaded, ri, pieces_map) for v in vas]
+
+
+def image_frames(words, loaded, ri, pieces_map, limit):
+    """[[address, 'symbol+offset']] of the stack words that are return addresses into the
+    image (they follow a call), at most `limit`."""
+    if pieces_map:
+        return []
+    img = ri.img if ri is not None else _retail_sections()
+    size = img.pe.OPTIONAL_HEADER.SizeOfImage
+    out = []
+    for w in words or []:
+        rva = w - loaded
+        if 0 <= rva < size and img.code(rva) and real_image.follows_call(img, rva):
+            out.append([hex(w), address_label(w, loaded, ri, pieces_map)])
+            if len(out) >= limit:
+                break
+    return out
+
+
+_RETAIL = []
+
+
+def _retail_sections():
+    if not _RETAIL:
+        _RETAIL.append(real_image.Sections(boot_image.build.EXE))
+    return _RETAIL[0]
 
 
 def broke(outcome):

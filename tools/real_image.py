@@ -635,9 +635,10 @@ def install_game_dat(exe, game_dir):
 
 
 def result_of(outcome):
-    """The receipt's result for a harness outcome: crashes and exits by kind, debugger
-    failures inconclusive, anything else as the harness named it."""
-    if outcome.startswith(("crash-at-", "crash-dialog")):
+    """The receipt's result for a harness outcome: a fault is crashed, an exit exited,
+    debugger failures inconclusive, anything else (crash-dialog, the game's own crash box,
+    among them) as the harness named it."""
+    if outcome.startswith("crash-at-"):
         return "crashed"
     if outcome.startswith("exit-"):
         return "exited"

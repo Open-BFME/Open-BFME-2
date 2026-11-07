@@ -177,6 +177,8 @@ class RunnerDebugTests(unittest.TestCase):
               mock.patch.object(runner, "time", clock),
               mock.patch.object(runner, "sample_eips", return_value=[]),
               mock.patch.object(runner, "windows_of", return_value=[]),
+              mock.patch.object(runner, "window_texts", return_value=[]),
+              mock.patch.object(runner, "main_stack", return_value=None),
               mock.patch.object(runner, "screenshot", return_value=None),
               mock.patch.object(runner, "stack_words", return_value=None)):
             result = runner.run(Path("launcher.exe"), Path("/mock-game"), "-win", 2,
