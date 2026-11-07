@@ -158,3 +158,87 @@ class Bodies(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# The opt-in scope-aware reader (class_identities, template_member_definitions).
+NS = "namespace FXParticleSystem {{\n{}\n}}\n"
+PRIM = "template <int N> class CategoryModuleTemplate : public CategoryModuleTemplateBase<N> { };"
+SPEC7 = "template <> class CategoryModuleTemplate<7> : public ModuleTemplate { };"
+
+
+def ident(text):
+    return [(q, a, t, k) for q, _n, a, t, _s, _e, k in class_layouts.class_identities(text)]
+
+
+def test_identity_of_a_namespaced_template_primary():
+    assert ident(NS.format(PRIM)) == [("FXParticleSystem::CategoryModuleTemplate", None, True, "class")]
+
+
+def test_identity_of_explicit_and_partial_specializations():
+    assert ident(NS.format(SPEC7)) == [("FXParticleSystem::CategoryModuleTemplate", "7", True, "class")]
+    partial = "template <int N> class CategoryModuleClassBase<N, 0> { };"
+    assert ident(partial) == [("CategoryModuleClassBase", "N,0", True, "class")]
+
+
+def test_specialization_arguments_nest():
+    text = "template <> class ConcreteModuleClass<ModuleTag<6, K, N, M, T, B> > { };"
+    assert ident(text) == [("ConcreteModuleClass", "ModuleTag<6,K,N,M,T,B>", True, "class")]
+
+
+def test_multi_line_head_and_base_clause():
+    text = "template <int N, int H = (N != 8)>\nclass X\n:\npublic B<N>\n{\n};\n"
+    assert ident(text) == [("X", None, True, "class")]
+
+
+def test_member_template_keeps_its_class_path():
+    text = "namespace FXParticleSystem { class Outer { template <int N> class CategoryModuleTemplate {}; }; }"
+    assert ident(text) == [("FXParticleSystem::Outer", None, False, "class"),
+                           ("FXParticleSystem::Outer::CategoryModuleTemplate", None, True, "class")]
+
+
+def test_declarations_instantiations_and_uses_define_no_body():
+    text = ("template <int N> class X;\ntemplate class X<6>;\nX<6> *p;\nclass Y;\nfriend class Z;\n"
+            "struct S *f(struct T *t);\n")
+    assert ident(text) == []
+
+
+def test_ambiguous_text_is_refused_not_guessed():
+    assert class_layouts.class_identities("#define S X\n" + NS.format(PRIM)) is None
+    assert class_layouts.class_identities('const char *s = R"(x)";\n' + PRIM) is None
+    assert class_layouts.class_identities(PRIM + "\n}") is None          # unbalanced
+    assert class_layouts.class_identities('#include "a.h"\n' + PRIM) is not None
+
+
+def test_anonymous_namespace_and_function_local_and_typedef_heads():
+    text = ("namespace { struct A { int a; }; }\n"
+            "void f() { struct Local { int b; }; }\n"
+            "typedef struct Tag { int c; } Tag_t;\n"
+            "class __declspec(dllexport) D { };\n")
+    assert ident(text) == [("(anonymous)::A", None, False, "struct"), ("Tag", None, False, "struct"),
+                           ("D", None, False, "class")]
+
+
+def test_class_bodies_are_unchanged_by_the_new_reader():
+    # The default readers keep their spelling-only, template-free behaviour.
+    for text in (NS.format(PRIM), NS.format(SPEC7), "class Outer { template <int N> class X {}; };"):
+        assert class_layouts.class_body_spans(text) == [s for s in class_layouts.class_body_spans(text)]
+    assert class_layouts.class_bodies(NS.format(PRIM)) == []
+    assert class_layouts.class_bodies(NS.format(SPEC7)) == []
+    assert class_layouts.class_bodies("class Outer { template <int N> class X {}; };") == ["Outer"]
+
+
+def test_template_member_definitions_find_functions_and_static_data():
+    text = ("template <int N> class CategoryModuleClass { static const CategoryModuleClass *const s_first; };\n"
+            "template <int N> const CategoryModuleClass<N> *const CategoryModuleClass<N>::s_first = 0;\n"
+            "template <int N> const char *CategoryModuleClass<N>::getKey() const { if (N) { return 0; } return 0; }\n"
+            "template <int N> const int Table<N>::s_values[2] = { 1, 2 };\n"
+            "const char *Other::getKey() const { return 0; }\n")
+    spans = class_layouts.template_member_definitions(text, "CategoryModuleClass")
+    defs = [text[s:e] for s, e in spans]
+    assert len(defs) == 2
+    assert defs[0].endswith("::s_first = 0;")
+    assert defs[1].startswith("template <int N> const char *CategoryModuleClass<N>::getKey()") and defs[1].endswith("}")
+    table = [text[s:e] for s, e in class_layouts.template_member_definitions(text, "Table")]
+    assert table == ["template <int N> const int Table<N>::s_values[2] = { 1, 2 };"]
+    assert class_layouts.template_member_definitions(text, "Other") == []
+    assert class_layouts.template_member_definitions("#if 1\n" + text, "Table") is None
