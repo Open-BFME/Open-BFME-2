@@ -493,13 +493,25 @@ def zh_layout(name, builder):
     shown = shown[shown.find("CnC_Generals_Zero_Hour"):]
     probe = class_layouts.CACHE / f"zh_{portable_component(name)}.cpp"
     probe.parent.mkdir(parents=True, exist_ok=True)
-    # The header alone first: PreRTS.h drags in STLport, which these flags do not set up.
+    # The header alone first; then PreRTS.h, which drags in STLport. That second
+    # attempt used the same flags, which set no STLport up, so `#include <list>`
+    # resolved to MSVC 7.1's own STL and collided with it inside the compiler's
+    # headers: `xhash(179): error C2955: 'std::list': use of class template
+    # requires template argument list`. Every class whose ZH header needs PreRTS.h
+    # failed that way - 57 of them, all on the same three error codes - so the ZH
+    # rule never saw a layout and the bases fell through to a vote the private
+    # views settle on none. The STLport tree goes on the fallback attempt only, so
+    # a class that already compiles from its header alone is decided exactly as
+    # before.
+    stlport = getattr(builder, "stlport_include_dir", lambda: None)()
+    fallback = ["-I" + Path(stlport).as_posix()] if stlport and Path(stlport).is_dir() else []
     every, failure = None, None
-    for prelude in ("", '#include "PreRTS.h"\n'):
+    for prelude, extra in (("", []), ('#include "PreRTS.h"\n', fallback)):
         probe.write_text(f'{prelude}#include "{header.as_posix()}"\n'
                          f"int zh_probe({name} *p) {{ return sizeof(*p); }}\n", encoding="utf-8")
         try:
-            every = class_layouts.compile_layouts(probe.relative_to(ROOT), builder, True, list(builder._ZH_FLAGS))
+            every = class_layouts.compile_layouts(probe.relative_to(ROOT), builder, True,
+                                                  list(builder._ZH_FLAGS) + extra)
             break
         except (RuntimeError, AttributeError) as exc:
             failure = str(exc)[:300]
