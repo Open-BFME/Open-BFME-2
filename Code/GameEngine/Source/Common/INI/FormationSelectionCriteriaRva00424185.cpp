@@ -52,7 +52,11 @@ namespace _STL {
 template <class _Tp> struct _Nonconst_traits;
 template <class _Tp, class _Traits> struct _Deque_iterator;
 }
-extern _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > g_00E031A8;
+extern unsigned int g_00E031A8[10];
+// P30 test-branch diagnostic: retail keeps one 40-byte deque<BfmeE12> at 0x00E031A8; its start and
+// finish iterators (+0, +0x10) are views of that object.
+#define g_00E031A8 (*(_STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > *)g_00E031A8)
+#define g_00E031B8 (*(_STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > *)((char *)&g_00E031A8 + 0x10))
 #define criteriaTemplates (*reinterpret_cast<_STL::map<int,int>*>(g_Va00E0319C))
 #define criteriaEntries (*reinterpret_cast<_STL::deque<BfmeE12>*>(&g_00E031A8))
 void parseFormationSelectionCriteriaRva00424185(INI* ini,void*,void*,const void*) {
