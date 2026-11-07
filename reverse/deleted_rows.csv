@@ -5789,3 +5789,4 @@ __ehhandler$?rva00587F11@Rva00587F11Factory@@QAEPAVRva005D6FCC@@PAX@Z,0x0079CBA3
 ?Rva000A434CTabDrawField@@YAIPAVGameWindow@@@Z,0x000A434C,"Renamed to ?getEnabledColor2@@YAIPAVGameWindow@@@Z by tools/rename.py (inferred)"
 ?Rva000A4354TabDrawField@@YAIPAVGameWindow@@@Z,0x000A4354,"Renamed to ?getEnabledBorderColor2@@YAIPAVGameWindow@@@Z by tools/rename.py (inferred)"
 ?Rva000A47B6TabDrawField@@YAIPAVGameWindow@@@Z,0x000A47B6,"Renamed to ?getEnabledBorderColor1@@YAIPAVGameWindow@@@Z by tools/rename.py (inferred)"
+?g_00DFE1AC@@3IA,0x009FE1AC,"Retyped from ?g_00DFE1AC@@3IA (4 B) to unsigned int [3] (12 B) by tools/rename.py global --retype: image_iso relocation-bounds fd6d5a2132: Rva0020DFFBRegister 0x20DFFB reads +4 (one past the 4-byte owner); retail code reads begin/end/capacity of the 12-byte vector at 0x009FE1AC (.bss, zero in the file); retail rowed initializer 0x7ABB96 constructs it"

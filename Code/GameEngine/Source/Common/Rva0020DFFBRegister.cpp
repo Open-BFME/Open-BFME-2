@@ -35,7 +35,7 @@ namespace _STL { template <> void allocator<const ModuleData *>::deallocate(cons
 class ModuleData;
 namespace _STL { template <> void vector<const ModuleData *, allocator<const ModuleData *> >::_M_clear(); }
 #include "../../Include/Common/ModuleData.h"
-extern unsigned int g_00DFE1AC;
+extern unsigned int g_00DFE1AC[3];
 void __cdecl Rva0020DFFBRegister(const ModuleData* md)
 {
     _STL::vector<const ModuleData *> &g_moduleDataList0020DFFB =

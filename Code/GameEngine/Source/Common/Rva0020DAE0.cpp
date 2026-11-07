@@ -13,10 +13,9 @@ template <> void **vector<void*>::begin();
 template <> void **vector<void*>::end();
 }
 
-extern _STL::vector<void *> g_00DFE1AC;
-// The data ledger names 0x009FE1AC under both this vector spelling and the
-// four-byte ?g_00DFE1AC@@3IA owner (Rva007B6880Thunks.cpp); bind to that owner.
-#pragma comment(linker, "/alternatename:?g_00DFE1AC@@3V?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@A=?g_00DFE1AC@@3IA")
+// 0x009FE1AC holds retail's 12-byte vector<void*>; Rva007B6880Thunks.cpp owns it as
+// that extent and retail's rowed initializer constructs it, so it is viewed here.
+extern unsigned int g_00DFE1AC[3];
 
 void __cdecl Rva0020DAE0(void *p)
 {
@@ -24,7 +23,7 @@ void __cdecl Rva0020DAE0(void *p)
 	void **end = *(void **volatile *)((char *)&g_00DFE1AC + 4);
 	for (void **it = begin; it != end; ++it) {
 		if (*it == p) {
-			g_00DFE1AC.erase(it);
+			reinterpret_cast<_STL::vector<void *> *>(g_00DFE1AC)->erase(it);
 			return;
 		}
 	}
