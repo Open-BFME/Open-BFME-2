@@ -18890,7 +18890,7 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?name@Rva004B3D5BNamed@@QBEPBDXZ,,0x004B3D5B,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner LevelUpUpgrade
 ?name@LocomotorSetUpgrade@@QBEPBDXZ,,0x004B3EC0,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner LocomotorSetUpgrade
 ?name@ObjectCreationUpgrade@@QBEPBDXZ,,0x004B3FB4,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner ObjectCreationUpgrade
-?name@Rva004B4719Named@@QBEPBDXZ,,0x004B4719,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RadarUpgrade
+?GetSnapshotName@RadarUpgrade@@MBEPBDXZ,,0x004B4719,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner RadarUpgrade
 ?name@Rva004B48F3Named@@QBEPBDXZ,,0x004B48F3,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner StatusBitsUpgrade
 ?name@DoCommandUpgrade@@QBEPBDXZ,,0x004B4BC1,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner DoCommandUpgrade
 ?name@Rva004B4CFFNamed@@QBEPBDXZ,,0x004B4CFF,6,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp,matched,B8-6 const string returner SubObjectsUpgrade
@@ -30987,7 +30987,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
 ?find@LivingWorldAutoResolveArmorStore@@QAEPBVRva00427157@@ABVAsciiString@@@Z,,0x00427217,54,Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp,matched,
 ?rva004B555F@Rva004B555F@@QAEABVAsciiString@@XZ,,0x004B555F,21,Code/GameEngine/Source/GameLogic/Object/Upgrade/UnpauseSpecialPowerUpgrade.cpp,matched,tail-jmp to rowed rva004CE3B9 else TheEmptyString via callers 0x0029239B 0x002972F7
 ?GetRegionInfo@Rva004FF5B7@@QAE?AURva004FF5B7Iter@@H@Z,,0x004FF5B7,60,Code/GameEngine/Source/Common/Rva004FF5B7Find.cpp,matched,unlock linear tree scan via rowed increment 0x00024250 key at node plus 0x14
-?rva004B47DB@Rva004B46F9@@UAEXXZ,,0x004B47DB,77,Code/GameEngine/Source/GameLogic/Object/Upgrade/RadarUpgrade.cpp,matched,rowed callees plus vtable slot 8; spelled virtual: slot 8 of vftable 0x00C57890 that the class's own destructor install at +0; retail never calls it directly
+?onDelete@RadarUpgrade@@UAEXXZ,,0x004B47DB,77,Code/GameEngine/Source/GameLogic/Object/Upgrade/RadarUpgrade.cpp,matched,rowed callees plus vtable slot 8; spelled virtual: slot 8 of vftable 0x00C57890 that the class's own destructor install at +0; retail never calls it directly
 ?upgradeRemovalImplementation@WeaponSetUpgradeSecondary@@QAEXXZ,,0x004B5783,39,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgradeSecondary.cpp,matched,slot 20 vtable 0x00857F68 via sibling 0x004B5765 plus rowed callees
 ?rva0059761B@Rva0059761B@@QAEXPAX@Z,,0x0059761B,47,Code/GameEngine/Source/GameLogic/Object/Die/Rva0059761BXfer.cpp,matched,slot-0x28 two-true local plus slot-0x7c this-plus-0x3c via caller 0x004EC1D9
 ?rva0059710E@Rva005970ED@@QAEHH@Z,,0x0059710E,21,Code/GameEngine/Source/Common/Rva005970EDCtor.cpp,matched,returns m40 = m38 slot0(int arg); callers 0x00597902 0x00597943 test the returned eax

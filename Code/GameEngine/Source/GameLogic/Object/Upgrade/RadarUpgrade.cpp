@@ -164,12 +164,11 @@ typedef bool Bool;
 // and UpgradeModule's 0x00C58790 at +0x18; its destructor 0x004B46F9 (rowed
 // under the placeholder Rva004B46F9) restores the same four.
 //  - 0x00C57890 (12 slots): deleting dtor 0x004B47BF, loadPostProcess
-//    0x00497805 (`jmp 0x0058B03E`, UpgradeModule's own body), the name getter
-//    0x004B4719 (rowed under the placeholder Rva004B4719Named), xfer
-//    0x004B8710 (Version1 then UpgradeModule::xfer, the body retail folds with
+//    0x00497805 (`jmp 0x0058B03E`, UpgradeModule's own body), GetSnapshotName
+//    0x004B4719 ("RadarUpgrade", ModuleNameGetters3.cpp), xfer 0x004B8710
+//    (Version1 then UpgradeModule::xfer, the body retail folds with
 //    ArmorUpgrade::xfer), getModuleNameKey 0x004B4727, slot 8 onDelete
-//    0x004B47DB (rowed under Rva004B46F9), slot 9 onCapture 0x004B4828, then
-//    UpgradeModule's slots.
+//    0x004B47DB, slot 9 onCapture 0x004B4828, then UpgradeModule's slots.
 //  - 0x00C57848 (UpgradeMux, 18 slots): UpgradeModule's except slot 8,
 //    upgradeRemovalImplementation 0x004B471F (setUpgradeExecuted(false)
 //    through slot 9; one body in five upgrade tables), and slot 10,
@@ -184,12 +183,12 @@ enum NameKeyType
 };
 
 //
-// ?rva004B47DB@Rva004B46F9@@UAEXXZ, retail 0x004B47DB, 77 bytes.
-// Vslot 8 of vtable 0x00857890: if secondary at +0x10 slot0 false return; else
-// Object at +8 BitFlags<11> at +0x1C8 any true return; else Player via rowed
-// getControllingPlayer, removeRadar via rowed 0x002AA9C2 with ModuleData
-// bool at +0x118 when Player present, then secondary slot9 with 0.
-// Evidence: callees rowed plus vtable slot; prev/next same flags.
+// ?onDelete@RadarUpgrade@@UAEXXZ, retail 0x004B47DB, 77 bytes: slot 8
+// (Module::onDelete) of 0x00C57890. If the UpgradeMux at +0x10 reports no
+// upgrade (slot 0) return; if the Object at +8 has any BitFlags<11> bit at
+// +0x1C8 set return; else removeRadar (rowed 0x002AA9C2) on the controlling
+// Player with the ModuleData bool at +0x118, then UpgradeMux slot 9 with
+// false. Zero Hour's RadarUpgrade::onDelete has this shape.
 
 template<int N> class BitFlags
 {
@@ -217,33 +216,6 @@ public:
 };
 
 
-class Secondary10
-{
-public:
-	virtual bool v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09(int x);
-};
-
-class Rva004B46F9
-{
-public:
-	virtual ~Rva004B46F9();
-	virtual void rva004B47DB();
-private:
-	ModuleData *m_moduleData04;
-	Object *m_object08;
-	char m_pad0C[0x10 - 0x0C];
-	Secondary10 m_sec10;
-};
-
 #include "../../../../Include/Common/NameKeyGenerator.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -260,8 +232,10 @@ public:
 	RadarUpgrade( Thing *thing, const ModuleData *moduleData );
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDelete();												// primary slot 8
 	virtual void onCapture(Player *oldOwner, Player *newOwner);				// primary slot 9
 protected:
+	virtual const char *GetSnapshotName() const;							// primary slot 2
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8
 	virtual void upgradeImplementation();									// UpgradeMux slot 10
@@ -305,18 +279,21 @@ RadarUpgrade::RadarUpgrade(
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B47DB.cpp
 
-void Rva004B46F9::rva004B47DB()
+void RadarUpgrade::onDelete()
 {
-	ModuleData *data = m_moduleData04;
-	if (!m_sec10.v00())
+	const RadarUpgradeModuleData *data = getRadarUpgradeModuleData();
+	// if we haven't been upgraded there is nothing to clean up
+	if (!isAlreadyUpgraded())
 		return;
-	Object *obj = m_object08;
+	// if we're currently disabled, we've already removed the radar
+	Object *obj = getObject();
 	if (obj->m_flags1C8.any())
 		return;
 	Player *pl = obj->getControllingPlayer();
 	if (pl)
-		pl->removeRadar(static_cast<RadarUpgradeModuleData *>(data)->m_isDisableProof);
-	m_sec10.v09(0);
+		pl->removeRadar(data->m_isDisableProof);
+	// this upgrade module is now "not upgraded"
+	setUpgradeExecuted(false);
 }
 
 // tu-skeleton: 0x004B47BF 28B ??_GRva004B46F9@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
