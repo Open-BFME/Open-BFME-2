@@ -132,3 +132,29 @@ and the DirtySock debug print are off the boot path.
 Clearance: none claimed (no real link or census run since); the eight installers now name their tables, so the
 next real link's image report and bridge queue are the check.
 Census confirmation: none claimed.
+
+**2026-11-07, crash-prevention lane (seat ancalgonn-swarm-seat4), image `2bac16a657` (real-link run 42391021797).**
+A store scan checked every boot-reachable retail vptr store (the LINK-627 walker, 7,809 stores) against the linked
+diagnostic image: the image's copy of the same instruction, the table it really installs, and each of retail's slots
+(jump-thunk chains followed, byte-equal bodies credited). It reproduces P18 exactly. Module data that stop Object INI
+load (parseModuleName calls slot 4 unconditionally, retail 0x0033D865+0x249), first retail INI use in brackets:
+AttributeModifierAuraUpdate `g_00C50EE8` (cinematicobjects.ini:6498), TransitionDamageFX (17072, triage), SpawnBehavior
+(civilianbuildings.ini:18898), AutoDepositUpdate (35180), StructureToppleUpdate (civilianprop.ini:6722),
+ToggleMountedSpecialAbilityUpdate (createahero.ini:358), CurseSpecialPower and ArrowStormUpdate (createaheropowers.inc
+949 and 2779); the first six are this entry's walls. Open question: AttributeModifierAura precedes TransitionDamageFX
+in the same file and its slot 4 is also 0 in this image, yet P18 stopped on TransitionDamageFX; P18's next receipt
+should settle it.
+- Repaired: CurseSpecialPowerModuleData (0x004CCD34) stored `extern "C" char SpyVisionUpdate_vftable = 56`, a misread
+  .rdata byte. The unit already compiles the canonical chain, so dropping the hand store installs
+  `??_7CurseSpecialPowerModuleData@@6B@`: 31 slots in ModuleData order against retail 0x00C5F778 (ICF-shared with
+  EvacuateGarrison, StoreObjects and TeleportToCaster), store in retail's place, 5/5 exact (906c92743d).
+- Walled: ArrowStormUpdateModuleData (0x00490639) stores `_vtbl_00C4D5A0`, an `/alternatename` for
+  `??_7ArrowStormUpdateModuleData@@6B@`, and the kept copy is the 1-slot SELECT_ANY COMDAT from
+  UpdateModuleDataDeletingDtors.obj, the scaffold of the rowed `??_G` 0x00490679 (slot 4 reads ASCII). The scaffold TU
+  takes ModuleData from BfmeModuleData.h, so its view cannot derive from canonical SpecialAbilityUpdateModuleData; the
+  map approves the ctor, `??_G` and `??1` for ArrowStormUpdate.cpp, but the scaffold and ArrowStormUpdate.cpp are both
+  mixed, and a compiler-installed vptr was already refuted for this ctor (re_attempts line 1345). Route: split the
+  scaffold, then merge into ArrowStormUpdate.cpp with one canonical view.
+- Scaffold rule on this image: no table where a longer copy loses; 335 tables kept from a deleting-dtor scaffold, 23 of
+  them module data. Of those 23, 20 constructors install a hand-built 31-slot array equal to retail (latent: replace
+  the array and the scaffold view in one commit), ArrowStorm is live, SpawnBehavior and TransitionDamageFX store zero.
