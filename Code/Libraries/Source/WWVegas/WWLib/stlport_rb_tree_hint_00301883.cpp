@@ -49,6 +49,14 @@ TreeHint003012F0::_Link_type TreeHint003012F0::_M_create_node(const TreeHintPair
     _STL::_Construct(&node->_M_value_field, value);
     return node;
 }
+// Retail's header allocation (the allocator ctor folded at 0x0030087C) also goes
+// through the static byte allocator, (0x20, 0), not the node proxy's allocate(1).
+template <>
+_STL::_Rb_tree_base<TreeHintPair003012F0, _STL::allocator<TreeHintPair003012F0> >::_Rb_tree_base(const allocator_type &__a)
+    : _M_header(_STLP_CONVERT_ALLOCATOR(__a, _Node), (_Node *)0)
+{
+    _M_header._M_data = (_Node *)_STL::allocator<char>::allocate(sizeof(_Node), 0);
+}
 template TreeHint003012F0::iterator TreeHint003012F0::insert_unique(TreeHint003012F0::iterator, const TreeHintPair003012F0 &);
 
 // The map wrapper directly calls this tree's verified hinted insertion.
