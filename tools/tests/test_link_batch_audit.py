@@ -118,7 +118,13 @@ def test_missing_source_list_is_inconclusive(monkeypatch, tmp_path):
 
 
 @pytest.fixture
-def batch(monkeypatch, tmp_path):
+def weaks():
+    """{object: {name: default}} the batch fixture's weak reader returns."""
+    return {}
+
+
+@pytest.fixture
+def batch(monkeypatch, tmp_path, weaks):
     """Use the real overlay and link resolver; supply small object fact sets."""
     saved = index()
     saved.update(objects=["provider.obj", "caller.obj"],
@@ -155,6 +161,8 @@ def batch(monkeypatch, tmp_path):
     monkeypatch.setattr(A.link_check, "alternate_names", lambda obj: {})
     monkeypatch.setattr(A.link_census, "object_references", lambda obj: (
         set(facts[obj.name][1]) | set(facts[obj.name][2]), {}))
+    monkeypatch.setattr(A, "weak_reader", lambda index, replacements: lambda obj: weaks.get(obj, {}))
+    monkeypatch.setattr(A, "bridged_names", lambda: set())
     return saved, facts, changes, paths
 
 
@@ -405,4 +413,184 @@ def test_real_link_losses_ignore_census_verdicts_and_pins():
     updated = A.overlay(saved, [], {"retail.obj"}, None)
     updated["comdat"] = {}
     losses = A.real_link_losses(saved, updated, {"insert_unique"}, {"retail.obj": 0, "ini.obj": 1}, {"ini.obj": 0})
-    assert losses == [("insert_unique", ["ini.obj", "retail.obj"], ["ini.obj"])]
+    assert losses == [("insert_unique", ["ini.obj", "retail.obj"], ["ini.obj"], "loss")]
+
+
+# Review of bfc63dc096: counterexamples to the first real-link loss rule.
+def tables(objects, **kw):
+    found = {"objects": list(objects), "strong": {}, "comdat": {}, "common": {}, "alternates": {},
+             "touches": {}, "forgotten": set(), "excuses": {"runtime": set(), "imported": {}, "stubs": {}}}
+    found.update(kw)
+    return found
+
+
+def rank(*objects):
+    return {obj: i for i, obj in enumerate(objects)}
+
+
+def test_a_placement_only_definer_hides_no_loss(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    # gthunks.obj also defines `api`, but exit_link.py leaves placement objects out of the link.
+    saved["objects"].append("gthunks.obj")
+    saved["strong"] = {**saved["strong"], "api": [2]}
+    saved["touches"]["gthunks.obj"] = {"api"}
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A.link_check, "link_rank", lambda rows: rank("provider.obj", "caller.obj", "gthunks.obj"))
+    monkeypatch.setattr(A.exit_link, "placement_objects", lambda rows: {
+        Path("gthunks.obj"): "Code/gen_small/gthunks_1_admitted.cpp"})
+    A.audit("a" * 40, "b" * 40, [])
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS api: defined before this batch by provider.obj, by no kept object after; " \
+           "still referenced by caller.obj" in out
+
+
+def test_a_name_only_a_placement_object_defined_was_never_in_the_real_link():
+    before = tables(["thunks.obj", "caller.obj"], strong={"api": [0]},
+                    touches={"caller.obj": {"api"}, "thunks.obj": {"api"}})
+    after = tables(["caller.obj"], touches={"caller.obj": {"api"}})
+    assert A.real_link_losses(before, after, {"api"}, rank("thunks.obj", "caller.obj"),
+                              rank("caller.obj"), omitted={"thunks.obj"}) == []
+
+
+def test_an_alternate_to_an_undefined_target_resolves_nothing():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"api"}})
+    after = tables(["caller.obj"], alternates={"api": [(0, "missing")]}, touches={"caller.obj": {"api"}})
+    losses = A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj"), rank("caller.obj"))
+    assert losses == [("api", ["provider.obj"], ["caller.obj"], "loss")]
+
+
+def test_an_alternate_chain_to_a_definition_resolves_and_a_cycle_does_not():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"api"}})
+    chain = tables(["caller.obj"], strong={"real": [0]},
+                   alternates={"api": [(0, "mid")], "mid": [(0, "real")]}, touches={"caller.obj": {"api"}})
+    cycle = tables(["caller.obj"], alternates={"api": [(0, "mid")], "mid": [(0, "api")]},
+                   touches={"caller.obj": {"api"}})
+    ranks = rank("provider.obj", "caller.obj"), rank("caller.obj")
+    assert A.real_link_losses(before, chain, {"api"}, *ranks) == []
+    assert A.real_link_losses(before, cycle, {"api"}, *ranks) == [("api", ["provider.obj"], ["caller.obj"], "loss")]
+
+
+def test_an_alternate_in_an_omitted_object_resolves_nothing():
+    before = tables(["provider.obj", "caller.obj"], strong={"api": [0]}, touches={"caller.obj": {"api"}})
+    after = tables(["caller.obj", "thunks.obj"], strong={"real": [0]}, alternates={"api": [(1, "real")]},
+                   touches={"caller.obj": {"api"}})
+    losses = A.real_link_losses(before, after, {"api"}, rank("provider.obj", "caller.obj"),
+                                rank("caller.obj", "thunks.obj"), omitted={"thunks.obj"})
+    assert [entry[0] for entry in losses] == ["api"]
+
+
+def test_a_weak_fallback_that_resolves_is_no_loss_and_one_that_does_not_is(batch, weaks, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    saved["strong"] = {**saved["strong"], "fallback": [1]}
+    facts["provider.obj"] = ([], [], [], [])
+    weaks["caller.obj"] = {"api": "fallback"}
+    A.audit("a" * 40, "b" * 40, [])
+    assert "REAL-LINK LOSS" not in capsys.readouterr().out
+    weaks["caller.obj"] = {"api": "nowhere"}
+    A.audit("a" * 40, "b" * 40, [])
+    assert "REAL-LINK LOSS api:" in capsys.readouterr().out
+
+
+def test_a_name_the_vtable_bridge_may_generate_is_a_candidate(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A, "bridged_names", lambda: {"api"})
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS CANDIDATE api:" in out and "the vtable bridge" in out
+    assert "0 name(s) the real link would no longer resolve, 1 candidate(s) " \
+           "(refuse mode: candidates only, not refused)" in out
+
+
+def test_an_unreadable_weak_table_makes_a_candidate(batch, weaks, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    weaks["caller.obj"] = None
+    A.audit("a" * 40, "b" * 40, [])
+    assert "REAL-LINK LOSS CANDIDATE api:" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("broken", ["real_link_losses", "bridged_names", "weak_reader", "report_real_link_losses"])
+def test_report_mode_never_lets_the_check_change_the_exit(batch, monkeypatch, capsys, broken):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+
+    def boom(*args, **kwargs):
+        raise RuntimeError("injected")
+    monkeypatch.setattr(A, broken, boom)
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    assert "real-link loss check failed: RuntimeError: injected (report mode: unverified)" in capsys.readouterr().out
+
+
+def test_a_failing_check_in_refuse_mode_is_inconclusive(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    monkeypatch.setattr(A, "bridged_names", lambda: 1 / 0)
+    assert A.audit("a" * 40, "b" * 40, []) == 2
+
+
+def test_refuse_mode_on_a_provisional_baseline_does_not_say_refused(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("c" * 40, "b" * 40, []) == 2
+    out = capsys.readouterr().out
+    assert "(refuse mode: provisional baseline, not refused)" in out
+    assert "refuse mode: refused" not in out
+
+
+def vtable_object(path, default_defined):
+    """A COFF object whose .rdata vftable slot relocates to the weak `??_Eapi` (default `??_Gapi`),
+    the shape MSVC emits for a deleting destructor slot."""
+    import struct
+    rdata = b"\0" * 4
+    offset = 20 + 40
+    reloc = offset + len(rdata)
+    table = reloc + 10
+    header = struct.pack("<HHIIIHH", 0x14C, 1, 0, table, 5, 0, 0)
+    section = b".rdata\0\0" + struct.pack("<IIIIIIHHI", 0, 0, 4, offset, reloc, 0, 1, 0, 0x40300040)
+    relocation = struct.pack("<IIH", 0, 2, 6)                        # DIR32 to symbol 2, ??_Eapi
+    strings = bytearray(4)
+
+    def symbol(name, section_number, storage, aux=0):
+        raw = name.encode()
+        field = raw.ljust(8, b"\0") if len(raw) <= 8 else struct.pack("<II", 0, len(strings))
+        if len(raw) > 8:
+            strings.extend(raw + b"\0")
+        return field + struct.pack("<IhHBB", 0, section_number, 0, storage, aux)
+    records = symbol("??_7api@@6B@", 1, A.link_census.EXTERNAL)
+    records += symbol("??_Gapi@@UAEPAXI@Z", 0, A.link_census.EXTERNAL)        # symbol 1: the default
+    records += symbol("??_Eapi@@UAEPAXI@Z", 0, A.link_census.WEAK_EXTERNAL, 1)
+    records += struct.pack("<II", 1, 3) + b"\0" * 10                 # aux: tag symbol 1, SEARCH_ALIAS
+    records += symbol("_unrelated", 0, A.link_census.EXTERNAL)
+    strings[:4] = struct.pack("<I", len(strings))
+    path.write_bytes(header + section + rdata + relocation + records + bytes(strings))
+    return path
+
+
+@pytest.mark.parametrize("lost, loses", [("??_Eapi@@UAEPAXI@Z", False), ("??_Gapi@@UAEPAXI@Z", True)])
+def test_a_reference_from_a_vtable_section_is_judged_through_its_weak_default(tmp_path, lost, loses):
+    obj = vtable_object(tmp_path / "vtable.obj", True)
+    fact = A.link_census.object_facts(obj, object())
+    touches = A.link_census.touched_names(fact)
+    assert {"??_Eapi@@UAEPAXI@Z", "??_Gapi@@UAEPAXI@Z"} <= touches
+    names = {"??_Eapi@@UAEPAXI@Z", "??_Gapi@@UAEPAXI@Z"}
+    kept = names - {lost}
+    before = tables(["dtor.obj", "vtable.obj"], strong={name: [0] for name in names},
+                    touches={"vtable.obj": touches})
+    after = tables(["dtor.obj", "vtable.obj"], strong={name: [0] for name in kept},
+                   touches={"vtable.obj": touches})
+    index = {"blockers": {}}
+    losses = A.real_link_losses(before, after, {lost}, rank("dtor.obj", "vtable.obj"),
+                                rank("dtor.obj", "vtable.obj"), weak_defaults=A.weak_reader(index, [obj]))
+    assert [entry[0] for entry in losses] == ([lost] if loses else [])
+    assert all(entry[2] == ["vtable.obj"] and entry[3] == "loss" for entry in losses)
