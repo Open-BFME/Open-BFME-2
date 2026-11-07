@@ -79,7 +79,11 @@ change to make, and the refresh alone would trade InGameUI's tables for the subs
    - Still short and unindexed (fresh: bridged(31)): 29 tables, among them ActiveBody (1/31, on nearly every object),
      BuildingBehavior, Rampage, EntEnraged, Missile, Stealth, Invisibility, Topple, PartTheHeavens, AutoPickUp, Attach,
      RadiateFear, BoneFX, Bloodthirsty, PassiveAreaEffect, Pillage, the crate and spawn collides, W3DBoatWakeModelDraw,
-     W3DTornadoDraw. FXList INI (TheFXListStore) builds LaserFXNugget, whose zero vptr is repaired here.
+     W3DTornadoDraw. Most of these kept copies come from the `FamilyDeletingDtors_muse-*.cpp` scaffolds, whose
+     one-virtual private views exist to emit a rowed `??_G`. For a class registered as canonical (ActiveBodyModuleData)
+     the scaffold cannot adopt the header, since it needs a fake constructor to emit the table, and the `??_G` row has
+     no approved TU to move to (tu_map: 0x004BF9B5 displaced). These wait for the bridge (Finding 1) or a TU home.
+     FXList INI (TheFXListStore) builds LaserFXNugget, whose zero vptr is repaired here.
 6. **TheAptPlayer** (#223): kept `??_7AptPlayer@@6B@` 1/21 (AptPlayerDtor.cpp), and AptValue's Rva006DE2C0/Rva006DE390
    1/15. Unindexed; fresh: bridged.
 7. **TheLivingWorldManager** (#239, class held by a codex seat): 1/14 SubsystemInterface table, unindexed (fresh:
@@ -116,11 +120,17 @@ losing bytes or verdict):**
 | EvaAnnounceClientCreate.cpp (Update) | EvaAnnounceClientCreateModuleData over ModuleData.h; char vptr and present-unmatched dtor gone | 3/3 unchanged |
 | PhysicsBehaviorModuleDataCtor.cpp | compiled table; strong array and its data row gone | 3/3 unchanged |
 
-Survey on this tree after the repairs: missing slots 37,576 -> 37,546, equal slots 27,371 -> 27,400.
+Survey on this tree after the repairs: missing slots 37,576 -> 37,546, equal slots 27,371 -> 27,400. The offline bridge
+plan with the committed ledger, base -> these commits: 4,417 -> 4,433 tables, 4,518 -> 4,534 names, 63,950 -> 64,446
+slots, strong-definition refusals 134 -> 133. Every name at 0x00C4ED70 (ObjectHelperModuleData, LockWeaponCreate,
+FloatUpdate, DelayedLuaEventUpdate, SupplyCenterDockUpdate, BeaconClientUpdate, the five placeholders) goes from
+`refused:strong-definition` to `bridged(31)`, and the three new module-data tables are bridged(31) too.
+`??_7LaserFXNugget@@6B@` is not planned (0x00BDD7B8 has no ledger vtable row; our copy already has retail's five slots).
+Full `./build.sh` on these commits: FULL GATE OK, 99,551/99,551.
 
 Remaining / next check: Finding 1 first (per-name strong refusal, then the ledger); then lk52's MessageStream and
 translator commits; LINK-625's walled module data; W3DRadar's identity; the object-creation rows.
 
 Clearance: none claimed (no real link since). The next real link's `vtable_bridge_queue.tsv` should no longer refuse
-0x0084ED70, and its image report should show the four new tables at full length.
+0x0084ED70 (offline plan above), and its image report should show the four new tables at full length.
 Census confirmation: none claimed.
