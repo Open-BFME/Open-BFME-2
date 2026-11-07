@@ -21,11 +21,11 @@ public:
 static Rva006655B0 s_rva006655B0;
 
 // The "msgr" service type the msgr records read: retail .data VA 0x00DD8290
-// holds 13513928 (VA 0x00CE34C8, "msgr") right after this object (VA
+// holds a pointer to the literal "msgr" (VA 0x00CE34C8) right after this object (VA
 // 0x00DD828C) and before the msgr record table (0x00DD8298), and this
 // object's initializer 0x007B5DE0 directly precedes the msgr records'
 // initializers in retail's .CRT$XCU table. Defined here, not beside the AUTH
 // record: MSVC 7.1 folds a value defined in the same object into the first
 // dynamic initializer that reads it, and retail's AUTH initializer 0x007B5DF0
 // reloads [0x00DD8290].
-int bfmeRva012C3B38TagValue = 13513928;
+int bfmeRva012C3B38TagValue = (int)"msgr";
