@@ -390,8 +390,8 @@ def test_diagnostic_cannot_write_measured_outputs(tmp_path, monkeypatch):
         {"unresolved": 19, "duplicates": 0, "image_written": False, "authoritative": True}))
     before = board.read_bytes()
     monkeypatch.setattr(E, "OUT", measured)
-    def run(rows, diagnostic=False):
-        assert diagnostic is True
+    def run(rows, diagnostic=False, stub_seed=None):
+        assert diagnostic is True and stub_seed is None
         assert E.OUT == tmp_path / "diagnostic_link"
         E.OUT.mkdir()
         for name in ("result.json", "errors.tsv", "exit.exe", "exit.map", "image_receipt.json"):
@@ -935,3 +935,103 @@ def test_old_artifact_without_bridge_metadata_does_not_erase_last_queue(tmp_path
     errors.write_text("code\tsource\tsymbol\n")
     assert E.write_blockers(errors, "a" * 40) == 0
     assert queue.read_text() == "last measured queue\n"
+
+
+def test_parallel_currency_keeps_the_serial_answer_and_order(tmp_path, monkeypatch):
+    sources = {tmp_path / f"{i:03}.obj": tmp_path / f"{i:03}.cpp" for i in range(250)}
+    present = sorted(sources, reverse=True) + [tmp_path / "member.obj"]   # a library member has no source
+    monkeypatch.setenv("BUILD_POOL", "1")
+    serial = E.stale_objects(present, sources)
+    monkeypatch.setenv("BUILD_POOL", "3")
+    assert E.stale_objects(present, sources) == serial == present[:-1]   # no object exists: all stale
+
+
+def test_stub_seed_keeps_only_names_this_link_leaves_unresolved(tmp_path, monkeypatch):
+    EXT = E.link_cycle.EXTERNAL
+    text = [(".text", 0x60500020, b"\xcc" * 4, 0)]
+    kept = E.link_cycle.write_coff(tmp_path / "kept.obj", text, [
+        ("_e", 1, 0, EXT), ("_a", 0, 0, EXT), ("_b", 0, 0, EXT), ("_c", 0, 0, EXT), ("_d", 0, 0, EXT),
+        ("_common", 0, 4, EXT), ("_w", 0, 0, E.census.WEAK_EXTERNAL)])
+    extra = E.link_cycle.write_coff(tmp_path / "bridge.obj", text, [("_b", 1, 0, EXT), ("_abs", -1, 0, EXT)])
+    monkeypatch.setattr(E.census, "library_symbols", lambda path: {"_c"})
+    seed = tmp_path / "stubbed.tsv"
+    seed.write_text("name\toffset\n" + "".join(f"{n}\t0x0\n" for n in
+                                                 ("_a", "_b", "_c", "_e", "_z", "_common", "_w", "_abs",
+                                                  "?x@@3HA", "?y@@3HA")))
+    got = E.seeded_stubs(seed, E.link_cycle.Objects([kept]), [extra], [tmp_path / "imp.lib"],
+                         {"?x@@3HA", "_e"})
+    # _b a generated object defines, _c a library, _e the object itself; _z and _abs nothing
+    # references; _common is a COMMON definition and _w a weak external with its own default.
+    # ?x@@3HA only an export references; ?y@@3HA nothing does.
+    assert got["names"] == ["?x@@3HA", "_a"]
+    assert got["offered"] == 10 and got["dropped"] is False
+
+
+def test_a_seed_that_clashes_is_dropped_and_the_link_iterates_as_without_one(tmp_path, monkeypatch):
+    import json
+    import types
+    root = tmp_path
+    measured = root / "build/exit_link"
+    measured.mkdir(parents=True)
+    monkeypatch.setattr(E, "ROOT", root)
+    monkeypatch.setattr(E.census, "ROOT", root)
+    monkeypatch.setattr(E, "OUT", measured)
+    monkeypatch.setattr(E.sys, "platform", "linux")
+    monkeypatch.setattr(E, "object_inventory", lambda rows: ([], [], []))
+    monkeypatch.setattr(E, "check_data_rows", lambda: None)
+    monkeypatch.setattr(E.census, "_object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "omission_proof", lambda *a: {
+        "population_problem": None, "inspection_failures": [], "uncovered_funclets": [],
+        "unproven": [], "outside_referrers": {}, "exclusive_names": [], "objects": [],
+        "funclet_covered": 0, "funclet_rows": 0})
+    monkeypatch.setattr(E, "eh_proof", lambda rows: {"unproven": [], "missing_objects": 0})
+
+    def setup(rows, present, parsed):
+        parsed["objects"] = E.link_cycle.Objects([])
+        return [root / "absolute.obj"], {"import_libraries": [], "harness_import_symbols": []}
+    monkeypatch.setattr(E, "link_setup", setup)
+    monkeypatch.setattr(E, "export_names", lambda: set())
+    monkeypatch.setattr(E, "seeded_stubs", lambda *a: {"file": "seed.tsv", "offered": 2, "names": ["_Seeded"],
+                                                        "dropped": False})
+    rsp = root / "build/diagnostic_link/exit.rsp"
+
+    def command(inputs, image, out, roots):
+        rsp.write_text('"absolute.obj"\n')
+        return ["fixture-linker"], rsp
+    monkeypatch.setattr(E, "link_command", command)
+    monkeypatch.setattr(E.census, "census_state", lambda *a: {})
+    monkeypatch.setattr(E, "tool_digests", lambda: {})
+    responses = []
+    results = iter([
+        types.SimpleNamespace(returncode=96, stdout=(
+            "absolute.obj : error LNK2005: _Seeded already defined in diagnostic_stubs.obj\n"), stderr=""),
+        types.SimpleNamespace(returncode=96, stdout=(
+            "fixture.obj : error LNK2001: unresolved external symbol __imp__Missing@4\n"), stderr=""),
+        types.SimpleNamespace(returncode=0, stdout="", stderr="")])
+
+    def link(*a, **k):
+        responses.append(rsp.read_text())
+        return next(results)
+    monkeypatch.setattr(E, "run_native", link)
+    monkeypatch.setattr(E, "object_sources", lambda rows: {})
+    monkeypatch.setattr(E, "export_sources", lambda rows: {})
+    monkeypatch.setattr(E.census, "classify", lambda *a: ({}, {}, {}, {}))
+    monkeypatch.setattr(E, "placement_objects", lambda rows: [])
+    monkeypatch.setattr(E, "published_index_meta", lambda: {})
+    monkeypatch.setattr(E.census, "head", lambda: "a" * 40)
+    assert E.run_diagnostic([], root / "seed.tsv") == 1  # fake linker wrote no image
+    diagnostic = root / "build/diagnostic_link"
+    assert "diagnostic_stubs.obj" in responses[0]              # the seeded first pass
+    assert responses[1] == '"absolute.obj"\n'                  # the seed dropped: no stub object
+    assert "diagnostic_stubs.obj" in responses[2]              # then the ordinary stubbing pass
+    result = json.loads((diagnostic / "result.json").read_text())
+    assert result["link"]["passes"] == 3
+    assert result["stub_seed"] == {"file": "seed.tsv", "offered": 2, "seeded": 1, "dropped": True}
+    assert [row.split("\t")[0] for row in (diagnostic / "stubbed.tsv").read_text().splitlines()[1:]] == [
+        "__imp__Missing@4"]
+    assert E.OUT == measured
+
+
+def test_stub_seed_is_for_the_diagnostic_link_only(tmp_path):
+    with pytest.raises(SystemExit):
+        E.main(["--link", "--stub-seed", str(tmp_path / "stubbed.tsv")])

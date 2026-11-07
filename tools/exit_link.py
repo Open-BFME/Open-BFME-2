@@ -62,8 +62,11 @@ authoritative for LINKING or recovery credit; only the census records those.
 # Both modes request a map, relocations, all retail exports and resources.
 # --diagnostic alone adds distinct trap bodies and permits uncovered omitted
 # funclets (retained in its proof report). Its outputs never enter exit_link/.
+# --stub-seed (diagnostic only) starts from an earlier link's stubbed.tsv: a pass
+# costs ~12 minutes on srv1, and each round of new names was another pass.
 import argparse
 import collections
+import concurrent.futures
 import csv
 import functools
 import hashlib
@@ -609,6 +612,11 @@ def link_command(inputs, image, outdir, import_roots=()):
     return command, rsp
 
 
+def export_names():
+    with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
+        return {row["name"] for row in csv.DictReader(handle)}
+
+
 def export_definition(path):
     """Keep every retail export, including data; exports are linker roots."""
     with (ROOT / "reverse/exports.csv").open(newline="", encoding="utf-8") as handle:
@@ -698,6 +706,42 @@ def diagnostic_stubs(names, path):
     return path
 
 
+STUB_CLASH = re.compile(r"\bLNK2005\b.*\bdiagnostic_stubs\.obj\b|\bdiagnostic_stubs\.obj\b.*\bLNK2005\b")
+
+
+def read_stub_seed(path):
+    """The names an earlier diagnostic link stubbed, from its stubbed.tsv."""
+    with Path(path).open(newline="", encoding="utf-8") as handle:
+        return {row["name"] for row in csv.DictReader(handle, delimiter="\t") if row.get("name")}
+
+
+def seeded_stubs(path, objects, extra_objects, libraries, exports=()):
+    """The seed's names this link is certain to leave unresolved, to stub before its first pass.
+
+    A name qualifies only when the link references it (an undefined EXTERNAL of a linked
+    object, not COMMON, or a /DEF export: 193 of master's 198 stubs on 2026-11-07 were
+    exports) and no linked object or library defines it: link.exe reports exactly such a name
+    unresolved, and the next pass would stub it anyway. A name the seed lacks still costs a
+    pass, and a seeded trap that clashes with a definition drops the whole seed (run_link).
+    """
+    names = read_stub_seed(path)
+    referenced, defined = set(exports), set()
+    for objs in (objects, link_cycle.Objects(extra_objects)):
+        for item in objs.paths:
+            parsed = objs.get(item)
+            for symbol in (parsed[1].values() if parsed else ()):
+                if symbol.cls != link_cycle.EXTERNAL:
+                    continue
+                if symbol.sec == 0 and not symbol.value:
+                    referenced.add(symbol.name)
+                else:
+                    defined.add(symbol.name)
+    for library in libraries:
+        defined |= census.library_symbols(library)
+    return {"file": str(path), "offered": len(names), "names": sorted(names & referenced - defined),
+            "dropped": False}
+
+
 def image_commit():
     """The cross-lane receipt requires a full object ID, unlike census headlines."""
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -756,13 +800,13 @@ def snapshot_image_objects(rsp, image):
         return {"error": message}
 
 
-def run_diagnostic(rows):
+def run_diagnostic(rows, stub_seed=None):
     """Isolate every output, even refusals, from measured files and scoreboard."""
     global OUT
     measured_out = OUT
     OUT = measured_out.parent / "diagnostic_link"
     try:
-        return run_link(rows, diagnostic=True)
+        return run_link(rows, diagnostic=True, stub_seed=stub_seed)
     finally:
         OUT = measured_out
 
@@ -861,8 +905,9 @@ def harness_import_roots(requests):
     return requests | roots, roots
 
 
-def link_setup(rows, present):
-    """(inputs, metadata) for the exit link, with every scaffold left out."""
+def link_setup(rows, present, parsed=None):
+    """(inputs, metadata) for the exit link, with every scaffold left out; `parsed`, when
+    given, receives the parsed kept objects under "objects"."""
     omitted = set(placement_objects(rows))
     inputs = [path for path in present if path not in omitted]
     bad, leaked = scaffold_free(inputs, omitted)
@@ -870,6 +915,8 @@ def link_setup(rows, present):
         raise SystemExit(f"exit_link: the link set is not scaffold-free (scaffolds {bad}, "
                          f"omitted objects {leaked}); nothing linked")
     objects = link_cycle.Objects(inputs)
+    if parsed is not None:
+        parsed["objects"] = objects
     retail_imports = census.retail_imports()
     requests, import_roots = harness_import_roots(
         link_cycle.undefined_imports(objects) | link_cycle.undefined_plain_imports(objects, retail_imports))
@@ -939,8 +986,21 @@ def stale_objects(present, sources):
     The exit mode is a measurement, not the census: it does not demand a
     census-grade witnessed compile per TU. It demands that each object was
     compiled from this source and these headers, which the dep cache re-checks.
+    Split across BUILD_POOL processes as build.stale_sources splits it (5.5 of the
+    10.7 minutes before srv1's first link pass were this check on one core).
     """
-    return [obj for obj in present if obj in sources and not build.compile_is_current(sources[obj], obj)]
+    pairs = [(obj, sources[obj]) for obj in present if obj in sources]
+    workers = build._pool_size()
+    if workers <= 1 or len(pairs) < 200:
+        return _stale_chunk(pairs)
+    with concurrent.futures.ProcessPoolExecutor(workers) as pool:
+        stale = {obj for part in pool.map(_stale_chunk, [pairs[i::workers] for i in range(workers)])
+                 for obj in part}
+    return [obj for obj, _ in pairs if obj in stale]
+
+
+def _stale_chunk(pairs):
+    return [obj for obj, source in pairs if not build.compile_is_current(source, obj)]
 
 
 def check_data_rows():
@@ -963,12 +1023,14 @@ def check_data_rows():
                          f"e.g. {stale[0].relative_to(ROOT)}; prepare with python3 tools/link_census.py --build (or ./build.sh)")
 
 
-def run_link(rows, diagnostic=False):
+def run_link(rows, diagnostic=False, stub_seed=None):
     if sys.platform.startswith("win") and not os.environ.get("GITHUB_ACTIONS"):
         raise SystemExit("exit_link: --link runs on a sandbox (Wine + MSVC 7.1) or a hosted runner only; "
                          "use --plan on this PC")
     if diagnostic and OUT.name != "diagnostic_link":
         raise SystemExit("exit_link: diagnostic output must be isolated")
+    if stub_seed is not None and not diagnostic:
+        raise SystemExit("exit_link: --stub-seed is for --diagnostic only")
     OUT.mkdir(parents=True, exist_ok=True)
     census.fresh_outputs(*(OUT / name for name in (
         "exit.exe", "exit.map", "image_receipt.json", "result.json", "errors.tsv", "link.log", "stubbed.tsv",
@@ -1004,31 +1066,49 @@ def run_link(rows, diagnostic=False):
     if eh["unproven"] or eh["missing_objects"]:
         raise SystemExit(f"exit_link: EH proof failed ({len(eh['unproven'])} row(s) not exact and not "
                          f"baselined, {eh['missing_objects']} without an object); nothing linked")
-    inputs, setup = link_setup(rows, present)
+    parsed = {}
+    inputs, setup = link_setup(rows, present, parsed)
     image = OUT / "exit.exe"
     command, rsp = link_command(inputs, image, OUT, setup["harness_import_symbols"])
     state, tools = census.census_state(present), tool_digests()
     census.fresh_outputs(image, image.with_suffix(".map"), OUT / "image_receipt.json",
                          OUT / "result.json", OUT / "errors.tsv")
     started = time.time()
-    result = run_native(command)
-    stubbed = set()
+    stubbed, seed = set(), None
+    unstubbed = rsp.read_text(encoding="utf-8") if rsp.exists() else ""
+
+    def relink():
+        response = unstubbed
+        if stubbed:
+            stub = diagnostic_stubs(stubbed, OUT / "diagnostic_stubs.obj")
+            response += f'"{census._arg(stub)}"\n'
+        rsp.write_text(response, encoding="utf-8")
+        census.fresh_outputs(image, image.with_suffix(".map"))
+        return run_native(command)
+
+    if stub_seed is not None:
+        kept = set(parsed["objects"].paths)
+        seed = seeded_stubs(stub_seed, parsed["objects"],
+                            [path for path in inputs if path.suffix.lower() == ".obj" and path not in kept],
+                            [path for path in inputs if path.suffix.lower() == ".lib"], export_names())
+        stubbed.update(seed["names"])
+    result = relink() if stubbed else run_native(command)
+    passes = 1
     if diagnostic:
-        stub_in_response = False
         while result.returncode:
             text = result.stdout + result.stderr
+            if seed and not seed["dropped"] and STUB_CLASH.search(text):
+                # The filter missed a definition: link as if no seed had been given.
+                seed["dropped"] = True
+                stubbed.clear()
+                result, passes = relink(), passes + 1
+                continue
             wanted = {m.group(1) or m.group(2) for m in UNRESOLVED.finditer(text)}
             fresh = wanted - stubbed
             if not fresh:
                 break
             stubbed.update(fresh)
-            stub = diagnostic_stubs(stubbed, OUT / "diagnostic_stubs.obj")
-            if not stub_in_response:
-                with rsp.open("a", encoding="utf-8") as handle:
-                    handle.write(f'"{census._arg(stub)}"\n')
-                stub_in_response = True
-            census.fresh_outputs(image, image.with_suffix(".map"))
-            result = run_native(command)
+            result, passes = relink(), passes + 1
     seconds = time.time() - started
     manifest = snapshot_image_objects(rsp, image)
     if diagnostic:
@@ -1107,6 +1187,10 @@ def run_link(rows, diagnostic=False):
         },
         **setup,
     }
+    if diagnostic:
+        record["link"]["passes"] = passes
+        record["stub_seed"] = seed and {"file": seed["file"], "offered": seed["offered"],
+                                        "seeded": len(seed["names"]), "dropped": seed["dropped"]}
     (OUT / "result.json").write_text(json.dumps(record, indent=1), encoding="utf-8")
     with (OUT / "errors.tsv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.writer(handle, delimiter="\t", lineterminator="\n")
@@ -1234,7 +1318,12 @@ def main(argv=None):
                         help="with --plan: prove the omission from build/match objects")
     parser.add_argument("--index", action="store_true",
                         help="with --plan: cross-check the published census index (--fetch-index first)")
+    parser.add_argument("--stub-seed", metavar="STUBBED_TSV", type=Path,
+                        help="with --diagnostic: stub an earlier diagnostic link's names (its stubbed.tsv) "
+                             "before the first pass, where this link certainly leaves them unresolved")
     args = parser.parse_args(argv)
+    if args.stub_seed and not args.diagnostic:
+        parser.error("--stub-seed goes with --diagnostic")
     if args.blockers:
         return write_blockers(Path(args.blockers), args.blockers_commit)
     if args.image_report:
@@ -1257,7 +1346,7 @@ def main(argv=None):
             print(f"  FAIL {entry['name']} {entry['target_rva']} ({entry['source']}): "
                   f"{entry['verdict']} -- {entry['detail']}")
         return 1 if result["unproven"] or result["missing_objects"] else 0
-    return run_diagnostic(rows) if args.diagnostic else run_link(rows)
+    return run_diagnostic(rows, args.stub_seed) if args.diagnostic else run_link(rows)
 
 
 if __name__ == "__main__":
