@@ -1,24 +1,3 @@
-
-char g_00C4E628;
-char g_00C5E3D0;
-char g_00C5C724;
-char g_00C5D018;
-char g_00C5D0F0;
-char g_00C5C764;
-char g_00C5DDE4;
-char g_00C5D378;
-char g_00C5E298;
-char g_00C5D518;
-char g_00C5C468;
-char g_00C5D6C0;
-char g_00C5D7BC;
-char g_00C5D8A8;
-char g_00C5CDC0;
-char g_00C5C9A0;
-char g_00C5E23C;
-char g_00C5D27C;
-char g_00C5E6E4;
-
 // cl: /DNDEBUG /MD
 //
 // SpecialPower-side ModuleData::buildFieldParse procs.
@@ -39,6 +18,192 @@ struct FieldParse;
 extern const int g_emptyFieldParseTable[4];
 
 #include "../../../../Include/Common/INI/FieldParse.h"
+
+#include "../../../../Include/Common/INI/INI.h"
+
+// The FieldParse tables of the procs below, read from retail: every token, parser,
+// userData and offset is retail's. They were 1-byte zero placeholders, so in a
+// linked game each special power's INI block met an empty table. The parsers are
+// the matched rows at retail's pointers.
+void Rva003393DFParse(INI *ini, void *instance, void *store, const void *userData);
+void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+void Rva00492F6AParse(INI *ini, void *instance, void *store, const void *userData);
+void Rva002C8C06Parse(INI *ini, void *instance, void *store, const void *userData);
+void Rva002567EAParse(INI *ini, void *instance, void *store, const void *userData);
+void Rva00438176Parse(INI *ini, void *instance, void *store, const void *userData);
+void Rva004C7E09_ParseUpgradeName(INI *ini, void *instance, void *store, const void *userData);
+extern "C" {
+void __identifier("?parseFromINI@Rva0049B8A0@@SAXPAVINI@@PAX1PBX@Z")();
+}
+extern const char *TheOCLCreateLocTypeNames[];
+
+// Retail VA 0x00C4E628: 35 fields and the zero sentinel.
+extern const FieldParse g_00C4E628[] = {
+	{ "SpecialPowerTemplate", &INI::parseSpecialPowerTemplate, 0, 0x8 },
+	{ "UpdateModuleStartsAttack", &INI::parseBool, 0, 0xC },
+	{ "StartsPaused", &INI::parseBool, 0, 0xD },
+	{ "InitiateSound", &Rva003393DFParse, 0, 0x10 },
+	{ "ReEnableAntiCategory", &INI::parseBool, 0, 0x42 },
+	{ "AntiCategory", (INIFieldParseProc)&__identifier("?parseFromINI@Rva0049B8A0@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x34 },
+	{ "AntiFX", &INI::parseFXList, 0, 0x4C },
+	{ "AttributeModifier", &INI::parseAsciiString, 0, 0x18 },
+	{ "AttributeModifierRange", &INI::parseReal, 0, 0x1C },
+	{ "AttributeModifierAffectsSelf", &INI::parseBool, 0, 0x20 },
+	{ "AttributeModifierAffects", &iniParseObjectFilter, 0, 0x24 },
+	{ "AttributeModifierFX", &INI::parseFXList, 0, 0x28 },
+	{ "AttributeModifierWeatherBased", &INI::parseBool, 0, 0x2C },
+	{ "WeatherDuration", &INI::parseDurationUnsignedInt, 0, 0x30 },
+	{ "RequirementsFilterMPSkirmish", &iniParseObjectFilter, 0, 0x38 },
+	{ "RequirementsFilterStrategic", &iniParseObjectFilter, 0, 0x3C },
+	{ "TargetEnemy", &INI::parseBool, 0, 0x40 },
+	{ "TargetAllSides", &INI::parseBool, 0, 0x41 },
+	{ "InitiateFX", &INI::parseFXList, 0, 0x44 },
+	{ "TriggerFX", &INI::parseFXList, 0, 0x48 },
+	{ "SetModelCondition", &INI::iniParseAnim, 0, 0x50 },
+	{ "SetModelConditionTime", &INI::parseReal, 0, 0x54 },
+	{ "GiveLevels", &INI::parseInt, 0, 0x58 },
+	{ "DisableDuringAnimDuration", &INI::parseBool, 0, 0x5C },
+	{ "IdleWhenStartingPower", &INI::parseBool, 0, 0x5D },
+	{ "AffectGood", &INI::parseBool, 0, 0x5E },
+	{ "AffectEvil", &INI::parseBool, 0, 0x5F },
+	{ "AffectAllies", &INI::parseBool, 0, 0x60 },
+	{ "AvailableAtStart", &INI::parseBool, 0, 0x61 },
+	{ "ChangeWeather", &Rva00492F6AParse, 0, 0x64 },
+	{ "AdjustVictim", &INI::parseBool, 0, 0x68 },
+	{ "OnTriggerRechargeSpecialPower", &INI::parseAsciiString, 0, 0x6C },
+	{ "BurnDecayModifier", &INI::parseUnsignedInt, 0, 0x70 },
+	{ "UseDistanceFromCommandCenter", &INI::parseBool, 0, 0x74 },
+	{ "DistanceFromCommandCenter", &INI::parseReal, 0, 0x78 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5E3D0: 5 fields and the zero sentinel.
+extern const FieldParse g_00C5E3D0[] = {
+	{ "Radius", &INI::parseReal, 0, 0x7C },
+	{ "FX", &INI::parseFXList, 0, 0x80 },
+	{ "TreeValueMultiplier", &INI::parsePercentToReal, 0, 0x84 },
+	{ "TreeValueTotalCap", &INI::parseReal, 0, 0x88 },
+	{ "FireWeapon", &INI::parseAsciiString, 0, 0x8C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5C724: 2 fields and the zero sentinel.
+extern const FieldParse g_00C5C724[] = {
+	{ "UpgradeMoneyAmount", &INI::Rva004C2918_ParseUpgradeMoneyAmount, 0, 0x7C },
+	{ "MoneyAmount", &INI::parseInt, 0, 0x88 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D018: 6 fields and the zero sentinel.
+extern const FieldParse g_00C5D018[] = {
+	{ "ElvenGroveObject", &INI::parseAsciiString, 0, 0x88 },
+	{ "ElvenNumObjects", &INI::parseInt, 0, 0x8C },
+	{ "ElvenWoodObject", &INI::Rva004C3F48_ParseNamedReal, 0, 0x0 },
+	{ "ElvenWoodRadius", &INI::parseReal, 0, 0x90 },
+	{ "ElvenWoodFX", &INI::parseFXList, 0, 0x94 },
+	{ "ElvenWoodOCL", &INI::parseObjectCreationList, 0, 0x98 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D0F0: 5 fields and the zero sentinel.
+extern const FieldParse g_00C5D0F0[] = {
+	{ "FlagsUsedForToggle", &Rva002C8C06Parse, 0, 0x7C },
+	{ "ToggleOnSleepFrames", &INI::parseInt, 0, 0x8C },
+	{ "ToggleOffSleepFrames", &INI::parseInt, 0, 0x90 },
+	{ "ToggleOnAttributeModifier", &INI::parseAsciiString, 0, 0x94 },
+	{ "ToggleOffAttributeModifier", &INI::parseAsciiString, 0, 0x98 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5C764: 1 fields and the zero sentinel.
+extern const FieldParse g_00C5C764[] = {
+	{ "FatCursorRadius", &INI::parseReal, 0, 0x7C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5DDE4: 1 fields and the zero sentinel.
+extern const FieldParse g_00C5DDE4[] = {
+	{ "StopPowerTemplate", &INI::parseSpecialPowerTemplate, 0, 0x7C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D378: 4 fields and the zero sentinel.
+extern const FieldParse g_00C5D378[] = {
+	{ "CloudBreakRadius", &INI::parseReal, 0, 0x7C },
+	{ "CloudBreakFX", &INI::parseFXList, 0, 0x80 },
+	{ "SunbeamObject", &INI::parseAsciiString, 0, 0x84 },
+	{ "ObjectSpacing", &INI::parseReal, 0, 0x88 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5E298: 6 fields and the zero sentinel.
+extern const FieldParse g_00C5E298[] = {
+	{ "HealAmount", &INI::parseReal, 0, 0x7C },
+	{ "HealAsPercent", &INI::parseBool, 0, 0x80 },
+	{ "HealAffects", &Rva002567EAParse, 0, 0x88 },
+	{ "HealRadius", &INI::parseReal, 0, 0x84 },
+	{ "HealFX", &INI::parseFXList, 0, 0xA4 },
+	{ "HealOCL", &INI::parseObjectCreationList, 0, 0xA8 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D518: 4 fields and the zero sentinel.
+extern const FieldParse g_00C5D518[] = {
+	{ "TaintObject", &INI::parseAsciiString, 0, 0x7C },
+	{ "TaintRadius", &INI::parseReal, 0, 0x80 },
+	{ "TaintFX", &INI::parseFXList, 0, 0x84 },
+	{ "TaintOCL", &INI::parseObjectCreationList, 0, 0x88 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5C468: 4 fields and the zero sentinel.
+extern const FieldParse g_00C5C468[] = {
+	{ "InvisibilityNugget", &Rva00438176Parse, 0, 0x7C },
+	{ "BroadcastRadius", &INI::parseReal, 0, 0x134 },
+	{ "ObjectFilter", &iniParseObjectFilter, 0, 0x138 },
+	{ "Duration", &INI::parseDurationUnsignedInt, 0, 0x13C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D6C0: 3 fields and the zero sentinel.
+extern const FieldParse g_00C5D6C0[] = {
+	{ "FreezingRainRadius", &INI::parseReal, 0, 0x7C },
+	{ "FreezingRainFX", &INI::parseFXList, 0, 0x80 },
+	{ "BurnRateModifier", &INI::parseInt, 0, 0x84 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D7BC: 2 fields and the zero sentinel.
+extern const FieldParse g_00C5D7BC[] = {
+	{ "DarknessRadius", &INI::parseReal, 0, 0x7C },
+	{ "DarknessFX", &INI::parseFXList, 0, 0x80 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D8A8: 2 fields and the zero sentinel.
+extern const FieldParse g_00C5D8A8[] = {
+	{ "GrabRadius", &INI::parseReal, 0, 0x7C },
+	{ "AllowTree", &INI::parseBool, 0, 0x80 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5CDC0: 5 fields and the zero sentinel.
+extern const FieldParse g_00C5CDC0[] = {
+	{ "UpgradeOCL", &INI::Rva004C381C_ParseUpgradeOCL, 0, 0x7C },
+	{ "OCL", &INI::parseObjectCreationList, 0, 0x88 },
+	{ "CreateLocation", &INI::parseIndexList, TheOCLCreateLocTypeNames, 0x8C },
+	{ "UpgradeName", &INI::Rva004C3859_ParseUpgradeName, 0, 0x90 },
+	{ "NearestSecondaryObjectFilter", &iniParseObjectFilter, 0, 0x9C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5C9A0: 3 fields and the zero sentinel.
+extern const FieldParse g_00C5C9A0[] = {
+	{ "NumberOfFrames", &INI::parseInt, 0, 0x7C },
+	{ "SpeedMulitplier", &INI::parseReal, 0, 0x80 },
+	{ "Type", &INI::parseAsciiStringVector, 0, 0x84 },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5E23C: 1 fields and the zero sentinel.
+extern const FieldParse g_00C5E23C[] = {
+	{ "UpgradeName", &Rva004C7E09_ParseUpgradeName, 0, 0x7C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5D27C: 1 fields and the zero sentinel.
+extern const FieldParse g_00C5D27C[] = {
+	{ "BountyPercent", &INI::parseReal, 0, 0x7C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5E6E4: 1 fields and the zero sentinel.
+extern const FieldParse g_00C5E6E4[] = {
+	{ "ScanRange", &INI::parseReal, 0, 0x7C },
+	{ 0, 0, 0, 0 }
+};
 
 #include "../../../../Include/GameLogic/Module/SpecialPowerModuleData.h"
 
