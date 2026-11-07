@@ -992,6 +992,46 @@ class EmissionHeldTests(unittest.TestCase):
             _, mixed, _ = self.donors(ledger, placed)
         self.assertEqual(mixed, {self.TU: 1})
 
+    COPY = "??0Rec@@QAE@ABV0@@Z"
+
+    def held_copy(self, code, by="C", ev="C=0x00001100..0x00001300", tu="Code/XferSave.cpp"):
+        """emission_held for a copy ctor row of self.TU whose unit preprocesses to `code` (None: cannot)."""
+        T._CACHE.clear()
+        T._CACHE["map"] = [{"rva": "0x00001200", "size": "8", "kind": "code", "tu": tu, "confidence": "approved",
+                            "by": by, "evidence": ev, "source": ""}]
+        text = (None, "cl -E failed") if code is None else (T.flatten_preprocessed(code), None)
+        try:
+            with patch.object(T, "unit_text", return_value=text):
+                return T.emission_held({"name": self.COPY, "target_rva": "0x00001200", "source": self.TU})
+        finally:
+            T._CACHE.clear()
+
+    def test_an_implicit_copy_ctor_placed_by_contiguity_alone_is_held(self):
+        # P16 rule (a): FXList.cpp's copy ctor 0x0052BD3A, placed in LivingWorldCampaign.cpp on C alone
+        self.assertTrue(self.held_copy("struct Rec { int a; };\n"))
+        for code, why in (("struct Rec { Rec(const Rec &o); int a; };\n", "user-declared"),
+                          ("struct Rec { Rec(int n); int a; };\n", "any one-parameter constructor"),
+                          ("struct Other { int a; };\n", "no body of the class"),
+                          ('struct Rec { void f() { g("}"); } int a; };\n', "a masked brace in the body"),
+                          (None, "the unit cannot be preprocessed")):
+            with self.subTest(why=why):
+                self.assertFalse(self.held_copy(code), why)
+        self.assertFalse(self.held_copy("struct Rec { int a; };\n", by="N"))
+        self.assertFalse(self.held_copy("struct Rec { int a; };\n", ev="C=0x1..0x2 Z=Code/XferSave.cpp"))
+        self.assertFalse(self.held_copy("struct Rec { int a; };\n", tu=""))
+
+    def test_the_tu_file_keeps_a_held_copy_ctor_and_a_donor_still_cannot_carry_it(self):
+        clean = (T.flatten_preprocessed("struct Rec { int a; };\n"), None)
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), (self.COPY, 0x1200, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")]
+        with patch.object(T, "unit_text", return_value=clean):
+            _don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x1200: self.C})
+        self.assertEqual(mixed, {})
+        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"), (self.COPY, 0x1200, "Code/B.cpp")]
+        with patch.object(T, "unit_text", return_value=clean):
+            don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU, 0x1200: self.C})
+        self.assertEqual(mixed, {"Code/B.cpp": 1})
+        self.assertNotIn("Code/B.cpp", don)
+
     def test_a_donor_never_carries_one_away_from_its_tu(self):
         ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"), (self.CLEAR, 0x1200, "Code/B.cpp")]
         with patch.object(T, "spells_definition", return_value=False):
@@ -1528,6 +1568,127 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual((len(restored), errors), (1, []))
         self.assertEqual(staged(), before["reverse/functions.csv"])
         self.assertEqual((self.root / "reverse/functions.csv").read_bytes(), before["reverse/functions.csv"])
+
+
+class VtableRiderPreparedSplitTests(unittest.TestCase):
+    """P16 minimal B, rules (b) and (c): ParticleSystemFXNuggetCtor.cpp's ctor moves into FXList.cpp
+    with a prepared TU text, and its displaced `??_G` rides with the body that emits the vtable."""
+    SOURCE, TU = "Code/Ctor.cpp", "Code/FXList.cpp"
+    DTOR = "??_GRec@@UAEPAXI@Z"
+    PREPARED = "struct Rec { Rec(); virtual ~Rec(); };\nvoid move() {}\n"
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name).resolve()
+        (self.root / "Code").mkdir()
+        (self.root / "reverse").mkdir()
+        (self.root / self.SOURCE).write_bytes(b"void move(){}\nvoid stay(){}\n")
+        (self.root / self.TU).write_bytes(b"struct Rec { };\n")
+
+    def split(self, *, prepared=PREPARED, stay=False, tu_vtable=True, residual_vtable=False, map_tu="",
+              second_row=False, prepared_misses=False, dtor=True):
+        row = lambda n, r, s=self.SOURCE: dict(name=n, export_rva="", target_rva=r, target_size="1", source=s,
+                                               status="matched", notes="")
+        mine = ([row("_move", "0x1000")] + ([row(self.DTOR, "0x7000")] if dtor else [])
+                + ([row("_stay", "0x3000")] if stay else []))
+        ledger = list(mine) + ([row("??_GOther@@UAEPAXI@Z", "0x7000", "Code/Other.cpp")] if second_row else [])
+        seen = {}
+        objs = {self.TU: self.root / "t.obj", self.SOURCE: self.root / "x.obj"}
+
+        class Verifier:
+            errors, all_errors = [], []
+
+            def __init__(self, source):
+                self.source, self.obj = source, objs[source]
+
+            def matched(self, text, rows):
+                names = set(re.findall(r"void\s+(\w+)\s*\(", text))
+                out = {r["target_rva"] for r in rows if r["name"].lstrip("_") in names}
+                if "move" in names:                       # the ctor's unit emits the vtable, so the ??_G
+                    out.add("0x7000")
+                if prepared_misses and text == prepared:
+                    out.discard("0x1000")
+                return out & {r["target_rva"] for r in rows}
+
+        def merge(tu, sk, don, report, dry_run, **kw):
+            seen.update(don=don, **kw)
+            return dict(report, accepted=list(don))
+
+        def vtables(obj, cls):
+            return ({"??_7Rec@@6B@"} if (obj == objs[self.TU] and tu_vtable) or (obj == objs[self.SOURCE] and residual_vtable)
+                    else set())
+        cache = {"ledger": ledger, "by_file": {self.SOURCE: mine},
+                 "approved_at": {0x1000: self.TU, 0x3000: "Code/Other.cpp"},
+                 "assigned": {0x1000: self.TU.lower(), 0x3000: "code/other.cpp"},
+                 "map_by_rva": {0x7000: {"rva": "0x7000", "kind": "code", "tu": map_tu, "confidence": "displaced",
+                                         "by": "-", "evidence": "N=Code/Ctor.cpp"}}}
+        with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, cache, clear=True), \
+                patch.object(T, "refusal", return_value=None), patch.object(T, "included_by", return_value=[]), \
+                patch.object(T, "data_rowed_idents", return_value=set()), patch.object(T, "debt_keys", return_value=set()), \
+                patch.object(T, "hatch_move", return_value={}), patch.object(T, "prepared_hatches", return_value={}), \
+                patch.object(T, "skeleton", return_value=[]), patch.object(T, "Verifier", Verifier), \
+                patch.object(T, "SplitLinkGuard"), patch.object(T, "LinkGuard"), \
+                patch.object(T, "vtable_symbols", side_effect=vtables), patch.object(T, "_merge", side_effect=merge):
+            report = T.split(self.SOURCE, self.TU, dry_run=True, claim=False, prepared=prepared)
+        return report, seen
+
+    def test_a_whole_donor_with_a_prepared_text_moves_its_rider_and_is_absorbed(self):
+        report, seen = self.split()
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["riders"], ["0x7000"])                 # (b): the ??_G rides with the ctor
+        self.assertEqual(sorted(r["target_rva"] for r in seen["don"][self.SOURCE]), ["0x1000", "0x7000"])
+        self.assertEqual(seen["fixed_text"], self.PREPARED)            # (c): judged in the prepared text
+        self.assertEqual(seen["applier"].__name__, "absorb")           # nothing stays: the donor goes
+
+    def test_without_a_prepared_text_a_whole_donor_still_refuses(self):
+        report, _ = self.split(prepared=None)
+        self.assertIn("use --merge", report["blocked"])
+        report, _ = self.split(prepared=None, dtor=False)               # every row approved: nothing rides
+        self.assertIn("use --merge", report["blocked"])
+
+    def test_a_donor_with_only_approved_rows_is_absorbed_with_a_prepared_text(self):
+        report, seen = self.split(dtor=False)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(seen["applier"].__name__, "absorb")
+
+    def test_a_partial_split_with_a_prepared_text_keeps_the_split_applier(self):
+        report, seen = self.split(stay=True)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(seen["applier"].__name__, "applier")
+        self.assertEqual(seen["fixed_text"], self.PREPARED)
+
+    def test_the_rider_needs_the_destination_to_emit_the_vtable_and_the_residual_not(self):
+        report, _ = self.split(tu_vtable=False, stay=True)
+        self.assertIn("rides only with the body that emits Rec's vtable", report["blocked"])
+        report, _ = self.split(residual_vtable=True, stay=True)
+        self.assertIn("rides only with the body that emits Rec's vtable", report["blocked"])
+
+    def test_a_row_another_emitter_or_the_map_can_claim_never_rides(self):
+        # the map placing the ??_G elsewhere, or a second ledger row at its address: no rider, and the
+        # residual's loss stops the split
+        for kw in ({"map_tu": "Code/Other.cpp"}, {"second_row": True}):
+            with self.subTest(kw=kw):
+                report, _ = self.split(stay=True, **kw)
+                self.assertIn("residual loses matched rows", report["blocked"])
+
+    def test_every_moved_row_must_match_in_the_prepared_text(self):
+        report, _ = self.split(stay=True, prepared_misses=True)
+        self.assertIn("every moved row must match in it", report["blocked"])
+
+    def test_vtable_rider_is_only_a_compiler_generated_member_the_map_leaves_homeless(self):
+        rows = [{"name": self.DTOR, "target_rva": "0x7000", "source": self.SOURCE},
+                {"name": "?f@Rec@@QAEXXZ", "target_rva": "0x7100", "source": self.SOURCE},
+                {"name": "??1Rec@@UAE@XZ", "target_rva": "0x7200", "source": self.SOURCE}]
+        cache = {"ledger": rows, "map_by_rva": {rva: {"rva": hex(rva), "kind": "code", "tu": "", "confidence": "displaced",
+                                                      "by": "-", "evidence": ""} for rva in (0x7000, 0x7100, 0x7200)}}
+        with patch.dict(T._CACHE, cache, clear=True):
+            with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed("struct Rec { virtual ~Rec(); };"), None)):
+                self.assertTrue(T.vtable_rider(rows[0], self.SOURCE))   # a deleting dtor: always the compiler's
+                self.assertFalse(T.vtable_rider(rows[1], self.SOURCE))  # a member function: written by hand
+                self.assertFalse(T.vtable_rider(rows[2], self.SOURCE))  # its dtor is user-declared here
+            with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed("struct Rec { int a; };"), None)):
+                self.assertTrue(T.vtable_rider(rows[2], self.SOURCE))   # an implicit dtor
 
 
 class FoldAliasSplitTests(unittest.TestCase):

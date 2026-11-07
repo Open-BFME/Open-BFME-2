@@ -85,10 +85,11 @@ Usage:
       every queued TU, each verified merge its own commit, the rest a ranked
       decision queue (tools/merge_all.py); --release after pushing
   python3 tools/tu_skeleton.py --split FILE                  which TUs a mixed file's rows belong to
-  python3 tools/tu_skeleton.py --split FILE --for TU [--dry-run] [--no-claim]
+  python3 tools/tu_skeleton.py --split FILE --for TU [--prepared TU=TEXT] [--dry-run] [--no-claim]
       carve the rows approved for TU out of a mixed FILE into the TU path (the
       split lane, documented in docs/consolidation.md): the residual keeps every
-      other row
+      other row. --prepared: TEXT (a file) is the TU's whole final text, written
+      with the carve in one transaction; a donor left with no row is absorbed
   python3 tools/tu_skeleton.py --emit-move FILE --for TU [--rva 0xRVA,...] [--dry-run] [--no-claim]
       repoint the implicit COMDAT rows (template instantiations, compiler-generated
       special members) of a mixed FILE that the map approves for TU to the TU file,
@@ -581,7 +582,10 @@ def donors(tu, sk):
         # The TU file's own code emits an implicit template instantiation the map places in
         # another TU by contiguity alone (emission_held): the seed keeps it like an unplaced
         # row. A donor's never: absorbing it would carry the row away from its approved TU.
-        held = {id(r) for r in own if emission_held(r)} if f.lower() == tu.lower() else set()
+        # (only a row the map places in another TU can make the file mixed: judge only those)
+        # (an ICF alias is never foreign anyway: no need to preprocess for it)
+        held = ({id(r) for r in own if assigned.get(int(r["target_rva"], 16)) not in (tu.lower(), None)
+                 and not fold_alias(r) and emission_held(r)} if f.lower() == tu.lower() else set())
         mine = {id(r): None if id(r) in held else assigned.get(int(r["target_rva"], 16)) for r in own}
         home = {r["name"]: mine[id(r)] for r in own}
         dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
@@ -682,15 +686,86 @@ def emission_held(r):
     with the bodies that instantiate it (a split's riders), always re-verified where it
     lands. It needs: a TEMPLATE_INSTANCE name, a map row whose TU rests on C alone (no
     F/Z/S/L/W token naming one), and no definition in its own file spelling its name (an
-    explicit specialization is a real body with a home). An unreadable file is no proof."""
+    explicit specialization is a real body with a home). An unreadable file is no proof.
+
+    A compiler-generated special member (special_shape: an implicit copy constructor,
+    destructor or operator=, a deleting destructor) is emitted the same way, wherever the
+    class is used (P16: FXList.cpp's copy ctor 0x0052BD3A, placed in LivingWorldCampaign.cpp
+    on C alone). It is held under the same map conditions when its own file's preprocessed
+    text proves it implicit by the coarse rule emit_move uses (special_member_problem: no
+    one-parameter constructor or operator=, no destructor, the class's body present);
+    a file that cannot be preprocessed proves nothing."""
     if "map_by_rva" not in _CACHE:
         _CACHE["map_by_rva"] = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code")}
     m = _CACHE["map_by_rva"].get(int(r["target_rva"], 16))
-    if not m or not m["tu"] or m.get("by") != "C" or not TEMPLATE_INSTANCE.match(r["name"]):
+    shape = special_shape(r["name"])
+    if not m or not m["tu"] or m.get("by") != "C" or not (TEMPLATE_INSTANCE.match(r["name"]) or shape):
         return False
     if any(k in tu_map.TU_EVIDENCE and eq for k, eq, _ in (t.partition("=") for t in (m["evidence"] or "").split())):
         return False
+    if shape and not TEMPLATE_INSTANCE.match(r["name"]):
+        if shape[0] == "deleting destructor":
+            return True                                  # no one writes it: nothing to preprocess
+        code, _why = unit_text(r["source"])
+        return code is not None and special_member_problem(code, *shape) is None
     return not spells_definition(r["source"], r)
+
+
+def vtable_rider(r, path):
+    """May ledger row `r` of `path` ride with carved bodies to whatever object emits its
+    class's vtable (P16: `??_G` 0x001E10CE with the ctor 0x001E0AEF)? The static half: a
+    compiler-generated special member (special_shape) the map leaves without a TU on purpose
+    (tu_map.homeless: displaced, no F/Z/S/L/W evidence), the only ledger row at its address
+    (no other emitter's row there to claim it), and, unless it is a deleting destructor,
+    which no one writes, proved implicit by the coarse rule on `path`'s preprocessed text.
+    split() adds the dynamic half: the destination's object emits the class's vtable and the
+    residual's does not, and the row matches where it lands."""
+    shape = special_shape(r["name"])
+    if not shape:
+        return False
+    if "map_by_rva" not in _CACHE:
+        _CACHE["map_by_rva"] = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code")}
+    m = _CACHE["map_by_rva"].get(int(r["target_rva"], 16))
+    if m is None or m["tu"]:
+        return False
+    if any(k in tu_map.TU_EVIDENCE and eq for k, eq, _ in (t.partition("=") for t in (m.get("evidence") or "").split())):
+        return False                                  # its own evidence names a TU: not the map's to leave open
+    if not (tu_map.homeless(m, r["name"]) or m.get("confidence") == "displaced"):
+        return False
+    if sum(1 for o in ledger_rows() if o["target_rva"].lower() == r["target_rva"].lower()) != 1:
+        return False
+    kind, cls = shape
+    if kind == "deleting destructor":
+        return True
+    code, _why = unit_text(path)
+    return code is not None and special_member_problem(code, kind, cls) is None
+
+
+def vtable_symbols(obj, cls):
+    """`cls`'s vtable symbols (`??_7Cls@@6B...`) that `obj` defines."""
+    return {s for s in defined_symbols(obj) if s.startswith(f"??_7{cls}@@6B")}
+
+
+def prepared_hatches(path, before, residual, tu, prepared):
+    """{(hatch, token): count} the move takes out of `path`, or None when a total over the file
+    and the TU would grow: the TU's current text and `path`'s before against the prepared TU
+    text and the residual (hatch_counters rule 3; a split's prepared text replaces the TU)."""
+    try:
+        import hatch_counters as H
+    except ImportError:
+        return {}
+
+    def totals(rel, text):
+        out = collections.Counter()
+        for (hatch, _p, token), n in H.scan(rel, text).items():
+            out[(hatch, token)] += n
+        return out
+    tu_text = (ROOT / tu).read_text(encoding="utf-8-sig", errors="replace") if (ROOT / tu).exists() else ""
+    old = totals(path, before) + totals(tu, tu_text)
+    new = totals(path, residual) + totals(tu, prepared)
+    if any(new[k] > old.get(k, 0) for k in new):
+        return None
+    return {k: n for k, n in totals(path, before).items() if n}
 
 
 def assigned_tu(r):
@@ -2249,7 +2324,9 @@ def view_hint(report, tu, don):
     return report
 
 
-def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
+def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None):
+    """... `fixed_text`: the TU's final text is given (a split's --prepared), never composed:
+    every accepted set is judged in it, under the same verifier, guard and applier."""
     v = Verifier(tu)
     # Splits provide their own two-object guard: their residual stays in the link.
     guard = guard or (None if applier else LinkGuard(tu))
@@ -2299,7 +2376,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
                                               f"{len(lost)} row(s) its region default matches"
                                            for f, e in sorted(ov.items())})
                 return _merge(tu, sk, {f: r for f, r in don.items() if f not in ov}, report, dry_run,
-                              texts, applier, guard)
+                              texts, applier, guard, fixed_text)
         for f in [f for f in don if f not in ov and f != tu and base[f]]:
             lost = (rv.matched(texts[f], don[f]) or set()) - base[f]
             if lost:
@@ -2343,6 +2420,17 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
         best = None
         need = set().union(*(base[f] for f in files))
         rows = [r for f in files for r in don[f]]
+        if fixed_text is not None:          # a prepared TU text: judged as it is, every baseline row in it
+            got = v.matched(fixed_text, rows)
+            if got is None:
+                return "compile"
+            if not need <= got:
+                return "bytes"
+            why = guard.judge(getattr(v, "obj", None), files, fixed_text) if guard else []
+            if why:
+                link_why[tuple(files)] = why
+                return "link"
+            return fixed_text
         for st, _first in distinct_strategies(lambda st: compose(tu, sk, files, texts, flags, st)):
             drop, drop_all = set(), set()
             for _ in range(16):
@@ -2500,7 +2588,8 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
     score, acc, rej, flags = best
     if ov and not set(acc) & set(ov):   # verified under flags no accepted donor carries: redo without them
         report["rejected"].update({f: "its flag override is not carried by the verified merge" for f in ov})
-        return _merge(tu, sk, {f: r for f, r in don.items() if f not in ov}, report, dry_run, texts, applier, guard)
+        return _merge(tu, sk, {f: r for f, r in don.items() if f not in ov}, report, dry_run, texts, applier, guard,
+                      fixed_text)
     text = attempt(acc, flags)
     if text in ("compile", "bytes", "link"):   # the accepted set no longer re-verifies (a flaky compile, an ICE):
         report["rejected"].update(rej)          # never write the failure token as the TU's text
@@ -3233,7 +3322,8 @@ def placed_elsewhere(tu, own, assigned):
     stays in the seed, is moved by nothing and is re-verified, so only a row assigned
     to a different TU calls for a split first. A companion row lives where its parent lives,
     and an emission-held row where the file emitting it lives."""
-    home = {r["name"]: None if emission_held(r) else assigned.get(int(r["target_rva"], 16)) for r in own}
+    home = {r["name"]: None if assigned.get(int(r["target_rva"], 16)) not in (tu.lower(), None) and emission_held(r)
+            else assigned.get(int(r["target_rva"], 16)) for r in own}
     dtors = {m.group(1): r["name"] for r in own if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
 
     def placed(r):
@@ -3284,7 +3374,12 @@ def reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state):
     return report
 
 
-def split(path, tu, dry_run=False, claim=True):
+def split(path, tu, dry_run=False, claim=True, prepared=None):
+    """--split FILE --for TU [--prepared TU=TEXT]. `prepared`: the TU's whole final text,
+    written with the carve in one transaction (as rename.py --prepared): the carved bodies
+    are not appended, every moved row and every row the TU matched before must match in
+    it, and a donor left with no row is absorbed (deleted, its keys repointed, as a merge
+    does) instead of refused."""
     state = merge_plan_state()
     report = {"file": path, "tu": tu}
     rows = file_rows(path)
@@ -3305,8 +3400,8 @@ def split(path, tu, dry_run=False, claim=True):
         report["blocked"] = "file cannot be carved: #included by " + ", ".join(inc[:3])
         return report
     why, tu, tu_rows = split_rows(path, tu)
-    if why:
-        report["blocked"] = why
+    if why and not (prepared is not None and tu_rows and why.startswith("every row is this TU's")):
+        report["blocked"] = why          # (with a prepared text a whole donor is absorbed, as below)
         return report
     report["tu"] = tu                    # the map's spelling names the TU ...
     tu = tu_path(tu)                     # ... and the file the tree has is the one written beside it
@@ -3348,7 +3443,7 @@ def split(path, tu, dry_run=False, claim=True):
         return report
     carved += companions(rows, {r["name"] for r in carved})
     keep = [r for r in rows if r not in carved]
-    if not keep:
+    if not keep and prepared is None:
         report["blocked"] = "no row would remain in the file: it is a whole donor, use --merge"
         return report
     data_rowed = data_rowed_idents(path)
@@ -3358,7 +3453,8 @@ def split(path, tu, dry_run=False, claim=True):
         return report
     donor_text, residual = cv.donor, cv.residual
     report.update(copies=[head_names(spans[i][2]) for i in cv.copies], data_moved=cv.data_moved, externs=cv.externs)
-    moved_hatches = hatch_move(path, text, residual, tu, donor_text)
+    moved_hatches = (hatch_move(path, text, residual, tu, donor_text) if prepared is None
+                     else prepared_hatches(path, text, residual, tu, prepared))
     if moved_hatches is None:
         report["blocked"] = "an escape-hatch count would grow (hatch_counters rule 3): a copied helper or datum carries one"
         return report
@@ -3367,21 +3463,25 @@ def split(path, tu, dry_run=False, claim=True):
     # the residual first: it is the cheaper compile and the commoner failure
     v = Verifier(path)
     got = v.matched(residual, keep) if keep else set()
+    residual_obj = v.obj if keep else None
     lost = sorted({r["target_rva"] for r in keep} - (got or set()))
     # An ICF alias no definition spells (an STLport COMDAT, an inline member) is
     # emitted by whatever body uses it; one only the carved bodies emitted rides
     # with them, as --shatter's riders do, and must then match beside the TU. So does an
     # emission-held instantiation (emission_held) the map places in this very TU: no carve
     # moves it, only the bodies emitting it.
+    # A compiler-generated special member the map leaves homeless rides with the body that
+    # emits its class's vtable (vtable_rider; P16's `??_G` 0x001E10CE): checked below
+    # against both objects.
     riders = [r for r in keep if got is not None and r["target_rva"] in lost
-              and (fold_alias(r) or emission_held(r) and assigned_tu(r) == tu.lower())
+              and (fold_alias(r) or emission_held(r) and assigned_tu(r) == tu.lower() or vtable_rider(r, path))
               and not all_ids.get(r["target_rva"]) and not parent_of(r)]
     if riders and {r["target_rva"] for r in riders} == set(lost) and \
             not any(r["target_rva"] in lost for r in keep if r not in riders):
         carved += riders
         keep = [r for r in keep if r not in riders]
         report["riders"] = [r["target_rva"] for r in riders]
-        if not keep:
+        if not keep and prepared is None:
             report["blocked"] = "no row would remain in the file once its ICF aliases ride: use --merge"
             return report
         lost = []
@@ -3397,17 +3497,31 @@ def split(path, tu, dry_run=False, claim=True):
     # a row that only matches under the mixed file's own flags stays behind
     (ROOT / tu).parent.mkdir(parents=True, exist_ok=True)
     vt = Verifier(tu)
-    alone = vt.matched(donor_text, carved)
+    tu_own = file_rows(tu) if (ROOT / tu).exists() else []
+    # with a prepared text the moved rows are judged in it, beside the TU's own rows
+    alone = vt.matched(donor_text, carved) if prepared is None else vt.matched(prepared, tu_own + carved)
     if alone is None:
-        report["blocked"] = "the carved bodies do not compile beside the TU: " + " | ".join(vt.errors)[:300]
+        report["blocked"] = (("the carved bodies do not compile beside the TU: " if prepared is None
+                              else "the prepared TU text does not compile: ") + " | ".join(vt.errors)[:300])
         return report
     unemitted = [r["target_rva"] for r in riders if r["target_rva"] not in alone]
     if unemitted:
         report["residual_loses"] = unemitted
         report["blocked"] = "the residual loses ICF aliases the carved bodies do not emit matched either"
         return report
+    for r in riders:
+        if vtable_rider(r, path) and not fold_alias(r):
+            cls = special_shape(r["name"])[1]
+            if not vtable_symbols(vt.obj, cls) or (residual_obj is not None and vtable_symbols(residual_obj, cls)):
+                report["blocked"] = (f"{r['target_rva']} rides only with the body that emits {cls}'s vtable: the "
+                                     "destination must emit it and the residual must not")
+                return report
     behind = [r for r in carved if r["target_rva"] not in alone]
     report["alone"] = f"{len(carved) - len(behind)}/{len(carved)} carved rows match beside the TU under its flags"
+    if behind and prepared is not None:
+        report["blocked"] = ("with a prepared TU text every moved row must match in it: "
+                             + ", ".join(r["target_rva"] for r in behind[:5]))
+        return report
     if behind:
         report["flag_bound"] = {r["target_rva"]: "matches only under the file's own flags" for r in behind}
         parents = {r["name"] for r in behind} | {m.group(1) for r in behind if (m := FUNCLET.match(r["name"]))}
@@ -3453,11 +3567,25 @@ def split(path, tu, dry_run=False, claim=True):
             return report
         don[tu] = own
     report.update(approved=len(sk), accepted=[], rejected={})
-    texts = {path: donor_text}
+    # a prepared text is the TU's final text: the carved rows are judged in it, not appended
+    texts = {path: donor_text if prepared is None else prepared}
+    whole = prepared is not None and not keep          # nothing stays: the donor is absorbed
     inputs = merge_plan_inputs(sk, don, texts, {"residual": residual,
                               "data_moved": cv.data_moved, "hatches_move": report["hatches_move"]})
-    guard = SplitLinkGuard(tu, path, residual, v.obj, [r["target_rva"] for r in carved],
-                           data_moved=cv.data_moved, root=ROOT, expected_source=original_bytes)
+    guard = (LinkGuard(tu) if whole else
+             SplitLinkGuard(tu, path, residual, v.obj, [r["target_rva"] for r in carved],
+                            data_moved=cv.data_moved, root=ROOT, expected_source=original_bytes))
+    tu_text = (ROOT / tu).read_text(encoding="utf-8-sig", errors="replace") if (ROOT / tu).exists() else ""
+
+    def absorb(tu_, acc, text_):
+        """A whole donor with a prepared TU text: merge's apply, which deletes the donor and
+        repoints every path-keyed column and protected register (Carry)."""
+        carry = Carry(ROOT, tu_, [tu_, path], {tu_: tu_text, path: text}, text_)
+        if carry.problems:
+            raise UnitKeyRefusal("; ".join(carry.problems[:3]))
+        moved = apply(tu_, [tu_, path], text_, carry=carry)
+        report.update(carry.report())
+        return moved
 
     def unit_keys(text_):
         """The residual and the merged TU's objects decide where path's unit keys go."""
@@ -3480,12 +3608,13 @@ def split(path, tu, dry_run=False, claim=True):
 
     def run():
         try:
-            plan = load_verified_plan(split_plan_path(path, tu), state, inputs)
+            plan = load_verified_plan(split_plan_path(path, tu), state, inputs) if prepared is None else None
             if plan:
                 reused = reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state)
                 if reused is not None:
                     return reused
-            return _merge(tu, sk, don, report, dry_run, texts=texts, applier=applier, guard=guard)
+            return _merge(tu, sk, don, report, dry_run, texts=texts, applier=absorb if whole else applier,
+                          guard=guard, fixed_text=prepared)
         except UnitKeyRefusal as refused_keys:
             report["blocked"] = f"unit keys (data_ledger.csv / fold proofs): {refused_keys}"[:400]
             return report
@@ -3501,13 +3630,17 @@ def split(path, tu, dry_run=False, claim=True):
             claims.release(claim_keys(tu, {path: carved}))
     else:
         report = run()
-    if dry_run and "blocked" not in report and path in report.get("accepted", []):
+    if dry_run and "blocked" not in report and path in report.get("accepted", []) and whole:
+        problems = Carry(ROOT, tu, [tu, path], {tu: tu_text, path: text}, prepared).problems
+        if problems:
+            report["blocked"] = "protected registers: " + "; ".join(problems[:3])[:300]
+    elif dry_run and "blocked" not in report and path in report.get("accepted", []):
         keys = unit_keys(report.get("text", ""))
         if keys.problems:
             report["blocked"] = "unit keys (data_ledger.csv / fold proofs): " + "; ".join(keys.problems[:3])[:300]
         elif keys.moved:
             report["carried"] = dict(keys.moved)
-        if state is not None and "blocked" not in report and isinstance(report.get("text"), str):
+        if state is not None and prepared is None and "blocked" not in report and isinstance(report.get("text"), str):
             save_verified_plan(split_plan_path(path, tu), state, inputs, {
                 "tu_file": tu, "accepted": report["accepted"], "text": report["text"],
                 "baseline": sorted({r["target_rva"] for f in report["accepted"] for r in don[f]}),
@@ -3516,8 +3649,11 @@ def split(path, tu, dry_run=False, claim=True):
         report.setdefault("blocked", "the carved bodies do not verify in the TU: "
                           + str(report.get("rejected", {}).get(path, ""))[:300])
     elif not dry_run and "blocked" not in report:
-        report["subject"] = (f"Split {len(carved)} rows of {posixpath.basename(path)} into "
-                             f"{posixpath.basename(tu)} (tu_map approved TU, retail order)")
+        report["subject"] = (f"Move {len(carved)} rows of {posixpath.basename(path)} into {posixpath.basename(tu)}, "
+                             "which takes a prepared text (tu_map approved TU; the donor is absorbed)" if whole else
+                             f"Split {len(carved)} rows of {posixpath.basename(path)} into "
+                             f"{posixpath.basename(tu)} (tu_map approved TU, retail order"
+                             + ("; prepared TU text)" if prepared is not None else ")"))
         trailer = carry_trailer("--split", path, tu, report["hatches_move"], report.get("carried", {}))
         if trailer:
             report["trailer"] = trailer
@@ -3543,6 +3679,12 @@ SPECIAL_MEMBERS = (
     ("destructor", r"^\?\?1([A-Za-z_]\w*)@@[QU]AE@XZ$"),
     ("deleting destructor", r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$"),     # never written by hand
 )
+
+
+def special_shape(name):
+    """(kind, class) when `name` has a compiler-generated special member's shape (SPECIAL_MEMBERS),
+    else None."""
+    return next(((kind, m.group(1)) for kind, pattern in SPECIAL_MEMBERS if (m := re.match(pattern, name))), None)
 
 
 def unit_text(path):
@@ -3693,7 +3835,7 @@ def implicit_comdat(r, path):
     (--split), not to move by emission. emit_move asks it of the destination, whose own code
     must emit the row."""
     name = r["name"]
-    shape = next(((kind, m.group(1)) for kind, pattern in SPECIAL_MEMBERS if (m := re.match(pattern, name))), None)
+    shape = special_shape(name)
     owner = instance_owner(name) if TEMPLATE_INSTANCE.match(name) else None
     if owner is None and shape is None:
         return ("not an implicit COMDAT by its name (a template instantiation or a compiler-generated special "
@@ -5497,6 +5639,8 @@ def main(argv=None):
     g.add_argument("--merge-all", action="store_true",
                    help="merge every queued TU (tools/merge_all.py): parallel worktrees, a decision queue")
     ap.add_argument("--for", dest="for_tu", metavar="TU", help="with --split: the destination TU (omit to list)")
+    ap.add_argument("--prepared", metavar="TU=TEXT",
+                    help="with --split: the TU's whole final text (a file), written with the carve in one transaction")
     ap.add_argument("--rva", help="with --emit-move: only these rows (comma-separated hex); all must move")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-claim", action="store_true", help="merge without claiming (fixtures, private trees)")
@@ -5550,7 +5694,13 @@ def main(argv=None):
                 print(f"{len(rows):5d} rows  {tu or '(no approved TU)'}"
                       f"{'' if not tu or (ROOT / tu).exists() else '  (no file yet)'}")
             return 0
-        rep = split(a.split, a.for_tu, a.dry_run, claim=not a.no_claim)
+        prepared = None
+        if a.prepared:
+            target, sep, source = a.prepared.partition("=")
+            if not sep or target.replace("\\", "/").lower() != a.for_tu.replace("\\", "/").lower():
+                ap.error("--prepared takes TU=TEXT for the --for TU")
+            prepared = Path(source).read_bytes().decode("utf-8-sig").replace("\r\n", "\n")
+        rep = split(a.split, a.for_tu, a.dry_run, claim=not a.no_claim, prepared=prepared)
         text = rep.pop("text", None)
         for k, val in rep.items():
             print(f"{k}: {val}")
