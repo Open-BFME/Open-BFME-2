@@ -328,8 +328,6 @@ Rva006DE6C0::~Rva006DE6C0()
 class Rva006DE320 : public Rva006DE350
 {
 public:
-	// Pinned to the base body 0x006DE350; an implicit one was a second, non-retail copy.
-	virtual ~Rva006DE320();
 	static void operator delete(void *p, unsigned int size)
 	{
 		g_pChainBlockAllocator->freeBlock(p, size);
