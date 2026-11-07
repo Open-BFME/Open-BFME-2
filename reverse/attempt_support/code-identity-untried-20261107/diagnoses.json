@@ -1,0 +1,281 @@
+[
+ {
+  "source": "Code/GameEngine/Source/Common/RTS/ProductionPrerequisite.cpp",
+  "rows": [
+   {
+    "row": "??$__uninitialized_copy@PAUPrereqUnitRec@ProductionPrerequisite@@PAU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@00ABU__false_type@0@@Z",
+    "symbol": "??0PrereqUnitRec@ProductionPrerequisite@@QAE@ABU01@@Z",
+    "target": "0x004EE1A9"
+   },
+   {
+    "row": "??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@IABU12@ABU__false_type@0@@Z",
+    "symbol": "??0PrereqUnitRec@ProductionPrerequisite@@QAE@ABU01@@Z",
+    "target": "0x004EE1A9"
+   },
+   {
+    "row": "?push_back@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@QAEXABUPrereqUnitRec@ProductionPrerequisite@@@Z",
+    "symbol": "??$_Construct@UPrereqUnitRec@ProductionPrerequisite@@U12@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@ABU12@@Z",
+    "target": "0x002CF99D"
+   }
+  ],
+  "target_owners": "0x004EE1A9 is rowed once as ??0PerTurnStats@LivingWorldScoreKeeper@@QAE@ABV01@@Z in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (functions.csv line 11940, matched, 39B, 'V3Poly 3-word copy-ctor'); no row exists for the PrereqUnitRec copy ctor symbol itself. 0x002CF99D is rowed once as ??$_Construct@UBfmeStringRecord002CF5B1@@U1@@_STL@@YAXPAUBfmeStringRecord002CF5B1@@ABU1@@Z in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (functions.csv line 94513, matched, 45B; 'application identity unknown'). Related rows owned by this source: ??$__uninitialized_copy/fill_n<PAUPrereqUnitRec> at 0x004EE1E2 and 0x004EE20B (functions.csv lines 15167-15168), which are the helpers that call 0x004EE1A9.",
+  "pin": "symbols.csv line 1430 pins ??0PrereqUnitRec@ProductionPrerequisite@@QAE@ABU01@@Z to 0x004EE1A9, note: 'address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded'. symbols.csv line 51 pins ??$_Construct@UPrereqUnitRec... to 0x002CF99D, note: 'callee of push_back (0x004F5243) at the site its BFME1 donor calls it; may be an ICF alias'.",
+  "classification": "pin-only",
+  "fix_shape": "The PrereqUnitRec copy-ctor symbol has no owner row and is bound only through the line-1430 pin to a body that is the PerTurnStats copy ctor. The source cannot fix this by respelling: its copy ctor is not defined in this TU, and the body retail has at 0x004EE1A9 is a 3-word POD copy owned by LivingWorldScoreKeeper. The route in link-182 is to readmit 0x004EE1E2/0x004EE20B as PerTurnStats instantiations in LivingWorldScoreKeeper.cpp, which would also need the allocator and _M_allocate_and_copy rows, then let this unit take the canonical string. The _Construct call at 0x002CF99D is a REL32 from the rowed push_back at 0x004F5243 and must stay a call.",
+  "risks": "Removing the line-1430 pin before the PerTurnStats readmission leaves the copy ctor unresolved at link. Keeping the pin but changing the owner would fold PrereqUnitRec copies onto the PerTurnStats body and silently change bytes. The lead on 0x004EE1A9 is a copy-ctor shape question (AsciiString member vs 3-word POD), so the fold may not be exact for PrereqUnitRec.",
+  "prior_work": "re_attempts.log line 99745 (blocked): scratch probe readmitting 0x004EE1E2 as PerTurnStats instantiations matched 41B and 40B; line 81110/63292 (blocked) note the present-unmatched addUnitPrereq duplicate. re_attempts.log line 97498 (blocked): freeBytes prerequisite is the PerTurnStats family, retype 0x004EE1A9. docs/linking_obstacles/link-182-real-link-repairs-in-libraries-and-common-2026-11-03-seat-halilkkaya-codex.md (section 'Two blocked names') records the same plan and the LivingWorldScoreKeeper.cpp approval. link-054 covers the PrereqUnitRec operator= pins at 0x004F4DC0 and 0x002CF594.",
+  "confidence": "medium",
+  "set": 1
+ },
+ {
+  "source": "Code/GameEngine/Source/Common/Thing/IntFloatMapSubscript.cpp",
+  "rows": [
+   {
+    "row": "??A?$map@HMU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@QAEAAMABH@Z",
+    "symbol": "?insert@?$map@HMU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHM@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHM@_STL@@@2@@2@U32@ABU?$pair@$$CBHM@2@@Z",
+    "target": "0x00289147"
+   },
+   {
+    "row": "?insert_unique@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHM@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHM@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHM@2@@Z",
+    "symbol": "?_M_insert@?$_Rb_tree@HU?$pair@$$CBHM@_STL@@U?$_Select1st@U?$pair@$$CBHM@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHM@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHM@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHM@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHM@2@0@Z",
+    "target": "0x005DFD05"
+   }
+  ],
+  "target_owners": "0x00289147 is rowed once as ?insert@?$map@HHU?$less@H@_STL@@... (map<int,int>::insert) in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_os.cpp (functions.csv line 2490, matched, 29B). No functions.csv row exists for the map<int,float>::insert symbol. 0x005DFD05 is rowed once as ?_M_insert@?$_Rb_tree@HU?$pair@$$CBHVBuddyInfo@@@... (_Rb_tree _M_insert over BuddyInfo) in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp (functions.csv line 24136, matched, 136B, 'exact-ambiguous fold resolved by decode_calls pins'). No functions.csv row exists for the float _M_insert symbol. The row-name insert_unique at 0x005DFD8D is a functions.csv row for this source (line 24146), but re_attempts line 5491 flags it identity-suspect: 0x005DFD8D is called only by the BuddyInfo hint insert_unique 0x005DFE50.",
+  "pin": "symbols.csv line 5711 pins the map<int,float>::insert symbol to 0x00289147, note: 'Int-float map subscript 0x33D042 inserts missing keys here; ICF fold of the rowed integer-pair insert'. symbols.csv line 4228 pins the float _M_insert symbol to 0x005DFD05 with no note.",
+  "classification": "stlport-template",
+  "fix_shape": "Both wrong bindings are STLport map/_Rb_tree internals: the insert the operator[] calls (REL32 at 0x0033D042 to 0x00289147) and the _M_insert called from insert_unique. Those calls are retail calls into shared bodies and must stay calls, so forcing an inline is not available. The spelling route would be to make the unit's map be the real owner's type, but re_attempts line 100738 says the float insert reaches its own _M_insert and differs from the int-int body at +0x6b, so the ICF fold is not proven. The value type of this map is the open question, and the fix is to settle that identity first, then repoint the insert_unique row (re_attempts line 5491 says the float chain's value insert_unique is 0x005C6AFD, not 0x005DFD8D).",
+  "risks": "Binding the float map to the int-int insert would change behaviour if the value type is wrong (4-byte copy versus float). Repointing the insert_unique row to 0x005C6AFD touches the rowed hint 0x003590C9 chain and the twin pins. Removing the 0x005DFD05 pin leaves _M_insert<float> unresolved at link.",
+  "prior_work": "re_attempts.log line 39901 (blocked): three shape trials of the explicit inline specialization failed, the zero-float SSE store scheduled earlier; source restored. Line 83547 (blocked): the hinted insert_unique 0x003590C9 calls an unfolded twin at 0x005C6AFD. Line 100738 (blocked): the map value type is likely misidentified. Line 5491 (identity-suspect): 0x005DFD8D is map<int,BuddyInfo>'s value insert_unique, and the float chain's value insert_unique is 0x005C6AFD. docs/linking_obstacles/link-144 mentions the 0x005DFD05 ICF twins; no IntFloat-specific obstacle doc found.",
+  "confidence": "medium",
+  "set": 1
+ },
+ {
+  "source": "Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteRecVectorInsertOverflow.cpp",
+  "rows": [
+   {
+    "row": "?_M_insert_overflow@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@ProductionPrerequisite@@ABU34@ABU__false_type@2@I_N@Z",
+    "symbol": "??$_Construct@UPrereqUnitRec@ProductionPrerequisite@@U12@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@ABU12@@Z",
+    "target": "0x002CF99D"
+   },
+   {
+    "row": "?_M_insert_overflow@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@ProductionPrerequisite@@ABU34@ABU__false_type@2@I_N@Z",
+    "symbol": "??$__uninitialized_copy@PAUPrereqUnitRec@ProductionPrerequisite@@PAU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@00ABU__false_type@0@@Z",
+    "target": "0x004F5097"
+   },
+   {
+    "row": "?_M_insert_overflow@?$vector@UPrereqUnitRec@ProductionPrerequisite@@V?$allocator@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@@_STL@@IAEXPAUPrereqUnitRec@ProductionPrerequisite@@ABU34@ABU__false_type@2@I_N@Z",
+    "symbol": "??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@_STL@@YAPAUPrereqUnitRec@ProductionPrerequisite@@PAU12@IABU12@ABU__false_type@0@@Z",
+    "target": "0x004F50BD"
+   }
+  ],
+  "target_owners": "0x002CF99D is rowed as ??$_Construct@UBfmeStringRecord002CF5B1@@U1@@_STL@@ in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (functions.csv line 94513, matched, 45B). 0x004F5097 is rowed as ??$__uninitialized_copy@PBUBfmeStringRecord002CF5B1@@PAU1@@_STL@@ in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_2cf5b1_allocate_copy.cpp (functions.csv line 12170, matched, 38B). 0x004F50BD is rowed as ??$__uninitialized_fill_n@PAUBfmeStringRecord002CF5B1@@IU1@@_STL@@ in the same stlport_vector_stringrecord_2cf5b1_allocate_copy.cpp (functions.csv line 12208, matched, 37B). The three rows are shared STLport 12-byte record helpers; the PrereqUnitRec symbols are pins to them. The overflow function itself (0x004F5165) is rowed to this source.",
+  "pin": "symbols.csv line 51 pins ??$_Construct@UPrereqUnitRec@ProductionPrerequisite@@U12@@_STL@@ to 0x002CF99D, note: 'callee of push_back (0x004F5243) at the site its BFME1 donor calls it; may be an ICF alias'. symbols.csv line 612 pins ??$__uninitialized_copy@PAUPrereqUnitRec@ProductionPrerequisite@@PAU12@@ to 0x004F5097, note: 'overflow 0x004F5165 prefix-suffix copy; 38B byte-exact twin of rowed PBU BfmeStringRecord worker via _Construct 0x002CF99D'. symbols.csv line 756 pins ??$__uninitialized_fill_n@PAUPrereqUnitRec@ProductionPrerequisite@@IU12@@ to 0x004F50BD, note: 'overflow 0x004F5165 fill path; 37B byte-exact twin of rowed PAU BfmeStringRecord worker via _Construct 0x002CF99D'.",
+  "classification": "stlport-template",
+  "fix_shape": "The three helper calls are REL32 calls from the rowed _M_insert_overflow at 0x004F5165 (and from push_back at 0x004F5243 for _Construct), so they must stay calls; forcing them inline would change the bytes. The unit's explicit specialization declaration of _Construct<PrereqUnitRec,PrereqUnitRec> has no body here and relies on the pin. A clean fix would make the four helper instantiations bind by name to the BfmeStringRecord002CF5B1 owners. That needs the element type identity that the rowed owners use, which conflicts with the PrereqUnitRec spelling of _M_insert_overflow itself. Until that is settled, the pins are the only route.",
+  "risks": "Removing the three pins leaves the helpers unresolved. Re-pointing them at the BfmeStringRecord owners changes the constness of the copy source (PAU here versus PBU there) and may change bytes. The shared 0x002CF99D _Construct is also used by the sibling PrereqUnit units, so its owner choice affects them.",
+  "prior_work": "re_attempts.log has no entry for ProductionPrerequisiteRecVectorInsertOverflow.cpp. docs/linking_obstacles/link-182-real-link-repairs-in-libraries-and-common-2026-11-03-seat-halilkkaya-codex.md lines 60-70 record the same explicit-instantiation problem for _M_insert_overflow (C2248 on the private PrereqUnitRec), and the owner-side plan there. link-147 is the sibling BfmeStringRecord002CF5B1 assignment case.",
+  "confidence": "high",
+  "set": 1
+ },
+ {
+  "source": "Code/GameEngine/Source/GameNetwork/Rva00654130PointerMapErase.cpp",
+  "rows": [
+   {
+    "row": "?bfmeErase@Gen_00654130@@QAEXPAX@Z",
+    "symbol": "??$_M_find@PAX@?$_Rb_tree@PAXU?$pair@QAXPAX@_STL@@U?$_Select1st@U?$pair@QAXPAX@_STL@@@2@U?$less@PAX@2@V?$allocator@U?$pair@QAXPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@QAXPAX@_STL@@@1@ABQAX@Z",
+    "target": "0x00388F63"
+   }
+  ],
+  "target_owners": "0x00388F63 is rowed 9 times in functions.csv, all int-key _M_find spellings: 1623 ??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@... in stlport_map_int_int_os.cpp (matched, 'size-optimised sibling of the map unit'; canonical-looking: the only one from a dedicated STLport map unit with a plain map<int,int> name), plus 40190-40193 (GameLogic object unit, PersistentStorageThread.cpp, and others), 40201 (Science.cpp, W4ScienceType key), 87948 (PeerDefs.cpp, BuddyInfo value), 95769 and 95770 (Rva00501875KeyPresence.cpp, gen-alias twins). The symbol above has NO functions.csv row; it exists only as the pin. The rowed body of ?bfmeErase (functions.csv line 32941) is at 0x0055401D (61B, matched), not at 0x00388F63.",
+  "pin": "symbols.csv line 244 pins the PAX spelling to 0x00388F63, note: 'callee of ?bfmeErase@Gen_00654130@@QAEXPAX@Z at retail 0x00554030 read from its REL32 displacement; ICF twin of the rowed int-key _M_find at 0x00388F63 (stlport 4.5.3 map<void*_void*> find)'. Its erase companion, symbols.csv line 5301, pins ?erase@?$_Rb_tree@PAX... to 0x005530A8 with note 'callee of ?bfmeErase@Gen_00654130@@QAEXPAX@Z at retail 0x00554050 ... ICF twin of the rowed POD-pair tree erase'.",
+  "classification": "stlport-template",
+  "fix_shape": "The unit models the +0x5c member as _STL::map<void *, void *> and takes bfmeErase(void *key). Retail's find at 0x00388F63 is the signed int-key body (re_attempts line 85034 quotes cmp [ecx+10],esi; jl), so the real shape is map<int,...> with bfmeErase(int), and the PAX spelling is only a pin onto the wrong key semantics. The rowed body at 0x0055401D (61B) must stay byte-identical; its REL32 at 0x00554030 (find) and 0x00554050 (erase) must stay calls, not inlined. Retyping the key drops the two void* pins at 0x00388F63 and 0x005530A8, but the prior trial (re_attempts 85034) found that map<int,void*> then resolves its find to 0x00357180 through symbols.csv pin 346, an unsigned body, so the stlport_map_int_ptr_o1 family (less<unsigned> names) must be reconciled first.",
+  "risks": "Retyping the key changes PersistentStorageThread.cpp's +0x5c model and removes the (void*) casts at callers; the reconciliation touches the map<int,void*> family used by Rva00620C70Finish.cpp and Rva00622290CollectKeys.cpp (per re_attempts 85034). Pin 346 and the two void* pins must move together or the link binds the wrong find. Forcing the find inline would change bytes and is not available.",
+  "prior_work": "re_attempts.log line 85034 (bfmeErase row, 0x0055401D, blocked, t=75): identity-key analysis concluded the int-key find is the real callee and that the fix needs the family reconciliation first; it also records that the erase<void*> key was retired as stale in 4fe6084d5. No re_attempts entry names Rva00654130PointerMapErase.cpp itself. docs/linking_obstacles has no file for this unit; the nearest is link-442 (erase helper retirement), which is unrelated.",
+  "confidence": "high",
+  "set": 2
+ },
+ {
+  "source": "Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp",
+  "rows": [
+   {
+    "row": "??$uninitialized_copy@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00@Z",
+    "symbol": "??$__uninitialized_copy@U?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@_STL@@U12@@_STL@@YA?AU?$_Deque_iterator@UOpaqueRefElement4@@U?$_Nonconst_traits@UOpaqueRefElement4@@@_STL@@@0@U10@00ABU__false_type@0@@Z",
+    "target": "0x000558AD"
+   }
+  ],
+  "target_owners": "0x000558AD is rowed 2 times, both as ??$__copy_aux@U?$_Deque_iterator@UOpaqueRefElement4@@... (65B): functions.csv line 40265 in StlSweepW5Rva000558AD.cpp (matched, 'STLport4.5.3 reference'), and line 97304 in StlportOwnedDeque.cpp (matched, 'ICF twin', fold-proof, the identity-key caller reaches this address). Neither owner row is named uninitialized_copy. The unit's own uninitialized_copy row is at 0x00056E14 (functions.csv line 31741, 63B, matched, 'unique masked-byte placement'), a different address.",
+  "pin": "symbols.csv line 741 pins the __uninitialized_copy spelling to 0x000558AD, note: 'callee REL32 read by locate.py from a unique masked-byte placement emitted by Rva00056da2Finish.cpp'. Also symbols.csv already pins copy<deque iter> at 0x00056E14 (per re_attempts line 82354).",
+  "classification": "misnamed-row",
+  "fix_shape": "The row at 0x00056E14 is named uninitialized_copy but is really the STLport copy<deque iterator> (re_attempts line 82354: its only caller is deque::erase 0x00057A35, which uses copy plus copy_backward). Renaming that row to copy and moving it to a stock-header TU (the prior attempt suggested stlport_deque_owned_copy_backward.cpp) removes the bogus uninitialized_copy claim, after which the __uninitialized_copy pin at 0x000558AD has to go and the real 0x000558AD body (__copy_aux(__false_type), a forwarder to __copy at 0x00054FFC) keeps its owners. Byte-identical bodies are required; the REL32 calls into 0x000558AD and 0x00054FFC must stay calls.",
+  "risks": "The aux and __copy<Nonconst,Nonconst> callees need their own pins, or a rename of the StlSweepW5Rva000558AD.cpp row, and the prior attempt says no new pins were allowed in that round. Moving copy changes what deque::erase 0x00057A35 links against. The fold-proof on the StlportOwnedDeque owner row means renaming that owner would also break the ICF-kept copy.",
+  "prior_work": "re_attempts.log line 82354 (rva00056DA2 row, 0x00056DA2, blocked, needs a maintainer call, t=20): this is the same finding; the fix recorded there is to rename the 0x56E14 row to copy and move it, with the aux and __copy callees pinned or renamed. docs/linking_obstacles/typed-carryover-uninitialized-copy-2026-11-02.md exists and is the likely companion note; I did not read it in depth, only grepped it for the address and found no match in its first hits.",
+  "confidence": "medium",
+  "set": 2
+ },
+ {
+  "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_map_bool_subscript.cpp",
+  "rows": [
+   {
+    "row": "??A?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEAA_NABH@Z",
+    "symbol": "?insert@?$map@H_NU?$less@H@_STL@@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBH_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBH_N@_STL@@@2@@2@U32@ABU?$pair@$$CBH_N@2@@Z",
+    "target": "0x0046F0A5"
+   }
+  ],
+  "target_owners": "The operator[] row is correct and owned: functions.csv line 36720, 0x00470353, 69B, matched in this same source. For 0x0046F0A5, functions.csv line 24732 has one row: ?rva0046F0A5@Rva0046AC52@@QAE?AURva0046AC52Iter@@PAURva0046AC52Node@@ABURva0046AC52Key@@@Z, 29B, Code/GameEngine/Source/Common/Rva0046AC52.cpp, matched, note 'chain lane calls rowed 0x0046E563 same TU same flags caller 0x00470388'. That is a private Node*/Key lane returning an Iter, not a hinted map insert. No functions.csv row carries the ?insert@map<int,bool> symbol.",
+  "pin": "symbols.csv line 5715 pins the hinted ?insert symbol to 0x0046F0A5, note: 'donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1'.",
+  "classification": "pin-only",
+  "fix_shape": "The unit's insert name is a genuine STLport name with no owner row; its only binding is the donor_sweep pin onto a 29-byte private lane of another TU (Rva0046AC52). The operator[] body at 0x00470353 (69B) and its REL32 call to 0x0046F0A5 must stay byte-identical and stay a call. The fix is to decide whether retail's call really reaches the lane: if it does, the pin should be re-documented against the lane's own row rather than a stock insert; if it does not, the insert needs a real owner body, which retail does not show under that name. Settle the call target before touching the pin.",
+  "risks": "Dropping the pin leaves ?insert@map<int,bool> undefined in the real link. Re-pinning to a different body changes which unit owns 0x0046F0A5, and the Rva0046AC52 chain (callers 0x00470388 and 0x0046E563) would shift with it. The 0x00382A92 lower_bound pin in the same unit is a separate question.",
+  "prior_work": "re_attempts.log has entries for 0x00470353 (lines 3729, 4930, 24296). Line 4930 (blocked) says the probe calling rva0046E563 gives 69B with only EH-store order differences and that the call target still needs verifying, which is the same open question. No re_attempts entry mentions 0x0046F0A5. Nothing found in docs/linking_obstacles for this unit's basename.",
+  "confidence": "medium",
+  "set": 2
+ },
+ {
+  "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_insert.cpp",
+  "rows": [
+   {
+    "row": "?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAX@2@@Z",
+    "symbol": "?_M_insert@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIPAX@2@0@Z",
+    "target": "0x0053479F"
+   }
+  ],
+  "target_owners": "0x0053479F is rowed once in functions.csv as ?_M_insert@?$_Rb_tree@IU?$pair@$$CBIURva00534743Record@@@... (line 98527, 136B, StlSweepR3Rva00534743.cpp, matched). Its note says: unsigned-keyed Rva00534743Record map, both node creations call the rowed creator 0x00534743, callers insert_unique 0x00534827 and 0x005348E7, and it was 'formerly over-claimed by the State map spelling whose retail twin is 0x004D9C49'. The unit's own row (functions.csv line 24320) sits at 0x00534827, one of the callers the Record note names. The PAX _M_insert spelling has NO functions.csv row; it is pin-only. The row for 0x005348E7 (functions.csv 24154, stlport_map_int_ptr_lower.cpp) is an 'exact-ambiguous fold'.",
+  "pin": "symbols.csv line 4230 pins the PAX ?_M_insert symbol to 0x0053479F (the line has no note field).",
+  "classification": "stlport-template",
+  "fix_shape": "The unit spells _Rb_tree<unsigned, pair<const unsigned, void *>>::_M_insert as a private pin onto a 136B body that the Record-spelled row claims. The real container type would make STLport emit its own _M_insert for this map, and the REL32 from the unit's insert_unique (0x00534827) to 0x0053479F must stay a call with bytes unchanged. The owner of 0x0053479F is contested (see prior_work), so the canonical spelling has to be decided before the pin is removed.",
+  "risks": "Removing the pin leaves a PAX _M_insert with no body of its own unless the real instantiation produces a byte-identical copy. Choosing the Record row as canonical while the unit keeps calling it from its PAX insert_unique is exactly the type mismatch the notes describe. The 0x005348E7 hinted insert shares this body family, so a change here moves that unit too.",
+  "prior_work": "re_attempts.log line 96566 (0x005348E7 hinted insert, blocked): the native helper is the rowed State-pointer tree _M_insert at 0x0053479F, and a typed function-pointer call hit C4234; it asks to reconcile the native helper, caller ABI and the State provider cohort. Line 83681 (State _M_insert row, 0x0053479F, identity-suspect): retail's State map insert calls 0x004D9C49, not 0x0053479F, and 0x0053479F calls create_node 0x00534743. Line 100728 (attempted, no edit): identity-key analysis. Line 22415 (0x00534827 insert_unique, landed). No docs/linking_obstacles file names this basename; the general ICF-twin notes (link-132, link-133) describe the same kind of shared body.",
+  "confidence": "medium",
+  "set": 2
+ },
+ {
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationInfoVectorInsert.cpp",
+  "rows": [
+   {
+    "row": "?insert@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@QAEPAVW3DAnimationInfo@@PAV3@ABV3@@Z",
+    "symbol": "??0W3DAnimationInfo@@QAE@ABV0@@Z",
+    "target": "0x0004254E"
+   },
+   {
+    "row": "?insert@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@QAEPAVW3DAnimationInfo@@PAV3@ABV3@@Z",
+    "symbol": "??$_Construct@VW3DAnimationInfo@@V1@@_STL@@YAXPAVW3DAnimationInfo@@ABV1@@Z",
+    "target": "0x00469C61"
+   },
+   {
+    "row": "?insert@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@QAEPAVW3DAnimationInfo@@PAV3@ABV3@@Z",
+    "symbol": "?_M_insert_overflow@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@IAEXPAVW3DAnimationInfo@@ABV3@ABU__false_type@2@I_N@Z",
+    "target": "0x0047008E"
+   }
+  ],
+  "target_owners": "Only the copy-ctor row is wrong (baseline class 'wrong'); the _Construct and _M_insert_overflow rows are 'divergent'. 0x0004254E is rowed under five spellings in functions.csv: ??0Region2D@@QAE@ABU0@@Z (region.cpp, line 193, matched, 31B, 'Full31B copy ... exact compile'), ??0LineSegment2D@@QAE@ABU0@@Z (region.cpp, line 99224), ??4BfmeFloat4Record00469C61@@QAEAAU0@ABU0@@Z (stlport_vector_float4_469c61_assign.cpp, line 97282), ??0W3DAnimationInfo@@QAE@ABV0@@Z (QuadStrip2D.cpp, line 98714, the wrong spelling), and ??0Rva00540E9D@@QAE@ABV0@@Z (CameraAnimationTrackLookAtCamera.cpp, line 47908). Pins also sit at 0x0004254E: symbols.csv line 1278 ??0BfmeFloat4Record00469C61@@QAE@ABU0@@Z ('Neutral four-float copy') and line 1680 ??0W3DAnimationInfo@@QAE@ABV0@@Z. Canonical body owner is the Region2D copy ctor (earliest exact-compile row). Canonical element identity is BfmeFloat4Record00469C61: 0x00469C61 (functions.csv line 11619, _Construct<BfmeFloat4Record00469C61>) and 0x0047008E (line 14778, _M_insert_overflow) are rowed under that family, and the insert's own pins at those addresses are the same donor spelling.",
+  "pin": "symbols.csv line 1680 pins ??0W3DAnimationInfo@@QAE@ABV0@@Z to 0x0004254E, note: 'donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1'. Companion pins: line 135 (_Construct<W3DAnimationInfo> to 0x00469C61) and line 4274 (_M_insert_overflow<W3DAnimationInfo> to 0x0047008E), same note.",
+  "classification": "stlport-template",
+  "fix_shape": "The unit's vector element is a donor-named 16-byte record whose copy constructor the unit spells as W3DAnimationInfo. The owner of the shared STLport vector instantiation is the BfmeFloat4Record00469C61 family, so the unit should instantiate vector<BfmeFloat4Record00469C61> (the same type QuadStrip2D::m_vec already is) instead of the private W3DAnimationInfo class, letting the copy call bind to the float4 copy. Must stay byte-identical: the 16-byte element with an out-of-line copy constructor and no destructor, the explicit insert instantiation, the REL32 calls to 0x0004254E, 0x00469C61 and 0x0047008E (calls, not inlined), and the file-static max and the allocator override. Note the float4 copy ctor is only pinned, not rowed, so the fix also needs a canonical owner decision for ??0BfmeFloat4Record00469C61.",
+  "risks": "Renaming the element collides with W3DModelDraw's real W3DAnimationInfo class: an earlier provider trial in stlport_vector_float4_469c61.cpp emitted _Destroy/_M_clear/__destroy for W3DAnimationInfo and clashed by name with the real class (ODR), so it was reverted. QuadStrip2D::insertStrip (0x005389ED) casts m_vec to vector<W3DAnimationInfo>, so that caller and its W3DAnimationInfo row must move together. The real W3DAnimationInfo has a destructor, which the 16-byte donor body does not. Any change to the element spelling that alters the emitted insert or overflow bodies (e.g. the 2026-10 forwarder trial changing a frame 0x10 to 0x18) will fail the byte gate.",
+  "prior_work": "reverse/re_attempts.log has no row for this unit's insert in the lines I searched, but reverse/attempt_support/w3danimationinfo-insert-538944-20261104/readme.md (2026-11-04) records the diagnosis: one 16-byte four-float record carries two spellings, and trials 1-4 (declaration-only _Construct and overflow, a /D_CRTIMP shim, and a float4-provider instantiation) were all reverted. docs/linking_obstacles/link-198-quadstrip2d-insert-0x00538944-carries-the-donor-name-w3danimationinfo.md is Blocked on a naming decision (docs/naming.md), with a 2026-11-05 follow-up that rejected the quadstrip merge trial. docs/linking_obstacles/rows-that-do-not-need-their-class-2026-11-04.md also lists the 0x0004254E row for this unit.",
+  "confidence": "medium",
+  "set": 3
+ },
+ {
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp",
+  "rows": [
+   {
+    "row": "??$__copy_ptrs@PAV?$BitFlags@$0HF@@@PAV1@@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00U__false_type@0@@Z",
+    "symbol": "??$__copy@PAV?$BitFlags@$0HF@@@PAV1@H@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "target": "0x00626EF0"
+   },
+   {
+    "row": "?clear@?$vector@V?$BitFlags@$0HF@@@V?$allocator@V?$BitFlags@$0HF@@@@_STL@@@_STL@@QAEXXZ",
+    "symbol": "??$__copy@PAV?$BitFlags@$0HF@@@PAV1@H@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "target": "0x00626EF0"
+   },
+   {
+    "row": "?erase@?$vector@V?$BitFlags@$0HF@@@V?$allocator@V?$BitFlags@$0HF@@@@_STL@@@_STL@@QAEPAV?$BitFlags@$0HF@@@PAV3@0@Z",
+    "symbol": "??$__copy@PAV?$BitFlags@$0HF@@@PAV1@H@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z",
+    "target": "0x00626EF0"
+   }
+  ],
+  "target_owners": "0x00626EF0 is rowed once in functions.csv line 40254: ??$__copy@PAURva00626EF0Element@@PAU1@H@_STL@@YAPAURva00626EF0Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z, 96B, PartitionManagerImpl.cpp, matched, 'STLport4.5.3 reference; target 0x626EF0;96'. Its element struct is Rva00626EF0Element { int words[6]; } (24 bytes), which matches the retail stride 0x18. The BitFlags<117> __copy spelling has no functions.csv row at 0x00626EF0 and binds only through the pin. The W3DModelDraw rows themselves are rowed correctly: ?clear at functions.csv line 31707 (0x00627B90, 33B) and ?erase at line 31706 (0x00627AE0, 43B), both matched in W3DModelDraw.cpp, and __copy_ptrs at line 31705 (0x006272E0, 32B). Only their callee binding is wrong.",
+  "pin": "symbols.csv line 309 pins ??$__copy@PAV?$BitFlags@$0HF@@@PAV1@H@_STL@@YAPAV?$BitFlags@$0HF@@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z to 0x00626EF0, note: 'callee REL32 read by locate.py from a unique masked-byte placement emitted by W3DModelDraw.cpp'.",
+  "classification": "stlport-template",
+  "fix_shape": "The element is a 16-byte BitFlags<117> in the unit's view (line 150-162 BitFlags<117> specialisations) but retail's vector element copy strides 0x18, so the view's template argument is wrong for the vector only. The vector<ModelConditionFlags> / vector<BitFlags<N>> spelling used by callInlineRows (line 613, flags->clear()) and by the three rows should be respelled to the real 24-byte BitFlags<N> (the prior attempt estimates N in 161..192, not yet verified against ModelConditionFlags), so that the __copy<...*> instantiation folds onto the 0x626EF0 body owned by Rva00626EF0Element. Must stay byte-identical: ?clear (0x627B90) and ?erase (0x627AE0) keep their REL32 calls to 0x626EF0, which is a shared body and must not be inlined, and the BitFlags<117> spelling used for the map, countIntersection and pair rows must not change.",
+  "risks": "Changing the vector element width changes the layout and byte sizes of every vector<ModelConditionFlags> user, not just these three rows, and the map and countIntersection rows elsewhere in the unit use BitFlags<117>. Respelling the element without the exact N will shift byte counts in clear/erase. Forcing the copy inline would change the bytes of a retail REL32 call and is not available. The 0x626EF0 owner name is an address-derived Rva placeholder, so binding by name still depends on the identity-key/ICF fold path, not a plain rename.",
+  "prior_work": "reverse/re_attempts.log line 101227 (the identity-keys entry for this exact symbol): an ICF fold row onto Rva00626EF0Element compiles 1/7 FAIL because retail's __copy strides 0x18 (24-byte element) while BitFlags<117> is 16 bytes; the note says the view's 117 argument is wrong and the next step is to establish the real ModelConditionFlags bit count and respell the view. Line 22662 landed the Rva owner as a stale-verdict backfill. reverse/attempt_support/bitflags-clear-owner-20261023 and bitflags-clear-declarations-20261030-codex5.md concern BitFlags<116>::clear at 0x00666E80, not this vector. No docs/linking_obstacles file names 0x00626EF0 or this __copy; the only W3DModelDraw-related obstacle file for this unit I found is LINK-198 (the W3DAnimationInfo insert).",
+  "confidence": "medium",
+  "set": 3
+ },
+ {
+  "source": "Code/GameEngine/Source/Common/Rva007B5DE0StaticInstance.cpp",
+  "rows": [
+   {
+    "row": "??__Es_rva006655B0@@YAXXZ",
+    "symbol": "_$E2",
+    "target": "0x007B9B90"
+   }
+  ],
+  "target_owners": "0x007B9B90 is rowed once: ?rva007B9B90@@YAXXZ in Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp (11B, 'Vftable store thunk: g_Va00DD828C = 0x00CE3168 then ret; honest address name'). No other row sits at that address. The row ??__Es_rva006655B0@@YAXXZ itself owns 0x007B5DE0 (12B, object-symbol=_$E1) and is correct. _$E2 is the compiler's atexit-cleanup local name; functions.csv carries object-symbol=_$E2 on about 36 other cleanups at other addresses.",
+  "pin": "none: no line in reverse/symbols.csv names _$E2.",
+  "classification": "other",
+  "fix_shape": "The unit's cleanup is compiler-generated and TU-local, and its body is the same 11-byte vptr store that ?rva007B9B90 already owns in Rva007B6880Thunks.cpp. The unit cannot name it directly; the binding depends on which TU the cleanup is attributed to, and the row's own note says the owning TU is unrecovered. Any fix must keep the 12-byte initializer at 0x007B5DE0 and its atexit registration of 0x007B9B90 byte-identical, and must keep the cleanup a call from the atexit table, not an inline.",
+  "risks": "Moving ownership of 0x007B9B90 out of Rva007B6880Thunks.cpp changes that unit's rowed bytes and its census owner. Forcing the cleanup inline into the initializer would change the registered bytes. Claiming the same 11-byte body from two units would create a duplicate owner in the census.",
+  "prior_work": "reverse/re_attempts.log: no hits for the basename. No obstacle file names this unit. docs/linking_obstacles/link-236-static-initializers-the-exit-link-bridges.md matches the static-initializer topic by name only; I did not read it.",
+  "confidence": "medium",
+  "set": 4
+ },
+ {
+  "source": "Code/GameEngine/Source/GameClient/MapCache_ctor_Thunk.cpp",
+  "rows": [
+   {
+    "row": "??0MapCache@@QAE@XZ",
+    "symbol": "??0?$map@VAsciiString@@UMapMetaData@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UMapMetaData@@@_STL@@@4@@_STL@@QAE@XZ",
+    "target": "0x0022E272"
+   }
+  ],
+  "target_owners": "0x0022E272 is rowed once: ??0Rva0022E272MetadataMap@@QAE@XZ in Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp (25B, matched). Its note says it is a complete 25B wrapper that passes two stateless arguments to the full 42B tree ctor at 0x0022C68C. The STLport map symbol above has no functions.csv row at all. The MapCache row ??0MapCache@@QAE@XZ owns 0x0022E28B (61B, matched) and calls 0x0022E272 as its first member call.",
+  "pin": "reverse/symbols.csv line 1189 pins ??0?$map@VAsciiString@@UMapMetaData@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UMapMetaData@@@_STL@@@4@@_STL@@QAE@XZ to 0x0022E272, note: 'donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1'. Line 1190 pins the VMapMetaData spelling to the same address.",
+  "classification": "pin-only",
+  "fix_shape": "The map ctor symbol has no owner row and resolves only through pins 1189-1190. The fix is to give the 0x0022E272 body an honest owner row under the STLport map<AsciiString,MapMetaData> ctor spelling, or to keep the private Rva name and retire the pins, so the MapCache member construction binds by a defined owner. The 61B MapCache::MapCache at 0x0022E28B must keep its REL32 call to 0x0022E272 as a call; the 25B wrapper and the 42B tree ctor stay byte-identical.",
+  "risks": "Removing pins 1189-1190 without a new owner leaves the MapCache member call unbound in the census. Renaming the 25B wrapper changes a rowed header and the census owner of the byte run used by the 42B tree ctor chain. The baseline key spells UMapMetaData while the pin's second spelling is VMapMetaData; a fix must not mix them.",
+  "prior_work": "reverse/re_attempts.log line 100733 (blocked): 'baseline key spells UMapMetaData; current findings are kept map ctor copies 0x0022E272 (unnamed _Rb_tree<AsciiString,MapMetaData> ctor -> placeholder 0x0022C68C)'; fold-proof for the bool tree refused. Lines 7961-7963 record the 0x0022C68C, 0x0022E272 and 0x0022E28B rows as converted or partial. docs/linking_obstacles/mapcache-duplicate-prerequisite-20261103-1638.md concerns a duplicate addMap, not this binding.",
+  "confidence": "medium",
+  "set": 4
+ },
+ {
+  "source": "Code/GameEngine/Source/GameNetwork/Rva00803890FeslDtor.cpp",
+  "rows": [
+   {
+    "row": "??1Rva00803890Owner@@UAE@XZ",
+    "symbol": "??1Rva00803890Base@@UAE@XZ",
+    "target": "0x00666BA0"
+   }
+  ],
+  "target_owners": "0x00666BA0 is rowed once: ??1Rva00666BA0@@UAE@XZ in Code/Libraries/Source/DirtySock/Rva00666BA0Dtor.cpp (7B, 'opaque DirtySock base dtor reinstalling vtable CE2BD8'). The unit's own derived dtor ??1Rva00803890Owner@@UAE@XZ owns 0x0066F8D0 (96B, functions.csv line 9116), which is correct; only the base symbol is wrong. No functions.csv row exists for ??1Rva00803890Base.",
+  "pin": "reverse/symbols.csv line 3252: '??1Rva00803890Base@@UAE@XZ,0x00666BA0' with no note. The unit also defines the base dtor in-unit at lines 38-39 (noinline, hatch_baseline.tsv line 12708 lists it as present_unmatched). The file header's tail target 'Gen_007fa650' has no functions.csv row, so the retail base address is not established.",
+  "classification": "pin-only",
+  "fix_shape": "The base dtor needs its own owned body at its real retail address, or the census must stop binding the name to the DirtySock base. The derived dtor's call to the base must stay a REL32 call, and the 96B owner body must stay byte-identical; do not inline the base into the owner. The in-unit Base definition has to stay, because it is what makes the name defined in the real link.",
+  "risks": "Keeping the pin binds an FESL base dtor to a DirtySock base that reinstalls a different vtable (CE2BD8). Dropping the pin changes census binding. Deleting the in-unit Base definition would leave ??1Rva00803890Base undefined in the real link, the link-626 failure mode.",
+  "prior_work": "reverse/re_attempts.log: no hits for the basename. Obstacle register: docs/linking_obstacles/link-626-pin-only-destructor-bindings-leave-13-names-undefined-in-the-real-link.md and docs/linking_obstacles/declaration-only-dtors-need-a-real-definition-2026-11-07.md. This is an instance of the pin-only destructor binding shape, but a plain base dtor rather than a deleting dtor. It is not the declaration-only shape, because the unit defines the body, so the real link does not leave it undefined; the wrong binding is census-only.",
+  "confidence": "medium",
+  "set": 4
+ },
+ {
+  "source": "Code/GameEngineDevice/Source/MilesAudioDevice/Rva00052B3D.cpp",
+  "rows": [
+   {
+    "row": "??0Rva00052B3D@@QAE@XZ",
+    "symbol": "??0Elem4@@QAE@XZ",
+    "target": "0x0047A6A9"
+   }
+  ],
+  "target_owners": "0x0047A6A9 is rowed under about ten names: ??0RealRange, ??0Region2D, ??0Region3D, ??0IRegion3D (WWMath/region.cpp), ??0Coord2D (coord2d.cpp), ??0Coord3D (coord3d.cpp), ??0Matrix4D (matrix4d.cpp), placeholder ??0Rva0047A040Base9E0 ('ICF-folded empty default ctor shared with the rowed Coord2D/Coord3D/Region3D/Matrix4D ctors'), and gen-alias twins ??0BfmeRadarMapPoint, ??0BfmeRadarWorldPoint and ??0FloorMatrixRow. Coord2D/Coord3D are the canonical spellings for a 3-byte empty coordinate ctor; the BfmeRadar gen-alias rows say so explicitly. No row owns ??0Elem4.",
+  "pin": "none: reverse/symbols.csv has no line naming ??0Elem4. The only Elem4 owner rows are ??1Elem4@@QAE@XZ at 0x000B3FD0 (gen-alias in Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp) and the unrelated BfmeElem440 rows.",
+  "classification": "other",
+  "fix_shape": "Elem4's constructor is not pinned and not rowed; the unit emits it as a real definition whose body (m_x(0)) is not established to equal the 3-byte body at 0x0047A6A9. The fix needs the retail bytes of Elem4's own ctor before anything else: either a real owner row for an Elem4 ctor whose bytes match, or proof that 0x0047A6A9 is an empty ctor and the unit's zeroing store is not in retail. The array ctor 0x00052B3D and its callers 0x0005C892 and 0x000626A7 must remain REL32 calls.",
+  "risks": "Binding Elem4 to the shared 3-byte fold would make the Coord/Region empty-ctor body serve a ctor that zeroes m_x, which is wrong if the shared fold is ever used by those classes. Removing the Elem4 ctor leaves the unit's array init without a constructor. Because the 3-byte size does not obviously fit a zeroing store, any fix needs a byte check, not a rename.",
+  "prior_work": "reverse/re_attempts.log: no entry for Rva00052B3D or Elem4 (the processPlayingList rows that mention Rva00052B3D are about a different function). docs/linking_obstacles/link-604-miles-audio-manager-three-consumer-header-adoptions.md matches the Miles audio topic by name; I did not read it.",
+  "confidence": "low",
+  "set": 4
+ }
+]
