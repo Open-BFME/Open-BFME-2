@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ??1Rva007C454@@UAE@XZ @0x0007C454 75B (existing pin): destructor of the
 // CameraClass-derived Rva007C454 (ctor 0x0007C3CD, copy 0x0007C404). It
@@ -8,6 +8,11 @@
 // CameraClass destructor 0x00133A00. Layout follows Rva007C454Ctor.cpp.
 // /EHs (not /EHsc): retail keeps an EH state around the free call, so the
 // extern "C" free must be treated as possibly throwing.
+// The canonical CameraClass (over the canonical RenderObjClass): the class's tables are
+// retail's 131-slot 0x00BC6C58 and one-slot 0x00BC6C54 rather than stand-in bases' (P24).
+#define BFME_RO_DTOR_DECL_ONLY
+#include "../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include <vector>
 
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
@@ -19,35 +24,14 @@ template <> __declspec(dllimport) __forceinline vector<BfmeE16, allocator<BfmeE1
 { _Destroy(this->_M_start, this->_M_finish); }
 }
 
-class CamBase0
-{
-public:
-	virtual void f0();	// retail primary table 0x007C6C58: [f0, deleting dtor]
-	virtual ~CamBase0();
-
-private:
-	int m_04;
-};
-
-class CamBase1
-{
-public:
-	virtual void g0();
-};
-
-class CameraClass : public CamBase0, public CamBase1
-{
-public:
-	virtual ~CameraClass();
-
-private:
-	char m_pad[0x3FC - 12];
-};
 
 class Rva007C454 : public CameraClass
 {
 public:
 	virtual ~Rva007C454();
+	virtual RenderObjClass *Clone() const;
+	virtual bool Cull_Sphere(const SphereClass &sphere) const;
+	virtual bool Cull_Box(const AABoxClass &box) const;
 
 private:
 	_STL::vector<BfmeE16> m_3FC;

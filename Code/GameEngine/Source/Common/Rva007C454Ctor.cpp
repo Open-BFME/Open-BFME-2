@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 // ??0Rva007C454@@QAE@XZ @0x0007C3CD 43B:
 // Constructor for the Camera-derived class with vptr 0x007C6C58/0x007C6C54
@@ -9,45 +9,26 @@
 // new size; the dtor at 0x0007C454 frees the +0x3FC storage then calls the
 // rowed Camera dtor. CamBase0/CamBase1 reproduce Camera's two-vptr MI layout;
 // BfmeE16 is the 16-byte POD from stlport_vector_e16_o1.cpp.
+// The canonical CameraClass (over the canonical RenderObjClass): the class's tables are
+// retail's 131-slot 0x00BC6C58 and one-slot 0x00BC6C54 rather than stand-in bases' (P24).
+#define BFME_RO_DTOR_DECL_ONLY
+#include "../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include <vector>
 
 #include "../../../Libraries/Include/Lib/BfmeE16.h"
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
-class CamBase0
-{
-public:
-	CamBase0();
-	virtual void f0();
-	virtual ~CamBase0();	// retail primary table 0x007C6C58: [f0, deleting dtor]
-
-private:
-	int m_04;
-};
-
-class CamBase1
-{
-public:
-	CamBase1();
-	virtual void g0();
-};
-
-class CameraClass : public CamBase0, public CamBase1
-{
-public:
-	CameraClass();
-	virtual ~CameraClass();
-
-private:
-	char m_pad[0x3FC - 12];
-};
 
 class Rva007C454 : public CameraClass
 {
 public:
 	Rva007C454();
 	virtual ~Rva007C454();	// Rva007C454Dtor.cpp (0x0007C454)
+	virtual RenderObjClass *Clone() const;
+	virtual bool Cull_Sphere(const SphereClass &sphere) const;
+	virtual bool Cull_Box(const AABoxClass &box) const;
 
 private:
 	_STL::vector<BfmeE16> m_3FC;
@@ -57,8 +38,3 @@ Rva007C454::Rva007C454()
 {
 }
 
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?f0@CamBase0@@UAEXXZ=?DeleteThis@BfmeDynamicVBRefCount@@UAEXXZ")
-#pragma comment(linker, "/alternatename:?g0@CamBase1@@UAEXXZ=??_ERva007C454@@W7AEPAXI@Z")

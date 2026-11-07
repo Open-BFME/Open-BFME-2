@@ -2202,8 +2202,6 @@ alternatename	Code/GameEngine/Source/Common/Rva007B67C0ArrayInit.cpp	??1Rva007B6
 alternatename	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	_vtbl_00CE3168	1
 alternatename	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	_vtbl_00CE36A0	1
 alternatename	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	_vtbl_00CE3934	1
-alternatename	Code/GameEngine/Source/Common/Rva007C454Ctor.cpp	?f0@CamBase0@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva007C454Ctor.cpp	?g0@CamBase1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva007D85C0FilterShutdown.cpp	?erase@AICommandCoordVector@@QAEPAUCoord3D@@PAU2@0@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva007E4AA0Threshold.cpp	?rva000190ABTransform@@YGHH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva007E8810Ctor.cpp	??0BfmeMsgVJH@@QAE@XZ	1
