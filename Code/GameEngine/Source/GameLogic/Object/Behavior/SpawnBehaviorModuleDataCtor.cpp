@@ -1,5 +1,3 @@
-char g_00BF4128;
-
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /arch:SSE /GX /MD /D_CRTIMP= /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -17,9 +15,12 @@ char g_00BF4128;
 // fifteen fields at these offsets (field_names votes put SpawnNumber@8 and
 // SpawnTemplateName@0x20 on SpawnBehaviorModuleData); factory 0x25769F
 // news 0x174 with this ctor as sole caller and pushes the rowed proc.
-// Shape follows SupplyTruck (empty base, init-listed explicit vtable,
-// vector member driving the single EH state) over Chinook (0x110 shared
-// member via the rowed construct).
+// The class derives from the canonical ModuleData (Snapshot at +0, module
+// tag at +4), so the compiler installs ??_7SpawnBehaviorModuleData (retail
+// 0x00BF4128, 31 ModuleData slots) and the unwind destroys the base through
+// ModuleData's rowed destructor 0x0049B47C. Shape follows SupplyTruck (vector
+// member driving the single EH state) over Chinook (0x110 shared member via
+// the rowed construct).
 
 #include <vector>
 
@@ -39,21 +40,15 @@ template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(Asc
 
 #include "../../../../Include/GameLogic/Module/Rva0025342CMember.h"
 
-class BehaviorModuleData
-{
-public:
-	__declspec(dllimport) __forceinline BehaviorModuleData() {}
-	~BehaviorModuleData();
-};
+#include "../../../../Include/Common/ModuleData.h"
 
-class SpawnBehaviorModuleData : public BehaviorModuleData
+class SpawnBehaviorModuleData : public ModuleData
 {
 public:
 	SpawnBehaviorModuleData();
+	virtual ~SpawnBehaviorModuleData();
 
 private:
-	const void *m_vtable; // +0
-	unsigned int m_unused04; // +4
 	int m_spawnNumberData; // +8
 	int m_spawnReplaceDelayData; // +0xC
 	int m_initialBurst; // +0x10
@@ -77,7 +72,6 @@ private:
 
 // ??0SpawnBehaviorModuleData@@QAE@XZ @0x2575C2
 inline SpawnBehaviorModuleData::SpawnBehaviorModuleData()
-	: m_vtable(reinterpret_cast<const void *>((unsigned int)&g_00BF4128))
 {
 	m_slaveBlock.construct();
 	m_spawnNumberData = 0;

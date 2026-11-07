@@ -144,7 +144,9 @@ Xfer::Xfer(EmitVtableTag *) {}
 // ??_GSpawnBehaviorModuleData@@UAEPAXI@Z @0x257653: calls the rowed dtor 0x25766F.
 // Moved from ModuleFactory.cpp, whose SpawnBehavior data factory also emitted
 // Zero Hour ctor/dtor copies that are not retail's.
-class SpawnBehaviorModuleData { public: SpawnBehaviorModuleData(EmitVtableTag *); virtual ~SpawnBehaviorModuleData(); };
+// Same canonical ModuleData base as SpawnBehaviorModuleDataCtor.cpp, so this unit's ??_7 is the
+// constructor unit's 31-slot table (retail 0x00BF4128), not a one-virtual COMDAT that can win.
+class SpawnBehaviorModuleData : public ModuleData { public: SpawnBehaviorModuleData(EmitVtableTag *); virtual ~SpawnBehaviorModuleData(); };
 // ?<SpawnBehaviorModuleData::SpawnBehaviorModuleData> absent-from-retail
 SpawnBehaviorModuleData::SpawnBehaviorModuleData(EmitVtableTag *) {}
 
