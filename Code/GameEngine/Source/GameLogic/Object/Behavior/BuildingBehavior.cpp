@@ -165,24 +165,24 @@ private:
 	BuildingWindowName m_windows[4]; // +0x08
 };
 
-class Rva004561A2 : public UpdateModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	bool m_20;
-	bool m_21;
-};
-
+// Retail 0x00C406D4 (13 slots): deleting dtor 0x00456270, loadPostProcess
+// 0x00497805 (`jmp 0x0058B03E`, UpdateModule's own; inherited here), the name
+// getter 0x004561BB ("BuildingBehavior"), xfer 0x004562C0, getModuleNameKey
+// 0x004561C1, then UpdateModule's slots. 0x00C406C8: update 0x004562F8, then
+// UpdateModule's.
 class BuildingBehavior : public UpdateModule
 {
 public:
 	BuildingBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~BuildingBehavior();
 
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	void rva0045628C(const BuildingWindowList *names, Drawable *draw, int state);
+
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 
 private:
 	bool m_field20; // +0x20
@@ -219,12 +219,12 @@ void BuildingBehavior::rva0045628C(const BuildingWindowList *names, Drawable *dr
 
 // ---- from Code/GameEngine/Source/Common/Rva004561A2Xfer.cpp
 
-void Rva004561A2::xfer(Xfer *xfer)
+void BuildingBehavior::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	UpdateModule::xfer(xfer);
-	*xfer == m_20;
-	*xfer == m_21;
+	*xfer == m_field20;
+	*xfer == m_field21;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorModuleDataCtor.cpp
