@@ -195,17 +195,12 @@ public:
 
 protected:
 	virtual void upgradeRemovalImplementation();
+	virtual void upgradeImplementation();									// UpgradeMux slot 10
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
-
-class Rva004B3AFF
-{
-public:
-	void upgradeImplementation();
-};
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp
 
@@ -294,16 +289,17 @@ void CommandSetUpgrade::postUpgradeCheck()
 // ---- from Code/GameEngine/Source/Common/Rva004B3AFFNotify.cpp
 
 //
-// ?upgradeImplementation@Rva004B3AFF@@QAEXXZ @0x004B3AFF 67B.
-// Run the upgrade hook at this-0x10, push the AsciiString at +0x118 of
-// the object at this-0xC onto the Object at this-8, tell the skirmish
-// manager about that object twice, and mark TheControlBar +0x28.
+// ?upgradeImplementation@CommandSetUpgrade@@MAEXXZ @0x004B3AFF 67B, slot 10 of
+// the UpgradeMux table 0x00C57248. Run the UpgradeModule condition hook, push
+// the module data's command-set AsciiString at +0x118 onto the Object as its
+// override, tell the skirmish AI manager about that object twice, and mark
+// TheControlBar +0x28.
 
-void Rva004B3AFF::upgradeImplementation()
+void CommandSetUpgrade::upgradeImplementation()
 {
-	((UpgradeModule *)((char *)this - 0x10))->rva004CE4A0();
-	StringHolder *holder = *(StringHolder **)((char *)this - 0x0C);
-	Object *obj = *(Object **)((char *)this - 8);
+	rva004CE4A0();
+	StringHolder *holder = (StringHolder *)getModuleData();
+	Object *obj = getObject();
 	obj->setCommandSetStringOverride(holder->m_name);
 	TheSkirmishAIManager->UnRegister(obj);
 	TheSkirmishAIManager->rva002A9365(obj);
