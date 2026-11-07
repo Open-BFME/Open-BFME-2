@@ -460,7 +460,9 @@ Why the `--to-class` moves cannot start (re_attempts 0x004BDB25):
 - The body is also judged folded: DelayedDeathBody (0x00C5BB38), FreeLifeBody (0x00C5BD88) and
   DetachableRiderBody (0x00C5BF48) tables hold it, and their installers' views do not derive from ActiveBody.
 - The four walls would leave any ActiveBody.h table unresolved even after every other move.
-  re_attempts: 0x004BF8DF and 0x0049520B (int vs enum return: false reject, the 0x0028F976 wall),
+  re_attempts: 0x004BF8DF and 0x0049520B (int vs enum return: false reject, the 0x0028F976 wall; the
+  tool part is cleared by f4fe1d2f893, and 0x0049520B moved; 0x004BF8DF's dry run now stops on the folded-body
+  wall above, its DelayedDeathBody/FreeLifeBody/DetachableRiderBody tables),
   0x004BE3EF and 0x004BE67E (readable wrong class: retail references both only from Body-family tables).
 StructureBody (and every ActiveBody subclass ctor) stays on its dummy vptrs until those clear.
 

@@ -61,6 +61,23 @@ GetSnapshotName, xfer), let the compiler store the vptr, move the name getter in
   (`re_attempts.log`, `??1Rva003B4100@@UAE@XZ`). After a tooling fix: fold, then drop the inline
   destructor from the shim and Rva003529B0Clone.cpp's view. That also retires LINK-618's stale
   `??_7Rva003B4100@@6B@` name on 0x007BB554.
+- Tooling fix landed, fold still blocked (2026-11-07, seat halilkkaya-lk50). f4fe1d2f893 lets `--fold` accept
+  a `+0` store that is a registered class's own table: 0x00BBB554 is installed as its own by
+  `??0Snapshot@@QAE@XZ` 0x000053A6. The dry run's evidence now passes. Two walls remain, both outside rename.py:
+  1. Blast radius. The scripts_orcondition shim `Scripts.h` spells `Rva003B4100` in a comment, so the token
+     fold rewrites it, and the shim's includers exceed 200 ledger sources (`--max-files 200` refused).
+     Removing that mention first is a shared-shim edit (full gate).
+  2. DIR32 identity. `tools/dir32.py` binds `??_7ScriptGroup@@6B@` to 0x00C1F470 (ctors 0x003B40DF in
+     Scripts.cpp and 0x003B410E in Rva003529B0Clone.cpp) and `??_7Rva003B4100@@6B@` to 0x00BBB554 (the
+     dtor in OpaqueScalarDeletingDtors.cpp). A token fold makes one symbol bind both, which the DIR32
+     consistency gate refuses. Retail's destructor stores Snapshot's table, so the views must derive from
+     BFME 2's Snapshot (canonical, reference/shims/moduledata/Common/Snapshot.h). Structural inference from
+     retail's order: the heads base is declared before Snapshot (`class ScriptGroup : public Rva003B4071,
+     public Snapshot`). MSVC then places Snapshot's vptr at +0 and the heads at +4. The ctor clears the heads,
+     Snapshot's inline store is dead, and the class's own vptr is stored. The dtor's own store is dead, and
+     ~Snapshot's store precedes the heads' `jmp clear`: retail's 14 bytes. The shim compiles Zero Hour's
+     Snapshot.h, so this needs the header lane (shared shim, full gate). After that: fold, drop the inline
+     destructor, and rehome the two rows into Scripts.cpp (their approved TU per its tu-skeleton marker).
 
 Pass test for both: the next image_iso run no longer lists 0x00C63254 or 0x00C1F470's words in
 `defects.tsv` (unrelocated_retail_address). Not claimed until that run.
