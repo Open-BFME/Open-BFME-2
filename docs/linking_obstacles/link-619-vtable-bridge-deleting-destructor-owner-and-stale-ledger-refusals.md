@@ -1,6 +1,6 @@
 ### LINK-619: vtable bridge refusals: deleting destructors rowed away from the TU that emits them first, and a stale data ledger
 Status: Open (partly repaired). Updated: 2026-11-07; seats halilkkaya-lk38 (base `3d70a843d39`) and
-halilkkaya-lk40 (base `4b2bb61eb1d`), queue `reverse/vtable_bridge_queue.tsv` from real links `95341e20cc`
+halilkkaya-lk40 (base `4b2bb61eb1d`) and halilkkaya-lk57 (base `def612cde76`; clusters 2 and 3, last section), queue `reverse/vtable_bridge_queue.tsv` from real links `95341e20cc`
 and `1d41894d2a`, census index `d707d2f53b` (lk40: `94d8ffa1ad`).
 
 **Problem.** Besides multiple-kept-names (LINK-618), the bridge (`tools/vtable_bridge.py`) refuses tables
@@ -207,3 +207,27 @@ symbols (no unit changed status). The simulation after each: target-not-winning-
   TU only proposed: ArmySummary.cpp), 0x008E3D14/0x008E3D28 Fesl browser owners (the constructor units'
   views lack the base class and inline destructor that Y2FeslBrowserDestructors.cpp's rows inline; the
   addresses have no approved TU).
+
+**2026-11-07, seat halilkkaya-lk57 (base `def612cde76`): clusters 2 and 3 repaired in the tool and the ledger.**
+- Cluster 3 (strong-definition), the bridge side: `b643f770dc9` refuses a strongly defined name alone instead of its
+  whole retail address. The other names there still pass every existing rule on their own copies (SELECT_ANY only,
+  no shared or prefixed section, no common or absolute copy, unique address, every slot resolved to the winning or twin
+  provider); 16 regression cases cover the per-name bridge and these neighbours. The strong arrays themselves still need
+  their real class views (LINK-617), but they no longer hide the compiled tables at their addresses.
+- A data_rows owner hides a table: `fa1e73a5667`. Regenerated, the ledger names 36 retail tables `global`, because a
+  verified `reverse/data_rows.csv` owner (a hand-built strong array) is their canonical name. The bridge took only
+  `kind=vtable` rows and would have lost the 58 compiled `??_7` names bound there; a `global` row binding a `??_7` name
+  is now a table.
+- Cluster 2 (stale ledger): `9bb9fed143d` regenerates `reverse/data_ledger.csv` with `tools/data_ledger.py`, as recommended
+  above. Simulation on this tree (full `./build.sh`, the same read-only `plan()`), bridge before these commits with the
+  committed ledger -> all three: generated 4,437 -> 5,176, already correct 289 -> 511, refused 213 -> 278.
+  no-kept-definition 6 -> 0, ambiguous-table-name 32 -> 2, unindexed bindings 620 -> 2; strong-definition 133
+  addresses -> 189 names (counted per name now); target-not-winning-provider 36 -> 44 (newly indexed tables, none
+  previously bridged); no-retail-slots 0 -> 34 (vbtables); unbounded-retail-row 0 -> 5 (one-byte placeholder owners);
+  unsupported-selection 0 -> 2 (the runtime's `type_info`, `_com_error`). Names bridged or already correct
+  4,726 -> 5,687 (+968, -7: stale spellings no retail code installs; listed in LINK-627).
+- LINK-618's recorded trip is gone: 0x00811368 no longer lists `??_7Rva0034159A@@6B@`, only `??_7AIDockState@@6B@`.
+  The committed ledger listed 1,214 `??_7` names no kept object defines or references; the regenerated one lists none.
+
+Next check: the next real link's `vtable_bridge_queue.tsv` has no `no-kept-definition` rows and about 189
+`strong-definition` rows, one per strongly defined name. Clearance: none claimed (no real link measured).

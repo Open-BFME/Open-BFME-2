@@ -1,6 +1,6 @@
 ### LINK-627: Boot-path audit: what the rebuilt game constructs before the menu, ranked by first crash
 
-Status: Open (partly repaired). Updated: 2026-11-07 (seat halilkkaya-lk55); base `340595af5e5`, census index
+Status: Open (partly repaired; Finding 1 done by seat halilkkaya-lk57, last section). Updated: 2026-11-07 (seat halilkkaya-lk55); base `340595af5e5`, census index
 `eb08bc29f1`, real link `bbb1979380` (2026-11-07 02:48 UTC: 234 unresolved, 4,421 tables and 605 initializers bridged).
 
 Evidence / affected units: [boot-path inventory](../../reverse/attempt_support/boot-path-audit-20261107-lk55.tsv)
@@ -134,3 +134,58 @@ translator commits; LINK-625's walled module data; W3DRadar's identity; the obje
 Clearance: none claimed (no real link since). The next real link's `vtable_bridge_queue.tsv` should no longer refuse
 0x0084ED70 (offline plan above), and its image report should show the four new tables at full length.
 Census confirmation: none claimed.
+
+**2026-11-07, seat halilkkaya-lk57 (base `def612cde76`): Finding 1 done (tooling seat).** Three commits, verified in a
+worktree, not yet published when written:
+- `b643f770dc9`: the bridge refuses a strongly defined name alone (`tools/vtable_bridge.py`, plan()); the other names at
+  that retail address still face every existing rule on their own copies.
+- `fa1e73a5667`: a second cause the regenerated ledger exposed. The data ledger takes a row's kind from its canonical
+  name, and an explicit `reverse/data_rows.csv` owner wins that choice. 36 retail tables are owned there by hand-built
+  strong arrays (`_vtbl_00BF17F8`, `?g_0086FFFC@@3QBQBXB`, `?g_00C078DC@@3QBQBXB`, ...), so their regenerated rows say
+  `global` and the bridge, which took only `kind=vtable` rows, lost the 58 compiled `??_7` names bound beside them
+  (0x008078DC with InGameUIInterface10 and NotifyWeaponFiredInterface, 0x0086FFFC, 0x008552A4, ThreadClass,
+  ChangeStanceGroupOrder, BridgeBehavior, StancesBehavior, ...). A `global` row that binds a `??_7` name is now a table.
+- `9bb9fed143d`: `reverse/data_ledger.csv` regenerated with `python3 tools/data_ledger.py` (21,901 -> 34,434 addresses;
+  `??_7` names no kept object defines or references 1,214 -> 0).
+
+Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (full `./build.sh`, no link):
+
+| bridge, ledger | tables | retail tables | slots | refused | already correct | unindexed | names bridged or correct |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| before, committed | 4,437 | 3,048 | 64,605 | 213 | 289 | 620 | 4,726 |
+| before, regenerated | 4,740 | 3,345 | 61,890 | 232 | 350 | 137 | 5,090 (+501, -137) |
+| per-name strong, committed | 4,722 | 3,176 | 65,717 | 215 | 447 | 620 | 5,169 (+443, -0) |
+| both fixes, regenerated | 5,176 | 3,516 | 68,395 | 278 | 511 | 2 | 5,687 (+968, -7) |
+
+- The 7 names lost are stale spellings, each defined once and installed by no retail code: six are referenced only by
+  an `EmitVtableTag` scaffold constructor nothing calls (`??_7RebuildHoleExposeDie@@6B@`,
+  `??_7Rva001ED41B@@6BRva001ED41BBase0@@@`, `??_7Rva0056AD19@@6BRva0056AC26A@@@`/`..C26B@@@`,
+  `??_7Rva005CC37C@@6BRva005CC37CHolder@@@`, `??_7Rva005E8D71@@6BRva005E8D71Base@@@`), and
+  `??_7SimpleSceneIterator@@6B@` only by an unreferenced constructor overload in scene.cpp. Their addresses now list
+  the names current code binds there.
+- The ranked list above, with the regenerated ledger: items 2, 3, 4, 6, 7, 8 (W3DDisplay), 9 (TerrainLogic's Snapshot
+  table), 10 (W3DRadar, `??_7Rva004FA1F@@6BSubsystemInterface@@@`), 11 and ActiveBodyModuleData go from not planned to
+  bridged at 20, 14, 14, 21, 14, 101, 51, 14, 7 and 31 slots; AptValue's `Rva006DE2C0`/`Rva006DE390` (item 6) at 15,
+  and item 7's observer table `??_7Rva00210CC5@@6B@`, which the old rule refused with its address, at 1. InGameUI's
+  0x007C7A88/78/64, 0x007EFF90 (90 names), 0x00802114 and 0x008EA228 stay bridged; only their strong owners are
+  refused.
+- The walker above, rerun over this plan (same walk; [comparison](../../reverse/attempt_support/boot-path-bridge-plan-20261107-lk57.tsv),
+  rows whose verdict changed or that still refuse): 4,194 distinct `??_7` names reached; bridged or correct
+  3,528 -> 4,152 against the bridge before these commits, none lost. Refused before -> after: strong-definition
+  300 -> 6, not planned 265 -> 0, ambiguous-table-name 73 -> 0, target-not-winning-provider 25 -> 33,
+  unbounded-retail-row 0 -> 3.
+- Still refused on the boot path: 33 target-not-winning-provider (RenderObjClass-derived tables, VectorClass/
+  SimpleVecClass, Bucket, W3DShroudMaterialPassClass, STLport `basic_ios`; LINK-619's alignment and different-body
+  groups; three FXParticleSystem module heads, other owners); 6 `??_7` names that are themselves defined strong
+  (non-COMDAT `.rdata`): `Rva005EBCC0Object` V3Slot0/V3Slot2 (FXParticleSystem's Rva00561527.cpp), `Rva003AECE6`
+  Slot0/1/3 (FXParticleSystem's ParticleModuleTemplateClones.cpp) and `BfmeBaseVNH` (Rva003BBAF0Ctor_Rva003FD199.cpp); 3
+  one-byte placeholder owners (`_Rva003AEA15_v1c`, `_Rva003AED6B_vsub`, `_Rva003AED6B_v0`, FXParticleSystem: other
+  owners) whose ledger extent is 1, so the bridge cannot bound the table.
+- Gates with the regenerated ledger: full `./build.sh` OK (99,554/99,554); `data_check --converged --all` 0 second
+  names; `hatch_counters.py --report` identical; `data_check --all` (shadow) 1,137 -> 297 findings, 33 of them new
+  (listed in the regeneration commit; no baseline growth).
+
+Next check: the next real link's `vtable_bridge_queue.tsv` lists the ten boot tables above as bridged, its
+`vtable_name_discovery` reports about 2 unindexed bindings (604 at `bbb1979380`), and its image report and crash
+receipt show whether the startup crash moves. Clearance: none claimed (offline plan only). Census confirmation: none
+claimed.
