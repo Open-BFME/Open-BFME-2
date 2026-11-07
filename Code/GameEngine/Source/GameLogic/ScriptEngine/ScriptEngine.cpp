@@ -1275,10 +1275,9 @@ public:
 
 #include "../../../Include/Common/SidesList.h"
 
+// TheSidesList (VA 0x00E01D58, zero-filled .bss) is defined by SidesList.cpp, whose
+// object's .bss holds it before that unit's Drawable.h copy and player-name array.
 extern SidesList *TheSidesList;
-
-// TheSidesList: matched references place it at VA 0xe01d58 (zero-filled .bss).
-SidesList * TheSidesList;
 
 class ScriptActions
 {

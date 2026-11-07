@@ -426,7 +426,6 @@ address_global	Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp	g_Va00E03174	2
 address_global	Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp	g_Va00E0319C	2
 address_global	Code/GameEngine/Source/Common/Rva007ACDE1StlGlobalInits.cpp	g_Va00E04938	2
-address_global	Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp	g_Va00E01D60	3
 address_global	Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp	g_Va00E060B8	2
 address_global	Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp	g_Va00E062FC	2
 address_global	Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp	g_Va00E0630C	2

@@ -68,6 +68,19 @@ class AsciiString;
 extern void friend_xferObjectID(Xfer *xfer, ObjectID *objectID);
 static const Int K_SIDES_DATA_VERSION_1 = 1;
 static const Int K_SIDES_DATA_VERSION_2 = 2;
+
+// Retail's .text$yc run for this unit (target facts): the Drawable.h copy 0x007AEA1C
+// (static 0x00E01D5C), then 0x007AEA2C, __ehvec_ctor over 20 four-byte AsciiStrings at
+// 0x00E01D60 with the AsciiString ctor and dtor and atexit of its cleanup 0x007B7BBE, then
+// the pool-init marker 0x007AEA50. Its .bss is TheSidesList 0x00E01D58 (read by 36 matched
+// sites), the copy, then the array. Zero Hour's SidesList.cpp defines the same singleton and
+// `static AsciiString static_readPlayerNames[MAX_PLAYER_COUNT]` (donor fact); BFME 2's
+// count is 20 (0x14 above), where the Zero Hour header this unit builds on says 16.
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
+
+/*extern*/ SidesList *TheSidesList = NULL;	///< singleton instance of SidesList
+
+static AsciiString static_readPlayerNames[20];
 	// includes Team list.
 static const Int K_SIDES_DATA_VERSION_3 = 3;
 extern GameLogic *TheGameLogic;
