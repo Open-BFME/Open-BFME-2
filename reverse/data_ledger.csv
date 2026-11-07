@@ -11955,7 +11955,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0083C944,20,.rdata,string,??_C@_0BB@CNKNNDGA@GUI?3BookmarkXSet?$AA@,,literal,,0,2
 0x0083C958,8,.rdata,float,__real@3d3c6a7f,,literal,,0,4
 0x0083C960,8,.rdata,vtable,??_7Rva0042FCE6@@6B@,,literal,,0,2
-0x0083C968,8,.rdata,global,_Rva005B1A00VTableAnchor,Code/GameEngine/Source/Common/Rva005B1A00Ctor.cpp,owned,,1,1
+0x0083C968,8,.rdata,global,_Rva005B1A00VTableAnchor,Code/GameEngine/Source/GameClient/MessageStream/GUICommandTranslator.cpp,owned,,1,1
 0x0083C970,12,.rdata,vtable,??_7Rva004318C6@@6B@,,literal,,0,3
 0x0083C97C,12,.rdata,vtable,??_7Rva004318FC@@6B@,,literal,,0,8
 0x0083C988,12,.rdata,vtable,??_7Rva0043190E@@6B@,,literal,,0,2
