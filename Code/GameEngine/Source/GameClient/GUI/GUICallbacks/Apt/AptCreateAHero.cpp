@@ -422,6 +422,7 @@ struct Rva005F1B75 : Rva002226E5TextPlusString
 // this+0x0C are only layout padding here; the containing type is unresolved.
 // This declaration matches the AsciiStringPlusText layout in RegistryAsciiPath.cpp.
 #include "../../../../../Include/Common/AsciiStringPlusText.h"
+#include "../../../../../Include/GameClient/Drawable.h"
 
 // ?length@Rva005F1BAA@@QBEHXZ @0x005F1BAA 13B: four-part extension (three-part string base at 0x005F1B75 plus fourth pair len at +0x14); chain from 0x005F1B75 landing.
 struct Rva005F1BAA : Rva005F1B75

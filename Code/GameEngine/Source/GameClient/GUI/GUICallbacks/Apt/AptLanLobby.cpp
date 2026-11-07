@@ -599,6 +599,7 @@ public:
 #define TheGameEngine004443E7 (*(class GameEngine **)&TheGameEngine)
 #define TheInvoke00444E8ATarget (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)
 #include "../../../../../Include/GameClient/AptMessenger.h"
+#include "../../../../../Include/GameClient/Drawable.h"
 void __cdecl Rva00511730(int unused);
 struct Rva00511730State;
 class AptLanLobby

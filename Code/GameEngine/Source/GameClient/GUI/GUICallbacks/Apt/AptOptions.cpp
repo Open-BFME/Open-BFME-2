@@ -191,6 +191,7 @@ public:
 };
 
 #include "../../../../../Include/Common/Rva00222A8BTarget.h"
+#include "../../../../../Include/GameClient/Drawable.h"
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
