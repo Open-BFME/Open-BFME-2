@@ -96,13 +96,15 @@ struct AptActionInterpreter {
     void *currentFunction;
     int debugCallCount;
     char unknown38[0x48 - 0x38];
-    unsigned dispatchWord;
     void *PrepareForExecution(AptActionSetup *);
     void CleanupAfterExecution(void *, AptActionSetup *);
     void callFunction(AptValue *, AptValue *, int);
     const unsigned char *runStream(const unsigned char *, AptCIH *, int, AptCharacterInst *);
 };
 extern AptActionInterpreter g_aptDateInterpreter;
+// The event word being dispatched (retail VA 0x00E18328, right after the
+// interpreter's 72 bytes); AptKey decodes it (key >> 17, controller >> 2).
+extern unsigned int Rva008A5250LastKey;
 
 class Rva006E34D0 {
 public:
@@ -272,7 +274,7 @@ void AptAnimationPoolData::rva006E6540()
         Rva006E3230Action *oldEnd = aptActionQueueC->getEnd();
         aptActionQueueC->setExecuting(p);
         if (p->type == 1) {
-            g_aptDateInterpreter.dispatchWord = p->event;
+            Rva008A5250LastKey = p->event;
             if (!p->target->isUndefined()) {
                 AptCIH *target = p->target;
                 if ((target->type() != 0x13 || target->isUndefined()) && p->target->Sprite()) {
@@ -288,7 +290,7 @@ void AptAnimationPoolData::rva006E6540()
                 }
             }
         } else if (p->type == 2) {
-            g_aptDateInterpreter.dispatchWord = p->event;
+            Rva008A5250LastKey = p->event;
             g_aptDateInterpreter.scope.push(p->context);
             AptActionSetup setup = {p->context, p->function, "AptRun-Functions", p->flags};
             void *saved = g_aptDateInterpreter.PrepareForExecution(&setup);
