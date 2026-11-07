@@ -568,6 +568,18 @@ typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate() const
 extern const char *const POINT_EMISSION_VOLUME_MODULE_KEY;
 extern const char *const POINT_EMISSION_VOLUME_MODULE_NAME;
 
+// Keep the plain class tag's ABI. This specialization owns only its exported references.
+class PointEmissionVolumeModule;
+template <> class ModuleTag<5, POINT_EMISSION_VOLUME_MODULE_KEY, POINT_EMISSION_VOLUME_MODULE_NAME,
+    PointEmissionVolumeModule, PointEmissionVolumeModuleTemplate, DefaultParticleModule<5> >
+{
+public:
+    static const char *const &KEY;
+    static const char *const &NAME;
+};
+typedef ModuleTag<5, POINT_EMISSION_VOLUME_MODULE_KEY, POINT_EMISSION_VOLUME_MODULE_NAME,
+    PointEmissionVolumeModule, PointEmissionVolumeModuleTemplate, DefaultParticleModule<5> > PointEmissionVolumeModuleReferenceTag;
+
 struct PointEmissionVolumeModuleTag
 {
     enum { IS_DEFAULT = 1 };
@@ -575,10 +587,14 @@ struct PointEmissionVolumeModuleTag
     typedef PointEmissionVolumeModuleTemplate TemplateType;
     typedef CategoryModuleClass<5> ClassBase;
 
-    static const char *const &s_key;
-    static const char *const &s_name;
-    static __declspec(dllimport) __forceinline const char *const &keyReference() { return s_key; }
-    static __declspec(dllimport) __forceinline const char *const &nameReference() { return s_name; }
+    static __declspec(dllimport) __forceinline const char *const &keyReference()
+    {
+        return PointEmissionVolumeModuleReferenceTag::KEY;
+    }
+    static __declspec(dllimport) __forceinline const char *const &nameReference()
+    {
+        return PointEmissionVolumeModuleReferenceTag::NAME;
+    }
 };
 
 typedef ConcreteModuleTemplate<PointEmissionVolumeModuleTag> PointEmissionVolumeModuleConcrete;
@@ -590,8 +606,8 @@ PointEmissionVolumeModuleConcrete g_pointEmissionVolumeModuleConcrete;
 // run time (0x007AF6B1 and 0x007AF6BC store the key and name pointers), and
 // cl 7.1 only does that once a dynamic initializer precedes them in the unit.
 // Ahead of every dynamic initializer it binds them statically in .data.
-const char *const &PointEmissionVolumeModuleTag::s_key = POINT_EMISSION_VOLUME_MODULE_KEY;
-const char *const &PointEmissionVolumeModuleTag::s_name = POINT_EMISSION_VOLUME_MODULE_NAME;
+const char *const &PointEmissionVolumeModuleReferenceTag::KEY = POINT_EMISSION_VOLUME_MODULE_KEY;
+const char *const &PointEmissionVolumeModuleReferenceTag::NAME = POINT_EMISSION_VOLUME_MODULE_NAME;
 template class ConcreteModuleClass<PointEmissionVolumeModuleTag>;
 
 // Same empty-tag fold as the ortho tag above.
@@ -622,6 +638,17 @@ FX_WRAPPER(4, OUTWARD_EMISSION_VELOCITY, OutwardEmissionVelocityModule,
 extern const char *const ORTHO_EMISSION_VELOCITY_MODULE_KEY;
 extern const char *const ORTHO_EMISSION_VELOCITY_MODULE_NAME;
 
+class OrthoEmissionVelocityModule;
+template <> class ModuleTag<4, ORTHO_EMISSION_VELOCITY_MODULE_KEY, ORTHO_EMISSION_VELOCITY_MODULE_NAME,
+    OrthoEmissionVelocityModule, OrthoEmissionVelocityModuleTemplate, DefaultParticleModule<4> >
+{
+public:
+    static const char *const &KEY;
+    static const char *const &NAME;
+};
+typedef ModuleTag<4, ORTHO_EMISSION_VELOCITY_MODULE_KEY, ORTHO_EMISSION_VELOCITY_MODULE_NAME,
+    OrthoEmissionVelocityModule, OrthoEmissionVelocityModuleTemplate, DefaultParticleModule<4> > OrthoEmissionVelocityModuleReferenceTag;
+
 struct OrthoEmissionVelocityModuleTag
 {
     enum { IS_DEFAULT = 1 };
@@ -629,14 +656,18 @@ struct OrthoEmissionVelocityModuleTag
     typedef OrthoEmissionVelocityModuleTemplate TemplateType;
     typedef CategoryModuleClass<4> ClassBase;
 
-    static const char *const &s_key;
-    static const char *const &s_name;
-    static __declspec(dllimport) __forceinline const char *const &keyReference() { return s_key; }
-    static __declspec(dllimport) __forceinline const char *const &nameReference() { return s_name; }
+    static __declspec(dllimport) __forceinline const char *const &keyReference()
+    {
+        return OrthoEmissionVelocityModuleReferenceTag::KEY;
+    }
+    static __declspec(dllimport) __forceinline const char *const &nameReference()
+    {
+        return OrthoEmissionVelocityModuleReferenceTag::NAME;
+    }
 };
 
-const char *const &OrthoEmissionVelocityModuleTag::s_key = ORTHO_EMISSION_VELOCITY_MODULE_KEY;
-const char *const &OrthoEmissionVelocityModuleTag::s_name = ORTHO_EMISSION_VELOCITY_MODULE_NAME;
+const char *const &OrthoEmissionVelocityModuleReferenceTag::KEY = ORTHO_EMISSION_VELOCITY_MODULE_KEY;
+const char *const &OrthoEmissionVelocityModuleReferenceTag::NAME = ORTHO_EMISSION_VELOCITY_MODULE_NAME;
 
 typedef ConcreteModuleTemplate<OrthoEmissionVelocityModuleTag> OrthoEmissionVelocityModuleConcrete;
 

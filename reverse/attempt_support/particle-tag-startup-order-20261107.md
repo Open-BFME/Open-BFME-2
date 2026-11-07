@@ -78,3 +78,14 @@ candidate is reverted. A tooling follow-up needs a compiler-backed size
 probe that identifies these exact symbols. Keep the code and data checks
 independent and rerun both, plus the CRT, DIR32 and EH comparisons, after
 that proof is available.
+
+## Follow-up resolution
+
+Verifier change 82fce552c0 recognizes the x86 compiler's CRT-registered
+direct dword store to the exact public template-reference symbol in shared
+.bss. It checks both DIR32 operands and the native startup thunk. The
+retail zero bytes and symbol extent still have to verify separately.
+With the specializations in place, the build verifies all 42 data rows in
+scope, including the four new ones. Both fresh object comparisons confirm
+the startup order and DIR32 homes. Real-link closure for these four names
+is pending.
