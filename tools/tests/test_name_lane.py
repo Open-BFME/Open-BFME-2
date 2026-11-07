@@ -2073,7 +2073,7 @@ def test_class_scope_estimate_stops_before_rewriting(tree, monkeypatch, capsys):
     lane = lane_of(tree)
     lane.ctx.object_scan = True
     monkeypatch.setattr(rename, "check_basis", lambda *a, **kw: None)
-    monkeypatch.setattr(rename, "object_referencers", lambda _ctx, _symbols:
+    monkeypatch.setattr(rename, "object_referencers", lambda _ctx, _symbols, **_kw:
                         {"Code/Game/ObjectConsumerA.cpp", "Code/Game/ObjectConsumerB.cpp"})
     with pytest.raises(rename.Refusal, match="object consumers"):
         rename.plan_class(lane.ctx, name="Rva00401000Box", new="BoxRecord", basis="inferred",
@@ -2087,7 +2087,7 @@ def test_class_collision_does_not_scan_all_objects(tree, monkeypatch):
     (tree / "Code/Game/Existing.h").write_text("struct BoxRecord {};\n")
     _git(tree, "add", "--", "Code/Game/Existing.h")
     monkeypatch.setattr(rename, "check_basis", lambda *a, **kw: None)
-    monkeypatch.setattr(rename, "object_referencers", lambda *_: pytest.fail("needless object scan"))
+    monkeypatch.setattr(rename, "object_referencers", lambda *_a, **_kw: pytest.fail("needless object scan"))
     with pytest.raises(rename.Refusal, match="BoxRecord already appears"):
         rename.plan_class(lane.ctx, name="Rva00401000Box", new="BoxRecord", basis="inferred", evidence="test")
 

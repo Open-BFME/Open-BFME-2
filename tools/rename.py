@@ -1917,18 +1917,29 @@ def includers(ctx, paths, limit):
     return found
 
 
-def object_referencers(ctx, symbol):
+def object_referencers(ctx, symbol, *, word=None):
     """Sources whose cached objects reference `symbol` (name_dependents' scan,
-    which falls back to the source text where no current object exists)."""
+    which falls back to the source text where no current object exists).
+
+    `word`: the identifier a source without a current object must spell to
+    reference any of the symbols, instead of each symbol's own (bare_identifier).
+    A class rename passes its class: every symbol it scopes mangles the class,
+    and a unit can reference one only through a declaration that spells it --
+    in its own text (searched here) or in a header, which the plan rewrites and
+    whose includers it verifies. A member of another class that merely takes
+    the class (`?append@Owner@@QAEXPAVOld@@@Z`) would otherwise list every
+    stale source spelling `append` (false-reject 0x004E156B, 73eaea475f). A
+    current object is read by its exact symbol names either way."""
     if not ctx.object_scan:
         return set()
     import name_dependents
     symbols = {symbol} if isinstance(symbol, str) else set(symbol)
-    lookup = getattr(ctx, "_consumer_lookup", None)
+    lookup = getattr(ctx, "_consumer_lookup", None) if word is None else None
     found = (lookup(symbols) if lookup is not None else
-             name_dependents.dependents(symbols, name_dependents._row_objects(ctx.rows()), ctx.root))
+             name_dependents.dependents(symbols, name_dependents._row_objects(ctx.rows()), ctx.root,
+                                        identifier=None if word is None else (lambda _name: word)))
     if hasattr(ctx, "_object_queries"):
-        ctx._object_queries.append((symbols, found))
+        ctx._object_queries.append((symbols, found, word))
     return found
 
 
@@ -5972,7 +5983,7 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
                       "them all -- phase 1 renames one type only when its spelling is unique")
     if not scoped and not declarers:
         raise Refusal(f"no class, struct, union or enum named {old} (no definition, no ledger name)")
-    by_object = object_referencers(ctx, set(scoped)) if ctx.object_scan and scoped else set()
+    by_object = object_referencers(ctx, set(scoped), word=old) if ctx.object_scan and scoped else set()
     touched = set(texts) | by_object
     refuse_vendored(ctx, touched | set(declarers), f"renaming the type {old}")
     generated = sorted(p for p in touched if is_generated(p))
@@ -7020,7 +7031,7 @@ def plan_fold(ctx, old, new, *, evidence="", max_files=25, prepared=None, access
         raise Refusal(f"{new} is registered in {CANONICAL_CLASSES}: the fold would turn {', '.join(declarers[:3])}'s "
                       f"class {old} into a private copy of {new} (class_gate); adopt {new}'s header there first, "
                       "or pass every unit spelling it as --prepared REL=FILE")
-    by_object = object_referencers(ctx, set(scoped)) if ctx.object_scan and scoped else set()
+    by_object = object_referencers(ctx, set(scoped), word=old) if ctx.object_scan and scoped else set()
     touched = set(texts) | by_object
     refuse_vendored(ctx, touched, f"folding the type {old}")
     generated = sorted(p for p in touched if is_generated(p))
@@ -9677,8 +9688,8 @@ def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_c
                                 valid = all(view.git(*command) == result
                                             for command, result in expected_git.items())
                             if valid and generation != session.object_generation:
-                                valid = all(object_referencers(view, symbols) == found
-                                            for symbols, found in object_queries)
+                                valid = all(object_referencers(view, symbols, word=word) == found
+                                            for symbols, found, word in object_queries)
                         if valid:
                             plan = cached[0]
                         else:

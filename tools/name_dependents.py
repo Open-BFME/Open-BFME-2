@@ -243,14 +243,18 @@ def compiled_from(obj, digest):
 
 
 def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), committed=None,
-               workers=8):
+               workers=8, identifier=None):
     """Sources whose objects (or, failing those, whose text) reference a lost name.
 
     `unsettled` names sources whose working copy is not the state being
     checked; `committed(source)` returns that state's bytes for one (None when
-    the state has no such file). Both default to "the working copy is it"."""
+    the state has no such file). Both default to "the working copy is it".
+    `identifier(name)` gives the word a source without a current object must
+    spell to reference `name` (default bare_identifier); it never changes how
+    a current object is read."""
     return _dependent_sources(lost, source_objects, root, unsettled=unsettled,
-                              committed=committed, workers=workers, retain_names=False)
+                              committed=committed, workers=workers, retain_names=False,
+                              identifier=identifier)
 
 
 def dependents_by_name(lost, source_objects, root=ROOT, *, unsettled=frozenset(), committed=None,
@@ -265,7 +269,8 @@ def dependents_by_name(lost, source_objects, root=ROOT, *, unsettled=frozenset()
                               committed=committed, workers=workers, retain_names=True)
 
 
-def _dependent_sources(lost, source_objects, root, *, unsettled, committed, workers, retain_names):
+def _dependent_sources(lost, source_objects, root, *, unsettled, committed, workers, retain_names,
+                       identifier=None):
     if not lost:
         return {} if retain_names else set()
     import build
@@ -274,7 +279,7 @@ def _dependent_sources(lost, source_objects, root, *, unsettled, committed, work
     words = {}
     unknown = set()
     for name in names:
-        word = bare_identifier(name)
+        word = (identifier or bare_identifier)(name)
         if word is None:
             unknown.add(name)
         else:
