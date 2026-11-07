@@ -124,6 +124,9 @@ struct CreateMask
 {
 	unsigned int m_bits[4];
 };
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Thing
 {
 public:

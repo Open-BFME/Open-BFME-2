@@ -188,6 +188,9 @@ class Object;
 #include "../../../../Libraries/Include/Lib/Region3D.h"
 class Team;
 struct Rva002A7557In;
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Drawable
 {
 public:

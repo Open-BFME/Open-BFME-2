@@ -42,6 +42,9 @@
 #define BFME_SHAKE_DATA ((const BfmeGlobalDataShakeFields *)TheGlobalData)
 #include <map>
 #include "../../../../GameEngine/Include/Common/BfmeAccessorMacros.h"
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../../GameEngine/Include/GameClient/DrawableFramesPerFlash.h"
 #include <vector>
 #include <list>
 #include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"

@@ -207,6 +207,9 @@ extern "C" const void *const __identifier("??_7AODHordeContain@@6BIface2C@@@")[]
 
   // folded vftable 0x00C58790 (55 classes), by its data-ledger name
 
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Thing;
 
 class ModuleData;

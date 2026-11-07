@@ -55,6 +55,9 @@ class Object;
 class AutoHealBehaviorModuleData;
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 

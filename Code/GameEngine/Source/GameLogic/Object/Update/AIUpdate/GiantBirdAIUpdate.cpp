@@ -49,6 +49,9 @@ public:
 	unsigned char m_kindOf[0x20]; // +0x108
 };
 extern Real ACos(Real);
+// Retail registers this unit's Drawable.h copy of DRAWABLE_FRAMES_PER_FLASH; this unit keeps
+// its own views, so it takes only the header's constant (LINK-236).
+#include "../../../../../Include/GameClient/DrawableFramesPerFlash.h"
 class Thing
 {
 public:
