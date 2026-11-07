@@ -1186,6 +1186,9 @@ class Plan:
     to_class: dict = None                             # function --to-class: the slot the rebuilt vftable must name
     retype: dict = None                               # global --retype: what the rebuilt objects must prove
     registered: dict = None                           # class on a canonical_classes.csv key: what moves with it
+    identity: dict = None                             # function --respell --identity: what the rebuilt
+                                                      # objects' code-identity scan must prove
+    removed: list = field(default_factory=list)       # sources the plan deletes (--move-to empties them)
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -1195,9 +1198,15 @@ class Plan:
     def written(self):
         """Every path this plan writes: the files it edits and where it moves
         sources to (the old paths go with the move)."""
-        return set(self.after) | {new for _old, new in self.moves}
+        return set(self.after) | {new for _old, new in self.moves} | set(self.removed)
 
     def subject(self):
+        if self.identity:
+            rows = self.identity["rows"]
+            what = (f"{self.old} as {self.new}" if len(rows) == 1 else
+                    f"{len(rows)} rows ({', '.join(f'0x{at:08X}' for at, _o, _n in rows)})")
+            where = f", moved to {self.source}" if self.removed else ""
+            return f"Respell {what} by code identity{where}"
         if self.retype:
             return (f"Retype {self.retype['word']} as {self.retype['type']} "
                     f"({self.retype['size']} B, retail extent verified)")
@@ -1265,6 +1274,10 @@ class Plan:
             for rel, counts in sorted(self.source_counts.items()):
                 detail = ", ".join(f"{k} {v}" for k, v in counts.items() if v)
                 lines.append(f"    {rel} ({detail})")
+        if self.removed:
+            lines.append(f"  sources removed ({len(self.removed)}): " + " ".join(self.removed))
+        if self.identity:
+            lines.append(f"  evidence: {self.evidence}")
         lines.append(f"  verify ({len(self.verify)}): ./build.sh " + " ".join(self.verify))
         if self.claims:
             lines.append("  claims: " + " ".join(str(c) if isinstance(c, str) else f"0x{c:08X}"
@@ -2839,7 +2852,8 @@ def rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner_sourc
 
 
 def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
-                  to_class=None, prepared=None, access=None, also=None, respell=False):
+                  to_class=None, prepared=None, access=None, also=None, respell=False, identity=False,
+                  move_to=None):
     """Plan respelling one RVA's function identifier everywhere it is named;
     with `virtual`, its decoration from non-virtual to virtual instead
     (plan_virtual: no new identifier, no basis, retail evidence); with
@@ -2850,6 +2864,11 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
             raise Refusal("--to-class takes its evidence from retail's vftable: pass no --basis")
         return plan_to_class(ctx, rva, to_class, new, evidence=evidence, old=old, prepared=prepared,
                              max_files=max_files, also=also)
+    if identity or move_to:
+        if not respell or identity is False:
+            raise Refusal("--identity and --move-to go with --respell --identity only")
+        return plan_identity_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
+                                     basis=basis, max_files=max_files)
     if also:
         raise Refusal("--also adds slots of one retail table to a --to-class move only")
     if prepared and not (virtual or respell):
@@ -3063,6 +3082,276 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         sorted(set(ctx.grep_files(old_word, word=True, roots=("docs",))) - edited
                - set(ctx.grep_files(old_name, roots=("docs",))))
     return plan
+
+
+# ---------------------------------------------------------------- code-identity respell
+#
+# `function --respell --identity` respells compiler-spelled rows (operators,
+# special members, template members) whose bytes already match retail but whose
+# calls bind to the wrong code: a row typed `map<Placeholder, int>` whose retail
+# body calls the rowed clear and _M_copy of `_Rb_tree<Record, ..., _Identity>`
+# compiles to the same bytes, yet its calls bind local COMDATs of the wrong
+# instantiation. Its name is not a naming claim: the compiler spells it from the
+# types, and the types are proved by what the body calls. So no vote and no
+# basis: the code-identity check (tools/allowed_symbols.py) is the evidence.
+#
+#   1. before: the identity scan of a respelled row reports a wrong binding, or
+#      the row calls another row the same plan respells (a wrapper);
+#   2. after (./build.sh exact on every unit the plan touches): every reference
+#      of every respelled row binds to its retail owner (no wrong, interior,
+#      unowned or divergent class), and no row in a touched source gains a
+#      wrong binding it did not have;
+#   3. each new mangled name is owned by no row or pin, and both spellings are
+#      compiler-spelled (`??<code>` or a template `?$`) with the same operator
+#      code or identifier: a hand-written name or a changed identifier is a
+#      naming claim and goes through `function --new` with its basis;
+#   4. the evidence records the retail callee RVAs the scan found.
+# `--move-to TU` also moves the respelled rows to their approved TU
+# (reverse/tu_map.csv `approved`): every row of the owner source must be in the
+# plan, its path-keyed columns follow, and the emptied source is deleted.
+
+IDENTITY = "code-identity:"
+COMPILER_HEAD = re.compile(r"\?\?(_?[0-9A-Z])|\?([A-Za-z_]\w*)@")
+
+
+def identity_head(mangled):
+    """The operator code (`??4` -> '4') or identifier of a compiler-spelled
+    name, or None for a hand-written one (no `??` code and no template)."""
+    match = COMPILER_HEAD.match(mangled or "")
+    if not match:
+        return None
+    if match.group(1):
+        return "??" + match.group(1)
+    return match.group(2) if "?$" in mangled else None
+
+
+def identity_refs(ctx, sources):
+    """[{source, row, rva, symbol, target, cls}] for every reference of the rows
+    in `sources`, classified by tools/allowed_symbols.py against the tree's
+    current ledger and objects. Tests replace this through ctx.identity_refs."""
+    hook = getattr(ctx, "identity_refs", None)
+    if hook:
+        return hook(sorted(sources))
+    import allowed_symbols as allowed
+    ident, rows = allowed.load(sorted(sources))
+    return [dict(source=row["source"], row=row["name"], rva=_rva(row.get("target_rva")), symbol=name,
+                 target=target, cls=cls)
+            for row, _offset, _kind, name, target, cls, _detail in allowed.scan(ident, rows)]
+
+
+def identity_wrong(refs):
+    import allowed_symbols as allowed
+    return [r for r in refs if r["cls"] in allowed.WRONG]
+
+
+def _identity_key(ref, renames):
+    """A wrong binding's key with the plan's renames applied (old -> new)."""
+    return (ref["source"], renames.get(ref["row"], ref["row"]), ref["rva"], ref["target"], ref["cls"])
+
+
+def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, basis=None,
+                          max_files=25):
+    if basis:
+        raise Refusal("--identity takes its evidence from the code-identity check: pass no --basis")
+    if not prepared:
+        raise Refusal("--identity needs --prepared sources for every unit whose C++ must change")
+    targets = [(rva, new, old)] + [(at, name, None) for at, name in (also or ())]
+    if len({t[0] for t in targets}) != len(targets) or len({t[1] for t in targets}) != len(targets):
+        raise Refusal("--identity: each RVA and each new name may appear once")
+    rows = ctx.rows()
+    entries = []
+    for at, new_name, want in targets:
+        owners = [r for r in rows if _rva(r.get("target_rva")) == at
+                  and not r["name"].startswith(("__ehhandler$", "__unwindfunclet$", "$L"))
+                  and "parent=" not in r.get("notes", "")]
+        if want:
+            owners = [r for r in owners if r["name"] == want]
+        names = sorted({r["name"] for r in owners})
+        if len(names) != 1:
+            raise Refusal(f"0x{at:08X} carries {len(names)} function names ({', '.join(names) or 'none'}); "
+                          "pass --old to choose one")
+        owner = owners[0]
+        old_name = names[0]
+        if not new_name or not new_name.startswith("?"):
+            raise Refusal("--identity needs each new name as its whole mangled spelling")
+        if new_name == old_name:
+            raise Refusal(f"0x{at:08X}: the new name is the old name")
+        head_old, head_new = identity_head(old_name), identity_head(new_name)
+        if head_old is None or head_new is None:
+            raise Refusal(f"{old_name if head_old is None else new_name} is a hand-written name, not an operator, "
+                          "special member or template member the compiler spells from its types: choosing it "
+                          "is a naming claim (function --new with its basis)")
+        if head_old != head_new:
+            raise Refusal(f"{new_name} changes the operator or identifier of {old_name} ({head_old} -> "
+                          f"{head_new}): only the types the compiler spells may change")
+        if is_generated(owner["source"]):
+            raise Refusal(f"{old_name} lives in generated source {owner['source']}")
+        refuse_vendored(ctx, [owner["source"]], f"respelling {old_name}")
+        reason = is_protected(ctx, "function", old_name, rva=at)
+        if reason:
+            raise Refusal(f"canonical name: {reason}")
+        if any(r["name"] == new_name for r in rows) or any(p.get("name") == new_name for p in ctx.pins()):
+            raise Refusal(f"{new_name} already names a row or pin: one name, one identity")
+        tombstoned = _tombstones(ctx)
+        if (new_name, at) in tombstoned:
+            raise Refusal(f"({new_name}, 0x{at:08X}) is tombstoned in deleted_rows.csv")
+        pinned = sorted(p.get("name", "") for p in ctx.pins() if _rva(p.get("address")) == at)
+        if pinned:
+            raise Refusal(f"0x{at:08X} carries pin(s) {', '.join(pinned)}: an identity respell cannot derive "
+                          "their spellings")
+        frozen = frozen_mentions(ctx, old_name)
+        if frozen:
+            raise Refusal(f"{old_name} is a key in {', '.join(frozen)} (frozen, shrink-only)")
+        entries.append(dict(rva=at, old=old_name, new=new_name, source=owner["source"]))
+
+    # 1. the code-identity check is the reason for the respell
+    owner_sources = {e["source"] for e in entries}
+    before = identity_refs(ctx, owner_sources | set(prepared))
+    planned = {e["rva"] for e in entries}
+    callees = {}
+    for e in entries:
+        own = [r for r in before if r["row"] == e["old"] and r["rva"] == e["rva"]]
+        if not own:
+            raise Refusal(f"the code-identity check has no references for {e['old']} (its object is missing or "
+                          "stale: ./build.sh its source first, or it calls nothing an identity respell could prove)")
+        wrong = identity_wrong(own)
+        inner = sorted({r["target"] for r in own if r["target"] in planned and r["target"] != e["rva"]})
+        if not wrong and not inner:
+            raise Refusal(f"the code-identity check reports no wrong binding for {e['old']} and it calls no row "
+                          "this plan respells: there is nothing for an identity respell to prove")
+        e["wrong"] = sorted({r["target"] for r in wrong})
+        e["inner"] = inner
+        callees[e["rva"]] = sorted({r["target"] for r in own})
+    if not any(e["wrong"] for e in entries):
+        raise Refusal("the code-identity check reports no wrong binding for any row of this plan")
+
+    # --move-to: the approved TU of every respelled row; every row of the owner source moves with them
+    removed = []
+    if move_to:
+        move_to = move_to.replace("\\", "/")
+        approved = {}
+        for row in csv.DictReader(io.StringIO((ctx.read(TU_MAP) or b"").decode("utf-8"))):
+            approved.setdefault(_rva(row.get("rva")), (row.get("tu", ""), row.get("confidence", "")))
+        for e in entries:
+            tu, confidence = approved.get(e["rva"], ("", ""))
+            if tu != move_to or confidence != "approved":
+                raise Refusal(f"0x{e['rva']:08X} is not approved for {move_to} in {TU_MAP} "
+                              f"({tu or 'no TU'}, {confidence or 'unlisted'}): rows move only into their approved unit")
+        if move_to not in prepared:
+            raise Refusal(f"--move-to {move_to} needs its prepared bytes (the moved definitions)")
+        moved_names = {e["old"] for e in entries}
+        for src in sorted(owner_sources):
+            if src == move_to:
+                continue
+            stay = [r for r in rows if r["source"] == src and r["name"] not in moved_names
+                    and not any(mangled_re(n).search(r["name"]) or f"parent={n}" in r.get("notes", "")
+                                for n in moved_names)]
+            if stay:
+                raise Refusal(f"{src} also holds {stay[0]['name']} (0x{_rva(stay[0].get('target_rva')):08X}), "
+                              "which this plan does not move: --move-to moves a whole owner source")
+            if src in prepared:
+                raise Refusal(f"{src} is emptied by --move-to {move_to}: do not prepare it")
+            if any(d.get("source") == src for d in ctx.dicts(DATA_ROWS)):
+                raise Refusal(f"{src} owns data rows: move them with their own tool first")
+            keyed = [rel for rel in PROTECTED_PATH_KEYED if (ctx.read(rel) or b"").find(src.encode()) >= 0]
+            if keyed:
+                raise Refusal(f"{src} is a key in {', '.join(keyed)} (protected, path-keyed)")
+            removed.append(src)
+
+    renames = {e["old"]: e["new"] for e in entries}
+    primary = entries[0]
+    evidence = IDENTITY + " " + "; ".join(
+        f"0x{e['rva']:08X} calls " + (", ".join(f"0x{t:08X}" for t in callees[e["rva"]]) or "nothing") +
+        (" (wrong before: " + ", ".join(f"0x{t:08X}" for t in e["wrong"]) + ")" if e["wrong"] else
+         " (wrapper of the respelled " + ", ".join(f"0x{t:08X}" for t in e["inner"]) + ")")
+        for e in entries)
+    plan = Plan("function", primary["old"], primary["new"], "inferred", evidence,
+                move_to or primary["source"], primary["rva"])
+
+    # Ledgers: every row, funclet and notes token spelling an old name.
+    raw = ctx.read(FUNCTIONS)
+    for e in entries:
+        raw, changed = rewrite_records(raw, "functions.csv", mangled_re(e["old"]), e["new"])
+        for b, a in changed:
+            at = _rva(b[2])
+            if b[0] != a[0]:
+                plan.renamed_rows.append((b[0], a[0], at))
+            else:
+                plan.notes_rows.append((b[0], at))
+    if move_to:
+        for src in removed:
+            raw, _count = repoint_column(raw, FUNCTIONS, "source", src, move_to)
+    plan.edit(ctx, FUNCTIONS, raw)
+    if move_to:
+        for rel, column in PATH_COLUMNS:
+            if rel == FUNCTIONS or ctx.read(rel) is None:
+                continue
+            data = ctx.read(rel)
+            for src in removed:
+                data, _count = repoint_column(data, rel, column, src, move_to)
+            if data != ctx.read(rel):
+                plan.edit(ctx, rel, data)
+    tombstoned = _tombstones(ctx)
+    for old_row, new_row, at in plan.renamed_rows:
+        if (old_row, at) not in tombstoned:
+            plan.edit(ctx, DELETED, appended(plan.after.get(DELETED, ctx.read(DELETED)), [tombstone_line(
+                old_row, at, f"Respelled to {new_row} by tools/rename.py (code identity)")],
+                header="name,target_rva,reason"))
+    plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
+        ["function", e["old"], e["new"], "inferred", evidence, move_to or e["source"], f"0x{e['rva']:08X}"])
+        for e in entries], header=NAME_BASIS_HEADER))
+
+    # Sources: the prepared C++ is the whole change; nothing may still spell an old name.
+    _batch_source_edits(ctx, plan, prepared)
+    for src in removed:
+        plan.before.setdefault(src, ctx.read(src))
+        plan.removed.append(src)
+    for e in entries:
+        left = sorted(rel for rel, data in plan.after.items()
+                      if rel in prepared and mangled_re(e["old"]).search(data.decode("utf-8", "replace")))
+        if left:
+            raise Refusal(f"prepared {', '.join(left)} still spells {e['old']}")
+        elsewhere = sorted(set(ctx.grep_files(e["old"], roots=("Code",))) - set(prepared) - set(removed))
+        if elsewhere:
+            raise Refusal(f"{', '.join(elsewhere[:4])} still spells {e['old']}: prepare every unit that names it")
+    verify = (set(prepared) | owner_sources) - set(removed)
+    verify |= {r["source"] for r in rows if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
+    plan.verify = sorted(v for v in verify if not is_generated(v) and v not in removed)
+    if len(plan.verify) > max_files:
+        raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
+    plan.identity = dict(
+        rows=[(e["rva"], e["old"], e["new"]) for e in entries],
+        sources=sorted(set(plan.verify)),
+        wrong_before=sorted({_identity_key(r, renames) for r in identity_wrong(before)}),
+        callees={e["rva"]: callees[e["rva"]] for e in entries})
+    plan.claims = sorted({at for _, _, at in plan.renamed_rows} | {at for _, at in plan.notes_rows}) + \
+        [f"file:{s}" for s in sorted(owner_sources | ({move_to} if move_to else set()))]
+    edited = set(plan.after) | {"reverse/re_attempts.log"}
+    plan.mentions = sorted({m for e in entries for m in ctx.grep_files(e["old"], roots=("docs", "reverse"))}
+                           - edited)
+    return plan
+
+
+def identity_problems(ctx, identity):
+    """What the rebuilt objects say against an identity respell: a respelled row
+    with no references or a wrong one, or a wrong binding new to a touched source."""
+    refs = identity_refs(ctx, identity["sources"])
+    problems = []
+    for at, old, new in identity["rows"]:
+        own = [r for r in refs if r["row"] == new and r["rva"] == at]
+        if not own:
+            problems.append(f"{new} (0x{at:08X}) has no code-identity references after the respell")
+        for r in identity_wrong(own):
+            problems.append(f"{new} (0x{at:08X}) still binds {r['symbol']} at 0x{r['target']:08X} "
+                            f"({r['cls']})")
+    known = {tuple(k) for k in identity["wrong_before"]}
+    for r in identity_wrong(refs):
+        if any(r["row"] == new and r["rva"] == at for at, _old, new in identity["rows"]):
+            continue
+        if _identity_key(r, {}) not in known:
+            problems.append(f"{r['row']} in {r['source']} gains a wrong binding of {r['symbol']} "
+                            f"at 0x{r['target']:08X} ({r['cls']})")
+    return problems
 
 
 # ---------------------------------------------------------------- virtual respell
@@ -10182,6 +10471,9 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
         for rel, data in plan.after.items():
             ctx.path(rel).parent.mkdir(parents=True, exist_ok=True)
             ctx.path(rel).write_bytes(data)
+        for rel in plan.removed:
+            if ctx.path(rel).exists():
+                ctx.path(rel).unlink()
         ctx._build_diagnostics = ""
         if not verify(ctx, plan.verify):
             error = VerifyFailed(f"verification failed for {plan.old} -> {plan.new}; every file restored")
@@ -10195,6 +10487,14 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if slot_problems:
                 raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
                                    f"{slot_problems[0][:300]}; every file restored")
+        if plan.identity:
+            # The rebuilt objects' bindings are the proof: every reference of a
+            # respelled row binds its retail owner, and no touched row gains a
+            # wrong binding.
+            identity_problems_found = identity_problems(ctx, plan.identity)
+            if identity_problems_found:
+                raise VerifyFailed(f"the code-identity check does not prove {plan.old} -> {plan.new}: "
+                                   f"{identity_problems_found[0][:300]}; every file restored")
         if plan.retype:
             retype_problems = retype_object_problems(ctx, plan.retype)
             if retype_problems:
@@ -11598,7 +11898,17 @@ def main(argv=None):
     function.add_argument("--also", action="append", default=[], metavar="RVA=NEW",
                           help="with --to-class: move another slot of the same retail table in the same plan "
                                "(repeatable); a table whose slots are all still rowed under other placeholders "
-                               "is proved only by moving them together")
+                               "is proved only by moving them together; with --respell --identity: respell "
+                               "another row in the same plan (NEW is its whole mangled name)")
+    function.add_argument("--identity", action="store_true",
+                          help="with --respell: respell compiler-spelled rows (operators, special members, "
+                               "template members) by code identity, no --basis: refused unless the "
+                               "code-identity check reports a wrong binding before and, after ./build.sh, every "
+                               "reference of every respelled row binds its retail owner")
+    function.add_argument("--move-to", metavar="TU",
+                          help="with --respell --identity: also move the respelled rows into their approved "
+                               "TU (reverse/tu_map.csv); every row of the owner source must move, its "
+                               "path-keyed columns follow and the emptied source is deleted")
     data = kinds.add_parser("global", parents=[common],
                             help="respell one reverse/data_rows.csv global and every consumer")
     data.add_argument("--name", required=True, help="the global's mangled name, or its bare identifier")
@@ -11727,6 +12037,13 @@ def main(argv=None):
     to_class = args.kind == "function" and args.to_class
     fold = args.kind == "class" and (args.fold is not None or args.into is not None)
     respell = args.kind == "function" and getattr(args, "respell", False)
+    identity = args.kind == "function" and getattr(args, "identity", False)
+    if args.kind == "function" and (identity or args.move_to) and not respell:
+        parser.error("--identity and --move-to go with --respell")
+    if args.kind == "function" and args.move_to and not identity:
+        parser.error("--move-to goes with --respell --identity")
+    if identity and args.basis:
+        parser.error("--respell --identity takes its evidence from the code-identity check: pass no --basis")
     if args.kind == "function" and args.prepared and not (to_class or args.virtual or respell):
         parser.error("--prepared goes with --to-class, --virtual or --respell")
     if respell and (to_class or args.virtual):
@@ -11740,8 +12057,8 @@ def main(argv=None):
                      "retail's vftable: pass no --basis")
     also = []
     for item in (args.also if args.kind == "function" else []):
-        if not to_class:
-            parser.error("--also goes with --to-class")
+        if not to_class and not identity:
+            parser.error("--also goes with --to-class or --respell --identity")
         at, sep, word = item.partition("=")
         try:
             also.append((int(at, 16), word))
@@ -11784,8 +12101,10 @@ def main(argv=None):
     elif args.kind == "class" and (args.name is None or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--name", args.name), ("--new", args.new)) if v is None))
-    if not virtual and not fold and not to_class and not retype and (args.basis is None or args.evidence is None
-                                                                     or args.new is None):
+    if identity and args.new is None:
+        parser.error("the following arguments are required: --new")
+    if not virtual and not fold and not to_class and not retype and not identity and (
+            args.basis is None or args.evidence is None or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--new", args.new), ("--basis", args.basis),
                                               ("--evidence", args.evidence)) if v is None))
@@ -11801,6 +12120,10 @@ def main(argv=None):
     if respell:
         kwargs["respell"] = True
         kwargs["prepared"] = prepared
+    if identity:
+        kwargs.update(identity=True, move_to=args.move_to, basis=None, evidence="")
+        if also:
+            kwargs["also"] = also
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
                       prepared=prepared or None)
