@@ -2490,9 +2490,9 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCt
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp	??1MyHeroBlingBlock@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp	?DoXfer@CreateAHeroData@@UAEXAAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero_Unresolved.cpp	?Update@CreateAHeroData@@UAE_NH@Z	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp	?g_00BBFDDC@@3QBDB	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp	?g_00BBFDE0@@3QBDB	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp	?writeFirewallBehavior@FirewallHelperClass@@QAEXXZ	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp	?g_00BBFDDC@@3QBDB	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp	?g_00BBFDE0@@3QBDB	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp	?writeFirewallBehavior@FirewallHelperClass@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp	_strcpy	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva0039C4F7@@YAXPAVXfer0051FFF5@@PAX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	?Rva0040E269@@YAXPAVXfer0051FFF5@@PAX@Z	1
