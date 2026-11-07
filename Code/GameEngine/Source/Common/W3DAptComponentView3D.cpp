@@ -84,7 +84,7 @@ namespace StrategicHUD {
 //   0x003AD273  0x003ABA36  Rva003AD273 -> Rva003ABA36
 //   0x003AD2AE  0x003ABC58  Rva003AD2AE -> Rva003ABC58
 //   0x003FDC41  0x003FCE38  Rva003FDC41 -> Rva003FCE38
-//   0x004851A8  0x004B8CDE  Rva004851A8 -> Rva004B8CDE
+//   0x004851A8  0x004B8CDE  Rva004851A8 -> CreateModule
 //   0x00488D3B  0x004D759C  Rva00488D3B -> StateMachine
 //   0x004905B0  0x0026E1FC  Rva004905B0 -> TransportAIUpdateModuleData
 //   0x004C1B7B  0x004C1569  Rva004C1B7B -> RespawnBodyModuleData
@@ -315,16 +315,6 @@ class __declspec(novtable) Rva003FDC41 : public Rva003FCE38
 {
 public:
 	virtual ~Rva003FDC41();
-};
-class Rva004B8CDE
-{
-public:
-	virtual ~Rva004B8CDE();
-};
-class __declspec(novtable) Rva004851A8 : public Rva004B8CDE
-{
-public:
-	virtual ~Rva004851A8();
 };
 #include "../../Include/Common/StateMachineClass.h"
 class __declspec(novtable) Rva00488D3B : public StateMachine

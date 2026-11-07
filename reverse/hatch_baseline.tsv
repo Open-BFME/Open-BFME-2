@@ -2059,13 +2059,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C86
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C87F4_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C8A16_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp	??1CollideModule@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B8C3E_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B8DB1_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B8EA8_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B8F92_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B9287_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B9375_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B9458_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp	?f2@Rva004B96E5_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp	?f2@Rva004BAB36_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp	?f2@Rva004BB0CC_B2@@UAEXXZ	1
@@ -2880,7 +2873,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp	?b7@B7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp	?b8@B8@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	??0ExperienceLevelCreateBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	?f2@Rva004B8CDE_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	?crc@LockWeaponCreate@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	?loadPostProcess@LockWeaponCreate@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp	?onCreate@LockWeaponCreate@@UAEXXZ	1
@@ -12296,7 +12288,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineCon
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f20@SiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f30@SiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f34@SiegeEngineContain@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/CreateModule.cpp	CreateModule::~CreateModule	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate.cpp	1GrantUpgradeCreate@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate.cpp	crc@GrantUpgradeCreate@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate.cpp	loadPostProcess@GrantUpgradeCreate@@MAEXXZ	1
