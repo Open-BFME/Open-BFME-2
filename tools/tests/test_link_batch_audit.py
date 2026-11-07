@@ -136,7 +136,22 @@ def references():
 
 
 @pytest.fixture
-def batch(monkeypatch, tmp_path, weaks, includes, references):
+def bridge():
+    """{name: [vtable_bridge.definitions copy]} the batch fixture's bridge reader returns."""
+    return {}
+
+
+def select_any(obj, selection=2, **extra):
+    return dict(object=obj, comdat=True, selection=selection, offset=0, other_publics=[], executable=False,
+                archive=False, extent=4, pointers={}, **extra)
+
+
+def bridged(at, rva=0x100):
+    return {name: {"rva": rva, "names": set(at), "addresses": {other: {rva} for other in at}} for name in at}
+
+
+@pytest.fixture
+def batch(monkeypatch, tmp_path, weaks, includes, references, bridge):
     """Use the real overlay and link resolver; supply small object fact sets."""
     saved = index()
     saved.update(objects=["provider.obj", "caller.obj"],
@@ -177,6 +192,8 @@ def batch(monkeypatch, tmp_path, weaks, includes, references):
     monkeypatch.setattr(A, "bridged_names", lambda: {})
     monkeypatch.setattr(A, "include_reader", lambda *args: lambda obj: includes.get(obj, set()))
     monkeypatch.setattr(A, "reference_reader", lambda paths: lambda obj: references.get(obj, set()))
+    monkeypatch.setattr(A, "bridge_copy_reader", lambda paths: lambda names, holders: {
+        name: copies for name, copies in bridge.items() if name in names})
     return saved, facts, changes, paths
 
 
@@ -509,21 +526,78 @@ def test_a_weak_fallback_that_resolves_is_no_loss_and_one_that_does_not_is(batch
     assert "REAL-LINK LOSS api:" in capsys.readouterr().out
 
 
-def test_a_name_the_vtable_bridge_may_generate_is_a_candidate(batch, monkeypatch, capsys):
+def test_a_name_the_vtable_bridge_may_generate_is_a_candidate(batch, bridge, monkeypatch, capsys):
     saved, facts, _, _ = batch
     saved["blockers"]["Code/caller.cpp"]["linked"] = False
     saved["comdat"]["twin"] = [(1, "t", "retail")]                    # caller keeps a COMDAT copy of `twin`
     facts["caller.obj"] = ([("twin", "t", 4, "retail")], ["caller"], ["api"], [])
     facts["provider.obj"] = ([], [], [], [])
-    monkeypatch.setattr(A, "bridged_names", lambda: {"api": {"api", "twin"}, "twin": {"api", "twin"}})
+    bridge["twin"] = [select_any("caller.obj")]
+    monkeypatch.setattr(A, "bridged_names", lambda: bridged({"api", "twin"}))
     monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
-    assert A.audit("a" * 40, "b" * 40, []) == 0
+    assert A.audit("a" * 40, "b" * 40, []) == 2                     # unproven: inconclusive, never clean
     out = capsys.readouterr().out
     assert "REAL-LINK LOSS CANDIDATE api:" in out and "the vtable bridge" in out
     assert "0 name(s) the real link would no longer resolve, 1 candidate(s) " \
-           "(refuse mode: candidates only, not refused)" in out
+           "(refuse mode: candidates only, unverified)" in out
+    assert "no linking regression found" not in out
 
 
+@pytest.mark.parametrize("copy, why", [
+    (dict(selection=3), "unsupported-selection"),
+    (dict(offset=8), "shared-or-prefixed-comdat"),
+    (dict(other_publics=["_other"]), "shared-or-prefixed-comdat"),
+    (dict(executable=True), "shared-or-prefixed-comdat"),
+    (dict(comdat=False), "strong neighbour: no copy left"),
+])
+def test_a_neighbour_the_bridge_refuses_leaves_a_loss(batch, bridge, monkeypatch, capsys, copy, why):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["comdat"]["twin"] = [(1, "t", "retail")]
+    facts["caller.obj"] = ([("twin", "t", 4, "retail")], ["caller"], ["api"], [])
+    facts["provider.obj"] = ([], [], [], [])
+    bridge["twin"] = [{**select_any("caller.obj"), **copy}]
+    monkeypatch.setattr(A, "bridged_names", lambda: bridged({"api", "twin"}))
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1, why
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS api:" in out and "CANDIDATE" not in out
+
+
+def test_a_name_bound_at_a_second_address_is_never_bridged(batch, bridge, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["comdat"]["twin"] = [(1, "t", "retail")]
+    facts["caller.obj"] = ([("twin", "t", 4, "retail")], ["caller"], ["api"], [])
+    facts["provider.obj"] = ([], [], [], [])
+    bridge["twin"] = [select_any("caller.obj")]
+    table = bridged({"api", "twin"})
+    table["api"]["addresses"]["twin"] = {0x100, 0x200}            # `twin` is also bound elsewhere
+    monkeypatch.setattr(A, "bridged_names", lambda: table)
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+
+
+def test_unreadable_bridge_copies_make_a_candidate(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["comdat"]["twin"] = [(1, "t", "retail")]
+    facts["caller.obj"] = ([("twin", "t", 4, "retail")], ["caller"], ["api"], [])
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A, "bridged_names", lambda: bridged({"api", "twin"}))
+    monkeypatch.setattr(A, "bridge_copy_reader", lambda paths: lambda names, holders: None)
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 2
+    assert "REAL-LINK LOSS CANDIDATE api:" in capsys.readouterr().out
+
+
+def test_the_bridge_copy_reader_reads_the_holders_with_the_bridge_s_own_reader(tmp_path):
+    import link_cycle
+    obj = link_cycle.write_coff(tmp_path / "t.obj", [(".rdata", 0x40301040, bytes(4), 2)],
+                                [("??_7twin@@6B@", 1, 0, link_cycle.EXTERNAL)])
+    found = A.bridge_copy_reader({"t.obj": obj})({"??_7twin@@6B@"}, {"t.obj"})
+    assert [(c["comdat"], c["selection"]) for c in found["??_7twin@@6B@"]] == [(True, 2)]
+    assert A.bridge_copy_reader({"gone.obj": tmp_path / "gone.obj"})({"x"}, {"gone.obj"}) is None
 def test_an_unreadable_weak_table_makes_a_candidate(batch, weaks, monkeypatch, capsys):
     saved, facts, _, _ = batch
     saved["blockers"]["Code/caller.cpp"]["linked"] = False
@@ -857,20 +931,18 @@ def test_a_lost_vtable_name_with_no_kept_copy_beside_it_is_a_loss(batch, monkeyp
     facts["provider.obj"] = ([], [], [], [])
     # The ledger lists `api` as a vtable with a neighbour, but no kept object has a COMDAT copy of
     # either: the bridge would refuse no-kept-definition, so nothing emits `api`.
-    monkeypatch.setattr(A, "bridged_names", lambda: {"api": {"api", "twin"}, "twin": {"api", "twin"}})
+    monkeypatch.setattr(A, "bridged_names", lambda: bridged({"api", "twin"}))
     monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
     assert A.audit("a" * 40, "b" * 40, []) == 1
     out = capsys.readouterr().out
     assert "REAL-LINK LOSS api:" in out and "CANDIDATE" not in out
-
-
 def test_bridged_names_keep_only_names_with_one_retail_address(monkeypatch):
     import vtable_bridge
     rows = [{"address": "0x10", "name": "a", "names": "b"}, {"address": "0x20", "name": "c", "names": "b"}]
     monkeypatch.setattr(vtable_bridge, "table_rows", lambda root: rows)
-    assert A.bridged_names() == {"a": {"a", "b"}, "c": {"b", "c"}}
-
-
+    assert A.bridged_names() == {
+        "a": {"rva": 0x10, "names": {"a", "b"}, "addresses": {"a": {0x10}, "b": {0x10, 0x20}}},
+        "c": {"rva": 0x20, "names": {"b", "c"}, "addresses": {"b": {0x10, 0x20}, "c": {0x20}}}}
 def test_resolving_an_inner_alias_leaves_the_outer_one_unresolved(batch, monkeypatch, capsys):
     saved, facts, changes, _ = batch
     unlinked(saved)
@@ -940,14 +1012,17 @@ def updated_index_batch(saved, facts, paths, monkeypatch):
     monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
 
 
-def test_an_include_in_a_unit_the_updated_index_never_read_is_found(batch, includes, monkeypatch, capsys):
+def unit(defined=(), refs=(), weaks=None, alternates=None, forced=()):
+    return {"defined": set(defined), "references": set(refs), "weaks": dict(weaks or {}),
+            "alternates": dict(alternates or {}), "includes": set(forced)}
+
+
+def test_an_include_in_a_unit_the_updated_index_never_read_is_found(batch, references, monkeypatch, capsys):
     saved, facts, _, paths = batch
     updated_index_batch(saved, facts, paths, monkeypatch)
-    includes["new_unit.obj"] = {"api"}
+    references["new_unit.obj"] = unit(forced={"api"})
     assert A.audit("a" * 40, "b" * 40, []) == 1
     assert "REAL-LINK LOSS api:" in capsys.readouterr().out
-
-
 def test_a_symbol_reference_in_a_unit_the_index_never_read_is_found(batch, references, monkeypatch, capsys):
     saved, facts, _, paths = batch
     updated_index_batch(saved, facts, paths, monkeypatch)
@@ -961,10 +1036,40 @@ def test_an_unreadable_unit_the_index_never_read_makes_a_candidate(batch, refere
     saved, facts, _, paths = batch
     updated_index_batch(saved, facts, paths, monkeypatch)
     references["new_unit.obj"] = None
+    assert A.audit("a" * 40, "b" * 40, []) == 2
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS CANDIDATE api:" in out and "no linking regression found" not in out
+
+
+def test_a_definition_in_a_unit_the_index_never_read_keeps_the_name(batch, references, monkeypatch, capsys):
+    saved, facts, _, paths = batch
+    updated_index_batch(saved, facts, paths, monkeypatch)
+    saved["touches"]["caller.obj"] = {"caller", "api"}
+    facts["caller.obj"] = ([], ["caller"], ["api"], [])
+    references["new_unit.obj"] = unit(defined={"api"})
     assert A.audit("a" * 40, "b" * 40, []) == 0
-    assert "REAL-LINK LOSS CANDIDATE api:" in capsys.readouterr().out
+    assert "REAL-LINK LOSS" not in capsys.readouterr().out
 
 
+def test_an_alias_in_a_unit_the_index_never_read_strands_its_callers(batch, references, monkeypatch, capsys):
+    saved, facts, _, paths = batch
+    updated_index_batch(saved, facts, paths, monkeypatch)
+    saved["touches"]["caller.obj"] = {"caller", "public"}
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    references["new_unit.obj"] = unit(alternates={"public": "api"})
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS public: defined before this batch through /alternatename" in capsys.readouterr().out
+
+
+def test_report_mode_keeps_its_exit_but_does_not_claim_a_clean_pass(batch, references, monkeypatch, capsys):
+    saved, facts, _, paths = batch
+    updated_index_batch(saved, facts, paths, monkeypatch)
+    references["new_unit.obj"] = None
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "report")
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    out = capsys.readouterr().out
+    assert "no linking regression found in the checked scope" not in out
+    assert "the real-link findings above are reported only" in out
 def test_an_updated_index_reads_every_kept_object_s_directives():
     before = tables(["provider.obj", "old.obj"], strong={"api": [0]}, touches={"old.obj": set()})
     after = tables(["old.obj"], touches={"old.obj": set()})
@@ -980,12 +1085,14 @@ def test_an_updated_index_reads_every_kept_object_s_directives():
     assert read == ["old.obj"]
 
 
-def test_reference_reader_reads_undefined_and_weak_names(tmp_path):
-    obj = include_object(tmp_path / "plain.obj", " /INCLUDE:api ")
-    assert A.reference_reader({"plain.obj": obj})("plain.obj") == set()
+def test_reference_reader_reads_a_unit_whole(tmp_path):
+    import link_cycle
+    obj = link_cycle.write_coff(tmp_path / "u.obj", [(".text", 0x60500020, b"\xc3", 0),
+                                                     (".drectve", 0x100A00, b" /alternatename:public=api /INCLUDE:root ", 0)],
+                                [("own", 1, 0, link_cycle.EXTERNAL), ("used", 0, 0, link_cycle.EXTERNAL)])
+    assert A.reference_reader({"u.obj": obj})("u.obj") == {
+        "defined": {"own"}, "references": {"used"}, "weaks": {}, "alternates": {"public": "api"}, "includes": {"root"}}
     assert A.reference_reader({"gone.obj": tmp_path / "gone.obj"})("gone.obj") is None
-
-
 def test_dropping_an_alias_to_a_name_the_batch_never_defined_strands_its_callers():
     # provider.obj (changed) drops /alternatename:public=lib; `lib` lives in an unchanged object,
     # so it is not among the names the batch's objects define.
@@ -1003,10 +1110,8 @@ def test_a_trusted_graph_still_reads_a_unit_the_index_never_read():
     after = tables(["old.obj"])
     after["touches"].pop("old.obj")                              # a unit the census never indexed
     found = A.real_link_losses(before, after, {"api"}, rank("provider.obj", "old.obj"), rank("old.obj"),
-                               includes=lambda obj: {"api"}, references=lambda obj: set(), referenced={"other"})
+                               references=lambda obj: unit(forced={"api"}), referenced={"other"})
     assert [(e[0], e[2], e[3]) for e in found] == [("api", ["old.obj"], "loss")]
-
-
 def test_an_updated_index_does_not_trust_its_graph_for_an_indexed_unit(batch, includes, monkeypatch, capsys):
     saved, facts, _, _ = batch
     unlinked(saved)
@@ -1017,5 +1122,62 @@ def test_an_updated_index_does_not_trust_its_graph_for_an_indexed_unit(batch, in
     facts["provider.obj"] = ([], [], [], [])
     includes["caller.obj"] = {"api"}                             # its new /INCLUDE:api
     monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS api:" in capsys.readouterr().out
+
+
+# Round 4 (98ce5bd575): the real link's own import requests.
+IMPORTS = {"runtime": {"_strcpy"}, "imported": {"socket": {"wsock32.dll"}, "GetTickCount": {"kernel32.dll"}},
+           "stubs": {"_socket@12": {("wsock32.dll", "socket")}, "_htons@4": {("wsock32.dll", "htons")}}}
+
+
+@pytest.mark.parametrize("name, refs, resolves", [
+    ("_strcpy", set(), True),                       # msvcrt.lib is always linked
+    ("_socket@12", {"_socket@12"}, True),           # a direct reference requests the import
+    ("_socket@12", {"public"}, False),              # an alias's target is never requested
+    ("__imp__GetTickCount@0", {"__imp__GetTickCount@0"}, True),
+    ("__imp__GetTickCount@0", set(), False),
+    ("_htons@4", {"_htons@4"}, False),              # a census stub retail does not import
+    ("_free_name", {"_free_name"}, False),
+])
+def test_import_resolution_follows_the_real_link_s_requests(name, refs, resolves):
+    assert A.import_resolves(name, refs, IMPORTS["runtime"], IMPORTS["imported"]) is resolves
+
+
+def test_an_alias_to_an_import_the_real_link_never_requests_strands_its_callers(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    name = "_socket@12"
+    saved["comdat"] = {name: [(0, "good", "retail")]}
+    saved["touches"] = {"provider.obj": {name}, "caller.obj": {"caller", "public"}}
+    saved["alternates"] = {"public": [(1, name)]}
+    saved["excuses"] = IMPORTS
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    monkeypatch.setattr(A.link_check, "alternate_names",
+                        lambda obj: {"public": name} if obj.name == "caller.obj" else {})
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS public:" in capsys.readouterr().out
+
+
+def test_a_direct_call_of_an_import_still_resolves_after_its_tree_copy_goes(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    name = "_socket@12"
+    saved["comdat"] = {name: [(0, "good", "retail")]}
+    saved["touches"] = {"provider.obj": {name}, "caller.obj": {"caller", name}}
+    saved["excuses"] = IMPORTS
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([], ["caller"], [name], [])
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    assert "REAL-LINK LOSS" not in capsys.readouterr().out
+
+
+def test_an_include_reader_hit_counts_for_a_unit_the_index_never_read(batch, includes, monkeypatch, capsys):
+    saved, facts, _, paths = batch
+    updated_index_batch(saved, facts, paths, monkeypatch)
+    includes["new_unit.obj"] = {"api"}                            # the directive reader's view of the unit
     assert A.audit("a" * 40, "b" * 40, []) == 1
     assert "REAL-LINK LOSS api:" in capsys.readouterr().out
