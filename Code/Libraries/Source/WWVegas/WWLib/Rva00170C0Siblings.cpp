@@ -26,8 +26,11 @@ public:
 	virtual ~Rva006C5930Dtor();
 };
 
-__declspec(noinline) Rva006C5930Dtor::~Rva006C5930Dtor()
+// The empty body was not retail's 0x006C5930; declared only, so its pin binds the call.
+void Rva006C5930Dtor_Anchor()
 {
+	Rva006C5930Dtor *p = new Rva006C5930Dtor;
+	delete p;
 }
 
 class Rva00120FB0Dtor
@@ -36,8 +39,11 @@ public:
 	virtual ~Rva00120FB0Dtor();
 };
 
-__declspec(noinline) Rva00120FB0Dtor::~Rva00120FB0Dtor()
+// The empty body was not retail's 0x00120FB0; declared only, so its pin binds the call.
+void Rva00120FB0Dtor_Anchor()
 {
+	Rva00120FB0Dtor *p = new Rva00120FB0Dtor;
+	delete p;
 }
 
 class Rva00141C30Dtor
@@ -46,8 +52,11 @@ public:
 	virtual ~Rva00141C30Dtor();
 };
 
-__declspec(noinline) Rva00141C30Dtor::~Rva00141C30Dtor()
+// The empty body was not retail's 0x00141C30; declared only, so its pin binds the call.
+void Rva00141C30Dtor_Anchor()
 {
+	Rva00141C30Dtor *p = new Rva00141C30Dtor;
+	delete p;
 }
 
 class Rva00155330Dtor
@@ -56,8 +65,11 @@ public:
 	virtual ~Rva00155330Dtor();
 };
 
-__declspec(noinline) Rva00155330Dtor::~Rva00155330Dtor()
+// The empty body was not retail's 0x00155330; declared only, so its pin binds the call.
+void Rva00155330Dtor_Anchor()
 {
+	Rva00155330Dtor *p = new Rva00155330Dtor;
+	delete p;
 }
 
 class Rva00156750Dtor
@@ -66,8 +78,11 @@ public:
 	virtual ~Rva00156750Dtor();
 };
 
-__declspec(noinline) Rva00156750Dtor::~Rva00156750Dtor()
+// The empty body was not retail's 0x00156750; declared only, so its pin binds the call.
+void Rva00156750Dtor_Anchor()
 {
+	Rva00156750Dtor *p = new Rva00156750Dtor;
+	delete p;
 }
 
 // 0x00188320 is not a virtual deleting destructor: no vtable in the image
@@ -101,8 +116,11 @@ public:
 	virtual ~Rva00625800Dtor();
 };
 
-__declspec(noinline) Rva00625800Dtor::~Rva00625800Dtor()
+// The empty body was not retail's 0x00625800; declared only, so its pin binds the call.
+void Rva00625800Dtor_Anchor()
 {
+	Rva00625800Dtor *p = new Rva00625800Dtor;
+	delete p;
 }
 
 class Rva0066C730Dtor
@@ -111,8 +129,13 @@ public:
 	virtual ~Rva0066C730Dtor();
 };
 
-__declspec(noinline) Rva0066C730Dtor::~Rva0066C730Dtor()
+// Retail's 0x0066C730 is a 35-byte reset body (rowed in Fesl/util.cpp), not an
+// empty destructor: declare it only so the pin binds the call, and emit the
+// deleting destructor from a devirtualized new/delete (the anchor is unclaimed).
+void Rva0066C730Dtor_Anchor()
 {
+	Rva0066C730Dtor *p = new Rva0066C730Dtor;
+	delete p;
 }
 
 class Rva0073A900Dtor
@@ -121,8 +144,11 @@ public:
 	virtual ~Rva0073A900Dtor();
 };
 
-__declspec(noinline) Rva0073A900Dtor::~Rva0073A900Dtor()
+// The empty body was not retail's 0x0073A900; declared only, so its pin binds the call.
+void Rva0073A900Dtor_Anchor()
 {
+	Rva0073A900Dtor *p = new Rva0073A900Dtor;
+	delete p;
 }
 
 // 0x007581C0 is likewise non-virtual (no DIR32 holds its address): it is the
