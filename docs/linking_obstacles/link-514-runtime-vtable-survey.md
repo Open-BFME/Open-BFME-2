@@ -370,6 +370,10 @@ Still open in the family:
   The ctor stores the dtor unit's one-slot `??_7Rva004DF324@@6B@` at +0, a zero int at +0x0C and a three-entry
   `extern "C"` array at +0x10. No tool path names it yet: `class --fold` needs T (0x00C61588) already named by
   NEW and refuses a placeholder NEW, and a plain class rename collides with the rowed getModuleNameKey.
+  Its unwind spelled `~ObjectHelper` non-virtual (`??1ObjectHelper@@QAE@XZ`), which linked only through the
+  old Recovery/WeaponStatus units' inline copies; Rva004DF418Finish.cpp now declares the views' destructors
+  virtual and keeps today's three stores (novtable class), so it still LINKS 122 B. That is containment, not
+  the fix: the class's own tables wait for the identity above.
 
 **Dummy-vptr ctors over UpdateModule.h (2026-11-07, seat halilkkaya-lk43).** The same recipe works for a
 module that derives from UpdateModule directly, with no helper header: declare the class over the
