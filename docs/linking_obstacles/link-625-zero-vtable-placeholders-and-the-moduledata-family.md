@@ -170,7 +170,20 @@ exact, `??_7TransitionDamageFXModuleData@@6B@` 31 slots in ModuleData's order (r
 receipt and review.
 Correction (same day): the first branch receipt (2026-11-07T172257Z-boot_smoke-7aa7683f0547, d048b0c454) still stopped in
 parseModuleName, one virtual call later (+0x25f, slot 7, `_bfmeDisp0Slot_Purecall`): the image's
-`??_7TransitionDamageFXModuleData@@6B@` was FamilyDeletingDtors.obj's two-slot copy (its one-virtual scaffold view emits the
+`??_7TransitionDamageFXModuleData@@6B@` was FamilyDeletingDtors.obj's one-slot copy (one slot, then a zero word) (its one-virtual scaffold view emits the
 rowed ??_G 0x004BA6F9, displaced in tu_map), which won the COMDAT selection over the constructor unit's 31-slot table. The
 scaffold's view now derives from the same UpdateModuleData-over-ModuleData bases, as 8606f0149f and 4d44fb30c14 did, so both
 copies have the same 31 slots and the same ??_G.
+Scan rule for this shape (for the crash-prevention lane): a deleting-destructor scaffold (FamilyDeletingDtors*.cpp,
+*DeletingDtors*.cpp, OpaqueScalarDeletingDtors*.cpp) declares a class as `class X { public: X(EmitVtableTag *); virtual ~X(); };`
+so that it emits the rowed `??_GX`. That view also emits a one-slot `??_7X@@6B@` COMDAT. When nothing else defines `??_7X`,
+or the constructor unit stores a placeholder instead, the short copy is the kept table; when the constructor unit is fixed to
+emit the full table, the scaffold's short copy can still win the COMDAT selection (TransitionDamageFX above). Detect it on an
+image's own inputs (image_objects.json): for every `??_7` defined as a COMDAT in two or more objects, compare each
+definition's size and flag names whose copy kept in exit.map is shorter than another definition; separately list the tables
+kept from a scaffold object rather than retail_vtables.obj. In image d048b0c454: 108 one-virtual EmitVtableTag scaffold
+views; 57 of their tables are kept from the scaffold object (23 of them ModuleData classes, e.g. SpawnBehavior,
+AttributeModifierAuraUpdate, InheritUpgradeCreate, GrantUpgradeCreate, SpecialPower, MonitorConditionUpdate,
+PickupStuffUpdate, PropagandaTowerBehavior, HordeGarrisonContain), 51 are bridged; TransitionDamageFX was the only case
+where a longer source copy lost. Fix rule: whenever a constructor unit is made to emit a class's real table, give the
+scaffold's view the same bases in the same commit so both copies are identical.
