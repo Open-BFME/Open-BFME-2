@@ -23893,3 +23893,10 @@ Code/GameEngine/Source/Common/GapBodiesGE38.cpp|class||Rva005E18EAPlayer,ad88761
 Code/GameEngine/Source/Common/GapBodiesGE43.cpp|function|0x0015AB00|rva0015AB00,75081e0cdc54771962c3e99c,gpt-6.1-sol,review-6fc290091d6c480f,w-70c965bf7665,2026-11-06
 Code/GameEngine/Source/Common/Rva00531A44Alloc.cpp|function|0x00531A44|rva00531A44,d6585801e21a6f1549908533,gpt-6.1-sol,review-6fc290091d6c480f,w-70c965bf7665,2026-11-06
 Code/GameEngine/Source/Common/Rva00531A44Alloc.cpp|function|0x00531A93|rva00531A93,4634443a4ca46957b75ea722,gpt-6.1-sol,review-6fc290091d6c480f,w-70c965bf7665,2026-11-06
+Code/GameEngine/Source/GameLogic/Object/Rva004692BAFormation.cpp|member|Rva004692BAObject|m_factory258,f857a0eb4b6fbd6edaa5e860,rev2,rev2,w-68afa17363d2,2026-11-07
+Code/GameEngine/Source/GameNetwork/Rva004D0E93CommandBuild.cpp|function|0x004D0E93|rva004D0E93,1b014881a1afdce531a27930,paira2,pairA2,w-256205f21238,2026-11-07
+Code/GameEngine/Source/Common/ConstIntGetters9.cpp|function|0x0033A3EE|Rva0033A3EEGet,38e8a69215db76c16581eaf2,rev5,rev5,w-1b7697c15922,2026-11-07
+Code/GameEngine/Source/GameNetwork/Rva004D0E93CommandBuild.cpp|function|0x004D0E93|rva004D0E93,1b014881a1afdce531a27930,paira1,pairA1,w-2c833d7a826d,2026-11-07
+Code/GameEngine/Source/Common/BfmeConv892.cpp|member|BfmePairFCD|m_bfmeFlag,0c41f9c0ece5224fd695fc9c,rev4,rev4,w-dfcca12ecd67,2026-11-07
+Code/GameEngine/Source/Common/BfmeConv892.cpp|function|0x0046258C|bfmeGoFCD,8a51ba774b655bbee939777c,rev4,rev4,w-dfcca12ecd67,2026-11-07
+Code/GameEngine/Source/GameNetwork/Rva004D0E93CommandBuild.cpp|function|0x004D0E93|rva004D0E93,1b014881a1afdce531a27930,paira3,pairA3,w-f80e70ce2365,2026-11-07
