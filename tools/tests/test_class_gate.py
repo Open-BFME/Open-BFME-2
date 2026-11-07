@@ -732,3 +732,54 @@ def test_move_credit_may_come_from_an_unrelated_deleted_unit(trepo, capsys):
     trepo.write(NEW, HASH + BODY)
     trepo.stage(NEW)
     assert trepo.gate(capsys) == (0, "")
+
+
+def fail_shadow_log_git(monkeypatch):
+    """Make only the shadow log's git call fail to launch; the gate's own git calls still run."""
+    real = class_gate.subprocess.run
+
+    def run(args, *rest, **kwargs):
+        if list(args[:2]) == ["git", "rev-parse"]:
+            raise OSError("cannot launch git")
+        return real(args, *rest, **kwargs)
+    monkeypatch.setattr(class_gate.subprocess, "run", run)
+
+
+def test_a_failing_shadow_log_cannot_change_a_shadow_finding(trepo, capsys, monkeypatch):
+    set_mode(trepo, "shadow")
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    fail_shadow_log_git(monkeypatch)
+    rc, err = trepo.gate(capsys)
+    assert rc == 0 and "class_gate [shadow] Code/Game/New.cpp: would refuse `rts::hash`" in err
+    assert not (trepo.root / ".git" / "class_gate_shadow.jsonl").exists()
+
+
+def test_a_failing_shadow_log_cannot_change_a_shadow_error_report(trepo, capsys, monkeypatch):
+    set_mode(trepo, "shadow")
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    fail_shadow_log_git(monkeypatch)
+    monkeypatch.setattr(class_gate, "introduced_identities", lambda *a: 1 / 0)
+    rc, err = trepo.gate(capsys)
+    assert rc == 0 and "[shadow] identity check failed on Code/Game/New.cpp: ZeroDivisionError" in err
+    assert class_gate.identity_failure("Code/Game/New.cpp", OSError("x"), "shadow") == 0
+
+
+def test_a_failing_shadow_print_or_log_write_cannot_change_the_gate(trepo, capsys, monkeypatch):
+    set_mode(trepo, "shadow")
+    trepo.write(NEW, HASH + BODY)
+    trepo.stage(NEW)
+    real_print = print
+
+    def broken_print(*args, **kwargs):
+        if args and "[shadow]" in str(args[0]):
+            raise ValueError("closed stream")
+        return real_print(*args, **kwargs)
+    monkeypatch.setattr(class_gate, "print", broken_print, raising=False)
+    monkeypatch.setattr(class_gate.json if hasattr(class_gate, "json") else __import__("json"), "dumps",
+                        lambda *a, **k: (_ for _ in ()).throw(TypeError("unserializable")))
+    rc, _err = trepo.gate(capsys)
+    assert rc == 0
+    assert class_gate.identity_failure("move credit", OSError("x"), "shadow") == 0
+    assert class_gate.identity_failure("move credit", OSError("x"), "enforce") == 1

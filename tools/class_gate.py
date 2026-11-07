@@ -483,30 +483,47 @@ def introduced_identities(path, text, canon, renamed_from=None, moved=None):
 
 
 def identity_failure(where, error, mode):
-    """Report a failure of the identity check: shadow reports and passes, enforce refuses."""
+    """Report a failure of the identity check: shadow reports and passes, enforce refuses. The
+    report itself cannot change that exit."""
     tag = "refused" if mode == "enforce" else "shadow"
-    print(f"class_gate [{tag}] identity check failed on {where}: {type(error).__name__}: {error}", file=sys.stderr)
-    if mode != "enforce":
-        shadow_log({"path": where, "key": None, "args": None, "why": f"check failed: {type(error).__name__}"})
-    return 1 if mode == "enforce" else 0
+    message = f"class_gate [{tag}] identity check failed on {where}: {type(error).__name__}: {error}"
+    if mode == "enforce":
+        try:
+            print(message, file=sys.stderr)
+        except Exception:  # noqa: BLE001 - enforce refuses whether or not the report prints
+            pass
+        return 1
+    shadow_report(message, {"path": where, "key": None, "args": None,
+                            "why": f"check failed: {type(error).__name__}"})
+    return 0
 
 
 def label(key, args):
     return key if args is None else f"{key}<{args}>"
 
 
-def shadow_log(record):
-    """Append one finding to the clone's shadow log (<git common dir>/class_gate_shadow.jsonl)."""
-    import json
-    result = subprocess.run(["git", "rev-parse", "--git-common-dir"], cwd=ROOT, capture_output=True, text=True)
-    if result.returncode != 0:
-        return
-    common = Path(result.stdout.strip())
-    common = common if common.is_absolute() else ROOT / common
+def shadow_report(message, record):
+    """Print and log one shadow finding. Never raises: shadow mode cannot change the gate's exit."""
     try:
+        print(message, file=sys.stderr)
+    except Exception:  # noqa: BLE001 - a shadow report must not break the gate
+        pass
+    shadow_log(record)
+
+
+def shadow_log(record):
+    """Append one finding to the clone's shadow log (<git common dir>/class_gate_shadow.jsonl).
+    Never raises: a failing git, path or write loses the log line, not the commit."""
+    import json
+    try:
+        result = subprocess.run(["git", "rev-parse", "--git-common-dir"], cwd=ROOT, capture_output=True, text=True)
+        if result.returncode != 0:
+            return
+        common = Path(result.stdout.strip())
+        common = common if common.is_absolute() else ROOT / common
         with open(common / SHADOW_LOG, "a", encoding="utf-8") as handle:
             handle.write(json.dumps(record, sort_keys=True) + "\n")
-    except OSError:
+    except Exception:  # noqa: BLE001 - a shadow log line must not break the gate
         pass
 
 
@@ -638,8 +655,8 @@ def main(argv=None):
                       f"include {canon[key]} instead", file=sys.stderr)
                 bad = 1
             else:
-                print(f"class_gate [shadow] {path}: would refuse `{label(key, args)}` ({why})", file=sys.stderr)
-                shadow_log({"path": path, "key": key, "args": args, "why": why})
+                shadow_report(f"class_gate [shadow] {path}: would refuse `{label(key, args)}` ({why})",
+                              {"path": path, "key": key, "args": args, "why": why})
     return bad
 
 
