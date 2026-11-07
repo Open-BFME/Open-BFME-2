@@ -24245,3 +24245,4 @@ Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp|class||Rva003B7BA0Record,6c3b8
 Code/GameEngine/Include/GameClient/Rva001DFEAABase.h|member|Rva001DFEAABase|m_04,f05ae21b0482ffdb9dbf7df9,claude-opus-5-5,defects-nuggettype,w-9aaa220ab6cf,2026-11-07
 Code/GameEngine/Include/GameClient/Rva001DFEAABase.h|member|Rva001DFEAABase|m_04,f05ae21b0482ffdb9dbf7df9,gpt-6.1-sol,voter-codex-2,w-8ec2693f00b5,2026-11-07
 Code/GameEngine/Source/Common/Rva0052D83B.cpp|function|0x0052D83B|rva0052D83B,9a446f62528b8d0dedffadef,claude-opus-5-5,seat5-act2,w-45f1d3732101,2026-11-07
+Code/GameEngine/Source/Common/Rva0052D83B.cpp|function|0x0052D83B|rva0052D83B,9a446f62528b8d0dedffadef,gpt-6.1-sol,voter-codex-3,w-8ec2693f00b5,2026-11-07
