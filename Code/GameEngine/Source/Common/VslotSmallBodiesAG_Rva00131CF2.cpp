@@ -191,13 +191,20 @@ public:
 class Rva005C4352 : public Rva005C4352Base
 {
 public:
-	void rva005C4352(MultiIniFieldParse &p);
 	void rva005C4553(MultiIniFieldParse &p);
 	void rva005C47A8(MultiIniFieldParse &p);
 };
-void Rva005C4352::rva005C4352(MultiIniFieldParse &multiIniFieldParse)
+// 0x005C4352 is slot 3 of Rva005C44A3's table 0x00C745D4 (installed by its
+// constructor 0x005C44A3): the "IncreaseCommandPoints" bonus's builder, whose
+// Type/Amount fields are the constructor's +0x08/+0x0C.
+class Rva005C44A3
 {
-	buildFieldParse(multiIniFieldParse);
+public:
+	virtual void rva005C4352(MultiIniFieldParse &p);
+};
+void Rva005C44A3::rva005C4352(MultiIniFieldParse &multiIniFieldParse)
+{
+	((Rva005C4352Base *)(void *)this)->buildFieldParse(multiIniFieldParse);
 	multiIniFieldParse.add(g_rva005C4352FieldParse, 0);
 }
 void Rva005C4352::rva005C4553(MultiIniFieldParse &multiIniFieldParse)

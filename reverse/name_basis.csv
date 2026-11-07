@@ -9075,3 +9075,4 @@ global,unrowedData,?LivingWorldIconSubObjectTemplateFieldParse@@3QBUFieldParse@@
 member,Rva000806F3Owner::m_260,Rva000806F3Owner::m_standingWaterArea,inferred,agree:nl-88db4d36f6d5,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000806F3BasesParams.cpp,
 member,BfmeRangeVJX::m_bfme04,BfmeRangeVJX::m_end,inferred,agree:nl-0eca50d5fac5,Code/GameEngine/Source/Common/BfmeConv1395.cpp,
 global,unrowedData,?AssistedTargetingUpdateModuleDataFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-3195b2cd3539,Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargetingUpdate.cpp,0x0084AFE8
+carry,?getName@Rva005C44C3@@UBE?AVAsciiString@@XZ,?getName@Rva005C44A3@@UBE?AVAsciiString@@XZ,inferred,"class move by tools/rename.py: retail table 0x00C745D4 slot 2, installed by ??0Rva005C44A3@@QAE@ABV?$StringBase@D@@@Z at 0x005C44A3",Code/GameEngine/Source/Common/RvaAsciiStringNameGetters.cpp,0x005C44C3

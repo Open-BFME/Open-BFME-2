@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Partly repaired (2 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162.
+Status: Partly repaired (3 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162.
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -13,7 +13,7 @@ rowed under a different placeholder class in another file, so no one class owns 
 | Common/Bfme5ThirtyTwo.cpp | g_bfmeVtableCZ (0x00CE4A10, 19 slots + string bytes) | 19 | 0x68A160 BfmeThingVIH::bfmeDelVIH (BfmeConv1374.cpp), 0x7244B0 ICF twin, 16x __purecall, 0x68A130 Rva0068A130::rva0068A130 (Rva0068A130Cluster.cpp). Ctor 0x68A0E0 Gen_0081E480 here, dtor body 0x68A110 |
 | Common/Rva000A217FCtor.cpp | g_00BC9020 (0x00BC9020) | 11 | GameWindow-family slots (??_GRva0008FF3E, Rva000A260AWindow::input/system, Rva000A261CWindow::draw, GameWindow::vslot6/8/9, Xfer::IsCRC twin, ...) |
 | Common/Rva004F599EClear.cpp | g_00C63254 (0x00C63254) | 4 | FIXED 2026-11-07 (below). ??_GObjectModule twin 0x4A10FD, ~Region2D twin 0xB3FD0, Rva004F59ACNamed::name, Rva004F599E::xfer |
-| Common/Rva005C44A3Ctor.cpp | g_00C745D4 (0x00C745D4, char blob with trailing strings) | 4 | 0x5C4537 (rowed ??_GRva004FA830), Rva005C44DF, Rva005C44C3::getName, Rva005C4352 |
+| Common/Rva005C44A3Ctor.cpp | g_00C745D4 (0x00C745D4, char blob with trailing strings) | 4 | FIXED 2026-11-07 (below). 0x5C4537 (rowed ??_GRva004FA830), Rva005C44DF, Rva005C44C3::getName, Rva005C4352 |
 | Common/R2ZeroingConstructors.cpp | R2Data010EC784 (0x00C61CA8), R2Data01085DBC (0x00C61C30) | 2 | ??_GRva004E194E, ??_GRva004E18A2; the ledger already lists ??_7Rva004E194E and ??_7Rva003B8610Record at 0x00C61CA8 |
 | Common/R3ScalarFieldConstructors1.cpp | Gen00C1F470 (0x00C1F470) | 1 | FIXED 2026-11-07 (below). ScriptGroup; retail's table has 4 slots: ??_GRva003B4100, shared `ret` 0x4B3FD0, getter 0x3B40FA, ScriptGroup::xfer |
 | Common/Rva007EB310Destroy.cpp | vftable_01129CB4 (0x00CE1514) | 1 | Rva007EB310Owner::destroy (ledger: ??_7Rva007EB2C0Object) |
@@ -90,13 +90,20 @@ Not fixed this pass, with what each needs:
   0x00658710, the variadic logger 0x00658820, assertFailed 0x00658890, errorFrom 0x00658930, a deleting
   destructor 0x006587E0 freeing 0x14 bytes); our array has one word, so slot-3 asserts read past it.
   Online only (created from createServiceHubImpl, called by BuddyThreadClass::Thread_Function).
-- Rva005C44A3 (g_00C745D4, the "IncreaseCommandPoints" LivingWorld bonus template): the ctor view
-  works (0x005C44A3 stays exact with the compiler's vptr store, three overrides declared in retail's
-  slot order), but the first `function --to-class` (0x005C44DF, 0x005C44C3 or 0x005C4352) is refused:
-  no slot of the installer's table resolves to a row yet (all three are under other placeholders and
-  slot 0's 0x005C4537 is ICF-shared), so the tool cannot show the order. Recorded as a false reject
-  (`re_attempts.log`, 0x005C44DF); the ctor attempt was reverted. Needs the tool to accept moving the
-  three together, then the same recipe.
+- Rva005C44A3 (g_00C745D4, the "IncreaseCommandPoints" LivingWorld bonus template): the first
+  `function --to-class` was refused because no slot of the installer's table resolved to a row (all three
+  under other placeholders, slot 0's 0x005C4537 ICF-shared). CLEARED 2026-11-07 (seat halilkkaya-lk50):
+  the tooling fix f4fe1d2f893 adds `--also RVA=NEW`, which moves the slots of one table in one plan, each
+  judged by the others. One batch moved 0x005C44DF -> `?rva005C44DF@Rva005C44A3@@UAEPAVRva005C436E@@I@Z`
+  (slot 1), 0x005C44C3 -> `?getName@Rva005C44A3@@UBE?AVAsciiString@@XZ` (slot 2) and 0x005C4352 ->
+  `?rva005C4352@Rva005C44A3@@UAEXAAVMultiIniFieldParse@@@Z` (slot 3). The ctor unit declares the three
+  overrides in retail's order, the compiler stores `??_7Rva005C44A3@@6B@`, and g_00C745D4 is deleted.
+  Against retail 0x00C745D4 by address: slots 1-3 equal; slot 0 is this unit's `??_E` (retail's
+  0x005C4537 is the ICF-shared `??_GRva004FA830`). Evidence: 20/20 exact; scoped DIR32 OK; link_check
+  over Rva005C44A3Ctor.cpp, Rva005C44DFCreate.cpp, RvaAsciiStringNameGetters.cpp,
+  Rva0052B5C6Factory.cpp and AsciiStringFoldDeleters.cpp: 5/5 LINK, 833 B unchanged;
+  VslotSmallBodiesAG_Rva00131CF2.cpp does not link before or after (0 B). Pass test: the next image_iso
+  run no longer lists 0x00C745D4's words in `defects.tsv`. Not claimed until that run.
 - g_00BC9020 (Rva000A217F, a W3D gadget window): needs the canonical GameWindow (Bfme2GameWindow.h)
   reconciled with the BfmeAptScreenBase chain its base ctor 0x00104F8F uses; header lane.
 
