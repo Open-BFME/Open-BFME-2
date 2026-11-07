@@ -5866,7 +5866,6 @@ Code/GameEngine/Source/Common/Rva007AE680Name.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007AE7EFStaticInstance.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007AF1DEFrameScaleSseInits.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva007AFC6BRegionInit.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007B1380Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007B401CButtonNameInits.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva007B49B3ButtonNameInits.cpp,yes,0,0,0,0,0
@@ -11821,7 +11820,7 @@ Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgradeModuleDataFriendNe
 Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgradeMuxSlots.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/LockWeaponCreatePoolKey.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgradeConstructor.cpp,no,0,0,1,0,0
+Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgradeConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgradeFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgrade.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgradeFriendNew.cpp,yes,0,0,0,0,0
