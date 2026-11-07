@@ -9180,3 +9180,5 @@ member,Rva001DFEAABase::m_04,Rva001DFEAABase::m_nuggetType,inferred,agree:nl-422
 class,Rva003B7BA0Record,EnableRegionRecord,inferred,agree:nr-0da3866284da5687290c2342,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,
 carry,?Class_ID@Rva0006DD63@@QAEHXZ,?Class_ID@LightClass@@UBEHXZ,inferred,"class move by tools/rename.py: retail table 0x00BD23C0 slot 3, installed by ??0LightClass@@QAE@W4LightType@0@@Z at 0x00130AC0 and 2 more LightClass special member(s)",Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,0x0006DD63
 function,?rva0052D83B@Rva0052D83B@@QAEXABURva0052D801Record@@@Z,?AddAct@LivingWorldCampaign@@QAEXABURva0052D801Record@@@Z,inferred,agree:nl-8aace85058e8,Code/GameEngine/Source/Common/Rva0052D83B.cpp,0x0052D83B
+function,?rva0007BEA7@Rva007C454@@UAE_NABVSphereClass@@@Z,?Cull_Sphere@Rva007C454@@UAE_NABVSphereClass@@@Z,inferred,agree:nl-d8708e4343be,Code/GameEngine/Source/Common/Rva0007BEA7Overlap.cpp,0x0007BEA7
+function,?rva0007BEDA@Rva007C454@@UAE_NABVAABoxClass@@@Z,?Cull_Box@Rva007C454@@UAE_NABVAABoxClass@@@Z,inferred,agree:nl-d18b46a5b97c,Code/GameEngine/Source/Common/Rva0007BEDAOverlap.cpp,0x0007BEDA

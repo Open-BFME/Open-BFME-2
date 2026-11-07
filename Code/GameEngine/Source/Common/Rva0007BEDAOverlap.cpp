@@ -28,13 +28,13 @@ class __declspec(dllimport) Vector3;
 void get_far_extent(const Vector3&, const Vector3&, Vector3*);
 class Rva007C454 {
 public:
- virtual bool rva0007BEDA(const AABoxClass &box);
+ virtual bool Cull_Box(const AABoxClass &box);
 private:
  char pad[0x3f8];
  PlaneClass *begin;
  PlaneClass *end;
 };
-bool Rva007C454::rva0007BEDA(const AABoxClass &box) {
+bool Rva007C454::Cull_Box(const AABoxClass &box) {
  PlaneClass *plane=begin;
  PlaneClass *const stop=end;
  for (; plane!=stop; ++plane) {

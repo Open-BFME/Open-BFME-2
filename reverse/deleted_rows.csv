@@ -5804,3 +5804,5 @@ __ehhandler$?rva00587F11@Rva00587F11Factory@@QAEPAVRva005D6FCC@@PAX@Z,0x0079CBA3
 ?Cull_Box@CameraClass@@QBE_NABVAABoxClass@@@Z,0x00135990,"Renamed to ?Cull_Box@CameraClass@@UBE_NABVAABoxClass@@@Z by tools/rename.py (virtual: retail vtable slot)"
 ?Cull_Sphere@CameraClass@@QBE_NABVSphereClass@@@Z,0x00135960,"Retracted: retail table 0x00BD26E0 slot 129 holds 0x00135960; so Cull_Sphere is virtual (UBE). W3DScene.cpp emitted this non-virtual copy only through the absent-from-retail anchor bfmeAnchorCameraCullSphere; camera.cpp (approved TU) now emits the virtual copy and is rowed next"
 ?bfmeGo940G@BfmeThing940G@@QAEXXZ,0x004B8CC9,"Renamed to ?onBuildComplete@LockWeaponCreate@@UAEXXZ by tools/rename.py (to-class: retail vftable 0x00C592EC slot 1)"
+?rva0007BEA7@Rva007C454@@UAE_NABVSphereClass@@@Z,0x0007BEA7,"Renamed to ?Cull_Sphere@Rva007C454@@UAE_NABVSphereClass@@@Z by tools/rename.py (inferred)"
+?rva0007BEDA@Rva007C454@@UAE_NABVAABoxClass@@@Z,0x0007BEDA,"Renamed to ?Cull_Box@Rva007C454@@UAE_NABVAABoxClass@@@Z by tools/rename.py (inferred)"
