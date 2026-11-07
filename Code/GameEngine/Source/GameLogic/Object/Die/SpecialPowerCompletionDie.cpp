@@ -1,7 +1,6 @@
-// cl: /Ireference/shims/diemodule_link /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
-// stlport
-// Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp); this unit had no counterpart under Code/.
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
+// Bodies follow the Generals Zero Hour reference
+// (GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp).
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -19,95 +18,109 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 ////////////////////////////////////////////////////////////////////////////////
 //																																						//
 //  (c) 2001-2003 Electronic Arts Inc.																				//
 //																																						//
 ////////////////////////////////////////////////////////////////////////////////
-
 // FILE: SpecialPowerCompletionDie.cpp ////////////////////////////////////////////////////////////
 // Author: Matthew D. Campbell, May 2002
 // Desc:   Die method responsible for telling TheScriptEngine that a special power has been completed
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+class Thing;
+class ModuleData;
+class Object;
+#include "../../../../Include/GameLogic/Module/DieModule.h"
+#include "../../../../Include/GameLogic/Module/DieMuxData.h"
+#include "../../../../Include/Common/NameKeyGenerator.h"
 
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+extern NameKeyGenerator *TheNameKeyGenerator;
 
-#include "Common/Player.h"
-#include "Common/SpecialPower.h"
-#include "Common/Xfer.h"
-#include "GameLogic/Module/SpecialPowerCompletionDie.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/ScriptEngine.h"
+enum ObjectID { INVALID_ID = 0 };
+
+// BFME2 has no crc: the canonical DieModule's Snapshot slot 2 is GetSnapshotName,
+// so this unit's tables no longer name the Zero Hour ?crc@BehaviorModule.
+//-------------------------------------------------------------------------------------------------
+// The die-module data (0x0045CE4C) forwards to its DieMuxData at +8
+// (`add ecx, 8; jmp 0x004CE588`).
+class DieModuleData
+{
+public:
+	bool isDieApplicable( const Object *obj, const DamageInfo *damageInfo ) const;
+private:
+	char m_moduleData[8];
+	DieMuxData m_dieMuxData;
+};
+
+bool DieModuleData::isDieApplicable( const Object *obj, const DamageInfo *damageInfo ) const
+{
+	return m_dieMuxData.isDieApplicable( obj, damageInfo );
+}
 
 //-------------------------------------------------------------------------------------------------
+// ??0DieModule (0x0045CEBD) calls ??0BehaviorModule, then the inline
+// DieModuleInterface constructor and DieModule's own three tables. Inline: the
+// other die units emit the same COMDAT, so a strong copy here would be a duplicate.
+inline DieModule::DieModule( Thing *thing, const ModuleData *moduleData ) : BehaviorModule( thing, moduleData )
+{
+}
+
+//-------------------------------------------------------------------------------------------------
+class SpecialPowerCompletionDie : public DieModule
+{
+public:
+	SpecialPowerCompletionDie( Thing *thing, const ModuleData* moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie( const DamageInfo *damageInfo );
+	void setCreator( ObjectID creatorID );
+	void notifyScriptEngine();
+protected:
+	virtual ~SpecialPowerCompletionDie();
+private:
+	ObjectID m_creatorID;				// +0x14
+	bool m_creatorSet;					// +0x18
+};
+
 //-------------------------------------------------------------------------------------------------
 SpecialPowerCompletionDie::SpecialPowerCompletionDie( Thing *thing, const ModuleData* moduleData ) : DieModule( thing, moduleData )
 {
 	m_creatorID = INVALID_ID;
-	m_creatorSet = FALSE;
-} 
+	m_creatorSet = false;
+}
 
 //-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ??1SpecialPowerCompletionDie@@ present-unmatched
+// Retail 0x004869FC (rowed as the opaque ??1Rva004869FC): the class's three tables,
+// then a tail jump to ~DieModule 0x0045CE54.
 SpecialPowerCompletionDie::~SpecialPowerCompletionDie( void )
 {
-
-} 
+}
 
 //-------------------------------------------------------------------------------------------------
+NameKeyType SpecialPowerCompletionDie::getModuleNameKey() const
+{
+	static NameKeyType nameKey = TheNameKeyGenerator->nameToKey( "SpecialPowerCompletionDie" );
+	return nameKey;
+}
+
 //-------------------------------------------------------------------------------------------------
 void SpecialPowerCompletionDie::onDie( const DamageInfo *damageInfo )
 {
 	if (!isDieApplicable(damageInfo))
 		return;
+
 	notifyScriptEngine();
 }
 
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
 // SpecialPowerCompletionDie::notifyScriptEngine is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDieNotify.cpp (0x00486B01).
 
-//-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 void SpecialPowerCompletionDie::setCreator( ObjectID creatorID )
 {
 	if (!m_creatorSet)
 	{
-		m_creatorSet = TRUE;
+		m_creatorSet = true;
 		m_creatorID = creatorID;
 	}
 }
 
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-// ?crc@SpecialPowerCompletionDie@@ present-unmatched
-void SpecialPowerCompletionDie::crc( Xfer *xfer )
-{
-
-	// extend base class
-	DieModule::crc( xfer );
-
-}  // end crc
-
-// ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
 // SpecialPowerCompletionDie::xfer: defined in SpecialPowerCompletionDieXfer.cpp (its row's unit).
-  // end xfer
-
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@SpecialPowerCompletionDie@@ present-unmatched
-void SpecialPowerCompletionDie::loadPostProcess( void )
-{
-
-	// extend base class
-	DieModule::loadPostProcess();
-
-}  // end loadPostProcess

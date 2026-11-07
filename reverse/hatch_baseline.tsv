@@ -10083,10 +10083,6 @@ pin	reverse/symbols.csv	0x009E204C	1
 pin	reverse/symbols.csv	0x009EC4A0	1
 pin	reverse/symbols.csv	0x009EC4A4	1
 pin	reverse/symbols.csv	0x009EC4A8	1
-pin	reverse/symbols.csv	0x009FDD44	1
-pin	reverse/symbols.csv	0x009FDD48	1
-pin	reverse/symbols.csv	0x009FDD4C	1
-pin	reverse/symbols.csv	0x009FDD54	1
 pin	reverse/symbols.csv	0x009FE16C	1
 pin	reverse/symbols.csv	0x009FE1C8	1
 pin	reverse/symbols.csv	0x009FE4CC	2
@@ -12329,9 +12325,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	crc@
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	loadPostProcess@DieModule@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	xfer@DieModule@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDieModuleDataCtor.cpp	1KeepObjectDieModuleData@@UAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp	1SpecialPowerCompletionDie@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp	crc@SpecialPowerCompletionDie@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp	loadPostProcess@SpecialPowerCompletionDie@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/FiringTracker.cpp	FiringTracker::getNumConsecutiveShotsAtVictim	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/FiringTracker.cpp	FiringTracker::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409850SubObject::method	1
