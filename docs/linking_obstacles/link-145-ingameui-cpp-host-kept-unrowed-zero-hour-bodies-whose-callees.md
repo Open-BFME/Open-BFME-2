@@ -57,3 +57,16 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
   all eight rows and LinkGuard; applying it needs the full repository gate and
   another guarded merge trial. Existing expireHint/resetIdleWorker ABI leads
   remain separate. [Proof and scope](../../reverse/attempt_support/ingameui-host-prune-20261107/README.md).
+
+  Donor cleanup published as 5d3b84e454: outgoing eight code/two data rows pass,
+  preserving the 244-byte ordinary preview. Broader audit is INCONCLUSIVE:
+  index 9c81acd297 versus base 6d6c5630213a285ffa0ce942d40737d8ffefabee;
+  the host lacks a current audit receipt. Carry selection into the next census.
+
+- **Same pass, optimized-host prerequisite:** the owning flag tool records
+  /O1 /Ot /G7 /arch:SSE. All eight native rows still match; /Ot keeps the
+  scalar wrapper's 25-byte add-ESP form instead of the regional 23-byte pop-ECX
+  form. Private LinkGuard passes, all seven prior strict borrowed-owner twins
+  remain matching, and CRT order is equal. The override remains necessary.
+  A new donor trial and actual image/census evidence remain required.
+  [Compiler and provider proof](../../reverse/attempt_support/ingameui-optimized-host-20261107/README.md).

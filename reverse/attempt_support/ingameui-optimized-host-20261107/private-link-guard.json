@@ -1,0 +1,18 @@
+{
+  "original": {
+    "rows": 8,
+    "matched": 8,
+    "preparation": null,
+    "guard": [],
+    "errors": [],
+    "object": "2206019fc2d94a4d.obj"
+  },
+  "pruned": {
+    "rows": 8,
+    "matched": 8,
+    "preparation": null,
+    "guard": [],
+    "errors": [],
+    "object": "c6037bf59dc21554.obj"
+  }
+}

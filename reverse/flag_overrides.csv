@@ -260,7 +260,7 @@ Code/GameEngine/Source/Common/namekey_hash.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/namekey_hash_lowercase.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/DrawableFields.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp,-Os -G7,2,1,region default loses rows
-Code/GameEngine/Source/GameClient/InGameUI.cpp,-G7 -arch:SSE,2,1,region default loses rows
+Code/GameEngine/Source/GameClient/InGameUI.cpp,-O1 -Ot -G7 -arch:SSE,8,1,region default loses rows
 Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp,-O1 -G7,2,1,region default loses rows
 Code/GameEngine/Source/GameClient/MapUtil.cpp,-G7 -arch:SSE,19,8,region default loses rows
 Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp,-O1,1,1,region default loses rows
