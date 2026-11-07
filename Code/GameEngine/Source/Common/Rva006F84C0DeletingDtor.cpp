@@ -12,8 +12,8 @@ inline void *operator new(unsigned int, void *p) { return p; }
 extern Rva006DB270 *g_pChainBlockAllocator;
 
 // Rva006F8460's row (Rva006F8460Dtor.cpp) is the complete dtor retail calls:
-// this class's implicit destructor has no vptr reset and inlines into the
-// deleting dtor as that call, so no destructor of its own is emitted.
+// Rva006F84C0's own destructor is declared and pinned there, so the deleting
+// dtor calls that body and no second copy is emitted.
 class Rva006F8460
 {
 public:
@@ -25,6 +25,8 @@ private:
 class Rva006F84C0 : public Rva006F8460
 {
 public:
+	// Pinned to retail's complete dtor 0x006F8460; an implicit one was a second copy.
+	virtual ~Rva006F84C0();
 	static void operator delete(void *p, unsigned int size)
 	{
 		g_pChainBlockAllocator->freeBlock(p, size);
