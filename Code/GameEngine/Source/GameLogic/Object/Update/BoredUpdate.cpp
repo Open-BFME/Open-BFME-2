@@ -58,7 +58,6 @@ protected:
 	int m_scanTimer;
 };
 
-char g_00C4F590;
 
 //
 // ??0BoredUpdateModuleData@@QAE@XZ, retail 0x004966FE, 130 bytes.
@@ -67,15 +66,16 @@ char g_00C4F590;
 // CanScanWhileAttackingOrMoving at +0x14 and SpecialPowerTemplate at
 // +0x18, matching every store below; the ModuleData factory at 0x24E122
 // news 0x1C and the pool key at 0x4966B9 ends where this ctor starts.
-// Shape follows AutoPickUpUpdateModuleDataCtor (landed 151/151: empty
-// UpdateModuleData base with inline-empty ctor plus declared-only dtor
-// arms the EH states with no code, explicit vtable assigned from the
-// mem-init so the store leads, two 28B FixedStorage temps
+// The class derives from the canonical ModuleData (inline constructor,
+// out-of-line virtual destructor rowed at 0x0049B47C arming the EH states
+// with no code) and the compiler installs retail's 31-slot table 0x00C4F590
+// first. Shape otherwise follows AutoPickUpUpdateModuleDataCtor (two 28B
+// FixedStorage temps
 // copy-constructed in place from the prototype at 0x00DFEFA4 through the
 // rowed copy ctor, consumed by value through the 0x362087 pin), minus the
 // vector, so the states drop 0->2 to 0->1. Retail runs the filter call
-// first, so only the vtable is init-listed; the scan stores live in the
-// body with their loads hoisted above the temp setup.
+// first, so the scan stores live in the body with their loads hoisted
+// above the temp setup.
 
 extern int BfmeLogicFramesPerSecond;
 
@@ -87,23 +87,15 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class UpdateModuleData
-{
-public:
-	__declspec(dllimport) __forceinline UpdateModuleData() {}
-	~UpdateModuleData();
+#include "../../../../Include/Common/ModuleData.h"
 
-private:
-};
-
-class BoredUpdateModuleData : public UpdateModuleData
+class BoredUpdateModuleData : public ModuleData
 {
 public:
 	BoredUpdateModuleData();
+	virtual ~BoredUpdateModuleData();
 
 private:
-	const void *m_vtable; // +0
-	int m_unused04; // +4
 	int m_scanDelayTime; // +8
 	float m_scanDistance; // +0xC
 	Rva003623E5Member m_boredFilter; // +0x10
@@ -151,7 +143,6 @@ BoredUpdate::~BoredUpdate()
 
 // ??0BoredUpdateModuleData@@QAE@XZ @0x4966FE
 BoredUpdateModuleData::BoredUpdateModuleData()
-	: m_vtable(reinterpret_cast<const void *>((unsigned int)&g_00C4F590))
 {
 	m_scanDelayTime = LogicFramesPerSecond;
 	m_scanDistance = 300.0f;
