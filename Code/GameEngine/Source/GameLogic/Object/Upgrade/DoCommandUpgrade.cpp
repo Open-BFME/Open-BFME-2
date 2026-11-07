@@ -28,29 +28,52 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
-// The class is DoCommandUpgrade.h's (retail's table facts are there), over the
-// canonical UpgradeModule.h, read before Drawable.h so Snapshot keeps its
-// lowercase slots.
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../Include/GameLogic/Module/DoCommandUpgrade.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
+//
+// ??0DoCommandUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B4C2E, 49 bytes.
+// DoCommandUpgrade behavior ctor over the canonical UpgradeModule base
+// (0x460AEC, thing plus data); the compiler stores the class's four tables
+// over its declaration in DoCommandUpgrade.h (0x00C57B58 at +0,
+// UpgradeModule's 0x00C57328 at +0x0C, 0x00C57B10 at +0x10 and UpgradeModule's
+// 0x00C58790 at +0x18). The rowed name getter at 0x4B4BC7 and ModuleData pair
+// (proc 0x4B4C0C plus factory 0x2557B5) prove the class; the rowed instance
+// factory 0x2500AE is the sole raw caller.
+
+class Thing;
+class ModuleData;
+#define BFME_SNAPSHOT_NAME_SLOT
+class CommandButton;
+#include "../object.h"
+#include "../../../../Include/GameClient/ControlBar.h"
+extern ControlBar *TheControlBar;
+struct DoCommandUpgradeModuleData
+{
+	unsigned char m_pad000[0x118];
+	unsigned char m_118[4]; // +0x118 (AsciiString)
+	unsigned char m_11C[4]; // +0x11C (AsciiString)
+};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgrade.cpp
+
+// The class is DoCommandUpgrade.h's (retail's table facts are there), over the
+// canonical UpgradeModule.h, read before Drawable.h so Snapshot keeps its
+// lowercase slots.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeDtor.cpp
 
 DoCommandUpgrade::~DoCommandUpgrade()
 {
 }
-
-// tu-skeleton: 0x004B4BC1 6B ?name@DoCommandUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgrade.cpp
 
@@ -64,14 +87,6 @@ NameKeyType DoCommandUpgrade::getModuleNameKey() const
 	return TheDoCommandUpgradePoolKey;
 }
 
-// tu-skeleton: 0x004B4C0C 34B ?buildFieldParse@DoCommandUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataGetterBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4C2E 49B ??0DoCommandUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4C7B 50B ?upgradeRemovalImplementation@DoCommandUpgrade@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004B4CAD 50B ?upgradeImplementation@DoCommandUpgrade@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeSlots.cpp (not merged yet)
-
 // ?xfer@DoCommandUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C57B58 is 0x004B8710,
 // version 1 then UpgradeModule's xfer; retail folds the body with
 // ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
@@ -79,4 +94,42 @@ void DoCommandUpgrade::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	UpgradeModule::xfer(xfer);
+}
+
+// tu-skeleton: 0x004B4BC1 6B ?name@DoCommandUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// tu-skeleton: 0x004B4C0C 34B ?buildFieldParse@DoCommandUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataGetterBuildFieldParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeCtor.cpp
+
+// ??0DoCommandUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z @0x4B4C2E
+DoCommandUpgrade::DoCommandUpgrade(Thing *thing, const ModuleData *moduleData)
+	: UpgradeModule(thing, moduleData)
+{
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeSlots.cpp
+
+// ?upgradeRemovalImplementation@DoCommandUpgrade@@UAEXXZ @0x004B4C7B
+void DoCommandUpgrade::upgradeRemovalImplementation()
+{
+	Object *obj = m_object;
+	if (obj && getModuleData())
+	{
+		const CommandButton *button = TheControlBar->findCommandButton(*(const AsciiString *)((const DoCommandUpgradeModuleData *)getModuleData())->m_11C);
+		if (button)
+			obj->doCommandButton(button, 0, 0);
+	}
+}
+
+// ?upgradeImplementation@DoCommandUpgrade@@UAEXXZ @0x004B4CAD
+void DoCommandUpgrade::upgradeImplementation()
+{
+	Object *obj = m_object;
+	if (obj && getModuleData())
+	{
+		const CommandButton *button = TheControlBar->findCommandButton(*(const AsciiString *)((const DoCommandUpgradeModuleData *)getModuleData())->m_118);
+		if (button)
+			obj->doCommandButton(button, 0, 0);
+	}
 }
