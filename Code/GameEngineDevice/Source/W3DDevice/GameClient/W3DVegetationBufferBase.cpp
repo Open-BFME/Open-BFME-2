@@ -94,7 +94,8 @@ private:
 	Real m_swayRate;
 };
 
-static const volatile float swayWrapPeriod=100.0f;
+// Stands in for retail's 99.0f literal (__real@42c60000, .rdata 0x007CEA18).
+static const volatile float swayWrapPeriod=99.0f;
 
 //
 // ?rva000E6594@Rva000E6594@@QAEXXZ, retail 0x000E6594 8B.

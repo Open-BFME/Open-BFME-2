@@ -23,7 +23,9 @@ public:
 
 };
 
-static float kF7C = 0.0f;
+// Stands in for retail's 100.0f literal (__real@42c80000, .rdata 0x007C292C), the
+// default the constructor loads into +0x7C.
+static float kF7C = 100.0f;
 
 CombineHordeSpecialPowerModuleData::CombineHordeSpecialPowerModuleData()
 	: SpecialPowerModuleData()

@@ -414,7 +414,10 @@ struct Rva009F5970StateInit
 	float value[6];
 };
 class BfmeThingEQR;
-static float g_bfmeDefaultBU;
+// The rescale below divides retail's 1.0f literal (__real@3f800000 at .rdata
+// 0x007BB8D8) by the wider span; this static stands in for it and must hold 1.0f
+// (it was zero-filled, so a linked game set the scale to 0).
+static float g_bfmeDefaultBU = 1.0f;
 class T_009f4fb0
 {
 public:
