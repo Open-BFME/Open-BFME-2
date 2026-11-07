@@ -593,10 +593,13 @@ class Lane:
         return [r for r in self.ctx.dicts(rename.DATA_ROWS) if r.get("source") == rel and r.get("status") == "matched"]
 
     def named_rvas(self):
-        """RVAs another lane names: a WorldBuilder lead, an evidence-tier name or a
-        canonical name_evidence candidate (rename.py refuses an inferred name there)."""
+        """RVAs another lane names: a WorldBuilder lead that spells a name (rename.wb_lead_names,
+        the rule rename.py's inferred guard applies: a lead row with no wb_name names nothing),
+        an evidence-tier name or a canonical name_evidence candidate (rename.py refuses an
+        inferred name there)."""
         if "_named_rvas" not in self.ctx._cache:
-            out = {rename._rva(r.get("rva") or r.get("target_rva")) for r in self.ctx.dicts(rename.WB_LEADS)}
+            out = {rename._rva(r.get("rva") or r.get("target_rva")) for r in self.ctx.dicts(rename.WB_LEADS)
+                   if rename.wb_lead_names(r)}
             out |= {rename._rva(r.get("target_rva")) for r in self.ctx.dicts(rename.NAME_TIERS)
                     if r.get("name_tier") == "evidence"}
             out |= {rename._rva(r.get("rva")) for r in self.evidence() if r.get("strength") == "canonical"}

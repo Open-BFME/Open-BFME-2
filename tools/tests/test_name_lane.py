@@ -2875,3 +2875,21 @@ def test_six_resolved_definitions_admit_sequentially_and_verify_peer_sizes(unrow
     for approval, symbol in zip(approvals, symbols):
         data_rows.admit_agreed(approval['id'], symbol, 'fixture')
     assert len(rows(tree, 'reverse/data_rows.csv')) == 6
+
+
+WB_HEADER = "target_rva,current_name,current_kind,wb_name,wb_file,score,evidence\n"
+
+
+@pytest.mark.parametrize("wb_name,served", [
+    ("", True),                     # a PLACEHOLDER pairing names nothing: the key is the lane's
+    ("SampleBox::sumWidth", False),  # a named lead is WorldBuilder's: withheld, as rename.py refuses it
+])
+def test_only_a_named_worldbuilder_lead_withholds_a_function(tree, wb_name, served):
+    """name_lane withholds exactly the leads rename.py's inferred guard counts (rename.wb_lead_names)."""
+    (tree / rename.WB_LEADS).write_bytes(
+        (WB_HEADER + f"0x00401000,Rva00401000Box::rva00401000,PLACEHOLDER,{wb_name},,1.0000,callgraph\n").encode())
+    _git(tree, "add", "-A")
+    lane = lane_of(tree)
+    function_keys = [i[:3] for i in lane.owned(SOURCE) if i[0] == "function"]
+    assert (("function", "0x00401000", "rva00401000") in function_keys) is served
+    assert bool(rename.wb_rows(lane.ctx, 0x00401000)) is not served

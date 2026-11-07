@@ -1334,8 +1334,15 @@ def reference_declarers(ctx, word, limit=40):
     return found
 
 
+def wb_lead_names(row):
+    """A reverse/wb_name_leads.csv row names its address only through a non-empty
+    wb_name: most rows (PLACEHOLDER pairings) pair a body and name nothing. The one
+    rule for this engine's guard and tools/name_lane.py's queue."""
+    return bool(row.get("wb_name"))
+
+
 def wb_rows(ctx, rva):
-    return [r for r in ctx.dicts(WB_LEADS) if _rva(r.get("target_rva")) == rva and r.get("wb_name")]
+    return [r for r in ctx.dicts(WB_LEADS) if _rva(r.get("target_rva")) == rva and wb_lead_names(r)]
 
 
 def wb_identifiers(ctx):
