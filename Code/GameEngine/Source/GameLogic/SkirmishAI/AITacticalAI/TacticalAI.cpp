@@ -166,6 +166,7 @@ public:
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 struct Rva002C600AFlag
 {

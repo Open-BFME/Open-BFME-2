@@ -39,6 +39,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <cstddef>
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 #include <map>
+#include "../../../Include/GameClient/Drawable.h"
 #pragma comment(linker, "/alternatename:?rvaSlot0@Rva0042FCE6Base@@UAEXXZ=__purecall")
 #define Matrix4x4 Matrix4
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
