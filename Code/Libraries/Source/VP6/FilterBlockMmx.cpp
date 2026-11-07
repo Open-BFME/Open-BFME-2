@@ -5,10 +5,13 @@
 // FilterBlock_mmx (retail 0x001D7330, 486 bytes): builds an 8x8 sub-pixel
 // prediction block from two reference pointers (difference 0, 1, one line,
 // one line minus 1 or one line plus 1) with the bilinear or bicubic filter
-// bank, then widens the byte block into the int16 output. The filter bank
-// is addressed relative to g_bfmeBinkRoundMmx (retail 0x00DB81A0).
+// bank, then widens the byte block into the int16 output. The bilinear bank
+// is g_rva00DB81B0Weights (retail 0x00DB81B0, phase times 32); the bicubic
+// bank at 0x00DB82B0 (phase times 64) still has no definition, so it is
+// addressed relative to g_bfmeBinkRoundMmx (retail 0x00DB81A0).
 
 extern const unsigned short g_bfmeBinkRoundMmx[4];
+extern const unsigned short g_rva00DB81B0Weights[8][16];
 extern "C" void __cdecl FilterBlock1d_h_mmx(const void *, void *, int, int, int, int, const void *);
 extern "C" void __cdecl FilterBlock1d_hb8_mmx(const void *, void *, int, int, int, int, const void *);
 extern "C" void __cdecl FilterBlock1d_v_mmx(const void *, void *, int, int, int, int, const void *);
@@ -39,7 +42,7 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
                 (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsA << 6)));
         else
             FilterBlock1d_hb8_mmx(arg1, scratch, stride, 1, 8, 8,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x10 + (weightsA << 5)));
+                (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsA << 5)));
     }
     else if (distance == stride)
     {
@@ -48,7 +51,7 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
                 (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsB << 6)));
         else
             FilterBlock1d_vb8_mmx(arg1, scratch, stride, stride, 8, 8,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x10 + (weightsB << 5)));
+                (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsB << 5)));
     }
     else if (distance == stride - 1)
     {
@@ -58,8 +61,8 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
                 (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsB << 6)));
         else
             FilterBlock2dBil_mmx((const unsigned char *)arg1 - 1, scratch, stride,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x10 + (weightsA << 5)),
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x10 + (weightsB << 5)));
+                (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsA << 5)),
+                (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsB << 5)));
     }
     else if (distance == stride + 1)
     {
@@ -69,8 +72,8 @@ extern "C" void __cdecl FilterBlock_mmx(void *arg1, void *arg2, void *arg3,
                 (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x110 + (weightsB << 6)));
         else
             FilterBlock2dBil_mmx((const unsigned char *)arg1, scratch, stride,
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x10 + (weightsA << 5)),
-                (const void *)((const unsigned char *)g_bfmeBinkRoundMmx + 0x10 + (weightsB << 5)));
+                (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsA << 5)),
+                (const void *)((const unsigned char *)g_rva00DB81B0Weights + (weightsB << 5)));
     }
     UnpackBlock_MMX(scratch, (short *)arg3, 8);
 }
