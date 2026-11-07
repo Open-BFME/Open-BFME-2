@@ -6138,7 +6138,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1HeightDieUpdate@@UAE@XZ,,0x0048FBBA,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva0049188D@@UAE@XZ,,0x0049188D,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1PickupStuffUpdate@@UAE@XZ,,0x00491DD3,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
-??1Rva0049506E@@UAE@XZ,,0x0049506E,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
+??1AutoFindHealingUpdate@@UAE@XZ,,0x0049506E,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1DemoTrapUpdate@@UAE@XZ,,0x00495916,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1BoredUpdate@@UAE@XZ,,0x0049669A,25,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,matched,opaque MI dtor
 ??1Rva004969FF@@UAE@XZ,,0x004969FF,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
@@ -9860,7 +9860,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GHeightDieUpdate@@UAEPAXI@Z,,0x0048FCFF,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva0049188D@@UAEPAXI@Z,,0x00491A68,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GPickupStuffUpdate@@UAEPAXI@Z,,0x00491ECA,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva0049506E@@UAEPAXI@Z,,0x00495167,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GAutoFindHealingUpdate@@UAEPAXI@Z,,0x00495167,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GDemoTrapUpdate@@UAEPAXI@Z,,0x004959E3,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GBoredUpdate@@UAEPAXI@Z,,0x004967F3,28,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004969FF@@UAEPAXI@Z,,0x00496AC2,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
@@ -29142,7 +29142,7 @@ _MmxFastDeInterlace,,0x001CDF60,232,Code/Libraries/Source/VP6/FastDeInterlace.cp
 ??$partial_sort@PAUBfmeAssignRecord32@@P6A_NABU1@0@Z@_STL@@YAXPAUBfmeAssignRecord32@@00P6A_NABU1@1@Z@Z,,0x00174335,27,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp,matched,STLport sort<BfmeAssignRecord32* fn-ptr> family the unit instantiates; placed where its masked bytes equal retail at the address retail's calls from sort 0x00174870 fix
 ??$__introsort_loop@PAUBfmeAssignRecord32@@U1@HP6A_NABU1@0@Z@_STL@@YAXPAUBfmeAssignRecord32@@00HP6A_NABU1@1@Z@Z,,0x001746C3,144,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp,matched,STLport sort<BfmeAssignRecord32* fn-ptr> family the unit instantiates; placed where its masked bytes equal retail at the address retail's calls from sort 0x00174870 fix
 ??$sort@PAUBfmeAssignRecord32@@P6A_NABU1@0@Z@_STL@@YAXPAUBfmeAssignRecord32@@0P6A_NABU1@1@Z@Z,,0x00174870,67,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp,matched,STLport sort<BfmeAssignRecord32* fn-ptr> family the unit instantiates; placed where its masked bytes equal retail at the address retail's calls from sort 0x00174870 fix
-?xfer@Rva0049506E@@MAEXPAVXfer@@@Z,,0x0049508D,39,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049508DXfer.cpp,matched,slot 3 xfer via Version1 plus base plus int at 0x20
+?xfer@AutoFindHealingUpdate@@MAEXPAVXfer@@@Z,,0x0049508D,39,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049508DXfer.cpp,matched,slot 3 xfer via Version1 plus base plus int at 0x20
 ?rva00211494@Rva00211494@@QAEXXZ,,0x00211494,113,Code/GameEngine/Source/GameClient/System/Rva00211494Loops.cpp,matched,caller 0x002123BE same this vectors at 0x234 0x240 slot3
 ?rva0042755D@Rva0042755D@@QAE_NII@Z,,0x0042755D,89,Code/GameEngine/Source/Common/System/Rva0042755D.cpp,matched,vector size gt with rowed Count caller 0x004667E3
 ??1Rva0022DB29@@QAE@XZ,,0x0022DC62,57,Code/GameEngine/Source/Common/Rva0022DB29Dtor.cpp,matched,chain dtor via clear plus bucket handle free evidence

@@ -291,13 +291,13 @@ public:
 	virtual void f2();
 };
 
-class Rva0049506E : public UpdateModule, public MiBase1, public Rva0049506E_B2
+class AutoFindHealingUpdate : public UpdateModule, public MiBase1, public Rva0049506E_B2
 {
 public:
-	virtual ~Rva0049506E();
+	virtual ~AutoFindHealingUpdate();
 };
 
-Rva0049506E::~Rva0049506E()
+AutoFindHealingUpdate::~AutoFindHealingUpdate()
 {
 }
 

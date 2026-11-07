@@ -5556,3 +5556,6 @@ _$E7,0x007AD202,"Retracted for readmission as _$E9 in the same file: Eva.cpp now
 __ehhandler$?rva005C44DF@Rva005C44DF@@QAEPAVRva005C436E@@I@Z,0x007A0A69,"Renamed to __ehhandler$?rva005C44DF@Rva005C44A3@@UAEPAVRva005C436E@@I@Z by tools/rename.py (to-class: retail vftable 0x00C745D4 slot 1)"
 ?getName@Rva005C44C3@@UBE?AVAsciiString@@XZ,0x005C44C3,"Renamed to ?getName@Rva005C44A3@@UBE?AVAsciiString@@XZ by tools/rename.py (to-class: retail vftable 0x00C745D4 slot 2)"
 ?rva005C4352@Rva005C4352@@QAEXAAVMultiIniFieldParse@@@Z,0x005C4352,"Renamed to ?rva005C4352@Rva005C44A3@@UAEXAAVMultiIniFieldParse@@@Z by tools/rename.py (to-class: retail vftable 0x00C745D4 slot 3)"
+??1Rva0049506E@@UAE@XZ,0x0049506E,"Renamed to ??1AutoFindHealingUpdate@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C4EC10)"
+??_GRva0049506E@@UAEPAXI@Z,0x00495167,"Renamed to ??_GAutoFindHealingUpdate@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C4EC10)"
+?xfer@Rva0049506E@@MAEXPAVXfer@@@Z,0x0049508D,"Renamed to ?xfer@AutoFindHealingUpdate@@MAEXPAVXfer@@@Z by tools/rename.py (fold: retail vftable 0x00C4EC10)"

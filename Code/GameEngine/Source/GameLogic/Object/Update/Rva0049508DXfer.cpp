@@ -1,6 +1,6 @@
 // cl: /MD
 //
-// ?xfer@Rva0049506E@@MAEXPAVXfer@@@Z, retail 0x0049508D, 39 bytes.
+// ?xfer@AutoFindHealingUpdate@@MAEXPAVXfer@@@Z, retail 0x0049508D, 39 bytes.
 // Slot 3 (offset 0xC) of vtable 0x0084EC10 (class of ??1Rva0049506E) and
 // slot 3 of 0x0085191C (class of ??1Rva0049FE7B); xfer with Version1 then
 // rowed UpdateModule::xfer 0x0044DF9F then int at +0x20 via Xfer slot 0x7c.
@@ -51,7 +51,7 @@ public:
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
-class Rva0049506E : public UpdateModule
+class AutoFindHealingUpdate : public UpdateModule
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -59,7 +59,7 @@ private:
 	int m_20;
 };
 
-void Rva0049506E::xfer(Xfer *xfer)
+void AutoFindHealingUpdate::xfer(Xfer *xfer)
 {
 	xfer->Version1();
 	UpdateModule::xfer(xfer);
