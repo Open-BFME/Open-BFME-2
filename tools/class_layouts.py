@@ -296,7 +296,7 @@ class TypeStream:
 def _shape(layout):
     """What two complete records of one name must agree on to be one class."""
     return (layout.get("size"), layout.get("vfptr"), [tuple(b) for b in layout.get("bases", [])],
-            [tuple(f) for f in layout.get("fields", [])])
+            [tuple(f) for f in layout.get("fields", [])], sorted((layout.get("vslots") or {}).items()))
 
 
 def type_stream(obj_bytes):

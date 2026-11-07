@@ -62,6 +62,7 @@ Usage:
 import argparse
 import collections
 import csv
+import hashlib
 import io
 import re
 import subprocess
@@ -136,6 +137,38 @@ def base_verify_record(root, base, target, old, new):
                                  "--root", str(root), "--base", base, "--target", target,
                                  "--old", old, "--new", new], cwd=root, capture_output=True, text=True)
     return result.returncode == 0, (result.stdout + result.stderr).strip()[-400:]
+
+
+VOTE_SOURCES = "reverse/name_vote_sources.csv"
+
+
+def vote_sources_problems():
+    """The staged reverse/name_vote_sources.csv against HEAD's: append-only (HEAD's lines
+    unchanged and in place, the file never deleted), and every added row's source_sha the
+    sha256 of its key's source in the staged tree itself. A vote's fingerprint is bound to
+    the text when its row is added, and can never be edited afterwards; rename.py's
+    verify-record re-reads the same rule from history."""
+    head = git_text(f"HEAD:{VOTE_SOURCES}") or ""
+    staged = git_text(f":{VOTE_SOURCES}")
+    if staged is None:
+        return [f"{VOTE_SOURCES} is deleted; it is append-only"] if head else []
+    if staged == head:
+        return []
+    before, after = head.splitlines(), staged.splitlines()
+    if after[:len(before)] != before:
+        return [f"{VOTE_SOURCES} is append-only: a line was modified, moved or removed"]
+    if not after:
+        return []
+    added = after[len(before):] if before else after[1:]
+    problems = []
+    for row in csv.DictReader(io.StringIO("\n".join([after[0]] + added) + "\n")):
+        rel = (row.get("key") or "").split("|")[0]
+        blob = subprocess.run(["git", "show", f":{rel}"], cwd=ROOT, capture_output=True)
+        digest = hashlib.sha256(blob.stdout).hexdigest() if blob.returncode == 0 else None
+        if digest is None or digest != row.get("source_sha"):
+            problems.append(f"{VOTE_SOURCES}: the vote by {row.get('worker')} at {row.get('key')} fingerprints "
+                            f"another text than the staged {rel}")
+    return problems
 
 
 def approved_class_renames(base, target, verify=None):
@@ -722,10 +755,13 @@ def main(argv=None):
               f"{summary['queued_merges']}; copies per key {summary['copies_per_key']}; "
               f"{summary['unreadable_units']} unreadable unit(s); {target}")
         return 0
+    fingerprints = vote_sources_problems() if args.staged else []
+    for problem in fingerprints:
+        print(f"  {problem}", file=sys.stderr)
     canon = class_views.canonical_classes()
     if not canon:
-        return 0
-    bad = 0
+        return 1 if fingerprints else 0
+    bad = 1 if fingerprints else 0
     if args.staged:
         renames = staged_renames()
         moved = staged_deletions(renames)

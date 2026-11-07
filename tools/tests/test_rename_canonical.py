@@ -603,32 +603,45 @@ def test_a_prepared_unit_must_name_the_class_through_its_header(spelled, evidenc
 HIDDEN = (f'// cl: /O2\n#if 0\n#include "{OLD}.h"\n#endif\n'
           f"class __declspec(align(4)) {NEW} {{ public: double m_unrelated[20]; }};\n"
           f"int nuggetType({NEW} *n) {{ return (int)n->m_unrelated[0]; }}\n")
-# how cl -E names the canonical header: Wine's case-folded absolute path through `..`
-WINE_HEADER = "z:\\\\home\\\\claude\\\\seat\\\\code\\\\game\\\\..\\\\Game\\\\Rva00401000Base.h"
+# how cl -E names a file: Wine's case-folded absolute path, backslashes doubled, through `..`
 SHIM = "reference/shims/zh_outofline/GameClient/FXList.h"
+
+
+def wine(root, rel):
+    path = f"z:{root}/{rel}".replace("/", "\\\\")
+    return path.replace("\\\\Game\\\\", "\\\\game\\\\..\\\\Game\\\\", 1)
 
 
 def unit_marker(line=1):
     return f'#line {line} "{VIEWS}"\n'
 
 
-def header_part(cls=NEW):
-    return f'#line 1 "{WINE_HEADER}"\nclass {cls}\n{{\npublic:\n    int m_04;\n    int m_08;\n}};\n'
+def header_part(root, cls=NEW, rel=HEADER):
+    return f'#line 1 "{wine(root, rel)}"\nclass {cls}\n{{\npublic:\n    int m_nuggetType;\n    int m_08;\n}};\n'
 
 
-CANONICAL_PP = unit_marker() + header_part() + unit_marker(3) + f"int nuggetType({NEW} *n) {{ return n->m_08; }}\n"
+def canonical_pp(root):
+    return unit_marker() + header_part(root) + unit_marker(3) + f"int nuggetType({NEW} *n) {{ return n->m_08; }}\n"
 
 
-def preprocessed(monkeypatch, rename, outputs):
-    """preprocess_unit as cl -E would answer after the build: `outputs` maps a unit to its
-    preprocessed text, or to an exception message for a unit the preprocessor refuses."""
+# the class the canonical header compiles to, as the fixture contract states it
+CONTRACT_LAYOUT = {"fwd": False, "size": 12, "bases": [], "vfptr": True,
+                   "fields": [[4, "m_nuggetType", "int", 4], [8, "m_08", "int", 4]],
+                   "vslots": {"1": f"?doFX@{NEW}@@UBEXXZ"}}
+
+
+def preprocessed(monkeypatch, rename, root, outputs, layouts=None):
+    """preprocess_unit and view_layouts as cl -E and -Z7 would answer after the build: `outputs`
+    maps a unit to its preprocessed text (or an exception for a refused unit), `layouts` to its
+    compiled classes (default: the class the contract states)."""
     seen = []
 
     def fake(ctx, rel):
         seen.append(rel)
-        out = outputs.get(rel, CANONICAL_PP)
+        out = outputs.get(rel, canonical_pp(root))
         return (None, out.args[0]) if isinstance(out, Exception) else (out, None)
     monkeypatch.setattr(rename, "preprocess_unit", fake)
+    monkeypatch.setattr(rename, "view_layouts", lambda ctx, rel: (layouts or {}).get(rel, {NEW: CONTRACT_LAYOUT}))
     monkeypatch.setattr(rename, "registered_object_problems", lambda ctx, plan: [])
     return seen
 
@@ -642,7 +655,7 @@ def apply_prepared(root, rename, text):
 
 def test_a_prepared_unit_seeing_only_the_canonical_header_lands(spelled, evidence_stubbed, monkeypatch):
     defined(spelled, "    int m_nuggetType;\n")
-    seen = preprocessed(monkeypatch, evidence_stubbed, {VIEWS: CANONICAL_PP})
+    seen = preprocessed(monkeypatch, evidence_stubbed, spelled, {})
     apply_prepared(spelled, evidence_stubbed, RESHAPED)
     assert seen == [VIEWS]                                         # no reference unit is consulted
     assert (spelled / VIEWS).read_bytes() == RESHAPED.encode()
@@ -650,31 +663,93 @@ def test_a_prepared_unit_seeing_only_the_canonical_header_lands(spelled, evidenc
 
 @pytest.mark.parametrize("output,message", [
     # round 5's probe: the include compiled out, a __declspec head, a 176-byte private class
-    (unit_marker() + f"class __declspec(align(4)) {NEW} {{ public: double m_unrelated[20]; }};\n",
+    (lambda root: unit_marker() + f"class __declspec(align(4)) {NEW} {{ public: double m_unrelated[20]; }};\n",
      "defines its own FXNugget in code/game/nuggetviews.cpp"),
-    (unit_marker() + f"int nuggetType({NEW} *n);\n", "never sees code/game/rva00401000base.h"),
-    # the canonical definition and a private one: a macro expanded in the unit
-    (CANONICAL_PP + unit_marker(9) + f"class {NEW} : public Base {{ int m_x; }};\n", "defines its own FXNugget"),
-    # another header (the Zero Hour shim) defining the same name
-    (unit_marker() + header_part() + f'#line 70 "{SHIM}"\nclass {NEW} {{ public: int m_type; }};\n',
+    (lambda root: unit_marker() + f"int nuggetType({NEW} *n);\n", "never sees code/game/rva00401000base.h"),
+    (lambda root: canonical_pp(root) + unit_marker(9) + f"class {NEW} : public Base {{ int m_x; }};\n",
+     "defines its own FXNugget"),
+    (lambda root: unit_marker() + header_part(root) + f'#line 70 "{SHIM}"\nclass {NEW} {{ public: int m_type; }};\n',
      "defines its own FXNugget in reference/shims/zh_outofline/gameclient/fxlist.h"),
-    (CANONICAL_PP + unit_marker(12) + f"class {OLD} {{ int m_x; }};\n", "still defines Rva00401000Base"),
-    (RuntimeError("the preprocessor refused it: C1083"), "cannot be preprocessed"),
+    # round 6's probe: a header at another path that only ends like the canonical one
+    (lambda root: unit_marker() + header_part(root, rel="other/" + HEADER), "defines its own FXNugget in other/"),
+    (lambda root: canonical_pp(root) + unit_marker(12) + f"class {OLD} {{ int m_x; }};\n",
+     "still defines Rva00401000Base"),
+    (lambda root: RuntimeError("the preprocessor refused it: C1083"), "cannot be preprocessed"),
 ])
 def test_a_prepared_unit_keeping_its_own_class_rolls_back(spelled, evidence_stubbed, monkeypatch, output, message):
     defined(spelled, "    int m_nuggetType;\n")
     before = snapshot(spelled)
-    preprocessed(monkeypatch, evidence_stubbed, {VIEWS: output})
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {VIEWS: output(spelled)})
     with pytest.raises(evidence_stubbed.VerifyFailed, match=message):
         apply_prepared(spelled, evidence_stubbed, RESHAPED)
     assert snapshot(spelled) == before
+
+
+@pytest.mark.parametrize("layout,message", [
+    # round 6's probe: `/Dint=double` (or a #define before the include) makes the real header emit double
+    (dict(CONTRACT_LAYOUT, fields=[[4, "m_nuggetType", "double", 8], [12, "m_08", "double", 8]], size=20),
+     "is not its contract: sizeof 20"),
+    (dict(CONTRACT_LAYOUT, fields=[[4, "m_04", "int", 4], [8, "m_08", "int", 4]]), "fields .*m_04"),
+    (dict(CONTRACT_LAYOUT, vslots={"1": "?doFX@FXNugget@@UBEXXZ", "2": "extra()"}), "virtual slots"),
+    (dict(CONTRACT_LAYOUT, bases=[["Base", 0]]), "bases"),
+    (dict(CONTRACT_LAYOUT, unparsed="conflicting complete records named FXNugget"), "no single complete record"),
+    ({"fwd": True}, "no single complete record"),
+])
+def test_attribution_is_not_enough_the_compiled_class_must_be_its_contract(spelled, evidence_stubbed,
+                                                                           monkeypatch, layout, message):
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {}, layouts={VIEWS: {NEW: layout}})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match=message):
+        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+    assert snapshot(spelled) == before
+
+
+def test_no_contract_to_compare_refuses(spelled, evidence_stubbed, monkeypatch):
+    """The attribution check never passes on its own: without the contract nothing is proved."""
+    import rename
+    preprocessed(monkeypatch, rename, spelled, {VIEWS: canonical_pp(spelled)})
+    from types import SimpleNamespace
+    plan = SimpleNamespace(registered={"old": OLD, "new": NEW, "header": HEADER, "prepared": [VIEWS]})
+    defined(spelled, "    int m_nuggetType;\n")
+    (spelled / CONTRACT).unlink()
+    problems = rename.prepared_attribution_problems(rename.Context(spelled, object_scan=False), plan)
+    assert problems and "has no contract to equal" in problems[0]
+
+
+@pytest.mark.parametrize("text,message", [
+    # round 6's probe: a #line in the unit's own text names the canonical header over a private class
+    (f'#line 1 "{HEADER}"\nclass __declspec(align(4)) {NEW} {{ public: double unrelated[20]; }};\n',
+     "carries a #line directive"),
+    (f"# 1 \"{HEADER}\"\n" + RESHAPED, "carries a #line directive"),
+    ("// cl: /O2 /Dint=double\n" + RESHAPED.split("\n", 1)[1], r"adds /Dint=double"),
+    ("// cl: /O2 /FIother.h\n" + RESHAPED.split("\n", 1)[1], r"adds /FIother.h"),
+    ("// cl: /O2 -Ireference/shims/other\n" + RESHAPED.split("\n", 1)[1], r"adds -Ireference/shims/other"),
+])
+def test_a_prepared_unit_text_that_could_fool_the_preprocessor_refuses(spelled, evidence_stubbed, text, message):
+    defined(spelled, "    int m_nuggetType;\n")
+    with pytest.raises(evidence_stubbed.Refusal, match=message):
+        plan_of(spelled, merge=True, prepared={VIEWS: text.encode()})
+
+
+def test_master_s_own_preprocessor_flags_are_accepted(spelled, evidence_stubbed):
+    write(spelled, VIEWS, f"// cl: /O2 /DBFME_FX=1\nclass {NEW} {{\npublic:\n    int m_nuggetType;\n}};\n"
+                          f"int nuggetType({NEW} *n);\n")
+    with open(spelled / "reverse/functions.csv", "ab") as handle:
+        handle.write(f"?nuggetType@@YAHPAV{NEW}@@@Z,,0x00404000,8,{VIEWS},matched,\n".encode("utf-8"))
+    run(spelled, "add", "-A")
+    run(spelled, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "a unit with its own /D")
+    text = "// cl: /O2 /DBFME_FX=1\n" + RESHAPED.split("\n", 1)[1]
+    assert plan_of(spelled, merge=True, prepared={VIEWS: text.encode()}).after[VIEWS] == text.encode()
+    with pytest.raises(evidence_stubbed.Refusal, match="adds /DBFME_FX=2"):
+        plan_of(spelled, merge=True, prepared={VIEWS: text.replace("=1", "=2").encode()})
 
 
 def test_a_private_copy_the_text_scan_misses_is_caught_by_the_preprocessor(spelled, evidence_stubbed, monkeypatch):
     """`#if 0` around the include and `class __declspec(align(4)) FXNugget` pass the text pre-filter."""
     defined(spelled, "    int m_nuggetType;\n")
     before = snapshot(spelled)
-    preprocessed(monkeypatch, evidence_stubbed, {VIEWS: unit_marker(4) + HIDDEN.split("#endif\n", 1)[1]})
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {VIEWS: unit_marker(4) + HIDDEN.split("#endif\n", 1)[1]})
     with pytest.raises(evidence_stubbed.VerifyFailed, match="keeps its own FXNugget"):
         apply_prepared(spelled, evidence_stubbed, HIDDEN)
     assert snapshot(spelled) == before
@@ -719,6 +794,25 @@ def test_conflicting_complete_type_records_of_one_name_are_unparsed():
     found = class_layouts.TypeStream(stream).classes()
     assert found["Twin"].get("unparsed") == "conflicting complete records named Twin"
     assert not found["Same"].get("unparsed") and found["Same"]["fields"] == [[0, "m_a", "int", 4]]
+
+
+def test_type_records_differing_only_in_virtual_slots_are_unparsed():
+    """Round 6's probe: two complete `Twin` records whose only difference is one virtual slot."""
+    import struct
+    import class_layouts
+
+    def record(kind, payload):
+        return struct.pack("<HH", len(payload) + 2, kind) + payload
+
+    def virtual(name, slot):          # a vfptr, then one introducing virtual method at `slot`
+        return record(0x1203, struct.pack("<HHI", 0x1409, 0, 0)
+                      + struct.pack("<HHII", 0x1511, 3 + (4 << 2), 0, slot) + name + b"\0")
+
+    def klass(fieldlist):
+        return record(0x1504, struct.pack("<HHIIIH", 1, 0, fieldlist, 0, 0, 4) + b"Twin\0")
+    stream = struct.pack("<I", 4) + virtual(b"first", 0) + klass(0x1000) + virtual(b"second", 4) + klass(0x1002)
+    layout = class_layouts.TypeStream(stream).classes()["Twin"]
+    assert layout.get("unparsed") == "conflicting complete records named Twin"
 
 
 def test_a_derived_class_in_a_prepared_unit_is_fine(spelled, evidence_stubbed, monkeypatch):
@@ -902,6 +996,58 @@ def test_a_delayed_vote_commit_is_no_credit(approved, monkeypatch, capsys):
     run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "the votes, late")
     land(approved, monkeypatch, f"agree:{agreement}")
     assert_refused(approved, capsys, "the vote by w-[0-9a-f]+ named another text")
+
+
+def overwrite_fingerprints(root, sha):
+    import csv as csv_module
+    import io as io_module
+    import name_lane
+    path = root / name_lane.VOTE_SOURCES
+    rows = list(csv_module.DictReader(path.read_text().splitlines()))
+    for row in rows:
+        row["source_sha"] = sha
+    out = io_module.StringIO()
+    writer = csv_module.DictWriter(out, fieldnames=list(rows[0]), lineterminator="\n")
+    writer.writeheader()
+    writer.writerows(rows)
+    write(root, name_lane.VOTE_SOURCES, out.getvalue())
+
+
+def test_rewritten_fingerprints_are_no_credit(approved, monkeypatch, capsys):
+    """Round 6's probe: votes on header A, then header B committed with the fingerprint rows rewritten
+    to B's hash. The rows are now B's, but each was edited after it was added."""
+    import hashlib
+    import name_lane
+    agreement = vote_key(approved, f"{HEADER}|class||{OLD}", NEW, monkeypatch)
+    write(approved, HEADER, (approved / HEADER).read_text().replace("int m_04;", "float m_04;"))
+    overwrite_fingerprints(approved, hashlib.sha256((approved / HEADER).read_bytes()).hexdigest())
+    run(approved, "add", "--", HEADER, name_lane.VOTE_SOURCES)
+    run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "header B, fingerprints rewritten")
+    land(approved, monkeypatch, f"agree:{agreement}")
+    assert_refused(approved, capsys, "was not added once and left alone")
+
+
+def test_the_hook_keeps_fingerprints_append_only_and_bound(approved, monkeypatch):
+    import hashlib
+    import name_lane
+    vote_key(approved, f"{HEADER}|class||{OLD}", NEW, monkeypatch)
+    path = approved / name_lane.VOTE_SOURCES
+    assert class_gate.vote_sources_problems() == []                       # nothing staged
+    original = path.read_bytes()
+    overwrite_fingerprints(approved, "0" * 64)                           # an edited line
+    run(approved, "add", "--", name_lane.VOTE_SOURCES)
+    assert "append-only" in class_gate.vote_sources_problems()[0]
+    path.unlink()                                                         # the file removed
+    run(approved, "add", "-A", "--", name_lane.VOTE_SOURCES)
+    assert "is deleted" in class_gate.vote_sources_problems()[0]
+    header_sha = hashlib.sha256((approved / HEADER).read_bytes()).hexdigest()
+    for sha, ok in (("f" * 64, False), (header_sha, True)):              # an added row, bound or not
+        path.write_bytes(original + f"{HEADER}|class||{OLD},h,w-000000000009,s9,{sha}\n".encode())
+        run(approved, "add", "--", name_lane.VOTE_SOURCES)
+        problems = class_gate.vote_sources_problems()
+        assert (problems == []) is ok, problems
+        if not ok:
+            assert "fingerprints another text than the staged Code/Game/Rva00401000Base.h" in problems[0]
 
 
 def test_a_vote_without_a_fingerprint_is_no_credit(approved, monkeypatch, capsys):

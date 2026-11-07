@@ -819,11 +819,16 @@ ledger counts towards its own credit. A vote's own row names the key and the
 spelling but not the text, so `name_lane.py submit` records beside each vote the
 sha256 of the source it served the voter (`reverse/name_vote_sources.csv`). Every
 vote counted for the name needs that row, and its fingerprint must be the sha256
-of the base's canonical header, the text the rename is applied to. The commit
-graph is never used to infer what a voter saw. A header edited before, with or
-after the votes earns nothing, in whatever order the commits land, and so does a
-vote recorded without a fingerprint. A commit can't loosen the check that judges
-it. The credits apply only to commits made after this landed.
+of the base's canonical header, the text the rename is applied to. A row binds
+only when it is added. `class_gate.py --staged` keeps `name_vote_sources.csv`
+append-only (no line of the parent's copy modified or deleted). It also requires
+each added row's hash to equal the sha256 of the header it names in that
+commit's index. The credit readers accept a row only if history adds it once and
+never touches it again, with the hash of the header as it stood in that adding
+commit. A header edited before, with or after the votes earns nothing, in
+whatever order the commits land, and so does a vote recorded without a
+fingerprint or a fingerprint rewritten later. A commit can't loosen the check
+that judges it. The credits apply only to commits made after this landed.
 
 **Refusals.** The rename refuses:
 
@@ -887,22 +892,34 @@ C++ source that reads as after the rename:
 - no body of NEW of its own (a class derived from NEW is fine);
 - `#include` of the canonical header wherever its code spells NEW;
 - no second body (`NEW::m(`) of a row the rename respells, unless the unit owns
-  that row.
+  that row;
+- no `#line` directive (`#line N` or `# N`) of its own: one would make the
+  preprocessor attribute the unit's own lines to any file it names;
+- no `/D`, `/U`, `/FI` or `/I` in its `// cl:` line unless master's copy of the
+  unit carried exactly the same ones (`/Dint=double` turns the canonical header
+  into another class).
 
 Those text checks are only a fast pre-filter; `#if 0`, `__declspec(...)` or a
 macro can hide a private copy from them. After `./build.sh`, each prepared unit
 is run through its own compiler's preprocessor (`cl -E` under its build command;
 no object is written). Its output has every `#if` and macro resolved, and its
-`#line` markers attribute each line to the file it came from. The unit must see
-NEW defined there exactly once, and only by the canonical header: then its NEW
-*is* the canonical class, and no other unit is needed to vouch for it. The
-rename refuses, and every file is restored, when:
+`#line` markers attribute each line to the file it came from, compared as the
+full repo-relative path (a header at `other/Code/Game/X.h` is not `Code/Game/X.h`).
+The unit must see NEW defined only by the canonical header. Attribution says where
+the class came from, not what it compiled to, so the unit's object must also
+hold one complete CodeView record of NEW equal to the canonical contract:
+sizeof, base names, every field's offset, name, size and i4-level kind (the
+vfptr as the contract's `VPTR` field), and every virtual slot. The rename
+refuses, and every file is restored, when:
 - a definition of NEW comes from any other file: the unit itself, a macro
   expanded there, another header, or a shim such as Zero Hour's `FXList.h`;
 - no definition comes from the canonical header (a disabled or missing
   `#include`);
 - a definition of OLD remains;
-- the preprocessor refuses the unit.
+- the preprocessor refuses the unit;
+- the contract is missing, or the compiled record is absent, forward-only,
+  unparsed (two complete records of the name that differ in fields or virtual
+  slots) or differs from the contract in anything above.
 
 A merge may be **inferred**: two blind votes through `name_lane.py next
 --registered OLD`, which accepts an answer the tree already spells when it is
@@ -916,6 +933,11 @@ On 2026-11-07, FXNugget would refuse on all three of these:
 - `EvaEventFXNugget.cpp`'s view, a 324-byte opaque array at `+0x4`;
 - the Zero Hour shim `reference/shims/zh_outofline/GameClient/FXList.h`,
   whose includers report no layout to compare.
+
+Its prepared path also refuses until the contract equals the compiled canonical
+header. `FXNugget.json` names `m_filter08`/`m_filter0C` as filter structs and
+slot 3 `slot3()`. The header compiles `m_08`/`m_0C`, adds `m_10`, `m_5C`,
+`m_A8` and `m_F4`, and declares slot 3 as `slot03(AssetList*,int)`.
 
 ### `rename.py carry`: notes added after a rename
 

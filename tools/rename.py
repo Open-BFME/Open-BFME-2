@@ -6101,17 +6101,49 @@ def votes_bound_to_text(ctx, rid, key, new, rel):
     votes = [v for v in ctx.dicts(name_agreement.VOTES) if v.get("key") == key and v.get("hash") == wanted]
     if not votes:
         raise Refusal(f"no vote for {new} at {key} is in {base}'s {name_agreement.VOTES}")
-    sources = collections.defaultdict(set)
+    sources = collections.defaultdict(list)
     for row in ctx.dicts(VOTE_SOURCES):
-        sources[tuple(row.get(c) or "" for c in ("key", "hash", "worker", "session"))].add(row.get("source_sha") or "")
+        sources[tuple(row.get(c) or "" for c in ("key", "hash", "worker", "session"))].append(row)
     for vote in votes:
-        served = sources.get(tuple(vote.get(c) or "" for c in ("key", "hash", "worker", "session")), set())
-        if not served:
+        rows = sources.get(tuple(vote.get(c) or "" for c in ("key", "hash", "worker", "session")), [])
+        if not rows:
             raise Refusal(f"the vote by {vote.get('worker')} records no fingerprint of the text it was served "
                           f"({VOTE_SOURCES}); serve the key again and vote")
-        if served != {applied}:
+        if {r.get("source_sha") for r in rows} != {applied}:
             raise Refusal(f"the vote by {vote.get('worker')} named another text of {rel} than {base} holds: "
                           "serve the key again and vote")
+        for row in rows:
+            fingerprint_bound(ctx, row, rel)
+
+
+VOTE_SOURCE_FIELDS = ("key", "hash", "worker", "session", "source_sha")
+
+
+def fingerprint_bound(ctx, row, rel):
+    """A fingerprint row is a claim until history binds it: the one commit that added its
+    exact line (VOTE_SOURCES is append-only, so a line is added once and never edited or
+    removed) must hold, in its own tree, `rel` with exactly that sha256. The hook
+    (tools/class_gate.py --staged) refuses any other change; this reads history itself, so
+    a commit made around the hook gains nothing either."""
+    base = ctx.base or "HEAD"
+    line = ",".join(row.get(c) or "" for c in VOTE_SOURCE_FIELDS)
+    vote = ",".join(row.get(c) or "" for c in VOTE_SOURCE_FIELDS[:4]) + ","
+    # every line this vote's fingerprint ever had, added (+) or removed (-), commit by commit
+    _code, patches = _git_out(ctx.root, "log", "-p", "--format=COMMIT %H", "--no-renames", "--unified=0", base,
+                              "--", VOTE_SOURCES)
+    changes, commit = [], None
+    for text in patches.decode("utf-8", errors="replace").splitlines():
+        if text.startswith("COMMIT "):
+            commit = text.split()[1]
+        elif text[:1] in "+-" and not text.startswith(("+++", "---")) and text[1:].startswith(vote):
+            changes.append((commit, text[:1], text[1:]))
+    if changes != [(changes[0][0] if changes else None, "+", line)]:
+        raise Refusal(f"the fingerprint of the vote by {row.get('worker')} was not added once and left alone "
+                      f"({len(changes)} change(s) in {VOTE_SOURCES}, which is append-only)")
+    code, blob = _git_out(ctx.root, "show", f"{changes[0][0]}:{rel}")
+    if code or hashlib.sha256(blob).hexdigest() != row.get("source_sha"):
+        raise Refusal(f"the commit adding the fingerprint of the vote by {row.get('worker')} ({changes[0][0][:10]}) "
+                      f"holds another text of {rel}: a fingerprint is bound when it is added")
 
 
 # The gates (tools/class_gate.py, tools/repair_queue.py) credit a registered class's
@@ -6522,6 +6554,9 @@ def prepare_merge_sources(ctx, plan, prepared, old, new, registration):
     header = posixpath.basename(registration["header"]).lower()
     for rel, data in sorted(prepared.items()):
         text = data.decode("utf-8", errors="surrogateescape")
+        own = prepared_text_problems(rel, text, (ctx.read(rel) or b"").decode("utf-8", errors="replace"))
+        if own:
+            raise Refusal(f"prepared {own[0]}")
         code = name_metric.strip(text)
         methods = sorted({m for m, source in created if m and source != rel})   # a row's own unit holds its body
         qualified = re.compile(r"\b%s\s*::\s*~?(%s)\s*\(" % (re.escape(new), "|".join(map(re.escape, methods)))) \
@@ -6546,22 +6581,28 @@ def prepare_merge_sources(ctx, plan, prepared, old, new, registration):
 LINE_MARKER = re.compile(r'(?m)^[ \t]*#[ \t]*line[ \t]+\d+[ \t]+"((?:[^"\\]|\\.)*)"')
 
 
-def _marker_path(raw):
-    """A `#line` marker's file as a comparable path: escapes undone, slashes forward,
+def _marker_path(raw, root):
+    """A `#line` marker's file as a repo-relative path: escapes undone, slashes forward,
     lower case (the preprocessor reports Wine's case-folded absolute path or the
-    command line's relative one), `..` resolved."""
-    path = raw.replace("\\\\", "\\").replace("\\", "/").lower()
-    return posixpath.normpath(path)
+    command line's relative one), `..` resolved, and an absolute path inside `root`
+    made relative to it; any other absolute path stays absolute, so it never equals a
+    repository file."""
+    path = posixpath.normpath(raw.replace("\\\\", "\\").replace("\\", "/").lower())
+    for prefix in (str(root), "z:" + str(root)):
+        prefix = posixpath.normpath(prefix.replace("\\", "/").lower())
+        if path.startswith(prefix + "/"):
+            return path[len(prefix) + 1:]
+    return path
 
 
-def class_definitions(text, word):
+def class_definitions(text, word, root=ROOT):
     """[(file, offset)] of every definition of class/struct/union `word` in the
-    preprocessor's output, each attributed to the file its `#line` marker names:
-    heads carrying __declspec/__attribute__/alignas, macro expansions and anything
-    an #if left in are all already plain text there."""
+    preprocessor's output, each attributed to the repo-relative file its `#line`
+    marker names: heads carrying __declspec/__attribute__/alignas, macro expansions
+    and anything an #if left in are all already plain text there."""
     head = re.compile(r"\b(?:class|struct|union)\s+(?:(?:__declspec|__attribute__|alignas)\s*\("
                       r"(?:[^()]|\([^()]*\))*\)\s*)*%s\s*(?::[^;{]*)?\{" % re.escape(word))
-    markers = [(m.start(), _marker_path(m.group(1))) for m in LINE_MARKER.finditer(text)]
+    markers = [(m.start(), _marker_path(m.group(1), root)) for m in LINE_MARKER.finditer(text)]
     out = []
     for match in head.finditer(text):
         files = [path for at, path in markers if at < match.start()]
@@ -6569,31 +6610,105 @@ def class_definitions(text, word):
     return out
 
 
+CL_LINE = re.compile(r"(?m)^[ \t]*//[ \t]*cl:(.*)$")
+PREPROCESSOR_FLAG = re.compile(r"[/-](?:D|U|FI|I)")
+
+
+def preprocessor_flags(text):
+    """The `// cl:` flags that change what the preprocessor makes of a header."""
+    line = CL_LINE.search(text or "")
+    return [t for t in (line.group(1).split() if line else []) if PREPROCESSOR_FLAG.match(t)]
+
+
+def prepared_text_problems(rel, text, master):
+    """Why a prepared unit's own text cannot be trusted to show the canonical class: a
+    `#line` directive of its own (it would make the preprocessor attribute the unit's
+    lines to any file it names), or /D, /U, /FI or /I in its `// cl:` line (they change
+    what the canonical header means in it) unless master's copy carried the same ones."""
+    problems = []
+    if re.search(r"(?m)^[ \t]*#[ \t]*(?:line\b|\d)", name_metric.strip(text)):
+        problems.append(f"{rel} carries a #line directive of its own: its lines could be attributed to any file")
+    flags = preprocessor_flags(text)
+    if flags and flags != preprocessor_flags(master):
+        problems.append(f"{rel}'s // cl: line adds {' '.join(flags)}, which change what the canonical header "
+                        "compiles to; only master's own flags are accepted")
+    return problems
+
+
+def contract_layout_problems(rel, contract, layout):
+    """The compiled class of a prepared unit against the canonical contract, exactly:
+    sizeof, bases, every field with its offset, name, size and i4-level kind (the vfptr
+    as the contract's VPTR field), and every virtual slot."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import class_contract
+    if not layout or layout.get("fwd") or layout.get("unparsed") is not None:
+        return [f"{rel}'s object holds no single complete record of the class to compare with its contract"]
+    want = {(f.get("offset"), f.get("name"), f.get("size"), f.get("kind")) for f in contract.get("fields", [])}
+    if any(None in field for field in want):
+        return [f"the contract has a field without an offset, name, size or kind: nothing to compare {rel} with"]
+    got = {(o, n, s, class_contract.kind(t)) for o, n, t, s in layout.get("fields", [])}
+    if layout.get("vfptr"):
+        got.add((0, "__vfptr", 4, "VPTR"))
+    slots = {str(k): (v.get("member") if isinstance(v, dict) else v) for k, v in (contract.get("vslots") or {}).items()}
+    problems = []
+    if layout.get("size") != contract.get("size"):
+        problems.append(f"sizeof {layout.get('size')}, the contract {contract.get('size')}")
+    if [b for b, _o in layout.get("bases", [])] != list(contract.get("bases") or []):
+        problems.append(f"bases {[b for b, _o in layout.get('bases', [])]}, the contract {contract.get('bases')}")
+    if got != want:
+        problems.append(f"fields {sorted(got - want)[:2]} not in the contract, {sorted(want - got)[:2]} missing")
+    if dict(layout.get("vslots") or {}) != slots:
+        problems.append(f"virtual slots {layout.get('vslots')}, the contract {slots}")
+    return [f"{rel}'s class is not its contract: " + "; ".join(problems)] if problems else []
+
+
 def prepared_attribution_problems(ctx, plan):
-    """After ./build.sh: each prepared unit, run through its own compiler's preprocessor
-    (preprocess_unit: cl -E under its build command, no object written), must see the
-    class only as the canonical header defines it. At least one definition of NEW must
-    come from the canonical header, as its `#line` markers attribute it, and none from
-    any other file (the unit itself, a macro expanded there, another header or a shim);
-    no definition of OLD may remain. A text scan cannot see through `#if 0`,
-    `__declspec(...)` or macros; the preprocessor's output has all of them resolved."""
+    """After ./build.sh, each prepared unit must show the canonical class and nothing else:
+      - its own text has no #line and adds no preprocessor flag (prepared_text_problems);
+      - its compiler's preprocessor (preprocess_unit: cl -E under its build command, no
+        object written) attributes every definition of NEW to the canonical header's
+        exact repo-relative path, at least one, and none to any other file (the unit, a
+        macro expanded there, another header, a shim); no definition of OLD remains;
+      - its compiled type record of NEW (view_layouts, CodeView) equals the canonical
+        contract exactly (contract_layout_problems): attribution says where the class
+        came from, the layout check says what it compiled to.
+    A text scan cannot see through `#if 0`, `__declspec(...)` or macros; the preprocessor
+    and the compiler can. Anything it cannot read refuses."""
     registered = plan.registered
     old, new, header = registered["old"], registered["new"], registered["header"].lower()
+    contract_data = ctx.read(f"{CLASS_CONTRACTS}/{new}.json")
+    try:
+        contract = json.loads(contract_data.decode("utf-8")) if contract_data is not None else None
+    except ValueError:
+        contract = None
     problems = []
     for rel in registered.get("prepared") or ():
+        own = ctx.read(rel)
+        if own is None:
+            problems.append(f"{rel} cannot be read to prove its {new}")
+            continue
+        master = _git_out(ctx.root, "show", f"HEAD:{rel}")
+        problems += prepared_text_problems(rel, own.decode("utf-8", errors="replace"),
+                                           master[1].decode("utf-8", errors="replace") if not master[0] else "")
         text, why = preprocess_unit(ctx, rel)
         if text is None:
             problems.append(f"{rel} cannot be preprocessed to prove its {new}: {why}")
             continue
-        if class_definitions(text, old):
+        if class_definitions(text, old, ctx.root):
             problems.append(f"{rel} still defines {old} once preprocessed")
-        definitions = class_definitions(text, new)
-        canonical = [f for f, _at in definitions if f == header or f.endswith("/" + header)]
-        others = sorted({f or "<no #line>" for f, _at in definitions if f not in canonical})
+        definitions = class_definitions(text, new, ctx.root)
+        canonical = [f for f, _at in definitions if f == header]
+        others = sorted({f or "<no #line>" for f, _at in definitions if f != header})
         if others:
             problems.append(f"{rel} defines its own {new} in {', '.join(others[:2])}, not only through {header}")
-        elif not canonical:
+            continue
+        if not canonical:
             problems.append(f"{rel} never sees {header}'s {new} once preprocessed (a disabled or missing #include)")
+            continue
+        if contract is None:
+            problems.append(f"{CLASS_CONTRACTS}/{new}.json cannot be read: {rel}'s class has no contract to equal")
+            continue
+        problems += contract_layout_problems(rel, contract, view_layouts(ctx, rel).get(new))
     return problems
 
 
