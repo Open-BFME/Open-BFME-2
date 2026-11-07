@@ -17,6 +17,8 @@ enum NameKeyType
 };
 
 #include "../../../Include/Common/NameKeyGenerator.h"
+// Retail .CRT$XCU 0x007B2270 is this unit's Drawable.h copy (static 0x00E03EEC).
+#include "../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

@@ -37,6 +37,8 @@ protected:
 };
 
 #include "../../../Common/GameLogicObjectLookupView.h"
+// Retail .CRT$XCU 0x007B1AFA is this unit's Drawable.h copy (static 0x00E03C18).
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern class NameKeyGenerator *TheNameKeyGenerator;
 extern class GameLogic *TheGameLogic;

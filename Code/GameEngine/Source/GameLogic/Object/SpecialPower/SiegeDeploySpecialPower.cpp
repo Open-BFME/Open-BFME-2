@@ -462,6 +462,8 @@ class Thing;
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #include "../../../../Include/Common/ObjectModule.h"
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+// Retail .CRT$XCU 0x007B2A1C is this unit's Drawable.h copy (static 0x00E04294).
+#include "../../../../Include/GameClient/Drawable.h"
 
 // ?rva00050D86@Rva00050D86@@QAE_NE@Z @0x00050D86 55B mask-covered set-field check.
 // Four disp8 bytes at +0x49..0x4C; every nonzero field requires its mask bit
