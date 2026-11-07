@@ -6981,7 +6981,7 @@ Code/GameEngine/Source/Common/VectorDeletingDtorsV04.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VectorDeletingDtorsV04_Unresolved.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VectorDeletingDtorsV05.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VectorDeletingDtorsV05_Unresolved.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/Common/VectorDeletingDtorsV07.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/VectorPairObjectIDCopyBackward.cpp,yes,0,0,0,0,0
@@ -10143,7 +10143,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataDtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieTestKillerType.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,no,1,0,4,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,no,1,0,6,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CrushDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CrushDieModuleDataCtor.cpp,yes,0,0,0,0,0
@@ -10159,7 +10159,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDataFriendNew.cpp,yes,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDeletingDtors.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieMuxDataInit.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp,no,1,0,3,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/FXListDie.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDieConstructor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDieFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/FXListDieModuleData.cpp,yes,0,0,0,0,0
@@ -10190,7 +10190,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/Rva0059761BXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/Rva00597693Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/Rva005978ED.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/Rva006054AF.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp,no,1,0,4,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDieModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDieNotify.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDieXfer.cpp,yes,0,0,0,0,0
