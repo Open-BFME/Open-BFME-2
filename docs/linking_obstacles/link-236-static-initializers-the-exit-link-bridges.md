@@ -1242,3 +1242,6 @@ touched object kept its `??_7` digests, link_check passed on the changed files (
   - Held this round: FloatUpdate 0x007B14E0 and BoneFXDamage 0x007B24C0 (class claims, lk56), the
     ElvenWoodSpecialPower.cpp five (one file holds five units' copies), the DieModule units, ControlBar,
     AssistedTargetingUpdate. TerrainResourceManager (ATL then `<iostream>` then Drawable.h) is unchanged.
+
+
+**2026-11-07 AptDate lookup consolidation.** AptDateLookup.cpp is absorbed into the approved AptDate.cpp after the calendar view declared the native const-qualified virtual lookup with its existing clock offsets. All 87 code rows, the cache data row and three EH graphs verify. Local link preview against 436fb45367 preserves the combined 9,825 bytes (4,746 plus 5,079). The outgoing path audit covers the sole removed path since 9c81acd297. The merge tool repoints functions.csv and tu_map.csv. The old path remains in a merge provenance comment, an EH provenance note and historical census, verdict and evidence records. The interpreter initializer and cleanup still belong to AptDate.cpp. A real-link run containing the merge is pending.

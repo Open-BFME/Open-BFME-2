@@ -6,23 +6,7 @@
 #include <math.h>
 #pragma intrinsic(abs)
 #pragma intrinsic(abs)
-
-// AptDate.cpp (retail __FILE__ names it; tu_map approved). The clock and
-// calendar units that shared these flags are folded in below; setDates is
-// defined before dateGetNumDaysInMonth so the rowed call stays a call.
-// The getter and setter units stay split until their callees link.
-//
-// CleanNativeFunctions:
-// Cleans the 37 native callback caches identified by the target date dispatch
-// table at VA DDC730 and jump table at AF643C. Each cache is constructed by
-// its own corresponding named dispatch case, then AddRef-ed through slot0.
-// Release slot4 agrees with existing target AptNativeHash/AptValue recoveries.
-// This TU groups adjacent cache slots for access; it does not claim that the
-// original source declared them as one struct. Field labels are target keys.
-// Donor PDB supplies AptDate::CleanNativeFunctions and static void() signature.
-// Provenance: reverse/godfather_disk_evidence.json, apt_date_cleanup.
 #include "AptValue.h"
-
 struct AptDateNativeCache {
     AptValue *getDate;
     AptValue *getDay;
@@ -62,26 +46,17 @@ struct AptDateNativeCache {
     AptValue *toString;
     AptValue *UTC;
 };
-
 // g_aptDateNativeCache: matched references place it at VA 0xe18248 (zero-filled; a plain-data view).
 AptDateNativeCache g_aptDateNativeCache;
-
 struct AptSysClock {
     int Second,Minute,Hour,Day,Date,Month,Year,Hundredths;
 };
-
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
-
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-
 class AptValue;
-
 #include "../../../GameEngine/Include/Common/AptInteger.h"
-
 class AptString { public: static AptString *Create(); };
-
 #include "EAStringC.h"
-
 #include "BfmeAptValue006DCD20.h"
 
 class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int); int count,capacity; BfmeAptValue006DCD20 **elements; };
@@ -103,6 +78,25 @@ struct AptActionInterpreter
 AptActionInterpreter g_aptDateInterpreter;
 
 extern AptValue *gpUndefinedValue;
+
+class Rva006D2A60 {public:void *allocBlock(int);void freeBlock(void *,int);};
+
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+
+class Rva006D6500 {unsigned char storage[36];public:Rva006D6500(int);static void *operator new(unsigned int n){return g_pChainBlockAllocatorF4->allocBlock(n);}static void operator delete(void *p,unsigned int n){g_pChainBlockAllocatorF4->freeBlock(p,n);}};
+
+struct R4Word {const char *name;int value;};
+
+const R4Word *Rva008B60B0(const char *,unsigned int);
+
+int Rva006F5100Get();
+
+void Rva006CC110Log(int,const char *,...);
+
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+
+extern AptDateNativeCache g_aptDateNativeCache;
 
 class AptDate {
 public:
@@ -196,6 +190,23 @@ public:
 public:
 	static AptValue *sMethod_toString(AptValue *,int);
 };
+
+// ---- from Code/Libraries/Source/Apt/AptDate.cpp
+
+// AptDate.cpp (retail __FILE__ names it; tu_map approved). The clock and
+// calendar units that shared these flags are folded in below; setDates is
+// defined before dateGetNumDaysInMonth so the rowed call stays a call.
+// The getter and setter units stay split until their callees link.
+//
+// CleanNativeFunctions:
+// Cleans the 37 native callback caches identified by the target date dispatch
+// table at VA DDC730 and jump table at AF643C. Each cache is constructed by
+// its own corresponding named dispatch case, then AddRef-ed through slot0.
+// Release slot4 agrees with existing target AptNativeHash/AptValue recoveries.
+// This TU groups adjacent cache slots for access; it does not claim that the
+// original source declared them as one struct. Field labels are target keys.
+// Donor PDB supplies AptDate::CleanNativeFunctions and static void() signature.
+// Provenance: reverse/godfather_disk_evidence.json, apt_date_cleanup.
 
 // Target date dispatch key toString reaches this formatter through callback
 // 0x006F5080. Target calls and literals establish date formatting behavior;
@@ -830,80 +841,286 @@ AptValue *AptDate::sMethod_toString(AptValue *value,int argc)
 
 // tu-skeleton: 0x006F5100 6B ?Rva006F5100Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x006F5110 5056B ?objectMemberLookup@AptDate@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/AptDateLookup.cpp
 
-// tu-skeleton: 0x007A9DE0 15B Unwind@00ba9de0 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
+// EA04ceaafc750a5cb1 supplies37 named Date cases; WB178BE20 independently
+// names lookup and native classifier/cache/callback dispatch proves each member.
+// Whole5056B includes37 target entries6F643C..6F64D0. Existing getTime
+// also serves setTime; UTC retains the actual neutral undefined getter provider.
+// No new callback alias or body is asserted. This caller-only Date interface is
+// never constructed; the original full Date layout is not needed or claimed.
+// The37 cache fields reuse the owned plain-data view from AptDate.cpp.
 
-// tu-skeleton: 0x007A9DEF 15B Unwind@00ba9def -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9DFE 15B Unwind@00ba9dfe -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E0D 15B Unwind@00ba9e0d -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E1C 15B Unwind@00ba9e1c -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E2B 15B Unwind@00ba9e2b -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E3A 15B Unwind@00ba9e3a -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E49 15B Unwind@00ba9e49 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E58 15B Unwind@00ba9e58 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E67 15B Unwind@00ba9e67 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E76 15B Unwind@00ba9e76 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E85 15B Unwind@00ba9e85 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9E94 15B Unwind@00ba9e94 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9EA3 15B Unwind@00ba9ea3 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9EB2 15B Unwind@00ba9eb2 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9EC1 15B Unwind@00ba9ec1 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9ED0 15B Unwind@00ba9ed0 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9EDF 15B Unwind@00ba9edf -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9EEE 15B Unwind@00ba9eee -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9EFD 15B Unwind@00ba9efd -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F0C 15B Unwind@00ba9f0c -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F1B 15B Unwind@00ba9f1b -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F2A 15B Unwind@00ba9f2a -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F39 15B Unwind@00ba9f39 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F48 15B Unwind@00ba9f48 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F57 15B Unwind@00ba9f57 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F66 15B $L1207 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F75 15B Unwind@00ba9f75 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F84 15B Unwind@00ba9f84 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9F93 15B Unwind@00ba9f93 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9FA2 15B Unwind@00ba9fa2 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9FB1 15B Unwind@00ba9fb1 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9FC0 15B $L1213 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9FCF 15B $L1214 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9FDE 15B $L1215 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9FED 15B $L1216 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9FFC 15B Unwind@00ba9ffc -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007AA00B 10B __ehhandler$?objectMemberLookup@AptDate@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
+AptValue *AptDate::objectMemberLookup(AptValue *const context,const EAStringC *const name)const
+{
+ const R4Word *prop=context?Rva008B60B0(name->rva00620090(),name->rva006D3750()):0;
+ if(prop){
+  switch(prop->value){
+case 1:
+   if(!g_aptDateNativeCache.getDate) {
+    g_aptDateNativeCache.getDate=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getDate)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getDate)->setGCRootCount(1);
+    g_aptDateNativeCache.getDate->AddRef();
+   }
+   return g_aptDateNativeCache.getDate;
+case 2:
+   if(!g_aptDateNativeCache.getDay) {
+    g_aptDateNativeCache.getDay=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getDay)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getDay)->setGCRootCount(1);
+    g_aptDateNativeCache.getDay->AddRef();
+   }
+   return g_aptDateNativeCache.getDay;
+case 3:
+   if(!g_aptDateNativeCache.getFullYear) {
+    g_aptDateNativeCache.getFullYear=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getFullYear)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getFullYear)->setGCRootCount(1);
+    g_aptDateNativeCache.getFullYear->AddRef();
+   }
+   return g_aptDateNativeCache.getFullYear;
+case 4:
+   if(!g_aptDateNativeCache.getHours) {
+    g_aptDateNativeCache.getHours=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getHours)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getHours)->setGCRootCount(1);
+    g_aptDateNativeCache.getHours->AddRef();
+   }
+   return g_aptDateNativeCache.getHours;
+case 5:
+   if(!g_aptDateNativeCache.getMilliseconds) {
+    g_aptDateNativeCache.getMilliseconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getMilliseconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getMilliseconds)->setGCRootCount(1);
+    g_aptDateNativeCache.getMilliseconds->AddRef();
+   }
+   return g_aptDateNativeCache.getMilliseconds;
+case 6:
+   if(!g_aptDateNativeCache.getMinutes) {
+    g_aptDateNativeCache.getMinutes=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getMinutes)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getMinutes)->setGCRootCount(1);
+    g_aptDateNativeCache.getMinutes->AddRef();
+   }
+   return g_aptDateNativeCache.getMinutes;
+case 7:
+   if(!g_aptDateNativeCache.getMonth) {
+    g_aptDateNativeCache.getMonth=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getMonth)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getMonth)->setGCRootCount(1);
+    g_aptDateNativeCache.getMonth->AddRef();
+   }
+   return g_aptDateNativeCache.getMonth;
+case 8:
+   if(!g_aptDateNativeCache.getSeconds) {
+    g_aptDateNativeCache.getSeconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getSeconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getSeconds)->setGCRootCount(1);
+    g_aptDateNativeCache.getSeconds->AddRef();
+   }
+   return g_aptDateNativeCache.getSeconds;
+case 9:
+   if(!g_aptDateNativeCache.getTime) {
+    g_aptDateNativeCache.getTime=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getTime)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getTime)->setGCRootCount(1);
+    g_aptDateNativeCache.getTime->AddRef();
+   }
+   return g_aptDateNativeCache.getTime;
+case 10:
+   if(!g_aptDateNativeCache.getTimezoneOffset) {
+    g_aptDateNativeCache.getTimezoneOffset=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getTimezoneOffset)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getTimezoneOffset)->setGCRootCount(1);
+    g_aptDateNativeCache.getTimezoneOffset->AddRef();
+   }
+   return g_aptDateNativeCache.getTimezoneOffset;
+case 11:
+   if(!g_aptDateNativeCache.getUTCDate) {
+    g_aptDateNativeCache.getUTCDate=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCDate)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCDate)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCDate->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCDate;
+case 12:
+   if(!g_aptDateNativeCache.getUTCDay) {
+    g_aptDateNativeCache.getUTCDay=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCDay)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCDay)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCDay->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCDay;
+case 13:
+   if(!g_aptDateNativeCache.getUTCFullYear) {
+    g_aptDateNativeCache.getUTCFullYear=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCFullYear)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCFullYear)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCFullYear->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCFullYear;
+case 14:
+   if(!g_aptDateNativeCache.getUTCHours) {
+    g_aptDateNativeCache.getUTCHours=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCHours)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCHours)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCHours->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCHours;
+case 15:
+   if(!g_aptDateNativeCache.getUTCMilliseconds) {
+    g_aptDateNativeCache.getUTCMilliseconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCMilliseconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCMilliseconds)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCMilliseconds->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCMilliseconds;
+case 16:
+   if(!g_aptDateNativeCache.getUTCMinutes) {
+    g_aptDateNativeCache.getUTCMinutes=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCMinutes)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCMinutes)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCMinutes->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCMinutes;
+case 17:
+   if(!g_aptDateNativeCache.getUTCMonth) {
+    g_aptDateNativeCache.getUTCMonth=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCMonth)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCMonth)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCMonth->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCMonth;
+case 18:
+   if(!g_aptDateNativeCache.getUTCSeconds) {
+    g_aptDateNativeCache.getUTCSeconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getUTCSeconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getUTCSeconds)->setGCRootCount(1);
+    g_aptDateNativeCache.getUTCSeconds->AddRef();
+   }
+   return g_aptDateNativeCache.getUTCSeconds;
+case 19:
+   if(!g_aptDateNativeCache.getYear) {
+    g_aptDateNativeCache.getYear=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getYear)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.getYear)->setGCRootCount(1);
+    g_aptDateNativeCache.getYear->AddRef();
+   }
+   return g_aptDateNativeCache.getYear;
+case 20:
+   if(!g_aptDateNativeCache.setDate) {
+    g_aptDateNativeCache.setDate=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setDate)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setDate)->setGCRootCount(1);
+    g_aptDateNativeCache.setDate->AddRef();
+   }
+   return g_aptDateNativeCache.setDate;
+case 21:
+   if(!g_aptDateNativeCache.setFullYear) {
+    g_aptDateNativeCache.setFullYear=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setFullYear)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setFullYear)->setGCRootCount(1);
+    g_aptDateNativeCache.setFullYear->AddRef();
+   }
+   return g_aptDateNativeCache.setFullYear;
+case 22:
+   if(!g_aptDateNativeCache.setHours) {
+    g_aptDateNativeCache.setHours=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setHours)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setHours)->setGCRootCount(1);
+    g_aptDateNativeCache.setHours->AddRef();
+   }
+   return g_aptDateNativeCache.setHours;
+case 23:
+   if(!g_aptDateNativeCache.setMilliseconds) {
+    g_aptDateNativeCache.setMilliseconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setMilliseconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setMilliseconds)->setGCRootCount(1);
+    g_aptDateNativeCache.setMilliseconds->AddRef();
+   }
+   return g_aptDateNativeCache.setMilliseconds;
+case 24:
+   if(!g_aptDateNativeCache.setMinutes) {
+    g_aptDateNativeCache.setMinutes=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setMinutes)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setMinutes)->setGCRootCount(1);
+    g_aptDateNativeCache.setMinutes->AddRef();
+   }
+   return g_aptDateNativeCache.setMinutes;
+case 25:
+   if(!g_aptDateNativeCache.setMonth) {
+    g_aptDateNativeCache.setMonth=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setMonth)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setMonth)->setGCRootCount(1);
+    g_aptDateNativeCache.setMonth->AddRef();
+   }
+   return g_aptDateNativeCache.setMonth;
+case 26:
+   if(!g_aptDateNativeCache.setSeconds) {
+    g_aptDateNativeCache.setSeconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setSeconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setSeconds)->setGCRootCount(1);
+    g_aptDateNativeCache.setSeconds->AddRef();
+   }
+   return g_aptDateNativeCache.setSeconds;
+case 27:
+   if(!g_aptDateNativeCache.setTime) {
+    g_aptDateNativeCache.setTime=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getTime)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setTime)->setGCRootCount(1);
+    g_aptDateNativeCache.setTime->AddRef();
+   }
+   return g_aptDateNativeCache.setTime;
+case 28:
+   if(!g_aptDateNativeCache.setUTCDate) {
+    g_aptDateNativeCache.setUTCDate=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setUTCDate)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setUTCDate)->setGCRootCount(1);
+    g_aptDateNativeCache.setUTCDate->AddRef();
+   }
+   return g_aptDateNativeCache.setUTCDate;
+case 29:
+   if(!g_aptDateNativeCache.setUTCFullYear) {
+    g_aptDateNativeCache.setUTCFullYear=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setUTCFullYear)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setUTCFullYear)->setGCRootCount(1);
+    g_aptDateNativeCache.setUTCFullYear->AddRef();
+   }
+   return g_aptDateNativeCache.setUTCFullYear;
+case 30:
+   if(!g_aptDateNativeCache.setUTCHours) {
+    g_aptDateNativeCache.setUTCHours=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setUTCHours)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setUTCHours)->setGCRootCount(1);
+    g_aptDateNativeCache.setUTCHours->AddRef();
+   }
+   return g_aptDateNativeCache.setUTCHours;
+case 31:
+   if(!g_aptDateNativeCache.setUTCMilliseconds) {
+    g_aptDateNativeCache.setUTCMilliseconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setUTCMilliseconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setUTCMilliseconds)->setGCRootCount(1);
+    g_aptDateNativeCache.setUTCMilliseconds->AddRef();
+   }
+   return g_aptDateNativeCache.setUTCMilliseconds;
+case 32:
+   if(!g_aptDateNativeCache.setUTCMinutes) {
+    g_aptDateNativeCache.setUTCMinutes=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setUTCMinutes)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setUTCMinutes)->setGCRootCount(1);
+    g_aptDateNativeCache.setUTCMinutes->AddRef();
+   }
+   return g_aptDateNativeCache.setUTCMinutes;
+case 33:
+   if(!g_aptDateNativeCache.setUTCMonth) {
+    g_aptDateNativeCache.setUTCMonth=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setUTCMonth)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setUTCMonth)->setGCRootCount(1);
+    g_aptDateNativeCache.setUTCMonth->AddRef();
+   }
+   return g_aptDateNativeCache.setUTCMonth;
+case 34:
+   if(!g_aptDateNativeCache.setUTCSeconds) {
+    g_aptDateNativeCache.setUTCSeconds=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setUTCSeconds)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setUTCSeconds)->setGCRootCount(1);
+    g_aptDateNativeCache.setUTCSeconds->AddRef();
+   }
+   return g_aptDateNativeCache.setUTCSeconds;
+case 35:
+   if(!g_aptDateNativeCache.setYear) {
+    g_aptDateNativeCache.setYear=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_setYear)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.setYear)->setGCRootCount(1);
+    g_aptDateNativeCache.setYear->AddRef();
+   }
+   return g_aptDateNativeCache.setYear;
+case 36:
+   if(!g_aptDateNativeCache.toString) {
+    g_aptDateNativeCache.toString=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_toString)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.toString)->setGCRootCount(1);
+    g_aptDateNativeCache.toString->AddRef();
+   }
+   return g_aptDateNativeCache.toString;
+case 37:
+   if(!g_aptDateNativeCache.UTC) {
+    g_aptDateNativeCache.UTC=reinterpret_cast<AptValue *>(new Rva006D6500(reinterpret_cast<int>(&Rva006F5100Get)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_aptDateNativeCache.UTC)->setGCRootCount(1);
+    g_aptDateNativeCache.UTC->AddRef();
+   }
+   return g_aptDateNativeCache.UTC;
+  }
+ }
+ if(name->rva006D3510("getDate")||name->rva006D3510("getDay")||name->rva006D3510("getFullYear")||name->rva006D3510("getHours")||name->rva006D3510("getMilliseconds")||name->rva006D3510("getMinutes")||name->rva006D3510("getMonth")||name->rva006D3510("getSeconds")||name->rva006D3510("getTime")||name->rva006D3510("getTimezoneOffset")||name->rva006D3510("getUTCDate")||name->rva006D3510("getUTCDay")||name->rva006D3510("getUTCFullYear")||name->rva006D3510("getUTCHours")||name->rva006D3510("getUTCMilliseconds")||name->rva006D3510("getUTCMinutes")||name->rva006D3510("getUTCMonth")||name->rva006D3510("getUTCSeconds")||name->rva006D3510("getYear")||name->rva006D3510("setDate")||name->rva006D3510("setFullYear")||name->rva006D3510("setHours")||name->rva006D3510("setMilliseconds")||name->rva006D3510("setMinutes")||name->rva006D3510("setMonth")||name->rva006D3510("setSeconds")||name->rva006D3510("setTime")||name->rva006D3510("setUTCDate")||name->rva006D3510("setUTCFullYear")||name->rva006D3510("setUTCHours")||name->rva006D3510("setUTCMilliseconds")||name->rva006D3510("setUTCMinutes")||name->rva006D3510("setUTCMonth")||name->rva006D3510("setUTCSeconds")||name->rva006D3510("setYear")||name->rva006D3510("toString")||name->rva006D3510("UTC")) {
+  Rva006CC110Log(3,"AptDate: Incorrect case for '%s'.\n",name->rva00620090());
+  g_bfmeAptAssertAtE17734("0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDate.cpp",860);
+  if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+ }
+ return 0;
+}
