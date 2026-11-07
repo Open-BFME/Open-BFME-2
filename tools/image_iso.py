@@ -1661,8 +1661,10 @@ def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None, ledger_
 
 def _layout_equal(checker, image_rva, retail_rva, size):
     """Same instruction sequence over the retail row: equal sizes and bytes,
-    except relocated image fields and relative branch operands. True proves
-    that offsets inside the row correspond; False or None does not."""
+    except relocated image fields and relative branch operands whose
+    destinations correspond (the same offset inside the row, or an outside
+    target that maps to retail's). True proves that offsets inside the row
+    correspond; False or None does not."""
     import capstone
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     md.detail = True
@@ -1681,11 +1683,41 @@ def _layout_equal(checker, image_rva, retail_rva, size):
         for start, width in ((x.imm_offset, x.imm_size), (x.disp_offset, x.disp_size)):
             if width == 4 and x.address + start in checker.ours.relocations:
                 masked.update(range(start, start + width))
-        if (x.group(capstone.CS_GRP_JUMP) or x.group(capstone.CS_GRP_CALL)) and x.imm_size:
+        if (x.group(capstone.CS_GRP_JUMP) or x.group(capstone.CS_GRP_CALL)) and x.imm_size \
+                and x.address + x.imm_offset not in checker.ours.relocations:
+            here, there = x.operands[0].imm, y.operands[0].imm
+            inside_a = image_rva <= here < image_rva + size
+            inside_b = retail_rva <= there < retail_rva + size
+            if inside_a or inside_b:
+                if not (inside_a and inside_b and here - image_rva == there - retail_rva):
+                    return False
+            else:
+                mapped = checker.mapping.resolve(
+                    _chase(checker, checker.ours, here + checker.ours.base) - checker.ours.base,
+                    there)
+                if mapped is None:
+                    return None
+                if mapped != _chase(checker, checker.retail, there + checker.retail.base) - checker.retail.base \
+                        and mapped != there:
+                    return False
             masked.update(range(x.imm_offset, x.imm_offset + x.imm_size))
         if any(x.bytes[k] != y.bytes[k] for k in range(x.size) if k not in masked):
             return False
     return True
+
+
+def _ret_forms(image, rva, size):
+    """The set of return immediates (stack cleanup) in a body, or None when it
+    does not decode to exactly its size."""
+    import capstone
+    raw = image.read(rva, size) if size else None
+    if not raw:
+        return None
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    insns = list(md.disasm(raw, rva))
+    if sum(i.size for i in insns) != size:
+        return None
+    return frozenset(int(i.op_str, 0) if i.op_str else 0 for i in insns if i.mnemonic in ("ret", "retn"))
 
 
 def _chase(checker, image, value):
@@ -1704,7 +1736,7 @@ def _vptr_slot(checker, slot_rva, actual, expected, end, sizes, by_rva):
     A slot at or past the installed table's extent is past-extent whatever
     it holds: the word belongs to another symbol."""
     ours, retail = checker.ours, checker.retail
-    if end is None or slot_rva >= end:
+    if end is None or slot_rva + 4 > end:
         return "past-extent", hex(actual)
     if actual == 0:
         return "null", ""
@@ -1723,12 +1755,23 @@ def _vptr_slot(checker, slot_rva, actual, expected, end, sizes, by_rva):
     targets = set()
     for p in here:
         targets |= set(checker.addresses.get(p["name"], ()))
-    if b in targets and (targets == {b} or frozenset(targets) in checker.mapping.proven_folds):
-        return "match", name
+    nominated = b in targets and (targets == {b} or frozenset(targets) in checker.mapping.proven_folds)
     verdict = checker.slot(actual, expected, sizes)
-    if verdict is True:
+    # Whatever names the target, its image body must be the expected retail body:
+    # bytes when they decide, else at least the same return/stack-cleanup forms.
+    size = sizes.get(b)
+    body = checker.code_equal(a, b, size) if size else None
+    if body is False:
+        return "wrong", name
+    if body is None:
+        mine, theirs = (_ret_forms(ours, a, size), _ret_forms(retail, b, size)) if size else (None, None)
+        if mine is None or theirs is None:
+            return "unk", name
+        if mine != theirs:
+            return "wrong", name
+    if nominated or verdict is True:
         return "match", name
-    if sizes.get(b) and checker.code_equal(a, b, sizes[b]) is True:
+    if body is True:
         return "equiv", name
     return ("wrong" if verdict is False else "unk"), name
 
@@ -1740,12 +1783,15 @@ def vptr_store_report(checker, stores, sizes, order=None):
     row's layout (_layout_equal), so the instruction at the store's offset is
     the same instruction, and only when that instruction carries an image
     fixup on its immediate. The installed table is compared slot by slot over
-    retail's run, bounded by the installed symbol's COFF extent, else by the
-    next map symbol. Verdicts: zero-placeholder (a non-??_7 symbol whose
+    retail's run, bounded by the owning symbol's COFF extent (a slot passes
+    only when its four bytes lie inside it), else by the next map symbol with
+    the image extent unproven. Verdicts: zero-placeholder (a non-??_7 symbol whose
     every slot is null, data or past-extent: P18), bad (any slot that is not
-    match or equiv), extent-unproven (no defect within a run whose retail
-    extent is only the next referenced address), no-defect-found (ledger
-    extent, every slot match or equiv; not a proof of correctness), and the
+    match, equiv or unk), unanalyzed-slots (no definite defect, but some
+    slot is unk: its body could not be compared), extent-unproven (no defect found, but the retail extent
+    is only the next referenced address or the image extent is not a COFF
+    size), no-defect-found (both extents proven, every slot match or equiv;
+    an advisory lead, not a proof of correctness), and the
     unanalyzed-* verdicts. Transient stores are counted, not judged. Stores
     are not reachability: order is an optional {(function, offset): rank}.
     """
@@ -1799,11 +1845,11 @@ def vptr_store_report(checker, stores, sizes, order=None):
         index = bisect.bisect_right(starts, installed) - 1
         owner = by_rva[starts[index]][0] if index >= 0 else {}
         exact = index >= 0 and starts[index] == installed
-        if exact and owner.get("extent"):
-            end, result["image_extent"] = installed + owner["extent"], "coff"
+        if owner.get("extent"):
+            end, result["image_extent"] = starts[index] + owner["extent"], "coff"
         else:
             end = starts[index + 1] if index + 1 < len(starts) else None
-            result["image_extent"] = "next-map-symbol"
+            result["image_extent"] = "unproven"
         symbol = owner.get("name", "")
         if owner and not exact:
             symbol += "+%#x" % (installed - starts[index])
@@ -1816,18 +1862,22 @@ def vptr_store_report(checker, stores, sizes, order=None):
             if kind not in ("match", "equiv"):
                 bad.append("slot %d %s %s retail=%#x" % (k, kind, note, b))
         zero = not symbol.startswith("??_7") and slots["null"] + slots["data"] + slots["past-extent"] == n
+        definite = [line for line in bad if " unk " not in line]
         if zero:
             verdict = "zero-placeholder"
-        elif bad:
+        elif definite:
             verdict = "bad"
-        elif result["retail_extent"] != "ledger":
+        elif bad:
+            # Only undecided slots: no defect found, but nothing proven either.
+            verdict = "unanalyzed-slots"
+        elif result["retail_extent"] != "ledger" or result["image_extent"] != "coff":
             verdict = "extent-unproven"
         else:
             verdict = "no-defect-found"
         result.update(image_symbol=symbol, object=owner.get("object", ""), source=owner.get("source", ""),
                       slots=dict(slots), bad=bad, verdict=verdict)
         counts["vptr_stores_" + verdict.replace("-", "_")] += 1
-        if bad:
+        if zero or definite:
             checker.defect("vptr_store_zero" if zero else "vptr_store_slot", fa, owner,
                            "store +%#x installs %s for retail %#x (%d slots, %s extent): %s" % (
                                at, symbol, table + retail.base, n, result["retail_extent"], "; ".join(bad[:3])))
@@ -1858,7 +1908,8 @@ def vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_cou
     result = vptr_store_report(checker, stores, sizes, order)
     report = checker.report()
     report["vptr_stores"] = dict(result["counts"], **discovery)
-    report["analysis_scope"] = "retail vptr stores against installed image tables only"
+    report["analysis_scope"] = ("retail vptr stores against installed image tables only; "
+                                "verdicts are advisory leads (complete=false), not proofs")
     report["limitations"] = report["limitations"] + [
         "Vptr stores are the mov [m],imm32 stores found in rowed retail bodies (discovery_* counts what it cannot see), not a trace; --boot-order only ranks them.",
         "Retail tables abut (no RTTI): without a ledger vtable extent a run ends at the next referenced data address (extent-unproven).",

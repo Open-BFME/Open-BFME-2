@@ -1357,7 +1357,8 @@ def test_zero_placeholder_is_p18_shape():
     c, stores = vptr_case("?g_00C59B20@@3DA", 1, (), follower="next", filler=b"")
     store = judge(c, stores)[0]
     assert store["verdict"] == "zero-placeholder"
-    assert store["slots"] == {"null": 1, "past-extent": 1}
+    # A one-byte placeholder (P18's char g_00C59B20) cannot hold even slot 0.
+    assert store["slots"] == {"past-extent": 2}
     assert [d["family"] for d in c.defects] == ["vptr_store_zero"]
 
 
@@ -1400,3 +1401,81 @@ def test_store_without_image_fixup_is_unanalyzed():
     c.ours.relocations.discard(0x402)
     # Without the fixup the immediate is compared raw, so the layout check refuses first.
     assert judge(c, stores)[0]["verdict"] in ("unanalyzed-layout", "unanalyzed-fixup")
+
+
+# Reproductions from the Codex re-check of 874198de22.
+
+def test_interior_pointer_is_bounded_by_its_owner_extent():
+    # ??_7Short covers 0x3000..0x3008; the store installs 0x3004, so the
+    # second slot (0x3008) lies past the owner even though it holds f310.
+    c, stores = vptr_case("??_7Short@@6B@", 8, (), ledger_extents={0x2000: 8})
+    c.ours.pointer(0x402, 0x3004)
+    c.ours.pointer(0x3004, 0x500)
+    c.ours.pointer(0x3008, 0x510)
+    c.publics.append(public("later", 0x3100, 4))
+    store = judge(c, stores)[0]
+    assert store["verdict"] == "bad" and store["slots"] == {"match": 1, "past-extent": 1}
+
+
+def test_partial_last_slot_is_past_extent():
+    c, stores = vptr_case("??_7Short@@6B@", 5, (0x500, 0x510), ledger_extents={0x2000: 8})
+    store = judge(c, stores)[0]
+    assert store["verdict"] == "bad" and store["slots"] == {"match": 1, "past-extent": 1}
+
+
+def test_unknown_image_extent_is_never_no_defect_found():
+    c, stores = vptr_case("??_7Short@@6B@", None, (0x500, 0x510), ledger_extents={0x2000: 8})
+    c.publics.append(public("later", 0x3100, 4))
+    store = judge(c, stores)[0]
+    assert store["image_extent"] == "unproven" and store["verdict"] == "extent-unproven"
+
+
+def test_proven_fold_still_needs_the_expected_image_body():
+    c, stores = vptr_case("??_7Alias@@6B@", 8, (0x500, 0x510), ledger_extents={0x2000: 8})
+    c.retail.put(0x320, b"\x33\xc0\xc3")           # retail fold twin of 0x310
+    c.publics.append(public("g", 0x510, 3))
+    c.addresses["g"] = {0x320}
+    c.mapping = iso.Correspondence(c.publics, c.addresses)
+    sizes = {0x200: 7, 0x300: 1, 0x310: 3, 0x320: 3}
+    c.mapping.prove_folds(c.retail, sizes)
+    c.ours.put(0x510, b"\xc2\x04\x00")              # image body: ret 4
+    store = judge(c, stores, sizes)[0]
+    assert store["verdict"] == "bad" and store["slots"] == {"match": 1, "wrong": 1}
+
+
+def test_relative_branch_to_another_destination_breaks_layout():
+    c, stores = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510), ledger_extents={0x2000: 8})
+    c.retail.put(0x200, b"\xeb\x00" + STORE_ECX + struct.pack("<I", c.retail.base + 0x2000) + b"\xc3")
+    c.ours.put(0x400, b"\xeb\x04" + STORE_ECX + bytes(4) + b"\xc3")
+    c.ours.relocations.discard(0x402)
+    c.ours.pointer(0x404, 0x3000)
+    stores, _ = stores_at(c.retail, [(0x200, 9), (0x300, 1), (0x310, 3)], 0x200, ledger_extents={0x2000: 8})
+    assert judge(c, stores, {0x200: 9, 0x300: 1, 0x310: 3})[0]["verdict"].startswith("unanalyzed")
+
+
+def test_discovery_counts_what_it_cannot_see():
+    retail, rows = vptr_retail()
+    retail.put(0x340, b"\x0f")
+    retail.put(0x350, b"\x83\xe9\x04\xe9" + bytes(8))
+    retail.put(0x2100, struct.pack("<I", retail.base + 0x350))
+    _, counts = iso.retail_vptr_stores(retail, rows + [(0x340, 1), (0x6000, 4)], data_ranges=DATA)
+    assert counts["discovery_undecoded_bytes"] == 1
+    assert counts["discovery_rows_unreadable"] == 1
+    assert counts["discovery_slot0_unrowed_adjustor"] == 1
+
+
+def test_alias_without_a_fold_cannot_settle_an_undecided_body():
+    # Slot 1's retail body reads a global; the image copy's pointer has no
+    # correspondence, so the bytes cannot decide. Its alias h names two retail
+    # bodies that are not a proven fold, so the name cannot decide either.
+    c, stores = vptr_case("??_7Undecided@@6B@", 8, (0x500, 0x520), ledger_extents={0x2000: 8})
+    c.retail.put(0x2004, struct.pack("<I", c.retail.base + 0x360))
+    c.retail.put(0x360, b"\xa1" + struct.pack("<I", c.retail.base + 0x3800) + b"\xc3")
+    c.retail.put(0x370, b"\xc2\x04\x00")
+    c.ours.put(0x520, b"\xa1" + bytes(4) + b"\xc3")
+    c.ours.pointer(0x521, 0x4000)
+    c.publics.append(public("h", 0x520, 6))
+    c.addresses["h"] = {0x360, 0x370}
+    store = judge(c, stores, {0x200: 7, 0x300: 1, 0x360: 6, 0x370: 3})[0]
+    assert store["slots"] == {"match": 1, "unk": 1} and store["verdict"] == "unanalyzed-slots"
+    assert not c.defects
