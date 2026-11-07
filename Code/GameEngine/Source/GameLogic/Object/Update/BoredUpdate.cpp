@@ -5,17 +5,22 @@
 //
 // ??0BoredUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
 // retail 0x00496791, 98 bytes. Dedicated TU: the Update ctor runs the
-// rowed UpdateModule base ctor (thing plus data), re-stores the inherited
-// +0x0C/+0x10/+0x20 pointer slots (address-of TU-local dummies,
-// DIR32-masked), zeroes the scan timer, then adds a GetGameLogicRandomValue
-// (rowed) roll over the owner's scan range with the TU file and line. The
-// declared-only base dtor drives the single EH state with zero emitted code.
-// Do NOT declare an explicit vptr member on the base: the compiler's hidden
-// vptr already sits at +0 and a declared one shifts every slot by 4.
-// Recipe: OCLUpdateCtor.cpp opaque-base pattern with the rowed BoredUpdate
-// file-unit (pool key plus proc plus factories) and the UpdateModule base
-// truth ([esi+4] owner). The row supersedes the sole-caller pin at the same
-// address.
+// rowed UpdateModule base ctor (thing plus data), stores the class's three
+// vftables (0x00C4F55C at +0, UpdateModule's 0x00BEFF90 at +0x0C, 0x00C4F550
+// at +0x10; the destructor 0x0049669A restores them), zeroes the scan
+// timer, then adds a GetGameLogicRandomValue (rowed) roll over the module
+// data's scan range with the TU file and line. The class is declared over
+// the canonical UpdateModule.h, so the compiler stores the vptrs. The row
+// supersedes the sole-caller pin at the same address.
+//
+// Retail 0x00C4F55C (13 slots): deleting dtor 0x004967F3, loadPostProcess
+// 0x00497805 (`jmp 0x0058B03E`, UpdateModule's own body; inherited here),
+// the name getter 0x004966B3 (rowed as the non-virtual
+// ?name@BoredUpdate@@QBEPBDXZ), xfer 0x004ACAAA (one body with
+// PartTheHeavensUpdate::xfer, rowed under that class), getModuleNameKey
+// 0x004966B9, then UpdateModule's slots. 0x00C4F550: update 0x0049680F, then
+// UpdateModule's. The getter and xfer are not declared, so slots 2 and 3
+// stay UpdateModule's.
 
 class Thing;
 
@@ -28,10 +33,6 @@ struct BoredScanRange
 	int m_maxScanDistance;
 };
 
-static int s_dummy0C;
-
-static int s_dummy10;
-
 static const char s_boredUpdateFile[] = "BoredUpdate";
 
 int __cdecl GetGameLogicRandomValue(int low, int high, char *file, int line);
@@ -41,22 +42,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-// Opaque UpdateModule base; ctor resolves to its row. Protected slots mirror
-// the retail stores.
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-
-protected:
-	BoredScanRange *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad2[0x20 - 0x14];
-	int m_scanTimer;
-};
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 
 //
@@ -114,6 +100,10 @@ public:
 	BoredUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~BoredUpdate();
 	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+
+private:
+	int m_scanTimer; // +0x20
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp
@@ -124,9 +114,7 @@ public:
 BoredUpdate::BoredUpdate(Thing *thing, const ModuleData *moduleData)
 	: UpdateModule(thing, moduleData)
 {
-	BoredScanRange *owner = m_owner;
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
+	const BoredScanRange *owner = (const BoredScanRange *)getModuleData();
 	m_scanTimer = 0;
 	m_scanTimer += GetGameLogicRandomValue(0, owner->m_maxScanDistance, const_cast<char *>(s_boredUpdateFile), 70);
 }
@@ -135,8 +123,6 @@ BoredUpdate::BoredUpdate(Thing *thing, const ModuleData *moduleData)
 // 0x004967F3 (formerly the placeholder Rva0049669A in Rva0024A797Derived.cpp).
 BoredUpdate::~BoredUpdate()
 {
-	m_p0C = &s_dummy0C;
-	m_p10 = &s_dummy10;
 }
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateModuleDataCtor.cpp
