@@ -17,14 +17,6 @@ extern int g_00DE1B50;
 int g_00DE1B50 = 0;	// owned here; retail .data starts it at 0
 extern int g_00DFEFCC;
 int g_00DFEFCC = 0;	// owned here; retail .data starts it at 0
-// Retail's half-the-frame-rate divisor, VA 0x00E02D9C (RVA 0x00A02D9C): the rowed
-// ScriptActions bodies divide by it (`idivl 0xe02d9c`, retail 0x003BB5F14), and
-// this very unit's rowed initialiser writes BfmeClientFramesPerSecond / 2 into it. RVA
-// 0x00A02D9C is past .data's raw end (0x009DE008) but inside its virtual size,
-// so retail's image holds zero until the frame-rate init runs -- which is the
-// definition below. One object, defined in the unit whose rowed body assigns it.
-extern int g_00E02D9C;
-int g_00E02D9C = 0;
 extern int g_00E033D0;
 // Owned here: written by rva007B07F5 below; retail .data starts it at 0.
 int g_00E033D0 = 0;
@@ -68,7 +60,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007AE27C();
 	static void rva007AE2CE();
 	static void rva007AEE6B();
-	static void rva007AF85F();
 	static void rva007B014F();
 	static void rva007B042B();
 	static void rva007B07F5();
@@ -141,12 +132,6 @@ void Rva007ABC6FFrameRateInits::rva007AE2CE()
 void Rva007ABC6FFrameRateInits::rva007AEE6B()
 {
 	s_rva007AEE6B = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007AF85F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AF85F (16B): global at VA 0x00E02D9C, also read elsewhere in .text
-void Rva007ABC6FFrameRateInits::rva007AF85F()
-{
-	g_00E02D9C = BfmeClientFramesPerSecond / 2;
 }
 
 // ?rva007B014F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B014F (16B): TU-local static at VA 0x00E030F0, never read in .text

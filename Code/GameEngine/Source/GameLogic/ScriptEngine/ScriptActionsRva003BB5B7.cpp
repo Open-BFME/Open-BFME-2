@@ -14,11 +14,11 @@ class Team;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 extern int BfmeLogicFramesPerSecond;
-extern int g_00E02D9C;
-// One shared read of each legacy rate declaration; both flash actions use
-// these inline accessors rather than repeating the address-derived spelling.
+// Both flash actions divide by this unit's own Drawable.h copy of
+// DRAWABLE_FRAMES_PER_FLASH: retail reads it at VA 0x00E02D9C (0x003BB5ED,
+// 0x003BFFB7 idiv), the static this unit's .CRT$XCU entry 0x007AF85F builds, as
+// Zero Hour's ScriptActions::doNamedFlash/doTeamFlash read theirs.
 inline int LogicFrameRate() { return BfmeLogicFramesPerSecond; }
-inline int DrawableFlashFramePeriod() { return g_00E02D9C; }
 void ScriptActions::Rva003BB5B7Do(Parameter *p, int seconds, RGBColor *colorOverride)
 {
 	Object *o = TheScriptEngine->getUnitNamed(p);
@@ -29,7 +29,7 @@ void ScriptActions::Rva003BB5B7Do(Parameter *p, int seconds, RGBColor *colorOver
 		return;
 	if (seconds <= 0)
 		return;
-	int scaled = LogicFrameRate() * seconds / DrawableFlashFramePeriod();
+	int scaled = LogicFrameRate() * seconds / DRAWABLE_FRAMES_PER_FLASH;
 	int color;
 	if (colorOverride == 0)
 		color = o->getIndicatorColor();
@@ -72,7 +72,7 @@ void ScriptActions::Rva003BFF50Do(const AsciiString *teamName, int seconds, RGBC
         if (!draw)
             break;
         int frames = LogicFrameRate() * seconds;
-        int count = frames / DrawableFlashFramePeriod();
+        int count = frames / DRAWABLE_FRAMES_PER_FLASH;
         int flashy = colorOverride == 0 ? obj->getIndicatorColor() : colorOverride->getAsInt();
         draw->m_flashColor = flashy;
         draw->m_flashCount = count;
