@@ -326,6 +326,227 @@ def class_bodies(text):
     return [name for name, _, _, _ in class_body_spans(text)]
 
 
+# The scope-aware reader below is opt-in. class_body_spans and class_bodies keep
+# their spelling-only behaviour, which class_views, progress.py and private_views
+# depend on; this reader is for registered-key decisions (class templates).
+IDENT = r"[A-Za-z_]\w*"
+CLASS_KEY = re.compile(r"\b(?P<key>class|struct)\b")
+DECLSPEC = re.compile(r"__declspec\s*\(")
+QUALIFIED = re.compile(IDENT + r"(?:\s*::\s*" + IDENT + r")*")
+NAMESPACE_HEAD = re.compile(r"\bnamespace\s*(?P<name>" + IDENT + r"(?:\s*::\s*" + IDENT + r")*)?\s*\{")
+TEMPLATE_MEMBER = re.compile(r"\btemplate\s*<")
+
+
+def _masked(text):
+    """`text` with comments and literals blanked, offsets kept."""
+    return NON_CODE.sub(lambda m: re.sub(r"[^\n]", " ", m.group()), text)
+
+
+def _ambiguous(text, code):
+    """Constructs that can manufacture or hide scope: the refusals moved_bodies uses."""
+    return bool(re.search(r'(?:u8|u|U|L)?R"|<%|%>|<:|:>|\\\r?\n', text)
+                or re.search(r"\?\?[=/'()!<>-]", text)
+                or re.search(r"^[ \t\f\v]*(?:#|%:)(?![ \t]*include\b)", code, re.M))
+
+
+def _balanced(code, pos, open_char, close_char):
+    """Index just after the bracket that closes code[pos] (an `open_char`), or None."""
+    depth = 0
+    for i in range(pos, len(code)):
+        char = code[i]
+        if char == open_char:
+            depth += 1
+        elif char == close_char:
+            depth -= 1
+            if depth == 0:
+                return i + 1
+        elif char in ";{}" and open_char == "<":
+            return None
+    return None
+
+
+def _skip_space(code, pos):
+    while pos < len(code) and code[pos].isspace():
+        pos += 1
+    return pos
+
+
+def _template_prefix(code, pos):
+    """True when the class key at `pos` is preceded by `template <...>`."""
+    i = pos - 1
+    while i >= 0 and code[i].isspace():
+        i -= 1
+    if i < 0 or code[i] != ">":
+        return False
+    depth = 0
+    while i >= 0:
+        if code[i] == ">":
+            depth += 1
+        elif code[i] == "<":
+            depth -= 1
+            if depth == 0:
+                break
+        elif code[i] in ";{}":
+            return False
+        i -= 1
+    if i < 0:
+        return False
+    return re.search(r"\btemplate\s*$", code[:i]) is not None
+
+
+def _class_head(code, match):
+    """(name, args, brace) for a class key that opens a class body, else None.
+
+    `args` is the specialization argument list, whitespace collapsed (None for a
+    primary). A declaration (`class X;`, `class X *p;`), a friend declaration or
+    an elaborated type in a function signature never reaches a `{` first.
+    """
+    pos = _skip_space(code, match.end())
+    while True:
+        declspec = DECLSPEC.match(code, pos)
+        if not declspec:
+            break
+        end = _balanced(code, declspec.end() - 1, "(", ")")
+        if end is None:
+            return None
+        pos = _skip_space(code, end)
+    name = QUALIFIED.match(code, pos)
+    if not name:
+        return None
+    pos = _skip_space(code, name.end())
+    args = None
+    if pos < len(code) and code[pos] == "<":
+        end = _balanced(code, pos, "<", ">")
+        if end is None:
+            return None
+        args = " ".join(code[pos + 1:end - 1].split())
+        args = re.sub(r"\s*([<>,])\s*", r"\1", args)
+        pos = _skip_space(code, end)
+    if pos < len(code) and code[pos] == ":" and code[pos:pos + 2] != "::":
+        depth = 0
+        for i in range(pos + 1, len(code)):
+            char = code[i]
+            if char in "(<":
+                depth += 1
+            elif char in ")>":
+                depth -= 1
+            elif char == ";" or char == "}":
+                return None
+            elif char == "{" and depth <= 0:
+                pos = i
+                break
+        else:
+            return None
+    if pos >= len(code) or code[pos] != "{":
+        return None
+    return re.sub(r"\s+", "", name.group()), args, pos
+
+
+def class_identities(text):
+    """[(qualified, name, args, is_template, start, end, key)] for every class
+    body outside a function body, in source order; None when scope is ambiguous.
+
+    Opt-in and scope-tracked: namespaces and enclosing classes are part of
+    `qualified` (`(anonymous)` for an unnamed namespace); a head inside a
+    function, or under any brace this reader cannot name, is dropped.
+    `args` is a specialization's argument list (None for a primary), so
+    `template <> class X<7>` and `template <int N> class X<N, 0>` are seen.
+    Declarations, explicit instantiations and uses define no body and are absent.
+    """
+    code = _masked(text)
+    if _ambiguous(text, code):
+        return None
+    heads = {}
+    for match in CLASS_KEY.finditer(code):
+        head = _class_head(code, match)
+        if head:
+            name, args, brace = head
+            heads[brace] = (name, args, _template_prefix(code, match.start()), match.start(), match.group("key"))
+    namespaces = {m.end() - 1: m for m in NAMESPACE_HEAD.finditer(code)}
+    linkage = {m.end() - 1 for m in LINKAGE.finditer(text) if code[m.start():m.start() + 6] == "extern"}
+    stack, found = [], []
+    for brace in re.finditer(r"[{}]", code):
+        pos = brace.start()
+        if brace.group() == "{":
+            head, namespace = heads.get(pos), namespaces.get(pos)
+            known = all(frame[0] is not None for frame in stack)
+            if namespace:
+                path = tuple(re.sub(r"\s+", "", namespace.group("name") or "(anonymous)").split("::"))
+            elif head:
+                path = tuple(head[0].split("::"))
+            elif pos in linkage:
+                path = ()
+            else:
+                path = None                      # a function, initializer or unknown brace
+            scope = tuple(part for frame in stack for part in (frame[0] or ()))
+            stack.append((path, head if known else None, scope))
+        elif stack:
+            _path, head, scope = stack.pop()
+            if head:
+                name, args, is_template, start, key = head
+                qualified = "::".join(scope + tuple(name.split("::")))
+                found.append((qualified, name, args, is_template, start, pos + 1, key))
+        else:
+            return None
+    if stack:
+        return None
+    return sorted(found, key=lambda item: item[4])
+
+
+def template_member_definitions(text, name):
+    """[(start, end)] of out-of-class definitions of class template `name`'s
+    members and static data (`template <...> ... name<...>::member ...` up to
+    its closing `}` or `;`); None when the text is ambiguous. `name` is the
+    class's own (unqualified) name."""
+    code = _masked(text)
+    if _ambiguous(text, code):
+        return None
+    owner = re.compile(r"\b" + re.escape(name) + r"\s*<")
+    found = []
+    for match in TEMPLATE_MEMBER.finditer(code):
+        end = _balanced(code, match.end() - 1, "<", ">")
+        if end is None:
+            continue
+        # The declarator must name `name<...>::member` before the definition opens.
+        stop = len(code)
+        for char in "{;=":
+            at = code.find(char, end)
+            if at != -1:
+                stop = min(stop, at)
+        # The declarator is the `name<...>` followed by `::member`; an earlier one is the type.
+        head = close = None
+        for candidate in owner.finditer(code, end, stop):
+            after = _balanced(code, candidate.end() - 1, "<", ">")
+            if after is not None and re.match(r"\s*::\s*~?" + IDENT, code[after:]):
+                head, close = candidate, after
+                break
+        if head is None:
+            continue
+        if re.search(r"\b(?:class|struct)\b", code[end:head.start()]):
+            continue                              # a class head or a member class, not a definition
+        i, depth = close, 0
+        while i < len(code):
+            char = code[i]
+            if char == "(" or char == "[":
+                depth += 1
+            elif char == ")" or char == "]":
+                depth -= 1
+            elif char == ";" and depth == 0:
+                found.append((match.start(), i + 1))
+                break
+            elif char == "{" and depth == 0:
+                body_end = _balanced(code, i, "{", "}")
+                if body_end is None:
+                    break
+                after = _skip_space(code, body_end)
+                if after < len(code) and code[after] == ";":     # a braced static initializer
+                    body_end = after + 1
+                found.append((match.start(), body_end))
+                break
+            i += 1
+    return found
+
+
 def sha(data):
     return hashlib.sha256(data).hexdigest()
 
