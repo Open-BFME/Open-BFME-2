@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Blocked (TU evidence, then class identity; header lane). Updated: 2026-11-06; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989).
+Status: Partly repaired (2 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162.
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -12,10 +12,10 @@ rowed under a different placeholder class in another file, so no one class owns 
 |---|---|---|---|
 | Common/Bfme5ThirtyTwo.cpp | g_bfmeVtableCZ (0x00CE4A10, 19 slots + string bytes) | 19 | 0x68A160 BfmeThingVIH::bfmeDelVIH (BfmeConv1374.cpp), 0x7244B0 ICF twin, 16x __purecall, 0x68A130 Rva0068A130::rva0068A130 (Rva0068A130Cluster.cpp). Ctor 0x68A0E0 Gen_0081E480 here, dtor body 0x68A110 |
 | Common/Rva000A217FCtor.cpp | g_00BC9020 (0x00BC9020) | 11 | GameWindow-family slots (??_GRva0008FF3E, Rva000A260AWindow::input/system, Rva000A261CWindow::draw, GameWindow::vslot6/8/9, Xfer::IsCRC twin, ...) |
-| Common/Rva004F599EClear.cpp | g_00C63254 (0x00C63254) | 4 | ??_GObjectModule twin 0x4A10FD, ~Region2D twin 0xB3FD0, Rva004F59ACNamed::name, Rva004F599E::xfer |
+| Common/Rva004F599EClear.cpp | g_00C63254 (0x00C63254) | 4 | FIXED 2026-11-07 (below). ??_GObjectModule twin 0x4A10FD, ~Region2D twin 0xB3FD0, Rva004F59ACNamed::name, Rva004F599E::xfer |
 | Common/Rva005C44A3Ctor.cpp | g_00C745D4 (0x00C745D4, char blob with trailing strings) | 4 | 0x5C4537 (rowed ??_GRva004FA830), Rva005C44DF, Rva005C44C3::getName, Rva005C4352 |
 | Common/R2ZeroingConstructors.cpp | R2Data010EC784 (0x00C61CA8), R2Data01085DBC (0x00C61C30) | 2 | ??_GRva004E194E, ??_GRva004E18A2; the ledger already lists ??_7Rva004E194E and ??_7Rva003B8610Record at 0x00C61CA8 |
-| Common/R3ScalarFieldConstructors1.cpp | Gen00C1F470 (0x00C1F470) | 1 | ??_GRva003B4100 |
+| Common/R3ScalarFieldConstructors1.cpp | Gen00C1F470 (0x00C1F470) | 1 | FIXED 2026-11-07 (below). ScriptGroup; retail's table has 4 slots: ??_GRva003B4100, shared `ret` 0x4B3FD0, getter 0x3B40FA, ScriptGroup::xfer |
 | Common/Rva007EB310Destroy.cpp | vftable_01129CB4 (0x00CE1514) | 1 | Rva007EB310Owner::destroy (ledger: ??_7Rva007EB2C0Object) |
 | GameNetwork/Rva007EBAA0Create.cpp | g_bfmeVftTDA (0x00CE157C) | 1 | Rva007EB8B0Log::setFields_007EB760 |
 | GameNetwork/Rva00800920FeslCtor.cpp | vftable_0112B89C (0x00C1C780) | 1 | __purecall (ledger: ??_7SecondaryModuleBase@FXParticleSystem; data row ??_7Rva003F498ACallback) |
@@ -26,10 +26,74 @@ rowed under a different placeholder class in another file, so no one class owns 
 ServiceHubImpl has four private class copies (ServiceHubImpl.cpp, ServiceHubImpl_ctor.cpp,
 createServiceHubImpl.cpp, BuddyThreadClassThreadFunction.cpp). None is registered in canonical_classes.csv.
 
-Completed: none of the arrays is fixed. They were checked and left as they are. Function references
-cannot replace them: the slots are deleting destructors and members of other placeholder classes. No C++
-spelling takes the constant address of a `??_G` or of another class's member without a hatch, and
-hand-adding `/alternatename` or `object-symbol=` rows is forbidden.
+Completed (2026-11-07, seat halilkkaya-lk48, base 31e5d302162). Method for both: declare the
+constructor's class with retail's slots (canonical Snapshot order: deleting destructor, loadPostProcess,
+GetSnapshotName, xfer), let the compiler store the vptr, move the name getter into the class with
+`rename.py function --to-class`, delete the address-named array. No row moved file; no hatch added.
+
+- MissionStats (`Rva004F599E`, Player's stats member, ctor 0x004F599E): `ca6cc516556` declares it over
+  canonical Snapshot.h (constructor-only surface); `da90fb79ddd` moves 0x004F59AC to
+  `?GetSnapshotName@Rva004F599E@@MBEPBDXZ`. The ctor's +0 store now relocates to `??_7Rva004F599E@@6B@`
+  (4 slots). Against retail 0x00C63254 by address: slots 2 and 3 equal; slot 0 is this unit's `??_G`
+  (retail's 28-byte shape, calls ~Snapshot), slot 1 an inline `ret`; retail's slots 0/1 are ICF-shared
+  bodies (0x004A10FD, 0x004B3FD0). g_00C63254 deleted. link_check: Rva004F599EClear.cpp,
+  ModuleNameGetters.cpp, Rva004F599EXfer.cpp, PlayerCtorBFME2.cpp, PlayerDestructor.cpp,
+  PlayerInitFromDict.cpp all LINK before and after, 6,479 B unchanged.
+- ScriptGroup (Gen00C1F470): `33bfad6bf95` replaces the scripts_orcondition shim's Zero Hour ScriptGroup
+  with BFME 2's 0x10-byte class (the list heads at +4 are a non-virtual base: both ctors build them
+  before the vptr store) and renames ctor 0x003B40DF to `??0ScriptGroup@@QAE@XZ` by hand (ScriptGroup
+  had no special member for the fold to key on); `68f3183be3e` gives the table's deleting destructor an
+  inline noinline `~ScriptGroup` of retail 0x003B4100's 14-byte shape; `cc6eaa57545` moves 0x003B40FA to
+  `?GetSnapshotName@ScriptGroup@@MBEPBDXZ`; `b5394d52a44` folds `Rva003529B0` (copy ctor 0x003B410E,
+  clone 0x003B4147 and three dependent mangled names) into ScriptGroup by hand, because `class --fold`
+  would token-rewrite Scripts.cpp's private view into a second ScriptGroup and refuses `--prepared` for
+  an unregistered global NEW; `d5f36960c3f` deletes Gen00C1F470 and its data row. Both ctors now store
+  `??_7ScriptGroup@@6B@` (Scripts.obj and Rva003529B0Clone.obj emit identical copies); slots 2 and 3
+  equal retail by address. link_check over the eleven units naming ScriptGroup or its placeholders
+  (Scripts.cpp, OpaqueScalarDeletingDtors.cpp, Rva003529B0Clone.cpp, SubsystemNameGetters4.cpp,
+  R3ScalarFieldConstructors1.cpp, ScriptGroupXfer.cpp, ScriptListSubrecordAddRva003B7E39.cpp,
+  ScriptEngineRva0020C3BBCallScript.cpp, ScriptGroupWriteGroup.cpp, ScriptList_WriteScriptsDataChunk.cpp,
+  ScriptListDestructor.cpp): 11/11 LINK, 8,256 B, unchanged.
+- Left for ScriptGroup: retail's destructor 0x003B4100 and `??_G` 0x003B4A20 stay rowed under
+  `Rva003B4100` (OpaqueScalarDeletingDtors.cpp). `rename.py class --fold Rva003B4100 --into ScriptGroup`
+  refuses because the destructor's only +0 store is 0x00BBB554 (canonical Snapshot's table, written by
+  the inlined base destructor) and ScriptGroup's ctors call no Snapshot ctor; recorded as a false reject
+  (`re_attempts.log`, `??1Rva003B4100@@UAE@XZ`). After a tooling fix: fold, then drop the inline
+  destructor from the shim and Rva003529B0Clone.cpp's view. That also retires LINK-618's stale
+  `??_7Rva003B4100@@6B@` name on 0x007BB554.
+
+Pass test for both: the next image_iso run no longer lists 0x00C63254 or 0x00C1F470's words in
+`defects.tsv` (unrelocated_retail_address). Not claimed until that run.
+
+Not fixed this pass, with what each needs:
+- `Rva007EB2C0Object` (queue-ready lead a): no TU evidence. Retail 0x00658160 (createServiceHubImpl)
+  pushes VA 0x00CE1534 `\views\feslbuild_main\jabba\fesl\source\hubsingle.cpp` (target fact), and the
+  class's table 0x00CE1514 sits right before that string in .rdata, but `string_xrefs.tsv` lacks the
+  xref: Ghidra made no function at 0x00658110/0x00658150/0x00658160/0x00658260. Measured over the
+  image: 63 `__FILE__` path strings referenced from .text are absent from `string_xrefs.tsv`
+  (hubsingle.cpp, FESL debug.cpp at 0x00658878/0x006588F4/0x006589A0, HordeMeleeAmoeba.cpp at
+  0x0058846C, W3DScriptedModelDraw.cpp, ...). A scratch tu_map with F also read from retail operands
+  (capstone-verified, owner rows only) finds 538 owners, 214 new, but withdraws 200 non-provisional and
+  5,139 provisional approvals (W3DModelDraw.cpp's span holds W3DScriptedModelDraw.cpp strings): an
+  owner decision, not a landable fix. Even with F at 0x00658160, rows 0x00658150/0x00658260/0x006582B0
+  need a non-placeholder class name (U) or a second hubsingle anchor above 0x006582B0. Runtime risk is
+  low: only destroy() stores vftable_01129CB4; ctor and dtor already store the compiler's table.
+- CZ (lead b): rows 0x0068A0E0..0x0068A18B sit between approved VideoPlayer.cpp (Z) and
+  CompressionManager.cpp (Z, 0x0068A190), so no C bracket agrees. The dtor 0x0068A110 calls 0x006891E0
+  (VideoPlayer.cpp's approved span, a remove-from-list shape): a lead that CZ is that unit's stream
+  class, not proof. Its `??_G` 0x0068A160 inlines the dtor, so both must share a TU. CZ is abstract (16
+  `__purecall` slots): the array is live only during base construction and destruction.
+- R2ZeroingConstructors.cpp (0x00C61CA8, 0x00C61C30): the classes' rows and approved TU are in
+  SpawnArmy.cpp, file-claimed by another contributor on 2026-11-07; skipped. `??_7Rva003B8610Record`
+  on 0x00C61CA8 is a stale data_ledger name (no unit defines it).
+- g_bfmeVftTDA (FESL debug reporter): retail 0x00CE157C has 6 slots (setFields, the callback runner
+  0x00658710, the variadic logger 0x00658820, assertFailed 0x00658890, errorFrom 0x00658930, a deleting
+  destructor 0x006587E0 freeing 0x14 bytes); our array has one word, so slot-3 asserts read past it.
+  Online only (created from createServiceHubImpl, called by BuddyThreadClass::Thread_Function).
+- Rva005C44A3 (g_00C745D4): the MissionStats recipe applies: ctor view over Rva004FA830, then
+  `--to-class` for 0x005C44DF, 0x005C44C3 (already UBE) and 0x005C4352. LivingWorld bonus registry.
+- g_00BC9020 (Rva000A217F, a W3D gadget window): needs the canonical GameWindow (Bfme2GameWindow.h)
+  reconciled with the BfmeAptScreenBase chain its base ctor 0x00104F8F uses; header lane.
 
 Remaining / next check: for each array, reconcile the class. Give the constructor's class its real
 virtual functions in retail slot order (a header via `tools/header_adopt_lane.py` where one exists),
