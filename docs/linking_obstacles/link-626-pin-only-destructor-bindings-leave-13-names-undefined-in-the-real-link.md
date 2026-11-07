@@ -54,3 +54,24 @@ reverted: the code-identity gain is right, and the repair is forward.
 
 Measurement: `build/drift_review/ops/link_42323777563` and `link_42328971153` (`errors.tsv` diff).
 Census confirmation: not claimed.
+
+**Cleared, same pattern, data side (2026-11-07).** Four `symbols.csv` pins named
+`?s_head@?$CategoryModuleClass@$0N@FXParticleSystem@@2PAV12@A` at 0x009FDD44, 48, 4C and 54.
+Retail's export table names those addresses `?s_first@...@@0PBV12@B` (export 1863 and siblings),
+`reverse/data_rows.csv` rows them under that exported spelling, and all nine consumer units read
+`s_first` in source - only four header comments still said `s_head`. The real link therefore
+reported each pinned name as a missing definition, which is this entry's pattern on a data
+address rather than a destructor.
+
+The pins were also plain admission violations: `pin_admission.py` states a pin must lie in an
+executable section ("data pins do nothing for REL32 resolution") and must not give a second,
+different name to an address that already has a real one. Both pins and the stale comments are
+gone; the byte gate was unaffected, since no body resolves through a data pin, and the pin count
+fell by four.
+
+Remaining on this family: `reverse/data_ledger.csv` still carries the nine `s_head` names. That
+file is tool-written from the DIR32 relocations and symbol tables of matched objects
+(`tools/data_ledger.py`, "never edit by hand"), so the names persist from objects built before
+the source settled on `s_first`. Whoever has a current object cache should rewrite it; this seat
+did not, and a regeneration from a stale cache would be worse than leaving it. The nine
+`Rva001F8*Parse.cpp` / `Rva001FA8DDParse.cpp` blocker rows should clear with it.
