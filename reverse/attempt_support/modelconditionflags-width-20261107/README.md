@@ -113,3 +113,34 @@ knowing before trusting any one of its comments:
 
 The measured answer is 591, from the size of the table the body actually walks. All three
 markers should move together when the row does.
+
+## KindOf, measured the same way - and the scale above was wrong
+
+The section above says `BitFlags<116>` is used for KindOf masks "in two W3D units". That
+understated it badly, and the correction is the point of this section: **135 files** under `Code/`
+declare a KindOf mask as `BitFlags<116>` (151 files mention `BitFlags<116>` at all, 135 of them
+alongside `KINDOFMASK*` or `KindOfMaskType`), including a `typedef BitFlags<116> KindOfMaskType`
+in `Rva0050DE39Observer.cpp` and plain `extern BitFlags<116> KINDOFMASK_NONE` declarations in
+units as far apart as `W3DDisplayGatherSkirmishAIStats.cpp`, `W3DProjectedShadowDecalHelpers.cpp`,
+`LightSubPoint.cpp` and `AptTimeLineStats.cpp`. So this is the larger of the two width
+inconsistencies, not a two-unit footnote.
+
+The width itself is settled by measuring the table, exactly as `ModelConditionNames` was:
+
+- `?TheKindOfBitNames@@3PAPBDA` at `0x00DBBE18` is **876** bytes of `.data`
+  (`reverse/data_rows.csv`), which is 219 pointers: **218 names plus the NULL terminator**.
+- Its own declaration agrees independently - `const char *TheKindOfBitNames[0xDA + 1]`, and
+  `0xDA` is 218 - and `KindOfGetNameFromSingleBit` bounds its index with
+  `sizeof(TheKindOfBitNames) / sizeof(TheKindOfBitNames[0]) - 1`, which is the same 218.
+
+218 bits is 7 dwords, 28 bytes. `BitFlags<116>` is 4 dwords, 16 bytes. A KindOf mask therefore
+cannot be a `BitFlags<116>`, and the ledger disagrees with itself about this too: **12** rows are
+spelled `$0HE@` (116) and **8** are spelled `$0NK@` (218).
+
+What is *not* claimed here: that every one of those 135 declarations changes bytes. These are
+mostly `extern` declarations, and a body that never reads past the first 16 bytes compiles the
+same either way, which is presumably how they survived. The identity is wrong regardless, and
+each row's own evidence decides whether its bytes move.
+
+The repair is blocked by the same missing mechanism as the ModelConditionFlags rows: the 12
+`$0HE@` rows would need their mangled names respelled, and no tool will do that today.
