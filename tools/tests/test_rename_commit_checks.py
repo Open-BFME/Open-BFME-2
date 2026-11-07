@@ -482,6 +482,10 @@ _ARGS = r"((?:[^|&;<>)\n]|\|(?!\|))*)"
 _RUN_PATH = re.compile(_PY + _FLAGS + r"\s+(?:\./)?tools/(\w+)\.py" + _ARGS, re.I)
 _RUN_STDIN = re.compile(r"git\s+show\s+\S*:tools/(\w+)\.py\s*\|\s*" + _PY + _FLAGS + r"\s+-(?=\s|$)" + _ARGS, re.I)
 _MENTION = re.compile(r"(?<![\w])tools/(\w+)\.py|(?<![\w.])-m\s+tools\.(\w+)")
+# HEAD's copy of a tool loaded into a file first (`capture VAR "why" git show HEAD:tools/X.py`), then
+# run from it on stdin (`python3 - ARGS < "$VAR"`): the hook's repair_queue debt check.
+_CAPTURED = re.compile(r"\bcapture\s+(\w+)\s+(?:\"[^\"]*\"|'[^']*'|\S+)\s+git\s+show\s+\S*:tools/(\w+)\.py")
+_RUN_CAPTURED = re.compile(_PY + _FLAGS + r"\s+-(?=\s|$)" + _ARGS + r"<\s*\"?\$\{?(\w+)\}?\"?", re.I)
 
 
 # The first word after an interpreter that is not a flag (-c and -m stop the flag run: the code or module
@@ -539,15 +543,22 @@ def hook_invocations(text=None):
     tool with arguments after it. A mention this cannot read as a run is missing
     here and still judged by hook_mentions."""
     text = strip_shell_comments(HOOK.read_text() if text is None else text)
+    captured = dict(_CAPTURED.findall(text))          # {variable: tool} of each captured HEAD copy
     found = {}
+
+    def add(tool, args):
+        try:
+            tokens = shlex.split(args, comments=True)
+        except ValueError:       # the run sits inside a quoted command line: its closing quote
+            tokens = shlex.split(args.rstrip("'\" "), comments=True)
+        found.setdefault(tool, []).append([t for t in tokens if "$" not in t])
     for line in text.splitlines():
         for pattern in (_RUN_PATH, _RUN_STDIN):
             for match in pattern.finditer(line):
-                try:
-                    tokens = shlex.split(match.group(2), comments=True)
-                except ValueError:       # the run sits inside a quoted command line: its closing quote
-                    tokens = shlex.split(match.group(2).rstrip("'\" "), comments=True)
-                found.setdefault(match.group(1), []).append([t for t in tokens if "$" not in t])
+                add(match.group(1), match.group(2))
+        for match in _RUN_CAPTURED.finditer(line):
+            if match.group(2) in captured:
+                add(captured[match.group(2)], match.group(1))
     return found
 
 
@@ -592,8 +603,15 @@ HOOK_EXEMPT = {
     "build": "run_build's byte verification; rename.py runs ./build.sh over the plan's units itself (_verify)",
     "gate_baseline": "shrink-only assertion, piped in from HEAD (`git show HEAD:tools/gate_baseline.py | python3 -`); "
                      "rename.py never edits reverse/gate_baseline.txt (FROZEN_KEYED refuses a name keyed there)",
-    "repair_queue": "verify-removed re-checks rows whose gate-debt line a commit deleted, piped in from HEAD; "
-                    "rename.py deletes no baseline line",
+    "repair_queue": "verify-removed re-checks rows whose gate-debt line a commit deleted, run from HEAD's copy "
+                    "(captured, then fed on stdin); rename.py deletes no baseline line",
+    "image_ownership": "check-history runs only when reverse/image_ownership_history.csv is staged, a file only the "
+                       "publisher seat writes (signed); rename.py never names or edits it",
+    "obstacle_ids": "a LINK ID heading two docs/linking_obstacles/ entries; rename.py edits no obstacle entry (it "
+                    "reports docs mentions, never rewrites them)",
+    "push_receipts": "record-commit writes the commit receipt after the checks pass; it judges nothing",
+    "stlport_overlay": "named only as an input path (the STLport git diff binding and the wide-change case "
+                       "patterns); the hook runs no check of that name",
     "data_rows": "named only in a python comment inside the hook's embedded script; the hook runs no check of that name",
 }
 
@@ -640,6 +658,7 @@ SPELLINGS = [
     "git show HEAD:tools/zz_new.py | python - --staged",
     "git show HEAD:tools/zz_new.py|python3 -u - --staged",
     "git show :tools/zz_new.py | py -3 - --staged",
+    'capture zz "loading zz" git show HEAD:tools/zz_new.py; python3 - --staged < "$zz"',
     "python3 -m tools.zz_new --staged",
     "bash -c 'python3 tools/zz_new.py --staged'",
 ]
@@ -653,6 +672,14 @@ def test_a_new_hook_check_is_found_in_every_spelling(spelling, tree):
     assert unjudged_tools(text, mirrored_tools(tree)) == ["zz_new"]
     if "-m tools." not in spelling:
         assert ["--staged"] in hook_invocations(text).get("zz_new", []), hook_invocations(text).get("zz_new")
+
+
+def test_a_captured_head_copy_run_on_stdin_is_read_with_its_arguments():
+    text = ('capture chk "loading HEAD checker" git show HEAD:tools/zz_new.py\n'
+            'args=()\npython3 - verify-x "${args[@]}" < "$chk" || fail x\n'
+            'python3 - other < "$unknown"\n')
+    assert hook_invocations(text) == {"zz_new": [["verify-x"]]}
+    assert hook_mentions(text) == ["zz_new"]
 
 
 def test_a_continued_and_a_quoted_run_are_found():
