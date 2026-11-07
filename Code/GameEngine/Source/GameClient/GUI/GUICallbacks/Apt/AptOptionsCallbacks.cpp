@@ -302,59 +302,65 @@ extern GameLogic *TheGameLogic;
 class AptOptions
 {
 public:
+	void InitGadgets(const char *name, int unused, GameWindow *window);
+	void rva0051A669();
 	void RefreshNat(const char *unused);
 	void AdvancedOptionNum(int option, char *result, bool skip);
 	void EnterAdvancedSettings(const char *unused);
 	void ExternsLODTemplate(int query, char *value, bool set);
 	void rva00518FEA(int query, int kind);
 	void Externs(int query, char *value, bool set);
-
 	void rva00518B05(const AsciiString &text, int kind);
 	void rva0051890E(int answer);
 	void Reset(const char *unused);
 	void Save(const char *unused);
-
+	virtual void vslot0();
+	virtual void vslot1();
+	virtual int rva00519167(int message, unsigned int data1, unsigned int data2);
+	char m_pad04[0x270];
 private:
-	unsigned char m_pad000[0x274];
-	void *m_274; // +0x274, the screen's Apt movie level
-	unsigned char m_pad278[0x27C - 0x278];
-	int m_state; // +0x27C
+	void *m_274; // +0x274 +0x274, the screen's Apt movie level
+	char m_pad278[0x4];
+	int m_state; // +0x27C +0x27C
 	bool m_280; // +0x280
 	bool m_281; // +0x281
 	bool m_282; // +0x282
 	bool m_online; // +0x283
-	bool m_284; // +0x284
-	unsigned char m_pad285[0x288 - 0x285];
-	_STL::vector<bool> m_warned; // +0x288, one per warning kind
-	int m_xres; // +0x29C, the resolution chosen
-	int m_yres; // +0x2A0
-	int m_bitDepth; // +0x2A4
-	bool m_windowed; // +0x2A8
-	GameWindow *m_2ac; // +0x2AC, the resolution combo box
-	unsigned char m_pad2b0[0x2B4 - 0x2B0];
-	GameWindow *m_ipCombo; // +0x2B4
-	GameWindow *m_2b8; // +0x2B8, the firewall port text entry
-	GameWindow *m_2bc; // +0x2BC, AllHealthBars
-	GameWindow *m_2c0; // +0x2C0, AlternateMouseSetup; check boxes Reset clears
-	GameWindow *m_2c4; // +0x2C4
-	GameWindow *m_2c8; // +0x2C8
-	GameWindow *m_2cc; // +0x2CC
-	unsigned char m_pad2d0[0x2D4 - 0x2D0];
-	GameWindow *m_eaxCheckBox; // +0x2D4
-	GameWindow *m_2d8; // +0x2D8, checked for audio LOD level 1
+	bool m_284; // +0x284 +0x284
+	char m_pad285[0x3];
+	_STL::vector<bool> m_warned; // +0x288 +0x288, one per warning kind
+	int m_xres; // +0x29C +0x29C, the resolution chosen
+	int m_yres; // +0x2A0 +0x2A0
+	int m_bitDepth; // +0x2A4 +0x2A4
+	bool m_windowed; // +0x2A8 +0x2A8
+	char m_pad2A9[0x3];
+	GameWindow *m_resolutionCombo; // +0x2AC
+	GameWindow *m_detailCombo; // +0x2B0
+	GameWindow *m_onlineIPCombo; // +0x2B4
+	GameWindow *m_portEntry; // +0x2B8
+	GameWindow *m_healthBars; // +0x2BC
+	GameWindow *m_alternateMouse; // +0x2C0
+	GameWindow *m_sendDelay; // +0x2C4
+	GameWindow *m_messenger; // +0x2C8
+	GameWindow *m_foreignLanguage; // +0x2CC
+	GameWindow *m_languageFilter; // +0x2D0
+	GameWindow *m_eax3; // +0x2D4
+	GameWindow *m_highAudioQuality; // +0x2D8
 	GameWindow *m_volumeSliders[5]; // +0x2DC
-	GameWindow *m_scrollSlider; // +0x2F0
-	GameWindow *m_gammaSlider; // +0x2F4
-	bool m_2f8; // +0x2F8
-	unsigned char m_pad2f9[0x304 - 0x2F9];
-	int m_304; // +0x304, the default resolution choice
-	AsciiString m_308; // +0x308
-	int m_30c; // +0x30C
-	int m_preset; // +0x310, -1 for custom settings
-	AsciiString m_presetText; // +0x314
-	int m_saved30c; // +0x318
-	int m_savedPreset; // +0x31C
-	AsciiString m_savedPresetText; // +0x320
+	GameWindow *m_scrollSpeed; // +0x2F0
+	GameWindow *m_brightness; // +0x2F4
+	bool m_2f8; // +0x2F8 +0x2F8
+	char m_pad2F9[0x3];
+	int m_previewHandle; // +0x2FC +0x2FC
+	int m_previewSlider; // +0x300 +0x300
+	int m_defaultResolution; // +0x304
+	AsciiString m_308; // +0x308 +0x308
+	int m_resolution; // +0x30C
+	int m_preset; // +0x310 +0x310, -1 for custom settings
+	AsciiString m_presetText; // +0x314 +0x314
+	int m_saved30c; // +0x318 +0x318
+	int m_savedPreset; // +0x31C +0x31C
+	AsciiString m_savedPresetText; // +0x320 +0x320
 };
 
 // Retail 0x005182AB, 174 bytes: "AptOptions::RefreshNat".
@@ -426,12 +432,12 @@ void AptOptions::rva0051890E(int answer)
 		m_presetText = m_savedPresetText;
 		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_274, "RefreshAdvOptions", 0, 0, 0, 0, 0, 0);
 	}
-	if (m_30c != m_saved30c)
+	if (m_resolution != m_saved30c)
 	{
 		m_2f8 = false;
-		m_30c = m_saved30c;
-		if (m_2ac)
-			GadgetComboBoxSetSelectedPos(m_2ac, m_30c, false);
+		m_resolution = m_saved30c;
+		if (m_resolutionCombo)
+			GadgetComboBoxSetSelectedPos(m_resolutionCombo, m_resolution, false);
 	}
 }
 
@@ -444,7 +450,7 @@ void AptOptions::rva00518B05(const AsciiString &text, int kind)
 		return;
 	m_savedPreset = m_preset;
 	m_savedPresetText = m_presetText;
-	m_saved30c = m_30c;
+	m_saved30c = m_resolution;
 	Rva00437F61(1, TheGameText->fetch("APT:Warning"), TheGameText->fetch(text),
 		Rva0023E8D8(bind(reinterpret_cast<FunctorMethod>(&AptOptions::rva0051890E), (FunctorTarget *)this)));
 	m_warned[kind] = true;
@@ -495,16 +501,16 @@ void AptOptions::Reset(const char *unused)
 	m_warned.resize(4, false);
 	if (m_state == 1)
 	{
-		if (m_2ac && m_280 && !TheGameLogic->rva0042219())
+		if (m_resolutionCombo && m_280 && !TheGameLogic->rva0042219())
 		{
-			GadgetComboBoxSetSelectedPos(m_2ac, m_304, false);
-			m_30c = m_304;
+			GadgetComboBoxSetSelectedPos(m_resolutionCombo, m_defaultResolution, false);
+			m_resolution = m_defaultResolution;
 		}
-		if (m_gammaSlider)
+		if (m_brightness)
 		{
-			SliderData *data = (SliderData *)m_gammaSlider->winGetUserData();
-			Rva0050E776Send(m_gammaSlider, (data->maxVal - data->minVal) / 2 + data->minVal);
-			int val = GadgetSliderGetPosition(m_gammaSlider);
+			SliderData *data = (SliderData *)m_brightness->winGetUserData();
+			Rva0050E776Send(m_brightness, (data->maxVal - data->minVal) / 2 + data->minVal);
+			int val = GadgetSliderGetPosition(m_brightness);
 			if (val != -1)
 			{
 				float gammaval = 1.0f;
@@ -520,29 +526,29 @@ void AptOptions::Reset(const char *unused)
 				TheDisplay->setGamma(gammaval, 0.0f, 1.0f, false);
 			}
 		}
-		if (m_scrollSlider)
-			Rva0050E776Send(m_scrollSlider, (int)(TheWritableGlobalData->m_keyboardDefaultScrollSpeedFactor * 50.0f));
-		if (m_2c0)
-			GadgetCheckBoxSetChecked(m_2c0, false);
-		if (m_2b8)
-			GadgetTextEntrySetText(m_2b8, UnicodeString(L""));
-		if (m_2c4)
-			GadgetCheckBoxSetChecked(m_2c4, false);
-		if (m_2cc)
-			GadgetCheckBoxSetChecked(m_2cc, false);
-		if (m_2c8)
-			GadgetCheckBoxSetChecked(m_2c8, false);
-		if (m_eaxCheckBox)
+		if (m_scrollSpeed)
+			Rva0050E776Send(m_scrollSpeed, (int)(TheWritableGlobalData->m_keyboardDefaultScrollSpeedFactor * 50.0f));
+		if (m_alternateMouse)
+			GadgetCheckBoxSetChecked(m_alternateMouse, false);
+		if (m_portEntry)
+			GadgetTextEntrySetText(m_portEntry, UnicodeString(L""));
+		if (m_sendDelay)
+			GadgetCheckBoxSetChecked(m_sendDelay, false);
+		if (m_foreignLanguage)
+			GadgetCheckBoxSetChecked(m_foreignLanguage, false);
+		if (m_messenger)
+			GadgetCheckBoxSetChecked(m_messenger, false);
+		if (m_eax3)
 		{
 			TheAudio->setUseEAX(false);
-			GadgetCheckBoxSetChecked(m_eaxCheckBox, false);
+			GadgetCheckBoxSetChecked(m_eax3, false);
 		}
-		if (m_2d8)
+		if (m_highAudioQuality)
 		{
 			if (TheGameLODManager->findAudioLODLevel() == 1)
-				GadgetCheckBoxSetChecked(m_2d8, true);
+				GadgetCheckBoxSetChecked(m_highAudioQuality, true);
 			else
-				GadgetCheckBoxSetChecked(m_2d8, false);
+				GadgetCheckBoxSetChecked(m_highAudioQuality, false);
 		}
 		for (int i = 0; i < 5; i++)
 		{
@@ -581,7 +587,7 @@ void AptOptions::Save(const char *unused)
 
 		if (m_280)
 		{
-			GameWindow *resolutionCombo = m_2ac;
+			GameWindow *resolutionCombo = m_resolutionCombo;
 			if (resolutionCombo && !TheGameLogic->rva0042219() && !TheGameSpyInfo)
 			{
 				GadgetComboBoxGetSelectedPos(resolutionCombo, &index);
@@ -591,7 +597,7 @@ void AptOptions::Save(const char *unused)
 					TheDisplay->getDisplayModeDescription(index, &xres, &yres, &bitDepth);
 					if (TheWritableGlobalData->m_xResolution != xres || TheWritableGlobalData->m_yResolution != yres)
 					{
-						m_30c = index;
+						m_resolution = index;
 						m_xres = xres;
 						m_yres = yres;
 						m_bitDepth = bitDepth;
@@ -602,7 +608,7 @@ void AptOptions::Save(const char *unused)
 			}
 		}
 
-		int val = m_gammaSlider ? GadgetSliderGetPosition(m_gammaSlider) : -1;
+		int val = m_brightness ? GadgetSliderGetPosition(m_brightness) : -1;
 		if (val != -1)
 		{
 			float gammaval = 1.0f;
@@ -622,7 +628,7 @@ void AptOptions::Save(const char *unused)
 				TheWritableGlobalData->field0BCC = gammaval;
 		}
 
-		val = m_scrollSlider ? GadgetSliderGetPosition(m_scrollSlider) : -1;
+		val = m_scrollSpeed ? GadgetSliderGetPosition(m_scrollSpeed) : -1;
 		if (val != -1)
 		{
 			val = _STL::max(val, 1);
@@ -642,7 +648,7 @@ void AptOptions::Save(const char *unused)
 
 		if (((Rva005183A0 *)this)->rva005183A0())
 		{
-			int checked = m_2bc ? GadgetCheckBoxIsChecked(m_2bc) : -1;
+			int checked = m_healthBars ? GadgetCheckBoxIsChecked(m_healthBars) : -1;
 			if (checked != -1)
 			{
 				AsciiString prefString;
@@ -652,7 +658,7 @@ void AptOptions::Save(const char *unused)
 			}
 		}
 
-		int checked = m_2c0 ? GadgetCheckBoxIsChecked(m_2c0) : -1;
+		int checked = m_alternateMouse ? GadgetCheckBoxIsChecked(m_alternateMouse) : -1;
 		if (checked != -1)
 		{
 			AsciiString prefString;
@@ -661,7 +667,7 @@ void AptOptions::Save(const char *unused)
 			TheWritableGlobalData->field005C = checked == 0;
 		}
 
-		checked = m_eaxCheckBox ? GadgetCheckBoxIsChecked(m_eaxCheckBox) : -1;
+		checked = m_eax3 ? GadgetCheckBoxIsChecked(m_eax3) : -1;
 		if (checked != -1)
 		{
 			AsciiString prefString;
@@ -669,7 +675,7 @@ void AptOptions::Save(const char *unused)
 			pref["UseEAX3"] = prefString;
 		}
 
-		checked = m_2d8 ? GadgetCheckBoxIsChecked(m_2d8) : -1;
+		checked = m_highAudioQuality ? GadgetCheckBoxIsChecked(m_highAudioQuality) : -1;
 		if (checked != -1)
 		{
 			if (checked)
@@ -684,7 +690,7 @@ void AptOptions::Save(const char *unused)
 			}
 		}
 
-		checked = m_2c4 ? GadgetCheckBoxIsChecked(m_2c4) : -1;
+		checked = m_sendDelay ? GadgetCheckBoxIsChecked(m_sendDelay) : -1;
 		if (checked != -1)
 		{
 			AsciiString prefString;
@@ -693,16 +699,16 @@ void AptOptions::Save(const char *unused)
 			TheWritableGlobalData->field0B6B = checked != 0;
 		}
 
-		if (m_ipCombo)
-			GadgetComboBoxGetSelectedPos(m_ipCombo, &index);
+		if (m_onlineIPCombo)
+			GadgetComboBoxGetSelectedPos(m_onlineIPCombo, &index);
 		else
 			index = -1;
 		if (index >= 0)
-			pref.setOnlineIPAddress((unsigned int)GadgetComboBoxGetItemData(m_ipCombo, index));
+			pref.setOnlineIPAddress((unsigned int)GadgetComboBoxGetItemData(m_onlineIPCombo, index));
 
-		if (m_2b8)
+		if (m_portEntry)
 		{
-			UnicodeString text = GadgetTextEntryGetText(m_2b8);
+			UnicodeString text = GadgetTextEntryGetText(m_portEntry);
 			unsigned short port = 0;
 			if (!TextIsEmpty(text))
 			{
