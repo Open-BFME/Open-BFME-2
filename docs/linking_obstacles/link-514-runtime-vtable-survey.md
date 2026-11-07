@@ -695,3 +695,13 @@ Items 2 and 3 of the lk53 handoff, re-checked this pass and still walled:
   pin_consistency.py --symbol reports both consistent. The only precedent is a hand deletion plus a
   hatch_counters shrink under Verifier-Change (baa896fe561), which needs maintainer approval (re_attempts
   0x00458B60).
+
+Item 4 of the lk53 handoff, CLEARED (2026-11-07, seat halilkkaya-lk56): SpawnUnitBehavior's one-slot +0x20
+table. e0cd82258e8 teaches `rename.py --to-class` that a retail table of exactly one slot proves its move
+when an installer's compiled copy is exactly one slot long and names the moved symbol (Verifier-Change,
+five regression tests in tools/tests/test_rename_to_class.py; test_gate_exploits.py still passes). Then
+4fc54046a98 moves `?rva004B8851@Rva004B8732` into SpawnUnitBehavior (identifier kept): the kept
+`??_7SpawnUnitBehavior@@6BSpawnUnitBehaviorIface3@@@` slot 0 goes from `__purecall` to 0x004B8851, 1/1
+against retail 0x00C59120; 51/51 exact, link_check 6/6 LINK at unchanged bytes (re_attempts 0x004B8851).
+The destructor `Rva004B8732` (Rva0024A797Grandchildren.cpp) is still unfolded: that scaffold derives from
+canonical UpdateModule, so it needs a shared SpawnUnitBehavior header first.
