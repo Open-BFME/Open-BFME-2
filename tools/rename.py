@@ -449,6 +449,96 @@ def signature_only_change(old, new):
                           "pointer/reference code nor the cv of what one points to")
 
 
+# A virtual's `this` cv is part of what it overrides: `bool Cull_Sphere(const
+# SphereClass &) const` in a class deriving CameraClass fills CameraClass's slot,
+# while the same method declared non-const adds a slot of its own. So a row
+# rowed with the wrong `this` cv (UAE for UBE) is respelled, without a vote, only
+# when retail proves the const: the row's address sits in exactly one slot of a
+# table its class's own constructor or destructor installs (to_class_evidence),
+# a canonical base (reverse/canonical_classes.csv, which the prepared views
+# derive from) installs a table whose same slot holds a registered row with the
+# same identifier, convention and parameters, and every such base virtual has
+# the new `this` cv. After ./build.sh, the installers' rebuilt table must name
+# the respelled row in that slot (to_class_slot_problems).
+
+def this_cv_change(old, new):
+    """True when `new` is `old` with only `this`'s cv-qualifier changed: the
+    same identifier, class, access, calling convention and parameters."""
+    try:
+        at_old = member_function_header(old)[0]
+        at_new = member_function_header(new)[0]
+    except Refusal:
+        return False
+    i = at_old + 1
+    return (at_old == at_new and len(old) == len(new) and old[:i] == new[:i] and old[i + 1:] == new[i + 1:]
+            and old[i] != new[i] and old[i] in "ABCD" and new[i] in "ABCD")
+
+
+def this_cv_proof(ctx, rva, old, new, source, prepared):
+    """(evidence, slot check) for a `this`-cv-only respell of the row at `rva`;
+    Refusal unless the base virtual it overrides at its retail slot has the
+    new cv (see the comment above)."""
+    at, cls, scopes, role = member_function_header(old)
+    if role != "method" or scopes:
+        raise Refusal(f"{old}: a this-cv respell reads a method of a global class")
+    if old[at] not in VIRTUAL_ACCESS:
+        raise Refusal(f"{old} is not virtual: only a base virtual's slot can prove `this`'s cv")
+    try:
+        refs, type_refs, _names = back_references(old)
+    except Unparsed as error:
+        raise Refusal(f"cannot read {old} ({error})") from None
+    if refs or type_refs:
+        raise Refusal(f"{old}'s signature holds a back-reference, whose meaning in a base's spelling differs")
+    sources = sorted({source, *(prepared or {})})
+    table, slot, slots, installers, proof = to_class_evidence(ctx, rva, cls, sources)
+    bases = set()
+    for rel in sources:
+        bases |= class_chain(prepared_base_map(ctx, rel, prepared), cls)[0]
+    bases.discard(cls)
+    registered = {row.get("class") for row in ctx.dicts(CANONICAL_CLASSES)} - {"", None}
+    ident = old[1:old.index("@")]
+    tables = retail_vtables(ctx)
+    found = []
+    for base in sorted(bases & registered):
+        for base_table, (base_slots, stores) in sorted(tables.items()):
+            if slot < len(base_slots) and class_installers(ctx, base, stores, tables):
+                found.append((base, base_table, base_slots[slot]))
+    if not found:
+        raise Refusal(f"no canonical base of {cls} ({', '.join(sorted(bases)) or 'none its views name'}) "
+                      f"installs a retail table with a slot {slot}: the virtual {old} overrides is no "
+                      "registered row")
+    want = new[at + 1]
+    proofs = []
+    for base, base_table, word in found:
+        rows = sorted({r["name"] for r in ctx.rows() if _rva(r.get("target_rva")) == word
+                       and r.get("status") == "matched" and not r["name"].startswith(FUNCLET_PREFIXES + ("$L",))
+                       and "parent=" not in r.get("notes", "")})
+        prefix = f"?{ident}@{base}@@"
+        here = f"retail table 0x{base_table + IMAGE_BASE:08X} slot {slot}"
+        if not rows:
+            raise Refusal(f"{base}'s {here} holds 0x{word:08X}, which is no registered row: the base virtual "
+                          f"{old} overrides is not proved")
+        same = [n for n in rows if n.startswith(prefix) and len(n) == len(prefix) + len(old) - at
+                and n[len(prefix)] in VIRTUAL_ACCESS and n[len(prefix) + 2:] == old[at + 2:]]
+        if len(same) != 1:
+            raise Refusal(f"{base}'s {here} holds {', '.join(rows)}: not {ident} with {old}'s convention and "
+                          "parameters, so it is not the virtual this row overrides")
+        base_cv = same[0][len(prefix) + 1]
+        if base_cv != want:
+            raise Refusal(f"{same[0]} ({base}'s {here}) has `this` cv {base_cv!r}, not {want!r}: {new} would "
+                          "not override it")
+        proofs.append(f"overrides {same[0]} (0x{word:08X}, {base}'s {here})")
+    installer_sources = sorted({r["source"] for r in installers})
+    check = {"cls": cls, "table": table, "slot": slot, "new": new, "retail": list(slots),
+             "sources": installer_sources, "moved": {new: rva}}
+    edited = set(prepared or {})
+    early = to_class_slot_problems(ctx, dict(check, sources=[s for s in installer_sources if s not in edited]))
+    if early:
+        raise Refusal(f"the vftable {cls}'s installers compile does not put {new} in slot {slot}: {early[0]}")
+    evidence = f"this-cv: 0x{rva:08X} fills {proof}; " + "; ".join(proofs)
+    return evidence, check
+
+
 def check_signature_basis(basis, evidence):
     """A signature-only respell's record: basis `inferred` and evidence `signature-only: <reason>`."""
     if basis != "inferred":
@@ -1189,6 +1279,8 @@ class Plan:
     identity: dict = None                             # function --respell --identity: what the rebuilt
                                                       # objects' code-identity scan must prove
     removed: list = field(default_factory=list)       # sources the plan deletes (--move-to empties them)
+    this_cv: dict = None                              # function --respell of `this` cv: the slot the rebuilt
+                                                      # installers' vftable must name
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -2941,7 +3033,12 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         # The same function, the same identifier: no naming claim. Only a parameter's or the return
         # type's cv-qualifier or pointer-ness changes, the prepared units are rebuilt byte-exact, and
         # the record is labelled inference with its reason.
-        signature_only_change(old_name, new_name)
+        this_cv = None
+        if this_cv_change(old_name, new_name):
+            # only `this`'s cv: proved by the base virtual the row overrides at its retail slot
+            this_cv = this_cv_proof(ctx, rva, old_name, new_name, owner["source"], prepared)
+        else:
+            signature_only_change(old_name, new_name)
         which = check_signature_basis(basis, evidence)
     else:
         which = check_basis(ctx, "function", basis, evidence, old_name, old_word, rva, new_name=new_name,
@@ -2990,6 +3087,9 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     plan = Plan("function", old_name, new_name, basis, evidence.strip(), owner["source"], rva,
                 old_word=old_word, new_word=new_word)
     plan.signature_only = signature_only
+    if signature_only and this_cv:
+        plan.evidence = f"{plan.evidence}; {this_cv[0]}"
+        plan.this_cv = this_cv[1]
 
     # Ledgers.
     raw = ctx.read(FUNCTIONS)
@@ -3055,7 +3155,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         # Nothing may be left spelling the old name, in a prepared unit or out of
         # it, or the ledger and the source would disagree about this address.
         _batch_source_edits(ctx, plan, prepared)
-        verify = set(prepared)
+        verify = set(prepared) | set((plan.this_cv or {}).get("sources", ()))
         left = sorted(rel for rel, data in plan.after.items()
                       if rel in prepared and mangled_re(old_name).search(data.decode("utf-8", "replace")))
         if left:
@@ -10654,6 +10754,13 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             # The slot the rebuilt installer units' vftable names is the proof
             # a prepared source can change; read it from the fresh objects.
             slot_problems = to_class_slot_problems(ctx, plan.to_class, current=False)
+            if slot_problems:
+                raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
+                                   f"{slot_problems[0][:300]}; every file restored")
+        if plan.this_cv:
+            # A `this`-cv respell overrides the base virtual only if the rebuilt
+            # installers' vftable names the row in its retail slot.
+            slot_problems = to_class_slot_problems(ctx, plan.this_cv, current=False)
             if slot_problems:
                 raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
                                    f"{slot_problems[0][:300]}; every file restored")
