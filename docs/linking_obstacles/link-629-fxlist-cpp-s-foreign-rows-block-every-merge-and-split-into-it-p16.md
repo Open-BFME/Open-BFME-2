@@ -201,3 +201,15 @@ and for A3 (`Rva001DFEAABase` -> `FXNugget`). Scratch texts only, judged with `t
     `FXList::doFXObj` passes its own `const Object *`. Respelling it (`function --respell`, with the vtable
     declarations in AttachedModel, LightPulse and DynamicDecal) comes just before A3.
   - Plan: the six reshaped units go as `--prepared` texts in A3's plan, so they verify with the rename.
+
+Update (2026-11-07, static-defects lane): the slot-4 const respell's prerequisite, `Rva2225E0Filter::accepts`
+0x00362437 taking `const Object *`.
+- `rename.py function --respell` (signature-only, db021bcc67) needs 52 prepared units in one transaction:
+  51 private `Rva2225E0Filter` views that declare `accepts`, plus its definition. `_batch_source_edits`
+  caps a run at 32, so it is refused (false reject in re_attempts.log). It cannot be split: a unit left on
+  the non-const view calls a symbol no row names. Waiting on seat6's `--max-prepared N` override; then
+  `accepts`, then 0x001DFF5D.
+- The 52 prepared texts scratch-verify: 49 exact, 3 miss only renumbered funclets of exact parents.
+- Follow-up cleanup: give `Rva2225E0Filter` one shared header and adopt it in the 51 view units
+  (`header_adopt_lane.py`). That removes 51 private class copies, and a later signature change would
+  touch only the header, the definition and the units that spell the mangled name.
