@@ -1248,9 +1248,10 @@ def test_data_pointers_only_cli_catches_plain_number_string_pointer(tmp_path,mon
     manifest=tmp_path/"objects.json";manifest.write_text(json.dumps([dict(path=obj.name,sha256=iso.digest(obj),source="Code/names.cpp",provider="names.obj")]))
     mapfile=tmp_path/"exit.map";mapfile.write_text(" 0002:00000020 names 10002020 names.obj\n")
     (tmp_path/"image_receipt.json").write_text(json.dumps(dict(kind="diagnostic",base="0x10000000",stubbed=[],image_sha256=iso.digest(ours),map_sha256=iso.digest(mapfile))))
-    out=tmp_path/"report"
-    assert iso.main(["--image",str(ours),"--map",str(mapfile),"--retail",str(retail),"--objects",str(manifest),"--out",str(out),"--data-pointers-only"])==1
-    r=json.loads((out/"report.json").read_text())
-    assert r["defined_data_pointers"]["counts"]["tier_a"]==1
-    assert r["defects"][0]["family"]=="defined_data_unrelocated_pointer"
-    assert "defined_data_unrelocated_pointer" in (out/"defects.tsv").read_text()
+    for mode in ("--data-pointers-only","--address-only"):
+        out=tmp_path/mode.removeprefix("--")
+        assert iso.main(["--image",str(ours),"--map",str(mapfile),"--retail",str(retail),"--objects",str(manifest),"--out",str(out),mode])==1
+        r=json.loads((out/"report.json").read_text())
+        assert r["defined_data_pointers"]["counts"]["tier_a"]==1
+        assert any(d["family"]=="defined_data_unrelocated_pointer" for d in r["defects"])
+        assert "defined_data_unrelocated_pointer" in (out/"defects.tsv").read_text()

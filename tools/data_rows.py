@@ -1244,7 +1244,10 @@ def pointer_evidence_index(img, root):
     """Small address/extent index streamed from ledgers, never a pointer oracle."""
     import bisect
     entities = {}
+    defined_starts = set()
     def add(start, size, name, kind):
+        if size <= 0:
+            return  # no extent: linker markers (including ___ImageBase) are not entities
         entities.setdefault(start, []).append(dict(start=start, size=size, name=name, kind=kind))
     for filename in ("data_rows.csv", "data_ledger.csv", "data_converged.csv", "functions.csv"):
         path = Path(root) / "reverse" / filename
@@ -1258,7 +1261,27 @@ def pointer_evidence_index(img, root):
                     value = int(r["address"],16)
                     if filename in ("data_ledger.csv", "data_converged.csv") or r.get("address_kind") == "rva":
                         value += img.base
-                    add(value, int(r.get("size") or 0), r["name"], r.get("kind", "data"))
+                    size=int(r.get("size") or 0)
+                    kind=r.get("kind","data")
+                    if filename == "data_rows.csv":
+                        defined_starts.add(value)
+                    elif filename == "data_ledger.csv":
+                        # Inventory spans often run to the next named row, across
+                        # unrelated objects. Prefer verified defined extents.
+                        if value in defined_starts:
+                            continue
+                        if kind in ("string","wstring"):
+                            width=2 if kind=="wstring" else 1
+                            raw=img.read(value,size) if size>0 else None
+                            end=next((at+width for at in range(0,len(raw)-width+1,width)
+                                if raw[at:at+width]==bytes(width)),None) if raw else None
+                            if end is None:
+                                continue
+                            size=end
+                        elif kind=="float":
+                            literal=re.fullmatch(r"__real@([0-9a-fA-F]{8}|[0-9a-fA-F]{16})",r["name"])
+                            size=len(literal[1])//2 if literal else size if size in (4,8) else 0
+                    add(value, size, r["name"], kind)
     starts = sorted(entities)
     ends, owners, best, owner = [], [], -1, None
     for start in starts:
@@ -1267,17 +1290,19 @@ def pointer_evidence_index(img, root):
                 best, owner = start + e["size"], e
         ends.append(best); owners.append(owner)
     def classify(value):
+        section = next((sec for sec in img.sections if sec["va"] <= value < sec["end"]), None)
+        if section is None:
+            return "B", "outside_retail_sections", []
         if value in entities:
             return "A", "entity_start", entities[value]
-        section = next((sec for sec in img.sections if sec["va"] <= value < sec["end"]), None)
-        if section and section["name"] in (".rdata", ".data") and (value % 4 == 0 or img.read(value-1,1) == b"\0"):
-            raw = img.read(value, min(4096,section["end"]-value))
-            end = raw.find(b"\0")
-            if end > 0 and all(32 <= b < 127 for b in raw[:end]):
-                return "A", "retail_string_start", [dict(name=raw[:end].decode("ascii"), start=value, size=end+1, kind="string")]
         n = bisect.bisect_right(starts,value)-1
         if n >= 0 and ends[n] > value:
             return "B", "entity_interior", [owners[n]]
+        if section["name"] in (".rdata", ".data") and img.read(value-1,1) == b"\0":
+            raw = img.read(value, min(4096,section["end"]-value))
+            end = raw.find(b"\0")
+            if end >= 2 and all(32 <= b < 127 for b in raw[:end]):
+                return "A", "retail_string_start", [dict(name=raw[:end].decode("ascii"), start=value, size=end+1, kind="string")]
         return "B", "unmapped_image_address", []
     return classify
 
@@ -1289,7 +1314,6 @@ def data_pointer_evidence(row, body, relocations, img, classify):
     """
     size, va = int(row["size"]), va_of(row)
     counts = dict(aligned_words=0, byte_differences=0, relocation_overlap=0, trailing_bytes_not_scanned=size%4)
-    image_end = max(sec["end"] for sec in img.sections)
     retail = img.read(va,size)
     if len(body) != size or len(retail) != size:
         return dict(counts=dict(extent_unanalyzed=1), findings=[])
@@ -1304,7 +1328,7 @@ def data_pointer_evidence(row, body, relocations, img, classify):
             counts["byte_differences"] += 1
             continue
         value=struct.unpack_from("<I",retail,off)[0]
-        if not img.base <= value < image_end:
+        if not any(sec["va"] <= value < sec["end"] for sec in img.sections):
             continue
         tier,reason,owners=classify(value)
         result.append(dict(tier=tier,reason=reason,offset=off,retail_value=hex(value),object_value=hex(value),entities=owners))
@@ -1313,9 +1337,17 @@ def data_pointer_evidence(row, body, relocations, img, classify):
             counts["unsupported_or_straddling_relocation"] = counts.get("unsupported_or_straddling_relocation",0)+1
             continue
         value=struct.unpack_from("<I",retail,off)[0]
-        if not img.base <= value < image_end:
+        if not any(sec["va"] <= value < sec["end"] for sec in img.sections):
             result.append(dict(tier="B",reason="object_relocation_to_implausible_retail_va",offset=off,
                 retail_value=hex(value),object_value=hex(struct.unpack_from("<I",body,off)[0]),entities=[]))
+    before_a=sum(d["tier"]=="A" for d in result)
+    before_b=sum(d["tier"]=="B" for d in result)
+    if before_b > before_a:
+        counts["coherence_demoted"] = before_a
+        for d in result:
+            if d["tier"]=="A":
+                d.update(original_tier="A",original_reason=d["reason"],tier="B",reason="row_coherence_demoted",
+                         row_tier_a_before=before_a,row_tier_b_before=before_b)
     return dict(counts=counts,findings=result)
 
 

@@ -973,8 +973,10 @@ def test_pointer_tiers_known_start_interior_and_unmapped(tmp_path):
     img=image_with(data=body)
     r=dict(zip(data_rows.FIELDS,row(size="12")))
     result=data_rows.data_pointer_evidence(r,body,[],img,classify)
-    assert [d["tier"] for d in result["findings"]]==["A","B","B"]
-    assert [d["reason"] for d in result["findings"]]==["entity_start","entity_interior","unmapped_image_address"]
+    assert classify(BASE+0x1010)[0]=="A"
+    assert [d["tier"] for d in result["findings"]]==["B","B","B"]
+    assert [d["reason"] for d in result["findings"]]==["row_coherence_demoted","entity_interior","unmapped_image_address"]
+    assert result["findings"][0]["original_reason"]=="entity_start"
 
 
 def test_pointer_string_start_catches_p14_plain_integer(tmp_path):
@@ -1036,3 +1038,72 @@ def test_pointer_report_cli_returns_success_without_build_verification(tmp_path,
     out=tmp_path/"report.json"
     assert data_rows.main(["--pointer-report","objects.json","--report-out",str(out)])==0
     assert not called and out.exists()
+
+
+def test_aligned_mid_string_is_not_a_string_start(tmp_path):
+    root=pointer_root(tmp_path);img=image_with(rdata=b"LONGOBJECT\0")
+    tier,reason,_=data_rows.pointer_evidence_index(img,root)(BASE+0x2004)
+    assert tier=="B" and reason=="unmapped_image_address"
+
+
+def test_entity_interior_precedes_string_boundary_test(tmp_path):
+    root=pointer_root(tmp_path)
+    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name\n0x2000,12,global,container\n")
+    img=image_with(rdata=b"HEAD\0OBJECT\0")
+    tier,reason,_=data_rows.pointer_evidence_index(img,root)(BASE+0x2005)
+    assert tier=="B" and reason=="entity_interior"
+
+
+def test_utf16_text_cannot_supply_single_character_string_hits(tmp_path):
+    root=pointer_root(tmp_path);img=image_with(rdata="LONGOBJECT".encode("utf-16le")+b"\0\0")
+    classify=data_rows.pointer_evidence_index(img,root)
+    assert all(classify(BASE+0x2000+offset)[0]=="B" for offset in range(0,20,2))
+
+
+def test_zero_size_entities_do_not_create_known_starts(tmp_path):
+    root=pointer_root(tmp_path)
+    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name\n0x0,0,global,___ImageBase\n0x2004,0,global,___marker\n")
+    img=image_with();classify=data_rows.pointer_evidence_index(img,root)
+    assert classify(BASE)[0]=="B" and classify(BASE+0x2004)[0]=="B"
+
+
+def test_headers_and_section_gaps_are_outside_plausible_va_range(tmp_path):
+    root=pointer_root(tmp_path)
+    body=struct.pack("<II",BASE,BASE+0x3000)
+    img=make_pe([(".text",0x1000,0x1000,b"\xc3"),(".rdata",0x4000,0x1000,b"AB\0"),(".data",0x6000,0x1000,body)])
+    r=dict(zip(data_rows.FIELDS,row(address=hex(BASE+0x6000),size="8")))
+    classify=data_rows.pointer_evidence_index(img,root)
+    assert not data_rows.data_pointer_evidence(r,body,[],img,classify)["findings"]
+    reverse=data_rows.data_pointer_evidence(r,bytes(8),[(0,6),(4,6)],img,classify)
+    assert len(reverse["findings"])==2
+    assert all(d["reason"]=="object_relocation_to_implausible_retail_va" for d in reverse["findings"])
+
+
+def test_coherence_demotes_only_when_b_outnumbers_a(tmp_path):
+    root=pointer_root(tmp_path)
+    for values,expected in [([BASE+0x1010,BASE+0x1014],["A","B"]),
+                            ([BASE+0x1010,BASE+0x1014,BASE+0x3050],["B","B","B"])]:
+        body=struct.pack("<"+"I"*len(values),*values);img=image_with(data=body)
+        r=dict(zip(data_rows.FIELDS,row(size=str(len(body)))))
+        result=data_rows.data_pointer_evidence(r,body,[],img,data_rows.pointer_evidence_index(img,root))
+        assert [d["tier"] for d in result["findings"]]==expected
+        if len(values)==3:
+            assert result["counts"]["coherence_demoted"]==1
+            assert result["findings"][0]["row_tier_b_before"]==2
+
+
+def test_inventory_string_gap_does_not_hide_a_new_string_start(tmp_path):
+    root=pointer_root(tmp_path)
+    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name\n0x2000,32,string,first\n")
+    img=image_with(rdata=b"FIRST\0\0\0SECOND\0")
+    classify=data_rows.pointer_evidence_index(img,root)
+    assert classify(BASE+0x2001)[:2]==("B","entity_interior")
+    assert classify(BASE+0x2008)[:2]==("A","retail_string_start")
+
+
+def test_defined_extent_overrides_coarse_inventory_span(tmp_path):
+    root=pointer_root(tmp_path)
+    (root/"reverse/data_rows.csv").write_bytes(ledger(row(name="small",address="0x402000",size="4",section=".rdata")))
+    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name\n0x2000,32,global,coarse_alias\n")
+    img=image_with(rdata=bytes(16)+b"OBJECT\0")
+    assert data_rows.pointer_evidence_index(img,root)(BASE+0x2010)[:2]==("A","retail_string_start")
