@@ -27,3 +27,11 @@ genuine destination table binding with its full actual callback profile first.
 The parent fold's viable callback-preserving scope is larger than its eight
 old-token sources. Preserve Evacuate's4BAFE5 adapter and the DamageInfo class-key
 distinction, and never fill missing slots with unrelated folded members.
+
+2026-11-07 (claude-opus-5-5): declaring `virtual ~DamageModule();` out of line in
+EvacuateDamageCtorModuleFactoryBody.cpp's DamageModule view keeps 9/9 matched and
+swaps the unresolved name to `??1DamageModule@@UAE@XZ` (retail 0x4B96CC), which only
+a symbols.csv pin names; the link does not resolve pins. `rename.py class --fold
+Rva004B96CC --into DamageModule` refuses because vftable 0x008598E4 is ledgered as
+`_s_vtable` (DamageModuleCtor.cpp), not `??_7DamageModule@@6B@`. That table binding
+is the prerequisite for the fold; the view edit then clears this unit. Reverted.
