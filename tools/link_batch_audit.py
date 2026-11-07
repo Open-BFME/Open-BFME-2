@@ -11,6 +11,7 @@ import re
 import struct
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import build
@@ -756,6 +757,61 @@ def audit(base, tip, verified):
     return 0 if exact_base else 2
 
 
+# One JSON line per run, appended to <git common dir>/link_audit_verdicts.jsonl (as class_gate's
+# shadow log): the before/after measurement for strict receipts (docs/strict_receipts_design.md,
+# step 0). It never changes what the audit prints or returns. A run the hook's time cap kills
+# writes no line; one that crashes is logged as "crashed" and still crashes.
+VERDICT_LOG = "link_audit_verdicts.jsonl"
+VERDICT_REASONS = (("census index missing", "no-index"), ("lack current receipts", "missing-receipts"),
+                   ("consumer lacks current receipt", "consumer-receipt"),
+                   ("no provisional finding from the older index", "non-exact-base"))
+
+
+class _Tee:
+    """sys.stdout, also keeping the audit's own summary lines."""
+    def __init__(self, stream):
+        self.stream, self.lines, self._partial = stream, [], ""
+
+    def write(self, text):
+        self._partial += text
+        *done, self._partial = self._partial.split("\n")
+        self.lines += [line for line in done if line.startswith("link batch audit:")]
+        return self.stream.write(text)
+
+    def __getattr__(self, name):
+        return getattr(self.stream, name)
+
+
+def verdict_record(code, lines, base, tip, sources):
+    """The log line for one run: its exit's verdict and, for an inconclusive one, why."""
+    verdict = {0: "clean", 1: "failed", 2: "inconclusive", "crashed": "crashed"}.get(code, f"exit-{code}")
+    reason = None
+    if verdict == "inconclusive":
+        text = " ".join(lines)
+        reason = next((name for marker, name in VERDICT_REASONS if marker in text), "other")
+    return {"utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "base": base, "tip": tip,
+            "verdict": verdict, "reason": reason, "exit": code, "sources": sources,
+            "exact_base": not any("INCONCLUSIVE baseline" in line for line in lines),
+            "real_link_findings": any("real link would no longer resolve" in line for line in lines),
+            "lines": [line[:300] for line in lines[:12]]}
+
+
+def log_verdict(record):
+    """Append one verdict line. Never raises: a failing git, path or write loses the line, not the push."""
+    import json
+    try:
+        result = subprocess.run(["git", "rev-parse", "--git-common-dir"], cwd=link_check.ROOT,
+                                capture_output=True, text=True)
+        if result.returncode != 0:
+            return
+        common = Path(result.stdout.strip())
+        common = common if common.is_absolute() else link_check.ROOT / common
+        with open(common / VERDICT_LOG, "a", encoding="utf-8") as handle:
+            handle.write(json.dumps(record, sort_keys=True) + "\n")
+    except Exception:  # noqa: BLE001 - a log line must not change the audit
+        pass
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", required=True)
@@ -763,6 +819,25 @@ def main():
     parser.add_argument("--sources-from", metavar="FILE", required=True,
                         help="NUL-delimited byte-verified source paths")
     args = parser.parse_args()
+    sources = None
+    try:
+        sources = len([part for part in Path(args.sources_from).read_bytes().split(b"\0") if part])
+    except OSError:
+        pass
+    tee = _Tee(sys.stdout)
+    sys.stdout = tee
+    try:
+        code = run(args)
+    except BaseException:
+        sys.stdout = tee.stream
+        log_verdict(verdict_record("crashed", tee.lines, args.base, args.tip, sources))
+        raise
+    sys.stdout = tee.stream
+    log_verdict(verdict_record(code, tee.lines, args.base, args.tip, sources))
+    return code
+
+
+def run(args):
     try:
         raw = Path(args.sources_from).read_bytes()
         if raw and not raw.endswith(b"\0"):

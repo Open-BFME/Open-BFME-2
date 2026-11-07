@@ -1340,3 +1340,85 @@ def test_a_common_definition_does_not_stop_a_plain_import_request(batch, monkeyp
     monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
     assert A.audit("a" * 40, "b" * 40, []) == 0
     assert "REAL-LINK LOSS public" not in capsys.readouterr().out
+
+
+# ------------------------------------------------- the verdict log (strict receipts design, step 0)
+def _run_main(monkeypatch, tmp_path, audit):
+    sources = tmp_path / "sources"
+    sources.write_bytes(b"Code/a.cpp\0Code/b.cpp\0")
+    logged = []
+    monkeypatch.setattr(A, "audit", audit)
+    monkeypatch.setattr(A, "log_verdict", logged.append)
+    monkeypatch.setattr(sys, "argv", ["link_batch_audit.py", "--base", "b" * 40, "--tip", "t" * 40,
+                                      "--sources-from", str(sources)])
+    return A.main(), logged
+
+
+@pytest.mark.parametrize("printed, code, verdict, reason", [
+    (["link batch audit: no linking regression found in the checked scope"], 0, "clean", None),
+    (["link batch audit: FAILED: 2 reference(s) to omitted objects; x"], 1, "failed", None),
+    (["link batch audit: INCONCLUSIVE: 3 source object(s) lack current receipts; first: Code/a.cpp"], 2,
+     "inconclusive", "missing-receipts"),
+    (["link batch audit: INCONCLUSIVE: affected consumer lacks current receipt: Code/c.cpp"], 2,
+     "inconclusive", "consumer-receipt"),
+    (["link batch audit: INCONCLUSIVE: census index missing; fetch with link_check.py --fetch-index"], 2,
+     "inconclusive", "no-index"),
+    (["link batch audit: INCONCLUSIVE baseline: index at abc, outgoing base def; provisional",
+      "link batch audit: INCONCLUSIVE: no provisional finding from the older index"], 2,
+     "inconclusive", "non-exact-base"),
+])
+def test_each_run_logs_its_verdict_and_changes_no_output_or_exit(monkeypatch, tmp_path, capsys,
+                                                                 printed, code, verdict, reason):
+    def audit(base, tip, verified):
+        assert verified == ["Code/a.cpp", "Code/b.cpp"]
+        print("  some detail line")
+        for line in printed:
+            print(line)
+        return code
+    got, logged = _run_main(monkeypatch, tmp_path, audit)
+    assert got == code
+    assert capsys.readouterr().out == "  some detail line\n" + "".join(line + "\n" for line in printed)
+    assert len(logged) == 1
+    record = logged[0]
+    assert (record["verdict"], record["reason"], record["exit"], record["sources"]) == (verdict, reason, code, 2)
+    assert record["lines"] == printed and record["base"] == "b" * 40 and record["tip"] == "t" * 40
+    assert record["exact_base"] is not any("baseline" in line for line in printed)
+
+
+def test_a_crashing_audit_is_logged_and_still_crashes(monkeypatch, tmp_path):
+    def audit(base, tip, verified):
+        print("link batch audit: 1 current object(s), 0 retired")
+        raise RuntimeError("boom")
+    stdout = sys.stdout
+    with pytest.raises(RuntimeError):
+        _run_main(monkeypatch, tmp_path, audit)
+    assert sys.stdout is stdout
+
+
+def test_crash_record_names_the_crash(monkeypatch, tmp_path):
+    logged = []
+    monkeypatch.setattr(A, "log_verdict", logged.append)
+
+    def audit(base, tip, verified):
+        raise RuntimeError("boom")
+    sources = tmp_path / "sources"
+    sources.write_bytes(b"")
+    monkeypatch.setattr(A, "audit", audit)
+    monkeypatch.setattr(sys, "argv", ["link_batch_audit.py", "--base", "b", "--tip", "t", "--sources-from",
+                                      str(sources)])
+    with pytest.raises(RuntimeError):
+        A.main()
+    assert [record["verdict"] for record in logged] == ["crashed"]
+
+
+def test_the_log_is_appended_in_the_git_common_dir_and_a_failing_write_is_silent(monkeypatch, tmp_path):
+    import json
+    subprocess.run(["git", "init", "-q", str(tmp_path / "clone")], check=True)
+    monkeypatch.setattr(A.link_check, "ROOT", tmp_path / "clone")
+    A.log_verdict({"verdict": "clean"})
+    A.log_verdict({"verdict": "failed"})
+    log = tmp_path / "clone/.git" / A.VERDICT_LOG
+    assert [json.loads(line)["verdict"] for line in log.read_text().splitlines()] == ["clean", "failed"]
+    (tmp_path / "not-a-repo").mkdir()
+    monkeypatch.setattr(A.link_check, "ROOT", tmp_path / "not-a-repo")
+    A.log_verdict({"verdict": "clean"})          # no git dir: nothing raised, nothing written
