@@ -491,21 +491,54 @@ Bool WeaponTemplateSet::hasAnyWeapons() const
 // defined in WeaponTemplateSetParse.cpp (their rows' unit, BFME 2 slot layout).
 
 //-------------------------------------------------------------------------------------------------
+// BFME 2's weapon choice criteria names (DefaultWeaponChoiceCritera), retail .data
+// 0x00DBC29C. Retail's six names have no null: the list runs on into the unit's next
+// list, the command source names at 0x00DBC2B4 (FROM_PLAYER, FROM_SCRIPT, FROM_AI and a
+// null), and INI::parseIndexList reads all nine. This copy spells that run-on, so the
+// parser accepts the same tokens as retail.
+static const char *TheWeaponChoiceCriteriaNames[] =
+{
+	"PREFER_MOST_DAMAGE",
+	"PREFER_LONGEST_RANGE",
+	"PREFER_GRAB_OVER_DAMAGE",
+	"PREFER_LEAST_MOVEMENT",
+	"SELECT_AT_RANDOM",
+	"USE_WEAPONSET_DEFAULT_CRITERIA",
+	"FROM_PLAYER",
+	"FROM_SCRIPT",
+	"FROM_AI",
+	NULL
+};
+
+// OnlyAgainst and OnlyInCondition parse through two BFME 2 statics of the class
+// (rowed at 0x002C8C47 and 0x002C883E); Zero Hour's header does not declare them.
+extern "C" {
+void __identifier("?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z")();
+}
+
+//-------------------------------------------------------------------------------------------------
 void WeaponTemplateSet::parseWeaponTemplateSet( INI* ini, const ThingTemplate* tt )
 {
-	// Retail's table (0x00C00A90) points "Conditions" at 0x002C8C06 (rowed above as
-	// Rva002C8C06Parse, store +4), not at Zero Hour's WeaponSetFlags::parseFromINI,
-	// whose static INI::scanIndexList BFME 2 does not have (retail's is a member).
-	// The rest of this table still differs from retail's (OnlyAgainst,
-	// OnlyInCondition, ReadyStatusSharedWithinSet, DefaultWeaponChoiceCritera).
+	// Retail's table (0x00C00A90), every entry read from the image. "Conditions" goes to
+	// 0x002C8C06 (rowed above as Rva002C8C06Parse, store +4), not to Zero Hour's
+	// WeaponSetFlags::parseFromINI, whose static INI::scanIndexList BFME 2 does not have
+	// (retail's is a member). The four flag fields are at BFME 2's offsets
+	// (WeaponTemplateSetParse.cpp's layout: +0x35C, +0x35D, +0x364 and the criteria at
+	// +0x360); Zero Hour's layout put the first two at +0x50 and +0x51, inside the
+	// auto-choose masks.
 	static const FieldParse myFieldParse[] = 
 	{
 		{ "Conditions", Rva002C8C06Parse, NULL, offsetof( WeaponTemplateSet, m_types ) },
 		{ "Weapon",	WeaponTemplateSet::parseWeapon,	NULL, 0 },
 		{ "AutoChooseSources",	WeaponTemplateSet::parseAutoChoose, NULL, 0 },
 		{ "PreferredAgainst", WeaponTemplateSet::parsePreferredAgainst, NULL, 0 },
-		{ "ShareWeaponReloadTime", INI::parseBool, NULL, offsetof( WeaponTemplateSet, m_isReloadTimeShared ) },
-		{ "WeaponLockSharedAcrossSets", INI::parseBool, NULL, offsetof( WeaponTemplateSet, m_isWeaponLockSharedAcrossSets ) },
+		{ "OnlyAgainst", (INIFieldParseProc)&__identifier("?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z"), NULL, 0 },
+		{ "OnlyInCondition", (INIFieldParseProc)&__identifier("?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z"), NULL, 0 },
+		{ "ShareWeaponReloadTime", INI::parseBool, NULL, 0x35C },
+		{ "WeaponLockSharedAcrossSets", INI::parseBool, NULL, 0x35D },
+		{ "ReadyStatusSharedWithinSet", INI::parseBool, NULL, 0x364 },
+		{ "DefaultWeaponChoiceCritera", INI::parseIndexList, TheWeaponChoiceCriteriaNames, 0x360 },
 		{ 0, 0, 0, 0 }
 	};
 
