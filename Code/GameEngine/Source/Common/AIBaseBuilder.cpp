@@ -6,9 +6,9 @@
 #include "ascii_string.h"
 #include <stl/_algobase.h>
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &left, const unsigned int &right)
 {
-    return a < b ? b : a;
+    return left < right ? right : left;
 }
 }
 #define __PLACEMENT_VEC_NEW_INLINE
@@ -203,7 +203,7 @@ struct HomeVector3
 	HomeVector3(const Coord3DBase &coord3DBase) { X = coord3DBase.x; Y = coord3DBase.y; Z = coord3DBase.z; }
 	float Length2() const { return X * X + Y * Y + Z * Z; }
 	friend __forceinline HomeVector3 operator-(const HomeVector3 &a, const HomeVector3 &b) { return HomeVector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z); }
-	static __forceinline float Distance2(const HomeVector3 &homeVector3, const HomeVector3 &p2) { HomeVector3 temp = homeVector3 - p2; return temp.Length2(); }
+	static __forceinline float Distance2(const HomeVector3 &homeVector3, const HomeVector3 &otherPoint) { HomeVector3 difference = homeVector3 - otherPoint; return difference.Length2(); }
 };
 #include "../../Include/GameLogic/Waypoint.h"
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString &);

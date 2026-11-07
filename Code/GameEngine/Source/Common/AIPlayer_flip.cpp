@@ -11,12 +11,12 @@ void AIPlayer::flip()
 	{
 		do
 		{
-			TeamInQueue *firstLink = currentNode->m_prevReady;
-			TeamInQueue *secondLink = currentNode->m_nextReady;
-			currentNode->m_nextReady = firstLink;
-			currentNode->m_prevReady = secondLink;
+			TeamInQueue *previousLink = currentNode->m_prevReady;
+			TeamInQueue *nextLink = currentNode->m_nextReady;
+			currentNode->m_nextReady = previousLink;
+			currentNode->m_prevReady = nextLink;
 			lastNode = currentNode;
-			currentNode = secondLink;
+			currentNode = nextLink;
 		} while (currentNode);
 	}
 	m_teamReadyQueue = lastNode;

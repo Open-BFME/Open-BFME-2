@@ -15,9 +15,9 @@
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &left, const unsigned int &right)
 {
-    return a < b ? b : a;
+    return left < right ? right : left;
 }
 }
 #include <map>
@@ -378,9 +378,9 @@ void AIGameTeam::rva004E9446()
 
 Rva00596B05 *Rva004E97C6::rva004E97C6(void *lenderPlayer, void *borrowerPlayer, int amount, int rate)
 {
-	Rva00596B05 *member = new Rva00596B05(lenderPlayer, borrowerPlayer, amount, rate);
-	m_members.push_back(reinterpret_cast<LivingWorldArmy *>(member));
-	return member;
+	Rva00596B05 *loan = new Rva00596B05(lenderPlayer, borrowerPlayer, amount, rate);
+	m_members.push_back(reinterpret_cast<LivingWorldArmy *>(loan));
+	return loan;
 }
 
 // tu-skeleton: 0x004E9419 45B ?rva004E9419@Rva004E9419@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
@@ -415,8 +415,8 @@ Rva004E9657::~Rva004E9657(){
  Map::iterator end=map.end();
  for(Map::iterator i=map.begin();i!=end;++i)delete i->second;
  reinterpret_cast<Rva004E9419*>(&map00)->rva004E94A1();
- TeamOwnedPoly**i=vector18.begin();TeamOwnedPoly**teamOwnedPoly=vector18.end();
- for(;i!=teamOwnedPoly;)::delete *i;
+ TeamOwnedPoly**i=vector18.begin();TeamOwnedPoly**rangeEnd=vector18.end();
+ for(;i!=rangeEnd;)::delete *i;
  _ReadWriteBarrier();_STL::vector<void*>*vec=reinterpret_cast<_STL::vector<void*>*>(&vector18);reinterpret_cast<RvaVector*>(vec)->erase(vec->begin(),vec->end());
 }
 
