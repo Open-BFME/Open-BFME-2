@@ -141,7 +141,16 @@ void deleteRva006F8D70(Rva006F8D70 *p)
 	delete p;
 }
 
-class Rva0070A530 : public Rva006DE350
+// Retail's three pool records below derive from the class whose destructor is
+// 0x006D6470 (rowed in LadderPreferencesDtor.cpp): their folded destructor
+// 0x00709B80 tail-jumps there. novtable keeps this unit from emitting its table.
+class __declspec(novtable) Rva006D6470Owner
+{
+public:
+	virtual ~Rva006D6470Owner();
+};
+
+class Rva0070A530 : public Rva006D6470Owner
 {
 public:
 	virtual ~Rva0070A530();
@@ -152,12 +161,9 @@ public:
 	char m_pad[0x40]; // sizeof 0x44
 };
 
-// The destructor is retail's 0x00709B80 (pinned); declared only, so the link keeps
-// retail's body. new/delete devirtualizes to a direct ??_G call, emitting it.
-void Rva0070A530_Anchor()
+// Retail folds this empty destructor with its siblings' at 0x00709B80 (ICF).
+Rva0070A530::~Rva0070A530()
 {
-	Rva0070A530 *p = new Rva0070A530;
-	delete p;
 }
 
 void deleteRva0070A530(Rva0070A530 *p)
@@ -165,7 +171,7 @@ void deleteRva0070A530(Rva0070A530 *p)
 	delete p;
 }
 
-class Rva0070A560 : public Rva006DE350
+class Rva0070A560 : public Rva006D6470Owner
 {
 public:
 	virtual ~Rva0070A560();
@@ -176,12 +182,9 @@ public:
 	char m_pad[0x2C]; // sizeof 0x30
 };
 
-// The destructor is retail's 0x00709B80 (pinned); declared only, so the link keeps
-// retail's body. new/delete devirtualizes to a direct ??_G call, emitting it.
-void Rva0070A560_Anchor()
+// Retail folds this empty destructor with its siblings' at 0x00709B80 (ICF).
+Rva0070A560::~Rva0070A560()
 {
-	Rva0070A560 *p = new Rva0070A560;
-	delete p;
 }
 
 void deleteRva0070A560(Rva0070A560 *p)
@@ -189,7 +192,7 @@ void deleteRva0070A560(Rva0070A560 *p)
 	delete p;
 }
 
-class Rva0070A590 : public Rva006DE350
+class Rva0070A590 : public Rva006D6470Owner
 {
 public:
 	virtual ~Rva0070A590();
@@ -200,12 +203,9 @@ public:
 	char m_pad[0x30]; // sizeof 0x34
 };
 
-// The destructor is retail's 0x00709B80 (pinned); declared only, so the link keeps
-// retail's body. new/delete devirtualizes to a direct ??_G call, emitting it.
-void Rva0070A590_Anchor()
+// Retail folds this empty destructor with its siblings' at 0x00709B80 (ICF).
+Rva0070A590::~Rva0070A590()
 {
-	Rva0070A590 *p = new Rva0070A590;
-	delete p;
 }
 
 void deleteRva0070A590(Rva0070A590 *p)
