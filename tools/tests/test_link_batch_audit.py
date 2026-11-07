@@ -1422,3 +1422,45 @@ def test_the_log_is_appended_in_the_git_common_dir_and_a_failing_write_is_silent
     (tmp_path / "not-a-repo").mkdir()
     monkeypatch.setattr(A.link_check, "ROOT", tmp_path / "not-a-repo")
     A.log_verdict({"verdict": "clean"})          # no git dir: nothing raised, nothing written
+
+
+@pytest.mark.parametrize("locked", [True, False])
+def test_concurrent_writers_never_interleave_a_line(tmp_path, locked):
+    # Review of e30cdbb710: 16 concurrent writers on Windows corrupted 274 of 4,800 lines. Linux
+    # writes a whole line atomically anyway, so each writer here splits os.write into 512-byte
+    # pieces, as Windows may; without the lock (the negative control) lines then interleave.
+    import json
+    clone = tmp_path / "clone"
+    subprocess.run(["git", "init", "-q", str(clone)], check=True)
+    writer = (
+        "import os, sys, time; sys.path.insert(0, sys.argv[1]); import link_batch_audit as A\n"
+        "import portable_lock\n"
+        "from pathlib import Path\n"
+        "real = os.write\n"
+        "def chunked(fd, data):\n"
+        "    time.sleep(0.0002)\n"
+        "    return real(fd, bytes(data[:512]))\n"
+        "os.write = chunked\n"
+        "if sys.argv[4] == 'unlocked':\n"
+        "    portable_lock.lock = lambda handle, **k: None\n"
+        "    portable_lock.unlock = lambda handle: None\n"
+        "A.link_check.ROOT = Path(sys.argv[2])\n"
+        "for n in range(40):\n"
+        "    A.log_verdict({'writer': int(sys.argv[3]), 'n': n, 'pad': 'x' * 4000})\n")
+    tools = str(Path(A.__file__).resolve().parent)
+    procs = [subprocess.Popen([sys.executable, "-c", writer, tools, str(clone), str(w),
+                               "locked" if locked else "unlocked"]) for w in range(16)]
+    assert all(proc.wait() == 0 for proc in procs)
+    lines = (clone / ".git" / A.VERDICT_LOG).read_bytes().split(b"\n")
+    whole = []
+    for line in lines[:-1]:
+        try:
+            whole.append(json.loads(line))
+        except ValueError:
+            pass
+    expected = [(w, n) for w in range(16) for n in range(40)]
+    if locked:
+        assert lines[-1] == b"" and len(whole) == len(lines) - 1          # every line whole
+        assert sorted((r["writer"], r["n"]) for r in whole) == expected
+    else:
+        assert len(whole) < len(expected)                                 # the control does interleave

@@ -7,6 +7,7 @@ the pushed base supplies the before state; the byte gate supplies current object
 import argparse
 import collections
 import csv
+import os
 import re
 import struct
 import subprocess
@@ -760,7 +761,8 @@ def audit(base, tip, verified):
 # One JSON line per run, appended to <git common dir>/link_audit_verdicts.jsonl (as class_gate's
 # shadow log): the before/after measurement for strict receipts (docs/strict_receipts_design.md,
 # step 0). It never changes what the audit prints or returns. A run the hook's time cap kills
-# writes no line; one that crashes is logged as "crashed" and still crashes.
+# writes no line; one that crashes is logged as "crashed" and still crashes (its traceback gains
+# the run() frame, which is harmless: only stdout and the exit code reach the hook's verdict).
 VERDICT_LOG = "link_audit_verdicts.jsonl"
 VERDICT_REASONS = (("census index missing", "no-index"), ("lack current receipts", "missing-receipts"),
                    ("consumer lacks current receipt", "consumer-receipt"),
@@ -797,8 +799,14 @@ def verdict_record(code, lines, base, tip, sources):
 
 
 def log_verdict(record):
-    """Append one verdict line. Never raises: a failing git, path or write loses the line, not the push."""
+    """Append one verdict line. Never raises: a failing git, path or write loses the line, not the push.
+
+    Seats and worktrees share one common dir, so pushes append at once. Windows' O_APPEND is
+    not atomic across processes (16 writers corrupted 274 of 4,800 lines in review), so the
+    whole line is built first and written by os.write on an O_APPEND binary descriptor while a
+    portable_lock is held on the sibling .lock file."""
     import json
+    from portable_lock import lock, unlock
     try:
         result = subprocess.run(["git", "rev-parse", "--git-common-dir"], cwd=link_check.ROOT,
                                 capture_output=True, text=True)
@@ -806,8 +814,19 @@ def log_verdict(record):
             return
         common = Path(result.stdout.strip())
         common = common if common.is_absolute() else link_check.ROOT / common
-        with open(common / VERDICT_LOG, "a", encoding="utf-8") as handle:
-            handle.write(json.dumps(record, sort_keys=True) + "\n")
+        line = memoryview((json.dumps(record, sort_keys=True) + "\n").encode("utf-8"))
+        with open(common / (VERDICT_LOG + ".lock"), "a+b") as guard:
+            lock(guard, exclusive=True)
+            try:
+                fd = os.open(common / VERDICT_LOG, os.O_WRONLY | os.O_APPEND | os.O_CREAT
+                             | getattr(os, "O_BINARY", 0), 0o666)
+                try:
+                    while line:
+                        line = line[os.write(fd, line):]
+                finally:
+                    os.close(fd)
+            finally:
+                unlock(guard)
     except Exception:  # noqa: BLE001 - a log line must not change the audit
         pass
 
