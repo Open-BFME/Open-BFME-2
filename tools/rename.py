@@ -1098,6 +1098,7 @@ class Plan:
     fold: int = None                                  # class --fold: the retail vftable rva proving one class
     dropped_pins: list = field(default_factory=list)  # class --fold: (old pin, its respelling, address) removed
     to_class: dict = None                             # function --to-class: the slot the rebuilt vftable must name
+    retype: dict = None                               # global --retype: what the rebuilt objects must prove
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -1110,6 +1111,9 @@ class Plan:
         return set(self.after) | {new for _old, new in self.moves}
 
     def subject(self):
+        if self.retype:
+            return (f"Retype {self.retype['word']} as {self.retype['type']} "
+                    f"({self.retype['size']} B, retail extent verified)")
         if self.virtual:
             return f"Respell {self.old} as virtual {self.new} (retail vtable slot)"
         if self.fold is not None:
@@ -4327,13 +4331,18 @@ def _identifier(symbol):
         return None
 
 
-def plan_global(ctx, name, new, basis, evidence, *, max_files=25):
+def plan_global(ctx, name, new, basis, evidence, *, max_files=25, retype=None, size=None, initializer=None,
+                prepared=None):
     """Plan respelling one reverse/data_rows.csv global everywhere it is named.
 
     The byte gate masks DIR32 operands, so a consumer left on the old name
     still byte-matches and only the link breaks: the plan has to find every
     consumer itself, by text and by object symbol table, and refuses when it
-    cannot rewrite one."""
+    cannot rewrite one. With `retype` (a C++ type) it is `global --retype`
+    (plan_retype): the identifier stays, the type and size change."""
+    if retype is not None:
+        return plan_retype(ctx, name, new, retype, size, evidence, initializer=initializer, prepared=prepared,
+                           max_files=max_files)
     rows = ctx.dicts(DATA_ROWS)
     if name.startswith("?") or "@" in name:
         owners = [r for r in rows if r.get("name") == name]
@@ -4450,6 +4459,1035 @@ def plan_global(ctx, name, new, basis, evidence, *, max_files=25):
     plan.warnings.append("the byte gate masks DIR32: a consumer the plan missed would still match; "
                          "the link census is the backstop")
     return plan
+
+
+# ---------------------------------------------------------------- global --retype
+#
+# A rowed global's placeholder type can be smaller than the retail object it
+# stands for: `unsigned g_00DFE1AC;` (4 bytes) where retail's code reads +4 and
+# +8 of a 12-byte vector. image_iso flags every such read as an out-of-object
+# pointer. Changing the type changes the mangled name, which `global --new`
+# refuses (identifier changes only), and nothing else could re-key the data
+# row. `global --retype TYPE --size N --new MANGLED` changes the type and size
+# and keeps the identifier: every declaration is respelled, the data row,
+# pins, notes and the data_ledger.csv row are re-keyed, an /alternatename
+# that only bridged the two spellings is removed with its hatch_baseline.tsv
+# line, and ./build.sh plus a post-build object check prove it. Refused: an
+# extent another owner overlaps (a data row, a function row, a converged or
+# ledger address inside it), one leaving its retail section, non-zero retail
+# bytes with no --initializer, a second definition, a declaration it cannot
+# parse, the old mangled name surviving anywhere, and a new type the owner's
+# object would construct with its own dynamic initializer (retail's rowed
+# initializer already constructs these: the image would run both).
+
+HATCH_BASELINE = "reverse/hatch_baseline.tsv"
+ZERO_INIT = re.compile(r"^\s*=\s*(?:0[uUlL]*|NULL|\{\s*0?\s*\})\s*$")
+ALTERNATENAME = re.compile(r'(?m)^[ \t]*#[ \t]*pragma[ \t]+comment[ \t]*\([ \t]*linker[ \t]*,[ \t]*'
+                           r'"/alternatename:(?P<a>[^="\s]+)=(?P<b>[^"\s]+)"[ \t]*\)[^\n]*(?:\n|$)')
+NOT_A_TYPE = ("return", "delete", "throw", "case", "goto", "else", "do", "sizeof", "new", "typedef", "using",
+              "operator", "co_return", "if", "while", "for", "switch")
+
+
+def declaration_re(word, anchored=True):
+    """A declaration or definition of `word` starting a line (file scope in practice):
+    leading space, `extern`, the type, pointer/reference marks, the identifier, an array
+    bound, an initializer, `;`. Tokens may be split by any whitespace, newlines included
+    (review of 03c0d18c27: `extern unsigned int\\n g;` escaped a [ \\t] pattern)."""
+    return re.compile(
+        (r"(?m)^" if anchored else r"(?m)(?:^|(?<=[;{}]))") + r"(?P<lead>[ \t]*)(?P<extern>extern\s+(?:\"C\"\s+)?)?"
+        r"(?P<spec>(?!(?:" + "|".join(NOT_A_TYPE) + r")\b)(?:(?:const|volatile|static|unsigned|signed|struct|class|"
+        r"union|enum)\s+)*[A-Za-z_][\w:]*(?:\s*<[^;(){}]*>)?)"
+        r"(?P<marks>[\s\*&]*(?:const[\s\*&]+)*)" + re.escape(word) +
+        r"\b(?P<array>\s*\[[^\]]*\])?(?P<init>\s*=[^;]*)?\s*;")
+
+
+def declaration_sites(code, word):
+    """Offsets in comment- and string-stripped `code` where `word` is declared, found
+    without the declaration pattern: the identifier followed by `;`, `[` or `=` (not `==`)
+    and preceded, past pointer marks and whitespace, by a type-like token (an identifier
+    that is no statement keyword, or a template's `>`). A site no declaration_re match
+    covers is a declaration the retype cannot respell."""
+    directives = [d.end() for d in re.finditer(r"(?m)^[ \t]*#[^\n]*", code)]
+    keyword = re.compile(r"\s*(?:extern\b|(?!(?:" + "|".join(NOT_A_TYPE) + r")\b)[A-Za-z_][\w:]*)")
+    for m in re.finditer(r"(?<![\w.>:])" + re.escape(word) + r"\b", code):
+        after = code[m.end():].lstrip()
+        if not after:
+            continue
+        # a statement that starts like a declaration and has no call or assignment before
+        # the identifier declares it, as one declarator of a list too (`extern unsigned a, g;`)
+        start = max([code.rfind(c, 0, m.start()) + 1 for c in ";{}"] + [e for e in directives if e <= m.start()])
+        statement = code[start:m.start()]
+        if after[0] in ";[=," and not after.startswith("==") and statement.strip() and "(" not in statement \
+                and "=" not in statement and keyword.match(statement):
+            yield m.start()
+            continue
+        if after[0] not in ";[=" or after.startswith("=="):
+            continue
+        before = code[:m.start()].rstrip().rstrip("*& \t\r\n")
+        token = re.search(r"([A-Za-z_]\w*|>)$", before)
+        if not token or token.group(1) in NOT_A_TYPE:
+            continue
+        lead = before[:token.start()].rstrip()
+        if token.group(1) != ">" and lead.endswith(("->", ".", "::")):
+            continue
+        yield m.start()
+
+
+ARITHMETIC = frozenset(("unsigned", "signed", "char", "short", "int", "long", "__int8", "__int16", "__int32",
+                        "__int64", "float", "double", "bool", "wchar_t", "const", "volatile"))
+RETAIL_IMAGE_SPAN = (IMAGE_BASE, 0x01000000)     # a VA literal anywhere here could be a pointer into retail
+NUMBER = re.compile(r"(?<![\w.])(0[xX][0-9a-fA-F]+|\d+)(?:[uUlL]*)\b")
+DEFINE = re.compile(r"(?m)^[ \t]*#[ \t]*define[ \t]+(?P<name>[A-Za-z_]\w*)(?P<params>\([^)]*\))?(?P<body>(?:[^\n]*\\\n)*[^\n]*)")
+COMPUTED_INCLUDE = r"^[[:space:]]*#[[:space:]]*include[[:space:]]+[A-Za-z_]"
+
+
+def arithmetic_type_problem(new_type):
+    """Why `new_type` is not an arithmetic scalar or an array of one, or None. A retype
+    gives a placeholder its retail extent (the 13 out-of-object globals are integer
+    arrays); a pointer would need relocations that data_rows.py only checks where the
+    object already has them (review of 010e6e9e21)."""
+    base, _array = split_type(new_type)
+    words = base.split()
+    if not words or any(w not in ARITHMETIC for w in words) or not any(w not in ("const", "volatile") for w in words):
+        return f"{new_type} is not an arithmetic type (or an array of one): a retype gives a placeholder its extent " \
+               "and never a pointer, reference or class, whose relocations or construction it cannot prove"
+    return None
+
+
+def image_literals(initializer):
+    """Integer literals in `initializer` that lie in retail's address range: a pointer spelled
+    as a number keeps retail's address in a rebased image and no relocation follows it."""
+    out = []
+    for m in NUMBER.finditer(name_metric.strip(initializer or "")):     # not inside a string or char literal
+        digits = m.group(1)
+        value = int(digits, 16) if digits.lower().startswith("0x") else \
+            int(digits, 8) if len(digits) > 1 and digits.startswith("0") else int(digits)
+        if RETAIL_IMAGE_SPAN[0] <= value < RETAIL_IMAGE_SPAN[1]:
+            out.append(m.group(0))
+    return out
+
+
+def retail_relocated(ctx, rva, size):
+    """Offsets inside [rva, rva + size) where retail relocates a dword (its recovered DIR32
+    sites, as boot_image and real_image read them): a pointer lives there."""
+    if "_retail_sites" not in ctx._cache:
+        sys.path.insert(0, str(ROOT / "tools"))
+        import boot_image
+        ctx._cache["_retail_sites"] = sorted(boot_image.all_sites(boot_image.Retail())[0])
+    import bisect
+    sites = ctx._cache["_retail_sites"]
+    i = bisect.bisect_left(sites, rva - 3)
+    out = []
+    while i < len(sites) and sites[i] < rva + size:
+        out.append(sites[i] - rva)
+        i += 1
+    return out
+
+
+def function_like_macros(ctx):
+    """Names the tree defines as function-like macros (`#define NAME(`)."""
+    if "_fn_macros" not in ctx._cache:
+        found = ctx.git("grep", "-h", "-o", "-E", r"#[[:space:]]*define[[:space:]]+[A-Za-z_][A-Za-z0-9_]*\(", "--",
+                        *SEARCH_ROOTS)
+        ctx._cache["_fn_macros"] = {re.sub(r"^#\s*define\s+", "", m).rstrip("(") for m in found.splitlines()}
+    return ctx._cache["_fn_macros"]
+
+
+def macro_problems(text, code, word, spans, macros):
+    """Mentions of `word` the declaration scans cannot read (review of 010e6e9e21): an
+    argument of a function-like macro, a #define body shaped like a declaration, and a
+    file-scope statement outside the covered declarations that is not an initializer."""
+    for d in DEFINE.finditer(text):
+        body = d.group("body")
+        if re.search(r"\b" + re.escape(word) + r"\b", name_metric.strip(body)):
+            if re.search(r"\bextern\b", body) or any(True for _ in declaration_sites(name_metric.strip(body), word)):
+                yield f"#define {d.group('name')} declares {word} in its body"
+    # (start, end) of code at file scope: outside function and class bodies, where a
+    # namespace or extern "C" block still counts as file scope
+    scope, file_scope, start = [], [], 0             # scope: one flag per open brace, True if transparent
+    for m in re.finditer(r"[{}]", code):
+        if m.group() == "{":
+            head = code[max(0, code.rfind(";", 0, m.start()), code.rfind("}", 0, m.start())):m.start()]
+            transparent = bool(re.search(r"\bnamespace\b[^;{}]*$|\bextern\s+\"C(?:\+\+)?\"\s*$", head))
+            if all(scope):
+                file_scope.append((start, m.start()))
+            scope.append(transparent)
+            if all(scope):
+                start = m.end()
+        elif scope:
+            if all(scope):                           # closing a namespace from inside it
+                file_scope.append((start, m.start()))
+            scope.pop()
+            if all(scope):
+                start = m.end()
+    if all(scope):
+        file_scope.append((start, len(code)))
+    directives = [(d.start(), d.end()) for d in re.finditer(r"(?m)^[ \t]*#[^\n]*(?:\\\n[^\n]*)*", code)]
+    for m in re.finditer(r"(?<![\w.>:])" + re.escape(word) + r"\b", code):
+        at = m.start()
+        if any(a <= at < b for a, b in spans) or any(a <= at < b for a, b in directives):
+            continue
+        callee = re.search(r"([A-Za-z_]\w*)\s*\([^()]*$", code[:at])
+        if callee and callee.group(1) in macros:
+            yield f"{word} is an argument of the function-like macro {callee.group(1)}"
+            continue
+        if any(a <= at < b for a, b in file_scope):
+            begin = max([code.rfind(c, 0, at) + 1 for c in ";{}"] + [b for _a, b in directives if b <= at])
+            if "=" not in code[begin:at]:
+                line = code.count("\n", 0, at) + 1
+                yield f"line {line} names {word} at file scope outside any declaration the retype reads"
+
+
+SAME_BUILTIN = {"unsigned": "unsigned int", "signed": "int", "signed int": "int", "short int": "short",
+                "signed short": "short", "signed short int": "short", "unsigned short int": "unsigned short",
+                "long int": "long", "signed long": "long", "signed long int": "long",
+                "unsigned long int": "unsigned long", "signed __int64": "__int64"}
+
+
+def same_type(spec, array=""):
+    """A declaration's type as a comparable value: whitespace and pointer marks spaced the
+    same, cv-qualifiers in a fixed order, and builtin spellings of one type made one
+    (`unsigned` is `unsigned int`)."""
+    words = spec.replace("*", " * ").replace("&", " & ").split()
+    words = [w for w in words if w != "extern"]
+    cv = sorted(w for w in words if w in ("const", "volatile"))
+    rest = " ".join(w for w in words if w not in ("const", "volatile"))
+    head, _, marks = rest.partition(" *") if " *" in rest else (rest, "", "")
+    head = SAME_BUILTIN.get(head, head)
+    return (" ".join(cv + [head]) + (" *" + marks if _ else ""), "".join(array.split()))
+
+
+def check_declarations(text, word, new_type, rel, owner, macros=frozenset()):
+    """Refuse when `text` (after the retype) declares `word` anywhere the declaration
+    pattern does not cover, as another type, or defines it outside the owner. Returns the
+    number of definitions."""
+    code = name_metric.strip(text)
+    base, array = split_type(new_type)
+    want = same_type(base, array)
+    spans, definitions = [], 0
+    for m in declaration_re(word).finditer(code):
+        spans.append((m.start(), m.end()))
+        spec = (m.group("spec") + m.group("marks")).replace("*", " * ").replace("&", " & ")
+        got = same_type(spec, m.group("array") or "")
+        if got != want:
+            raise Refusal(f"{rel} declares {word} as `{' '.join(m.group(0).split())[:80]}`, not {new_type}")
+        if not m.group("extern"):
+            if not owner:
+                raise Refusal(f"{rel} defines {word} outside its data row's source (a second definition)")
+            definitions += 1
+    for at in declaration_sites(code, word):
+        if not any(a <= at < b for a, b in spans):
+            line = code.count("\n", 0, at) + 1
+            raise Refusal(f"{rel}:{line} declares {word} in a form the retype cannot respell")
+    for why in macro_problems(text, code, word, spans, macros):
+        raise Refusal(f"{rel}: {why} (a macro-built declaration would keep the old type)")
+    return definitions
+
+
+def split_type(new_type):
+    """(base, array suffix) of a C++ type spelled for a declaration: `unsigned int [3]`
+    is ('unsigned int', '[3]'), `_STL::vector<void *>` has no suffix."""
+    text = " ".join(new_type.split())
+    m = re.match(r"^(?P<base>.*?)\s*(?P<array>(?:\[[^\]]*\])+)$", text)
+    return (m.group("base"), m.group("array")) if m else (text, "")
+
+
+def retype_declarations(text, word, new_type, *, owner, initializer=None):
+    """`text` with every declaration of `word` respelled as `new_type`: (new text, number
+    of extern declarations, number of definitions). The definition (owner only) takes
+    `initializer`, or keeps none when its old one is a zero; anything else refuses."""
+    base, array = split_type(new_type)
+    counts = {"extern": 0, "definition": 0}
+
+    def respell(m):
+        if "static" in m.group("spec").split():
+            raise Refusal(f"a TU-local `static {word}` is not the rowed global")
+        extern = bool(m.group("extern"))
+        if extern and '"C"' in m.group("extern"):
+            raise Refusal(f'an extern "C" declaration of {word} names a C symbol, not {word}\'s mangled one')
+        init = m.group("init") or ""
+        if extern:
+            if init:
+                raise Refusal(f"an extern declaration of {word} carries an initializer: {m.group(0).strip()[:80]}")
+            counts["extern"] += 1
+            tail = ""
+        else:
+            if not owner:
+                raise Refusal(f"a second definition of {word} outside its data row's source: "
+                              f"{m.group(0).strip()[:80]}")
+            counts["definition"] += 1
+            if initializer is not None:
+                tail = f" = {initializer.strip()}"
+            elif not init or ZERO_INIT.match(init):
+                tail = ""
+            else:
+                raise Refusal(f"{word}'s definition has the initializer `{init.strip()[1:].strip()[:60]}`, which "
+                              "the new type would need respelled: pass --initializer")
+        sep = "" if base.endswith(("*", "&")) else " "
+        return f"{m.group('lead')}{'extern ' if extern else ''}{base}{sep}{word}{array}{tail};"
+    return declaration_re(word).sub(respell, text), counts["extern"], counts["definition"]
+
+
+def remove_bridging_aliases(text, old_name, new_name):
+    """`text` without each `/alternatename:A=B` pragma line where A and B are the old and
+    new spellings of this global (the bridge the retype makes redundant): (text, [A])."""
+    removed = []
+
+    def drop(m):
+        if {m.group("a"), m.group("b")} == {old_name, new_name}:
+            removed.append(m.group("a"))
+            return ""
+        return m.group(0)
+    return ALTERNATENAME.sub(drop, text), removed
+
+
+def retail_extent(ctx, rva, size):
+    """(section at the first byte, section at the last byte, bytes) of retail over
+    [rva, rva + size): the image data_rows.py verifies against."""
+    if "_retail_image" not in ctx._cache:
+        sys.path.insert(0, str(ROOT / "tools"))
+        import reloc_ledger
+        ctx._cache["_retail_image"] = reloc_ledger.Image()
+    img = ctx._cache["_retail_image"]
+    va = IMAGE_BASE + rva
+    return img.section(va), img.section(va + size - 1), img.read(va, size)
+
+
+def extent_overlaps(ctx, rva, size, owner):
+    """Every owner or name other than `owner` that meets [rva, rva + size)."""
+    end, found = rva + size, []
+    for row in ctx.dicts(DATA_ROWS):
+        at = data_rva(row)
+        if row is owner or at is None:
+            continue
+        span = int(row.get("size") or 0) or 1
+        if at < end and rva < at + span:
+            found.append(f"data row {row.get('name')} at 0x{at:08X}+{span}")
+    for row in ctx.rows():
+        at, span = _rva(row.get("target_rva")), int(row.get("target_size") or 0)
+        if at is not None and span and at < end and rva < at + span:
+            found.append(f"function row {row.get('name')} at 0x{at:08X}+{span}")
+    for row in ctx.dicts(CONVERGED):
+        at = _rva(row.get("address"))
+        if at is not None and rva < at < end:
+            found.append(f"converged global {row.get('name')} at 0x{at:08X}")
+    for row in ctx.dicts(DATA_LEDGER):
+        at = _rva(row.get("address"))
+        if at is not None and rva < at < end:
+            found.append(f"data_ledger.csv name {row.get('name')} at 0x{at:08X} ({row.get('status')})")
+    return found
+
+
+def rekey_csv_record(raw, label, match, update):
+    """`raw` with the one record `match(fields dict)` selects rewritten by `update(dict)`,
+    every other record byte for byte. Returns (raw, old dict) or (raw, None)."""
+    ledger_io.lf_terminator(raw, label)
+    records = ledger_io.split_records(raw)
+    header = next(csv.reader(io.StringIO(records[0][0].decode("utf-8"))))
+    out, found = [records[0][0] + records[0][1]], None
+    for payload, term in records[1:]:
+        values = next(csv.reader(io.StringIO(payload.decode("utf-8"))), [])
+        row = dict(zip(header, values))
+        if found is None and values and match(row):
+            found = dict(row)
+            update(row)
+            payload = csv_line([row.get(h, "") for h in header]).rstrip(b"\n")
+        out.append(payload + term)
+    return b"".join(out), found
+
+
+def hatch_lines_lowered(raw, removed):
+    """hatch_baseline.tsv with one occurrence taken off each (path, token) in `removed`
+    (a line at 0 goes): a shrink, which the register allows by hand and re-verifies."""
+    lines = raw.decode("utf-8").splitlines(keepends=True)
+    out, left = [], collections.Counter(removed)
+    for line in lines:
+        cols = line.rstrip("\n").split("\t")
+        key = (cols[1], cols[2]) if len(cols) >= 4 and cols[0] == "alternatename" else None
+        if key in left and left[key]:
+            count = int(cols[3]) - left.pop(key)
+            if count > 0:
+                cols[3] = str(count)
+                out.append("\t".join(cols) + "\n")
+            continue
+        out.append(line)
+    if left:
+        raise Refusal(f"hatch_baseline.tsv has no alternatename line for {sorted(left)[0]}")
+    return "".join(out).encode("utf-8")
+
+
+def paste_units(ctx, word):
+    """Units a `##` paste could build `word` in (review of 92c6d902ed): a paste joins
+    tokens, so the pieces appear somewhere as whole tokens, in a macro body (`g_##x`) or at
+    a call (`DECL(00A01000)`). A unit is selected when it holds a proper prefix (2+
+    characters) or suffix (3+) of `word` as a whole token and either pastes itself (`##`)
+    or calls a function-like macro whose body pastes. Their text never spells the
+    identifier, so only the preprocessor shows what they declare."""
+    pieces = sorted({word[:i] for i in range(2, len(word))} | {word[i:] for i in range(1, len(word) - 2)})
+    holders = set(ctx.git("grep", "-l", "-w", "-F", *[x for piece in pieces for x in ("-e", piece)], "--",
+                          *SEARCH_ROOTS).splitlines())
+    if not holders:
+        return set()
+    pasting = set(ctx.git("grep", "-l", "-F", "-e", "##", "--", *SEARCH_ROOTS).splitlines())
+    macros = paste_macros(ctx, pasting)
+    callers = set(ctx.git("grep", "-l", "-E", *[x for name in sorted(macros) for x in ("-e", rf"\b{name}[[:space:]]*\(")],
+                          "--", *SEARCH_ROOTS).splitlines()) if macros else set()
+    return holders & (pasting | callers)
+
+
+def paste_macros(ctx, files):
+    """Names of the function-like macros these files define with `##` in their body."""
+    names = set()
+    for rel in sorted(files):
+        data = ctx.read(rel)
+        if data is None:
+            continue
+        for d in DEFINE.finditer(data.decode("utf-8", errors="replace")):
+            if d.group("params") and "##" in d.group("body"):
+                names.add(d.group("name"))
+    return names
+
+
+def forced_include_units(ctx, word, headers):
+    """Units whose // cl: flags force-include (/FI) a header that names `word` or #includes,
+    through any chain, one of `headers`: no #include line of the unit names it."""
+    forced = collections.defaultdict(set)
+    for line in ctx.git("grep", "-E", r"//[[:space:]]*cl:.*[/-]FI[^[:space:]]+\.(h|hpp|inl)", "--",
+                        *SEARCH_ROOTS).splitlines():
+        rel, _, flags = line.partition(":")
+        for header in re.findall(r"[/-]FI(\S+\.(?:h|hpp|inl))", flags):
+            forced[header.replace("\\", "/").rsplit("/", 1)[-1].lower()].add(rel)
+    if not forced:
+        return set()
+    by_name = collections.defaultdict(list)
+    for rel in ctx.git("ls-files", "--", *SEARCH_ROOTS).splitlines():
+        by_name[rel.rsplit("/", 1)[-1].lower()].append(rel)
+    wanted = {h.rsplit("/", 1)[-1].lower() for h in headers}
+    out = set()
+    for name, units in forced.items():
+        seen, frontier, reaches = {name}, [name], False
+        while frontier and not reaches:
+            current = frontier.pop()
+            for rel in by_name.get(current, []):
+                text = (ctx.read(rel) or b"").decode("utf-8", errors="replace")
+                if current in wanted or re.search(r"\b" + re.escape(word) + r"\b", text):
+                    reaches = True
+                    break
+                for inc in re.findall(r'(?m)^\s*#\s*include\s*[<"]([^>"]+)[>"]', text):
+                    inc = inc.replace("\\", "/").rsplit("/", 1)[-1].lower()
+                    if inc not in seen:
+                        seen.add(inc)
+                        frontier.append(inc)
+        if reaches:
+            out |= units
+    return out
+
+
+def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, prepared=None, max_files=25):
+    """Plan `global --retype`: one rowed global's type and size, its identifier kept."""
+    rows = ctx.dicts(DATA_ROWS)
+    owners = [r for r in rows if r.get("name") == name or (not name.startswith("?")
+                                                           and _identifier(r.get("name", "")) == name)]
+    if len({r.get("name") for r in owners}) != 1 or len(owners) != 1:
+        raise Refusal(f"{name} names {len(owners)} reverse/data_rows.csv rows; a retype needs exactly one")
+    owner = owners[0]
+    old_name, source, rva = owner["name"], owner.get("source", ""), data_rva(owner)
+    if rva is None:
+        raise Refusal(f"{old_name}'s data row has no readable address")
+    if is_generated(source):
+        raise Refusal(f"{old_name} lives in generated source {source} (never edit Code/gen_*)")
+    if source not in ctx.ledger_sources():
+        raise Refusal(f"{source} owns no matched function row; ./build.sh could not verify the retype")
+    if old_name.startswith("??"):
+        raise Refusal(f"{old_name} is a compiler-named datum; it has no declaration to retype")
+    word = _identifier(old_name)
+    m = re.fullmatch(r"\?" + re.escape(word or "") + r"@@3(.+)A", new or "")
+    if not word or not m or not re.fullmatch(r"\?" + re.escape(word) + r"@@3.+A", old_name):
+        raise Refusal(f"{new} is not a global datum spelled ?{word}@@3<type>A: a retype keeps the identifier "
+                      "and the global scope")
+    if new == old_name:
+        raise Refusal("the new mangled name is the old one: nothing to retype")
+    if not new_type or not new_type.strip():
+        raise Refusal("--retype needs the C++ type")
+    why = arithmetic_type_problem(new_type)
+    if why:
+        raise Refusal(why)
+    literals = image_literals(initializer)
+    if literals:
+        raise Refusal(f"--initializer spells {', '.join(literals[:3])}, inside retail's address range: a pointer "
+                      "written as a number keeps retail's address in a rebased image")
+    try:
+        size = int(str(size), 0)
+    except ValueError:
+        raise Refusal(f"--size {size!r} is not a number") from None
+    if size <= 0:
+        raise Refusal("--size must be positive")
+    if size < int(owner.get("size") or 0):
+        raise Refusal(f"--size {size} is smaller than the row's {owner.get('size')} B: a retype grows a placeholder "
+                      "to its retail extent, and a shrink would drop retail bytes from verification")
+    for row in ctx.dicts(CONVERGED):
+        if _rva(row.get("address")) == rva:
+            raise Refusal(f"0x{rva:08X} is a converged address (reverse/data_converged.csv binds {row.get('name')});"
+                          " data_check --converged refuses a changed name there")
+    if any(r.get("name") == new for r in rows) or any(r["name"] == new for r in ctx.rows()) \
+            or any(p.get("name") == new for p in ctx.pins()):
+        raise Refusal(f"{new} already names a data row, function or pin")
+    refuse_vendored(ctx, [source], f"retyping {old_name}")
+
+    overlaps = extent_overlaps(ctx, rva, size, owner)
+    if overlaps:
+        raise Refusal(f"0x{rva:08X}+{size} overlaps another owner: {'; '.join(overlaps[:3])}")
+    first, last, retail = retail_extent(ctx, rva, size)
+    if first != owner.get("section") or last != owner.get("section"):
+        raise Refusal(f"0x{rva:08X}+{size} is not inside retail {owner.get('section')} ({first} .. {last})")
+    if any(retail):
+        relocated = retail_relocated(ctx, rva, size)
+        if relocated:
+            raise Refusal(f"retail relocates a dword at 0x{rva:08X}+{relocated[0]:#x}: a pointer lives in this extent, "
+                          "and an arithmetic retype cannot carry its relocation")
+    if initializer is None and any(retail):
+        at = next(i for i, b in enumerate(retail) if b)
+        raise Refusal(f"retail holds non-zero bytes at 0x{rva:08X}+{at:#x} ({retail[at:at + 8].hex()}): the extent "
+                      "is not zero-filled; pass the --initializer that spells retail's bytes")
+
+    old_re = mangled_re(old_name)
+    plan = Plan("global", old_name, new, "retype", (evidence or "").strip(), source, rva,
+                old_word=word, new_word=word)
+    # sources: every file that spells the identifier, and the prepared ones
+    prepared = dict(prepared or {})
+    by_object = object_referencers(ctx, old_name)
+    touched = set(ctx.grep_files(word, word=True, roots=("Code",))) | {source} | set(prepared) | by_object
+    generated = sorted(p for p in touched if is_generated(p))
+    if generated:
+        raise Refusal(f"generated source(s) name {word}: {', '.join(generated[:5])} (never edited)")
+    if len(touched) > max_files:
+        raise Refusal(f"{len(touched)} files name {word} (over --max-files {max_files})")
+    removed, definitions, headers, mentioned = [], 0, [], set()
+    for rel in sorted(touched):
+        data = ctx.read(rel)
+        if data is None:
+            raise Refusal(f"{rel} is listed but missing")
+        text = data.decode("utf-8", errors="surrogateescape")
+        if rel in by_object and not re.search(r"\b" + re.escape(word) + r"\b", text):
+            raise Refusal(f"{rel}'s object references {old_name} but its text never spells {word} (a macro or "
+                          "generated name): the retype cannot respell it")
+        if rel in prepared:
+            new_text = prepared[rel].decode("utf-8", errors="surrogateescape")
+        else:
+            new_text, _ext, _defs = retype_declarations(text, word, new_type, owner=rel == source,
+                                                         initializer=initializer)
+        definitions += check_declarations(new_text, word, new_type, rel, rel == source, function_like_macros(ctx))
+        new_text, _gone = remove_bridging_aliases(new_text, old_name, new)
+        kept = [(a.group("a"), a.group("b")) for a in ALTERNATENAME.finditer(new_text)]
+        if old_name in name_metric.strip(new_text) or any(old_name in pair for pair in kept):
+            raise Refusal(f"{rel} still spells {old_name} in code (a pin, pragma or alias the retype cannot "
+                          "respell): the old symbol would survive as a second name")
+        # every /alternatename that named the old symbol and is gone now (bridged here, or
+        # dropped by a prepared source) takes its hatch_baseline.tsv occurrence with it
+        before = collections.Counter((a.group("a"), a.group("b")) for a in ALTERNATENAME.finditer(text)
+                                     if old_name in (a.group("a"), a.group("b")))
+        removed += [(rel, a) for (a, b), n in before.items() for _ in range(n - kept.count((a, b)))]
+        new_text = old_re.sub(lambda _m: new, new_text)      # comments spelling the old symbol
+        mentioned.add(rel)
+        if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
+            headers.append(rel)
+        if new_text == text:
+            continue
+        plan.source_counts[rel] = {"retyped": 1}
+        plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
+    if definitions != 1:
+        raise Refusal(f"{source} holds {definitions} definitions of {word} the retype can parse; it needs exactly one")
+
+    frozen = [rel for rel in frozen_mentions(ctx, old_name) if rel not in (DATA_LEDGER, HATCH_BASELINE)]
+    if frozen:
+        raise Refusal(f"{old_name} is a key in {', '.join(frozen)} (frozen, shrink-only); retyping it needs a "
+                      "Verifier-Change commit that re-keys it")
+    if removed:
+        plan.edit(ctx, HATCH_BASELINE, hatch_lines_lowered(ctx.read(HATCH_BASELINE), removed))
+    elif old_name.encode() in (ctx.read(HATCH_BASELINE) or b""):
+        raise Refusal(f"hatch_baseline.tsv is keyed on {old_name}, but no bridging pragma was removed")
+
+    new_row = dict(owner, name=new, size=str(size))
+    note = f"Retyped from {old_name} ({owner.get('size')} B) to {new_type.strip()} ({size} B) by tools/rename.py " \
+           f"global --retype: {plan.evidence}"
+    raw, found = rekey_csv_record(ctx.read(DATA_ROWS), DATA_ROWS, lambda r: r.get("name") == old_name,
+                                  lambda r: r.update(name=new, size=str(size),
+                                                     evidence=(r.get("evidence", "") + "; " + note).strip("; ")))
+    new_row["evidence"] = (owner.get("evidence", "") + "; " + note).strip("; ")
+    plan.edit(ctx, DATA_ROWS, raw)
+    plan.renamed_data.append((old_name, new, rva))
+    for rel, label in ((FUNCTIONS, "functions.csv"), (SYMBOLS, "symbols.csv")):
+        raw = ctx.read(rel)
+        if raw is None:
+            continue
+        new_raw, changed = rewrite_records(raw, label, old_re, new)
+        for before, after in changed:
+            if rel == FUNCTIONS and before[0] != after[0]:
+                raise Refusal(f"functions.csv row {before[0]} embeds {old_name} in its name")
+            if rel == FUNCTIONS:
+                plan.notes_rows.append((before[0], _rva(before[2])))
+            else:
+                plan.renamed_pins.append((before[0], after[0], before[1]))
+        if changed:
+            plan.edit(ctx, rel, new_raw)
+    for row in ctx.dicts(DATA_LEDGER):
+        if _rva(row.get("address")) == rva and (row.get("name") != old_name or row.get("source") not in ("", source)):
+            raise Refusal(f"data_ledger.csv binds 0x{rva:08X} to {row.get('name')} ({row.get('source') or 'no source'}), "
+                          f"not {old_name} in {source}: another owner's row is not this retype's to re-key")
+    if ctx.read(DATA_LEDGER) is not None:
+        def rekey(r):
+            # every declaration of the identifier now spells the new type, so any other
+            # spelling of it bound here (an alias's class-typed extern) is gone with the retype
+            names = [n for n in (r.get("names") or "").split(";") if n]
+            names = sorted({new} | {n for n in names
+                                    if _identifier(re.split(r"@(?=(?:Code|reference)/)", n)[0]) != word})
+            r.update(name=new, size=str(size), source=source)
+            if len(names) <= 1:
+                r.update(names="", defs="1", status="owned")
+            else:
+                r["names"] = ";".join(names)
+        raw, found = rekey_csv_record(ctx.read(DATA_LEDGER), DATA_LEDGER, lambda r: _rva(r.get("address")) == rva,
+                                      rekey)
+        if found is None:
+            plan.warnings.append(f"{DATA_LEDGER} has no row at 0x{rva:08X}; tools/data_ledger.py adds it")
+        else:
+            plan.edit(ctx, DATA_LEDGER, raw)
+    if (old_name, rva) not in _tombstones(ctx):
+        plan.edit(ctx, DELETED, appended(ctx.read(DELETED), [tombstone_line(old_name, rva, note)],
+                                         header="name,target_rva,reason"))
+
+    # every unit that spells the identifier or references the old symbol is rebuilt and
+    # its object read, changed or not: an unchanged one must already be right
+    verify = {rel for rel in mentioned if rel in ctx.ledger_sources()} | {source}
+    if headers:
+        verify |= includers(ctx, headers, max_files)
+        # an `#include MACRO` names its header only after preprocessing: such a unit may
+        # reach a touched header the literal-include search cannot see, so it is rebuilt
+        computed = ctx.git("grep", "-l", "-E", "-e", COMPUTED_INCLUDE, "--", *SEARCH_ROOTS).splitlines()
+        verify |= {rel for rel in computed if rel in ctx.ledger_sources()}
+        others = [rel for rel in computed if rel not in ctx.ledger_sources()]
+        if others:
+            verify |= includers(ctx, others, max_files)
+        verify |= {rel for rel in forced_include_units(ctx, word, headers) if rel in ctx.ledger_sources()}
+    # a unit or header whose `##` pastes could build the identifier is preprocessed too
+    pasted = paste_units(ctx, word)
+    verify |= {rel for rel in pasted if rel in ctx.ledger_sources()}
+    pasted_headers = sorted(rel for rel in pasted if rel not in ctx.ledger_sources())
+    if pasted_headers:
+        verify |= includers(ctx, pasted_headers, max_files)
+    verify |= {r["source"] for r in ctx.rows() if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
+    plan.verify = sorted(v for v in verify if not is_generated(v))
+    if len(plan.verify) > max_files:
+        raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
+    plan.claims = sorted({rva} | {at for _, at in plan.notes_rows if at is not None}) + \
+        [f"file:{rel}" for rel in sorted(plan.source_counts)]
+    plan.retype = {"word": word, "old": old_name, "new": new, "type": new_type.strip(), "size": size,
+                   "owner": source, "row": new_row, "sources": sorted(plan.verify), "removed": removed}
+    plan.mentions = sorted(set(ctx.grep_files(old_name, roots=("docs", "reverse"))) - set(plan.after))
+    return plan
+
+
+def preprocess_unit(ctx, rel):
+    """(text, None) of `rel` after the compiler's preprocessor (cl -E under the unit's own
+    build command, no -c and no -Fo, so no object is written and build/match is
+    untouched), or (None, why)."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    source = ctx.path(rel)
+    scratch = ctx.root / "build" / "retype_pp"
+    scratch.mkdir(parents=True, exist_ok=True)
+    try:
+        command, env = build.compiler_command(source, scratch / (source.stem + ".obj"))
+    except (Exception, SystemExit) as error:         # a unit with no build command is never read as clean
+        return None, f"no build command to preprocess it with: {error}"
+    command = [c for c in command if not c.startswith(("-Fo", "/Fo")) and c not in ("-c", "/c")]
+    command.insert(len(command) - 1, "-E")
+    try:
+        proc = subprocess.run(command, capture_output=True, env=env, cwd=str(ctx.root), timeout=900)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        return None, f"the preprocessor did not run: {error}"
+    if proc.returncode:
+        return None, f"the preprocessor refused it: {proc.stderr.decode('latin-1', 'replace').strip()[-300:]}"
+    return proc.stdout.decode("latin-1"), None
+
+
+EXPRESSION_KEYWORDS = frozenset(("return", "sizeof", "case", "throw", "delete", "new", "else", "do", "co_return",
+                                 "typeid", "decltype", "__alignof", "alignof", "if", "while", "for", "switch",
+                                 "static_cast", "reinterpret_cast", "const_cast", "dynamic_cast"))
+BUILTIN_TYPES = frozenset(("void", "bool", "char", "short", "int", "long", "float", "double", "signed", "unsigned",
+                           "wchar_t", "__int8", "__int16", "__int32", "__int64"))
+QUALIFIERS = frozenset(("const", "volatile", "static", "register", "struct", "class", "union", "enum", "typename",
+                        "inline", "mutable"))
+SPEC_TOKEN = re.compile(r'\s*(?P<tok>"C(?:\+\+)?"|[A-Za-z_][\w:]*)')
+ATTRIBUTE_WORDS = frozenset(("__declspec", "__attribute__", "alignas", "__align"))
+
+NAME_TOKEN = re.compile(r"\s*(?:::\s*)?([A-Za-z_]\w*)")
+
+
+def _skip_balanced(text, pos, opening, closing):
+    """End of the bracketed run starting at the next non-space `opening` after `pos`, or
+    `pos` when there is none; None when it never closes."""
+    j = pos
+    while j < len(text) and text[j].isspace():
+        j += 1
+    if j >= len(text) or text[j] != opening:
+        return pos
+    depth = 0
+    for k in range(j, len(text)):
+        depth += 1 if text[k] == opening else -1 if text[k] == closing else 0
+        if depth == 0:
+            return k + 1
+    return None
+
+
+def declaration_shaped(prefix, types, functions):
+    """Whether `prefix`, a statement's text up to the identifier, has a declaration's shape:
+    a run of names (each optionally `::`-qualified and templated, attributes with their
+    parentheses, cv-qualifiers), then only declarator punctuation (`*`, `&`, `(`, `const`,
+    `volatile`) or earlier comma-separated declarators. Decided by syntax alone, never by
+    whether a name is a known type (review of 3da3431c75: `typedef struct {...} T;`
+    escaped a type list): such a statement must parse as a declaration of the new type or
+    refuse. An expression statement of that shape (`a * g;`) does nothing and refuses too.
+    One exception: `f(g)`, where the unit declares `f` as a function and not as a type."""
+    pos, names = 0, []
+    while True:
+        m = NAME_TOKEN.match(prefix, pos)
+        if not m:
+            break
+        name, end = m.group(1), m.end()
+        if name in ATTRIBUTE_WORDS:
+            end = _skip_balanced(prefix, end, "(", ")")
+        else:
+            while end is not None:
+                end = _skip_balanced(prefix, end, "<", ">")
+                tail = re.match(r"\s*::\s*[A-Za-z_]\w*", prefix[end:]) if end is not None else None
+                if not tail:
+                    break
+                end += tail.end()
+        if end is None:
+            return True                              # an unclosed bracket in a type: not readable, refuse
+        names.append(name)
+        pos = end
+    if not names or names[0] in EXPRESSION_KEYWORDS:
+        return False
+    parts = _split_top(prefix[pos:])
+    if not re.fullmatch(r"(?:[\s\*&(]|\bconst\b|\bvolatile\b)*", parts[-1][1]):
+        return False
+    if len(parts) == 1 and len(names) == 1 and names[0] in functions and names[0] not in types \
+            and re.fullmatch(r"\s*\(\s*", parts[-1][1]):
+        return False                                 # f(g): a declared function's call
+    return True
+
+
+def _spec_token(statement, pos):
+    """(token, end) of the next declaration-specifier token at `pos`: a name with its
+    template arguments matched bracket for bracket (`vector<T, allocator<T> >`) and any
+    `::name` after them, or None."""
+    m = SPEC_TOKEN.match(statement, pos)
+    if not m:
+        return None
+    tok, end = m.group("tok"), m.end()
+    if tok in ATTRIBUTE_WORDS:                       # `__declspec(align(4))`: its parentheses, nested ones too
+        j = end
+        while j < len(statement) and statement[j].isspace():
+            j += 1
+        if j < len(statement) and statement[j] == "(":
+            depth, k = 0, j
+            while k < len(statement):
+                depth += {"(": 1, ")": -1}.get(statement[k], 0)
+                if depth == 0:
+                    return statement[m.start("tok"):k + 1], k + 1
+                k += 1
+            return None                              # unbalanced: not a specifier this parser can read
+        return tok, end
+    while tok[0].isalpha() or tok[0] == "_":
+        j = end
+        while j < len(statement) and statement[j].isspace():
+            j += 1
+        if j >= len(statement) or statement[j] != "<":
+            break
+        depth, k = 0, j
+        while k < len(statement):
+            if statement[k] == "<":
+                depth += 1
+            elif statement[k] == ">":
+                depth -= 1
+                if depth == 0:
+                    break
+            elif statement[k] in ";{}":
+                return tok, end                      # not template arguments: leave the name alone
+            k += 1
+        if depth:
+            return tok, end
+        end = k + 1
+        tail = re.match(r"\s*::\s*[A-Za-z_][\w:]*", statement[end:])
+        tok = statement[m.start("tok"):end + (tail.end() if tail else 0)]
+        end += tail.end() if tail else 0
+        if not tail:
+            break
+    return tok, end
+
+
+def split_declaration(statement, types):
+    """(extern, C linkage, specifier text, offset where the declarators start) when
+    `statement` starts with declaration specifiers naming a type, else None. Qualifiers and
+    builtin type words are part of the type; one other type name is, when the unit
+    declares it as a type; the first identifier after a type is a declarator."""
+    pos, words, saw_type, extern, c_linkage = 0, [], False, False, False
+    while True:
+        token = _spec_token(statement, pos)
+        if token is None:
+            break
+        tok, token_end = token
+        base = re.sub(r"\s*<.*", "", tok, flags=re.S).split("::")[-1]
+        if tok == "extern":
+            extern = True
+        elif tok.startswith('"C'):
+            if not extern:
+                break
+            c_linkage = tok == '"C"'
+        elif tok in QUALIFIERS or tok.split("(")[0].strip() in ATTRIBUTE_WORDS:
+            words.append(tok)
+        elif base in BUILTIN_TYPES:
+            words.append(tok)
+            saw_type = True
+        elif not saw_type and base in types:
+            words.append(tok)
+            saw_type = True
+        else:
+            break
+        pos = token_end
+    return (extern, c_linkage, " ".join(words), pos) if saw_type else None
+
+
+DECLARATOR = re.compile(r'^\s*(?P<marks>(?:[\*&]\s*|const\s+|volatile\s+)*)(?P<lp>\(\s*(?:[\*&]\s*)*)?'
+                        r'(?P<name>[A-Za-z_]\w*)\s*(?P<rp>\))?\s*(?P<array>(?:\[[^\]]*\]\s*)*)(?P<init>=.*)?$', re.S)
+
+
+def _statement(code, at):
+    """(start, end) of the statement around offset `at`: back to a `;`, `{` or `}` outside
+    parentheses, forward to its `;` (an initializer's braces after `=` included); end is
+    None when a block opens first (a function or class head)."""
+    depth, i = 0, at - 1
+    while i >= 0:
+        c = code[i]
+        if c == ")":
+            depth += 1
+        elif c == "(":
+            depth -= 1
+        elif c in ";{}" and depth <= 0:
+            break
+        i -= 1
+    start, depth, seen_equals, j = i + 1, 0, False, i + 1     # forward from the start: depth counts from 0
+    while j < len(code):
+        c = code[j]
+        if c in "([":
+            depth += 1
+        elif c in ")]":
+            depth -= 1
+        elif c == "=" and depth == 0:
+            seen_equals = True
+        elif c == "{":
+            if depth == 0 and not seen_equals:
+                return start, None
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth < 0:
+                return start, None
+        elif c == ";" and depth == 0:
+            return start, j
+        j += 1
+    return start, None
+
+
+def _split_top(text):
+    """[(offset, part)] of `text` split at commas outside (), [], {} and <>."""
+    parts, depth, last = [], 0, 0
+    for i, c in enumerate(text):
+        if c in "([{<":
+            depth += 1
+        elif c in ")]}>":
+            depth -= 1
+        elif c == "," and depth == 0:
+            parts.append((last, text[last:i]))
+            last = i + 1
+    parts.append((last, text[last:]))
+    return parts
+
+
+def _names(code):
+    """(type names, function names) the preprocessed unit declares."""
+    types = set(BUILTIN_TYPES)
+    types |= set(re.findall(r"\b(?:class|struct|union|enum|typename)\s+([A-Za-z_]\w*)", code))
+    types |= set(re.findall(r"\btypedef\b[^;{}]*?\b([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*;", code))
+    types |= set(re.findall(r"\btypedef\b[^;{}]*?\(\s*[\*&]\s*([A-Za-z_]\w*)\s*\)", code))
+    types |= set(re.findall(r"\busing\s+([A-Za-z_]\w*)\s*=", code))
+    # every name a typedef declares, after a struct body or in a list (`typedef unsigned int A, B;`):
+    # these only help the parser; declaration_shaped never depends on them
+    for m in re.finditer(r"\btypedef\b", code):
+        body_end = _skip_balanced(code, code.find("{", m.end()) if re.match(r"[^;]*?\{", code[m.end():]) else m.end(),
+                                  "{", "}")
+        stop = code.find(";", body_end or m.end())
+        if stop > 0:
+            types |= set(re.findall(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?=,|$)", code[body_end or m.end():stop]))
+    functions = set(re.findall(r"[\w\*&>]\s+(?:[A-Za-z_]\w*::)*([A-Za-z_]\w*)\s*\(", code))
+    functions -= BUILTIN_TYPES | QUALIFIERS | EXPRESSION_KEYWORDS | {"extern", "__declspec"}
+    return types, functions
+
+
+def _c_blocks(raw, code):
+    """[(open, close)] of every `extern "C" { ... }` block (C linkage inside)."""
+    out, stack = [], []
+    for m in re.finditer(r"[{}]", code):
+        if m.group() == "{":
+            head = raw[max(code.rfind(c, 0, m.start()) for c in ";{}") + 1:m.start()]
+            stack.append((m.start(), bool(re.search(r'\bextern\s*"C"\s*$', head))))
+        elif stack:
+            opened, is_c = stack.pop()
+            if is_c:
+                out.append((opened, m.start()))
+    return out
+
+
+def preprocessed_problems(text, word, new_type):
+    """Every occurrence of `word` in a unit's preprocessed text that is not (i) a declaration
+    parsed as `new_type` with C++ linkage, outside any extern "C" block, or (ii) a plain use:
+    an initializer, a call argument of a declared function, an operand. Whatever cannot be
+    classified refuses (review of 92c6d902ed: stop enumerating declaration shapes)."""
+    if not re.search(r"\b" + re.escape(word) + r"\b", text):
+        return []
+    raw = "\n".join("" if line.lstrip().startswith("#") else line for line in text.split("\n"))
+    code = name_metric.strip(raw)                    # same offsets, strings and comments blanked
+    base, array = split_type(new_type)
+    want = same_type(base, array)
+    types, functions = _names(code)
+    c_blocks = _c_blocks(raw, code)
+    problems = []
+
+    def show(a, b):
+        return " ".join(raw[a:b].split())[:120]
+    for m in re.finditer(r"(?<![\w$])" + re.escape(word) + r"\b", code):
+        at = m.start()
+        before = code[:at].rstrip()
+        if before.endswith((".", "->")) or re.search(r"[A-Za-z_]\w*\s*::$", before):
+            continue                                 # a member of something else, not this global
+        start, end = _statement(code, at)
+        statement = code[start:end] if end is not None else None
+        head = split_declaration(statement, types) if statement else None
+        declarator = None
+        if head:
+            for offset, part in _split_top(statement[head[3]:]):
+                lo = start + head[3] + offset
+                if lo <= at < lo + len(part):
+                    declarator = (lo, DECLARATOR.match(part))
+                    break
+        if declarator is not None:
+            lo, d = declarator
+            if d is None:
+                problems.append(f"declares {word} in a form the check cannot read: `{show(start, end + 1)}`")
+                continue
+            if d.group("init") is not None and at >= lo + d.start("init"):
+                continue                             # used in an initializer
+            if d.group("name") != word or lo + d.start("name") != at:
+                if "[" in part[:at - lo] and d.group("array"):
+                    continue                         # inside an array bound
+                problems.append(f"names {word} inside a declaration it cannot read: `{show(start, end + 1)}`")
+                continue
+            spec = head[2] + " " + d.group("marks") + (d.group("lp") or "").replace("(", " ")
+            got = same_type(spec, d.group("array"))
+            # the C linkage marker is a string literal, blanked in `code`: read it from `raw`
+            c_linkage = bool(head[0] and re.match(r'\s*extern\s+"C"', raw[start:start + head[3]]))
+            c_linkage |= any(a < at < b for a, b in c_blocks)
+            if got != want or c_linkage:
+                problems.append(f"declares {word} as `{show(start, end + 1)}`" + (" (C linkage)" if c_linkage else "")
+                                + " after preprocessing")
+            continue
+        # not inside a declaration this check parsed: a declaration-shaped statement refuses,
+        # anything else is a plain use or refuses below
+        if declaration_shaped(code[start:at], types, functions):
+            problems.append(f"names {word} in a statement shaped like a declaration that does not parse as one: "
+                            f"`{show(start, (end or at + len(word)) + 1)}`")
+            continue
+        # a parameter is a declaration too: the current comma part inside the innermost open
+        # parenthesis (`void f(int a, unsigned *g)`); a call's argument has no name run there
+        depth, q = 0, at - 1
+        while q >= start:
+            depth += {")": 1, "(": -1}.get(code[q], 0)
+            if depth < 0:
+                break
+            q -= 1
+        if q >= start and declaration_shaped(_split_top(code[q + 1:at])[-1][1], types, set()):
+            problems.append(f"names {word} where a parameter is declared: `{show(start, (end or at + len(word)) + 1)}`")
+            continue
+        prev = before[-1:] if before else ""
+        word_before = re.search(r"([A-Za-z_]\w*)$", before)
+        if word_before and word_before.group(1) not in EXPRESSION_KEYWORDS:
+            problems.append(f"names {word} after `{word_before.group(1)}`, which the check cannot read as a use: "
+                            f"`{show(start, (end or at + len(word)) + 1)}`")
+            continue
+        if prev == "(" and re.search(r"([A-Za-z_][\w:]*)\s*\($", before):
+            callee = re.search(r"([A-Za-z_][\w:]*)\s*\($", before).group(1)
+            # a declared function's argument, a keyword's operand, or a functional cast
+            # (`unsigned(g) + 1`): the statement is not declaration-shaped, checked above
+            if callee.split("::")[-1] not in functions | types and callee not in EXPRESSION_KEYWORDS:
+                problems.append(f"names {word} as the argument of `{callee}`, neither a declared function nor an "
+                                f"expression keyword: `{show(start, (end or at + len(word)) + 1)}`")
+            continue
+        if prev == ">" and not before.endswith("->"):
+            problems.append(f"names {word} after a template's `>`: `{show(start, (end or at + len(word)) + 1)}`")
+            continue
+        if statement is not None and head:
+            problems.append(f"names {word} in a declaration it cannot read: `{show(start, end + 1)}`")
+            continue
+        # operand of an operator, a cast, an argument after `,`/`(`, or a statement start: a use
+    return problems
+
+
+def retype_object_problems(ctx, retype):
+    """After ./build.sh: every rebuilt unit's preprocessed text declares the global only as
+    the new type (preprocessed_problems), the owner's object defines the new symbol once and no dynamic
+    initializer for it, no rebuilt object names the old symbol, and data_rows.py proves
+    the new row (compiler sizeof, retail bytes, relocations)."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    import data_rows
+    import reloc_ledger
+    problems, definitions = [], []
+    word, old, new = retype["word"], retype["old"], retype["new"]
+    for rel in retype["sources"]:                    # every declaration, as the compiler sees it
+        text, why = preprocess_unit(ctx, rel)
+        if text is None:
+            problems.append(f"{rel}: {why}")
+            continue
+        problems += [f"{rel} {what}" for what in preprocessed_problems(text, word, retype["type"])]
+    for rel in retype["sources"]:
+        obj = build.obj_path(ctx.path(rel))
+        if not obj.exists():
+            problems.append(f"{rel} has no object after the build")
+            continue
+        _sections, symbols = reloc_ledger.parse_coff(obj.read_bytes())
+        names = [s["name"] for s in symbols.values()]
+        if old in names:
+            problems.append(f"{rel}'s object still names {old} (a second symbol for 0x{retype['row']['address']})")
+        defined = [s for s in symbols.values() if s["name"] == new and s["storage"] == data_rows.EXTERNAL
+                   and (s["section"] > 0 or s["value"] > 0)]
+        definitions += [rel] * len(defined)
+        if rel == retype["owner"]:
+            inits = sorted({n for n in names if n.startswith((f"??__E{word}@@", f"??__F{word}@@"))})
+            if inits:
+                problems.append(f"{rel}'s object now constructs {word} itself ({', '.join(inits)}); retail's rowed "
+                                "initializer already does, so the image would construct and destroy it twice: "
+                                "retype to a type without a constructor (its extent) instead")
+    if definitions != [retype["owner"]]:
+        problems.append(f"{new} is defined {len(definitions)} time(s) across the rebuilt objects "
+                        f"({', '.join(sorted(definitions)) or 'nowhere'}); it must be once, in {retype['owner']}")
+    if not problems:
+        img, resolve = reloc_ledger.Image(), data_rows.Resolver(data_rows.load())
+        ok, message = data_rows.verify_row(retype["row"], img, resolve, compile=False)
+        if not ok:
+            problems.append(f"data_rows.py refuses the retyped row: {message}")
+    return problems
 
 
 # ---------------------------------------------------------------- files
@@ -7941,6 +8979,11 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if slot_problems:
                 raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
                                    f"{slot_problems[0][:300]}; every file restored")
+        if plan.retype:
+            retype_problems = retype_object_problems(ctx, plan.retype)
+            if retype_problems:
+                raise VerifyFailed(f"the rebuilt objects do not prove {plan.old} -> {plan.new}: "
+                                   f"{retype_problems[0][:300]}; every file restored")
         problems = checks(ctx, plan) if checks else []
         if problems:
             error = VerifyFailed(f"the commit hooks would refuse {plan.old} -> {plan.new} "
@@ -9313,7 +10356,18 @@ def main(argv=None):
                             help="respell one reverse/data_rows.csv global and every consumer")
     data.add_argument("--name", required=True, help="the global's mangled name, or its bare identifier")
     data.add_argument("--new", required=True,
-                      help="new identifier, or the full mangled name (identifier change only)")
+                      help="new identifier, or the full mangled name (identifier change only); with --retype "
+                           "the full mangled name of the retyped global (same identifier)")
+    data.add_argument("--retype", metavar="TYPE",
+                      help="change the global's C++ type (e.g. 'unsigned int [3]') and keep its identifier: every "
+                           "declaration, the data row, pins, notes and the data_ledger.csv row follow; takes "
+                           "--size and --evidence, no --basis")
+    data.add_argument("--size", help="with --retype: the new extent in bytes, proven by the compiler and retail")
+    data.add_argument("--initializer", help="with --retype: the definition's initializer when retail's bytes "
+                                            "over the new extent are not all zero")
+    data.add_argument("--prepared", action="append", default=[], metavar="REL=FILE",
+                      help="with --retype: the proposed bytes of a Code source whose uses must change shape for "
+                           "the new type (repeatable); every source is still byte-verified")
     unit = kinds.add_parser("file", parents=[common],
                             help="git mv one Code/ unit within its directory, with its path-keyed rows")
     unit.add_argument("--source", required=True, help="the unit's repo-relative path")
@@ -9436,8 +10490,14 @@ def main(argv=None):
             sep = ""
         if not sep or not word:
             parser.error(f"--also {item!r} is not RVA=NEW (hex RVA)")
+    retype = args.kind == "global" and args.retype is not None
+    if args.kind == "global" and not retype and (args.size or args.initializer or args.prepared):
+        parser.error("--size, --initializer and --prepared go with global --retype")
+    if retype and (args.basis or args.size is None or not args.evidence):
+        parser.error("global --retype keeps the identifier and takes --new (the full mangled name), --size and "
+                     "--evidence; pass no --basis")
     prepared = {}
-    for item in (args.prepared if to_class or fold or respell or (args.kind == "function" and args.virtual)
+    for item in (args.prepared if to_class or fold or respell or retype or (args.kind == "function" and args.virtual)
                  else []):
         rel, sep, path = item.partition("=")
         if not sep or not rel or not path:
@@ -9463,8 +10523,8 @@ def main(argv=None):
     elif args.kind == "class" and (args.name is None or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--name", args.name), ("--new", args.new)) if v is None))
-    if not virtual and not fold and not to_class and (args.basis is None or args.evidence is None
-                                                      or args.new is None):
+    if not virtual and not fold and not to_class and not retype and (args.basis is None or args.evidence is None
+                                                                     or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--new", args.new), ("--basis", args.basis),
                                               ("--evidence", args.evidence)) if v is None))
@@ -9495,6 +10555,9 @@ def main(argv=None):
             parser.error(f"--rva {args.rva!r} is not hex")
     elif args.kind in ("global", "class"):
         kwargs.update(name=args.name)
+        if retype:
+            kwargs.update(retype=args.retype, size=args.size, initializer=args.initializer,
+                          prepared=prepared or None)
     elif args.kind == "member":
         kwargs.update(cls=args.cls, member=args.member)
     elif args.kind in ("param", "local"):

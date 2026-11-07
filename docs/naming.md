@@ -815,6 +815,63 @@ was restored); the other records still land. A plan over `--max-files` sources
 is refused as a whole: carry fewer renames (`--range`). Commit the printed paths
 (functions.csv only) with the suggested subject, then run `check` again.
 
+### `rename.py global --retype`: a rowed global's type and extent
+
+A placeholder global can be smaller than the retail object it stands for: `unsigned
+g_00DFE1AC;` (4 bytes) where retail's code reads +4 and +8 of a 12-byte vector, which
+`tools/image_iso.py` reports as out-of-object pointers. The type is part of the mangled
+name, so `global --new` cannot change it. `--retype` changes the type and size and keeps
+the identifier:
+
+```sh
+python3 tools/rename.py global --name '?g_00DFE1AC@@3IA' --new '?g_00DFE1AC@@3PAIA' \
+    --retype 'unsigned int [3]' --size 12 --evidence '<what reads the extent>' \
+    [--initializer '<retail bytes>'] [--prepared Code/X.cpp=FILE ...]
+```
+
+It respells every declaration, re-keys the data row (name and size), pins, notes and the
+`data_ledger.csv` row at the address, tombstones the old name, and removes each
+`/alternatename` that named the old symbol and is gone, with its `hatch_baseline.tsv`
+occurrence. A consumer whose uses must change shape (a member call through a class-typed
+extern) comes as `--prepared` bytes. It refuses an extent that another data row, function
+row, converged address or ledger name overlaps, one that leaves its retail section,
+non-zero retail bytes without `--initializer`, a second definition, an initializer it
+cannot respell, a converged address, and the old symbol surviving anywhere. It verifies
+with `./build.sh` (which runs `data_rows.py` on the new row: compiler sizeof, retail
+bytes, relocations) and then reads the rebuilt objects: the owner defines the new symbol
+once, nothing names the old one, and the owner does not construct the global itself.
+Every rebuilt unit is also run through the compiler's preprocessor alone (`cl -E` under its
+own flags, writing no object), and every occurrence of the identifier there must be a
+declaration of the new type with C++ linkage, outside any `extern "C"` block, or a plain use
+(an operand, an initializer, a declared function's argument, a cast's operand); anything it
+cannot classify refuses. Whether a statement is a declaration is decided by its shape, not
+by knowing its type names: a run of names (qualified, templated or attributes) followed only
+by declarator punctuation (`*`, `&`, `(`, cv-qualifiers) must parse as a declaration of the
+new type, a function head's parameters included, or it refuses. That covers declarations macros build, including nested arguments, and the units
+a computed include, a `/FI` forced include or a `##` paste reaches (the last selected by
+the identifier's prefixes and suffixes appearing as tokens next to a paste). The new type
+must be arithmetic (an integer or float, or an array of one); an initializer may not spell
+a number in retail's address range, and an extent where retail relocates a word refuses.
+
+That last check matters for these placeholders: retail builds them in a rowed initializer
+(`Rva007ABB96AllocCtorInits`) and destroys them in a rowed atexit thunk, and the exit link
+runs that initializer through its bridge. Retyped to the class (`_STL::vector<void *>`), the
+owner's object would register its own `??__E` initializer too, constructing and destroying
+the global twice. So a retype gives the extent (`unsigned int [3]`) and consumers view it
+through a cast, until real statics replace the bridge.
+
+Known limits, each refused or out of reach rather than passed wrongly:
+
+- A target type spelled through a typedef (`--retype 'UINT [3]'`) is refused: give the
+  builtin spelling.
+- A `##` paste that splits the identifier below token level (`g_00 ## DFE1AC`) does not
+  select the unit; prefixes and suffixes are matched as whole tokens only.
+- `decltype(...)` in a declaration and a name that is both a parenthesised typedef and a
+  function (`typedef int (T); void T(int); T(g);`) are not modelled; such statements refuse.
+- Functional casts in a statement of their own (`unsigned(g) + 1;`), and a declared
+  function's call whose argument list begins with `&`, `*` or extra parentheses around the
+  identifier (`memset(&g, 0, 16)`), are refused as declaration-shaped.
+
 ### `reverse/name_basis.csv`
 
 Append-only and union-merged, one row per rename:
