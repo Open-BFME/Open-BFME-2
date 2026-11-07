@@ -6128,10 +6128,37 @@ def member_statements(body, word):
     return [stmt for stmt in flat.split(";") if word in name_metric.members(stmt)]
 
 
+def parameter_parts(params):
+    """`params` split on the commas that separate parameters, not every comma.
+
+    A template argument list brings its own commas, so splitting on all of them
+    cut `vector<const ModuleData *, allocator<...> > *units` in two and left the
+    type's last word, `ModuleData`, looking like a parameter name;
+    `prototype_param_spans` below refuses to read such a list positionally for
+    the same reason. An arrow in a default argument is not a closing bracket,
+    and a list whose brackets do not balance falls back to the plain split, so
+    nothing that parsed before parses worse now.
+    """
+    parts, depth, start = [], 0, 0
+    for i, ch in enumerate(params):
+        if ch in "<([":
+            depth += 1
+        elif ch in ">)]":
+            if ch == ">" and i and params[i - 1] == "-":
+                continue
+            depth -= 1
+        elif ch == "," and depth == 0:
+            parts.append(params[start:i])
+            start = i + 1
+    if depth != 0:
+        return params.split(",")
+    return parts + [params[start:]]
+
+
 def parameters(params):
     """The names a parameter list declares (`int count` counts, unlike
     name_metric.param_names, which wants two non-keyword words)."""
-    for part in params.split(","):
+    for part in parameter_parts(params):
         words = name_metric.WORD.findall(part.split("=")[0])
         if len(words) >= 2 and words[-1] not in name_metric.KEYWORDS:
             yield words[-1]
