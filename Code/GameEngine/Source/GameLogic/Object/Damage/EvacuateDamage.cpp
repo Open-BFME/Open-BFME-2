@@ -174,6 +174,52 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *use
 // to class INI: it is declared at file scope.
 void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *store, const void *userData);
 
+// BFME 2's damage type names, this unit's copy (a static in every unit that defines
+// it) at retail .data 0x00DCD2A8: 27 names and a null.
+static const char *TheDamageNames[] =
+{
+	"FORCE",
+	"CRUSH",
+	"SLASH",
+	"PIERCE",
+	"SIEGE",
+	"STRUCTURAL",
+	"FLAME",
+	"HEALING",
+	"UNRESISTABLE",
+	"WATER",
+	"PENALTY",
+	"FALLING",
+	"TOPPLING",
+	"REFLECTED",
+	"PASSENGER",
+	"MAGIC",
+	"CHOP",
+	"HERO",
+	"SPECIALIST",
+	"URUK",
+	"HERO_RANGED",
+	"FLY_INTO",
+	"UNDEFINED",
+	"LOGICAL_FIRE",
+	"CAVALRY",
+	"CAVALRY_RANGED",
+	"POISON",
+	0
+};
+
+// EvacuateDamageModuleData::buildFieldParse's table (the proc is still matched in
+// ModuleDataBuildFieldParse.cpp), read from retail: every token, parser, userData and
+// offset is retail's.
+// Retail VA 0x00C59DD0: 4 fields and the zero sentinel.
+extern const FieldParse g_00C59DD0[] = {
+	{ "WeaponThatCausesEvacuation", &Rva004BACAF_ParseWeaponName, 0, 0x0 },
+	{ "DamageTypeToTrack", &INI::parseIndexList, TheDamageNames, 0xC },
+	{ "DamageToPanicThreshold", &INI::parsePercentToReal, 0, 0x10 },
+	{ "TrackingTimeSpan", &INI::parseDurationUnsignedInt, 0, 0x14 },
+	{ 0, 0, 0, 0 }
+};
+
 struct Rva004BACAFOwner
 {
 	unsigned char m_unreconstructed_00[8];
