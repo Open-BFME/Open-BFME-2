@@ -508,21 +508,13 @@ class ParticleSystemFXNugget : public FXNugget
 	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(ParticleSystemFXNugget, "ParticleSystemFXNugget")		
 public:
 
-	ParticleSystemFXNugget()
-	{
-		m_name.clear();
-		m_count = 1;
-		m_radius.setRange(0, 0, GameClientRandomVariable::CONSTANT);
-		m_height.setRange(0, 0, GameClientRandomVariable::CONSTANT);
-		// -1 means "don't mess with it, just accept the particle-system's defaults"
-		m_delay.setRange(-1, -1, GameClientRandomVariable::CONSTANT);
-		m_offset.x = m_offset.y = m_offset.z = 0;
-		m_orientToObject = false;
-		m_attachToObject = false;
-		m_createAtGroundHeight = FALSE;
-		m_useCallersRadius = FALSE;
-		m_rotateX = m_rotateY = m_rotateZ = 0;
-	}
+	// Declared only: retail's constructor is the rowed 0x001E0AEF
+	// (ParticleSystemFXNuggetCtor.cpp). Zero Hour's inline body here was a 0x50-byte
+	// layout that won the COMDAT selection over it (P16).
+	ParticleSystemFXNugget();
+	// Compiler-only constructor for the anchor below: building the view here emits its
+	// vtable and so the rowed inline doFXObj, under a name that competes with nothing.
+	explicit ParticleSystemFXNugget(int) {}
 
 	void reallyDoFX(const Coord3D *, const Matrix3D *, const Object *, const Object *) const;
 
@@ -570,31 +562,9 @@ public:
 		}
 	}
 
-	static void parse(INI *ini, void *instance, void* /*store*/, const void* /*userData*/)
-	{
-		static const FieldParse myFieldParse[] = 
-		{
-			{ "Name",									INI::parseAsciiString,			NULL, offsetof( ParticleSystemFXNugget, m_name ) },
-			{ "Count",								INI::parseInt,							NULL, offsetof( ParticleSystemFXNugget, m_count ) },
-			{ "Offset",								INI::parseCoord3D,					NULL, offsetof( ParticleSystemFXNugget, m_offset ) },
-			{ "Radius",								INI::parseGameClientRandomVariable,		NULL, offsetof( ParticleSystemFXNugget, m_radius ) },
-			{ "Height",								INI::parseGameClientRandomVariable,		NULL, offsetof( ParticleSystemFXNugget, m_height ) },
-			{ "InitialDelay",					INI::parseGameClientRandomVariable,		NULL, offsetof( ParticleSystemFXNugget, m_delay ) },
-			{ "RotateX",							INI::parseAngleReal,				NULL, offsetof( ParticleSystemFXNugget, m_rotateX ) },
-			{ "RotateY",							INI::parseAngleReal,				NULL, offsetof( ParticleSystemFXNugget, m_rotateY ) },
-			{ "RotateZ",							INI::parseAngleReal,				NULL, offsetof( ParticleSystemFXNugget, m_rotateZ ) },
-			{ "OrientToObject",				INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_orientToObject ) },
-			{ "Ricochet",				      INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_ricochet ) },
-			{ "AttachToObject",				INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_attachToObject ) },
-			{ "CreateAtGroundHeight",	INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_createAtGroundHeight ) },
-			{ "UseCallersRadius",			INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_useCallersRadius ) },
-			{ 0, 0, 0, 0 }
-		};
-
-		ParticleSystemFXNugget* nugget = newInstance( ParticleSystemFXNugget );	
-		ini->initFromINI(nugget, myFieldParse);
-		((FXList*)instance)->addFXNugget(nugget);
-	}
+	// Declared only: retail's parse is the rowed 0x001E264F (FXListNuggetParse.cpp),
+	// which allocates 0x1BC bytes and reads the MultiIniFieldParse table.
+	static void parse(INI *ini, void *instance, void* /*store*/, const void* /*userData*/);
 
 protected:
 
@@ -688,6 +658,15 @@ private:
 };  
 EMPTY_DTOR(ParticleSystemFXNugget)
 
+// The rowed doFXObj (0x001E24DC) is an inline virtual of this view, and nothing in this
+// unit constructs the class any more, so this anchor keeps the unit's copy for the row.
+// It is not retail code.
+// ?_bfmeFXListParticleSystemFXNuggetDoFXObjAnchor@@YAXPAVParticleSystemFXNugget@@@Z absent-from-retail
+void _bfmeFXListParticleSystemFXNuggetDoFXObjAnchor(ParticleSystemFXNugget *nugget)
+{
+	nugget->ParticleSystemFXNugget::ParticleSystemFXNugget(0);
+}
+
 //-------------------------------------------------------------------------------------------------
 class FXListAtBonePosFXNugget : public FXNugget
 {
@@ -744,14 +723,9 @@ EMPTY_DTOR(FXListAtBonePosFXNugget)
 //-------------------------------------------------------------------------------------------------
 
 // The native table and parsers are owned by FXListStoreParse.cpp and
-// FXListNuggetParse.cpp. This unreferenced compiler-only table retains the
-// existing inline particle method shape and is removed by /OPT:REF. Do not
-// instantiate the other obsolete Zero Hour constructors and virtual tables.
-extern const FieldParse BfmeReferenceFXListFieldParse[] =
-{
-	{ "ParticleSystem",							ParticleSystemFXNugget::parse, 0, 0},		
-	{ NULL, NULL, 0, 0 }  // keep this last
-};
+// FXListNuggetParse.cpp. Do not instantiate the obsolete Zero Hour constructors,
+// parsers and virtual tables of the nugget views above: an inline copy emitted here
+// competes with the rowed retail copy for the same COMDAT name (P16).
 
 //-------------------------------------------------------------------------------------------------
 FXList::FXList()
