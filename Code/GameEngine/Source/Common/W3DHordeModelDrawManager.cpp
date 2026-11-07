@@ -754,6 +754,7 @@ typedef InGameSimpleHelp::Impl Rva0053973F;
 struct FloatPair;
 #include "../../Include/GameClient/InGameCommandButtonHelp.h"
 #include "../../Include/Common/INI/FieldParse.h"
+#include "../../Include/GameClient/Drawable.h"
 #define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
 
 typedef InGameCommandButtonHelp::Impl Rva0056CA31;

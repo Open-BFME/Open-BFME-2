@@ -1148,6 +1148,7 @@ public:
 };
 
 #include "../../../Include/GameLogic/FireLogicSystem.h"
+#include "../../../Include/GameClient/Drawable.h"
 
 class Rva00286772Manager;
 

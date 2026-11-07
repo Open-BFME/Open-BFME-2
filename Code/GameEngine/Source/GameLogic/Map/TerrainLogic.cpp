@@ -1238,6 +1238,7 @@ public:
 	char m_pad24[0x7C - 0x24];
 };
 #include "../../../Include/GameLogic/AIPathfind.h"
+#include "../../../Include/GameClient/Drawable.h"
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 
 struct TBridgeAttackInfo
