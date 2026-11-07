@@ -117,24 +117,31 @@ extern const char *ShakeIntensities[];
 // 0x003B40FA ("ScriptGroup") and the rowed xfer 0x003B2467. Declared without
 // a Snapshot base, because this unit's Common/Snapshot.h is Zero Hour's
 // (crc/xfer/loadPostProcess, no virtual destructor), not BFME 2's.
-class Rva003525E0Pair
+// The heads are ScriptList's base too (ScriptListDestructor.cpp): their
+// teardown 0x003B4071 is ??1ScriptListBase@@QAE@XZ there.
+class ScriptListBase
 {
 public:
-	Rva003525E0Pair() : m_first(0), m_second(0) {}
-	Rva003525E0Pair(const Rva003525E0Pair &other);
+	ScriptListBase() : m_firstGroup(0), m_firstScript(0) {}
+	~ScriptListBase();
 private:
-	void *m_first;	// +0x00
-	void *m_second;	// +0x04
+	void *m_firstGroup;		// +0x00
+	void *m_firstScript;	// +0x04
 };
 
-class ScriptGroup : public Rva003525E0Pair
+class ScriptGroup : public ScriptListBase
 // This is a list of scripts that are grouped and named, with some
 // additional properties.
 {
 public:
 	ScriptGroup();
 	ScriptGroup(const ScriptGroup *other);
-	virtual ~ScriptGroup();
+	// Retail's destructor is 0x003B4100 (its +0 store is the inlined
+	// Snapshot base's table), rowed under the placeholder Rva003B4100 until
+	// rename.py's fold accepts that store (false reject in re_attempts.log).
+	// Until then this out-of-line copy, of retail's shape, serves the
+	// table's deleting destructor and the other units' views.
+	__declspec(noinline) virtual ~ScriptGroup() {}
 
 protected:
 	virtual void loadPostProcess( void ) {}
