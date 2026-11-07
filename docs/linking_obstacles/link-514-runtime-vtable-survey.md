@@ -1,5 +1,5 @@
 ### LINK-514: kept `??_7` copies differ from retail's vftables (runtime vtable survey)
-Status: Open (partly repaired). Updated: 2026-11-07; inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
+Status: Open (partly repaired). Updated: 2026-11-07 (lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
@@ -504,3 +504,75 @@ Still walled in the collide family:
   free-function scaffold.
 - FireWeaponCollide.cpp, CollideModule's approved TU, compiles a capitalized Snapshot (BuffManager.h first),
   so it cannot adopt CollideModule.h without reordering that TU.
+
+**Walled rows re-tried with the extended rename.py, and a Drawable.h slot regression (2026-11-07, seat
+halilkkaya-lk53, base `26715f1e00`).**
+
+Regression repaired (our account's): 902bae9dc22 (Include Drawable.h in 48 units retail built with its flash
+constant) put the include after each unit's first include. Drawable.h defines `BFME_SNAPSHOT_NAME_SLOT` and
+`BFME_SNAPSHOT_CAPITALIZED_SLOTS` before reading Snapshot.h, so in eight module units Snapshot was read with
+`LoadPostProcess`/`DoXfer` and the module headers' `loadPostProcess`/`xfer` became two appended virtuals: each
+primary table held `__purecall` in slots 1 and 3 and was two slots longer than retail. Every function stayed
+exact, so no gate saw it. Found by scanning the current objects of all 386 Drawable.h includers for a `??_7`
+with `__purecall` at slots 1 and 3 beside a GetSnapshotName in slot 2 (exactly these eight, all from that
+commit). a21ad04d46d moves the include below the unit's module header (three units also define
+`BFME_SNAPSHOT_NAME_SLOT` first, as the module headers do); only the named table changes in each object:
+
+| unit | table | slots before -> after | retail |
+|---|---|---|---|
+| FireWeaponWhenDamagedBehavior.cpp | `??_7FireWeaponWhenDamagedBehavior@@6BObjectModule@@@` | 15 -> 13 | 0x00C4965C |
+| SpawnUnitBehavior.cpp | `??_7SpawnUnitBehavior@@6BObjectModule@@@` | 15 -> 13 | 0x00C591EC |
+| ProneUpdate.cpp | `??_7ProneUpdate@@6BObjectModule@@@` | 15 -> 13 | 0x00C5191C |
+| CommandSetUpgrade.cpp | `??_7CommandSetUpgrade@@6BObjectModule@@@` | 14 -> 12 | 0x00C57290 |
+| ExperienceScalarUpgrade.cpp | `??_7ExperienceScalarUpgrade@@6BObjectModule@@@` | 14 -> 12 | 0x00C584E8 |
+| MaxHealthUpgrade.cpp | `??_7MaxHealthUpgrade@@6BObjectModule@@@` | 14 -> 12 | 0x00C58590 |
+| ModelConditionUpgrade.cpp | `??_7ModelConditionUpgrade@@6BObjectModule@@@` | 14 -> 12 | 0x00C58658 |
+| ProductionQueueHordeContain.cpp | `??_7ProductionQueueHordeContainModuleData@@6B@` | 33 -> 31 | 0x00C490F8 |
+
+Slots 1 and 3 now hold the base bodies (slot 1 is retail's jmp-equivalent; slots 2/3 of the upgrades still
+wait for their placeholder rows). link_check over the 49 units naming these classes: 49 LINK at census bytes;
+ProductionQueueHordeContainModuleDataDtor.cpp (a one-slot scaffold copy) and AIUpdate.cpp (STLport bodies)
+did not link before either. Check any future include of Drawable.h in a module unit the same way: the other
+Drawable.h includers whose module tables hold `__purecall` in slots 1-3 (DestroyDie, RadarUpgrade,
+StealthUpgrade, WeaponSetUpgrade, ...) have it in all three slots at retail length, the Wall 2 pattern
+above, not this flip.
+
+Moves the new tool made possible (each byte-exact, scoped DIR32 OK, the only `??_7` change the named slots,
+link_check unchanged with the post-census providers included):
+- adc92bb2c53: AutoFindHealingUpdate's getter 0x00495087 (ModuleNameGetters3.cpp, no longer held); its
+  primary table is now 10/13 against 0x00C4EC10 by address (slot 0 `??_E`, slot 1 the jmp-equivalent body,
+  slot 5 the inline `ret`). The TSV row is now `fixed`.
+- def3bdd8e9d: ObjectWeaponStatusHelper's getter 0x0028CBDB (SubsystemNameGetters2.cpp, no longer held):
+  0x00BFBE48 11/13 plus slots 0 and 5 inline.
+- 59a90d26d09 + ad87f95280d: BuildingBehavior (Wall 2): xfer 0x004562C0 and the getter 0x004561BB in one
+  `--also` plan, then `class --fold Rva004561A2`; 0x00C406D4 10/13 plus the same three. BuildingBehavior.cpp
+  does not link between the two commits only.
+- SpawnUnitBehavior: b70d566b3bf moves update 0x004B886F (the int-return placeholder Rva004B886F, now the
+  UpdateSleepTime override) into slot 0 of 0x00C59124, where the constructor unit's table held `__purecall`
+  (3/3 now); 9df93b0e363 moves xfer 0x004B87A3 and the getter 0x004B8797 (`--also`).
+
+Still walled:
+- SpawnUnitBehavior's +0x20 interface slot 0x004B8851 (`?rva004B8851@Rva004B8732`, table 0x00C59120, today
+  `__purecall` in the kept copy): the move builds exact and the rebuilt table names it, but rename.py's
+  post-build check refuses a one-slot table, which has no other slot to agree with (false reject,
+  re_attempts 0x004B8851). Its destructor `Rva004B8732` (Rva0024A797Grandchildren.cpp) is not folded: that
+  scaffold derives from canonical UpdateModule, so a token fold would emit `??_7SpawnUnitBehavior@@6BObjectModule@@@`
+  and `6BBehaviorModuleInterface` copies that differ from the constructor unit's; it needs the WeaponBonusUpgrade
+  recipe (a shared class header both units include) first.
+- HijackerUpdate (static `getModuleNameKey` spelling) and CivilianSpawnCollide (three-int `onCollide`): re-tried,
+  still refused (re_attempts 0x004A4010, 0x004BD6DA).
+- SpecialEnemySenseUpdate (Wall 2): every rename of Rva00499F45 respells a comment in
+  Rva003AF22EXfer.cpp under the FXParticleSystem tree, which this seat may not touch.
+- CivilianSpawnUpdate (Wall 2): its xfer 0x0047F94C is one body in CivilianSpawnUpdate's and BannerCarrierUpdate's
+  tables, so `--to-class` refuses it as folded; it needs an ICF twin row first.
+- The SpecialAbilityUpdate family (nine TSV rows: FellBeastSwoopPower, FlingPassenger, GiveUpgradeUpdate,
+  ReplaceObjectUpdate, SpecialDisguiseUpdate, ToggleDeploy, ToggleHidden, ToggleMounted, WoundArrowUpdate, plus
+  about a dozen more units with dummy secondaries): every derived constructor calls the base through
+  `??0Rva0044EF5E`. SpecialAbilityUpdate is registered, so `class --fold Rva0044EF5E --into SpecialAbilityUpdate`
+  needs every one of the 40 units that spell the placeholder prepared on SpecialAbilityUpdate.h in one change;
+  no constructor can adopt the header before that.
+- OCLUpdate: `??1OCLUpdate@@UAE@XZ` 0x004CD3DB and `??_GOCLUpdate` 0x004CD440 are TeleportToCasterSpecialPower's
+  (target facts: the destructor's first +0 store 0x00C5FB40 is the table whose slot 4 is
+  `?getModuleNameKey@TeleportToCasterSpecialPower` 0x004CD3FB and which TeleportToCasterSpecialPower's
+  constructor 0x004CD3A4 installs). Readable names never fold, so this is a naming-lane identity correction
+  before OCLUpdate's constructor can store its table.
