@@ -14,10 +14,29 @@
 // getter 0x004BB962, xfer 0x0045CE8C (Version1, then CollideModule::xfer; one
 // body with BoneFXDamage::xfer), getModuleNameKey 0x004BB98A, then
 // CollideModule's slots. 0x00C5A1EC: onCollide 0x004BBA65, then
-// CollideModule's five defaults. xfer is left to CollideModule until its own
-// row exists (LINK-514).
+// CollideModule's five defaults.
 
 #include "../../../../Include/GameLogic/Module/CollideModule.h"
+
+// SquishCollide::xfer calls Xfer::Version1; keep its operand types beside the include.
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 class SquishCollide : public CollideModule
 {
@@ -27,10 +46,22 @@ public:
 
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z @0x4BB9CF
 SquishCollide::SquishCollide(Thing *thing, const ModuleData *moduleData)
 	: CollideModule(thing, moduleData)
 {
+}
+
+// Slot 3 of retail table 0x00C5A204: 0x0045CE8C, Zero Hour's SquishCollide::xfer
+// (version 1, then CollideModule::xfer 0x004CE56D). Retail folds it with
+// BoneFXDamage::xfer, whose base call lands on the same body.
+void SquishCollide::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	CollideModule::xfer(xfer);
 }
