@@ -48,5 +48,9 @@ storage).
   moved the data row at 0x00A08D48 to `?_SimpleFileFactory@@3VSimpleFileFactoryClass@@A` (mixfile.cpp), and
   readmitted as mixfile.cpp `_$E1`/`_$E2` (add_match, exact). Two address_global hatch lines retired.
   link_check: mixfile 655 -> 687 bytes, CtorInits_Rva007ACC20 132 -> 110, AtexitThunks 467 -> 457; all LINKS.
-- 0x009FE490 `g_Va00DFE490` (AtexitThunks.cpp:136) vs `g_00DFE490` (ArmySummaryDescription.cpp, the
-  data ledger's owner): drop the AtexitThunks definition (extern to the real global) and retire its data row.
+- 0x009FE490: DONE (sn5, 2026-11-07). AtexitThunks.cpp no longer defines `g_Va00DFE490`; cleanup 0x007B76E6 now
+  takes `&g_00DFE490` (extern, defined in ArmySummaryDescription.cpp, the ledger's owner). Data row and the
+  address_global hatch line retired. 43/43 exact; link_check AtexitThunks, ArmySummaryDescription,
+  Rva00220DCDInit, the Visitor and both INIBfmeBlockParsers units all LINK, bytes unchanged.
+  Open observation: the data ledger gives the address 12 bytes but `g_00DFE490` is a 4-byte `void *`; the
+  cleanup calls `clear()` on it as an Rva000AD6F4 object, so the real global's type/extent is unresolved.

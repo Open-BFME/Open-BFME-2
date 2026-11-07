@@ -120,7 +120,7 @@ public:
 #include "../../Include/Common/Geometry.h"
 
 extern unsigned int g_00DDE0AC;
-unsigned g_Va00DFE490;	// retail RVA 0x009FE490 (.bss), defined here
+extern void *g_00DFE490;	// retail RVA 0x009FE490 (.bss), defined in ArmySummaryDescription.cpp
 unsigned g_Va00DFE49C;	// retail RVA 0x009FE49C (.bss), defined here
 class Rva00575674;
 extern Rva00575674 g_00DFE4C4;	// retail RVA 0x009FE4C4 (.bss), defined in Rva002220DCInit.cpp
@@ -165,10 +165,10 @@ void __cdecl rva007B6AE7()
 	receiver->Term();
 }
 
-// ?rva007B76E6@@YAXXZ @ 0x007B76E6 (10B): ecx=&g_Va00DFE490, tail-jump to rowed ?clear@Rva000AD6F4@@QAEXXZ (0x000AD6F4)
+// ?rva007B76E6@@YAXXZ @ 0x007B76E6 (10B): ecx=&g_00DFE490, tail-jump to rowed ?clear@Rva000AD6F4@@QAEXXZ (0x000AD6F4)
 void __cdecl rva007B76E6()
 {
-	Rva000AD6F4 *receiver = (Rva000AD6F4 *)&g_Va00DFE490;
+	Rva000AD6F4 *receiver = (Rva000AD6F4 *)&g_00DFE490;
 	receiver->clear();
 }
 
