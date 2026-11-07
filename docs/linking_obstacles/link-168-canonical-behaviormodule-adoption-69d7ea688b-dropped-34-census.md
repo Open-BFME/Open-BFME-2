@@ -483,3 +483,7 @@ bytes is insufficient. [Exact private evidence and next checks](../../reverse/at
 - Confirmation pending: the real link at 58826f19a7 predates all four conversions. The next run
   should drop FXListDie, SpecialPowerCompletionDie, CreateObjectDie, DieModule and BridgeTowerBehavior
   from reverse/exit_link_blockers.tsv.
+- Confirmed (real link at 12c0b09c04, which includes 087e670790): FXListDie.cpp,
+  SpecialPowerCompletionDie.cpp, CreateObjectDie.cpp and DieModule.cpp are no longer in
+  reverse/exit_link_blockers.tsv. BridgeTowerBehavior.cpp (e909b38e9c, landed 0a61b01eae) is still
+  listed because that link predates its landing; confirm it in the next run.
