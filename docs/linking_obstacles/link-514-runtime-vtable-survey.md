@@ -724,3 +724,76 @@ table):
   slot under a non-virtual spelling; a same-class respell, not a naming decision.
 For the names workflow: p20 and b28 only. The other categories in the inventory above (placeholder members, non-virtual
 spellings, BodyModule-owned slots, ICF folds) are tool moves.
+
+**2026-11-07, crash-prevention lane (seat ancalgonn-swarm-seat4): two tool gaps found while repairing StructureBody and
+W3DTreeDraw, routed to a tooling lane.**
+
+1. *Class ownership between readable classes (false reject, re_attempts 0x004BE3EF and 0x004BE67E).* ActiveBody p20
+   0x004BE3EF is rowed `?stopClientParticleSystems@W3DModelDraw@@IAEXXZ` and b28 0x004BE67E
+   `?Rva004BE67E@DetachableRiderBody@@UBE?AVAsciiString@@XZ`. The retail .rdata references prove whose they are: p20 is
+   slot 20 of ActiveBody's 0x00C5B038 and of the ten Body subclass primaries (Highlander, Immortal, Structure,
+   SymbioticStructures, Respawn, DelayedDeath, FreeLife, DetachableRider, Oathbreaker, PorcupineFormation), and no
+   W3DModelDraw table holds it. b28 is slot 28 of ActiveBody's body interface 0x00C5B5B0 and of every Body subclass's.
+   `rename.py function --to-class ActiveBody` refuses both because the current class is readable ("a naming decision").
+   `name_lane` has no key for it: `next --files` serves no key for `stopClientParticleSystems`, which has no
+   name_basis.csv record (a donor spelling), so `dispute` cannot revert it. b28 is served only as the placeholder
+   identifier under `DetachableRiderBody`, and a vote there would land under the wrong class. Proposed rule: a
+   readable-class member may move when every retail table holding its address belongs to CLASS or to classes that
+   derive from it, and no table of the current class holds it.
+   Related: p15 0x004BF8DF is refused as a folded body because our DelayedDeathBody/FreeLifeBody/DetachableRiderBody
+   views do not derive from ActiveBody, although retail's tables do. The derivation the proof checks comes from our
+   views, not from retail.
+   W3DTreeDraw shows the same order problem. `--to-class W3DTreeDraw` for slot 2 (0x000CEB69) dry-runs clean but fails
+   verification because W3DTreeDraw.cpp compiles no `??_7W3DTreeDraw`: its ctor still stores `g_00BCCCF8`. The ctor
+   cannot install the real table until slots 0/2/3 resolve, and slot 2 cannot move until the ctor installs the table.
+
+2. *The `?name@X@@QBEPBDXZ` getters: proposal, nothing renamed.* 297 rows have this non-virtual `name` spelling, and all
+   297 bodies are `mov eax, offset <class-name literal>; ret`. Retail .rdata references, against the tables the vptr
+   stores install (crash-prevention store scan):
+
+   | where retail holds the address | rows | class part |
+   |---|---:|---|
+   | slot 2 of a table installed only by X's own ctor/dtor | 85 | readable (WaterRenderObjClass, EventParameter, ScriptEngine, ActiveBody p2 0x004BF88D, ...) |
+   | slot 2 of other classes' tables only | 174 | all `Rva…Named` placeholders: 78 with one owning class, 91 with two, 5 with three |
+   | referenced, but not at slot 2 of an installed table | 34 | placeholders |
+   | no table | 4 | placeholders (plain getters) |
+
+   Slot 2 is Snapshot's `GetSnapshotName` in the BFME_SNAPSHOT_NAME_SLOT spelling (canonical
+   reference/shims/moduledata/Common/Snapshot.h). An override must be spelled `GetSnapshotName` to occupy it, so a
+   non-virtual `name` cannot be what retail compiled. Evidence that proves a row is X's GetSnapshotName override: (a) the
+   address is slot 2 of a retail table T; (b) T is installed by a ctor or dtor row of X (a dtor's first +0 store, or
+   every +0 store of a ctor); (c) every table holding the address belongs to X or to classes deriving from X; (d) the
+   body returns a string literal (the name). (a)-(c) are what `--to-class` already proves, and (d) is a byte check.
+   Feasibility: the 85 own-class rows are a mechanical respell `?name@X@@QBEPBDXZ` -> `?GetSnapshotName@X@@UBEPBDXZ`
+   (identifier and virtual together; `--virtual` alone keeps `name`, and `--respell` cannot combine with `--to-class`
+   or `--virtual`), batchable with a tool-verified proof per row. The 78 single-owner placeholders are `--to-class X
+   --new GetSnapshotName` moves, but they face the same order problem as W3DTreeDraw: the proof needs X's unit to
+   compile X's vftable, and many of those classes' ctors still store placeholder vptrs. The 96 multi-owner rows are
+   folds (ICF alias rows) or inherited overrides, and need the derivation the tables imply. Batches must also update
+   the BFME_LITERAL_NAME_GETTER units (W3DDrawNameGetters.cpp, SubsystemNameGetters.cpp, ModuleNameGetters*.cpp).
+
+3. *Why p15 stays refused, and why the Body views cannot simply take an ActiveBody base.* The tables `--to-class`
+   judges "unrelated" are owned twice: by the real class (its ctor) and by the placeholder its destructor is rowed under.
+   DelayedDeathBody 0x00C5BBE8 is owned by `??0DelayedDeathBody` and `??1Rva004C1604`, FreeLifeBody 0x00C5BE38 by
+   `??0FreeLifeBody` and `??1Rva004C1866` (both placeholders in Rva004C131BDerived.cpp, over the placeholder base
+   Rva004C131B), and DetachableRiderBody 0x00C5C0B8 by `??0DetachableRiderBody` and `??1Rva004C1BAB`
+   (Rva004BF951Derived_Unresolved.cpp). DetachableRiderBodyCtor.cpp's view already derives from ActiveBody;
+   DelayedDeathBody.cpp's and FreeLifeBody.cpp's derive from a flat local RespawnBody with three explicit dummy-vptr
+   stores. The honest repair is `rename.py class --fold Rva004C1604 --into DelayedDeathBody` (and likewise for the
+   other two; none is registered). It is refused while the ctor installs no `??_7DelayedDeathBody@@6B@`, and the ctor can
+   install its real three tables only through ActiveBody.h, whose primary and body-interface slots name the 34-36
+   members still rowed under placeholder or field-getter classes (the StructureBody wall above): bytes stay exact, but
+   the unit would go from linking to unresolved. Order: ActiveBody's slot rows (gaps 1-2), then each Body ctor on
+   ActiveBody.h, then the three destructor folds, then p15.
+4. *Five shell-map modules scoped (read-only).* Every primary table still has slots under placeholder identities. None
+   is source-only:
+   - RunOffMapBehavior (ctor 0x0046217B): 12/47/1-slot tables. Slot 0 is `??_GRva00462151` (destructor placeholder:
+     class fold) and slot 2 is the free function `?Rva004621ACGet@@YAHXZ` (a getter needing a class); the 47-slot
+     BehaviorModuleInterface table is all shared rowed bodies.
+   - ModelConditionSoundSelectorClientBehavior (0x00254B82): 19/3. Slot 0 is `??_GRva00252B68` (fold); slots 13/14 are
+     the shared field getter `Rva000CA841MovLeaNegSbbField` (ICF alias rows, an existing tool).
+   - HorseHordeContain (0x004765E5): 13 tables up to 155 slots with 65 placeholder slots; a large identity job.
+   - DominateEnemySpecialPower (0x004CC988) and ActivateModuleSpecialPower (0x004CDD02): 23/47/3/9 tables with dtor and
+     getter placeholders (`??_GRva004CC9BF`, `Rva004CC9B9Get`, `Rva004CDD33Get`) and a shared `xfer@Rva004CE0BE`.
+   The closest are RunOffMapBehavior and ModelConditionSoundSelector: both need one destructor class fold, which is
+   refused for the same reason until the ctor installs the real table, plus a getter move or ICF aliases.
