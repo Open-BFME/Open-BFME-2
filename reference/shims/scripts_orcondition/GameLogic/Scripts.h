@@ -105,54 +105,46 @@ extern const char *ShakeIntensities[];
 //-------------------------------------------------------------------------------------------------
 // ******************************** class ScriptGroup ***********************************************
 //-------------------------------------------------------------------------------------------------
-class ScriptGroup : public MemoryPoolObject, public Snapshot
-// This is a list of scripts that are grouped and named, with some 
+// BFME 2's ScriptGroup, 0x10 bytes; Zero Hour's MemoryPoolObject/Snapshot
+// shape is not BFME 2's. Target facts: the default constructor 0x003B40DF
+// clears the two list heads at +0x04/+0x08, then stores the vptr (retail
+// table VA 0x00C1F470), then sets +0x0C to 1 and +0x0D/+0x0E to 0; the
+// pointer copy constructor 0x003B410E copies +0x04 through 0x003B3FCD
+// before its vptr store. Something constructed before the vptr store is a
+// base, so the heads are a non-virtual base below the vptr. Retail table
+// 0x00C1F470 has Snapshot's four slots: the deleting destructor 0x003B4A20,
+// an empty loadPostProcess (the shared `ret` 0x004B3FD0), the name getter
+// 0x003B40FA ("ScriptGroup") and the rowed xfer 0x003B2467. Declared without
+// a Snapshot base, because this unit's Common/Snapshot.h is Zero Hour's
+// (crc/xfer/loadPostProcess, no virtual destructor), not BFME 2's.
+class Rva003525E0Pair
+{
+public:
+	Rva003525E0Pair() : m_first(0), m_second(0) {}
+	Rva003525E0Pair(const Rva003525E0Pair &other);
+private:
+	void *m_first;	// +0x00
+	void *m_second;	// +0x04
+};
+
+class ScriptGroup : public Rva003525E0Pair
+// This is a list of scripts that are grouped and named, with some
 // additional properties.
 {
-	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(ScriptGroup, "ScriptGroup")		
-protected:
-	
-	// snapshot methods
-	virtual void crc( Xfer *xfer );
-	virtual void xfer( Xfer *xfer ); 
-	virtual void loadPostProcess( void );
-
-protected:
-	Script			*m_firstScript;
-	AsciiString m_groupName;
-	Bool				m_isGroupActive;
-	Bool				m_isGroupSubroutine;
-	ScriptGroup	*m_nextGroup;
-	Bool				m_hasWarnings; ///< Runtime flag used by the editor only.
-
 public:
 	ScriptGroup();
-	//~ScriptGroup();
+	ScriptGroup(const ScriptGroup *other);
+	virtual ~ScriptGroup();
 
-public:
+protected:
+	virtual void loadPostProcess( void ) {}
+	virtual const char *GetSnapshotName( void ) const;
+	virtual void xfer( Xfer *xfer );
 
-	ScriptGroup *duplicate(void) const;		// note, duplicates just this node, not the full list.
-	ScriptGroup *duplicateAndQualify(const AsciiString& qualifier, 
-			const AsciiString& playerTemplateName, const AsciiString& newPlayerName) const;		// note, duplicates just this node, not the full list.
-
-	void setName(AsciiString name) { m_groupName = name;}
-	void setActive(Bool active) { m_isGroupActive = active;}
-	void setSubroutine(Bool subr) { m_isGroupSubroutine = subr;}
-	void setWarnings(Bool warnings) { m_hasWarnings = warnings;}
-	void setNextGroup(ScriptGroup *pGr) {m_nextGroup = pGr;}
-
-	AsciiString getName(void) const { return m_groupName;}
-	Bool isActive(void) const { return m_isGroupActive;}
-	Bool isSubroutine(void) const { return m_isGroupSubroutine;}
-	Bool hasWarnings(void) const { return m_hasWarnings;}
-	ScriptGroup *getNext(void) const {return m_nextGroup;};
-	Script *getScript(void) {return m_firstScript;};
-
-	void addScript(Script *pScr, Int ndx);
-	void deleteScript(Script *pScr);
-
-	static void WriteGroupDataChunk(DataChunkOutput &chunkWriter, ScriptGroup *pGroup);
-	static Bool ParseGroupDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData);
+private:
+	Bool				m_isGroupActive;			///< +0x0C
+	Bool				m_isGroupSubroutine;	///< +0x0D
+	Bool				m_hasWarnings;				///< +0x0E
 };
 
 //-------------------------------------------------------------------------------------------------
