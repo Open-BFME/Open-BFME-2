@@ -513,39 +513,9 @@ GameMessage *MessageStream::insertMessage( GameMessage::Type type, GameMessage *
 // 0x00C098E0 holds the shared empty body 0x000B3FD0 in slots 1 and 10, as
 // GameMessageList's table 0x00C09848 does.
 
-/**
-	* Destroy all messages on the list, and reset list to empty
-	*/
-// ?reset@CommandList@@ present-unmatched
-void CommandList::reset( void )
-{
-
-	// extend
-	GameMessageList::reset();
-
-	// destroy all messages
-	destroyAllMessages();
-
-}
-
-/**
-	* Destroy all messages on the command list, this will get called from the
-	* destructor and reset methods, DO NOT throw exceptions
-	*/
-void CommandList::destroyAllMessages( void )
-{
-	GameMessage *msg, *next;
-
-	for( msg=m_firstMessage; msg; msg=next )
-	{
-		next = msg->next();
-		msg->deleteInstance();
-	}
-	
-	m_firstMessage = NULL;
-	m_lastMessage = NULL;
-
-}
+// CommandList::reset (0x00311092) and destroyAllMessages (0x0030F854) are rowed in
+// VslotSmallBodiesAJ.cpp and MessageStreamListCtors.cpp, over the canonical
+// CommandList.h; the Zero Hour bodies that stood here addressed the list at +0x08.
 
 //-----------------------------------------------------------------------------
 /**
@@ -681,7 +651,7 @@ bool Rva0030F642::rva0030F679(int id) const
 
 // tu-skeleton: 0x0031105A 56B ??1CommandList@@UAE@XZ -- matched in Code/GameEngine/Source/Common/MessageStreamListCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x00311092 5B ?rva00311092@Rva00311092@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+// tu-skeleton: 0x00311092 5B ?reset@CommandList@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
 // tu-skeleton: 0x00311097 423B ??0GameMessage@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/GameMessageCopy.cpp (not merged yet)
 

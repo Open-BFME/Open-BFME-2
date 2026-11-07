@@ -34,11 +34,15 @@ Completed (2026-11-05): Propagation adopts canonical MessageStream/CommandList t
 **Remaining wrong slots (runtime).** Slots 16/17 of all three tables name `GameMessageList::removeMessage` and
 `containsMessageOfType`, which only the seed defines, from the Zero Hour layout: they address the list at +0x08/+0x0C,
 retail's 0x0030F642/0x0030F679 at +0x0C/+0x10. Retail's bodies are rowed under the placeholders
-`Rva0030F642::rva0030F642`/`rva0030F679` in MessageStream.cpp (approved TU for both). CommandList's slot 9 names the
-seed's `CommandList::reset`, which jumps to the seed's own Zero Hour `destroyAllMessages` (protected, +0x08 offsets),
-not retail's 0x0030F854; retail's 0x00311092 is rowed as `Rva00311092` in VslotSmallBodiesAJ.cpp. The real link's
-vtable bridge places retail's copies of all three tables first (bridge queue: bridged), so the image runs the right
-bodies until these names are fixed; the bridge cannot retire while they stay.
+`Rva0030F642::rva0030F642(Rva0030F642Node *)`/`rva0030F679(int) const` in MessageStream.cpp (approved TU for both).
+`rename.py function --to-class` cannot move them (their parameters differ from the real signatures), and a definition
+under the real class needs a unit with the canonical list layout, which MessageStream.cpp gets only by moving onto
+the canonical header. The real link's vtable bridge places retail's copies of all three tables first (bridge queue:
+bridged), so the image runs the right bodies meanwhile; the bridge cannot retire while these two slots stay.
+CommandList's slot 9 was the seed's `CommandList::reset`, jumping to the seed's own Zero Hour `destroyAllMessages`
+(protected, +0x08 offsets): fixed 2026-11-07 by `rename.py function --to-class` (row 0x00311092
+`Rva00311092::rva00311092` becomes `CommandList::reset` in VslotSmallBodiesAJ.cpp, which jumps to the rowed
+0x0030F854; the seed's two Zero Hour bodies are gone).
 
 Remaining / next check: the TU merge dry run (`tu_skeleton.py --merge Code/GameEngine/Source/Common/MessageStream.cpp
 --dry-run`, 2026-11-07) still accepts no donor: every donor that includes the canonical header

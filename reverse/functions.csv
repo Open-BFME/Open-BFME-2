@@ -39809,7 +39809,7 @@ _$E5,,0x007ACE60,12,Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp,mat
 ?rva0022C4D4@Rva0022C4D4@@QBEHXZ,,0x0022C4D4,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to GameInfo::getNumOpenOrOccupiedSlots (rowed/pinned); no Ghidra entry
 ?rva002628B1@Rva002628B1@@QAEXXZ,,0x002628B1,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to AIUpdateInterface::wakeUpNow (rowed/pinned); no Ghidra entry
 ?rva0030BCBA@Rva0030BCBA@@QAEXH@Z,,0x0030BCBA,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to Rva0030BBE5::rva0030BBE5 (rowed/pinned); no Ghidra entry
-?rva00311092@Rva00311092@@QAEXXZ,,0x00311092,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to CommandList::destroyAllMessages (rowed/pinned); no Ghidra entry
+?reset@CommandList@@UAEXXZ,,0x00311092,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to CommandList::destroyAllMessages (rowed/pinned); no Ghidra entry
 ?rva0032E53D@Rva0032E53D@@QAEXXZ,,0x0032E53D,5,Code/GameEngine/Source/GameLogic/Map/SidesList.cpp,matched,vtable slot; single tail jump to SidesList::clear (rowed/pinned); no Ghidra entry
 ?rva0033FCDC@Rva0033FCDC@@QAEXPAVObject@@@Z,,0x0033FCDC,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to StateMachine::rva004D750F (rowed/pinned); no Ghidra entry
 ?rva00341D1C@Rva00341D1C@@QAE?AW4StateReturnType@@XZ,,0x00341D1C,5,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,matched,vtable slot; single tail jump to AIExitState::onEnter (rowed/pinned); no Ghidra entry

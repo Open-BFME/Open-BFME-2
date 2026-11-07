@@ -576,15 +576,13 @@ void Rva0030BCBA::rva0030BCBA(int a)
 	Rva0030BBE5::rva0030BBE5(a);
 }
 
-// 0x00311092: tail jump to CommandList::destroyAllMessages.
-class Rva00311092 : public CommandList
+// 0x00311092: CommandList::reset, slot 9 of CommandList's table 0x00C098E0 (the
+// slot SubsystemInterface gives reset): GameMessageList's reset is empty, so the
+// body is a tail jump to destroyAllMessages 0x0030F854.
+void CommandList::reset()
 {
-public:
-	void rva00311092();
-};
-void Rva00311092::rva00311092()
-{
-	CommandList::destroyAllMessages();
+	GameMessageList::reset();
+	destroyAllMessages();
 }
 
 // 0x0032E53D: tail jump to SidesList::clear.
