@@ -415,3 +415,70 @@ from Rva0024A797Derived.cpp, and leave `loadPostProcess` to UpdateModule when re
   family (its ctor is still `??0Rva0044EF5E`), and the CrateCollide/CollideModule and DockUpdate families
   (no shared header yet).
 
+
+**ActiveBody's 36 unrowed slots, and the collide family's base header (2026-11-07, seat halilkkaya-lk47,
+base `fd6d5a2132`).**
+
+ActiveBody inventory. Compiled against retail by address, ActiveBody.h names 36 slots that no row spells
+under ActiveBody (lk43 counted 34). By kind:
+
+| kind | slots (primary 0x00C5B038 / body interface 0x00C5B5B0) | path |
+|---|---|---|
+| placeholder member in ActiveBody's own range | p1 0x004BF40F, p14 0x004BF8AC, p16 0x004BF8ED; b3 0x004BDB25, b5 0x004BDC25, b10 0x004BDCE2, b23 0x004BDB37, b24 0x004BF8BE, b25 0x004BF8CB, b29 0x004BDC48, b30 0x004BDC4F, b34 0x004BF8D8, b35 0x004BDC41, b36 0x004BDC03, b41 0x004BF893 | `--to-class ActiveBody`, walled (below) |
+| non-virtual spelling | p17 validateArmorAndDamageFX 0x004BE1AE, p21 setCorrectDamageState 0x004BE8BD | `function --virtual` (dry run passes); only the ctor calls them directly (devirtualized) |
+| ICF fold with unrelated bodies | b4 0x004F5F92, b6 0x005D870D, b7 0x00094A94, b8 0x0030D377, b15 0x00314046, b16 0x0023CAD2, b17 0x005BE1A7, b19 0x0052BAAB, b42 0x00101CBE | inline bodies or `--icf-owner` twins |
+| BodyModule's own slot, redeclared by ActiveBody.h | b26 0x004BD77C, b27 0x00452D82, b37/b39 0x0047A69C, b38 0x005CB9FA, b40 0x0050B238 (BodyModule's table 0x00C5AC18 holds the same words) | declare in BodyModuleClass.h, drop from ActiveBody.h |
+| wall | p2 `?name@ActiveBody@@QBEPBDXZ` (readable class, Wall 1); p15 0x004BF8DF (int-return placeholder, false reject); p20 0x004BE3EF rowed `W3DModelDraw::stopClientParticleSystems`; b28 0x004BE67E rowed `DetachableRiderBody::Rva004BE67E` | naming lane / tooling |
+
+Why the `--to-class` moves cannot start (re_attempts 0x004BDB25):
+- The slot check needs an ActiveBody installer that compiles ActiveBody.h. Both installers use private views:
+  ActiveBodyConstructor.cpp (ctor 0x004BF6A1, its kept 12-slot primary and 43-slot body table) and
+  BodyModuleDeletingDtors.cpp (dtor 0x004BF951, one-slot tables). ActiveBody.h cannot compile the ctor yet:
+  +0xE0 is `void *` x3 where the ctor builds a vector (0x00211E58, assigned through 0x004BF4CE, 12-byte
+  elements), and +0xF0 is a plain uint where the ctor runs BitFlags<11>'s ctor (0x003B31AD). Ten of the
+  twelve ActiveBody.h includers build without STLport.
+- The body is also judged folded: DelayedDeathBody (0x00C5BB38), FreeLifeBody (0x00C5BD88) and
+  DetachableRiderBody (0x00C5BF48) tables hold it, and their installers' views do not derive from ActiveBody.
+- The four walls would leave any ActiveBody.h table unresolved even after every other move.
+  re_attempts: 0x004BF8DF and 0x0049520B (int vs enum return: false reject, the 0x0028F976 wall),
+  0x004BE3EF and 0x004BE67E (readable wrong class: retail references both only from Body-family tables).
+StructureBody (and every ActiveBody subclass ctor) stays on its dummy vptrs until those clear.
+
+CollideModule.h (new, `Code/GameEngine/Include/GameLogic/Module/CollideModule.h`): CollideModuleInterface's six
+slots and CollideModule's defaults, written from retail (ctor 0x004BB702: 0x00C5A130/+0, 0x00C5A040/+0x0C,
+0x00C5A00C/+0x10). getCollide returns this (0x002533D3's 13 bytes), the five predicates return false
+(0x005CB9FF / 0x0047A699 shapes). Slot 5 is named isSalvageCrateCollide (SalvageCrateCollide's 0x00C5A9A8
+overrides it with `mov al,1; ret`); slots 2-4 stay neutral, because BFME2 has six slots to Zero Hour's seven.
+CollideModule's loadPostProcess (0x0058B03E) and xfer (0x004CE56D) are rowed as ICF twins in the new
+CollideModule.cpp (Zero Hour's file for exactly those two); its GetSnapshotName 0x004BB733 is a free-function
+scaffold, so it is not declared.
+
+SquishCollide 0x004BB9CF (infantry crush collide), the first ctor on it:
+
+| table | retail | after | before |
+|---|---|---|---|
+| primary | 0x00C5A204 | 9/12 equal + slots 0/5 inline + slot 1 one jmp (CollideModule's 0x0058B03E for retail's 0x00497805) | zero int |
+| BehaviorModuleInterface | 0x00C5A040 | 44/47 equal + 3 inline (getCollide byte-equal to 0x002533D3) | zero int |
+| CollideModuleInterface | 0x00C5A1EC | onCollide equal + 5 inline, byte-equal to 0x005CB9FF/0x0047A699 | zero int |
+
+- `?xfer@SquishCollide@@MAEXPAVXfer@@@Z`: ICF twin at 0x0045CE8C (BoneFXDamage::xfer's body; owner
+  `?xfer@Rva0045CE8C`). Getter: `--to-class` 0x004BB962. Destructor: `class --fold Rva004BB949`; the scaffold
+  Rva004BB68EDerived.cpp keeps its placeholder bases, so its one-slot tables take names no ctor table uses.
+- link_check: Rva004BB68EDerived.cpp 212 B, SquishCollide.cpp 1,247 B, ModuleNameGetters3.cpp 605 B,
+  ModuleFactory.cpp 2,404 B, FireWeaponCollide.cpp, Rva0049B47CThreeVptrDerived.cpp, Rva0045CE8CXfer.cpp,
+  Rva004CE56DXfer.cpp, DamageModule.cpp, BoneFXDamage.cpp and UpdateModuleLoadPostProcess.cpp all LINK.
+  SquishCollideCtor.cpp (42 B before) lists only `?loadPostProcess@CollideModule@@MAEXXZ` and
+  `?xfer@CollideModule@@MAEXPAVXfer@@@Z` unresolved: CollideModule.cpp defines both, but link_check previews
+  only census units, so the next census confirms it.
+
+Still walled in the collide family:
+- HordeMemberCollide 0x004BC389: its onCollide row spells `class Coord3D` (`PBVCoord3D`), CollideModule.h
+  the canonical `struct Coord3D`: LINK-018.
+- CivilianSpawnCollide 0x004BD694: onCollide 0x004BD6DA is rowed `?bfmeGo1026F@BfmeF1026@@QAEXHHH@Z` (three
+  ints), which `--to-class` cannot respell.
+- The five crates: CrateCollide.cpp's private CollideModule (one-slot interface) has to go first.
+  CrateCollide's collide slot 1 0x004BC51B (`add ecx,-0x10; mov eax,[ecx]; jmp [eax+0x34]`, the forward to
+  isValidToExecute) is rowed `?forward@Rva004BC51B@@UAEXXZ` (no argument), and each crate's name getter is a
+  free-function scaffold.
+- FireWeaponCollide.cpp, CollideModule's approved TU, compiles a capitalized Snapshot (BuffManager.h first),
+  so it cannot adopt CollideModule.h without reordering that TU.
