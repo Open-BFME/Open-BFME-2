@@ -194,6 +194,7 @@ public:
 	virtual void postUpgradeCheck();										// UpgradeMux slot 6
 
 protected:
+	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeRemovalImplementation();
 	virtual void upgradeImplementation();									// UpgradeMux slot 10
 public:
@@ -304,4 +305,31 @@ void CommandSetUpgrade::upgradeImplementation()
 	TheSkirmishAIManager->UnRegister(obj);
 	TheSkirmishAIManager->rva002A9365(obj);
 	TheControlBar->field28 = 1;
+}
+
+// The Xfer operand types (AsciiString is ascii_string.h's, above).
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+// ?xfer@CommandSetUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C57290 is 0x004B8710,
+// version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+void CommandSetUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
 }
