@@ -768,8 +768,8 @@ removed exactly the named RVAs.
   copy: StealthDetectorUpdate.cpp 0x007B1A52, ToggleMountedSpecialAbilityUpdate.cpp 0x007B1D70
   (the flags 0x00E03BCC and 0x00E03D34 sit in a GlobalFlagClearers grab-bag), the W3DDevice
   W3DTornadoDraw.cpp 0x007AC60B and DelayedExperienceLevelGrantSystem.cpp 0x007B0241, each `_$E1`.
-  `build/lk44/pair2.py` (scratch, not committed) found these by matching each bridged copy's guard
-  or owner TU to the TU's compiling files; what it still lists needs a second fact
+  A scratch matcher found these by pairing each bridged copy's guard or owner TU (looking up to
+  three `.bss` entries back) with the TU's compiling files; what it still lists needs a second fact
   (W3DGameClient's 0x007AC012 follows the widely read 0x00DE2000, whose owner is not settled) or
   belongs to held or multi-fragment TUs (ControlBar, SlowDeathBehavior, SpawnBehavior,
   RiderChangeContain, HordeContain, Object, InGameUI).
