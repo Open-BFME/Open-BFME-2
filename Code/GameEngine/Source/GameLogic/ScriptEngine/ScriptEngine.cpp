@@ -1403,6 +1403,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 
 #include "../../../Include/Common/INI/FieldParse.h"
+#include "../../../Include/GameClient/Drawable.h"
 
 // Matched DIR32 references in the two ScriptEngine search rows place this
 // FieldParse table at VA 0x00BE3908 (.rdata). Four 16-byte entries plus the
