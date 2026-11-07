@@ -1,17 +1,23 @@
-char g_00BF43A8;
-
 // cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ??0StructureToppleUpdateModuleData@@QAE@XZ, retail 0x00257A5E, 256 bytes.
-// StructureTopple data ctor over vtable (unsigned int)&g_00BF43A8. Donor is ZH
+// Interim (crash-prevention, 2026-11-07): the class derives from the canonical
+// ModuleData, so this constructor installs ??_7StructureToppleUpdateModuleData@@6B@ (retail 0x00BF43A8,
+// 31 ModuleData slots) instead of a one-byte placeholder, and the unwind destroys
+// the base through ModuleData's rowed destructor 0x0049B47C. ModuleFactory.cpp,
+// first in link order, still emits a Zero Hour 8-slot copy of that name beside
+// the rowed deleting destructor it owns (0x00257B5E, displaced in tu_map), so the
+// real link's vtable bridge places retail's table until a TU approval lets the
+// ??_G leave ModuleFactory.cpp (LINK-625).
+// StructureTopple data ctor. Donor is ZH
 // StructureToppleUpdate.h (same member order and values) with BFME2
 // changes: DieMuxData member at +8 constructed through its rowed init at
 // 0x004CE534, an extra float at +0x48 (0.06), the damage-flags word as -1
 // at +0x4C, and an extra float at +0xB8. Total size 0xBC matches the
 // friend_newModuleData `new 0xBC`.
 //
-// Layout: vtable slot +0, DieMuxData +8 (0x30, opaque: retail issues no
+// Layout: ModuleData +0..+7, DieMuxData +8 (0x30, opaque: retail issues no
 // member-construction calls for it, only init), delays +0x38/+0x3C,
 // integrity +0x40 (0.1), decay +0x44, unk48 +0x48 (0.06), unk4C +0x4C (-1
 // via the or-idiom), five FXList nulls +0x50..+0x60, crushing weapon
@@ -30,8 +36,8 @@ char g_00BF43A8;
 // scalar stores, the weapon set, the oclCount stores and the two erases
 // are body statements (ProductionUpdate erase-begin-end idiom for both;
 // named reference for fxbones to home the base, direct for angleFX).
-// The empty UpdateModuleData base (declared-only dtor) carries
-// unwindability for EH states 0/1/4; the vector bases arm none.
+// The ModuleData base (out-of-line destructor) carries unwindability for
+// EH states 0/1/4; the vector bases arm none.
 
 // Preserve STLport's out-of-line pointer-copy wrapper.
 #include "../../../../../../vendor/stlport/stl/_algobase.h"
@@ -107,12 +113,7 @@ enum
 	ST_PHASE_COUNT = 3,
 };
 
-class UpdateModuleData
-{
-public:
-	__declspec(dllimport) __forceinline UpdateModuleData() {}
-	~UpdateModuleData();
-};
+#include "../../../../Include/Common/ModuleData.h"
 
 // The native angle-vector erase calls the existing 8-byte range-erase
 // owner at 0x003FA4DB. Bind that call to its rowed spelling; the AngleFXInfo
@@ -154,14 +155,13 @@ __copy_ptrs<AngleFXInfo *, AngleFXInfo *>(AngleFXInfo *first, AngleFXInfo *last,
 
 }
 
-class StructureToppleUpdateModuleData : public UpdateModuleData
+class StructureToppleUpdateModuleData : public ModuleData
 {
 public:
 	StructureToppleUpdateModuleData();
+	virtual ~StructureToppleUpdateModuleData();
 
 private:
-	const void *m_vtable; // +0, retail (unsigned int)&g_00BF43A8
-	int m_unused04; // +4, untouched padding
 	DieMuxData m_dieMuxData; // +8
 	Int m_minToppleDelay; // +0x38
 	Int m_maxToppleDelay; // +0x3C
@@ -187,9 +187,7 @@ private:
 
 // ??0StructureToppleUpdateModuleData@@QAE@XZ @0x00257A5E
 inline StructureToppleUpdateModuleData::StructureToppleUpdateModuleData()
-	: UpdateModuleData()
-	, m_vtable(reinterpret_cast<const void *>((unsigned int)&g_00BF43A8))
-	, m_crushingWeaponName()
+	: m_crushingWeaponName()
 {
 	m_minToppleDelay = 0;
 	m_maxToppleDelay = 0;

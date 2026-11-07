@@ -226,3 +226,12 @@ scaffold's view the same bases in the same commit so both copies are identical.
   Interim route: land 000641716b with the next ledger refresh (Link tooling lane), checked by the same offline plan.
   The bridged state is debt, not progress. Lasting fix: TU approval for 0x0025528B and 0x00257B5E so the `??_G` rows can
   leave ModuleFactory.cpp for a unit on canonical ModuleData; queued for the TU-evidence work.
+- Update (same day): landing order is constructors first, then the ledger. `data_ledger.py` derives its rows from
+  objects, so the Link lane's regeneration on master could not bind `??_7AutoDepositUpdateModuleData@@6B@` /
+  `??_7StructureToppleUpdateModuleData@@6B@` while the constructors still stored `g_00BF1BC8` / `g_00BF43A8`. The
+  scratch plan above was built on the parked change. The constructors land now (interim, bridged), and the
+  regeneration follows and re-checks both at 31 slots. Both classes crash at INI load either way until then.
+- ToggleMountedSpecialAbilityUpdateModuleData (0x004AE0AC): blocked. Naming the real table in the explicit store is
+  refused by MSVC (C2373: the polymorphic class owns `??_7…@@6B@`), and a compiler-installed vptr reproduces the
+  recorded sink-to-fourth schedule (FAIL 1/1). The deleter's full-table view is ready but moot without a constructor
+  spelling that stores the vptr second (re_attempts 0x004AE0AC).

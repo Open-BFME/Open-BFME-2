@@ -1,12 +1,16 @@
-char g_00BF1BC8;
-
 // cl: /O1 /arch:SSE /GX /MD /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 
 // ??0AutoDepositUpdateModuleData@@QAE@XZ, retail 0x002540ED (84 bytes).
-// The module-data half of AutoDeposit: vtable immediate (unsigned int)&g_00BF1BC8 modelled
-// as an explicit first member (ToppleUpdateModuleDataCtor precedent, so no
-// vtable is emitted and no dtor row is owed), the deposit timing at +0x08,
+// Interim (crash-prevention, 2026-11-07): the class derives from the canonical
+// ModuleData, so this constructor installs ??_7AutoDepositUpdateModuleData@@6B@ (retail 0x00BF1BC8,
+// 31 ModuleData slots) instead of a one-byte placeholder, and the unwind destroys
+// the base through ModuleData's rowed destructor 0x0049B47C. ModuleFactory.cpp,
+// first in link order, still emits a Zero Hour 8-slot copy of that name beside
+// the rowed deleting destructor it owns (0x0025528B, displaced in tu_map), so the
+// real link's vtable bridge places retail's table until a TU approval lets the
+// ??_G leave ModuleFactory.cpp (LINK-625).
+// The module-data half of AutoDeposit: the deposit timing at +0x08,
 // the deposit amount at +0x0C, the initial capture bonus at +0x10, the
 // upgrade template at +0x14, the bonus percent at +0x18 (1.0f from the shared
 // literal at 0x00BBB8D8, ProneUpdate precedent), the required upgrade at
@@ -23,23 +27,15 @@ class UpgradeTemplate;
 
 #include "../../../../Include/GameLogic/Module/Rva003623E5Member.h"
 
-class UpdateModuleData
-{
-public:
-	__declspec(dllimport) __forceinline UpdateModuleData() {}
-	~UpdateModuleData();
+#include "../../../../Include/Common/ModuleData.h"
 
-private:
-};
-
-class AutoDepositUpdateModuleData : public UpdateModuleData
+class AutoDepositUpdateModuleData : public ModuleData
 {
 public:
 	AutoDepositUpdateModuleData();
+	virtual ~AutoDepositUpdateModuleData();
 
 private:
-	const void *m_vtable;				// +0x00
-	unsigned int m_unused04;			// +0x04
 	unsigned int m_depositTiming;			// +0x08
 	int m_depositAmount;				// +0x0C
 	int m_initialCaptureBonus;			// +0x10
@@ -51,8 +47,7 @@ private:
 };
 
 inline AutoDepositUpdateModuleData::AutoDepositUpdateModuleData()
-	: m_vtable(reinterpret_cast<const void *>((unsigned int)&g_00BF1BC8))
-	, m_depositTiming(0)
+	: m_depositTiming(0)
 	, m_depositAmount(0)
 	, m_initialCaptureBonus(0)
 	, m_upgrade(0)
