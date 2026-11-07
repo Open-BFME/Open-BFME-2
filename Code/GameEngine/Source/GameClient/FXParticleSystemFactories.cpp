@@ -385,7 +385,7 @@ protected:
     virtual ModuleTemplate *createTemplate(::INI *ini) const = 0;
 };
 
-template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
+template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
     class TEMPLATE, class DEFAULT>
 class ModuleTag
 {
@@ -398,17 +398,19 @@ public:
     // Static REFERENCES, not accessors: MSVC 7.1 gives each one a hidden
     // pointer global, so reading them is a load of that pointer and a load
     // through it - which is the double indirection retail does here.
-    static const char *const &s_key;
-    static const char *const &s_name;
+    static const char *const &KEY;
+    static const char *const &NAME;
+    static __declspec(dllimport) __forceinline const char *const &keyReference() { return KEY; }
+    static __declspec(dllimport) __forceinline const char *const &nameReference() { return NAME; }
 };
 
-template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
+template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
     class TEMPLATE, class DEFAULT>
-const char *const &ModuleTag<CATEGORY, KEY, NAME, MODULE, TEMPLATE, DEFAULT>::s_key = KEY;
+const char *const &ModuleTag<CATEGORY, Key, Name, MODULE, TEMPLATE, DEFAULT>::KEY = Key;
 
-template <int CATEGORY, const char *const &KEY, const char *const &NAME, class MODULE,
+template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
     class TEMPLATE, class DEFAULT>
-const char *const &ModuleTag<CATEGORY, KEY, NAME, MODULE, TEMPLATE, DEFAULT>::s_name = NAME;
+const char *const &ModuleTag<CATEGORY, Key, Name, MODULE, TEMPLATE, DEFAULT>::NAME = Name;
 
 template <class TAG>
 class ConcreteModuleTemplate : public TAG::TemplateType
@@ -499,7 +501,7 @@ private:
 
 template <class TAG>
 ConcreteModuleClass<TAG>::ConcreteModuleClass()
-    : TAG::ClassBase(TAG::IS_DEFAULT != 0, TAG::s_key, TAG::s_name)
+    : TAG::ClassBase(TAG::IS_DEFAULT != 0, TAG::keyReference(), TAG::nameReference())
 {
 }
 
@@ -579,6 +581,8 @@ struct PointEmissionVolumeModuleTag
 
     static const char *const &s_key;
     static const char *const &s_name;
+    static __declspec(dllimport) __forceinline const char *const &keyReference() { return s_key; }
+    static __declspec(dllimport) __forceinline const char *const &nameReference() { return s_name; }
 };
 
 // LINK-DUP: s_key/s_name owned by FXParticleSystemModules.cpp; declare only here.
@@ -633,6 +637,8 @@ struct OrthoEmissionVelocityModuleTag
 
     static const char *const &s_key;
     static const char *const &s_name;
+    static __declspec(dllimport) __forceinline const char *const &keyReference() { return s_key; }
+    static __declspec(dllimport) __forceinline const char *const &nameReference() { return s_name; }
 };
 
 // LINK-DUP: s_key/s_name owned by FXParticleSystemModules.cpp; declare only here.
@@ -704,6 +710,8 @@ public:
 
     static const char *const &s_key;
     static const char *const &s_name;
+    static __declspec(dllimport) __forceinline const char *const &keyReference() { return s_key; }
+    static __declspec(dllimport) __forceinline const char *const &nameReference() { return s_name; }
 };
 
 template <int CATEGORY>

@@ -99,3 +99,6 @@ LINK-181 and LINK-622 (LockWeaponCreate).
 
 
 **2026-11-07 generic ModuleTag references.** 38 KEY/NAME exports have same-address s_key/s_name COMDAT owners in the existing particle module units. The data gate refuses the trial because it cannot form a sizeof expression for the encoded reference template arguments. The trial was reverted. [Reproduction and remaining checks](../../reverse/attempt_support/particle-module-tag-reference-admission-20261107.md).
+
+
+**2026-11-07 generic ModuleTag references.** 38 existing s_key/s_name names in the module and factory units now use the retail KEY/NAME export names. Each four-byte allocation retains its original zero storage, compiler-emitted startup stores, referent and order. The distinct private RenderObjectUpdate specialization gets the same member spelling and stays outside the export admissions. Plain and default tag storage names stay the same. Scoped bytes, data and EH verify. Both objects retain their ordered CRT records and SELECT_ANY data selections. Only the local compiler label numbers and some COFF section positions differ. The next real-link artifact will measure export closure.
