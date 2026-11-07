@@ -316,11 +316,21 @@ Int Rva000A1D0DWindow::draw(WinInstanceData *instData)
 	return 1;
 }
 
-class Rva000A260AWindow : public GameWindow
+// The combo box window: retail's constructor 0x000A2137 installs table
+// 0x00BC8FF4, whose slots 1 and 2 (0x000A214F, 0x000A2167) hand the window
+// to the combo box's input and system callbacks; its image variant's table
+// 0x00BC9020 keeps both. Slot 2 is the canonical GameWindow's bfmeGoEHCb
+// (Bfme2GameWindow.h); this file's view still spells it system.
+class Rva000A2137 : public GameWindow
 {
 public:
 	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
-	virtual WindowMsgHandledType system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual WindowMsgHandledType bfmeGoEHCb(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+};
+
+class Rva000A260AWindow : public Rva000A2137
+{
+public:
 	virtual Int draw(WinInstanceData *instData);
 };
 
@@ -330,12 +340,12 @@ Int Rva000A260AWindow::draw(WinInstanceData *instData)
 	return 1;
 }
 
-WindowMsgHandledType Rva000A260AWindow::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+WindowMsgHandledType Rva000A2137::input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
 {
 	return GadgetComboBoxInput(this, msg, mData1, mData2);
 }
 
-WindowMsgHandledType Rva000A260AWindow::system(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+WindowMsgHandledType Rva000A2137::bfmeGoEHCb(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
 {
 	return GadgetComboBoxSystem(this, msg, mData1, mData2);
 }
