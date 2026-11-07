@@ -100,7 +100,7 @@ template NStr::basic_string(char *, char *, const allocator<char> &);
 // constructs "true", "false" and "", respectively. Use its existing names;
 // the copy reads the established narrow-string view at +0 and +4.
 extern unsigned int g_Va00DDEF08[3];
-extern unsigned g_Va00DDEEFC;
+extern unsigned int g_Va00DDEEFC[3];
 extern unsigned g_Va00DDEF38;
 
 namespace _STL
