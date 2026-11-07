@@ -1292,6 +1292,36 @@ def unrelocated_retail_addresses(checker, function_ledger, data_rows):
         rule="Matched code bytes: literal IMM32/DISP32 need COFF and image relocations. Exact ledger object/function starts and restricted typed first pointer arguments override unknown scalar/tag heuristics unless a numeric witness exists. Only bitwise/test/shift or typed numeric payload/capacity uses supply numeric witnesses; CMP is not numeric proof. Aligned data words without image relocations: exact ledger starts are defects, other range values ambiguous. Relative control operands excluded. Unknown coverage never passes G2.")
 
 
+def bound_operand_form(instructions, field_address, addend, size, symbol):
+    """Classify only an exactly decoded 32-bit operand, never nearby bytes."""
+    from capstone.x86_const import X86_OP_IMM, X86_OP_MEM
+    if instructions is None:
+        return "ambiguous", "instruction_decode_unresolved", None
+    for ins in instructions:
+        for op in ins.operands:
+            memory = op.type == X86_OP_MEM and ins.disp_size == 4 and ins.address + ins.disp_offset == field_address
+            immediate = op.type == X86_OP_IMM and ins.imm_size == 4 and ins.address + ins.imm_offset == field_address
+            if not (memory or immediate):
+                continue
+            text = ins.mnemonic + " " + ins.op_str
+            if re.fullmatch(r"___(?:rtc_[it][az][az]|(?:xc|xi|xp|xt)_[az])", symbol):
+                return "lead", "crt_section_marker", text
+            if memory and (op.mem.base or op.mem.index):
+                return "lead", "indexed_displacement", text
+            if memory and ins.mnemonic != "lea":
+                return "defect", "absolute_dereference", text
+            if immediate and ins.mnemonic == "add":
+                return "defect", "out_of_bounds_add_base", text
+            if immediate and ins.mnemonic == "cmp" and addend > size:
+                return "ambiguous", "beyond_end_comparison", text
+            if addend > size:
+                return "defect", "address_beyond_one_past", text
+            if addend == size:
+                return "lead", "one_past_address", text
+            return "ambiguous", "negative_address_immediate", text
+    return "ambiguous", "relocation_not_a_decoded_operand", None
+
+
 def relocation_bounds(checker, data_rows, function_ledger):
     """Flag DIR32/REL32 S+A outside the selected symbol's COFF upper bound.
     COFF next-symbol/section-end extents are upper bounds, not recovered C++
@@ -1306,7 +1336,17 @@ def relocation_bounds(checker, data_rows, function_ledger):
         names[p["name"]].append(p)
         by_rva[p["rva"]].append(p)
     starts = sorted(by_rva)
-    findings, seen, relocation_index = [], set(), {}
+    import capstone
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    findings, seen, relocation_index, decoded = [], set(), {}, {}
+    samples = collections.defaultdict(list)
+    def unanalyzed(reason, public, field, kind, target=None):
+        counts[reason] += 1
+        if len(samples[reason]) < 8:
+            samples[reason].append(dict(function=public["name"], source=public.get("source", ""),
+                function_image_rva=hex(public["rva"]), operand_image_rva=hex(public["rva"] + field),
+                relocation_kind=kind, symbol=target["name"] if target else None))
     for p in checker.publics:
         coff = p.get("coff")
         if not coff or not p.get("extent"):
@@ -1328,14 +1368,14 @@ def relocation_bounds(checker, data_rows, function_ledger):
             seen.add(field_rva)
             counts["relocations_considered"] += 1
             if kind not in (6, 20):
-                counts["unsupported_relocation_kind_unanalyzed"] += 1
+                unanalyzed("unsupported_relocation_kind_unanalyzed", p, field, kind)
                 continue
             target = targets.get(offset)
             if not target or target["name"].startswith(".") or target["section"] < 0:
-                counts["section_absolute_or_unknown_target_unanalyzed"] += 1
+                unanalyzed("section_absolute_or_unknown_target_unanalyzed", p, field, kind, target)
                 continue
             if offset + 4 > len(sec["body"]) or offset + 4 > end:
-                counts["relocation_field_extent_unanalyzed"] += 1
+                unanalyzed("relocation_field_extent_unanalyzed", p, field, kind, target)
                 continue
             addend = struct.unpack_from("<i", sec["body"], offset)[0]
             candidates = names.get(target["name"], [])
@@ -1343,22 +1383,28 @@ def relocation_bounds(checker, data_rows, function_ledger):
                 candidates = [q for q in candidates if q["object"] == p["object"]]
             locations = {(q["rva"], q.get("extent")) for q in candidates}
             if len(locations) != 1:
-                counts["target_map_ambiguous_or_absent"] += 1
+                unanalyzed("target_map_ambiguous_or_absent", p, field, kind, target)
                 continue
             symbol_rva, size = next(iter(locations))
             if not size or size < 0:
-                counts["target_extent_unanalyzed"] += 1
+                unanalyzed("target_extent_unanalyzed", p, field, kind, target)
                 continue
             linked = checker.ours.read(field_rva, 4)
             intended = (checker.ours.base + symbol_rva + addend) & 0xffffffff
             encoded = intended if kind == 6 else (intended - (checker.ours.base + field_rva + 4)) & 0xffffffff
             if linked is None or struct.unpack("<I", linked)[0] != encoded:
-                counts["linked_target_resolution_differs_unanalyzed"] += 1
+                unanalyzed("linked_target_resolution_differs_unanalyzed", p, field, kind, target)
                 continue
             counts["relocations_analyzed"] += 1
             if 0 <= addend < size:
                 counts["inside_symbol_upper_bound"] += 1
                 continue
+            decode_key = (p["rva"], p["extent"])
+            if decode_key not in decoded:
+                raw = checker.ours.read(p["rva"], p["extent"])
+                decoded[decode_key] = retail_code_blocks(md, raw, checker.ours.base + p["rva"])[0] if raw else None
+            classification, reason, instruction = bound_operand_form(decoded[decode_key],
+                checker.ours.base + field_rva, addend, size, target["name"])
             actual_rva = intended - checker.ours.base
             index = bisect.bisect_right(starts, actual_rva) - 1
             anchor = by_rva[starts[index]] if index >= 0 else []
@@ -1367,7 +1413,8 @@ def relocation_bounds(checker, data_rows, function_ledger):
                 for q in anchor if q.get("extent") and actual_rva < q["rva"] + q["extent"]]
             mapped = checker.mapping.resolve(symbol_rva)
             reference = checker.mapping.resolve(p["rva"])
-            detail = dict(function=p["name"], function_image_rva=hex(p["rva"]),
+            detail = dict(classification=classification, reason=reason, instruction=instruction,
+                function=p["name"], function_image_rva=hex(p["rva"]),
                 function_retail_rva=hex(reference) if reference is not None else None,
                 source=p.get("source", ""), object=p["object"], operand_offset=field,
                 operand_image_rva=hex(field_rva), relocation_kind=kind, symbol=target["name"],
@@ -1378,9 +1425,9 @@ def relocation_bounds(checker, data_rows, function_ledger):
                 retail_va=hex(checker.retail.base + mapped + addend) if mapped is not None else None,
                 retail_rva=hex(mapped + addend) if mapped is not None else None)
             if not image_owners:
-                counts["defect_actual_owner_unresolved"] += 1
+                counts["flag_actual_owner_unresolved"] += 1
             if mapped is None:
-                counts["defect_retail_correspondence_unresolved"] += 1
+                counts["flag_retail_correspondence_unresolved"] += 1
             findings.append(detail)
     # Stream only rows owning discovered retail pointees.
     values = sorted({int(d["retail_rva"], 16) for d in findings if d["retail_rva"] is not None})
@@ -1408,16 +1455,25 @@ def relocation_bounds(checker, data_rows, function_ledger):
                 own(row["name"], address, int(row["size"] or 0), row["source"], "data_rows")
     for d in findings:
         d["retail_owners"] = owners.get(int(d["retail_rva"], 16), []) if d["retail_rva"] is not None else []
+        if d["classification"] != "defect":
+            continue
         checker.defect("out_of_object_pointer", int(d["function_retail_rva"], 16) if d["function_retail_rva"] is not None else None,
             dict(name=d["function"], object=d["object"], source=d["source"]), json.dumps(d, sort_keys=True))
-    counts["defects"] = len(findings)
-    return dict(counts=dict(counts), defects=findings,
+    defects = [d for d in findings if d["classification"] == "defect"]
+    leads = [d for d in findings if d["classification"] == "lead"]
+    ambiguous = [d for d in findings if d["classification"] == "ambiguous"]
+    counts.update(defects=len(defects), leads=len(leads), ambiguous=len(ambiguous), boundary_flags=len(findings))
+    return dict(counts=dict(counts), defects=defects, leads=leads, ambiguous=ambiguous,
+        unanalyzed_samples=dict(samples), sample_cap_per_reason=8,
+        by_reason=dict(collections.Counter(d["reason"] for d in findings)),
         by_boundary=dict(collections.Counter("negative" if d["addend"] < 0 else
             "one_past" if d["one_past"] else "beyond_end" for d in findings)),
-        by_source=dict(collections.Counter(d["source"] for d in findings)),
+        by_source=dict(collections.Counter(d["source"] for d in defects)),
+        leads_by_source=dict(collections.Counter(d["source"] for d in leads)),
+        ambiguous_by_source=dict(collections.Counter(d["source"] for d in ambiguous)),
         limitations=["Only MAP-selected text symbols with COFF extents; data-origin relocations not scanned.",
             "Upper bounds can miss overruns into padding; in-bound is not a C++ layout proof.",
-            "One-past formation may be legal; no dereference/reachability proof.",
+            "Leads include legal one-past/indexed/CRT idioms; no execution or reachability proof.",
             "Retail pointees use unique symbol correspondence plus addend, not instruction equivalence."])
 
 
@@ -1433,6 +1489,8 @@ def main(argv=None):
     parser.add_argument("--relocation-bounds-only", action="store_true",
                         help="only audit object-relative relocation bounds")
     args = parser.parse_args(argv)
+    if args.address_only and args.relocation_bounds_only:
+        parser.error("--address-only and --relocation-bounds-only are mutually exclusive")
     tool_sha256 = digest(Path(__file__))
     receipt_path = args.image.with_name("image_receipt.json")
     receipt = json.loads(receipt_path.read_text())
@@ -1484,7 +1542,8 @@ def main(argv=None):
         checker.counts["storage_globals_without_proven_access"] = sum(
             r["kind"] == "global" and int(r["address"], 16) not in proven for r in rows)
         checker.storage(evidence)
-    bounds = relocation_bounds(checker, rows, build.ROOT / "reverse/functions.csv")
+    bounds = (dict(counts={}, defects=[], leads=[], ambiguous=[]) if args.address_only else
+              relocation_bounds(checker, rows, build.ROOT / "reverse/functions.csv"))
     absolute = (dict(counts={}, by_kind={}, ambiguous=[]) if args.relocation_bounds_only else
                 unrelocated_retail_addresses(checker, build.ROOT / "reverse/functions.csv", rows))
     report = checker.report()
@@ -1514,7 +1573,14 @@ def main(argv=None):
             writer.writerow(dict(family="unrelocated_retail_address_ambiguous",
                 retail_rva=detail["row_rva"], name=detail["symbol"], object=detail["object"],
                 source=detail["source"], evidence=json.dumps(detail, sort_keys=True, separators=(",", ":"))))
-    print(json.dumps({"counts": report["counts"], "absolute_address_counts": absolute["counts"],
+    with (args.out / "relocation_leads.tsv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["family", "retail_rva", "name", "object", "source", "evidence"], delimiter="\t")
+        writer.writeheader()
+        for d in bounds["leads"] + bounds["ambiguous"]:
+            writer.writerow(dict(family="out_of_object_pointer_" + d["classification"],
+                retail_rva=d["function_retail_rva"] or "", name=d["function"], object=d["object"],
+                source=d["source"], evidence=json.dumps(d, sort_keys=True)))
+    print(json.dumps({"counts": report["counts"], "relocation_bounds_counts": bounds["counts"], "absolute_address_counts": absolute["counts"],
                       "absolute_address_by_kind": absolute["by_kind"], "complete": False}, indent=2))
     return 1
 
