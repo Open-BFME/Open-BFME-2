@@ -405,6 +405,7 @@ extern ControlBarInventoryEntry ControlBarInventoryEntries[32];
 BFME_ASCII_FIELD_CLEAR(Rva0053BB0EStringField, 0x7C)
 
 #include "../../../../Include/Common/XferException.h"
+#include "../../../../Include/GameClient/Drawable.h"
 
 typedef _STL::vector<const ModuleData *> ModuleDataPtrVector;
 

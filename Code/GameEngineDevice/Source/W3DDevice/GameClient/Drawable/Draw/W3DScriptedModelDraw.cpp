@@ -169,6 +169,7 @@ typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const v
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 
 #include "../../../../../../GameEngine/Include/Common/INI/INI.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 
 void ParseScriptedModelParticleSysBone(INI *ini, void *instance, void *store, const void *userData);
 

@@ -57,6 +57,7 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
 #include "../../../../../../GameEngine/Include/Common/INI/FieldParse.h"
 #include "../../../../../../GameEngine/Include/Common/INI/INI.h"
+#include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
 //
 // ??0W3DTreeDrawModuleData@@QAE@XZ 231B @0x000CEBBF.
 // Same file-unit layout as W3DTreeDrawModuleDataCtor.cpp (empty virtual base,

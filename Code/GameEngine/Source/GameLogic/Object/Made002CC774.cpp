@@ -53,6 +53,7 @@ extern ThingFactory *TheThingFactory;
 extern GameLogic *TheGameLogic;
 
 #include "../../../Include/Common/NameKeyGenerator.h"
+#include "../../../Include/GameClient/Drawable.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
