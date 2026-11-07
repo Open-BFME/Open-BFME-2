@@ -1078,6 +1078,7 @@ private:
 };
 extern Rva002872BA *TheTriggerManager;
 #include "Lib/Coord3D.h"
+#include "../../../Include/GameClient/Drawable.h"
 static __forceinline char cellLayerByte(const PathfindCell *cell) {return (char)((cell->m_0C>>4)&0x3F);}
 void *rva002EBC59(void *,void *,int,int,int);
 
