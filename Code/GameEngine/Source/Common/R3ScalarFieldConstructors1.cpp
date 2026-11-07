@@ -2,21 +2,14 @@
 //
 // BFME1 byte-identical donor (reference/open-bfme-1
 // Code/GameEngine/Source/Common/R3ScalarFieldConstructors.cpp); trimmed to
-// bodies that place in game.dat. The companion Rva00352900 constructor
-// now lives beside its caller in ScriptListSubrecordAddRva003B7EC2.cpp.
+// bodies that place in game.dat. The companion constructor is ScriptGroup's
+// (0x003B40DF), beside its caller in Scripts.cpp.
 // The mov-eax-ecx opening marks a
 // constructor (the return value is `this`); store order is source order, so
 // the out-of-order zeros are written as listed. Identity is not recovered:
 // class names are the BFME1 constructor RVAs and fields are offsets. Each
 // relocated immediate is spelled as the address of an extern named for the
 // BFME2 address build.py fills in from retail.
-
-extern int Gen00C1F470;
-// Gen00C1F470: matched references place it at VA 0xc1f470 (retail .rdata value 8079904).
-int Gen00C1F470 = 8079904;
-
-// Retail constructor is owned by ScriptListSubrecordAddRva003B7EC2.cpp,
-// which needs its definition ahead of the caller for VC7.1 register analysis.
 
 class Rva00489BC0
 {
