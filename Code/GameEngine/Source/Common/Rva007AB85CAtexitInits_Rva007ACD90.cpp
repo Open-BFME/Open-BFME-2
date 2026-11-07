@@ -16,7 +16,6 @@
 #include "ascii_string.h"
 
 void __cdecl rva007B6C9B();
-void __cdecl rva007B6F5C();
 void __cdecl rva007B6F98();
 void __cdecl rva007B7024();
 void __cdecl Rva007B7090Set();
@@ -30,26 +29,14 @@ void __cdecl rva007B7380();
 void __cdecl rva007B76E6();
 void __cdecl rva007B770E();
 void __cdecl rva007B7979();
-void __cdecl rva007B7DB3();
-void __cdecl rva007B7E49();
-void __cdecl rva007B80A1();
 void __cdecl rva007B8119();
 void __cdecl rva007B8123();
-void __cdecl rva007B8FA9();
-void __cdecl rva007B95A4();
-void __cdecl rva007B9680();
-void __cdecl rva007B968A();
 void __cdecl clearMissingVariant();
 
-// Storage is owned by Rva007AB85CAtexitInits.cpp and its data rows.
-// This split initializer unit only refers to the same objects.
-// VA 0x00DEC290: zero-initialized AsciiString storage, explicitly constructed below.
-extern unsigned BfmeLiveCameraModeNameStorage;
 
 struct Rva007AB85CAtexitInits
 {
 	static void rva007AC25C();
-	static void rva007ACAAA();
 	static void rva007ACB5D();
 	static void rva007ACCA6();
 	static void rva007ACD90();
@@ -63,15 +50,8 @@ struct Rva007AB85CAtexitInits
 	static void rva007ADB11();
 	static void rva007ADB61();
 	static void rva007AE3AC();
-	static void rva007AF0F1();
-	static void rva007AF334();
-	static void rva007AF7FE();
 	static void rva007AF934();
 	static void rva007AF94F();
-	static void rva007B31DF();
-	static void rva007B434E();
-	static void rva007B46A8();
-	static void rva007B46C3();
 	static void rva007B55D0();
 };
 

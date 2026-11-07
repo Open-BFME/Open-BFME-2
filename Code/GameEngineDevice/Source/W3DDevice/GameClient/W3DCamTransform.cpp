@@ -140,7 +140,13 @@ public:
 
 extern View *TheTacticalView;
 extern GameLogic *TheGameLogic;
-extern unsigned int BfmeLiveCameraModeNameStorage;	// live camera mode name (AsciiString)
+// The live camera mode name; "Zoom" until a script sets another. Retail builds it in this
+// unit's .text$yc run (0x007ACAAA, after the unit's Drawable.h copy 0x007ACA9A and before its
+// pool-init marker 0x007ACAC5) through the out-of-line AsciiString(const char *) 0x0000654A.
+// Descriptive name; the original is unknown.
+#pragma inline_depth( 0 )
+AsciiString BfmeLiveCameraModeNameStorage("Zoom");
+#pragma inline_depth()
 
 #include <math.h>
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/wwmath.h"
@@ -304,7 +310,7 @@ private:
 
 static __forceinline const AsciiString &liveModeName()
 {
-	return *(const AsciiString *)&BfmeLiveCameraModeNameStorage;
+	return BfmeLiveCameraModeNameStorage;
 }
 
 void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *view)
