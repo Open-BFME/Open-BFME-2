@@ -2026,7 +2026,7 @@ public:
 };
 }
 
-unsigned g_00DFE174;	// retail RVA 0x009FE174 (.bss), defined here
+unsigned int g_00DFE174[3];	// retail RVA 0x009FE174 (.bss), defined here
 // g_00DFE174: packet annotates VA 0x009FE174 (data), no name yet.
 
 // ?rva007B75F6@@YAXXZ @ 0x007B75F6 (10B). Global vector<AsciiString> dtor thunk: ecx=&g_00DFE174 then tail-jmp to rowed ??1?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@XZ (0x0002CC70). No callers. Between 0x007B75EC and 0x007B7600. Honest address name.

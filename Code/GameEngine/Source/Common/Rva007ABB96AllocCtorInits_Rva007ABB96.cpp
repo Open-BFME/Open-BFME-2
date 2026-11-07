@@ -72,7 +72,7 @@ void __cdecl rva007B8590();
 // RVA 0x009DF580: Rva00200D38Ctor.cpp's _STL::vector<const ModuleData *> g_vec00200D38.
 class ModuleData;
 extern _STL::vector<const ModuleData *> g_vec00200D38;
-extern unsigned int g_00DFE174;
+extern unsigned int g_00DFE174[3];
 extern unsigned int g_00DFE1AC[3];
 unsigned g_00DFE358;	// retail RVA 0x009FE358 (.bss), defined here
 class BfmeItemKA;

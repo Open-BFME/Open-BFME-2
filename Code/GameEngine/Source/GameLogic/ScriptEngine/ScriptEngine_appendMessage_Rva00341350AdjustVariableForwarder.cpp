@@ -296,7 +296,7 @@ extern SidesList *TheSidesList;					// 0x00E01D58
 extern ScriptActions *TheScriptActions;				// 0x00E02D98
 extern ScriptConditions *TheScriptConditions;			// 0x00E02E04
 extern unsigned int g_Va00E02D64;				// 0x00E02D64
-extern unsigned int g_00DFE174;				// 0x00DFE174
+extern unsigned int g_00DFE174[3];				// 0x00DFE174
 
 // SetTheSidesList hand-off to the debug window (ScriptEngine_setSides.cpp).
 void rva00203C21();

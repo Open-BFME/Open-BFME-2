@@ -36,7 +36,7 @@ public:
 
 typedef _STL::vector<AsciiString, _STL::allocator<AsciiString> > AsciiStringVector;
 
-extern unsigned int g_00DFE174;
+extern unsigned int g_00DFE174[3];
 extern int BfmeLogicFramesPerSecond;
 
 class LivingWorldLogic
