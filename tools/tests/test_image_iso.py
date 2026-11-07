@@ -1255,3 +1255,101 @@ def test_data_pointers_only_cli_catches_plain_number_string_pointer(tmp_path,mon
         assert r["defined_data_pointers"]["counts"]["tier_a"]==1
         assert any(d["family"]=="defined_data_unrelocated_pointer" for d in r["defects"])
         assert "defined_data_unrelocated_pointer" in (out/"defects.tsv").read_text()
+
+
+def vptr_retail():
+    """Retail: ctor 0x200 stores table 0x2000 (2 slots, abutting a third code
+    word at 0x2008 that a data word references), ctor 0x240 stores it twice,
+    and 0x280 stores a string whose first word only looks like code."""
+    retail = Memory(0x400000)
+    store = lambda table: b"\xc7\x01" + struct.pack("<I", retail.base + table)
+    retail.put(0x200, store(0x2000) + b"\xc3")
+    retail.put(0x240, store(0x2000) + store(0x2000) + b"\xc3")
+    retail.put(0x280, store(0x2100) + b"\xc3")
+    retail.put(0x300, b"\xc3")
+    retail.put(0x310, b"\x33\xc0\xc3")
+    retail.put(0x320, b"\xc3")
+    retail.put(0x330, b"\x90")
+    for slot, target in enumerate((0x300, 0x310, 0x320)):
+        retail.put(0x2000 + 4 * slot, struct.pack("<I", retail.base + target))
+    retail.put(0x2100, struct.pack("<I", retail.base + 0x330))
+    retail.put(0x3000, struct.pack("<I", retail.base + 0x2008))
+    rows = [(0x200, 7), (0x240, 13), (0x280, 7), (0x300, 1), (0x310, 3), (0x320, 1)]
+    return retail, rows
+
+
+def test_retail_vptr_stores_bound_tables_skip_strings_and_mark_transient():
+    retail, rows = vptr_retail()
+    stores = iso.retail_vptr_stores(retail, rows, data_ranges=[(0x1000, 0x5000)])
+    found = {(s["function"], s["offset"]): s for s in stores}
+    assert set(found) == {(0x200, 0), (0x240, 0), (0x240, 6)}
+    assert all(s["table"] == 0x2000 and s["slots"] == 2 for s in stores)
+    assert found[(0x240, 0)]["transient"] and not found[(0x240, 6)]["transient"]
+    assert not found[(0x200, 0)]["transient"]
+
+
+def vptr_case(table_symbol, extent, words, follower=None, filler=b"AAAA"):
+    """Image: the ctor's copy at 0x400 installs `table_symbol` at 0x3000."""
+    retail, rows = vptr_retail()
+    ours = Memory(0x10000000)
+    ours.put(0x400, b"\xc7\x01" + bytes(4) + b"\xc3")
+    ours.pointer(0x402, 0x3000)
+    ours.put(0x500, b"\xc3")
+    ours.put(0x510, b"\x33\xc0\xc3")
+    for slot, word in enumerate(words):
+        if word:
+            ours.pointer(0x3000 + 4 * slot, word)
+    publics = [public("ctor", 0x400, 7), public("f300", 0x500, 1), public("f310", 0x510, 3),
+               public(table_symbol, 0x3000, extent)]
+    if follower:
+        publics.append(public(follower, 0x3000 + extent, 4))
+        ours.put(0x3000 + extent, filler)
+    addresses = {"ctor": {0x200}, "f300": {0x300}, "f310": {0x310}}
+    c = iso.Checker(ours, retail, publics, addresses)
+    stores = [s for s in iso.retail_vptr_stores(retail, rows, data_ranges=[(0x1000, 0x5000)])
+              if s["function"] == 0x200]
+    return c, iso.vptr_store_report(c, stores, {0x300: 1, 0x310: 3})
+
+
+def test_vptr_store_full_table_is_ok():
+    c, result = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510))
+    assert [s["verdict"] for s in result["stores"]] == ["ok"]
+    assert not c.defects
+
+
+def test_vptr_store_zero_placeholder_is_p18_shape():
+    c, result = vptr_case("?g_00C59B20@@3DA", 1, (), follower="next", filler=b"")
+    store = result["stores"][0]
+    assert store["verdict"] == "zero-placeholder"
+    assert store["slots"] == {"null": 1, "past-end": 1}
+    assert [d["family"] for d in c.defects] == ["vptr_store_zero"]
+
+
+def test_vptr_store_short_named_table_reads_the_next_symbol():
+    c, result = vptr_case("??_7Short@@6B@", 4, (0x500,), follower="other")
+    store = result["stores"][0]
+    assert store["verdict"] == "bad" and store["slots"] == {"ok": 1, "past-end": 1}
+    assert c.defects[0]["family"] == "vptr_store_slot"
+
+
+def test_vptr_store_wrong_target_and_byte_equal_body():
+    # Slot 1 points at f300's `ret` where retail has `xor eax,eax; ret`: wrong.
+    c, result = vptr_case("??_7Swap@@6B@", 8, (0x500, 0x500))
+    assert result["stores"][0]["slots"] == {"ok": 1, "wrong": 1}
+    # An unrowed body with retail's bytes is equivalent, not wrong.
+    c, result = vptr_case("??_7Copy@@6B@", 8, (0x500, 0x520))
+    c.ours.put(0x520, b"\x33\xc0\xc3")
+    c.publics.append(public("copy", 0x520, 3))
+    stores = [s for s in iso.retail_vptr_stores(c.retail, vptr_retail()[1], data_ranges=[(0x1000, 0x5000)])
+              if s["function"] == 0x200]
+    result = iso.vptr_store_report(c, stores, {0x300: 1, 0x310: 3})
+    assert result["stores"][0]["slots"] == {"ok": 1, "equiv": 1}
+
+
+def test_vptr_store_without_image_fixup_is_unanalyzed():
+    c, _ = vptr_case("??_7Good@@6B@", 8, (0x500, 0x510))
+    c.ours.relocations.discard(0x402)
+    stores = [s for s in iso.retail_vptr_stores(c.retail, vptr_retail()[1], data_ranges=[(0x1000, 0x5000)])
+              if s["function"] == 0x200]
+    result = iso.vptr_store_report(c, stores, {})
+    assert result["stores"][0]["verdict"] == "unanalyzed-instruction"

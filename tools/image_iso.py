@@ -1515,6 +1515,257 @@ def defined_data_pointers(checker, manifest, root):
     return report
 
 
+def retail_vptr_stores(retail, rows, ledger_starts=(), data_ranges=None):
+    """Retail vptr stores and table lengths from one decode of every row.
+
+    rows is [(rva, size)]. A store is `mov dword [m], imm32` whose immediate
+    is a non-code address holding a code word, and whose slot 0 is a rowed
+    start or a jmp (a pushed string whose bytes look like a code address is
+    not a table). Retail is /FIXED with no RTTI: there are no relocations
+    and tables abut, so a run is bounded by the next referenced data
+    address (decoded imm/disp operands, aligned data words, ledger starts),
+    not only by its first non-code word.
+    """
+    import capstone
+    from capstone.x86_const import X86_INS_MOV, X86_OP_IMM, X86_OP_MEM
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    md.skipdata = True
+    base = retail.base
+    if data_ranges is None:
+        data_ranges = [(s.VirtualAddress, s.VirtualAddress + s.Misc_VirtualSize)
+                       for s in retail.sections if not s.Characteristics & 0x20000000]
+    lo = min(a for a, _ in data_ranges) + base
+    hi = max(b for _, b in data_ranges) + base
+    starts = {rva for rva, _ in rows}
+    boundaries, found = set(ledger_starts), []
+    for rva, size in rows:
+        raw = retail.read(rva, size) if 0 < size < 0x100000 else None
+        if not raw:
+            continue
+        for ins in md.disasm(raw, rva):
+            if ins.id == 0:
+                continue
+            ops = ins.operands
+            for op in ops:
+                value = (op.imm if op.type == X86_OP_IMM else
+                         op.mem.disp if op.type == X86_OP_MEM else 0) & 0xffffffff
+                if lo <= value < hi:
+                    boundaries.add(value - base)
+            if (ins.id == X86_INS_MOV and len(ops) == 2 and ops[0].type == X86_OP_MEM
+                    and ops[0].size == 4 and ops[1].type == X86_OP_IMM):
+                table = (ops[1].imm & 0xffffffff) - base
+                word = retail.read(table, 4) if lo - base <= table < hi - base else None
+                if word is None:
+                    continue
+                first = struct.unpack("<I", word)[0]
+                if retail.in_text(first) and (first - base in starts or
+                                              retail.read(first - base, 1) == b"\xe9"):
+                    m = ops[0].mem
+                    found.append(dict(function=rva, offset=ins.address - rva, table=table,
+                                      memop=(m.segment, m.base, m.index, m.scale, m.disp)))
+    for start, end in data_ranges:
+        raw = retail.read(start, end - start) or b""
+        for at in range(0, len(raw) - 3, 4):
+            value = struct.unpack_from("<I", raw, at)[0]
+            if lo <= value < hi:
+                boundaries.add(value - base)
+    boundaries = sorted(boundaries)
+    for store in found:
+        table, words = store["table"], 0
+        following = bisect.bisect_right(boundaries, table)
+        limit = (boundaries[following] - table) // 4 if following < len(boundaries) else 1024
+        while words < limit:
+            raw = retail.read(table + 4 * words, 4)
+            if raw is None or not retail.in_text(struct.unpack("<I", raw)[0]):
+                break
+            words += 1
+        store["slots"] = words
+    # A later store to the same operand in the same function overwrites this one.
+    for store in found:
+        store["transient"] = any(o["function"] == store["function"] and o["memop"] == store["memop"]
+                                 and o["offset"] > store["offset"] for o in found)
+    return found
+
+
+def _chase(checker, image, value):
+    """Follow a chain of plain (unadjusted) jmp thunks."""
+    for _ in range(6):
+        f = checker.forwarder(image, value - image.base)
+        if not f or f[1]:
+            break
+        value = f[0] + image.base
+    return value
+
+
+def _vptr_slot(checker, slot_rva, actual, expected, end, sizes, by_rva):
+    """One installed slot against retail's: ok, equiv, wrong, null, data,
+    past-end, purecall, stub or unk, with the image symbol as evidence."""
+    ours, retail = checker.ours, checker.retail
+    past = end is not None and slot_rva >= end
+    if actual == 0:
+        return ("past-end" if past else "null"), ""
+    if not ours.in_text(actual):
+        return ("past-end" if past else "data"), hex(actual)
+    actual, expected = _chase(checker, ours, actual), _chase(checker, retail, expected)
+    a, b = actual - ours.base, expected - retail.base
+    here = by_rva.get(a, [])
+    name = here[0]["name"] if here else ""
+    if here and "diagnostic_stubs" in here[0]["object"]:
+        return "stub", name
+    if name == "__purecall":
+        return "purecall", name
+    # One address carries many alias names; any ledgered at retail's target proves it.
+    if any(b in checker.addresses.get(p["name"], ()) for p in here):
+        return "ok", name
+    verdict = checker.slot(actual, expected, sizes)
+    if verdict is True:
+        return "ok", name
+    if sizes.get(b) and checker.code_equal(a, b, sizes[b]) is True:
+        return "equiv", name
+    if verdict is False:
+        return ("past-end" if past else "wrong"), name
+    return ("past-end" if past else "unk"), name
+
+
+def vptr_store_report(checker, stores, sizes, order=None):
+    """Judge each retail vptr store on the linked image (crash prevention).
+
+    The image's copy of the storing row is found by correspondence; its
+    instruction at the same offset must have the same opcode bytes (the
+    immediate, and a relocated absolute displacement, masked) and an image
+    fixup on the immediate. The installed table is compared slot by slot
+    over retail's run. A store of a non-??_7 symbol whose every slot is
+    null, data or past its extent is a zero placeholder (P18); any other
+    slot that is not ok or byte-equivalent makes the store bad. Transient
+    stores are counted, not judged. Stores are not reachability: order is
+    an optional {(function, offset): rank} from a boot walk.
+    """
+    import capstone
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    ours, retail = checker.ours, checker.retail
+    by_rva = collections.defaultdict(list)
+    for p in checker.publics:
+        by_rva[p["rva"]].append(p)
+    starts = sorted(by_rva)
+    counts = collections.Counter()
+    results = []
+
+    def decode(image, rva):
+        raw = image.read(rva, 16)
+        return next(md.disasm(raw, rva), None) if raw else None
+
+    for store in stores:
+        if store.get("transient"):
+            counts["vptr_stores_transient"] += 1
+            continue
+        fa, at, table, n = store["function"], store["offset"], store["table"], store["slots"]
+        result = dict(function_rva=hex(fa), offset=hex(at), retail_table=hex(table + retail.base),
+                      retail_slots=n, order=(order or {}).get((fa, at), ""))
+        results.append(result)
+        locations = {p["rva"] for p in checker.by_retail.get(fa, [])}
+        if len(locations) != 1:
+            result["verdict"] = "unanalyzed-function"
+            counts["vptr_stores_unanalyzed"] += 1
+            continue
+        image_fa = next(iter(locations))
+        result["function"] = checker.by_retail[fa][0]["name"]
+        r, i = decode(retail, fa + at), decode(ours, image_fa + at)
+        masked = bool(i) and i.disp_size == 4 and i.address + i.disp_offset in ours.relocations
+
+        def opcode(x):
+            b = bytearray(x.bytes[:x.imm_offset])
+            if masked:
+                b[x.disp_offset:x.disp_offset + 4] = bytes(4)
+            return bytes(b)
+        if (not r or not i or r.size != i.size or opcode(r) != opcode(i)
+                or i.address + i.imm_offset not in ours.relocations):
+            result["verdict"] = "unanalyzed-instruction"
+            counts["vptr_stores_unanalyzed"] += 1
+            continue
+        installed = struct.unpack("<I", ours.read(i.address + i.imm_offset, 4))[0] - ours.base
+        index = bisect.bisect_right(starts, installed) - 1
+        owner = by_rva[starts[index]][0] if index >= 0 else {}
+        exact = index >= 0 and starts[index] == installed
+        if exact and owner.get("extent"):
+            end = installed + owner["extent"]
+        else:
+            end = starts[index + 1] if index + 1 < len(starts) else None
+        symbol = owner.get("name", "")
+        if owner and not exact:
+            symbol += "+%#x" % (installed - starts[index])
+        slots, bad = collections.Counter(), []
+        for k in range(n):
+            a = struct.unpack("<I", ours.read(installed + 4 * k, 4) or bytes(4))[0]
+            b = struct.unpack("<I", retail.read(table + 4 * k, 4))[0]
+            kind, note = _vptr_slot(checker, installed + 4 * k, a, b, end, sizes, by_rva)
+            slots[kind] += 1
+            if kind not in ("ok", "equiv"):
+                bad.append("slot %d %s %s retail=%#x" % (k, kind, note, b))
+        zero = bool(n) and not symbol.startswith("??_7") and \
+            slots["null"] + slots["data"] + slots["past-end"] == n
+        result.update(image_symbol=symbol, object=owner.get("object", ""), source=owner.get("source", ""),
+                      slots=dict(slots), bad=bad,
+                      verdict="zero-placeholder" if zero else "bad" if bad else "ok")
+        counts["vptr_stores_" + result["verdict"].replace("-", "_")] += 1
+        if bad:
+            checker.defect("vptr_store_zero" if zero else "vptr_store_slot", fa, owner,
+                           "store +%#x installs %s for retail %#x (%d slots): %s" % (
+                               at, symbol, table + retail.base, n, "; ".join(bad[:3])))
+    checker.counts.update(counts)
+    return dict(counts=dict(counts), stores=results)
+
+
+def vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, map_symbols):
+    """--vptr-stores: report.json, defects.tsv and vptr_stores.tsv under --out."""
+    function_rows = []
+    with (build.ROOT / "reverse/functions.csv").open(newline="") as f:
+        for row in csv.DictReader(f):
+            try:
+                function_rows.append((int(row["target_rva"], 16), int(row["target_size"])))
+            except ValueError:
+                continue
+    checker.mapping.prove_folds(checker.retail, sizes)
+    stores = retail_vptr_stores(checker.retail, sorted(set(function_rows)),
+                                ledger_starts=[int(r["address"], 16) for r in rows])
+    order = {}
+    if args.boot_order:
+        with args.boot_order.open(newline="") as f:
+            for r in csv.DictReader(f, delimiter="\t"):
+                key = (int(r["func_rva"], 16), int(r["insn_off"], 16))
+                order.setdefault(key, int(r["order"]))
+    result = vptr_store_report(checker, stores, sizes, order)
+    report = checker.report()
+    report["vptr_stores"] = result["counts"]
+    report["analysis_scope"] = "retail vptr stores against installed image tables only"
+    report["limitations"] = report["limitations"] + [
+        "Vptr stores are every rowed retail store, not a trace; --boot-order only ranks them.",
+        "Retail tables abut (no RTTI): runs end at the next referenced data address."]
+    report.update(inputs=dict(tool_sha256=tool_sha256, image=str(args.image), map=str(args.map),
+                              retail=str(args.retail), image_sha256=digest(args.image),
+                              map_sha256=digest(args.map), retail_sha256=digest(args.retail),
+                              receipt=receipt, boot_order=str(args.boot_order or "")),
+                  object_analysis=dict(object_counts), map_symbols=map_symbols)
+    args.out.mkdir(parents=True, exist_ok=True)
+    (args.out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    with (args.out / "defects.tsv").open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["family", "retail_rva", "name", "object", "source", "evidence"], delimiter="\t")
+        writer.writeheader()
+        writer.writerows(report["defects"])
+    rank = lambda r: (r["order"] == "", r["order"] if r["order"] != "" else 0, r["function_rva"], r["offset"])
+    with (args.out / "vptr_stores.tsv").open("w", newline="") as f:
+        fields = ["order", "verdict", "function_rva", "offset", "function", "retail_table", "retail_slots",
+                  "image_symbol", "object", "source", "slots", "bad"]
+        writer = csv.DictWriter(f, fieldnames=fields, delimiter="\t", extrasaction="ignore")
+        writer.writeheader()
+        for r in sorted(result["stores"], key=rank):
+            writer.writerow(dict(r, slots=json.dumps(r.get("slots", {}), sort_keys=True),
+                                 bad="; ".join(r.get("bad", []))))
+    print(json.dumps({"vptr_stores": result["counts"], "complete": False}, indent=2))
+    return 1
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--image", required=True, type=Path)
@@ -1527,9 +1778,15 @@ def main(argv=None):
     parser.add_argument("--out", type=Path, default=Path("build/image_iso"))
     parser.add_argument("--relocation-bounds-only", action="store_true",
                         help="only audit object-relative relocation bounds")
+    parser.add_argument("--vptr-stores", action="store_true",
+                        help="only judge retail vptr stores against the tables the image installs")
+    parser.add_argument("--boot-order", type=Path,
+                        help="with --vptr-stores: boot walk TSV (func_rva, insn_off, order) to rank stores")
     args = parser.parse_args(argv)
-    if sum((args.address_only,args.relocation_bounds_only,args.data_pointers_only))>1:
+    if sum((args.address_only,args.relocation_bounds_only,args.data_pointers_only,args.vptr_stores))>1:
         parser.error("analysis-only modes are mutually exclusive")
+    if args.boot_order and not args.vptr_stores:
+        parser.error("--boot-order needs --vptr-stores")
     tool_sha256 = digest(Path(__file__))
     receipt_path = args.image.with_name("image_receipt.json")
     receipt = json.loads(receipt_path.read_text())
@@ -1571,6 +1828,8 @@ def main(argv=None):
                 for name in (symbol, row["name"]):
                     qualified[(name, source_key(row["source"]))].add(rva)
     checker = Checker(ours, retail, publics, addresses, qualified)
+    if args.vptr_stores:
+        return vptr_store_main(args, checker, rows, sizes, tool_sha256, receipt, object_counts, len(publics))
     if not args.address_only and not args.relocation_bounds_only and not args.data_pointers_only:
         checker.ledger(rows, sizes)
         checker.initializers()
