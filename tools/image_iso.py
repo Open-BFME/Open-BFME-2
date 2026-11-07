@@ -1477,6 +1477,44 @@ def relocation_bounds(checker, data_rows, function_ledger):
             "Retail pointees use unique symbol correspondence plus addend, not instruction equivalence."])
 
 
+def defined_data_pointers(checker, manifest, root):
+    """Tiered, report-only evidence; confirm the MAP copy still holds the word."""
+    import data_rows, reloc_ledger
+    if manifest is None:
+        return dict(mode="report-only",counts=dict(manifest_absent=1),findings=[])
+    report=data_rows.defined_data_pointer_report(manifest,reloc_ledger.Image(checker.retail.data),root)
+    counts=collections.Counter(report["counts"])
+    by_name=collections.defaultdict(list)
+    for p in checker.publics:
+        by_name[(p["name"],source_key(p.get("source","")))].append(p)
+    findings=[]
+    for d in report["findings"]:
+        choices=[p for p in by_name.get((d["row"],source_key(d["source"])),[]) if p["object"]==d["object"]]
+        if len({p["rva"] for p in choices}) != 1:
+            counts["candidate_map_copy_unresolved"]+=1
+            continue
+        p=choices[0]; raw=checker.ours.read(p["rva"]+d["offset"],4)
+        if raw is None:
+            counts["candidate_image_word_unavailable"]+=1
+            continue
+        value=struct.unpack("<I",raw)[0]
+        d.update(image_rva=hex(p["rva"]+d["offset"]),image_value=hex(value))
+        if d["reason"]!="object_relocation_to_implausible_retail_va" and value!=int(d["retail_value"],16):
+            counts["candidate_image_word_changed"]+=1
+            continue
+        findings.append(d)
+        if d["tier"]=="A":
+            checker.defect("defined_data_unrelocated_pointer",int(d["retail_rva"],16),
+                dict(name=d["row"],source=d["source"],object=d["object"]),json.dumps(d,sort_keys=True))
+    counts["object_tier_a"]=counts["tier_a"];counts["object_tier_b"]=counts["tier_b"]
+    counts["tier_a"]=sum(d["tier"]=="A" for d in findings);counts["tier_b"]=sum(d["tier"]=="B" for d in findings)
+    counts["rows_tier_a"]=len({d["row"] for d in findings if d["tier"]=="A"})
+    counts["rows_tier_b"]=len({d["row"] for d in findings if d["tier"]=="B"})
+    counts["report_only"]=1
+    report.update(counts=dict(counts),findings=findings)
+    return report
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--image", required=True, type=Path)
@@ -1485,12 +1523,13 @@ def main(argv=None):
     parser.add_argument("--objects", type=Path)
     parser.add_argument("--address-only", action="store_true",
                         help="only audit absolute code operands and aligned data words")
+    parser.add_argument("--data-pointers-only",action="store_true",help="report tiered pointer evidence in defined data rows only")
     parser.add_argument("--out", type=Path, default=Path("build/image_iso"))
     parser.add_argument("--relocation-bounds-only", action="store_true",
                         help="only audit object-relative relocation bounds")
     args = parser.parse_args(argv)
-    if args.address_only and args.relocation_bounds_only:
-        parser.error("--address-only and --relocation-bounds-only are mutually exclusive")
+    if sum((args.address_only,args.relocation_bounds_only,args.data_pointers_only))>1:
+        parser.error("analysis-only modes are mutually exclusive")
     tool_sha256 = digest(Path(__file__))
     receipt_path = args.image.with_name("image_receipt.json")
     receipt = json.loads(receipt_path.read_text())
@@ -1532,7 +1571,7 @@ def main(argv=None):
                 for name in (symbol, row["name"]):
                     qualified[(name, source_key(row["source"]))].add(rva)
     checker = Checker(ours, retail, publics, addresses, qualified)
-    if not args.address_only and not args.relocation_bounds_only:
+    if not args.address_only and not args.relocation_bounds_only and not args.data_pointers_only:
         checker.ledger(rows, sizes)
         checker.initializers()
         evidence = storage_evidence(retail, rows)
@@ -1542,14 +1581,20 @@ def main(argv=None):
         checker.counts["storage_globals_without_proven_access"] = sum(
             r["kind"] == "global" and int(r["address"], 16) not in proven for r in rows)
         checker.storage(evidence)
-    bounds = (dict(counts={}, defects=[], leads=[], ambiguous=[]) if args.address_only else
+    bounds = (dict(counts={}, defects=[], leads=[], ambiguous=[]) if args.address_only or args.data_pointers_only else
               relocation_bounds(checker, rows, build.ROOT / "reverse/functions.csv"))
-    absolute = (dict(counts={}, by_kind={}, ambiguous=[]) if args.relocation_bounds_only else
+    absolute = (dict(counts={}, by_kind={}, ambiguous=[]) if args.relocation_bounds_only or args.data_pointers_only else
                 unrelocated_retail_addresses(checker, build.ROOT / "reverse/functions.csv", rows))
+    pointers=defined_data_pointers(checker,args.objects,build.ROOT) if not args.relocation_bounds_only else dict(mode="skipped",counts={},findings=[])
     report = checker.report()
+    report["defined_data_pointers"] = pointers
     report["relocation_bounds"] = bounds
     report["unrelocated_retail_addresses"] = absolute
     report["analysis_scope"] = "absolute address code/data audit only" if args.address_only else "bounded image comparison"
+    if args.data_pointers_only:
+        report["analysis_scope"]="defined data pointer evidence only; report mode"
+    if args.address_only:
+        report["analysis_scope"]="absolute address code/data and defined-data pointer evidence only"
     if args.relocation_bounds_only:
         report["analysis_scope"] = "object-relative relocation bounds only"
     report.update(inputs=dict(tool_sha256=tool_sha256,
@@ -1580,7 +1625,13 @@ def main(argv=None):
             writer.writerow(dict(family="out_of_object_pointer_" + d["classification"],
                 retail_rva=d["function_retail_rva"] or "", name=d["function"], object=d["object"],
                 source=d["source"], evidence=json.dumps(d, sort_keys=True)))
-    print(json.dumps({"counts": report["counts"], "relocation_bounds_counts": bounds["counts"], "absolute_address_counts": absolute["counts"],
+    with (args.out / "data_pointer_leads.tsv").open("w",newline="") as f:
+        writer=csv.DictWriter(f,fieldnames=["family","retail_rva","name","object","source","evidence"],delimiter="\t")
+        writer.writeheader()
+        for d in pointers["findings"]:
+            if d["tier"]=="B":
+                writer.writerow(dict(family="defined_data_pointer_lead",retail_rva=d["retail_rva"],name=d["row"],object=d["object"],source=d["source"],evidence=json.dumps(d,sort_keys=True)))
+    print(json.dumps({"counts": report["counts"], "defined_data_pointer_counts":pointers["counts"], "relocation_bounds_counts": bounds["counts"], "absolute_address_counts": absolute["counts"],
                       "absolute_address_by_kind": absolute["by_kind"], "complete": False}, indent=2))
     return 1
 
