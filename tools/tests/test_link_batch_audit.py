@@ -343,3 +343,66 @@ def test_a_stale_consumer_outside_the_verified_set_is_not_judged_for_omitted_ref
     assert A.audit("a" * 40, "b" * 40, []) == 2      # in scope by the change alone, stale, not verified: unverified
     assert "OMITTED" not in capsys.readouterr().out
 
+
+
+# The real-link loss check (LINK-626): a name a batch leaves with no definition, still referenced.
+def test_removing_a_wrong_but_present_definition_is_a_real_link_loss(batch, capsys):
+    saved, facts, _, _ = batch
+    # The census judged the provider's copy wrong and the consumer unlinked, so the existing
+    # checks skip both; the real link still resolved `api` through that copy.
+    saved["comdat"]["api"] = [(0, "bad", "wrong")]
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    saved["blockers"]["Code/provider.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    assert A.audit("a" * 40, "b" * 40, []) == 0                 # report mode: the exit is unchanged
+    out = capsys.readouterr().out
+    assert "REAL-LINK LOSS api: defined before this batch by provider.obj, by no kept object after; " \
+           "still referenced by caller.obj" in out
+    assert "(report mode: not refused)" in out
+
+
+def test_the_refuse_mode_fails_the_push(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "refuse mode: refused" in capsys.readouterr().out
+
+
+def test_an_unreferenced_removal_is_no_real_link_loss(batch, capsys):
+    saved, facts, _, _ = batch
+    saved["touches"]["caller.obj"] = {"caller"}
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([], ["caller"], [], [])
+    A.audit("a" * 40, "b" * 40, [])
+    assert "REAL-LINK LOSS" not in capsys.readouterr().out
+
+
+def test_a_name_the_toolchain_resolves_is_no_real_link_loss(batch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    saved["excuses"]["runtime"] = {"api"}
+    facts["provider.obj"] = ([], [], [], [])
+    A.audit("a" * 40, "b" * 40, [])
+    assert "REAL-LINK LOSS" not in capsys.readouterr().out
+
+
+def test_a_moved_definition_is_no_real_link_loss(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    saved["blockers"]["Code/caller.cpp"]["linked"] = False
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([("api", "good", 10, "retail")], ["caller"], [], [])
+    monkeypatch.setattr(A, "changed_sources", lambda base, tip: {"Code/provider.cpp", "Code/caller.cpp"})
+    A.audit("a" * 40, "b" * 40, [])
+    assert "REAL-LINK LOSS" not in capsys.readouterr().out
+
+
+def test_real_link_losses_ignore_census_verdicts_and_pins():
+    saved = index()
+    saved.update(excuses={"runtime": set(), "imported": {}, "stubs": {}},
+                 touches={"retail.obj": {"insert_unique"}, "ini.obj": {"insert_unique"}})
+    updated = A.overlay(saved, [], {"retail.obj"}, None)
+    updated["comdat"] = {}
+    losses = A.real_link_losses(saved, updated, {"insert_unique"}, {"retail.obj": 0, "ini.obj": 1}, {"ini.obj": 0})
+    assert losses == [("insert_unique", ["ini.obj", "retail.obj"], ["ini.obj"])]

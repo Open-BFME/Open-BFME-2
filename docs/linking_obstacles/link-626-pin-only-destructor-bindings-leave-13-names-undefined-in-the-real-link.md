@@ -41,11 +41,16 @@ destructor has no definition.
   in the FESL SDK's util.cpp and needs care). The `VectorClass<P*>` destructors fold, so which
   instantiation owns each deleting dtor needs its own evidence.
 
-**Tooling finding: the push audit did not see this.** `tools/link_batch_audit.py` judges each changed
-unit with census verdicts (`link_census.judge_selected`), and the census counts a pinned name aliased
-to a matched address as resolved. The real link performs no such aliasing, so all four pushes passed
-the audit while the real link lost 13 definitions. The audit should judge real-link resolution without
-pin aliasing; that is the lasting prevention (in progress in the Link lane, 2026-11-07).
+**Tooling finding: the push audit did not see this (corrected 2026-11-07).** The first diagnosis
+blamed the census's pin aliasing; the census index shows otherwise. `tools/link_batch_audit.py` rejudges
+only units whose prior census verdict is `linked`, and `Rva00170C0Siblings.cpp` was `linked: False`
+(its empty destructors were `losers`/`wrong_selected`); its "provider disappeared" review line fires
+only when the old verdict was not `wrong`. So the removal of wrong-but-present definitions was invisible
+to it, while the real link, which ignores verdicts, still used them. The audit now reports a
+**real-link loss**: a name defined before the batch, by no kept object after, still referenced by a kept
+object, judged from object symbol tables alone (`real_link_losses`, report mode first). Measured by
+compiling each of the four units at its parent and at the commit: the rule finds all 13 names
+(8 + 3 + 1 + 1), each still referenced by its own unit.
 
 **Handoff.** Pin-only binding of a destructor (or any referenced function) costs a real-link
 definition. Until the real owner's name is spelled in source, the real link's unresolved count rises
