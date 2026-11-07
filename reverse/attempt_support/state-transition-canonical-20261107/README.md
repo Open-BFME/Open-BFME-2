@@ -45,3 +45,11 @@ Xfer has enum/member conflicts; defineState differs under the seed's signed
 map/volatile context. Seven mixed files remain outside the merge. An Object
 view union does not resolve these prerequisites. No full StateMachine table,
 image, runtime or broader family clearance is claimed.
+
+Prerequisite 5e5093f68a passed the required shared-header gate: 4,670 rows
+across 574 source units. The subsequent supported merge absorbs StateCtor.cpp,
+retains all 23 rows and two EXACT EH graphs, and removes one source file
+(18,034 -> 18,033 in this checkout). The merged 903-byte preview conserves
+the original pair's authored bytes. Existing vtable placeholder storage remains;
+this is source recovery and header-debt retirement, not a full table repair.
+[Consolidation and tooling audit](consolidation-audit.md).

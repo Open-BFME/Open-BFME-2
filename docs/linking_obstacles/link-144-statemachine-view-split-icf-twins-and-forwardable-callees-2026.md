@@ -31,3 +31,12 @@ Census confirmation: awaiting.
   separate. The other four donors still require Machine/map/CRT/enum
   reconciliation; seven mixed files stay. No image/runtime clearance.
   [Proof and remaining boundaries](../../reverse/attempt_support/state-transition-canonical-20261107/README.md).
+- Same pass, approved constructor merge: tu_skeleton.py absorbs StateCtor.cpp
+  into the retail StateMachine TU, transferring six function rows, three
+  verified data rows and five data-ledger owners. Normal 23/23 and 2 EXACT EH
+  graphs pass; the merged preview conserves the pair's 903 authored bytes.
+  One source file disappears. Fresh destination State acceptance and MS-header
+  scan pass; current Machine/map debt remains. The batch path-consumer audit
+  finds historical references only. Existing vtable placeholders and all four
+  remaining donor boundaries are retained; actual image/census confirmation
+  stays open. [Audit](../../reverse/attempt_support/state-transition-canonical-20261107/consolidation-audit.md).

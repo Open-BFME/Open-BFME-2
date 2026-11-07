@@ -13869,11 +13869,11 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008605A8,16,.rdata,string,??_C@_0N@HNDJBLEE@FailureState?$AA@,,literal,,0,1
 0x008605B8,16,.rdata,string,??_C@_0O@HPEKLPHK@ContinueState?$AA@,,literal,,0,1
 0x008605C8,16,.rdata,string,??_C@_0L@JCMIFIIJ@SleepState?$AA@,,literal,,0,1
-0x008605D8,1,.rdata,global,_State_vftable,Code/GameEngine/Source/Common/StateCtor.cpp,owned,,1,1
-0x00860620,72,.rdata,global,_Rva004D7476_vftable,Code/GameEngine/Source/Common/StateCtor.cpp,owned,,1,1
-0x00860668,1,.rdata,global,_Rva004D7491_vftable,Code/GameEngine/Source/Common/StateCtor.cpp,owned,,1,1
-0x008606B0,1,.rdata,global,_Rva004D74AC_vftable,Code/GameEngine/Source/Common/StateCtor.cpp,owned,,1,1
-0x008606F8,72,.rdata,global,_Rva004D74C7_vftable,Code/GameEngine/Source/Common/StateCtor.cpp,owned,,1,1
+0x008605D8,1,.rdata,global,_State_vftable,Code/GameEngine/Source/Common/StateMachine.cpp,owned,,1,1
+0x00860620,72,.rdata,global,_Rva004D7476_vftable,Code/GameEngine/Source/Common/StateMachine.cpp,owned,,1,1
+0x00860668,1,.rdata,global,_Rva004D7491_vftable,Code/GameEngine/Source/Common/StateMachine.cpp,owned,,1,1
+0x008606B0,1,.rdata,global,_Rva004D74AC_vftable,Code/GameEngine/Source/Common/StateMachine.cpp,owned,,1,1
+0x008606F8,72,.rdata,global,_Rva004D74C7_vftable,Code/GameEngine/Source/Common/StateMachine.cpp,owned,,1,1
 0x00860740,72,.rdata,vtable,??_7StateMachine@@6B@,,literal,,0,2
 0x00860788,8,.rdata,global,_DEFAULT_TURN_RATE,Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp,owned,,1,1
 0x00860790,1,.rdata,global,_Rva004D7B70_vftable,Code/GameEngine/Source/Common/StateDerivedCtorRva004D7B70.cpp,owned,,1,1

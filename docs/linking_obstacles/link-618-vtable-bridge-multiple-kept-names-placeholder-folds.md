@@ -181,6 +181,12 @@ them.
   premise was wrong: `??1State@@UAE@XZ` has been a matched row in StateCtor.cpp at 0x0049B47C since
   `0fe7b0f981e` (2026-10-07).
 
+  2026-11-07 source recovery: that unchanged State destructor row now lives in
+  Common/StateMachine.cpp after the supported StateCtor.cpp consolidation.
+  All 23 merged rows, two EH graphs and the 903-byte combined link preview are
+  retained. The historical row-existence evidence above still holds; the move
+  claims no new placeholder-fold/table/image clearance (LINK-144).
+
 **Next check.** Read the next published real link's `vtable_bridge_queue.tsv` for lk36's 21 tables and lk37's 10
 (0x008112C0, 0x00811368, 0x008113B8, 0x00811798, 0x008117F0, 0x00811850, 0x008118B0, 0x00811900, 0x008694DC,
 0x0083AD08).

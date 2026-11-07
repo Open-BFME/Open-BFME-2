@@ -9,16 +9,12 @@
 #include "../../Include/Common/BfmeAccessorMacros.h"
 #include "../GameLogic/AI/WorkOrder.h"
 #include "../GameLogic/AI/TeamInQueue.h"
-
 // bfme link decl-only begin
 namespace _STL { template <> _Rb_tree<int, pair<int const, void *>, _Select1st<pair<int const, void *> >, less<int>, allocator<pair<int const, void *> > >::~_Rb_tree(); }
-
 // bfme link decl-only end
 
 class Object;
-
 class Xfer;
-
 // ?rva004D7127@State@@QAEXPBUStateConditionInfo@@@Z at retail 0x004D7127 (33B).
 // State transitions array setter called by StateMachine::defineState 0x004D7B0F.
 // Evidence: caller 0x004D7B0F stores id/success/failure then calls here with conditions;
@@ -26,28 +22,20 @@ class Xfer;
 // stride 0xC matches StateConditionInfo (test/toState/userData) null-terminated.
 
 class StateMachine;
-
 typedef int Int;
-
 typedef unsigned int StateID;
-
 typedef bool Bool;
-
 enum
 {
 	EXIT_MACHINE_WITH_SUCCESS = 9998,
 	EXIT_MACHINE_WITH_FAILURE = 9999
 };
-
 enum
 {
 	MACHINE_DONE_STATE_ID = 999998
 };
-
 class State;
-
 typedef Bool (*StateTransFuncPtr)(State *state, void *userData);
-
 // ?bfmeQuery932C@BfmeSub932C@@QAEEXZ, retail 0x004D7383, 18 bytes.
 // Nullable-delegate query: when the +0x4 sub-chain is present the answer comes
 // from its 16th virtual (slot 0x3C); otherwise the +0x3A fallback byte answers.
@@ -87,31 +75,21 @@ public:
 	unsigned char m_bfmePad[0x32];
 	unsigned char m_bfmeFallback;
 };
-
 struct Rva004D74E2Element { short words[1]; bool operator<(const Rva004D74E2Element&b)const { return words[0]<b.words[0]; } bool operator==(const Rva004D74E2Element&b)const {return words[0]==b.words[0];} };
-
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::_Rb_tree<Rva004D74E2Element, _STL::pair<Rva004D74E2Element const, int>, _STL::_Select1st<_STL::pair<Rva004D74E2Element const, int> >, _STL::less<Rva004D74E2Element>, _STL::allocator<_STL::pair<Rva004D74E2Element const, int> > >::_M_erase(_STL::_Rb_tree_node<_STL::pair<Rva004D74E2Element const, int> > *);
-
 struct Rva004D751DElement { short words[1]; bool operator<(const Rva004D751DElement&b)const { return words[0]<b.words[0]; } bool operator==(const Rva004D751DElement&b)const {return words[0]==b.words[0];} };
-
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::_Rb_tree<Rva004D751DElement, _STL::pair<Rva004D751DElement const, int>, _STL::_Select1st<_STL::pair<Rva004D751DElement const, int> >, _STL::less<Rva004D751DElement>, _STL::allocator<_STL::pair<Rva004D751DElement const, int> > >::clear(void);
-
 struct Rva004D755FRecord {  char bytes[1]; };
-
 typedef _STL::pair<const int,Rva004D755FRecord> Rva004D755FPair;
-
 typedef _STL::_Rb_tree<int,Rva004D755FPair,_STL::_Select1st<Rva004D755FPair>,_STL::less<int>,_STL::allocator<Rva004D755FPair> > Rva004D755FTree;
-
 template Rva004D755FTree::~_Rb_tree();
-
 // Emit only the owned destructor and its dependencies, rather than the
 // unused map operations that introduce four competing shared COMDATs.
 // Native004D7597..004D759C5B tail-forwards unchanged ECX to the owned
 // tree destructor004D755F. Original wrapper owner and name remain unknown.
 struct Rva004D7597TreeCleanupForward { void cleanup(); };
-
 class Object
 {
 public:
@@ -122,7 +100,6 @@ private:
 	unsigned char m_effectivelyDead : 1; // +0x438 bit 0 of the private status byte
 	unsigned char m_otherStatus : 7;
 };
-
 class StateMachine : public Snapshot
 {
 public:
@@ -170,14 +147,58 @@ public:
 public:
 	Bool isGoalObjectDestroyed() const;
 };
-
 #include "../../Include/Common/StateConditionInfo.h"
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+// State_vftable: matched references place it at VA 0xc605d8 (retail .rdata value -3).
+extern "C" char State_vftable = -3;
 
 BFME_LITERAL_NAME_GETTER(Rva004D73F6Named, "SleepState")
 
 BFME_LITERAL_NAME_GETTER(Rva004D73F0Named, "ContinueState")
 
 BFME_LITERAL_NAME_GETTER(Rva004D73EANamed, "FailureState")
+
+// Rva004D7476_vftable: matched references place it at VA 0xc60620 (retail .rdata value -3).
+extern "C" char Rva004D7476_vftable = -3;
+
+// Rva004D7491_vftable: matched references place it at VA 0xc60668 (retail .rdata value -3).
+extern "C" char Rva004D7491_vftable = -3;
+
+// Rva004D74AC_vftable: matched references place it at VA 0xc606b0 (retail .rdata value -3).
+extern "C" char Rva004D74AC_vftable = -3;
+
+// Rva004D74C7_vftable: matched references place it at VA 0xc606f8 (retail .rdata value -3).
+extern "C" char Rva004D74C7_vftable = -3;
+
+class __declspec(novtable) Rva004D7476 : public State
+{
+public:
+	Rva004D7476(StateMachine *machine);
+	virtual ~Rva004D7476();
+};
+
+class __declspec(novtable) Rva004D7491 : public State
+{
+public:
+	Rva004D7491(StateMachine *machine);
+	virtual ~Rva004D7491();
+};
+
+class __declspec(novtable) Rva004D74AC : public State
+{
+public:
+	Rva004D74AC(StateMachine *machine);
+	virtual ~Rva004D74AC();
+};
+
+class __declspec(novtable) Rva004D74C7 : public State
+{
+public:
+	Rva004D74C7(StateMachine *machine);
+	virtual ~Rva004D74C7();
+};
+
+// ---- from Code/GameEngine/Source/Common/StateMachine.cpp
 
 // ---- from Code/GameEngine/Source/Common/StateMachine.cpp
 
@@ -400,6 +421,44 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 	return result;
 }
 
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 0x004D7A59 28B ??_GStateMachine@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
+
 // tu-skeleton: 0x004D729D 40B ?rva004D729D@Rva004D729D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004D72C5 68B ?clear@StateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
@@ -418,38 +477,79 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 
 // tu-skeleton: 0x004D73E4 6B ?Rva004D73E4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+// ---- from Code/GameEngine/Source/Common/StateCtor.cpp
 
-// Module literal name getters: six-byte const members with one shape:
+// ??0State@@QAE@PAVStateMachine@@I@Z at retail 0x004D73FC (43B).
+// Base State ctor: three INVALID_STATE_IDs (999999), owner machine, vector
+// homes zeroed, base vtable. BFME1 donor
+// reference/open-bfme-1/Code/GameEngine/Source/Common/StateMachine.cpp
+// State::State(StateMachine *machine, AsciiString name) minus debug. Vtable
+// 0x008605D8 overwritten by 40+ derived State ctors (0x004A6933 0x004A6BCA
+// 0x004A6C13 plus 0x0033Fxxx family); callees none (leaf, gate-ready).
 //
-//     mov eax,<offset string literal> / ret
+// Signature (target evidence): BFME2's second parameter is a 4-byte value
+// with no destructor, not the donor's AsciiString. The body is `ret 8` and
+// never destroys the argument, which a by-value AsciiString would oblige the
+// callee to do, and its 60+ derived ctors push a 32-bit name hash immediate
+// (e.g. 0xED821984 at 0x0033F2FD; none is an image address). The tree's
+// callers spell it `unsigned int`; the donor's AsciiString overload is not a
+// retail body and is no longer defined here.
 //
-// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
-// class-name string in .rdata. Each body VA carries exactly one .rdata
-// reference from its module vtable (descriptor tail closed by the shared
-// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
-// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
-// contributor-local unit to keep concurrent landings conflict-free; the
-// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
-// this tree's address-derived convention (identity unrecoverable from 6
-// bytes, string carried in source where verify_string_refs re-reads it).
-// No // cl: line (defaults match the frameless 6-byte shape).
+// The two derived ctors of this TU (retail 0x004D7491 and 0x004D74AC, 27
+// bytes each, adjacent to the base) see the base body: cl then keeps this in
+// edx across the base call, as retail does (the same ctors compiled
+// elsewhere spend push/pop esi, 29 bytes). Honest address names: hashes
+// 0xC17A0A70 and 0xDF4D3EB3, vtables 0x00860668 and 0x008606B0, callers
+// 0x00343A39 / 0x00346F79.
 
-// tu-skeleton: 0x004D73FC 43B ??0State@@QAE@PAVStateMachine@@I@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
+// The State ctor installs VA 0x00C605D8. Its first native slot is the
+// deleting destructor at RVA 0x004A10FD, which calls 0x0049B47C before
+// testing the delete flag. That complete body resets the shared Snapshot
+// vptr to VA 0x00BBB554. The released base has no additional owned fields;
+// use the canonical Snapshot definition so both bytes and binding agree.
+State::~State() {}
+
+State::State(StateMachine *machine, unsigned int hash)
+{
+	m_id = 999999;
+	m_successStateID = 999999;
+	m_failureStateID = 999999;
+	m_machine = machine;
+	*reinterpret_cast<char **>(this) = &State_vftable;
+	m_tail1C = false;
+	m_transitionsFirst = 0;
+	m_transitionsLast = 0;
+}
+
+// ??0Rva004D7476@@QAE@PAVStateMachine@@@Z
+Rva004D7476::Rva004D7476(StateMachine *machine) : State(machine, 0x8C36A3D4u)
+{
+	*reinterpret_cast<char **>(this) = &Rva004D7476_vftable;
+}
+
+// ??0Rva004D7491@@QAE@PAVStateMachine@@@Z
+Rva004D7491::Rva004D7491(StateMachine *machine) : State(machine, 0xC17A0A70u)
+{
+	*reinterpret_cast<char **>(this) = &Rva004D7491_vftable;
+}
+
+// ??0Rva004D74AC@@QAE@PAVStateMachine@@@Z
+Rva004D74AC::Rva004D74AC(StateMachine *machine) : State(machine, 0xDF4D3EB3u)
+{
+	*reinterpret_cast<char **>(this) = &Rva004D74AC_vftable;
+}
+
+// ??0Rva004D74C7@@QAE@PAVStateMachine@@@Z
+Rva004D74C7::Rva004D74C7(StateMachine *machine) : State(machine, 0xE529ED33u)
+{
+	*reinterpret_cast<char **>(this) = &Rva004D74C7_vftable;
+}
 
 // tu-skeleton: 0x004D7427 14B ?rva004D7427@StateMachine@@QAEXPBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7435 39B ?internalSetGoalObject@StateMachine@@QAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
 // tu-skeleton: 0x004D745C 26B ?setGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7476 27B ??0Rva004D7476@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7491 27B ??0Rva004D7491@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D74AC 27B ??0Rva004D74AC@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D74C7 27B ??0Rva004D74C7@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004D750F 14B ?setGoalObject@StateMachine@@UAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachine_setGoalObject.cpp (not merged yet)
 
@@ -472,8 +572,6 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 // tu-skeleton: 0x004D7744 535B ?xfer@StateMachine@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/StateMachineXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x004D795B 134B ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAVImage@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAVImage@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_uint_image_insert.cpp (not merged yet)
-
-// 0x004D7A59 28B ??_GStateMachine@@UAEPAXI@Z: the deleting destructor this unit's vtable emits
 
 // tu-skeleton: 0x004D7A75 88B ?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
