@@ -1,4 +1,4 @@
-// cl: /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /ICode/Libraries/Source/WWVegas/WW3D2 /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 //
 // LightClass's copy constructor (retail 0x00130C00, 307 bytes), assignment
 // (0x00130D40), destructor
@@ -17,80 +17,9 @@
 // constructor copies exactly those members after RenderObjClass's default
 // constructor, as Zero Hour's light.cpp writes it.
 
-#include "../WWLib/RefCountData.h"
-
-class PersistClass
-{
-public:
-	virtual ~PersistClass();
-};
-
-class RenderObjClass : public RefCountClass, public PersistClass
-{
-public:
-	RenderObjClass();
-	virtual ~RenderObjClass();
-	RenderObjClass &operator=(const RenderObjClass &);
-	virtual RenderObjClass *Clone() const = 0;
-	virtual void Set_Force_Visible(int onoff);
-	unsigned char Pad[0xC4 - 12];
-};
-
-// upstream layout: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/vector3.h
-#include "../WWMath/Vector3Data.h"
-
-// upstream layout: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/sphere.h
-class SphereClass
-{
-public:
-	Vector3 Center;
-	float Radius;
-};
-
-// upstream layout: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/aabox.h
-class AABoxClass
-{
-public:
-	Vector3 Center;
-	Vector3 Extent;
-};
-
-// upstream layout: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/light.h
-class LightClass : public RenderObjClass
-{
-public:
-	enum LightType
-	{
-		POINT = 0,
-		DIRECTIONAL,
-		SPOT
-	};
-
-	LightClass(LightType type = POINT);
-	LightClass(const LightClass &src);
-	LightClass &operator=(const LightClass &that);
-	virtual ~LightClass();
-	virtual RenderObjClass *Clone() const;
-	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;
-	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;
-	float Get_Attenuation_Range() const { return FarAttenEnd; }
-
-	int Type;									// +0xC4
-	unsigned int Flags;							// +0xC8
-	bool CastShadows;							// +0xCC
-	float Intensity;							// +0xD0
-	Vector3 Ambient;
-	Vector3 Diffuse;
-	Vector3 Specular;
-	float NearAttenStart;
-	float NearAttenEnd;
-	float FarAttenStart;
-	float FarAttenEnd;
-	float SpotAngle;
-	float SpotAngleCos;
-	float SpotExponent;
-	Vector3 SpotDirection;						// ends at +0x120
-};
+// The canonical LightClass over the canonical RenderObjClass: the unit then emits the class's
+// full table (retail 0x00BD23C0) instead of a six-slot one from private views (P21).
+#include "LightClass.h"
 
 // upstream: reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/wwmath.h
 #define WWMATH_PI			3.141592654f
@@ -182,12 +111,12 @@ RenderObjClass *LightClass::Clone() const
 void LightClass::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 {
 	sphere.Center.Set(0, 0, 0);
-	sphere.Radius = Get_Attenuation_Range();
+	sphere.Radius = FarAttenEnd;
 }
 
 void LightClass::Get_Obj_Space_Bounding_Box(AABoxClass &box) const
 {
-	float r = Get_Attenuation_Range();
+	float r = FarAttenEnd;
 	box.Center.Set(0, 0, 0);
 	box.Extent.Set(r, r, r);
 }
