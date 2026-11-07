@@ -48,6 +48,7 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 
 protected:
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 };
 

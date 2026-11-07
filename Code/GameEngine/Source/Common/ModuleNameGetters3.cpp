@@ -132,7 +132,7 @@ const char *BoneFXDamage::GetSnapshotName() const
 	return "BoneFXDamage";
 }
 BFME_LITERAL_NAME_GETTER(Rva004BAB4FNamed, "ReflectDamage")
-BFME_LITERAL_NAME_GETTER(Rva004BB962Named, "SquishCollide")
+BFME_SNAPSHOT_NAME_GETTER(SquishCollide, "SquishCollide")
 BFME_LITERAL_NAME_GETTER(AODCrushCollide, "AODCrushCollide")
 BFME_LITERAL_NAME_GETTER(Rva004BC33ENamed, "HordeMemberCollide")
 BFME_LITERAL_NAME_GETTER(Rva004BC515Named, "CrateCollide")
