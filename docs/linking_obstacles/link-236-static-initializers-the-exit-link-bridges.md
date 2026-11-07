@@ -1245,3 +1245,6 @@ touched object kept its `??_7` digests, link_check passed on the changed files (
 
 
 **2026-11-07 AptDate lookup consolidation.** AptDateLookup.cpp is absorbed into the approved AptDate.cpp after the calendar view declared the native const-qualified virtual lookup with its existing clock offsets. All 87 code rows, the cache data row and three EH graphs verify. Local link preview against 436fb45367 preserves the combined 9,825 bytes (4,746 plus 5,079). The outgoing path audit covers the sole removed path since 9c81acd297. The merge tool repoints functions.csv and tu_map.csv. The old path remains in a merge provenance comment, an EH provenance note and historical census, verdict and evidence records. The interpreter initializer and cleanup still belong to AptDate.cpp. A real-link run containing the merge is pending.
+
+
+**2026-11-07 AptDate interpreter storage.** The data verifier independently confirms the 72-byte zero-filled allocation at VA 0x00E182E0. It belongs to AptDate.cpp alongside the matched initializer 0x007B67A0 and cleanup 0x007B9C50. The ledger addition does not edit the source or its startup actions.
