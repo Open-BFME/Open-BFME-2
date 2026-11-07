@@ -6842,21 +6842,6 @@ void __cdecl rva007B7AFF()
 // ?rva007B89C1@@YAXXZ @ 0x007B89C1 (10B). Global dtor thunk: ecx=&BfmeLargeGroupAudioRegistry then tail-jmp to pinned ??1Rva004ABE53Dtor@@QAE@XZ (0x004ABE53). No callers. Honest address name.
 void __cdecl rva007B89C1();
 
-struct AptActionInterpreter
-{
-	~AptActionInterpreter();
-};
-
-// Defined in Apt/AptDate.cpp (VA 0x00E182E0).
-extern AptActionInterpreter g_aptDateInterpreter;
-
-// ?rva007B9C50@@YAXXZ @ 0x007B9C50 (10B). Global AptActionInterpreter dtor thunk: ecx=&g_aptDateInterpreter then tail-jmp to pinned ??1AptActionInterpreter@@QAE@XZ (0x006FE9C0). No callers. Honest address name.
-void __cdecl rva007B9C50()
-{
-	AptActionInterpreter *receiver = &g_aptDateInterpreter;
-	return receiver->~AptActionInterpreter();
-}
-
 class Rva000FC5AADtor
 {
 public:

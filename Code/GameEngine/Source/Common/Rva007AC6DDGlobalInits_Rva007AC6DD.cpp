@@ -88,8 +88,6 @@ void __cdecl rva007B9A37();
 void rva007B53D4();
 
 
-void __cdecl rva007B9C50();
-void rva007B67A0();
 
 
 void __cdecl rva007B6A50();

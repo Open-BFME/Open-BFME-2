@@ -88,9 +88,18 @@ class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int); int count,capacit
 
 // Retail's constructor (0x006FE980) zeroes words out to +0x3C and the ledger's gap is 72 bytes. This view names
 // only the stack, so the rest is storage: as 12 bytes the constructor overwrote its neighbours at startup.
-struct AptActionInterpreter { AptBasePtrStack stack; char m_rest[72 - sizeof(AptBasePtrStack)]; };
+// The out-of-line constructor and destructor are the rowed ones (AptActionInterpreter.cpp,
+// AptActionInterpreterDtor.cpp).
+struct AptActionInterpreter
+{
+	AptActionInterpreter();
+	~AptActionInterpreter();
+	AptBasePtrStack stack;
+	char m_rest[72 - sizeof(AptBasePtrStack)];
+};
 
-// g_aptDateInterpreter: matched references place it at VA 0xe182e0 (zero-filled; a plain-data view).
+// g_aptDateInterpreter (VA 0x00E182E0). Retail constructs it from this unit's initializer
+// 0x007B67A0 and registers the cleanup 0x007B9C50, which runs the destructor 0x006FE9C0.
 AptActionInterpreter g_aptDateInterpreter;
 
 extern AptValue *gpUndefinedValue;

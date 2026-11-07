@@ -42455,7 +42455,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva00150959@Rva00150959@@QAEXPAURva001504A1Record@@IABVRva0014F699@@@Z,,0x00150959,258,Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp,matched,vector fill-insert 76B EH tag callers 0x00150BD7 0x00150A86
 ?rva007B7AF5@@YAXXZ,,0x007B7AF5,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF4F8 tail-jmp pinned AudioEventRTS dtor 0x0030AF8F
 ?rva007B7AFF@@YAXXZ,,0x007B7AFF,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF4B8 tail-jmp pinned AudioEventRTS dtor 0x0030AF8F
-?rva007B9C50@@YAXXZ,,0x007B9C50,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00E182E0 tail-jmp pinned AptActionInterpreter dtor 0x006FE9C0
 ?rva007B6F08@@YAXXZ,,0x007B6F08,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC1CC tail-jmp pinned dtor 0x000FC5AA
 ?rva007B6F12@@YAXXZ,,0x007B6F12,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC1DC tail-jmp pinned dtor 0x000FC5AA
 ?rva007B6EAE@@YAXXZ,,0x007B6EAE,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC018 tail-jmp pinned dtor 0x000F82F5
@@ -68225,7 +68224,6 @@ Unwind@00ba9e2b,,0x007A9E2B,15,Code/Libraries/Source/Apt/AptDateLookup.cpp,match
 ?rva007B5000@@YAXXZ,,0x007B5000,22,Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp,matched,global initializer ctor 0x005E3D95 cb 007B9947 atexit
 ?rva007B51EB@@YAXXZ,,0x007B51EB,22,Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp,matched,global initializer ctor 0x005F005B cb 007B99B5 atexit
 ?rva007B53D4@@YAXXZ,,0x007B53D4,22,Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp,matched,global initializer ctor 0x003B6831 cb 007B9A37 atexit
-?rva007B67A0@@YAXXZ,,0x007B67A0,22,Code/GameEngine/Source/Common/Rva007AC6DDGlobalInits.cpp,matched,global initializer ctor 0x006FE980 cb 007B9C50 atexit
 Unwind@00ba9e3a,,0x007A9E3A,15,Code/Libraries/Source/Apt/AptDateLookup.cpp,matched,gen-funclet;parent=?objectMemberLookup@AptDate@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z;object-symbol=$L1187; Native Ghidra15B extent and exact parent EH graph bind this allocation-failure cleanup state; full bytes and sized delete relocation resolved; emitted by existing real C++
 Unwind@00ba9e49,,0x007A9E49,15,Code/Libraries/Source/Apt/AptDateLookup.cpp,matched,gen-funclet;parent=?objectMemberLookup@AptDate@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z;object-symbol=$L1188; Native Ghidra15B extent and exact parent EH graph bind this allocation-failure cleanup state; full bytes and sized delete relocation resolved; emitted by existing real C++
 Unwind@00ba9e58,,0x007A9E58,15,Code/Libraries/Source/Apt/AptDateLookup.cpp,matched,gen-funclet;parent=?objectMemberLookup@AptDate@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z;object-symbol=$L1189; Native Ghidra15B extent and exact parent EH graph bind this allocation-failure cleanup state; full bytes and sized delete relocation resolved; emitted by existing real C++
