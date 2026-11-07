@@ -6,7 +6,8 @@
 // Target facts (code addresses are RVAs, vftables VAs):
 //  - ??0TooltipUpgrade 0x004B7A50 calls ??0UpgradeModule 0x00460AEC, then installs 0x00C58C08 at
 //    +0, UpgradeModule's 0x00C57328 at +0x0C, 0x00C58BC0 at +0x10 and UpgradeModule's 0x00C58790
-//    at +0x18; its destructor 0x004B79AD restores the same four tables.
+//    at +0x18; its destructor 0x004B79AD restores the same four tables and jumps to
+//    ??1UpgradeModule 0x0046089D.
 //  - 0x00C58C08 (12 slots): deleting destructor 0x004B7A81, loadPostProcess 0x00497805
 //    (`jmp 0x0058B03E`, UpgradeModule's own body), GetSnapshotName 0x004B79CD ("TooltipUpgrade"),
 //    xfer 0x004B8710 (Version1, then UpgradeModule::xfer; a body retail folds with
@@ -29,6 +30,7 @@ class TooltipUpgrade : public UpgradeModule
 {
 public:
 	TooltipUpgrade( Thing *thing, const ModuleData *moduleData );
+	virtual ~TooltipUpgrade();
 
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void postUpgradeCheck();										// UpgradeMux slot 6

@@ -182,13 +182,12 @@ CastleUpgrade::~CastleUpgrade()
 {
 }
 
-class Rva004B79AD : public UpgradeModule
-{
-public:
-	virtual ~Rva004B79AD();
-};
+// TooltipUpgrade's destructor 0x004B79AD: its constructor 0x004B7A50 installs
+// the same four tables. The class is TooltipUpgrade.h's, so this unit's copies
+// of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/TooltipUpgrade.h"
 
-Rva004B79AD::~Rva004B79AD()
+TooltipUpgrade::~TooltipUpgrade()
 {
 }
 

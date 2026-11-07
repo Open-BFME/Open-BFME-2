@@ -89,7 +89,7 @@ void TooltipUpgrade::upgradeImplementation()
 	(*(BfmeWorldRV **)&TheControlBar)->m_28 = 1;
 }
 
-// tu-skeleton: 0x004B7A81 28B ??_GRva004B79AD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B7A81 28B ??_GTooltipUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B7ADB 69B ?upgradeRemovalImplementation@TooltipUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgradeRemoval.cpp (not merged yet)
 
