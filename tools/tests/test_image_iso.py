@@ -789,6 +789,7 @@ def test_address_only_cli_keeps_ambiguous_out_of_defects_tsv(tmp_path, monkeypat
     assert json.loads(defects[0]["evidence"])["offset"] == 1
     assert ambiguous[0]["family"] == "unrelocated_retail_address_ambiguous"
     assert json.loads((out / "report.json").read_text())["analysis_scope"] == "absolute address code/data audit only"
+    assert json.loads((out / "report.json").read_text())["relocation_bounds"]["counts"] == {}
 
 
 def test_float_literal_gap_is_not_nonaddress_payload(tmp_path):
@@ -1049,7 +1050,7 @@ def test_merged_import_lookup_and_hint_names_are_not_absolute_pointers(tmp_path)
     assert not result["defects"] and not result["ambiguous"]
 
 
-def bounds_case(tmp_path, addend=24, size=24, kind=6):
+def bounds_case(tmp_path, addend=24, size=20, kind=6):
     body = b"\x68" + struct.pack("<i", addend) + b"\xc3"
     linked = b"\x68" + struct.pack("<I", (0x10002000 + addend if kind == 6 else
         0x2000 + addend - 0x305) & 0xffffffff) + b"\xc3"
@@ -1062,19 +1063,19 @@ def bounds_case(tmp_path, addend=24, size=24, kind=6):
 
 def test_out_of_object_detects_p12_even_when_retail_arithmetic_is_correct(tmp_path):
     c, ledger = bounds_case(tmp_path)
-    data = [row("CPUNames", 0x3000, 24), row("VideoNames", 0x3018, 16)]
+    data = [row("CPUNames", 0x3000, 20), row("VideoNames", 0x3018, 16)]
     result = iso.relocation_bounds(c, data, ledger)
     assert result["counts"]["defects"] == 1
     d = result["defects"][0]
-    assert d["symbol"] == "CPUNames" and d["addend"] == d["symbol_size"] == 24
-    assert d["one_past"] and d["actual_va"] == "0x10002018"
+    assert d["symbol"] == "CPUNames" and d["addend"] == 24 and d["symbol_size"] == 20
+    assert not d["one_past"] and d["actual_va"] == "0x10002018"
     assert d["actual_owners"][0]["name"] == "unrelated"
     assert d["retail_va"] == "0x403018" and d["retail_owners"][0]["name"] == "VideoNames"
     assert c.defects[0]["family"] == "out_of_object_pointer"
 
 
 def test_bounds_inside_negative_and_beyond_end_are_distinct(tmp_path):
-    for addend, expected in [(0,0),(23,0),(24,1),(28,1),(-4,1)]:
+    for addend, expected in [(0,0),(19,0),(20,0),(24,1),(28,1),(-4,0)]:
         c, ledger = bounds_case(tmp_path, addend)
         result = iso.relocation_bounds(c, [], ledger)
         assert result["counts"]["defects"] == expected
@@ -1104,18 +1105,18 @@ def test_rel32_bounds_and_static_symbol_object_qualification(tmp_path):
 
 def test_bounds_only_cli_is_wired_and_writes_defects(tmp_path, monkeypatch):
     root=tmp_path/"root"; (root/"reverse").mkdir(parents=True)
-    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name,source,names\n0x3000,24,global,CPUNames,Code/names.cpp,\n0x3018,16,global,VideoNames,Code/names.cpp,\n")
-    (root/"reverse/functions.csv").write_text("name,target_rva,target_size,status,notes,source\ngetter,0x1020,6,matched,,Code/getter.cpp\n")
+    (root/"reverse/data_ledger.csv").write_text("address,size,kind,name,source,names\n0x3000,20,global,CPUNames,Code/names.cpp,\n0x3018,16,global,VideoNames,Code/names.cpp,\n")
+    (root/"reverse/functions.csv").write_text("name,target_rva,target_size,status,notes,source\ngetter,0x1020,11,matched,,Code/getter.cpp\n")
     monkeypatch.setattr(iso.build,"ROOT",root)
     ours,retail=tmp_path/"exit.exe",tmp_path/"retail.exe"
     for path,base in [(ours,0x10000000),(retail,0x400000)]:
         write_pe(path,base)
-        raw=bytearray(path.read_bytes());raw[0x220:0x226]=b"\x68"+struct.pack("<I",base+0x3018)+b"\xc3";path.write_bytes(raw)
+        raw=bytearray(path.read_bytes());raw[0x220:0x22b]=b"\x68"+struct.pack("<I",base+0x3018)+b"\x68"+struct.pack("<I",base+0x3014)+b"\xc3";path.write_bytes(raw)
     obj=tmp_path/"getter.obj"
-    iso.link_cycle.write_coff(obj,[(".text",0x60000020,b"\x68"+struct.pack("<I",24)+b"\xc3",0),
-        (".data",0xc0000040,bytes(40),0)],[("getter",1,0,2),("CPUNames",2,0,2),("unrelated",2,24,2)],{1:[(1,"CPUNames",6)]})
+    iso.link_cycle.write_coff(obj,[(".text",0x60000020,b"\x68"+struct.pack("<I",24)+b"\x68"+struct.pack("<I",20)+b"\xc3",0),
+        (".data",0xc0000040,bytes(40),0)],[("getter",1,0,2),("CPUNames",2,0,2),("unrelated",2,20,2)],{1:[(1,"CPUNames",6),(6,"CPUNames",6)]})
     manifest=tmp_path/"objects.json";manifest.write_text(json.dumps([dict(path=obj.name,sha256=iso.digest(obj),source="Code/getter.cpp")]))
-    mapfile=tmp_path/"exit.map";mapfile.write_text(" 0001:00000020 getter 10001020 f getter.obj\n 0002:00000000 CPUNames 10003000 getter.obj\n 0002:00000018 unrelated 10003018 getter.obj\n")
+    mapfile=tmp_path/"exit.map";mapfile.write_text(" 0001:00000020 getter 10001020 f getter.obj\n 0002:00000000 CPUNames 10003000 getter.obj\n 0002:00000014 unrelated 10003014 getter.obj\n")
     (tmp_path/"image_receipt.json").write_text(json.dumps(dict(kind="diagnostic",base="0x10000000",stubbed=[],image_sha256=iso.digest(ours),map_sha256=iso.digest(mapfile))))
     out=tmp_path/"out"
     assert iso.main(["--image",str(ours),"--map",str(mapfile),"--retail",str(retail),"--objects",str(manifest),"--out",str(out),"--relocation-bounds-only"])==1
@@ -1123,3 +1124,93 @@ def test_bounds_only_cli_is_wired_and_writes_defects(tmp_path, monkeypatch):
     assert r["relocation_bounds"]["counts"]["defects"]==1
     assert r["defects"][0]["family"]=="out_of_object_pointer"
     assert "out_of_object_pointer" in (out/"defects.tsv").read_text()
+
+    assert r["relocation_bounds"]["counts"]["leads"] == 1
+    assert len(r["defects"]) == 1
+    assert "out_of_object_pointer_lead" in (out/"relocation_leads.tsv").read_text()
+
+
+def test_stlport_end_sentinel_is_a_lead_not_a_defect(tmp_path):
+    c, ledger = bounds_case(tmp_path, addend=112, size=112)
+    result = iso.relocation_bounds(c, [], ledger)
+    assert result["counts"]["defects"] == 0 and result["counts"]["leads"] == 1
+    assert result["leads"][0]["reason"] == "one_past_address"
+    assert not c.defects
+
+
+def test_indexed_negative_displacement_is_a_lead_not_a_defect(tmp_path):
+    body = b"\x8b\x04\x85" + struct.pack("<i", -43) + b"\xc3"
+    linked = b"\x8b\x04\x85" + struct.pack("<I", 0x10002000 - 43) + b"\xc3"
+    c, ledger, _ = absolute_case(tmp_path, body, linked_body=linked, relocs=[(3,6)])
+    c.publics[0]["coff"]["section"]["relocation_targets"] = {3:dict(name="arr",cls=2,section=0)}
+    c.publics.append(public("arr",0x2000,80))
+    result = iso.relocation_bounds(c, [], ledger)
+    assert result["counts"]["defects"] == 0 and result["counts"]["leads"] == 1
+    assert result["leads"][0]["reason"] == "indexed_displacement"
+    assert not c.defects
+
+
+def test_absolute_dereference_and_add_base_at_end_are_defects(tmp_path):
+    for opcode, reason in [(b"\xa1","absolute_dereference"),(b"\xa3","absolute_dereference"),(b"\x05","out_of_bounds_add_base")]:
+        c, ledger = bounds_case(tmp_path, addend=20, size=20)
+        sec=c.publics[0]["coff"]["section"]
+        sec["body"] = opcode + sec["body"][1:]
+        c.ours.put(0x300, opcode + c.ours.read(0x301,5))
+        result=iso.relocation_bounds(c,[],ledger)
+        assert result["counts"]["defects"] == 1 and result["defects"][0]["reason"] == reason
+
+
+def test_crt_section_marker_loop_is_a_lead(tmp_path):
+    c,ledger=bounds_case(tmp_path,addend=4,size=4)
+    c.publics[0]["coff"]["section"]["relocation_targets"][1]["name"]="___rtc_iaa"
+    c.publics[1]["name"]="___rtc_iaa"
+    result=iso.relocation_bounds(c,[],ledger)
+    assert result["counts"]["leads"] == 1 and not result["defects"]
+    assert result["leads"][0]["reason"] == "crt_section_marker"
+
+
+def test_unknown_operand_is_ambiguous_not_a_defect(tmp_path):
+    c,ledger=bounds_case(tmp_path)
+    c.ours.put(0x300,b"\xc3")
+    result=iso.relocation_bounds(c,[],ledger)
+    assert result["counts"]["ambiguous"] == 1 and not result["defects"]
+    assert result["ambiguous"][0]["reason"] == "relocation_not_a_decoded_operand"
+
+
+def test_unanalyzed_reason_samples_are_capped_and_counted(tmp_path):
+    c,ledger=bounds_case(tmp_path)
+    sec=c.publics[0]["coff"]["section"]
+    sec["body"]=bytes(80);sec["relocations"]=tuple((i*4,6) for i in range(20))
+    sec["relocation_targets"]={i*4:dict(name="missing",cls=2,section=0) for i in range(20)}
+    c.publics[0]["extent"]=80
+    result=iso.relocation_bounds(c,[],ledger)
+    assert result["counts"]["target_map_ambiguous_or_absent"] == 20
+    assert len(result["unanalyzed_samples"]["target_map_ambiguous_or_absent"]) == 8
+
+
+def test_address_and_bounds_only_modes_cannot_silently_skip_both(tmp_path):
+    import pytest
+    with pytest.raises(SystemExit) as exc:
+        iso.main(["--image", str(tmp_path/"missing.exe"), "--map", str(tmp_path/"missing.map"),
+                  "--address-only", "--relocation-bounds-only"])
+    assert exc.value.code == 2
+
+
+def test_comparison_only_beyond_end_is_ambiguous_not_a_defect(tmp_path):
+    c,ledger=bounds_case(tmp_path,addend=752,size=744)
+    sec=c.publics[0]["coff"]["section"];sec["body"]=b"\x3d"+sec["body"][1:]
+    c.ours.put(0x300,b"\x3d"+c.ours.read(0x301,5))
+    result=iso.relocation_bounds(c,[],ledger)
+    assert result["counts"]["ambiguous"] == 1 and not result["defects"]
+    assert result["ambiguous"][0]["reason"] == "beyond_end_comparison"
+
+
+def test_comparison_with_absolute_memory_beyond_end_is_still_a_defect(tmp_path):
+    body=b"\x83\x3d"+struct.pack("<I",24)+b"\x00\xc3"
+    linked=b"\x83\x3d"+struct.pack("<I",0x10002018)+b"\x00\xc3"
+    c,ledger,_=absolute_case(tmp_path,body,linked_body=linked,relocs=[(2,6)])
+    c.publics[0]["coff"]["section"]["relocation_targets"]={2:dict(name="arr",cls=2,section=0)}
+    c.publics.append(public("arr",0x2000,20))
+    result=iso.relocation_bounds(c,[],ledger)
+    assert result["counts"]["defects"] == 1 and not result["ambiguous"]
+    assert result["defects"][0]["reason"] == "absolute_dereference"
