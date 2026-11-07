@@ -74,7 +74,8 @@ public:
 // place, and the CreateObjectDieModuleData destructor 0x00485DDA ends by
 // restoring Snapshot's table 0x00BBB554. The headers only declare them, so this
 // unit supplies the inline bodies its destructors expand.
-// ?BehaviorModule::~BehaviorModule absent-from-retail
+// Retail's out-of-line copy is 0x004607E1 (rowed ??1BehaviorModule@@MAE@XZ, an ICF
+// fold of ??1Rva004607E1); BehaviorModule's own deleting destructor 0x0025335A calls it.
 inline BehaviorModule::~BehaviorModule()
 {
 }

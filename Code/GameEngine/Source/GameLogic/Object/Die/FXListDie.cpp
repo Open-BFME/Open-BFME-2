@@ -33,8 +33,9 @@ NameKeyType FXListDie::rva000486598()
 // ~DieModule 0x0045CE54 restores the interface table at +0x10, then
 // BehaviorModule's 0x00BEEA7C at +0 and 0x00BEE9C0 at +0x0C, and tail-jumps to
 // ~ObjectModule 0x0049B47C. The header only declares it, so this unit supplies
-// the inline body its destructor expands. Retail keeps no out-of-line copy.
-// ?BehaviorModule::~BehaviorModule absent-from-retail
+// the inline body its destructor expands.
+// Retail's out-of-line copy is 0x004607E1 (rowed ??1BehaviorModule@@MAE@XZ, an ICF
+// fold of ??1Rva004607E1); BehaviorModule's own deleting destructor 0x0025335A calls it.
 inline BehaviorModule::~BehaviorModule()
 {
 }

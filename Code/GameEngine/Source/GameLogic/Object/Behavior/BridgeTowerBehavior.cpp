@@ -127,8 +127,9 @@ protected:
 // Retail's BehaviorModule destructor is inline and empty: ~BridgeTowerBehavior
 // 0x004586C7 restores BehaviorModule's tables 0xBEEA7C/0xBEE9C0 in place before
 // its tail jump to ~ObjectModule 0x0049B47C. The header only declares it, so this
-// unit supplies the inline body. Retail keeps no out-of-line copy.
-// ?BehaviorModule::~BehaviorModule absent-from-retail
+// unit supplies the inline body.
+// Retail's out-of-line copy is 0x004607E1 (rowed ??1BehaviorModule@@MAE@XZ, an ICF
+// fold of ??1Rva004607E1); BehaviorModule's own deleting destructor 0x0025335A calls it.
 inline BehaviorModule::~BehaviorModule()
 {
 }
