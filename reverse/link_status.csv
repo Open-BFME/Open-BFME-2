@@ -4923,7 +4923,6 @@ Code/GameEngine/Source/Common/Rva005AFE3FDerived.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005AFE86Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005B01D3Lerp.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005B02B5.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/Common/Rva005B1A00Ctor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005B1A07.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005B2575Dtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/Common/Rva005B266DCtor.cpp,yes,0,0,0,0,0
@@ -7262,7 +7261,7 @@ Code/GameEngine/Source/GameClient/EvaRva001DE78E.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/EvaUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/EvaXferEventID.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/Eva_iniScanEvaEventID.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameClient/FXList.cpp,no,0,0,3,0,2
+Code/GameEngine/Source/GameClient/FXList.cpp,no,0,0,4,0,2
 Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget_doFxAtBones.cpp,yes,0,0,0,0,0
@@ -10143,7 +10142,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieModuleDataDtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieTestKillerType.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,no,1,0,6,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,no,0,0,2,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CrushDie.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/CrushDieModuleDataCtor.cpp,yes,0,0,0,0,0
@@ -10154,7 +10153,7 @@ Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieFriendN
 Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieXfer.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DestroyDie.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp,no,1,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDeletingDtors.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp,yes,0,0,0,0,0
@@ -11092,7 +11091,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/AudioLoopUpgradeModuleDataFriendN
 Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataCtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/AutoFindHealingUpdate.cpp,yes,0,0,0,0,0
@@ -11661,7 +11660,7 @@ Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp,yes,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCrushing.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateFriendNew.cpp,yes,0,0,0,0,0
-Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateModuleDataCtor.cpp,yes,0,0,0,0,0
+Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateModuleDataCtor.cpp,no,0,0,1,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateModuleDataDtor.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateModuleDataFriendNew.cpp,yes,0,0,0,0,0
 Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdateCtor.cpp,yes,0,0,0,0,0
