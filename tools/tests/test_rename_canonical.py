@@ -599,6 +599,105 @@ def test_a_prepared_unit_must_name_the_class_through_its_header(spelled, evidenc
         plan_of(spelled, merge=True, prepared={VIEWS: text.encode()})
 
 
+CANONICAL_LAYOUT = {"fwd": False, "size": 12, "bases": [], "vfptr": True,
+                    "fields": [[4, "m_04", "int", 4], [8, "m_08", "int", 4]]}
+# a private copy no text scan sees: its include is compiled out, its head carries a __declspec
+HIDDEN = (f'// cl: /O2\n#if 0\n#include "{OLD}.h"\n#endif\n'
+          f"class __declspec(align(4)) {NEW} {{ public: double m_unrelated[20]; }};\n"
+          f"int nuggetType({NEW} *n) {{ return (int)n->m_unrelated[0]; }}\n")
+
+
+def compiled(monkeypatch, rename, streams):
+    """view_layouts as the compiler would answer after the build: `streams` maps a unit to
+    its classes; the reference units (BaseCtor.cpp, BaseSlots.cpp) compile the canonical class."""
+    seen = []
+
+    def fake(ctx, unit):
+        seen.append(unit)
+        return streams.get(unit, {NEW: CANONICAL_LAYOUT})
+    monkeypatch.setattr(rename, "view_layouts", fake)
+    monkeypatch.setattr(rename, "registered_object_problems", lambda ctx, plan: [])
+    return seen
+
+
+def apply_prepared(root, rename, text):
+    p = plan_of(root, merge=True, prepared={VIEWS: text.encode()})
+    assert p.registered["references"] == ["Code/Game/BaseCtor.cpp", "Code/Game/BaseSlots.cpp"]
+    return rename.apply_rename(p, ctx=rename.Context(root, object_scan=False), verify=lambda ctx, sources: True,
+                               checks=None)
+
+
+def test_a_prepared_unit_compiling_the_canonical_class_lands(spelled, evidence_stubbed, monkeypatch):
+    defined(spelled, "    int m_nuggetType;\n")
+    seen = compiled(monkeypatch, evidence_stubbed, {VIEWS: {NEW: CANONICAL_LAYOUT}})
+    apply_prepared(spelled, evidence_stubbed, RESHAPED)
+    assert VIEWS in seen and "Code/Game/BaseCtor.cpp" in seen
+    assert (spelled / VIEWS).read_bytes() == RESHAPED.encode()
+
+
+STORAGE = {"fwd": False, "size": 76, "bases": [], "vfptr": False, "fields": [[0, "m_bytes", "uchar[76]", 76]]}
+WITH_STORAGE = dict(CANONICAL_LAYOUT, size=88, fields=[[4, "m_04", "int", 4], [8, "m_08", "int", 4],
+                                                        [12, "m_10", "Storage", 76]])
+
+
+def test_byte_array_storage_compares_by_structure(spelled, evidence_stubbed, monkeypatch):
+    """The real FXNugget holds `Rva0042526Member { uchar m_bytes[76]; }` storage: compared by its compiled
+    shape (element kind and count), so the canonical class itself is readable."""
+    defined(spelled, "    int m_nuggetType;\n")
+    stream = {NEW: WITH_STORAGE, "Storage": STORAGE}
+    compiled(monkeypatch, evidence_stubbed, {"Code/Game/BaseCtor.cpp": stream, "Code/Game/BaseSlots.cpp": stream,
+                                             VIEWS: stream})
+    apply_prepared(spelled, evidence_stubbed, RESHAPED)
+    other = dict(STORAGE, fields=[[0, "m_bytes", "uchar[72]", 72], [72, "m_tail", "int", 4]])
+    compiled(monkeypatch, evidence_stubbed, {"Code/Game/BaseCtor.cpp": stream, "Code/Game/BaseSlots.cpp": stream,
+                                             VIEWS: {NEW: WITH_STORAGE, "Storage": other}})
+    run(spelled, "reset", "-q", "--hard")
+    run(spelled, "clean", "-qfd", "--", "reverse")
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="is not the canonical class"):
+        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+
+
+@pytest.mark.parametrize("stream,message", [
+    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_unrelated", "double[20]", 160]], size=164)},
+     "is not the canonical class"),
+    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_04", "float", 4], [8, "m_08", "int", 4]])}, "is not the canonical class"),
+    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_type", "int", 4], [8, "m_08", "int", 4]])}, "is not the canonical class"),
+    ({NEW: dict(CANONICAL_LAYOUT, size=16)}, "sizeof 16 vs 12"),
+    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_04", "Hidden", 4], [8, "m_08", "int", 4]])},
+     "Hidden has no complete layout"),
+    ({NEW: dict(CANONICAL_LAYOUT, fields=[[4, "m_04", "bitfield", 0], [8, "m_08", "int", 4]])}, "bitfield"),
+    ({NEW: dict(CANONICAL_LAYOUT, bases=[["virtual Hidden", -1]])}, "virtual base"),
+    ({}, "type info is missing"),
+    ({NEW: {"fwd": True}}, "type info is missing"),
+    ({NEW: CANONICAL_LAYOUT, OLD: CANONICAL_LAYOUT}, "still defines Rva00401000Base"),
+])
+def test_a_prepared_unit_keeping_its_own_class_rolls_back(spelled, evidence_stubbed, monkeypatch, stream, message):
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    compiled(monkeypatch, evidence_stubbed, {VIEWS: stream})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match=message):
+        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+    assert snapshot(spelled) == before
+
+
+def test_a_private_copy_the_text_scan_misses_is_caught_by_its_type_records(spelled, evidence_stubbed, monkeypatch):
+    """`#if 0` around the include and `class __declspec(align(4)) FXNugget` pass the text pre-filter."""
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    hidden = dict(CANONICAL_LAYOUT, vfptr=False, size=160, fields=[[0, "m_unrelated", "double[20]", 160]])
+    compiled(monkeypatch, evidence_stubbed, {VIEWS: {NEW: hidden}})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="keeps its own FXNugget"):
+        apply_prepared(spelled, evidence_stubbed, HIDDEN)
+    assert snapshot(spelled) == before
+
+
+def test_reference_units_that_disagree_refuse(spelled, evidence_stubbed, monkeypatch):
+    defined(spelled, "    int m_nuggetType;\n")
+    compiled(monkeypatch, evidence_stubbed, {"Code/Game/BaseSlots.cpp": {NEW: dict(CANONICAL_LAYOUT, size=16)}})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="reference units disagree"):
+        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+
+
 def test_a_derived_class_in_a_prepared_unit_is_fine(spelled, evidence_stubbed, monkeypatch):
     defined(spelled, "    int m_nuggetType;\n")
     never_compiled(monkeypatch, evidence_stubbed)
@@ -756,7 +855,17 @@ def test_votes_cast_against_another_text_are_no_credit(approved, monkeypatch, ca
     write(approved, HEADER, (approved / HEADER).read_text() + "// a later edit\n")
     run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qam", "header edited after the votes")
     land(approved, monkeypatch, f"agree:{agreement}")
-    assert_refused(approved, capsys, "changed after agreement")
+    assert_refused(approved, capsys, "changed after the vote by w-[0-9a-f]+ was recorded")
+
+
+def test_a_header_edited_with_the_votes_is_no_credit(approved, monkeypatch, capsys):
+    """Two votes, then `int m_04` -> `float m_04` committed together with them and the agreement."""
+    agreement = vote_key(approved, f"{HEADER}|class||{OLD}", NEW, monkeypatch, commit=False)
+    write(approved, HEADER, (approved / HEADER).read_text().replace("int m_04;", "float m_04;"))
+    run(approved, "add", "-A")
+    run(approved, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "votes and a header edit")
+    land(approved, monkeypatch, f"agree:{agreement}")
+    assert_refused(approved, capsys, "also changes Code/Game/Rva00401000Base.h")
 
 
 def test_a_forged_agreement_is_no_credit(approved, monkeypatch, capsys):
@@ -1013,6 +1122,10 @@ NOTES = "Code/Game/NuggetNotes.cpp"
     (f'/* {NEW} */\nconst char *pool = "{NEW}";\nint notes() {{ return 0; }}\n', False),
     (f"class {NEW};\nint notes() {{ return 0; }}\n", True),
     (f"int notes({NEW} *n);\n", True),
+    # a backslash-newline splices lines before literals exist: this is code after an empty string
+    (f'const char *s = "\\\n"; class {NEW} {{ public: double unrelated[20]; }};\n', True),
+    # and a spliced line comment swallows the next line: prose
+    (f"// a note \\\nclass {NEW};\nint notes() {{ return 0; }}\n", False),
 ])
 def test_only_a_code_spelling_of_the_new_name_collides(registered, evidence_stubbed, text, collides):
     write(registered, NOTES, text)

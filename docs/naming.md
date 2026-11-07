@@ -815,10 +815,12 @@ pins), and proves a revert to be the exact inverse. It runs from the base
 revision's own tools (HEAD, or the push base) against the base revision's data.
 Votes, agreements and resolutions therefore land in their own `name_lane`
 commits before the rename that cites them; nothing a commit adds to a vote
-ledger counts towards its own credit. An `nl-` agreement carries no
-fingerprint, so the credit binds it through history: the key's source (the
-canonical header) must be the same blob in the base as in the commit that
-recorded the agreement. Votes cast on another text earn nothing. A commit can't loosen the check that
+ledger counts towards its own credit. An `nl-` vote carries no fingerprint,
+so the credit binds each one through history. Take every vote counted for the
+name, and the agreement itself, and find the commit that recorded it. That
+commit must not change the key's source, the canonical header; the text the
+voter was served is its parent's. The base's header must be that same blob.
+A header edited before, with, or after the votes earns nothing. A commit can't loosen the check that
 judges it. The credits apply only to commits made after this landed.
 
 **Refusals.** The rename refuses:
@@ -884,6 +886,27 @@ C++ source that reads as after the rename:
 - `#include` of the canonical header wherever its code spells NEW;
 - no second body (`NEW::m(`) of a row the rename respells, unless the unit owns
   that row.
+
+Those text checks are only a fast pre-filter; `#if 0`, `__declspec(...)` or a
+macro can hide a private copy from them. After `./build.sh`, each prepared unit
+is compiled by `tools/class_layouts.py` (`-Z7`, CodeView). Its object must
+define the class only as the canonical class. Its complete NEW must have exactly
+the compiled shape of the NEW that up to three reference units compile from the
+canonical header. The shape covers:
+- sizeof, the vfptr and bases;
+- every field by offset, name, size and shape;
+- member classes recursively, arrays by element shape and count, and primitives
+  by kind.
+
+The reference units are other verified units that adopt the header, and they
+must agree. Anything the type stream does not state completely refuses: a
+forward-only member class, a type that is neither primitive nor in the stream,
+a bitfield, or a virtual base. This reads the canonical FXNugget, whose
+`Rva0042526Member` storage is a `uchar[76]`.
+The rename refuses, and every file is restored, when:
+- a prepared unit's object still holds a complete OLD;
+- its NEW type info is missing or forward-only;
+- its NEW differs from the reference in any way.
 
 A merge may be **inferred**: two blind votes through `name_lane.py next
 --registered OLD`, which accepts an answer the tree already spells when it is
