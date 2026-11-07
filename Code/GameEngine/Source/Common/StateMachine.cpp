@@ -4,6 +4,7 @@
 #include <map>
 #include <cfloat>
 #include "Common/Snapshot.h"
+#include "../../Include/Common/StateMachine.h"
 #include <algorithm>
 #include "../../Include/Common/BfmeAccessorMacros.h"
 #include "../GameLogic/AI/WorkOrder.h"
@@ -31,13 +32,6 @@ typedef int Int;
 typedef unsigned int StateID;
 
 typedef bool Bool;
-
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
 
 enum
 {
@@ -179,23 +173,6 @@ public:
 
 #include "../../Include/Common/StateConditionInfo.h"
 
-class __declspec(novtable) State
-{
-public:
-	virtual ~State();
-	int m_id; // +0x04
-	int m_successStateID; // +0x08
-	int m_failureStateID; // +0x0C
-	const StateConditionInfo *m_transitionsFirst; // +0x10
-	int m_transitionsCount; // +0x14
-	StateMachine *m_machine; // +0x18
-	bool m_tail1C; // +0x1C
-
-	void rva004D7127(const StateConditionInfo *conditions);
-	StateReturnType friend_checkForTransitions(StateReturnType status);
-	StateReturnType friend_checkForSleepTransitions(StateReturnType status);
-};
-
 BFME_LITERAL_NAME_GETTER(Rva004D73F6Named, "SleepState")
 
 BFME_LITERAL_NAME_GETTER(Rva004D73F0Named, "ContinueState")
@@ -223,7 +200,7 @@ void State::rva004D7127(const StateConditionInfo *conditions)
 		++stateConditionInfo;
 		++n;
 	} while (stateConditionInfo->test != 0);
-	m_transitionsCount = n;
+	m_transitionsLast = n;
 }
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv932Query932C.cpp
@@ -359,7 +336,7 @@ StateReturnType State::friend_checkForTransitions(StateReturnType status)
 			break;
 		case STATE_CONTINUE:
 		{
-			Int n = m_transitionsCount;
+			Int n = m_transitionsLast;
 			if (n != 0)
 			{
 				const StateConditionInfo *it = m_transitionsFirst;
@@ -398,7 +375,7 @@ StateReturnType State::friend_checkForSleepTransitions(StateReturnType status)
 	else
 	{
 		result = status;
-		Int n = m_transitionsCount;
+		Int n = m_transitionsLast;
 		if (n != 0)
 		{
 			const StateConditionInfo *it = m_transitionsFirst;

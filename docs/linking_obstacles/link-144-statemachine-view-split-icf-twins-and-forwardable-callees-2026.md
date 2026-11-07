@@ -19,3 +19,15 @@ Census confirmation: awaiting.
 - 2026-11-03 prerequisite: StateMachineDtor.cpp and StateMachineXfer.cpp adopt canonical State; 7/7 rows exact, EH exact, preview preserves 706/706 B; private StateMachine/map-lifetime and seed transition declarations still block consolidation. [Evidence](../../reverse/attempt_support/statemachine-state-adoption-20261103-codexb4.md).
 - 2026-11-05: five more StateMachine consumers adopt the canonical header (including BackAwayAndCower); five header-debt rows retired, 23/23 rows exact and preview preserves 4,558 B. AttackPosition adoption restored after link loss; compare its derived vtable/provider bindings before retrying. Wider reconciliation remains open. [Evidence](../../reverse/attempt_support/statemachine-cohort-adoption-20261105-codexb3.md).
 - 2026-11-05: AIStateMachine_setTemporaryState.cpp and VslotSmallBodiesAJ.cpp adopt canonical StateMachine; the former also adopts State/AIStateMachine. Four header debts retired, 83/83 rows exact, preview preserves 1,219 B and COFF definitions/references/aliases are unchanged. [Evidence](../../reverse/attempt_support/statemachine-common-adoption-20261105-codexb.md).
+- 2026-11-07, State transition prerequisite: the canonical State header now
+  declares the seed's three rowed transition helpers and types +0x10 as the
+  condition pointer and +0x14 as its count (legacy field spelling retained).
+  The seed adopts it, retiring one State header debt. Normal 23/23 rows,
+  three data rows and 2 EXACT EH graphs pass across seed/constructor; both
+  current previews retain 903 authored bytes. No external definition changes;
+  67 simple code-section comparisons and both vtable definitions are equal.
+  The merge dry-run now accepts StateCtor.cpp (previously no donors), with
+  its 23-row composition passing the link guard. Applying that merge remains
+  separate. The other four donors still require Machine/map/CRT/enum
+  reconciliation; seven mixed files stay. No image/runtime clearance.
+  [Proof and remaining boundaries](../../reverse/attempt_support/state-transition-canonical-20261107/README.md).

@@ -8,6 +8,7 @@
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 class StateMachine;
 class Object;
+struct StateConditionInfo;
 typedef unsigned int StateID;
 enum StateReturnType { STATE_CONTINUE=0, STATE_SUCCESS=-1, STATE_FAILURE=-2 };
 enum StateExitType { EXIT_NORMAL=0, EXIT_RESET=1 };
@@ -75,11 +76,15 @@ public:
  StateMachine *getMachine() const { return m_machine; }
  Object *getMachineOwner() const;
  Object *getMachineGoalObject() const;
+ // Existing native transition helpers, rowed in Common/StateMachine.cpp.
+ void rva004D7127(const StateConditionInfo *conditions);
+ StateReturnType friend_checkForTransitions(StateReturnType status);
+ StateReturnType friend_checkForSleepTransitions(StateReturnType status);
  int m_id; //4
  int m_successStateID; //8
  int m_failureStateID; //C
- void *m_transitionsFirst; //10
- void *m_transitionsLast; //14
+ const StateConditionInfo *m_transitionsFirst; //10
+ int m_transitionsLast; //14: native transition count, legacy spelling
  StateMachine *m_machine; //18
  bool m_tail1C; //1C, native ctor stores zero; rounded extent20
 };
