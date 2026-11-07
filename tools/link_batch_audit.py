@@ -114,12 +114,14 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
     bridge may generate the name (`bridged`) or a referrer's weak externals were unreadable.
 
     A referrer reaches the name through any spelling: the name itself, or an alias whose
-    /alternatename chain leads to it (an alias with a definition of its own does not). It refers
-    by a symbol-table reference (`touches`) or by a /INCLUDE directive (`includes(obj)`: a set, or
-    None when unreadable). /INCLUDE names are roots of the census's reference graph, so the
-    directives of every kept object are read only for a name with no other referrer that
-    `referenced` (that graph's names; None: unknown) holds; `changed` objects' always are. With
-    no referrer found and an unread object's directives, the name is a `candidate`."""
+    /alternatename chain leads to it, declared before the batch (a removed or changed object's
+    old directives included) or after it, that the kept inputs no longer resolve another way. It
+    refers by a symbol-table reference (`touches`) or by a /INCLUDE directive (`includes(obj)`: a
+    set, or None when unreadable). /INCLUDE names are roots of the census's reference graph, so
+    the directives of every kept object are read only for a name that `referenced` (that graph's
+    names; None: unknown) holds; `changed` objects' always are. One proven referrer (readable,
+    unsatisfied) makes the name a `loss` whatever other referrers could not be read; it is a
+    `candidate` only when no referrer is proven and one could not be read."""
     excuses = updated.get("excuses") or index.get("excuses") or {"runtime": set(), "imported": {}, "stubs": {}}
     alternates = updated.get("alternates", {})
     touches = updated.get("touches", {})
@@ -138,18 +140,22 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
         return any(resolves(target, seen) for i, target in alternates.get(name, ())
                    if updated["objects"][i] in real_after)
 
-    aliases_of = collections.defaultdict(set)              # target -> aliases a kept input declares
-    for alias, entries in alternates.items():
-        for i, target in entries:
-            if updated["objects"][i] in real_after:
-                aliases_of[target].add(alias)
+    # target -> aliases: a kept input's directive after the batch, or any real-link input's before
+    # it (a removed or changed object's old /alternatename strands its callers with the target).
+    aliases_of = collections.defaultdict(set)
+    for state, holders in ((updated, real_after), (index, real_before)):
+        for alias, entries in state.get("alternates", {}).items():
+            for i, target in entries:
+                if state["objects"][i] in holders:
+                    aliases_of[target].add(alias)
 
     def spellings(name):
-        """The name and every alias whose alternate chain reaches it, cycle-safe."""
+        """The name and every alias whose alternate chain reaches it and that the kept inputs do not
+        resolve another way, cycle-safe."""
         found, stack = {name}, [name]
         while stack:
             for alias in aliases_of.get(stack.pop(), ()):
-                if alias not in found and not definers(updated, alias, real_after):
+                if alias not in found and not resolves(alias):
                     found.add(alias)
                     stack.append(alias)
         return found
@@ -160,17 +166,16 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
         if not before or resolves(name):
             continue
         spelled = spellings(name)
-        referrers, unread = set(), False
+        proven, uncertain = set(), set()
         for obj in sorted(obj for obj, used in touches.items() if spelled & used and obj in real_after):
             weaks = weak_defaults(obj)
             if weaks is None:
-                unread = True
-            elif all(used in weaks and resolves(weaks[used], frozenset({used}))
-                     for used in spelled & touches[obj]):
-                continue                                   # each spelling falls back to a default that resolves
-            referrers.add(obj)
+                uncertain.add(obj)
+            elif not all(used in weaks and resolves(weaks[used], frozenset({used}))
+                         for used in spelled & touches[obj]):
+                proven.add(obj)                            # some spelling has no default that resolves
         unread_directives = False
-        if not referrers:
+        if not proven:                                     # look for a directive proof before settling for doubt
             scan = (set(real_after) if referenced is None or spelled & referenced
                     else set(changed) & set(real_after))
             for obj in sorted(scan):
@@ -178,10 +183,12 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
                 if forced is None:
                     unread_directives = True
                 elif spelled & forced:
-                    referrers.add(obj)
-        if referrers:
-            kind = "candidate" if name in bridged or unread else "loss"
-            losses.append((name, sorted(before), sorted(referrers), kind))
+                    proven.add(obj)
+        if proven:
+            kind = "candidate" if name in bridged else "loss"
+            losses.append((name, sorted(before), sorted(proven | uncertain), kind))
+        elif uncertain:
+            losses.append((name, sorted(before), sorted(uncertain), "candidate"))
         elif unread_directives:
             losses.append((name, sorted(before), ["(an unread object's /INCLUDE)"], "candidate"))
     return losses
