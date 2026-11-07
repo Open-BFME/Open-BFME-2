@@ -1,53 +1,36 @@
 // cl: /DNDEBUG /MD
 //
-// ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail
-// 0x004BB9CF, 42 bytes. SquishCollide behavior ctor over the pinned
-// CollideModule intermediate base (0x4BB702, thing plus data): forwards both
-// args to the base, then re-stores the primary vtable slot (the behavior
-// vtable 0x00C5A204, whose slot2 is the name getter 0x004BB962 pushing
-// SquishCollide) and the +0x0C/+0x10 secondary slots (address-of TU-local
-// dummies, DIR32-masked).
+// ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004BB9CF, 42 bytes.
+// SquishCollide behavior ctor over the rowed CollideModule base (0x4BB702,
+// thing plus data), then the class's three vftables: 0x00C5A204 at +0,
+// CollideModule's 0x00C5A040 at +0x0C and 0x00C5A1EC at +0x10. The class is
+// declared over the canonical CollideModule.h, so the compiler stores the
+// vptrs. The name getter 0x004BB962 ("SquishCollide") proves the class; the
+// rowed instance factory 0x00250FE6 is the sole raw caller. Donor: BFME1
+// SquishCollideConstructor.cpp inits CollideModule directly.
 //
-// The class declares no virtuals of its own: the stores land from explicit
-// members in body order. The base ctor spelling resolves to its pin at
-// 0x004BB702. Recipe: the opaque-base behavior-ctor pattern
-// (SalvageCrateCollideCtor.cpp). Donor: BFME1 SquishCollideConstructor.cpp
-// inits CollideModule directly. Class identity is the Squish retail cluster
-// (vtable slot2 getter, the instance factory at 0x00250FE6 is the sole raw
-// caller).
+// Retail 0x00C5A204 (12 slots): deleting dtor 0x004BB9F9, loadPostProcess
+// 0x00497805 (`jmp 0x0058B03E`, CollideModule's own; inherited here), the name
+// getter 0x004BB962, xfer 0x0045CE8C (Version1, then CollideModule::xfer; one
+// body with BoneFXDamage::xfer), getModuleNameKey 0x004BB98A, then
+// CollideModule's slots. 0x00C5A1EC: onCollide 0x004BBA65, then
+// CollideModule's five defaults. xfer is left to CollideModule until its own
+// row exists (LINK-514).
 
-class Thing;
-class ModuleData;
-
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-
-// Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class CollideModule
-{
-public:
-	CollideModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	const void *m_vtable;
-	unsigned char m_pad04[0x0C - 4];
-	const void *m_p0C;
-	const void *m_p10;
-};
+#include "../../../../Include/GameLogic/Module/CollideModule.h"
 
 class SquishCollide : public CollideModule
 {
 public:
 	SquishCollide(Thing *thing, const ModuleData *moduleData);
+	virtual ~SquishCollide();
+
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
 };
 
-// ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z
+// ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z @0x4BB9CF
 SquishCollide::SquishCollide(Thing *thing, const ModuleData *moduleData)
 	: CollideModule(thing, moduleData)
 {
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
 }
