@@ -50,9 +50,6 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-// SpyVisionUpdate_vftable: matched references place it at VA 0xc5f778 (retail .rdata value 56).
-extern "C" char SpyVisionUpdate_vftable = 56;
-
 // Stands in for retail's 1.0f literal (__real@3f800000, .rdata 0x007BB8D8), the
 // default curse percentage the constructor loads.
 static float kOne = 1.0f;
@@ -182,7 +179,6 @@ CurseSpecialPowerModuleData::CurseSpecialPowerModuleData()
 {
 	m_C8 = 0;
 	m_CC = 0;
-	*reinterpret_cast<char **>(this) = &SpyVisionUpdate_vftable;
 	m_cursePercentage = kOne;
 }
 
