@@ -109,14 +109,21 @@ namespace _STL
 template <class T> class allocator
 {
 };
+// STLport's vector layout (begin, end, end of storage: 12 bytes) without its
+// constructor: retail builds and destroys g_vec00200D38 through the rowed
+// initializer and atexit thunk (Rva007ABB96AllocCtorInits.cpp, rva007B6A64),
+// so this unit must not emit its own.
 template <class T, typename A = allocator<T> > class vector
 {
 public:
 	void push_back(const T &value);
+	T *_M_start;
+	T *_M_finish;
+	T *_M_end_of_storage;
 };
 }
 
-_STL::vector<const ModuleData *> g_vec00200D38;
+_STL::vector<const ModuleData *> g_vec00200D38;	// retail VA 0x00DDF580, 12 bytes
 
 class Rva00200D38
 {
