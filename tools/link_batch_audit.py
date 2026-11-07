@@ -100,20 +100,15 @@ def definers(index, name, rank):
     return set(copies) | strong | common
 
 
-def import_supplies(referenced, imported, defined):
-    """Every symbol the import libraries exit_link.py generates would define: it requests the
-    `__imp_` names kept objects reference (link_cycle.undefined_imports) and `__imp_` + a plain
-    `_X@N` they reference that nothing defines and retail imports outside msvcr71
-    (undefined_plain_imports); import_def_entries turns those into exports, and each export's
-    import member defines `__imp_` + its symbol and, unless the tree already defines the symbol
-    (make_import_libs' DATA entry), the symbol's own thunk. `defined(name)` is the state's tree
-    definitions. Never an alias's target alone, never a census stub."""
-    requests = {name for name in referenced if name.startswith("__imp_")}
-    for name in referenced:
-        if name.startswith("_") and not name.startswith("__") and not defined(name):
-            dlls = imported.get(re.sub(r"@\d+$", "", name[1:]))
-            if dlls and "msvcr71.dll" not in dlls:
-                requests.add("__imp_" + name)
+def import_supplies(direct, plain, imported, defined):
+    """Every symbol the import libraries exit_link.py generates would define. Its requests are the
+    `__imp_` names kept objects leave undefined (`direct`: link_cycle.undefined_imports) and
+    `__imp_` + each plain `_X@N` they leave undefined that retail imports outside msvcr71
+    (`plain`, already `__imp_`-prefixed: undefined_plain_imports), of which only those nothing in
+    the link defines; import_def_entries turns them into exports, and each export's import member
+    defines `__imp_` + its symbol and, unless the tree defines the symbol (make_import_libs' DATA
+    entry), the symbol's own thunk. `defined(name)` is the state's tree definitions."""
+    requests = set(direct) | {request for request in plain if not defined(request[len("__imp_"):])}
     supplied = set()
     for entries in link_cycle.import_def_entries(requests, imported)[0].values():
         for entry in entries:
@@ -122,6 +117,39 @@ def import_supplies(referenced, imported, defined):
             if not defined(symbol):
                 supplied.add(symbol)
     return supplied
+
+
+def requests_from_names(undefined, imported):
+    """(direct, plain) import requests from one object's undefined external names, by the rules
+    link_cycle.undefined_imports and undefined_plain_imports apply to a parsed object."""
+    direct = {name for name in undefined if name.startswith("__imp_")}
+    plain = set()
+    for name in undefined:
+        if name.startswith("_") and not name.startswith("__"):
+            dlls = imported.get(re.sub(r"@\d+$", "", name[1:]))
+            if dlls and "msvcr71.dll" not in dlls:
+                plain.add("__imp_" + name)
+    return direct, plain
+
+
+def import_request_reader(paths, imported):
+    """import_requests for real_link_losses: an object's (direct, plain) requests from
+    link_cycle.undefined_imports and undefined_plain_imports over its file; None when it cannot be
+    read. The plain requests still pass the whole link's `defined` filter in import_supplies."""
+    cache = {}
+
+    def import_requests(obj):
+        if obj not in cache:
+            try:
+                objects = link_cycle.Objects([Path(paths[obj])])
+                if objects.get(objects.paths[0]) is None:
+                    raise FileNotFoundError(obj)
+                cache[obj] = (link_cycle.undefined_imports(objects),
+                              link_cycle.undefined_plain_imports(objects, imported))
+            except Exception:  # noqa: BLE001 - unreadable: judged from the index's names instead
+                cache[obj] = None
+        return cache[obj]
+    return import_requests
 
 
 def unindexed_facts(found):
@@ -135,7 +163,7 @@ def unindexed_facts(found):
 def real_link_losses(index, updated, names, before_rank, after_rank, omitted=frozenset(),
                      weak_defaults=lambda obj: {}, bridged=None, includes=lambda obj: set(),
                      changed=frozenset(), referenced=None, references=lambda obj: None,
-                     graph_trusted=True, bridge_copies=None):
+                     graph_trusted=True, bridge_copies=None, import_requests=None):
     """[(spelling, defined before by, still referenced by, kind)]: every name a kept real-link
     input references (symbol table or /INCLUDE) that resolved before this batch and resolves no
     more after it. Judged from object symbol tables and directives only: no census verdict, no
@@ -162,7 +190,12 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
     referrers could not be read, or when the vtable bridge could still emit the name: `bridged`
     maps a ledger vtable name with one retail address to {rva, names, addresses}, and
     `bridge_copies(names, holders)` reads the after-state copies with vtable_bridge.definitions (None when
-    unreadable); vtable_bridge.copy_refusal, the planner's own rules, decides the copies."""
+    unreadable); vtable_bridge.copy_refusal, the planner's own rules, decides the copies.
+
+    Import requests come from the objects' own undefined externals: `import_requests(obj)` runs
+    link_cycle's request helpers over a kept file ((direct, plain), None when unreadable); a
+    changed or removed object's earlier file is gone, so the before-state reads it from the index
+    (its names less its own definitions), as it does any unreadable object."""
     import vtable_bridge
     excuses = updated.get("excuses") or index.get("excuses") or {"runtime": set(), "imported": {}, "stubs": {}}
     runtime, imported = excuses["runtime"], excuses["imported"]
@@ -200,23 +233,64 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
         for facts in readable.values():
             found |= facts["references"] | set(facts["weaks"]) | set(facts["weaks"].values())
         return found
-    requested_before = referenced_by(index.get("touches", {}), real_before)
     requested_after = referenced_by(touches, real_after)
 
-    def resolver(state, holders, aliases, requested):
+    def own_definitions(state):
+        """{object: names it defines} from the state's strong, COMDAT and common tables."""
+        found = collections.defaultdict(set)
+        for table in ("strong", "comdat", "common"):
+            for name, entries in state.get(table, {}).items():
+                for entry in entries:
+                    found[state["objects"][entry if table == "strong" else entry[0]]].add(name)
+        return found
+
+    def import_capable(name):
+        return name.startswith("__imp_") or bool(requests_from_names({name}, imported)[1])
+
+    def plan_requests(state, holders, state_touches, read_files):
+        """(direct, plain) requests of a state's kept objects: link_cycle's helpers over each file
+        `read_files` allows, else the index's names less the object's own definitions."""
+        direct, plain = set(), set()
+        defines = None
+        for obj in sorted(holders):
+            names = state_touches.get(obj)
+            if names is None or not any(import_capable(name) for name in names):
+                continue
+            found = import_requests(obj) if import_requests is not None and obj in read_files else None
+            if found is None:
+                if defines is None:
+                    defines = own_definitions(state)
+                found = requests_from_names(names - defines.get(obj, set()), imported)
+            direct |= found[0]
+            plain |= found[1]
+        for facts in readable.values():                    # unindexed units: their own undefined names
+            found = requests_from_names(facts["references"], imported)
+            direct |= found[0]
+            plain |= found[1]
+        return direct, plain
+
+    def resolver(state, holders, aliases, state_touches, read_files):
         def defined(name):
             return bool(definers(state, name, holders)) or name in extra_defined
-        supplied = import_supplies(requested, imported, defined)
+        supplied = None
+
+        def imports():
+            nonlocal supplied
+            if supplied is None:                           # built only when a name needs it
+                supplied = import_supplies(*plan_requests(state, holders, state_touches, read_files),
+                                           imported, defined)
+            return supplied
 
         def resolves(name, seen=frozenset()):
             if name in seen:
                 return False                               # an alias cycle resolves nothing
-            if defined(name) or name in runtime or name in supplied:
+            if defined(name) or name in runtime or name in imports():
                 return True
             return any(resolves(target, seen | {name}) for target in aliases.get(name, ()))
         return resolves
-    was = resolver(index, real_before, before_aliases, requested_before)
-    now = resolver(updated, real_after, after_aliases, requested_after)
+    # A kept file is the object of both states unless this batch changed or removed it.
+    was = resolver(index, real_before, before_aliases, index.get("touches", {}), set(real_before) - moved)
+    now = resolver(updated, real_after, after_aliases, touches, set(real_after))
 
     spellings = set(names) | set(alias_map(index, real_before, moved)) | set(alias_map(updated, real_after, moved))
     # target -> aliases after the batch. An alias only the before-state holds belongs to a removed
@@ -611,7 +685,8 @@ def audit(base, tip, verified):
                                        {obj.name for obj in replacements},
                                        (index.get("references") or {}).get("referenced"),
                                        reference_reader(paths := object_paths(index, replacements, sources)),
-                                       graph_trusted, bridge_copy_reader(paths))
+                                       graph_trusted, bridge_copy_reader(paths),
+                                       import_request_reader(paths, (index.get("excuses") or {}).get("imported", {})))
         real_error = None
     except Exception as error:  # noqa: BLE001
         real_losses, real_error = [], error

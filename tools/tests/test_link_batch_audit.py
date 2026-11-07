@@ -1144,7 +1144,8 @@ IMPORTS = {"runtime": {"_strcpy"}, "imported": {"socket": {"wsock32.dll"}, "GetT
     ({"_strlen"}, set(), set()),                                          # msvcr71 stays with msvcrt.lib
 ])
 def test_import_supplies_every_symbol_of_the_generated_members(refs, defined, supplied):
-    assert A.import_supplies(refs, IMPORTS["imported"], lambda name: name in defined) == supplied
+    direct, plain = A.requests_from_names(refs, IMPORTS["imported"])
+    assert A.import_supplies(direct, plain, IMPORTS["imported"], lambda name: name in defined) == supplied
 
 
 def test_an_alias_to_an_import_the_real_link_never_requests_strands_its_callers(batch, monkeypatch, capsys):
@@ -1203,3 +1204,81 @@ def test_an_alias_to_an_import_another_reference_requests_still_resolves(batch, 
     monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
     assert A.audit("a" * 40, "b" * 40, []) == 0
     assert "REAL-LINK LOSS" not in capsys.readouterr().out
+
+
+# Re-check of f2d31641f5: a definition is no import request.
+def test_a_defined_imp_name_requests_no_import(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    name = "_socket@12"
+    saved["comdat"] = {name: [(0, "good", "retail")]}
+    saved["strong"] = {"caller": [1], "__imp__socket@12": [1]}        # caller DEFINES __imp__socket@12
+    saved["touches"] = {"provider.obj": {name}, "caller.obj": {"caller", "public", "__imp__socket@12"}}
+    saved["alternates"] = {"public": [(1, name)]}
+    saved["excuses"] = IMPORTS
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([], ["caller", "__imp__socket@12"], ["public"], [])
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS public:" in capsys.readouterr().out
+
+
+def test_the_import_request_reader_runs_link_cycle_s_helpers_on_the_file(tmp_path):
+    import link_cycle
+    defines = link_cycle.write_coff(tmp_path / "defines.obj", [(".data", 0xC0300040, bytes(4), 0)],
+                                    [("__imp__socket@12", 1, 0, link_cycle.EXTERNAL), ("public", 0, 0, link_cycle.EXTERNAL)])
+    calls = link_cycle.write_coff(tmp_path / "calls.obj", [(".text", 0x60500020, b"\xc3", 0)],
+                                  [("__imp__GetTickCount@0", 0, 0, link_cycle.EXTERNAL),
+                                   ("_socket@12", 0, 0, link_cycle.EXTERNAL), ("_own", 1, 0, link_cycle.EXTERNAL)])
+    read = A.import_request_reader({"defines.obj": defines, "calls.obj": calls, "gone.obj": tmp_path / "gone.obj"},
+                                   IMPORTS["imported"])
+    assert read("defines.obj") == (set(), set())
+    assert read("calls.obj") == ({"__imp__GetTickCount@0"}, {"__imp__socket@12"})
+    assert read("gone.obj") is None
+
+
+def test_the_file_s_requests_win_over_the_index_s_names(batch, monkeypatch, capsys):
+    # The index lists `__imp__socket@12` for caller.obj without saying it is defined there; the
+    # caller's own file shows no request, so nothing supplies the `_socket@12` thunk.
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    name = "_socket@12"
+    saved["comdat"] = {name: [(0, "good", "retail")]}
+    saved["touches"] = {"provider.obj": {name}, "caller.obj": {"caller", "public", "__imp__socket@12"}}
+    saved["alternates"] = {"public": [(1, name)]}
+    saved["excuses"] = IMPORTS
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([], ["caller"], ["public", "__imp__socket@12"], [])
+    monkeypatch.setattr(A, "import_request_reader", lambda paths, imported: lambda obj: (set(), set()))
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS public:" in capsys.readouterr().out
+
+
+def test_a_changed_object_s_earlier_requests_come_from_the_index():
+    # Before: changed.obj called `_socket@12` directly (so its import was requested and `public`
+    # resolved through the alias); its old file is gone. After: it no longer calls it.
+    before = tables(["changed.obj", "caller.obj"], alternates={"public": [(1, "_socket@12")]},
+                    touches={"changed.obj": {"_socket@12"}, "caller.obj": {"public"}}, excuses=IMPORTS)
+    after = tables(["changed.obj", "caller.obj"], alternates={"public": [(1, "_socket@12")]},
+                   touches={"changed.obj": set(), "caller.obj": {"public"}}, excuses=IMPORTS)
+    order = rank("changed.obj", "caller.obj")
+    found = A.real_link_losses(before, after, {"_socket@12"}, order, order, changed={"changed.obj"},
+                               import_requests=lambda obj: (set(), set()))   # every kept file: no request now
+    assert [(e[0], e[3]) for e in found] == [("public", "loss")]
+
+
+def test_an_unindexed_unit_s_direct_call_requests_the_import_an_alias_reaches(batch, references, monkeypatch, capsys):
+    saved, facts, _, paths = batch
+    updated_index_batch(saved, facts, paths, monkeypatch)
+    name = "_socket@12"
+    saved["comdat"] = {name: [(0, "good", "retail")]}
+    saved["touches"] = {"provider.obj": {name}, "caller.obj": {"caller", "public"}}
+    saved["alternates"] = {"public": [(1, name)]}
+    saved["excuses"] = IMPORTS
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    monkeypatch.setattr(A.link_check, "alternate_names",
+                        lambda obj: {"public": name} if obj.name == "caller.obj" else {})
+    references["new_unit.obj"] = unit(refs={name})            # calls socket directly: the import is requested
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    assert "REAL-LINK LOSS public" not in capsys.readouterr().out
