@@ -36,3 +36,24 @@ void ScoredKillEvaAnnouncerController::iniParseScoredKillEvaAnnouncerBlock(INI *
  ((_STL::vector<Rva00414BDBElement>*)&reinterpret_cast<ParserRegistry *>(TheScoredKillEvaAnnouncerController)->records)->push_back((const Rva00414BDBElement &)Rva004147CF(name));
  ((Rva0041430D*)&reinterpret_cast<ParserRegistry *>(TheScoredKillEvaAnnouncerController)->records.back())->rva0041430D(ini);
 }
+
+// INI block registration (LINK-236). Each unit links its own 12-byte BlockParse nodes onto
+// theBlockParseList from a file-scope object whose inline constructor does the link; MSVC 7.1
+// builds token and parse in .data, so the node's .text$yc initializer is only the 21-byte link
+// (retail .CRT$XCU 0x007B0010, node 0x00DC20B0; the node opens this unit's .data after the 36-byte
+// header name lists and closes its .text$yc run before the pool-init marker 0x007B0025).
+typedef void (*INIBlockParse)( INI *ini );
+extern struct BlockParse *theBlockParseList;
+struct BlockParse
+{
+	BlockParse *next;
+	const char *token;
+	INIBlockParse parse;
+
+	BlockParse( const char *token, INIBlockParse parse ) : next(theBlockParseList), token(token), parse(parse)
+	{
+		theBlockParseList = this;
+	}
+};
+
+BlockParse theScoredKillEvaAnnouncerBlockParse( "ScoredKillEvaAnnouncer", ScoredKillEvaAnnouncerController::iniParseScoredKillEvaAnnouncerBlock );

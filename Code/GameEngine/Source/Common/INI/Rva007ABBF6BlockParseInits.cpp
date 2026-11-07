@@ -149,20 +149,10 @@ class MetaMap
 public:
 	static void parseMetaMap(INI *);
 };
-class MissionObjectiveTracker
-{
-public:
-	static void ParseMapMissionObjective(INI *);
-};
 class Rva00425F10
 {
 public:
 	static void parseStanceTemplateDefinition(INI *);
-};
-class ScoredKillEvaAnnouncerController
-{
-public:
-	static void iniParseScoredKillEvaAnnouncerBlock(INI *);
 };
 class SpecialPowerStore
 {
@@ -221,7 +211,6 @@ BlockParse theAutoResolveHandicapLevelBlockParse = { 0, "AutoResolveHandicapLeve
 BlockParse theLivingWorldAutoResolveSciencePurchasePointBonusBlockParse = { 0, "LivingWorldAutoResolveSciencePurchasePointBonus", LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore::parseLivingWorldAutoResolveSciencePurchasePointBonusBlock };	// VA 0x00DC2050 "LivingWorldAutoResolveSciencePurchasePointBonus", parse 0x00413B4D
 BlockParse theAutoResolveReinforcementScheduleBlockParse = { 0, "AutoResolveReinforcementSchedule", parseAutoResolveReinforcementScheduleDefinition };	// VA 0x00DC205C "AutoResolveReinforcementSchedule", parse 0x00413D58
 BlockParse theLivingWorldAutoResolveResourceBonusBlockParse = { 0, "LivingWorldAutoResolveResourceBonus", LivingWorldAutoResolveResourceBonusScheduleStore::parseLivingWorldAutoResolveResourceBonusBlock };	// VA 0x00DC2068 "LivingWorldAutoResolveResourceBonus", parse 0x0041428F
-BlockParse theScoredKillEvaAnnouncerBlockParse = { 0, "ScoredKillEvaAnnouncer", ScoredKillEvaAnnouncerController::iniParseScoredKillEvaAnnouncerBlock };	// VA 0x00DC20B0 "ScoredKillEvaAnnouncer", parse 0x00414F85
 BlockParse theCrowdResponseBlockParse = { 0, "CrowdResponse", parseCrowdResponseDefinition };	// VA 0x00DC20E0 "CrowdResponse", parse 0x00415D33
 BlockParse theHouseColorBlockParse = { 0, "HouseColor", parseHouseColorDefinition };	// VA 0x00DC822C "HouseColor", parse 0x00417A94
 BlockParse theAutoResolveLeadershipBlockParse = { 0, "AutoResolveLeadership", parseAutoResolveLeadershipDefinition };	// VA 0x00DC8238 "AutoResolveLeadership", parse 0x004183AC
@@ -236,7 +225,6 @@ BlockParse theLightPointLevelBlockParse = { 0, "LightPointLevel", LightPointSyst
 BlockParse theFormationAssistantBlockParse = { 0, "FormationAssistant", parseFormationAssistantDefinition };	// VA 0x00DC84F8 "FormationAssistant", parse 0x00425B90
 BlockParse theStanceTemplateBlockParse = { 0, "StanceTemplate", Rva00425F10::parseStanceTemplateDefinition };	// VA 0x00DC8540 "StanceTemplate", parse 0x00426203
 BlockParse theEmotionNuggetBlockParse = { 0, "EmotionNugget", EmotionNuggetTemplate::friend_parseEmotionNugget };	// VA 0x00DC8570 "EmotionNugget", parse 0x004DCAE4
-BlockParse theMissionObjectiveListBlockParse = { 0, "MissionObjectiveList", MissionObjectiveTracker::ParseMapMissionObjective };	// VA 0x00DC85B8 "MissionObjectiveList", parse 0x00426D14
 BlockParse theAutoResolveArmorBlockParse = { 0, "AutoResolveArmor", LivingWorldAutoResolveArmorStore::parseArmorDefinition };	// VA 0x00DC85E8 "AutoResolveArmor", parse 0x00427392
 
 struct Rva007ABBF6BlockParseInits
@@ -287,7 +275,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007AFFD1();
 	static void rva007AFFE6();
 	static void rva007AFFFB();
-	static void rva007B0010();
 	static void rva007B003F();
 	static void rva007B0088();
 	static void rva007B009D();
@@ -302,7 +289,6 @@ struct Rva007ABBF6BlockParseInits
 	static void rva007B02F6();
 	static void rva007B033F();
 	static void rva007B0354();
-	static void rva007B0383();
 	static void rva007B03B2();
 };
 
@@ -405,8 +391,6 @@ BLOCK_PARSE_INIT( rva007AFFD1, theLivingWorldAutoResolveSciencePurchasePointBonu
 BLOCK_PARSE_INIT( rva007AFFE6, theAutoResolveReinforcementScheduleBlockParse )
 // ?rva007AFFFB@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007AFFFB (21B): "LivingWorldAutoResolveResourceBonus"
 BLOCK_PARSE_INIT( rva007AFFFB, theLivingWorldAutoResolveResourceBonusBlockParse )
-// ?rva007B0010@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B0010 (21B): "ScoredKillEvaAnnouncer"
-BLOCK_PARSE_INIT( rva007B0010, theScoredKillEvaAnnouncerBlockParse )
 // ?rva007B003F@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B003F (21B): "CrowdResponse"
 BLOCK_PARSE_INIT( rva007B003F, theCrowdResponseBlockParse )
 // ?rva007B0088@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B0088 (21B): "HouseColor"
@@ -435,7 +419,5 @@ BLOCK_PARSE_INIT( rva007B02F6, theFormationAssistantBlockParse )
 BLOCK_PARSE_INIT( rva007B033F, theStanceTemplateBlockParse )
 // ?rva007B0354@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B0354 (21B): "EmotionNugget"
 BLOCK_PARSE_INIT( rva007B0354, theEmotionNuggetBlockParse )
-// ?rva007B0383@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B0383 (21B): "MissionObjectiveList"
-BLOCK_PARSE_INIT( rva007B0383, theMissionObjectiveListBlockParse )
 // ?rva007B03B2@Rva007ABBF6BlockParseInits@@SAXXZ @ 0x007B03B2 (21B): "AutoResolveArmor"
 BLOCK_PARSE_INIT( rva007B03B2, theAutoResolveArmorBlockParse )
