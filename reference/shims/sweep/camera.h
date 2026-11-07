@@ -202,9 +202,9 @@ public:
 
 	// Culling for various bounding volumes.  These functions will return true if the 
 	// given primitive is culled (i.e. it is *outside* the view frustum)
-	bool								Cull_Sphere(const SphereClass & sphere) const;
+	virtual bool								Cull_Sphere(const SphereClass & sphere) const;
 	bool								Cull_Sphere_On_Frustum_Sides(const SphereClass & sphere) const;
-	bool								Cull_Box(const AABoxClass & box) const;
+	virtual bool								Cull_Box(const AABoxClass & box) const;
 
 	// Various properties of the camera's frustum:  These funcitons return a
 	// pointer to the internal storage of the descriptions.  there will be 
