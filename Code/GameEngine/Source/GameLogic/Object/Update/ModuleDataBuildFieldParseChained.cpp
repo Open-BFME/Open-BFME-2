@@ -1,8 +1,3 @@
-
-char g_00C5BAE8;
-char g_00C5BD38;
-char g_00C585DC;
-
 // cl: /O1 /DNDEBUG /MD
 //
 // Chained ModuleData::buildFieldParse procs: each calls its base-class
@@ -52,6 +47,53 @@ typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../../../Include/Common/INI/FieldParse.h"
 
 #include "../../../../Include/Common/INI/INI.h"
+
+// The FieldParse tables of three procs below, read from retail: every token, parser,
+// userData and offset is retail's. They were 1-byte zero placeholders, so in a
+// linked game those modules' INI blocks met an empty table.
+// MaxHealthUpgrade's change type names (ChangeType), retail .data 0x00DCCD14. Retail's
+// three names have no null: the list runs on into the unit's next list (NONE, HOLD,
+// KILL, SPAWN and a null), and INI::parseIndexList reads all seven. This copy spells
+// that run-on, so the parser accepts the same tokens as retail.
+static const char *TheMaxHealthChangeTypeNames[] =
+{
+	"SAME_CURRENTHEALTH",
+	"PRESERVE_RATIO",
+	"ADD_CURRENT_HEALTH_TOO",
+	"NONE",
+	"HOLD",
+	"KILL",
+	"SPAWN",
+	0
+};
+
+// Retail VA 0x00C585DC: 2 fields and the zero sentinel.
+extern const FieldParse g_00C585DC[] = {
+	{ "AddMaxHealth", &INI::parseReal, 0, 0x118 },
+	{ "ChangeType", &INI::parseIndexList, TheMaxHealthChangeTypeNames, 0x11C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5BAE8: 5 fields. Retail's table has no null entry: the words after it
+// are the next object's (a vtable), which no field token ever matches. The null entry
+// here ends the lookup inside this table instead.
+extern const FieldParse g_00C5BAE8[] = {
+	{ "DelayedDeathTime", &INI::parseDurationUnsignedInt, 0, 0x6C },
+	{ "ImmortalUntilDeathTime", &INI::parseBool, 0, 0x70 },
+	{ "DoHealthCheck", &INI::parseBool, 0, 0x78 },
+	{ "InvulnerableFX", &INI::parseFXList, 0, 0x74 },
+	{ "DelayedDeathPrerequisiteUpgrade", &INI::parseUpgradeTemplate, 0, 0x7C },
+	{ 0, 0, 0, 0 }
+};
+// Retail VA 0x00C5BD38: 5 fields, no null entry in retail either (a vtable follows);
+// the null entry here ends the lookup.
+extern const FieldParse g_00C5BD38[] = {
+	{ "FreeLifeHealthPercent", &INI::parsePercentToReal, 0, 0x6C },
+	{ "FreeLifeTime", &INI::parseDurationUnsignedInt, 0, 0x70 },
+	{ "FreeLifeInvincible", &INI::parseBool, 0, 0x74 },
+	{ "FreeLifePrerequisiteUpgrade", &INI::parseUpgradeTemplate, 0, 0x84 },
+	{ "FreeLifeAnimAndDuration", &INI::iniParseAnimAndDuration, 0, 0x78 },
+	{ 0, 0, 0, 0 }
+};
 
 class Rva003B1017
 {

@@ -1,5 +1,3 @@
-char g_00BF2358;
-
 // cl: /O1 /DNDEBUG /MD /GX
 //
 // FadeAndDieOrnamentUpdateModuleData file-unit (parse first; the ctor
@@ -50,6 +48,17 @@ class MultiIniFieldParse;
 struct FieldParse;
 
 #include "../../../../Include/Common/INI/FieldParse.h"
+#include "../../../../Include/Common/INI/INI.h"
+
+// The proc's FieldParse table, read from retail (it was a 1-byte zero placeholder).
+// Retail parses FollowTarget with the envelope parser as well; kept as retail has it.
+// Retail VA 0x00BF2358: 3 fields and the zero sentinel.
+extern const FieldParse g_00BF2358[] = {
+	{ "AttachToTargetBone", &INI::parseAsciiString, 0, 0x8 },
+	{ "Envelope", &INI::Rva00338E52_ParseEnvelope, 0, 0xC },
+	{ "FollowTarget", &INI::Rva00338E52_ParseEnvelope, 0, 0x34 },
+	{ 0, 0, 0, 0 }
+};
 
 class FadeAndDieOrnamentUpdateModuleData : public UpdateModuleData
 {
