@@ -429,6 +429,43 @@ def discover_table_names(rows, objects, retail, object_for, symbol_for):
     return bindings, rejected
 
 
+def copy_refusal(copies, kept, names, active, addresses, rva, slot_conflict=False):
+    """(reason, providers) when the copies of the non-strong `names` bound at `rva` cannot take a
+    generated SELECT_ANY copy, in plan()'s order; (None, None) when they can. `copies` are
+    [(name, definitions() entry)], `kept` those not in an archive, common or absolute, `active`
+    the kept and referenced names, `addresses` {name: retail addresses}. Shared with
+    tools/link_batch_audit.py, which asks whether the bridge could still emit a lost name."""
+    imported = [copy["object"] for _name, copy in copies if copy.get("import_member")]
+    common = [copy["object"] for _name, copy in copies if copy.get("common")]
+    if common:
+        return "common-definition", common
+    if imported:
+        return "archive-import-provider", imported
+    if not kept:
+        return "no-kept-definition", None
+    if slot_conflict:
+        return "conflicting-retail-slots", None
+    if any(addresses.get(name, set()) != {rva} for name in active):
+        return "ambiguous-table-name", None
+    if any(copy["selection"] != SELECT_ANY for _name, copy in copies):
+        return "unsupported-selection", None
+    if any(copy["offset"] or set(copy["other_publics"]) - names or copy["executable"] for _name, copy in kept):
+        return "shared-or-prefixed-comdat", None
+    return None, None
+
+
+def strong_names(found, names):
+    """{name: providers} of the `names` some input defines outside a COMDAT (plan() refuses each
+    alone)."""
+    strong = {}
+    for name in sorted(names):
+        providers = [copy["object"] for copy in found.get(name, [])
+                     if not copy["comdat"] and not copy.get("import_member") and not copy.get("common")]
+        if providers:
+            strong[name] = providers
+    return strong
+
+
 def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
          object_for=None, symbol_for=None, source_of=None):
     """Return generated entries and explicit refusal reasons; input order is significant."""
@@ -511,12 +548,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
         # address is a separate symbol; it is still bridged when it meets each
         # rule below, judged without the strong names (their copies are not
         # COMDATs, not SELECT_ANY and may share sections with other data).
-        strong = {}
-        for name in sorted(names):
-            providers = [copy["object"] for copy in found.get(name, [])
-                         if not copy["comdat"] and not copy.get("import_member") and not copy.get("common")]
-            if providers:
-                strong[name] = providers
+        strong = strong_names(found, names)
         for name, providers in strong.items():
             entry, _copies, _kept, _active = describe(rva, row, {name}, name, slots)
             refused.append({**entry, "reason": "strong-definition", "providers": providers})
@@ -525,25 +557,12 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
             rva, row, names, None if row["name"] in strong else row["name"], slots)
         if strong and not copies and not active:
             continue  # nothing else is bound here: the strong refusals cover the address
-        imported = [copy["object"] for _name, copy in copies if copy.get("import_member")]
-        common = [copy["object"] for _name, copy in copies if copy.get("common")]
-        if common:
-            reason = "common-definition"
-            entry["providers"] = common
-        elif imported:
-            reason = "archive-import-provider"
-            entry["providers"] = imported
-        elif not kept:
-            reason = "no-kept-definition"
-        elif row["_slot_conflict"]:
-            reason = "conflicting-retail-slots"
-        elif any(table_addresses[name] != {rva} for name in active):
-            reason = "ambiguous-table-name"
-        elif any(copy["selection"] != SELECT_ANY for _name, copy in copies):
-            reason = "unsupported-selection"
-        elif any(copy["offset"] or set(copy["other_publics"]) - names or copy["executable"]
-                 for _name, copy in kept):
-            reason = "shared-or-prefixed-comdat"
+        refusal, providers = copy_refusal(copies, kept, names, active, table_addresses, rva,
+                                          row["_slot_conflict"])
+        if refusal:
+            reason = refusal
+            if providers:
+                entry["providers"] = providers
         if reason:
             refused.append({**entry, "reason": reason})
             continue
