@@ -225,6 +225,7 @@ extern void *W3DGCData00DE2000;
 
 #include "../../Include/Common/Overridable.h"
 #include "../../Include/GameClient/Water.h"
+#include "../../Include/GameClient/Drawable.h"
 
 template <class T> class OVERRIDE
 {
@@ -398,3 +399,10 @@ void Rva00080168ReflectionTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 	else
 		effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());
 }
+
+// The WaterDraw binder object. Retail constructs it at 0x00DE2008 in its unit's .text$yc run
+// (0x007AC022, after the unit's Drawable.h copy 0x007AC012 and before the pool-init marker
+// 0x007AC038) and registers the cleanup 0x007B6BF5, which runs the destructor above. In .bss
+// it follows the water render object 0x00DE2000 and the copy's static. Address name kept;
+// the original name is unknown.
+WaterDrawFXShaderParameterSourceNamespace g_Va00DE2008;

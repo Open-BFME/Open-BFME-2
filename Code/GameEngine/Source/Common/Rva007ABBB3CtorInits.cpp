@@ -74,12 +74,6 @@ public:
 	INIMacroTable();
 };
 
-class WaterDrawFXShaderParameterSourceNamespace
-{
-public:
-	WaterDrawFXShaderParameterSourceNamespace();
-};
-
 class Rva003818F4
 {
 public:
@@ -121,7 +115,6 @@ void __cdecl rva007B6A5A();
 void __cdecl rva007B6AA0();
 void __cdecl rva007B6AD2();
 void __cdecl rva007B6ADC();
-void __cdecl rva007B6BF5();
 void __cdecl rva007B6E90();
 void __cdecl rva007B707A();
 void __cdecl rva007B7A19();
@@ -152,7 +145,6 @@ extern unsigned BfmeINIMacroTableStorage[8];
 extern AsciiString BfmeINICurrentFilename;
 extern unsigned g_Va00DE1CCC;
 extern unsigned int g_00DE1CCD;
-extern unsigned g_Va00DE2008;
 // VA 0x00DEC008: the cross-fade mask texture ScreenCrossFadeFilterUpdateFadeLevel.cpp defines.
 class BfmeSrcUDC;
 extern BfmeSrcUDC *g_bfmeObjUDC;
@@ -198,7 +190,6 @@ struct Rva007ABBB3CtorInits
 	static void rva007ABBE0();
 	static void rva007ABCAF();
 	static void rva007ABCC5();
-	static void rva007AC022();
 	static void rva007AC880();
 	static void rva007ACD72();
 	static void rva007AE4ED();
@@ -264,13 +255,6 @@ void Rva007ABBB3CtorInits::rva007ABCC5()
 {
 	( (_STL::ios_base::Init *)&g_Va00DE1CCC )->_STL::ios_base::Init::Init();
 	atexit( rva007B6ADC );
-}
-
-// 0x007AC022 (22B): ??0WaterDrawFXShaderParameterSourceNamespace@@QAE@XZ on VA 0x00DE2008, atexit(0x007B6BF5)
-void Rva007ABBB3CtorInits::rva007AC022()
-{
-	( (WaterDrawFXShaderParameterSourceNamespace *)&g_Va00DE2008 )->WaterDrawFXShaderParameterSourceNamespace::WaterDrawFXShaderParameterSourceNamespace();
-	atexit( rva007B6BF5 );
 }
 
 // 0x007AC880 (22B): ??0?$RefCountPtr@VTextureClass@@@@QAE@XZ on VA 0x00DEC008, atexit(0x007B6E90 -> RefCountPtr<TextureClass> dtor 0x0057098D)

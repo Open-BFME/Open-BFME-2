@@ -84,7 +84,6 @@ void __cdecl rva007B6A5A();
 void __cdecl rva007B6AA0();
 void __cdecl rva007B6AD2();
 void __cdecl rva007B6ADC();
-void __cdecl rva007B6BF5();
 void __cdecl rva007B6E90();
 void __cdecl rva007B707A();
 void __cdecl rva007B7A19();
@@ -116,7 +115,6 @@ extern AsciiString BfmeINICurrentFilename;
 extern unsigned g_Va00DE0878;
 extern unsigned g_Va00DE1CCC;
 extern unsigned int g_00DE1CCD;
-extern unsigned g_Va00DE2008;
 extern unsigned g_Va00DEE93C;	// retail RVA 0x009EE93C (.bss), defined in Rva007ABBB3CtorInits.cpp
 extern unsigned g_Va00DFF0C4;	// retail RVA 0x009FF0C4 (.bss), defined in Rva007ABBB3CtorInits.cpp
 extern unsigned g_Va00E01CF0;	// retail RVA 0x00A01CF0 (.bss), defined in Rva007ABBB3CtorInits.cpp
@@ -148,7 +146,6 @@ struct Rva007ABBB3CtorInits
 	static void rva007ABBE0();
 	static void rva007ABCAF();
 	static void rva007ABCC5();
-	static void rva007AC022();
 	static void rva007AC880();
 	static void rva007ACD72();
 	static void rva007AE4ED();

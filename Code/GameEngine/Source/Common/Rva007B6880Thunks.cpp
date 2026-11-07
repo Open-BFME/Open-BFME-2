@@ -6642,25 +6642,6 @@ void __cdecl rva007B54E0()
 	receiver->CPUDetectInitClass::CPUDetectInitClass();
 }
 
-// Startup thunk 0x007AC022 constructs WaterDrawFXShaderParameterSourceNamespace at VA 0x00DE2008.
-// Its verified WaterDraw destructor at 0x0007EC44 unregisters the binder
-// and destroys its two members; use that provider for the matching cleanup.
-class WaterDrawFXShaderParameterSourceNamespace
-{
-public:
-	virtual ~WaterDrawFXShaderParameterSourceNamespace();
-};
-
-// Retail's object extends 12 bytes; the mangled name stays the one its other users declare.
-extern "C" { unsigned int __identifier("?g_Va00DE2008@@3IA")[3]; }
-
-// ?rva007B6BF5@@YAXXZ @ 0x007B6BF5 (10B). WaterDraw global cleanup registered by startup thunk 0x007AC022; tail-calls the verified destructor at 0x0007EC44.
-void __cdecl rva007B6BF5()
-{
-	WaterDrawFXShaderParameterSourceNamespace *receiver = (WaterDrawFXShaderParameterSourceNamespace *)__identifier("?g_Va00DE2008@@3IA");
-	return receiver->WaterDrawFXShaderParameterSourceNamespace::~WaterDrawFXShaderParameterSourceNamespace();
-}
-
 // FrustumClass construction view for the thunk below. The rowed ctor
 // (0x000F0F5B, FrustumCtorO1.cpp) is defined in its own TU, so this thunk
 // reproduces the compiler-generated dynamic-initializer shape through an

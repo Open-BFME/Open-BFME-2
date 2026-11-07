@@ -188,6 +188,7 @@ address_global	Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp	g_Va00DFEF
 address_global	Code/GameEngine/Source/Common/Rva00062B17Init.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	g_Va00DB43A4	3
 address_global	Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	g_Va00DB43AC	3
+address_global	Code/GameEngine/Source/Common/Rva0007EBFBWaterDraw.cpp	g_Va00DE2008	1
 address_global	Code/GameEngine/Source/Common/Rva00094B08Finish.cpp	g_Va00BBB8D8	1
 address_global	Code/GameEngine/Source/Common/Rva000B2EB5.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/Rva000B3814.cpp	g_Va00BBB8D8	2
@@ -349,7 +350,6 @@ address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00E06654	2
 address_global	Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits.cpp	g_Va00E06670	2
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits.cpp	g_Va00DE1CCC	2
-address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits.cpp	g_Va00DE2008	2
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits.cpp	g_Va00DEC018	2
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits.cpp	g_Va00DEC080	2
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits.cpp	g_Va00DFF0C4	2
@@ -369,7 +369,6 @@ address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits.cpp	g_Va00E067
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits.cpp	g_Va00E09E60	2
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00DE0878	1
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00DE1CCC	1
-address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00DE2008	1
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00DEC018	1
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00DEC080	1
 address_global	Code/GameEngine/Source/Common/Rva007ABBB3CtorInits_Rva007ADCAE.cpp	g_Va00DEE93C	1
@@ -460,7 +459,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE1D60	
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE1E54	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE1E78	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE1FC8	3
-address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE2008	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE4878	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE5E50	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DE6194	3
