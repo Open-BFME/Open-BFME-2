@@ -56,6 +56,9 @@ int Rva005F88F4Get(int regionID);
 extern Keyboard *TheKeyboard;
 
 #include "../../../../Include/Common/MessageStream.h"
+// Retail .CRT$XCU 0x007B53AA is this unit's Drawable.h copy (static 0x00E0693C,
+// right after GetButtonImage's local-static guard 0x00E06938).
+#include "../../../../Include/GameClient/Drawable.h"
 
 extern MessageStream *TheMessageStream;
 

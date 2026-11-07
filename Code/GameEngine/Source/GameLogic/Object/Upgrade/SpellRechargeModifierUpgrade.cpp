@@ -47,6 +47,9 @@ struct SpellRechargeModifierUpgradeModuleData
 };
 
 #include "../../../../Include/GameLogic/Module/UpgradeModule.h"
+// Retail .CRT$XCU 0x007B219E is this unit's Drawable.h copy (static 0x00E03EA8,
+// right after its getModuleNameKey pool key and guard).
+#include "../../../../Include/GameClient/Drawable.h"
 
 class Rva004B5DDCIface
 {

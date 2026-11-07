@@ -52,6 +52,9 @@ struct BfmeOwner1026
 	BfmeTab1026 m_bfmeTab;
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
+// Retail .CRT$XCU 0x007B274A is this unit's Drawable.h copy (static 0x00E04088,
+// right after its getModuleNameKey pool key and guard).
+#include "../../../../Include/GameClient/Drawable.h"
 
 class ModuleDataBase
 {

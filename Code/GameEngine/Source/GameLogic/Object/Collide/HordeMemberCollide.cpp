@@ -18,6 +18,10 @@
 // cluster (vtable slot2 getter, the instance factory at 0x002510A7 is the
 // sole raw caller).
 
+// Retail .CRT$XCU 0x007B265A is this unit's Drawable.h copy (static 0x00E04048,
+// right after its getModuleNameKey pool key and guard).
+#include "../../../../Include/GameClient/Drawable.h"
+
 class Thing;
 
 class ModuleData;
