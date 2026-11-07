@@ -14,54 +14,16 @@
 class Thing;
 class ModuleData;
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
-
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
-
-private:
-	bool m_upgradeExecuted;
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public ModuleInterface
-{
-public:
-protected:
-	virtual ~UpgradeModule();
-};
-
-class LocomotorSetUpgrade : public UpgradeModule
-{
-protected:
-	virtual ~LocomotorSetUpgrade();
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@LocomotorSetUpgrade@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
-};
+// Both classes are their shared headers', over the canonical UpgradeModule.h,
+// so this unit's copies of their vftables equal the constructor units'.
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/GameLogic/Module/LocomotorSetUpgrade.h"
+#include "../../../../Include/GameLogic/Module/AllowBannerSpawnUpgrade.h"
 
 LocomotorSetUpgrade::~LocomotorSetUpgrade()
 {
 }
 
-class AllowBannerSpawnUpgrade : public UpgradeModule
-{
-protected:
-	virtual ~AllowBannerSpawnUpgrade();
-public:
-	// retail slot 4: the rowed ?getModuleNameKey@AllowBannerSpawnUpgrade@@UBE?AW4NameKeyType@@XZ
-	virtual NameKeyType getModuleNameKey() const;
-};
 
 AllowBannerSpawnUpgrade::~AllowBannerSpawnUpgrade()
 {
