@@ -134,10 +134,10 @@ class Rva0056655FOwner
 public:
 	void rva0056655F(const Elem003AF9E0 &record);
 };
-class Rva003B7BA0Record
+class EnableRegionRecord
 {
 public:
-	virtual ~Rva003B7BA0Record() {}
+	virtual ~EnableRegionRecord() {}
 
 private:
 	AsciiString m_name;
@@ -1100,7 +1100,7 @@ void ParseEnableRegion( INI *ini, void *instance, void *, const void * )
 {
 	if( ini && instance )
 	{
-		Rva003B7BA0Record record;
+		EnableRegionRecord record;
 		ini->initFromINI( &record, Rva003B7BA0RecordFieldParseTable );
 		// Existing rowed thunk 0x00566527 has this same reference ABI.
 		// Its FXList spelling is a callable view, not this record's identity.
