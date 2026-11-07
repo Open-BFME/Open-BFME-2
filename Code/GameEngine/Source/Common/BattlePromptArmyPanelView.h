@@ -72,8 +72,8 @@ class Rva005FAF5D : public Rva005FF13A
 public:
     Rva005FAF5D(int, int, Rva005FA89CC *);
     virtual ~Rva005FAF5D();
-    void rva005FAF9F();
-    void rva005FA8C5(bool);
+    void returnToOwner();
+    void setSelected(bool);
 private:
     Rva005FAF9FOwner *m_owner28;
 };

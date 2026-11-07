@@ -19,7 +19,7 @@ Rva005FAF5D::~Rva005FAF5D()
 
 // Native 005FAF9F returns this panel to its owning controller after the
 // established +08 validation wrapper. The callee's parameter type is opaque.
-void Rva005FAF5D::rva005FAF9F()
+void Rva005FAF5D::returnToOwner()
 {
     ((Rva005FED59 *)this)->rva005FED59();
     m_owner28->rva005FADEF((Rva005FED59 *)this);
@@ -28,7 +28,7 @@ void Rva005FAF5D::rva005FAF9F()
 // Native005FA8C5..005FA8CD: the constructor ends at this entry,
 // followed by the20-byte roll-over callback. The proven panel clip at+08
 // forwards its Boolean selection argument to the matched005FF4CD wrapper.
-void Rva005FAF5D::rva005FA8C5(bool flag)
+void Rva005FAF5D::setSelected(bool flag)
 {
     setClipSelected(flag);
 }

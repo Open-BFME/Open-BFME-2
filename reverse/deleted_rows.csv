@@ -5699,3 +5699,5 @@ _$E1,0x007B1A27,"Retracted for readmission as _$E3 in SlavedUpdateRepair.cpp: th
 ??_GRva004B48D3@@UAEPAXI@Z,0x004B4991,"Renamed to ??_GStatusBitsUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57938)"
 ?name@Rva004B48F3Named@@QBEPBDXZ,0x004B48F3,"Renamed to ?GetSnapshotName@StatusBitsUpgrade@@MBEPBDXZ by tools/rename.py (to-class: retail vftable 0x00C57938 slot 2)"
 ?rva004B8851@Rva004B8732@@UBE?AVAsciiString@@XZ,0x004B8851,"Renamed to ?rva004B8851@SpawnUnitBehavior@@UBE?AVAsciiString@@XZ by tools/rename.py (to-class: retail vftable 0x00C59120 slot 0)"
+?rva005FA8C5@Rva005FAF5D@@QAEX_N@Z,0x005FA8C5,"Renamed to ?setSelected@Rva005FAF5D@@QAEX_N@Z by tools/rename.py (inferred)"
+?rva005FAF9F@Rva005FAF5D@@QAEXXZ,0x005FAF9F,"Renamed to ?returnToOwner@Rva005FAF5D@@QAEXXZ by tools/rename.py (inferred)"

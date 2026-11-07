@@ -25,15 +25,15 @@ public:
 
 private:
 	char m_bfmeHead[0x1EC];
-	BfmeTwoArgHandler m_bfmeHandler;				// +0x1EC
+	BfmeTwoArgHandler m_dispatchHandler;				// +0x1EC
 };
 
 // ?bfmeDispatch@Gen_004655b0@@QAEHPAX0@Z 0x0008FF56
 int Gen_004655b0::bfmeDispatch(void *first, void *second)
 {
-	if (m_bfmeHandler)
+	if (m_dispatchHandler)
 	{
-		m_bfmeHandler(this, first, second);
+		m_dispatchHandler(this, first, second);
 
 		return 1;
 	}
