@@ -168,6 +168,22 @@ and for A3 (`Rva001DFEAABase` -> `FXNugget`). Scratch texts only, judged with `t
       existing ones.
     - `__uninitialized_copy<const T*>` (`PBV`): 0x0052C987 is rowed as the placeholder `Rva0052C987Get` and
       pinned `<T*>`. Respell it to the `PBV` spelling rather than pin.
+- The remaining Act members (same scratch method):
+  - +0x14 is `vector<Rva004E16D9Record>`, not `vector<BfmePod40>`. `_Construct` 0x0052C320 calls copy 0x0052BD59,
+    which installs the ForceBattle record's vftable 0xC61A70. As SpawnArmy.cpp's real record with an implicit
+    copy, 0x0052BD59, 0x0052C320 and `__uninitialized_copy` 0x0052C915 are exact. +0x1E is padding, not a member.
+    The vector copy 0x0052CB65 then gets retail's EH frame. Its two callees fold: `get_allocator` and
+    `_Vector_base` 0x0053FF92, which is rowed for `BfmePod40`.
+  - +0x20 is `vector<SpawnArmy>`: `_Construct` 0x004E3706 calls `SpawnArmy`'s copy 0x004E2F9F (`BfmePod88`'s
+    copy is pinned as its twin). The vector copy 0x005008EB is outside LivingWorldCampaign.cpp's range, so P4
+    only respells it.
+  - +0x9C is `vector<vector<BfmeE8>>`: `_Construct` 0x0052D355 calls `vector<BfmeE8>`'s copy 0x004334D7.
+    Instantiated for real, 0x0052D355 is exact; 0x0052D417 and 0x0052D3F1 differ only in calls to each other's
+    placeholder names (`Rva005668E9Element`), so their respell resolves them.
+  - +0x44 `vector<AsciiString>`: its copy 0x000BC07E is kept from another unit; nothing moves.
+  - +0x90 `Rva004E1A04` stays open. It is 16 bytes and copies as AsciiString then three dwords, through the ICF'd
+    0x0052BEC9 (rowed as two pair copies). Its dtor 0x004E1A04 calls the string dtor twice on `this`, which
+    that layout does not explain.
 - A3 group A (seat6's scope, `build/bridge_lane/fxnugget_scope.md`): `merge_definitions` refuses all six private
   `FXNugget` views, which have pads, no vptr or own method names. On the canonical class they byte-match with
   these reshapes:
