@@ -27,7 +27,9 @@ views replaced, 631 -> 629; AIStates' copy, 629 -> 628; RayEffect's, 628 -> 627 
 and copy and ObjectCreationList's copy, 620 -> 617; eleven BlockParse nodes in Chat,
 FireLogicSystem, GlobalWeatherSystem, ScriptEngine, GameFont, INIVictorySystem, INIEnvironment and
 Eva, 617 -> 606; five copies their own TU files already compile, 606 -> 601 (bridge_entries on
-`006ca45a16`'s objects plus its readmission); next seat continues).
+`006ca45a16`'s objects plus its readmission); halilkkaya-lk46: the AsciiString atexit family's twelve
+strings, the copies that open their runs, the CreateAHeroSystem node and three FX binder objects, 605
+-> 583 on `2335dd1fbb`'s objects (see "Round lk46"); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -813,3 +815,86 @@ removed exactly the named RVAs.
     object just before INIVictorySystem in `.data` and code; its file is unnamed. The INI wrapper
     sequences (CommandSet..DamageFX, SpecialPower..HeaderTemplate, Bridge) need wrapper files the
     tree lacks.
+
+**Round lk46 (halilkkaya-lk46, 2026-11-07, bridged 605 -> 583).** Measured with
+`image_report.bridge_entries` over the kept objects (exit_link's rule); the same rule gave 605 on
+`2335dd1fbb`'s objects, not lk44's 601. Each entry was retracted from its grab-bag
+(`reverse/deleted_rows.csv`) and readmitted in its owner by relocation target; every touched object
+kept its `??_7` digests, link_check passed on the owners with their readers, and bridge_entries removed
+exactly the named RVAs.
+- *Runs hold one copy each (target fact).* No `.text$yc` run holds two Drawable.h copies (430 runs
+  with a copy, none with two, none without a marker), so every Drawable.h includer emits the
+  pool-init marker. A copy, every entry after it and its run's marker are therefore one unit, and the
+  copy-first runs below need no `.bss` neighbour. This supersedes the handoff TSV's neighbour guesses
+  for 0x007B433E (AIUpgradeScienceBuilder), 0x007B4698 (AIFarmKillSquad) and 0x007AF7DD (INITerrain).
+- *The AsciiString atexit family (lk44's lead), done.* Each string is `AsciiString g("lit")` under
+  `#pragma inline_depth( 0 )` (the out-of-line `AsciiString(const char *)` 0x0000654A, as
+  Rva003EE900Forward.cpp does); its cleanup `_$E<n+1>` is `mov ecx, g; jmp ??1AsciiString@@QAE@XZ`
+  with or without `BFME_ASCII_DTOR_DECL`. The global takes the AsciiString type in its owner, its
+  readers drop their casts, a data row follows its owner, and the address name is kept (one global per
+  address; the hatch register moves the token under `Verifier-Change`):
+  - AIUnitBuilder.cpp: copy 0x007B433E `_$E1`, "CreateAHero" 0x007B434E `_$E3`/`_$E4` (cleanup
+    0x007B95A4); Drawable.h after GameInfo.h.
+  - AIBase.cpp: copy 0x007B4698 `_$E2`, "PrimaryAIBaseMarker" 0x007B46A8 `_$E4`/`_$E5`, "<ANY>"
+    0x007B46C3 `_$E7`/`_$E8` (reader AIBase_DoXfer.cpp).
+  - AIEconomyBuilder.cpp: "FarmTemplate" 0x007B31DF `_$E1`/`_$E2`. Its run continues with
+    `AIEconomyBuilder::m_farmList`'s vector 0x007B31FA, still bridged: the unit's view of it is a
+    12-byte POD shared by other files.
+  - Team.cpp: copy 0x007AF324 `_$E1`, "<!TRUE!>" 0x007AF334 `_$E3`/`_$E4` (reader
+    TeamGetControllingPlayer.cpp, `evaluateProductionCondition`).
+  - ScriptWriteDataChunk.cpp (Scripts.cpp TU; Scripts.cpp itself is Zero Hour-shaped): copy 0x007AF7DD
+    `_$E1`, "ALL" 0x007AF7FE `_$E3`/`_$E4`. The all-players mask between them (0x007AF7ED, a two-bit
+    `BitFlags` constructor on 0x00E02D64) stays bridged: its type is not settled, and defining it will
+    move the string's ordinals.
+  - AptGuiFXInit.cpp: "GuiFX.apt" 0x007AF0F1 `_$E1`/`_$E2` (it opens LANChatHistory's run; AptGuiFX
+    has no marker of its own).
+  - W3DCamTransform.cpp: "Zoom" 0x007ACAAA `_$E1`/`_$E2` (`BfmeLiveCameraModeNameStorage`). Its copy
+    0x007ACA9A stays bridged: the unit's private Matrix3D and Thing views collide with the canonical
+    header (C2011).
+  - Rva00101FD8Create.cpp: "LookupTablePostEffect" 0x007ACB5D `_$E1`/`_$E2`. This one was a runtime
+    defect: that file already defined `const AsciiString g_00DEC3B8` default-constructed (an
+    atexit-only `_$E1`), which the factory and the PostFX paths compared against, while the grab-bag
+    built a second object, `g_Va00DEC3B8`, from the literal. The data row now names the readers'
+    symbol. Removing that 12-byte atexit-only `_$E1` also removed a false shape credit: 0x007B6600
+    (atexit-only, library tail) is now counted as bridged, so that step shows 593 -> 593.
+  - Rva003EE900Forward.cpp (LivingWorldRegionEffectsManager.cpp TU): "ConqueredEffectEvenglow"
+    0x007AF934 `_$E19`/`_$E20` and "ConqueredEffectFlareup" 0x007AF94F `_$E22`/`_$E23`, appended to
+    the file's six sibling strings so their ordinals keep their rows. Retail's order (the nine keys
+    0x007AF8E3..0x007AF9BB, then the table initializer 0x007AF9D6, the node 0x007AFC11 and the ctor
+    0x007AFC26) needs that TU merged.
+  - AptPalantirConstructor.cpp (the palantir unit; WorldBuilder names Palantir.cpp): copy 0x007AE39C
+    `_$E1`, "Palantir.apt" 0x007AE3AC `_$E3`/`_$E4` (reader: the subsystem constructor 0x002D638E in
+    OpaqueScalarDeletingDtorsB06.cpp; static after the subsystem singleton 0x00DFF028).
+- *CreateAHeroSystem node (lk44's lead).* Not a TU approval question for this entry: retail has two
+  units there. Run A is the copy 0x007ADAA5 (static after TheCreateAHeroManager, which CreateAHero.cpp
+  defines), a vector 0x007ADAB5 and the CreateAHeroSystem node; run B is the unit
+  GameLogic/Object/CreateAHeroManager.cpp already registers (copy 0x007ADB01, ArmySummaryDescription
+  node). The node 0x007ADAD2 moved beside its callback `iniParseCreateAHeroSystem` in
+  CreateAHero_FindBlingByUpgradeName.cpp (split from CreateAHero.cpp), `_$E2`, as FXList's did; no TU
+  is asserted. tu_map's proposal of the callback to GameLogic/Object/CreateAHeroManager.cpp
+  (W=CreateAHero.cpp) is the consolidation lane's to settle with these two runs as evidence. The copy
+  stays bridged (the fragment's own `BitFlags` collides with thing.h), as does the vector.
+- *W3DGameClient's 0x007AC012 (lk44's lead): the second fact says W3DWater, not W3DGameClient.* The
+  run is the copy, then 0x007AC022, which constructs the WaterDraw shader-parameter binder at
+  0x00DE2008 (ctor 0x0007EBFB; cleanup 0x007B6BF5 runs the dtor 0x0007EC44). 0x00DE2000 is the water
+  render object that the binder's own callbacks read, and the binder's code sits just before
+  W3DWater.cpp's rows in `.text`. Rva0007EBFBWaterDraw.cpp, which defines the binder class, now
+  includes Drawable.h and defines `WaterDrawFXShaderParameterSourceNamespace g_Va00DE2008;`: copy
+  `_$E1`, binder `_$E3`/`_$E4`.
+- *The binder siblings.* The Terrain binder 0x007AC6DD (object 0x00DEBC64 right after its singleton
+  g_00DEBC60) is Rva000E19A3Dtor.cpp's `_$E1`/`_$E2` (alone in its run; the data row takes the class
+  type, sizeof 40). The Vegetation binder 0x007AC747 (object 0x00DEBC98) and its run's copy 0x007AC737
+  are W3DVegetationBufferBase.cpp's `_$E3`/`_$E4` and `_$E1`.
+- *Next leads (ctor scan: `mov ecx, g; call ctor; atexit` entries crossed with the ctor's file and
+  the global's `.bss` neighbours).*
+  - The screen filters 0x007AC8B0, 0x007AC8E0, 0x007AC910, 0x007AC940, 0x007AC956, 0x007AC9B0,
+    0x007AC9C6, 0x007AC9F6: file-scope filter objects (Zero Hour's W3DShaderManager.cpp defines its
+    `Screen*Filter` objects at file scope, a donor fact). Their ctors are rowed in ScreenFilter*.cpp
+    fragments; the unit needs the filter classes declared once and its runs read between markers.
+  - 0x007AD50B (`Rva001F4B01` at 0x00DFDD0C after TheParticleSystemManager and the copy 0x007AD4FB),
+    0x007AD7C0 (a vector at 0x00DFE174 after TheScriptEngine and the copy 0x007AD7B0), 0x007AE097
+    (`Rva004E5610` at 0x00DFEDFC after InGameUI's `m_replayWindow` and the copy 0x007AE087) and the two
+    fire settings 0x007AE79E/0x007AE7B4 (TheFireSettingsSaved/TheFireSettings, after TheFireManager):
+    each needs its object's real class in the unit that owns the run.
+  - Copies whose views refuse the canonical header (W3DCamTransform, the CreateAHero fragment, and
+    lk39's list), and 0x007B6600 (atexit-only, library tail).

@@ -16,7 +16,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7abf41	0xde1ed4	?g_00DE1ED0@@3PAXA			0	no contiguous .bss neighbour with a TU
 0x7abf6b	0xde1f88	?g_fvfShader@@3IA	W3DShaderManager.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	0	TU does not include Drawable.h yet
 0x7abfb9	0xde1fbc	?TheW3DHordeModelDrawManager@@3PAVW3DHordeModelDra	W3DHordeModelDrawManager.cpp	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	0	TU does not include Drawable.h yet
-0x7ac012	0xde2004	?W3DGCData00DE2000@@3PAXA	W3DGameClient_setTimeOfDay.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	2	2 fragments of the TU include Drawable.h: row one after merging
+0x7ac012	0xde2004	?W3DGCData00DE2000@@3PAXA	W3DGameClient_setTimeOfDay.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWater.cpp	2	rowed by lk46 as Rva0007EBFBWaterDraw.cpp _$E1 (the copy opens the run the WaterDraw binder object 0x007AC022 closes; 0x00DE2000 is the water render object, not W3DGameClient's)
 0x7ac052	0xde2018	?TheTerrainTracksRenderObjClassSystem@@3PAVTerrain	W3DTerrainTracks.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7ac07c	0xde2048	?g_Va00DE203C@@3MA		Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp	5	W3DView.cpp's copy (run [copy, TheW3DFrameLengthInMsec _$E6]); include tried by lk39 and reverted (Coord3D collision)
 0x7ac0d0	0xde2080	?g_trackDirty@@3EA	TerrainTracksRenderObjClassCreateBuffers.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTracks.cpp	1	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
@@ -49,7 +49,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ac689	0xdebc48	_s_dynamic	W3DRoadBuffer.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7ac6b3	0xdebc4c	_s_dynamic	W3DRoadBuffer.cpp	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7ac70d	0xdebc8c	?g_Va00DEBC64@@3IA			0	no contiguous .bss neighbour with a TU
-0x7ac737	0xdebc94	?g_009EBC90@@3PAVRva000E6AC0@@A		Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp	0	TU does not include Drawable.h yet
+0x7ac737	0xdebc94	?g_009EBC90@@3PAVRva000E6AC0@@A		Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp	0	rowed by lk46 as W3DVegetationBufferBase.cpp _$E1 (the copy opens the run the Vegetation binder object 0x007AC747 closes before the marker)
 0x7ac777	0xdebc9c	?g_Va00DEBC98@@3IA	Rva007B6880Thunks.cpp	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	0	TU claimed by 17 copies: neighbour data is mis-assigned somewhere
 0x7ac7a1	0xdebcb8	?g_Va00DEBCA0@@3IA		Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp	0	TU does not include Drawable.h yet
 0x7ac7e5	0xdebcf8	?lastActiveVertexBuffer@@3PAUW3DVertexBuffer@W3DBu		Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadow.cpp	3	3 fragments of the TU include Drawable.h: row one after merging
@@ -97,7 +97,7 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7ae2f8	0xdfefe4	?g_Va00DFEFE0@@3_NA	ReloadIniFileNotices.cpp	Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp	0	TU claimed by 3 copies: neighbour data is mis-assigned somewhere
 0x7ae33c	0xdfeff8	?TheRayEffects@@3PAVRayEffectSystem@@A	RayEffect.cpp	Code/GameEngine/Source/GameClient/System/RayEffect.cpp	0	rowed by lk39 as RayEffect.cpp _$E1 (singleton anchor: static after TheRayEffects; Zero Hour's RayEffect.cpp includes Drawable.h)
 0x7ae366	0xdff008	?g_flag2@@3_NA	Rva004CA13Reload.cpp		0	no contiguous .bss neighbour with a TU
-0x7ae39c	0xdff02c	?theRadarWindowOverrideSource@@3PAVRadarWindowOver			0	no contiguous .bss neighbour with a TU
+0x7ae39c	0xdff02c	?theRadarWindowOverrideSource@@3PAVRadarWindowOver		Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp	0	rowed by lk46 as AptPalantirConstructor.cpp _$E1 (the copy opens the run the palantir's Palantir.apt string 0x007AE3AC closes before the marker; static after the subsystem singleton 0x00DFF028)
 0x7ae3e1	0xdff06c	?TheAnim2DCollection@@3PAVAnim2DCollection@@A	Anim2D.cpp	Code/GameEngine/Source/GameClient/System/Anim2D.cpp	3	3 fragments of the TU include Drawable.h: row one after merging
 0x7ae40b	0xdff074	?TheRadar@@3PAVRadar@@A	Rva002D317CCalls.cpp	Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp	0	TU does not include Drawable.h yet
 0x7ae435	0xdff07c	?TheMappedImageCollection@@3PAVImageCollection@@A	FamilyTailDtors1DBAC3.cpp	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	0	TU does not include Drawable.h yet
@@ -144,12 +144,12 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7af244	0xe02830	?g_Va00E0282C@@3IA	GlobalFlagClearers_E028xx.cpp		0	no contiguous .bss neighbour with a TU
 0x7af288	0xe02834	?g_Va00E0282C@@3IA	GlobalFlagClearers_E028xx.cpp		0	no contiguous .bss neighbour with a TU
 0x7af2b2	0xe02848	?g_Va00E02844@@3IA	GlobalFlagClearers_E028xx.cpp		0	no contiguous .bss neighbour with a TU
-0x7af324	0xe028c0	?TheTeamFactory@@3PAVTeamFactory@@A	Player.cpp		0	no contiguous .bss neighbour with a TU
+0x7af324	0xe028c0	?TheTeamFactory@@3PAVTeamFactory@@A	Player.cpp	Code/GameEngine/Source/Common/RTS/Team.cpp	0	rowed by lk46 as Team.cpp _$E1 (the copy opens the run Team's <!TRUE!> string 0x007AF334 closes before the marker)
 0x7af369	0xe028d8	?$S1@?1??getModuleNameKey@FadeAndDieOrnamentUpdate	FadeAndDieOrnamentUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp	0	rowed by lk39 as FadeAndDieOrnamentUpdate.cpp _$E1 (guard's function approved to the file; include added)
 0x7af393	0xe028dc	?$S1@?1??getModuleNameKey@FadeAndDieOrnamentUpdate	FadeAndDieOrnamentUpdate.cpp	Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7af44b	0xe02908	_windDefault_00E02904	Rva003A53C4Finish.cpp		0	no contiguous .bss neighbour with a TU
 0x7af74b	0xe02d48	?s_name@?$ModuleTag@$04$E?TERRAIN_FIRE_EMISSION_MO	FXParticleSystemModules.cpp		0	no contiguous .bss neighbour with a TU
-0x7af7dd	0xe02d60	?g_00E02D50@@3PAVRva003B1820@@A	INITerrain.cpp	Code/GameEngine/Source/Common/INI/INITerrain.cpp	0	TU does not include Drawable.h yet
+0x7af7dd	0xe02d60	?g_00E02D50@@3PAVRva003B1820@@A	INITerrain.cpp	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	0	rowed by lk46 as ScriptWriteDataChunk.cpp (Scripts.cpp TU) _$E1 (the copy opens the run the mask 0x007AF7ED and ALL string 0x007AF7FE close before the marker; the neighbour guess above is superseded)
 0x7af889	0xe02e08	?TheScriptConditions@@3PAVScriptConditions@@A	ScriptEngine_init.cpp	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp	0	TU claimed by 17 copies: neighbour data is mis-assigned somewhere
 0x7afcf8	0xe02ee8	?$S1@?1??Rva003FF02EPowerCap@@YAXH@Z@4IA	Rva003FF02EPowerCap.cpp		0	no contiguous .bss neighbour with a TU
 0x7afd22	0xe02ef8	?TheSkirmishGameInfo@@3PAVGameInfo@@A	Recorder.cpp	Code/GameEngine/Source/Common/Recorder.cpp	0	TU does not include Drawable.h yet
@@ -401,11 +401,11 @@ rva	static_va	bss_neighbour	neighbour_source	attributed_tu	drawable_h_includers_
 0x7b4194	0xe0639c	?g_Va00E06398@@3HA	ColdGlobalDwordGetters.cpp	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	3	TU claimed by 7 copies: neighbour data is mis-assigned somewhere
 0x7b41d8	0xe063a0	?g_Va00E06398@@3HA	ColdGlobalDwordGetters.cpp	Code/GameEngine/Source/GameLogic/System/GameLogic.cpp	3	TU claimed by 7 copies: neighbour data is mis-assigned somewhere
 0x7b42b8	0xe063b4	?g_a063b0@@3PAURva00A063B0Obj@@A	Rva005A71B1Dtor.cpp	Code/GameEngine/Source/GameNetwork/NAT.cpp	0	TU does not include Drawable.h yet
-0x7b433e	0xe063d0	?g_00E063CC@@3IA		Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeScienceBuilder/AIUpgradeScienceBuilder.cpp	0	TU does not include Drawable.h yet
+0x7b433e	0xe063d0	?g_00E063CC@@3IA		Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp	0	rowed by lk46 as AIUnitBuilder.cpp _$E1 (the copy opens the run AIUnitBuilder's CreateAHero string 0x007B434E closes before the marker; the neighbour guess above is superseded)
 0x7b4383	0xe063d8	?g_Va00E063D4@@3IA		Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7b43ad	0xe063dc	?g_Va00E063D4@@3IA		Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7b43e5	0xe063e4	?g_00E063E0@@3HA		Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp	0	TU does not include Drawable.h yet
-0x7b4698	0xe06440	?g_00E0643C@@3HA	AIFarmKillSquad.cpp	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIFarmKillSquad.cpp	0	TU does not include Drawable.h yet
+0x7b4698	0xe06440	?g_00E0643C@@3HA	AIFarmKillSquad.cpp	Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp	0	rowed by lk46 as AIBase.cpp _$E2 (the copy opens the run AIBase's two strings 0x007B46A8/0x007B46C3 close before the marker; the neighbour guess above is superseded)
 0x7b46f8	0xe06454	?g_00E06450@@3HA	AptMyHero.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7b4722	0xe06470	?g_00E06468@@3HA	Rva005B0E9F.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHero.cpp	0	TU claimed by 2 copies: neighbour data is mis-assigned somewhere
 0x7b47bf	0xe065a8	?$S1@?5??CollectPlayerData@AptTimeLineStats@@QAEXH	AptTimeLineStats.cpp	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp	0	rowed by in-o5 (unit free since round 2; Drawable.h include added)
