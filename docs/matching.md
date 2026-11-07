@@ -621,6 +621,27 @@ an update is blocked, keep the last verified inputs and report the exact blocker
 and attempted repair; do not mark it successful or suspend future freshness
 checks indefinitely.
 
+Upstream cleanup item: donor `// cl:` lines BFME 2 refuses. `tools/cl_flags.py`
+(conversion_gate Rule F, `build.source_extra_flags`) allows only code-generation
+flags and in-checkout include paths, so a donor sweep skips any donor whose line
+carries anything else (`cl_flags.Refused`). At pin 946f3c05a1 (2026-11-07) that is
+27 of the submodule's 17,706 donor sources, 19 under `game/` and 8 under `targets/`:
+16 name an include directory without its `/I` (`/game/GameEngine/Include/Precompiled`,
+`/inputs/reference/...`; cl.exe ignores them as unknown options) and 11 ask for an
+assembly listing (`/FAsc` with `/Fa<path>`, one at an absolute `/Users/...` path).
+Fix them upstream in Open-BFME-1, never by editing the submodule here. At each pin
+update, list what remains:
+
+```
+python3 -c "import subprocess,sys; sys.path.insert(0,'tools'); import build,cl_flags
+seen=set()
+for l in subprocess.run(['git','-C','reference/open-bfme-1','grep','-n','-I','^// cl:'],capture_output=True,text=True,errors='replace').stdout.splitlines():
+    f,_,t=l.split(':',2) if l.count(':')>1 else (l,'','')
+    if t and f not in seen:
+        seen.add(f); bad=cl_flags.problems(build._source_flag_tokens(t[6:]))
+        if bad: print(f, '--', cl_flags.describe(bad))"
+```
+
 ## Work selection in detail (moved from AGENTS.md, 2026-10)
 
 AGENTS.md ("Work loop") gives the order; this is how the picker applies it.
