@@ -121,3 +121,6 @@ The partial specialization follow-up for the twelve default references is blocke
 
 
 **2026-11-07 ButterflyDraw category table.** The one-slot retail table at 0x0081C780 can be emitted with the exact export identity. That source variant changes two shared constructor COMDAT copies and drops the unit from 115 linked bytes to zero in the local preview. The imported-constructor variants lose the verified deleting destructor. All variants were reverted. [Reproduction and prerequisite](../../reverse/attempt_support/butterfly-draw-category-vftable-20261107.md).
+
+
+**2026-11-07 measured Point and Ortho confirmation.** The [real link at f0c03faea1](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42372269717) includes 340d85d144. Comparing unique unresolved names with 7112adc012 removes exactly the OrthoEmissionVelocity and PointEmissionVolume KEY and NAME exports at 0x00A02CE8, 0x00A02CEC, 0x00A02D10 and 0x00A02D14. No new unresolved names appear. The total falls from 221 to 217, with zero duplicates. The run wrote no image. The 17 category registration exports were published after the measured commit and await their own real-link result.
