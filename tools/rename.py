@@ -307,6 +307,9 @@ SEARCH_ROOTS = ("Code", "reference/shims")
 DONOR_GITLINK = "reference/open-bfme-1"
 GIT_TIMEOUT = 30
 HEADER_SUFFIXES = (".h", ".hpp", ".hh", ".hxx", ".inl", ".inc")
+# prepared sources one transaction carries: the default, and the ceiling above which
+# --max-prepared also needs --beyond-prepared-ceiling
+PREPARED_DEFAULT, PREPARED_CEILING = 32, 256
 SOURCE_SUFFIXES = (".cpp", ".c")
 # Files keyed by name that the verifier freeze forbids editing: a renamed debt
 # row cannot be re-keyed there, so the excuse would silently stop applying.
@@ -932,6 +935,8 @@ class Context:
         # files earlier plans of this run wrote and kept (a rename_files run applies
         # batch after batch before anything is staged): the commit will contain them
         self.kept = set()
+        # how many prepared sources one transaction may carry (--max-prepared)
+        self.max_prepared = PREPARED_DEFAULT
 
     def path(self, rel):
         return self.root / rel
@@ -10559,11 +10564,18 @@ def _batch_source_edits(ctx, plan, edits):
 
     This does not admit new sources or ledger edits. Every prepared source has
     matched rows, is claimed with the union and goes through its normal gates.
+    At most ctx.max_prepared sources (PREPARED_DEFAULT unless --max-prepared
+    raises it): a respell whose callers cannot be split across commits (a unit
+    left behind calls a symbol no row names) stays one transaction, with the
+    same per-unit byte gate, rollback and object checks however many it holds.
     """
     if edits is None:
         return False
-    if not isinstance(edits, dict) or len(edits) > 32:
-        raise Refusal("source_edits must map at most 32 existing Code C++ paths to bytes")
+    limit = getattr(ctx, "max_prepared", PREPARED_DEFAULT)
+    if not isinstance(edits, dict) or len(edits) > limit:
+        raise Refusal(f"source_edits must map at most {limit} existing Code C++ paths to bytes"
+                      + (f" ({len(edits)} given; --max-prepared N raises the limit for one transaction, up to "
+                         f"{PREPARED_CEILING} without --beyond-prepared-ceiling)" if isinstance(edits, dict) else ""))
     if not edits:
         return False
     if any(not isinstance(rel, str) or not isinstance(data, bytes) for rel, data in edits.items()):
@@ -11341,6 +11353,11 @@ def main(argv=None):
     common.add_argument("--no-object-scan", action="store_true",
                         help="find referencing units by text only, not cached object symbol tables")
     common.add_argument("--max-files", type=int, default=25, help="refuse a larger blast radius (default 25)")
+    common.add_argument("--max-prepared", type=int, default=PREPARED_DEFAULT, metavar="N",
+                        help=f"accept up to N --prepared sources in the one transaction (default "
+                             f"{PREPARED_DEFAULT}; above {PREPARED_CEILING} needs --beyond-prepared-ceiling)")
+    common.add_argument("--beyond-prepared-ceiling", action="store_true",
+                        help=f"with --max-prepared above {PREPARED_CEILING}: the larger transaction is deliberate")
     common.add_argument("--root", type=Path, default=ROOT, help="TEST-ONLY: operate on another tree")
     common.add_argument("--sweep-dir", action="append", default=None,
                         help="canonical:zh/bfme1: directory holding zh_sweep/ and bfme1_sweep/ caches "
@@ -11609,7 +11626,14 @@ def main(argv=None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--new", args.new), ("--basis", args.basis),
                                               ("--evidence", args.evidence)) if v is None))
+    max_prepared = getattr(args, "max_prepared", PREPARED_DEFAULT)
+    if max_prepared < 1:
+        parser.error("--max-prepared must be at least 1")
+    if max_prepared > PREPARED_CEILING and not getattr(args, "beyond_prepared_ceiling", False):
+        parser.error(f"--max-prepared {max_prepared} is above the {PREPARED_CEILING} ceiling; pass "
+                     "--beyond-prepared-ceiling as well if that one transaction is deliberate")
     ctx = Context(args.root, object_scan=not args.no_object_scan, sweep_dirs=args.sweep_dir or ("build",))
+    ctx.max_prepared = max_prepared
     kwargs = dict(new=args.new, basis=args.basis, evidence=args.evidence, max_files=args.max_files)
     if respell:
         kwargs["respell"] = True
