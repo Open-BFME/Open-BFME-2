@@ -25,6 +25,10 @@ struct BfmeHeldFDE
 	BfmeSubFDE *m_bfmeS;
 };
 class Matrix3D;
+// ModuleData's Snapshot spelling first: Drawable.h selects the capitalized slots only when
+// Snapshot.h is not yet included, so the whole unit sees one lowercase Snapshot and
+// ModuleData's loadPostProcess/xfer override its slots (LINK-625, P18).
+#include "../../../../Include/Common/ModuleData.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"
 struct BfmeEntry
@@ -341,7 +345,6 @@ template <> void _STL::vector<Rva004BA1D0>::push_back(const Rva004BA1D0 &value)
     }
 }
 
-char g_00C59B20;
 
 typedef int Int;
 
@@ -427,7 +430,7 @@ enum TransitionDamageFXExtent
 	DAMAGE_MODULE_MAX_FX = 12
 };
 
-class UpdateModuleData
+class UpdateModuleData : public ModuleData
 {
 public:
 	__declspec(dllimport) __forceinline UpdateModuleData() {}
@@ -440,14 +443,14 @@ class TransitionDamageFXModuleData : public UpdateModuleData
 {
 public:
 	TransitionDamageFXModuleData();
+	// Out of line: the rowed 0x004BA715 (TransitionDamageFXModuleDataDestructorThunk.cpp).
+	virtual ~TransitionDamageFXModuleData();
 	static void parseFXList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseParticleSystem(INI *ini, void *instance, void *store, const void *userData);
 	static void NeighborIDSubobjectNameDataAppend(INI *ini, void *instance, void *store, const void *userData);
 
 private:
-	const void *m_vtable;
-	unsigned int m_unused04;
 	int m_damageFXTypes;
 	TransitionDamageFXRecordA m_fxList[BODYDAMAGETYPE_COUNT][DAMAGE_MODULE_MAX_FX];
 	int m_damageOCLTypes;
@@ -1032,7 +1035,6 @@ void Rva004BA1C8_Delete(Rva004BA1C8 *p) { delete p; }
 
 // ??0TransitionDamageFXModuleData@@QAE@XZ @0x004BA58A
 TransitionDamageFXModuleData::TransitionDamageFXModuleData()
-	: m_vtable(reinterpret_cast<const void *>((unsigned int)&g_00C59B20))
 {
 	Int i, j;
 	for (i = 0; i < BODYDAMAGETYPE_COUNT; ++i) {
