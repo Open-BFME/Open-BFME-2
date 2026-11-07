@@ -74,3 +74,47 @@ That technique suppresses helpers a unit should not own. It does **not** apply w
 genuinely calls the shared body: `Bfme5FindAndErase.cpp`'s rowed `bfmeRemove` has a REL32 to
 `0x001FF51F` at `0x0042119D`, so that call must stay a call, and the repair is to make the
 unit use the real container type rather than to inline anything away.
+
+## Follow-up: the W3DModelDraw element, and why the recorded next step is wrong (2026-11-07)
+
+`re_attempts.log:101227` ends with "Next: establish the real bit count
+(ModelConditionFlags count) and respell the view." That step cannot work as written, and
+this records why before anyone spends a batch on it.
+
+**What the 24-byte stride is measured against.** The body at `0x00626EF0` is rowed as
+`__copy<Rva00626EF0Element*>` (96 B, PartitionManagerImpl.cpp), and that element is literally
+`struct Rva00626EF0Element { int words[6]; }` - 24 bytes, with an explicit
+`_STL::__copy<Rva00626EF0Element*,...>` instantiation in the same unit. The 0x18 stride and
+the `idiv`-by-3 reciprocal `0x2AAAAAAB` the earlier note measured are consistent with that.
+
+**ModelConditionFlags is spelled three different widths in this tree**, and none is 24 bytes:
+
+| spelling | storage | bytes | where |
+|---|---|---|---|
+| `BitFlags<117>` | 4 dwords | 16 | W3DModelDraw.cpp, ThingTemplate.h, Rva0033DCD1.cpp |
+| `BitFlags<304>` | 10 dwords | 40 | BitFlags304GetSingleBitFromName.cpp, which asserts "This BFME2 binary's ModelConditionFlags is BitFlags<304>" on retail evidence: 0x000B42CA references the literal "FRONTCRUSHED", an entry of ZH's `ModelConditionFlags::s_bitNameList[]`, and its matched sibling BitFlags304BuildDescription.cpp reads the same extern array as `ModelConditionNames` |
+| `Rva00049BE8` | `UnsignedInt m_bits[19]` | 76 | typedef'd `ModelConditionFlags` in W3DDisplayGatherAnimationDebuggingInfo.cpp |
+
+So "establish the real bit count and respell the view" does not reach a 24-byte element under
+any of these: 16, 40 and 76 all miss it, and **no `BitFlags<N>` width used anywhere in the
+tree is 6 dwords** (the widths in use are 11, 15, 17, 21, 69, 101, 104, 116, 117, 128, 154,
+218, 304, 591). A bit count alone cannot explain the stride.
+
+**A hypothesis that does fit the arithmetic, not confirmed.** The element may not be a bare
+flag set but a pair. W3DModelDraw.cpp instantiates
+`pair<BitFlags<117> const, ModelConditionInfo const *>` (line 162), and a 20-byte flag set
+plus a 4-byte pointer is exactly 24. `BitFlags<154>` is 5 dwords, i.e. 20 bytes, and already
+exists in this tree. That would make the vector the SparseMatchFinder's cache of
+(flags, matched-info) pairs rather than a vector of flags, which is also why our
+`vector<BitFlags<117>>` spelling binds its `__copy` to the wrong body.
+
+This was not confirmed. The `SparseMatchFinder` declarations in
+`Rva0033DCB8.cpp`, `Rva0033DCD1.cpp` and `stlport_rb_tree_0033c646_insert.cpp` are stubs -
+`int m_dummy`, `unsigned int m_bits`, `char m_pad[0x370]` - so none of them settles the
+cache's element type, and the pair hypothesis needs its own evidence from retail.
+
+**What to settle first, in order.** Which of the three ModelConditionFlags widths is right
+for this binary is a tree-wide question, not a W3DModelDraw one: it affects every unit that
+spells these flags, and two of the three spellings cite evidence. Until it is settled,
+respelling W3DModelDraw's template argument would be guessing at a number, and the three
+baseline rows should stay as they are.
