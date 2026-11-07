@@ -5876,8 +5876,8 @@ void __cdecl rva007B7C7C()
 
 
 struct BfmeContainerRecord00048139;
-extern unsigned g_Va00DE1CAC;
-unsigned int g_Va00DE1CAC;
+extern unsigned g_Va00DE1CAC[4];
+unsigned int g_Va00DE1CAC[4];	// a function-local static vector (12 bytes) and its guard word (retail .data, 16 bytes)
 
 // ?rva007B6AC8@@YAXXZ @ 0x007B6AC8 (10B). Global vector<BfmeContainerRecord00048139> dtor thunk: ecx=&g_Va00DE1CAC then tail-jmp to rowed ??1?$vector@UBfmeContainerRecord00048139@@V?$allocator@UBfmeContainerRecord00048139@@@_STL@@@_STL@@QAE@XZ (0x0004B193).
 void __cdecl rva007B6AC8()

@@ -191,7 +191,7 @@ public:
 	AnimRecord *erase(AnimRecord *first, AnimRecord *last) { return ((Rva0004B1D2 *)this)->rva0004B1D2(first, (const char *)last); }
 };
 
-extern UnsignedInt g_Va00DE1CAC;	// VA 0x00DE1CAC: the history vector, guard word at +0xC
+extern UnsignedInt g_Va00DE1CAC[4];	// VA 0x00DE1CAC: the history vector (12 bytes), guard word at +0xC
 void __cdecl rva007B6AC8();		// its atexit destructor thunk
 static inline AnimHistory &animHistory() { return *(AnimHistory *)&g_Va00DE1CAC; }
 
@@ -291,8 +291,8 @@ void W3DDisplay::gatherAnimationDebuggingInfo()
 	static int s_mode;
 	static int s_prevID;
 	static int s_lockedID;
-	if (!((&g_Va00DE1CAC)[3] & 1)) {
-		(&g_Va00DE1CAC)[3] |= 1;
+	if (!(g_Va00DE1CAC[3] & 1)) {
+		g_Va00DE1CAC[3] |= 1;
 		animHistory().AnimHistory::AnimHistory();
 		atexit(rva007B6AC8);
 	}
