@@ -31,13 +31,13 @@ public:
 	virtual void f2() {}
 };
 
-class Rva004BB949 : public Rva004BB68E, public MiBase1, public Rva004BB949_B2
+class SquishCollide : public Rva004BB68E, public MiBase1, public Rva004BB949_B2
 {
 public:
-	virtual ~Rva004BB949();
+	virtual ~SquishCollide();
 };
 
-Rva004BB949::~Rva004BB949()
+SquishCollide::~SquishCollide()
 {
 }
 

@@ -334,7 +334,7 @@ NameKeyType SquishCollide::getModuleNameKey() const
 
 // tu-skeleton: 0x004BB9CF 42B ??0SquishCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004BB9F9 28B ??_GRva004BB949@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp (not merged yet)
+// tu-skeleton: 0x004BB9F9 28B ??_GSquishCollide@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BB68EDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideOnCollide.cpp
 
