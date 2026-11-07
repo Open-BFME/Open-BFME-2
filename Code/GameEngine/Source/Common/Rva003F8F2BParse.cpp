@@ -53,9 +53,6 @@ struct Rva003F7C0C
 };
 
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva003F2576ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva003F2576ThrowInfoAnchor rva003F2576ThrowInfoAnchor = { 0, 0, 0, 0 };
 
 // Both parsers name themselves in their INIException text, and WB names them
 // LivingWorldTutorial::SessionTask::ParseINI and LivingWorldTutorial::
@@ -113,8 +110,7 @@ void LivingWorldTutorial::SessionTask::ParseINI(INI *ini, Rva003F7C0C *outer)
 {
 	if (!ini || !outer)
 	{
-		INIException exc(3, "Invalid data in SessionTask::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F2576ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in SessionTask::ParseINI");
 	}
 	Rva003F8ED6 *task = new Rva003F8ED6((outer->m_04?outer->m_04:outer->m_04));
 	ini->initFromINI(task, g_00C373D8);
@@ -125,8 +121,7 @@ void LivingWorldTutorial::LogicTurn::ParseINI(INI *ini, Rva003F9004 *outer)
 {
 	if (!ini || !outer)
 	{
-		INIException exc(3, "Invalid data in LogicTurn::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F2576ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in LogicTurn::ParseINI");
 	}
 	Rva003F7EC7 *logicTurn = new Rva003F7EC7((outer->m_04?outer->m_04:outer->m_04));
 	ini->initFromINI(logicTurn, g_logicTurnFieldParse);

@@ -17,9 +17,6 @@ typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 class ModuleData;
 
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva003F9258ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva003F9258ThrowInfoAnchor rva003F9258ThrowInfoAnchor = { 0, 0, 0, 0 };
 
 // 0x003F9258 Tutorial::ParseINI, record size 0x24.
 class Rva003F9258Data
@@ -49,8 +46,7 @@ extern const FieldParse g_00C37560[2] = {
 void Rva003F9258Parse(INI *ini, Rva003F7BE9 *holder)
 {
 	if (!ini || !holder) {
-		INIException exc(3, "Invalid data in Tutorial::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F9258ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in Tutorial::ParseINI");
 	}
 	Rva003F9258Data *tutorial = new Rva003F9258Data;
 	ini->initFromINI(tutorial, g_00C37560);
@@ -89,8 +85,7 @@ extern const FieldParse g_00C635D0[4] = {
 void Rva004FD719Parse(INI *ini, Rva004FD37F *holder)
 {
 	if (!ini || !holder) {
-		INIException exc(3, "Invalid data in PlayerDefeatCondition::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F9258ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in PlayerDefeatCondition::ParseINI");
 	}
 	Rva004FD719Data *playerDefeatCondition = new Rva004FD719Data;
 	ini->initFromINI(playerDefeatCondition, g_00C635D0);
@@ -133,8 +128,7 @@ extern const FieldParse g_00C636D0[5] = {
 void Rva004FD7FBParse(INI *ini, Rva004FD448 *holder)
 {
 	if (!ini || !holder) {
-		INIException exc(3, "Invalid data in TeamDefeatCondition::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F9258ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in TeamDefeatCondition::ParseINI");
 	}
 	Rva004FD7FBData *teamDefeatCondition = new Rva004FD7FBData;
 	ini->initFromINI(teamDefeatCondition, g_00C636D0);
@@ -171,8 +165,7 @@ extern const FieldParse g_00C70FFC[3] = {
 void Rva0059E436Parse(INI *ini, Rva0059E390 *holder)
 {
 	if (!ini || !holder) {
-		INIException exc(3, "Invalid data in SpawnGenericBuilding::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F9258ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in SpawnGenericBuilding::ParseINI");
 	}
 	Rva0059E436Data *spawnGenericBuilding = new Rva0059E436Data;
 	ini->initFromINI(spawnGenericBuilding, g_00C70FFC);
@@ -209,8 +202,7 @@ extern const FieldParse g_00C71064[3] = {
 void Rva0059E511Parse(INI *ini, Rva0059E3A7 *holder)
 {
 	if (!ini || !holder) {
-		INIException exc(3, "Invalid data in SpawnGenericArmy::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F9258ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in SpawnGenericArmy::ParseINI");
 	}
 	Rva0059E511Data *spawnGenericArmy = new Rva0059E511Data;
 	ini->initFromINI(spawnGenericArmy, g_00C71064);
@@ -251,8 +243,7 @@ extern const FieldParse g_00C710E8[5] = {
 void Rva0059E6D3Parse(INI *ini, Rva004FD4AE *holder)
 {
 	if (!ini || !holder) {
-		INIException exc(3, "Invalid data in OwnershipSet::ParseINI");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F9258ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Invalid data in OwnershipSet::ParseINI");
 	}
 	Rva0059E6D3Data *ownershipSet = new Rva0059E6D3Data;
 	ini->initFromINI(ownershipSet, g_00C710E8);

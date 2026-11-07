@@ -16,10 +16,7 @@
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
-struct EmotionThrowInfoAnchor { int a; int b; int c; int d; };
-static const EmotionThrowInfoAnchor emotionThrowInfoAnchor = { 0, 0, 0, 0 };
 
 template <unsigned N> class BitFlags
 {
@@ -46,8 +43,7 @@ void EmotionNuggetTemplate::IniParseEmotionType(INI *ini, void *instance, void *
 		*(int *)store = BitFlags<12>::getSingleBitFromName(token);
 		return;
 	}
-	INIException e(3, "Emotion type expected.");
-	_CxxThrowException(&e, (const _s__ThrowInfo *)&emotionThrowInfoAnchor); __assume(0);
+	throw INIException(3, "Emotion type expected.");
 }
 
 // ?Rva004DC745_ParseAIState@INI@@SAXPAV1@PAX1PBX@Z
@@ -58,8 +54,7 @@ void INI::Rva004DC745_ParseAIState(INI *ini, void *instance, void *store, const 
 		*(int *)store = BitFlags<6>::getSingleBitFromName(token);
 		return;
 	}
-	INIException e(3, "Emotion AI type expected.");
-	_CxxThrowException(&e, (const _s__ThrowInfo *)&emotionThrowInfoAnchor); __assume(0);
+	throw INIException(3, "Emotion AI type expected.");
 }
 
 // Retail 0x004B6481..0x004B64E4 requires the ModelConditionState keyword
@@ -71,6 +66,5 @@ void INI::iniParseAnim(INI *ini, void *, void *store, const void *)
         *(int *)store = BitFlags<304>::getSingleBitFromName(ini->getNextToken(0));
         return;
     }
-    INIException e(3, "AnimState expected for TransportContain::iniParseAnim");
-    _CxxThrowException(&e, (const _s__ThrowInfo *)&emotionThrowInfoAnchor); __assume(0);
+    throw INIException(3, "AnimState expected for TransportContain::iniParseAnim");
 }

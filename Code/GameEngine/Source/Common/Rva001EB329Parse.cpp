@@ -29,9 +29,6 @@ extern const FieldParse CampaignMissionFieldParse[] =
 
 
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva001EB329ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva001EB329ThrowInfoAnchor rva001EB329ThrowInfoAnchor = { 0, 0, 0, 0 };
 
 class Rva001EB329
 {
@@ -49,7 +46,6 @@ void Rva001EB329::rva001EB329(INI *ini)
 	{
 		char *t = *(char **)this;
 		const char *s = t ? t + 8 : "";
-		INIException exc(3, "Campaign missions must have a Map. %s does not", s);
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva001EB329ThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Campaign missions must have a Map. %s does not", s);
 	}
 }

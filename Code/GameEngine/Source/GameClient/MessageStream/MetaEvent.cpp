@@ -303,14 +303,8 @@ const FieldParse DebugCommandMapEntry::m_fieldParseTable[8] = {
 };
 
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
-// Address anchor only: the throw site pushes this object's address as an
-// immediate (DIR32, copied from retail's throwinfo at 0x8FE2FC). Content is
-// never compared; the real chain lives in the retail image.
-struct ParseMetaMapThrowInfoAnchor { int a; int b; int c; int d; };
 
-static const ParseMetaMapThrowInfoAnchor parseMetaMapThrowInfoAnchor = { 0, 0, 0, 0 };
 
 // PRIVATE DATA ///////////////////////////////////////////////////////////////
 
@@ -715,13 +709,11 @@ void MetaMap::parseMetaMap(INI *ini)
 	const char *token = ini->getNextToken(0);
 	GameMessage::Type t = TheMetaMap->findGameMessageMetaType(token);
 	if (t == GameMessage::MSG_INVALID) {
-		INIException e(3, "Game message meta type for '%s' not found", token);
-		_CxxThrowException(&e, (const _s__ThrowInfo *)&parseMetaMapThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Game message meta type for '%s' not found", token);
 	}
 	MetaMapRec *map = TheMetaMap->getMetaMapRec(t);
 	if (map == 0) {
-		INIException e(3, "Meta map entry for '%s' not found", token);
-		_CxxThrowException(&e, (const _s__ThrowInfo *)&parseMetaMapThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Meta map entry for '%s' not found", token);
 	}
 	ini->initFromINI(map, DebugCommandMapEntry::m_fieldParseTable);
 }

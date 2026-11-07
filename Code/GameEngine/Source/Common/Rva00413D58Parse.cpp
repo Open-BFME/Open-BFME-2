@@ -19,9 +19,6 @@ void * TheLivingWorldAutoResolveReinforcementScheduleStore;	// retail RVA 0x00A0
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva00413D58ThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva00413D58ThrowInfoAnchor rva00413D58ThrowInfoAnchor = { 0, 0, 0, 0 };
 
 void parseAutoResolveReinforcementScheduleDefinition(INI *ini)
 {
@@ -33,8 +30,7 @@ void parseAutoResolveReinforcementScheduleDefinition(INI *ini)
 		idx = 0;
 	else
 	{
-		INIException exc(1, "Unknown AutoResolveReinforcementSchedule type '%s'. Should be 'Attacker' or 'Defender'", tok);
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva00413D58ThrowInfoAnchor); __assume(0);
+		throw INIException(1, "Unknown AutoResolveReinforcementSchedule type '%s'. Should be 'Attacker' or 'Defender'", tok);
 	}
 	Rva00413D46 *elem = (Rva00413D46 *)((char *)TheLivingWorldAutoResolveReinforcementScheduleStore + 0xc + (idx << 4));
 	elem->rva00413D46(ini);

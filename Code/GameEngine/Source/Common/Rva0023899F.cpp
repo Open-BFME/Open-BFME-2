@@ -9,9 +9,6 @@
 
 #include "../../Include/Common/INI/FieldParse.h"
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-struct Rva0023899FThrowInfoAnchor { int a; int b; int c; int d; };
-static const Rva0023899FThrowInfoAnchor rva0023899FThrowInfoAnchor = { 0, 0, 0, 0 };
 
 void __cdecl Rva0023899FParse(INI *ini, int unused, int *out)
 {
@@ -26,7 +23,6 @@ void __cdecl Rva0023899FParse(INI *ini, int unused, int *out)
 		*out = 3;
 	else
 	{
-		INIException exc(3, "invalid GameDifficulty data: should be one of (EASY, NORMAL, HARD, BRUTAL)");
-		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva0023899FThrowInfoAnchor); __assume(0);
+		throw INIException(3, "invalid GameDifficulty data: should be one of (EASY, NORMAL, HARD, BRUTAL)");
 	}
 }

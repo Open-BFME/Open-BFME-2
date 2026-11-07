@@ -21,7 +21,7 @@
 // - The DEBUG_CRASH text feeds the INIException filler directly (filler pin
 //   0x002F681 + _CxxThrowException pin 0x00629094, INI_scanReal.cpp idiom:
 //   explicit filler call plus explicit noreturn throw, no `throw` keyword,
-//   so no SEH prologue). Throw-info anchor is a sacrificial static (DIR32).
+//   so no SEH prologue). The throws name the compiler's INIException throwinfo.
 // - Vector clears route to the outlined vector<AsciiString>::erase at
 //   0x002CCFC (82 image-wide callers pushing finish/start pairs; range
 //   destroy plus finish update inside), pinned on first resolution.
@@ -73,11 +73,6 @@ extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
 __declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
 
-// Address anchor only: the throw site pushes this object's address as an
-// immediate (DIR32, copied from retail's INIException throwinfo at
-// 0xCFE2FC). Its content is never compared.
-struct UpgradeMuxThrowInfoAnchor { int a; int b; int c; int d; };
-static const UpgradeMuxThrowInfoAnchor upgradeMuxThrowInfoAnchor = { 0, 0, 0, 0 };
 
 // TU-local views for the activation gate 0x004CB333 (retail-measured offsets).
 #include "../../../Include/Common/Rva001EAE6FHelper.h"
@@ -137,10 +132,9 @@ __declspec(noinline) inline void UpgradeMuxData::getUpgradeActivationMasks(
 				TheUpgradeCenter->findUpgrade(*it);
 			if (!theTemplate && !it->isEmpty() && !it->isNone())
 			{
-				INIException e(3,
+				throw INIException(3,
 					"An upgrade module references %s, which is not an Upgrade",
 					it->str());
-				_CxxThrowException(&e, (void *)&upgradeMuxThrowInfoAnchor);
 			}
 
 			m_activationMask.set(theTemplate->getUpgradeMask());
@@ -153,10 +147,9 @@ __declspec(noinline) inline void UpgradeMuxData::getUpgradeActivationMasks(
 				TheUpgradeCenter->findUpgrade(*it);
 			if (!theTemplate && !it->isEmpty() && !it->isNone())
 			{
-				INIException e(3,
+				throw INIException(3,
 					"An upgrade module references %s, which is not an Upgrade",
 					it->str());
-				_CxxThrowException(&e, (void *)&upgradeMuxThrowInfoAnchor);
 			}
 
 			m_conflictingMask.set(theTemplate->getUpgradeMask());

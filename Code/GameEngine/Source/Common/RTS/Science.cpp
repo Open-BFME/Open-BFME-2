@@ -303,11 +303,8 @@ private:
 	int m_count; // +4
 };
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
-struct FriendLookupThrowInfoAnchor { int a; int b; int c; int d; };
 
-static const FriendLookupThrowInfoAnchor friendLookupThrowInfoAnchor = { 0, 0, 0, 0 };
 
 typedef _STL::allocator<SciencePair> ScienceAlloc;
 
@@ -796,8 +793,7 @@ ScienceType ScienceStore::friend_lookupScience(const char *scienceName) const
 	ScienceType st = (ScienceType)nkt;
 	if (!isValidScience(st))
 	{
-		INIException e(3, "Science name %s not known! (Did you define it in Science.ini?)", scienceName);
-		_CxxThrowException(&e, (const _s__ThrowInfo *)&friendLookupThrowInfoAnchor); __assume(0);
+		throw INIException(3, "Science name %s not known! (Did you define it in Science.ini?)", scienceName);
 	}
 	return st;
 }
