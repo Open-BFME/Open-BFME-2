@@ -147,13 +147,13 @@ public:
 	virtual void f2();
 };
 
-class Rva004561A2 : public UpdateModule, public MiBase1, public Rva004561A2_B2
+class BuildingBehavior : public UpdateModule, public MiBase1, public Rva004561A2_B2
 {
 public:
-	virtual ~Rva004561A2();
+	virtual ~BuildingBehavior();
 };
 
-Rva004561A2::~Rva004561A2()
+BuildingBehavior::~BuildingBehavior()
 {
 }
 

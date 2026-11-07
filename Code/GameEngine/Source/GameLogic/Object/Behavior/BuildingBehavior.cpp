@@ -337,7 +337,7 @@ BuildingBehavior::BuildingBehavior(Thing *thing, const ModuleData *moduleData)
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x00456270 28B ??_GRva004561A2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+// tu-skeleton: 0x00456270 28B ??_GBuildingBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // tu-skeleton: 0x004564E6 58B ??1BuildingBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BuildingBehaviorModuleDataDtor.cpp (not merged yet)
 

@@ -6125,7 +6125,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1Rva003A4322@@UAE@XZ,,0x003A4322,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva003A49D1@@UAE@XZ,,0x003A49D1,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1Rva003A4CAE@@UAE@XZ,,0x003A4CAE,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
-??1Rva004561A2@@UAE@XZ,,0x004561A2,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
+??1BuildingBehavior@@UAE@XZ,,0x004561A2,25,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,opaque MI dtor
 ??1RampageBehavior@@UAE@XZ,,0x00458AAE,25,Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp,matched,opaque MI dtor
 ??1HitReactionBehavior@@UAE@XZ,,0x00459154,25,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehavior.cpp,matched,opaque MI dtor
 ??1DualWeaponBehavior@@UAE@XZ,,0x0045ADC1,25,Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp,matched,opaque MI dtor
@@ -9816,7 +9816,7 @@ _luaU_undump,,0x00756D10,133,Code/Libraries/Source/Lua/lundump.c,matched,object-
 ?get@Rva00217490SubDwordField@@QBEHXZ,,0x00217490,7,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp,matched,disp8 sub dword getter; opaque holder
 ??_GRva003A49D1@@UAEPAXI@Z,,0x003A4A97,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva003A4CAE@@UAEPAXI@Z,,0x003A4DA4,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva004561A2@@UAEPAXI@Z,,0x00456270,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GBuildingBehavior@@UAEPAXI@Z,,0x00456270,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRampageBehavior@@UAEPAXI@Z,,0x00458BC5,28,Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GHitReactionBehavior@@UAEPAXI@Z,,0x00459285,28,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehavior.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GDualWeaponBehavior@@UAEPAXI@Z,,0x0045AEAD,28,Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
