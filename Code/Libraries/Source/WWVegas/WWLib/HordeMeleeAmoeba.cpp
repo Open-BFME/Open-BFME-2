@@ -29,14 +29,18 @@ private:
 	void *m_other; // +0x18
 };
 
-// ?rva00587F11@Rva00587F11Factory@@QAEPAVRva005D6FCC@@PAX@Z, retail
-// 0x00587F11 60B: slot 1 of the HordeMeleeAmoeba factory table (deleting
-// destructor ICF-shared at 0x00587752 in slot 0); creates the amoeba around
-// the given pointer with the factory itself as its second argument.
-class Rva00587F11Factory
+// HordeContain's "MeleeBehavior" descriptors (HordeContainParseMeleeBehavior.cpp):
+// retail's base table 0x00C44890 is the deleting destructor 0x00468A46, a pure
+// slot 1 (the per-horde behaviour factory) and the empty buildFieldParse
+// 0x0047A69C. The "Amoeba" descriptor below is one of them.
+class MultiIniFieldParse;
+
+class Rva004691B7MeleeBehavior
 {
 public:
-	Rva005D6FCC *rva00587F11(void *held);
+	virtual ~Rva004691B7MeleeBehavior() {}
+	virtual Rva005D6FCC *slot1(void *horde) = 0;
+	virtual void buildFieldParse(MultiIniFieldParse &p) {}
 };
 
 // ?Rva00587599Copy@@YAPAVRva00587375@@PBV1@0PAV1@PBX@Z @0x00587599 38B
@@ -62,28 +66,25 @@ Rva00587375 *__cdecl Rva00587422Fill(Rva00587375 *dest, unsigned int count, cons
 // read through g_00BC5CD4, g_00BC6258, g_00BE2B94, g_00C6FF34, g_Va00BC2428 are compiler literals holding the retail
 // values, not extern globals, which is what gives retail's operand order.
 // ??0Rva005876D5@@QAE@XZ @0x005876D5 125B: constructor. Floats +0x04..+0x14
-// from float globals, pointer +0x00 from g_00C6FF28, member +0x18 built by
+// from float globals, the class's vtable at +0x00, member +0x18 built by
 // the rowed ??0Rva0042526Member@@QAE@XZ in declaration order, ints +0x64/+0x68
 // as double of BfmeLogicFramesPerSecond and +0x6C as triple, then OR 0x40 into the
 // member flags at +0x40. Member view keeps the rowed 0x4C size with the
-// ORed dword at +0x28. The +0x00 store is modeled as a plain data pointer;
-// if the class proves polymorphic it wants a vtable instead.
+// ORed dword at +0x28.
 // Evidence: caller 0x00469204; member TU Rva0042526MemberCtor.cpp;
 // g+g spelling from TransportAIUpdateModuleDataCtor.cpp; BfmeLogicFramesPerSecond
 // declared extern int like the cold getters. Neighbours 0x005875DC
 // 0x0058814C.
 
-extern int g_00C6FF28;
-
-// g_00C6FF28: matched references place it at VA 0xc6ff28 (retail .rdata value 9992018).
-int g_00C6FF28 = 9992018;
-
 extern int BfmeLogicFramesPerSecond;
 
+// The member's rowed constructor only zeroes its 0x4C bytes and cannot throw;
+// retail's constructor below stores no EH state around it, although the base
+// subobject has a destructor.
 class Rva0042526Member
 {
 public:
-	Rva0042526Member();
+	Rva0042526Member() throw();
 
 public:
 	unsigned char m_pad18[0x28];
@@ -91,13 +92,22 @@ public:
 	unsigned char m_pad2C[0x4C - 0x2C];
 };
 
-class Rva005876D5
+// The "Amoeba" melee behaviour descriptor (LINK-617). Retail table 0x00C6FF28,
+// installed by the constructor (target facts): slot 0 the deleting destructor
+// 0x00587752 (ICF-shared with Swarm's and HoldGround's; it calls the folded
+// base destructor 0x00468A3F, which stores the base table; this class's
+// implicit destructor compiles to that body), slot 1 the factory
+// 0x00587F11 that makes a HordeMeleeAmoeba around the horde with this
+// descriptor as its second argument, slot 2 buildFieldParse 0x00587217 (the
+// FieldParse table at 0x00C6FE88 names the fields at +0x04..+0x6C below).
+class Rva005876D5 : public Rva004691B7MeleeBehavior
 {
 public:
 	Rva005876D5();
+	virtual Rva005D6FCC *slot1(void *horde);
+	virtual void buildFieldParse(MultiIniFieldParse &p);
 
 private:
-	int *m_p00;
 	float m_f04;
 	float m_f08;
 	float m_f0C;
@@ -197,7 +207,6 @@ Rva005876D5::Rva005876D5()
 	, m_f08(-0.17000000178813934f)
 	, m_f0C(60.0f)
 	, m_f10(90.0f)
-	, m_p00(&g_00C6FF28)
 	, m_f14(140.0f)
 	, m_i64(BfmeLogicFramesPerSecond + BfmeLogicFramesPerSecond)
 	, m_i68(BfmeLogicFramesPerSecond + BfmeLogicFramesPerSecond)
@@ -250,7 +259,7 @@ HordeMeleeAmoeba::HordeMeleeAmoeba(void *held, void *other)
 	m_flag = true;
 }
 
-Rva005D6FCC *Rva00587F11Factory::rva00587F11(void *held)
+Rva005D6FCC *Rva005876D5::slot1(void *held)
 {
 	return new HordeMeleeAmoeba(held, this);
 }

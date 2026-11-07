@@ -205,12 +205,20 @@ void Rva00584C69::buildFieldParse(MultiIniFieldParse &multiIniFieldParse)
 	multiIniFieldParse.add(s_dataFieldParse, 0);
 }
 
+// Retail table 0x00C6FF28 slot 2: the "Amoeba" melee behaviour descriptor
+// Rva005876D5 (constructor 0x005876D5, HordeMeleeAmoeba.cpp) reads its fields
+// through this table; the offsets are that class's. The table keeps its
+// address-derived owner.
 class Rva00587217
+{
+	friend class Rva005876D5;
+	static const FieldParse s_dataFieldParse[];
+};
+
+class Rva005876D5
 {
 public:
 	virtual void buildFieldParse(MultiIniFieldParse &p);
-private:
-	static const FieldParse s_dataFieldParse[];
 };
 
 const FieldParse Rva00587217::s_dataFieldParse[] =
@@ -227,9 +235,9 @@ const FieldParse Rva00587217::s_dataFieldParse[] =
 	{ 0, 0, 0, 0 }
 };
 
-void Rva00587217::buildFieldParse(MultiIniFieldParse &multiIniFieldParse)
+void Rva005876D5::buildFieldParse(MultiIniFieldParse &multiIniFieldParse)
 {
-	multiIniFieldParse.add(s_dataFieldParse, 0);
+	multiIniFieldParse.add(Rva00587217::s_dataFieldParse, 0);
 }
 
 // --- 0x00343EE5 (21B): 1 when the pinned 0x00343DD8 test fails, else 0.

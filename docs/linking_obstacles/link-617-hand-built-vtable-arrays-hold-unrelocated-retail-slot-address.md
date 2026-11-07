@@ -1,5 +1,5 @@
 ### LINK-617: hand-built vtable arrays hold unrelocated retail slot addresses
-Status: Partly repaired (4 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162 and 10748c0b80c.
+Status: Partly repaired (5 of 12 sources fixed; the rest blocked on TU evidence or class identity; header lane). Updated: 2026-11-07; inspected revision: 35c0259989 (image 0a36813ed0, image_iso 35c0259989); repairs on 31e5d302162 and 10748c0b80c.
 
 Evidence / affected units: `tools/image_iso.py` flags each word below as an `unrelocated_retail_address`
 (`defects.tsv`, swarm packet P7b). Each constructor installs a vptr to an address-named `int`/`void *`/`char`
@@ -21,7 +21,7 @@ rowed under a different placeholder class in another file, so no one class owns 
 | GameNetwork/Rva00800920FeslCtor.cpp | vftable_0112B89C (0x00C1C780) | 1 | __purecall (ledger: ??_7SecondaryModuleBase@FXParticleSystem; data row ??_7Rva003F498ACallback) |
 | GameNetwork/ServiceHubImpl.cpp | vftable_01129CB0 (0x00CE1510), vftable_01129AF4 (0x00CE1354) | 2 | ??_GGen007EB140 (ledger: ??_7ServiceHubImpl), ??_GRva00657670 |
 | GameNetwork/ServiceHubImpl_ctor.cpp | vftable_011296B0 (0x00CE0F20) | 1 | ??_GBfmeMsgVJH (ledger: ??_7Rva00808CB0LanGameEntry and six more) |
-| WWLib/HordeMeleeAmoeba.cpp | g_00C6FF28 (0x00C6FF28) | 1 | ??_GRva00587752Record, then 0x587F11 and 0x587217 |
+| WWLib/HordeMeleeAmoeba.cpp | g_00C6FF28 (0x00C6FF28) | 1 | FIXED 2026-11-07 (below). ??_GRva00587752Record, then 0x587F11 and 0x587217 |
 
 ServiceHubImpl has four private class copies (ServiceHubImpl.cpp, ServiceHubImpl_ctor.cpp,
 createServiceHubImpl.cpp, BuddyThreadClassThreadFunction.cpp). None is registered in canonical_classes.csv.
@@ -140,7 +140,7 @@ slot 10 0x0047A699 (`xor eax, eax; ret`, Rva0078D310Host's override; GameWindow'
   spelling) and slot-7 getter 0x000A2197 (`?fetchCreateInstance@Rva000A2137@@UAEPAXXZ`, was the free
   `?Rva000A2197Get@@YAHXZ`). Rva000A2137's own table, emitted by Rva0078D310HostCtor_Rva00104f8f.obj,
   goes from 1 slot to 4 (slots 1-3 equal retail).
-- The next commit does the same for Rva000A217F (0x000A261C draw, 0x000A219D getter) and declares
+- `5f01f968169` does the same for Rva000A217F (0x000A261C draw, 0x000A219D getter) and declares
   the chain over the canonical GameWindow in Rva000A217FCtor.cpp; the compiler stores
   `??_7Rva000A217F@@6B@` and g_00BC9020 is deleted. Against retail 0x00BC9020 by address: 9/11 slots
   equal (1-9). Slot 0 is this unit's `??_G` (retail's 28-byte shape) calling `??1Rva000A217F`, a
@@ -160,6 +160,38 @@ slot 10 0x0047A699 (`xor eax, eax; ret`, Rva0078D310Host's override; GameWindow'
   GameWindow together (a ctor/dtor pair holds two copies of one table) completes both. The other 16
   gadget tables' draw rows in W3DGadgetWindowDrawSlots.cpp still spell `draw(WinInstanceData *)`; the
   canonical slot is `draw(void *)`, a parameter respelling rename.py cannot make.
+
+Completed (2026-11-07, seat halilkkaya-lk59): g_00C6FF28, the HordeContain "Amoeba" melee behaviour
+descriptor Rva005876D5 (constructor 0x005876D5, 0x70 bytes; HordeContainParseMeleeBehavior allocates
+it for any MeleeBehavior name after Swarm, WaitForLeader and HoldGround). Target facts: retail table
+0x00C6FF28 = [0x00587752, 0x00587F11, 0x00587217]; 0x00587752 is the deleting destructor ICF-shared
+with Swarm's and HoldGround's, calling 0x00468A3F (`mov [ecx], 0x00C44890; ret`: the destructor of
+the base whose table 0x00C44890 the HordeContainParseMeleeBehavior.cpp view models as
+Rva004691B7MeleeBehavior). So the base class is that descriptor base; no new base was needed.
+- One `rename.py function --to-class Rva005876D5 --rva 0x00587217 --new buildFieldParse --also
+  0x00587F11=slot1` plan moves slot 2 (out of the placeholder Rva00587217, GapBodiesS3L.cpp, whose
+  FieldParse table 0x00C6FE88 names Rva005876D5's own offsets) and slot 1 (the factory, out of
+  Rva00587F11Factory, with its `__ehhandler$` row and funclet note). HordeMeleeAmoeba.cpp declares
+  Rva005876D5 over the base view (slot 1 keeps the row's `Rva005D6FCC *` return) and the constructor
+  stores `??_7Rva005876D5@@6B@`; g_00C6FF28 and its data row `?g_00C6FF28@@3HA` are deleted.
+- Recipe: with a polymorphic base the constructor gained an EH frame (the base subobject has a
+  destructor and the member constructor 0x00042526 may throw). Retail stores no EH state: declaring the
+  member constructor `throw()` (it only zeroes 0x4C bytes) restores retail's 125 bytes.
+- Against retail 0x00C6FF28 by address: slots 1 and 2 equal; slot 0 is this unit's `??_G` (retail's
+  28-byte shape) calling the implicit `??1Rva005876D5`, which compiles to 0x00468A3F's 7 bytes (store
+  the base table, ret). The unit now also emits the base's `??_7Rva004691B7MeleeBehavior@@6B@`, `??0`,
+  `??1`, `??_G` and `buildFieldParse` COMDATs, each byte- and relocation-identical to
+  HordeContainParseMeleeBehavior.obj's copies. Evidence: rename.py's ./build.sh 21/21 exact;
+  find_declared_unmatched clean; scoped DIR32 OK (16 symbols); link_check over HordeMeleeAmoeba.cpp,
+  GapBodiesS3L.cpp, HordeContainParseMeleeBehavior.cpp, InlineDtorDeletingDtors1.cpp,
+  Disp0DwordImmSettersAddr.cpp, LargeGroupAudioAudioMap.cpp, HordeContain/HordeMeleeAmoeba.cpp,
+  HordeMeleeAmoebaXfer.cpp, FamilyDeletingDtors_Rva00587F69.cpp and Rva00587F69Dtor.cpp: 10/10 LINK,
+  8,520 B unchanged. Pass test: the next image_iso run no longer lists 0x00C6FF28. Not claimed until
+  that run.
+- Left: the base still has two placeholder names (Rva00468A46 in InlineDtorDeletingDtors1.cpp, ctor
+  0x00468A36 and `??_G` 0x00468A46; Rva004691B7MeleeBehavior in the HordeContain views), and the
+  HordeContainParseMeleeBehavior.cpp view still declares Rva005876D5's slot 1 returning `void *`. The
+  emitter-only `??_GRva00587752Record` row and its `/alternatename` stay as they were.
 
 Remaining / next check: for each array, reconcile the class. Give the constructor's class its real
 virtual functions in retail slot order (a header via `tools/header_adopt_lane.py` where one exists),
