@@ -18,7 +18,14 @@ struct SoundHolder { ~SoundHolder() { if (m_ptr) m_ptr->Release_Ref(); } OpaqueR
 class W3DBoatWakeModelDrawModuleData : public ModuleDataBase { public: W3DBoatWakeModelDrawModuleData(FamVtableEmissionTag *) {} char m_pad[0x8 - 4]; AsciiStringMember m_name; };
 void *famgenMakeW3DBoatWakeModelDrawModuleData() { return new W3DBoatWakeModelDrawModuleData((FamVtableEmissionTag *)0); }
 
-class UpgradeDieModuleData : public ModuleDataBase { public: UpgradeDieModuleData(FamVtableEmissionTag *) {} char m_pad[0x38 - 4]; AsciiStringMember m_name; };
+// UpgradeDieModuleData derives from the canonical DestroyDieModuleData, as its constructor
+// unit (UpgradeDieModuleDataCtor.cpp) declares it, so this unit's copy of the 31-slot vftable
+// (retail 0x00BF33C0) is the same table. Retail's destructor inlines the empty base
+// destructors down to Snapshot's vptr restore, so this unit defines them inline.
+#include "../../../../Include/GameLogic/Module/DestroyDieModuleData.h"
+inline ModuleData::~ModuleData() {}
+inline DestroyDieModuleData::~DestroyDieModuleData() {}
+class UpgradeDieModuleData : public DestroyDieModuleData { public: UpgradeDieModuleData(FamVtableEmissionTag *) {} AsciiStringMember m_name; };
 void *famgenMakeUpgradeDieModuleData() { return new UpgradeDieModuleData((FamVtableEmissionTag *)0); }
 
 class BroadcastStealthUpdateModuleData : public ModuleDataBase { public: BroadcastStealthUpdateModuleData(FamVtableEmissionTag *) {} char m_pad[0x2C - 4]; AsciiStringMember m_name; };
