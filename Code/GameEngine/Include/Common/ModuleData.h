@@ -4,6 +4,7 @@
 // The tables 0x00C4ED70 and 0x00C549F8 have 31 slots. Slots 0..3 are the deleting destructor, loadPostProcess (0x000B3FD0), GetSnapshotName (0x00065212, returning the literal at 0x00BC5AFC), and xfer (0x0047A69C, ret 4). Slots 4..13 and 15 return false (0x0047A699); slot 14 returns an AsciiString by value with one int argument (0x000B69A1, ret 8); slots 16..29 return null (0x000D43D0); slot 30 returns true (0x0050B5C6). 0x00C549F8 ends at 0x00C54A74; 0x00C4ED70 ends at 0x00C4EDEC. Unknown slot names remain neutral.
 // Zero Hour Common/Module.h supplies the Snapshot inheritance, tag accessor names, and loadPostProcess/xfer spellings. The destructor and GetSnapshotName have ledger rows and remain out of line.
 // Zero Hour's ModuleData names isAiModuleData, getAsW3DModelDrawModuleData and getMinimumRequiredGameLOD; their slots come from callers: ThingTemplate::friend_getAIModuleInfo (0x0033B387) tests slot 4 (+0x10), the stats dump at 0x0050CBA2 reads model-draw data from slot 18 (+0x48), W3DTerrainVisual::addProp (0x0009257A) reads prop-draw data from slot 19 (+0x4C), and Drawable's constructor (0x002797BD) compares slot 22 (+0x58) with the static LOD. Their defaults are 0x0047A699 (false) and 0x000D43D0 (null/0).
+// The factories at 0x0024CCF4 and 0x0024F141 call 0x000B28BF (rowed under DelayedLuaEventUpdateModuleData), whose 9 bytes (mov eax,ecx; mov [eax],0x00C4ED70; ret) only install the shared table; derived constructors store no ModuleData table before their own (e.g. 0x0058925D). Inference: the constructor is the empty inline one, emitted out of line once.
 // Carryover's 0x0037E00C calls slot 21 (+0x54), then walks the returned horde data's members at +0xA4; getHordeModuleData names that evidenced accessor. Its default in the common tables is 0x000D43D0.
 #pragma once
 
@@ -26,6 +27,11 @@ enum NameKeyType;
 class ModuleData : public Snapshot
 {
 public:
+    // Expanded in place, never emitted: every unit that constructs a ModuleData
+    // would otherwise emit its own ??0ModuleData@@QAE@XZ COMDAT, and link order
+    // keeps ModuleFactory.cpp's Zero Hour copy (it calls Snapshot's constructor),
+    // so each such unit failed the census on that name (BfmeModuleData.h precedent).
+    __declspec(dllimport) __forceinline ModuleData() {}
     virtual ~ModuleData();
     virtual void loadPostProcess() {}
 #ifdef BFME_SNAPSHOT_NAME_SLOT
