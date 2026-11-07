@@ -157,7 +157,7 @@ def compiled(tmp_path, monkeypatch, sections, symbols, source_text="// fixture\n
     """A fake object for Code/G.cpp: sections [(name, flags, body, size, relocs)],
     symbols [(name, value, section[, type])]."""
     obj = tmp_path / "G.obj"
-    write_coff(obj, sections, [(name, value, section, 3 if name.startswith("$") else 2, *typ)
+    write_coff(obj, sections, [(name, value, section, 3 if name.startswith(("$", "_$E")) else 2, *typ)
                                for name, value, section, *typ in symbols])
     (tmp_path / "Code").mkdir(exist_ok=True)
     (tmp_path / "Code/G.cpp").write_text(source_text)
@@ -436,6 +436,51 @@ def test_template_reference_size_requires_the_compiler_shape(tmp_path, monkeypat
         symbols.append(("?another@@3HA", 0, 1))
     compiled(tmp_path, monkeypatch, [(".bss", flags, None, size, [])], symbols)
     assert "size 4 unproven" in verify(image_with(data=bytes(8)), row(name), {})[1]
+
+
+@pytest.mark.parametrize("defect", [
+    None, "machine", "alias", "overlap", "missing CRT entry", "wrong thunk",
+    "wrong store", "store addend", "wrong destination", "wrong referent", "two entries",
+])
+def test_shared_bss_reference_needs_an_exact_startup_store(tmp_path, monkeypatch, defect):
+    symbols = [(TEMPLATE_REFERENCE, 4, 1), ("?Source@FX@@3QBDB", 0, 0),
+               ("_$E1", 0, 2, FUNCTION), ("?other@@3HA", 8, 1)]
+    store = b"\xc7\x05" + bytes(8) + b"\xc3"
+    writes = [(2, 0), (6, 1)]
+    entries = [(0, 2)]
+    if defect in ("alias", "overlap"):
+        symbols[-1] = ("?other@@3HA", 4 if defect == "alias" else 5, 1)
+    elif defect == "missing CRT entry":
+        entries = []
+    elif defect == "wrong thunk":
+        symbols[2] = ("_$E1", 1, 2, FUNCTION)
+    elif defect == "wrong store":
+        store = b"\x66" + store
+    elif defect == "store addend":
+        store = store[:2] + b"\x01" + store[3:]
+    elif defect == "wrong destination":
+        writes[0] = (2, 3)
+    elif defect == "wrong referent":
+        symbols[1] = ("?Source@FX@@3HA", 0, 0)
+    elif defect == "two entries":
+        entries.append((4, 2))
+    compiled(tmp_path, monkeypatch, [
+        (".bss", REFERENCE_BSS & ~0x1000, None, 12, []),
+        (".text$yc", CODE, store, len(store), writes),
+        (".CRT$XCU", DATA, bytes(8), 8, entries),
+    ], symbols)
+    if defect == "machine":
+        obj = tmp_path / "G.obj"
+        obj.write_bytes(b"\x64\x86" + obj.read_bytes()[2:])
+    image = image_with(data=bytes(8))
+    ok, why = verify(image, row(TEMPLATE_REFERENCE), {})
+    if defect is None:
+        assert ok and "compiler startup store" in why
+        assert "size 8 unproven" in verify(image, row(TEMPLATE_REFERENCE, size="8"), {})[1]
+        assert "retail holds non-zero bytes" in verify(image_with(data=b"\x01" + bytes(7)),
+                                                     row(TEMPLATE_REFERENCE), {})[1]
+    else:
+        assert not ok and "size 4 unproven" in why
 
 
 COMDAT_RDATA = 0x40301040  # .rdata with IMAGE_SCN_LNK_COMDAT, as MSVC 7.1 emits a vftable

@@ -542,25 +542,58 @@ IMAGE_SCN_CNT_INITIALIZED_DATA, IMAGE_SCN_MEM_WRITE = 0x40, 0x80000000
 PUBLIC_TEMPLATE_POINTER_REFERENCE = re.compile(r"^\?\w+@\?\$\w+@.+@@2ABQBDB$")
 
 
-def _template_pointer_reference_size(sec, symbols, sym):
+def _template_pointer_reference_size(sections, symbols, sym, x86):
     """Size a public template static of type const char *const &.
 
-    VC7.1 gives these dynamically initialized x86 references a four-byte
-    writable COMDAT. Their mangling identifies the reference type even when
-    the template arguments cannot be written as a sizeof expression.
+    VC7.1 gives these dynamically initialized x86 references a four-byte slot.
+    Prove it from the isolated COMDAT or the compiler's exact startup store.
     """
+    sec = sections[sym["section"] - 1]
     flags = sec["flags"]
-    needed = IMAGE_SCN_LNK_COMDAT | IMAGE_SCN_MEM_WRITE | UNINIT
+    needed = IMAGE_SCN_MEM_WRITE | UNINIT
     if (not PUBLIC_TEMPLATE_POINTER_REFERENCE.fullmatch(sym["name"])
-            or sym["storage"] != EXTERNAL or sym["type"] != 0 or sym["value"]
-            or sec["name"] != ".bss" or sec["size"] != 4
+            or sym["storage"] != EXTERNAL or sym["type"] != 0 or sec["name"] != ".bss"
             or flags & needed != needed or flags & (EXECUTABLE | IMAGE_SCN_CNT_INITIALIZED_DATA)
             or sec["body"] is not None or sec["relocs"]):
         return None
-    if any(s is not sym and s["section"] == sym["section"]
-           and s["name"] and not s["name"].startswith(".") for s in symbols.values()):
-        return None
-    return 4, "the x86 template pointer reference's own COMDAT section"
+    neighbors = [s for s in symbols.values() if s is not sym and s["section"] == sym["section"]
+                 and s["name"] and not s["name"].startswith(".")]
+    if flags & IMAGE_SCN_LNK_COMDAT:
+        if not neighbors and not sym["value"] and sec["size"] == 4:
+            return 4, "the x86 template pointer reference's own COMDAT section"
+    elif (x86 and sym["value"] % 4 == 0
+          and not any(sym["value"] <= s["value"] < sym["value"] + 4 for s in neighbors)
+          and _has_pointer_reference_initializer(sections, symbols, sym["index"])):
+        return 4, "the x86 template pointer reference's compiler startup store"
+    return None
+
+
+def _has_pointer_reference_initializer(sections, symbols, index):
+    """Find exactly one .CRT$XCU entry for a direct dword store to this symbol."""
+    stores = 0
+    for crt in sections:
+        if crt["name"] != ".CRT$XCU" or crt["body"] is None:
+            continue
+        for offset, target, kind in crt["relocs"]:
+            thunk = symbols.get(target)
+            if (kind != DIR32 or offset % 4 or crt["body"][offset:offset + 4] != bytes(4)
+                    or thunk is None or not 0 < thunk["section"] <= len(sections)
+                    or thunk["value"] or thunk["type"] != 0x20 or thunk["storage"] != STATIC
+                    or not re.fullmatch(r"_\$E\d+", thunk["name"])):
+                continue
+            code = sections[thunk["section"] - 1]
+            relocs = code["relocs"]
+            # mov dword ptr [reference], offset referent; ret
+            if (code["name"] != ".text$yc" or not code["flags"] & EXECUTABLE
+                    or code["body"] != b"\xc7\x05" + bytes(8) + b"\xc3"
+                    or len(relocs) != 2 or relocs[0] != (2, index, DIR32)
+                    or relocs[1][0::2] != (6, DIR32)):
+                continue
+            referent = symbols.get(relocs[1][1])
+            if (referent is not None and referent["storage"] == EXTERNAL and referent["type"] == 0
+                    and re.fullmatch(r"\?[A-Za-z_]\w*(?:@[A-Za-z_]\w*)*@@3QBDB", referent["name"])):
+                stores += 1
+    return stores == 1
 
 
 def _vftable_size(sec, symbols, sym):
@@ -596,7 +629,7 @@ def weak_default(data, index, symbols):
     return symbols.get(struct.unpack_from("<I", data, table + 18 * (index + 1))[0])
 
 
-def symbol_size(sections, symbols, sym, source=None, sizer=compiled_size):
+def symbol_size(sections, symbols, sym, source=None, sizer=compiled_size, *, x86=False):
     """(proven sizes, what proves them) for a defined or COMMON data symbol.
 
     The allocation extent (to the next symbol or the section end) includes
@@ -619,7 +652,7 @@ def symbol_size(sections, symbols, sym, source=None, sizer=compiled_size):
     size, how = sizer(source, sym["name"])
     if size is None:
         size, how = (_local_static_size(sec, symbols, sym) or _vftable_size(sec, symbols, sym)
-                     or _template_pointer_reference_size(sec, symbols, sym)
+                     or _template_pointer_reference_size(sections, symbols, sym, x86)
                      or (None, how))
     if size is None:
         return set(), how
@@ -744,7 +777,7 @@ def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
         return False, f"{row['name']} is not defined once in {obj.name}"
     sym = found[0]
     size = int(row["size"])
-    sizes, why = symbol_size(sections, symbols, sym, source, sizer)
+    sizes, why = symbol_size(sections, symbols, sym, source, sizer, x86=data[:2] == b"\x4c\x01")
     if size not in sizes:
         return False, f"size {size} unproven: {why} gives {sorted(sizes)}"
     va = va_of(row)
