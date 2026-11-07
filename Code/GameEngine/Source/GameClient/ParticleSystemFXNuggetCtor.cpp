@@ -15,15 +15,7 @@
 // strings floats and bools). Base 0x001DFEAA is a shared FXNugget-family base
 // ctor; pinned opaquely. Vtable 0x00BDD908. News 0x1BC builder 0x001DFD15.
 
-class Rva001DFEAABase
-{
-public:
-	Rva001DFEAABase();
-	virtual ~Rva001DFEAABase();
-protected:
-	int m_nuggetType; // +4, nugget type id (BFME1 FXNugget::m_nuggetType)
-	unsigned char m_pad[0x148 - 8];
-};
+#include "../../Include/GameClient/Rva001DFEAABase.h"
 
 #include "ascii_string.h"
 
