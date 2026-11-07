@@ -45,6 +45,8 @@ class AllowBannerSpawnUpgrade
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual const char *GetSnapshotName() const;
 };
 
 struct FieldParse;
@@ -61,7 +63,12 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &p);
 };
 
-BFME_LITERAL_NAME_GETTER(Rva004B850ANamed, "AllowBannerSpawnUpgrade")
+// ?GetSnapshotName@AllowBannerSpawnUpgrade@@MBEPBDXZ, retail 0x004B850A: slot 2
+// of AllowBannerSpawnUpgrade's primary table 0x00C59030.
+const char *AllowBannerSpawnUpgrade::GetSnapshotName() const
+{
+	return "AllowBannerSpawnUpgrade";
+}
 
 // tu-skeleton: 0x004B84EA 32B ??1AllowBannerSpawnUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleTailDtors.cpp (not merged yet)
 
