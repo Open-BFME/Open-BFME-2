@@ -98,6 +98,30 @@ def tree(tmp_path):
     return tmp_path
 
 
+MAP_STATE = {"stale": [], "error": None}
+
+
+@pytest.fixture(autouse=True)
+def fresh_map(monkeypatch):
+    """tu_map.current_rows over the fixture's map: fresh unless a test says otherwise."""
+    import csv
+    import tu_map
+    MAP_STATE.update(stale=[], error=None)
+
+    def current_rows(layout):
+        if MAP_STATE["error"]:
+            raise tu_map.NoZhTree(MAP_STATE["error"])
+        with open(layout.root / "reverse/tu_map.csv", newline="") as handle:
+            return list(csv.DictReader(handle)), list(MAP_STATE["stale"])
+    monkeypatch.setattr(tu_map, "current_rows", current_rows)
+
+
+def recommit(root, rel, text):
+    (root / rel).write_text(text)
+    _git(root, "add", "-A")
+    _git(root, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "edit")
+
+
 def ref(row, rva, target, cls, symbol="x", source=OWNER):
     return dict(source=source, row=row, rva=rva, symbol=symbol, target=target, cls=cls)
 
@@ -303,3 +327,166 @@ def test_the_plan_names_the_removed_source_and_the_evidence(tree):
     ctx, _ = context(tree, BEFORE)
     text = plan(ctx).report()
     assert f"sources removed (1): {OWNER}" in text and "evidence: code-identity:" in text
+
+
+
+# ------------------------------------------------- Codex review of 51d69dd0d9
+
+def test_refused_for_a_respell_between_real_types(tree):
+    """Finding 1a: with no placeholder in the old spelling, clean callees prove nothing."""
+    real = "??4?$_Rb_tree@UThingTemplate@@U?$pair@HH@@@@QAEAAV0@ABV0@@Z"
+    recommit(tree, "reverse/functions.csv", FUNCTIONS.replace(OLD_OP, real))
+    recommit(tree, OWNER, OWNER_SRC.replace(OLD_OP, real))
+    ctx, _ = context(tree, [dict(r, row=real) if r["row"] == OLD_OP else r for r in BEFORE])
+    with pytest.raises(Refusal) as error:
+        plan(ctx, also=[], move_to=None, prepared={OWNER: OWNER_SRC.replace(OLD_OP, NEW_OP).encode()})
+    assert "names no placeholder type" in str(error.value)
+
+
+def test_refused_when_the_new_class_is_not_a_callees_class(tree):
+    """Finding 1b: callees that bind afterwards do not prove a class they do not have."""
+    other = "??4?$_Rb_tree@UBfmeStringRecord002CF550@@H@@QAEAAV0@ABV0@@Z"
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx, new=other, prepared={TU: TU_PREPARED.replace(NEW_OP, other).encode(),
+                                       CALLER: CALLER_PREPARED.encode()})
+    assert "is not the class of any retail callee" in str(error.value)
+
+
+def test_refused_when_the_callee_is_not_a_thiscall_member(tree):
+    """Finding 1b: a static member spelled on the same class binds no `this`."""
+    static = CLEAR_NAME.replace("@@@QAEXXZ", "@@@SAXXZ")
+    copy = COPY_NAME.replace("@@@AAEPAXPAX0@Z", "@@@CAPAXPAX0@Z")
+    recommit(tree, "reverse/functions.csv", FUNCTIONS.replace(CLEAR_NAME, static).replace(COPY_NAME, copy))
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert "is not the class of any retail callee" in str(error.value)
+
+
+def test_refused_when_the_wrapper_does_not_take_the_class_or_key(tree):
+    """Finding 1c: a wrapper's class must take the proved row's class or key type."""
+    unrelated = "??4?$set@UBfmeOther00500000@@@@QAEAAV0@ABV0@@Z"
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx, also=[(WRAP, unrelated)], prepared={TU: TU_PREPARED.replace(NEW_WRAP, unrelated).encode(),
+                                                      CALLER: CALLER_PREPARED.encode()})
+    assert "a wrapper is proved only through" in str(error.value)
+
+
+def test_refused_when_the_wrapper_does_not_call_the_respelled_row(tree):
+    """Finding 1c: the key type alone is not enough; the wrapper must call the proved row."""
+    before = [r for r in BEFORE if r["row"] != OLD_WRAP] + [ref(OLD_WRAP, WRAP, CLEAR, "wrong", "?clear@")]
+    ctx, _ = context(tree, before)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert "a wrapper is proved only through" in str(error.value)
+
+
+def test_refused_when_a_respelled_row_binds_an_alias_after_the_build(tree):
+    """Finding 2: an alias (an undefined symbol resolved to a ledger label) is not retail's row."""
+    ctx, state = context(tree, BEFORE)
+    got = plan(ctx)
+    aliased = [dict(r, cls="alias") if r["row"] == NEW_OP and r["target"] == CLEAR else r for r in AFTER]
+
+    def verify(c, sources):
+        state["refs"] = aliased
+        return True
+    with pytest.raises(VerifyFailed) as error:
+        rename.apply_rename(got, ctx=ctx, verify=verify, checks=None)
+    assert "0x002572AE (alias), not retail's row" in str(error.value)
+    assert (tree / OWNER).read_text() == OWNER_SRC
+
+
+def test_refused_when_a_respelled_row_binds_nothing_directly(tree):
+    """Finding 2: a row left with only labels proves no callee."""
+    ctx, state = context(tree, BEFORE)
+    got = plan(ctx)
+    labels = [dict(r, cls="label") if r["row"] == NEW_OP else r for r in AFTER]
+
+    def verify(c, sources):
+        state["refs"] = labels
+        return True
+    with pytest.raises(VerifyFailed) as error:
+        rename.apply_rename(got, ctx=ctx, verify=verify, checks=None)
+    assert "binds no retail row directly" in str(error.value)
+
+
+def test_refused_when_a_callee_carries_a_pin(tree):
+    """Finding 2: a pinned callee binds by the pin, not by its row."""
+    recommit(tree, "reverse/symbols.csv", "name,address,notes\n?clearPin@@YAXXZ,0x002572AE,pin\n")
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert "carries pin ?clearPin@@YAXXZ" in str(error.value)
+
+
+def test_a_free_function_taking_a_template_is_hand_written():
+    """Finding 3: `?$` in a parameter does not make a template member."""
+    assert rename.identity_head("?helper@@YAXV?$vector@URva00400000Thing@@@@@Z") is None
+    assert rename.identity_head("?helper@Plain@@QAEXV?$vector@H@@@Z") is None
+    assert rename.identity_head(CLEAR_NAME) == "clear"
+    assert rename.identity_head(OLD_OP) == "??4"
+
+
+def test_refused_for_a_free_function_taking_a_template(tree):
+    old = "?helper@@YAXV?$vector@URva00403000Thing@@@@@Z"
+    new = "?helper@@YAXV?$vector@UBfmeStringRecord002CF550@@@@@Z"
+    recommit(tree, "reverse/functions.csv", FUNCTIONS.replace(PLAIN, old))
+    ctx, _ = context(tree, BEFORE + [ref(old, 0x00403000, CLEAR, "wrong", source="Code/Lib/Plain.cpp")])
+    with pytest.raises(Refusal) as error:
+        plan(ctx, rva=0x00403000, new=new, also=[], move_to=None, prepared={"Code/Lib/Plain.cpp": b"void x() {}\n"})
+    assert "hand-written name" in str(error.value)
+
+
+def test_move_refused_on_a_stale_map(tree):
+    """Finding 4: the committed map is read only when it is fresh."""
+    MAP_STATE["stale"] = ["functions.csv"]
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert "stale against its inputs (functions.csv)" in str(error.value)
+
+
+def test_move_refused_when_the_map_cannot_be_checked(tree):
+    MAP_STATE["error"] = "no ZH tree"
+    ctx, _ = context(tree, BEFORE)
+    with pytest.raises(Refusal) as error:
+        plan(ctx)
+    assert "cannot read a fresh" in str(error.value)
+
+
+def test_a_touched_rows_wrong_binding_of_another_symbol_is_new(tree):
+    """Finding 5: the key names the referenced symbol, so a different wrong symbol at the
+    same target is a new wrong binding, not the old one."""
+    caller = "??4ThingTemplate@@QAEAAV0@ABV0@@Z"
+    before = BEFORE + [ref(caller, 0x002D1101, 0x00999999, "wrong", "?a@@YAXXZ", CALLER)]
+    after = AFTER + [ref(caller, 0x002D1101, 0x00999999, "wrong", "?b@@YAXXZ", CALLER)]
+    ctx, state = context(tree, before)
+    got = plan(ctx)
+
+    def verify(c, sources):
+        state["refs"] = after
+        return True
+    with pytest.raises(VerifyFailed) as error:
+        rename.apply_rename(got, ctx=ctx, verify=verify, checks=None)
+    assert "gains a wrong binding of ?b@@YAXXZ" in str(error.value)
+
+
+def test_a_touched_rows_unchanged_wrong_binding_is_known(tree):
+    caller = "??4ThingTemplate@@QAEAAV0@ABV0@@Z"
+    kept = ref(caller, 0x002D1101, 0x00999999, "wrong", "?a@@YAXXZ", CALLER)
+    ctx, state = context(tree, BEFORE + [kept])
+    got = plan(ctx)
+
+    def verify(c, sources):
+        state["refs"] = AFTER + [kept]
+        return True
+    rename.apply_rename(got, ctx=ctx, verify=verify, checks=None)
+    assert NEW_OP in (tree / "reverse/functions.csv").read_text()
+
+
+def test_evidence_names_the_class_proof(tree):
+    ctx, _ = context(tree, BEFORE)
+    got = plan(ctx)
+    assert "(wrong before: 0x002572AE, 0x002D0326; class of 0x002572AE, 0x002D0326)" in got.evidence

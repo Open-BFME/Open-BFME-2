@@ -3114,15 +3114,106 @@ IDENTITY = "code-identity:"
 COMPILER_HEAD = re.compile(r"\?\?(_?[0-9A-Z])|\?([A-Za-z_]\w*)@")
 
 
+# non-static member access codes (private, protected, public; plain and virtual;
+# near and far): with `this` cv and convention E they are a thiscall member
+THIS_CALL_ACCESS = frozenset("ABEFIJMNQRUV")
+
+
+def identity_scope(mangled, i):
+    """(elements, class template arguments, index after the scope's `@`) of the
+    qualified scope at `i`, or None. Each element is its text as spelled (an
+    identifier with its `@`, a template with its argument list), innermost first;
+    the class template arguments are the innermost element's. A name
+    back-reference, anonymous namespace or nested symbol in the scope is refused
+    rather than resolved: two scopes compare by their spelling."""
+    elements, args = [], ()
+    out = _Out()
+    try:
+        while mangled[i] != "@":
+            if mangled.startswith("?$", i):
+                j = mangled.index("@", i + 2)
+                if not IDENT.fullmatch(mangled[i + 2:j]):
+                    return None
+                k, these = j + 1, []
+                while mangled[k] != "@":
+                    end = _parse_type(mangled, k, out)
+                    these.append(mangled[k:end])
+                    k = end
+                if not elements:
+                    args = tuple(these)
+                elements.append(mangled[i:k + 1])
+                i = k + 1
+            elif mangled[i].isalpha() or mangled[i] == "_":
+                j = mangled.index("@", i)
+                if not IDENT.fullmatch(mangled[i:j]):
+                    return None
+                elements.append(mangled[i:j + 1])
+                i = j + 1
+            else:
+                return None
+    except (IndexError, ValueError):
+        return None
+    return tuple(elements), args, i + 1
+
+
 def identity_head(mangled):
-    """The operator code (`??4` -> '4') or identifier of a compiler-spelled
-    name, or None for a hand-written one (no `??` code and no template)."""
+    """The operator code (`??4` -> '??4') or identifier of a compiler-spelled
+    name, or None for a hand-written one: no `??` code, and no template in the
+    scope (a free function taking a template type is hand-written)."""
     match = COMPILER_HEAD.match(mangled or "")
     if not match:
         return None
     if match.group(1):
         return "??" + match.group(1)
-    return match.group(2) if "?$" in mangled else None
+    scope = identity_scope(mangled, match.end())
+    return match.group(2) if scope and any(el.startswith("?$") for el in scope[0]) else None
+
+
+def identity_class(mangled):
+    """(scope elements, class template arguments) of a thiscall member's
+    decorated name, or None for anything else (a free or static function, a
+    scope identity_scope will not read, a name the parser refuses)."""
+    match = COMPILER_HEAD.match(mangled or "")
+    if not match:
+        return None
+    scope = identity_scope(mangled, match.end())
+    if not scope or not scope[0]:
+        return None
+    try:
+        back_references(mangled)
+    except Unparsed:
+        return None
+    elements, args, i = scope
+    if i >= len(mangled) or mangled[i] not in THIS_CALL_ACCESS:
+        return None
+    i += 1
+    if mangled[i:i + 1] == "E":
+        i += 1
+    if mangled[i:i + 1] not in ("A", "B", "C", "D") or mangled[i + 1:i + 2] != "E":
+        return None
+    return elements, args
+
+
+def type_has_references(text):
+    """True unless `text` is one whole type spelled without a back-reference
+    (whose meaning would depend on the name table around it)."""
+    out = _Out()
+    out.refs, out.type_refs = [], []
+    try:
+        end = _parse_type(text, 0, out)
+    except (IndexError, ValueError):
+        return True
+    return end != len(text) or bool(out.refs or out.type_refs)
+
+
+def placeholder_types(mangled):
+    """The placeholder identifiers (Rva.../Bfme... and name_metric's other
+    placeholder shapes) among the name fragments of `mangled`."""
+    try:
+        spans = fragments(mangled)
+    except Unparsed:
+        return []
+    return sorted({mangled[a:b] for a, b in spans if name_metric.placeholder(mangled[a:b])})
 
 
 def identity_refs(ctx, sources):
@@ -3135,8 +3226,8 @@ def identity_refs(ctx, sources):
     import allowed_symbols as allowed
     ident, rows = allowed.load(sorted(sources))
     return [dict(source=row["source"], row=row["name"], rva=_rva(row.get("target_rva")), symbol=name,
-                 target=target, cls=cls)
-            for row, _offset, _kind, name, target, cls, _detail in allowed.scan(ident, rows)]
+                 target=target, cls=cls, detail=detail)
+            for row, _offset, _kind, name, target, cls, detail in allowed.scan(ident, rows)]
 
 
 def identity_wrong(refs):
@@ -3145,8 +3236,16 @@ def identity_wrong(refs):
 
 
 def _identity_key(ref, renames):
-    """A wrong binding's key with the plan's renames applied (old -> new)."""
-    return (ref["source"], renames.get(ref["row"], ref["row"]), ref["rva"], ref["target"], ref["cls"])
+    """A wrong binding's key (source, row, referenced symbol, target, class: the
+    identity register's) with the plan's renames applied (old -> new)."""
+    return (ref["source"], renames.get(ref["row"], ref["row"]), ref["rva"],
+            renames.get(ref["symbol"], ref["symbol"]), ref["target"], ref["cls"])
+
+
+def identity_direct(ref):
+    """A reference bound straight to retail's row (`owner`), or the row's own
+    handler or same-section label; an alias, fold or anything else is not."""
+    return ref["cls"] in ("owner", "eh") or (ref["cls"] == "label" and not ref.get("detail"))
 
 
 def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, basis=None,
@@ -3184,6 +3283,9 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         if head_old != head_new:
             raise Refusal(f"{new_name} changes the operator or identifier of {old_name} ({head_old} -> "
                           f"{head_new}): only the types the compiler spells may change")
+        if not placeholder_types(old_name):
+            raise Refusal(f"{old_name} names no placeholder type (Rva.../Bfme...): respelling one real type "
+                          "to another is a naming claim, not something code identity proves")
         if is_generated(owner["source"]):
             raise Refusal(f"{old_name} lives in generated source {owner['source']}")
         refuse_vendored(ctx, [owner["source"]], f"respelling {old_name}")
@@ -3221,16 +3323,77 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
                           "this plan respells: there is nothing for an identity respell to prove")
         e["wrong"] = sorted({r["target"] for r in wrong})
         e["inner"] = inner
+        e["bound"] = sorted({r["target"] for r in own if r["cls"] not in ("label", "eh")
+                             and r["target"] != e["rva"]})
         callees[e["rva"]] = sorted({r["target"] for r in own})
     if not any(e["wrong"] for e in entries):
         raise Refusal("the code-identity check reports no wrong binding for any row of this plan")
+
+    # a pinned callee's binding says nothing about the caller's types
+    pinned = {}
+    for p in ctx.pins():
+        pinned.setdefault(_rva(p.get("address")), p.get("name", ""))
+    for e in entries:
+        held = [t for t in e["bound"] if t in pinned]
+        if held:
+            raise Refusal(f"{e['old']} calls 0x{held[0]:08X}, which carries pin {pinned[held[0]]}: a pinned "
+                          "callee proves nothing for an identity respell")
+
+    # the class: each respelled row's new class is spelled exactly as a retail callee's
+    # thiscall member's, or (a --also wrapper) takes a proved row's class or key as a
+    # template argument and calls that row
+    named = collections.defaultdict(set)
+    for r in rows:
+        if not r["name"].startswith(("__ehhandler$", "__unwindfunclet$", "$L")) and \
+                "parent=" not in r.get("notes", ""):
+            named[_rva(r.get("target_rva"))].add(r["name"])
+    for e in entries:
+        e["class"] = identity_class(e["new"])
+        if e["class"] is None:
+            raise Refusal(f"{e['new']} is not a thiscall member of a class this tool reads: code identity "
+                          "proves a member's class and nothing else")
+        e["class_of"] = sorted(t for t in e["bound"] if t not in planned and len(named.get(t, ())) == 1
+                               and (identity_class(min(named[t])) or (None,))[0] == e["class"][0])
+    by_rva = {e["rva"]: e for e in entries}
+    for e in entries:
+        e["wraps"] = []
+        if e["class_of"]:
+            continue
+        if e is entries[0]:
+            raise Refusal(f"{e['new']}'s class is not the class of any retail callee of 0x{e['rva']:08X} "
+                          f"(a thiscall member rowed at " + (", ".join(f"0x{t:08X}" for t in e["bound"]) or
+                                                             "no callee") +
+                          "): the callees prove only their own class")
+        wargs = e["class"][1]
+        for t in e["inner"]:
+            inner = by_rva[t]
+            if not inner["class_of"]:
+                continue
+            scope, args = inner["class"]
+            whole = "".join(scope) + "@"
+            key = args[0] if args else None
+            if any(a in ("U" + whole, "V" + whole) for a in wargs) or \
+                    (key and not type_has_references(key) and key in wargs):
+                e["wraps"].append(t)
+        if not e["wraps"]:
+            raise Refusal(f"{e['new']} neither has a retail callee's class nor takes the class or key type of "
+                          "a respelled row it calls as a template argument: a wrapper is proved only through "
+                          "the row it wraps")
 
     # --move-to: the approved TU of every respelled row; every row of the owner source moves with them
     removed = []
     if move_to:
         move_to = move_to.replace("\\", "/")
+        import tu_map
+        try:
+            map_rows, stale = tu_map.current_rows(tu_map.Layout(ctx.root))
+        except tu_map.NoZhTree as error:
+            raise Refusal(f"--move-to cannot read a fresh {TU_MAP}: {error}") from None
+        if stale:
+            raise Refusal(f"{TU_MAP} is stale against its inputs ({', '.join(stale[:4])}): --move-to moves rows "
+                          "only by a fresh map")
         approved = {}
-        for row in csv.DictReader(io.StringIO((ctx.read(TU_MAP) or b"").decode("utf-8"))):
+        for row in map_rows:
             approved.setdefault(_rva(row.get("rva")), (row.get("tu", ""), row.get("confidence", "")))
         for e in entries:
             tu, confidence = approved.get(e["rva"], ("", ""))
@@ -3260,10 +3423,14 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
 
     renames = {e["old"]: e["new"] for e in entries}
     primary = entries[0]
+    def hexes(rvas):
+        return ", ".join(f"0x{t:08X}" for t in rvas)
+
     evidence = IDENTITY + " " + "; ".join(
-        f"0x{e['rva']:08X} calls " + (", ".join(f"0x{t:08X}" for t in callees[e["rva"]]) or "nothing") +
-        (" (wrong before: " + ", ".join(f"0x{t:08X}" for t in e["wrong"]) + ")" if e["wrong"] else
-         " (wrapper of the respelled " + ", ".join(f"0x{t:08X}" for t in e["inner"]) + ")")
+        f"0x{e['rva']:08X} calls " + (hexes(callees[e["rva"]]) or "nothing") + " (" +
+        "; ".join(([f"wrong before: {hexes(e['wrong'])}"] if e["wrong"] else []) +
+                  ([f"class of {hexes(e['class_of'])}"] if e["class_of"] else
+                   [f"wrapper of the respelled {hexes(e['wraps'])}"])) + ")"
         for e in entries)
     plan = Plan("function", primary["old"], primary["new"], "inferred", evidence,
                 move_to or primary["source"], primary["rva"])
@@ -3341,9 +3508,12 @@ def identity_problems(ctx, identity):
         own = [r for r in refs if r["row"] == new and r["rva"] == at]
         if not own:
             problems.append(f"{new} (0x{at:08X}) has no code-identity references after the respell")
-        for r in identity_wrong(own):
-            problems.append(f"{new} (0x{at:08X}) still binds {r['symbol']} at 0x{r['target']:08X} "
-                            f"({r['cls']})")
+        elif not any(r["cls"] == "owner" for r in own):
+            problems.append(f"{new} (0x{at:08X}) binds no retail row directly after the respell")
+        for r in own:
+            if not identity_direct(r):
+                problems.append(f"{new} (0x{at:08X}) still binds {r['symbol']} at 0x{r['target']:08X} "
+                                f"({r['cls']}), not retail's row")
     known = {tuple(k) for k in identity["wrong_before"]}
     for r in identity_wrong(refs):
         if any(r["row"] == new and r["rva"] == at for at, _old, new in identity["rows"]):
