@@ -151,10 +151,18 @@ int Rva000A1664Get(void)
 	return reinterpret_cast<int>(&Rva0008FC17Create);
 }
 
-// ?Rva000A2197Get@@YAHXZ @ 0x000A2197: verified existing getter.
-int Rva000A2197Get(void)
+// ?fetchCreateInstance@Rva000A2137@@UAEPAXXZ @ 0x000A2197: slot 7 of the
+// combo box window's table 0x00BC8FF4 (installed by its constructor
+// 0x000A2137) returns the class's factory; the canonical GameWindow
+// (Bfme2GameWindow.h) declares that slot `virtual void *fetchCreateInstance()`.
+class Rva000A2137
 {
-	return reinterpret_cast<int>(&Rva0008FA81Create);
+public:
+	virtual void *fetchCreateInstance();
+};
+void *Rva000A2137::fetchCreateInstance()
+{
+	return reinterpret_cast<void *>(&Rva0008FA81Create);
 }
 
 // ?Rva000A219DGet@@YAHXZ @ 0x000A219D: verified existing getter.

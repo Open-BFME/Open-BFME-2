@@ -318,25 +318,22 @@ Int Rva000A1D0DWindow::draw(WinInstanceData *instData)
 
 // The combo box window: retail's constructor 0x000A2137 installs table
 // 0x00BC8FF4, whose slots 1 and 2 (0x000A214F, 0x000A2167) hand the window
-// to the combo box's input and system callbacks; its image variant's table
-// 0x00BC9020 keeps both. Slot 2 is the canonical GameWindow's bfmeGoEHCb
-// (Bfme2GameWindow.h); this file's view still spells it system.
+// to the combo box's input and system callbacks and whose slot 3
+// (0x000A260A) draws it; its image variant's table 0x00BC9020 keeps slots 1
+// and 2. Slots 2 and 3 are the canonical GameWindow's bfmeGoEHCb and
+// draw(void *) (Bfme2GameWindow.h); this file's view still spells them
+// system and draw(WinInstanceData *).
 class Rva000A2137 : public GameWindow
 {
 public:
 	virtual WindowMsgHandledType input(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
 	virtual WindowMsgHandledType bfmeGoEHCb(UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2);
+	virtual Int draw(void *instData);
 };
 
-class Rva000A260AWindow : public Rva000A2137
+Int Rva000A2137::draw(void *instData)
 {
-public:
-	virtual Int draw(WinInstanceData *instData);
-};
-
-Int Rva000A260AWindow::draw(WinInstanceData *instData)
-{
-	W3DGadgetComboBoxDraw(this, instData);
+	W3DGadgetComboBoxDraw(this, (WinInstanceData *)instData);
 	return 1;
 }
 
@@ -523,7 +520,7 @@ Int Rva000A0C54Window::draw(WinInstanceData *instData)
 	return 1;
 }
 
-class Rva000A261CWindow : public Rva000A260AWindow
+class Rva000A261CWindow : public Rva000A2137
 {
 public:
 	virtual Int draw(WinInstanceData *instData);

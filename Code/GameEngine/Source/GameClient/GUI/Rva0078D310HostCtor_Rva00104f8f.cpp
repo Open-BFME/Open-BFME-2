@@ -51,9 +51,10 @@ Rva000A2670::Rva000A2670(void *context) : Rva0078D310Host(context)
 {
 }
 // ??0Rva000A2137@@QAE@PAX@Z @0x000A2137 24B evidence: base ctor row 0x00104F8F plus vtable g_00BC8FF4; callers 0x0008FAA8 in Rva0008FA81Create and 0x000A2186; LINK BONUS 232B for Rva0008F8EBFactories
-// Retail table 0x00BC8FF4 (this constructor's): slots 1 and 2 are the combo
-// box window's input and system handlers 0x000A214F and 0x000A2167
-// (W3DGadgetWindowDrawSlots.cpp). This view declares no other slot yet.
+// Retail table 0x00BC8FF4 (this constructor's): slots 1 to 3 are the combo
+// box window's input and system handlers 0x000A214F and 0x000A2167 and its
+// draw 0x000A260A (W3DGadgetWindowDrawSlots.cpp). This view declares no
+// other slot yet.
 enum WindowMsgHandledType;
 class Rva000A2137 : public Rva0078D310Host
 {
@@ -61,6 +62,7 @@ public:
 	Rva000A2137(void *context);
 	virtual WindowMsgHandledType input(unsigned int msg, unsigned int mData1, unsigned int mData2);
 	virtual WindowMsgHandledType bfmeGoEHCb(unsigned int msg, unsigned int mData1, unsigned int mData2);
+	virtual int draw(void *instData);
 };
 Rva000A2137::Rva000A2137(void *context) : Rva0078D310Host(context)
 {
