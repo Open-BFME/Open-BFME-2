@@ -37,7 +37,7 @@ public:
 extern GameInfo *TheGameInfo;
 // The registry's storage is the global ScriptGlueRva003BE7ED.cpp defines at
 // that address (g_00DFE358); read it through a vector view.
-extern unsigned int g_00DFE358;
+extern unsigned int g_00DFE358[3];
 #define g_CreateAHeroRegistry (*(_STL::vector<CreateAHeroData *> *)&g_00DFE358)
 
 #include "../../Include/GameLogic/CreateAHeroManager.h"

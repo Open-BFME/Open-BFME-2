@@ -71,7 +71,7 @@ class CreateAHeroData { public: bool WriteNamedHeroAtRva004074CF(); };
 // the existing registry specialization's ABI view of the value at +0x1E0.
 // The zero-filled 12-byte .bss registry vector at RVA 0x009FE358 (data ledger
 // primary name), defined with its initializer in Rva007ABB96AllocCtorInits_Rva007ABB96.cpp.
-extern unsigned int g_00DFE358;
+extern unsigned int g_00DFE358[3];
 
 class Rva0021937DTarget
 {
@@ -171,8 +171,8 @@ void CreateAHeroManager::rva0021A4E6()
 	CreateAHeroData *hero = *slot;
 	CreateAHeroManager *manager = this;
 	if (hero != 0) {
-		CreateAHeroData **end = (CreateAHeroData **)*(unsigned int *)((char *)&g_00DFE358 + 4);
-		if (_STL::find((CreateAHeroData **)g_00DFE358, end, *slot) != end) {
+		CreateAHeroData **end = (CreateAHeroData **)g_00DFE358[1];
+		if (_STL::find((CreateAHeroData **)g_00DFE358[0], end, *slot) != end) {
 			int state = manager->rva002192C0();
 			if (state != 0) {
 				if (state != 3)
@@ -196,8 +196,8 @@ void Rva0021A54A::rva0021A54A()
 	CreateAHeroData *hero = *slot;
 	CreateAHeroManager *manager = this;
 	if (hero != 0) {
-		CreateAHeroData **end = (CreateAHeroData **)*(unsigned int *)((char *)&g_00DFE358 + 4);
-		if (_STL::find((CreateAHeroData **)g_00DFE358, end, *slot) != end) {
+		CreateAHeroData **end = (CreateAHeroData **)g_00DFE358[1];
+		if (_STL::find((CreateAHeroData **)g_00DFE358[0], end, *slot) != end) {
 			int state = manager->rva002192C0();
 			if (state != 0) {
 				if (state != 3)

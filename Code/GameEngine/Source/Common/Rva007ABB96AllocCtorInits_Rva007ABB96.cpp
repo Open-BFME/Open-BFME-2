@@ -74,7 +74,7 @@ class ModuleData;
 extern _STL::vector<const ModuleData *> g_vec00200D38;
 extern unsigned int g_00DFE174[3];
 extern unsigned int g_00DFE1AC[3];
-unsigned g_00DFE358;	// retail RVA 0x009FE358 (.bss), defined here
+unsigned int g_00DFE358[3];	// retail RVA 0x009FE358 (.bss), defined here
 class BfmeItemKA;
 extern BfmeItemKA **g_bfmeBegKA;
 // RVA 0x00A04484: AIWallBuilder.cpp's RvaVector g_00E04484.

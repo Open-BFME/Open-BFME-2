@@ -2078,7 +2078,7 @@ void __cdecl rva007B763C()
 	return receiver->Open2Dtor40B830::~Open2Dtor40B830();
 }
 
-extern unsigned g_00DFE358;
+extern unsigned int g_00DFE358[3];
 // g_00DFE358: packet annotates VA 0x00DFE358 (data RVA 0x009FE358), no name yet.
 
 // ?rva007B76DC@@YAXXZ @ 0x007B76DC (10B). Global basic_string<char> dtor thunk: ecx=&g_00DFE358 then tail-jmp to rowed BasicStringCharDtor_dup (0x0007FAB3 object ??1?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ). No callers. Between 0x007B76D2 and 0x007B76F0. Honest address name.

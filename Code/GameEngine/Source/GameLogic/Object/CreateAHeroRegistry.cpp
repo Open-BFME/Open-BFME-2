@@ -22,7 +22,7 @@ class CreateAHeroData;
 
 // ScriptGlueRva003BE7ED.cpp owns the registry storage at VA 0x00DFE358.
 // Use that datum through the vector view proven by these retail bodies.
-extern unsigned int g_00DFE358;
+extern unsigned int g_00DFE358[3];
 #define g_CreateAHeroRegistry (*reinterpret_cast<_STL::vector<CreateAHeroData *> *>(&g_00DFE358))
 
 void RegisterCreateAHeroAtRva0021D517(CreateAHeroData *hero)
