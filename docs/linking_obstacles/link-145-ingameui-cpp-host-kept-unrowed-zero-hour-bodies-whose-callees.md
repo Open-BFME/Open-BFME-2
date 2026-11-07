@@ -70,3 +70,14 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
   remain matching, and CRT order is equal. The override remains necessary.
   A new donor trial and actual image/census evidence remain required.
   [Compiler and provider proof](../../reverse/attempt_support/ingameui-optimized-host-20261107/README.md).
+
+- **Same pass, concrete list-constructor boundary:** the optimized trial still
+  accepts no donor. The 0x002A1B07 constructor's only mismatch is a call to the
+  out-of-line list constructor (0x00239CB7), replacing retail's direct call to
+  _List_base (0x00239BB0). Restoring the ordinary inline list constructor after
+  its existing provider declarations preserves all eight host rows and admits
+  the unchanged donor in a private nine-row LinkGuard trial. All 105 external
+  code definitions, seven prior strict borrowed-owner twins and CRT order are
+  preserved. No member/base lifetime substitution is applied. Supported merge
+  and publication verification remain pending.
+  [Binding proof and scope](../../reverse/attempt_support/ingameui-list-constructor-20261107/README.md).

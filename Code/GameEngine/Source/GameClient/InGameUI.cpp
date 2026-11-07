@@ -161,11 +161,9 @@ namespace _STL { template <> void list<Drawable *, allocator<Drawable *> >::push
 namespace _STL { template <> bool less<AsciiString>::operator()(const AsciiString &, const AsciiString &) const; }
 
 // bfme link decl-only end
-// Suppress this TU's non-retail copy of ??0?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawa:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
+// Declare the list's lifetime providers before defining its inline constructor.
+// The existing out-of-line providers continue to own allocation and destruction.
 class Drawable;
-
-namespace _STL { template <> list<Drawable *,allocator<Drawable *> >::list(allocator<Drawable *> const &); }
 
 namespace _STL { template <> void list<Drawable *,allocator<Drawable *> >::push_back(Drawable * const &); }
 
@@ -180,6 +178,13 @@ namespace _STL { template <> bitset<116>::bitset(); }
 namespace _STL { template <> _List_node<Drawable *> *list<Drawable *, allocator<Drawable *> >::_M_create_node(Drawable *const &); }
 
 namespace _STL { template <> _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawable *> &); }
+
+// Retail's 0x002A1B07 constructor calls _List_base directly. Keep this inherited
+// layer inline rather than forcing its caller through list::list at 0x00239CB7.
+namespace _STL {
+template <> inline list<Drawable *, allocator<Drawable *> >::list(const allocator<Drawable *> &__a)
+    : _List_base<Drawable *, allocator<Drawable *> >(__a) {}
+}
 
 // LINK: TU-local view of CommandButton::m_command at +0x14 (retail truth:
 // matched witnesses isReady 0x0035B069, evaluateSkirmish 0x003E73E7 and
