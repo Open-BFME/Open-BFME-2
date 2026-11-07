@@ -293,3 +293,15 @@ inline base bodies; ./build.sh exact; link_check of both units LINKS (1,170 -> 1
 - Outgoing audit (index fetched at c5e492e56d, base 6b03ea70b8): INCONCLUSIVE, no loss named. Both objects hold the
   ordinary dependency receipt, not a census-grade (include-inventory) one. link_check against that index: both units
   LINK. Carry LightClassCopyCtor.cpp and VtableSlotBodiesR3.cpp into the next census.
+
+**2026-11-07, crash-triage seat2 (P24 prerequisite): CameraClass's table reaches retail's 131 slots.** camera.cpp
+compiles CameraClass from the Zero Hour camera.h shims (`reference/shims/bfmecamera/camera.h`, twin
+`reference/shims/sweep/camera.h`), which declared Cull_Sphere and Cull_Box non-virtual, so its table stopped at 129
+of retail 0x00BD26E0's 131 slots (129 = 0x00135960, 130 = 0x00135990). Both shims now declare them virtual
+(db1ca0d50b; 52 dependents, 1299/1299 exact); `rename.py function --virtual` respelled the Cull_Box row UBE. The
+non-virtual Cull_Sphere row W3DScene.cpp emitted through an absent-from-retail anchor is retracted (1820bfa66f) and
+camera.cpp, its approved TU, rows the virtual copy (a0e7ba1e07); link_check: camera.cpp 10,109 -> 10,151,
+W3DScene.cpp 222 -> 180, both LINK. The canonical CameraClass.h already declared both virtuals. The six alignment-only
+inlines and slot 93 above still apply to this table. Next: P24's Rva007C454 (retail 0x00BC6C58) overrides slots
+129/130 under placeholder names `?rva0007BEA7@Rva007C454@@…` / `?rva0007BEDA@Rva007C454@@…`, which go through
+name_lane and then `rename.py function --respell` (const) before its canonical-CameraClass views can link.
