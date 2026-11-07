@@ -236,9 +236,11 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
     requested_after = referenced_by(touches, real_after)
 
     def own_definitions(state):
-        """{object: names it defines} from the state's strong, COMDAT and common tables."""
+        """{object: names it defines in a section} from the state's strong and COMDAT tables. A
+        COMMON record has section 0, which link_cycle.undefined_imports reads as a request, so it
+        stays a possible request, as in the real helpers."""
         found = collections.defaultdict(set)
-        for table in ("strong", "comdat", "common"):
+        for table in ("strong", "comdat"):
             for name, entries in state.get(table, {}).items():
                 for entry in entries:
                     found[state["objects"][entry if table == "strong" else entry[0]]].add(name)
@@ -272,13 +274,19 @@ def real_link_losses(index, updated, names, before_rank, after_rank, omitted=fro
     def resolver(state, holders, aliases, state_touches, read_files):
         def defined(name):
             return bool(definers(state, name, holders)) or name in extra_defined
+
+        def in_section(name):
+            """link_cycle.defined_externals' rule (section > 0: strong or COMDAT, not COMMON), which
+            the plain-request filter and make_import_libs' DATA entry read."""
+            copies, strong = definitions(state, name, holders)
+            return bool(copies) or bool(strong) or name in extra_defined
         supplied = None
 
         def imports():
             nonlocal supplied
             if supplied is None:                           # built only when a name needs it
                 supplied = import_supplies(*plan_requests(state, holders, state_touches, read_files),
-                                           imported, defined)
+                                           imported, in_section)
             return supplied
 
         def resolves(name, seen=frozenset()):

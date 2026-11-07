@@ -1282,3 +1282,61 @@ def test_an_unindexed_unit_s_direct_call_requests_the_import_an_alias_reaches(ba
     references["new_unit.obj"] = unit(refs={name})            # calls socket directly: the import is requested
     assert A.audit("a" * 40, "b" * 40, []) == 0
     assert "REAL-LINK LOSS public" not in capsys.readouterr().out
+
+
+# Re-check of 7eff814c7f: a COMMON record is a section-0 external, so link_cycle requests it.
+def test_removing_a_common_imp_record_drops_the_import_an_alias_reached(batch, monkeypatch, capsys):
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["comdat"] = {}
+    saved["common"] = {"__imp__socket@12": [(0, 4)]}               # provider: COMMON __imp__socket@12 ...
+    saved["strong"] = {"caller": [1]}
+    saved["touches"] = {"provider.obj": {"__imp__socket@12"}, "caller.obj": {"caller", "public"}}
+    saved["alternates"] = {"public": [(0, "_socket@12")]}          # ... and public=_socket@12
+    saved["excuses"] = IMPORTS
+    facts["provider.obj"] = ([], [], [], [])                       # the batch drops the COMMON, keeps the alias
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    monkeypatch.setattr(A.link_check, "alternate_names",
+                        lambda obj: {"public": "_socket@12"} if obj.name == "provider.obj" else {})
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 1
+    assert "REAL-LINK LOSS public:" in capsys.readouterr().out
+
+
+def test_link_cycle_reads_a_common_record_as_a_request(tmp_path):
+    import link_cycle
+    obj = link_cycle.write_coff(tmp_path / "common.obj", [], [("__imp__socket@12", 0, 4, link_cycle.EXTERNAL)])
+    assert A.import_request_reader({"common.obj": obj}, IMPORTS["imported"])("common.obj") == (
+        {"__imp__socket@12"}, set())
+
+
+def test_a_common_definition_keeps_the_thunk_of_a_requested_import():
+    # make_import_libs marks an export DATA only for a symbol defined in a section; a COMMON
+    # `_socket@12` does not stop the CODE member's thunk.
+    assert A.import_supplies({"__imp__socket@12"}, set(), IMPORTS["imported"], lambda name: False) == {
+        "__imp__socket@12", "_socket@12"}
+
+
+def test_a_common_definition_does_not_stop_a_plain_import_request(batch, monkeypatch, capsys):
+    # provider.obj (changed) loses its `__imp__socket@12`; caller.obj reaches it only through
+    # public=__imp__socket@12. other.obj COMMON-defines `_socket@12` and calls it plainly: section 0,
+    # so undefined_plain_imports still requests `__imp__socket@12`, and `public` still resolves.
+    saved, facts, _, _ = batch
+    unlinked(saved)
+    saved["objects"].append("other.obj")
+    saved["comdat"] = {}
+    saved["strong"] = {"caller": [1], "__imp__socket@12": [0]}
+    saved["common"] = {"_socket@12": [(2, 4)]}
+    saved["touches"] = {"provider.obj": {"__imp__socket@12"}, "caller.obj": {"caller", "public"},
+                        "other.obj": {"_socket@12"}}
+    saved["alternates"] = {"public": [(1, "__imp__socket@12")]}
+    saved["excuses"] = IMPORTS
+    facts["provider.obj"] = ([], [], [], [])
+    facts["caller.obj"] = ([], ["caller"], ["public"], [])
+    monkeypatch.setattr(A.link_check, "alternate_names",
+                        lambda obj: {"public": "__imp__socket@12"} if obj.name == "caller.obj" else {})
+    monkeypatch.setattr(A.link_check, "link_rank", lambda rows: rank("provider.obj", "caller.obj", "other.obj"))
+    monkeypatch.setattr(A, "import_request_reader", lambda paths, imported: lambda obj: None)   # index names
+    monkeypatch.setattr(A, "REAL_LINK_LOSS_MODE", "refuse")
+    assert A.audit("a" * 40, "b" * 40, []) == 0
+    assert "REAL-LINK LOSS public" not in capsys.readouterr().out
