@@ -146,7 +146,7 @@ typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> 
 typedef _STL::basic_string<unsigned short, _STL::char_traits<unsigned short>, _STL::allocator<unsigned short> > StlWideString;
 
 namespace _STL { extern StlNarrowString _Nameless; } // 0x009DEB2C, defined in Rva007AB8D0StringInits.cpp
-extern unsigned g_Va00DDEF08;
+extern unsigned int g_Va00DDEF08[3];
 extern unsigned g_Va00DDEEFC;
 extern unsigned int g_Va00DDEF14[3];
 extern unsigned int g_Va00DDEEE4[3];

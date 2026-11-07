@@ -99,7 +99,7 @@ template NStr::basic_string(char *, char *, const allocator<char> &);
 // Rva007AB8D0StringInits.cpp owns these native string storage addresses and
 // constructs "true", "false" and "", respectively. Use its existing names;
 // the copy reads the established narrow-string view at +0 and +4.
-extern unsigned g_Va00DDEF08;
+extern unsigned int g_Va00DDEF08[3];
 extern unsigned g_Va00DDEEFC;
 extern unsigned g_Va00DDEF38;
 

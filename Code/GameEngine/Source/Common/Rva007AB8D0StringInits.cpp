@@ -51,7 +51,7 @@ void __cdecl rva007B6A40();
 // STLport's locale name sentinel (0x009DEB2C), constructed from "*" by the
 // initializer below: storage only here, so no compiler initializer is emitted.
 namespace _STL { basic_string<char> _Nameless; }
-unsigned g_Va00DDEF08;	// retail RVA 0x009DEF08 (.bss), defined here
+unsigned int g_Va00DDEF08[3];	// retail RVA 0x009DEF08 (.bss), defined here
 unsigned g_Va00DDEEFC;	// retail RVA 0x009DEEFC (.bss), defined here
 unsigned int g_Va00DDEF14[3];	// retail RVA 0x009DEF14 (.bss), defined here
 extern unsigned char g_009DEEF0Static[12];
