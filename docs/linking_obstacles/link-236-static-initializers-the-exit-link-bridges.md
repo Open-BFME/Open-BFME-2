@@ -26,7 +26,8 @@ views replaced, 631 -> 629; AIStates' copy, 629 -> 628; RayEffect's, 628 -> 627 
 627 -> 625; five copies their TU's only compiling fragment registers, 625 -> 620; FXList's node
 and copy and ObjectCreationList's copy, 620 -> 617; eleven BlockParse nodes in Chat,
 FireLogicSystem, GlobalWeatherSystem, ScriptEngine, GameFont, INIVictorySystem, INIEnvironment and
-Eva, 617 -> 606 (bridge_entries on `ca33e08df9`'s objects); next seat continues).
+Eva, 617 -> 606; four copies their own TU files already compile, 606 -> 602 (bridge_entries on
+`c1158117e8`'s objects); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -731,7 +732,7 @@ read from retail bytes and compiled in scratch (`cl` through `build.compiler_com
   - `g_00DFE718` keeps its address name; `TheSystemIsUnicode` is the donors' name for it, a lead for
     the naming lane, not this one.
 
-**Round lk44 (halilkkaya-lk44, 2026-11-07, bridged 627 -> 606).** Each entry below was retracted
+**Round lk44 (halilkkaya-lk44, 2026-11-07, bridged 627 -> 602).** Each entry below was retracted
 from its grab-bag and readmitted in its owner by relocation target; every touched object kept its
 `??_7` digests, link_check passed on the owners with their callbacks' files, and image_report
 removed exactly the named RVAs.
@@ -761,6 +762,17 @@ removed exactly the named RVAs.
   FXListAtBonePosFXNugget_doFxAtBones.cpp `_$E1` 0x007AD231 (FXList.cpp's run) and
   GenericObjectCreationNuggetDoStuffToObj.cpp `_$E2` 0x007AD4BC (ObjectCreationList.cpp's run). A
   merge that brings one of these fragments home must keep or re-read its ordinal.
+- *Copies their own TU files compile, guard one entry back.* A copy whose static follows its unit's
+  guard with one unit-owned flag between (lk39's rule wanted the guard directly before), or sits
+  between the unit's singleton and its guard, is the unit's when the TU file itself compiles the
+  copy: StealthDetectorUpdate.cpp 0x007B1A52, ToggleMountedSpecialAbilityUpdate.cpp 0x007B1D70
+  (the flags 0x00E03BCC and 0x00E03D34 sit in a GlobalFlagClearers grab-bag), the W3DDevice
+  W3DTornadoDraw.cpp 0x007AC60B and DelayedExperienceLevelGrantSystem.cpp 0x007B0241, each `_$E1`.
+  `build/lk44/pair2.py` (scratch, not committed) found these by matching each bridged copy's guard
+  or owner TU to the TU's compiling files; what it still lists needs a second fact
+  (W3DGameClient's 0x007AC012 follows the widely read 0x00DE2000, whose owner is not settled) or
+  belongs to held or multi-fragment TUs (ControlBar, SlowDeathBehavior, SpawnBehavior,
+  RiderChangeContain, HordeContain, Object, InGameUI).
 - *Nodes rowed in their units.* FXListStoreParse.cpp (FXList.cpp fragment that defines the callback
   and links) `_$E1` 0x007AD241; Chat.cpp `_$E21` 0x007AD424; FireLogicSystem.cpp `_$E4` 0x007ADFCA
   (`.data` between theFireLogicSystemParseRegistration and Rva00285FA9Parse's field table);
