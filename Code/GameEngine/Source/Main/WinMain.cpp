@@ -905,6 +905,7 @@ Version *TheVersion;
 
 // TheGlobalData byte at +0xC74 selects the engine-first teardown below.
 #include "../../Include/Common/GlobalData.h"
+#include "../../Include/GameClient/Drawable.h"
 
 extern class GlobalData *TheWritableGlobalData;
 

@@ -15,7 +15,6 @@ extern int BfmeClientFramesPerSecond;
 
 struct Rva007AB7F0HalfRateInits
 {
-	static void rva007AB7F0();
 	static void rva007ABC0B();
 	static void rva007ABC35();
 	static void rva007ABC5F();
@@ -242,8 +241,6 @@ struct Rva007AB7F0HalfRateInits
 		s_##init = BfmeClientFramesPerSecond / 2; \
 	}
 
-// ?rva007AB7F0@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007AB7F0 (16B), static at VA 0x00DDE030
-HALF_RATE_INIT( rva007AB7F0 )
 // ?rva007ABC0B@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ABC0B (16B), static at VA 0x00DE1B1C
 HALF_RATE_INIT( rva007ABC0B )
 // ?rva007ABC35@Rva007AB7F0HalfRateInits@@SAXXZ @ 0x007ABC35 (16B), static at VA 0x00DE1B24
