@@ -629,8 +629,12 @@ carries anything else (`cl_flags.Refused`). At pin 946f3c05a1 (2026-11-07) that 
 16 name an include directory without its `/I` (`/game/GameEngine/Include/Precompiled`,
 `/inputs/reference/...`; cl.exe ignores them as unknown options) and 11 ask for an
 assembly listing (`/FAsc` with `/Fa<path>`, one at an absolute `/Users/...` path).
-Fix them upstream in Open-BFME-1, never by editing the submodule here. At each pin
-update, list what remains:
+Fix them upstream in Open-BFME-1, never by editing the submodule here. A sweep also
+skips 16 more (42 in all; one overlaps), and those are BFME 2's to fix: they write `/I`
+and its path as two words, and `build._current_bfme1_include_flag` rewrites the bare
+`/I` alone, into `-Ireference/open-bfme-1/`, leaving the path a stray word cl.exe takes
+for an input file; the final-list check refuses that. At each pin update, list what
+remains upstream:
 
 ```
 python3 -c "import subprocess,sys; sys.path.insert(0,'tools'); import build,cl_flags
