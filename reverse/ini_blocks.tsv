@@ -1,6 +1,6 @@
 token	token_rva	entry_rva	parse_rva	current_name	name	name_source
 AIBase	0x0083AFB0	0x009C83F8	0x0041EC73	?parseAIBaseDefinition@@YAXPAVINI@@@Z	parseAIBaseDefinition	derived
-AIDozerAssignment	0x007FDBE0	0x009BBC20	0x002A92F2	?Rva002A92F2Parse@@YAXPAVINI@@@Z	parseAIDozerAssignmentDefinition	derived
+AIDozerAssignment	0x007FDBE0	0x009BBC20	0x002A92F2	?parseAIDozerAssignmentDefinition@@YAXPAVINI@@@Z	parseAIDozerAssignmentDefinition	derived
 AerialPathfindNoFlyZone	0x007E2BF8	0x009B955C	0x00200FE3	?parseAerialPathfindNoFlyZoneDefinition@@YAXPAVINI@@@Z	parseAerialPathfindNoFlyZoneDefinition	derived
 AmbientStream	0x007DA4CC	0x009B8B30	0x001DAA5E	?parseAmbientStreamDefinition@@YAXPAVINI@@@Z	parseAmbientStreamDefinition	derived
 AnimationSoundClientBehaviorGlobalSetting	0x0083CAF0	0x009C8994	0x004330EE	?parseAnimationSoundClientBehaviorGlobalSetting@@YAXPAVINI@@@Z	parseAnimationSoundClientBehaviorGlobalSettingDefinition	derived
@@ -16,7 +16,7 @@ AutoResolveBody	0x00810D64	0x009C8248	0x00418AC6	?parseAutoResolveBodyDefinition
 AutoResolveCombatChain	0x00810D34	0x009C8254	0x004193E5	?parseAutoResolveCombatChainDefinition@@YAXPAVINI@@@Z	parseAutoResolveCombatChainDefinition	derived
 AutoResolveHandicapLevel	0x008399F0	0x009C2048	0x0041355D	?parseAutoResolveHandicapLevelDefinition@@YAXPAVINI@@@Z	parseAutoResolveHandicapLevelDefinition	derived
 AutoResolveLeadership	0x00810D4C	0x009C823C	0x004183AC	?parseAutoResolveLeadershipDefinition@@YAXPAVINI@@@Z	parseAutoResolveLeadershipDefinition	derived
-AutoResolveReinforcementSchedule	0x00839DE8	0x009C2060	0x00413D58	?Rva00413D58Parse@@YAXPAVINI@@@Z	parseAutoResolveReinforcementScheduleDefinition	derived
+AutoResolveReinforcementSchedule	0x00839DE8	0x009C2060	0x00413D58	?parseAutoResolveReinforcementScheduleDefinition@@YAXPAVINI@@@Z	parseAutoResolveReinforcementScheduleDefinition	derived
 AutoResolveWeapon	0x00810D74	0x009C8260	0x0041999F	?parseAutoResolveWeaponDefinition@@YAXPAVINI@@@Z	parseAutoResolveWeaponDefinition	derived
 AwardSystem	0x00839440	0x009C1DA0	0x0040C32B	?parseAwardSystemDefinition@@YAXPAVINI@@@Z	parseAwardSystemDefinition	derived
 BannerType	0x007E5A9C	0x009B9BFC	0x00217194	?ParseBannerTypeInfo@BannerUI@@SAXPAVINI@@@Z	parseBannerTypeDefinition	derived
