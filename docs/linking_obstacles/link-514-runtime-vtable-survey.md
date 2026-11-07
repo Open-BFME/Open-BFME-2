@@ -797,3 +797,9 @@ W3DTreeDraw, routed to a tooling lane.**
      getter placeholders (`??_GRva004CC9BF`, `Rva004CC9B9Get`, `Rva004CDD33Get`) and a shared `xfer@Rva004CE0BE`.
    The closest are RunOffMapBehavior and ModelConditionSoundSelector: both need one destructor class fold, which is
    refused for the same reason until the ctor installs the real table, plus a getter move or ICF aliases.
+
+   *Review outcome (2026-11-07):* the proposed rule in gap 1 is rejected. A missing name_basis record does not prove a
+   readable name wrong, and a body's occupancy of inherited slots does not prove which class overrides it. So
+   `--to-class` stays refused for readable classes, and the two false-reject rows for 0x004BE3EF and 0x004BE67E are
+   voided. ActiveBody p20/b28 need a class-ownership naming route, which is not designed yet. StructureBody and the
+   ActiveBody.h-based Body ctors stay parked behind it.
