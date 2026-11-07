@@ -73,3 +73,28 @@ addresses and caveats. Sizes are proposals, not applied.
 Repair these contracts properly rather than patching the size: recover fields and bases
 through the evidence rules, then let the size follow. Until then the queue item should keep
 refusing generation, and the hand-maintained headers on disk remain the better source.
+
+## The missing bases are not special to these eight
+
+Measured across every registered class that has both a contract and a readable header (565
+of them): **121 contracts record no bases while the header they are paired with declares
+some.** The mirror case - a contract claiming a base the header does not - happens once.
+443 agree, or are both empty.
+
+That asymmetry, 121 against 1, is the useful part: it says the contracts are the side
+missing the information, not the headers. The cause looks like the same shape as the size
+and the class key. `decide()` takes bases from `retail_bases` when retail's own
+constructors prove them, else from the Zero Hour header, else from a plurality of the
+private views - and a private stand-in almost never declares the base, so the vote settles
+on none. AIPlayer records 28 fields and no base while its header declares Snapshot;
+AudioManager records one field and no base against SubsystemInterface and Snapshot.
+
+A caution on how to fix it, because the obvious route is circular: the canonical header is
+generated *from* the contract, so a header cannot in general be cited as evidence for the
+contract. For these 121 the header is plainly the richer artefact, but that is an
+observation about their history, not a licence to copy headers into contracts. The
+non-circular evidence is `retail_bases` - base constructor calls and vbtable stores in the
+class's own matched constructors - and it returned nothing for these, which is the real gap
+to close.
+
+Nothing was changed on the strength of this measurement.
