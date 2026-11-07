@@ -98,3 +98,16 @@ Update (2026-11-07, static-defects lane, base 61cf52f345): the copy ctor 0x0052B
   and let the unit that copies the record emit it. tu_map approves 0x0052BD3A for LivingWorldCampaign.cpp. The
   respelled copy ctor then leaves FXList.cpp, which removes one of its three blocking foreign rows. The two
   hashtable rows are routed to the Harness lane as a tooling question.
+
+Update (2026-11-07, merge lane 2 / seat5, base 2e872048cd): who emits the EnableRegion record chain.
+- The record chain's C approval for LivingWorldCampaign.cpp (0x0052BD3A, 0x0052C2F3, 0x0052C8EF, 0x0052CAC9)
+  is right. LivingWorldCampaign.obj emits it through the Act copy ctor 0x0052D555. That copy ctor is reached
+  only through the LivingWorldCampaign member at 0x0052D83B (`add ecx,0x0C; jmp vector<Act>::push_back`),
+  which the parser 0x00566D83 calls with the campaign as `this`.
+- The 0x0052D3F1..0x0052D83B Act run is LivingWorldCampaign.cpp's. The parser and the Act ctor 0x00566BF6
+  belong to the Act's own unit (the provisional Glo012F1024Item.cpp group), not LivingWorldCampaign.cpp.
+- Approving the run needs only a naming fix: respell 0x0052D83B onto LivingWorldCampaign. Measured in memory,
+  that approves 14 code rows; the cost is in the handoff.
+- So the record copy ctor's home is LivingWorldCampaign.cpp, and that unit must see the complete Act (with its
+  vector<EnableRegionRecord>) and define the act forwarder out of line.
+- Evidence: reverse/attempt_support/livingworld-act-tu-evidence-20261107/readme.md.
