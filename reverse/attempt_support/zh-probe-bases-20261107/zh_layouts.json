@@ -1,0 +1,510 @@
+[
+ {
+  "class": "AIGroup",
+  "ok": true,
+  "size": 44,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "AIPlayer",
+  "ok": false,
+  "codes": "C2143; C2061; C2061",
+  "error": "build/class_layouts/zh_AIPlayer.cpp: compile failed: C2143; C2061; C2061"
+ },
+ {
+  "class": "ActiveBodyModuleData",
+  "ok": true,
+  "size": 28,
+  "key": "class",
+  "bases": [
+   "BodyModuleData"
+  ]
+ },
+ {
+  "class": "AttackPriorityInfo",
+  "ok": true,
+  "size": 20,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "AudioManager",
+  "ok": true,
+  "size": 156,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "CommandButton",
+  "ok": true,
+  "size": 208,
+  "key": "class",
+  "bases": [
+   "Overridable"
+  ]
+ },
+ {
+  "class": "CommandSet",
+  "ok": true,
+  "size": 92,
+  "key": "class",
+  "bases": [
+   "Overridable"
+  ]
+ },
+ {
+  "class": "DieModule",
+  "ok": true,
+  "size": 24,
+  "key": "class",
+  "bases": [
+   "BehaviorModule",
+   "DieModuleInterface"
+  ]
+ },
+ {
+  "class": "DisplayStringManager",
+  "ok": true,
+  "size": 16,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "DrawableModule",
+  "ok": true,
+  "size": 16,
+  "key": "class",
+  "bases": [
+   "Module"
+  ]
+ },
+ {
+  "class": "FireWeaponUpdateModuleData",
+  "ok": true,
+  "size": 20,
+  "key": "class",
+  "bases": [
+   "UpdateModuleData"
+  ]
+ },
+ {
+  "class": "FrameDataManager",
+  "ok": true,
+  "size": 16,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "GameFont",
+  "ok": true,
+  "size": 28,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "GameInfo",
+  "ok": true,
+  "size": 96,
+  "key": "class",
+  "bases": []
+ },
+ {
+  "class": "GameSlot",
+  "ok": true,
+  "size": 64,
+  "key": "class",
+  "bases": []
+ },
+ {
+  "class": "GameTextInterface",
+  "ok": true,
+  "size": 8,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "GameWindowManager",
+  "ok": true,
+  "size": 56,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "HotKeyManager",
+  "ok": true,
+  "size": 20,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "Locomotor",
+  "ok": true,
+  "size": 76,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "LocomotorSet",
+  "ok": true,
+  "size": 24,
+  "key": "class",
+  "bases": [
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "MapCache",
+  "ok": true,
+  "size": 36,
+  "key": "class",
+  "bases": [
+   "_STL::map<AsciiString,MapMetaData,_STL::less<AsciiString>,_STL::allocator<_STL::pair<AsciiString const,MapMetaData> > >"
+  ]
+ },
+ {
+  "class": "Module",
+  "ok": true,
+  "size": 12,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "ModuleData",
+  "ok": true,
+  "size": 8,
+  "key": "class",
+  "bases": [
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "ModuleFactory",
+  "ok": true,
+  "size": 36,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "NetCommandMsg",
+  "ok": true,
+  "size": 28,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "NetWrapperCommandMsg",
+  "ok": true,
+  "size": 56,
+  "key": "class",
+  "bases": [
+   "NetCommandMsg"
+  ]
+ },
+ {
+  "class": "NetworkInterface",
+  "ok": true,
+  "size": 8,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "ObjectModule",
+  "ok": true,
+  "size": 16,
+  "key": "class",
+  "bases": [
+   "Module"
+  ]
+ },
+ {
+  "class": "ObjectTypes",
+  "ok": true,
+  "size": 24,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "OpenContainModuleData",
+  "ok": true,
+  "size": 292,
+  "key": "class",
+  "bases": [
+   "UpdateModuleData"
+  ]
+ },
+ {
+  "class": "ParticleSystemManager",
+  "ok": true,
+  "size": 176,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "PathfindZoneManager",
+  "ok": true,
+  "size": 52,
+  "key": "class",
+  "bases": []
+ },
+ {
+  "class": "PlayerTemplate",
+  "ok": true,
+  "size": 240,
+  "key": "class",
+  "bases": []
+ },
+ {
+  "class": "ProductionEntry",
+  "ok": true,
+  "size": 44,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "RecorderClass",
+  "ok": true,
+  "size": 652,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "Script",
+  "ok": true,
+  "size": 76,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "ScriptAction",
+  "ok": true,
+  "size": 68,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "SidesList",
+  "ok": true,
+  "size": 428,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "SimpleSceneClass",
+  "ok": false,
+  "codes": "C2027; C2227",
+  "error": "build/class_layouts/zh_SimpleSceneClass.cpp: compile failed: C2027; C2227"
+ },
+ {
+  "class": "SlowDeathBehaviorModuleData",
+  "ok": true,
+  "size": 192,
+  "key": "class",
+  "bases": [
+   "UpdateModuleData"
+  ]
+ },
+ {
+  "class": "SpawnBehaviorModuleData",
+  "ok": true,
+  "size": 76,
+  "key": "class",
+  "bases": [
+   "BehaviorModuleData"
+  ]
+ },
+ {
+  "class": "SpecialAbilityUpdateModuleData",
+  "ok": false,
+  "codes": "C2143; C2146; C2433",
+  "error": "build/class_layouts/zh_SpecialAbilityUpdateModuleData.cpp: compile failed: C2143; C2146; C2433"
+ },
+ {
+  "class": "SpecialPowerModuleData",
+  "ok": false,
+  "codes": "C2143; C2143; C2143",
+  "error": "build/class_layouts/zh_SpecialPowerModuleData.cpp: compile failed: C2143; C2143; C2143"
+ },
+ {
+  "class": "Squad",
+  "ok": true,
+  "size": 32,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "StateMachine",
+  "ok": true,
+  "size": 56,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "TAiData",
+  "ok": true,
+  "size": 176,
+  "key": "class",
+  "bases": [
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "TeamPrototype",
+  "ok": true,
+  "size": 368,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject",
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "TerrainVisual",
+  "ok": true,
+  "size": 16,
+  "key": "class",
+  "bases": [
+   "Snapshot",
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "ThingFactory",
+  "ok": true,
+  "size": 36,
+  "key": "class",
+  "bases": [
+   "SubsystemInterface"
+  ]
+ },
+ {
+  "class": "ThingTemplate",
+  "ok": true,
+  "size": 572,
+  "key": "class",
+  "bases": [
+   "Overridable"
+  ]
+ },
+ {
+  "class": "UpgradeTemplate",
+  "ok": true,
+  "size": 264,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "VideoPlayer",
+  "ok": true,
+  "size": 24,
+  "key": "class",
+  "bases": [
+   "VideoPlayerInterface"
+  ]
+ },
+ {
+  "class": "W3DPropBuffer",
+  "ok": true,
+  "size": 194328,
+  "key": "class",
+  "bases": [
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "Waypoint",
+  "ok": true,
+  "size": 80,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "WeaponSet",
+  "ok": true,
+  "size": 48,
+  "key": "class",
+  "bases": [
+   "Snapshot"
+  ]
+ },
+ {
+  "class": "WeaponTemplate",
+  "ok": true,
+  "size": 468,
+  "key": "class",
+  "bases": [
+   "MemoryPoolObject"
+  ]
+ },
+ {
+  "class": "WorldHeightMap",
+  "ok": true,
+  "size": 1708692,
+  "key": "class",
+  "bases": [
+   "RefCountClass",
+   "WorldHeightMapInterfaceClass"
+  ]
+ }
+]
