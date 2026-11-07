@@ -75,16 +75,7 @@ private:
 #include "../../../../Include/GameClient/Drawable.h"
 
 
-class Player
-{
-public:
-	void onStructureCreated(Object *,Object *);
-	__forceinline Team *team230() const
-	{
-		return const_cast<Team *>(*reinterpret_cast<Team * const *>(
-			reinterpret_cast<const unsigned char *>(this) + 0x2EC));
-	}
-};
+#include "../../../../Include/Common/Player.h"
 
 class Object
 {
@@ -183,7 +174,7 @@ void BaseUpgrade::upgradeImplementation()
 	}
 
 	CreateMask status;
-	Team *team = player->team230();
+	Team *team = player->getDefaultTeam();
 	Object *newObject = TheThingFactory->newObject(
 		thingTemplate, team, &status, (ObjectID)0);
 	newObject->setProducer(object);
