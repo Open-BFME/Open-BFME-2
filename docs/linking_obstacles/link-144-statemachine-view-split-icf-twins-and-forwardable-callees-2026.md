@@ -40,3 +40,8 @@ Census confirmation: awaiting.
   finds historical references only. Existing vtable placeholders and all four
   remaining donor boundaries are retained; actual image/census confirmation
   stays open. [Audit](../../reverse/attempt_support/state-transition-canonical-20261107/consolidation-audit.md).
+  Published as a7a00b7cd6 and d4b1d294df. Outgoing gates pass 4,670 rows and
+  525 EXACT EH graphs across 573 units. Broader selection remains INCONCLUSIVE:
+  index 9c81acd297 versus base 420c2e657223c77702b9a36e4db67a6ab0535090,
+  579 consumers without current receipts (first AICowerState_onEnter.cpp).
+  Carry that scope into the next census and real image.

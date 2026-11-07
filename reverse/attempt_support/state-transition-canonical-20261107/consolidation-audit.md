@@ -43,3 +43,13 @@ The next census must measure current provider selection, and the next actual
 image must judge runtime and table completeness. The private Machine/map,
 destructor CRT order, transfer fields/enumerators and defineState specialization
 remain documented prerequisites. No wider link/runtime clearance is claimed.
+
+Publication: a7a00b7cd6 (prerequisite) and d4b1d294df (merge) landed on
+2026-11-07, first attempt, 102.4 seconds for the three-commit batch. The final
+outgoing gates passed 4,670 rows across 573 source units, 525 EXACT EH graphs,
+converged data and scoped DIR32 with 490 witness rows. The broader link audit
+remains INCONCLUSIVE: index 9c81acd297 versus actual outgoing base
+420c2e657223c77702b9a36e4db67a6ab0535090; 579 consumer objects lack current
+audit receipts, first Common/AICowerState_onEnter.cpp. Carry that consumer and
+selection scope into the next census and actual image. No broader link or
+runtime clearance is inferred from the successful source gates.
