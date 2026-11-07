@@ -187,3 +187,19 @@ AttributeModifierAuraUpdate, InheritUpgradeCreate, GrantUpgradeCreate, SpecialPo
 PickupStuffUpdate, PropagandaTowerBehavior, HordeGarrisonContain), 51 are bridged; TransitionDamageFX was the only case
 where a longer source copy lost. Fix rule: whenever a constructor unit is made to emit a class's real table, give the
 scaffold's view the same bases in the same commit so both copies are identical.
+
+**Consolidation follow-ups (for the merge lanes).**
+- ArrowStormUpdate.cpp merge (parked by the crash-prevention lane, 2026-11-07). Split
+  `Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDataDeletingDtors.cpp` so that `??_GArrowStormUpdateModuleData`
+  (0x00490679) can leave it. Then merge the approved rows into ArrowStormUpdate.cpp (`tu_skeleton --plan`: 29 rows,
+  11 donors, 4 mixed, among them ArrowStormUpdate.cpp itself), with ctor 0x00490639, `??_G` and `??1` 0x00490695 under one
+  ArrowStormUpdateModuleData view over canonical SpecialAbilityUpdateModuleData. That view must come before the TU's
+  Drawable.h include, or Snapshot takes the capitalized spelling. This retires the `/alternatename:_vtbl_00C4D5A0` hatch and
+  the 1-slot scaffold table that the ctor's store resolves to today. The ctor store order is a separate wall
+  (re_attempts 0x00490639, lines 1345 and the 2026-11-07 blocked verdict). Until this lands, the first ArrowStormUpdate block
+  in Object INI (createaheropowers.inc:2779) reads a non-code slot 4 unless the real link bridges 0x00C4D5A0.
+- Latent, bridged today: `??_7StoreObjectsSpecialPowerModuleData@@6B@` compiles to 33 slots in
+  MissileLauncherBuildingUpdate.cpp: `__purecall` at slots 1 and 3, then ModuleData's lowercase loadPostProcess/xfer at 4/5.
+  Retail 0x00C5F778 has 31 slots, ICF-shared with Curse, EvacuateGarrison and TeleportToCaster, whose units compile 31.
+  The TU takes the capitalized Snapshot spelling before SpecialAbilityUpdateModuleData.h. It needs this entry's
+  one-spelling fix before the vtable bridge retires.
