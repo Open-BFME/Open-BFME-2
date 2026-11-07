@@ -77,7 +77,6 @@ void deleteArrowStormUpdate(ArrowStormUpdate *arrowStormUpdate)
 ArrowStormUpdate::~ArrowStormUpdate()
 {
 	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x88);
-	*(const void **)this = (const void *)(unsigned int)&g_00C4D700;
 	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@"));
 	*(const void **)((char *)this + 0x10) = (const void *)((unsigned int)__identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BRva0044EF5E@@@"));
 	*(const void **)((char *)this + 0x20) = (const void *)(unsigned int)&g_00C4D61C;
