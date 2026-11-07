@@ -97,30 +97,106 @@ def definers(index, name, rank):
     return set(copies) | strong | common
 
 
-def real_link_losses(index, updated, names, before_rank, after_rank):
-    """[(name, defined before by, still referenced by)] for names this batch leaves with no
-    definition in any kept object while a kept object still references them. Judged from object
-    symbol tables only: no census verdict, no symbols.csv pin (the real link reads none). A name
-    the toolchain resolves (runtime, import, stub) or an object's own /alternatename resolves is
-    not a loss."""
+def real_link_losses(index, updated, names, before_rank, after_rank, omitted=frozenset(),
+                     weak_defaults=lambda obj: {}, bridged=frozenset()):
+    """[(name, defined before by, still referenced by, kind)] for names this batch leaves with no
+    definition among the real link's kept inputs while one of them still references the name.
+    Judged from object symbol tables only: no census verdict, no symbols.csv pin (the real link
+    reads none). `omitted` names the placement-only objects exit_link.py leaves out; they neither
+    define nor reference anything there. A name still resolves when the toolchain supplies it
+    (runtime, import, stub) or when an input's /alternatename leads, through a chain without a
+    cycle, to a name that resolves; a referrer whose own weak external for the name has a default
+    that resolves is satisfied. `weak_defaults(obj)` is {name: default} for one object, or None
+    when its weak externals could not be read. kind is `loss`, or `candidate` when the vtable
+    bridge may generate the name (`bridged`) or a referrer's weak externals were unreadable."""
     excuses = updated.get("excuses") or index.get("excuses") or {"runtime": set(), "imported": {}, "stubs": {}}
     alternates = updated.get("alternates", {})
     touches = updated.get("touches", {})
     forgotten = updated.get("forgotten", set())
+    real_before = {obj: i for obj, i in before_rank.items() if obj not in omitted}
+    real_after = {obj: i for obj, i in after_rank.items() if obj not in omitted and obj not in forgotten}
+
+    def resolves(name, seen=frozenset()):
+        if name in seen:
+            return False                                   # an alias cycle resolves nothing
+        if definers(updated, name, real_after):
+            return True
+        if link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]):
+            return True
+        seen = seen | {name}
+        return any(resolves(target, seen) for i, target in alternates.get(name, ())
+                   if updated["objects"][i] in real_after)
+
     losses = []
     for name in sorted(names):
-        before = definers(index, name, before_rank)
-        if not before or definers(updated, name, after_rank):
+        before = definers(index, name, real_before)
+        if not before or resolves(name):
             continue
-        if link_census.excused(name, excuses["runtime"], excuses["imported"], excuses["stubs"]):
-            continue
-        if any(updated["objects"][i] in after_rank for i, _target in alternates.get(name, ())):
-            continue
-        referrers = sorted(obj for obj, used in touches.items()
-                           if name in used and obj in after_rank and obj not in forgotten)
+        referrers, unread = [], False
+        for obj in sorted(obj for obj, used in touches.items() if name in used and obj in real_after):
+            weaks = weak_defaults(obj)
+            if weaks is None:
+                unread = True
+            elif name in weaks and resolves(weaks[name], frozenset({name})):
+                continue                                   # this referrer falls back to a default that resolves
+            referrers.append(obj)
         if referrers:
-            losses.append((name, sorted(before), referrers))
+            kind = "candidate" if name in bridged or unread else "loss"
+            losses.append((name, sorted(before), referrers, kind))
     return losses
+
+
+def weak_reader(index, replacements):
+    """weak_defaults for real_link_losses: a replaced object's weak externals from its current
+    file, any other object's from the object its census source names; None when unreadable."""
+    paths = {obj.name: obj for obj in replacements}
+    for source, entry in index.get("blockers", {}).items():
+        if entry.get("object") and entry["object"] not in paths:
+            paths[entry["object"]] = build.obj_path(link_check.ROOT / source)
+    cache = {}
+
+    def weak_defaults(obj):
+        if obj not in cache:
+            try:
+                cache[obj] = dict(link_census._weak_externals(Path(paths[obj]).read_bytes()))
+            except Exception:  # noqa: BLE001 - unreadable: the finding becomes a candidate
+                cache[obj] = None
+        return cache[obj]
+    return weak_defaults
+
+
+def bridged_names():
+    """Names exit_link.py's vtable bridge may define at link time (a SELECT_ANY copy of a vtable
+    the data ledger names). The initializer bridge defines no name a kept object can reference."""
+    import vtable_bridge
+    return {name for row in vtable_bridge.table_rows(build.ROOT) for name in vtable_bridge.row_names(row)}
+
+
+def report_real_link_losses(losses, exact_base):
+    """Print the real-link findings; (exit code or None). Only a `loss` on an exact base refuses,
+    and only in refuse mode."""
+    certain = [entry for entry in losses if entry[3] == "loss"]
+    for name, before, referrers, kind in losses:
+        label = "REAL-LINK LOSS" if kind == "loss" else "REAL-LINK LOSS CANDIDATE"
+        print(f"  {label} {name}: defined before this batch by {', '.join(before)}, by no kept object "
+              f"after; still referenced by {', '.join(referrers[:3])}"
+              f"{f' (+{len(referrers) - 3})' if len(referrers) > 3 else ''}"
+              f"{'; the vtable bridge or an unread weak external may still resolve it' if kind != 'loss' else ''}")
+    if not losses:
+        return None
+    refuses = REAL_LINK_LOSS_MODE == "refuse" and exact_base and bool(certain)
+    if REAL_LINK_LOSS_MODE != "refuse":
+        verdict = "report mode: not refused"
+    elif refuses:
+        verdict = "refuse mode: refused"
+    elif not exact_base:
+        verdict = "refuse mode: provisional baseline, not refused"
+    else:
+        verdict = "refuse mode: candidates only, not refused"
+    print(f"link batch audit: {len(certain)} name(s) the real link would no longer resolve, "
+          f"{len(losses) - len(certain)} candidate(s) ({verdict}); "
+          "define each in its owner's unit or point the reference at the owner's real symbol")
+    return 1 if refuses else None
 
 
 def overlay(index, replacements, removed, truth):
@@ -277,7 +353,14 @@ def audit(base, tip, verified):
             findings.append((name, old_holder, new_holder, "wrong selected provider"))
         elif old_holder and not new_holder and old_verdict != "wrong":
             findings.append((name, old_holder, None, "provider disappeared"))
-    real_losses = real_link_losses(index, updated, touched, before_rank, after_rank)
+    # Report mode must never block a push: any failure here prints and leaves the exit alone.
+    try:
+        real_losses = real_link_losses(index, updated, touched, before_rank, after_rank,
+                                       {path.name for path in exit_link.placement_objects(rows)},
+                                       weak_reader(index, replacements), bridged_names())
+        real_error = None
+    except Exception as error:  # noqa: BLE001
+        real_losses, real_error = [], error
     reorder(updated, after_rank)
     # A new destination must preserve the linked donors it absorbed too.
     retired_clean = {entry["object"]: source for source, entry in index["blockers"].items()
@@ -312,16 +395,16 @@ def audit(base, tip, verified):
         label = "LOST" if exact_base else "POSSIBLE LOSS"
         print(f"  {label} {byte_count:,} previously linked source bytes: {reason}: {name}; "
               f"provider {before or '(none)'} -> {after or '(none)'}")
-    for name, before, referrers in real_losses:
-        print(f"  REAL-LINK LOSS {name}: defined before this batch by {', '.join(before)}, by no kept object "
-              f"after; still referenced by {', '.join(referrers[:3])}"
-              f"{f' (+{len(referrers) - 3})' if len(referrers) > 3 else ''}")
-    if real_losses:
-        print(f"link batch audit: {len(real_losses)} name(s) the real link would no longer resolve "
-              f"({REAL_LINK_LOSS_MODE} mode: {'refused' if REAL_LINK_LOSS_MODE == 'refuse' else 'not refused'}); "
-              "define each in its owner's unit or point the reference at the owner's real symbol")
-        if REAL_LINK_LOSS_MODE == "refuse" and exact_base:
+    try:
+        if real_error is not None:
+            raise real_error
+        if report_real_link_losses(real_losses, exact_base):
             return 1
+    except Exception as error:  # noqa: BLE001 - see above
+        print(f"link batch audit: real-link loss check failed: {type(error).__name__}: {error} "
+              f"({REAL_LINK_LOSS_MODE} mode: unverified)")
+        if REAL_LINK_LOSS_MODE == "refuse" and exact_base:
+            return 2
     if lost:
         print("link batch audit: " + ("FAILED" if exact_base else "INCONCLUSIVE") +
               "; verify affected consumers and record repairs")
