@@ -1,18 +1,39 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/moduledata /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /DBFME_MODULE_NO_MPO
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
+// FILE: LockWeaponCreate.cpp
+// Bodies follow the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Create/LockWeaponCreate.cpp),
+// on the canonical BFME2 CreateModule.
+class Thing;
+class ModuleData;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../Include/GameLogic/Module/LockWeaponCreate.h"
 
-// stlport
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+// Zero Hour's order: the module data defaults to the primary slot.
+enum WeaponSlotType
+{
+	PRIMARY_WEAPON = 0
+};
 
-#include "GameLogic/Module/LockWeaponCreate.h"
-
+// 0x00254C8E
 LockWeaponCreateModuleData::LockWeaponCreateModuleData()
 {
 	m_slotToLock = PRIMARY_WEAPON;
-}
-
-// ??1LockWeaponCreate@@MAE@XZ present-unmatched
-LockWeaponCreate::~LockWeaponCreate()
-{
 }
 
 // 0x0024FC20. The base call reaches CreateModule's constructor at 0x0024F450
@@ -24,9 +45,17 @@ LockWeaponCreate::LockWeaponCreate( Thing *thing, const ModuleData *moduleData )
 {
 }
 
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?onCreate@LockWeaponCreate@@UAEXXZ=??1Coord2D@@QAE@XZ")
-#pragma comment(linker, "/alternatename:?crc@LockWeaponCreate@@MAEXPAVXfer@@@Z=??_GLockWeaponCreate@@UAEPAXI@Z")
-#pragma comment(linker, "/alternatename:?loadPostProcess@LockWeaponCreate@@MAEXXZ=?Rva004B8C38Get@@YAHXZ")
+// The destructor 0x004B8C3E is defined in Rva004B8CDEDerived.cpp (its row's unit).
+
+// Slot 2 of retail table 0x00C592FC, 0x004B8C38.
+const char *LockWeaponCreate::GetSnapshotName() const
+{
+	return "LockWeaponCreate";
+}
+
+// Slot 3 of retail table 0x00C592FC, 0x004851E3 (shared with other create modules).
+void LockWeaponCreate::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	CreateModule::xfer( xfer );
+}

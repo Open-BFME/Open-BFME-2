@@ -1,41 +1,19 @@
-// cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// ?bfmeGo940G@BfmeThing940G@@QAEXXZ
-// retail 0x004B8CC9, 21 bytes. Dedicated TU ported from the Open-BFME-1 donor
-// game/GameEngine/Source/Common/BfmeConv940.cpp (reference/open-bfme-1 @ 6d943426).
-// Compiled /Os the donor body is byte-identical to retail once relocations are
-// masked (unique hit on unclaimed .text). Only the placed body is defined here;
-// the donor's other definitions are omitted.
-
-// The callee is the rowed Object::setWeaponLock.
-enum WeaponSlotType { WEAPONSLOT_UNUSED940 };
-enum WeaponLockType { WEAPONLOCK_UNUSED940 };
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
+// ?onBuildComplete@LockWeaponCreate@@UAEXXZ
+// retail 0x004B8CC9, 21 bytes: slot 1 of LockWeaponCreate's create-interface table
+// 0x00C592EC (installed by its constructor 0x004B8C0E and destructor 0x004B8C3E).
+// Zero Hour's LockWeaponCreate::onBuildComplete: the inline CreateModule base call
+// clears m_needToRunOnBuildComplete (+0x14), then the object's weapon slot from the
+// module data (+8) is locked permanently (2) through the rowed Object::setWeaponLock.
+class Thing;
+class ModuleData;
+class Xfer;
+#include "../../Include/GameLogic/Module/LockWeaponCreate.h"
+enum WeaponLockType { LOCKED_PERMANENTLY = 2 };
 #include "../GameLogic/Object/object.h"
 
-struct BfmeA940G
+void LockWeaponCreate::onBuildComplete()
 {
-	char m_bfmePad[8];
-	void *m_bfmeVal;
-};
-
-class BfmeB940G
-{
-public:
-	void bfmeCall940G(void *v, int f);
-};
-
-class BfmeThing940G
-{
-public:
-	void bfmeGo940G();
-	char m_bfmePad[4];
-	char m_bfmeFlag;
-};
-
-void BfmeThing940G::bfmeGo940G()
-{
-	BfmeA940G *a = *(BfmeA940G **)((char *)this - 0xc);
-	m_bfmeFlag = 0;
-	void *weaponSlot = a->m_bfmeVal;
-	BfmeB940G *b = *(BfmeB940G **)((char *)this - 8);
-	((Object *)b)->setWeaponLock((WeaponSlotType)(int)weaponSlot, (WeaponLockType)2);
+	CreateModule::onBuildComplete();
+	getObject()->setWeaponLock( getLockWeaponCreateModuleData()->m_slotToLock, LOCKED_PERMANENTLY );
 }

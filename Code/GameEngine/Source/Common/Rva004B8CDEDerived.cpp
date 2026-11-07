@@ -8,12 +8,7 @@ class Thing;
 class ModuleData;
 class Xfer;
 #include "../../Include/GameLogic/Module/CreateModuleClass.h"
-
-class LockWeaponCreate : public CreateModule
-{
-public:
-	virtual ~LockWeaponCreate();
-};
+#include "../../Include/GameLogic/Module/LockWeaponCreate.h"
 
 LockWeaponCreate::~LockWeaponCreate()
 {
