@@ -46,6 +46,100 @@ class Dialogs(unittest.TestCase):
         self.assertEqual(bs.dialog_addresses("00000004 0x0000ffff 123456789 10294F3A"), [0x10294F3A])
 
 
+class Fn:
+    def __init__(self, f):
+        self.f = f
+
+    def __call__(self, *a):
+        return self.f(*a)
+
+
+class FakeUser32:
+    """The user32 calls window_texts makes, over a scripted desktop: top-level windows in
+    z-order {hwnd: (pid, visible, title, class, children)}, children [(hwnd, class, id, text)].
+    Only InternalGetWindowText answers for text: GetWindowTextW would send WM_GETTEXT to a
+    stopped thread, so it is deliberately absent."""
+
+    def __init__(self, tops):
+        self.tops = tops
+        self.kids = {c[0]: c for _, _, _, _, kids in tops.values() for c in kids}
+        for name in ("EnumWindows", "EnumChildWindows", "GetWindowThreadProcessId", "IsWindowVisible",
+                     "InternalGetWindowText", "GetClassNameW", "GetDlgCtrlID", "GetWindowRect"):
+            setattr(self, name, Fn(getattr(self, name)))       # ctypes-style: argtypes can be set
+
+    def EnumWindows(self, cb, _):
+        for h in self.tops:
+            if not cb(h, 0):
+                break
+        return 1
+
+    def EnumChildWindows(self, h, cb, _):
+        for c in self.tops[h][4]:
+            if not cb(c[0], 0):
+                break
+        return 1
+
+    def GetWindowThreadProcessId(self, h, ref):
+        ref._obj.value = self.tops[h][0]
+        return 1
+
+    def IsWindowVisible(self, h):
+        return self.tops[h][1]
+
+    def InternalGetWindowText(self, h, buf, n):
+        buf.value = (self.tops[h][2] if h in self.tops else self.kids[h][3])[:n - 1]
+        return len(buf.value)
+
+    def GetClassNameW(self, h, buf, n):
+        buf.value = self.tops[h][3] if h in self.tops else self.kids[h][1]
+        return len(buf.value)
+
+    def GetDlgCtrlID(self, h):
+        return self.kids[h][2]
+
+    def GetWindowRect(self, h, ref):
+        ref._obj.left, ref._obj.top, ref._obj.right, ref._obj.bottom = 10, 20, 30, 40
+        return 1
+
+
+GAME_PID, OTHER_PID = 7, 8
+DESKTOP = {
+    0x50: (OTHER_PID, True, "Game crash", "#32770",          # another process's box, enumerated first
+           [(0x51, "Static", 0xFFFF, "someone else's crash")]),
+    0x10: (GAME_PID, True, MAIN["title"], "Game Window", []),   # the game, minimised behind its box
+    0x20: (GAME_PID, True, "Game crash", "#32770",            # the game's owned popup
+           [(0x21, "Static", 1088, ""), (0x22, "Button", 1, "OK"), (0x23, "Static", 0xFFFF, STACKWALK)]),
+}
+
+
+def read_windows(pid, desktop=DESKTOP):
+    with mock.patch.object(bs.ctypes, "WinDLL", return_value=FakeUser32(desktop), create=True), \
+            mock.patch.object(bs.ctypes, "WINFUNCTYPE", lambda *types: (lambda f: f), create=True):
+        return bs.window_texts(pid)
+
+
+class WindowReader(unittest.TestCase):
+    """window_texts through a scripted user32 (review of 002895da8b: the reader itself was untested)."""
+
+    def test_control_text_is_collected(self):
+        box = [w for w in read_windows(GAME_PID) if w["title"] == "Game crash"]
+        self.assertEqual(len(box), 1)
+        self.assertEqual([(c["class"], c["id"], c["text"]) for c in box[0]["children"]],
+                         [("Static", 1088, ""), ("Button", 1, "OK"), ("Static", 0xFFFF, STACKWALK)])
+        self.assertEqual(bs.crash_dialog(read_windows(GAME_PID))["text"], STACKWALK)
+
+    def test_another_process_crash_box_is_left_out(self):
+        windows = read_windows(GAME_PID)
+        self.assertNotIn("someone else's crash", [c["text"] for w in windows for c in w["children"]])
+        self.assertIsNone(bs.crash_dialog(read_windows(GAME_PID, {0x50: DESKTOP[0x50], 0x10: DESKTOP[0x10]})))
+
+    def test_owned_popup_is_included(self):
+        windows = read_windows(GAME_PID)
+        self.assertEqual([(w["title"], w["class"]) for w in windows],
+                         [(MAIN["title"], "Game Window"), ("Game crash", "#32770")])
+        self.assertEqual(bs.crash_dialog(windows)["title"], "Game crash")
+
+
 def timeout_run(dialogs, shot):
     return {"outcome": "timeout", "first_chance": [], "probes_hit": [], "image_base": 0x400000, "pid": 7,
             "windows": [(w["title"], tuple(w["rect"])) for w in dialogs], "dialogs": dialogs,
