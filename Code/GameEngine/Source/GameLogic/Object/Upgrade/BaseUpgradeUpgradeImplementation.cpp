@@ -114,10 +114,8 @@ struct CreateMask
 	CreateMask() { memset(m_bits, 0, sizeof(m_bits)); }
 	unsigned int m_bits[4];
 };
-enum ObjectID; class ThingFactory {public:
- const ThingTemplate *findTemplate(const AsciiString &name);
- Object *newObject(const ThingTemplate *,Team *,const CreateMask *,ObjectID);
-};
+enum ObjectID;
+#include "../../../../Include/Common/ThingFactory.h"
 #include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/AI.h"
