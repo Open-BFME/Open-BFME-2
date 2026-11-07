@@ -1,6 +1,6 @@
 ### LINK-622: LockWeaponCreate's onBuildComplete and xfer are unresolved in the real link
 
-Status: Open (blocked on class reconciliation). Updated: 2026-11-06; ancalgonn-swarm-link; real link
+Status: Repaired in source (a2fc5f3de7); awaiting the next real link to confirm. Updated: 2026-11-06; ancalgonn-swarm-link; real link
 `12de5b58b2` (run 42296273754, 261 unresolved, 0 duplicates). Related: LINK-584 (the rest of the
 unresolved names).
 
@@ -50,3 +50,15 @@ known.
   CreateModuleClass.h with one LockWeaponCreate view shared with Rva004B8CDEDerived.cpp
   (tu_map approves the destructor 0x004B8C3E into LockWeaponCreate.cpp, `??_G` is only proposed),
   then onBuildComplete/xfer/GetSnapshotName as the lk41 note lists.
+
+**2026-11-08, step 3 done (a2fc5f3de7).** LockWeaponCreate.cpp is on CreateModuleClass.h. One
+shared view, `Code/GameEngine/Include/GameLogic/Module/LockWeaponCreate.h`, is included by
+LockWeaponCreate.cpp and Rva004B8CDEDerived.cpp. 0x004B8CC9 is renamed to
+`?onBuildComplete@LockWeaponCreate@@UAEXXZ` (rename.py --to-class; the slot proof needed one other
+resolved slot of 0xC592EC, so onCreate is now an ICF fold onto 0x000B3FD0). GetSnapshotName
+(0x004B8C38) and xfer (0x004851E3) are ICF folds. 20/20 rows; link_check LINKS all three units
+(LockWeaponCreate.cpp 0 -> 89 B); the pre-push audit is expected INCONCLUSIVE for missing receipts.
+Left: slot 4 stays __purecall because getModuleNameKey's row is the static
+`?rva004B8C57@LockWeaponCreate`. Slot 1 inherits CreateModule's loadPostProcess (retail 0x00497805
+jumps to the same body). Verify with the next `reverse/exit_link_blockers.tsv`: LockWeaponCreate.cpp
+should be gone.
