@@ -8,7 +8,11 @@
 struct EmitVtableTag;
 
 // ??_GAttributeModifierAuraUpdateModuleData@@UAEPAXI@Z @0x0049BF50
-class AttributeModifierAuraUpdateModuleData { public: AttributeModifierAuraUpdateModuleData(EmitVtableTag *); virtual ~AttributeModifierAuraUpdateModuleData(); };
+// Same canonical ModuleData base as AttributeModifierAuraUpdateModuleDataCtor.cpp, so this unit's
+// ??_7 is the constructor unit's 31-slot table (retail 0x00C50EE8), not a one-virtual table that
+// can win the COMDAT selection (P19).
+#include "../../Include/Common/ModuleData.h"
+class AttributeModifierAuraUpdateModuleData : public ModuleData { public: AttributeModifierAuraUpdateModuleData(EmitVtableTag *); virtual ~AttributeModifierAuraUpdateModuleData(); };
 
 // ??_GBuildingBehaviorModuleData@@UAEPAXI@Z @0x004564CA, 28B.
 // Scalar deleting dtor slot 0 of vtable 0x00840798; calls rowed ??1 at

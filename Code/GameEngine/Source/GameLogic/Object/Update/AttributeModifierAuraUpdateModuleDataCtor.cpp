@@ -1,5 +1,3 @@
-char g_00C50EE8;
-
 // cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG /DWIN32 /D_WINDOWS
 // stlport
 //
@@ -12,8 +10,12 @@ char g_00C50EE8;
 // store below, plus the rowed AttributeModifierAuraUpdate pool key at
 // 0x49B5DC in the same cluster, plus the chained buildFieldParse at
 // 0x49BBB3 and the ModuleData factory at 0x24E65C which news 0x154.
-// Shape follows GrantUpgradeCreateModuleDataCtor (explicit vtable first
-// member plus empty base plus null-plus-set string) plus ChinookAIUpdate
+// The class derives from the canonical ModuleData (Snapshot at +0, module
+// tag at +4), so the compiler installs ??_7AttributeModifierAuraUpdateModuleData
+// (retail 0x00C50EE8, 31 ModuleData slots) at 0x0049BBEE and the ctor unwind
+// destroys the base through ModuleData's rowed destructor 0x0049B47C (P19).
+// Shape follows GrantUpgradeCreateModuleDataCtor (null-plus-set string)
+// plus ChinookAIUpdate
 // (Rva0025342CMember construct at +0x28) plus BattlePlanUpdate (BfmeE16
 // vector at +0xC via 0x211E58) plus AnimationSteering (opaque 0x3623E5 pin
 // for the +0x24 filter). The +0x140 AntiCategory head constructs through
@@ -38,8 +40,6 @@ private:
 	void *m_data;
 };
 
-typedef StringBase<char> AsciiString;
-
 class Rva003623E5Member
 {
 public:
@@ -61,27 +61,16 @@ private:
 	int m_value;
 };
 
-extern "C" const void *const __identifier("??_7Snapshot@@6B@")[];
+#include "../../../../Include/Common/ModuleData.h"
 
-class UpdateBase
-{
-public:
-	UpdateBase() {}
-	// Retail's ctor unwind (state 0) destroys this base through 0x0049B47C,
-	// the folded Snapshot destructor: restore table 0x00BBB554 at +0, return.
-	~UpdateBase() { *(const void *const **)this = __identifier("??_7Snapshot@@6B@"); }
-};
-
-class AttributeModifierAuraUpdateModuleData : public UpdateBase
+class AttributeModifierAuraUpdateModuleData : public ModuleData
 {
 public:
 	AttributeModifierAuraUpdateModuleData();
-	~AttributeModifierAuraUpdateModuleData();
+	virtual ~AttributeModifierAuraUpdateModuleData();
 
 private:
-	const void *m_vtable;
-	unsigned int m_unused04;
-	AsciiString m_bonusName; // +0x08
+	StringBase<char> m_bonusName; // +0x08
 	_STL::vector<BfmeE16> m_vec0C; // +0x0C
 	int m_refreshDelay; // +0x18
 	float m_range; // +0x1C
@@ -106,8 +95,7 @@ private:
 
 // ??0AttributeModifierAuraUpdateModuleData@@QAE@XZ @0x49BBD5
 AttributeModifierAuraUpdateModuleData::AttributeModifierAuraUpdateModuleData()
-	: m_vtable(reinterpret_cast<const void *>((unsigned int)&g_00C50EE8))
-	, m_bonusName()
+	: m_bonusName()
 	, m_vec0C()
 {
 	m_member28.construct();
