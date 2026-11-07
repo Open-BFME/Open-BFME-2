@@ -34,12 +34,15 @@ struct Rva002BA8F1Listener
 {
 };
 
+void Rva001FA8DDParse(INI *ini, void *instance);
+
 namespace FXParticleSystem
 {
 template <int CATEGORY> class CategoryModuleClass
 {
-public:
-	static CategoryModuleClass<CATEGORY> *s_head;
+private:
+	friend void ::Rva001FA8DDParse(INI *, void *);
+	static const CategoryModuleClass<CATEGORY> *s_first;
 };
 }
 
@@ -61,7 +64,7 @@ void Rva001FA8DDParse(INI *ini, void *instance)
 	const char *token = ini->getNextToken(0);
 	StringBase<char> tmp(token);
 	// Retail reads VA 0x00DFDD5C, the category-8 getFirst() slot (RVA 0x001F4466).
-	TableEntry *entry = *(TableEntry * volatile *)&FXParticleSystem::CategoryModuleClass<8>::s_head;
+	TableEntry *entry = *(TableEntry * volatile *)&FXParticleSystem::CategoryModuleClass<8>::s_first;
 	while (tmp.compare(entry->m_name) != 0)
 		entry = entry->m_next;
 	Rva002BA8F1Listener *listener = entry->create(ini);

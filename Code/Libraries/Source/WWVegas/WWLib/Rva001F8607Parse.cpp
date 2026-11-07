@@ -10,20 +10,24 @@ public:
 	void rva001F43BD(void *p);
 };
 
-class FXParticleSystem
+void Rva001F8607Parse(INI *ini, void *owner);
+
+namespace FXParticleSystem
 {
-public:
 	template <int CATEGORY>
 	class CategoryModuleClass
 	{
 	public:
-		virtual void *v1(INI *ini);
+		virtual void *v1(INI *ini) const;
 		const char *m_key;
 		const char *m_name;
-		CategoryModuleClass *m_next;
-		static CategoryModuleClass *s_head;
+		const CategoryModuleClass *m_next;
+
+	private:
+		friend void ::Rva001F8607Parse(INI *, void *);
+		static const CategoryModuleClass *s_first;
 	};
-};
+}
 
 struct Rva001F8607Owner
 {
@@ -72,7 +76,7 @@ void Rva001F8607Parse(INI *ini, void *owner)
 {
 	const char *token = ini->getNextToken((const char *)0);
 	AsciiString name(token);
-	FXParticleSystem::CategoryModuleClass<4> *mod = FXParticleSystem::CategoryModuleClass<4>::s_head;
+	const FXParticleSystem::CategoryModuleClass<4> *mod = FXParticleSystem::CategoryModuleClass<4>::s_first;
 	while (name.compare(mod->m_key) != 0)
 		mod = mod->m_next;
 	void *created = mod->v1(ini);

@@ -124,3 +124,8 @@ The partial specialization follow-up for the twelve default references is blocke
 
 
 **2026-11-07 measured Point and Ortho confirmation.** The [real link at f0c03faea1](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42372269717) includes 340d85d144. Comparing unique unresolved names with 7112adc012 removes exactly the OrthoEmissionVelocity and PointEmissionVolume KEY and NAME exports at 0x00A02CE8, 0x00A02CEC, 0x00A02D10 and 0x00A02D14. No new unresolved names appear. The total falls from 221 to 217, with zero duplicates. The run wrote no image. The 17 category registration exports were published after the measured commit and await their own real-link result.
+
+
+**2026-11-07 category registration measurement.** The [real link at 50a776d8b4](https://github.com/Open-BFME/Open-BFME-2/actions/runs/42376713708) contains f138620c0c. All 17 registration exports are absent from the unresolved list. The same run adds nine unresolved s_head references, one per INI parser, so the total changes from 217 to 209, with zero duplicates and no image.
+
+The nine parsers now bind the existing private s_first definitions. Each 110-byte body and EH graph verifies. The one changed DIR32 reference per parser keeps its retail address; each new name has a definition in FXParticleSystem.cpp and none of the parser objects retains the old reference. A real-link run including the parser repair remains pending.
