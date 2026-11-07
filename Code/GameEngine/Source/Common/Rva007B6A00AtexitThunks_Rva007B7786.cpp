@@ -172,7 +172,6 @@ void __cdecl rva007B9983()
 	Rva005E16DA *p = (Rva005E16DA *)&g_00E06748;
 	p->Rva005E16DA::~Rva005E16DA();
 }
-void __cdecl rva007B9AB0();
 
 void __cdecl rva007B9B00();
 

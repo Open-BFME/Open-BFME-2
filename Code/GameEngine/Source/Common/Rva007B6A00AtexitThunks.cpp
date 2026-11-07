@@ -105,12 +105,6 @@ public:
 	~Rva005E7529();
 };
 
-class SimpleFileFactoryClass
-{
-public:
-	virtual ~SimpleFileFactoryClass();
-};
-
 class CDCCache
 {
 public:
@@ -161,7 +155,6 @@ extern unsigned int g_Va00E06710[3];
 unsigned g_Va00E06724[4];	// retail RVA 0x00A06724 (.bss), defined here
 extern unsigned g_Va00E06734;
 extern unsigned g_Va00E06748;
-unsigned int g_Va00E08D48[5];	// retail RVA 0x00A08D48 (.bss), defined here
 extern unsigned g_Va00E09E60;
 extern unsigned GeometryContactSphere;
 
@@ -412,13 +405,6 @@ void __cdecl rva007B9965()
 }
 
 
-
-// ?rva007B9AB0@@YAXXZ @ 0x007B9AB0 (10B): ecx=&g_Va00E08D48, tail-jump to rowed ??1SimpleFileFactoryClass@@UAE@XZ (0x00613140)
-void __cdecl rva007B9AB0()
-{
-	SimpleFileFactoryClass *receiver = (SimpleFileFactoryClass *)&g_Va00E08D48;
-	receiver->SimpleFileFactoryClass::~SimpleFileFactoryClass();
-}
 
 // ?rva007B9B00@@YAXXZ @ 0x007B9B00 (10B): ecx=&g_Va00DDE0AC, tail-jump to rowed ?Term@CAtlWinModule@ATL@@QAEXXZ (0x00006AF1)
 void __cdecl rva007B9B00()

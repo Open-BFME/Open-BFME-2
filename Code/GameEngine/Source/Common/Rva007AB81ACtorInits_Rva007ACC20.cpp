@@ -50,12 +50,6 @@ public:
 	Rva005E74CF();
 };
 
-class SimpleFileFactoryClass
-{
-public:
-	SimpleFileFactoryClass();
-};
-
 namespace _STL
 {
 	class ios_base
@@ -94,7 +88,6 @@ void __cdecl rva007B9825();
 void __cdecl rva007B9806();
 void __cdecl rva007B9810();
 void __cdecl rva007B9965();
-void __cdecl rva007B9AB0();
 void __cdecl rva007B9B00();
 void __cdecl rva007B9B14();
 void __cdecl rva007B9B28();
@@ -127,7 +120,6 @@ extern unsigned int g_00E06664;
 // initializer below runs the rowed _Loc_init ctor on it.
 unsigned char g_00E06665;
 extern unsigned g_Va00E06724[4];
-extern unsigned int g_Va00E08D48[5];
 
 struct Rva007AB81ACtorInits
 {
@@ -151,7 +143,6 @@ struct Rva007AB81ACtorInits
 	static void rva007B4C38();
 	static void rva007B4C4E();
 	static void rva007B506A();
-	static void rva007B54F0();
 	static void rva007B5558();
 	static void rva007B5587();
 	static void rva007B55B3();
@@ -205,13 +196,6 @@ void Rva007AB81ACtorInits::rva007B506A()
 {
 	( (Rva005E74CF *)&g_Va00E06724 )->Rva005E74CF::Rva005E74CF();
 	atexit( rva007B9965 );
-}
-
-// ?rva007B54F0@Rva007AB81ACtorInits@@SAXXZ @ 0x007B54F0 (22B): ??0SimpleFileFactoryClass@@QAE@XZ on VA 0x00E08D48, atexit(0x007B9AB0)
-void Rva007AB81ACtorInits::rva007B54F0()
-{
-	( (SimpleFileFactoryClass *)&g_Va00E08D48 )->SimpleFileFactoryClass::SimpleFileFactoryClass();
-	atexit( rva007B9AB0 );
 }
 
 

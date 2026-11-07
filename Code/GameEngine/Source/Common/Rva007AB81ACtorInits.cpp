@@ -98,7 +98,6 @@ void __cdecl rva007B9825();
 void __cdecl rva007B9806();
 void __cdecl rva007B9810();
 void __cdecl rva007B9965();
-void __cdecl rva007B9AB0();
 void __cdecl rva007B9B00();
 void __cdecl rva007B9B14();
 void __cdecl rva007B9B28();
@@ -138,7 +137,6 @@ struct Rva007AB81ACtorInits
 	static void rva007B4C38();
 	static void rva007B4C4E();
 	static void rva007B506A();
-	static void rva007B54F0();
 	static void rva007B5558();
 	static void rva007B5587();
 	static void rva007B55B3();
