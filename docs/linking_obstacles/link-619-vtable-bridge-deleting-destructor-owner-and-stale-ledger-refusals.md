@@ -305,3 +305,11 @@ W3DScene.cpp 222 -> 180, both LINK. The canonical CameraClass.h already declared
 inlines and slot 93 above still apply to this table. Next: P24's Rva007C454 (retail 0x00BC6C58) overrides slots
 129/130 under placeholder names `?rva0007BEA7@Rva007C454@@…` / `?rva0007BEDA@Rva007C454@@…`, which go through
 name_lane and then `rename.py function --respell` (const) before its canonical-CameraClass views can link.
+
+
+**2026-11-07 why rename.py has no same-class `--to-class` respell (swarm Link lane).** A mode that would
+have respelled P24's placeholder slots 129/130 (`rva0007BEA7`/`rva0007BEDA`) from the canonical base's slot
+was dropped after three Codex rounds: proving the name from the base's table by subobject offset, header
+text or the compiled table each left a P1 (a same-length secondary table can stand in for a wrong-length
+primary; an installer's private view can declare the member virtual where the canonical header does not).
+Placeholder method names take the ordinary route: blind-vote naming, then an inferred respell.
