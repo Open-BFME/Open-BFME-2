@@ -868,9 +868,10 @@ Known limits, each refused or out of reach rather than passed wrongly:
   select the unit; prefixes and suffixes are matched as whole tokens only.
 - `decltype(...)` in a declaration and a name that is both a parenthesised typedef and a
   function (`typedef int (T); void T(int); T(g);`) are not modelled; such statements refuse.
-- Functional casts in a statement of their own (`unsigned(g) + 1;`), and a declared
-  function's call whose argument list begins with `&`, `*` or extra parentheses around the
-  identifier (`memset(&g, 0, 16)`), are refused as declaration-shaped.
+- A functional cast in a statement of its own (`unsigned(g) + 1;`) is refused as
+  declaration-shaped. A declared function's call passes with the identifier first in its
+  arguments, alone or behind `&`, `*` or extra parentheses (`memset(&g, 0, 16)`), unless the
+  function's name is also a type.
 
 ### `reverse/name_basis.csv`
 

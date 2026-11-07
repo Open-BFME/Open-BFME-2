@@ -5148,7 +5148,9 @@ def declaration_shaped(prefix, types, functions):
     whether a name is a known type (review of 3da3431c75: `typedef struct {...} T;`
     escaped a type list): such a statement must parse as a declaration of the new type or
     refuse. An expression statement of that shape (`a * g;`) does nothing and refuses too.
-    One exception: `f(g)`, where the unit declares `f` as a function and not as a type."""
+    One exception: a call whose first argument is the identifier, alone or behind unary
+    `&`/`*` or redundant parentheses (`f(g)`, `memset(&g, 0, 16)`, `f((g))`), where the unit
+    declares `f` as a function and not as a type."""
     pos, names = 0, []
     while True:
         m = NAME_TOKEN.match(prefix, pos)
@@ -5174,8 +5176,8 @@ def declaration_shaped(prefix, types, functions):
     if not re.fullmatch(r"(?:[\s\*&(]|\bconst\b|\bvolatile\b)*", parts[-1][1]):
         return False
     if len(parts) == 1 and len(names) == 1 and names[0] in functions and names[0] not in types \
-            and re.fullmatch(r"\s*\(\s*", parts[-1][1]):
-        return False                                 # f(g): a declared function's call
+            and re.fullmatch(r"\s*\((?:\s*[&*(])*\s*", parts[-1][1]):
+        return False                                 # f(g), f(&g): a declared function's call
     return True
 
 
@@ -5331,7 +5333,7 @@ def _names(code):
         stop = code.find(";", body_end or m.end())
         if stop > 0:
             types |= set(re.findall(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?=,|$)", code[body_end or m.end():stop]))
-    functions = set(re.findall(r"[\w\*&>]\s+(?:[A-Za-z_]\w*::)*([A-Za-z_]\w*)\s*\(", code))
+    functions = set(re.findall(r"(?:[\w>]\s+|[\*&]\s*)(?:[A-Za-z_]\w*::)*([A-Za-z_]\w*)\s*\(", code))
     functions -= BUILTIN_TYPES | QUALIFIERS | EXPRESSION_KEYWORDS | {"extern", "__declspec"}
     return types, functions
 

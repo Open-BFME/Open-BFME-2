@@ -542,6 +542,42 @@ def test_uses_beside_type_names_pass(statement):
     assert rename.preprocessed_problems(text, "g_00A01000", TYPE) == [], statement
 
 
+# ---- re-check of 7bb8321170 (Codex): a declared function's call with `&`, `*` or `(` first
+
+MEMSET = ("extern \"C\" __declspec(dllimport) void * __cdecl memset(void *, int, unsigned int);\n"   # the CRT's
+          "int take(unsigned int *);\n")
+
+
+@pytest.mark.parametrize("statement", [
+    "memset( &g_00A01000, 0, 12 );",                                                 # Rva007ADC9CMaskInits.cpp:64
+    "memset(&g_00A01000[1], 0, 4);",
+    "::memset(&g_00A01000, 0, 12);",
+    "take(*&g_00A01000);",
+    "take((g_00A01000));",
+    "take(&(g_00A01000)[0]);",
+])
+def test_a_declared_functions_call_with_a_unary_first_argument_passes(statement):
+    text = MEMSET + "void f() { " + statement + " }\n"
+    assert rename.preprocessed_problems(text, "g_00A01000", TYPE) == [], statement
+
+
+@pytest.mark.parametrize("prefix,statement", [
+    ("typedef unsigned int T;", "T (&g_00A01000);"),                                # a type, not a function
+    ("struct T { T(int); };", "T (*g_00A01000);"),                                  # a constructor makes no call
+    ("typedef struct { int a; } T;", "T ((g_00A01000));"),
+    ("struct S {}; void S(int);", "S(&g_00A01000);"),                               # both: refused, not guessed
+    ("", "undeclared(&g_00A01000);"),                                                # no declared function
+])
+def test_the_leading_name_must_be_a_declared_function_and_no_type(prefix, statement):
+    text = prefix + "\nvoid f() { " + statement + " (void)sizeof(g_00A01000); }\n"
+    assert rename.preprocessed_problems(text, "g_00A01000", TYPE), statement
+
+
+def test_a_pointer_returning_function_is_a_function():
+    assert "memset" in rename._names("void *memset(void *, int, unsigned int);")[1]
+    assert "emset" not in rename._names("void *memset(void *, int, unsigned int);")[1]
+
+
 def test_typedef_struct_names_help_the_parser():
     types, _ = rename._names("typedef struct { int a; } TTargaHeader; typedef unsigned int A, B;")
     assert {"TTargaHeader", "A", "B"} <= types
