@@ -8,3 +8,7 @@ BfmeStringRecordTree900::_M_clone_node(BfmeStringRecordTree900::_Link_type);
 template BfmeStringRecordTree900::_Link_type
 BfmeStringRecordTree900::_M_copy(BfmeStringRecordTree900::_Link_type, BfmeStringRecordTree900::_Link_type);
 template BfmeStringRecordTree900::_Rb_tree(const BfmeStringRecordTree900 &);
+// P29 test-branch diagnostic: the set's operator= (retail 0x002D07F4), called by ThingTemplate::operator=.
+template BfmeStringRecordTree900 &BfmeStringRecordTree900::operator=(const BfmeStringRecordTree900 &);
+#include <set>
+template _STL::set<BfmeStringRecord002CF550> &_STL::set<BfmeStringRecord002CF550>::operator=(const _STL::set<BfmeStringRecord002CF550> &);
