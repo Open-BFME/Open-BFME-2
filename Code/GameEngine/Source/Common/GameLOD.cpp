@@ -128,9 +128,41 @@ extern const char *bfmeStaticLODNames[5];
 extern const char *CPUNames[];
 
 //Keep this in sync with enum in GameLOD.h
-static char *VideoNames[] = 
+// ?VideoNames@@3PAPBDA, retail 0x009B96D0: the chipset names parseLODPreset hands
+// parseIndexList for a preset's video type, 27 names then NULL (112 bytes), in
+// retail order. Zero Hour's and BFME 1's GameLOD.cpp name it VideoNames and
+// pass it in the same place; BFME 2's list is its own. External so its data row
+// binds the address parseLODPreset pushes.
+const char *VideoNames[] =
 {
-	"XX","V2","V3","V4","V5","TNT","TNT2","GF2","R100","PS11","GF3","GF4","PS14","R200","PS20","R300", NULL
+	"<Unknown>",
+	"GENERIC_PIXEL_SHADER_1",
+	"GEFORCE_5_LOW",
+	"GEFORCE_3",
+	"_MINIMUM_FOR_LOW_LOD",
+	"RADEON_8_AND_9_LOW",
+	"GEFORCE_4",
+	"GEFORCE_5_MEDIUM",
+	"GEFORCE_6_LOW",
+	"_MINIMUM_FOR_MEDIUM_LOD",
+	"GENERIC_PIXEL_SHADER_2",
+	"GEFORCE_5_HIGH",
+	"RADEON_9_MEDIUM",
+	"RADEON_X_LOW",
+	"GEFORCE_6_MEDIUM",
+	"RADEON_X1_LOW",
+	"RADEON_9_HIGH",
+	"RADEON_X_MEDIUM",
+	"RADEON_9800",
+	"_MINIMUM_FOR_HIGH_LOD",
+	"RADEON_X1_MEDIUM",
+	"RADEON_X_HIGH",
+	"GENERIC_PIXEL_SHADER_3",
+	"GEFORCE_6_HIGH",
+	"_MINIMUM_FOR_ULTRA_HIGH_LOD",
+	"RADEON_X1_HIGH",
+	"GEFORCE_7_HIGH",
+	NULL
 };
 
 /**Parse a description of all the LOD settings for a given detail level*/
@@ -779,7 +811,7 @@ void INI::parseLODPreset(INI *ini)
 			{
 				INI::parseIndexList(ini, NULL, preset, CPUNames);
 				INI::parseInt(ini, NULL, (char *)preset + 4, NULL);
-				INI::parseIndexList(ini, NULL, (char *)preset + 0x0c, CPUNames + 6);
+				INI::parseIndexList(ini, NULL, (char *)preset + 0x0c, VideoNames);
 				INI::parseInt(ini, NULL, (char *)preset + 0x14, NULL);
 				INI::parseInt(ini, NULL, (char *)preset + 0x10, NULL);
 				INI::parseInt(ini, NULL, (char *)preset + 0x18, NULL);
