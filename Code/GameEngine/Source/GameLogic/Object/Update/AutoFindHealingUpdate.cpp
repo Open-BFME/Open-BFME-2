@@ -116,17 +116,15 @@ class AutoFindHealingUpdate : public UpdateModule
 {
 public:
 	AutoFindHealingUpdate(Thing *thing, const ModuleData *moduleData);
-	virtual ~AutoFindHealingUpdate();
-
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
-
 protected:
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
-
+public:
+	virtual ~AutoFindHealingUpdate();
 private:
-	int m_20;
+	int m_20; // +0x20
 };
 
 // tu-skeleton: 0x0049506E 25B ??1AutoFindHealingUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)

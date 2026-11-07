@@ -184,13 +184,26 @@ enum UpdateSleepTime
 // update overrides UpdateModuleInterface::update (the subobject at +0x10), so
 // its `this` arrives as that subobject; the members below are the complete
 // object's.
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class Thing;
+class ModuleData;
+class Xfer;
 class AutoFindHealingUpdate : public UpdateModule
 {
 public:
+	AutoFindHealingUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
-
+protected:
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual ~AutoFindHealingUpdate();
 private:
-	int m_counter; // +0x20
+	int m_20; // +0x20
 };
 
 UpdateSleepTime AutoFindHealingUpdate::update()
@@ -200,12 +213,12 @@ UpdateSleepTime AutoFindHealingUpdate::update()
 	if (player->m_playerType == 0)
 		return UPDATE_SLEEP_NONE;
 	const Other *other = (const Other *)getModuleData();
-	int counter = m_counter;
+	int counter = m_20;
 	if (counter > 0) {
-		m_counter = counter - 1;
+		m_20 = counter - 1;
 		return UPDATE_SLEEP_NONE;
 	}
-	m_counter = other->m_reset;
+	m_20 = other->m_reset;
 	Actor *actor = obj->m_actor;
 	if (actor == 0)
 		return UPDATE_SLEEP_NONE;
