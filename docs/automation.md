@@ -10,7 +10,7 @@ original game runs under automation.
 | Retail byte verification | GitHub, `byte-verification.yml` | every push to `master` | pass or fail for the commit |
 | Verification alarm | GitHub, `verification-alarm.yml` | each verification finishing; hourly tick from srv1 | Discord: red, green again, red over 12 hours, stale results |
 | Real link | GitHub, `real-link.yml` | srv1, when the last run is 1 hour old (6 once the game boots) | artifact `real-link-<sha>`; one Discord line; srv1 commits `reverse/exit_link_blockers.tsv` |
-| Link census | srv1, `bfme2-runner.timer` | when the last row is 110 minutes old | `reverse/link_census_history.csv`, `reverse/link_status.csv` |
+| Link census | a boat.dev sandbox, started by srv1's `bfme2-runner.timer` | when the last row is 110 minutes old | `reverse/link_census_history.csv`, `reverse/link_status.csv` |
 | Link census | `wings02`, `link-census.yml` (levy) | systemd on that machine; the workflow only reports health | failing at "preparation failed" since 2026-10-29 |
 | Nightly measurement | GitHub, `nightly-measure.yml` | skipped until `NIGHTLY_ENABLED` is set | image ownership receipts |
 
@@ -72,7 +72,7 @@ duplicate globals and globals constructed in storage smaller than the ledger's g
 
 ## When the census stops publishing
 
-Look at the last cycle in `journalctl --user -u bfme2-runner.service` on srv1:
+Look at the last cycle in `journalctl --user -u bfme2-runner.service` on srv1. Since 2026-11-06 the census's compile and links run on a boat.dev sandbox that srv1 starts for each census and deletes after it; srv1 still commits, pushes and publishes. `boat unavailable; census skipped` means no census ran (no sandbox, or too few plan hours left), and the next cycle tries again; the census never falls back to srv1. Then:
 
 - `compile failed:` (rc 245): a TU does not compile there. Absolute includes did this.
 - `N compiled objects have no census proof` (rc 1): the object compiled, but
