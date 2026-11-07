@@ -1,0 +1,936 @@
+[
+ {
+  "class": "UnicodeString",
+  "header_bases": [
+   "StringBase",
+   "unsigned",
+   "short"
+  ],
+  "evidence_found": "none",
+  "detail": "header_bases is a parse artifact: the shim declares UnicodeString : public StringBase<unsigned short>, so 'unsigned' and 'short' are template arguments. The 4 matched ctors (0x6652, 0x6664, 0x662A, 0x663C) are __forceinline in reference/shims/bfme2_ascii/unicode_string.h, so unicode_string.cpp has no retail base-init line; its lines 23-28 are calls, not definitions. The shim's StringBase initialisers restate the registered header, so they are not counted. Prior work: re_attempts.log line 6 (blocked) says the candidate base ctor for UnicodeString(const unsigned short*, int) would need an unlabelled 307-byte callee, and no StringBase ctor identity is pinned. Ledger rows 670 and 18733 show a static local symbol that names both StringBase<G>::str and UnicodeString::str, which hints at an inherited str body but is not a base proof. No vftable row for UnicodeString was found. Upcast signature search found nothing usable. Size: contract_size 4 cannot be checked, since no StringBase contract exists to subtract.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "",
+  "prior_work": "re_attempts.log line 6 (blocked, t=8): StringBase ctor identity unproven for UnicodeString(PBGHH). Not a verdict on the header's base clause.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 1
+ },
+ {
+  "class": "LivingWorldArmy",
+  "header_bases": [
+   "Snapshot",
+   "Rva00330757Member",
+   "Rva0020E346"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Source Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp lines 337 and 342 (both ctors) have no base initialiser in the mem-init list. Retail ctors 0x0031A257 (283B) and 0x0031A372 (543B) inline a second vptr store at +4 of 0x00C62A20 (contract bases_unproven entry: Rva0020E346 at offset 4, own_vftable 0x80c824, rule retail-inlined-base-vptr). The matched ctor 0x0020E346 (??0Rva0020E346@@QAE@XZ, 9B, RvaSmallVtableCtors.cpp) stores the same vftable 0x00C62A20, so the +4 subobject is Rva0020E346's vptr. Rva00330757Member: both ctors call 0x00330757 at +8 (retail_layout base_or_member_ctor_calls, inference; candidates Rva003197EEList and Rva00330757Member). The ledger describes 0x00330757 as a homeless vector-plus-flags member, and the contract fields place a vector at +8 to +0x14, so this call is not clean base evidence. Snapshot at +0: the header's target-facts comment says the destructor restores Snapshot's table (written VA 0x00BBB554, which is ledger RVA 0x007BB554 = ??_7Snapshot@@6B@, since the image base is 0x400000). That is a header comment, not a ledger row, and I did not confirm it in the ctor bytes. Own table at +0 (0x80c82c) names only LivingWorldArmy methods in the contract.",
+  "vtable": "+0: 0x80c82c, own, slots 0-3 are ??_GLivingWorldArmy, loadPostProcess, GetSnapshotName, xfer (LivingWorldArmy). +4: 0x00C62A20 (ledger alias 0x00862A20 lists ??_7RegionTurnObserverView@@6B@ as well), contract names no slots.",
+  "upcast": "",
+  "size_arithmetic": "Offsets fit the header order: Snapshot (4) at 0, Rva0020E346 at 4, Rva00330757Member (16) at 8 ending at 24, and name18 at 24 per the contract fields. But contract_size is 124 while retail allocation passes 0x98 (152) to operator new (allocation_observed), so size does not corroborate and the conflict is unresolved.",
+  "prior_work": "docs/linking_obstacles/link-210-livingworldarmy-merged-flags-drop-stlport-fill-provider.md exists but is about a fill provider, not bases. No re_attempts verdict on LivingWorldArmy bases found.",
+  "confidence": "medium",
+  "supports_header": null,
+  "packet": 1
+ },
+ {
+  "class": "GateOpenAndCloseBehaviorModuleData",
+  "header_bases": [
+   "ModuleData"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Retail vtable ??_7GateOpenAndCloseBehaviorModuleData@@6B@ at RVA 0x008501B0 (124B, 31 slots) has slot 2 = ?GetSnapshotName@ModuleData@@UBEPBDXZ (contract retail_vtables). That is a ModuleData method sitting in the class's table. Source GateOpenAndCloseBehavior.cpp lines 619-620 open the ctor with ': ModuleData()', but that is rebuilt source text, not retail bytes. Retail ctor 0x00498E2E contract facts show member ctor calls only (releaseBuffer, two _Vector_base ctors) and no direct base-ctor call was found. Table slot 1 is named ??1Region2D@@QAE@XZ, which looks like a mislabel and weakens the table reading slightly. Upcast: none found; the only casts are ModuleData* to Gate* downcasts (GateOpenAndCloseBehavior.cpp lines 145 and 695).",
+  "vtable": "??_7GateOpenAndCloseBehaviorModuleData@@6B@ at RVA 0x008501B0, 124 bytes, slot 2 names ModuleData::GetSnapshotName.",
+  "upcast": "",
+  "size_arithmetic": "contract_size 76 equals retail allocation 0x4C (allocation_observed) and the retail field offsets run 0x08 to 0x48 with extent 76. ModuleData contract size is 4, so 4 + 72 bytes of own fields = 76 if ModuleData sits at +0. Corroborating only.",
+  "prior_work": "re_attempts.log line 65302 (blocked, t=4): retail 8501B0 has 31 ModuleData slots and BfmeModuleData.h documents exactly 31; do not merely align the four-slot and one-slot views; needs shared inheritance reconciliation. This supports ModuleData as the base. docs/linking_obstacles/gateopenandclose-canonical-module-factory-view-2026-10-30.md is about the factory view, not bases.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 1
+ },
+ {
+  "class": "LivingWorldRegion",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "none",
+  "detail": "Retail ctor 0x003F3967 has base_or_member_ctor_calls at +4 (inference) naming Rva003197EEList and Rva00330757Member, not Snapshot. That call is ambiguous between base and member, so it does not decide the header's Snapshot clause. The retail vtable 0x836FA4 at +0 has LivingWorldRegion's own slot names (dtor, loadPostProcess, GetSnapshotName, DoXfer), so a Snapshot base at offset 0 would be invisible. Other mentions: LivingWorldRegionConstructor.cpp line 51 declares 'public Snapshot, public Rva00330757Member' in a private view (not evidence). Its line 5 comment calls 0x836FA4 a Snapshot vtable, which conflicts with the contract's region-named slots. LivingWorldRegion.cpp line 533 casts a Snapshot* from a plot, not from the region. No upcast signature found in functions.csv.",
+  "vtable": "+0: 0x836FA4, LivingWorldRegion's own slot names; no second table.",
+  "upcast": "",
+  "size_arithmetic": "",
+  "prior_work": "No re_attempts verdict on LivingWorldRegion bases found. docs/linking_obstacles/link-221-livingworldregionmanager-mixed-routing-blocks-tu-recovery.md concerns the manager, not bases.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 1
+ },
+ {
+  "class": "AptBoolean",
+  "header_bases": [
+   "AptValue"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "The header Code/Libraries/Source/Apt/AptBoolean.h target-facts comment says ctor 0x006D8860 calls the 8-byte AptValue ctor 0x006DCCC0 with type 5. functions.csv names 0x006DCCC0 as ??0BfmeAptValue006DCD20@@QAE@H@Z (87B, AptValueConstructorBFME2.cpp, matched; takes an int type). Code/Libraries/Source/Apt/AptCharacter.cpp line 35 defines BfmeAptValue006DCD20 : public AptValue, and Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp line 106 declares AptBoolean : public BfmeAptValue006DCD20, so the chain runs through the private view. The packet lists no matched ctor row for 0x006D8860, so the call is from the header comment plus the named callee. Upcast also present: AptBoolean.cpp line 155 'return (AptValue *)new AptBoolean(value);' in the matched factory ?Create@AptBoolean@@SAPAVAptValue@@_N@Z (263B, 0x006D88C0).",
+  "vtable": "??_7AptBoolean@@6B@ at RVA 0x008EA600, 60 bytes = 15 slots, matching AptValue's 15 slots in its contract. functions.csv says slot 14 of 0x008EA600 calls the rowed deleting dtor at 0x006D88B0.",
+  "upcast": "Code/Libraries/Source/Apt/AptValue/AptBoolean.cpp line 155: return (AptValue *)new AptBoolean(value); inside the matched factory ?Create@AptBoolean@@SAPAVAptValue@@_N@Z at 0x006D88C0.",
+  "size_arithmetic": "contract_size 12 = 8 (AptValue, per the header's 8-byte comment) + 4 (union field08 at +8). CONFLICT: AptValue.json says size 4 with only __vfptr, so this arithmetic needs AptValue to be 8 bytes. Flagged, not resolved.",
+  "prior_work": "docs/linking_obstacles/link-220-aptvalue-constructor-canonical-table-needs-virtual-providers.md concerns the AptValue constructor table and an abstract base anchor; it is not a verdict on AptBoolean's bases. No other re_attempts verdict on AptBoolean bases found.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 1
+ },
+ {
+  "class": "AttributeModifierStore",
+  "header_bases": [
+   "SubsystemInterface"
+  ],
+  "evidence_found": "size-only",
+  "detail": "Contract size is 1 (size_by majority), but 9 of 11 views report 1, so it may be a placeholder. SubsystemInterface contract size is 12, so a 12-byte base cannot fit inside a 1-byte class as the frozen ABI reads. However, contract retail_access shows accesses at +0x0C (17 sites) and +0x10 (9 sites), so the true size is at least 0x14. That is compatible with a 12-byte SubsystemInterface base followed by own fields at +0x0C and +0x10, but it is equally compatible with other layouts. No matched ctor rows. Ledger row ??1?$SubsystemSlot@VAttributeModifierStore@@@@ (0x0059EA42, identity-suspect) says the subsystem wrapper for this class is an 8-byte vptr-plus-global-pointer wrapper, not a SubsystemInterface base.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "Frozen size 1 contradicts a 12-byte base. Retail accesses at +0x0C and +0x10 are compatible with 12 + own fields. Neither reading is decisive.",
+  "prior_work": "re_attempts.log line 1574 (identity-suspect): the SubsystemSlot<AttributeModifierStore> wrapper is 8 bytes, not a SubsystemInterface base. No verdict on AttributeModifierStore's own bases found.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 1
+ },
+ {
+  "class": "DrawableList",
+  "header_bases": [
+   "_STL",
+   "list",
+   "Drawable"
+  ],
+  "evidence_found": "size-only",
+  "detail": "header_bases is a parse artifact: the header declares DrawableList : public _STL::list<Drawable *>, so 'Drawable' is the template argument, not a base. Contract size 4 and the single field _M_node._M_data at +0 (typed _STL::_List_node<Drawable*>*) fit an STLport list base holding one node pointer with no own members. A single data member gives the same arithmetic, so this does not discriminate. The header comment calls the STLport base a structural inference, not retail proof. No ctor rows. Out-of-line dtor ??1DrawableList@@QAE@XZ is matched at 0x00239AF4 (29B, Rva00239380Clear.cpp) with no base-call data. Upcast: none found in mangled signatures. No vftable.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "contract_size 4 = _STL::list base (one node pointer, if that is its size) + 0 own bytes. Not discriminating against one pointer member.",
+  "prior_work": "re_attempts.log line 19563 (blocked): InGameUI's DrawableList view dtor needs a list<Drawable*> node-allocator view. A dependency note, not a base verdict.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 1
+ },
+ {
+  "class": "LightningDrawModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Recorded verdict (reverse/re_attempts.log line 50383, status solved, t=28): the constructor 0x0056142E (171B) and xfer inherit the canonical Snapshot base. The constructor's EH cleanup at 0x00799BA7 tail-jumps to 0x0049B47C, and the compiled cleanup relocation names ??1Snapshot@@UAE@XZ (reverse/attempt_support/lightning-info-snapshot-link-20261013/readme.md; object-proof.txt line 8). The EH section for the parent is recorded as EXACT with handler 0x00799BAF (10B). Field offsets +4, +0x10, +0x1c, +0x28, +0x2c are unchanged, which fits a 4-byte Snapshot vptr at 0. I did not re-verify the bytes; this is the prior seat's recorded verdict, reported prominently as requested.",
+  "vtable": "RVA 0x0081BD80, 16 bytes, 4 slots (deleting dtor, loadPostProcess, GetSnapshotName, xfer) per the readme. Matched override 0x003A6157 is GetSnapshotName@LightningDrawModuleInfo, an override of the Snapshot virtual.",
+  "upcast": "",
+  "size_arithmetic": "contract_size 0 is unfilled (size queue has no candidates), so there is no arithmetic against contract_size. Snapshot contract size 4 with fields starting at +4 is consistent.",
+  "prior_work": "VERDICT (recorded, solved): reverse/re_attempts.log line 50383 and reverse/attempt_support/lightning-info-snapshot-link-20261013/readme.md both say the class inherits canonical Snapshot. Donor lead BFME1 commit 1b3b6dc65aa24e3c3c88dbf89ae4cf3628d7cfab is noted as a lead only.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 1
+ },
+ {
+  "class": "RenderObjectUpdateModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "none",
+  "detail": "Checked: matched ctor 0x00561F99 (489B, RenderObjectUpdateModuleInfoDefaultCtor.cpp, row says BFME1 donor ctor thunk) with EH 0x00799C21 EXACT per the ledger, but the ledger row records no base-call fact, and I did not read its body. Vtable RVA 0x0081BDB0 exists (16B, 4 slots). GetSnapshotName@RenderObjectUpdateModuleInfo at 0x003A6163 is a matched override of the Snapshot virtual (functions.csv line 631), which is supporting only. Adjustor thunk 0x003ABE85 shows RenderObjectUpdateModuleInfo as a base subobject at +0x1C of a larger class; that says nothing about this class's own bases. The LightningDraw solved verdict is the same family but is not transferred here. Next check if wanted: read the body of ctor 0x00561F99 for the Snapshot cleanup/base-dtor call, as the LightningDraw verdict did. No re_attempts base verdict and no base note in reverse/attempt_support/particle-renderobject-writer-export-20261106-codex.md.",
+  "vtable": "RVA 0x0081BDB0, 16 bytes, 4 slots; slot names not read in detail.",
+  "upcast": "",
+  "size_arithmetic": "contract_size 0 is unfilled, so no arithmetic.",
+  "prior_work": "none found for bases.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 1
+ },
+ {
+  "class": "Rva006C1F60",
+  "header_bases": [
+   "EA",
+   "Allocator",
+   "GeneralAllocator"
+  ],
+  "evidence_found": "none",
+  "detail": "header_bases is a parse artifact: the header declares Rva006C1F60 : public EA::Allocator::GeneralAllocator, so EA and Allocator are namespace tokens and the only base is GeneralAllocator. Code/GameEngine/Source/Common/Rva006C1F60.cpp target-facts comment says this is a nonvirtual allocator view: retail 0x006C4A50 installs no vtable and calls 0x00033B90 at 0x006C4A8E, which writes a byte at +0. That byte could belong to the base or to the own bool m_000 at +0 (contract field), so it does not decide the base. GeneralAllocator contract size is 0, which looks like a placeholder, so no size arithmetic is possible. No matched ctor rows in the packet. re_attempts has member-function verdicts only.",
+  "vtable": "No vftable: the retail ctor installs none, per the source comment.",
+  "upcast": "",
+  "size_arithmetic": "contract_size 1 = own bool m_000 at +0; GeneralAllocator size 0 is unreliable, so no check.",
+  "prior_work": "re_attempts.log has member-function verdicts for Rva006C1F60 (0x006C1F60, 0x006C1AA0, 0x006C2510) and no base verdict.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 1
+ },
+ {
+  "class": "ArmySummary",
+  "header_bases": [
+   "Snapshot",
+   "Rva0040D8D6List"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Snapshot: ctor 0x0040E3EE has an EH unwind funclet 0x007857FC that destroys its base through the folded Snapshot destructor 0x0049B47C (data in reverse/functions.csv rows for ??1Rva0040E3EEBase@@ and Unwind@00b857fc). Source Code/GameEngine/Source/Common/ArmySummaryEntry.cpp line 226 opens the ctor with `: Rva0040E3EEBase()` and its comment says the base is retail's Snapshot. The derived dtor 0x0040E499 restores Snapshot table 0x00BBB554 during base teardown (per the ledger note on that row). +4 subobject: the ledger note on 0x0078582C and re_attempts verdict say a nullable derived-to-base +4 adjustment precedes listener teardown, so a second base exists at +4. The NAME of that +4 base is disputed: the header's own top comment and the private views in ArmySummaryEntry.cpp (member m_04) and ArmySummaryCopyBFME2.cpp (`public Rva00330757Member`) say the +4 object is Rva00330757Member, and the header comment says both ctors call 0x00330757 on +4.",
+  "vtable": "??_7ArmySummary@@6B@ at 0x008394F0 (data_ledger.csv); single untagged table, no base-tagged secondary table. No slot checked by name.",
+  "upcast": "none found in ledger signatures (no function with both PAVArmySummary@@ and PAVSnapshot@@ or Rva0040D8D6List). Source casts seen (ScriptActions_livingWorldRegion.cpp:654) are downcast-style from Rva0040D701ArmySummary*, not evidence.",
+  "size_arithmetic": "Header comment states sizeof 0x68 (104), which matches contract_size 104. Snapshot is 4 bytes; the +4 base size is not recorded anywhere in the packet, so no independent sum.",
+  "prior_work": "reverse/re_attempts.log line 20532 (??1ArmySummary@@UAE@XZ) records a verdict 'Reconciled ArmySummary : Snapshot, Rva0040D8D6List' from the +4 unwind conversion. This is a recorded verdict and outranks my reading on the bases, but it conflicts with the Rva00330757Member name used by the ctor-level comments and private views. Docs in docs/linking_obstacles/armysummary*.md contain no base verdict.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "LivingWorldBattle",
+  "header_bases": [
+   "Snapshot",
+   "Rva00330757Member",
+   "LivingWorldBattleListener"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Two base-tagged vftables in data_ledger.csv: 0x0083709C `??_7LivingWorldBattle@@6BSnapshot@@@` (16 bytes, primary) and 0x00837088 `??_7LivingWorldBattle@@6BLivingWorldBattleListener@@@` (20 bytes, secondary). The tag names the base each table is for, so Snapshot and LivingWorldBattleListener are both evidenced. Ctor source Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp lines 1-40 comment: the +8 list base is the rowed out-of-line ctor 0x00330757 (Rva00330757Member), and the destructor unwind order matches Snapshot, list, listener. The source ctor init lists (lines 106-110, 130-131) contain no explicit base initialiser. No ledger tag evidences the +8 Rva00330757Member base; it rests on the source comment and the unwind order only.",
+  "vtable": "0x0083709C `??_7LivingWorldBattle@@6BSnapshot@@@`; 0x00837088 `??_7LivingWorldBattle@@6BLivingWorldBattleListener@@@`; also 0x0083702C `??_7Rva00575E4EBase2@@6B@` whose alias list includes ??_7LivingWorldBattleListener@@6B@.",
+  "upcast": "Code/Libraries/Source/WWVegas/WWLib/LivingWorldBattle_AddArmy.cpp line 73: `listeners.append((Rva002BA8F1Listener*)static_cast<LivingWorldBattleListener*>(this))`, inside the WorldBuilder LivingWorldBattle::AddArmy body (identity per the ctor-file comment, pinned 0x003F6DF9). This is a direct this-to-listener upcast.",
+  "size_arithmetic": "Contract 60 (0x3C). Ctor writes reach +0x3C, consistent. Re_attempts line for 0x003F6A3A says the default ctor allocation is 0x40 (64) bytes, which does not equal contract 60; the difference may be allocator padding but it is unresolved.",
+  "prior_work": "re_attempts.log line 29883 (??0LivingWorldBattle@@QAE@XZ, landed): 'Target primary and secondary vtables plus name and 64B allocation establish Battle'. No recorded verdict contradicting the bases.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "GettingBuiltBehaviorModuleData",
+  "header_bases": [
+   "ModuleData"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Retail derived vftable 0x00840090 `??_7GettingBuiltBehaviorModuleData@@6B@` (528 bytes in data_ledger.csv; the readme writes it as C40090). Reverse/attempt_support/moduledata-link-20261023/readme.md states the table holds all 31 slots of the BfmeModuleData.h interface (own deleting dtor, then shared base entries, no overrides), and that the dtor restores Snapshot table 0x00BBB554. Ctor shard Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtorShard.cpp lines 7-10: the sixth EH-state object lives in the ModuleData base whose inlined ctor leaves +4 untouched. The ctor's init list (line 85-86) has no explicit ModuleData call. Caveat: the 31-slot reading uses the header's slot list as its reference.",
+  "vtable": "0x00840090 `??_7GettingBuiltBehaviorModuleData@@6B@`: 31-slot ModuleData interface per the readme (not verified slot-by-slot in the ledger).",
+  "upcast": "none found (no ledger signature with both GettingBuiltBehaviorModuleData and ModuleData pointers).",
+  "size_arithmetic": "ModuleData contract size 4 (vptr only). Contract GettingBuilt has m_unused04 at +4 (size 4), while the ctor comment says the ModuleData base leaves +4 untouched, which implies the base spans past +4. These two records disagree about the size of the base; contract_size 76 is not decomposed.",
+  "prior_work": "reverse/attempt_support/moduledata-link-20261023/readme.md (2026-10-23): link repair adopts the 31-slot ModuleData interface in ctor and dtor and removes an artificial EmptyBase. Same-day census preview: before 179 B, after 388 B. This is a link-level verdict that treats ModuleData as the base; it is not a recorded refutation.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "Rva00253487Base",
+  "header_bases": [
+   "ModuleData"
+  ],
+  "evidence_found": "none",
+  "detail": "Checked Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataCtor.cpp lines 5-48. The base ctor 0x00253487 stores vtable 0x00BF2558 (a stand-in name `??_7WeaponSetUpgradeModuleData@@6B@`) and constructs the +8 member. There is no explicit ModuleData base call in the ctor. The dtor ??1Rva00253487Base@@UAE@XZ is folded to 0x0049B47C, the same address as the ModuleData dtor (reverse/functions.csv), which is a fold not a base proof. The 0x00BF2558 table is not in data_ledger.csv, so its base tags could not be checked.",
+  "vtable": "0x00BF2558 named `??_7WeaponSetUpgradeModuleData@@6B@` in source comment; no ledger row found for 0x00BF2558.",
+  "upcast": "none found.",
+  "size_arithmetic": "Contract 280 = 4 (vptr) + 276 (m_opaque). ModuleData contract size 4, so 4 + 276 = 280 holds whether or not the vptr is the ModuleData base's. Not discriminating.",
+  "prior_work": "re_attempts.log line 66387 (??1Rva00253487Base@@UAE@XZ) landed as a gen-alias of the CommandSetUpgradeModuleData dtor, which restores Snapshot table BBB554. The OpenContain identity correction in the source comment withdraws earlier donor attribution. No base verdict.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 2
+ },
+ {
+  "class": "AptCIH",
+  "header_bases": [
+   "AptValue"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp line 330 (the AptCIH ctor 0x006CBDE0, ledger row ??0Rva006CBDE0@@QAE@HPAXPAVAptValue@@@Z): `Rva006CBDE0::Rva006CBDE0(int type, void *p1, AptValue *aptValue) : BfmeAptValue006DCD20(type, 0)`. Comment at line 41 says 'Retail calls base BfmeAptValue(type,0)'. The stand-in BfmeAptValue006DCD20 is the rowed 0x006DCD20 AptValue ctor, whose ledger note says the original class name is unknown. Dtor: ledger 0x006E2A70 notes base dtor call 0x006DE350, which is the ledger row ??1AptValue@@MAE@XZ ('canonical Redwood6 PDB base'). So the chain ends at AptValue, but the immediate base in source is an address-named stand-in.",
+  "vtable": "0x00CE8C24 (AptCIH primary, 15 slots per the header comment); 0x00CEAED0 is the AptValue base table restored by 0x006DE350 per the header comment and ledger note. No base-tagged name found in data_ledger.csv for AptCIH.",
+  "upcast": "none found. Ledger signature rva006F6E00@BfmeQuery1279@@ takes AptCIH* and AptValue* together but this is co-occurrence, not an upcast.",
+  "size_arithmetic": "AptCIH contract 96 = 0x60, matching the header comment's sizeof 0x60. AptValue contract size is 4, but the ledger note for AptValue says a flag word at +4, which implies size at least 8. AptCIH contract also records mnValueData at +4, which conflicts with a base flag word at +4. Records disagree; unresolved.",
+  "prior_work": "docs/linking_obstacles/aptcih-cleanup-donor-composition-2026-10-28.md and link-400-aptanimation-aptcih-adoption-loader-parameter-load-order.md mention AptCIH but contain no base verdict. re_attempts.log has no base verdict for AptCIH itself.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "BFMENetInformPlayerLeaveFrameCommandMsg",
+  "header_bases": [
+   "NetCommandMsg"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Ctor 0x004D59D1 (ledger row ??0Rva004D59D1@@QAE@XZ, matched 29 B, 'unlock ctor ... type8'). Source Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp lines 286-291: `Rva004D59D1::Rva004D59D1() : NetCommandMsg()` followed by m_1c=0, m_20=-1 and m_commandType=8. The base ctor is ??0NetCommandMsg@@QAE@XZ at 0x004D5593 (37 B, matched). Caveat: the class in source is address-named Rva004D59D1; that it is BFMENetInformPlayerLeaveFrameCommandMsg rests on the type-8 stamp (NETCOMMANDTYPE_INFORMPLAYERLEAVEFRAME = 8) and the header comment.",
+  "vtable": "0x00860274 `??_7Rva004D59D1@@6B@` (data_ledger.csv, address-named; no base tag).",
+  "upcast": "none found in ledger signatures.",
+  "size_arithmetic": "NetCommandMsg contract size 28. Own fields m_leaveFrame and m_leavingPlayerID are two 4-byte ints: 28 + 8 = 36, matching contract_size 36.",
+  "prior_work": "No re_attempts verdict on this class's bases found; the ctor row is the only entry.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "EmissionVelocityInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "size-only",
+  "detail": "No ctor source in the packet for this class. Ledger note on OutwardEmissionVelocityInfo copy ctor 0x003A7501 (reverse/functions.csv) says '4byte base plus two 12byte variables', which fits a 4-byte Snapshot base. Header comments in Code/GameEngine/Include/GameClient/EmissionVelocityInfo.h say the dtor 0x0049B47C restores Snapshot table 0x00BBB554 and derived ctors inline base construction; these are the canonical header's own comments and are not counted as independent evidence. Ledger vtable 0x007E1584 `??_7EmissionVelocityInfo@FXParticleSystem@@6B@` is untagged.",
+  "vtable": "0x007E1584 `??_7EmissionVelocityInfo@FXParticleSystem@@6B@` (16 bytes, untagged). No slot checked by name.",
+  "upcast": "none found.",
+  "size_arithmetic": "Contract size 0 (unknown), so no sum. Snapshot size 4 is consistent with the 4-byte base note on the Outward copy ctor. Weak.",
+  "prior_work": "re_attempts.log line 101066 (??0SphericalEmissionVelocityInfo@FXParticleSystem@@QAE@XZ, blocked): the canonical header's inline ctor and out-of-line dtor conflict with the retail unit's private EmissionVelocityInfo (C2264). That is a header-shape verdict, not a base verdict. No base verdict found.",
+  "confidence": "low",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "LineEmissionVolumeInfo",
+  "header_bases": [
+   "EmissionVolumeInfo"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp lines 52-53: `LineEmissionVolumeInfo::LineEmissionVolumeInfo(const LineEmissionVolumeInfo &that) : EmissionVolumeInfo(that)`. Retail copy ctor 0x003A653B (63 B, ledger row, matched; BFME1 donor b1 0x005D5A90) is per re_attempts.log line 99258 'inlines the base copy ctor (vtable plus flag byte)'. So retail performs a base copy-construct step, consistent with the source. Base identity: EmissionVolumeInfo, whose contract records bases ['Snapshot'], size 8, and a byte at +4.",
+  "vtable": "none found for LineEmissionVolumeInfo in data_ledger.csv (not checked by name).",
+  "upcast": "none found in ledger signatures.",
+  "size_arithmetic": "LineEmissionVolumeInfo contract size is 0 (unknown). EmissionVolumeInfo contract size 8 is recorded; no sum possible.",
+  "prior_work": "re_attempts.log line 99258 (blocked): the 63 B copy ctor fails to adopt the header because EmissionVolumeInfo.h declares the base copy ctor out of line while retail inlines it. This is a blocker on the header, not a refutation of the base.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "RenderingMethod",
+  "header_bases": [
+   "RefCountClass"
+  ],
+  "evidence_found": "none",
+  "detail": "Retail RefCountClass vftable 0x007C650C (48 bytes, data_ledger.csv) has aliases for other classes; no RenderingMethod-tagged table found, and no `??_7RenderingMethod` row exists. Several private views declare `: public RefCountClass` (RTS3DSceneRenderOneObject.cpp:97, W3DPropBufferDrawProps.cpp:95, W3DShadowMapManagerUpdateShadowMap.cpp:86, W3DWaterDrawOceanWater.cpp:85, MeshClassRenderWithFXMaterial.cpp:221, MeshClassRender.cpp:111, FXShaderRenderer.cpp:18). These are stand-ins, not retail evidence, and are not counted. The Create_Peek/Rva0014BA40Get pair at 0x0014BA40 is a same-RVA name backfill (re_attempts line 23064), not a base proof.",
+  "vtable": "none for RenderingMethod. RefCountClass table 0x007C650C is not tagged for it.",
+  "upcast": "none found.",
+  "size_arithmetic": "RefCountClass contract size 8 (vptr plus NumRefs at +4). RenderingMethod contract size 0 (unknown); no sum.",
+  "prior_work": "No base verdict found in re_attempts.log or docs/linking_obstacles for RenderingMethod.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 2
+ },
+ {
+  "class": "ShroudManager",
+  "header_bases": [
+   "SubsystemInterface",
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Retail ctor 0x007398D0 (ledger row ??0Open2Store8F75D0@@QAE@XZ, 143 B, matched; ctor is the existing opaque owner that the ShroudManager identity was attached to). Two base-tagged vftables in data_ledger.csv: 0x008F1240 `??_7Open2Store8F75D0@@6BSnapshot@@@` (16 B) and 0x008F1250 `??_7Open2Store8F75D0@@6BSubsystemInterface@@@` (56 B). Source Code/GameEngine/Source/GameClient/Open2Twins006.cpp lines 126-150: `class Open2Store8F75D0 : public SubsystemInterface, public Snapshot`; ctor body only does `m_map = new ShroudManagerImpl;` (no explicit base init). The file comment says SubsystemInterface is 12 bytes and places Snapshot at +0xC. Identity caveat: the owner is named Open2Store8F75D0 and attached to ShroudManager via the BFME1 donor Rva008F7510ShroudManagerCtor and re_attempts verdicts (lines 9405, 25204), not by a ShroudManager symbol.",
+  "vtable": "0x008F1250 `??_7Open2Store8F75D0@@6BSubsystemInterface@@@` (primary, 56 B); 0x008F1240 `??_7Open2Store8F75D0@@6BSnapshot@@@` (secondary, 16 B). Re_attempts line 9405 notes a Snapshot-adjusting thunk at 0x00739960.",
+  "upcast": "none found in ledger signatures for ShroudManager with a base pointer. Co-occurrence only: ScriptActions_doSkirmishAttackNearestGroupWithValue.cpp mentions both names; not checked.",
+  "size_arithmetic": "Source comment: SubsystemInterface 12 B, Snapshot at +0xC (4 B), owned m_map pointer at +0x10, so 20 B at minimum. Contract ShroudManager size is 4 with one field `mode` at 0 and bases []. This contradicts the 12 + 4 layout. The 0x70 allocation in the source comment is ShroudManagerImpl's, not ShroudManager's. Contract needs review.",
+  "prior_work": "re_attempts.log line 2925 (FUN_00b398d0, blocked: 'bases unproven') is superseded by line 9405 (refuted: 'Clean BFME1 donor matches all 143B after target base 12B repair') and line 25204 (converted). No recorded verdict contradicts the bases. Docs in docs/linking_obstacles have no ShroudManager base verdict.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 2
+ },
+ {
+  "class": "ArmySummaryEntry",
+  "header_bases": [
+   "CarryoverUnit",
+   "Rva0007DF07"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/Common/ArmySummaryEntry.cpp line 55 default ctor is `ArmySummaryEntry::ArmySummaryEntry() : CarryoverUnit()`; the copy ctor at line 72 also initialises `CarryoverUnit(armySummaryEntry)`. Contract retail_layout for rowed ctors 0x0040C351 and 0x0040D688 lists base_or_member_ctor_calls at offset 0x0 naming CarryoverUnit, and unknown_subobject_vptrs stores 0x0083945C at +0xAC. Retail_layout vftables has a 'conflict' confidence: one reading has vptr only at 0x0, the other has 0x0 and 0xAC.",
+  "vtable": "Source line 59 stores ??_7ArmySummaryEntry@@6BCarryoverUnit@@@ at this+0; line 58 and line 76 store ??_7ArmySummaryEntry@@6BRva0007DF07@@@ into m_ac (+0xAC), the secondary-base table naming convention. Ledger 0x007C6F20 is the base's own table ??_7Rva0007DF07@@6B@.",
+  "upcast": "",
+  "size_arithmetic": "CarryoverUnit contract size 172 (0xAC) equals the offset of the Rva0007DF07 subobject. Rva0007DF07 contract size is 8 (size_by bytes, prefix only). Own fields run from 0xB4 to 0xC6 (extent 198). 172 + 8 + 18 = 198, padded to 200 = contract_size 200. Corroborating, not conclusive.",
+  "prior_work": "docs/linking_obstacles/armysummaryentry-retained-accessor-follow-up-2026-11-03.md (2026-11-05 entry) records eight 'secondary-base consumers' adopting the canonical header with all providers preserved. Treats the secondary base as real; no contrary verdict found.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "RegionAwardDispute",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Neither ctor has a base initialiser: Code/GameEngine/Source/Common/RegionAwardDispute.cpp line 47 (member inits only) and Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp line 271 (member inits plus rva004FBF8E call). So ctor evidence is absent. The vtable is the evidence (see vtable field).",
+  "vtable": "Retail vtable 0x007FE280 (ledger ??_7RegionAwardDispute@@6B@, 16 bytes) has four slots: deleting dtor 0x002B647C, loadPostProcess, GetSnapshotName (0x002B6476), xfer. That is the same four-slot order that reference/shims/moduledata/Common/Snapshot.h documents for the Snapshot base (loadPostProcess, GetSnapshotName, xfer, with a deleting dtor first). The Snapshot.h order is the base's own header comment, not re-derived here.",
+  "upcast": "",
+  "size_arithmetic": "Snapshot size is not recorded (its contract is a hand-written stub with no size), so base-plus-own arithmetic cannot be checked. Contract_size 32 matches the Snapshot-less own-fields extent of 29 (lower bound) plus alignment, and Code/GameEngine/Source/Common/Rva002B9CFCFinish.cpp:121 allocates 0x20 bytes. Not decisive.",
+  "prior_work": "No base verdict found. reverse/re_attempts.log entries for RegionAwardDispute (0x004FBF8E, 'blocked') concern a stack-address pair check only.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "LivingWorld",
+  "header_bases": [
+   "Rva00330757Member",
+   "Snapshot"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp lines 819-828: `LivingWorld::LivingWorld()` has no base initialiser. Its comment block (lines 799-802) says the list base 0x00330757 is declared before Snapshot and sits at +4, with the vfptr base at +0, and cites retail EH map 0x0091E4C0 with ~Snapshot as a state (I did not re-derive that EH map). Contract base_or_member_ctor_calls for site 0x2C0120 lists 0x4 as Rva003197EEList or Rva00330757Member (two candidates, undecided). Member_ctor_calls lists 0x0 Rva002BFBF7, 0x28 Rva002BF807 and the two hash_map ctors at 0x98 and 0xAC.",
+  "vtable": "Retail vtable 0x007FE508 at +0 has slot 0 ??_GRva002BFB2D, slot 1 ??1Region2D, slot 2 ?Rva002BE8CEGet, slot 3 ?rva002BE833, then __purecall. No GetSnapshotName-style slot is named, so the vtable does not confirm Snapshot.",
+  "upcast": "",
+  "size_arithmetic": "Contract_size 192 with own-field extent lower bound 149. Base sizes are not recorded in the packet or in a usable contract, so no arithmetic can be checked.",
+  "prior_work": "docs/linking_obstacles/link-129-livingworld-composition-awaits-census-consumer-confirmation.md mentions an 'outgoing base' in passing (not read in full). No recorded verdict on LivingWorld's bases found in re_attempts.log.",
+  "confidence": "low",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "Rva005248D0",
+  "header_bases": [
+   "AptCommandMapAdder",
+   "Rva005241B0",
+   "Rva00524415",
+   "Rva00524265",
+   "Rva005242D7",
+   "AptTimerAdder"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/Common/Rva005248D0Ctor.cpp lines 93-95: the ctor body is empty and has no base initialiser; bases come from the class clause (lines 49-51). The file's header comment argues base spelling from retail: vptr 0x00C02A80 is stored after the six holder ctor calls, which it says is MSVC order for bases. Contract base_or_member_ctor_calls for site 0x2D2C34 lists holder ctors at offsets 0x4, 0x10, 0x34 and 0x40, but each offset carries the same candidate set (not offset-discriminating). bases_unproven lists Rva00524415 at offset 28 (0x1C) as retail-ctor-call.",
+  "vtable": "Vtable 0x00802A80 (??_7Rva005248D0@@6B@) has one slot, the deleting dtor (contract vtables). Ledger rows list it as a secondary table inside AptSpellStore, AptLanLobby, AptPlayerStatus and others; that shows the class is a base elsewhere, not which holders are its bases.",
+  "upcast": "",
+  "size_arithmetic": "Contiguous layout from header comment and contract: vptr at 0; AptCommandMapAdder 0x04 (12) to 0x10; Rva005241B0 0x10 (12) to 0x1C; Rva00524415 0x1C (24) to 0x34; Rva00524265 0x34 (12) to 0x40; Rva005242D7 0x40 (12) to 0x4C; AptTimerAdder 0x4C (12) to 0x58 = 88 = contract_size 88. Consistent with the six-base reading and also with a member layout, so not discriminating.",
+  "prior_work": "PRIOR VERDICT, outranks the header reading: reverse/re_attempts.log line 25337 (??0Rva005248D0@@QAE@XZ, 0x002D2C34, status blocked) records that the isolated O1 ctor emits the vptr before the members while native stores it after, and concludes 'No supported inheritance explanation; no Code edit'. docs/linking_obstacles/link-245-rva005248d0-header-adoption-needs-base-and-holder-identities.md (blocked, 2026-11-04) says the remaining work is to reconcile member-style consumers with the six-base model.",
+  "confidence": "low",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "AptInteger",
+  "header_bases": [
+   "AptValue"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Header Code/GameEngine/Include/Common/AptInteger.h line 8 `class AptInteger : public AptValue`. The header's target-facts comment (lines 1-3) says the ctor calls the AptValue ctor 0x006DCCC0 and the slot-14 dtor 0x006D8510 jumps to the AptValue dtor 0x006DE350, restoring base table 0x00CEAED0. Those are the header's own claims, not re-derived here. No AptInteger.cpp ctor was found by name search.",
+  "vtable": "Ledger 0x008EA4C0 (??_7AptInteger@@6B@, 60 bytes = 15 slots). The header comment says slots 2 and 9 override AptValue's ForceDelete and DeleteThis, and slots 12/13 replace the parent's pure entries.",
+  "upcast": "Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp:873 and Code/Libraries/Source/Apt/AptObject/AptKey.cpp:147 assign AptInteger::Create(...) to AptValue*. Create is declared to return AptValue*, so this is not an upcast proof.",
+  "size_arithmetic": "AptInteger 12 = AptValue + 4-byte union at +8. AptValue contract size is 4 (majority, 47 views) but 8 (15 views), and the header comment says the AptValue ctor is eight bytes. With AptValue = 8, 8 + 4 = 12 matches; with 4 there is a 4-byte gap at +4 (contract outliers show a +4 access). Contested, not corroborating.",
+  "prior_work": "reverse/re_attempts.log lines 5333, 5382, 5388 (Create, 0x006D8520) and 10504 (ClearPool) record no base verdict. No docs/linking_obstacles entry for AptInteger found.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "CommandButtonMovieClip",
+  "header_bases": [
+   "Rva0007DF07"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Header Code/GameEngine/Include/GameClient/CommandButtonMovieClip.h line 18 `class CommandButtonMovieClip : public Rva0007DF07`, inside namespace StrategicHUD (ledger name CommandButtonMovieClip@StrategicHUD). The source ctor Code/GameEngine/Source/Common/Rva005E10A8Method.cpp lines 426-428 has no explicit base initialiser (only m_impl). The header comment (lines 1-3) says the ctor 0x005E1627 installs table 0x00C77998 at +0, and the dtor 0x005E129B restores 0x00C77998 and then restores the registered Rva0007DF07 parent's table 0x00BC6F20.",
+  "vtable": "Ledger 0x00877998 (??_7CommandButtonMovieClip@StrategicHUD@@6B@, 28 bytes = 7 slots) matches the header's seven-slot count. The ledger and header addresses differ by 0x400000 (image base), which is consistent for both the class table and the base table 0x007C6F20 / 0x00BC6F20.",
+  "upcast": "",
+  "size_arithmetic": "Contract size 0 (size_by tie), not checkable. Rva0007DF07 contract size 8 is prefix-only.",
+  "prior_work": "No base verdict found in re_attempts.log for this class (entries concern ctor 0x005E1627 / 0x005E1627 converted names and the Impl ctor). No docs/linking_obstacles entry found.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "GpuDrawModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Header Code/GameEngine/Include/GameClient/GpuDrawModuleInfo.h line 22 `class GpuDrawModuleInfo : public ::Snapshot`. The header's target-facts comment (lines 1-2) says the dtor 0x003A9D43 stores Snapshot's VA 0x00BBB554 at 0x003A9D63 after its own string release (base teardown). That is the header's claim, not re-derived here. No ctor rows matched in this packet; the default ctor 0x00563981 is matched elsewhere (re_attempts.log line 30977).",
+  "vtable": "Ledger 0x0081C1E8 (??_7GpuDrawModuleInfo@FXParticleSystem@@6B@, 16 bytes, 4 slots) is the class's own table, under the FXParticleSystem namespace (packet name has none). Ledger 0x007BB554 (??_7Snapshot@@6B@) lists aliases such as DefaultPhysicsModuleInfo; these are identical-body folds, not an inheritance proof.",
+  "upcast": "",
+  "size_arithmetic": "Contract size 0, not checkable.",
+  "prior_work": "re_attempts.log lines 1480 and 30977 record the 35-byte ctor as landed with no base verdict.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "LivingWorldPlayer",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Header Code/GameEngine/Include/GameLogic/LivingWorldPlayer.h line 43 `class LivingWorldPlayer : public Snapshot`, with the Snapshot shim included at line 20. The header comment (lines 2-4) says table 0x00C04B50 at +0 has four slots (deleting dtor, loadPostProcess, GetSnapshotName returning 'LivingWorldPlayer', xfer) that agree with the Snapshot name-slot profile, and the dtor restores Snapshot's 0x00BBB554 at 0x002E2BA1. No ctor source was found by name search.",
+  "vtable": "Four-slot table 0x00C04B50 per header comment; matches Snapshot's documented slot order (see Snapshot.h). Not verified against the ledger in this pass.",
+  "upcast": "Casts `(LivingWorldPlayer *)player` at Code/GameEngine/Source/GameClient/GUI/AptPlayerListRva005D13E2.cpp:152 and AptStrategicPlayerStatus.cpp:294 are from Rva002E2903Player*, not a Snapshot pointer. Not evidence.",
+  "size_arithmetic": "Contract size 1 with no fields is not a usable size. Not checkable.",
+  "prior_work": "docs/linking_obstacles/link-546-livingworldplayer-shared-header-adoption.md (2026-11-05) lists a remaining prerequisite to reconcile LivingWorldBattle/LivingWorldPlayer Snapshot profiles; it treats Snapshot as the player's profile, no contrary verdict. reverse/re_attempts.log line 19097 (HasArmyQueuedInAnyBuilding) mentions a 'null-preserving secondary-base prologue' and 'actual inheritance ... unchanged'. Ambiguous: it may point to a second base the header does not declare. Worth a reviewer check.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "Rva00222A8BTarget",
+  "header_bases": [
+   "SubsystemInterface"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Header Code/GameEngine/Include/Common/Rva00222A8BTarget.h line 50 `class Rva00222A8BTarget : public SubsystemInterface`. The file's comment (lines 2-8) says the AptPlayer ctor 0x00224E10 calls the SubsystemInterface ctor 0x001B4E63, then stores VA 0x00BE6E80 at +0, and that the base size is 0x0C. Ledger line 18714 aliases TheAptPlayer and TheRva00222A8BTarget to the same global at 0x009FE4CC, which ties this object to that ctor. No ctor rows matched in the packet.",
+  "vtable": "Same comment says slots 0-13 are the SubsystemInterface dispatch prefix (14 slots = 56 bytes). Ledger 0x007D77A0 (??_7SubsystemInterface@@6B@) is 56 bytes = 14 slots. Consistent.",
+  "upcast": "",
+  "size_arithmetic": "Packet contract_size 4 conflicts with the header comment (sizeof 0x32C, lines 5-7) and with retail_access reaching 0x329. The base is 12 bytes (SubsystemInterface contract size 12). The packet's contract_size cannot be used for arithmetic.",
+  "prior_work": "reverse/re_attempts.log entries for this object are invoke/fire blockers (e.g. the invoke entry at line 5006); no base verdict. No docs/linking_obstacles entry found.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "SphericalEmissionVelocityInfo",
+  "header_bases": [
+   "EmissionVelocityInfo"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp lines 86-88: `SphericalEmissionVelocityInfo::SphericalEmissionVelocityInfo(const SphericalEmissionVelocityInfo &that) : EmissionVelocityInfo(that), m_04(that.m_04)`. The header Code/GameEngine/Include/GameClient/SphericalEmissionVelocityInfo.h line 15 declares the base. The default ctor 0x003A721F is not matched in this packet (ctors empty).",
+  "vtable": "Ledger 0x0081BC30 (??_7SphericalEmissionVelocityInfo@FXParticleSystem@@6B@, 16 bytes, 4 slots). The header's comment (lines 1-3) says slots 2 and 3 are inherited from the base table (GetSnapshotName and DoXfer); not re-derived here.",
+  "upcast": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateCopyCtors.cpp:110 and SphericalEmissionVelocityModuleTemplateCopyCtorThunk.cpp:44 construct it on a sub-object; no Base* signature found in the ledger.",
+  "size_arithmetic": "Contract size 0 for both this class and EmissionVelocityInfo (size_by tie). Not checkable.",
+  "prior_work": "reverse/re_attempts.log line 101066 (??0SphericalEmissionVelocityInfo, 0x003A721F, blocked): states that Cylindrical, Outward and Spherical 'derive from' a private EmissionVelocityInfo in FXParticleSystem.cpp. The blocker is a C2264 header-view conflict, not whether the base exists. Supports the base.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 3
+ },
+ {
+  "class": "CarryoverUnit",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "No explicit base initialiser in the matched default ctor: Code/GameEngine/Source/Common/CarryoverUnit.cpp:219 `CarryoverUnit::CarryoverUnit() : name(...), m_f08(0.0f), m_c0C(0), m_90(0)` (0x0037DF2C, 97B). The only Snapshot-base ctor evidence is a retail-notes comment in that same file (around lines 213-216): the Snapshot base ctor is inline and arms EH state 0 before the first member call. That is a comment, not a call. The copy ctor 0x001EB79E in Code/GameEngine/Source/Common/Rva0037DF2CCopy.cpp uses a placeholder `class CarryoverUnit : public EmptyBase`, not Snapshot, so it does not support the header and gets little weight.",
+  "vtable": "Own vtable ??_7CarryoverUnit@@6B@ at 0x007DF158 (data_ledger.csv row 3101), slot 3 = xfer. The dtor ??1CarryoverUnit@@UAE@XZ at 0x0037DEE4 is recorded (CarryoverUnit.cpp comment near line 154, and functions.csv row 48463) as restoring Snapshot's vtable after member cleanup. The Snapshot vtable is ??_7Snapshot@@6B@ at 0x007BB554 in data_ledger.csv row 664, but the comments write 0x00BBB554. The VA prefix differs and needs checking before anyone cites it.",
+  "upcast": "",
+  "size_arithmetic": "Own fields per Rva0037DF2CCopy.cpp layout: name 4 + float 4 + int 4 + block 128 + int 4 + record 24 = 168, plus one vptr 4 = 172, which matches contract_size 172. This is neutral: the same total fits a Snapshot vptr shared at offset 0 (Snapshot contract size 4) or the class's own vptr, so it corroborates nothing by itself.",
+  "prior_work": "re_attempts.log rows for 0x0037DF2C, 0x001EB79E and the dtor 0x0037DEE4 are matched or banked with no base verdict. docs/linking_obstacles/carryover-parent-adoption-include-order-refusal-2026-11-02.md is about include order during parent adoption, not bases. Other carryover docs were matched by name only and do not discuss bases.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 4
+ },
+ {
+  "class": "SpawnArmy",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Constructor Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp:47 `SpawnArmy::SpawnArmy(int index):m_position(0.0f),...` has no base initialiser. The copy ctor Code/GameEngine/Source/Common/SpawnArmyCopyCtor.cpp (0x004E2F9F) also has none, but its header comment says the Snapshot base dtor arms EH state 0 before the first member, as in retail.",
+  "vtable": "Own vtable 0x00861F28 (per SpawnArmyCopyCtor.cpp and re_attempts rows 9459-9470). Four slots: dtor 0x004E3184, deleting dtor 0x004E3797, loadPostProcess 0x000B3FD0 (a shared 1-byte RET), GetSnapshotName 0x004E30C6, xfer 0x004E3991. All name SpawnArmy overrides of Snapshot virtuals, not base methods. The dtor ??1SpawnArmy@@UAE@XZ at 0x004E3184 is recorded in functions.csv row 9460 as restoring Snapshot's vtable BBB554 after member cleanup.",
+  "upcast": "",
+  "size_arithmetic": "contract_size 88. The packet gives 20 fields but no field sizes. My rough count of the copy ctor members (7 AsciiString, 2 float, 4 AsciiString, vector<AsciiString>, float, 2 int, AsciiString, 2 bool) is about 82 plus a vptr of 4, which rounds to 88 with alignment. The vector size (12) is assumed, not verified. This is neutral for the same vptr-sharing reason as CarryoverUnit.",
+  "prior_work": "re_attempts.log rows 9459-9470 and 28716-28721 record the four-slot table as landed. link-158, link-203, link-483 and spawnarmy-snapshot-destructor-split-2026-10-28.md concern composition, linking and the destructor split, not bases. LivingWorldCampaignObjects.cpp line 235 says 'This record has no Snapshot base', but it sits in the MoveCamera/SummaryEvent block, not SpawnArmy, so it does not apply here.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 4
+ },
+ {
+  "class": "LivingWorldBuildPlot",
+  "header_bases": [
+   "Snapshot",
+   "Rva00330757Member",
+   "RegionTurnObserverView"
+  ],
+  "evidence_found": "upcast",
+  "detail": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot_Unresolved.cpp lines 128-129 (ctor 0x004FC807, 172B) cast this to RegionTurnObserverView* and then to Rva002BA8F1Listener* to append it to the logic's observer list: `append((Rva002BA8F1Listener *)(RegionTurnObserverView *)this)`. The initialiser list (lines 118-121) names no base, so base construction is implicit. Snapshot and Rva00330757Member are not named in the ctor.",
+  "vtable": "Prior recorded slot map (re_attempts.log line 80725, row for 0x004FC807, status blocked): retail ctor stores primary vtable 0x00C63530 and observer base 0x00C63528. The observer base holds RegionTurnObserverView Begin/EndTurn (empty ret8 at 0x50B238) followed by 'the same Snapshot slots'. data_ledger.csv row 3794 (0x007ED658) shows only Listener and Link aliases. Note: link-024 covers LivingWorldBuilding, a different class, so it is not used here.",
+  "upcast": "LivingWorldBuildPlot_Unresolved.cpp:128-129, the ctor's own cast of this to RegionTurnObserverView* (quoted in detail).",
+  "size_arithmetic": "Not checked. Base contract sizes would be Snapshot 4, Rva00330757Member 16 and RegionTurnObserverView 4, but shared-vptr layout makes the sum unreliable without the field table.",
+  "prior_work": "PRIOR WORK, prominent: re_attempts.log line 80725 (blocked, 0x004FC807) says the ctor's retail vptr stores give the slot map above, including the RegionTurnObserverView observer base and Snapshot slots, and that the fix needs class reconciliation. re_attempts.log line 19478 says the canonical Snapshot emits an extra base vptr store that retail has. re_attempts.log line 100308 (blocked TU merge of LivingWorldBuildPlot.cpp) says 'destructor donor base cast conflicts (vector vs Rva00330757Member)', which is unresolved. These are blocked attempt notes, not verdicts. Rva00330757Member has no positive evidence beyond the dtor conflict note.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 4
+ },
+ {
+  "class": "StancesBehavior",
+  "header_bases": [
+   "UpdateModule",
+   "private",
+   "Rva00330757Member"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorCtor.cpp:74-75: `StancesBehavior::StancesBehavior(Thing *thing, const ModuleData *moduleData) : UpdateModule(thing, moduleData)`. The same file's comment (line 8) gives the retail shape as 'UpdateModule base (rowed 0x253390) + member at +0x20 via the pinned 0x330757 ctor', and the class body (line 10, `Rva00330757Member m_member20;`) treats Rva00330757Member as a member, not a base. 'private' is the access keyword from `private Rva00330757Member` in Code/GameEngine/Include/GameLogic/StancesBehavior.h:13, so it is a parse artifact in header_bases.",
+  "vtable": "Primary vtable 0x008424DC (data_ledger.csv row 10596, 13 slots). Slot 12 is ?getUpdatePhase@UpdateModule@@MBE?AW4SleepyUpdatePhase@@XZ at 0x0022C4CB, a named UpdateModule method. Slots 1, 3 and 4 are StancesBehavior's own. Update vtable 0x008424D0 has update at 0x0045F290 (functions.csv row 34082). StancesBehavior.h line 2 notes that UpdateModule's ctor 0x00253390 installs 0x00BF004C.",
+  "upcast": "None found. Casts at Rva005D719CTargetPredicate.cpp:187 and HordeContainChangeToFormation.cpp:377 are downcasts from Module*, not upcasts to a base.",
+  "size_arithmetic": "contract_size 52 = UpdateModule contract size 32 + 16-byte item at +0x20 + trailing int at +0x30 (4). Exact match. It fits either a second 16-byte base at +0x20 or a member at +0x20; the ctor comment says member.",
+  "prior_work": "re_attempts.log line 9359 (dtor 0x0045F001, blocked) cites three vtables and EH state, not bases. link-287 concerns the GetSnapshotName owner, not bases. No base verdict found.",
+  "confidence": "high",
+  "supports_header": false,
+  "packet": 4
+ },
+ {
+  "class": "AptScrollBar",
+  "header_bases": [
+   "Rva00330757Member"
+  ],
+  "evidence_found": "size-only",
+  "detail": "No ctor row in the packet and no AptScrollBar::AptScrollBar in Code/. The only AptScrollBar rows in functions.csv are Impl methods (SetLineSize, SetPos, SetVisible and others, lines 30872-45803), with no base reference. The contract size 1 with no fields cannot hold a base whose contract size is 16 (Rva00330757Member, size_by majority), so the size record and the header disagree. This is a contradiction, not support.",
+  "vtable": "None found in data_ledger.csv.",
+  "upcast": "",
+  "size_arithmetic": "contract_size 1 versus Rva00330757Member contract size 16: a 16-byte base cannot fit in 1 byte, so the hypothesis conflicts with the size record.",
+  "prior_work": "re_attempts.log has no base verdict for this class. No docs/linking_obstacles match.",
+  "confidence": "low",
+  "supports_header": false,
+  "packet": 4
+ },
+ {
+  "class": "CylindricalEmissionVelocityInfo",
+  "header_bases": [
+   "EmissionVelocityInfo"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp:55-56: `CylindricalEmissionVelocityInfo::CylindricalEmissionVelocityInfo(const CylindricalEmissionVelocityInfo &that) : EmissionVelocityInfo(that), m_04(that.m_04), m_10(that.m_10)`. functions.csv row 18229 (0x003A7501, matched) records the base call as rowed 0x001F35CE, which is the matched EmissionVelocityInfo copy ctor (functions.csv line 536). The default ctor (EmissionInfoDefaultCtors.cpp:42) has no base initialiser; functions.csv row 18239 says 'implicit base plus own vtable 0xC1BC90'. These matched rows are not in the packet's ctors list.",
+  "vtable": "Vtable 0x0081BC90 (data_ledger.csv row 6746, 4 slots). The canonical header's retail-notes comment (CylindricalEmissionVelocityInfo.h line 2) lists the slots as vector deleting dtor 0x003A7532, inherited LoadPostProcess 0x000B3FD0 and inherited GetSnapshotName. Those 'inherited' Snapshot-family slots suggest the base carries Snapshot, but the comment is in the canonical header, so I did not rely on it.",
+  "upcast": "None found.",
+  "size_arithmetic": "contract_size 0, so not usable.",
+  "prior_work": "No re_attempts.log rows or docs/linking_obstacles matches for this class.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 4
+ },
+ {
+  "class": "OrthoEmissionVelocityInfo",
+  "header_bases": [
+   "EmissionVelocityInfo"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp:63-64: `OrthoEmissionVelocityInfo::OrthoEmissionVelocityInfo(const OrthoEmissionVelocityInfo &that) : EmissionVelocityInfo(that), m_04(that.m_04), m_10(that.m_10), m_1C(that.m_1C)`. functions.csv row 18230 (0x003A706F, matched) records the base call as rowed 0x001F35CE (the EmissionVelocityInfo copy ctor). The default ctor (EmissionInfoDefaultCtors.cpp:49) has no base initialiser. These matched rows are not in the packet's ctors list.",
+  "vtable": "Vtable 0x0081BC00 (data_ledger.csv row 6737, 4 slots). The canonical header's retail-notes comment (OrthoEmissionVelocityInfo.h line 2) lists the slots as vector deleting dtor 0x003A70D1, inherited LoadPostProcess 0x000B3FD0 and inherited GetSnapshotName. Same caveat as the Cylindrical class: the comment is in the canonical header.",
+  "upcast": "None found.",
+  "size_arithmetic": "contract_size 0, so not usable.",
+  "prior_work": "No re_attempts.log rows or docs/linking_obstacles matches for this class.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 4
+ },
+ {
+  "class": "InGameCommandButtonHelp",
+  "header_bases": [
+   "Impl"
+  ],
+  "evidence_found": "none",
+  "detail": "Code/GameEngine/Include/GameClient/InGameCommandButtonHelp.h lines 17-24 declare `class InGameCommandButtonHelp { public: class Impl; };`, with no base clause. `Impl` is a nested class (`class InGameCommandButtonHelp::Impl` at line 23), not a base, so the packet's header_bases entry appears to be a parse of the nested declaration. Checked: functions.csv Impl rows (e.g. ctor 0x0056D438 and the Render, SetWidthAndComputeHeight and SetupDisplayStrings methods), which show Impl's own members and no base; data_ledger.csv has no InGameCommandButtonHelp vtable; re_attempts.log has no base verdict.",
+  "vtable": "None found.",
+  "upcast": "",
+  "size_arithmetic": "contract_size 1 with no fields. Nothing to compare against.",
+  "prior_work": "None found.",
+  "confidence": "high",
+  "supports_header": false,
+  "packet": 4
+ },
+ {
+  "class": "Rva002BA8F1Logic",
+  "header_bases": [
+   "SubsystemInterface",
+   "Snapshot"
+  ],
+  "evidence_found": "upcast",
+  "detail": "Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp:64 converts the logic to Snapshot*: `addSnapshotBlock(\"CHUNK_LivingWorldLogic\", (Snapshot *)(SnapshotSubsystemView *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic), ...)`. SaveGameInfoCopyBFME2.cpp:434 does the same through Rva0022CE19SnapshotBase. Both go through view types, so they show Snapshot compatibility, not a direct base clause. The packet ctors list is empty. The header's retail-notes comment (Rva002BA8F1Logic.h line 2) says ctor 0x002B93B3 calls SubsystemInterface's ctor 0x001B4E63 and installs Snapshot's table 0x00BBB554 at +0xC. That is header-embedded, not independent, and I did not find a ctor row to check it against.",
+  "vtable": "Header line 1 says this placeholder calls LivingWorldLogic on TheLivingWorldLogic. re_attempts.log line 48389 places a SubsystemInterface slot in LivingWorldLogic table 0x00BFE2E4. Possible naming problem: this may be an address-named placeholder for LivingWorldLogic (contract bases [], size 180). Not decided here.",
+  "upcast": "GameStateInit.cpp:64 and SaveGameInfoCopyBFME2.cpp:434 (quoted in detail).",
+  "size_arithmetic": "contract_size 1 is too small to hold SubsystemInterface (contract size 12) plus Snapshot plus fields. The 1 is a placeholder, so size arithmetic is unusable.",
+  "prior_work": "re_attempts.log rows 4702, 11482, 17606 and 19480 are method verdicts, not base verdicts. Row 17606 notes that TheLivingWorldLogic has type LivingWorldLogic*, which fits the naming problem above.",
+  "confidence": "low",
+  "supports_header": true,
+  "packet": 4
+ },
+ {
+  "class": "TerrainCollisionModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleInfoCopyCtorThunk.cpp:54-56: `TerrainCollisionModuleInfo::TerrainCollisionModuleInfo(const TerrainCollisionModuleInfo &that) : Snapshot(that), m_eventName(that.m_eventName), m_eventTime(...), ...`. This is an explicit Snapshot base copy call. The matched copy ctor row is 0x003A9FBA, 87B (functions.csv line 14293). The default ctor (TerrainCollisionModuleInfoDefaultCtor.cpp:41, 0x0056459E) has `: m_18(0)` only, so its base is implicit. Neither ctor is in the packet's ctors list.",
+  "vtable": "Vtable 0x0081C218 (data_ledger.csv row 6853, 4 slots). GetSnapshotName override at 0x003A6169 (functions.csv line 632), an override of a Snapshot virtual.",
+  "upcast": "None found.",
+  "size_arithmetic": "contract_size 0, so not usable.",
+  "prior_work": "re_attempts.log lines 1621 and 3769 (default ctor 0x0056459E, partial and blocked) use a working model 'same Snapshot plus declared-var-dtor'. That is a model, not a verdict.",
+  "confidence": "high",
+  "supports_header": true,
+  "packet": 4
+ },
+ {
+  "class": "CreateAHeroData",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "none",
+  "detail": "Checked: CreateAHeroDataCtor.cpp line 98-101 initialiser list has member inits only, no Snapshot() call. CreateAHeroDataCopy.cpp line 4 and CreateAHeroDataCtor.cpp line 6 claim a 'Snapshot-derived' 0x140 layout, but those are source comments, not retail evidence. No mangled signature pairing CreateAHeroData* with Snapshot* in reverse/functions.csv; no Snapshot cast in Code/. Prior work re_attempts.log at ??4CreateAHeroData@@QAEAAV0@ABV0@@Z (0x00409359) reports a trial where same-class inheritance broke the 0x140 layout (MSVC7.1 lacks empty bases); the base in that trial is not named, so this is a negative trial of unclear scope.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "contract_size 320 = 0x140; Snapshot contract size 4 (not reconciled with 26 fields)",
+  "prior_work": "re_attempts.log 0x00409359 trial: inheritance breaks 0x140 layout (negative, base unnamed)",
+  "confidence": "low",
+  "supports_header": false,
+  "packet": 5
+ },
+ {
+  "class": "AttributeModifierAuraUpdateModuleData",
+  "header_bases": [
+   "ModuleData"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Source AttributeModifierAuraUpdateModuleDataCtor.cpp line 66-75 declares the class as deriving from UpdateBase (not ModuleData); UpdateBase's dtor (line 72) restores the Snapshot table. Retail ??1UpdateBase@@QAE@XZ at 0x0049B47C (7B, landed in re_attempts.log) is the only retail dtor evidence, but it is ICF-folded and shared with ??1RadarMarkerClientUpdateModuleDataBase at the same address, so it cannot identify this class's base. contract retail_layout confidence is 'conflict' with dtor-vftable candidates 0x0 -> 0x850ee8 and 0x7bb554. No ModuleData-named evidence found.",
+  "vtable": "UpdateBase dtor 0x0049B47C stores Snapshot table (shared fold, not owner-specific)",
+  "upcast": "",
+  "size_arithmetic": "contract_size 340; not reconciled (ModuleData contract size 4, 24 fields)",
+  "prior_work": "attempt_support/attribute-aura-moduledata-adoption-20261105-codex3.md lines 48-53: ModuleData redefinition C2011 and UpdateBase teardown noted as unresolved",
+  "confidence": "low",
+  "supports_header": false,
+  "packet": 5
+ },
+ {
+  "class": "LivingWorldBuilding",
+  "header_bases": [
+   "Snapshot",
+   "Rva00330757Member",
+   "RegionTurnObserverView"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "docs/linking_obstacles/link-024-livingworldbuildingctor-cpp-needs-placeholder-rva004e0d67.md line 6 states retail ctor 0x004E119C stores vptrs 0x00C61618 (Snapshot) and 0x00C61610 (RegionTurnObserverView). I did not re-verify those table names in data_ledger.csv (the RVA 0x00861618 row lookup returned nothing). LivingWorldBuilding.cpp line 299 constructor initialiser list has no base ctor call. Rva00330757Member is not named in the retail-side notes; its inline ctor (LivingWorldBuilding.cpp line 38) is not evidence for this class.",
+  "vtable": "ctor 0x004E119C vptr stores 0x00C61618 (Snapshot) and 0x00C61610 (RegionTurnObserverView), per link-024 note",
+  "upcast": "",
+  "size_arithmetic": "contract_size 84; not reconciled",
+  "prior_work": "link-024 note (ctor vptr stores; placeholder RVA 0x004E0D67 unresolved)",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 5
+ },
+ {
+  "class": "TransportAIUpdateModuleData",
+  "header_bases": [
+   "ModuleData"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "TransportAIUpdateModuleDataCtor.cpp line 95-96: `TransportAIUpdateModuleData::TransportAIUpdateModuleData() : UpdateModuleData()`. The named base (lines 58-61) is an empty inline shim `class UpdateModuleData { __forceinline UpdateModuleData() {} ~UpdateModuleData(); }`, a different name from header base ModuleData. ModuleData contract is size 4 with a VPTR field; TransportAI keeps its own m_vtable at +0 (line 67 comment, retail 0x00BFA288), so a polymorphic ModuleData base at offset 0 would collide. Prior re_attempts.log entry for dtor 0x004905B0 (landed, 5B jmp to ??1TransportAIUpdateModuleData at 0x0026E1FC) shows TransportAI is the base of a derived class, not its own base.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "contract_size 100; base candidate ModuleData size 4 with VPTR would collide with own vptr at +0; not reconciled",
+  "prior_work": "re_attempts.log 0x004905B0 dtor note (TransportAI as base of a derived class); tu-merge line mentions a 'novtable TransportAIUpdateModuleData base' with no verdict",
+  "confidence": "low",
+  "supports_header": false,
+  "packet": 5
+ },
+ {
+  "class": "ArmyMemberIconMovieClip",
+  "header_bases": [
+   "Rva0007DF07",
+   "Rva00330757Member"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "attempt_support/army-member-header-adoption-20261104/README.md lines 25-31: native ctor 0x005FCEA9 (101B) clears +4, sets EH state, then calls the observer constructor; it has no first base-vptr store. The canonical Rva0007DF07 inline base construction would add a 6-byte mov [esi], vftable before the observer ctor, so the rejected trial failed the byte match. Retail places the observer at +8, which fits an 8-byte Rva0007DF07 base at offset 0 (Rva0007DF07 contract size 8). So the observer base is supported and the Rva0007DF07 base is contradicted at the vptr level. Contract has no entry (size 0). re_attempts.log line 99530 records this as blocked.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "Rva0007DF07 size 8 + observer at +8 is consistent; Rva00330757Member contract size 16; no contract_size for this class",
+  "prior_work": "re_attempts.log 0x005FCEA9 blocked: 'needs shared base lifetime/codegen reconciliation'; attempt_support README",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 5
+ },
+ {
+  "class": "DOTManager",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "none",
+  "detail": "No matched ctors in packet. No signature in reverse/functions.csv pairs DOTManager* with Snapshot*. re_attempts.log 0x0050B16F (Made002CCA37Dot.cpp, landed) uses DOTManager as the GameLogic +0x174 member's record target, i.e. a member, not a base. No base ctor or vtable evidence found.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "contract_size 12, 1 field; Snapshot contract size 4; 12 - 4 = 8 unexplained",
+  "prior_work": "re_attempts.log 0x0050B16F uses DOTManager as a member at +0x174 (not a base)",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 5
+ },
+ {
+  "class": "InGameHeroSelectInterface",
+  "header_bases": [
+   "Impl",
+   "Rva0052634F_Base"
+  ],
+  "evidence_found": "size-only",
+  "detail": "Header parse artifact: InGameHeroSelectInterface.h lines 31-34 declare `class InGameHeroSelectInterface { public: class Impl; };`, a nested forward declaration. 'Impl' in header_bases is therefore not a base. Line 37 `class InGameHeroSelectInterface::Impl : public Rva0052634F_Base` gives the base of the nested Impl, not the outer class. Outer contract_size is 1 with 0 fields, and all 9 views are size 1 (view_sizes {1: 9}); a base with virtuals (Rva0052634F_Base declares virtual members) cannot fit in 1 byte.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "contract_size 1 with 9/9 views at size 1; base with vptr would need >= 4 bytes",
+  "prior_work": "re_attempts.log: Impl::Update and FindReadyLocalBuilder rows refer to InGameHeroSelectInterface::Impl, not to outer-class bases",
+  "confidence": "medium",
+  "supports_header": false,
+  "packet": 5
+ },
+ {
+  "class": "RadarMarker",
+  "header_bases": [
+   "Rva0007DF07"
+  ],
+  "evidence_found": "size-only",
+  "detail": "No matched ctors in packet. Contract size 12 with one own field of kind VPTR, decided_by retail-access; Rva0007DF07 contract size 8. 8 + 4 = 12 matches contract_size, but the own field being a VPTR is unusual under a polymorphic base (it would repeat the base vptr), so the arithmetic is weak. LINK-254 note concerns RadarMarkerClientUpdate, not this class.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "Rva0007DF07 size 8 + own 4 = 12 = contract_size 12 (weak: own field is VPTR)",
+  "prior_work": "link-254 covers RadarMarkerClientUpdate, not RadarMarker; no RadarMarker base verdict found in re_attempts.log",
+  "confidence": "low",
+  "supports_header": true,
+  "packet": 5
+ },
+ {
+  "class": "Rva00439E0C",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "none",
+  "detail": "No matched ctors in packet. Contract size 1 with 0 fields, yet retail_access shows writes at +0x4 and +0x8 (census 23, retail_member_rows 15), so contract_size 1 cannot be trusted for this class. re_attempts.log line for ?rva00439E0C (0x00439E0C, 307B, partial) and the EH note at 0x0078822F say the EH cleanup at 0x0078822B targets an 'owned base destructor' 438FC5 while the compiler emits derived dtor Rva00438FA7 (not resolved). That is an unresolved lead about a base-like destructor, not a base-ctor or vtable verdict.",
+  "vtable": "",
+  "upcast": "",
+  "size_arithmetic": "contract_size 1 contradicted by accesses at +0x4 and +0x8; Snapshot contract size 4 not reconciled",
+  "prior_work": "re_attempts.log EH note at 0x0078822F: owned base destructor 438FC5 (unresolved lead)",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 5
+ },
+ {
+  "class": "UserInputTranslator",
+  "header_bases": [
+   "Base0_00576C4B"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Ledger row ??0Base0_00576C4B@@QAE@XZ at 0x001DB0AC (9B, landed) stores Base0's own vtable (VA 0x00BDBA74), so Base0 is a polymorphic class. Retail ??1UserInputTranslator@@UAE@XZ at 0x00429191 (7B, landed) is one vptr store with no base-dtor call; the ledger names table RVA 0x007DBA74 as ??_7Base0_00576C4B@@6B@. The dtor is ICF-folded with another class's dtor, so this is ambiguous: it could be the base-at-0 case, or a fold artefact. The 0x0086E720 table is named ??_7Rva00575F38@@6BBase0_00576C4B@@@, showing Base0 as a base subobject of Rva00575F38 (a PlanningPhase Impl). Prior notes say derived classes install the canonical UserInputTranslator table 0x00C6E430 (26 slots), a separate table from the dtor's 0x7DBA74 store.",
+  "vtable": "??1UserInputTranslator 0x00429191 stores table RVA 0x007DBA74 (named ??_7Base0_00576C4B@@6B@ in data_ledger.csv); 0x0086E720 named ??_7Rva00575F38@@6BBase0_00576C4B@@@",
+  "upcast": "",
+  "size_arithmetic": "contract_size 4 with 1 field; Base0 size not in contracts (no contract for Base0_00576C4B)",
+  "prior_work": "re_attempts.log: UserInputTranslator subobject in Rva00575F38 dtor 0x00575F38 (landed); Rva005776A7 notes say base is canonical 26-slot UserInputTranslator 0x00C6E430",
+  "confidence": "low",
+  "supports_header": true,
+  "packet": 5
+ },
+ {
+  "class": "FXShaderSetup",
+  "header_bases": [
+   "RefCountClass"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp line 378 declares `class FXShaderSetup : public RefCountClass`. The default ctor at line 705 (`FXShaderSetup::FXShaderSetup() : m_LOD(4), m_Technique(0), m_ParameterBlock(0)`) has no explicit base initialiser, so the base is built implicitly; Code/Libraries/Source/WWVegas/WWLib/RefCountData.h line 11 gives the inline body `RefCountClass() : NumRefs(1) {}`. reverse/functions.csv line 41213 (??0FXShaderSetup@@QAE@XZ, 0x001525FB, 66 B) records that the retail ctor stores 'RefCountClass base NumRefs 1 before the vptr'. That is the expanded base-ctor body, not a named base call.",
+  "vtable": "reverse/data_ledger.csv line 2631: ??_7FXShaderSetup@@6B@ at 0x007D3B1C, 40 B, 3 entries. Slot names not checked. functions.csv line 41213 gives the same table as 0x00BD3B1C, so the address prefix differs between the two sources.",
+  "upcast": "none found: no functions.csv signature pairs FXShaderSetup with RefCountClass",
+  "size_arithmetic": "not usable: contract_size 8 equals RefCountClass's own contract size 8 (vptr plus NumRefs), so it cannot separate base from own fields. functions.csv line 46910 and line 41212 show a 0x34-byte allocation, which the contract size does not reflect.",
+  "prior_work": "reverse/re_attempts.log lines 23106-23107 are stale address-named backfills that only point at the ctor row. docs/linking_obstacles/link-204-fxshadersetup-vector-view-consolidation-prerequisites.md is about vector views and says nothing about bases.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 6
+ },
+ {
+  "class": "FormationTranslator",
+  "header_bases": [
+   "GameMessageTranslator"
+  ],
+  "evidence_found": "none",
+  "detail": "Code/GameEngine/Source/Common/Rva00431F61Ctor.cpp declares `class FormationTranslator : public EmptyBase00431F61`, a placeholder wrapper around Rva0042CBB6 that is not named GameMessageTranslator. The ctor (line 45 on) makes no base-ctor call; it stores the table named ??_7Rva00431FB5@@6B@ and then a helper. Lead only: reverse/functions.csv line 9642 says the translator base dtor ??1Rva0042CBB6 (0x00429191) leaves only a base vtable store of 0x00BDBA74. That same vtable is also stored by AptTranslator's dtor 0x0043283C (functions.csv line 27158), and data_ledger names it ??_7Base0_00576C4B@@6B@, so it does not identify GameMessageTranslator. The Rva0042CBB6 placeholder's own ctor 0x0042CBB6 stores a different table, g_00C3C6F4 (functions.csv line 30016). The header's own 'Target facts' comments cite ZH MessageStream.h but that is the canonical header, so it was not used. Size: contract_size 1 conflicts with the ctor's 12-byte extent recorded in the contract evidence (extent_lower_bound 12), so the contract size is not usable.",
+  "vtable": "",
+  "upcast": "none found: no functions.csv signature pairs FormationTranslator with GameMessageTranslator",
+  "size_arithmetic": "not usable: contract_size 1 is below the ctor's recorded 12-byte extent",
+  "prior_work": "reverse/re_attempts.log lines 17997, 20132 and 58809 are method-level FormationTranslator verdicts with no base finding. Nothing recorded about this class's bases.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 6
+ },
+ {
+  "class": "LivingWorldLogic",
+  "header_bases": [
+   "SubsystemInterface",
+   "Snapshot",
+   "LivingWorldLogicVslots10",
+   "LivingWorldLogicVslots14",
+   "LivingWorldLogicVslots18"
+  ],
+  "evidence_found": "upcast",
+  "detail": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp lines 78-79, inside the ctor body (LivingWorldLogic::LivingWorldLogic, 0x002B93B3, 654 B), cast `this` to LivingWorldBuildingObserver* and LivingWorldRegionObserver* before appending to listener lists. The ctor file's private view at line 48 declares `public SubsystemInterface, public Snapshot, public CtorObservableView<0..6>, public LivingWorldBuildingObserver, public LivingWorldRegionObserver, public LivingWorldPlayerObserver`. The canonical header (Code/GameEngine/Include/GameLogic/LivingWorldLogic.h lines 177-178) instead declares Vslots10/14/18 and omits the three observer bases. The observer classes are defined in Code/GameEngine/Include/Common/LivingWorldObservers.h. The ctor's initialiser list has no explicit base initialiser. Caveat: the line-48 view is a stand-in written in the same file, so it is not independent of the hypothesis.",
+  "vtable": "docs/linking_obstacles/link-156-livingworldlogic-destructor-s-vtables-and-override-names-2026.md lines 50-57: the primary table has 14 slots at 0x00BFE2E4, and the region and player observer tables have slot 0 naming the base no-op bodies `LivingWorldRegionObserver::event4_0` and `LivingWorldPlayerObserver::event5_0`. This is linker-level evidence that observer base sub-tables exist.",
+  "upcast": "LivingWorldLogicCtorBfme.cpp lines 78-79 as above; the other cast seen is Code/GameEngine/Source/Common/Rva002B6C9F.cpp line 55, which casts this to a method owner, not a base.",
+  "size_arithmetic": "not computed: contract_size 180 and the base contracts were not compared",
+  "prior_work": "docs/linking_obstacles/link-156-livingworldlogic-destructor-s-vtables-and-override-names-2026.md and docs/linking_obstacles/livingworldlogicctorbfme-link-repair-2026-11-02.md both record the observer base tables as present, with the header's view slots not matching. No recorded verdict says the header base list is correct.",
+  "confidence": "medium",
+  "supports_header": false,
+  "packet": 6
+ },
+ {
+  "class": "AiOrdersManager",
+  "header_bases": [
+   "SubsystemInterface",
+   "Snapshot"
+  ],
+  "evidence_found": "none",
+  "detail": "No matched ctor rows in the packet. Searched: Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp casts to AiOrdersManager* only reach GroupOrder methods, not a base. data_ledger.csv has no ??_7AiOrdersManager row. No functions.csv signature pairs AiOrdersManager with SubsystemInterface or Snapshot. docs/linking_obstacles/link-343-namekey-consumer-base-and-string-header-collisions.md line 4 and link-561 mention the class without base findings.",
+  "vtable": "",
+  "upcast": "none found",
+  "size_arithmetic": "not usable: contract_size 1 is smaller than either base (SubsystemInterface contract size 12, Snapshot 4), so the size value is unmeasured",
+  "prior_work": "No recorded base verdict for this class in reverse/re_attempts.log.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 6
+ },
+ {
+  "class": "ArmySummarySystem",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "none",
+  "detail": "No matched ctor rows in the packet and no ??_7ArmySummarySystem row in data_ledger.csv. Code/GameEngine/Source/GameLogic/System/GameLogic.cpp line 436 and Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp line 135 reach it as a member at this+0x184, which is composition rather than inheritance. No upcast found. The only prior note (reverse/re_attempts.log line 98839) is a TU-placement block about a different method.",
+  "vtable": "",
+  "upcast": "none found",
+  "size_arithmetic": "not usable: contract_size 1 is smaller than the Snapshot base (4 B)",
+  "prior_work": "No recorded base verdict. docs/linking_obstacles/armysummary-canonical-header-adoption-2026-11-04.md has no base finding.",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 6
+ },
+ {
+  "class": "DefaultPhysicsModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "Recorded verdicts (reverse/re_attempts.log lines 56500-56501, blocked/partial): the dtor row 0x0049B47C stores vtable 0x00BBB554, so the class derives from Snapshot. Line 54706 (blocked): with canonical Snapshot modelled, the 109-byte ctor 0x0055EE5E resolves in full and the EH exactly, in scratch. Older line 48604 said 'Class has bogus Base' but the later verdicts supersede it. The packet lists no ctor rows, but the ledger has ctor 0x0055EE5E (109 B). The shared dtor 0x0049B47C is also used by at least twelve other *Info classes (reverse/functions.csv lines 929-940).",
+  "vtable": "reverse/data_ledger.csv line 664: ??_7Snapshot@@6B@ at 0x007BB554, 16 B, lists ??_7DefaultPhysicsModuleInfo@FXParticleSystem@@6B@ among its aliases, so the class's own table is byte-identical to Snapshot's. Slot names not checked.",
+  "upcast": "none found",
+  "size_arithmetic": "not usable: contract_size 0 (unmeasured). Snapshot is 4 B (vptr only, reverse/class_contracts/Snapshot.json).",
+  "prior_work": "reverse/re_attempts.log line 54706 (blocked) and 56500-56501 (partial/blocked) are the recorded verdicts; line 48604 (partial) is the superseded 'bogus Base' note.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 6
+ },
+ {
+  "class": "LifeEventModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "reverse/re_attempts.log line 1620 (ctor 0x00564001, 91 B, partial): with Snapshot modelled as the base, the ctor matches 91/91 bytes and 31/31 instructions; the remaining gap is instruction order only. The note says the Snapshot base (external dtor) forces the EH frame. The ctor row itself is not in the packet. Conflict to check: re_attempts line 64057 describes an adjustor thunk (this-0x20) to a rowed virtual 'LifeEventModuleInfo base at +0x20', which would be a non-zero-offset base. That claim was not verified.",
+  "vtable": "reverse/data_ledger.csv line 6844: ??_7LifeEventModuleInfo@FXParticleSystem@@6B@ at 0x0081C188, 16 B. Slot names not checked.",
+  "upcast": "none found",
+  "size_arithmetic": "not usable: contract_size 0",
+  "prior_work": "reverse/re_attempts.log line 1620 (partial) is the base-relevant verdict; line 64057 (landed) is the +0x20 thunk note.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 6
+ },
+ {
+  "class": "RenderObjectDrawModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "reverse/re_attempts.log line 64055 (landed): an adjustor thunk (this-0x18) at 0x003ABB8B reaches rowed virtual 0x00562945, and the note says 'its own RenderObjectDrawModuleInfo base sits at +0x18'. That is a non-zero base offset, which does not match a Snapshot base at +0. The note is a single claim and was not checked against the thunk's owning vtable. Ctor 0x003A9AD6 (line 32315) and dtor 0x003A9B7B (line 32316) are marked solved but do not discuss bases.",
+  "vtable": "reverse/data_ledger.csv line 6847: ??_7RenderObjectDrawModuleInfo@FXParticleSystem@@6B@ at 0x0081C1B8, 16 B. Slot names not checked.",
+  "upcast": "none found",
+  "size_arithmetic": "not usable: contract_size 0",
+  "prior_work": "reverse/re_attempts.log lines 32315-32316 (solved, no base content) and 64055 (thunk claim, conflicts with Snapshot at +0).",
+  "confidence": "low",
+  "supports_header": null,
+  "packet": 6
+ },
+ {
+  "class": "Rva00493009",
+  "header_bases": [
+   "BehaviorModule",
+   "SpecialPowerModuleInterface"
+  ],
+  "evidence_found": "ctor-base-call",
+  "detail": "The ctor 0x00493C5A (330 B) is matched in reverse/functions.csv line 45529 as ??0SpecialPowerModule@@ from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleCtor.cpp, and that row's note says 'base ctor 0x253330'. reverse/functions.csv line 4261 names 0x00253330 as ??0BehaviorModule@@QAE@PAVThing@@PBVModuleData@@@Z. The xfer 0x00493009 (Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00493009Xfer.cpp line 3; functions.csv line 23971) calls the BehaviorModule xfer 0x004C9C7D (functions.csv line 21204). The interface base is not separately evidenced here. Name conflict: the ctor is recorded under the ZH name SpecialPowerModule, not Rva00493009, and re_attempts line 5008 (blocked) records its identity as unproven before the address-named backfill at line 24328.",
+  "vtable": "",
+  "upcast": "none found",
+  "size_arithmetic": "not usable: contract_size 4; the BehaviorModule contract was not compared",
+  "prior_work": "reverse/re_attempts.log line 98702 (blocked): the canonical BehaviorModule lacks its rowed xfer override, so the base transfer resolves to pure Snapshot::xfer. re_attempts line 5008 (blocked, identity unproven) and 24328 (converted by backfill) are the ctor-identity history.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 6
+ },
+ {
+  "class": "WindModuleInfo",
+  "header_bases": [
+   "Snapshot"
+  ],
+  "evidence_found": "vtable-slot",
+  "detail": "The shared dtor 0x0049B47C (reverse/functions.csv line 70791 for WindModuleInfo, and the same 7-byte row used by at least twelve other *Info classes at lines 929-940) stores Snapshot vtable 0x00BBB554 (reverse/re_attempts.log line 83 lists the same dtor relation). The ctor source Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003A53C4Finish.cpp (line 65 on) has no explicit base initialiser. Conflicts: (a) the 'solved' verdict at re_attempts line 84 says the base is right but only its destructor slot can be modelled, because the four-virtual Snapshot moves GetSnapshotName from slot 2 to slot 4 and breaks 87 of 330 rows, so retail's three-slot layout is not plain single inheritance from the four-virtual Snapshot; (b) Rva003A53C4Finish.cpp's header comment places WindModuleInfo at +0x1C inside a larger wind module base, which is composition at a non-zero offset. The FXParticleSystem.cpp comment at lines 336-338 (every *Info derives from ::Snapshot) is a source comment, not retail evidence.",
+  "vtable": "reverse/data_ledger.csv line 3156: ??_7WindModuleInfo@FXParticleSystem@@6B@ at 0x007E15A4, 16 B. Slot names not checked.",
+  "upcast": "none found",
+  "size_arithmetic": "not usable: contract_size 0 (unmeasured)",
+  "prior_work": "reverse/re_attempts.log line 84 (solved) is the recorded verdict that Snapshot is the base but only the destructor slot may be modelled; line 83 (attempted) records that the four-virtual model fails; line 65 (blocked) is the diagnosis.",
+  "confidence": "medium",
+  "supports_header": true,
+  "packet": 6
+ }
+]
