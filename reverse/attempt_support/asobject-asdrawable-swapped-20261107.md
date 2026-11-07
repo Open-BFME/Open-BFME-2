@@ -76,3 +76,31 @@ identifier has no landing path today.
 3. Both units can then take canonical `thing.h`, which is what the `class:Thing` header-adoption
    batch needs from them: `Module_AsObject.cpp`'s four placeholder virtuals exist only to push the
    call to +0x10 under the wrong name, and canonical Thing already puts `asDrawableMeth` there.
+
+## Update: the tool gate is gone, a provenance gate is not (2026-11-07, later)
+
+`tools/rename.py function --respell` now exists: it takes `--new` literally, takes the C++ in
+`--prepared`, runs no word rewrite, and refuses to leave any source spelling the old name. So the
+mangling objection above no longer applies.
+
+It is still not enough to land this correction, for a different reason. `check_basis` refuses a
+`canonical:` basis over a name that `reverse/name_basis.csv` does not record as `inferred` -
+"a canonical name may replace only a placeholder or an inferred name" - and neither
+`?AsObject@@YAPAVObject@@PAVThing@@@Z` nor the `BitFlags` width rows have any `name_basis.csv`
+record at all. Both read to the tool as established real names.
+
+That guard is right in general: it stops a confident agent overwriting a real name. Here it bites
+a name that came from a byte-identical BFME 1 donor and was never recorded as inferred, so the
+provenance the guard looks for was simply never written down. Deciding what to do about that is
+a maintainer's call, not a seat's. The two honest options:
+
+1. Record the donor provenance for these rows (they were inferred from a BFME 1 twin, not proven
+   from BFME 2), after which a `canonical:` respell is admissible.
+2. Land the correction under a basis whose evidence kind fits the proof - the slot the body
+   dispatches through, checked against `thing.h`'s recorded target facts - if one of the existing
+   `canonical:<kind>` evidence forms covers a vtable-slot argument. None of the current kinds
+   (assert, string, export, lib, rtti, iniblock, wb, zh, bfme1, module, file, vendored) obviously
+   does.
+
+Until one of those happens, the measured conclusion stands unapplied: `0x00306A4E` is `AsObject`
+and `0x00306A5E` is `AsDrawable`.
