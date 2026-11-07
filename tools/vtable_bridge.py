@@ -23,9 +23,20 @@ def row_names(row):
     return {row["name"], *(row.get("names") or "").split(";")} - {""}
 
 
+def is_table_row(row):
+    """A retail vtable address. The data ledger's kind follows the row's
+    canonical name, and an explicit data_rows.csv owner wins that choice: a
+    hand-built strong array registered there (`_vtbl_00BF17F8`,
+    `?g_0086FFFC@@3QBQBXB`) makes the row `global` although compiled classes'
+    vftable names are bound at the same address. That row is still a table
+    (plan() refuses the strong owner by name); other kinds are not."""
+    return row["kind"] == "vtable" or row["kind"] == "global" and any(
+        name.startswith("??_7") for name in row_names(row))
+
+
 def table_rows(root):
     with (Path(root) / "reverse/data_ledger.csv").open(newline="", encoding="utf-8") as handle:
-        return [row for row in csv.DictReader(handle) if row["kind"] == "vtable"]
+        return [row for row in csv.DictReader(handle) if is_table_row(row)]
 
 
 def definitions(objects, names, archives=()):

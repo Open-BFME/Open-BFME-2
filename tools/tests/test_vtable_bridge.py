@@ -364,6 +364,46 @@ def test_build_bridge_writes_counted_plan_and_refusal_queue(tmp_path, monkeypatc
     assert not (tmp_path / "retail_vtables.obj").exists()
 
 
+def write_ledger(root, rows):
+    import csv
+    (root / "reverse").mkdir(exist_ok=True)
+    fields = ["address", "size", "section", "kind", "name", "source", "status", "names", "defs", "refs"]
+    with (root / "reverse/data_ledger.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fields, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows({"section": ".rdata", "size": "8", **row} for row in rows)
+
+
+def test_ledger_tables_are_vtable_rows_and_global_owner_rows_binding_a_vftable_name(tmp_path):
+    write_ledger(tmp_path, [
+        {"address": "0x3000", "kind": "vtable", "name": "??_7A@@6B@"},
+        # a verified data_rows owner (a hand-built strong array) is the canonical name here
+        {"address": "0x3010", "kind": "global", "name": "_vtbl_00C03010", "names": "??_7B@@6B@;_vtbl_00C03010"},
+        {"address": "0x3020", "kind": "global", "name": "?g_plain@@3HA", "names": "?g_plain@@3HA;?g_other@@3HA"},
+        {"address": "0x3030", "kind": "string", "name": "??_C@_03X@abc?$AA@", "names": "??_7C@@6B@;??_C@_03X@abc?$AA@"},
+        {"address": "0x3040", "kind": "global", "name": "?g_vbtable@@3HA", "names": "??_8D@@7B@;?g_vbtable@@3HA"},
+        {"address": "0x3050", "kind": "rtti", "name": "??_R4E@@6B@", "names": "??_7E@@6B@;??_R4E@@6B@"}])
+    assert [row["address"] for row in V.table_rows(tmp_path)] == ["0x3000", "0x3010"]
+
+
+def test_global_owner_row_bridges_its_comdat_vftable_and_refuses_the_strong_owner(tmp_path, monkeypatch):
+    code, _table, rows, _data = inputs(tmp_path)
+    table = table_object(tmp_path / "class.obj", name="??_7T@@6B@")
+    strong = table_object(tmp_path / "owner.obj", ("_first", "_second"), name="_vtbl_00C03000", selection=0)
+    write_ledger(tmp_path, [{"address": "0x3000", "kind": "global", "name": "_vtbl_00C03000",
+                             "names": "??_7T@@6B@;_vtbl_00C03000"}])
+    monkeypatch.setattr(V.build, "ROOT", tmp_path)
+    monkeypatch.setattr(V.build, "row_object", lambda row: code)
+    monkeypatch.setattr(V.build, "ledger_object_symbol", lambda row: row["name"])
+    (tmp_path / "out").mkdir()
+    path, metadata = V.build_bridge(rows, [table, strong, code], [], [], tmp_path / "out", Retail())
+    assert [(entry["name"], len(entry["slots"])) for entry in metadata["entries"]] == [("??_7T@@6B@", 2)]
+    assert [(entry["name"], entry["reason"]) for entry in metadata["refusals"]] == [
+        ("_vtbl_00C03000", "strong-definition")]
+    _sections, symbols = L.parse_coff(path.read_bytes())
+    assert {sym.name for sym in symbols.values() if sym.sec > 0 and sym.cls == L.EXTERNAL} == {"??_7T@@6B@"}
+
+
 def test_unverified_ledger_target_is_not_generated(tmp_path):
     code, table, rows, data = inputs(tmp_path)
     rows[0]["status"] = "pending"
