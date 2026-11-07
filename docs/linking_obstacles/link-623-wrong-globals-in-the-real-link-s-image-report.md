@@ -174,6 +174,10 @@ retail's target):
   1.0 (`m_scale` = 0), CurseSpecialPower's default 0 instead of 1.0, CombineHorde's +0x7C 0 instead of 100.0,
   vegetation sway 100 instead of 99: `c4873ef3a5b`. `detailOpaqueShader` (BFME 2's shader bit layout and gradient 6)
   and AptConnectionScreen's L" ": `657e1871766`.
+- A relocation with no ledger target: `ShellMenuScheme.cpp`'s field table sent "LinePart" to a Zero Hour
+  present-unmatched copy of the parser; retail's entry is 0x00200893, the matched `Rva00200893Parse`:
+  `d8bb991a1bf`. The other placed tables with unplaced targets (11) agree with retail or differ only by ICF
+  (GameSpy `callbackFuncs`, Lua `iolib` point at bodies retail folded) or by an equal data copy.
 - 16 of 19 zero ThrowInfo anchors (16 bytes of zeros at retail's `__TI1?AVINIException@@`, so the first INI error
   would fault inside the C++ runtime's throw): the throws are `throw INIException(...)` again, bytes unchanged.
   `032dbd2d129`, `aa8f2978258`, `590ce1d7dc9` and the three LivingWorld parsers' commit after this entry's update.
@@ -190,8 +194,9 @@ retail's target):
   `g_*Table00` arrays, two string statics), debug file names passed to `GetGameLogicRandomValue` (`s_file` in
   `StealthDetectorUpdateCtor.cpp`, `BoredUpdate.cpp`, `LivingWorldCampaign.cpp`), the 188-byte language buffer
   `g_00DD509C` (retail's is 52), `_Null_messages` (STLport), `R2Data01088838` and the `s_radiusDecal` shadow copy.
-- `UpgradeMuxData_getUpgradeActivationMasks.cpp` no longer references its
-  `/alternatename:?_CxxThrowException@@YGXPAX0@Z`; removing it lowers a counted hatch (separate change).
+- Hatch register: `fc2d5a514f4` drops UpgradeMuxData's now-unused `_CxxThrowException` alternatename and
+  `d8bb991a1bf` a present-unmatched duplicate; both register lines now over-grant by one until
+  `tools/hatch_counters.py --update` tightens them.
 
 Leftovers of this entry, not done:
 
