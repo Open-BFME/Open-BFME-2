@@ -36,7 +36,10 @@ placed by the function-local statics just before them, 572 -> 548 (see "Round lk
 MSVC 7.1's .bss layout read from scratch objects and a scratch link (function-local statics follow a
 unit's main .bss whenever the unit has a plain zero-initialized global), and with it the MapObject,
 AptMainMenu, AptOptions, AptCreateAHero and AptLanLobby copies, 548 -> 543, then 14 copies that sit
-inside or close their own unit's statics, 543 -> 529 (see "Round lk54"); next seat continues).
+inside or close their own unit's statics, 543 -> 529 (see "Round lk54"); halilkkaya-lk58: lk54's
+four settled leads (the LuaScriptEngine copy, the LivingWorldSound zoom region, the ScriptActions flash
+divisor, SidesList), then GameClient/DrawableFramesPerFlash.h, with which 31 copies of units that refuse the
+canonical Drawable.h registered, 529 -> 494 (see "Round lk58"); next seat continues).
 
 `initializers_bridged` (real link at `612abfbebb`: 961) counts the entries in retail's `.CRT$XCU`
 table that no kept object registers. `tools/exit_link.py` registers them from a generated
@@ -1156,3 +1159,86 @@ bridge_entries removed exactly the named RVAs.
   address-named entries can be function-local objects. Units whose views refuse the header
   (GiantBirdAIUpdate, AptMyHero, WorkerAIUpdate, SidesList, Weapon, GameClient, InGameUI and lk51's
   list) need their private views reconciled or their Zero Hour headers replaced first.
+**Round lk58 (halilkkaya-lk58, 2026-11-07, bridged 529 -> 494).** Measured with
+`image_report.bridge_entries` over the kept objects (exit_link's rule) on `1c19aa750b`'s tree plus the
+round. Each entry was retracted (`reverse/deleted_rows.csv`) and readmitted by relocation target; every
+touched object kept its `??_7` digests, link_check passed on the changed files (for TheSidesList, on all
+28 files that name it), and bridge_entries removed exactly the named RVAs at each step.
+- *Round lk54's settled leads, done.*
+  - BfmeLogMsg574.cpp's `_$E1` is now retail 0x007AEAF2, LuaScriptEngine's copy (the unit's plain
+    TheLuaScriptEngine and g_activeObj12F0610, the copy, then bfmeLogMsg574's output and guard).
+    0x007AEB1C is back in the HalfRate grab-bag under its address name, its tombstone removed in the same
+    commit. No count change.
+  - LivingWorldSound.cpp defines `Region2D g_00E02EAC(Coord2D(-FLT_MAX, -FLT_MAX), Coord2D(FLT_MAX,
+    FLT_MAX))` on the canonical Lib/Region2D.h and Lib/Coord2DCtorView.h instead of WWMath's region.h.
+    Its `_$E1` is retail 0x007AFC6B (73 bytes, same relocation order) and `_$E2` the lone-ret cleanup
+    0x007B816A; Rva007AFC6BRegionInit.cpp is deleted. The runtime defect (a zero default zoom region) is
+    fixed. 529 -> 528.
+  - ScriptActions: the only readers of 0x00E02D9C are the flash actions 0x003BB5B7 and 0x003BFF50, and a
+    unit reads only its own copy, so 0x007AF85F belongs to ScriptActionsRva003BB5B7.cpp, which defines
+    both. The actions now divide by the file's own DRAWABLE_FRAMES_PER_FLASH, and the grab-bag's
+    `g_00E02D9C` and its writer go in the same commit; `_$E1` = 0x007AF85F. 528 -> 527.
+  - SidesList.cpp defines TheSidesList (moved from ScriptEngine.cpp with its data row), then
+    `static AsciiString static_readPlayerNames[20]`: `_$E28` = 0x007AEA1C, `_$E30` = 0x007AEA2C, `_$E31` =
+    0x007B7BBE. The object's .bss is TheSidesList +0, the copy +4, the array +8, as retail. ArrayInits'
+    `g_Va00E01D60` is gone with its data row and hatch line. 527 -> 525.
+- *GameClient/DrawableFramesPerFlash.h (new; the canonical Drawable.h now includes it).* It holds
+  the canonical header's one dynamic constant. A unit that cannot take the whole canonical Drawable.h
+  includes it where retail's unit included Drawable.h and builds the same 16-byte copy. Such units build
+  on Zero Hour's PreRTS.h and Thing, or keep a private Thing, Drawable or Matrix3D view. Units that include
+  Zero Hour's GameClient/Drawable.h put `reference/shims/bfme2_drawable_flash` first on their `// cl:`
+  include path. That shim reads Zero Hour's header with its compile-time constant renamed, then includes
+  the BFME 2 header. BoneFXUpdate's private Drawable.h shim includes it in place of the Zero Hour line.
+  This retires the "canonical header refuses" blocker for every logged copy except the held ones.
+- *Taken this way (525 -> 494, 31 copies).*
+  - Zero Hour includers (shim): WorkerAIUpdate 0x007B1C88 `_$E28`, Weapon 0x007AE2F8 `_$E23`,
+    GameClient 0x007ADC48 `_$E22`, RiderChangeContain 0x007B0F74 `_$E22`, Mouse 0x007AD3A6 `_$E22` (nodes
+    now `_$E36/_$E38`), Armor 0x007ACFE5 `_$E14` (node `_$E18`), GameLOD 0x007AD6F3 `_$E24` (nodes
+    `_$E29.._$E41`), SpawnBehavior 0x007B0BFF `_$E16` (g_00E035C8 `_$E88`), InGameUI 0x007AE087 `_$E25`,
+    BridgeBehavior 0x007B094A `_$E16`, DozerAIUpdate 0x007B142E `_$E26`, View 0x007ADDF9 `_$E14`;
+    BoneFXUpdate 0x007B13EA `_$E18` through its own shim.
+  - Private views or Zero Hour headers without Drawable.h (header include): ToppleUpdate 0x007B1C10
+    `_$E4`, FoundationAIUpdate 0x007B08F6, GiantBirdAIUpdate 0x007AEDD7, PlaceEventTranslator 0x007B054B
+    (noCanDoSound's cleanup becomes the bare `_$E4`, replacing an object-symbol= row), SiegeDockingBehavior
+    0x007B0A40, FloodUpdate 0x007B150A, AnimationSoundClientBehavior 0x007B2C32, AptMyHero 0x007B46F8,
+    W3DView 0x007AC07C `_$E6` (TheW3DFrameLengthInMsec now `_$E8`; Coord3D untouched), SpecialAbilityUpdate
+    0x007B078B, BuildAssistant 0x007AF1CE, ActiveBody 0x007B2774, AutoHealBehavior 0x007B0834,
+    StatusBitsUpgradeIfEldestKindof 0x007B2024, PhysicsUpdate 0x007AF18A, FlammableUpdate `_$E14`
+    0x007B14B6, GameWindowManager 0x007AE240 `_$E14`, and SlavedUpdateRepair.cpp 0x007B1A17 (`_$E1`,
+    ahead of the interval initializer, now `_$E3`, that the same run holds). Unmarked ordinals are `_$E1`.
+  - Attribution, for each: the earlier rounds' logged evidence (runs for Mouse, Armor, GameLOD,
+    SpawnBehavior and W3DView; .bss for the rest). A copy that closes a unit's own function-local statics
+    in a unit with no plain global (lk54's rule) gives RiderChangeContain, ToppleUpdate,
+    FoundationAIUpdate, BoneFXUpdate, GiantBirdAIUpdate, PlaceEventTranslator, SiegeDockingBehavior,
+    FloodUpdate, AnimationSoundClientBehavior, ActiveBody, AutoHealBehavior, BridgeBehavior, StatusBits,
+    PhysicsUpdate (PhysicsBehavior's key), DozerAIUpdate, FlammableUpdate and SlavedUpdate. The copy sits
+    inside or right after the unit's plain globals for Weapon, GameClient, InGameUI, WorkerAIUpdate,
+    AptMyHero and BuildAssistant. GameWindowManager is a sandwich: TheWindowManager, the copy, then
+    assignDefaultGadgetLook's statics. View is singleton-anchored (TheTacticalView, the copy alone in its
+    run) and Zero Hour's View.cpp includes GameClient/Drawable.h.
+  - A merge that brings SlavedUpdateRepair.cpp into SlavedUpdate.cpp, or FlammableUpdateDtor.cpp into
+    FlammableUpdate.cpp, must keep the copy ahead of the unit's other initializers.
+- *Leads, not taken.*
+  - The AI unit: 0x007AE14A's static follows `g_00DFEEF8` (238 references, `Rva002A8F24` type,
+    defined in Rva005EEA20Find.cpp), and its run is the copy, then the AIDozerAssignment and
+    SkirmishAIData nodes 0x007AE15A/0x007AE16F (callbacks 0x002A92F2, 0x002A8A31). That is Zero Hour's
+    AI.cpp shape (TheAI, then its two INI blocks), so `g_00DFEEF8` is TheAI's slot. Rowing needs one
+    file to define the global, the copy and both nodes, and the callbacks have no approved TU yet.
+    Player's own copy stays 0x007AE19E: becomingLocalPlayer's statics follow the AI copy, and Player has
+    no plain global.
+  - W3DProjectedShadow: TheW3DProjectedShadowManager, then the copy 0x007ACB09, then two more plain
+    globals, then the copy 0x007ACB33, then flushDecals' statics. These are two objects. Which one is
+    W3DProjectedShadow.cpp needs the second object's plain globals (g_00DEC2D4, Rva00DEC2D8Manager)
+    placed first.
+  - In-run entries of units now owning their copy: InGameUI's object 0x007AE097 (0x00DFEDFC,
+    ctor 0x004E5610) and `g_00DFEE08 = BfmeLogicFramesPerSecond` 0x007AE0AD; SpecialAbilityUpdate's
+    five ZeroInits masks and `g_00E033D0 = BfmeLogicFramesPerSecond` 0x007B07F5; GiantBirdAIUpdate's
+    five MaskInits; BuildAssistant's two FrameScaleSse floats. Each belongs in the unit after its copy
+    once its header or name is known (the `= BfmeLogicFramesPerSecond` copies share one unknown header
+    constant).
+  - `g_bfmeDockingTraceActive` (0x00E03CA8) is WorkerAIUpdate's plain global by the same layout (it
+    opens that object's .bss before the copy), but AIUpdateInterfaceFindNearestLabeledContactPoint.cpp
+    defines it; moving the definition and its data row would match retail's .bss and changes no count.
+  - Held this round: FloatUpdate 0x007B14E0 and BoneFXDamage 0x007B24C0 (class claims, lk56), the
+    ElvenWoodSpecialPower.cpp five (one file holds five units' copies), the DieModule units, ControlBar,
+    AssistedTargetingUpdate. TerrainResourceManager (ATL then `<iostream>` then Drawable.h) is unchanged.
