@@ -42,7 +42,7 @@ public:
 };
 
 
-class TerrainFireEmissionModuleTemplate : public CategoryModuleTemplate<4>,
+class TerrainFireEmissionModuleTemplate : public CategoryModuleTemplate<5>,
     public TerrainFireEmissionInfo
 {
 public:
@@ -52,7 +52,7 @@ public:
 
 // ??0TerrainFireEmissionModuleTemplate@FXParticleSystem@@QAE@XZ
 TerrainFireEmissionModuleTemplate::TerrainFireEmissionModuleTemplate()
-    : CategoryModuleTemplate<4>(), TerrainFireEmissionInfo()
+    : CategoryModuleTemplate<5>(), TerrainFireEmissionInfo()
 {
 }
 

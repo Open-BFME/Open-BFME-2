@@ -45,7 +45,7 @@ public:
 };
 
 
-class RenderObjectUpdateModuleTemplate : public CategoryModuleTemplate<1>,
+class RenderObjectUpdateModuleTemplate : public CategoryModuleTemplate<2>,
     public RenderObjectUpdateModuleInfo
 {
 public:
@@ -55,7 +55,7 @@ public:
 
 // ??0RenderObjectUpdateModuleTemplate@FXParticleSystem@@QAE@XZ
 RenderObjectUpdateModuleTemplate::RenderObjectUpdateModuleTemplate()
-    : CategoryModuleTemplate<1>(), RenderObjectUpdateModuleInfo()
+    : CategoryModuleTemplate<2>(), RenderObjectUpdateModuleInfo()
 {
 }
 
