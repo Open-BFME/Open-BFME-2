@@ -194,6 +194,7 @@ public:
 	virtual void postUpgradeCheck();										// UpgradeMux slot 6
 
 protected:
+	virtual const char *GetSnapshotName() const;							// primary slot 2
 	virtual void xfer( Xfer *xfer );										// primary slot 3
 	virtual void upgradeRemovalImplementation();
 	virtual void upgradeImplementation();									// UpgradeMux slot 10
