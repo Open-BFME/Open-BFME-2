@@ -31,3 +31,5 @@ does. A trial removal (not landed) showed what that must preserve:
   diagnostic-link receipt; then remove this entry's known difference from P5.
 Clearance: pending.
 Census confirmation: not claimed.
+
+**2026-11-07 reference export dependency.** A default-tag export trial kept the same ordered CRT labels but changed the actions those labels referred to. Compare each target thunk's bytes and relocated symbols as well as the labels before any follow-up. The trial changed 36 actions in each particle unit and was reverted. [Object comparison and DIR32 example](../../reverse/attempt_support/particle-tag-startup-order-20261107.md).
