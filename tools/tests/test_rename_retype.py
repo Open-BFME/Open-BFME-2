@@ -573,6 +573,60 @@ def test_the_leading_name_must_be_a_declared_function_and_no_type(prefix, statem
     assert rename.preprocessed_problems(text, "g_00A01000", TYPE), statement
 
 
+# ---- re-check of 83ba508ece (Codex): a function typedef is a type, not a function
+
+FUNCTION_TYPEDEFS = [
+    "typedef void F(int);",                                                   # DisplayStaticDebugView.h:13
+    "typedef void F(DebugDisplayInterface *, void *, FILE *);",
+    "typedef void (F)(int);",                                                 # the controlbarvtables Display.h
+    "typedef void (*F)(int);",
+    "typedef void (__cdecl *F)(int);",
+    "struct C; typedef void (C::*F)(int);",
+    "typedef int A, F(int), (*G)(char *p);",                                  # a list mixing them
+    "using F = void(int);",
+]
+
+
+@pytest.mark.parametrize("decl", FUNCTION_TYPEDEFS)
+def test_function_typedefs_are_types(decl):
+    types, _ = rename._names(decl)
+    assert "F" in types, decl
+
+
+def test_the_declarator_reader_names_the_typedef_not_its_parameters():
+    # (_names' older typedef patterns may also collect parameter names: a stricter refusal only)
+    assert rename._typedef_names(" void F(char *p, int (*cb)(int q))") == {"F"}
+    assert rename._typedef_names(" int A, F(int), (*G)(char *p), H[3], *J") == {"A", "F", "G", "H", "J"}
+
+
+@pytest.mark.parametrize("decl", FUNCTION_TYPEDEFS)
+@pytest.mark.parametrize("statement", ["F(*g_00A01000);", "F(&g_00A01000);", "F((g_00A01000));",
+                                       "F(*g_00A01000)[3];"])
+def test_a_function_typedef_in_front_refuses(decl, statement):
+    text = decl + "\nvoid h() { " + statement + " (void)sizeof(g_00A01000); }\n"
+    assert rename.preprocessed_problems(text, "g_00A01000", TYPE), (decl, statement)
+
+
+def test_the_hidden_function_typedef_reproduction_is_refused_through_apply(tree, objects, monkeypatch):
+    made, tmp = objects
+    src = ("typedef void DebugDisplayCallback(int);\n#define DECL(dummy,x) DebugDisplayCallback (*x)\n"
+           "void reg(void *p) { DECL((0), g_00A01000); (void)sizeof(g_00A01000); }\n")
+    write(tree, USER, src)
+    _git(tree, "add", "-A")
+    p = plan(tree)
+    for rel in p.verify:
+        made[rel.rsplit("/", 1)[-1]] = coff(tmp / (rel.rsplit("/", 1)[-1] + ".obj"), [(NEW, 1, 2)] if rel == OWNER else [])
+    expanded = ("typedef void DebugDisplayCallback(int); "
+                "void reg(void *p){ DebugDisplayCallback (*g_00A01000); (void)sizeof(g_00A01000); }")
+    assert rename.preprocessed_problems(expanded, "g_00A01000", TYPE)
+    monkeypatch.setattr(rename, "preprocess_unit",
+                        lambda ctx, rel: (expanded if rel == USER else "extern unsigned int g_00A01000[3];", None))
+    before = snapshot(tree)
+    with pytest.raises(VerifyFailed):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True, checks=None)
+    assert snapshot(tree) == before
+
+
 def test_a_pointer_returning_function_is_a_function():
     assert "memset" in rename._names("void *memset(void *, int, unsigned int);")[1]
     assert "emset" not in rename._names("void *memset(void *, int, unsigned int);")[1]

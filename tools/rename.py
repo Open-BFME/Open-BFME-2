@@ -5318,6 +5318,37 @@ def _split_top(text):
     return parts
 
 
+# a declarator group: calling conventions or `C::`, then `*`/`&`, then the name and any bounds
+DECLARATOR_GROUP = re.compile(r"\s*((?:(?:__\w+|[A-Za-z_]\w*\s*::)\s*)*)([*&\s]*)([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*")
+
+
+def _typedef_names(decl):
+    """Every name one typedef's declarators declare (`decl`: its text after `typedef`, or after
+    a struct body, up to the `;`), function types included (review of 83ba508ece: `typedef void
+    F(int);` read as a function let `F(*g);` pass as a call). Per comma-separated declarator:
+    the name in its first parenthesised group when that group is a declarator (a pointer,
+    reference or member pointer, or a lone name followed by parameters or a bound:
+    `(*F)(int)`, `(C::*F)(int)`, `(__cdecl *F)(int)`, `(F)(int)`, `(&F)[3]`); else the name
+    before its parameters (`F(int)`, `F(char *p)`); else its last name (`A`, `*B`, `C[3]`)."""
+    names = set()
+    for _, part in _split_top(decl):
+        at = part.find("(")
+        close = _skip_balanced(part, at, "(", ")") if at >= 0 else None
+        group = DECLARATOR_GROUP.fullmatch(part[at + 1:close - 1]) if close else None
+        if group and (group.group(1).strip() or group.group(2).strip()
+                      or re.match(r"\s*[(\[]", part[close:])):
+            names.add(group.group(3))
+            continue
+        before = re.search(r"([A-Za-z_]\w*)\s*$", part[:at]) if at >= 0 else None
+        if before and before.group(1) not in BUILTIN_TYPES | QUALIFIERS:
+            names.add(before.group(1))
+            continue
+        last = re.findall(r"[A-Za-z_]\w*", re.sub(r"\[[^\]]*\]", "", part if at < 0 else part[:at]))
+        if last:
+            names.add(last[-1])
+    return names
+
+
 def _names(code):
     """(type names, function names) the preprocessed unit declares."""
     types = set(BUILTIN_TYPES)
@@ -5333,6 +5364,7 @@ def _names(code):
         stop = code.find(";", body_end or m.end())
         if stop > 0:
             types |= set(re.findall(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?=,|$)", code[body_end or m.end():stop]))
+            types |= _typedef_names(code[body_end or m.end():stop])
     functions = set(re.findall(r"(?:[\w>]\s+|[\*&]\s*)(?:[A-Za-z_]\w*::)*([A-Za-z_]\w*)\s*\(", code))
     functions -= BUILTIN_TYPES | QUALIFIERS | EXPRESSION_KEYWORDS | {"extern", "__declspec"}
     return types, functions
