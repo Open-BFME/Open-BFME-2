@@ -18,10 +18,10 @@
 // - UpgradeTemplate carries the mask bit index as a plain int at +0x38
 //   (ZH mask member at +0x20); the BitFlags::set index math (word = i >> 5,
 //   bit = 1 << (i & 31)) falls out of _Unchecked_set, xor/inc included.
-// - The DEBUG_CRASH text feeds the INIException filler directly (filler pin
-//   0x002F681 + _CxxThrowException pin 0x00629094, INI_scanReal.cpp idiom:
-//   explicit filler call plus explicit noreturn throw, no `throw` keyword,
-//   so no SEH prologue). The throws name the compiler's INIException throwinfo.
+// - The DEBUG_CRASH text feeds INIException's constructor (0x002F681) and a
+//   `throw` (the MSVC 7.1 helper's import thunk at 0x00629094); the unit builds
+//   /GX-, so no SEH prologue, and the throws name the compiler's INIException
+//   throwinfo.
 // - Vector clears route to the outlined vector<AsciiString>::erase at
 //   0x002CCFC (82 image-wide callers pushing finish/start pairs; range
 //   destroy plus finish update inside), pinned on first resolution.
@@ -70,8 +70,6 @@ public:
 extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
 #include "../../../Include/Common/INI/FieldParse.h"
-
-__declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
 
 
 // TU-local views for the activation gate 0x004CB333 (retail-measured offsets).
@@ -209,8 +207,3 @@ bool UpgradeMuxData::rva004CB333(Object *obj)
 	}
 	return true;
 }
-
-// The (void *, void *) declaration above is a C++ overload, so calls spell
-// ?_CxxThrowException@@YGXPAX0@Z; retail calls the MSVC 7.1 throw helper
-// __CxxThrowException@8 (its import thunk at 0x00629094). Same ABI: bind the spelling.
-#pragma comment(linker, "/alternatename:?_CxxThrowException@@YGXPAX0@Z=__CxxThrowException@8")
