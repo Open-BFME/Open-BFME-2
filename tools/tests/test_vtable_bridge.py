@@ -618,7 +618,7 @@ def jmp(at, target):
     return b"\xe9" + struct.pack("<i", target - (at + 5))
 
 
-def thunk_plan(tmp_path, thunks, code_bytes, slot=0x1020):
+def thunk_plan(tmp_path, thunks, code_bytes, slot=0x1020, edit=None):
     """Slot 1 of a two-slot retail table points at `slot`; `thunks` are (rva, size, notes) rows the
     exit link omits; `code_bytes` are retail's bytes there."""
     code, table, rows, data = inputs(tmp_path)
@@ -628,6 +628,8 @@ def thunk_plan(tmp_path, thunks, code_bytes, slot=0x1020):
               "source": "Code/gen_small/gthunks.cpp", "status": "matched", "notes": notes}
              for rva, size, notes in thunks]
     paths = {"Code/code.cpp": code, "Code/gen_small/gthunks.cpp": omitted}
+    if edit:
+        edit(rows)
     return V.plan(rows, [table, code], [omitted], ThunkRetail((0x1000, slot), code_bytes), data,
                   object_for=lambda row: paths[row["source"]], symbol_for=lambda row: row["name"])
 
@@ -672,3 +674,24 @@ def test_a_thunk_address_another_kept_row_also_claims_is_not_forwarded(tmp_path)
     result = V.plan(rows, [table, code], [omitted], ThunkRetail((0x1000, 0x1020), {0x1020: jmp(0x1020, 0x1010)}),
                     data, object_for=lambda row: paths[row["source"]], symbol_for=lambda row: row["name"])
     assert result["tables"] == 0 and result["refusals"][0]["reason"] == "omitted-target"
+
+
+def test_a_truncated_retail_read_at_the_thunk_stays_omitted(tmp_path):
+    result = thunk_plan(tmp_path, [(0x1020, 5, "gen-thunk;gap;target=0x00001010")], {0x1020: b"\xe9\xeb\xff"})
+    assert result["tables"] == 0 and result["refusals"][0]["reason"] == "omitted-target"
+
+
+def test_omitted_thunk_rows_that_disagree_on_the_target_stay_omitted(tmp_path):
+    rows = [(0x1020, 5, "gen-thunk;gap;target=0x00001010"), (0x1020, 5, "gen-thunk;gap;target=0x00001000")]
+    result = thunk_plan(tmp_path, rows, {0x1020: jmp(0x1020, 0x1010)})
+    assert result["tables"] == 0 and result["refusals"][0]["reason"] == "omitted-target"
+
+
+def test_a_forwarded_target_that_fails_a_provider_check_stays_omitted(tmp_path):
+    # The thunk itself is sound, but its destination row is unverified.
+    def unverify(rows):
+        next(row for row in rows if row["name"] == "_second")["status"] = "pending"
+    result = thunk_plan(tmp_path, [(0x1020, 5, "gen-thunk;gap;target=0x00001010")],
+                        {0x1020: jmp(0x1020, 0x1010)}, edit=unverify)
+    assert result["tables"] == 0 and result["thunk_forwarded_slots"] == 0
+    assert result["refusals"][0]["reason"] == "omitted-target"
