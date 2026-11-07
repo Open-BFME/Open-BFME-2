@@ -27,7 +27,9 @@ This tool makes the whole edit, verifies it, and records why:
            canonical), a new name that collides or is itself a placeholder,
            an `inferred` basis replacing a real name, a generated source, a
            name a shrink-only baseline is keyed on, and a mangled-name change
-           beyond the identifier (one exception: `function --virtual`, below);
+           beyond the identifier (two exceptions, both below: `function
+           --virtual`, and `function --respell`, which takes prepared C++ for
+           every unit that names the row and runs no word rewrite);
   claim    every affected RVA, a `file:` scope for every Code/ or shim file
            written and `class:` for a class or member (tools/claims.py); claims
            this run newly took are KEPT for the lander, who releases them
@@ -2722,7 +2724,7 @@ def rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner_sourc
 
 
 def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_files=25, virtual=False,
-                  to_class=None, prepared=None, access=None, also=None):
+                  to_class=None, prepared=None, access=None, also=None, respell=False):
     """Plan respelling one RVA's function identifier everywhere it is named;
     with `virtual`, its decoration from non-virtual to virtual instead
     (plan_virtual: no new identifier, no basis, retail evidence); with
@@ -2735,8 +2737,8 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
                              max_files=max_files, also=also)
     if also:
         raise Refusal("--also adds slots of one retail table to a --to-class move only")
-    if prepared and not virtual:
-        raise Refusal("--prepared sources go with --to-class or --virtual only")
+    if prepared and not (virtual or respell):
+        raise Refusal("--prepared sources go with --to-class, --virtual or --respell only")
     if access is not None and not virtual:
         raise Refusal("--access goes with --virtual only")
     if virtual:
@@ -2765,20 +2767,36 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
                       "recover it as real C++ first (never edit Code/gen_*)")
     prefix, old_word, _ = split_function_name(old_name)
     new = new or ""
+    # --respell: `new` is the row's whole name even where it differs beyond the
+    # identifier, and the prepared C++ carries the change the word rewrite below
+    # cannot express.
+    literal = ""
     if new.startswith("?"):
         # a full mangled spelling: it must equal the identifier-only rewrite
         new_word = split_function_name(new)[1]
-        if new_word == old_word:
+        if new_word == old_word and not respell:
             raise Refusal("the new name is the old name")
         if rename_function_symbol(old_name, new_word) != new:
-            raise Refusal(f"{new} changes the mangled signature beyond the identifier "
-                          f"(identifier-only rewrite is {rename_function_symbol(old_name, new_word)})")
+            if not respell:
+                raise Refusal(f"{new} changes the mangled signature beyond the identifier "
+                              f"(identifier-only rewrite is {rename_function_symbol(old_name, new_word)}; "
+                              "--respell with --prepared sources carries a signature change)")
+            literal = new
     else:
         new_word = new
+        if respell:
+            raise Refusal("--respell needs --new as the row's whole mangled name, not an identifier")
     check_new_identifier(new_word, "function", basis)
-    if new_word == old_word:
+    if respell:
+        if not literal:
+            raise Refusal(f"{new} is the identifier-only rewrite of {old_name}; "
+                          "rename it with function --new alone, without --respell")
+        if not prepared:
+            raise Refusal("--respell needs --prepared sources for every unit whose C++ must change, "
+                          "since no word rewrite can change a return type, parameter or template argument")
+    elif new_word == old_word:
         raise Refusal("the new name is the old name")
-    new_name = rename_function_symbol(old_name, new_word)
+    new_name = literal or rename_function_symbol(old_name, new_word)
 
     reason = is_protected(ctx, "function", old_name, rva=rva, identifier=old_word)
     if reason:
@@ -2807,12 +2825,19 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
     # rename. Only a pin at the address with the same qualified identifier
     # qualifies; anything else spelling the word is still refused below.
     aliases = alias_pins(ctx, old_name, rva)
+    if respell and aliases:
+        # An alias pin is the same identity mangled through another unit's view;
+        # its own signature change cannot be derived from this one.
+        raise Refusal(f"0x{rva:08X} carries the alias pin(s) {', '.join(aliases)}: a respell would have to "
+                      "change each one's signature too, which this plan cannot derive")
     for alias in aliases:
         renamed = rename_function_symbol(alias, new_word)
         if any(r["name"] == renamed for r in ctx.rows()) or any(p.get("name") == renamed for p in ctx.pins()):
             raise Refusal(f"{renamed} (the alias pin {alias} renamed) already names a row or pin")
     own_re = re.compile("|".join(mangled_re(n).pattern for n in [old_name] + aliases))
-    other = shared_identifier(ctx, old_word, own_re)
+    # A respell runs no word rewrite, so another function sharing the identifier
+    # is not at risk from it; the prepared sources are authoritative instead.
+    other = None if respell else shared_identifier(ctx, old_word, own_re)
     if other:
         raise Refusal(f"{old_word} also spells {other}; a word rewrite would rename it too")
     frozen = frozen_mentions(ctx, old_name)
@@ -2881,9 +2906,25 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         return None
     carry_records(ctx, plan, carried)
     scope = scope_of(old_name) or ""
-    verify = rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner["source"], max_files,
-                           cls=scope.rsplit("::", 1)[0].split("::")[-1] if "::" in scope else None,
-                           aliases={a: rename_function_symbol(a, new_word) for a in aliases})
+    if respell:
+        # The prepared C++ is the whole source change: a word rewrite cannot turn
+        # `Object *` into `Drawable *` or `BitFlags<304>` into `BitFlags<591>`.
+        # Nothing may be left spelling the old name, in a prepared unit or out of
+        # it, or the ledger and the source would disagree about this address.
+        _batch_source_edits(ctx, plan, prepared)
+        verify = set(prepared)
+        left = sorted(rel for rel, data in plan.after.items()
+                      if rel in prepared and mangled_re(old_name).search(data.decode("utf-8", "replace")))
+        if left:
+            raise Refusal(f"prepared {', '.join(left)} still spells {old_name}")
+        elsewhere = sorted(set(ctx.grep_files(old_name, roots=("Code",))) - set(prepared))
+        if elsewhere:
+            raise Refusal(f"{', '.join(elsewhere[:4])} still spells {old_name}: prepare every unit that "
+                          "names it, so no source disagrees with the respelled row")
+    else:
+        verify = rewrite_units(ctx, plan, old_word, new_word, old_name, new_name, owner["source"], max_files,
+                               cls=scope.rsplit("::", 1)[0].split("::")[-1] if "::" in scope else None,
+                               aliases={a: rename_function_symbol(a, new_word) for a in aliases})
     verify |= {r["source"] for r in ctx.rows() if r["name"] in {o for o, _, _ in plan.renamed_rows}}
     verify |= {r["source"] for r in ctx.rows()
                if (r["name"], _rva(r.get("target_rva"))) in set(plan.notes_rows)}
@@ -9239,8 +9280,8 @@ def main(argv=None):
                                 help="respell one RVA's function identifier")
     function.add_argument("--rva", required=True, help="the function's target RVA (hex)")
     function.add_argument("--new",
-                          help="new identifier, or the full mangled name (identifier change only); "
-                               "required unless --virtual")
+                          help="new identifier, or the full mangled name (identifier change only, or any "
+                               "spelling with --respell); required unless --virtual")
     function.add_argument("--old", help="the current mangled name, when several share the RVA")
     function.add_argument("--virtual", action="store_true",
                           help="respell the row non-virtual -> virtual (QAE->UAE, IAE->MAE, AAE->EAE), keeping "
@@ -9259,6 +9300,11 @@ def main(argv=None):
                                "(repeatable): the definition under CLASS and any caller of the old member; "
                                "with --virtual: a unit whose class view must change shape (not only gain "
                                "`virtual`) for the respelled member to compile to retail's bytes")
+    function.add_argument("--respell", action="store_true",
+                          help="--new is the row's whole mangled name even where it differs beyond the "
+                               "identifier (a changed return type, parameter or template argument); needs "
+                               "--prepared for every unit that names it, runs no word rewrite, and is "
+                               "refused while an alias pin shares the address")
     function.add_argument("--also", action="append", default=[], metavar="RVA=NEW",
                           help="with --to-class: move another slot of the same retail table in the same plan "
                                "(repeatable); a table whose slots are all still rowed under other placeholders "
@@ -9367,8 +9413,13 @@ def main(argv=None):
         return 1 if problems else 0
     to_class = args.kind == "function" and args.to_class
     fold = args.kind == "class" and (args.fold is not None or args.into is not None)
-    if args.kind == "function" and args.prepared and not (to_class or args.virtual):
-        parser.error("--prepared goes with --to-class or --virtual")
+    respell = args.kind == "function" and getattr(args, "respell", False)
+    if args.kind == "function" and args.prepared and not (to_class or args.virtual or respell):
+        parser.error("--prepared goes with --to-class, --virtual or --respell")
+    if respell and (to_class or args.virtual):
+        parser.error("--respell is its own mode: not with --to-class or --virtual")
+    if respell and not args.prepared:
+        parser.error("--respell needs --prepared sources for every unit that names the row")
     if args.kind == "class" and args.prepared and not fold:
         parser.error("--prepared goes with --fold")
     if to_class and (args.basis or not args.new):
@@ -9386,7 +9437,8 @@ def main(argv=None):
         if not sep or not word:
             parser.error(f"--also {item!r} is not RVA=NEW (hex RVA)")
     prepared = {}
-    for item in (args.prepared if to_class or fold or (args.kind == "function" and args.virtual) else []):
+    for item in (args.prepared if to_class or fold or respell or (args.kind == "function" and args.virtual)
+                 else []):
         rel, sep, path = item.partition("=")
         if not sep or not rel or not path:
             parser.error(f"--prepared {item!r} is not REL=FILE")
@@ -9418,6 +9470,9 @@ def main(argv=None):
                                               ("--evidence", args.evidence)) if v is None))
     ctx = Context(args.root, object_scan=not args.no_object_scan, sweep_dirs=args.sweep_dir or ("build",))
     kwargs = dict(new=args.new, basis=args.basis, evidence=args.evidence, max_files=args.max_files)
+    if respell:
+        kwargs["respell"] = True
+        kwargs["prepared"] = prepared
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
                       prepared=prepared or None)

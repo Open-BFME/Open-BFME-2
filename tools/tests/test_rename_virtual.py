@@ -578,8 +578,9 @@ def test_a_prepared_view_still_needs_the_retail_evidence(tree, monkeypatch):
 
 
 def test_prepared_goes_with_virtual_or_to_class_only(tree, monkeypatch):
+    """--respell takes prepared sources too; a plain identifier rename still does not."""
     retail(monkeypatch, *DTOR_TABLES)
-    with pytest.raises(Refusal, match="--prepared sources go with --to-class or --virtual only"):
+    with pytest.raises(Refusal, match=r"--prepared sources go with --to-class, --virtual or --respell only"):
         rename.plan_rename("function", ctx=ctx_of(tree), rva=0x00401000, new="countAll", basis="inferred",
                            evidence="agree:x", prepared={"Code/Game/WidgetDtor.cpp": PREPARED_DTOR.encode()})
 
