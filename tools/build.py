@@ -68,6 +68,7 @@ def _log_gate_loads():
 
 _log_gate_loads()
 
+import cl_flags
 import flag_defaults
 import compiler_profiles
 import ledger_io
@@ -1326,10 +1327,12 @@ def source_extra_flags(source):
     with source.open("r", encoding="utf-8-sig", errors="replace") as handle:
         for line in handle.read().splitlines():
             if line.startswith("// cl:"):
+                tokens = _source_flag_tokens(line[len("// cl:") :])
+                _allowed_flags(source, tokens, paths=True)
                 # Use '-' style options so MSYS/Cygwin shells don't rewrite
                 # leading '/' arguments as Windows paths.
                 flags = [f.replace("/", "-", 1) if f.startswith("/") else f
-                         for f in _source_flag_tokens(line[len("// cl:") :])]
+                         for f in tokens]
                 cnc_variant = _bfme1_cnc_variant_from_flags(flags)
                 # Source ownership is the same for every operand in this one
                 # freshly read directive. Resolve every include directory as
@@ -1338,11 +1341,23 @@ def source_extra_flags(source):
                                   not flag[2:].startswith("reference/open-bfme-1/")
                                   for flag in flags)
                 in_donor = _is_bfme1_donor(source) if needs_owner else False
-                return flag_defaults.apply(
+                return _allowed_flags(source, flag_defaults.apply(
                     source, [_current_bfme1_include_flag(
-                        flag, source, cnc_variant, _in_donor=in_donor) for flag in flags])
+                        flag, source, cnc_variant, _in_donor=in_donor) for flag in flags]), paths=False)
     # The region decides /O, /arch and /G for Code/ sources (tools/flag_defaults.py).
-    return flag_defaults.apply(source, [])
+    return _allowed_flags(source, flag_defaults.apply(source, []), paths=False)
+
+
+def _allowed_flags(source, flags, *, paths):
+    """`flags`, refusing any tools/cl_flags.py does not allow: a flag that loads code or writes
+    files would run on every machine that builds the source. The `// cl:` tokens are checked as
+    written, include paths too (paths=True); the final list again without paths (they are
+    rewritten in between), because flag_defaults adds tokens from reverse/ data."""
+    refused = cl_flags.problems(flags, paths=paths)
+    if refused:
+        raise cl_flags.Refused(f"cl flags: {source}: {cl_flags.describe(refused)}; tools/cl_flags.py "
+                               "lists the flags a source may carry")
+    return flags
 
 
 def compiler_command(source, output):

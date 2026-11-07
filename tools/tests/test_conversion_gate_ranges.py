@@ -467,7 +467,6 @@ def test_added_cl_line_with_non_flag_words_is_refused(repo, monkeypatch, line):
 
 @pytest.mark.parametrize("line", [
     "// cl: /O1 /MD /EHsc -DNDEBUG /ICode/Libraries/Source/WWVegas/WW3D2",
-    '// cl: /I"C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include" /MD',
     '// cl: /I "reference/shims/a b" /MD',
     "// cl: /I reference/shims/sweep -I Code /MD",
 ])
@@ -475,6 +474,36 @@ def test_added_cl_line_of_flags_passes(repo, monkeypatch, line):
     _, write, commit, base = repo
     write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
     assert check_main(monkeypatch, base, commit()) == 0
+
+
+@pytest.mark.parametrize("line", [
+    # Rule F (tools/cl_flags.py): a flag that loads code or writes files, or a path outside the
+    # checkout. An absolute /I passed Rule D (it is a flag) until 2026-11-07.
+    '// cl: /I"C:/Program Files/Microsoft Visual Studio .NET 2003/Vc7/PlatformSDK/Include" /MD',
+    "// cl: /O2 /B1 Z:\\home\\claude\\evil.dll /MD",
+    "// cl: /O2 /FaZ:\\home\\claude\\.bashrc",
+    "// cl: /O2 /Fo/tmp/x.obj",
+    "// cl: /O2 @Z:\\tmp\\more.rsp",
+    "// cl: /O2 /Ycpre.h",
+    "// cl: /O2 /link /out:x.exe",
+    "// cl: /O2 /clang:-fplugin=x.so",
+    "// cl: /O2 /I../../../../etc",
+    '// cl: /I"unterminated /MD',
+])
+def test_added_cl_line_with_a_refused_flag_is_refused(repo, monkeypatch, capsys, line):
+    _, write, commit, base = repo
+    write("Code/Old.cpp", line + "\nint old() { return 1; }\n")
+    assert check_main(monkeypatch, base, commit()) == 1
+    assert "Code/Old.cpp" in capsys.readouterr().err
+
+
+def test_an_unchanged_cl_line_is_not_judged_again(repo, monkeypatch):
+    # Rule F judges added lines; build.source_extra_flags judges every compile.
+    git, write, commit, base = repo
+    write("Code/Old.cpp", "// cl: /O2 /MD\nint old() { return 1; }\n")
+    tip = commit()
+    write("Code/Old.cpp", "// cl: /O2 /MD\nint old() { return 2; }\n")
+    assert check_main(monkeypatch, tip, commit()) == 0
 
 
 @pytest.mark.parametrize("line, code", [

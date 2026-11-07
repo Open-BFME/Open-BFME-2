@@ -39,6 +39,12 @@ Rule D: an added `// cl:` line under Code/ holds compiler flags and nothing else
 Rule E: an added #include under Code/ names no absolute path. `W:/...` compiles on
         its author's machine and fails everywhere else, including verification;
         one such pair kept master red for 6.6 hours.
+
+Rule F: an added `// cl:` line under Code/ carries only the flags tools/cl_flags.py
+        allows, with include paths inside the checkout. cl.exe does what a flag says:
+        /B1 loads another compiler DLL and /Fa writes a file anywhere, on every seat,
+        worker and runner that builds the commit. build.source_extra_flags refuses the
+        same flags at compile time.
 """
 
 from collections import Counter
@@ -108,6 +114,29 @@ def cl_non_flags(line):
         elif not token.startswith(("/", "-")):
             bad.append(token)
     return bad
+
+
+def added_cl_unsafe(old, new):
+    """[(path, refusal)] for each added `// cl:` line under Code/ with a flag cl_flags refuses
+    (Rule D reports plain words that are not flags; this reports everything else)."""
+    import build
+    import cl_flags
+    found, path = [], None
+    for line in diff_lines(old, new, "Code/"):
+        if line.startswith("+++ b/"):
+            path = line[6:]
+        elif line.startswith("+") and line[1:].lstrip("\ufeff").startswith(CL_MARK):
+            text = line[1:].lstrip("\ufeff")
+            try:
+                tokens = build._source_flag_tokens(text[len(CL_MARK):])
+            except SystemExit as malformed:
+                found.append((path, str(malformed)))
+                continue
+            refused = [(token, reason) for token, reason in cl_flags.problems(tokens)
+                       if reason != "is not a flag"]
+            if refused:
+                found.append((path, cl_flags.describe(refused)[:300]))
+    return found
 
 
 def added_cl_garbage(old, new):
@@ -231,7 +260,8 @@ def _code_and_retail():
     import ledger_cache
     tools = Path(__file__).resolve().parent
     code = ledger_cache.code_hash(*(tools / name for name in (
-        "conversion_gate.py", "list_naked_candidates.py", "progress.py", "build.py", "pe_imports.py")))
+        "conversion_gate.py", "list_naked_candidates.py", "progress.py", "build.py", "pe_imports.py",
+        "cl_flags.py")))
     return code, hashlib.sha1(build.EXE.read_bytes()).hexdigest()
 
 
@@ -413,6 +443,13 @@ def main():
               "flags make cl -E fail, which breaks the link census; if that is a mangled /I flag,\n"
               "your shell rewrote it: in Git Bash set MSYS_NO_PATHCONV=1 before the tool that\n"
               "writes the line." % (path, words), file=sys.stderr)
+    for path, refusal in by_trees("cl-allowlist", old, new, lambda: added_cl_unsafe(old, new)):
+        failed = True
+        print("conversion gate: %s: a `// cl:` flag outside tools/cl_flags.py: %s\n"
+              "A flag that loads code or writes files (/B1, /Fa, /Fo, /Yc, @file, /link, ...)\n"
+              "would run on every machine that builds this commit, and an include path must stay\n"
+              "inside the checkout. A new code-generation flag is a reviewed edit to cl_flags.py."
+              % (path, refusal), file=sys.stderr)
     for rva, name, old_src, new_src in by_trees("coverage", old, new, lambda: clean_coverage_lost(old, new)):
         failed = True
         print("conversion gate: %s (%s) was clean C++ at %s, repointed to %s.\n"
