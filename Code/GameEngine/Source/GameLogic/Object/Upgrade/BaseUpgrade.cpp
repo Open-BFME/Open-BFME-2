@@ -23,18 +23,9 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
-template <typename T> class StringBase
-{
-public:
-	StringBase() : m_data(0) {}
-	~StringBase();
-	void set(const char *str);
-
-private:
-	void *m_data;
-};
-
-typedef StringBase<char> AsciiString;
+// AsciiString and its StringBase are the bfme2_ascii shim's (the upgradeImplementation
+// donor's view), not a private copy.
+#include "ascii_string.h"
 
 //
 // Chained ModuleData::buildFieldParse procs: each calls its base-class
@@ -253,7 +244,7 @@ void BaseUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 
 // tu-skeleton: 0x0078EB03 10B __ehhandler$?upgradeImplementation@BaseUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp (not merged yet)
 
-// The Xfer operand types (AsciiString is this unit's StringBase<char> above).
+// The Xfer operand types (AsciiString is the bfme2_ascii shim's).
 class UnicodeString;
 class PooledString;
 class Coord3DBase;
