@@ -1,7 +1,7 @@
 ### LINK-623: Wrong globals in the real link's image report
 
-Status: Open. Updated: 2026-11-07 (seat halilkkaya-lk42); inspected: `image_report.json` of real link `1d41894d2a`
-(2026-11-06 20:05 UTC), tree at `88ce76fc444`.
+Status: Open. Updated: 2026-11-07 (seat halilkkaya-lk45, sweep below); earlier: seat halilkkaya-lk42, inspected
+`image_report.json` of real link `1d41894d2a` (2026-11-06 20:05 UTC), tree at `88ce76fc444`.
 
 Numbered LINK-622 in this seat's first commits (`911b7e9cef7` .. `47f1c3c62ff`); origin took that ID first for
 another entry, so this one is LINK-623.
@@ -141,6 +141,70 @@ Leads read but not changed here (this counter now belongs to the duplicates lane
   `WW3D::PrelitMode` (`ww3d.cpp`, also 1, set by `W3DDisplayInit.cpp`).
 - 0x009FE490: the atexit thunk in `Rva007B6A00AtexitThunks.cpp` clears `g_Va00DFE490` (a data row) instead of
   `ArmySummaryDescription.cpp`'s `g_00DFE490`; exit only.
+
+#### Every placed data symbol against retail (seat halilkkaya-lk45, 2026-11-07)
+
+Method (a one-off script, not committed): regenerate the data ledger into scratch
+(`tools/data_ledger.py --out`), then for every data symbol of the kept objects the ledger places (externals by
+name, statics by `name@source`), compare the bytes outside relocations with retail and each relocation's target
+(functions by ledger RVA, literals by content, data by ledger, data row or derived address). A placed table's
+relocations place the statics and externals it points at, which are then compared too. Base `9b62308701e`.
+
+Before: 1,668 external and 275 static symbols differed. After the commits below: 1,577 and 257. FieldParse tables:
+406 of retail's 409 (`reverse/fieldparse_tables.tsv`) now equal retail; the other three are
+`s_radiusDecalFieldTable` (its Shadow entry points at this unit's other, identical shadow-name copy) and two tables
+no retail code reaches (0x0080EBE0, none; 0x00860C00, only the unrowed bytes at 0x0062AB87).
+
+**Repaired** (each table or value compared with retail: bytes outside relocations equal, every relocation on
+retail's target):
+
+- 92 `char g_00XXXXXX;` placeholders that buildFieldParse procs register as FieldParse tables, so a linked game met
+  an empty table for each module: 69 in `ModuleDataBuildFieldParse.cpp` (BoneFXUpdate, StealthUpdate, ActiveBody,
+  SlowDeath, Production, ...; EvacuateDamage's table now lives in `EvacuateDamage.cpp` with its unit's
+  TheDamageNames copy), all 19 in `SpecialPowerModuleDataBuildFieldParse.cpp` (SpecialPowerModuleData's 35-field
+  base table first; ElvenWood's data row named a 1-byte char whose byte matched by chance), 3 in
+  `ModuleDataBuildFieldParseChained.cpp` and FadeAndDieOrnament's. `749d7672842`, `880ab6264ca`, `83a20d96217`.
+- RankInfoStore's Rank table (0x00BE2870, 11 fields) was a char placeholder: `5c6c9062d46`.
+- WeaponTemplateSet's table (0x00C00A90) had 6 of 10 fields, and ShareWeaponReloadTime and
+  WeaponLockSharedAcrossSets used Zero Hour's offsets (+0x50, +0x51) instead of +0x35C, +0x35D: `d84d912dd6e`.
+- Name lists without a null in retail run on into the next list, which parseIndexList then accepts; the copies
+  spell the run-on (DefaultWeaponChoiceCritera, 6 + 3 names; MaxHealthUpgrade's ChangeType, 3 + 4). DelayedDeathBody's
+  and FreeLifeBody's tables have no null entry in retail (a vtable follows); ours end with one.
+- Float stand-ins for retail's literals with the wrong value: PartitionManager's rescale numerator was 0 instead of
+  1.0 (`m_scale` = 0), CurseSpecialPower's default 0 instead of 1.0, CombineHorde's +0x7C 0 instead of 100.0,
+  vegetation sway 100 instead of 99: `c4873ef3a5b`. `detailOpaqueShader` (BFME 2's shader bit layout and gradient 6)
+  and AptConnectionScreen's L" ": `657e1871766`.
+- 16 of 19 zero ThrowInfo anchors (16 bytes of zeros at retail's `__TI1?AVINIException@@`, so the first INI error
+  would fault inside the C++ runtime's throw): the throws are `throw INIException(...)` again, bytes unchanged.
+  `032dbd2d129`, `aa8f2978258`, `590ce1d7dc9`.
+
+**Remaining**, by kind (after the commits above):
+
+- 1,523 `??_7` copies and 295 zero vptr or vtable placeholders (247 statics such as `s_dummy0C`, `*VTableAnchor`,
+  and 48 externals such as the 1-byte `g_00BF1BC8`-style ModuleData vtables): LINK-514 and the vtable bridge.
+- 6 ThrowInfo anchors. `INI::parseBitString16`, `INI::dup_002EC6E` (`__TI1H`) and
+  `INI::Rva003F1FD0_ParseGiveUpgrade` (`__TI1?AW4ErrorCode@@`) reuse a dead slot for the thrown value; `throw 1`
+  compiles a fresh slot (tried, reverted, `reverse/re_attempts.log`). They need a way to name the compiler's
+  ThrowInfo without a hatch. The three LivingWorld parsers (`LivingWorldAutoResolveResourceBonus_*`,
+  `..SciencePurchasePointBonus_*`, `LivingWorldRegionBuildingRestrictionParseINI.cpp`) take the same
+  `throw INIException` fix; left to the seat holding the LivingWorld classes.
+- 17 explained: padding past a list's null (`TheDeathNames`, `s_buildCompletionNames`, `s_iconFadeTypeNames`, the
+  `g_*Table00` arrays, two string statics), debug file names passed to `GetGameLogicRandomValue` (`s_file` in
+  `StealthDetectorUpdateCtor.cpp`, `BoredUpdate.cpp`, `LivingWorldCampaign.cpp`), the 188-byte language buffer
+  `g_00DD509C` (retail's is 52), `_Null_messages` (STLport), `R2Data01088838` and the `s_radiusDecal` shadow copy.
+- `UpgradeMuxData_getUpgradeActivationMasks.cpp` no longer references its
+  `/alternatename:?_CxxThrowException@@YGXPAX0@Z`; removing it lowers a counted hatch (separate change).
+
+Leftovers of this entry, not done:
+
+- `_vtbl_00C5D608` is TaintSpecialPowerModuleData's table as data (31 slots on retail's folded targets), byte-equal;
+  the compiler's own table needs the class's 31 virtuals declared through ModuleData.h with a row for each slot's
+  own name (header lane). No image defect.
+- `Rva004118B4AssetCreate.cpp`'s `unsigned int g_00E02FF8` is a private copy of the hash map
+  `Rva004121B2HashMapInits.cpp` constructs as `g_Va00E02FF8` (20 bytes), so the asset registration writes a copy
+  no reader sees. `tools/name_globals.py --dry-run` proposes no edit (it replaces integer addresses, not a second
+  name); this belongs to the duplicates lane.
+- `g_Va00E06634`'s +8/+0xC: no real name established.
 
 Remaining / next check: regenerate `reverse/data_ledger.csv` (a separate decision; LINK-619 measured the same staleness)
 and re-read the 483; against a regeneration with data rows applied, every one is a TU-local static, an `/alternatename`
