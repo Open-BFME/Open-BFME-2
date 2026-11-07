@@ -53,3 +53,31 @@ is what the evidence above is for.
 Also unchanged: the ZH base clause is still gated on a private view declaring exactly those
 bases, so none of these 53 contracts decides its bases differently today. The gate earns
 its place - ZH probes Team at size 88 against a BFME2 object of 0x13c.
+
+## The MemoryPoolObject question, narrowed but not settled
+
+The 12 partial disagreements all turn on one base, so it is worth what is known about it.
+
+`MemoryPoolObject` exists in BFME2: it is registered, has a contract, and its canonical
+header declares a 4-byte polymorphic class - a vptr and a virtual destructor, no data. But
+**no mangled row in `reverse/functions.csv` names it, and no contract lists it as a base.**
+In ZH it is the memory-pool base of many classes; in BFME2's ledger it appears nowhere.
+
+That suggested a clean test. If a class had MemoryPoolObject at 0 and Snapshot at 4, and
+both were polymorphic, retail would store two vptrs, and a vptr at a non-zero offset is
+exactly what retail *can* see. Retail records one vptr for these classes, at offset 0 -
+AIGroup's constructor at 0x36e4c7 stores table 0x817d00 at 0x0, Locomotor's at 0x1e449a
+stores 0x7de888 at 0x0, and nothing else.
+
+**That does not settle it, because Snapshot's own polymorphism is unclear.** Snapshot's
+contract records size 4 with zero virtual slots and no retail facts at all. If Snapshot
+carries no vtable, then a single vptr store at 0 is equally consistent with
+`MemoryPoolObject` at 0 and Snapshot's four data bytes at 4, and with the class's own vptr
+at 0. The one-vptr observation is real evidence and it is relevant, but it does not
+discriminate between the two shapes on its own.
+
+So the question reduces to settling Snapshot first: does BFME2's Snapshot have a vtable,
+and what are its four bytes? Its contract claims size 4 from no recorded evidence, which is
+exactly the kind of empty contract measured in
+`reverse/attempt_support/class-contract-size-vote-20261106/`. Until Snapshot is settled,
+the 12 partials cannot be, and no contract here was changed.
