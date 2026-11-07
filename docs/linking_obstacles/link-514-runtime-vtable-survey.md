@@ -610,9 +610,10 @@ Still walled:
   before OCLUpdate's constructor can store its table.
 
 **The Upgrade family's private views, part 1 (2026-11-07, seat halilkkaya-lk56, base `2f3e43c2c1`, census
-index `0aff0e89c0`).** Eight upgrade classes now let the compiler store their real tables over the canonical
+index `0aff0e89c0`).** Eleven upgrade classes now let the compiler store their real tables over the canonical
 UpgradeModule.h. Before, each emitted a primary table with `__purecall` in slots 1-3 (only two slots long for
-RemoveUpgradeUpgrade), an UpgradeMux (+0x10) table of ONE anchor slot (Delayed, Base, Castle, DoCommand) or of
+RemoveUpgradeUpgrade), an UpgradeMux (+0x10) table of ONE anchor slot (Delayed, Base, Castle, DoCommand,
+Tooltip, AllowBannerSpawn, LocomotorSet) or of
 11 slots with 9-10 `__purecall` (Stealth, Radar, RemoveUpgrade) where retail has 18, a one-slot +0x18 table,
 and a BehaviorModuleInterface table whose getDamage/getUpgrade returned 0. CommandSetUpgrade (already on the
 header) had `__purecall` in UpgradeMux slot 10, so applying any command-set upgrade aborted.
@@ -646,6 +647,9 @@ Recipe (one class at a time; three commits when the destructor and the getter ar
 | BaseUpgrade 0x004B371C (0x00C57120 / 0x00C570D8) | 66129a1ccd2, 35695d8351b, e14181773d9 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 17/18 + inline slot 8 | none |
 | CastleUpgrade 0x004B6869 (0x00C58880 / 0x00C58838) | 9e828df3c3f, 5dead9e635f, d9291776684 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 17/18 + inline slot 8 | none |
 | CommandSetUpgrade 0x004B3AB2 (0x00C57290 / 0x00C57248) | five commits, "CommandSetUpgrade: declare postUpgradeCheck ..." to "Fold class Rva004B39FC ..." | 6/12 -> 9/12 + 3 equiv | 16/18 (slot 10 `__purecall`) -> 18/18 | none |
+| TooltipUpgrade 0x004B7A50 (0x00C58C08 / 0x00C58BC0) | fa93e328ee1, f61e65810cb, 0882584e5bc, 1bff0526d02 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 18/18 | none: slot 6 is the postUpgradeCheck twin (an offset cast reads the registered Player's mask), slot 10 moved from `Rva004B7A9D`, `Rva004B79AD` folded |
+| AllowBannerSpawnUpgrade 0x004B8587 (0x00C59030 / 0x00C58FE8) | 0739a85b88b, 2129172c717 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 18/18 | none; the destructor and `??_G` were already rowed under the class (UpgradeModuleTailDtors.cpp), so no fold; the ctor's extern `__identifier` stores are gone |
+| LocomotorSetUpgrade 0x004B3F0B (0x00C57530 / 0x00C574E8) | 0739a85b88b | 6/12 -> 8/12 + 3 equiv | 1 slot -> 18/18 | slot 2 Wall 1 (`?name@LocomotorSetUpgrade`); LocomotorSetUpgradeConstructor.cpp, which compiled a third private view and did not link, now LINKS 75 B |
 
 "3 equiv" is slot 0 (the unit's `??_E` for the rowed `??_G`), slot 1 (UpgradeModule's 0x0058B03E for retail's
 `jmp` 0x00497805) and slot 5 (the inline `ret`). Every class's BehaviorModuleInterface table is now 42/47 plus
@@ -656,7 +660,8 @@ which let the slot-10 move (`?upgradeImplementation@Rva004B3AFF` -> CommandSetUp
 
 link_check: every commit keeps its ctor, scaffold, factory, pool-key, implementation and getter units
 linking at census bytes or more (Stealth 226 -> 252, Radar 416 -> 450, DoCommand 145 -> 171, RemoveUpgrade
-295 -> 321, Delayed 49 -> 75, Base 270 -> 296, Castle 271 -> 297, CommandSet 443 -> 469 B). Check these units
+295 -> 321, Delayed 49 -> 75, Base 270 -> 296, Castle 271 -> 297, CommandSet 443 -> 469, Tooltip 206 -> 302,
+AllowBannerSpawnUpgradeCtor 49 -> 75, LocomotorSetUpgradeConstructor 0 -> 75 B). Check these units
 with the current objects of FireWeaponWhenDeadBehaviorDerived.cpp and ModuleNameGetters3.cpp in the list: the
 census copies predate the folds and getter moves, and fake `??1X` duplicates and unresolved
 `GetSnapshotName`s (the getter commit 5dead9e635f's "6/6" holds only with the scaffold included: 7/7).
@@ -664,18 +669,14 @@ Census confirmation: not claimed.
 
 Still walled in the family:
 - Wall 1 getters (readable non-virtual `?name@X@@QBEPBDXZ`: StealthUpgrade, DoCommandUpgrade,
-  RemoveUpgradeUpgrade): an identifier rename to GetSnapshotName needs a canonical basis; vtable slot order is
+  RemoveUpgradeUpgrade, LocomotorSetUpgrade): an identifier rename to GetSnapshotName needs a canonical basis; vtable slot order is
   only a hint.
 - WeaponSetUpgrade: UpgradeMux slots 8/10 (0x004B5783, 0x004B5765) are rowed non-virtual under the readable
   class WeaponSetUpgradeSecondary; `--to-class` takes only placeholder classes (re_attempts 0x004B5765).
-- TooltipUpgrade: slot 6 needs the postUpgradeCheck twin above (the body reads the Player's 128-bit mask at
-  +0x13C; Player is registered, so no private Player view, only an offset cast), then slot 10
-  `?upgradeImplementation@Rva004B7A9D` can move, then the getter and the `Rva004B79AD` fold.
 - Not attempted this pass: LevelUpUpgrade (UpgradeMux slot 2 is
   `?rva004CE2B0@LevelUpUpgrade@@UAE_NPAVRva00406F9C@@@Z`, a wouldUpgrade override with a placeholder
   parameter type), CostModifierUpgrade and SpellRechargeModifierUpgrade (the ReplaceSelfUpgrade +0x1C
-  interface shape), GeometryUpgrade, StatusBitsUpgrade, LocomotorSetUpgrade, AllowBannerSpawnUpgrade and
-  SubObjectsUpgrade.
+  interface shape), GeometryUpgrade, StatusBitsUpgrade and SubObjectsUpgrade.
 
 Items 2 and 3 of the lk53 handoff, re-checked this pass and still walled:
 - SpecialAbilityUpdate (`class --fold Rva0044EF5E --into SpecialAbilityUpdate`) is refused before planning by
