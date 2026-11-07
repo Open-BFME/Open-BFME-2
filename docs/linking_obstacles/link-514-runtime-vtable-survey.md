@@ -803,3 +803,26 @@ W3DTreeDraw, routed to a tooling lane.**
    `--to-class` stays refused for readable classes, and the two false-reject rows for 0x004BE3EF and 0x004BE67E are
    voided. ActiveBody p20/b28 need a class-ownership naming route, which is not designed yet. StructureBody and the
    ActiveBody.h-based Body ctors stay parked behind it.
+
+
+**2026-11-07 ActiveBody p20/b28 need a naming route for class ownership (swarm Link lane).**
+0x004BE3EF (rowed `W3DModelDraw::stopClientParticleSystems`, a Zero Hour donor spelling) and 0x004BE67E
+(`DetachableRiderBody::Rva004BE67E`) sit only in ActiveBody's and its subclasses' retail tables
+(0x004BE3EF in slot 20 of eleven 23/25-slot tables from 0x00C5B038; 0x004BE67E in slot 28 of the
+43-slot tables from 0x00C5B390). A `rename.py function --to-class` mode that moved a readable member
+out of its class on that evidence (no name_basis.csv record, the address in no table of the current
+class, every table installed by the target or a subclass) was reviewed and dropped: a missing record
+is no evidence that a readable name is wrong (docs/naming.md records historical hand renames without
+basis rows), and inherited occupancy does not prove which class declares the override. So the move is
+a naming decision and needs a naming route: a name_lane key type that votes on which class owns a
+method. To design later, not now.
+
+Two facts for that design, read through rename.py's table helpers at 27ad28896c: every subclass table
+holding either address is installed by exactly two rows, the readable subclass's constructor and a
+destructor rowed under a placeholder class (e.g. 0x00C5BBE8: `??0DelayedDeathBody` and
+`??1Rva004C1604`, a class with only `??1`/`??_G` rows). The `--to-class` "unrelated class" refusal on
+the DelayedDeathBody, FreeLifeBody and DetachableRiderBody tables comes from their own constructor
+units' views, not from the placeholders: DelayedDeathBody.cpp and FreeLifeBody.cpp declare their class
+on `RespawnBody` with no base for RespawnBody, and DetachableRiderBodyCtor.cpp declares no base for its
+class, so neither chain reaches ActiveBody. ImmortalBody, StructureBody and RespawnBody's tables have
+the same constructor-plus-placeholder-destructor shape and pass.
