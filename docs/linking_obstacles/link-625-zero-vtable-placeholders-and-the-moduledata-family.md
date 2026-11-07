@@ -255,3 +255,12 @@ scaffold's view the same bases in the same commit so both copies are identical.
   Order: the DrawModule class fold (seat6's tool), then slot 2, slot 3 and the slot-0 alias, then W3DTreeDraw.cpp on
   DrawModule.h with its pure slots (11-14, 35, 38, 39) as the shared empty bodies. W3DDefaultDraw (`g_00BC98B0`, 94
   uses) shares slots 0 and 3 and follows the same path.
+- Bridge check after the ledger regeneration d88c3448da (2026-11-07, crash-prevention lane): an offline
+  `vtable_bridge.plan()` over the exit link's inputs at master 43f1ab7bb0 plans `??_7AutoDepositUpdateModuleData@@6B@`
+  (0x007F1BC8) and `??_7StructureToppleUpdateModuleData@@6B@` (0x007F43A8) at 31 slots with no refusal. That is the
+  interim, bridged state, debt until the `??_G` TU approval. AttributeModifierAura, SpawnBehavior and ToggleMounted are
+  planned at 31 too. ArrowStormUpdateModuleData (repaired in 43f1ab7bb0, after this ledger was built) is an unindexed
+  binding: its retail row 0x0084D5A0 is still `global _vtbl_00C4D5A0` (the removed hatch's name), so the next
+  regeneration binds it. Until then the constructor unit's full 31-slot copy is the one kept: link order follows object
+  path, and `arrow^storm^update^module^data^ctor.obj` sorts before `update^module^data^deleting^dtors.obj`, the scaffold
+  that keeps a 1-slot copy because its TU defines ModuleData through BfmeModuleData.h.
