@@ -1794,6 +1794,12 @@ def vptr_store_report(checker, stores, sizes, order=None):
     an advisory lead, not a proof of correctness), and the
     unanalyzed-* verdicts. Transient stores are counted, not judged. Stores
     are not reachability: order is an optional {(function, offset): rank}.
+
+    Known limit, the cost of failing closed: a row whose relative calls do
+    not resolve through the correspondence is unanalyzed-layout, even when
+    its table is right. On diagnostic image 2bac16a657 that hides 1,064
+    stores, among them module data such as SubObjectsUpgrade and
+    LargeGroupAudio whose installed 31-slot tables were full and correct.
     """
     import capstone
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
