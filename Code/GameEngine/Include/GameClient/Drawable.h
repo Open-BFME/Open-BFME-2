@@ -44,16 +44,10 @@ enum NameKeyType;
 enum WeaponSlotType;
 enum WhichTurretType;
 
-// Target facts: 442 entries of retail's .CRT$XCU table (the first at 0x007AB7F0) are one
-// 16-byte initializer, mov eax, [0x00DBA4E8]; cdq; sub eax, edx; sar eax, 1; mov [s], eax;
-// ret, each into its own unit's .bss int. Drawable::updateDrawable divides the client frame
-// by its unit's copy (0x00275A30 div [0x00DFEB98], then test edx, edx) and ScriptActions'
-// flash actions divide a frame count by theirs (0x003BB5ED idiv [0x00E02D9C]). Zero Hour
-// makes exactly those uses of DRAWABLE_FRAMES_PER_FLASH, which its Drawable.h defines as
-// LOGICFRAMES_PER_SECOND / 2. BFME 2 divides the frame-rate variable at VA 0x00DBA4E8
-// instead, so every unit that includes this header builds the constant at startup.
-extern int BfmeClientFramesPerSecond;
-const int DRAWABLE_FRAMES_PER_FLASH = BfmeClientFramesPerSecond / 2;
+// DRAWABLE_FRAMES_PER_FLASH (BfmeClientFramesPerSecond / 2): every unit that includes this
+// header builds it at startup (one 16-byte .CRT$XCU copy per unit; target facts in the
+// included header, which units that cannot take this whole header include on their own).
+#include "DrawableFramesPerFlash.h"
 
 class Drawable : public Thing, public Snapshot
 {
