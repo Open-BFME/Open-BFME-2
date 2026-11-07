@@ -435,15 +435,26 @@ protected:
     virtual ModuleTemplate *createTemplate(::INI *ini) const = 0;
 };
 
-template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
+// The category numbers' enum (FXParticleSystem.cpp's spelling), the type retail's exported
+// ModuleTag<...>::CATEGORY constants carry (W4ModuleCategory@FXParticleSystem@@).
+enum ModuleCategory
+{
+    MODULE_CATEGORY_FIRST
+};
+
+template <int CATEGORY_ARG, const char *const &Key, const char *const &Name, class MODULE,
     class TEMPLATE, class DEFAULT>
 class ModuleTag
 {
 public:
-    enum { IS_DEFAULT = 0 };
+    // Retail exports both as data, every IS_DEFAULT false (a default category's own tag is
+    // DefaultModuleTag). Retail folds these constants onto shared addresses; /OPT:NOICF keeps
+    // each one apart here (LINK-584).
+    static const bool IS_DEFAULT = false;
+    static const ModuleCategory CATEGORY = (ModuleCategory)CATEGORY_ARG;
 
     typedef TEMPLATE TemplateType;
-    typedef CategoryModuleClass<CATEGORY> ClassBase;
+    typedef CategoryModuleClass<CATEGORY_ARG> ClassBase;
 
     // Static REFERENCES, not accessors: MSVC 7.1 gives each one a hidden
     // pointer global, so reading them is a load of that pointer and a load
@@ -454,13 +465,21 @@ public:
     static __declspec(dllimport) __forceinline const char *const &nameReference() { return NAME; }
 };
 
-template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
+template <int CATEGORY_ARG, const char *const &Key, const char *const &Name, class MODULE,
     class TEMPLATE, class DEFAULT>
-const char *const &ModuleTag<CATEGORY, Key, Name, MODULE, TEMPLATE, DEFAULT>::KEY = Key;
+const char *const &ModuleTag<CATEGORY_ARG, Key, Name, MODULE, TEMPLATE, DEFAULT>::KEY = Key;
 
-template <int CATEGORY, const char *const &Key, const char *const &Name, class MODULE,
+template <int CATEGORY_ARG, const char *const &Key, const char *const &Name, class MODULE,
     class TEMPLATE, class DEFAULT>
-const char *const &ModuleTag<CATEGORY, Key, Name, MODULE, TEMPLATE, DEFAULT>::NAME = Name;
+const char *const &ModuleTag<CATEGORY_ARG, Key, Name, MODULE, TEMPLATE, DEFAULT>::NAME = Name;
+
+template <int CATEGORY_ARG, const char *const &Key, const char *const &Name, class MODULE,
+    class TEMPLATE, class DEFAULT>
+const bool ModuleTag<CATEGORY_ARG, Key, Name, MODULE, TEMPLATE, DEFAULT>::IS_DEFAULT;
+
+template <int CATEGORY_ARG, const char *const &Key, const char *const &Name, class MODULE,
+    class TEMPLATE, class DEFAULT>
+const ModuleCategory ModuleTag<CATEGORY_ARG, Key, Name, MODULE, TEMPLATE, DEFAULT>::CATEGORY;
 
 template <class TAG>
 class ConcreteModuleTemplate : public TAG::TemplateType
@@ -576,6 +595,8 @@ template <> class ModuleTag<5, POINT_EMISSION_VOLUME_MODULE_KEY, POINT_EMISSION_
 public:
     static const char *const &KEY;
     static const char *const &NAME;
+    static const bool IS_DEFAULT = false;
+    static const ModuleCategory CATEGORY = (ModuleCategory)5;
 };
 typedef ModuleTag<5, POINT_EMISSION_VOLUME_MODULE_KEY, POINT_EMISSION_VOLUME_MODULE_NAME,
     PointEmissionVolumeModule, PointEmissionVolumeModuleTemplate, DefaultParticleModule<5> > PointEmissionVolumeModuleReferenceTag;
@@ -645,6 +666,8 @@ template <> class ModuleTag<4, ORTHO_EMISSION_VELOCITY_MODULE_KEY, ORTHO_EMISSIO
 public:
     static const char *const &KEY;
     static const char *const &NAME;
+    static const bool IS_DEFAULT = false;
+    static const ModuleCategory CATEGORY = (ModuleCategory)4;
 };
 typedef ModuleTag<4, ORTHO_EMISSION_VELOCITY_MODULE_KEY, ORTHO_EMISSION_VELOCITY_MODULE_NAME,
     OrthoEmissionVelocityModule, OrthoEmissionVelocityModuleTemplate, DefaultParticleModule<4> > OrthoEmissionVelocityModuleReferenceTag;
@@ -979,4 +1002,68 @@ void bfmeEmitFXParticleSystemModulesAssign()
 }
 #pragma inline_depth()
 
+
+// Retail's exported ModuleTag<...>::IS_DEFAULT and CATEGORY constants (LINK-584): one definition
+// each, for the tags retail exports them for, the six default categories' own ModuleTag included.
+template <int CATEGORY_ARG> class DefaultModule;
+typedef ModuleTag<0, DefaultModuleKey<0>::VALUE, DefaultModuleName<0>::VALUE, DefaultModule<0>, DefaultModuleTemplate<0>, DefaultParticleModule<0> > DefaultModuleExportTag0;
+typedef ModuleTag<1, DefaultModuleKey<1>::VALUE, DefaultModuleName<1>::VALUE, DefaultModule<1>, DefaultModuleTemplate<1>, DefaultParticleModule<1> > DefaultModuleExportTag1;
+typedef ModuleTag<2, DefaultModuleKey<2>::VALUE, DefaultModuleName<2>::VALUE, DefaultModule<2>, DefaultModuleTemplate<2>, DefaultParticleModule<2> > DefaultModuleExportTag2;
+typedef ModuleTag<3, DefaultModuleKey<3>::VALUE, DefaultModuleName<3>::VALUE, DefaultModule<3>, DefaultModuleTemplate<3>, DefaultParticleModule<3> > DefaultModuleExportTag3;
+typedef ModuleTag<6, DefaultModuleKey<6>::VALUE, DefaultModuleName<6>::VALUE, DefaultModule<6>, DefaultModuleTemplate<6>, DefaultParticleModule<6> > DefaultModuleExportTag6;
+typedef ModuleTag<7, DefaultModuleKey<7>::VALUE, DefaultModuleName<7>::VALUE, DefaultModule<7>, DefaultModuleTemplate<7>, DefaultParticleModule<7> > DefaultModuleExportTag7;
+template const bool SphereEmissionVolumeModuleTag::IS_DEFAULT;
+template const ModuleCategory SphereEmissionVolumeModuleTag::CATEGORY;
+template const bool BoxEmissionVolumeModuleTag::IS_DEFAULT;
+template const ModuleCategory BoxEmissionVolumeModuleTag::CATEGORY;
+template const bool LineEmissionVolumeModuleTag::IS_DEFAULT;
+template const ModuleCategory LineEmissionVolumeModuleTag::CATEGORY;
+template const bool CylinderEmissionVolumeModuleTag::IS_DEFAULT;
+template const ModuleCategory CylinderEmissionVolumeModuleTag::CATEGORY;
+template const bool SphericalEmissionVelocityModuleTag::IS_DEFAULT;
+template const ModuleCategory SphericalEmissionVelocityModuleTag::CATEGORY;
+template const bool HemisphericalEmissionVelocityModuleTag::IS_DEFAULT;
+template const ModuleCategory HemisphericalEmissionVelocityModuleTag::CATEGORY;
+template const bool CylindricalEmissionVelocityModuleTag::IS_DEFAULT;
+template const ModuleCategory CylindricalEmissionVelocityModuleTag::CATEGORY;
+template const bool OutwardEmissionVelocityModuleTag::IS_DEFAULT;
+template const ModuleCategory OutwardEmissionVelocityModuleTag::CATEGORY;
+template const bool LightningDrawModuleTag::IS_DEFAULT;
+template const ModuleCategory LightningDrawModuleTag::CATEGORY;
+template const bool TerrainFireEmissionModuleTag::IS_DEFAULT;
+template const ModuleCategory TerrainFireEmissionModuleTag::CATEGORY;
+template const bool LightningEmissionModuleTag::IS_DEFAULT;
+template const ModuleCategory LightningEmissionModuleTag::CATEGORY;
+template const bool RenderObjectDrawModuleTag::IS_DEFAULT;
+template const ModuleCategory RenderObjectDrawModuleTag::CATEGORY;
+template const bool GpuDrawModuleTag::IS_DEFAULT;
+template const ModuleCategory GpuDrawModuleTag::CATEGORY;
+template const bool RenderObjectUpdateModuleNamedTag::IS_DEFAULT;
+template const ModuleCategory RenderObjectUpdateModuleNamedTag::CATEGORY;
+template const bool LifeEventModuleNamedTag::IS_DEFAULT;
+template const ModuleCategory LifeEventModuleNamedTag::CATEGORY;
+template const bool TerrainCollisionModuleNamedTag::IS_DEFAULT;
+template const ModuleCategory TerrainCollisionModuleNamedTag::CATEGORY;
+template const bool StreakDrawModuleClassTag::IS_DEFAULT;
+template const ModuleCategory StreakDrawModuleClassTag::CATEGORY;
+template const bool QuadDrawModuleClassTag::IS_DEFAULT;
+template const ModuleCategory QuadDrawModuleClassTag::CATEGORY;
+template const bool ButterflyDrawModuleClassTag::IS_DEFAULT;
+template const ModuleCategory ButterflyDrawModuleClassTag::CATEGORY;
+const bool PointEmissionVolumeModuleReferenceTag::IS_DEFAULT;
+const ModuleCategory PointEmissionVolumeModuleReferenceTag::CATEGORY;
+const bool OrthoEmissionVelocityModuleReferenceTag::IS_DEFAULT;
+const ModuleCategory OrthoEmissionVelocityModuleReferenceTag::CATEGORY;
+template const bool DefaultModuleExportTag0::IS_DEFAULT;
+template const ModuleCategory DefaultModuleExportTag0::CATEGORY;
+template const bool DefaultModuleExportTag1::IS_DEFAULT;
+template const ModuleCategory DefaultModuleExportTag1::CATEGORY;
+template const bool DefaultModuleExportTag2::IS_DEFAULT;
+template const ModuleCategory DefaultModuleExportTag2::CATEGORY;
+template const bool DefaultModuleExportTag3::IS_DEFAULT;
+template const ModuleCategory DefaultModuleExportTag3::CATEGORY;
+template const bool DefaultModuleExportTag6::IS_DEFAULT;
+template const ModuleCategory DefaultModuleExportTag6::CATEGORY;
+template const bool DefaultModuleExportTag7::IS_DEFAULT;
+template const ModuleCategory DefaultModuleExportTag7::CATEGORY;
 }
