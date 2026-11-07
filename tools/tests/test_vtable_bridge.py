@@ -598,3 +598,77 @@ def test_later_non_comdat_provider_refuses_even_with_selection_metadata(tmp_path
     result = twin_plan(tmp_path, comdat_code(tmp_path / "earlier.obj"), later)
     assert result["tables"] == 0
     assert result["refusals"][0]["reason"] == "target-not-winning-provider"
+
+
+class ThunkRetail(Retail):
+    """Retail with the table at 0x3000 and extra code bytes at given RVAs."""
+
+    def __init__(self, values, code):
+        super().__init__(values)
+        self.code = code
+
+    def read(self, rva, size):
+        for start, raw in self.code.items():
+            if start <= rva < start + len(raw):
+                return raw[rva - start:rva - start + size]
+        return super().read(rva, size)
+
+
+def jmp(at, target):
+    return b"\xe9" + struct.pack("<i", target - (at + 5))
+
+
+def thunk_plan(tmp_path, thunks, code_bytes, slot=0x1020):
+    """Slot 1 of a two-slot retail table points at `slot`; `thunks` are (rva, size, notes) rows the
+    exit link omits; `code_bytes` are retail's bytes there."""
+    code, table, rows, data = inputs(tmp_path)
+    omitted = L.write_coff(tmp_path / "gthunks.obj", [(".text", 0x60500020, b"\xcc" * 16, 0)],
+                           [(f"_j_{rva:x}", 1, 0, L.EXTERNAL) for rva, _size, _notes in thunks][:1])
+    rows += [{"target_rva": hex(rva), "target_size": str(size), "name": f"_j_{rva:x}",
+              "source": "Code/gen_small/gthunks.cpp", "status": "matched", "notes": notes}
+             for rva, size, notes in thunks]
+    paths = {"Code/code.cpp": code, "Code/gen_small/gthunks.cpp": omitted}
+    return V.plan(rows, [table, code], [omitted], ThunkRetail((0x1000, slot), code_bytes), data,
+                  object_for=lambda row: paths[row["source"]], symbol_for=lambda row: row["name"])
+
+
+def test_a_slot_on_an_omitted_jmp_thunk_takes_the_thunks_target(tmp_path):
+    # P11: INI::readLine calls XferMD5CRC slot 9; retail slot 11 is the gen-thunk 0x0052B492, a
+    # `jmp 0x0060CE41` in Code/gen_small/gthunks_000_admitted.cpp, which the exit link omits.
+    result = thunk_plan(tmp_path, [(0x1020, 5, "gen-thunk;gap;target=0x00001010")], {0x1020: jmp(0x1020, 0x1010)})
+    assert (result["tables"], result["refused_tables"], result["thunk_forwarded_slots"]) == (1, 0, 1)
+    slot = result["entries"][0]["slots"][1]
+    assert (slot["name"], slot["rva"], slot["forwarded_from"]) == ("_second", 0x1010, 0x1020)
+
+
+@pytest.mark.parametrize("thunks,code_bytes", [
+    ([(0x1020, 6, "gen-thunk;gap;target=0x00001010")], {0x1020: jmp(0x1020, 0x1010) + b"\x90"}),  # extra bytes
+    # Not jmp rel32: the same four bytes after an FF opcode would land on the target.
+    ([(0x1020, 5, "gen-thunk;gap;target=0x00001010")], {0x1020: b"\xff" + jmp(0x1020, 0x1010)[1:]}),
+    ([(0x1020, 5, "gen-thunk;gap;target=0x00001000")], {0x1020: jmp(0x1020, 0x1010)}),           # note disagrees
+    ([(0x1020, 5, "gap;target=0x00001010")], {0x1020: jmp(0x1020, 0x1010)}),                     # not a gen-thunk row
+    ([(0x1020, 5, "gen-thunk;gap;target=0x00001030")], {0x1020: jmp(0x1020, 0x1030)}),           # missing target
+    ([(0x1020, 5, "gen-thunk;gap;target=0x00001040"), (0x1040, 16, "gap")],                      # omitted target
+     {0x1020: jmp(0x1020, 0x1040)}),
+    ([(0x1020, 5, "gen-thunk;gap;target=0x00001040"), (0x1040, 5, "gen-thunk;gap;target=0x00001010")],  # chain
+     {0x1020: jmp(0x1020, 0x1040), 0x1040: jmp(0x1040, 0x1010)}),
+])
+def test_anything_but_one_jmp_to_a_kept_provider_stays_omitted(tmp_path, thunks, code_bytes):
+    result = thunk_plan(tmp_path, thunks, code_bytes)
+    assert result["tables"] == 0 and result["thunk_forwarded_slots"] == 0
+    assert result["refusals"][0]["reason"] == "omitted-target"
+
+
+def test_a_thunk_address_another_kept_row_also_claims_is_not_forwarded(tmp_path):
+    code, table, rows, data = inputs(tmp_path)
+    omitted = L.write_coff(tmp_path / "gthunks.obj", [(".text", 0x60500020, b"\xcc" * 16, 0)],
+                           [("_j_1020", 1, 0, L.EXTERNAL)])
+    rows += [{"target_rva": "0x1020", "target_size": "5", "name": "_j_1020", "source": "Code/gen_small/gthunks.cpp",
+              "status": "matched", "notes": "gen-thunk;gap;target=0x00001010"},
+             # the same thunk rowed again in a kept object: the omitted copy is not the only row there
+             {"target_rva": "0x1020", "target_size": "5", "name": "_j_1020_kept", "source": "Code/code.cpp",
+              "status": "matched", "notes": "gen-thunk;gap;target=0x00001010"}]
+    paths = {"Code/code.cpp": code, "Code/gen_small/gthunks.cpp": omitted}
+    result = V.plan(rows, [table, code], [omitted], ThunkRetail((0x1000, 0x1020), {0x1020: jmp(0x1020, 0x1010)}),
+                    data, object_for=lambda row: paths[row["source"]], symbol_for=lambda row: row["name"])
+    assert result["tables"] == 0 and result["refusals"][0]["reason"] == "omitted-target"
