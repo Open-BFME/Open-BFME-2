@@ -105,8 +105,10 @@ AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
 
 class AptDate {
+public:
+	virtual AptValue *objectMemberLookup(AptValue *const context, const EAStringC *const name) const;
 private:
-	char prefix[0x20];
+	char prefix[0x20 - sizeof(void *)];
 private:
 	AptSysClock local,utc;
 private:
