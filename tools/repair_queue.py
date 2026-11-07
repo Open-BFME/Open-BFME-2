@@ -1932,9 +1932,80 @@ def removed_header_rows():
         return []
 
     def rows(text):
-        return {(r.get("class") or "", r.get("source") or "")
-                for r in csv.DictReader(io.StringIO(text), delimiter="\t") if r.get("class")}
-    return sorted(rows(old.stdout) - (rows(new.stdout) if new.returncode == 0 else set()))
+        out = {}
+        for r in csv.DictReader(io.StringIO(text), delimiter="\t"):
+            if r.get("class"):
+                out.setdefault((r["class"], r.get("source") or ""), set()).update((r.get("retail_rvas") or "").split())
+        return out
+    before, after = rows(old.stdout), (rows(new.stdout) if new.returncode == 0 else {})
+    renames = recorded_class_renames()
+    # A registered class renamed in this change (tools/rename.py class) re-keys its rows:
+    # (OLD, src) is carried, not retired, when the change adds (NEW, src) for the very same
+    # source with every RVA OLD's row held.
+    return sorted(pair for pair in before.keys() - after.keys()
+                  if not (pair[0] in renames and (renames[pair[0]], pair[1]) not in before
+                          and before[pair] <= after.get((renames[pair[0]], pair[1]), set())))
+
+
+def recorded_class_renames():
+    """{OLD: NEW} registered classes the change from DEBT_BASE to DEBT_TARGET renames with
+    an approval: its name_basis.csv gains a `class,OLD,NEW` row, canonical_classes.csv
+    holds exactly one OLD row (no NEW) before and exactly one NEW row under OLD's header
+    (no OLD) after, and DEBT_BASE's own tools/rename.py `verify-record` accepts the record
+    as the approval of exactly that rename (the agreement recomputed from the votes, a
+    canonical citation re-checked, a revert proven the exact inverse). The rule of
+    tools/class_gate.py's approved_class_renames, kept inline because the hooks run this
+    file's base copy through stdin, so the copy being judged cannot loosen it."""
+    def text(rev, path):
+        got = _git("show", f"{rev}:{path}")
+        return got.stdout if got.returncode == 0 else ""
+
+    def table(rev, path):
+        return list(csv.DictReader(io.StringIO(text(rev, path))))
+    fields = ("kind", "old", "new", "basis", "evidence", "source", "rva")
+    before = {tuple(r.get(c) or "" for c in fields) for r in table(DEBT_BASE, f"{REV}/name_basis.csv")}
+    pairs = {(r.get("old") or "", r.get("new") or "") for r in table(DEBT_TARGET, f"{REV}/name_basis.csv")
+             if r.get("kind") == "class" and tuple(r.get(c) or "" for c in fields) not in before}
+    olds = collections.Counter(o for o, _n in pairs)
+    news = collections.Counter(n for _o, n in pairs)
+
+    def headers(rev):
+        out = collections.defaultdict(list)
+        for r in table(rev, f"{REV}/canonical_classes.csv"):
+            out[r.get("class") or ""].append(r.get("header") or "")
+        return out
+    was, now = headers(DEBT_BASE), headers(DEBT_TARGET)
+    candidates = {old: new for old, new in pairs
+                  if old and new and old != new and olds[old] == 1 and news[new] == 1
+                  and len(was.get(old, ())) == 1 and not was.get(new) and not now.get(old)
+                  and now.get(new) == was[old]}
+    return _base_verified(candidates) if candidates else {}
+
+
+def _base_verified(candidates):
+    """The candidates DEBT_BASE's tools/rename.py verify-record accepts, run from a copy of
+    DEBT_BASE's tools/*.py; anything that fails to run credits nothing."""
+    import tarfile
+    import tempfile
+    archive = subprocess.run(["git", "archive", DEBT_BASE or "HEAD", "--", ":(glob)tools/*.py"], cwd=ROOT,
+                             capture_output=True)
+    if archive.returncode != 0:
+        print(f"repair_queue: no class-rename credit: cannot read {DEBT_BASE}'s tools", file=sys.stderr)
+        return {}
+    approved = {}
+    with tempfile.TemporaryDirectory(prefix="class-rename-verify-") as tmp:
+        with tarfile.open(fileobj=io.BytesIO(archive.stdout)) as tar:
+            tar.extractall(tmp, filter="data")
+        for old, new in sorted(candidates.items()):
+            got = subprocess.run([sys.executable, str(Path(tmp) / "tools" / "rename.py"), "verify-record",
+                                  "--root", str(ROOT), "--base", DEBT_BASE or "HEAD", "--target", DEBT_TARGET,
+                                  "--old", old, "--new", new], cwd=ROOT, capture_output=True, text=True)
+            if got.returncode == 0:
+                approved[old] = new
+            else:
+                print(f"repair_queue: no class-rename credit for {old} -> {new}: "
+                      f"{(got.stdout + got.stderr).strip()[-300:]}", file=sys.stderr)
+    return approved
 
 
 def _staged_text(path):

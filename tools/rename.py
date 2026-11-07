@@ -134,13 +134,20 @@ in every mangled name it scopes or types -- functions.csv names and notes
 ctor/dtor/`??_G` rows, template arguments -- and in every source, header and
 shim view that spells it, code and comments, plus the units whose objects
 reference a renamed symbol. It refuses a word that is also a function or
-datum identifier, a class registered in reverse/canonical_classes.csv (its
-contract and class_gate key move in a class-reconciliation commit), and any
-class that scopes an export, a vendored= or .lib row, an evidence-tier name or
-a converged datum. Retail is /GR-, so no RTTI string carries a game class name.
+datum identifier and any class that scopes an export, a vendored= or .lib row,
+an evidence-tier name or a converged datum. Retail is /GR-, so no RTTI string
+carries a game class name. A placeholder class registered in
+reverse/canonical_classes.csv moves with its registration: the registry key
+(and its contract note), the contract (git mv to reverse/class_contracts/NEW.json,
+its spellings respelled) and its reverse/header_queue.tsv rows (same sources,
+same RVAs); the header keeps its path, and after ./build.sh no rebuilt object
+may name a symbol of the old spelling (the "registered classes" section). A
+readable registered class, a NEW already registered and a mismatched contract
+are refused.
 A `member` (one non-static data member of one class) never reaches bytes:
 every view declaring it and every file using it through a header view is
-rewritten, a file that also declares the word for another class is refused.
+rewritten, a file that also declares the word for another class is refused;
+a registered class's contract field of that name is respelled with it.
 A `param` or `local` is respelled inside one function body in one file, and
 the rule asks only what the new spelling could capture and what the old one
 could mean there. A local is refused in a file that compiles /Od (the `// cl:`
@@ -1165,6 +1172,7 @@ class Plan:
     dropped_pins: list = field(default_factory=list)  # class --fold: (old pin, its respelling, address) removed
     to_class: dict = None                             # function --to-class: the slot the rebuilt vftable must name
     retype: dict = None                               # global --retype: what the rebuilt objects must prove
+    registered: dict = None                           # class on a canonical_classes.csv key: what moves with it
 
     def edit(self, ctx, rel, data):
         if rel not in self.before:
@@ -1212,6 +1220,10 @@ class Plan:
                 lines.append(f"  evidence: {self.evidence}")
         for old, new in self.moves:
             lines.append(f"  git mv {old} {new}")
+        if self.registered:
+            lines.append(f"  registered: {CANONICAL_CLASSES} key {self.registered['old']} -> "
+                         f"{self.registered['new']} (header {self.registered['header']} kept)")
+            lines += [f"    {what}" for what in self.registered["moved"]]
         for rel, count in sorted(self.path_rows.items()):
             lines.append(f"  {rel}: {count} path field(s) repointed")
         if self.renamed_data:
@@ -5807,6 +5819,7 @@ def plan_file(ctx, source, new, basis, evidence, *, max_files=25):
 
 CANONICAL_CLASSES = "reverse/canonical_classes.csv"
 CLASS_CONTRACTS = "reverse/class_contracts"
+HEADER_QUEUE = "reverse/header_queue.tsv"
 FLAG_OVERRIDES = "reverse/flag_overrides.csv"
 # A source split for a token rewrite: whole #include lines first (their paths
 # are the file kind's business), then comments and literals as SEGMENT has them.
@@ -5980,22 +5993,690 @@ def rewrite_ledger(ctx, plan, rel, label, regex, replacement):
     return changed
 
 
+# ---------------------------------------------------------------- registered classes
+#
+# A class registered in reverse/canonical_classes.csv has a canonical header, a
+# contract (reverse/class_contracts/<class>.json, tools/class_contract.py) and
+# usually private views in units that have not adopted the header yet
+# (reverse/header_queue.tsv). Its placeholder name moves with all of them in one
+# commit, or the gates read the result as something else: class_gate sees every
+# respelled private view as a new copy of NEW, and repair_queue sees each
+# header_queue.tsv row re-keyed to NEW as retired debt. Both credit exactly this
+# change (class_views.recorded_class_renames): the commit's name_basis.csv `class`
+# record plus the one registry key moved to NEW under the header OLD had. So the
+# plan, on top of the token rewrite, re-keys the registry row (and its contract
+# note), git-mvs the contract to NEW.json with its spellings respelled, and
+# re-keys OLD's header_queue.tsv rows (same source, same RVAs). The header keeps
+# its path: the file kind refuses a header others include. After ./build.sh no
+# rebuilt unit's object may name a symbol OLD scopes or types.
+
+def class_registration(ctx, old, new, basis=None):
+    """What the registry holds for `old` when `old` is registered, else None; refuses a
+    registration this rename cannot move: a readable OLD (two real names are a
+    reconciliation) unless the basis is `restored` (check_restore then proves the exact
+    inverse of an inferred landing), two registry rows, a missing or mismatched contract,
+    an orphan contract, or a NEW that is registered or has a contract already."""
+    rows = [r for r in ctx.dicts(CANONICAL_CLASSES) if r.get("class") == old]
+    contract = f"{CLASS_CONTRACTS}/{old}.json"
+    if not rows and ctx.read(contract) is None:
+        return None
+    if not rows:
+        raise Refusal(f"{contract} exists but {CANONICAL_CLASSES} registers no {old}: an orphan contract "
+                      "is no registration this rename can move")
+    if not is_placeholder(old, "class") and basis != RESTORED:
+        raise Refusal(f"{old} is a readable class registered in {CANONICAL_CLASSES}: only a placeholder's key "
+                      "moves with a rename (or an inferred one back to its placeholder, by `rename.py revert`); "
+                      "choosing between real names is a class reconciliation")
+    if len(rows) != 1:
+        raise Refusal(f"{CANONICAL_CLASSES} registers {old} {len(rows)} times; one key must move")
+    if any(r.get("class") == new for r in ctx.dicts(CANONICAL_CLASSES)) or \
+            ctx.read(f"{CLASS_CONTRACTS}/{new}.json") is not None:
+        raise Refusal(f"{new} is registered in {CANONICAL_CLASSES} / {CLASS_CONTRACTS} already: two registered "
+                      "classes are one only through a reconciliation (or class --fold), not a rename")
+    data = ctx.read(contract)
+    if data is None:
+        raise Refusal(f"{old} is registered in {CANONICAL_CLASSES} but {contract} is missing; write it with "
+                      f"tools/class_contract.py --class {old} --write first")
+    try:
+        frozen = json.loads(data.decode("utf-8"))
+    except ValueError as error:
+        raise Refusal(f"{contract} is not JSON: {error}") from None
+    if not isinstance(frozen, dict) or frozen.get("class") != old:
+        raise Refusal(f"{contract} is the contract of {frozen.get('class') if isinstance(frozen, dict) else '?'}, "
+                      f"not {old}")
+    header = rows[0].get("header") or ""
+    refuse_vendored(ctx, {header}, f"renaming the registered class {old}")
+    return {"old": old, "new": new, "header": header, "contract": contract, "contract_bytes": data}
+
+
+def check_registered_basis(ctx, header, basis, evidence, old, new):
+    """check_basis for a registered class's rename, plus the exact key: an inferred
+    name's agreement must be the one name_lane serves for this class, its canonical
+    header's `<header>|class||OLD`, not an agreement reached on another unit's view."""
+    which = check_basis(ctx, "class", basis, evidence, old, old, None, new_name=new, new_word=new)
+    if which == "inferred":
+        rid = re.fullmatch(r"agree:([A-Za-z0-9_.:-]+)", evidence.strip())
+        rows = [r for r in ctx.dicts(AGREED) if rid and r.get("id") == rid.group(1)]
+        if not rows:
+            raise Refusal(f"an inferred registered-class name needs an agreement record in {AGREED}, not {evidence!r}")
+        rid, key = rid.group(1), rows[-1].get("key")
+        if key != f"{header}|class||{old}":
+            raise Refusal(f"agreement record {rid} was reached at {key}, not at {old}'s canonical header "
+                          f"({header}|class||{old}; name_lane.py next --registered {old})")
+        if isinstance(ctx, RevisionContext) and not rid.startswith("nr-"):
+            agreement_source_unchanged(ctx, rid, header)
+    return which
+
+
+def agreement_source_unchanged(ctx, rid, rel):
+    """A gate's credit is bound to the text the votes named. An `nl-` agreement carries no
+    fingerprint (an `nr-` resolution does, and check_agreement checks it), but git history
+    does: `rel`, the key's source, must be the same blob in the base as in the commit that
+    recorded agreement `rid`. Votes land in their own commits before the rename, so the
+    gates (RevisionContext) apply this; at apply time the votes may not be committed yet."""
+    history = ctx.git("log", "--format=%H", f"-S{rid}", ctx.base or "HEAD", "--", AGREED).split()
+    if not history:
+        raise Refusal(f"agreement {rid} is in no commit of {ctx.base or 'HEAD'}'s {AGREED}: votes land before "
+                      "the rename that cites them")
+    recorded = history[-1]
+    then = ctx.git("rev-parse", "--verify", "--quiet", f"{recorded}:{rel}").strip()
+    now = ctx.git("rev-parse", "--verify", "--quiet", f"{ctx.base or 'HEAD'}:{rel}").strip()
+    if not then or then != now:
+        raise Refusal(f"{rel} changed after agreement {rid} was recorded ({recorded[:10]}): the votes named "
+                      "another text; serve the key again and vote")
+
+
+# The gates (tools/class_gate.py, tools/repair_queue.py) credit a registered class's
+# rename only when its record is an approval this very check accepts, and they run
+# it from the BASE revision's tools (`verify-record`), never the commit's own copy,
+# against the BASE revision's data: votes, agreements and resolutions land in their
+# own name_lane commits before the rename that cites them, so nothing the judged
+# commit adds to a vote ledger counts towards its own credit, and a commit cannot
+# loosen the check it is judged by. Only the record being judged is read from the
+# target (verify_record). A path inside a submodule (a Zero Hour citation under
+# reference/open-bfme-1) is read at the commit the base pins for that submodule.
+
+
+class RevisionContext(Context):
+    """A Context reading the git revision `base` (gitlinks followed), read-only, with no
+    object scan."""
+
+    def __init__(self, root, base):
+        super().__init__(root, object_scan=False)
+        self.base = base
+        self._gitlinks = None
+
+    def gitlinks(self):
+        """{submodule path: the commit `base` pins} for every gitlink in base's tree."""
+        if self._gitlinks is None:
+            listed = subprocess.run(["git", "-C", str(self.root), "ls-tree", "-r", "-z", self.base or "HEAD"],
+                                    capture_output=True)
+            self._gitlinks = {}
+            for entry in listed.stdout.decode("utf-8", "surrogateescape").split("\0"):
+                meta, _, path = entry.partition("\t")
+                parts = meta.split()
+                if len(parts) == 3 and parts[0] == "160000":
+                    self._gitlinks[path] = parts[2]
+        return self._gitlinks
+
+    def read(self, rel):
+        for link, commit in self.gitlinks().items():
+            if rel.startswith(link + "/"):
+                result = subprocess.run(["git", "-C", str(self.root / link), "show",
+                                         f"{commit}:{rel[len(link) + 1:]}"], capture_output=True)
+                return result.stdout if result.returncode == 0 else None
+        result = subprocess.run(["git", "-C", str(self.root), "show", f"{self.base}:{rel}"], capture_output=True)
+        return result.stdout if result.returncode == 0 else None
+
+
+def verify_record(root, base, target, old, new):
+    """Refuse unless the `class,OLD,NEW` name_basis.csv record that target adds over
+    base is an approval check_registered_basis accepts for OLD's registration at base."""
+    ctx = RevisionContext(root, base)
+
+    def records(ref):
+        shown = subprocess.run(["git", "-C", str(root), "show", f"{ref}:{NAME_BASIS}"], capture_output=True)
+        return list(csv.DictReader(io.StringIO(shown.stdout.decode("utf-8") if shown.returncode == 0 else "")))
+    before = {tuple(sorted(r.items())) for r in records(base)}
+    added = [r for r in records(target) if r.get("kind") == "class" and r.get("old") == old
+             and r.get("new") == new and tuple(sorted(r.items())) not in before]
+    if len(added) != 1:
+        raise Refusal(f"target adds {len(added)} `class,{old},{new}` record(s) to {NAME_BASIS}, not one")
+    rows = [r for r in ctx.dicts(CANONICAL_CLASSES) if r.get("class") == old]
+    if len(rows) != 1:
+        raise Refusal(f"base registers {old} {len(rows)} time(s) in {CANONICAL_CLASSES}")
+    which = check_registered_basis(ctx, rows[0].get("header") or "", added[0].get("basis") or "",
+                                   added[0].get("evidence") or "", old, new)
+    if which == RESTORED:
+        inverse_problems = revert_inverse_problems(root, base, target, added[0])
+        if inverse_problems:
+            raise Refusal(f"the revert is not the exact inverse of its landing: {inverse_problems[0]}")
+    return which
+
+
+# Below the evidence, a revert's credit also needs its CHANGE to be the landing's
+# inverse: the landing commit's diff, reversed and applied to base, must give
+# target's tree exactly, outside name_basis.csv and deleted_rows.csv. Those two
+# take exactly what a revert writes: name_basis.csv only the one restored record,
+# deleted_rows.csv the landing's tombstones lifted and each landed name tombstoned
+# `Renamed to <placeholder> by tools/rename.py (restored)`. A revert that edits
+# anything else -- a field's type, a view, another row -- or a landing a later
+# commit has since touched (the reversed diff no longer applies) gets no credit.
+REVERT_FREE = (NAME_BASIS, DELETED)
+
+
+def _git_out(root, *args, env=None, data=None):
+    result = subprocess.run(["git", "-C", str(root), *args], capture_output=True, input=data,
+                            env=dict(os.environ, **env) if env else None)
+    return result.returncode, result.stdout
+
+
+def _tree_of(root, rev):
+    """The tree id of `rev` ('' is the index)."""
+    if rev:
+        return _git_out(root, "rev-parse", f"{rev}^{{tree}}")[1].decode().strip()
+    return _git_out(root, "write-tree")[1].decode().strip()
+
+
+def _rev_lines(root, rev, rel):
+    """`rel`'s lines at revision `rev` ('' is the index), [] when absent."""
+    shown = subprocess.run(["git", "-C", str(root), "show", f"{rev}:{rel}"], capture_output=True)
+    return shown.stdout.decode("utf-8", "replace").splitlines() if shown.returncode == 0 else []
+
+
+def landing_commit(root, rid, base):
+    """The one commit in `base`'s history that wrote agree:<rid> into name_basis.csv."""
+    code, out = _git_out(root, "log", "--format=%H", f"-Sagree:{rid}", base or "HEAD", "--", NAME_BASIS)
+    landings = out.decode().split()
+    if code or len(landings) != 1:
+        raise Refusal(f"{len(landings)} commit(s) in {base or 'HEAD'}'s history wrote agree:{rid} into "
+                      f"{NAME_BASIS}, not one: no landing to reverse")
+    return landings[0]
+
+
+def inverse_tree(root, base, landing):
+    """The tree id of `base` with the landing commit's diff, outside REVERT_FREE, reversed;
+    Refusal when it no longer applies (a later commit touched the landing's lines)."""
+    with tempfile.TemporaryDirectory(prefix="revert-inverse-") as tmp:
+        env = {"GIT_INDEX_FILE": str(Path(tmp) / "index")}
+        if _git_out(root, "read-tree", base or "HEAD", env=env)[0]:
+            raise Refusal(f"cannot read {base or 'HEAD'}'s tree")
+        excluded = [f":(exclude){rel}" for rel in REVERT_FREE]
+        _code, patch = _git_out(root, "diff", "--binary", "--no-renames", landing, f"{landing}^", "--", ".", *excluded)
+        if patch and _git_out(root, "apply", "--cached", "--binary", "-", env=env, data=patch)[0]:
+            raise Refusal(f"the landing {landing[:10]}'s diff no longer reverses cleanly over {base or 'HEAD'} "
+                          "(a later commit touched its lines); revert it by hand")
+        return _git_out(root, "write-tree", env=env)[1].decode().strip()
+
+
+def landing_tombstones(root, landing):
+    """The deleted_rows.csv lines the landing commit added, in its order."""
+    left = collections.Counter(_rev_lines(root, f"{landing}^", DELETED))
+    added = []
+    for line in _rev_lines(root, landing, DELETED):
+        if left[line]:
+            left[line] -= 1
+        else:
+            added.append(line)
+    return added
+
+
+def restored_tombstones(landed):
+    """The tombstones a revert writes for the landing's: each landed name, `Renamed to
+    <placeholder> by tools/rename.py (restored)`, in the landing's order."""
+    out = []
+    for line in landed:
+        row = next(csv.reader([line]), [])
+        reason = LANDED_TOMBSTONE.match(row[2]) if len(row) >= 3 else None
+        if reason:
+            text = tombstone_line(reason.group(1), _rva(row[1]), f"Renamed to {row[0]} by tools/rename.py ({RESTORED})")
+            out.append((text.decode("utf-8") if isinstance(text, bytes) else text).rstrip("\r\n"))
+    return out
+
+
+def lifted_in_place(lines, landed):
+    """`lines` with each landed line removed once, every other line kept in its place;
+    None when one of them is missing."""
+    want = collections.Counter(landed)
+    out = []
+    for line in lines:
+        if want[line]:
+            want[line] -= 1
+        else:
+            out.append(line)
+    return None if +want else out
+
+
+def revert_inverse_problems(root, base, target, record):
+    """Why target is not exactly the landing's inverse over base, or []. Outside
+    REVERT_FREE the trees must be equal; the two ledgers must change by exactly what a
+    revert writes, as an ORDERED diff (name protection reads a name's last record, so a
+    reordered, repeated or extra line is a change of meaning, not noise):
+    name_basis.csv is base's lines unchanged and in place plus the one restored record
+    at the end; deleted_rows.csv is base's lines with each of the landing's tombstones
+    removed once, every other line in place, plus the restored tombstones at the end."""
+    match = REVERT_RE.fullmatch((record.get("evidence") or "").strip())
+    try:
+        landing = landing_commit(root, match.group(1) if match else "", base)
+        expected = inverse_tree(root, base, landing)
+    except Refusal as why:
+        return [str(why)]
+    problems = []
+    excluded = [f":(exclude){rel}" for rel in REVERT_FREE]
+    code, out = _git_out(root, "diff", "--name-only", "--no-renames", expected, _tree_of(root, target), "--", ".",
+                         *excluded)
+    if code or out.strip():
+        changed = out.decode().split()
+        problems.append(f"it changes {', '.join(changed[:3])} beyond the landing's inverse" if changed
+                        else "cannot compare its tree with the landing's inverse")
+    before, after = _rev_lines(root, base, NAME_BASIS), _rev_lines(root, target, NAME_BASIS)
+    if after[:len(before)] != before or len(after) != len(before) + 1:
+        problems.append(f"{NAME_BASIS} must be base's lines, unchanged and in place, plus the one restored record")
+    landed = landing_tombstones(root, landing)
+    kept = lifted_in_place(_rev_lines(root, base, DELETED), landed)
+    if kept is None or _rev_lines(root, target, DELETED) != kept + restored_tombstones(landed):
+        problems.append(f"{DELETED} must be base's lines with the landing's tombstones lifted (every other line in "
+                        "place) plus exactly the restored tombstones")
+    return problems
+
+
+def plan_registered_revert(ctx, old, new, evidence, registration, max_files):
+    """The revert of a registered class's rename: the landing commit's diff reversed over
+    HEAD (inverse_tree), so every file comes back exactly -- NEW's spellings the landing
+    never touched (a --merge-existing landing) stay as they were -- plus the one restored
+    name_basis.csv record and the restored tombstones; rename_plan then lifts the
+    landing's own. `old` is the landed name, `new` the placeholder it replaced."""
+    rid = REVERT_RE.fullmatch(evidence.strip()).group(1)
+    landing = landing_commit(ctx.root, rid, "HEAD")
+    expected = inverse_tree(ctx.root, "HEAD", landing)
+    excluded = [f":(exclude){rel}" for rel in REVERT_FREE]
+    _code, out = _git_out(ctx.root, "diff", "--name-status", "--no-renames", "HEAD", expected, "--", ".", *excluded)
+    status = [line.split("\t", 1) for line in out.decode().splitlines() if "\t" in line]
+    plan = Plan("class", old, new, RESTORED, evidence.strip(), registration["header"], None, old_word=old,
+                new_word=new)
+
+    def blob(rel):
+        return _git_out(ctx.root, "show", f"{expected}:{rel}")[1]
+    added = [rel for code, rel in status if code == "A"]
+    deleted = [rel for code, rel in status if code == "D"]
+    contract_old, contract_new = f"{CLASS_CONTRACTS}/{old}.json", f"{CLASS_CONTRACTS}/{new}.json"
+    if sorted(added) != [contract_new] or sorted(deleted) != [contract_old]:
+        raise Refusal(f"the reversed landing adds {added or 'nothing'} and deletes {deleted or 'nothing'}, not just "
+                      f"the contract move {contract_old} -> {contract_new}; revert it by hand")
+    for code, rel in status:
+        head = _git_out(ctx.root, "show", f"HEAD:{rel}")[1] if code != "A" else None
+        if code != "A" and ctx.read(rel) != head:
+            raise Refusal(f"{rel} has edits beyond HEAD; commit or put them aside before reverting")
+        if code == "M":
+            plan.edit(ctx, rel, blob(rel))
+    plan.moves.append((contract_old, contract_new))
+    plan.moved_bytes[contract_old] = ctx.read(contract_old)
+    plan.edit(ctx, contract_new, blob(contract_new))
+    landed = landing_tombstones(ctx.root, landing)
+    plan.edit(ctx, DELETED, appended(ctx.read(DELETED), [(line + "\n").encode("utf-8")
+                                                         for line in restored_tombstones(landed)],
+                                     header="name,target_rva,reason"))
+    plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
+        ["class", old, new, RESTORED, plan.evidence, registration["header"], ""])], header=NAME_BASIS_HEADER))
+    for line in landed:
+        row = next(csv.reader([line]), [])
+        reason = LANDED_TOMBSTONE.match(row[2]) if len(row) >= 3 else None
+        if reason:
+            plan.renamed_rows.append((reason.group(1), row[0], _rva(row[1])))
+    edited = {rel for code, rel in status if code == "M"}
+    verify = {rel for rel in edited if rel in ctx.ledger_sources()}
+    headers = [rel for rel in edited if rel.startswith(("Code/", "reference/shims/")) and rel not in verify]
+    if headers:
+        verify |= includers(ctx, headers, max_files)
+    plan.verify = sorted(v for v in verify if v and not is_generated(v) and v in ctx.ledger_sources())
+    if len(plan.verify) > max_files:
+        raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
+    plan.claims = sorted({at for _o, _n, at in plan.renamed_rows if at is not None}) + [f"class:{old}"]
+    plan.registered = {"old": old, "new": new, "header": registration["header"], "contract": contract_old,
+                       "stale": sorted({n for n, _o, _a in plan.renamed_rows}),
+                       "moved": [f"the landing {landing[:10]}'s diff reversed: {len(edited)} file(s), "
+                                 f"git mv {contract_old} {contract_new}"]}
+    return plan
+
+
+def _respelled_strings(value, token, new):
+    """`value` (parsed JSON) with every string, keys included, token-respelled."""
+    if isinstance(value, dict):
+        return {token.sub(new, k): _respelled_strings(v, token, new) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_respelled_strings(v, token, new) for v in value]
+    return token.sub(new, value) if isinstance(value, str) else value
+
+
+def move_registration(ctx, plan, registration):
+    """Add the registry key, contract and header_queue.tsv moves to a class plan."""
+    old, new = registration["old"], registration["new"]
+    token = class_token_re(old)
+    moved = []
+    raw = ctx.read(CANONICAL_CLASSES).decode("utf-8")
+    lines = raw.split("\n")
+    at = [i for i, line in enumerate(lines) if line.split(",", 1)[0] == old]
+    if len(at) != 1 or lines[at[0]].startswith('"'):
+        raise Refusal(f"{CANONICAL_CLASSES}: {old}'s row is not one plain CSV line; re-key it by hand first")
+    line = lines[at[0]]
+    lines[at[0]] = new + line[len(old):].replace(f"class_contracts/{old}.json", f"class_contracts/{new}.json")
+    plan.edit(ctx, CANONICAL_CLASSES, "\n".join(lines).encode("utf-8"))
+    moved.append(f"{CANONICAL_CLASSES}: key {old} -> {new}")
+
+    target = f"{CLASS_CONTRACTS}/{new}.json"
+    text = registration["contract_bytes"].decode("utf-8")
+    respelled = token.sub(new, text)
+    try:
+        after = json.loads(respelled)
+    except ValueError as error:
+        raise Refusal(f"respelling {registration['contract']} breaks its JSON ({error})") from None
+    if after != _respelled_strings(json.loads(text), token, new) or after.get("class") != new:
+        raise Refusal(f"respelling {registration['contract']} changes more than its {old} spellings")
+    plan.moves.append((registration["contract"], target))
+    plan.moved_bytes[registration["contract"]] = registration["contract_bytes"]
+    plan.edit(ctx, target, respelled.encode("utf-8"))
+    moved.append(f"git mv {registration['contract']} {target} ({text.count(old)} spelling(s) respelled)")
+
+    queue = ctx.read(HEADER_QUEUE)
+    if queue is not None:
+        rows = queue.decode("utf-8").split("\n")
+        keyed = [i for i, row in enumerate(rows) if row.split("\t", 1)[0] == old]
+        clash = {tuple(row.split("\t")[:2]) for row in rows if row.split("\t", 1)[0] == new}
+        for i in keyed:
+            cells = rows[i].split("\t")
+            if (new, cells[1] if len(cells) > 1 else "") in clash:
+                raise Refusal(f"{HEADER_QUEUE} already queues {new} for {cells[1]}; the re-keyed row would "
+                              "be a second one")
+            rows[i] = new + token.sub(new, rows[i][len(old):])
+        if keyed:
+            plan.edit(ctx, HEADER_QUEUE, "\n".join(rows).encode("utf-8"))
+            moved.append(f"{HEADER_QUEUE}: {len(keyed)} row(s) re-keyed to {new} (same sources, same RVAs)")
+    registration = {k: v for k, v in registration.items() if k != "contract_bytes"}
+    plan.registered = dict(registration, moved=moved)
+
+
+# A registered placeholder's retail name is often spelled already: other units
+# forward-declare `class FXNugget;`, keep views deriving their nuggets from it,
+# and take `FXNugget *` parameters, while every row of the class itself sits
+# under the placeholder. `--merge-existing` lets the rename take such a NEW:
+# NEW may be spelled only as a type -- never as a scope or identifier of a row,
+# pin or data row -- and no unit outside the rewrite may define a symbol the
+# respelling creates (a second body of one retail function: a duplicate the
+# byte gate never sees). Type use is no proof of identity, so every existing
+# DEFINITION of NEW the rewrite leaves alone is compiled and must lay out only
+# scalar leaves of OLD's contract, by offset, size, kind and name, within its
+# sizeof; anything it cannot expand into scalars refuses (merge_definitions);
+# its units and the consumers of the respelled symbols are verified with the
+# rest. Only declarations and pointer/reference uses stay unexamined. The intended
+# path leaves no such definition at all: every private view of NEW is put on the
+# canonical header first. An inferred basis is allowed because the revert is
+# exact: a registered rename's revert is the landing commit's diff reversed
+# (plan_registered_revert), so NEW's pre-existing spellings, which the landing
+# never touched, are exactly as they were, and the gates credit a revert only as
+# that inverse (revert_inverse_problems).
+
+def merge_problems(ctx, new, names):
+    """Why the tree's existing spellings of `new` are more than a type, or []."""
+    problems = []
+    for symbol in names:
+        if not symbol:
+            continue
+        if leading_identifier(symbol, new):
+            problems.append(f"{new} is the identifier of {symbol}")
+            continue
+        try:
+            spans = class_spans(symbol, new)
+        except Unparsed:
+            problems.append(f"cannot tokenize {symbol}, which spells {new}")
+            continue
+        for a, _b in spans:
+            if symbol[a - 1:a] not in ("V", "U", "T") and symbol[a - 2:a] != "W4":
+                problems.append(f"{new} scopes {symbol} (a row, pin or data row of its own): that is a fold, "
+                                "not a merge")
+                break
+    return problems
+
+
+def existing_definers(ctx, plan, new):
+    """Units outside the rewrite that already define a symbol the respelling creates:
+    by their cached objects, and by text (`NEW::method(` in a unit that spells NEW)."""
+    created = {n for _o, n, _a in plan.renamed_rows + plan.renamed_data} | {n for _o, n, _a in plan.renamed_pins}
+    found = []
+    outside = lambda rel: rel not in plan.after and not is_generated(rel)  # noqa: E731
+    if ctx.object_scan and created:
+        sys.path.insert(0, str(ctx.root / "tools"))
+        import build
+        import reloc_ledger
+        for rel in sorted(filter(outside, object_referencers(ctx, created))):
+            obj = build.obj_path(ctx.path(rel))
+            if not obj.exists():
+                continue
+            _sections, symbols = reloc_ledger.parse_coff(obj.read_bytes())
+            defined = sorted({s["name"] for s in symbols.values() if s["name"] in created
+                              and s.get("storage") == 2 and s.get("section", 0) > 0})
+            found += [f"{rel} defines {name}" for name in defined]
+    methods = {(scope_of(n) or "").split("::")[-1] for n in created} - {""}
+    if methods:
+        qualified = re.compile(r"\b%s\s*::\s*~?(%s)\s*\(" % (re.escape(new), "|".join(map(re.escape, sorted(methods)))))
+        for rel in sorted(filter(outside, ctx.grep_files(new, word=True))):
+            code = name_metric.strip((ctx.read(rel) or b"").decode("utf-8", errors="replace"))
+            hit = qualified.search(code)
+            if hit:
+                found.append(f"{rel} spells {new}::{hit.group(1)}( (a second body of a respelled row, or a "
+                             "qualified call this rule cannot tell from one)")
+    return found
+
+
+def prepare_merge_sources(ctx, plan, prepared, old, new, registration):
+    """Put prepared units into a --merge-existing plan: units whose private NEW view the
+    caller already reshaped onto the canonical class, spelled as they read after the
+    rename. They become part of the rewrite (merge_definitions and existing_definers skip
+    plan.after) and are byte-verified with it; _batch_source_edits admits only tracked,
+    clean, matched Code/ C++ sources. Each must name the class only through its canonical
+    header: no OLD left, no body of NEW (a derived class is fine), the canonical header
+    #included wherever its code spells NEW, and no second body (`NEW::m(`) of a row the
+    rename respells. Returns the prepared paths."""
+    token = ClassText(old)
+    owners = {(r.get("name"), _rva(r.get("target_rva"))): r.get("source") for r in ctx.rows()}
+    created = [((scope_of(renamed) or "").split("::")[-1].lstrip("~"), owners.get((before, at)))
+               for before, renamed, at in plan.renamed_rows]
+    header = posixpath.basename(registration["header"]).lower()
+    for rel, data in sorted(prepared.items()):
+        text = data.decode("utf-8", errors="surrogateescape")
+        code = name_metric.strip(text)
+        methods = sorted({m for m, source in created if m and source != rel})   # a row's own unit holds its body
+        qualified = re.compile(r"\b%s\s*::\s*~?(%s)\s*\(" % (re.escape(new), "|".join(map(re.escape, methods)))) \
+            if methods else None
+        if token.search("\n".join(line for line in text.splitlines() if not INCLUDE_LINE.match(line))):
+            raise Refusal(f"prepared {rel} still spells {old} (outside the kept header's #include path): "
+                          "it reads as after the rename")
+        if declares_type(code, new):
+            raise Refusal(f"prepared {rel} defines its own {new}: a prepared unit includes "
+                          f"{registration['header']} instead (a class derived from it is fine)")
+        spells = re.search(r"\b%s\b" % re.escape(new), code)
+        includes = [m.group(1) for m in re.finditer(r'(?m)^[ \t]*#[ \t]*include[ \t]*[<"]([^>"]+)[>"]', text)]
+        if spells and not any(posixpath.basename(i.replace("\\", "/")).lower() == header for i in includes):
+            raise Refusal(f"prepared {rel} spells {new} without #including its canonical header {registration['header']}")
+        hit = qualified.search(code) if qualified else None
+        if hit:
+            raise Refusal(f"prepared {rel} spells {new}::{hit.group(1)}(, a second body of a row the rename respells")
+    _batch_source_edits(ctx, plan, dict(prepared))
+    return set(prepared)
+
+
+def view_layouts(ctx, unit):
+    """{class: layout} the compiler reports for ledger source `unit` (tools/class_layouts.py:
+    its own flags plus -Z7, read from CodeView)."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import class_layouts
+    return class_layouts.compile_layouts(unit)
+
+
+class Unknown(Exception):
+    """A layout the merge cannot read completely: it refuses rather than guesses."""
+
+
+def scalar_kinds():
+    """The leaf kinds a merge compares: tools/class_contract.py's primitive kinds, a
+    pointer and the vfptr. Anything else (an array, an aggregate it cannot expand, an
+    unknown kind) is compared by nothing but a type-name string, so it is Unknown."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import class_contract
+    return set(class_contract.PRIMK.values()) | {"P", "VPTR"}
+
+
+def contract_leaves(contract):
+    """{(offset, size, kind, name)} of a frozen contract's fields, member aggregates
+    expanded (`member.field`); Unknown for anything it cannot compare."""
+    if contract.get("bases"):
+        raise Unknown(f"the contract has bases ({', '.join(contract['bases'])}): base subobject placement is not "
+                      "recorded in a contract, so a merge cannot compare it")
+    scalars, out = scalar_kinds(), set()
+    for f in contract.get("fields", []):
+        parts = f.get("members") or [None]
+        for m in parts:
+            leaf = f if m is None else m
+            if any(leaf.get(k) is None for k in ("offset", "size", "kind", "name")):
+                raise Unknown(f"the contract's field {f.get('name')!r} lacks an offset, size, kind or name")
+            if leaf["kind"] not in scalars:
+                raise Unknown(f"the contract's field {f.get('name')!r} is {leaf['kind']}, not a scalar a merge "
+                              "can compare (an array, an unexpanded aggregate or a bitfield)")
+            out.add((f["offset"] + (m["offset"] if m else 0), leaf["size"], leaf["kind"],
+                     f["name"] + ("." + m["name"] if m else "")))
+    return out
+
+
+def view_leaves(layout, every, kind_of, base=0, prefix="", depth=0):
+    """[(offset, size, kind, name)] of a compiled view: its vfptr, every named member (none
+    is padding), member aggregates expanded the way contracts expand them. Unknown for a
+    forward-only or unparsed layout, any base (virtual or not), a bitfield, an array, and a
+    member aggregate it cannot expand completely (forward-only, polymorphic, based, of
+    another size, or nested too deep): no member is ever compared by its type name."""
+    if not layout or layout.get("fwd") or not layout.get("size") or layout.get("unparsed") is not None:
+        raise Unknown(f"{prefix or 'the view'} has no complete layout in the compiled type stream")
+    if layout.get("bases"):
+        raise Unknown(f"{prefix or 'the view'} has bases ({', '.join(b for b, _o in layout['bases'])}): "
+                      "a merge does not compare base subobjects")
+    scalars = scalar_kinds()
+    out = [(base, 4, "VPTR", prefix + "__vfptr")] if layout.get("vfptr") else []
+    for offset, name, type_name, size in layout.get("fields", []):
+        if type_name == "bitfield" or not size:
+            raise Unknown(f"{prefix}{name} is a bitfield or has no size: its bits are not read")
+        kind = kind_of(type_name)
+        if kind in scalars:
+            out.append((base + offset, size, kind, prefix + name))
+            continue
+        member = every.get(type_name)
+        if kind == "A" or member is None or member.get("fwd") or member.get("size") != size \
+                or member.get("vfptr") or member.get("bases") or depth >= 6:
+            raise Unknown(f"{prefix}{name} ({type_name}) is not a scalar and cannot be expanded into scalars "
+                          "from the compiled type stream")
+        out += view_leaves(member, every, kind_of, base + offset, prefix + name + ".", depth + 1)
+    return out
+
+
+def merge_definitions(ctx, plan, new, registration, max_files):
+    """(problems, units) for the definitions of `new` the rewrite leaves untouched: each is
+    compiled (view_layouts) and every leaf it lays out (view_leaves: vfptr, every named
+    member, aggregates expanded) must be a leaf of OLD's contract with the same offset,
+    size, kind and name; the view has a vfptr exactly when the contract does, and fits its
+    sizeof. Anything either side cannot state completely (a forward-only layout, a base,
+    a bitfield, a contract field without a kind) refuses. `units` are the ledger sources
+    that compile one, which the plan then verifies with the rest."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import class_contract
+    contract = json.loads(registration["contract_bytes"].decode("utf-8"))
+    try:
+        want = contract_leaves(contract)
+    except Unknown as why:
+        return [f"{registration['contract']}: {why}"], set()
+    sizeof = contract.get("size")
+    if not isinstance(sizeof, int) or sizeof <= 0:
+        return [f"{registration['contract']} records no sizeof to compare"], set()
+    has_vptr = any(kind == "VPTR" for _o, _s, kind, _n in want)
+    problems, units = [], set()
+    for rel in sorted(ctx.grep_files(new, word=True)):
+        if rel in plan.after:
+            continue
+        if not declares_type(name_metric.strip((ctx.read(rel) or b"").decode("utf-8", errors="replace")), new):
+            continue
+        compiled = [rel] if rel in ctx.ledger_sources() else \
+            sorted(includers(ctx, [rel], max_files) & ctx.ledger_sources())
+        if not compiled:
+            problems.append(f"{rel} defines {new}, and no ledger source compiles it to compare")
+            continue
+        units |= set(compiled)
+        every = view_layouts(ctx, compiled[0])
+        layout = every.get(new)
+        if layout is None:
+            problems.append(f"{rel}: compiling {compiled[0]} reports no layout of {new}")
+            continue
+        try:
+            leaves = view_leaves(layout, every, class_contract.kind)
+        except Unknown as why:
+            problems.append(f"{rel}: {new}: {why}")
+            continue
+        by_offset = {o: (s, k, n) for o, s, k, n in want}
+        for offset, size, kind, name in leaves:
+            if (offset, size, kind, name) in want:
+                continue
+            if offset not in by_offset:
+                problems.append(f"{rel}: {new}::{name} ({size} B {kind}, +0x{offset:X}) is a field "
+                                f"{registration['old']}'s contract does not have")
+            else:
+                s, k, n = by_offset[offset]
+                problems.append(f"{rel}: {new}::{name} at +0x{offset:X} is {size} B {kind}; the contract has "
+                                f"{n}, {s} B {k}")
+        if has_vptr != bool(layout.get("vfptr")):
+            problems.append(f"{rel}: its {new} {'lacks' if has_vptr else 'has'} the vfptr the contract "
+                            f"{'has' if has_vptr else 'lacks'}")
+        if layout.get("size", 0) > sizeof:
+            problems.append(f"{rel}: its {new} is {layout.get('size')} B, over the contract's {sizeof}")
+    return problems, units
+
+
+def registered_object_problems(ctx, plan):
+    """After ./build.sh: no rebuilt unit's object names a symbol the renamed registered
+    class still scopes or types under its old spelling. A revert checks the landed row
+    names it took back (`stale`) instead: NEW's spellings the landing never touched may
+    rightly stay in objects."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    import reloc_ledger
+    frag, problems = type_fragment_re(plan.registered["old"]), []
+    stale_names = set(plan.registered.get("stale") or ())
+    for rel in plan.verify:
+        obj = build.obj_path(ctx.path(rel))
+        if not obj.exists():
+            problems.append(f"{rel} has no object after the build")
+            continue
+        _sections, symbols = reloc_ledger.parse_coff(obj.read_bytes())
+        stale = sorted({s["name"] for s in symbols.values()
+                        if (s["name"] in stale_names if "stale" in plan.registered else frag.search(s["name"]))})
+        if stale:
+            problems.append(f"{rel}'s object still names {stale[0]}" + (f" (+{len(stale) - 1} more)" if len(stale) > 1 else ""))
+    return problems
+
+
 def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=False, prepared=None,
-               access=None):
+               access=None, merge=False):
     """Plan respelling one class/struct/union/enum type token everywhere: every
     mangled name it scopes or types (functions.csv names and notes, pins, data
     rows), every source, header and shim view that spells it, and the units
     whose objects reference a renamed symbol. The rewrite is the whole token,
     so it refuses when the word also names a function or datum. `fold` folds
     a placeholder into the name its retail vftable already carries
-    (plan_fold), with no basis."""
+    (plan_fold), with no basis. `merge` lets a registered placeholder take a
+    NEW the tree already spells as a type only (merge_problems)."""
     if fold:
+        if merge:
+            raise Refusal("--merge-existing goes with class --name OLD --new NEW, not --fold")
         if basis is not None:
             raise Refusal("class --fold invents no name and takes no --basis: retail's vftable is the evidence")
         return plan_fold(ctx, name, new, evidence=evidence or "", max_files=max_files, prepared=prepared,
                          access=access)
-    if prepared:
-        raise Refusal("--prepared goes with class --fold into a nested class")
+    if prepared and not merge:
+        raise Refusal("--prepared goes with class --fold into a nested class, or with --merge-existing")
     if access is not None:
         raise Refusal("--access goes with class --fold (or function --virtual)")
     if basis is None:
@@ -6009,11 +6690,16 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
     reason = class_protected(ctx, old)
     if reason:
         raise Refusal(f"canonical name: {reason}")
-    if any(row.get("class") == old for row in ctx.dicts(CANONICAL_CLASSES)) or \
-            ctx.path(f"{CLASS_CONTRACTS}/{old}.json").exists():
-        raise Refusal(f"{old} is registered in {CANONICAL_CLASSES} / {CLASS_CONTRACTS}; its key, contract "
-                      "and class_gate allowances move in a class-reconciliation commit, not here")
-    which = check_basis(ctx, "class", basis, evidence, old, old, None, new_name=new, new_word=new)
+    registration = class_registration(ctx, old, new, basis)
+    if merge and not registration:
+        raise Refusal(f"--merge-existing moves a registered class's key; {old} is not registered "
+                      f"in {CANONICAL_CLASSES}")
+    if registration:
+        which = check_registered_basis(ctx, registration["header"], basis, evidence, old, new)
+        if which == RESTORED:
+            return plan_registered_revert(ctx, old, new, evidence, registration, max_files)
+    else:
+        which = check_basis(ctx, "class", basis, evidence, old, old, None, new_name=new, new_word=new)
 
     frag = type_fragment_re(old)
     token = class_token_re(old)
@@ -6031,15 +6717,26 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
         if other and leading_identifier(other, old):
             raise Refusal(f"{old} is also the identifier of {other}; a token rewrite would rename it too")
     # Collisions: the new token must be free everywhere a mangled name or a
-    # source could spell it.
-    taken = ctx.grep_files(new, word=True)
-    if taken:
-        raise Refusal(f"{new} already appears in {', '.join(taken[:3])}")
+    # source could spell it -- or, merging, spelled only as a type nothing owns.
+    # An #include path is a file name, not a spelling of the type (a revert's
+    # placeholder still names its kept header).
+    taken = [rel for rel in ctx.grep_files(new, word=True)
+             if ClassText(new).search("\n".join(line for line in (ctx.read(rel) or b"").decode(
+                 "utf-8", errors="replace").splitlines() if not INCLUDE_LINE.match(line)))]
     new_frag = type_fragment_re(new)
-    clash = next((n for n in names if n and (new_frag.search(n) or leading_identifier(n, new))), None) or \
-        shared_identifier(ctx, new, re.compile(r"(?!)"))
-    if clash:
-        raise Refusal(f"{new} already spells {clash}")
+    if merge:
+        problems = merge_problems(ctx, new, names)
+        if problems:
+            raise Refusal(f"--merge-existing: {problems[0]}")
+    elif taken:
+        raise Refusal(f"{new} already appears in {', '.join(taken[:3])}"
+                      + (" (a registered placeholder may take a NEW spelled only as a type: --merge-existing)"
+                         if registration else ""))
+    else:
+        clash = next((n for n in names if n and (new_frag.search(n) or leading_identifier(n, new))), None) or \
+            shared_identifier(ctx, new, re.compile(r"(?!)"))
+        if clash:
+            raise Refusal(f"{new} already spells {clash}")
     for rel in ctx.grep_files(old, roots=FROZEN_KEYED):
         if rel == DATA_LEDGER:
             continue
@@ -6138,6 +6835,26 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
         plan.edit(ctx, rel, new_text.encode("utf-8", errors="surrogateescape"))
         if not rel.endswith(SOURCE_SUFFIXES) or rel not in ctx.ledger_sources():
             headers.append(rel)
+    merge_verify = set()
+    if prepared:
+        merge_verify |= prepare_merge_sources(ctx, plan, prepared, old, new, registration)
+    if merge:
+        definers = existing_definers(ctx, plan, new)
+        if definers:
+            raise Refusal(f"--merge-existing: {definers[0]}" + (f" (+{len(definers) - 1} more)" if len(definers) > 1
+                                                                 else "") + "; reconcile that unit first")
+        mismatched, merge_verify = merge_definitions(ctx, plan, new, registration, max_files)
+        if mismatched:
+            raise Refusal(f"--merge-existing: an existing definition of {new} is not {old}'s contract: "
+                          + "; ".join(mismatched[:4]) + (f" (+{len(mismatched) - 4} more)" if len(mismatched) > 4
+                                                         else ""))
+        created = {n for _o, n, _a in plan.renamed_rows + plan.renamed_data}
+        merge_verify |= object_referencers(ctx, created) if ctx.object_scan and created else set()
+    if registration:
+        move_registration(ctx, plan, registration)
+        if merge:
+            plan.registered["moved"].append(f"merged into {new}'s existing type spellings in "
+                                            f"{len(set(taken) - set(plan.after))} untouched file(s)")
     verify = {rel for rel in plan.source_counts if rel in ctx.ledger_sources()}
     renamed = {o for o, _, _ in plan.renamed_rows}
     verify |= {r["source"] for r in ctx.rows() if r["name"] in renamed}
@@ -6146,6 +6863,7 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
     verify |= {d.get("source", "") for d in ctx.dicts(DATA_ROWS) if d.get("name") in renamed_data}
     if headers:
         verify |= includers(ctx, headers, max_files)
+    verify |= merge_verify                       # NEW's existing definers and the consumers of its symbols
     plan.verify = sorted(v for v in verify if v and not is_generated(v) and v in ctx.ledger_sources())
     if len(plan.verify) > max_files:
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
@@ -6161,7 +6879,7 @@ def plan_class(ctx, name, new, basis=None, evidence="", *, max_files=25, fold=Fa
             frag.search(ctx.read(DATA_LEDGER).decode("utf-8", errors="replace")):
         plan.warnings.append(f"{DATA_LEDGER} (tool-written, protected) still spells {old} symbols; "
                              "tools/data_ledger.py regenerates it in a Verifier-Change commit")
-    edited = set(plan.after) | {"reverse/re_attempts.log"}
+    edited = set(plan.after) | {o for o, _n in plan.moves} | {"reverse/re_attempts.log"}
     plan.mentions = sorted(set(ctx.grep_files(old, word=True, roots=("docs", "reverse"))) - edited)
     stems = sorted(rel for rel in plan.source_counts if old in Path(rel).stem)
     for rel in stems:
@@ -7719,6 +8437,54 @@ def meant_by_function(ctx, rel, code, word, cls, *, strict, where="the scanned t
     return None
 
 
+def _names_in(value, word):
+    """How many dicts anywhere in `value` (parsed JSON) carry "name": word."""
+    if isinstance(value, dict):
+        return (value.get("name") == word) + sum(_names_in(v, word) for v in value.values())
+    if isinstance(value, list):
+        return sum(_names_in(v, word) for v in value)
+    return 0
+
+
+def respell_contract_member(ctx, plan, cls, member, new):
+    """A member of a class registered in reverse/canonical_classes.csv is also a field of its
+    contract: a top-level `fields` entry named `member` takes `new`. The contract's name for a
+    field is the views' majority, decided before; it is left alone when it already says `new`,
+    and the rename refuses when it names that field neither way (the contract would then
+    disagree with the header it froze) or when `member` is spelled elsewhere in the contract
+    (a nested member, a queue candidate) where a text edit cannot tell which it means."""
+    if not any(r.get("class") == cls for r in ctx.dicts(CANONICAL_CLASSES)):
+        return
+    rel = f"{CLASS_CONTRACTS}/{cls}.json"
+    data = ctx.read(rel)
+    if data is None:
+        return
+    text = data.decode("utf-8")
+    frozen = json.loads(text)
+    fields = [f for f in frozen.get("fields", []) if isinstance(f, dict)]
+    mine = [f for f in fields if f.get("name") == member]
+    if not mine:
+        theirs = [f for f in fields if f.get("name") == new]
+        spelled_at = re.fullmatch(r"m_(?:field|x|unk)?_?([0-9A-Fa-f]{1,4})", member)
+        if theirs and spelled_at and all(f.get("offset") != int(spelled_at.group(1), 16) for f in theirs):
+            raise Refusal(f"{rel} names {new} at +0x{theirs[0].get('offset', 0):X}, but {member} spells "
+                          f"+0x{int(spelled_at.group(1), 16):X}: another field's name")
+        if theirs:
+            plan.warnings.append(f"{rel} already names the field {new} (the views' majority); unchanged")
+            return
+        raise Refusal(f"{rel} names no field {member} or {new}: the contract decided another name for this "
+                      f"member; rename it to the contract's name, or re-decide the contract "
+                      f"(tools/class_contract.py --class {cls} --write) first")
+    spelled = re.compile(r'"name"\s*:\s*"%s"' % re.escape(member))
+    if len(spelled.findall(text)) != len(mine) or _names_in(frozen, member) != len(mine) or \
+            len(re.findall(r"\b%s\b" % re.escape(member), text)) != len(mine):
+        raise Refusal(f"{rel} spells {member} outside its top-level field; respell the contract by hand first")
+    respelled = spelled.sub(f'"name": "{new}"', text)
+    if any(f.get("name") == new for f in fields):
+        raise Refusal(f"{rel} already names another field {new}")
+    plan.edit(ctx, rel, respelled.encode("utf-8"))
+
+
 def plan_member(ctx, cls, member, new, basis, evidence, *, max_files=25):
     """Plan respelling one non-static data member of `cls` in every view that
     declares it and every file that uses it through those views. Member names
@@ -7792,6 +8558,7 @@ def plan_member(ctx, cls, member, new, basis, evidence, *, max_files=25):
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
     for rel in sorted(rel for rel in plan.source_counts if comment_mentions(ctx.read(rel), member)):
         plan.warnings.append(f"{rel}: comments still mention {member} (left as written)")
+    respell_contract_member(ctx, plan, cls, member, new)
     plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
         ["member", old_q, new_q, basis, plan.evidence, views[0], ""])], header=NAME_BASIS_HEADER))
     plan.claims = [f"class:{cls}"]
@@ -8761,11 +9528,13 @@ def write_journal(ctx, plan, claimed=None):
 def restore_journal(ctx, record):
     """Undo one journalled rename: moves back, every file's bytes back."""
     for old, new in reversed(record.get("moves", [])):
+        data = _unb64(record.get("moved_bytes", {}).get(old))
         if ctx.path(new).exists() and not ctx.path(old).exists():
             moved = subprocess.run(["git", "-C", str(ctx.root), "mv", "--", new, old], capture_output=True)
             if moved.returncode == 0:
+                if data is not None and ctx.path(old).read_bytes() != data:
+                    ctx.path(old).write_bytes(data)          # a moved file the plan also edited
                 continue
-        data = _unb64(record.get("moved_bytes", {}).get(old))
         if data is not None:
             ctx.path(old).parent.mkdir(parents=True, exist_ok=True)
             ctx.path(old).write_bytes(data)
@@ -8946,6 +9715,9 @@ def _hook_jobs(ctx, plan, paths):
         jobs["pin_consistency"] = ("pin_consistency", ["--check"], None)
     if names:
         jobs["name_dependents"] = ("name_dependents", ["--staged"], None)
+    if HEADER_QUEUE in paths:
+        # the hook's debt check: a header_queue.tsv row may leave only by its verdict or a recorded move
+        jobs["header_debt"] = ("repair_queue", ["verify-removed", "--defer-missing"], None)
     if built:
         jobs["data_converged"] = ("data_check", ["--converged", "--ref", ":", "--sources-from", "-"], listed)
         jobs["eh_verify"] = ("eh_verify", ["--sources-from", "-"], listed)
@@ -9113,6 +9885,11 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if retype_problems:
                 raise VerifyFailed(f"the rebuilt objects do not prove {plan.old} -> {plan.new}: "
                                    f"{retype_problems[0][:300]}; every file restored")
+        if plan.registered:
+            stale = registered_object_problems(ctx, plan)
+            if stale:
+                raise VerifyFailed(f"the rebuilt objects do not prove {plan.old} -> {plan.new}: "
+                                   f"{stale[0][:300]}; every file restored")
         problems = checks(ctx, plan) if checks else []
         if problems:
             error = VerifyFailed(f"the commit hooks would refuse {plan.old} -> {plan.new} "
@@ -9134,6 +9911,8 @@ def unmove(ctx, plan, moved):
     for old, new in reversed(moved):
         result = subprocess.run(["git", "-C", str(ctx.root), "mv", "--", new, old],
                                 capture_output=True, text=True)
+        if not result.returncode and ctx.path(old).read_bytes() != plan.moved_bytes[old]:
+            ctx.path(old).write_bytes(plan.moved_bytes[old])     # a moved file the plan also edited
         if result.returncode:
             ctx.path(old).write_bytes(plan.moved_bytes[old])
             if ctx.path(new).exists():
@@ -10438,6 +11217,13 @@ def main(argv=None):
     carrier.add_argument("--root", type=Path, default=ROOT, help="TEST-ONLY: operate on another tree")
     recovery = kinds.add_parser("recover", help="restore every rename a killed run left half-applied")
     recovery.add_argument("--root", type=Path, default=ROOT, help="TEST-ONLY: operate on another tree")
+    record = kinds.add_parser("verify-record", help="the gates' check: target's class,OLD,NEW name_basis.csv "
+                                                    "record is an approval for OLD's registration at base")
+    record.add_argument("--root", type=Path, default=ROOT, help="the repository the revisions belong to")
+    record.add_argument("--base", required=True, help="the revision the rename was planned on (HEAD)")
+    record.add_argument("--target", required=True, help="the revision holding the rename ('' is the index)")
+    record.add_argument("--old", required=True)
+    record.add_argument("--new", required=True)
     back = kinds.add_parser("revert", help="put the placeholder back over a landed inferred name "
                                            "(the exact inverse, recorded as basis restored)")
     back.add_argument("--record", required=True, help="the agreement id the landing cited (agree:<id>)")
@@ -10511,11 +11297,15 @@ def main(argv=None):
     klass.add_argument("--into", metavar="NEW", help="with --fold: the class name OLD folds into (A::B::C for a "
                                                      "nested class)")
     klass.add_argument("--prepared", action="append", default=[], metavar="REL=FILE",
-                       help="with --fold into a nested class: the proposed bytes of Code source REL, read from "
-                            "FILE (repeatable), for every unit spelling OLD")
+                       help="with --fold into a nested class, or with --merge-existing: the proposed bytes of "
+                            "Code source REL, read from FILE (repeatable); with --fold, for every unit spelling OLD")
     klass.add_argument("--access", choices=sorted(VIRTUAL_CODE_OF),
                        help="with --fold and --prepared: the access the folded virtual destructor family takes "
                             "(the registered NEW header's declaration), instead of the placeholder rows'")
+    klass.add_argument("--merge-existing", action="store_true",
+                       help="with --name on a registered placeholder: NEW is already spelled as a type (forward "
+                            "declarations, views, parameter types) and owns no row, pin or definition; a "
+                            "canonical basis proves OLD is that class (see docs/naming.md)")
     member = kinds.add_parser("member", parents=[common],
                               help="respell one non-static data member in every view and use")
     member.add_argument("--class", dest="cls", required=True, help="the class whose member it is")
@@ -10532,6 +11322,14 @@ def main(argv=None):
         if kind == "local":
             scoped.add_argument("--local-binding", action="store_true", help="prove one ordinary scalar binding and preserve outer uses")
     args = parser.parse_args(argv)
+    if args.kind == "verify-record":
+        try:
+            which = verify_record(args.root, args.base, args.target, args.old, args.new)
+        except Refusal as why:
+            print(f"rename: verify-record: {args.old} -> {args.new}: {why}", file=sys.stderr)
+            return 1
+        print(f"rename: verify-record: {args.old} -> {args.new}: {which} approval verified")
+        return 0
     if args.kind == "recover":
         ctx = Context(args.root, object_scan=False)
         try:
@@ -10603,8 +11401,8 @@ def main(argv=None):
         parser.error("--respell is its own mode: not with --to-class or --virtual")
     if respell and not args.prepared:
         parser.error("--respell needs --prepared sources for every unit that names the row")
-    if args.kind == "class" and args.prepared and not fold:
-        parser.error("--prepared goes with --fold")
+    if args.kind == "class" and args.prepared and not (fold or args.merge_existing):
+        parser.error("--prepared goes with --fold or --merge-existing")
     if to_class and (args.basis or not args.new):
         parser.error("function --to-class takes --new (the member's identifier in CLASS) and its evidence from "
                      "retail's vftable: pass no --basis")
@@ -10627,7 +11425,7 @@ def main(argv=None):
                      "--evidence; pass no --basis")
     prepared = {}
     for item in (args.prepared if to_class or fold or respell or retype or (args.kind == "function" and args.virtual)
-                 else []):
+                 or (args.kind == "class" and args.merge_existing) else []):
         rel, sep, path = item.partition("=")
         if not sep or not rel or not path:
             parser.error(f"--prepared {item!r} is not REL=FILE")
@@ -10649,6 +11447,8 @@ def main(argv=None):
         if args.name or args.new or args.basis:
             parser.error("class --fold invents no name and takes its evidence from retail: "
                          "pass neither --name, --new nor --basis")
+        if args.merge_existing:
+            parser.error("--merge-existing goes with class --name OLD --new NEW, not --fold")
     elif args.kind == "class" and (args.name is None or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--name", args.name), ("--new", args.new)) if v is None))
@@ -10684,6 +11484,10 @@ def main(argv=None):
             parser.error(f"--rva {args.rva!r} is not hex")
     elif args.kind in ("global", "class"):
         kwargs.update(name=args.name)
+        if args.kind == "class" and args.merge_existing:
+            kwargs["merge"] = True
+            if prepared:
+                kwargs["prepared"] = prepared
         if retype:
             kwargs.update(retype=args.retype, size=args.size, initializer=args.initializer,
                           prepared=prepared or None)

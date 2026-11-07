@@ -774,6 +774,19 @@ class Lane:
         """`cls` is a registered placeholder class and `rel` its canonical header."""
         return cls in self.registered_placeholders().get(rel, ())
 
+    def merges(self, rel, cls, new):
+        """Renaming the registered placeholder `cls` (served from its header `rel`) to `new`
+        is a `rename.py class --merge-existing`: the tree already spells `new`, but only as
+        a type nothing owns (rename.merge_problems). Such an answer is voted and landed as a
+        merge; any other answer the tree already spells is still refused."""
+        if not self.registered_here(rel, cls) or not self.ctx.grep_files(new, word=True):
+            return False
+        if any(r.get("class") == new for r in self.ctx.dicts(rename.CANONICAL_CLASSES)):
+            return False                    # two registered classes are a reconciliation, never a merge
+        names = [r["name"] for r in self.ctx.rows()] + [p.get("name", "") for p in self.ctx.pins()] + \
+            [d.get("name", "") for d in self.ctx.dicts(rename.DATA_ROWS)]
+        return not rename.merge_problems(self.ctx, new, names)
+
     def servable(self, rel):
         """A matched or registered-unrowed Code/ unit with no vendor/export owner, or the
         canonical header of a registered placeholder class (its class and member keys only)."""
@@ -1581,7 +1594,8 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
                         and not tally.meanings[key].get((h, worker)))
             why = lane.eligibility(rel, kind, scope, ident, rva) or lane.problem(
                 kind, ident, answer, file_words, rel=rel, scope=scope, text=text)
-            if not why and kind == "class" and lane.ctx.grep_files(answer, word=True):
+            if not why and kind == "class" and lane.ctx.grep_files(answer, word=True) \
+                    and not lane.merges(rel, ident, answer):
                 why = f"{answer} already exists; reconcile declarations before a class rename"
             name_scope = lane.collision_scope(rel, kind, scope, ident) or ""
             if not why and kind in NAMED and (name_scope, canon(answer)) in taken:
@@ -1694,11 +1708,12 @@ def lane_spelling(lane, name, kind):
 
 # ---------------------------------------------------------------- apply / dispute
 
-def rename_kwargs(kind, scope, old, new, rva, rel):
+def rename_kwargs(kind, scope, old, new, rva, rel, lane=None):
     if kind == "function":
         return {"rva": int(scope, 16), "new": new}
     if kind == "class":
-        return {"name": old, "new": new}
+        # a registered placeholder taking a name the tree spells only as a type lands as a merge
+        return {"name": old, "new": new, **({"merge": True} if lane is not None and lane.merges(rel, old, new) else {})}
     if kind == "member":
         return {"cls": scope, "member": old, "new": new}
     if kind in ("param", "local"):
@@ -1824,7 +1839,7 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
         for row in rows:
             rel, kind, scope, old = split_key(row["key"])
             requests.append((kind, dict(basis="inferred", evidence=f"agree:{row['id']}",
-                max_files=max_files, **rename_kwargs(kind, scope, old, row["new"], row["rva"], rel))))
+                max_files=max_files, **rename_kwargs(kind, scope, old, row["new"], row["rva"], rel, lane))))
         result = rename.run_batch(lane.ctx, requests, claim=args.claim, verify=verify, checks=checks, session=session)
         planned = [rows[index] for index, _plan in result.plans]
         rejected = [rows[index] for index in result.refused]
@@ -2209,7 +2224,7 @@ def cmd_resolve(lane, args):
     why = lane.eligibility(rel, kind, scope, old, rva) or lane.problem(
         kind, old, chosen, set(name_metric.WORD.findall(name_metric.strip(text))),
         rel=rel, scope=scope, text=text)
-    if not why and kind == "class" and lane.ctx.grep_files(chosen, word=True):
+    if not why and kind == "class" and lane.ctx.grep_files(chosen, word=True) and not lane.merges(rel, old, chosen):
         why = f"{chosen} already exists; reconcile declarations before a class rename"
     if why:
         fail(f"resolution refused: {why}")
@@ -2374,7 +2389,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 for candidate in scoped:
                     _, k, s, old = split_key(candidate["key"])
                     requests.append((k, dict(basis="inferred", evidence=f"agree:{candidate['id']}", max_files=max_files,
-                                            **rename_kwargs(k, s, old, candidate["new"], candidate["rva"], rel))))
+                                            **rename_kwargs(k, s, old, candidate["new"], candidate["rva"], rel, lane))))
                 try:
                     rename.run_scoped_batch(lane.ctx, requests, claim=args.claim, verify=verify, checks=checks)
                 except (rename.Refusal, rename.VerifyFailed) as exc:
@@ -2395,7 +2410,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 try:
                     rename.run(kind, lane.ctx, claim=args.claim, verify=verify, checks=checks,
                                basis="inferred", evidence=f"agree:{row['id']}", max_files=max_files,
-                               **rename_kwargs(kind, scope, ident, row["new"], row["rva"], rel))
+                               **rename_kwargs(kind, scope, ident, row["new"], row["rva"], rel, lane))
                     outcome.update(status="landed", detail=approval_detail(tally, refused, row))
                     landed += 1
                 except (rename.Refusal, rename.VerifyFailed) as exc:

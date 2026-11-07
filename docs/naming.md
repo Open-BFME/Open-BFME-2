@@ -407,8 +407,9 @@ It refuses, among other things, the following:
   a file that expands `__FILE__`, a file another file `#include`s, and an approved retail
   TU;
 - a move across directories;
-- a class registered in `reverse/canonical_classes.csv`. Rename that class in a
-  class-reconciliation commit instead;
+- a readable class registered in `reverse/canonical_classes.csv` (a registered
+  placeholder moves with its key and contract: see
+  [`rename.py class` on a registered class](#renamepy-class-on-a-registered-class-key-contract-and-views-together));
 - a blast radius over `--max-files` (25).
 
 ### `rename.py function --virtual`: a row retail calls through a vtable
@@ -765,6 +766,137 @@ refused. The byte gate, `pin_admission` and `pin_consistency --check` decide as
 for any rename (commit checks). Because no record is written, `rename.py check`
 does not watch the old spelling; the tombstones keep union merges from
 reviving its rows.
+
+### `rename.py class` on a registered class: key, contract and views together
+
+A placeholder class registered in `reverse/canonical_classes.csv` has a
+canonical header, a contract (`reverse/class_contracts/<class>.json`) and usually
+private views in units that have not adopted the header yet
+(`reverse/header_queue.tsv`). `class --name OLD --new NEW` renames all of them in
+one commit:
+
+    python3 tools/rename.py class --name Rva001DFEAABase --new FXNugget \
+        --basis inferred --evidence agree:<id> --max-files 40 --dry-run
+
+On top of the ordinary token rewrite, it:
+
+- re-keys the registry row and the contract note in it;
+- moves the contract to `NEW.json` with `git mv` and respells it;
+- re-keys OLD's `header_queue.tsv` rows, keeping each row's source and RVAs.
+
+The header keeps its path: the file kind refuses a header other files include,
+and an `#include` path is not a spelling of the type. After `./build.sh`, no
+rebuilt object may name a symbol of the old spelling.
+
+**Approval.** An inferred name needs the agreement reached at the canonical
+header's key (`<header>|class||OLD`): `name_lane.py next --registered OLD`
+serves it, two blind votes from distinct workers agree it, and the agreement
+must be for this exact key and NEW. An agreement reached at a private view's key
+is refused. A canonical basis needs its proof, as for any rename. The same
+route serves the class's placeholder members (`--key` serves one alone).
+`rename.py member` lands a member on a registered class without renaming the
+class; it also respells the contract field of that name, leaves the contract
+alone when it already names the field NEW (the views' majority), and refuses
+when the contract names that field neither way, names NEW at another offset
+than the placeholder spells, or spells OLD outside its top-level field.
+
+**What the gates credit.** `class_gate` credits a unit that declared
+`class OLD` at HEAD and now declares `class NEW` (the same private view, not a
+new one). `repair_queue verify-removed` treats a re-keyed queue row as carried,
+not retired. Both credits need all of the following in the commit:
+
+- a `name_basis.csv` class record;
+- the one registry key moved to NEW under the same header;
+- `rename.py verify-record` accepting the record.
+
+`verify-record` recomputes an agreement from the votes, re-checks a canonical
+citation (a path inside `reference/open-bfme-1` is read at the commit the base
+pins), and proves a revert to be the exact inverse. It runs from the base
+revision's own tools (HEAD, or the push base) against the base revision's data.
+Votes, agreements and resolutions therefore land in their own `name_lane`
+commits before the rename that cites them; nothing a commit adds to a vote
+ledger counts towards its own credit. An `nl-` agreement carries no
+fingerprint, so the credit binds it through history: the key's source (the
+canonical header) must be the same blob in the base as in the commit that
+recorded the agreement. Votes cast on another text earn nothing. A commit can't loosen the check that
+judges it. The credits apply only to commits made after this landed.
+
+**Refusals.** The rename refuses:
+
+- a readable registered class (two real names are a reconciliation);
+- two registry rows for OLD;
+- a missing contract, a contract of another class, or an orphan contract;
+- a NEW already registered or holding a contract;
+- `--fold` of a registered OLD.
+
+**Reverting.** An inferred landing goes back with
+`rename.py revert --record <id> --reason TEXT`. For a registered class the revert
+*is* the landing commit's diff reversed over HEAD, so every file it touched,
+including the key, contract and queue rows, comes back byte for byte. To that the
+revert adds the one restored `name_basis.csv` record and the `(restored)`
+tombstones, and lifts the landing's own tombstones.
+
+The gates credit a revert only as that exact inverse. The landing's reversed
+diff must give the commit's tree exactly. The two ledgers must change by an
+ordered diff, because name protection reads a name's last record, so a
+reordered, repeated or extra line changes meaning:
+- `name_basis.csv` keeps every line in place and gains only the restored record
+  at the end;
+- `deleted_rows.csv` keeps every line in place except the lifted tombstones, and
+  gains only the restored ones at the end.
+
+A revert that also edits anything else gets no credit. A landing that a later
+commit has touched doesn't reverse cleanly, so revert it by hand.
+
+**A NEW the tree already spells.** A placeholder's retail name is often spelled
+already. Other units forward-declare `class FXNugget;`, keep views deriving their
+nuggets from it, and take `FXNugget *` parameters, while every row of the class
+sits under the placeholder. `--merge-existing` lets the rename take such a NEW,
+on three conditions:
+
+- NEW appears only as a type, never as the scope or identifier of a row, pin or
+  data row (one that owns a row is a fold), and is not itself registered.
+- No unit outside the rewrite already defines a symbol the respelling creates
+  (checked in its objects and in its text, `NEW::method(`).
+- Every existing *definition* of NEW is compiled (`tools/class_layouts.py`,
+  CodeView). Each leaf it lays out must be one of OLD's contract leaves with the
+  same offset, size, kind and name:
+  - the vfptr is a leaf, and the view has one exactly when the contract does;
+  - every named member is a leaf, never padding;
+  - member aggregates are read as their scalars (`member.field`).
+
+  The view must fit within the contract's sizeof. Only scalars compare: a
+  primitive, a pointer, or the vfptr. Fail closed: the merge refuses anything it
+  cannot reduce to scalars, never guessing from a type name. That covers a
+  forward-only or unparsed layout, any base (virtual or not), a bitfield, an
+  array, a member aggregate it cannot expand, and a contract field that is not a
+  scalar. The definers' units and the consumers of the respelled symbols are
+  verified with the rest; only declarations and pointer or reference uses stay
+  unexamined.
+
+The intended path leaves nothing for that comparison. Every private view of NEW is
+first reshaped onto the canonical class, either in its own commit or passed with
+the rename as `--prepared REL=FILE` (repeatable). A prepared unit is part of the
+rewrite and is byte-verified with it. It must be a tracked, clean, matched `Code/`
+C++ source that reads as after the rename:
+- no OLD outside the kept header's `#include` path;
+- no body of NEW of its own (a class derived from NEW is fine);
+- `#include` of the canonical header wherever its code spells NEW;
+- no second body (`NEW::m(`) of a row the rename respells, unless the unit owns
+  that row.
+
+A merge may be **inferred**: two blind votes through `name_lane.py next
+--registered OLD`, which accepts an answer the tree already spells when it is
+such a merge, and lands it with `--merge-existing`. That is safe only because the
+revert is exact. A revert is the reversed landing diff, and the landing never
+touched NEW's pre-existing spellings, so they come back exactly as they were.
+
+On 2026-11-07, FXNugget would refuse on all three of these:
+
+- `FXList.cpp`'s second `FXNugget::doFXObj` body;
+- `EvaEventFXNugget.cpp`'s view, a 324-byte opaque array at `+0x4`;
+- the Zero Hour shim `reference/shims/zh_outofline/GameClient/FXList.h`,
+  whose includers report no layout to compare.
 
 ### `rename.py carry`: notes added after a rename
 

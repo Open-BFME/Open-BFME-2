@@ -29,6 +29,19 @@ line:
 
     // class-gate: allow AsciiString <reason>
 
+A registered class renamed by tools/rename.py respells its private views in
+place, so a unit that declared `class OLD` at HEAD stages `class NEW`. That is
+the same copy, not a new one, when the commit records an approved rename: its
+reverse/name_basis.csv gains a `class,OLD,NEW` row, canonical_classes.csv
+moves the one OLD key to NEW under the same header (recorded_class_renames),
+and HEAD's own tools/rename.py `verify-record` accepts that record as the
+approval for exactly this key and name -- the agreement recomputed from the
+votes, a canonical citation re-checked, a revert proven the exact inverse
+(approved_class_renames). HEAD's copy, not the commit's, so a commit cannot
+loosen the check it is judged by. Only HEAD's copy of the same path is
+credited, never a staged rename's old path or a deleted donor, and only for
+the class whose key moved.
+
 Registered keys are also matched by scope-qualified identity (class_layouts.class_identities):
 `rts::hash` matches `namespace rts { template <...> struct hash {...}; }`, and every
 specialization (`X<7>`, `X<N, 0>`) is its own identity, so a unit that already has the primary
@@ -48,9 +61,13 @@ Usage:
 """
 import argparse
 import collections
+import csv
+import io
 import re
 import subprocess
 import sys
+import tarfile
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -66,6 +83,75 @@ def git_text(spec):
     if result.returncode != 0:
         return None
     return result.stdout.decode("latin-1")
+
+
+# ---------------------------------------------------------------- a registered class renamed
+
+NAME_BASIS = "reverse/name_basis.csv"
+CANONICAL = "reverse/canonical_classes.csv"
+RECORD_FIELDS = ("kind", "old", "new", "basis", "evidence", "source", "rva")
+
+
+def _csv_rows(text):
+    return list(csv.DictReader(io.StringIO(text))) if text else []
+
+
+def recorded_class_renames(base_basis, target_basis, base_registry, target_registry):
+    """{OLD: NEW} candidates: target's name_basis.csv gains a `class,OLD,NEW` row base lacks,
+    base's registry has exactly one row for OLD and none for NEW, and target's has none for
+    OLD and exactly one for NEW under the header OLD had. An OLD recorded towards two names,
+    or two OLDs towards one NEW, is neither. A candidate is credited only once
+    approved_class_renames has verified its approval."""
+    def key(row):
+        return tuple(row.get(c) or "" for c in RECORD_FIELDS)
+    before = {key(r) for r in _csv_rows(base_basis)}
+    pairs = {(r.get("old") or "", r.get("new") or "") for r in _csv_rows(target_basis)
+             if r.get("kind") == "class" and key(r) not in before}
+    olds = collections.Counter(o for o, _n in pairs)
+    news = collections.Counter(n for _o, n in pairs)
+
+    def headers(text):
+        rows = collections.defaultdict(list)
+        for row in _csv_rows(text):
+            rows[row.get("class") or ""].append(row.get("header") or "")
+        return rows
+    was, now = headers(base_registry), headers(target_registry)
+    return {old: new for old, new in sorted(pairs)
+            if old and new and old != new and olds[old] == 1 and news[new] == 1
+            and len(was.get(old, ())) == 1 and not was.get(new) and not now.get(old) and now.get(new) == was[old]}
+
+
+def base_verify_record(root, base, target, old, new):
+    """(ok, message) from the BASE revision's tools/rename.py verify-record, run from a copy
+    of base's tools/*.py, so the commit being judged cannot change the check. A base that
+    predates verify-record, or any failure to run it, credits nothing."""
+    archive = subprocess.run(["git", "archive", base or "HEAD", "--", ":(glob)tools/*.py"], cwd=root,
+                             capture_output=True)
+    if archive.returncode != 0:
+        return False, f"cannot read {base}'s tools: {archive.stderr.decode('utf-8', 'replace').strip()[:200]}"
+    with tempfile.TemporaryDirectory(prefix="class-rename-verify-") as tmp:
+        with tarfile.open(fileobj=io.BytesIO(archive.stdout)) as tar:
+            tar.extractall(tmp, filter="data")
+        result = subprocess.run([sys.executable, str(Path(tmp) / "tools" / "rename.py"), "verify-record",
+                                 "--root", str(root), "--base", base, "--target", target,
+                                 "--old", old, "--new", new], cwd=root, capture_output=True, text=True)
+    return result.returncode == 0, (result.stdout + result.stderr).strip()[-400:]
+
+
+def approved_class_renames(base, target, verify=None):
+    """{OLD: NEW} recorded renames whose approval base's verify-record accepts."""
+    show = lambda rev, rel: git_text(f"{rev}:{rel}")  # noqa: E731
+    candidates = recorded_class_renames(show(base, NAME_BASIS), show(target, NAME_BASIS),
+                                        show(base, CANONICAL), show(target, CANONICAL))
+    verify = verify or base_verify_record
+    approved = {}
+    for old, new in candidates.items():
+        ok, message = verify(ROOT, base, target, old, new)
+        if ok:
+            approved[old] = new
+        else:
+            print(f"  class_gate: no rename credit for {old} -> {new}: {message}", file=sys.stderr)
+    return approved
 
 
 def gated(path):
@@ -295,13 +381,16 @@ def staged_deletions(renames):
     return bodies
 
 
-def introduced(path, text, canon, renamed_from=None, moved=None):
+def introduced(path, text, canon, renamed_from=None, moved=None, class_renames=None):
     """Registered classes `text` declares a body for that HEAD's copy of `path` did not.
 
     `renamed_from` is the HEAD path the index moves to `path`: its bodies are
     the unit's own, not new ones (a rename plus an edit equals a pure rename
     then the in-place edit, both admitted). `moved` is staged_deletions()'s
     pool: a body found there verbatim is consumed from it and credited.
+    `class_renames` is {OLD: NEW}, the registered classes this commit renames
+    (class_views.recorded_class_renames): a body of OLD that HEAD's copy of this
+    very path declared is that unit's body of NEW, so it is not introduced.
     """
     now = declared_names(text) & set(canon)
     if not now:
@@ -317,6 +406,10 @@ def introduced(path, text, canon, renamed_from=None, moved=None):
         before = git_text(f"HEAD:{renamed_from}")
         if before:
             had |= declared_names(before)
+    if class_renames:
+        before = git_text(f"HEAD:{path}")
+        if before:
+            had |= {class_renames[name] for name in declared_names(before) if name in class_renames}
     allowed = set(ALLOW.findall(text))
     fresh = now - had - allowed
     if moved:
@@ -432,12 +525,28 @@ def staged_identity_deletions(renames, canon):
     return pool
 
 
-def introduced_identities(path, text, canon, renamed_from=None, moved=None):
+def renamed_identities(path, canon, class_renames, heads=False):
+    """({(NEW, args)}, unreadable) for the bodies of a renamed OLD (class_renames, {OLD: NEW})
+    that HEAD's copy of this very path defined: read under OLD's registration, the key it
+    had before the commit moved it, then respelled. Only global keys move."""
+    before = git_text(f"HEAD:{path}") if class_renames else None
+    if not before:
+        return set(), False
+    old_canon = {old: canon[new] for old, new in class_renames.items() if new in canon}
+    if heads:
+        found, unreadable = head_identities(before, old_canon), False
+    else:
+        found, unreadable = identities(before, old_canon)
+    return {(class_renames[key], args) for key, args in found if key in class_renames}, unreadable
+
+
+def introduced_identities(path, text, canon, renamed_from=None, moved=None, class_renames=None):
     """[(key, args, why)] registered identities `text` defines a body for that its prior copies
     (HEAD, MERGE_HEAD, a staged rename's old path) did not and no deleted donor carried verbatim.
 
     A specialization is its own identity, so a unit that already has the primary still
     introduces `X<7>`. When either side is unreadable, identities compare by key alone.
+    `class_renames` credits HEAD's own body of a renamed OLD as this path's NEW (introduced()).
     """
     now, ambiguous = identities(text, canon)
     if not now:
@@ -450,6 +559,9 @@ def introduced_identities(path, text, canon, renamed_from=None, moved=None):
             found, unreadable = identities(before, canon)
             had |= found
             had_ambiguous |= unreadable
+    found, unreadable = renamed_identities(path, canon, class_renames)
+    had |= found
+    had_ambiguous |= unreadable
     allowed = set(ALLOW_KEY.findall(text))
     if ambiguous or had_ambiguous:
         # Both sides by their heads, so a new or different specialization still shows.
@@ -460,6 +572,7 @@ def introduced_identities(path, text, canon, renamed_from=None, moved=None):
             before = git_text(spec)
             if before:
                 had_heads |= head_identities(before, canon)
+        had_heads |= renamed_identities(path, canon, class_renames, heads=True)[0]
         fresh = now_heads - had_heads
         why = "an unreadable unit, compared by heads"
     else:
@@ -616,6 +729,7 @@ def main(argv=None):
     if args.staged:
         renames = staged_renames()
         moved = staged_deletions(renames)
+        class_renames = approved_class_renames("HEAD", "")
         checks = [(p, git_text(f":{p}"), renames.get(p)) for p in staged_sources()]
         mode = gate_mode(git_text(f":{MODE_FILE}"))
         try:
@@ -628,6 +742,7 @@ def main(argv=None):
             bad = 1
     else:
         moved = identity_moved = None
+        class_renames = {}
         checks = [(p, (ROOT / p).read_text(encoding="latin-1"), None) for p in args.files]
         mode_path = ROOT / MODE_FILE
         mode = gate_mode(mode_path.read_text(encoding="latin-1") if mode_path.exists() else None)
@@ -637,13 +752,13 @@ def main(argv=None):
             print(f"  {path}: staged content unreadable; refusing rather than skipping it", file=sys.stderr)
             bad = 1
             continue
-        refused = introduced(path, text, canon, renamed_from, moved)
+        refused = introduced(path, text, canon, renamed_from, moved, class_renames)
         for name in refused:
             print(f"  {path}: declares its own `{name}`; include {canon[name]} instead "
                   f"(or `// class-gate: allow {name} <reason>` for a proved codegen view)", file=sys.stderr)
             bad = 1
         try:
-            found = introduced_identities(path, text, canon, renamed_from, identity_moved)
+            found = introduced_identities(path, text, canon, renamed_from, identity_moved, class_renames)
         except Exception as error:  # noqa: BLE001 - the identity check must not break the gate
             found = []
             bad |= identity_failure(path, error, mode)

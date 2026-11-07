@@ -87,6 +87,7 @@ def registered(tmp_path, monkeypatch):
     for rel, text in TREE.items():
         write(tmp_path, rel, text)
     run(tmp_path, "init", "-q")
+    run(tmp_path, "config", "core.autocrlf", "false")
     run(tmp_path, "add", "-A")
     run(tmp_path, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "init")
     monkeypatch.setenv("BFME_CLAIM_OWNER", "seat-registered")
@@ -157,3 +158,52 @@ def test_name_evidence_grades_a_registered_placeholder_but_never_a_readable_one(
     tree = name_evidence.Tree(registered)
     assert tree.class_refusal(OLD) is None
     assert tree.class_refusal("Coord3D") == "protected class"
+
+
+def spell_new_as_a_type(root, pin=None):
+    """Another unit forward-declares NEW and takes NEW *; optionally a pin scoped by NEW."""
+    write(root, "Code/Game/FXList.cpp", f"// cl: /O2\nclass {NEW};\nvoid addNugget({NEW} *n) {{ (void)n; }}\n")
+    if pin:
+        with open(root / "reverse/symbols.csv", "ab") as handle:
+            handle.write(f"{pin},0x00403000,pin\n".encode("utf-8"))
+    run(root, "add", "-A")
+
+
+def test_a_name_spelled_only_as_a_type_is_voted_and_landed_as_a_merge(registered):
+    import name_lane
+    spell_new_as_a_type(registered)
+    lane = lane_of(registered)
+    assert lane.merges(HEADER, OLD, NEW)
+    assert name_lane.rename_kwargs("class", "", OLD, NEW, None, HEADER, lane) == {"name": OLD, "new": NEW,
+                                                                                    "merge": True}
+    assert not lane.merges(SOUND, OLD, NEW)                       # only from the canonical header's key
+    assert not lane.merges(HEADER, OLD, "Coord3D")               # Coord3D is a defined, registered class
+
+
+@pytest.mark.parametrize("pin", [f"?run@{NEW}@@QAEXXZ", f"??_7{NEW}@@6B@"])
+def test_a_name_that_owns_a_row_is_no_merge(registered, pin):
+    import name_lane
+    spell_new_as_a_type(registered, pin)
+    lane = lane_of(registered)
+    assert not lane.merges(HEADER, OLD, NEW)
+    assert name_lane.rename_kwargs("class", "", OLD, NEW, None, HEADER, lane) == {"name": OLD, "new": NEW}
+
+
+def test_a_merge_answer_passes_validation_and_others_still_refuse(registered, monkeypatch, tmp_path):
+    import json
+    import name_lane
+    from types import SimpleNamespace
+    spell_new_as_a_type(registered)
+    monkeypatch.setenv("BFME_CLAIM_OWNER", "seat-merge")
+    key = f"{HEADER}|class||{OLD}"
+    args = SimpleNamespace(session="merge", model="claude-opus-5-5", count=1, file=None, list_only=False,
+                           registered=OLD, key=[key])
+    assert name_lane.cmd_next(lane_of(registered), args) == 0
+    for answer, ok in ((NEW, True), ("Coord3D", False)):
+        sheet = tmp_path / f"answer-{answer}.json"
+        sheet.write_bytes(json.dumps({HEADER: {OLD: answer}}).encode("utf-8"))
+        validate = SimpleNamespace(answer=str(sheet), session="merge", model="claude-opus-5-5")
+        if ok:
+            assert name_lane.cmd_validate(lane_of(registered), validate) == 0
+        else:
+            assert name_lane.cmd_validate(lane_of(registered), validate) != 0
