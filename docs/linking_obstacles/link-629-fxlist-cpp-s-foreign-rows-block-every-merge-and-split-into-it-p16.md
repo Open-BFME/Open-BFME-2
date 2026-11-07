@@ -182,8 +182,10 @@ and for A3 (`Rva001DFEAABase` -> `FXNugget`). Scratch texts only, judged with `t
     placeholder names (`Rva005668E9Element`), so their respell resolves them.
   - +0x44 `vector<AsciiString>`: its copy 0x000BC07E is kept from another unit; nothing moves.
   - +0x90 `Rva004E1A04` stays open. It is 16 bytes and copies as AsciiString then three dwords, through the ICF'd
-    0x0052BEC9 (rowed as two pair copies). Its dtor 0x004E1A04 calls the string dtor twice on `this`, which
-    that layout does not explain.
+    0x0052BEC9 (rowed as two pair copies). Its dtor 0x004E1A04 is a user body that clears the string (the
+    first 0x00036410 call), then the member's own dtor. Rva004E1A04Dtor.cpp now spells that as real code
+    (exact, 3/3), replacing an explicit `~StringBase()` call. The dwords' types and the class's identity stay
+    open.
 - A3 group A (seat6's scope, `build/bridge_lane/fxnugget_scope.md`): `merge_definitions` refuses all six private
   `FXNugget` views, which have pads, no vptr or own method names. On the canonical class they byte-match with
   these reshapes:

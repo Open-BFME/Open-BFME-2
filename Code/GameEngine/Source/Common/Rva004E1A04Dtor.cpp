@@ -1,26 +1,29 @@
 // cl: /MD /EHsc /Ireference/shims/bfme2_ascii
-// ??1Rva004E1A04@@QAE@XZ, RVA 0x004E1A04, 47B. Unlock lane: non-virtual dtor
-// releasing two narrow StringBase members twice through rowed narrow
-// releaseBuffer at 0x00036410, first call under EH state 0 then state -1.
-// Callers at 0x004E1A87/0x0052BBBE/0x0052CEE6 plus jmps. Owner unproven so
-// honest address-derived name.
-// The canonical frozen StringBase replaces the private copy; its switch makes
-// the member dtor reachable and keeps the teardown an out-of-line call to the
-// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
-#define BFME_STRINGBASE_PUBLIC_DTOR
-#include "string_base.h"
-
-
+// ??1Rva004E1A04@@QAE@XZ, RVA 0x004E1A04, 47B: non-virtual dtor of the 16-byte
+// element of the LivingWorld campaign act's +0x90 vector. Callers at
+// 0x004E1A87/0x0052BBBE/0x0052CEE6 plus jmps. Owner unproven, so the name stays
+// address-derived.
+// Target facts: two calls to 0x00036410 on `this` (rowed both as ~StringBase and
+// as its ICF twin releaseBuffer), the first under EH state 0 and the second
+// under state -1. The element's copy, 0x0052BEC9 through the act's construct
+// helper 0x0052C404, copies a string at +0 and three dwords at +4/+8/+0xC.
+// Structural inference: a string member at +0 that the dtor body clears
+// (AsciiString::clear calls 0x00036410), then the member's own destructor;
+// the dwords' types are unknown.
+#include "ascii_string.h"
 
 class Rva004E1A04
 {
 public:
 	~Rva004E1A04();
 private:
-	StringBase<char> m_a;
+	AsciiString m_00;
+	int m_04;
+	int m_08;
+	int m_0C;
 };
 
 Rva004E1A04::~Rva004E1A04()
 {
-	m_a.~StringBase<char>();
+	m_00.clear();
 }
