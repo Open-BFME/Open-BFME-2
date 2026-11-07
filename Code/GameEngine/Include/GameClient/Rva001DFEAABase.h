@@ -24,7 +24,7 @@ public:
     virtual void slot03(AssetList &assets, int value) const = 0;
     virtual bool rva001DFF5D(Object *primary, Object *secondary);
 
-    int m_04;
+    int m_nuggetType;
     Rva003623E5Member m_08;
     Rva003623E5Member m_0C;
     Rva0042526Member m_10;
