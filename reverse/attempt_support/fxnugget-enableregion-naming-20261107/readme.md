@@ -68,3 +68,24 @@ Name: no retail or donor string names the class. The parser's keyword is "Region
 EnableRegion. A real name needs blind agreement. Until then the respell can target the existing placeholder
 `Rva003B7BA0Record`. Respelling 0x0052BD3A leaves FXList.cpp with only the two STLport hashtable rows
 (Harness lane) as blocking foreign rows.
+
+## 3. Status and remaining work (2026-11-07, later)
+
+- **EnableRegion record:** blind votes resolved to `EnableRegionRecord` (name_agreed nr-0da3866284da5687290c2342).
+  - `name_lane apply` and `rename.py class` refuse it through the object scan. The identifier-less dtor
+    `??1Rva003B7BA0Record@@UAE@XZ` counts every stale-object unit as a consumer: 208, against the real scope
+    of SpawnArmy.cpp alone. Recorded as a false reject at 0x004E156B.
+  - The chain respell is more than a rename. tu_map approves the copy ctor 0x0052BD3A and `_Construct`
+    0x0052C2F3 for LivingWorldCampaign.cpp, and `vector::_M_insert_overflow` 0x00565ACB and the push-back
+    thunk 0x00566527 for Glo012F1024Item.cpp (provisional).
+  - The copy ctor is compiler-generated, so the unit that copies a complete record must emit it. The
+    respell (`rename.py function --respell` with `--prepared` units) and the move into those TUs go
+    together, and the record class needs a view both TUs share.
+- **Member `m_04` → `m_nuggetType`:** one proposer vote cast through `name_lane next --registered`; it waits
+  for an independent blind vote. Header adoption of the nugget ctor donors (step B) needs it.
+- **Class rename `Rva001DFEAABase` → `FXNugget` (A3):** it must come after step B, which removes FXList.cpp's
+  Zero Hour `FXNugget::doFXObj` body that would otherwise define the name twice. seat6 found two more
+  definitions of the name `FXNugget` that conflict with the canonical contract and will block the rename:
+  - EvaEventFXNugget.cpp's view: a 324-byte opaque array at +0x4, where the contract has an int.
+  - The Zero Hour shim `reference/shims/zh_outofline/GameClient/FXList.h`: its includers report no FXNugget
+    layout, so it cannot be verified.
