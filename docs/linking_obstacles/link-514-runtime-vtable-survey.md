@@ -610,11 +610,11 @@ Still walled:
   before OCLUpdate's constructor can store its table.
 
 **The Upgrade family's private views, part 1 (2026-11-07, seat halilkkaya-lk56, base `2f3e43c2c1`, census
-index `0aff0e89c0`).** Eleven upgrade classes now let the compiler store their real tables over the canonical
+index `0aff0e89c0`).** Twelve upgrade classes now let the compiler store their real tables over the canonical
 UpgradeModule.h. Before, each emitted a primary table with `__purecall` in slots 1-3 (only two slots long for
-RemoveUpgradeUpgrade), an UpgradeMux (+0x10) table of ONE anchor slot (Delayed, Base, Castle, DoCommand,
+RemoveUpgradeUpgrade and StatusBitsUpgrade), an UpgradeMux (+0x10) table of ONE anchor slot (Delayed, Base, Castle, DoCommand,
 Tooltip, AllowBannerSpawn, LocomotorSet) or of
-11 slots with 9-10 `__purecall` (Stealth, Radar, RemoveUpgrade) where retail has 18, a one-slot +0x18 table,
+11 slots with 9-10 `__purecall` (Stealth, Radar, RemoveUpgrade, StatusBits) where retail has 18, a one-slot +0x18 table,
 and a BehaviorModuleInterface table whose getDamage/getUpgrade returned 0. CommandSetUpgrade (already on the
 header) had `__purecall` in UpgradeMux slot 10, so applying any command-set upgrade aborted.
 
@@ -649,6 +649,7 @@ Recipe (one class at a time; three commits when the destructor and the getter ar
 | CommandSetUpgrade 0x004B3AB2 (0x00C57290 / 0x00C57248) | five commits, "CommandSetUpgrade: declare postUpgradeCheck ..." to "Fold class Rva004B39FC ..." | 6/12 -> 9/12 + 3 equiv | 16/18 (slot 10 `__purecall`) -> 18/18 | none |
 | TooltipUpgrade 0x004B7A50 (0x00C58C08 / 0x00C58BC0) | fa93e328ee1, f61e65810cb, 0882584e5bc, 1bff0526d02 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 18/18 | none: slot 6 is the postUpgradeCheck twin (an offset cast reads the registered Player's mask), slot 10 moved from `Rva004B7A9D`, `Rva004B79AD` folded |
 | AllowBannerSpawnUpgrade 0x004B8587 (0x00C59030 / 0x00C58FE8) | 0739a85b88b, 2129172c717 | 6/12 -> 9/12 + 3 equiv | 1 slot -> 18/18 | none; the destructor and `??_G` were already rowed under the class (UpgradeModuleTailDtors.cpp), so no fold; the ctor's extern `__identifier` stores are gone |
+| StatusBitsUpgrade 0x004B4960 (0x00C57938 / 0x00C578F0) | e03a6dfb630, 1fd1c6fe66e | 2 slots -> 9/12 + 3 equiv | 2/11 -> 18/18 | none; the fold went with the header move (on the header the ctor unit's implicit inline `??1StatusBitsUpgrade` was judged against the pinned retail body, so the unit linked only with the real destructor); it retired the pin `??1StatusBitsUpgrade@@UAE@XZ` -> 0x004B48D3 and the scaffold's `/alternatename` to the placeholder (register ceilings left for the next `hatch_counters --update`) |
 | LocomotorSetUpgrade 0x004B3F0B (0x00C57530 / 0x00C574E8) | 0739a85b88b | 6/12 -> 8/12 + 3 equiv | 1 slot -> 18/18 | slot 2 Wall 1 (`?name@LocomotorSetUpgrade`); LocomotorSetUpgradeConstructor.cpp, which compiled a third private view and did not link, now LINKS 75 B |
 
 "3 equiv" is slot 0 (the unit's `??_E` for the rowed `??_G`), slot 1 (UpgradeModule's 0x0058B03E for retail's
@@ -661,7 +662,7 @@ which let the slot-10 move (`?upgradeImplementation@Rva004B3AFF` -> CommandSetUp
 link_check: every commit keeps its ctor, scaffold, factory, pool-key, implementation and getter units
 linking at census bytes or more (Stealth 226 -> 252, Radar 416 -> 450, DoCommand 145 -> 171, RemoveUpgrade
 295 -> 321, Delayed 49 -> 75, Base 270 -> 296, Castle 271 -> 297, CommandSet 443 -> 469, Tooltip 206 -> 302,
-AllowBannerSpawnUpgradeCtor 49 -> 75, LocomotorSetUpgradeConstructor 0 -> 75 B). Check these units
+AllowBannerSpawnUpgradeCtor 49 -> 75, LocomotorSetUpgradeConstructor 0 -> 75, StatusBits 224 -> 250 B). Check these units
 with the current objects of FireWeaponWhenDeadBehaviorDerived.cpp and ModuleNameGetters3.cpp in the list: the
 census copies predate the folds and getter moves, and fake `??1X` duplicates and unresolved
 `GetSnapshotName`s (the getter commit 5dead9e635f's "6/6" holds only with the scaffold included: 7/7).
@@ -676,7 +677,7 @@ Still walled in the family:
 - Not attempted this pass: LevelUpUpgrade (UpgradeMux slot 2 is
   `?rva004CE2B0@LevelUpUpgrade@@UAE_NPAVRva00406F9C@@@Z`, a wouldUpgrade override with a placeholder
   parameter type), CostModifierUpgrade and SpellRechargeModifierUpgrade (the ReplaceSelfUpgrade +0x1C
-  interface shape), GeometryUpgrade, StatusBitsUpgrade and SubObjectsUpgrade.
+  interface shape), GeometryUpgrade and SubObjectsUpgrade.
 
 Items 2 and 3 of the lk53 handoff, re-checked this pass and still walled:
 - SpecialAbilityUpdate (`class --fold Rva0044EF5E --into SpecialAbilityUpdate`) is refused before planning by
