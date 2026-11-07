@@ -249,3 +249,107 @@ def test_an_alias_pin_on_the_address_is_refused(tree):
         plan(tree, new=NEW, respell=True,
              prepared={"Code/Game/Module_AsObject.cpp": AS_DRAWABLE.encode()})
     assert "alias pin" in str(error.value)
+
+
+# ------------------------------------------- a signature-only respell (identifier unchanged)
+
+SIG_OLD = "?accepts@Filter@@QBE_NPAVObject@@@Z"         # bool Filter::accepts(Object *) const
+SIG_NEW = "?accepts@Filter@@QBE_NPBVObject@@@Z"         # bool Filter::accepts(const Object *) const
+SIG_RVA = 0x00404000
+FILTER = f"""// cl: /O1
+// {SIG_OLD}
+class Object;
+class Filter {{ public: bool accepts(Object *object) const; }};
+bool Filter::accepts(Object *object) const {{ return object != 0; }}
+"""
+FILTER_CONST = FILTER.replace("(Object *object)", "(const Object *object)").replace(SIG_OLD, SIG_NEW)
+REASON = "signature-only: every caller passes a const Object*, as the canonical header declares"
+
+
+def sig_tree(tree):
+    functions = (tree / "reverse/functions.csv").read_bytes().decode()
+    (tree / "reverse/functions.csv").write_bytes(
+        (functions + f"{SIG_OLD},,0x00404000,12,Code/Game/Filter.cpp,matched,filter predicate\n").encode())
+    (tree / "Code/Game/Filter.cpp").write_bytes(FILTER.encode())
+    _git(tree, "add", "-A")
+    return tree
+
+
+def sig_plan(root, new=SIG_NEW, **overrides):
+    kwargs = dict(rva=SIG_RVA, new=new, respell=True, basis="inferred", evidence=REASON,
+                  prepared={"Code/Game/Filter.cpp": FILTER_CONST.replace(SIG_NEW, new).encode()})
+    kwargs.update(overrides)
+    return rename.plan_rename("function", ctx=rename.Context(root, object_scan=False), **kwargs)
+
+
+def test_a_signature_only_respell_needs_no_naming_claim(tree):
+    got = sig_plan(sig_tree(tree))
+    assert got.new == SIG_NEW and (SIG_OLD, SIG_NEW, SIG_RVA) in got.renamed_rows
+    assert got.basis == "inferred" and got.evidence.startswith("signature-only:")
+    assert "Code/Game/Filter.cpp" in got.verify
+    assert got.subject() == f"Respell {SIG_OLD} as {SIG_NEW} (signature only: qualifiers or pointer-ness)"
+
+
+@pytest.mark.parametrize("old,new", [
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@QBE_NPBVObject@@@Z"),   # parameter cv
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@QBE_NAAVObject@@@Z"),   # pointer -> reference
+    ("?get@Filter@@QBEPAVObject@@XZ", "?get@Filter@@QBEPBVObject@@XZ"),               # return type cv
+    ("?set@Filter@@QAEXPAVObject@@0@Z", "?set@Filter@@QAEXPBVObject@@0@Z"),           # a back-reference kept
+    ("?set@Filter@@QAEXPAPAVObject@@@Z", "?set@Filter@@QAEXPAPBVObject@@@Z"),         # an inner pointer's cv
+])
+def test_signature_only_change_accepts_qualifier_and_pointer_changes(old, new):
+    rename.signature_only_change(old, new)
+
+
+@pytest.mark.parametrize("old,new,why", [
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accept@Filter@@QBE_NPAVObject@@@Z", "changes more than"),
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Sieve@@QBE_NPAVObject@@@Z", "changes more than"),
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@QAE_NPBVObject@@@Z", "changes more than"),
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@UBE_NPAVObject@@@Z", "changes more than"),
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@QBE_NPAVThing@@@Z", "adds or removes"),
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@QBE_NPAVObjecu@@@Z", "changes a name"),
+    # Codex: a qualifier-looking pair inside a class name is that class's name, not a qualifier
+    ("?accepts@Filter@@QBE_NPAVPAThing@@@Z", "?accepts@Filter@@QBE_NPAVPBThing@@@Z", "changes a name"),
+    ("?f@Filter@@QAEXVPX@@@Z", "?f@Filter@@QAEXVQX@@@Z", "changes a name"),
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@QBE_NPAUObject@@@Z", "neither a"),   # V -> U key
+    ("?f@Filter@@QAEXD@Z", "?f@Filter@@QAEXC@Z", "neither a"),            # char -> signed char: no pointer
+    ("?f@Filter@@QAEXPAD@Z", "?f@Filter@@QAEXHHD@Z", "neither a"),        # char* -> int, int, char: only the old side reads qualifiers there
+    ("?accepts@Filter@@QBE_NPAVObject@@@Z", "?accepts@Filter@@QBE_NPAVObject@@@Z", r"is \?accepts"),
+])
+def test_signature_only_change_refuses_anything_else(old, new, why):
+    with pytest.raises(Refusal, match=why):
+        rename.signature_only_change(old, new)
+
+
+def test_qualifier_positions_are_type_positions_only():
+    quals, names = rename.qualifier_positions("?accepts@Filter@@QBE_NPAVPAThing@@@Z")
+    text = "?accepts@Filter@@QBE_NPAVPAThing@@@Z"
+    assert sorted(text[i] for i in quals) == ["A", "P"]          # the one parameter pointer and its cv
+    assert ("PAThing", ) == tuple(text[a:b] for a, b in names if text[a:b] == "PAThing")
+
+
+def test_a_signature_only_respell_refuses_an_identifier_change(tree):
+    with pytest.raises(Refusal):
+        sig_plan(sig_tree(tree), new="?accept@Filter@@QBE_NPBVObject@@@Z")
+
+
+def test_a_signature_only_respell_refuses_a_this_cv_change(tree):
+    with pytest.raises(Refusal, match="changes more than a parameter's or the return type's qualifiers"):
+        sig_plan(sig_tree(tree), new="?accepts@Filter@@QAE_NPBVObject@@@Z")
+
+
+def test_a_signature_only_respell_needs_its_labelled_reason(tree):
+    with pytest.raises(Refusal, match="needs --evidence 'signature-only: <reason>'"):
+        sig_plan(sig_tree(tree), evidence="agree:nl-respell0001")
+    with pytest.raises(Refusal, match="needs --evidence 'signature-only: <reason>'"):
+        sig_plan(sig_tree(tree), evidence="signature-only:   ")
+
+
+def test_a_signature_only_respell_is_recorded_as_inference(tree):
+    with pytest.raises(Refusal, match="recorded as labelled inference: --basis inferred"):
+        sig_plan(sig_tree(tree), basis="canonical:wb")
+
+
+def test_a_signature_only_respell_still_needs_prepared_sources(tree):
+    with pytest.raises(Refusal, match="needs --prepared"):
+        sig_plan(sig_tree(tree), prepared=None)

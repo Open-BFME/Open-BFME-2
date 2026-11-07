@@ -403,6 +403,53 @@ def is_placeholder(name, kind="function"):
     return bool(name_metric.weak(kind, name))
 
 
+SIGNATURE_ONLY = "signature-only:"
+
+
+def signature_only_change(old, new):
+    """Refuse unless `new` is `old` with only parameter or return-type cv-qualifiers or
+    pointer-ness changed: the same identifier, class, access, `this` cv and calling convention
+    (byte-identical through the member header), every name fragment byte-identical, and each
+    differing character a pointer/reference code or its pointee's cv letter at a type position the
+    parser reads in both names."""
+    at_old = member_function_header(old)[0]
+    at_new = member_function_header(new)[0]
+    head = at_old + 3              # access code, `this` cv, calling convention
+    if at_old != at_new or old[:head] != new[:head]:
+        raise Refusal(f"{new} changes more than a parameter's or the return type's qualifiers: the identifier, "
+                      f"class, access, `this` cv or calling convention differs from {old} (a naming claim, "
+                      "not a signature-only respell)")
+    if len(old) != len(new):
+        raise Refusal(f"{new} adds or removes type codes against {old}: only a cv-qualifier or pointer-ness "
+                      "change of the same types is a signature-only respell")
+    if old == new:
+        raise Refusal(f"{new} is {old}")
+    try:
+        quals_old, names_old = qualifier_positions(old)
+        quals_new, names_new = qualifier_positions(new)
+    except Unparsed as error:
+        raise Refusal(f"cannot read the type positions of the respell ({error})") from None
+    if names_old != names_new or any(old[a:b] != new[a:b] for a, b in names_old):
+        raise Refusal(f"{new} changes a name against {old} (a class, scope or template name), not a qualifier")
+    for i in (i for i, (a, b) in enumerate(zip(old, new)) if a != b):
+        if i < head or i not in quals_old or i not in quals_new:
+            raise Refusal(f"{new} differs from {old} at '{old[i]}' -> '{new[i]}' (index {i}), which is neither a "
+                          "pointer/reference code nor the cv of what one points to")
+
+
+def check_signature_basis(basis, evidence):
+    """A signature-only respell's record: basis `inferred` and evidence `signature-only: <reason>`."""
+    if basis != "inferred":
+        raise Refusal(f"a signature-only respell is recorded as labelled inference: --basis inferred "
+                      f"(got {basis!r})")
+    reason = (evidence or "").strip()
+    if any(c in reason for c in "\r\n"):
+        raise Refusal("--evidence must be one line")
+    if not reason.startswith(SIGNATURE_ONLY) or not reason[len(SIGNATURE_ONLY):].strip():
+        raise Refusal(f"a signature-only respell needs --evidence '{SIGNATURE_ONLY} <reason>'")
+    return "inferred"
+
+
 def basis_kind(basis):
     """'inferred', 'canonical' or 'restored'; raises Refusal on anything else."""
     match = BASIS_RE.fullmatch(basis or "")
@@ -497,6 +544,22 @@ class _Out(list):
     (a digit where a type is expected: `PAUS@@0@Z`)."""
     refs = None
     type_refs = None
+    quals = None      # (when set) the index of every pointer/reference code and of its cv letter
+
+
+def qualifier_positions(symbol):
+    """(qualifier indices, name fragments) of a decorated `?...` symbol, read by the type parser:
+    the index of each pointer/reference code (P Q R S A B) where the grammar expects a type, and of
+    the cv letter (A B C D) of what it points to. Raises Unparsed outside the parser's subset."""
+    out = _Out()
+    out.refs, out.type_refs, out.quals = [], [], []
+    try:
+        end = _parse_symbol(symbol, 0, out)
+    except (IndexError, ValueError) as error:
+        raise Unparsed(f"{symbol}: {error}") from None
+    if symbol[end:]:
+        raise Unparsed(f"{symbol}: trailing {symbol[end:]!r}")
+    return set(out.quals), [(a, b) for a, b in out]
 
 
 def fragments(symbol, refs=None):
@@ -664,11 +727,14 @@ def _parse_type(s, i, out):
         i = _parse_qualified(s, i + 2, out)
         return _parse_function(s, i + 2, out)
     if c in "PQRSAB":
+        code = i
         i += 1
         if s[i] == "E":
             i += 1
         if s[i] not in "ABCD":
             raise ValueError(f"pointer cv at {i}")
+        if out.quals is not None:
+            out.quals += [code, i]
         return _parse_type(s, i + 1, out)
     if c in "VUT":
         return _parse_qualified(s, i + 1, out)
@@ -1125,6 +1191,8 @@ class Plan:
         if self.to_class:
             return (f"Move {self.old} into {self.to_class['cls']} as {self.new} "
                     f"(retail vftable 0x{self.to_class['table'] + IMAGE_BASE:08X} slot {self.to_class['slot']})")
+        if getattr(self, "signature_only", False):
+            return f"Respell {self.old} as {self.new} (signature only: qualifiers or pointer-ness)"
         if self.kind == "carry":
             return f"Carry {len(self.spellings)} renamed spelling(s) into ledger notes"
         if self.kind in ("member", "param", "local"):
@@ -2820,12 +2888,20 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         raise Refusal("the new name is the old name")
     new_name = literal or rename_function_symbol(old_name, new_word)
 
+    signature_only = respell and new_word == old_word
     reason = is_protected(ctx, "function", old_name, rva=rva, identifier=old_word)
     if reason:
         raise Refusal(f"canonical name: {reason}")
     refuse_vendored(ctx, [owner["source"]], f"renaming {old_name}")
-    which = check_basis(ctx, "function", basis, evidence, old_name, old_word, rva, new_name=new_name,
-                        new_word=new_word)
+    if signature_only:
+        # The same function, the same identifier: no naming claim. Only a parameter's or the return
+        # type's cv-qualifier or pointer-ness changes, the prepared units are rebuilt byte-exact, and
+        # the record is labelled inference with its reason.
+        signature_only_change(old_name, new_name)
+        which = check_signature_basis(basis, evidence)
+    else:
+        which = check_basis(ctx, "function", basis, evidence, old_name, old_word, rva, new_name=new_name,
+                            new_word=new_word)
 
     # Collisions: one name, one identity.
     if any(r["name"] == new_name for r in ctx.rows()) or any(p.get("name") == new_name for p in ctx.pins()):
@@ -2869,6 +2945,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
 
     plan = Plan("function", old_name, new_name, basis, evidence.strip(), owner["source"], rva,
                 old_word=old_word, new_word=new_word)
+    plan.signature_only = signature_only
 
     # Ledgers.
     raw = ctx.read(FUNCTIONS)
