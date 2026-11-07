@@ -39,7 +39,12 @@ public:
 #include "ascii_string.h"
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-extern unsigned int g_Va00E022E8;
+// The GuiFX movie's file name. Retail builds it in this unit's .text$yc run (0x007AF0F1)
+// through the out-of-line AsciiString(const char *) 0x0000654A and registers the cleanup
+// 0x007B7DB3. Address name kept; the original name is unknown.
+#pragma inline_depth( 0 )
+AsciiString g_Va00E022E8("GuiFX.apt");
+#pragma inline_depth()
 extern void *TheRva00222A8BOwner;
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
@@ -87,7 +92,7 @@ void AptGuiFX::Init() {
  if (g_bfmeAptWindowManager) {
   g_Va00E022E0=false;
   reinterpret_cast<Rva002239B2 *>(g_bfmeAptWindowManager)->rva002239B2(&g_Va00E022E8,reinterpret_cast<Rva001408C0Target *>(13));
-  TheRva00222A8BOwner=reinterpret_cast<void *>(reinterpret_cast<GuiFXWindowLoader *>(g_bfmeAptWindowManager)->loadWindow("Apt\\",*reinterpret_cast<AsciiString *>(&g_Va00E022E8),1,0));
+  TheRva00222A8BOwner=reinterpret_cast<void *>(reinterpret_cast<GuiFXWindowLoader *>(g_bfmeAptWindowManager)->loadWindow("Apt\\",g_Va00E022E8,1,0));
   if (g_bfmeAptWindowManager) {
    AsciiString name("AptGuiFX::OnInitialized");
    void (__cdecl *callback)()=reinterpret_cast<void (__cdecl *)()>(AptGuiFX::OnInitialized);

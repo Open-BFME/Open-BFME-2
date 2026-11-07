@@ -146,7 +146,6 @@ unsigned g_Va00DFF0A0;	// retail RVA 0x009FF0A0 (.bss), defined here
 unsigned g_Va00DFF0A4;	// retail RVA 0x009FF0A4 (.bss), defined here
 extern unsigned g_Va00DFF0C4;
 unsigned g_Va00DFF168;	// retail RVA 0x009FF168 (.bss), defined here
-extern unsigned g_Va00E022E8;
 extern unsigned g_Va00E02D90;
 extern unsigned g_Va00E02D94;
 extern unsigned g_Va00E02E70;
@@ -273,13 +272,6 @@ void __cdecl rva007B7C87()
 {
 	ATL::CAtlWinModule *receiver = (ATL::CAtlWinModule *)&g_00DDE0AC;
 	receiver->Term();
-}
-
-// ?rva007B7DB3@@YAXXZ @ 0x007B7DB3 (10B): ecx=&g_Va00E022E8, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B7DB3()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E022E8;
-	receiver->~AsciiString();
 }
 
 
