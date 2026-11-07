@@ -30,6 +30,7 @@ namespace _STL {
 template<class T> class allocator {};
 template<class T> struct less {};
 template<class P> struct _Select1st {};
+template<class T> struct _Identity {};
 template<class K,class V> struct pair { K first; V second; };
 template<class T,class A> class vector { void* start; void* finish; void* end; public: vector& operator=(const vector&); };
 template<class K,class V,class S,class C,class A> class _Rb_tree { void* header; int count; char compareAndPad[4]; public: _Rb_tree& operator=(const _Rb_tree&); _Rb_tree& rva002D0E69(const _Rb_tree&); };
@@ -37,6 +38,7 @@ template<class K,class V,class S,class C,class A> class _Rb_tree { void* header;
 struct Rva002D0EDCElement;
 typedef _STL::vector<Rva002D0EDCElement,_STL::allocator<Rva002D0EDCElement> > VRva002D0EDCElement;
 struct BfmeStringRecord002CF4C6;
+struct BfmeStringRecord002CF550;
 typedef _STL::vector<BfmeStringRecord002CF4C6,_STL::allocator<BfmeStringRecord002CF4C6> > VBfmeStringRecord002CF4C6;
 class ProductionPrerequisite;
 typedef _STL::vector<ProductionPrerequisite,_STL::allocator<ProductionPrerequisite> > VProductionPrerequisite;
@@ -98,7 +100,7 @@ VBfmeObject872 m358;
 Rva002D0136 m364;
 VBfmeContainerRecord002CF46E m370;
 Rva002D01A9 m37C;
-ShortTree m388;
+_STL::_Rb_tree<BfmeStringRecord002CF550,BfmeStringRecord002CF550,_STL::_Identity<BfmeStringRecord002CF550>,_STL::less<BfmeStringRecord002CF550>,_STL::allocator<BfmeStringRecord002CF550> > m388;  // P29 test-branch diagnostic: retail 0x002D07F4 is this set's operator=
 NoCaseTree m394;
 Rva002D021C m3A0;
 LocomotorMapView m3AC;
