@@ -14,7 +14,7 @@
 
 #include "ascii_string.h"
 
-#define NULL 0
+#include <windows.h>
 
 enum NameKeyType
 {
