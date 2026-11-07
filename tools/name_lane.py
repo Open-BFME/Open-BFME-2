@@ -456,6 +456,7 @@ class Lane:
         self.root = Path(root).resolve()
         self.ctx = ctx or rename.Context(self.root, object_scan=self.root == ROOT.resolve())
         self._types = {}
+        self._registered = None
         self._donor = {}
 
     def path(self, rel):
@@ -750,8 +751,31 @@ class Lane:
 
     # ------------------------------------------------------------ what a file decides
 
+    def registered_placeholders(self):
+        """{canonical header: {class}} for the placeholder classes reverse/canonical_classes.csv
+        registers. Every unit's view of such a class is its own copy, so no unit alone decides
+        its name; the canonical header is where the class and its members are served
+        (`next --registered CLASS`), and tools/rename.py class renames key, contract and views."""
+        if self._registered is None:
+            out = collections.defaultdict(set)
+            for row in self.ctx.dicts(rename.CANONICAL_CLASSES):
+                cls, header = row.get("class") or "", row.get("header") or ""
+                if (rename.IDENT.fullmatch(cls) and name_metric.placeholder(cls) and header.startswith("Code/")
+                        and header.endswith(rename.HEADER_SUFFIXES) and self.text(header) is not None
+                        and not rename.is_generated(header) and not rename.is_vendored_path(self.ctx, header)):
+                    out[header].add(cls)
+            self._registered = dict(out)
+        return self._registered
+
+    def registered_here(self, rel, cls):
+        """`cls` is a registered placeholder class and `rel` its canonical header."""
+        return cls in self.registered_placeholders().get(rel, ())
+
     def servable(self, rel):
-        """A matched or registered-unrowed Code/ unit with no vendor/export owner."""
+        """A matched or registered-unrowed Code/ unit with no vendor/export owner, or the
+        canonical header of a registered placeholder class (its class and member keys only)."""
+        if rel in self.registered_placeholders():
+            return True
         rows = self.ledger().get(rel, [])
         if (not rows and not data_request_items(self, rel)) or not rel.startswith("Code/") or not rel.endswith((".cpp", ".c")):
             return False
@@ -772,10 +796,11 @@ class Lane:
         code = name_metric.strip(text)
         rows = self.ledger().get(rel, [])
         items = []
+        registered = self.registered_placeholders().get(rel, set())
         if wanted is None or not wanted <= {"param", "local"}:
             decls = list(name_metric.DECL.finditer(code))
             for t in dict.fromkeys(m.group(1) for m in decls):
-                if name_metric.placeholder(t) and self.type_definers(t) in ([], [rel]):
+                if name_metric.placeholder(t) and (t in registered or self.type_definers(t) in ([], [rel])):
                     items.append(("class", "", t, None))
             holders = collections.defaultdict(set)
             macros = set(MACRO.findall(code))
@@ -787,11 +812,18 @@ class Lane:
                         holders[name].add(m.group(1))
             for name, classes in holders.items():
                 # only a class this file alone defines: a member of a class with other views
-                # (Object's 13 private copies) is renamed across all of them, not decided here
-                if (len(classes) == 1 and name_metric.placeholder(name) and not name_metric.PAD.match(name)
-                        and len(re.findall(rf"\b{re.escape(name)}\b", code)) > 1     # used, so not padding
-                        and self.type_definers(next(iter(classes))) in ([], [rel])):
-                    items.append(("member", next(iter(classes)), name, None))
+                # (Object's 13 private copies) is renamed across all of them, not decided here;
+                # a registered class's canonical header decides for all of its views, which use
+                # the member where the header only declares it
+                if len(classes) != 1 or not name_metric.placeholder(name) or name_metric.PAD.match(name):
+                    continue
+                cls = next(iter(classes))
+                if cls in registered or (len(re.findall(rf"\b{re.escape(name)}\b", code)) > 1   # used, so not padding
+                                         and self.type_definers(cls) in ([], [rel])):
+                    items.append(("member", cls, name, None))
+        if registered and not rows:
+            # a canonical header owns no rows: it decides its registered classes and their members only
+            return [i for i in items if (i[2] if i[0] == "class" else i[1]) in registered]
         scopes = collections.defaultdict(set)
         parsed = []
         for r in rows:
@@ -1048,6 +1080,26 @@ def callers(lane, rel, word, limit=6):
     return lines
 
 
+def registered_brief(lane, cls):
+    """Context for a registered class's keys: its contract's fields and where its private
+    views live. The names those views spell, and the contract's majority among them, are
+    other agents' choices: a hint for this vote, never its evidence."""
+    lines = [f"## Registered class {cls}",
+             f"{cls} has a canonical header ({rename.CANONICAL_CLASSES}) and private views in other units; "
+             "the name voted here replaces it in the header, every view, its contract and the ledger "
+             "(tools/rename.py class / member). Inspect the views: python3 tools/class_views.py --class " + cls]
+    try:
+        contract = json.loads(lane.text(f"{rename.CLASS_CONTRACTS}/{cls}.json") or "{}")
+    except ValueError:
+        contract = {}
+    fields = [f for f in contract.get("fields", []) if isinstance(f, dict)]
+    if fields:
+        lines.append("Contract fields (offset, name the views' majority spells, type, decided by):")
+        lines += [f"  +0x{int(f.get('offset', 0)):X} {f.get('name')} {f.get('type')} ({f.get('name_by') or '?'}, "
+                  f"{f.get('views') or 0} view(s))" for f in fields]
+    return "\n".join(lines)
+
+
 def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_review=False):
     rows = lane.ledger().get(rel, [])
     lines = text.splitlines()
@@ -1192,6 +1244,15 @@ class PickerCache:
 @claims.pick_snapshot()
 def cmd_next(lane, args):
     timing_start = time.perf_counter()
+    registered = getattr(args, "registered", None)
+    if registered:
+        if getattr(args, "file", None) or getattr(args, "files", None):
+            fail("--registered serves the class's canonical header; it takes no --file or --files")
+        header = next((h for h, classes in lane.registered_placeholders().items() if registered in classes), None)
+        if header is None:
+            fail(f"{registered} is not a placeholder class registered in {rename.CANONICAL_CLASSES} "
+                 "with a tracked canonical header")
+        args.file = header
     requested_files = list(getattr(args, "files", None) or ())
     if requested_files and getattr(args, "file", None):
         fail("--file and --files cannot be combined")
@@ -1388,6 +1449,8 @@ def cmd_next(lane, args):
     briefs.mkdir(parents=True, exist_ok=True)
     out = briefs / f"{session}.txt"
     context = subsystem_brief(lane, served, selected) if not mixed else ""
+    if registered:
+        context = registered_brief(lane, registered) + "\n\n" + context
     out.write_text(context + "\n\n" + "\n\n".join(
                        brief_text(lane, rel, text, items, session, model,
                                   review=current["files"][rel].get("second_review", False),
@@ -2476,6 +2539,9 @@ def main(argv=None, lane=None):
     n.add_argument("--model", required=True, help="the label you vote under, e.g. seat-a")
     n.add_argument("--count", type=int, default=1, help="serve this many files")
     n.add_argument("--file", help="serve this file instead of the next in the queue")
+    n.add_argument("--registered", metavar="CLASS",
+                   help="serve the class and placeholder member keys of this placeholder class "
+                        "registered in reverse/canonical_classes.csv, from its canonical header")
     n.add_argument("--files", nargs="+", metavar="SOURCE",
                    help="serve these explicit source files in one packet and one claim snapshot")
     n.add_argument("--subsystem", metavar="CODE_PREFIX",

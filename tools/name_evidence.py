@@ -96,9 +96,10 @@ Nothing here proposes renaming a protected name: the current word must be a
 placeholder or weak name (tools/name_metric.py, through rename.is_placeholder)
 or a name reverse/name_basis.csv records as inferred (canonical rows only),
 and is never a retail export, a vendored= or .lib row, an evidence-tier name,
-a converged global, a retail module or RTTI class, a class registered in
-reverse/canonical_classes.csv, a word a retail string spells, or a name
-name_basis.csv records as canonical. A candidate that is itself a placeholder,
+a converged global, a retail module or RTTI class, a readable class registered
+in reverse/canonical_classes.csv (tools/rename.py class renames a registered
+placeholder with its key, contract and views), a word a retail string spells,
+or a name name_basis.csv records as canonical. A candidate that is itself a placeholder,
 a keyword or not an identifier is dropped. Two sources naming one key
 differently demote every canonical row for that key to a hint.
 
@@ -253,7 +254,8 @@ class Tree:
         self.registered = {r.get("class", "") for r in self.dicts("reverse/canonical_classes.csv")}
         for name in protected_names:
             scoped.update(rename.fragments_text(name) or [])
-        self.protected_classes = scoped | self.protected_words | self.registered
+        self.protected_classes = scoped | self.protected_words | \
+            {c for c in self.registered if not rename.is_placeholder(c, "class")}
         self.strings = self.read_strings()
         for text, _ in self.strings:
             self.protected_words.update(w for w in re.findall(r"[A-Za-z_]\w*", text) if len(w) > 2)
