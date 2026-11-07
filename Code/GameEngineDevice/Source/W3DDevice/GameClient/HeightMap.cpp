@@ -134,8 +134,15 @@ HeightMapRenderObjClass *TheHeightMap = NULL;
 	ShaderClass::DSTBLEND_ZERO, ShaderClass::FOG_DISABLE, ShaderClass::GRADIENT_MODULATE, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, \
 	ShaderClass::ALPHATEST_DISABLE, ShaderClass::CULL_MODE_ENABLE, ShaderClass::DETAILCOLOR_SCALE, ShaderClass::DETAILALPHA_DISABLE) )
 
+// Retail .data 0x009B4140 holds 0x0051581B at load: SC_DETAIL_BLEND with primary gradient 6
+// (a BFME 2 mode, as W3DBibBuffer.cpp's detailAlphaShader has), laid out in BFME 2's shader
+// bits: cull mode at bit 20 and the post-detail color function at bits 21-24
+// (reference/shims/bfmeshader/shader.h). This unit compiles against Zero Hour's shader.h,
+// whose SHADE_CNST puts them at bits 19 and 20, so those two fields are shifted here.
+#define BFME2_SC_DETAIL_BLEND ( SHADE_CNST(ShaderClass::PASS_LEQUAL, ShaderClass::DEPTH_WRITE_ENABLE, ShaderClass::COLOR_WRITE_ENABLE, ShaderClass::SRCBLEND_ONE, 	ShaderClass::DSTBLEND_ZERO, ShaderClass::FOG_DISABLE, (ShaderClass::PriGradientType)6, ShaderClass::SECONDARY_GRADIENT_DISABLE, ShaderClass::TEXTURING_ENABLE, 	ShaderClass::ALPHATEST_DISABLE, ShaderClass::CULL_MODE_DISABLE, ShaderClass::DETAILCOLOR_DISABLE, ShaderClass::DETAILALPHA_DISABLE) 	| (ShaderClass::CULL_MODE_ENABLE << 20) | (ShaderClass::DETAILCOLOR_SCALE << 21) )
+
 // Not static: BaseHeightMapInitHeightData.cpp reads it too.
-ShaderClass detailOpaqueShader(SC_DETAIL_BLEND);
+ShaderClass detailOpaqueShader(BFME2_SC_DETAIL_BLEND);
 
 #define DEFAULT_MAX_FRAME_EXTRABLEND_TILES		256	//default number of terrain tiles rendered per call (must fit in one VB)
 #define DEFAULT_MAX_MAP_EXTRABLEND_TILES		2048	//default size of array allocated to hold all map extra blend tiles.

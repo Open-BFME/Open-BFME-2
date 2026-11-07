@@ -203,7 +203,8 @@ class BfmeAptWindowManager;
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-extern const unsigned short g_00BC26DC[] = { 0 };
+// Retail's literal at .rdata 0x007C26DC is L" ": an empty slot shows one space.
+extern const unsigned short g_00BC26DC[] = { ' ', 0 };
 
 extern const unsigned short g_00C76704[] = { '%', 'd', '.', 0 };
 
