@@ -168,3 +168,9 @@ only when Snapshot.h is not yet included), its UpdateModuleData view derives fro
 exact, `??_7TransitionDamageFXModuleData@@6B@` 31 slots in ModuleData's order (retail 0x00C59B20 is 0x00C4ED70 with its own
 `??_G` in slot 0), the unit's `??_G` byte-identical to retail 0x004BA6F9. No shared header edited. Pending a branch
 receipt and review.
+Correction (same day): the first branch receipt (2026-11-07T172257Z-boot_smoke-7aa7683f0547, d048b0c454) still stopped in
+parseModuleName, one virtual call later (+0x25f, slot 7, `_bfmeDisp0Slot_Purecall`): the image's
+`??_7TransitionDamageFXModuleData@@6B@` was FamilyDeletingDtors.obj's two-slot copy (its one-virtual scaffold view emits the
+rowed ??_G 0x004BA6F9, displaced in tu_map), which won the COMDAT selection over the constructor unit's 31-slot table. The
+scaffold's view now derives from the same UpdateModuleData-over-ModuleData bases, as 8606f0149f and 4d44fb30c14 did, so both
+copies have the same 31 slots and the same ??_G.

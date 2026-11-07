@@ -53,7 +53,16 @@ class GloriousChargeUpdate { public: GloriousChargeUpdate(EmitVtableTag *); virt
 GloriousChargeUpdate::GloriousChargeUpdate(EmitVtableTag *) {}
 
 // ??_GTransitionDamageFXModuleData@@UAEPAXI@Z @0x4ba6f9
-class TransitionDamageFXModuleData { public: TransitionDamageFXModuleData(EmitVtableTag *); virtual ~TransitionDamageFXModuleData(); };
+// Same bases as TransitionDamageFX.cpp's view, so this unit's ??_7 is the constructor unit's 31-slot table
+// (retail 0x00C59B20), not a one-virtual table that wins the COMDAT selection (P18).
+#include "../../Include/Common/ModuleData.h"
+class UpdateModuleData : public ModuleData
+{
+public:
+	__declspec(dllimport) __forceinline UpdateModuleData() {}
+	~UpdateModuleData();
+};
+class TransitionDamageFXModuleData : public UpdateModuleData { public: TransitionDamageFXModuleData(EmitVtableTag *); virtual ~TransitionDamageFXModuleData(); };
 // ?<TransitionDamageFXModuleData::TransitionDamageFXModuleData> absent-from-retail
 TransitionDamageFXModuleData::TransitionDamageFXModuleData(EmitVtableTag *) {}
 
