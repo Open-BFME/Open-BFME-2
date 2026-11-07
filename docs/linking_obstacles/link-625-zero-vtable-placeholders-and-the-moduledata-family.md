@@ -235,3 +235,23 @@ scaffold's view the same bases in the same commit so both copies are identical.
   refused by MSVC (C2373: the polymorphic class owns `??_7…@@6B@`), and a compiler-installed vptr reproduces the
   recorded sink-to-fourth schedule (FAIL 1/1). The deleter's full-table view is ready but moot without a constructor
   spelling that stores the vptr second (re_attempts 0x004AE0AC).
+- ToggleMountedSpecialAbilityUpdateModuleData (0x004AE0AC): repaired the same day, which retracts the blocked note above.
+  The schedule wall came from a wrong member type. Retail's dtor 0x004AE10B releases +0xD0 through AsciiString's
+  0x00036410, so MountedTemplate is a string. With that type, the float and both flags in the initializer list, and the
+  virtual dtor declared, the compiler installs the real `??_7` second, as retail does (exact). The deleter's view
+  derives from the same canonical bases, and both copies are 31 identical slots.
+- W3DTreeDraw (ctor 0x000CEB4D, `g_00BCCCF8`, 267 Object INI uses): the three walled slots, by the retail tables that
+  hold them:
+  - slot 0 `??_GRva000CEB6F` 0x000CEF83: slot 0 of DrawModule's own table 0x00BC9690 and of W3DDefaultDraw, W3DTreeDraw,
+    W3DBuffDraw and W3DPropDraw. Its `??1` 0x000CEB6F (16 direct callers) is already rowed as `??1DrawModule@@MAE@XZ`, so
+    `Rva000CEB6F` folds into DrawModule, not W3DTreeDraw. DrawModule is registered in canonical_classes.csv, so the
+    `rename.py class --fold` waits for seat6's tool. For W3DTreeDraw it is then an ICF alias of DrawModule's `??_G`.
+  - slot 2 `Rva000CEB69Named::name` 0x000CEB69: only W3DTreeDraw's table holds it, so it is W3DTreeDraw's own
+    GetSnapshotName. `--to-class W3DTreeDraw` needs `--prepared` for W3DDrawNameGetters.cpp (not a proof failure).
+  - slot 3 `W3DPropDraw::xfer` 0x000B221A: slot 3 of W3DDefaultDraw, W3DTreeDraw, W3DBuffDraw, W3DPropDraw and
+    W3DStreakDraw, and absent from DrawModule's table. That is an ICF fold of the per-class xfers, so it is an alias row
+    `?xfer@W3DTreeDraw@@MAEXPAVXfer@@@Z` via `add_match.py --icf-owner ?xfer@W3DPropDraw@@MAEXPAVXfer@@@Z` with
+    fold-proof, defined in the unit that gets W3DTreeDraw's DrawModule.h view.
+  Order: the DrawModule class fold (seat6's tool), then slot 2, slot 3 and the slot-0 alias, then W3DTreeDraw.cpp on
+  DrawModule.h with its pure slots (11-14, 35, 38, 39) as the shared empty bodies. W3DDefaultDraw (`g_00BC98B0`, 94
+  uses) shares slots 0 and 3 and follows the same path.

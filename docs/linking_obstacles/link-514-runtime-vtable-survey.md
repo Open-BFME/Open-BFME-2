@@ -705,3 +705,22 @@ five regression tests in tools/tests/test_rename_to_class.py; test_gate_exploits
 against retail 0x00C59120; 51/51 exact, link_check 6/6 LINK at unchanged bytes (re_attempts 0x004B8851).
 The destructor `Rva004B8732` (Rva0024A797Grandchildren.cpp) is still unfolded: that scaffold derives from
 canonical UpdateModule, so it needs a shared SpawnUnitBehavior header first.
+
+**2026-11-07, crash-prevention lane (seat ancalgonn-swarm-seat4): ActiveBody's readable-class slots, classified by the
+retail tables that hold them.** StructureBody (ctor 0x004C0951, 268 Object INI uses) is the most-used zero vptr left on
+the shell-map path; it waits on ActiveBody.h's slots. `rename.py function --to-class ActiveBody` proves slot 1 (0x004BF40F,
+`Rva004BF40F` -> `loadPostProcess`, table 0x00C5B038 installed by ActiveBody's ctor; dry run clean, four units) but refuses
+p20 as a readable class. Which tables hold each wall (every retail .rdata reference, with the ctor that installs the
+table):
+- p20 0x004BE3EF, rowed `W3DModelDraw::stopClientParticleSystems`: slot 20 of ActiveBody's 0x00C5B038 and the ten Body
+  subclass primaries (Highlander, Immortal, Structure, SymbioticStructures, Respawn, DelayedDeath, FreeLife,
+  DetachableRider, Oathbreaker, PorcupineFormation); no W3DModelDraw table holds it. Not an ICF fold: ActiveBody's own
+  body filed under another readable class. **Naming decision.**
+- b28 0x004BE67E, rowed `DetachableRiderBody::Rva004BE67E`: slot 28 of ActiveBody's body interface 0x00C5B5B0 and every
+  Body subclass's. Not a fold: ActiveBody's own (DetachableRiderBody inherits it). **Naming decision.**
+- p15 0x004BF8DF, rowed under the placeholder `Rva004BF8DF`: slot 15 of the same eleven primaries. A `--to-class` move
+  (the int vs enum return may need `--respell`), not a naming decision.
+- p2 0x004BF88D, rowed `ActiveBody::name` (QBE, non-virtual): slot 2 of 0x00C5B038 only. ActiveBody's own GetSnapshotName
+  slot under a non-virtual spelling; a same-class respell, not a naming decision.
+For the names workflow: p20 and b28 only. The other categories in the inventory above (placeholder members, non-virtual
+spellings, BodyModule-owned slots, ICF folds) are tool moves.
