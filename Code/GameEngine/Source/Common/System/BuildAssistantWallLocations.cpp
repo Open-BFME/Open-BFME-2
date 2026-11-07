@@ -110,8 +110,6 @@ BODY_REALLYDAMAGED
 };
 typedef UnsignedInt PlayerMaskType;
 const PlayerMaskType PLAYERMASK_ALL=0xFFFFF;
-extern float g_00E027C4;
-#define TOTAL_FRAMES_TO_SELL_OBJECT g_00E027C4
 enum CommandSourceType
 {
 CMD_FROM_PLAYER,
