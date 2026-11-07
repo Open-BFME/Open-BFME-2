@@ -125,8 +125,9 @@ def first_providers(objects, names, archives=()):
 
 
 class Targets:
-    def __init__(self, rows, objects, omitted, object_for=None, symbol_for=None, archives=()):
+    def __init__(self, rows, objects, omitted, object_for=None, symbol_for=None, archives=(), retail=None):
         self.objects = objects
+        self.retail = retail
         self.kept = {Path(path).resolve() for path in objects.paths}
         self.omitted = {Path(path).resolve() for path in omitted}
         self.object_for = object_for or build.row_object
@@ -150,14 +151,14 @@ class Targets:
             self.paths[key] = Path(self.object_for(row)).resolve()
         return self.paths[key]
 
-    def resolve(self, rva):
-        if rva in self.cache:
+    def resolve(self, rva, forward=True):
+        if forward and rva in self.cache:
             return self.cache[rva]
         candidates = self.by_rva.get(rva, [])
         if not candidates:
             result = (None, "unrowed-target")
         elif any(self.path(row) in self.omitted for _name, row in candidates):
-            result = (None, "omitted-target")
+            result = self.forwarded(rva, candidates) if forward else (None, "omitted-target")
         else:
             failures, choices = [], []
             for name, row in candidates:
@@ -194,8 +195,31 @@ class Targets:
                 choices.append(dict(name=name, rva=rva, source=row["source"], object=str(path)))
             result = (min(choices, key=lambda entry: (entry["name"], entry["source"])), None) if choices \
                 else (None, sorted(set(failures))[0])
-        self.cache[rva] = result
+        if forward:
+            self.cache[rva] = result
         return result
+
+    def forwarded(self, rva, candidates):
+        """P11: retail's slot target is a thunk the exit link omits (`Code/gen_small/gthunks_*`). The
+        slot may name the thunk's own target instead, only when every row at rva is a 5-byte
+        `gen-thunk;...;target=0x...` row in an omitted object, retail's bytes there are exactly one
+        `jmp rel32` to that target, and the target resolves to a kept, verified provider without a
+        second forward (a chain, or an omitted target, stays refused)."""
+        raw = self.retail.read(rva, 5) if self.retail is not None else None
+        if raw is None or len(raw) != 5 or raw[0] != 0xE9:
+            return None, "omitted-target"
+        target = rva + 5 + struct.unpack("<i", raw[1:])[0]
+        for _name, row in candidates:
+            notes = row.get("notes") or ""
+            tokens = dict(token.split("=", 1) for token in notes.split(";") if "=" in token)
+            if (self.path(row) not in self.omitted or str(row.get("target_size")) != "5"
+                    or "gen-thunk" not in notes.split(";") or tokens.get("target", "").lower() != hex(target)
+                    and tokens.get("target", "").lower() != "0x%08x" % target):
+                return None, "omitted-target"
+        selected, reason = self.resolve(target, forward=False)
+        if reason:
+            return None, "omitted-target"
+        return dict(selected, forwarded_from=rva), None
 
 
     def twin(self, ledger, winner, name):
@@ -399,7 +423,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
     """Return generated entries and explicit refusal reasons; input order is significant."""
     objects = objects or link_cycle.Objects(inputs)
     ledger_names = set().union(*(row_names(row) for row in tables)) if tables else set()
-    targets = Targets(rows, objects, omitted, object_for, symbol_for, archives)
+    targets = Targets(rows, objects, omitted, object_for, symbol_for, archives, retail)
     bindings, rejected_bindings = discover_table_names(
         rows, objects, retail, targets.path, targets.symbol_for)
     by_address = collections.defaultdict(set)
@@ -524,6 +548,8 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
                     if first else []))
     return dict(tables=len(generated), retail_tables=len({entry["rva"] for entry in generated}), slots=sum(len(entry["slots"]) for entry in generated),
                 twin_target_slots=sum(1 for entry in generated for slot in entry["slots"] if "twin_of" in slot),
+                thunk_forwarded_slots=sum(1 for entry in generated for slot in entry["slots"]
+                                          if "forwarded_from" in slot),
                 refused_tables=len(refused), refusal_reasons=dict(collections.Counter(
                     entry["reason"] for entry in refused)), already_correct=len(correct),
                 entries=generated, refusals=refused, correct=correct, name_discovery=discovery,
@@ -562,7 +588,8 @@ def build_bridge(rows, inputs, omitted, archives, out, retail, objects=None, tab
         new_name_bindings=len(metadata["name_discovery"]["new_name_bindings"])),
         sort_keys=True))
     print("vtable_bridge: " + json.dumps({key: metadata[key] for key in
-          ("tables", "retail_tables", "slots", "twin_target_slots", "refused_tables", "refusal_reasons",
+          ("tables", "retail_tables", "slots", "twin_target_slots", "thunk_forwarded_slots",
+           "refused_tables", "refusal_reasons",
            "already_correct")},
           sort_keys=True))
     return (path if metadata["entries"] else None), metadata
