@@ -1212,6 +1212,12 @@ def cmd_next(lane, args):
     max_chars = getattr(args, "max_chars", None)
     if max_chars is not None and max_chars < 1:
         fail("--max-chars must be positive")
+    # A source longer than MAX_CHARS is servable only through a registered data
+    # request, so every key in a long unit is otherwise unreachable for voting.
+    # An explicit --max-chars raises that bar, never lowers it: a smaller value
+    # still only trims the packet below, so no file that was servable before
+    # becomes ineligible now.
+    source_limit = max(MAX_CHARS, max_chars) if max_chars is not None else MAX_CHARS
     session, model = session_id(args.session), model_id(args.model)
     worker = lane.worker()
     state = lane.state()
@@ -1300,10 +1306,10 @@ def cmd_next(lane, args):
         if text is None:
             skipped(rel, 'source is missing')
             continue
-        if len(text) > MAX_CHARS:
+        if len(text) > source_limit:
             candidates = data_request_items(lane, rel)
             if not candidates:
-                skipped(rel, f'exceeds {MAX_CHARS} character limit; no eligible registered data request')
+                skipped(rel, f'exceeds {source_limit} character limit; no eligible registered data request')
                 continue
         else:
             candidates = cache.items(rel, text)

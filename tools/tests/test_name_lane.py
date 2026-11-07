@@ -2737,6 +2737,40 @@ def test_oversized_file_without_registered_data_reports_skip_reason(tree, capsys
     assert not (tree / 'build/name_lane/sessions/large-no-data.json').exists()
 
 
+def test_an_explicit_max_chars_serves_an_oversized_file(tree, capsys):
+    """Every key in a long unit is otherwise unreachable for shared naming.
+
+    Without a registered data request the lane passes a long source over
+    entirely, so the keys in it can never be voted on, however few of them you
+    ask for: `--max-keys` is applied after this gate. An operator who asks for a
+    bigger packet is told what they asked for, and sees the whole source, so the
+    vote still rests on the full text that its hash fences.
+    """
+    (tree / SOURCE).write_text((tree / SOURCE).read_text() + '// large\n' * 3000)
+    size = len((tree / SOURCE).read_text())
+    assert size > name_lane.MAX_CHARS, 'the fixture must exceed the default gate'
+    args = SimpleNamespace(session='large-opt-in', model='fixture', count=1, file=SOURCE,
+                           list_only=False, max_chars=size * 4)
+    assert name_lane.cmd_next(lane_of(tree), args) == 0
+    err = capsys.readouterr().err
+    assert 'character limit' not in err, err
+    record = json.loads((tree / 'build/name_lane/sessions/large-opt-in.json').read_text())
+    assert record['files'][SOURCE]['items'], 'the oversized file must serve its keys'
+
+
+def test_a_small_max_chars_never_makes_a_servable_file_ineligible(tree, capsys):
+    """The flag raises the eligibility bar and never lowers it.
+
+    A value under the default would otherwise turn files that serve today into
+    skips. Trimming the packet is still allowed to drop targets, which is a
+    different outcome with its own message.
+    """
+    args = SimpleNamespace(session='small-cap', model='fixture', count=1, file=SOURCE,
+                           list_only=False, max_chars=200)
+    assert name_lane.cmd_next(lane_of(tree), args) == 0
+    assert 'character limit' not in capsys.readouterr().err
+
+
 
 def resolved_unrowed(tree, key, tmp_path):
     unrowed_vote(tree, key, 'r-first', 'first-worker', 'g_otherContext', tmp_path)
