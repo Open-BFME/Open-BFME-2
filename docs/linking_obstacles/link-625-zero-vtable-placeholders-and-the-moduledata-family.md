@@ -158,3 +158,13 @@ should settle it.
 - Scaffold rule on this image: no table where a longer copy loses; 335 tables kept from a deleting-dtor scaffold, 23 of
   them module data. Of those 23, 20 constructors install a hand-built 31-slot array equal to retail (latent: replace
   the array and the scaffold view in one commit), ArrowStorm is live, SpawnBehavior and TransitionDamageFX store zero.
+
+Update (2026-11-07, crash-triage seat2, P18; claim file:TransitionDamageFX.cpp and 0x004BA58A): TransitionDamageFX is the
+boot path's next stop once P16 is passed (call 0x0 from ThingTemplate::parseModuleName+0x24c; the job's smoke.json regs
+put eax at `?g_00C59B20@@3DA`). Taken with one Snapshot spelling for the unit, as the 0x004BA58A record proposes:
+TransitionDamageFX.cpp includes the canonical ModuleData.h before Drawable.h (Drawable.h selects the capitalized slots
+only when Snapshot.h is not yet included), its UpdateModuleData view derives from ModuleData, the explicit vptr member and
+`g_00C59B20` go, and the class declares its out-of-line virtual destructor (0x004BA715). Branch commit 7b3a0f3a07: 58/58
+exact, `??_7TransitionDamageFXModuleData@@6B@` 31 slots in ModuleData's order (retail 0x00C59B20 is 0x00C4ED70 with its own
+`??_G` in slot 0), the unit's `??_G` byte-identical to retail 0x004BA6F9. No shared header edited. Pending a branch
+receipt and review.
