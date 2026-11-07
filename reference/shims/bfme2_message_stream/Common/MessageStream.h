@@ -772,9 +772,10 @@ public:
 	virtual ~MessageStream();
 
 	// Inherited Methods ----------------------------------------------------------------------------
-	virtual void init( void );
-	virtual void reset( void );
-	virtual void update( void );
+	// Inline, as in the canonical MessageStream.h: retail's slots hold the shared empty body.
+	virtual void init( void ) { }
+	virtual void reset( void ) { }
+	virtual void update( void ) { }
 
 	virtual GameMessage *appendMessage( GameMessage::Type type );		///< Append a message to the end of the stream
 	virtual GameMessage *insertMessage( GameMessage::Type type, GameMessage *messageToInsertAfter );	// Insert message after messageToInsertAfter.
@@ -826,9 +827,8 @@ public:
 	CommandList( void );
 	virtual ~CommandList();
 
-	virtual void init( void );			///< Init command list
+	// init and update are GameMessageList's, as in the canonical CommandList.h.
 	virtual void reset( void );			///< Destroy all messages and reset list to empty
-	virtual void update( void );		///< Update hook
 
 	void appendMessageList( GameMessage *list );			///< Adds messages to the end of the command list
 

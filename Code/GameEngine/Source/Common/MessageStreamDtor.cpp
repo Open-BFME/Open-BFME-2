@@ -50,9 +50,9 @@ class MessageStream : public GameMessageList
 public:
 	MessageStream();
 	virtual ~MessageStream();
-	virtual void init();
-	virtual void reset();
-	virtual void update();
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 	virtual GameMessage *appendMessage(GameMessage::Type type);
 	virtual GameMessage *insertMessage(GameMessage::Type type, GameMessage *messageToInsertAfter);
 

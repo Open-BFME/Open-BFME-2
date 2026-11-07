@@ -442,42 +442,9 @@ Bool GameMessageList::containsMessageOfType( GameMessage::Type type )
 //
 
 
-/**
-	* Init
-	*/
-// ?init@MessageStream@@ present-unmatched
-void MessageStream::init( void )
-{
-	// extend
-	GameMessageList::init();
-}
-
- 
-
-/**
-	* Reset
-	*/
-// ?reset@MessageStream@@ present-unmatched
-void MessageStream::reset( void )
-{
-
-	/// @todo Reset the MessageStream
-
-	// extend
-	GameMessageList::reset();
-
-}
-
-/**
-	* Update
-	*/
-// ?update@MessageStream@@ present-unmatched
-void MessageStream::update( void )
-{
-	// extend
-	GameMessageList::update();
-
-}
+// MessageStream's init, reset and update are inline in MessageStream.h: retail's
+// table 0x00C09890 holds the shared empty body 0x000B3FD0 in their slots (1, 9, 10)
+// and no row has an address of its own for them.
 
 /**
  * Create a new message of the given message type and append it
@@ -542,19 +509,9 @@ GameMessage *MessageStream::insertMessage( GameMessage::Type type, GameMessage *
 // CommandList
 //
 
-/**
-	* Init
-	*/
-// ?init@CommandList@@ present-unmatched
-void CommandList::init( void )
-{
-
-	// extend
-	GameMessageList::init();
-
-}
-
- 
+// CommandList inherits GameMessageList's inline init and update: retail's table
+// 0x00C098E0 holds the shared empty body 0x000B3FD0 in slots 1 and 10, as
+// GameMessageList's table 0x00C09848 does.
 
 /**
 	* Destroy all messages on the list, and reset list to empty
@@ -568,18 +525,6 @@ void CommandList::reset( void )
 
 	// destroy all messages
 	destroyAllMessages();
-
-}
-
-/**
-	* Update
-	*/
-// ?update@CommandList@@ present-unmatched
-void CommandList::update( void )
-{
-
-	// extend
-	GameMessageList::update();
 
 }
 

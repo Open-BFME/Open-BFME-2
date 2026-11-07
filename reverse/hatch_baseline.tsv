@@ -11637,13 +11637,8 @@ present_unmatched	Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor
 present_unmatched	Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp	Rva00574910::rva00574910	1
 present_unmatched	Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp	Rva005772BF::rva005771F4	1
 present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	containsMessageOfType@GameMessageList@@	1
-present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	init@CommandList@@	1
-present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	init@MessageStream@@	1
 present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	removeMessage@GameMessageList@@	1
 present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	reset@CommandList@@	1
-present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	reset@MessageStream@@	1
-present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	update@CommandList@@	1
-present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	update@MessageStream@@	1
 present_unmatched	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp	<DozerActionState::DozerActionState>	1
 present_unmatched	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp	<DozerActionState::rva00488906>	1
 present_unmatched	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp	DozerActionState::loadPostProcess	1
