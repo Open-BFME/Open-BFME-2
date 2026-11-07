@@ -5,7 +5,7 @@
 // followed by the same SkipNext / CrashBegin / CrashDone arm as DebugAllocMemory.
 
 extern "C" void *__cdecl realloc(void *block, unsigned size);
-extern "C" void *__cdecl memcpy(void *dest, const void *source, unsigned size);
+#include <string.h>
 #pragma intrinsic(memcpy)
 
 struct DebugTypedLog

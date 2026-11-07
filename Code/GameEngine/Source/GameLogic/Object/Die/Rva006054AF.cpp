@@ -5,7 +5,7 @@
 // strdups via rowed new[] 0x0002FDE0 plus strlen 0x00629170 plus _mbscpy
 // 0x00629176 then rowed deque push_back 0x00423BD8. Callers 0x006014A3
 // 0x00601556 0x006045E1 0x00604667; neighbours 0x00605464 and 0x006054E7.
-extern "C" unsigned int __cdecl strlen(const char *str);
+#include <string.h>
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 void *__cdecl operator new[](unsigned int size);
 

@@ -9,7 +9,7 @@
 extern "C" void free(void *);
 
 #pragma function(memset)
-extern "C" void *memset(void *dst, int value, unsigned int size);
+#include <string.h>
 
 namespace _STL { template <class _Tp> class allocator; template <> class allocator<char> { public: static char *allocate(unsigned int bytes, const void *hint); }; }
 
