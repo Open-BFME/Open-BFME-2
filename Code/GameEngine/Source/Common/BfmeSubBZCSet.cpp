@@ -8,12 +8,12 @@
 // eight-byte head; the definition lives in its own unit so that caller cannot
 // see, and inline, it.
 
-inline void *operator new(unsigned int, void *place) { return place; }
+#include <new.h>
 
 class BfmeRva0066E270
 {
 public:
-	BfmeRva0066E270();
+	BfmeRva0066E270() throw();
 
 private:
 	unsigned char m_bfmeBytes[0x80];

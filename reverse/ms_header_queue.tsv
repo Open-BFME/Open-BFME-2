@@ -81,7 +81,6 @@ Code/Libraries/Source/WWVegas/WW3D2/Render2DSentenceBuildNotCenteredBFME2.cpp	un
 Code/GameEngine/Source/Common/BfmeConv692.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/BfmeConv695.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/BfmeObjZHSetZH.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
-Code/GameEngine/Source/Common/BfmeSubBZCSet.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7a10c.cpp	unverified	unverified	1	1	0	0	0	0	0	0	0	0	0	<new>	no	yes	hand	27: Code/Libraries/Source/WWVegas/WWLib/always.h:61 malloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:62 calloc(unknown); Code/Libraries/Source/WWVegas/WWLib/always.h:63 realloc(unknown)		operator delete [ ]:same
 Code/GameEngine/Source/Common/Rva0014F5FillN.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/Rva002F0C32Helper.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	yes	hand			operator new:unverified
