@@ -66,17 +66,7 @@ extern GameWindowManager *TheWindowManager;
 
 #include "../../Include/Common/Player.h"
 
-class PlayerList
-{
-public:
-	// Local implementation name keeps this +0x10 view out of unrelated COMDAT copies.
-	Player *idleWorkerLocalPlayer() { return m_local; }
-private:
-	char m_unknown00[0x10];
-	Player *m_local;
-};
-
-extern PlayerList *ThePlayerList;
+#include "../../Include/Common/PlayerList.h"
 
 enum ObjectID { INVALID_ID = 0 };
 
@@ -152,7 +142,7 @@ extern InGameUI *TheInGameUI;
 
 void InGameUI::selectNextIdleWorker(void)
 {
-	int index = ThePlayerList->idleWorkerLocalPlayer()->getPlayerIndex();
+	int index = ThePlayerList->getLocalPlayer()->getPlayerIndex();
 	if(m_idleWorkers[index].empty())
 		return;
 	Object *selectThisObject = 0;

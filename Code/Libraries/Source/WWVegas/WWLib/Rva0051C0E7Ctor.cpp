@@ -36,19 +36,8 @@ Rva0051C0E7::~Rva0051C0E7()
 {
 }
 
-class PlayerListMid0051C241 {
-public:
-	char _00[0x58];
-	AsciiString m_58;
-};
-
-class PlayerList {
-public:
-	char _00[0x10];
-	PlayerListMid0051C241 *m_10;
-};
-
-extern PlayerList *ThePlayerList;
+#include "../../../../GameEngine/Include/Common/Player.h"
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 struct Rva004266A1Rec {
 	AsciiString text;
@@ -88,10 +77,10 @@ void AptScoreScreen::PreCollectGameData(Rva0051C0E7 *obj)
 	PlayerList *pl = ThePlayerList;
 	if (!pl)
 		return;
-	PlayerListMid0051C241 *mid = pl->m_10;
+	Player *mid = pl->m_local;
 	if (!mid)
 		return;
-	obj->m_00.setCopyInline(mid->m_58);
+	obj->m_00.setCopyInline(mid->m_side);
 	if (!TheMissionObjectiveTracker)
 		return;
 	obj->m_04 = 0;

@@ -4,20 +4,8 @@
 // tail. Evidence: vtable 0x809840, ThePlayerList 0xDFEEE8 +0x10 +0x54,
 // 5 callers, unblocks 3.
 
-struct Inner54
-{
-	char m_pad00[0x54];
-	void *m_54;
-};
-
-class PlayerList
-{
-public:
-	char m_pad00[0x10];
-	Inner54 *m_10;
-};
-
-extern PlayerList *ThePlayerList;
+#include "../../Include/Common/Player.h"
+#include "../../Include/Common/PlayerList.h"
 
 extern "C" const void *const __identifier("??_7GameMessage@@6B@")[];
 
@@ -31,7 +19,7 @@ private:
 	int m_08;
 	int m_0C;
 	void *m_10;
-	void *m_14;
+	int m_14;
 	bool m_18;
 	int m_1C;
 	int m_20;
@@ -40,7 +28,7 @@ private:
 Rva0030F47A::Rva0030F47A(void *arg)
 {
 	*(const void **)this = __identifier("??_7GameMessage@@6B@");
-	m_14 = ThePlayerList->m_10->m_54;
+	m_14 = ThePlayerList->m_local->m_playerIndex;
 	m_10 = arg;
 	m_1C = 0;
 	m_20 = 0;

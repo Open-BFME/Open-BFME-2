@@ -94,15 +94,7 @@ enum WeaponSetType
 	WEAPONSET_NONE = 0
 };
 class Player;
-class PlayerList
-{
-public:
-	Player *disguiseLocalPlayer() { return m_local; }
-private:
-	unsigned char m_pad00[0x10];
-	Player *m_local; // +0x10
-};
-extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
 class ModelConditionFlags
 {
 public:
@@ -692,7 +684,7 @@ void SpecialDisguiseUpdate::triggerAbilityEffect()
 
 	obj->setModelConditionState(300);
 
-	Player *localPlayer = ThePlayerList->disguiseLocalPlayer();
+	Player *localPlayer = ThePlayerList->getLocalPlayer();
 	bool isLocal = true;
 	if (obj->getControllingPlayer() != localPlayer)
 		isLocal = false;

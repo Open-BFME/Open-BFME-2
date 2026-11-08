@@ -15,19 +15,7 @@ public:
 	Object *m_8C;
 };
 class AsciiString;
-template<class T> class StringBase
-{
-public:
-	bool isEmpty() const;
-	void set(const T *);
-	void set(const StringBase &);
-};
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);
-};
-extern PlayerList *ThePlayerList;
+#include "../../Include/Common/PlayerList.h"
 // 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
 // ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
 class Rva2225E0Filter

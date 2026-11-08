@@ -68,7 +68,7 @@ struct Rva002A8AB1Record
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 typedef bool Bool;
-#include "subsystem_interface.h"
+#include "../../../Include/Common/PlayerList.h"
 // Bind allocator<ObjectID>::deallocate to the kept retail copy.
 // Split from SkirmishAIManager.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
@@ -164,15 +164,8 @@ public:
     unsigned char prefix00[0x2ec];
     Team *defaultTeam2ec;
 };
-class PlayerList {
-public:
-    Player *getNthPlayer(int);
-    unsigned char prefix00[0x14];
-    int playerCount14;
-};
-extern PlayerList *ThePlayerList;
 void Rva002A8F24::findPreSpawnedObjects() {
-    for (int i=0; i<ThePlayerList->playerCount14; ++i) {
+    for (int i=0; i<ThePlayerList->m_playerCount; ++i) {
         Player *player=ThePlayerList->getNthPlayer(i);
         if (player->rva002AA245()) {
             for (DLINK_ITERATOR<Object> it=player->defaultTeam2ec->iterate_TeamMemberList();
@@ -197,7 +190,7 @@ void Rva002A8F24::rva002A95F9() {
         ((Rva0023C6A4 *)TheGameLogic)->rva00200084())
         return;
     Rva004ECE14Clear();
-    for (int i=0; i<ThePlayerList->playerCount14; ++i) {
+    for (int i=0; i<ThePlayerList->m_playerCount; ++i) {
         Player *player=ThePlayerList->getNthPlayer(i);
         if (player->rva002AA245()) {
             if (*(int *)((char *)player+0x5c)==1 || forceAI860)

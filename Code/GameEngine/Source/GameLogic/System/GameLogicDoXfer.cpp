@@ -126,8 +126,7 @@ struct CreateMask
 extern ThingFactory *TheThingFactory;
 
 #include "../../../Include/Common/Player.h"
-class PlayerList { public: char m_pad00[0x18]; Player *m_neutralPlayer; };
-extern PlayerList *ThePlayerList;
+#include "../../../Include/Common/PlayerList.h"
 
 #include "../../../Include/GameClient/ControlBar.h"
 extern ControlBar *TheControlBar;
@@ -357,7 +356,7 @@ void GameLogicSnapshot::DoXfer(Xfer *xfer)
 			xfer->EndBlock();
 		}
 	} else {
-		defaultTeam = ThePlayerList->m_neutralPlayer->m_defaultTeam;
+		defaultTeam = ThePlayerList->m_players[0]->m_defaultTeam;
 		for (unsigned int i = 0; i < objectCount; ++i) {
 			unsigned short tocID;
 			*xfer == tocID;

@@ -90,16 +90,7 @@ class ThingTemplate;
 struct BfmeCopyElementA;
 struct Coord3D;
 #include "../../../../Include/Common/Player.h"
-class PlayerList
-{
-public:
-	Player *getNeutralPlayer() const { return m_neutralPlayer; }
-
-private:
-	unsigned char m_pad00[0x18];
-	Player *m_neutralPlayer;	// +0x18
-};
-extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
 struct CreateMask
 {
 	CreateMask() { memset(m_bits, 0, sizeof(m_bits)); }

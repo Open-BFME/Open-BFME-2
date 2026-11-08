@@ -260,12 +260,8 @@ public:
 
 #include "../../../../GameEngine/Include/GameClient/GameClientClass.h"
 
-class PlayerList
-{
-public:
-	unsigned char m_pad00[0x10];
-	unsigned char *m_localPlayer;
-};
+#include "../../../../GameEngine/Include/Common/Player.h"
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 class PartitionManager;
 enum ObjectShroudStatus { OBJECTSHROUD_INVALID = 4 };
@@ -302,7 +298,6 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 extern GameLogic *TheGameLogic;
-extern PlayerList *ThePlayerList;
 extern PartitionManager *TheShroudManager;
 extern TerrainLogic *TheTerrainLogic;
 extern GameClient *TheGameClient;
@@ -421,7 +416,7 @@ afterHit:;
 		if (!ghost)
 			goto pickedDone;
 
-		if (((Rva00739800 *)TheShroudManager)->rva00739800(ThePlayerList ? *(int *)(ThePlayerList->m_localPlayer + 0x54) : 0, (const Coord3D *)ghost) == OBJECTSHROUD_INVALID)
+		if (((Rva00739800 *)TheShroudManager)->rva00739800(ThePlayerList ? ThePlayerList->m_local->m_playerIndex : 0, (const Coord3D *)ghost) == OBJECTSHROUD_INVALID)
 			return 0;
 
 		if (ghost->m_field0C == 0)

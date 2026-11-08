@@ -400,15 +400,7 @@ private:
 	Int m_playerIndex;																					///< 0x54
 };
 
-class PlayerList
-{
-public:
-	Player *ghostSceneLocalPlayer( void ) { return m_local; }
-private:
-	char m_unrecovered00[ 0x10 ];
-	Player *m_local;																						///< 0x10
-};
-extern PlayerList *ThePlayerList;
+#include "../../../../GameEngine/Include/Common/PlayerList.h"
 
 class PartitionData;
 
@@ -1208,7 +1200,7 @@ void W3DGhostObject::xfer( Xfer *xfer )
 	// in the world, we need to remove it
 	//
 	if( m_parentObject &&
-			m_parentSnapshots[ ThePlayerList->ghostSceneLocalPlayer()->getPlayerIndex() ] != 0 &&
+			m_parentSnapshots[ ThePlayerList->getLocalPlayer()->getPlayerIndex() ] != 0 &&
 			xfer->IsLoading() )
 		removeParentObject();
 

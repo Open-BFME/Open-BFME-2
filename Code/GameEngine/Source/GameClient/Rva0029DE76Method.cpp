@@ -8,20 +8,8 @@ enum CellShroudStatus
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class PlayerMid
-{
-public:
-	char m_pad[0x54];
-	int m_index;
-};
-
-class PlayerList
-{
-public:
-	char m_pad[0x10];
-	PlayerMid *m_mid;
-};
-extern PlayerList *ThePlayerList;
+#include "../../Include/Common/Player.h"
+#include "../../Include/Common/PlayerList.h"
 
 #include "../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *TheShroudManager;
@@ -141,7 +129,7 @@ public:
 
 bool Rva0029DE76::rva0029DE76(const Coord3D *pos)
 {
-	int idx = ThePlayerList->m_mid->m_index;
+	int idx = ThePlayerList->m_local->m_playerIndex;
 	if (TheShroudManager->getShroudStatusForPlayer(idx, pos) != SHROUD_CLEAR)
 		return true;
 	ObjList *list = getObjList();

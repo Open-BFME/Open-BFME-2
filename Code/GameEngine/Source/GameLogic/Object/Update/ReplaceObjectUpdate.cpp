@@ -132,14 +132,7 @@ extern GameLogic *TheGameLogic;
 
 extern ThingFactory *TheThingFactory;
 
-class PlayerList
-{
-public:
-	char m_pad00[0x18];
-	void *m_18;		// +0x18
-};
-
-extern PlayerList *ThePlayerList;
+#include "../../../../Include/Common/PlayerList.h"
 
 // BuildAssistant (the global at RVA A027B8): slot 14 builds an object of a template at a
 // point and angle for a creator.
@@ -615,7 +608,7 @@ void ReplaceObjectUpdate::rva004B2C00(Object *obj, Rva004B2A9D *entry)
 {
 	const ReplaceObjectUpdateModuleData *data = getReplaceObjectData();
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*(const AsciiString *)entry->rva004B2A9D());
-	void *owner = ThePlayerList->m_18;	// a named local keeps the register roles retail uses
+	void *owner = ThePlayerList->m_players[0];	// a named local keeps the register roles retail uses
 	Object *created = ((BuildAssistantView *)TheBuildAssistant)->buildObjectNow(getObject(), thingTemplate, obj->getPosition(), obj->getOrientation(), owner);
 	if (created) {
 		FXList::doFXObj(data->m_D8, created, 0);
