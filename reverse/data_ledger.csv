@@ -13375,7 +13375,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008570D8,72,.rdata,vtable,??_7BaseUpgrade@@6BUpgradeMux@@@,,literal,,0,2
 0x00857120,48,.rdata,vtable,??_7BaseUpgrade@@6BObjectModule@@@,,literal,,0,2
 0x00857150,184,.rdata,vtable,??_7BaseUpgradeModuleData@@6B@,,literal,,0,1
-0x00857208,64,.rdata,global,?BfmeBaseUpgradeFields@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,owned,,1,1
+0x00857208,64,.rdata,global,?BfmeBaseUpgradeFields@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp,owned,,1,1
 0x00857248,72,.rdata,vtable,??_7CommandSetUpgrade@@6BUpgradeMux@@@,,literal,,0,2
 0x00857290,48,.rdata,vtable,??_7CommandSetUpgrade@@6BObjectModule@@@,,literal,,0,2
 0x008572C0,32,.rdata,global,_s_commandSetTable,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,owned,,1,1

@@ -39210,13 +39210,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004B362D,32,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,proposed,K,K=Rva004B362D,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
 0x004B364D,6,code,,,-,,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 0x004B3653,69,code,Code/GameEngine/Source/Common/System/BaseUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/BaseUpgrade.cpp,Code/GameEngine/Source/Common/System/BaseUpgrade.cpp
-0x004B3698,98,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x004B36FA,34,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x004B371C,49,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
+0x004B3698,98,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x004B36FA,34,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x004B371C,49,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
 0x004B374D,28,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,C,C=0x004B371C..0x004B3785 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
 0x004B3769,28,code,,displaced,-,N=Code/GameEngine/Source/Common/BaseUpgrade.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-67c0.cpp
-0x004B3785,69,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x004B37CA,555,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp
+0x004B3785,69,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x004B37CA,555,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
 0x004B39F5,7,code,,,-,,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
 0x004B39FC,32,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,proposed,K,K=Rva004B39FC,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
 0x004B3A1C,6,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,proposed,C,C=0x004B39FC..0x004B3A22,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
@@ -81136,15 +81136,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078EA7E,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgrade.cpp,approved,P,P=0x004B3423@FuncInfo0x0093F5EC,Code/GameEngine/Source/GameLogic/Object/Upgrade/ArmorUpgrade.cpp
 0x0078EA88,13,code,Code/GameEngine/Source/Common/System/BaseUpgrade.cpp,approved,P,P=0x004B3653@FuncInfo0x0093F610 p-group provisional,Code/GameEngine/Source/Common/System/BaseUpgrade.cpp
 0x0078EA95,10,code,Code/GameEngine/Source/Common/System/BaseUpgrade.cpp,approved,P,P=0x004B3653@FuncInfo0x0093F610 p-group provisional,Code/GameEngine/Source/Common/System/BaseUpgrade.cpp
-0x0078EA9F,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x0078EAA7,14,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x0078EAB5,14,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x0078EAC3,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x0078EACD,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3785@FuncInfo0x0093F670 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x0078EAD5,14,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3785@FuncInfo0x0093F670 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x0078EAE3,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3785@FuncInfo0x0093F670 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp
-0x0078EAED,22,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B37CA@FuncInfo0x0093F694 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp
-0x0078EB03,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B37CA@FuncInfo0x0093F694 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp
+0x0078EA9F,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EAA7,14,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EAB5,14,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EAC3,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3698@FuncInfo0x0093F644 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EACD,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3785@FuncInfo0x0093F670 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EAD5,14,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3785@FuncInfo0x0093F670 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EAE3,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B3785@FuncInfo0x0093F670 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EAED,22,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B37CA@FuncInfo0x0093F694 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
+0x0078EB03,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp,approved,P,P=0x004B37CA@FuncInfo0x0093F694 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/BaseUpgrade.cpp
 0x0078EB0D,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,approved,P,P=0x004B3A4B@FuncInfo0x0093F6B8,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp
 0x0078EB1A,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,approved,P,P=0x004B3A4B@FuncInfo0x0093F6B8,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp
 0x0078EB24,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,approved,P,P=0x004B3B88@FuncInfo0x0093F6DC,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp
