@@ -1120,3 +1120,76 @@ runtime archives. 3,262 mismatching names, 1,789 defined nowhere: 1,152 slots ar
   interface has six (0x004BC51B, then 0x0047A699 four times, held by Burachi-3D);
   (6) STLport moneypunct/codecvt/_Locale_impl/_Messages: our STLport units never compile those members
   (retail ICF-folds them); STLport lane.
+
+**Weak `??_E` slots whose default is rowed under another name (2026-11-09, seat halilkkaya-lk71, base
+`f445bd6480`).** lk70's separate shape: a slot (0, sometimes 1, 3 or 14) relocates to a weak `??_EX`
+whose default `??_GX` exists, but the ledger rows retail's target under another name, so HEAD's weak rule
+cannot accept it. Method: lk65_ab.py (old = new = HEAD's `tools/vtable_bridge.py`), then each of the
+1,151 such bridged slots classified by the rows at retail's target; the default tested with lk67's
+recursive twin test plus lk68's kept-copy check; and every placeholder pair dry-run through
+`rename.py class --fold OLD --into X` (332 pairs).
+- Target-row shapes (slots): one placeholder `??_GRva*` 357; several placeholders (an ICF fold) 94; a
+  real class's `??_G` (an ICF fold, e.g. 0x004A10FD, 0x00184150, 0x004D8507) 293; placeholder and real
+  mixed 79; `??_G` plus other names 16; a non-destructor body 312 (e.g. 0x00656C30
+  `?bfmeDelTVA@BfmeThingTVA`, 0x00131C40 `?bfmeGo1035G@BfmeG1035`). The default twins retail's body for
+  242 slots; 29 tables pass in every slot.
+- Done, rows only (`tools/add_match.py --icf-owner`, `fold-proof=<owner source>`, callee first), three
+  commits: `2691447a4bd` (6 rows: `??_GRva00261513Filter` at 0x00395A19; ProcessAnimateWindowSpiral and
+  SlideFromRight `??1`/`??_G` at 0x005C6317/0x005C5990 and `setMaxDuration` at 0x0047A69C; three tables
+  off the bridge); `db850117852` (93 rows: the AI state family at 0x004D8507/0x004D7B93 and the
+  TextureMapperClass family at 0x00184150/0x00724510, slot 0 of 49 tables); `9bc256c29c7` (49 rows in 36
+  units: the 0x004A10FD `??_GObjectModule` fold, 0x0008FFC4/0x000A43C8, 0x00406B1D, 0x003F7BCC,
+  0x00254418/0x004905B0, 0x00508F8C/0x0050B8D6, 0x005B2558 and two more AI states). Only addresses that
+  three or more classes' slots reach were taken (genuine folds). The tables of the last two commits stay
+  bridged on other shapes: phantom State slots, one-slot private views, and slots at 0x000B3FD0/0x000D43D0.
+- Offline A/B before -> after: bridged 4,257 -> 4,254, already correct 1,392 -> 1,395, mismatching
+  source slots 45,996 -> 45,899; refusals identical (147); no table newly bridged or lost. link_check:
+  every touched unit and the owners' units LINK with equal or more bytes.
+- Twin-clean except for held addresses (22 tables): 0x000B3FD0/0x000D43D0 (Burachi-3D) block
+  GameClient@SubsystemInterface, WeaponSetUpgradeModuleData, UpgradeCenter, GhostObjectManager,
+  Rva00318B5C, Rva004885DE, Animal/Horde/WanderAIUpdateModuleData, ObjectHelperModuleData,
+  W3DDebrisDrawModuleData, Darkness/FreezingRainSpecialPowerModuleData, PerTurnStats@LivingWorldScoreKeeper,
+  Rva004F599E and AITNGuardInnerState; 0x004D5B30 and NetCommandMsgCtor.cpp block Rva004D5795/57AE/59D1/
+  5A30; Rva0056AC26Constructor.cpp blocks Rva0056AC26Base1; 0x0047A699 blocks Rva000A217F. Most of
+  their other rows landed in `9bc256c29c7`, so they need only those addresses (plus ElvenWoodSpecialPower.cpp
+  and GameClientDrawableTOC.cpp, held). Excluded scopes: Rva00577FE2Base and FXParticleSystem's Rva005641BB.
+- Blocked: `??_GBFME2Encoding1/2MotionChannel` (0x001A47BC) still refused by add_match: the `$L573`-`$L575`
+  funclet rows name labels the object no longer emits (it emits `$L914`-`$L916`), and standalone
+  `tools/eh_verify.py` on BFME2MotionChannelFactory.cpp fails `?Load_BFME2MotionChannel` (0x001A46B4) as
+  "unmapped -- never reached from the function", so the next edit of that file meets the EH gate.
+- Folds: 107 of 332 pairs pass the dry run, but only 8 would complete a table, and none landed.
+  Refusals: a third class names the table 51, OLD installs another table 25, a registered NEW needs
+  `--prepared` 22, OLD installs no own table 19, OLD keys a frozen register 30 (hatch 18, dup_defs 11,
+  code identity 1), secondary vftable 16, both names have a destructor or constructor row 17.
+  - `Rva003E3C39 -> Rva003E3C22` (TransportStatus, 0x00C35B34): verifies 224/224, then link_check fails
+    three units. ScriptConditions_evaluateTeamStateIs.cpp's inline constructor COMDAT (byte-equal to
+    retail's 0x003E3C22) duplicates RvaSmallVtableCtors.cpp's strong `??0Rva003E3C22`, and that view's
+    inline empty destructor makes the kept `??_G` not retail's. Declaring the constructor out of line
+    breaks evaluateUnitHasEmptied (retail inlines it). Needs the 0x003E3C22 row in its TU
+    (ScriptConditions.cpp, proposed) and the RvaSmallVtableCtors view retired. Reverted; in re_attempts.
+  - `Rva001505CD -> FXShaderParameterSourceNamespaceSAS` (0x00BD3A34): verifies 68/68, and
+    fxshadernamespacesas.cpp then needs its destructor declared out of line (its implicit 119-byte one
+    duplicates retail's 140), which stays exact (105/105). Rva001505CDDtor.cpp's view still emits a
+    different class table ([`s0`, `??_E`] against [`??_E`, ResolveBindings]); giving it the real interface
+    base fixes the table but breaks the 140-byte destructor (retail reuses one register for the base and
+    member vptr stores, so both must name one table). Needs the TU merge into
+    FXShaderParameterSourceNamespaceSAS.cpp (approved TU of 0x001505CD and 0x00150A5B). Reverted; in
+    re_attempts.
+  - `Rva0055133F -> BuddyThreadClass`: BuddyThread.cpp declares both classes; the 170-byte destructor has
+    to move into the real class (whose implicit one is 140 bytes).
+  - `Rva0041F94A -> Rva0022BD25Subsystem` and `Rva00488D3B -> Rva004885DE`: the tables' other slots need
+    0x000B3FD0/0x000D43D0.
+  - `Rva004C6CC1` and `Rva00535776`: the placeholder's `??_G` is slot 0 of several classes' tables (an
+    ICF of distinct classes), so folding it into one of them would be a naming claim. Tooling lead:
+    `rename.py class --fold` accepts one OLD into two to four different NEWs (Rva004318D8, Rva00535776,
+    Rva005C47A3, Rva005E57C9, Rva005EA2AB); its third-class check looks only at the one table T.
+- Next leads: (1) before any fold, list the objects defining OLD's and NEW's `??0`/`??1`/`??_G` with their
+  COMDAT selection: a strong (selection 1) body against an inline (selection 2) one in a view unit is the
+  duplicate that stopped both folds above; fix the inline view first. (2) The 22 held tables above when
+  their claims clear. (3) The 99 passing folds that leave the table bridged (WallHubBehavior,
+  DeletionUpdate, FireSpreadUpdate, the Die/Body/Create/SpecialPower families, AI*State classes) are
+  naming progress, one class at a time; their twin rows (58) would only put a second name on one class's
+  body, so fold instead. (4) The 312 non-destructor targets are deleting destructors rowed as plain
+  methods (naming lane). (5) The rest of the planner's genuine-fold twin rows: AIStateHashCtors0033F2FD.cpp
+  50 (held by Burachi-3D), ElvenWoodSpecialPower.cpp 4 (held), BfmeDirtyBaseDerived.cpp 6, and folds
+  that only one or two classes reach.
