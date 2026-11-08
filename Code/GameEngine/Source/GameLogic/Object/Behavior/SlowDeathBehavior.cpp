@@ -107,6 +107,10 @@ protected:
 };
 #include "../../../../Include/Common/INI/FieldParse.h"
 #include <string.h>
+// Retail's SlowDeathBehavior run (LINK-236): its Drawable.h copy 0x007B0B90, then
+// SLAVED_UPDATE_RATE 0x007B0BA0 (Zero Hour's unit includes Drawable.h, then SlavedUpdate.h).
+#include "../../../../Include/GameClient/DrawableFramesPerFlash.h"
+#include "../../../../Include/GameLogic/Module/SlavedUpdateRate.h"
 
 // native seed of retail's SlowDeathBehavior.cpp (approved rows 0x0045D3C5..
 // 0x0045E93F and their funclets in tu_map.csv). The approved bodies still

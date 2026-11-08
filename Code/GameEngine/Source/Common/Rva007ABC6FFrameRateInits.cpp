@@ -39,7 +39,6 @@ static int s_rva007ADE88;
 static int s_rva007AE043;
 static int s_rva007AEE6B;
 static int s_rva007B042B;
-static int s_rva007B0BA0;
 
 struct Rva007ABC6FFrameRateInits
 {
@@ -52,7 +51,6 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007AEE6B();
 	static void rva007B042B();
 	static void rva007B07F5();
-	static void rva007B0BA0();
 	static void rva007B3B50();
 	static void rva007B3FCA();
 	static void rva007B4316();
@@ -112,12 +110,6 @@ void Rva007ABC6FFrameRateInits::rva007B042B()
 void Rva007ABC6FFrameRateInits::rva007B07F5()
 {
 	g_00E033D0 = BfmeLogicFramesPerSecond;
-}
-
-// ?rva007B0BA0@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B0BA0 (17B): TU-local static at VA 0x00E0359C, never read in .text
-void Rva007ABC6FFrameRateInits::rva007B0BA0()
-{
-	s_rva007B0BA0 = BfmeLogicFramesPerSecond / 4;
 }
 
 // ?rva007B3B50@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B3B50 (16B): global at VA 0x00E05F24, named as the TU that reads it names it
