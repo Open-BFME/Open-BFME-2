@@ -49,3 +49,11 @@ SegLineRenderer getter diagnostics remain. The next published real link
 must confirm that the two float tables leave the refusal queue; the
 RenderObj bounds slots 65/66 remain the separate LINK-619 obstacle. No
 coverage, census or runtime gain is claimed by this package.
+
+Published as 6b9ecd0ea1 on push.py attempt 1 in 31.4 seconds. Required
+publication checks pass, including all 68 source rows, four exact source
+EH graphs, converged data and scoped DIR32 consistency. The post-publication
+body/provider comparison also passes. The broader audit remains INCONCLUSIVE:
+index c885072a48 versus outgoing base a05bf4a06da5570e87d8eac2f4a01d99c9b1c01e;
+Common/AICowerState_onEnter.cpp lacks a current strict receipt. The bounded
+two-table result remains pending confirmation by the next real image.

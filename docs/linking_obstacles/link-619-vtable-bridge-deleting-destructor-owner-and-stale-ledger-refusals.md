@@ -614,3 +614,10 @@ is pending; StreakLine's separate bounds slots 65/66 remain open, as do the
 unchanged unreferenced renderer getter diagnostics. This does not establish
 an image, census or runtime gain.
 [Native bodies and controls](../../reverse/attempt_support/streak-float-provider-20261108/README.md).
+
+Published as 6b9ecd0ea1 on the first attempt (31.4 seconds). Required
+row/EH/data/scoped-DIR32 checks pass, and the native-body/provider proof
+passes again after publication. The broader audit remains INCONCLUSIVE:
+index c885072a48 versus outgoing base a05bf4a06da5570e87d8eac2f4a01d99c9b1c01e;
+Common/AICowerState_onEnter.cpp lacks a current strict receipt. Confirmation
+of the two float tables awaits the next real image; the bounds wall remains.
