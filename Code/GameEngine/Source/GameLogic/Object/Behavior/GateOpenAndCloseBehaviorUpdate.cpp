@@ -60,24 +60,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_GATE_CLOSING = 22
 };
 
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(unsigned int bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(unsigned int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 class BfmeStrF9
 {
@@ -108,7 +91,7 @@ public:
 	void rva0028AB75(bool v);
 	void rva0028AE6D();
 	Bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
-	__forceinline void clearAndSetModelConditionState(ModelConditionFlagType clr, ModelConditionFlagType set)
+	__forceinline void clearAndSetModelConditionState(unsigned int clr, unsigned int set)
 	{
 		if (m_modelConditionFlags.test(clr) || !m_modelConditionFlags.test(set))
 		{
@@ -118,7 +101,7 @@ public:
 		}
 	}
 	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the clearAndSetModelConditionState copy loses to the first-in-order copy. No flags touched.
-	__forceinline void bfme_clearAndSetModelConditionState_5697e(ModelConditionFlagType clr, ModelConditionFlagType set)
+	__forceinline void bfme_clearAndSetModelConditionState_5697e(unsigned int clr, unsigned int set)
 	{
 		if (m_modelConditionFlags.test(clr) || !m_modelConditionFlags.test(set))
 		{

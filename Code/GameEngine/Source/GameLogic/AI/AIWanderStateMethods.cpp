@@ -44,20 +44,7 @@ enum ModelConditionFlagType
 	MODELCONDITION_PANICKING = 2 * 32 + 13,
 	MODELCONDITION_BFME_130 = 4 * 32 + 2
 };
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(unsigned int bit)
-	{
-		m_words[bit >> 5] |= (1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 struct FprintfTarget;
 extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
@@ -118,7 +105,7 @@ public:
 	Bool isKindOfCanBeRepulsed() const { return thingTemplateIsKindOfCanBeRepulsed(m_template); }
 	Real getVisionRange() const;
 	void rva0028AE6D();
-	__forceinline void setModelConditionState(ModelConditionFlagType mc)
+	__forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{

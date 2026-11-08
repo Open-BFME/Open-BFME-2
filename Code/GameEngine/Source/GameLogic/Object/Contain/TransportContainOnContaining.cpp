@@ -79,14 +79,7 @@ public:
 	UnsignedInt m_bits[4];
 };
 
-class ModelConditionFlags
-{
-public:
-	__forceinline UnsignedInt test(int i) const { return m_bits[i >> 5] & (1 << (i & 0x1f)); }
-	__forceinline void set(int i) { m_bits[i >> 5] |= (1 << (i & 0x1f)); }
-	__forceinline void clear(int i) { m_bits[i >> 5] &= ~(1 << (i & 0x1f)); }
-	UnsignedInt m_bits[4];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
@@ -106,7 +99,7 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	__forceinline UnsignedInt isKindOf(int k) const { return (getTemplate()->m_kindof[k >> 5] & (1 << (k & 0x1f))); }
 	const Coord3D *getPosition() const { return &m_pos; }
-	__forceinline void setModelConditionState(int a)
+	__forceinline void setModelConditionState(unsigned int a)
 	{
 		if (!m_modelConditionFlags.test(a))
 		{
@@ -114,7 +107,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void clearModelConditionState(int a)
+	__forceinline void clearModelConditionState(unsigned int a)
 	{
 		if (m_modelConditionFlags.test(a))
 		{

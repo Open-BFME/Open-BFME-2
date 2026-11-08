@@ -32,42 +32,24 @@ enum ModelConditionFlagType
 };
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
-class ModelConditionFlags
-{
-public:
-	UnsignedInt testMask(UnsignedInt bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(UnsignedInt bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(UnsignedInt bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-
-private:
-	UnsignedInt m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 class Object : public Thing
 {
 public:
 	void rva0028AE6D();
 
-	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
+	__forceinline void clearModelConditionState(unsigned int mc)
 	{
-		if (m_modelConditionFlags.testMask(mc))
+		if (m_modelConditionFlags.test(mc))
 		{
 			m_modelConditionFlags.clear(mc);
 			rva0028AE6D();
 		}
 	}
 
-	__forceinline void setModelConditionState(ModelConditionFlagType mc)
+	__forceinline void setModelConditionState(unsigned int mc)
 	{
-		if (m_modelConditionFlags.testMask(mc) == 0)
+		if (m_modelConditionFlags.test(mc) == 0)
 		{
 			m_modelConditionFlags.set(mc);
 			rva0028AE6D();

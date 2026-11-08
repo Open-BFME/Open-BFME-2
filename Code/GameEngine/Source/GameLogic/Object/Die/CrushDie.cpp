@@ -101,14 +101,7 @@ public:
 	virtual void setBackCrushed( Bool v ) = 0;
 };
 #include "../../../../Include/Common/Geometry.h"
-// ModelConditionFlags view (0x4C bytes); set( bit, value ) is 0x000B3FA5.
-class ModelConditionFlags
-{
-public:
-	ModelConditionFlags() { memset( m_bits, 0, sizeof( m_bits ) ); }
-	void rva000B3FA5( Int bit, Int value );
-	unsigned int m_bits[ 0x4C / 4 ];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 // MAKE_MODELCONDITION_MASK2 worker, address-named as rowed.
 class Rva001E4912
 {
@@ -354,6 +347,7 @@ void CrushDie::onDie( const DamageInfo * damageInfo )
 				me->getBodyModule()->setBackCrushed(crushType == TOTAL_CRUSH || crushType == BACK_END_CRUSH);
 
 				ModelConditionFlags newCrushed;
+				memset(newCrushed.m_bits, 0, sizeof(newCrushed.m_bits));
 				newCrushed.rva000B3FA5(MODELCONDITION_FRONTCRUSHED, (crushType == TOTAL_CRUSH || crushType == FRONT_END_CRUSH));
 				newCrushed.rva000B3FA5(MODELCONDITION_BACKCRUSHED, crushType == TOTAL_CRUSH || crushType == BACK_END_CRUSH);
 				Rva001E4912 clearMask;

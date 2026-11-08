@@ -140,13 +140,7 @@ public:
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-struct ModelConditionFlags {
- unsigned int words[19];
- // Returns the masked word (WB's BitFlags::test compares it with zero).
- unsigned int test(size_t bit) const { return words[bit/32] & (1UL << (bit%32)); }
- void set(int bit) { words[bit>>5] |= 1U << (bit & 0x1f); }
- void clear(int bit) { words[bit >> 5] &= ~(1 << (bit & 0x1f)); }
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 enum ObjectStatusTypes { STATUS_46 = 0x46 };
 
@@ -452,7 +446,7 @@ void EmotionNugget::OnActivation(Object *target, int duration)
         else object00->rva0028CFB2(getTemplate()->clearec, getTemplate()->set54);
         if (target && target->isSignificantlyAboveTerrain()) {
             Object *object = object00;
-            if (!object->modelConditions.test(200)) {
+            if (!object->modelConditions.test(200U)) {
                 object->modelConditions.set(200);
                 object->rva0028AE6D();
             }
@@ -633,7 +627,7 @@ void EmotionNugget::OnDeactivation()
 		else
 			object00->rva0028CFB2(entry04->clearA0, entry04->set138);
 		Object *object = object00;
-		if (object->modelConditions.test(200))
+		if (object->modelConditions.test(200U))
 		{
 			object->modelConditions.clear(200);
 			object->rva0028AE6D();

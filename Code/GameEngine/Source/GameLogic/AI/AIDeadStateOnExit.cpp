@@ -47,27 +47,14 @@ enum ModelConditionFlagType
 {
 	MODELCONDITION_DYING = 1 * 32 + 30
 };
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void clear(unsigned int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 class Object
 {
 public:
 	void rva0028AE6D();
 	void rva0028CFB2(const int *clr, const int *set);
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
+	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
 		{

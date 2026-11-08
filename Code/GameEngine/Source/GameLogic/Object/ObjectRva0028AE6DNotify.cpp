@@ -13,10 +13,7 @@
 // false, 0). That is donor naming, not target fact, so the row and the
 // Drawable callee (0x002791E7, unrowed) keep address-derived names.
 
-class ModelConditionFlags
-{
-	unsigned int m_words[10];
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 
 #include "../../../Include/GameClient/Drawable.h"
 
@@ -39,7 +36,7 @@ private:
 	Drawable *m_drawable; // +0x84
 	unsigned char m_pad088[0x10C - 0x88];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
-	unsigned char m_pad134[0x258 - 0x134];
+	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai; // +0x258
 };
 

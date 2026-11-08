@@ -12,25 +12,12 @@ enum ModelConditionFlagType
 {
 	MODELCONDITION_PANICKING = 2 * 32 + 13
 };
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void clear(unsigned int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 class Object
 {
 public:
 	void rva0028AE6D();
-	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
+	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
 		{

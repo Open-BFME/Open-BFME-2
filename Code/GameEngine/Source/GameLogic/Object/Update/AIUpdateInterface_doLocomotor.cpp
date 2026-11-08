@@ -117,24 +117,7 @@ inline void coordScale(Coord3D *a, Real scale)
 	a->z *= scale;
 }
 
-class ModelConditionFlags
-{
-public:
-	UnsignedInt test(UnsignedInt bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(UnsignedInt bit)
-	{
-		m_words[bit >> 5] |= (1U << (bit & 0x1f));
-	}
-	void clear(UnsignedInt bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	UnsignedInt m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
@@ -162,7 +145,7 @@ public:
 	Rva00373EC6 *rva0028F4BC();
 	void rva001E431E(const Int *flags);
 
-	__forceinline void clearModelConditionState(ModelConditionFlagType mc)
+	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
 		{
@@ -170,7 +153,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void setModelConditionState(ModelConditionFlagType mc)
+	__forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{

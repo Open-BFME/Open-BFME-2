@@ -23,11 +23,7 @@
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;									// 0x000B3EB3
-};
+#include "../../../Include/GameClient/ModelConditionFlags.h"
 template <class T> struct GrantVectorView
 {
 	T *m_begin;
@@ -94,7 +90,7 @@ struct ExperienceLevelView
 	ObjectCreationList *m_ocl;
 	GrantVectorView<const void *> m_upgrades;				// +0x4C
 	ModelConditionFlags m_conditions;						// +0x58
-	unsigned char m_pad59[0xFC - 0x59];
+	unsigned char m_padA4[0xFC - 0xA4];
 	Int m_commandSet;										// +0xFC
 	bool m_bannerCarrier;									// +0x100
 	Int m_specialCondition;									// +0x104

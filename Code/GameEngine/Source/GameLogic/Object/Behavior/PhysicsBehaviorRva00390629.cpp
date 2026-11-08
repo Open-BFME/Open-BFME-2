@@ -18,24 +18,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(unsigned int bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(unsigned int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {

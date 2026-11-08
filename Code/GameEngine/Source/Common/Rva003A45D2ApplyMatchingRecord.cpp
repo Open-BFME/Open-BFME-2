@@ -27,11 +27,7 @@ public:
 	static void doFXObj(const FXList *fx, const class Object *primary, const class Object *secondary);
 };
 
-class ModelConditionFlags
-{
-public:
-	bool rva000B3EB3() const;
-};
+#include "../../Include/GameClient/ModelConditionFlags.h"
 
 class Rva00263546
 {
@@ -75,7 +71,6 @@ struct Rva003A45D2Rec
 	const FXList *m_fx;
 	int m_value[19];
 	ModelConditionFlags m_flags;
-	char m_pad55[0xA0 - 0x55];
 };
 
 struct Rva003A45D2Data

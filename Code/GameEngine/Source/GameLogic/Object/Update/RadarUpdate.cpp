@@ -23,29 +23,12 @@ enum ModelConditionFlagType
 	MODELCONDITION_RADAR_EXTENDING = 2 * 32 + 11,
 	MODELCONDITION_RADAR_UPGRADED = 2 * 32 + 12
 };
-class ModelConditionFlags
-{
-public:
-	unsigned int test(unsigned int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(unsigned int bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(unsigned int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
-};
+#include "../../../../Include/GameClient/ModelConditionFlags.h"
 class Object
 {
 public:
 	void rva0028AE6D();
-	__forceinline void setModelConditionState(ModelConditionFlagType mc)
+	__forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{
@@ -53,7 +36,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void clearAndSetModelConditionState(ModelConditionFlagType clr, ModelConditionFlagType set)
+	__forceinline void clearAndSetModelConditionState(unsigned int clr, unsigned int set)
 	{
 		if (m_modelConditionFlags.test(clr) || !m_modelConditionFlags.test(set))
 		{
@@ -67,7 +50,7 @@ public:
 	// first-in-order copy (no retail address); the call below inlines it but
 	// still emits the loser COMDAT. Rebinding there emits only this unique
 	// (trivially kept) copy. No flags touched.
-	__forceinline void bfme_clear_and_set(ModelConditionFlagType clr, ModelConditionFlagType set)
+	__forceinline void bfme_clear_and_set(unsigned int clr, unsigned int set)
 	{
 		if (m_modelConditionFlags.test(clr) || !m_modelConditionFlags.test(set))
 		{
