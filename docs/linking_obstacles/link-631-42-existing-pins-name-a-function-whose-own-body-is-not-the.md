@@ -126,5 +126,69 @@ This is retail disassembly plus scratch compiles. No pin, row or ledger was chan
    ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp.
 4. Row 0x004F5097 and 0x004F50BD under the PrereqUnitRec names in place of their pins.
 
+#### 2026-11-08 (later): the vector<PerTurnStats> cluster, and why the rehome is one batch
+
+**The inlining question is settled; no flag is involved.** LivingWorldScoreKeeper.cpp already compiles
+at the region default (/O1 /arch:SSE /G7). Retail's PerTurnStats has three `short`
+members (+4, +6, +8; V3PolyCopyCtors.cpp spells them `Short`) and an implicit copy constructor.
+
+In scratch, I changed the unit's view from `char m_4[2]; char m_6[2]; int m_8;` to three
+`short`s, with `xfer` reading them directly and no declared copy constructor. The results:
+- All 78 of the unit's row addresses stay exact.
+- The unit emits all five retail bodies byte-exact:
+  - copy constructor 0x004EE1A9
+  - `_Construct` 0x004EE1D0
+  - `__uninitialized_copy` 0x004EE1E2
+  - `__uninitialized_fill_n` 0x004EE20B
+  - `_M_allocate_and_copy` 0x004EE233
+- 0x004EE233 needs `allocator<PerTurnStats>::allocate` admitted as a fold pin at
+  0x00395928, with `fold-proof=` this unit.
+- A declared out-of-line copy constructor is what stops the inlining: it gives
+  `_Construct` an EH frame. StlportConstructCopySiblings.cpp only reaches the
+  18-byte body through a `throw()` specialization.
+- 0x004EE1A9 and 0x004EE1D0 are in this unit's approved range too. Their rows
+  (V3PolyCopyCtors.cpp, StlportConstructCopySiblings.cpp) move with the batch, so
+  no second definition remains.
+
+**Four more matched rows reach these bodies through the PrereqUnitRec names.** These are retail
+direct calls; each object's relocation is named:
+
+| row | unit | calls (as) |
+|---|---|---|
+| 0x004EE55E `Rva004EE55EVector::reserve` | StlVectorReserveProviderRepairs.cpp | 0x004EE233 (`_M_allocate_and_copy<PrereqUnitRec*>`) |
+| 0x004EE6D0 `Rva004EE6D0::rva004EE6D0` (insert overflow; push_back 0x004EE9B1) | Rva004EE6D0Insert.cpp | 0x004EE1E2 and 0x004EE20B (PrereqUnitRec), 0x004EE1A9 (PerTurnStats) |
+| 0x0051ED0A `Rva004EE501` copy constructor | AptTimeLine.cpp | 0x004EE1E2 (PrereqUnitRec) |
+| 0x0051F7AD `vector<Rva0051F7ADRecord>::operator=` | AptTimeLine.cpp | 0x004EE233 and 0x004EE1E2 (PrereqUnitRec) |
+
+These are vector<PerTurnStats>'s reserve, insert overflow and push_back, copy
+constructor and `operator=`. AptTimeLinePlayer's `m_20`, spelled
+`vector<Rva0051F7ADRecord>`, is a vector<PerTurnStats>: the time line's per-turn
+score graph.
+
+Retracting the three wrong rows on their own would turn these four callers red.
+`_M_allocate_and_copy<PrereqUnitRec>` would resolve nowhere, and
+`__uninitialized_copy<PrereqUnitRec>` would resolve only to retail's real 0x004F5097.
+So the rehome is one batch, with the callers respelled to PerTurnStats:
+1. LivingWorldScoreKeeper.cpp: the view fix, plus explicit instantiations of the three helpers.
+2. Remove PerTurnStats from V3PolyCopyCtors.cpp and from StlportConstructCopySiblings.cpp's
+   `throw()` specialization.
+3. Admit the `allocate<PerTurnStats>` fold pin.
+4. Retract 0x004EE1E2, 0x004EE20B and 0x004EE233 (deleted_rows.csv), and delete
+   Rva004EE233AllocateCopy.cpp, the unit's only row.
+5. Row the five bodies in LivingWorldScoreKeeper.cpp.
+6. Respell the element of the four callers' views, in StlVectorReserveProviderRepairs.cpp,
+   Rva004EE6D0Insert.cpp and AptTimeLine.cpp (136 rows; its explicit specializations at
+   lines 599-600, 913-916, 966-977 and 1109 name these types).
+7. Retract the `??0PrereqUnitRec` pin at 0x004EE1A9.
+
+Only after that does `__uninitialized_copy/_fill_n<PrereqUnitRec>` resolve to retail's real
+0x004F5097 and 0x004F50BD alone. Scratch scripts are on srv1 seat3:
+`build/scratch_defects/perturn_v2.py` and `prereq46.py`.
+
+**Claim conflict (steps 3 and 4 of the earlier order).** `class:ProductionPrerequisite` cannot be claimed.
+The ThingTemplate header seat (StarkillerHDX@fleet, note "header seat w14") holds a footprint
+that includes ProductionPrerequisiteIsSatisfied_ProductionPrerequisite_isSatisfied.cpp. Moving
+ProductionPrerequisite.cpp to the BFME 2 AsciiString waits for that seat and for string_base.h.
+
 Clearance: pending.
 Census confirmation: not claimed.
