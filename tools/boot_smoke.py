@@ -31,7 +31,9 @@ Outcome (build/boot/smoke.json, also printed):
                         far it ran is the picture; it is not still getting there. A run
                         too short to sample that long never gets this label, and neither
                         does a thread parked outside the image: retail waits in a system
-                        call for 29 s at a time while its intro movies play
+                        call for 29 s at a time while its intro movies play. A heuristic: a
+                        long copy in the image can satisfy it, and a wider spin, a spin
+                        in a system DLL or a deadlock in a wait keep the picture's label
   profile-redirect-failed  the appdata lie could not be installed (nothing ran)
   profile-changed       the owner's profile or HKCU EA keys changed
 
@@ -707,9 +709,19 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 break
             if "main_thread" in res and left <= SPIN_SPAN and time.time() >= next_spin_sample:
                 next_spin_sample = time.time() + SPIN_EVERY
-                eip = thread_eip(k, res["main_thread"])
-                if eip is not None:
+                try:
+                    eip = thread_eip(k, res["main_thread"])
+                except ThreadNotResumed as failure:
+                    debugger_error("ResumeThread:spin-sample", failure.error)
+                    break
+                if eip is None:
+                    res["spin_sample_failures"] = res.get("spin_sample_failures", 0) + 1
+                else:
                     res.setdefault("spin_samples", []).append((round(time.time() - t0, 1), eip))
+                left = timeout - (time.time() - t0)     # the sample took time: it may not buy the wait more
+                if left <= 0:
+                    res["outcome"] = "timeout"
+                    break
             if defocus_at is not None and "pid" in res:
                 d = res.setdefault("defocus", {})
                 if "minimised" not in d and time.time() - t0 >= defocus_at:
@@ -835,7 +847,10 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
             if stop_after_continue or res.get("outcome") == "debugger-error":
                 break
         if res["outcome"] == "timeout":
-            res["main_eips"] = sample_eips(k, res["main_thread"])
+            try:
+                res["main_eips"] = sample_eips(k, res["main_thread"])
+            except ThreadNotResumed as failure:
+                debugger_error("ResumeThread:final-sample", failure.error)
             res["main_stack"] = main_stack(k, procs[res["pid"]][0], res["main_thread"], res.get("main_tid"))
             res["windows"] = [(t, r) for t, r, _ in windows_of(res["pid"])]
             res["dialogs"] = window_texts(res["pid"])
@@ -944,15 +959,43 @@ def stack_words(k, hproc, tid, n=2048):
             "words": [int.from_bytes(data[i:i + 4], "little") for i in range(0, len(data) - 3, 4)]}
 
 
+class ThreadNotResumed(Exception):
+    """The sampler suspended the game's main thread and could not resume it: what the run shows from
+    here is the sampler's doing, so it is a debugger error, never evidence."""
+
+    def __init__(self, error):
+        super().__init__(error)
+        self.error = error
+
+
+THREAD_CALL_FAILED = 0xFFFFFFFF
+RESUME_ATTEMPTS = 3
+
+
+def resume_thread(k, hthread):
+    """ResumeThread until it answers, and the suspend count it found; ThreadNotResumed if it never does."""
+    for _ in range(RESUME_ATTEMPTS):
+        count = k.ResumeThread(wt.HANDLE(hthread)) & 0xFFFFFFFF
+        if count != THREAD_CALL_FAILED:
+            return count
+    raise ThreadNotResumed(ctypes.get_last_error())
+
+
 def thread_eip(k, hthread):
-    """The thread's EIP, or None when it cannot be read."""
+    """The thread's EIP while it was running, or None when this read proves nothing: it could not be
+    suspended or read, someone else already held it suspended (an EIP that cannot move is no sign of a
+    spin), or the resume's count does not add up. Raises ThreadNotResumed when it stays suspended."""
     ctx = WOW64_CONTEXT()
     ctx.flags = 0x10001
     # Wine 9 has no Wow64SuspendThread; SuspendThread stops a 32-bit thread the same way here.
-    getattr(k, "Wow64SuspendThread", k.SuspendThread)(wt.HANDLE(hthread))
-    eip = ctx.eip if k.Wow64GetThreadContext(wt.HANDLE(hthread), ctypes.byref(ctx)) else None
-    k.ResumeThread(wt.HANDLE(hthread))
-    return eip
+    before = getattr(k, "Wow64SuspendThread", k.SuspendThread)(wt.HANDLE(hthread)) & 0xFFFFFFFF
+    if before == THREAD_CALL_FAILED:
+        return None
+    try:
+        eip = ctx.eip if k.Wow64GetThreadContext(wt.HANDLE(hthread), ctypes.byref(ctx)) else None
+    finally:
+        after = resume_thread(k, hthread)
+    return eip if before == 0 and after == 1 else None
 
 
 def sample_eips(k, hthread, n=8):
@@ -1015,9 +1058,11 @@ def title_splash(img):
     return sum(abs(a - b) for a, b in zip(grey, TITLE_SPLASH)) / len(TITLE_SPLASH) <= TITLE_SPLASH_DISTANCE
 
 
-# The hang test. run() samples the main thread about once a second over the run's last SPIN_SPAN seconds,
-# inside the timeout, so a run takes no longer for it. A copy or a decompression can sit in one loop for
-# seconds; nothing in a boot legitimately sits inside SPIN_WINDOW bytes for half a minute.
+# The hang test, a heuristic. run() samples the main thread about once a second over the run's last SPIN_SPAN
+# seconds, and rechecks the deadline after each sample, so a run overruns its timeout by at most the sample in
+# flight. A copy or a decompression can sit in one loop for seconds, and one lasting the whole span inside
+# the image would satisfy this. In the other direction, a wider spin, a spin in a system DLL or a deadlock in a
+# wait keep their more favourable picture label: this catches a tight spin in the game's own code, no more.
 SPIN_SPAN = 30.0
 SPIN_EVERY = 1.0
 SPIN_WINDOW = 64        # bytes: wider than one tight loop's few instructions, narrower than most functions
@@ -1542,9 +1587,9 @@ def _retail_sections():
 
 
 def broke(outcome):
-    """A start-up the overlay broke: a crash, an exit, no or a blank window (not a slow
-    load still showing the splash, not a link or guard failure)."""
-    return outcome.startswith(("crash", "exit-")) or outcome in ("no-window", "blank-window")
+    """A start-up the overlay broke: a crash, an exit, no or a blank window, or a confirmed hang
+    whatever its picture (not a slow load still showing the splash, not a link or guard failure)."""
+    return outcome.startswith(("crash", "exit-", "hang-on-")) or outcome in ("no-window", "blank-window")
 
 
 def bisect_rows(a, rows, executed=None):

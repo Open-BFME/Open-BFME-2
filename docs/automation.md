@@ -115,8 +115,13 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
   intro movies from 15 s to 180 s, the menu at 300 s. So `title-splash` past about 10 s is short of
   retail, and `loading-screen` means only another picture short of the menu: it does not prove
   loading. `hang-on-<picture>` is that picture with the main thread spinning in the game's own
-  code over the run's last 30 seconds, within 64 bytes (`main_thread_span` in smoke.json). A thread
-  parked outside the image is not a hang: retail waits in a system call for 29 s at a stretch while
+  code over the run's last 30 seconds, within 64 bytes (`main_thread_span` in smoke.json). This is a
+  heuristic, not proof that progress stopped: a long copy or decompression inside the image can
+  satisfy it. In the other direction, a wider spin, a spin in a system DLL or a deadlock in a wait
+  keep the more favourable picture label, so `title-splash` or `loading-screen` does not prove the
+  run was still moving. It takes no sample as evidence when the thread could not be cleanly suspended
+  and resumed, and a thread it cannot resume makes the run a `debugger-error`. A thread parked outside
+  the image gets no hang label because retail waits in a system call for 29 s at a stretch while
   a movie plays. Receipts before this change say `loading-screen` for all of these.
 - Retail on 2026-11-03: main menu reached; a seeded skirmish gives 30 distinct CRCs over frames
   25-750; the same seed twice gives identical CRCs; `--perturb-frame 300` is caught, with the 12

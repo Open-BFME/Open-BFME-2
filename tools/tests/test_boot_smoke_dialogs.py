@@ -230,6 +230,19 @@ class Classification(unittest.TestCase):
         report["spin_samples"] = self.SPINNING
         self.assertEqual(self.smoke(report)["outcome"], "crash-dialog")
 
+    def test_a_confirmed_hang_is_a_start_up_the_overlay_broke(self):
+        # A spin before any window used to read no-window and reach --bisect; the label must not hide it.
+        for outcome in ("hang-on-no-window", "hang-on-blank-window", "hang-on-no-picture", "hang-on-title-splash",
+                        "hang-on-loading-screen"):
+            self.assertTrue(bs.broke(outcome), outcome)
+
+    def test_what_broke_still_says_of_the_rest(self):
+        for outcome in ("no-window", "blank-window", "crash-at-x", "crash-dialog", "exit-0x1"):
+            self.assertTrue(bs.broke(outcome), outcome)
+        for outcome in ("title-splash", "loading-screen", "reached-menu", "no-picture", "debugger-error", "link-error",
+                        "guard-violation", "hungry"):
+            self.assertFalse(bs.broke(outcome), outcome)
+
     def test_result_of_keeps_crash_dialog(self):
         self.assertEqual(real_image.result_of("crash-dialog"), "crash-dialog")
         self.assertEqual(real_image.result_of("crash-at-?f@@YAXXZ"), "crashed")
