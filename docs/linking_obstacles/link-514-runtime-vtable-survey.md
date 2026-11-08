@@ -1064,3 +1064,17 @@ by hand on samples (Clear@VectorClass<ResolutionDescClass> 0x00154A30, ??_GRva00
   `??_GRva002793F0` at 0x00279FFC is `??_GDrawable` (its callee is `??1Drawable`), and 0x004CEE78
   `?apply@Rva004CEE78DwordImmSetter` is a fold of `??1NetCommandMsg`. No `tools/vtable_bridge.py` change
   is needed for this lane.
+
+**Lead (3) follow-up (2026-11-08, seat halilkkaya-lk69).**
+- `??_GRva002793F0` at 0x00279FFC: done in `dc088913621`. `rename.py class --fold Rva002793F0 --into
+  Drawable` refuses because both names row the -0x60 thunk at 0x0027966F, an ICF alias pair the fold does
+  not merge. So OpaqueScalarDeletingDtorsB05.cpp's copy was retracted instead: the two rows are
+  tombstoned, and the class, its tag constructor, its `/alternatename` and both pins
+  (`??1Rva002793F0`, `??_ERva002793F0@@UAEPAXI@Z`) are gone. The Drawable twins in
+  DrawableConstructor.cpp now own both addresses. The next real link should take `??_7Drawable@@6BSnapshot@@@`'s
+  slot 0 from `??_EDrawable@@WGA@AEPAXI@Z` rather than the placeholder. All four Drawable/B05 units still
+  link (link_check).
+- 0x004CEE78 `?apply@Rva004CEE78DwordImmSetter@@QAEXXZ`: not done. `class:NetCommandMsg` is held by
+  Burachi-3D. The same retraction applies when it releases. Disp0DwordImmSetters.cpp's `apply` stores
+  `??_7NetCommandMsg@@6B@` and nothing calls it. `??1NetCommandMsg@@MAE@XZ` (NetGameCommandMsgDtor.cpp,
+  fold-proof) already rows the address.
