@@ -631,11 +631,13 @@ class Rva0052C867 : public _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> 
 {
 public:
 	Rva0052C867(const Rva0052C867 &x);
+	~Rva0052C867();
 };
 class Rva0052C8AB : public _STL::_Vector_base<BfmeE16, _STL::allocator<BfmeE16> >
 {
 public:
 	Rva0052C8AB(const Rva0052C8AB &x);
+	~Rva0052C8AB();
 };
 struct Res004FCA0C;
 struct Rva000AD6F4Base
@@ -683,6 +685,7 @@ class Rva0052CD81 : public _STL::_Vector_base<Rva004E194E, _STL::allocator<Rva00
 {
 public:
 	Rva0052CD81(const Rva0052CD81 &);
+	~Rva0052CD81();
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp
@@ -1508,3 +1511,73 @@ struct BlockParse
 };
 
 BlockParse theLivingWorldCampaignBlockParse( "LivingWorldCampaign", LivingWorldCampaign::ParseLivingWorldCampaignBlock );
+
+// The act's copy ctor 0x0052D555. Its members' copies and destructors are rowed elsewhere.
+class FXList;
+class Rva004E32F2;
+struct Rva005668E9Element;
+namespace _STL {
+template <> vector<FXList, allocator<FXList> >::vector(const vector<FXList, allocator<FXList> > &);
+template <> vector<BfmePod88, allocator<BfmePod88> >::vector(const vector<BfmePod88, allocator<BfmePod88> > &);
+template <> vector<Rva0052BDE6, allocator<Rva0052BDE6> >::vector(const vector<Rva0052BDE6, allocator<Rva0052BDE6> > &);
+template <> vector<Rva0052BE33, allocator<Rva0052BE33> >::vector(const vector<Rva0052BE33, allocator<Rva0052BE33> > &);
+template <> vector<AsciiString, allocator<AsciiString> >::vector(const vector<AsciiString, allocator<AsciiString> > &);
+template <> vector<Rva004E32F2, allocator<Rva004E32F2> >::vector(const vector<Rva004E32F2, allocator<Rva004E32F2> > &);
+template <> vector<Rva004E1A04, allocator<Rva004E1A04> >::vector(const vector<Rva004E1A04, allocator<Rva004E1A04> > &);
+template <> vector<Rva005668E9Element, allocator<Rva005668E9Element> >::vector(const vector<Rva005668E9Element, allocator<Rva005668E9Element> > &);
+template <> vector<Rva0052BEF0, allocator<Rva0052BEF0> >::vector(const vector<Rva0052BEF0, allocator<Rva0052BEF0> > &);
+template <> vector<FXList, allocator<FXList> >::~vector();
+template <> vector<BfmePod88, allocator<BfmePod88> >::~vector();
+template <> vector<Rva0052BDE6, allocator<Rva0052BDE6> >::~vector();
+template <> vector<Rva0052BE33, allocator<Rva0052BE33> >::~vector();
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> vector<Rva004E32F2, allocator<Rva004E32F2> >::~vector();
+template <> vector<Rva004E1A04, allocator<Rva004E1A04> >::~vector();
+template <> vector<Rva005668E9Element, allocator<Rva005668E9Element> >::~vector();
+template <> vector<Rva0052BEF0, allocator<Rva0052BEF0> >::~vector();
+template <> vector<Rva003A6F70, allocator<Rva003A6F70> >::~vector();
+}
+class Rva0056616B {
+public:
+	void rva005666C5(void);
+	Rva0056616B(const Rva0056616B &other);
+	virtual ~Rva0056616B();
+	AsciiString m_04;
+	_STL::vector<FXList, _STL::allocator<FXList> > m_08;
+	_STL::vector<BfmePod40, _STL::allocator<BfmePod40> > m_14;
+	_STL::vector<BfmePod88, _STL::allocator<BfmePod88> > m_20;
+	_STL::vector<Rva0052BDE6, _STL::allocator<Rva0052BDE6> > m_2C;
+	_STL::vector<Rva0052BE33, _STL::allocator<Rva0052BE33> > m_38;
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_44;
+	AsciiString m_50;
+	_STL::vector<Rva003A6F70, _STL::allocator<Rva003A6F70> > m_54;
+	_STL::vector<Rva004E32F2, _STL::allocator<Rva004E32F2> > m_60;
+	Rva0052CD81 m_6C;
+	Rva0052C867 m_78;
+	Rva0052C8AB m_84;
+	_STL::vector<Rva004E1A04, _STL::allocator<Rva004E1A04> > m_90;
+	_STL::vector<Rva005668E9Element, _STL::allocator<Rva005668E9Element> > m_9C;
+	_STL::vector<Rva0052BEF0, _STL::allocator<Rva0052BEF0> > m_A8;
+	unsigned char m_B4;
+};
+
+Rva0056616B::Rva0056616B(const Rva0056616B &other)
+	: m_04(other.m_04)
+	, m_08(other.m_08)
+	, m_14(other.m_14)
+	, m_20(other.m_20)
+	, m_2C(other.m_2C)
+	, m_38(other.m_38)
+	, m_44(other.m_44)
+	, m_50(other.m_50)
+	, m_54(other.m_54)
+	, m_60(other.m_60)
+	, m_6C(other.m_6C)
+	, m_78(other.m_78)
+	, m_84(other.m_84)
+	, m_90(other.m_90)
+	, m_9C(other.m_9C)
+	, m_A8(other.m_A8)
+	, m_B4(other.m_B4)
+{
+}

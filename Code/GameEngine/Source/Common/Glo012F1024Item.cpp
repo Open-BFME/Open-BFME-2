@@ -1302,38 +1302,6 @@ void Glo012F1024Item::run(void)
 	((LivingWorldCampaignAct *)this)->rva005651D2();
 }
 
-// ---- from Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-
-// ??0Rva0056616B@@QAE@ABV0@@Z @0x0052D555 333B
-// Copy ctor for Rva0056616B (vtable 0x008689D0) copying 16 members in order via rowed StringBase 0x365F0 vector copy ctors and custom copies then byte at +0xB4.
-// Evidence: unlock lane; callees all rowed per packet (StringBase FXList Pod40 Pod88 Rva0052BDE6 Rva0052BE33 AsciiString Pod32 Rva004E32F2 Rva0052CD81 Rva0052C867 Rva0052C8AB E16 Rva005668E9 Rva0052BEF0); prev vector copy family next deleting dtor share layout.
-// The parent remains byte-exact here while its unresolved member lifetimes
-// are reconciled. Its nine cleanup owners live in Rva0056616BCopy.cpp.
-
-// Retail calls free directly (the game allocator), not through the CRT
-// import: read <stdlib.h> without dllimport.
-
-Rva0056616B::Rva0056616B(const Rva0056616B &other)
-	: m_04(other.m_04)
-	, m_08(other.m_08)
-	, m_14(other.m_14)
-	, m_20(other.m_20)
-	, m_2C(other.m_2C)
-	, m_38(other.m_38)
-	, m_44(other.m_44)
-	, m_50(other.m_50)
-	, m_54(other.m_54)
-	, m_60(other.m_60)
-	, m_6C(other.m_6C)
-	, m_78(other.m_78)
-	, m_84(other.m_84)
-	, m_90(other.m_90)
-	, m_9C(other.m_9C)
-	, m_A8(other.m_A8)
-	, m_B4(other.m_B4)
-{
-}
-
 // tu-skeleton: 0x00565344 242B ?j_0002a969@Glo012F1024Item@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignActEvents.cpp (not merged yet)
 
 // tu-skeleton: 0x00565436 201B ?j_0000ca59@Glo012F1024Item@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignActEvents.cpp (not merged yet)
