@@ -283,7 +283,6 @@ ProcessAnimateWindowSlideFromRight::ProcessAnimateWindowSlideFromRight( void )
 }
 
 //-----------------------------------------------------------------------------
-// ??1ProcessAnimateWindowSlideFromRight@@ absent-from-retail
 ProcessAnimateWindowSlideFromRight::~ProcessAnimateWindowSlideFromRight( void ) { }
 
 //-----------------------------------------------------------------------------
@@ -570,7 +569,6 @@ Bool ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow( AnimateWindo
 // here did not reproduce retail and was removed on landing.
 
 //-----------------------------------------------------------------------------
-// ??1ProcessAnimateWindowSpiral@@ absent-from-retail
 ProcessAnimateWindowSpiral::~ProcessAnimateWindowSpiral( void ) { }
 
 // NOTE: Spiral::initReverseAnimateWindow lives in
