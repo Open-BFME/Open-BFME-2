@@ -12,19 +12,22 @@ public:
     virtual ~ModuleTemplate() {}
 };
 
-class SecondaryModuleBase
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
 {
 public:
-    __declspec(dllimport) __forceinline SecondaryModuleBase() {}
-    virtual ~SecondaryModuleBase() {}
+    __declspec(dllimport) __forceinline CategoryModuleInfo() {}
     virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo() {}
 };
 
 class ModuleInfo {};
 
 template <int Category>
 class CategoryModuleTemplateBase : public ModuleTemplate,
-    public SecondaryModuleBase
+    public CategoryModuleInfo<Category>
 {
 public:
     CategoryModuleTemplateBase() {}
