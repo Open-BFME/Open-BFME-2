@@ -130,53 +130,17 @@ class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
 #define Rva0134FAA0 ((void *)::Rva0134FAA0)
 
-// Retail's tables, each slot the ledger row at the native address. The class's
-// own destructor is still filed under the folded placeholder Rva003ABA36
-// (vtable slot 0 is ??_GRva003ABA36 0x003AE8D5), so the class is novtable and
-// the constructor stores the tables itself: the compiler's table would name a
-// T1Base_005F3750 destructor no unit defines.
-extern "C" {
-void __identifier("??_GRva003ABA36@@UAEPAXI@Z")();
-void __identifier("??1Region2D@@QAE@XZ")();
-void __identifier("?xfer@ObjectModule@@QAEXPAVXfer@@@Z")();
-void __identifier("?doParticles@?$DefaultModule@$05@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z")();
-void __identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ")();
-void __identifier("?rva004BD9CB@Rva004BD9CB@@UBE?AVAsciiString@@XZ")();
-void __identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ")();
-void __identifier("?Create@GameFileClass@@UAEHXZ")();
-void __identifier("?Rva004647D1Get@@YAMXZ")();
-void __identifier("??_ERva003ABA36@@WBI@AEPAXI@Z")();
-void __identifier("?GetSnapshotName@Rva003AD273@@UAEPBDXZ")();
-void __identifier("?DoXfer@Rva003AD273@@WBI@AEXAAVXfer@@@Z")();
-}
-
-// Retail table at VA 0x00C1D3F4 (+0x00).
-extern "C" const void *const __identifier("g_t1Base005F3750PrimaryTable")[11] = {
-    (const void *)&__identifier("??_GRva003ABA36@@UAEPAXI@Z"),
-    (const void *)&__identifier("??1Region2D@@QAE@XZ"),
-    (const void *)&_purecall,
-    (const void *)&__identifier("?xfer@ObjectModule@@QAEXPAVXfer@@@Z"),
-    (const void *)&__identifier("?doParticles@?$DefaultModule@$05@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z"),
-    (const void *)&__identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ"),
-    (const void *)&__identifier("?rva004BD9CB@Rva004BD9CB@@UBE?AVAsciiString@@XZ"),
-    (const void *)&__identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ"),
-    (const void *)&__identifier("?Create@GameFileClass@@UAEHXZ"),
-    (const void *)&__identifier("?Create@GameFileClass@@UAEHXZ"),
-    (const void *)&__identifier("?Rva004647D1Get@@YAMXZ"),
-};
-
-// Retail table at VA 0x00C1C780 (+0x14).
-extern "C" const void *const __identifier("g_t1Base005F3750InterfaceTable")[1] = {
-    (const void *)&_purecall,
-};
-
-// Retail table at VA 0x00C1D3E4 (+0x18, the DefaultDrawModuleInfo base).
-extern "C" const void *const __identifier("g_t1Base005F3750DrawInfoTable")[4] = {
-    (const void *)&__identifier("??_ERva003ABA36@@WBI@AEPAXI@Z"),
-    (const void *)&__identifier("??1Region2D@@QAE@XZ"),
-    (const void *)&__identifier("?GetSnapshotName@Rva003AD273@@UAEPBDXZ"),
-    (const void *)&__identifier("?DoXfer@Rva003AD273@@WBI@AEXAAVXfer@@@Z"),
-};
+// The class's own destructor is still filed under the folded placeholder
+// Rva003ABA36 (vtable slot 0 is ??_GRva003ABA36 0x003AE8D5), so the class is
+// novtable and the constructor stores the tables itself: the compiler's table
+// would name a T1Base_005F3750 destructor no unit defines.
+// The three stored tables are compiler tables other FX units emit at retail's
+// addresses (the data ledger binds each name there): +0x00 VA 0x00C1D3F4 and
+// +0x18 VA 0x00C1D3E4 are Rva003AE465's (ParticleModuleInfoCopyCtors.cpp), +0x14
+// VA 0x00C1C780 is the shared one-pure-slot SecondaryModuleBase table.
+extern "C" const void *const __identifier("??_7Rva003AE465@@6BDefaultModuleHeadBase@@@")[];
+extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+extern "C" const void *const __identifier("??_7Rva003AE465@@6B@")[];
 
 class __declspec(novtable) T1Base_005F3750
     : public ::ParticleModule005F2CA0,
@@ -191,9 +155,9 @@ T1Base_005F3750::T1Base_005F3750(
     void *second)
     : ::ParticleModule005F2CA0(first, second)
     , FXParticleSystem::DefaultDrawModuleInfo() {
-    *(const void *const **)this = g_t1Base005F3750PrimaryTable;
-    *(const void *const **)((char *)this + 0x14) = g_t1Base005F3750InterfaceTable;
-    *(const void *const **)((char *)this + 0x18) = g_t1Base005F3750DrawInfoTable;
+    *(const void *const **)this = __identifier("??_7Rva003AE465@@6BDefaultModuleHeadBase@@@");
+    *(const void *const **)((char *)this + 0x14) = __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@");
+    *(const void *const **)((char *)this + 0x18) = __identifier("??_7Rva003AE465@@6B@");
     if (Rva0134FAA0 != 0) {
         AssetList assets;
         ParticleSystem *systemObject =
