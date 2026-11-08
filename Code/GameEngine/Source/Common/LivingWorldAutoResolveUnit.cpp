@@ -72,36 +72,12 @@ private:
 // Leaf that forwards a truncated float through a sink struct to the pinned
 // 0x0037DF8D and returns the sink's middle field. The float comes from
 // +0x10 of the object at +0x24, the receiver from +0x08, the sink's head
-// points at g_00C70E5C and its tail holds the truncated int. Evidence:
-// caller 0x004F9BAB, pin callee 0x0037DF8D, extern g_00C70E5C, no donor.
+// is the experience-award visitor Rva0059AEE9 built in place (its table
+// VA 0x00C70E5C) with the truncated int. Evidence: caller 0x004F9BAB, pin callee 0x0037DF8D.
 class Rva0037DCA5;
 
-class Rva002206F9Sink
-{
-public:
-	int *m_00;
-	int m_04;
-	int m_08;
-};
-
-extern int g_00C70E5C;
-
-// The retail table at RVA 0x00870E5C: four code pointers, the sink's dispatch
-// head. The ledger records only the first word under this name; the other three
-// are separately rowed owners.
-extern "C" {
-void __identifier("?add@Rva0059AEE9@@UAEHH@Z")();
-void __identifier("?rva0059B19A@Rva0059B19A@@QBEHXZ")();
-void __identifier("?rva0059B420@Rva0059B420@@QAEXHHH@Z")();
-void __identifier("?rva0059B3C1@Rva0059B3C1@@QAEHPAD@Z")();
-}
-
-extern "C" const void *const __identifier("?g_00C70E5C@@3HA")[4] = {
-	(const void *)&__identifier("?add@Rva0059AEE9@@UAEHH@Z"), // slot 0 0x0059B14E
-	(const void *)&__identifier("?rva0059B19A@Rva0059B19A@@QBEHXZ"), // slot 1 0x0059B19A
-	(const void *)&__identifier("?rva0059B420@Rva0059B420@@QAEXHHH@Z"), // slot 2 0x0059B420
-	(const void *)&__identifier("?rva0059B3C1@Rva0059B3C1@@QAEHPAD@Z"), // slot 3 0x0059B3C1
-};
+#define RVA0059AEE9_INLINE_CONSTRUCTOR
+#include "../../Include/Common/Rva002206F9Sink.h"
 
 class Rva0037DCA5
 {
@@ -244,12 +220,9 @@ int Rva0059AEFF::rva0059AEFF()
 {
 	float f = m_24->m_10;
 	Rva0037DCA5 *obj = m_08;
-	Rva002206F9Sink sink;
-	sink.m_00 = &g_00C70E5C;
-	sink.m_04 = 0;
-	sink.m_08 = (int)f;
+	Rva0059AEE9 sink((int)f);
 	obj->rva0037DF8D(&sink);
-	return sink.m_04;
+	return sink.m_award;
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva0059AFC2Copy.cpp
