@@ -12,6 +12,7 @@
 
 // Retail's ladder map subscript (0x005E017A) builds the default LadderPref with
 // T(), not through an out-of-line __default_constructed call.
+#include <string.h>
 #include <utility>
 #undef _STLP_DEFAULT_CONSTRUCTED
 #define _STLP_DEFAULT_CONSTRUCTED(T) T()
@@ -128,7 +129,6 @@ AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 AsciiString UnicodeStringToQuotedPrintable(UnicodeString original);
 AsciiString QuotedPrintableToAsciiString(AsciiString original);
 UnicodeString QuotedPrintableToUnicodeString(AsciiString original);
-extern "C" unsigned int __cdecl strlen(const char *s);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *s) throw();
 
 typedef _STL::map<time_t, LadderPref> LadderPrefMap;

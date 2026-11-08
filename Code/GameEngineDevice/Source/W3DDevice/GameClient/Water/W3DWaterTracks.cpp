@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <string.h>
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-extern "C" unsigned int __cdecl strlen(const char *s);
 extern "C" __declspec(dllimport) struct _iobuf *__cdecl fopen(const char *path, const char *mode);
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *file);
@@ -234,9 +233,7 @@ class Rva0007E90ECallee {public:char unknown00[0x28];AsciiString file;void rva00
 
 extern FileSystem *TheFileSystem;
 
-extern "C" char * __cdecl strcpy(char *,const char *);
 
-extern "C" unsigned int __cdecl strlen(const char *);
 
 namespace {
 // TU-local three-float value temporaries preserve donor evaluation and copy

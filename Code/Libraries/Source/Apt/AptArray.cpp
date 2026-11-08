@@ -74,7 +74,6 @@ public:
 // (data+8) and ~EAStringC 0x006D3010 are the rowed string helpers.
 
 class BfmeAptValue006DCD20;
-extern "C" int __cdecl strcmp(const char *left, const char *right);
 // _rva006D9D70Comparator. Keep C linkage in its declaration so the
 // definition follows the complete value view during TU composition.
 extern "C" int __cdecl rva006D9D70Comparator(const void *a, const void *b);
