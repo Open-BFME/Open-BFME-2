@@ -52,6 +52,13 @@ Rva005F00FB::Rva005F00FB() : Rva0022167C(AsciiString("TypeImages"))
 		*q++ = 0;
 }
 
+// P36 TEST-BRANCH-ONLY diagnostic: construct the image-type cache global in place with the retail ctor.
+inline void *operator new(unsigned int, void *where) { return where; }
+void bfmeP36ConstructTypeImages(void *cache)
+{
+	new (cache) Rva005F00FB;
+}
+
 // Each retail call in this body reads an address the ledger already carries
 // under the rowed name below. Bind the donor spelling to that owner so one
 // address keeps one definition and the unit links.
