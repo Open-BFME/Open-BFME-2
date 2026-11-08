@@ -175,26 +175,158 @@ def canonical_include(operand, root, toolchain):
     return OVERLAY.sub("{overlay}", value)
 
 
-def asm_directives(text):
-    """The MASM include and text-macro facilities in assembler `text` (case-insensitive): any of
-    them can build an INCLUDE that ml.exe reads without listing it (x CATSTR <incl>,<ude>, then x
-    <path>). Directives are matched where MASM honours them, in statement position (first word, or
-    after one name), the @ functions anywhere and % at a line's start, so prose after `;` is not."""
-    found = set()
-    for line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
-        statement = ASM_STATEMENT.match(line)
+def asm_refusals(source):
+    """Why assembler `source` (bytes as read from disk, or text) falls outside the grammar build.py
+    assembles; [] when it is inside. ml.exe lists no file it reads, so include confinement cannot see an
+    INCLUDE, and MASM can build one from text macros, macros or a label run into a directive (x CATSTR
+    <incl>,<ude>, then x <path>; label:include <path>). Rather than find those facilities, accept only
+    what the tree's assembler sources use: every one is generated or dumped. The source must be printable
+    ASCII; `;` starts a comment (no quotes are accepted, so always); a statement ending in `\\` or `,`
+    continues on the next line. Each statement is an optional `label:` alone or before an instruction
+    from ASM_MNEMONICS, or one of the directives in _asm_directive. Every word in an operand is a number,
+    a word from ASM_OPERAND_WORDS or a name, and a name holds `_`, `?`, `$` or `@` (ASM_PLAIN_NAMES
+    excepted), which no MASM keyword does. Widen a set only for a tracked source that needs it."""
+    if isinstance(source, bytes):
+        try:
+            source = source.decode("ascii")
+        except UnicodeDecodeError as error:
+            return [f"byte {error.start}: not ASCII"]
+    text = source.replace("\r\n", "\n")
+    stray = ASM_STRAY.search(text)
+    if stray:
+        return [f"line {text.count(chr(10), 0, stray.start()) + 1}: character {stray.group()!r}"]
+    refusals, statement, start = [], "", 0
+    for number, line in enumerate(text.split("\n"), 1):
+        code = line.split(";", 1)[0].strip()
         if statement:
-            found.add(statement.group(1).lower().replace(" ", ""))
-        found.update(m.group(0).lower() for m in ASM_FUNCTION.finditer(line))
-        if re.match(r"\s*%", line):
-            found.add("%")
-    return sorted(found)
+            code = f"{statement} {code}".strip()
+        else:
+            start = number
+        if code.endswith("\\"):
+            statement = code[:-1].rstrip() or " "
+            continue
+        if code.endswith(","):
+            statement = code
+            continue
+        statement = ""
+        problem = code.strip() and _asm_statement(code.strip())
+        if problem:
+            refusals.append(f"line {start}: {code.strip()[:80]!r}: {problem}")
+    if statement:
+        refusals.append(f"line {start}: a continuation runs past the end")
+    return refusals
 
 
-ASM_DIRECTIVES = (r"include|includelib|catstr|substr|instr|sizestr|textequ|macro|forc|for|irpc|irp|repeat|rept|"
-                  r"while|exitm|purge|comment")
-ASM_STATEMENT = re.compile(rf"(?i)^\s*(?:[\w@?$.]+:?\s+)?((?:{ASM_DIRECTIVES})(?![\w@?$])|equ\s*<)")
-ASM_FUNCTION = re.compile(r"(?i)@(?:catstr|substr|instr|sizestr)\b")
+def _asm_name(word):
+    return bool(ASM_NAME.match(word)) and (bool(re.search(r"[_?$@]", word)) and word not in ("?", "$")
+                                           or word.lower() in ASM_PLAIN_NAMES)
+
+
+def _asm_operands(text):
+    """Why operand `text` is outside the grammar, or None."""
+    position = 0
+    while position < len(text):
+        token = ASM_TOKEN.match(text, position)
+        if not token:
+            return f"{text[position:].strip()[:20]!r} in an operand"
+        word, digits = token.group("word"), token.group("number")
+        if word and not (word.lower() in ASM_OPERAND_WORDS or _asm_name(word)):
+            return f"the word {word!r} in an operand"
+        if digits and not ASM_NUMBER.match(digits):
+            return f"the number {digits!r}"
+        position = token.end()
+    return None
+
+
+def _asm_statement(code):
+    """Why one comment-free statement is outside the grammar, or None."""
+    label = ASM_LABEL.match(code)
+    if label:
+        rest = code[label.end():].strip()
+        if not _asm_name(label.group(1)):
+            return f"the label {label.group(1)!r}"
+        if not rest:
+            return None
+        if rest.split()[0].lower() not in ASM_MNEMONICS:
+            return "a label may stand alone or before an instruction"
+        return _asm_operands(rest[len(rest.split()[0]):])
+    words = code.split()
+    head = words[0].lower()
+    if head in ASM_MNEMONICS:
+        return _asm_operands(code[len(words[0]):])
+    return _asm_directive(code, words, head)
+
+
+def _asm_directive(code, words, head):
+    second = words[1].lower() if len(words) > 1 else ""
+    rest = code[len(words[0]):].strip()
+    items = [item.strip() for item in rest.split(",")]
+    if head in ASM_CPUS and len(words) == 1 or head == "even" and len(words) == 1:
+        return None
+    if head == ".model":
+        return None if rest.lower() in ASM_MODELS else f".MODEL {rest}"
+    if second in ("segment", "ends") and len(words) == 2:
+        return None if head in ASM_SEGMENTS else f"the segment {words[0]!r}"
+    if second in ("proc", "endp") and len(words) == 2:
+        return None if _asm_name(words[0]) else f"the procedure name {words[0]!r}"
+    if head == "public":
+        return None if all(_asm_name(item) for item in items) else f"PUBLIC {rest}"
+    if head in ("extrn", "extern"):
+        typed = [item.split(":") for item in items]
+        if all(len(pair) == 2 and _asm_name(pair[0].strip()) and pair[1].strip().lower() in ASM_EXTERN_TYPES
+               for pair in typed):
+            return None
+        return f"{words[0]} {rest}"
+    if head == "assume":
+        pairs = [item.lower().replace(" ", "").split(":") for item in items]
+        if all(len(pair) == 2 and pair[0] in ASM_ASSUME_REGISTERS and pair[1] == "nothing" for pair in pairs):
+            return None
+        return f"ASSUME {rest}"
+    if head in ("align", "org"):
+        return None if len(words) == 2 and ASM_NUMBER.match(words[1]) else f"{words[0]} {rest}"
+    if head == "end":
+        return None if len(words) == 1 or len(words) == 2 and _asm_name(words[1]) else f"END {rest}"
+    if head == "option":
+        return None if rest.lower() in ASM_OPTIONS else f"OPTION {rest}"
+    if head in ASM_DATA:
+        return _asm_operands(rest)
+    if second in ASM_DATA:
+        if not _asm_name(words[0]):
+            return f"the data name {words[0]!r}"
+        return _asm_operands(code[len(words[0]):].strip()[len(words[1]):])
+    equate = ASM_EQUATE.match(code)
+    if equate:
+        if not _asm_name(equate.group("name")):
+            return f"the equate name {equate.group('name')!r}"
+        return None if ASM_NUMBER.match(equate.group("value")) else "an equate other than a number"
+    return f"{words[0]!r} begins no statement in the grammar"
+
+
+# The grammar's words. Each is used by a tracked assembler source (most are Code/gen_asm dumps of
+# `db`; the rest hand-written MMX and x87 helpers); add one only with the source that needs it.
+ASM_CPUS = frozenset({".386", ".486", ".586", ".686", ".mmx", ".xmm"})
+ASM_MODELS = frozenset({"flat"})
+ASM_SEGMENTS = frozenset({"_text"})
+ASM_EXTERN_TYPES = frozenset({"proc", "dword", "word"})
+ASM_ASSUME_REGISTERS = frozenset({"fs"})
+ASM_DATA = frozenset({"db", "dw", "dd", "dq", "dt", "df", "byte", "word", "dword", "qword"})
+ASM_OPTIONS = frozenset()     # OPTION <argument>: no tracked source uses one
+ASM_MNEMONICS = frozenset("""
+    adc add and call fild fistp fld fst fstp fsubp inc je jmp jne jns jz lea leave mov movq neg nop paddsw
+    paddw pand pmulhw pmullw pop por psllq psraw psrlq psubsw psubw punpckhdq punpckhwd punpckldq punpcklwd
+    push pxor ret sbb sub test xor""".split())
+ASM_OPERAND_WORDS = frozenset("""
+    eax ebx ecx edx esi edi ebp esp fs st byte word dword qword ptr near""".split()
+    + [f"mm{n}" for n in range(8)]      # Code/Libraries/Source/VP6/MmxIDct.asm
+    + ["bl"])                           # Code/masm_dumps/VersionSignatureCheckPatched.asm
+# names with none of _ ? $ @, each checked to be no MASM keyword: ftol2.asm's labels
+ASM_PLAIN_NAMES = frozenset({"done", "integral", "positive", "subtract"})
+ASM_STRAY = re.compile(r"[^\t\n\x20-\x7e]")
+ASM_NAME = re.compile(r"[A-Za-z_?$][\w?$@]*\Z")
+ASM_NUMBER = re.compile(r"(?i)(?:\d+|\d[0-9a-f]*h)\Z")
+ASM_LABEL = re.compile(r"([^\s:]+):(?!:)")
+ASM_TOKEN = re.compile(r"\s*(?:(?i:st)\(\d\)|(?P<word>[A-Za-z_?$@][\w?$@]*)|(?P<number>\d\w*)|[,\[\]+\-:])\s*")
+ASM_EQUATE = re.compile(r"(?i)(?P<name>[^\s=]+)\s*(?:=|\s+equ\s+)\s*-?(?P<value>\w+)\Z")
 
 
 def parse_include_roots(text):

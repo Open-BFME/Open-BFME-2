@@ -347,7 +347,7 @@ def test_unknown_or_parent_traversing_include_refuses_sidecar(tmp_path, monkeypa
 
 def test_legacy_asm_without_include_can_still_reuse(tmp_path, monkeypatch):
     source = tmp_path / "body.asm"
-    source.write_text("body PROC\nret\nbody ENDP\n")
+    source.write_text("_body PROC\nret\n_body ENDP\n")   # a name MASM keywords cannot be
     output = tmp_path / "body.obj"
     output.write_bytes(b"old object")
     monkeypatch.setattr(build, "ROOT", tmp_path)

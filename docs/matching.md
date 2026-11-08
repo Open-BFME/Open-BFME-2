@@ -668,11 +668,18 @@ cache's input; it leaves object bytes unchanged) and fails unless each resolves,
 found as Wine finds it and links followed, inside the checkout, the toolchain
 (`vc71_root`) or a linked tree the seat trusts. An object recorded as built from a
 header outside them is never current and `#import`'s `.tlh`/`.tli` output is refused
-outright. ml.exe lists no included file, so an assembler source may use none of MASM's
-include or text-macro facilities (`INCLUDE`, `INCLUDELIB`, `CATSTR`, `SUBSTR`, `INSTR`,
-`SIZESTR`, `TEXTEQU`, `EQU <...>`, `@CatStr` and kin, `MACRO`, `FOR`/`FORC`/`IRP`/`IRPC`/
-`REPEAT`/`WHILE`, `%` at a line's start: `cl_flags.asm_directives`); such a source is
-refused, any earlier object and receipt deleted, and never current. data_rows' sizeof
+outright. ml.exe lists no file it reads, and MASM can build an `INCLUDE` from text macros,
+macros or a label run into it, so `build.py` assembles only the grammar the tree's
+assembler sources use (all generated or dumped; `cl_flags.asm_refusals`): printable
+ASCII, `;` comments, `\` and trailing-comma continuations joined; each statement an
+optional `label:` alone or before an instruction from a fixed mnemonic list, or one of
+`.386`-style CPU directives, `.MODEL flat`, `_TEXT SEGMENT`/`ENDS`, `PROC`/`ENDP`,
+`PUBLIC`, `EXTERN name:type`, `ASSUME fs:nothing`, `ALIGN`, `EVEN`, `ORG`, data
+(`DB`...`QWORD`), `END`, `name = number` and `name EQU number`. Operand words are
+numbers, registers and size words from a fixed list, or names holding `_`, `?`, `$` or
+`@`, which no MASM keyword does (four plain labels in ftol2.asm are listed). Anything
+else is refused, any earlier object and receipt deleted, and never current; widen a list
+only with the tracked source that needs it. data_rows' sizeof
 and type probes run through `build.run_confined`, under the same confinement.
 A seat whose own trees are links (a worktree whose `reference/open-bfme-1` is a
 junction to the main checkout) names each, repo-relative and in exact case, one per
@@ -688,7 +695,7 @@ textual refusal of `#import`, `#using` and `include_alias` in Code/ and
 reference/shims/ is an early warning, not the boundary), or compiles another tool runs
 itself from `build.compiler_command` (donor_sweep, harvest, permute and the like), whose
 commands pass the flag and value checks but whose reads are not confined. Assembler
-sources are confined by refusing every facility that can include, not by a list.
+sources are confined by their grammar, not by a list of what can include.
 
 ## Work selection in detail (moved from AGENTS.md, 2026-10)
 

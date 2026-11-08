@@ -2117,9 +2117,8 @@ def compile_is_current(source, output, *, strict=False, inventory_cache=None):
         return False
     if meta.get("source") != _hash_file(str(source)):
         return False
-    if source.suffix.lower() == ".asm" and cl_flags.asm_directives(
-            source.read_text(encoding="utf-8", errors="replace")):
-        return False      # ml.exe read what no receipt records
+    if source.suffix.lower() == ".asm" and cl_flags.asm_refusals(source.read_bytes()):
+        return False      # ml.exe may have read what no receipt records
     roots = _include_roots()
     for dep, digest in meta.get("deps", {}).items():
         if not cache_path_is_valid(dep):
@@ -2618,14 +2617,14 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
     command, env = compiler_command(source, output)
     is_cl = source.suffix.lower() != ".asm"
     if not is_cl:
-        facilities = cl_flags.asm_directives(source.read_text(encoding="utf-8", errors="replace"))
-        if facilities:
-            # ml.exe lists no included file, so include confinement cannot see one: refuse an
-            # include and everything that can build one, and leave no object to reuse.
+        refusals = cl_flags.asm_refusals(source.read_bytes())
+        if refusals:
+            # ml.exe lists no file it reads, so include confinement cannot see an include:
+            # assemble only the tree's own grammar, and leave no object to reuse.
             output.unlink(missing_ok=True)
             _deps_sidecar(output).unlink(missing_ok=True)
-            return False, (f"include confinement: {source}: an assembler source uses "
-                           f"{', '.join(facilities)} (tools/cl_flags.py asm_directives)"), 1
+            return False, (f"include confinement: {source}: outside the assembler grammar "
+                           f"(tools/cl_flags.py asm_refusals): {'; '.join(refusals[:3])}"), 1
     # Fingerprint the BASE command: the sweep-include retry below is a
     # deterministic function of these same inputs, so cache validity holds.
     fingerprint = _cmd_fingerprint(command, env)

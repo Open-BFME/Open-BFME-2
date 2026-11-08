@@ -379,37 +379,59 @@ def test_master_s_sources_hold_no_read_directive():
     assert conversion_gate.tree_read_directives("HEAD") == []
 
 
-# ------------------------------------------------- round 4: assembler sources (P1, P3)
+# ------------------------------------------------- rounds 4-5: assembler sources
+# Round 5 (Codex, ml 7.10.3077): a list of MASM's include facilities missed an unbracketed text EQU and
+# a label run into INCLUDE. build.py now assembles only the tree's own grammar (cl_flags.asm_refusals).
 ASM_REFUSED = [
-    ("x CATSTR <incl>,<ude>", "catstr"), ("x TEXTEQU <include>", "textequ"), ("x EQU <include>", "equ<"),
-    ("x EQU<include>", "equ<"), ("y SUBSTR <include x>, 1, 7", "substr"), ("y INSTR <a>, <b>", "instr"),
-    ("y SIZESTR <abc>", "sizestr"), ("m MACRO a, b", "macro"), ("FOR arg, <a, b>", "for"),
-    ("FORC c, <abc>", "forc"), ("IRP arg, <a>", "irp"), ("IRPC c, <abc>", "irpc"), ("REPEAT 2", "repeat"),
-    ("REPT 2", "rept"), ("WHILE x", "while"), ("% x", "%"), ("  %x", "%"),
-    ("    mov eax, @CatStr(<1>, <2>)", "@catstr"), ("x = @SizeStr(<abc>)", "@sizestr"),
-    ("INCLUDE Z:\\outside\\sentinel.inc", "include"), ("  includelib evil.lib", "includelib"),
-    ("label: INCLUDE x.inc", "include"), ("Include x.inc", "include"), ("COMMENT ! anything !", "comment"),
-    ("EXITM <include>", "exitm"), ("PURGE m", "purge"),
+    # round 4's facilities
+    "x CATSTR <incl>,<ude>", "x TEXTEQU <include>", "x EQU <include>", "x EQU<include>",
+    "y SUBSTR <include x>, 1, 7", "y INSTR <a>, <b>", "y SIZESTR <abc>", "m MACRO a, b", "FOR arg, <a, b>",
+    "FORC c, <abc>", "IRP arg, <a>", "IRPC c, <abc>", "REPEAT 2", "REPT 2", "WHILE x", "% x", "  %x",
+    "    mov eax, @CatStr(<1>, <2>)", "x_ = @SizeStr(<abc>)", "INCLUDE Z:\\outside\\sentinel.inc",
+    "  includelib evil.lib", "lbl_: INCLUDE x.inc", "Include x.inc", "COMMENT ! anything !",
+    "EXITM <include>", "PURGE m",
+    # round 5: the reviewer's two, and their kin
+    "x EQU include", "x_ EQU include", "x EQU \\\n<include>", "x_ EQU \\ ; continued\n  <include>",
+    "x_ EQU 5,\ninclude", "lbl:include Z:\\outside\\sentinel.inc", "lbl_:include x.inc",
+    "lbl_:INCLUDE x.inc", "lbl_: nop include x", "lbl_: db 0", "x_ DB include", "include DB 0",
+    "alias PROC", "    jmp include", "    mov eax, 'a'", '    db "x", 0', "OPTION NOKEYWORD:<mov>",
+    "_f PROC USES ebx", "x_ = 5 + include", "x_ EQU 5 include", "EXTERN _f:ABS", "ASSUME ds:_DATA",
+    ".MODEL flat, c", "_DATA SEGMENT", "END include", "ALIGN x_", "_f::", "    nop\rinclude x.inc",
+    "    nop\x1ainclude x.inc", "    nop ; caf\u00e9", "    rep movsd", "    mov eax, [eax*4]",
+    "    mov eax, x.y", "    mov eax, @Environ(PATH)",
 ]
-ASM_ALLOWED = ["; for each entry, include the bias", "    mov eax, 1 ; repeat while x", "    db 'for', 0",
-               "x = 5", "x EQU 5", "PUBLIC _f", "_f PROC", "    jmp eax", "_TEXT SEGMENT", "END", ".386"]
+ASM_ALLOWED = [
+    "; for each entry, include the bias", "    mov eax, 1 ; repeat while x", "x_ = 5", "x_ EQU 5", "x_=0FFh",
+    "x_ EQU -1", "PUBLIC _f, ?g@@YAXXZ", "PUBLIC _f,\n    _g", "_f PROC", "_f ENDP", "    jmp eax",
+    "_TEXT SEGMENT", "_TEXT ENDS", "END", "END _f", ".386", ".MMX", ".model FLAT", "EXTERN _g:PROC",
+    "EXTRN _h:DWORD, _i:WORD", "ASSUME fs:nothing", "ALIGN 16", "EVEN", "ORG 0", "    db 0E8h, 00h",
+    "_x DWORD 0", "lbl_:", "lbl_:nop", "lbl_:\tmov eax, dword ptr fs:[0]",
+    "    jz NEAR PTR cleanup_done_0075D09B", "    fsubp st(1), st", "    movq mm0, qword ptr [eax + 10h]",
+    "done:", "    jmp done", "    push eax \\\n    ; the rest of the line", "    mov eax, 1\r\n    ret",
+]
 
 
-@pytest.mark.parametrize("line, name", ASM_REFUSED)
-def test_every_masm_include_or_text_macro_facility_is_found(line, name):
-    assert name in cl_flags.asm_directives(".386\n" + line + "\nEND\n")
+@pytest.mark.parametrize("line", ASM_REFUSED)
+def test_anything_outside_the_assembler_grammar_is_refused(line):
+    assert cl_flags.asm_refusals(".386\n" + line + "\nEND\n")
 
 
 @pytest.mark.parametrize("line", ASM_ALLOWED)
-def test_plain_assembler_and_prose_in_comments_pass(line):
-    assert cl_flags.asm_directives(line) == []
+def test_the_assembler_grammar_passes_the_tree_s_statements(line):
+    assert cl_flags.asm_refusals(line) == []
 
 
-def test_no_master_assembler_source_uses_one():
+def test_assembler_bytes_must_be_ascii():
+    assert cl_flags.asm_refusals("    nop ; caf\u00e9\n".encode("utf-8"))
+    assert cl_flags.asm_refusals(b"    nop\n") == []
+
+
+def test_every_master_assembler_source_is_inside_the_grammar():
     listing = subprocess.run(["git", "-C", str(build.ROOT), "ls-files", "*.asm", "*.ASM"],
                              capture_output=True, text=True).stdout.split()
     assert len(listing) > 60
-    assert [p for p in listing if cl_flags.asm_directives((build.ROOT / p).read_text(errors="replace"))] == []
+    assert {p: cl_flags.asm_refusals((build.ROOT / p).read_bytes()) for p in listing
+            if cl_flags.asm_refusals((build.ROOT / p).read_bytes())} == {}
 
 
 def test_an_assembler_refusal_leaves_no_object_or_receipt(scratch):
@@ -419,7 +441,7 @@ def test_an_assembler_refusal_leaves_no_object_or_receipt(scratch):
     obj.write_bytes(b"old object")
     build._deps_sidecar(obj).write_text('{"cmd": "x", "source": "y", "deps": {}}', encoding="utf-8")
     ok, text, _ = build.try_compile_source(source, obj)
-    assert not ok and "catstr" in text
+    assert not ok and "outside the assembler grammar" in text and "CATSTR" in text
     assert not obj.exists() and not build._deps_sidecar(obj).exists()
 
 
@@ -438,16 +460,25 @@ def test_an_assembler_object_is_never_current_while_its_source_uses_one(scratch)
     assert build.compile_is_current(source, obj) is False
 
 
-def test_a_real_assemble_reading_outside_through_a_text_macro_is_refused(compiler, scratch, tmp_path):
-    (tmp_path / "sentinel.inc").write_text("PUBLIC _sentinel\n", encoding="utf-8")
+def test_a_real_assemble_reading_outside_is_refused(compiler, scratch, tmp_path):
+    # Each case first runs ml.exe itself, without build.py, to show that this assembler reads the
+    # sentinel (its .ERR names it); build.py must then refuse the source and leave no object.
+    (tmp_path / "sentinel.inc").write_text(".err <sentinel read>\n", encoding="utf-8")
     outside = str(tmp_path / "sentinel.inc") if os.name == "nt" else "Z:" + str(tmp_path / "sentinel.inc").replace("/", "\\")
-    source = scratch / "unit.asm"
-    for text in (f".386\n.model flat\nx CATSTR <incl>,<ude>\nx {outside}\nEND\n",
-                 f".386\n.model flat\nINCLUDE {outside}\nEND\n",
-                 f".386\n.model flat\nm MACRO a, b\na&b {outside}\nENDM\nm incl, ude\nEND\n"):
-        source.write_text(text, encoding="utf-8")
-        ok, out, _ = build.try_compile_source(source, scratch / "unit.obj")
-        assert not ok and "include confinement" in out and not (scratch / "unit.obj").exists(), text
+    source, obj = scratch / "unit.asm", scratch / "unit.obj"
+    for body in (f"x CATSTR <incl>,<ude>\nx {outside}\n",                     # round 4
+                 f"INCLUDE {outside}\n",
+                 f"m MACRO a, b\na&b {outside}\nENDM\nm incl, ude\n",
+                 f"x EQU include\nx {outside}\n",                            # round 5: unbracketed text EQU
+                 f"x EQU \\\n<include>\nx {outside}\n",                       # ... continued onto the next line
+                 f"lbl:include {outside}\n"):                                   # ... a label run into INCLUDE
+        source.write_text(f".386\n.model flat\n_TEXT SEGMENT\n{body}_TEXT ENDS\nEND\n", encoding="utf-8")
+        command, env = build.compiler_command(source, obj)
+        raw = subprocess.run(command, env=env, capture_output=True, text=True, errors="replace")
+        assert "sentinel read" in raw.stdout + raw.stderr, body
+        obj.write_bytes(b"an object from before")
+        ok, out, _ = build.try_compile_source(source, obj)
+        assert not ok and "outside the assembler grammar" in out and not obj.exists(), body
 
 
 def test_a_real_plain_assemble_passes(compiler, scratch):
