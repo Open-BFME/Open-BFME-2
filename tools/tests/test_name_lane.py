@@ -3505,22 +3505,136 @@ def test_submit_refuses_a_spelled_key_the_ledger_no_longer_spells(spelled_tree, 
     assert len([v for v in lane_of(spelled_tree).votes() if v["key"] == SPELLED_KEY]) == 1
 
 
-def test_records_of_one_file_land_together_but_a_later_run_reopens_a_sibling(tree, tmp_path, monkeypatch):
-    """Freshness is per file. One run checks every record before any lands; a later run sees the
-    landing as a change. The price of a whole-file fingerprint, stated here so it is not a surprise."""
+def test_records_of_one_file_land_together(tree, tmp_path, monkeypatch):
+    """Freshness is per file, and one run checks every record before any lands."""
     agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
     assert apply(tree) == 0
     state = lane_of(tree).state()
     assert state[FN_KEY]["status"] == state[MEMBER_KEY]["status"] == "landed"
 
 
-def test_a_sibling_left_by_a_key_filter_reopens_after_the_landing(tree, tmp_path):
+def carried_rows(tree, key=None):
+    return [row for row in rows(tree, name_lane.VOTE_SOURCES) if row["session"].startswith("carried:")
+            and (key is None or row["key"] == key)]
+
+
+def test_a_sibling_left_by_a_key_filter_lands_across_the_verified_landing(tree, tmp_path):
     agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
-    assert apply(tree, key=[FN_KEY]) == 0
+    before = __import__("hashlib").sha256((tree / SOURCE).read_bytes()).hexdigest()
+    assert apply(tree, key=[FN_KEY], per_file=False) == 0
     assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+    after = __import__("hashlib").sha256((tree / SOURCE).read_bytes()).hexdigest()
+    carried = carried_rows(tree, MEMBER_KEY)
+    assert carried and all(r["source_sha"] == after and r["session"].startswith(f"carried:{before}:") for r in carried)
+    assert not carried_rows(tree, FN_KEY)                        # the key that landed needs no carry
     assert apply(tree) == 0
     state = lane_of(tree).state()
-    assert state[FN_KEY]["status"] == "landed" and state[MEMBER_KEY]["status"] == "source-changed"
+    assert state[FN_KEY]["status"] == state[MEMBER_KEY]["status"] == "landed"
+    assert "m_width" in (tree / SOURCE).read_text()
+
+
+@pytest.mark.parametrize("fallback", [dict(per_file=True), dict(no_batch=True)])
+def test_the_fallback_landings_do_not_carry(tree, tmp_path, fallback):
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    assert apply(tree, key=[FN_KEY], **fallback) == 0
+    assert not carried_rows(tree)
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+
+
+def test_an_edit_after_the_carried_landing_still_reopens(tree, tmp_path):
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    assert apply(tree, key=[FN_KEY], per_file=False) == 0
+    with open(tree / SOURCE, "a", newline="\n") as f:
+        f.write("// an unrelated edit\n")
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+
+
+def test_an_edit_made_during_the_landing_does_not_carry(tree, tmp_path):
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+
+    def edits_while_verifying(ctx, sources):
+        with open(tree / SOURCE, "a", newline="\n") as f:
+            f.write("// an unrelated edit in the same run\n")
+        return True
+    assert apply(tree, key=[FN_KEY], per_file=False, verify=edits_while_verifying) == 0
+    assert lane_of(tree).state()[FN_KEY]["status"] == "landed"
+    assert not carried_rows(tree)
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+
+
+def test_a_vote_on_an_older_text_does_not_carry(tree, tmp_path):
+    agree_on(tree, tmp_path, MEMBER_ANSWER)
+    with open(tree / SOURCE, "a", newline="\n") as f:
+        f.write("// an unrelated edit before the other key's votes\n")
+    voters(tree, tmp_path, FN_ANSWER, ["a", "b"], tag="fn")
+    assert lane_of(tree).state()[FN_KEY]["status"] == "agreed"
+    assert apply(tree, key=[FN_KEY], per_file=False) == 0
+    assert not carried_rows(tree, MEMBER_KEY)
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+
+
+@pytest.mark.parametrize("change", [
+    b"// and another edit\n",                                    # the plan's bytes hold more than the rename
+])
+def test_a_plan_changing_more_than_its_rename_does_not_carry(tree, tmp_path, change):
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    lane = lane_of(tree)
+    before = (tree / SOURCE).read_bytes()
+    landed = [dict(key=FN_KEY, old="rva00401000", new="sumBox")]
+    after = before.replace(b"rva00401000", b"sumBox")
+    (tree / SOURCE).write_bytes(after + change)
+    plan = SimpleNamespace(before={SOURCE: before}, after={SOURCE: after + change})
+    name_lane.carry_verified_votes(lane, [plan], landed)
+    assert not carried_rows(tree)
+    (tree / SOURCE).write_bytes(after)                           # exactly the rename: it carries
+    plan = SimpleNamespace(before={SOURCE: before}, after={SOURCE: after})
+    name_lane.carry_verified_votes(lane_of(tree), [plan], landed)
+    assert carried_rows(tree, MEMBER_KEY)
+
+
+def test_a_class_key_keeps_its_own_binding(tree, tmp_path):
+    lane = lane_of(tree)
+    before = (tree / SOURCE).read_bytes()
+    after = before.replace(b"rva00401000", b"sumBox")
+    sha = __import__("hashlib").sha256(before).hexdigest()
+    class_key = f"{SOURCE}|class||Rva00401000Box"
+    lane.append(name_lane.VOTE_SOURCES, name_lane.VOTE_SOURCE_COLUMNS, [
+        dict(key=class_key, hash="h", worker="w", session="s", source_sha=sha)])
+    (tree / SOURCE).write_bytes(after)
+    name_lane.carry_verified_votes(lane_of(tree), [SimpleNamespace(before={SOURCE: before}, after={SOURCE: after})],
+                                   [dict(key=FN_KEY, old="rva00401000", new="sumBox")])
+    assert not carried_rows(tree)
+
+
+@pytest.mark.parametrize("rows_,expected", [
+    ([dict(session="s", source_sha="a")], "a"),
+    ([dict(session="s", source_sha="a"), dict(session="carried:a:s", source_sha="b")], "b"),
+    ([dict(session="s", source_sha="a"), dict(session="carried:a:s", source_sha="b"),
+      dict(session="carried:b:s", source_sha="c")], "c"),
+    ([dict(session="s", source_sha="a"), dict(session="carried:z:s", source_sha="b")], None),      # starts elsewhere
+    ([dict(session="carried:a:s", source_sha="b")], None),                                         # no own row
+    ([dict(session="s", source_sha="a"), dict(session="t", source_sha="b")], None),                # two own rows
+    ([], None),
+])
+def test_current_fingerprint_follows_only_an_unbroken_chain(rows_, expected):
+    assert name_agreement.current_fingerprint(rows_) == expected
+
+
+@pytest.mark.parametrize("before,after,same", [
+    (b"int rva00401000;\n", b"int sumBox;\n", True),
+    (b"rva00401000 rva00401000 // rva00401000\n", b"sumBox sumBox // sumBox\n", True),
+    (b"int rva00401000;\n", b"int  sumBox;\n", False),                 # whitespace
+    (b"int rva00401000;\n", b"long sumBox;\n", False),                 # another token
+    (b"int rva00401000;\n", b"int sumBox;\n// more\n", False),         # more text
+    (b"int rva00401000;\n", b"int other;\n", False),                   # another name
+    (b"int sumBox;\n", b"int rva00401000;\n", False),                  # the pair runs one way
+])
+def test_rename_only_allows_exactly_the_pairs(before, after, same):
+    assert name_agreement.rename_only(before, after, {("rva00401000", "sumBox")}) is same
 
 
 def test_a_row_moved_into_the_prefix_earns_nothing_and_apply_refuses(tree, tmp_path, monkeypatch, capsys):

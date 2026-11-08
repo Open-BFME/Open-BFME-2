@@ -34,6 +34,8 @@ whose fingerprints in reverse/name_vote_sources.csv match the file as it reads t
 for an older text, or from before fingerprints existed, no longer counts towards one: the key
 needs fresh votes from other workers. This is intended. `apply` holds a later record to the
 same rule: when its source has changed it lands nothing and reopens the key (source-changed).
+A verified landing whose change to the file is exactly its rename carries the fingerprints of the
+file's other votes across it (carry_verified_votes); any other difference reopens.
 The records older than AGREED_CUTOFF_ROWS stand with no check; status and apply list them.
 
 A compiler-spelled row (an operator, special member or template member whose mangled name
@@ -1651,11 +1653,12 @@ def fresh_voters(lane, key, h, voters, text, pending=()):
     no agreement is recorded from it: votes cast before fingerprints existed no longer count, by
     design, and are not derived from history. `pending` are rows this submit has yet to write."""
     sha = hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest()
-    seen = collections.defaultdict(set)
+    seen = collections.defaultdict(list)
     for row in [*lane.table(VOTE_SOURCES, VOTE_SOURCE_COLUMNS), *pending]:
         if row.get("key") == key and row.get("hash") == h:
-            seen[row.get("worker")].add(row.get("source_sha"))
-    return {worker: model for worker, model in voters.items() if seen.get(worker) == {sha}}
+            seen[row.get("worker")].append(row)
+    return {worker: model for worker, model in voters.items()
+            if name_agreement.current_fingerprint(seen.get(worker, ())) == sha}
 
 
 def unrecorded_agreements(lane, *, lead=2, min_models=1):
@@ -2027,13 +2030,9 @@ def warm_donor_parameters(lane, files):
     return lane.donor_params(functions) if functions else {}
 
 
-def carry_verified_proposals(lane, plans):
-    """Keep this worker's pending plaintext proposals current across verified renames.
-
-    Require the proposal's exact old source, the transaction's final source,
-    and the on-disk source to agree. Never refresh a proof over unrelated edits
-    or a failed/speculative rename, and never touch another worker's proposal.
-    """
+def verified_changes(lane, plans):
+    """{rel: (bytes before, bytes after)} of the Code sources these verified plans changed, for
+    the files that on disk still read as the transaction left them."""
     before, after = {}, {}
     for plan in plans:
         for rel, data in getattr(plan, "before", {}).items():
@@ -2050,7 +2049,50 @@ def carry_verified_proposals(lane, plans):
             continue
         if rel not in before or before[rel] == data or current != data:
             continue
-        changed[rel] = (hashlib.sha256(before[rel]).hexdigest(), hashlib.sha256(data).hexdigest())
+        changed[rel] = (before[rel], data)
+    return changed
+
+
+def carry_verified_votes(lane, plans, landed):
+    """Keep the file's other votes current across a landing that is exactly its renames.
+
+    Each carry is a new row (VOTE_SOURCES is append-only) running from the text before this
+    landing to the text after it, for a vote whose fingerprint stands for that text before. So
+    an edit before the landing leaves the vote behind, one during it fails verified_changes, and
+    one mixed into the plan's bytes fails rename_only. A class key is left out: its rename binds
+    each vote to its own fingerprint (rename.votes_bound_to_text)."""
+    pairs = {(row["old"], row["new"]) for row in landed}
+    changed = {rel: (hashlib.sha256(old).hexdigest(), hashlib.sha256(new).hexdigest())
+               for rel, (old, new) in verified_changes(lane, plans).items()
+               if name_agreement.rename_only(old, new, pairs)}
+    if not changed:
+        return
+    gone = {row["key"] for row in landed}
+    votes = collections.defaultdict(list)
+    for row in lane.table(VOTE_SOURCES, VOTE_SOURCE_COLUMNS):
+        votes[row["key"], row["hash"], row["worker"]].append(row)
+    carried = []
+    for (key, h, worker), rows in votes.items():
+        rel, kind = (key.split("|") + [""])[:2]
+        if rel not in changed or key in gone or kind == "class":
+            continue
+        old, new = changed[rel]
+        if name_agreement.current_fingerprint(rows) == old:
+            session = next(r["session"] for r in rows if name_agreement.carried_from(r["session"]) is None)
+            carried.append({"key": key, "hash": h, "worker": worker, "source_sha": new,
+                            "session": name_agreement.carried_session(old, session)})
+    lane.append(VOTE_SOURCES, VOTE_SOURCE_COLUMNS, carried)
+
+
+def carry_verified_proposals(lane, plans):
+    """Keep this worker's pending plaintext proposals current across verified renames.
+
+    Require the proposal's exact old source, the transaction's final source,
+    and the on-disk source to agree. Never refresh a proof over unrelated edits
+    or a failed/speculative rename, and never touch another worker's proposal.
+    """
+    changed = {rel: (hashlib.sha256(old).hexdigest(), hashlib.sha256(new).hexdigest())
+               for rel, (old, new) in verified_changes(lane, plans).items()}
     if not changed:
         return
     worker = lane.worker()
@@ -2134,6 +2176,7 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
         rejected = [rows[index] for index in result.refused]
         if result.failure is None:
             carry_verified_proposals(lane, [plan for _index, plan in result.plans])
+            carry_verified_votes(lane, [plan for _index, plan in result.plans], planned)
             for row in planned:
                 record(row, "landed", approval_detail(tally, refused, row))
             for index, reason in result.refused.items():
@@ -2742,7 +2785,8 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 lane.ctx._cache.clear()
             lane.append(AGREED, AGREED_COLUMNS, [outcome])
     print(f"name_lane: landed {landed}, blocked {blocked}, stale {stale}. Stage the files rename.py listed "
-          f"and {AGREED} (plus {MEANINGS} when structured votes added it); the lander commits.")
+          f"and {AGREED} and {VOTE_SOURCES} (plus {MEANINGS} when structured votes added it), in one commit; "
+          "the lander commits.")
     print(f"name_lane: apply total {time.perf_counter() - apply_started:.3f}s", flush=True)
     if deferred:
         print(f"name_lane: {deferred} ready key(s) left waiting by --limit {limit}; run apply again to continue.")

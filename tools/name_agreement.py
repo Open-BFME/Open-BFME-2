@@ -110,6 +110,44 @@ def hash_canon(key, canonical):
     return hashlib.sha256(f"{key}|{canonical}".encode()).hexdigest()[:24]
 
 
+CARRIED = "carried:"
+
+
+def carried_session(from_sha, session):
+    """The session column of a fingerprint a verified landing carried from `from_sha`."""
+    return f"{CARRIED}{from_sha}:{session}"
+
+
+def carried_from(session):
+    """The sha a carried fingerprint starts from, None for a vote's own fingerprint."""
+    return session[len(CARRIED):].partition(":")[0] if (session or "").startswith(CARRIED) else None
+
+
+def current_fingerprint(rows):
+    """The text one voter's fingerprint rows of one vote stand for today, in file order: the
+    vote's own row, then each carry that starts where the last ended. None when there is no
+    single own row or a carry starts anywhere else."""
+    own = {row.get("source_sha") for row in rows if carried_from(row.get("session")) is None}
+    if len(own) != 1:
+        return None
+    current = own.pop()
+    for row in rows:
+        start = carried_from(row.get("session"))
+        if start is not None:
+            if start != current:
+                return None
+            current = row.get("source_sha")
+    return current
+
+
+def rename_only(before, after, pairs):
+    """Is `after` exactly `before` with identifiers respelled, each (old, new) of `pairs`? Every
+    other byte must be equal, so a fingerprint never carries across any other edit."""
+    old, new = re.split(rb"(\w+)", before), re.split(rb"(\w+)", after)
+    respelled = {(a.encode("utf-8"), b.encode("utf-8")) for a, b in pairs}
+    return len(old) == len(new) and all(x == y or (x, y) in respelled for x, y in zip(old, new))
+
+
 def worker_identity(root=None):
     """This environment's worker id, `w-<12 hex>`. The raw identity is
     BFME_CLAIM_OWNER / BFME_RUN_ID through tools/claims.py's owner(), else

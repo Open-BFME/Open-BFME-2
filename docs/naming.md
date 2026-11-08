@@ -282,13 +282,19 @@ was moved, edited or removed, no record is grandfathered and `apply` refuses bef
 This binds `apply` only: `rename.py --evidence agree:<id>` used directly and
 `data_rows.py --admit-agreed` do not check it.
 
-The fingerprint covers the whole file, so any edit reopens a later record, including another
-approved name of that file landing first. One `apply` run checks all its records before any
-lands, so they go together. A record left waiting by `--limit`, `--key` or a block is
-reopened by the next run if a sibling landed in between, and needs fresh votes. Watch
-`status`'s `source-changed` count. If those become a stream, the known remedy is to accept a
-fingerprint when undoing the renames that landed from the same file restores the voted text
-exactly; it is not built.
+The fingerprint covers the whole file, so an edit reopens a later record. One `apply` run checks
+all its records before any lands, so they go together. A `name_lane.py apply` landing also
+carries the fingerprints of the file's other votes across it, as new rows of
+`name_vote_sources.csv` whose session reads `carried:<old sha>:<session>`, when its change to the
+file is exactly the renames it verified: every other byte equal, and the file on disk still as the
+landing left it. So a record left waiting by `--limit`, `--key` or a block still lands after its
+sibling. Any other difference reopens it and needs fresh votes: an edit before the landing, during
+it, mixed into the plan's bytes, or after it. So does a landing made any other way (`scoped apply`,
+`apply --per-file` or `--no-batch`, or `rename.py` run directly), and a class key is never carried,
+because its rename binds each vote to its own fingerprint. The hook (`tools/class_gate.py`) reads a carry against the commit that adds it:
+the rows must run from the file before that commit to the file after it, and the difference must
+be exactly the renames it records as landed. So commit a landing's sources, `name_agreed.csv` and
+`name_vote_sources.csv` together. Watch `status`'s `source-changed` count.
 
 Blind votes from different checkouts land through separate pushes, so each submit can
 tally before the other vote exists and neither records the agreement. `status` and

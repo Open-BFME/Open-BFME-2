@@ -75,6 +75,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import class_layouts  # noqa: E402
 import class_views  # noqa: E402
+import name_agreement  # noqa: E402
 import git_trust  # noqa: E402
 
 ALLOW = re.compile(r"//\s*class-gate:\s*allow\s+(\w+)\s+\S")
@@ -170,14 +171,51 @@ def vote_sources_change_problems(before, after, tree):
     if not new:
         return []
     added = new[len(old):] if old else new[1:]
-    problems = []
+    problems, carried = [], collections.defaultdict(list)
     for row in csv.DictReader(io.StringIO("\n".join([new[0]] + added) + "\n")):
+        if name_agreement.carried_from(row.get("session")) is not None:
+            carried[row.get("key"), row.get("hash"), row.get("worker")].append(row)
+            continue
         rel = (row.get("key") or "").split("|")[0]
         blob = subprocess.run(["git", "show", f"{tree}:{rel}"], cwd=ROOT, capture_output=True, env=trusted_env())
         digest = hashlib.sha256(blob.stdout).hexdigest() if blob.returncode == 0 else None
         if digest is None or digest != row.get("source_sha"):
             problems.append(f"{VOTE_SOURCES}: the vote by {row.get('worker')} at {row.get('key')} fingerprints "
                             f"another text than {f'{tree[:10]}:' if tree else 'the staged '}{rel}")
+    return problems + carried_fingerprint_problems(carried, tree)
+
+
+def carried_fingerprint_problems(carried, tree):
+    """Fingerprints a landing carried (name_lane.carry_verified_votes), {vote: rows this change
+    adds}: they must run from the file before this change to the file it leaves, and the
+    difference must be exactly the renames this change records as landed in that file."""
+    def blob(spec):
+        shown = subprocess.run(["git", "show", spec], cwd=ROOT, capture_output=True, env=trusted_env())
+        return shown.stdout if shown.returncode == 0 else None
+
+    def records(spec):
+        return list(csv.DictReader(io.StringIO(git_text(spec) or "")))
+    if not carried:
+        return []
+    parent = f"{tree}^" if tree else "HEAD"
+    earlier = {tuple(row.items()) for row in records(f"{parent}:{name_agreement.AGREED}")}
+    pairs = collections.defaultdict(set)
+    for row in records(f"{tree}:{name_agreement.AGREED}"):
+        if row.get("status") == "landed" and tuple(row.items()) not in earlier:
+            pairs[(row.get("key") or "").split("|")[0]].add((row.get("old") or "", row.get("new") or ""))
+    problems = []
+    for (key, _h, worker), rows in carried.items():
+        rel = (key or "").split("|")[0]
+        before, after = blob(f"{parent}:{rel}"), blob(f"{tree}:{rel}")
+        chain = [name_agreement.carried_from(row.get("session")) for row in rows] + [rows[-1].get("source_sha")]
+        ends = [hashlib.sha256(before or b"").hexdigest()] + [row.get("source_sha") for row in rows]
+        if before is None or after is None or chain[:-1] != ends[:-1] \
+                or rows[-1].get("source_sha") != hashlib.sha256(after).hexdigest():
+            problems.append(f"{VOTE_SOURCES}: the carried fingerprint of the vote by {worker} at {key} does not run "
+                            f"from {rel} before this change to {rel} after it")
+        elif not name_agreement.rename_only(before, after, pairs[rel]):
+            problems.append(f"{VOTE_SOURCES}: {rel} differs by more than the renames this change records as landed, "
+                            f"so the vote by {worker} at {key} cannot carry across it")
     return problems
 
 
