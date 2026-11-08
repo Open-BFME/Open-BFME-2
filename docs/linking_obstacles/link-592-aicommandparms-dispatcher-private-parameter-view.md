@@ -14,3 +14,8 @@ Paired checks pass and preview preserves LINKS/3,167 bytes against
 c885072a48. AI interfaces, the full Animal class, TU consolidation and
 current-image/runtime closure remain open.
 [Body and provider evidence](../../reverse/attempt_support/animal-command-parms-adoption-20261108/README.md).
+
+Published as 2058c08f50 on attempt3 (28.7 seconds for the successful
+attempt). Required checks pass; the broader audit remains INCONCLUSIVE
+against c885072a48 because Animal lacked a current strict receipt after
+rebase. No current-image closure is claimed.
