@@ -216,13 +216,13 @@ public:
 	Real rva002C9BC3(void *source, void *pos);
 };
 
-class Weapon
+#include "../../../Include/GameLogic/Weapon.h"
+
+// Height-adjusted Weapon range to a position, through its ledger row.
+static inline Real getAttackRangeToPos(const Weapon *weapon, const Object *source, const Coord3D *pos)
 {
-public:
-	char isWithinAttackRange(Object *source, void *pos, Real extra, Int flags) const;
-	Bool isWithinAttackRange(const Object *source, const Object *victim, Real extra, Int flags) const;
-	Real getAttackRange(const Object *source, const Coord3D *pos) const { return ((Rva002C9BC3Owner *)this)->rva002C9BC3((void *)source, (void *)pos); }
-};
+	return ((Rva002C9BC3Owner *)weapon)->rva002C9BC3((void *)source, (void *)pos);
+}
 
 struct TBridgeAttackInfo
 {
@@ -703,7 +703,7 @@ StateReturnType TurretAIAimTurretState::update()
 					adjust = true;
 				}
 				if (adjust) {
-					Real range = curWeapon->getAttackRange(obj, &enemyPosition);
+					Real range = getAttackRangeToPos(curWeapon, obj, &enemyPosition);
 					Real dist = v.length();
 					if (range<1) range = 1;
 					Real groundPitch = turret->getGroundUnitPitch() * (dist/range);

@@ -108,23 +108,17 @@ private:
 	BfmeRangedWeaponTemplate *m_m04; // +0x04
 };
 
-class Weapon
-{
-public:
-	Bool computeApproachTarget(const Object *source, const Object *target, const Coord3D *pos, Real angleOffset, Coord3D& approachTargetPos) const;
-private:
-	Real getAttackRange(const Object *source, const Coord3D *targetPos) const
-	{
-		return ((Rva002C9BC3Owner *)this)->rva002C9BC3((void *)source, (void *)targetPos);
-	}
-	Real getAttackRange(const Object *source, Real heightDifference) const
-	{
-		return ((Rva002C9B80Owner *)this)->rva002C9B80((void *)source, heightDifference);
-	}
+#include "../../../Include/GameLogic/Weapon.h"
 
-	char m_unreconstructed_00[4];				///< the vtable pointer
-	const WeaponTemplate *m_template;			///< +0x04
-};
+// Height-adjusted range helpers retail inlines into computeApproachTarget.
+static inline Real getAttackRangeToPos(const Weapon *weapon, const Object *source, const Coord3D *targetPos)
+{
+	return ((Rva002C9BC3Owner *)weapon)->rva002C9BC3((void *)source, (void *)targetPos);
+}
+static inline Real getAttackRangeAtHeight(const Weapon *weapon, const Object *source, Real heightDifference)
+{
+	return ((Rva002C9B80Owner *)weapon)->rva002C9B80((void *)source, heightDifference);
+}
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -215,13 +209,13 @@ Bool Weapon::computeApproachTarget(const Object *source, const Object *target, c
 		}
 
 		// select a spot along the line between us, halfway between the min & max range.
-		Real attackRange = (getAttackRange(source, targetPos) + minAttackRange)/2.0f;
+		Real attackRange = (getAttackRangeToPos(this, source, targetPos) + minAttackRange)/2.0f;
 		for (Int i = 0; i < 10; ++i)
 		{
 			if (target)
 				attackRange += target->getBoundingSphereRadius();
 			attackRange += source->getBoundingSphereRadius();
-			Real range = getAttackRange(source, -attackRange * dir.z);
+			Real range = getAttackRangeAtHeight(this, source, -attackRange * dir.z);
 			if (!(attackRange > range))
 				break;
 			attackRange = range;
@@ -255,13 +249,13 @@ Bool Weapon::computeApproachTarget(const Object *source, const Object *target, c
 
 	// select a spot along the line between us, in range of our weapon
 	const Real ATTACK_RANGE_APPROACH_FUDGE = 0.9f;
-	Real attackRange = getAttackRange(source, targetPos) * ATTACK_RANGE_APPROACH_FUDGE;
+	Real attackRange = getAttackRangeToPos(this, source, targetPos) * ATTACK_RANGE_APPROACH_FUDGE;
 	if (dir.z != 0.0f)
 	{
 		Bool done = false;
 		for (Int i = 0; !done && i < 10; ++i)
 		{
-			Real range = getAttackRange(source, -(attackRange * dir.z));
+			Real range = getAttackRangeAtHeight(this, source, -(attackRange * dir.z));
 			if (range < attackRange)
 			{
 				attackRange = range * ATTACK_RANGE_APPROACH_FUDGE;

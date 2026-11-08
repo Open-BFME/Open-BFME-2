@@ -38,11 +38,7 @@ public:
 
 class Object;
 
-class Weapon
-{
-public:
-	bool isWithinAttackRange(const Object *source, const Object *victim, float extra, int flag) const;
-};
+#include "../../../../../../GameEngine/Include/GameLogic/Weapon.h"
 
 enum WeaponSlotType {};
 
@@ -212,7 +208,7 @@ __declspec(noinline) bool W3DScriptedModelDraw::rva000B4CE2(float *angle)
 		if (victim)
 		{
 			const Weapon *weapon = obj->getCurrentWeapon(0);
-			if (weapon && weapon->isWithinAttackRange(obj, victim, 0.0f, 1))
+			if (weapon && weapon->isWithinAttackRange(obj, (const Object *)victim, 0.0f, 1))
 			{
 				Vector3 goal(*(const Vector3 *)(ai->m_field30 + 0x24));
 				target.Set(goal.X, goal.Y, 0.0f);

@@ -136,9 +136,9 @@ enum WeaponSlotType {PRIMARY_WEAPON=0};
 
 #include "../../../Common/Thing/thing.h"
 
-struct AimWeaponTemplate {char pad[0x156];bool useAimConditions;};
+#include "../../../../Include/GameLogic/WeaponTemplate.h"
 
-class Weapon {public:bool rva002C9586();char pad[4];AimWeaponTemplate*data;};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class AimAIView {public:
 virtual void s0();
@@ -365,7 +365,7 @@ UpdateSleepTime AimWeaponBehavior::update(){
  if(!ai || !draw || !weapon)return UPDATE_SLEEP_FOREVER;
  bool changed=false;
  unsigned char active=ai->attacking();active|=weapon->rva002C9586();
- if(weapon->data->useAimConditions && active){
+ if(weapon->m_template->m_field156 && active){
   AimDelta delta(*(const AimDelta*)&ownerObject->aim);delta.sub(*(const AimDelta*)&ownerObject->position);
   float horizontalDistance=(float)sqrt(delta.lengthSqr2D());
   float minDistance=10.0f;

@@ -70,6 +70,7 @@ public:
 	inline int getMaxShotCount() const { return m_maxShotCount; }
 	inline unsigned int getSuspendFXFrame() const { return m_suspendFXFrame; }
 
+	Weapon &operator=(const Weapon &that);	// 0x002C9462
 	AsciiString getName() const;	// 0x0028F95C
 	void cacheStatus(WeaponStatus) const;	// 0x002C94F5
 	float rva002C957E() const;	// 0x002C957E
