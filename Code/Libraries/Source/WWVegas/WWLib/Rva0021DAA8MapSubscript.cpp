@@ -15,7 +15,7 @@ struct BfmeStringRecord0021A940 {
  unsigned int word0; BfmeStringRecord00219B0B rec;
  BfmeStringRecord0021A940(const unsigned int *,const BfmeStringRecord00219B0B &);
 };
-struct Rva0021D657Record { char bytes[1]; };
+struct Rva0021D657Record { BfmeStringRecord00219B0B value; };
 typedef _STL::map<int,Rva0021D657Record> InsertMap;
 namespace _STL { template<> InsertMap::iterator InsertMap::insert(InsertMap::iterator,const InsertMap::value_type &); }
 typedef _STL::_Rb_tree<int,_STL::pair<const int,int>,_STL::_Select1st<_STL::pair<const int,int> >,_STL::less<int>,_STL::allocator<_STL::pair<const int,int> > > LowerTree;

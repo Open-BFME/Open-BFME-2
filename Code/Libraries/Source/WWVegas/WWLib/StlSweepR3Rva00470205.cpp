@@ -26,7 +26,8 @@ bool less<int>::operator()(const int &left, const int &right) const
 
 
 
-struct Rva00470205Record {  char bytes[1]; };
+// The mapped value is retail's 16-byte Rva00469155: node 0x0046AC30 allocates 0x24 bytes and 0x00469D33 copies 16 after the key.
+struct Rva00470205Record { char bytes[16]; };
 
 
 // Instantiate the recovered member; retain only its required template dependencies.
