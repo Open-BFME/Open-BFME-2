@@ -126,3 +126,67 @@ a private view, not that adopting the header will succeed there; the measured
 pass rate on a declaration-only sample was about one in twelve
 (`header-lane-vptr-standin-20261107.md`). The columns rank candidates; they do
 not predict yield.
+
+## Priced: what a header change costs, per class
+
+A change to a canonical header re-verifies every ledger source that reaches it.
+Counted with `header_dependents` for every class above with 7 or more TUs of
+merge reach (no compiling; full table in `header-gate-costs-20261108.tsv`):
+
+| class | live rows | TUs | sources re-verified |
+| --- | ---: | ---: | ---: |
+| RTS3DScene | 28 | 7 | **20** |
+| ModelConditionFlags | 52 | 8 | **23** |
+| DrawModule | 29 | 7 | 47 |
+| UpgradeMux | 15 | 10 | 71 |
+| ContainModuleInterface | 51 | 12 | 73 |
+| Rva0036CA00Str | 34 | 7 | 85 |
+| DX8Wrapper | 91 | 8 | 117 |
+| GameWindow | 62 | 7 | 238 |
+| Vector3 | 72 | 15 | 241 |
+| ModuleData | 44 | 10 | 292 |
+| RenderObjClass | 77 | 8 | 296 |
+| AICommandInterface / AIUpdateInterface | 81 / 197 | 10 / 17 | 404 |
+| Player / ThingTemplate | 221 / 86 | 21 / 9 | 475 |
+| TerrainLogic | 61 | 9 | 635 |
+| Drawable | 111 | 18 | 702 |
+| Thing | 82 | 19 | 1728 |
+| DamageInfo / GeometryInfo | 32 / 29 | 7 / 7 | 1753 |
+| Overridable | 28 | 11 | 1774 |
+| UpdateModule / UpdateModuleInterface | 73 / 25 | 33 / 9 | 1796 |
+| Matrix3D | 53 | 15 | 1863 |
+| BehaviorModule / BehaviorModuleInterface | 48 / 26 | 15 / 8 | 1925 |
+| AudioManager | 62 | 7 | 2234 |
+
+A spread of about 100 to 1.
+
+### This prices one lane, not both
+
+The distinction matters and the table is misleading without it.
+
+- **Adopting a header in a unit changes only that unit.** No cascade, no full
+  gate. The cost of probing is one compile per unit, and this column is
+  irrelevant to it.
+- **Changing the canonical header itself** -- the contract-to-header work in
+  `header-missing-field-rows-anatomised-20261108.md` -- pays this column, once,
+  and unblocks every row of that class that the missing field was holding.
+
+So read it only when the plan is to edit a header.
+
+### What it changes about the pick
+
+`UpdateModule` was my pick above on reach alone. It is the joint most expensive
+header here (1796) and also the broadest (33 TUs) -- a real tension, not a
+mistake, but no seat should edit that header casually.
+
+The classes that are cheap *and* carry rows are the ones to look at for a header
+fix: `ModelConditionFlags` 52 rows for 23 sources, `RTS3DScene` 28 for 20,
+`DrawModule` 29 for 47, `ContainModuleInterface` 51 for 73. None of those is in
+the top of the reach ranking, which is the point.
+
+It also says where I spent compute badly. I probed `Thing` (82 units, 0 passes)
+and `Drawable` (108 units, 1 pass), which price at 1728 and 702, and left
+`ModelConditionFlags` and `RTS3DScene` unprobed. Probing does not pay the gate
+cost, so that was not the wrong spend for the reason the table gives -- but the
+two cheap classes are better targets for the lane that follows probing, and they
+were in front of me unmeasured.
