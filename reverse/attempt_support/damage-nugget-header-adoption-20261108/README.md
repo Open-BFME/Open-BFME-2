@@ -40,3 +40,11 @@ quality issue. Cached d171e84869 selection and current explicit providers
 are bounded evidence, not a complete current image, runtime clearance or
 new census. Canonical Object adoption, the remaining DamageNugget views and
 retail TU consolidation are still separate work.
+
+Published as e834581c00; first attempt landed in 43.2 seconds. Required
+row/EH/scoped-DIR32 checks pass. Broader audit remains INCONCLUSIVE: index
+d171e84869 versus outgoing base ca053513b317febbcba85988de518b2b40da03a7;
+DamageNugget itself lacked a current strict receipt after rebase. A local
+post-publication refresh passes 19/19 rows across it and the two explicit
+providers, and the full scoped object/provider proof passes again. This
+refresh does not rewrite the recorded push audit or establish image closure.

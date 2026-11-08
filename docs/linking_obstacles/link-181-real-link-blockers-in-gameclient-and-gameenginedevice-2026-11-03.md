@@ -503,3 +503,11 @@ Normalize copy now matches all 100 native bytes at0x0006924F, replacing a
 native-exact. Preview conserves LINKS/1,393, with no new coverage or image
 clearance. Canonical Object, remaining views and TU consolidation stay open.
 [Complete provider and copy proof](../../reverse/attempt_support/damage-nugget-header-adoption-20261108/README.md).
+
+Published as e834581c00; first attempt landed in 43.2 seconds. Required
+row/EH/scoped-DIR32 checks pass. Broader audit remains INCONCLUSIVE: index
+d171e84869 versus outgoing base ca053513b317febbcba85988de518b2b40da03a7;
+DamageNugget itself lacked a current strict receipt after rebase. A local
+post-publication refresh passes 19/19 rows across it and the two explicit
+providers, and the full scoped object/provider proof passes again. This
+refresh does not rewrite the recorded push audit or establish image closure.
