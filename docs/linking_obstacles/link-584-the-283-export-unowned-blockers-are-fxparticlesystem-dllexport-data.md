@@ -135,8 +135,9 @@ The nine parsers now bind the existing private s_first definitions. Each 110-byt
 Claimed by the swarm Link lane (`ancalgonn-swarm-link`) from 2026-11-07: only the two
 `ConcreteModuleTemplate` tables `VectorDeletingDtorsV06.cpp` emits, LifeEvent's and TerrainCollision's
 own one-slot `6B?$CategoryModuleInfo@$07@1@@` tables (retail 0x0081CA00 and 0x0081CAA0). The
-data-export half and the CategoryModuleInfo path (the 0x0081C780 fold, the `CategoryModuleTemplateBase`
-tables and the shared category constructor COMDATs) stay with McMickey93.
+CategoryModuleInfo path (the 0x0081C780 fold, the `CategoryModuleTemplateBase` tables and the shared
+category constructor COMDATs) stays with McMickey93. The data-export half moved to the Link lane below,
+and the 12 default KEY/NAME were then routed to seat6.
 
 *Landed with this note:* `VectorDeletingDtorsV06.cpp`'s `CategoryModuleTemplate<8>` is retail's nested
 shape, `: CategoryModuleTemplateBase<8>, EventModuleInfo` with `CategoryModuleTemplateBase<8> :
@@ -273,3 +274,41 @@ FXParticleSystem namespace, with the Snapshot slot macros (BFME_SNAPSHOT_CAPITAL
 _NONCONST_NAME_SLOT, _REFERENCE_XFER). `header_adopt_lane.py adopt` refuses the same adoption on
 `??1LifeEventModuleTemplate`, apparently from how it inserts the header (not investigated). Other categories'
 tables, and TerrainCollisionModuleInfo's same-shaped private copies, remain open and are not claimed.
+
+
+**2026-11-08 base-class trial for the 12 default KEY/NAME: startup order does not hold (seat6; master
+e9ba150c19).** The route in `c32d83389b` needs a source shape first, so the shape was trialled before any
+tool. Blocker: **startup order, the LINK-615 dependency, not rename tooling**, so no rename route was built.
+What the 12 are: of the 128 `(export unowned)` at real link c1a124cccc, 78 are vtables, 38 are `GetValue`
+locals and guards, and 12 are these.
+
+Each shape was compiled with the build's own command to a scratch object and compared with a clean-source
+object: every ordered `.CRT$XC*` entry followed to its initializer, its bytes and every relocation, allowing
+only the intended `s_key`/`s_name` respelling and compiler-local labels. A deliberate swap of two default
+wrappers was the negative control (it reads as changed). No source was committed and no image was linked.
+
+| Source shape | Compiles | CRT positions changed (Modules of 121, Factories of 55) | Where the 12 stores go |
+| --- | --- | --- | --- |
+| Primary template with a dependent `ModuleTag<CATEGORY, DefaultModuleKey<CATEGORY>::VALUE, ...>` base | C2143 | | |
+| Full `ModuleTag` specializations (the Point and Ortho form) | no: `TemplateType`/`ClassBase` errors, not pursued | | |
+| Explicit `template <> class DefaultModuleTag<N>` with that base | yes | 46, 28 | ahead of the other tags |
+| Primary template, base named through a non-dependent helper | yes | 36, 36 | after all other tags |
+| The same, each default `ModuleTag` class forced complete at the helper | yes | 36, 36 | after all other tags |
+| The same, explicit instantiation of each `KEY`/`NAME` at the old definition position | yes | 46, 28 | ahead of the other tags |
+| The same, a non-template inline use at the old position, or just before `FX_DEFAULT_WRAPPER(0)` | yes | 46, 28 | ahead of the other tags |
+
+Today's order puts the block straight after `OUTWARD_EMISSION_VELOCITY` and before `LIGHTNING_DRAW`. Every
+compiling shape spells all 12 export names, leaves no `s_key`/`s_name`, and keeps the store multiset, all
+code sections apart from the `_$E` labels, and (where compared per symbol) the DIR32 address sets. Only the
+order moves. Reading: a non-template use or an explicit instantiation emits at once, ahead of everything
+deferred, while a use inside a template accessor is queued behind the other tags. No plain source position
+lands between them. Class instantiation order is not the driver. This reading comes from these measurements,
+not from compiler documentation.
+
+Retail's own order is neither. By initializer address it interleaves defaults with their category's tags:
+0x007AF48B/96 category 6's default, then STREAK, QUAD, BUTTERFLY, RENDEROBJECT and LIGHTNING_DRAW, GPU, then
+0x007AF53B.. the other defaults. So the sequence the ledger pins today is itself a product of the eager
+`s_instance` shape (LINK-615), and closing LINK-615 may be what makes these names land.
+
+Remaining: re-measure after the Link lane's nested `CategoryModuleTemplateBase<N>` shape lands, because it
+rewrites this unit. Not measured: whether that shape yields `ModuleTag<...>::KEY`/`NAME` itself.
