@@ -34,3 +34,19 @@ The separate compiler prerequisite passed the full gate: 99,575 code rows,
 converged-data audit covered 17,936 sources and 11 addresses without second
 names or unjudged rows. A guarded supported TU merge and publication audit
 are still required before claiming a file reduction.
+
+## Donor provider cleanup, 2026-11-08
+
+Before consolidation, the constructor donor now declares its existing shared
+pool constructor, node creator and destructor providers instead of defining
+another allocator implementation. Its private FreelistPool view is removed.
+The 22-byte constructor stays exact and the two-source normal build passes
+nine code and two data rows. Seven external helper definitions disappear,
+with no added definition; all four surviving code definitions retain their
+complete bytes, flags and external relocations. The scoped donor preview
+continues to predict its existing 22 bytes linking. The member remains a list.
+
+This addresses the first merge's extra pool and destructor emissions. The
+speed-preferred out-of-line list-constructor copy must still be checked
+against its selected canonical provider in the final composition; a byte
+check of the caller alone does not clear that remaining provider question.

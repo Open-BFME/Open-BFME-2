@@ -1,0 +1,44 @@
+{
+  "before": {
+    "matched": 1,
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\f1a8750d915247ca.obj"
+  },
+  "after": {
+    "matched": 1,
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\b5e238710e6162f3.obj"
+  },
+  "removed": [
+    "??$?0PAVDrawable@@@?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z",
+    "??0?$_List_base@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z",
+    "??0?$_STLP_alloc_proxy@PAU?$_List_node@PAVDrawable@@@_STL@@U12@V?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@1@PAU?$_List_node@PAVDrawable@@@1@@Z",
+    "??0?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@_STL@@QAE@ABV01@@Z",
+    "??1?$_STLP_alloc_proxy@PAU?$_List_node@PAVDrawable@@@_STL@@U12@V?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@2@@_STL@@QAE@XZ",
+    "??1?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@_STL@@QAE@XZ",
+    "??1?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@XZ"
+  ],
+  "added": [],
+  "before_definitions": 11,
+  "after_definitions": 4,
+  "surviving_definitions": [
+    {
+      "name": "??0?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z",
+      "comparable": true,
+      "equal": true
+    },
+    {
+      "name": "??0?$allocator@PAVDrawable@@@_STL@@QAE@XZ",
+      "comparable": true,
+      "equal": true
+    },
+    {
+      "name": "??1?$allocator@PAVDrawable@@@_STL@@QAE@XZ",
+      "comparable": true,
+      "equal": true
+    },
+    {
+      "name": "??0Rva002A1B07@@QAE@XZ",
+      "comparable": true,
+      "equal": true
+    }
+  ]
+}

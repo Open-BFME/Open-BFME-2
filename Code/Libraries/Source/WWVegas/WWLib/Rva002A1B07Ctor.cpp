@@ -7,39 +7,17 @@
 // pinned List_base 0x00239BB0; caller at 0x002A3C1B; +0 left uninitialized.
 #include <list>
 
-// list<Drawable *> takes its nodes from the 12-byte pool at VA 0x00DBA5E0.
-// The base constructor (0x00239BB0) and node creator (0x00239BD8) are spelled
-// as stlport_list_drawable_base_ctor.cpp and InGameUISelectDrawable.cpp spell
-// them, and the destructor (0x00239AF4) is defined once elsewhere, so this
-// unit emits no stock allocator copy of them for the link to reject.
+// The shared pool constructor, node creator and destructors are owned by
+// their existing retail providers. Keep their specializations declared here
+// so this caller does not emit another allocator implementation.
 class Drawable;
-class FreelistPool
-{
-public:
-	void *pop();
-	int m_00; // +0x00
-	void *m_04; // +0x04
-	void *m_head; // +0x08
-};
-extern FreelistPool g_freelistPool00DBA5E0;
 namespace _STL {
 template <> __declspec(noinline)
-_List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawable *> &__a)
-	: _M_node(__a, (_List_node<Drawable *> *)0)
-{
-	_List_node<Drawable *> *node = (_List_node<Drawable *> *)g_freelistPool00DBA5E0.pop();
-	node->_M_next = node;
-	node->_M_prev = node;
-	_M_node._M_data = node;
-}
+_List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawable *> &);
 template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> list<Drawable *>::~list();
 template <> __declspec(noinline) _List_node<Drawable *> *
-list<Drawable *>::_M_create_node(Drawable *const &value)
-{
-	_List_node<Drawable *> *node = (_List_node<Drawable *> *)g_freelistPool00DBA5E0.pop();
-	_Construct(&node->_M_data, value);
-	return node;
-}
+list<Drawable *>::_M_create_node(Drawable *const &);
 }
 class Drawable;
 class Rva002A1B07

@@ -81,3 +81,11 @@ decisions of the merge-all run are InGameUI donors that wait for this host.
   preserved. No member/base lifetime substitution is applied. Supported merge
   and publication verification remain pending.
   [Binding proof and scope](../../reverse/attempt_support/ingameui-list-constructor-20261107/README.md).
+
+- **2026-11-08 donor-provider prerequisite:** Rva002A1B07Ctor.cpp keeps
+  declarations for its existing shared pool and lifetime providers, removing
+  the unused private pool view and seven duplicate helper emissions. Its
+  22-byte row remains exact; all four surviving external code definitions
+  retain bytes, flags and relocations. The normal two-source build passes
+  nine code and two data rows. The final composition still needs provider
+  selection checks, including its out-of-line list-constructor copy.
