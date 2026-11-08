@@ -76,6 +76,10 @@ class AABoxCollisionTestClass;
 class OBBoxCollisionTestClass;
 class AABoxIntersectionTestClass;
 class OBBoxIntersectionTestClass;
+#ifdef BFME_RENDOBJ_MESH_SLOTS
+template <class T> class RefCountPtr;
+class Rva0013101E;
+#endif
 class CameraClass;
 class SphereClass;
 class AABoxClass;
@@ -467,14 +471,24 @@ public:
 	// 0x92DCF0 reads CollisionType at arg+0, the IntersectionTestClass layout);
 	// Cast_AABox / Cast_OBBox / Intersect_AABox are not in the retail vtable —
 	// kept non-virtual so ZH-derived sources still compile.
+	// Target facts, slot 61: MeshClass's body 0x0014B5E0 passes its argument to the constructor at 0x0014A3F0, which
+	// reads only a center (+4) and extent (+0x10) from it and builds the basis from the matrix, so it is an AABox test.
+	// HLodClass (0x0019C180) and CompositeRenderObjClass (0x001A6060) override the slot and forward it; their rows
+	// still carry the OBBox spelling, so only a unit that opts in takes retail's here.
+#ifdef BFME_RENDOBJ_MESH_SLOTS
+	virtual bool					Intersect_AABox(AABoxIntersectionTestClass & boxtest)				{ return false; }
+#else
 	virtual bool					Intersect_OBBox(OBBoxIntersectionTestClass & boxtest)				{ return false; }
+#endif
 	virtual bool					Intersect(IntersectionClass *Intersection, IntersectionResultClass *Final_Result);
 	virtual bool					Intersect_Sphere(IntersectionClass *Intersection, IntersectionResultClass *Final_Result);
 	virtual bool					Intersect_Sphere_Quick(IntersectionClass *Intersection, IntersectionResultClass *Final_Result);
 
 	bool								Cast_AABox(AABoxCollisionTestClass & boxtest)						{ return false; }
 	bool								Cast_OBBox(OBBoxCollisionTestClass & boxtest)						{ return false; }
+#ifndef BFME_RENDOBJ_MESH_SLOTS
 	bool								Intersect_AABox(AABoxIntersectionTestClass & boxtest)				{ return false; }
+#endif
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Render Object Interface - Bounding Volumes
@@ -654,8 +668,16 @@ public:
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// BFME: retail Create_Decal sits here (before Delete_Decal) with a second
 	// parameter; Get_Factory/Save/Load are not in the retail vtable (see below).
+	// Target facts, slots 124 and 125: MeshClass's only overrides in retail (0x0014B800, 0x0014B8C0) replace a texture
+	// pair through the model and recolor materials ("HOUSECOLOR"); neither touches a decal. The base bodies are empty,
+	// ret 8 and ret 4. Create_Decal and Delete_Decal are donor names, kept for the rows that still carry them.
+#ifdef BFME_RENDOBJ_MESH_SLOTS
+	virtual void					Replace_Texture(const RefCountPtr<TextureClass> & texture, const RefCountPtr<TextureClass> & replacement) { }
+	virtual void					Recolor_Prototype(const Rva0013101E & options)						{ }
+#else
 	virtual void					Create_Decal(DecalGeneratorClass * generator, bool unk = false)	{ }
 	virtual void					Delete_Decal(uint32 decal_id)												{ }
+#endif
 
 	void								Set_Sub_Objects_Match_LOD(int onoff);
 	int								Is_Sub_Objects_Match_LOD_Enabled(void)									{ return (Bits & SUBOBJS_MATCH_LOD) != 0; }	// BFME normalises to 0/1
@@ -685,7 +707,12 @@ public:
 
 protected:
 
+	// Target facts, slot 126: MeshClass's 0x0014C470 reads HouseColorEnable and HouseColorTexture. Same opt-in as above.
+#ifdef BFME_RENDOBJ_MESH_SLOTS
+	virtual void					RecolorHouseColor(const Rva0013101E & options, const char * name)	{ }
+#else
 	virtual void					Add_Dependencies_To_List (DynamicVectorClass<StringClass> &file_list, bool textures_only = false);
+#endif
 
 	virtual void					Update_Cached_Bounding_Volumes(void) const;
 	virtual void					Update_Sub_Object_Bits(void);
