@@ -1,0 +1,35 @@
+{
+  "addresses_before": 34433,
+  "addresses_after": 34433,
+  "added": 0,
+  "removed": 0,
+  "verified_owners_preserved": 2354,
+  "changed": {
+    "0x007F91B0": {
+      "before": {
+        "address": "0x007F91B0",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva00260FD0Filter@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7PartitionFilterPossibleToAttack@@6B@;??_7Rva00260FD0Filter@@6B@;?g_010956C4@@3PAPBXA",
+        "defs": "1",
+        "refs": "13"
+      },
+      "after": {
+        "address": "0x007F91B0",
+        "size": "12",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva00260FD0Filter@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7PartitionFilterPossibleToAttack@@6B@;??_7Rva00260FD0Filter@@6B@",
+        "defs": "0",
+        "refs": "13"
+      }
+    }
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "matched": [
+    "0x00262387"
+  ],
+  "errors": [],
+  "flags": "// cl: /O1 /arch:SSE /G7 -Ireference/open-bfme-1/game/GameEngine/Source/Common\n#include \"../../Include/GameLogic/PartitionFilter.h\"\nenum AbleToAttackType { ATTACK_NEW_TARGET = 0 };\nenum CommandSourceType { CMD_FROM_PLAYER=0, CMD_FROM_SCRIPT=1, CMD_FROM_AI=2 };\nclass PartitionFilterPossibleToAttack : public Rva000421C8 {\n    const Object *m_obj;\n    CommandSourceType m_commandSource;\n    AbleToAttackType m_attackType;\npublic:\n    PartitionFilterPossibleToAttack(AbleToAttackType attackType, const Object *object, CommandSourceType commandSource);\n    virtual ~PartitionFilterPossibleToAttack();\n    virtual bool allow(Object *object);\n};\nPartitionFilterPossibleToAttack::PartitionFilterPossibleToAttack(AbleToAttackType attackType, const Object *object, CommandSourceType commandSource)\n    : m_obj(object), m_commandSource(commandSource), m_attackType(attackType) {}\n",
+  "newname": "??0PartitionFilterPossibleToAttack@@QAE@W4AbleToAttackType@@PBVObject@@W4CommandSourceType@@@Z",
+  "code": {
+    "??0Rva000421C8@@QAE@XZ": {
+      "bytes": "8bc183600400c70000000000c3",
+      "relocations": [
+        [
+          8,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ],
+      "flags": "0x60101020",
+      "policy": 2
+    },
+    "??_7Rva000421C8@@6B@": {
+      "bytes": "000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_ERva000421C8@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "__purecall"
+        ],
+        [
+          8,
+          6,
+          "?getPlayerMask@Rva000421C8@@UAEHXZ"
+        ]
+      ],
+      "flags": "0x40301040",
+      "policy": 2
+    },
+    "??1Rva000421C8@@UAE@XZ": {
+      "bytes": "c70100000000c3",
+      "relocations": [
+        [
+          2,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ]
+      ],
+      "flags": "0x60101020",
+      "policy": 2
+    },
+    "?getPlayerMask@Rva000421C8@@UAEHXZ": {
+      "bytes": "83c8ffc3",
+      "relocations": [],
+      "flags": "0x60101020",
+      "policy": 2
+    },
+    "??_GRva000421C8@@UAEPAXI@Z": {
+      "bytes": "f644240401568bf1c70600000000740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          10,
+          6,
+          "??_7Rva000421C8@@6B@"
+        ],
+        [
+          18,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ],
+      "flags": "0x60101020",
+      "policy": 2
+    },
+    "??0PartitionFilterPossibleToAttack@@QAE@W4AbleToAttackType@@PBVObject@@W4CommandSourceType@@@Z": {
+      "bytes": "8bc18b4c2408836004008948088b4c240c89480c8b4c2404c70000000000894810c20c00",
+      "relocations": [
+        [
+          26,
+          6,
+          "??_7PartitionFilterPossibleToAttack@@6B@"
+        ]
+      ],
+      "flags": "0x60101020",
+      "policy": 1
+    },
+    "??_7PartitionFilterPossibleToAttack@@6B@": {
+      "bytes": "000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EPartitionFilterPossibleToAttack@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?allow@PartitionFilterPossibleToAttack@@UAE_NPAVObject@@@Z"
+        ],
+        [
+          8,
+          6,
+          "?getPlayerMask@Rva000421C8@@UAEHXZ"
+        ]
+      ],
+      "flags": "0x40301040",
+      "policy": 2
+    },
+    "??_GPartitionFilterPossibleToAttack@@UAEPAXI@Z": {
+      "bytes": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1PartitionFilterPossibleToAttack@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ],
+      "flags": "0x60101020",
+      "policy": 2
+    }
+  },
+  "data": {
+    "??_7Rva000421C8@@6B@": {
+      "flags": "0x40301040",
+      "size": 12,
+      "bytes": "000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_ERva000421C8@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "__purecall"
+        ],
+        [
+          8,
+          6,
+          "?getPlayerMask@Rva000421C8@@UAEHXZ"
+        ]
+      ]
+    },
+    "??_7PartitionFilterPossibleToAttack@@6B@": {
+      "flags": "0x40301040",
+      "size": 12,
+      "bytes": "000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EPartitionFilterPossibleToAttack@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?allow@PartitionFilterPossibleToAttack@@UAE_NPAVObject@@@Z"
+        ],
+        [
+          8,
+          6,
+          "?getPlayerMask@Rva000421C8@@UAEHXZ"
+        ]
+      ]
+    }
+  },
+  "undefined": [
+    "??1PartitionFilterPossibleToAttack@@UAE@XZ",
+    "??3@YAXPAX@Z",
+    "??_GPartitionFilterPossibleToAttack@@UAEPAXI@Z",
+    "??_GRva000421C8@@UAEPAXI@Z",
+    "?allow@PartitionFilterPossibleToAttack@@UAE_NPAVObject@@@Z",
+    "__purecall"
+  ],
+  "defined": [
+    "??0PartitionFilterPossibleToAttack@@QAE@W4AbleToAttackType@@PBVObject@@W4CommandSourceType@@@Z",
+    "??0Rva000421C8@@QAE@XZ",
+    "??1Rva000421C8@@UAE@XZ",
+    "??_7PartitionFilterPossibleToAttack@@6B@",
+    "??_7Rva000421C8@@6B@",
+    "??_GPartitionFilterPossibleToAttack@@UAEPAXI@Z",
+    "??_GRva000421C8@@UAEPAXI@Z",
+    "?getPlayerMask@Rva000421C8@@UAEHXZ"
+  ]
+}

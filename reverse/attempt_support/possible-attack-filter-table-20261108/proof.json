@@ -1,0 +1,69 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva00149E60Set.cpp",
+  "code_rows": 59,
+  "removed_definition": "?g_010956C4@@3PAPBXA",
+  "added_definitions": [],
+  "source_36B_bytes_relocation_positions_flags_policies_equal_after_referent_normalization": true,
+  "old_data_definitions": [
+    "?g_010956C4@@3PAPBXA"
+  ],
+  "new_data_definitions": [],
+  "new_undefined": [
+    "??_7PartitionFilterPossibleToAttack@@6B@"
+  ],
+  "native_vptr_store_rva": "0x002623A1",
+  "native_table_rva": "0x007F91B0",
+  "native_table_bytes": 12,
+  "table_targets": [
+    {
+      "rva": "0x395a19",
+      "name": "??_GPartitionFilterPossibleToAttack@@UAEPAXI@Z",
+      "source": "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+      "size": "28"
+    },
+    {
+      "rva": "0x260fd0",
+      "name": "?allow@PartitionFilterPossibleToAttack@@UAE_NPAVObject@@@Z",
+      "source": "Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp",
+      "size": "37"
+    },
+    {
+      "rva": "0x36cc7a",
+      "name": "?getPlayerMask@Rva000421C8@@UAEHXZ",
+      "source": "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp",
+      "size": "4"
+    }
+  ],
+  "bridge": {
+    "before": {
+      "tables": 0,
+      "slots": 0,
+      "refused_tables": 1,
+      "refusal_reasons": {
+        "strong-definition": 1
+      },
+      "already_correct": 1
+    },
+    "after": {
+      "tables": 0,
+      "slots": 0,
+      "refused_tables": 0,
+      "refusal_reasons": {},
+      "already_correct": 1
+    }
+  },
+  "hashes": {
+    "Code/GameEngine/Source/Common/Rva00149E60Set.cpp": "23449f46357853ffe0343a90d4f7e97fa05c63d2f1c96bf55a0912d21813330e",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp": "7973897d2b0f72bf48670312bb4e6259dbe386692cefb6a9f6761a19a89de8ce",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionFilterPossibleToAttackAllow.cpp": "bcb810a3322f9b8e2dc4f2194a28d8bec04464acb2f1d97f94fccf074c95782e",
+    "Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp": "69c47c3f412ceb8166c18d5dfb4aec7d1c37c9bc78cf3f6ec46d8cd5bf0c9075"
+  },
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  },
+  "scope": "One strong array removed; current row remains an unverified class/method view. No constructor-name approval, census or full-image/runtime clearance claimed."
+}

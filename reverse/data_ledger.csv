@@ -5295,7 +5295,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007F9060,8,.rdata,float,__real@497423f0,,literal,__real@497423f0;_fastSentinel@Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp,1,5
 0x007F9068,324,.rdata,string,??_C@_0BG@ECJIJMCB@DefaultAttackPriority?$AA@,,literal,,0,2
 0x007F91AC,4,.rdata,vtable,??_7Rva0028C6D6@@6B@,,literal,,0,3
-0x007F91B0,12,.rdata,vtable,??_7Rva00260FD0Filter@@6B@,,literal,??_7PartitionFilterPossibleToAttack@@6B@;??_7Rva00260FD0Filter@@6B@;?g_010956C4@@3PAPBXA,1,13
+0x007F91B0,12,.rdata,vtable,??_7Rva00260FD0Filter@@6B@,,literal,??_7PartitionFilterPossibleToAttack@@6B@;??_7Rva00260FD0Filter@@6B@,0,13
 0x007F91BC,12,.rdata,vtable,??_7Rva002611BFFilter@@6B@,,literal,??_7PartitionFilterSameMapStatus@@6B@;??_7Rva002611BFFilter@@6B@,0,66
 0x007F91C8,40,.rdata,string,??_C@_0CH@PJAGFCJH@Only?5one?5turret?5to?5a?5customer?0?5f@,,literal,,0,1
 0x007F91F0,12,.rdata,vtable,??_7Rva00263077Filter@@6B@,,literal,,0,2

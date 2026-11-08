@@ -644,3 +644,13 @@ publics leave extraction unproven, so this pass claims neither a false
 reject nor global clearance. Next: establish kept providers/live references
 for those names or use the next maintained image's extraction evidence.
 [Exact member and bounded-plan evidence](../../reverse/attempt_support/typeinfo-runtime-selection-20261108/README.md).
+
+2026-11-09, possible-to-attack filter: Rva00149E60Set.cpp removes the strong
+three-slot g_010956C4 array and binds its unchanged native store directly to
+the existing PartitionFilterPossibleToAttack compiler table at 7F91B0.
+Normal 59/59 scoped code rows and seven EH graphs pass; all three native
+slot providers are verified. Bounded replay changes strong refusals 1 to 0,
+with the same already-correct compiler table and no bridge. The four-source
+preview conserves LINKS 8,124 bytes at c885072a48. Next-image confirmation is
+pending; the setter's real-constructor naming transition remains separate.
+[Source/provider proof and constructor trial](../../reverse/attempt_support/possible-attack-filter-table-20261108/README.md).

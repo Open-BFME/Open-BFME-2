@@ -1236,3 +1236,14 @@ recursive twin test plus lk68's kept-copy check; and every placeholder pair dry-
   `Rva003E3C39` need the TU merges lk71 described. `Rva004C6CC1` is the co-owner case above.
   `Rva0055133F` first needs BuddyThreadClass's own 170 B destructor (its implicit one is 140 B), and it
   refuses under the fix until then.
+
+2026-11-09, root seat, table 007F91B0: removed Rva00149E60Set.cpp's strong
+g_010956C4 duplicate and rebound the unchanged 36-byte body's store to the
+existing PartitionFilterPossibleToAttack compiler table. The current real
+deleting destructor, allow and base getPlayerMask providers pass with the
+source (59/59 code rows, seven exact EH graphs). Bounded replay removes one
+strong refusal with no bridge and the same already-correct table; four-source
+LINKS 8,124 is conserved at index c885072a48. This does not clear the broader
+partition-filter family or establish an image/runtime result. A byte-exact
+real-constructor trial is banked but its naming transition is not landed.
+[Detailed scope](../../reverse/attempt_support/possible-attack-filter-table-20261108/README.md).
