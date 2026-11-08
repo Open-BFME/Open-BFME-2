@@ -55,6 +55,19 @@ public:
 	virtual ~Rva003A6F85Vec();
 };
 
+namespace FXParticleSystem
+{
+// The lightning draw template's class tables (0x0081BD90 slot 0, 0x0081BDA0 slot 0)
+// name this deleting destructor and its -8 thunk. The class is abstract, so its
+// own constructor units cannot new an array of it; this view keeps only the size
+// and the +8 secondary base, and novtable keeps its partial table out of the image.
+class __declspec(novtable) LightningDrawModuleTemplate : public Rva003A6F85VecBase0, public Rva003A6F85VecBase8
+{
+public:
+	virtual ~LightningDrawModuleTemplate();
+};
+}
+
 class __declspec(novtable) Rva003A7614VecBase0
 {
 public:
@@ -224,6 +237,7 @@ private:
 void bfmeVectorDeleteAnchorV02Unresolved()
 {
 	new Rva003A6F85Vec[2];
+	new FXParticleSystem::LightningDrawModuleTemplate[2];
 	new Rva003A7614Vec[2];
 	new Rva003A8681Vec[2];
 	new Rva003A8FACVec[2];
