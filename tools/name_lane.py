@@ -20,6 +20,14 @@ and never misleading.
     python3 tools/name_lane.py apply [--retry-blocked] [--lead 2] [--min-models 1] [--only-labels L,L]
     python3 tools/name_lane.py dispute KEY... --reason TEXT
     python3 tools/name_lane.py status [--only-labels L,L] [--lead 2] [--min-models 1]
+    python3 tools/name_lane.py agree --key KEY --name SPELLING [--lead 2] [--min-models 1]
+
+Blind votes from different checkouts land through separate pushes, so each submit can
+tally before the other vote exists and neither records the agreement. `status` and
+`apply` derive such keys from the votes as they stand. Votes hold only hashes, so a key's
+spelling must come from someone who knows it: `agree`, or a submit of the worker's own
+counted vote, records the agreement without adding a vote, and only for a spelling that
+hashes to the votes' winning hash and passes today's checks.
 
 `next` serves matched, non-generated Code/ sources from one subsystem, with
 shared existing-source context. Each file decides only its own identifiers --
@@ -1505,6 +1513,108 @@ def cmd_validate(lane, args):
     return 1 if report["rejected"] else 0
 
 
+def spelling_problem(lane, rel, kind, scope, ident, rva, answer, file_words, text):
+    """Why `answer` cannot name this placeholder now, or None."""
+    why = lane.eligibility(rel, kind, scope, ident, rva) or lane.problem(
+        kind, ident, answer, file_words, rel=rel, scope=scope, text=text)
+    if not why and kind == "class" and lane.ctx.grep_files(answer, word=True) \
+            and not lane.merges(rel, ident, answer):
+        why = f"{answer} already exists; reconcile declarations before a class rename"
+    return why
+
+
+def agreement_row(lane, tally, refused, key, kind, ident, answer, rva, mine, role=""):
+    name = lane_spelling(lane, answer, kind)
+    row = {"id": record_id(key, name, role), "kind": kind, "old": ident, "new": name,
+           "rva": f"0x{rva:08X}" if rva is not None else "",
+           "agents": ";".join(f"{w}@{m}" for w, m in sorted(mine.items())), "key": key, "status": "agreed"}
+    row["detail"] = approval_detail(tally, refused, row)
+    return row
+
+
+def unrecorded_agreements(lane, *, lead=2, min_models=1):
+    """[key] whose votes, as they stand, already agree on a spelling while no agreement records
+    it. Blind votes submitted in different checkouts each tally before the other exists, and
+    land through separate pushes, so neither submit can record the agreement: it can only be
+    derived from the votes afterwards. Votes hold hashes, so this finds the key, not the name;
+    `agree` takes the spelling from whoever knows it and checks it against these votes."""
+    tally, state, refused = lane.tally(), lane.state(), lane.disputed()
+    found = []
+    for key in list(tally):
+        if name_agreement.scoped_key(key) or (key in state and state[key]["status"] != "disputed"):
+            continue
+        barred = {name_agreement.hash_canon(key, spelled) for spelled in refused.get(key, ())}
+        standing = {h: voters for h, voters in tally[key].items() if h not in barred}
+        if any(wins(voters, [v for other, v in standing.items() if other != h], lead=lead, min_models=min_models,
+                    key=key) for h, voters in standing.items()):
+            found.append(key)
+    return found
+
+
+def report_unrecorded(lane, *, lead=2, min_models=1, limit=10):
+    """Print the keys `agree` can record. A key whose file or placeholder has since gone is only
+    counted: its votes named something that no longer exists."""
+    live, gone = [], 0
+    for key in unrecorded_agreements(lane, lead=lead, min_models=min_models):
+        try:
+            rel, kind, scope, ident = split_key(key)
+            rva = int(scope, 16) if kind == "function" else None
+            usable = lane.text(rel) is not None and not lane.eligibility(rel, kind, scope, ident, rva)
+        except ValueError:
+            usable = False
+        if usable:
+            live.append(key)
+        else:
+            gone += 1
+    if live or gone:
+        print(f"name_lane: {len(live)} key(s) have agreeing votes and no agreement record"
+              + (f" ({gone} more name a file or placeholder that has gone)" if gone else "")
+              + "; a voter records one with `name_lane.py agree --key KEY --name SPELLING`")
+    for key in live[:limit]:
+        print(f"  {key}")
+    if len(live) > limit:
+        print(f"  ... and {len(live) - limit} more")
+
+
+def cmd_agree(lane, args):
+    """Record an agreement the votes have already reached (unrecorded_agreements). No vote is
+    added. The spelling must hash to the votes' winning hash, so knowing it proves nothing
+    beyond what the voters agreed, and it passes the checks a submit would apply today."""
+    key, name = args.key, args.name.strip()
+    try:
+        rel, kind, scope, ident = split_key(key)
+    except ValueError:
+        fail("--key needs source|kind|scope|placeholder")
+    if kind not in NAMED:
+        fail(scoped_route(sources=[rel]))
+    state, tally, refused = lane.state(), lane.tally(), lane.disputed()
+    if key in state and state[key]["status"] != "disputed":
+        fail(f"{key} already has agreement {state[key]['id']} ({state[key]['status']})")
+    if canon(name) in refused.get(key, ()):
+        fail(f"{name} is disputed for {key}")
+    mine, rivals, role = name_agreement.support(tally, refused, key, name)
+    if not wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key):
+        fail(f"votes do not agree on {name} for {key}: {len(mine)} voter(s), rivals "
+             f"{sorted(len(r) for r in rivals)} (--lead {args.lead} --min-models {args.min_models}); "
+             "the spelling must be one the voters proposed")
+    text = lane.text(rel)
+    if text is None:
+        fail(f"{rel} no longer exists: its votes name nothing")
+    items = {key_of(rel, *item[:3]): item for item in lane.owned(rel, text, kinds=NAMED)}
+    if key not in items:
+        fail(f"{rel} no longer owns {ident} as a {kind}: its votes name nothing")
+    rva = items[key][3]
+    file_words = set(name_metric.WORD.findall(name_metric.strip(text)))
+    why = spelling_problem(lane, rel, kind, scope, ident, rva, name, file_words, text)
+    if why:
+        fail(f"{name} cannot name {ident}: {why}")
+    row = agreement_row(lane, tally, refused, key, kind, ident, name, rva, mine, role)
+    lane.append(AGREED, AGREED_COLUMNS, [row])
+    print(f"  AGREED: {key} -> {row['new']} ({row['agents']})")
+    print(f"name_lane: agreement recorded from {len(mine)} existing vote(s); no vote added; stage {AGREED}")
+    return 0
+
+
 def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, checks=rename.ledger_checks,
                validate_only=False):
     apply_ready = getattr(args, "apply_ready", None)
@@ -1598,17 +1708,22 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
             already = worker in {w for v in tally[key].values() for w in v}
             annotate = (already and meaning and worker in tally[key].get(h, {})
                         and not tally.meanings[key].get((h, worker)))
-            why = lane.eligibility(rel, kind, scope, ident, rva) or lane.problem(
-                kind, ident, answer, file_words, rel=rel, scope=scope, text=text)
-            if not why and kind == "class" and lane.ctx.grep_files(answer, word=True) \
-                    and not lane.merges(rel, ident, answer):
-                why = f"{answer} already exists; reconcile declarations before a class rename"
+            why = spelling_problem(lane, rel, kind, scope, ident, rva, answer, file_words, text)
             name_scope = lane.collision_scope(rel, kind, scope, ident) or ""
             if not why and kind in NAMED and (name_scope, canon(answer)) in taken:
                 why = "the same name as another placeholder in this file"
             if not why and canon(answer) in refused.get(key, ()):
                 why = "disputed for this key"
             if not why and already and not annotate:
+                mine, rivals, role = name_agreement.support(tally, refused, key, answer, meaning)
+                if (worker in mine and needs_review(key, state, tally, refused)
+                        and wins(mine, rivals, lead=lead, min_models=min_models, key=key)):
+                    # Its vote is counted; a vote from another checkout completed the agreement
+                    # after this worker's submit ran, so neither submit recorded it. No new vote.
+                    row = agreement_row(lane, tally, refused, key, kind, ident, answer, rva, mine, role)
+                    agreed.append(row)
+                    state[key] = row
+                    continue
                 why = "this worker already voted on it (under some session label)"
             if why:
                 rejected.append(f"{answer_key(kind, scope, ident)} -> {answer}: {why}")
@@ -1636,12 +1751,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
             promote = (annotate and role and key in state and state[key]["status"] == "agreed"
                        and not name_agreement.record_meaning(state[key]["id"]))
             if (open_key or promote) and wins(mine, rivals, lead=lead, min_models=min_models, key=key):
-                agents = ";".join(f"{w}@{m}" for w, m in sorted(mine.items()))
-                name = lane_spelling(lane, answer, kind)
-                row = {"id": record_id(key, name, role), "kind": kind, "old": ident, "new": name,
-                       "rva": f"0x{rva:08X}" if rva is not None else "", "agents": agents, "key": key,
-                       "status": "agreed"}
-                row["detail"] = approval_detail(tally, refused, row)
+                row = agreement_row(lane, tally, refused, key, kind, ident, answer, rva, mine, role)
                 agreed.append(row)
                 state[key] = row
     if validate_only:
@@ -2287,6 +2397,8 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     state, tally, refused = lane.state(), lane.tally(), lane.disputed()
     only = label_list(args.only_labels) if getattr(args, "only_labels", None) else None
     selected_keys = set(getattr(args, "key", None) or ())
+    if not selected_keys:
+        report_unrecorded(lane, lead=args.lead, min_models=args.min_models)
     todo = collections.defaultdict(list)
     landed = blocked = stale = outside = selected = deferred = 0
     busy = None
@@ -2530,6 +2642,7 @@ def cmd_status(lane, args):
     print(f"keys voted: {len({v['key'] for v in votes}):,}; agreed: {len(state)} (landed {count['landed']}, "
           f"waiting {count['agreed']}, blocked {count['blocked']}, stale {count['stale']}, "
           f"disputed {count['disputed']})")
+    report_unrecorded(lane, lead=args.lead, min_models=args.min_models)
     if getattr(args, "only_labels", None):
         only, tally, refused = label_list(args.only_labels), lane.tally(), lane.disputed()
         picked = 0
@@ -2625,6 +2738,11 @@ def main(argv=None, lane=None):
     d.add_argument("keys", nargs="+", help="as name_agreed.csv spells them (source|kind|scope|placeholder)")
     d.add_argument("--reason", required=True, help="what the code shows against the landed name")
     d.add_argument("--no-claim", dest="claim", action="store_false")
+    concord = sub.add_parser("agree", help="record an agreement the votes have already reached; adds no vote")
+    concord.add_argument("--key", required=True, help="source|kind|scope|placeholder, as status prints it")
+    concord.add_argument("--name", required=True, help="the spelling the voters proposed")
+    concord.add_argument("--lead", type=int, default=2)
+    concord.add_argument("--min-models", type=int, default=1)
     st = sub.add_parser("status", help="votes and agreement counts")
     st.add_argument("--metric", action="store_true", help="also the tree-wide readable-name metric (slow)")
     st.add_argument("--only-labels", metavar="L,L", help="count the waiting keys apply --only-labels would select")
@@ -2679,6 +2797,8 @@ def main(argv=None, lane=None):
         return cmd_apply(lane, args)
     if args.cmd == "resolve":
         return cmd_resolve(lane, args)
+    if args.cmd == "agree":
+        return cmd_agree(lane, args)
     if args.cmd == "reconcile":
         return cmd_reconcile(lane, args)
     if args.cmd == "dispute":

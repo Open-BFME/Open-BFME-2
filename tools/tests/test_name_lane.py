@@ -2893,3 +2893,128 @@ def test_only_a_named_worldbuilder_lead_withholds_a_function(tree, wb_name, serv
     function_keys = [i[:3] for i in lane.owned(SOURCE) if i[0] == "function"]
     assert (("function", "0x00401000", "rva00401000") in function_keys) is served
     assert bool(rename.wb_rows(lane.ctx, 0x00401000)) is not served
+
+
+# ---------------------------------------------------------------- votes that agree with no record
+
+def concurrent_votes(tree, key, answer, count=2):
+    """`count` workers' votes for `answer`, as if each submit ran before the others existed:
+    separate checkouts, separate pushes. Only the vote rows land; no agreement does."""
+    lane_of(tree).append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [
+        dict(key=key, hash=name_agreement.digest(key, answer), model=f"model-{i}", session=f"s{i}",
+             worker=f"w-00000000000{i}", date="2026-11-07") for i in range(count)])
+
+
+def agree(tree, key, name, *extra):
+    return name_lane.main(["agree", "--key", key, "--name", name, *extra], lane=lane_of(tree))
+
+
+def test_concurrent_votes_are_found_and_recorded_without_a_new_vote(tree, capsys):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    assert MEMBER_KEY not in lane_of(tree).state()
+    assert name_lane.unrecorded_agreements(lane_of(tree)) == [MEMBER_KEY]
+    votes_before = len(lane_of(tree).votes())
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert "1 key(s) have agreeing votes and no agreement record" in out and MEMBER_KEY in out
+    assert agree(tree, MEMBER_KEY, "m_boxWidth") == 0
+    row = lane_of(tree).state()[MEMBER_KEY]
+    assert row["status"] == "agreed" and row["new"] == "m_boxWidth" and len(lane_of(tree).votes()) == votes_before
+    assert row["agents"] == "w-000000000000@model-0;w-000000000001@model-1"
+    assert name_agreement.verify(lane_of(tree).votes(), lane_of(tree).agreed_rows(), MEMBER_KEY, "m_boxWidth") == []
+    assert name_lane.unrecorded_agreements(lane_of(tree)) == []
+
+
+def test_a_word_order_difference_is_the_same_agreement(tree):
+    """Votes match on canon(): any spelling with the voters' hash records their agreement."""
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    assert agree(tree, MEMBER_KEY, "m_widthBox") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["new"] == "m_widthBox"
+
+
+def test_a_spelling_the_voters_did_not_propose_is_refused(tree):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    with pytest.raises(SystemExit):
+        agree(tree, MEMBER_KEY, "m_boxHeight")
+    assert MEMBER_KEY not in lane_of(tree).state()
+
+
+def test_one_vote_is_no_agreement(tree):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth", count=1)
+    assert name_lane.unrecorded_agreements(lane_of(tree)) == []
+    with pytest.raises(SystemExit):
+        agree(tree, MEMBER_KEY, "m_boxWidth")
+
+
+def test_a_recorded_or_tied_key_is_not_unrecorded(tree):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    assert agree(tree, MEMBER_KEY, "m_boxWidth") == 0
+    with pytest.raises(SystemExit):
+        agree(tree, MEMBER_KEY, "m_boxWidth")
+    lane_of(tree).append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [
+        dict(key=FN_KEY, hash=name_agreement.digest(FN_KEY, spelled), model="m", session=f"s{i}",
+             worker=f"w-00000000001{i}", date="2026-11-07")
+        for i, spelled in enumerate(("sumBox", "sumBox", "addBox", "addBox"))])
+    assert FN_KEY not in name_lane.unrecorded_agreements(lane_of(tree))
+
+
+def test_a_disputed_spelling_stays_refused(tree):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    assert agree(tree, MEMBER_KEY, "m_boxWidth") == 0
+    row = lane_of(tree).state()[MEMBER_KEY]
+    lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(row, agents="", status="disputed")])
+    assert name_lane.unrecorded_agreements(lane_of(tree)) == []
+    with pytest.raises(SystemExit):
+        agree(tree, MEMBER_KEY, "m_boxWidth")
+
+
+def test_a_placeholder_that_has_gone_is_only_counted(tree, capsys):
+    gone = "Code/Game/Gone.cpp|member|Rva00401000Base|m_04"
+    concurrent_votes(tree, gone, "m_boxWidth")
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert "0 key(s) have agreeing votes" in out and "1 more name a file or placeholder that has gone" in out
+    assert gone not in out
+    with pytest.raises(SystemExit):
+        agree(tree, gone, "m_boxWidth")
+
+
+def test_apply_reports_them_and_lands_them_once_recorded(tree, capsys):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    assert apply(tree) == 0
+    assert "1 key(s) have agreeing votes and no agreement record" in capsys.readouterr().out
+    assert MEMBER_KEY not in lane_of(tree).state()
+    assert agree(tree, MEMBER_KEY, "m_boxWidth") == 0
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
+
+
+def test_submitting_a_counted_vote_again_records_the_agreement(tree, tmp_path):
+    """The live refusal: two sessions served to one worker before its vote; another checkout's
+    vote lands between. The second submit adds no vote and records what the votes now say."""
+    answers = {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "skip"}
+    serve(tree, "later", worker="seat-a")
+    assert vote(tree, tmp_path, "first", answers, worker="seat-a") == 0
+    assert MEMBER_KEY not in lane_of(tree).state()
+    lane_of(tree).append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [dict(
+        key=MEMBER_KEY, hash=name_agreement.digest(MEMBER_KEY, "m_boxWidth"), model="other", session="b",
+        worker="w-000000000002", date="2026-11-07")])
+    votes_before = len(lane_of(tree).votes())
+    answer = tmp_path / "answer-later.json"
+    answer.write_text(json.dumps(answers))
+    args = SimpleNamespace(answer=str(answer), session="later", model="claude-opus-5-5")
+    assert name_lane.cmd_submit(lane_of(tree), args, lead=2, min_models=1) == 0
+    row = lane_of(tree).state()[MEMBER_KEY]
+    assert row["status"] == "agreed" and len(lane_of(tree).votes()) == votes_before
+
+
+def test_submitting_again_with_no_agreement_is_still_refused(tree, tmp_path, capsys):
+    answers = {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "skip"}
+    serve(tree, "later", worker="seat-a")
+    assert vote(tree, tmp_path, "first", answers, worker="seat-a") == 0
+    answer = tmp_path / "answer-later.json"
+    answer.write_text(json.dumps(answers))
+    args = SimpleNamespace(answer=str(answer), session="later", model="claude-opus-5-5")
+    name_lane.cmd_submit(lane_of(tree), args, lead=2, min_models=1)
+    assert "already voted" in capsys.readouterr().out
+    assert MEMBER_KEY not in lane_of(tree).state()
