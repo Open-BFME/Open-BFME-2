@@ -3720,21 +3720,38 @@ C_DIRECTIVE = re.compile(r"^[ \t]*#(?:[^\n]*\\\n)*[^\n]*", re.M)
 # a class, struct or union declared or defined (`{`, `;`, a base clause or a specialization's
 # `<` follows the name; a template parameter's `class T` is followed by `,`, `>` or `=`)
 STLPORT_RECORD = re.compile(r"\b(?:class|struct|union)\s+(?:_STLP_\w+\s+)*([A-Za-z_]\w*)\s*(?=[{;:<])")
+# a plain typedef names the identifier before its `;` (or array bound) -- unless a `)` comes
+# right before it: that is a function or member-pointer declarator's trailing cv, whose name is
+# read below (`typedef int (Owner::*Callback)() const;` declares Callback, not const)
 STLPORT_TYPEDEF = re.compile(r"\btypedef\b[^;{}]*?\b([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)?;")
-STLPORT_FN_TYPEDEF = re.compile(r"\btypedef\b[^;{}]*?\(\s*(?:_STLP_\w+\s*)*\*\s*([A-Za-z_]\w*)\s*\)\s*\(")
-# sha256 over the public headers (stlport_files: the files in stlport/ itself and everything
-# under stlport/stl/, as sorted relative paths and contents): the vendored tree the index
-# trusts. Neither git history nor refs are read; a change to these headers moves this pin in
-# its own reviewed commit.
-STLPORT_MANIFEST = "1e29e3c3ab663685a69cddf9315032e8b93fe4ee9db249a0c6d281661475d749"
+# `typedef R (*name)(...)` and `typedef R (Owner::*name)(...) const`: the declarator in parentheses
+STLPORT_FN_TYPEDEF = re.compile(r"\btypedef\b[^;{}]*?\(\s*(?:_STLP_\w+\s*)*"
+                                r"(?:[A-Za-z_]\w*\s*(?:<[^;{}()]*>)?\s*::\s*)*\*\s*([A-Za-z_]\w*)\s*\)\s*\(")
+C_CONTINUATION = re.compile(r"\\\r?\n")
+# never a declared name: a last guard behind the patterns above
+C_KEYWORDS = frozenset("""
+    auto bool break case catch char class const const_cast continue default delete do double
+    dynamic_cast else enum explicit extern false float for friend goto if inline int long mutable
+    namespace new operator private protected public register reinterpret_cast return short signed
+    sizeof static static_cast struct switch template this throw true try typedef typeid typename
+    union unsigned using virtual void volatile wchar_t while""".split())
+# The pin: sha256 and file count of the public headers (stlport_files: the files in stlport/
+# itself and everything under stlport/stl/, as sorted relative paths, lengths and contents),
+# kept in a hook-protected data file (tools/protected_paths.py): the vendored tree the index
+# trusts. Neither git history nor refs are read; a change to these headers moves the pin in its
+# own reviewed (Verifier-Change) commit.
+STLPORT_MANIFEST = "reverse/stlport_manifest.txt"
 
 
 def stlport_names(text):
-    """The record and typedef names `text` declares, comments, string literals and
-    preprocessor lines stripped."""
-    code = C_DIRECTIVE.sub(" ", C_NOISE.sub(" ", text))
-    return set(STLPORT_RECORD.findall(code)) | set(STLPORT_TYPEDEF.findall(code)) | \
-        set(STLPORT_FN_TYPEDEF.findall(code))
+    """The record and typedef names `text` declares: line continuations joined, then
+    comments, string literals and preprocessor lines stripped; never a keyword."""
+    # line continuations join first (a `//` comment or a directive continued onto the next
+    # line swallows it), then comments and literals go, then preprocessor lines
+    code = C_DIRECTIVE.sub(" ", C_NOISE.sub(" ", C_CONTINUATION.sub("", text)))
+    names = set(STLPORT_RECORD.findall(code)) | set(STLPORT_FN_TYPEDEF.findall(code))
+    names |= {m.group(1) for m in STLPORT_TYPEDEF.finditer(code) if not code[:m.start(1)].rstrip().endswith(")")}
+    return names - C_KEYWORDS
 
 
 def stlport_files(ctx):
@@ -3757,16 +3774,29 @@ def stlport_manifest(files):
     return digest.hexdigest()
 
 
+def stlport_pin(ctx):
+    """(sha256, file count) the protected STLPORT_MANIFEST file pins; Refusal when it is
+    missing or not exactly `sha256 <64 hex>` and `files <count>`."""
+    text = (ctx.read(STLPORT_MANIFEST) or b"").decode("ascii", "replace")
+    match = re.fullmatch(r"sha256 ([0-9a-f]{64})\nfiles ([1-9][0-9]*)\n", text)
+    if not match:
+        raise Refusal(f"{STLPORT_MANIFEST} is missing or not `sha256 <hex>` and `files <count>`: the STLport "
+                      "index has no pin")
+    return match.group(1), int(match.group(2))
+
+
 def stlport_declared(ctx):
     """Every class, struct, union and typedef name the vendored STLport public headers declare,
-    read from disk once their manifest equals STLPORT_MANIFEST; Refusal otherwise."""
+    read from disk once their manifest and count equal the pin (stlport_pin); Refusal otherwise."""
     key = "_stlport_declared"
     if key not in ctx._cache:
         files = stlport_files(ctx)
         got = stlport_manifest(files)
-        if got != STLPORT_MANIFEST:
+        pinned, count = stlport_pin(ctx)
+        if (got, len(files)) != (pinned, count):
             raise Refusal(f"{STLPORT_HEADERS}'s public headers ({len(files)} files) hash to {got[:16]}, not the "
-                          f"pinned {STLPORT_MANIFEST[:16]}: the STLport index is read only from the pinned tree")
+                          f"pinned {pinned[:16]} ({count} files, {STLPORT_MANIFEST}): the STLport index is read "
+                          "only from the pinned tree")
         names = set()
         for _rel, data in files:
             names |= stlport_names(data.decode("latin-1"))

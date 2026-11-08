@@ -67,6 +67,8 @@ PROTECTED = (
     "reverse/publisher_mode",
     # the image-ownership metric checks signed history with an external key pin
     "tools/image_ownership.py",
+    # the pinned vendored STLport headers rename.py's identity respell trusts
+    "reverse/stlport_manifest.txt",
     # the hooks that run all of the above
     ".githooks/*", ".github/workflows/*",
     # debt registers and exemption lists

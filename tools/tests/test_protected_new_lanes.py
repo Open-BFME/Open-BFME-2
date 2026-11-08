@@ -11,7 +11,9 @@ import pytest
 CHECKER = Path(__file__).resolve().parents[1] / 'protected_paths.py'
 HOOK = Path(__file__).resolve().parents[2] / '.githooks' / 'commit-msg'
 PATHS = ('tools/flag_defaults.py', 'reverse/flag_overrides.csv', 'tools/eh_verify.py',
-         'tools/compiler_profiles.py', 'vendor/clang23-x86/compiler.zip')
+         'tools/compiler_profiles.py', 'vendor/clang23-x86/compiler.zip',
+         # the STLport pin rename.py's identity respell trusts
+         'reverse/stlport_manifest.txt')
 
 def run(root, *args, input=None):
     env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull,

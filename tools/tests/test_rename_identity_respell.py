@@ -133,7 +133,7 @@ def agree(root, rid, old, new, rva, agents=("seat-a", "seat-b"), source=OWNER):
 
 
 @pytest.fixture
-def tree(tmp_path, monkeypatch):
+def tree(tmp_path):
     files = {
         "reverse/functions.csv": FUNCTIONS,
         "reverse/symbols.csv": "name,address,notes\n",
@@ -153,12 +153,12 @@ def tree(tmp_path, monkeypatch):
     }
     for rel, text in files.items():
         write(tmp_path / rel, text)
+    pinned = rename.stlport_files(rename.Context(tmp_path, object_scan=False))
+    write(tmp_path / rename.STLPORT_MANIFEST, f"sha256 {rename.stlport_manifest(pinned)}\nfiles {len(pinned)}\n")
     agree(tmp_path, "nl-op", OLD_OP, NEW_OP, OP)
     agree(tmp_path, "nl-wrap", OLD_WRAP, NEW_WRAP, WRAP)
     _git(tmp_path, "init", "-q")
     commit(tmp_path, "seed")
-    monkeypatch.setattr(rename, "STLPORT_MANIFEST",
-                        rename.stlport_manifest(rename.stlport_files(rename.Context(tmp_path, object_scan=False))))
     return tmp_path
 
 
@@ -1166,3 +1166,61 @@ def test_every_relocation_of_an_overflowed_section_is_walked():
     data = bytearray(coff([(".text", TEXT | 0x01000000, b"\xc3", [(1, 0, 0)])], [("dummy", 0, 1, 0x20, 2, 0)]))
     struct.pack_into("<H", data, 20 + 32, 0xFFFF)
     assert "overflow relocation count is 1" in rename.coff_layout_problem(bytes(data))
+
+
+
+# ------------------------------------------------- round 7 of the review (review-identity-respell-r7)
+
+def test_the_manifest_is_a_protected_path():
+    """Finding 1: the pin lives in a data file the Verifier-Change hook protects (the
+    trailerless-commit refusal itself runs in test_protected_new_lanes.py)."""
+    import protected_paths
+    assert rename.STLPORT_MANIFEST == "reverse/stlport_manifest.txt"
+    assert protected_paths.protected([rename.STLPORT_MANIFEST])
+
+
+def test_the_committed_manifest_pins_the_real_headers():
+    sha, count = rename.stlport_pin(rename.Context(rename.ROOT, object_scan=False))
+    files = rename.stlport_files(rename.Context(rename.ROOT, object_scan=False))
+    assert (sha, count) == (rename.stlport_manifest(files), len(files)) == (sha, 236)
+
+
+def test_a_missing_or_malformed_manifest_refuses(tree):
+    for text in (None, "sha256 abc\nfiles 1\n", "sha256 " + "0" * 64 + "\n"):
+        path = tree / rename.STLPORT_MANIFEST
+        if text is None:
+            path.unlink()
+        else:
+            write(path, text)
+        with pytest.raises(Refusal, match="no pin"):
+            rename.stlport_declared(rename.Context(tree, object_scan=False))
+
+
+def test_a_wrong_file_count_refuses(tree):
+    sha, count = rename.stlport_pin(rename.Context(tree, object_scan=False))
+    write(tree / rename.STLPORT_MANIFEST, f"sha256 {sha}\nfiles {count + 1}\n")
+    with pytest.raises(Refusal, match="not the pinned"):
+        rename.stlport_declared(rename.Context(tree, object_scan=False))
+
+
+def test_member_pointer_typedefs_and_keywords():
+    """Finding 2: `typedef int (Owner::*Callback)() const;` declares Callback, never `const`."""
+    assert rename.stlport_names("typedef int (Owner::*Callback)() const;") == {"Callback"}
+    assert rename.stlport_names("typedef void (_Tp::*_Fn)(int) const;") == {"_Fn"}
+    assert rename.stlport_names("typedef unsigned const;") == set()      # the keyword guard
+    # a macro's parentheses inside a plain typedef do not hide its name
+    assert rename.stlport_names("typedef rope<char, _STLP_DEFAULT_ALLOCATOR(char) > crope;") == {"crope"}
+
+
+def test_continued_comments_and_macros_declare_nothing():
+    """Finding 2: a continuation joins first, so a `//` comment or a directive swallows the next line."""
+    assert rename.stlport_names("// comment \\\nclass FakeComment {};") == set()
+    assert rename.stlport_names("#define X // comment \\\nclass FakeMacro {};") == set()
+    assert rename.stlport_names("#define M \\\r\nclass Leak {};\r\nclass Kept {};\r\n") == {"Kept"}
+
+
+def test_the_real_index_has_no_keyword():
+    declared = rename.stlport_declared(rename.Context(rename.ROOT, object_scan=False))
+    assert not declared & rename.C_KEYWORDS
+    assert "const" not in declared
+    assert {"crope", "wrope", "bit_vector"} <= declared
