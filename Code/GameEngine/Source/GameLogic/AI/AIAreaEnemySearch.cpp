@@ -173,25 +173,7 @@ struct Rva002FDB93Best
 	const Object *m_hunter;	// +0x08
 };
 
-template <int N> class Rva002FF8DDSlots : public Rva002FF8DDSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class Rva002FF8DDSlots<0>
-{
-};
-
-class ContainModuleInterface : public Rva002FF8DDSlots<55>
-{
-public:
-	virtual bool rva002FF8DDSlot55(Object *rider, Object **target) = 0;	// slot 55
-	virtual void slot56() = 0; virtual void slot57() = 0; virtual void slot58() = 0;
-	virtual void slot59() = 0; virtual void slot60() = 0; virtual void slot61() = 0;
-	virtual void slot62() = 0; virtual void slot63() = 0; virtual void slot64() = 0;
-	virtual void slot65() = 0; virtual void slot66() = 0; virtual void slot67() = 0;
-	virtual void iterateContained(ContainIterateFunc func, void *userData, bool reverse) = 0;	// slot 68
-};
+#include "../../../Include/GameLogic/Module/ContainModule.h"
 
 enum ObjectStatusTypes
 {
@@ -233,7 +215,7 @@ Object *AI::rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackP
 			if (contain)
 			{
 				Object *target;
-				if (contain->rva002FF8DDSlot55(owner, &target))
+				if (contain->slot55(owner, &target))
 				{
 					if (!target)
 						return 0;

@@ -621,8 +621,8 @@ Bool ScriptConditions::rva003E8863(Parameter *playerParm, Parameter *countParm, 
 					ContainModuleInterface *contain = obj->getContain();
 					if (contain)
 					{
-						ContainModuleInterfaceItems items = contain->slot70();
-						for (ContainedItemsNode *node = ((const ContainedItemsList *)items.field04)->m_node->m_next; node != ((const ContainedItemsList *)items.field04)->m_node; node = node->m_next)
+						Rva0046247DPair items = contain->slot70();
+						for (ContainedItemsNode *node = ((const ContainedItemsList *)items.m04)->m_node->m_next; node != ((const ContainedItemsList *)items.m04)->m_node; node = node->m_next)
 						{
 							Object *loaded = node->m_data;
 							if (loaded && loaded->getTemplate()->isEquivalentTo(loadedTemplate))

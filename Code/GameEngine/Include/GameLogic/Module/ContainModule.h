@@ -18,7 +18,9 @@
 // Its unsigned result is established by evaluateIsBuildingEmpty at
 // 0x003E4079, which tests it against zero with an unsigned comparison.
 // Slots 70/71 (0x004647D8/0x004624EB) return two-pointer aggregates
-// through a hidden result pointer, containing this and a list address.
+// through a hidden result pointer, containing this and a list address:
+// the registered Rva0046247DPair, which 0x0046247D also fills and
+// ScriptConditions 0x003E892D receives through [eax+0x118].
 // Slot 53's HordeSiegeEngineContain override 0x0047CADB returns float;
 // slot 58 is 0x004631FA (ObjectID test). Slots 86/87 are distinct
 // Coord3D* getters at 0x004626CA/0x004626AF, not one shared name.
@@ -41,6 +43,10 @@
 // HordeContain's 0x0046731A (ret 4). Slot 66 is 0x00463191 (Object*, bool;
 // HordeContain's 0x0046BA56 row spells the flag int). Slot 79 is 0x00463291
 // (Object* from a Rva2225E0Filter*).
+// Slot 55 (0x004628AB in every contain table) forwards both arguments to the
+// container's slot 55. Its caller 0x002FFA06 passes the Object it tests at
+// 0x002FF9DF and the address of a word whose value then goes to the
+// Object* filter row 0x00625720 (0x002FFA2C).
 // Donor facts: Zero Hour's ContainModule.h supplies the containment method
 // names and has no parent or destructor. BFME2's table and call sites,
 // rather than the donor's shorter slot order, place the named methods.
@@ -64,11 +70,7 @@ enum WeaponLockType;
 
 typedef void (*ContainIterateFunc)(Object *object, void *userData);
 
-struct ContainModuleInterfaceItems
-{
-    ContainModuleInterface *field00;
-    const void *field04;
-};
+#include "Rva0046247DPair.h"
 
 class ContainModuleInterface
 {
@@ -128,7 +130,7 @@ public:
     virtual bool slot52() = 0;
     virtual float slot53() = 0;
     virtual bool slot54() const = 0;
-    virtual void slot55() = 0;
+    virtual bool slot55(const Object *rider, Object **target) = 0;
     virtual const Player *slot56() const = 0;
     virtual void slot57() = 0;
     virtual bool slot58(int objectId) = 0;
@@ -143,8 +145,8 @@ public:
     virtual void slot67() = 0;
     virtual void iterateContained(ContainIterateFunc func, void *userData, int flags) = 0;
     virtual unsigned int getContainCount(Rva2225E0Filter *filter = 0) = 0;
-    virtual ContainModuleInterfaceItems slot70() = 0;
-    virtual ContainModuleInterfaceItems slot71() = 0;
+    virtual Rva0046247DPair slot70() = 0;
+    virtual Rva0046247DPair slot71() = 0;
     virtual void slot72() = 0;
     virtual void slot73() = 0;
     virtual void slot74() = 0;

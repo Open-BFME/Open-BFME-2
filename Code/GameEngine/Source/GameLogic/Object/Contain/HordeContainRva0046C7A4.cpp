@@ -105,11 +105,7 @@ public:
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 // The +0x20 contain interface (vtable 0x00C44EC8): slot 70 fills the
 // contained-items pair.
-class ContainModuleInterface : public Rva0046C7A4Slots<70>
-{
-public:
-	virtual void rva0046D27ASlot70(Rva0046247DPair &p) = 0;
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 class TransportContain : public UpdateModule, public BehaviorModuleInterface, public UpdateModuleInterface, public ContainModuleInterface
 {
 private:
@@ -133,8 +129,7 @@ private:
 
 Object *HordeContain::rva0046C7A4(bool skipStatus, const Coord3D *pos, float maxDistance, Object *attacker, int useClientRandom)
 {
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
+	Rva0046247DPair p = slot70();
 
 	float limit = 99999.0f;
 	if (0.0f < maxDistance)

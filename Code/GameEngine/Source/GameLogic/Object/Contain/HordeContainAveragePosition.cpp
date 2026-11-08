@@ -74,17 +74,6 @@ private:
 	UnsignedInt m_status94; // +0x94
 };
 
-template <int N> class HordeAverageSlots : public HordeAverageSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class HordeAverageSlots<1>
-{
-public:
-	virtual void gap(char (*)[1]) = 0;
-};
-
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 
 extern TerrainLogic *TheTerrainLogic;
@@ -104,11 +93,7 @@ protected:
 };
 
 // The +0x20 contain interface: slot 70 fills the contained-items pair.
-class ContainModuleInterface : public HordeAverageSlots<70>
-{
-public:
-	virtual void rva0046D27ASlot70(Rva0046247DPair &p) = 0;
-};
+#include "../../../../Include/GameLogic/Module/ContainModule.h"
 
 class HordeContainBase : public HordeContainModuleBase, public ContainModuleInterface
 {
@@ -135,8 +120,7 @@ private:
 void HordeContain::rva0046D4BD(Coord3D *out, Coord3D *normal)
 {
 	UnsignedInt count = 0;
-	Rva0046247DPair p;
-	rva0046D27ASlot70(p);
+	Rva0046247DPair p = slot70();
 	_STL::list<Object *>::const_iterator it = ((const _STL::list<Object *> *)p.m04)->begin();
 	Coord3D sum;
 	sum.z = 0.0f;
