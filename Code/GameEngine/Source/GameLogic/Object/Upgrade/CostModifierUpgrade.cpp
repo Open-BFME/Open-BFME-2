@@ -262,14 +262,7 @@ private:
 // flagged at +0x3FC).
 enum CommandSourceType { CMD_FROM_PLAYER = 0 };
 
-class AIUpdateInterface
-{
-protected:
-	virtual void privateIdle(CommandSourceType cmdSource);						// 0x0026D5FB
-	virtual void privateDock(Object *obj, CommandSourceType cmdSource);			// 0x0026481B
-	virtual void privateHarvest(const Coord3D *pos, CommandSourceType cmdSource);	// 0x00264853
-	char m_pad004[0x3E4 - 4];
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva004A6AB5Iface
 {

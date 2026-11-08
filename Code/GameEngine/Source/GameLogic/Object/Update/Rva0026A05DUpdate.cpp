@@ -140,69 +140,7 @@ public:
 	void rva00265AAB(Object00265AAB *object, int *sleep);
 };
 
-template <int N> class AIUpdateVSlots : public AIUpdateVSlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class AIUpdateVSlots<0>
-{
-};
-
-class AIUpdateInterface : public AIUpdateVSlots<110>
-{
-public:
-	virtual bool slot110();
-	virtual void slot111();
-	virtual void slot112();
-	virtual bool slot113();
-	virtual void slot114(); virtual void slot115(); virtual void slot116();
-	virtual void slot117(); virtual void slot118(); virtual void slot119();
-	virtual void slot120(); virtual void slot121(); virtual void slot122();
-	virtual void slot123(); virtual void slot124(); virtual void slot125();
-	virtual void slot126(); virtual void slot127(); virtual void slot128();
-	virtual void slot129(); virtual void slot130(); virtual void slot131();
-	virtual void slot132(); virtual void slot133(); virtual void slot134();
-	virtual void slot135();
-	virtual void setLocomotorGoalNone();
-	virtual void slot137(); virtual void slot138(); virtual void slot139();
-	virtual void slot140(); virtual void slot141(); virtual void slot142();
-	virtual void slot143(); virtual void slot144(); virtual void slot145();
-	virtual void slot146(); virtual void slot147(); virtual void slot148();
-	virtual int doLocomotor();
-
-	UpdateSleepTime rva0026A05D();
-	void destroyPath();
-	void ignoreObstacle(const Object *obj);
-
-	Object *getObject() const { return m_object; }
-	AIStateMachine *getStateMachine() const { return m_stateMachine; }
-
-	char m_pad04[4];
-	Object *m_object;
-	char m_pad0C[0x30 - 0x0C];
-	AIStateMachine *m_stateMachine;
-	void *m_34;
-	char m_pad38[0x13C - 0x38];
-	void *m_completedWaypoint;
-	char m_pad140[0x17C - 0x140];
-	unsigned int m_queueForPathFrame;
-	Coord3D m_finalPosition;
-	char m_pad18C[0x1FC - 0x18C];
-	int m_1FC;
-	char m_pad200[0x3B0 - 0x200];
-	bool m_3B0;
-	char m_pad3B1[0x3B6 - 0x3B1];
-	bool m_movementComplete;
-	char m_pad3B7[0x3BD - 0x3B7];
-	bool m_isAiDead;
-	char m_pad3BE[0x3C2 - 0x3BE];
-	bool m_isInUpdate;
-	char m_pad3C3[0x3C8 - 0x3C3];
-	bool m_3C8;
-	char m_pad3C9[0x3E0 - 0x3C9];
-	bool m_3E0;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 UpdateSleepTime AIUpdateInterface::rva0026A05D()
 {
@@ -217,14 +155,14 @@ UpdateSleepTime AIUpdateInterface::rva0026A05D()
 	((Rva00264069ObserverPrefix *)this)->refresh();
 	if (obj->m_25C && obj->m_25C->m_5C) {
 		if (obj->isEffectivelyDead()) {
-			if (getStateMachine()->getCurrentStateID() == 13 || ((BfmeSub932C *)getStateMachine())->bfmeQuery932C())
+			if (m_stateMachine->getCurrentStateID() == 13 || ((BfmeSub932C *)m_stateMachine)->bfmeQuery932C())
 				return UPDATE_SLEEP_NONE;
-			getStateMachine()->setState(13);
+			m_stateMachine->setState(13);
 			getObject()->clearModelConditionState(61);
 			getObject()->clearModelConditionState(156);
 			return UPDATE_SLEEP_NONE;
 		} else {
-			if (getStateMachine()->getCurrentStateID() != 0) {
+			if (m_stateMachine->getCurrentStateID() != 0) {
 				destroyPath();
 				setLocomotorGoalNone();
 			}
@@ -235,31 +173,31 @@ UpdateSleepTime AIUpdateInterface::rva0026A05D()
 		}
 	}
 
-	if (!slot110())
-		m_3C8 = true;
-	m_isInUpdate = true;
+	if (!isIdle())
+		m_field3C8 = true;
+	m_field3C2 = true;
 	m_completedWaypoint = 0;
-	bool f34 = m_34 != 0;
-	m_3E0 = f34;
-	if (m_3E0 != f34) m_3E0 = f34;
-	AIStateMachine *sm = getStateMachine();
+	bool f34 = m_nextEnemyScanTime != 0;
+	m_field3E0 = f34;
+	if (m_field3E0 != f34) m_field3E0 = f34;
+	AIStateMachine *sm = m_stateMachine;
 	AIStateMachineTable *tab = *(AIStateMachineTable **)sm;
 	int subMachineSleep = UPDATE_SLEEP_FOREVER;
 	int stRet = (sm->*tab->updateStateMachine)();
-	m_3E0 = false;
+	m_field3E0 = false;
 	if (stRet > 0) {
 		if (stRet < UPDATE_SLEEP_FOREVER)
 			subMachineSleep = stRet;
 	} else {
 		subMachineSleep = UPDATE_SLEEP_NONE;
 	}
-	if (slot113())
+	if (rva00262DA3())
 		return (UpdateSleepTime)subMachineSleep;
 
-	if (m_movementComplete) {
-		m_queueForPathFrame = 0;
+	if (m_field3B6) {
+		m_field17C = 0;
 		destroyPath();
-		if (m_1FC != 3)
+		if (m_field1FC != 3)
 			setLocomotorGoalNone();
 		getObject()->clearModelConditionState(61);
 		getObject()->clearModelConditionState(156);
@@ -271,22 +209,22 @@ UpdateSleepTime AIUpdateInterface::rva0026A05D()
 				goalPos = *getObject()->getPosition();
 				Rva002EDE5B(getObject(), &goalPos);
 			}
-			m_finalPosition = goalPos;
-			m_3B0 = false;
+			m_field180 = goalPos;
+			m_field3B0 = false;
 			if (!obj->getTemplate()->isKindOf(109))
 				obj->rva0028ACEE((int)&goalPos, getObject()->rva0028B511());
 		}
-		m_movementComplete = false;
+		m_field3B6 = false;
 		ignoreObstacle(0);
 	}
 
 	unsigned int now = TheGameLogic->getFrame();
-	if (m_queueForPathFrame != 0) {
-		if (now >= m_queueForPathFrame) {
+	if (m_field17C != 0) {
+		if (now >= m_field17C) {
 			TheAI->pathfinder()->queueForPath(getObject()->getID());
-			m_queueForPathFrame = 0;
+			m_field17C = 0;
 		} else {
-			unsigned int sleepForPathDelta = m_queueForPathFrame - now;
+			unsigned int sleepForPathDelta = m_field17C - now;
 			if (sleepForPathDelta < (unsigned int)subMachineSleep)
 				subMachineSleep = sleepForPathDelta;
 		}
@@ -295,11 +233,11 @@ UpdateSleepTime AIUpdateInterface::rva0026A05D()
 	((Rva00265AAB *)this)->rva00265AAB((Object00265AAB *)obj, &subMachineSleep);
 
 	int sleep;
-	if (m_isAiDead && getStateMachine()->getCurrentStateID() != 13) {
-		getStateMachine()->rva0035033F();
-		getStateMachine()->clear();
-		getStateMachine()->setState(13);
-		getStateMachine()->m_locked = true;
+	if (m_field3BD && m_stateMachine->getCurrentStateID() != 13) {
+		m_stateMachine->rva0035033F();
+		m_stateMachine->clear();
+		m_stateMachine->setState(13);
+		m_stateMachine->m_locked = true;
 		sleep = UPDATE_SLEEP_NONE;
 	} else {
 		sleep = subMachineSleep;
@@ -309,7 +247,7 @@ UpdateSleepTime AIUpdateInterface::rva0026A05D()
 	if (locomotorSleep < sleep)
 		sleep = locomotorSleep;
 
-	m_isInUpdate = false;
+	m_field3C2 = false;
 	if (!(m_completedWaypoint == 0)) {
 		return UPDATE_SLEEP_NONE;
 	} else {

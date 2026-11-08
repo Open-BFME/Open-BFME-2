@@ -29,8 +29,8 @@ class GameEngine;
 extern GameEngine *TheGameEngine;
 struct TurretEngineView {char pad[0x3c];float fraction;};
 enum WhichTurretType {TURRET_PRIMARY=0};
-class AIUpdateInterface {public:bool getTurretRotAndPitch(WhichTurretType,float*,float*)const;char pad[0x30];const struct TurretGoalView *goal;};
-struct TurretGoalView {char pad[0x24];Coord3D position;};
+#include "../../../../../../GameEngine/Include/GameLogic/Module/AIUpdate.h"
+#include "../../../../../../GameEngine/Include/GameLogic/AIStateMachineClass.h"
 class Object {public:float GetRelativeAngle(const Coord3D*)const;char pad[0x258];AIUpdateInterface *ai;};
 struct TurretDrawableView {char pad[0xfc];Object *object;};
 class TurretRenderView {public:
@@ -150,7 +150,7 @@ void W3DModelDraw::handleClientTurretPositioning() {
    if(obj) {
     const AIUpdateInterface *ai=obj->ai;
     if(ai && !ai->getTurretRotAndPitch((WhichTurretType)tslot,&angle,&pitch)) {
-     Coord3D pos;turretCoordCopy(&pos,&ai->goal->position);
+     Coord3D pos;turretCoordCopy(&pos,ai->m_stateMachine->getGoalPosition());
      angle=obj->GetRelativeAngle(&pos);
     }
    }

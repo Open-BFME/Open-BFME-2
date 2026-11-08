@@ -69,14 +69,7 @@ class SpecialPowerModuleInterface;
 
 #include "../../../../Include/GameLogic/AttackPriorityInfo.h"
 
-class AIUpdateInterface
-{
-public:
-	const AttackPriorityInfo *getAttackInfo() const { return m_attackInfo; }
-private:
-	unsigned char m_pad00[0x70];
-	const AttackPriorityInfo *m_attackInfo;	// +0x70
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 class Rva000421C8
 {
@@ -483,7 +476,7 @@ Object *CommandButtonHuntUpdate::scanClosestTarget()
 	Real actualPriority = 0;
 	const AttackPriorityInfo *info = 0;
 	if (me->getAI())
-		info = me->getAI()->getAttackInfo();
+		info = me->getAI()->m_attackInfo;
 
 	SpecialPowerModuleInterface *mod = me->getSpecialPowerModule(spTemplate);
 	if (mod) {
