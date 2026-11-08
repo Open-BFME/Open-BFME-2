@@ -77,6 +77,10 @@ struct hash<NameKeyType>
 
 }
 typedef _STL::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> > ArmorRtsMap;
+// Declared only: retail's resize is the rowed body at 0x0053F1EC, which hashes the key alone. This unit's hash reads a second word past the
+// 4-byte key, and Armor.cpp's alias binds NameKeyGenerator's KeyToBucketMap::resize to this name, so a copy here misfiled the generator's
+// reverse index on every growth and keyToName then found nothing.
+namespace _STL { template <> void hashtable<pair<NameKeyType const, ArmorTemplate>, NameKeyType, rts::hash<NameKeyType>, _Select1st<pair<NameKeyType const, ArmorTemplate> >, rts::equal_to<NameKeyType>, allocator<pair<NameKeyType const, ArmorTemplate> > >::resize(unsigned int); }
 // Retain the original insertion wrappers and their provisional type view.
 // The pinned insert_unique_noresize at 0x005472F8 is not reproduced by
 // this instantiation; these rows remain deferred for layout/identity repair.
