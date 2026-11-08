@@ -17028,8 +17028,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00878948,28,.rdata,string,??_C@_0BJ@EKFDLKCP@_OnRollOverCommandPoints?$AA@,,literal,,0,1
 0x00878964,4,.rdata,vtable,??_7Rva005EFDDB@@6B@,,literal,,0,2
 0x00878968,184,.rdata,string,??_C@_0BB@NKNKCNIL@SetIconSlotCount?$AA@,,literal,,0,2
-0x00878A20,56,.rdata,global,?unitKinds@?1??rva005EFFA6@Rva005EFFA6@@QAEXPAVINI@@@Z@4QBURva005EFFA6Name@@B,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,1
-0x00878A58,32,.rdata,global,?buildingKinds@?1??rva005EFFA6@Rva005EFFA6@@QAEXPAVINI@@@Z@4QBURva005EFFA6Name@@B,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,1
+0x00878A20,56,.rdata,global,?unitKinds@?1??rva005EFFA6@MappedImageCache@@UAEXPAVINI@@@Z@4QBURva005EFFA6Name@@B,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,1
+0x00878A58,32,.rdata,global,?buildingKinds@?1??rva005EFFA6@MappedImageCache@@UAEXPAVINI@@@Z@4QBURva005EFFA6Name@@B,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,1
 0x00878A78,8,.rdata,vtable,??_7Rva005F00FB@@6B@,,literal,,0,1
 0x00878A80,200,.rdata,string,??_C@_0L@BDLPLNHK@TypeImages?$AA@,,literal,,0,1
 0x00878B48,244,.rdata,global,_s_buildingTooltips,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIGetTypeImage.cpp,owned,,1,2
@@ -33590,8 +33590,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A06778,8,.data,global,?g_Va00E06778@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,2
 0x00A06780,4,.data,global,?g_DynamicAutoResolveStepFrames@@3HA,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialogImpl.cpp,owned,,1,2
 0x00A06784,4,.data,global,_s_rva007B5197,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A06788,192,.data,global,?table@?1??rva005EFFA6@Rva005EFFA6@@QAEXPAVINI@@@Z@4PAUFieldParse@@A,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,1
-0x00A06848,8,.data,global,?built@?1??rva005EFFA6@Rva005EFFA6@@QAEXPAVINI@@@Z@4_NA,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,2
+0x00A06788,192,.data,global,?table@?1??rva005EFFA6@MappedImageCache@@UAEXPAVINI@@@Z@4PAUFieldParse@@A,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,1
+0x00A06848,8,.data,global,?built@?1??rva005EFFA6@MappedImageCache@@UAEXPAVINI@@@Z@4_NA,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,owned,,1,2
 0x00A06850,8,.data,global,_s_rva007B51DB,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A06858,112,.data,global,?Rva00A06858@@3VMappedImageCache@@A,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,owned,,1,5
 0x00A068C8,4,.data,global,?noArtImage@?1??GetButtonImage@StrategicInGameUI@@YAPBVImage@@PBUStrategicButtonImageView@@H@Z@4PBV3@B,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIGetButtonImage.cpp,owned,,1,3

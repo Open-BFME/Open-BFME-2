@@ -29,11 +29,14 @@ private:
 	void *m_at4;
 };
 
+class INI;
+
 class MappedImageCache : public Rva0022167C
 {
 public:
 	MappedImageCache();
 	virtual ~MappedImageCache();
+	virtual void rva005EFFA6(INI *ini);
 
 private:
 	AsciiString m_at8[5];  // +0x08, twenty bytes
