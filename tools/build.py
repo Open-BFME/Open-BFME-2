@@ -1324,8 +1324,8 @@ def source_extra_flags(source):
         try:
             resolved(source).relative_to(GENERALS_REFERENCE_ROOT)
         except ValueError:
-            return _ZH_FLAGS
-        return _GENERALS_FLAGS
+            return _allowed_flags(source, _ZH_FLAGS)
+        return _allowed_flags(source, _GENERALS_FLAGS)
     with source.open("r", encoding="utf-8-sig", errors="replace") as handle:
         text = handle.read()
         split = cl_flags.directive_split(text)
@@ -1516,7 +1516,45 @@ def compiler_command(source, output):
         f"-Fo{output_arg}",
         source_arg,
     ]
+    check_command_includes(source, command)
     return command, environment
+
+
+def check_command_includes(source, command):
+    """Refuse a command any of whose /I or /FI operands, in cl_flags.canonical_include's spelling,
+    is not in reverse/cl_include_roots.txt: what build.py adds itself (the SDKs, the STLport
+    overlay, the retry directories, the SAGE trees) is checked like what a source names, on the
+    command cl.exe will run."""
+    values = _include_values()
+    if values is None:
+        return
+    toolchain = _toolchain_root()
+    unlisted = [operand for operand in cl_flags.include_operands(command)
+                if cl_flags.canonical_include(operand, str(ROOT), toolchain) not in values]
+    if unlisted:
+        raise cl_flags.Refused(f"cl flags: {source}: include operand(s) {unlisted} are not in "
+                               f"{cl_flags.INCLUDE_ROOTS}")
+
+
+@functools.lru_cache(maxsize=1)
+def _toolchain_root():
+    return str(vc71_root())
+
+
+def run_confined(command, env, output):
+    """Run a cl `command` a tool built with compiler_command (data_rows' probes) under include
+    confinement: /showIncludes added, and a compile that opened a file outside the roots fails
+    with its object deleted. (returncode, output text)."""
+    check_command_includes(Path(command[-1]), command)
+    with tempfile.NamedTemporaryFile("w+", errors="replace") as log:
+        result = _run_compile(command + ["-showIncludes"], env, log, None)
+        log.seek(0)
+        text = log.read()
+    escape = include_confinement(text) if result.returncode == 0 else None
+    if escape:
+        Path(output).unlink(missing_ok=True)
+        return 1, f"include confinement: {escape}\n{text}"
+    return result.returncode, text
 
 
 def _host_path(text):
@@ -2079,6 +2117,9 @@ def compile_is_current(source, output, *, strict=False, inventory_cache=None):
         return False
     if meta.get("source") != _hash_file(str(source)):
         return False
+    if source.suffix.lower() == ".asm" and cl_flags.asm_directives(
+            source.read_text(encoding="utf-8", errors="replace")):
+        return False      # ml.exe read what no receipt records
     roots = _include_roots()
     for dep, digest in meta.get("deps", {}).items():
         if not cache_path_is_valid(dep):
@@ -2576,9 +2617,15 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
         _deps_sidecar(output).unlink(missing_ok=True)
     command, env = compiler_command(source, output)
     is_cl = source.suffix.lower() != ".asm"
-    if not is_cl and re.search(r"include", source.read_text(encoding="utf-8", errors="replace"), re.I):
-        # ml.exe lists no included file, so include confinement cannot see one: refuse any.
-        return False, f"include confinement: {source}: an assembler source names an include", 1
+    if not is_cl:
+        facilities = cl_flags.asm_directives(source.read_text(encoding="utf-8", errors="replace"))
+        if facilities:
+            # ml.exe lists no included file, so include confinement cannot see one: refuse an
+            # include and everything that can build one, and leave no object to reuse.
+            output.unlink(missing_ok=True)
+            _deps_sidecar(output).unlink(missing_ok=True)
+            return False, (f"include confinement: {source}: an assembler source uses "
+                           f"{', '.join(facilities)} (tools/cl_flags.py asm_directives)"), 1
     # Fingerprint the BASE command: the sweep-include retry below is a
     # deterministic function of these same inputs, so cache validity holds.
     fingerprint = _cmd_fingerprint(command, env)
@@ -2602,6 +2649,8 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False, tim
         # line), not the host's: a byte the host encoding cannot decode is
         # replaced, so it never aborts the compile or loses the message. A
         # named file, as in wine_path: Wine 8 loses output to an unnamed one
+        if is_cl:
+            check_command_includes(source, command)   # the sweep retry below adds directories
         with tempfile.NamedTemporaryFile("w+", errors="replace") as log:
             result = _run_compile(command + (["-showIncludes"] if is_cl else []), env, log, timeout)
             log.seek(0)

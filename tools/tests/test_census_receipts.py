@@ -313,6 +313,9 @@ def test_virtual_historical_line_filename_is_preserved_not_opened(tmp_path, monk
 
 
 def test_successful_sweep_retry_gets_its_actual_command_receipt(tmp_path, monkeypatch):
+    # a synthetic checkout with invented include directories: reverse/cl_include_roots.txt
+    # (tools/tests/test_cl_flags.py) is not what this tests
+    monkeypatch.setattr(build, "_include_values", lambda: None)
     source, header, obj, command, env, run = fixture(tmp_path, monkeypatch)
     sweep = tmp_path / 'sweep'
     sweep.mkdir()

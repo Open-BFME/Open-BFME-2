@@ -35,6 +35,8 @@ A `// cl:` directive is a line to build.py (str.splitlines, which also breaks at
 
   python3 tools/cl_flags.py --write-include-roots   # rewrite reverse/cl_include_roots.txt from the tree
 """
+import os
+import posixpath
 import re
 import sys
 from pathlib import Path
@@ -148,6 +150,53 @@ def include_operands(tokens):
     return values
 
 
+OVERLAY = re.compile(r"^build/stlport46/[0-9a-f]{24}(?=/|$)")
+
+
+def canonical_include(operand, root, toolchain):
+    """A final command's /I or /FI operand as INCLUDE_ROOTS spells it. Tools add absolute operands
+    (the SDKs, the retry directories, Wine paths): one under the toolchain becomes
+    `{toolchain}/<rest>` (wherever VC71_ROOT points), one under the checkout its repo-relative
+    path; stlport_overlay's directory (build/stlport46/<digest of committed inputs>) becomes
+    `{overlay}`. Nothing is resolved: any other spelling stays itself and is not listed."""
+    value = include_value(operand)
+    host = None
+    if re.match(r"[A-Za-z]:/", value) or value.startswith("/"):
+        host = value[2:] if os.name != "nt" and value[:2] in ("Z:", "z:") else value
+        host = posixpath.normpath(host.replace("\\", "/"))
+    if host is not None:
+        for base, prefix in ((toolchain, "{toolchain}"), (root, None)):
+            base = posixpath.normpath(base.replace("\\", "/"))
+            folded = (host.lower(), base.lower()) if os.name == "nt" else (host, base)
+            if folded[0] == folded[1] or folded[0].startswith(folded[1] + "/"):
+                rest = host[len(base):].lstrip("/")
+                value = (f"{prefix}/{rest}" if rest else prefix) if prefix else (rest or ".")
+                break
+    return OVERLAY.sub("{overlay}", value)
+
+
+def asm_directives(text):
+    """The MASM include and text-macro facilities in assembler `text` (case-insensitive): any of
+    them can build an INCLUDE that ml.exe reads without listing it (x CATSTR <incl>,<ude>, then x
+    <path>). Directives are matched where MASM honours them, in statement position (first word, or
+    after one name), the @ functions anywhere and % at a line's start, so prose after `;` is not."""
+    found = set()
+    for line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        statement = ASM_STATEMENT.match(line)
+        if statement:
+            found.add(statement.group(1).lower().replace(" ", ""))
+        found.update(m.group(0).lower() for m in ASM_FUNCTION.finditer(line))
+        if re.match(r"\s*%", line):
+            found.add("%")
+    return sorted(found)
+
+
+ASM_DIRECTIVES = (r"include|includelib|catstr|substr|instr|sizestr|textequ|macro|forc|for|irpc|irp|repeat|rept|"
+                  r"while|exitm|purge|comment")
+ASM_STATEMENT = re.compile(rf"(?i)^\s*(?:[\w@?$.]+:?\s+)?((?:{ASM_DIRECTIVES})(?![\w@?$])|equ\s*<)")
+ASM_FUNCTION = re.compile(r"(?i)@(?:catstr|substr|instr|sizestr)\b")
+
+
 def parse_include_roots(text):
     """The values of an INCLUDE_ROOTS file: one per line, `#` comments and blank lines ignored."""
     return frozenset(line.rstrip("\r") for line in text.split("\n")
@@ -200,31 +249,44 @@ def read_directives(text):
 
 def write_include_roots():
     """Write INCLUDE_ROOTS from every source build.py can compile: Code/ and the banked attempts
-    (their `// cl:` lines as written and as build.source_extra_flags rewrites them) and the
-    Open-BFME-1 donors. A source refused for anything else contributes nothing."""
+    (their `// cl:` lines as written, as build.source_extra_flags rewrites them, and every include
+    operand of the final compiler_command, canonical_include's spelling) and the Open-BFME-1
+    donors, with the include directories build.py adds itself. A source refused for anything
+    else contributes nothing."""
     sys.path.insert(0, str(Path(__file__).resolve().parent))
     import subprocess
     import build
     import cl_flags              # build's copy: run as a script, this module is __main__
     values = set()
     build._include_values = lambda: None           # this run collects; it does not judge
-    roots = [(build.ROOT, ["Code", "reverse/attempts"]), (build.BFME1_ROOT, ["."])]
-    for repo, paths in roots:
+    toolchain = str(build.vc71_root())
+    probe = build.ROOT / "build" / "include_roots_probe.obj"   # named only, never written
+    import link_census
+    rows = link_census.ledger()
+    sources = {source for source in link_census.compile_sources(rows)}      # every ledger unit
+    for repo, paths in ((build.ROOT, ["Code", "reverse/attempts"]), (build.BFME1_ROOT, ["."])):
         listing = subprocess.run(["git", "-C", str(repo), "grep", "-l", "-I", "-z", "^// cl:", "--", *paths],
                                  capture_output=True, check=False).stdout
-        for name in listing.split(b"\0"):
-            source = repo / name.decode("utf-8", "replace")
-            if not name or source.suffix.lower() not in (".cpp", ".c", ".cxx", ".cc"):
-                continue
-            text = source.read_text(encoding="utf-8-sig", errors="replace")
-            line = next((line for line in text.splitlines() if line.startswith(MARK)), None)
-            try:
-                written = build._source_flag_tokens(line[len(MARK):])
-                final = build.source_extra_flags(source)
-            except (cl_flags.Refused, SystemExit, OSError):
-                continue
-            values.update(include_operands(written))
-            values.update(include_operands(final))
+        sources.update(repo / name.decode("utf-8", "replace") for name in listing.split(b"\0") if name)
+    for source in sorted(sources):
+        if source.suffix.lower() not in (".cpp", ".c", ".cxx", ".cc"):
+            continue
+        text = source.read_text(encoding="utf-8-sig", errors="replace")
+        line = next((line for line in text.splitlines() if line.startswith(MARK)), "")
+        try:
+            written = build._source_flag_tokens(line[len(MARK):])
+            final = build.source_extra_flags(source)
+            command, _env = build.compiler_command(source, probe)
+        except (cl_flags.Refused, SystemExit, OSError, ValueError):
+            continue
+        values.update(include_operands(written))
+        values.update(include_operands(final))
+        values.update(canonical_include(operand, str(build.ROOT), toolchain)
+                      for operand in include_operands(command))
+    # What build.py adds on its own: the sweep-include retry and the vendored SAGE trees' flags.
+    values.update(canonical_include(build.wine_path(d), str(build.ROOT), toolchain)
+                  for d in build._SWEEP_INCLUDE_DIRS)
+    values.update(include_operands(build._ZH_FLAGS) + include_operands(build._GENERALS_FLAGS))
     out = build.ROOT / INCLUDE_ROOTS
     out.write_text("# The /I and /FI values a `// cl:` line may name (tools/cl_flags.py): exact strings,\n"
                    "# backslashes as slashes. Written by `python3 tools/cl_flags.py --write-include-roots`;\n"

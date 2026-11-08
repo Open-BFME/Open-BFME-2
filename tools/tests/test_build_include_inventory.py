@@ -494,6 +494,9 @@ def test_missing_search_directory_under_build_survives_parallel_compiles(tmp_pat
 
 
 def test_header_free_tu_with_a_missing_build_search_dir_gets_a_census_receipt(tmp_path, monkeypatch):
+    # a synthetic checkout with invented include directories: reverse/cl_include_roots.txt
+    # (tools/tests/test_cl_flags.py) is not what this tests
+    monkeypatch.setattr(build, "_include_values", lambda: None)
     # The same shape end to end through try_compile_source with a census
     # receipt: no include, so no witnessed preprocess; the sidecar proves it.
     import census_receipts

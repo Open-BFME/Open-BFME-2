@@ -102,6 +102,9 @@ def test_missing_or_changed_upstream_fails_before_cache(tmp_path):
 @pytest.mark.parametrize("marker,selected", [("// stlport46", True), ("\ufeff// stlport46", True), ("// stlport", False),
                                                ("// prose // stlport46", False), ("", False)])
 def test_marker_changes_only_opted_in_commands(tmp_path, monkeypatch, marker, selected):
+    # a synthetic checkout with invented include directories: reverse/cl_include_roots.txt
+    # (tools/tests/test_cl_flags.py) is not what this tests
+    monkeypatch.setattr(build, "_include_values", lambda: None)
     source = tmp_path / "test.cpp"
     source.write_text(marker+"\n// cl: /MD /Ireference/shims/bfmealloc\n", encoding="utf-8")
     monkeypatch.setattr(build, "ROOT", tmp_path)

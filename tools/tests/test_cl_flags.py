@@ -377,3 +377,144 @@ def test_lookalikes_are_not_read_directives(text):
 def test_master_s_sources_hold_no_read_directive():
     import conversion_gate
     assert conversion_gate.tree_read_directives("HEAD") == []
+
+
+# ------------------------------------------------- round 4: assembler sources (P1, P3)
+ASM_REFUSED = [
+    ("x CATSTR <incl>,<ude>", "catstr"), ("x TEXTEQU <include>", "textequ"), ("x EQU <include>", "equ<"),
+    ("x EQU<include>", "equ<"), ("y SUBSTR <include x>, 1, 7", "substr"), ("y INSTR <a>, <b>", "instr"),
+    ("y SIZESTR <abc>", "sizestr"), ("m MACRO a, b", "macro"), ("FOR arg, <a, b>", "for"),
+    ("FORC c, <abc>", "forc"), ("IRP arg, <a>", "irp"), ("IRPC c, <abc>", "irpc"), ("REPEAT 2", "repeat"),
+    ("REPT 2", "rept"), ("WHILE x", "while"), ("% x", "%"), ("  %x", "%"),
+    ("    mov eax, @CatStr(<1>, <2>)", "@catstr"), ("x = @SizeStr(<abc>)", "@sizestr"),
+    ("INCLUDE Z:\\outside\\sentinel.inc", "include"), ("  includelib evil.lib", "includelib"),
+    ("label: INCLUDE x.inc", "include"), ("Include x.inc", "include"), ("COMMENT ! anything !", "comment"),
+    ("EXITM <include>", "exitm"), ("PURGE m", "purge"),
+]
+ASM_ALLOWED = ["; for each entry, include the bias", "    mov eax, 1 ; repeat while x", "    db 'for', 0",
+               "x = 5", "x EQU 5", "PUBLIC _f", "_f PROC", "    jmp eax", "_TEXT SEGMENT", "END", ".386"]
+
+
+@pytest.mark.parametrize("line, name", ASM_REFUSED)
+def test_every_masm_include_or_text_macro_facility_is_found(line, name):
+    assert name in cl_flags.asm_directives(".386\n" + line + "\nEND\n")
+
+
+@pytest.mark.parametrize("line", ASM_ALLOWED)
+def test_plain_assembler_and_prose_in_comments_pass(line):
+    assert cl_flags.asm_directives(line) == []
+
+
+def test_no_master_assembler_source_uses_one():
+    listing = subprocess.run(["git", "-C", str(build.ROOT), "ls-files", "*.asm", "*.ASM"],
+                             capture_output=True, text=True).stdout.split()
+    assert len(listing) > 60
+    assert [p for p in listing if cl_flags.asm_directives((build.ROOT / p).read_text(errors="replace"))] == []
+
+
+def test_an_assembler_refusal_leaves_no_object_or_receipt(scratch):
+    # P3: a refused source must not leave an earlier object to be reused.
+    source, obj = scratch / "unit.asm", scratch / "unit.obj"
+    source.write_text(".386\n.model flat\nx CATSTR <incl>,<ude>\nx Z:\\outside\\sentinel.inc\nEND\n", encoding="utf-8")
+    obj.write_bytes(b"old object")
+    build._deps_sidecar(obj).write_text('{"cmd": "x", "source": "y", "deps": {}}', encoding="utf-8")
+    ok, text, _ = build.try_compile_source(source, obj)
+    assert not ok and "catstr" in text
+    assert not obj.exists() and not build._deps_sidecar(obj).exists()
+
+
+def test_an_assembler_object_is_never_current_while_its_source_uses_one(scratch):
+    # P1: deps {} kept such an object current after the outside file was deleted.
+    source, obj = scratch / "unit.asm", scratch / "unit.obj"
+    source.write_text(".386\n.model flat\nEND\n", encoding="utf-8")
+    obj.write_bytes(b"obj")
+    command, env = build.compiler_command(source, obj)
+    meta = {"cmd": build._cmd_fingerprint(command, env), "source": build._hash_file(str(source)), "deps": {}}
+    build._deps_sidecar(obj).write_text(json.dumps(meta), encoding="utf-8")
+    assert build.compile_is_current(source, obj) is True
+    source.write_text(".386\n.model flat\nx CATSTR <incl>,<ude>\nEND\n", encoding="utf-8")
+    meta["source"] = build._hash_file(str(source))
+    build._deps_sidecar(obj).write_text(json.dumps(meta), encoding="utf-8")
+    assert build.compile_is_current(source, obj) is False
+
+
+def test_a_real_assemble_reading_outside_through_a_text_macro_is_refused(compiler, scratch, tmp_path):
+    (tmp_path / "sentinel.inc").write_text("PUBLIC _sentinel\n", encoding="utf-8")
+    outside = str(tmp_path / "sentinel.inc") if os.name == "nt" else "Z:" + str(tmp_path / "sentinel.inc").replace("/", "\\")
+    source = scratch / "unit.asm"
+    for text in (f".386\n.model flat\nx CATSTR <incl>,<ude>\nx {outside}\nEND\n",
+                 f".386\n.model flat\nINCLUDE {outside}\nEND\n",
+                 f".386\n.model flat\nm MACRO a, b\na&b {outside}\nENDM\nm incl, ude\nEND\n"):
+        source.write_text(text, encoding="utf-8")
+        ok, out, _ = build.try_compile_source(source, scratch / "unit.obj")
+        assert not ok and "include confinement" in out and not (scratch / "unit.obj").exists(), text
+
+
+def test_a_real_plain_assemble_passes(compiler, scratch):
+    source = scratch / "unit.asm"
+    source.write_text(".386\n.model flat\n_TEXT SEGMENT\nPUBLIC _f\n_f PROC\n    ret\n_f ENDP\n_TEXT ENDS\nEND\n",
+                      encoding="utf-8")
+    ok, text, _ = build.try_compile_source(source, scratch / "unit.obj")
+    assert ok, text
+
+
+# ------------------------------------------------- round 4: every final include operand (P2)
+def test_canonical_include_spells_tool_operands_as_the_list_does():
+    root, toolchain = "/r/checkout", "/r/checkout/reference/open-bfme-1/inputs/toolchains/vs2003"
+    canon = lambda operand: cl_flags.canonical_include(operand, root, toolchain)  # noqa: E731
+    if os.name != "nt":
+        assert canon("Z:\\r\\checkout\\reference\\shims\\sweep") == "reference/shims/sweep"
+        assert canon("Z:\\r\\checkout\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Vc7\\PlatformSDK\\Include") \
+            == "{toolchain}/Vc7/PlatformSDK/Include"
+        assert canon("Z:\\elsewhere\\Include") == "Z:/elsewhere/Include"          # stays itself: never listed
+        assert canon("Z:\\r\\checkout\\Code\\LOWERL~1") == "Code/LOWERL~1"        # an alias stays itself
+    assert canon("build/stlport46/0123456789abcdef01234567/base") == "{overlay}/base"
+    assert canon("build/stlport46/not-a-digest/base") == "build/stlport46/not-a-digest/base"
+    assert canon("Code/GameEngine/Include") == "Code/GameEngine/Include"
+
+
+def test_every_final_include_operand_of_master_s_commands_is_listed():
+    # compiler_command checks its own result: one stlport, one SDK and one plain unit, and a ZH tree source.
+    rows = __import__("link_census").ledger()
+    stl = next(build.ROOT / r["source"] for r in rows if build.stlport_overlay.selected(build.ROOT / r["source"]))
+    dx = next(build.ROOT / r["source"] for r in rows if r["source"].lower().endswith(".cpp")
+              and build.source_needs_dxsdk(build.ROOT / r["source"]))
+    for source in (stl, dx, build.ROOT / rows[0]["source"]):
+        build.compiler_command(source, build.ROOT / "build" / "never_written.obj")
+
+
+def test_tool_added_include_operands_are_checked(scratch, monkeypatch):
+    source = scratch / "unit.cpp"
+    source.write_text("int f() { return 1; }\n", encoding="utf-8")
+    real = build.stlport_overlay.include_dirs
+    monkeypatch.setattr(build.stlport_overlay, "include_dirs", lambda s, flags: real(s, flags) + ["-Ibuild/elsewhere"])
+    with pytest.raises(cl_flags.Refused):
+        build.compiler_command(source, scratch / "unit.obj")
+    monkeypatch.setattr(build.stlport_overlay, "include_dirs", real)
+    build.compiler_command(source, scratch / "unit.obj")
+    with pytest.raises(cl_flags.Refused):                       # the sweep retry's directories, re-checked
+        build.check_command_includes(source, ["cl.exe", "-I" + build.wine_path(scratch), "unit.cpp"])
+    build.check_command_includes(source, ["cl.exe", "-I" + build.wine_path(build._SWEEP_INCLUDE_DIRS[0]), "unit.cpp"])
+
+
+def test_the_sage_tree_flags_need_the_list_too(monkeypatch):
+    # P2: Generals/ZH reference sources returned their flags before any value check.
+    zh = next(p for p in build.ZH_REFERENCE_ROOT.rglob("*.cpp"))
+    assert build.source_extra_flags(zh)                         # listed today
+    monkeypatch.setattr(build, "_include_values", lambda: frozenset())
+    with pytest.raises(cl_flags.Refused):
+        build.source_extra_flags(zh)
+
+
+def test_a_data_rows_probe_is_confined_too(compiler, scratch, tmp_path):
+    # data_rows' sizeof and type probes run their own commands: build.run_confined confines them.
+    (tmp_path / "sentinel.h").write_text("int sentinel;\n", encoding="utf-8")
+    climb = os.path.relpath(tmp_path / "sentinel.h", scratch).replace("\\", "/")
+    source, obj = scratch / "probe.cpp", scratch / "probe.obj"
+    source.write_text(f'#include "{climb}"\nint f() {{ return sentinel; }}\n', encoding="utf-8")
+    command, env = build.compiler_command(source, obj)
+    code, text = build.run_confined(command, env, obj)
+    assert code == 1 and "include confinement" in text and not obj.exists()
+    source.write_text("int f() { return 1; }\n", encoding="utf-8")
+    code, text = build.run_confined(*build.compiler_command(source, obj), obj)
+    assert code == 0 and obj.exists(), text

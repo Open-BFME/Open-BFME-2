@@ -400,6 +400,7 @@ reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Ga
 reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source
 reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include
 reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Source
+reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Include
 reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
 reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source
 reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Benchmark
@@ -736,6 +737,13 @@ reference/shims/zh_overridable_outofline
 reference/shims/zh_unicodestring_const
 shader.h
 vendor
+vendor/dxsdk-aug2005/Include
 vendor/stlport
 vendor/stlport-4.6/src
 zh_ascii.h
+{overlay}/base
+{overlay}/bfmealloc
+{overlay}/bfmealloc_alloconly
+{overlay}/bfmehashtable
+{overlay}/bfmelist
+{toolchain}/Vc7/PlatformSDK/Include

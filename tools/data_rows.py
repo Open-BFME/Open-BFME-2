@@ -423,9 +423,9 @@ def compiled_size(source, symbol):
     command[-1] = probe.relative_to(ROOT).as_posix()
     if obj.exists():
         obj.unlink()
-    proc = subprocess.run(command, capture_output=True, text=True, errors="replace", env=env, cwd=str(ROOT))
-    if proc.returncode or not obj.exists():
-        return None, f"the sizeof probe does not compile: {(proc.stdout + proc.stderr).strip()[-300:]}"
+    code, text = build.run_confined(command, env, obj)      # include confinement, as for a build compile
+    if code or not obj.exists():
+        return None, f"the sizeof probe does not compile: {text.strip()[-300:]}"
     sections, symbols = rl.parse_coff(obj.read_bytes())
     found = [x for x in symbols.values() if x["name"] == "_data_row_sizeof" and x["section"] > 0]
     body = sections[found[0]["section"] - 1]["body"] if found else None
@@ -472,9 +472,9 @@ def _type_probe(source, symbol, tag, preamble, value):
     command[-1] = probe.relative_to(ROOT).as_posix()
     if obj.exists():
         obj.unlink()
-    proc = subprocess.run(command, capture_output=True, text=True, errors="replace", env=env, cwd=str(ROOT))
-    if proc.returncode or not obj.exists():
-        return None, f"the type probe does not compile: {(proc.stdout + proc.stderr).strip()[-300:]}"
+    code, text = build.run_confined(command, env, obj)      # include confinement, as for a build compile
+    if code or not obj.exists():
+        return None, f"the type probe does not compile: {text.strip()[-300:]}"
     sections, symbols = rl.parse_coff(obj.read_bytes())
     found = [x for x in symbols.values() if x["name"] == "_data_row_kind" and x["section"] > 0]
     body = sections[found[0]["section"] - 1]["body"] if found else None
