@@ -4,8 +4,9 @@
 // the membership lookup at 0x002888D4.
 // int/bool is the reconstruction's type choice; the target proves the
 // key width, value width, identity hash and node traversal independently.
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
+#include "ascii_string.h"
 #include <hash_map>
 namespace _STL {
 // The allocator is stateless; only the stored pointers need exchanging.
@@ -64,7 +65,8 @@ template void SelectionIDTable::_M_initialize_buckets(unsigned int);
 // _M_insert at 0x002A9029 (StlSweepW4Rva002A9029.cpp) grows its int-keyed, one-byte-value
 // table through the same folded resize at 0x0053F1EC; the layout equals int/bool, so this
 // unit's flags emit retail's body for it too.
-struct Rva002A9029Element { char bytes[1]; };
+// The mapped value of retail's hash_map<int, AsciiString> (row 0x00523DB7 builds this pair), so a node copy-constructs the string.
+struct Rva002A9029Element { AsciiString value; };
 template unsigned int _STL::hashtable<_STL::pair<const int,Rva002A9029Element>,int,_STL::hash<int>,
     _STL::_Select1st<_STL::pair<const int,Rva002A9029Element> >,_STL::equal_to<int>,
     _STL::allocator<_STL::pair<const int,Rva002A9029Element> > >::_M_next_size(unsigned int) const;
