@@ -11,19 +11,14 @@
 #include "matrix3d.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
-class ViewportClass {public:Vector2 Min;Vector2 Max;};
-class CameraClass:public RenderObjClass {public:
-void Get_View_Plane(Vector2&,Vector2&)const;
-const ViewportClass&Get_Viewport()const{return Viewport;}
-char pad2[0xc8-sizeof(RenderObjClass)];ViewportClass Viewport;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 class Rva0009C134Host {public:void rva0009B7EA(Coord3D*);char pad[0xc0];CameraClass*camera;};
 void Rva0009C134Host::rva0009B7EA(Coord3D*out){
 CameraClass *cam=camera;
 Vector2 lo,hi;
 cam->Get_View_Plane(lo,hi);
 Matrix3D tm=camera->Get_Transform();
-const ViewportClass &viewport=cam->Get_Viewport();
+const ViewportClass &viewport=cam->Viewport;
 float xscale=(hi.X-lo.X);
 float yscale=(hi.Y-lo.Y);
 float zmod=-1.0f;

@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /Oy- /O1 /G7 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /Oy- /O1 /G7 /arch:SSE /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // BFME2 W3DView transform builder, native8A653..8AACF, 1148B.
 // BFME1 clean donor W3DViewBuildCameraTransformBfme.cpp reviewed at
 // 2f243e26d; WB986DA0's transfer/call graph independently links this helper
@@ -135,23 +135,7 @@ class Dict{void*data;public:void setReal(int,float);};
 extern Dict g_Va00E00944;
 extern Rva00148F5ECache g_00DBDEEC;
 
-// CameraClass::unused050 is slot 20; the raw transform begins at +0x18.
-#define CAMERA_UNUSED(n) virtual void unused##n() = 0;
-class CameraClass
-{
-public:
-	CAMERA_UNUSED(00) CAMERA_UNUSED(01) CAMERA_UNUSED(02)
-	CAMERA_UNUSED(03) CAMERA_UNUSED(04) CAMERA_UNUSED(05)
-	CAMERA_UNUSED(06) CAMERA_UNUSED(07) CAMERA_UNUSED(08)
-	CAMERA_UNUSED(09) CAMERA_UNUSED(10) CAMERA_UNUSED(11)
-	CAMERA_UNUSED(12) CAMERA_UNUSED(13) CAMERA_UNUSED(14)
-	CAMERA_UNUSED(15) CAMERA_UNUSED(16) CAMERA_UNUSED(17)
-	CAMERA_UNUSED(18) CAMERA_UNUSED(19) CAMERA_UNUSED(20)
-
-	char m_padding04[0x18 - 4];
-	Matrix3D m_transform;
-};
-#undef CAMERA_UNUSED
+#include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
 class W3DViewVtable
 {
@@ -283,8 +267,7 @@ void W3DView::buildCameraTransform(Matrix3D *transform)
 	if (m_cameraMovementMode == 3)
 	{
 		CameraClass *camera = m_3DCamera;
-		camera->unused20();
-		*transform = camera->m_transform;
+		*transform = camera->Get_Transform();
 		return;
 	}
 

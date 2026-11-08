@@ -1,4 +1,4 @@
-// cl: /EHs /MD
+// cl: /DNDEBUG /EHs /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
 //
 // ??4Rva0007C49F@@QAEAAV0@ABV0@@Z @0x0007C49F 37B: memberwise assignment of a
@@ -8,16 +8,10 @@
 // 0x00135010) then the rowed vector assignment 0x0007C316. Assignment does not
 // touch the vptrs, so the vtables are not needed here. Name is address-derived.
 
+#define __PLACEMENT_VEC_NEW_INLINE  // always.h defines array placement-new itself
 #include <vector>
 
-class CameraClass
-{
-public:
-	CameraClass &operator=(const CameraClass &other);
-
-private:
-	char m_pad000[0x3FC];
-};
+#include "../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 
 struct BfmeFloat4Record00469C61;
 
