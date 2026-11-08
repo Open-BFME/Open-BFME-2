@@ -12,7 +12,7 @@ Class names are address-derived; the original spellings are unknown. */
 class Rva002206F9Sink
 {
 public:
-	virtual int add(int value);
+	virtual int add(int value) = 0;
 };
 
 // The experience-award visitor. RVA0059AEE9_INLINE_CONSTRUCTOR selects the
