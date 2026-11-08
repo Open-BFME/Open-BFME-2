@@ -1,8 +1,14 @@
 # P23: BaseHeightMapRenderObjClass's real tables, ready except for one claim
 
-**Status.** Done, 2026-11-08: both installers on the canonical header, and all four compiled tables
-compared with retail by slot, with 0 differences outside the three listed below. The prepared
-texts here are history now. Not yet run in the game.
+**Status.** Landed, not closed, 2026-11-08: both installers on the canonical header, and all four compiled
+tables compared with retail by slot, with 0 differences outside the three listed below. The prepared
+texts here are history now. It closes only on a receipt that gets past the first terrain virtual call, with
+the file check. Not yet run in the game.
+
+**The derived class came after.** BaseHeightMap's tables did not reach the boot stop by themselves: the object the
+game calls is the derived `Rva000E3B41` (flat height map, retail's table 0x00BCE788), whose compiled table had 129
+slots where retail has 149, so `W3DTerrainLogic::getGroundHeight+0x3F`, `call [edx+0x244]` (slot 145), read past it.
+Its four tables now match retail by slot on both installers: 149 (allowed gaps 0, 51, 52, 98), 1, 2 and 4.
 
 Left over, none of it BaseHeightMap's own:
 

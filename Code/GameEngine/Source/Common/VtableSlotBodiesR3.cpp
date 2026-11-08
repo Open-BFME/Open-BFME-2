@@ -324,16 +324,17 @@ int Rva00090838::rva00090838()
 }
 
 // 0x000E132C: copies the 16 bytes at +0x3898 out.
-class Rva000E132C
+class Rva000E3B41
 {
 public:
-	void rva000E132C(Rva00SlotQuad *out);
+	virtual void vslot140(Rva00SlotQuad *out);
 private:
-	char m_pad00[0x3898];
+	char m_pad04[0x3898 - 4];
 	Rva00SlotQuad m_value3898;
 };
 
-void Rva000E132C::rva000E132C(Rva00SlotQuad *out)
+// ?vslot140@Rva000E3B41@@UAEXPAURva00SlotQuad@@@Z: slot 140 of retail's table 0x00BCE788.
+void Rva000E3B41::vslot140(Rva00SlotQuad *out)
 {
 	*out = m_value3898;
 }

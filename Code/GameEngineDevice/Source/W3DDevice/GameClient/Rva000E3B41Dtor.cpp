@@ -21,11 +21,7 @@
 
 // The constructor unit's view of the bases, so both units emit the same
 // subtype vtables.
-class DX8_CleanupHook {public:DX8_CleanupHook(){}virtual void ReleaseResources()=0;virtual void ReAcquireResources()=0;};
-class BaseHeightMapRenderObjClass:public RenderObjClass,public DX8_CleanupHook,public Snapshot {
-public:BaseHeightMapRenderObjClass();virtual~BaseHeightMapRenderObjClass();virtual void ReleaseResources();virtual void ReAcquireResources();virtual void loadPostProcess() = 0;virtual const char*GetSnapshotName()const = 0;virtual void xfer(Xfer*) = 0;
-char unknown0CC[0x3884-0xCC];
-};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 struct Rva0008B470
 {
@@ -80,6 +76,21 @@ class Rva000E3B41 : public BaseHeightMapRenderObjClass
 {
 public:
     virtual ~Rva000E3B41();
+	virtual void Render(RenderInfoClass &rinfo);
+	virtual void On_Frame_Update();
+	virtual int initHeightData(int x, int y, WorldHeightMap *map, void *lights);
+	virtual void vslot132();
+	virtual void rva00069CE6(const Rva000E3A8D &cameras, int arg);
+	virtual void doPartialUpdate(const IRegion2D &range, WorldHeightMap *map, RefRenderObjListIterator *iterator);
+	virtual void vslot137(int forceUpdate);
+	virtual void vslot139(bool value);
+	virtual void vslot140(Rva00SlotQuad *out);
+	virtual void vslot141(const BoundsFilterView *filter, AABoxClass *out);
+	virtual void rva0006B804();
+	virtual int vslot147();
+	virtual void rva000E15D1();
+	virtual void ReleaseResources();
+	virtual void ReAcquireResources();
 private:
     void *m_3884;
     char m_unmodelled3888[0x38B4 - 0x3888];
@@ -97,4 +108,3 @@ Rva000E3B41::~Rva000E3B41()
     g_bfmeTaintModeView = 0;
 }
 
-void Rva000E3B41_Delete(Rva000E3B41 *p) { delete p; }

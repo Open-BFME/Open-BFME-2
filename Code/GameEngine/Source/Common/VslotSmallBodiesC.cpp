@@ -199,20 +199,21 @@ Int Rva0026137EFilter::getPlayerMask()
 }
 
 // vtable 0x00BCE788#139: +0x3934 becomes 1 for true and 2 for false.
-class Rva000E13A7
+class Rva000E3B41
 {
 public:
-	void rva000E13A7(Bool value);
-	Int rva000E1657();
+	virtual void vslot139(Bool value);
+	virtual Int vslot147();
 private:
-	char m_pad00[0x3934];
+	char m_pad04[0x3934 - 4];
 	Int m_3934;
 	struct Item { char m_pad00[0x1C]; Int m_1C; } *m_3938;
 };
-void Rva000E13A7::rva000E13A7(Bool value) { m_3934 = value ? 1 : 2; }
+// ?vslot139@Rva000E3B41@@UAEX_N@Z: slot 139 of retail's table 0x00BCE788.
+void Rva000E3B41::vslot139(Bool value) { m_3934 = value ? 1 : 2; }
 
 // vtable 0x00BCE788#147: +0x1C of the object at +0x3938, else 4.
-Int Rva000E13A7::rva000E1657() { return m_3938 ? m_3938->m_1C : 4; }
+Int Rva000E3B41::vslot147() { return m_3938 ? m_3938->m_1C : 4; }
 
 // vtable 0x00BC7A88#75: +8 of the first node of the circular list at +0x20,
 // 0 when the list is empty.

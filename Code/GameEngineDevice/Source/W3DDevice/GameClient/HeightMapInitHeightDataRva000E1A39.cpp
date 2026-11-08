@@ -26,9 +26,14 @@ class Rva0011216CSlotQuartet{public:void rva00112197();};
 class Rva00113110Holder{public:void rva00113110(void*);};
 class RvaRef;
 class Rva00111F0E{public:void rva00111F6F(RvaRef*,int,int,int);};
-class Rva000E15D1{public:int rva000E1A39(int,int,Rva000AD9AB*,void*);void rva000E14C4();void rva000E153A();
+class Rva000E15D1{public:void rva000E14C4();void rva000E153A();
 char pad0[0x37c0];Rva000AD9AB*map;char pad1[0x3884-0x37c4];void**backup;Rva00112291TerrainOwner*tiles;int count,cols,rows;char pad2[0x3930-0x3898];bool flag;};
-int Rva000E15D1::rva000E1A39(int x,int y,Rva000AD9AB*pMap,void*lights){
+// FlatHeightMap's override, slot 131 of retail's table 0x00BCE788. The vptr takes 4 bytes of the padding, so no field moves.
+class Rva000E3B41{public:virtual int initHeightData(int,int,WorldHeightMap*,void*);
+char pad0[0x37c0-4];Rva000AD9AB*map;char pad1[0x3884-0x37c4];void**backup;Rva00112291TerrainOwner*tiles;int count,cols,rows;char pad2[0x3930-0x3898];bool flag;};
+// ?initHeightData@Rva000E3B41@@UAEHHHPAVWorldHeightMap@@PAX@Z @0x000E1A39
+int Rva000E3B41::initHeightData(int x,int y,WorldHeightMap*mapArg,void*lights){
+Rva000AD9AB*pMap=(Rva000AD9AB*)mapArg;
 int i,j;
 bool same=pMap==map;
 ((BaseHeightMapRenderObjClass*)this)->BaseHeightMapRenderObjClass::initHeightData(x,y,(WorldHeightMap*)pMap,lights);
@@ -39,11 +44,11 @@ pMap->rva000AD9FE();
 if(same && tiles && cols==numX && rows==numY){
  for(i=0;i<cols;++i)for(j=0;j<rows;++j){Rva00112291TerrainOwner*tile=tiles+j*cols+i;((Rva0011216CSlotQuartet*)tile)->rva00112197();((Rva00113110Holder*)tile)->rva00113110(pMap);}
 }else{
- rva000E14C4();tiles=new Rva00112291TerrainOwner[num];count=num;cols=numX;rows=numY;
+ ((Rva000E15D1*)this)->rva000E14C4();tiles=new Rva00112291TerrainOwner[num];count=num;cols=numX;rows=numY;
  for(i=0;i<cols;++i)for(j=0;j<rows;++j){Rva00112291TerrainOwner*tile=tiles+j*cols+i;((Rva00111F0E*)tile)->rva00111F6F((RvaRef*)pMap,i*16,j*16,16);((Rva00113110Holder*)tile)->rva00113110(pMap);}
  backup=new void*[num*2];
 }
-flag=false;rva000E153A();return 0;
+flag=false;((Rva000E15D1*)this)->rva000E153A();return 0;
 }
 
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();

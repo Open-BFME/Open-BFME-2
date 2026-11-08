@@ -150,7 +150,7 @@ class BoundsFilterView {public:
  virtual bool exclude(const AABoxClass&)const;
 };
 struct BoundsGridD4 {char prefix[12];AABoxClass box;char tail[0xd4-36];};
-class Rva000E1669 {public:
+class Rva000E3B41 {public:
  virtual void ownerSlot0();
  virtual void ownerSlot1();
  virtual void ownerSlot2();
@@ -293,10 +293,11 @@ class Rva000E1669 {public:
  virtual void ownerSlot139();
  virtual void ownerSlot140();
  char prefix[0x3888-4];BoundsGridD4 *grid;int unknown388C;int width,height;
- virtual void rva000E1669(const BoundsFilterView*,AABoxClass*);
+ virtual void vslot141(const BoundsFilterView*,AABoxClass*);
 };
 __forceinline void zeroBounds(AABoxClass*out){out->Center.Set(0,0,0);out->Extent.Set(0,0,0);}
-void Rva000E1669::rva000E1669(const BoundsFilterView*filter,AABoxClass*out){
+// ?vslot141@Rva000E3B41@@UAEXPBVBoundsFilterView@@PAVAABoxClass@@@Z @0x000E1669: slot 141 of retail's table 0x00BCE788.
+void Rva000E3B41::vslot141(const BoundsFilterView*filter,AABoxClass*out){
  if(!grid){zeroBounds(out);}
  else {
  MinMaxAABoxClass bounds;bounds.Init_Empty();

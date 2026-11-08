@@ -17,9 +17,9 @@ class Rva000E15D1
 {
 public:
 	void rva000E153A();
-	void rva000E15D1();
+	virtual void rva000E15D1() = 0;
 
-	char m_pad0[0x37C0];
+	char m_pad4[0x37C0 - 4];
 	int m_at37C0;
 	char m_pad37C4[0x37E0 - 0x37C4];
 	bool m_at37E0;
@@ -30,7 +30,15 @@ public:
 	int m_at3894;
 };
 
-void Rva000E15D1::rva000E15D1()
+// The table's class. rva000E153A keeps its row's owner.
+class Rva000E3B41 : public Rva000E15D1
+{
+public:
+	virtual void rva000E15D1();
+};
+
+// ?rva000E15D1@Rva000E3B41@@UAEXXZ: slot 148 of retail's table 0x00BCE788, past the base's table.
+void Rva000E3B41::rva000E15D1()
 {
 	rva000E153A();
 	int cols = m_at3890;

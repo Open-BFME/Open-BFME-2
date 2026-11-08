@@ -374,12 +374,10 @@ extern bool bfmeOnlyEmissiveDraws;
 extern bool bfmeCameraProjectionOverride;
 extern unsigned char g_00DFE7A8;
 class FlatHeightMapRenderObjClass : public BfmeTerrainRenderView {
+ friend class Rva000E3B41;
 public:
  void renderTerrain(RenderInfoClass&rinfo,int *minX,int *maxX,int *minY,int *maxY);
  void rva000E1C1A(RenderInfoClass&rinfo,bool untextured,int *minX,int *maxX,int *minY,int *maxY,FXShader::RenderingMethod*method);
- void rva000E2FBD(RenderInfoClass &rinfo);
- virtual void ReleaseResources(void);
- virtual void ReAcquireResources(void);
 private:
  char unknown04[0x18-4];
  Matrix3D Transform;	// +0x18
@@ -387,7 +385,9 @@ private:
  RTS3DScene *Scene;	// +0x78
  char unknown7C[0x37C0-0x7C];
  WorldHeightMap *m_map;	// +0x37C0
- char unknown37C4[0x3850-0x37C4];
+ char unknown37C4[0x37E0-0x37C4];
+ bool m_tileFlag;	// +0x37E0
+ char unknown37E1[0x3850-0x37E1];
  W3DTreeBuffer *m_treeBuffer;	// +0x3850
  W3DShrubBuffer *m_shrubBuffer;	// +0x3854
  W3DPropBuffer *m_propBuffer;	// +0x3858
@@ -403,7 +403,21 @@ private:
  struct TerrainTileView *m_tiles; int m_numTiles,m_tilesWidth,m_tilesHeight;
  char unknown3898[16];bool m_partial;char unknown38A9[3];int m_currentTile;float m_distanceLimit;
  _STL::vector<void*> m_cameras;
- char unknown38C0[0x3938-0x38C0]; RefCountPtr<FXShader::RenderingMethod> m_method;
+ Bool m_camerasMoved;	// +0x38C0
+ char unknown38C1[0x3934-0x38C1];
+ Int m_updateState;	// +0x3934
+ RefCountPtr<FXShader::RenderingMethod> m_method;
+};
+
+// The table's class. It shares the view's layout and vptr, so the slots' bodies read the view's fields directly.
+class Rva000E3B41 : public FlatHeightMapRenderObjClass
+{
+public:
+	virtual void Render(RenderInfoClass &rinfo);
+	virtual void On_Frame_Update();
+	virtual void vslot132();
+	virtual void ReleaseResources(void);
+	virtual void ReAcquireResources(void);
 };
 class WorldHeightMap;
 class W3DTerrainBackground
@@ -448,21 +462,6 @@ public:
 	virtual void slot38();
 };
 extern Rva009EB960 *Rva0134FAA0;
-class Rva000E10C0
-{
-public:
-	void rva000E10C0();
-
-	char m_pad0[0x37C0];
-	Rva000E10C0View *m_at37C0;
-	char m_pad37C4[0x37E0 - 0x37C4];
-	bool m_at37E0;
-	char m_pad37E1[0x3888 - 0x37E1];
-	char *m_base;
-	char m_pad388C[4];
-	int m_at3890;
-	int m_at3894;
-};
 // ?Rva000E1D51Forward@@YAPAVRva00072A94@@PAV1@00PAX@Z, RVA 0x000E1D51, 29B.
 // Forwarder via local tag to rowed copy 0x000E1860. Same 29B shape as
 // Rva00219947Forward and Rva00150265Copy: push ebp/mov ebp esp/push ecx/
@@ -497,22 +496,6 @@ public:
 	void rva000B3FD0();
 };
 
-class Rva000E3B41
-{
-public:
-	void rva000E1185();
-
-private:
-	unsigned char m_pad0000[0x3888];
-	W3DTerrainBackground *m_tiles;	// +0x3888
-	Int m_numTiles;	// +0x388C
-	Int m_tilesWidth;	// +0x3890
-	Int m_tilesHeight;	// +0x3894
-	unsigned char m_pad3898[0x38C0 - 0x3898];
-	Bool m_camerasMoved;	// +0x38C0
-	unsigned char m_pad38C1[0x3934 - 0x38C1];
-	Int m_updateState;	// +0x3934
-};
 
 // tu-skeleton: 0x000E0F1E 340B ?doPartialUpdate@FlatHeightMapRenderObjClass@@QAEXABUIRegion2D@@PAVWorldHeightMap@@PAVRefRenderObjListIterator@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapDoPartialUpdate.cpp (not merged yet)
 
@@ -543,26 +526,27 @@ void bfmeVectorDeleteAnchorE1072()
 // @0x000E10C0 197B. Fill a 16-byte record from the pointer at +0x37C0,
 // then walk y * cols + x. A live global tints with 50 - (int)(x * -45 / cols).
 
-void Rva000E10C0::rva000E10C0()
+// ?vslot132@Rva000E3B41@@UAEXXZ @0x000E10C0: slot 132 of retail's table 0x00BCE788.
+void Rva000E3B41::vslot132()
 {
-	Rva000E10C0View *src = m_at37C0;
+	Rva000E10C0View *src = (Rva000E10C0View *)m_map;
 	int x = 0;
 	IRegion2D rec;
 	rec.lo.x = x;
 	rec.lo.y = x;
 	rec.hi.x = src->m_c;
 	rec.hi.y = src->m_d;
-	if (m_at3890 > 0)
+	if (m_tilesWidth > 0)
 	{
-		for (; x < m_at3890; ++x)
+		for (; x < m_tilesWidth; ++x)
 		{
 			if (BfmeProgressIndicatorHead != 0)
-				BfmeProgressIndicatorHead->apply(50 - (int)((float)x * -45.0f / (float)m_at3890));
-			for (int y = 0; y < m_at3894; ++y)
+				BfmeProgressIndicatorHead->apply(50 - (int)((float)x * -45.0f / (float)m_tilesWidth));
+			for (int y = 0; y < m_tilesHeight; ++y)
 			{
 				W3DTerrainBackground *el =
-					(W3DTerrainBackground *)(m_base + (y * m_at3890 + x) * 0xD4);
-				el->doPartialUpdate(rec, (WorldHeightMap *)m_at37C0, false, m_at37E0);
+					(W3DTerrainBackground *)((char *)m_tiles + (y * m_tilesWidth + x) * 0xD4);
+				el->doPartialUpdate(rec, m_map, false, m_tileFlag);
 				if (Rva0134FAA0 != 0)
 					Rva0134FAA0->slot38();
 			}
@@ -639,7 +623,7 @@ void FlatHeightMapRenderObjClass::rva000E1C1A(RenderInfoClass &rinfo,bool untext
 // Retail 0x000E1271 (5 bytes), the resource-hook table entry before
 // ReAcquireResources: Zero Hour's FlatHeightMapRenderObjClass::ReleaseResources,
 // which only forwards to the base heightmap release (a tail jump).
-void FlatHeightMapRenderObjClass::ReleaseResources(void)
+void Rva000E3B41::ReleaseResources(void)
 {
 	reinterpret_cast<BaseHeightMapRenderObjClass *>(this)->BaseHeightMapRenderObjClass::ReleaseResources();
 }
@@ -647,7 +631,7 @@ void FlatHeightMapRenderObjClass::ReleaseResources(void)
 // Retail 0x000E1276 (5 bytes), the next resource-hook entry: Zero Hour's
 // FlatHeightMapRenderObjClass::ReAcquireResources, which only forwards to
 // the rowed base reacquire 0x00066962 (a tail jump).
-void FlatHeightMapRenderObjClass::ReAcquireResources(void)
+void Rva000E3B41::ReAcquireResources(void)
 {
 	reinterpret_cast<BaseHeightMapRenderObjClass *>(this)->BaseHeightMapRenderObjClass::ReAcquireResources();
 }
@@ -658,7 +642,8 @@ void FlatHeightMapRenderObjClass::ReAcquireResources(void)
 // survives around a per-system profile scope; BFME 2 adds the prop, floor,
 // tree-shadow, terrain-particle and order passes, the terrain light
 // environment and the shadow-map / projection-override guards.
-void FlatHeightMapRenderObjClass::rva000E2FBD(RenderInfoClass &rinfo)
+// ?Render@Rva000E3B41@@UAEXAAVRenderInfoClass@@@Z @0x000E2FBD: slot 12 of retail's table 0x00BCE788.
+void Rva000E3B41::Render(RenderInfoClass &rinfo)
 {
 	if (m_disableTerrainSystems)
 		return;
@@ -817,7 +802,8 @@ Rva00072A94 *__cdecl Rva000E1D51Forward(Rva00072A94 *first, Rva00072A94 *last, R
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapOnFrameUpdate.cpp
 
-void Rva000E3B41::rva000E1185()
+// ?On_Frame_Update@Rva000E3B41@@UAEXXZ @0x000E1185: slot 13 of retail's table 0x00BCE788.
+void Rva000E3B41::On_Frame_Update()
 {
 	if (g_00DFE7A8)
 		return;
@@ -849,7 +835,7 @@ void Rva000E3B41::rva000E1185()
 		{
 			for (j = 0; j < m_tilesHeight && numToUpdate >= 1; j++)
 			{
-				W3DTerrainBackground *tile = m_tiles + j * m_tilesWidth + i;
+				W3DTerrainBackground *tile = (W3DTerrainBackground *)m_tiles + j * m_tilesWidth + i;
 				if (tile->updateTexture())
 					numToUpdate--;
 				tile->rva00115DD2();
@@ -888,3 +874,4 @@ void Rva000E3B41::rva000E1185()
 // tu-skeleton: 0x007632A4 14B $L10520 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp (not merged yet)
 
 // tu-skeleton: 0x007632B2 10B __ehhandler$??0Rva000E3B41@@QAE@_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E3BFEConstructor.cpp (not merged yet)
+

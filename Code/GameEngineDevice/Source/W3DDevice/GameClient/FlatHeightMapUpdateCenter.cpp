@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// ?rva000E3CE1@Rva000E3B41@@QAEXABVRva000E3A8D@@H@Z
+// ?rva00069CE6@Rva000E3B41@@UAEXABVRva000E3A8D@@H@Z
 // retail 0x000E3CE1..0x000E43CE (1773 bytes) thiscall ret 8; its only
 // reference is the vtable entry at 0x007CE9A0. It overrides the
 // BaseHeightMapRenderObjClass update-list fan-out (rowed 0x00069CE6, which it
@@ -160,10 +160,10 @@ extern unsigned char g_00DFE7A8;
 class Rva000E3B41
 {
 public:
-	void rva000E3CE1(const Rva000E3A8D &cameras, Int arg);
+	virtual void rva00069CE6(const Rva000E3A8D &cameras, Int arg);
 
 private:
-	unsigned char m_pad0000[0x37C0];
+	unsigned char m_pad0004[0x37C0 - 4];
 	WorldHeightMap *m_map;	// +0x37C0
 	unsigned char m_pad37C4[0x37D4 - 0x37C4];
 	Bool m_needFullUpdate;	// +0x37D4
@@ -187,7 +187,8 @@ private:
 	Int m_updateState;	// +0x3934
 };
 
-void Rva000E3B41::rva000E3CE1(const Rva000E3A8D &cameras, Int arg)
+// ?rva00069CE6@Rva000E3B41@@UAEXABVRva000E3A8D@@H@Z @0x000E3CE1: slot 134 of retail's table 0x00BCE788.
+void Rva000E3B41::rva00069CE6(const Rva000E3A8D &cameras, Int arg)
 {
 	if (g_00DFE7A8)
 	{

@@ -17,12 +17,12 @@ public:
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
 
-class Rva000E127B
+class Rva000E3B41
 {
 public:
-	void rva000E127B(int forceUpdate);
+	virtual void vslot137(int forceUpdate);
 
-	char m_pad0[0x37C0];
+	char m_pad4[0x37C0 - 4];
 	int m_map;
 	char m_pad37C4[0x37E0 - 0x37C4];
 	bool m_at37E0;
@@ -35,7 +35,8 @@ public:
 	unsigned char m_at3930;
 };
 
-void Rva000E127B::rva000E127B(int forceUpdate)
+// ?vslot137@Rva000E3B41@@UAEXH@Z: slot 137 of retail's table 0x00BCE788.
+void Rva000E3B41::vslot137(int forceUpdate)
 {
 	((BaseHeightMapRenderObjClass *)this)->BaseHeightMapRenderObjClass::vslot137(forceUpdate);
 	if (m_map == 0)

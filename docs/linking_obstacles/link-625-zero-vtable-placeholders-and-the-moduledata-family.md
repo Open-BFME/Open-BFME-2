@@ -404,3 +404,12 @@ Its getter row 0x002CC2F6 is still the free-function placeholder `Rva002CC2F6Get
 **`RenderObjClass` against retail, found while checking BaseHeightMap (P23's handoff has the detail).** Slots 51 and 52: `rendobj.h` returns `const Matrix3D &`,
 but the ledger rows at 0x0006D06D return by value through a hidden pointer. Slot 98: the header's `Is_Visible` is a bit test, retail's 0x0013B6D0 is 55 bytes. Every class that
 compiles a RenderObjClass table carries these. The fix is a full-gate edit of `rendobj.h`.
+
+**`Rva000E3B41` (flat height map) against retail, 2026-11-08.** The class the boot stop reaches: 129 compiled slots against 149 in retail's 0x00BCE788, with
+slot 145 the call at `W3DTerrainLogic::getGroundHeight+0x3F`. Thirteen slot bodies were rowed as non-virtual methods of private views, and the table inherited the
+base's instead. They are now virtual overrides on `Rva000E3B41`, with both installers on the canonical `BaseHeightMap.h`. Read back by slot on both: 149 (allowed gaps 0, 51, 52, 98), 1, 2 and 4.
+- The byte gate could not see any of this: every moved body matched before and after. The slot read found one more after the primary table was right: `DX8_CleanupHook` slots 0 and 1 (0x000E1271, 0x000E1276) were rowed under the view's name and the table inherited the base's bodies.
+- A `__forceinline` wrapper is no way to move a slot. It compiles to a bare `jmp` for a body with EH state, moves registers in larger bodies (0x000E3CE1, 0x000E1669), and leaves an unrowed definition. Make the view the table's class, with its first pad 4 smaller.
+- `class RefRenderObjListIterator;` at namespace scope in `BaseHeightMap.h` is a repeatable C1001 in `Rva000E1341FillSlots.cpp` (`msc1.cpp` line 2701), though other units compile it. The cause is not understood. Elaborating the type in the parameter avoids it, with the same mangled name.
+- Renumbering the labels voids a parent's funclet `object-symbol=` tokens, and funclet rows locate only through a parent row that exists. Row the parent first, then rebind from the unwind map by state against retail's.
+- Still open: `Rva000E3B41` and its slots' names are placeholders until the class rename to `FlatHeightMapRenderObjClass`. Slot 98 and slots 51/52 wait on P53.

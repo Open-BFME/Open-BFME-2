@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /ICode/Libraries/Include
-// ?doPartialUpdate@FlatHeightMapRenderObjClass@@... retail 0x000E0F1E..0x000E1072
+// ?doPartialUpdate@Rva000E3B41@@... retail 0x000E0F1E..0x000E1072
 // (340 bytes, RET 12). BFME1 575ba2b0 FlatHeightMap.cpp:277 and the ZH
 // same-name body supply the refcount/tile traversal guide (donor facts).
 // Target facts from the native body: REF_PTR_SET of the map at +0x37C0,
@@ -32,12 +32,12 @@ class RefRenderObjListIterator;
 class Rva00113110Holder { public: void rva00113110(void *); };
 class W3DTerrainBackground { public: void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, bool doTextures, bool flag); };
 struct TerrainTileView { char data[0xd4]; };
-class FlatHeightMapRenderObjClass
+class Rva000E3B41
 {
 public:
-	void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, RefRenderObjListIterator *pLightsIterator);
+	virtual void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, RefRenderObjListIterator *pLightsIterator);
 private:
-	char m_pad0[0x37c0];
+	char m_pad4[0x37c0 - 4];
 	WorldHeightMap *m_map;
 	char m_pad37c4[0x37e0 - 0x37c4];
 	bool m_tileFlag;
@@ -47,7 +47,7 @@ private:
 	char m_pad3898[0x3930 - 0x3898];
 	bool m_needUpdate;
 };
-void FlatHeightMapRenderObjClass::doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, RefRenderObjListIterator *)
+void Rva000E3B41::doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, RefRenderObjListIterator *)
 {
 	if (htMap) {
 		++htMap->NumRefs;

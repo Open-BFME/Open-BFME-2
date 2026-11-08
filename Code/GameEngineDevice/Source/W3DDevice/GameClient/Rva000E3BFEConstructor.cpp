@@ -32,17 +32,28 @@ template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*,
 template <> vector<int, allocator<int> >::~vector();
 template <> _Vector_base<int, allocator<int> >::~_Vector_base();
 }
-class DX8_CleanupHook {public:DX8_CleanupHook(){}virtual void ReleaseResources()=0;virtual void ReAcquireResources()=0;};
-class BaseHeightMapRenderObjClass:public RenderObjClass,public DX8_CleanupHook,public Snapshot {
-public:BaseHeightMapRenderObjClass();virtual~BaseHeightMapRenderObjClass();virtual void ReleaseResources();virtual void ReAcquireResources();virtual void loadPostProcess() = 0;virtual const char*GetSnapshotName()const = 0;virtual void xfer(Xfer*) = 0;
-char unknown0CC[0x3884-0xCC];
-};
+#include "../../../Include/W3DDevice/GameClient/BaseHeightMap.h"
 struct Rva00174753Allocation:private _STL::_Vector_base<int,_STL::allocator<int> >{Rva00174753Allocation()throw();~Rva00174753Allocation();};
 namespace _STL {template<>_Vector_base<int,allocator<int> >::_Vector_base(const allocator<int>&)throw();}
 struct Rva000E3BFEArrayMember {Rva000E3BFEArrayMember();char data[12];};
 class BfmeTaintModeView;extern BfmeTaintModeView*g_bfmeTaintModeView;
 class Rva000E3B41:public BaseHeightMapRenderObjClass {
 public:Rva000E3B41(bool);virtual~Rva000E3B41();
+	virtual void Render(RenderInfoClass &rinfo);
+	virtual void On_Frame_Update();
+	virtual int initHeightData(int x, int y, WorldHeightMap *map, void *lights);
+	virtual void vslot132();
+	virtual void rva00069CE6(const Rva000E3A8D &cameras, int arg);
+	virtual void doPartialUpdate(const IRegion2D &range, WorldHeightMap *map, RefRenderObjListIterator *iterator);
+	virtual void vslot137(int forceUpdate);
+	virtual void vslot139(bool value);
+	virtual void vslot140(Rva00SlotQuad *out);
+	virtual void vslot141(const BoundsFilterView *filter, AABoxClass *out);
+	virtual void rva0006B804();
+	virtual int vslot147();
+	virtual void rva000E15D1();
+	virtual void ReleaseResources();
+	virtual void ReAcquireResources();
 void*ptr3884;void*ptr3888;void*ptr388c;void*ptr3890;void*ptr3894;
 char unknown3898[0x10];bool flag38a8;char unknown38a9[11];
 Rva00174753Allocation header38b4;bool flag38c0;char pad38c1[3];_STL::vector<int> header38c4;Rva000E3BFEArrayMember arr[8];bool flag3930;char pad3931[3];int word3934;void*ptr3938;

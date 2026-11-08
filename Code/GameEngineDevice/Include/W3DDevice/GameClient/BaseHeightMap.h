@@ -91,6 +91,10 @@ private:
     bool field18;
 };
 
+struct IRegion2D;
+struct Rva00SlotQuad;
+class BoundsFilterView;
+
 class BaseHeightMapRenderObjClass : public RenderObjClass, public DX8_CleanupHook, public Snapshot
 {
 public:
@@ -113,18 +117,18 @@ public:
     virtual int rva0006933D();
     virtual void rva00069CE6(const Rva000E3A8D &, int);
     virtual void adjustTerrainLOD(int adjustment);
-    virtual void vslot136() = 0;
+    virtual void doPartialUpdate(const IRegion2D &, WorldHeightMap *, class RefRenderObjListIterator *) = 0;
     virtual void vslot137(int);
     virtual void reset();
-    virtual void vslot139(int) {}
-    virtual void vslot140() = 0;
-    virtual void vslot141() = 0;
+    virtual void vslot139(bool) {}
+    virtual void vslot140(Rva00SlotQuad *) = 0;
+    virtual void vslot141(const BoundsFilterView *, AABoxClass *) = 0;
     virtual bool vslot142(int);
     virtual void rva0006B804();
     virtual int vslot144() { return 0; }
     virtual float getHeightMapHeight(float x, float y, Coord3D *normal) const;
     virtual float getMaxCellHeight(float x, float y) const;
-    virtual void vslot147() = 0;
+    virtual int vslot147() = 0;
 
     void rva00067878();
     void rva0006B7BF(const Rva0055A88BDwordField *, StringBase<char>, float);

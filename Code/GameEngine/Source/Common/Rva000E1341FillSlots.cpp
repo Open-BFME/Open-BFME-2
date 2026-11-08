@@ -1,6 +1,6 @@
 // cl: /D_OPERATOR_NEW_DEFINED_ /O1 /G7 /DNDEBUG /MD /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // stlport
-// ?rva000E1341@Rva000E1341@@QAEXXZ @0x000E1341 102B.
+// ?rva0006B804@Rva000E3B41@@UAEXXZ @0x000E1341 102B: slot 143 of retail's table 0x00BCE788.
 // Clears GlobalData bytes +0x3C and +0x48, then calls FillFourSlots on
 // each 0xD4 record. Index is inner * outerCount + outer.
 // The record walk follows the rowed BaseHeightMapRenderObjClass::rva0006B804 setup
@@ -18,10 +18,10 @@ struct Rva0011216CSlotQuartet
 
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
 
-class Rva000E1341 : public BaseHeightMapRenderObjClass
+class Rva000E3B41 : public BaseHeightMapRenderObjClass
 {
 public:
-	void rva000E1341();
+	virtual void rva0006B804();
 
 	char m_pad3884[4];
 	Rva0011216CSlotQuartet *m_base;
@@ -30,7 +30,7 @@ public:
 	int m_inner;
 };
 
-void Rva000E1341::rva000E1341()
+void Rva000E3B41::rva0006B804()
 {
 	BaseHeightMapRenderObjClass::rva0006B804();
 	((unsigned char *)TheWritableGlobalData)[0x3C] = 0;
