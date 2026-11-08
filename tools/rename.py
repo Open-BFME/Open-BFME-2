@@ -5704,6 +5704,52 @@ def respell_mangled_text(text, pairs):
     return text, respelled
 
 
+def local_static_keys(ctx, name, source):
+    """The data_ledger.csv spellings that embed method `name`, each a local static of it
+    (`?s@?1??<name>@4HA`, a guard's `?$S1@?1??<name>@4IA`) defined in its own `source`, since the
+    ledger keys them by the method's decorated name. Raises Refusal on any other mention."""
+    scope = re.compile(r"\?\$?\w+@\?[0-9A-Z]\?" + re.escape(name) + "@4")
+    keys = set()
+    for data in ctx.dicts(DATA_LEDGER):
+        spellings = {data.get("name", ""), *(data.get("names") or "").split(";")} - {""}
+        hits = {spelling for spelling in spellings if mangled_re(name).search(spelling)}
+        for spelling in hits:
+            if not scope.match(spelling):
+                raise Refusal(f"{spelling} in {DATA_LEDGER} embeds {name} and is no local static of it")
+        if hits and data.get("source") != source:
+            raise Refusal(f"{sorted(hits)[0]} in {DATA_LEDGER} is defined in {data.get('source') or 'no source'}, "
+                          f"not {name}'s {source}")
+        keys |= hits
+    return sorted(keys)
+
+
+def object_defined_symbols(ctx, rel):
+    """The names the fresh object of ledger source `rel` defines, or None with no object."""
+    import build
+    path = _source_object(ctx, rel, current=False)
+    if path is None:
+        return None
+    return {symbol.get("name") for symbol in build.read_object_symbols(path.read_bytes())
+            if symbol.get("section", 0) > 0}
+
+
+def to_class_static_problems(ctx, check):
+    """After ./build.sh: each moved method's object defines its local statics under the respelled
+    keys the data ledger now holds, and no longer under the old ones."""
+    problems = []
+    for rel, pairs in sorted((check.get("statics") or {}).items()):
+        defined = object_defined_symbols(ctx, rel)
+        if defined is None:
+            problems.append(f"{rel} has no object to read its local statics from")
+            continue
+        for old_key, new_key in sorted(pairs.items()):
+            if new_key not in defined:
+                problems.append(f"{rel}'s object does not define {new_key}, the data ledger's new key")
+            if old_key in defined:
+                problems.append(f"{rel}'s object still defines {old_key}")
+    return problems
+
+
 def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
     """Every check of one --to-class move of the row at `rva` into `cls` as
     `new` (see the section comment), up to its retail slot; a dict of what
@@ -5759,9 +5805,10 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                       "a slot there proves only that some folded function is a member")
     if any(mangled_re(name).search(d.get("name", "")) for d in ctx.dicts(DATA_ROWS)):
         raise Refusal(f"a data row (a local static) embeds {name}; rename the static first")
-    frozen = frozen_mentions(ctx, name)
+    frozen = [rel for rel in frozen_mentions(ctx, name) if rel != DATA_LEDGER]
     if frozen:
         raise Refusal(f"{name} is a key in {', '.join(frozen)} (frozen, shrink-only)")
+    statics = local_static_keys(ctx, name, row["source"])
 
     table, slot, retail, installers, proof = to_class_evidence(ctx, rva, cls, {row["source"]})
     declared = []
@@ -5771,7 +5818,7 @@ def _to_class_move(ctx, rva, cls, new, *, old=None, prepared=None):
                                         {r["source"] for r in installers}, prepared)
     return {"rva": rva, "row": row, "name": name, "new_name": new_name, "table": table, "slot": slot,
             "retail": retail, "installers": installers, "proof": proof, "declared": declared,
-            "tombstoned": tombstoned}
+            "tombstoned": tombstoned, "statics": statics}
 
 
 def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, max_files=25, also=None):
@@ -5845,6 +5892,19 @@ def plan_to_class(ctx, rva, cls, new, *, evidence="", old=None, prepared=None, m
         for before, _after in rewrite_ledger(ctx, plan, BODY_OWNERS, "body_owners.csv", mangled_re(before_name),
                                              after_name):
             plan.owner_rows.append((before[1], _rva(before[0])))
+    # A method's local statics are keyed by its decorated name: they move with it, and the
+    # rebuilt object must define them under the new keys (to_class_static_problems).
+    if any(m["statics"] for m in moves):
+        raw = ctx.read(DATA_LEDGER)
+        statics = {}
+        for move in moves:
+            pattern = mangled_re(move["name"])
+            raw = rewrite_records(raw, "data_ledger.csv", pattern, move["new_name"])[0]
+            if move["statics"]:
+                statics.setdefault(move["row"]["source"], {}).update(
+                    {key: pattern.sub(lambda _m, n=move["new_name"]: n, key) for key in move["statics"]})
+        plan.edit(ctx, DATA_LEDGER, raw)
+        check["statics"] = statics
     tombstoned = first["tombstoned"]
 
     def reason_text(old_row, new_row):
@@ -12481,6 +12541,10 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             if slot_problems:
                 raise VerifyFailed(f"the rebuilt vftable does not prove {plan.old} -> {plan.new}: "
                                    f"{slot_problems[0][:300]}; every file restored")
+            static_problems = to_class_static_problems(ctx, plan.to_class)
+            if static_problems:
+                raise VerifyFailed(f"the rebuilt object does not prove {plan.old} -> {plan.new}: "
+                                   f"{static_problems[0][:300]}; every file restored")
         if plan.this_cv:
             # A `this`-cv respell overrides the base virtual only if the rebuilt
             # installers' vftable names the row in its retail slot.

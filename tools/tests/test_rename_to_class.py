@@ -801,3 +801,77 @@ def test_a_one_slot_table_rebuilt_wrong_restores_everything(tree, monkeypatch):
     after = {p.relative_to(tree).as_posix(): p.read_bytes()
              for p in tree.rglob("*") if p.is_file() and ".git" not in p.parts}
     assert after == before
+
+
+# ------------------------------------------------------------ the method's local statics (P36, 0x005EFFA6)
+
+STATIC = f"?table@?1?{OLD}@4PAUField@@A"
+GUARD = f"?$S1@?1?{OLD}@4IA"
+NEW_STATIC, NEW_GUARD = STATIC.replace(OLD, NEW), GUARD.replace(OLD, NEW)
+
+
+def with_ledger(root, *rows):
+    lines = ["address,size,section,kind,name,source,status,names,defs,refs"]
+    lines += list(rows) or [f"0x00A00000,192,.data,global,{STATIC},Code/Game/Bits.cpp,owned,,1,1",
+                            f"0x00A000C0,4,.data,global,{GUARD},Code/Game/Bits.cpp,owned,,1,1"]
+    (root / "reverse/data_ledger.csv").write_bytes(("\n".join(lines) + "\n").encode("utf-8"))
+    return root
+
+
+def test_a_moved_methods_local_statics_move_with_it(tree, monkeypatch):
+    with_ledger(tree)
+    retail(monkeypatch, GOOD)
+    p = plan(tree)
+    ledger = p.after["reverse/data_ledger.csv"].decode()
+    assert NEW_STATIC in ledger and NEW_GUARD in ledger and OLD not in ledger
+    assert p.to_class["statics"] == {"Code/Game/Bits.cpp": {STATIC: NEW_STATIC, GUARD: NEW_GUARD}}
+    monkeypatch.setattr(rename, "object_defined_symbols", lambda ctx, rel: {NEW_STATIC, NEW_GUARD})
+    rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    assert NEW_STATIC in (tree / "reverse/data_ledger.csv").read_text()
+
+
+@pytest.mark.parametrize("defined,why", [
+    ({NEW_STATIC}, "does not define"),                          # the guard's name did not move
+    ({NEW_STATIC, NEW_GUARD, STATIC}, "still defines"),         # the old one is still compiled
+    (None, "has no object"),
+])
+def test_a_rebuilt_object_must_define_the_new_static_keys(tree, monkeypatch, defined, why):
+    with_ledger(tree)
+    retail(monkeypatch, GOOD)
+    p = plan(tree)
+    monkeypatch.setattr(rename, "object_defined_symbols", lambda ctx, rel: defined)
+    with pytest.raises(VerifyFailed, match=why):
+        rename.apply_rename(p, ctx=ctx_of(tree), verify=lambda ctx, sources: True)
+    assert STATIC in (tree / "reverse/data_ledger.csv").read_text()
+    assert NEW_STATIC not in (tree / "reverse/data_ledger.csv").read_text()
+
+
+def test_a_ledger_key_that_is_no_local_static_refuses(tree, monkeypatch):
+    with_ledger(tree, f"0x00A00000,4,.data,global,?x@@3P6AXXZ{OLD},Code/Game/Bits.cpp,owned,{OLD},1,1")
+    retail(monkeypatch, GOOD)
+    with pytest.raises(Refusal, match="is no local static of it"):
+        plan(tree)
+
+
+def test_a_local_static_defined_elsewhere_refuses(tree, monkeypatch):
+    with_ledger(tree, f"0x00A00000,192,.data,global,{STATIC},Code/Game/Other.cpp,owned,,1,1")
+    retail(monkeypatch, GOOD)
+    with pytest.raises(Refusal, match="is defined in Code/Game/Other.cpp"):
+        plan(tree)
+
+
+def test_a_baseline_key_still_refuses(tree, monkeypatch):
+    with_ledger(tree)
+    (tree / "reverse/data_check_baseline.txt").write_bytes((OLD + "\n").encode("utf-8"))
+    _git(tree, "add", "-A")
+    retail(monkeypatch, GOOD)
+    with pytest.raises(Refusal, match="is a key in reverse/data_check_baseline.txt"):
+        plan(tree)
+
+
+def test_a_method_with_no_statics_leaves_the_ledger_alone(tree, monkeypatch):
+    with_ledger(tree, "0x00A00000,4,.data,global,?g@@3HA,Code/Game/Bits.cpp,owned,,1,1")
+    retail(monkeypatch, GOOD)
+    p = plan(tree)
+    assert "reverse/data_ledger.csv" not in p.after
+    assert "statics" not in p.to_class

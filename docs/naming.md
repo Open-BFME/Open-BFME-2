@@ -626,6 +626,10 @@ spelling); convention, return type and parameters are kept. It takes no
 `--basis`, invents nothing, and refuses unless all of these hold:
 
 - the row's class is a placeholder;
+- any `data_ledger.csv` key embedding the method is a local static of it in its own
+  source. Those keys move with the row (the ledger keys a local static by the method's
+  decorated name), and the rebuilt object must define them under the new names; any
+  other mention refuses;
 - a table that a constructor, destructor or deleting destructor row of C
   installs holds the address in exactly one slot, and no table of a class
   unrelated to C holds it (a folded body); the address has no second row, pin
