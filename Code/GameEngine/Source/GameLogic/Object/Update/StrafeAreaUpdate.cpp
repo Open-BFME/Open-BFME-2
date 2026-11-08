@@ -37,8 +37,8 @@ class Object;
 #include "../../../../Include/Common/BfmeXfer.h"
 enum CommandSourceType {CMD_FROM_AI=2};
 class AIUpdateInterface;
-class Thing {public:void setOrientation(float);};
-class Object:public Thing {public:char pad[0x258];AIUpdateInterface *ai;};
+#include "../../../Common/Thing/thing.h"
+class Object:public Thing {public:char pad[0x258 - 0x60];AIUpdateInterface *ai;};
 struct StrafeAreaUpdateModuleData {char pad[0x1C];unsigned word1C;};
 struct StrafeDirection {float x,y,z;
  __forceinline StrafeDirection(const Coord3D &v):x(v.x),y(v.y),z(v.z) {}

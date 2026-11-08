@@ -55,10 +55,7 @@ class Drawable {
     const Matrix3D *getTransformMatrix() const;
     void rva00274176(bool);
 };
-class Thing {
-  public:
-    Drawable *getDrawable() const;
-};
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva00373EC6;
@@ -342,14 +339,10 @@ class Object : public Thing {
     friend class SpecialAbilityUpdate;
 
   public:
-    const Matrix3D *getTransform() const { return &transform; }
+    const Matrix3D *getTransform() const { return &m_transform; }
     Team *getTeam() const { return team; }
-    const Coord3D &getPosition() const { return position; }
-    void *vtable;
-    const ThingTemplate *tmplate;
-    Matrix3D transform;
-    Coord3D position;
-    char pad44[0x74 - 0x44];
+    const Coord3D &getPosition() const { return m_cachedPos; }
+    char pad60[0x74 - 0x60];
     ObjectID id;
     char pad78[8];
     int captor;
@@ -570,7 +563,7 @@ class SpecialAbilityUpdate {
     bool attackAnimStarted, attackIssued;
 };
 #define CHECK_FIELD(T, F, O) typedef char Check_##T##_##F[(offsetof(T, F) == O) ? 1 : -1]
-CHECK_FIELD(Object, position, 0x38);
+CHECK_FIELD(Object, m_cachedPos, 0x38);
 CHECK_FIELD(Object, contain, 0x250);
 CHECK_FIELD(Object, experience, 0x264);
 CHECK_FIELD(Object, team, 0x304);
@@ -641,7 +634,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
                 targetID = target->id;
             }
             {
-                const ThingTemplate *targetTemplate = target->tmplate;
+                const ThingTemplate *targetTemplate = target->m_template;
                 bool createGrabObject = false;
                 if (targetTemplate->isKind(132) &&
                     powerTemplate->getFO()->m_type == 0x28)
@@ -692,14 +685,14 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
                         }
                     }
                     holder->contain(target);
-                    if (target->tmplate->isKind(99))
+                    if (target->m_template->isKind(99))
                         target->setModelCondition(95);
                 }
             }
         } else if (triggerCount == 2 && target) {
-            if (target->tmplate->isKind(6))
+            if (target->m_template->isKind(6))
                 target->setModelCondition(91);
-            else if (target->tmplate->isKind(99)) {
+            else if (target->m_template->isKind(99)) {
                 ContainModuleInterface *holder = owner->contain;
                 if (holder)
                     holder->release(target, false);
@@ -794,7 +787,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
                 return;
         } else {
             captured = ThePartitionManager->getClosestObject(
-                &target->position, 150.0f, 1,
+                &target->m_cachedPos, 150.0f, 1,
                 &Rva0004584D((const BfmeFixedStorage0004543D &)Rva00045411BitSet(0, 50),
                              (const BfmeFixedStorage0004543D &)KINDOFMASK_NONE));
             if (!captured)
@@ -811,7 +804,7 @@ void SpecialAbilityUpdate::triggerAbilityEffect() {
             holder->setTeam(newTeam);
         }
         if (target->isLocallyControlled())
-            TheEva->reportEvaEvent(EVA_CAPTURED, &target->position, 0);
+            TheEva->reportEvaEvent(EVA_CAPTURED, &target->m_cachedPos, 0);
         if (target != captured) {
             if (captured->testStatus(STATUS_CAPTURE_REFUND)) {
                 Player *oldPlayer = captured->getControllingPlayer();

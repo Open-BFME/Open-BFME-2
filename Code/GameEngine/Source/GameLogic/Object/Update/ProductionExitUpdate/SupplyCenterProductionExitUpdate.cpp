@@ -52,20 +52,7 @@ private:
 	char m_unrecovered00[0x08];
 };
 
-class Thing
-{
-public:
-	const Matrix3D *getTransformMatrix() const { return &m_transform; }
-	Real getOrientation() const { return m_cachedAngle; }
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-
-private:
-	char m_unrecovered00[0x08];
-	Matrix3D m_transform;																											///< 0x08
-	Coord3D m_cachedPos;																											///< 0x38
-	Real m_cachedAngle;																												///< 0x44
-};
+#include "../../../../Common/Thing/thing.h"
 
 class SupplyTruckAIInterface
 {
@@ -92,7 +79,7 @@ public:
 	__declspec(dllimport) AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 
 private:
-	char m_unrecovered48[0x258 - 0x48];
+	char m_unrecovered60[0x258 - 0x60];
 	AIUpdateInterface *m_ai;																									///< 0x258
 };
 

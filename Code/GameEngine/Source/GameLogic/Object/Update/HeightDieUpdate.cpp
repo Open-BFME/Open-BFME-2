@@ -84,16 +84,7 @@ private:
 	char m_unknown00[0x10];
 	Real m_boundingCircleRadius; // +0x10
 };
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	void setPosition(const Coord3D *pos);
-
-private:
-	char m_unknown00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../../../Common/Thing/thing.h"
 class Object : public Thing
 {
 public:
@@ -102,7 +93,7 @@ public:
 	void kill(DamageType damageType = DAMAGE_UNRESISTABLE, DeathType deathType = DEATH_NORMAL);
 
 private:
-	char m_unknown44[0xA8 - 0x44];
+	char m_unknown60[0xA8 - 0x60];
 	GeometryInfo m_geometryInfo; // +0xA8
 	char m_unknownBC[0x274 - 0xBC];
 	Object *m_containedBy; // +0x274

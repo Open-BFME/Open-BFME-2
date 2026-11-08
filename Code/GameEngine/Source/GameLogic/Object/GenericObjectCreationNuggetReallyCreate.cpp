@@ -141,14 +141,8 @@ public:
 	void rva00274176(Bool b);
 };
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	const ThingTemplate *getTemplate() const { return m_template; }
-	char m_pad00[4];
-	const ThingTemplate *m_template;	// +0x04
-};
+#include "../../Common/Thing/thing.h"
+static inline const ThingTemplate *thingGetTemplate(const Thing *thing) { return thing->m_template; }
 
 // Horde member list returned by value: owner word, then the member list.
 struct OclMemberOwner { virtual void destroy(int); };
@@ -209,10 +203,8 @@ public:
 	ContainModuleInterface *getContain() const { return m_contain; }
 	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
 
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad008[0x38 - 0x08];
-	Coord3D m_pos;				// +0x38
-	char m_pad044[0x74 - 0x44];
+	const Coord3D *getPosition() const { return &m_cachedPos; }
+	char m_pad060[0x74 - 0x60];
 	Int m_id;				// +0x74
 	char m_pad078[0x88 - 0x78];
 	AsciiString m_name;			// +0x88
@@ -568,7 +560,7 @@ _STL::vector<Object *> GenericObjectCreationNugget::reallyCreate(const Coord3D *
 
 		debris->setProducer((Object *)sourceObj);
 
-		if (debris->getTemplate()->isKindOf(7))
+		if (thingGetTemplate(debris)->isKindOf(7))
 			((AIView *)TheAI)->pathfinder()->AddObjectToPathfindMap(debris);
 
 		if (m_fadeIn)
@@ -577,7 +569,7 @@ _STL::vector<Object *> GenericObjectCreationNugget::reallyCreate(const Coord3D *
 			if (sourceObj)
 				((Rva002D9531 *)&fadeAudioEvent)->rva002D9531(sourceObj->getID());
 			TheAudio->addAudioEvent(&fadeAudioEvent);
-			if (debris->getTemplate()->isKindOf(0x6D))
+			if (thingGetTemplate(debris)->isKindOf(0x6D))
 			{
 				ContainModuleInterface *contain = debris->getContain();
 				if (contain)

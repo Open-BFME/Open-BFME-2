@@ -72,7 +72,7 @@ struct CreateMask;
 // The native constructor has a virtual base and therefore a hidden most-derived
 // word. These call-only base views preserve its observed 0x74 ID, 0x244 module
 // list and 0x4D8 allocation; constructor stores establish the base offsets.
-class Thing { public: virtual ~Thing(); private: char unknown04[0x5c]; };
+#include "thing.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 class BfmeCtorFirstBase001B3A20 { public: virtual void slot(); };
 class BfmeCtorVirtualBase001B3A20 { public: virtual void slot(); };
@@ -89,6 +89,9 @@ public:
 	ObjectID getID() const { return m_id; }
 	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 	void initObject();
+
+protected:
+	virtual void reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, float oldAngle);
 
 private:
 	ObjectID m_id; // +0x74

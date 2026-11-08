@@ -40,6 +40,7 @@ enum DeathType
 {
 	DEATH_09 = 9
 };
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Object : public Thing
 {

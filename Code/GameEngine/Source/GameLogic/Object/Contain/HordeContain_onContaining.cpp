@@ -47,6 +47,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 }
 class Object; class Drawable;
 enum ObjectStatusTypes {RvaStatus38=38};
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 class Object:public Thing {public:
  char p060[0x74-0x60];int id;

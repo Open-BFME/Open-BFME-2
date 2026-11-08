@@ -137,21 +137,8 @@ static inline void setCoord(Coord3D *coord, Real x, Real y, Real z)
 	coord->z = z;
 }
 
-class Thing
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	__declspec(dllimport) __forceinline Bool isKindOf(KindOfType t) const { return (((unsigned char)(getTemplate()->m_kindof[t >> 5] >> (t & 24)) & (1 << (t & 7))) != 0); }
-	Bool isKindOfMulti(const KindOfMaskType &mustBeSet, const KindOfMaskType &mustBeClear) const;
-	const Coord3D *getPosition() const { return &m_pos; }
-	const Matrix3D *getTransformMatrix() const { return &m_transform; }
-private:
-	void *m_vtable;
-	const ThingTemplate *m_template; // +0x04
-	Matrix3D m_transform; // +0x08
-	Coord3D m_pos; // +0x38
-	char m_pad44[0x48 - 0x44];
-};
+#include "../../../Common/Thing/thing.h"
+static __forceinline Bool isKindOf(const Thing *thing, KindOfType t) { return (((unsigned char)(thing->m_template->m_kindof[t >> 5] >> (t & 24)) & (1 << (t & 7))) != 0); }
 
 // Object's model-condition words at +0x10C.
 class ModelConditionFlags
@@ -212,7 +199,7 @@ public:
 		}
 	}
 private:
-	char m_pad48[0x10C - 0x48];
+	char m_pad60[0x10C - 0x60];
 	ModelConditionFlags m_conditionFlags; // +0x10C
 	char m_pad11C[0x258 - 0x11C];
 	AIUpdateInterface *m_ai; // +0x258
@@ -336,7 +323,7 @@ Bool TransportContain::isSpecificRiderFreeToExit(Object *specificObject)
 	myPosition.x = pos->x;
 	myPosition.y = pos->y;
 	myPosition.z = pos->z;
-	if (me->isKindOf(BFME_KINDOF_BF) && TheTerrainLogic->isUnderwater(myPosition.x, myPosition.y, NULL, NULL, 0))
+	if (isKindOf(me, BFME_KINDOF_BF) && TheTerrainLogic->isUnderwater(myPosition.x, myPosition.y, NULL, NULL, 0))
 	{
 		Coord3D landPosition;
 		landPosition.x = myPosition.x;

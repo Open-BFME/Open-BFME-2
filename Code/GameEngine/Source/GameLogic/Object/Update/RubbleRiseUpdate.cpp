@@ -67,6 +67,7 @@ typedef PhaseList<FXList> FXVec;
 typedef PhaseList<ObjectCreationList> OCLVec;
 Bool inList(Int value, Int count, const Int idxList[]);
 class DamageInfo;
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 class ModelConditionFlags

@@ -206,7 +206,8 @@ extern PlayerList*ThePlayerList;
 
 #include "../../Include/Common/ThingTemplate.h"
 
-class Thing {public:void* vtable;ThingTemplate* m_template;const ThingTemplate*getTemplate()const{return m_template;}};
+#include "Thing/thing.h"
+static inline const ThingTemplate *thingGetTemplate(const Thing *thing) { return thing->m_template; }
 
 class ThingFactory;
 
@@ -1450,14 +1451,14 @@ void RecorderClass::dumpCommandHistory(CommandDumpFile0037BE15* file,unsigned ma
      Object* object=TheGameLogic->findObjectByID((ObjectID)id);
      if (object) {
       int rel=player?player->getRelationship(read0037BE15<Team*>(object->getControllingPlayer(),0x2ec)):-1;
-      text.format("    %02d: Object:%s(%d) Relationship:%s",i,object->getTemplate()->getName().str(),id,rel>=0?TheRelationshipNames[rel]:"N/A");
+      text.format("    %02d: Object:%s(%d) Relationship:%s",i,thingGetTemplate(object)->getName().str(),id,rel>=0?TheRelationshipNames[rel]:"N/A");
      } else text.format("    %02d: Object:INVALID(%d)",i,id);
      break;
     }
     case ARG_DRAWABLE: {
      int id=message->getArgument(i)->integer;
      Drawable0037BE15* drawable=((Client0037BE15*)TheGameClient)->find(id);
-     if (drawable) text.format("    %02d: Drawable:%s(%d)",i,drawable->getTemplate()->getName().str(),id);
+     if (drawable) text.format("    %02d: Drawable:%s(%d)",i,thingGetTemplate(drawable)->getName().str(),id);
      else text.format("    %02d: Drawable:INVALID",i);
      break;
     }

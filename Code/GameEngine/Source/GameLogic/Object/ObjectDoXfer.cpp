@@ -161,6 +161,7 @@ public:
 extern TerrainLogic *TheTerrainLogic;
 
 class RGBColor;
+#include "../../Common/Thing/thing.h"
 #include "../../../Include/GameClient/Drawable.h"
 
 // Existing matched accessor at 0x0055A88B reads the drawable ID at +0x100.

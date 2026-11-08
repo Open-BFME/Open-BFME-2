@@ -139,17 +139,9 @@ public:
 
 #include "../../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	virtual ~Thing();
+#include "../../../Common/Thing/thing.h"
 
-	const ThingTemplate *getTemplate() const { return m_template; }
-	Bool isHulkKind() const { return ((unsigned char)(getTemplate()->m_kindof[2] >> 16) & 4) != 0; }
-
-private:
-	const ThingTemplate *m_template; // +0x04
-};
+static inline Bool isHulkKind(const Thing *thing) { return ((unsigned char)(thing->m_template->m_kindof[2] >> 16) & 4) != 0; }
 
 class Object : public Thing
 {
@@ -157,7 +149,7 @@ public:
 	bool isKindOf(KindOfType kind) const;
 	Player *getControllingPlayer() const;
 	void kill(DamageType damageType, DeathType deathType);
-	unsigned char m_pad008[0x254 - 0x08];
+	unsigned char m_pad060[0x254 - 0x60];
 	Rva003A4BFDModule *m_module254;
 };
 
@@ -360,7 +352,7 @@ LifetimeUpdate::LifetimeUpdate(Thing *thing, const ModuleData *moduleData)
 	else
 	{
 		UnsignedInt delay;
-		if (getObject()->isHulkKind() && ((const GameLogicHulkLifetimeView *)TheGameLogic)->m_hulkMaxLifetimeOverride != -1)
+		if (isHulkKind(getObject()) && ((const GameLogicHulkLifetimeView *)TheGameLogic)->m_hulkMaxLifetimeOverride != -1)
 			delay = calcSleepDelay(((const GameLogicHulkLifetimeView *)TheGameLogic)->m_hulkMaxLifetimeOverride, ((const GameLogicHulkLifetimeView *)TheGameLogic)->m_hulkMaxLifetimeOverride);
 		else
 			delay = calcSleepDelay(data->m_minFrames, data->m_maxFrames);

@@ -763,22 +763,8 @@ enum KindOfType
 
 #include "../../../../../Include/Common/ThingTemplate.h"
 
-class Thing
-{
-public:
-	virtual ~Thing();
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	Real getOrientation() const { return m_orientation; }
-	Drawable *getDrawable() const;
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-private:
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-	Real m_orientation; // +0x44
-};
+#include "../../../../Common/Thing/thing.h"
+static inline const ThingTemplate *thingGetTemplate(const Thing *thing) { return thing->m_template; }
 
 // BFME 2's object status bit names (the name table at .rdata 0x009A5F30).
 enum ObjectStatusTypes
@@ -814,7 +800,7 @@ public:
 	void setBuilder(const Object *builder);
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	Bool isUsingAirborneLocomotor() const;
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return getTemplate()->m_kindof[t >> 5] & (1U << (t & 31)); }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return thingGetTemplate(this)->m_kindof[t >> 5] & (1U << (t & 31)); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	ObjectID getSoleHealingBenefactor() const;
@@ -867,7 +853,7 @@ public:
 	Bool attemptHealingFromSoleBenefactor(Real amount, const Object *source, UnsignedInt duration);
 	Int get45C() const { return m_45C; }
 private:
-	unsigned char m_pad048[0x74 - 0x48];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	ObjectID m_producerID; // +0x78
 	ObjectID m_builderID; // +0x7C
@@ -1301,8 +1287,8 @@ void DozerAIUpdate::newTask(DozerTask task, Object *target)
 		{
 			if (theLogicRandomLogFile)
 				fprintf(theLogicRandomLogFile, "DockingDesync(DOZER) BEGIN: Object %s(%d) with target %s(%d) at %g,%g,%g",
-					me->getTemplate()->getName().str(), me->getID(),
-					target->getTemplate()->getName().str(), target->getID(),
+					thingGetTemplate(me)->getName().str(), me->getID(),
+					thingGetTemplate(target)->getName().str(), target->getID(),
 					me->getPosition()->x, me->getPosition()->y, me->getPosition()->z);
 			g_bfmeDockingTraceActive = true;
 		}
@@ -1314,7 +1300,7 @@ void DozerAIUpdate::newTask(DozerTask task, Object *target)
 			{
 				if (theLogicRandomLogFile)
 					fprintf(theLogicRandomLogFile, "DockingDesync(DOZER) END: Object %s(%d) with no target found docking position %g,%g,%g",
-						me->getTemplate()->getName().str(), me->getID(),
+						thingGetTemplate(me)->getName().str(), me->getID(),
 						position.x, position.y, position.z);
 				g_bfmeDockingTraceActive = false;
 			}
@@ -1325,8 +1311,8 @@ void DozerAIUpdate::newTask(DozerTask task, Object *target)
 		{
 			if (theLogicRandomLogFile)
 				fprintf(theLogicRandomLogFile, "DockingDesync(DOZER) END: Object %s(%d) with target %s(%d) found docking position %g,%g,%g",
-					me->getTemplate()->getName().str(), me->getID(),
-					target->getTemplate()->getName().str(), target->getID(),
+					thingGetTemplate(me)->getName().str(), me->getID(),
+					thingGetTemplate(target)->getName().str(), target->getID(),
 					position.x, position.y, position.z);
 			g_bfmeDockingTraceActive = false;
 		}
@@ -2159,7 +2145,7 @@ void DozerAIUpdate::makePhantomStructureReal()
 		if (getObject()->getControllingPlayer()->getPlayerType() != PLAYER_COMPUTER ||
 			TheSkirmishAIManager->rva002A8AB1(getObject()->getControllingPlayer()) != 0)
 		{
-			if (TheBuildAssistant->isLocationLegalToBuild(obj->getPosition(), obj->getTemplate(), obj->getOrientation(),
+			if (TheBuildAssistant->isLocationLegalToBuild(obj->getPosition(), thingGetTemplate(obj), obj->getOrientation(),
 					BuildAssistant::TERRAIN_RESTRICTIONS |
 					BuildAssistant::NO_OBJECT_OVERLAP |
 					BuildAssistant::SHROUD_REVEALED,
@@ -2175,8 +2161,8 @@ void DozerAIUpdate::makePhantomStructureReal()
 
 	if (!obj->isKindOf(KINDOF_NO_COLLIDE) && !obj->isKindOf(KINDOF_DO_NOT_CLASSIFY))
 	{
-		TheBuildAssistant->clearRemovableForConstruction(obj->getTemplate(), obj->getPosition(), obj->getOrientation());
-		TheBuildAssistant->moveObjectsForConstruction(obj->getTemplate(), obj->getPosition(), obj->getOrientation(), obj->getControllingPlayer());
+		TheBuildAssistant->clearRemovableForConstruction(thingGetTemplate(obj), obj->getPosition(), obj->getOrientation());
+		TheBuildAssistant->moveObjectsForConstruction(thingGetTemplate(obj), obj->getPosition(), obj->getOrientation(), obj->getControllingPlayer());
 		TheTerrainLogic->rva0028449F(obj->getPosition(), obj->getGeometryInfo(), obj->getOrientation());
 	}
 
@@ -2399,7 +2385,7 @@ StateReturnType DozerActionDoActionState::update()
 				else
 				{
 					// increase the construction percent of the goal object
-					Int framesToBuild = goalObject->getTemplate()->calcTimeToBuild(dozer->getControllingPlayer(), (Int)dozer, -1);
+					Int framesToBuild = thingGetTemplate(goalObject)->calcTimeToBuild(dozer->getControllingPlayer(), (Int)dozer, -1);
 					Real percentProgressThisFrame = 100.0f / framesToBuild;
 					goalObject->setConstructionPercent(goalObject->bfme_construction_percent() + percentProgressThisFrame);
 
@@ -2465,7 +2451,7 @@ StateReturnType DozerActionDoActionState::update()
 							if (objectName.isEmpty())
 							{
 								UnicodeString format = TheGameText->fetch("INI:MissingDisplayName");
-								objectName.format(&format, goalObject->getTemplate()->getName().str());
+								objectName.format(&format, thingGetTemplate(goalObject)->getName().str());
 							}
 
 							UnicodeString msg;
@@ -2636,7 +2622,7 @@ void DozerAIUpdate::destroyPhantomStructure()
 			UnsignedInt amount = (UnsignedInt)obj->m_buildCost;
 			Rva003B0D7C *money = player->getMoney();
 			money->rva003B0D7C((Int)amount, reinterpret_cast<Rva0039B7AD *>(scoreKeeper), true);
-			reinterpret_cast<Rva0039BAD2 *>(scoreKeeper)->rva0039BAD2((Rva0039BAD2Input *)obj->getTemplate(), -amount);
+			reinterpret_cast<Rva0039BAD2 *>(scoreKeeper)->rva0039BAD2((Rva0039BAD2Input *)thingGetTemplate(obj), -amount);
 			reinterpret_cast<ScoreKeeper *>(scoreKeeper)->addObjectBuilt(obj, -1);
 		}
 		TheGameLogic->destroyObject(obj);

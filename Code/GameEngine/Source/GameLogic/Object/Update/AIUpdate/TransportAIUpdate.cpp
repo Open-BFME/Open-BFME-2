@@ -39,14 +39,8 @@ enum KindOfType
 	KINDOF_39 = 0x39
 };
 #include "../../../../../Include/Common/ThingTemplate.h"
-class Thing
-{
-public:
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_template->m_kindof[t >> 5] & (1U << (t & 31)); }
-
-	virtual void slot00();
-	ThingTemplate *m_template;
-};
+#include "../../../../Common/Thing/thing.h"
+static __forceinline UnsignedInt isKindOf(const Thing *thing, KindOfType t) { return thing->m_template->m_kindof[t >> 5] & (1U << (t & 31)); }
 class Object;
 class AIUpdateInterface;
 struct BfmeContainedNode
@@ -98,7 +92,7 @@ public:
 	ContainModuleInterface *getContain() const { return m_contain; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 
-	unsigned char m_unmodelled_08[0x1C8 - 8];
+	unsigned char m_unmodelled_60[0x1C8 - 0x60];
 	UnsignedInt m_disabledMask;
 	unsigned char m_unmodelled_1CC[0x250 - 0x1CC];
 	ContainModuleInterface *m_contain;
@@ -140,7 +134,7 @@ void TransportAIUpdate::privateAttackObject(Object *victim, Int maxShotsToFire, 
 			{
 				Object *passenger = node->m_object;
 				node = node->m_next;
-				if (passenger->isKindOf(KINDOF_39))
+				if (isKindOf(passenger, KINDOF_39))
 				{
 					if (passenger->isDisabledByType(2) || passenger->isDisabledByType(4))
 						continue;
@@ -166,7 +160,7 @@ void TransportAIUpdate::privateForceAttackObject(Object *victim, Int maxShotsToF
 			{
 				Object *passenger = node->m_object;
 				node = node->m_next;
-				if (passenger->isKindOf(KINDOF_39))
+				if (isKindOf(passenger, KINDOF_39))
 				{
 					if (passenger->isDisabledByType(2) || passenger->isDisabledByType(4))
 						continue;
@@ -192,7 +186,7 @@ void TransportAIUpdate::privateAttackPosition(const Coord3D *pos, Int maxShotsTo
 			{
 				Object *passenger = node->m_object;
 				node = node->m_next;
-				if (passenger->isKindOf(KINDOF_39))
+				if (isKindOf(passenger, KINDOF_39))
 				{
 					if (passenger->isDisabledByType(2) || passenger->isDisabledByType(4))
 						continue;

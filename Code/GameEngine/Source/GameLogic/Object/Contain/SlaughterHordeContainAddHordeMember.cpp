@@ -27,6 +27,7 @@ class BfmeGlob939D{public:char bfmeCall939D();};
 #include "../../../../Include/GameLogic/ExperienceTracker.h"
 class Rva0039ADF3{public:bool rva0039AE04()const;};
 class Rva0028D796{public:int rva0028D796();};
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/DrawableBFME2.h"
 class AICommandInterface{public:void aiIdle(CommandSourceType);};
 class AIUpdateInterface{public:AICommandInterface *commands(){return (AICommandInterface*)((char*)this+0x20);}};

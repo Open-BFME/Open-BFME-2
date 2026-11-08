@@ -161,7 +161,7 @@ public:
 	virtual void behaviorModuleOtherAnchor();
 };
 
-class Thing;
+#include "../../../Common/Thing/thing.h"
 
 class ModuleData;
 

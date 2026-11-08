@@ -441,20 +441,7 @@ public:
 	void Rva0027164EBroadcast(Int maxBoxes, Int boxes); // 0x0027164E, Drawable supply status
 };
 
-class Thing
-{
-public:
-	virtual ~Thing();
-	Drawable *getDrawable() const; // 0x005508E2
-	const ThingTemplate *getTemplate() const { return m_template; }
-	const Coord3D *getPosition() const { return &m_position; }
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-private:
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x38 - 0x08];
-	Coord3D m_position; // +0x38
-};
+#include "../../../../Common/Thing/thing.h"
 
 class ModelConditionFlags
 {
@@ -475,7 +462,7 @@ class Object : public Thing
 {
 public:
 	ObjectID getID() const { return m_id; }
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return thingTemplateIsKindOf(getTemplate(), t); }
+	__forceinline UnsignedInt isKindOf(KindOfType t) const { return thingTemplateIsKindOf(m_template, t); }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
@@ -497,7 +484,7 @@ public:
 		}
 	}
 private:
-	unsigned char m_pad044[0x74 - 0x44];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id; // +0x74
 	unsigned char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo; // +0xA8
@@ -1311,8 +1298,8 @@ Object *WorkerAIUpdate::findGoodBuildOrRepairPositionAndTarget(Object *me, Objec
 {
 	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
 		fprintf(theLogicRandomLogFile, "  WorkerAIUpdate::findGoodBuildOrRepairPositionAndTarget() BEGIN: Object %s(%d) with target %s(%d)",
-			me->getTemplate()->getName().str(), me->getID(),
-			target ? target->getTemplate()->getName().str() : "NULL", target ? target->getID() : 0);
+			me->m_template->getName().str(), me->getID(),
+			target ? target->m_template->getName().str() : "NULL", target ? target->getID() : 0);
 
 	if (target->isKindOf(KINDOF_BRIDGE))
 	{
@@ -1385,8 +1372,8 @@ void WorkerAIUpdate::newTask(DozerTask task, Object *target)
 		{
 			if (theLogicRandomLogFile)
 				fprintf(theLogicRandomLogFile, "DockingDesync(WORKER) BEGIN: Object %s(%d) with target %s(%d) at %g,%g,%g",
-					me->getTemplate()->getName().str(), me->getID(),
-					target->getTemplate()->getName().str(), target->getID(),
+					me->m_template->getName().str(), me->getID(),
+					target->m_template->getName().str(), target->getID(),
 					me->getPosition()->x, me->getPosition()->y, me->getPosition()->z);
 			g_bfmeDockingTraceActive = true;
 		}
@@ -1398,7 +1385,7 @@ void WorkerAIUpdate::newTask(DozerTask task, Object *target)
 			{
 				if (theLogicRandomLogFile)
 					fprintf(theLogicRandomLogFile, "DockingDesync(WORKER) END: Object %s(%d) with no target found docking position %g,%g,%g",
-						me->getTemplate()->getName().str(), me->getID(),
+						me->m_template->getName().str(), me->getID(),
 						position.x, position.y, position.z);
 				g_bfmeDockingTraceActive = false;
 			}
@@ -1409,8 +1396,8 @@ void WorkerAIUpdate::newTask(DozerTask task, Object *target)
 		{
 			if (theLogicRandomLogFile)
 				fprintf(theLogicRandomLogFile, "DockingDesync(WORKER) END: Object %s(%d) with target %s(%d) found docking position %g,%g,%g",
-					me->getTemplate()->getName().str(), me->getID(),
-					target->getTemplate()->getName().str(), target->getID(),
+					me->m_template->getName().str(), me->getID(),
+					target->m_template->getName().str(), target->getID(),
 					position.x, position.y, position.z);
 			g_bfmeDockingTraceActive = false;
 		}
@@ -1453,8 +1440,8 @@ Bool WorkerAIUpdate::findGoodBuildOrRepairPosition(const Object *me, const Objec
 {
 	if (g_bfmeDockingTraceActive && theLogicRandomLogFile)
 		fprintf(theLogicRandomLogFile, "    WorkerAIUpdate::findGoodBuildOrRepairPosition() BEGIN: Object %s(%d) with target %s(%d)",
-			me->getTemplate()->getName().str(), me->getID(),
-			target ? target->getTemplate()->getName().str() : "NULL", target ? target->getID() : 0);
+			me->m_template->getName().str(), me->getID(),
+			target ? target->m_template->getName().str() : "NULL", target ? target->getID() : 0);
 
 	// The place we go to build or repair is the closest spot from us to them
 	const Coord3D *ourPos = me->getPosition();

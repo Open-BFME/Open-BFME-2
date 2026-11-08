@@ -45,6 +45,7 @@ extern GameLogic *TheGameLogic;
 
 enum UpdateSleepTime;
 
+#include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 // The one module-data field the constructor reads (AutoDepositUpdate.cpp's

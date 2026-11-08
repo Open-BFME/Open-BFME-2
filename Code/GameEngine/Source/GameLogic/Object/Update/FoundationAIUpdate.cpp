@@ -48,12 +48,7 @@ enum ObjectStatusTypes
 {
 	OBJECT_STATUS_3 = 3
 };
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
- void getUnitDirectionVector3D(Coord3D &dir) const;
-};
+#include "../../../Common/Thing/thing.h"
 class Player;
 class Object : public Thing
 {
@@ -64,8 +59,8 @@ public:
  void setConstructionState00455477(const AsciiString &value) {m_constructionState=value;}
  ObjectID getID() const { return m_id; }
  const ThingTemplate *getTemplate() const { return m_template; }
- const Matrix3D *getTransformMatrix() const { return reinterpret_cast<const Matrix3D *>(m_pad008); }
- const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D *>(m_pad008 + 0x30); }
+ const Matrix3D *getTransformMatrix() const { return &m_transform; }
+ const Coord3D *getPosition() const { return &m_cachedPos; }
  void setProducer(Object *obj);
  bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
  Object *container() const { return *reinterpret_cast<Object *const *>(reinterpret_cast<const char *>(this)+0x274); }
@@ -80,9 +75,7 @@ public:
 	void rva0028BAAE(int value);
 	void setTeam(Team *team);
 private:
-	void *m_vptr;
-	const ThingTemplate *m_template; // +0x04
-	unsigned char m_pad008[0x74 - 0x08];
+	unsigned char m_pad060[0x74 - 0x60];
 	ObjectID m_id; // +0x74
  unsigned char m_pad078[0x424-0x78];
  AsciiString m_constructionState;
