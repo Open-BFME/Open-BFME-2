@@ -37,10 +37,6 @@ void famgenDelete(Rva0048B95F *p) { delete p; }
 // LargeGroupBonusUpdateModuleData emits its deleting destructor in its native
 // constructor unit, with the complete ModuleData interface.
 
-// ??_GDamageFieldUpdate@@UAEPAXI@Z @0x4912fa
-class DamageFieldUpdate { public: DamageFieldUpdate(EmitVtableTag *); virtual ~DamageFieldUpdate(); };
-// ?<DamageFieldUpdate::DamageFieldUpdate> absent-from-retail
-DamageFieldUpdate::DamageFieldUpdate(EmitVtableTag *) {}
 
 // ??_GRousingSpeechUpdate@@UAEPAXI@Z @0x4acffd
 class RousingSpeechUpdate { public: RousingSpeechUpdate(EmitVtableTag *); virtual ~RousingSpeechUpdate(); };

@@ -139,10 +139,6 @@ Xfer *xferSTLObjectIDList(Xfer *xfer, BridgeBehaviorObjectIDList *list);
 
 BFME_LITERAL_NAME_GETTER(Rva0049125ENamed, "DamageFieldUpdate")
 
-char g_00C4D964;
-
-char g_00C4D970;
-
 //
 // ??1DamageFieldUpdate@@UAE@XZ, retail 0x0049122C, 49 bytes. Virtual dtor
 // shard: ctor TU keeps its verified shape untouched, so the class is
@@ -152,8 +148,6 @@ char g_00C4D970;
 // installs plus freelist-node member at +0x2C via pinned reset plus
 // pool-free via 0x268902 pin plus implicit FireWeaponUpdate base-dtor tail
 // call. One new pin (??1FireWeaponUpdate@@UAE@XZ @0x48BD11, EH dtor body).
-
-extern "C" const void *const __identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@")[];
 
 #include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
@@ -165,38 +159,32 @@ public:
 
   // folded vftable 0x00BEFF90 (80 classes), by the name its definer AttributeModifierPoolUpdate.cpp emits on the canonical BehaviorModule chain (the data-ledger spelling ...@@6BBehaviorModuleOther@@@ has no definer)
 
-extern char g_00C4D964;
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
-extern char g_00C4D970;
-
-class FireWeaponUpdate
+class FireWeaponUpdate : public UpdateModule
 {
 public:
+	FireWeaponUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~FireWeaponUpdate();
-protected:
-	virtual void v01();
-protected:
-	virtual void v02();
 protected:
 	virtual void xfer(Xfer *xfer);
 protected:
-	char m_unrecovered04[0x2C - 0x04];
-public:
-	FireWeaponUpdate(Thing *thing, const ModuleData *moduleData);
+	char m_unrecovered20[0x2C - 0x20];
 };
 
-class __declspec(novtable) DamageFieldUpdate : public FireWeaponUpdate
+// Retail's tables: 0x00C4D970 (13 slots), 0x00BEFF90 at +0x0C (the 47-slot table 80 classes fold onto)
+// and 0x00C4D964 at +0x10 (update and UpdateModule's two).
+class DamageFieldUpdate : public FireWeaponUpdate
 {
 public:
+	DamageFieldUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~DamageFieldUpdate();
-public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
 	BridgeBehaviorObjectIDList m_2C;
-public:
-	DamageFieldUpdate(Thing *thing, const ModuleData *moduleData);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdate.cpp
@@ -273,9 +261,6 @@ void DamageFieldUpdate::xfer(Xfer *xfer)
 DamageFieldUpdate::~DamageFieldUpdate()
 {
 	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x2C);
-	*(const void **)this = (const void *)(unsigned int)&g_00C4D970;
-	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	*(const void **)((char *)this + 0x10) = (const void *)(unsigned int)&g_00C4D964;
 	member->reset();
 	((PoolMember *)member)->Rva00268902();
 }
@@ -288,9 +273,6 @@ DamageFieldUpdate::DamageFieldUpdate(Thing *thing, const ModuleData *moduleData)
 {
 	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x2C);
 	void *context = (void *)((char *)&moduleData + 3);
-	*(const void **)this = (const void *)(unsigned int)&g_00C4D970;
-	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7AttributeModifierPoolUpdate@@6BBehaviorModuleInterface@@@"));
-	*(const void **)((char *)this + 0x10) = (const void *)(unsigned int)&g_00C4D964;
 	member->init(context);
 }
 
