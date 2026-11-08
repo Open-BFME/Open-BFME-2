@@ -126,3 +126,38 @@ Two incidental findings from the sweep:
   (`/home/dave/.../reference/open-bfme-1/...`) inside a field-rename message.
   Harmless to the verdict, but a message that embeds a local absolute path is
   not reproducible between checkouts.
+
+## The padding-span allowance is not worth writing
+
+Measured before writing it, which is the point of writing this down. Of the 104
+padding-span rows, split by whether the unit does anything with the member
+beyond declaring it:
+
+| rows | the unit |
+| ---: | --- |
+| 45 | only declares the field |
+| 59 | reads or writes it |
+
+The 59 are out of reach by construction. The rename maps a 4-byte view member
+to a 1-byte canonical field, so a body that assigns it stores one byte where it
+stored four and the byte gate refuses -- correctly. Only the 45
+declaration-only rows could pass, and the measured pass rate for
+declaration-only candidates once the classifier is out of the way was about one
+in twelve (`header-lane-vptr-standin-20261107.md`). So the honest forecast is
+**four adoptions**, spread over `GameWindow` 5 rows, `W3DShadowManager` 4,
+`ControlBar` 3, `MilesAudioManager` 3, `ModuleData` 3, `PlayerList` 3 and a
+tail of singletons.
+
+Four adoptions does not pay for a change to gate code, its tests and a
+`Verifier-Change:` trailer, and gate changes carry risk the adoptions do not
+repay.
+
+The one argument that survives is the one that justified the vptr fix, and it
+is weaker here: 104 rows would stop reporting a classifier artifact and start
+reporting the width disagreement that actually blocks them, which is what the
+next worker needs. That is worth doing *if* someone is already in
+`field_renames` for another reason. It is not worth a trip of its own.
+
+Recorded so the next seat does not re-derive it. The vptr fix looked similar
+and was worth it -- 113 rows over 30 classes, and it unblocked a whole category
+rather than a width quibble. The difference is the 59.
