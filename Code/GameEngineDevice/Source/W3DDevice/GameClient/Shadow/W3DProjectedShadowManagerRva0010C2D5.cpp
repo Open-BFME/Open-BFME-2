@@ -23,7 +23,7 @@
 
 class RenderObjClass;
 
-inline void *operator new(unsigned int, void *where) { return where; }
+#include <new.h>
 
 class Shadow
 {
@@ -129,7 +129,7 @@ struct ShadowTextureSlot
 class Rva007B1380
 {
 public:
-	Rva007B1380();
+	Rva007B1380() throw();
 
 protected:
 	const void *const *m_table; // +0x00
@@ -162,7 +162,7 @@ namespace
 class Rva001095B2 : public W3DProjectedShadow
 {
 public:
-	Rva001095B2() { m_table = __identifier("??_7Rva001095B2@@6B@"); }
+	Rva001095B2() throw() { m_table = __identifier("??_7Rva001095B2@@6B@"); }
 };
 }
 
