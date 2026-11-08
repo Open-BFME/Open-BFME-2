@@ -107,6 +107,19 @@ public:
 
 namespace FXParticleSystem
 {
+// OutwardEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
+// thunk (slot 0 at +8). The class is abstract, so its own constructor units
+// cannot new an array of it; this view keeps only the size and the +8
+// secondary base, and novtable keeps its partial table out of the image.
+class __declspec(novtable) OutwardEmissionVelocityModuleTemplate : public Rva003A7614VecBase0, public Rva003A7614VecBase8
+{
+public:
+	virtual ~OutwardEmissionVelocityModuleTemplate();
+};
+}
+
+namespace FXParticleSystem
+{
 // CylindricalEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
@@ -266,6 +279,7 @@ void bfmeVectorDeleteAnchorV02Unresolved()
 	new FXParticleSystem::TerrainFireEmissionModuleTemplate[2];
 	new FXParticleSystem::LightningDrawModuleTemplate[2];
 	new Rva003A7614Vec[2];
+	new FXParticleSystem::OutwardEmissionVelocityModuleTemplate[2];
 	new FXParticleSystem::CylindricalEmissionVelocityModuleTemplate[2];
 	new Rva003A8681Vec[2];
 	new Rva003A8FACVec[2];
