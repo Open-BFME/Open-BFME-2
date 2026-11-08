@@ -50,3 +50,10 @@ vftable type check or emitted an unintended implicit destructor/table.
 Those trials were private; none was applied. Normal C++ lifecycle emission
 is the verified repair. Detailed facts are in final-proof.json; local
 replay is build/back-away-table-binding-20261108/verify.py.
+
+Published as 60858c3763 on the first attempt, 27.9 seconds. Required
+byte/EH/data/scoped-DIR32 checks pass. The broader audit is INCONCLUSIVE:
+index c885072a48 versus outgoing base bc96d415a731023f4fa3962b6a1506589221623a;
+unchanged Common/Rva00340BDCDtor.cpp lacks a current receipt. Carry that
+consumer into the next census/image check; this publication does not
+establish full link closure.

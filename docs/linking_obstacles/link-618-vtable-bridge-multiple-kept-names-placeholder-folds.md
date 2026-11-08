@@ -265,3 +265,9 @@ AIBackAwayAndCowerState's placeholder getter/class and lifecycle slots
 2/4/5/6 still need reconciliation. The stale Wind queue key remains;
 LINK-247 records that boundary. Next-image confirmation is pending.
 [Native operands, preserved bodies and controls](../../reverse/attempt_support/back-away-state-table-20261108/README.md).
+
+Published as 60858c3763 (first attempt, 27.9 seconds). Required checks pass;
+the broader audit is INCONCLUSIVE because unchanged Rva00340BDCDtor.cpp
+lacks a current receipt (index c885072a48/base bc96d415a7). Carry it into
+the next census/image; the one bridge and four derived-slot prerequisites
+remain, with no full-link/runtime claim.

@@ -20,3 +20,8 @@ is retained, since State adoption is not Wind adoption. Queue identity,
 derived getter/lifecycle slots 2/4/5/6 and real-image confirmation remain
 open; no full-class or runtime clearance is claimed.
 [Native operands and table scope](../../reverse/attempt_support/back-away-state-table-20261108/README.md).
+
+Published as 60858c3763 (first attempt, 27.9 seconds). Required checks pass.
+The broader audit remains INCONCLUSIVE: unchanged Rva00340BDCDtor.cpp lacks
+a current receipt against index c885072a48/outgoing base bc96d415a7. That
+consumer and real-image confirmation remain follow-up; the queue key stays.
