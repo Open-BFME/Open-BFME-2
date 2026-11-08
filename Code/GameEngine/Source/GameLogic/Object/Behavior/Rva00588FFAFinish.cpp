@@ -40,34 +40,32 @@ extern const void *const g_008700C4[12] = {
 };
 extern "C" const void *const __identifier("??_7Rva00484F5D@@6BMiBase1@@@")[];
 extern "C" const void *const __identifier("??_7Rva00484EF4@@6B@")[];
-// The retail table at RVA 0x0086FFFC: 2 slots, each a rowed code owner (the next
-// word is not a code address or starts another ledger datum).
-extern "C" {
-int __cdecl _purecall(void);
-}
-extern const void *const g_0086FFFC[2] = {
-	(const void *)&__identifier("_purecall"), // slot 0 0x0003B810
-	(const void *)&__identifier("_purecall"), // slot 1 0x0003B810
+// The +0x10 base is an abstract two-method interface: its constructor installs
+// the interface's own table (RVA 0x0086FFFC, two __purecall slots) before the
+// class overwrites it with 0x00C84EF4 below.
+struct Rva00588FFAIface10
+{
+	Rva00588FFAIface10() {}
+	virtual void slot0() = 0;
+	virtual void slot1() = 0;
 };
 
 #include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 // Constructor-only base view: the explicit native table stores below retain
 // construction state while the complete DamagerModule class is recovered.
-class __declspec(novtable) Rva00588FFA : public BehaviorModule
+class __declspec(novtable) Rva00588FFA : public BehaviorModule, public Rva00588FFAIface10
 {
 public:
 	Rva00588FFA(Thing *thing, const ModuleData *data);
 
 private:
-	const void *m_10; // +0x10, init g_0086FFFC then overwritten ??_7Rva00484EF4@@6B@
 	int m_14; // +0x14, and-zeroed
 };
 
 Rva00588FFA::Rva00588FFA(Thing *thing, const ModuleData *data)
 	: BehaviorModule(thing, data)
 {
-	*(volatile unsigned *)&m_10 = (unsigned)g_0086FFFC;
 	_ReadWriteBarrier();
 	m_14 = 0;
 	*(const void **)this = g_008700C4;
