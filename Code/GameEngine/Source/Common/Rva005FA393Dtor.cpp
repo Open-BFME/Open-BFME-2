@@ -7,10 +7,7 @@
 // three Rva000AD6F4Members.cpp bodies (0x328A75/0x577936/0x5F83DF) and the
 // 0x005F7750 twin; the helper type is only declared here (defined nowhere --
 // it resolves via the pin). Owner: see the class comment below.
-// The 77B constructor at 0x005FA7EB allocates 0x64 bytes, calls 0x005FA3B1
-// with this plus three pointer-sized args, and stores the returned inner
-// object at +4. It writes the folded 0x008078DC vtable; because that table has
-// several aliases, the constructor keeps its address-derived Rva005FA7EB name.
+// The 77B constructor at 0x005FA7EB is rowed in Rva005F9364Region.cpp.
 class AsciiString;
 struct Rva005F91F3Src;
 class Rva005F9877
@@ -48,32 +45,6 @@ private:
 	Rva005FA146 m_member04;
 };
 }
-class Rva005FA3B1Inner
-{
-public:
-	Rva005FA3B1Inner(void *owner, void *a, void *b, void *c);
-	char m_opaque[0x64];
-};
-
-extern const void *const g_00C078DC[];
-
-class Rva005FA7EB
-{
-public:
-	Rva005FA7EB(void *a, void *b, void *c);
-
-private:
-	const void *const *m_vtable;
-	StrategicHUD::BattlePromptMovieClip::Impl *m_member04;
-};
-
-// ?Rva005FA7EB::Rva005FA7EB present-unmatched
-Rva005FA7EB::Rva005FA7EB(void *a, void *b, void *c)
-	: m_vtable(g_00C078DC)
-{
-	m_member04 = new StrategicHUD::BattlePromptMovieClip::Impl((StrategicHUD::BattlePromptMovieClip*)this, (int)a, *(const AsciiString*)b, *(const Rva005F91F3Src*)c);
-}
-
 #include <new>
 
 StrategicHUD::BattlePromptMovieClip::~BattlePromptMovieClip()

@@ -63,20 +63,10 @@ struct Rva005D2575 {
 };
 
 extern const void *const g_00C75800[];
-// VA 0x00C078DC: the vftable function part of the abstract base
-// Rva005D25F2Base -- five pure virtuals, each pointing at the debug library's
-// pure-call handler (rowed __purecall, retail RVA 0x0003B810, defined in
-// Libraries/Source/debug/debug_purecall.cpp). Rva005FA393's initialiser stamps
-// [this+8] with it and this unit's inline base destructor does the same, so the
-// two units share one copy and it is defined here, where the base is declared.
-extern "C" int __cdecl _purecall(void);
-extern const void *const g_00C078DC[5] = {
-	reinterpret_cast<const void *>(&_purecall),
-	reinterpret_cast<const void *>(&_purecall),
-	reinterpret_cast<const void *>(&_purecall),
-	reinterpret_cast<const void *>(&_purecall),
-	reinterpret_cast<const void *>(&_purecall),
-};
+// The compiler emits the abstract base's table at VA 0x00C078DC (five
+// pure virtuals, each the rowed __purecall at RVA 0x0003B810; retail folds
+// it with other all-purecall tables) and the inline base destructor
+// installs it.
 
 #include "../../../Libraries/Source/Apt/AptRefTarget.h"
 class Rva005D25F2Base
@@ -94,7 +84,6 @@ public:
 // body emitted here; original base spelling remains structural inference.
 inline Rva005D25F2Base::~Rva005D25F2Base()
 {
-	*(const void **)this = g_00C078DC;
 }
 
 namespace StrategicHUD {
