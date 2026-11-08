@@ -47,33 +47,17 @@ struct Rva0040A83AElement {char opaque00[0x10];AsciiString description,name;char
 struct Rva0040A86CElement {char opaque00[0x54];AsciiString description,name;char opaque5C[0xC];};
 class Rva0040A83A {public:Rva0040A83AElement *rva0040A83A(unsigned);};
 class Rva0040A86C {public:Rva0040A86CElement *rva0040A86C(unsigned);};
-class CreateAHeroManager {
- char opaque00[0x14C];
- _STL::vector<Rva0021CB1FClassRecord> classes;
- char opaque158[0x10];
- _STL::vector<Rva0021CB1FBinder> binders;
-public:
- void rva0021CB1F();
- const AsciiString &GetClassDescTag(unsigned);
- const AsciiString &GetClassNameTag(unsigned);
- const AsciiString &GetClassPowersTag(unsigned);
- int rva00219D52(unsigned);
- const AsciiString &GetSubClassNameTag(unsigned,unsigned);
- const AsciiString &GetSubClassDescTag(unsigned,unsigned);
- void *GetBlingBinder(unsigned);
- int rva0021BEE0(int,unsigned,unsigned) const;
- const AsciiString &GetBlingDescTag(int,unsigned,unsigned,unsigned);
- const AsciiString &GetBlingNameTag(int,unsigned,unsigned,unsigned);
-};
+#include "../../../Include/GameLogic/CreateAHeroManager.h"
+// The canonical header keeps these vector records opaque at +0x14C and +0x168.
 void CreateAHeroManager::rva0021CB1F() {
- for(unsigned classIndex=0;classIndex<classes.size();++classIndex) {
+ for(unsigned classIndex=0;classIndex<reinterpret_cast<const _STL::vector<Rva0021CB1FClassRecord> *>(field14C)->size();++classIndex) {
   reinterpret_cast<Rva0021CB1FTextView*>(TheGameText)->fetch(GetClassDescTag(classIndex),0);
   reinterpret_cast<Rva0021CB1FTextView*>(TheGameText)->fetch(GetClassNameTag(classIndex),0);
   reinterpret_cast<Rva0021CB1FTextView*>(TheGameText)->fetch(GetClassPowersTag(classIndex),0);
   for(unsigned subClassIndex=0;subClassIndex<(unsigned)rva00219D52(classIndex);++subClassIndex) {
    reinterpret_cast<Rva0021CB1FTextView*>(TheGameText)->fetch(GetSubClassNameTag(classIndex,subClassIndex),0);
    reinterpret_cast<Rva0021CB1FTextView*>(TheGameText)->fetch(GetSubClassDescTag(classIndex,subClassIndex),0);
-   for(unsigned binderIndex=0;binderIndex<binders.size();++binderIndex) {
+   for(unsigned binderIndex=0;binderIndex<reinterpret_cast<const _STL::vector<Rva0021CB1FBinder> *>(field168)->size();++binderIndex) {
     Rva0021CB1FBinder *binding=static_cast<Rva0021CB1FBinder*>(GetBlingBinder(binderIndex));
     reinterpret_cast<Rva0021CB1FTextView*>(TheGameText)->fetch(binding->description,0);
     reinterpret_cast<Rva0021CB1FTextView*>(TheGameText)->fetch(binding->name,0);

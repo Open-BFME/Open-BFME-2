@@ -4,3 +4,5 @@ Status: Cleared for three accessor units. Updated: 2026-11-05; inspected revisio
 Evidence / completed: [byte, header acceptance and bounded link checks](../../reverse/attempt_support/createahero-accessor-headers-20261105-codexb2.md); HeroList, GetBlingBinder and GetDefaultHero use the registered header, preserve all 158 bytes and ordinary-preview LINKS, and retire three header-queue rows through the owning tool.
 Remaining / next check: other CreateAHeroManager consumers retain their nested-type, container and lifetime prerequisites; no shared header was changed.
 Census confirmation: awaiting the next scheduled census; outgoing batch audit is inconclusive (older index and missing current receipts; see evidence). No gain claimed.
+
+2026-11-08: Cleared CreateAHeroTextWarmup.cpp header adoption; 978-byte body matches, all seven external definitions preserved, preview LINKS 970 -> 970 bytes, and one queue row retired ([evidence](../../reverse/attempt_support/createahero-text-header-20261108-codex4.md)); other cohort prerequisites remain.
