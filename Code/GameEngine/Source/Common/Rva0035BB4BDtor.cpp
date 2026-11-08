@@ -13,12 +13,7 @@
 
 #include "ascii_string.h"
 
-class Overridable {
-public:
-    virtual ~Overridable();
-private:
-    Overridable *m_next;
-};
+#include "../../Include/Common/Overridable.h"
 
 #include "../../Include/Common/Rva002390CB.h"
 
@@ -31,8 +26,6 @@ class Rva0035BB4B : public Overridable {
 public:
     virtual ~Rva0035BB4B();
 private:
-    int m_08;
-    int m_0C;
     AsciiString m_10;
     char m_pad14[0x14];
     RvaFreePtr m_28;

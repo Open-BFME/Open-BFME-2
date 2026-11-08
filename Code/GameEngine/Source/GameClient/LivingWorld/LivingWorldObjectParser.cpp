@@ -20,13 +20,13 @@ public:
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Overridable {
-public:
- virtual ~Overridable();
- Overridable *friend_getFinalOverride();
- Overridable *next;
-};
-class Rva00210F3D : public Overridable { public: unsigned char overrideFlag; int a,b,c,d; };
+#include "../../../Include/Common/Overridable.h"
+// Retail inlines markAsOverride here (the outline is 0x00248D08).
+__forceinline void Overridable::markAsOverride()
+{
+ m_isOverride = true;
+}
+class Rva00210F3D : public Overridable { public: int b,c,d; };
 class Rva003FA776 : public Rva00210F3D { public: Rva003FA776(); const FieldParse *rva003FA6FF(); };
 class Rva002122D4 { public: int rva002122D4(int); };
 void Rva0021376BParse(INI *);
@@ -61,11 +61,11 @@ void Rva0021376BParse(INI *ini) {
  Rva003FA776 *object = (Rva003FA776 *)((Rva002122D4 *)manager)->rva002122D4(key);
  if (object) {
   if (ini->loadType == 2)
-   object = (Rva003FA776 *)manager->rva00211142((Rva00210F3D *)(object->next ? object->next->friend_getFinalOverride() : object));
+   object = (Rva003FA776 *)manager->rva00211142((Rva00210F3D *)(object->friend_getNextOverride() ? object->friend_getNextOverride()->friend_getFinalOverride() : object));
   existed = true;
  } else {
   object = new Rva003FA776;
-  if (ini->loadType == 2) object->overrideFlag = true;
+  if (ini->loadType == 2) object->markAsOverride();
  }
  ini->initFromINI(object, object->rva003FA6FF());
  // The unidentified object hook calls the shared empty validation body.

@@ -137,7 +137,7 @@ class BfmeMemberRV {public:bool bfmeAskRV();};
 struct ParasiticPlayerView {char prefix[0x10];BfmeMemberRV *local;};
 #include "../../../Include/Common/NameKeyGenerator.h"
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Overridable {public:const Overridable *friend_getFinalOverride()const;};
+#include "../../../Include/Common/Overridable.h"
 class AsciiString;
 struct Rva0045A63FObject;class Rva0045A63FModule;
 Rva0045A63FModule *Rva0045A63F(const Rva0045A63FObject *,const AsciiString &);
@@ -150,7 +150,7 @@ class Rva005C7C6D {public:void rva005C7C6D(int);};
 class BfmeKeyLC;int bfmeGo924B(BfmeKeyLC *);
 class BfmeObjEHA;void *bfmeGoEHAb(BfmeObjEHA *);
 bool Rva00327E0EGet(GameWindow *);void *Rva00327DD8Get(GameWindow *);
-struct ParasiticCommandView {char pad[0x1C];unsigned flags;unsigned getOptions()const{return flags;}char pad20[0x44-0x20];Overridable *override44;char pad48[0xF8-0x48];int count;};
+struct ParasiticCommandView {char pad[0x1C];unsigned flags;unsigned getOptions()const{return flags;}char pad20[0x44-0x20];const Overridable *override44;char pad48[0xF8-0x48];int count;};
 class ParasiticInGameCommandButton::Impl {public:void Update();char prefix[0xC];GameWindow *window;ObjectID objectID;float progress;int count;};
 void ParasiticInGameCommandButton::Impl::Update()
 {

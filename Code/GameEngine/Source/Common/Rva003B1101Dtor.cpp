@@ -7,10 +7,7 @@
 // Rva00360D26Member at +0x60/+0x78. All member dtors inline except the two
 // Rva members and the base, matching the nine rowed/pinned callees.
 // Caller 0x003B152A is the ??_G. Evidence: unlock lane, all callees rowed.
-class Overridable {
-public:
-	virtual ~Overridable();
-};
+#include "../../Include/Common/Overridable.h"
 class Rva00360D26Member {
 public:
 	~Rva00360D26Member();
@@ -49,7 +46,6 @@ class Rva003B1101 : public Overridable {
 public:
 	virtual ~Rva003B1101();
 private:
-	char m_pad04[0x0C];
 	StringBaseC m_10;
 	char m_pad14[0x10];
 	FreePtrHolder m_24;

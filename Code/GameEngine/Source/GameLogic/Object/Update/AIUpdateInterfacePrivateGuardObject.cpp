@@ -39,6 +39,7 @@ enum
 	BFME_AI_GUARD = 0x10
 };
 
+#include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 
 // Keep the guard kind checks inline without exporting competing private

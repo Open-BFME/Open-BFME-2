@@ -16,23 +16,13 @@ class INI;
 
 #include "../../Include/Common/INI/INI.h"
 
-class Overridable
+#include "../../Include/Common/Overridable.h"
+
+// Retail inlines markAsOverride here (the outline is 0x00248D08).
+__forceinline void Overridable::markAsOverride()
 {
-public:
-	virtual ~Overridable();
-	Overridable *friend_getFinalOverride();
-
-	// Keep the retail inline walk without an extra competing outline.
-	__declspec(dllimport) __forceinline const Overridable *getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-
-	Overridable *m_nextOverride;		// +0x04
-	bool m_isOverride;					// +0x08
-};
+	m_isOverride = true;
+}
 
 class WeatherSetting : public Overridable
 {
@@ -41,7 +31,7 @@ public:
 	WeatherSetting &operator=(const WeatherSetting &other);
 
 private:
-	unsigned char m_rest[0xB4 - 0x0C];
+	unsigned char m_rest[0xB4 - 0x10];
 };
 
 template <class T> class OVERRIDE
@@ -136,8 +126,8 @@ void INI::parseWeatherDefinition(INI *ini)
 	WeatherSetting *ws = g_ws();
 	const WeatherSetting *current = 0;
 	if (ws) {
-		if (ws->m_nextOverride)
-			current = (const WeatherSetting *)ws->m_nextOverride->friend_getFinalOverride();
+		if (ws->friend_getNextOverride())
+			current = (const WeatherSetting *)ws->friend_getNextOverride()->friend_getFinalOverride();
 		else
 			current = ws;
 	}
@@ -148,14 +138,15 @@ void INI::parseWeatherDefinition(INI *ini)
 		g_00E01EA8 = 1;
 		*wsOverride = *ws;
 		g_00E01EA8 = 0;
-		wsOverride->m_isOverride = true;
-		Overridable *tail = ws->m_nextOverride ? ws->m_nextOverride->friend_getFinalOverride() : ws;
-		tail->m_nextOverride = wsOverride;
+		wsOverride->markAsOverride();
+		Overridable *tail = ws->friend_getNextOverride() ? ws->friend_getNextOverride()->friend_getFinalOverride() : ws;
+		tail->setNextOverride(wsOverride);
 	} else {
 		throw INIException(3, "WeatherSetting defined twice");
 	}
 
-	ini->initFromINI((void *)TheWeatherSetting.getNonOverloadedPointer()->getFinalOverride(), g_00BE2C10);
+	const WeatherSetting *setting = TheWeatherSetting.getNonOverloadedPointer();
+	ini->initFromINI((void *)(setting->getNextOverride() ? const_cast<Overridable *>(setting->getNextOverride())->friend_getFinalOverride() : setting), g_00BE2C10);
 
 	if (TheSnowManager)
 		TheSnowManager->updateIniSettings();

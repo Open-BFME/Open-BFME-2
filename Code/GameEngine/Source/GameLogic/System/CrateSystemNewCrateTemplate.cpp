@@ -33,27 +33,13 @@
 
 #include "ascii_string.h"
 
-class Overridable
+#include "../../../Include/Common/Overridable.h"
+
+// Retail inlines markAsOverride here (the outline is 0x00248D08).
+__forceinline void Overridable::markAsOverride()
 {
-public:
-	Overridable *friend_getFinalOverride();	// 0x001E35DF
-	// Keep the retail inline walk without an extra competing outline.
-	__declspec(dllimport) __forceinline const Overridable *getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->friend_getFinalOverride();
-		return this;
-	}
-
-	void markAsOverride() { m_isOverride = 1; }
-	void setNextOverride(Overridable *next) { m_nextOverride = next; }
-
-private:
-	void *m_vptr;				// +0x00
-	Overridable *m_nextOverride;		// +0x04
-	unsigned char m_isOverride;		// +0x08
-	char m_pad09[0x10 - 0x09];
-};
+	m_isOverride = true;
+}
 
 // Zero Hour's Override.h handle: holds the pointer and resolves the final
 // override when read.
@@ -65,7 +51,9 @@ public:
 	{
 		if (!m_overridable)
 			return 0;
-		return (const T *)m_overridable->getFinalOverride();
+		return (const T *)(m_overridable->getNextOverride()
+			? const_cast<Overridable *>(m_overridable->getNextOverride())->friend_getFinalOverride()
+			: m_overridable);
 	}
 
 private:

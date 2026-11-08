@@ -29,11 +29,7 @@ public:
 
 class TextureClass;
 #include "../../../Libraries/Source/WWVegas/WW3D2/MaterialPassClass.h"
-class Overridable
-{
-public:
-	const Overridable *friend_getFinalOverride() const;
-};
+#include "../../Include/Common/Overridable.h"
 class RadiusDecal {};
 #include "../../Include/GameClient/RadiusDecalTemplate.h"
 
@@ -163,7 +159,7 @@ void InGameUI::rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int i
 		{
 			if (!mp)
 				return;
-			const Overridable *fo = ((Overridable *)mp)->friend_getFinalOverride();
+			const Overridable *fo = ((const Overridable *)mp)->friend_getFinalOverride();
 			radius = *(float *)((char *)fo + 0x54);
 		}
 		if (radius <= 0.0f)

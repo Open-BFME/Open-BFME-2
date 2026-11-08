@@ -54,13 +54,7 @@ void Rva0032E7E2::rva0032E7E2()
 #define BFME_STRINGBASE_PUBLIC_DTOR
 #include "string_base.h"
 
-class Overridable
-{
-public:
-	virtual ~Overridable();
-private:
-	void *m_04;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 // Native1FFD2C has a distinct EH handler from the vector copy at4613EB.
 // Its complete63B body destroys [start,finish) then frees storage through
@@ -99,7 +93,7 @@ class Rva001FFE93 : public Overridable
 public:
 	virtual ~Rva001FFE93();
 private:
-	unsigned char m_pad08[0x14 - 0x08];
+	unsigned char m_pad10[0x14 - 0x10];
 	StringBase<unsigned short> m_str14;
 	StringBase<unsigned short> m_str18;
 	DynamicPortalLinkVectorCopy1FFD2C m_links1C;

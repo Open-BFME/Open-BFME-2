@@ -65,13 +65,7 @@ public:
 	Rva0006C995 *rva0006C995(Rva001408C0Target *p);
 };
 
-class Overridable
-{
-public:
-	const Overridable *getFinalOverride() const;
-	void *m_vtable;
-	const Overridable *m_next04;
-};
+#include "../../../../Include/Common/Overridable.h"
 
 struct Rva00200BD9Holder
 {
@@ -139,7 +133,7 @@ void Rva00081CDF::rva00081CDF()
 	if (!p)
 		p = 0;
 	else if (p->m_04)
-		p = (Rva00200BD9Holder *)p->m_04->getFinalOverride();
+		p = (Rva00200BD9Holder *)p->m_04->friend_getFinalOverride();
 	// NOTE: retail loads the texture name from the final override's AsciiString
 	// at +0x3C via shared str() (m_text ? m_text+8 : ""); the holder above
 	// carries that string for byte identity. Row 0x0006C995 types as Target*
@@ -150,7 +144,7 @@ void Rva00081CDF::rva00081CDF()
 	if (!p)
 		p = 0;
 	else if (p->m_04)
-		p = (Rva00200BD9Holder *)p->m_04->getFinalOverride();
+		p = (Rva00200BD9Holder *)p->m_04->friend_getFinalOverride();
 	assets << p->m_str3C;
 
 	m_tex48 = TextureAsset::Get("WaterSurfaceBubbles.tga", 0, 0);

@@ -18,6 +18,7 @@ extern "C" void __cdecl fprintf(void *sink, const char *format, ...);
 
 #include "../../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
+#include "../../../../../Include/Common/Overridable.h"
 #include "../../../../../Include/Common/ThingTemplate.h"
 
 

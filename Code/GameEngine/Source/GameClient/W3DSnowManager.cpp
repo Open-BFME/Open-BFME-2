@@ -100,28 +100,16 @@ void W3DSnowManager::update()
     target_0009322D();
 }
 
-// Overridable/OVERRIDE as Snow.cpp models them: the final override is found
-// through the out-of-line getFinalOverride.
-class Overridable
-{
-public:
-    virtual ~Overridable();
-    Overridable *m_nextOverride;
-    bool m_isOverride;
-    const Overridable *getFinalOverride() const
-    {
-        if (m_nextOverride)
-            return m_nextOverride->getFinalOverride();
-        return this;
-    }
-};
+// OVERRIDE as Snow.cpp models it: the final override is found through
+// Overridable::getFinalOverride.
+#include "../../Include/Common/Overridable.h"
 
 // BFME 2 WeatherSetting: the snow texture name (a length-prefixed string
 // whose characters start at +8) is at +0x18.
 class WeatherSetting : public Overridable
 {
 public:
-    unsigned char m_unrecovered0C[0x18 - 0x0C];
+    unsigned char m_unrecovered10[0x18 - 0x10];
     const char *m_snowTextureData;                            // +0x18
     const char *getSnowTexture() const { return m_snowTextureData ? m_snowTextureData + 8 : ""; }
 };

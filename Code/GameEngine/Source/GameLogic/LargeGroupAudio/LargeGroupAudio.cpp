@@ -58,25 +58,13 @@ class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
 #include "../../../Include/Common/INI/FieldParse.h"
 
-class Overridable
+#include "../../../Include/Common/Overridable.h"
+
+// Retail inlines markAsOverride here; this unit owns its outline (0x00248D08).
+inline void Overridable::markAsOverride()
 {
-public:
-	Overridable() : m_next04(0), m_alloc08(0), m_extra0C(-1) {}
-	virtual ~Overridable();
-	Overridable *friend_getFinalOverride();
-	void setNextOverride(Overridable *next) { m_next04 = next; }
-	void markAsOverride() { m_alloc08 = 1; }
-	Overridable *getFinalOverride()
-	{
-		if (m_next04)
-			return m_next04->friend_getFinalOverride();
-		return this;
-	}
-private:
-	Overridable *m_next04;
-	unsigned char m_alloc08;
-	int m_extra0C;
-};
+	m_isOverride = true;
+}
 
 
 #include "../../../Include/Common/INI/INI.h"
@@ -294,7 +282,8 @@ void LargeGroupAudio::parseLargeGroupAudioUnusedKnownKeysDefinition(INI *ini)
 	}
 	else
 	{
-		keys = TheLargeGroupAudio->m_34->getFinalOverride();
+		Overridable *base = TheLargeGroupAudio->m_34;
+		keys = base->friend_getNextOverride() ? base->friend_getNextOverride()->friend_getFinalOverride() : base;
 	}
 
 	ini->initFromINI(keys, Rva0020D98D::getFieldParse());

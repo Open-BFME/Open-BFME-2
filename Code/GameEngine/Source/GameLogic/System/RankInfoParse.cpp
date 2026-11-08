@@ -52,30 +52,25 @@ struct FieldParse;
 
 #include "../../../Include/Common/INI/INI.h"
 
-class Overridable
-{
-public:
-	virtual void overridableAnchor();
-	Overridable *friend_getFinalOverride();
+#include "../../../Include/Common/Overridable.h"
 
-public:
-	Overridable *m_nextOverride; // +0x04
-	unsigned char m_isAllocatedOverride; // +0x08
-};
+// Retail inlines markAsOverride here (the outline is 0x00248D08).
+__forceinline void Overridable::markAsOverride()
+{
+	m_isOverride = true;
+}
 
 class RankInfo : public Overridable
 {
 public:
 	RankInfo();
 	RankInfo &operator=(const RankInfo &that);
-	void setNextOverride(RankInfo *rankInfo) { m_nextOverride = rankInfo; }
-	void markAsOverride() { m_isAllocatedOverride = true; }
 
 private:
-	// +0x0C..+0x43: retail-measured but unmapped (int -1 at +0x0C in the ctor;
-	// UnicodeString assigned at +0x10, nine ints +0x14..+0x34, vector at +0x38
-	// per the operator= body). Only the total size (0x44) is consumed here.
-	unsigned char m_pad[0x44 - 0x0C];
+	// +0x10..+0x43: retail-measured but unmapped (UnicodeString assigned at
+	// +0x10, nine ints +0x14..+0x34, vector at +0x38 per the operator= body).
+	// Only the total size (0x44) is consumed here.
+	unsigned char m_pad[0x44 - 0x10];
 };
 
 class RankInfoStore
@@ -136,7 +131,7 @@ void RankInfoStore::friend_parseRankDefinition(INI *ini)
 			RankInfo *newInfo = new RankInfo;
 
 			// copy data from final override to 'newInfo' as a set of initial default values
-			Overridable *nextOverride = info->m_nextOverride;
+			Overridable *nextOverride = info->friend_getNextOverride();
 			if (nextOverride)
 				info = (RankInfo *)nextOverride->friend_getFinalOverride();
 

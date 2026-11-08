@@ -46,6 +46,7 @@ enum StateID
 
 #include "../../../../../Libraries/Include/Lib/Region3D.h"
 
+#include "../../../../Include/Common/Overridable.h"
 #include "../../../../Include/Common/ThingTemplate.h"
 
 // Keep the guard kind checks inline without exporting competing private
