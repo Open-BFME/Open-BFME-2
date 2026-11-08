@@ -16,9 +16,13 @@ public:
 extern ImageCollection *TheMappedImageCollection;
 
 
+// P36 TEST-BRANCH-ONLY diagnostic: build the global through retail's ctor 0x005F005B (registers 'TypeImages').
+void bfmeP36ConstructTypeImages(void *cache);
+
 class MappedImageCache
 {
 public:
+	MappedImageCache() { bfmeP36ConstructTypeImages(this); }
 	const Image *rva005F0152(int index);
 
 private:
