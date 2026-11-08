@@ -57,3 +57,10 @@ No source path moves, gate/baseline edits, new hatches or generated-source
 edits. Full-link selection, bridge retirement, canonical shared hierarchy and
 actual-image/runtime verification remain pending. A matching table and a
 two-object preview do not prove the game runs.
+
+Published as `4e99290287`; first push attempt landed in 38.7 seconds. All
+required byte, data, scoped DIR32 and EH checks passed after rebase. The broader
+batch audit remains INCONCLUSIVE: provider index eba83a23be versus outgoing
+base 25c2bd22038a7fe74ce5ed110b86d92d956f6df9, with affected AIBaseBuilder.cpp
+lacking a current receipt. Carry that consumer into the next census and image
+verification; the two owned sources have strict reusable receipts.

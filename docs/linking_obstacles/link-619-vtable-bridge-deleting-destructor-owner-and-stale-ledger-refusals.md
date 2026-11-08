@@ -441,3 +441,9 @@ Canonical GroupOrder hierarchy, historical data-ledger regeneration, actual
 kept-provider/bridge selection and runtime confirmation remain open; this is
 source-scope verification, not a full-link or image clearance.
 [Slot closure and ownership transfer](../../reverse/attempt_support/change-stance-native-table-20261108/README.md).
+
+Published as 4e99290287; required row/data/DIR32/EH checks pass. The broader
+audit remains INCONCLUSIVE: index eba83a23be versus outgoing base
+25c2bd22038a7fe74ce5ed110b86d92d956f6df9, affected AIBaseBuilder.cpp lacks
+a current receipt. Carry this consumer into the next census/image check;
+no broader link clearance is claimed.
