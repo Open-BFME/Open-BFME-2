@@ -16,7 +16,6 @@
 // ctor gives retail and-before-vtable order with mov ecx first (probe test3/4
 // exact, 0 structural regions, vtable DIR32 filled by gate).
 #include <new.h>
-void *__cdecl operator new(unsigned int size) throw();
 
 #include "../../Include/Common/DelegateDesc.h"
 
