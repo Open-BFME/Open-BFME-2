@@ -1,6 +1,6 @@
 ### LINK-073: LivingWorldManager constructor uses opaque names for existing container and lifetime owners
 
-Status: Blocked on constructor-class and member-type reconciliation. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
+Status: Blocked on constructor-class and member-type reconciliation. Updated: 2026-11-08; inspected revision: `1c063dfbf49`.
 
 Evidence / affected unit: `LivingWorld/LivingWorldManagerCtor.cpp` remains U5 against `d1f046749a`. Native calls reach the existing 31-byte `hash_map<int,Rva00213E11Element>` constructor at 0x00213E11 and 25-byte map constructor at 0x0033C432; the private member types instead reference `Rva002130CA`, `Rva00212379` and `Rva00211FA3` constructors. Its 0x0076DE66 cleanup reaches the seven-byte 0x00210CC5 setter under a destructor spelling. Native primary table slot 0 reaches the deleting destructor whose 691-byte lifetime owner is already `LivingWorldManager` at 0x00214405, while the constructor row retains `Rva0022B12DSubsystem`.
 
@@ -39,3 +39,49 @@ out-of-line or `dllimport __forceinline` constructors and destructors bound to t
 0x00211E58 vector base with 0x0021397C), so the STL shims stay private to the constructor unit and real
 STLport consumers see only the wrappers. Then the prepared fold of the three units, then the destructor
 unit's view. Claims released; nothing edited.
+
+**2026-11-08 wall: the candidate wrapper design cannot spell the members without STL names or new
+pins (seat halilkkaya-lk69, real link 42508219603 at `e834581c00`).** `??1Rva0022B12DSubsystem@@UAE@XZ`
+is still the one unowned unresolved name. Its only referrer in LivingWorldManagerCtor.cpp's object is
+the local `??_GRva0022B12DSubsystem@@UAEPAXI@Z`, which slot 0 of the unit's own
+`??_7Rva0022B12DSubsystem@@6BSubsystemInterface@@@` reaches. The design above was checked against
+retail and the ledger before any edit. Nothing was edited.
+
+- Retail 0x00213EEF builds the members in this order. +0x14 calls 0x00212AEF. +0x204, +0x218, +0x26C,
+  +0x280 and +0x294 call 0x00213E11. +0x234, +0x240, +0x24C, +0x258, +0x2A8 and +0x2CC each do
+  `lea eax,[ebp-0Dh]; push eax; call 0x00211E58`: an allocator temporary, then the vector base
+  constructor. +0x2B4 calls 0x0033C432. The EH state is stored only around throwing calls (3, 4, 0Ah,
+  0Bh, 0Ch, 0Eh, 10h), so the six vector-base calls must be seen as non-throwing. The unwind funclets
+  0x0076DE53..0x0076DF2D tail-jump to 0x001B4E74, 0x0049B47C, 0x00210CC5, 0x00212ED3, 0x002130CA
+  (four members), 0x00212379, 0x0010F149, 0x0007FAB3 (five vectors), 0x0021397C and 0x00211FA3.
+- Every name the ledger holds at 0x00211E58 is a `_STL::_Vector_base<T,allocator<T> >(const
+  allocator<T>&)` row. The only row at 0x00213E11 is `_STL::hash_map<int,Rva00213E11Element,...>::hash_map()`
+  (StlSweepW4Rva00213E11.cpp). The non-template spellings that reach them (`??0Rva002130CA`,
+  `??0Rva00212379`; `??0Rva00211FA3` at 0x0033C432) are symbols.csv pins. So a byte-exact
+  constructor must name `_STL` templates, or add new pins for non-template wrapper constructors.
+  New pins are hatches.
+- The canonical header cannot name `_STL` templates. 30 of its 41 consumers carry no `// stlport`
+  marker, so `build.py` (`source_needs_stlport`) gives them no STLport include path. The 11 that do
+  include real `<vector>`/`<hash_map>`, so a private `_STL` template there would be redefined.
+- Wrapper constructors declared out of line in the header have no definition for the real link. Today
+  the only definitions are the constructor unit's in-class `__declspec(noinline)` COMDATs:
+  `??0Rva002130CA`, `??0Rva00212379`, `??0Rva00211FA3`, `??0Rva0021397C` and
+  `??0?$vector@URva00390729Element...`, from the current object's symbol table. Those cannot stay
+  in-class once the class lives in the header. An out-of-class definition is refused by
+  `find_declared_unmatched.py` (no row), and retail has no such body except as the pinned ICF
+  targets.
+- The six slot names (`init`, `reset`, `update`, `loadPostProcess`, `GetSnapshotName` and `xfer`
+  under LivingWorldManager; placeholders 0x00210D0D, 0x002123BE, 0x00210F27, 0x00214052, 0x00213D93)
+  remain a separate prerequisite. Their renames would be pointless before the fold can land.
+
+Not tried, and not recommended without a maintainer decision:
+- Explicit `_STL` specializations for the placeholder element types inside the canonical header. That
+  is a shim in the canonical header, seen by all 41 consumers.
+- Dropping the declared destructor, so that the unit emits an implicit `??1Rva0022B12DSubsystem`.
+  It would clear the name but hide the identity under a wrong local destructor, which is a fallback
+  path.
+
+Remaining: a decision on how the canonical header may express STLport member types for non-STLport
+consumers, for example a `// stlport` marker policy for LivingWorldManager.h consumers. Alternatively,
+row the wrapper constructors as fold-proved twins of 0x00213E11 and 0x0033C432 compiled in the
+constructor unit, which retires the three pins. Then the slot renames, then the prepared fold.
