@@ -78,12 +78,7 @@ enum ObjectID
 void XferObjectID( Xfer *xfer, ObjectID *id );
 
 
-class AIInternalMoveToState : public State
-{
-protected:
-	virtual void xfer( Xfer *xfer );
-	char m_pad20[0x4C - 0x20];
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIIdleState : public State
 {

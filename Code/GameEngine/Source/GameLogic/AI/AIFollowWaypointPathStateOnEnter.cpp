@@ -154,33 +154,7 @@ extern AI *TheAI;
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
 #include "../../../Include/GameLogic/AIStateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual Bool computePath();
-protected:
-    void setAdjustsDestination(Bool value) { m_adjustDestination = value; }
-    Bool getAdjustsDestination() const;
-    Coord3D m_goalPosition; // +0x20
-    unsigned int m_bfmeStateValue2C; // opaque target field
-    Int m_goalLayer; // +0x30, passed to Object::rva0028ACEE
-    unsigned char m_pad34[0x48 - 0x34];
-    Bool m_adjustDestination; // +0x48
-    unsigned char m_pad49[0x4C - 0x49];
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 // Waypoint (target evidence): location +0x0C, link count +0x4C; getLink is
 // the rowed out-of-line 0x00085404.
@@ -277,7 +251,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
             if (log != NULL)
                 fprintf(log, "CritterDesync: setAdjustDestination(FALSE) 54");
         }
-        setAdjustsDestination(false);
+        m_adjustDestinations = false;
     }
     else
     {
@@ -288,7 +262,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
                     "CritterDesync: setAdjustDestination(ai->isDoingGroundMovement()=%s) 55",
                     ai->isDoingGroundMovement() ? "TRUE" : "FALSE");
         }
-        setAdjustsDestination(ai->isDoingGroundMovement());
+        m_adjustDestinations = ai->isDoingGroundMovement();
         if (getAdjustsDestination())
         {
             if (!TheAI->pathfinder()->AdjustDestination(getMachineOwner(), ai->getLocomotorSet(),

@@ -78,18 +78,7 @@ bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type me
 #include "../../../Include/Common/StateMachineClass.h"
 
 
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType onEnter();
-
-protected:
-	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
-
-	Coord3D m_goalPosition; // +0x20
-	unsigned char m_pad2C[0x48 - 0x2C];
-	Bool m_adjustDestination; // +0x48
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIChargeTargetState : public AIInternalMoveToState
 {
@@ -105,7 +94,7 @@ StateReturnType AIChargeTargetState::onEnter()
 	if (!ai || !victim)
 		return STATE_FAILURE;
 
-	setAdjustsDestination(false);
+	m_adjustDestinations = false;
 	m_goalPosition = *victim->getPosition();
 	source->setWeaponLock(PRIMARY_WEAPON, LOCKED_TEMPORARILY);
 

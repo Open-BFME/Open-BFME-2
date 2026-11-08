@@ -27,19 +27,12 @@ extern TerrainLogic *TheTerrainLogic;
 extern GameLogic *TheGameLogic;
 #include "../../../Include/Common/StateMachine.h"
 #include "../../../Include/Common/StateMachineClass.h"
-class AIInternalMoveToState : public State
-{
-public:
-	virtual StateReturnType update();
-protected:
-	Coord3D m_goalPosition; // +0x20
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 class AIMoveAndDeleteState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad2C[0x4C - 0x2C];
 	Bool m_appendGoalPosition; // +0x4C
 };
 StateReturnType AIMoveAndDeleteState::update()

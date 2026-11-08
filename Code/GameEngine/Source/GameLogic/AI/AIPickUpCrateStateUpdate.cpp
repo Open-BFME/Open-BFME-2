@@ -8,20 +8,14 @@
 
 #include "../../../Include/Common/StateMachine.h"
 
-class AIInternalMoveToState
-{
-public:
-	virtual StateReturnType onEnter();
-	virtual StateReturnType update();
-};
+#include "../../../Include/GameLogic/AIInternalMoveToState.h"
 
 class AIPickUpCrateState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType update();
 private:
-	unsigned char m_basePad[0x48];
-	int m_delayCounter;
+	int m_delayCounter; // +0x4C
 };
 
 StateReturnType AIPickUpCrateState::update()
