@@ -161,3 +161,45 @@ next worker needs. That is worth doing *if* someone is already in
 Recorded so the next seat does not re-derive it. The vptr fix looked similar
 and was worth it -- 113 rows over 30 classes, and it unblocked a whole category
 rather than a width quibble. The difference is the 59.
+
+## Contract-to-header work, priced (2026-11-08)
+
+The 96 non-vptr rows of the 195 group are the clearest next step, so here is
+what one costs. A change to a canonical header re-verifies every ledger source
+that reaches it, counted with `header_dependents` (no compiling):
+
+| header | ledger sources re-verified | rows it would unblock |
+| --- | ---: | ---: |
+| `Include/GameNetwork/GameInfo.h` | 153 | 16 (`GameSlot`) |
+| `Include/GameClient/Drawable.h` | 702 | 10 (`Drawable`) |
+| `Include/GameLogic/Module/UpdateModule.h` | **1794** | 29 (vptr rows, already covered) |
+
+**That inverts the merge-reach ranking.** `UpdateModule` is the widest-reach
+blocker in the lane (33 TUs) and the most expensive header in the tree to touch:
+1794 sources is a full-gate run of a different order from `GameInfo.h`'s 153.
+`header-work-ranked-by-merges-20261108.md` ranks by what adoption is worth; this
+is what it costs, and the two disagree. Any seat using that ranking should price
+the header first.
+
+`GameSlot` is the cheap entry: 153 dependents for 16 rows.
+
+### What the GameSlot gap actually is
+
+Not a missing line. The canonical header is deliberately opaque exactly where
+the contract has structure:
+
+| offset | the contract | `GameInfo.h` |
+| --- | --- | --- |
+| +0x38 | `address`, `BfmeNetAddress`, 8 bytes | `unsigned int m_field38;` + `unsigned short m_field3C;` |
+| +0x64 | `m_hero`, `CreateAHeroHero`, and `m_hero.m_name.m_data` at +0x6C | `unsigned char m_field64[0x140];` |
+
+So the four `m_address (+0x38, 8 bytes)` rows fail because the header splits that
+span into two named fields, and the four `m_hero (+0x64, 1 byte)` rows fail
+because a 320-byte array starts there.
+
+Closing it means giving those members their real types, and **both types are
+only forward-declared in this header** (`struct BfmeNetAddress;`,
+`class CreateAHeroData;` at lines 48-50). A by-value member needs a complete
+type, which is presumably why the padding is there in the first place. So the
+task is an include decision with cascade risk plus a 153-source gate, not an
+edit. That is worth knowing before someone picks it up expecting a one-liner.
