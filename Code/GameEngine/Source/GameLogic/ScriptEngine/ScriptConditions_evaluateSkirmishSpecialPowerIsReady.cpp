@@ -119,18 +119,12 @@ public:
 
 #include "../../../Include/GameLogic/ScriptParameter.h"
 
-class Team : public MemoryPoolObject, public Snapshot
+#include "../../../Include/Common/TeamBFME2.h"
+
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
 {
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const
-	{
-		return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
-	}
-private:
-	unsigned char m_teamPad[0x38 - 8];
-	Object *m_dlinkhead_TeamMemberList; // +0x38
-};
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
 
 class TeamPrototype
 {

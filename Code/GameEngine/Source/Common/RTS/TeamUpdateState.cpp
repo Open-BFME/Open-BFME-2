@@ -230,35 +230,12 @@ private:
 	TeamTemplateInfo m_teamTemplate;	// +0x12C
 };
 
-class Team
-{
-public:
-	void updateState();
-	bool rva0039E0D0();
-	Object *rva0039E8EB();
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
+#include "../../../Include/Common/TeamBFME2.h"
 
-private:
-	char m_pad00[0x30];
-	TeamPrototype *m_proto;			// +0x30
-	unsigned int m_id;			// +0x34
-	Object *m_head;				// +0x38
-	char m_pad3C[0x5C - 0x3C];
-	bool m_enteredOrExited;			// +0x5C
-	bool m_active;				// +0x5D
-	bool m_created;				// +0x5E
-	bool m_5F;				// +0x5F
-	bool m_checkEnemySighted;		// +0x60
-	bool m_seeEnemy;			// +0x61
-	bool m_prevSeeEnemy;			// +0x62
-	bool m_wasIdle;				// +0x63
-	int m_destroyThreshold;			// +0x64
-	int m_curUnits;				// +0x68
-	char m_pad6C[0x113 - 0x6C];
-	bool m_113;				// +0x113
-	char m_pad114[0x128 - 0x114];
-	bool m_128;				// +0x128
-};
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
+{
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
 
 void Team::updateState()
 {

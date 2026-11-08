@@ -26,13 +26,7 @@ private:
 class AIGroup;
 class Object;
 
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *group);
-	int countObjects(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear) const;
-	Coord3D *rva0039E9A1(Coord3D *pos) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 struct Rva00372571Params
 {

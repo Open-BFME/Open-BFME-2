@@ -80,19 +80,12 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
-	bool didAllEnter(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
-	bool didAllExit(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
+#include "../../../Include/Common/TeamBFME2.h"
 
-private:
-	unsigned char m_pad00[0x38];
-	Object *m_head;			// +0x38
-	unsigned char m_pad3C[0x5c - 0x3C];
-	bool m_enteredOrExited;		// +0x5C
-};
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
+{
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
 
 bool Team::didAllEnter(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 {

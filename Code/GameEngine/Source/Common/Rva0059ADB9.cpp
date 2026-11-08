@@ -283,13 +283,7 @@ void Rva0059AED2::rva0059AED2()
 // Native proves owner14, Team flags110/111 and prototype subobject12C. The
 // prototype lookup keeps its address name; WB corroborates the recruitment
 // callees' roles and argument order.
-class Team
-{
-public:
-    char prefix00[0x110];
-    bool flag110;
-    bool flag111;
-};
+#include "../../Include/Common/TeamBFME2.h"
 class TeamPrototype;
 #include "../../Include/Common/TeamFactory.h"
 class Rva0039D5A9
@@ -323,8 +317,8 @@ void AITeamBuilder::rva0059ABC9(void *object)
     Team *team = rva00599F74(prototype);
     if (!team) {
         team = TheTeamFactory->createTeamOnPrototype(prototype, false);
-        team->flag110 = true;
-        team->flag111 = true;
+        team->m_isRecruitablitySet = true;
+        team->m_isRecruitable = true;
     }
     void *stats = TheSkirmishAIManager->rva002A8F24(owner14);
     Rva002BEDABRangeView *range = *static_cast<Rva002BEDABRangeView **>(stats);

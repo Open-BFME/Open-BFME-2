@@ -94,14 +94,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Team
-{
-public:
-	void rva0039E5B9(Coord3D *out);
-	char m_pad00[0x5d];
-	bool m_5d;		// +0x5d
-	bool m_5e;		// +0x5e
-};
+#include "../../Include/Common/TeamBFME2.h"
 
 struct Rva003A2FD4Proto
 {
@@ -273,9 +266,9 @@ bool AIReturnTheRingTactic::buildReturnTeam()
 			Team *team = TheTeamFactory->createTeamOnPrototype((TeamPrototype *)proto, false);
 			NotifyTeamCreated(team);
 			obj->setTeam(team);
-			if (!team->m_5d) {
-				team->m_5e = true;
-				team->m_5d = true;
+			if (!team->m_active) {
+				team->m_created = true;
+				team->m_active = true;
 			}
 			return true;
 		}

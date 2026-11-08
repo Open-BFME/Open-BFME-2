@@ -34,12 +34,7 @@ public:
 	ThingTemplate *m_template;
 };
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	int countObjects(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 int Team::countObjects(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear) const
 {

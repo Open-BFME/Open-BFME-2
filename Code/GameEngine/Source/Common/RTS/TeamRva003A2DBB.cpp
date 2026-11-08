@@ -95,19 +95,12 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
-class Team
+#include "../../../Include/Common/TeamBFME2.h"
+
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
 {
-public:
-	void rva003A2DBB(float range);
-	void rva0039E5B9(Coord3D *center);
-	void rva0039D8D3(unsigned int ms) throw();
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
-private:
-	char m_pad00[0x38];
-	Object *m_head;				// +0x38
-	char m_pad3C[0x120 - 0x3C];
-	float m_120;				// +0x120
-};
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
 
 void Team::rva003A2DBB(float range)
 {

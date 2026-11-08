@@ -270,17 +270,12 @@ extern LuaScriptEngine *TheLuaScriptEngine;
 
 extern GameLogic *TheGameLogic;
 
-class Team
+#include "../../../Include/Common/TeamBFME2.h"
+
+inline DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const
 {
-public:
-	Player *getControllingPlayer() const;
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
-	void evacuateTeam(bool flag);
-	void killTeam();
-private:
-	unsigned char m_pad00[0x38];
-	Object *m_head; // +0x38
-};
+	return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList, &Object::dlink_next_TeamMemberList);
+}
 
 void Team::killTeam()
 {

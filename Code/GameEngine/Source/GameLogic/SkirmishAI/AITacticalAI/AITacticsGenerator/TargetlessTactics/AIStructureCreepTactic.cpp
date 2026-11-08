@@ -98,7 +98,7 @@ struct Rva005AB7E5Template
 };
 
 class Player;
-class Team{public:char pad[0x5D];bool m_5D,m_5E;};
+#include "../../../../../../Include/Common/TeamBFME2.h"
 
 struct Coord3D;
 
@@ -681,9 +681,9 @@ void AIStructureCreepTactic::run()
 					obj->setTeam(team);
 					((Rva005996FF *)&record->m_140)->unRegisterDozer(
 						reinterpret_cast<Rva005996FFArg *>(obj), false);
-					if (!team->m_5D) {
-						team->m_5E = true;
-						team->m_5D = true;
+					if (!team->m_active) {
+						team->m_created = true;
+						team->m_active = true;
 					}
 					m_64 = (unsigned int)(TheGameLogic->getFrame() + g_00E0641C);
 					record->rva002C717E(AIStructureCreep_IsRunning, 1);

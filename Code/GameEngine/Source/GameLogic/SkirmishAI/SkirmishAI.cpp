@@ -161,12 +161,7 @@ class Object;
 // DLINK accessor Team::dlink_next_TeamInstanceList (0x005C4AF5), reached
 // through a member pointer as the DLINK iterator does, so the call stays
 // indirect like retail's.
-class Team
-{
-public:
-	void transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds);	// 0x0039E6D1
-	Team *dlink_next_TeamInstanceList() const;	// 0x005C4AF5
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 typedef Team *(Team::*TeamNext)() const;
 

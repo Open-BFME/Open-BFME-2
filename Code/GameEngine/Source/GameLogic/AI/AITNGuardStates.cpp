@@ -82,18 +82,7 @@ private:
 	unsigned char m_pad00[0x200];
 	TeamTemplateInfo m_teamTemplate; // +0x200
 };
-class Team
-{
-public:
-	const TeamPrototype *getPrototype(void) { return m_proto; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes); the getPrototype copy loses to the first-in-order copy. No flags touched.
-	const TeamPrototype *bfme_getPrototype_9492a(void) { return m_proto; }
-	void setTeamTargetObject(Object *target);
-	Object *getTeamTargetObject();
-private:
-	unsigned char m_pad00[0x30];
-	TeamPrototype *m_proto; // +0x30
-};
+#include "../../../Include/Common/TeamBFME2.h"
 class TunnelTracker
 {
 public:
@@ -514,7 +503,7 @@ StateReturnType AITNGuardOuterState::update( void )
 		}
 		// Check if team auto targets same victim.
 		Object *teamVictim = NULL;
-		if (goalObj == NULL && owner->bfme_getTeam_30539()->bfme_getPrototype_9492a()->bfme_getTemplateInfo_a8b17()->m_attackCommonTarget) 
+		if (goalObj == NULL && owner->bfme_getTeam_30539()->getPrototype()->bfme_getTemplateInfo_a8b17()->m_attackCommonTarget) 
 		{
 			teamVictim = owner->bfme_getTeam_30539()->getTeamTargetObject();
 			if (teamVictim) 

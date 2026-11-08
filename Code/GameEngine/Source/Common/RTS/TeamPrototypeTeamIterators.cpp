@@ -71,37 +71,13 @@ typedef Int (*ObjectIterateFunc)(Object *obj, void *userData);
 
 #include "Common/Snapshot.h"
 
-class Team : public MemoryPoolObject, public Snapshot
-{
-public:
-	// Zero Hour's MAKE_DLINK(Team, TeamInstanceList) accessor: retail
-	// 0x005C4AF5 (4 B) reads the link's next pointer at +0x40, the slot the
-	// DLINK_ITERATOR below calls through.
-	Team *dlink_next_TeamInstanceList() const { return m_dlink_TeamInstanceList.m_next; }
-	Int countBuildings() const;
-	Int countObjects(KindOfMaskType setMask, KindOfMaskType clearMask) const;
-	void healAllObjects();
-	Int rva0039DD12(ObjectIterateFunc func, void *userData) const;
-	Bool rva0039DD4B(Bool flag);
-	Bool rva0039DDC2(Rva0039DDC2Filter filter, Bool flag);
-	Bool rva0039DE46(BfmeTab1026 *tab, Bool flag);
-	Bool hasAnyUnits();
-	Bool hasAnyBuildings(Rva0039DF1CFilter filter1, Rva0039DF1CFilter filter2);
-	Bool rva0039DF87(BfmeTab1026 *tab);
-	Bool hasAnyObjects(Bool flag);
-	Bool hasAnyBuildFacility();
-	Bool damageTeamMembers(Real amount);
-	void countObjectsByThingTemplate(Int numTmplates, const ThingTemplate* const* things, Bool ignoreDead, Int *counts, Bool ignoreUnderConstruction) const;
+#include "../../../Include/Common/TeamBFME2.h"
 
-private:
-	struct DLINK_TeamInstanceList
-	{
-		Team *m_prev;
-		Team *m_next;
-	};
-	unsigned char m_pad08[0x3C - 0x08];
-	DLINK_TeamInstanceList m_dlink_TeamInstanceList; // +0x3C
-};
+// Zero Hour's MAKE_DLINK(Team, TeamInstanceList) accessor (0x005C4AF5).
+inline Team *Team::dlink_next_TeamInstanceList() const
+{
+	return m_dlink_TeamInstanceList_next;
+}
 
 #include "../../../Include/Common/Team.h"
 

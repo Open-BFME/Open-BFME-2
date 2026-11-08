@@ -32,12 +32,7 @@ private:
 class AIGroup;
 class Object;
 
-class Team
-{
-public:
-	void getTeamAsAIGroup(AIGroup *group);
-	int countObjects(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear) const;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 struct Rva00372571Params
 {

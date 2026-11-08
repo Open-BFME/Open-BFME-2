@@ -54,22 +54,7 @@ extern GameLogic *TheGameLogic;
 class TeamPrototype;
 class Rva0039D769;
 template<class T> class DLINK_ITERATOR;
-class Team
-{
-public:
-	Team *dlink_next_TeamInstanceList() const;
-	void disband();
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	char m_pad00[0x30];
-	TeamPrototype *prototype30; // +0x30
-	char m_pad34[0x29];
-	bool active; // +0x5D
-	bool dirty; // +0x5E
-	char m_pad5F[0xB1];
-	bool flag110; // +0x110
-	bool flag111; // +0x111
-	char m_pad112[0x2];
-};
+#include "../../../../Include/Common/TeamBFME2.h"
 template<class T> class DLINK_ITERATOR {
  typedef T *(T::*Next)() const;
  T *current;
@@ -148,7 +133,7 @@ void AITeamBuilder::rva0059A153(TeamPrototype *prototype)
  if (found!=last) {
   for (DLINK_ITERATOR<Team> it=(*found)->iterate_TeamInstanceList(); !it.done(); it.advance()) {
    Team *team=it.cur();
-   if (!team->active) { team->dirty=true; team->active=true; }
+   if (!team->m_active) { team->m_created=true; team->m_active=true; }
    team->disband();
   }
   prototypes.erase(found);
@@ -273,7 +258,7 @@ void AITeamBuilder::recruitPreDefined(Team* team,int* count,TeamPrototype* remai
  void* stats=TheSkirmishAIManager->rva002A8F24(owner14);
  const IDVectorView* units=(const IDVectorView*)((Rva005C4AD1LeaField*)*(void**)stats)->get();
  IDVectorView sorted;
- TeamPrototype* prototype=team->prototype30;
+ TeamPrototype* prototype=team->m_proto;
  if(((Rva0039D7C1ByteField*)prototype)->get()) {
   Rva00599FAA distances;
   const ScienceType* it=units->begin();
@@ -323,7 +308,7 @@ void AITeamBuilder::recruitPreDefined(Team* team,int* count,TeamPrototype* remai
 void AITeamBuilder::recruitUnDefined(Team* teamToBuild,int* curNumUnits) {
  void* stats=TheSkirmishAIManager->rva002A8F24(owner14);
  Rva005C4AD1LeaField* unitStats=*(Rva005C4AD1LeaField**)stats;
- TeamPrototype* prototype=teamToBuild->prototype30;
+ TeamPrototype* prototype=teamToBuild->m_proto;
  const AITeamRequirementView* requirements=(const AITeamRequirementView*)((const char*)prototype+0x12C);
  AITargetView* target=(AITargetView*)TheSkirmishAIManager->rva002A8B73(owner14,requirements->targetKind);
  const IDVectorView* units=(const IDVectorView*)unitStats->get();
@@ -575,9 +560,9 @@ void AITeamBuilder::update()
         ((Rva0039D5A9 *)requirements)->rva0039D5A9()==0 &&
         (requirements->mode==1 || (unsigned)count>=requirements->maximum ||
          (unsigned char)doesTeamMeetThreat(team))) {
-     team->flag110=true;
-     team->flag111=false;
-     if (!team->active) { team->dirty=true; team->active=true; }
+     team->m_isRecruitablitySet=true;
+     team->m_isRecruitable=false;
+     if (!team->m_active) { team->m_created=true; team->m_active=true; }
      SkirmishAI *ai=(SkirmishAI *)TheSkirmishAIManager->rva002A8AB1(owner14);
      ai->Register(team);
      prototype->building=false;
@@ -698,7 +683,7 @@ int AITeamBuilder::getCurNumUnits(Team *team)
 
 int AITeamBuilder::doesTeamMeetThreat(Team *team)
 {
-	void *found = TheSkirmishAIManager->rva002A8B73((void *)owner14, ((TeamProto *)team->prototype30)->m_2C4);
+	void *found = TheSkirmishAIManager->rva002A8B73((void *)owner14, ((TeamProto *)team->m_proto)->m_2C4);
 	float vmax = 0.0f;
 	if (found != 0)
 		vmax = ((Rva002C589B *)found)->getEnemyThreat();

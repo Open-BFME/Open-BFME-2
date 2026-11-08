@@ -23,10 +23,9 @@
 //  - Member offsets from the ctor's stores (TeamCtor.cpp states each one).
 //
 // Members: every Team row of reverse/functions.csv with the access, constness
-// and parameter types its decorated name states, minus two whose parameter
-// types are templates units spell differently (countObjects' and
-// transferKindOfUnitsTo's BitFlags; some units define a non-template BitFlags),
-// plus the Zero Hour inline accessors the views inline.
+// and parameter types its decorated name states, plus the Zero Hour inline
+// accessors the views inline. rva0039D8D3 is declared throw(): retail
+// 0x003A2DBB calls it with its EH state already closed.
 // Data: the Zero Hour names for scalar members; the AsciiString, hash table,
 // list and set members stay opaque until their types have shared headers.
 // Data access is not modeled (all public); it has no codegen effect.
@@ -57,6 +56,7 @@ enum Relationship;
 // Units define the iterator template themselves (86 views declare the
 // out-of-line iterate_TeamMemberList below against their own definition).
 template <class OBJECT> class DLINK_ITERATOR;
+template <int N> class BitFlags;
 
 class Team : public Snapshot, public Rva0055B0CC
 {
@@ -86,7 +86,7 @@ public:
 	void setTeamTargetObject(Object *);				// 0x0039D84A
 	void rva0039D889(bool);							// 0x0039D889
 	void rva0039D8BA(Object *);						// 0x0039D8BA
-	void rva0039D8D3(unsigned int);					// 0x0039D8D3
+	void rva0039D8D3(unsigned int) throw();			// 0x0039D8D3
 	void setControllingPlayer(Player *newController);	// 0x0039D97E
 	int getTargetableCount() const;					// 0x0039D9E3
 	Coord3D *rva0039DA2A(Coord3D *) const;			// 0x0039DA2A
@@ -95,6 +95,7 @@ public:
 	void countObjectsByThingTemplate(int numThings, const ThingTemplate *const *things, bool ignoreDead, int *counts, bool ignoreUnderConstruction) const;	// 0x0039DB89
 	int rva0039DC05(int, bool, bool) const;			// 0x0039DC05
 	int countBuildings() const;						// 0x0039DC63
+	int countObjects(BitFlags<116> mustBeSet, BitFlags<116> mustBeClear) const;	// 0x0039DC9E
 	void healAllObjects();							// 0x0039DCE9
 	int rva0039DD12(int (*func)(Object *, void *), void *userData) const;	// 0x0039DD12
 	bool rva0039DD4B(bool);							// 0x0039DD4B
@@ -115,6 +116,7 @@ public:
 	bool someInsideSomeOutside(PolygonTrigger *pTrigger, unsigned int whichToConsider);	// 0x0039E50D
 	void rva0039E5B9(Coord3D *);					// 0x0039E5B9
 	void transferUnitsTo(Team *newTeam);			// 0x0039E660
+	void transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds);	// 0x0039E6D1
 	bool damageTeamMembers(float amount);			// 0x0039E76C
 	void moveTeamTo(Coord3D destination);			// 0x0039E7F2
 	bool hasAnyBuildFacility();						// 0x0039E815

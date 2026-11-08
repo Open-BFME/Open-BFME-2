@@ -42,15 +42,9 @@ public:
  OBJCLASS *cur() const { return m_cur; }
 private: OBJCLASS *m_cur; GetNextFunc m_next;
 };
-class Team {
-public:
- DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
- void setControllingPlayer(Player *);
- int rva0039DD12(int (*func)(Object *,void *),void *) const;
-private: unsigned char m_pad[0x38]; Object *m_head;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const {
- return DLINK_ITERATOR<Object>(m_head,&Object::dlink_next_TeamMemberList);
+ return DLINK_ITERATOR<Object>(m_dlinkhead_TeamMemberList,&Object::dlink_next_TeamMemberList);
 }
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;

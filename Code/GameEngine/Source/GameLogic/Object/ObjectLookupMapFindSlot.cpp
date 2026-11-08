@@ -117,14 +117,7 @@ void Rva002ADF9C::rva002ADF9C(const Player *player, Object *o)
 	*slot = o;
 }
 
-class Team
-{
-public:
-	int getTeamKey() const { return m_key34; }
-private:
-	char m_pad00[0x34];
-	int m_key34; // +0x34
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Rva002ADFC7
 {
@@ -139,7 +132,7 @@ void Rva002ADFC7::rva002ADFC7(const Team *team, Object *o)
 {
 	if (!team)
 		return;
-	int key = team->getTeamKey();
+	int key = team->getID();
 	Object **slot = m_holder->m_map.findSlot(&key);
 	*slot = o;
 }

@@ -187,20 +187,12 @@ private:
 	AsciiString m_name;	// +0x14
 };
 
-class Team
-{
-public:
-	const AsciiString &getName() const
-	{
-		return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getName();
-	}
-	Player *getControllingPlayer() const;
-	void getTeamAsAIGroup(AIGroup *group);
+#include "../../../Include/Common/TeamBFME2.h"
 
-private:
-	char m_pad[0x30];
-	TeamPrototype *m_proto;	// +0x30
-};
+static inline const AsciiString &teamProtoName(const Team *team)
+{
+	return team->m_proto == 0 ? AsciiString::TheEmptyString : team->m_proto->getName();
+}
 
 #include "../../../Include/GameLogic/ScriptConditions.h"
 extern ScriptConditions *TheScriptConditions;
@@ -308,7 +300,7 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 				msg.concat(seqScript->m_bfmeScriptName);
 				reinterpret_cast<StringBase<char> *>(&msg)->concat("' on ");
 				AsciiString name;
-				if (team) name = team->getName();
+				if (team) name = teamProtoName(team);
 				if (obj) name = obj->bfme_getName_b94f2();
 				msg.concat(name);
 				reinterpret_cast<StringBase<char> *>(&msg)->concat(" -- ");

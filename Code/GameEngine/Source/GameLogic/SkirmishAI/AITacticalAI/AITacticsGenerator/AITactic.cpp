@@ -181,21 +181,7 @@ typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::all
 extern TeamFactory *TheTeamFactory;
 
 // Team::disband per WorldBuilder (rowed at 0x0039E9E0).
-class Team
-{
-public:
-	void disband(); // 0x0039E9E0
-    void getTeamAsAIGroup(AIGroup *);
-    int countObjects(BitFlags<116>, BitFlags<116>) const;
-	unsigned char m_pad00[0x30];
-    TeamPrototype *m_prototype;
-    unsigned int m_teamID;
-    unsigned int getID() const { return m_teamID; }
-    bool hasAnyObjects(bool flag);
-    void rva0039E5B9(Coord3D *position);
-    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-    bool rva0039DAF4() const; // 0x0039DAF4
-};
+#include "../../../../../Include/Common/TeamBFME2.h"
 
 struct Rva002A8AB1Record
 {
@@ -632,7 +618,7 @@ void AITactic::NotifyTeamCreated(Team *team)
     m_teams.push_back(Rva004ECDC8(team->getID()));
     TeamPrototype **end = m_protos.end();
     for (TeamPrototype **it = m_protos.begin(); it != end; ++it) {
-        if (team->m_prototype == *it) {
+        if (team->m_proto == *it) {
             m_protos.erase(it);
             break;
         }

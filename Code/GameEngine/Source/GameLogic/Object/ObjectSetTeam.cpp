@@ -43,21 +43,7 @@ public:
 	const TeamTemplateInfo *getTemplateInfo() const { return &m_templateInfo; }
 };
 
-class Team
-{
-public:
-	Player *getControllingPlayer() const;	// 0x0039D7CF
-	void prependTo_TeamMemberList(Object *obj);	// 0x0028A75F
-	void removeFrom_TeamMemberList(Object *obj);	// 0x0028A77F
-	// Inline forwarder to Object::dlink_isInList_TeamMemberList (row 0x0028A74F
-	// lives in TeamIsInTeamMemberList.cpp); dllimport keeps this TU from
-	// emitting a duplicate copy.
-	__declspec(dllimport) __forceinline bool isInList_TeamMemberList(Object *obj) const;
-	char m_pad0[0x30];
-	TeamPrototype *m_proto;		// +0x30
-	char m_pad34[4];
-	Object *m_members;		// +0x38 team member list head
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 class BfmeMemberRV
 {
@@ -176,9 +162,10 @@ private:
 	Rva009A2350 *m_x4CC;			// +0x4CC
 };
 
-inline bool Team::isInList_TeamMemberList(Object *obj) const
+// Team::isInList_TeamMemberList (0x0028A74F) inlined at its call sites.
+static __forceinline bool teamHasMember(const Team *team, Object *obj)
 {
-	return obj->dlink_isInList_TeamMemberList(&m_members);
+	return obj->dlink_isInList_TeamMemberList(&team->m_dlinkhead_TeamMemberList);
 }
 
 // Team's prototype strings (+0x10, +0x14), or the empty string with no prototype.
@@ -208,7 +195,7 @@ void Object::setOrRestoreTeam(Team *team, Bool restoring)
 	if (m_team)
 	{
 		Team *currentTeam = m_team;
-		if (currentTeam->isInList_TeamMemberList(this))
+		if (teamHasMember(currentTeam, this))
 		{
 			currentTeam->removeFrom_TeamMemberList(this);
 			m_team->getControllingPlayer()->becomingTeamMember(this, false);
@@ -227,7 +214,7 @@ void Object::setOrRestoreTeam(Team *team, Bool restoring)
 	if (m_team)
 	{
 		Team *currentTeam = m_team;
-		if (!currentTeam->isInList_TeamMemberList(this))
+		if (!teamHasMember(currentTeam, this))
 		{
 			currentTeam->prependTo_TeamMemberList(this);
 			m_team->getControllingPlayer()->becomingTeamMember(this, true);

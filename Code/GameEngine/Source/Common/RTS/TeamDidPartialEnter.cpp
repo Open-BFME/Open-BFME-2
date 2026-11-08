@@ -109,27 +109,7 @@ public:
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Team
-{
-public:
-	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	bool hasAnyObjects(bool bfmeFlag);
-	bool didPartialEnter(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
-	bool didPartialExit(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
-	bool someInsideSomeOutside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
-	bool allInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
-	bool noneInside(PolygonTrigger *pTrigger, UnsignedInt whichToConsider);
-	void rva0039E5B9(Coord3D *center);
-	void moveTeamTo(Coord3D destination);
-	void transferUnitsTo(Team *newTeam);
-	void transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds);
-	Player *getControllingPlayer() const;
-	bool hasAnyUnits();
-
-private:
-	unsigned char m_pad[0x5c];
-	bool m_enteredOrExited;
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 bool Team::didPartialEnter(PolygonTrigger *pTrigger, UnsignedInt whichToConsider)
 {
