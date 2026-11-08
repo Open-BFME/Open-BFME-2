@@ -245,31 +245,12 @@ class AptExternHandler;
 // The adders (AptCallbackAdders.cpp, both rowed).
 #include "../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_names;
-};
-
 // The Apt screen base (BfmeAptGameWindowDestructor.cpp): a 0x218-byte
 // GameWindow and, at +0x218, the 0x58-byte callback registry whose adders
 // sit at +0x04 and +0x10.
 #include "../../../Include/GameClient/Bfme2GameWindow.h"
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
+#include "../../../Include/GameClient/Rva005248D0.h"
 
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {

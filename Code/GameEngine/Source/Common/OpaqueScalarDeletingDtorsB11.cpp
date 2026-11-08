@@ -243,14 +243,7 @@ private:
 	unsigned char m_unmodelled04[0x218 - 4];
 };
 
-class Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-private:
-	unsigned char m_unmodelled04[0x58 - 4];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 // The screen base has GameWindow at +0 and the callback registry at +0x218.
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0

@@ -9,18 +9,14 @@
 // Second store 0x0086DB78 is Rva0056DC6B middle (rowed trivial dtor at 0x0056DC6B store+jmp base); inlined here.
 #include "ascii_string.h"
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-private:
-	char m_pad[0x5C];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class Rva0056DC6B : public Rva005248D0
 {
 public:
 	virtual ~Rva0056DC6B();
+private:
+	char m_pad58[0x60 - 0x58];
 };
 
 inline Rva0056DC6B::~Rva0056DC6B()

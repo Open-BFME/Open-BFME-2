@@ -81,46 +81,7 @@ class AptOverButtonHandler;
 
 #include "../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
-class AptOverButtonHandlerAdder
-{
-public:
-	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
-// The image binder at +0x40 of the Apt window half (0x00524306 family):
-// window name to image name.
-class Rva00524306
-{
-public:
-	void rva00524767(const AsciiString &name, const AsciiString &image);
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-	AptOverButtonHandlerAdder m_overButtonHandlers; // +0x1C
-private:
-	unsigned char m_pad028[0x40 - 0x28];
-public:
-	Rva00524306 m_imageAdder; // +0x40
-private:
-	unsigned char m_pad04C[0x58 - 0x4C];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {
@@ -317,12 +278,12 @@ AptMessengerOnline::AptMessengerOnline(void *context)
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::OnBttn_0);
 		AsciiString name("AptMessenger::OnBttn_0");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptMessenger::OnBttn_1);
 		AsciiString name("AptMessenger::OnBttn_1");
-		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 }
 

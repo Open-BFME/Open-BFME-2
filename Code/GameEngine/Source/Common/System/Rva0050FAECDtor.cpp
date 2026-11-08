@@ -5,11 +5,7 @@
 // unwind funclets at 0x007948B2/0x00794921/0x00794956 reference it.
 // Retail calls _mbscpy through the import thunk at 0x00629176.
 #include <mbstring.h>
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-};
+#include "../../../Include/GameClient/Rva005248D0.h"
 
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
 
@@ -23,7 +19,6 @@ public:
 	void color(int query, char *result, bool skip);
 
 private:
-	unsigned char m_pad04[0x58 - 0x04];
 	int m_color; // +0x58
 };
 

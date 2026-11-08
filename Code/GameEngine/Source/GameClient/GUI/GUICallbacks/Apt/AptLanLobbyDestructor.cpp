@@ -67,21 +67,12 @@ class AptExternHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	_STL::vector<AsciiString> m_names;
-};
-
 class AptScreenInitGadgets;
 void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
 
 
 class GameWindow { public: virtual ~GameWindow(); private: char storage[0x218-4]; };
-class Rva005248D0 { public: virtual ~Rva005248D0(); AptCommandMapAdder m_commandMaps; AptExternHandlerAdder m_externHandlers; private: char storage[0x58-0x1C]; };
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0 {
 public: _bfme_AptGameWindow(void *context); virtual ~_bfme_AptGameWindow();
 private: AsciiString filename270; void *owner274; int tail278;
@@ -227,47 +218,47 @@ AptLanLobby::AptLanLobby(void *context)
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnInitialized);
    AsciiString name("AptLanLobby::OnInitialized");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::Cancel);
    AsciiString name("AptLanLobby::OnCancelBttn");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnExitBttn);
    AsciiString name("AptLanLobby::OnExitBttn");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnStartGameBttn);
    AsciiString name("AptLanLobby::OnStartGameBttn");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnCreateGameBttn);
    AsciiString name("AptLanLobby::OnCreateGameBttn");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnJoinGameBttn);
    AsciiString name("AptLanLobby::OnJoinGameBttn");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnLoadGameBttn);
    AsciiString name("AptLanLobby::OnLoadGameBttn");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnOptionsBttn);
    AsciiString name("AptLanLobby::OnOptionsBttn");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::OnLoadScreen);
    AsciiString name("AptLanLobby::OnLoadScreen");
-   m_commandMaps.AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
+   AddCommandMap(name,AptRef<AptCommandMap>(MakeBinding(method,reinterpret_cast<FunctorTarget*>(this))));
   }
   {
    FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptLanLobby::InitGadgets);

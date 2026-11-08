@@ -400,18 +400,7 @@ Rva002D0588::Rva002D0588(EmitVtableTag *)
 {
 }
 
-class Rva005248D0
-{
-public:
-	Rva005248D0(EmitVtableTag *);
-public:
-	virtual ~Rva005248D0();
-};
-
-// ?<Rva005248D0::Rva005248D0> absent-from-retail
-Rva005248D0::Rva005248D0(EmitVtableTag *)
-{
-}
+#include "../../Include/GameClient/Rva005248D0.h"
 
 Rva002C6354::~Rva002C6354()
 {

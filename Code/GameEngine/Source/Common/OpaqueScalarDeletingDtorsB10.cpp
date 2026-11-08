@@ -199,14 +199,7 @@ private:
 	char m_unmodelled[0x214];
 };
 
-class Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-private:
-	char m_unmodelled[0x54];
-};
+#include "../../Include/GameClient/Rva005248D0.h"
 
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {

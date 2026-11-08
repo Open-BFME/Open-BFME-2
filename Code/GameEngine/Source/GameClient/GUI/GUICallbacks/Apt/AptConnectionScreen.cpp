@@ -123,15 +123,7 @@ class AptOverButtonHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class __declspec(novtable) Rva005248D0
-{
-public:
-	Rva005248D0();
-	virtual ~Rva005248D0();
-	AptCommandMapAdder m_commandMaps; // +0x04
-private:
-	char m_pad[0x58 - 0x10];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 
 // Native vftable 0x008711BC: slots 0 and 1 are the shared empty three-argument
 // body 0x000D1407 (ret 0Ch), slot 2 the deleting destructor 0x0059EB41.
@@ -419,12 +411,12 @@ AptConnectionScreen::AptConnectionScreen(void *level)
 		{
 			FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptConnectionScreen::RedrawGrid);
 			AsciiString name("Connection::RedrawGrid");
-			m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+			AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 		{
 			FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptConnectionScreen::OnRetryConnections);
 			AsciiString name("Connection::OnRetryConnections");
-			m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+			AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 		rva005DB630();
 	}

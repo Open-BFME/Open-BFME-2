@@ -31,18 +31,15 @@
 
 class GameWindow;
 
-class Rva005248D0
-{
-public:
-	virtual ~Rva005248D0();
-	unsigned char m_pad04[0x60 - 4];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 
 class Rva0056DC4C : public Rva005248D0
 {
 public:
 	Rva0056DC4C(void *);
 	virtual ~Rva0056DC4C();
+private:
+	unsigned char m_pad58[0x60 - 0x58];
 };
 
 class __declspec(novtable) Rva0056DC6B : public Rva0056DC4C

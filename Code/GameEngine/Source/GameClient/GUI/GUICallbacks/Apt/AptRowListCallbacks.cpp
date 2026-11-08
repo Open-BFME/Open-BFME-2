@@ -132,15 +132,6 @@ class AptExternHandler;
 
 #include "../../../../../../Libraries/Source/Apt/AptCommandMapAdder.h"
 
-class AptExternHandlerAdder
-{
-public:
-	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
-
-private:
-	unsigned char m_names[12]; // an STLport vector<AsciiString>
-};
-
 // The 0x58-byte callback registry (as in BfmeAptGameWindowDestructor.cpp),
 // constructed by the pinned 0x002D2C34.
 class Rva002D2C34
@@ -149,19 +140,7 @@ public:
 	void rva002D2C34();
 };
 
-class __declspec(novtable) Rva005248D0
-{
-public:
-	// Native construction is supplied by the rowed Rva005248D0 owner.
-	Rva005248D0();
-	virtual ~Rva005248D0();
-
-	AptCommandMapAdder m_commandMaps; // +0x04
-	AptExternHandlerAdder m_externHandlers; // +0x10
-
-private:
-	unsigned char m_pad01C[0x58 - 0x1C];
-};
+#include "../../../../../Include/GameClient/Rva005248D0.h"
 
 // RegistryAsciiPath.cpp's narrow concatenation nodes: "level + name" is a
 // two-string node built in place; appending a char or a text goes out of
