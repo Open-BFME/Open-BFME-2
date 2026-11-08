@@ -139,3 +139,28 @@ order together.
 
 Clearance: pending.
 Census confirmation: not claimed.
+
+**2026-11-08 the 8 worse copies against the code-identity route (swarm Link lane).** The route has landed (through
+`6494b4b9d0`). Its own checks (`identity_head`, `placeholder_types`, `identity_shape_problem`), run read-only on each
+callee row spelled as the winning copy calls it, refuse 7 of the 8. It covers operators, special members and template
+members with placeholder-typed names; several of these rows are free template functions (which it treats as
+hand-written names) or have no placeholder type. It also judges a row by its own wrong calls, while here the wrong call
+is in another unit's copy.
+
+| case | winning copy calls | retail's row | route | decision |
+|---|---|---|---|---|
+| `__unguarded_insertion_sort_aux<BfmeAssignRecord32>` | `__unguarded_linear_insert<BfmeAssignRecord32>` | `Rva0017351CInsert` 0x0017351C (identical body) | refused, hand-written name | plain rename, normal naming evidence, after the FX work |
+| `_Rb_tree<pair<AsciiString,AsciiString>,...>::_M_insert`, `insert_unique` (2 cases) | `??$?MVAsciiString@@V0@@_STL@@YA_NABU?$pair@VAsciiString@@V1@@0@0@Z` | `??M@YA_NABU?$pair@VAsciiString@@V1@@_STL@@0@Z` 0x00206BCF (identical body) | refused, no placeholder type | plain rename with its own evidence, after the FX work |
+| `vector<Rva001DEF38Element>::~vector` | `_Destroy<Rva001DEF38Element>` | `__destroy_aux<Rva00414BDBElement>` 0x001DEEE0 (identical body) | refused | open: a different function name, so a rename is not justified |
+| `vector<PolygonTrigger*>::_M_insert_overflow` | `allocator<PolygonTrigger*>::allocate` (QBE) | 0x00068E15, a fold of many rows (identical body) | refused for every row there | open: fold proof only |
+| `sort<int*, fnptr>` | `__final_insertion_sort<int*>` | `<void**>` 0x002C55EB | refused | open, body differs at +29 |
+| `vector<ObjectID>::erase` | `__copy_ptrs<ObjectID>` | `__copy_ptrs<Rva005334A4Element>` 0x0025BF40 | refused | open, body differs at +20 |
+| `ModuleInfo::~ModuleInfo` | `vector<ModuleInfo::Nugget>::~vector` | `vector<BfmeStringRecord002CF4C6>::~vector` 0x0033CD02 | name shape passes; wrong-binding check not run | not pursued: class-wide (17 rows, 18 units) with a vote per row. Body differs at +27 |
+
+After the 3 renames, 5 remain. **Separate question, whatever the link order:** the 3 whose bodies differ (+29, +20,
++27) are copies that really are not retail's byte for byte at the first level compared; the difference is at a further
+call, probably the same shape one level down, but that is unproven. Worth settling on its own.
+
+Retail order stays non-default until the worse count is zero, and it is not a priority against the real link.
+A separate false reject is recorded in `re_attempts.log`: `identity_shape_problem` reports `allocate` as a changed
+`_STL`-scoped name when only the template argument changes.
