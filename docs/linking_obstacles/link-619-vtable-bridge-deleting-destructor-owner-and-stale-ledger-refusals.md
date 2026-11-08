@@ -406,3 +406,15 @@ both EH graphs and scoped DIR32 pass after rebase. Broader audit remains
 INCONCLUSIVE: index f4727bbd09 versus base
 8be98f3efe60da401d09c05038aeac98afe27011, one missing current source receipt
 (camera.cpp). The shared provider refusal and actual-image check stay open.
+
+**2026-11-08 texture-diagnostics whole-file type cleanup:**
+INIStatsRecordTextures.cpp uses canonical StringClassData.h and pinned
+BFME1 vector.h, removing its two private VectorClass/DynamicVectorClass
+templates. Existing provider specializations and release /DNDEBUG preserve
+all five rows and the exact parent EH graph. All 16 external COMDAT
+fingerprints and definition names stay unchanged, private LinkGuard is clean,
+and preview conserves 435 authored bytes. Strict preparation supplies a
+reusable source receipt without changing census status. The served 0x007D0D80
+table's provider/alignment refusal remains pending a new real link; no
+alignment exception, pin, row or path is changed.
+[Type provenance and verification scope](../../reverse/attempt_support/ini-texture-shared-types-20261108/README.md).
