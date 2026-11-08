@@ -13,6 +13,7 @@
 #include "vector3.h"
 #include "vector2.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 #include "../../../../Libraries/Source/WWVegas/WW3D2/CameraClass.h"
 struct Rva001028AAView {
     char unknown00[0xBC];

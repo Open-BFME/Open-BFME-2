@@ -39,7 +39,7 @@ template <> inline SimpleDynVecClass<float>::~SimpleDynVecClass()
 }
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
-#include "../../../../../reference/shims/bfme2renderobj/rendobj.h"
+#include "rendobj.h"
 #include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/seglinerenderer.h"
 #include "../../../../../reference/shims/bfmestreak/streakrender.h"
 // TU-local view derived from reference/shims/bfmestreak/streak.h (ZH donor).
