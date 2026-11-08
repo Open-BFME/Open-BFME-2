@@ -150,3 +150,9 @@ still need complete 44/16-byte class recovery. Thirteen cached support
 objects lack strict receipts, including held getters/animobj; no global or
 image clearance is claimed. Next: maintained census/image queue confirmation.
 [Native operands, retained bridges and support gaps](../../reverse/attempt_support/lightning-stored-tables-20261109/README.md).
+
+Published as e51aeb84af (first attempt, 36.6 seconds); post-publication proof
+passes. Broad audit stays INCONCLUSIVE at c885072a48/base b7f4e5d3b0 because
+the held unchanged ConstIntGetters4.cpp lacks a current receipt. All six
+claims are released. Full short-table recovery remains blocked and recorded
+at CD40/CD54; the next census/image must cover the support gap.

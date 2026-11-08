@@ -69,3 +69,13 @@ downloaded index's only users of each old name are the two changed files;
 two other source files retain unused extern declarations, and their cached
 objects contain neither old symbol (`reference-scope.json`). This still
 does not close broad unread-object or directive gaps.
+
+Published as e51aeb84af on the first attempt (36.6 seconds; rebase 3.8,
+hook/push 32.8). Required byte/data/DIR32 checks pass, and the object/native
+proof passes again after publication. The broader audit remains
+INCONCLUSIVE: index c885072a48 versus outgoing base
+b7f4e5d3b01df4a507625e0dbc821640d0ec1f7c, because unchanged held
+ConstIntGetters4.cpp lacks a current receipt. It was not compiled or edited.
+Carry that gap and the remaining short-table debt into the next census and
+image; both table addresses have blocked handoffs rather than a claim of
+finished class recovery. All six scope/address claims are released.

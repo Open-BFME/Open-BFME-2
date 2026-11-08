@@ -685,3 +685,9 @@ is introduced. Cached replay changes strong refusals 2 to 0 with the same
 two bridges/fifteen slots. Short 4-byte class views and thirteen noncurrent
 support receipts remain; no current global provider or image result is
 claimed. LINK-636 and the packet retain those next-census/image scopes.
+
+Published as e51aeb84af, first attempt in 36.6 seconds. Required checks and
+post-publication native/object proof pass. Broader audit is INCONCLUSIVE:
+c885072a48 versus b7f4e5d3b0, with held unchanged ConstIntGetters4.cpp missing
+a current receipt. No global provider or image clearance follows; CD40/CD54
+full-table recovery remains in the blocked handoffs. All six claims released.

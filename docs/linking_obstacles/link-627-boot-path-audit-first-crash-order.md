@@ -215,6 +215,11 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   source-side stand-ins, not the broader boot-path or table-recovery scope.
   [Proof and remaining bridge debt](../../reverse/attempt_support/lightning-stored-tables-20261109/README.md).
 
+  Published as e51aeb84af; post-publication native proof passes. Broader
+  audit remains INCONCLUSIVE at c885072a48/base b7f4e5d3b0 for the unchanged
+  held getters receipt. Retain that gap and both short-table blocked handoffs
+  for the next census/image. Claims are released; boot clearance is not claimed.
+
   2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
   by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
   The copy constructor removes three byte stand-ins and binds existing
