@@ -377,8 +377,12 @@ after which no row would remain (unless `--prepared` absorbs the donor, below), 
   residual's does not.
 - `--emit-move` repoints a mixed file's deleting-destructor rows to their approved
   TU once the TU's own code emits each byte-exact; no text moves. It moves only
-  `??_G`/`??_E`, decided by the decorated name, since no source can spell one.
-  Constructors, destructors and assignments never move this way: a hand-written
+  `??_G`/`??_E`, by the decorated name, and only when no copy looks hand-written:
+  `__identifier("??_G...")` can spell the name, so every object defining it must
+  select its COMDAT ANY in a code section as the compiler does (a plain
+  `__identifier` definition gets NODUPLICATES), and neither unit's preprocessed
+  text may define it through `__identifier` (an `inline` one also gets ANY). The
+  vtable rider passes the same checks. Constructors, destructors and assignments never move this way: a hand-written
   one compiles to the implicit one's name, bytes and relocations. Template
   instances do not move either: whether an instance was instantiated from
   vendored STLport or written in project code (a typedef'd member, a project

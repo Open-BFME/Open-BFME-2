@@ -4,6 +4,7 @@ import csv
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -1101,11 +1102,13 @@ class EmitMoveTests(unittest.TestCase):
 
     def move(self, *, rvas=None, approved=None, defined=None, comdat=None, exact=None, residual_lost=(),
              rows=None, dry_run=True, file_defined=(), file_comdat=(), final_lost=(),
-             built=True, built_defined=None, built_comdat=None, build_effect=None, claim=False):
+             built=True, copies=None, pp_fail=(), built_defined=None, built_comdat=None, build_effect=None, claim=False):
         """emit_move over a file holding VDTOR (0x2000), DTOR (0x2100) and STAY (0x3000). `approved`
         {rva: tu}; the TU's scratch object `defined`/`comdat` names and the rvas it matches `exact`
         (`final_lost` lost when judged with only the rows that finally move); the file's object
-        `file_defined`/`file_comdat`; for the apply, ./build.sh passing (`built`) and the real TU object's `built_defined`/`built_comdat`."""
+        `file_defined`/`file_comdat`; for the apply, ./build.sh passing (`built`) and the real TU object's
+        `built_defined`/`built_comdat`; `copies` {object file name: why its copy is not the compiler's};
+        `pp_fail` the units cl -E refuses."""
         rows = rows if rows is not None else [self.row(self.VDTOR, "0x00002000"), self.row(self.DTOR, "0x00002100"),
                                               self.row(self.STAY, "0x00003000")]
         approved = approved if approved is not None else {"0x00002000": self.TU, "0x00002100": self.TU,
@@ -1145,6 +1148,9 @@ class EmitMoveTests(unittest.TestCase):
                     return (rvas_ & exact) - lost
                 return rvas_ - (set(residual_lost) if len(judged) < len(rows) else set())
 
+            def preprocessed(self, text, judged):
+                return (None, "cl -E failed") if self.tu in pp_fail else (text, None)
+
         import build
         import name_dependents
         own = lambda p: rows if p == self.SOURCE else []
@@ -1153,6 +1159,7 @@ class EmitMoveTests(unittest.TestCase):
                 patch.object(T, "fold_alias", return_value=False), patch.object(T, "Verifier", Verifier), \
                 patch.object(T.rename, "preprocess_unit", side_effect=AssertionError("no text is read")), \
                 patch.object(T, "comdat_symbols", side_effect=lambda obj: comdats.get(Path(obj), set())), \
+                patch.object(T, "deleting_copy_problem", side_effect=lambda obj, name: (copies or {}).get(Path(obj).name)), \
                 patch.object(name_dependents, "coff_symbol_names", side_effect=lambda data, **_: names[data]), \
                 patch.object(T, "exact_build", side_effect=build_effect if build_effect is not None
                              else (lambda sources: (built, "Functions: OK 2/2" if built else "boom"))) as exact_build, \
@@ -1697,6 +1704,71 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(listed(), "")
         self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
 
+    SPOOF = 'extern "C" void __identifier("??_GRec@@UAEPAXI@Z")() {}\n'
+
+    def test_a_hand_written_deleting_dtor_never_moves(self):
+        # review of 87417c8f9f: `extern "C" void __identifier("??_GRec@@UAEPAXI@Z")() {}` compiles to a
+        # COMDAT of exactly that name; a definition through `__identifier` in either unit refuses
+        refused = (self.SPOOF,
+                   'extern "C" inline void __identifier("??_GRec@@UAEPAXI@Z")() {}\n',
+                   'void *__identifier("??_GRec@@UAEPAXI@Z")(unsigned int f) throw() { return 0; }\n',
+                   'extern "C" void __identifier("??_G" "Rec@@UAEPAXI@Z")() {}\n',          # adjacent literals
+                   'extern "C" void __identifier("\\x3f?_GRec@@UAEPAXI@Z")() {}\n',          # an escape
+                   'extern "C" void __identifier(L"??_GRec@@UAEPAXI@Z")() {}\n',             # a prefix
+                   'extern "C" void __identifier("??_GRec@@UAEPAXI@Z"() {}\n')               # unbalanced
+        for text in refused:
+            for unit in (self.TU, self.SOURCE):
+                with self.subTest(text=text, unit=unit):
+                    self.write(unit, text + "struct Rec { int a; };\nvoid stay() {}\n")
+                    report = self.move(rvas=["0x00002100"])
+                    self.assertIn("may define it by hand", report["refused_rows"]["0x00002100"])
+                    self.setUp()
+        passed = ('extern "C" void __identifier("??_GRec@@UAEPAXI@Z")();\n',                   # a declaration
+                  'extern "C" void __identifier("??_GRec@@UAEPAXI@Z")();\n'
+                  'void (*p)() = &__identifier("??_GRec@@UAEPAXI@Z");\n',                      # its address
+                  'extern "C" void __identifier("??_GRec@@UAEPAXI@Z")();\n'
+                  'void g() { __identifier("??_GRec@@UAEPAXI@Z")(); }\n',                      # a call
+                  'extern "C" void __identifier("??_GOther@@UAEPAXI@Z")() {}\n')               # another name
+        for text in passed:
+            with self.subTest(text=text):
+                self.write(self.TU, text + "struct Rec { int a; };\n")
+                report = self.move(rvas=["0x00002100"])
+                self.assertNotIn("blocked", report)
+                self.assertEqual(report["moved"], ["0x00002100"])
+        report = self.move(rvas=["0x00002100"], pp_fail={self.SOURCE})
+        self.assertIn("cannot be preprocessed", report["refused_rows"]["0x00002100"])
+
+    def test_a_copy_the_compiler_did_not_select_any_never_moves(self):
+        # the scratch objects of either unit, then the committed ones after ./build.sh
+        for obj in ("t.obj", "x.obj"):
+            with self.subTest(obj=obj):
+                report = self.move(rvas=["0x00002100"], copies={obj: "selects its COMDAT NODUPLICATES"})
+                self.assertIn("NODUPLICATES", report["refused_rows"]["0x00002100"])
+        for obj in ("real_t.obj", "real_x.obj"):
+            with self.subTest(obj=obj):
+                before = self.ledger()
+                report = self.move(rvas=["0x00002100"], dry_run=False, copies={obj: "selects its COMDAT NODUPLICATES"})
+                self.assertIn("0x00002100: selects its COMDAT NODUPLICATES", report["blocked"])
+                self.assertIn("the ledger was put back", report["blocked"])
+                self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+                self.setUp()
+
+    def test_identifier_definition_reads_only_definitions(self):
+        name = "??_GRec@@UAEPAXI@Z"
+        cases = {'void __identifier("??_GRec@@UAEPAXI@Z")() {}': True,
+                 'void __identifier ( "??_GRec@@UAEPAXI@Z" ) ( int a = (1) ) const throw ( ) { }': True,
+                 'void __identifier("??_GRec@@UAEPAXI@Z")();': False,
+                 'int x = sizeof(&__identifier("??_GRec@@UAEPAXI@Z")); void f() {}': False,
+                 'void f() { if (__identifier("??_GRec@@UAEPAXI@Z")()) { } }': True,             # over-refuses
+                 'void __identifier("??_GOther@@UAEPAXI@Z")() {}': False,
+                 'void __identifier("??_GRec@@UAEPAXI@Z" "")() {}': True,
+                 'int __identifier("??_GRec@@UAEPAXI@Z") = 1;': False,                          # data: the object check
+                 'void f() {}': False}
+        for code, defined in cases.items():
+            with self.subTest(code=code):
+                self.assertEqual(bool(T.identifier_definition(code, name)), defined)
+
+
 class VtableRiderPreparedSplitTests(unittest.TestCase):
     """P16 minimal B, rules (b) and (c): ParticleSystemFXNuggetCtor.cpp's ctor moves into FXList.cpp
     with a prepared TU text, and its displaced `??_G` rides with the body that emits the vtable."""
@@ -1714,7 +1786,8 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         (self.root / self.TU).write_bytes(b"struct Rec { };\n")
 
     def split(self, *, prepared=PREPARED, stay=False, tu_vtable=True, residual_vtable=False, map_tu="",
-              second_row=False, prepared_misses=False, dtor=True, held=None, merge_blocked=False):
+              second_row=False, prepared_misses=False, dtor=True, held=None, merge_blocked=False, copies=None,
+              donor_pp=""):
         row = lambda n, r, s=self.SOURCE: dict(name=n, export_rva="", target_rva=r, target_size="1", source=s,
                                                status="matched", notes="")
         mine = ([row("_move", "0x1000")] + ([row(self.DTOR, "0x7000")] if dtor else [])
@@ -1738,6 +1811,9 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
                     out.discard("0x1000")
                 return out & {r["target_rva"] for r in rows}
 
+            def preprocessed(self, text, rows):
+                return text, None
+
         def merge(tu, sk, don, report, dry_run, **kw):
             seen.update(don=don, **kw)
             return dict(report, blocked="no verified merge") if merge_blocked else dict(report, accepted=list(don))
@@ -1757,7 +1833,10 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
                 patch.object(T, "skeleton", return_value=[]), patch.object(T, "Verifier", Verifier), \
                 patch.object(T, "SplitLinkGuard"), patch.object(T, "LinkGuard"), \
                 patch.object(T, "vtable_symbols", side_effect=vtables), patch.object(T, "_merge", side_effect=merge), \
-                patch.object(T, "claim_scope", return_value=held), patch.object(T.claims, "release") as self.release:
+                patch.object(T, "claim_scope", return_value=held), patch.object(T.claims, "release") as self.release, \
+                patch.object(T, "deleting_copy_problem", side_effect=lambda obj, name: (copies or {}).get(Path(obj).name)), \
+                patch.object(T.rename, "preprocess_unit", return_value=(None, "cl -E failed") if donor_pp is None
+                             else ((self.root / self.SOURCE).read_text() + donor_pp, None)):
             report = T.split(self.SOURCE, self.TU, dry_run=held is None, claim=held is not None, prepared=prepared)
         return report, seen
 
@@ -1834,6 +1913,85 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         self.release.assert_called_once_with([key], tokens={key: "MINE"})
         report, _ = self.split(held=T.Held(["file:Code/Ctor.cpp"]))            # nothing acquired: nothing released
         self.release.assert_not_called()
+
+    def test_a_hand_written_rider_never_rides(self):
+        # review of 87417c8f9f: the destination's or the residual's copy must be the compiler's, and neither
+        # the destination's text nor the file's may define it through `__identifier`
+        spoof = 'extern "C" void __identifier("??_GRec@@UAEPAXI@Z")() {}\n'
+        for kw, why in (({"copies": {"t.obj": "selects its COMDAT NODUPLICATES"}}, "NODUPLICATES"),
+                        ({"copies": {"x.obj": "selects its COMDAT NODUPLICATES"}}, "NODUPLICATES"),
+                        ({"prepared": self.PREPARED + spoof}, "may define it by hand"),
+                        ({"donor_pp": spoof}, "may define it by hand"),
+                        ({"donor_pp": None}, "cannot be preprocessed")):
+            with self.subTest(kw=kw):
+                report, _ = self.split(stay=True, **kw)
+                self.assertIn("0x7000 may not ride", report["blocked"])
+                self.assertIn(why, report["blocked"])
+        report, _ = self.split(stay=True, donor_pp='extern "C" void __identifier("??_GRec@@UAEPAXI@Z")();\n')
+        self.assertNotIn("blocked", report)                    # a declaration defines nothing
+
+
+class NativeDeletingDtorSelectionTests(unittest.TestCase):
+    """MSVC 7.1 itself (under Wine off Windows): the compiler selects its `??_G`/`??_E` ANY in a code
+    section; a hand-written `__identifier` definition gets NODUPLICATES, an inline one ANY (left to
+    identifier_definition on the preprocessed text), selectany data ANY in a data section."""
+    NAME = "??_GRec@@UAEPAXI@Z"
+
+    def setUp(self):
+        import build
+        self.build = build
+        try:
+            build.vc71_root()
+        except (Exception, SystemExit) as error:            # noqa: BLE001 - no compiler here
+            self.skipTest(f"no MSVC 7.1: {error}")
+        if os.name != "nt" and shutil.which("wine") is None:
+            self.skipTest("no wine")
+        self.folder = Path(build.ROOT) / "build" / "tu_skeleton" / f"native_selection_{os.getpid()}"
+        self.folder.mkdir(parents=True, exist_ok=True)
+        self.addCleanup(shutil.rmtree, self.folder, True)
+
+    def run_cl(self, stem, text, preprocess=False):
+        src = self.folder / f"{stem}.cpp"
+        src.write_text(text)
+        obj = src.with_suffix(".obj")
+        command, env = self.build.compiler_command(src, obj)
+        if preprocess:
+            command = [c for c in command if not c.startswith(("-Fo", "/Fo")) and c not in ("-c", "/c")]
+            command.insert(len(command) - 1, "-E")
+        p = subprocess.run(command, env=env, capture_output=True, cwd=self.build.ROOT, timeout=600)
+        self.assertEqual(p.returncode, 0, (p.stdout + p.stderr)[-400:])
+        return p.stdout.decode("latin-1") if preprocess else obj
+
+    def test_the_compiler_selects_its_deleting_dtors_any_and_a_hand_written_one_not(self):
+        cases = {"implicit": ("struct Rec { virtual ~Rec(); int a; }; Rec::~Rec() {} void f() { delete new Rec; }\n",
+                              self.NAME, None),
+                 "implicit_vector": ("struct Rec { virtual ~Rec(); int a; }; Rec::~Rec() {} "
+                                     "void f() { delete[] new Rec[2]; }\n", "??_ERec@@UAEPAXI@Z", None),
+                 "spoof_g": (f'extern "C" void __identifier("{self.NAME}")() {{}}\n', self.NAME, "NODUPLICATES"),
+                 "spoof_e": ('extern "C" void __identifier("??_ERec@@UAEPAXI@Z")() {}\n', "??_ERec@@UAEPAXI@Z",
+                             "NODUPLICATES"),
+                 "spoof_inline": (f'extern "C" inline void __identifier("{self.NAME}")() {{}} '
+                                  f'void g() {{ __identifier("{self.NAME}")(); }}\n', self.NAME, None),
+                 "spoof_data": (f'extern "C" __declspec(selectany) int __identifier("{self.NAME}") = 1;\n',
+                                self.NAME, "outside a code section")}
+        for stem, (text, name, why) in cases.items():
+            with self.subTest(stem=stem):
+                obj = self.run_cl(stem, text)
+                self.assertIn(name, T.comdat_symbols(obj))
+                got = T.deleting_copy_problem(obj, name)
+                self.assertEqual(got is None, why is None, got)
+                if why:
+                    self.assertIn(why, got)
+        # the inline spoof the object check cannot see: the preprocessed text shows its definition
+        self.assertTrue(T.identifier_definition(self.run_cl("spoof_inline_pp", cases["spoof_inline"][0], True), self.NAME))
+
+    def test_a_macro_built_definition_is_read_after_preprocessing(self):
+        text = ('#define SPOOF(n) extern "C" void __identifier(n)() {}\n'
+                '#define NAME(k) "??_" #k "Rec@@UAEPAXI@Z"\n'
+                f'SPOOF("{self.NAME}")\nSPOOF(NAME(E))\n')
+        code = self.run_cl("macro_pp", text, preprocess=True)
+        self.assertTrue(T.identifier_definition(code, self.NAME))
+        self.assertTrue(T.identifier_definition(code, "??_ERec@@UAEPAXI@Z"))   # adjacent literals: unreadable
 
 
 class FoldAliasSplitTests(unittest.TestCase):

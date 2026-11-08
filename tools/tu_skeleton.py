@@ -702,12 +702,13 @@ def emission_held(r):
 def vtable_rider(r):
     """May ledger row `r` ride with carved bodies to whatever object emits its class's vtable
     (P16: `??_G` 0x001E10CE with the ctor 0x001E0AEF)? The static half: a deleting destructor
-    by its decorated name (deleting_class: the compiler always generates `??_G`/`??_E`, so no
-    text is read; review of 9459886c66), the map leaving it without a TU on purpose
+    by its decorated name (deleting_class), the map leaving it without a TU on purpose
     (tu_map.homeless: displaced, no F/Z/S/L/W evidence), and the only ledger row at its address
     (no other emitter's row there to claim it). split() adds the dynamic half: the
-    destination's object emits the class's vtable and the residual's does not, and the row
-    matches where it lands."""
+    destination's object emits the class's vtable and the residual's does not, neither copy is
+    hand-written (hand_written_problem: the objects' COMDAT selection, `__identifier`
+    definitions in the destination's and the file's preprocessed text), and the row matches
+    where it lands."""
     if not deleting_class(r["name"]):
         return False
     if "map_by_rva" not in _CACHE:
@@ -1207,6 +1208,34 @@ class Verifier:
         else:
             lines[at] = line
         return "\n".join(lines)
+
+    def preprocessed(self, text, rows):
+        """(cl -E output of `text` as matched() compiles it, None), or (None, why): the same
+        scratch path and flags, -E in place of -c, so no object is written."""
+        text = self.effective(text, rows)
+        key = hashlib.sha1(text.encode()).hexdigest()[:16]
+        src = self.tu.parent / f".{self.tu.stem}.{key}.tu_skeleton_pp{self.tu.suffix}"
+        made = [d for d in reversed(src.parents) if not d.exists()]
+        src.parent.mkdir(parents=True, exist_ok=True)
+        src.write_text(text, encoding="utf-8", newline="")
+        try:
+            command, env = self.B.compiler_command(src, self.tmp / f"{key}.pp.obj")
+            command = [c for c in command if not c.startswith(("-Fo", "/Fo")) and c not in ("-c", "/c")]
+            command.insert(len(command) - 1, "-E")
+            proc = subprocess.run(command, capture_output=True, env=env, cwd=str(ROOT), timeout=self.timeout)
+        except (Exception, SystemExit) as error:          # noqa: BLE001 - no text is no proof
+            return None, f"the preprocessor did not run: {error}"
+        finally:
+            _unlink_resilient(src)
+            for d in reversed(made):
+                try:
+                    if not any(d.iterdir()):
+                        d.rmdir()
+                except OSError:
+                    pass
+        if proc.returncode:
+            return None, "the preprocessor refused it: " + proc.stderr.decode("latin-1", "replace").strip()[-300:]
+        return proc.stdout.decode("latin-1"), None
 
     def matched(self, text, rows):
         text = self.effective(text, rows)
@@ -3493,12 +3522,21 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
         report["residual_loses"] = unemitted
         report["blocked"] = "the residual loses ICF aliases the carved bodies do not emit matched either"
         return report
+    rider_texts = None
     for r in riders:
         if vtable_rider(r) and not fold_alias(r):
             cls = deleting_class(r["name"])
             if not vtable_symbols(vt.obj, cls) or (residual_obj is not None and vtable_symbols(residual_obj, cls)):
                 report["blocked"] = (f"{r['target_rva']} rides only with the body that emits {cls}'s vtable: the "
                                      "destination must emit it and the residual must not")
+                return report
+            if rider_texts is None:
+                rider_texts = {tu: vt.preprocessed(donor_text, carved) if prepared is None
+                               else vt.preprocessed(prepared, tu_own + carved),
+                               path: rename.preprocess_unit(SimpleNamespace(root=ROOT, path=lambda rel: ROOT / rel), path)}
+            why = hand_written_problem(r["name"], [vt.obj, residual_obj], rider_texts)
+            if why:
+                report["blocked"] = f"{r['target_rva']} may not ride: {why}"
                 return report
     behind = [r for r in carved if r["target_rva"] not in alone]
     report["alone"] = f"{len(carved) - len(behind)}/{len(carved)} carved rows match beside the TU under its flags"
@@ -3652,7 +3690,8 @@ class UnitKeyRefusal(Exception):
 # The move counterpart of emission_held. A compiler-generated COMDAT has no body a carve could
 # move: every object using it emits it. Once its approved TU's own code emits it byte-exact,
 # the row's source moves there and no text moves at all. Only a deleting destructor
-# (`??_G`/`??_E`) qualifies, decided by its decorated name: no source can spell one. A
+# (`??_G`/`??_E`) qualifies: its decorated name, and then no sign of a hand-written copy
+# (hand_written_problem: `__identifier` can spell the name, review of 87417c8f9f). A
 # constructor, destructor or assignment never does: a hand-written one (`typedef Rec Alias;
 # Alias(Rec const &r) : a(r.a) {}`) compiles to the implicit one's name, bytes and relocations
 # (review of 9459886c66). Nor does a template instance (review of 0c8c510c89): eight rounds
@@ -3662,7 +3701,7 @@ class UnitKeyRefusal(Exception):
 # CodeView could anchor on. Either may come back with a provenance proof that does not
 # depend on text.
 
-# `??_G` (scalar) / `??_E` (vector) deleting destructor of a plain class: no source spells one
+# `??_G` (scalar) / `??_E` (vector) deleting destructor of a plain class
 DELETING_DTOR = re.compile(r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$")
 
 
@@ -3674,8 +3713,9 @@ def deleting_class(name):
 
 
 def emission_problem(r):
-    """Why row `r` may not move by emission, or None: only a deleting destructor may, by its
-    decorated name (deleting_class); nothing is read from any text."""
+    """Why row `r` may not move by emission by its name, or None: only a deleting destructor
+    may (deleting_class). emit_move then requires that no copy is hand-written
+    (hand_written_problem)."""
     name = r["name"]
     if deleting_class(name):
         return None
@@ -3683,6 +3723,97 @@ def emission_problem(r):
         return ("a template instance: whether it was instantiated from vendored source or written by hand "
                 "cannot be proved from text, so it does not move by emission")
     return "not a deleting destructor (??_G/??_E) by its name: only those move by emission"
+
+
+# What the decorated name cannot prove (review of 87417c8f9f): `extern "C" void
+# __identifier("??_GRec@@UAEPAXI@Z")() {}` compiles to a COMDAT of exactly that name. Two
+# layered checks, both required, fail-closed. Measured under Wine with MSVC 7.1 /O2: the
+# compiler selects an implicit `??_G`/`??_E` ANY in a code section; a hand-written
+# `__identifier` definition gets NODUPLICATES, but an `inline` or `__forceinline` one gets
+# ANY too, and selectany data under the name gets ANY in a data section.
+SELECTION = {1: "NODUPLICATES", 2: "ANY", 3: "SAME_SIZE", 4: "EXACT_MATCH", 5: "ASSOCIATIVE", 6: "LARGEST"}
+
+
+def deleting_copy_problem(obj, name):
+    """Why `obj`'s copy of the deleting destructor `name` may be hand-written, or None (also when
+    `obj` defines no copy): every definition must sit in a code section's COMDAT selected ANY,
+    as the compiler's own does."""
+    import struct
+    import link_census as LCe
+    try:
+        data = Path(obj).read_bytes()
+        count = struct.unpack_from("<H", data, 2)[0]
+        optional = struct.unpack_from("<H", data, 16)[0]
+        selections = LCe._comdat_selections(data)
+        for s in LCe._coff_symbols(data):
+            if s["name"] != name or s["storage"] != LCe.EXTERNAL or not 0 < s["section"] <= count:
+                continue
+            flags = struct.unpack_from("<I", data, 20 + optional + (s["section"] - 1) * 40 + 36)[0]
+            if not flags & 0x20:                                      # IMAGE_SCN_CNT_CODE
+                return f"{Path(obj).name} defines it outside a code section"
+            if not flags & LCe.COMDAT:
+                return f"{Path(obj).name} defines it outside a COMDAT"
+            selection = selections.get(s["section"])
+            if selection != 2:
+                return (f"{Path(obj).name} selects its COMDAT {SELECTION.get(selection, selection)}, not ANY as the "
+                        "compiler does: a hand-written definition")
+    except (OSError, ValueError, IndexError, KeyError, struct.error):
+        return f"{Path(obj).name if obj else 'its object'} cannot be read"
+    return None
+
+
+def _paren_end(text, at):
+    """The index after the parenthesis closing the one at `at`, or None."""
+    depth = 0
+    for i in range(at, len(text)):
+        depth += {"(": 1, ")": -1}.get(text[i], 0)
+        if depth == 0:
+            return i + 1
+    return None
+
+
+def identifier_definition(code, name):
+    """The `__identifier(...)` definition in the preprocessed `code` that may define `name`, or
+    None: one whose argument is followed by a parameter list and then a `{` before any `;`, and
+    whose argument is `name`'s literal or is not one plain literal (an escape, adjacent literals,
+    a wide prefix: it cannot be read). Declarations, calls and address-of references pass; so
+    does a definition of another name. Unbalanced parentheses refuse."""
+    for m in re.finditer(r"\b__identifier\s*\(", code):
+        spelled = " ".join(code[m.start():m.start() + 120].split())
+        end = _paren_end(code, m.end() - 1)
+        if end is None:
+            return spelled
+        rest = code[end:].lstrip()
+        if not rest.startswith("("):
+            continue
+        close = _paren_end(rest, 0)
+        if close is None:
+            return spelled
+        stop = re.search(r"[;{]", rest[close:])
+        if stop is None or stop.group(0) != "{":
+            continue
+        literal = re.fullmatch(r'"([^"\\]*)"', code[m.end():end - 1].strip())
+        if literal is None or literal.group(1) == name:
+            return spelled
+    return None
+
+
+def hand_written_problem(name, objs, texts):
+    """Why the deleting destructor `name` may be hand-written: a copy in one of `objs` not
+    selected as the compiler's (deleting_copy_problem), or a `__identifier` definition in one
+    of `texts` ({unit: (preprocessed text or None, why)}), or None."""
+    for obj in objs:
+        if obj is not None:
+            why = deleting_copy_problem(obj, name)
+            if why:
+                return why
+    for unit, (code, why) in texts.items():
+        if code is None:
+            return f"{unit} cannot be preprocessed ({why}): no proof it does not define it by hand"
+        found = identifier_definition(code, name)
+        if found:
+            return f"{unit} (preprocessed) may define it by hand: `{found[:100]}`"
+    return None
 
 
 OBJECT_SYMBOL = re.compile(r"(?:^|;)\s*object-symbol=([^;]+)")
@@ -3726,11 +3857,13 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
     to the TU file, which must already emit each of them byte-exact. Fail-closed: every row
     (an explicit `rvas` list, else every approved row) must be approved for `tu`, verified
     under its own name (no `object-symbol=` binding it to another symbol), a `??_G`/`??_E`
-    by its decorated name (emission_problem), defined by the TU's object in a COMDAT section
-    and byte-exact, with no other row of `path` at its address and no identity debt keyed to
-    `path`. The file may keep a copy (the stand-in views that host these rows today) only as
-    a COMDAT, never a strong definition. The TU's own rows and the residual's rows must keep
-    every match.
+    by its decorated name (emission_problem) with no hand-written copy (hand_written_problem:
+    each object's COMDAT selected ANY in a code section as the compiler's, no `__identifier`
+    definition of it in either unit's preprocessed text), defined by the TU's object in a
+    COMDAT section and byte-exact, with no other row of `path` at its address and no
+    identity debt keyed to `path`. The file may keep a copy (the stand-in views that host
+    these rows today) only as a COMDAT, never a strong definition. The TU's own rows and the
+    residual's rows must keep every match.
 
     Two stages. A scratch compile beside each file (Verifier) screens the rows and is
     re-judged with exactly the rows that move, since region flags follow the row set. The
@@ -3847,6 +3980,14 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         if lost:
             report["blocked"] = f"{dest}'s own rows lose matches judged beside the moved rows: " + ", ".join(lost[:5])
             return report
+    # a deleting destructor's name does not prove the compiler wrote it (review of 87417c8f9f)
+    pending = [r for r in movers if r["target_rva"] not in refused]
+    if pending:
+        texts = {path: vx.preprocessed(text_x, rows), dest: vt.preprocessed(text_t, own + moved)}
+        for r in pending:
+            why = hand_written_problem(r["name"], [vt.obj, vx.obj], texts)
+            if why:
+                refused[r["target_rva"]] = why
     # a refused parent takes its companions with it; a refused companion takes its parent
     for r in list(moved):
         if r["target_rva"] in refused:
@@ -4241,6 +4382,9 @@ def committed_problem(movers, dest, obj_t, obj_x):
             return f"{dest} defines {r['target_rva']} outside a COMDAT"
         if r["name"] in strong_x:
             return f"the file still defines {r['target_rva']} outside a COMDAT"
+        why = hand_written_problem(r["name"], [obj_t, obj_x], {})
+        if why:
+            return f"{r['target_rva']}: {why}"
     return None
 
 
