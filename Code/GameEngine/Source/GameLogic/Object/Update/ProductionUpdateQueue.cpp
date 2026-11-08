@@ -235,33 +235,8 @@ enum ProductionType
 	PRODUCTION_HORDE_UNIT
 };
 
-class UpgradeTemplate
-{
-public:
-	UpgradeType getUpgradeType() const { return m_type; }
-	UnsignedInt calcCostToBuild(Player *player, UnsignedInt requester) const;
+#include "../../../../Include/Common/Upgrade.h"
 
-	const AsciiString &getUpgradeName() const { return m_name; }
-
-	char m_unknown00[4];
-	UpgradeType m_type; // +4
-	AsciiString m_name; // +8
-	char m_unknown0C[0x28-0xC];
-	AsciiString m_displayName;
-	char m_unknown2C[0x40-0x2C];
-	void *m_researchSound;
-	int m_evaEvent;
-	void *m_unitSound;
-	char m_unknown4C[0x70-0x4C];
-	Int m_bfme70; // +0x70
-};
-
-class UpgradeCenter
-{
-public:
-	Bool rva0026F11A(Player *player, const UpgradeTemplate *upgrade, Object *obj, Bool displayReason); // canAffordUpgrade
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
 
 extern UpgradeCenter *TheUpgradeCenter;
 
@@ -1198,7 +1173,7 @@ Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
 	production->m_productionID = 0;
 	production->m_type = PRODUCTION_UPGRADE;
 	production->m_upgradeToResearch = upgrade;
-	production->m_bfme38 = upgrade->m_bfme70;
+	production->m_buttonImage = upgrade->m_buttonImage;
 
 	// take the cost for the build away from the player
 	production->m_cost = upgrade->calcCostToBuild( player, reinterpret_cast<UnsignedInt>(getObject()) );
@@ -1951,14 +1926,14 @@ UpdateSleepTime ProductionUpdate::update()
   int producerPlayer=us->getControllingPlayer()->m_playerIndex;
   TheScriptEngine->rva00357F11(producerPlayer,upgrade->getUpgradeName(),producerID);
   if(us->isLocallyControlled()) {
-   UnicodeString message; UnicodeString format=TheGameText->fetch("UPGRADE:UpgradeComplete"); UnicodeString name=TheGameText->fetch(upgrade->m_displayName.str());
+   UnicodeString message; UnicodeString format=TheGameText->fetch("UPGRADE:UpgradeComplete"); UnicodeString name=TheGameText->fetch(upgrade->m_displayNameLabel.str());
    message.format(format.str(),name.str()); ((ProductionInGameUIView *)TheInGameUI)->message(message);
    TheRadar->createEvent(&us->m_position,(RadarEventType)2,4.0f);
    bool sounded=false;
-   if(upgrade->m_evaEvent!=-1) { TheEva->reportEvaEvent((EvaEventID)upgrade->m_evaEvent,&us->m_position,0); sounded=true; }
-   if(upgrade->m_researchSound) { BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4 *)&upgrade->m_researchSound,0); ((Rva002D9531 *)&sound)->rva002D9531(us->m_id); ((ProductionAudioView *)TheAudio)->addEvent(&sound); sounded=true; }
+   if(upgrade->field44!=-1) { TheEva->reportEvaEvent((EvaEventID)upgrade->field44,&us->m_position,0); sounded=true; }
+   if(upgrade->field40) { BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4 *)&upgrade->field40,0); ((Rva002D9531 *)&sound)->rva002D9531(us->m_id); ((ProductionAudioView *)TheAudio)->addEvent(&sound); sounded=true; }
    if(!sounded) TheEva->reportEvaEvent((EvaEventID)4,&us->m_position,0);
-   BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4 *)&upgrade->m_unitSound,0); ((Rva002D9531 *)&sound)->rva002D9531(us->m_id); ((ProductionAudioView *)TheAudio)->addEvent(&sound);
+   BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4 *)&upgrade->field48,0); ((Rva002D9531 *)&sound)->rva002D9531(us->m_id); ((ProductionAudioView *)TheAudio)->addEvent(&sound);
   }
   if(!((Rva004DC8E7AsciiField *)upgrade)->get().isEmpty()) {
    const FXList *fx=TheFXListStore->findFXList(((Rva004DC8E7AsciiField *)upgrade)->get().str()); if(fx) FXList::doFXObj(fx,us,0);

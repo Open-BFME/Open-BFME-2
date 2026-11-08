@@ -29,20 +29,8 @@ struct UpgradeMaskType
 	unsigned long m_words[32];
 };
 
-class UpgradeTemplate
-{
-public:
-	unsigned int getUpgradeMask() const { return m_upgradeMaskIndex; }
-private:
-	unsigned char m_pad[0x38];
-	unsigned int m_upgradeMaskIndex;
-};
+#include "../../Include/Common/Upgrade.h"
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
 extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
 #include "../../Include/GameLogic/Module/Rva00507823.h"
@@ -54,13 +42,13 @@ void Rva00507823::rva00507877()
 	{
 		const UpgradeTemplate *theTemplate = TheUpgradeCenter->findUpgrade(*it);
 		if (theTemplate)
-			reinterpret_cast<UpgradeMaskType &>(m_mask04).set(theTemplate->getUpgradeMask());
+			reinterpret_cast<UpgradeMaskType &>(m_mask04).set(theTemplate->field38);
 	}
 	for (it = reinterpret_cast<_STL::vector<AsciiString> &>(m_storage114).begin(); it != reinterpret_cast<_STL::vector<AsciiString> &>(m_storage114).end(); ++it)
 	{
 		const UpgradeTemplate *theTemplate = TheUpgradeCenter->findUpgrade(*it);
 		if (theTemplate)
-			reinterpret_cast<UpgradeMaskType &>(m_mask84).set(theTemplate->getUpgradeMask());
+			reinterpret_cast<UpgradeMaskType &>(m_mask84).set(theTemplate->field38);
 	}
 	reinterpret_cast<_STL::vector<AsciiString> &>(m_storage108).clear();
 	reinterpret_cast<_STL::vector<AsciiString> &>(m_storage114).clear();

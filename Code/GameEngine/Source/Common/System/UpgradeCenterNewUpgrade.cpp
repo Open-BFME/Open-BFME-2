@@ -22,23 +22,7 @@ enum NameKeyType
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class UpgradeTemplate
-{
-public:
-	UpgradeTemplate();
-	UpgradeTemplate &operator=(const UpgradeTemplate &that);
-	void setUpgradeName(const AsciiString &name) { m_name = name; }
-	void setUpgradeNameKey(NameKeyType key) { m_nameKey = key; }
-	void friend_setMaskBitIndex(int index) { m_maskBitIndex = index; }
-
-private:
-	unsigned char m_pad00[0x08];
-	AsciiString m_name; // +0x08
-	NameKeyType m_nameKey; // +0x0C
-	unsigned char m_pad10[0x38 - 0x10];
-	int m_maskBitIndex; // +0x38
-	unsigned char m_pad3C[0x9C - 0x3C];
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class Rva0026F684
 {
@@ -55,17 +39,6 @@ private:
 	unsigned char m_pad3C[0x9C - 0x3C];
 };
 
-class UpgradeCenter
-{
-public:
-	UpgradeTemplate *newUpgrade(const AsciiString &name, bool assignMaskBit);
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-	void linkUpgrade(UpgradeTemplate *upgrade);
-
-private:
-	unsigned char m_pad00[0x10];
-	int m_nextTemplateMaskBit; // +0x10
-};
 
 UpgradeTemplate *UpgradeCenter::newUpgrade(const AsciiString &name, bool assignMaskBit)
 {
@@ -81,7 +54,7 @@ UpgradeTemplate *UpgradeCenter::newUpgrade(const AsciiString &name, bool assignM
 	newUpgrade->setUpgradeNameKey(TheNameKeyGenerator->nameToKey(name));
 	if (assignMaskBit)
 	{
-		newUpgrade->friend_setMaskBitIndex(m_nextTemplateMaskBit);
+		newUpgrade->field38 = m_nextTemplateMaskBit;
 		m_nextTemplateMaskBit++;
 	}
 

@@ -12,21 +12,8 @@
 
 #include "ascii_string.h"
 
-class UpgradeTemplate
-{
-public:
-	unsigned int getUpgradeMask() const { return m_maskIndex; }
+#include "../../../../Include/Common/Upgrade.h"
 
-private:
-	unsigned char m_pad[0x38];
-	unsigned int m_maskIndex;
-};
-
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const throw();
-};
 
 extern UpgradeCenter *TheUpgradeCenter;	// Upgrade.cpp's global (0x009FEB60)
 
@@ -71,12 +58,12 @@ void StealthUpdate::rva003748BD()
 	{
 		const UpgradeTemplate *upgradeTemplate = TheUpgradeCenter->findUpgrade(*it);
 		if (upgradeTemplate)
-			m_mask48.set(upgradeTemplate->getUpgradeMask());
+			m_mask48.set(upgradeTemplate->field38);
 	}
 	for (it = data->m_vecBC.begin(); it != data->m_vecBC.end(); ++it)
 	{
 		const UpgradeTemplate *upgradeTemplate = TheUpgradeCenter->findUpgrade(*it);
 		if (upgradeTemplate)
-			m_maskC8.set(upgradeTemplate->getUpgradeMask());
+			m_maskC8.set(upgradeTemplate->field38);
 	}
 }

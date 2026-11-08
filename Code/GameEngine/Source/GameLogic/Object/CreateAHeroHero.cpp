@@ -253,13 +253,7 @@ struct BfmeHeroElement005C39DE
 // Target offsets read by native4078A8; WB names the command-button,
 // special-power and upgrade paths. The two command values remain numeric.
 #include "../../../Include/Common/SpecialPower.h"
-class UpgradeTemplate
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	unsigned char m_pad00[8];
-	AsciiString m_name;
-};
+#include "../../../Include/Common/Upgrade.h"
 #include "../../../Include/GameClient/CommandButton.h"
 // The button's first needed upgrade (+0x28).
 static inline const UpgradeTemplate *getNeededUpgrade(const CommandButton *button) { return button->m_neededBegin[0]; }
@@ -305,7 +299,6 @@ public:
 	AsciiString m_commandSetStringOverride;	// +0x41C
 };
 class Rva004076EE { public: Object *rva004076EE(); void rva00407AE6(ModelConditionFlagType type, UnsignedInt frames); };
-class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &name) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 class Rva0021BFD8 { public: Bool rva0021BFD8(const StringBase<char> &name); };
 // The hero colour record Update hands the drawable (0x00406D67 fills it).
@@ -625,7 +618,7 @@ Bool CreateAHeroHero::AddCommandButtonLevel(UnsignedInt index, const AsciiString
 	{
 		if ((UnsignedInt)(button->m_neededEnd - button->m_neededBegin) != 1)
 			return false;
-		const AsciiString &upgradeName = getNeededUpgrade(button)->getName();
+		const AsciiString &upgradeName = getNeededUpgrade(button)->getUpgradeName();
 		if (((const StringBase<char> *)&upgradeName)->isEmpty())
 			return false;
 		((ExperienceLevelStore *)TheExperienceLevelSystem)->CreateNewExpLevel(

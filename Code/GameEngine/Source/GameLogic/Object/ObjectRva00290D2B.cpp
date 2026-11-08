@@ -6,12 +6,7 @@
 // twin precedent ?rva002AB87D@Player@@QBE_NPBVUpgradeTemplate@@@Z 23B same shape;
 // neighbours ?isAbleToAttack@Object (0x00290B73) and ?findSpecialPowerModuleInterface@Object (0x00290E22);
 // callers pass Object* in ecx plus UpgradeTemplate* on stack e.g. 0x00294B3C mov ecx ebx push edi.
-class UpgradeTemplate
-{
-public:
-	char m_pad[0x38];
-	unsigned int m_bitIndex;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class Rva0028F633
 {
@@ -55,18 +50,19 @@ bool Object::hasUpgrade(const UpgradeTemplate *upgradeT) const
 {
 	if (!upgradeT)
 		return false;
-	return hasUpgradeMask(upgradeT->m_bitIndex);
+	return hasUpgradeMask(upgradeT->field38);
 }
 
 void Object::removeUpgrade(const UpgradeTemplate *upgrade)
 {
-	m_bits284[upgrade->m_bitIndex >> 5] &= ~(1u << (upgrade->m_bitIndex & 31));
+	const unsigned int bit = upgrade->field38;
+	m_bits284[bit >> 5] &= ~(1u << (bit & 31));
 	for (BehaviorModule **m = m_modules244; *m; ++m)
 	{
 		UpgradeModuleInterface *u = (*m)->getUpgrade();
 		if (!u)
 			continue;
-		Rva0028F633 mask(0, upgrade->m_bitIndex);
+		Rva0028F633 mask(0, upgrade->field38);
 		if (!u->resetUpgrade(mask))
 			continue;
 		Rva004CE245(u);

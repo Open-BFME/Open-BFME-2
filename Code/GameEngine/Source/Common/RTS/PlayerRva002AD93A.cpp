@@ -96,17 +96,7 @@ inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
 
 #include "../../../Include/GameLogic/PlayerTeamNode.h"
 
-class UpgradeTemplate
-{
-public:
-	unsigned char m_pad[0x4C];
-	Int m_evaOwn; // +0x4C
-	Int m_evaAlly; // +0x50
-	Int m_evaEnemy; // +0x54
-	Int m_evaRemovedOwn; // +0x58
-	Int m_evaRemovedAlly; // +0x5C
-	Int m_evaRemovedEnemy; // +0x60
-};
+#include "../../../Include/Common/Upgrade.h"
 
 class Player;
 
@@ -142,13 +132,13 @@ void Player::onUpgradeCompleted(const UpgradeTemplate *upgrade, Int x)
 	Int eventId = -1;
 	Player *localPlayer = ThePlayerList->m_local;
 	if (this == localPlayer)
-		eventId = upgrade->m_evaOwn;
+		eventId = upgrade->field4C;
 	else if (localPlayer != 0 && m_defaultTeam != 0)
 	{
 		if (localPlayer->getRelationship(m_defaultTeam) == ALLIES)
-			eventId = upgrade->m_evaAlly;
+			eventId = upgrade->field50;
 		else
-			eventId = upgrade->m_evaEnemy;
+			eventId = upgrade->field54;
 	}
 	TheEva->reportEvaEvent((EvaEventID)eventId, 0, 0);
 }
@@ -180,13 +170,13 @@ void Player::onUpgradeRemoved(const UpgradeTemplate *upgrade, Int x)
 	Int eventId = -1;
 	Player *localPlayer = ThePlayerList->m_local;
 	if (this == localPlayer)
-		eventId = upgrade->m_evaRemovedOwn;
+		eventId = upgrade->field58;
 	else if (localPlayer != 0 && m_defaultTeam != 0)
 	{
 		if (localPlayer->getRelationship(m_defaultTeam) == ALLIES)
-			eventId = upgrade->m_evaRemovedAlly;
+			eventId = upgrade->field5C;
 		else
-			eventId = upgrade->m_evaRemovedEnemy;
+			eventId = upgrade->field60;
 	}
 	TheEva->reportEvaEvent((EvaEventID)eventId, 0, 0);
 }

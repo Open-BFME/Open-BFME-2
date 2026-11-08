@@ -716,25 +716,7 @@ enum UpgradeType
 
 class AsciiString;
 
-class UpgradeTemplate
-{
-public:
-	UpgradeType getUpgradeType() const { return m_type; }
-	unsigned int calcCostToBuild(Player *player, unsigned int requester) const;
-	const AsciiString &getUpgradeName() const { return m_name; }
-	int rva0026EE30(void *player, void *object);
-	char m_unknown00[4]; // +0x00
-	UpgradeType m_type; // +0x04 +4
-	AsciiString m_name; // +0x08 +8
-	char m_pad0C[0x1C];
-	AsciiString m_displayName; // +0x28
-	char m_pad2C[0x14];
-	void *m_researchSound; // +0x40
-	int m_evaEvent; // +0x44
-	void *m_unitSound; // +0x48
-	char m_pad4C[0x24];
-	int m_bfme70; // +0x70 +0x70
-};
+#include "../../../../Include/Common/Upgrade.h"
 
 class Rva0037E6E8
 {

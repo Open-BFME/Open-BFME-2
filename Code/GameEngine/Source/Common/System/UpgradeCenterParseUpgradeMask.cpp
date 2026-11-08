@@ -15,29 +15,8 @@ __forceinline const char *GetStr0026F28B(const AsciiString &asciiString)
 
 #include "../../../Include/Common/INI/FieldParse.h"
 
-typedef int NameKeyType;
+#include "../../../Include/Common/Upgrade.h"
 
-class UpgradeTemplate
-{
-public:
-	NameKeyType getUpgradeNameKey() const { return m_nameKey; }
-	int getMaskIndex() const { return m_maskIndex; }
-	const UpgradeTemplate *friend_getNext() const { return m_next; }
-private:
-	unsigned char m_pad00[0x0C];
-	NameKeyType m_nameKey;
-	unsigned char m_pad10[0x38 - 0x10];
-	int m_maskIndex;
-	unsigned char m_pad3C[0x64 - 0x3C];
-	UpgradeTemplate *m_next;
-	UpgradeTemplate *m_prev;
-};
-
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
 
 extern UpgradeCenter *TheUpgradeCenter;
 
@@ -64,7 +43,7 @@ void Rva0026F28BParse(INI *ini, void *instance, unsigned int *mask)
 			if (upgrade == 0 && !token.isNone()) {
 				throw INIException(3, "An upgrade mask references %s, which is not an Upgrade", GetStr0026F28B(token));
 			}
-			unsigned int bit = (unsigned int)upgrade->getMaskIndex();
+			unsigned int bit = upgrade->field38;
 			mask[bit >> 5] |= 1u << (bit & 31);
 		}
 		if (!fetchNext)

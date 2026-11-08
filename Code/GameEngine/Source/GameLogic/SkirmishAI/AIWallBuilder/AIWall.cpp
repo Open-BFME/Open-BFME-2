@@ -192,14 +192,7 @@ public:
 #include "../../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 #include "../../../../Include/Common/ThingTemplate.h"
-class UpgradeTemplate
-{
-public:
-	unsigned calcCostToBuild(Player *player, unsigned obj) const;	// 0x0026EF50, as rowed
-	const AsciiString &getName() const { return m_08; }
-	char m_pad00[0x08];
-	AsciiString m_08;	// +0x08 the name
-};
+#include "../../../../Include/Common/Upgrade.h"
 #include "../../../../Include/GameClient/CommandButton.h"
 #include "../../../../Include/GameClient/CommandSet.h"
 
@@ -585,7 +578,7 @@ void AIWall::buildGate()
 				m_14->m_2C = upgrade->calcCostToBuild(m_18, (unsigned)other);
 				m_14->m_08 = other->getID();
 				m_14->m_30 = button;
-				m_14->setName(upgrade->getName());
+				m_14->setName(upgrade->getUpgradeName());
 				m_14->rva004EB902Slot6(m_18, 0);
 				return;
 			}

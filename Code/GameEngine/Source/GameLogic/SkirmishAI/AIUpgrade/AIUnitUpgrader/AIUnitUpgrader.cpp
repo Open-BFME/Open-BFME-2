@@ -44,7 +44,7 @@ class Object { public: const AsciiString *rva00290E67() const; int rva00294ADD(i
 // 0x0026EF50 is rowed ?calcCostToBuild@UpgradeTemplate@@QBEIPAVPlayer@@I@Z
 // (UpgradeTemplateCalcCostToBuild.cpp); its second argument is the requesting
 // object, carried in that row's unsigned parameter.
-class UpgradeTemplate { public: unsigned int calcCostToBuild(Player *,unsigned int) const; char pad[8]; StringBase<char> name; };
+#include "../../../../../Include/Common/Upgrade.h"
 
 #include "../../../../../Include/GameClient/CommandButton.h"
 
@@ -64,7 +64,7 @@ class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
-class Rva005DAFD7 { public: Rva005DAFD7(); void *vtable; float delay; unsigned int id; StringBase<char> name; char pad[0x2c-0x10]; unsigned int cost; const CommandButton *command; };
+class Rva005DAFD7 { public: Rva005DAFD7(); void *vtable; float delay; unsigned int id; AsciiString name; char pad[0x2c-0x10]; unsigned int cost; const CommandButton *command; };
 
 class ModuleData;
 
@@ -177,7 +177,7 @@ void AIUnitUpgrader::Register(Object *object, void *)
    record->cost=upgrade->calcCostToBuild(owner,(unsigned int)object);
    record->id=object->id;
    record->command=command;
-   record->name.set(upgrade->name);
+   record->name.setCopyInline(upgrade->m_name);
    record->delay=(float)GetGameLogicRandomValue((int)ai->config->minDelay,(int)ai->config->maxDelay,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AIUpgrade\\AIUnitUpgrader\\AIUnitUpgrader.cpp",89);
    upgrading.push_back((const ModuleData *const &)record);
  }

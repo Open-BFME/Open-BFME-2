@@ -185,15 +185,7 @@ public:
 	virtual void slot93(const void *mask, int zero) = 0;
 };
 
-class UpgradeTemplate
-{
-public:
-	unsigned int getMaskIndex() const { return m_maskIndex; }
-
-private:
-	char m_pad00[0x38];
-	unsigned int m_maskIndex;
-};
+#include "../../../Include/Common/Upgrade.h"
 
 struct UpgradeBatch
 {
@@ -242,7 +234,7 @@ void Object::rva00293003(const void *arg)
 			UpgradeTemplate *upgradeTemplate = batch->m_begin[i];
 			if (!upgradeTemplate)
 				continue;
-			unsigned int idx = upgradeTemplate->getMaskIndex();
+			unsigned int idx = upgradeTemplate->field38;
 			m_mask284._M_w[idx >> 5] |= (unsigned long)1 << (idx & 31);
 		}
 	}

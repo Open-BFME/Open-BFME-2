@@ -12,17 +12,7 @@ extern class ScriptEngine *TheScriptEngine;
 class Player;
 #include "../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class UpgradeTemplate
-{
-public:
-	char m_pad00[4];
-	int m_val04;
-};
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
+#include "../../../Include/Common/Upgrade.h"
 extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../Include/Common/Player.h"
 void ScriptActions::Rva003BB1A4Grant(const AsciiString &playerName, const AsciiString &upgradeName)
@@ -34,7 +24,7 @@ void ScriptActions::Rva003BB1A4Grant(const AsciiString &playerName, const AsciiS
 		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (player != 0) {
 			const UpgradeTemplate *tpl = TheUpgradeCenter->findUpgrade(upgradeName);
-			if (tpl->m_val04 == 0)
+			if (tpl->m_type == 0)
 				player->addUpgrade(tpl, UPGRADE_STATUS_COMPLETE, 0);
 		}
 	}
