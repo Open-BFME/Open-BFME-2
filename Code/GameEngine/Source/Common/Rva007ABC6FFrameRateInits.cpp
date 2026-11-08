@@ -39,14 +39,9 @@ static int s_rva007ADD08;
 static int s_rva007ADD72;
 static int s_rva007ADE88;
 static int s_rva007AE043;
-static int s_rva007AE2CE;
 static int s_rva007AEE6B;
-static int s_rva007B014F;
 static int s_rva007B042B;
-static int s_rva007B08B2;
 static int s_rva007B0BA0;
-static int s_rva007B1122;
-static int s_rva007B1328;
 
 struct Rva007ABC6FFrameRateInits
 {
@@ -58,15 +53,10 @@ struct Rva007ABC6FFrameRateInits
 	static void rva007AE043();
 	static void rva007AE0AD();
 	static void rva007AE27C();
-	static void rva007AE2CE();
 	static void rva007AEE6B();
-	static void rva007B014F();
 	static void rva007B042B();
 	static void rva007B07F5();
-	static void rva007B08B2();
 	static void rva007B0BA0();
-	static void rva007B1122();
-	static void rva007B1328();
 	static void rva007B3B50();
 	static void rva007B3FCA();
 	static void rva007B4316();
@@ -122,22 +112,10 @@ void Rva007ABC6FFrameRateInits::rva007AE27C()
 	g_00DFEFCC = BfmeLogicFramesPerSecond * 4;
 }
 
-// ?rva007AE2CE@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AE2CE (16B): TU-local static at VA 0x00DFEFD4, never read in .text
-void Rva007ABC6FFrameRateInits::rva007AE2CE()
-{
-	s_rva007AE2CE = BfmeLogicFramesPerSecond / 2;
-}
-
 // ?rva007AEE6B@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007AEE6B (16B): TU-local static at VA 0x00E01ED8, never read in .text
 void Rva007ABC6FFrameRateInits::rva007AEE6B()
 {
 	s_rva007AEE6B = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007B014F@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B014F (16B): TU-local static at VA 0x00E030F0, never read in .text
-void Rva007ABC6FFrameRateInits::rva007B014F()
-{
-	s_rva007B014F = BfmeLogicFramesPerSecond / 2;
 }
 
 // ?rva007B042B@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B042B (16B): TU-local static at VA 0x00E0320C, never read in .text
@@ -152,28 +130,10 @@ void Rva007ABC6FFrameRateInits::rva007B07F5()
 	g_00E033D0 = BfmeLogicFramesPerSecond;
 }
 
-// ?rva007B08B2@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B08B2 (16B): TU-local static at VA 0x00E033F8, never read in .text
-void Rva007ABC6FFrameRateInits::rva007B08B2()
-{
-	s_rva007B08B2 = BfmeLogicFramesPerSecond / 2;
-}
-
 // ?rva007B0BA0@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B0BA0 (17B): TU-local static at VA 0x00E0359C, never read in .text
 void Rva007ABC6FFrameRateInits::rva007B0BA0()
 {
 	s_rva007B0BA0 = BfmeLogicFramesPerSecond / 4;
-}
-
-// ?rva007B1122@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B1122 (16B): TU-local static at VA 0x00E037D0, never read in .text
-void Rva007ABC6FFrameRateInits::rva007B1122()
-{
-	s_rva007B1122 = BfmeLogicFramesPerSecond / 2;
-}
-
-// ?rva007B1328@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B1328 (16B): TU-local static at VA 0x00E03888, never read in .text
-void Rva007ABC6FFrameRateInits::rva007B1328()
-{
-	s_rva007B1328 = BfmeLogicFramesPerSecond / 2;
 }
 
 // ?rva007B3B50@Rva007ABC6FFrameRateInits@@SAXXZ @ 0x007B3B50 (16B): global at VA 0x00E05F24, named as the TU that reads it names it

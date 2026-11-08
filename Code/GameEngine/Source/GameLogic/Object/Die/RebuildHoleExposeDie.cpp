@@ -130,6 +130,8 @@ public:
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/GameClient/Drawable.h"
+// Retail builds SPAWN_UPDATE_RATE right after this unit's Drawable.h copy (LINK-236).
+#include "../../../../Include/GameLogic/Module/SpawnUpdateRate.h"
 class Object : public Thing
 {
 public:

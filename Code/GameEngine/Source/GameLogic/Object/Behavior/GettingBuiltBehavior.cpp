@@ -346,6 +346,8 @@ template void _STL::list<Rva00453B06Obj *>::push_back(Rva00453B06Obj *const &);
 
 #include "../../../../Include/Common/NameKeyGenerator.h"
 #include "../../../../Include/GameClient/Drawable.h"
+// Retail builds SPAWN_UPDATE_RATE right after this unit's Drawable.h copy (LINK-236).
+#include "../../../../Include/GameLogic/Module/SpawnUpdateRate.h"
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 

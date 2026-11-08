@@ -1462,6 +1462,8 @@ bool ActionManager::rva0041CC65(const SpecialPowerTemplate *sp, const Coord3D *p
 // getEnterMessage's views: a Drawable holds its Object at +0xFC and the
 // drawable list is STLport's list<Drawable *>, one pointer to its sentinel.
 #include "../../../Include/GameClient/Drawable.h"
+// Retail builds SPAWN_UPDATE_RATE right after this unit's Drawable.h copy (LINK-236).
+#include "../../../Include/GameLogic/Module/SpawnUpdateRate.h"
 
 struct DrawableListNode
 {
