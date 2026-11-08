@@ -19,12 +19,8 @@ class ThingTemplate;
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
-class Object
-{
-public:
-	unsigned char m_pad000[0x324];
-	float m_324;
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../object.h"
 
 
 extern GameLogic *TheGameLogic;
