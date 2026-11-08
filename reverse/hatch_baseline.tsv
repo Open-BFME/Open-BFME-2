@@ -12852,7 +12852,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp	AggregateLoade
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	Animatable3DObjClass::Animatable3DObjClass	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	Animatable3DObjClass::Capture_Bone	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	Animatable3DObjClass::Compute_Current_Frame	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	Animatable3DObjClass::Get_Bone_Transform	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	Animatable3DObjClass::Peek_Animation	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	Animatable3DObjClass::Release_Bone	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp	Animatable3DObjClass::Render	1
