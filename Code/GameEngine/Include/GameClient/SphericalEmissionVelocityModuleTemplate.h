@@ -22,7 +22,7 @@ public:
     SphericalEmissionVelocityModuleTemplate(const SphericalEmissionVelocityModuleTemplate &that);
     virtual ~SphericalEmissionVelocityModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

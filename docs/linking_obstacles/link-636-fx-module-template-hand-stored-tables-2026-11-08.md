@@ -25,6 +25,18 @@ RenderObjectUpdate in c1611d4466 (its template header selects the capitalized Sn
 including `RenderObjectUpdateModuleInfo.h`).
 Butterfly's copy constructor now names `DefaultModuleTemplate<6>`'s real +0 table through its
 existing alternatename.
+Regression found and repaired (2026-11-08, link_check over the 34 touched units: 16 -> 34 link,
+census bytes 4,336 -> 4,455):
+- The default-constructor units inline `CategoryModuleTemplate<N>`'s constructor, so they emit its
+  table. With the three slots declared there it had retail's four slots, but `FXParticleSystem.cpp`
+  (held by another seat) emits a one-slot copy first in link order. The slots now come from
+  `FX_MODULE_TEMPLATE_SLOTS` in each template class (identical derived tables), until that unit's
+  category view carries them.
+- `new X[2]` in the anchor units' views generated an implicit default constructor under the real
+  constructor's name (a duplicate strong definition). The views now declare the constructor.
+Lesson: run `tools/link_check.py` over every touched unit before pushing; byte matching alone does
+not show either failure.
+
 Remaining / next check:
 - ButterflyDraw: its default-constructor unit was held by another worker on 2026-11-08 (it views
   the info through `SecondaryModuleBase`/`ModuleInfo`).

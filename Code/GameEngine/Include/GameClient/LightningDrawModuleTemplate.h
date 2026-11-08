@@ -41,7 +41,7 @@ public:
     LightningDrawModuleTemplate(const LightningDrawModuleTemplate &that);
     virtual ~LightningDrawModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

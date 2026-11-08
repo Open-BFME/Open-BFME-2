@@ -60,10 +60,13 @@ namespace FXParticleSystem
 // TerrainFireEmissionModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
-// secondary base, and novtable keeps its partial table out of the image.
+// secondary base, and novtable keeps its partial table out of the image. The
+// constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) TerrainFireEmissionModuleTemplate : public Rva003A6F85VecBase0, public Rva003A6F85VecBase8
 {
 public:
+	TerrainFireEmissionModuleTemplate();
 	virtual ~TerrainFireEmissionModuleTemplate();
 };
 }
@@ -74,9 +77,12 @@ namespace FXParticleSystem
 // name this deleting destructor and its -8 thunk. The class is abstract, so its
 // own constructor units cannot new an array of it; this view keeps only the size
 // and the +8 secondary base, and novtable keeps its partial table out of the image.
+// The constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) LightningDrawModuleTemplate : public Rva003A6F85VecBase0, public Rva003A6F85VecBase8
 {
 public:
+	LightningDrawModuleTemplate();
 	virtual ~LightningDrawModuleTemplate();
 };
 }
@@ -110,10 +116,13 @@ namespace FXParticleSystem
 // OutwardEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
-// secondary base, and novtable keeps its partial table out of the image.
+// secondary base, and novtable keeps its partial table out of the image. The
+// constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) OutwardEmissionVelocityModuleTemplate : public Rva003A7614VecBase0, public Rva003A7614VecBase8
 {
 public:
+	OutwardEmissionVelocityModuleTemplate();
 	virtual ~OutwardEmissionVelocityModuleTemplate();
 };
 }
@@ -123,10 +132,13 @@ namespace FXParticleSystem
 // CylindricalEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
-// secondary base, and novtable keeps its partial table out of the image.
+// secondary base, and novtable keeps its partial table out of the image. The
+// constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) CylindricalEmissionVelocityModuleTemplate : public Rva003A7614VecBase0, public Rva003A7614VecBase8
 {
 public:
+	CylindricalEmissionVelocityModuleTemplate();
 	virtual ~CylindricalEmissionVelocityModuleTemplate();
 };
 }

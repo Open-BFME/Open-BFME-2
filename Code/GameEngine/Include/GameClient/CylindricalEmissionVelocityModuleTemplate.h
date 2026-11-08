@@ -22,7 +22,7 @@ public:
     CylindricalEmissionVelocityModuleTemplate(const CylindricalEmissionVelocityModuleTemplate &that);
     virtual ~CylindricalEmissionVelocityModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

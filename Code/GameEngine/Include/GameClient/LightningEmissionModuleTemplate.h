@@ -22,7 +22,7 @@ public:
     LightningEmissionModuleTemplate(const LightningEmissionModuleTemplate &that);
     virtual ~LightningEmissionModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

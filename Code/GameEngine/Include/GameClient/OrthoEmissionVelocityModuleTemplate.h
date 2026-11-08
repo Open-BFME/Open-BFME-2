@@ -22,7 +22,7 @@ public:
     OrthoEmissionVelocityModuleTemplate(const OrthoEmissionVelocityModuleTemplate &that);
     virtual ~OrthoEmissionVelocityModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

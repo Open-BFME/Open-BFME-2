@@ -22,7 +22,7 @@ public:
     TerrainFireEmissionModuleTemplate(const TerrainFireEmissionModuleTemplate &that);
     virtual ~TerrainFireEmissionModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

@@ -44,7 +44,7 @@ public:
     DefaultModuleTemplate(const DefaultModuleTemplate &that);
     virtual ~DefaultModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 template <>
@@ -56,7 +56,7 @@ public:
     DefaultModuleTemplate(const DefaultModuleTemplate &that);
     virtual ~DefaultModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 template <>
@@ -68,7 +68,7 @@ public:
     DefaultModuleTemplate(const DefaultModuleTemplate &that);
     virtual ~DefaultModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 template <>
@@ -80,7 +80,7 @@ public:
     DefaultModuleTemplate(const DefaultModuleTemplate &that);
     virtual ~DefaultModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 template <>
@@ -92,7 +92,7 @@ public:
     DefaultModuleTemplate(const DefaultModuleTemplate &that);
     virtual ~DefaultModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

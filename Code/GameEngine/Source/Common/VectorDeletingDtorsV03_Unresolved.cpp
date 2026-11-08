@@ -130,10 +130,13 @@ namespace FXParticleSystem
 // OrthoEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
-// secondary base, and novtable keeps its partial table out of the image.
+// secondary base, and novtable keeps its partial table out of the image. The
+// constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) OrthoEmissionVelocityModuleTemplate : public Rva003A71D4VecBase0, public Rva003A71D4VecBase8
 {
 public:
+	OrthoEmissionVelocityModuleTemplate();
 	virtual ~OrthoEmissionVelocityModuleTemplate();
 };
 }
@@ -168,10 +171,13 @@ namespace FXParticleSystem
 // SphericalEmissionVelocityModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
-// secondary base, and novtable keeps its partial table out of the image.
+// secondary base, and novtable keeps its partial table out of the image. The
+// constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) SphericalEmissionVelocityModuleTemplate : public Rva003A73ADVecBase0, public Rva003A73ADVecBase8
 {
 public:
+	SphericalEmissionVelocityModuleTemplate();
 	virtual ~SphericalEmissionVelocityModuleTemplate();
 };
 }
@@ -210,10 +216,13 @@ template <int Category> class DefaultModuleTemplate;
 // name this deleting destructor and its -8 thunk. The class is abstract, so its
 // own constructor units cannot new an array of it; this view keeps only the size
 // and the +8 secondary base, and novtable keeps its partial table out of the image.
+// The constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 template <>
 class __declspec(novtable) DefaultModuleTemplate<3> : public Rva003A7853VecBase0, public Rva003A7853VecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }
@@ -251,10 +260,13 @@ template <int Category> class DefaultModuleTemplate;
 // name this deleting destructor and its -8 thunk. The class is abstract, so its
 // own constructor units cannot new an array of it; this view keeps only the size
 // and the +8 secondary base, and novtable keeps its partial table out of the image.
+// The constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 template <>
 class __declspec(novtable) DefaultModuleTemplate<2> : public Rva003A7A06VecBase0, public Rva003A7A06VecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }
@@ -286,10 +298,13 @@ namespace FXParticleSystem
 // StreakDrawModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
-// secondary base, and novtable keeps its partial table out of the image.
+// secondary base, and novtable keeps its partial table out of the image. The
+// constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) StreakDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
 {
 public:
+	StreakDrawModuleTemplate();
 	virtual ~StreakDrawModuleTemplate();
 };
 }
@@ -299,10 +314,13 @@ namespace FXParticleSystem
 // QuadDrawModuleTemplate's class tables name this deleting destructor (slot 0 at +0) and its -8
 // thunk (slot 0 at +8). The class is abstract, so its own constructor units
 // cannot new an array of it; this view keeps only the size and the +8
-// secondary base, and novtable keeps its partial table out of the image.
+// secondary base, and novtable keeps its partial table out of the image. The
+// constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 class __declspec(novtable) QuadDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
 {
 public:
+	QuadDrawModuleTemplate();
 	virtual ~QuadDrawModuleTemplate();
 };
 }
@@ -315,10 +333,13 @@ template <int Category> class DefaultModuleTemplate;
 // name this deleting destructor and its -8 thunk. The class is abstract, so its
 // own constructor units cannot new an array of it; this view keeps only the size
 // and the +8 secondary base, and novtable keeps its partial table out of the image.
+// The constructor is declared so the array new calls the real one rather than
+// emitting an implicit duplicate.
 template <>
 class __declspec(novtable) DefaultModuleTemplate<6> : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }

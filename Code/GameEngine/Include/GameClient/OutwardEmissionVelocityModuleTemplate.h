@@ -22,7 +22,7 @@ public:
     OutwardEmissionVelocityModuleTemplate(const OutwardEmissionVelocityModuleTemplate &that);
     virtual ~OutwardEmissionVelocityModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }

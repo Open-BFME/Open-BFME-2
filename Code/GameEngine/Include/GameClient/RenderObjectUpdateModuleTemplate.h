@@ -34,7 +34,7 @@ public:
     RenderObjectUpdateModuleTemplate(const RenderObjectUpdateModuleTemplate &that);
     virtual ~RenderObjectUpdateModuleTemplate();
 
-    virtual void writeINI(File &file, unsigned int indent) const;
+    FX_MODULE_TEMPLATE_SLOTS;
 };
 
 }
