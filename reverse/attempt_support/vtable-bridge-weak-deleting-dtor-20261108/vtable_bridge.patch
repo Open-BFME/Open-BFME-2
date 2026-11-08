@@ -1,0 +1,104 @@
+diff --git a/tools/vtable_bridge.py b/tools/vtable_bridge.py
+index 9bfc82eed2..31a19057bd 100644
+--- a/tools/vtable_bridge.py
++++ b/tools/vtable_bridge.py
+@@ -69,9 +69,11 @@ def definitions(objects, names, archives=()):
+             pointers = {}
+             for off, target, kind in section.relocs:
+                 if sym.value <= off and off + 4 <= end:
++                    default = weak_default(raw, symbols, symbols[target])
+                     pointers[off - sym.value] = (
+                         symbols[target].name, kind,
+-                        struct.unpack_from("<I", raw, section.ptr + off)[0])
++                        struct.unpack_from("<I", raw, section.ptr + off)[0],
++                        default[0] if default else None)
+             found[sym.name].append(dict(
+                 object=str(path), extent=end - sym.value, offset=sym.value,
+                 comdat=bool(section.flags & COMDAT), selection=section.sel,
+@@ -333,7 +335,20 @@ def retail_slots(retail, row):
+     return slots, None
+ 
+ 
+-def matches(found, slots, addresses):
++def slot_addresses(pointer, addresses, strong=None):
++    """Ledger RVAs a slot pointer reaches. A slot naming an undefined weak external
++    (the compiler's `??_EX` vector deleting destructor, defaulting to `??_GX` when no
++    array new emits it) reaches its IMAGE_WEAK_EXTERN default, but only when no
++    kept object defines the weak name strongly: the linker binds the weak name to
++    its default exactly then."""
++    name, default = pointer[0], pointer[3] if len(pointer) > 3 else None
++    rvas = addresses.get(name)
++    if not rvas and default and strong is not None and name not in strong:
++        rvas = addresses.get(default)
++    return rvas
++
++
++def matches(found, slots, addresses, strong=None):
+     """Prove only the positive slot pointers, not the implementation or class layout."""
+     if found["extent"] < 4 * len(slots):
+         return False
+@@ -341,20 +356,20 @@ def matches(found, slots, addresses):
+         pointer = found["pointers"].get(index * 4)
+         if pointer is None:
+             return False
+-        name, kind, addend = pointer
+-        if kind != link_cycle.DIR32 or addend or addresses.get(name) != {target}:
++        name, kind, addend = pointer[:3]
++        if kind != link_cycle.DIR32 or addend or slot_addresses(pointer, addresses, strong) != {target}:
+             return False
+     return True
+ 
+ 
+-def source_slot_mismatches(found, slots, addresses):
++def source_slot_mismatches(found, slots, addresses, strong=None):
+     """Keep the source copy's names and ledger RVAs, even when the bridge hides it."""
+     result = []
+     for index, expected in enumerate(slots):
+         pointer = found["pointers"].get(index * 4)
+         if pointer is not None:
+-            name, kind, addend = pointer
+-            rvas = sorted(addresses.get(name, ()))
++            name, kind, addend = pointer[:3]
++            rvas = sorted(slot_addresses(pointer, addresses, strong) or ())
+             if kind == link_cycle.DIR32 and not addend and rvas == [expected]:
+                 continue
+             result.append(dict(slot=index, name=name, ledger_rvas=rvas,
+@@ -504,8 +519,11 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
+                      unindexed=[binding for binding in bindings if binding["rva"] not in indexed])
+     referenced = collections.defaultdict(list)
+     native_names = set()
++    strong = set()
+     for path in objects.paths:
+         for sym in objects.get(path)[1].values():
++            if sym.cls == link_cycle.EXTERNAL and sym.sec > 0:
++                strong.add(sym.name)
+             if sym.cls == link_cycle.EXTERNAL and sym.name.startswith("??_7"):
+                 native_names.add(sym.name)
+             if sym.name in names and sym.cls == link_cycle.EXTERNAL and sym.sec == 0 and not sym.value:
+@@ -535,7 +553,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
+         entry["source"] = sources.get(previous["object"], "") if previous else row.get("source", "")
+         if previous and slots:
+             entry.update(previous_object=previous["object"], previous_extent=previous["extent"],
+-                         source_slot_mismatches=source_slot_mismatches(previous, slots, targets.addresses))
++                         source_slot_mismatches=source_slot_mismatches(previous, slots, targets.addresses, strong))
+         return entry, copies, kept, active
+ 
+     for row in tables:
+@@ -584,7 +602,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
+             continue
+         for name in sorted(active):
+             first = next((copy for candidate, copy in kept if candidate == name), None)
+-            if first is not None and matches(first, slots, targets.addresses):
++            if first is not None and matches(first, slots, targets.addresses, strong):
+                 correct.append({**entry, "name": name, "object": first["object"]})
+                 continue
+             origin = first["object"] if first else referenced[name][0]
+@@ -594,7 +612,7 @@ def plan(rows, inputs, omitted, retail, tables, archives=(), objects=None,
+                 name_bindings=[binding for binding in bindings if binding["name"] == name],
+                 previous_object=first["object"] if first else None,
+                 previous_extent=first["extent"] if first else 0,
+-                source_slot_mismatches=source_slot_mismatches(first, slots, targets.addresses)
++                source_slot_mismatches=source_slot_mismatches(first, slots, targets.addresses, strong)
+                     if first else []))
+     return dict(tables=len(generated), retail_tables=len({entry["rva"] for entry in generated}), slots=sum(len(entry["slots"]) for entry in generated),
+                 twin_target_slots=sum(1 for entry in generated for slot in entry["slots"] if "twin_of" in slot),
