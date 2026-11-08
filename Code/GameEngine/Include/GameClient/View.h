@@ -67,13 +67,18 @@ public:
 
     View();
     virtual ~View();
+    // The capitalized Snapshot surface spells slots 1 and 3 itself; View inherits them there.
+#ifndef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void loadPostProcess();
+#endif
 #ifdef BFME_SNAPSHOT_NAME_SLOT
     virtual const char *GetSnapshotName() const;
 #else
     virtual void crc(Xfer *xfer);
 #endif
+#ifndef BFME_SNAPSHOT_CAPITALIZED_SLOTS
     virtual void xfer(Xfer *xfer);
+#endif
 
     virtual void init(); // 4
     virtual void reset();

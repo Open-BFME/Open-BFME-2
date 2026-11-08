@@ -30,10 +30,8 @@ class Object;
 #include "../../../../Include/GameLogic/WeaponSetClass.h"
 #include "../../../Common/Thing/thing.h"
 class Object:public Thing {public:__forceinline Weapon *getWeapon()const{return ((const WeaponSet*)((const char*)this+0x330))->getWeaponInWeaponSlot(PRIMARY_WEAPON);} };
-template<int N>class RainSlots:public RainSlots<N-1>{public:virtual void gap(char (*)[N])=0;};
-template<>class RainSlots<0>{};
 // The camera-position global at DFEA3C is the tactical View, as in the reference.
-class View:public RainSlots<70>{public:virtual void rvaSlot70(Coord3D *)=0;};
+#include "../../../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 #include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
@@ -187,7 +185,7 @@ UpdateSleepTime RainOfFireUpdate::update() {
   pending+=GetGameLogicRandomValueReal(rainOfFireUpdateModuleData->dpsMin,rainOfFireUpdateModuleData->dpsMax,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RainOfFireUpdate.cpp",125)*scale*ramp/BfmeLogicFramesPerSecond;
   Weapon *weapon=emitterObject->getWeapon();
   if(weapon) {
-   Coord3D rainCenter;TheTacticalView->rvaSlot70(&rainCenter);rainCenter.z=rainOfFireUpdateModuleData->height;
+   Coord3D rainCenter;TheTacticalView->getPosition(&rainCenter);rainCenter.z=rainOfFireUpdateModuleData->height;
    while(pending>=1.0f) {
     Coord3D launchPosition={rainCenter.x,rainCenter.y,rainCenter.z};
     if(rainOfFireUpdateModuleData->jitter>0.0f) {

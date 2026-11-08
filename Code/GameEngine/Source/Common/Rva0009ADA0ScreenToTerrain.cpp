@@ -31,19 +31,7 @@ struct Rva0009ADA0Manager
 	float m_step1D0;  // +0x1D0
 };
 
-class View
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual bool v08(); // +0x20
-};
+#include "../../Include/GameClient/View.h"
 extern View *TheTacticalView;
 
 class Rva0009AD06Target
@@ -263,7 +251,7 @@ void Rva0009D55BProduct::rva0009AFCE(int delta)
 void Rva0009D55BProduct::rva0009B023(const Vector3 *pos)
 {
 	m_posF8 = *pos;
-	if (TheTacticalView->v08())
+	if (TheTacticalView->isZoomLimited())
 	{
 		m_posF8.X = rvaMinRef(m_posF8.X, m_maxX12C);
 		m_posF8.Y = rvaMinRef(m_posF8.Y, m_maxY130);

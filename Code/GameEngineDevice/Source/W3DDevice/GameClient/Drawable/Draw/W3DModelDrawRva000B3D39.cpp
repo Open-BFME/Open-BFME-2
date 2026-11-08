@@ -19,22 +19,10 @@
 // Coord3D: shared header/view; no private copy.
 #include "../../../../../../Libraries/Include/Lib/Coord3DInline.h"
 
-template <int N> class Rva000B3D39Slots : public Rva000B3D39Slots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]);
-};
-template <> class Rva000B3D39Slots<0>
-{
-};
 
 #include "../../../../../../Libraries/Source/WWVegas/WW3D2/rendobj.h"
 
-class View : public Rva000B3D39Slots<71>
-{
-public:
-	virtual const Coord3D *rva000B3D39Slot71();	// +0x11C camera position
-};
+#include "../../../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 
 #include "../../../../../../GameEngine/Include/GameClient/Drawable.h"
@@ -101,7 +89,7 @@ void W3DModelDraw::rva000B3D39()
 
 	int level = 0;
 	Coord3D delta;
-	delta.set(TheTacticalView->rva000B3D39Slot71());
+	delta.set(&TheTacticalView->get3DCameraPosition());
 	delta.sub(draw->getPosition());
 	float dist = delta.GetLengthEstimate();
 	if (dist < d->m_nearDistance)

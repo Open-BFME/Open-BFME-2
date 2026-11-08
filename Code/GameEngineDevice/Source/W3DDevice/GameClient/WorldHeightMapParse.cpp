@@ -163,12 +163,7 @@ extern GameLogic *TheGameLogic;
 
 class CameraMarkerList { public: void clear(); };
 
-class View
-{
-public:
-	unsigned char m_pad00[0x80];
-	unsigned char m_namedCameras[4];	// +0x80
-};
+#include "../../../../GameEngine/Include/GameClient/View.h"
 extern View *TheTacticalView;
 
 class Rva0030D346;
@@ -274,7 +269,7 @@ void WorldHeightMap::parse(DataChunkInput &file, void *polygonOwner, void *owner
 		Rva000AF0E4 lightingData(BFME_REG(file), 0);
 		file.registerParser(AsciiString("EnvironmentData"), AsciiString::TheEmptyString, ParseEnvironmentDataChunk, 0);
 		((CameraMarkerList *)TheTacticalView)->clear();
-		Rva000AF01A namedCameras(TheTacticalView->m_namedCameras, BFME_REG(file), 0);
+		Rva000AF01A namedCameras(&TheTacticalView->m_field80, BFME_REG(file), 0);
 		if (!file.parse(this))
 			throw ERROR_CORRUPT_FILE_FORMAT;
 		for (Int i = 0; i < m_dataSize; i++)

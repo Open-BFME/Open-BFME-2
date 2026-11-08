@@ -2239,24 +2239,7 @@ public:
 	virtual int getLastFrameDrawCalls(); // +0x174
 	virtual void slot178(int *stats);    // +0x178
 };
-class View
-{
-public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06)
-	virtual void slot1C(int value); // +0x1C
-	V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E) V(0F)
-	V(10) V(11) V(12) V(13) V(14)
-	virtual void lookAt(const Coord3D *pos); // +0x54
-	V(16) V(17) V(18) V(19) V(1A) V(1B) V(1C) V(1D) V(1E) V(1F)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(2A) V(2B) V(2C) V(2D) V(2E) V(2F)
-	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(3A) V(3B) V(3C) V(3D) V(3E) V(3F)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
-#undef V
-	virtual void slot128(float value); // +0x128
-	virtual float slot12C();           // +0x12C
-	virtual void slot130(float value); // +0x130
-};
+#include "../../../Include/GameClient/View.h"
 class ParticleSystemManager
 {
 public:
@@ -5030,7 +5013,7 @@ void Rva002431CB::rva002431CB()
 			m_drawCallLogic = m_drawCallTotal * 0.01f;
 			m_mode = 4;
 			m_settleFrames = 2;
-			BfmeUnitTimingSavedViewValue = TheTacticalView->slot12C();
+			BfmeUnitTimingSavedViewValue = TheTacticalView->getHeightAboveGround();
 			TheTacticalView->lookAt(&thePos);
 			return;
 		}
@@ -5044,9 +5027,9 @@ void Rva002431CB::rva002431CB()
 			BfmeUnitTimingDisplayStats[0] /= 100;
 			m_mode = 3;
 			m_settleFrames = 2;
-			TheTacticalView->slot1C(0);
-			TheTacticalView->slot130(700.0f);
-			TheTacticalView->slot128(2.2f);
+			TheTacticalView->setZoomLimited(false);
+			TheTacticalView->setHeightAboveGround(700.0f);
+			TheTacticalView->setZoom(2.2f);
 			return;
 		}
 		if (m_mode == 3)
@@ -5056,8 +5039,8 @@ void Rva002431CB::rva002431CB()
 			m_settleFrames = 2;
 			if (TheParticleSystemManager->m_particleCount > 1)
 				TheParticleSystemManager->reset();
-			TheTacticalView->slot128(1.0f);
-			TheTacticalView->slot130(BfmeUnitTimingSavedViewValue);
+			TheTacticalView->setZoom(1.0f);
+			TheTacticalView->setHeightAboveGround(BfmeUnitTimingSavedViewValue);
 			TheTacticalView->lookAt(&thePos);
 			return;
 		}
