@@ -39,12 +39,7 @@ class Xfer;
 #include "../../../Include/GameLogic/AI.h"
 struct PathGroundNode {PathGroundNode *next,*previous,*nextOptimized;Coord3D pos;int layer;};
 class Path {public:Path();void optimizeGroundPath(Int);void *vtable;PathGroundNode *first,*last;char padC[0x28-0xC];};
-class Pathfinder {public:Path *BuildGroundPath(const Coord3D *,PathfindCell *,Bool,Int);void PrependCells(Path *,const Coord3D *,PathfindCell *,Bool);Int AdjustGroundPathPosition(const Coord3D *,Coord3D *);
-void rva002EFB3A();
-PathfindCell *getCell(PathfindLayerEnum,Int,Int);
-float GetWallHeight(PathfindLayerEnum,const Coord3D *,Coord3D *);
-private: char prefix[0x1c]; Int m_width,m_height; char gap24[0x60-0x24]; PathfindLayer m_layers[16];
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 static __forceinline void copyCoord3D(Coord3D *dest,const Coord3D *src){dest->x=src->x;dest->y=src->y;dest->z=src->z;}
 static __forceinline void subCoord3D(Coord3D *dest,const Coord3D *src){dest->x-=src->x;dest->y-=src->y;dest->z-=src->z;}
 struct PathGroundCoord : Coord3D {
@@ -164,8 +159,8 @@ void Pathfinder::rva002EFB3A()
             Coord3D topLeftCorner;
             Bool showCells=TheWritableGlobalData->field09B8==3 || TheWritableGlobalData->field09B8==5;
             for (Int layer=0;layer<16;++layer) m_layers[layer].rva000B3FD0();
-            for (x=0;x<m_width;++x) {
-                for (y=0;y<m_height;++y) {
+            for (x=0;x<m_extent.hi.x;++x) {
+                for (y=0;y<m_extent.hi.y;++y) {
                     topLeftCorner.x=(float)x*10.0f;
                     topLeftCorner.y=(float)y*10.0f;
                     color.blue=0; color.green=0; color.red=0;

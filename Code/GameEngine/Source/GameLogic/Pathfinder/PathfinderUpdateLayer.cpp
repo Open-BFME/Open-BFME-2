@@ -54,26 +54,7 @@ struct Rva002ED236Pos
 	~Rva002ED236Pos() {}
 };
 
-struct PathfindLayerView
-{
-	char m_pad00[0x38];
-	Int m_38;
-	char m_pad3C[0x40 - 0x3C];
-};
-
-class Pathfinder
-{
-public:
-	Real GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal);
-	bool IsPointOnRamp(const Coord3D *pos);
-	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
-	void AdjustLayer(Object *obj);
-	void UpdateLayer(Object *obj, PathfindLayerEnum layer);
-
-private:
-	char m_pad00[0x60];
-	PathfindLayerView m_layers[1];
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 void Pathfinder::UpdateLayer(Object *obj, PathfindLayerEnum layer)
 {
@@ -111,7 +92,7 @@ void Pathfinder::UpdateLayer(Object *obj, PathfindLayerEnum layer)
 		if (oldLayer == LAYER_RAMPS && IsPointOnRamp(obj->getPosition()))
 			return;
 		Bool onLayer;
-		if (m_layers[layer].m_38 != 0)
+		if (m_layers[layer].m_triggers != 0)
 			onLayer = rva002ED236(obj, *obj->getPosition()) == layer;
 		else
 			onLayer = TheTerrainLogic->objectInteractsWithBridgeLayer(obj, layer, true);

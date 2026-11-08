@@ -1536,14 +1536,14 @@ void Pathfinder::RemoveObjectFromPathfindMapKeepingGateFlags(Object *object)
 int Pathfinder::AddBridge(int arg)
 {
 	int i = 2;
-	PathfindLayer *slot = reinterpret_cast<PathfindLayer *>(m_unknown60) + 2;
+	PathfindLayer *slot = &m_layers[2];
 	for (; i <= 0xf; ++i, ++slot) {
 		if (!((Rva0036666B *)slot)->rva0036666B())
 			goto second;
 	}
 	return 1;
 second:
-	if (!((Rva00366561 *)(reinterpret_cast<PathfindLayer *>(m_unknown60) + i))->rva00366561(arg, i))
+	if (!((Rva00366561 *)&m_layers[i])->rva00366561(arg, i))
 		return 1;
 	return i;
 }

@@ -123,24 +123,7 @@ public:
 	Object *m_next;		// +0x8C
 };
 
-class Pathfinder
-{
-public:
-	void NewMap();
-	void Rva0052F2EC();
-	void *rva001E3647Pos(int layer, const Coord3D *pos);
-	void rva00530212(Object *obj, bool insert, bool keepGate, bool goal);
-private:
-	char m_pad00[0x08];
-	bool m_isMapReady;			// +0x08
-	char m_pad09[0x0C - 0x09];
-	PathfindCell *m_blockOfMapCells;	// +0x0C
-	PathfindCellP *m_map;			// +0x10
-	IRegion2D m_extent;			// +0x14
-	char m_pad24[0x60 - 0x24];
-	PathfindLayer m_layers[16];		// +0x60
-	PathfindZoneManager m_zoneManager;	// +0x460
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 void Pathfinder::NewMap()
 {
@@ -155,18 +138,18 @@ void Pathfinder::NewMap()
 	bounds.hi.y--;
 	bool dataAllocated = false;
 	if (m_extent.hi.x == bounds.hi.x && m_extent.hi.y == bounds.hi.y) {
-		if (m_blockOfMapCells != 0 && m_map != 0) {
+		if (m_field0C != 0 && m_map != 0) {
 			dataAllocated = true;
 		}
 	}
 	if (!dataAllocated) {
 		m_extent = bounds;
 		m_zoneManager.rva005328E2((Rva005312BERect *)&m_extent);
-		m_blockOfMapCells = new PathfindCell[(bounds.hi.x + 1) * (bounds.hi.y + 1)];
+		m_field0C = new PathfindCell[(bounds.hi.x + 1) * (bounds.hi.y + 1)];
 		m_map = new PathfindCellP[bounds.hi.x + 1];
 		Int i;
 		for (i = 0; i <= bounds.hi.x; i++) {
-			m_map[i] = &m_blockOfMapCells[i * (bounds.hi.y + 1)];
+			m_map[i] = &m_field0C[i * (bounds.hi.y + 1)];
 		}
 		for (i = 0; i < 15; i++) {
 			if (((Rva0036666B *)&m_layers[i])->rva0036666B()) {
