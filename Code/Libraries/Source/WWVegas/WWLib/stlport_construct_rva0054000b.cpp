@@ -6,10 +6,6 @@
 // Same 18B frameless shape as rowed _Construct 0x001DD3AA. Evidence: callee
 // rowed; callers are the 0x28-stride copy loops at 0x005400B4 and 0x005400DA.
 #include <stddef.h>
-inline void *operator new(size_t, void *place)
-{
-	return place;
-}
 
 class Rva0054000B {
 public:
@@ -18,13 +14,15 @@ public:
 
 namespace _STL
 {
+
 template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value)
+void _Construct(T1 *p, const T2 &value);
+
+template <>
+void _Construct<Rva0054000B, Rva0054000B>(Rva0054000B *p, const Rva0054000B &value)
 {
 	if (p)
-		new (p) T1(value);
-}
+		p->Rva0054000B::Rva0054000B(value);
 }
 
-template void _STL::_Construct<Rva0054000B, Rva0054000B>(
-	Rva0054000B *, const Rva0054000B &);
+}
