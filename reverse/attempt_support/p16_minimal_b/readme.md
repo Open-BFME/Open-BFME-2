@@ -121,3 +121,148 @@ Needed:
 3. A respell route for an element placeholder that is really a template type: `Rva005668E9Element` is
    `vector<BfmeE8>` (its `_Construct` 0x0052D355 calls `vector<BfmeE8>`'s copy 0x004334D7). A class rename
    cannot express that, and any class name for it is refused as a placeholder.
+
+## Minimal B v2: 0x0052BD3A moves with its real code (plan, 2026-11-07, not started)
+
+### Why minimal B as written cannot land
+
+Harness ran minimal B end to end with rules (a)-(c) (bfb856bfbf): 15/15 exact. The link guard then refuses it
+correctly. Once FXList.cpp absorbs ParticleSystemFXNuggetCtor.cpp it must link, and two of its COMDATs would
+be selected over the copies the ledger names as retail's. Both names are pinned at addresses that hold other
+functions (LINK-629, same date):
+- `??1?$_List_base@PAVFXNugget@@...@QAE@XZ` -> 0x00036E70, which is `StringBase<wchar_t>::releaseBuffer`.
+  FXList.obj's body is byte-identical to retail 0x004EC395, the folded pointer-list destructor rowed as
+  `list<int>`'s. No row depends on this pin.
+- `??0?$list@PAVFXNugget@@...@QAE@ABV01@@Z` -> 0x000365F0, which is `StringBase<char>`'s copy constructor.
+  The only row using it is 0x0052BD3A `??0FXList@@QAE@ABV0@@Z`. Its retail call at 0x0052BD4E is the
+  AsciiString copy inside EnableRegionRecord's copy constructor, and FXList.cpp's Zero Hour FXList copy
+  "matches" only through this pin.
+
+So 0x0052BD3A has no honest emitter in FXList.cpp. Correcting the pin (Link lane) removes its match. It must
+leave FXList.cpp, respelled `??0EnableRegionRecord@@QAE@ABV0@@Z`, before or with the pin fix and minimal B.
+
+### Who can emit it honestly
+
+The copy constructor is compiler-generated, so a unit emits it only when its real code copies an
+EnableRegionRecord. In retail that happens in exactly one chain, all approved for LivingWorldCampaign.cpp
+in the fresh map (b2e359a277 onward):
+- `vector<Act>::push_back` from `LivingWorldCampaign::AddAct` 0x0052D83B;
+- the Act copy constructor 0x0052D555;
+- `vector<EnableRegionRecord>`'s copy 0x0052CAC9;
+- `__uninitialized_copy` 0x0052C8EF;
+- `_Construct` 0x0052C2F3;
+- the record copy 0x0052BD3A.
+
+No other retail function copies a record. ParseEnableRegion passes it by reference to the append thunk
+0x00566527. So the emitter is LivingWorldCampaign.cpp with real Act code: the P3/P4 core.
+
+Measured in scratch (LINK-629, earlier the same day):
+- the implicit record copy is retail's 0x0052BD3A, with `_Construct` and the vector family exact;
+- the implicit Act copy is retail's 333 bytes;
+- ten Act element classes have exact implicit copy constructors as their real classes;
+- `vector<vector<BfmeE8>>` (+0x9C) is exact through `_Construct` 0x0052D355, and its copy and
+  `__uninitialized_copy` differ only in calls to each other's placeholder names, resolved by their respell.
+
+### Steps
+
+Each step: the command, then whether today's tools allow it (master), and the in-review tools (Harness
+bfb856bfbf in Codex round 5; crash-prevention identity/this-cv 8190d42b18 in review). Gaps are numbered G1-G8.
+
+1. Shared EnableRegionRecord header. Done (1d67ce23d6, `GameLogic/LivingWorldCampaignAct.h`, adopted in
+   SpawnArmy.cpp).
+
+2. Real names for the Act element types (stage 0, this handoff's lower-priority list). The Act's copy and
+   destructor call each member's copy, `_Construct`, vector copy and destructor by mangled name, so those
+   rows must carry the real element names before any unit emits them from real types.
+   - `python3 tools/rename.py class --fold Rva0052BDE6 --into Rva004E1B00` (likewise
+     `Rva0052BEF0 -> Rva004E1B72` and `Rva0052BD59 -> Rva004E16D9Record`): refused today, because both classes
+     have constructor rows. **G1**: `--fold` must accept a copy-constructor plus default-constructor
+     overload set.
+   - `rename.py class --fold Rva0052BE33 --into Rva004E179A` and `Rva003A6360Record -> Rva004E14E1FlashRecord`:
+     refused, a third name for the vftable. **G2**: fold every placeholder on one vftable at once.
+   - `Rva005668E9Element` -> `vector<BfmeE8>`, and the hand-rolled vector members `Rva0052CD81`/`C867`/`C8AB`
+     -> `vector<T>`: no route. They are placeholders for template types, which a class rename cannot express.
+     `rename.py function --respell --identity` (8190d42b18) fits the member rows: compiler-spelled names
+     with a placeholder in the old name, proved by the code-identity scan. It needs a `--prepared` source for
+     every unit that spells them. **G3**: no route retypes a placeholder class to a template specialization
+     across its spelling units.
+   - The vector destructor rows `??1Rva0052CB26`, `CC25`, `CCC4`, `CD03`, `CD42`, `CDE1`, `D1CD`, `D20C` and
+     `Rva004FABE2` -> `vector<T>::~vector`: `--respell --identity` (8190d42b18) applies, since the old
+     names carry placeholders. Where two vectors fold to one address (0x0052CCC4, 0x0052CDE1),
+     `add_match.py --icf-owner` records the second as a verified identical-code-folding alias.
+     `get_allocator` folds take `pin_admission.py --add` with `fold-proof=`, at P4 only.
+   - The `FXList`-spelled record family (8 rows: 0x0052C2F3, 0x0052C8EF, 0x0052CAC9, 0x00565ACB, 0x0056625E,
+     0x005655DC, 0x00566527, 0x0052CB26) -> `EnableRegionRecord`: `--respell --identity` is refused:
+     "names no placeholder type (Rva.../Bfme...)", because `FXList` is a real class. **G4**: a real-to-real
+     respell proven by retail identity, not by a vote. For this family the proof is concrete: 0x0052BD3A
+     stores vftable VA 0x00C61A20, the table EnableRegionRecord's own rowed destructor 0x004E156B
+     installs, and every row of the family strides 8 bytes, the record's size. `FXList` (Zero Hour's) is
+     neither 8 bytes nor installs that table.
+
+3. The shared Act header (P3): `LivingWorldCampaignAct.h` gains the real element classes and
+   `class Rva0056616B` with its 16 real member types and an implicit copy constructor. Adopted with
+   `python3 tools/header_adopt_lane.py adopt --class Rva0056616B --header
+   Code/GameEngine/Include/GameLogic/LivingWorldCampaignAct.h <units> --apply` in LivingWorldCampaignAct.cpp,
+   Rva0052D6BE.cpp and VectorOverflowRva0052D742.cpp. Allowed today once step 2 lands (per-unit, byte-gated).
+   Glo012F1024Item.cpp cannot adopt it: it defines the copy constructor explicitly, which the header leaves
+   implicit. Its explicit body goes in step 4.
+
+4. LivingWorldCampaign.cpp's real code (P4 source change). The unit includes the header; `+0x0C` becomes
+   `_STL::vector<Rva0056616B> m_acts`; `AddAct` becomes `m_acts.push_back(act)`. The 21 Act-chain stand-ins
+   Harness listed go (`template <> void _Construct<...>`, `template <> vector...`, `template <> _Vector_base`,
+   `template ... __uninitialized_copy`, `template <> ConstructPairHP::pair`), and so do the hand-declared
+   `??_7Rva004E1B00/179A/1B72@@6B@` externs and the `/alternatename` for `R2Data010EC760`.
+   Glo012F1024Item.cpp drops its explicit Act copy constructor, as do the explicit instantiations that would
+   now duplicate the chain: FXListVectorInsertOverflow.cpp and stlport_construct_game_structs.cpp.
+   - This is a source edit to several units, made in the same commit as step 5's moves. **G5**: no single
+     tool applies prepared texts to the destination and the donors together with an emission move.
+     `--split --prepared TU=TEXT` (rule c) prepares the TU only, and only with a carve.
+
+5. Move the emitted rows: `python3 tools/tu_skeleton.py --emit-move FILE --for
+   Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp --rva ...`, once per mixed FILE:
+   FXList.cpp (0x0052BD3A), stlport_construct_game_structs.cpp, FXListVectorInsertOverflow.cpp,
+   Glo012F1024Item.cpp, LivingWorldCampaignAct.cpp (`??_G` 0x0052D6A2), Rva0056616BCopy.cpp,
+   RvaVectorDtorFamily.cpp and the `stlport_*` family files.
+   - **G6**: not on master yet (bfb856bfbf, Codex round 5).
+   - The whole-file donors (Rva0052D83B.cpp, Rva0052D6BE.cpp, StlVectorRva0052D801.cpp,
+     VectorOverflowRva0052D742.cpp) take `tu_skeleton --merge LivingWorldCampaign.cpp`.
+   - **G7**: `--emit-move` judges one FILE per run, while steps 4-5 must land as one transaction (a donor's
+     stand-in removed, LivingWorldCampaign.cpp emitting the row, the row repointed). Either an
+     `--emit-move` over several files at once, or each FILE's stand-in removal staged with its own
+     `--emit-move`, holding the destination text fixed.
+   - The respell of 0x0052BD3A itself is in G4. `--respell --identity --move-to TU` (8190d42b18) would carry it,
+     but `--move-to` requires every row of the owner source in the plan, and FXList.cpp keeps its other
+     rows. **G8**: `--move-to` for a subset of a mixed file, or a respell inside `--emit-move`.
+
+6. The pin fix (Link lane), in the same push as step 5 or after it, never before: deleting the
+   `list<FXNugget*>` copy pin at 0x000365F0 breaks 0x0052BD3A's match while it still sits in FXList.cpp. The
+   `_List_base<FXNugget*>` destructor gets an honest ICF alias row (`add_match.py
+   '??1?$_List_base@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAE@XZ' 0x004EC395 23
+   Code/GameEngine/Source/GameClient/FXList.cpp --icf-owner
+   '??1?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ'`, allowed today), and the 0x00036E70 pin goes.
+   FXList.obj's `list<FXNugget*>` copy constructor then has no row or pin. After step 5, no FXList.cpp row
+   calls it.
+
+7. Minimal B proper: `python3 tools/tu_skeleton.py --split
+   Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp --for
+   Code/GameEngine/Source/GameClient/FXList.cpp --prepared
+   Code/GameEngine/Source/GameClient/FXList.cpp=fxlist_minimal_b.cpp.txt`, once bfb856bfbf lands. The text
+   must be regenerated on that day's FXList.cpp. With 0x0052BD3A gone, rule (a) is no longer needed for it.
+   The link guard then judges FXList.obj's `_List_base<FXNugget*>` destructor against 0x004EC395 (exact) and
+   its `list<FXNugget*>` copy as an unrowed COMDAT. Expect the guard to pass. The dry run decides.
+   Pass test: a boot-queue run past P16.
+
+### Gaps, in order of need
+
+| Gap | Tool | Needed for |
+|---|---|---|
+| G4 real-to-real identity respell proven by retail vftable/callee identity | rename.py | record family and 0x0052BD3A |
+| G1 `--fold` of a copy plus default constructor overload set | rename.py | three Act element folds |
+| G2 `--fold` of a vftable with a third placeholder name | rename.py | two Act element folds |
+| G3 placeholder class -> template specialization retype | rename.py | +0x9C element, three vector-shaped members |
+| G6 `--emit-move` on master | tu_skeleton.py | step 5 |
+| G7 one transaction across the destination text and several donors | tu_skeleton.py | steps 4-5 |
+| G8 `--move-to`/respell for a subset of a mixed file | rename.py | 0x0052BD3A (or covered by G4 + G7) |
+| G5 prepared donor texts alongside an emission move | tu_skeleton.py | step 4 stand-in removal |
+
+Without G1-G4 nothing in steps 2-5 starts. Minimal B (step 7) waits on steps 5 and 6.
