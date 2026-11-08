@@ -28,53 +28,10 @@ Structural inference: slots 1 and 2 are the clone/getClass pair ConcreteModuleTe
 #endif
 #include "LightningDrawModuleInfo.h"
 
-class File;
+#include "FXModuleTemplateBase.h"
 
 namespace FXParticleSystem
 {
-
-class ModuleClass;
-
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/ModuleFactory.h
-class ModuleTemplate
-{
-public:
-    ModuleTemplate() {}
-    virtual ~ModuleTemplate() {}
-};
-
-template <int Category>
-class CategoryModuleInfo
-{
-public:
-    CategoryModuleInfo() {}
-    virtual void unusedVirtual() = 0;
-
-protected:
-    ~CategoryModuleInfo() {}
-};
-
-template <int Category>
-class CategoryModuleTemplateBase : public ModuleTemplate,
-    public CategoryModuleInfo<Category>
-{
-public:
-    __declspec(dllimport) __forceinline CategoryModuleTemplateBase() {}
-    __declspec(dllimport) __forceinline virtual ~CategoryModuleTemplateBase() {}
-};
-
-template <int Category>
-class CategoryModuleTemplate : public CategoryModuleTemplateBase<Category>
-{
-public:
-    __declspec(dllimport) __forceinline CategoryModuleTemplate() {}
-    CategoryModuleTemplate(const CategoryModuleTemplate &that);
-    virtual ~CategoryModuleTemplate();
-
-    virtual ModuleTemplate *clone() const = 0;
-    virtual const ModuleClass &getClass() const = 0;
-    virtual void writeINI(File &file, unsigned int indent) const = 0;
-};
 
 class LightningDrawModuleTemplate : public CategoryModuleTemplate<6>,
     public LightningDrawModuleInfo
