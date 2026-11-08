@@ -1,5 +1,5 @@
 ### LINK-514: kept `??_7` copies differ from retail's vftables (runtime vtable survey)
-Status: Open (partly repaired). Updated: 2026-11-08 (lk64 pass at d171e84869; lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
+Status: Open (partly repaired). Updated: 2026-11-08 (lk67 shape survey and twins at 49e50f8ba4; lk64 pass at d171e84869; lk56 pass at 2f3e43c2c1; lk53 pass at 26715f1e00); inspected revision: e5e17e246f, getter and installer passes at be366d041e, dummy-vptr ctor pass at e44e2c5ef6c, ObjectHelper family at e1e03be955 (census index c95fcfcfcd; f44cbcf5b0 for the ctor pass; 94d8ffa1ad for the family).
 Evidence / scope: [survey, method and reproduction](../../reverse/attempt_support/runtime-vtable-survey-20261105.md); [ranked table](../../reverse/attempt_support/runtime-vtable-survey-20261105.tsv); every `??_7` the census link order keeps (6,416 tables).
 
 **Problem.** A byte-exact unit can still emit a vftable unlike retail's: a placeholder or Zero Hour-shaped
@@ -976,3 +976,57 @@ callee-first with `tools/add_match.py --icf-owner` and `fold-proof=<owner source
   same-size row there, e.g. `??1AudioManager` 0x0005109D, `??1W3DStatusCircle` 0x0008E4EC,
   `??1Line3DClass` 0x00166DE0) or are FXParticleSystem module templates (owned by others); 36 not-weak
   FXParticleSystem tables point slot 0 at `__purecall`.
+
+**Shape survey of the still-bridged tables, and 50 cleared by whole-table ICF twins (2026-11-08, seat
+halilkkaya-lk67, base `49e50f8ba4`).** Method: lk65's offline A/B (exit_link's own inputs, 17,954
+objects, no link; old = HEAD's `tools/vtable_bridge.py`, new = lk65's weak-slot rule), then every
+`source_slot_mismatches` entry of the 4,529 tables the new rule still bridges (lk66's 109 tables were then
+pending landing) classified by shape. Counts: tables touching the shape / tables where it is the only
+shape / slots.
+- **Our first copy is shorter than retail's** (missing source slots): 2,666 / 865 / 35,607. In 2,100 of
+  them the kept copy has one slot: a destructor-only private view (RvaSmallVtableCtors.cpp 128 tables,
+  Rva0024A797Derived.cpp 90, Rva00493DEFDerived.cpp 60, Rva0026E836Derived.cpp 24, Rva00451F45Derived.cpp
+  24, AIStateRva0034005DCtor.cpp 23; FXParticleSystem units about 90). By area: GameEngine/Common 1,425,
+  GameLogic 659, GameClient 315. Route: the class-header lane (a shared header so the view emits the real
+  table); per class, not bulk.
+- **Slot name unrowed, retail's target rowed under another name**: plain functions 1,416 tables / 4,383
+  slots to a real-named row and 545 / 958 to a placeholder row; `??_E` 654 + 697; adjustor thunks 182.
+  The scratch planner (lk66's recursive twin test, run over every slot: the table's providing object
+  defines the symbol, its section equals retail's body with relocations masked, a matched same-size row
+  owns the address, every relocation is rowed at retail's target or itself twins, depth 3) passes 3,554
+  slots, and 402 tables pass in every slot. Of those, 109 were lk66's pending rows, 97 are in excluded
+  scopes (FXParticleSystem, Drawable/Object, Null3DObjClass/BoxRenderObj, Rva00577FE2, module units),
+  117 need an address others hold (Burachi-3D's 0x0047A699/0x0050B238/0x005CB9FF/0x000D1407 folds;
+  class:Keyboard covers 0x000B3FD0 and 0x000D43D0) and 26 a held file; 53 were rowed here.
+  Planner failures per slot: symbol not defined in the table's provider 1,511, no matched same-size row at
+  the target 1,123 (plus 329 for a callee), a relocation not proven 490, bytes differ 70.
+- **`__purecall` in ours**: 777 / 241 / 2,976. Retail's targets are folded trivial defaults (0x000D43D0
+  349 slots, 0x000B3FD0 236, 0x0047A69C 152, 0x0047A699 40, 0x0050B238 50): our base views declare pure
+  what retail's bases define inline. Route: real default bodies in the shared headers (class-header lane).
+- **Name rowed at another address**: 529 / 128 / 997 (placeholder names 122 / 34 / 177). Slot order or
+  identity differs between view and retail, or a row is misnamed; per-slot work.
+- **No copy at all**: 88 tables, address-named data rows (`_vtbl_00BBB58C` ...) that no object defines.
+Survey and planner output: lk67_shapes_head.txt / lk67_plan_head.json in the seat's scratch (not
+committed; reproduce with lk65_ab.py plus the classifier described above).
+
+Done: 144 ICF twin rows (`tools/add_match.py --icf-owner`, `fold-proof=<owner source>`, each byte-verified)
+from 21 table-providing units, the whole slot set of 50 tables (53 planned): the VectorClass/DynamicVectorClass/
+SimpleVecClass template families of MeshLoadContextCtor.cpp, agg_def.cpp, collect.cpp, HAnimComboBFME1.cpp,
+FontCharsClassConstructorBFME.cpp, hlod.cpp, DX8MeshRendererClassDtor.cpp, MaterialCollectorDestructor.cpp,
+pointgr.cpp, hanim.cpp, Rva007B7280Siblings.cpp; STLport num_get/time_get and basic_streambuf<unsigned short>
+(stlport_classic_locale.cpp, FstreamDefaultProtectionNameCtors.cpp); the translator family of
+Rva00576C4BDtor.cpp and GameClientDrawableTOC.cpp; RAMFile, RawFileClass, ProcessAnimateWindow and the
+Narrow/WideStrLenSource getLength pair (whose two `present-unmatched` markers add_match removed).
+Offline A/B with the weak rule: 4,529 -> 4,479 bridged (all 50 tables whose rows landed), already-correct
+1,145 -> 1,195; HEAD's rule 5,025 -> 5,022; refusals identical, no table newly bridged or lost. link_check:
+all 21 sources LINK with more linked bytes; full gate green. The weak-rule gain needs lk65's fix to land.
+- Blocked: `??_GBFME2Encoding1/2MotionChannel` (0x001A47BC): add_match's scoped verification of
+  BFME2MotionChannelFactory.cpp refuses `$L573` (scoped funclet lacks a same-source parent EH location);
+  `setRenderingMode@TerrainFXShaderParameterSourceNamespace` (0x002E6A93): the only owner is the gen-alias
+  `?dup_002e6a93@@YAXXZ`, which check_csv requires retracting first (naming lane). Both are in re_attempts.
+- Next leads, cheapest first: (1) plan each slot symbol in its first provider in exit_link's input order
+  rather than the table's provider (1,511 slot failures are "not defined in the provider"; lk67_plan2.py
+  in scratch does this); (2) the 117 held-address tables once Burachi-3D's fold pass and class:Keyboard
+  release; (3) the 594 tables that twins clear only partly, ranked by what blocks the rest (usually one
+  short-copy or `__purecall` slot); (4) the destructor-only private views of the six scaffold units above,
+  through shared class headers.
