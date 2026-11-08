@@ -59,38 +59,9 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~ObjectModule();
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
-
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-public:
-	protected: virtual void xfer(Xfer *xfer);
-};
-
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
-	virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_updateState;
-};
+// BehaviorModule's xfer is the base call below; no BehaviorModule-derived table is emitted here.
+#define BFME_BEHAVIORMODULE_XFER
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 
 class GateOpenAndCloseBehavior : public UpdateModule
 {

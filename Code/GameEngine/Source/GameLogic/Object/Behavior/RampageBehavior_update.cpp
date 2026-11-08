@@ -89,6 +89,7 @@ class BodyModuleFloatInterface
  
 }
 ;
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 class AIUpdateInterfaceView
 

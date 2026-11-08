@@ -167,6 +167,7 @@ enum WhichTurretType
 	MAX_TURRETS
 };
 
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 extern GameLogic *TheGameLogic;

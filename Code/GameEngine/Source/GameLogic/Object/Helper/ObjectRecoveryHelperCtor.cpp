@@ -39,6 +39,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3fffffff
 };
 
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/ObjectHelper.h"
 
 class ObjectRecoveryHelper : public ObjectHelper

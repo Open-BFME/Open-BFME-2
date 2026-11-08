@@ -43,6 +43,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
+#include "../../../../Include/GameLogic/Module/UpdateModule.h"
 #include "../../../../Include/GameLogic/Module/ObjectHelper.h"
 
 class ObjectWeaponStatusHelper : public ObjectHelper

@@ -22,11 +22,7 @@ struct XferVersion47
 #include "System/XferVectorTypes.h"
 #include "../../Include/Common/BfmeXfer.h"
 
-class UpdateModule
-{
-public:
-	virtual void xfer(Xfer *xfer);
-};
+#include "../../Include/GameLogic/Module/UpdateModule.h"
 
 class Rva0047F94C
 {
