@@ -43,12 +43,7 @@ private:
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/IndexBufferClass.h"
 #include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8IndexBufferClass.h"
 
-class DX8Wrapper
-{
-public:
-	static void Set_Index_Buffer(const IndexBufferClass* ib,unsigned short index_base_offset);
-	static void Draw_Strip(unsigned start_index, unsigned polygon_count, unsigned min_vertex_index, unsigned vertex_count);
-};
+#include "../../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 enum waveType
 {
