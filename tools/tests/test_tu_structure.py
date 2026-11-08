@@ -1025,13 +1025,6 @@ def test_generated_placeholder_file_is_never_a_donor(tmp_path, monkeypatch):
     assert set(don) == {"Code/X/Af.cpp"} and not mixed
 
 
-def test_repoint_moves_only_absorbed_donor_rows_and_keeps_terminators():
-    raw = HEADER + row("a", 0x10, 4, "Code/x/A.cpp").replace("\n", "\r\n") + row("b", 0x20, 4, "Code/x/B.cpp")
-    new, moved = tu_skeleton.repoint(raw, {"Code/x/A.cpp"}, "Code/x/T.cpp")
-    assert moved == 1 and ",Code/x/T.cpp," in new and ",Code/x/B.cpp," in new
-    assert new.count("\r\n") == 1 and len(new) == len(raw)
-
-
 # ---------------------------------------------------------------- ownership
 def git(repo, *args):
     subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True)

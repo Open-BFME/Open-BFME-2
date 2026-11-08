@@ -486,10 +486,11 @@ trailer. Pin admission re-proves a moved fold proof at commit.
   leave a sibling row with no interleaving cluster (2026-11-07:
   `Upgrade/BaseUpgrade.cpp` without `BaseUpgradeUpgradeImplementation.cpp`, row
   0x004B37CA dropped from approved to proposed and its funclets stayed approved
-  for the deleted path). `--merge`, a dry run and a reused plan rebuild the map
-  in memory with the accepted donors' rows repointed and refuse when any code
-  row's confidence falls or a row is placed in a path the merge deletes. Move
-  the group's files together.
+  for the deleted path). `--merge`, a dry run, a reused plan and a prepared
+  `--split` that absorbs its whole donor rebuild the map in memory with the
+  accepted donors' rows repointed and refuse when any code row's confidence falls
+  or a row is placed in a path the move deletes. Move the group's files together.
+  A split that leaves its file in place is not judged this way.
 - **A header-queue retirement and its source's merge go in separate pushes.**
   If `header_adopt_lane.py accept` retires a donor's header-queue row and a merge
   in the same push deletes that donor, the pre-push debt check sees a retired

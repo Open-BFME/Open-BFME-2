@@ -2311,6 +2311,8 @@ def merge(tu, dry_run=False, log=print, claim=True):
     if plan:
         reused = reuse_merge_plan(tu, don, report, plan, dry_run)
         if reused is not None:
+            if claim and not dry_run and "blocked" in reused:   # nothing was written
+                give_back(*taken)
             return view_hint(reused, tu, don)
     # A saved plan can fail its fresh byte, link or carry checks. Searching for
     # another cohort may touch rejected donors, so claim them before widening.
@@ -2359,9 +2361,11 @@ def view_hint(report, tu, don):
     return report
 
 
-def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None):
+def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None, deletes_donor=False):
     """... `fixed_text`: the TU's final text is given (a split's --prepared), never composed:
-    every accepted set is judged in it, under the same verifier, guard and applier."""
+    every accepted set is judged in it, under the same verifier, guard and applier.
+    `deletes_donor`: `applier` deletes the accepted donors as a merge does (a prepared split's
+    absorb), so the map is judged as for a merge (map_regressions)."""
     v = Verifier(tu)
     # Splits provide their own two-object guard: their residual stays in the link.
     guard = guard or (None if applier else LinkGuard(tu))
@@ -2650,6 +2654,7 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         if carry.problems:
             report["blocked"] = "protected registers: " + "; ".join(carry.problems[:5])
             return report
+    if applier is None or deletes_donor:
         why = map_regressions(tu, acc)
         if why:
             report["blocked"] = why
@@ -3669,7 +3674,7 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
                 if reused is not None:
                     return reused
             return _merge(tu, sk, don, report, dry_run, texts=texts, applier=absorb if whole else applier,
-                          guard=guard, fixed_text=prepared)
+                          guard=guard, fixed_text=prepared, deletes_donor=whole)
         except UnitKeyRefusal as refused_keys:
             report["blocked"] = f"unit keys (data_ledger.csv / fold proofs): {refused_keys}"[:400]
             return report

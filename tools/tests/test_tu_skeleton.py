@@ -1920,6 +1920,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         self.assertEqual(sorted(r["target_rva"] for r in seen["don"][self.SOURCE]), ["0x1000", "0x7000"])
         self.assertEqual(seen["fixed_text"], self.PREPARED)            # (c): judged in the prepared text
         self.assertEqual(seen["applier"].__name__, "absorb")           # nothing stays: the donor goes
+        self.assertIs(seen["deletes_donor"], True)                     # so the map is judged as for a merge
 
     def test_without_a_prepared_text_a_whole_donor_still_refuses(self):
         report, _ = self.split(prepared=None)
@@ -1937,6 +1938,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         self.assertNotIn("blocked", report)
         self.assertEqual(seen["applier"].__name__, "applier")
         self.assertEqual(seen["fixed_text"], self.PREPARED)
+        self.assertIs(seen["deletes_donor"], False)
 
     def test_the_rider_needs_the_destination_to_emit_the_vtable_and_the_residual_not(self):
         report, _ = self.split(tu_vtable=False, stay=True)
@@ -2633,6 +2635,163 @@ class MergeDiagnosticReasonTests(unittest.TestCase):
                 T.save_verified_plan(path, "s", "i", {"accepted": ["Code/A.cpp"], "rejected": {}})
             self.assertEqual(json.loads(path.read_text())["version"], T.PLAN_VERSION)
             self.assertIsNotNone(T.load_verified_plan(path, "s", "i"))
+
+
+class MapGuardOnEveryDeletingPathTests(unittest.TestCase):
+    """Review of 0c96be95a9: a prepared whole-donor split reached apply() with no map check, and a reused
+    plan the check blocked kept its claims."""
+    TU, DONOR = "Code/New/A.cpp", "Code/Old/B.cpp"
+
+    class Verifier:
+        errors, all_errors, flags, obj = [], [], None, "fake.obj"
+        fd = SimpleNamespace(MANAGED=re.compile(r"(?!)"), overrides=lambda: {})
+
+        def __init__(self, *a, **k):
+            pass
+
+        def matched(self, text, rows):
+            return {r["target_rva"] for r in rows}
+
+        def effective(self, text, rows):
+            return text
+
+    class Guard:
+        def __init__(self, *a, **k):
+            pass
+
+        def load(self):
+            pass
+
+        def linked(self, *a):
+            return []
+
+        def prepare(self, *a):
+            return None
+
+        def judge(self, *a):
+            return []
+
+    def real_tree(self, root):
+        """The review's fixture: the two classes interleave, A's files under Code/New/, B's under Code/Old/;
+        all four rows approve Code/New/A.cpp until B.cpp alone moves."""
+        specs = [("A", "f", "0x00001000", self.TU), ("B", "f", "0x00001010", self.DONOR),
+                 ("A", "g", "0x00001018", "Code/New/A2.cpp"), ("B", "g", "0x00001020", "Code/Old/B2.cpp")]
+        rows = [dict(name=f"?{m}@{c}@@QAEXXZ", target_rva=r, target_size="8", source=s, notes="", status="matched",
+                     export_rva="") for c, m, r, s in specs]
+        (root / "reverse").mkdir()
+        (root / "zh/GameEngine").mkdir(parents=True)
+        for c, m, _r, s in specs:
+            (root / s).parent.mkdir(parents=True, exist_ok=True)
+            (root / s).write_text(f"void {c}::{m}() {{}}\n")
+        with (root / "reverse/functions.csv").open("w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+        return rows
+
+    def test_absorbing_a_whole_donor_is_refused_on_the_real_map_logic(self):
+        import tu_evidence
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            rows = self.real_tree(root)
+            layout = T.tu_map.Layout(root, root / "zh")
+            prepared = "void A::f() {}\nvoid B::f() {}\n"
+            carry = SimpleNamespace(problems=[], report=lambda: {})
+            for dry_run in (True, False):
+                with self.subTest(dry_run=dry_run), patch.object(T, "ROOT", root), \
+                        patch.object(T, "LEDGER", root / "reverse/functions.csv"), patch.object(T, "LAYOUT", layout), \
+                        patch.dict(T._CACHE, {}, clear=True), patch.object(tu_evidence, "PROMOTED", set()), \
+                        patch.object(T, "merge_plan_state", return_value=None), patch.object(T, "refusal", return_value=None), \
+                        patch.object(T, "included_by", return_value=[]), \
+                        patch.object(T, "map_rows", return_value=[{k: str(v) for k, v in r.items()} for r in T.tu_map.build(layout, rows)]), \
+                        patch.object(T, "Verifier", self.Verifier), patch.object(T, "LinkGuard", self.Guard), \
+                        patch.object(T, "Carry", return_value=carry), patch.object(T, "apply", return_value={}) as write, \
+                        patch.object(T, "map_regressions", side_effect=REAL_MAP_REGRESSIONS) as check:
+                    report = T.split(self.DONOR, self.TU, dry_run=dry_run, prepared=prepared, claim=False)
+                    self.assertEqual(check.call_count, 1)
+                    self.assertIn("0x00001020", report["blocked"])
+                    self.assertIn("the merge would cost the map approvals", report["blocked"])
+                    write.assert_not_called()
+
+    def merge_with_applier(self, deletes_donor, why="lost approval", dry_run=False):
+        don = {self.TU: [{"target_rva": "0x00001000"}], self.DONOR: [{"target_rva": "0x00001010"}]}
+        applied = []
+        with patch.object(T, "Verifier", self.Verifier), \
+                patch.object(T, "map_regressions", return_value=why) as check:
+            out = T._merge(self.TU, [], don, {"accepted": [], "rejected": {}}, dry_run, texts={f: "x" for f in don},
+                           applier=lambda tu, acc, text: applied.append(acc) or {}, guard=self.Guard(),
+                           fixed_text="prepared", deletes_donor=deletes_donor)
+        return out, check, applied
+
+    def test_only_an_applier_that_deletes_its_donors_is_judged(self):
+        for dry_run in (True, False):
+            with self.subTest(dry_run=dry_run):
+                out, check, applied = self.merge_with_applier(True, dry_run=dry_run)
+                self.assertEqual(out["blocked"], "lost approval")
+                check.assert_called_once_with(self.TU, [self.TU, self.DONOR])
+                self.assertEqual(applied, [])
+        out, check, applied = self.merge_with_applier(True, why=None)
+        self.assertNotIn("blocked", out)
+        self.assertEqual(applied, [[self.TU, self.DONOR]])                          # an unchanged map: it applies
+        out, check, applied = self.merge_with_applier(False)                        # a split leaving its file
+        self.assertNotIn("blocked", out)
+        check.assert_not_called()
+        self.assertEqual(len(applied), 1)
+
+    def held(self):
+        held = T.Held()
+        held.acquired = [T.claims.key_of(f"file:{self.TU}"), T.claims.key_of("0x00001010")]
+        held.tokens = {k: f"token-{k}" for k in held.acquired}
+        return held
+
+    @contextlib.contextmanager
+    def saved_plan(self):
+        don = {self.TU: [{"target_rva": "0x00001000"}], self.DONOR: [{"target_rva": "0x00001010"}]}
+        plan = {"tu_file": self.TU, "accepted": list(don), "text": "merged", "baseline": ["0x00001000", "0x00001010"],
+                "rows": 2, "rejected": {}, "flags": [], "verifier_flags": None}
+        with tempfile.TemporaryDirectory() as tmp, patch.object(T, "ROOT", Path(tmp)), \
+                patch.object(T, "merge_plan_state", return_value="s"), patch.object(T, "skeleton", return_value=[]), \
+                patch.object(T, "donors", return_value=(don, {}, {})), patch.object(T, "tu_path", side_effect=lambda x: x), \
+                patch.object(T, "header_queue_rows", return_value={}), patch.object(T, "load_merge_plan", return_value=plan), \
+                patch.object(T, "view_hint", side_effect=lambda r, *a: r), patch.object(T, "claim_scope", side_effect=lambda *a, **k: self.held()), \
+                patch.object(T, "Verifier", self.Verifier), patch.object(T, "LinkGuard", self.Guard), \
+                patch.object(T, "Carry", return_value=SimpleNamespace(problems=[], report=lambda: {})), \
+                patch.object(T, "apply", return_value={}) as write, patch.object(T.claims, "release") as release:
+            for f in don:
+                (Path(tmp) / f).parent.mkdir(parents=True, exist_ok=True)
+                (Path(tmp) / f).write_text("int a;\n")
+            yield release, write
+
+    def test_a_reused_plan_the_map_blocks_gives_back_its_claims(self):
+        held = self.held()
+        with self.saved_plan() as (release, write), patch.object(T, "map_regressions", return_value="lost approval"):
+            out = T.merge(self.TU)
+            self.assertEqual(out["blocked"], "lost approval")
+            release.assert_called_once_with(list(held.acquired), tokens=dict(held.tokens))
+            write.assert_not_called()
+
+    def test_a_reused_plan_that_applies_or_a_dry_run_keeps_its_claims(self):
+        with self.saved_plan() as (release, write), patch.object(T, "map_regressions", return_value=None):
+            out = T.merge(self.TU)
+            self.assertNotIn("blocked", out)
+            self.assertTrue(out["plan_reused"])
+            write.assert_called_once()
+            release.assert_not_called()                                             # a landed merge settles them
+        with self.saved_plan() as (release, write), patch.object(T, "map_regressions", return_value="lost approval"):
+            out = T.merge(self.TU, dry_run=True)
+            self.assertEqual(out["blocked"], "lost approval")
+            release.assert_not_called()                                             # a dry run claimed nothing
+
+    def test_a_fresh_search_the_map_blocks_gives_back_its_claims(self):
+        # the other return the guard reaches: no saved plan, so _merge itself is blocked
+        held = self.held()
+        with self.saved_plan() as (release, write), patch.object(T, "load_merge_plan", return_value=None), \
+                patch.object(T, "compose", return_value="composed"), \
+                patch.object(T, "map_regressions", return_value="lost approval"):
+            out = T.merge(self.TU)
+            self.assertEqual(out["blocked"], "lost approval")
+            release.assert_called_once_with(list(held.acquired), tokens=dict(held.tokens))
+            write.assert_not_called()
 
 
 class VerifierCacheTests(unittest.TestCase):
