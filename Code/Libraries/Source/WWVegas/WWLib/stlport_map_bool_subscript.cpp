@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfmealloc_alloconly /D_CRTIMP= /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // _STL::map<int, bool>::operator[] @0x00470353 69B, /O1.
