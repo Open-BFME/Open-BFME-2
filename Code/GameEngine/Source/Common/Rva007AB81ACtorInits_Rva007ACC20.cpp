@@ -96,15 +96,9 @@ extern unsigned int g_00DDE070;
 extern unsigned int g_00DDE071;
 extern unsigned int g_00DDE0AC;
 // VA 0x00DEE5D8 is dx8wrapper.cpp's protected
-// ?render_state@DX8Wrapper@@1URenderStateStruct@@A, reached through a TU-scoped
-// friend view instead of a second datum at its address.
-struct RenderStateStruct;
-class DX8Wrapper
-{
-	friend struct Rva007AB81ACtorInits;
-protected:
-	static RenderStateStruct render_state;
-};
+// ?render_state@DX8Wrapper@@1URenderStateStruct@@A, reached as a friend of
+// the canonical DX8Wrapper header instead of a second datum at its address.
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 // VA 0x00DFE180 is ScriptEngine_init.cpp's TheFXParticleEditor.
 extern BfmeDualVtableReleaseDtor TheFXParticleEditor;
 extern Rva0030ADED TheFireSettings;			// 0x00DFF4F8 (Rva007B6880Thunks.cpp)

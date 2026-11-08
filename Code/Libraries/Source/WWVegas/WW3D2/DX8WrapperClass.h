@@ -41,6 +41,14 @@
  * Set_Ambient (0x00117F50) stores Ambient_Color at VA 0x00DEDC70. Reset_Device
  * (0x00122600) reads m_pCleanupHook at VA 0x00DEDA90.
  *
+ * The friends own matched rows that use the protected statics directly:
+ * Rva007AB81ACtorInits::rva007ACC20 (RVA 0x007ACC20) constructs render_state at
+ * VA 0x00DEE5D8, W3DAptRenderer::rva00110CFE (0x00110CFE) stores render_state's
+ * world matrix and updates render_state_changed, Rva007D6B70::reset (0x000F8735)
+ * updates Textures at VA 0x00DEC4B0 and texture_changes at 0x00DEDA60, and
+ * Rva000EDF40Get (0x000EDF40) reads and Rva00149570Set (0x00149570) stores
+ * FogColor at VA 0x00DEDA24.
+ *
  * The matched Get_Transform row uses the enum tag D3DTRANSFORMSTATETYPE, whereas
  * the matched Set_Transform rows use _D3DTRANSFORMSTATETYPE. The declarations
  * preserve both identities. Their identical integer representation does not
@@ -429,6 +437,11 @@ private:
     friend void rva001206B0(unsigned int, unsigned int);
     friend class FXShaderGeometry;
     friend class Rva0014A710;
+    friend class W3DAptRenderer;
+    friend struct Rva007AB81ACtorInits;
+    friend class Rva007D6B70;
+    friend int Rva000EDF40Get();
+    friend void Rva00149570Set(int);
 };
 
 #endif

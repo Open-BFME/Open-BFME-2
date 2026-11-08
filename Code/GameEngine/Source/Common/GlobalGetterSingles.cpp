@@ -110,14 +110,8 @@ int Rva000A8F36Get(void)
 
 // ?Rva000EDF40Get@@YAHXZ @ 0x000EDF40 (6B) over 0x00DEDA24.
 
-// dx8wrapper.cpp's protected ?FogColor@DX8Wrapper@@1KA through a friend view.
-class DX8Wrapper
-{
-	friend int Rva000EDF40Get(void);
-	friend void Rva00149570Set(int value);
-protected:
-	static unsigned long FogColor;
-};
+// dx8wrapper.cpp's protected ?FogColor@DX8Wrapper@@1KA through the canonical header.
+#include "../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 int Rva000EDF40Get(void)
 {

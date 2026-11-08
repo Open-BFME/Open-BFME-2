@@ -24,12 +24,7 @@ struct BFME2TextureResource;
 struct BFME2TextureRef { BFME2TextureResource* Ptr; };
 void BFME2Set_Texture(unsigned,const BFME2TextureRef&);
 #include "../../../../Libraries/Source/WWVegas/WW3D2/RenderStateStruct.h"
-// render_state_changed is protected in dx8wrapper.h (mangled @@1IA, as dx8wrapper.cpp defines it).
-class DX8Wrapper {
-protected:
-	static RenderStateStruct render_state;
-private:
- friend class W3DAptRenderer; protected: static unsigned render_state_changed; public: static void bfmeRva00120650(unsigned,unsigned); static bool Has_Stencil(); static void Set_DX8_Render_State(unsigned long,unsigned); static void Set_Shader(const ShaderClass&); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 struct BfmeAptVertexFormat { char unknown[12]; int vertexSize; };
 struct BfmeAptVertexBufferInterface {
  virtual void slot0()=0; virtual void slot1()=0; virtual void slot2()=0;

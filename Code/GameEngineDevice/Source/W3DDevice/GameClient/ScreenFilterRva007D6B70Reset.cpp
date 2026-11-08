@@ -28,23 +28,7 @@
 // ?Textures@DX8Wrapper@@1PAPAUIDirect3DBaseTexture8@@A and
 // ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A, defined in dx8wrapper.cpp), but are
 // Direct3D 9 objects: texture Release is slot 2, SetTexture slot 65, SetPixelShader slot 107.
-struct IDirect3DBaseTexture8;
-struct IDirect3DDevice8;
-
-class Rva007D6B70;
-
-class DX8Wrapper
-{
-	friend class Rva007D6B70;
-public:
-	static void Invalidate_Cached_Render_States(void);
-	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-
-protected:
-	static IDirect3DDevice8 *D3DDevice;
-	static IDirect3DBaseTexture8 *Textures[16];
-	static unsigned texture_changes;
-};
+#include "../../../../Libraries/Source/WWVegas/WW3D2/DX8WrapperClass.h"
 
 static __forceinline void filterSetTexture(unsigned long stage, IDirect3DBaseTexture9 *texture)
 {
