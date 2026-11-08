@@ -941,13 +941,7 @@ void Set_MeshModel_Flag(RenderObjClass *robj, int flag, int onoff)
 // BFME2's body is in MeshClassCollision.cpp (retail 0x0014A070); it needs the BFME2
 // RenderObjClass view, which the shared header used here does not carry.
 
-// ?MeshClass::Set_Sort_Level present-unmatched
-void MeshClass::Set_Sort_Level(int level)
-{ 
-	if (Model) {
-		Model->Set_Sort_Level(level);
-	}
-}
+// BFME2's Set_Sort_Level is there too (retail 0x0014A090): this unit's layout puts the byte 4 too high.
 
 // ?MeshClass::Get_Draw_Call_Count present-unmatched
 struct Bfme2MeshModelDrawCountView {
