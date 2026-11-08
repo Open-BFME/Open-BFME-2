@@ -130,34 +130,7 @@ public:
 	WinDrawData m_hiliteDrawData[ 9 ];                     // +0x120
 };
 
-class GameWindowManager
-{
-public:
-	virtual void unused00(); virtual void unused01(); virtual void unused02(); virtual void unused03();
-	virtual void unused04(); virtual void unused05(); virtual void unused06(); virtual void unused07();
-	virtual void unused08(); virtual void unused09(); virtual void unused10(); virtual void unused11();
-	virtual void unused12(); virtual void unused13(); virtual void unused14(); virtual void unused15();
-	virtual void unused16(); virtual void unused17(); virtual void unused18(); virtual void unused19();
-	virtual void unused20(); virtual void unused21(); virtual void unused22(); virtual void unused23();
-	virtual void unused24(); virtual void unused25(); virtual void unused26(); virtual void unused27();
-	virtual void unused28(); virtual void unused29(); virtual void unused30(); virtual void unused31();
-	virtual void unused32(); virtual void unused33(); virtual void unused34(); virtual void unused35();
-	virtual void unused36(); virtual void unused37(); virtual void unused38(); virtual void unused39();
-	virtual void unused40(); virtual void unused41(); virtual void unused42(); virtual void unused43();
-	virtual void unused44(); virtual void unused45(); virtual void unused46(); virtual void unused47();
-	virtual GameWindow *winGetFocus( void );               // +0xC0
-	virtual void unused49(); virtual void unused50(); virtual void unused51();
-	virtual void unused52(); virtual void unused53(); virtual void unused54(); virtual void unused55();
-	virtual void unused56(); virtual void unused57(); virtual void unused58(); virtual void unused59();
-	virtual void unused60(); virtual void unused61(); virtual void unused62(); virtual void unused63();
-	virtual void unused64(); virtual void unused65();
-	virtual void winDrawImage( const Image *image, Int startX, Int startY,
-		Int endX, Int endY, Color color = 0xFFFFFFFF );       // +0x108
-	virtual void winFillRect( Color color, Real width,
-		Int startX, Int startY, Int endX, Int endY );         // +0x10C
-	virtual void winOpenRect( Color color, Real width,
-		Int startX, Int startY, Int endX, Int endY );         // +0x110
-};
+#include "../../../../../../GameEngine/Include/GameClient/GameWindowManager.h"
 
 // IMEManager slots: isAttachedTo +0x4C, isComposing +0x54,
 // getCompositionString +0x58, getCompositionCursorPosition +0x5C.

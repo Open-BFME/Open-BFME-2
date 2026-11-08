@@ -263,23 +263,8 @@ private:
 	CRITICAL_SECTION *m_cs;
 };
 
-class GameWindowManager
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void unk28();
-};
-
 #include "../../../Include/GameClient/Display.h"
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 extern GameWindowManager *TheWindowManager;
 
@@ -557,7 +542,7 @@ void GameWindowTransitionsHandler::update()
 void GameWindowTransitionsHandler::rva001DC07E()
 {
 	while (!TheTransitionHandler->isFinished()) {
-		TheWindowManager->unk28();
+		TheWindowManager->update();
 		if (TheTransitionHandler->isFinished())
 			continue;
 		TheDisplay->vslot12();

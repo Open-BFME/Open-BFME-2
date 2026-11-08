@@ -507,41 +507,7 @@ void __cdecl BFME_DX8_Thread_Lock();
 bool __cdecl BFME_DX8_Thread_Assert();
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
 
-class GameWindowManager
-{
-public:
-	#define V(n) virtual void pad##n() = 0;
-public:
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34) V(35) V(36)
-	virtual GameWindow *Virtual94() = 0;
-public:
-	V(38) V(39)
-	virtual void windowHiding(GameWindow *window) = 0;
-public:
-	V(41) V(42) V(43) V(44) V(45) V(46) V(47)
-	virtual GameWindow *winGetFocus() = 0;
-public:
-	virtual Int winSetFocus(GameWindow *window) = 0;
-public:
-	V(50) V(51) V(52) V(53) V(54) V(55)
-	virtual void VirtualE0(GameWindow *win, GameWindow *parent) = 0;
-public:
-	V(57)
-#undef V
-	virtual WindowMsgHandledType winSendSystemMsg(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2) = 0;
-public:
-	void linkWindow(GameWindow *win);
-public:
-	void unlinkWindow(GameWindow *win);
-public:
-	void unlinkChildWindow(GameWindow *win);
-protected:
-	Int drawWindow(GameWindow *window);
-};
+#include "../../../Include/GameClient/GameWindowManager.h"
 
 struct Rva00477DF0
 {
@@ -1323,9 +1289,9 @@ int GameWindow::winBringToTop()
 	GameWindow *parent = m_parent;
 	if (parent != 0) {
 		mgr->unlinkChildWindow(this);
-		TheWindowManager->VirtualE0(this, parent);
+		TheWindowManager->addWindowToParent(this, parent);
 	} else {
-		GameWindow *cur = mgr->Virtual94();
+		GameWindow *cur = mgr->winGetWindowList();
 		while (cur != this) {
 			if (cur == 0)
 				return -3;
@@ -1445,7 +1411,7 @@ int GameWindow::winSetParent(int arg)
 		mgr2->linkWindow(this);
 		m_parent = 0;
 	} else {
-		mgr2->VirtualE0(this, (GameWindow *)arg);
+		mgr2->addWindowToParent(this, (GameWindow *)arg);
 	}
 	return 0;
 }
