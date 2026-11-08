@@ -212,3 +212,48 @@ points at the unit you just touched: a local index older than the rows it judges
 invents link losses, and the natural response is to revert good work. Fetch the
 index before believing a loss, and check whether the unresolved symbols have
 rows whose commits postdate the index.
+
+## The staleness question, answered (2026-11-08)
+
+The section above left "how much of the queue is stale" open and said it bears
+on every count in this document. Measured against the worktree at 6494b4b9d0,
+`reverse/header_queue.tsv` (6513 rows) without compiling anything:
+
+| rows | verdict |
+| ---: | --- |
+|    0 | the source no longer exists |
+|   79 | the source already includes the canonical header |
+|  239 | the source no longer declares the class with a body of its own |
+| 6195 | live: only a re-run decides |
+
+So **318 rows (4.9%) are provably stale** and the rest still describe the tree.
+The queue is a usable measurement after all, which is the opposite of what the
+`Object.cpp` row suggested; that row was in the 239.
+
+A worked one: `BaseHeightMapBoundingBox.cpp` holds an `AABoxClass` row whose
+failure is a byte-gate FAIL. The file now includes the canonical
+`BaseHeightMap.h` and takes `AABoxClass` transitively from WWMath, with no
+private view anywhere in it. Nothing about the recorded failure can be acted on.
+
+Three cautions on the 4.9%:
+
+- It is a floor, not the total. A row whose private view survives but whose
+  recorded *failure* has since been fixed still reads as live here; only
+  `accept` (which compiles, re-reads the layout, byte-checks and asks
+  `link_check` for a per-unit verdict) can judge that.
+- The detectors are deliberately coarse. "Already includes the canonical
+  header" matches the header's basename under any relative prefix, and "no
+  longer declares the class" looks for `class X {` or `struct X :` with a body,
+  so a view reached through an include is counted as absent. Both err toward
+  calling a row live.
+- `retry_budget` is 3 on all 6513 rows, so nothing has been spending it. It
+  records no retry history and cannot be read as one.
+
+The 318 group into 100 classes, the largest being `State` 39, `View` 20,
+`Thing` 18, `Vector3` 15, `UpdateModule` 15, `Matrix3D` 13 and `GameLogic` 12.
+Nine sit under another seat's live `class:` or `file:` claim, leaving 309 in 97
+(class, header) cohorts to retire through `accept`.
+
+The queue is also shrinking on its own: 6721 rows on 2026-11-07, 6513 today,
+with field renames 3083 -> 3012, byte gate 822 -> 803, C2039 706 -> 682 and
+manual header 250 -> 218.
