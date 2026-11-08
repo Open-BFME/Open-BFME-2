@@ -1,0 +1,53 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/streak.cpp",
+  "retained_code_count": 278,
+  "unchanged_code_count": 274,
+  "native_repaired_definitions": [
+    {
+      "name": "??1?$SimpleVecClass@M@@UAE@XZ",
+      "rva": "0x00167F67",
+      "size": 33,
+      "body_relocations_flags_policy_equal_to_owner": true,
+      "old_size": 41,
+      "old_flags": "0x60501020",
+      "new_flags": "0x60101020"
+    },
+    {
+      "name": "??1?$SimpleDynVecClass@M@@UAE@XZ",
+      "rva": "0x00167FF7",
+      "size": 35,
+      "body_relocations_flags_policy_equal_to_owner": true,
+      "old_size": 70,
+      "old_flags": "0x60501020",
+      "new_flags": "0x60101020"
+    },
+    {
+      "name": "??_G?$SimpleVecClass@M@@UAEPAXI@Z",
+      "rva": "0x00168083",
+      "size": 28,
+      "body_relocations_flags_policy_equal_to_owner": true,
+      "old_size": 61,
+      "old_flags": "0x60501020",
+      "new_flags": "0x60101020"
+    },
+    {
+      "name": "??_G?$SimpleDynVecClass@M@@UAEPAXI@Z",
+      "rva": "0x00168067",
+      "size": 28,
+      "body_relocations_flags_policy_equal_to_owner": true,
+      "old_size": 30,
+      "old_flags": "0x60501020",
+      "new_flags": "0x60101020"
+    }
+  ],
+  "named_external_data_equal": true,
+  "named_external_data_count": 18,
+  "external_definitions_equal": true,
+  "undefined_references_equal": true,
+  "compiler_weak_defaults_equal": true,
+  "optimization_pragma_directives_unchanged": true,
+  "dllimport_occurrences_unchanged": true,
+  "source_sha256": "545fb914dce8f3a415ebe783df9254dee2c7e54fbe6f351e57c98bca2f7b616d",
+  "original_object_sha256": "b489bd963a0c443dc305ee851b5f9564a1ad1c9c57e244ab0d437935a4604ac9",
+  "current_object_sha256": "05d33a3c0e5ce6dc0181b52474c91b09ff407cc276394318bad8f44f43030640"
+}

@@ -598,3 +598,19 @@ Rva001684D6, Box/AABox/OBBox, Null3DObj, Camera, ParticleEmitter, Animatable3DOb
 StreakLine. Nothing in their own units clears them (non-template inline members; no approved TU for either address), so
 each now carries a `re_attempts.log` deferral and is drawn only after untried work. The one shared repair (an alignment
 boundary proven sound, or one provider for both getters) clears all 22.
+
+**2026-11-08, root seat: streak's two float-vector providers.** A fresh
+compilation contradicts the older alignment-only description for this
+source: complete float destructors are 41/70 bytes and deleting wrappers
+61/30, versus native 33/35/28/28, and their flags differ too. Real float
+specializations in the existing size region now emit all four native
+bodies, relocations, flags and policies while retaining all 68 source rows.
+No pragma/import/hatch is added and no unapproved row is moved. All 274
+other code facts, 18 external data allocations and external bindings agree.
+Normal four-source verification passes 102/102 and five exact EH graphs.
+The bounded bridge check changes the two refusals at 7D41AC/7D41B8 to six
+verified slots with no refusal in that pair. Next-image queue confirmation
+is pending; StreakLine's separate bounds slots 65/66 remain open, as do the
+unchanged unreferenced renderer getter diagnostics. This does not establish
+an image, census or runtime gain.
+[Native bodies and controls](../../reverse/attempt_support/streak-float-provider-20261108/README.md).

@@ -6,6 +6,10 @@ void operator delete[](void *) throw();
 #include "refcount.h"
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme_vector3_full_link/vector3_full_link.h"
+#include "simplevec.h"
+template <> bool SimpleVecClass<float>::Resize(int);
+template <> bool SimpleVecClass<float>::Uninitialised_Grow(int);
+template <> bool SimpleDynVecClass<float>::Resize(int);
 // Ported from the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WW3D2/streak.cpp); this unit had no counterpart under Code/.
 // The compiler-generated vector constructor iterator (??_H) takes the
@@ -17,12 +21,27 @@ void operator delete[](void *) throw();
 // an array will not match, try it without this block.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
+// Keep the real float cleanup and deleting wrappers in the existing size region.
+template <> inline SimpleVecClass<float>::~SimpleVecClass()
+{
+    if (Vector != NULL) {
+        delete[] Vector;
+        Vector = NULL;
+        VectorMax = 0;
+    }
+}
+template <> inline SimpleDynVecClass<float>::~SimpleDynVecClass()
+{
+    if (Vector != NULL) {
+        delete[] Vector;
+        Vector = NULL;
+    }
+}
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #include "../../../../../reference/shims/bfme2renderobj/rendobj.h"
 #include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/seglinerenderer.h"
 #include "../../../../../reference/shims/bfmestreak/streakrender.h"
-#include "simplevec.h"
 // TU-local view derived from reference/shims/bfmestreak/streak.h (ZH donor).
 // BFME 2 returns the owning texture handle at 0x00741750, unlike ZH.
 /*
@@ -94,11 +113,8 @@ template <> bool SimpleDynVecClass<Vector3>::Add(Vector3 const &, int);
 
 template <> bool SimpleDynVecClass<Vector3>::Resize(int);
 
-template <> bool SimpleVecClass<float>::Resize(int);
 
-template <> bool SimpleVecClass<float>::Uninitialised_Grow(int);
 
-template <> bool SimpleDynVecClass<float>::Resize(int);
 
 template <> bool SimpleVecClass<Vector3>::Uninitialised_Grow(int);
 
