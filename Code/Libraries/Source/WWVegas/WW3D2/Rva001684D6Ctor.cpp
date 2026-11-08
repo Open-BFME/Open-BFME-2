@@ -5,6 +5,7 @@
 // bfme link decl-only begin
 template <> SimpleDynVecClass<Vector3>::~SimpleDynVecClass();
 template <> bool SimpleVecClass<Vector3>::Resize(int);
+template <> bool SimpleVecClass<Vector3>::Uninitialised_Grow(int);
 // bfme link decl-only end
 // Native16844F..1684B2 constructs the RenderObj C4 base; points C4;
 // float widths D4; renderer settings E4. The same primary/secondary tables
