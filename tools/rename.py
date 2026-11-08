@@ -6755,8 +6755,11 @@ def extent_overlaps(ctx, rva, size, own):
             found.append(f"converged global {row.get('name')} at 0x{at:08X}")
     for row in ctx.dicts(DATA_LEDGER):
         at = _rva(row.get("address"))
-        if at is not None and rva < at < end and own.get(row.get("name")) != at:
-            found.append(f"data_ledger.csv name {row.get('name')} at 0x{at:08X} ({row.get('status')})")
+        if at is None or own.get(row.get("name")) == at:
+            continue
+        # one at the start itself is the row re-keying must find, and refuses there
+        if rva < at < end or at < rva < at + int(row.get("size") or 0):
+            found.append(f"data_ledger.csv name {row.get('name')} at 0x{at:08X}+{row.get('size')} ({row.get('status')})")
     return found
 
 
@@ -6930,9 +6933,14 @@ def absorbed_rows(ctx, names, old_name, source, rva, size):
                           f"(0x{rva:08X}+{size})")
         if booked and _rva(booked[0].get("address")) != at:
             raise Refusal(f"data_ledger.csv puts {name} at {booked[0].get('address')}, its data row at 0x{at:08X}")
-        if (row[0] if row else booked[0]).get("source") != source:
-            raise Refusal(f"--absorb {name} is defined by {(row[0] if row else booked[0]).get('source')}, not {source}: "
-                          "the retype takes a row of its own unit")
+        if booked and at + int(booked[0].get("size") or 0) > rva + size:
+            raise Refusal(f"data_ledger.csv gives {name} {booked[0].get('size')} B at 0x{at:08X}: not wholly inside the "
+                          f"extent past its start (0x{rva:08X}+{size})")
+        # both records must agree; beside a data row, a ledger row with no source claims nothing
+        for claimed in [r.get("source") for r in row] + [r.get("source") for r in booked if r.get("source") or not row]:
+            if claimed != source:
+                raise Refusal(f"--absorb {name} is defined by {claimed or 'no source'}, not {source}: "
+                              "the retype takes a row of its own unit")
         if booked and {n for n in (booked[0].get("names") or "").split(";") if n} - {name}:
             raise Refusal(f"data_ledger.csv binds other spellings at {name}'s address ({booked[0].get('names')}): "
                           "reconcile them first")
@@ -7620,12 +7628,57 @@ def retype_reference_problems(ctx, retype):
     """Every absolute reference a rebuilt row makes into the extent goes through the new symbol
     at its start. The byte gate masks DIR32 operands, so a wrong addend (P35's table read at +0
     rather than +0x100) or another symbol placed inside the extent passes it: here retail's
-    pointer less the compiled addend must be the start."""
+    pointer less the compiled addend must be the start. A reference to the symbol anywhere else
+    in a rebuilt object must lie in a row too, a data row's initializer proven by data_rows.py,
+    and no object outside the rebuilt set may name the old, new or absorbed symbols: what cannot
+    be compared with retail refuses. A source with no current object is read by its text."""
     sys.path.insert(0, str(ctx.root / "tools"))
     import build
+    import data_rows
+    import name_dependents
+    import reloc_ledger
     start = IMAGE_BASE + retype["start"]
     end, sources, statics, problems = start + retype["size"], set(retype["sources"]), {}, []
-    for row in build.load_function_rows():
+    rows, datas = build.load_function_rows(), data_rows.load()
+    names = {retype["old"], retype["new"]} | {name for _word, name in retype["absorbed"]}
+    objects = name_dependents.merged(name_dependents._row_objects(rows), name_dependents._data_row_objects(datas))
+    for rel in sorted(name_dependents.dependents(names, objects, ctx.root) - sources):
+        problems.append(f"{rel} references {retype['word']} but this retype did not rebuild it")
+    spans = collections.defaultdict(list)            # {source: [(symbol, size, data row or None)]}
+    for row in rows:
+        if row["source"] in sources:
+            spans[row["source"]].append((build.ledger_object_symbol(row), int(row.get("target_size") or 0), None))
+    for row in datas:
+        if row.get("source") in sources:
+            spans[row["source"]].append((row["name"], int(row.get("size") or 0), row))
+    img, resolve = None, None
+    for rel in sorted(sources):
+        path = build.obj_path(ctx.path(rel))
+        if not path.exists():
+            problems.append(f"{rel} has no object to read its references from")
+            continue
+        sections, symbols = reloc_ledger.parse_coff(path.read_bytes())
+        where = {s["name"]: s for s in symbols.values() if s["section"] > 0}
+        for section in sections:
+            if section["name"].startswith(".debug"):
+                continue
+            for offset, index, _kind in section["relocs"]:
+                if symbols[index]["name"] != retype["new"]:
+                    continue
+                owners = [(size, row) for symbol, size, row in spans[rel] if symbol in where
+                          and where[symbol]["section"] == section["number"]
+                          and where[symbol]["value"] <= offset < where[symbol]["value"] + size]
+                if not owners:
+                    problems.append(f"{rel} references {retype['new']} at {section['name']}+{offset:#x}, where no row "
+                                    "says what retail holds: nothing can prove its addend")
+                for _size, row in owners:
+                    if row is not None:
+                        if img is None:
+                            img, resolve = reloc_ledger.Image(), data_rows.Resolver(datas)
+                        ok, message = data_rows.verify_row(row, img, resolve, compile=False)
+                        if not ok:
+                            problems.append(f"{row['name']}'s initializer references {retype['new']}: {message}")
+    for row in rows:
         if row["source"] not in sources:
             continue
         pairs = build._dir32_row_pairs(row, build.obj_path(ctx.path(row["source"])), statics)

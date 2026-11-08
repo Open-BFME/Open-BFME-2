@@ -1024,6 +1024,21 @@ def test_a_move_refuses_a_name_in_the_space_it_takes(route, extra, message):
         moved(route)
 
 
+@pytest.mark.parametrize("line,refused", [
+    ("0x00A00EFC,8,.data,global,?g_00A00EFC@@3_JA,,unowned,,0,3\n", True),     # the review's repro: four bytes over
+    ("0x00A00EFC,4,.data,global,?g_00A00EFC@@3IA,,unowned,,0,3\n", False),     # ends exactly at the new start
+])
+def test_a_ledger_extent_running_up_from_below_the_start(route, line, refused):
+    with open(route / "reverse/data_ledger.csv", "a") as f:
+        f.write(line)
+    _git(route, "add", "-A")
+    if refused:
+        with pytest.raises(Refusal, match=r"data_ledger.csv name \?g_00A00EFC@@3_JA at 0x00A00EFC\+8"):
+            moved(route)
+    else:
+        assert moved(route).retype["start"] == 0x00A00F00
+
+
 def test_a_move_refuses_a_data_row_in_the_space_it_takes(route):
     with open(route / "reverse/data_rows.csv", "a") as f:
         f.write(f"?g_00A00F80@@3HA,0x00A00F80,rva,4,.data,{OWNER},matched,x,m\n")
@@ -1191,6 +1206,30 @@ def test_an_absorbed_row_of_another_unit_refuses(route, monkeypatch):
         absorbing(route, monkeypatch)
 
 
+def test_an_absorb_needs_both_records_of_the_row_in_its_unit(route, monkeypatch):
+    """The review's repro: the data row says OWNER, the ledger row another source."""
+    add_inner(route)
+    write(route, "reverse/data_ledger.csv", LEDGER + f"0x00A01008,4,.data,global,{INNER},{USER},owned,,1,3\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="is defined by Code/Game/Register.cpp, not .*own unit"):
+        absorbing(route, monkeypatch)
+
+
+def test_an_absorb_refuses_a_ledger_extent_past_the_owners(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/data_ledger.csv", LEDGER + f"0x00A01008,16,.data,global,{INNER},{OWNER},owned,,1,3\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="gives .* 16 B at 0x00A01008: not wholly inside"):
+        absorbing(route, monkeypatch)
+
+
+def test_an_unsourced_ledger_row_does_not_disagree(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/data_ledger.csv", LEDGER + f"0x00A01008,4,.data,global,{INNER},,unowned,,0,3\n")
+    _git(route, "add", "-A")
+    assert absorbing(route, monkeypatch).retype["absorbed"] == [("g_00A01008", INNER)]
+
+
 def test_an_absorbed_row_with_other_ledger_spellings_refuses(route, monkeypatch):
     add_inner(route)
     write(route, "reverse/data_ledger.csv",
@@ -1267,41 +1306,127 @@ def test_object_check_refuses_an_absorbed_name_after_the_preprocessor(tree, obje
     assert problems and "still names g_00A01008 after the preprocessor" in problems[0]
 
 
+DIR32 = 6
+DATA_FLAGS, CODE_FLAGS, DEBUG_FLAGS = 0xC0300040, 0x60500020, 0x42100040
+
+
+def object_with(path, sections, symbols, relocations=None):
+    """A real COFF object; a symbol is (name, section number, value), external unless named .static."""
+    import link_cycle
+    link_cycle.write_coff(path, [(name, flags, body, 0) for name, flags, body in sections],
+                          [(n, sec, value, 2) for n, sec, value in symbols], relocations or {})
+    return path
+
+
 @pytest.fixture
-def references(tree, monkeypatch):
-    """retype_reference_problems over one row of OWNER, whose DIR32 pairs the test gives."""
+def references(tree, tmp_path, monkeypatch):
+    """retype_reference_problems over OWNER: one function row, whose DIR32 pairs the test gives,
+    in an object with no relocations until a test writes one to `made["obj"]`."""
     import build
+    import data_rows
+    import name_dependents
     pairs = []
+    made = {"obj": object_with(tmp_path / "plain.obj", [(".text", CODE_FLAGS, bytes(16))], [("?thunk@@YAXXZ", 1, 0)])}
     monkeypatch.setattr(build, "load_function_rows", lambda: [
-        {"name": "?thunk@@YAXXZ", "source": OWNER}, {"name": "?not_rebuilt@@YAXXZ", "source": "Code/Game/Other.cpp"}])
-    monkeypatch.setattr(build, "obj_path", lambda source: Path(source))
+        {"name": "?thunk@@YAXXZ", "source": OWNER, "target_size": "10", "notes": ""},
+        {"name": "?not_rebuilt@@YAXXZ", "source": "Code/Game/Other.cpp", "target_size": "10", "notes": ""}])
+    monkeypatch.setattr(build, "obj_path", lambda source: made["obj"])
     monkeypatch.setattr(build, "_dir32_row_pairs", lambda row, obj, statics: list(pairs) if row["source"] == OWNER else 1 / 0)
-    return tree, pairs
+    monkeypatch.setattr(data_rows, "load", lambda: made.get("datas", []))
+    monkeypatch.setattr(name_dependents, "dependents", lambda names, objects, root: made.get("dependents", set()))
+    return tree, pairs, made, tmp_path
 
 
 def test_references_at_the_start_pass(references):
-    tree, pairs = references
+    tree, pairs, _made, _tmp = references
     pairs += [(NEW, 0x00E01000), ("?other@@3HA", 0x00E02000), ("?low@@3HA", 0x00E00FFC)]
     assert rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER])) == []
 
 
 def test_a_reference_with_the_wrong_addend_refuses(references):
-    tree, pairs = references
+    tree, pairs, _made, _tmp = references
     pairs.append((NEW, 0x00E01100))                  # the old table's zero point, read at +0 rather than +0x100
     problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
     assert problems and "its addend is not its offset" in problems[0]
 
 
 def test_a_reference_through_another_symbol_inside_the_extent_refuses(references):
-    tree, pairs = references
+    tree, pairs, _made, _tmp = references
     pairs.append(("?alias@@3HA", 0x00E01008))
     problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
     assert problems and "inside the extent, through ?alias@@3HA" in problems[0]
 
 
+def test_a_data_section_reference_no_row_speaks_for_refuses(references):
+    """The review's repro: `unsigned char *saved = g_table;` beside a function with no relocations."""
+    tree, _pairs, made, tmp = references
+    made["obj"] = object_with(tmp / "saved.obj", [(".text", CODE_FLAGS, bytes(16)), (".data", DATA_FLAGS, bytes(4))],
+                              [("?thunk@@YAXXZ", 1, 0), ("?saved@@3PAEA", 2, 0), (NEW, 0, 0)],
+                              {2: [(0, NEW, DIR32)]})
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert problems and "at .data+0x0, where no row says what retail holds" in problems[0]
+
+
+def test_a_code_reference_outside_every_row_refuses(references):
+    tree, _pairs, made, tmp = references
+    made["obj"] = object_with(tmp / "code.obj", [(".text", CODE_FLAGS, bytes(16))],
+                              [("?thunk@@YAXXZ", 1, 0), (NEW, 0, 0)], {1: [(12, NEW, DIR32)]})
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert problems and "at .text+0xc, where no row says" in problems[0]
+
+
+def test_a_reference_inside_a_row_and_in_debug_data_passes(references):
+    tree, pairs, made, tmp = references
+    pairs.append((NEW, 0x00A01000 + rename.IMAGE_BASE))
+    made["obj"] = object_with(tmp / "row.obj", [(".text", CODE_FLAGS, bytes(16)), (".debug$S", DEBUG_FLAGS, bytes(8))],
+                              [("?thunk@@YAXXZ", 1, 0), (NEW, 0, 0)], {1: [(4, NEW, DIR32)], 2: [(0, NEW, 11)]})
+    assert rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER])) == []
+
+
+@pytest.mark.parametrize("ok,message", [(True, "fine"), (False, "the target differs from retail")])
+def test_a_data_row_initializer_is_held_to_data_rows(references, monkeypatch, ok, message):
+    import data_rows
+    import reloc_ledger
+    tree, _pairs, made, tmp = references
+    made["datas"] = [{"name": "?saved@@3PAEA", "source": OWNER, "size": "4", "address": "0x00A02000",
+                      "address_kind": "rva", "section": ".data", "status": "matched"}]
+    made["obj"] = object_with(tmp / "saved.obj", [(".text", CODE_FLAGS, bytes(16)), (".data", DATA_FLAGS, bytes(4))],
+                              [("?thunk@@YAXXZ", 1, 0), ("?saved@@3PAEA", 2, 0), (NEW, 0, 0)],
+                              {2: [(0, NEW, DIR32)]})
+    monkeypatch.setattr(reloc_ledger, "Image", lambda: None)
+    monkeypatch.setattr(data_rows, "Resolver", lambda rows: None)
+    monkeypatch.setattr(data_rows, "verify_row", lambda row, img, resolve, compile=True: (ok, message))
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert (problems == []) if ok else (problems and message in problems[0])
+
+
+def test_an_object_outside_the_rebuilt_set_refuses(references):
+    tree, _pairs, made, _tmp = references
+    made["dependents"] = {"Code/Game/Outside.cpp", OWNER}
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert len(problems) == 1 and "Code/Game/Outside.cpp references g_00A01000 but this retype did not rebuild" in problems[0]
+
+
+def test_the_scan_looks_for_every_spelling_the_retype_retires(references, monkeypatch):
+    import name_dependents
+    tree, _pairs, _made, _tmp = references
+    seen = []
+    monkeypatch.setattr(name_dependents, "dependents", lambda names, objects, root: seen.append(set(names)) or set())
+    assert rename.retype_reference_problems(ctx_of(tree), dict(retype_record([OWNER]),
+                                                               absorbed=[("g_00A01008", INNER)])) == []
+    assert seen == [{OLD, NEW, INNER}]
+
+
+def test_a_missing_object_is_never_a_pass(references):
+    tree, _pairs, made, tmp = references
+    made["obj"] = tmp / "never-built.obj"
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert problems and "has no object" in problems[0]
+
+
 def test_an_unreadable_body_is_never_a_pass(references, monkeypatch):
     import build
-    tree, _pairs = references
+    tree, _pairs, _made, _tmp = references
     monkeypatch.setattr(build, "_dir32_row_pairs", lambda row, obj, statics: None)
     problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
     assert problems and "cannot be read" in problems[0]
