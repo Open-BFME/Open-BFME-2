@@ -73,7 +73,7 @@ extern int BfmeLogicFramesPerSecond;	// logic frames per second
 #include "../../../../Include/GameLogic/Module/GarrisonContainModuleData.h"
 
 // The rowed base update 0x004640BE (OpenContain's, with the +0x10 this).
-class Rva004640BE
+class OpenContain
 {
 public:
 	virtual UpdateSleepTime update();
@@ -101,7 +101,7 @@ class UpdateModuleInterface
 public:
 	virtual UpdateSleepTime update() = 0;
 	// OpenContain's update (rowed 0x004640BE) takes this same +0x10 this.
-	int openContainUpdate() { return ((Rva004640BE *)this)->Rva004640BE::update(); }
+	int openContainUpdate() { return ((OpenContain *)this)->OpenContain::update(); }
 };
 
 class GarrisonContainUpdateModule : public GarrisonContainModule, public UpdateModuleInterface

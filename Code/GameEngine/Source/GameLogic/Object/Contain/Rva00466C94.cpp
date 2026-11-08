@@ -24,13 +24,13 @@ struct HealData {char pad[0x98];unsigned frames;};
 class DoorInterface {public:virtual void d0();virtual int reserve(void*,Object*);virtual void exit(Object*,int);};
 struct HealPrimary {void*vptr;HealData* data;char pad[0x30-8];DoorInterface doors;};
 enum UpdateSleepTime {UPDATE_SLEEP_NONE=1};
-class Rva004640BE {public:virtual UpdateSleepTime update();};
+class OpenContain {public:virtual UpdateSleepTime update();};
 #include "../../../../Include/GameLogic/Module/Rva0046247DPair.h"
 class Rva0046247D {public:void*rva0046247D(Rva0046247DPair&);};
 class Rva00466C04 {public:bool rva00466C04(Object*,unsigned);};
 class Rva00466C94 {public:virtual UpdateSleepTime update();private:__forceinline HealPrimary* owner(){return reinterpret_cast<HealPrimary*>(reinterpret_cast<char*>(this)-0x10);}};
 UpdateSleepTime Rva00466C94::update(){
- reinterpret_cast<Rva004640BE*>(this)->Rva004640BE::update();
+ reinterpret_cast<OpenContain*>(this)->OpenContain::update();
  const HealData* data=owner()->data;
  Rva0046247DPair pair;
  ContainmentList riders=reinterpret_cast<Rva0036AE51ListView*>(reinterpret_cast<Rva0046247D*>(owner())->rva0046247D(pair))->rva0036AE51();

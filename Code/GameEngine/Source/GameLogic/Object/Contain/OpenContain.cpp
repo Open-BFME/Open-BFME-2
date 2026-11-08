@@ -1035,27 +1035,8 @@ Rva00463736::Rva00463736(const unsigned char &srcByte, unsigned dummy) : Rva0046
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?OpenContain::update present-unmatched
-UpdateSleepTime OpenContain::update( void )
-{
-	m_playerEnteredMask = 0;
-
-	// we need to monitor changes in the art and position
-	monitorConditionChanges();
-
-	if( m_doorCloseCountdown )
-	{
-		/// @todo srj -- for now, OpenContain assumes at most one door
-		--m_doorCloseCountdown;
-		if( m_doorCloseCountdown == 0 )
-			getObject()->clearAndSetModelConditionState( MODELCONDITION_DOOR_1_OPENING, MODELCONDITION_DOOR_1_CLOSING );
-	}
-
-	if (!m_objectEnterExitInfo.empty())
-		pruneDeadWanters();
-
-	return UPDATE_SLEEP_NONE;
-}
+// OpenContain::update, 0x004640BE: the true body is rowed in Rva004640BERelease.cpp, because this unit's Object view
+// has no rva0028AE6D. The map approves this unit for it.
 
 //-------------------------------------------------------------------------------------------------
 /** Place the object at the 3D position of the next fire point to use */
@@ -1470,7 +1451,7 @@ template void _STL::_Rb_tree<Rva00463D9BElement, Rva00463D9BElement, _STL::_Iden
 
 // tu-skeleton: 0x00463E09 68B ?erase@?$_Rb_tree@HU?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp (not merged yet)
 
-// tu-skeleton: 0x004640BE 98B ?update@Rva004640BE@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004640BERelease.cpp (not merged yet)
+// tu-skeleton: 0x004640BE 98B ?update@OpenContain@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004640BERelease.cpp (not merged yet)
 
 // tu-skeleton: 0x00464120 145B ?onDelete@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp (not merged yet)
 

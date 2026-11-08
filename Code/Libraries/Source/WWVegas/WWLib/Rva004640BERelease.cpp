@@ -9,7 +9,8 @@
 // Structural inference: the -0x10 receiver view is shared with the rowed
 // Rva00463A81 prune method. The helper pin at 0x0046391B records only the
 // direct zero-argument thiscall ABI observed here; its body remains deferred.
-// Field names, owning class, and virtual-slot semantics remain address-derived.
+// Retail's table 0x00C43BE8 holds it at slot 0, so it is OpenContain::update. Field names and virtual-slot
+// semantics remain address-derived.
 
 #include "../../../../GameEngine/Source/GameLogic/Object/object.h"
 
@@ -47,13 +48,13 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class Rva004640BE
+class OpenContain
 {
 public:
 	virtual UpdateSleepTime update();
 };
 
-UpdateSleepTime Rva004640BE::update()
+UpdateSleepTime OpenContain::update()
 {
 	char *self = (char *)this;
 	*(unsigned int *)(self + 0x68) = 0;

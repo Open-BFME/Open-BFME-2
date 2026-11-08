@@ -151,10 +151,11 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
+// The structural base over the +0x10 interface; its update is OpenContain's, 0x004640BE, called qualified below.
 class Rva004640BE : public UpdateModuleInterface
 {
 public:
-	virtual UpdateSleepTime update();	// OpenContain's update, 0x004640BE
+	UpdateSleepTime openContainUpdate();
 };
 
 // The update interface's tail keeps the condition interface at full object
@@ -652,9 +653,15 @@ class Rva00464B96
 class OpenContain 
 {
  public: virtual void onRemoving(Object *);
+ public: virtual UpdateSleepTime update();
  
 }
 ;
+
+inline UpdateSleepTime Rva004640BE::openContainUpdate()
+{
+	return reinterpret_cast<OpenContain *>(this)->OpenContain::update();
+}
 
 template<int N> class Rva00467AB8Slots:public Rva00467AB8Slots<N-1> 
 {
@@ -1182,7 +1189,7 @@ UpdateSleepTime TransportContain::update()
 			}
 		}
 	}
-	UpdateSleepTime result = Rva004640BE::update();
+	UpdateSleepTime result = openContainUpdate();
 	slot30();
 	return result;
 }
