@@ -47,6 +47,50 @@ public:
     virtual void ReAcquireResources() = 0;
 };
 
+// One scorch mark (Zero Hour's TScorch, here a Snapshot). Target facts: retail table 0x00BC5CB4
+// (name getter 0x000665B9 returns "TScorch", xfer 0x00068D53); constructor 0x000665B0 stores it
+// and returns; the record is 28 bytes: four floats at +0x04..+0x10, an int at +0x14, a bool at +0x18
+// (xfer's view, SnapshotXfersBfme.cpp). BaseHeightMapRenderObjClass's constructor builds 500 of
+// them at +0xE0 through the EH vector constructor iterator (size 0x1C, count 0x1F4).
+class TScorch : public Snapshot
+{
+public:
+    TScorch();
+    virtual ~TScorch() {}
+    // Snapshot slots 1-3 follow the spelling the included Snapshot base selected, so they always override.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+    virtual void LoadPostProcess();
+#else
+    virtual void loadPostProcess();
+#endif
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+    virtual const char *GetSnapshotName();
+#else
+    virtual const char *GetSnapshotName() const;
+#endif
+#else
+    virtual void crc(Xfer *xfer);
+#endif
+protected:
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+    virtual void DoXfer(Xfer &xfer);
+#else
+    virtual void DoXfer(Xfer *xfer);
+#endif
+#else
+    virtual void xfer(Xfer *);
+#endif
+private:
+    float field04;
+    float field08;
+    float field0C;
+    float field10;
+    int field14;
+    bool field18;
+};
+
 class BaseHeightMapRenderObjClass : public RenderObjClass, public DX8_CleanupHook, public Snapshot
 {
 public:
@@ -140,7 +184,7 @@ public:
     RefCountPtr<TextureClass> field00D4;
     int m_curNumScorchVertices;
     int m_curNumScorchIndices;
-    char unknown00E0[0x36B0];
+    TScorch unknown00E0[500];
     int m_numScorches;
     int m_scorchesInBuffer;
     int field3798;
