@@ -7307,11 +7307,50 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
     return plan
 
 
+PREPROCESS_TIMEOUT = 300                             # seconds an attempt may take; a unit takes seconds
+MISSING_INCLUDE = b"Cannot open include file"
+
+
+def run_preprocessor(command, env, cwd, build, timeout):
+    """(return code or None when it timed out, stdout, stderr) of one `cl -E`. Output goes to named
+    files, never a pipe (try_compile_source's reason), and the whole tree is killed on the way
+    out. cl -E can spin forever under Wine after reporting C1083, so a missing include ends the
+    attempt as soon as it is reported."""
+    with tempfile.NamedTemporaryFile("w+b") as out, tempfile.NamedTemporaryFile("w+b") as err:
+        process = subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL, stdout=out, stderr=err,
+                                   start_new_session=True)
+        deadline = time.monotonic() + timeout
+        code = None
+        try:
+            while True:
+                try:
+                    code = process.wait(timeout=0.25)
+                    break
+                except subprocess.TimeoutExpired:
+                    with open(err.name, "rb") as reported:
+                        if MISSING_INCLUDE in reported.read():
+                            build.kill_process_tree(process)
+                            code = 1
+                            break
+                    if time.monotonic() >= deadline:
+                        build.kill_process_tree(process)
+                        break
+        except BaseException:                        # interrupted: never leave the compiler running
+            build.kill_process_tree(process)
+            raise
+        out.seek(0)
+        err.seek(0)
+        return code, out.read(), err.read()
+
+
 def preprocess_unit(ctx, rel, includes=None):
     """(text, None) of `rel` after the compiler's preprocessor (cl -E under the unit's own
     build command, no -c and no -Fo, so no object is written and build/match is
-    untouched), or (None, why). Given a list `includes`, the compiler's /showIncludes
-    notes fill it with the host path of every file the unit includes."""
+    untouched), or (None, why). Its inputs are the build's: like try_compile_source, a missing
+    include retries once with the sweep include directories, and a Wine launch that says nothing
+    retries. An attempt past PREPROCESS_TIMEOUT retries once, and a second one reports why. Given
+    a list `includes`, the compiler's /showIncludes notes fill it with the host path of every
+    file the unit includes."""
     sys.path.insert(0, str(ctx.root / "tools"))
     import build
     source = ctx.path(rel)
@@ -7325,21 +7364,40 @@ def preprocess_unit(ctx, rel, includes=None):
     command.insert(len(command) - 1, "-E")
     if includes is not None:
         command.insert(len(command) - 1, "-showIncludes")
-    try:
-        proc = subprocess.run(command, capture_output=True, env=env, cwd=str(ctx.root), timeout=900)
-    except (OSError, subprocess.TimeoutExpired) as error:
-        return None, f"the preprocessor did not run: {error}"
-    if proc.returncode:
-        return None, f"the preprocessor refused it: {proc.stderr.decode('latin-1', 'replace').strip()[-300:]}"
+    swept, launches, timeouts = False, 0, 0
+    while True:
+        try:
+            code, stdout, stderr = run_preprocessor(command, env, str(ctx.root), build, PREPROCESS_TIMEOUT)
+        except OSError as error:
+            return None, f"the preprocessor did not run: {error}"
+        if code is None:
+            timeouts += 1
+            if timeouts < 2:
+                continue
+            return None, f"the preprocessor timed out twice, {PREPROCESS_TIMEOUT} s each"
+        if code == 0:
+            break
+        if MISSING_INCLUDE in stderr and not swept and any(d.exists() for d in build._SWEEP_INCLUDE_DIRS):
+            swept = True
+            present = [d for d in build._SWEEP_INCLUDE_DIRS if d.exists()]
+            env = dict(env, INCLUDE=";".join([env["INCLUDE"]] + [build.wine_path(d) for d in present]))
+            command = command[:-1] + [f"-I{build.wine_path(d)}" for d in present] + command[-1:]
+            continue
+        said = stderr.decode("latin-1", "replace").strip()
+        if launches < 2 and (not (stdout.strip() or said) or "Application could not be started" in said
+                             or "ShellExecuteEx failed" in said):
+            launches += 1
+            continue
+        return None, f"the preprocessor refused it: {said[-300:]}"
     if includes is not None:
         note = "Note: including file:"
-        for line in proc.stderr.decode("latin-1").splitlines():
+        for line in stderr.decode("latin-1").splitlines():
             if line.startswith(note):
                 host = build._case_resolve(build._host_path(line[len(note):]))
                 if host is None:
                     return None, f"an included file cannot be found: {line.strip()[:200]}"
                 includes.append(host)
-    return proc.stdout.decode("latin-1"), None
+    return stdout.decode("latin-1"), None
 
 
 EXPRESSION_KEYWORDS = frozenset(("return", "sizeof", "case", "throw", "delete", "new", "else", "do", "co_return",

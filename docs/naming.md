@@ -1217,6 +1217,9 @@ python3 tools/rename.py global --name '?g_00E031A8@@3...' --new '?g_00E031A8@@3P
 Before the build, a retype asks the compiler which units spell the identifier: every unit that
 can reach any `##`, and every unit whose object is stale or missing, each preprocessed under its
 own build command, 8 at a time, with no cache, so a retype on a cold tree costs up to two hours.
+Its inputs are the build's, including the retry with the sweep include directories after a missing
+include. `cl -E` can spin forever under Wine after reporting C1083, so a report ends the attempt at
+once, and an attempt past 300 s is killed with its whole process tree and retried once.
 The whole output is searched as text, so string literals, `__identifier`, `__asm` and
 `#pragma comment(linker, ...)` count. The preprocessor leaves escapes and adjacent literals as
 written, so each literal is decoded on its own and then joined, and both the written and decoded

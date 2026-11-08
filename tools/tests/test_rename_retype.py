@@ -4,6 +4,7 @@ notes and data_ledger.csv row re-keyed, the bridging /alternatename and its hatc
 removed; and its refusals (overlap, non-zero retail bytes, a second definition, a
 surviving old symbol, a converged address, a compiler-built type). Retail bytes and
 verification are injected; the post-build object check runs on real COFF objects."""
+import os
 import re
 import subprocess
 import sys
@@ -1792,4 +1793,108 @@ def test_live_an_escaped_spelling_in_a_pragma_joins_the_rebuild(live):
         f.write(f"?e@@YAHXZ,,0x00406000,6,{unit},matched,\n")
     _git(tree, "add", "-A")
     assert unit in live_plan(tree).verify
+
+
+# ------------------------------------------------------------ preprocess_unit's inputs and limits
+# A stand-in compiler in a real process: what it does is the test's, the tree it runs in is real.
+
+FAKE_CL = r"""
+import os, sys, time
+script = sys.argv[1]
+args = sys.argv[2:]
+count = os.environ["FAKE_CL_COUNT"]
+with open(count, "a") as f:
+    f.write(" ".join(args) + "\n")
+tries = sum(1 for _ in open(count))
+if script == "hang":
+    time.sleep(600)
+if script == "hang_once" and tries == 1:
+    time.sleep(600)
+if script == "c1083_then_spin":
+    if not any(a.startswith("-Isweep") for a in args):
+        sys.stderr.write("x.cpp(9) : fatal error C1083: Cannot open include file: 'windows.h': No such file or directory\n")
+        sys.stderr.flush()
+        time.sleep(600)
+elif script == "c1083_always":
+    sys.stderr.write("x.cpp(9) : fatal error C1083: Cannot open include file: 'windows.h': No such file or directory\n")
+    sys.stderr.flush()
+    time.sleep(600)
+elif script == "silent_once" and tries == 1:
+    sys.exit(1)
+elif script == "error":
+    sys.stderr.write("x.cpp(3) : error C2143: syntax error\n")
+    sys.exit(2)
+sys.stdout.write("int preprocessed;\n")
+"""
+
+
+@pytest.fixture
+def fake_cl(tree, tmp_path, monkeypatch):
+    """Run preprocess_unit on `script` under FAKE_CL; returns (result, the argument lists it saw, seconds)."""
+    import time
+    import build
+    compiler, count = tmp_path / "fake_cl.py", tmp_path / "count.txt"
+    compiler.write_text(FAKE_CL)
+    sweep = tmp_path / "sweep"
+    sweep.mkdir()
+    monkeypatch.setattr(build, "_SWEEP_INCLUDE_DIRS", [sweep])
+    monkeypatch.setattr(build, "wine_path", lambda path: "sweep" if Path(path) == sweep else str(path))
+    monkeypatch.setattr(rename, "PREPROCESS_TIMEOUT", 1.5)
+
+    def run(script):
+        monkeypatch.setattr(build, "compiler_command", lambda source, output: (
+            [sys.executable, str(compiler), script, "-c", "-Fox.obj", "unit.cpp"],
+            dict(os.environ, INCLUDE="base", FAKE_CL_COUNT=str(count))))
+        started = time.monotonic()
+        result = rename.preprocess_unit(ctx_of(tree), OWNER)
+        seen = count.read_text().splitlines() if count.exists() else []
+        return result, seen, time.monotonic() - started
+    return run
+
+
+def test_a_missing_include_is_retried_with_the_builds_sweep_directories(fake_cl):
+    """The real run's hang: C1083 and then a spin. The build retries with these, so the scan must."""
+    (text, why), seen, seconds = fake_cl("c1083_then_spin")
+    assert why is None and text == "int preprocessed;\n"
+    assert len(seen) == 2 and "-Isweep" not in seen[0] and "-Isweep unit.cpp" in seen[1]
+    assert seconds < 1.5                                          # it never waited out the spin
+
+
+def test_a_missing_include_after_the_retry_refuses_without_waiting(fake_cl):
+    (text, why), seen, seconds = fake_cl("c1083_always")
+    assert text is None and "the preprocessor refused it" in why and "C1083" in why
+    assert len(seen) == 2 and seconds < 1.5
+
+
+def test_a_unit_that_hangs_times_out_twice_and_reports_it(fake_cl):
+    (text, why), seen, seconds = fake_cl("hang")
+    assert text is None and "timed out twice" in why
+    assert len(seen) == 2 and seconds < 10                        # killed, not waited for
+
+
+def test_a_hang_that_clears_on_the_retry_passes(fake_cl):
+    (text, why), seen, _seconds = fake_cl("hang_once")
+    assert why is None and text == "int preprocessed;\n" and len(seen) == 2
+
+
+def test_a_silent_launch_failure_is_retried(fake_cl):
+    (text, why), seen, _seconds = fake_cl("silent_once")
+    assert why is None and text == "int preprocessed;\n" and len(seen) == 2
+
+
+def test_a_real_error_is_not_retried(fake_cl):
+    (text, why), seen, _seconds = fake_cl("error")
+    assert text is None and "C2143" in why and len(seen) == 1
+
+
+def test_the_scan_refuses_on_a_unit_that_timed_out_and_prints_it(scanning, monkeypatch, capsys):
+    tree, state = scanning
+    unit = "Code/Game/Hangs.cpp"
+    add_unit(tree, unit, "int h;\n", 0x00405000)
+    state["stale"].add(unit)
+    monkeypatch.setattr(rename, "preprocess_unit", lambda ctx, rel: (
+        (None, "the preprocessor timed out twice, 300 s each") if rel == unit else ("", None)))
+    with pytest.raises(Refusal, match=r"1 unit\(s\) did not preprocess.*Code/Game/Hangs.cpp"):
+        plan(tree)
+    assert "did not preprocess: Code/Game/Hangs.cpp: the preprocessor timed out twice" in capsys.readouterr().out
 
