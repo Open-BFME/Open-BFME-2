@@ -2,6 +2,17 @@
 
 Status: Blocked on class and table reconciliation. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
 
+**2026-11-08 current constructor and vbtable boundary:** Rva005E39F3Ctor.cpp
+now reports LINKS, 289->289 authored bytes against index f4727bbd09; all six
+code rows and two EH graphs pass. The picker's first no-retail-slots refusal
+is the ??_8 virtual-base table at 0x00877C94. Its compiled and retail offsets
+are exactly (0,36), with no relocations. data_ledger intentionally gives
+vbtables kind=vtable, and the positive-slot bridge selector incorrectly
+includes them. A false reject is banked before any tooling edit; no source,
+ledger or queue is changed. The two eight-slot ??_7 tables and the wider
+class/thunk ownership scope remain pending the next real link.
+[Exact offset data and repair boundary](../../reverse/attempt_support/army-icon-vbtable-selector-20261108/README.md).
+
 **2026-10-29 constructor preview (`9df8832b7d`):** The current object
 retains 0 of 130 authored bytes against index `840db2d676`, with ten
 unresolved references. These include the real ArmyHeroIcon destructor, the

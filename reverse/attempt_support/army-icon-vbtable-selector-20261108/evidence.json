@@ -1,0 +1,14 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp",
+  "name": "??_8Rva005E3BD5@@7BArmyHeroIcon@StrategicInGameUI@@@",
+  "address": "0x00877C94",
+  "compiled": "0000000024000000",
+  "native": "0000000024000000",
+  "signed_offsets": [
+    0,
+    36
+  ],
+  "relocations": [],
+  "vbtable_only_rows": 34,
+  "selector_result": true
+}

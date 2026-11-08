@@ -23,3 +23,10 @@ targets as `Rva005E39F3`/`Rva005E3BD5` overrides so the compiler-emitted vtordis
 COMDATs replace the placeholder rows.
 Clearance: not cleared.
 Census confirmation: not applicable.
+
+2026-11-08: the current Rva005E39F3Ctor.cpp preview now LINKS (289->289
+authored bytes, index f4727bbd09); all six rows and two EH graphs are exact.
+The served ??_8 no-retail-slots refusal is a separate tooling false reject:
+native and compiled vbtable offsets are both (0,36). Neither this preview
+nor the valid offset table clears the two actual eight-slot function tables.
+See [the scoped evidence](../../reverse/attempt_support/army-icon-vbtable-selector-20261108/README.md).
