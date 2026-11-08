@@ -20,14 +20,14 @@ opaque `Rva...Vec` owners. Every constructor still matches; emitted slots were c
 the bridge queue's retail targets.
 Completed (commits 3db87a43ad..273aaff9b5): LightningDraw, LightningEmission,
 DefaultModuleTemplate<0>, <1>, <2>, <3>, <6>, CylindricalEmissionVelocity, OrthoEmissionVelocity,
-SphericalEmissionVelocity, OutwardEmissionVelocity, TerrainFireEmission, QuadDraw, StreakDraw.
+SphericalEmissionVelocity, OutwardEmissionVelocity, TerrainFireEmission, QuadDraw, StreakDraw;
+RenderObjectUpdate in c1611d4466 (its template header selects the capitalized Snapshot slots before
+including `RenderObjectUpdateModuleInfo.h`).
 Butterfly's copy constructor now names `DefaultModuleTemplate<6>`'s real +0 table through its
 existing alternatename.
 Remaining / next check:
 - ButterflyDraw: its default-constructor unit was held by another worker on 2026-11-08 (it views
   the info through `SecondaryModuleBase`/`ModuleInfo`).
-- RenderObjectUpdate: `RenderObjectUpdateModuleInfo.h` spells the Zero Hour slots
-  (`loadPostProcess`, protected `xfer(Xfer *)`); it needs the capitalized BFME 2 slots first.
 - Box, Point and Sphere EmissionVolume: their default constructors live in
   `FXParticleSystem.cpp`'s own views (59, 41 and 49 bytes), so only the copy constructors can adopt
   a header until that unit is reconciled.
