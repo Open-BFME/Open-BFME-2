@@ -306,3 +306,39 @@ canonical UpdateModule: the compiler installs `??_7DamageFieldUpdate`'s three ta
 
 **Open: slot 2.** `rename.py function --to-class DamageFieldUpdate --new ?GetSnapshotName@DamageFieldUpdate@@MBEPBDXZ` for
 0x0049125E plans and builds exact, then its post-build check refuses because slot 1 differs. Recorded as a false reject.
+
+**2026-11-08: slot 2 returns the base's name (packet P41; not a boot stop).** A class moved to real tables by this entry's or
+LINK-514's recipe inherits its base's `GetSnapshotName`, where retail's table holds the class's own getter: the getter is rowed
+under a non-virtual or placeholder name, so nothing overrides the slot. Classes: DamageFieldUpdate ("UpdateModule"),
+SpawnedModelConditionCreate ("CreateModule"), and LINK-514's Wall 1 (HeightDieUpdate, BoredUpdate, StealthDetectorUpdate and the rest of
+that recipe); RunOffMapBehavior when it lands.
+
+- **The reader.** `GameState::addPostProcessSnapshot` (0x002DCF6C, GameStatePostProcess.cpp:106) is the only reader in our source.
+  It compares the name with exactly two strings: "Object" goes to the front of the post-process list, "Weapon" is left off it, the
+  rest go to the back. A module that returns its base's name takes the same branch as under its own name.
+- **The two names that matter.** `Object`'s getter is rowed and its table holds it. `Weapon`'s is not: retail table 0x00C0214C holds
+  0x002CC2F6, rowed as the free function `?Rva002CC2F6Get@@YAHXZ`, and `??_7Weapon@@6B@` in WeaponCtor.cpp and WeaponDtor.cpp has
+  `__purecall` in slots 1-3 (`bfmeSnapshotSlot1..3`). Real link 0448c6d48c bridges that table from retail's slots, so today's image
+  returns "Weapon". Once the bridge retires it, the first Weapon a load reaches calls `__purecall`.
+- **The bridge.** The same applies to the module tables: where the bridge binds `??_7Class`, the image has retail's slot 2. This entry's
+  repaired classes get that binding from the next ledger regeneration (their rows are still address-named `global`s).
+- **Not compared.** No save/load has been run. Other readers under other spellings are not excluded: a scan of retail's `call [reg+8]`
+  sites followed by a string-taking call found 85, and the 30 I read are not Snapshots, but it is not a census. CRC: no reader in our
+  source, not checked against retail's XferCRC.
+
+**Family size** (`mov eax,imm32; ret` at slot 2 of a table in retail, a string as the result):
+
+| Row today | Getters |
+|---|---:|
+| already `GetSnapshotName` | 140 |
+| `?name@C@@QBEPBDXZ`, on the class the string names | 96 |
+| `?name@RvaNNNNamed@@QBEPBDXZ`, a placeholder class | 197 |
+| `?RvaNNNNGet@@YAHXZ`, a free function | 289 |
+| other | 1 |
+
+**A mechanical fix, as a tool change.** The string itself proves the class, and the slot's name comes from the class's declaration, the
+evidence `rename.py function --to-class` already accepts. That route takes placeholder-class members (197). It refuses a row already on
+the class ("is already a member": the 96, and RunOffMapBehavior's `rva00462213`) and has not been tried on a free function (289). Teaching
+it those two shapes, and letting its post-build check follow a `jmp` thunk (the DamageFieldUpdate false reject), would let a batch respell
+each class's getter as that class gains real tables. A class without an installer that compiles its table gains nothing yet, so this
+follows the family rather than replacing it.
