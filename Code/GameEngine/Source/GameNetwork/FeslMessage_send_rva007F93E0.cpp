@@ -5,7 +5,8 @@
 
 typedef unsigned char Byte;
 
-extern int vftable_011296B0;
+// VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
+extern "C" char __identifier("??_7BfmeMsgVJH@@6B@");
 
 class Rva007E86B0Base
 {
@@ -82,7 +83,7 @@ void *Rva007F93E0( void *rawMessage, void *rawRoute, void *rawConnection )
 	int message20 = message->m_20;
 	envelope.m_prefix.m_00 = message->m_1c;
 	char *messageBuffer = message->m_10;
-	*(volatile int *)&envelope.m_tail = (int)&vftable_011296B0;
+	*(volatile int *)&envelope.m_tail = (int)&__identifier("??_7BfmeMsgVJH@@6B@");
 	envelope.m_1c = 0;
 	envelope.m_20 = 0;
 	envelope.m_tail.m_field04 = 0;

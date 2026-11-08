@@ -99,7 +99,6 @@ private:
     unsigned int m_sixth;
 };
 
-extern void *g_bfmeVftTUA[];
 
 extern "C" void *__identifier("??_7Rva00CE12FCMutex@@6B@")[];
 
@@ -479,7 +478,6 @@ void *BfmeThingTVC::bfmeDelTVC(unsigned char flags)
 	return this;
 }
 
-// ?g_bfmeVftTUA@@3PAPAXA: the global at VA 0xce0f20 is ?vftable_011296B0@@3HA.
 
 
 

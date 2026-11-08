@@ -4,7 +4,8 @@
 #include <windows.h>
 #include <new>
 
-extern void *g_bfmeVftTUA[];
+// VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
+extern "C" char __identifier("??_7BfmeMsgVJH@@6B@");
 
 class BfmeSubTUA
 {
@@ -36,7 +37,7 @@ BfmeThingTUA::BfmeThingTUA()
 	s->m_bfme08 = 0;
 	s->m_bfme0c = 0;
 	s->m_bfme04 = 0;
-	s->m_bfmeVft = g_bfmeVftTUA;
+	s->m_bfmeVft = (void **)&__identifier("??_7BfmeMsgVJH@@6B@");
 	m_bfme00 = 0;
 	m_bfme04 = 0;
 	m_bfme0c = 0;
@@ -98,6 +99,4 @@ void *BfmeThingTVB::bfmeDelTVB(unsigned char flags)
 class GenAlloc; GenAlloc *Gen007EFFC0();
 void bfmeFreeTVC(void *p, int n);
 
-// ?g_bfmeVftTUA@@3PAPAXA: the global at VA 0xce0f20 is ?vftable_011296B0@@3HA.
-#pragma comment(linker, "/alternatename:?g_bfmeVftTUA@@3PAPAXA=?vftable_011296B0@@3HA")
 

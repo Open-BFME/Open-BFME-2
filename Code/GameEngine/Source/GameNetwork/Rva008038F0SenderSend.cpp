@@ -1,14 +1,15 @@
 // cl: /GX-
 // ?send@Rva008038F0Sender@@QAEXPAVBfmeC994@@@Z 0x0066F930 123B
 // FESL send via connection slot 3. Envelope prefix copies message +0x10/+0x14/+0x1c/+0x20.
-// Tail vptr overwritten to vftable_011296B0 (VA 0x00CE0F20). Connection is *(this+0x10)+4.
+// Tail vptr overwritten to the FESL message base table (VA 0x00CE0F20). Connection is *(this+0x10)+4.
 // Callees rowed/pinned: ??0Rva007E86B0Base (0x00655770) ??1Rva007E86B0Base (0x00655780).
 // Callers include ?bfmeUseSA@BfmeSinkSA (0x0067509C) ?bfmeSendSKA@BfmeSinkSKA ?process@Gen0080AB50.
 // Volatile m_owner forces early esi load plus lea ecx [esi+4] matching retail schedule.
 
 typedef unsigned char Byte;
 
-extern int vftable_011296B0;
+// VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
+extern "C" char __identifier("??_7BfmeMsgVJH@@6B@");
 
 class Rva007E86B0Base
 {
@@ -89,7 +90,7 @@ void Rva008038F0Sender::send( BfmeC994 *message )
 	envelope.m_prefix.m_04 = message->m_field20;
 	envelope.m_prefix.m_08 = message->m_buffer;
 	envelope.m_prefix.m_0c = message->m_size;
-	*(volatile int *)&envelope.m_tail = (int)&vftable_011296B0;
+	*(volatile int *)&envelope.m_tail = (int)&__identifier("??_7BfmeMsgVJH@@6B@");
 	envelope.m_1c = 0;
 	envelope.m_20 = 0;
 	envelope.m_tail.m_field04 = 0;

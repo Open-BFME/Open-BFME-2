@@ -20,14 +20,15 @@ private:
 	int m_04;
 };
 
-extern int vftable_011296B0;
+// VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
+extern "C" char __identifier("??_7BfmeMsgVJH@@6B@");
 
 class HubSub : public Rva7F4CC0Child
 {
 public:
 	HubSub()
 	{
-		*(int *)this = (int)&vftable_011296B0;
+		*(int *)this = (int)&__identifier("??_7BfmeMsgVJH@@6B@");
 		m_08 = 0;
 		m_0C = 0;
 		*(int *)((char *)this + 4) = 0;
@@ -188,8 +189,6 @@ ServiceHubImpl::ServiceHubImpl(void *a, void *b, void *c, void *d, void *e, void
 	init();
 }
 
-// ?vftable_011296B0@@3HA: matched references place it at VA 0xce0f20; also referenced as ?g_bfmeVftTUA@@3PAPAXA.
-int vftable_011296B0 = 10892336;
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

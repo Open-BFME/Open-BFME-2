@@ -197,14 +197,15 @@ public:
 	int m_04;
 };
 
-extern int vftable_011296B0;
+// VA 0x00CE0F20 is the FESL message base table, emitted as BfmeMsgVJH's.
+extern "C" void (__cdecl *const __identifier("??_7BfmeMsgVJH@@6B@")[1])(void);
 
 class Rva00800780Addr : public Rva7F4CC0Child
 {
 public:
 	Rva00800780Addr()
 	{
-		*(int *)this = (int)&vftable_011296B0;
+		*(int *)this = (int)&__identifier("??_7BfmeMsgVJH@@6B@");
 		m_08 = 0;
 		m_0C = 0;
 		*(int *)( (char *)this + 4 ) = 0;
