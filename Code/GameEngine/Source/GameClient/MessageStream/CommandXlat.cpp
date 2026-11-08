@@ -95,15 +95,7 @@ class Drawable { public: char pad00[0xfc]; Object* m_object; Object* getObject()
 class PlayerTemplate { public: char pad00[0xe4]; AsciiString m_beaconTemplate; const AsciiString& getBeaconTemplate() const { return m_beaconTemplate; } };
 class Team;
  enum Relationship { CONTEXT_ALLY,CONTEXT_ENEMY,CONTEXT_NEUTRAL };
-class Player { public: char pad00[4]; PlayerTemplate* m_playerTemplate;
- const PlayerTemplate* getPlayerTemplate() const { return m_playerTemplate; }
- Relationship getRelationship(const Team*) const; Object* findNaturalCommandCenter(); Object* rva002AC629();
- bool isPlayerActive() const;
- Object* rva000D4660(bool,Object**) const;
- int rva002ABCF0(unsigned char,int*);
- int iterateObjects(int (*)(Object*,void*),void*) const;
- void countObjectsByThingTemplate(int,const ThingTemplate* const*,bool,int*,bool) const;
-};
+#include "../../../Include/Common/Player.h"
 class PlayerList { public: char pad00[0xc]; Player* m_localPlayer; Player* getLocalPlayer() const { return m_localPlayer; } };
 #include "../../../Include/GameClient/ControlBar.h"
 // TU-local field view of retail's GlobalData; the one writable global at

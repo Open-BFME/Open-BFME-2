@@ -219,8 +219,7 @@ class AudioManager0029E159 { public:virtual void slot0()=0;virtual void slot1()=
 class ProjectedShadowManager;
 extern ProjectedShadowManager *TheProjectedShadowManager;
 
-class Player { public: __forceinline int getPlayerIndex() const {return index;}
- char pad00[0x54];int index;char pad58[0x280-0x58];unsigned color; };
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 
@@ -590,7 +589,7 @@ void RadiusDecalTemplate::createRadiusDecal(const Coord3D &pos,float radius,cons
  out.m_shadow=((AudioManager0029E159 *)TheProjectedShadowManager)->create(&descriptor);
  if(out.m_shadow) {
   out.m_shadow->setAngle(0.0f);
-  unsigned c=m_color?m_color:player->color;
+  unsigned c=m_color?m_color:player->m_color;
   out.m_shadow->setColor((int)c);
   out.m_shadow->setPosition(pos);
   if(radius>110.0f) out.m_shadow->at64=true;

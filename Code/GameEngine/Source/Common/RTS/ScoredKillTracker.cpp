@@ -84,7 +84,7 @@ struct GameLogic0055AA06
 // The unknown scalar0C acts as a player-acceptance mask here. No-player
 // objects require all20 bits. The filter receives the keeper player only
 // when the existing signed index is nonnegative. All callees already owned.
-class Player {public:char opaque[0x54];int index;};
+#include "../../../Include/Common/Player.h"
 
 #include "../../../Include/Common/PlayerList.h"
 
@@ -142,7 +142,7 @@ const char *ScoredKillTracker::GetSnapshotName() const {return "ScoredKillTracke
 
 bool ScoredKillTracker::rva0055A892(const Object*object){
  Player*player=object->getControllingPlayer();
- if(player){if(!(m_value0c&(1u<<player->index)))return false;}
+ if(player){if(!(m_value0c&(1u<<player->m_playerIndex)))return false;}
  else if(m_value0c!=0xFFFFF)return false;
  Player*owner=0;if(m_playerIndex>=0)owner=ThePlayerList->getNthPlayer(m_playerIndex);
  return ((Rva2225E0Filter*)&m_filter)->accepts((Object*)object,owner);

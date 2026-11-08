@@ -664,13 +664,7 @@ public:
 
 #include "../GameLogic/Object/object.h"
 
-class Player
-{
-public:
-	bool rva002AA245() const; // 0x002AA245
-	char m_pad00[0x2EC];
-	Team *m_2EC; // +0x2EC +0x2EC
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
@@ -700,7 +694,7 @@ Object *TerrainLogic::rva00283D70(const Coord3D *pos)
 		if (thingTemplate) {
 			CreateMask mask;
 			memset(&mask, 0, sizeof(mask));
-			Team *team = ThePlayerList->m_players[0]->m_2EC;
+			Team *team = ThePlayerList->m_players[0]->m_defaultTeam;
 			obj = TheThingFactory->newObject(thingTemplate, team, &mask, (ObjectID)0);
 			obj->teleportTo(reinterpret_cast<const Coord3D *>(rec), false);
 		}

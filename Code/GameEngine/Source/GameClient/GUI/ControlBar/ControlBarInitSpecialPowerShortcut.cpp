@@ -132,20 +132,7 @@ extern GameWindowManager *TheWindowManager;
 
 #include "../../../../Include/Common/PlayerTemplate.h"
 
-class Player
-{
-public:
-	const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
-	// LINK: same-body helper under a TU-unique name (identical inlined bytes);
-	// the getPlayerTemplate copy loses to the first-in-order copy. No flags touched.
-	const PlayerTemplate *bfme_player_template_scs() const { return m_playerTemplate; }
-	Bool isLocalPlayer() const;
-	Bool isPlayerActive() const;
-
-private:
-	char m_unmodelled00[0x34];
-	const PlayerTemplate *m_playerTemplate;        // target+0x34
-};
+#include "../../../../Include/Common/Player.h"
 
 #include "ControlBarMemberTypes.h"
 enum CommandButtonMappedBorderType
@@ -402,7 +389,7 @@ void ControlBar::rva0031BAC3(Player *player)
 	}
 	m_specialPowerShortcutParent = 0;
 	m_currentlyUsedSpecialPowersButtons = 0;
-	const PlayerTemplate *pt = player->bfme_player_template_scs();
+	const PlayerTemplate *pt = player->getPlayerTemplate();
 
 	if (!pt || !player->isLocalPlayer()
 			|| pt->getSpecialPowerShortcutButtonCount() == 0

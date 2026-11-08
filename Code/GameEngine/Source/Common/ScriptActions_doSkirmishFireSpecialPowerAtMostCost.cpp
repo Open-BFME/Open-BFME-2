@@ -27,15 +27,7 @@ extern SpecialPowerStore *TheSpecialPowerStore;
 
 extern PlayerList *ThePlayerList;
 
-class Player
-{
-public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual bool v04(const SpecialPowerTemplate *tmpl, void *out, void *unk, float f);
-};
+#include "../../Include/Common/Player.h"
 
 class ScriptActions
 {
@@ -50,7 +42,7 @@ void ScriptActions::doSkirmishFireSpecialPowerAtMostCost(const AsciiString &asci
 	Player *enemy = TheScriptEngine->getSkirmishEnemyPlayer();
 	if (enemy == 0)
 		return;
-	void *unk54 = *(void **)((char *)enemy + 0x54);
+	int unk54 = enemy->m_playerIndex;
 	const SpecialPowerTemplate *specialPowerTemplate = TheSpecialPowerStore->findSpecialPowerTemplate(powerName);
 	if (specialPowerTemplate == 0)
 		return;
@@ -69,7 +61,7 @@ void ScriptActions::doSkirmishFireSpecialPowerAtMostCost(const AsciiString &asci
 		player = ThePlayerList->getEachPlayerFromMask(mask);
 		if (player != 0) {
 			char out[12];
-			player->v04(specialPowerTemplate, out, unk54, costLimit);
+			player->computeSuperweaponTarget(specialPowerTemplate, (Coord3D *)out, unk54, costLimit);
 			if (FireSpecialPowerAtPosition(asciiString, specialPowerTemplate, (const Coord3D *)out))
 				return;
 		}

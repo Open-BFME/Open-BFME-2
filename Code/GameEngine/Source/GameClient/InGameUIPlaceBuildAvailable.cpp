@@ -4,7 +4,7 @@
 // semantic spine; target independently adds owned placement resources588,
 // collector DFEDFC, ModelConditionFlags bit108 and port/ordinary stage9C8.
 class ThingTemplate {public:char p[0x118];unsigned kinds;char q[0x4d0-0x11c];float placementAngle;};
-class Player {public:char p[0x280];int color,nightColor;};
+#include "../../Include/Common/Player.h"
 class Object {public:Player*getControllingPlayer()const;char p[4];const ThingTemplate*tmpl;char q[0x74-8];unsigned id;};
 #include "../Common/Thing/thing.h"
 #include "../../Include/GameClient/Drawable.h"
@@ -52,7 +52,7 @@ void InGameUI::placeBuildAvailable(const ThingTemplate*build,Drawable*buildDrawa
    mouseMode=1;mouseCursor=Mouse::CROSS;
    TheMouse->capture();setMouseCursor(Mouse::CROSS);
    Drawable*draw=(Drawable*)TheThingFactory->newDrawable((void*)build,8,-1);
-   if(source){if(TheWritableGlobalData->timeOfDay==4)draw->setIndicatorColor(source->getControllingPlayer()->nightColor);else draw->setIndicatorColor(source->getControllingPlayer()->color);}
+   if(source){if(TheWritableGlobalData->timeOfDay==4)draw->setIndicatorColor(source->getControllingPlayer()->m_nightColor);else draw->setIndicatorColor(source->getControllingPlayer()->m_color);}
    float angle=build->placementAngle;draw->setOrientation(angle);draw->field_0b0=0.45f;
    draw->rva002791E7(*(const ModelConditionFlags*)&Rva0028F59A(0,108),1,0);
    icons[0].draw=draw;icons[0].angle=angle;

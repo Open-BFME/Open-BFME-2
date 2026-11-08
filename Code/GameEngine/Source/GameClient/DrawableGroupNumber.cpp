@@ -25,20 +25,7 @@ public:
 	Int rva002AA191(const Object *object);
 };
 
-class Player
-{
-public:
-	Int getPlayerColor() const { return m_color; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getPlayerColor copy loses to the first-in-order copy
-	// (no retail address); the call below inlines it but still emits the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched, no layout claim.
-	Int bfme_player_color() const { return m_color; }
-private:
-	char m_pad000[0x280];
-	Int m_color;
-};
+#include "../../Include/Common/Player.h"
 
 #include "../Common/Thing/thing.h"
 
@@ -170,7 +157,7 @@ void Rva00273C47Host::rva00273C47()
 	Int color;
 	{
 		DrawGroupInfo *colorInfo = TheDrawGroupInfo;
-		color = colorInfo->m_usePlayerColor ? player->bfme_player_color() : colorInfo->m_colorForText;
+		color = colorInfo->m_usePlayerColor ? player->getPlayerColor() : colorInfo->m_colorForText;
 	}
 	if (groupNumber <= -1 || groupNumber >= 10)
 		return;

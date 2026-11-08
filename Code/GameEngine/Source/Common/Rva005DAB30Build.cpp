@@ -69,13 +69,7 @@ enum BuildableStatus { BSTATUS_YES, BSTATUS_IGNORE_PREREQUISITES, BSTATUS_NO, BS
 class Rva005DAB30Production {
 public: virtual void v0(); virtual void v1(); virtual void v2(); virtual bool busy();
 };
-class Player {
-public:
- bool allowedToBuild(const ThingTemplate *) const;
- bool canBuild(const ThingTemplate *) const;
- unsigned char rva002AA00C(ThingTemplate *, int);
- char unknown[0x5C]; int type;
-};
+#include "../../Include/Common/Player.h"
 class Object {
 public: Player *getControllingPlayer() const; void *rva0028BCF4() const;
 };
@@ -85,7 +79,7 @@ int Rva005DAAB6::rva005DAB30(Player *player)
  Object *object = TheGameLogic->findObjectByID(m_08);
  if (objectTemplate && object && player->allowedToBuild(objectTemplate)) {
   BuildableStatus status = m_command->rva0035B570()->getBuildable();
-  if (status == BSTATUS_NO || (status == BSTATUS_ONLY_BY_AI && object->getControllingPlayer()->type != 1)) return 9;
+  if (status == BSTATUS_NO || (status == BSTATUS_ONLY_BY_AI && object->getControllingPlayer()->m_playerType != 1)) return 9;
   Rva005DAB30Production *production = (Rva005DAB30Production *)object->rva0028BCF4();
   if (production && !production->busy() && player->canBuild(objectTemplate))
    return player->rva002AA00C((ThingTemplate *)objectTemplate, 0) ? 0 : 2;

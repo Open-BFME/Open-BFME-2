@@ -92,13 +92,7 @@ public:
 	Player *getNthPlayer(int i);
 };
 extern PlayerList *ThePlayerList;
-class Player
-{
-public:
-	Relationship getRelationship(const Team *t) const;
-	char m_pad00[0x280];
-	int m_280; // +0x280
-};
+#include "../../../Include/Common/Player.h"
 #include "../GameLogicObjectLookupView.h"
 class Rva00373EC6
 {
@@ -1231,7 +1225,7 @@ alloc:
 	if(useAlt || alt==0)
 		mod->m_color=rva002D7BFD(object->getIndicatorColor());
 	else
-		mod->m_color=rva002D7BFD(alt->m_280);
+		mod->m_color=rva002D7BFD(alt->m_color);
 	object->m_radarData = mod;
 	bool local = object->isLocallyControlled();
 	RadarObject **headp;
@@ -1474,7 +1468,7 @@ void Rva002D7FAEOwner::rva002D7FAE(Object *obj)
 	}
 	return;
 FOUND:
-	node->m_0c = rva002D7BFD(player->m_280);
+	node->m_0c = rva002D7BFD(player->m_color);
 }
 
 int rva002D7BFD(int color) {

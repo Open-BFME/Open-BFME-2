@@ -15,14 +15,7 @@ enum KindOfType
 }
 ;
 
-class Player
-{
- public:char pad[0x54];
- int index;
- bool isLocalPlayer()const;
- 
-}
-;
+#include "../../Include/Common/Player.h"
 struct DamageInfo
 {
  char pad0[8];
@@ -168,7 +161,7 @@ void Drawable::rva0027B18C(DamageInfo*damage)
  if((obj->data->flag10e&0x40)&&(obj->data->flag118&0x40))return;
  Player*player=obj->getControllingPlayer();
  const BfmeDamageTemplate*templ=data;
- if(!(damage->amount>0.0f)||damage->damageType==10||damage->damageType==7||damage->p1c==22||damage->p18==2||(damage->playerMask&(1<<player->index))||!player->isLocalPlayer())return;
+ if(!(damage->amount>0.0f)||damage->damageType==10||damage->damageType==7||damage->p1c==22||damage->p18==2||(damage->playerMask&(1<<player->m_playerIndex))||!player->isLocalPlayer())return;
  if(damage->report)
  {
   if(obj->radarInfo)TheRadar->tryUnderAttackEvent(obj);

@@ -7,7 +7,7 @@
 class Player;
 #include "../../../../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
-class Player {public: bool isLocalPlayer() const; char unknown00[0x54];int index;};
+#include "../../../../../Include/Common/Player.h"
 class BfmeMemberRV {public: bool bfmeAskRV();};
 class Rva0050F0AB {public: char unknown00[0x6c];unsigned amount;void rva0050F2AF(unsigned);};
 class Rva0050F041;
@@ -96,8 +96,8 @@ void Rva0050F5A6::rva0050EB0A(const char *unused){
   if(amount>0){
    GameMessage *message=TheMessageStream->appendMessage(0x466);
    if(message){
-    message->appendIntegerArgument(local->index);
-    message->appendIntegerArgument(player->index);
+    message->appendIntegerArgument(local->m_playerIndex);
+    message->appendIntegerArgument(player->m_playerIndex);
     message->appendIntegerArgument(amount);
    }
   }

@@ -193,12 +193,7 @@ struct TeamPrototype
 #include "../../../Include/Common/TeamFactory.h"
 extern TeamFactory *TheTeamFactory;
 
-class Player
-{
-public:
-	char m_pad000[0x33D];
-	bool m_33d;	// +0x33D
-};
+#include "../../../Include/Common/Player.h"
 
 enum Relationship
 {
@@ -358,7 +353,7 @@ bool Rva00369FDFGuardMachine::lookForInnerTarget()
 			if (!owner->rva0028AFBB())
 			{
 				target = TheAI->findClosestEnemy(owner, visionRange, 0x4A, owner->getAI()->getAttackInfo(), 0, 0);
-				if (!target && owner->getControllingPlayer() && owner->getControllingPlayer()->m_33d)
+				if (!target && owner->getControllingPlayer() && owner->getControllingPlayer()->m_unitsShouldHunt)
 					target = TheAI->findClosestEnemy(owner, visionRange, 0x4A, 0, 0, 0);
 			}
 			if (!target || (area && !f2.allow(target)))

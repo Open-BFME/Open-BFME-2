@@ -164,12 +164,7 @@ public:
 
 extern TeamFactory *TheTeamFactory;
 
-class Player
-{
-public:
-	char m_pad[0x5C];
-	Int m_5c;
-};
+#include "../../../Include/Common/Player.h"
 
 class Module;
 
@@ -773,12 +768,12 @@ Bool AIGuardMachine::lookForInnerTarget()
 		flags |= 4;
 	if (owner->getAI()->m_04->m_1c != 0)
 		flags |= 8;
-	if (owner->getControllingPlayer() && owner->getControllingPlayer()->m_5c == 0)
+	if (owner->getControllingPlayer() && owner->getControllingPlayer()->m_playerType == 0)
 		flags |= 0x20;
 	flags |= 0x40;
 	if (owner->testStatus(OBJECT_STATUS_BFME_44))
 		flags |= 0x10;
-	if (owner->getControllingPlayer()->m_5c == 1)
+	if (owner->getControllingPlayer()->m_playerType == 1)
 		flags |= 0x80;
 
 	Object *target = 0;

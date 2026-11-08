@@ -39,7 +39,7 @@ public:
 };
 class ThingTemplate {public: char prefix[0x18]; float width;};
 class Object {public:char p0[0x38];Coord3D position;char prefix[0x438-0x44];unsigned char flags; const Coord3D *getPosition() const {return &position;}};
-class Player {public:char prefix[0x280];int color;};
+#include "../../Include/Common/Player.h"
 class PlayerList {public:char prefix[0x10];Player *localPlayer;};
 extern PlayerList *ThePlayerList;
 #include "../Common/GameLogicObjectLookupView.h"
@@ -297,7 +297,7 @@ void InGameUI::updateFormationPreview() {
   if(plan) {
    owner->clearFormationPreviewDrawables();valid=true;formation=type;
    reinterpret_cast<_STL::vector<BfmeE12>*>(&first)->reserve(plan->last-plan->first);
-   RGBColor color;color.setFromInt(ThePlayerList->localPlayer->color);
+   RGBColor color;color.setFromInt(ThePlayerList->localPlayer->m_color);
    for(Placement32 *it=plan->first;it!=plan->last;++it) {
     Object *obj=TheGameLogic->findObjectByID(it->object);
     if(obj)owner->rva002A4BFC(obj,it->type[1],&it->position,color);

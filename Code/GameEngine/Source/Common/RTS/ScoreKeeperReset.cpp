@@ -104,7 +104,7 @@ void ScoreKeeper::reset(int playerIdx){
 
 #include "../GameLogicObjectLookupView.h"
 #include "../ScoredKillTrackerView.h"
-class Player {public:char pad[0x54];int index;int getPlayerIndex()const{return index;}};
+#include "../../../Include/Common/Player.h"
 class Image;class ImageSubscriptMap{public:Image*&operator[](const unsigned&);};
 template<int N> class BitFlags {public:unsigned words[7];BitFlags(int,int);
  __forceinline bool test(int i)const{return (((const unsigned char*)words)[i>>3]&(1<<(i&7)))!=0;}

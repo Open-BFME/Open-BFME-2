@@ -51,14 +51,7 @@ public:
 
 class Image;
 #include "../../../../../Include/Common/PlayerTemplate.h"
-class Player
-{
-public:
-	__declspec(dllimport) __forceinline const PlayerTemplate *getPlayerTemplate() const { return m_playerTemplate; }
-
-	unsigned char m_unreconstructed_000[0x34];
-	const PlayerTemplate *m_playerTemplate;
-};
+#include "../../../../../Include/Common/Player.h"
 #include "../../../../../Include/Common/TeamBFME2.h"
 
 class Object

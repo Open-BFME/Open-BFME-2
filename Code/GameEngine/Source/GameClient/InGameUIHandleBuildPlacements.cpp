@@ -145,16 +145,7 @@ public:
     char unknown44[0xb0 - 0x44];
     float opacity;
 };
-class Player
-{
-public:
-    __forceinline int getPlayerIndex() const { return index; }
-    void rva002AF614(void*);
-    char unknown00[0x54];
-    int index;
-    char unknown58[0x280 - 0x58];
-    int color;
-};
+#include "../../Include/Common/Player.h"
 class Object : public Thing
 {
 public:
@@ -608,7 +599,7 @@ void InGameUI::handleBuildPlacements()
                             Player* player = builder->getControllingPlayer();
                             if (player)
                             {
-                                int color = player->color;
+                                int color = player->m_color;
                                 player->rva002AF614(&positions);
                                 ((ResourceEntryCollector*)&BfmeUiResourceEntryCollectorState)
                                     ->rva004E551E();
@@ -855,7 +846,7 @@ void InGameUI::handleBuildPlacements()
             Player* player = builder->getControllingPlayer();
             if (player)
             {
-                int color = player->color;
+                int color = player->m_color;
                 player->rva002AF614(&positions);
                 ((ResourceEntryCollector*)&BfmeUiResourceEntryCollectorState)->rva004E551E();
                 for (_STL::vector<Coord3D>::iterator it = positions.begin(); it != positions.end();

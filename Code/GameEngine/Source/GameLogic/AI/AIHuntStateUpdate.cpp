@@ -111,14 +111,7 @@ struct TeamPrototype
 
 #include "../../../Include/Common/TeamBFME2.h"
 
-class Player
-{
-public:
-	Bool getUnitsShouldHunt() const { return m_unitsShouldHunt; }
-private:
-	unsigned char m_pad000[0x33D];
-	Bool m_unitsShouldHunt; // +0x33D
-};
+#include "../../../Include/Common/Player.h"
 
 class Object
 {
@@ -294,7 +287,7 @@ StateReturnType AIHuntState::update()
 			{
 				// do NOT do line of sight check - we want to find everything
 				victim = TheAI->findClosestEnemy(owner, 9999.9f, AI::CAN_ATTACK_BFME, info, 0, 0);
-				if (victim == 0 && owner->getControllingPlayer() && owner->getControllingPlayer()->getUnitsShouldHunt())
+				if (victim == 0 && owner->getControllingPlayer() && owner->getControllingPlayer()->m_unitsShouldHunt)
 				{
 					// If we are doing an all hunt, try hunting without the attack priority info.
 					victim = TheAI->findClosestEnemy(owner, 9999.9f, AI::CAN_ATTACK_BFME, 0, 0, 0);
@@ -327,7 +320,7 @@ StateReturnType AIHuntState::update()
 			{
 				m_huntMachine->setState(AI_ATTACK_OBJECT);
 			}
-			if (owner->getControllingPlayer() && !owner->getControllingPlayer()->getUnitsShouldHunt())
+			if (owner->getControllingPlayer() && !owner->getControllingPlayer()->m_unitsShouldHunt)
 			{
 				// If we are not doing an all hunt, then exit hunt state - no more victims.
 				if (m_huntMachine->getCurrentStateID() == AI_IDLE && victim == 0)

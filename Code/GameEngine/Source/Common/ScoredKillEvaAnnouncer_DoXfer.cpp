@@ -24,12 +24,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
-class Player
-{
-public:
-    char unknown00[0x54];
-    int index;
-};
+#include "../../Include/Common/Player.h"
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
 struct Rva00414EA1Vector { void *begin, *end, *capacity; };
@@ -44,7 +39,7 @@ void ScoredKillEvaAnnouncer::DoXfer(Xfer *xfer)
     (*xfer == reinterpret_cast<Xfer::Version &>(version));
     Rva00414C92(xfer, reinterpret_cast<Rva00414EA1Vector *>(&trackers));
     (*xfer == seenPlayers);
-    int playerIndex = localPlayer ? localPlayer->index : -1;
+    int playerIndex = localPlayer ? localPlayer->m_playerIndex : -1;
     (*xfer == playerIndex);
     if (xfer->IsLoading())
     {

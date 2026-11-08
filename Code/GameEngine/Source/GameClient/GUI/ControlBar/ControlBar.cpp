@@ -793,24 +793,7 @@ public:
 void *GadgetButtonGetData(GameWindow *);
 void GadgetButtonSetDisallowed(GameWindow *,int);
 void Rva003284B9(GameWindow *,int,int);
-class Player {
-public:
-	char pad00[0x34];
-public:
-	PlayerTemplate *base;
-public:
-	char pad38[0x58-0x38];
-public:
-	AsciiString side;
-public:
-	bool hasScience(ScienceType) const;
-public:
-	bool isPlayerActive() const;
-public:
-	Object *findNaturalCommandCenter();
-public:
-	bool isLocalPlayer() const;
-};
+#include "../../../../Include/Common/Player.h"
 class GameWindowTransitionsHandler;
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 class GameWindowTransitionsHandler
@@ -2114,7 +2097,7 @@ void ControlBar::rva0031D64F() {
  if(!ThePlayerList||!TheThingFactory)return;
  Player *player=ThePlayerList->local;
  if(!player)return;
- AsciiString side=player->side;
+ AsciiString side=player->m_side;
  for(ThingTemplate *thingTemplate=TheThingFactory->first;thingTemplate;thingTemplate=thingTemplate->next) {
   if((thingTemplate->kindOf[0]&2)&&thingTemplate->side.compare(side)==0) {
    rva0031D61E(&thingTemplate->commandSet);
@@ -2122,7 +2105,7 @@ void ControlBar::rva0031D64F() {
    if(thingTemplate->rva0033BA46()) const_cast<Image*>(thingTemplate->rva0033BA46())->rva002D937E();
   }
  }
- PlayerTemplate *base=player->base;
+ const PlayerTemplate *base=player->m_playerTemplate;
  if(base)rva0031D61E(&base->commandSet);
  if(!TheMappedImageCollection)return;
  const Image *push=TheMappedImageCollection->findImageByName(AsciiString("RadialPush"));

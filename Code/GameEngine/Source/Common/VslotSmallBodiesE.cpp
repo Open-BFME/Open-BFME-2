@@ -389,12 +389,7 @@ void Rva004886C7::xfer(Xfer *xfer)
 	*xfer == m_28;
 }
 
-class Player
-{
-public:
-	char m_pad00[0x54];
-	Int m_54;
-};
+#include "../../Include/Common/Player.h"
 #include "../GameLogic/Object/object.h"
 
 // slot at VA 0x00C4B568 slot 6 (offset 0x18) of Rva004886C7 (vtable 0x0084B568,
@@ -425,7 +420,7 @@ Int Rva004886C7::update()
 	{
 		if (!m_28 && !(owner->m_privateStatus & 1))
 		{
-			m_24 = ((Object *)owner)->getControllingPlayer()->m_54;
+			m_24 = ((Object *)owner)->getControllingPlayer()->m_playerIndex;
 			TheInGameUI->vslot105(m_machine->m_owner);
 			m_28 = true;
 		}

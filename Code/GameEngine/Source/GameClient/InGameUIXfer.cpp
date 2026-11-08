@@ -152,14 +152,7 @@ public:
 };
 extern SpecialPowerStore *TheSpecialPowerStore;
 
-class Player
-{
-public:
-	__declspec(dllimport) __forceinline int getPlayerColor() const { return m_color; }
-private:
-	char m_opaque000[0x280];
-	int m_color;							// +0x280
-};
+#include "../../Include/Common/Player.h"
 
 #include "../../Include/Common/PlayerList.h"
 extern PlayerList *ThePlayerList;
