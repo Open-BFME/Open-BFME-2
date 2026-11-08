@@ -60,18 +60,7 @@ protected:
 	// The caps at 0x00DEDA7C (defined in dx8wrapper.cpp).
 	static DX8Caps *CurrentCaps;
 };
-class GlobalData
-{
-public:
-	unsigned char m_pad00[0x50];
-	Int m_terrainLOD;			// +0x50
-	bool m_54;				// +0x54
-	unsigned char m_pad55[0x58 - 0x55];
-	Int m_terrainLODTargetTimeMS;		// +0x58
-	unsigned char m_pad5C[0xEA5 - 0x5C];
-	bool m_delayBeforeCapture;		// +0xEA5
-};
-extern GlobalData *TheWritableGlobalData;
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 #include "../../../Include/W3DDevice/GameClient/RTS3DScene.h"
 #include "../../../../GameEngine/Include/Common/GameLODManager.h"
 // Slot 34 takes and returns AsciiString by value: retail ordinary teardown expands the
@@ -866,7 +855,7 @@ void W3DDisplay::calculateTerrainLOD(void)
 
 void W3DDisplay::rva00043FB9()
 {
-	if (TheWritableGlobalData->m_54 && ((Rva00043FB9GameLogicView *)TheGameLogic)->m_9B)
+	if (TheWritableGlobalData->field0054 && ((Rva00043FB9GameLogicView *)TheGameLogic)->m_9B)
 		((Rva0020276C *)TheGameLODManager)->rva0020276C(((Rva00202613 *)TheGameLODManager)->rva00202613(m_180));
 	else
 		((Rva0020276C *)TheGameLODManager)->rva0020276C(4);
@@ -993,7 +982,7 @@ void W3DDisplay::drawImage(Image *image, Real x0, Real y0, Real x1, Real y1, Int
 
 void W3DDisplay::rva00045213(char *image, unsigned int rowBytes)
 {
-	if (TheWritableGlobalData->m_delayBeforeCapture)
+	if (TheWritableGlobalData->field0EA5)
 		Sleep(500);
 
 	BFMEDX8DeviceLock lock;

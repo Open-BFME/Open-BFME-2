@@ -187,15 +187,6 @@ public:
 	BfmeMemberRV *bfmePickRV(void);   // PlayerList: local player, else the observed one
 };
 
-class GlobalData
-{
-public:
-	char m_pad000[0xBC0];
-	Int m_powerBarBase;          // +0xBC0
-	Real m_powerBarIntervals;    // +0xBC4
-	Int m_powerBarYellowRange;   // +0xBC8
-};
-
 #include "../../../../../../GameEngine/Include/Common/PlayerList.h"
 
 #include "../../../../../../GameEngine/Include/Common/Radar.h"
@@ -298,7 +289,7 @@ extern PlayerList *ThePlayerList;
 extern Radar *TheRadar;
 extern ControlBar *TheControlBar;
 extern ImageCollection *TheMappedImageCollection;
-extern GlobalData *TheWritableGlobalData;
+#include "../../../../../../GameEngine/Include/Common/GlobalData.h"
 #define TheGlobalData TheWritableGlobalData
 
 float logN(float value, float base);   // ZH logN

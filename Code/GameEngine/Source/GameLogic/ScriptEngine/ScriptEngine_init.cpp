@@ -23,46 +23,28 @@
 
 #include <windows.h>
 
-class GlobalData
-{
-public:
-	char m_pad0[0x2C];
-	bool m_windowed;        // +0x2C
-	char m_pad1[0x9C1 - 0x2D];
-	bool m_scriptDebug;     // +0x9C1
-	bool m_particleEdit;    // +0x9C2
-};
-// Matched DIR32 sites for TheGlobalData resolve to VA 0x00DFE758, whose retail
-// zero-filled slot starts null.
-// The global at that VA is GameClient.cpp's TheWritableGlobalData (Zero
-// Hour spells TheGlobalData as a macro over it); this name aliases it
-// rather than defining a second pointer the game never writes.
-extern class GlobalData *TheWritableGlobalData;
+#include "../../../Include/Common/GlobalData.h"
 extern bool BFME2UseDebugWindowLite;
-
-class SubsystemInterface
-{
-public:
-	virtual ~SubsystemInterface();
-	virtual void init();
-};
 
 class ScriptActions : public SubsystemInterface
 {
 public:
 	ScriptActions();
+	virtual void init();
+	virtual void reset();
+	virtual void update();
 
 private:
-	char m_body[0x0C];
+	char m_body[0x04];
 };
 
 class ScriptConditions : public SubsystemInterface
 {
 public:
 	ScriptConditions();
-
-private:
-	char m_body[0x08];
+	virtual void init();
+	virtual void reset();
+	virtual void update();
 };
 
 extern ScriptActions *TheScriptActions;
@@ -164,7 +146,7 @@ void ScriptEngine::init()
 	TheScriptConditions = new ScriptConditions;
 
 	if (TheWritableGlobalData->m_windowed) {
-		if (TheWritableGlobalData->m_scriptDebug) {
+		if (TheWritableGlobalData->field09C1) {
 			if (BFME2UseDebugWindowLite)
 				TheDebugDLL = LoadLibraryA("DebugWindowLite.dll");
 			else
@@ -173,7 +155,7 @@ void ScriptEngine::init()
 			TheDebugDLL = 0;
 		}
 
-		if (TheWritableGlobalData->m_particleEdit) {
+		if (TheWritableGlobalData->field09C2) {
 			try {
 				BfmeDualVtableReleaseDtor(0).swap(TheFXParticleEditor);
 			} catch (const DllHandle::Exception &) {

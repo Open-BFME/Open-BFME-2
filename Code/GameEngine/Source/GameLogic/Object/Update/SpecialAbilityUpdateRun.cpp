@@ -269,7 +269,7 @@ class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0
 template<int N>class BitFlags {public:unsigned m_bits[7];};
 extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager *ThePartitionManager;
-class GlobalData {public:char pad00[0xB54];float m_selectionFlashSaturation;};extern GlobalData *TheWritableGlobalData;
+#include "../../../../Include/Common/GlobalData.h"
 class AbilityAudioEvents:public RunSlots<25>{public:virtual int addAudioEvent(BfmeAudioEventPrefix136*)=0;};
 template<int N>class AbilityMiscSlots:public AbilityMiscSlots<N-1>{public:virtual void gapMisc(char(*)[N])=0;};
 template<>class AbilityMiscSlots<0>:public AbilityAudioEvents{};
@@ -318,7 +318,7 @@ bool SpecialAbilityUpdate::continuePreparation()
     if(lastPhase&&!thisPhase){
      RGBColor houseColor;
      houseColor.setFromInt(m_object->getIndicatorColor());
-     draw->saturateRGB(houseColor,TheWritableGlobalData->m_selectionFlashSaturation);
+     draw->saturateRGB(houseColor,TheWritableGlobalData->m_selectionFlashSaturationFactor);
      draw->rva00278C7C((int)&houseColor);
      Rva0004584D filter(*(const BfmeFixedStorage0004543D*)&Rva00045411BitSet(0,0x32),*(const BfmeFixedStorage0004543D*)&KINDOFMASK_NONE);
      const Coord3D *position=&m_object->m_position;

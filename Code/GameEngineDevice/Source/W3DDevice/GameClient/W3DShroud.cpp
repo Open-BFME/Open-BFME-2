@@ -376,14 +376,7 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void allocator<
 
 typedef unsigned char UnsignedByte;
 
-class GlobalData
-{
-	unsigned char m_pad00[0xbea];
-public:
-	UnsignedByte m_shroudAlpha;
-};
-
-extern GlobalData *TheWritableGlobalData;
+#include "../../../../GameEngine/Include/Common/GlobalData.h"
 
 class BfmeTaintManager
 {

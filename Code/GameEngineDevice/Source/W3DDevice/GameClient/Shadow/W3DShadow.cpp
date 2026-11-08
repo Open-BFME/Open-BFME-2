@@ -47,18 +47,7 @@ extern ProjectedShadowManager *TheProjectedShadowManager;
 
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 
-struct ShadowTerrainLight {float x,y,z;};
-
-class GlobalData
-{
-public:
-	char prefix[0x60];
-	bool m_useShadowVolumes;
-	char m_pad61[0x8BF];
-	ShadowTerrainLight light[1];
-};
-
-extern GlobalData *TheWritableGlobalData;
+#include "../../../../../GameEngine/Include/Common/GlobalData.h"
 
 // Target evidence: retail 0x0009A383 checks four global pointers in order and
 // calls each manager only when its pointer is non-null. The 91-byte body is
@@ -312,8 +301,8 @@ W3DShadowManager::W3DShadowManager() {
  m_shadowColor=0x7fa0a0a0;
  m_isShadowScene=false;
  m_stencilShadowMask=0;
- Vector3 lightRay(-TheWritableGlobalData->light[0].x,
- -TheWritableGlobalData->light[0].y,-TheWritableGlobalData->light[0].z);
+ Vector3 lightRay(-TheWritableGlobalData->m_terrainLightPos[0].x,
+ -TheWritableGlobalData->m_terrainLightPos[0].y,-TheWritableGlobalData->m_terrainLightPos[0].z);
  lightRay.Normalize();
  Vector3 scaled=lightRay*10000000.0f;
  Coord3D *out=&m_lightPos[0];out->x=scaled.X;out->y=scaled.Y;out->z=scaled.Z;

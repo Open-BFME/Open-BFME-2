@@ -39,7 +39,7 @@ struct FileInfo{unsigned sizeHigh,sizeLow,timestampHigh,timestampLow;};
 #include "../../Include/Common/File.h"
 #include "../../Include/Common/FileSystem.h"
 extern FileSystem*TheFileSystem;
-class GlobalData{public:char pad[0xAB5];bool buildMapCache;};extern GlobalData*TheWritableGlobalData;
+#include "../../Include/Common/GlobalData.h"
 class Xfer;enum INILoadType{INI_LOAD_INVALID,INI_LOAD_OVERWRITE,INI_LOAD_CREATE_OVERRIDES,INI_LOAD_MULTIFILE};
 class INI{public:INI();~INI();void load(AsciiString,INILoadType,Xfer*,void(*)(INI*));static void parseMapCacheDefinition(INI*);private:char storage[0x87C];};
 class Rva00300489{public:virtual AsciiString getMapDir()const;};
@@ -59,7 +59,7 @@ bool bfmeRva000387C0();void _bfme_debugRecordCallsite(int);
 static inline SeenMap &seenOf(_STL::map<AsciiString,bool> &seen){return reinterpret_cast<SeenMap&>(seen);}
 bool MapCache::loadUserMaps(){
  AsciiString mapDir;
- if(TheWritableGlobalData->buildMapCache)mapDir=((const Rva00300489*)this)->Rva00300489::getMapDir();
+ if(TheWritableGlobalData->field0AB5)mapDir=((const Rva00300489*)this)->Rva00300489::getMapDir();
  else{
   mapDir=((Rva00300D7A*)this)->rva00300D7A();
   INI ini;AsciiString fname;fname.format("%s\\%s",mapDir.str(),"MapCache.ini");
@@ -80,7 +80,7 @@ bool MapCache::loadUserMaps(){
    for(unsigned i=0;i<strlen(".map");++i)fname.removeLastChar();
    endingStr.format("%s\\%s%s",fname.str(),fname.str(),".map");
    bool skipMap=false;
-   if(TheWritableGlobalData->buildMapCache){_STL::set<AsciiString>::const_iterator sit=m_allowedMaps.find(fname);if(m_allowedMaps.size()!=0&&sit==m_allowedMaps.end())skipMap=true;}
+   if(TheWritableGlobalData->field0AB5){_STL::set<AsciiString>::const_iterator sit=m_allowedMaps.find(fname);if(m_allowedMaps.size()!=0&&sit==m_allowedMaps.end())skipMap=true;}
    if(!skipMap){
     if(!mapFileName.endsWithNoCase(endingStr.str())){
      if(bfmeRva000387C0()){
@@ -92,7 +92,7 @@ bool MapCache::loadUserMaps(){
     }else if(TheFileSystem->getFileInfo(mapFileName,&fileInfo)){
      char funk[260];strcpy(funk,mapFileName.str());char*filenameptr=funk;char*cursor=funk;
      while(*cursor!=0){if(*cursor=='\\'||*cursor=='/')filenameptr=cursor+1;++cursor;}
-     if(strlen(filenameptr)<0x50){seenOf(m_seen)[mapFileName].value=1;parsedAMap|=addMap(mapDir,*iter,&fileInfo,TheWritableGlobalData->buildMapCache);}
+     if(strlen(filenameptr)<0x50){seenOf(m_seen)[mapFileName].value=1;parsedAMap|=addMap(mapDir,*iter,&fileInfo,TheWritableGlobalData->field0AB5);}
     }
    }
   }
