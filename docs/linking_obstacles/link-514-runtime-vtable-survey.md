@@ -1247,3 +1247,9 @@ LINKS 8,124 is conserved at index c885072a48. This does not clear the broader
 partition-filter family or establish an image/runtime result. A byte-exact
 real-constructor trial is banked but its naming transition is not landed.
 [Detailed scope](../../reverse/attempt_support/possible-attack-filter-table-20261108/README.md).
+
+Published as 264d46e4ff; scoped proof passes after publication. The broad
+audit is still INCONCLUSIVE (c885072a48 versus 008c434387), with one old-array
+loss candidate through an unread object and zero proven newly unresolved
+names. The index's sole user was the repaired source and current Code text
+has no uses; unread/directive coverage and next-image confirmation remain.

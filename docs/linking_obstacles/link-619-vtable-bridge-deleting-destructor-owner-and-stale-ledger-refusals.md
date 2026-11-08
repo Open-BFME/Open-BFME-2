@@ -654,3 +654,12 @@ with the same already-correct compiler table and no bridge. The four-source
 preview conserves LINKS 8,124 bytes at c885072a48. Next-image confirmation is
 pending; the setter's real-constructor naming transition remains separate.
 [Source/provider proof and constructor trial](../../reverse/attempt_support/possible-attack-filter-table-20261108/README.md).
+
+Published as 264d46e4ff (third attempt, 44.0 seconds) and the scoped native
+proof passes again. The broad audit remains INCONCLUSIVE at index c885072a48
+versus base 008c434387dcda74b0987f6e5e1ba9ddfdfcad0f: one provisional retired
+array loss candidate through an unread object, zero proven new unresolved
+names. Only this source touches the name in the downloaded index; current
+Code text has no uses. Retain the unread/directive gap for the next census
+and real image. All six claims are released; constructor admission remains
+open, without a new canonical-name claim.

@@ -58,3 +58,30 @@ and strong definitions fall from one to zero. All 34,433 addresses and all
 Confirmation that the next real image drops the obsolete table name remains
 pending. No byte-coverage, source-file-count, census or game-running gain
 is claimed.
+
+## Publication and remaining verification gap
+
+Published as 264d46e4ff on attempt three (44.0 seconds for that attempt).
+The first attempt spent 273.1 seconds including a foreign landing lease;
+the second lost a race after 43.3 seconds. Normal push checks passed, and
+the native/provider proof passes again after publication. All six claims
+were released.
+
+The broader push audit is INCONCLUSIVE: index c885072a48 versus final
+outgoing base 008c434387dcda74b0987f6e5e1ba9ddfdfcad0f. It reports one
+provisional real-link loss candidate for the retired array through an unread
+object and zero proven new unresolved names. The downloaded index lists
+only this source as touching that name, and current Code text has no uses
+(`reference-scope.json`). Those bounded checks do not close unread-object
+or directive gaps. Carry the candidate into the next maintained census and
+real-image queue; do not report global link clearance from this repair.
+
+An independent route review also confirmed the constructor trial cannot be
+applied by an existing supported transition: replace-rva handles generated
+scaffolds, ordinary respell excludes constructors, identity respell requires
+a compiler-spelled old row with the same operator/identifier, class fold
+requires an old special-member installer, and retail identity admits only
+reviewed families. The BFME1 donor does not have the same layout/body.
+Keep the candidate banked until new canonical evidence or a separately
+reviewed identity-admission route supports it; do not retract/re-add the row
+to bypass that boundary.

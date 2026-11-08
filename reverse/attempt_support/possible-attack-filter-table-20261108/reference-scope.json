@@ -1,0 +1,18 @@
+{
+  "retired_name": "?g_010956C4@@3PAPBXA",
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  },
+  "indexed_users": [
+    {
+      "object": "^code_^game^engine_^source_^common_^rva00149^e60^set.obj",
+      "source": "Code/GameEngine/Source/Common/Rva00149E60Set.cpp"
+    }
+  ],
+  "current_Code_text_occurrences": 0,
+  "scope": "Downloaded index reference graph and current Code text only; unread object/directive gaps in broader audit remain unverified."
+}
