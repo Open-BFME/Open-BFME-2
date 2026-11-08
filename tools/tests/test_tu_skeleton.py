@@ -994,43 +994,22 @@ class EmissionHeldTests(unittest.TestCase):
 
     COPY = "??0Rec@@QAE@ABV0@@Z"
 
-    def held_copy(self, code, by="C", ev="C=0x00001100..0x00001300", tu="Code/XferSave.cpp"):
-        """emission_held for a copy ctor row of self.TU whose unit preprocesses to `code` (None: cannot)."""
-        T._CACHE.clear()
-        T._CACHE["map"] = [{"rva": "0x00001200", "size": "8", "kind": "code", "tu": tu, "confidence": "approved",
-                            "by": by, "evidence": ev, "source": ""}]
-        text = (None, "cl -E failed") if code is None else (T.flatten_preprocessed(code), None)
-        try:
-            with patch.object(T, "unit_text", return_value=text):
-                return T.emission_held({"name": self.COPY, "target_rva": "0x00001200", "source": self.TU})
-        finally:
-            T._CACHE.clear()
-
-    def test_an_implicit_copy_ctor_placed_by_contiguity_alone_is_held(self):
-        # P16 rule (a): FXList.cpp's copy ctor 0x0052BD3A, placed in LivingWorldCampaign.cpp on C alone
-        self.assertTrue(self.held_copy("struct Rec { int a; };\n"))
-        for code, why in (("struct Rec { Rec(const Rec &o); int a; };\n", "user-declared"),
-                          ("struct Rec { Rec(int n); int a; };\n", "any one-parameter constructor"),
-                          ("struct Other { int a; };\n", "no body of the class"),
-                          ('struct Rec { void f() { g("}"); } int a; };\n', "a masked brace in the body"),
-                          (None, "the unit cannot be preprocessed")):
-            with self.subTest(why=why):
-                self.assertFalse(self.held_copy(code), why)
-        self.assertFalse(self.held_copy("struct Rec { int a; };\n", by="N"))
-        self.assertFalse(self.held_copy("struct Rec { int a; };\n", ev="C=0x1..0x2 Z=Code/XferSave.cpp"))
-        self.assertFalse(self.held_copy("struct Rec { int a; };\n", tu=""))
-
-    def test_the_tu_file_keeps_a_held_copy_ctor_and_a_donor_still_cannot_carry_it(self):
-        clean = (T.flatten_preprocessed("struct Rec { int a; };\n"), None)
+    def test_a_special_member_placed_by_contiguity_alone_is_never_held(self):
+        # review of bfb856bfbf: `Rec(Rec const (((&r)))) : a(r.a) {}` is hand-written yet compiles to
+        # the implicit copy ctor's COMDAT; rule (a) is dropped and only template instances are held
+        clean = "struct Rec { int a; };\n"
+        for name in (self.COPY, "??1Rec@@QAE@XZ", "??4Rec@@QAEAAU0@ABU0@@Z", "??_GRec@@UAEPAXI@Z"):
+            for text in (clean, "class Rec { public: Rec(Rec const (((&r)))):a(r.a){} int a; };\n"):
+                with self.subTest(name=name, text=text):
+                    cache = {"map_by_rva": {0x1200: {"tu": "Code/XferSave.cpp", "by": "C",
+                                                     "evidence": "C=0x00001100..0x00001300"}}}
+                    with patch.dict(T._CACHE, cache, clear=True), \
+                            patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
+                        self.assertFalse(T.emission_held({"name": name, "target_rva": "0x00001200", "source": self.TU}))
         ledger = [("?t@@YAXXZ", 0x1000, self.TU), (self.COPY, 0x1200, self.TU), ("?a@@YAXXZ", 0x1010, "Code/A.cpp")]
-        with patch.object(T, "unit_text", return_value=clean):
+        with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(clean), None)):
             _don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1010: self.TU, 0x1200: self.C})
-        self.assertEqual(mixed, {})
-        ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"), (self.COPY, 0x1200, "Code/B.cpp")]
-        with patch.object(T, "unit_text", return_value=clean):
-            don, mixed, _ = self.donors(ledger, {0x1000: self.TU, 0x1020: self.TU, 0x1200: self.C})
-        self.assertEqual(mixed, {"Code/B.cpp": 1})
-        self.assertNotIn("Code/B.cpp", don)
+        self.assertEqual(mixed, {self.TU: 1})                # it makes the TU file mixed, as before rule (a)
 
     def test_a_donor_never_carries_one_away_from_its_tu(self):
         ledger = [("?t@@YAXXZ", 0x1000, self.TU), ("?b@@YAXXZ", 0x1020, "Code/B.cpp"), (self.CLEAR, 0x1200, "Code/B.cpp")]
@@ -1173,6 +1152,7 @@ class EmitMoveTests(unittest.TestCase):
     def claimed(self):
         """claim_scope's answer when every key was claimed: an empty Held with fencing tokens."""
         held = T.Held()
+        held.acquired = [T.claims.key_of(f"file:{self.TU}")]
         held.tokens = {T.claims.key_of(f"file:{self.TU}"): self.TOKEN}
         return held
 
@@ -1204,13 +1184,14 @@ class EmitMoveTests(unittest.TestCase):
         self.assertIn("explicit specialization or instantiation naming", report["refused_rows"]["0x00002000"])
         self.write(self.TU, "struct Rec { Rec(const Rec &o); int a; };\nvoid campaign() {}\n")
         report = self.move(rvas=["0x00002100"])
-        self.assertIn("declares a constructor", report["refused_rows"]["0x00002100"])
+        self.assertIn("may be user-written", report["refused_rows"]["0x00002100"])
         report = self.move(rows=[self.row("?f@Rec@@QAEXXZ", "0x00002000"), self.row(self.STAY, "0x00003000")])
         self.assertIn("not an implicit COMDAT", report["refused_rows"]["0x00002000"])
 
     def test_the_coarse_rules_refuse_whatever_the_spelling(self):
         # review of 692da8fc04: refuse on any explicit specialization or instantiation naming the
-        # member or its class, and on any one-parameter constructor, rather than read spellings
+        # member or its class rather than read spellings; review of bfb856bfbf: a special member
+        # refuses on its token (`Rec(` in Rec's body, `Rec::Rec` in the unit), not a parameter parse
         box_clear, box_call = "?clear@?$Box@H@@QAEXXZ", "??R?$Box@H@@QBEHXZ"
         cases = [
             # (a) explicit specializations and instantiations, any arguments, deduced ones included
@@ -1225,13 +1206,27 @@ class EmitMoveTests(unittest.TestCase):
             ("template <class _T1, class _T2> void _Construct(_T1 *, const _T2 &);\n"
              "void g(Rec *p, const Rec &v) { _STL::_Construct(p, v); }\n", self.CTOR, False),   # primary template, a use
             ("template <class T> struct Box { void clear() { } };\nvoid g(Box<int> &b) { b.clear(); }\n", box_clear, False),
-            # (b) any one-parameter constructor, whatever its spelling
+            # (b) any constructor token in the class body, or an out-of-line one, whatever its spelling
             ("struct Rec { Rec(Rec const&o); int a; };\n", self.COPY, True),
             ("struct Rec { Rec(::Rec const&o); int a; };\n", self.COPY, True),
             ("struct Rec; typedef Rec const &CopyArg;\nstruct Rec { Rec(CopyArg o); int a; };\n", self.COPY, True),
             ("struct Rec { Rec(int n); int a; };\n", self.COPY, True),                    # over-refuses
-            ("struct Rec { Rec(int n, int m); int a; };\n", self.COPY, False),
-            ("struct Rec { Rec(); int a; };\n", self.COPY, False),
+            ("struct Rec { Rec(int n, int m); int a; };\n", self.COPY, True),             # over-refuses
+            ("struct Rec { Rec(); int a; };\n", self.COPY, True),                          # over-refuses
+            ("class Rec { public: Rec(Rec const (((&r)))):a(r.a){} int a; };\n", self.COPY, True),
+            ("struct Rec { Rec (Rec const &r) = default; int a; };\n", self.COPY, True),
+            ("struct Rec { int a; };\nRec::Rec(Rec const &r) : a(r.a) {}\n", self.COPY, True),
+            ("struct Rec { int a; };\ninline Rec :: Rec(const Rec &) {}\n", self.COPY, True),
+            ("struct Rec { int a; void f() { Rec x = *this; } };\n", self.COPY, False),    # no `Rec(`
+            ("struct Rec { int a; void f() { Rec x(*this); } };\n", self.COPY, False),     # a use: no `Rec(`
+            ("struct Rec { int a; };\nvoid g(Rec *p, const Rec &r) { new (p) Rec(r); }\n", self.COPY, False),
+            ("struct MyRec { MyRec(const MyRec &); };\nstruct Rec { int a; };\n", self.COPY, False),
+            ("struct Rec { ~Rec(); int a; };\n", self.COPY, False),                        # not a constructor
+            ("struct Rec { int a; };\nRec::~Rec() {}\n", "??1Rec@@QAE@XZ", True),
+            ("struct Rec { Rec &operator =(Rec r); };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
+            ("struct Rec { int a; };\nRec &Rec::operator=(const Rec &) { return *this; }\n",
+             "??4Rec@@QAEAAU0@ABU0@@Z", True),
+            ("struct Rec { int a; };\n", "??4Rec@@QAEAAU0@ABU0@@Z", False),
             ("struct Rec { int a; };\n", self.COPY, False),
             ("struct Other { int a; };\n", self.COPY, True),                              # no body of Rec: refuse
             ("struct Rec { Rec(); int a; };\n", "??0Rec@@QAE@XZ", True),                   # any ctor, for a default one
@@ -1295,7 +1290,7 @@ class EmitMoveTests(unittest.TestCase):
     def test_the_rules_read_the_preprocessed_unit(self):
         # a header (or a macro) declares the copy ctor; the raw text never shows it
         report = self.move(rvas=["0x00002100"], preprocessed={self.TU: "struct Rec { Rec(const Rec &); int a; };\n"})
-        self.assertIn("declares a constructor", report["refused_rows"]["0x00002100"])
+        self.assertIn("may be user-written", report["refused_rows"]["0x00002100"])
         report = self.move(rvas=["0x00002000"], preprocessed={self.TU: "template<> inline void Box<int>::f();\n"
                                                                        "template<> inline void _Construct(Rec *, const Rec &) { }\n"})
         self.assertIn("explicit specialization or instantiation", report["refused_rows"]["0x00002000"])
@@ -1438,7 +1433,7 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(self.objects_left(), [])
         self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])
         release.assert_called_once()
-        self.assertIn("file:Code/Campaign.cpp", release.call_args[0][0])
+        self.assertEqual(release.call_args[0][0], [T.claims.key_of("file:Code/Campaign.cpp")])
 
     def test_one_failed_cleanup_step_skips_none_of_the_others(self):
         # review of e81c016950: a locked .obj (Windows) must not stop the receipt, the other object
@@ -1569,6 +1564,109 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(staged(), before["reverse/functions.csv"])
         self.assertEqual((self.root / "reverse/functions.csv").read_bytes(), before["reverse/functions.csv"])
 
+
+    def test_the_hand_written_copy_ctor_repro_is_refused_through_the_apply(self):
+        # review of bfb856bfbf: the parenthesised parameter passed the one-parameter rule and the
+        # row moved; the token rule refuses `Rec(` anywhere in Rec's body, and `Rec::Rec` in the unit
+        before = self.ledger()
+        self.write(self.TU, "class Rec { public: Rec(Rec const (((&r)))):a(r.a){} int a; };\n")
+        report = self.move(rvas=["0x00002100"], dry_run=False)
+        self.assertEqual(report["blocked"], "a requested row cannot move by emission")
+        self.assertIn("`Rec(`", report["refused_rows"]["0x00002100"])
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+        self.write(self.TU, "struct Rec { Rec(Rec const &r); int a; };\nRec::Rec(Rec const &r) : a(r.a) {}\n")
+        self.assertIn("`Rec(`", self.move(rvas=["0x00002100"])["refused_rows"]["0x00002100"])
+        self.write(self.TU, "struct Rec { int a; };\nvoid campaign(Rec *p, const Rec &r) { new (p) Rec(r); }\n"
+                            "inline Rec::Rec\n(const Rec &r) : a(r.a) {}\n")
+        self.assertIn("`Rec::Rec`", self.move(rvas=["0x00002100"])["refused_rows"]["0x00002100"])
+
+    def test_a_partly_refused_claim_gives_back_exactly_what_it_acquired(self):
+        # review of bfb856bfbf: a refusal dropped the fencing tokens and released every key with
+        # tokens=None, a successor's claim and a key this worker already held among them
+        self.ledger()
+        tu_key, mixed_key, row_key = (T.claims.key_of(k) for k in (f"file:{self.TU}", f"file:{self.SOURCE}", "0x00002100"))
+        result = T.claims.ClaimResult([tu_key, row_key], [mixed_key], tokens={tu_key: "MINE", row_key: "RENEWED"},
+                                      prior=[row_key])
+        with patch.object(T.claims, "claim", return_value=result):
+            held = T.claim_scope(self.TU, {self.SOURCE: [self.row(self.COPY, "0x00002100")]})
+        self.assertTrue(held)
+        self.assertEqual((list(held.acquired), held.tokens), ([tu_key], {tu_key: "MINE"}))
+        self.claimed = lambda: held
+        before = {rel: (self.root / rel).read_bytes() for rel in ("reverse/functions.csv", "reverse/tu_map.csv")}
+        report = self.move(rvas=["0x00002100"], dry_run=False, claim=True)
+        self.assertIn("held by another worker", report["blocked"])
+        self.released.assert_called_once_with([tu_key], tokens={tu_key: "MINE"})
+        self.exact.assert_not_called()                                    # aborted before touching anything
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
+        self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])
+        with patch.object(T.claims, "owner", return_value="seat"), patch.object(T.claims, "_names", return_value={"seat"}):
+            self.assertEqual(T.claims._eligible([f"file:{self.TU}"], tokens={tu_key: "MINE"},
+                                                current={tu_key: ("SUCCESSOR", {"owner": "seat"})}), {})
+
+    def test_a_move_journals_and_releases_only_the_keys_it_acquired(self):
+        self.ledger()
+        tu_key, row_key = T.claims.key_of(f"file:{self.TU}"), T.claims.key_of("0x00002000")
+        held = T.Held()
+        held.acquired, held.tokens = [tu_key], {tu_key: self.TOKEN}       # row_key was ours already
+        self.claimed = lambda: held
+        with self.assertRaises(KeyboardInterrupt):
+            self.move(rvas=["0x00002000"], dry_run=False, build_effect=KeyboardInterrupt, claim=True)
+        self.assertEqual(self.released.call_args[0][0], [str(tu_key)])
+        self.assertNotIn(str(row_key), self.released.call_args[0][0])
+
+    def test_recovery_retries_after_a_locked_object(self):
+        # review of bfb856bfbf: the first recovery restored the rows but failed on a locked .obj;
+        # the retry read the restored rows as "changed since the move"
+        before = self.ledger()
+        self.kill_mid_verify()
+        funcs = self.root / "reverse/functions.csv"
+        funcs.write_bytes(funcs.read_bytes().replace(b"?stay@@YAXXZ", b"?renamed@@YAXXZ"))
+        locked, real_unlink = self.root / "build" / "real_t.obj", Path.unlink
+
+        def unlink(path, *a, **k):
+            if Path(path) == locked:
+                raise PermissionError("locked")
+            return real_unlink(path, *a, **k)
+        with patch.object(Path, "unlink", unlink):
+            (restored, _busy, errors), _ = self.recover()
+        self.assertEqual(restored, [])
+        self.assertTrue(any("could not remove real_t.obj" in e for e in errors), errors)
+        self.assertEqual(len(list((self.root / T.EMIT_JOURNAL).glob("*.json"))), 1)
+        (restored, _busy, errors), _ = self.recover()                     # the lock gone: done
+        self.assertEqual((len(restored), errors), (1, []))
+        self.assertEqual(funcs.read_bytes(), before["reverse/functions.csv"].replace(b"?stay@@YAXXZ", b"?renamed@@YAXXZ"))
+        self.assertEqual(self.objects_left(), [])
+        self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])
+
+    def test_undo_lines_is_idempotent_and_refuses_only_a_third_state(self):
+        before, after = b"a\nb,1\nc\n", b"a\nb,2\nc\n"
+        self.assertEqual(T.undo_lines(after, before, after), before)
+        self.assertEqual(T.undo_lines(before, before, after), before)                   # already back: done
+        self.assertEqual(T.undo_lines(b"x\nb,2\nc\n", before, after), b"x\nb,1\nc\n")   # another row edited
+        for third in (b"a\nb,3\nc\n", b"a\nc\n", b"a\nb,2\nb,2\nc\n", b"a\nb,1\nb,1\nc\n",
+                      b"a\nb,1\nb,2\nb,2\nc\n"):
+            with self.subTest(third=third):
+                self.assertIsNone(T.undo_lines(third, before, after))
+
+    def test_an_interrupt_after_staging_an_untracked_ledger_unstages_it(self):
+        # review of e2e59872d8: with no commit the ledger was untracked; `git rm --cached` refused
+        # once the working file was restored, leaving the moved rows staged
+        before = self.ledger()
+        real_unlink = Path.unlink
+
+        def unlink(path, *a, **k):
+            if Path(path).suffix == ".json" and Path(path).parent.name == "emit-journal":
+                raise KeyboardInterrupt
+            return real_unlink(path, *a, **k)
+        with patch.object(Path, "unlink", unlink), self.assertRaises(KeyboardInterrupt):
+            self.move(rvas=["0x00002000"], dry_run=False)
+        listed = lambda: subprocess.run(["git", "ls-files", "-s", "--", "reverse"], cwd=self.root,
+                                        capture_output=True, text=True, check=True).stdout
+        self.assertIn("reverse/functions.csv", listed())                   # the move was staged
+        (restored, _busy, errors), _ = self.recover()
+        self.assertEqual((len(restored), errors), (1, []))
+        self.assertEqual(listed(), "")
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
 
 class VtableRiderPreparedSplitTests(unittest.TestCase):
     """P16 minimal B, rules (b) and (c): ParticleSystemFXNuggetCtor.cpp's ctor moves into FXList.cpp

@@ -687,27 +687,15 @@ def emission_held(r):
     lands. It needs: a TEMPLATE_INSTANCE name, a map row whose TU rests on C alone (no
     F/Z/S/L/W token naming one), and no definition in its own file spelling its name (an
     explicit specialization is a real body with a home). An unreadable file is no proof.
-
-    A compiler-generated special member (special_shape: an implicit copy constructor,
-    destructor or operator=, a deleting destructor) is emitted the same way, wherever the
-    class is used (P16: FXList.cpp's copy ctor 0x0052BD3A, placed in LivingWorldCampaign.cpp
-    on C alone). It is held under the same map conditions when its own file's preprocessed
-    text proves it implicit by the coarse rule emit_move uses (special_member_problem: no
-    one-parameter constructor or operator=, no destructor, the class's body present);
-    a file that cannot be preprocessed proves nothing."""
+    A compiler-generated special member is never held this way (review of bfb856bfbf: a
+    hand-written copy ctor can match the implicit one's bytes exactly)."""
     if "map_by_rva" not in _CACHE:
         _CACHE["map_by_rva"] = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code")}
     m = _CACHE["map_by_rva"].get(int(r["target_rva"], 16))
-    shape = special_shape(r["name"])
-    if not m or not m["tu"] or m.get("by") != "C" or not (TEMPLATE_INSTANCE.match(r["name"]) or shape):
+    if not m or not m["tu"] or m.get("by") != "C" or not TEMPLATE_INSTANCE.match(r["name"]):
         return False
     if any(k in tu_map.TU_EVIDENCE and eq for k, eq, _ in (t.partition("=") for t in (m["evidence"] or "").split())):
         return False
-    if shape and not TEMPLATE_INSTANCE.match(r["name"]):
-        if shape[0] == "deleting destructor":
-            return True                                  # no one writes it: nothing to preprocess
-        code, _why = unit_text(r["source"])
-        return code is not None and special_member_problem(code, *shape) is None
     return not spells_definition(r["source"], r)
 
 
@@ -3780,25 +3768,16 @@ def _brace_end(text, at):
     return None
 
 
-def one_parameter(params):
-    """Does a parameter list declare exactly one parameter (`void` or nothing is none)?"""
-    params = params.strip()
-    if not params or params == "void":
-        return False
-    depth, parts = 0, 1
-    for c in params:
-        depth += {"(": 1, "<": 1, "[": 1, ")": -1, ">": -1, "]": -1}.get(c, 0)
-        parts += c == "," and depth == 0
-    return parts == 1
-
-
 def special_member_problem(code, kind, cls):
-    """Why `cls`'s `kind` might be user-declared in the preprocessed `code`, or None. Coarse and
-    fail-closed (review of 692da8fc04): no body of the class -> refuse; a copy constructor
-    refuses on ANY constructor with exactly one parameter, a copy assignment on any operator=
-    with one, a default constructor on any constructor at all, a destructor on any destructor,
-    whatever the spelling (`Rec(::Rec const&)`, `Rec(CopyArg)`). A deleting destructor is
-    always the compiler's."""
+    """Why `cls`'s `kind` might be user-declared in the preprocessed `code`, or None. A token
+    rule, fail-closed (review of bfb856bfbf: `Rec(Rec const (((&r)))) : a(r.a) {}` is a
+    hand-written copy ctor whose COMDAT name, bytes and relocations equal the implicit one's, so
+    no byte check catches it, and no parameter parsing is safe): a constructor kind refuses on
+    `cls(` anywhere in a body of the class (any constructor, declared or called) or `cls::cls`
+    anywhere in the unit; a destructor on `~cls` in a body or `cls::~cls`; a copy assignment on
+    `operator=` in a body or `cls::operator=`. No body of the class, an unbalanced quote, or a
+    literal or comment in a body that held code characters or names the class refuses too. A
+    deleting destructor is always the compiler's. Over-refusal is the price."""
     if kind == "deleting destructor":
         return None
     if UNREADABLE in code:
@@ -3807,6 +3786,13 @@ def special_member_problem(code, kind, cls):
     if not bodies:
         return f"no body of {cls} in the preprocessed unit: no proof its {kind} is compiler-generated"
     c = re.escape(cls)
+    ctor = (r"(?<![~\w])" + c + r"\s*\(", r"\b" + c + r"\s*::\s*" + c + r"\b")
+    in_body, out_of_line = {
+        "copy constructor": ctor,
+        "default constructor": ctor,
+        "destructor": (r"~\s*" + c + r"\b", r"\b" + c + r"\s*::\s*~\s*" + c + r"\b"),
+        "copy assignment": (r"\boperator\s*=", r"\b" + c + r"\s*::\s*operator\s*="),
+    }[kind]
     for body in bodies:
         # fail-closed (review of 90fdd5d03d): a literal or comment in the body that held a brace,
         # paren, quote or `;` (masked by mask_literals), or one that names the class, refuses
@@ -3814,15 +3800,12 @@ def special_member_problem(code, kind, cls):
             return f"a literal or comment in {cls}'s body holds a brace, paren, quote or ';': no proof"
         if re.search(r'"[^"]*\b' + c + r'\b[^"]*"|\'[^\']*\b' + c + r"\b[^']*'", body):
             return f"a literal in {cls}'s body names {cls}: no proof"
-        for params in re.findall(r"(?<![~\w])" + c + r"\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)", body):
-            if kind == "default constructor" or (kind == "copy constructor" and one_parameter(params)):
-                return f"{cls} declares a constructor ({cls}({' '.join(params.split())[:60]}))"
-        if kind == "copy assignment":
-            for params in re.findall(r"\boperator\s*=\s*\(([^()]*(?:\([^()]*\)[^()]*)*)\)", body):
-                if one_parameter(params):
-                    return f"{cls} declares an assignment operator (operator=({' '.join(params.split())[:60]}))"
-        if kind == "destructor" and re.search(r"~\s*" + c + r"\s*\(", body):
-            return f"{cls} declares a destructor"
+        found = re.search(in_body, body)
+        if found:
+            return f"{cls}'s body spells `{found.group(0)}`: its {kind} may be user-written"
+    found = re.search(out_of_line, code)
+    if found:
+        return f"the unit spells `{found.group(0)}`: {cls}'s {kind} may be user-written"
     return None
 
 
@@ -4059,15 +4042,16 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         if pending:
             report["blocked"] = f"a pending journal: {pending}"
             return report
-        tokens = {}
+        acquired, tokens = [], {}
         if claim:
             held = claim_scope(dest, don)
-            if held:
-                claims.release(claim_keys(dest, don), tokens=getattr(held, "tokens", {}) or None)
+            if held:                # refused: abort before touching anything, and give back exactly
+                if held.acquired:   # what this call took, fenced by its tokens
+                    claims.release(list(held.acquired), tokens=dict(held.tokens))
                 report["blocked"] = held_message(held)
                 return report
-            tokens = dict(getattr(held, "tokens", {}) or {})
-        result = _apply_emit(path, dest, movers, report["moved"], claim, don, tokens)
+            acquired, tokens = list(held.acquired), dict(held.tokens)
+        result = _apply_emit(path, dest, movers, report["moved"], acquired, tokens)
     if isinstance(result, str):
         report["blocked"] = result
         return report
@@ -4080,7 +4064,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
     return report
 
 
-def _apply_emit(path, dest, movers, rvas, claim, don, tokens):
+def _apply_emit(path, dest, movers, rvas, acquired, tokens):
     """The write half of emit_move, under the ledger lock: {rel: rows repointed}, or why it
     was undone. The journal (before and after bytes, each ledger file's index entry, the
     claim keys with their fencing tokens) goes to disk, fsynced, before the ledger is
@@ -4095,7 +4079,7 @@ def _apply_emit(path, dest, movers, rvas, claim, don, tokens):
             after[rel] = raw
             if n:
                 repointed[rel] = n
-    keys = [str(k) for k in claim_keys(dest, don)] if claim else []
+    keys = [str(k) for k in acquired]        # only what this move claimed: never a prior claim
     journal = write_emit_journal({"subject": f"emit-move {path} -> {dest}", "sources": [path, dest],
                                   "before": {rel: rename._b64(raw) for rel, raw in before.items()},
                                   "after": {rel: rename._b64(raw) for rel, raw in after.items()},
@@ -4118,7 +4102,7 @@ def _apply_emit(path, dest, movers, rvas, claim, don, tokens):
             done = True
     finally:
         record = json.loads(journal.read_text(encoding="utf-8"))
-        errors = [] if done else undo_emit(record, release=claim)
+        errors = [] if done else undo_emit(record)
         if not errors:
             remove_emit_journal(journal)    # an undo that failed keeps its journal for --recover-emit
     if problem:
@@ -4269,18 +4253,21 @@ def blob_of(data):
 
 
 def undo_lines(current, before, after):
-    """`current` with each line the move changed (before -> after) put back, or None when one
-    of them is no longer there exactly once: row-level, so an edit made since to any other row
-    survives, and a moved row edited since refuses (review of 90fdd5d03d)."""
+    """`current` with each line the move changed (before -> after) put back, or None: row-level,
+    so an edit made since to any other row survives (review of 90fdd5d03d). Idempotent (review
+    of bfb856bfbf: a retry after a partial recovery said the rows had changed): a moved line
+    still at its after-state goes back, one already at its before-state is done, and only a
+    third state (the line edited since, gone, or there twice) refuses."""
     b_lines, a_lines = before.split(b"\n"), after.split(b"\n")
     if len(b_lines) != len(a_lines):
         return None
     lines = current.split(b"\n")
     for old, new in ((b, a) for b, a in zip(b_lines, a_lines) if b != a):
         at = [i for i, line in enumerate(lines) if line == new]
-        if len(at) != 1:
+        if len(at) == 1:
+            lines[at[0]] = old
+        elif at or sum(1 for line in lines if line == old) != 1:
             return None
-        lines[at[0]] = old
     return b"\n".join(lines)
 
 
@@ -4309,7 +4296,9 @@ def undo_emit(record, release=True):
             staged = index_entries([rel])[rel]
             if staged is not None and staged[1] == wrote and (entry is None or entry[1] != wrote):
                 if entry is None:
-                    subprocess.run(["git", "rm", "-q", "--cached", "--", rel], cwd=ROOT, check=True)
+                    # (not `git rm --cached`: with the working file already restored, the staged
+                    # blob matches neither it nor HEAD, which git rm refuses without -f)
+                    subprocess.run(["git", "update-index", "--force-remove", "--", rel], cwd=ROOT, check=True)
                 else:
                     subprocess.run(["git", "update-index", "--cacheinfo", f"{entry[0]},{entry[1]},{rel}"],
                                    cwd=ROOT, check=True)
@@ -5368,6 +5357,7 @@ class Held(list):
     unconfirmed = ()
     unavailable = ""
     tokens = {}
+    acquired = ()
 
 
 def claim_scope(tu, don, root=ROOT):
@@ -5379,13 +5369,20 @@ def claim_scope(tu, don, root=ROOT):
         held = Held([f"(claims unavailable: {e})"])
         held.unavailable = str(e)
         return held
+    # what this call acquired, not a key this worker already held live (`prior`): only those
+    # may be released for it, each with its fencing token (review of bfb856bfbf)
+    prior = set(getattr(res, "prior", ()) or ())
+    tokens = dict(getattr(res, "tokens", {}) or {})
+    claimed = getattr(res, "claimed", None)
+    acquired = [k for k in (list(tokens) if claimed is None else claimed) if k not in prior]
     if res.refused:
         names = {claims.key_of(k): k for k in keys}
         held = Held(str(names.get(k, k)) for k in res.refused)
         held.unconfirmed = [str(names.get(k, k)) for k in getattr(res, "unconfirmed", ())]
-        return held
-    held = Held()
-    held.tokens = dict(getattr(res, "tokens", {}) or {})
+    else:
+        held = Held()
+    held.acquired = acquired
+    held.tokens = {k: v for k, v in tokens.items() if k in set(acquired) | {claims.key_of(a) for a in acquired}}
     return held
 
 
