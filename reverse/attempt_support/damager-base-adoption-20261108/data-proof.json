@@ -1,0 +1,39 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00588FFAFinish.cpp",
+  "object_sha256": "39ce93f780594e5bfd6c02fc1d2648ab4c585c9700d3249ef9afb084b961d25f",
+  "data_rows": [
+    {
+      "name": "?g_0086FFFC@@3QBQBXB",
+      "rva": "0x0086FFFC",
+      "size": 8,
+      "verdict": [
+        true,
+        "8 B at 0x00C6FFFC equal to retail, 2 relocation(s) on target (sizeof(::g_0086FFFC) under the build's flags = 8 (allocation extent 8))"
+      ]
+    },
+    {
+      "name": "?g_008700C4@@3QBQBXB",
+      "rva": "0x008700C4",
+      "size": 48,
+      "verdict": [
+        true,
+        "48 B at 0x00C700C4 equal to retail, 12 relocation(s) on target (sizeof(::g_008700C4) under the build's flags = 48 (allocation extent 48))"
+      ]
+    }
+  ],
+  "pure_interface_targets": [
+    "0x0003B810",
+    "0x0003B810"
+  ],
+  "primary_table_rva": "0x008700C4",
+  "getter_rva": "0x0058902F",
+  "getter_native_hex": "b8f400c700c3",
+  "string_va": "0xc700f4",
+  "runtime_name": "DamagerModule",
+  "external_definitions": [
+    "??0Rva00588FFA@@QAE@PAVThing@@PBVModuleData@@@Z",
+    "?g_0086FFFC@@3QBQBXB",
+    "?g_008700C4@@3QBQBXB"
+  ],
+  "identity_scope": "Runtime snapshot-name lead connected through the constructor table; no original hierarchy, interface names, donor path or TU approval inferred."
+}

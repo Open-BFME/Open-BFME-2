@@ -50,15 +50,11 @@ extern const void *const g_0086FFFC[2] = {
 	(const void *)&__identifier("_purecall"), // slot 1 0x0003B810
 };
 
-class BehaviorModule
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *data);
-private:
-	unsigned char m_pad[0x10];
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-class Rva00588FFA : public BehaviorModule
+// Constructor-only base view: the explicit native table stores below retain
+// construction state while the complete DamagerModule class is recovered.
+class __declspec(novtable) Rva00588FFA : public BehaviorModule
 {
 public:
 	Rva00588FFA(Thing *thing, const ModuleData *data);

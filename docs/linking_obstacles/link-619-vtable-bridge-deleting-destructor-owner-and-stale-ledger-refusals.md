@@ -482,3 +482,14 @@ Current endpoint dest queries supply no usable approved TU, so no merge was
 attempted. The different body and Resize/EH provider proof remain open;
 this recheck does not authorize an alignment exception or clear a table.
 [Evidence](../../reverse/attempt_support/vector-global-provider-20261108/README.md).
+
+**2026-11-08 Damager constructor canonical-base prerequisite:**
+Rva00588FFAFinish.cpp adopts canonical BehaviorModule through the documented
+constructor-only novtable view. The complete 53-byte row and both manual
+arrays (8/48 bytes, all 14 relocations) remain exact; no provider is added,
+removed or changed. Header acceptance retires one BehaviorModule debt row,
+and preview remains LINKS/52 at d171e84869. The served two-pure-slot strong
+array remains correct and retained. Its primary table's getter returns
+"DamagerModule", a runtime identity lead; full class/interface recovery and
+both compiler-table replacements remain open, with no image clearance.
+[Evidence and next repair](../../reverse/attempt_support/damager-base-adoption-20261108/README.md).
