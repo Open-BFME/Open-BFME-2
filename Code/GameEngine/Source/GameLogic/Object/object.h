@@ -26,8 +26,7 @@
 // Inferences: the bases past Thing and Snapshot have no recovered names; they take the
 // placeholder names of their matched constructors, and the virtual base (no matched
 // constructor of its own) the placeholder the +0x64 constructor's source gives it. Members
-// whose class has no canonical header yet (AsciiString under its several include
-// setups, GeometryInfo, WeaponSet, the STLport containers, BitFlags) are opaque storage
+// whose class has no canonical header yet (GeometryInfo, WeaponSet, the STLport containers, BitFlags) are opaque storage
 // of the constructor's size; the comment gives the type the constructor builds there.
 // Field names follow the constructor and destructor, which took Zero Hour's names where
 // the statement matched (m_id, m_team, m_ai, m_partitionData, ...); +0x438 is Zero
@@ -42,6 +41,7 @@
 #include "../../Common/Thing/thing.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class AIGroup;
 class AIUpdateInterface;
@@ -576,8 +576,8 @@ public:
 	ObjectID m_builderID;							// +0x07C
 	int m_80;										// +0x080
 	Drawable *m_drawable;							// +0x084
-	unsigned char m_name[4];						// +0x088 AsciiString
-	int m_8c;										// +0x08C
+	AsciiString m_name;							// +0x088 ctor 0x00298F5A zeroes it, dtor 0x0029A077 releases it
+	Object *m_next;								// +0x08C object list link (GameLogic::getFirstObject chain)
 	int m_90;										// +0x090
 	unsigned int m_status[4];						// +0x094 BitFlags<117>
 	void *m_a4;										// +0x0A4
