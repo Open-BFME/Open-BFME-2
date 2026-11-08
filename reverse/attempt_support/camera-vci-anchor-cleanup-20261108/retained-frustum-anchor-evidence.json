@@ -1,0 +1,13 @@
+{
+  "rows": 60,
+  "matched": 60,
+  "missing": [],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\eea30dd44f1d4d5e.obj",
+  "guard": [
+    "selected ??0FrustumClass@@QAE@XZ",
+    "selected ??4FrustumClass@@QAEAAV0@ABV0@@Z",
+    "breaks another unit's copy of ??0FrustumClass@@QAE@XZ",
+    "breaks another unit's copy of ??4FrustumClass@@QAEAAV0@ABV0@@Z"
+  ]
+}

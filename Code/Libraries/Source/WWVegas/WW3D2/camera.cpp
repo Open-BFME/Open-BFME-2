@@ -13,14 +13,6 @@
 // copy that competes with retail's integer-move owner (0x006D8A30).
 #include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
 // stlport
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 // Matrix3D's inline helpers are defined in the same /O1-like state, so the
 // out-of-line copies this unit emits (copy constructor, Rotate_Vector,
 // Transform_Vector) are retail's /O1 bodies (0x0006645C copy) instead of /O2
@@ -30,7 +22,6 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #include "../../../../../reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/vector2.h"
 #include "../../../../../reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/vector3.h"
 #pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "../../../../../reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath/matrix3d.h"
 #pragma optimize("", on)
 #define Matrix3x3 Matrix3

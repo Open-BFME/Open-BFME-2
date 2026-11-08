@@ -389,3 +389,14 @@ users of the retired RefTex name. Broader audit remains INCONCLUSIVE: index
 f4727bbd09 versus base eba83a23bec9a0ccf16e8e8bbf244379acf77da4, one missing
 current source receipt (the destructor). Array-helper identity, complete
 interfaces, census selection and actual-image verification remain open.
+
+**2026-11-08 Camera whole-file cleanup:** camera.cpp's redundant
+BfmeVciAnchorElem/bfmeVciAnchor pair is removed. All 60 code rows, its data row
+and both EH graphs remain exact; all 212 external COMDAT fingerprints are
+unchanged, private LinkGuard is clean, and ordinary preview conserves
+10,151 authored bytes. The Frustum anchors and optimization pragmas remain:
+broader removal changes selected providers despite preserving most owned rows.
+The served 0x007D26E0 table still encounters the already-recorded path-order
+bounding-getter refusal at slots 65/66; no alignment exception or table/runtime
+clearance is claimed.
+[Provider comparison and retained mechanisms](../../reverse/attempt_support/camera-vci-anchor-cleanup-20261108/README.md).
