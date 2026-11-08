@@ -186,9 +186,11 @@ class Classification(unittest.TestCase):
     WORKING = [(270.0 + i, e) for i, e in enumerate([0x401000, 0x7A0000, 0x452000] * 10)]
     WAITING = [(270.0 + i, 0x79A9C844) for i in range(30)]        # retail's control at 120 s, in a system call
 
-    def run_with(self, shot, samples):
+    def run_with(self, shot, samples, failures=None):
         report = timeout_run([MAIN], shot)
         report["spin_samples"] = samples
+        if failures is not None:
+            report["spin_sample_failures"] = failures
         return self.smoke(report)
 
     def test_a_spin_on_the_splash_is_a_hang_there(self):
@@ -198,6 +200,20 @@ class Classification(unittest.TestCase):
         self.assertEqual(out["picture"], "title-splash")
         self.assertEqual(out["main_thread_span"]["samples"], 30)
         self.assertEqual(out["receipt"]["result"], "hang-on-title-splash")
+
+    def test_failed_samples_reach_the_label(self):
+        # The review's injection: twenty good samples with ten failed ones read hang-on-loading-screen.
+        self.assertEqual(self.run_with(self.SHOT, self.SPINNING, 2)["outcome"], "hang-on-loading-screen")
+        out = self.run_with(self.SHOT, self.SPINNING, 3)
+        self.assertEqual(out["outcome"], "loading-screen")
+        self.assertEqual(out["main_thread_span"]["failures"], 3)
+        self.assertFalse(out["main_thread_span"]["spinning"])
+
+    def test_a_gap_reaches_the_label(self):
+        holed = [(t + (5.0 if t >= 285.0 else 0.0), e) for t, e in self.SPINNING]
+        out = self.run_with(self.SHOT, holed)
+        self.assertEqual(out["outcome"], "loading-screen")
+        self.assertEqual(out["main_thread_span"]["largest_gap"], 6.0)
 
     def test_the_splash_with_a_working_thread_only_says_splash(self):
         out = self.run_with(dict(self.SHOT, title_splash=True), self.WORKING)

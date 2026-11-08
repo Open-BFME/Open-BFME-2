@@ -31,9 +31,11 @@ Outcome (build/boot/smoke.json, also printed):
                         far it ran is the picture; it is not still getting there. A run
                         too short to sample that long never gets this label, and neither
                         does a thread parked outside the image: retail waits in a system
-                        call for 29 s at a time while its intro movies play. A heuristic: a
-                        long copy in the image can satisfy it, and a wider spin, a spin
-                        in a system DLL or a deadlock in a wait keep the picture's label
+                        call for 29 s at a time while its intro movies play. Failed reads
+                        or a hole in the good ones withhold it too: at most SPIN_MAX_FAILURES,
+                        at most SPIN_MAX_GAP seconds apart. A heuristic: a long copy in the
+                        image can satisfy it, and a wider spin, a spin in a system DLL or a
+                        deadlock in a wait keep the picture's label
   profile-redirect-failed  the appdata lie could not be installed (nothing ran)
   profile-changed       the owner's profile or HKCU EA keys changed
 
@@ -329,13 +331,9 @@ def quiet_exception(k, hproc, tid, exc, addr, params):
 
 def main_stack(k, hproc, hthread, tid):
     """The game's main thread's registers and stack, read with the thread suspended
-    (at the timeout it may sit in a modal box's message loop)."""
-    suspend = getattr(k, "Wow64SuspendThread", k.SuspendThread)
-    suspend(wt.HANDLE(hthread))
-    try:
-        return stack_words(k, hproc, tid, n=1024)
-    finally:
-        k.ResumeThread(wt.HANDLE(hthread))
+    (at the timeout it may sit in a modal box's message loop), or None if it could not be suspended.
+    Raises ThreadNotResumed when it stays suspended: the reads after this one decide the label."""
+    return while_suspended(k, hthread, lambda: stack_words(k, hproc, tid, n=1024))[0]
 
 
 def snapshot(d):
@@ -699,29 +697,28 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
         res["focus_lie"] = {"rva": hex(focus_rva), "hits": 0, "rewritten": 0}
     u = ctypes.WinDLL("user32")
     u.ShowWindowAsync.argtypes = [wt.HWND, ctypes.c_int]   # never wait on a thread stopped at a breakpoint
+
+    def wait_ran_out():
+        """After WaitForDebugEvent returned no event: whether it only ran out; anything else is recorded."""
+        error = ctypes.get_last_error()
+        if error != 121:
+            debugger_error("WaitForDebugEvent", error)
+        return error == 121
+
     t0 = time.time()
     next_spin_sample = 0.0
     try:
+        # The event boundary. A run ends at the first look that finds nothing pending at or past the deadline,
+        # so what is already delivered is served before every sample and before calling the run out of time:
+        # losing a real crash is the worse error. An event that arrives just past the deadline, during a sample or a
+        # wait that returned late, therefore counts, deliberately: nothing about a real fault is favourable to the
+        # build. Only two things are not recorded, and cleanup continues them: an event after that look, and
+        # with a stream of events holding every look busy, whatever is still queued EVENT_GRACE past the deadline.
         while True:
             left = timeout - (time.time() - t0)
-            if left <= 0:
+            if left <= -EVENT_GRACE:
                 res["outcome"] = "timeout" if "pid" in res else "no-game-process"
                 break
-            if "main_thread" in res and left <= SPIN_SPAN and time.time() >= next_spin_sample:
-                next_spin_sample = time.time() + SPIN_EVERY
-                try:
-                    eip = thread_eip(k, res["main_thread"])
-                except ThreadNotResumed as failure:
-                    debugger_error("ResumeThread:spin-sample", failure.error)
-                    break
-                if eip is None:
-                    res["spin_sample_failures"] = res.get("spin_sample_failures", 0) + 1
-                else:
-                    res.setdefault("spin_samples", []).append((round(time.time() - t0, 1), eip))
-                left = timeout - (time.time() - t0)     # the sample took time: it may not buy the wait more
-                if left <= 0:
-                    res["outcome"] = "timeout"
-                    break
             if defocus_at is not None and "pid" in res:
                 d = res.setdefault("defocus", {})
                 if "minimised" not in d and time.time() - t0 >= defocus_at:
@@ -732,12 +729,29 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 if d.get("hwnd") and "shown" not in d and left <= 15:
                     u.ShowWindowAsync(d["hwnd"], 4)         # SW_SHOWNOACTIVATE: back for the capture, unfocused
                     d["shown"] = round(time.time() - t0, 1)
-            if not k.WaitForDebugEvent(ev, int(min(left, 1.0) * 1000)):
-                error = ctypes.get_last_error()
-                if error != 121:
-                    debugger_error("WaitForDebugEvent", error)
+            if not k.WaitForDebugEvent(ev, 0):
+                if not wait_ran_out():
                     break
-                continue
+                left = timeout - (time.time() - t0)
+                if left <= 0:
+                    res["outcome"] = "timeout" if "pid" in res else "no-game-process"
+                    break
+                if "main_thread" in res and left <= SPIN_SPAN and time.time() >= next_spin_sample:
+                    next_spin_sample = time.time() + SPIN_EVERY
+                    try:
+                        eip = thread_eip(k, res["main_thread"])
+                    except ThreadNotResumed as failure:
+                        debugger_error("ResumeThread:spin-sample", failure.error)
+                        break
+                    if eip is None:
+                        res["spin_sample_failures"] = res.get("spin_sample_failures", 0) + 1
+                    else:
+                        res.setdefault("spin_samples", []).append((round(time.time() - t0, 1), eip))
+                    continue                            # the sample took time: look again before anything else
+                if not k.WaitForDebugEvent(ev, int(min(left, 1.0) * 1000)):
+                    if not wait_ran_out():
+                        break
+                    continue
             code, pid, tid = (int.from_bytes(ev.raw[o:o + 4], "little") for o in (0, 4, 8))
             status = DBG_CONTINUE
             stop_after_continue = False
@@ -851,7 +865,10 @@ def run(launcher, game_dir, args, timeout, version_lie=True, probes=(), focus_rv
                 res["main_eips"] = sample_eips(k, res["main_thread"])
             except ThreadNotResumed as failure:
                 debugger_error("ResumeThread:final-sample", failure.error)
-            res["main_stack"] = main_stack(k, procs[res["pid"]][0], res["main_thread"], res.get("main_tid"))
+            try:
+                res["main_stack"] = main_stack(k, procs[res["pid"]][0], res["main_thread"], res.get("main_tid"))
+            except ThreadNotResumed as failure:
+                debugger_error("ResumeThread:main-stack", failure.error)
             res["windows"] = [(t, r) for t, r, _ in windows_of(res["pid"])]
             res["dialogs"] = window_texts(res["pid"])
             res["screenshot"] = screenshot(res["pid"])
@@ -973,12 +990,34 @@ RESUME_ATTEMPTS = 3
 
 
 def resume_thread(k, hthread):
-    """ResumeThread until it answers, and the suspend count it found; ThreadNotResumed if it never does."""
+    """ResumeThread until it answers, and the suspend count it found; ThreadNotResumed if it never does,
+    whether it failed or raised (ctypes raises OSError for a fault inside the call)."""
+    error = None
     for _ in range(RESUME_ATTEMPTS):
-        count = k.ResumeThread(wt.HANDLE(hthread)) & 0xFFFFFFFF
+        try:
+            count = k.ResumeThread(wt.HANDLE(hthread)) & 0xFFFFFFFF
+        except OSError as failure:
+            error = str(failure)
+            continue
         if count != THREAD_CALL_FAILED:
             return count
-    raise ThreadNotResumed(ctypes.get_last_error())
+        error = ctypes.get_last_error()
+    raise ThreadNotResumed(error)
+
+
+def while_suspended(k, hthread, read):
+    """(read(), clean) with the thread suspended, or (None, False) when it could not be suspended and read()
+    was not called. Clean means it was running and no other suspend or resume landed meanwhile. Raises
+    ThreadNotResumed when it stays suspended; what read() raises leaves after the resume."""
+    # Wine 9 has no Wow64SuspendThread; SuspendThread stops a 32-bit thread the same way here.
+    before = getattr(k, "Wow64SuspendThread", k.SuspendThread)(wt.HANDLE(hthread)) & 0xFFFFFFFF
+    if before == THREAD_CALL_FAILED:
+        return None, False
+    try:
+        value = read()
+    finally:
+        after = resume_thread(k, hthread)
+    return value, before == 0 and after == 1
 
 
 def thread_eip(k, hthread):
@@ -987,15 +1026,9 @@ def thread_eip(k, hthread):
     spin), or the resume's count does not add up. Raises ThreadNotResumed when it stays suspended."""
     ctx = WOW64_CONTEXT()
     ctx.flags = 0x10001
-    # Wine 9 has no Wow64SuspendThread; SuspendThread stops a 32-bit thread the same way here.
-    before = getattr(k, "Wow64SuspendThread", k.SuspendThread)(wt.HANDLE(hthread)) & 0xFFFFFFFF
-    if before == THREAD_CALL_FAILED:
-        return None
-    try:
-        eip = ctx.eip if k.Wow64GetThreadContext(wt.HANDLE(hthread), ctypes.byref(ctx)) else None
-    finally:
-        after = resume_thread(k, hthread)
-    return eip if before == 0 and after == 1 else None
+    eip, clean = while_suspended(
+        k, hthread, lambda: ctx.eip if k.Wow64GetThreadContext(wt.HANDLE(hthread), ctypes.byref(ctx)) else None)
+    return eip if clean else None
 
 
 def sample_eips(k, hthread, n=8):
@@ -1059,31 +1092,38 @@ def title_splash(img):
 
 
 # The hang test, a heuristic. run() samples the main thread about once a second over the run's last SPIN_SPAN
-# seconds, and rechecks the deadline after each sample, so a run overruns its timeout by at most the sample in
-# flight. A copy or a decompression can sit in one loop for seconds, and one lasting the whole span inside
+# seconds. A copy or a decompression can sit in one loop for seconds, and one lasting the whole span inside
 # the image would satisfy this. In the other direction, a wider spin, a spin in a system DLL or a deadlock in a
 # wait keep their more favourable picture label: this catches a tight spin in the game's own code, no more.
+# The limits on failures and gaps are about the evidence: a failed read or a hole in the good ones can hide work
+# between two samples. Real hangs measured no failures and a largest gap of 1.0 s; healthy retail, 2.7 s.
 SPIN_SPAN = 30.0
 SPIN_EVERY = 1.0
 SPIN_WINDOW = 64        # bytes: wider than one tight loop's few instructions, narrower than most functions
 SPIN_MIN_SECONDS = 25.0
 SPIN_MIN_SAMPLES = 20
+SPIN_MAX_FAILURES = 2   # reads over the span that proved nothing
+SPIN_MAX_GAP = 3.0      # seconds between two good samples
+EVENT_GRACE = 2.0       # seconds past the deadline that a stream of events can keep the run open: run()'s boundary
 
 
-def main_thread_span(samples, image_low, image_high):
-    """What samples [(seconds into the run, eip)] say, or None when there are none: where the thread sat,
-    over how long, and `spinning` only when all of it is the game's own code, [image_low, image_high), and
-    fits SPIN_WINDOW over at least SPIN_MIN_SECONDS and SPIN_MIN_SAMPLES. A thread outside the image is
-    waiting in a system call, as retail's does for 29 s at a stretch, which proves nothing. The numbers
-    stay in the receipt either way, so a miss can be read."""
+def main_thread_span(samples, image_low, image_high, failures):
+    """What samples [(seconds into the run, eip)] say, with `failures` the reads that proved nothing, or None
+    when there are no samples: where the thread sat, over how long, and `spinning` only when all of it is the
+    game's own code, [image_low, image_high), and fits SPIN_WINDOW over at least SPIN_MIN_SECONDS and
+    SPIN_MIN_SAMPLES, with at most SPIN_MAX_FAILURES failures and no gap over SPIN_MAX_GAP. A thread outside the
+    image is waiting in a system call, as retail's does for 29 s at a stretch, which proves nothing. The
+    numbers stay in the receipt either way, so a miss can be read."""
     if not samples:
         return None
     times, eips = [t for t, _ in samples], [e for _, e in samples]
     seconds, spread = round(times[-1] - times[0], 1), max(eips) - min(eips)
+    gap = round(max((b - a for a, b in zip(times, times[1:])), default=0.0), 1)
     inside = image_low <= min(eips) and max(eips) < image_high
     return {"low": hex(min(eips)), "high": hex(max(eips)), "spread": spread, "samples": len(samples), "seconds": seconds,
-            "inside_image": inside,
-            "spinning": inside and spread < SPIN_WINDOW and seconds >= SPIN_MIN_SECONDS and len(samples) >= SPIN_MIN_SAMPLES}
+            "inside_image": inside, "failures": failures, "largest_gap": gap,
+            "spinning": inside and spread < SPIN_WINDOW and seconds >= SPIN_MIN_SECONDS and len(samples) >= SPIN_MIN_SAMPLES
+            and failures <= SPIN_MAX_FAILURES and gap <= SPIN_MAX_GAP}
 
 
 def classify_picture(shot):
@@ -1492,7 +1532,8 @@ def smoke(a, rows=None, tag="boot"):
                 image_size = boot_image.Retail().size_of_image
             else:
                 image_size = max(n + z for _, _, n, z in pieces_map)
-            span = main_thread_span(res.get("spin_samples", []), loaded, loaded + image_size)
+            span = main_thread_span(res.get("spin_samples", []), loaded, loaded + image_size,
+                                    res.get("spin_sample_failures", 0))
             if span:
                 out["main_thread_span"] = span
             out["picture"] = picture

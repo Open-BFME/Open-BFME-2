@@ -1,5 +1,6 @@
 """Host-only debug-event failure injection for boot_smoke.run; no game is launched."""
 
+import contextlib
 import ctypes
 import sys
 import unittest
@@ -10,8 +11,6 @@ from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
-import contextlib
-
 import boot_smoke as runner
 
 
@@ -61,19 +60,32 @@ class FakeUser:
 class FakeKernel:
     def __init__(self, clock, events, *, fail_continue=False, fail_close=None,
                  wait_error=False, fail_terminate=False, wait_result=0, game_wait_result=0,
-                 fail_duplicate=False, emit_exit=True, fail_suspend=False, resume_failures=0, resume_result=None,
-                 fail_context=False, sampler_cost=0.0, suspended=0, timed_events=()):
-        # The main thread: it only moves while its suspend count is zero, as a real one does, so a suspend
-        # left outstanding reads as identical EIPs, exactly what a spin looks like.
+                 fail_duplicate=False, emit_exit=True, fail_suspend=False, resume_failures=0, resume_fail_from=0,
+                 resume_raises=0, raises=(), other_suspend_on=0, other_resume_on=0, fail_context=False, sampler_cost=0.0,
+                 context_cost=0.0, suspended=0, spinning=False, thread_exit_at=None, timed_events=(), wait_late=0.0,
+                 stream_from=None, look_cost=0.0):
+        # The main thread: it only moves while its suspend count is zero, as a real one does, and the count
+        # persists, so a suspend left outstanding reads as identical EIPs, exactly what a spin looks like.
         self.fail_suspend = fail_suspend
         self.resume_failures = resume_failures        # how many resumes fail; -1 is every one
-        self.resume_result = resume_result            # a count other than the true one, from another party's suspend
+        self.resume_fail_from = resume_fail_from      # every resume from this one on fails
+        self.resume_raises = resume_raises            # how many resumes raise; -1 is every one
+        self.raises = raises                          # "suspend", "context": those calls raise
+        self.other_suspend_on = other_suspend_on      # while our Nth suspend holds it, another party suspends, for good
+        self.other_resume_on = other_resume_on        # while our Nth suspend holds it, another party resumes it
         self.fail_context = fail_context
         self.sampler_cost = sampler_cost              # seconds one suspend takes, on the run's clock
+        self.context_cost = context_cost              # seconds one context read takes, thread still suspended
         self.suspended = suspended
+        self.spinning = spinning                      # it runs, and stays where it is
+        self.thread_exit_at = thread_exit_at          # run time the thread is gone: every call on it fails
         self.suspends, self.resumes = 0, 0
-        self.eip = 0x401000
-        self.timed_events = list(timed_events)        # (run time it becomes due, raw event)
+        self.moved, self.ticked = 0.0, clock.now
+        # An event is deliverable from its due time, whatever the debugger was doing at that moment.
+        self.timed_events = sorted(timed_events, key=lambda e: e[0])        # (run time it becomes due, raw event)
+        self.wait_late = wait_late                    # a wait may return this long after it was due to
+        self.stream_from = stream_from                # from this run time, an event is always pending
+        self.look_cost = look_cost                    # seconds a zero wait takes
         self.clock = clock
         self.events = list(events)
         self.fail_continue = fail_continue
@@ -126,47 +138,79 @@ class FakeKernel:
         target_handle._obj.value = 41
         return 1
 
+    def gone(self):
+        return self.thread_exit_at is not None and self.clock.now >= self.thread_exit_at
+
+    def tick(self):
+        if not self.suspended and not self.spinning and not self.gone():
+            self.moved += self.clock.now - self.ticked
+        self.ticked = self.clock.now
+
     def SuspendThread(self, handle):
+        self.tick()
+        self.calls.append("suspend")
         self.clock.now += self.sampler_cost
-        if self.fail_suspend:
+        if "suspend" in self.raises:
+            raise OSError("exception: access violation")
+        if self.fail_suspend or self.gone():
             self.last_error = 5
             return -1
+        before = self.suspended
         self.suspends += 1
         self.suspended += 1
-        return self.suspended - 1
+        if self.suspends == self.other_suspend_on:
+            self.suspended += 1
+        if self.suspends == self.other_resume_on:
+            self.suspended -= 1
+        return before
 
     def ResumeThread(self, handle):
+        self.tick()
         self.resumes += 1
-        if self.resume_failures:
+        if self.resume_raises:
+            self.resume_raises -= 1 if self.resume_raises > 0 else 0
+            raise OSError("exception: access violation")
+        if self.resume_failures or (self.resume_fail_from and self.resumes >= self.resume_fail_from) or self.gone():
             self.resume_failures -= 1 if self.resume_failures > 0 else 0
             self.last_error = 5
             return -1
-        if self.resume_result is not None:
-            self.suspended = max(0, self.suspended - 1)
-            return self.resume_result
+        before = self.suspended
         self.suspended = max(0, self.suspended - 1)
-        return self.suspended + 1
+        return before
 
     def Wow64GetThreadContext(self, handle, context):
-        if self.fail_context:
+        self.tick()
+        self.clock.now += self.context_cost
+        if "context" in self.raises:
+            raise OSError("exception: access violation")
+        if self.fail_context or self.gone():
             self.last_error = 5
             return 0
-        context._obj.eip = self.eip
+        context._obj.eip = 0x401000 + int(self.moved * 0x1000)      # a thread at work moves on
+        return 1
+
+    def deliver(self, output, raw):
+        ctypes.memmove(output, raw, len(raw))
+        self.delivered.append(raw)
         return 1
 
     def WaitForDebugEvent(self, output, milliseconds):
-        due = [e for e in self.timed_events if e[0] <= self.clock.now]
-        if due and not self.events:
-            self.timed_events.remove(due[0])
-            self.events.append(due[0][1])
+        self.tick()
+        assert self.clock.now < 1000, "the run never ended"
         if self.events and not self.wait_error:
-            raw = self.events.pop(0)
-            ctypes.memmove(output, raw, len(raw))
-            self.delivered.append(raw)
-            return 1
-        self.clock.now += milliseconds / 1000
-        if not self.suspended:
-            self.eip += 0x1000                        # a thread at work
+            return self.deliver(output, self.events.pop(0))
+        if not milliseconds:
+            self.clock.now += self.look_cost
+        end = self.clock.now + milliseconds / 1000 + (self.wait_late if milliseconds else 0)
+        if self.timed_events and self.timed_events[0][0] <= end and not self.wait_error:
+            at, raw = self.timed_events.pop(0)
+            self.clock.now = max(self.clock.now, at)
+            return self.deliver(output, raw)
+        if self.stream_from is not None and not self.terminated and self.stream_from <= end and not self.wait_error:
+            self.clock.now = max(self.clock.now, self.stream_from) + 0.01
+            return self.deliver(output, debug_event(8))
+        self.clock.now = end
+        self.tick()
         self.last_error = 5 if self.wait_error else 121
         return 0
 
@@ -234,7 +278,6 @@ class RunnerDebugTests(unittest.TestCase):
               mock.patch.object(runner, "sample_eips", **sampled) if not real_samples else contextlib.nullcontext(),
               mock.patch.object(runner, "windows_of", return_value=[]),
               mock.patch.object(runner, "window_texts", return_value=[]),
-              mock.patch.object(runner, "main_stack", return_value=None),
               mock.patch.object(runner, "screenshot", side_effect=capture),
               mock.patch.object(runner, "stack_words", return_value=None)):
             result = runner.run(Path("launcher.exe"), Path("/mock-game"), "-win", timeout,
@@ -417,7 +460,16 @@ class MainThreadSamplerTests(unittest.TestCase):
     run_case = RunnerDebugTests.run_case
 
     def span(self, result):
-        return runner.main_thread_span(result.get("spin_samples", []), 0x400000, 0x80000000)
+        return runner.main_thread_span(result.get("spin_samples", []), 0x400000, 0x80000000,
+                                       result.get("spin_sample_failures", 0))
+
+    def test_a_real_spin_still_reads_as_one(self):
+        # The other direction: every check below must leave the true positive standing.
+        kernel, result = self.run_case(self.GAME, timeout=40, spinning=True)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual(kernel.suspended, 0)
+        self.assertEqual(result.get("spin_sample_failures", 0), 0)
+        self.assertTrue(self.span(result)["spinning"])
 
     def test_a_healthy_thread_is_left_running_and_reads_as_working(self):
         kernel, result = self.run_case(self.GAME, timeout=40)
@@ -456,10 +508,80 @@ class MainThreadSamplerTests(unittest.TestCase):
         self.assertEqual(result.get("spin_samples", []), [])
         self.assertGreater(result["spin_sample_failures"], 0)
 
-    def test_a_resume_count_that_does_not_add_up_is_no_sample(self):
-        kernel, result = self.run_case(self.GAME, timeout=40, resume_result=5)
+    def test_another_suspend_landing_while_we_hold_it_is_no_sample_and_no_hang(self):
+        # Our resume finds 2: it is not ours to take further, and every later read sees it held.
+        kernel, result = self.run_case(self.GAME, timeout=40, other_suspend_on=1)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual(kernel.suspended, 1)
         self.assertEqual(result.get("spin_samples", []), [])
-        self.assertGreater(result["spin_sample_failures"], 0)
+        self.assertGreater(result["spin_sample_failures"], runner.SPIN_MAX_FAILURES)
+
+    def test_a_suspend_landing_part_way_cannot_make_a_hang_of_the_samples_before_it(self):
+        kernel, result = self.run_case(self.GAME, timeout=40, spinning=True, other_suspend_on=25)
+        self.assertEqual(kernel.suspended, 1)
+        self.assertEqual(len(result["spin_samples"]), 24)
+        self.assertGreater(result["spin_sample_failures"], runner.SPIN_MAX_FAILURES)
+        self.assertFalse(self.span(result)["spinning"])
+
+    def test_another_resume_landing_while_we_hold_it_is_no_sample(self):
+        # Our resume finds 0: the read is not known to be of a stopped thread. It runs on, and later reads are good.
+        kernel, result = self.run_case(self.GAME, timeout=40, other_resume_on=1)
+        self.assertEqual(kernel.suspended, 0)
+        self.assertEqual(result["spin_sample_failures"], 1)
+        self.assertGreaterEqual(len(result["spin_samples"]), 20)
+
+    def test_a_resume_that_raises_is_a_debugger_error(self):
+        kernel, result = self.run_case(self.GAME, timeout=40, resume_raises=-1)
+        self.assertEqual(result["outcome"], "debugger-error")
+        self.assertEqual(kernel.suspended, 1)
+        failure = next(e for e in result["debugger_errors"] if e["operation"] == "ResumeThread:spin-sample")
+        self.assertIn("access violation", failure["error"])
+
+    def test_a_resume_that_raises_once_is_retried(self):
+        kernel, result = self.run_case(self.GAME, timeout=40, resume_raises=1)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual(kernel.suspended, 0)
+
+    def test_a_context_read_that_raises_still_resumes_and_is_no_label(self):
+        # Nothing to say about the game: it escapes run(), after the resume and the cleanup, and no label is written.
+        clock = FakeClock()
+        with self.assertRaises(OSError):
+            kernel = FakeKernel(clock, [], raises=("context",))
+            runner.thread_eip(kernel, 22)
+        self.assertEqual(kernel.suspended, 0)
+        with self.assertRaises(OSError):
+            self.run_case(self.GAME, timeout=40, raises=("context",))
+
+    def test_a_suspend_that_raises_is_no_label(self):
+        with self.assertRaises(OSError):
+            self.run_case(self.GAME, timeout=40, raises=("suspend",))
+
+    def test_a_main_thread_gone_before_the_span_is_no_sample_and_no_hang(self):
+        kernel, result = self.run_case(self.GAME, timeout=40, thread_exit_at=5.0)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual(kernel.suspends, 0)
+        self.assertEqual(kernel.resumes, 0)
+        self.assertEqual(result.get("spin_samples", []), [])
+        self.assertEqual(result["main_eips"] if "main_eips" in result else [], [])
+        self.assertIsNone(result["main_stack"])
+        self.assertGreater(result["spin_sample_failures"], runner.SPIN_MAX_FAILURES)
+
+    def test_a_main_thread_gone_part_way_is_no_hang(self):
+        kernel, result = self.run_case(self.GAME, timeout=40, spinning=True, thread_exit_at=35.0)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertGreater(len(result["spin_samples"]), 20)
+        self.assertGreater(result["spin_sample_failures"], runner.SPIN_MAX_FAILURES)
+        self.assertFalse(self.span(result)["spinning"])
+
+    def test_a_thread_gone_between_suspend_and_resume_is_a_debugger_error(self):
+        kernel, result = self.run_case(self.GAME, timeout=40, thread_exit_at=10.5, context_cost=1.0)
+        self.assertEqual(result["outcome"], "debugger-error")
+        self.assertIn("ResumeThread:spin-sample", [e["operation"] for e in result["debugger_errors"]])
+
+    def test_a_failed_context_read_at_every_sample_is_no_hang(self):
+        kernel, result = self.run_case(self.GAME, timeout=40, fail_context=True, spinning=True)
+        self.assertEqual(result.get("spin_samples", []), [])
+        self.assertGreater(result["spin_sample_failures"], runner.SPIN_MAX_FAILURES)
 
     def test_a_failed_context_read_still_resumes(self):
         kernel, result = self.run_case(self.GAME, timeout=40, fail_context=True)
@@ -484,13 +606,62 @@ class MainThreadSamplerTests(unittest.TestCase):
     def test_sampling_does_not_extend_the_deadline(self):
         kernel, result = self.run_case(self.GAME, timeout=2, sampler_cost=0.75)
         self.assertEqual(result["outcome"], "timeout")
-        self.assertLessEqual(self.captured_at, 2.0 + 0.75)            # at most the one sample in flight
+        self.assertLessEqual(self.captured_at, 2.0 + 0.75 + 0.75)     # the one sample in flight, then main_stack's suspend
         self.assertGreaterEqual(self.captured_at, 2.0)
 
-    def test_an_event_due_after_the_deadline_is_not_taken_into_the_run(self):
-        # Reached before the fix: `left` from before the sample waited out a crash past the deadline.
-        kernel, result = self.run_case(self.GAME, timeout=2, sampler_cost=0.75, timed_events=[(2.4, self.CRASH)])
+    def test_a_crash_delivered_while_a_sample_crossed_the_deadline_counts(self):
+        # The review's injection: due at 1.9, the sample in flight ran to 2.5, and the run called it out of time.
+        kernel, result = self.run_case(self.GAME, timeout=2, sampler_cost=0.75, timed_events=[(1.9, self.CRASH)])
+        self.assertEqual(result["outcome"], "crash")
+
+    def test_a_crash_due_at_the_deadline_counts(self):
+        kernel, result = self.run_case(self.GAME, timeout=2, timed_events=[(2.0, self.CRASH)])
+        self.assertEqual(result["outcome"], "crash")
+
+    def test_a_crash_a_late_wait_returned_past_the_deadline_counts(self):
+        # Deliberate: it really happened, and nothing about a real fault is favourable to the build.
+        kernel, result = self.run_case(self.GAME, timeout=2, wait_late=0.3, timed_events=[(2.1, self.CRASH)])
+        self.assertEqual(result["outcome"], "crash")
+
+    def test_the_first_look_finding_nothing_past_the_deadline_closes_the_run(self):
+        kernel, result = self.run_case(self.GAME, timeout=2, timed_events=[(2.1, self.CRASH)])
         self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual(self.captured_at, 2.0)
+        kernel, result = self.run_case(self.GAME, timeout=2, sampler_cost=0.75, timed_events=[(2.6, self.CRASH)])
+        self.assertEqual(result["outcome"], "timeout")
+
+    def test_a_slow_look_cannot_buy_the_wait_more(self):
+        # 0.6 s a look: the look at 1.6 ends at 2.2, past the deadline, and the run ends there, not after another wait.
+        with mock.patch.object(runner, "SPIN_SPAN", 0.0):
+            kernel, result = self.run_case(self.GAME, timeout=2, look_cost=0.6)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertAlmostEqual(self.captured_at, 2.2)
+
+    def test_a_pending_event_is_served_before_the_next_sample(self):
+        # The first sample takes so long that the next is due at once, with an event delivered meanwhile: a
+        # debug event holds every thread, so a sample taken then reads a stopped thread as if it were running.
+        kernel, result = self.run_case(self.GAME, timeout=2, sampler_cost=1.25, timed_events=[(0.5, debug_event(8))])
+        sequence = [c for c in kernel.calls if c == "suspend" or c == ("continue", 200)]
+        self.assertEqual(sequence[:4], [("continue", 200), "suspend", ("continue", 200), "suspend"])
+
+    def test_a_stream_of_events_cannot_hold_the_run_open(self):
+        # The game can raise events for ever. The run takes them for EVENT_GRACE past the deadline, then ends.
+        kernel, result = self.run_case(self.GAME, timeout=2, stream_from=1.5)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertGreaterEqual(self.captured_at, 2.0 + runner.EVENT_GRACE)
+        self.assertLess(self.captured_at, 2.0 + runner.EVENT_GRACE + 0.1)
+
+    def test_a_crash_in_a_stream_counts_until_the_grace_runs_out(self):
+        inside, outside = 2.0 + runner.EVENT_GRACE - 0.5, 2.0 + runner.EVENT_GRACE + 0.5
+        kernel, result = self.run_case(self.GAME, timeout=2, stream_from=1.5, timed_events=[(inside, self.CRASH)])
+        self.assertEqual(result["outcome"], "crash")
+        kernel, result = self.run_case(self.GAME, timeout=2, stream_from=1.5, timed_events=[(outside, self.CRASH)])
+        self.assertEqual(result["outcome"], "timeout")
+
+    def test_a_hard_error_at_the_zero_wait_is_a_debugger_error(self):
+        kernel, result = self.run_case(self.GAME, timeout=2, wait_error=True)
+        self.assertEqual(result["outcome"], "debugger-error")
+        self.assertEqual(self.captured_at, None)
 
     def test_an_event_due_before_the_deadline_still_counts(self):
         kernel, result = self.run_case(self.GAME, timeout=2, sampler_cost=0.25, timed_events=[(1.0, self.CRASH)])
@@ -499,6 +670,50 @@ class MainThreadSamplerTests(unittest.TestCase):
     def test_no_sampling_cost_is_the_old_timing(self):
         kernel, result = self.run_case(self.GAME, timeout=2)
         self.assertEqual(self.captured_at, 2.0)
+
+    # main_stack runs before the reads that decide the label, so it may not leave the thread frozen for them.
+    def test_main_stack_leaves_the_thread_running(self):
+        with mock.patch.object(runner, "SPIN_SPAN", 0.0):
+            kernel, result = self.run_case(self.GAME, timeout=2)
+        self.assertEqual(result["outcome"], "timeout")
+        self.assertEqual((kernel.suspends, kernel.resumes, kernel.suspended), (1, 1, 0))
+        self.assertIn("main_stack", result)
+
+    def test_a_failed_resume_in_main_stack_is_a_debugger_error(self):
+        # The review's injection: it returned normally with the thread frozen, and the label went on being read.
+        with mock.patch.object(runner, "SPIN_SPAN", 0.0):
+            kernel, result = self.run_case(self.GAME, timeout=2, resume_fail_from=1)
+        self.assertEqual(result["outcome"], "debugger-error")
+        self.assertEqual(kernel.suspended, 1)
+        self.assertEqual(kernel.resumes, runner.RESUME_ATTEMPTS)
+        self.assertIn("ResumeThread:main-stack", [e["operation"] for e in result["debugger_errors"]])
+        self.assertNotIn("main_stack", result)
+
+    def test_a_resume_raising_in_main_stack_is_a_debugger_error(self):
+        with mock.patch.object(runner, "SPIN_SPAN", 0.0):
+            kernel, result = self.run_case(self.GAME, timeout=2, resume_raises=-1)
+        self.assertEqual(result["outcome"], "debugger-error")
+        self.assertIn("ResumeThread:main-stack", [e["operation"] for e in result["debugger_errors"]])
+
+    def test_main_stack_does_not_read_a_thread_it_could_not_suspend(self):
+        kernel = FakeKernel(FakeClock(), [], fail_suspend=True)
+        with mock.patch.object(runner, "stack_words") as read:
+            self.assertIsNone(runner.main_stack(kernel, 21, 22, 201))
+        read.assert_not_called()
+        self.assertEqual(kernel.resumes, 0)
+
+    def test_main_stack_resumes_when_the_read_raises(self):
+        kernel = FakeKernel(FakeClock(), [])
+        with mock.patch.object(runner, "stack_words", side_effect=OSError("read")):
+            with self.assertRaises(OSError):
+                runner.main_stack(kernel, 21, 22, 201)
+        self.assertEqual(kernel.suspended, 0)
+
+    def test_main_stack_returns_what_it_read(self):
+        kernel = FakeKernel(FakeClock(), [])
+        with mock.patch.object(runner, "stack_words", return_value={"words": [1]}) as read:
+            self.assertEqual(runner.main_stack(kernel, 21, 22, 201), {"words": [1]})
+        read.assert_called_once_with(kernel, 21, 201, n=1024)
 
 
 class StackKernel:

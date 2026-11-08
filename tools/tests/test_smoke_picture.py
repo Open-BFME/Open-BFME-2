@@ -70,8 +70,8 @@ class Labels(unittest.TestCase):
 
     LOW, HIGH = 0x10000000, 0x11000000
 
-    def span(self, samples):
-        return bs.main_thread_span(samples, self.LOW, self.HIGH)
+    def span(self, samples, failures=0):
+        return bs.main_thread_span(samples, self.LOW, self.HIGH, failures)
 
     def test_a_tight_loop_over_the_span_is_a_spin(self):
         span = self.span(self.over([0x1085646D, 0x10856470, 0x1085646A] * 10))
@@ -83,12 +83,48 @@ class Labels(unittest.TestCase):
         # Literal on purpose: a wrong label misstates how far the game runs, so widening one is a reviewed change.
         self.assertEqual((bs.SPIN_WINDOW, bs.SPIN_MIN_SECONDS, bs.SPIN_MIN_SAMPLES, bs.SPIN_SPAN), (64, 25.0, 20, 30.0))
 
+    def test_the_evidence_limits_are_these(self):
+        # Literal on purpose, as above. Real hangs measured: no failures, a largest gap of 1.0 s. Retail's healthiest
+        # worst case on these samples: 2.7 s between two.
+        self.assertEqual((bs.SPIN_MAX_FAILURES, bs.SPIN_MAX_GAP), (2, 3.0))
+
+    def test_failed_samples_limit_a_hang(self):
+        self.assertTrue(self.span(self.over([self.LOW] * 30), failures=2)["spinning"])
+        self.assertFalse(self.span(self.over([self.LOW] * 30), failures=3)["spinning"])
+
+    def test_the_review_case_ten_failures_among_twenty_good_samples_is_no_hang(self):
+        # Twenty good reads a little over a second apart, the failed ones hiding what ran between them.
+        twenty = [(270.0 + i * 1.5, self.LOW) for i in range(20)]
+        self.assertTrue(self.span(twenty)["spinning"])
+        self.assertFalse(self.span(twenty, failures=10)["spinning"])
+
+    def test_a_gap_in_the_good_samples_limits_a_hang(self):
+        before = [(270.0 + i, self.LOW) for i in range(12)]
+        at_limit = before + [(284.0 + i, self.LOW) for i in range(15)]         # 281 to 284
+        over = before + [(284.1 + i, self.LOW) for i in range(15)]             # 281 to 284.1
+        self.assertEqual(self.span(at_limit)["largest_gap"], 3.0)
+        self.assertTrue(self.span(at_limit)["spinning"])
+        self.assertEqual(self.span(over)["largest_gap"], 3.1)
+        self.assertFalse(self.span(over)["spinning"])
+
+    def test_only_the_largest_gap_counts_wherever_it_falls(self):
+        for hole in (1, 10, 28):
+            times = [270.0 + i + (4.0 if i >= hole else 0.0) for i in range(29)]
+            self.assertFalse(self.span([(t, self.LOW) for t in times])["spinning"], hole)
+
+    def test_the_span_reports_its_evidence(self):
+        span = self.span(self.over([self.LOW] * 30), failures=1)
+        self.assertEqual((span["failures"], span["largest_gap"]), (1, 1.0))
+
+    def test_one_sample_has_no_gap(self):
+        self.assertEqual(self.span([(270.0, self.LOW)])["largest_gap"], 0.0)
+
     def test_sixty_five_bytes_is_not_a_spin(self):
         self.assertFalse(self.span(self.over([self.LOW] * 29 + [self.LOW + 65]))["spinning"])
 
     def test_a_thread_parked_outside_the_image_is_not_a_spin(self):
         # Retail's own control at 120 s: 30 samples at 0x79A9C844, spread 0, an intro movie playing.
-        span = bs.main_thread_span(self.over([0x79A9C844] * 30), 0x400000, 0x400000 + 0xB00000)
+        span = bs.main_thread_span(self.over([0x79A9C844] * 30), 0x400000, 0x400000 + 0xB00000, 0)
         self.assertEqual(span["spread"], 0)
         self.assertFalse(span["inside_image"])
         self.assertFalse(span["spinning"])

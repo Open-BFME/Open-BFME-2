@@ -120,7 +120,11 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
   satisfy it. In the other direction, a wider spin, a spin in a system DLL or a deadlock in a wait
   keep the more favourable picture label, so `title-splash` or `loading-screen` does not prove the
   run was still moving. It takes no sample as evidence when the thread could not be cleanly suspended
-  and resumed, and a thread it cannot resume makes the run a `debugger-error`. A thread parked outside
+  and resumed, and a thread it cannot resume makes the run a `debugger-error`. More than 2 failed reads
+  over the span, or more than 3 seconds between two good samples, withhold the label: `failures` and
+  `largest_gap` in `main_thread_span`. A crash already delivered at the deadline counts, and one
+  arriving just past it can too, deliberately: a run ends at the first look that finds nothing
+  pending, and a stream of events can hold it open at most 2 s longer. A thread parked outside
   the image gets no hang label because retail waits in a system call for 29 s at a stretch while
   a movie plays. Receipts before this change say `loading-screen` for all of these.
 - Retail on 2026-11-03: main menu reached; a seeded skirmish gives 30 distinct CRCs over frames
