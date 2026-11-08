@@ -44,3 +44,13 @@ still need a bridge. Shared-class consolidation, the stale Wind header
 queue identity, the earlier broader-audit consumer receipt and next-image
 confirmation remain open. This changes no pin, alias, flag, header or
 source path and claims no full-table, image or runtime clearance.
+
+Published as bd717ca94a on the first attempt (56.0 seconds: 14.6 rebase,
+41.4 hook/push). The commit's name-dependent closure passes 666 rows and
+31 data rows across 25 sources, with 70 exact EH graphs. Post-rebase push
+verification passes 516 rows/eight data rows across 14 sources, 19 exact
+EH graphs, literals/imports and scoped DIR32. The broader audit remains
+INCONCLUSIVE: ten source objects lack current receipts, first
+Common/ConstIntGetters4.cpp, against index c885072a48 and outgoing base
+8e5e79fd2f9bf69aa6f56a5bc985fbacaacb6af0. Carry that larger consumer closure
+into the next census/image; no full-link or runtime clearance is claimed.

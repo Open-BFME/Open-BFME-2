@@ -287,3 +287,11 @@ the removed inherited default has an identical current provider. Slot 2,
 shared-class consolidation, the Wind queue identity and next-image
 confirmation remain open; no bridge/image/runtime clearance is claimed.
 [Identity, native slots and preserved-body proof](../../reverse/attempt_support/back-away-class-lifecycle-20261108/README.md).
+
+Published as bd717ca94a (first attempt, 56.0 seconds). Name-dependent
+commit verification passes 666 rows/25 sources and 70 exact EH graphs;
+post-rebase push verification passes 516 rows/14 sources and 19 exact EH
+graphs. The broader audit remains INCONCLUSIVE: ten source objects lack
+current receipts, first ConstIntGetters4.cpp (index c885072a48/base
+8e5e79fd2f). Carry the larger closure into the next census/image; no full
+link or bridge clearance is claimed.
