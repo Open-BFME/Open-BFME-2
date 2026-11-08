@@ -18,7 +18,7 @@ struct Vp6DeblockBandNewInstance
 	int *m_bounding;
 };
 
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[];
 
 extern "C" void __cdecl DeblockNonFilteredBandNewFilter_C(Vp6DeblockBandNewInstance *ctx,
 	unsigned char *source, unsigned char *destination, unsigned int stride,

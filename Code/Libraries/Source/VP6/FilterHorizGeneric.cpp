@@ -8,7 +8,7 @@
 // (value + 4) >> 3; pixel b gains it and pixel c loses it through the clamp
 // table (zero point at image 0x00E23100).
 
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[];
 
 // RVA 0x001BFF60
 extern "C" void __cdecl FilterHoriz_Generic(void *, unsigned char *ptr, int lineLength, const int *bounding)
