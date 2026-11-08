@@ -15,6 +15,7 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 private:
 	StateMachine *m_20;

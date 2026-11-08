@@ -295,3 +295,19 @@ graphs. The broader audit remains INCONCLUSIVE: ten source objects lack
 current receipts, first ConstIntGetters4.cpp (index c885072a48/base
 8e5e79fd2f). Carry the larger closure into the next census/image; no full
 link or bridge clearance is claimed.
+
+2026-11-08 root getter follow-up: tools/rename.py --to-class moves native
+33F35E into AIBackAwayAndCowerState::GetSnapshotName and declares the
+protected override in both lifecycle views. All 45 changed-source rows
+and 247 dependent rows pass; EH is exact. Both 17-slot copies agree,
+with only slot 2 changed from purecall to the native literal getter.
+Six strictly current cached objects conserve preview LINKS/4,918 bytes
+at c885072a48. Fourteen source slots have positive name bindings; the
+remaining State loadPostProcess/slot7/slot16 bodies already match C3 at
+B3FD0, but their names lack rows. B3FD0/class:State are held by
+Burachi-3D@Burak/85351563, so their ICF admission is deferred. An AI-source
+alias also needs owner-source fold proof and shadow A1/TU review; inline
+is not a general placement exemption. These are covered bodies, not a
+regression. Shared-class/Wind-queue work and next-image confirmation
+remain open; no full bridge or runtime clearance is claimed.
+[Getter proof and held inherited-name dependency](../../reverse/attempt_support/back-away-getter-20261108/README.md).

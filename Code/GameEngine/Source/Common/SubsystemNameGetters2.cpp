@@ -50,7 +50,7 @@ const char *LuaScriptEngine::GetSnapshotName() const
 BFME_SNAPSHOT_NAME_GETTER(ProjectileStreamUpdate, "ProjectileStreamUpdate")
 BFME_LITERAL_NAME_GETTER(Rva0033F2F7Named, "AIInternalMoveToState")
 BFME_LITERAL_NAME_GETTER(Rva0033F31ANamed, "AIBusyState")
-BFME_LITERAL_NAME_GETTER(Rva0033F35ENamed, "AIBackAwayAndCowerState")
+BFME_SNAPSHOT_NAME_GETTER(AIBackAwayAndCowerState, "AIBackAwayAndCowerState")
 BFME_LITERAL_NAME_GETTER(AIAttackMeleeHordeWaitState, "AIAttackMeleeHordeWaitState")
 BFME_LITERAL_NAME_GETTER(Rva0033F3B0Named, "AIAttackMeleeHordeWaitPathState")
 BFME_LITERAL_NAME_GETTER(Rva00253DF7Named, "HordeNotifyTargetsOfImminentProbableCrushingUpdate")

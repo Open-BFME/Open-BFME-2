@@ -5,7 +5,7 @@
 // twin ??0State@@QAE@PAVStateMachine@@I@Z at 0x004D73FC then zeroing dword
 // at +0x20 then installing vtable 0x00810EE0. Caller is 0x0035245D.
 // The compiler installs the State-derived table; the destructor uses the same
-// 17-slot view. Getter and lifecycle identities still need reconciliation.
+// 17-slot view; its getter and lifecycle methods name the native slot bodies.
 
 class StateMachine;
 
@@ -20,6 +20,7 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 
 private:
