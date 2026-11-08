@@ -1030,3 +1030,37 @@ all 21 sources LINK with more linked bytes; full gate green. The weak-rule gain 
   release; (3) the 594 tables that twins clear only partly, ranked by what blocks the rest (usually one
   short-copy or `__purecall` slot); (4) the destructor-only private views of the six scaffold units above,
   through shared class headers.
+
+**Kept-copy twin pass: 51 tables off the bridge (2026-11-08, seat halilkkaya-lk68, base `195accef7e`).**
+lk67's lead (1): lk67_plan2.py plans each slot symbol in its first external provider in exit_link's input
+order (`vtable_bridge.first_providers`, the copy the linker keeps) instead of the table's own unit. Run
+as is, it had no check that callees also hold in their kept copy, so a second pass re-checks every planned
+row there (same size, bytes equal to retail with relocation fields masked, same relocation symbols); all
+1,129 planned rows held. Of the 2,225 "not defined in this unit" slots it recovers, the hits were checked
+by hand on samples (Clear@VectorClass<ResolutionDescClass> 0x00154A30, ??_GRva004D5795 and its ??1 callee,
+??_GDrawable 0x00279FFC, the AABox dtor family 0x001811A0-D0): owner bytes and relocation targets equal.
+- Done, three commits, rows only (`tools/add_match.py --icf-owner`, `fold-proof=<owner source>`):
+  89 rows clearing 47 tables (dx8wrapper.cpp, MaterialCollector and render2dsentence VectorClass families,
+  the FXShaderParameterSourceNamespaceSAS SourceNamespace_* destructors, numpunct/messages<unsigned short>,
+  the LivingWorld observer no-op events at 0x0050B238, ??_GObject@@MAE with its OGA thunk); 11 rows clearing
+  Drawable's Snapshot table and the AABox/OBBox/Null3DObjClass secondary tables (claims now free); 74 rows
+  that leave 57 more tables one slot short. add_match removed two present-unmatched markers
+  (DX8Rigid/DX8SkinFVFCategoryContainer::Log in dx8renderer.cpp).
+- Offline A/B (lk65_ab.py, old = new = HEAD's `tools/vtable_bridge.py` with the weak rule): bridged
+  4,353 -> 4,302, already correct 1,312 -> 1,363, mismatching source slots 46,101 -> 46,030 after the
+  partial batch; refusals identical (211); no table newly bridged or lost. link_check: all touched units
+  LINK with equal or more bytes, except LivingWorldCampaign.cpp and SpawnArmy.cpp, which already fail at
+  plain `195accef7e` (unresolved `??1?$vector@VEnableRegionRecord...` and `?rva00566527@Rva00566527...`,
+  duplicate `??0Rva0056616B`, after the 4bae086dd55/8303e0c1b71 split and respell).
+- Still clearable but not rowed: 157 tables need addresses or files Burachi-3D holds (0x000B3FD0 and
+  0x000D43D0 alone block 139 and 160 of them; also 0x000D1407, 0x004543A9, 0x0047A699, 0x00497805,
+  0x004D5B30, 0x005C4AD5, 0x005CB9FF, Rva0056AC26Constructor.cpp, NetCommandMsgCtor.cpp); 98 sit in
+  excluded scopes (BehaviorModule/DieModule units 52, FXParticleSystem 29, SpecialAbilityUpdate 9, Coord3D,
+  LivingWorldManager, Rva00577FE2). Re-run the planner and lk67_select.py when those release.
+- Next leads: (1) 641 slot names that no input defines (private-view phantoms such as `?slot01@State`,
+  AIInternalMoveToState and AptValue virtuals); the bridge masks them, the class-header lane fixes them;
+  (2) 1,386 slots whose retail target has no matched same-size row (needs the real body, e.g. the
+  `??1LaserFXNugget` behind `??_E` at 0x001E1152); (3) placeholders a twin now proves, for the naming lane:
+  `??_GRva002793F0` at 0x00279FFC is `??_GDrawable` (its callee is `??1Drawable`), and 0x004CEE78
+  `?apply@Rva004CEE78DwordImmSetter` is a fold of `??1NetCommandMsg`. No `tools/vtable_bridge.py` change
+  is needed for this lane.
