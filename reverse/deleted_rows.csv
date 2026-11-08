@@ -5926,3 +5926,4 @@ __ehhandler$?rva000E2FBD@FlatHeightMapRenderObjClass@@QAEXAAVRenderInfoClass@@@Z
 ?name@Rva0004C457Named@@QBEPBDXZ,0x0004C457,"Retracted: retail table 0x00BED840 holds this body as GameClient's Snapshot slot; rowed in the same change as ?GetSnapshotName@GameClient@@MBEPBDXZ."
 ?rva00239A9D@Rva00239A9D@@QAEXXZ,0x00239A9D,"Retracted: retail table 0x00BED840 holds this body as GameClient's Snapshot slot; rowed in the same change as ?loadPostProcess@GameClient@@MAEXXZ."
 ?name@Rva001E3E56Named@@QBEPBDXZ,0x001E3E56,"Retracted: retail table 0x00BDE888 holds this body as Locomotor's Snapshot slot 2; rowed in the same change as ?GetSnapshotName@Locomotor@@MBEPBDXZ in its approved unit."
+?Rva002C74FBGet@@YAHXZ,0x002C74FB,"Retracted: retail table 0x00C0089C holds this body as WeaponSet's Snapshot slot 2; rowed in the same change as ?GetSnapshotName@WeaponSet@@MBEPBDXZ in its approved unit."

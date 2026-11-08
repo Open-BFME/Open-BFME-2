@@ -19,7 +19,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 }
 #define DEFINE_WEAPONSLOTTYPE_NAMES
 #define DEFINE_COMMANDSOURCEMASK_NAMES
-#include "GameLogic/WeaponSet.h"
+#include "WeaponSetNameSlot.h"
 #include "Common/INI.h"
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
@@ -567,10 +567,10 @@ Bool WeaponTemplateSet::testWeaponSetFlag( WeaponSetType wst ) const
 // ------------------------------------------------------------------------------------------------
 /** CRC */
 // ------------------------------------------------------------------------------------------------
-// ?WeaponSet::crc present-unmatched
-void WeaponSet::crc( Xfer *xfer )
+// ?GetSnapshotName@WeaponSet@@MBEPBDXZ @0x002C74FB: slot 2 of retail's table 0x00C0089C.
+const char *WeaponSet::GetSnapshotName() const
 {
-
+	return "WeaponSet";
 }
 
   // end crc

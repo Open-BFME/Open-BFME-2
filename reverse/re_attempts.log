@@ -102342,3 +102342,4 @@ _g_weaponStoreTable	0x00802114	56	void	Retract the preceding blocked verdict: it
 ?GetSnapshotName@GameClient@@MBEPBDXZ	0x0004C457	6	landed	add_match verified Code/GameEngine/Source/Common/SubsystemNameGetters.cpp 6B; literal name getter returning GameClient; vtable refs at 0x7C472C and 0x7ED848; address-derived placeholder name
 ?loadPostProcess@GameClient@@MAEXXZ	0x00239A9D	87	landed	add_match verified Code/GameEngine/Source/Common/Rva00239A9D.cpp 87B; max Drawable ID scan then TacticalView slot 0x224
 ?GetSnapshotName@Locomotor@@MBEPBDXZ	0x001E3E56	6	landed	add_match verified Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp 6B; Snapshot slot 2 of retail table 0x00BDE888
+?GetSnapshotName@WeaponSet@@MBEPBDXZ	0x002C74FB	6	landed	add_match verified Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp 6B; Snapshot slot 2 of retail table 0x00C0089C

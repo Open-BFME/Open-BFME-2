@@ -15,6 +15,7 @@ public:
 
 // The base is the canonical Snapshot (vtable 0x00BBB554): retail unwind
 // funclets destroy it through the folded Snapshot destructor 0x0049B47C.
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 enum WeaponSlotType
@@ -59,7 +60,7 @@ class WeaponSet : public Snapshot
 public:
 	WeaponSet();
 protected:
-	virtual void crc(Xfer *xfer);
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	virtual void loadPostProcess(void);
 public:

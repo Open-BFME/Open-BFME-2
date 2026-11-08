@@ -10,6 +10,7 @@
 // ZH donor WeaponSet::WeaponSet zeroes the same fields.
 // ?isAnyWithinTargetPitch@WeaponSet@@ABE_NPBVObject@@0@Z is rowed.
 
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 // The destructor and scalar deleter use the same Snapshot base. Retail's
@@ -58,7 +59,7 @@ class WeaponSet : public Snapshot
 public:
 	WeaponSet();
 protected:
-	virtual void crc(Xfer *xfer);
+	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
 	virtual void loadPostProcess(void);
 public:

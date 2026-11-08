@@ -10713,7 +10713,6 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva0028C933Get@@YAHXZ,,0x0028C933,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret BFBD24; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?GetSnapshotName@Object@@UBEPBDXZ,,0x00299C6E,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret BE07C4; prev C2-14-00 with 1 vtable ref and no callers; opaque name
 ?Rva002B117CGet@@YAHXZ,,0x002B117C,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret BFDF5C; prev C2-04-00 with 1 vtable ref and no callers; opaque name
-?Rva002C74FBGet@@YAHXZ,,0x002C74FB,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret C008AC; prev C2-04-00 with 1 vtable ref and no callers; opaque name
 ?Rva002CC2F6Get@@YAHXZ,,0x002CC2F6,6,Code/GameEngine/Source/Common/ConstIntGetters4.cpp,matched,B8-6 returner ret BE1058; prev C2-08-00 with 1 vtable ref and no callers; opaque name
 ?GetSnapshotName@Rva002E2AAE@@UBEPBDXZ,,0x002E07C6,6,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp,matched,B8-6 returner ret C04920; prev C2-04-00 with 1 vtable ref and no callers; opaque name; reconciled complete player member owner and native table; whole body exact t=100 model=gpt-6-astra
 ?removeSmudgeFromSet@SmudgeSet@@QAEXAAUSmudge@@@Z,,0x002D282E,33,Code/GameEngine/Source/GameClient/System/SmudgeRemoveSmudgeFromSet.cpp,matched,BFME1 donor verbatim; static free list 0xDBCBF4 sacrificial; Remove/Add_Head Smudge pins; count +0x1C
@@ -100177,3 +100176,4 @@ __ehhandler$?Render@Rva000E3B41@@UAEXAAVRenderInfoClass@@@Z,,0x00763248,10,Code/
 ?GetSnapshotName@GameClient@@MBEPBDXZ,,0x0004C457,6,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp,matched,literal name getter returning GameClient; vtable refs at 0x7C472C and 0x7ED848; address-derived placeholder name
 ?loadPostProcess@GameClient@@MAEXXZ,,0x00239A9D,87,Code/GameEngine/Source/Common/Rva00239A9D.cpp,matched,max Drawable ID scan then TacticalView slot 0x224
 ?GetSnapshotName@Locomotor@@MBEPBDXZ,,0x001E3E56,6,Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,matched,Snapshot slot 2 of retail table 0x00BDE888
+?GetSnapshotName@WeaponSet@@MBEPBDXZ,,0x002C74FB,6,Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp,matched,Snapshot slot 2 of retail table 0x00C0089C
