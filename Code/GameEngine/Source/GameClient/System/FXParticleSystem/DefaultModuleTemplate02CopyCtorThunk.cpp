@@ -1,66 +1,18 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /GX- /Ob2 /Ireference/shims/moduledata
 
-// Open-BFME5: DefaultModuleTemplate (N=3) copy constructor.
+// Open-BFME5: DefaultModuleTemplate (ledger $02 / N=3) copy ctor
+// Retail: CategoryModuleTemplate copy 0x0004CB7B, the null-preserving
+// DefaultPhysicsModuleInfo copy 0x003A7736 on +8, then the class's own tables.
+
+#include "../../../../Include/GameClient/DefaultModuleTemplate.h"
 
 namespace FXParticleSystem
 {
 
-class ModuleTemplate
-{
-public:
-	virtual ~ModuleTemplate();
-};
-
-template <int Category>
-class CategoryModuleInfo
-{
-public:
-	virtual void unusedVirtual() = 0;
-};
-
-template <int Category>
-class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<Category>
-{
-};
-
-template <int Category>
-class CategoryModuleTemplate : public CategoryModuleTemplateBase<Category>
-{
-public:
-	CategoryModuleTemplate(const CategoryModuleTemplate &that) throw();
-	virtual ~CategoryModuleTemplate();
-};
-
-#include "../../../../Include/GameClient/GameClientRandomVariable.h"
-
-class DefaultPhysicsModuleInfo
-{
-public:
-	DefaultPhysicsModuleInfo(const DefaultPhysicsModuleInfo &that) throw();
-	virtual ~DefaultPhysicsModuleInfo();
-
-private:
-	float m_field0;
-	float m_field1;
-	float m_field2;
-	int m_field3;
-	GameClientRandomVariable m_var1;
-};
-
-template <int Category>
-class DefaultModuleTemplate : public CategoryModuleTemplate<Category>, public DefaultPhysicsModuleInfo
-{
-public:
-	DefaultModuleTemplate(const DefaultModuleTemplate &that);
-	virtual ~DefaultModuleTemplate();
-};
-
-template <int Category>
-DefaultModuleTemplate<Category>::DefaultModuleTemplate(const DefaultModuleTemplate &that)
-	: CategoryModuleTemplate<Category>(that), DefaultPhysicsModuleInfo(that)
+// ??0?$DefaultModuleTemplate@$02@FXParticleSystem@@QAE@ABV01@@Z
+DefaultModuleTemplate<3>::DefaultModuleTemplate(const DefaultModuleTemplate &that)
+    : CategoryModuleTemplate<3>(that), DefaultPhysicsModuleInfo(that)
 {
 }
-
-template DefaultModuleTemplate<3>::DefaultModuleTemplate(const DefaultModuleTemplate &);
 
 }

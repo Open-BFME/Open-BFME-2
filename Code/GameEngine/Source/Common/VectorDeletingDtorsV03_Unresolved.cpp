@@ -176,6 +176,22 @@ public:
 	virtual ~Rva003A7853Vec();
 };
 
+namespace FXParticleSystem
+{
+template <int Category> class DefaultModuleTemplate;
+
+// DefaultModuleTemplate<3>'s class tables (0x0081BCC0 slot 0, 0x0081BCD0 slot 0)
+// name this deleting destructor and its -8 thunk. The class is abstract, so its
+// own constructor units cannot new an array of it; this view keeps only the size
+// and the +8 secondary base, and novtable keeps its partial table out of the image.
+template <>
+class __declspec(novtable) DefaultModuleTemplate<3> : public Rva003A7853VecBase0, public Rva003A7853VecBase8
+{
+public:
+	virtual ~DefaultModuleTemplate();
+};
+}
+
 
 class __declspec(novtable) Rva003A7A06VecBase0
 {
@@ -249,6 +265,7 @@ void bfmeVectorDeleteAnchorV03Unresolved()
 	new Rva003A71D4Vec[2];
 	new Rva003A73ADVec[2];
 	new Rva003A7853Vec[2];
+	new FXParticleSystem::DefaultModuleTemplate<3>[2];
 	new Rva003A7A06Vec[2];
 	new FXParticleSystem::DefaultModuleTemplate<2>[2];
 	new Rva003A7B9FVec[2];
