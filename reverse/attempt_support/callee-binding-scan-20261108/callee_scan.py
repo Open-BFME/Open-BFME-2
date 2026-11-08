@@ -521,6 +521,7 @@ def forwards_to(it, rt):
 
 anchored_seen = {}
 anchored_found = []
+anchored_stubs = []
 anchored_classes = collections.Counter()
 roots = sorted((a for a, b in bodies_at.items() if len(b) == 1), key=lambda a: visited.get(a, (0, 0, 10**9))[2])
 for root in roots:
@@ -536,6 +537,7 @@ for root in roots:
         base = isym(it)
         if base is not None and any(n in stubs for n in inames.get(base, ())):
             anchored_classes["stub"] += 1
+            anchored_stubs.append((rt, it, parent, root))
             continue
         names = set(inames.get(it, ())) & names_at[rt]
         S = max((sizes_of[rt][n] for n in names), default=size_at[rt])
@@ -568,6 +570,11 @@ def chain_of(rt, it):
     return " < ".join(out)
 
 
+with open(out + ".stubs.tsv", "w", encoding="utf-8") as f:
+    print("retail_rva\tretail_name\timage_rva\timage_name\tparent\tparent_name\troot_name", file=f)
+    for rt, it, parent, root in anchored_stubs:
+        print(f"{rt:#x}", sorted(names_at.get(rt, {"?"}))[0][:110], f"{it:#x}", (inames.get(isym(it)) or ["?"])[0][:110], f"{parent[0]:#x}" if parent else "",
+              sorted(names_at.get(parent[0], {"?"}))[0][:90] if parent else "", sorted(names_at.get(root, {"?"}))[0][:90], sep="\t", file=f)
 with open(out + ".anchored.tsv", "w", encoding="utf-8") as f:
     print("order\tanchor\ttier\tkind\tretail_rva\tretail_name\tsize\timage_rva\timage_name\textent\tdiffs\tfirst\tlonger\ttags\tratio\tlayout\tonly_retail\tonly_image\thomes\troot\troot_name\tparent\tchain", file=f)
     lines = []

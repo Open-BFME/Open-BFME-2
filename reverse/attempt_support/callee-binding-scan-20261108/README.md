@@ -93,7 +93,10 @@ body's shape somewhere" both drop P40 and P43. The `layout` test drops P37, P38 
 - 724 rows with no body in the image.
 - `present-unmatched` definitions that are a symbol's only provider: with no row or pin, nothing ties them to a retail address. Static defects
   ranks 64 of them in `reverse/attempt_support/marked-sole-providers-20261108/`; check that list too when a boot stops.
-- Wrong globals, because data addresses are masked.
+- Wrong globals, because data addresses are masked. That includes a second name for one object (P55) and one object split across two
+  names (P30). `data_pairs.py` covers part of this: it lists ledger addresses whose names are defined apart in an image, and
+  `data-pairs-e834581c00.tsv` is its output on that plain master image. P55's 0x00A02FF8 is on it, at 4 and 40 bytes. P30 is not, because
+  the ledger gives its two iterators separate addresses. Sizes are the gap to the next map symbol, so they are rough. An entry is a lead.
 - Folds: "identical body" only means the bytes match with addresses masked, not that the type is right.
 - Reachability: the boot walk is only a ranking. It marked P43's path unreached even though P43 crashed during boot, so "not reached"
   excludes nothing.
