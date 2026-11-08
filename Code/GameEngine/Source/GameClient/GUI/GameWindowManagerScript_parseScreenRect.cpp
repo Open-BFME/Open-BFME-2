@@ -31,10 +31,6 @@ typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef bool Bool;
 
-#ifndef TRUE
-#define TRUE true
-#endif
-
 #include <string.h>
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 
@@ -116,7 +112,7 @@ static Bool parseScreenRect(char *token, char *buffer, Int *x, Int *y, Int *widt
 	*width = screenRegion.hi.x - screenRegion.lo.x;
 	*height = screenRegion.hi.y - screenRegion.lo.y;
 
-	return TRUE;
+	return true;
 }
 
 // Codegen scaffold: MSVC only drops the two unused char* parameters for a
