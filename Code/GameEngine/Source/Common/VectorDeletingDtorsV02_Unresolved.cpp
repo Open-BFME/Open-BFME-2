@@ -64,6 +64,7 @@ namespace FXParticleSystem
 class __declspec(novtable) TerrainFireEmissionModuleTemplate : public Rva003A6F85VecBase0, public Rva003A6F85VecBase8
 {
 public:
+	TerrainFireEmissionModuleTemplate();
 	virtual ~TerrainFireEmissionModuleTemplate();
 };
 }
@@ -77,6 +78,7 @@ namespace FXParticleSystem
 class __declspec(novtable) LightningDrawModuleTemplate : public Rva003A6F85VecBase0, public Rva003A6F85VecBase8
 {
 public:
+	LightningDrawModuleTemplate();
 	virtual ~LightningDrawModuleTemplate();
 };
 }
@@ -114,6 +116,7 @@ namespace FXParticleSystem
 class __declspec(novtable) OutwardEmissionVelocityModuleTemplate : public Rva003A7614VecBase0, public Rva003A7614VecBase8
 {
 public:
+	OutwardEmissionVelocityModuleTemplate();
 	virtual ~OutwardEmissionVelocityModuleTemplate();
 };
 }
@@ -127,6 +130,7 @@ namespace FXParticleSystem
 class __declspec(novtable) CylindricalEmissionVelocityModuleTemplate : public Rva003A7614VecBase0, public Rva003A7614VecBase8
 {
 public:
+	CylindricalEmissionVelocityModuleTemplate();
 	virtual ~CylindricalEmissionVelocityModuleTemplate();
 };
 }

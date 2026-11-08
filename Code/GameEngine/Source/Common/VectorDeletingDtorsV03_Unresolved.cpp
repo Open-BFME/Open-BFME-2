@@ -134,6 +134,7 @@ namespace FXParticleSystem
 class __declspec(novtable) OrthoEmissionVelocityModuleTemplate : public Rva003A71D4VecBase0, public Rva003A71D4VecBase8
 {
 public:
+	OrthoEmissionVelocityModuleTemplate();
 	virtual ~OrthoEmissionVelocityModuleTemplate();
 };
 }
@@ -172,6 +173,7 @@ namespace FXParticleSystem
 class __declspec(novtable) SphericalEmissionVelocityModuleTemplate : public Rva003A73ADVecBase0, public Rva003A73ADVecBase8
 {
 public:
+	SphericalEmissionVelocityModuleTemplate();
 	virtual ~SphericalEmissionVelocityModuleTemplate();
 };
 }
@@ -214,6 +216,7 @@ template <>
 class __declspec(novtable) DefaultModuleTemplate<3> : public Rva003A7853VecBase0, public Rva003A7853VecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }
@@ -255,6 +258,7 @@ template <>
 class __declspec(novtable) DefaultModuleTemplate<2> : public Rva003A7A06VecBase0, public Rva003A7A06VecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }
@@ -290,6 +294,7 @@ namespace FXParticleSystem
 class __declspec(novtable) StreakDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
 {
 public:
+	StreakDrawModuleTemplate();
 	virtual ~StreakDrawModuleTemplate();
 };
 }
@@ -303,6 +308,7 @@ namespace FXParticleSystem
 class __declspec(novtable) QuadDrawModuleTemplate : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
 {
 public:
+	QuadDrawModuleTemplate();
 	virtual ~QuadDrawModuleTemplate();
 };
 }
@@ -319,6 +325,7 @@ template <>
 class __declspec(novtable) DefaultModuleTemplate<6> : public Rva003A7B9FVecBase0, public Rva003A7B9FVecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }

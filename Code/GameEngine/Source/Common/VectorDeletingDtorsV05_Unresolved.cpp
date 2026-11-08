@@ -64,6 +64,7 @@ template <>
 class __declspec(novtable) DefaultModuleTemplate<1> : public Rva003A628BVecBase0, public Rva003A628BVecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }
@@ -104,6 +105,7 @@ template <>
 class __declspec(novtable) DefaultModuleTemplate<0> : public Rva003A63EEVecBase0, public Rva003A63EEVecBase8
 {
 public:
+	DefaultModuleTemplate();
 	virtual ~DefaultModuleTemplate();
 };
 }
@@ -142,6 +144,7 @@ namespace FXParticleSystem
 class __declspec(novtable) LightningEmissionModuleTemplate : public Rva003A6D11VecBase0, public Rva003A6D11VecBase8
 {
 public:
+	LightningEmissionModuleTemplate();
 	virtual ~LightningEmissionModuleTemplate();
 };
 }
