@@ -34,10 +34,12 @@ namespace _STL {template<>_Bvector_base<allocator<bool> >::_Bvector_base(const a
 class DX8_CleanupHook {public:DX8_CleanupHook(){}virtual void ReleaseResources()=0;virtual void ReAcquireResources()=0;};
 class TScorch:public Snapshot {public:TScorch();virtual~TScorch(){}virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);unsigned char data[24];};
 // The texture handles' unwind funclets (0x0075E810, 0x0075E855, ...) jump to
-// the rowed release-if-non-null destructor 0x0017098D, which the destructor
-// unit Rva0006D0D7Dtor.cpp emits as RefTex's; the other four strings at
+// the rowed release-if-non-null destructor 0x0017098D (RefCountPtr<TextureClass>'s, rowed in
+// streakRender.cpp; about 50 holder destructors fold there); the other four strings at
 // 0x3820/0x382C/0x383C/0x3848 are released through AsciiString's 0x0048BA39.
-class RefTex {public:RefTex():data(0){}~RefTex();void *data;};
+#include "../../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
+class TextureBaseClass {public:void Release_Ref();};
+class TextureClass:public TextureBaseClass {};
 #include "ascii_string.h"
 // Suppress this TU's non-retail copy of ??1?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
@@ -146,7 +148,7 @@ virtual void ReleaseResources();virtual void ReAcquireResources();
 virtual void loadPostProcess() = 0;virtual const char*GetSnapshotName()const = 0;virtual void xfer(Xfer*) = 0;
 int x;
 int y;
-RefTex vertexScorch;
+RefCountPtr<TextureClass> vertexScorch;
 void* indexScorch;
 void* scorchTexture;
 TScorch scorches[500];
@@ -178,17 +180,17 @@ std::vector<bool> flags1;
 std::vector<bool> flags2;
 unsigned shader;
 int f3818;
-RefTex f381c;
+RefCountPtr<TextureClass> f381c;
 AsciiString f3820;
 AsciiString f3824;
-RefTex f3828;
+RefCountPtr<TextureClass> f3828;
 AsciiString f382c;
 AsciiString f3830;
 char pad3834[4];
-RefTex f3838;
+RefCountPtr<TextureClass> f3838;
 AsciiString f383c;
 AsciiString f3840;
-RefTex f3844;
+RefCountPtr<TextureClass> f3844;
 AsciiString f3848;
 AsciiString f384c;
 W3DTreeBuffer* buffer0;
