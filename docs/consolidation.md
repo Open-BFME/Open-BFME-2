@@ -363,7 +363,8 @@ after which no row would remain (unless `--prepared` absorbs the donor, below), 
 ### Prepared texts, vtable riders and emission moves
 
     python3 tools/tu_skeleton.py --split FILE --for TU --prepared TU=TEXT [--dry-run]
-    python3 tools/tu_skeleton.py --emit-move FILE --for TU [--rva 0xRVA,...] [--dry-run]
+    python3 tools/tu_skeleton.py --emit-move FILE[,FILE...] --for TU [--rva 0xRVA,...]
+                                 [--prepared PATH=TEXT ...] [--dry-run]
     python3 tools/tu_skeleton.py --recover-emit
 
 - `--prepared TU=TEXT` writes TEXT as the TU's whole final text in the same
@@ -389,12 +390,22 @@ after which no row would remain (unless `--prepared` absorbs the donor, below), 
   `#line` naming an STLport header, a reopened `namespace _STL`) cannot be proved
   from text, and `#line` also rewrites the debug line info. Template moves can
   return with a provenance proof that does not depend on text.
+- `--emit-move` over several files is one transaction: one journal, one build over
+  exactly those files and the TU, one claim scope, one undo. `--rva` picks rows
+  across them and each file's others stay; every listed file must contribute a
+  row. `--prepared PATH=TEXT` is the whole final text of the TU or of a listed
+  file, written in the same transaction and judged as given: today's text is
+  still the baseline, every remaining row must match in the new text, hatch
+  totals may move but not grow, and no strong symbol may vanish from every object
+  of the move. A COMDAT a prepared text stops emitting is reported as
+  `comdats_dropped` for the pre-push link audit.
 - An emission move journals its before-state under
   `build/tu_skeleton/emit-journal/` before touching the ledger and undoes itself
   on any failure. A killed run leaves the journal; `--recover-emit` undoes it per
-  moved row (by numeric RVA), refuses a row edited since, and releases only the
-  claims the move acquired, each with its fencing token. Neither `rename.py` nor
-  another move starts while a journal is pending.
+  moved row (by numeric RVA), refuses a row edited since, puts a prepared text
+  back whole only from its before or after state, and releases only the claims
+  the move acquired, each with its fencing token. Neither `rename.py` nor another
+  move starts while a journal is pending.
 
 ## Bulk merges (`--merge-all`)
 

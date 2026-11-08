@@ -90,10 +90,14 @@ Usage:
       split lane, documented in docs/consolidation.md): the residual keeps every
       other row. --prepared: TEXT (a file) is the TU's whole final text, written
       with the carve in one transaction; a donor left with no row is absorbed
-  python3 tools/tu_skeleton.py --emit-move FILE --for TU [--rva 0xRVA,...] [--dry-run] [--no-claim]
-      repoint the deleting-destructor rows (`??_G`/`??_E`, by decorated name) of a
-      mixed FILE that the map approves for TU to the TU file, once its own code
-      emits each byte-exact (emit_move); no text moves
+  python3 tools/tu_skeleton.py --emit-move FILE[,FILE...] --for TU [--rva 0xRVA,...]
+                               [--prepared PATH=TEXT ...] [--dry-run] [--no-claim]
+      repoint the deleting-destructor rows (`??_G`/`??_E`, by decorated name) of
+      mixed files that the map approves for TU to the TU file, once its own code
+      emits each byte-exact (emit_move), as one transaction: one journal, one build
+      over exactly those files, one undo. --rva picks a subset of each file's rows.
+      --prepared: TEXT (a file) is the whole final text of the TU or of a listed
+      file, written in the same transaction; without it no text moves
 """
 import argparse
 import collections
@@ -3997,42 +4001,53 @@ def identity_debt(path, names):
     return out
 
 
-def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
-    """Repoint the deleting-destructor rows of mixed `path` the current map approves for `tu`
-    to the TU file, which must already emit each of them byte-exact. Fail-closed: every row
-    (an explicit `rvas` list, else every approved row) must be approved for `tu`, verified
-    under its own name (no `object-symbol=` binding it to another symbol), a `??_G`/`??_E`
-    by its decorated name (emission_problem) with no hand-written copy (hand_written_problem:
-    each object's COMDAT selected ANY in a code section as the compiler's, no `__identifier`
-    definition of it in either unit's preprocessed text), defined by the TU's object in a
-    COMDAT section and byte-exact, with no other row of `path` at its address and no
-    identity debt keyed to `path`. The file may keep a copy (the stand-in views that host
-    these rows today) only as a COMDAT, never a strong definition. The TU's own rows and the
-    residual's rows must keep every match.
+def emit_move(path, tu, rvas=None, dry_run=False, claim=True, prepared=None):
+    """Repoint the deleting-destructor rows of mixed `path` (one file, or several as one
+    transaction) the current map approves for `tu` to the TU file, which must emit each of
+    them byte-exact. Fail-closed: every row (an explicit `rvas` list, each in exactly one of
+    the files, else every approved row) must be approved for `tu`, verified under its own name
+    (no `object-symbol=` binding it to another symbol), a `??_G`/`??_E` by its decorated name
+    (emission_problem) with no hand-written copy (hand_written_problem: each object's COMDAT
+    selected ANY in a code section as the compiler's, no `__identifier` definition of it in any
+    unit's preprocessed text), defined by the TU's object in a COMDAT section and byte-exact,
+    with no other row of these files at its address and no identity debt keyed to its file. A
+    file may keep a copy (the stand-in views that host these rows today) only as a COMDAT, never
+    a strong definition. The TU's own rows and each file's remaining rows must keep every match.
+
+    `prepared` {path: text}: the whole final text of the TU or of a listed file, written in the
+    same transaction (P16 G5: a donor's stand-in removed, the TU emitting the row). Each is
+    judged as given in place of the file; a prepared text outside those paths refuses, hatch
+    totals over the files may not grow (emit_hatches_grow), and no strong symbol a prepared unit
+    defined may vanish from every object of the transaction (a COMDAT it stops emitting is
+    reported as `comdats_dropped`, for the pre-push link audit).
 
     Two stages. A scratch compile beside each file (Verifier) screens the rows and is
     re-judged with exactly the rows that move, since region flags follow the row set. The
     apply then proves the committed state: the before-state is journalled to disk, the
-    ledger is repointed, build.py verifies exactly the two real files at their real paths
-    (exact_build), the rebuilt objects are read again (COMDAT in the TU, no strong copy in
-    the file), and on any other exit (a refusal, an exception, an interrupt) undo_emit puts
-    the ledger back, deletes both files' build/match objects and receipts and releases the
-    claims, each step on its own. A killed run leaves the journal: --recover-emit undoes it,
-    and no move starts while one is pending.
-    Nothing but the ledger rows moves: no text, hatch or unit key. Without `rvas` a row that
-    does not qualify stays and is reported; with `rvas`, any refusal blocks all."""
-    report = {"file": path, "tu": tu}
+    ledger and prepared texts are written, build.py verifies exactly these real files at their
+    real paths (exact_build), the rebuilt objects are read again (COMDAT in the TU, no strong
+    copy in a file), and on any other exit (a refusal, an exception, an interrupt) undo_emit
+    puts every file back, deletes the objects and receipts and releases the claims, each step
+    on its own. A killed run leaves the journal: --recover-emit undoes it, and no move starts
+    while one is pending. Without `rvas` a row that does not qualify stays and is reported;
+    with `rvas`, any refusal blocks all."""
+    files = [path] if isinstance(path, str) else list(dict.fromkeys(path))
+    prepared = dict(prepared or {})
+    report = {"file": files[0]} if len(files) == 1 else {"files": files}
+    report["tu"] = tu
+    the = lambda f: "the file" if len(files) == 1 else f
     pending = emit_journals()
     if pending:
         report["blocked"] = (f"an emit move did not finish (journal {pending[0][0].name}): "
                              "run python3 tools/tu_skeleton.py --recover-emit first")
         return report
-    rows = file_rows(path)
-    if not rows:
-        report["blocked"] = "no matched rows in that file"
-        return report
-    groups = breakdown(path)
-    key = next((k for k in groups if k and k.lower() == tu.lower()), tu)
+    rows = {f: file_rows(f) for f in files}
+    for f in files:
+        if not rows[f]:
+            report["blocked"] = "no matched rows in that file" if len(files) == 1 else f"no matched rows in {f}"
+            return report
+    groups = {f: breakdown(f) for f in files}
+    key = next((k for f in files for k in groups[f] if k and k.lower() == tu.lower()), tu)
     report["tu"] = key
     dest = tu_path(key)
     if dest != key:
@@ -4040,140 +4055,183 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
     if not (ROOT / dest).exists():
         report["blocked"] = f"{dest} does not exist: the approved TU must emit the rows from its own code first"
         return report
-    if dest.lower() == path.lower():
+    if dest.lower() in {f.lower() for f in files}:
         report["blocked"] = "the file is the TU itself"
         return report
-    dtors = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
-    approved = [r for r in groups.get(key, []) if not parent_of(r, dtors)]
+    prepared = {(dest if k.lower() == tu.lower() else k): text for k, text in prepared.items()}
+    stray = sorted(set(prepared) - set(files) - {dest})
+    if stray:
+        report["blocked"] = "a prepared text may only replace the TU or a listed file: " + ", ".join(stray)
+        return report
+    dtors = {f: {m.group(1): r["name"] for r in rows[f] if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
+             for f in files}
+    approved = {f: [r for k, g in groups[f].items() if k and k.lower() == key.lower() for r in g
+                    if not parent_of(r, dtors[f])] for f in files}
     if rvas:
         want = {int(x, 16) for x in rvas}
-        mine = {int(r["target_rva"], 16) for r in rows}
-        missing = sorted(want - mine)
+        missing = sorted(want - {int(r["target_rva"], 16) for f in files for r in rows[f]})
         if missing:
             report["blocked"] = "not a matched row of the file: " + ", ".join(f"0x{x:08X}" for x in missing)
             return report
-        outside = sorted(want - {int(r["target_rva"], 16) for r in approved})
+        outside = sorted(want - {int(r["target_rva"], 16) for f in files for r in approved[f]})
         if outside:
             report["blocked"] = (", ".join(f"0x{x:08X}" for x in outside) + f" not approved for {key} in the "
                                  "current tu_map (only approved rows move)")
             return report
-        approved = [r for r in approved if int(r["target_rva"], 16) in want]
-    if not approved:
-        report["blocked"] = f"no row of the file is approved for {key}"
-        return report
+        approved = {f: [r for r in approved[f] if int(r["target_rva"], 16) in want] for f in files}
+    for f in files:
+        if not approved[f]:
+            report["blocked"] = f"no row of {the(f)} is approved for {key}" + (" among those requested" if rvas else "")
+            return report
+    everywhere = collections.Counter(r["target_rva"].lower() for f in files for r in rows[f])
     refused = {}
-    for r in approved:
-        other = object_symbol_differs(r)
-        why = (f"its bytes are verified as {other} (object-symbol=), not under its name: every check here must "
-               "judge one symbol") if other else None
-        if why is None:
-            why = emission_problem(r)
-        if why is None and fold_alias(r):
-            why = "an ICF alias: it lives where the bodies emitting its identity live"
-        if why is None and sum(1 for o in rows if o["target_rva"].lower() == r["target_rva"].lower()) > 1:
-            why = "another row of the file shares its address"
-        if why is None and identity_debt(path, {r["name"]}):
-            why = "carries code-identity debt keyed to this file"
-        if why:
-            refused[r["target_rva"]] = why
-    movers = [r for r in approved if r["target_rva"] not in refused]
-    moved = movers + companions(rows, {r["name"] for r in movers})
-    keep = [r for r in rows if r not in moved]
-    if movers and not keep:
-        report["blocked"] = "no row would remain in the file: it is a whole donor, use --merge"
+    for f in files:
+        for r in approved[f]:
+            other = object_symbol_differs(r)
+            why = (f"its bytes are verified as {other} (object-symbol=), not under its name: every check here must "
+                   "judge one symbol") if other else None
+            if why is None:
+                why = emission_problem(r)
+            if why is None and fold_alias(r):
+                why = "an ICF alias: it lives where the bodies emitting its identity live"
+            if why is None and everywhere[r["target_rva"].lower()] > 1:
+                why = "another row of the file shares its address"
+            if why is None and identity_debt(f, {r["name"]}):
+                why = "carries code-identity debt keyed to this file"
+            if why:
+                refused[r["target_rva"]] = why
+    movers = {f: [r for r in approved[f] if r["target_rva"] not in refused] for f in files}
+    moved = {f: movers[f] + companions(rows[f], {r["name"] for r in movers[f]}) for f in files}
+    for f in files:
+        if movers[f] and not [r for r in rows[f] if r not in moved[f]]:
+            report["blocked"] = ("no row would remain in the file: it is a whole donor, use --merge" if len(files) == 1
+                                 else f"no row would remain in {f}: it is a whole donor, use --merge")
+            return report
+    now = {f: (ROOT / f).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n") for f in files + [dest]}
+    if prepared and emit_hatches_grow(now, prepared):
+        report["blocked"] = "the prepared texts would raise an escape-hatch total over these files"
         return report
-    # The file keeps its text, so it may keep a copy: an explicit instantiation or an inline
-    # stand-in view (stlport_construct_game_structs.cpp's `template void _Construct<FXList,
-    # FXList>(...)`) compiles to a selectany COMDAT, which links beside the TU's. A strong
-    # definition there would collide with the TU's copy: refuse. Judged on the object its
-    # build compiles today (every row's flags).
-    vx = Verifier(path)
-    text_x = (ROOT / path).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n")
-    before_x = vx.matched(text_x, rows)
-    if before_x is None:
-        report["blocked"] = "the file does not compile: " + " | ".join(vx.errors)[:300]
-        return report
-    for r in movers:
-        if r["name"] in strong_symbols(vx.obj):
-            refused[r["target_rva"]] = "the file defines it outside a COMDAT: a strong body has a home (--split)"
+    # A file keeps its text, so it may keep a copy: an inline stand-in view compiles to a selectany
+    # COMDAT, which links beside the TU's. A strong definition there would collide with the TU's copy:
+    # refuse. Judged on the object its build compiles today (every row's flags), or on the prepared text.
+    vx, before_x, final_x, strong_was, comdat_was = {}, {}, {}, set(), set()
+    for f in files:
+        vx[f] = Verifier(f)
+        final_x[f] = prepared.get(f, now[f])
+        before_x[f] = vx[f].matched(now[f], rows[f])
+        if before_x[f] is None:
+            report["blocked"] = f"{the(f)} does not compile: " + " | ".join(vx[f].errors)[:300]
+            return report
+        if f in prepared:
+            strong_was |= strong_symbols(vx[f].obj)
+            comdat_was |= comdat_symbols(vx[f].obj)
+            if vx[f].matched(prepared[f], [r for r in rows[f] if r not in moved[f]]) is None:
+                report["blocked"] = f"the prepared text of {f} does not compile: " + " | ".join(vx[f].errors)[:300]
+                return report
+        for r in movers[f]:
+            if r["name"] in strong_symbols(vx[f].obj):
+                refused[r["target_rva"]] = f"{the(f)} defines it outside a COMDAT: a strong body has a home (--split)"
     # the byte gate in the destination: the TU as it stands, judged with its own rows as its build will
     vt = Verifier(dest)
-    text_t = (ROOT / dest).read_bytes().decode("utf-8-sig", errors="replace").replace("\r\n", "\n")
+    text_t = prepared.get(dest, now[dest])
     own = file_rows(dest)
-    before_t = vt.matched(text_t, own) if own else set()
+    before_t = vt.matched(now[dest], own) if own or dest in prepared else set()
     if before_t is None:
         report["blocked"] = "the TU does not compile: " + " | ".join(vt.errors)[:300]
         return report
-    got = vt.matched(text_t, own + moved) if moved else set()
-    if moved and got is None:
-        report["blocked"] = "the TU does not compile: " + " | ".join(vt.errors)[:300]
+    if dest in prepared:
+        strong_was |= strong_symbols(vt.obj)
+        comdat_was |= comdat_symbols(vt.obj)
+    all_moved = [r for f in files for r in moved[f]]
+    got = vt.matched(text_t, own + all_moved) if all_moved else set()
+    if all_moved and got is None:
+        report["blocked"] = (("the prepared TU text does not compile: " if dest in prepared else "the TU does not compile: ")
+                             + " | ".join(vt.errors)[:300])
         return report
-    if moved:
+    if all_moved:
         defined, comdats = defined_symbols(vt.obj), comdat_symbols(vt.obj)
-        by_name = {o["name"]: o for o in movers}
-        for r in movers + [c for c in moved if c not in movers]:      # parents first
-            parent = by_name.get(parent_of(r, dtors) or "")
-            if r["target_rva"] in refused or (parent is not None and parent["target_rva"] in refused):
-                continue                                               # a companion rides its parent's refusal
-            if r["name"] not in defined and r in movers:
-                refused[r["target_rva"]] = f"{dest}'s object does not emit it (its code instantiates nothing of that name)"
-            elif r in movers and r["name"] not in comdats:
-                refused[r["target_rva"]] = f"{dest} defines it outside a COMDAT: a strong body has a home (--split)"
-            elif r["target_rva"] not in got:
-                refused[r["target_rva"]] = f"{dest}'s object emits it, but not byte-exact"
+        for f in files:
+            by_name = {o["name"]: o for o in movers[f]}
+            for r in movers[f] + [c for c in moved[f] if c not in movers[f]]:      # parents first
+                parent = by_name.get(parent_of(r, dtors[f]) or "")
+                if r["target_rva"] in refused or (parent is not None and parent["target_rva"] in refused):
+                    continue                                               # a companion rides its parent's refusal
+                if r["name"] not in defined and r in movers[f]:
+                    refused[r["target_rva"]] = f"{dest}'s object does not emit it (its code instantiates nothing of that name)"
+                elif r in movers[f] and r["name"] not in comdats:
+                    refused[r["target_rva"]] = f"{dest} defines it outside a COMDAT: a strong body has a home (--split)"
+                elif r["target_rva"] not in got:
+                    refused[r["target_rva"]] = f"{dest}'s object emits it, but not byte-exact"
         lost = sorted(before_t - got)
         if lost:
             report["blocked"] = f"{dest}'s own rows lose matches judged beside the moved rows: " + ", ".join(lost[:5])
             return report
     # a deleting destructor's name does not prove the compiler wrote it (review of 87417c8f9f)
-    pending = [r for r in movers if r["target_rva"] not in refused]
-    if pending:
-        texts = {path: vx.preprocessed(text_x, rows), dest: vt.preprocessed(text_t, own + moved)}
-        for r in pending:
-            why = hand_written_problem(r["name"], [vt.obj, vx.obj], texts)
+    judged = [r for f in files for r in movers[f] if r["target_rva"] not in refused]
+    if judged:
+        texts = {f: vx[f].preprocessed(final_x[f], [r for r in rows[f] if r not in moved[f]] if f in prepared else rows[f])
+                 for f in files}
+        texts[dest] = vt.preprocessed(text_t, own + all_moved)
+        for r in judged:
+            why = hand_written_problem(r["name"], [vt.obj] + [vx[f].obj for f in files], texts)
             if why:
                 refused[r["target_rva"]] = why
     # a refused parent takes its companions with it; a refused companion takes its parent
-    for r in list(moved):
-        if r["target_rva"] in refused:
-            p = parent_of(r, dtors)
-            for o in moved:
-                if o["name"] == p or parent_of(o, dtors) == r["name"]:
-                    refused.setdefault(o["target_rva"], f"emitted with refused {r['target_rva']}")
+    for f in files:
+        for r in list(moved[f]):
+            if r["target_rva"] in refused:
+                p = parent_of(r, dtors[f])
+                for o in moved[f]:
+                    if o["name"] == p or parent_of(o, dtors[f]) == r["name"]:
+                        refused.setdefault(o["target_rva"], f"emitted with refused {r['target_rva']}")
     report["refused_rows"] = refused
     if refused and rvas:
         report["blocked"] = "a requested row cannot move by emission"
         return report
-    moved = [r for r in moved if r["target_rva"] not in refused]
-    movers = [r for r in movers if r in moved]
-    if not moved:
+    moved = {f: [r for r in moved[f] if r["target_rva"] not in refused] for f in files}
+    movers = {f: [r for r in movers[f] if r in moved[f]] for f in files}
+    all_moved = [r for f in files for r in moved[f]]
+    if not all_moved:
         report["blocked"] = "no row can move by emission"
         return report
     # Region flags follow the bytes of the rows a unit holds, so the TU is judged again with
     # exactly the rows that move (review of 3db7ced4b4), COMDAT properties included.
-    final = vt.matched(text_t, own + moved)
-    if final is None or not {r["target_rva"] for r in moved} <= final or before_t - final:
+    final = vt.matched(text_t, own + all_moved)
+    if final is None or not {r["target_rva"] for r in all_moved} <= final or before_t - final:
         report["blocked"] = (f"{dest} re-judged with exactly the rows that move loses a match: "
-                             + ", ".join(sorted(({r["target_rva"] for r in moved} | before_t) - (final or set()))[:5]))
+                             + ", ".join(sorted(({r["target_rva"] for r in all_moved} | before_t) - (final or set()))[:5]))
         return report
-    problem = committed_problem(movers, dest, vt.obj, vx.obj)
-    if problem:
-        report["blocked"] = problem
-        return report
-    keep = [r for r in rows if r not in moved]
-    after_x = vx.matched(text_x, keep)
-    if after_x is None:
-        report["blocked"] = "the file does not compile: " + " | ".join(vx.errors)[:300]
-        return report
-    lost = sorted((before_x & {r["target_rva"] for r in keep}) - after_x)
-    if lost:
-        report["blocked"] = "the file's remaining rows lose matches once these rows leave: " + ", ".join(lost[:5])
-        return report
-    report["moved"] = [r["target_rva"] for r in moved]
+    for f in files:
+        problem = committed_problem(movers[f], dest, vt.obj, vx[f].obj)
+        if problem:
+            report["blocked"] = problem
+            return report
+    defined_now = set(defined_symbols(vt.obj))
+    for f in files:
+        keep = [r for r in rows[f] if r not in moved[f]]
+        after_x = vx[f].matched(final_x[f], keep)
+        if after_x is None:
+            report["blocked"] = f"{the(f)} does not compile: " + " | ".join(vx[f].errors)[:300]
+            return report
+        lost = sorted((before_x[f] & {r["target_rva"] for r in keep}) - after_x)
+        if lost:
+            report["blocked"] = f"{the(f)}'s remaining rows lose matches once these rows leave: " + ", ".join(lost[:5])
+            return report
+        defined_now |= defined_symbols(vx[f].obj)
+    if prepared:
+        gone = sorted(strong_was - defined_now)
+        if gone:
+            report["blocked"] = "a prepared text stops defining what no object of this move defines: " + ", ".join(gone[:5])
+            return report
+        dropped = sorted(comdat_was - defined_now)
+        if dropped:
+            report["comdats_dropped"] = dropped[:20]
+    report["moved"] = [r["target_rva"] for r in all_moved]
     if dry_run:
-        report["verify"] = f"screened by a scratch compile; the apply proves it by building exactly {path} {dest}"
+        report["verify"] = ("screened by a scratch compile; the apply proves it by building exactly "
+                            + " ".join(files + [dest]))
         return report
-    don = {path: moved}
+    don = {f: moved[f] for f in files}
     with ledger_locked():
         pending = pending_journal()             # under the lock: two moves cannot both pass it
         if pending:
@@ -4188,7 +4246,8 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
                 return report
             acquired, tokens = list(held.acquired), dict(held.tokens)
         try:
-            result = _apply_emit(path, dest, movers, report["moved"], acquired, tokens)
+            result = _apply_emit(files, dest, movers, {f: [r["target_rva"] for r in moved[f]] for f in files},
+                                 acquired, tokens, prepared)
         except BaseException as error:
             if claim and not getattr(error, "journalled", False):    # with a journal, undo_emit released them
                 give_back_after(error, report, held)
@@ -4198,48 +4257,81 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         return report
     repointed = result
     report["repointed"] = repointed
-    report["stage"] = "staged: " + " ".join(repointed)
-    report["verified"] = f"build.py over exactly {path} {dest}"
-    report["subject"] = (f"Move {len(moved)} emitted rows of {posixpath.basename(path)} into "
-                         f"{posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact)")
+    report["stage"] = "staged: " + " ".join(list(repointed) + sorted(prepared))
+    report["verified"] = "build.py over exactly " + " ".join(files + [dest])
+    report["subject"] = (f"Move {len(all_moved)} emitted rows of "
+                         + (posixpath.basename(files[0]) if len(files) == 1 else f"{len(files)} files")
+                         + f" into {posixpath.basename(dest)} (tu_map approved TU, emitted byte-exact"
+                         + ("; prepared texts)" if prepared else ")"))
     return report
 
 
-def _apply_emit(path, dest, movers, rvas, acquired, tokens):
+def emit_hatches_grow(now, prepared):
+    """Would the `prepared` texts raise an escape-hatch total over the files of `now` {path: text}
+    (hatch_counters rule 3)? Totals are over the whole transaction: a hatch may move, not grow."""
+    try:
+        import hatch_counters as H
+    except ImportError:
+        return False
+
+    def totals(texts):
+        out = collections.Counter()
+        for rel, text in texts.items():
+            for (hatch, _p, token), n in H.scan(rel, text).items():
+                out[(hatch, token)] += n
+        return out
+    old, new = totals(now), totals({**now, **prepared})
+    return any(new[k] > old.get(k, 0) for k in new)
+
+
+def _apply_emit(files, dest, movers, rvas, acquired, tokens, prepared=None):
     """The write half of emit_move, under the ledger lock: {rel: rows repointed}, or why it
-    was undone. The journal (before and after bytes, each ledger file's index entry, the
-    claim keys with their fencing tokens) goes to disk, fsynced, before the ledger is
-    touched; a SIGKILL or power loss leaves it for --recover-emit, and any other exit short
-    of a verified, staged move undoes it here (undo_emit, row-level), each step on its own."""
+    was undone. The journal (before and after bytes of each ledger file and prepared text,
+    their index entries, the claim keys with their fencing tokens) goes to disk, fsynced, before
+    anything is touched; a SIGKILL or power loss leaves it for --recover-emit, and any other
+    exit short of a verified, staged move undoes it here (undo_emit, row-level for the ledger,
+    whole-file for a text), each step on its own."""
     import build
+    prepared = {rel: text.encode("utf-8") for rel, text in (prepared or {}).items()}
     before = {rel: (ROOT / rel).read_bytes() for rel, _ in ROW_KEYED if (ROOT / rel).exists()}
     after, repointed = {}, {}
     for rel, keycol in ROW_KEYED:
         if rel in before:
-            raw, n = repoint_rows(before[rel], rel, keycol, rvas, "source", path, dest)
+            raw, count = before[rel], 0
+            for f in files:
+                raw, n = repoint_rows(raw, rel, keycol, rvas[f], "source", f, dest)
+                count += n
             after[rel] = raw
-            if n:
-                repointed[rel] = n
+            if count:
+                repointed[rel] = count
+    texts = {rel: {"before": rename._b64((ROOT / rel).read_bytes()), "after": rename._b64(raw)}
+             for rel, raw in prepared.items()}
     keys = [key_text(k) for k in acquired]   # only what this move claimed: never a prior claim
-    journal = write_emit_journal({"subject": f"emit-move {path} -> {dest}", "sources": [path, dest],
+    sources = files + [dest]
+    journal = write_emit_journal({"subject": ("emit-move " + " ".join(files) + f" -> {dest}"), "sources": sources,
                                   "before": {rel: rename._b64(raw) for rel, raw in before.items()},
                                   "after": {rel: rename._b64(raw) for rel, raw in after.items()},
-                                  "index": index_entries(list(before)),
+                                  "texts": texts,
+                                  "index": index_entries(list(before) + list(prepared)),
                                   "claims": keys, "tokens": {key_text(k): v for k, v in tokens.items()}})
     done, problem = False, "interrupted before the build finished"
     try:
         for rel in repointed:
             (ROOT / rel).write_bytes(after[rel])
-        # the committed state: exactly the two real files at their real paths, under the flags
+        for rel, raw in prepared.items():
+            (ROOT / rel).write_bytes(raw)
+        # the committed state: exactly these real files at their real paths, under the flags
         # their build picks from the repointed ledger (__FILE__, __LINE__ and region flags theirs)
         _CACHE.clear()
-        ok, output = exact_build([path, dest])
+        ok, output = exact_build(sources)
         if ok:
-            problem = committed_problem(movers, dest, build.obj_path(ROOT / dest), build.obj_path(ROOT / path))
+            problem = None
+            for f in files:
+                problem = problem or committed_problem(movers[f], dest, build.obj_path(ROOT / dest), build.obj_path(ROOT / f))
         else:
             problem = "the build did not pass the repointed rows: " + " | ".join(output.strip().splitlines()[-3:])[:400]
         if problem is None:
-            subprocess.run(["git", "add", "--", *repointed], cwd=ROOT, check=True)
+            subprocess.run(["git", "add", "--", *repointed, *prepared], cwd=ROOT, check=True)
             done = True
     except BaseException as error:
         error.journalled = True
@@ -4447,7 +4539,7 @@ def undo_lines(current, before, after, keycol):
 def undo_emit(record, release=True):
     """Put one emit move back from its journal record; [errors]. Row-level (undo_lines): only
     the lines the move changed go back, and a file whose moved lines changed since is left
-    alone and reported. The index entry of each ledger file goes back to what it was, when it
+    alone and reported. A prepared text goes back whole, only from its before or after state. The index entry of each ledger file goes back to what it was, when it
     still holds what the move staged (or nothing was staged). Then each object and receipt is
     dropped and the claims are released with their fencing tokens (rename.py's recovery
     does the same; review of 90fdd5d03d). Every step is its own (review of e81c016950)."""
@@ -4455,12 +4547,16 @@ def undo_emit(record, release=True):
     errors = []
     before = {rel: rename._unb64(data) for rel, data in (record.get("before") or {}).items()}
     after = {rel: rename._unb64(data) for rel, data in (record.get("after") or {}).items()}
-    for rel, old in before.items():
+    texts = {rel: (rename._unb64(t["before"]), rename._unb64(t["after"])) for rel, t in (record.get("texts") or {}).items()}
+    for rel, old in list(before.items()) + [(rel, pair[0]) for rel, pair in texts.items()]:
         try:
             current = (ROOT / rel).read_bytes()
-            new = after.get(rel, old)
-            keycol = dict(ROW_KEYED).get(rel)
-            restored = current if current == old else keycol and undo_lines(current, old, new, keycol)
+            new = texts[rel][1] if rel in texts else after.get(rel, old)
+            if rel in texts:         # a prepared text: whole-file, from a state this move knows
+                restored = old if current in (old, new) else None
+            else:
+                keycol = dict(ROW_KEYED).get(rel)
+                restored = current if current == old else keycol and undo_lines(current, old, new, keycol)
             if restored is None:
                 errors.append(f"{rel}: the moved rows changed since the move; undo it by hand from the journal")
                 continue
@@ -5909,8 +6005,9 @@ def main(argv=None):
     g.add_argument("--plan", metavar="TU")
     g.add_argument("--merge", metavar="TU")
     g.add_argument("--split", metavar="FILE", help="carve the rows approved for --for TU out of a mixed FILE")
-    g.add_argument("--emit-move", metavar="FILE",
-                   help="repoint FILE's deleting-destructor rows approved for --for TU, which the TU emits byte-exact")
+    g.add_argument("--emit-move", metavar="FILE[,FILE...]",
+                   help="repoint the files' deleting-destructor rows approved for --for TU, which the TU emits "
+                        "byte-exact, as one transaction")
     g.add_argument("--recover-emit", action="store_true",
                    help="undo every --emit-move a killed run left (its journal under build/tu_skeleton/emit-journal)")
     g.add_argument("--shatter", metavar="FILE",
@@ -5918,8 +6015,9 @@ def main(argv=None):
     g.add_argument("--merge-all", action="store_true",
                    help="merge every queued TU (tools/merge_all.py): parallel worktrees, a decision queue")
     ap.add_argument("--for", dest="for_tu", metavar="TU", help="with --split: the destination TU (omit to list)")
-    ap.add_argument("--prepared", metavar="TU=TEXT",
-                    help="with --split: the TU's whole final text (a file), written with the carve in one transaction")
+    ap.add_argument("--prepared", metavar="PATH=TEXT", action="append",
+                    help="with --split: the TU's whole final text (a file), written with the carve in one transaction; "
+                         "with --emit-move: the whole final text of the TU or of a listed file (repeatable)")
     ap.add_argument("--rva", help="with --emit-move: only these rows (comma-separated hex); all must move")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-claim", action="store_true", help="merge without claiming (fixtures, private trees)")
@@ -5958,7 +6056,15 @@ def main(argv=None):
         if not a.for_tu:
             ap.error("--emit-move takes --for TU")
         rvas = [x for x in (a.rva or "").split(",") if x.strip()] or None
-        rep = emit_move(a.emit_move, a.for_tu, rvas, a.dry_run, claim=not a.no_claim)
+        prepared = {}
+        for item in a.prepared or []:
+            target, sep, source = item.partition("=")
+            if not sep or not target or not source:
+                ap.error("--prepared takes PATH=TEXT")
+            prepared[target.replace("\\", "/")] = Path(source).read_bytes().decode("utf-8-sig").replace("\r\n", "\n")
+        files = [f.strip() for f in a.emit_move.split(",") if f.strip()]
+        rep = emit_move(files[0] if len(files) == 1 else files, a.for_tu, rvas, a.dry_run, claim=not a.no_claim,
+                        prepared=prepared)
         for k, val in rep.items():
             print(f"{k}: {val}")
         return 0 if rep.get("subject") or (a.dry_run and rep.get("moved")) else 2
@@ -5975,9 +6081,10 @@ def main(argv=None):
             return 0
         prepared = None
         if a.prepared:
-            target, sep, source = a.prepared.partition("=")
-            if not sep or target.replace("\\", "/").lower() != a.for_tu.replace("\\", "/").lower():
-                ap.error("--prepared takes TU=TEXT for the --for TU")
+            target, sep, source = a.prepared[0].partition("=")
+            if (len(a.prepared) > 1 or not sep
+                    or target.replace("\\", "/").lower() != a.for_tu.replace("\\", "/").lower()):
+                ap.error("--prepared takes one TU=TEXT for the --for TU")
             prepared = Path(source).read_bytes().decode("utf-8-sig").replace("\r\n", "\n")
         rep = split(a.split, a.for_tu, a.dry_run, claim=not a.no_claim, prepared=prepared)
         text = rep.pop("text", None)

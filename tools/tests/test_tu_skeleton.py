@@ -1,6 +1,7 @@
 """tu_skeleton's merge lane: verified flags, redefinition repair, repointing and claims."""
 import contextlib
 import csv
+import hashlib
 import io
 import json
 import os
@@ -1852,6 +1853,468 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(T.translation_phases("???/"), "?\\")                 # the leftmost trigraph
         self.assertEqual(T.translation_phases('"??/""'), '"\\""')
         self.assertEqual(T.translation_phases("a\\\nb\\\r\nc??/\nd"), "abcd")   # splices, one made by `??/`
+
+
+class EmitTransactionTests(unittest.TestCase):
+    """--emit-move over several files and prepared texts as one transaction (P16 v2: G7, G8, G5). A unit's
+    text says what its object defines: `//comdat NAME`, `//strong NAME`; `//wrong NAME` emits it, not
+    byte-exact; `//nocompile` fails; `//noduplicates NAME` is a COMDAT not selected ANY. Scratch objects, the
+    real objects and the build all read the text being judged."""
+    TU, A, B, OTHER = "Code/Campaign.cpp", "Code/Mixed.cpp", "Code/Second.cpp", "Code/Elsewhere.cpp"
+    GA, EB, GB = "??_GA@@UAEPAXI@Z", "??_EB@@UAEPAXI@Z", "??_GB@@UAEPAXI@Z"
+    STAY_A, STAY_B, OWN = "?stayA@@YAXXZ", "?stayB@@YAXXZ", "?own@@YAXXZ"
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.root = Path(self.tmp.name).resolve()
+        self.write(self.A, f"//comdat {self.GA}\n//comdat {self.STAY_A}\n")
+        self.write(self.B, f"//comdat {self.EB}\n//comdat {self.STAY_B}\n")
+        self.write(self.TU, f"//comdat {self.OWN}\n//comdat {self.GA}\n//comdat {self.EB}\n")
+        self.rows = {self.A: [self.row(self.GA, "0x00002000", self.A), self.row(self.STAY_A, "0x00003000", self.A)],
+                     self.B: [self.row(self.EB, "0x00002100", self.B), self.row(self.STAY_B, "0x00003100", self.B)],
+                     self.TU: [self.row(self.OWN, "0x00001000", self.TU)]}
+        self.approved = {"0x00002000": self.TU, "0x00002100": self.TU, "0x00003000": self.OTHER, "0x00003100": self.OTHER}
+        self.ledger()
+
+    def write(self, rel, text):
+        path = self.root / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(text.encode("utf-8"))
+
+    def read(self, rel):
+        return (self.root / rel).read_bytes().decode("utf-8")
+
+    @staticmethod
+    def row(name, rva, source):
+        return {"name": name, "export_rva": "", "target_rva": rva, "target_size": "8", "source": source,
+                "status": "matched", "notes": ""}
+
+    def ledger(self):
+        lines = "".join(f"{r['name']},,{r['target_rva']},8,{r['source']},matched,\n" for rows in self.rows.values() for r in rows)
+        self.write("reverse/functions.csv", "name,export_rva,target_rva,target_size,source,status,notes\n" + lines)
+        self.write("reverse/tu_map.csv", "rva,size,kind,tu,confidence,by,evidence,source\n"
+                   + "".join(f"{r['target_rva']},8,code,{self.approved.get(r['target_rva'], self.TU)},approved,C,C=0x1..0x3,{r['source']}\n"
+                             for rows in self.rows.values() for r in rows))
+        subprocess.run(["git", "init", "-q", str(self.root)], check=True)
+        self.base = {rel: (self.root / rel).read_bytes() for rel in ("reverse/functions.csv", "reverse/tu_map.csv", self.A, self.B, self.TU)}
+
+    def unchanged(self):
+        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in self.base}, self.base)
+
+    @staticmethod
+    def names(text, *kinds):
+        return {line.split(" ", 1)[1].strip() for line in text.splitlines()
+                if line.split(" ", 1)[0] in {f"//{k}" for k in kinds} and " " in line}
+
+    def transact(self, files=None, *, rvas=None, prepared=None, dry_run=True, claim=False, build_effect=None, undo=None):
+        """emit_move over `files` (default both donors) in the fixture's tree."""
+        files = files if files is not None else [self.A, self.B]
+        root, this = self.root, self
+        (root / "build").mkdir(exist_ok=True)
+
+        class Verifier:
+            errors, all_errors = [], []
+
+            def __init__(self, tu):
+                self.tu, self.obj = tu, None
+
+            def matched(self, text, judged):
+                digest = hashlib.sha1((self.tu + text).encode()).hexdigest()[:10]
+                self.obj = root / "build" / f"scratch-{digest}.obj"
+                self.obj.write_text(text, encoding="utf-8")
+                if "//nocompile" in text:
+                    self.errors = self.all_errors = ["u.cpp(1) : error C2065: undeclared"]
+                    return None
+                self.errors = self.all_errors = []
+                good = this.names(text, "comdat", "strong", "noduplicates") - this.names(text, "wrong")
+                return {r["target_rva"] for r in judged if r["name"] in good}
+
+            def preprocessed(self, text, judged):
+                return (None, "cl -E failed") if "//nopp" in text else (text, None)
+
+        real = {f: root / "build" / f"real-{Path(f).stem}.obj" for f in [self.TU, self.A, self.B]}
+
+        def built(sources):
+            """./build.sh's stand-in: every ledger row at these sources must be defined by its text as it stands."""
+            for source in sources:
+                text = (root / source).read_text(encoding="utf-8")
+                real[source].write_text(text, encoding="utf-8")
+                import build
+                build._deps_sidecar(real[source]).write_text("{}")
+                if "//nocompile" in text:
+                    return False, "boom"
+            for line in (root / "reverse/functions.csv").read_text().splitlines()[1:]:
+                name, _, _, _, source, *_ = line.split(",")
+                if source in sources and name not in this.names((root / source).read_text(encoding="utf-8"), "comdat", "strong", "noduplicates"):
+                    return False, f"{name} is not in {source}"
+            return True, "Functions: OK"
+
+        def text_of(obj):
+            return Path(obj).read_text(encoding="utf-8")
+
+        groups = lambda f: {t: [r for r in self.rows[f] if self.approved.get(r["target_rva"], "") == t]
+                            for t in {self.approved.get(r["target_rva"], "") for r in self.rows[f]}}
+        import build
+        extra = [patch.object(T, "undo_emit", side_effect=undo)] if undo else []
+        with patch.object(T, "ROOT", root), patch.dict(T._CACHE, {}, clear=True), \
+                patch.object(T, "file_rows", side_effect=lambda p: self.rows.get(p, [])), \
+                patch.object(T, "breakdown", side_effect=groups), patch.object(T, "fold_alias", return_value=False), \
+                patch.object(T, "identity_debt", return_value=False), patch.object(T, "Verifier", Verifier), \
+                patch.object(T, "defined_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "strong", "noduplicates")), \
+                patch.object(T, "comdat_symbols", side_effect=lambda obj: this.names(text_of(obj), "comdat", "noduplicates")), \
+                patch.object(T, "deleting_copy_problem", side_effect=lambda obj, name: "selects its COMDAT NODUPLICATES"
+                             if name in this.names(text_of(obj), "noduplicates") else None), \
+                patch.object(T, "exact_build", side_effect=build_effect or built) as self.exact, \
+                patch.object(T, "claim_scope", side_effect=self.held) as self.claimed_scope, \
+                patch.object(T.claims, "release") as self.released, \
+                patch.object(build, "obj_path", side_effect=lambda s: real[Path(s).relative_to(root).as_posix()]):
+            for p in extra:
+                p.start()
+            try:
+                return T.emit_move(files if len(files) > 1 else files[0], self.TU, rvas, dry_run=dry_run, claim=claim,
+                                   prepared=prepared)
+            finally:
+                for p in extra:
+                    p.stop()
+
+    def held(self, *a, **k):
+        held = T.Held()
+        held.acquired = [T.claims.key_of(f"file:{self.TU}")]
+        held.tokens = {held.acquired[0]: "TOKEN"}
+        return held
+
+    def recover(self):
+        import build
+        real = {f: self.root / "build" / f"real-{Path(f).stem}.obj" for f in [self.TU, self.A, self.B]}
+        with patch.object(T, "ROOT", self.root), patch.dict(T._CACHE, {}, clear=True), \
+                patch.object(build, "obj_path", side_effect=lambda s: real[Path(s).relative_to(self.root).as_posix()]), \
+                patch.object(T.claims, "release"):
+            return T.recover_emit()
+
+    def journals(self):
+        return list((self.root / T.EMIT_JOURNAL).glob("*.json"))
+
+    def test_two_files_move_as_one_transaction(self):
+        report = self.transact()
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["files"], [self.A, self.B])
+        self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
+        self.unchanged()
+        report = self.transact(dry_run=False)
+        self.assertNotIn("blocked", report)
+        self.exact.assert_called_once_with([self.A, self.B, self.TU])            # one build over exactly these
+        funcs = self.read("reverse/functions.csv")
+        self.assertIn(f"{self.GA},,0x00002000,8,{self.TU},", funcs)
+        self.assertIn(f"{self.EB},,0x00002100,8,{self.TU},", funcs)
+        self.assertIn(f"{self.STAY_A},,0x00003000,8,{self.A},", funcs)
+        self.assertIn(f"{self.STAY_B},,0x00003100,8,{self.B},", funcs)
+        self.assertEqual(self.journals(), [])
+        self.assertIn("2 files", report["subject"])
+        staged = subprocess.run(["git", "ls-files", "--", "reverse"], cwd=self.root, capture_output=True, text=True).stdout
+        self.assertIn("reverse/functions.csv", staged)
+
+    def test_a_subset_of_each_mixed_file_moves_and_the_rest_stays(self):
+        # G8: each file's other rows, placed elsewhere or not requested, stay
+        self.rows[self.A].append(self.row(self.GB, "0x00002200", self.A))
+        self.approved["0x00002200"] = self.TU
+        self.write(self.A, self.read(self.A) + f"//comdat {self.GB}\n")
+        self.write(self.TU, self.read(self.TU) + f"//comdat {self.GB}\n")
+        self.ledger()
+        report = self.transact(rvas=["0x00002000", "0x00002100"], dry_run=False)
+        self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
+        funcs = self.read("reverse/functions.csv")
+        self.assertIn(f"{self.GB},,0x00002200,8,{self.A},", funcs)               # requested no: stays
+        self.assertIn(f"{self.STAY_A},,0x00003000,8,{self.A},", funcs)           # placed elsewhere: stays
+
+    def test_every_listed_file_must_contribute_a_requested_row(self):
+        report = self.transact(rvas=["0x00002000"])
+        self.assertIn(f"no row of {self.B} is approved", report["blocked"])
+        self.assertIn("among those requested", report["blocked"])
+        self.assertIn("not approved", self.transact(rvas=["0x00002000", "0x00003100"])["blocked"])
+        self.assertIn("not a matched row", self.transact(rvas=["0x00009000"])["blocked"])
+        self.approved["0x00002100"] = self.OTHER
+        self.assertIn(f"no row of {self.B} is approved", self.transact()["blocked"])
+
+    def test_one_files_failure_blocks_the_requested_transaction(self):
+        self.write(self.TU, f"//comdat {self.OWN}\n//comdat {self.GA}\n//wrong {self.EB}\n//comdat {self.EB}\n")
+        report = self.transact(rvas=["0x00002000", "0x00002100"], dry_run=False)
+        self.assertEqual(report["blocked"], "a requested row cannot move by emission")
+        self.assertIn("not byte-exact", report["refused_rows"]["0x00002100"])
+        self.exact.assert_not_called()
+        self.assertIn(f"{self.GA},,0x00002000,8,{self.A},", self.read("reverse/functions.csv"))
+        report = self.transact()                                                  # without --rva the rest still moves
+        self.assertEqual(report["moved"], ["0x00002000"])
+
+    def test_each_files_problems_name_it(self):
+        self.write(self.B, f"//nocompile\n//comdat {self.EB}\n//comdat {self.STAY_B}\n")
+        self.assertIn(f"{self.B} does not compile", self.transact()["blocked"])
+        self.setUp()
+        self.write(self.B, f"//strong {self.EB}\n//comdat {self.STAY_B}\n")
+        report = self.transact(rvas=["0x00002000", "0x00002100"])
+        self.assertIn(f"{self.B} defines it outside a COMDAT", report["refused_rows"]["0x00002100"])
+        self.setUp()
+        del self.rows[self.B][1]                                                   # a whole donor
+        report = self.transact()
+        self.assertIn(f"no row would remain in {self.B}", report["blocked"])
+        self.setUp()
+        self.rows[self.B].append(self.row(self.GB, "0x00002000", self.B))          # two rows at one address
+        self.approved["0x00002000"] = self.TU
+        report = self.transact()
+        self.assertIn("shares its address", report["refused_rows"]["0x00002000"])
+
+    def test_the_claim_covers_every_file_and_a_refusal_touches_nothing(self):
+        report = self.transact(dry_run=False, claim=True)
+        self.assertNotIn("blocked", report)
+        scope = self.claimed_scope.call_args[0][1]
+        self.assertEqual(sorted(scope), [self.A, self.B])
+        self.setUp()
+        refused = T.Held(["file:" + self.B])
+        refused.acquired, refused.tokens = ["k"], {"k": "T"}
+        self.held = lambda *a, **k: refused
+        report = self.transact(dry_run=False, claim=True)
+        self.assertIn("held by another worker", report["blocked"])
+        self.released.assert_called_once_with(["k"], tokens={"k": "T"})
+        self.unchanged()
+
+    # ------------------------------------------------------------------ prepared texts (G5)
+    def stand_in_removed(self):
+        """The P16 shape: the TU emits nothing yet, each donor hosts a stand-in; the prepared texts swap them."""
+        self.write(self.TU, f"//comdat {self.OWN}\n")
+        self.ledger()
+        return {self.TU: f"//comdat {self.OWN}\n//comdat {self.GA}\n//comdat {self.EB}\n",
+                self.A: f"//comdat {self.STAY_A}\n", self.B: f"//comdat {self.STAY_B}\n"}
+
+    def test_prepared_texts_land_with_the_rows(self):
+        prepared = self.stand_in_removed()
+        self.assertIn("does not emit it", self.transact(rvas=["0x00002000", "0x00002100"])["refused_rows"]["0x00002000"])
+        report = self.transact(prepared=prepared)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
+        self.unchanged()                                                           # a dry run writes nothing
+        report = self.transact(prepared=prepared, dry_run=False)
+        self.assertNotIn("blocked", report)
+        for rel, text in prepared.items():
+            self.assertEqual(self.read(rel), text)
+        self.assertIn("prepared texts", report["subject"])
+        staged = subprocess.run(["git", "ls-files", "--", "Code"], cwd=self.root, capture_output=True, text=True).stdout
+        self.assertEqual(sorted(staged.split()), sorted(prepared))
+        self.assertEqual(self.journals(), [])
+
+    def test_only_the_tu_and_the_listed_files_may_be_prepared(self):
+        report = self.transact(prepared={self.OTHER: "x"})
+        self.assertIn("may only replace the TU or a listed file: " + self.OTHER, report["blocked"])
+        self.unchanged()
+        prepared = self.stand_in_removed()
+        prepared = {self.TU.upper(): prepared[self.TU], self.A: prepared[self.A], self.B: prepared[self.B]}
+        report = self.transact(prepared=prepared)                                  # the --for spelling names the TU
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
+
+    def test_a_prepared_text_cannot_stand_in_for_a_baseline(self):
+        # what a unit matches today is the baseline: one that does not compile now has none to keep
+        prepared = self.stand_in_removed()
+        self.write(self.B, "//nocompile\n" + self.read(self.B))
+        self.assertIn(f"{self.B} does not compile", self.transact(prepared=prepared)["blocked"])
+        self.setUp()
+        prepared = self.stand_in_removed()
+        self.write(self.TU, "//nocompile\n" + self.read(self.TU))
+        self.assertIn("the TU does not compile", self.transact(prepared=prepared)["blocked"])
+
+    def test_a_strong_definition_only_a_prepared_file_has_refuses(self):
+        prepared = self.stand_in_removed()
+        prepared[self.B] = f"//strong {self.EB}\n" + prepared[self.B]
+        report = self.transact(rvas=["0x00002000", "0x00002100"], prepared=prepared)
+        self.assertIn(f"{self.B} defines it outside a COMDAT", report["refused_rows"]["0x00002100"])
+
+    def test_a_prepared_text_is_judged_as_given(self):
+        for rel, change, why in ((self.TU, f"//comdat {self.GA}\n//comdat {self.EB}\n", "lose matches"),      # loses ?own
+                                 (self.A, "", "remaining rows lose matches"),                                   # loses stay
+                                 (self.A, "//nocompile\n", "does not compile"),
+                                 (self.TU, "//nocompile\n", "does not compile")):
+            with self.subTest(rel=rel, change=change):
+                self.setUp()
+                prepared = self.stand_in_removed()
+                prepared[rel] = change
+                before = {r: (self.root / r).read_bytes() for r in self.base}
+                report = self.transact(prepared=prepared, dry_run=False)
+                self.assertIn(why, report["blocked"])
+                self.exact.assert_not_called()
+                self.assertEqual({r: (self.root / r).read_bytes() for r in self.base}, before)
+
+    def test_a_prepared_text_cannot_hide_a_hand_written_row(self):
+        spoof = f'extern "C" inline void __identifier("{self.GA}")() {{}}\n'
+        for rel in (self.TU, self.A):
+            with self.subTest(rel=rel):
+                self.setUp()
+                prepared = self.stand_in_removed()
+                prepared[rel] = spoof + prepared[rel]
+                report = self.transact(rvas=["0x00002000", "0x00002100"], prepared=prepared)
+                self.assertIn("may define it by hand", report["refused_rows"]["0x00002000"])
+        for rel, why in ((self.TU, "NODUPLICATES"), (self.A, "NODUPLICATES")):
+            with self.subTest(rel=rel, why=why):
+                self.setUp()
+                prepared = self.stand_in_removed()
+                prepared[rel] = prepared[rel] + f"//noduplicates {self.GA}\n"
+                report = self.transact(rvas=["0x00002000", "0x00002100"], prepared=prepared)
+                self.assertIn(why, report["refused_rows"]["0x00002000"])
+        self.setUp()
+        prepared = self.stand_in_removed()
+        prepared[self.B] = "//nopp\n" + prepared[self.B]
+        report = self.transact(rvas=["0x00002000", "0x00002100"], prepared=prepared)
+        self.assertIn("cannot be preprocessed", report["refused_rows"]["0x00002000"])
+
+    def test_a_prepared_text_may_not_lose_a_strong_symbol_and_reports_a_dropped_comdat(self):
+        self.write(self.A, self.read(self.A) + "//strong _helper\n//comdat _inlined\n")
+        self.ledger()
+        prepared = self.stand_in_removed()
+        report = self.transact(prepared=prepared)
+        self.assertIn("stops defining what no object of this move defines: _helper", report["blocked"])
+        prepared[self.TU] += "//strong _helper\n"                                  # now the TU defines it
+        report = self.transact(prepared=prepared)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["comdats_dropped"], ["_inlined"])
+        prepared[self.TU] = prepared[self.TU].replace("//strong _helper\n", "")
+        prepared[self.A] += "//strong _helper\n"                                   # or the file keeps it
+        self.assertNotIn("blocked", self.transact(prepared=prepared))
+        no_text = self.transact()                                                  # no prepared text: nothing is judged
+        self.assertNotIn("comdats_dropped", no_text)
+
+    def test_hatch_totals_may_move_not_grow(self):
+        hatch = '#pragma optimize("", off)\n'
+        now = {self.TU: "int a;\n", self.A: hatch}
+        self.assertFalse(T.emit_hatches_grow(now, {self.A: "int a;\n", self.TU: hatch}))       # it moved
+        self.assertFalse(T.emit_hatches_grow(now, {self.A: "int a;\n"}))                       # it went
+        self.assertTrue(T.emit_hatches_grow(now, {self.TU: hatch}))                            # two now
+        prepared = self.stand_in_removed()
+        prepared[self.TU] = hatch + prepared[self.TU]
+        report = self.transact(prepared=prepared, dry_run=False)
+        self.assertIn("escape-hatch total", report["blocked"])
+        self.exact.assert_not_called()
+
+    # ------------------------------------------------------------------ undo and recovery
+    def test_a_failing_build_puts_every_file_and_text_back(self):
+        prepared = self.stand_in_removed()
+        before = {r: (self.root / r).read_bytes() for r in self.base}
+        report = self.transact(prepared=prepared, dry_run=False, build_effect=lambda sources: (False, "boom"))
+        self.assertIn("the build did not pass", report["blocked"])
+        self.assertIn("the ledger was put back", report["blocked"])
+        self.assertEqual({r: (self.root / r).read_bytes() for r in self.base}, before)
+        self.assertEqual(self.journals(), [])
+
+    def test_a_committed_object_failing_any_file_puts_everything_back(self):
+        # the committed TU object must define each file's rows; the scratch one said so
+        prepared = self.stand_in_removed()
+        before = {r: (self.root / r).read_bytes() for r in self.base}
+
+        def strong_in_b(sources):
+            real_b = self.root / "build" / "real-Second.obj"
+            real_t = self.root / "build" / "real-Campaign.obj"
+            real_a = self.root / "build" / "real-Mixed.obj"
+            import build
+            for obj, text in ((real_t, prepared[self.TU]), (real_a, prepared[self.A]),
+                              (real_b, prepared[self.B] + f"//strong {self.EB}\n")):
+                obj.write_text(text, encoding="utf-8")
+                build._deps_sidecar(obj).write_text("{}")
+            return True, "OK"
+        report = self.transact(prepared=prepared, dry_run=False, build_effect=strong_in_b)
+        self.assertIn("the file still defines 0x00002100 outside a COMDAT", report["blocked"])
+        self.assertEqual({r: (self.root / r).read_bytes() for r in self.base}, before)
+
+    def test_an_interrupt_puts_every_text_back(self):
+        prepared = self.stand_in_removed()
+        before = {r: (self.root / r).read_bytes() for r in self.base}
+
+        def interrupted(sources):
+            raise KeyboardInterrupt
+        with self.assertRaises(KeyboardInterrupt):
+            self.transact(prepared=prepared, dry_run=False, build_effect=interrupted)
+        self.assertEqual({r: (self.root / r).read_bytes() for r in self.base}, before)
+        self.assertEqual(self.journals(), [])
+
+    def killed(self, prepared):
+        """A run that dies inside the build: the journal and the written files are all that is left."""
+        def dead(sources):
+            raise KeyboardInterrupt
+        with self.assertRaises(KeyboardInterrupt):
+            self.transact(prepared=prepared, dry_run=False, build_effect=dead, undo=lambda record: ["killed"])
+        self.assertEqual(len(self.journals()), 1)
+        for rel, text in prepared.items():
+            self.assertEqual(self.read(rel), text)
+
+    def test_a_killed_transaction_is_recovered_with_its_texts(self):
+        prepared = self.stand_in_removed()
+        before = {r: (self.root / r).read_bytes() for r in self.base}
+        self.killed(prepared)
+        self.assertIn("did not finish", self.transact(prepared=prepared)["blocked"])
+        restored, _busy, errors = self.recover()
+        self.assertEqual((len(restored), errors), (1, []))
+        self.assertEqual({r: (self.root / r).read_bytes() for r in self.base}, before)
+        self.assertEqual(self.journals(), [])
+
+    def test_recovery_refuses_a_text_edited_since_and_retries(self):
+        prepared = self.stand_in_removed()
+        before = {r: (self.root / r).read_bytes() for r in self.base}
+        self.killed(prepared)
+        edited = prepared[self.A] + "// edited since\n"
+        self.write(self.A, edited)
+        restored, _busy, errors = self.recover()
+        self.assertEqual(restored, [])
+        self.assertTrue(any(self.A in e and "changed since" in e for e in errors), errors)
+        self.assertEqual(self.read(self.A), edited)                                # nothing guessed
+        self.assertEqual(self.read(self.TU), before[self.TU].decode())             # the rest went back
+        self.assertEqual(len(self.journals()), 1)
+        self.write(self.A, prepared[self.A])                                       # the edit undone: it completes
+        restored, _busy, errors = self.recover()
+        self.assertEqual((len(restored), errors), (1, []))
+        self.assertEqual({r: (self.root / r).read_bytes() for r in self.base}, before)
+
+    def test_a_staged_text_goes_back_out_of_the_index(self):
+        prepared = self.stand_in_removed()
+        subprocess.run(["git", "add", "--", "Code", "reverse"], cwd=self.root, check=True)
+        subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "base"], cwd=self.root, check=True)
+        real_unlink = Path.unlink
+
+        def unlink(path, *a, **k):
+            if Path(path).suffix == ".json" and Path(path).parent.name == "emit-journal":
+                raise KeyboardInterrupt                # dies after git add, before the journal goes
+            return real_unlink(path, *a, **k)
+        with patch.object(Path, "unlink", unlink), self.assertRaises(KeyboardInterrupt):
+            self.transact(prepared=prepared, dry_run=False)
+        show = lambda rel: subprocess.run(["git", "show", f":{rel}"], cwd=self.root, capture_output=True).stdout
+        self.assertEqual(show(self.A).decode(), prepared[self.A])                  # the move was staged
+        restored, _busy, errors = self.recover()
+        self.assertEqual((len(restored), errors), (1, []))
+        for rel in (self.A, self.B, self.TU):
+            self.assertEqual(show(rel), self.base[rel] if rel != self.TU else f"//comdat {self.OWN}\n".encode())
+
+    # ------------------------------------------------------------------ the command line
+    def run_main(self, *argv):
+        with patch.object(sys, "argv", ["tu_skeleton.py", *argv]), patch.object(T, "emit_move", return_value={"subject": "x"}) as emit, \
+                patch.object(T, "split", return_value={"subject": "x"}) as split, contextlib.redirect_stdout(io.StringIO()):
+            code = T.main()
+        return code, emit, split
+
+    def test_the_command_line(self):
+        text = self.root / "t.txt"
+        text.write_bytes(b"line\r\n")
+        code, emit, _ = self.run_main("--emit-move", f"{self.A},{self.B}", "--for", self.TU, "--rva", "0x1,0x2",
+                                      "--prepared", f"{self.TU}={text}", "--prepared", f"{self.A}={text}", "--dry-run")
+        self.assertEqual(code, 0)
+        args, kw = emit.call_args
+        self.assertEqual(args[:2], ([self.A, self.B], self.TU))
+        self.assertEqual(args[2], ["0x1", "0x2"])
+        self.assertEqual(kw["prepared"], {self.TU: "line\n", self.A: "line\n"})
+        _, emit, _ = self.run_main("--emit-move", self.A, "--for", self.TU)
+        self.assertEqual(emit.call_args[0][0], self.A)                             # one file: as before
+        self.assertEqual(emit.call_args[1]["prepared"], {})
+        with self.assertRaises(SystemExit):
+            self.run_main("--emit-move", self.A, "--for", self.TU, "--prepared", "no-equals")
+        _, _, split = self.run_main("--split", self.A, "--for", self.TU, "--prepared", f"{self.TU}={text}")
+        self.assertEqual(split.call_args[1]["prepared"], "line\n")
+        for bad in (["--prepared", f"{self.TU}={text}", "--prepared", f"{self.TU}={text}"], ["--prepared", f"{self.A}={text}"]):
+            with self.subTest(bad=bad), self.assertRaises(SystemExit):
+                self.run_main("--split", self.A, "--for", self.TU, *bad)
 
 
 class VtableRiderPreparedSplitTests(unittest.TestCase):
