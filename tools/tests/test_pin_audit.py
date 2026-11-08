@@ -176,17 +176,17 @@ def test_an_empty_census_index_leaves_pins_unjudged(tmp_path):
     assert census.problem and census.sources(WRONG) == [] and census.matched_callers(WRONG) == []
     findings = pin_consistency.audit([pin(WRONG, 0x365F0)], [row(OWNER, 0x365F0)], census,
                                      lambda p, rva: [])
-    assert findings[0]["verdict"] == "NO-DEFINING-OBJECT"
+    assert findings[0]["verdict"] == "UNJUDGED"
 
 
-def test_an_index_entry_outside_its_object_list_is_skipped(tmp_path):
+def test_an_index_entry_outside_its_object_list_makes_it_unreadable(tmp_path):
     fx = build.obj_path(build.ROOT / "Code/FXList.cpp").name
     index = {"objects": [fx], "comdat": {WRONG: [(7, "d", "retail"), (0, "d", "retail")]},
              "strong": {WRONG: [3]}, "references": {"edges": {}}}
     path = tmp_path / "link_index.pkl"
     path.write_bytes(pickle.dumps(index))
     census = pin_consistency.CensusIndex([row(CALLER, 0x52BD3A, source="Code/FXList.cpp")], path)
-    assert census.sources(WRONG) == ["Code/FXList.cpp"]
+    assert census.problem and census.sources(WRONG) == []          # out of range: unreadable
 
 
 def test_a_current_object_is_seeded_into_the_scratch_cache(tmp_path):
@@ -316,7 +316,7 @@ def test_scratch_directories_older_than_a_day_are_swept(tmp_path):
     now = time.time()
     os.utime(old, (now - 2 * 86400, now - 2 * 86400))
     os.utime(other, (now - 2 * 86400, now - 2 * 86400))
-    assert pin_consistency.sweep_stale_scratch(tmp_path, now) == [old]
+    assert pin_consistency.sweep_stale_scratch(tmp_path, now, root=tmp_path.parent) == [old]
     assert not old.exists() and fresh.exists() and other.exists()
 
 
@@ -357,7 +357,7 @@ def test_any_unreadable_index_leaves_pins_unjudged(tmp_path, data):
     assert census.problem and census.sources(WRONG) == [] and census.matched_callers(WRONG) == []
     findings = pin_consistency.audit([pin(WRONG, 0x365F0)], [row(OWNER, 0x365F0)], census,
                                      lambda p, rva: [])
-    assert findings[0]["verdict"] == "NO-DEFINING-OBJECT"
+    assert findings[0]["verdict"] == "UNJUDGED"
 
 
 def test_a_malformed_entry_read_later_makes_the_index_unreadable(tmp_path):
@@ -377,3 +377,155 @@ def test_audit_main_exits_zero_and_says_why_on_an_unreadable_index(monkeypatch, 
         [pin(WRONG, 0x365F0)], [row(OWNER, 0x365F0)], census, lambda p, rva: []))
     assert pin_consistency.main(["--audit"]) == 0
     assert "unreadable" in capsys.readouterr().out
+
+
+def test_late_index_corruption_judges_no_pin(tmp_path):
+    # Review probe 3: a bad entry for the second pin left the first one PROVEN.
+    obj_name = build.obj_path(build.ROOT / "Code/A.cpp").name
+    index = {"objects": [obj_name], "comdat": {"?first@@YAXXZ": [(0, "d", "retail")], "?bad@@YAXXZ": 5},
+             "strong": {}, "references": {"edges": {}}}
+    path = tmp_path / "late.pkl"
+    path.write_bytes(pickle.dumps(index))
+    census = pin_consistency.CensusIndex([row(OWNER, 0x365F0, source="Code/A.cpp")], path)
+
+    def prove(p, rva):
+        raise AssertionError("an unreadable index judges nothing")
+    findings = pin_consistency.audit([pin("?first@@YAXXZ", 0x365F0), pin("?bad@@YAXXZ", 0x365F0)],
+                                     [row(OWNER, 0x365F0, source="Code/A.cpp")], census, prove)
+    assert census.problem and {f["verdict"] for f in findings} == {"UNJUDGED"}
+
+
+def test_an_index_whose_existence_cannot_be_checked_is_unreadable(monkeypatch, tmp_path):
+    # Review probe 4: Path.exists raising before the handler.
+    path = tmp_path / "link_index.pkl"
+    path.write_bytes(pickle.dumps({"objects": [], "comdat": {}, "strong": {}, "references": {"edges": {}}}))
+    monkeypatch.setattr(Path, "exists", lambda self: (_ for _ in ()).throw(PermissionError("denied")))
+    census = pin_consistency.CensusIndex([], path)
+    assert "PermissionError" in census.problem
+
+
+def test_a_well_formed_index_names_sources_and_callers(tmp_path):
+    fx = build.obj_path(build.ROOT / "Code/FXList.cpp").name
+    index = {"objects": [fx], "comdat": {WRONG: [(0, "d", "retail")]}, "strong": {FOLD: [0]},
+             "references": {"edges": {CALLER: {WRONG}}}}
+    path = tmp_path / "link_index.pkl"
+    path.write_bytes(pickle.dumps(index))
+    census = pin_consistency.CensusIndex([row(CALLER, 0x52BD3A, source="Code/FXList.cpp")], path)
+    assert census.problem is None
+    assert census.sources(WRONG) == census.sources(FOLD) == ["Code/FXList.cpp"]
+    assert census.matched_callers(WRONG) == [CALLER]
+
+
+def _stale(path):
+    path.mkdir(parents=True)
+    (path / "sentinel").write_text("keep")
+    then = time.time() - 2 * 86400
+    os.utime(path, (then, then))
+
+
+@pytest.mark.skipif(os.name == "nt", reason="symlinks need privileges on Windows; junctions below")
+def test_the_sweep_never_follows_a_linked_build_directory(tmp_path):
+    # Review probe 2: build/ is a link to a directory outside the checkout.
+    checkout, outside = tmp_path / "checkout", tmp_path / "outside"
+    checkout.mkdir()
+    _stale(outside / "pin-audit-old")
+    (checkout / "build").symlink_to(outside, target_is_directory=True)
+    assert pin_consistency.sweep_stale_scratch(checkout / "build", root=checkout) == []
+    assert (outside / "pin-audit-old" / "sentinel").exists()
+
+
+@pytest.mark.skipif(os.name != "nt", reason="Windows junction")
+def test_the_sweep_never_follows_a_build_junction(tmp_path):
+    import _winapi
+    checkout, outside = tmp_path / "checkout", tmp_path / "outside"
+    checkout.mkdir()
+    _stale(outside / "pin-audit-old")
+    _winapi.CreateJunction(str(outside), str(checkout / "build"))
+    try:
+        assert pin_consistency.sweep_stale_scratch(checkout / "build", root=checkout) == []
+        assert (outside / "pin-audit-old" / "sentinel").exists()
+    finally:
+        os.rmdir(checkout / "build")                                # the junction, not its target
+
+
+@pytest.mark.skipif(os.name == "nt", reason="symlinks need privileges on Windows")
+def test_the_sweep_never_deletes_through_a_linked_entry(tmp_path):
+    checkout, outside = tmp_path / "checkout", tmp_path / "outside"
+    (checkout / "build").mkdir(parents=True)
+    _stale(outside / "victim")
+    link = checkout / "build" / "pin-audit-link"
+    link.symlink_to(outside / "victim", target_is_directory=True)
+    _stale(checkout / "build" / "pin-audit-real")
+    swept = pin_consistency.sweep_stale_scratch(checkout / "build", root=checkout)
+    assert [p.name for p in swept] == ["pin-audit-real"]
+    assert link.is_symlink() and (outside / "victim" / "sentinel").exists()
+
+
+def test_the_sweep_skips_a_build_directory_outside_the_checkout(tmp_path):
+    checkout, elsewhere = tmp_path / "checkout", tmp_path / "elsewhere" / "build"
+    checkout.mkdir()
+    _stale(elsewhere / "pin-audit-old")
+    assert pin_consistency.sweep_stale_scratch(elsewhere, root=checkout) == []
+    assert (elsewhere / "pin-audit-old").exists()
+
+
+_DESCENDANTS = (
+    "import subprocess, sys, time\n"
+    "from pathlib import Path\n"
+    "grandchild = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(120)'])\n"
+    "Path(sys.argv[1]).write_text(str(grandchild.pid))\n"
+    "time.sleep(120)\n")
+
+
+def _alive(pid):
+    if os.name == "nt":
+        import subprocess
+        out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/NH"], capture_output=True, text=True).stdout
+        return str(pid) in out
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    try:                                                            # a zombie awaiting its reaper is dead
+        return Path(f"/proc/{pid}/stat").read_text().split(") ")[1][0] != "Z"
+    except (OSError, IndexError):
+        return True
+
+
+def _wait_for(predicate, seconds=10):
+    end = time.time() + seconds
+    while time.time() < end:
+        if predicate():
+            return True
+        time.sleep(0.05)
+    return predicate()
+
+
+def test_an_interrupt_kills_the_proof_process_and_what_it_started(tmp_path):
+    # Review probe 1: child.kill() alone left the grandchild (a compiler) running.
+    pidfile = tmp_path / "grandchild.pid"
+
+    class Interrupted:
+        def __init__(self, child):
+            self.child, self.pid, self.audit_group = child, child.pid, child.audit_group
+
+        def wait(self):
+            if self.child.poll() is None and _wait_for(pidfile.exists):
+                raise KeyboardInterrupt
+            return self.child.wait()
+
+        def poll(self):
+            return self.child.poll()
+
+        def kill(self):
+            self.child.kill()
+
+    def spawn(argv, env):
+        script = tmp_path / "descendants.py"
+        script.write_text(_DESCENDANTS)
+        return Interrupted(pin_consistency.start_child([sys.executable, str(script), str(pidfile)], env))
+    with pytest.raises(KeyboardInterrupt):
+        pin_consistency.isolated_proofs(_jobs(), spawn, parent=tmp_path / "build")
+    grandchild = int(pidfile.read_text())
+    assert _wait_for(lambda: not _alive(grandchild))
+    assert list((tmp_path / "build").glob("pin-audit-*")) == []

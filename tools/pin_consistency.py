@@ -798,8 +798,9 @@ AUDIT_DIFFERS_RELOC = "DIFFERS-RELOC"    # same bytes, different relocations
 AUDIT_ELSEWHERE = "IDENTITY-ELSEWHERE"   # the name resolves at another address too
 AUDIT_NO_OBJECT = "NO-DEFINING-OBJECT"   # no ledger unit's object defines the name
 AUDIT_INCONCLUSIVE = "INCONCLUSIVE"      # the proof stopped short (callee, size, compile)
+AUDIT_UNJUDGED = "UNJUDGED"              # the census index is unreadable: no pin is judged
 AUDIT_ORDER = (AUDIT_DIFFERS, AUDIT_DIFFERS_RELOC, AUDIT_ELSEWHERE, AUDIT_INCONCLUSIVE,
-               AUDIT_NO_OBJECT, AUDIT_PROVEN)
+               AUDIT_UNJUDGED, AUDIT_NO_OBJECT, AUDIT_PROVEN)
 
 
 def stacked_pins(pins, rows):
@@ -840,9 +841,10 @@ def audit_verdict(problems):
 
 class CensusIndex:
     """Which ledger units define a name, and which matched rows reference it,
-    from the last census index (link_check --fetch-index). Absent or unreadable,
-    every pin without a fold-proof= source is NO-DEFINING-OBJECT, no callers are
-    named, and `problem` says why."""
+    from the last census index (link_check --fetch-index). The whole file is read
+    and checked before anything is judged; if any part of it -- even its
+    existence -- cannot be read, `problem` says why and the audit judges no pin.
+    An absent index names no sources and no callers."""
 
     def __init__(self, rows, path=None):
         import link_census
@@ -857,56 +859,59 @@ class CensusIndex:
                 continue
         self.matched = {r["name"] for r in rows if r.get("status") == "matched"}
         self.problem = None
-        if not self.path.exists():
-            return
-        # Anything wrong with the file -- truncated, another pickle protocol, another schema --
-        # makes it no index at all: its pins stay unjudged and the audit goes on (exit 0).
         try:
+            if not self.path.exists():
+                return
             import pickle
             with self.path.open("rb") as handle:
                 index = pickle.load(handle)
-            objects, comdat, strong = list(index["objects"]), dict(index["comdat"]), dict(index["strong"])
-            callers = {}
-            for caller, refs in dict(index["references"]["edges"]).items():
-                for name in refs:
-                    callers.setdefault(name, set()).add(caller)
+            self.objects, self.comdat, self.strong, self.callers = self.validated(index)
         except Exception as error:  # an audit reports; it never stops on its input
-            self.unreadable(error)
-            return
-        self.objects, self.comdat, self.strong, self.callers = objects, comdat, strong, callers
+            self.problem = f"census index {self.path} unreadable ({type(error).__name__}: {error})"
+            self.objects, self.comdat, self.strong, self.callers = [], {}, {}, {}
 
-    def unreadable(self, error):
-        self.problem = f"census index {self.path} unreadable ({type(error).__name__}: {error})"
-        self.objects, self.comdat, self.strong, self.callers = [], {}, {}, {}
+    @staticmethod
+    def validated(index):
+        """(objects, comdat, strong, callers) of a census index whose every entry is well formed;
+        ValueError naming the first that is not."""
+        if not isinstance(index, dict):
+            raise ValueError("not a mapping")
+        objects = index["objects"]
+        if not isinstance(objects, list) or not all(isinstance(obj, str) for obj in objects):
+            raise ValueError("objects is not a list of object names")
 
-    def _object(self, number):
-        """The object an index entry names, or None for one outside its object list."""
-        if isinstance(number, int) and 0 <= number < len(self.objects):
-            return self.objects[number]
-        return None
+        def number(value):
+            return isinstance(value, int) and not isinstance(value, bool) and 0 <= value < len(objects)
+        comdat, strong, edges = index["comdat"], index["strong"], index["references"]["edges"]
+        if not all(isinstance(table, dict) for table in (comdat, strong, edges)):
+            raise ValueError("comdat, strong or references.edges is not a mapping")
+        for name, entries in comdat.items():
+            if not isinstance(entries, (list, tuple)) or not all(
+                    isinstance(entry, (list, tuple)) and entry and number(entry[0]) for entry in entries):
+                raise ValueError(f"comdat entry for {name!r} is malformed")
+        for name, entries in strong.items():
+            if not isinstance(entries, (list, tuple)) or not all(number(entry) for entry in entries):
+                raise ValueError(f"strong entry for {name!r} is malformed")
+        callers = {}
+        for caller, refs in edges.items():
+            if not isinstance(refs, (set, frozenset, list, tuple)):
+                raise ValueError(f"references of {caller!r} are malformed")
+            for name in refs:
+                callers.setdefault(name, set()).add(caller)
+        return objects, comdat, strong, callers
 
     def sources(self, name):
-        try:
-            objects = [self._object(entry[0] if isinstance(entry, (tuple, list)) and entry else None)
-                       for entry in self.comdat.get(name, ())]
-            objects += [self._object(i) for i in self.strong.get(name, ())]
-        except Exception as error:  # a malformed entry: the whole index is suspect
-            self.unreadable(error)
-            return []
         found = []
-        for obj in objects:
-            source = self.source_of.get(obj) if isinstance(obj, str) else None
+        numbers = [entry[0] for entry in self.comdat.get(name, ())] + list(self.strong.get(name, ()))
+        for number in numbers:
+            source = self.source_of.get(self.objects[number])
             if (source and not source.lower().endswith(build.LIB_SUFFIX)
                     and source not in found):
                 found.append(source)
         return found
 
     def matched_callers(self, name):
-        try:
-            return sorted(c for c in self.callers.get(name, ()) if c in self.matched)
-        except Exception as error:
-            self.unreadable(error)
-            return []
+        return sorted(c for c in self.callers.get(name, ()) if c in self.matched)
 
 
 # The proofs compile. build.compile_rows writes each object and .deps.json to build.BUILD_DIR
@@ -933,20 +938,85 @@ def remove_scratch(path):
     return True
 
 
-def sweep_stale_scratch(parent=None, now=None):
-    """Remove build/pin-audit-* directories left over a day ago (a killed or failed run)."""
+def _is_link(path):
+    """A symlink or a Windows junction: never followed, never deleted through."""
+    path = Path(path)
+    if path.is_symlink() or getattr(path, "is_junction", lambda: False)():
+        return True
+    try:
+        return path.resolve() != path.parent.resolve() / path.name
+    except OSError:
+        return True
+
+
+def safe_scratch_parent(parent=None, root=None):
+    """build/, resolved, when it is a real directory (no link, no junction) that resolves to
+    exactly <resolved checkout>/build; else None. `root` is the checkout (tests pass their own)."""
+    root = Path(root or build.ROOT)
+    parent = Path(parent or root / "build")
+    try:
+        if _is_link(parent) or not parent.is_dir():
+            return None
+        resolved = parent.resolve()
+        return resolved if resolved == root.resolve() / parent.name else None
+    except OSError:
+        return None
+
+
+def sweep_stale_scratch(parent=None, now=None, root=None):
+    """Remove build/pin-audit-* directories left over a day ago (a killed or failed run).
+
+    Only when build/ is safe_scratch_parent's real directory inside the checkout, and only
+    entries that are real directories (not links or junctions) resolving directly inside it."""
     import time
-    parent = parent or build.ROOT / "build"
+    safe = safe_scratch_parent(parent, root)
+    if safe is None:
+        print(f"pin audit: {parent or 'build/'} is a link or outside the checkout; stale "
+              "scratch directories not swept", file=sys.stderr)
+        return []
     now = time.time() if now is None else now
     swept = []
-    for path in sorted(parent.glob(SCRATCH_PREFIX + "*")):
+    for path in sorted(safe.glob(SCRATCH_PREFIX + "*")):
         try:
-            stale = path.is_dir() and now - path.stat().st_mtime > STALE_SCRATCH_SECONDS
+            if _is_link(path) or not path.is_dir() or path.resolve() != safe / path.name:
+                continue
+            stale = now - path.stat().st_mtime > STALE_SCRATCH_SECONDS
         except OSError:
             continue
         if stale and remove_scratch(path):
             swept.append(path)
     return swept
+
+
+def start_child(argv, env):
+    """The proof process, leading its own process group (a new session on POSIX, a new process
+    group on Windows), so kill_tree reaches the compilers it starts as well."""
+    if os.name == "nt":
+        child = subprocess.Popen(argv, env=env, cwd=str(ROOT),
+                                 creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
+    else:
+        child = subprocess.Popen(argv, env=env, cwd=str(ROOT), start_new_session=True)
+    child.audit_group = True
+    return child
+
+
+def kill_tree(child):
+    """Kill the proof process and everything it started. A child start_child made leads its
+    own group: SIGKILL to that group (it outlives its leader), or taskkill /T on Windows."""
+    pid = getattr(child, "pid", None)
+    if pid is not None and getattr(child, "audit_group", False):
+        if os.name == "nt":
+            subprocess.run(["taskkill", "/T", "/F", "/PID", str(pid)], capture_output=True)
+        else:
+            import signal
+            try:
+                os.killpg(pid, signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
+    try:
+        child.kill()
+    except OSError:
+        pass
 
 
 def seed_isolated(source, real, scratch):
@@ -1001,9 +1071,10 @@ def isolated_proofs(jobs, spawn=None, parent=None):
     `spawn(argv, env)` starts it and returns a Popen-like object (wait, poll, kill); tests pass
     their own. A child that fails leaves every job unproven, never this process's settings."""
     import json
-    parent = parent or build.ROOT / "build"
-    sweep_stale_scratch(parent)
+    explicit = parent is not None
+    parent = Path(parent) if explicit else build.ROOT / "build"
     parent.mkdir(parents=True, exist_ok=True)
+    sweep_stale_scratch(parent, root=parent.parent if explicit else None)
     scratch = Path(tempfile.mkdtemp(prefix=SCRATCH_PREFIX, dir=parent))
     child = None
     try:
@@ -1012,8 +1083,7 @@ def isolated_proofs(jobs, spawn=None, parent=None):
         argv = [sys.executable, str(Path(__file__).resolve()), "--audit-child",
                 str(request), str(output), str(scratch / "match")]
         env = dict(os.environ, BFME_OBJSTORE="off")
-        spawn = spawn or (lambda argv, env: subprocess.Popen(argv, env=env, cwd=str(ROOT)))
-        child = spawn(argv, env)
+        child = (spawn or start_child)(argv, env)
         code = child.wait()
         if code != 0 or not output.exists():
             return [[f"audit could not run the proof: the proof process exited {code}"]] * len(jobs)
@@ -1022,9 +1092,12 @@ def isolated_proofs(jobs, spawn=None, parent=None):
             return [["audit could not run the proof: the proof process returned no result"]] * len(jobs)
         return results
     except BaseException:
-        if child is not None and child.poll() is None:
-            child.kill()
-            child.wait()
+        if child is not None:
+            kill_tree(child)
+            try:
+                child.wait()
+            except BaseException:
+                pass
         raise
     finally:
         remove_scratch(scratch)
@@ -1058,6 +1131,13 @@ def audit(pins=None, rows=None, index=None, prove=None, limit=None, spawn=None):
         else:
             jobs.append((finding, {"name": name, "address": pin["address"], "source": sources[0]}))
         findings.append(finding)
+    problem = getattr(index, "problem", None)
+    if problem:
+        # Read in full before judging: an index unreadable anywhere judges nothing.
+        print(f"pin audit: {problem}; no pin is judged")
+        for finding in findings:
+            finding.update(verdict=AUDIT_UNJUDGED, problems=[problem], source=None, callers=[])
+        return findings
     if prove is None:
         results = isolated_proofs([job for _finding, job in jobs], spawn) if jobs else []
     else:
@@ -1075,8 +1155,6 @@ def audit(pins=None, rows=None, index=None, prove=None, limit=None, spawn=None):
         # pinned function is about one of them, not about this pin.
         finding["on_callee"] = bool(problems) and finding["name"] not in problems[0]
     findings.sort(key=lambda f: (AUDIT_ORDER.index(f["verdict"]), -len(f["callers"]), f["address"]))
-    if getattr(index, "problem", None):
-        print(f"pin audit: {index.problem}; pins without a fold-proof= source are unjudged")
     return findings
 
 
