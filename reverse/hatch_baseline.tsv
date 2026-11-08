@@ -1722,7 +1722,6 @@ alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp	??1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB04.cpp	??1Rva00224A90@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??0Rva002C5EF0@@QAE@ABVCoord3DBase@@MI@Z	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??1Rva0026F445@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??1Rva002793F0@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??1Rva00299CE4@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??1Rva002A5B30@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp	??1Rva002BFB2D@@UAE@XZ	1
@@ -2564,7 +2563,6 @@ alternatename	Code/GameEngine/Source/GameClient/Rva005E2237PageCtor.cpp	??1Rva00
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F8348Ctor.cpp	?init@Rva000F8348@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameClient/ScreenFilterRva000F9C3CCtor.cpp	?slot0@Rva000F9C3C@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/GameClient/Shadow.cpp	?SetTexture@Rva00330995@@QAEXPAX@Z	1
-alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ButterflyDrawModuleTemplateCopyCtorThunk.cpp	_ButterflyDrawModuleTemplate_cvtbl0	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14a	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v14b	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultModuleTemplate01InlineCopyCtors.cpp	_Rva003AEA42_v18a	1
@@ -5967,7 +5965,6 @@ pin	reverse/symbols.csv	0x00256CB0	1
 pin	reverse/symbols.csv	0x00256E19	1
 pin	reverse/symbols.csv	0x00256F67	1
 pin	reverse/symbols.csv	0x002571DD	1
-pin	reverse/symbols.csv	0x002572AE	1
 pin	reverse/symbols.csv	0x0025742C	1
 pin	reverse/symbols.csv	0x00257469	1
 pin	reverse/symbols.csv	0x00257481	1
@@ -6034,10 +6031,8 @@ pin	reverse/symbols.csv	0x002724FD	1
 pin	reverse/symbols.csv	0x002743D7	1
 pin	reverse/symbols.csv	0x0027628E	2
 pin	reverse/symbols.csv	0x002763E6	1
-pin	reverse/symbols.csv	0x002793F0	1
 pin	reverse/symbols.csv	0x002796B8	1
 pin	reverse/symbols.csv	0x0027974B	1
-pin	reverse/symbols.csv	0x00279FFC	1
 pin	reverse/symbols.csv	0x0027B47F	1
 pin	reverse/symbols.csv	0x0027C306	1
 pin	reverse/symbols.csv	0x0027CE80	1
@@ -6352,7 +6347,6 @@ pin	reverse/symbols.csv	0x002CFBAE	1
 pin	reverse/symbols.csv	0x002CFE45	1
 pin	reverse/symbols.csv	0x002D028F	2
 pin	reverse/symbols.csv	0x002D02FD	1
-pin	reverse/symbols.csv	0x002D0326	1
 pin	reverse/symbols.csv	0x002D040C	1
 pin	reverse/symbols.csv	0x002D0588	1
 pin	reverse/symbols.csv	0x002D06CA	3
@@ -12245,7 +12239,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngi
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f30@HordeSiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainDtor.cpp	f34@HordeSiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp	OpenContain::pruneDeadWanters	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp	OpenContain::update	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataCtor.cpp	0DieMuxData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f00@SiegeEngineContain@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Contain/SiegeEngineContainCtor.cpp	f20@SiegeEngineContain@@UAEXXZ	1
@@ -13016,8 +13009,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	1DX8SkinFV
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Add_To_Render_List@DX8MeshRendererClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Change_Polygon_Renderer_Texture@DX8FVFCategoryContainer@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Find_Matching_Texture_Category@DX8FVFCategoryContainer@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Log@DX8RigidFVFCategoryContainer@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Log@DX8SkinFVFCategoryContainer@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Log@DX8TextureCategoryClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	Render_Decal_Meshes@DX8MeshRendererClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/dx8rendererdebugger.cpp	Add_Mesh@DX8RendererDebugger@@	1
@@ -13481,8 +13472,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideCopySet.cpp	
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	0WideLock@@QAE@PAVRva00041004@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	1WideLock@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	1NarrowStrLenSource@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	getLength@NarrowStrLenSource@@UBEHXZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/WideStrLenSource.cpp	getLength@WideStrLenSource@@UBEHXZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/ascii_string.cpp	bfmeEmitAsciiStringInlines@@YAXPAVAsciiString@@ABV1@PBD@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp	ChunkLoadClass::Cur_Chunk_Depth	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/cpudetect.cpp	Get_L1_Data_Cache_Line_Size@CPUDetectClass@@SAIXZ	1

@@ -3010,7 +3010,6 @@ name,address,notes
 ??1Rva0026E836@@UAE@XZ,0x0026E836,opaque SEH base dtor (5 vptrs +0/+0xC/+0x10/+0x20/+0x24 plus member cleanup); 3 derived 39B dtors tail-call it; identity unproven
 ??1Rva0026E9BDBase@@UAE@XZ,0x0026E836,DeployStyle dtor TU spelling for the opaque SEH base dtor; same body as pinned ??1Rva0026E836@@UAE@XZ
 ??1Rva0026F445@@UAE@XZ,0x0026F445,"destructor the scalar deleting destructor 0x0026F597 calls (REL32 at 0x0026F59A; vtable 0x00BFABB8#0); opaque address name"
-??1Rva002793F0@@UAE@XZ,0x002793F0,"destructor the scalar deleting destructor 0x00279FFC calls (REL32 at 0x00279FFF; vtable 0x00BFB0B4#7); opaque address name"
 ??1Rva0028418A@@UAE@XZ,0x0028418A,opaque SEH dtor (mov-eax-cookie prologue); tail-called by 4-vptr dtor at 0x62AF7; identity unproven, address-derived name
 ??1Rva00286F8F@@UAE@XZ,0x00286F8F,"destructor the scalar deleting destructor 0x00287C05 calls (REL32 at 0x00287C08; vtable 0x00BFB7BC#0); opaque address name"
 ??1Rva00288B89@@QAE@XZ,0x00288B89,destructor called by the unreferenced scalar deleting dtor 0x00288B9E (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
@@ -3585,7 +3584,6 @@ name,address,notes
 ??_ERva0020DF0B@@UAEPAXI@Z,0x0020E1E1,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva0023AE08@@UAEPAXI@Z,0x0023BDBB,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva00256E96@@UAEPAXI@Z,0x002571DD,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
-??_ERva002793F0@@UAEPAXI@Z,0x00279FFC,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva00285BEC@@UAEPAXI@Z,0x002862AD,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva00286F8F@@UAEPAXI@Z,0x00287C05,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva00299CE4@@UAEPAXI@Z,0x0029A10F,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"

@@ -28,7 +28,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 //   0x0025E51D  0x0025E4CD  0x00BF6040#0
 //   0x0026E81A  0x0026E7EA  0x00BFA3A4#0
 //   0x0026F597  0x0026F445  0x00BFABB8#0
-//   0x00279FFC  0x002793F0  0x00BFB0B4#7
 //   0x00287C05  0x00286F8F  0x00BFB7BC#0
 //   0x002896EA  0x002894A2  0x00BFB840#0
 //   0x0029A10F  0x00299CE4  0x00BFC300#7
@@ -119,34 +118,6 @@ public:
 
 // ?<Rva0026F445::Rva0026F445> absent-from-retail
 Rva0026F445::Rva0026F445(EmitVtableTag *)
-{
-}
-
-class __declspec(novtable) Rva002793F0Base0
-{
-public:
-	virtual ~Rva002793F0Base0();
-private:
-	char m_unmodelled_04[0x60 - 0x04];
-};
-
-// Secondary base at +0x60: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0x60) at 0x0027966F in its vtable is target evidence for it.
-class __declspec(novtable) Rva002793F0Base60
-{
-public:
-	virtual ~Rva002793F0Base60();
-};
-class Rva002793F0 : public Rva002793F0Base0, public Rva002793F0Base60
-{
-public:
-	Rva002793F0(EmitVtableTag *);
-public:
-	virtual ~Rva002793F0();
-};
-
-// ?<Rva002793F0::Rva002793F0> absent-from-retail
-Rva002793F0::Rva002793F0(EmitVtableTag *)
 {
 }
 
@@ -440,7 +411,6 @@ void Rva002C6354::DoXfer(Xfer *x)
 // Complete destructors the deleting destructors above call, bound to the rows at their retail
 // addresses (the dtor column of the table at the top of this file).
 #pragma comment(linker, "/alternatename:??1Rva0026F445@@UAE@XZ=??1UpgradeCenter@@UAE@XZ")
-#pragma comment(linker, "/alternatename:??1Rva002793F0@@UAE@XZ=??1Drawable@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva00299CE4@@UAE@XZ=??1Object@@MAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva002A5B30@@UAE@XZ=??1InGameUI@@UAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva002BFB2D@@UAE@XZ=??1LivingWorld@@UAE@XZ")
