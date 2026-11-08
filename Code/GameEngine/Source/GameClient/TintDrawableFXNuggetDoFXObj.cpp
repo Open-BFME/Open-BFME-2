@@ -9,7 +9,6 @@ struct RGBColor00271779 {
 	Real green;
 	Real blue;
 };
-typedef RGBColor00271779 RGBColor;
 
 class Rva00271779
 {
@@ -18,12 +17,8 @@ public:
 		int postColorTime, int sustainedColorTime, Real frequency, Real amplitude);
 };
 
-class Drawable {
-public:
-	unsigned char m_pad[0x118];
-	UnsignedInt m_status;
-};
 #include "../GameLogic/Object/object.h"
+#include "../../Include/GameClient/Drawable.h"
 class TintDrawableFXNugget {
 public:
 	virtual void v00();
@@ -31,7 +26,7 @@ public:
 	virtual void doFXObj(const Object *primary, const Object *) const;
 private:
 	unsigned char m_pad[0x144];
-	RGBColor m_color;
+	RGBColor00271779 m_color;
 	UnsignedInt m_preColorTime;
 	UnsignedInt m_postColorTime;
 	UnsignedInt m_sustainedColorTime;
@@ -42,7 +37,7 @@ void TintDrawableFXNugget::doFXObj(const Object *primary, const Object *) const
 {
 	if (primary && primary->getDrawable()) {
 		Drawable *tintDrawable = primary->getDrawable();
-		tintDrawable->m_status |= 0x20;
+		tintDrawable->m_tintStatus |= 0x20;
 		((Rva00271779 *)primary->getDrawable())->rva00271779(m_color,
 			(int)m_preColorTime, (int)m_postColorTime,
 			(int)m_sustainedColorTime, m_frequency, m_amplitude);

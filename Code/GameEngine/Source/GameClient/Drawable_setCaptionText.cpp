@@ -48,32 +48,23 @@ private:
 	unsigned char m_pre[0x344]; // +0x00
 	DisplayString *m_ptr; // +0x344
 };
-class Drawable
-{
-public:
-    void setCaptionText(const UnicodeString &captionText);
-private:
-    __forceinline void setSanitizedCaption(UnicodeString sanitized);
-    char pad[0x344];
-    DisplayString *m_caption;
-};
+#include "../../Include/GameClient/Drawable.h"
 
-// ?Drawable::setSanitizedCaption absent-from-retail
-__forceinline void Drawable::setSanitizedCaption(UnicodeString sanitized)
+static __forceinline void setSanitizedCaption(Drawable *draw, UnicodeString sanitized)
 {
     TheLanguageFilter->filterLine(sanitized);
-    if (!m_caption)
+    if (!draw->m_captionDisplayString)
     {
-        m_caption = TheDisplayStringManager->newDisplayString();
+        draw->m_captionDisplayString = TheDisplayStringManager->newDisplayString();
         GameFont *font = TheFontLibrary->getFont(&((Rva00274DB6AsciiField *)TheInGameUI)->get(),
             (float)TheGlobalLanguageData->adjustFontSize(((CaptionUIFields *)TheInGameUI)->getPointSize()), ((CaptionUIFields *)TheInGameUI)->isBold());
-        m_caption->setFont(font);
-        m_caption->setText(sanitized);
+        draw->m_captionDisplayString->setFont(font);
+        draw->m_captionDisplayString->setText(sanitized);
     }
     else
     {
-        if (m_caption->getText().compare(sanitized) != 0)
-            m_caption->setText(sanitized);
+        if (draw->m_captionDisplayString->getText().compare(sanitized) != 0)
+            draw->m_captionDisplayString->setText(sanitized);
     }
 }
 
@@ -84,5 +75,5 @@ void Drawable::setCaptionText(const UnicodeString &captionText)
         ((Rva00271496 *)this)->rva00271496();
         return;
     }
-    setSanitizedCaption(captionText);
+    setSanitizedCaption(this, captionText);
 }

@@ -34,21 +34,13 @@ struct ParticleGlobalDataView
 	Bool m_profileFX;	// +0x9C2
 };
 
-class Drawable
-{
-public:
-	const Matrix3D *getTransformMatrix() const;
-	Int getCurrentClientBonePositions(const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms, Int maxBones) const;
-	Bool isShroudedDrawable() const { return m_shrouded; }
-	Bool isVisibleDrawable() const { return m_visible; }
-private:
-	char pad[0x440];
-	Bool m_shrouded;	// +0x440
-	Bool m_visible;		// +0x441
-};
-
 #include "../../GameLogic/Object/object.h"
 #include "../../Common/Thing/thing.h"
+#include "../../../Include/GameClient/Drawable.h"
+
+// The drawable's shroud (+0x440) and visibility (+0x441) bytes, read through inline accessors as the body's schedule requires.
+static inline Bool isShroudedDrawable(const Drawable *draw) { return draw->field_440; }
+static inline Bool isVisibleDrawable(const Drawable *draw) { return draw->m_441; }
 
 enum CellShroudStatus
 {
@@ -255,9 +247,9 @@ Bool ParticleSystem::update(Int localPlayerIndex)
 
 			if (attachedTo)
 			{
-				if (!attachedTo->isVisibleDrawable())
+				if (!isVisibleDrawable(attachedTo))
 					isHidden = true;
-				if (attachedTo->isShroudedDrawable())
+				if (isShroudedDrawable(attachedTo))
 					isShrouded = true;
 
 				parentXfrm = attachedTo->getTransformMatrix();
@@ -294,7 +286,7 @@ Bool ParticleSystem::update(Int localPlayerIndex)
 				Drawable *draw = objectAttachedTo->getDrawable();
 				if (draw)
 				{
-					if (!draw->isVisibleDrawable())
+					if (!isVisibleDrawable(draw))
 						isHidden = true;
 					parentXfrm = draw->getTransformMatrix();
 

@@ -33,16 +33,10 @@ enum KindOfType { KINDOF_INVALID = -1 };
 
 #include "../../Include/Common/ThingTemplate.h"
 
-class Drawable
-{
-public:
-	// The native callers examine the template query's bool result in AL.
-	unsigned char isKindOf( KindOfType t ) const
-	{ return (unsigned char)m_template->isKindOf( t ); }
-private:
-	virtual void r0();
-	const ThingTemplate *m_template;				// +0x04
-};
+#include "../../Include/GameClient/Drawable.h"
+// The native callers examine the template query's bool result in AL.
+static inline unsigned char drawableIsKindOf( const Drawable *draw, KindOfType t )
+{ return (unsigned char)draw->m_template->isKindOf( t ); }
 
 typedef _STL::list<Drawable *> DrawableList;
 typedef DrawableList::const_iterator DrawableListCIt;
@@ -54,7 +48,6 @@ public:
 	void rva00239380();
 };
 
-typedef unsigned int DrawableID;
 enum { INVALID_DRAWABLE_ID = 0 };
 
 #include "../../Include/GameClient/InGameUI.h"
@@ -84,7 +77,7 @@ bool InGameUI::isAnySelectedKindOf( KindOfType kindOf ) const
 	for( DrawableListCIt it = m_selectedDrawables.begin(); it != end; ++it )
 	{
 		draw = *it;
-		if( draw && draw->isKindOf( kindOf ) )
+		if( draw && drawableIsKindOf( draw, kindOf ) )
 			return true;
 	}
 
@@ -99,7 +92,7 @@ bool InGameUI::isAllSelectedKindOf( KindOfType kindOf ) const
 	for( DrawableListCIt it = m_selectedDrawables.begin(); it != end; ++it )
 	{
 		draw = *it;
-		if( draw && !draw->isKindOf( kindOf ) )
+		if( draw && !drawableIsKindOf( draw, kindOf ) )
 			return false;
 	}
 

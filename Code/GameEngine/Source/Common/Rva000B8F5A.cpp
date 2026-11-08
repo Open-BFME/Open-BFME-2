@@ -27,12 +27,7 @@ public:
 class Matrix3D;struct Coord3D;class Object;
 class Rva000BFDFE { public: void rva000C0386(); }; // rowed 0x000C0386
 class ModelConditionFlags;
-class Drawable {public:void rva002761F3(const int*,const int*);
- const Matrix3D*getTransformMatrix()const;
- const Coord3D*getPosition()const;
- char pad00[0xFC];Object*object;
- char pad100[0x14];
- unsigned char flags114;};
+#include "../../Include/GameClient/Drawable.h"
 class FXList {public:static void doFXObj(const FXList*,const Object*,const Object*);static void doFXPos(const FXList*,const Coord3D*,const Matrix3D*,float,const Coord3D*);};
 struct AnimationStateBF9FC {char pad00[0x68];const FXList*fx68;char pad6C[0x9C-0x6C];bool repeat9C;};
 class ModelConditionFlags {public:bool rva000B3EB3()const;bool test(unsigned bit)const{return ((bits[bit>>5]>>(bit&31))&1)!=0;}unsigned bits[19];};
@@ -528,20 +523,20 @@ bool Rva000B8F5AOuter::rva000BF9FC(void*entry,bool force,int options){
  unsigned now=(unsigned)g_bfmeDisplayAnimationSyncClock;
  if(now>syncB8)flag25C=false;
  syncB8=now;
- if(!(drawable->flags114&8))flag48=true;
+ if(!(drawable->m_status&8))flag48=true;
  ((Rva000BC9B1*)this)->rva000BC9B1(true);
  AnimationStateBF9FC*previous=m_18;
  float fraction=((Rva000B2EB5*)this)->rva000B2EB5();
  m_18=next;
  adjustAnimation(previous,fraction,0,0,(bool&)options);
  if(previous!=m_18){
-  if(previous)((Rva000B9A0E*)previous)->rva000B9A0E(drawable->object,2,0);
-  if(m_18)((Rva000B9A0E*)m_18)->rva000B9A0E(drawable->object,1,0);
+  if(previous)((Rva000B9A0E*)previous)->rva000B9A0E(drawable->m_object,2,0);
+  if(m_18)((Rva000B9A0E*)m_18)->rva000B9A0E(drawable->m_object,1,0);
  }
  if(m_18!=next)return true;
  if(next && next->fx68){
   Drawable*draw=drawable;
-  if(draw->object)FXList::doFXObj(next->fx68,draw->object,0);
+  if(draw->m_object)FXList::doFXObj(next->fx68,draw->m_object,0);
   else FXList::doFXPos(next->fx68,draw->getPosition(),draw->getTransformMatrix(),0.0f,0);
  }
  if((begin74!=end78 && flag1C9)||(begin68!=end6C && flag1C8))refresh();
@@ -651,7 +646,7 @@ bool W3DScriptedModelDraw::handleWeaponFireFX(int slot,int barrel,const FXList*f
  if(barrel<0 || (unsigned)barrel>(unsigned)(vec.end-vec.begin))barrel=0;
  const BarrelView367&info=vec.begin[barrel];
  if(fx && info.fx04 && render44){
-  ObjectView367*object=(ObjectView367*)(*(Drawable**)((char*)this-4))->object;
+  ObjectView367*object=(ObjectView367*)(*(Drawable**)((char*)this-4))->m_object;
   if(render44->hidden() && object){
    Coord3D position=object->position38;
    FXList::doFXPos(fx,&position,(const Matrix3D*)&object->transform08,speed,victim);

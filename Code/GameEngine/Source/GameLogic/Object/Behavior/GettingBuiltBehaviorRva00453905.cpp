@@ -15,12 +15,7 @@ template<> class GettingBuiltCallbackSlots<0> {};
 enum ObjectStatusTypes { STATUS_NONE = 0 };
 enum DamageType { DAMAGE_WORKER = 8 };
 enum DeathType { DEATH_WORKER = 0x16 };
-class Drawable
-{
-public:
-	void rva0027366A();
-	void rva000B3FD0();
-};
+#include "../../../../Include/GameClient/Drawable.h"
 #include "../../../Common/Thing/thing.h"
 class SpawnBehaviorInterface : public GettingBuiltCallbackSlots<10> {
 public: virtual void constructionFinished() = 0;
