@@ -699,17 +699,16 @@ def emission_held(r):
     return not spells_definition(r["source"], r)
 
 
-def vtable_rider(r, path):
-    """May ledger row `r` of `path` ride with carved bodies to whatever object emits its
-    class's vtable (P16: `??_G` 0x001E10CE with the ctor 0x001E0AEF)? The static half: a
-    compiler-generated special member (special_shape) the map leaves without a TU on purpose
-    (tu_map.homeless: displaced, no F/Z/S/L/W evidence), the only ledger row at its address
-    (no other emitter's row there to claim it), and, unless it is a deleting destructor,
-    which no one writes, proved implicit by the coarse rule on `path`'s preprocessed text.
-    split() adds the dynamic half: the destination's object emits the class's vtable and the
-    residual's does not, and the row matches where it lands."""
-    shape = special_shape(r["name"])
-    if not shape:
+def vtable_rider(r):
+    """May ledger row `r` ride with carved bodies to whatever object emits its class's vtable
+    (P16: `??_G` 0x001E10CE with the ctor 0x001E0AEF)? The static half: a deleting destructor
+    by its decorated name (deleting_class: the compiler always generates `??_G`/`??_E`, so no
+    text is read; review of 9459886c66), the map leaving it without a TU on purpose
+    (tu_map.homeless: displaced, no F/Z/S/L/W evidence), and the only ledger row at its address
+    (no other emitter's row there to claim it). split() adds the dynamic half: the
+    destination's object emits the class's vtable and the residual's does not, and the row
+    matches where it lands."""
+    if not deleting_class(r["name"]):
         return False
     if "map_by_rva" not in _CACHE:
         _CACHE["map_by_rva"] = {int(m["rva"], 16): m for m in map_rows() if m["kind"].startswith("code")}
@@ -720,13 +719,7 @@ def vtable_rider(r, path):
         return False                                  # its own evidence names a TU: not the map's to leave open
     if not (tu_map.homeless(m, r["name"]) or m.get("confidence") == "displaced"):
         return False
-    if sum(1 for o in ledger_rows() if o["target_rva"].lower() == r["target_rva"].lower()) != 1:
-        return False
-    kind, cls = shape
-    if kind == "deleting destructor":
-        return True
-    code, _why = unit_text(path)
-    return code is not None and special_member_problem(code, kind, cls) is None
+    return sum(1 for o in ledger_rows() if o["target_rva"].lower() == r["target_rva"].lower()) == 1
 
 
 def vtable_symbols(obj, cls):
@@ -2256,12 +2249,14 @@ def merge(tu, dry_run=False, log=print, claim=True):
                 and len(accepted) == len(set(accepted)) and set(accepted) <= set(don)
                 and (tu not in don or tu in accepted)):
             scope = {f: don[f] for f in accepted}
+    taken = []          # each claim_scope result this merge holds: give_back releases exactly those
     if claim and not dry_run:
         held = claim_scope(tu, scope)
         if held:
-            claims.release(claim_keys(tu, scope))     # the part of the scope we did win goes back
+            give_back(held)                           # the part of the scope we did win goes back
             report["blocked"] = held_message(held)
             return report
+        taken.append(held)
     if plan:
         reused = reuse_merge_plan(tu, don, report, plan, dry_run)
         if reused is not None:
@@ -2269,17 +2264,18 @@ def merge(tu, dry_run=False, log=print, claim=True):
     # A saved plan can fail its fresh byte, link or carry checks. Searching for
     # another cohort may touch rejected donors, so claim them before widening.
     if claim and not dry_run and scope != don:
-        held = claim_scope(tu, don)
+        held = claim_scope(tu, don, skip=claim_keys(tu, scope))
         if held:
-            claims.release(claim_keys(tu, don))
+            give_back(*taken, held)
             report["blocked"] = held_message(held)
             return report
+        taken.append(held)
     result = _merge(tu, sk, don, report, dry_run)
     saved = result.pop("_plan", None)
     if dry_run and saved and not result.get("blocked"):
         save_merge_plan(canonical, state, inputs, {"tu_file": tu, **saved})
     if claim and not dry_run and "blocked" in result:   # nothing was written
-        claims.release(claim_keys(tu, don))
+        give_back(*taken)
     return view_hint(result, tu, don)
 
 
@@ -3462,7 +3458,7 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
     # emits its class's vtable (vtable_rider; P16's `??_G` 0x001E10CE): checked below
     # against both objects.
     riders = [r for r in keep if got is not None and r["target_rva"] in lost
-              and (fold_alias(r) or emission_held(r) and assigned_tu(r) == tu.lower() or vtable_rider(r, path))
+              and (fold_alias(r) or emission_held(r) and assigned_tu(r) == tu.lower() or vtable_rider(r))
               and not all_ids.get(r["target_rva"]) and not parent_of(r)]
     if riders and {r["target_rva"] for r in riders} == set(lost) and \
             not any(r["target_rva"] in lost for r in keep if r not in riders):
@@ -3498,8 +3494,8 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
         report["blocked"] = "the residual loses ICF aliases the carved bodies do not emit matched either"
         return report
     for r in riders:
-        if vtable_rider(r, path) and not fold_alias(r):
-            cls = special_shape(r["name"])[1]
+        if vtable_rider(r) and not fold_alias(r):
+            cls = deleting_class(r["name"])
             if not vtable_symbols(vt.obj, cls) or (residual_obj is not None and vtable_symbols(residual_obj, cls)):
                 report["blocked"] = (f"{r['target_rva']} rides only with the body that emits {cls}'s vtable: the "
                                      "destination must emit it and the residual must not")
@@ -3610,12 +3606,12 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
     if claim and not dry_run:
         held = claim_scope(tu, {path: carved})
         if held:
-            claims.release(claim_keys(tu, {path: carved}))
+            give_back(held)
             report["blocked"] = held_message(held)
             return report
         report = run()
         if "blocked" in report:
-            claims.release(claim_keys(tu, {path: carved}))
+            give_back(held)
     else:
         report = run()
     if dry_run and "blocked" not in report and path in report.get("accepted", []) and whole:
@@ -3653,26 +3649,25 @@ class UnitKeyRefusal(Exception):
 
 
 # ---------------------------------------------------------------- emission move
-# The move counterpart of emission_held. An implicit COMDAT (a template instantiation, a
-# compiler-generated special member) has no body a carve could move: every object using it
-# emits it. Once its approved TU's own code emits it byte-exact, the row's source moves there
-# and no text moves at all. P16: the LivingWorldCampaign Act chain sits in mixed STLport and
-# FXList files.
+# The move counterpart of emission_held. An implicit COMDAT has no body a carve could move:
+# every object using it emits it. Once its approved TU's own code emits it byte-exact, the
+# row's source moves there and no text moves at all. P16: the LivingWorldCampaign Act chain
+# sits in mixed STLport and FXList files. Only two kinds of row qualify: a template instance
+# no explicit specialization or instantiation names, and a deleting destructor. A
+# constructor, destructor or assignment never does: a hand-written one (`typedef Rec Alias;
+# Alias(Rec const &r) : a(r.a) {}`, `(Rec)(Rec const &r) ...`) compiles to the implicit
+# one's name, bytes and relocations, and six reviews showed no reading of the text proves
+# it implicit (review of 9459886c66). One would come back only with a compiler-backed proof.
 
-# compiler-generated special members of a plain class, by their mangled shape
-SPECIAL_MEMBERS = (
-    ("copy constructor", r"^\?\?0([A-Za-z_]\w*)@@Q[AB]E@AB[UV]0@@Z$"),
-    ("copy assignment", r"^\?\?4([A-Za-z_]\w*)@@QAEAA[UV]0@AB[UV]0@@Z$"),
-    ("default constructor", r"^\?\?0([A-Za-z_]\w*)@@QAE@XZ$"),
-    ("destructor", r"^\?\?1([A-Za-z_]\w*)@@[QU]AE@XZ$"),
-    ("deleting destructor", r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$"),     # never written by hand
-)
+# `??_G` (scalar) / `??_E` (vector) deleting destructor of a plain class: no source spells one
+DELETING_DTOR = re.compile(r"^\?\?_[GE]([A-Za-z_]\w*)@@[QU]AEPAXI@Z$")
 
 
-def special_shape(name):
-    """(kind, class) when `name` has a compiler-generated special member's shape (SPECIAL_MEMBERS),
-    else None."""
-    return next(((kind, m.group(1)) for kind, pattern in SPECIAL_MEMBERS if (m := re.match(pattern, name))), None)
+def deleting_class(name):
+    """The class whose compiler-generated deleting destructor `name` is, from the decorated
+    name alone, else None."""
+    m = DELETING_DTOR.match(name)
+    return m.group(1) if m else None
 
 
 def unit_text(path):
@@ -3748,90 +3743,30 @@ def explicit_instance_problem(code, owner):
     return " ".join(m.group(0).split())[:120] if m else None
 
 
-def class_bodies(code, cls):
-    """The bodies of every `class|struct|union cls ... { ... }` in `code` (balanced braces)."""
-    out = []
-    for m in re.finditer(r"\b(?:class|struct|union)\s+" + re.escape(cls) + r"\b[^;{()]*\{", code):
-        end = _brace_end(code, m.end() - 1)
-        if end is not None:
-            out.append(code[m.end():end - 1])
-    return out
-
-
-def _brace_end(text, at):
-    """The index after the brace closing the one at `at`, or None."""
-    depth = 0
-    for i in range(at, len(text)):
-        depth += {"{": 1, "}": -1}.get(text[i], 0)
-        if depth == 0:
-            return i + 1
-    return None
-
-
-def special_member_problem(code, kind, cls):
-    """Why `cls`'s `kind` might be user-declared in the preprocessed `code`, or None. A token
-    rule, fail-closed (review of bfb856bfbf: `Rec(Rec const (((&r)))) : a(r.a) {}` is a
-    hand-written copy ctor whose COMDAT name, bytes and relocations equal the implicit one's, so
-    no byte check catches it, and no parameter parsing is safe): a constructor kind refuses on
-    `cls(` anywhere in a body of the class (any constructor, declared or called) or `cls::cls`
-    anywhere in the unit; a destructor on `~cls` in a body or `cls::~cls`; a copy assignment on
-    `operator=` in a body or `cls::operator=`. No body of the class, an unbalanced quote, or a
-    literal or comment in a body that held code characters or names the class refuses too. A
-    deleting destructor is always the compiler's. Over-refusal is the price."""
-    if kind == "deleting destructor":
-        return None
-    if UNREADABLE in code:
-        return f"an unbalanced quote in the preprocessed unit: no proof {cls}'s {kind} is compiler-generated"
-    bodies = class_bodies(code, cls)
-    if not bodies:
-        return f"no body of {cls} in the preprocessed unit: no proof its {kind} is compiler-generated"
-    c = re.escape(cls)
-    ctor = (r"(?<![~\w])" + c + r"\s*\(", r"\b" + c + r"\s*::\s*" + c + r"\b")
-    in_body, out_of_line = {
-        "copy constructor": ctor,
-        "default constructor": ctor,
-        "destructor": (r"~\s*" + c + r"\b", r"\b" + c + r"\s*::\s*~\s*" + c + r"\b"),
-        "copy assignment": (r"\boperator\s*=", r"\b" + c + r"\s*::\s*operator\s*="),
-    }[kind]
-    for body in bodies:
-        # fail-closed (review of 90fdd5d03d): a literal or comment in the body that held a brace,
-        # paren, quote or `;` (masked by mask_literals), or one that names the class, refuses
-        if MASKED in body:
-            return f"a literal or comment in {cls}'s body holds a brace, paren, quote or ';': no proof"
-        if re.search(r'"[^"]*\b' + c + r'\b[^"]*"|\'[^\']*\b' + c + r"\b[^']*'", body):
-            return f"a literal in {cls}'s body names {cls}: no proof"
-        found = re.search(in_body, body)
-        if found:
-            return f"{cls}'s body spells `{found.group(0)}`: its {kind} may be user-written"
-    found = re.search(out_of_line, code)
-    if found:
-        return f"the unit spells `{found.group(0)}`: {cls}'s {kind} may be user-written"
-    return None
-
-
 def implicit_comdat(r, path):
-    """Why row `r` is not an implicit COMDAT the unit `path` leaves to the compiler, or None,
-    judged on the unit's preprocessed text (unit_text; fail-closed when it cannot be made) with
-    coarse rules that over-refuse rather than read spellings: explicit_instance_problem for a
-    template instantiation, any argument types included; special_member_problem for a
-    compiler-generated special member of a plain class. Anything else is a body to carve
+    """Why row `r` is not an implicit COMDAT the unit `path` leaves to the compiler, or None.
+    A deleting destructor (deleting_class) is decided by its decorated name alone. A template
+    instance is judged on the unit's preprocessed text (unit_text; fail-closed when it cannot
+    be made) by explicit_instance_problem, which refuses any explicit specialization
+    (`template<>`, hand-written) or instantiation naming it, any argument types included.
+    Anything else, a constructor, destructor or assignment included, is a body to carve
     (--split), not to move by emission. emit_move asks it of the destination, whose own code
     must emit the row."""
     name = r["name"]
-    shape = special_shape(name)
-    owner = instance_owner(name) if TEMPLATE_INSTANCE.match(name) else None
-    if owner is None and shape is None:
-        return ("not an implicit COMDAT by its name (a template instantiation or a compiler-generated special "
-                "member)" if not TEMPLATE_INSTANCE.match(name) else "its template owner cannot be read from the name")
+    if deleting_class(name):
+        return None
+    if not TEMPLATE_INSTANCE.match(name):
+        return ("not an implicit COMDAT by its name: only a template instance or a deleting destructor "
+                "(??_G/??_E) moves by emission")
+    owner = instance_owner(name)
+    if owner is None:
+        return "its template owner cannot be read from the name"
     code, why = unit_text(path)
     if code is None:
         return f"{path} cannot be preprocessed ({why}): no proof it leaves the row to the compiler"
-    if owner is not None:
-        found = explicit_instance_problem(code, owner)
-        return (f"{path} (preprocessed) has an explicit specialization or instantiation naming "
-                f"{'/'.join(sorted(instance_tokens(owner)))}: `{found}`") if found else None
-    problem = special_member_problem(code, *shape)
-    return f"{path} (preprocessed): {problem}" if problem else None
+    found = explicit_instance_problem(code, owner)
+    return (f"{path} (preprocessed) has an explicit specialization or instantiation naming "
+            f"{'/'.join(sorted(instance_tokens(owner)))}: `{found}`") if found else None
 
 
 OBJECT_SYMBOL = re.compile(r"(?:^|;)\s*object-symbol=([^;]+)")
@@ -4046,8 +3981,7 @@ def emit_move(path, tu, rvas=None, dry_run=False, claim=True):
         if claim:
             held = claim_scope(dest, don)
             if held:                # refused: abort before touching anything, and give back exactly
-                if held.acquired:   # what this call took, fenced by its tokens
-                    claims.release(list(held.acquired), tokens=dict(held.tokens))
+                give_back(held)     # what this call took, fenced by its tokens
                 report["blocked"] = held_message(held)
                 return report
             acquired, tokens = list(held.acquired), dict(held.tokens)
@@ -4079,12 +4013,12 @@ def _apply_emit(path, dest, movers, rvas, acquired, tokens):
             after[rel] = raw
             if n:
                 repointed[rel] = n
-    keys = [str(k) for k in acquired]        # only what this move claimed: never a prior claim
+    keys = [key_text(k) for k in acquired]   # only what this move claimed: never a prior claim
     journal = write_emit_journal({"subject": f"emit-move {path} -> {dest}", "sources": [path, dest],
                                   "before": {rel: rename._b64(raw) for rel, raw in before.items()},
                                   "after": {rel: rename._b64(raw) for rel, raw in after.items()},
                                   "index": index_entries(list(before)),
-                                  "claims": keys, "tokens": {str(k): v for k, v in tokens.items()}})
+                                  "claims": keys, "tokens": {key_text(k): v for k, v in tokens.items()}})
     done, problem = False, "interrupted before the build finished"
     try:
         for rel in repointed:
@@ -4252,23 +4186,46 @@ def blob_of(data):
                           check=True).stdout.decode().strip()
 
 
-def undo_lines(current, before, after):
-    """`current` with each line the move changed (before -> after) put back, or None: row-level,
-    so an edit made since to any other row survives (review of 90fdd5d03d). Idempotent (review
-    of bfb856bfbf: a retry after a partial recovery said the rows had changed): a moved line
-    still at its after-state goes back, one already at its before-state is done, and only a
-    third state (the line edited since, gone, or there twice) refuses."""
-    b_lines, a_lines = before.split(b"\n"), after.split(b"\n")
-    if len(b_lines) != len(a_lines):
+def undo_lines(current, before, after, keycol):
+    """`current` with the rows the move changed (before -> after) put back, or None: row-level,
+    so an edit made since to any other row survives (review of 90fdd5d03d). Judged per moved
+    key (`keycol`, the RVA the move repointed): its rows now are exactly its after-state rows
+    (go back), or exactly its before-state rows (done already: a retry after a partial
+    recovery, review of bfb856bfbf); any other combination, both states present, a copy
+    duplicated or an edited row beside an original, refuses (review of 9459886c66)."""
+    import ledger_io
+    split = {name: ledger_io.split_records(raw) for name, raw in (("current", current), ("before", before),
+                                                                   ("after", after))}
+    header = ledger_io.fields(split["before"][0][0]) if split["before"] else []
+    if keycol not in header:
         return None
-    lines = current.split(b"\n")
-    for old, new in ((b, a) for b, a in zip(b_lines, a_lines) if b != a):
-        at = [i for i, line in enumerate(lines) if line == new]
-        if len(at) == 1:
-            lines[at[0]] = old
-        elif at or sum(1 for line in lines if line == old) != 1:
+    ki = header.index(keycol)
+
+    def key(payload):
+        text = payload.decode("utf-8", "replace")
+        spans = rename.field_spans(text)
+        return text[spans[ki][0]:spans[ki][1]].strip('"').lower() if len(spans) > ki else None
+
+    def by_key(records):
+        out = {}
+        for payload, _term in records[1:]:
+            out.setdefault(key(payload), []).append(payload)
+        return out
+    b, a, c = by_key(split["before"]), by_key(split["after"]), by_key(split["current"])
+    back = {}
+    for k in set(b) | set(a):
+        old, new = b.get(k, []), a.get(k, [])
+        if old == new:
+            continue
+        now = sorted(c.get(k, []))
+        if now == sorted(old):
+            continue
+        if now != sorted(new) or len(old) != len(new):
             return None
-    return b"\n".join(lines)
+        for o, n in zip(old, new):
+            if back.setdefault(n, o) != o:
+                return None                     # one after-state row from two before-state rows
+    return b"".join(back.get(payload, payload) + term for payload, term in split["current"])
 
 
 def undo_emit(record, release=True):
@@ -4286,7 +4243,8 @@ def undo_emit(record, release=True):
         try:
             current = (ROOT / rel).read_bytes()
             new = after.get(rel, old)
-            restored = current if current == old else undo_lines(current, old, new)
+            keycol = dict(ROW_KEYED).get(rel)
+            restored = current if current == old else keycol and undo_lines(current, old, new, keycol)
             if restored is None:
                 errors.append(f"{rel}: the moved rows changed since the move; undo it by hand from the journal")
                 continue
@@ -4685,7 +4643,7 @@ def shatter(path, dry_run=False, claim=True):
     if claim:
         held = claim_scope(tus[0], {path: rows, **{t: [] for t in tus[1:]}})
         if held:
-            claims.release(claim_keys(tus[0], {path: rows, **{t: [] for t in tus[1:]}}))
+            give_back(held)
             report["blocked"] = held_message(held)
             return report
     report["staged"] = apply_shatter(path, finals, new_raws, bool(hatches))
@@ -5360,21 +5318,26 @@ class Held(list):
     acquired = ()
 
 
-def claim_scope(tu, don, root=ROOT):
-    """Claim the TU, its donors and their rows; [] or the keys we did not get (a Held list)."""
-    keys = claim_keys(tu, don)
+def claim_scope(tu, don, root=ROOT, skip=()):
+    """Claim the TU, its donors and their rows (less the keys in `skip`, which this operation
+    already holds: claiming them again would renew them and rotate their tokens); [] or the
+    keys we did not get (a Held list). Either way `acquired` names the keys this call took
+    that this worker did not already hold (ClaimResult.prior) and holds a token for, and
+    `tokens` exactly their tokens: only those may be given back (give_back; review of
+    bfb856bfbf and 9459886c66)."""
+    skip = {claims.key_of(k) for k in skip}
+    keys = [k for k in claim_keys(tu, don) if claims.key_of(k) not in skip]
     try:
         res = claims.claim(keys, note=f"tu_skeleton {tu}", root=root)
     except claims.ClaimsUnavailable as e:
         held = Held([f"(claims unavailable: {e})"])
         held.unavailable = str(e)
         return held
-    # what this call acquired, not a key this worker already held live (`prior`): only those
-    # may be released for it, each with its fencing token (review of bfb856bfbf)
-    prior = set(getattr(res, "prior", ()) or ())
-    tokens = dict(getattr(res, "tokens", {}) or {})
+    prior = {claims.key_of(k) for k in getattr(res, "prior", ()) or ()}
+    tokens = {claims.key_of(k): v for k, v in (getattr(res, "tokens", {}) or {}).items()}
     claimed = getattr(res, "claimed", None)
-    acquired = [k for k in (list(tokens) if claimed is None else claimed) if k not in prior]
+    acquired = [k for k in (claims.key_of(k) for k in (tokens if claimed is None else claimed))
+                if k not in prior and k in tokens]
     if res.refused:
         names = {claims.key_of(k): k for k in keys}
         held = Held(str(names.get(k, k)) for k in res.refused)
@@ -5382,8 +5345,29 @@ def claim_scope(tu, don, root=ROOT):
     else:
         held = Held()
     held.acquired = acquired
-    held.tokens = {k: v for k, v in tokens.items() if k in set(acquired) | {claims.key_of(a) for a in acquired}}
+    held.tokens = {k: tokens[k] for k in acquired}
     return held
+
+
+def give_back(*helds):
+    """Release exactly what each claim_scope result acquired, each key fenced by its token, so
+    a key this worker held before the call, or one a successor has taken since, is never
+    deleted. A key with no token is left to expire. [] when there was nothing to release."""
+    keys, tokens = [], {}
+    for held in helds:
+        for k in getattr(held, "acquired", ()) or ():
+            if k in (getattr(held, "tokens", {}) or {}) and k not in tokens:
+                keys.append(k)
+                tokens[k] = held.tokens[k]
+    return claims.release(keys, tokens=tokens) if keys else []
+
+
+def key_text(key):
+    """A claim key as the claim service names it (claims.label for an RVA: `0x00002000`; a
+    scope key as is), so it round-trips through claims.key_of: a decimal `8192` would be
+    read back as 0x8192 (review of 9459886c66)."""
+    key = claims.key_of(key)
+    return f"0x{key:08X}" if isinstance(key, int) else key
 
 
 def held_message(held):

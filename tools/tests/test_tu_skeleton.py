@@ -104,21 +104,36 @@ class SavedMergePlanTests(unittest.TestCase):
             search.assert_not_called()
             release.assert_not_called()
 
+    @staticmethod
+    def held(refused=(), acquired=()):
+        """A claim_scope answer: `refused` keys (truthy when any), and the keys it `acquired` with tokens."""
+        held = T.Held(refused)
+        held.acquired = [T.claims.key_of(k) for k in acquired]
+        held.tokens = {k: f"token-{k}" for k in held.acquired}
+        return held
+
     def test_held_accepted_donor_blocks_before_plan_checks(self):
-        with self.saved_cohort() as (donors, plan, release, search), \
-                patch.object(T, "claim_scope", return_value=["file:Code/A.cpp"]), \
-                patch.object(T, "reuse_merge_plan") as reuse:
-            result = T.merge("Code/T.cpp")
-            self.assertIn("Code/A.cpp", result["blocked"])
-            reuse.assert_not_called()
-            search.assert_not_called()
-            accepted = {f: donors[f] for f in plan["accepted"]}
-            release.assert_called_once_with(T.claim_keys("Code/T.cpp", accepted))
+        # review of 9459886c66: the refusal released the whole requested scope without tokens; it gives
+        # back only what the claim acquired, fenced (and nothing when it acquired nothing)
+        for acquired in (["file:Code/T.cpp"], []):
+            with self.subTest(acquired=acquired), self.saved_cohort() as (donors, plan, release, search), \
+                    patch.object(T, "claim_scope", return_value=self.held(["file:Code/A.cpp"], acquired)), \
+                    patch.object(T, "reuse_merge_plan") as reuse:
+                result = T.merge("Code/T.cpp")
+                self.assertIn("Code/A.cpp", result["blocked"])
+                reuse.assert_not_called()
+                search.assert_not_called()
+                if acquired:
+                    key = T.claims.key_of("file:Code/T.cpp")
+                    release.assert_called_once_with([key], tokens={key: f"token-{key}"})
+                else:
+                    release.assert_not_called()
 
     def test_failed_plan_cannot_search_until_full_scope_is_claimed(self):
+        first_keys = ["file:Code/T.cpp", "file:Code/A.cpp"]
         for held in ([], ["file:Code/Rejected.cpp"]):
             with self.subTest(held=held), self.saved_cohort() as (donors, plan, release, search), \
-                    patch.object(T, "claim_scope", side_effect=[[], held]) as claimed, \
+                    patch.object(T, "claim_scope", side_effect=[self.held((), first_keys), self.held(held)]) as claimed, \
                     patch.object(T, "reuse_merge_plan", return_value=None):
                 def fallback(tu, sk, scope, report, dry_run):
                     self.assertEqual(claimed.call_count, 2)
@@ -127,22 +142,28 @@ class SavedMergePlanTests(unittest.TestCase):
 
                 search.side_effect = fallback
                 result = T.merge("Code/T.cpp")
+                accepted = {f: donors[f] for f in plan["accepted"]}
                 self.assertEqual(set(claimed.call_args_list[0].args[1]), set(plan["accepted"]))
                 self.assertEqual(claimed.call_args_list[1].args[1], donors)
+                # the wider claim leaves what the first holds alone: a renewal would rotate its tokens
+                self.assertEqual(claimed.call_args_list[1].kwargs["skip"], T.claim_keys("Code/T.cpp", accepted))
                 if held:
                     self.assertIn("Code/Rejected.cpp", result["blocked"])
                     search.assert_not_called()
-                    release.assert_called_once_with(T.claim_keys("Code/T.cpp", donors))
+                    keys = [T.claims.key_of(k) for k in first_keys]
+                    release.assert_called_once_with(keys, tokens={k: f"token-{k}" for k in keys})
                 else:
                     self.assertNotIn("blocked", result)
                     search.assert_called_once()
                     release.assert_not_called()
 
     def test_malformed_saved_cohort_requires_full_claim_scope(self):
+        key = T.claims.key_of("file:Code/T.cpp")
         for accepted in ([], ["Code/T.cpp", "Code/Unknown.cpp"],
                          ["Code/T.cpp", "Code/T.cpp"], ["Code/T.cpp", None], ["Code/A.cpp"]):
             with self.subTest(accepted=accepted), self.saved_cohort() as (donors, plan, release, search), \
-                    patch.object(T, "claim_scope", return_value=["file:Code/Rejected.cpp"]) as claimed, \
+                    patch.object(T, "claim_scope", return_value=self.held(["file:Code/Rejected.cpp"],
+                                                                          ["file:Code/T.cpp"])) as claimed, \
                     patch.object(T, "reuse_merge_plan") as reuse:
                 plan["accepted"] = accepted
                 result = T.merge("Code/T.cpp")
@@ -150,7 +171,7 @@ class SavedMergePlanTests(unittest.TestCase):
                 claimed.assert_called_once_with("Code/T.cpp", donors)
                 reuse.assert_not_called()
                 search.assert_not_called()
-                release.assert_called_once_with(T.claim_keys("Code/T.cpp", donors))
+                release.assert_called_once_with([key], tokens={key: f"token-{key}"})
 
     def test_reused_plan_still_verifies_bytes_link_and_carry_before_apply(self):
         with tempfile.TemporaryDirectory() as folder, patch.object(T, "ROOT", Path(folder)):
@@ -1052,11 +1073,13 @@ class EmissionHeldTests(unittest.TestCase):
 
 
 class EmitMoveTests(unittest.TestCase):
-    """--emit-move: an implicit COMDAT row moves from a mixed file to its approved TU only
-    when the TU's own code emits it byte-exact (P16, the LivingWorldCampaign Act chain)."""
+    """--emit-move: an implicit COMDAT row (a template instance or a deleting destructor) moves
+    from a mixed file to its approved TU only when the TU's own code emits it byte-exact (P16,
+    the LivingWorldCampaign Act chain)."""
     SOURCE, TU, OTHER = "Code/Mixed.cpp", "Code/Campaign.cpp", "Code/Other.cpp"
     CTOR = "??$_Construct@VRec@@V1@@_STL@@YAXPAVRec@@ABV1@@Z"        # a function template instantiation
-    COPY = "??0Rec@@QAE@ABV0@@Z"                                       # a compiler-generated copy ctor
+    COPY = "??0Rec@@QAE@ABV0@@Z"                                       # a copy ctor: never moves by emission
+    DTOR = "??_GRec@@UAEPAXI@Z"                                        # a deleting destructor: always the compiler's
     STAY = "?stay@@YAXXZ"
 
     def setUp(self):
@@ -1080,16 +1103,16 @@ class EmitMoveTests(unittest.TestCase):
     def move(self, *, rvas=None, approved=None, defined=None, comdat=None, exact=None, residual_lost=(),
              rows=None, dry_run=True, file_defined=(), file_comdat=(), final_lost=(), preprocessed=None,
              built=True, built_defined=None, built_comdat=None, build_effect=None, claim=False):
-        """emit_move over a file holding CTOR (0x2000), COPY (0x2100) and STAY (0x3000). `approved`
+        """emit_move over a file holding CTOR (0x2000), DTOR (0x2100) and STAY (0x3000). `approved`
         {rva: tu}; the TU's scratch object `defined`/`comdat` names and the rvas it matches `exact`
         (`final_lost` lost when judged with only the rows that finally move); the file's object
         `file_defined`/`file_comdat`; `preprocessed` {path: text or None} (default: the file's text);
         for the apply, ./build.sh passing (`built`) and the real TU object's `built_defined`/`built_comdat`."""
-        rows = rows if rows is not None else [self.row(self.CTOR, "0x00002000"), self.row(self.COPY, "0x00002100"),
+        rows = rows if rows is not None else [self.row(self.CTOR, "0x00002000"), self.row(self.DTOR, "0x00002100"),
                                               self.row(self.STAY, "0x00003000")]
         approved = approved if approved is not None else {"0x00002000": self.TU, "0x00002100": self.TU,
                                                           "0x00003000": self.OTHER}
-        defined = {self.CTOR, self.COPY} if defined is None else defined
+        defined = {self.CTOR, self.DTOR} if defined is None else defined
         comdat = defined if comdat is None else comdat
         exact = {"0x00002000", "0x00002100"} if exact is None else exact
         groups = {}
@@ -1161,7 +1184,7 @@ class EmitMoveTests(unittest.TestCase):
         rel = Path(source).relative_to(self.root).as_posix()
         return self.root / "build" / {self.TU: "real_t.obj", self.SOURCE: "real_x.obj"}[rel]
 
-    def test_an_emitted_instantiation_and_copy_ctor_move(self):
+    def test_an_emitted_instantiation_and_deleting_dtor_move(self):
         report = self.move()
         self.assertNotIn("blocked", report)
         self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
@@ -1175,26 +1198,46 @@ class EmitMoveTests(unittest.TestCase):
         self.assertIn("0x00002000 not approved", report["blocked"])
 
     def test_a_row_the_tu_spells_refuses(self):
-        # the TU must emit it from its own code: an explicit instantiation or a declared member there is
-        # a stand-in or a real body, not an implicit COMDAT
+        # the TU must emit it from its own code: an explicit instantiation there is a stand-in, not
+        # an implicit COMDAT; and a member function is a body to carve
         self.write(self.TU, "#include <memory>\nstruct Rec { int a; };\n"
                             "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n")
         report = self.move(rvas=["0x00002000"])
         self.assertEqual(report["blocked"], "a requested row cannot move by emission")
         self.assertIn("explicit specialization or instantiation naming", report["refused_rows"]["0x00002000"])
-        self.write(self.TU, "struct Rec { Rec(const Rec &o); int a; };\nvoid campaign() {}\n")
-        report = self.move(rvas=["0x00002100"])
-        self.assertIn("may be user-written", report["refused_rows"]["0x00002100"])
         report = self.move(rows=[self.row("?f@Rec@@QAEXXZ", "0x00002000"), self.row(self.STAY, "0x00003000")])
-        self.assertIn("not an implicit COMDAT", report["refused_rows"]["0x00002000"])
+        self.assertIn("not an implicit COMDAT by its name", report["refused_rows"]["0x00002000"])
+
+    HAND_WRITTEN = ("typedef Rec Alias; Alias(Rec const&r):a(r.a){}", "(Rec)(Rec const&r):a(r.a){}",
+                    "Rec(Rec const (((&r)))):a(r.a){}")
+
+    def test_a_constructor_destructor_or_assignment_never_moves_by_emission(self):
+        # review of 9459886c66: `typedef Rec Alias; Alias(Rec const&r)` and `(Rec)(Rec const&r)`
+        # compile in VC7.1 to the implicit copy ctor's exact name, bytes and relocations; no reading
+        # of the text decides it, so the name alone refuses, and no text is read
+        special = (self.COPY, "??0Rec@@QAE@XZ", "??1Rec@@QAE@XZ", "??1Rec@@UAE@XZ", "??4Rec@@QAEAAU0@ABU0@@Z")
+        texts = ["struct Rec { int a; };\n"] + [f"class Rec {{ public: {b} int a; }};\n" for b in self.HAND_WRITTEN]
+        for name in special:
+            for text in texts:
+                with self.subTest(name=name, text=text), \
+                        patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+                    why = T.implicit_comdat({"name": name, "target_rva": "0x00002100"}, "Code/u.cpp")
+                    self.assertIn("not an implicit COMDAT by its name", why)
+
+    def test_a_deleting_destructor_is_decided_by_its_name(self):
+        for name in (self.DTOR, "??_ERec@@UAEPAXI@Z", "??_GRec@@QAEPAXI@Z"):
+            with self.subTest(name=name), patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+                self.assertIsNone(T.implicit_comdat({"name": name, "target_rva": "0x00002100"}, "Code/u.cpp"))
+        for name in ("??_GRec@@UAEPAXH@Z", "??_FRec@@QAEXXZ", "??_DRec@@QAEXXZ"):   # not a deleting dtor's shape
+            with self.subTest(name=name), patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+                self.assertIn("not an implicit COMDAT", T.implicit_comdat({"name": name, "target_rva": "0x00002100"},
+                                                                          "Code/u.cpp"))
 
     def test_the_coarse_rules_refuse_whatever_the_spelling(self):
-        # review of 692da8fc04: refuse on any explicit specialization or instantiation naming the
-        # member or its class rather than read spellings; review of bfb856bfbf: a special member
-        # refuses on its token (`Rec(` in Rec's body, `Rec::Rec` in the unit), not a parameter parse
+        # review of 692da8fc04: refuse on any explicit specialization (`template<>`, hand-written) or
+        # instantiation naming the member or its class, rather than read spellings
         box_clear, box_call = "?clear@?$Box@H@@QAEXXZ", "??R?$Box@H@@QBEHXZ"
         cases = [
-            # (a) explicit specializations and instantiations, any arguments, deduced ones included
             ("template<> inline void _Construct(Rec *p, Rec const &v) { }\n", self.CTOR, True),
             ("template <> void _Construct<Other, Other>(Other *, const Other &);\n", self.CTOR, True),  # over-refuses
             ("typedef Rec R2;\ntemplate <> inline void _Construct<R2, R2>(R2 *, const R2 &) { }\n", self.CTOR, True),
@@ -1206,38 +1249,17 @@ class EmitMoveTests(unittest.TestCase):
             ("template <class _T1, class _T2> void _Construct(_T1 *, const _T2 &);\n"
              "void g(Rec *p, const Rec &v) { _STL::_Construct(p, v); }\n", self.CTOR, False),   # primary template, a use
             ("template <class T> struct Box { void clear() { } };\nvoid g(Box<int> &b) { b.clear(); }\n", box_clear, False),
-            # (b) any constructor token in the class body, or an out-of-line one, whatever its spelling
-            ("struct Rec { Rec(Rec const&o); int a; };\n", self.COPY, True),
-            ("struct Rec { Rec(::Rec const&o); int a; };\n", self.COPY, True),
-            ("struct Rec; typedef Rec const &CopyArg;\nstruct Rec { Rec(CopyArg o); int a; };\n", self.COPY, True),
-            ("struct Rec { Rec(int n); int a; };\n", self.COPY, True),                    # over-refuses
-            ("struct Rec { Rec(int n, int m); int a; };\n", self.COPY, True),             # over-refuses
-            ("struct Rec { Rec(); int a; };\n", self.COPY, True),                          # over-refuses
-            ("class Rec { public: Rec(Rec const (((&r)))):a(r.a){} int a; };\n", self.COPY, True),
-            ("struct Rec { Rec (Rec const &r) = default; int a; };\n", self.COPY, True),
-            ("struct Rec { int a; };\nRec::Rec(Rec const &r) : a(r.a) {}\n", self.COPY, True),
-            ("struct Rec { int a; };\ninline Rec :: Rec(const Rec &) {}\n", self.COPY, True),
-            ("struct Rec { int a; void f() { Rec x = *this; } };\n", self.COPY, False),    # no `Rec(`
-            ("struct Rec { int a; void f() { Rec x(*this); } };\n", self.COPY, False),     # a use: no `Rec(`
-            ("struct Rec { int a; };\nvoid g(Rec *p, const Rec &r) { new (p) Rec(r); }\n", self.COPY, False),
-            ("struct MyRec { MyRec(const MyRec &); };\nstruct Rec { int a; };\n", self.COPY, False),
-            ("struct Rec { ~Rec(); int a; };\n", self.COPY, False),                        # not a constructor
-            ("struct Rec { int a; };\nRec::~Rec() {}\n", "??1Rec@@QAE@XZ", True),
-            ("struct Rec { Rec &operator =(Rec r); };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
-            ("struct Rec { int a; };\nRec &Rec::operator=(const Rec &) { return *this; }\n",
-             "??4Rec@@QAEAAU0@ABU0@@Z", True),
-            ("struct Rec { int a; };\n", "??4Rec@@QAEAAU0@ABU0@@Z", False),
-            ("struct Rec { int a; };\n", self.COPY, False),
-            ("struct Other { int a; };\n", self.COPY, True),                              # no body of Rec: refuse
-            ("struct Rec { Rec(); int a; };\n", "??0Rec@@QAE@XZ", True),                   # any ctor, for a default one
-            ("struct Rec { ~Rec(); int a; };\n", "??1Rec@@QAE@XZ", True),
-            ("struct Rec { Rec &operator=(Rec const volatile &o); };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
-            ("struct Rec { virtual ~Rec(); };\n", "??_GRec@@UAEPAXI@Z", False),             # always the compiler's
+            ("template <class T> struct Box { void clear() { } };\nvoid g() { puts(\"ok\"); }\n", box_clear, False),
+            ("template <class T> struct Box { void clear() { } };\nvoid g() { puts(\"ok); }\n", box_clear, True),  # unbalanced
             # review of e81c016950: a directive between the pieces, a `;` in a #line file name
-            ('struct Rec { Rec\n#line 10 "copy.h"\n(Rec const &r); int a; };\n', self.COPY, True),
             ('template<>\n#line 10 "semi;header.h"\ninline void _Construct(Rec *p, const Rec &v) { }\n', self.CTOR, True),
             ('template <>\n# 12 "a;b.h"\nclass Box<int> { };\n', box_call, True),
-            ('struct Rec {\n#pragma pack(push, 4)\nRec(int n);\n#pragma pack(pop)\n};\n', self.COPY, True),
+            # a special member refuses by name, whatever the text; a deleting destructor never does
+            ("struct Rec { int a; };\n", self.COPY, True),
+            ("struct Rec { int a; };\n", "??4Rec@@QAEAAU0@ABU0@@Z", True),
+            ("struct Rec { ~Rec(); int a; };\n", "??1Rec@@QAE@XZ", True),
+            ("struct Rec { virtual ~Rec(); };\n", "??_GRec@@UAEPAXI@Z", False),
+            ("struct Other { int a; };\n", "??_ERec@@UAEPAXI@Z", False),
         ]
         for i, (text, name, refused) in enumerate(cases):
             with self.subTest(text=text, name=name):
@@ -1251,51 +1273,21 @@ class EmitMoveTests(unittest.TestCase):
         text = '#line 1 "a.h"\nstruct Rec\n# 3 "semi;colon.h"\n{\n  #pragma once\n  int a;\n};\n'
         self.assertEqual(T.flatten_preprocessed(text), "struct Rec { int a; };")
 
-    HAND_WRITTEN = "Rec(Rec const &r):a(r.a){} int a; };\n"
-
-    def test_a_literal_or_comment_never_closes_the_class_body(self):
-        # review of 90fdd5d03d: `"}"` in a member function closed Rec's body before its hand-written
-        # copy ctor; every literal kind, and comments, are masked before braces are matched, and a
-        # body holding a masked brace, paren, quote or `;`, or a literal naming the class, refuses
-        literals = ['"}"', "'}'", 'L"}"', 'u8"}"', 'R"x(})x"', 'LR"(})"', '"a\\"}"', '"("', '";"',
-                    "/* } */", "// }\n"]
-        for literal in literals:
-            with self.subTest(literal=literal):
-                text = "struct Rec { void f() { const char *s = " + literal + "; } " + self.HAND_WRITTEN
-                with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
-                    why = T.implicit_comdat({"name": self.COPY, "target_rva": "0x00002100"}, "Code/u.cpp")
-                self.assertTrue(why, literal)
-        for text, refused in (('struct Rec { void f() { puts("Rec"); } int a; };\n', True),       # names the class
-                              ('struct Rec { void f() { puts("ok"); } int a; };\n', False),        # a harmless literal
-                              ('struct Rec { void f() { puts("ok); } int a; };\n', True)):         # unbalanced quote
-            with self.subTest(text=text), \
-                    patch.object(T, "unit_text", return_value=(T.flatten_preprocessed(text), None)):
-                why = T.implicit_comdat({"name": self.COPY, "target_rva": "0x00002100"}, "Code/u.cpp")
-                self.assertEqual(bool(why), refused, why)
-
-    def test_the_string_brace_repro_is_refused_through_the_apply(self):
-        self.ledger()
-        self.write(self.TU, 'struct Rec { void f() { const char *s = "}"; } ' + self.HAND_WRITTEN)
-        report = self.move(rvas=["0x00002100"], dry_run=False)
-        self.assertIn("blocked", report)
-        self.assertIn("literal or comment", report["refused_rows"]["0x00002100"])
-        self.assertNotIn(self.TU.encode(), subprocess.run(["git", "show", ":reverse/functions.csv"], cwd=self.root,
-                                                          capture_output=True).stdout)
-
     def test_mask_literals_keeps_code_and_blanks_what_could_read_as_code(self):
         self.assertEqual(T.mask_literals('f("a{b", \'(\', R"d(x})d"); /* } */ g();'),
                          'f("a\x02b", \'\x02\', "x\x02");  \x02  g();')
         self.assertTrue(T.mask_literals('f("open);').startswith(T.UNREADABLE))
 
     def test_the_rules_read_the_preprocessed_unit(self):
-        # a header (or a macro) declares the copy ctor; the raw text never shows it
-        report = self.move(rvas=["0x00002100"], preprocessed={self.TU: "struct Rec { Rec(const Rec &); int a; };\n"})
-        self.assertIn("may be user-written", report["refused_rows"]["0x00002100"])
+        # a header (or a macro) spells the specialization; the raw text never shows it
         report = self.move(rvas=["0x00002000"], preprocessed={self.TU: "template<> inline void Box<int>::f();\n"
                                                                        "template<> inline void _Construct(Rec *, const Rec &) { }\n"})
         self.assertIn("explicit specialization or instantiation", report["refused_rows"]["0x00002000"])
         report = self.move(rvas=["0x00002000"], preprocessed={self.TU: None})
         self.assertIn("cannot be preprocessed", report["refused_rows"]["0x00002000"])
+        report = self.move(rvas=["0x00002100"], preprocessed={self.TU: None})          # by name: no text needed
+        self.assertNotIn("blocked", report)
+        self.assertEqual(report["moved"], ["0x00002100"])
 
     def test_a_row_bound_to_another_object_symbol_refuses(self):
         # review of 3db7ced4b4: the byte check would follow object-symbol=, the COMDAT checks the name
@@ -1309,23 +1301,23 @@ class EmitMoveTests(unittest.TestCase):
         self.write(self.SOURCE, "struct Rec { Rec(const Rec &o) : a(o.a) {} int a; };\n"
                                 "template void _STL::_Construct<Rec, Rec>(Rec *, const Rec &);\n"
                                 "void stay() {}\n")
-        report = self.move(file_defined={self.CTOR, self.COPY}, file_comdat={self.CTOR, self.COPY})
+        report = self.move(file_defined={self.CTOR, self.DTOR}, file_comdat={self.CTOR, self.DTOR})
         self.assertNotIn("blocked", report)
         self.assertEqual(report["moved"], ["0x00002000", "0x00002100"])
 
     def test_a_strong_definition_in_the_file_refuses(self):
-        report = self.move(rvas=["0x00002100"], file_defined={self.COPY}, file_comdat=set())
+        report = self.move(rvas=["0x00002100"], file_defined={self.DTOR}, file_comdat=set())
         self.assertIn("the file defines it outside a COMDAT", report["refused_rows"]["0x00002100"])
 
     def test_a_destination_not_emitting_it_refuses(self):
-        report = self.move(rvas=["0x00002000"], defined={self.COPY})
+        report = self.move(rvas=["0x00002000"], defined={self.DTOR})
         self.assertIn("does not emit it", report["refused_rows"]["0x00002000"])
-        report = self.move(defined={self.COPY})          # without --rva the rest still moves
+        report = self.move(defined={self.DTOR})          # without --rva the rest still moves
         self.assertEqual(report["moved"], ["0x00002100"])
 
     def test_the_final_row_set_is_judged_again(self):
         # review of 3db7ced4b4: with 0x2000 refused, the TU's flags follow 0x2100 alone and lose it
-        report = self.move(defined={self.COPY}, final_lost={"0x00002100"})
+        report = self.move(defined={self.DTOR}, final_lost={"0x00002100"})
         self.assertIn("re-judged with exactly the rows that move", report["blocked"])
 
     def test_a_byte_mismatch_refuses(self):
@@ -1352,7 +1344,7 @@ class EmitMoveTests(unittest.TestCase):
         reverse.mkdir(exist_ok=True)
         self.write("reverse/functions.csv",
                    "name,export_rva,target_rva,target_size,source,status,notes\n"
-                   f"{self.CTOR},,0x00002000,8,{self.SOURCE},matched,\n{self.COPY},,0x00002100,8,{self.SOURCE},matched,\n"
+                   f"{self.CTOR},,0x00002000,8,{self.SOURCE},matched,\n{self.DTOR},,0x00002100,8,{self.SOURCE},matched,\n"
                    f"{self.STAY},,0x00003000,8,{self.SOURCE},matched,\n")
         self.write("reverse/tu_map.csv",
                    "rva,size,kind,tu,confidence,by,evidence,source\n"
@@ -1371,7 +1363,7 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])          # journal gone once staged
         funcs = (self.root / "reverse/functions.csv").read_text()
         self.assertIn(f"{self.CTOR},,0x00002000,8,{self.TU},matched", funcs)
-        self.assertIn(f"{self.COPY},,0x00002100,8,{self.SOURCE},matched", funcs)       # not requested: stays
+        self.assertIn(f"{self.DTOR},,0x00002100,8,{self.SOURCE},matched", funcs)       # not requested: stays
         self.assertIn(f"0x00002000,8,code,{self.TU},approved,C,C=0x1..0x3,{self.TU}",
                       (self.root / "reverse/tu_map.csv").read_text())
         self.assertEqual({p: (self.root / p).read_bytes() for p in texts}, texts)        # no text moved
@@ -1475,7 +1467,7 @@ class EmitMoveTests(unittest.TestCase):
         child = ("import os, sys\nfrom pathlib import Path\n"
                  f"sys.path[:0] = [{str(Path(__file__).resolve().parents[1])!r}, {str(Path(__file__).resolve().parent)!r}]\n"
                  "import test_tu_skeleton as M\n"
-                 "t = M.EmitMoveTests('test_an_emitted_instantiation_and_copy_ctor_move')\n"
+                 "t = M.EmitMoveTests('test_an_emitted_instantiation_and_deleting_dtor_move')\n"
                  "t.root = Path(sys.argv[1])\n"
                  "t.move(rvas=['0x00002000'], dry_run=False, claim=True, build_effect=lambda sources: os._exit(3))\n")
         result = subprocess.run([sys.executable, "-c", child, str(self.root)], capture_output=True, text=True)
@@ -1565,30 +1557,31 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual((self.root / "reverse/functions.csv").read_bytes(), before["reverse/functions.csv"])
 
 
-    def test_the_hand_written_copy_ctor_repro_is_refused_through_the_apply(self):
-        # review of bfb856bfbf: the parenthesised parameter passed the one-parameter rule and the
-        # row moved; the token rule refuses `Rec(` anywhere in Rec's body, and `Rec::Rec` in the unit
+    def test_the_hand_written_copy_ctor_repros_are_refused_through_the_apply(self):
+        # review of 9459886c66 (byte_repro.py): both bodies match the implicit ctor byte for byte
         before = self.ledger()
-        self.write(self.TU, "class Rec { public: Rec(Rec const (((&r)))):a(r.a){} int a; };\n")
-        report = self.move(rvas=["0x00002100"], dry_run=False)
-        self.assertEqual(report["blocked"], "a requested row cannot move by emission")
-        self.assertIn("`Rec(`", report["refused_rows"]["0x00002100"])
-        self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
-        self.write(self.TU, "struct Rec { Rec(Rec const &r); int a; };\nRec::Rec(Rec const &r) : a(r.a) {}\n")
-        self.assertIn("`Rec(`", self.move(rvas=["0x00002100"])["refused_rows"]["0x00002100"])
-        self.write(self.TU, "struct Rec { int a; };\nvoid campaign(Rec *p, const Rec &r) { new (p) Rec(r); }\n"
-                            "inline Rec::Rec\n(const Rec &r) : a(r.a) {}\n")
-        self.assertIn("`Rec::Rec`", self.move(rvas=["0x00002100"])["refused_rows"]["0x00002100"])
+        rows = [self.row(self.CTOR, "0x00002000"), self.row(self.COPY, "0x00002100"), self.row(self.STAY, "0x00003000")]
+        for body in self.HAND_WRITTEN + ("",):
+            with self.subTest(body=body):
+                self.write(self.TU, "class Inner { public: Inner(Inner const&r):a(r.a){} int a; }; class Rec { public: "
+                                    + body + " Inner a; }; Rec copy(Rec const&r){return Rec(r);}\n")
+                report = self.move(rows=rows, rvas=["0x00002100"], dry_run=False,
+                                   defined={self.CTOR, self.COPY}, exact={"0x00002000", "0x00002100"})
+                self.assertEqual(report["blocked"], "a requested row cannot move by emission")
+                self.assertIn("not an implicit COMDAT by its name", report["refused_rows"]["0x00002100"])
+                self.exact.assert_not_called()
+                self.assertEqual({rel: (self.root / rel).read_bytes() for rel in before}, before)
 
     def test_a_partly_refused_claim_gives_back_exactly_what_it_acquired(self):
         # review of bfb856bfbf: a refusal dropped the fencing tokens and released every key with
         # tokens=None, a successor's claim and a key this worker already held among them
         self.ledger()
         tu_key, mixed_key, row_key = (T.claims.key_of(k) for k in (f"file:{self.TU}", f"file:{self.SOURCE}", "0x00002100"))
-        result = T.claims.ClaimResult([tu_key, row_key], [mixed_key], tokens={tu_key: "MINE", row_key: "RENEWED"},
+        # 0x2000 came back claimed with no token: it cannot be given back fenced, so it is left to expire
+        result = T.claims.ClaimResult([tu_key, row_key, 0x2000], [mixed_key], tokens={tu_key: "MINE", row_key: "RENEWED"},
                                       prior=[row_key])
         with patch.object(T.claims, "claim", return_value=result):
-            held = T.claim_scope(self.TU, {self.SOURCE: [self.row(self.COPY, "0x00002100")]})
+            held = T.claim_scope(self.TU, {self.SOURCE: [self.row(self.DTOR, "0x00002100")]})
         self.assertTrue(held)
         self.assertEqual((list(held.acquired), held.tokens), ([tu_key], {tu_key: "MINE"}))
         self.claimed = lambda: held
@@ -1611,8 +1604,28 @@ class EmitMoveTests(unittest.TestCase):
         self.claimed = lambda: held
         with self.assertRaises(KeyboardInterrupt):
             self.move(rvas=["0x00002000"], dry_run=False, build_effect=KeyboardInterrupt, claim=True)
-        self.assertEqual(self.released.call_args[0][0], [str(tu_key)])
-        self.assertNotIn(str(row_key), self.released.call_args[0][0])
+        self.assertEqual(self.released.call_args[0][0], [tu_key])
+        self.assertNotIn(T.key_text(row_key), self.released.call_args[0][0])
+
+    def test_journal_keys_round_trip_as_the_claim_service_names_them(self):
+        # review of 9459886c66 (rva_claim_repro.py): 0x2000 was journaled as "8192" and released as 0x8192
+        self.ledger()
+        tu_key = T.claims.key_of(f"file:{self.TU}")
+        held = T.Held()
+        held.acquired, held.tokens = [0x2000, tu_key], {0x2000: "TOKEN", tu_key: self.TOKEN}
+        self.claimed = lambda: held
+        seen = []
+        real = T.write_emit_journal
+        with patch.object(T, "write_emit_journal", side_effect=lambda record: seen.append(record) or real(record)), \
+                self.assertRaises(KeyboardInterrupt):
+            self.move(rvas=["0x00002000"], dry_run=False, build_effect=KeyboardInterrupt, claim=True)
+        self.assertEqual(seen[0]["claims"], ["0x00002000", tu_key])
+        self.assertEqual(seen[0]["tokens"], {"0x00002000": "TOKEN", tu_key: self.TOKEN})
+        keys, tokens = self.released.call_args[0][0], self.released.call_args.kwargs["tokens"]
+        self.assertEqual([T.claims.key_of(k) for k in keys], [0x2000, tu_key])
+        self.assertEqual(tokens, {0x2000: "TOKEN", tu_key: self.TOKEN})
+        for key in (0x2000, 0x8192, 0x0052BD3A, tu_key, "0x00002000"):
+            self.assertEqual(T.claims.key_of(T.key_text(key)), T.claims.key_of(key))
 
     def test_recovery_retries_after_a_locked_object(self):
         # review of bfb856bfbf: the first recovery restored the rows but failed on a locked .obj;
@@ -1638,15 +1651,44 @@ class EmitMoveTests(unittest.TestCase):
         self.assertEqual(self.objects_left(), [])
         self.assertEqual(list((self.root / T.EMIT_JOURNAL).glob("*.json")), [])
 
-    def test_undo_lines_is_idempotent_and_refuses_only_a_third_state(self):
-        before, after = b"a\nb,1\nc\n", b"a\nb,2\nc\n"
-        self.assertEqual(T.undo_lines(after, before, after), before)
-        self.assertEqual(T.undo_lines(before, before, after), before)                   # already back: done
-        self.assertEqual(T.undo_lines(b"x\nb,2\nc\n", before, after), b"x\nb,1\nc\n")   # another row edited
-        for third in (b"a\nb,3\nc\n", b"a\nc\n", b"a\nb,2\nb,2\nc\n", b"a\nb,1\nb,1\nc\n",
-                      b"a\nb,1\nb,2\nb,2\nc\n"):
+    def test_undo_lines_is_idempotent_and_refuses_any_other_state(self):
+        # per moved key: exactly its after-state rows go back, exactly its before-state rows are done,
+        # anything else refuses (review of 9459886c66: both states present, or an edited row beside
+        # an appended original, passed)
+        hdr = b"name,target_rva,target_size,source\n"
+        before = hdr + b"a,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\n"
+        after = hdr + b"a,0x1,8,X\nb,0x2,8,Y\nc,0x3,8,X\n"
+        undo = lambda current: T.undo_lines(current, before, after, "target_rva")
+        self.assertEqual(undo(after), before)
+        self.assertEqual(undo(before), before)                                         # already back: done
+        self.assertEqual(undo(hdr + b"z,0x1,8,X\nb,0x2,8,Y\nc,0x3,8,X\n"), hdr + b"z,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\n")
+        self.assertEqual(undo(hdr + b"b,0x2,8,Y\nc,0x3,8,X\nn,0x9,8,X\n"), hdr + b"b,0x2,8,X\nc,0x3,8,X\nn,0x9,8,X\n")
+        for third in (b"a,0x1,8,X\nb,0x2,8,Z\nc,0x3,8,X\n",                     # edited since
+                      b"a,0x1,8,X\nc,0x3,8,X\n",                                # gone
+                      b"a,0x1,8,X\nb,0x2,8,Y\nb,0x2,8,Y\nc,0x3,8,X\n",          # after-state twice
+                      b"a,0x1,8,X\nb,0x2,8,X\nb,0x2,8,X\nc,0x3,8,X\n",          # before-state twice
+                      b"a,0x1,8,X\nb,0x2,8,X\nb,0x2,8,Y\nc,0x3,8,X\n",          # both states
+                      b"a,0x1,8,X\nb,0x2,9,Y\nc,0x3,8,X\nb,0x2,8,X\n",          # an edited extent beside the original
+                      b"a,0x1,8,X\nb,0x2,8,X\nc,0x3,8,X\nb2,0x2,8,Q\n"):        # another row at the moved key
             with self.subTest(third=third):
-                self.assertIsNone(T.undo_lines(third, before, after))
+                self.assertIsNone(undo(hdr + third))
+        self.assertIsNone(T.undo_lines(after, before, after, "rva"))                  # no such key column
+        twins_before, twins_after = hdr + b"b,0x2,8,X\nb,0x2,8,Y\n", hdr + b"b,0x2,8,Y\nb,0x2,8,Y\n"
+        self.assertIsNone(T.undo_lines(twins_after, twins_before, twins_after, "target_rva"))   # which goes back?
+
+    def test_recovery_refuses_an_edited_row_beside_its_original(self):
+        # review of 9459886c66 (recovery_extra.py)
+        before = self.ledger()
+        self.kill_mid_verify()
+        funcs = self.root / "reverse/functions.csv"
+        old = next(line for line in before["reverse/functions.csv"].splitlines() if b"0x00002000" in line)
+        crafted = funcs.read_bytes().replace(b"0x00002000,8,", b"0x00002000,9,") + old + b"\n"
+        funcs.write_bytes(crafted)
+        (restored, _busy, errors), _ = self.recover()
+        self.assertEqual(restored, [])
+        self.assertTrue(any("changed since the move" in e for e in errors), errors)
+        self.assertEqual(funcs.read_bytes(), crafted)
+        self.assertEqual(len(list((self.root / T.EMIT_JOURNAL).glob("*.json"))), 1)
 
     def test_an_interrupt_after_staging_an_untracked_ledger_unstages_it(self):
         # review of e2e59872d8: with no commit the ledger was untracked; `git rm --cached` refused
@@ -1685,7 +1727,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         (self.root / self.TU).write_bytes(b"struct Rec { };\n")
 
     def split(self, *, prepared=PREPARED, stay=False, tu_vtable=True, residual_vtable=False, map_tu="",
-              second_row=False, prepared_misses=False, dtor=True):
+              second_row=False, prepared_misses=False, dtor=True, held=None, merge_blocked=False):
         row = lambda n, r, s=self.SOURCE: dict(name=n, export_rva="", target_rva=r, target_size="1", source=s,
                                                status="matched", notes="")
         mine = ([row("_move", "0x1000")] + ([row(self.DTOR, "0x7000")] if dtor else [])
@@ -1711,7 +1753,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
 
         def merge(tu, sk, don, report, dry_run, **kw):
             seen.update(don=don, **kw)
-            return dict(report, accepted=list(don))
+            return dict(report, blocked="no verified merge") if merge_blocked else dict(report, accepted=list(don))
 
         def vtables(obj, cls):
             return ({"??_7Rec@@6B@"} if (obj == objs[self.TU] and tu_vtable) or (obj == objs[self.SOURCE] and residual_vtable)
@@ -1727,8 +1769,9 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
                 patch.object(T, "hatch_move", return_value={}), patch.object(T, "prepared_hatches", return_value={}), \
                 patch.object(T, "skeleton", return_value=[]), patch.object(T, "Verifier", Verifier), \
                 patch.object(T, "SplitLinkGuard"), patch.object(T, "LinkGuard"), \
-                patch.object(T, "vtable_symbols", side_effect=vtables), patch.object(T, "_merge", side_effect=merge):
-            report = T.split(self.SOURCE, self.TU, dry_run=True, claim=False, prepared=prepared)
+                patch.object(T, "vtable_symbols", side_effect=vtables), patch.object(T, "_merge", side_effect=merge), \
+                patch.object(T, "claim_scope", return_value=held), patch.object(T.claims, "release") as self.release:
+            report = T.split(self.SOURCE, self.TU, dry_run=held is None, claim=held is not None, prepared=prepared)
         return report, seen
 
     def test_a_whole_donor_with_a_prepared_text_moves_its_rider_and_is_absorbed(self):
@@ -1774,19 +1817,36 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         report, _ = self.split(stay=True, prepared_misses=True)
         self.assertIn("every moved row must match in it", report["blocked"])
 
-    def test_vtable_rider_is_only_a_compiler_generated_member_the_map_leaves_homeless(self):
+    def test_vtable_rider_is_only_a_deleting_dtor_the_map_leaves_homeless(self):
+        # review of 9459886c66: rule (b) rests on the decorated name alone; no text is read
         rows = [{"name": self.DTOR, "target_rva": "0x7000", "source": self.SOURCE},
                 {"name": "?f@Rec@@QAEXXZ", "target_rva": "0x7100", "source": self.SOURCE},
-                {"name": "??1Rec@@UAE@XZ", "target_rva": "0x7200", "source": self.SOURCE}]
-        cache = {"ledger": rows, "map_by_rva": {rva: {"rva": hex(rva), "kind": "code", "tu": "", "confidence": "displaced",
-                                                      "by": "-", "evidence": ""} for rva in (0x7000, 0x7100, 0x7200)}}
-        with patch.dict(T._CACHE, cache, clear=True):
-            with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed("struct Rec { virtual ~Rec(); };"), None)):
-                self.assertTrue(T.vtable_rider(rows[0], self.SOURCE))   # a deleting dtor: always the compiler's
-                self.assertFalse(T.vtable_rider(rows[1], self.SOURCE))  # a member function: written by hand
-                self.assertFalse(T.vtable_rider(rows[2], self.SOURCE))  # its dtor is user-declared here
-            with patch.object(T, "unit_text", return_value=(T.flatten_preprocessed("struct Rec { int a; };"), None)):
-                self.assertTrue(T.vtable_rider(rows[2], self.SOURCE))   # an implicit dtor
+                {"name": "??1Rec@@UAE@XZ", "target_rva": "0x7200", "source": self.SOURCE},
+                {"name": "??_ERec@@UAEPAXI@Z", "target_rva": "0x7300", "source": self.SOURCE},
+                {"name": "??0Rec@@QAE@ABV0@@Z", "target_rva": "0x7400", "source": self.SOURCE},
+                {"name": "??4Rec@@QAEAAV0@ABV0@@Z", "target_rva": "0x7500", "source": self.SOURCE}]
+        cache = {"ledger": rows, "map_by_rva": {int(r["target_rva"], 16): {
+            "rva": r["target_rva"], "kind": "code", "tu": "", "confidence": "displaced", "by": "-", "evidence": ""}
+            for r in rows}}
+        with patch.dict(T._CACHE, cache, clear=True), \
+                patch.object(T, "unit_text", side_effect=AssertionError("no text is read")):
+            self.assertEqual([T.vtable_rider(r) for r in rows], [True, False, False, True, False, False])
+
+    def test_a_refused_or_blocked_split_gives_back_only_what_it_acquired(self):
+        # review of 9459886c66: --split (and so --prepared) released the whole scope without tokens
+        key = T.claims.key_of(f"file:{self.TU}")
+        refused = T.Held(["file:Code/Ctor.cpp"])
+        refused.acquired, refused.tokens = [key], {key: "MINE"}
+        report, _ = self.split(held=refused)
+        self.assertIn("held by another worker", report["blocked"])
+        self.release.assert_called_once_with([key], tokens={key: "MINE"})
+        won = T.Held()
+        won.acquired, won.tokens = [key], {key: "MINE"}
+        report, _ = self.split(held=won, merge_blocked=True)                     # claimed, then blocked
+        self.assertEqual(report["blocked"], "no verified merge")
+        self.release.assert_called_once_with([key], tokens={key: "MINE"})
+        report, _ = self.split(held=T.Held(["file:Code/Ctor.cpp"]))            # nothing acquired: nothing released
+        self.release.assert_not_called()
 
 
 class FoldAliasSplitTests(unittest.TestCase):
@@ -3691,6 +3751,8 @@ class ClaimTests(unittest.TestCase):
         self.assertTrue(T.held_message(unavailable).startswith("claims unavailable"))
 
     def test_a_partly_won_scope_is_released_when_another_worker_holds_the_rest(self):
+        # review of 9459886c66: only what the claim acquired goes back, each key with its token; the
+        # refused key and one this worker already held (prior) stay
         T._CACHE.clear()
         T._CACHE["ledger"] = [{"name": "?a@@YAXXZ", "export_rva": "", "target_rva": "0x00001000", "target_size": "8",
                                "source": "Code/A.cpp", "status": "matched", "notes": ""},
@@ -3701,11 +3763,16 @@ class ClaimTests(unittest.TestCase):
                            {"rva": "0x00001010", "size": "8", "kind": "code", "tu": "Code/T.cpp", "confidence": "approved",
                             "by": "-", "evidence": "", "source": "Code/B.cpp"}]
         T._CACHE["stale"] = False
+        key = T.claims.key_of
+        refused, prior = key("file:Code/A.cpp"), key("0x00001010")
+
+        def claim(keys, note="", root=None):
+            won = [key(k) for k in keys if key(k) != refused]
+            return T.claims.ClaimResult(won, [refused], tokens={k: f"token-{k}" for k in won}, prior=[prior])
         released = []
         original_claim, original_release = T.claims.claim, T.claims.release
-        T.claims.claim = lambda keys, note="", root=None: SimpleNamespace(
-            refused=[T.claims.key_of("file:Code/A.cpp")], claimed=[k for k in keys if k != "file:Code/A.cpp"])
-        T.claims.release = lambda keys, **kw: released.append(list(keys))
+        T.claims.claim = claim
+        T.claims.release = lambda keys, **kw: released.append((list(keys), kw.get("tokens")))
         original_refusal, T.refusal = T.refusal, lambda f, rows: None
         try:
             rep = T.merge("Code/T.cpp", dry_run=False, claim=True)
@@ -3714,28 +3781,28 @@ class ClaimTests(unittest.TestCase):
             T.refusal = original_refusal
             T._CACHE.clear()
         self.assertTrue(rep["blocked"].startswith("held by another worker"))
-        self.assertEqual(released, [["file:Code/T.cpp", "file:Code/A.cpp", "file:Code/B.cpp", "0x00001000", "0x00001010"]])
+        won = [key("file:Code/T.cpp"), key("file:Code/B.cpp"), 0x1000]
+        self.assertEqual(released, [(won, {k: f"token-{k}" for k in won})])
 
     def test_a_merge_blocked_after_claiming_releases_its_scope(self):
         don = {"Code/T.cpp": [{"target_rva": "0x00001000", "status": "matched"}],
                "Code/A.cpp": [{"target_rva": "0x00001010", "status": "matched"}]}
         released = []
+        held = T.Held()
+        held.acquired = [T.claims.key_of(k) for k in T.claim_keys("Code/T.cpp", don)][:-1]   # the last was ours already
+        held.tokens = {k: f"token-{k}" for k in held.acquired}
         saved = (T.skeleton, T.donors, T.claim_scope, T._merge, T.claims.release)
         T.skeleton = lambda tu: []
         T.donors = lambda tu, sk: (don, {}, {})
-        T.claim_scope = lambda tu, d: []
+        T.claim_scope = lambda tu, d, **kw: held
         T._merge = lambda tu, sk, d, report, dry_run: dict(report, blocked="no verified merge")
-        T.claims.release = lambda keys, **kw: released.append(keys)
+        T.claims.release = lambda keys, **kw: released.append((list(keys), kw.get("tokens")))
         try:
             report = T.merge("Code/T.cpp")
         finally:
             T.skeleton, T.donors, T.claim_scope, T._merge, T.claims.release = saved
         self.assertEqual(report["blocked"], "no verified merge")
-        self.assertEqual(released, [T.claim_keys("Code/T.cpp", don)])
-
-
-if __name__ == "__main__":
-    unittest.main()
+        self.assertEqual(released, [(held.acquired, held.tokens)])
 
 
 class LinkGuardPlacementTests(unittest.TestCase):
