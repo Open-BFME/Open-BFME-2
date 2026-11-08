@@ -140,6 +140,11 @@ public:
 
 extern View *TheTacticalView;
 extern GameLogic *TheGameLogic;
+// Retail's run opens with this unit's Drawable.h copy 0x007ACA9A, its static 0x00DEC28C just
+// before the camera mode name (LINK-236). The unit's private Matrix3D and Thing views keep the
+// canonical Drawable.h out, so it takes Drawable.h's one dynamic constant on its own.
+#include "Code/GameEngine/Include/GameClient/DrawableFramesPerFlash.h"
+
 // The live camera mode name; "Zoom" until a script sets another. Retail builds it in this
 // unit's .text$yc run (0x007ACAAA, after the unit's Drawable.h copy 0x007ACA9A and before its
 // pool-init marker 0x007ACAC5) through the out-of-line AsciiString(const char *) 0x0000654A.
