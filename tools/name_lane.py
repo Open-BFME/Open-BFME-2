@@ -1095,6 +1095,25 @@ def needs_review(key, state, tally, refused):
     return not wins(mine, rivals, key=key)
 
 
+def served_answers(rel, items, mapping):
+    """An answer file's `mapping` keyed by served key. A full key names its one item; a bare key
+    the one item it spells, and it refuses as ambiguous when two served items share it (a
+    compiler-spelled name can stand at two addresses). Keys naming nothing stay, to be refused."""
+    bare = collections.defaultdict(list)
+    for kind, scope, ident, *_rest in items:
+        bare[answer_key(kind, scope, ident)].append(key_of(rel, kind, scope, ident))
+    served = {key for keys in bare.values() for key in keys}
+    out = {}
+    for given, value in mapping.items():
+        keys = [given] if given in served else bare.get(given, [given])
+        if len(keys) > 1:
+            fail(f"{given} is ambiguous in {rel}: answer one of {', '.join(keys)}")
+        if keys[0] in out and out[keys[0]] != value:
+            fail(f"{keys[0]} has two answers")
+        out[keys[0]] = value
+    return out
+
+
 def answer_key(kind, scope, ident):
     if kind in ("param", "local"):
         return f"{scope}:{ident}"
@@ -1251,8 +1270,9 @@ def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_
         return next((l for l in uses if decl.search(l)), uses[0] if uses else "")[:90]
 
     items = [item for item in items if item[0] in NAMED]
-    listing = "\n".join(f"  {answer_key(k, s, i):44} {k:8} {declared_at(i)}"
-                        for k, s, i, _ in items)
+    spelled = collections.Counter(answer_key(k, s, i) for k, s, i, _ in items)
+    listing = "\n".join(f"  {answer_key(k, s, i) if spelled[answer_key(k, s, i)] == 1 else key_of(rel, k, s, i):44} "
+                        f"{k:8} {declared_at(i)}" for k, s, i, _ in items)
     evidence = []
     for kind, scope, ident, rva in items:
         request = request_for_key(lane, key_of(rel, kind, scope, ident)) if scope.startswith('unrowed:') else None
@@ -1810,18 +1830,12 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
     unknown = set(answers) - set(files)
     if unknown:
         fail(f"files not served to session {session}: {', '.join(sorted(unknown)[:4])}")
-    for rel, mapping in answers.items():             # `next --key`'s full form names the same item
-        for kind, scope, ident, _rva in files[rel]["items"]:
-            full, bare = key_of(rel, kind, scope, ident), answer_key(kind, scope, ident)
-            if full in mapping:
-                if bare in mapping and mapping[bare] != mapping[full]:
-                    fail(f"{full} and {bare} are one key with two answers")
-                mapping[bare] = mapping.pop(full)
+    answers = {rel: served_answers(rel, files[rel]["items"], mapping) for rel, mapping in answers.items()}
     retired = []
     for rel, mapping in answers.items():
         for kind, scope, ident, _rva in files[rel]["items"]:
             answer_id = answer_key(kind, scope, ident)
-            proposal = mapping.get(answer_id, "skip")
+            proposal = mapping.get(key_of(rel, kind, scope, ident), "skip")
             spelling = proposal.get("name", "") if isinstance(proposal, dict) else proposal
             if kind in SCOPED_KINDS and str(spelling).strip().lower() != "skip":
                 retired.append(dict(key=key_of(rel, kind, scope, ident), file=rel,
@@ -1847,16 +1861,16 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
             invalid.extend(dict(key=key_of(rel, *item[:3]), file=rel,
                                 answer_key=answer_key(*item[:3]), reason="source changed; serve it again",
                                 retryable=False) for item in entry["items"]
-                           if answer_key(*item[:3]) in mapping)
+                           if key_of(rel, *item[:3]) in mapping)
             continue
         items = [tuple(i) for i in entry["items"]]
-        unknown = set(mapping) - {answer_key(k, s, i) for k, s, i, _ in items}
+        unknown = set(mapping) - {key_of(rel, k, s, i) for k, s, i, _ in items}
         if unknown:
             fail(f"keys not served for {rel}: {', '.join(sorted(unknown)[:8])}. "
                  + scoped_route(session, model, [rel]))
         file_words, taken = set(name_metric.WORD.findall(name_metric.strip(text))), set()
         for kind, scope, ident, rva in items:
-            proposal = mapping.get(answer_key(kind, scope, ident), "skip")
+            proposal = mapping.get(key_of(rel, kind, scope, ident), "skip")
             meaning = None
             role = ""
             if isinstance(proposal, dict):

@@ -3247,6 +3247,67 @@ def test_the_two_key_forms_vote_the_same(tree, tmp_path):
     assert lane_of(tree).state()[FN_KEY]["new"] == "sumBox"       # two workers, one spelling, either form
 
 
+SPELLED_SECOND = name_lane.key_of(SOURCE, "function", "0x00401200", SPELLED_OLD)
+SPELLED_OTHER = "??4?$set@UBfmeOther@@@@QAEAAV0@ABV0@@Z"
+
+
+@pytest.fixture
+def two_spelled(spelled_tree):
+    """One compiler spelling at two addresses of one file."""
+    with open(spelled_tree / "reverse/functions.csv", "a", encoding="utf-8", newline="") as handle:
+        handle.write(f"{SPELLED_OLD},,0x00401200,18,{SOURCE},matched,\n")
+    _git(spelled_tree, "add", "-A")
+    return spelled_tree
+
+
+def spelled_answers(root, tmp_path, answers, session="two", validate=False):
+    be(f"seat-{session}")
+    args = SimpleNamespace(session=session, model="claude-opus-5-5", count=1, file=SOURCE, list_only=False,
+                           key=[SPELLED_KEY, SPELLED_SECOND])
+    assert name_lane.cmd_next(lane_of(root), args) == 0
+    answer = tmp_path / f"answer-{session}.json"
+    answer.write_text(json.dumps(answers))
+    args = SimpleNamespace(answer=str(answer), session=session, model="claude-opus-5-5")
+    return name_lane.cmd_submit(lane_of(root), args, lead=2, min_models=1, validate_only=validate)
+
+
+def test_a_full_key_votes_only_its_own_address(two_spelled, tmp_path):
+    """The review's repro: only the second full key answered, once it recorded the first address."""
+    report = spelled_answers(two_spelled, tmp_path, {SPELLED_SECOND: SPELLED_NEW}, "check", validate=True)
+    assert report["valid"] == [SPELLED_SECOND]
+    assert spelled_answers(two_spelled, tmp_path, {SPELLED_SECOND: SPELLED_NEW}, "vote") == 0
+    assert {row["key"] for row in lane_of(two_spelled).votes()} == {SPELLED_SECOND}
+    assert {row["key"] for row in rows(two_spelled, name_lane.VOTE_SOURCES)} == {SPELLED_SECOND}
+
+
+def test_two_full_keys_may_have_different_answers(two_spelled, tmp_path):
+    assert spelled_answers(two_spelled, tmp_path, {SPELLED_KEY: SPELLED_NEW, SPELLED_SECOND: SPELLED_OTHER}) == 0
+    tally = lane_of(two_spelled).tally()
+    assert name_agreement.digest(SPELLED_KEY, SPELLED_NEW) in tally[SPELLED_KEY]
+    assert name_agreement.digest(SPELLED_SECOND, SPELLED_OTHER) in tally[SPELLED_SECOND]
+
+
+def test_a_bare_spelling_two_keys_share_refuses(two_spelled, tmp_path):
+    with pytest.raises(SystemExit, match="is ambiguous"):
+        spelled_answers(two_spelled, tmp_path, {SPELLED_OLD: SPELLED_NEW})
+    assert not lane_of(two_spelled).votes()
+
+
+def test_a_bare_spelling_one_key_has_still_answers(spelled_tree, tmp_path):
+    serve_key(spelled_tree, "one", "seat-one")
+    assert submit_spelled(spelled_tree, tmp_path, "one") == 0
+    assert {row["key"] for row in lane_of(spelled_tree).votes()} == {SPELLED_KEY}
+
+
+def test_the_brief_lists_a_shared_spelling_by_its_full_keys(two_spelled):
+    be("seat-brief")
+    args = SimpleNamespace(session="brief", model="claude-opus-5-5", count=1, file=SOURCE, list_only=False,
+                           key=[SPELLED_KEY, SPELLED_SECOND])
+    assert name_lane.cmd_next(lane_of(two_spelled), args) == 0
+    brief = (two_spelled / "build/name_lane/briefs/brief.txt").read_text()
+    assert SPELLED_KEY in brief and SPELLED_SECOND in brief
+
+
 def test_one_key_with_two_answers_refuses(tree, tmp_path):
     with pytest.raises(SystemExit):
         submit_keys(tree, tmp_path, {FN_KEY: "sumBox", "rva00401000": "otherName"})

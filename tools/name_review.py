@@ -718,7 +718,7 @@ def revise_invalid(lane, session, model, mapping, packet, config, job, runner):
             key = item["key"]
             rel, kind, scope, old = name_lane.split_key(key)
             role = item.get("role")
-            mapping[rel][name_lane.answer_key(kind, scope, old)] = (
+            mapping[rel][key] = (
                 dict(name=names[key], role=role) if role and names[key].lower() != "skip" else names[key])
         result["revised"] = len(names)
         save_json(submission, mapping)
@@ -780,7 +780,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
         for key, name in answers.items():
             rel, kind, scope, old = name_lane.split_key(key)
             role = answer_items[key].get("role")
-            mapping.setdefault(rel, {})[name_lane.answer_key(kind, scope, old)] = (
+            mapping.setdefault(rel, {})[key] = (
                 {"name": name, "role": role} if role else name)
         save_json(job / "submission.json", mapping)
         # Reload after the model finishes: source hashes, protection evidence and
@@ -806,8 +806,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclud
                         if v.get("worker") == voter and v.get("key") in answers} - prior_votes)
         ready = [key for key in answers if state.get(key, {}).get("status") == "agreed"
                  and before.get(key, {}).get("status") != "agreed"]
-        final_answers = {key: mapping[name_lane.split_key(key)[0]][name_lane.answer_key(*name_lane.split_key(key)[1:])]
-                         for key in answers}
+        final_answers = {key: mapping[name_lane.split_key(key)[0]][key] for key in answers}
         final_answers = {key: value["name"] if isinstance(value, dict) else value
                          for key, value in final_answers.items()}
         resolution = (resolve_disagreements(current, config, job, final_answers, runner)
