@@ -151,13 +151,12 @@ GarrisonUpgrade::~GarrisonUpgrade()
 {
 }
 
-class Rva004B6259 : public UpgradeModule
-{
-public:
-	virtual ~Rva004B6259();
-};
+// MaxHealthUpgrade's destructor 0x004B6259: its constructor 0x004B630A installs
+// the same four tables. The class is MaxHealthUpgrade.h's, so this unit's copies
+// of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/MaxHealthUpgrade.h"
 
-Rva004B6259::~Rva004B6259()
+MaxHealthUpgrade::~MaxHealthUpgrade()
 {
 }
 

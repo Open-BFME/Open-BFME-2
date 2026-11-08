@@ -129,19 +129,7 @@ public:
 	virtual void moduleInterfaceAnchor();
 };
 
-class MaxHealthUpgrade : public UpgradeModule
-{
-protected:
-	virtual void upgradeRemovalImplementation();
-protected:
-	virtual void upgradeImplementation();
-private:
-	const MaxHealthUpgradeModuleData *getMaxHealthUpgradeModuleData() const { return (const MaxHealthUpgradeModuleData *)m_moduleData; }
-public:
-	virtual NameKeyType getModuleNameKey() const;
-public:
-	MaxHealthUpgrade( Thing *thing, const ModuleData *moduleData );
-};
+#include "../../../../Include/GameLogic/Module/MaxHealthUpgrade.h"
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/MaxHealthUpgrade.cpp
 
@@ -219,4 +207,32 @@ MaxHealthUpgrade::MaxHealthUpgrade(
 
 // ??0MaxHealthUpgradeModuleData@@QAE@XZ owned by MaxHealthUpgradeModuleDataCtor.cpp; declared in-class above.
 
-// tu-skeleton: 0x004B633B 28B ??_GRva004B6259@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B633B 28B ??_GMaxHealthUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+
+// ?xfer@MaxHealthUpgrade@@MAEXPAVXfer@@@Z: slot 3 of 0x00C58590 is 0x004B8710,
+// version 1 then UpgradeModule's xfer; retail folds the body with
+// ArmorUpgrade::xfer (ArmorUpgradeXfer.cpp).
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+void MaxHealthUpgrade::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpgradeModule::xfer(xfer);
+}
