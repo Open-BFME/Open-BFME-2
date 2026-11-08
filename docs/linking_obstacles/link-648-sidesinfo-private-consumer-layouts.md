@@ -1,4 +1,4 @@
-### LINK-624: SidesInfo private consumer layouts need canonical member access
+### LINK-648: SidesInfo private consumer layouts need canonical member access
 Status: Open for remaining consumers. Updated: 2026-11-05; inspected revision: `72466cd956`.
 Evidence / affected units: [six-consumer adoption and provider audit](../../reverse/attempt_support/sidesinfo-header-adoption-20261105-codexb2.md).
 Completed: six consumers adopt canonical SidesInfo; three also remove private ScriptList views. Cohort acceptance retires nine header queue rows; final build passes 16/16 functions.
