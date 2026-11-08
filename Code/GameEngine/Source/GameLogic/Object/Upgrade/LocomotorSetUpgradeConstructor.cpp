@@ -27,6 +27,7 @@ class ModuleData;
 // The class is LocomotorSetUpgrade.h's, over the canonical UpgradeModule.h
 // (retail's table facts are there).
 #define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/LocomotorSetUpgrade.h"
 
 // ??0LocomotorSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z

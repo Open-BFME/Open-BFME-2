@@ -47,19 +47,16 @@ enum UpdateSleepTime
 
 extern GameLogic *TheGameLogic;
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-	protected: virtual void xfer(Xfer *xfer);
-};
+// BehaviorModule's xfer is the base call below; no BehaviorModule-derived table is emitted here.
+#define BFME_BEHAVIORMODULE_XFER
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModule : public BehaviorModule
 {
 public:
 	virtual void xfer(Xfer *xfer);
 private:
-	char m_unreconstructed_04[0x10];
+	char m_unreconstructed_10[0x04];
 private:
 	unsigned int m_nextCallFrameAndPhase;
 private:

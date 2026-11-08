@@ -9,11 +9,9 @@
 // Evidence: symbols.csv pin at 0x0058B03E read from the REL32 displacement of
 // a placed body; 42 module units call it by this name.
 
-class BehaviorModule
-{
-protected:
-	virtual void loadPostProcess(void);
-};
+// BehaviorModule's loadPostProcess is the base call below; no BehaviorModule-derived table is emitted here.
+#define BFME_BEHAVIORMODULE_LOADPOSTPROCESS
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class UpdateModule : public BehaviorModule
 {

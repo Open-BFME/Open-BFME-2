@@ -26,14 +26,9 @@ class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
 
-class BehaviorModule
-{
-public:
-	virtual void anchor();
-	protected: virtual void xfer(Xfer *xfer); public:
-	unsigned int m_04;
-	void *m_object;
-};
+// BehaviorModule's xfer is the base call below; no BehaviorModule-derived table is emitted here.
+#define BFME_BEHAVIORMODULE_XFER
+#include "../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum ObjectID
 {
@@ -51,7 +46,7 @@ public:
 protected:
 	virtual void xfer(Xfer *xfer);
 private:
-	char m_pad[0x08];
+	char m_pad[0x04];
 	ObjectID m_14;
 };
 

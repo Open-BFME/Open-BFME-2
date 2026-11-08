@@ -30,11 +30,9 @@ class Object;
 
 #include "../../../../Include/Common/XferVersion.h"
 
-class BehaviorModule
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
+// BehaviorModule's xfer is the base call below; no BehaviorModule-derived table is emitted here.
+#define BFME_BEHAVIORMODULE_XFER
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum ObjectID
 {
@@ -49,7 +47,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_pad04[0x10];
+	unsigned char m_pad10[0x04];
 
 public:
 	unsigned int m_14;

@@ -5,9 +5,8 @@
 // ??0CreateModule@@QAE@PAVThing@@PBVModuleData@@@Z in CreateModule.cpp):
 // base BehaviorModule xfer via rowed 0x4C9C7D then IsLightCRC early-out via
 // Xfer slot 0x10 then Version1 via rowed 0x53EE then bool at +0x14 via Xfer
-// slot 0x90. Layout is BehaviorModule 0x0C plus CreateModuleInterface plus
-// ModuleInterface giving +0x14 start (cf. SupplyCenterCreateConstructor
-// precedent); ZH donor CreateModule.cpp proves the base-plus-bool shape.
+// slot 0x90. Layout is BehaviorModule 0x10 plus CreateModuleInterface giving
+// +0x14 start; ZH donor CreateModule.cpp proves the base-plus-bool shape.
 
 class AsciiString;
 class UnicodeString;
@@ -32,15 +31,9 @@ class Object;
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-	protected: virtual void xfer(Xfer *xfer);
-
-private:
-	unsigned char m_data[8];
-};
+// BehaviorModule's xfer is the base call below; no BehaviorModule-derived table is emitted here.
+#define BFME_BEHAVIORMODULE_XFER
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class CreateModuleInterface
 {
@@ -48,15 +41,8 @@ public:
 	virtual void createModuleInterfaceAnchor();
 };
 
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
 class CreateModule : public BehaviorModule,
-	public CreateModuleInterface,
-	public ModuleInterface
+	public CreateModuleInterface
 {
 protected:
 	virtual void xfer(Xfer *xfer);

@@ -43,26 +43,9 @@ enum ObjectID
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 void XferBridgeTowerType(Xfer *xfer, int *value);
 
-class BehaviorModuleBase
-{
-public:
-	virtual void behaviorModuleBaseAnchor();
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
-
-class BehaviorModuleOther
-{
-public:
-	virtual void behaviorModuleOtherAnchor();
-};
-
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-	protected: virtual void xfer(Xfer *xfer);
-};
+// BehaviorModule's xfer is the base call below; no BehaviorModule-derived table is emitted here.
+#define BFME_BEHAVIORMODULE_XFER
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 class BridgeTowerBehavior : public BehaviorModule
 {

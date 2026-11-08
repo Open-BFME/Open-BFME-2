@@ -38,58 +38,24 @@ enum ObjectStatusTypes
 
 #include "../object.h"
 
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-	virtual void behaviorModuleSlot01();
-	virtual void behaviorModuleSlot02();
-	virtual void behaviorModuleSlot03();
-	virtual void behaviorModuleSlot04();
-	virtual void behaviorModuleSlot05();
-	virtual void behaviorModuleSlot06();
-	virtual void behaviorModuleSlot07();
-	virtual void behaviorModuleSlot08();
-	virtual void behaviorModuleSlot09();
-	virtual void behaviorModuleSlot10();
-	virtual void behaviorModuleSlot11();
-	virtual void behaviorModuleSlot12();
-	virtual void behaviorModuleSlot13();
-	virtual void behaviorModuleSlot14();
-	virtual void behaviorModuleSlot15();
-	// The primary base contributes the first 19 slots: retail calls
-	// createParticleSystems at 0x4C (slot 19) and deleteAllParticleSystems at
-	// 0x50, so three further primary-base slots precede them.
-	virtual void behaviorModuleSlot16();
-	virtual void behaviorModuleSlot17();
-	virtual void behaviorModuleSlot18();
-
-protected:
-	unsigned char m_beforeObject[4];
-	Object *m_object;
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
-
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 #include "../../../../Include/GameLogic/Module/BodyModule.h"
 
 class Rva0020FE20ActiveBodyInterface : public BehaviorModule,
-	public BehaviorModuleInterface,
 	public BodyModuleInterface
 {
 public:
 	virtual void updateBodyParticleSystems();
 
 protected:
+	// Retail calls createParticleSystems at 0x4C (slot 19) and deleteAllParticleSystems
+	// at 0x50, so seven primary slots follow BehaviorModule's twelve.
+	virtual void primarySlot12(); virtual void primarySlot13(); virtual void primarySlot14();
+	virtual void primarySlot15(); virtual void primarySlot16(); virtual void primarySlot17();
+	virtual void primarySlot18();
 	virtual void createParticleSystems(const AsciiString &boneBaseName,
 		const ParticleSystemTemplate *systemTemplate, Int maxSystems);
 	virtual void deleteAllParticleSystems();
-
-	Object *getObject() { return m_object; }
 };
 
 struct Rva0020FE20ParticleGlobalData
