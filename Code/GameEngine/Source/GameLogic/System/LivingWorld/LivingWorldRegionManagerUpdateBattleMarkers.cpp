@@ -36,16 +36,10 @@ public:
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 #define g_009FEF10 ((Rva002BA8F1Logic *)TheLivingWorldLogic)
-extern const void *const g_00BE433C[];
 // Retail's one-slot visitor table at VA 0x00BE433C (RVA 0x007E433C; see
-// RegionArmyComparatorView.h): its slot is 0x0020E779, rowed as
-// Rva0020E767::call (VslotSmallBodiesAB.cpp). Defined here: nothing
-// else in the tree did.
-extern "C" void __identifier("?call@Rva0020E767@@UAE_NPAVRva003F409F@@@Z")();
-extern const void *const g_00BE433C[] =
-{
-	(const void *)&__identifier("?call@Rva0020E767@@UAE_NPAVRva003F409F@@@Z")
-};
+// RegionArmyComparatorView.h) is Rva0020E767's: its slot is 0x0020E779,
+// Rva0020E767::call, and VslotSmallBodiesAB.cpp emits the compiler table.
+extern "C" const void *const __identifier("??_7Rva0020E767@@6B@")[];
 extern "C" const void *const __identifier("??_7Rva0020E394@@6B@")[];
 
 struct EmptyBase20EBA0
@@ -58,7 +52,7 @@ struct TmpBE433C : EmptyBase20EBA0
 {
 	const void *v;
 	void *o;
-	TmpBE433C(void *oo) : v(g_00BE433C), o(oo) {}
+	TmpBE433C(void *oo) : v(__identifier("??_7Rva0020E767@@6B@")), o(oo) {}
 	~TmpBE433C() {}
 };
 
