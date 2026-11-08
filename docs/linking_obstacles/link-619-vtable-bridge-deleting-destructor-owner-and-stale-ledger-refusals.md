@@ -555,3 +555,10 @@ INCONCLUSIVE: index d171e84869 versus outgoing base
 0292da473397a175f09d211b8414f863e409d73a; Common/AIBaseBuilder.cpp lacks a
 current receipt. Carry that consumer into the next census/image check;
 this publication does not establish full link closure or runtime progress.
+
+2026-11-08 the default picker also served the river owner offset table at
+0x00808930. Its compiled eight-byte no-relocation data equals retail; all
+20 source rows and parent EH verify. This repeats the known ??_8 selector
+false reject. The checker scope is still held elsewhere, so source, ledger
+and queue remain untouched; actual function-table work stays open.
+[Bounded proof](../../reverse/attempt_support/river-owner-vbtable-20261108/README.md).

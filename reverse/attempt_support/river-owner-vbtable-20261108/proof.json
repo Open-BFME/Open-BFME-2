@@ -1,0 +1,19 @@
+{
+  "source": "Code/GameEngine/Source/Common/Rva0030C1FCOwnerCtor.cpp",
+  "object_sha256": "a5b89ea9866e5b741367fefea77212302dbfe5c3a81b78447b4a62f46d6465e9",
+  "tables": [
+    {
+      "name": "??_8Rva0030C1FCOwner@@7B@",
+      "rva": "0x00808930",
+      "size": 8,
+      "offsets": [
+        -24,
+        120
+      ],
+      "relocation_count": 0,
+      "compiled_hex": "e8ffffff78000000",
+      "retail_hex": "e8ffffff78000000",
+      "positive_slot_selector": true
+    }
+  ]
+}
