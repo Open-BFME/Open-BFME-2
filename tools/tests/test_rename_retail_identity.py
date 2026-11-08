@@ -195,8 +195,87 @@ def test_the_record_format_is_not_this_familys(tree):
         assert not R.well_formed(bad), bad
 
 
-def test_a_registered_tier_reads_the_basis_as_evidence():
-    assert allowed_symbols.Bases.tier("retail", EVIDENCE) == ("evidence", "retail")
+def bases(tmp_path, *records):
+    path = tmp_path / "name_basis.csv"
+    write(path, "kind,old,new,basis,evidence,source,rva\n" + "".join(f"{r}\n" for r in records))
+    return allowed_symbols.Bases(path)
+
+
+def test_a_familys_own_record_is_evidence(tmp_path):
+    got = bases(tmp_path, f"function,{F.rows[COPY][0]},{NEW_COPY},retail,{EVIDENCE},{TU},0x{COPY:08X}")
+    assert got.lookup(NEW_COPY, COPY) == ("evidence", "retail")
+
+
+@pytest.mark.parametrize("label, kind, old, new, evidence, rva", [
+    ("a real function under an invented fact", "function", "?x@@YAXXZ", "?doFXPos@FXList@@QBEXPBUCoord3D@@PBVMatrix3D@@M0@Z",
+     "retail:0x00000001 invented=true", "0x001E296E"),
+    ("the family's evidence on a stranger", "function", "?x@@YAXXZ", NEW_COPY, EVIDENCE, "0x001E296E"),
+    ("the family's row at another address", "function", F.rows[COPY][0], NEW_COPY, EVIDENCE, "0x001E296E"),
+    ("the family's row under another row's facts", "function", F.rows[COPY][0], NEW_COPY, R.record(F.rows[0x0052C2F3][1]), f"0x{COPY:08X}"),
+    ("another spelling at the family's row", "function", F.rows[COPY][0], "??0Other@@QAE@ABV0@@Z", EVIDENCE, f"0x{COPY:08X}"),
+    ("another old name", "function", "?x@@YAXXZ", NEW_COPY, EVIDENCE, f"0x{COPY:08X}"),
+    ("no address", "function", F.rows[COPY][0], NEW_COPY, EVIDENCE, ""),
+    ("not a function record", "global", F.rows[COPY][0], NEW_COPY, EVIDENCE, f"0x{COPY:08X}"),
+])
+def test_a_retail_record_outside_the_table_grants_nothing(tmp_path, label, kind, old, new, evidence, rva):
+    got = bases(tmp_path, f"{kind},{old},{new},retail,{evidence},{TU},{rva}")
+    assert got.lookup(new, int(rva, 16) if rva else 0) is None, label
+
+
+def test_the_table_and_its_hash_are_protected_paths():
+    import protected_paths
+    paths = ["tools/retail_identity.py", "baselines/bfme2/workshop-vanilla-1.06/manifest.json", "tools/pin_admission.py"]
+    assert set(protected_paths.protected(paths + ["Code/a.cpp"])) == set(paths)
+
+
+def image_copy(tmp_path, monkeypatch, edit):
+    """The real image with `edit` applied, as the build would read it; skipped where there is none."""
+    import build
+    if not Path(build.EXE).exists():
+        pytest.skip("no retail image here")
+    data = bytearray(Path(build.EXE).read_bytes())
+    edit(data)
+    copy = tmp_path / build.EXE.name
+    copy.write_bytes(data)
+    monkeypatch.setattr(build, "exe_image", lambda: (bytes(data), build.pe_sections(bytes(data))))
+    monkeypatch.setattr(build, "EXE", copy)
+    monkeypatch.setattr(R, "_verified", [None])
+
+
+def test_a_changed_image_states_no_fact(tmp_path, monkeypatch):
+    """The review's repro, a byte no fact reads: every fact would still hold byte for byte."""
+    def change_a_byte(data):
+        data[len(data) // 2] ^= 0xFF
+    image_copy(tmp_path, monkeypatch, change_a_byte)
+    monkeypatch.setattr(R, "_verified", [b"an image verified earlier"])              # that says nothing of this one
+    assert "not the manifest's" in R.image_problem()
+    problems = R.facts_problems(F.facts())
+    assert len(problems) == len(F.facts()) and all("not the manifest's" in p for p in problems)
+    assert not R.pin_respell_proven(OLD_GET, NEW_GET, GET)
+
+
+def test_the_real_image_states_them_all(monkeypatch):
+    import build
+    if not Path(build.EXE).exists():
+        pytest.skip("no retail image here")
+    monkeypatch.setattr(R, "_verified", [None])
+    assert R.image_problem() is None
+    assert R._verified[0] is build.exe_image()[0]
+    assert R.facts_problems(F.facts()) == []
+
+
+@pytest.mark.parametrize("label, text", [("no entry", '{"files": []}'), ("no hash", '{"files": [{"path": "files/game.dat"}]}'),
+                                         ("another image's entry", '{"files": [{"path": "files/other", "sha256": "x"}]}')])
+def test_a_manifest_naming_no_hash_refuses(tmp_path, monkeypatch, label, text):
+    import build
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(text, encoding="utf-8")
+    monkeypatch.setattr(build, "MANIFEST", manifest)
+    monkeypatch.setattr(build, "EXE", tmp_path / "game.dat")
+    monkeypatch.setattr(build, "exe_image", lambda: (b"image", []))
+    monkeypatch.setattr(R, "_verified", [None])
+    assert "names no one sha256" in R.image_problem(), label
+    assert "cannot be read" in R.facts_problems([R.Fact("stride", 0x100, 8, "90")])[0]
 
 
 # ------------------------------------------------------------------ what refuses
@@ -421,6 +500,23 @@ REAL = "?get_allocator@?$vector@H@_STL@@QBEXXZ"
 
 def test_the_pin_respelled_is_the_same_pin(image, admission):
     assert admission.judge([pin(OLD_GET, GET)], [pin(NEW_GET, GET)], [owner(REAL, GET)], [owner(REAL, GET)]) == []
+
+
+def test_the_old_pin_with_new_notes_is_not_gone(image, admission):
+    """The review's repro: changed notes must not read as a respell."""
+    rows = [owner(REAL, GET)]
+    got = admission.judge([pin(OLD_GET, GET)], [pin(OLD_GET, GET, "other notes"), pin(NEW_GET, GET)], rows, rows)
+    assert got and "already carries the real name" in got[0]
+    spelled = dict(pin(OLD_GET, GET, "other notes"), address=f"0x{GET:08x}")      # nor another spelling of its address
+    assert admission.judge([pin(OLD_GET, GET)], [spelled, pin(NEW_GET, GET)], rows, rows)
+    # with no owner at the address only the new spelling can be refused: the old pin stays and they stack
+    got = admission.judge([pin(OLD_GET, GET)], [pin(OLD_GET, GET, "other notes"), pin(NEW_GET, GET)], [], [])
+    assert got and NEW_GET in got[0] and "already carries the real name" in got[0]
+
+
+def test_a_respelled_pin_may_change_its_notes_and_spelling(image, admission):
+    rows = [owner(REAL, GET)]
+    assert admission.judge([pin(OLD_GET, GET)], [dict(pin(NEW_GET, GET, "other"), address=f"0x{GET:08x}")], rows, rows) == []
 
 
 def test_any_other_change_still_stacks_a_second_name(image, admission):

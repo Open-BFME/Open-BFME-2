@@ -820,6 +820,10 @@ class Bases:
                 if not new or kind in NOT_ROW_KINDS:
                     continue
                 tier = self.tier(basis, rec.get("evidence") or "")
+                if basis == "retail":                   # the family's own record of that row, or nothing
+                    import retail_identity
+                    tier = (("evidence", basis) if kind == "function" and retail_identity.record_proven(
+                        old, new, rec.get("rva"), rec.get("evidence")) else None)
                 if kind == "class":
                     self.classes.pop(old, None)
                     if tier and tier[0] == "inferred":
@@ -841,8 +845,6 @@ class Bases:
         """(tier, evidence kind) for one record's basis; None for `restored`."""
         if basis.startswith("canonical:"):
             return "evidence", basis.partition(":")[2]
-        if basis == "retail":                   # proven by retail's own bytes (tools/retail_identity.py)
-            return "evidence", basis
         if basis == "inferred":
             cited = re.match(r"([a-z][a-z0-9-]*):", evidence.strip())
             return "inferred", cited.group(1) if cited else "inferred"

@@ -1198,12 +1198,15 @@ two review rounds set where the evidence ends:
   family is a reviewed entry (`Verifier-Change`), not a shape the tool infers. Each
   record reads `retail:<site> <fact>=<value> ...`, a form that names no family, so
   another route proven by retail's bytes records the same way. The family's facts
-  must all hold on the image; its class's own rowed member must install the same
+  must all hold on the image, which is held to the baseline manifest's sha256; its
+  class's own rowed member must install the same
   table, and the data ledger must name that table for the class; after the build the
   copy must store the class's table and no touched row may gain a wrong binding. Its
   pins are respelled in place: `pin_admission.py` admits exactly the family's pin at
   its own address, with the old pin gone and the facts holding, as the same pin rather
-  than a second name. Anything else there is judged as before. `--move-to TU --move-rows
+  than a second name. Anything else there is judged as before. A `name_basis.csv` record
+  with this basis grants a tier only as a family's own record of its row. The table and
+  the manifest are protected paths. `--move-to TU --move-rows
   RVA,...` moves only those rows, each approved for that TU and with no funclets, and
   their owner source stays. The one register key a family's copy leaves behind goes by
   its own path: the plan warns, and `repair_queue.py retire identity SOURCE` runs in

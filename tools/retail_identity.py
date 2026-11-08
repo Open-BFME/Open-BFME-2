@@ -15,6 +15,8 @@ its exact name and address, every fact by its site. Nothing here generalizes fro
 shape to another class: another family is another reviewed entry (Verifier-Change).
 """
 import collections
+import hashlib
+import json
 import re
 import struct
 import sys
@@ -43,8 +45,30 @@ def expected(fact):
     raise ValueError(f"unknown retail fact {fact.kind!r}")
 
 
+_verified = [None]        # the image data last held to the manifest: exe_image reads it once per process
+
+
+def image_problem():
+    """Why the image the build reads is not the one the manifest names, or None."""
+    data = build.exe_image()[0]
+    if _verified[0] is data:
+        return None
+    wanted = [entry.get("sha256") for entry in json.loads(build.MANIFEST.read_text(encoding="utf-8")).get("files", ())
+              if entry.get("path") == "files/" + build.EXE.name]
+    if len(wanted) != 1 or not wanted[0]:
+        return f"{build.MANIFEST.name} names no one sha256 for {build.EXE.name}"
+    got = hashlib.sha256(data).hexdigest()
+    if got != wanted[0]:
+        return f"{build.EXE.name} is sha256 {got}, not the manifest's {wanted[0]}"
+    _verified[0] = data
+    return None
+
+
 def read_retail(rva, size):
-    """Retail's bytes at `rva`; tests replace this."""
+    """Retail's bytes at `rva`, from the image the manifest names; tests replace this."""
+    problem = image_problem()
+    if problem:
+        raise ValueError(problem)
     return build.read_target_bytes(rva, size)
 
 
@@ -155,6 +179,20 @@ def family_of(rva, new):
         if got and family.respell(got[0]) == new:
             return family
     return None
+
+
+def record_proven(old_name, new_name, rva, evidence):
+    """Is this name_basis record a family's own record of its row: the row's old spelling, its respell,
+    its address and exactly the facts the table holds for it? Nothing else speaks for a name as `retail`."""
+    try:
+        at = int(rva, 16)
+    except (TypeError, ValueError):
+        return False
+    for family in FAMILIES:
+        got = family.rows.get(at)
+        if got and got[0] == old_name and family.respell(old_name) == new_name and record(got[1]) == evidence:
+            return True
+    return False
 
 
 def pin_respell_proven(old_name, new_name, rva):

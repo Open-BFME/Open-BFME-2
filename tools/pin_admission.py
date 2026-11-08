@@ -786,6 +786,14 @@ def row_key(row):
                                       "source", "status", "notes"))
 
 
+def _address(pin):
+    """A pin's address as a number, None when it does not read as one."""
+    try:
+        return int(pin["address"], 16)
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
 def judge(old_pins, new_pins, old_rows, new_rows, *, static_only=False):
     problems = []
     before = {pin_key(p) for p in old_pins}
@@ -811,9 +819,10 @@ def judge(old_pins, new_pins, old_rows, new_rows, *, static_only=False):
         added.append(pin)
     # The pin of a family retail's own bytes prove (retail_identity), respelled at its address: it
     # is the same pin under its proven class, so no second name stacks on that address.
-    gone = {(p.get("name"), p.get("address")) for p in old_pins if pin_key(p) not in after}
-    respelled = [pin for pin in added if any(address == pin.get("address") and
-                                             retail_identity.pin_respell_proven(name, pin["name"], int(address, 16))
+    still = {(p.get("name"), _address(p)) for p in new_pins}
+    gone = {(p.get("name"), _address(p)) for p in old_pins} - still
+    respelled = [pin for pin in added if any(address is not None and address == _address(pin) and
+                                             retail_identity.pin_respell_proven(name, pin["name"], address)
                                              for name, address in gone)]
     added = [pin for pin in added if pin not in respelled]
     # Judge the proposed ownership state. Removed pins/rows must not block a
