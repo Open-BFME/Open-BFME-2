@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc_alloconly
 // stlport
 // WorldBuilder StrategicInGameUIRegionDetailsStructuresPage.cpp:261..285 names
 // Icon::Update and supplies the construction-progress/hover-tooltip purpose.

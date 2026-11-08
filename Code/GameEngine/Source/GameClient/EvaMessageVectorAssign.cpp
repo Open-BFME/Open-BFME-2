@@ -1,4 +1,4 @@
-// cl: -O1 -arch:SSE -G7 -D_STLP_USE_STATIC_LIB -D_STLP_NO_EXCEPTIONS
+// cl: -O1 -arch:SSE -G7 -D_STLP_USE_STATIC_LIB -D_STLP_NO_EXCEPTIONS -Ireference/shims/bfmealloc_alloconly
 // stlport
 //
 // Bodies ported from Open-BFME-1's
