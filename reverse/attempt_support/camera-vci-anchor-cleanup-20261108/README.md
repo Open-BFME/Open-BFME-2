@@ -27,3 +27,11 @@ same alignment/order boundary recorded in the earlier
 renderobj-bounding-order-20261108 packet (LINK-619), not repaired by removing
 the anchor. No blanket alignment exception is made. A future real link must
 confirm native binding and clear that queue; runtime remains unverified.
+
+Published as eb6c24b55e after preserving both sides of a LINK-619 append
+conflict and rechecking Camera on the rebased tree. Required gates pass all
+60 code rows, the data row, scoped DIR32 for seven symbols and both EH graphs.
+The broader audit remains INCONCLUSIVE: index f4727bbd09 versus base
+8be98f3efe60da401d09c05038aeac98afe27011, one missing current source receipt
+(camera.cpp). The three Matrix definition findings in the code-identity
+shadow report remain outside this cleanup; provider fingerprints are unchanged.

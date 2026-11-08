@@ -400,3 +400,9 @@ The served 0x007D26E0 table still encounters the already-recorded path-order
 bounding-getter refusal at slots 65/66; no alignment exception or table/runtime
 clearance is claimed.
 [Provider comparison and retained mechanisms](../../reverse/attempt_support/camera-vci-anchor-cleanup-20261108/README.md).
+
+Camera cleanup published as eb6c24b55e. All 60 code rows, its data row,
+both EH graphs and scoped DIR32 pass after rebase. Broader audit remains
+INCONCLUSIVE: index f4727bbd09 versus base
+8be98f3efe60da401d09c05038aeac98afe27011, one missing current source receipt
+(camera.cpp). The shared provider refusal and actual-image check stay open.
