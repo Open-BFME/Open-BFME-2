@@ -4,7 +4,7 @@
 // ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ @0x004ADB1B 188B.
 // When the gate passes, lerp the drawable float at +0xb0 between 1.0f
 // and the source float at +0xc8. Kind 2 uses the +0x88 denominator.
-// ?handlePackingProcessing@Rva004B0164@@QAE_NXZ @0x004B0348: slot 20 of the
+// ?handlePackingProcessing@Rva004B0164@@UAE_NXZ @0x004B0348: slot 20 of the
 // Rva004B0164 table (SpecialAbilityUpdate-family handlePackingProcessing slot),
 // same shape on the shared layout.
 
@@ -40,7 +40,7 @@ protected:
 class Rva004B0164 : public Rva004ADB1B
 {
 public:
-	bool handlePackingProcessing();
+	virtual bool handlePackingProcessing();
 };
 
 bool Rva004ADB1B::handlePackingProcessing()

@@ -802,7 +802,7 @@ void Rva004B0303::rva004B0303()
 
 // tu-skeleton: 0x004B02E7 28B ??_GRva004B0164@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004B0348 204B ?handlePackingProcessing@Rva004B0164@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
+// tu-skeleton: 0x004B0348 204B ?handlePackingProcessing@Rva004B0164@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateModuleDataDtor.cpp
 
