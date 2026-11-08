@@ -102,22 +102,7 @@ static __forceinline void critterDesyncLog(const char *text)
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-class AIUpdateInterface
-{
-public:
-	void rva00262AEA();
-	// The rowed body is named with an int return, but every caller tests
-	// only al; the byte view below is that bool read.
-	int rva002632C7() const;
-	unsigned char rva002632C7Bool() const { return (unsigned char)rva002632C7(); }
-	Path *getPath() const { return m_path; }
-	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
-private:
-	unsigned char m_pad000[0x140];
-	Path *m_path; // +0x140
-	unsigned char m_pad144[0x3B1 - 0x144];
-	Bool m_bfmeFlag3B1; // +0x3B1
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
@@ -203,7 +188,8 @@ StateReturnType AICowerState::update()
 	AIUpdateInterface *ai = obj->getAI();
 	if (!ai)
 		return STATE_FAILURE;
-	if (voice && ai->rva002632C7Bool())
+	// rva002632C7 is rowed with an int return; every caller tests only al.
+	if (voice && (unsigned char)ai->rva002632C7())
 		voice = false;
 	if (voice)
 	{
@@ -238,7 +224,7 @@ StateReturnType AIBackAwayState::update()
 	if (m_retargetToPathEnd)
 	{
 		AIUpdateInterface *objAI = obj->getAI();
-		if (objAI->getPath() && !objAI->getBfmeFlag3B1())
+		if (objAI->getPath() && !objAI->isWaitingForPath())
 		{
 			m_goalPosition = *objAI->getPath()->getLastNode()->getPosition();
 			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 17");

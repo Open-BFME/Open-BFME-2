@@ -62,34 +62,7 @@ static __forceinline void critterDesyncLog(const char *text)
 
 #include "../../../Include/GameLogic/PathfindPath.h"
 
-class AIUpdateInterface
-{
-public:
-#define X1_V(n) virtual void slot##n();
-#define X1_V10(n) X1_V(n##0) X1_V(n##1) X1_V(n##2) X1_V(n##3) X1_V(n##4) X1_V(n##5) X1_V(n##6) X1_V(n##7) X1_V(n##8) X1_V(n##9)
-	X1_V10(0) X1_V10(1) X1_V10(2) X1_V10(3) X1_V10(4) X1_V10(5) X1_V10(6)
-	X1_V10(7) X1_V10(8) X1_V10(9) X1_V10(10) X1_V10(11) X1_V10(12) X1_V10(13)
-	X1_V(140) X1_V(141)
-#undef X1_V10
-#undef X1_V
-	virtual Bool chooseLocomotorSet(LocomotorSetType wst);
-
-	Path *getPath() { return m_path; }
-	// LINK: same-body helper under a TU-unique name (identical inlined
-	// bytes). This TU's getPath copy loses to the first-in-order copy (no
-	// retail address); the four calls below inline it but still emit the
-	// loser COMDAT. Rebinding there emits only this unique (trivially kept)
-	// copy. No flags touched.
-	Path *bfme_get_path() { return m_path; }
-	Bool isWaitingForPath() const { return m_waitingForPath; }
-	void requestApproachPath(Coord3D *destination);
-	void requestSafePath(ObjectID repulsor);
-private:
-	char m_pad004[0x140 - 0x04];
-	Path *m_path; // +0x140
-	char m_pad144[0x3B1 - 0x144];
-	Bool m_waitingForPath; // +0x3B1
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ModelConditionFlags
 {
@@ -207,12 +180,12 @@ StateReturnType AIMoveOutOfTheWayState::onEnter()
 	Object *obj = getMachineOwner();
 	AIUpdateInterface *ai = obj->getAI();
 
-	if (ai->bfme_get_path() == 0)
+	if (ai->getPath() == 0)
 	{
 		// Must have existing path.
 		return STATE_FAILURE;
 	}
-	m_goalPosition = *ai->bfme_get_path()->getLastNode()->getPosition();
+	m_goalPosition = *ai->getPath()->getLastNode()->getPosition();
 	return AIInternalMoveToState::onEnter();
 }
 
@@ -274,7 +247,7 @@ StateReturnType AIMoveAwayPanicState::update()
 	{
 		Object *obj = getMachineOwner();
 		AIUpdateInterface *ai = obj->getAI();
-		Path *thePath = ai->bfme_get_path();
+		Path *thePath = ai->getPath();
 		if (thePath && !ai->isWaitingForPath())
 		{
 			m_goalPosition = *thePath->getLastNode()->getPosition();
@@ -300,7 +273,7 @@ StateReturnType AIMoveAwayFromRepulsorsState::update()
 	{
 		Object *obj = getMachineOwner();
 		AIUpdateInterface *ai = obj->getAI();
-		Path *thePath = ai->bfme_get_path();
+		Path *thePath = ai->getPath();
 		if (thePath && !ai->isWaitingForPath())
 		{
 			m_goalPosition = *thePath->getLastNode()->getPosition();

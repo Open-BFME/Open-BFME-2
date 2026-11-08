@@ -68,35 +68,8 @@ struct FprintfTarget
 extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-template <int N> class AIDeadStateAISlots : public AIDeadStateAISlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class AIDeadStateAISlots<0>
-{
-};
 #include "../../../Include/GameLogic/LocomotorClass.h"
-// AIUpdateInterface: vslot 136 (+0x220) is called on a dead owner's AI.
-class AIUpdateInterface : public AIDeadStateAISlots<136>
-{
-public:
-	virtual void rva0033FF05Slot136() = 0;
-	void setCompletedWaypoint(const Waypoint *wp);
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-	__declspec(dllimport) __forceinline void setCanPathThroughUnits(Bool b) { m_canPathThroughUnits = b; }
-	RadarObject *rva002630F5();
-	void setPathFromWaypoint(const Waypoint *wp, const Coord2D *offset);
-	void setDesiredSpeed(Real speed);
-	Path *getPath() const { return m_path; }
-private:
-	unsigned char m_pad004[0x140 - 0x04];
-	Path *m_path; // +0x140
-	unsigned char m_pad144[0x1F0 - 0x144];
-	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3BA - 0x1F4];
-	Bool m_canPathThroughUnits; // +0x3BA
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 #include "../Object/object.h"
 class StateMachine
 {
@@ -135,7 +108,7 @@ StateReturnType AIDeadState::update()
 	Object *obj = getMachineOwner();
 	AIUpdateInterface *ai = obj->getAI();
 	if (ai)
-		ai->rva0033FF05Slot136();
+		ai->setLocomotorGoalNone();
 	obj->setEffectivelyDead(true);
 	return STATE_CONTINUE;
 }
@@ -209,7 +182,7 @@ StateReturnType AIFollowWaypointPathExactState::onEnter()
 		}
 	}
 
-	ai->setCanPathThroughUnits(true);
+	ai->m_field3BA = true;
 
 	if (g_00E03745)
 	{
@@ -244,7 +217,7 @@ void AIFollowWaypointPathExactState::onExit(StateExitType status)
 	if (ai && ai->getCurLocomotor())
 	{
 		ai->setCompletedWaypoint(m_lastWaypoint);
-		ai->setCanPathThroughUnits(false);
+		ai->m_field3BA = false;
 		ai->getCurLocomotor()->setAllowInvalidPosition(false);
 	}
 }
@@ -252,7 +225,7 @@ StateReturnType AIFollowWaypointPathExactState::update()
 {
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
 	if (ai)
-		ai->setCanPathThroughUnits(true);
+		ai->m_field3BA = true;
 	return AIInternalMoveToState::update();
 }
 

@@ -20,13 +20,6 @@
 // AIDockState one, whose Zero Hour source this is.
 class DockUpdateInterface;
 class Object;
-class AIUpdateInterface
-{
-public:
-	void ignoreObstacle(const Object *obstacle);
-	unsigned char m_pad[0x3BA];
-	unsigned char m_canPathThroughUnits; // +0x3BA
-};
 #include "../Object/object.h"
 class StateMachine
 {
@@ -54,6 +47,7 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 #include "Common/Snapshot.h"
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/Common/BfmeXfer.h"
 #include "../../../Include/Common/StateMachine.h"
@@ -146,7 +140,7 @@ void AIDockState::onExit(StateExitType status)
 	AIUpdateInterface *ai = m_machine->m_owner->m_ai;
 	if (ai)
 	{
-		ai->m_canPathThroughUnits = 0;
+		ai->m_field3BA = false;
 		ai->ignoreObstacle(0);
 	}
 }
@@ -155,7 +149,7 @@ StateReturnType AIDockState::update()
 	AIUpdateInterface *ai = getMachineOwner()->getAI();
 	if (ai)
 	{
-		ai->m_canPathThroughUnits = 1;
+		ai->m_field3BA = true;
 	}
 	return CONVERT_SLEEP_TO_CONTINUE(m_dockMachine->updateStateMachine());
 }

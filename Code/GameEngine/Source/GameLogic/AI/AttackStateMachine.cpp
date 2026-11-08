@@ -16,7 +16,6 @@
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
-typedef UnsignedInt ObjectID;
 class Object;
 
 #include "../../../Include/Common/StateConditionInfo.h"
@@ -29,11 +28,7 @@ enum WhichTurretType
 {
 	TURRET_INVALID = -1
 };
-class AIUpdateInterface
-{
-public:
-	WhichTurretType getWhichTurretForCurWeapon() const;
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 struct ObjectTemplateBytes
 {
 	unsigned char m_pad000[0x108];

@@ -74,31 +74,7 @@ public:
 
 #include "../../../Include/GameLogic/LocomotorClass.h"
 
-class LocomotorSet
-{
-public:
-	char m_pad[4];
-};
-
-class AIUpdateInterface
-{
-public:
-#define X1_V(n) virtual void slot##n();
-#define X1_V10(n) X1_V(n##0) X1_V(n##1) X1_V(n##2) X1_V(n##3) X1_V(n##4) X1_V(n##5) X1_V(n##6) X1_V(n##7) X1_V(n##8) X1_V(n##9)
-	X1_V10(0) X1_V10(1) X1_V10(2) X1_V10(3) X1_V10(4) X1_V10(5) X1_V10(6)
-	X1_V10(7) X1_V10(8) X1_V10(9) X1_V10(10) X1_V10(11) X1_V10(12) X1_V10(13)
-	X1_V(140) X1_V(141) X1_V(142)
-#undef X1_V10
-#undef X1_V
-	virtual CommandSourceType getLastCommandSource();
-
-	void ignoreObstacle(const Object *obj);
-	Locomotor *getCurLocomotor() { return m_curLocomotor; }
-	char m_pad004[0x1CC - 0x04];
-	LocomotorSet m_locomotorSet; // +0x1CC
-	char m_pad1D0[0x1F0 - 0x1D0];
-	Locomotor *m_curLocomotor; // +0x1F0
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../../Include/Common/ThingTemplate.h"
 
@@ -186,7 +162,7 @@ StateReturnType AIEnterState::onEnter()
 	Object *goal = getMachineGoalObject();
 	if (goal)
 	{
-		if (!((BFMEActionManager *)TheActionManager)->canEnterObject(obj, goal, obj->getAI()->getLastCommandSource(),
+		if (!((BFMEActionManager *)TheActionManager)->canEnterObject(obj, goal, obj->getAI()->vslot143(),
 				CHECK_CAPACITY, false, 0))
 			return STATE_FAILURE;
 

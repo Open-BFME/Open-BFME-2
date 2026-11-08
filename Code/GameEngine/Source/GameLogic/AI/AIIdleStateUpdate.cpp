@@ -116,66 +116,7 @@ private:
 	const Rva002C9400ByteField *m_template; // +0x04
 };
 
-template <int N> class AIIdleAISlots : public AIIdleAISlots<N - 1>
-{
-public:
-	virtual void gap(char (*)[N]) = 0;
-};
-template <> class AIIdleAISlots<0>
-{
-};
-
-class Object;
-
-class AICommandInterface
-{
-public:
-	void aiHunt(CommandSourceType cmdSource);
-	void aiMoveToObject(Object *obj, CommandSourceType cmdSource);
-	void rva0026C2D9(Object *victim, int maxShotsToFire, CommandSourceType cmdSource);
-};
-
-class AIUpdateInterface : public AIIdleAISlots<110>
-{
-public:
-	virtual Bool isIdle() const = 0; // slot 110
-	virtual void slot111() = 0; virtual void slot112() = 0; virtual void slot113() = 0;
-	virtual void slot114() = 0; virtual void slot115() = 0; virtual void slot116() = 0;
-	virtual void slot117() = 0; virtual void slot118() = 0; virtual void slot119() = 0;
-	virtual void slot120() = 0; virtual void slot121() = 0; virtual void slot122() = 0;
-	virtual void slot123() = 0; virtual void slot124() = 0; virtual void slot125() = 0;
-	virtual void slot126() = 0; virtual void slot127() = 0; virtual void slot128() = 0;
-	virtual void slot129() = 0; virtual void slot130() = 0; virtual void slot131() = 0;
-	virtual void slot132() = 0; virtual void slot133() = 0; virtual void slot134() = 0;
-	virtual void slot135() = 0;
-	virtual void setLocomotorGoalNone() = 0; // slot 136
-	virtual Bool isDoingGroundMovement() const = 0; // slot 137
-
-	Object *checkForCrateToPickup();
-	UnsignedInt getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
-	Object *getNextMoodTarget(Bool calledByAI, Bool calledDuringIdle);
-	void setCurrentVictim(const Object *victim);
-
-	void aiHunt(CommandSourceType cmdSource) { m_commands.aiHunt(cmdSource); }
-	void aiMoveToObject(Object *obj, CommandSourceType cmdSource) { m_commands.aiMoveToObject(obj, cmdSource); }
-	void aiAttackObject(Object *victim, int maxShotsToFire, CommandSourceType cmdSource)
-	{
-		m_commands.rva0026C2D9(victim, maxShotsToFire, cmdSource);
-	}
-	int getBfme34() const { return m_bfme34; }
-	UnsignedInt getNextMoodCheckTime() const { return m_nextMoodCheckTime; }
-	void setBfmeFlag3C7(Bool b) { m_bfmeFlag3C7 = b; }
-
-private:
-	unsigned char m_pad004[0x20 - 0x04];
-	AICommandInterface m_commands; // +0x20
-	unsigned char m_pad021[0x34 - 0x21];
-	int m_bfme34; // +0x34
-	unsigned char m_pad038[0x21C - 0x38];
-	UnsignedInt m_nextMoodCheckTime; // +0x21C
-	unsigned char m_pad220[0x3C7 - 0x220];
-	Bool m_bfmeFlag3C7; // +0x3C7
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 class ThingTemplate
 {
@@ -312,7 +253,7 @@ StateReturnType AIIdleState::update()
 
 	doInitIdleState();
 
-	if (!obj->testStatus(OBJECT_STATUS_BFME_3A) && obj->getAI()->getBfme34() == 0)
+	if (!obj->testStatus(OBJECT_STATUS_BFME_3A) && obj->getAI()->m_nextEnemyScanTime == 0)
 	{
 		if (--m_stancesCountdown <= 0)
 		{
@@ -369,15 +310,15 @@ StateReturnType AIIdleState::update()
 				Object *enemy = ai->getNextMoodTarget(true, true);
 				if (enemy)
 				{
-					ai->aiAttackObject(enemy, NO_MAX_SHOTS_LIMIT, CMD_FROM_AI);
-					ai->setBfmeFlag3C7(true);
+					ai->rva0026C2D9(enemy, NO_MAX_SHOTS_LIMIT, CMD_FROM_AI);
+					ai->m_field3C7 = true;
 					return STATE_CONTINUE;
 				}
 			}
 		}
 
 		UnsignedInt now = TheGameLogic->getFrame();
-		UnsignedInt nextMoodCheckTime = ai->getNextMoodCheckTime();
+		UnsignedInt nextMoodCheckTime = ai->m_field21C;
 		if (nextMoodCheckTime > now)
 		{
 			// if we need to look for targets, might need to sleep less.

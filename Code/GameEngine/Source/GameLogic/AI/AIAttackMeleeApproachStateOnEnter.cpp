@@ -82,13 +82,7 @@ public:
 };
 extern AI *TheAI;
 
-class AIUpdateInterface
-{
-public:
-	void destroyPath();
-	unsigned char m_pad00[0x3CC];
-	Bool m_3cc; // +0x3CC
-};
+#include "../../../Include/GameLogic/Module/AIUpdate.h"
 
 #include "../../Common/Thing/thing.h"
 
@@ -234,11 +228,11 @@ StateReturnType AIAttackMeleeApproachState::onEnter()
 		return STATE_FAILURE;
 	}
 
-	if (source->testStatus(OBJECT_STATUS_44) || source->m_ai->m_3cc)
+	if (source->testStatus(OBJECT_STATUS_44) || source->m_ai->m_field3CC)
 	{
 		if (AI::rva002FE193(source, victim))
 		{
-			if (source->m_ai->m_3cc)
+			if (source->m_ai->m_field3CC)
 			{
 				Weapon *weapon = source->getCurrentWeapon();
 				if (!weapon || !weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
