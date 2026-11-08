@@ -349,11 +349,6 @@ public:
 
 class DamageInfo;
 
-class Rva004581FD
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo);
-};
 
 //
 // ?getBridgeBehaviorInterfaceFromObject@BridgeBehavior@@SAPAVBridgeBehaviorInterface@@PAVObject@@@Z,
@@ -581,7 +576,8 @@ ObjectID BridgeBehavior::getTowerID( BridgeTowerType towerType )
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp
-// ?onDie@BridgeBehavior@@UAEXPBVDamageInfo@@@Z present-unmatched
+// Retail 0x004581FD (79 bytes): slot 0 of the die-interface table 0x00C408EC. BFME 2
+// passes (8, 0) to Object::kill, where Zero Hour's default arguments differ.
 void BridgeBehavior::onDie( const DamageInfo *damageInfo )
 {
 
@@ -592,7 +588,7 @@ void BridgeBehavior::onDie( const DamageInfo *damageInfo )
 
 		tower = TheGameLogic->findObjectByID( getTowerID( (BridgeTowerType)i ) );
 		if( tower )
-			tower->kill();
+			tower->kill( (DamageType)8, (DeathType)0 );
 
 	}  // end for, i
 
@@ -1524,35 +1520,6 @@ void BridgeBehavior::createScaffolding( void )
 
 
 
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004581FDOnDie.cpp
-
-// Target evidence: 0x004581FD is a 79-byte function with a four-iteration
-// tower-ID lookup through the interface at this-8, kills each found object
-// with (8, 0), calls 0x00457577 on this-0x28, then copies GameLogic+0x40 to
-// this+0xDC. The BridgeBehavior constructor installs its bridge and die
-// interface vtables at object+0x20 and object+0x28. The matching ZH
-// BridgeBehavior::onDie source is semantic donor evidence; the target owner
-// remains address-derived. The helper is BridgeBehavior::handleObjectsOnBridgeOnDie
-// (BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp).
-
-void Rva004581FD::onDie(const DamageInfo *)
-{
-	int towerType = 0;
-	BridgeBehaviorInterfaceView *bridge =
-		(BridgeBehaviorInterfaceView *)((char *)this - 8);
-	while (towerType < 4)
-	{
-		ObjectID id = bridge->getTowerID((BridgeTowerType)towerType);
-		Object *tower = TheGameLogic->findObjectByID(id);
-		if (tower)
-			tower->kill((DamageType)8, (DeathType)0);
-		++towerType;
-	}
-	((BridgeBehavior *)((char *)this - 0x28))->handleObjectsOnBridgeOnDie();
-	*(unsigned int *)((char *)this + 0xDC) =
-		*(unsigned int *)((char *)TheGameLogic + 0x40);
-}
 
 // tu-skeleton: 0x004565BD 360B ?getRandomSurfacePosition@BridgeBehavior@@IAEXPAVTerrainRoadType@@PBVBridgeInfo@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
 

@@ -181,7 +181,7 @@ class BridgeBehavior : public UpdateModule,
 											 public DieModuleInterface
 {
 
-	// BFME 2: the die interface's body is rowed as ?onDie@Rva004581FD@@UAEXPBVDamageInfo@@@Z 0x004581FD,
+	// BFME 2: the die interface's body is rowed as ?onDie@BridgeBehavior@@UAEXPBVDamageInfo@@@Z 0x004581FD,
 	// which calls this class's protected handleObjectsOnBridgeOnDie.
 	friend class Rva004581FD;
 	// BFME 2: keeps the rowed select-any setScaffoldData 0x004568EC emitted where no caller is compiled.
