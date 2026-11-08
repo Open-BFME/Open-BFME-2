@@ -78,3 +78,10 @@ definition refusals, with the same 29 bridges/115 slots remaining. The previous
 clone packet's shared-char prerequisite is resolved; full class recovery and
 real-image confirmation remain open. No bridge-retirement or runtime claim.
 [Native proofs and stage-coalescing boundary](../../reverse/attempt_support/particle-copy-table-bindings-20261108/README.md).
+
+Published as 7efac5f6d8; first attempt landed in 29.4 seconds. Required
+row/EH/scoped-DIR32 checks pass after rebase. Broader link audit remains
+INCONCLUSIVE: index d171e84869 versus outgoing base
+0292da473397a175f09d211b8414f863e409d73a; Common/AIBaseBuilder.cpp lacks a
+current receipt. Carry that consumer into the next census/image check;
+this publication does not establish full link closure or runtime progress.

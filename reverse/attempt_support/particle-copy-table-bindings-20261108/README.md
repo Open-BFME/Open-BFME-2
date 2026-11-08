@@ -46,3 +46,10 @@ Remaining work: reconcile the complete concrete/template classes and their
 real table emitters, then confirm the effect on the next published real
 link and image. LINK-636 and LINK-619 retain this boundary. The prior clone
 packet's shared-char prerequisite is now resolved within this cohort.
+
+Published as 7efac5f6d8; first attempt landed in 29.4 seconds. Required
+row/EH/scoped-DIR32 checks pass after rebase. Broader link audit remains
+INCONCLUSIVE: index d171e84869 versus outgoing base
+0292da473397a175f09d211b8414f863e409d73a; Common/AIBaseBuilder.cpp lacks a
+current receipt. Carry that consumer into the next census/image check;
+this publication does not establish full link closure or runtime progress.
