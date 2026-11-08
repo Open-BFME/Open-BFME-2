@@ -118,7 +118,7 @@ public:
 /* ********* MapObject class ****************************/
 /*static*/ MapObject *MapObject::TheMapObjectListPtr = NULL;
 
-/*static*/ Dict MapObject::TheWorldDict;
+// The world dict at 0x00E00944 is one object, defined by Rva003B242CGet.cpp.
 
 // MapObject::verifyValidTeam is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_verifyValidTeamMethodThunk_Rva0030D6C7.cpp (0x0030D6C7).
 

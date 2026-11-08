@@ -27,9 +27,10 @@ Rva00148F5ECache g_00DBDF1C = { NAMEKEY_INVALID, "isLivingWorldScriptHolder" };
 #include "../../Include/Common/Dict.h"
 #include "../../Include/GameClient/Drawable.h"
 
-// g_Va00E00944: VA 0x00e00944 (.data/bss); retail initial bytes 00 00 00 00.
-Dict g_Va00E00944;
-#define TheDict g_Va00E00944
+// MapObject::TheWorldDict: VA 0x00e00944 (.data/bss); retail initial bytes 00 00 00 00.
+class MapObject { public: static Dict TheWorldDict; };
+Dict MapObject::TheWorldDict;
+#define TheDict MapObject::TheWorldDict
 
 class Rva00203688Host
 {

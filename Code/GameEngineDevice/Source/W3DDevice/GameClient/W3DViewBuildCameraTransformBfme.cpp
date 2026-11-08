@@ -132,7 +132,7 @@ extern GameClient *TheGameClient;
 enum NameKeyType { NAMEKEY_INVALID = 0, NAMEKEY_MAX = 1 << 23 };
 class Rva00148F5ECache{public:NameKeyType get();int key;const char*name;};
 class Dict{void*data;public:void setReal(int,float);};
-extern Dict g_Va00E00944;
+class MapObject { public: static Dict TheWorldDict; };
 extern Rva00148F5ECache g_00DBDEEC;
 
 // CameraClass::unused050 is slot 20; the raw transform begins at +0x18.
@@ -387,7 +387,7 @@ void W3DView::buildCameraTransform(Matrix3D *transform)
 	if (TheGameClient->m_cameraSlaveGuard || TheGameClient->m_cameraSlaveActive)
 	{
 		NameKeyType key = g_00DBDEEC.get();
-		g_Va00E00944.setReal(key, m_field28 * 57.2957763671875f);
+		MapObject::TheWorldDict.setReal(key, m_field28 * 57.2957763671875f);
 	}
 
 }
