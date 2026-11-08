@@ -144,16 +144,16 @@ Rva005EE05E::Rva005EE05E(EmitVtableTag *)
 {
 }
 
-class Rva005F00FB
+class MappedImageCache
 {
 public:
-	Rva005F00FB(EmitVtableTag *);
+	MappedImageCache(EmitVtableTag *);
 public:
-	virtual ~Rva005F00FB();
+	virtual ~MappedImageCache();
 };
 
-// ?<Rva005F00FB::Rva005F00FB> absent-from-retail
-Rva005F00FB::Rva005F00FB(EmitVtableTag *)
+// ?<MappedImageCache::MappedImageCache> absent-from-retail
+MappedImageCache::MappedImageCache(EmitVtableTag *)
 {
 }
 
