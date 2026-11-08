@@ -36,7 +36,7 @@ enum CommandSourceType
 
 // BFME-only AnimalAIUpdate::update, retail 0x0047EDC9..0x0047F92D (2916 B).
 // No Zero Hour twin. The update interface is the +0x10 secondary of the
-// object installed by the constructor (0x0047ECA8, vtable VA 0x010C5590
+// object installed by the constructor (0x0047ECA8, vtable VA 0x00C47B8C
 // slot 0). WorldBuilder 0x011B2240 (AnimalAIUpdate.cpp lines 154..245)
 // gives the CritterDesync messages, the call order and the full-expression
 // filter temporaries of both partition queries.
@@ -72,31 +72,7 @@ public:
 	float m_fleeDistance;
 };
 
-class AICommandInterface
-{
-public:
-	void aiIdle(CommandSourceType cmdSource);	// 0x001E8A38
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);	// 0x0026C26D
-};
-
-template <int N> class AnimalAIUpdateSlots : public AnimalAIUpdateSlots<N - 1>
-{
-public:
-	virtual void slot(char (*)[N]);
-};
-
-template <> class AnimalAIUpdateSlots<0>
-{
-};
-
-// chooseLocomotorSet is AIUpdateInterface vslot 142 (+0x238, 0x00268B20).
-class AIUpdateInterface : public AnimalAIUpdateSlots<142>
-{
-public:
-	virtual bool chooseLocomotorSet(int wst);
-	virtual UpdateSleepTime update();	// 0x0026E267, called on the +0x10 interface
-	int rva00260DED() const;	// 0x00260DED, current state ID
-};
+#include "../../../../../Include/GameLogic/Module/AIUpdate.h"
 
 enum NameKeyType
 {
@@ -351,9 +327,16 @@ static __forceinline ObjectID animalID(Object *object)
 
 static __forceinline const char *animalDebugName(Object*object){return ((const StringBase<char> *)&object->getTemplate()->getName())->str();}
 
-static __forceinline AICommandInterface*animalCommands(AnimalAIUpdate*self){return (AICommandInterface*)((char*)self+0x10);}
+// The current update body receives the secondary interface at whole-object +0x10.
+static __forceinline AIUpdateInterface *animalPrimary(AnimalAIUpdate *self)
+{
+	return (AIUpdateInterface *)((char *)self - 0x10);
+}
 
-static __forceinline AIUpdateInterface *animalPrimary(AnimalAIUpdate *self){return (AIUpdateInterface *)((char *)self - 0x10);}
+static __forceinline AICommandInterface *animalCommands(AnimalAIUpdate *self)
+{
+	return (AICommandInterface *)((char *)self + 0x10);
+}
 
 static __forceinline Coord3D *originalPosition(AnimalAIUpdate *self)
 {
@@ -391,7 +374,7 @@ UpdateSleepTime AnimalAIUpdate::update()
 	AnimalStateView *state = machine->m_currentState;
 	int stateID = state ? state->m_id : 999999;
 
-	((AIUpdateInterface *)self)->AIUpdateInterface::update();
+	animalPrimary(self)->AIUpdateInterface::update();
 
 	if (!processedOne(self))
 	{

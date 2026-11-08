@@ -1,0 +1,20 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp",
+  "code_comdat_count": 63,
+  "all_code_bodies_relocations_flags_policies_equal": true,
+  "named_data_count": 30,
+  "all_named_data_equal": true,
+  "all_external_definitions_equal": true,
+  "undefined_references_equal": true,
+  "added_definitions": [],
+  "removed_definitions": [],
+  "update_size": 2916,
+  "parent_update_relocation_offset": "0x3D",
+  "parent_update_symbol": "?update@AIUpdateInterface@@UAE?AW4UpdateSleepTime@@XZ",
+  "parent_call_setup_bytes_at_0x3a": "8bcfe800000000",
+  "retail_secondary_update_table_va": "0x00C47B8C",
+  "retail_slot_zero_va": "0x87edc9",
+  "original_object_sha256": "e1916f86d4446e74f4ee661c45e83727fd0504a1ee3ff2b49394233e033265d4",
+  "current_object_sha256": "dd783f0c48994ccceaffee6d07f64ef8c0185d6cacbc1937249b89674b6399c3",
+  "current_source_sha256": "2eefdb80fa911b9b514ec94b3aa32db93db876ebd2ef86d9f6bb9e4777ec7297"
+}

@@ -19,3 +19,8 @@ Published as 2058c08f50 on attempt3 (28.7 seconds for the successful
 attempt). Required checks pass; the broader audit remains INCONCLUSIVE
 against c885072a48 because Animal lacked a current strict receipt after
 rebase. No current-image closure is claimed.
+
+Later on 2026-11-08, Animal's AICommandInterface and AIUpdateInterface
+header debts are also cleared with all 15 rows and three EH graphs exact.
+The complete Animal class and TU merge prerequisites remain; LINK-181 and
+the Animal AI interface packet record that narrower receiver repair.

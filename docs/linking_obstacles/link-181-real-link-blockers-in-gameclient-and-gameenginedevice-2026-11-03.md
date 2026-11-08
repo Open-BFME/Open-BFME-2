@@ -571,3 +571,13 @@ Animal's canonical AICommandParms adoption also passes, retiring one further
 header debt with all 15 rows and three EH graphs exact. AI interface and full
 class adoption remain prerequisites; LINK-592 records the removed helper's
 strict replacement-provider proof and the unchanged link preview.
+
+**2026-11-08 Animal AI interfaces:** canonical AICommandInterface and
+AIUpdateInterface adoption now clears two further header debts. The primary
+bridge supplies the canonical parent's secondary update call; the command
+bridge preserves its proven receiver and register allocation. All 15 rows
+and three EH graphs remain exact, with all 63 code COMDAT facts, 30 named
+data allocations and external bindings unchanged. Preview still conserves
+LINKS/3,167 bytes. The complete Animal class, its donors and TU composition
+remain open; no current image or runtime clearance.
+[Receiver controls and object proof](../../reverse/attempt_support/animal-ai-interfaces-adoption-20261108/README.md).
