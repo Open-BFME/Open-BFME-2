@@ -42,13 +42,6 @@ typedef float Real;
 
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_SUCCESS = -1,
-	STATE_FAILURE = -2
-};
-
 enum WeaponChoiceCriteria
 {
 	PREFER_BEST_OVERALL = 0,
@@ -287,44 +280,7 @@ public:
 
 #include "../../../../../Include/GameLogic/Weapon.h"
 
-class StateMachine
-{
-public:
-	virtual void slot00(); virtual void slot01(); virtual void slot02();
-	virtual void slot03(); virtual void slot04(); virtual void slot05();
-	virtual void slot06(); virtual void slot07(); virtual void slot08();
-	virtual void slot09(); virtual void slot10(); virtual void slot11();
-	virtual void slot12(); virtual void slot13();
-	virtual void setGoalObject(const Object *object); // +0x38
-
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
-	const Coord3D *getGoalPositionRV() const { return &m_goalPosition; }
-	void setGoalPosition(const Coord3D *pos);
-
-private:
-	unsigned char m_pad04[0x14 - 4];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
-	Coord3D m_goalPosition; // +0x24
-};
-
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit();
-	virtual StateReturnType update();
-protected:
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	StateMachine *getMachine() const { return m_machine; }
-	unsigned char m_pad04[0x18 - 4];
-	StateMachine *m_machine; // +0x18
-};
+#include "../../../../../Include/Common/StateMachineClass.h"
 
 class AIGiantBirdSwoopState : public State
 {
@@ -333,7 +289,6 @@ public:
 	virtual StateReturnType update();
 	void rva0036C438(Bool force);
 private:
-	unsigned char m_pad1C[4];
 	ObjectID m_targetID; // +0x20
 	Coord3D m_pos; // +0x24
 	Bool m_enabled; // +0x30
@@ -357,7 +312,7 @@ StateReturnType AIGiantBirdSwoopState::onEnter()
 	if (m_targetID == INVALID_OBJECT_ID)
 	{
 		owner->chooseBestWeaponForTarget(0, PREFER_BEST_OVERALL, CMD_FROM_AI);
-		m_pos = *m_machine->getGoalPositionRV();
+		m_pos = *m_machine->getGoalPosition();
 		ai->m_victimID4C0 = INVALID_OBJECT_ID;
 		{
 			GeometryInfo geometry(owner->getGeometryInfo());

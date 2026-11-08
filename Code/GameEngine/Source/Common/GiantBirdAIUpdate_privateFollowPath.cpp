@@ -9,6 +9,8 @@
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
+#include "../../Include/Common/StateMachineClass.h"
+
 #include "../GameLogic/Object/object.h"
 
 #include "../../Include/GameLogic/Waypoint.h"
@@ -27,21 +29,6 @@ public:
 	char m_pad[0x3c];
 	Rva0035149F m_vec;
 	Rva0035149F &rva00351759(const Rva0035149F &other);
-};
-
-class StateMachine
-{
-public:
-	virtual void vslot00();
-	virtual void vslot04();
-	virtual void vslot08();
-	virtual void vslot0c();
-	virtual void vslot10();
-	virtual void vslot14();
-	virtual void vslot18();
-	virtual void vslot1c();
-	virtual void vslot20(int v);
-	void setGoalPosition(const Coord3D *pos, float v);
 };
 
 class AIStateMachine
@@ -69,7 +56,7 @@ void GiantBirdAIUpdate::privateFollowPath(const Rva0035149F &path, const Object 
 {
 	if (!m_object->isMobile())
 		return;
-	m_machine->vslot14();
+	m_machine->clear();
 	unsigned int n = (unsigned int)(path.m_finish - path.m_start);
 	if (n > 0)
 	{
@@ -83,6 +70,6 @@ void GiantBirdAIUpdate::privateFollowPath(const Rva0035149F &path, const Object 
 	((Rva00351759 *)m_machine)->rva00351759(path);
 	((AIStateMachine *)this)->setGoalWaypoint(goal);
 	((AIUpdateInterface *)this)->ignoreObstacle(obstacle);
-	m_machine->vslot20(0x3f6);
+	m_machine->setState(0x3f6);
 	m_flag528 = 1;
 }

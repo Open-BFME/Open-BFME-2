@@ -36,27 +36,15 @@ public:
 	virtual void v28();
 	virtual void v2c();
 	virtual void v30();
-	virtual void onSlot34( int v );
+	virtual void onSlot34( Object *v );
 };
 
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void halt();
-
-private:
-	char m_pad04[ 8 ];
-};
+#include "../../Include/Common/StateMachineClass.h"
 
 class Rva005440BC : public StateMachine
 {
 public:
 	virtual void halt();
-
-private:
-	char m_pad0C[ 8 ];
-	int m_14;
 };
 
 void Rva005440BC::halt()
@@ -70,7 +58,7 @@ void Rva005440BC::halt()
 	if( bec == 0 )
 		goto halt;
 
-	bec->onSlot34( m_14 );
+	bec->onSlot34( m_owner );
 
 halt:
 	StateMachine::halt();

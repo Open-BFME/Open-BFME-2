@@ -17,13 +17,7 @@ enum AbleToAttackType { ATTACK_TYPE_0 = 0 };
 enum CommandSourceType { COMMAND_SOURCE_0 = 0 };
 #include "../Object/object.h"
 
-class StateMachine
-{
-public:
-	Object *getGoalObject();
-    char unknown00[0x14];
-    Object *owner;
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class Rva00343F8A
 {
 public:
@@ -76,7 +70,7 @@ struct ConditionWeaponView { char first[4]; ConditionWeaponTemplateView *info; }
 bool cannotPossiblyAttackObject(Rva00343F8A *state, void *data)
 {
     StateMachine *machine = state->m_machine;
-    Object *owner = machine->owner;
+    Object *owner = machine->m_owner;
     Object *goal = machine->getGoalObject();
     if (!goal || (reinterpret_cast<ConditionGoalView *>(goal)->flags & 1))
     {

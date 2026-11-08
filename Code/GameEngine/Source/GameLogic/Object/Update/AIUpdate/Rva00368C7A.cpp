@@ -139,9 +139,8 @@ class Rva0036748E{public:void rva0036C897(bool);};
 class FollowAI:public FollowSlots<142>{public:virtual void chooseLocomotorSet(int)=0;char pad4[0x1f0-4];Rva00368C7AMetrics*metrics;char pad1f4[0x4b8-0x1f4];unsigned flags;char pad4bc[8];ObjectID victim;char pad4c8[0x4ec-0x4c8];bool success;char pad4ed[0x558-0x4ed];bool follow;char pad559[3];int mode;bool test(int bit)const{return (flags>>bit)&1;}};
 class FollowFlags{public:unsigned words[19];unsigned test(int bit)const{return words[bit>>5]&(1u<<(bit&31));}void set(int bit){words[bit>>5]|=1u<<(bit&31);}void reset(int bit){words[bit>>5]&=~(1u<<(bit&31));}};
 class Object{public:void rva0028AE6D();char pad0[0x38];Coord3D position;char pad44[0x10c-0x44];FollowFlags flags;char pad158[0x258-0x158];FollowAI*ai;char pad25c[0x438-0x25c];unsigned char status;__forceinline void clear(int bit){if(flags.test(bit)){flags.reset(bit);rva0028AE6D();}}__forceinline void set(int bit){if(!flags.test(bit)){flags.set(bit);rva0028AE6D();}}};
-class StateMachine{public:void setGoalPosition(const Coord3D*,float);char pad0[0x14];Object*owner;};
+#include "../../../../../Include/Common/StateMachineClass.h"
 class FollowTerrain:public FollowSlots<6>{public:virtual float height(float,float,Coord3D*)=0;};class TerrainLogic;extern TerrainLogic*TheTerrainLogic;
-enum StateReturnType{STATE_CONTINUE=0,STATE_FAILURE=-2};
 // set/scale/add mirror the Coord3D helpers WB F30B00 calls (scale 41A300, add 419C70);
 // retail inlines them. The matrix view is the owner transform at +08.
 struct FollowPosition:public Coord3D{__forceinline FollowPosition(){}__forceinline FollowPosition(const FollowPosition&r){x=r.x;y=r.y;z=r.z;}__forceinline FollowPosition(float xx,float yy,float zz){x=xx;y=yy;z=zz;}
@@ -152,7 +151,7 @@ struct FollowSamplingData{char pad0[0x74];float limit,step,slope;};
 struct FollowAIData{char pad0[4];FollowSamplingData*data;};
 class Rva0036C6AFState:public FollowSlots<4>{public:virtual StateReturnType onEnter();FollowPosition rva0036C8A5(bool*,bool);bool rva0036CA3B(const Coord3D*,float);char pad4[0x18-4];StateMachine*machine;char pad1c[4];bool enabled;char pad21[3];int counter;};
 StateReturnType Rva0036C6AFState::onEnter(){
- counter=0;Object*owner=machine->owner;owner->clear(155);FollowAI*ai=owner->ai;if(!ai)return STATE_FAILURE;ai->follow=true;if(owner->status&1)return STATE_FAILURE;
+ counter=0;Object*owner=machine->m_owner;owner->clear(155);FollowAI*ai=owner->ai;if(!ai)return STATE_FAILURE;ai->follow=true;if(owner->status&1)return STATE_FAILURE;
  ai->chooseLocomotorSet(0);Rva00368C7AMetrics*locomotor=ai->metrics;if(!locomotor)return STATE_FAILURE;
  bool result=false;FollowPosition goal=rva0036C8A5(&result,enabled);float desired=goal.z+(this?locomotor:locomotor)->value48;
  float ground=((FollowTerrain*)TheTerrainLogic)->height(goal.x,goal.y,0);float minimum=ground+(this?locomotor:locomotor)->value48*1.25f;
@@ -169,7 +168,7 @@ StateReturnType Rva0036C6AFState::onEnter(){
 // X axis) in step increments up to the sampling limit while the goal check 36CA3B accepts the
 // sample. The separate X-axis vector and direction locals are retail's frame 48.
 FollowPosition Rva0036C6AFState::rva0036C8A5(bool*shortGoal,bool longer){
- Object*owner=machine->owner;FollowPosition best=*(const FollowPosition*)&owner->position;float reached=0.0f;FollowAI*ai=owner->ai;
+ Object*owner=machine->m_owner;FollowPosition best=*(const FollowPosition*)&owner->position;float reached=0.0f;FollowAI*ai=owner->ai;
  if(!ai)return best;
  float height=owner->position.z;const FollowMatrix*mtx=(const FollowMatrix*)((char*)owner+8);FollowVector v=mtx->Get_X_Vector();
  FollowPosition dir;dir.set(v.X,v.Y,v.Z);

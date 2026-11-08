@@ -12,15 +12,6 @@
 // Object::isOutOfAmmo.
 #include <windows.h>
 typedef bool Bool;
-enum StateExitType
-{
-	EXIT_NORMAL = 0
-};
-enum StateReturnType
-{
-	STATE_CONTINUE = 0,
-	STATE_FAILURE = -2
-};
 #include "../../../Include/Common/ThingTemplate.h"
 class Object
 {
@@ -31,48 +22,15 @@ private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
 };
-class StateMachine
-{
-public:
-	virtual ~StateMachine();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType updateStateMachine();
-	Object *getOwner() const { return m_owner; }
-	void lock(const char *msg) { m_locked = true; }
-	__declspec(dllimport) __forceinline void unlock() { m_locked = false; }
-private:
-	unsigned char m_pad04[0x14 - 0x04];
-	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x38 - 0x18];
-	Bool m_locked; // +0x38
-};
+#include "../../../Include/Common/StateMachineClass.h"
 class AITNGuardMachine : public StateMachine
 {
-};
-class State
-{
-public:
-	virtual ~State();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual StateReturnType onEnter();
-	virtual void onExit(StateExitType status);
-	virtual StateReturnType update();
-protected:
-	StateMachine *getMachine() const { return m_machine; }
-	Object *getMachineOwner() const { return m_machine->getOwner(); }
-	unsigned char m_pad04[0x18 - 0x04];
-	StateMachine *m_machine; // +0x18
 };
 class AITunnelNetworkGuardState : public State
 {
 public:
 	virtual StateReturnType update();
 private:
-	unsigned char m_pad1C[0x20 - 0x1C];
 	AITNGuardMachine *m_guardMachine; // +0x20
 };
 
@@ -91,8 +49,8 @@ StateReturnType AITunnelNetworkGuardState::update()
 		return STATE_FAILURE;
 	}
 
-	getMachine()->lock("AITunnelNetworkGuardState::update");	// We don't want to switch out of guard during the update.
+	getMachine()->m_locked = true;	// Retail inlines lock here: we don't want to switch out of guard during the update.
 	StateReturnType ret = m_guardMachine->updateStateMachine();
-	getMachine()->unlock();
+	getMachine()->m_locked = false;
 	return ret;
 }

@@ -10,13 +10,7 @@ class AttackExitConditionsInterface;
 class State;
 struct StateConditionInfo;
 
-class StateMachine
-{
-public:
-	StateMachine(Object *owner, unsigned int name, bool flag);
-	virtual ~StateMachine();
-	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
-};
+#include "../../../Include/Common/StateMachineClass.h"
 
 
 class AIAttackState
@@ -52,7 +46,6 @@ class Rva0034B952 : public StateMachine
 {
 public:
 	Rva0034B952(Object *owner, unsigned int name);
-private:unsigned char m_allocatedExtent[0x38];
 };
 
 Rva0034B952::Rva0034B952(Object *owner, unsigned int name)

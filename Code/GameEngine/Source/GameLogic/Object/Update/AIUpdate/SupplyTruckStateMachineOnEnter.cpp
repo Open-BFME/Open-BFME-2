@@ -36,8 +36,7 @@
 // the regrouping table is written as its own array with the busy table's
 // entries; the identical pair shares one address in retail. The
 // machine's dtor is the rowed 0x004A6C59 (11 bytes, vtable store and jmp to
-// the base dtor) and is only declared here. State is a struct in this view
-// because the rowed defineState is spelled with one.
+// the base dtor) and is only declared here.
 typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -96,16 +95,6 @@ class BitFlags
 }
 ;
 typedef BitFlags<116> KindOfMaskType;
-enum StateReturnType
-
-{
- STATE_CONTINUE = 0,
- STATE_SUCCESS = -1,
- STATE_FAILURE = -2
- 
-}
-;
-typedef UnsignedInt StateID;
 enum
 
 {
@@ -340,7 +329,6 @@ struct FindPositionOptions
 ;
 // BFME 2's findPositionAround is static (cdecl, pinned at 0x00285202).
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
-struct State;
 #include "../../../../../Include/Common/StateConditionInfo.h"
 // A dead local with a destructor gives onEnter retail's unwind bookkeeping
 // (the esp saves around the by-value BitFlags arguments) without emitting a
@@ -349,44 +337,7 @@ struct DockingUnwindScope
 {
  ~DockingUnwindScope();
 };
-class StateMachine
-
-{
- public:
- virtual ~StateMachine();
- void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
- Object *getOwner() const 
- {
-  return m_owner;
-  
- }
- protected:
- unsigned char m_pad04[0x14 - 0x04];
- Object *m_owner;
-// +0x14
- unsigned char m_pad18[0x3C - 0x18];
-// operator new size 0x3C
- 
-}
-;
-struct State
-
-{
- public:
- virtual ~State();
- Object *getMachineOwner() const 
- {
-  return m_machine->getOwner();
-  
- }
- protected:
- unsigned char m_pad04[0x18 - 0x04];
- StateMachine *m_machine;
-// +0x18
- unsigned char m_pad1C[0x20 - 0x1C];
- 
-}
-;
+#include "../../../../../Include/Common/StateMachineClass.h"
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
 // address as ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z; the key is
 // taken as one dword, as in the dozer and worker machines' TUs.
@@ -408,9 +359,6 @@ class Rva004A6956 : public State
 {
  public:
  Rva004A6956(StateMachine *machine);
- virtual void s01();
- virtual void s02();
- virtual void s03();
  virtual StateReturnType onEnter();
 // slot 4
  
@@ -422,9 +370,6 @@ class Rva004A6979 : public State
 {
  public:
  Rva004A6979(StateMachine *machine);
- virtual void s01();
- virtual void s02();
- virtual void s03();
  virtual StateReturnType onEnter();
 // slot 4
  
