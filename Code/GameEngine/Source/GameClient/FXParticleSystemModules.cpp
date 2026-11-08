@@ -37,11 +37,23 @@ namespace FXParticleSystem
 
 
 
-class SecondaryModuleBase
+// Retail's nested category shape (LINK-584): one pure slot, protected non-virtual destructor.
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
 {
 public:
-    virtual ~SecondaryModuleBase();
     virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo();
+};
+
+template <int CATEGORY_ARG>
+class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<CATEGORY_ARG>
+{
+public:
+    CategoryModuleTemplateBase();
+    CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY_ARG> &that);
 };
 
 struct FXCoord3D
@@ -182,7 +194,7 @@ template <int CATEGORY>
 class CategoryModuleTemplate;
 
 template <>
-class CategoryModuleTemplate<6> : public ModuleTemplate, public SecondaryModuleBase
+class CategoryModuleTemplate<6> : public CategoryModuleTemplateBase<6>
 {
 public:
     CategoryModuleTemplate();
@@ -190,7 +202,7 @@ public:
 };
 
 template <>
-class CategoryModuleTemplate<8> : public ModuleTemplate, public SecondaryModuleBase,
+class CategoryModuleTemplate<8> : public CategoryModuleTemplateBase<8>,
                                   public EventModuleInfo
 {
 public:
@@ -207,7 +219,7 @@ public:
 // data + vptr = 72, + 8 = 80 = 0x50 retail clone push at 0x003A9499).
 
 template <>
-class CategoryModuleTemplate<7> : public ModuleTemplate, public SecondaryModuleBase,
+class CategoryModuleTemplate<7> : public CategoryModuleTemplateBase<7>,
                                   public WindModuleInfo
 {
 public:
@@ -303,8 +315,8 @@ public:
 
 
 
-#define FX_MODULE_TEMPLATE(NAME, INFO)                                                             \
-    class NAME : public ModuleTemplate, public SecondaryModuleBase, public INFO                    \
+#define FX_MODULE_TEMPLATE(NAME, INFO, CAT)                                                             \
+    class NAME : public CategoryModuleTemplateBase<CAT>, public INFO                    \
     {                                                                                              \
     public:                                                                                        \
         NAME();                                                                                    \
@@ -314,20 +326,20 @@ public:
         NAME &operator=(const NAME &that);                                                         \
     };
 
-FX_MODULE_TEMPLATE(PointEmissionVolumeModuleTemplate, EmissionVolumeInfo)
-FX_MODULE_TEMPLATE(SphereEmissionVolumeModuleTemplate, SphereEmissionVolumeInfo)
-FX_MODULE_TEMPLATE(BoxEmissionVolumeModuleTemplate, BoxEmissionVolumeInfo)
-FX_MODULE_TEMPLATE(LineEmissionVolumeModuleTemplate, LineEmissionVolumeInfo)
-FX_MODULE_TEMPLATE(CylinderEmissionVolumeModuleTemplate, CylinderEmissionVolumeInfo)
-FX_MODULE_TEMPLATE(SphericalEmissionVelocityModuleTemplate, SphericalEmissionVelocityInfo)
-FX_MODULE_TEMPLATE(HemisphericalEmissionVelocityModuleTemplate, HemisphericalEmissionVelocityInfo)
-FX_MODULE_TEMPLATE(CylindricalEmissionVelocityModuleTemplate, CylindricalEmissionVelocityInfo)
-FX_MODULE_TEMPLATE(OutwardEmissionVelocityModuleTemplate, OutwardEmissionVelocityInfo)
-FX_MODULE_TEMPLATE(OrthoEmissionVelocityModuleTemplate, OrthoEmissionVelocityInfo)
-FX_MODULE_TEMPLATE(LightningDrawModuleTemplate, LightningDrawModuleInfo)
-FX_MODULE_TEMPLATE(TerrainFireEmissionModuleTemplate, TerrainFireEmissionInfo)
-FX_MODULE_TEMPLATE(LightningEmissionModuleTemplate, LightningEmissionInfo)
-FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInfo)
+FX_MODULE_TEMPLATE(PointEmissionVolumeModuleTemplate, EmissionVolumeInfo, 5)
+FX_MODULE_TEMPLATE(SphereEmissionVolumeModuleTemplate, SphereEmissionVolumeInfo, 5)
+FX_MODULE_TEMPLATE(BoxEmissionVolumeModuleTemplate, BoxEmissionVolumeInfo, 5)
+FX_MODULE_TEMPLATE(LineEmissionVolumeModuleTemplate, LineEmissionVolumeInfo, 5)
+FX_MODULE_TEMPLATE(CylinderEmissionVolumeModuleTemplate, CylinderEmissionVolumeInfo, 5)
+FX_MODULE_TEMPLATE(SphericalEmissionVelocityModuleTemplate, SphericalEmissionVelocityInfo, 4)
+FX_MODULE_TEMPLATE(HemisphericalEmissionVelocityModuleTemplate, HemisphericalEmissionVelocityInfo, 4)
+FX_MODULE_TEMPLATE(CylindricalEmissionVelocityModuleTemplate, CylindricalEmissionVelocityInfo, 4)
+FX_MODULE_TEMPLATE(OutwardEmissionVelocityModuleTemplate, OutwardEmissionVelocityInfo, 4)
+FX_MODULE_TEMPLATE(OrthoEmissionVelocityModuleTemplate, OrthoEmissionVelocityInfo, 4)
+FX_MODULE_TEMPLATE(LightningDrawModuleTemplate, LightningDrawModuleInfo, 6)
+FX_MODULE_TEMPLATE(TerrainFireEmissionModuleTemplate, TerrainFireEmissionInfo, 5)
+FX_MODULE_TEMPLATE(LightningEmissionModuleTemplate, LightningEmissionInfo, 5)
+FX_MODULE_TEMPLATE(RenderObjectUpdateModuleTemplate, RenderObjectUpdateModuleInfo, 2)
 #define FX_DRAW_MODULE_TEMPLATE(NAME, INFO) \
     class NAME : public CategoryModuleTemplate<6>, public INFO \
     { \
@@ -347,7 +359,7 @@ FX_DRAW_MODULE_TEMPLATE(GpuDrawModuleTemplate, GpuDrawModuleInfo)
 // over there.
 class StreakDrawModule;
 
-class StreakDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+class StreakDrawModuleTemplate : public CategoryModuleTemplateBase<6>,
                                  public StreakDrawModuleInfo
 {
 public:
@@ -358,7 +370,7 @@ public:
 
 class QuadDrawModule;
 
-class QuadDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+class QuadDrawModuleTemplate : public CategoryModuleTemplateBase<6>,
                                public QuadDrawModuleInfo
 {
 public:
@@ -369,7 +381,7 @@ public:
 
 class ButterflyDrawModule;
 
-class ButterflyDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+class ButterflyDrawModuleTemplate : public CategoryModuleTemplateBase<6>,
                                     public ButterflyDrawModuleInfo
 {
 public:
@@ -709,7 +721,7 @@ OrthoEmissionVelocityModuleTag &(OrthoEmissionVelocityModuleTag::*g_orthoEmissio
     const OrthoEmissionVelocityModuleTag &) = &OrthoEmissionVelocityModuleTag::operator=;
 
 // The per-category default templates, each over the info its own category uses.
-#define FX_DEFAULT_TEMPLATE(CATEGORY, INFO)                                                            template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase,                                                 public INFO                                                {                                                                                                  public:                                                                                                DefaultModuleTemplate();                                                                           DefaultModuleTemplate(const DefaultModuleTemplate<CATEGORY> &that); virtual ~DefaultModuleTemplate();                            };
+#define FX_DEFAULT_TEMPLATE(CATEGORY, INFO)                                                            template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public CategoryModuleTemplateBase<CATEGORY>,                                                 public INFO                                                {                                                                                                  public:                                                                                                DefaultModuleTemplate();                                                                           DefaultModuleTemplate(const DefaultModuleTemplate<CATEGORY> &that); virtual ~DefaultModuleTemplate();                            };
 
 template <int CATEGORY>
 class DefaultModuleTemplate;

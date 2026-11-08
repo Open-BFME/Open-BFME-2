@@ -135,40 +135,36 @@ public:
     bool m_second;
 };
 
-// A second polymorphic base sitting at offset 4: the CategoryModuleTemplate
-// constructors store a .rdata vtable there both before and after the primary
-// vtable store, which is what a base and derived pair of identical (and so
-// COMDAT-folded) tables looks like. Its identity is not recovered yet.
-//
-// Its destructor has to be defined here, not just declared: the
-// CategoryModuleTemplate<1> destructor at 0x00001F18 inlines it down to the one
-// vtable store, behind the null-checked +4 adjustment of `this`.
-class SecondaryModuleBase
+enum ModuleCategory
 {
-public:
-    SecondaryModuleBase();
-
-    virtual ~SecondaryModuleBase();
-    virtual void v1() = 0;
+    MODULE_CATEGORY_FIRST
 };
 
-// ?SecondaryModuleBase::SecondaryModuleBase present-unmatched
-// Nine bytes of vptr store. The shape occurs at 13 function starts in retail
-// at exactly this extent — ModuleTemplate at 0x000011B4, Snapshot at
-// 0x000053A6, Xfer at 0x000053DE, EmissionVelocityInfo at 0x001F35C5 and on —
-// so the body is in the image and ICF has folded every copy of it together.
-// Which fold the linker gave this class is what is not pinned.
-SecondaryModuleBase::SecondaryModuleBase()
+// The per-category info base. Every module template carries one, which is what
+// the secondary vtable names spell out: CategoryModuleTemplate<0>'s second
+// table is "6B?$CategoryModuleInfo@$0A@@1@". The class itself is empty and
+// polymorphic - all four of its special members are a vtable store and nothing
+// else - so ICF folds each one across the nine categories onto one address.
+//
+// Its destructor is protected and non-virtual (IAE, not MAE), so the vptr store
+// it makes is the one a derived destructor inherits rather than dispatches to.
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
 {
-}
+public:
+    // Retail exports this category number as data (a W4ModuleCategory, folded with other
+    // constants there; /OPT:NOICF keeps each one apart here).
+    static const ModuleCategory CATEGORY;
 
-// ?SecondaryModuleBase::~SecondaryModuleBase present-unmatched
-// Seven bytes, and the most folded body in the image: 139 function starts
-// carry exactly these bytes at exactly this extent, ~ModuleTemplate at
-// 0x000011BD and ~Xfer at 0x000053E7 among them. Present, unpinnable.
-inline SecondaryModuleBase::~SecondaryModuleBase()
-{
-}
+    CategoryModuleInfo() {}
+    CategoryModuleInfo(const CategoryModuleInfo<CATEGORY_ARG> &that);
+    CategoryModuleInfo<CATEGORY_ARG> &operator=(const CategoryModuleInfo<CATEGORY_ARG> &that);
+
+    virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo();
+};
 
 // EventModuleInfo lands at offset 8, behind both vtables. Its assignment is the
 // compiler-generated one, reached only through the generated assignment of a
@@ -194,34 +190,34 @@ struct CategoryInfo<8>
 // folded into every derived one, but its COPY constructor is a real call - and
 // ICF folds the nine instantiations onto one address, since none of them
 // depends on the category.
-template <int CATEGORY>
-class CategoryModuleTemplateBase : public ModuleTemplate, public SecondaryModuleBase
+template <int CATEGORY_ARG>
+class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<CATEGORY_ARG>
 {
 public:
     CategoryModuleTemplateBase() {}
-    __declspec(noinline) CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY> &that);
+    __declspec(noinline) CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY_ARG> &that);
 };
 
 // Kept out of line so the derived copy constructors still call it, which is how
 // retail spells them. The body is the generated one: the two base copies fold
 // down to their vtable stores, and the derived fixup repeats the second.
-template <int CATEGORY>
-CategoryModuleTemplateBase<CATEGORY>::CategoryModuleTemplateBase(
-    const CategoryModuleTemplateBase<CATEGORY> &)
+template <int CATEGORY_ARG>
+CategoryModuleTemplateBase<CATEGORY_ARG>::CategoryModuleTemplateBase(
+    const CategoryModuleTemplateBase<CATEGORY_ARG> &)
 {
 }
 
-template <int CATEGORY>
-class CategoryModuleTemplate : public CategoryModuleTemplateBase<CATEGORY>,
-                               public CategoryInfo<CATEGORY>::Type
+template <int CATEGORY_ARG>
+class CategoryModuleTemplate : public CategoryModuleTemplateBase<CATEGORY_ARG>,
+                               public CategoryInfo<CATEGORY_ARG>::Type
 {
 public:
     CategoryModuleTemplate();
     virtual void v1();
 };
 
-template <int CATEGORY>
-inline CategoryModuleTemplate<CATEGORY>::CategoryModuleTemplate() {}
+template <int CATEGORY_ARG>
+inline CategoryModuleTemplate<CATEGORY_ARG>::CategoryModuleTemplate() {}
 
 // The category destructor inlines the two base vptr restores.
 template <>
@@ -318,10 +314,6 @@ extern const ModuleCategoryNames TheModuleCategoryNames[] = {
     {"Event", "Event"},
 };
 
-enum ModuleCategory
-{
-    MODULE_CATEGORY_FIRST
-};
 
 const char *GetName(ModuleCategory category)
 {
@@ -840,31 +832,6 @@ CategoryModuleClass<8>::CategoryModuleClass(bool isDefault, const char *key, con
     s_first = this;
 }
 
-// The per-category info base. Every module template carries one, which is what
-// the secondary vtable names spell out: CategoryModuleTemplate<0>'s second
-// table is "6B?$CategoryModuleInfo@$0A@@1@". The class itself is empty and
-// polymorphic - all four of its special members are a vtable store and nothing
-// else - so ICF folds each one across the nine categories onto one address.
-//
-// Its destructor is protected and non-virtual (IAE, not MAE), so the vptr store
-// it makes is the one a derived destructor inherits rather than dispatches to.
-template <int CATEGORY_ARG>
-class CategoryModuleInfo
-{
-public:
-    // Retail exports this category number as data (a W4ModuleCategory, folded with other
-    // constants there; /OPT:NOICF keeps each one apart here).
-    static const ModuleCategory CATEGORY;
-
-    CategoryModuleInfo() {}
-    CategoryModuleInfo(const CategoryModuleInfo<CATEGORY_ARG> &that);
-    CategoryModuleInfo<CATEGORY_ARG> &operator=(const CategoryModuleInfo<CATEGORY_ARG> &that);
-
-    virtual void v1() = 0;
-
-protected:
-    ~CategoryModuleInfo();
-};
 
 // Written out rather than left to the compiler: the class is abstract, so
 // nothing in this file can name the generated copy constructor to force it out.
@@ -1345,7 +1312,7 @@ SphericalEmissionVelocityAssign g_sphericalEmissionVelocityAssign =
 // constructor stores the secondary table twice, before and after the primary,
 // exactly as the category templates do.
 
-class PointEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public EmissionVolumeInfo
+class PointEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public EmissionVolumeInfo
 {
 public:
     virtual void v1();
@@ -1353,7 +1320,7 @@ public:
 
 PointEmissionVolumeModuleTemplate g_pointEmissionVolumeModuleTemplate;
 
-class SphereEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public SphereEmissionVolumeInfo
+class SphereEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public SphereEmissionVolumeInfo
 {
 public:
     virtual void v1();
@@ -1361,7 +1328,7 @@ public:
 
 SphereEmissionVolumeModuleTemplate g_sphereEmissionVolumeModuleTemplate;
 
-class BoxEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public BoxEmissionVolumeInfo
+class BoxEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public BoxEmissionVolumeInfo
 {
 public:
     BoxEmissionVolumeModuleTemplate();
@@ -1378,7 +1345,7 @@ BoxEmissionVolumeModuleTemplate::BoxEmissionVolumeModuleTemplate()
 
 BoxEmissionVolumeModuleTemplate g_boxEmissionVolumeModuleTemplate;
 
-class LineEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LineEmissionVolumeInfo
+class LineEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public LineEmissionVolumeInfo
 {
 public:
     LineEmissionVolumeModuleTemplate();
@@ -1395,7 +1362,7 @@ LineEmissionVolumeModuleTemplate::LineEmissionVolumeModuleTemplate()
 
 LineEmissionVolumeModuleTemplate g_lineEmissionVolumeModuleTemplate;
 
-class CylinderEmissionVolumeModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public CylinderEmissionVolumeInfo
+class CylinderEmissionVolumeModuleTemplate : public CategoryModuleTemplateBase<5>, public CylinderEmissionVolumeInfo
 {
 public:
     CylinderEmissionVolumeModuleTemplate();
@@ -1412,7 +1379,7 @@ CylinderEmissionVolumeModuleTemplate::CylinderEmissionVolumeModuleTemplate()
 
 CylinderEmissionVolumeModuleTemplate g_cylinderEmissionVolumeModuleTemplate;
 
-class SphericalEmissionVelocityModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public SphericalEmissionVelocityInfo
+class SphericalEmissionVelocityModuleTemplate : public CategoryModuleTemplateBase<4>, public SphericalEmissionVelocityInfo
 {
 public:
     // Default initialization is supplied by its byte-verified owner.
@@ -1563,7 +1530,7 @@ extern const char *const RENDEROBJECT_DRAW_MODULE_NAME;
 
 class RenderObjectDrawModule;
 
-class RenderObjectDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public RenderObjectDrawModuleInfo
+class RenderObjectDrawModuleTemplate : public CategoryModuleTemplateBase<6>, public RenderObjectDrawModuleInfo
 {
 };
 
@@ -1578,7 +1545,7 @@ extern const char *const LIGHTNING_DRAW_MODULE_NAME;
 
 class LightningDrawModule;
 
-class LightningDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LightningDrawModuleInfo
+class LightningDrawModuleTemplate : public CategoryModuleTemplateBase<6>, public LightningDrawModuleInfo
 {
 public:
     LightningDrawModuleTemplate();
@@ -1596,7 +1563,7 @@ extern const char *const GPU_DRAW_MODULE_NAME;
 
 class GpuDrawModule;
 
-class GpuDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public GpuDrawModuleInfo
+class GpuDrawModuleTemplate : public CategoryModuleTemplateBase<6>, public GpuDrawModuleInfo
 {
 public:
     // Retail's 0x003A9E80 comes from FXParticleSystemFactories.cpp's fuller view; this
@@ -1666,7 +1633,7 @@ extern const char *const LIGHTNING_EMISSION_MODULE_NAME;
 
 class LightningEmissionModule;
 
-class LightningEmissionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public LightningEmissionInfo
+class LightningEmissionModuleTemplate : public CategoryModuleTemplateBase<5>, public LightningEmissionInfo
 {
 public:
     LightningEmissionModuleTemplate();
@@ -1684,7 +1651,7 @@ extern const char *const TERRAIN_FIRE_EMISSION_MODULE_NAME;
 
 class TerrainFireEmissionModule;
 
-class TerrainFireEmissionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public TerrainFireEmissionInfo
+class TerrainFireEmissionModuleTemplate : public CategoryModuleTemplateBase<5>, public TerrainFireEmissionInfo
 {
 public:
     TerrainFireEmissionModuleTemplate();
@@ -1710,7 +1677,7 @@ class ParticleLifeEventModule;
 // base ahead of the flags and lands them the other way round, which is what
 // leaves 0x003A7A7F and 0x003A81E2 unclaimed. Whatever keeps retail's order is
 // the missing piece.
-class LifeEventModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public EventModuleInfo,
+class LifeEventModuleTemplate : public CategoryModuleTemplate<8>,
            public LifeEventModuleInfo
 {
 public:
@@ -1730,7 +1697,7 @@ extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
 class RenderObjectUpdateModule;
 class RenderObjectParticleUpdateModule;
 
-class RenderObjectUpdateModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public RenderObjectUpdateModuleInfo
+class RenderObjectUpdateModuleTemplate : public CategoryModuleTemplateBase<2>, public RenderObjectUpdateModuleInfo
 {
 public:
     RenderObjectUpdateModuleTemplate();
@@ -1756,7 +1723,7 @@ class ParticleTerrainCollisionModule;
 // base ahead of the flags and lands them the other way round, which is what
 // leaves 0x003A7A7F and 0x003A81E2 unclaimed. Whatever keeps retail's order is
 // the missing piece.
-class TerrainCollisionModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public EventModuleInfo,
+class TerrainCollisionModuleTemplate : public CategoryModuleTemplate<8>,
            public TerrainCollisionModuleInfo
 {
 public:
@@ -1781,8 +1748,8 @@ public:
     virtual void v1() = 0;
 };
 
-template <int CATEGORY>
-class DefaultModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
+template <int CATEGORY_ARG>
+class DefaultModuleTemplate : public CategoryModuleTemplateBase<CATEGORY_ARG>,
                               public DefaultModuleInfoBase
 {
 };
@@ -1790,7 +1757,7 @@ class DefaultModuleTemplate : public ModuleTemplate, public SecondaryModuleBase,
 // Each category's default template is over that category's own info class, and
 // its generated assignment forwards to that info's - which is what identifies
 // the four: colour for category 0, alpha for 1, update for 2, physics for 3.
-#define FX_DEFAULT_TEMPLATE_SPEC(CATEGORY, INFO)                                                       template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase,                                                 public INFO                                                {                                                                                                  };                                                                                                                                                                                                    typedef DefaultModuleTemplate<CATEGORY> &(DefaultModuleTemplate<CATEGORY>::*                           DefaultModuleTemplate##CATEGORY##Assign)(const DefaultModuleTemplate<CATEGORY> &);                                                                                                                DefaultModuleTemplate##CATEGORY##Assign g_defaultModuleTemplate##CATEGORY##Assign =                    &DefaultModuleTemplate<CATEGORY>::operator=;
+#define FX_DEFAULT_TEMPLATE_SPEC(CATEGORY, INFO)                                                       template <>                                                                                        class DefaultModuleTemplate<CATEGORY> : public CategoryModuleTemplateBase<CATEGORY>,                                                 public INFO                                                {                                                                                                  };                                                                                                                                                                                                    typedef DefaultModuleTemplate<CATEGORY> &(DefaultModuleTemplate<CATEGORY>::*                           DefaultModuleTemplate##CATEGORY##Assign)(const DefaultModuleTemplate<CATEGORY> &);                                                                                                                DefaultModuleTemplate##CATEGORY##Assign g_defaultModuleTemplate##CATEGORY##Assign =                    &DefaultModuleTemplate<CATEGORY>::operator=;
 
 FX_DEFAULT_TEMPLATE_SPEC(0, DefaultColorModuleInfo)
 FX_DEFAULT_TEMPLATE_SPEC(1, DefaultAlphaModuleInfo)
@@ -1799,7 +1766,7 @@ FX_DEFAULT_TEMPLATE_SPEC(1, DefaultAlphaModuleInfo)
 // of it, and FXParticleSystemDefaultTemplateDtor.cpp owns retail's (0x003A6201).
 #define FX_DEFAULT_TEMPLATE_SPEC_DECLARED_DTOR(CATEGORY, INFO) \
     template <> \
-    class DefaultModuleTemplate<CATEGORY> : public ModuleTemplate, public SecondaryModuleBase, \
+    class DefaultModuleTemplate<CATEGORY> : public CategoryModuleTemplateBase<CATEGORY>, \
                                             public INFO \
     { \
     public: \
@@ -1848,7 +1815,7 @@ struct OrthoEmissionVelocityModuleTag
     typedef OrthoEmissionVelocityModuleTemplate TemplateType;
 };
 
-class OrthoEmissionVelocityModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public OrthoEmissionVelocityInfo
+class OrthoEmissionVelocityModuleTemplate : public CategoryModuleTemplateBase<4>, public OrthoEmissionVelocityInfo
 {
 public:
     OrthoEmissionVelocityModuleTemplate();
@@ -1900,7 +1867,7 @@ extern const char *const STREAK_DRAW_MODULE_NAME;
 
 class StreakDrawModule;
 
-class StreakDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public StreakDrawModuleInfo
+class StreakDrawModuleTemplate : public CategoryModuleTemplateBase<6>, public StreakDrawModuleInfo
 {
 public:
     StreakDrawModuleTemplate();
@@ -1922,7 +1889,7 @@ extern const char *const QUAD_DRAW_MODULE_NAME;
 
 class QuadDrawModule;
 
-class QuadDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public QuadDrawModuleInfo
+class QuadDrawModuleTemplate : public CategoryModuleTemplateBase<6>, public QuadDrawModuleInfo
 {
 public:
     QuadDrawModuleTemplate();
@@ -1944,7 +1911,7 @@ extern const char *const BUTTERFLY_DRAW_MODULE_NAME;
 
 class ButterflyDrawModule;
 
-class ButterflyDrawModuleTemplate : public ModuleTemplate, public SecondaryModuleBase, public ButterflyDrawModuleInfo
+class ButterflyDrawModuleTemplate : public CategoryModuleTemplateBase<6>, public ButterflyDrawModuleInfo
 {
 public:
     ButterflyDrawModuleTemplate();
