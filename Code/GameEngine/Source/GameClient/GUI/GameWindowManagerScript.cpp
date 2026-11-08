@@ -395,7 +395,9 @@ void *getDataTemplate(char *type, Int *sizeOut);
 // Retail EntryData uses a flags word at +0x0c and is 0x28 bytes.
 struct EntryData004850C0 { void *text,*sText,*constructText; unsigned int field0c; short maxTextLen; bool secretText; char tail[21]; };
 
-struct LocalListboxData : ListboxData { char retailExtra[8]; };
+// Retail's template is 0x4C bytes (parseData 0x0031553A clears 0x4C). This unit's reference ListboxData is 0x40, without the
+// 4-byte field retail has at +0x10; parseData only writes the fields below it.
+struct LocalListboxData : ListboxData { char retailExtra[12]; };
 
   // end createWindow
 
@@ -863,14 +865,8 @@ static Int scanShort( const char *source, Short& val )
 
 // scanInt ====================================================================
 //=============================================================================
-static Int scanInt( const char *source, Int& val )
-{
-	Int ret = sscanf( source, "%d", &val ); // not strictly necessary to wrap this, but it's more consistent
+Int scanInt( const char *source, Int& val );
 
-	return ret;
-}
-
-  // end scanInt
 
 // scanUnsignedInt ============================================================
 //=============================================================================
@@ -963,27 +959,8 @@ static void pushWindow( GameWindow *window )
 /** Parse a color entry and store it in the value pointed to by the 
 	* 'color' parm. */
 //=============================================================================
-static Bool parseColor( Color *color, char *buffer )
-{
-  char *c;
-  Byte red, green, blue;
+Bool parseColor( Color *color, char *buffer );
 
-	c = strtok( buffer, " \t\n\r" );
-  red = atoi(c);
-
-	c = strtok( NULL, " \t\n\r" );
-  green = atoi(c);
-
-	c = strtok( NULL, " \t\n\r" );
-  blue = atoi(c);
-
-	*color = TheWindowManager->winMakeColor( red, green, blue, 255 );
-
-  return TRUE;
-
-}
-
-  // end parseColor
 
 // parseDefaultColor ==========================================================
 /** Parse a default color entry and store it in the value pointed to by 
@@ -1359,6 +1336,16 @@ static __declspec(noinline) Bool parseData( void **data, char *type, char *buffe
 
   // end parseData
 
+// Retail's GameTextInterface has fetch(const char *, bool *) at slot 15 (setWindowText 0x003161F2 calls [edx+0x3C]); the reference
+// header this unit compiles against puts it at slot 10.
+struct GameTextFetchView
+{
+	virtual void slot00() = 0; virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0; virtual void slot04() = 0;
+	virtual void slot05() = 0; virtual void slot06() = 0; virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
+	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0; virtual void slot13() = 0; virtual void slot14() = 0;
+	virtual UnicodeString fetch( const char *label, bool *exists = 0 ) = 0;
+};
+
 // setWindowText ==============================================================
 /** Set the default text for a window or gadget control */
 //=============================================================================
@@ -1371,7 +1358,7 @@ static void setWindowText( GameWindow *window, AsciiString textLabel )
 
 	UnicodeString theText, entryText;
 	//Translate the text
-	theText = TheGameText->fetch( (char *)textLabel.str());
+	theText = ((GameTextFetchView *)TheGameText)->fetch( (char *)textLabel.str());
 	// set the text in the window based on what it is
 	if( BitTest( window->winGetStyle(), GWS_PUSH_BUTTON ) )
 		GadgetButtonSetText( window, theText );
@@ -1387,7 +1374,7 @@ static void setWindowText( GameWindow *window, AsciiString textLabel )
 		GadgetTextEntrySetText( window, entryText );
 	}
 	else
-		window->winSetText( theText );
+		window->GameWindow::winSetText( theText );
 
 }
 
