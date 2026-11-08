@@ -894,8 +894,6 @@ def test_a_prepared_unit_with_its_own_line_directive_refuses(spelled, evidence_s
 
 @pytest.mark.parametrize("head", [
     "// cl: /O2 /Dint=double\n",
-    "// cl: /O2 /FIother.h\n",
-    "// cl: /O2 -Ireference/shims/other\n",
     # round 7's probe: an indented decoy the build ignores, then the line it reads
     " // cl: /O2\n// cl: /O2 /DANSWER=999\n",
     # a BOM: the build strips it and reads the directive behind it
@@ -907,6 +905,32 @@ def test_the_build_s_own_flags_must_be_master_s(spelled, evidence_stubbed, monke
     preprocessed(monkeypatch, evidence_stubbed, spelled, {})
     with pytest.raises(evidence_stubbed.VerifyFailed, match="a prepared unit keeps master's flags"):
         apply_prepared(spelled, evidence_stubbed, head + RESHAPED.split("\n", 1)[1])
+    assert snapshot(spelled) == before
+
+
+@pytest.mark.parametrize("head", ["// cl: /O2 /FIother.h\n", "// cl: /O2 -Ireference/shims/other\n"])
+def test_flags_the_build_itself_refuses_roll_back_as_a_refusal(spelled, evidence_stubbed, monkeypatch, head):
+    """tools/cl_flags.py's allowlist raises from build.source_extra_flags: the rename reports it."""
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="the build refuses its flags: .*include path is not in"):
+        apply_prepared(spelled, evidence_stubbed, head + RESHAPED.split("\n", 1)[1])
+    assert snapshot(spelled) == before
+
+
+def test_flags_the_build_refuses_on_master_stop_the_plan(spelled, evidence_stubbed):
+    """The same refusal for the unit's copy on master, read before anything is written."""
+    write(spelled, VIEWS, f"// cl: /O2 /FIother.h\nclass {NEW} {{\npublic:\n    int m_nuggetType;\n}};\n"
+                          f"int nuggetType({NEW} *n);\n")
+    with open(spelled / "reverse/functions.csv", "ab") as handle:
+        handle.write(f"?nuggetType@@YAHPAV{NEW}@@@Z,,0x00404000,8,{VIEWS},matched,\n".encode("utf-8"))
+    run(spelled, "add", "-A")
+    run(spelled, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "a unit the allowlist refuses")
+    publish(spelled)
+    before = snapshot(spelled)
+    with pytest.raises(evidence_stubbed.Refusal, match="--prepared: the build refuses a prepared unit's flags"):
+        plan_of(spelled, merge=True, prepared={VIEWS: RESHAPED.encode()})
     assert snapshot(spelled) == before
 
 

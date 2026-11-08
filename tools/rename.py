@@ -276,6 +276,7 @@ from pathlib import Path, PurePosixPath
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import cl_flags  # noqa: E402
 import git_trust  # noqa: E402
 import ledger_io  # noqa: E402
 import name_agreement  # noqa: E402
@@ -6692,7 +6693,10 @@ def prepared_baseline(ctx, registration, prepared):
         if code or blob != ctx.read(rel):
             raise Refusal(f"--prepared: {rel} differs from {UPSTREAM} ({base[:10]}); a prepared unit is proved "
                           "against master's registry, contract and unit, so land that change first")
-    return {"base": base, "flags": {rel: unit_flags(ctx, rel) for rel in prepared}}
+    try:
+        return {"base": base, "flags": {rel: unit_flags(ctx, rel) for rel in prepared}}
+    except cl_flags.Refused as refused:
+        raise Refusal(f"--prepared: the build refuses a prepared unit's flags on {UPSTREAM}: {refused}") from None
 
 
 def contract_layout_problems(rel, contract, layout):
@@ -6770,7 +6774,11 @@ def prepared_attribution_problems(ctx, plan):
             problems.append(f"{rel} cannot be read to prove its {new}")
             continue
         problems += prepared_text_problems(rel, own)
-        flags = unit_flags(ctx, rel)
+        try:
+            flags = unit_flags(ctx, rel)
+        except cl_flags.Refused as refused:
+            problems.append(f"{rel}: the build refuses its flags: {refused}")
+            continue
         if rel not in frozen or flags != frozen[rel]:
             problems.append(f"{rel} compiles with {flags}, {UPSTREAM}'s copy with {frozen.get(rel)}: a prepared "
                             "unit keeps master's flags")
