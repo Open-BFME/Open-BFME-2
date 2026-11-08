@@ -1,0 +1,309 @@
+{
+  "source": "Code/Libraries/Source/COM/_com_error.cpp",
+  "object_sha256": "dc52164e018547f39767ddd298399324d178f9b6d4b79de4c37974a3a7bb9e4c",
+  "code": [
+    {
+      "name": "??0_com_error@@QAE@JPAUIErrorInfo@@_N@Z",
+      "rva": "0x00654C90",
+      "size": "54"
+    },
+    {
+      "name": "??0_com_error@@QAE@ABV0@@Z",
+      "rva": "0x00654D10",
+      "size": "50"
+    },
+    {
+      "name": "??1_com_error@@UAE@XZ",
+      "rva": "0x00654D50",
+      "size": "38"
+    },
+    {
+      "name": "??_G_com_error@@UAEPAXI@Z",
+      "rva": "0x00654D80",
+      "size": "58"
+    },
+    {
+      "name": "?_com_raise_error@@YGXJPAUIErrorInfo@@@Z",
+      "rva": "0x00654CD0",
+      "size": "51"
+    },
+    {
+      "name": "?_com_dispatch_raw_method@@YAJPAUIDispatch@@JGGPAXPBGZZ",
+      "rva": "0x006553F0",
+      "size": "74"
+    },
+    {
+      "name": "?_com_dispatch_raw_propget@@YGJPAUIDispatch@@JGPAX@Z",
+      "rva": "0x00655440",
+      "size": "35"
+    },
+    {
+      "name": "?_com_dispatch_raw_propput@@YAJPAUIDispatch@@JGZZ",
+      "rva": "0x00655470",
+      "size": "105"
+    },
+    {
+      "name": "?_com_invoke_helper@@YAJPAUIDispatch@@JGGPAXPBGPADPAPAUIErrorInfo@@@Z",
+      "rva": "0x00654DC0",
+      "size": "1571"
+    }
+  ],
+  "table": {
+    "address": "0x008E0B48",
+    "size": "20",
+    "section": ".rdata",
+    "kind": "vtable",
+    "name": "??_7_com_error@@6B@",
+    "source": "",
+    "status": "literal",
+    "names": "",
+    "defs": "0",
+    "refs": "5"
+  },
+  "definitions": {
+    "??_7_com_error@@6B@": [
+      {
+        "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+        "extent": 4,
+        "offset": 4,
+        "comdat": true,
+        "selection": 6,
+        "executable": false,
+        "archive": false,
+        "other_publics": [],
+        "pointers": {
+          "0": [
+            "??_E_com_error@@UAEPAXI@Z",
+            6,
+            0
+          ]
+        },
+        "weak": {
+          "0": [
+            "??_G_com_error@@UAEPAXI@Z",
+            2
+          ]
+        }
+      }
+    ]
+  },
+  "section": {
+    "flags": "0x40301040",
+    "size": 8,
+    "selection": 6,
+    "table_offset": 4,
+    "relocations": [
+      {
+        "offset": 0,
+        "name": "??_R4_com_error@@6B@",
+        "kind": 6
+      },
+      {
+        "offset": 4,
+        "name": "??_E_com_error@@UAEPAXI@Z",
+        "kind": 6
+      }
+    ]
+  },
+  "native_table_and_prefix": "2050cf00804da50000000000ffffffff",
+  "retail_slots": [
+    [
+      6638976
+    ],
+    null
+  ],
+  "plan": {
+    "tables": 0,
+    "retail_tables": 0,
+    "slots": 0,
+    "twin_target_slots": 0,
+    "thunk_forwarded_slots": 0,
+    "refused_tables": 1,
+    "refusal_reasons": {
+      "unsupported-selection": 1
+    },
+    "already_correct": 0,
+    "entries": [],
+    "refusals": [
+      {
+        "rva": 9309000,
+        "name": "??_7_com_error@@6B@",
+        "names": [
+          "??_7_com_error@@6B@"
+        ],
+        "name_bindings": [
+          {
+            "source": "Code/Libraries/Source/COM/_com_error.cpp",
+            "row_rva": 6638736,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+            "names": [
+              "??_7_com_error@@6B@"
+            ],
+            "offset": 18,
+            "name": "??_7_com_error@@6B@",
+            "rva": 9309000
+          },
+          {
+            "source": "Code/Libraries/Source/COM/_com_error.cpp",
+            "row_rva": 6638864,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+            "names": [
+              "??_7_com_error@@6B@"
+            ],
+            "offset": 9,
+            "name": "??_7_com_error@@6B@",
+            "rva": 9309000
+          },
+          {
+            "source": "Code/Libraries/Source/COM/_com_error.cpp",
+            "row_rva": 6638928,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+            "names": [
+              "??_7_com_error@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7_com_error@@6B@",
+            "rva": 9309000
+          },
+          {
+            "source": "Code/Libraries/Source/COM/_com_error.cpp",
+            "row_rva": 6638976,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+            "names": [
+              "??_7_com_error@@6B@"
+            ],
+            "offset": 10,
+            "name": "??_7_com_error@@6B@",
+            "rva": 9309000
+          },
+          {
+            "source": "Code/Libraries/Source/COM/_com_error.cpp",
+            "row_rva": 6638800,
+            "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+            "names": [
+              "??_7_com_error@@6B@"
+            ],
+            "offset": 25,
+            "name": "??_7_com_error@@6B@",
+            "rva": 9309000
+          }
+        ],
+        "name_addresses": {
+          "??_7_com_error@@6B@": [
+            9309000
+          ]
+        },
+        "slots": 1,
+        "source": "Code/Libraries/Source/COM/_com_error.cpp",
+        "previous_object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+        "previous_extent": 4,
+        "source_slot_mismatches": [],
+        "reason": "unsupported-selection"
+      }
+    ],
+    "correct": [],
+    "name_discovery": {
+      "bindings": [
+        {
+          "source": "Code/Libraries/Source/COM/_com_error.cpp",
+          "row_rva": 6638736,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+          "names": [
+            "??_7_com_error@@6B@"
+          ],
+          "offset": 18,
+          "name": "??_7_com_error@@6B@",
+          "rva": 9309000
+        },
+        {
+          "source": "Code/Libraries/Source/COM/_com_error.cpp",
+          "row_rva": 6638864,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+          "names": [
+            "??_7_com_error@@6B@"
+          ],
+          "offset": 9,
+          "name": "??_7_com_error@@6B@",
+          "rva": 9309000
+        },
+        {
+          "source": "Code/Libraries/Source/COM/_com_error.cpp",
+          "row_rva": 6638928,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+          "names": [
+            "??_7_com_error@@6B@"
+          ],
+          "offset": 10,
+          "name": "??_7_com_error@@6B@",
+          "rva": 9309000
+        },
+        {
+          "source": "Code/Libraries/Source/COM/_com_error.cpp",
+          "row_rva": 6638976,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+          "names": [
+            "??_7_com_error@@6B@"
+          ],
+          "offset": 10,
+          "name": "??_7_com_error@@6B@",
+          "rva": 9309000
+        },
+        {
+          "source": "Code/Libraries/Source/COM/_com_error.cpp",
+          "row_rva": 6638800,
+          "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj",
+          "names": [
+            "??_7_com_error@@6B@"
+          ],
+          "offset": 25,
+          "name": "??_7_com_error@@6B@",
+          "rva": 9309000
+        }
+      ],
+      "rejected": [],
+      "names": 1,
+      "unindexed": [],
+      "native_names_without_address_binding": [
+        "??_7type_info@@6B@"
+      ],
+      "new_name_bindings": []
+    },
+    "note": "Temporary positive-slot copies; tables and slots must reach zero for G1."
+  },
+  "positive_slot_matches": true,
+  "weak_defaults": {
+    "??_E_com_error@@UAEPAXI@Z": [
+      "??_G_com_error@@UAEPAXI@Z",
+      2
+    ]
+  },
+  "slot_target": {
+    "name": "??_G_com_error@@UAEPAXI@Z",
+    "rva": 6638976,
+    "source": "Code/Libraries/Source/COM/_com_error.cpp",
+    "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^libraries_^source_^c^o^m__com_error.obj"
+  },
+  "native_locator_rva": "0x8f5020",
+  "native_locator_words": [
+    "0x0",
+    "0x0",
+    "0x0",
+    "0xdd7f2c",
+    "0xcf5010"
+  ],
+  "native_type_name": ".?AV_com_error@@",
+  "indexed_copies": [
+    {
+      "object": "^code_^libraries_^source_^c^o^m__com_error.obj",
+      "digest": "3762968bcd2b",
+      "verdict": null
+    }
+  ],
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  }
+}

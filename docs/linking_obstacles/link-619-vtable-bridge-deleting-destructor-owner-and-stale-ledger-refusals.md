@@ -663,3 +663,16 @@ names. Only this source touches the name in the downloaded index; current
 Code text has no uses. Retain the unread/directive gap for the next census
 and real image. All six claims are released; constructor admission remains
 open, without a new canonical-name claim.
+
+2026-11-09, _com_error selection investigation: the whole current 2,036-byte
+unit passes 9/9 rows and eleven imports, including the native 58-byte G
+destructor. Its one-slot table is RTTI-prefixed, offset four in a LARGEST
+COMDAT. Retail's preceding pointer reaches locator 8F5020 and a type
+descriptor naming _com_error; the slot's weak E default resolves to that
+exact G owner. The normal positive-slot predicate passes, but the planner
+refuses selection 6 before its already-correct check. The index lists one
+copy and runtime archives add none. Source and /GR are unchanged; a
+separate false-reject tooling pass must judge already-correct prefixed
+tables without weakening generated-copy admission. Full RTTI graph and
+next-image queue clearance are not claimed.
+[Bounded native/selection evidence](../../reverse/attempt_support/com-error-rtti-selection-20261109/README.md).
