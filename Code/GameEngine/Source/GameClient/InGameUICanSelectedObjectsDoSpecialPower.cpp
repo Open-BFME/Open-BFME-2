@@ -97,26 +97,7 @@ static inline bool operator!=(const _List_iterator<_ListVal, _ListLeft> &a,
 // in the unwind funclet.
 #include "../../Include/GameClient/DrawableList.h"
 
-#define PAD_VIRTUALS10(p) \
-	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
-	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
-
-class InGameUI
-{
-public:
-	enum SelectionRules
-	{
-		SELECTION_ANY = 0,
-		SELECTION_ALL = 1
-	};
-
-	PAD_VIRTUALS10(s0) PAD_VIRTUALS10(s1) PAD_VIRTUALS10(s2) PAD_VIRTUALS10(s3)
-	PAD_VIRTUALS10(s4) PAD_VIRTUALS10(s5) PAD_VIRTUALS10(s6)
-	virtual void s70(); virtual void s71(); virtual void s72();
-	virtual const DrawableList *getAllSelectedDrawables() const;	// slot 73
-
-	Bool canSelectedObjectsDoSpecialPower(const CommandButton *command, const Object *objectToInteractWith, const Coord3D *position, SelectionRules rule, UnsignedInt commandOptions, Object *ignoreSelObj) const;
-};
+#include "../../Include/GameClient/InGameUI.h"
 extern InGameUI *TheInGameUI;
 
 Bool InGameUI::canSelectedObjectsDoSpecialPower(const CommandButton *command, const Object *objectToInteractWith, const Coord3D *position, SelectionRules rule, UnsignedInt commandOptions, Object *ignoreSelObj) const
@@ -141,7 +122,7 @@ Bool InGameUI::canSelectedObjectsDoSpecialPower(const CommandButton *command, co
 	if (ignoreSelDraw)
 		tmpList.push_back(ignoreSelDraw);
 
-	const DrawableList *selected = ((UnsignedInt)_STL::distance(DrawableList::iterator((_STL::_List_node<Drawable *> *)tmpEnd._M_node->_M_next), tmpEnd) > 0) ? static_cast<const DrawableList *>(&tmpList) : TheInGameUI->getAllSelectedDrawables();
+	const _STL::list<Drawable *> *selected = ((UnsignedInt)_STL::distance(DrawableList::iterator((_STL::_List_node<Drawable *> *)tmpEnd._M_node->_M_next), tmpEnd) > 0) ? &tmpList : TheInGameUI->getAllSelectedDrawables();
 
 	Int count = 0;
 	Int qualify = 0;
