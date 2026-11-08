@@ -1,4 +1,4 @@
-// cl: /MD /O1 /G7 /arch:SSE /ICode/Libraries/Include/Lib
+// cl: /MD /ICode/Libraries/Include/Lib
 //
 // ?xfer@AITacticSiege@@UAEXPAVXfer@@@Z, retail 0x005DC903, 56 bytes.
 // Slot 5 (offset 0x14) of vtable 0x00876808 (class of ??1Rva005DC87B rowed
@@ -46,10 +46,14 @@ extern GameLogic *TheGameLogic;
 class AITacticSiege : public AITacticOffensive
 {
 public:
+	AITacticSiege(const AsciiString &tacticName);
 	virtual ~AITacticSiege();
 	virtual void xfer(Xfer *xfer);
+	bool rva005DCAF4();
 	class Object *rva005DCAE5();
- bool isWallBreached();bool findWallTarget();
+	bool sideHasIdleSiegeWeapons();
+	bool isWallBreached();
+	bool findWallTarget();
 	enum ObjectID m_58; // +0x58
 };
 
@@ -77,12 +81,7 @@ Object *AITacticSiege::rva005DCAE5()
 // flag bytes stay numeric: no unsupported KindOf names are inferred.
 #include "Coord3D.h"
 struct SiegeTemplateBits {unsigned char bytes[0x122];};
-class Object {public:
- unsigned char pad0[4];SiegeTemplateBits*definition;
- unsigned char pad8[0x38-8];Coord3D position;
- unsigned char pad44[0x74-0x44];ObjectID id;
- unsigned char pad78[0x438-0x78];unsigned char status438;
-};
+#include "../GameLogic/Object/object.h"
 template<class T>class DLINK_ITERATOR {
 public:DLINK_ITERATOR(){} T*current;unsigned char state[20];void advance();
  T*cur()const{return current;}bool done()const{return !current;}
@@ -98,14 +97,14 @@ bool AITacticSiege::isWallBreached() {
  while(!it.done()) {
   if(unit)break;
   Object*obj=it.cur();
-  if(obj && ((obj->definition->bytes[0x108]&8) || (obj->definition->bytes[0x113]&4)))unit=obj;
+  if(obj && ((((const SiegeTemplateBits *)obj->m_template)->bytes[0x108]&8) || (((const SiegeTemplateBits *)obj->m_template)->bytes[0x113]&4)))unit=obj;
   it.advance();
  }
  bool result=false;
  if(unit) {
   Object*target=((Rva002C589B *)m_field20)->rva002C5DA6();
   Pathfinder*pathfinder=TheAI->pathfinder();
-  result=target ? pathfinder->QuickDoesPathExistToStructure(unit,&unit->position,target,0) : pathfinder->QuickDoesPathExist(unit,&unit->position,&((Rva002C589B *)m_field20)->position,0);
+  result=target ? pathfinder->QuickDoesPathExistToStructure(unit,&unit->m_cachedPos,target,0) : pathfinder->QuickDoesPathExist(unit,&unit->m_cachedPos,&((Rva002C589B *)m_field20)->position,0);
  }
  return result;
 }
@@ -131,7 +130,7 @@ namespace _STL {
 typedef _STL::hash_map<int,int,_STL::hash<int>,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,int> > > AITacticAssistIndex;
 struct SiegeStore {void*word0;void*word4;Rva0025BFF8*list;};
 bool AITacticSiege::findWallTarget() {
- const Coord3D*center=&rva004ECECD(0)->rva0039E8EB()->position;
+ const Coord3D*center=&rva004ECECD(0)->rva0039E8EB()->m_cachedPos;
  Coord3D position;position.x=center->x;position.y=center->y;
  Rva002A8AB1Record*record=TheSkirmishAIManager->rva002A8AB1(m_field24);
  if(record->rva002C6ACB()) {
@@ -141,14 +140,14 @@ bool AITacticSiege::findWallTarget() {
   Object*selected=0;
   for(unsigned i=0;i<((AITacticAssistIndex*)list)->bucket_count();++i) {
    Object*obj=list->rva0025BFF8(i);
-   if(obj && !(obj->status438&1) && !(obj->definition->bytes[0x118]&4) &&
-    ((obj->definition->bytes[0x121]&8) || ((obj->definition->bytes[0x11f]&0x20) && !(obj->definition->bytes[0x10f]&0x10)))) {
-     float dx=obj->position.x-position.x,dy=obj->position.y-position.y;
+   if(obj && !(obj->m_privateStatus&1) && !(((const SiegeTemplateBits *)obj->m_template)->bytes[0x118]&4) &&
+    ((((const SiegeTemplateBits *)obj->m_template)->bytes[0x121]&8) || ((((const SiegeTemplateBits *)obj->m_template)->bytes[0x11f]&0x20) && !(((const SiegeTemplateBits *)obj->m_template)->bytes[0x10f]&0x10)))) {
+     float dx=obj->m_cachedPos.x-position.x,dy=obj->m_cachedPos.y-position.y;
      float distance=dx*dx+dy*dy;
      if(!selected || distance<nearest) {selected=obj;nearest=distance;}
    }
   }
-  if(selected) {m_58=selected->id;return true;}
+  if(selected) {m_58=selected->m_id;return true;}
  }
  return false;
 }
