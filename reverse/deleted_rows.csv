@@ -5876,3 +5876,5 @@ __ehhandler$??0Rva005F00FB@@QAE@XZ,0x007A4B0D,"Renamed to __ehhandler$??0MappedI
 ??1Rva004B53DF@@UAE@XZ,0x004B53DF,"Renamed to ??1UnpauseSpecialPowerUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57EA8)"
 ??_GRva004B53DF@@UAEPAXI@Z,0x004B54BD,"Renamed to ??_GUnpauseSpecialPowerUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57EA8)"
 ?rva0006692C@BaseHeightMapRenderObjClass@@QAEXXZ,0x0006692C,"Renamed to ?rva0006692C@BaseHeightMapRenderObjClass@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"
+?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap@@PAX@Z,0x0006D6D9,"Renamed to ?initHeightData@BaseHeightMapRenderObjClass@@UAEHHHPAVWorldHeightMap@@PAX@Z by tools/rename.py (virtual: retail vtable slot)"
+__ehhandler$?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap@@PAX@Z,0x0075EADE,"Renamed to __ehhandler$?initHeightData@BaseHeightMapRenderObjClass@@UAEHHHPAVWorldHeightMap@@PAX@Z by tools/rename.py (virtual: retail vtable slot)"

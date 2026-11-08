@@ -1233,7 +1233,7 @@ void Rva000683FF::rva000683FF(Vector3 corners[4], ObjectID id, bool highlight)
 
 // tu-skeleton: 0x0006D5A7 306B ?reset@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReset.cpp (not merged yet)
 
-// tu-skeleton: 0x0006D6D9 1091B ?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap@@PAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp (not merged yet)
+// tu-skeleton: 0x0006D6D9 1091B ?initHeightData@BaseHeightMapRenderObjClass@@UAEHHHPAVWorldHeightMap@@PAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp (not merged yet)
 
 // tu-skeleton: 0x0006DB1C 150B ?resize@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QAEXI_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateCtor.cpp (not merged yet)
 
@@ -1397,4 +1397,4 @@ void Rva000683FF::rva000683FF(Vector3 corners[4], ObjectID id, bool highlight)
 
 // tu-skeleton: 0x0075EAD6 8B Unwind@00b5ead6 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp (not merged yet)
 
-// tu-skeleton: 0x0075EADE 10B __ehhandler$?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap@@PAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp (not merged yet)
+// tu-skeleton: 0x0075EADE 10B __ehhandler$?initHeightData@BaseHeightMapRenderObjClass@@UAEHHHPAVWorldHeightMap@@PAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapInitHeightData.cpp (not merged yet)

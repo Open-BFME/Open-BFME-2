@@ -296,7 +296,7 @@ public:
  virtual void gap131();
  virtual void gap132();
  virtual void freeMapResources();
- int initHeightData(int,int,WorldHeightMap*,void*);
+ virtual int initHeightData(int,int,WorldHeightMap*,void*);
 private:
  char pad04[0xd8-4];int vertices,indices;
  char padE0[0x3794-0xe0];int scorches;

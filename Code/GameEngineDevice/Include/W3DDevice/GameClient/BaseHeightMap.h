@@ -107,7 +107,7 @@ public:
 
     virtual void rva0006692C();
     virtual void vslot130();
-    virtual int vslot131(int, int, WorldHeightMap *, void *);
+    virtual int initHeightData(int, int, WorldHeightMap *, void *);
     virtual void vslot132() = 0;
     virtual int rva0006933D();
     virtual void vslot134(const Rva000E3A8D &, int);
@@ -152,7 +152,6 @@ public:
     void drawScorches();
     bool evaluateAsVisibleCliff(int, int, float);
     int getStaticDiffuse(int, int, bool);
-    int initHeightData(int, int, WorldHeightMap *, void *);
     bool isClearLineOfSight(const Coord3D &, const Coord3D &) const;
     char rva00067FCD(void *, Vector3, const Matrix3D *);
     char rva00068017(void *, Vector3, const Matrix3D *);
