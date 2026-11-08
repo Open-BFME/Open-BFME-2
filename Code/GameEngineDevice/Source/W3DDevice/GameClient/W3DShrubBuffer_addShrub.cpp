@@ -20,66 +20,8 @@ struct Rva000E91CEGlobalData
 
 extern GlobalData *TheWritableGlobalData;
 
-struct Rva000E91CEData
-{
-	unsigned char prefix[8];
-	AsciiString modelName, nameC;
-	unsigned int framesToMoveOutward;
-	unsigned char gap14[0x3d - 0x14];
-	bool doTopple;
-	unsigned char gap3e[0x48 - 0x3e];
-	AsciiString name48;
-	unsigned char gap4c[8];
-	bool flag54;
-};
 
-struct Rva000E91CEType
-{
-public:
-	void *mesh; // +0x00
-	Vector3 offset; // +0x04
-	SphereClass bounds; // +0x10
-	const Rva000E91CEData *data; // +0x20
-	unsigned char gap24[0x44 - 0x24]; // +0x24
-	bool shadowKind; // +0x44
-	unsigned char alignment45[3]; // +0x45
-	AsciiString textureName; // +0x48
-	AsciiString modelName; // +0x4C
-	AsciiString nameC; // +0x50
-	AsciiString templateName; // +0x54
-	int field58; // +0x58
-};
 
-struct Rva000E91CETree
-{
-	Vector3 location;
-	float scale;
-	Matrix3D transform;
-	int treeType;
-	bool visible;
-	bool flag45;
-	bool flag46;
-	unsigned char alignment47;
-	SphereClass bounds;
-	unsigned int drawableID;
-	float pushAside;
-	float pushAsideDelta;
-	float pushAsideSin;
-	float pushAsideCos;
-	unsigned int pushAsideSource;
-	unsigned int lastFrame;
-	int nextInPartition;
-	int swayType;
-	int firstIndex;
-	int bufferIndex;
-	int toppleState;
-	int uprightType;
-	int toppledType;
-	unsigned int sinkFrames;
-	void *toppleObject;
-	void *pushAsideObject;
-	int fielda0;
-};
 
 extern float GetGameClientRandomValueReal(float, float, char *, int);
 extern int GetGameClientRandomValue(int, int, char *, int);
@@ -99,33 +41,7 @@ struct FloatPair
 	float y;
 };
 
-class W3DShrubBuffer
-{
-public:
-	int addTreeType(const AsciiString &, const AsciiString &, const void *, int, const AsciiString &, const AsciiString &);
-	int rva000E8F9D(const AsciiString &, int, const AsciiString &);
-	void addShrub(unsigned int id, Coord3D location, float scale, const Matrix3D *transform, float randomScaleAmount,
-		const Rva000E91CEData *data, int shadowKind, const AsciiString &textureName, const AsciiString &nameD);
-	int getPartitionBucket(const FloatPair *location);
-
-private:
-	unsigned char prefix[0x5c0];
-	// Native DoXferE96B4 and WB898B00 clear2500 shorts; the following
-	// four-float bounds at1948 are transferred separately atE9A8A.
-	short areaPartition[2500];
-	float bounds1948[4];
-	Rva000E91CETree trees[2000];
-	int numTrees;
-	unsigned char gap4[2];
-	bool changed;
-	unsigned char gap7[0xd];
-	bool initialized;
-	unsigned char gap15[1];
-	bool needUpdate;
-	unsigned char gap17[1];
-	Rva000E91CEType types[64];
-	int numTypes;
-};
+#include "../../../Include/W3DDevice/GameClient/W3DShrubBuffer.h"
 
 // ?addShrub@W3DShrubBuffer@@QAEXIUCoord3D@@MPBVMatrix3D@@MPBURva000E91CEData@@HABVAsciiString@@3@Z
 void W3DShrubBuffer::addShrub(unsigned int id, Coord3D location, float scale, const Matrix3D *transform,
@@ -133,59 +49,59 @@ void W3DShrubBuffer::addShrub(unsigned int id, Coord3D location, float scale, co
 	const AsciiString &nameD)
 {
 	if (!((const Rva000E91CEGlobalData *)TheWritableGlobalData)->m_flag1c) return;
-	if (numTrees >= 2000) return;
-	if (!initialized) return;
+	if (m_numTrees >= 2000) return;
+	if (!m_initialized) return;
 	int type = -2;
-	for (int i = 0; i < numTypes; ++i) {
-		if (((const StringBase<char> *)&types[i].data->modelName)->compareNoCase(*(const StringBase<char> *)&data->modelName) == 0 &&
-			((const StringBase<char> *)&types[i].data->nameC)->compareNoCase(*(const StringBase<char> *)&data->nameC) == 0) { type = i; break; }
+	for (int i = 0; i < m_numTypes; ++i) {
+		if (((const StringBase<char> *)&m_treeTypes[i].m_data->m_modelName)->compareNoCase(*(const StringBase<char> *)&data->m_modelName) == 0 &&
+			((const StringBase<char> *)&m_treeTypes[i].m_data->m_textureName)->compareNoCase(*(const StringBase<char> *)&data->m_textureName) == 0) { type = i; break; }
 	}
 	if (type < 0) {
-		type = addTreeType(data->modelName, data->nameC, data, shadowKind, textureName, nameD);
+		type = addTreeType(data->m_modelName, data->m_textureName, data, shadowKind, textureName, nameD);
 		if (type < 0) return;
-		needUpdate = true;
+		m_flag4fb6e = true;
 	}
-	types[type].field58 = rva000E8F9D(data->name48, shadowKind, textureName);
-	if (data->framesToMoveOutward > 0 || data->doTopple) {
+	m_treeTypes[type].m_field58 = rva000E8F9D(data->m_name48, shadowKind, textureName);
+	if (data->m_framesToMoveOutward > 0 || data->m_doTopple) {
 		short bucket = getPartitionBucket((const FloatPair *)&location);
-		trees[numTrees].nextInPartition = areaPartition[bucket];
-		areaPartition[bucket] = numTrees;
+		m_trees[m_numTrees].nextInPartition = m_areaPartition[bucket];
+		m_areaPartition[bucket] = m_numTrees;
 	} else {
-		trees[numTrees].nextInPartition = -1;
+		m_trees[m_numTrees].nextInPartition = -1;
 	}
 	float randomScale = GetGameClientRandomValueReal(1.0f - randomScaleAmount, 1.0f + randomScaleAmount,
 		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DShrubBuffer.cpp", 0x32d);
-	trees[numTrees].transform = *transform;
-	if (randomScaleAmount > 0.0f) trees[numTrees].scale = scale * randomScale;
-	else trees[numTrees].scale = scale;
-	trees[numTrees].location = (const Vector3 &)location;
-	trees[numTrees].treeType = type;
-	trees[numTrees].uprightType = type;
-	trees[numTrees].toppledType = types[type].field58;
-	trees[numTrees].fielda0 = 1;
-	trees[numTrees].bounds = types[type].bounds;
-	{ float sc = trees[numTrees].scale; Vector3 &c = trees[numTrees].bounds.Center; c.X = sc * c.X; c.Y *= sc; c.Z *= sc; }
-	trees[numTrees].bounds.Radius *= trees[numTrees].scale;
-	translateBounds(trees[numTrees].bounds.Center, trees[numTrees].location);
-	trees[numTrees].visible = false;
-	trees[numTrees].drawableID = id;
-	trees[numTrees].firstIndex = 0;
-	trees[numTrees].bufferIndex = -1;
-	trees[numTrees].swayType = data->flag54 ? 0 : GetGameClientRandomValue(1, 10,
+	m_trees[m_numTrees].transform = *transform;
+	if (randomScaleAmount > 0.0f) m_trees[m_numTrees].scale = scale * randomScale;
+	else m_trees[m_numTrees].scale = scale;
+	m_trees[m_numTrees].location = (const Vector3 &)location;
+	m_trees[m_numTrees].treeType = type;
+	m_trees[m_numTrees].m_field88 = type;
+	m_trees[m_numTrees].m_field8c = m_treeTypes[type].m_field58;
+	m_trees[m_numTrees].m_field9c = 1;
+	m_trees[m_numTrees].bounds = m_treeTypes[type].m_bounds;
+	{ float sc = m_trees[m_numTrees].scale; Vector3 &c = m_trees[m_numTrees].bounds.Center; c.X = sc * c.X; c.Y *= sc; c.Z *= sc; }
+	m_trees[m_numTrees].bounds.Radius *= m_trees[m_numTrees].scale;
+	translateBounds(m_trees[m_numTrees].bounds.Center, m_trees[m_numTrees].location);
+	m_trees[m_numTrees].visible = false;
+	m_trees[m_numTrees].drawableID = id;
+	m_trees[m_numTrees].firstIndex = 0;
+	m_trees[m_numTrees].bufferNdx = -1;
+	m_trees[m_numTrees].swayType = data->m_noSway ? 0 : GetGameClientRandomValue(1, 10,
 		"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DShrubBuffer.cpp", 0x348);
-	trees[numTrees].pushAside = 0;
-	trees[numTrees].lastFrame = 0;
-	trees[numTrees].pushAsideSource = 0;
-	trees[numTrees].pushAsideDelta = 0;
-	trees[numTrees].pushAsideCos = 1;
-	trees[numTrees].pushAsideSin = 1;
-	trees[numTrees].toppleState = 0;
-	trees[numTrees].toppleObject = 0;
-	trees[numTrees].pushAsideObject = 0;
-	trees[numTrees].flag45 = false;
-	trees[numTrees].flag46 = false;
-	trees[numTrees].sinkFrames = 0;
-	++numTrees;
-	changed = true;
+	m_trees[m_numTrees].pushAside = 0;
+	m_trees[m_numTrees].lastFrameUpdated = 0;
+	m_trees[m_numTrees].pushAsideSource = 0;
+	m_trees[m_numTrees].pushAsideDelta = 0;
+	m_trees[m_numTrees].pushAsideCos = 1;
+	m_trees[m_numTrees].pushAsideSin = 1;
+	m_trees[m_numTrees].m_toppleState = 0;
+	m_trees[m_numTrees].m_field94 = 0;
+	m_trees[m_numTrees].m_field98 = 0;
+	m_trees[m_numTrees].m_flag45 = false;
+	m_trees[m_numTrees].m_flag46 = false;
+	m_trees[m_numTrees].m_field90 = 0;
+	++m_numTrees;
+	m_flag4fb5e = true;
 }
 
