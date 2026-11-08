@@ -267,12 +267,23 @@ Update (2026-11-07, static-defects lane): 0x0052BD3A's FXList.cpp match rests on
 - Applied on a scratch head at 1e3153af8c: 298/298 rows over all eight units, `check_csv`, `pin_consistency --check`
   and `pin_admission` clean. Minimal B's dry run accepts FXList.cpp and ParticleSystemFXNuggetCtor.cpp, 15 rows, on a
   census index copy from 07:03 today, with the `list<FXNugget*>` pin removed; with the pin it still refuses on that symbol.
-- Still open: the guard refuses the act's split over `??_7Rva0056616B@@6B@`, a false reject recorded in
-  re_attempts.log; the table is identical across the objects. The scratch run wrapped that one symbol, so the split does
-  not land until the check is fixed.
+- Cleared: the guard's false reject over `??_7Rva0056616B@@6B@`. The guard now proves a table's compiler-written weak
+  slot (`??_E<class>` defaulting to `??_G<class>`, Characteristics 2, as all 7,300 weak externals in a 22,814-object
+  census are). Verified by the real split below, with no wrapper.
 - Prerequisites, in order: batch 2, the guard fix, the split, the respell, `retire identity FXList.cpp` in the next
   commit (not run: it needs built ledger objects), the pin fix, minimal B.
 - Consumers of the old spellings are wider than the family's own files: SpawnArmy.cpp and W3DStreakDraw.cpp must be
   prepared. The `name_dependents` hook found this class of unit; without cached objects it widens to about 4,700 units
   on text, so land from a worktree with built objects.
 
+## 2026-11-08: split and respell applied from a worktree with built objects (Harness)
+
+- The act's copy ctor and funclets are in LivingWorldCampaign.cpp (17/17 rows, guard accepted on a census index fetched
+  today), then the record family is respelled and 0x0052BD3A moved alone to its approved unit: `rename.py --basis retail`
+  passed its build, its post-check and the full ledger checks, with `name_dependents` byte-verifying 205 dependent units.
+  Both commits passed their pre-commit hooks.
+- Remaining, in order: `repair_queue.py retire identity FXList.cpp` (refuses until its objects are built: 2 missing, 30
+  providers not proven current), the `list<FXNugget*>` pin fix, minimal B with its text regenerated.
+- `rename.py check --range` reports the family's unchanged identifiers (`push_back`, `_M_insert_overflow`,
+  `rva00566527`) as still spelled, about 1,500 lines. These are false positives: check_row scans the bare identifier
+  even when a respell keeps it. No ledger still spells an old name, and no hook runs `check`.
