@@ -6,6 +6,12 @@
 #ifndef BFME2_GENERIC_MULTILIST_CLASS_H
 #define BFME2_GENERIC_MULTILIST_CLASS_H
 
+// One definition for both header families: Zero Hour's multilist.h (which rendobj.h reaches) defines this class
+// too, under MULTILIST_H; when it is already in, it wins and this header adds nothing. Include-order trade-off: a
+// unit that needs both families must include the Zero Hour side (rendobj.h) first; reaching this header first and
+// multilist.h later still defines the classes twice.
+#ifndef MULTILIST_H
+
 class GenericMultiListClass;
 class MultiListObjectClass;
 
@@ -46,4 +52,5 @@ protected:
 	friend class MultiListObjectClass;
 };
 
+#endif // MULTILIST_H
 #endif
