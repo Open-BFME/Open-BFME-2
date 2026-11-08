@@ -139,3 +139,10 @@ Windows Python in a win64 prefix. Seats do not run these unless a maintainer giv
   marked `harness-unlanded`. During a run the prefix has no `Z:` drive, only the game, Python, the
   checkout, the job's files and the sandbox appdata, on a private Xvfb. That isolation is weak (the
   same user and network) until the owner adds a restricted user.
+- srv1 can also build a diagnostic image itself and queue its boot, from a `swarm/*` branch or a commit on
+  `master`: `~/bfme2-ops/swarm/local-link/local_link.py request REF --label L` (an ops script, not in this
+  repository; `vet` and `history` are its other reports). It has two workers, each with its own checkout and wine
+  prefix. Requests start in order but finish in whatever order their links do, and a worker that dies can repeat a
+  request, so match a result to its request by the receipt's `ref` and `image_commit`, never by which is
+  newest. Its `local-*` images are deleted only once they have a receipt and are outside both the newest 50 and the
+  last 72 hours, and can be rebuilt from their commit and branch; receipts are kept.
