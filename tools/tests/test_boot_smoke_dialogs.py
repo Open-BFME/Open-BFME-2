@@ -240,7 +240,7 @@ class Classification(unittest.TestCase):
         for outcome in ("no-window", "blank-window", "crash-at-x", "crash-dialog", "exit-0x1"):
             self.assertTrue(bs.broke(outcome), outcome)
         for outcome in ("title-splash", "loading-screen", "reached-menu", "no-picture", "debugger-error", "link-error",
-                        "guard-violation", "hungry"):
+                        "guard-violation", "hung", "hanging", "hang"):
             self.assertFalse(bs.broke(outcome), outcome)
 
     def test_result_of_keeps_crash_dialog(self):
