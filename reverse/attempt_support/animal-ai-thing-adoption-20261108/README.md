@@ -46,3 +46,15 @@ Bounded provider checks use index d171e84869; they do not establish a new
 full image, census, coverage gain or runtime result. The remaining Animal
 AICommandInterface, AICommandParms, AIUpdateInterface and AnimalAIUpdate
 header debts are not retired by this change.
+
+Publication: d44889a491 landed on push.py attempt 2 (866.3 seconds for the
+successful attempt). The retry passed 16/16 changed rows, then refreshed and
+verified 41,331 rows in 5,787 other stale source objects. String, float,
+import, full DIR32 consistency and module-registry checks all passed. The
+initial 1,734-source header gate also passed after rebase (18,918 rows).
+The final broader link audit remained INCONCLUSIVE: index d171e84869 versus
+outgoing base 314cbfd1c1be15d969daacd816a3033036bb471e, with three source
+objects lacking current strict receipts, first AnimalAIUpdate.cpp. A passed
+byte gate is not a strict provider receipt or a full image-link result.
+The literal progress.py origin/master check after publication reports
+C++ exact 7,984,346 bytes, delta +0; work continues on the remaining headers.

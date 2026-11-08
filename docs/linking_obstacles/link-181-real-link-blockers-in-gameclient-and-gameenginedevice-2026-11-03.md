@@ -558,3 +558,11 @@ four-byte body. Full-scope variant checking passes. No native accessor RVA,
 new coverage or image/runtime clearance is claimed. Remaining Animal AI
 interface/header and TU work stays open.
 [Declaration-order controls and scope proof](../../reverse/attempt_support/animal-ai-thing-adoption-20261108/README.md).
+
+Published as d44889a491 on attempt 2 (866.3 seconds for that attempt).
+The carried check refreshed 5,787 stale source objects and passed all
+41,331 row checks plus strings, floats, imports, full DIR32 consistency and
+module registry. The broader link audit remains INCONCLUSIVE: index
+d171e84869 versus outgoing base 314cbfd1c1be15d969daacd816a3033036bb471e;
+three source objects lacked current strict receipts, first AnimalAIUpdate.
+No full-image or runtime clearance is claimed.
