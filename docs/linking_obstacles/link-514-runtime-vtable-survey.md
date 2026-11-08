@@ -1253,3 +1253,52 @@ audit is still INCONCLUSIVE (c885072a48 versus 008c434387), with one old-array
 loss candidate through an unread object and zero proven newly unresolved
 names. The index's sole user was the repaired source and current Code text
 has no uses; unread/directive coverage and next-image confirmation remain.
+
+**Tables freed by Burachi-3D's released claims (2026-11-09, seat halilkkaya-lk73, base `7617427900`).**
+Method: lk65_ab.py (old = new = HEAD's `tools/vtable_bridge.py`), lk67_shapes.py, lk68's kept-copy twin
+planner, restricted to tables that need 0x000B3FD0, 0x000D43D0, 0x000D1407, 0x004543A9, 0x0047A699,
+0x00497805, 0x004D5B30, 0x005C4AD5, 0x005CB9FF or the five files lk68/lk71 listed. 262 tables plan
+clean; 143 need a freed key.
+- Done, three commits:
+  - The lk69 retraction: `?apply@Rva004CEE78DwordImmSetter` (Disp0DwordImmSetters.cpp) is tombstoned and
+    its class removed; `??1NetCommandMsg@@MAE@XZ` alone rows 0x004CEE78. No hatch named it.
+  - 52 rows (`add_match.py --icf-owner`, `fold-proof=<owner source>`, callees first) take 38 tables off
+    the bridge: FileClass, W3DPropBuffer, W3DShadowTexture@HashableClass, SequentialScript,
+    GameClient@Snapshot, FireLogicSystem, Rva002A8F24, WeaponSet, Anim2D, TAiData, AI, GhostObjectManager,
+    Rva00318B5C, DisplayString, AIGroup, Rva0039AE75, Script, VictorySystem, ArmySummary, CaveSystem,
+    RebuildHoleBehavior@BehaviorModuleInterface, five UpgradeMux tables (Base, Delayed, WeaponBonus,
+    Castle, ReplaceSelf), AODCrushCollide, Rva004D5795/57AE/59D1/5A30, Rva0056AC26Base1, PerTurnStats,
+    Rva004F599E, LivingWorldCampaign, Rva005CF872/5CFA43, DownloadManager. Two FXParticleSystem owners
+    were swapped for other matched rows at the same address (0x0030F45F `GameWindow::winGetStatus`,
+    0x0047A69C `SubsystemInterfaceList::addSubsystem`). add_match removed three present-unmatched markers
+    (present_unmatched 2190 -> 2180 with keys master had already shrunk).
+  - 54 genuine-fold rows held since lk71: the AIStateHashCtors0033F2FD.cpp AI states (0x004D7B93 ??1,
+    0x004D8507 ??_G; 28 classes reach it) and Darkness/FreezingRainSpecialPowerModuleData (0x004C8AB0,
+    0x004C2A84; 5 classes). Slot 0 only; those 27 tables stay bridged on other slots.
+- Offline A/B, base -> after: bridged 4,272 -> 4,234, already correct 1,399 -> 1,437, mismatching source
+  slots 45,941 -> 45,861; refusals identical (113); no table newly bridged or lost. link_check: every
+  touched, owner and sibling unit LINKs before and after with equal or more bytes, except the 7 B
+  Disp0DwordImmSetters.cpp double-counted with `??1NetCommandMsg`.
+- Slot-position names left (not rowed): 103 of the 143 freed-key tables need 70 rows whose names are
+  positional placeholders. `SubsystemInterface` `vslot06/08/12` blocks 40 tables and `ModuleData`
+  `slot01/14/16-29` blocks 38; both canonical headers (SubsystemInterface.h, ModuleData.h) carry these
+  names themselves, and neither the Zero Hour nor the BFME 1 reference names those slots, so no
+  `rename.py function --to-class` move is provable yet. Smaller sets: LivingWorld observers
+  `event2_0/2_1/5_1/5_2`, StateMachine `slot09/10`, State `_bfme_state_slot7/16`, DockUpdate
+  `slot22/dockSlot16`, CreateModule `slot02`, ActiveBodyModuleData `slot07`, CollideModule `slot02-04`,
+  DozerActionState `slot07-16`, HordeContainInterface `slot76/112/136`, ReplaceSelfUpgrade `i1C_N`,
+  Rva0086E350Listener `v00/v08`, and placeholder classes Rva0056B126B2, Rva0078D310Host, Rva0056AC26,
+  Rva0059EB41. The weak-slot tables lk71 held (GameClient@SubsystemInterface, UpgradeCenter,
+  Rva004885DE, Darkness/FreezingRainSpecialPowerModuleData) are in this set.
+- Next leads: (1) `?getUpdate@BehaviorModule@@UAEPAVUpdateModuleInterface@@XZ` at 0x000D43D0, kept copy in
+  FamilyDeletingDtors_muse-b1dd.cpp, is the only unproven slot of 48 tables (three more also need
+  `getDamage`/`getCollide` twins). One row would take them off the bridge, but BehaviorModule units
+  were outside this seat's scope; it needs the lead's go-ahead. (2) GameFileClass (`?Delete@GameFileClass`
+  at 0x000910FB) and Weapon (`?GetSnapshotName@Weapon` at 0x002CC2F6) plan clean but
+  ancalgonn-swarm-defects holds those addresses. (3) Naming the SubsystemInterface and ModuleData slots
+  (header lane) would free about 78 tables. (4) About eight clean tables with real names outside the
+  freed set (SimpleVecClass<float>, SimpleDynVecClass<float>, DynamicVectorClass<BfmeHandleCX>,
+  RebuildHoleBehavior's interface table, BoneFXDamage, DamageModule@ObjectModule,
+  LivingWorldBattleListener); read re_attempts first (`setRenderingMode` was withdrawn on a gen-alias
+  owner). (5) The single-class ElvenWood destructors (0x004C3905, 0x004C4028, 0x004C4508, ...) are
+  folds into their Rva placeholders, not twins.
