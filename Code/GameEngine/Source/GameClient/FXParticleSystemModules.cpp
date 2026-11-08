@@ -31,6 +31,7 @@ class INI;
 #include "../../Include/GameClient/LightningEmissionInfo.h"
 #include "../../Include/GameClient/TerrainFireEmissionInfo.h"
 #include "../../Include/GameClient/SphericalEmissionVelocityInfo.h"
+#include "../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -132,7 +133,6 @@ public:
 
     unsigned int m_unknown04[4];
 };
-FX_VTABLE_ONLY_INFO(LifeEventModuleInfo)
 FX_VTABLE_ONLY_INFO(TerrainCollisionModuleInfo)
 
 // The three draw modules whose template bodies live in FXParticleSystem.cpp:

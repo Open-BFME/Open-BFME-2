@@ -45,6 +45,7 @@ class INI;
 #include "../../Include/GameClient/LightningEmissionInfo.h"
 #include "../../Include/GameClient/TerrainFireEmissionInfo.h"
 #include "../../Include/GameClient/SphericalEmissionVelocityInfo.h"
+#include "../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem
 {
 
@@ -211,17 +212,6 @@ class CategoryModuleTemplate<8> : public ModuleTemplate, public SecondaryModuleB
 public:
     CategoryModuleTemplate();
     CategoryModuleTemplate(const CategoryModuleTemplate &that);
-};
-
-class LifeEventModuleInfo
-{
-public:
-    virtual ~LifeEventModuleInfo();
-    virtual void v1() = 0;
-
-    void *m_name;
-    unsigned int m_values[3];
-    unsigned int m_eventType;
 };
 
 class TerrainCollisionModuleInfo

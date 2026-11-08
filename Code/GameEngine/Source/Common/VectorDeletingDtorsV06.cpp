@@ -6,19 +6,22 @@
 // EventModuleInfo, so each wrapper's second table is its own one-slot
 // `6B?$CategoryModuleInfo@$07@1@@` table (retail 0x0081CA00 / 0x0081CAA0). CategoryModuleInfo's one
 // slot is pure and its destructor protected and non-virtual (exported ??1 IAE).
+// The Snapshot slot spellings FXParticleSystemModules.cpp and FXParticleSystemFactories.cpp use, so
+// LifeEventModuleInfo.h gives all three units one table (LoadPostProcess, GetSnapshotName, DoXfer).
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_REFERENCE_XFER
 #include "ModuleTemplate.h"
 #include <new>
 #include "../../Include/GameClient/EventModuleInfo.h"
+#include "../../Include/GameClient/LifeEventModuleInfo.h"
 namespace FXParticleSystem {
 template <int Category> class CategoryModuleInfo { public: virtual void v1() = 0; protected: ~CategoryModuleInfo(); };
 #include "../../Include/Common/ModuleInfoClass.h"
 template <int Category> class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<Category> { public: virtual ~CategoryModuleTemplateBase(); };
 template <int Category> class CategoryModuleTemplate;
 template <> class CategoryModuleTemplate<8> : public CategoryModuleTemplateBase<8>, public EventModuleInfo { public: virtual ~CategoryModuleTemplate(); };
-class LifeEventModuleInfo {
-public: virtual ~LifeEventModuleInfo(); virtual void v1() = 0;
-private: void *m_name; unsigned int m_values[3]; unsigned int m_eventType;
-};
 class TerrainCollisionModuleInfo {
 public: virtual ~TerrainCollisionModuleInfo(); virtual void v1() = 0;
 private: void *m_eventName; unsigned int m_eventTime[3]; bool m_flag; unsigned int m_cached;
