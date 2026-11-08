@@ -212,3 +212,46 @@ To land: the source change, plus a rename of those 24 rows to `?KEY@`/`?NAME@?$M
 so it needs the export-table evidence above, `deleted_rows.csv` tombstones and a `re_log.py` record),
 plus the same change to FXParticleSystemFactories.cpp's private `DefaultModuleTag` copy (lines ~719-752),
 which still defines `s_key`/`s_name`. Then re-run data_check; the 80 should fall to 0.
+
+*KEY/NAME route needed (false reject recorded in `re_attempts.log`, 2026-11-07).* The 12 exports above are
+landable only by a rename the tools cannot yet express, and they are not to be hand-renamed. Routed to
+seat6 (`rename.py` owner). The route must do a **data-member rename that changes the owning class**, from
+`DefaultModuleTag<N>::s_key`/`s_name` to the `KEY`/`NAME` that `DefaultModuleTag<N>` inherits from
+`ModuleTag<N, DefaultModuleKey<N>::VALUE, DefaultModuleName<N>::VALUE, DefaultModule<N>,
+DefaultModuleTemplate<N>, DefaultParticleModule<N> >`, **on an export basis** (retail's export table names
+`?KEY@`/`?NAME@?$ModuleTag@...` at exactly these addresses and never `s_key`/`s_name`). One application covers:
+
+- the source: `DefaultModuleTag<N>` gains that base, `keyReference()`/`nameReference()` return
+  `Base::KEY`/`Base::NAME`, and the `s_key`/`s_name` declarations and template definitions go, in
+  FXParticleSystemModules.cpp **and** the private `DefaultModuleTag` view in FXParticleSystemFactories.cpp
+  (~lines 719-752; it still defines `s_key`/`s_name`, and left alone it would keep a second copy of each
+  reference under the old name);
+- the 12 `data_ledger.csv` rows: 0x00A02C48/4C (category 6), 0x00A02C88/8C (1), 0x00A02C98/9C (0),
+  0x00A02CA8/AC (3), 0x00A02CB8/BC (2), 0x00A02CC8/CC (7);
+- the 12 `functions.csv` dynamic-initializer rows `??__E?s_key/s_name@?$DefaultModuleTag@...@@YAXXZ`
+  (0x007AF48B/96, 0x007AF53B/46, 0x007AF567/72, 0x007AF593/9E, 0x007AF5BF/CA, 0x007AF5EB/F6), respelled
+  `??__E?KEY/NAME@?$ModuleTag@...@@YAXXZ`, with their tombstones and basis rows;
+- a check that FXParticleSystemModules.cpp stays 229/229 and data_check returns to 0 (the trial without
+  the row renames shows 80 wrong-name findings).
+
+Expected: real link -12 (to about 120 from the predicted 132).
+
+*The 38 `DefaultModuleKey/Name<N>::GetValue` statics: not taken; they need the recovered TU.* Retail
+exports, per default category, `initialized` (`_N`), `value` (`AsciiString`) and a `$S<n>` guard word (12 +
+12 + 14). Ours differ three ways: the bool local is spelled `built`, GetValue is defined out of class so
+both locals are internal rather than COMDAT externals, and FXParticleSystemDefaults.cpp emits its own
+guard numbers (`$S5` for category 1, per `data_ledger.csv` 0x00A029F0). The first two are ordinary source
+fixes (24 names). The guard numbers are the blocker, and they gate the batch:
+
+- `$S<n>` is the compiler's counter of generated names across the whole translation unit. Retail's are
+  128/132 (category 1, Key/Name), 142/146 (0), 156/160 (3), 170/174 (2), 184/188 (7): 14 ticks per
+  category, in the order 1, 0, 3, 2, 7. Category 6 has two of each, 22/26 (0x00A0609C/A0) and 24/28
+  (0x00A0294C/58).
+- Retail places the guards among the `getInstance` statics of `ConcreteModuleClass<DefaultModuleTag<N> >`
+  (0x00A029E8..0x00A02AAC interleave `initialized`, `value`, `$S`, `instance` and `$S1` per category). So
+  GetValue was instantiated in the TU that also builds the default categories' concrete classes, and
+  about 127 generated names came before the first guard.
+- `tu_map.csv` gives the GetValue rows (0x003AA252, 0x003AA97F, ...) no TU. Matching 128..188 honestly needs
+  that retail TU recovered, with its content and instantiation order, so the counter lands on retail's
+  values. Today the only way to get those exact names is a hatch (alternatename/object-symbol), which is
+  not allowed, or new tooling. Prior record: `re_attempts.log` `?$S128@...` blocked. Not taken.
