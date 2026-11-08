@@ -39,4 +39,4 @@ leaves both restored queue rows in place. `check_csv.py` and
 
 No source files were edited in recovery. Current class claims held by other
 workers cover PlayerInitFromDict (Player) and ControlBar (GameWindowManager).
-The queue and LINK-616 note have this checkout's file claims.
+The queue and LINK-647 note have this checkout's file claims.
