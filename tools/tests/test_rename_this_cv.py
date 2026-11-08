@@ -547,3 +547,93 @@ def test_the_contract_bases_decide_before_the_header(tree, objects):
     recommit(tree, "reverse/class_contracts/Rva007C454.json", '{"class": "Rva007C454", "bases": []}\n')
     with pytest.raises(Refusal, match="canonical ancestry"):
         plan(tree)
+
+
+# ------------------------------------------------------------ an EH frame before the store
+EH_PROLOG = 0x00629188
+OTHER_CALL = 0x00629200
+EH_START = 0x0007C404
+EH_ROW = dict(name="??0Rva007C454@@QAE@ABV0@@Z", target_rva=f"0x{EH_START:08X}", target_size="80")
+
+
+HELPER_ROW = dict(name="__EH_prolog", target_rva=f"0x{EH_PROLOG:08X}", target_size="31")
+OTHER_ROW = dict(name="?other@@YAXXZ", target_rva=f"0x{OTHER_CALL:08X}", target_size="16")
+
+
+class EhContext:
+    def __init__(self, rows=(HELPER_ROW, OTHER_ROW)):
+        self._rows = list(rows)
+
+    def rows(self):
+        return self._rows
+
+
+def eh_frame(callee, after_call):
+    """`mov eax,<FuncInfo>; call callee`, then `after_call`, then a vptr store through esi."""
+    import struct
+    head = b"\xb8" + struct.pack("<I", 0x00B00000)
+    head += b"\xe8" + struct.pack("<i", callee - (EH_START + len(head) + 5))
+    return head + after_call
+
+
+def eh_problem(monkeypatch, code, ctx=None):
+    """this_store_problem on `code` from EH_START, whose last instruction is the store."""
+    import build
+    monkeypatch.setattr(build, "read_target_bytes", lambda rva, size: (code + b"\xcc" * size)[:size])
+    return rename.this_store_problem(ctx or EhContext(), EH_ROW, EH_START + len(code) - 6)
+
+
+COPY_THIS = b"\x51\x53\x56\x8b\xf1"                    # push ecx; push ebx; push esi; mov esi,ecx
+
+
+def test_the_eh_prolog_call_leaves_this_in_ecx(monkeypatch):
+    assert eh_problem(monkeypatch, eh_frame(EH_PROLOG, COPY_THIS + store_bytes(TABLE))) is None
+
+
+def test_another_call_in_that_position_still_drops_ecx(monkeypatch):
+    why = eh_problem(monkeypatch, eh_frame(OTHER_CALL, COPY_THIS + store_bytes(TABLE)))
+    assert "stores through `dword ptr [esi]`" in why
+
+
+def test_only_ecx_survives_the_eh_prolog_call(monkeypatch):
+    import struct
+    # mov edx,ecx; mov eax,<FuncInfo>; call __EH_prolog; mov dword ptr [edx],table
+    code = b"\x8b\xd1\xb8" + struct.pack("<I", 0x00B00000)
+    code += b"\xe8" + struct.pack("<i", EH_PROLOG - (EH_START + len(code) + 5))
+    assert "stores through `dword ptr [edx]`" in eh_problem(monkeypatch, code + store_bytes(TABLE, b"\x02"))
+
+
+def test_the_eh_prolog_call_does_not_bring_back_a_dropped_ecx(monkeypatch):
+    import struct
+    # call other; mov eax,<FuncInfo>; call __EH_prolog; mov esi,ecx; store
+    code = b"\xe8" + struct.pack("<i", OTHER_CALL - (EH_START + 5))
+    code += b"\xb8" + struct.pack("<I", 0x00B00000)
+    code += b"\xe8" + struct.pack("<i", EH_PROLOG - (EH_START + len(code) + 5))
+    assert "stores through `dword ptr [esi]`" in eh_problem(monkeypatch, code + b"\x8b\xf1" + store_bytes(TABLE))
+
+
+def test_a_reload_after_the_eh_prolog_call_loses_this(monkeypatch):
+    # mov ecx,[ebp+8]; mov esi,ecx: ecx no longer holds this
+    why = eh_problem(monkeypatch, eh_frame(EH_PROLOG, b"\x8b\x4d\x08\x8b\xf1" + store_bytes(TABLE)))
+    assert "stores through `dword ptr [esi]`" in why
+
+
+# A second __EH_prolog row, wherever it sits, leaves no helper at all: neither address keeps ecx.
+DUPLICATE_ELSEWHERE = (HELPER_ROW, OTHER_ROW, dict(name="__EH_prolog", target_rva=f"0x{OTHER_CALL:08X}", target_size="16"))
+DUPLICATE_SAME = (HELPER_ROW, dict(HELPER_ROW), OTHER_ROW)
+
+
+@pytest.mark.parametrize("callee", [OTHER_CALL, EH_PROLOG])
+def test_a_duplicate_helper_row_elsewhere_gives_no_exception(monkeypatch, callee):
+    why = eh_problem(monkeypatch, eh_frame(callee, COPY_THIS + store_bytes(TABLE)), EhContext(DUPLICATE_ELSEWHERE))
+    assert "stores through `dword ptr [esi]`" in why
+
+
+def test_a_duplicate_helper_row_at_its_address_gives_no_exception(monkeypatch):
+    why = eh_problem(monkeypatch, eh_frame(EH_PROLOG, COPY_THIS + store_bytes(TABLE)), EhContext(DUPLICATE_SAME))
+    assert "stores through `dword ptr [esi]`" in why
+
+
+def test_no_helper_row_keeps_every_call_ordinary(monkeypatch):
+    why = eh_problem(monkeypatch, eh_frame(EH_PROLOG, COPY_THIS + store_bytes(TABLE)), EhContext((OTHER_ROW,)))
+    assert "stores through `dword ptr [esi]`" in why

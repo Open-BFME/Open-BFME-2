@@ -484,13 +484,23 @@ FULL_REG = dict({r: r for r in REG32},
                 dl="edx", dh="edx", sil="esi", dil="edi", bpl="ebp", spl="esp")
 
 
+def eh_prolog_rva(ctx):
+    """The address of the ledger's one __EH_prolog row, or None. Several rows of that name give no
+    helper at all: an ambiguous row must not widen the calls that keep `this`."""
+    rows = [r for r in ctx.rows() if r["name"] == "__EH_prolog"]
+    return _rva(rows[0].get("target_rva")) if len(rows) == 1 else None
+
+
 def this_store_problem(ctx, row, store):
     """None when the vptr store at retail `store` (`mov dword ptr [reg], imm32`) in
     `row`'s retail bytes writes through `this`: ecx at entry, or a register copied
     from it (`mov reg, reg`) with no load or other write in between, at offset 0
     (the primary vfptr). Else why not. The bytes from the row's start to the store
     are decoded in order; a branch before the store, or a store that is not an
-    instruction boundary, is refused rather than followed."""
+    instruction boundary, is refused rather than followed. A call drops ecx, eax and
+    edx, except that the ledger's one __EH_prolog row (eh_prolog_rva) leaves ecx in place:
+    an EH frame opens with `mov eax,<FuncInfo>; call __EH_prolog` before the body copies
+    `this`."""
     import capstone
     from capstone import x86
     import build
@@ -504,6 +514,7 @@ def this_store_problem(ctx, row, store):
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     md.detail = True
     this = {"ecx"}
+    eh_prolog = eh_prolog_rva(ctx)
     for ins in md.disasm(code, start):
         ops = ins.operands
         if ins.address == store:
@@ -532,7 +543,8 @@ def this_store_problem(ctx, row, store):
         for reg in written:
             this.discard(FULL_REG.get(ins.reg_name(reg), ins.reg_name(reg)))
         if ins.group(capstone.CS_GRP_CALL):
-            this -= {"eax", "ecx", "edx"}
+            frame = ops and ops[0].type == x86.X86_OP_IMM and ops[0].imm == eh_prolog
+            this -= {"eax", "edx"} if frame else {"eax", "ecx", "edx"}
     return f"0x{store:08X} is not an instruction boundary of {row['name']}"
 
 
