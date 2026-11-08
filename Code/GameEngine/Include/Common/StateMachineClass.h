@@ -17,7 +17,16 @@ public:
     virtual ~StateMachine();
 protected:
     virtual void loadPostProcess() {}
+    // Slot 2 follows the spelling the included Snapshot base selected, as State's does, so it always overrides.
+#ifdef BFME_SNAPSHOT_NAME_SLOT
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+    virtual const char *GetSnapshotName();
+#else
     virtual const char *GetSnapshotName() const;
+#endif
+#else
+    virtual void crc(Xfer *xfer);
+#endif
     virtual void xfer(Xfer *xfer);
 public:
     virtual StateReturnType updateStateMachine();

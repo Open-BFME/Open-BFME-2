@@ -66,10 +66,7 @@ class AIUpdateSnapshotMember : public Snapshot {
 public:
  virtual void loadPostProcess(); virtual void crc(Xfer *); virtual void xfer(Xfer *);
 };
-class StateMachine : public Snapshot {
-public:
- virtual void v4(); virtual void v5(); virtual void v6(); virtual void initDefaultState();
-};
+#include "../../../../Include/Common/StateMachineClass.h"
 class Path {
 public:
  Path(); void DoXfer(Xfer *);
