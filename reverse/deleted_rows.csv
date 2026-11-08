@@ -5807,3 +5807,4 @@ __ehhandler$?rva00587F11@Rva00587F11Factory@@QAEPAVRva005D6FCC@@PAX@Z,0x0079CBA3
 ?rva0007BEA7@Rva007C454@@UAE_NABVSphereClass@@@Z,0x0007BEA7,"Renamed to ?Cull_Sphere@Rva007C454@@UAE_NABVSphereClass@@@Z by tools/rename.py (inferred)"
 ?rva0007BEDA@Rva007C454@@UAE_NABVAABoxClass@@@Z,0x0007BEDA,"Renamed to ?Cull_Box@Rva007C454@@UAE_NABVAABoxClass@@@Z by tools/rename.py (inferred)"
 ?onDie@Rva004581FD@@UAEXPBVDamageInfo@@@Z,0x004581FD,"Renamed to ?onDie@BridgeBehavior@@UAEXPBVDamageInfo@@@Z by tools/rename.py (to-class: retail vftable 0x00C408EC slot 0)"
+??1Rva003EF14ABase@@QAE@XZ,0x002B221A,"Placeholder base of Rva003EF14A (LivingWorldRegionEffectsManager): the base is the canonical LivingWorldRegionObserver, whose table 0x007FDF68 the destructor restores; Rva003EF14ADtor.cpp now emits the already-rowed ??1LivingWorldRegionObserver@@QAE@XZ (same 7 bytes) at this address"

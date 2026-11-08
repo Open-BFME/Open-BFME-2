@@ -18,15 +18,10 @@ private:
 };
 // g_registryAtE02E88: matched references place it at VA 0xe02e88 (zero-filled; a plain-data view).
 Rva002B7250 g_registryAtE02E88;
-extern const void *const g_vtableAtBFDF68[];
-const void *const g_vtableAtBFDF68[1] = { 0 };
-
-class Rva003EF14ABase {
-public:
-    virtual void slot0();
-    // ?Rva003EF14ABase::~Rva003EF14ABase present-unmatched
-    ~Rva003EF14ABase() { *(const void **)this = g_vtableAtBFDF68; }
-};
+// The base is the canonical LivingWorldRegionObserver: its four-slot table
+// 0x007FDF68 (two `ret 0Ch` and two `ret 8` defaults) is the one the destructor
+// restores last.
+#include "../../../Include/Common/LivingWorldObservers.h"
 
 class Rva004E2E58Value;
 struct Rva004E2E58Node {
@@ -143,7 +138,7 @@ private:
     bool flag20;
 };
 
-class Rva003EF14A : public Rva003EF14ABase {
+class Rva003EF14A : public LivingWorldRegionObserver {
     Rva003EE9F1Ref *ref04;
     Rva004E2E58 container08;
     AsciiString string18;
