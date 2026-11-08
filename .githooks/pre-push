@@ -24,15 +24,30 @@ fail() {
 # GIT_REPLACE_REF_BASE) changes every base and range below, so it refuses outright.
 # Keep the two hooks' copies and the tool alike.
 git_path_form() {
-    # One spelling of a path, to compare it: absolute, symlinks resolved. On Git Bash, where
-    # git prints C:/x and realpath /c/x, the mixed form in one case (the file system ignores it).
+    # One spelling of a path: absolute, symlinks resolved. On Git Bash, where git prints C:/x and
+    # realpath /c/x, the mixed form with an upper-case drive letter. Nothing else is folded: a
+    # directory can be case-sensitive (fsutil), so .git and .GIT may be two directories.
     local path=$1
     if command -v cygpath >/dev/null 2>&1; then
         path=$(cygpath -u -- "$path") && path=$(realpath -m -- "$path") && path=$(cygpath -m -- "$path") || return 1
-        printf '%s\n' "${path,,}"
+        printf '%s\n' "${path^}"
     else
         realpath -m -- "$path"
     fi
+}
+git_same_path() {
+    # Two spellings are one path only if they are equal, or the file system says both are one file.
+    [ "$1" = "$2" ] || { [ -e "$1" ] && [ -e "$2" ] && [ "$1" -ef "$2" ]; }
+}
+git_path_inside() {
+    # Whether directory $2 is a parent of $1, which need not exist yet (a first commit's index).
+    local parent=${1%/*}
+    while [ -n "$parent" ]; do
+        git_same_path "$parent" "$2" && return 0
+        [ "$parent" != "${parent%/*}" ] || return 1
+        parent=${parent%/*}
+    done
+    return 1
 }
 git_history_trusted() {
     local why="local git state rewrites history" own_git start top gitdir common knob own shallow replaced index
@@ -47,18 +62,17 @@ git_history_trusted() {
     case "$common" in /*|[A-Za-z]:*) ;; *) common=$start/$common ;; esac
     top=$(git_path_form "$top") && gitdir=$(git_path_form "$gitdir") && common=$(git_path_form "$common") \
         || fail "$why (cannot resolve $ROOT's own repository)"
-    [ "$top" = "$(git_path_form "$ROOT")" ] || fail "$why ($ROOT is not its repository's top ($top))"
+    git_same_path "$top" "$(git_path_form "$ROOT")" || fail "$why ($ROOT is not its repository's top ($top))"
     for knob in GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR; do
         [ -n "${!knob+x}" ] || continue
         case $knob in GIT_DIR) own=$gitdir ;; GIT_WORK_TREE) own=$top ;; *) own=$common ;; esac
-        [ "$(git_path_form "${!knob}")" = "$own" ] || fail "$why ($knob names ${!knob}, not this checkout's $own)"
+        git_same_path "$(git_path_form "${!knob}")" "$own" || fail "$why ($knob names ${!knob}, not this checkout's $own)"
     done
     if [ -n "${GIT_INDEX_FILE+x}" ]; then
         index=$(git_path_form "$GIT_INDEX_FILE") || fail "$why (cannot resolve GIT_INDEX_FILE $GIT_INDEX_FILE)"
-        case "$index" in
-            "$gitdir"/*) export GIT_INDEX_FILE="$index" ;;
-            *) fail "$why (GIT_INDEX_FILE names $GIT_INDEX_FILE, outside this checkout's git directory $gitdir)" ;;
-        esac
+        git_path_inside "$index" "$gitdir" \
+            || fail "$why (GIT_INDEX_FILE names $GIT_INDEX_FILE, outside this checkout's git directory $gitdir)"
+        export GIT_INDEX_FILE="$index"
     fi
     unset GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR           # every git below finds the same repository itself
     [ -z "${GIT_GRAFT_FILE+x}" ] || fail "$why (GIT_GRAFT_FILE is set)"

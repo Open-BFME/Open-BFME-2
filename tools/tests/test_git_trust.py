@@ -39,7 +39,7 @@ def git(root, *args, **kwargs):
 
 def commit(root, rel, text, message):
     (root / rel).parent.mkdir(parents=True, exist_ok=True)
-    (root / rel).write_text(text)
+    (root / rel).write_bytes(text.encode())          # byte-stable: write_text gives CRLF on Windows
     git(root, "add", "-A")
     git(root, "-c", "user.name=t", "-c", "user.email=t@example.invalid", "commit", "-qm", message)
     return git(root, "rev-parse", "HEAD")
@@ -294,12 +294,147 @@ def test_the_hooks_compare_one_spelling_of_a_path(tmp_path):
     text = hook_copy("pre-push")
     function = text[:text.index("git_history_trusted() {")]
     spelled = {}
-    for path in ("C:/Repo/.git", "/c/Repo/.git", "c:/repo/.git"):
+    for path in ("C:/Repo/.git", "/c/Repo/.git", "c:/Repo/.git", "C:/repo/.git"):
         got = subprocess.run([_bash(), "-c", f'{function}\ngit_path_form "{path}"'], capture_output=True, text=True,
                              env=dict(os.environ, PATH=f"{stubs}{os.pathsep}{os.environ['PATH']}"))
         assert got.returncode == 0, got.stderr
         spelled[path] = got.stdout.strip()
-    assert set(spelled.values()) == {"c:/repo/.git"}, spelled
+    # the drive letter is one spelling; a directory's case is not, because it can be another directory
+    assert spelled == {"C:/Repo/.git": "C:/Repo/.git", "/c/Repo/.git": "C:/Repo/.git",
+                       "c:/Repo/.git": "C:/Repo/.git", "C:/repo/.git": "C:/repo/.git"}, spelled
+
+
+def case_sensitive_dir(tmp_path):
+    """A directory where `x` and `X` are two names (fsutil on Windows), or skip the test."""
+    folder = tmp_path / "cased"
+    folder.mkdir()
+    if os.name == "nt":
+        got = subprocess.run(["fsutil", "file", "setCaseSensitiveInfo", str(folder), "enable"],
+                             capture_output=True, text=True)
+        if got.returncode:
+            pytest.skip(f"fsutil cannot enable case sensitivity here: {got.stdout.strip()[:120]}")
+    (folder / "probe").write_bytes(b"x")
+    if (folder / "PROBE").exists():
+        pytest.skip("this file system folds case")
+    (folder / "probe").unlink()
+    return folder
+
+
+def run_guard(hook, cwd, tail="", **env):
+    return subprocess.run([_bash(), "-c", hook_guard(hook) + "\n" + tail], cwd=cwd, capture_output=True, text=True,
+                          env=dict(os.environ, **env))
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+def test_a_case_twin_index_never_reads_as_this_checkouts(tmp_path, monkeypatch, rq_at, hook):
+    """The review's probe: safe contents in .git/index and others staged through .GIT/index. With
+    the path folded the guard read `safe` while the real commit recorded the other."""
+    root = history(case_sensitive_dir(tmp_path))[0]
+    twin = root / ".GIT"
+    twin.mkdir()
+    (twin / "index").write_bytes((root / ".git/index").read_bytes())
+    (root / "a.txt").write_bytes(b"unverified\n")
+    env = dict(os.environ, GIT_INDEX_FILE=str(twin / "index"))
+    git(root, "add", "a.txt", env=env)
+    hooks = tmp_path / "hooks"
+    hooks.mkdir()
+    (hooks / "pre-commit").write_text(hook_guard(hook) + "\n")
+    (hooks / "pre-commit").chmod(0o755)
+    got = subprocess.run(["git", "-c", f"core.hooksPath={hooks.as_posix()}", "-c", "user.name=t",
+                          "-c", "user.email=t@example.invalid", "commit", "-qm", "probe"],
+                         cwd=root, capture_output=True, text=True, env=env)
+    assert got.returncode != 0 and "GIT_INDEX_FILE names" in got.stderr, (got.stdout, got.stderr)
+    assert git(root, "show", "HEAD:a.txt") == "two"
+    monkeypatch.setenv("GIT_INDEX_FILE", str(twin / "index"))
+    problems = git_trust.untrusted_history(root)
+    assert len(problems) == 1 and "GIT_INDEX_FILE names" in problems[0]
+    assert rq_at(root).untrusted_history() == problems
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+def test_a_case_twin_repository_is_another_repository(tmp_path, monkeypatch, rq_at, hook):
+    """The review's probe: siblings Repo and repo, run from Repo with GIT_DIR naming repo/.git."""
+    folder = case_sensitive_dir(tmp_path)
+    here, twin = folder / "Repo", folder / "repo"
+    for root in (here, twin):
+        root.mkdir()
+        git(root, "init", "-q")
+    got = run_guard(hook, here, 'echo ACCEPTED', GIT_DIR=str(twin / ".git"))
+    assert got.returncode != 0 and "GIT_DIR names" in got.stderr, (got.stdout, got.stderr)
+    monkeypatch.setenv("GIT_DIR", str(twin / ".git"))
+    problems = git_trust.untrusted_history(here)
+    assert len(problems) == 1 and "GIT_DIR names" in problems[0]
+    assert rq_at(here).untrusted_history() == problems
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+def test_a_harmless_case_difference_still_passes(tmp_path, monkeypatch, rq_at, hook):
+    """In an ordinary Windows directory .GIT is .git: the file system, not folding, says so."""
+    root = history(tmp_path)[0]
+    if not (root / ".GIT").exists():
+        pytest.skip("this file system tells case apart")
+    got = run_guard(hook, root, 'echo "INDEX=$GIT_INDEX_FILE"', GIT_DIR=str(root / ".GIT"),
+                    GIT_INDEX_FILE=str(root / ".GIT" / "index"))
+    assert got.returncode == 0, got.stderr
+    monkeypatch.setenv("GIT_DIR", str(root / ".GIT"))
+    monkeypatch.setenv("GIT_INDEX_FILE", str(root / ".GIT" / "index"))
+    assert git_trust.untrusted_history(root) == []
+    assert rq_at(root).untrusted_history() == []
+
+
+@pytest.mark.skipif(os.name != "nt", reason="only Windows has drive letters")
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+def test_a_drive_letter_in_either_case_is_one_path(tmp_path, monkeypatch, hook):
+    root = history(tmp_path)[0]
+    index = str(root / ".git" / "index")
+    other = index[0].swapcase() + index[1:]
+    got = run_guard(hook, root, 'echo "INDEX=$GIT_INDEX_FILE"', GIT_INDEX_FILE=other)
+    assert got.returncode == 0, got.stderr
+    monkeypatch.setenv("GIT_INDEX_FILE", other)
+    assert git_trust.untrusted_history(root) == []
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+def test_the_exported_index_keeps_its_real_spelling(tmp_path, hook):
+    """What every later git reads must be the actual path, never a folded spelling of it."""
+    folder = tmp_path / "MixedCase"
+    folder.mkdir()
+    root = history(folder)[0]
+    got = run_guard(hook, root, 'echo "INDEX=$GIT_INDEX_FILE"; git rev-parse --verify -q :a.txt', GIT_INDEX_FILE=".git/index")
+    assert got.returncode == 0, got.stderr
+    assert "MixedCase" in got.stdout and "/.git/index" in got.stdout, got.stdout
+    assert git(root, "rev-parse", ":a.txt") in got.stdout
+
+
+@pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])
+def test_a_first_commit_with_no_index_yet_passes(tmp_path, monkeypatch, hook):
+    root = tmp_path / "fresh"
+    root.mkdir()
+    git(root, "init", "-q")
+    assert not (root / ".git/index").exists()
+    hooks = tmp_path / "hooks"
+    hooks.mkdir()
+    (hooks / "pre-commit").write_text(hook_guard(hook) + "\necho GUARD-PASSED >&2\n")
+    (hooks / "pre-commit").chmod(0o755)
+    got = subprocess.run(["git", "-c", f"core.hooksPath={hooks.as_posix()}", "-c", "user.name=t",
+                          "-c", "user.email=t@example.invalid", "commit", "--allow-empty", "-m", "first"],
+                         cwd=root, capture_output=True, text=True)
+    assert got.returncode == 0 and "GUARD-PASSED" in got.stderr, got.stderr
+
+
+def test_an_index_that_does_not_exist_is_judged_by_where_it_would_be(tmp_path, monkeypatch):
+    root = history(tmp_path)[0]
+    monkeypatch.setenv("GIT_INDEX_FILE", str(root / ".git" / "absent-index"))
+    assert git_trust.untrusted_history(root) == []
+    for outside in (root / "absent-index", root.parent / "absent-index", root / ".git" / ".." / "absent-index"):
+        monkeypatch.setenv("GIT_INDEX_FILE", str(outside))
+        assert "outside this checkout's git directory" in git_trust.untrusted_history(root)[0]
+
+
+def test_an_absent_case_twin_of_the_git_directory_is_outside_it(tmp_path, monkeypatch):
+    root = history(case_sensitive_dir(tmp_path))[0]
+    monkeypatch.setenv("GIT_INDEX_FILE", str(root / ".GIT" / "index"))
+    assert "outside this checkout's git directory" in git_trust.untrusted_history(root)[0]
 
 
 @pytest.mark.parametrize("hook", ["pre-commit", "pre-push"])

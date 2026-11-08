@@ -478,8 +478,28 @@ def trusted_git_env():
     return env
 
 
+def _spelled_path(path):
+    drive, rest = os.path.splitdrive(os.path.realpath(path))
+    return drive.upper() + rest
+
+
 def _same_path(a, b):
-    return os.path.normcase(os.path.realpath(a)) == os.path.normcase(os.path.realpath(b))
+    a, b = _spelled_path(a), _spelled_path(b)
+    if a == b:
+        return True
+    try:
+        return os.path.samefile(a, b)
+    except OSError:
+        return False
+
+
+def _path_inside(path, directory):
+    parent = os.path.dirname(_spelled_path(path))
+    while not _same_path(parent, directory):
+        parent, child = os.path.dirname(parent), parent
+        if parent == child:
+            return False
+    return True
 
 
 def _bound_repository():
@@ -504,8 +524,7 @@ def untrusted_history():
         if knob in os.environ and not _same_path(os.environ[knob], own):
             problems.append(f"{knob} names {os.environ[knob]}, not this checkout's {own}")
     if "GIT_INDEX_FILE" in os.environ:
-        index = os.path.normcase(os.path.realpath(os.environ["GIT_INDEX_FILE"]))
-        if not index.startswith(os.path.normcase(os.path.realpath(git_dir)) + os.sep):
+        if not _path_inside(os.environ["GIT_INDEX_FILE"], git_dir):
             problems.append(f"GIT_INDEX_FILE names {os.environ['GIT_INDEX_FILE']}, outside this checkout's "
                             f"git directory {git_dir}")
     problems += [f"{knob} is set" for knob in GIT_TRUST_ENV if knob in os.environ]

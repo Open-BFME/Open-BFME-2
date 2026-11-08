@@ -50,8 +50,32 @@ def trusted_env(extra=None):
     return env
 
 
+def _spelled(path):
+    """`path` absolute with symlinks resolved and its drive letter in one case. Nothing else is
+    folded: a directory can be case-sensitive (fsutil), so .git and .GIT may be two directories."""
+    drive, rest = os.path.splitdrive(os.path.realpath(path))
+    return drive.upper() + rest
+
+
 def _same(a, b):
-    return os.path.normcase(os.path.realpath(a)) == os.path.normcase(os.path.realpath(b))
+    """Two spellings are one path only if they are equal, or the file system says both are one file."""
+    a, b = _spelled(a), _spelled(b)
+    if a == b:
+        return True
+    try:
+        return os.path.samefile(a, b)
+    except OSError:
+        return False
+
+
+def _inside(path, directory):
+    """Whether `directory` is a parent of `path`, which need not exist yet (a first commit's index)."""
+    parent = os.path.dirname(_spelled(path))
+    while not _same(parent, directory):
+        parent, child = os.path.dirname(parent), parent
+        if parent == child:
+            return False
+    return True
 
 
 def bound_repository(root):
@@ -78,8 +102,7 @@ def binding_problems(root):
         if knob in os.environ and not _same(os.environ[knob], own):
             problems.append(f"{knob} names {os.environ[knob]}, not this checkout's {own}")
     if "GIT_INDEX_FILE" in os.environ:
-        index = os.path.normcase(os.path.realpath(os.environ["GIT_INDEX_FILE"]))
-        if not index.startswith(os.path.normcase(os.path.realpath(git_dir)) + os.sep):
+        if not _inside(os.environ["GIT_INDEX_FILE"], git_dir):
             problems.append(f"GIT_INDEX_FILE names {os.environ['GIT_INDEX_FILE']}, outside this checkout's "
                             f"git directory {git_dir}")
     return problems
