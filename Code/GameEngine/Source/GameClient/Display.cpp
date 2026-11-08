@@ -14,7 +14,10 @@ typedef int Int;
 // ret: it is cdecl, cast to CreateThread's stdcall start type.
 unsigned long __cdecl bfmeVM0WorkerThread(void *param);
 
-__int64 g_bfmeVM0Total;
+// Retail's timer frequency at 0x00DFE9E0 is one object, owned by Rva0025D489Ctor.cpp, which Display's ctor fills through QueryPerformanceFrequency.
+struct DisplayCriticalSection { __int64 frequency; char data[16]; };
+extern DisplayCriticalSection g_00DFE9E0;
+#define g_bfmeVM0Total g_00DFE9E0.frequency
 
 __int64 g_bfmeVM0Quotient;
 
