@@ -12,7 +12,7 @@
 // g_bfmeFilterLimit (retail 0x00E22CE0). Both centre taps are written back
 // through the saturating clamp table whose zero point is at 0x00E23100.
 
-extern const unsigned char g_bfmeClampTable[];		// retail 0x00E23100 (zero point)
+extern unsigned char g_bfmeClampTable[];		// retail 0x00E23100 (zero point)
 // g_bfmeFilterLimit is defined in InitPostProcessing.cpp, which sets it.
 extern int g_bfmeDeringModifiers[65];
 #define g_bfmeFilterLimit (*(int **)(g_bfmeDeringModifiers + 64))
@@ -20,7 +20,9 @@ extern int g_bfmeDeringModifiers[65];
 // g_bfmeClampTable: matched DIR32 references place this at VA 0x00E23100
 // (RVA 0x00A23100), in .data's zero-filled tail. This 0x200-byte storage
 // view ends at the next known global, g_bfmeSharedJX (VA 0x00E23300).
-const unsigned char g_bfmeClampTable[0x200] = { 0 };
+// P35 TEST-BRANCH-ONLY diagnostic: retail's table is writable and starts 0x100 bytes below the zero point.
+unsigned char g_bfmeClampTableLow[0x100] = { 0 };
+unsigned char g_bfmeClampTable[0x200] = { 0 };
 
 #define BFME_LIMIT_ADJUST(v, t)		\
 	{								\

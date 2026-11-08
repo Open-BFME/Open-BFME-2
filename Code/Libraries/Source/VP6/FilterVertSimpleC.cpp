@@ -9,7 +9,7 @@
 // BFME 1's image carries two byte-identical copies of this routine; BFME 2's
 // generic post-processing tier installs this one in its dispatch slot 25.
 
-extern const unsigned char g_bfmeClampTable[];			// retail 0x01356FE0 (zero point)
+extern unsigned char g_bfmeClampTable[];			// retail 0x01356FE0 (zero point)
 
 extern "C" void __cdecl FilterVert_Simple_C(void *, unsigned char *ptr, int stride, const int *bounding)
 {

@@ -34415,7 +34415,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A22F74,4,.data,global,?g_bfmeQuantIndexBuilder@@3P6AXPAUBfmeS1040@@@ZA,Code/Libraries/Source/VP6/InitLibrary.cpp,owned,,1,4
 0x00A22F78,4,.data,global,?g_bfmeCodecDispatchOutlier@@3P6AXXZA,Code/Libraries/Source/VP6/PostProcMachineSpecificConfig.cpp,owned,,1,8
 0x00A22F7C,104,.data,global,?g_bfmeCodecDispatch@@3UBfmeCodecDispatchTable@@A,Code/Libraries/Source/VP6/PostProcMachineSpecificConfig.cpp,owned,,1,198
-0x00A23100,512,.data,global,?g_bfmeClampTable@@3QBEB,Code/Libraries/Source/VP6/FilteringC.cpp,owned,,1,101
+0x00A23100,512,.data,global,?g_bfmeClampTable@@3PAEA,Code/Libraries/Source/VP6/FilteringC.cpp,owned,,1,101
 0x00A23300,4,.data,global,?g_bfmeSharedJX@@3HA,Code/Libraries/Source/VP6/CreatePBInstance.cpp,owned,,1,2
 0x00A23304,4,.data,global,_g_buckets,,unowned,,0,12
 0x00A23308,4,.data,global,__adjust_fdiv,,unowned,,0,1

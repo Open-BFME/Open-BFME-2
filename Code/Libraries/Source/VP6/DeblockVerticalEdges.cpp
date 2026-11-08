@@ -27,7 +27,7 @@ struct Rva009AD750Context
 	int *m_bounding;
 };
 
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[];
 
 extern "C" void __cdecl DeblockVerticalEdgesInNonFilteredBand(Rva009AD750Context *ctx,
 	unsigned char *source, unsigned char *destination, unsigned int stride,
