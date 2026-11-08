@@ -264,3 +264,12 @@ retail object order, Factories' private 2-slot copy of the class's table at 0x00
 4 slots: deleting destructor, loadPostProcess, GetSnapshotName, DoXfer). First obstacle: a dry
 `header_adopt_lane.py adopt` fails one of Factories' 77 rows, `??1LifeEventModuleTemplate`, under the
 canonical Snapshot base and AsciiString member. Other categories' tables stay McMickey93's.
+
+*LifeEvent done (2026-11-08, swarm Link lane).* FXParticleSystemFactories.cpp, FXParticleSystemModules.cpp
+and VectorDeletingDtorsV06.cpp adopt `LifeEventModuleInfo.h` (Factories 77/77, Modules 229/229, V06 4/4
+exact); all three copies of `??_7ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT ...>>@@6B@` (retail
+0x0081C2E4) now carry its four slots. The canonical header needed no change: include it before the
+FXParticleSystem namespace, with the Snapshot slot macros (BFME_SNAPSHOT_CAPITALIZED_SLOTS, _NAME_SLOT,
+_NONCONST_NAME_SLOT, _REFERENCE_XFER). `header_adopt_lane.py adopt` refuses the same adoption on
+`??1LifeEventModuleTemplate`, apparently from how it inserts the header (not investigated). Other categories'
+tables, and TerrainCollisionModuleInfo's same-shaped private copies, remain open and are not claimed.

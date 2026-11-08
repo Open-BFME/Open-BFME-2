@@ -106,5 +106,36 @@ Backlog, not started: the 424 publics that match retail in neither order (both i
 from retail's body). They do not depend on the order. List: build/copy_compare.json on the Link lane's
 srv1 seat ("neither matches"); regenerate with the same comparison before working them.
 
+*Update 2026-11-08 (swarm Link lane), re-measured at f97f4dcbee on the same terms.* The FX LifeEvent
+table is fixed (LINK-584): FXParticleSystemFactories, FXParticleSystemModules and VectorDeletingDtorsV06
+now adopt the canonical `LifeEventModuleInfo` header, so all three copies carry retail's four slots
+(deleting destructor, LoadPostProcess, GetSnapshotName, DoXfer). The bridge still refuses the table under
+retail order (slot 0's deleting destructor is won by Factories' copy), but the winning table now has
+retail's shape, and image_iso no longer reports it.
+
+| | path | retail |
+|---|---:|---:|
+| unresolved / duplicates | 0 / 0 | 0 / 0 |
+| vtable bridge: tables refused | 270 | 231 |
+| retail tables bridged | 3,516 | 3,556 |
+| image_iso defects | 1,600 | 1,575 (26 fixed, 1 new) |
+
+Per-copy (14,336 moved publics): better 234, worse 8, both match 3,222, neither 424, no retail row
+10,448. The worse cases are the 8 STL copies above, unchanged, so retail order is not yet the default.
+- The 5 whose callee body is byte-identical to retail's can alternatively be settled with fold proofs
+  through `pin_admission.py --add ... fold-proof=<source>` instead of the respell route; the other 3 wait
+  on the respell route (crash-prevention's, approved, not landed).
+- To confirm later: IMEManager slot 30, the one new image_iso defect, is most likely image_iso's
+  next-symbol extent moving with the order (same `serviceIMEMessage` copy in both images, byte-matching
+  retail in both).
+
+0x007AF9D6's real registration is blocked on retail's source form (re_attempts.log): written into
+`s_parseTable`'s initializer list, MSVC 7.1 keeps each entry's constant parse pointer in static data and
+initializes only the `str()` parts at runtime, while retail's data has 0 there and 0x007AF9D6 stores the
+parse pointers itself. Candidates: FieldParse constructors for those entries, or a static initializer
+object whose constructor fills the table. The row would also need a respell to the compiler's initializer
+name. So `initializers_bridged` is unchanged and P32 stays open; it needs that registration and retail
+order together.
+
 Clearance: pending.
 Census confirmation: not claimed.
