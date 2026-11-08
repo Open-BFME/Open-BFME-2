@@ -80,6 +80,20 @@ CALLER_SRC = "struct T { int m388; };\n"
 CALLER_PREPARED = "struct T { int m388set; };\n"
 
 
+STLPORT_HEADER = """_STLP_BEGIN_NAMESPACE
+template <class _T1, class _T2> struct pair {};
+template <class _Tp> struct less {};
+template <class _Tp> class allocator {};
+template <class _Pair> struct _Select1st {};
+template <class _Tp> struct _Identity {};
+template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc> class _Rb_tree {};
+template <class _Key, class _Tp, class _Compare, class _Alloc> class map { typedef _Rb_tree<_Key> _Rep_type; };
+template <class _Key, class _Compare, class _Alloc> class set {};
+_STLP_END_NAMESPACE
+"""
+STLPORT = frozenset({"pair", "less", "allocator", "_Select1st", "_Identity", "_Rb_tree", "map", "set", "_Rep_type"})
+
+
 def _git(root, *args):
     subprocess.run(["git", "-C", str(root), *args], check=True, capture_output=True)
 
@@ -135,6 +149,7 @@ def tree(tmp_path):
         "Code/Lib/Cleanup.cpp": "void c() {}\n",
         "Code/Lib/Copy.cpp": "void d() {}\n",
         "Code/Lib/Plain.cpp": "void helper() {}\n",
+        "vendor/stlport-4.6/stlport/stl/_tree.h": STLPORT_HEADER,
     }
     for rel, text in files.items():
         write(tmp_path / rel, text)
@@ -775,44 +790,42 @@ STL_MAP = ("??4?$map@URva002D07F4Element@@VProjectA@@U?$less@URva002D07F4Element
 
 
 def test_stlport_names_and_placeholders_may_change():
-    """P29's shapes: map -> set and pair/_Select1st -> _Identity are STLport's names, judged
-    by the `_STL` scope; every name outside STLport in them is a placeholder."""
-    assert rename.identity_token_problem(P29_OLD_OP, P29_NEW_OP) is None
-    assert rename.identity_token_problem(P29_OLD_WRAP, P29_NEW_WRAP) is None
-    stl = {name for name, from_stl in rename.name_tokens(P29_NEW_WRAP) if from_stl}
-    assert {"set", "less", "allocator", "_STL"} <= stl
-    ours = [name for name, from_stl in rename.name_tokens(P29_OLD_OP) if not from_stl]
-    assert set(ours) == {"Rva002D07F4Element"}     # back-references resolved: every spelling counts
+    """P29's shapes: map -> set and pair/_Select1st -> _Identity are STLport's subtrees
+    (an `_STL` scope, declared in the vendored headers) with only placeholders inside."""
+    assert rename.identity_shape_problem(P29_OLD_OP, P29_NEW_OP, set(), STLPORT) is None
+    assert rename.identity_shape_problem(P29_OLD_WRAP, P29_NEW_WRAP, set(), STLPORT) is None
 
 
 def test_a_global_template_is_a_project_name():
     """Without the `_STL` scope, map is the project's name and stays: OLD_WRAP is a global map."""
-    assert "replaces the real name map" in rename.identity_token_problem(
-        OLD_WRAP, OLD_WRAP.replace("?$map@", "?$set@"))
+    assert "replaces the real name map" in rename.identity_shape_problem(
+        OLD_WRAP, OLD_WRAP.replace("?$map@", "?$set@"), set(), STLPORT)
 
 
 def test_a_project_class_inside_an_stl_argument_cannot_be_swapped():
     swapped = STL_MAP.replace("VProjectA@@", "VProjectB@@")
-    assert "replaces the real name ProjectA with ProjectB" in rename.identity_token_problem(STL_MAP, swapped)
+    assert "replaces the real name ProjectA with ProjectB" in rename.identity_shape_problem(
+        STL_MAP, swapped, set(), STLPORT)
     # the placeholder beside it may still be named
     named = STL_MAP.replace("Rva002D07F4Element", "BfmeStringRecord002CF550")
-    assert rename.identity_token_problem(STL_MAP, named) is None
+    assert rename.identity_shape_problem(STL_MAP, named, set(), STLPORT) is None
 
 
 def test_a_canonical_class_inside_an_stl_argument_cannot_be_replaced():
     renamed = STL_MAP.replace("VProjectA@@", "VProjectRenamed@@")
-    assert "replaces the canonical class ProjectA" in rename.identity_token_problem(
-        STL_MAP, renamed, {"ProjectA"})
+    assert "replaces the canonical class ProjectA" in rename.identity_shape_problem(
+        STL_MAP, renamed, {"ProjectA"}, STLPORT)
     # a placeholder-shaped canonical class is a real name too
-    assert "replaces the canonical class Rva002D07F4Element" in rename.identity_token_problem(
-        P29_OLD_OP, P29_NEW_OP, {"Rva002D07F4Element"})
+    assert "replaces the canonical class Rva002D07F4Element" in rename.identity_shape_problem(
+        P29_OLD_OP, P29_NEW_OP, {"Rva002D07F4Element"}, STLPORT)
 
 
 def test_a_moved_back_reference_or_an_added_name_is_a_change():
-    assert rename.identity_token_problem(NEW_OP, NEW_OP.replace("ABV0@", "ABVInventedRealType@@")) is not None
-    assert "names outside STLport" in rename.identity_token_problem(
+    assert rename.identity_shape_problem(NEW_OP, NEW_OP.replace("ABV0@", "ABVInventedRealType@@"),
+                                         set(), STLPORT) is not None
+    assert "changes its argument count" in rename.identity_shape_problem(
         STL_MAP, STL_MAP.replace("VProjectA@@U?$less", "VProjectA@@VProjectC@@U?$less")
-        .replace("@@@4@@_STL", "@@@5@@_STL"))
+        .replace("@@@4@@_STL", "@@@5@@_STL"), set(), STLPORT)
 
 
 def test_p29s_shapes_pass_the_token_stage_and_still_need_votes(tree):
@@ -878,3 +891,96 @@ def test_a_truncated_object_is_not_clean(tmp_path):
     assert rename.object_pin_references({"Code/A.cpp": [whole]}, ["?retired@@YAXXZ"]) == []
     problems = rename.object_pin_references({"Code/A.cpp": [truncated]}, ["?retired@@YAXXZ"])
     assert problems and "runs past the end" in problems[0]
+
+
+
+# ------------------------------------------------- round 4 of the review (r4_plan_probes.py)
+
+SHAPE_OLD = "??4?$map@URva00123456@@VProjectB@ProjectA@@@_STL@@QAEAAV01@ABV01@@Z"     # map<Rva, ProjectA::ProjectB>
+SHAPE_NEW = "??4?$map@URva00123456@@V?$ProjectB@VProjectA@@@@@_STL@@QAEAAV01@ABV01@@Z"  # map<Rva, ProjectB<ProjectA>>
+
+
+def test_a_protected_name_keeps_its_qualified_path():
+    """Finding 1: both spellings flatten to Rva, ProjectB, ProjectA; the trees differ."""
+    assert "changes its scope" in rename.identity_shape_problem(SHAPE_OLD, SHAPE_NEW, set(), STLPORT)
+
+
+def test_a_protected_name_keeps_its_argument_index_and_depth():
+    flat = "??4?$map@URva00123456@@VProjectA@@VProjectB@@@_STL@@QAEXXZ"          # map<Rva, A, B>
+    swapped = "??4?$map@URva00123456@@VProjectB@@VProjectA@@@_STL@@QAEXXZ"       # map<Rva, B, A>
+    nested = "??4?$map@URva00123456@@V?$pair@VProjectA@@VProjectB@@@_STL@@@_STL@@QAEXXZ"   # map<Rva, pair<A, B>>
+    assert "replaces the real name ProjectA with ProjectB" in rename.identity_shape_problem(flat, swapped, set(), STLPORT)
+    assert rename.identity_shape_problem(flat, nested, set(), STLPORT) is not None
+
+
+def test_the_shape_probe_is_refused_by_the_planner(tree):
+    for rel in ("reverse/functions.csv", OWNER):
+        write(tree / rel, (tree / rel).read_text().replace(OLD_OP, SHAPE_OLD))
+    token = agree(tree, "r4-shape", SHAPE_OLD, SHAPE_NEW, OP)
+    commit(tree)
+    ctx, _ = context(tree, [dict(r, row=SHAPE_OLD) if r["row"] == OLD_OP else r for r in BEFORE])
+    with pytest.raises(Refusal, match="changes its scope"):
+        plan(ctx, new=SHAPE_NEW, evidence=token, also=[], move_to=None,
+             prepared={OWNER: OWNER_SRC.replace(OLD_OP, SHAPE_NEW).encode()})
+
+
+def test_a_canonical_class_under_the_stl_scope_is_never_replaced():
+    """Finding 2: canonical protection comes before any _STL filtering."""
+    old = "??4?$map@URva00123456@@VRegistered@_STL@@@_STL@@QAEXXZ"
+    new = "??4?$map@URva00123456@@VOther@_STL@@@_STL@@QAEXXZ"
+    assert "replaces the canonical class Registered" in rename.identity_shape_problem(
+        old, new, {"Registered"}, STLPORT | {"Registered", "Other"})
+
+
+def test_an_stl_scoped_name_must_be_declared_by_the_vendored_headers():
+    """Finding 2: `_STL` is reopened in this codebase; the vendored STLport tree decides."""
+    old = "??4?$map@URva00123456@@VMine@_STL@@@_STL@@QAEXXZ"
+    new = "??4?$map@URva00123456@@VYours@_STL@@@_STL@@QAEXXZ"
+    assert "do not declare" in rename.identity_shape_problem(old, new, set(), STLPORT)
+    assert rename.identity_shape_problem(old, new, set(), STLPORT | {"Mine", "Yours"}) is None
+    assert "do not declare: " not in (rename.identity_shape_problem(P29_OLD_WRAP, P29_NEW_WRAP, set(), STLPORT) or "")
+    assert "map" in rename.identity_shape_problem(P29_OLD_WRAP, P29_NEW_WRAP, set(), STLPORT - {"map"})
+
+
+def test_the_vendored_stlport_names_are_read_from_the_tree(tree):
+    declared = rename.stlport_declared(rename.Context(tree, object_scan=False))
+    assert STLPORT <= declared
+    assert rename.stlport_declared(rename.Context(tree / "Code", object_scan=False)) == frozenset()
+
+
+def coff_with(symbols=(("dummy", 0, 1, 0x20, 2, 0),), relocs=()):
+    import struct  # noqa: F401
+    return bytearray(coff([(".text", TEXT, b"\xc3", list(relocs))], list(symbols)))
+
+
+def test_an_aux_count_past_the_symbol_table_is_unreadable(tmp_path):
+    """Finding 3 (AUX OVERRUN)."""
+    import struct
+    data = coff_with()
+    table = struct.unpack_from("<I", data, 8)[0]
+    data[table + 17] = 255
+    assert "auxiliary record(s) run past the symbol table" in rename.coff_layout_problem(bytes(data))
+    path = tmp_path / "aux.obj"
+    path.write_bytes(data)
+    assert rename.object_pin_references({"Code/X.cpp": [path]}, ["?retired@@YAXXZ"])
+
+
+def test_a_long_name_outside_the_string_table_is_unreadable(tmp_path):
+    """Finding 3 (STRING OVERRUN): the offset points into bytes appended past the declared table."""
+    import struct
+    data = coff_with((("dummy", 0, 0, 0, 2, 0),))
+    table = struct.unpack_from("<I", data, 8)[0]
+    struct.pack_into("<II", data, table, 0, 4)
+    data += b"?other@@YAXXZ\0"
+    assert "name offset 4 is outside the string table" in rename.coff_layout_problem(bytes(data))
+
+
+def test_a_relocation_past_the_symbol_table_is_unreadable():
+    data = coff_with(relocs=[(0, 7, 0x14)])
+    assert "past the symbol table" in rename.coff_layout_problem(bytes(data))
+
+
+def test_a_symbol_in_no_section_is_unreadable():
+    data = coff_with((("dummy", 0, 5, 0x20, 2, 0),))
+    assert "names no section" in rename.coff_layout_problem(bytes(data))
+    assert rename.coff_layout_problem(bytes(coff_with((("abs", 0, -1, 0, 2, 0),)))) is None

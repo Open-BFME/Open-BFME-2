@@ -1121,14 +1121,19 @@ two review rounds set where the evidence ends:
   judgement: `--basis inferred --evidence 'agree:<id> ...'`, one approval per
   row: two blind votes on the row's own current key,
   `source|function|0xRVA|<whole old spelling>`. Votes under another unit's key
-  authorise nothing. Only placeholder names and the vendored STLport
-  namespace's names may change; the latter are any qualified name under `_STL`,
-  judged from the decorated scope, such as `map` to `set` or `pair`/`_Select1st`
-  to `_Identity`. Every other real name stays in place, compared name by name
-  outside STLport with back-references resolved: project classes, global types,
-  scope and member identifiers. A registered canonical class is never replaced.
-  So a placeholder parameter cannot unlock its real class, and a project class
-  inside an STLport template argument cannot be swapped for another. The
+  authorise nothing. The old and new spellings are compared as decoded type
+  trees, with back-references resolved. Only two kinds of subtree may differ:
+  - a placeholder class;
+  - an `_STL`-scoped name whose `_STL` names the vendored STLport headers
+    (`vendor/stlport-4.6/stlport`) declare, such as `map` to `set` or
+    `pair`/`_Select1st` to `_Identity`. `_STL` is reopened in this codebase, so
+    the decoration alone does not prove STLport.
+  Neither kind may have a protected name inside it. Every other real name keeps
+  its exact qualified path and its place in the tree (argument index, nesting
+  depth): project classes, global types, scope and member identifiers. A
+  registered canonical class is never replaced, wherever it appears, `_STL`
+  scope included. So a placeholder parameter cannot unlock its real class, and
+  a project class inside an STLport argument cannot be swapped or re-nested. The
   operator code or identifier must match too. The code-identity checks are hard
   gates on top:
   - before: the scan shows a wrong binding;
@@ -1138,9 +1143,10 @@ two review rounds set where the evidence ends:
   A callee pin spelling the callee under the row's old type is retired only when
   no object the real link takes names it. The inventory is tools/exit_link.py's
   own: function and data providers, less its placement-only objects. Each object
-  is parsed whole (symbol table, weak externals, `/alternatename`, `/INCLUDE`). A
-  missing object, or one that does not parse as a whole i386 COFF object,
-  refuses. A stale object whose source or an included header spells the pin or
+  is parsed whole (symbol table, weak externals, `/alternatename`, `/INCLUDE`):
+  every section, relocation, symbol and auxiliary record is walked within its
+  declared counts, and every string-table offset is bounds-checked. A missing
+  object, or one with any inconsistency, refuses. A stale object whose source or an included header spells the pin or
   its type is rebuilt with `./build.sh` first. The evidence records how many were
   rebuilt.
   Each `name_basis.csv` record is the approval alone (`agree:<id>`), so `revert`

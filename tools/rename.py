@@ -3410,10 +3410,11 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
 # comes from the naming route: --basis inferred, --evidence agree:<id> for every
 # row, two blind votes on the row's own key (its current source, kind, address
 # and placeholder: docs/naming.md). Only placeholder names and the vendored
-# STLport namespace's names (a qualified name under `_STL`: map, set, _Rb_tree,
-# pair, ...) may change; every other real name -- project classes, global types,
-# scope and member identifiers -- stays in place, compared name by name with
-# back-references resolved, and a canonical class is never replaced. The
+# STLport namespace's names (a qualified name under `_STL` that the vendored
+# STLport headers declare: map, set, _Rb_tree, pair, ...) may change; every other
+# real name -- project classes, global types, scope and member identifiers --
+# keeps its qualified path and its place in the decoded type tree (back-references
+# resolved), and a canonical class is never replaced, wherever it appears. The
 # code-identity checks are hard gates on top:
 #
 #   1. before: the identity scan of a respelled row reports a wrong binding, or
@@ -3527,18 +3528,19 @@ def identity_class(mangled):
 
 
 STL_NAMESPACE = "_STL"
+STLPORT_HEADERS = "vendor/stlport-4.6/stlport"   # the pristine STLport 4.6 retail linked
 
 
-class _NameTokens:
-    """The names a decorated `?...` symbol spells, in order, each with whether it
-    belongs to the vendored STLport namespace: a qualified name whose outermost
-    scope resolves to `_STL` (spelled, or through a back-reference) is STLport's,
-    every element of it. Name back-references (a digit where a name is expected)
-    and argument-type back-references (a digit where a type is expected) are
-    resolved to what they refer to, so a name reached through one is a token in
-    its place too. Each template argument list has its own name table (the
-    template's name is entry 0) and type table. Outside the grammar the parser
-    reads (anonymous namespaces, nested symbols, template operators): Unparsed."""
+class _TypeTree:
+    """A decorated `?...` symbol decoded into a tree whose back-references are
+    resolved to the subtree they name: ("Q", elements) a qualified name, innermost
+    element first, each ("N", name) or ("T", name, (argument types...)); ("C",
+    code, Q) a class, struct, union or enum; ("P", code, cv, type) a pointer or
+    reference; ("B", code) a builtin; ("F", return, (arguments...), throw) a
+    function signature; and the special forms the grammar has. Each template
+    argument list has its own name table (the template's name is entry 0) and type
+    table. Outside the grammar it reads (anonymous namespaces, nested symbols,
+    template operators): ValueError."""
 
     def __init__(self, s):
         self.s = s
@@ -3548,27 +3550,26 @@ class _NameTokens:
         if s[i] != "?":
             raise ValueError(f"symbol expected at {i}")
         i += 1
+        head = ""
         if s[i] == "?" and s[i + 1] != "$":
             i += 1
             if s[i] == "_":
                 if s.startswith(("__", "_R"), i):
                     raise ValueError("special name")
-                i += 2
+                head, i = "??" + s[i:i + 2], i + 2
             else:
-                i += 1
-        i, tokens = self.qualified(i, ctx)
-        i, more = self.header(i, ctx)
-        return i, tokens + more
+                head, i = "??" + s[i], i + 1
+        i, scope = self.qualified(i, ctx)
+        i, header = self.header(i, ctx)
+        return i, ("SYM", head, scope, header)
 
     def qualified(self, i, ctx):
-        """(index after the terminating `@`, tokens) of a qualified name."""
         s = self.s
         elements = []
         while True:
             c = s[i]
             if c == "@":
-                i += 1
-                break
+                return i + 1, ("Q", tuple(elements))
             if c.isdigit():
                 elements.append(ctx["names"][int(c)])
                 i += 1
@@ -3577,160 +3578,262 @@ class _NameTokens:
                     raise ValueError("template operator")
                 j = s.index("@", i + 2)
                 name = s[i + 2:j]
-                inner = {"names": [(name, [])], "types": []}
-                i, args = self.template_args(j + 1, inner)
-                element = (name, args)
+                inner = {"names": [("N", name)], "types": []}
+                i, args = self.arguments(j + 1, inner, "@")
+                element = ("T", name, args)
                 elements.append(element)
                 if len(ctx["names"]) < 10:
                     ctx["names"].append(element)
             elif c.isalpha() or c == "_":
                 j = s.index("@", i)
-                element = (s[i:j], [])
+                element = ("N", s[i:j])
                 elements.append(element)
                 if len(ctx["names"]) < 10:
                     ctx["names"].append(element)
                 i = j + 1
             else:
                 raise ValueError(f"scope at {i}")
-        stl = bool(elements) and elements[-1][0] == STL_NAMESPACE
-        tokens = []
-        for name, args in elements:
-            tokens.append((name, stl))
-            tokens += args
-        return i, tokens
 
-    def template_args(self, i, ctx):
-        tokens = []
-        while self.s[i] != "@":
+    def arguments(self, i, ctx, stop):
+        """Types up to `stop` (`@` ends a template's list, `@`/`Z` a function's)."""
+        out = []
+        while self.s[i] not in stop:
             start = i
-            i, these = self.type(i, ctx)
+            i, node = self.type(i, ctx)
             if i - start > 1 and len(ctx["types"]) < 10:
-                ctx["types"].append(these)
-            tokens += these
-        return i + 1, tokens
+                ctx["types"].append(node)
+            out.append(node)
+        return i + 1, tuple(out)
 
     def function(self, i, ctx):
-        """Return type, arguments and throw spec, after the calling convention."""
         s = self.s
-        tokens = []
         if s[i] == "@":
-            i += 1
+            ret, i = ("B", "@"), i + 1
         else:
-            i, tokens = self.type(i, ctx)
+            i, ret = self.type(i, ctx)
         if s[i] == "X":
-            i += 1
+            args, i = ("ARGS", ("B", "X")), i + 1
         else:
-            while s[i] not in "@Z":
-                start = i
-                i, these = self.type(i, ctx)
-                if i - start > 1 and len(ctx["types"]) < 10:
-                    ctx["types"].append(these)
-                tokens += these
-            i += 1
+            i, nodes = self.arguments(i, ctx, "@Z")
+            args = ("ARGS",) + nodes
+            i -= 1
+            if s[i] == "@":
+                i += 1
         if s[i] != "Z":
             raise ValueError(f"throw spec at {i}")
-        return i + 1, tokens
+        return i + 1, ("F", ret, args)
 
     def type(self, i, ctx):
         s = self.s
         c = s[i]
         if c in "PQRSAB" and s[i + 1] == "6":
-            return self.function(i + 3, ctx)
+            code = s[i:i + 3]
+            j, fn = self.function(i + 3, ctx)
+            return j, ("FP", code, fn)
         if c in "PQRSAB" and s[i + 1] == "8":
             i, scope = self.qualified(i + 2, ctx)
-            i, sig = self.function(i + 2, ctx)
-            return i, scope + sig
+            code = s[i:i + 2]
+            i, fn = self.function(i + 2, ctx)
+            return i, ("MP", scope, code, fn)
         if c in "PQRSAB":
-            i += 1
-            if s[i] == "E":
-                i += 1
-            if s[i] not in "ABCD":
-                raise ValueError(f"pointer cv at {i}")
-            return self.type(i + 1, ctx)
+            j = i + 1
+            if s[j] == "E":
+                j += 1
+            if s[j] not in "ABCD":
+                raise ValueError(f"pointer cv at {j}")
+            code = s[i:j + 1]
+            j, inner = self.type(j + 1, ctx)
+            return j, ("P", code, inner)
         if c in "VUT":
-            return self.qualified(i + 1, ctx)
+            j, scope = self.qualified(i + 1, ctx)
+            return j, ("C", c, scope)
         if c == "W" and s[i + 1].isdigit():
-            return self.qualified(i + 2, ctx)
+            j, scope = self.qualified(i + 2, ctx)
+            return j, ("C", s[i:i + 2], scope)
         if c == "?" and s[i + 1] in "AB":
-            return self.type(i + 2, ctx)
+            j, inner = self.type(i + 2, ctx)
+            return j, ("CV", s[i:i + 2], inner)
         if c == "_" and s[i + 1].isalpha():
-            return i + 2, []
+            return i + 2, ("B", s[i:i + 2])
         if s.startswith("$$C", i) and s[i + 3] in "ABCD":
-            return self.type(i + 4, ctx)
+            j, inner = self.type(i + 4, ctx)
+            return j, ("CV", s[i:i + 4], inner)
         if s.startswith("$0", i):
-            return _parse_number(s, i + 2), []
+            j = _parse_number(s, i + 2)
+            return j, ("B", s[i:j])
         if s.startswith(("$1", "$E"), i):
-            return self.symbol(i + 2, {"names": [], "types": []})
+            j, sym = self.symbol(i + 2, {"names": [], "types": []})
+            return j, ("ADDR", s[i:i + 2], sym)
         if c == "Y":
-            count, i = _number_value(s, i + 1)
+            count, j = _number_value(s, i + 1)
             for _ in range(count):
-                i = _parse_number(s, i)
-            return self.type(i, ctx)
+                j = _parse_number(s, j)
+            dims = s[i:j]
+            j, inner = self.type(j, ctx)
+            return j, ("Y", dims, inner)
         if c.isdigit():
-            return i + 1, list(ctx["types"][int(c)])
+            return i + 1, ctx["types"][int(c)]
         if c in "CDEFGHIJKMNOXZ":
-            return i + 1, []
+            return i + 1, ("B", c)
         raise ValueError(f"type {c!r} at {i}")
 
     def header(self, i, ctx):
         s = self.s
         if i == len(s):
-            return i, []
+            return i, ("H", "")
         c = s[i]
         if c in "01234":
-            i, tokens = self.type(i + 1, ctx)
-            if s[i] == "E":
-                i += 1
-            if s[i] not in "ABCD":
-                raise ValueError(f"data cv at {i}")
-            return i + 1, tokens
+            j, node = self.type(i + 1, ctx)
+            k = j + (1 if s[j] == "E" else 0)
+            if s[k] not in "ABCD":
+                raise ValueError(f"data cv at {k}")
+            return k + 1, ("H", c + s[j:k + 1], node)
         if c in "YZCDKLST":
-            return self.function(i + 2, ctx)
+            j, fn = self.function(i + 2, ctx)
+            return j, ("H", s[i:i + 2], fn)
         if c in "ABEFIJMNQRUV":
-            i += 1
-            if s[i] == "E":
-                i += 1
-            return self.function(i + 2, ctx)
+            j = i + 1 + (1 if s[i + 1] == "E" else 0)
+            code = s[i:j + 2]
+            j, fn = self.function(j + 2, ctx)
+            return j, ("H", code, fn)
         if c in "GHOPWX":
-            return self.function(_parse_number(s, i + 1) + 2, ctx)
+            j = _parse_number(s, i + 1)
+            code = s[i:j + 2]
+            j, fn = self.function(j + 2, ctx)
+            return j, ("H", code, fn)
         raise ValueError(f"header {c!r} at {i}")
 
 
-def name_tokens(mangled):
-    """[(name, from STLport)] of `mangled` in order (see _NameTokens). Raises Unparsed."""
+def type_tree(mangled):
+    """The decoded tree of `mangled` (see _TypeTree). Raises Unparsed."""
     try:
-        end, tokens = _NameTokens(mangled).symbol(0, {"names": [], "types": []})
+        end, node = _TypeTree(mangled).symbol(0, {"names": [], "types": []})
     except (IndexError, ValueError) as error:
         raise Unparsed(f"{mangled}: {error}") from None
     if end != len(mangled):
         raise Unparsed(f"{mangled}: trailing {mangled[end:]!r}")
-    return tokens
+    return node
 
 
-def identity_token_problem(old, new, canonical=frozenset()):
-    """None when `new` changes only what an identity respell may change against `old`:
-    placeholder names and names of the vendored STLport namespace (a qualified name under
-    `_STL`, judged from the decorated scope). Every other name -- project classes, global
-    types, scope and member identifiers -- must stay in place: compared position by
-    position among the names outside STLport, an old real name (or a registered canonical
-    class, whatever its spelling) must be the new name at that position, and only an old
-    placeholder may become something else. Else why not."""
+def stlport_declared(ctx):
+    """Every class, struct, union and typedef name the vendored STLport headers declare."""
+    key = "_stlport_declared"
+    if key not in ctx._cache:
+        names = set()
+        root = ctx.path(STLPORT_HEADERS)
+        decl = re.compile(r"\b(?:class|struct|union)\s+(?:_STLP_CLASS_DECLSPEC\s+)?([A-Za-z_]\w*)|"
+                          r"\btypedef\b[^;{}]*?\b([A-Za-z_]\w*)\s*;")
+        if root.is_dir():
+            for path in sorted(root.rglob("*")):
+                if path.is_file():
+                    text = path.read_text(encoding="latin-1")
+                    names.update(a or b for a, b in decl.findall(text))
+        ctx._cache[key] = frozenset(names)
+    return ctx._cache[key]
+
+
+def _tree_stl_scoped(q):
+    return bool(q[1]) and q[1][-1] == ("N", STL_NAMESPACE)
+
+
+def _tree_names(node, inside_stl=False):
+    """[(name, STLport-scoped)] of every name a node spells, scope and template names included."""
+    out = []
+    if isinstance(node, tuple) and node and node[0] == "Q":
+        stl = _tree_stl_scoped(node)
+        for element in node[1]:
+            out.append((element[1], stl))
+            if element[0] == "T":
+                for arg in element[2]:
+                    out += _tree_names(arg)
+        return out
+    if isinstance(node, tuple):
+        for child in node[1:]:
+            out += _tree_names(child)
+    return out
+
+
+def identity_shape_problem(old, new, canonical=frozenset(), stlport=frozenset()):
+    """None when `new` changes only what an identity respell may change against `old`,
+    comparing the decoded trees (back-references resolved). A protected name -- a
+    registered canonical class anywhere, or any name that is neither a placeholder
+    nor STLport-scoped (a qualified name under `_STL`) -- keeps its exact qualified
+    path and its place in the tree: the argument index and the nesting depth. A
+    subtree may differ only where it is a placeholder class or an `_STL`-scoped name
+    with no protected name inside; a single placeholder or `_STL`-scoped element of
+    a qualified name may be renamed in place. Every `_STL`-scoped name that changes
+    must be declared in the vendored STLport headers. Anything else that differs --
+    a scope, a code, an argument count, a nesting -- refuses. Else why not."""
     try:
-        old_tokens, new_tokens = name_tokens(old), name_tokens(new)
+        a, b = type_tree(old), type_tree(new)
     except Unparsed as error:
         return f"its names cannot be read ({error})"
-    ours_old = [name for name, stl in old_tokens if not stl]
-    ours_new = [name for name, stl in new_tokens if not stl]
-    if len(ours_old) != len(ours_new):
-        return (f"it spells {len(ours_new)} names outside STLport where {old} spells {len(ours_old)}: "
-                "only placeholder names and STLport's may change")
-    for index, (was, now) in enumerate(zip(ours_old, ours_new)):
-        if was == now:
-            continue
-        if was in canonical:
-            return f"it replaces the canonical class {was} with {now}"
-        if not name_metric.placeholder(was):
-            return f"it replaces the real name {was} with {now} (name {index + 1} outside STLport)"
+    changed = set()
+
+    def protected(name, stl):
+        return name in canonical or (not stl and not name_metric.placeholder(name))
+
+    def free(node):
+        """May `node` be replaced whole: a placeholder class or an _STL-scoped name, nothing protected inside."""
+        q = node[2] if node[0] == "C" else node if node[0] == "Q" else None
+        if q is None or not q[1]:
+            return False
+        names = _tree_names(q)
+        if any(protected(n, s) for n, s in names):
+            return False
+        return _tree_stl_scoped(q) or (len(q[1]) == 1 and q[1][0][0] == "N" and name_metric.placeholder(q[1][0][1]))
+
+    def describe(node):
+        return ", ".join(n for n, _s in _tree_names(node)[:4]) or node[0]
+
+    def compare(x, y, where):
+        if x == y:
+            return None
+        if isinstance(x, tuple) and x and x[0] in ("C", "Q") and free(x) and \
+                (x[0] == y[0] if x[0] == "Q" else isinstance(y, tuple) and y and y[0] == "C"):
+            changed.update(n for n, s in _tree_names(x) + _tree_names(y) if s)
+            return None
+        if not (isinstance(x, tuple) and isinstance(y, tuple)) or x[0] != y[0] or len(x) != len(y):
+            return f"its shape differs at {where} ({describe(x) if isinstance(x, tuple) else x!r})"
+        if x[0] == "Q":
+            if len(x[1]) != len(y[1]):
+                return f"the qualified name {describe(x)} at {where} changes its scope"
+            stl = _tree_stl_scoped(x) and _tree_stl_scoped(y)
+            for depth, (e, f) in enumerate(zip(x[1], y[1])):
+                spot = f"{where} element {depth}"
+                if e[0] != f[0]:
+                    return f"its shape differs at {spot} ({e[1]})"
+                if e[1] != f[1]:
+                    if protected(e[1], stl):
+                        kind = "canonical class" if e[1] in canonical else "real name"
+                        return f"it replaces the {kind} {e[1]} with {f[1]} ({spot})"
+                    if stl:
+                        changed.update((e[1], f[1]))
+                if e[0] == "T":
+                    if len(e[2]) != len(f[2]):
+                        return f"the template {e[1]} at {spot} changes its argument count"
+                    for index, (g, h) in enumerate(zip(e[2], f[2])):
+                        why = compare(g, h, f"{spot} argument {index}")
+                        if why:
+                            return why
+            return None
+        for index, (g, h) in enumerate(zip(x[1:], y[1:])):
+            if isinstance(g, tuple) and isinstance(h, tuple):
+                why = compare(g, h, f"{where}/{x[0]}{index}")
+                if why:
+                    return why
+            elif g != h:
+                return f"its shape differs at {where} ({x[0]}: {g!r} -> {h!r})"
+        return None
+
+    why = compare(a, b, "the root")
+    if why:
+        return why
+    undeclared = sorted(n for n in changed - {STL_NAMESPACE} if n not in stlport)
+    if undeclared:
+        return (f"it changes the _STL-scoped name(s) {', '.join(undeclared[:4])}, which the vendored STLport "
+                f"headers ({STLPORT_HEADERS}) do not declare: `_STL` is reopened in this codebase, so the "
+                "decoration alone does not prove STLport")
     return None
 
 
@@ -3869,8 +3972,13 @@ def mentioning_sources(ctx, words):
 
 
 def coff_layout_problem(data):
-    """Why `data` is not a whole i386 COFF object (header, section table, raw data, relocations,
-    symbol and string tables all inside the file), or None."""
+    """Why `data` is not a whole i386 COFF object, or None. Every structure is
+    walked within its declared counts: the header, each section (raw data and
+    relocations inside the file, each relocation's symbol index inside the symbol
+    table, a `/n` long name inside the string table), each symbol record and its
+    auxiliary records (which must end inside the symbol table), each symbol's
+    section number, and each long name's offset (inside the string table, ending
+    in a NUL there)."""
     import struct
     if len(data) < 20:
         return "shorter than a COFF header"
@@ -3880,19 +3988,56 @@ def coff_layout_problem(data):
     table = 20 + optional
     if table + 40 * count > len(data):
         return "its section table runs past the end"
-    for index in range(count):
-        size, pointer, relocs, nrelocs = struct.unpack_from("<IIIH", data, table + 40 * index + 16)[:3] + \
-            struct.unpack_from("<H", data, table + 40 * index + 32)
-        if pointer and pointer + size > len(data):
-            return f"section {index + 1}'s raw data runs past the end"
-        if nrelocs and relocs + 10 * nrelocs > len(data):
-            return f"section {index + 1}'s relocations run past the end"
     strings = symbols + 18 * nsyms
     if strings + 4 > len(data):
         return "its symbol table runs past the end"
     size = struct.unpack_from("<I", data, strings)[0]
     if size < 4 or strings + size > len(data):
         return "its string table runs past the end"
+
+    def long_name(offset, what):
+        if not 4 <= offset < size:
+            return f"{what}'s name offset {offset} is outside the string table"
+        if data.find(b"\0", strings + offset, strings + size) < 0:
+            return f"{what}'s name runs past the string table"
+        return None
+
+    for index in range(count):
+        header = table + 40 * index
+        name = data[header:header + 8]
+        if name[:1] == b"/":
+            digits = name[1:].rstrip(b"\0")
+            if not digits.isdigit():
+                return f"section {index + 1}'s long name is not a string-table offset"
+            bad = long_name(int(digits), f"section {index + 1}")
+            if bad:
+                return bad
+        size_raw, pointer, relocs = struct.unpack_from("<III", data, header + 16)
+        nrelocs = struct.unpack_from("<H", data, header + 32)[0]
+        if pointer and pointer + size_raw > len(data):
+            return f"section {index + 1}'s raw data runs past the end"
+        if nrelocs:
+            if relocs + 10 * nrelocs > len(data):
+                return f"section {index + 1}'s relocations run past the end"
+            for _offset, symbol, _type in struct.iter_unpack("<IIH", data[relocs:relocs + 10 * nrelocs]):
+                if symbol >= nsyms:
+                    return f"section {index + 1} relocates against symbol {symbol}, past the symbol table"
+    index = 0
+    while index < nsyms:
+        record = symbols + 18 * index
+        if data[record:record + 4] == b"\0\0\0\0":
+            bad = long_name(struct.unpack_from("<I", data, record + 4)[0], f"symbol {index}")
+            if bad:
+                return bad
+        # unsigned: a unit with more than 0x7FFF COMDATs numbers sections past int16
+        # (build.COFF_SECTION_CEILING); 0xFFFF and 0xFFFE are absolute and debug
+        section = struct.unpack_from("<H", data, record + 12)[0]
+        if section > count and section < 0xFFFE:
+            return f"symbol {index}'s section number {section} names no section"
+        aux = data[record + 17]
+        if index + aux >= nsyms:
+            return f"symbol {index}'s {aux} auxiliary record(s) run past the symbol table"
+        index += 1 + aux
     return None
 
 
@@ -4014,10 +4159,10 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         if not placeholder_types(old_name):
             raise Refusal(f"{old_name} names no placeholder type (Rva.../Bfme...): an identity respell replaces "
                           "a placeholder-typed spelling only")
-        # name by name: placeholders and STLport's names may change; the project's real
-        # names stay in place, and a canonical class is never replaced
+        # tree by tree: placeholder and vendored-STLport subtrees may change; every other
+        # name keeps its qualified path and place, and a canonical class is never replaced
         canonical = {r.get("class") for r in ctx.dicts(CANONICAL_CLASSES)} - {"", None}
-        why = identity_token_problem(old_name, new_name, canonical)
+        why = identity_shape_problem(old_name, new_name, canonical, stlport_declared(ctx))
         if why:
             raise Refusal(f"{new_name} changes more than an identity respell may of {old_name}: {why}")
         # the primary row checks of plan_function, on every row
