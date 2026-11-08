@@ -132,10 +132,9 @@ extern "C" const void *const g_gpuDrawBaseTable00[11] = {
 	(const void *)&__identifier("?get@Rva00094A98FloatField@@QBEMXZ"), // slot 10, RVA 0x00094A98
 };
 
-// VA 0x00C1C780
-extern "C" const void *const g_secondaryModuleBaseTable[1] = {
-	(const void *)&_purecall, // slot 0, RVA 0x0003B810
-};
+// VA 0x00C1C780: the shared one-pure-slot table, emitted by the FXParticleSystem
+// units as SecondaryModuleBase's (the data ledger binds that name there).
+extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
 
 // VA 0x00C1D5B4
 extern "C" const void *const g_gpuDrawBaseTable18[4] = {
@@ -283,7 +282,7 @@ Rva003AE94E::Rva003AE94E( const Rva003AE94E &other )
 {
 	*(const void *const **)((char *)this + 0x18) = g_gpuDrawBaseTable18;
 	*(const void *const **)((char *)this + 0x00) = g_gpuDrawBaseTable00;
-	*(const void *const **)((char *)this + 0x14) = g_secondaryModuleBaseTable;
+	*(const void *const **)((char *)this + 0x14) = __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@");
 }
 
 class __declspec(novtable) Rva003AE928 : public Rva003AE94E
@@ -309,7 +308,7 @@ Rva003AE928 *Rva003AE928::clone() const
 struct GpuInput3CAF {char unknown00[12];int frames,framesPerRow;AsciiString detail;float speed;};
 Rva003AE94E::Rva003AE94E(void *first,void *second):ParticleModule005F2CA0(first,second),FXParticleSystem::GpuDrawModuleInfo(){
  *(const void *const **)((char *)this + 0x00) = g_gpuDrawBaseTable00;
- *(const void *const **)((char *)this + 0x14) = g_secondaryModuleBaseTable;
+ *(const void *const **)((char *)this + 0x14) = __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@");
  *(const void *const **)((char *)this + 0x18) = g_gpuDrawBaseTable18;
  const GpuInput3CAF &input=*(const GpuInput3CAF *)second;
  frames=input.frames;
