@@ -4,42 +4,65 @@
 // Retail: reuses the Spherical copy at 0x3A734E, then installs its own
 // triple vtable (outer dual + sub).
 
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
+#define BFME_SNAPSHOT_REFERENCE_XFER
+#include "../../../../Include/GameClient/SphericalEmissionVelocityInfo.h"
+
 namespace FXParticleSystem
 {
 
-class SphericalEmissionVelocityModuleTemplate
+class ModuleTemplate
 {
 public:
-	SphericalEmissionVelocityModuleTemplate(const SphericalEmissionVelocityModuleTemplate &that);
-	SphericalEmissionVelocityModuleTemplate &operator=(const SphericalEmissionVelocityModuleTemplate &that);
-
-protected:
-	void *m_v0;
-	void *m_v4;
-	char m_sub[4];
+    ModuleTemplate();
+    ModuleTemplate(const ModuleTemplate &that);
+    virtual ~ModuleTemplate();
 };
 
-// HemisphericalEmissionVelocityModuleTemplate_cvtbl0: matched references place it at VA 0xc1bc60 (retail .rdata value 62).
-extern "C" char HemisphericalEmissionVelocityModuleTemplate_cvtbl0 = 62;
-extern "C" char __identifier("?vftable_0112B89C@@3HA");
-// HemisphericalEmissionVelocityModuleTemplate_csub_vtbl: matched references place it at VA 0xc1c00c (retail .rdata value 85).
-extern "C" char HemisphericalEmissionVelocityModuleTemplate_csub_vtbl = 85;
+// Retail's nested category shape (LINK-584).
+template <int CATEGORY_ARG>
+class CategoryModuleInfo
+{
+public:
+    virtual void v1() = 0;
+
+protected:
+    ~CategoryModuleInfo();
+};
+
+template <int CATEGORY_ARG>
+class CategoryModuleTemplateBase : public ModuleTemplate, public CategoryModuleInfo<CATEGORY_ARG>
+{
+public:
+    CategoryModuleTemplateBase();
+    CategoryModuleTemplateBase(const CategoryModuleTemplateBase<CATEGORY_ARG> &that);
+    virtual ~CategoryModuleTemplateBase();
+};
+
+class SphericalEmissionVelocityModuleTemplate : public CategoryModuleTemplateBase<4>,
+    public SphericalEmissionVelocityInfo
+{
+public:
+    SphericalEmissionVelocityModuleTemplate();
+    SphericalEmissionVelocityModuleTemplate(const SphericalEmissionVelocityModuleTemplate &that);
+    virtual ~SphericalEmissionVelocityModuleTemplate();
+    SphericalEmissionVelocityModuleTemplate &operator=(const SphericalEmissionVelocityModuleTemplate &that);
+};
 
 class HemisphericalEmissionVelocityModuleTemplate : public SphericalEmissionVelocityModuleTemplate
 {
 public:
-	HemisphericalEmissionVelocityModuleTemplate(const HemisphericalEmissionVelocityModuleTemplate &that);
+    HemisphericalEmissionVelocityModuleTemplate(const HemisphericalEmissionVelocityModuleTemplate &that);
+    virtual ~HemisphericalEmissionVelocityModuleTemplate();
 };
 
 // ??0HemisphericalEmissionVelocityModuleTemplate@FXParticleSystem@@QAE@ABV01@@Z
 HemisphericalEmissionVelocityModuleTemplate::HemisphericalEmissionVelocityModuleTemplate(
-	const HemisphericalEmissionVelocityModuleTemplate &that)
-	: SphericalEmissionVelocityModuleTemplate((const SphericalEmissionVelocityModuleTemplate &)that)
+    const HemisphericalEmissionVelocityModuleTemplate &that)
+    : SphericalEmissionVelocityModuleTemplate(that)
 {
-	void **self = (void **)this;
-	self[0] = &HemisphericalEmissionVelocityModuleTemplate_cvtbl0;
-	self[1] = &__identifier("?vftable_0112B89C@@3HA");
-	self[2] = &HemisphericalEmissionVelocityModuleTemplate_csub_vtbl;
 }
 
 // Retail exports three assignments at 0x003A8EFC (18B), the call into
@@ -81,4 +104,3 @@ typedef ModuleTag<4, HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY, HEMISPHERICAL_E
 
 template class ConcreteModuleTemplate<HemisphericalEmissionVelocityModuleTag>;
 }
-// _HemisphericalEmissionVelocityModuleTemplate_cvtbl4: the global at VA 0xc1c780 is ?vftable_0112B89C@@3HA.
