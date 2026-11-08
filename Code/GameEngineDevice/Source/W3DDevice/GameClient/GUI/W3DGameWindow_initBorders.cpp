@@ -15,7 +15,6 @@ typedef int Int;
 typedef float Real;
 typedef int Color;
 typedef bool Bool;
-static const Bool FALSE = false;
 class Image;
 // The target uses the existing W3DDisplay image wrapper at 4D6B3. The
 // reference Display virtual-slot view is unnecessary for this caller.
@@ -165,7 +164,7 @@ void W3DGameWindow::blitBorderRect( Int x, Int y, Int width, Int height )
 {
 	Int Offset = 15;
 	Int OffsetLower = 5;
-	if( bordersInit == FALSE )
+	if( bordersInit == false )
 		initBorders();
 
 	Int originalX = x;
