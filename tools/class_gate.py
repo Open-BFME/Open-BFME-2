@@ -76,6 +76,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "tools"))
 import class_layouts  # noqa: E402
 import class_views  # noqa: E402
+import git_trust  # noqa: E402
 
 ALLOW = re.compile(r"//\s*class-gate:\s*allow\s+(\w+)\s+\S")
 
@@ -184,7 +185,15 @@ def vote_sources_change_problems(before, after, tree):
 
 def vote_sources_problems():
     """The staged reverse/name_vote_sources.csv against HEAD's (the pre-commit hook)."""
-    return vote_sources_change_problems(git_text(f"HEAD:{VOTE_SOURCES}"), git_text(f":{VOTE_SOURCES}"), "")
+    return untrusted_history_problems() or vote_sources_change_problems(
+        git_text(f"HEAD:{VOTE_SOURCES}"), git_text(f":{VOTE_SOURCES}"), "")
+
+
+def untrusted_history_problems():
+    """[why] when local git state rewrites ROOT's history (tools/git_trust.py): the vote
+    checks refuse on their own, whoever calls them."""
+    untrusted = git_trust.untrusted_history(ROOT)
+    return [f"{VOTE_SOURCES}: local git state rewrites history ({'; '.join(untrusted)})"] if untrusted else []
 
 
 def vote_sources_range_problems(base, tip):
@@ -192,6 +201,9 @@ def vote_sources_range_problems(base, tip):
     first parent (the pre-push hook): a batch that adds a fingerprint and then rewrites it
     is refused even though its tip alone only adds rows. An empty `base` reads the file's
     whole history from the root commit (a push with no known remote base)."""
+    untrusted = untrusted_history_problems()
+    if untrusted:
+        return untrusted
     listed = subprocess.run(["git", "rev-list", "--reverse", "--full-history", f"{base}..{tip}" if base else tip,
                              "--", VOTE_SOURCES], cwd=ROOT, capture_output=True, text=True, env=trusted_env())
     if listed.returncode:
@@ -782,6 +794,12 @@ def main(argv=None):
                         help="check every commit of BASE..TIP keeps reverse/name_vote_sources.csv append-only "
                              "and bound (the pre-push hook)")
     args = parser.parse_args(argv)
+    if args.staged or args.vote_sources_range:
+        try:
+            git_trust.preflight(ROOT, "class_gate")
+        except git_trust.UntrustedHistory as refusal:
+            print(f"  {refusal}", file=sys.stderr)
+            return 1
     if args.vote_sources_range:
         problems = vote_sources_range_problems(*args.vote_sources_range)
         for problem in problems:

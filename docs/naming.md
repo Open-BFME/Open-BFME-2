@@ -829,9 +829,20 @@ batch can't add a fingerprint and rewrite it in a later commit. A push with no
 known remote base reads the file's whole history from the root commit instead.
 Every git call of the registered-class rename, its `verify-record` credit check and
 prepared-unit proof, `class_gate.py`, `repair_queue.py`'s base `verify-record`, and
-the pre-push hook runs with `GIT_NO_REPLACE_OBJECTS=1`, so a `git replace` object
-never stands in for history they trust. Neither tool sets it on import, so other
-lanes' git calls are unaffected. The credit
+both hooks run with `GIT_NO_REPLACE_OBJECTS=1`, so a `git replace` object never
+stands in for history they trust. Neither tool sets it on import, so other lanes'
+git calls are unaffected.
+
+Every history-dependent path first runs one preflight (`tools/git_trust.py`). It
+refuses when local git state could rewrite what git reports as history: a shallow
+clone, an `info/grafts` file, any ref under `refs/replace/`, or `GIT_GRAFT_FILE` or
+`GIT_REPLACE_REF_BASE` set. It runs at the start of `verify-record`, the revert of a
+registered class, `--prepared`'s baseline and proof, `class_gate.py --staged` and
+`--vote-sources-range`, and repair_queue's `verify-removed`, `verify-missing`,
+`retire`, `retired` and header-queue reads. repair_queue keeps an inline copy (the
+hooks run it from stdin), and its census and stub-receipt ancestry checks give no
+answer under such state. Both hooks carry the same rule in shell, before any tool
+runs. The credit
 readers accept a row only if history adds it once and
 never touches it again, with the hash of the header as it stood in that adding
 commit. A header edited before, with or after the votes earns nothing, in

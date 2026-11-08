@@ -276,6 +276,7 @@ from pathlib import Path, PurePosixPath
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import git_trust  # noqa: E402
 import ledger_io  # noqa: E402
 import name_agreement  # noqa: E402
 import name_metric  # noqa: E402
@@ -6214,6 +6215,7 @@ class RevisionContext(Context):
 def verify_record(root, base, target, old, new):
     """Refuse unless the `class,OLD,NEW` name_basis.csv record that target adds over
     base is an approval check_registered_basis accepts for OLD's registration at base."""
+    git_trust.preflight(root, "verify-record", Refusal)
     ctx = RevisionContext(root, base)
 
     def records(ref):
@@ -6368,6 +6370,7 @@ def plan_registered_revert(ctx, old, new, evidence, registration, max_files):
     never touched (a --merge-existing landing) stay as they were -- plus the one restored
     name_basis.csv record and the restored tombstones; rename_plan then lifts the
     landing's own. `old` is the landed name, `new` the placeholder it replaced."""
+    git_trust.preflight(ctx.root, "rename.py revert of a registered class", Refusal)
     rid = REVERT_RE.fullmatch(evidence.strip()).group(1)
     landing = landing_commit(ctx.root, rid, "HEAD")
     expected = inverse_tree(ctx.root, "HEAD", landing)
@@ -6680,6 +6683,7 @@ def prepared_baseline(ctx, registration, prepared):
     base with origin/master. The registry, OLD's contract and every prepared unit must read
     there exactly as in the working tree (one edited in an outgoing commit or in the tree
     proves nothing), and each unit's flags are the build's flags for that copy."""
+    git_trust.preflight(ctx.root, "--prepared", Refusal)
     code, out = _git_out(ctx.root, "merge-base", "HEAD", UPSTREAM)
     base = out.decode("ascii", "replace").strip() if not code else ""
     if not base:
@@ -6755,6 +6759,9 @@ def prepared_attribution_problems(ctx, plan):
     Anything it cannot read refuses."""
     registered = plan.registered
     old, new, header = registered["old"], registered["new"], registered["header"]
+    untrusted = git_trust.untrusted_history(ctx.root)
+    if untrusted:
+        return [f"local git state rewrites history ({'; '.join(untrusted)}): master's contract cannot be read"]
     contract, problems = master_contract(ctx, registered)
     if contract is None:
         return problems

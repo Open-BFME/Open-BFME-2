@@ -852,7 +852,9 @@ def test_the_baseline_is_the_remote_tracking_ref_as_git_wrote_it(spelled, eviden
         run(spelled, "replace", run(spelled, "rev-parse", f"{original}:{CONTRACT}").stdout.strip(),
             run(spelled, "rev-parse", f"HEAD:{CONTRACT}").stdout.strip())
     preprocessed(monkeypatch, evidence_stubbed, spelled, {}, layouts={VIEWS: {NEW: dict(CONTRACT_LAYOUT, size=16)}})
-    with pytest.raises(evidence_stubbed.Refusal, match=f"{re.escape(CONTRACT)} differs from refs/remotes/origin/master"):
+    refused = (f"{re.escape(CONTRACT)} differs from refs/remotes/origin/master" if spoof == "branch" else
+               "--prepared: local git state rewrites history .*refs/replace/")      # git_trust's preflight
+    with pytest.raises(evidence_stubbed.Refusal, match=refused):
         apply_prepared(spelled, evidence_stubbed, RESHAPED)
 
 

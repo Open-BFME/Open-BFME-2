@@ -460,6 +460,44 @@ def _git(*args):
                           encoding="utf-8", errors="replace")
 
 
+# tools/git_trust.py's rule, kept inline because the hooks run this file from a base copy on
+# stdin: local git state that rewrites history (a shallow clone, info/grafts, refs/replace/,
+# GIT_GRAFT_FILE or GIT_REPLACE_REF_BASE) leaves nothing read from it trustworthy.
+GIT_TRUST_ENV = ("GIT_GRAFT_FILE", "GIT_REPLACE_REF_BASE")
+
+
+def untrusted_history():
+    """What makes ROOT's history untrustworthy (tools/git_trust.py's untrusted_history)."""
+    problems = [f"{knob} is set" for knob in GIT_TRUST_ENV if knob in os.environ]
+    shallow = _git("rev-parse", "--is-shallow-repository")
+    if shallow.returncode or shallow.stdout.strip() not in ("true", "false"):
+        problems.append("cannot tell whether the repository is shallow")
+    elif shallow.stdout.strip() == "true":
+        problems.append("the repository is shallow (git fetch --unshallow)")
+    common = _git("rev-parse", "--git-common-dir")
+    if common.returncode or not common.stdout.strip():
+        problems.append("cannot find the git directory")
+    else:
+        grafts = (Path(ROOT) / common.stdout.strip()) / "info" / "grafts"
+        if os.path.lexists(grafts):
+            problems.append(f"{grafts} exists")
+    replaced = _git("for-each-ref", "--format=%(refname)", "refs/replace/")
+    if replaced.returncode:
+        problems.append("cannot list refs/replace/")
+    elif replaced.stdout.split():
+        names = replaced.stdout.split()
+        problems.append(f"refs/replace/ holds {len(names)} ref(s), e.g. {names[0]} (git replace -d)")
+    return problems
+
+
+def history_preflight(what):
+    """Refuse (exit 1) unless ROOT's history is read exactly as its commits wrote it."""
+    problems = untrusted_history()
+    if problems:
+        raise SystemExit(f"repair_queue: {what}: local git state rewrites history ({'; '.join(problems)}); "
+                         "remove it and retry")
+
+
 DEBT_BASE, DEBT_TARGET = "HEAD", ""  # empty ref means the Git index, never the filesystem
 
 
@@ -640,7 +678,7 @@ def link_source(path=None):
         newer, basis = True, "named by hand"
         if not (path or LINK_STATUS_SET) and census:
             got = subprocess.run(["git", "merge-base", "--is-ancestor", census["commit"], commit],
-                                 cwd=ROOT, capture_output=True) if commit else None
+                                 cwd=ROOT, capture_output=True) if commit and not untrusted_history() else None
             if got is not None and got.returncode in (0, 1):
                 newer, basis = got.returncode == 0, "commit vs the census's %s" % census["commit"][:10]
             else:
@@ -1927,6 +1965,7 @@ def removed_keys(kind):
 
 def removed_header_rows():
     """[(class, source)] header_queue.tsv rows the index deletes against HEAD."""
+    history_preflight("header queue")
     old, new = _git("show", f"{DEBT_BASE}:{HEADER_QUEUE}"), _git("show", f"{DEBT_TARGET}:{HEADER_QUEUE}")
     if old.returncode or old.stdout == new.stdout:
         return []
@@ -2464,7 +2503,7 @@ def stub_items(path=None):
         return [], f"{out}: stubs.json is not the one receipt.json names: stub-closure queue skipped"
     commit = receipt.get("commit") or ""
     got = subprocess.run(["git", "merge-base", "--is-ancestor", commit, "HEAD"], cwd=ROOT,
-                         capture_output=True) if commit else None
+                         capture_output=True) if commit and not untrusted_history() else None
     if got is None or got.returncode != 0:
         return [], (f"{out}: link cycle measured commit {commit[:10] or '(none)'}, which is not HEAD or an "
                     "ancestor of it: stub-closure queue skipped")
@@ -3116,6 +3155,8 @@ def main(argv=None):
     p = sub.add_parser("stlport", help="STLport 4.6 full-file migration leads (fresh build required)")
     p.add_argument("--tsv", action="store_true")
     args = ap.parse_args(argv)
+    if args.cmd in ("verify-removed", "verify-missing", "retire", "retired"):
+        history_preflight(args.cmd)          # each reads HEAD, a base or the log as trusted history
     if args.cmd == "stlport":
         import stlport_trial
         stlport_trial.queue(args)

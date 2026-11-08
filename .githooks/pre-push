@@ -19,6 +19,23 @@ fail() {
     exit 1
 }
 
+# tools/git_trust.py's preflight, in shell so it runs before any tool: local state that
+# rewrites history (a shallow clone, info/grafts, refs/replace/, GIT_GRAFT_FILE or
+# GIT_REPLACE_REF_BASE) changes every base and range below, so it refuses outright.
+# Keep the two hooks' copies and the tool alike.
+git_history_trusted() {
+    local why="local git state rewrites history" shallow common replaced
+    [ -z "${GIT_GRAFT_FILE+x}" ] || fail "$why (GIT_GRAFT_FILE is set)"
+    [ -z "${GIT_REPLACE_REF_BASE+x}" ] || fail "$why (GIT_REPLACE_REF_BASE is set)"
+    shallow=$(git rev-parse --is-shallow-repository) || fail "$why (cannot tell whether the repository is shallow)"
+    [ "$shallow" = false ] || fail "$why (the repository is shallow: git fetch --unshallow)"
+    common=$(git rev-parse --git-common-dir) || fail "$why (cannot find the git directory)"
+    [ ! -e "$common/info/grafts" ] && [ ! -L "$common/info/grafts" ] || fail "$why ($common/info/grafts exists)"
+    replaced=$(git for-each-ref --format='%(refname)' refs/replace/) || fail "$why (cannot list refs/replace/)"
+    [ -z "$replaced" ] || fail "$why (refs/replace/ holds ${replaced%%$'\n'*}: git replace -d)"
+}
+git_history_trusted
+
 # stage NAME: report the seconds since the previous stage on stderr, so a slow push
 # shows where its time went (`pre-push: <stage> <seconds>s`). Bash's own clock, no fork.
 _stage_clock=${EPOCHREALTIME:-}
