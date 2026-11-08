@@ -13,7 +13,7 @@
 // clamp table g_bfmeClampTable (zero point 0x00E23100). Retail advances
 // the pointer by the line length only on a filtered line (the skip branch
 // at 0x001C3B97 jumps past the add at 0x001C3BFC).
-extern const unsigned char g_bfmeClampTable[];
+extern unsigned char g_bfmeClampTable[];
 extern "C" void FilterHoriz_Simple2_C(void *, unsigned char *ptr, int pitch, const int *bounding)
 {
 	int i, step, left, right, amount, half;
