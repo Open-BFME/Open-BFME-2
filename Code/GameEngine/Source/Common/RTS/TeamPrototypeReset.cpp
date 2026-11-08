@@ -30,14 +30,14 @@ extern GameLogic *TheGameLogic;
 
 #include "../../../Include/Common/Team.h"
 
-// The shared layout keeps string and template storage opaque; use the same
-// retail member types at their proven offsets without a second prototype view.
+// The shared layout keeps the template storage opaque; use its retail type at
+// its proven offset without a second prototype view.
 
 void TeamPrototype::rva003A2C0D(Player *owner, const AsciiString &ownerName, bool singleton, Dict *dict)
 {
 	rva003A0CD1();
-	((AsciiString *)m_opaque10)->setCopyInline(owner->m_playerName);
-	((AsciiString *)m_opaque14)->setCopyInline(ownerName);
+	m_10.setCopyInline(owner->m_playerName);
+	m_name.setCopyInline(ownerName);
 	m_productionConditionAlwaysFalse = 0;
 	m_productionConditionScript = 0;
 	m_retrievedGenericScripts = 0;

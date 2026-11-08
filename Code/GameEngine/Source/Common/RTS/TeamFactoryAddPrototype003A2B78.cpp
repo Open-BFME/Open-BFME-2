@@ -20,17 +20,7 @@ struct Rva0039D8FBKey
 	int m_first;
 	int m_second;
 };
-class TeamPrototype
-{
-public:
-	void addToLists();
-	void *m_vft;
-	void *m_factory;
-	void *m_owner;
-	unsigned int m_id;
-	AsciiString m_name;
-	AsciiString m_ownerName;
-};
+#include "../../../Include/Common/Team.h"
 struct Rva0039EA4ENode
 {
 public:
@@ -82,9 +72,9 @@ public:
 
 void TeamFactory::addTeamPrototypeToList(TeamPrototype *team)
 {
-	int ownerKey = TheNameKeyGenerator->nameToKey(team->m_ownerName);
+	int ownerKey = TheNameKeyGenerator->nameToKey(team->m_name);
 	Rva0039D8FBKey key;
-	key.m_first = TheNameKeyGenerator->nameToKey(team->m_name);
+	key.m_first = TheNameKeyGenerator->nameToKey(team->m_10);
 	key.m_second = ownerKey;
 	Rva0039EA4E *tree = (Rva0039EA4E *)((char *)this + 0xb0);
 	if (tree->rva0039EA4E(key) != tree->m_header00)
@@ -96,11 +86,11 @@ void TeamFactory::addTeamPrototypeToList(TeamPrototype *team)
 void TeamPrototype::addToLists()
 {
 	if (m_factory)
-		((TeamFactory *)m_factory)->addTeamPrototypeToList(this);
-	if (!m_owner)
+		m_factory->addTeamPrototypeToList(this);
+	if (!m_owningPlayer)
 		return;
-	((Player *)m_owner)->addTeamToList(this);
-	struct Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(m_owner);
+	m_owningPlayer->addTeamToList(this);
+	struct Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(m_owningPlayer);
 	if (!rec)
 		return;
 	((Rva004EC072Owner *)rec)->fwd(this);

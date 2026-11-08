@@ -54,16 +54,8 @@ public:
 
 #include "../../../Include/Common/TeamFactory.h"
 
-class TeamPrototype
-{
-public:
-    int countTeamInstances();
-
-    unsigned char pad_0000[0x18];
-    unsigned int flags; // +0x18; bit 0 denotes a singleton (target)
-    unsigned char pad_001C[0x334 - 0x1C];
-    Team *firstInstance; // +0x334
-};
+#include "../../../Include/Common/TeamBFME2.h"
+#include "../../../Include/Common/Team.h"
 
 class Rva003A3CBBOwner
 {
@@ -71,39 +63,8 @@ public:
     Team *createInstance(const AsciiString &normalized, const AsciiString &name);
 };
 
-class TeamPrototypeNames
-{
-public:
-    unsigned char pad_0000[0x10];
-    AsciiString primaryName; // +0x10 (target)
-    AsciiString alternateName; // +0x14 (target)
-};
 
-class TeamState
-{
-public:
-    Bool active;
-    Bool created;
 
-    Bool isActive() { return active; }
-    void setActive()
-    {
-        if (!active) {
-            created = 1;
-            active = 1;
-        }
-    }
-};
-
-class Team
-{
-public:
-
-    unsigned char pad_0000[0x30];
-    TeamPrototypeNames *prototype; // +0x30 (target)
-    unsigned char pad_0034[0x5D - 0x34];
-    TeamState status; // +0x5D (target)
-};
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 // Retail .CRT$XCU 0x007AEC1A is this unit's Drawable.h copy (static 0x00E01E24).
@@ -128,30 +89,30 @@ Team *ScriptEngine::getTeamNamed(AsciiString name, Bool createIfMissing)
 
     const AsciiString *emptyName = &AsciiString::TheEmptyString;
     if (m_callingTeam) {
-        TeamPrototypeNames *prototype = m_callingTeam->prototype;
+        TeamPrototype *prototype = m_callingTeam->m_proto;
         const AsciiString *primary = emptyName;
         if (prototype)
-            primary = &prototype->primaryName;
+            primary = &prototype->m_10;
         if (primary->compare(normalized) == 0) {
-            prototype = m_callingTeam->prototype;
+            prototype = m_callingTeam->m_proto;
             const AsciiString *alternate = emptyName;
             if (prototype)
-                alternate = &prototype->alternateName;
+                alternate = &prototype->m_name;
             if (alternate->compare(name) == 0)
                 return m_callingTeam;
         }
     }
 
     if (m_conditionTeam) {
-        TeamPrototypeNames *prototype = m_conditionTeam->prototype;
+        TeamPrototype *prototype = m_conditionTeam->m_proto;
         const AsciiString *primary = emptyName;
         if (prototype)
-            primary = &prototype->primaryName;
+            primary = &prototype->m_10;
         if (primary->compare(normalized) == 0) {
-            prototype = m_conditionTeam->prototype;
+            prototype = m_conditionTeam->m_proto;
             const AsciiString *alternate = emptyName;
             if (prototype)
-                alternate = &prototype->alternateName;
+                alternate = &prototype->m_name;
             if (alternate->compare(name) == 0)
                 return m_conditionTeam;
         }
@@ -169,16 +130,15 @@ Team *ScriptEngine::getTeamNamed(AsciiString name, Bool createIfMissing)
     TeamFactory *factory = TheTeamFactory;
     TeamPrototype *teamPrototype = factory->findTeamPrototype(normalized, name);
     if (teamPrototype) {
-        if (teamPrototype->flags & 1) {
-            Team *team = teamPrototype->firstInstance;
+        if (teamPrototype->m_flags & 1) {
+            Team *team = teamPrototype->m_dlinkhead_TeamInstanceList;
             if (!team)
                 return 0;
-            TeamState *status = &team->status;
-            if (status->isActive())
+            if (team->isActive())
                 return team;
             if (!createIfMissing)
                 return 0;
-            status->setActive();
+            team->setActive();
             return team;
         }
 
@@ -192,7 +152,7 @@ Team *ScriptEngine::getTeamNamed(AsciiString name, Bool createIfMissing)
             }
         }
 
-        Team *team = teamPrototype->firstInstance;
+        Team *team = teamPrototype->m_dlinkhead_TeamInstanceList;
         if (team)
             return team;
         if (createIfMissing)

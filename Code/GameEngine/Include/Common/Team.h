@@ -10,6 +10,7 @@
 #define BFME_SNAPSHOT_NAME_SLOT
 #endif
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class Xfer;
 
 #if defined(BFME_SNAPSHOT_CAPITALIZED_SLOTS) || defined(BFME_SNAPSHOT_NONCONST_NAME_SLOT)
@@ -73,7 +74,7 @@ public:
     DLINK_ITERATOR<Team> iterate_TeamInstanceList() const;
 
     unsigned int getID() const { return m_id; }
-    const AsciiString &getName() const { return *(const AsciiString *)m_opaque14; }
+    const AsciiString &getName() const { return m_name; }
     bool getIsSingleton() const { return (m_flags & 1) != 0; }
     Player *getControllingPlayer() const { return m_owningPlayer; }
     void friend_setOwningPlayer(Player *player) { m_owningPlayer = player; }
@@ -93,8 +94,8 @@ public:
     TeamFactory *m_factory;
     Player *m_owningPlayer;
     unsigned int m_id;
-    unsigned char m_opaque10[4];
-    unsigned char m_opaque14[4];
+    AsciiString m_10;  // the owning player's name: ctor 0x003A3299 argument 2, 0x003A2C0D copies Player::m_playerName
+    AsciiString m_name;  // ctor 0x003A3299 argument 3, 0x003A2C0D name argument
     int m_flags;
     bool m_productionConditionAlwaysFalse;
     unsigned char m_pad1D[3];
@@ -111,12 +112,13 @@ public:
     int m_productionPriority;
     int m_productionPrioritySuccessIncrease;
     int m_productionPriorityFailureDecrease;
-    unsigned char m_opaque228[0x2C4 - 0x228];
+    unsigned char m_opaque228[0x244 - 0x228];
+    AsciiString m_teamGenericScripts[32];  // read by Team::updateGenericScripts 0x0039F8F7
     int m_2C4;  // stored by TeamFactory::initTeamForTacticalAI 0x003A2FD4
     unsigned char m_opaque2C8[0x2D8 - 0x2C8];
     int m_2D8;  // stored by 0x003A2FD4; read by AITacticsGenerator 0x005059A1 and 0x00505A56 through Team+0x30
     unsigned char m_opaque2DC[0x318 - 0x2DC];
-    unsigned char m_opaque318[4];
+    AsciiString m_attackPriorityName;  // xfer 0x003A3E74 order: player index, this, production flag
     bool m_field31C;
     bool m_field31D;
     bool m_field31E;

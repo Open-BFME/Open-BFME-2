@@ -65,19 +65,7 @@ public:
 
 extern ScriptEngine *TheScriptEngine;
 
-class TeamPrototype
-{
-public:
-	Script *getGenericScript(int scriptToRetrieve, AsciiString *outName);
-	const AsciiString &getName() const { return m_name; }
-	const AsciiString &getGenericScriptName(int i) const { return m_teamGenericScripts[i]; }
-
-private:
-	unsigned char m_pad00[0x14];
-	AsciiString m_name; // +0x14
-	unsigned char m_pad18[0x244 - 0x18];
-	AsciiString m_teamGenericScripts[MAX_GENERIC_SCRIPTS]; // +0x244
-};
+#include "../../../Include/Common/Team.h"
 
 #include "../../../Include/Common/TeamBFME2.h"
 
@@ -110,7 +98,7 @@ void Team::updateGenericScripts()
 							SequentialScript *seq = new SequentialScript;
 							seq->m_teamToExecOn = this;
 							seq->m_bfmeScriptScope = scope;
-							seq->m_bfmeScriptName = m_proto->getGenericScriptName(i);
+							seq->m_bfmeScriptName = m_proto->m_teamGenericScripts[i];
 							seq->m_scriptToExecuteSequentially = script;
 							seq->m_timesToLoop = script->m_subrecord.m_field04;
 							TheScriptEngine->appendSequentialScript(seq);
@@ -120,7 +108,7 @@ void Team::updateGenericScripts()
 					{
 						((Rva0020D451Engine *)TheScriptEngine)->rva0020D451(scope, script->getAction(), script, (void *)&AsciiString("some Generic Script"), (Team *)this);
 						AsciiString msg = "Generic script '";
-						msg.concat(m_proto->getGenericScriptName(i));
+						msg.concat(m_proto->m_teamGenericScripts[i]);
 						reinterpret_cast<StringBase<char> *>(&msg)->concat("' run on team ");
 						msg.concat(!m_proto ? AsciiString::TheEmptyString : m_proto->getName());
 						TheScriptEngine->AppendDebugMessage(msg, false);

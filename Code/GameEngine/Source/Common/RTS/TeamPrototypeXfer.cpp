@@ -88,7 +88,7 @@ void TeamPrototype::xfer(Xfer *xfer)
 		owningPlayerIndex = m_owningPlayer->getPlayerIndex();
 	*xfer == owningPlayerIndex;
 	m_owningPlayer = ThePlayerList->getNthPlayer(owningPlayerIndex);
-	*xfer == *(AsciiString *)m_opaque318;
+	*xfer == m_attackPriorityName;
 	*xfer == m_productionConditionAlwaysFalse;
 	*xfer == *(Snapshot *)m_opaque12C;
 	unsigned short teamInstanceCount = 0;
