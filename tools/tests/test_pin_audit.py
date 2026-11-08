@@ -13,9 +13,11 @@ StringBase<char>'s, and FXList's copy constructor matched through it
   * report worst first, callers named, and never fail the run (shadow).
 """
 import importlib.util
+import json
 import os
 import pickle
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -187,51 +189,6 @@ def test_an_index_entry_outside_its_object_list_is_skipped(tmp_path):
     assert census.sources(WRONG) == ["Code/FXList.cpp"]
 
 
-def test_the_proof_compiles_in_isolation_and_cleans_up(monkeypatch, tmp_path):
-    real = tmp_path / "match"
-    real.mkdir()
-    monkeypatch.setattr(build, "BUILD_DIR", real)
-    monkeypatch.delenv("BFME_OBJSTORE", raising=False)
-    seen = {}
-
-    def fake_proof(p, rva, rows, symbol_map, pins):
-        out = build.obj_path(build.ROOT / "Code/F.cpp")
-        seen["dir"], seen["store"] = out.parent, os.environ.get("BFME_OBJSTORE")
-        out.write_bytes(b"obj")
-        build._deps_sidecar(out).write_text("{}")
-        return []
-    import pin_admission
-    monkeypatch.setattr(pin_admission, "fold_proof_problems", fake_proof)
-    monkeypatch.setattr(build, "load_symbol_map", lambda: {})
-    pins = [pin(FOLD, 0x365F0, "fold-proof=Code/F.cpp")]
-    findings = pin_consistency.audit(pins, [row(OWNER, 0x365F0)], FakeIndex())
-    assert findings[0]["verdict"] == "PROVEN"
-    assert seen["dir"] != real and seen["store"] == "off"
-    assert seen["dir"].parent == build.ROOT / "build" and seen["dir"].name.startswith("pin-audit-")
-    assert not seen["dir"].exists()                     # removed
-    assert list(real.iterdir()) == []                   # the shared cache is untouched
-    assert build.BUILD_DIR == real and "BFME_OBJSTORE" not in os.environ
-
-
-def test_isolation_is_undone_when_the_proof_fails(monkeypatch, tmp_path):
-    real = tmp_path / "match"
-    real.mkdir()
-    monkeypatch.setattr(build, "BUILD_DIR", real)
-    monkeypatch.setenv("BFME_OBJSTORE", "on")
-    seen = {}
-
-    def broken(p, rva, rows, symbol_map, pins):
-        seen["dir"] = build.BUILD_DIR
-        raise RuntimeError("compiler crashed")
-    import pin_admission
-    monkeypatch.setattr(pin_admission, "fold_proof_problems", broken)
-    with pytest.raises(RuntimeError):
-        pin_consistency.audit([pin(FOLD, 0x365F0, "fold-proof=Code/F.cpp")], [row(OWNER, 0x365F0)],
-                              FakeIndex())
-    assert not seen["dir"].exists() and build.BUILD_DIR == real
-    assert os.environ["BFME_OBJSTORE"] == "on"
-
-
 def test_a_current_object_is_seeded_into_the_scratch_cache(tmp_path):
     real, scratch = tmp_path / "match", tmp_path / "scratch"
     real.mkdir(); scratch.mkdir()
@@ -240,3 +197,183 @@ def test_a_current_object_is_seeded_into_the_scratch_cache(tmp_path):
     build._deps_sidecar(real / name).write_text("{}")
     pin_consistency.seed_isolated("Code/F.cpp", real, scratch)
     assert (scratch / name).read_bytes() == b"obj" and (real / name).exists()
+
+
+class FakeChild:
+    """A Popen stand-in: `run` plays the child (it may write the output file); `interrupt`
+    makes the first wait raise KeyboardInterrupt, as Ctrl-C in the parent would."""
+
+    def __init__(self, argv, run=None, code=0, interrupt=False):
+        self.argv, self.code, self.interrupt, self.killed, self.done = argv, code, interrupt, False, False
+        if run:
+            run(argv)
+
+    def wait(self):
+        if self.interrupt and not self.killed:
+            raise KeyboardInterrupt
+        self.done = True
+        return self.code
+
+    def poll(self):
+        return self.code if self.done else None
+
+    def kill(self):
+        self.killed = True
+
+
+def _jobs():
+    return [{"name": FOLD, "address": "0x000365F0", "source": "Code/F.cpp"},
+            {"name": WRONG, "address": "0x000365F0", "source": "Code/FXList.cpp"}]
+
+
+def test_the_proofs_run_in_a_child_and_this_process_keeps_its_settings(monkeypatch, tmp_path):
+    monkeypatch.setenv("BFME_OBJSTORE", "on")
+    before_dir, seen = build.BUILD_DIR, {}
+
+    def spawn(argv, env):
+        seen.update(argv=argv, env=env)
+
+        def run(argv):
+            request, output, scratch = argv[-3:]
+            assert Path(request).parent == Path(scratch).parent        # one private directory
+            jobs = json.loads(Path(request).read_text())
+            Path(output).write_text(json.dumps([[] for _ in jobs]))
+        return FakeChild(argv, run)
+    results = pin_consistency.isolated_proofs(_jobs(), spawn, parent=tmp_path)
+    assert results == [[], []]
+    assert "--audit-child" in seen["argv"] and seen["env"]["BFME_OBJSTORE"] == "off"
+    scratch = Path(seen["argv"][-1]).parent
+    assert scratch.parent == tmp_path and scratch.name.startswith("pin-audit-")
+    assert not scratch.exists()                                        # removed
+    assert build.BUILD_DIR == before_dir and os.environ["BFME_OBJSTORE"] == "on"
+
+
+def test_overlapping_audits_never_touch_each_other_or_this_process(monkeypatch, tmp_path):
+    # Review probe 1: two isolations alive at once. Each lives in its own child; this process
+    # never changes BUILD_DIR or the store setting, so neither can restore the other's.
+    monkeypatch.delenv("BFME_OBJSTORE", raising=False)
+    before_dir, dirs = build.BUILD_DIR, []
+
+    def inner_spawn(argv, env):
+        def run(argv):
+            dirs.append(Path(argv[-1]).parent)
+            Path(argv[-2]).write_text(json.dumps([[] for _ in json.loads(Path(argv[-3]).read_text())]))
+        return FakeChild(argv, run)
+
+    def outer_spawn(argv, env):
+        def run(argv):
+            dirs.append(Path(argv[-1]).parent)
+            assert pin_consistency.isolated_proofs(_jobs(), inner_spawn, parent=tmp_path) == [[], []]
+            assert build.BUILD_DIR == before_dir and "BFME_OBJSTORE" not in os.environ
+            Path(argv[-2]).write_text(json.dumps([[] for _ in json.loads(Path(argv[-3]).read_text())]))
+        return FakeChild(argv, run)
+    assert pin_consistency.isolated_proofs(_jobs(), outer_spawn, parent=tmp_path) == [[], []]
+    assert len(set(dirs)) == 2 and not any(d.exists() for d in dirs)
+    assert build.BUILD_DIR == before_dir and "BFME_OBJSTORE" not in os.environ
+
+
+def test_an_interrupt_kills_the_child_and_removes_the_directory(tmp_path):
+    children = []
+
+    def spawn(argv, env):
+        children.append(FakeChild(argv, interrupt=True))
+        return children[-1]
+    with pytest.raises(KeyboardInterrupt):
+        pin_consistency.isolated_proofs(_jobs(), spawn, parent=tmp_path)
+    assert children[0].killed and list(tmp_path.iterdir()) == []
+
+
+def test_an_interrupt_while_starting_the_child_still_removes_the_directory(tmp_path):
+    def spawn(argv, env):
+        raise KeyboardInterrupt
+    with pytest.raises(KeyboardInterrupt):
+        pin_consistency.isolated_proofs(_jobs(), spawn, parent=tmp_path)
+    assert list(tmp_path.iterdir()) == []
+
+
+def test_a_failed_child_leaves_every_job_unproven(tmp_path):
+    results = pin_consistency.isolated_proofs(_jobs(), lambda argv, env: FakeChild(argv, code=3),
+                                              parent=tmp_path)
+    assert [pin_consistency.audit_verdict(r) for r in results] == ["INCONCLUSIVE"] * 2
+    assert "exited 3" in results[0][0] and list(tmp_path.iterdir()) == []
+
+
+def test_a_directory_that_cannot_be_removed_is_named(monkeypatch, tmp_path, capsys):
+    stuck = tmp_path / "pin-audit-stuck"
+    stuck.mkdir()
+
+    def refuse(path, *args, **kwargs):
+        raise PermissionError("held open")
+    monkeypatch.setattr(pin_consistency.shutil, "rmtree", refuse)
+    assert pin_consistency.remove_scratch(stuck) is False
+    assert str(stuck) in capsys.readouterr().err and stuck.exists()
+
+
+def test_scratch_directories_older_than_a_day_are_swept(tmp_path):
+    old, fresh, other = tmp_path / "pin-audit-old", tmp_path / "pin-audit-fresh", tmp_path / "match"
+    for path in (old, fresh, other):
+        path.mkdir()
+    now = time.time()
+    os.utime(old, (now - 2 * 86400, now - 2 * 86400))
+    os.utime(other, (now - 2 * 86400, now - 2 * 86400))
+    assert pin_consistency.sweep_stale_scratch(tmp_path, now) == [old]
+    assert not old.exists() and fresh.exists() and other.exists()
+
+
+def test_the_child_compiles_into_its_scratch_directory(monkeypatch, tmp_path):
+    monkeypatch.setattr(build, "BUILD_DIR", build.BUILD_DIR)          # restored after the test
+    monkeypatch.setenv("BFME_OBJSTORE", "off")
+    scratch, seen = tmp_path / "match", {}
+
+    def proof(p, rva, rows, symbol_map, pins):
+        seen[p["name"]] = build.BUILD_DIR
+        return [] if p["name"] == FOLD else ["x differs from retail 0x000365F0 at +0x1"]
+    import pin_admission
+    monkeypatch.setattr(pin_admission, "fold_proof_problems", proof)
+    monkeypatch.setattr(build, "load_all_function_rows", lambda: [])
+    request, output = tmp_path / "request.json", tmp_path / "result.json"
+    request.write_text(json.dumps(_jobs()))
+    assert pin_consistency.audit_child(str(request), str(output), str(scratch)) == 0
+    assert seen == {FOLD: scratch, WRONG: scratch}
+    assert json.loads(output.read_text()) == [[], ["x differs from retail 0x000365F0 at +0x1"]]
+
+
+def test_the_child_refuses_to_run_with_the_shared_store_on(monkeypatch, tmp_path):
+    monkeypatch.setenv("BFME_OBJSTORE", "on")
+    with pytest.raises(SystemExit):
+        pin_consistency.audit_child(str(tmp_path / "r"), str(tmp_path / "o"), str(tmp_path / "s"))
+
+
+@pytest.mark.parametrize("data", [
+    b"\x80\xff.",                                                       # review probe: another pickle protocol
+    pickle.dumps({"objects": [], "comdat": {}, "strong": {}, "references": {"edges": None}}),
+    pickle.dumps(["not", "an", "index"]),
+    pickle.dumps({"objects": None, "comdat": {}, "strong": {}, "references": {"edges": {}}}),
+])
+def test_any_unreadable_index_leaves_pins_unjudged(tmp_path, data):
+    path = tmp_path / "link_index.pkl"
+    path.write_bytes(data)
+    census = pin_consistency.CensusIndex([row(CALLER, 0x52BD3A)], path)
+    assert census.problem and census.sources(WRONG) == [] and census.matched_callers(WRONG) == []
+    findings = pin_consistency.audit([pin(WRONG, 0x365F0)], [row(OWNER, 0x365F0)], census,
+                                     lambda p, rva: [])
+    assert findings[0]["verdict"] == "NO-DEFINING-OBJECT"
+
+
+def test_a_malformed_entry_read_later_makes_the_index_unreadable(tmp_path):
+    index = {"objects": ["a.obj"], "comdat": {WRONG: 5}, "strong": {}, "references": {"edges": {}}}
+    path = tmp_path / "link_index.pkl"
+    path.write_bytes(pickle.dumps(index))
+    census = pin_consistency.CensusIndex([], path)
+    assert census.sources(WRONG) == [] and census.problem
+
+
+def test_audit_main_exits_zero_and_says_why_on_an_unreadable_index(monkeypatch, tmp_path, capsys):
+    path = tmp_path / "link_index.pkl"
+    path.write_bytes(b"\x80\xff.")
+    census = pin_consistency.CensusIndex([], path)
+    real_audit = pin_consistency.audit
+    monkeypatch.setattr(pin_consistency, "audit", lambda limit=None: real_audit(
+        [pin(WRONG, 0x365F0)], [row(OWNER, 0x365F0)], census, lambda p, rva: []))
+    assert pin_consistency.main(["--audit"]) == 0
+    assert "unreadable" in capsys.readouterr().out

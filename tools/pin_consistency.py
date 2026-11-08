@@ -81,12 +81,12 @@ one commit. Shrinking this file is the only direction it is allowed to move.
 import argparse
 import bisect
 import collections
-import contextlib
 import csv
 import io
 import os
 import shutil
 import struct
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -840,8 +840,9 @@ def audit_verdict(problems):
 
 class CensusIndex:
     """Which ledger units define a name, and which matched rows reference it,
-    from the last census index (link_check --fetch-index). Absent, every pin
-    without a fold-proof= source is NO-DEFINING-OBJECT and no callers are named."""
+    from the last census index (link_check --fetch-index). Absent or unreadable,
+    every pin without a fold-proof= source is NO-DEFINING-OBJECT, no callers are
+    named, and `problem` says why."""
 
     def __init__(self, rows, path=None):
         import link_census
@@ -858,75 +859,94 @@ class CensusIndex:
         self.problem = None
         if not self.path.exists():
             return
-        import pickle
-        # A truncated or foreign file names no sources: its pins stay unjudged, the audit goes on.
+        # Anything wrong with the file -- truncated, another pickle protocol, another schema --
+        # makes it no index at all: its pins stay unjudged and the audit goes on (exit 0).
         try:
+            import pickle
             with self.path.open("rb") as handle:
                 index = pickle.load(handle)
-            objects, comdat, strong = index["objects"], index["comdat"], index["strong"]
-            edges = index["references"]["edges"]
-        except (EOFError, OSError, pickle.UnpicklingError, AttributeError, ImportError,
-                KeyError, TypeError) as error:
-            self.problem = f"census index {self.path} unreadable ({type(error).__name__}: {error})"
+            objects, comdat, strong = list(index["objects"]), dict(index["comdat"]), dict(index["strong"])
+            callers = {}
+            for caller, refs in dict(index["references"]["edges"]).items():
+                for name in refs:
+                    callers.setdefault(name, set()).add(caller)
+        except Exception as error:  # an audit reports; it never stops on its input
+            self.unreadable(error)
             return
-        self.objects, self.comdat, self.strong = objects, comdat, strong
-        for caller, refs in edges.items():
-            for name in refs:
-                self.callers.setdefault(name, set()).add(caller)
+        self.objects, self.comdat, self.strong, self.callers = objects, comdat, strong, callers
+
+    def unreadable(self, error):
+        self.problem = f"census index {self.path} unreadable ({type(error).__name__}: {error})"
+        self.objects, self.comdat, self.strong, self.callers = [], {}, {}, {}
 
     def _object(self, number):
         """The object an index entry names, or None for one outside its object list."""
-        try:
-            return self.objects[number] if isinstance(number, int) and number >= 0 else None
-        except IndexError:
-            return None
+        if isinstance(number, int) and 0 <= number < len(self.objects):
+            return self.objects[number]
+        return None
 
     def sources(self, name):
+        try:
+            objects = [self._object(entry[0] if isinstance(entry, (tuple, list)) and entry else None)
+                       for entry in self.comdat.get(name, ())]
+            objects += [self._object(i) for i in self.strong.get(name, ())]
+        except Exception as error:  # a malformed entry: the whole index is suspect
+            self.unreadable(error)
+            return []
         found = []
-        objects = [self._object(entry[0] if isinstance(entry, (tuple, list)) and entry else None)
-                   for entry in self.comdat.get(name, ())]
-        objects += [self._object(i) for i in self.strong.get(name, ())]
         for obj in objects:
-            if obj is None:
-                continue
-            source = self.source_of.get(obj)
+            source = self.source_of.get(obj) if isinstance(obj, str) else None
             if (source and not source.lower().endswith(build.LIB_SUFFIX)
                     and source not in found):
                 found.append(source)
         return found
 
     def matched_callers(self, name):
-        return sorted(c for c in self.callers.get(name, ()) if c in self.matched)
+        try:
+            return sorted(c for c in self.callers.get(name, ()) if c in self.matched)
+        except Exception as error:
+            self.unreadable(error)
+            return []
 
 
-@contextlib.contextmanager
-def isolated_build():
-    """Compile into a private directory, never the shared caches, for the duration.
+# The proofs compile. build.compile_rows writes each object and .deps.json to build.BUILD_DIR
+# (build/match) and copies them into the object store every worktree shares (docs/matching.md,
+# "The build cache trap"). The audit is a reader, so its proofs run in a child process whose
+# BUILD_DIR is a private build/pin-audit-* directory (inside the checkout: build.py keys objects by
+# their path below ROOT) and whose environment has BFME_OBJSTORE=off. This process never changes
+# its own settings; it kills the child if interrupted and removes the directory in every case,
+# warning by name when it cannot.
+SCRATCH_PREFIX = "pin-audit-"
+STALE_SCRATCH_SECONDS = 24 * 3600
 
-    The proof compiles its unit through build.compile_rows, which writes the object and its
-    .deps.json to build.BUILD_DIR (build/match) and copies them into the object store shared by
-    every worktree (docs/matching.md, "The build cache trap"). An audit is a reader: BUILD_DIR
-    points at a temporary directory and the store is off until it ends, and the directory is
-    removed whether the audit finishes or fails. Yields (the real BUILD_DIR, the temporary one,
-    build/pin-audit-*)."""
-    real, saved = build.BUILD_DIR, os.environ.get("BFME_OBJSTORE")
-    # Inside the checkout (build.py keys objects by their path below ROOT), never build/match.
-    parent = build.ROOT / "build"
-    parent.mkdir(parents=True, exist_ok=True)
-    scratch = Path(tempfile.mkdtemp(prefix="pin-audit-", dir=parent))
-    os.environ["BFME_OBJSTORE"] = "off"
-    build._objstore_root.cache_clear()
-    build.BUILD_DIR = scratch
+
+def remove_scratch(path):
+    """Remove a private directory; True when gone. A failure is printed, never swallowed."""
     try:
-        yield real, scratch
-    finally:
-        build.BUILD_DIR = real
-        if saved is None:
-            os.environ.pop("BFME_OBJSTORE", None)
-        else:
-            os.environ["BFME_OBJSTORE"] = saved
-        build._objstore_root.cache_clear()
-        shutil.rmtree(scratch, ignore_errors=True)
+        shutil.rmtree(path)
+    except FileNotFoundError:
+        pass
+    except OSError as error:
+        print(f"pin audit: WARNING: could not remove {path} ({error}); delete it by hand",
+              file=sys.stderr)
+        return False
+    return True
+
+
+def sweep_stale_scratch(parent=None, now=None):
+    """Remove build/pin-audit-* directories left over a day ago (a killed or failed run)."""
+    import time
+    parent = parent or build.ROOT / "build"
+    now = time.time() if now is None else now
+    swept = []
+    for path in sorted(parent.glob(SCRATCH_PREFIX + "*")):
+        try:
+            stale = path.is_dir() and now - path.stat().st_mtime > STALE_SCRATCH_SECONDS
+        except OSError:
+            continue
+        if stale and remove_scratch(path):
+            swept.append(path)
+    return swept
 
 
 def seed_isolated(source, real, scratch):
@@ -938,12 +958,85 @@ def seed_isolated(source, real, scratch):
             shutil.copyfile(src, scratch / src.name)
 
 
-def audit(pins=None, rows=None, index=None, prove=None, limit=None):
+def audit_child(request, output, scratch):
+    """--audit-child: run the requested proofs with this process's BUILD_DIR at `scratch`.
+
+    Runs only as the child isolated_proofs starts: its environment carries BFME_OBJSTORE=off, and
+    this process ends when the proofs do, so the settings it changes die with it."""
+    import json
+    import pin_admission
+    if os.environ.get("BFME_OBJSTORE") != "off":
+        raise SystemExit("pin_consistency --audit-child: run by --audit only (BFME_OBJSTORE=off)")
+    real, scratch = build.BUILD_DIR, Path(scratch)
+    scratch.mkdir(parents=True, exist_ok=True)
+    build.BUILD_DIR = scratch
+    jobs = json.loads(Path(request).read_text(encoding="utf-8"))
+    rows = build.load_all_function_rows()
+    with (ROOT / "reverse" / "symbols.csv").open(newline="", encoding="utf-8") as handle:
+        pins = list(csv.DictReader(handle))
+    maps = []
+
+    def symbol_map():
+        if not maps:
+            maps.append(build.load_symbol_map())
+        return maps[0]
+
+    results = []
+    for job in jobs:
+        try:
+            seed_isolated(job["source"], real, scratch)
+            problems = pin_admission.fold_proof_problems(
+                {"name": job["name"], "address": job["address"], "notes": f"fold-proof={job['source']}"},
+                int(job["address"], 16), rows, symbol_map, pins)
+        except (Exception, SystemExit) as error:
+            problems = [f"audit could not run the proof: {error}"]
+        results.append(problems)
+    Path(output).write_text(json.dumps(results), encoding="utf-8")
+    return 0
+
+
+def isolated_proofs(jobs, spawn=None, parent=None):
+    """[problems] per job ({name, address, source}), proven in a child process (see above).
+
+    `spawn(argv, env)` starts it and returns a Popen-like object (wait, poll, kill); tests pass
+    their own. A child that fails leaves every job unproven, never this process's settings."""
+    import json
+    parent = parent or build.ROOT / "build"
+    sweep_stale_scratch(parent)
+    parent.mkdir(parents=True, exist_ok=True)
+    scratch = Path(tempfile.mkdtemp(prefix=SCRATCH_PREFIX, dir=parent))
+    child = None
+    try:
+        request, output = scratch / "request.json", scratch / "result.json"
+        request.write_text(json.dumps(jobs), encoding="utf-8")
+        argv = [sys.executable, str(Path(__file__).resolve()), "--audit-child",
+                str(request), str(output), str(scratch / "match")]
+        env = dict(os.environ, BFME_OBJSTORE="off")
+        spawn = spawn or (lambda argv, env: subprocess.Popen(argv, env=env, cwd=str(ROOT)))
+        child = spawn(argv, env)
+        code = child.wait()
+        if code != 0 or not output.exists():
+            return [[f"audit could not run the proof: the proof process exited {code}"]] * len(jobs)
+        results = json.loads(output.read_text(encoding="utf-8"))
+        if not isinstance(results, list) or len(results) != len(jobs):
+            return [["audit could not run the proof: the proof process returned no result"]] * len(jobs)
+        return results
+    except BaseException:
+        if child is not None and child.poll() is None:
+            child.kill()
+            child.wait()
+        raise
+    finally:
+        remove_scratch(scratch)
+
+
+def audit(pins=None, rows=None, index=None, prove=None, limit=None, spawn=None):
     """Re-judge every stacked pin; [finding] worst first.
 
-    prove(pin, rva) -> problems defaults to pin_admission.fold_proof_problems
-    against the ledger and pin set. A pin's own fold-proof= source is replayed
-    first; otherwise the first ledger unit whose object defines the name."""
+    The proofs are pin_admission.fold_proof_problems against the ledger and pin
+    set, run in an isolated child process (isolated_proofs); `prove(pin, rva)`
+    replaces them in tests. A pin's own fold-proof= source is replayed first;
+    otherwise the first ledger unit whose object defines the name."""
     import pin_admission
     if pins is None:
         with (ROOT / "reverse" / "symbols.csv").open(newline="", encoding="utf-8") as handle:
@@ -952,20 +1045,7 @@ def audit(pins=None, rows=None, index=None, prove=None, limit=None):
         rows = build.load_all_function_rows()
     if index is None:
         index = CensusIndex(rows)
-    if prove is None:
-        with isolated_build() as (real, scratch):
-            maps = []
-
-            def symbol_map():
-                if not maps:
-                    maps.append(build.load_symbol_map())
-                return maps[0]
-
-            def isolated_prove(pin, rva):
-                seed_isolated(pin_admission.FOLD_PROOF_RE.search(pin["notes"]).group(1), real, scratch)
-                return pin_admission.fold_proof_problems(pin, rva, rows, symbol_map, pins)
-            return audit(pins, rows, index, isolated_prove, limit)
-    findings = []
+    findings, jobs = [], []
     for pin, rva, others in stacked_pins(pins, rows)[:limit]:
         name, notes = pin["name"], pin.get("notes") or ""
         recorded = pin_admission.FOLD_PROOF_RE.search(notes)
@@ -976,17 +1056,24 @@ def audit(pins=None, rows=None, index=None, prove=None, limit=None):
         if not sources:
             finding["verdict"] = AUDIT_NO_OBJECT
         else:
-            try:
-                problems = prove({"name": name, "address": pin["address"],
-                                  "notes": f"fold-proof={sources[0]}"}, rva)
-            except (OSError, ValueError, KeyError, IndexError, EOFError, SystemExit) as error:
-                problems = [f"audit could not run the proof: {error}"]
-            finding["verdict"] = audit_verdict(problems)
-            finding["problems"] = problems[:2]
-            # The proof recurses into callees; a refusal that never names the
-            # pinned function is about one of them, not about this pin.
-            finding["on_callee"] = bool(problems) and name not in problems[0]
+            jobs.append((finding, {"name": name, "address": pin["address"], "source": sources[0]}))
         findings.append(finding)
+    if prove is None:
+        results = isolated_proofs([job for _finding, job in jobs], spawn) if jobs else []
+    else:
+        results = []
+        for _finding, job in jobs:
+            try:
+                results.append(prove({"name": job["name"], "address": job["address"],
+                                      "notes": f"fold-proof={job['source']}"}, int(job["address"], 16)))
+            except (Exception, SystemExit) as error:
+                results.append([f"audit could not run the proof: {error}"])
+    for (finding, _job), problems in zip(jobs, results):
+        finding["verdict"] = audit_verdict(problems)
+        finding["problems"] = problems[:2]
+        # The proof recurses into callees; a refusal that never names the
+        # pinned function is about one of them, not about this pin.
+        finding["on_callee"] = bool(problems) and finding["name"] not in problems[0]
     findings.sort(key=lambda f: (AUDIT_ORDER.index(f["verdict"]), -len(f["callers"]), f["address"]))
     if getattr(index, "problem", None):
         print(f"pin audit: {index.problem}; pins without a fold-proof= source are unjudged")
@@ -1042,8 +1129,12 @@ def main(argv=None):
     parser.add_argument("--audit-json", metavar="PATH", help="with --audit: also write the findings as JSON")
     parser.add_argument("--audit-limit", metavar="N", type=int,
                         help="with --audit: judge only the first N stacked pins (symbols.csv order)")
+    parser.add_argument("--audit-child", nargs=3, metavar=("REQUEST", "OUTPUT", "SCRATCH"),
+                        help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
 
+    if args.audit_child:
+        return audit_child(*args.audit_child)
     if args.audit:
         report_audit(audit(limit=args.audit_limit), args.audit_json)
         return 0
