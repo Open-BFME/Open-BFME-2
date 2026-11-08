@@ -119,24 +119,7 @@ public:
 	void rva003638FD(const Coord3D *pos);
 };
 
-class PathfindServicesInterface
-{
-public:
-	virtual Path *findPath(Object *obj, const LocomotorSet &locomotorSet, const Coord3D *from, const Coord3D *to, Bool *retry) = 0;
-	virtual Path *findClosestPath(Object *obj, const LocomotorSet &locomotorSet, const Coord3D *from, Coord3D *to,
-		Bool blocked, Real pathCostMultiplier, Bool moveAllies) = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual Path *patchPath(const Object *obj, const LocomotorSet &locomotorSet, Path *originalPath, Bool blocked) = 0;
-};
-
-class Pathfinder
-{
-public:
-	Int IsLinePassable(void *a8, void *ac, PathfindLayerEnum a10, const Coord3D *a14, const Coord3D *a18, void *a1c, Int a20, Int a24);
-	Bool IsValidMovementPositionForObject(const Coord3D *pos, Int layer, Int surfaces, const Object *obj);
-	Bool MoveAllies(Object *obj, Path *path, Bool flag);
-};
+#include "../../../../Include/GameLogic/AIPathfind.h"
 
 #include "../../../../Include/GameLogic/TAiData.h"
 #include "../../../../Include/GameLogic/AI.h"
@@ -308,20 +291,20 @@ Bool AIUpdateInterface::computePath(PathfindServicesInterface *pathServices, Coo
 			CRITTER_NEWDETAIL();
 		}
 	} else if (m_blockedFrames > 0) {
-		Path *original=m_path; Object *owner=getObject(); theNewPath = pathServices->patchPath(owner, m_locomotorSet, original, m_blockedFrames > 0);
+		Path *original=m_path; Object *owner=getObject(); theNewPath = pathServices->slot04(owner, m_locomotorSet, original, m_blockedFrames > 0);
 		CRITTER_TRACENEW("CritterDesync:  m_isBlockedAndStuck check.");
 	} else {
 		Bool retry;
 		tryClosest = false;
 		retry = false;
-		theNewPath = pathServices->findPath(getObject(), m_locomotorSet, getObject()->getPosition(), destination, &retry);
+		theNewPath = pathServices->slot00(getObject(), m_locomotorSet, getObject()->getPosition(), destination, &retry);
 		if (retry)
 			m_retryPath = true;
 		CRITTER_TRACENEW("CritterDesync:  m_isBlockedAndStuck failed check.");
 	}
 
 	if (theNewPath == 0 && m_path == 0 && tryClosest) {
-		theNewPath = pathServices->findClosestPath(getObject(), m_locomotorSet, getObject()->getPosition(), destination,
+		theNewPath = pathServices->slot01(getObject(), m_locomotorSet, getObject()->getPosition(), destination,
 			m_blockedFrames > 0, 0.0f, false);
 		CRITTER_TRACENEW("CritterDesync:  m_retryPath set.");
 		m_retryPath = true;

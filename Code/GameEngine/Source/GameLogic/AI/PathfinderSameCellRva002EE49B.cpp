@@ -80,17 +80,7 @@ public:
 	unsigned char m_flags438;
 };
 
-class Pathfinder
-{
-public:
-    bool rva002EE49B(Object *object, Rva002EE49BPosition first, Rva002EE49BPosition second);
-	PathfindCell *getCell(PathfindLayerEnum layer, Int x, Int y);
-	Bool IsValidObjectMovement(Object *obj, const Coord3D *oldPos, const Coord3D *newPos);
-	char m_pad00[0x08];
-	Bool m_isMapReady;
-	char m_pad09[0x48 - 0x09];
-	ObjectID m_ignoreObstacleID;
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 Bool Pathfinder::IsValidObjectMovement(Object *obj, const Coord3D *oldPos, const Coord3D *newPos)
 {

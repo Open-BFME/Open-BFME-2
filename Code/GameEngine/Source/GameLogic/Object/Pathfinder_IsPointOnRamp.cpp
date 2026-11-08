@@ -6,19 +6,11 @@
 
 #include "../../../Include/GameLogic/BridgeClass.h"
 
-class Pathfinder
-{
-public:
-	bool IsPointOnRamp(const Coord3D *p);
-
-private:
-	char m_pad00[0x5C];
-	Bridge *m_head;
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 bool Pathfinder::IsPointOnRamp(const Coord3D *p)
 {
-	for (Bridge *bridge = m_head; bridge; bridge = bridge->getNext()) {
+	for (Bridge *bridge = m_field5C; bridge; bridge = bridge->getNext()) {
 		if (bridge->isPointOnBridge(p))
 			return true;
 	}

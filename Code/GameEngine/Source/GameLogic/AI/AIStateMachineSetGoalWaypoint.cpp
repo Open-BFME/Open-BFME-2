@@ -26,13 +26,8 @@ enum ObjectID
 {
     INVALID_OBJECT_ID = 0
 };
-class Pathfinder {
-    char prefix[0x48];
-    ObjectID ignoredObstacleID;
-public:
-    void rva003E3BFB(ObjectID);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 void Pathfinder::rva003E3BFB(ObjectID objID)
 {
-    ignoredObstacleID = objID;
+    m_ignoreObstacleID = objID;
 }

@@ -120,107 +120,101 @@ private:
 	void *m_48; // +0x48
 };
 
-class Pathfinder
+#include "../../../Include/GameLogic/AIPathfind.h"
+
+static __forceinline Bool checkCellUnits(Object *obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID)
 {
-public:
-	PathfindCell *getCell(PathfindLayerEnum layer, Int x, Int y);
-	Bool rva002EA0BA(Object *obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID);
+	if (cellInfo14(cell))
+		info.m_32 = true;
 
-private:
-	__forceinline Bool checkCellUnits(Object *obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID)
+	for (PathfindCellObjectNode *node = cellObjects(cell); node; node = node->m_next)
 	{
-		if (cellInfo14(cell))
-			info.m_32 = true;
+		Object *unit = node->m_object;
+		if (unit == obj)
+			continue;
+		if (unit->getID() == info.m_18)
+			continue;
+		if (unit->getID() == *lastID)
+			continue;
+		*lastID = unit->getID();
 
-		for (PathfindCellObjectNode *node = cellObjects(cell); node; node = node->m_next)
+		Bool check = false;
+		Bool isAlly;
+		if (cellHasObjects(cell))
 		{
-			Object *unit = node->m_object;
-			if (unit == obj)
-				continue;
-			if (unit->getID() == info.m_18)
-				continue;
-			if (unit->getID() == *lastID)
-				continue;
-			*lastID = unit->getID();
-
-			Bool check = false;
-			Bool isAlly;
-			if (cellHasObjects(cell))
-			{
-				isAlly = obj->getRelationship(unit) == ALLIES;
-				if (isAlly)
-					info.m_31 = true;
-				if (info.m_11)
-					check = true;
-				if (!isAlly && (info.m_14 & 0x10))
-					check = true;
-			}
-			if (unit->IsAtGoalPosition())
-			{
-				isAlly = obj->getRelationship(unit) == ALLIES;
-				check = true;
-			}
-			if (!check)
-				continue;
-
-			if (isAlly && (obj->getTemplate()->m_kindof[3] & (1U << (0x74 & 0x1f))) && (unit->getTemplate()->m_kindof[3] & (1U << (0x74 & 0x1f))))
-				continue;
-			if ((obj->getTemplate()->m_kindof[3] & (1U << (0x7D & 0x1f))) && (unit->getTemplate()->m_kindof[0] & (1U << (8 & 0x1f))))
-				continue;
-			if (isAlly && (obj->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))) && !(unit->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))))
-			{
-				info.m_32 = false;
-				continue;
-			}
-			if ((obj->getTemplate()->m_kindof[5] & (1U << (0xBB & 0x1f))))
-			{
-				info.m_32 = false;
-				continue;
-			}
-
+			isAlly = obj->getRelationship(unit) == ALLIES;
 			if (isAlly)
-			{
-				if (!unit->getAI())
-					return false;
-				if (info.m_14 & 2)
-					return false;
-				info.m_2C = 1;
-				if ((unit->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))) && !(obj->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))))
-					return false;
-				continue;
-			}
-
-			if (obj->canCrushOrSquishNoAlly(unit, 2))
-				continue;
-			if (!(info.m_14 & 0x11))
-				continue;
-			AIUpdateInterface *ai = obj->getAI();
-			if (!ai)
-				return false;
-			Object *goal = ai->m_stateMachine->getGoalObject();
-			if (goal)
-			{
-				if (unit == goal || unit->m_274 == goal)
-					continue;
-				goal = goal->m_274;
-				if (goal && (unit == goal || unit->m_274 == goal))
-					continue;
-			}
-			Object *victim = ai->getCurrentVictim();
-			if (!victim)
-				return false;
-			if (unit == victim || unit->m_274 == victim)
-				continue;
-			victim = victim->m_274;
-			if (!victim)
-				return false;
-			if (unit == victim || unit->m_274 == victim)
-				continue;
-			return false;
+				info.m_31 = true;
+			if (info.m_11)
+				check = true;
+			if (!isAlly && (info.m_14 & 0x10))
+				check = true;
 		}
-		return true;
+		if (unit->IsAtGoalPosition())
+		{
+			isAlly = obj->getRelationship(unit) == ALLIES;
+			check = true;
+		}
+		if (!check)
+			continue;
+
+		if (isAlly && (obj->getTemplate()->m_kindof[3] & (1U << (0x74 & 0x1f))) && (unit->getTemplate()->m_kindof[3] & (1U << (0x74 & 0x1f))))
+			continue;
+		if ((obj->getTemplate()->m_kindof[3] & (1U << (0x7D & 0x1f))) && (unit->getTemplate()->m_kindof[0] & (1U << (8 & 0x1f))))
+			continue;
+		if (isAlly && (obj->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))) && !(unit->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))))
+		{
+			info.m_32 = false;
+			continue;
+		}
+		if ((obj->getTemplate()->m_kindof[5] & (1U << (0xBB & 0x1f))))
+		{
+			info.m_32 = false;
+			continue;
+		}
+
+		if (isAlly)
+		{
+			if (!unit->getAI())
+				return false;
+			if (info.m_14 & 2)
+				return false;
+			info.m_2C = 1;
+			if ((unit->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))) && !(obj->getTemplate()->m_kindof[5] & (1U << (0xBA & 0x1f))))
+				return false;
+			continue;
+		}
+
+		if (obj->canCrushOrSquishNoAlly(unit, 2))
+			continue;
+		if (!(info.m_14 & 0x11))
+			continue;
+		AIUpdateInterface *ai = obj->getAI();
+		if (!ai)
+			return false;
+		Object *goal = ai->m_stateMachine->getGoalObject();
+		if (goal)
+		{
+			if (unit == goal || unit->m_274 == goal)
+				continue;
+			goal = goal->m_274;
+			if (goal && (unit == goal || unit->m_274 == goal))
+				continue;
+		}
+		Object *victim = ai->getCurrentVictim();
+		if (!victim)
+			return false;
+		if (unit == victim || unit->m_274 == victim)
+			continue;
+		victim = victim->m_274;
+		if (!victim)
+			return false;
+		if (unit == victim || unit->m_274 == victim)
+			continue;
+		return false;
 	}
-};
+	return true;
+}
 
 Bool Pathfinder::rva002EA0BA(Object *obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID)
 {

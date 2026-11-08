@@ -71,13 +71,7 @@ public:
 extern class GameInfo *TheGameInfo;
 extern GlobalData *TheWritableGlobalData;
 
-class Pathfinder
-{
-	char m_pad00[0x58];
-	Path *m_path;
-public:
-	void SetDebugPath(Rva002EDEABArg *nodeList);
-};
+#include "../../../Include/GameLogic/AIPathfind.h"
 
 void Pathfinder::SetDebugPath(Rva002EDEABArg *nodeList)
 {
@@ -85,8 +79,8 @@ void Pathfinder::SetDebugPath(Rva002EDEABArg *nodeList)
 		(*(Rva00E02EECObj **)&TheGameInfo)->virt19();
 	if (TheWritableGlobalData->field09B8 == 0)
 		return;
-	delete m_path;
-	m_path = new Path;
+	delete m_field58;
+	m_field58 = new Path;
 	for (Rva002EDEABSrcNode *node = nodeList->m_head; node != 0; node = node->m_next)
-		m_path->appendNode(&node->m_pos, node->m_layer, 0x7FFFFFFF);
+		m_field58->appendNode(&node->m_pos, node->m_layer, 0x7FFFFFFF);
 }
