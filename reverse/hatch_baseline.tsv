@@ -214,7 +214,6 @@ address_global	Code/GameEngine/Source/Common/Rva002A996FMethod.cpp	g_Va00BBB8E0	
 address_global	Code/GameEngine/Source/Common/Rva002B749CCtor.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva002F0C55Helper.cpp	g_Va00DBD4C8	1
 address_global	Code/GameEngine/Source/Common/Rva00380705Free.cpp	g_Va00E032FC	2
-address_global	Code/GameEngine/Source/Common/Rva003B242CGet.cpp	g_Va00E00944	2
 address_global	Code/GameEngine/Source/Common/Rva003B9E58.cpp	g_Va00DFE7AC	2
 address_global	Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp	g_Rva00E02E64	2
 address_global	Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp	g_Rva00E02E68	2
@@ -494,7 +493,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFEC74	
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFEC84	3
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFF134	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00DFF494	2
-address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E00944	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E01CF0	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E01CF4	2
 address_global	Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	g_Va00E01E40	3
@@ -852,7 +850,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cp
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E065BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00A03314	2
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E0330C	2
-address_global	Code/GameEngine/Source/GameClient/GameClientXfer.cpp	g_Va00E00944	3
 address_global	Code/GameEngine/Source/GameClient/GameText.cpp	g_Va00DFF0C4	3
 address_global	Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp	g_Va00A04450	3
 address_global	Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBuildQueueIconSelect.cpp	g_Va00E06724	4
@@ -862,7 +859,6 @@ address_global	Code/GameEngine/Source/GameClient/Rva0041811DTokenParsers.cpp	g_V
 address_global	Code/GameEngine/Source/GameClient/Rva00511F73.cpp	g_Va00E048C4	3
 address_global	Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp	g_Va00C68440	3
 address_global	Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp	g_Va00C6847C	3
-address_global	Code/GameEngine/Source/GameClient/Rva00BCF670CameraSettings.cpp	g_Va00E00944	6
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCtor.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AFB2A.cpp	g_Va007C26F0	4
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AFB2A.cpp	g_Va00BBB8D8	4
@@ -1133,7 +1129,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProd
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor_Rva0009D55BProduct.cpp	g_Va00DB4AB4	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor_Rva0009D55BProduct.cpp	g_Va00DE5E2C	5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor_Rva0009D55BProduct.cpp	g_Va00DE5E38	5
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000ABD70Clear.cpp	g_Va00E00944	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00105CF6.cpp	g_Va007BB5C4	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenCrossFadeFilterUpdateFadeLevel.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp	g_Va00DEC1CC	2
@@ -1159,7 +1154,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManage
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnow.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVegetationBufferBase.cpp	g_Va00DEBC98	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp	g_Va00DE2020	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewBuildCameraTransformBfme.cpp	g_Va00E00944	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DB4540	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DB4544	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DB4548	2
@@ -1174,7 +1168,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008D
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DE2040	6
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DE2044	5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DE2078	4
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseWorldDict.cpp	g_Va00E00944	3
 address_global	Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/Libraries/Source/Apt/AptCharacter.cpp	g_Va00E18198	4
 address_global	Code/Libraries/Source/Apt/AptCharacter.cpp	g_Va00E1819C	4

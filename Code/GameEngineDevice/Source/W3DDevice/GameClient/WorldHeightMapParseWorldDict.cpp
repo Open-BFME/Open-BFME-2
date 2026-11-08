@@ -66,7 +66,7 @@ struct GlobalDataWeatherView
 	Int m_weather;										// +0x138
 };
 
-extern Dict g_Va00E00944;								// the world dict
+class MapObject { public: static Dict TheWorldDict; };								// the world dict
 StaticNameKey TheKey_weather = { NAMEKEY_INVALID, "weather" };	// VA 0x00DBDEB4, retail .data {0, "weather"}
 
 #include "../../../Include/W3DDevice/GameClient/WorldHeightMap.h"
@@ -74,9 +74,9 @@ StaticNameKey TheKey_weather = { NAMEKEY_INVALID, "weather" };	// VA 0x00DBDEB4,
 Bool WorldHeightMap::ParseWorldDictDataChunk(DataChunkInput &file, DataChunkInfo *info, void *userData)
 {
 	Dict d = file.readDict();
-	g_Va00E00944 = d;
+	MapObject::TheWorldDict = d;
 	Bool exists;
-	Int theWeather = g_Va00E00944.getInt(TheKey_weather.key(), &exists);
+	Int theWeather = MapObject::TheWorldDict.getInt(TheKey_weather.key(), &exists);
 	if (exists)
 		((GlobalDataWeatherView *)TheWritableGlobalData)->m_weather = theWeather;
 	return true;
