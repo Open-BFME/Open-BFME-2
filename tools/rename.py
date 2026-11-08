@@ -6926,15 +6926,52 @@ def absorbed_rows(ctx, names, old_name, source, rva, size):
 RETYPE_SCAN_WORKERS = 8
 PREPROCESSOR_LINE = re.compile(r"(?m)^[ \t]*#[ \t]*line\b[^\n]*\n")
 LITERAL_JOIN = re.compile(r'"\s*L?"')
+STRING_LITERAL = re.compile(r"""(L?)"((?:\\.|[^"\\\n])*)\"""")
+ESCAPE = re.compile(r"\\(x[0-9A-Fa-f]*|[0-7]{1,3}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}|.)", re.S)
+SIMPLE_ESCAPES = {"n": "\n", "t": "\t", "v": "\v", "b": "\b", "r": "\r", "f": "\f", "a": "\a", "\\": "\\", "?": "?",
+                  "'": "'", '"': '"'}
+
+
+def decoded_literal(body):
+    """A literal's text with its escapes decoded, or None when one does not read cleanly."""
+    clean = True
+
+    def decode(m):
+        nonlocal clean
+        escape = m.group(1)
+        if escape[0] in "xuU" and len(escape) > 1 or escape[0] in "01234567":
+            value = int(escape, 8) if escape[0] in "01234567" else int(escape[1:], 16)
+            if value <= 0x10FFFF:
+                return chr(value)
+        elif escape in SIMPLE_ESCAPES:
+            return SIMPLE_ESCAPES[escape]
+        clean = False
+        return m.group(0)
+    decoded = ESCAPE.sub(decode, body)
+    return decoded if clean else None
 
 
 def preprocessed_spells(text, words):
     """Does a unit's preprocessed text spell any of `words` anywhere? It is searched as text, so
     string literals, `__identifier`, `__asm` and `#pragma comment(linker, ...)` all count, and a
-    longer name holding the word counts too. The preprocessor leaves adjacent literals apart and
-    the compiler joins them later, so they are joined here, across a `#line` between them."""
-    joined = LITERAL_JOIN.sub("", PREPROCESSOR_LINE.sub("", text))
-    return any(word in joined for word in words)
+    longer name holding the word counts too. The scan decides what gets compiled, so a miss clears
+    a unit that nothing then checks, while a false hit only adds a rebuild; every doubt is a hit.
+    The preprocessor leaves escapes and adjacent literals as written and the compiler resolves
+    them later: each literal is decoded on its own, as the compiler does, then joined, across a
+    `#line` between them, and both the written and the decoded text are searched. A literal that
+    does not decode cleanly counts as spelling it."""
+    written = PREPROCESSOR_LINE.sub("", text)
+    unreadable = False
+
+    def literal(m):
+        nonlocal unreadable
+        decoded = decoded_literal(m.group(2))
+        if decoded is None:
+            unreadable = True
+            return m.group(0)
+        return m.group(1) + '"' + decoded + '"'
+    decoded_text = STRING_LITERAL.sub(literal, written) if "\\" in written else written
+    return unreadable or any(word in LITERAL_JOIN.sub("", each) for word in words for each in (written, decoded_text))
 
 
 def paste_reach(ctx, word):
@@ -6986,6 +7023,8 @@ def compiler_scan(ctx, words, *, workers=RETYPE_SCAN_WORKERS):
                 spelled.add(rel)
     print(f"rename: the compiler asked in {time.time() - started:.0f} s: {len(spelled)} spell it, "
           f"{len(failed)} failed", flush=True)
+    for rel in sorted(spelled)[:40]:
+        print(f"rename:   spells it: {rel}", flush=True)
     if failed:
         for rel, why in sorted(failed.items()):
             print(f"rename: did not preprocess: {rel}: {' '.join(str(why).split())[:200]}", flush=True)

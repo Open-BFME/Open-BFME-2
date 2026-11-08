@@ -866,6 +866,23 @@ def test_the_scan_asks_about_an_absorbed_identifier_too(scanning, monkeypatch):
     ('const wchar_t *b = L"g_00A0" L"1000";\n', True),
     ("int other;\n", False),
     ('const char *a = "g_00A0"; int b; const char *c = "1000";\n', False),
+    # escapes: cl -E leaves them as written, and a wrong clearance is never checked again
+    (r'#pragma comment(linker, "/alternatename:?g_\060\060A01000@@3IA=_y")' + "\n", True),
+    (r'#pragma comment(linker, "/alternatename:?g_\x30" "\x30" "A01000@@3IA=_y")' + "\n", True),
+    (r'const char *a = "g_\060\x30" "A01000";' + "\n", True),
+    (r'const wchar_t *a = L"g_\u0030\U00000030A01000";' + "\n", True),
+    (r'const char *a = "g_\x30" "0A01000";' + "\n", True),  # each literal decoded alone: joined first, the hex would run on
+    (r'const char *a = "\?g_00A01000";' + "\n", True),
+    # what does not decode cleanly counts as a hit, never a clearance
+    (r'#pragma comment(linker, "/alternatename:?g_\x30\x30A01000@@3IA=_y")' + "\n", True),  # hex is greedy: this one is out of range
+    (r'const char *a = "\q";' + "\n", True),
+    (r'const char *a = "\x";' + "\n", True),
+    (r'const char *a = "\xFFFFFFFFFF";' + "\n", True),
+    # escapes that spell nothing clear as before
+    (r'const char *a = "tab\t\n\\ \x41\101";' + "\n", False),
+    (r'const char *a = "C:\\Game\\Data";' + "\n", False),
+    (r"int c = '\x30'; const char *d = " + '"it\'s";\n', False),
+    (r'const char *a = "g_\060\061A01000";' + "\n", False),  # decodes to another name
 ])
 def test_preprocessed_text_is_searched_as_text(text, spells):
     assert rename.preprocessed_spells(text, ["g_00A01000"]) is spells
@@ -1658,3 +1675,121 @@ def test_cli_route_flags_go_with_retype(tree, capsys, flag, value):
         rename.main(["global", "--name", OLD, "--new", "?g_new@@3IA", flag, value, "--basis", "inferred",
                      "--evidence", "x", "--root", str(tree), "--dry-run", "--no-claim"])
     assert "go with global --retype" in capsys.readouterr().err
+
+
+# ------------------------------------------------------------ the whole route, live
+# The real compiler, real objects and the real scan, on a miniature tree; only retail's bytes
+# and its data image are given, since the tree has no retail. Nothing here stubs the scan.
+
+CONSUMER = "Code/Game/Consumer.cpp"
+PASTE_H = "Code/Game/Paste.h"
+CONSUMER_BEFORE = '#include "Paste.h"\nextern unsigned int WRAP(_00A01000);\nint read() { return sizeof(WRAP(_00A01000)); }\n'
+CONSUMER_AFTER = '#include "Paste.h"\nextern unsigned int WRAP(_00A01000)[3];\nint read() { return WRAP(_00A01000)[1]; }\n'
+
+
+@pytest.fixture
+def live(tree, monkeypatch):
+    """`tree` built for real, the consumer holding no `##` and never calling the pasting macro.
+    `retail` {name: the offset retail's DIR32 holds past the global's start} decides read_target_bytes."""
+    import struct
+    import subprocess as sp
+    import build
+    import data_rows
+    import name_dependents
+    import reloc_ledger
+    write(tree, PASTE_H, "#define CAT(a,b) a##b\n#define WRAP(x) CAT(g,x)\n")
+    write(tree, CONSUMER, CONSUMER_BEFORE)
+    with open(tree / "reverse/functions.csv", "a", newline="\n") as f:
+        f.write(f"?read@@YAHXZ,,0x00405000,32,{CONSUMER},matched,\n")
+    write(tree, BRIDGED, BRIDGED_SRC.replace(f'#pragma comment(linker, "/alternatename:{VEC}={OLD}")\n', ""))
+    write(tree, "reverse/hatch_baseline.tsv", HATCHES.replace(f"alternatename\t{BRIDGED}\t{VEC}\t1\n", ""))
+    _git(tree, "add", "-A")
+    monkeypatch.setattr(rename, "compiler_scan", REAL_SCAN)
+    monkeypatch.setattr(build, "ROOT", tree)
+    monkeypatch.setattr(build, "ensure_reference_current", lambda: None)
+    objects = tree / "build" / "live"
+    objects.mkdir(parents=True)
+    monkeypatch.setattr(build, "obj_path", lambda source: objects / (Path(source).stem + ".obj"))
+
+    def compile_units(sources):
+        for rel in sources:
+            source = tree / rel
+            command, env = build.compiler_command(source, build.obj_path(source))
+            done = sp.run(command, capture_output=True, env=env, cwd=str(tree), timeout=300)
+            assert done.returncode == 0, done.stdout.decode("latin-1")[-600:]
+    rows = [dict(zip(("name", "export_rva", "target_rva", "target_size", "source", "status", "notes"), line.split(",")))
+            for line in (tree / "reverse/functions.csv").read_text().splitlines()[1:]]
+    monkeypatch.setattr(build, "load_function_rows", lambda: rows)
+    monkeypatch.setattr(name_dependents, "_row_objects",
+                        lambda given: {r["source"]: [build.obj_path(tree / r["source"])] for r in rows})
+    monkeypatch.setattr(name_dependents, "_data_row_objects", lambda given: {})
+    monkeypatch.setattr(build, "compile_is_current", lambda source, output: output.exists())
+    monkeypatch.setattr(data_rows, "load", lambda: [])
+    monkeypatch.setattr(data_rows, "Resolver", lambda given: None)
+    monkeypatch.setattr(data_rows, "verify_row", lambda row, img, resolve, compile=True: (True, "ok"))
+    monkeypatch.setattr(reloc_ledger, "Image", lambda: None)
+    retail = {"?read@@YAHXZ": 4}
+
+    def read_target_bytes(rva, size):
+        row = next(r for r in rows if int(r["target_rva"], 16) == rva)
+        body, relocs = build.read_object_symbol_bytes(build.obj_path(tree / row["source"]), row["name"], size)
+        held = bytearray(body[:size].ljust(size, b"\0"))
+        for offset, kind, symbol in relocs:
+            if kind == 6 and symbol == NEW and offset + 4 <= size:
+                struct.pack_into("<I", held, offset, rename.IMAGE_BASE + 0x00A01000 + retail.get(row["name"], 0))
+        return bytes(held)
+    monkeypatch.setattr(build, "read_target_bytes", read_target_bytes)
+    compile_units(sorted({r["source"] for r in rows}))
+    return tree, retail, lambda ctx, sources: compile_units(sources) or True
+
+
+def live_plan(root, consumer=CONSUMER_AFTER):
+    prepared = {BRIDGED: BRIDGED_PREPARED.encode()}
+    if consumer is not None:
+        prepared[CONSUMER] = consumer.encode()
+    return plan(root, prepared=prepared)
+
+
+def sources_of(root):
+    return {rel: (root / rel).read_bytes() for rel in (OWNER, USER, BRIDGED, CONSUMER, "reverse/data_rows.csv")}
+
+
+def test_live_the_scan_selects_a_nested_paste_and_the_retype_lands(live):
+    tree, _retail, verify = live
+    assert "g_00A01000" not in (tree / CONSUMER).read_text()    # no text scan could have found it
+    p = live_plan(tree)
+    assert CONSUMER in p.verify and CONSUMER not in p.retype["cleared"]
+    rename.apply_rename(p, ctx=ctx_of(tree), verify=verify, checks=None)
+    assert (tree / CONSUMER).read_text() == CONSUMER_AFTER
+
+
+def test_live_the_read_back_catches_a_wrong_addend_on_the_consumer_the_scan_selected(live):
+    tree, retail, verify = live
+    retail["?read@@YAHXZ"] = 8                                  # the code reads +4; retail holds +8
+    before = sources_of(tree)
+    with pytest.raises(VerifyFailed, match=r"\?read@@YAHXZ reads .* from base .*its addend is not its offset"):
+        rename.apply_rename(live_plan(tree), ctx=ctx_of(tree), verify=verify, checks=None)
+    assert sources_of(tree) == before
+
+
+def test_live_a_stale_declaration_the_scan_selected_is_refused(live):
+    """Left unprepared the macro still declares a scalar: the review's repro, caught after the rebuild."""
+    tree, _retail, verify = live
+    before = sources_of(tree)
+    with pytest.raises(VerifyFailed, match="Code/Game/Consumer.cpp"):
+        rename.apply_rename(live_plan(tree, consumer=None), ctx=ctx_of(tree), verify=verify, checks=None)
+    assert sources_of(tree) == before
+
+
+def test_live_an_escaped_spelling_in_a_pragma_joins_the_rebuild(live):
+    """The real compiler leaves the escapes as written, and the unit has no other mention of the name."""
+    tree, _retail, _verify = live
+    unit = "Code/Game/Escaped.cpp"
+    write(tree, unit, '#pragma comment(linker, "/alternatename:?g_\\x30\\x30A01000@@3IA=_other")\nint e() { return 0; }\n')
+    write(tree, "Code/Game/Unrelated.h", "#define Q(x) q##x\n")
+    write(tree, unit, '#include "Unrelated.h"\n' + (tree / unit).read_text())
+    with open(tree / "reverse/functions.csv", "a", newline="\n") as f:
+        f.write(f"?e@@YAHXZ,,0x00406000,6,{unit},matched,\n")
+    _git(tree, "add", "-A")
+    assert unit in live_plan(tree).verify
+

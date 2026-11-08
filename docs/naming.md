@@ -1218,12 +1218,13 @@ Before the build, a retype asks the compiler which units spell the identifier: e
 can reach any `##`, and every unit whose object is stale or missing, each preprocessed under its
 own build command, 8 at a time, with no cache, so a retype on a cold tree costs up to two hours.
 The whole output is searched as text, so string literals, `__identifier`, `__asm` and
-`#pragma comment(linker, ...)` count, and adjacent literals are joined first because the
-preprocessor leaves them apart. A unit that spells it joins the rebuild, and the checks on rebuilt
+`#pragma comment(linker, ...)` count. The preprocessor leaves escapes and adjacent literals as
+written, so each literal is decoded on its own and then joined, and both the written and decoded
+text are searched; a literal that does not decode cleanly counts as a hit. A unit that spells it joins the rebuild, and the checks on rebuilt
 objects decide. One that does not is cleared for this retype. A unit that fails to preprocess
 refuses the retype and is printed. A stale or missing `.asm` object rebuilds, since no preprocessor
 reads it, and a generated one refuses. An exported name (`reverse/exports.csv`) or an identifier a
-shim names refuses too. A string that spells the name through escapes (`"g_\x30"`) is not seen.
+shim names refuses too.
 
 After the build, a retype also reads every rebuilt row's DIR32 relocations: retail's pointer
 less the compiled addend must be the new symbol's start, and nothing may reach into the
