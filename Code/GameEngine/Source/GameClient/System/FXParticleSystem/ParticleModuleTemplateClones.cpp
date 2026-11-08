@@ -77,8 +77,6 @@ void __identifier("?clone@Rva003AE928@@QBEPAV1@XZ")();
 void __identifier("?clone@Rva003AECE6@@QBEPAV1@XZ")();
 void __identifier("?doParticles@GpuDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z")();
 void __identifier("?get@Rva00094A98FloatField@@QBEMXZ")();
-void __identifier("?getClass@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$DefaultModuleTag@$06@FXParticleSystem@@@2@XZ")();
-void __identifier("?getClass@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@2@XZ")();
 void __identifier("?getData@NetWrapperCommandMsg@@QAEPAEXZ")();
 void __identifier("?getDataLength@NetWrapperCommandMsg@@QAEIXZ")();
 void __identifier("?rva003A5757@Rva003A5757@@UAEXPAVXfer@@@Z")();
@@ -104,10 +102,8 @@ extern "C" const void *const __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@
 	(const void *)&__identifier("?rva003AD03B@Rva003AD03BTemplate@@UAEPAVRva003AD03BModule@@I@Z"), // slot 0, RVA 0x003AD03B
 };
 
-// VA 0x00C1BFB4
-extern "C" const void *const g_emitterCloneTable18[1] = {
-	(const void *)&__identifier("?getClass@?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$DefaultModuleTag@$06@FXParticleSystem@@@2@XZ"), // slot 0, RVA 0x003AD0C5
-};
+// VA 0x00C1BFB4: the compiler table the FX units emit there (slot 0 is getClass).
+extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
 
 // VA 0x00C1CEE8
 extern "C" const void *const __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@")[4] = {
@@ -159,10 +155,8 @@ extern "C" const void *const g_gpuDrawTable00[11] = {
 	(const void *)&__identifier("?get@Rva00094A98FloatField@@QBEMXZ"), // slot 10, RVA 0x00094A98
 };
 
-// VA 0x00C1C290
-extern "C" const void *const g_gpuDrawTable14[1] = {
-	(const void *)&__identifier("?getClass@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEABV?$ConcreteModuleClass@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@2@XZ"), // slot 0, RVA 0x003ACEB5
-};
+// VA 0x00C1C290: the compiler table the FX units emit there (slot 0 is getClass).
+extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@")[];
 
 // VA 0x00C1CD80
 extern "C" const void *const g_gpuDrawTable18[4] = {
@@ -188,7 +182,7 @@ public:
 	{
 		*(const void *const **)((char *)this + 0x00) = __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot0@@@");
 		*(const void *const **)((char *)this + 0x14) = __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot1@@@");
-		*(const void *const **)((char *)this + 0x18) = g_emitterCloneTable18;
+		*(const void *const **)((char *)this + 0x18) = __identifier("??_7?$ConcreteModuleTemplate@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
 		*(const void *const **)((char *)this + 0x1C) = __identifier("??_7Rva003AECE6@@6BRva003AECE6Slot3@@@");
 	}
 	Rva003AECE6 *clone() const;
@@ -296,7 +290,7 @@ Rva003AE928::Rva003AE928( const Rva003AE928 &other )
 	: Rva003AE94E( other )
 {
 	*(const void *const **)((char *)this + 0x00) = g_gpuDrawTable00;
-	*(const void *const **)((char *)this + 0x14) = g_gpuDrawTable14;
+	*(const void *const **)((char *)this + 0x14) = __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6BSecondaryModuleBase@1@@");
 	*(const void *const **)((char *)this + 0x18) = g_gpuDrawTable18;
 }
 
