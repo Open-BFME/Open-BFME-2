@@ -249,7 +249,6 @@ HRESULT DownloadManager::OnEnd()
 	return S_OK;
 }
 
-// ?OnQueryResume@DownloadManager@@ present-unmatched
 HRESULT DownloadManager::OnQueryResume()
 {
 	DEBUG_LOG(("DownloadManager::OnQueryResume()\n"));

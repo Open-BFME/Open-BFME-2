@@ -249,7 +249,6 @@ void W3DPropBuffer::crc( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@W3DPropBuffer@@ present-unmatched
 void W3DPropBuffer::loadPostProcess( void )
 {
 	// empty. jba [8/11/2003]	

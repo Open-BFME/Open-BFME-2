@@ -12025,11 +12025,9 @@ present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::G
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addDrawableToLookupTable	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addTOCEntry	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addTextBearingDrawable	1
-present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::crc	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::findTOCEntryById	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::findTOCEntryByName	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::init	1
-present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::reset	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::selectDrawablesInGroup	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::xferDrawableTOC	1
@@ -12245,7 +12243,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409930::dispatchSlot	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409930::setPositions	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	Rva00409930::setTargetFlag	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomotor::crc	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomotor::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp	Locomotor::~Locomotor	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	bfmeEmitGenericObjectCreationNuggetAnimSetCopy@@YAXPAUAnimSet@GenericObjectCreationNugget@@PBU12@@Z	1
@@ -12285,7 +12282,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWood
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPower.cpp	1GrabPassengerSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPower.cpp	1PlayerUpgradeSpecialPower@@MAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/RepairSpecialPower.cpp	1RepairSpecialPower@@MAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	SpecialPowerModule::getPercentReady	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	SpecialPowerModule::getRequiredScience	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	SpecialPowerModule::getSpecialPowerTemplate	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp	crc@SpecialPowerModule@@MAEXPAVXfer@@@Z	1
@@ -12456,7 +12452,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/UntamedAllegian
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofModuleDataDtor.cpp	1StatusBitsUpgradeModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataDtor.cpp	0UpgradeModuleData@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp	WeaponSet::clearLeechRangeModeForAllWeapons	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp	WeaponSet::crc	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp	WeaponSet::getMostPercentReadyToFireAnyWeapon	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp	WeaponSet::getWeaponInWeaponSlot	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp	WeaponSet::isSharedReloadTime	1
@@ -12478,7 +12473,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rv
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C1F0A.cpp	getTeamAsAIGroup@Team@@QAEXPAVAIGroup@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C1F0A.cpp	getTeamNamed@ScriptEngine@@QAEPAVTeam@@VAsciiString@@_N@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptWriteDataChunk.cpp	equalTag_Rva003B31C7@@YA_NPBX0H@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/Scripts.cpp	loadPostProcess@Script@@MAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/ScriptEngine/SequentialScriptXfer.cpp	SequentialScript::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp	Rva004ECDC8::operator=	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/ArmySummary.h	ArmySummary::loadPostProcess	1
@@ -12498,7 +12492,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	hence	1
 present_unmatched	Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp	slot00@Rva0035A97EVisitor@@UAEXHH@Z	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	Rva004D2941MapInstantiationAnchor	1
-present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	OnQueryResume@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	init@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/DownloadManager.cpp	reset@DownloadManager@@	1
 present_unmatched	Code/GameEngine/Source/GameNetwork/FrameData.cpp	BfmeTableYL::bfmeFindYL	1
@@ -12664,7 +12657,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse_loa
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	clearAllProps@W3DPropBuffer@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	crc@W3DPropBuffer@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	cull@W3DPropBuffer@@	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	loadPostProcess@W3DPropBuffer@@	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferRemoveProp.cpp	1W3DPropBuffer@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferRemoveProp.cpp	crc@W3DPropBuffer@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferRemoveProp.cpp	drawProps@W3DPropBuffer@@QAEXAAVRenderInfoClass@@@Z	1
@@ -13144,7 +13136,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeome
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Compute_Bounds	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Compute_Plane	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Compute_Plane_Equations	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Compute_Vertex_Normals	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Contains	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Generate_Culling_Tree	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Generate_Rigid_APT	3
@@ -13154,7 +13145,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeome
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Get_Name	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Get_Plane_Array	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Get_User_Text	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Load_W3D	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::MeshGeometryClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::Set_User_Text	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::cast_aabox_brute_force	1
