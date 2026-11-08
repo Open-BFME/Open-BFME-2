@@ -4,9 +4,11 @@ small ledgers and one source, so serving, blind hashed voting, agreement
 and disputes all run without the real ledger or a compiler (verification is
 injected). A real-tree `next --list-only` smoke closes the file."""
 import csv
+import hashlib
 import io
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -79,6 +81,8 @@ def seat(monkeypatch):
     # Miniature repositories have no coordination remote. Claim tests opt in;
     # ordinary naming tests must not spend time retrying a nonexistent origin.
     monkeypatch.setenv("BFME_CLAIMS", "off")
+    # A miniature ledger's rows are all after the cutoff: no record there is grandfathered.
+    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 0)
 
 
 @pytest.fixture
@@ -1967,7 +1971,8 @@ def test_invalid_submit_apply_limit_preserves_session_and_votes(tree, tmp_path):
     assert (tree / "build/name_lane/sessions/ready.json").is_file()
 
 
-def test_apply_limit_composes_with_key_filter_and_drains_on_next_run(tree, tmp_path):
+def test_apply_limit_composes_with_key_filter_and_drains_on_next_run(tree, tmp_path, monkeypatch):
+    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)     # the limit, not source freshness
     agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
     args = SimpleNamespace(key=[FN_KEY], retry_blocked=False, lead=2, min_models=1,
                            claim=False, only_labels=None, limit=1)
@@ -2157,6 +2162,7 @@ def test_apply_uses_compiler_source_to_retry_survivors_as_one_batch(tree, monkey
 def test_retry_blocked_skips_identical_fingerprint_then_retries_changed_source(tree, tmp_path, monkeypatch,
                                                                                capsys):
     monkeypatch.setattr(name_lane, "_missing_header_state", lambda *_: {"missing": True})
+    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)     # the blocker, not source freshness
     agree_on(tree, tmp_path, FN_ANSWER)
     lane = lane_of(tree)
     row = lane.state()[FN_KEY]
@@ -2897,12 +2903,19 @@ def test_only_a_named_worldbuilder_lead_withholds_a_function(tree, wb_name, serv
 
 # ---------------------------------------------------------------- votes that agree with no record
 
-def concurrent_votes(tree, key, answer, count=2):
+def concurrent_votes(tree, key, answer, count=2, fingerprint=True):
     """`count` workers' votes for `answer`, as if each submit ran before the others existed:
     separate checkouts, separate pushes. Only the vote rows land; no agreement does."""
-    lane_of(tree).append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [
-        dict(key=key, hash=name_agreement.digest(key, answer), model=f"model-{i}", session=f"s{i}",
-             worker=f"w-00000000000{i}", date="2026-11-07") for i in range(count)])
+    lane = lane_of(tree)
+    h = name_agreement.digest(key, answer)
+    lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [
+        dict(key=key, hash=h, model=f"model-{i}", session=f"s{i}", worker=f"w-00000000000{i}", date="2026-11-07")
+        for i in range(count)])
+    text = lane.text(key.split("|")[0])
+    if fingerprint and text is not None:
+        sha = hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest()
+        lane.append(name_lane.VOTE_SOURCES, name_lane.VOTE_SOURCE_COLUMNS, [
+            dict(key=key, hash=h, worker=f"w-00000000000{i}", session=f"s{i}", source_sha=sha) for i in range(count)])
 
 
 def agree(tree, key, name, *extra):
@@ -2996,9 +3009,12 @@ def test_submitting_a_counted_vote_again_records_the_agreement(tree, tmp_path):
     serve(tree, "later", worker="seat-a")
     assert vote(tree, tmp_path, "first", answers, worker="seat-a") == 0
     assert MEMBER_KEY not in lane_of(tree).state()
+    h = name_agreement.digest(MEMBER_KEY, "m_boxWidth")
     lane_of(tree).append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [dict(
-        key=MEMBER_KEY, hash=name_agreement.digest(MEMBER_KEY, "m_boxWidth"), model="other", session="b",
-        worker="w-000000000002", date="2026-11-07")])
+        key=MEMBER_KEY, hash=h, model="other", session="b", worker="w-000000000002", date="2026-11-07")])
+    sha = hashlib.sha256(lane_of(tree).text(SOURCE).encode("utf-8", "surrogateescape")).hexdigest()
+    lane_of(tree).append(name_lane.VOTE_SOURCES, name_lane.VOTE_SOURCE_COLUMNS, [dict(
+        key=MEMBER_KEY, hash=h, worker="w-000000000002", session="b", source_sha=sha)])
     votes_before = len(lane_of(tree).votes())
     answer = tmp_path / "answer-later.json"
     answer.write_text(json.dumps(answers))
@@ -3104,10 +3120,14 @@ def test_two_blind_votes_give_the_approval_the_identity_route_checks(spelled_tre
     assert (row["status"], row["kind"], row["old"], row["new"], row["rva"]) == (
         "agreed", "function", SPELLED_OLD, SPELLED_NEW, "0x00401100")
     assert SPELLED_NEW not in (spelled_tree / name_lane.VOTES).read_text()              # hashes only
-    # what rename.py function --respell --identity runs on the record (identity_approvals)
+    # what rename.py function --respell --identity runs on the record
     ctx = rename.Context(spelled_tree, object_scan=False)
-    rename.check_agreement(ctx, "function", f"agree:{row['id']}", {SPELLED_OLD}, {SPELLED_NEW}, 0x00401100)
-    assert row["key"] == f"{SOURCE}|function|0x00401100|{SPELLED_OLD}"
+    entry = dict(source=SOURCE, rva=0x00401100, old=SPELLED_OLD, new=SPELLED_NEW)
+    rename.identity_approvals(ctx, [entry], f"agree:{row['id']}")
+    assert entry["agree"] == f"agree:{row['id']}"
+    other = dict(entry, source="Code/Game/Slow.cpp")          # its own key, not another row's
+    with pytest.raises(rename.Refusal, match="not this row's key"):
+        rename.identity_approvals(ctx, [other], f"agree:{row['id']}")
 
 
 def test_different_spellings_do_not_agree(spelled_tree, tmp_path):
@@ -3144,3 +3164,350 @@ def test_disputing_a_spelled_agreement_refuses_that_exact_spelling(spelled_tree)
     assert name_lane.unrecorded_agreements(lane_of(spelled_tree)) == []
     with pytest.raises(SystemExit):
         agree(spelled_tree, SPELLED_KEY, SPELLED_NEW)
+
+
+# ---------------------------------------------------------------- votes bound to the source they were served
+
+def change_box(tree):
+    """The review's repro: the placeholder stays, its meaning does not."""
+    path = tree / SOURCE
+    data = path.read_bytes()
+    assert b"param_1->m_x2C + a2" in data
+    path.write_bytes(data.replace(b"param_1->m_x2C + a2", b"param_1->m_x2C - a2"))
+
+
+def test_votes_for_a_changed_source_record_nothing(tree):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    change_box(tree)
+    with pytest.raises(SystemExit, match="needs a fresh vote"):
+        agree(tree, MEMBER_KEY, "m_boxWidth")
+    assert MEMBER_KEY not in lane_of(tree).state()
+    assert apply(tree) == 0
+    assert MEMBER_KEY not in lane_of(tree).state()
+
+
+def test_real_votes_then_a_changed_source_record_nothing(tree, tmp_path):
+    """The same through next and submit, so the fingerprints are the ones submit writes."""
+    answers = {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "skip"}
+    assert vote(tree, tmp_path, "one", answers, worker="seat-one") == 0
+    assert [r for r in rows(tree, name_lane.VOTE_SOURCES) if r["key"] == MEMBER_KEY]
+    assert vote(tree, tmp_path, "two", answers, worker="seat-two") == 0
+    agreed = lane_of(tree).state()[MEMBER_KEY]                    # sequential votes: submit recorded it
+    assert agreed["status"] == "agreed"
+    (tree / name_lane.AGREED).write_bytes((",".join(name_lane.AGREED_COLUMNS) + "\n").encode())  # as if neither saw the other
+    assert name_lane.unrecorded_agreements(lane_of(tree)) == [MEMBER_KEY]
+    change_box(tree)
+    with pytest.raises(SystemExit):
+        agree(tree, MEMBER_KEY, "m_boxWidth")
+    assert MEMBER_KEY not in lane_of(tree).state()
+
+
+def test_the_unchanged_source_still_records_from_real_votes(tree, tmp_path):
+    answers = {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "skip"}
+    assert vote(tree, tmp_path, "one", answers, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", answers, worker="seat-two") == 0
+    (tree / name_lane.AGREED).write_bytes((",".join(name_lane.AGREED_COLUMNS) + "\n").encode())
+    assert agree(tree, MEMBER_KEY, "m_boxWidth") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+
+
+def test_votes_with_no_fingerprint_record_nothing(tree, capsys):
+    """Votes from before fingerprints existed: nothing says what their voters read."""
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth", fingerprint=False)
+    with pytest.raises(SystemExit):
+        agree(tree, MEMBER_KEY, "m_boxWidth")
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    assert "0 key(s) have agreeing votes" in capsys.readouterr().out
+
+
+def test_status_tells_the_two_kinds_apart(tree, capsys):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    concurrent_votes(tree, FN_KEY, "sumBox", fingerprint=False)
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert "1 key(s) have agreeing votes" in out and "1 more need fresh votes" in out
+    assert MEMBER_KEY in out and FN_KEY not in out
+
+
+@pytest.mark.parametrize("voters,stale,records", [(3, 1, True), (2, 1, False)])
+def test_only_voters_of_the_current_source_count(tree, voters, stale, records):
+    """A second fingerprint for one voter, or an older one, takes that vote out of the agreement."""
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth", count=voters)
+    lane = lane_of(tree)
+    h = name_agreement.digest(MEMBER_KEY, "m_boxWidth")
+    lane.append(name_lane.VOTE_SOURCES, name_lane.VOTE_SOURCE_COLUMNS, [
+        dict(key=MEMBER_KEY, hash=h, worker=f"w-00000000000{i}", session="old", source_sha="0" * 64)
+        for i in range(stale)])
+    if records:
+        assert agree(tree, MEMBER_KEY, "m_boxWidth") == 0
+        assert "w-000000000000" not in lane_of(tree).state()[MEMBER_KEY]["agents"]
+    else:
+        with pytest.raises(SystemExit):
+            agree(tree, MEMBER_KEY, "m_boxWidth")
+
+
+def test_a_resubmit_does_not_record_another_voters_stale_vote(tree, tmp_path, capsys):
+    answers = {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "skip"}
+    serve(tree, "later", worker="seat-a")
+    assert vote(tree, tmp_path, "first", answers, worker="seat-a") == 0
+    h = name_agreement.digest(MEMBER_KEY, "m_boxWidth")
+    lane_of(tree).append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [dict(
+        key=MEMBER_KEY, hash=h, model="other", session="b", worker="w-000000000002", date="2026-11-07")])
+    answer = tmp_path / "answer-later.json"
+    answer.write_text(json.dumps(answers))
+    args = SimpleNamespace(answer=str(answer), session="later", model="claude-opus-5-5")
+    name_lane.cmd_submit(lane_of(tree), args, lead=2, min_models=1)
+    assert "already voted" in capsys.readouterr().out
+    assert MEMBER_KEY not in lane_of(tree).state()
+
+
+# ---------------------------------------------------------------- spelled keys keep the ordinary exclusions
+
+def named_elsewhere(tree, how):
+    if how == "evidence":
+        (tree / "reverse/name_tiers.csv").write_bytes(
+            f"name,target_rva,name_tier,evidence\n{SPELLED_OLD},0x00401100,evidence,hand\n".encode())
+    else:
+        with open(tree / "reverse/symbols.csv", "a", encoding="utf-8", newline="") as handle:
+            handle.write("?realPinnedName@@YAXXZ,0x00401100,pin\n")
+
+
+@pytest.mark.parametrize("how", ["evidence", "pin"])
+def test_a_spelled_row_another_lane_names_is_not_served(spelled_tree, how):
+    named_elsewhere(spelled_tree, how)
+    assert not [i for i in name_lane.spelled_items(lane_of(spelled_tree), SOURCE) if i[2] == SPELLED_OLD]
+    assert lane_of(spelled_tree).eligibility(SOURCE, "function", "0x00401100", SPELLED_OLD, 0x00401100)
+    be("seat-a")
+    args = SimpleNamespace(session="named", model="claude-opus-5-5", count=1, file=SOURCE, list_only=False,
+                           key=[SPELLED_KEY])
+    name_lane.cmd_next(lane_of(spelled_tree), args)
+    session = spelled_tree / "build/name_lane/sessions/named.json"
+    if session.exists():
+        items = [i for f in json.loads(session.read_text())["files"].values() for i in f["items"]]
+        assert not [i for i in items if i[2] == SPELLED_OLD]
+
+
+@pytest.mark.parametrize("how", ["evidence", "pin"])
+def test_a_session_served_before_the_row_was_named_records_no_vote(spelled_tree, tmp_path, capsys, how):
+    serve_key(spelled_tree, "a", "seat-a")
+    named_elsewhere(spelled_tree, how)
+    submit_spelled(spelled_tree, tmp_path, "a")
+    assert "named by another lane or a real pin" in capsys.readouterr().out
+    assert not [v for v in lane_of(spelled_tree).votes() if v["key"] == SPELLED_KEY]
+
+
+def test_agree_refuses_a_spelled_row_another_lane_names(spelled_tree):
+    concurrent_votes(spelled_tree, SPELLED_KEY, SPELLED_NEW)
+    named_elsewhere(spelled_tree, "evidence")
+    with pytest.raises(SystemExit):
+        agree(spelled_tree, SPELLED_KEY, SPELLED_NEW)
+    assert SPELLED_KEY not in lane_of(spelled_tree).state()
+
+
+# ---------------------------------------------------------------- every path that records an agreement
+
+BOX_ANSWERS = {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "skip"}
+
+
+def test_new_votes_on_top_of_stale_ones_need_two_of_their_own(tree, tmp_path):
+    """The hole by another door: one new vote plus two stale ones is not an agreement."""
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth")
+    change_box(tree)
+    assert vote(tree, tmp_path, "new1", BOX_ANSWERS, worker="seat-new1") == 0
+    assert MEMBER_KEY not in lane_of(tree).state()
+    assert vote(tree, tmp_path, "new2", BOX_ANSWERS, model="gpt-6.1-sol", worker="seat-new2") == 0
+    row = lane_of(tree).state()[MEMBER_KEY]
+    assert row["status"] == "agreed" and "w-00000000000" not in row["agents"]
+    assert len(row["agents"].split(";")) == 2
+
+
+def test_votes_with_no_fingerprint_do_not_count_towards_a_submit(tree, tmp_path):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth", fingerprint=False)
+    assert vote(tree, tmp_path, "new1", BOX_ANSWERS, worker="seat-new1") == 0
+    assert MEMBER_KEY not in lane_of(tree).state()
+
+
+def test_two_votes_either_side_of_a_change_do_not_agree(tree, tmp_path):
+    assert vote(tree, tmp_path, "one", BOX_ANSWERS, worker="seat-one") == 0
+    change_box(tree)
+    assert vote(tree, tmp_path, "two", BOX_ANSWERS, worker="seat-two") == 0
+    assert MEMBER_KEY not in lane_of(tree).state()
+
+
+def test_two_votes_for_the_same_text_still_agree_through_submit(tree, tmp_path):
+    assert vote(tree, tmp_path, "one", BOX_ANSWERS, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", BOX_ANSWERS, worker="seat-two") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+
+
+def test_status_says_fresh_votes_are_intended(tree, capsys):
+    concurrent_votes(tree, MEMBER_KEY, "m_boxWidth", fingerprint=False)
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    out = capsys.readouterr().out
+    assert "need fresh votes from other workers" in out and "this is intended, not a fault" in out
+
+
+def existing_record_stands(tree):
+    """A record from before the rule: its votes have no fingerprints, and it is left alone."""
+    lane = lane_of(tree)
+    lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [
+        dict(key=MEMBER_KEY, hash=name_agreement.digest(MEMBER_KEY, "m_boxWidth"), model=f"m{i}", session=f"s{i}",
+             worker=f"w-00000000000{i}", date="2026-11-07") for i in range(2)])
+    lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [dict(
+        id="nl-existing", kind="member", old="m_x2C", new="m_boxWidth", rva="",
+        agents="w-000000000000@m0;w-000000000001@m1", key=MEMBER_KEY, status="agreed", detail="older record")])
+
+
+def test_an_existing_record_stands_and_still_lands(tree, monkeypatch):
+    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)
+    existing_record_stands(tree)
+    assert name_agreement.verify(lane_of(tree).votes(), lane_of(tree).agreed_rows(), MEMBER_KEY, "m_boxWidth") == []
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
+
+
+def competing_votes(tree, tmp_path):
+    assert vote(tree, tmp_path, "one", {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "skip"},
+                worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", {"Rva00401000Box::m_x2C": "m_boxHeight", "rva00401000": "skip"},
+                worker="seat-two") == 0
+    assert MEMBER_KEY not in lane_of(tree).state()
+
+
+def resolve(tree, worker, name):
+    be(worker)
+    return name_lane.main(["resolve", "--key", MEMBER_KEY, "--name", name, "--reason", "the code reads a box width"],
+                          lane=lane_of(tree))
+
+
+def test_a_stale_blind_vote_is_no_acceptance_until_its_voter_accepts_today(tree, tmp_path, capsys):
+    competing_votes(tree, tmp_path)
+    change_box(tree)
+    assert resolve(tree, "seat-two", "m_boxWidth") == 0
+    out = capsys.readouterr().out
+    assert "not cast on the source as it reads now" in out
+    assert MEMBER_KEY not in lane_of(tree).state()
+    assert resolve(tree, "seat-one", "m_boxWidth") == 0              # its voter accepts on today's text
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+
+
+def test_a_fresh_blind_vote_still_counts_as_acceptance(tree, tmp_path):
+    competing_votes(tree, tmp_path)
+    assert resolve(tree, "seat-two", "m_boxWidth") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+
+
+# ---------------------------------------------------------------- apply, the cutoff, spelled keys again
+
+def agreed_from_real_votes(tree, tmp_path):
+    assert vote(tree, tmp_path, "one", BOX_ANSWERS, worker="seat-one") == 0
+    assert vote(tree, tmp_path, "two", BOX_ANSWERS, worker="seat-two") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+
+
+def test_apply_lands_nothing_when_the_source_changed_since_the_votes(tree, tmp_path, capsys):
+    """The review's repro: two votes for m_boxWidth, then + a2 becomes - a2."""
+    agreed_from_real_votes(tree, tmp_path)
+    change_box(tree)
+    assert apply(tree) == 0
+    assert "no longer reads as it did for the votes" in capsys.readouterr().out
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+    assert "m_x2C" in (tree / SOURCE).read_text()
+
+
+def test_a_reopened_key_is_served_and_lands_on_fresh_votes(tree, tmp_path):
+    """Not a dead end: other workers vote on today's text, and that agreement replaces the record."""
+    agreed_from_real_votes(tree, tmp_path)
+    change_box(tree)
+    assert apply(tree) == 0
+    served = serve(tree, "new1", worker="seat-new1")
+    assert [i for i in served["files"][SOURCE]["items"] if i[2] == "m_x2C"]
+    assert vote(tree, tmp_path, "new1", BOX_ANSWERS, worker="seat-new1") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"     # one fresh vote is not enough
+    assert vote(tree, tmp_path, "new2", BOX_ANSWERS, worker="seat-new2") == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
+    assert "m_boxWidth" in (tree / SOURCE).read_text()
+
+
+def test_apply_still_lands_when_the_source_did_not_change(tree, tmp_path):
+    agreed_from_real_votes(tree, tmp_path)
+    assert apply(tree) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
+
+
+def test_a_grandfathered_record_lands_on_a_changed_source_and_says_so(tree, monkeypatch, capsys):
+    monkeypatch.setattr(name_lane, "AGREED_CUTOFF_ROWS", 10 ** 6)
+    existing_record_stands(tree)
+    change_box(tree)
+    assert name_lane.main(["status"], lane=lane_of(tree)) == 0
+    assert "1 waiting and 0 blocked record(s) predate vote fingerprints: grandfathered" in capsys.readouterr().out
+    assert apply(tree) == 0
+    assert "predate vote fingerprints: grandfathered" in capsys.readouterr().out
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
+
+
+def test_a_row_after_the_cutoff_gets_no_exemption(tree, capsys):
+    """A record with no fingerprints written after the cutoff, by hand or an older tool, lands nothing."""
+    existing_record_stands(tree)
+    assert apply(tree) == 0
+    assert "no longer reads as it did for the votes" in capsys.readouterr().out
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "source-changed"
+
+
+def test_the_cutoff_is_a_row_count_within_the_real_ledger():
+    """The miniature trees run with it at 0 (the seat fixture); the tool's own value is what counts."""
+    cutoff = int(re.search(r"^AGREED_CUTOFF_ROWS = (\d+)$", Path(name_lane.__file__).read_text(encoding="utf-8"),
+                           re.M).group(1))
+    assert cutoff > 19000
+    real = Path(name_lane.__file__).resolve().parents[1] / name_lane.AGREED
+    if real.exists():
+        assert cutoff <= len(real.read_bytes().splitlines())
+
+
+def test_a_spelled_disagreement_can_be_resolved(spelled_tree, tmp_path):
+    """The review's repro: two spellings, then the voters accept one with `resolve`."""
+    serve_key(spelled_tree, "a", "seat-a")
+    assert submit_spelled(spelled_tree, tmp_path, "a") == 0
+    serve_key(spelled_tree, "b", "seat-b")
+    other = "??4?$set@UOtherRecord@@@@QAEAAV0@ABV0@@Z"
+    assert submit_spelled(spelled_tree, tmp_path, "b", other) == 0
+    be("seat-b")
+    assert name_lane.main(["resolve", "--key", SPELLED_KEY, "--name", SPELLED_NEW, "--reason",
+                           "the retail callees prove the record type"], lane=lane_of(spelled_tree)) == 0
+    row = lane_of(spelled_tree).state()[SPELLED_KEY]
+    assert (row["status"], row["new"]) == ("agreed", SPELLED_NEW)
+
+
+def test_submit_refuses_a_spelled_key_the_ledger_no_longer_spells(spelled_tree, tmp_path, capsys):
+    """The review's repro: A votes, the row is respelled, then B's older session submits."""
+    serve_key(spelled_tree, "a", "seat-a")
+    assert submit_spelled(spelled_tree, tmp_path, "a") == 0
+    serve_key(spelled_tree, "b", "seat-b")
+    ledger = spelled_tree / "reverse/functions.csv"
+    data = ledger.read_bytes()
+    assert SPELLED_OLD.encode() in data
+    ledger.write_bytes(data.replace(SPELLED_OLD.encode(), SPELLED_OLD.replace("Rva00401000Box", "Rva00402000Other").encode()))
+    submit_spelled(spelled_tree, tmp_path, "b")
+    assert "its key is obsolete" in capsys.readouterr().out
+    assert SPELLED_KEY not in lane_of(spelled_tree).state()
+    assert len([v for v in lane_of(spelled_tree).votes() if v["key"] == SPELLED_KEY]) == 1
+
+
+def test_records_of_one_file_land_together_but_a_later_run_reopens_a_sibling(tree, tmp_path, monkeypatch):
+    """Freshness is per file. One run checks every record before any lands; a later run sees the
+    landing as a change. The price of a whole-file fingerprint, stated here so it is not a surprise."""
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    assert apply(tree) == 0
+    state = lane_of(tree).state()
+    assert state[FN_KEY]["status"] == state[MEMBER_KEY]["status"] == "landed"
+
+
+def test_a_sibling_left_by_a_key_filter_reopens_after_the_landing(tree, tmp_path):
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    assert apply(tree, key=[FN_KEY]) == 0
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+    assert apply(tree) == 0
+    state = lane_of(tree).state()
+    assert state[FN_KEY]["status"] == "landed" and state[MEMBER_KEY]["status"] == "source-changed"

@@ -259,6 +259,46 @@ target's source and evidence. Read the related files together before proposing
 names. Unlanded proposals and votes are never used as shared vocabulary.
 This provides context, not proof that two private class views are the same type.
 
+**An agreement needs two votes for the file as it reads today.** On every path that
+records one (`submit`, `agree`, a re-submit, `resolve`), a vote counts only if its
+fingerprint in `reverse/name_vote_sources.csv` is the sha256 of the source now. A
+placeholder that still exists does not show a voter saw its current meaning. So a vote
+for an older text does not count, and neither does one from before fingerprints existed.
+When `status` says a key "needs fresh votes", that is this rule working and not a fault:
+the key is served again and needs votes from other workers. Fingerprints are not derived
+from history. Rival spellings still count against the lead, however old.
+
+`apply` holds a record to the same rule. If its file no longer matches its votes'
+fingerprints it lands nothing and reopens the key (status `source-changed`), so the key
+is served again and needs fresh votes. Records older than `AGREED_CUTOFF_ROWS` (the rows of
+`name_agreed.csv` when this landed) are **grandfathered**: they land with no such check, and
+`status` and `apply` print how many. On 2026-11-08 Codex measured the 240 waiting records.
+None has vote fingerprints. Against the source when their votes landed, 210 had changed or
+gone (16 of those sources are missing), 29 were unchanged and 1 could not be told. That
+measures edits anywhere in the file, not wrong names. Re-voting 210 for file-wide drift
+is not worth it: a wrong name can be corrected, and the bytes are still verified at apply.
+This binds `apply` only: `rename.py --evidence agree:<id>` used directly and
+`data_rows.py --admit-agreed` do not check it.
+
+The fingerprint covers the whole file, so any edit reopens a later record, including another
+approved name of that file landing first. One `apply` run checks all its records before any
+lands, so they go together. A record left waiting by `--limit`, `--key` or a block is
+reopened by the next run if a sibling landed in between, and needs fresh votes.
+
+Blind votes from different checkouts land through separate pushes, so each submit can
+tally before the other vote exists and neither records the agreement. `status` and
+`apply` list such keys. Votes hold only hashes, so someone who knows the spelling records
+it: `name_lane.py agree --key KEY --name SPELLING`, or a re-submit of a worker's own
+counted vote. Neither adds a vote.
+
+A compiler-spelled row (an operator, special member or template member whose mangled name
+carries a placeholder type) has no identifier of its own. Its key's placeholder is the
+row's whole old spelling (`source|function|0xRVA|<mangled>`), each vote answers with a
+whole new spelling, and spellings compare exactly. There are thousands and most need only
+a class rename, so one is served only by `next --key KEY`. It lands by `rename.py function
+--respell --identity`, not by `apply`.
+
+
 When two blind voters choose different names, the configured reviewer can make
 one further comparison against the same source. The first proposal is kept in
 `build/name_lane/proposals/` locally and is shown to the reviewer only after

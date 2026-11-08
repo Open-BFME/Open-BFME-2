@@ -29,6 +29,13 @@ spelling must come from someone who knows it: `agree`, or a submit of the worker
 counted vote, records the agreement without adding a vote, and only for a spelling that
 hashes to the votes' winning hash and passes today's checks.
 
+Every path that records an agreement (submit, agree, a re-submit, resolve) needs two voters
+whose fingerprints in reverse/name_vote_sources.csv match the file as it reads today. A vote
+for an older text, or from before fingerprints existed, no longer counts towards one: the key
+needs fresh votes from other workers. This is intended. `apply` holds a later record to the
+same rule: when its source has changed it lands nothing and reopens the key (source-changed).
+The records older than AGREED_CUTOFF_ROWS stand with no check; status and apply list them.
+
 A compiler-spelled row (an operator, special member or template member whose mangled name
 carries a placeholder type) has no identifier of its own, so its key's placeholder is its
 whole old spelling and each vote answers with a whole new one, compared exactly. There are
@@ -176,7 +183,13 @@ GENERIC = {"data", "info", "value", "temp", "tmp", "helper", "thing", "stuff", "
            "method", "unknown", "misc", "item", "object", "result", "ret", "field", "member", "param", "arg", "local"}
 DIRECTIVE = re.compile(r"^[ \t]*#(?:[^\n]*\\\n)*[^\n]*", re.M)
 MACRO = re.compile(r"^[ \t]*#[ \t]*(?:define|undef)[ \t]+([A-Za-z_]\w*)", re.M)
-STATUS_RANK = {"agreed": 0, "stale": 1, "blocked": 2, "landed": 3, "disputed": 4}
+STATUS_RANK = {"agreed": 0, "source-changed": 0, "stale": 1, "blocked": 2, "landed": 3, "disputed": 4}
+# A key with one of these has no standing record: it is served again and can be agreed again. A
+# source-changed record ranks with agreed, so a later agreement of the same id replaces it.
+REOPENED = ("disputed", "source-changed")
+# The first rows of name_agreed.csv predate vote fingerprints. They stand without a source check
+# (grandfathered, docs/naming.md); any later record needs fresh votes when apply lands it.
+AGREED_CUTOFF_ROWS = 19215
 
 
 def fail(message):
@@ -550,6 +563,10 @@ class Lane:
             out[key] = best
         return out
 
+    def grandfathered(self):
+        """The ids of agreement records from before vote fingerprints (AGREED_CUTOFF_ROWS)."""
+        return {row["id"] for row in self.agreed_rows()[:AGREED_CUTOFF_ROWS]}
+
     def disputed(self):
         """key -> canon spellings refused for it."""
         return name_agreement.disputed(self.agreed_rows())
@@ -660,6 +677,14 @@ class Lane:
         if kind == "function":
             old = next((r["name"] for r in self.ledger().get(rel, ())
                         if rename._rva(r.get("target_rva")) == rva), ident)
+            # the guard below permits an evidence-tier row whose name equals the current spelling,
+            # which a compiler-spelled key always does; the ordinary inventory excludes these first
+            if compiler_spelled(ident):
+                if rva in self.named_rvas() or self.pin_named(rva, old):
+                    return f"0x{rva:08X} is named by another lane or a real pin"
+                current = {r["name"] for r in self.ledger().get(rel, ()) if rename._rva(r.get("target_rva")) == rva}
+                if current != {ident}:
+                    return f"this key's spelling is no longer the row's at 0x{rva:08X}: its key is obsolete"
         try:
             rename.inferred_guards(self.ctx, kind, old, ident, rva)
         except rename.Refusal as exc:
@@ -1005,9 +1030,11 @@ def spelled_items(lane, rel):
     key's placeholder is the row's whole old spelling (rename.py's --identity approval key)."""
     rows = lane.ledger().get(rel, [])
     seen = collections.Counter(rename._rva(r.get("target_rva")) for r in rows)
+    named = lane.named_rvas()
     return [("function", f"0x{rva:08X}", r["name"], rva) for r in rows
             for rva in [rename._rva(r.get("target_rva"))]
             if rva is not None and seen[rva] == 1 and compiler_spelled(r["name"])
+            and rva not in named and not lane.pin_named(rva, r["name"])
             and not r["name"].startswith(rename.FUNCLET_PREFIXES + ("$L",)) and "parent=" not in (r.get("notes") or "")]
 
 
@@ -1038,7 +1065,7 @@ def split_key(key):
 def needs_review(key, state, tally, refused):
     """Reopen a pending scoped approval when a late rival removes its quorum."""
     row = state.get(key)
-    if row is None or row["status"] == "disputed":
+    if row is None or row["status"] in REOPENED:
         return True
     if row["status"] != "agreed" or split_key(key)[1] not in ("param", "local"):
         return False
@@ -1597,44 +1624,81 @@ def agreement_row(lane, tally, refused, key, kind, ident, answer, rva, mine, rol
     return row
 
 
+def fresh_voters(lane, key, h, voters, text, pending=()):
+    """The `voters` of hash `h` whose recorded fingerprints say the source they were served is
+    `text`, the file as it reads now. A placeholder that still exists does not show a voter saw
+    its current meaning. A vote with no fingerprint, or any other fingerprint, is not fresh, and
+    no agreement is recorded from it: votes cast before fingerprints existed no longer count, by
+    design, and are not derived from history. `pending` are rows this submit has yet to write."""
+    sha = hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest()
+    seen = collections.defaultdict(set)
+    for row in [*lane.table(VOTE_SOURCES, VOTE_SOURCE_COLUMNS), *pending]:
+        if row.get("key") == key and row.get("hash") == h:
+            seen[row.get("worker")].add(row.get("source_sha"))
+    return {worker: model for worker, model in voters.items() if seen.get(worker) == {sha}}
+
+
 def unrecorded_agreements(lane, *, lead=2, min_models=1):
     """[key] whose votes, as they stand, already agree on a spelling while no agreement records
     it. Blind votes submitted in different checkouts each tally before the other exists, and
     land through separate pushes, so neither submit can record the agreement: it can only be
     derived from the votes afterwards. Votes hold hashes, so this finds the key, not the name;
     `agree` takes the spelling from whoever knows it and checks it against these votes."""
+    return [key for key, _h, _voters, _rivals in unrecorded_votes(lane, lead=lead, min_models=min_models)]
+
+
+def unrecorded_votes(lane, *, lead=2, min_models=1):
+    """[(key, winning hash, its voters, the rival voter sets)] behind unrecorded_agreements."""
     tally, state, refused = lane.tally(), lane.state(), lane.disputed()
     found = []
     for key in list(tally):
-        if name_agreement.scoped_key(key) or (key in state and state[key]["status"] != "disputed"):
+        if name_agreement.scoped_key(key) or (key in state and state[key]["status"] not in REOPENED):
             continue
         barred = {name_agreement.hash_canon(key, spelled) for spelled in refused.get(key, ())}
         standing = {h: voters for h, voters in tally[key].items() if h not in barred}
-        if any(wins(voters, [v for other, v in standing.items() if other != h], lead=lead, min_models=min_models,
-                    key=key) for h, voters in standing.items()):
-            found.append(key)
+        for h, voters in standing.items():
+            rivals = [v for other, v in standing.items() if other != h]
+            if wins(voters, rivals, lead=lead, min_models=min_models, key=key):
+                found.append((key, h, voters, rivals))
     return found
 
 
+def report_grandfathered(lane, state):
+    """Say which pending records `apply` lands with no source check, so it is never silent."""
+    old = lane.grandfathered()
+    waiting = sum(row["status"] == "agreed" and row["id"] in old for row in state.values())
+    blocked = sum(row["status"] == "blocked" and row["id"] in old for row in state.values())
+    if waiting or blocked:
+        print(f"name_lane: {waiting} waiting and {blocked} blocked record(s) predate vote fingerprints: grandfathered, "
+              "they land with no check that the source still reads as voted (docs/naming.md)")
+
+
 def report_unrecorded(lane, *, lead=2, min_models=1, limit=10):
-    """Print the keys `agree` can record. A key whose file or placeholder has since gone is only
-    counted: its votes named something that no longer exists."""
-    live, gone = [], 0
-    for key in unrecorded_agreements(lane, lead=lead, min_models=min_models):
+    """Print the keys `agree` can record. The others are only counted: votes for a source that has
+    changed since, or with no fingerprint, need fresh votes; a key whose file or placeholder has
+    gone names something that no longer exists."""
+    live, stale, gone = [], 0, 0
+    for key, h, voters, rivals in unrecorded_votes(lane, lead=lead, min_models=min_models):
         try:
             rel, kind, scope, ident = split_key(key)
             rva = int(scope, 16) if kind == "function" else None
-            usable = lane.text(rel) is not None and not lane.eligibility(rel, kind, scope, ident, rva)
+            text = lane.text(rel)
+            usable = text is not None and not lane.eligibility(rel, kind, scope, ident, rva)
         except ValueError:
-            usable = False
-        if usable:
+            usable, text = False, None
+        if not usable:
+            gone += 1
+        elif wins(fresh_voters(lane, key, h, voters, text), rivals, lead=lead, min_models=min_models, key=key):
             live.append(key)
         else:
-            gone += 1
-    if live or gone:
-        print(f"name_lane: {len(live)} key(s) have agreeing votes and no agreement record"
-              + (f" ({gone} more name a file or placeholder that has gone)" if gone else "")
-              + "; a voter records one with `name_lane.py agree --key KEY --name SPELLING`")
+            stale += 1
+    if live or stale or gone:
+        print(f"name_lane: {len(live)} key(s) have agreeing votes and no agreement record; a voter records one "
+              "with `name_lane.py agree --key KEY --name SPELLING`"
+              + (f" ({stale} more need fresh votes from other workers: a vote counts only if its fingerprint "
+                 "matches the file as it reads today, so older votes with none no longer count; this is "
+                 "intended, not a fault)" if stale else "")
+              + (f" ({gone} more name a file or placeholder that has gone)" if gone else ""))
     for key in live[:limit]:
         print(f"  {key}")
     if len(live) > limit:
@@ -1644,7 +1708,8 @@ def report_unrecorded(lane, *, lead=2, min_models=1, limit=10):
 def cmd_agree(lane, args):
     """Record an agreement the votes have already reached (unrecorded_agreements). No vote is
     added. The spelling must hash to the votes' winning hash, so knowing it proves nothing
-    beyond what the voters agreed, and it passes the checks a submit would apply today."""
+    beyond what the voters agreed; the agreeing voters must have been served the source as it
+    reads now (fresh_voters); and it passes the checks a submit would apply today."""
     key, name = args.key, args.name.strip()
     try:
         rel, kind, scope, ident = split_key(key)
@@ -1653,7 +1718,7 @@ def cmd_agree(lane, args):
     if kind not in NAMED:
         fail(scoped_route(sources=[rel]))
     state, tally, refused = lane.state(), lane.tally(), lane.disputed()
-    if key in state and state[key]["status"] != "disputed":
+    if key in state and state[key]["status"] not in REOPENED:
         fail(f"{key} already has agreement {state[key]['id']} ({state[key]['status']})")
     if canon(name) in refused.get(key, ()):
         fail(f"{name} is disputed for {key}")
@@ -1669,14 +1734,18 @@ def cmd_agree(lane, args):
     if key not in items:
         fail(f"{rel} no longer owns {ident} as a {kind}: its votes name nothing")
     rva = items[key][3]
+    fresh = fresh_voters(lane, key, digest(key, name), mine, text)
+    if not wins(fresh, rivals, lead=args.lead, min_models=args.min_models, key=key):
+        fail(f"{len(fresh)} of {len(mine)} vote(s) for {name} were served {rel} as it reads now: a vote with no "
+             "fingerprint, or for a source that has changed since, needs a fresh vote (`next --key KEY`)")
     file_words = set(name_metric.WORD.findall(name_metric.strip(text)))
     why = spelling_problem(lane, rel, kind, scope, ident, rva, name, file_words, text)
     if why:
         fail(f"{name} cannot name {ident}: {why}")
-    row = agreement_row(lane, tally, refused, key, kind, ident, name, rva, mine, role)
+    row = agreement_row(lane, tally, refused, key, kind, ident, name, rva, fresh, role)
     lane.append(AGREED, AGREED_COLUMNS, [row])
     print(f"  AGREED: {key} -> {row['new']} ({row['agents']})")
-    print(f"name_lane: agreement recorded from {len(mine)} existing vote(s); no vote added; stage {AGREED}")
+    print(f"name_lane: agreement recorded from {len(fresh)} existing vote(s); no vote added; stage {AGREED}")
     return 0
 
 
@@ -1781,11 +1850,12 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
                 why = "disputed for this key"
             if not why and already and not annotate:
                 mine, rivals, role = name_agreement.support(tally, refused, key, answer, meaning)
-                if (worker in mine and needs_review(key, state, tally, refused)
-                        and wins(mine, rivals, lead=lead, min_models=min_models, key=key)):
+                fresh = fresh_voters(lane, key, h, mine, text)
+                if (worker in fresh and needs_review(key, state, tally, refused)
+                        and wins(fresh, rivals, lead=lead, min_models=min_models, key=key)):
                     # Its vote is counted; a vote from another checkout completed the agreement
                     # after this worker's submit ran, so neither submit recorded it. No new vote.
-                    row = agreement_row(lane, tally, refused, key, kind, ident, answer, rva, mine, role)
+                    row = agreement_row(lane, tally, refused, key, kind, ident, answer, rva, fresh, role)
                     agreed.append(row)
                     state[key] = row
                     continue
@@ -1815,8 +1885,9 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
             mine, rivals, role = name_agreement.support(tally, refused, key, answer, meaning)
             promote = (annotate and role and key in state and state[key]["status"] == "agreed"
                        and not name_agreement.record_meaning(state[key]["id"]))
-            if (open_key or promote) and wins(mine, rivals, lead=lead, min_models=min_models, key=key):
-                row = agreement_row(lane, tally, refused, key, kind, ident, answer, rva, mine, role)
+            fresh = fresh_voters(lane, key, h, mine, text, pending=vote_sources)
+            if (open_key or promote) and wins(fresh, rivals, lead=lead, min_models=min_models, key=key):
+                row = agreement_row(lane, tally, refused, key, kind, ident, answer, rva, fresh, role)
                 agreed.append(row)
                 state[key] = row
     if validate_only:
@@ -2403,7 +2474,7 @@ def cmd_resolve(lane, args):
     state = lane.state()
     if state.get(key, {}).get("status") in ("agreed", "landed", "disputed"):
         fail("this key is already approved, landed or disputed")
-    owned = {key_of(rel, k, s, i): rva for k, s, i, rva in lane.owned(rel, text)}
+    owned = {key_of(rel, k, s, i): rva for k, s, i, rva in [*lane.owned(rel, text), *spelled_items(lane, rel)]}
     if key not in owned:
         fail("the placeholder is no longer owned by this source")
     rva = owned[key]
@@ -2429,13 +2500,22 @@ def cmd_resolve(lane, args):
                 and r["source_sha"] == source_sha]
     if previous and any(r["hash"] != digest(key, chosen) for r in previous):
         fail("this worker already accepted a different spelling for this source")
-    if not previous and all(v["hash"] != digest(key, chosen) for v in own):
+    chosen_hash = digest(key, chosen)
+    blind = {v["worker"]: v["model"] for v in original if v["hash"] == chosen_hash}
+    fresh_blind = fresh_voters(lane, key, chosen_hash, blind, text)
+    if not previous and voter not in fresh_blind:
         lane.append(RESOLUTIONS, RESOLUTION_COLUMNS, [dict(key=key, hash=digest(key, chosen),
             name=chosen, source_sha=source_sha, worker=voter, model=own[0]["model"],
             reason=args.reason.strip(), date=datetime.date.today().isoformat())])
     resolutions = lane.resolutions()
     problems = name_agreement.verify_resolution(original, lane.agreed_rows(), resolutions,
                                                  key, chosen, source_sha)
+    accepted_now = {r["worker"] for r in resolutions if r["key"] == key and r["hash"] == chosen_hash
+                    and r["source_sha"] == source_sha}
+    stale = sorted(set(blind) - set(fresh_blind) - accepted_now)
+    if stale:
+        problems = [*problems, f"{len(stale)} vote(s) for this spelling were not cast on the source as it reads "
+                               "now; each of those voters accepts it with `resolve`"]
     if problems:
         print(f"name_lane: resolution pending: {'; '.join(problems)}")
         return 0
@@ -2465,7 +2545,9 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     only = label_list(args.only_labels) if getattr(args, "only_labels", None) else None
     selected_keys = set(getattr(args, "key", None) or ())
     if not selected_keys:
+        report_grandfathered(lane, state)
         report_unrecorded(lane, lead=args.lead, min_models=args.min_models)
+    grandfathered = lane.grandfathered()
     todo = collections.defaultdict(list)
     landed = blocked = stale = outside = selected = deferred = 0
     busy = None
@@ -2492,6 +2574,18 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                     print(f"{key}: reviewed approval is no longer valid for this source and voter set; left")
                 else:
                     print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
+                continue
+            source_text = lane.text(split_key(key)[0])
+            # A scoped record has its own route, and a placeholder that has gone is stale as before.
+            if (not row["id"].startswith("nr-") and row["id"] not in grandfathered and source_text is not None
+                    and not name_agreement.scoped_key(key)
+                    and (spelled_key(key) or re.search(rf"\b{re.escape(row['old'])}\b", source_text))
+                    and not wins(fresh_voters(lane, key, digest(key, row["new"]), mine, source_text), rivals,
+                                 lead=args.lead, min_models=args.min_models, key=key)):
+                print(f"{key}: {split_key(key)[0]} no longer reads as it did for the votes on {row['new']}; "
+                      "reopened for fresh votes (status source-changed), nothing landed")
+                lane.append(AGREED, AGREED_COLUMNS, [dict(row, agents="", status="source-changed",
+                                                          detail="the source changed since its votes")])
                 continue
             if spelled_key(key):
                 print(f"{key}: agreed {row['new']}; land it with tools/rename.py function --rva {scope_rva(key)} "
@@ -2713,6 +2807,10 @@ def cmd_status(lane, args):
     print(f"keys voted: {len({v['key'] for v in votes}):,}; agreed: {len(state)} (landed {count['landed']}, "
           f"waiting {count['agreed']}, blocked {count['blocked']}, stale {count['stale']}, "
           f"disputed {count['disputed']})")
+    if count["source-changed"]:
+        print(f"name_lane: {count['source-changed']} record(s) reopened because their source changed since the votes; "
+              "each needs fresh votes")
+    report_grandfathered(lane, state)
     report_unrecorded(lane, lead=args.lead, min_models=args.min_models)
     if getattr(args, "only_labels", None):
         only, tally, refused = label_list(args.only_labels), lane.tally(), lane.disputed()
