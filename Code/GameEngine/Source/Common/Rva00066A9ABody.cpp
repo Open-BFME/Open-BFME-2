@@ -32,27 +32,7 @@ public:
 // (0x009E1F74) and m_dwGlowVertexShader (0x009E1F78).
 #include "../../../GameEngineDevice/Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
 
-class Rva00066A9AHost
-{
-public:
-	void rva00066A9A();
-
-	char m_pad[0x3850];
-	Rva000E6FC8 *m_3850; // +0x3850
-	Rva000E6FC8 *m_3854; // +0x3854
-};
-
-void Rva00066A9AHost::rva00066A9A()
-{
-	W3DShaderManager::init();
-	Rva00066A9ASub *m_waterRenderObject = (Rva00066A9ASub *)W3DGCData00DE2000;
-	if (m_waterRenderObject)
-		m_waterRenderObject->headB();
-	if (m_3850)
-		m_3850->rva000EA1F3();
-	if (m_3854)
-		m_3854->rva000E6FC8();
-}
+// 0x00066A9A is slot 130 of BaseHeightMapRenderObjClass, in BaseHeightMap.cpp.
 
 // W3DShaderManager::init in GeneralsMD walks the master shader and filter
 // lists. Retail's 0x77F80 does the same, then creates the Glow declaration and

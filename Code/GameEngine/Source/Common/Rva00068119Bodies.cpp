@@ -57,33 +57,6 @@ void Rva00068119::rva00068119(const Coord3D *position, const GeometryInfo *geome
 		buf->removePropsForConstruction(position, *geometryInfo, angle);
 }
 
-// ?Rva00068441::rva00068441 present-unmatched
-class Rva00068441
-{
-public:
-	void rva00068441(Int ignored);
-	unsigned char m_padD8[0xD8];
-	Int m_D8;
-	Int m_DC;
-	unsigned char m_padE0[0x3794 - 0xE0];
-	Int m_3794;
-	unsigned char m_pad3798[0x37D4 - 0x3798];
-	unsigned char m_37D4;
-	unsigned char m_pad37D5[0x386C - 0x37D5];
-	W3DRoadBuffer *m_road;
-};
-
-// ?Rva00068441::rva00068441 present-unmatched
-void Rva00068441::rva00068441(Int ignored)
-{
-	(void)ignored;
-	m_37D4 = 1;
-	m_3794 = 0;
-	m_D8 = 0;
-	m_DC = 0;
-	m_road->updateLighting();
-}
-
 // ?Rva00078AE3::rva00078AE3 present-unmatched
 class Rva00078AE3
 {

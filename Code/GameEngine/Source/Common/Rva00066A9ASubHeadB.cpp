@@ -64,7 +64,6 @@ private:
 class Rva00066A9AHost
 {
 public:
-	void rva00066A9A();
 	void headA();
 
 	char m_pad[0x3850];

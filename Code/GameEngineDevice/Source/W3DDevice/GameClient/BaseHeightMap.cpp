@@ -396,6 +396,9 @@ protected:
 
 extern unsigned int number_of_DX8_calls;
 
+class SphereClass;
+class W3DRoadBuffer;
+
 class BaseHeightMapRenderObjClass
 {
 public:
@@ -407,7 +410,7 @@ public:
 public:
 	void rva000687EF();
 private:
-	char m_pad00[0x18];
+	char m_pad04[0x18 - 4];
 private:
 	Rva00726290Matrix3D m_transform;
 private:
@@ -415,11 +418,22 @@ private:
 private:
 	int m_78;
 private:
-	char m_pad7C[0x37C0 - 0x7C];
+	char m_pad7C[0xD8 - 0x7C];
+private:
+	int m_D8;
+	int m_DC;
+	char m_padE0[0x3794 - 0xE0];
+	int m_3794;
+	char m_pad3798[0x37C0 - 0x3798];
 private:
 	int m_37C0;
 private:
-	char m_pad37C4[0x3818 - 0x37C4];
+	char m_pad37C4[0x37D4 - 0x37C4];
+	unsigned char m_37D4;
+	char m_pad37D5[3];
+	float m_37D8;
+	float m_37DC;
+	char m_pad37E0[0x3818 - 0x37E0];
 private:
 	VertexMaterialClass *m_material;
 private:
@@ -429,11 +443,18 @@ private:
 private:
 	W3DShrubBuffer *m_shrubBuffer;
 private:
-	char m_pad3858[0x3874 - 0x3858];
+	char m_pad3858[0x386C - 0x3858];
+	W3DRoadBuffer *m_roadBuffer;
+	char m_pad3870[0x3874 - 0x3870];
 private:
 	W3DBuffBuffer *m_buffBuffer;
 public:
 	void rva000685E2(void);
+public:
+	virtual void vslot130();
+	virtual void vslot137(int ignored);
+	virtual bool vslot142(int firstValue);
+	virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const;
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -497,18 +518,6 @@ public:
 	}
 };
 
-class Rva00069AF5Host
-{
-public:
-	void rva00069AF5(float *out);
-private:
-	char m_pad[0x37C0];
-	Rva00069AF5Sub *m_sub; // +0x37C0
-	char m_pad2[0x37D8 - 0x37C4];
-	float m_e1; // +0x37D8
-	float m_e2; // +0x37DC
-};
-
 BFME_DISP32_DWORD_CLEAR(Rva000685DADwordClearer, 0x37AC)
 
 // Real owners of the forwarders' targets, under their ledger names.
@@ -563,15 +572,6 @@ class Shadow
 {
 public:
 	void setColor(Int firstValue);
-};
-
-class Rva0006820FNullForwarder
-{
-public:
-	Bool rva0006820F(Int firstValue);
-private:
-	char m_lead[0x3850];
-	W3DTreeBuffer *m_member;
 };
 
 class Rva00068283NullTarget
@@ -661,7 +661,36 @@ private:
 
 // tu-skeleton: 0x00066962 312B ?ReAcquireResources@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp (not merged yet)
 
-// tu-skeleton: 0x00066A9A 55B ?rva00066A9A@Rva00066A9AHost@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00066A9ABody.cpp (not merged yet)
+extern void *W3DGCData00DE2000;
+
+class Rva00066A9ASub
+{
+public:
+	void headB();
+};
+
+// The two tail callees are rowed as Rva000E6FC8's rva000EA1F3 (0x000EA1F3) and rva000E6FC8 (0x000E6FC8).
+class Rva000E6FC8
+{
+public:
+	void rva000EA1F3();
+	void rva000E6FC8();
+};
+
+#include "../../../Include/W3DDevice/GameClient/W3DShaderManagerClass.h"
+
+// 0x00066A9A: slot 130 of retail's table 0x00BC5DB0.
+void BaseHeightMapRenderObjClass::vslot130()
+{
+	W3DShaderManager::init();
+	Rva00066A9ASub *m_waterRenderObject = (Rva00066A9ASub *)W3DGCData00DE2000;
+	if (m_waterRenderObject)
+		m_waterRenderObject->headB();
+	if (m_treeBuffer)
+		((Rva000E6FC8 *)m_treeBuffer)->rva000EA1F3();
+	if (m_shrubBuffer)
+		((Rva000E6FC8 *)m_shrubBuffer)->rva000E6FC8();
+}
 
 // tu-skeleton: 0x00066AD1 920B ?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp (not merged yet)
 
@@ -863,11 +892,12 @@ void Rva000687B8::rva000687B8()
 
 // ---- from Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp
 
-void Rva00069AF5Host::rva00069AF5(float *out)
+void BaseHeightMapRenderObjClass::Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const
 {
+	float *out = (float *)&sphere;
 	int ai = 0;
 	int bi = 0;
-	Rva00069AF5Sub *s = m_sub;
+	Rva00069AF5Sub *s = (Rva00069AF5Sub *)m_37C0;
 	if (s != 0)
 	{
 		ai = s->m_08;
@@ -875,13 +905,13 @@ void Rva00069AF5Host::rva00069AF5(float *out)
 	}
 	float fa = (float)ai * 5.0f;
 	float fb = (float)bi * 5.0f;
-	float e = (m_e2 - m_e1) * 0.5f + m_e1;
+	float e = (m_37DC - m_37D8) * 0.5f + m_37D8;
 	float t = e * e + fb * fb + fa * fa;
 	float dist = Rva00069AF5Math::Sqrt(t);
-	if (m_sub != 0)
+	if (m_37C0 != 0)
 	{
-		fa = (float)m_sub->m_120E0 * 10.0f + fa;
-		fb = (float)m_sub->m_120E4 * 10.0f + fb;
+		fa = (float)((Rva00069AF5Sub *)m_37C0)->m_120E0 * 10.0f + fa;
+		fb = (float)((Rva00069AF5Sub *)m_37C0)->m_120E4 * 10.0f + fb;
 	}
 	out[2] = e;
 	out[0] = fa;
@@ -1068,10 +1098,10 @@ void BaseHeightMapRenderObjClass::rva0006BBD9(int rinfo, int b)
 // ---- from Code/GameEngine/Source/Common/VslotNullCheckedForwarders.cpp
 
 // vtable 0x00BC5DB0#142
-Bool Rva0006820FNullForwarder::rva0006820F(Int firstValue)
+bool BaseHeightMapRenderObjClass::vslot142(int firstValue)
 {
-	if (m_member)
-		return m_member->rva000EA644((void *)firstValue);
+	if (m_treeBuffer)
+		return ((W3DTreeBuffer *)m_treeBuffer)->rva000EA644((void *)firstValue);
 	return false;
 }
 
@@ -1149,7 +1179,22 @@ void Rva000683FF::rva000683FF(Vector3 corners[4], ObjectID id, bool highlight)
 	return m_bib->addBib(corners, id, highlight);
 }
 
-// tu-skeleton: 0x00068441 41B ?rva00068441@Rva00068441@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00068119Bodies.cpp (not merged yet)
+class W3DRoadBuffer
+{
+public:
+	void updateLighting();
+};
+
+// 0x00068441: slot 137 of retail's table 0x00BC5DB0.
+void BaseHeightMapRenderObjClass::vslot137(int ignored)
+{
+	(void)ignored;
+	m_37D4 = 1;
+	m_3794 = 0;
+	m_D8 = 0;
+	m_DC = 0;
+	m_roadBuffer->updateLighting();
+}
 
 // tu-skeleton: 0x0006846A 13B ?rva0006846A@BaseHeightMapRenderObjClass@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/BaseHeightMapRenderObjClassRva0006846A.cpp (not merged yet)
 

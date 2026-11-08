@@ -1,4 +1,5 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
+// cl: /D_OPERATOR_NEW_DEFINED_ /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
+// stlport
 // @0x000E127B 177B. Same 0xD4 walk as 0x000E15D1. The incoming byte
 // picks the element call, and +0x37C0 gates the whole walk.
 
@@ -14,11 +15,7 @@ public:
 	void doPartialUpdate(const IRegion2D &partialRange, WorldHeightMap *htMap, bool doTextures, bool flag);/* the rowed Rva00112259::rva00112259 */ __declspec(dllimport) __forceinline void rva00112259() { ((Rva00112259 *)this)->rva00112259(); }
 };
 
-class Rva00068441
-{
-public:
-	void rva00068441(int arg);
-};
+#include "../../../GameEngineDevice/Include/W3DDevice/GameClient/BaseHeightMap.h"
 
 class Rva000E127B
 {
@@ -40,7 +37,7 @@ public:
 
 void Rva000E127B::rva000E127B(int forceUpdate)
 {
-	((Rva00068441 *)this)->rva00068441(forceUpdate);
+	((BaseHeightMapRenderObjClass *)this)->BaseHeightMapRenderObjClass::vslot137(forceUpdate);
 	if (m_map == 0)
 		return;
 	int cols = m_tilesWidth;

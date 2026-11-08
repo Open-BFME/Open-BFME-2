@@ -101,6 +101,7 @@ public:
     virtual void Notify_Added(SceneClass *scene);
     virtual bool Cast_Ray(RayCollisionTestClass &ray);
     virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const;
+    virtual void Get_Obj_Space_Bounding_Sphere(SphereClass &sphere) const; // slot 67, 0x00069AF5
     // Retail's slots 2 and 3 (0x000D43D0 xor eax,eax; 0x004FB350 returns 4): one-instruction bodies it folded with others.
     virtual RenderObjClass *Clone(void) const { return 0; }
     virtual int Class_ID(void) const { return CLASSID_TILEMAP; }
