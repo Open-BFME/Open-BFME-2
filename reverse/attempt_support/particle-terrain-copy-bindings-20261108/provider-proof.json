@@ -1,0 +1,50 @@
+{
+  "Rva003AE2A9_v0": {
+    "symbol": "??_7Rva003ACB08Object@@6BRva003AC8D7Slot0@@@",
+    "rva": "0x0081CAA4",
+    "size": 16,
+    "site": "0x003ACB3D",
+    "emitter": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleTemplateCloneSlots.cpp",
+    "witness_row": "?rva003ACB08@Rva003ACB08Host@@UAEPAVRva003ACB08Object@@I@Z",
+    "witness_rva": "0x003ACB08",
+    "zero_addend_dir32_offset": "0x35",
+    "native_operand_va": "0xc1caa4",
+    "compiled_provider_section_size": 4,
+    "native_table_extent": 16,
+    "source_compile_and_provider_receipt_current": true,
+    "object_sha256": "63b3a7b018639477a262d48f4148feb988f2337ea7b7435b7f3f372d912f9ee0",
+    "full_table_recovered": false
+  },
+  "Rva003AE2A9_v8": {
+    "symbol": "??_7Rva003ACB08Object@@6BRva003AC8D7Slot1N@@@",
+    "rva": "0x0081CAA0",
+    "size": 4,
+    "site": "0x003ACB44",
+    "emitter": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleTemplateCloneSlots.cpp",
+    "witness_row": "?rva003ACB08@Rva003ACB08Host@@UAEPAVRva003ACB08Object@@I@Z",
+    "witness_rva": "0x003ACB08",
+    "zero_addend_dir32_offset": "0x3c",
+    "native_operand_va": "0xc1caa0",
+    "compiled_provider_section_size": 4,
+    "native_table_extent": 4,
+    "source_compile_and_provider_receipt_current": true,
+    "object_sha256": "63b3a7b018639477a262d48f4148feb988f2337ea7b7435b7f3f372d912f9ee0",
+    "full_table_recovered": false
+  },
+  "Rva003AE2A9_v10": {
+    "symbol": "??_7Rva003ACB08Object@@6BRva003AC8D7Slot2@@@",
+    "rva": "0x0081CA90",
+    "size": 16,
+    "site": "0x003ACB4B",
+    "emitter": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleTemplateCloneSlots.cpp",
+    "witness_row": "?rva003ACB08@Rva003ACB08Host@@UAEPAVRva003ACB08Object@@I@Z",
+    "witness_rva": "0x003ACB08",
+    "zero_addend_dir32_offset": "0x43",
+    "native_operand_va": "0xc1ca90",
+    "compiled_provider_section_size": 4,
+    "native_table_extent": 16,
+    "source_compile_and_provider_receipt_current": true,
+    "object_sha256": "63b3a7b018639477a262d48f4148feb988f2337ea7b7435b7f3f372d912f9ee0",
+    "full_table_recovered": false
+  }
+}

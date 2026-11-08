@@ -8,12 +8,11 @@ public: Rva003AE2CF(const Rva003AE2CF &that);
 private: char m_pad[0x24]; // the clone at 0x003AE28C allocates 0x24
 };
 
-// Rva003AE2A9_v0: matched references place it at VA 0xc1caa4 (retail .rdata value 60).
-extern "C" char Rva003AE2A9_v0 = 60;
-// Rva003AE2A9_v8: matched references place it at VA 0xc1caa0 (retail .rdata value 103).
-extern "C" char Rva003AE2A9_v8 = 103;
-// Rva003AE2A9_v10: matched references place it at VA 0xc1ca90 (retail .rdata value -117).
-extern "C" char Rva003AE2A9_v10 = -117;
+// Existing compiler tables; native factory store operands prove these bindings.
+// Their opaque class names and short current tables are not new identity recovery.
+extern "C" const void *const __identifier("??_7Rva003ACB08Object@@6BRva003AC8D7Slot0@@@")[];
+extern "C" const void *const __identifier("??_7Rva003ACB08Object@@6BRva003AC8D7Slot1N@@@")[];
+extern "C" const void *const __identifier("??_7Rva003ACB08Object@@6BRva003AC8D7Slot2@@@")[];
 
 class Rva003AE2A9 : public Rva003AE2CF {
 public: __declspec(noinline) Rva003AE2A9(const Rva003AE2A9 &that);
@@ -23,9 +22,9 @@ public: __declspec(noinline) Rva003AE2A9(const Rva003AE2A9 &that);
 Rva003AE2A9::Rva003AE2A9(const Rva003AE2A9 &that)
 	: Rva003AE2CF(that)
 {
-	*(void **)this = &Rva003AE2A9_v0;
-	*(void **)((char *)this + 8) = &Rva003AE2A9_v8;
-	*(void **)((char *)this + 0x10) = &Rva003AE2A9_v10;
+	*(void **)this = (void *)__identifier("??_7Rva003ACB08Object@@6BRva003AC8D7Slot0@@@");
+	*(void **)((char *)this + 8) = (void *)__identifier("??_7Rva003ACB08Object@@6BRva003AC8D7Slot1N@@@");
+	*(void **)((char *)this + 0x10) = (void *)__identifier("??_7Rva003ACB08Object@@6BRva003AC8D7Slot2@@@");
 }
 
 // ?rva003AE28C@Rva003AE2A9@@QBEPAV1@XZ @0x003AE28C 29B: vtable slot before

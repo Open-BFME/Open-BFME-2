@@ -621,3 +621,9 @@ passes again after publication. The broader audit remains INCONCLUSIVE:
 index c885072a48 versus outgoing base a05bf4a06da5570e87d8eac2f4a01d99c9b1c01e;
 Common/AICowerState_onEnter.cpp lacks a current strict receipt. Confirmation
 of the two float tables awaits the next real image; the bounds wall remains.
+
+2026-11-08: Rva003AE2A9CopyCtor.cpp also removes three strong table stand-ins,
+binding the factory-witnessed compiler symbols instead. Both rows remain
+exact; bounded replay removes the three strong refusals with the same
+three bridges/nine slots. LINK-636 and the copy-binding packet retain the
+held ConstIntGetters4 receipt gap and full-class/table recovery boundary.

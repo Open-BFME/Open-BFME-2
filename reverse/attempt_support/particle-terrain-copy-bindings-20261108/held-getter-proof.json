@@ -1,0 +1,15 @@
+{
+  "source": "Code/GameEngine/Source/Common/ConstIntGetters4.cpp",
+  "row": "?Rva003ACB61Get@@YAHXZ",
+  "rva": "0x003ACB61",
+  "cached_body_and_literal_equal_native": true,
+  "literal": "ParticleTerrainCollisionModule",
+  "literal_rva": "0x81cab4",
+  "source_compile_normal_current": true,
+  "source_compile_strict_current": false,
+  "reusable_provider_receipt_current": false,
+  "source_held_by_other_worker": true,
+  "source_not_edited_or_compiled": true,
+  "source_sha256": "effb966a19cb2d22a442abd77463e3a7f3583778ea159af00335f0777648cc5f",
+  "object_sha256": "03fe5a61288abf401c41e105edd91556df622e9b7452dec42d7523ceaee42683"
+}

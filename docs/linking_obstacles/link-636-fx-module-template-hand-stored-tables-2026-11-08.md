@@ -97,3 +97,16 @@ RenderObjectParticleUpdateModule, opaque here as Rva003ACA93Object) and its full
 Same seat, its base 0x003AE1CD (Rva003AE1CDCopyCtor.cpp): `Rva003AE1CD_v0`/`_v0C` give way to
 `??_7Rva00562366@@6BRva003ADFDBPrimary@@@` (VA 0x00C1D31C) and `??_7Rva00562366@@6B@` (0x00C1D348), the SELECT_ANY
 tables Rva0056224FCtor.cpp emits there. 1/1 row exact; link_check LINKS 64 -> 64. Clearance: none claimed.
+
+**2026-11-08 Rva003AE2A9 copy/clone:** the two-row unit replaces its three
+unowned one-byte stand-ins at 81CAA4/81CAA0/81CA90 with the existing compiler
+tables for Rva003ACB08Object's three bases. Fresh factory operands at
+3ACB3D/44/4B prove the bindings; all seven source/emitter rows and five EH
+graphs pass. No provider is introduced, and the two code bodies differ only
+in proved table referents. Bounded replay removes three strong-definition
+refusals while retaining the same three bridges/nine slots. The current
+providers are still only one slot each. ConstIntGetters4.cpp is held by
+another worker: its cached getter bytes/literal pass read-only checks, but
+its full strict receipt remains absent. Full classes/tables, that receipt
+and next-image confirmation remain open; no image/runtime gain is claimed.
+[Operand, provider and scope evidence](../../reverse/attempt_support/particle-terrain-copy-bindings-20261108/README.md).
