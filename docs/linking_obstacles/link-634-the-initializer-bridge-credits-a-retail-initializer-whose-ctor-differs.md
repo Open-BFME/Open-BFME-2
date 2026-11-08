@@ -34,3 +34,33 @@
   is then not credited: retail's entry stays unregistered (the bridge runs its rowed body, or it is reported as a
   `plain_function_row`), and the registration is listed as "builds <global> with <ctor>, retail with <ctor>" so the
   identity defect surfaces before a boot does. A regression case: this registration against 0x007B51EB.
+- **Repair of the P36 case (2026-11-08, crash-prevention, seat4, branch `scan/p36-fix`, not landed):**
+  `rename.py class --fold` gains the initializer route, which made `Rva005F00FB` and `MappedImageCache` one class. The
+  owner now declares the constructor, so its `_$E1` and `_$E2` run the rows 0x005F005B and 0x005F00FB; they agree with retail's
+  0x007B51EB and 0x007B99B5 outside relocations. `function --to-class` moved 0x005EFFA6 into the class, so the compiled table
+  has retail's two slots. The rows 0x007B51EB and 0x007B99B5 stay in their units as plain functions: those addresses have no
+  approved unit, so they cannot move, and `Rva007AC6DDGlobalInits.cpp` and `Rva007B6880Thunks.cpp` now declare the real
+  members and match (953/953 across the 8 sources). The owner's `_$E1` does the construction, and the bridge's credit of
+  0x007B51EB to it is now true. No link or boot has run on this yet. The bridge gap itself is still open: the check below is
+  not built.
+- **Scan of the whole table (2026-11-08, diagnostic image c1a124cccc, ledger at that commit, static only):** of retail's 1166
+  initializers, 348 have the shape `mov ecx,&G; call X` (pushed arguments and a tail `jmp` included). Findings:
+  `reverse/attempt_support/link-634-initializer-scan-c1a124cccc.tsv`.
+  - 318 match: the same constructor on the same global.
+  - 5 run retail's constructor on a global the map cannot place, so the global itself is unconfirmed.
+  - 18 differ by symbol. 0x007B51EB (P36) really differs. 13 have no differing address operand (12 `vector` globals and
+    `Random3Class`). 0x007ACC20 (`render_state`) makes the same stores inline.
+  - **Judgement, read by hand, not proved:** the other three, 0x007AC818, 0x007AC832 and 0x007AC0FA, are own template copies
+    of the same shape whose slots match retail's by name or family.
+  - 7 have no image initializer for G; all have rowed bodies that are not in the image's table, and the replay shows 5 of them
+    as shape-only credits to an unrelated `_$E`:
+    `_Loc_init` 0x007AB830 and `CPUDetectInitClass` 0x007B54E0 (the constructor still runs from another entry);
+    `g_vec00200D38` 0x007ABB96 and `g_videoTable` 0x007B6610 (zeroed storage reads as an empty vector, a reading of STLport not
+    checked against retail's constructor; their atexit destructors do not run);
+    `CAtlBaseModule` 0x007B559D and `CAtlWinModule` 0x007AB81A (the constructors never run; only initializer and atexit thunks,
+    and ATL's own `Term`/cleanup, refer to that storage); and 0x007B6760, a real defect of this family with a different global
+    (P39: the shape credit goes to `StringPool.cpp`'s `_$E1`, which runs `EAStringC`'s constructor on 0x00E18650, also
+    `gpGlobalGlobalObject`, while 0x00E177D4 stays null; read as no boot stop, with exit-time risk, unverified by any run).
+- **Unchecked by the scan:** the replay reports 294 shape-only credits, each keeping a retail body out of the bridge, and only
+  those among the 348 were checked. The 818 initializers of other shapes were not compared at all (mostly constant setup) and
+  could have lost bodies the same way. The proposed check should judge every shape and report on every image.
