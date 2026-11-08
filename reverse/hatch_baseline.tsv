@@ -12105,9 +12105,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStat
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp	rva00343FB0@@YA_NPAVObject@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp	0BfmeWideResult@@QAE@ABU0@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp	AI::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIConstructor_Unresolved.cpp	TAiData::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIExitStateMethods.cpp	StateMachine::getCurrentStateID	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	getDrawable@Thing@@QBEPAVDrawable@@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIGroup.cpp	setEmoticon@Drawable@@QAEXABV?$StringBase@D@@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIInternalMoveToStateUpdate.cpp	isInIdleState@StateMachine@@	1
