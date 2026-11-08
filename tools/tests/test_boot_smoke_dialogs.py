@@ -181,6 +181,39 @@ class Classification(unittest.TestCase):
         self.assertEqual(out["outcome"], "loading-screen")
         self.assertNotIn("crash", out)
 
+    SHOT = {"path": "x.png", "black": False, "stddev": 42, "menu_bar": 0.0}
+    SPINNING = [0x1085646D, 0x10856470, 0x10856470, 0x1085646A] * 2
+
+    def run_with(self, shot, eips):
+        report = timeout_run([MAIN], shot)
+        report["main_eips"] = eips
+        return self.smoke(report)
+
+    def test_a_spin_on_the_splash_is_a_hang_there(self):
+        # The receipt that prompted this: 0998e2bfee, on the title splash, in P30's __lg loop, read "loading-screen".
+        out = self.run_with(dict(self.SHOT, title_splash=True), self.SPINNING)
+        self.assertEqual(out["outcome"], "hang-on-title-splash")
+        self.assertEqual(out["picture"], "title-splash")
+        self.assertEqual(out["main_thread_spin"]["samples"], 8)
+        self.assertEqual(out["receipt"]["result"], "hang-on-title-splash")
+
+    def test_the_splash_with_a_working_thread_only_says_splash(self):
+        out = self.run_with(dict(self.SHOT, title_splash=True), [0x401000, 0x7A0000, 0x452000, 0x500000])
+        self.assertEqual(out["outcome"], "title-splash")
+        self.assertNotIn("main_thread_spin", out)
+
+    def test_a_spin_on_another_picture_is_a_hang_there(self):
+        self.assertEqual(self.run_with(self.SHOT, self.SPINNING)["outcome"], "hang-on-loading-screen")
+
+    def test_the_menu_stays_the_menu_whatever_the_samples(self):
+        out = self.run_with(dict(self.SHOT, menu_bar=0.8), self.SPINNING)
+        self.assertEqual(out["outcome"], "reached-menu")
+
+    def test_a_crash_box_outranks_a_spin(self):
+        report = timeout_run([MAIN, GAME_CRASH], self.SHOT)
+        report["main_eips"] = self.SPINNING
+        self.assertEqual(self.smoke(report)["outcome"], "crash-dialog")
+
     def test_result_of_keeps_crash_dialog(self):
         self.assertEqual(real_image.result_of("crash-dialog"), "crash-dialog")
         self.assertEqual(real_image.result_of("crash-at-?f@@YAXXZ"), "crashed")

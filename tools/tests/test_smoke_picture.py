@@ -42,6 +42,39 @@ def judged(img):
         return shot, bs.classify_picture(shot)
 
 
+def splash():
+    """A picture with the title splash's coarse shape, and fine detail its thumbnail does not see."""
+    img = Image.frombytes("L", (16, 12), bs.TITLE_SPLASH).resize((800, 600), Image.BILINEAR).convert("RGB")
+    return img
+
+
+class Labels(unittest.TestCase):
+    def test_the_title_splash_is_not_loading(self):
+        shot, outcome = judged(splash())
+        self.assertTrue(shot["title_splash"])
+        self.assertEqual(outcome, "title-splash")
+
+    def test_another_picture_short_of_the_menu_is_loading(self):
+        shot, outcome = judged(noise(20, 200))
+        self.assertFalse(shot["title_splash"])
+        self.assertEqual(outcome, "loading-screen")
+
+    def test_the_menu_is_not_the_splash(self):
+        shot, outcome = judged(menu())
+        self.assertFalse(shot["title_splash"])
+        self.assertEqual(outcome, "reached-menu")
+
+    def test_a_tight_loop_is_a_spin(self):
+        spin = bs.main_thread_spin([0x1085646D, 0x10856470, 0x10856470, 0x1085646A] * 2)
+        self.assertEqual(spin, {"low": "0x1085646a", "high": "0x10856470", "samples": 8})
+
+    def test_what_is_not_a_spin(self):
+        self.assertIsNone(bs.main_thread_spin([]))
+        self.assertIsNone(bs.main_thread_spin([0x1000, 0x1000, 0x1000]))                    # too few to say
+        self.assertIsNone(bs.main_thread_spin([0x1000] * 7 + [0x1000 + bs.SPIN_WINDOW]))    # left the window
+        self.assertIsNone(bs.main_thread_spin([0x1000, 0x5000, 0x9000, 0x2000, 0x7000]))    # a thread at work
+
+
 class Frames(unittest.TestCase):
     def test_black_frame_is_no_picture(self):
         shot, outcome = judged(Image.new("RGB", (W, H)))

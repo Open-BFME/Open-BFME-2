@@ -22,8 +22,12 @@ Outcome (build/boot/smoke.json, also printed):
   no-picture            alive with a window, but no picture was captured or it is
                         black (under Wine the client area comes from the Xvfb root,
                         since PrintWindow is black there)
-  loading-screen        alive with a picture, but the main menu's button bar is
-                        not up yet (the splash, or the shell map before the menu)
+  title-splash          alive showing the game's title splash: nothing past it is proven
+  loading-screen        alive with another picture, but the main menu's button bar
+                        is not up yet (the shell map before the menu, say)
+  hang-on-<picture>     one of the pictures above with the main thread spinning: every
+                        sample 250 ms apart inside SPIN_WINDOW bytes (main_thread_spin).
+                        How far it ran is the picture; it is not still getting there
   profile-redirect-failed  the appdata lie could not be installed (nothing ran)
   profile-changed       the owner's profile or HKCU EA keys changed
 
@@ -976,10 +980,41 @@ def picture_stats(img):
     return {"mean": round(st.mean[0], 1), "stddev": round(st.stddev[0], 1), "max": top, "black": top <= BLACK}
 
 
+# The title splash at 16x12 grey, from a boot's own 800x600 capture. Two boots' captures give these
+# same numbers. A picture this close (mean absolute grey difference) is that splash.
+TITLE_SPLASH = bytes.fromhex(
+    "1a212d618288929797968b928e7e7a7015293b5f80919fa2a79d8b8c7e75613c"
+    "0f2a334f515173709588788372644c35183129272432343c4a3e4d5e6e645444"
+    "272d1919132037353d353a3d52655b421c211e1a1f27393a3930303747574e38"
+    "251b2e38383c3b3439433f3b3d3e322e161629363139433c41373a3237352e26"
+    "1b201a1818234a5155402a202221251e131512110e1115272c211c191615120b"
+    "0f0f11121311153d3c17161614110c0a0b0b0d0f1111142c3314100f0f0d0b09")
+TITLE_SPLASH_DISTANCE = 6
+
+
+def title_splash(img):
+    """Is `img` the game's title splash? Coarse on purpose: a capture's scale varies, the picture does not."""
+    grey = img.convert("L").resize((16, 12)).tobytes()
+    return sum(abs(a - b) for a, b in zip(grey, TITLE_SPLASH)) / len(TITLE_SPLASH) <= TITLE_SPLASH_DISTANCE
+
+
+SPIN_WINDOW = 64        # bytes: sample_eips' samples, 250 ms apart, all inside one tight loop
+SPIN_SAMPLES = 4
+
+
+def main_thread_spin(eips):
+    """{"low", "high", "samples"} when the main thread's samples all fall inside SPIN_WINDOW bytes, else
+    None. Too few samples prove nothing. This reads about two seconds: a long copy could look the same,
+    so it reports where the thread sat, and only a picture short of the menu makes it a hang."""
+    if len(eips) < SPIN_SAMPLES or max(eips) - min(eips) >= SPIN_WINDOW:
+        return None
+    return {"low": hex(min(eips)), "high": hex(max(eips)), "samples": len(eips)}
+
+
 def classify_picture(shot):
     """The boot outcome a capture supports: no-window (none to capture), no-picture
-    (capture failed, or the frame is black), blank-window (one flat colour),
-    loading-screen (a picture without the main menu's button bar) or reached-menu.
+    (capture failed, or the frame is black), blank-window (one flat colour), title-splash,
+    loading-screen (another picture without the main menu's button bar) or reached-menu.
     Only a captured, non-black, non-flat frame with the button bar reaches the menu."""
     if not shot:
         return "no-window"
@@ -988,7 +1023,7 @@ def classify_picture(shot):
     if shot.get("stddev", 0) <= 8:
         return "blank-window"
     if shot.get("menu_bar", 0) < MENU_BAR:
-        return "loading-screen"
+        return "title-splash" if shot.get("title_splash") else "loading-screen"
     return "reached-menu"
 
 
@@ -1019,6 +1054,7 @@ def window_picture(pid, path):
     img.save(path)
     out = {"path": str(path), "capture": how} | picture_stats(img)
     out["menu_bar"] = menu_bar(img)
+    out["title_splash"] = title_splash(img)
     if how == "xvfb-root":
         out["display"] = os.environ.get("DISPLAY")
         out["display_private"] = "declared by the queue (BFME_PRIVATE_DISPLAY); native X windows not checked"
@@ -1374,7 +1410,12 @@ def smoke(a, rows=None, tag="boot"):
                             "map_symbol": None, "stubbed_name": None, "retail_rva": None, "dialog": dialog}
             out["outcome"] = "crash-dialog"
         else:
-            out["outcome"] = classify_picture(shot)
+            picture = classify_picture(shot)
+            spin = main_thread_spin(res.get("main_eips", []))
+            if spin:
+                out["main_thread_spin"] = spin
+            out["picture"] = picture
+            out["outcome"] = f"hang-on-{picture}" if spin and picture != "reached-menu" else picture
     if res.get("quiet"):
         out["run"]["quiet"] = [dict({k: v for k, v in q.items() if k != "stack"},
                                     **({"frames": image_frames(q["stack"], loaded, ri, pieces_map, 4)}
