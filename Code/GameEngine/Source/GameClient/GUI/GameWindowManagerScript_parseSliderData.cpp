@@ -34,7 +34,7 @@ struct SliderData
 Int scanInt(const char *source, Int &val);
 
 // ?parseSliderData@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseSliderData(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseSliderData(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	SliderData *sliderData = (SliderData *)data;
 	char *c;
@@ -53,4 +53,3 @@ static Bool parseSliderData(char *token, WinInstanceData *instData, char *buffer
 	return true;
 }
 
-static const void *s_parseSliderDataAnchor = (const void *)parseSliderData;

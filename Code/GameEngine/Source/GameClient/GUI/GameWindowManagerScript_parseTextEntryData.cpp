@@ -58,7 +58,7 @@ static __declspec(noinline) Int scanShort(const char *source, Short &val)
 }
 
 // ?parseTextEntryData@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseTextEntryData(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseTextEntryData(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	EntryData *entryData = (EntryData *)data;
 	char *c;
@@ -97,4 +97,3 @@ static Bool parseTextEntryData(char *token, WinInstanceData *instData, char *buf
 	return true;
 }
 
-static const void *s_parseTextEntryDataAnchor = (const void *)parseTextEntryData;

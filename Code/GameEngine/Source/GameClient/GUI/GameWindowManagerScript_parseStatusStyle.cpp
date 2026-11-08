@@ -49,7 +49,7 @@ extern const char *WindowStatusNames[];
 extern const char *WindowStyleNames[];
 
 // ?parseStatus@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseStatus(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseStatus(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	instData->m_status = 0;
 	parseBitString(buffer, &instData->m_status, WindowStatusNames);
@@ -58,7 +58,7 @@ static Bool parseStatus(char *token, WinInstanceData *instData, char *buffer, vo
 }
 
 // ?parseStyle@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseStyle(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseStyle(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	instData->m_style = 0;
 	parseBitString(buffer, &instData->m_style, WindowStyleNames);
@@ -66,8 +66,6 @@ static Bool parseStyle(char *token, WinInstanceData *instData, char *buffer, voi
 	return true;
 }
 
-static const void *s_parseStatusStyleAnchor = (const void *)parseStatus;
-static const void *s_parseStatusStyleAnchor2 = (const void *)parseStyle;
 
 // ?parseBitFlag@@YA_NPBDPAIPAPBD@Z
 // Donor: clean BFME1 GameWindowManagerScript.cpp, revision

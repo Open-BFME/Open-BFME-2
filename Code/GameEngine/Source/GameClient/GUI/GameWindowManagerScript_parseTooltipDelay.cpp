@@ -36,7 +36,7 @@ public:
 Int scanInt(const char *source, Int &val);
 
 // ?parseTooltipDelay@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseTooltipDelay(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseTooltipDelay(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	//RadioButtonData *radioData = (RadioButtonData *)data;
 	char *c;
@@ -49,4 +49,3 @@ static Bool parseTooltipDelay(char *token, WinInstanceData *instData, char *buff
 	return true;
 }
 
-static const void *s_parseTooltipDelayAnchor = (const void *)parseTooltipDelay;

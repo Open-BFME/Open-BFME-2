@@ -35,7 +35,7 @@ struct RadioButtonData
 Int scanInt(const char *source, Int &val);
 
 // ?parseRadioButtonData@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseRadioButtonData(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseRadioButtonData(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	RadioButtonData *radioData = (RadioButtonData *)data;
 	char *c;
@@ -49,4 +49,3 @@ static Bool parseRadioButtonData(char *token, WinInstanceData *instData, char *b
 	return true;
 }
 
-static const void *s_parseRadioButtonDataAnchor = (const void *)parseRadioButtonData;

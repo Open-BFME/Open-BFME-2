@@ -37,7 +37,7 @@ public:
 
 
 // ?parseImageOffset@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseImageOffset(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseImageOffset(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	char *c;
 
@@ -50,4 +50,3 @@ static Bool parseImageOffset(char *token, WinInstanceData *instData, char *buffe
 	return true;
 }
 
-static const void *s_parseImageOffsetAnchor = (const void *)parseImageOffset;

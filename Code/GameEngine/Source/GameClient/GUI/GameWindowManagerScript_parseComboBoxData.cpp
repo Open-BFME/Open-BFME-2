@@ -48,7 +48,7 @@ Int scanInt(const char *source, Int &val);
 Int scanBool(const char *source, Bool &val);
 
 // ?parseComboBoxData@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseComboBoxData(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseComboBoxData(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	ComboBoxData *comboData = (ComboBoxData *)data;
 	char *c;
@@ -85,4 +85,3 @@ static Bool parseComboBoxData(char *token, WinInstanceData *instData, char *buff
 	return true;
 }
 
-static const void *s_parseComboBoxDataAnchor = (const void *)parseComboBoxData;

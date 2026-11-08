@@ -50,7 +50,7 @@ public:
 
 
 // ?parseName@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseName(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseName(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	char *c, *ptr;
 	char *stringSeps = "\"";
@@ -71,4 +71,3 @@ static Bool parseName(char *token, WinInstanceData *instData, char *buffer, void
 	return true;
 }
 
-static const void *s_parseNameAnchor = (const void *)parseName;

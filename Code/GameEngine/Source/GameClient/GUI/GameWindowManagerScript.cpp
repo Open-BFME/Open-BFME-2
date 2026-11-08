@@ -1120,79 +1120,22 @@ static Bool parseScreenRect( char *token, char *buffer,
 // parseImageOffset ===========================================================
 /** Parse the image draw offset */
 //=============================================================================
-static Bool parseImageOffset( char *token, WinInstanceData *instData, 
-															char *buffer, void *data )
-{
-  char *c;
-
-	c = strtok( buffer, " \t\n\r" );
-	instData->m_imageOffset.x = atoi( c );
-
-	c = strtok( NULL, " \t\n\r" );
-	instData->m_imageOffset.y = atoi( c );
-  
-  return TRUE;
-
-}
 
 // parseName =================================================================
 /** Parse the NAME field */
 //=============================================================================
-static Bool parseName( char *token, WinInstanceData *instData,
-											 char *buffer, void *data )
-{
-	char *c, *ptr;
-//	char *seps = " ,\n\r\t";
-	char *stringSeps = "\"";
-
-	// scan to the first " mark
-	ptr = buffer;
-	while( *ptr != '"' )
-		ptr++;
-	ptr++;  // skip the first "
-	c = strtok( ptr, stringSeps );  // name value
-	instData->m_decoratedNameString = c;
-
-	// given the name assign a window ID from the
-	assert( TheNameKeyGenerator );
-	if( TheNameKeyGenerator )
-		instData->m_id = (Int)TheNameKeyGenerator->nameToKey( instData->m_decoratedNameString );
-	
-	return TRUE;
-
-}
 
   // end parseName
 
 // parseStatus ================================================================
 /** Parse the STATUS field */
 //=============================================================================
-static Bool parseStatus( char *token, WinInstanceData *instData, 
-												 char *buffer, void *data )
-{
-
-  instData->m_status = 0;
-  parseBitString( buffer, &instData->m_status, WindowStatusNames );
-
-  return TRUE;
-
-}
 
   // end parseStatus
 
 // parseStyle =================================================================
 /** Parse the STYLE field */
 //=============================================================================
-static Bool parseStyle( char *token, WinInstanceData *instData, 
-												char *buffer, void *data )
-{
-
-  instData->m_style = 0;
-  parseBitString( buffer, &instData->m_style, WindowStyleNames );
-
-  return TRUE;
-
-}
 
   // end parseDrawCallback
 
@@ -1217,101 +1160,22 @@ static Bool parseHeaderTemplate(char *token, WinInstanceData *instData, char *bu
 // parseComboBoxData ===========================================================
 /** Parse Combo Box data entry */
 //=============================================================================
-static Bool parseComboBoxData( char *token, WinInstanceData *instData,
-															char *buffer, void *data )
-{
-	ComboBoxData *comboData = (ComboBoxData *)data;
-	char *c;
-	char *seps = " :,\n\r\t";
-
-	c = strtok( buffer, seps );  // label
-	c = strtok( NULL, seps );	// value
-  scanBool( c, comboData->isEditable );
-
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );	// value
-  scanInt( c, comboData->maxChars );
-	
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );	// value
-  scanInt( c, comboData->maxDisplay );
-	
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );	// value
-  scanBool( c, comboData->asciiOnly );
-	
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );	// value
-  scanBool( c, comboData->lettersAndNumbersOnly );
-	
-
-  return TRUE;
-}
 
 //parseComboBoxData
 
 // parseSliderData ============================================================
 /** Parse slider data entry */
 //=============================================================================
-static Bool parseSliderData( char *token, WinInstanceData *instData,
-														 char *buffer, void *data )
-{
-	SliderData *sliderData = (SliderData *)data;
-	char *c;
-	char *seps = " :,\n\r\t";
-
-	// "MINVALUE"
-	c = strtok( buffer, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, sliderData->minVal );
-
-	// "MAXVALUE"
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, sliderData->maxVal );
-
-	return TRUE;
-
-}
 
   // end parseSliderData
 
 // parseRadioButtonData =======================================================
 /** Parse radio button data entry */
 //=============================================================================
-static Bool parseRadioButtonData( char *token, WinInstanceData *instData,
-																	char *buffer, void *data )
-{
-	RadioButtonData *radioData = (RadioButtonData *)data;
-	char *c;
-	char *seps = " :,\n\r\t";
-
-	// "GROUP"
-	c = strtok( buffer, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, radioData->group );
-
-	return TRUE;
-
-}
 
 // parseTooltipDelay =======================================================
 /** Parse the tooltip delay */
 //=============================================================================
-static Bool parseTooltipDelay( char *token, WinInstanceData *instData,
-																	char *buffer, void *data )
-{
-	//RadioButtonData *radioData = (RadioButtonData *)data;
-	char *c;
-	char *seps = " :,\n\r\t";
-
-	// "getvalue"
-	c = strtok( buffer, seps );  // value
-	scanInt( c, instData->m_tooltipDelay );
-
-	return TRUE;
-
-}
 
   // end parseTooltipDelay
 
@@ -1342,310 +1206,28 @@ static Bool parseText(char *token, WinInstanceData *instData, char *buffer, void
 /** Parse text color entries for enabled, disabled, and hilite with
 	* drop shadow colors */
 //=============================================================================
-static Bool parseTextColor( char *token, WinInstanceData *instData,
-														char *buffer, void *data )
-{
-	char *c;
-	char *seps       = " :,\n\r\t";
-	UnsignedInt r, g, b, a;
-	Int i, states = 3;
-	TextDrawData *textData;
-	Bool first = TRUE;
-
-
-	for( i = 0; i < states; i++ )
-	{
-
-		if( i == 0 )
-			textData = &instData->m_enabledText;
-		else if( i == 1 )
-			textData = &instData->m_disabledText;
-		else if( i == 2 )
-			textData = &instData->m_hiliteText;
-		else
-		{
-
-			DEBUG_LOG(( "Undefined state for text color\n" ));
-			assert( 0 );
-			return FALSE;
-
-		}  // end else
-
-		// color
-		if( first == TRUE )
-			c = strtok( buffer, seps );  // label
-		else
-			c = strtok( NULL, seps );  // label
-		first = FALSE;
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, r );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, g );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, b );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, a );
-		textData->color = GameMakeColor( r, g, b, a );
-
-		// border color
-		c = strtok( NULL, seps );  // label
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, r );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, g );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, b );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, a );
-		textData->borderColor = GameMakeColor( r, g, b, a );
-
-	}  // end if
-
-	return TRUE;
-
-}
 
   // end parseTextColor
 
 // parseStaticTextData ========================================================
 /** Parse static text data entry */
 //=============================================================================
-static Bool parseStaticTextData( char *token, WinInstanceData *instData,
-																 char *buffer, void *data )
-{
-	TextData *textData = (TextData *)data;
-	char *c;
-	char *seps       = " :,\n\r\t";
-
-	// "CENTERED"
-	c = strtok( buffer, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanBool( c, textData->centered );
-
-	// @todo: add these  to GUIEdit options and output
-	// These are initialized here because any TextData constructor would never get called.
-	// The behavior with these defaults is the same as it was before these members were added.
-	textData->centeredVertically = TRUE;
-	textData->leftMargin = 7;
-	textData->topMargin = 7;
-
-	return TRUE;
-
-}
 
   // end parseStaticTextDAta
 
 // parseTextEntryData =========================================================
 /** Parse text entry data entry */
 //=============================================================================
-static Bool parseTextEntryData( char *token, WinInstanceData *instData,
-																char *buffer, void *data )
-{
-	EntryData *entryData = (EntryData *)data;
-	char *c;
-	char *seps       = " :,\n\r\t";
-
-	// "MAXLEN"
-	c = strtok( buffer, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanShort( c, entryData->maxTextLen );
-
-	// "SECRETTEXT"
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanBool( c, entryData->secretText );
-
-	// "NUMERICALONLY"
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanBool( c, entryData->numericalOnly );
-
-	// "ALPHANUMERICALONLY"
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanBool( c, entryData->alphaNumericalOnly );
-
-	// "ASCIIONLY"
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanBool( c, entryData->aSCIIOnly );
-
-	return TRUE;
-
-}
 
   // end parseStaticTextDAta
 
 // parseTabControlData =========================================================
 /** Parse tab control data entry */
 //=============================================================================
-static Bool parseTabControlData( char *token, WinInstanceData *instData,
-																char *buffer, void *data )
-{
-	TabControlData *tabControlData = (TabControlData *)data;
-	char *c;
-	char *seps       = " :,\n\r\t";
-
-	//TABORIENTATION
-	c = strtok( buffer, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, tabControlData->tabOrientation );
-
-	//TABEDGE
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, tabControlData->tabEdge );
-
-	//TABWIDTH
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, tabControlData->tabWidth );
-
-	//TABHEIGHT
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, tabControlData->tabHeight );
-
-	//TABCOUNT
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, tabControlData->tabCount );
-
-	//PANEBORDER
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, tabControlData->paneBorder );
-
-	//PANEDISABLED
-	Int entryCount = 0;
-	c = strtok( NULL, seps );  // label
-	c = strtok( NULL, seps );  // value
-	scanInt( c, entryCount );
-
-	for( Int paneIndex = 0; paneIndex < entryCount; paneIndex ++ )
-	{
-		c = strtok( NULL, seps );  // value
-		scanBool( c, tabControlData->subPaneDisabled[paneIndex] );
-	}
-
-	return TRUE;
-}
 
 // parseDrawData ==============================================================
 /** Parse set of draw data elements */
 //=============================================================================
-static Bool parseDrawData( char *token, WinInstanceData *instData,
-													 char *buffer, void *data )
-{
-	Int i;
-	UnsignedInt r, g, b, a;
-	WinDrawData *drawData;
-	Bool first = TRUE;
-	char *c;
-	char *seps       = " :,\n\r\t";
-
-	for( i = 0; i < MAX_DRAW_DATA; i++ )
-	{
-
-		// get the right draw data
-		if( strcmp( token, "ENABLEDDRAWDATA" ) == 0 )	
-			drawData = &instData->m_enabledDrawData[ i ];
-		else if( strcmp( token, "DISABLEDDRAWDATA" ) == 0 )	
-			drawData = &instData->m_disabledDrawData[ i ];
-		else if( strcmp( token, "HILITEDRAWDATA" ) == 0 )	
-			drawData = &instData->m_hiliteDrawData[ i ];
-		else if( strcmp( token, "LISTBOXENABLEDUPBUTTONDRAWDATA" ) == 0 )
-			drawData = &enabledUpButtonDrawData[ i ];
-		else if( strcmp( token, "LISTBOXDISABLEDUPBUTTONDRAWDATA" ) == 0 )
-			drawData = &disabledUpButtonDrawData[ i ];
-		else if( strcmp( token, "LISTBOXHILITEUPBUTTONDRAWDATA" ) == 0 )
-			drawData = &hiliteUpButtonDrawData[ i ];
-		else if( strcmp( token, "LISTBOXENABLEDDOWNBUTTONDRAWDATA" ) == 0 )
-			drawData = &enabledDownButtonDrawData[ i ];
-		else if( strcmp( token, "LISTBOXDISABLEDDOWNBUTTONDRAWDATA" ) == 0 )
-			drawData = &disabledDownButtonDrawData[ i ];
-		else if( strcmp( token, "LISTBOXHILITEDOWNBUTTONDRAWDATA" ) == 0 )
-			drawData = &hiliteDownButtonDrawData[ i ];
-		else if( strcmp( token, "LISTBOXENABLEDSLIDERDRAWDATA" ) == 0 )
-			drawData = &enabledSliderDrawData[ i ];
-		else if( strcmp( token, "LISTBOXDISABLEDSLIDERDRAWDATA" ) == 0 )
-			drawData = &disabledSliderDrawData[ i ];
-		else if( strcmp( token, "LISTBOXHILITESLIDERDRAWDATA" ) == 0 )
-			drawData = &hiliteSliderDrawData[ i ];
-		else if( strcmp( token, "SLIDERTHUMBENABLEDDRAWDATA" ) == 0 )
-			drawData = &enabledSliderThumbDrawData[ i ];
-		else if( strcmp( token, "SLIDERTHUMBDISABLEDDRAWDATA" ) == 0 )
-			drawData = &disabledSliderThumbDrawData[ i ];
-		else if( strcmp( token, "SLIDERTHUMBHILITEDRAWDATA" ) == 0 )
-			drawData = &hiliteSliderThumbDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXDROPDOWNBUTTONENABLEDDRAWDATA" ) == 0 )
-			drawData = &enabledDropDownButtonDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXDROPDOWNBUTTONDISABLEDDRAWDATA" ) == 0 )
-			drawData = &disabledDropDownButtonDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXDROPDOWNBUTTONHILITEDRAWDATA" ) == 0 )
-			drawData = &hiliteDropDownButtonDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXEDITBOXENABLEDDRAWDATA" ) == 0 )
-			drawData = &enabledEditBoxDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXEDITBOXDISABLEDDRAWDATA" ) == 0 )
-			drawData = &disabledEditBoxDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXEDITBOXHILITEDRAWDATA" ) == 0 )
-			drawData = &hiliteEditBoxDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXLISTBOXENABLEDDRAWDATA" ) == 0 )
-			drawData = &enabledListBoxDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXLISTBOXDISABLEDDRAWDATA" ) == 0 )
-			drawData = &disabledListBoxDrawData[ i ];
-		else if( strcmp( token, "COMBOBOXLISTBOXHILITEDRAWDATA" ) == 0 )
-			drawData = &hiliteListBoxDrawData[ i ];
-		else
-		{
-
-			DEBUG_LOG(( "ParseDrawData, undefined token '%s'\n", token ));
-			assert( 0 );
-			return FALSE;
-
-		}  // end else
-
-		// IMAGE: X
-		if( first == TRUE )
-			c = strtok( buffer, seps );  // label
-		else
-			c = strtok( NULL, seps );  // label
-		first = FALSE;
-	
-		c = strtok( NULL, seps );  // value
-		if( strcmp( c, "NoImage" ) )
-			drawData->image = TheMappedImageCollection->findImageByName( AsciiString( c ) );
-		else
-			drawData->image = NULL;
-		// COLOR: R G B A
-		c = strtok( NULL, seps );  // label
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, r );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, g );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, b );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, a );
-		drawData->color = GameMakeColor( r, g, b, a );
-
-		// BORDERCOLOR: R G B A
-		c = strtok( NULL, seps );  // label
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, r );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, g );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, b );
-		c = strtok( NULL, seps );  // value
-		scanUnsignedInt( c, a );
-		drawData->borderColor = GameMakeColor( r, g, b, a );
-
-	}  // end for i
-
-	return TRUE;
-
-}
 
 static __declspec(noinline) Bool parseData( void **data, char *type, char *buffer )
 {

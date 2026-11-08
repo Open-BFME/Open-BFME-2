@@ -40,7 +40,7 @@ struct TextData
 Int scanBool(const char *source, Bool &val);
 
 // ?parseStaticTextData@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseStaticTextData(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseStaticTextData(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	TextData *textData = (TextData *)data;
 	char *c;
@@ -54,4 +54,3 @@ static Bool parseStaticTextData(char *token, WinInstanceData *instData, char *bu
 	return true;
 }
 
-static const void *s_parseStaticTextDataAnchor = (const void *)parseStaticTextData;

@@ -55,7 +55,7 @@ Int scanInt(const char *source, Int &val);
 Int scanBool(const char *source, Bool &val);
 
 // ?parseTabControlData@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseTabControlData(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseTabControlData(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	TabControlData *tabControlData = (TabControlData *)data;
 	char *c;
@@ -106,4 +106,3 @@ static Bool parseTabControlData(char *token, WinInstanceData *instData, char *bu
 	return true;
 }
 
-static const void *s_parseTabControlDataAnchor = (const void *)parseTabControlData;

@@ -63,7 +63,7 @@ struct WinInstanceDataLayout
 Int scanInt(const char *source, Int &val);
 
 // ?parseTextColor@@YA_NPADPAVWinInstanceData@@0PAX@Z
-static Bool parseTextColor(char *token, WinInstanceData *instData, char *buffer, void *data)
+Bool parseTextColor(char *token, WinInstanceData *instData, char *buffer, void *data)
 {
 	char *c;
 	char *seps = " :,\n\r\t";
@@ -126,4 +126,3 @@ static Bool parseTextColor(char *token, WinInstanceData *instData, char *buffer,
 	return TRUE;
 }
 
-static const void *s_parseTextColorAnchor = (const void *)parseTextColor;
