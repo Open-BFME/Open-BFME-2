@@ -75,10 +75,15 @@ int __cdecl wctomb(char *dest, unsigned short ch);
 #include <stl/_alloc.h>
 // Keep retail's inline character-buffer cleanup; the public allocator
 // entry point is supplied by its separately verified owner.
+extern "C" void *(__cdecl *__gameMemAllocatePtr)(unsigned int, int, const void *);
 namespace _STL {
 template <> void __malloc_alloc<0>::deallocate(void *, size_t);
 #pragma optimize("gsy", on)
 template <> __forceinline void allocator<char>::deallocate(char *p, size_t) { if (p != 0) free(p); }
+// The range helpers' bodies this unit emits win the link over retail's at 0x8D00, so they allocate
+// as retail's raw allocator 0x000307F0 does: through the game's table, class 3. Their buffers are
+// freed through that table.
+template <> __forceinline char *allocator<char>::allocate(size_t n, const void *hint) { return (char *)__gameMemAllocatePtr(n, 3, hint); }
 template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) { if (p != 0) free(p); }
 #pragma optimize("", on)
 }
