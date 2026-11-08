@@ -2384,11 +2384,13 @@ def view_hint(report, tu, don):
     return report
 
 
-def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None, deletes_donor=False):
+def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, fixed_text=None, deletes_donor=False,
+           moved_rows=None):
     """... `fixed_text`: the TU's final text is given (a split's --prepared), never composed:
     every accepted set is judged in it, under the same verifier, guard and applier.
     `deletes_donor`: `applier` deletes the accepted donors as a merge does (a prepared split's
-    absorb), so the map is judged as for a merge (map_regressions)."""
+    absorb), so the map is judged as for a merge (map_regressions). `moved_rows` {file: rvas}: what an
+    `applier` that leaves its file in place moves, judged row by row."""
     v = Verifier(tu)
     # Splits provide their own two-object guard: their residual stays in the link.
     guard = guard or (None if applier else LinkGuard(tu))
@@ -2677,11 +2679,11 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None, f
         if carry.problems:
             report["blocked"] = "protected registers: " + "; ".join(carry.problems[:5])
             return report
-    if applier is None or deletes_donor:
-        why = map_regressions(tu, acc)
-        if why:
-            report["blocked"] = why
-            return report
+    why = (map_regressions(tu, moved_rows=moved_rows) if moved_rows
+           else map_regressions(tu, acc) if applier is None or deletes_donor else None)
+    if why:
+        report["blocked"] = why
+        return report
     if dry_run:
         if applier is None:
             report["_plan"] = {"accepted": acc, "text": text, "baseline": sorted(set().union(*(base[f] for f in acc))),
@@ -3412,7 +3414,7 @@ def split_plan_path(path, tu):
     return ROOT / "build/tu_skeleton/split_plans" / (key + ".json")
 
 
-def reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state):
+def reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state, moved_rows=None):
     """Reuse a composition, with fresh bytes and the complete two-object link guard."""
     acc, text = plan.get("accepted"), plan.get("text")
     expected = {r["target_rva"] for rows in don.values() for r in rows}
@@ -3436,6 +3438,10 @@ def reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state):
         return None
     if state is None or merge_plan_state() != state:
         return None
+    why = map_regressions(tu, moved_rows=moved_rows) if moved_rows else None
+    if why:                  # not a stale plan: today's map would lose an approval either way
+        report.update(accepted=acc, rejected=plan["rejected"], blocked=why)
+        return report
     report.update(accepted=acc, flags=plan["flags"], rows=plan["rows"],
                   rejected=plan["rejected"], plan_reused=True,
                   link_guard="split: residual and destination compared together")
@@ -3690,14 +3696,15 @@ def split(path, tu, dry_run=False, claim=True, prepared=None):
         return moved
 
     def run():
+        moved_rows = None if whole else {path: [r["target_rva"] for r in carved]}
         try:
             plan = load_verified_plan(split_plan_path(path, tu), state, inputs) if prepared is None else None
             if plan:
-                reused = reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state)
+                reused = reuse_split_plan(tu, don, report, plan, dry_run, guard, applier, state, moved_rows=moved_rows)
                 if reused is not None:
                     return reused
             return _merge(tu, sk, don, report, dry_run, texts=texts, applier=absorb if whole else applier,
-                          guard=guard, fixed_text=prepared, deletes_donor=whole)
+                          guard=guard, fixed_text=prepared, deletes_donor=whole, moved_rows=moved_rows)
         except UnitKeyRefusal as refused_keys:
             report["blocked"] = f"unit keys (data_ledger.csv / fold proofs): {refused_keys}"[:400]
             return report
@@ -5757,11 +5764,13 @@ def refresh_reports(root, gone, tu, text):
 CONFIDENCE_RANK = {"approved": 3, "proposed": 2, "displaced": 1}
 
 
-def map_regressions(tu, accepted):
-    """Why merging `accepted` into `tu` would cost the map an approval, or None. The map is
-    rebuilt in memory (tu_map.build, a pure function of its inputs) over the ledger as the
-    merge leaves it, every row of an accepted file repointed to `tu`, and compared with the
-    current one (map_rows): N hints follow a file's directory, so moving one file of a
+def map_regressions(tu, accepted=(), moved_rows=None):
+    """Why moving rows into `tu` would cost the map an approval, or None: every row of each
+    `accepted` file (a merge, deleting the others), and the rows of `moved_rows` {file: rvas} (a
+    move that leaves its file in place, as repoint_rows repoints them: at those addresses, of that
+    file; review of dee0813e84: splitting B::f out of Code/Old/B.cpp dropped its sibling B::g from
+    approved to proposed). The map is rebuilt in memory (tu_map.build, a pure function of its
+    inputs) over the ledger as the move leaves it and compared with the current one (map_rows): N hints follow a file's directory, so moving one file of a
     provisional group can leave a sibling with no interleaving cluster (Merge lane 2,
     2026-11-07: relocating Upgrade/BaseUpgrade.cpp alone dropped 0x004B37CA from approved to
     proposed, and its funclets stayed approved for the deleted path). Refuses when any code
@@ -5769,8 +5778,14 @@ def map_regressions(tu, accepted):
     rebuilt map approves or proposes names a path the merge deletes."""
     moved = set(accepted)
     gone = {f.lower() for f in accepted if f.lower() != tu.lower()}
-    ledger = [dict(r, source=tu) if r.get("source") in moved else r
-              for r in tu_map.read_csv(LAYOUT.path("functions.csv"))]
+    rows = {f: {int(x, 16) for x in rvas} for f, rvas in (moved_rows or {}).items()}
+
+    def moves(r):
+        if r.get("source") in moved:
+            return True
+        rva = r.get("target_rva") or ""
+        return r.get("source") in rows and rva.lower().startswith("0x") and int(rva, 16) in rows[r["source"]]
+    ledger = [dict(r, source=tu) if moves(r) else r for r in tu_map.read_csv(LAYOUT.path("functions.csv"))]
     before = {r["rva"].lower(): r for r in map_rows() if r["kind"].startswith("code")}
     after = {str(r["rva"]).lower(): {k: str(v) for k, v in r.items()}
              for r in tu_map.build(LAYOUT, ledger) if str(r["kind"]).startswith("code")}
@@ -5783,9 +5798,9 @@ def map_regressions(tu, accepted):
                       if a["tu"] and a["tu"].lower() in gone and a["confidence"] in ("approved", "proposed"))
     if not lowered and not orphaned:
         return None
-    return ("the merge would cost the map approvals (rebuilt in memory after the move): "
+    return ("this move would cost the map approvals (rebuilt in memory after it): "
             + "; ".join(([f"{len(lowered)} lowered: " + ", ".join(lowered[:4])] if lowered else [])
-                        + ([f"{len(orphaned)} placed in a path the merge deletes: " + ", ".join(orphaned[:4])]
+                        + ([f"{len(orphaned)} placed in a path it deletes: " + ", ".join(orphaned[:4])]
                            if orphaned else []))
             + " (move the group's files together)")[:600]
 

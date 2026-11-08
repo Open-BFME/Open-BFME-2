@@ -1935,6 +1935,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         self.assertEqual(seen["fixed_text"], self.PREPARED)            # (c): judged in the prepared text
         self.assertEqual(seen["applier"].__name__, "absorb")           # nothing stays: the donor goes
         self.assertIs(seen["deletes_donor"], True)                     # so the map is judged as for a merge
+        self.assertIsNone(seen["moved_rows"])
 
     def test_without_a_prepared_text_a_whole_donor_still_refuses(self):
         report, _ = self.split(prepared=None)
@@ -1953,6 +1954,7 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         self.assertEqual(seen["applier"].__name__, "applier")
         self.assertEqual(seen["fixed_text"], self.PREPARED)
         self.assertIs(seen["deletes_donor"], False)
+        self.assertEqual(seen["moved_rows"], {self.SOURCE: sorted(r["target_rva"] for r in seen["don"][self.SOURCE])})
 
     def test_the_rider_needs_the_destination_to_emit_the_vtable_and_the_residual_not(self):
         report, _ = self.split(tu_vtable=False, stay=True)
@@ -1986,6 +1988,14 @@ class VtableRiderPreparedSplitTests(unittest.TestCase):
         with patch.dict(T._CACHE, cache, clear=True), \
                 patch.object(T.rename, "preprocess_unit", side_effect=AssertionError("no text is read")):
             self.assertEqual([T.vtable_rider(r) for r in rows], [True, False, False, True, False, False])
+
+    def test_a_split_tells_a_saved_plan_what_it_moves(self):
+        # review of dee0813e84: without its rows a reused plan would skip the map check
+        with patch.object(T, "load_verified_plan", return_value={"accepted": []}), \
+                patch.object(T, "reuse_split_plan", side_effect=lambda tu, don, report, *a, **k: dict(report, accepted=list(don))) as reuse:
+            report, _ = self.split(prepared=None, stay=True)
+        self.assertNotIn("blocked", report)
+        self.assertEqual(reuse.call_args.kwargs["moved_rows"], {self.SOURCE: ["0x1000", "0x7000"]})
 
     def test_a_refused_or_blocked_split_gives_back_only_what_it_acquired(self):
         # review of 9459886c66: --split (and so --prepared) released the whole scope without tokens
@@ -2522,7 +2532,7 @@ class MergeMapRegressionTests(unittest.TestCase):
                  ("0x00002100", "approved", self.MOVED, "code-interior")]
         why, _ = self.judge(before, after)
         self.assertIn("1 lowered: 0x00002000 approved", why)
-        self.assertIn("2 placed in a path the merge deletes", why)
+        self.assertIn("2 placed in a path it deletes", why)
 
     def test_each_kind_of_loss_refuses(self):
         cases = [([("0x00002000", "approved", self.TU)], [("0x00002000", "displaced", "")], "lowered"),
@@ -2740,7 +2750,7 @@ class MapGuardOnEveryDeletingPathTests(unittest.TestCase):
                     report = T.split(self.DONOR, self.TU, dry_run=dry_run, prepared=prepared, claim=False)
                     self.assertEqual(check.call_count, 1)
                     self.assertIn("0x00001020", report["blocked"])
-                    self.assertIn("the merge would cost the map approvals", report["blocked"])
+                    self.assertIn("this move would cost the map approvals", report["blocked"])
                     write.assert_not_called()
 
     def merge_with_applier(self, deletes_donor, why="lost approval", dry_run=False):
@@ -2763,10 +2773,97 @@ class MapGuardOnEveryDeletingPathTests(unittest.TestCase):
         out, check, applied = self.merge_with_applier(True, why=None)
         self.assertNotIn("blocked", out)
         self.assertEqual(applied, [[self.TU, self.DONOR]])                          # an unchanged map: it applies
-        out, check, applied = self.merge_with_applier(False)                        # a split leaving its file
+        out, check, applied = self.merge_with_applier(False)                        # told nothing it moves
         self.assertNotIn("blocked", out)
         check.assert_not_called()
         self.assertEqual(len(applied), 1)
+
+    # ------------------------------------------------------------------ a move that leaves its file in place
+    def partial_tree(self, root):
+        """The review's fixture and C::h, kept in Code/Old/B.cpp, so moving B::f leaves its file in place."""
+        rows = self.real_tree(root)
+        for c, m, rva, source in (("C", "h", "0x00009000", self.DONOR), ("C", "i", "0x00009010", "Code/Else/C.cpp")):
+            rows.append(dict(name=f"?{m}@{c}@@QAEXXZ", target_rva=rva, target_size="8", source=source, notes="",
+                             status="matched", export_rva=""))
+            (root / source).parent.mkdir(parents=True, exist_ok=True)
+            with (root / source).open("a") as f:
+                f.write(f"void {c}::{m}() {{}}\n")
+        with (root / "reverse/functions.csv").open("w", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=list(rows[0]))
+            w.writeheader()
+            w.writerows(rows)
+        return rows
+
+    def partial_split(self, root, rows, dry_run, plan=None):
+        import tu_evidence
+        layout = T.tu_map.Layout(root, root / "zh")
+        carry = SimpleNamespace(problems=[], raws={}, moved={}, report=lambda: {})
+        current = [{k: str(v) for k, v in r.items()} for r in T.tu_map.build(layout, rows)]
+        with patch.multiple(T, ROOT=root, LEDGER=root / "reverse/functions.csv", LAYOUT=layout, Verifier=self.Verifier,
+                            LinkGuard=self.Guard, SplitLinkGuard=self.Guard), \
+                patch.dict(T._CACHE, {}, clear=True), patch.object(tu_evidence, "PROMOTED", set()), \
+                patch.multiple(T, refusal=lambda *a: None, included_by=lambda *a: [], map_rows=lambda: current,
+                               carry_unit_keys=lambda *a, **k: carry, merge_plan_state=lambda: "s" if plan else None,
+                               load_verified_plan=lambda *a: plan), \
+                patch.object(T, "apply_split", return_value={}) as write, \
+                patch.object(T, "map_regressions", side_effect=REAL_MAP_REGRESSIONS) as check:
+            report = T.split(self.DONOR, self.TU, dry_run=dry_run, prepared="void A::f() {}\nvoid B::f() {}\n" if not plan else None,
+                             claim=False)
+            return report, check, write
+
+    def test_a_partial_split_that_costs_a_sibling_its_approval_is_refused(self):
+        # review of dee0813e84, on the real map logic: splitting B::f out drops B::g to proposed
+        for dry_run in (True, False):
+            with self.subTest(dry_run=dry_run), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                report, check, write = self.partial_split(root, self.partial_tree(root), dry_run)
+                self.assertEqual(check.call_count, 1)
+                self.assertEqual(check.call_args.kwargs["moved_rows"], {self.DONOR: ["0x00001010"]})
+                self.assertIn("this move would cost the map approvals", report["blocked"])
+                self.assertIn("0x00001020 approved", report["blocked"].lower())
+                write.assert_not_called()
+
+    def row_level(self, before, after, moved_rows):
+        ledger = [{"name": "a", "target_rva": "0x00001000", "source": self.DONOR},
+                  {"name": "b", "target_rva": "0x00001010", "source": self.DONOR},
+                  {"name": "alias", "target_rva": "0x00001000", "source": "Code/Other.cpp"},
+                  {"name": "no-address", "target_rva": "", "source": self.DONOR}]
+        built = []
+        row = lambda rva, conf, tu: {"rva": rva, "size": "8", "kind": "code", "tu": tu, "confidence": conf, "by": "N",
+                                     "evidence": "", "source": ""}
+        with patch.object(T, "map_rows", return_value=[row(*b) for b in before]), patch.object(T.tu_map, "read_csv", return_value=ledger), \
+                patch.object(T.tu_map, "build", side_effect=lambda layout, led: built.append(led) or [row(*a) for a in after]):
+            return REAL_MAP_REGRESSIONS(self.TU, moved_rows=moved_rows), built[0]
+
+    def test_row_level_moves_repoint_only_those_rows_of_that_file(self):
+        rows = [("0x00001000", "approved", self.TU)]
+        why, ledger = self.row_level(rows, rows, {self.DONOR: ["0X00001000"]})     # any spelling of the address
+        self.assertIsNone(why)
+        self.assertEqual([r["source"] for r in ledger], [self.TU, self.DONOR, "Code/Other.cpp", self.DONOR])
+
+    def test_a_row_level_move_deletes_no_path(self):
+        # its file stays, so a row the map still places there is no orphan; only a lower confidence refuses
+        why, _ = self.row_level([("0x00001010", "approved", self.DONOR)], [("0x00001010", "approved", self.DONOR)],
+                                {self.DONOR: ["0x00001000"]})
+        self.assertIsNone(why)
+        why, _ = self.row_level([("0x00001010", "approved", self.TU)], [("0x00001010", "proposed", self.DONOR)],
+                                {self.DONOR: ["0x00001000"]})
+        self.assertIn("1 lowered: 0x00001010 approved", why)
+        self.assertNotIn("deletes", why)
+
+    def test_a_saved_split_plan_is_judged_too(self):
+        guard = SimpleNamespace(load=lambda: None, prepare=lambda d: None, judge=lambda *a: [])
+        plan = {"tu_file": self.TU, "accepted": [self.DONOR], "text": "t", "baseline": ["0x00001010"], "rows": 1,
+                "flags": [], "rejected": {}}
+        don = {self.DONOR: [{"target_rva": "0x00001010"}]}
+        applied = []
+        with patch.object(T, "Verifier", self.Verifier), patch.object(T, "merge_plan_state", return_value="s"), \
+                patch.object(T, "map_regressions", return_value="lost approval") as check:
+            out = T.reuse_split_plan(self.TU, don, {}, plan, False, guard, lambda *a: applied.append(a) or {}, "s",
+                                     moved_rows={self.DONOR: ["0x00001010"]})
+        self.assertEqual(out["blocked"], "lost approval")
+        check.assert_called_once_with(self.TU, moved_rows={self.DONOR: ["0x00001010"]})
+        self.assertEqual(applied, [])
 
     def held(self):
         held = T.Held()

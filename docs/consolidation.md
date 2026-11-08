@@ -495,7 +495,7 @@ trailer. Pin admission re-proves a moved fold proof at commit.
   `--split` that absorbs its whole donor rebuild the map in memory with the
   accepted donors' rows repointed and refuse when any code row's confidence falls
   or a row is placed in a path the move deletes. Move the group's files together.
-  A split that leaves its file in place is not judged this way.
+  A split that leaves its file in place is judged the same way, row by row.
 - **A write that fails partway keeps its claims.** A merge, split or shatter has
   no journal. An exception before the first write gives back what the call claimed;
   once the write has started, the tool says so and the claims stay held, so no
