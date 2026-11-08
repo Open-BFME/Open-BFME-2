@@ -10,8 +10,8 @@
 // leave the menu: state +0x288 becomes 9 and +0x28C names the screen to
 // open next.
 
-extern "C" int __cdecl strcmp(const char *left, const char *right);
 
+#include <string.h>
 #include "unicode_string.h"
 
 // TheGameState (VA 0x00DFF08C); its rowed 0x002DCCFB tells whether a save

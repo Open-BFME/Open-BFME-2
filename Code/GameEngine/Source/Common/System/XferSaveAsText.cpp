@@ -151,7 +151,6 @@ template <> _Vector_base<int, allocator<int> >::_Vector_base(const allocator<int
 // but strlen directly (its thunk at 0x00629170), which no one pair of CRT
 // headers gives under a single /MD setting.
 extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *buffer, unsigned int count, const char *format, va_list args);
-extern "C" unsigned int __cdecl strlen(const char *text);
 #pragma inline_depth(0)
 #define BFME_XFER_INLINE_CTOR
 #define BFME_XFER_INLINE_DTOR

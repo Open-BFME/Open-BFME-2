@@ -8,6 +8,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
+#include <stdio.h>
 #include <vector>
 // vector<unsigned int>'s allocator constructor inlines at every use here;
 // imported force-inline so this unit emits no COMDAT copy of it (its copy
@@ -106,7 +107,6 @@ AptStats::AptStats(void*host):GameStats::Persistent(7),owner(host),m_word1c(0)
 // registration at005DD2D3. Target virtual slots1/2 supply thresholds/points.
 // The rank-progress dependency has independently proven entry and thiscall ABI.
 class Rva00559AC1 {public:float PercentDoneUntilNextRank(int);int rva00559AC1(int);int rva00559ADC(int);};
-extern "C" __declspec(dllimport) int __cdecl sprintf(char*,const char*,...);
 void AptStats::NextRankExtern(int faction,char*out,bool lvalue)
 {
  if(lvalue)return;

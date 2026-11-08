@@ -11,7 +11,6 @@
 // Retail dynamic LOD name comparison uses the MSVCR71 _memicmp import.
 extern "C" __declspec(dllimport) int __cdecl _memicmp(
 	const void *left, const void *right, unsigned int count);
-extern "C" unsigned int __cdecl strlen(const char *text);
 #pragma intrinsic(strlen)
 #define DEFINE_PARTICLE_SYSTEM_NAMES
 #include "GameClient/ParticleSys.h"

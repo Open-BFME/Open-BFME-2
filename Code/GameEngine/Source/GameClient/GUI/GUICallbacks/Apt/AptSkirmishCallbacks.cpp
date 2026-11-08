@@ -8,6 +8,7 @@
 // its profile name entry, +0x698 its SkirmishPreferences (whose user name
 // list the profile callbacks walk; STLport and /EHs are for them).
 
+#include <string.h>
 #include "unicode_string.h"
 #include "ascii_string.h"
 #include "../../../../../Include/GameClient/SkirmishPreferencesClass.h"
@@ -49,7 +50,6 @@ void GadgetListBoxSetSelected(GameWindow *listBox, int selectIndex);
 void GadgetListBoxReset(GameWindow *listBox);
 int GadgetListBoxAddEntryText(GameWindow *listBox, UnicodeString text, int color, int row, int column, bool overwrite);
 
-extern "C" int __cdecl strcmp(const char *left, const char *right);
 
 class BfmeKeyLC;
 class BfmeObjENK;

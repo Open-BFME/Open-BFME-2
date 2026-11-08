@@ -8,13 +8,13 @@
 // remaining-time ternary reads it back (retail's distinct EAX copy of elapsed),
 // and the network headroom test is a plain if (no early exit).
 // Native22D290..22D7FC includes startup load, embedded catch handlers and pacing.
+#include <stdio.h>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Common/INIException.h"
 extern "C" __declspec(dllimport) unsigned __stdcall timeGetTime();
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned);
 extern "C" __declspec(dllimport) __declspec(noreturn) void __cdecl exit(int);
-extern "C" __declspec(dllimport) int __cdecl sprintf(char*,const char*,...);
 #include "../../../Libraries/Source/profile/profile.h"
 void _bfme_debugRecordCallsite(int);
 #include "../../Include/GameClient/TreeHintOpaque0043671B.h"

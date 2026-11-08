@@ -1,6 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?calcCRC@@YAIVAsciiString@@0@Z retail 0x0030050E 286B
 // File CRC: copy second arg string via _mbscpy using empty global fallback, strip 4-char extension, set local path, open via TheFileSystem, loop read plus ComputeCRC; first arg unused but destroyed; callers 0x00304FDD.
+#include <string.h>
 #include "ascii_string.h"
 class File;
 #include "../../Include/Common/FileSystem.h"
@@ -8,7 +9,6 @@ class File;
 extern FileSystem *TheFileSystem;
 unsigned int __cdecl ComputeCRC(const unsigned char *data, unsigned int len, unsigned int crc);
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-extern "C" unsigned int __cdecl strlen(const char *s);
 extern "C" void *__cdecl memset(void *dst, int c, unsigned int n);
 extern "C" __declspec(dllimport) char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 unsigned int __cdecl calcCRC(AsciiString a, AsciiString fileName)
