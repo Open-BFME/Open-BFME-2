@@ -657,7 +657,7 @@ protected:
 	virtual void onExit(bool cleanup, bool b); // +0x34
 public:
 	SpecialPowerType getSpecialPowerType() const;
-	bool rva00450AE9();
+	virtual bool rva00450AE9();
 	bool rva0044E85E(Coord3D *pos, float range);
 protected:
 	virtual bool handlePackingProcessing();

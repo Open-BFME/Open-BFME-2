@@ -68,7 +68,8 @@ public:
     virtual NameKeyType getModuleNameKey() const;
     virtual UpdateSleepTime update();
     virtual DisabledMaskType getDisabledTypesToProcess() const;
-    virtual void *slot25() { return 0; }
+    // 0x004543A9, from the +0x0C interface: the +0x20 interface, null-checked.
+    virtual void *slot25() { return static_cast<SpecialPowerUpdateInterface *>(this); }
     virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *, const Object *,
         const Coord3D *, unsigned int, const Waypoint *);
     // Retail's one-instruction bodies at +0x20: 0x0050B5C6 (mov al,1), 0x005C4AE5 (the byte at +0x74),
@@ -84,8 +85,8 @@ public:
 
 protected:
     virtual void onExit(bool, bool);
-    virtual bool vslot14();
 public:
+    virtual bool rva00450AE9(); // slot 14, 0x00450AE9
     virtual void startPreparation();
     virtual bool continuePreparation();
     virtual void triggerAbilityEffect();
@@ -98,7 +99,6 @@ public:
     virtual void startUnpacking();
 
     SpecialPowerType getSpecialPowerType() const;
-    bool rva00450AE9();
     bool rva0044E85E(Coord3D *, float);
     void rva0044EE07();
     void rva0044EE80();

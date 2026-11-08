@@ -305,7 +305,7 @@ class SpecialAbilityUpdate
 public:
 	virtual UpdateSleepTime update();
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate, const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);
-	bool rva00450AE9();
+	virtual bool rva00450AE9();
 
 protected:
 	virtual void onExit(bool a, bool b);
@@ -706,6 +706,6 @@ void GiveUpgradeUpdate::GetDeliveryTarget()
 unsigned char GiveUpgradeUpdate::rva0049C8E9()
 {
     GetDeliveryTarget();
-    ((SpecialAbilityUpdate *)this)->rva00450AE9();
+    ((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::rva00450AE9();
     return 0;
 }
