@@ -29,3 +29,12 @@ This clears one header debt and removes one private class copy. It is scoped
 code/provider evidence against current explicit inputs and index d171e84869,
 not a full current image, new census, coverage gain or runtime result. Full
 Object recovery and retail TU consolidation remain separate work.
+
+Published as 5cb5a9defb on attempt 3 (38.2 seconds for the successful
+attempt); two lost races retried through push.py with reused verification
+receipts. Required row/EH/scoped-DIR32 checks pass. Broader audit remains
+INCONCLUSIVE: index d171e84869 versus outgoing base
+6d2b4678a617b00bb5bf9f4f475eaf9b12fa238d; Common/AICowerState_onEnter.cpp
+lacks a current receipt. Ordinary preview conserves LINKS/807 and still
+reports unchanged, unreferenced clearStatusBit/setStatusBit variants; those
+are not cleared by this header adoption.

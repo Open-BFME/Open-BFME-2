@@ -537,3 +537,12 @@ Recorder provider; the added iterator is native-exact. Strict preparation
 passes 142/142 across the two sources. Full Object/TU and image recovery
 remain open; no new coverage or runtime clearance.
 [Accessed offsets and provider proof](../../reverse/attempt_support/object-on-die-thing-adoption-20261108/README.md).
+
+Published as 5cb5a9defb on attempt 3 (38.2 seconds for the successful
+attempt); two lost races retried through push.py with reused verification
+receipts. Required row/EH/scoped-DIR32 checks pass. Broader audit remains
+INCONCLUSIVE: index d171e84869 versus outgoing base
+6d2b4678a617b00bb5bf9f4f475eaf9b12fa238d; Common/AICowerState_onEnter.cpp
+lacks a current receipt. Ordinary preview conserves LINKS/807 and still
+reports unchanged, unreferenced clearStatusBit/setStatusBit variants; those
+are not cleared by this header adoption.
