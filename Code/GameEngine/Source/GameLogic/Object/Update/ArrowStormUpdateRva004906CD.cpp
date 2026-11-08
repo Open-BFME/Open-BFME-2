@@ -56,14 +56,16 @@ public:
 	virtual Bool vslot08(int v);
 };
 
-class Rva004906CD : public SpecialAbilityUpdate
+class ArrowStormUpdate : public SpecialAbilityUpdate
 {
 public:
-	Bool rva004906CD(const Coord3D *pos);
+	virtual Bool vslot08(int value);
 };
 
-Bool Rva004906CD::rva004906CD(const Coord3D *pos)
+// The family's slot 8 spells its parameter int; this body's is a position.
+Bool ArrowStormUpdate::vslot08(int value)
 {
+	const Coord3D *pos = (const Coord3D *)value;
 	char *base = (char *)this;
 	struct Mod {
 		char pad[0xc8];

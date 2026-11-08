@@ -1,84 +1,41 @@
-char g_00C4D61C;
-char g_00C4D700;
-
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB
+// stlport
 //
-// ??1ArrowStormUpdate@@UAE@XZ, retail 0x004907C0, 49 bytes. Virtual dtor
-// shard: ctor TU keeps its verified shape untouched (adding a dtor decl
-// there would perturb it), so the class is re-declared here with the ctor
-// declared-only and only the dtor defined.
-//
-// Shape mirrors the ctor: explicit 4 vtable installs (0xC4D700 primary plus
-// 0xC4D640/0xC4DEE8/0xC4D61C secondaries) plus freelist-node member at +0x88
-// via pool-free 0x268902 pin plus implicit Rva0044EF5E base-dtor tail call.
-// Unlike the GloriousCharge/RousingSpeech/DamageField siblings there is NO
-// separate reset() call: retail has a single call (lea ecx,[esi+0x88] then
-// call 0x268902), and 0x268902 itself calls reset (0x26549E) internally.
-//
-// Identity proof (upgrades opaque ArrowStormUpdate): ArrowStorm's primary vtable
-// 0xC4D700 (installed by the rowed ctor) has slot0 = ??_G at 0x490A58, and
-// that ??_G calls 0x4907C0. The 4 installs match the ctor's 4 installs.
-// Zero new pins (base dtor via ??1Rva0044EF5E pin, pool-free via Rva00268902
-// pin, operator delete rowed).
-//
-// LEVERS (sibling-proven): (1) base dtor declared VIRTUAL (true UAE spelling,
-// shares vfptr so base stays at +0; non-virtual base pushes to +4 with a
-// this-adjust). (2) NO explicit base call (explicit doubles with the
-// implicit one). (3) /GX- (retail dtor is frameless with no EH prologue;
-// /GX adds cookie+frame+states).
+// ??1ArrowStormUpdate@@UAE@XZ, retail 0x004907C0, 49 bytes. The compiler's four table installs, the
+// list member's destructor 0x00268902 (which clears the list itself: unlike its siblings this body
+// has no separate clear) and the base destructor's tail call.
 
-extern "C" const void *const __identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@")[];  // folded vftable 0x00C4D640 (11 classes), by its data-ledger name
-extern "C" const void *const __identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BRva0044EF5E@@@")[];  // folded vftable 0x00C4DEE8 (4 classes), by its data-ledger name
+#include "../../../../Include/GameLogic/Module/SpecialAbilityUpdate.h"
+#include "../../../../Include/GameLogic/Module/Rva0029FB3BMember.h"
 
-class Thing;
-class ModuleData;
-
-class Rva0044EF5E
+class Rva0044EF5E : public SpecialAbilityUpdate
 {
 public:
 	Rva0044EF5E(Thing *thing, const ModuleData *moduleData);
 	virtual ~Rva0044EF5E();
-private:
-	char m_pad[0x88];
 };
-
-class Rva0029FB3BMember
-{
-public:
-	void init(void *context);
-	void reset();
-};
-
-class PoolMember
-{
-public:
-	void Rva00268902();
-};
-
+// Retail's tables: 0x00C4D700 (23 slots), 0x00C4D640 at +0x0C, 0x00C4DEE8 at +0x10 and 0x00C4D61C at +0x20.
 class ArrowStormUpdate : public Rva0044EF5E
 {
 public:
 	ArrowStormUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~ArrowStormUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void startPreparation();
+	virtual void triggerAbilityEffect();
+	virtual bool continuePreparation(); // primary slot 16, 0x00490628
+	virtual bool vslot08(int value); // +0x20 slot 8, 0x004906CD
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
-	Rva0029FB3BMember m_88;
-	int m_8C;
-	int m_90;
-	int m_94;
-	unsigned char m_98;
+	Rva0029FB3BMember m_88; // +0x88
+	int m_8C; // +0x8C
+	int m_90; // +0x90
+	int m_94; // +0x94
+	bool m_98; // +0x98
 };
-
-void deleteArrowStormUpdate(ArrowStormUpdate *arrowStormUpdate)
-{
-	delete arrowStormUpdate;
-}
 
 // ??1ArrowStormUpdate@@UAE@XZ @0x004907C0
 ArrowStormUpdate::~ArrowStormUpdate()
 {
-	Rva0029FB3BMember *member = (Rva0029FB3BMember *)((char *)this + 0x88);
-	*(const void **)((char *)this + 0x0C) = (const void *)((unsigned int)__identifier("??_7BattlePlanUpdate@@6BBehaviorModuleInterface@@@"));
-	*(const void **)((char *)this + 0x10) = (const void *)((unsigned int)__identifier("??_7GiveOrRestoreUpgradeSpecialPower@@6BRva0044EF5E@@@"));
-	*(const void **)((char *)this + 0x20) = (const void *)(unsigned int)&g_00C4D61C;
-	((PoolMember *)member)->Rva00268902();
 }

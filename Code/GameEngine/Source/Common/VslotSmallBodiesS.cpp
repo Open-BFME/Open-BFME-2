@@ -16,15 +16,15 @@ class SpecialAbilityUpdate
 public:
 	virtual bool continuePreparation();
 };
-class Rva00490628 : public SpecialAbilityUpdate
+class ArrowStormUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual bool rva0044FC52();
+	virtual bool continuePreparation();
 private:
 	char m_pad04[0x94];
 	bool m_98;
 };
-bool Rva00490628::rva0044FC52()
+bool ArrowStormUpdate::continuePreparation()
 {
 	if (m_98)
 		return false;
