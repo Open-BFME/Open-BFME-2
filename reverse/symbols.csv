@@ -1851,7 +1851,6 @@ name,address,notes
 ??1CountUpTransitionBase@@UAE@XZ,0x001DBAC3
 ??1CrateCollideModuleData@@UAE@XZ,0x00255A42,ICF twin of UpgradeModuleData dtor at same address; Salvage dtor 0x2563EF calls it as Crate base; both destroy string at +0x4C and restore BBB554
 ??1DX8PolygonRendererList@@UAE@XZ,0x00144690,DX8PolygonRendererList dtor: state-1 unwind target of the MeshModelClass copy ctor at 0x00172940; vtable 0xBD34E0 slot 0 reaches the 0x00144850 deleting dtor which calls this body (same bytes as the opaque 0x00144690 row)
-??1DamageModule@@UAE@XZ,0x004B96CC,twin of rowed Rva004B96CC for TransitionDamageFX dtor at 0x4BA47C which calls here plus ctor at 0x4BA3EA calls DamageModule ctor at 0x4B9704
 ??1DebugCmdInterface@@MAE@XZ,0x006C5930,debug library DebugCmdInterface destructor: the 7-byte body stores vftable 0x007BE7EC whose slot 0 is the rowed ??_GDebugCmdInterface; the DebugCmdInterfaceDebug constructor unwind funclet destroys that base by jumping here (also pinned as the address model ??1Rva006C5930Dtor)
 ??1DebugCmdInterface@@UAE@XZ,0x006C5930,twin spelling of the MAE pin at the same 7B base-dtor body for the public link-canonical base view used by DebugCmdInterfaceDebugCtor.cpp
 ??1DebugIOConBase@@UAE@XZ,0x0003F320,TU-private view (DebugIOCon units) of the DebugIOInterface base: the DebugIOCon constructor and destructor-thunk unwind funclets destroy that base through the DebugIOInterface destructor at this address

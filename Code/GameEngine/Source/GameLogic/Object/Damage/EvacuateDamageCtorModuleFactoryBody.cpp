@@ -34,6 +34,9 @@ public:
     // 0x004B9704; an inline body here emitted a second, wrong copy first in
     // link order.
     DamageModule(Thing *thing, const ModuleData *moduleData);
+    // Out of line: DamageModuleCtor.cpp defines it (retail 0x004B96CC). The implicit one here was the
+    // tree's only ??1DamageModule, and it called this view's ~PB_DeepBase, which nothing defines.
+    virtual ~DamageModule();
 };
 
 struct EvacuationRecord

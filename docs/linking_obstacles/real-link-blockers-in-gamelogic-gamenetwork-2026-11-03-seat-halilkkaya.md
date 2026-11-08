@@ -598,3 +598,16 @@ also emitted out of line and no row names `??1BehaviorModule@@`. Retail's out-of
 its 2 names. Next step and prepared-unit recipe:
 [lockweaponcreate-createmodule-fold-20261107-lk41.md](../../reverse/attempt_support/lockweaponcreate-createmodule-fold-20261107-lk41.md).
 Real link confirmation: not claimed.
+
+#### Swarm Link lane (2026-11-08): `??1PB_DeepBase@@UAE@XZ` resolved without the class fold
+
+- `DamageModuleCtor.cpp` on canonical `DamageModuleClass.h` now defines `DamageModule::~DamageModule`
+  (inline `~BehaviorModule`, as `CreateModule.cpp`, with `BFME_BEHAVIORMODULE_LOADPOSTPROCESS`), rowed as an
+  ICF twin of `??1Rva004B96CC@@UAE@XZ` at 0x004B96CC with its fold proof. The Evacuate unit declares the
+  destructor out of line, so `~PB_DeepBase` is no longer referenced. The `??1DamageModule` pin is gone.
+- Still open, as cleanup and not a blocker: the class fold of `Rva004B96CC` into `DamageModule`. Seven units
+  still spell it (`Rva0049B47CThreeVptrDerived`, `Rva004B96CCDerived`, `TailJumpWrappers5B`, its `_~Rva002563CE`
+  copy, `W3DAptComponentView3D`, `TransitionDamageFXDtor`, `EvacuateDamage`), and
+  `HordeTransportContainDamageCtor` names a table after it. `rename.py class --fold` now passes retail's vtable
+  proof and asks for them `--prepared`. `Rva004B96CCDerived`'s tables would take the real `BoneFXDamage` and
+  `ReflectDamage` names, so they need those classes' real slots first, or they collide with the real units' copies.
