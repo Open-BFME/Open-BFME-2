@@ -67829,7 +67829,7 @@ __ehhandler$?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ,,0x0078
 ?Rva00415B91Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00415B91,197,Code/GameEngine/Source/Common/Rva00415B91Parse.cpp,matched,
 ?rva0043B864@Rva0043B2E2@@QAEAAVRva0043B196@@ABH@Z,,0x0043B864,92,Code/GameEngine/Source/Common/Rva0043B864MapGet.cpp,matched,map get-or-insert by int key; mapped value view has an empty inline dtor so cl keeps the ESP save of the by-value iterator argument (W7-G1 r8)
 ?Rva00468908Parse@@YAXPAVINI@@PAX1PBX@Z,,0x00468908,215,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp,matched,
-?rva005EFFA6@Rva005EFFA6@@QAEXPAVINI@@@Z,,0x005EFFA6,134,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,matched,
+?rva005EFFA6@MappedImageCache@@UAEXPAVINI@@@Z,,0x005EFFA6,134,Code/GameEngine/Source/Common/Rva005EFFA6FieldTable.cpp,matched,
 ?isValidContainerFor@HordeTransportContain@@UAE_NPAVObject@@_N1@Z,,0x004771EB,147,Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIsValidContainerFor.cpp,matched,slot 38 of HordeTransportContain +0x20 vftable 0xC45D30 beside rowed slot 27: OpenContain base admission 462977; status 0x26 rider without +0x250 member via +0x11D helper 588BF3; capacity iface slots 0x114(0)+0xCC plus rowed 28FBBE against module data +0x98
 ?rva00428B27@VersionBlockParser@@QAEXPBD0@Z,,0x00428B27,201,Code/GameEngine/Source/Common/VersionBlockParser.cpp,matched,
 ?appendToList@Object@@QAEXPAPAV1@0@Z,,0x0028B49B,51,Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp,matched,WB debug CD0980 Object.cpp:5969 appendToList asserts name pListTail and m_prev->m_next; +0x90 m_prev +0x8C m_next; m_prev assigned before m_next clear

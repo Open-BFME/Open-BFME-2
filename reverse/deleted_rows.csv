@@ -5813,3 +5813,4 @@ __ehhandler$?rva00587F11@Rva00587F11Factory@@QAEPAVRva005D6FCC@@PAX@Z,0x0079CBA3
 __ehhandler$??1Rva005F00FB@@UAE@XZ,0x007A4B35,"Renamed to __ehhandler$??1MappedImageCache@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C78A78)"
 ??0Rva005F00FB@@QAE@XZ,0x005F005B,"Renamed to ??0MappedImageCache@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C78A78)"
 __ehhandler$??0Rva005F00FB@@QAE@XZ,0x007A4B0D,"Renamed to __ehhandler$??0MappedImageCache@@QAE@XZ by tools/rename.py (fold: retail vftable 0x00C78A78)"
+?rva005EFFA6@Rva005EFFA6@@QAEXPAVINI@@@Z,0x005EFFA6,"Renamed to ?rva005EFFA6@MappedImageCache@@UAEXPAVINI@@@Z by tools/rename.py (to-class: retail vftable 0x00C78A78 slot 1)"

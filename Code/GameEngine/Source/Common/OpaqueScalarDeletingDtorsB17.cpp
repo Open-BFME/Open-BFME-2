@@ -144,12 +144,15 @@ Rva005EE05E::Rva005EE05E(EmitVtableTag *)
 {
 }
 
+class INI;
+
 class MappedImageCache
 {
 public:
 	MappedImageCache(EmitVtableTag *);
 public:
 	virtual ~MappedImageCache();
+	virtual void rva005EFFA6(INI *ini);
 };
 
 // ?<MappedImageCache::MappedImageCache> absent-from-retail
