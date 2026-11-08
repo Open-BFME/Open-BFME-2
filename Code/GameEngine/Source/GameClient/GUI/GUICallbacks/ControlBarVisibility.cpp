@@ -75,17 +75,7 @@ public:
 class Rva0031AF54 { public: void rva0031AF54(bool flag); };
 class Rva0031AFDE { public: Int rva0031AFDE(); };
 
-class ControlBar
-{
-public:
-	void hideSpecialPowerShortcut();
-	void hidePurchaseScience();
-
-	char m_pad00[0x10];
-	AnimateWindowManager *m_controlBarAnimateWindowManager;   // +0x10
-	char m_pad14[0x29C - 0x14];
-	Int m_29c;                                                // +0x29C
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 class RadarWindowOverrideSource
 {
@@ -141,8 +131,8 @@ void HideControlBar(Bool immediate)
 		}
 		else if (TheControlBar)
 		{
-			if (TheControlBar->m_controlBarAnimateWindowManager)
-				TheControlBar->m_controlBarAnimateWindowManager->reverseAnimateWindow();
+			if (TheControlBar->field10)
+				TheControlBar->field10->reverseAnimateWindow();
 			((Rva0031AF54 *)TheControlBar)->rva0031AF54(false);
 		}
 
@@ -161,9 +151,9 @@ void HideControlBar(Bool immediate)
 void ShowControlBar(Bool immediate)
 {
 	HideControlBar(true);
-	if (TheControlBar->m_29c == 0)
+	if (TheControlBar->field29C == 0)
 		((Rva0031AFDE *)TheControlBar)->rva0031AFDE();
-	switch (TheControlBar->m_29c)
+	switch (TheControlBar->field29C)
 	{
 	case 1:
 		if (theRadarWindowOverrideSource)

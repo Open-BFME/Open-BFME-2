@@ -239,8 +239,6 @@ struct CommandObjectView {
     char unknown08[0x250-8]; CommandContainView *contain;
 };
 
-struct CommandDrawableView { char unknown00[0xFC]; Object *object; };
-
 class BfmeMemberRV { public: bool bfmeAskRV(); };
 
 class PlayerList;
@@ -274,24 +272,7 @@ enum CommandAvailability
 	COMMAND_DONE = 8
 };
 
-class ControlBar {
-protected:
-    void updateContextCommand();
-    static void populateInvDataCallback(Object *,void *);
-public:
-    int rva0053BA87(const CommandButton *,Object *) const;
-    void doTransportInventoryUI(Object *,CommandSet *);
-    void setControlCommand(GameWindow *,const CommandButton *);
-    void rva0031D230();
-    void setPortraitByObject(Object *obj);
-    CommandAvailability getCommandAvailability(const CommandButton *, GameWindow *, Object *, float *, bool) const;
-private:
-    char unknown00[0x50]; GameWindow *queueParent;
-    char unknown54[0x6C-0x54]; CommandDrawableView *selected;
-    char unknown70[0x80-0x70]; int lastInventoryCount;
-    char unknown84[0xDC-0x84]; GameWindow *windows[32];
-    char unknown15C[0x208-0x15C]; int clockColor;
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 // Retail53B946..53B96632B and WB111BFD0/49 prove this callback.
 // Native availability53C040 passes it to the Castle owned-object iterator
@@ -441,24 +422,24 @@ void ControlBar::doTransportInventoryUI(Object *transport,CommandSet *set)
         if(button&&button->getCommandType()==0x10){
             if(first==-1)first=i;
             last=i;
-            if(windows[i]){
-                windows[i]->winHide(false);
-                windows[i]->winEnable(false);
-                windows[i]->winClearStatus(0x200);
-                Rva003284ED(windows[i],0);
-                if(*((unsigned char *)transport+0x1C8)&0x20)windows[i]->winHide(true);
-                setControlCommand(windows[i],button);
-                if(*((unsigned char *)button+0x101))windows[i]->winSetStatus(0x4000000);
-                else windows[i]->winClearStatus(0x4000000);
+            if(fieldDC[i]){
+                fieldDC[i]->winHide(false);
+                fieldDC[i]->winEnable(false);
+                fieldDC[i]->winClearStatus(0x200);
+                Rva003284ED(fieldDC[i],0);
+                if(*((unsigned char *)transport+0x1C8)&0x20)fieldDC[i]->winHide(true);
+                setControlCommand(fieldDC[i],button);
+                if(*((unsigned char *)button+0x101))fieldDC[i]->winSetStatus(0x4000000);
+                else fieldDC[i]->winClearStatus(0x4000000);
             }
         }
     }
     if(last>=0){
         CommandInventoryData data;
-        data.windows=windows;data.current=first;data.last=last;data.transport=transport;
+        data.windows=fieldDC;data.current=first;data.last=last;data.transport=transport;
         contain->iterateContained(populateInvDataCallback,&data,true);
     }
-    lastInventoryCount=contain->getContainCount(0);
+    field80=contain->getContainCount(0);
 }
 
 // ?Rva0053B946@@YAHPAVObject@@PAUCommandCastleKindFilter@@@Z
@@ -555,27 +536,27 @@ int ControlBar::rva0053BA87(const CommandButton *firstOwner, Object *secondOwner
 void ControlBar::updateContextCommand()
 {
     Object *obj = 0;
-    if (selected) obj = selected->object;
+    if (field6C) obj = field6C->m_object;
     CommandContainView *contain = obj ? ((CommandObjectView *)obj)->contain : 0;
-    if (contain && contain->getContainMax() > 0 && lastInventoryCount != contain->getContainCount(0)) {
-        lastInventoryCount = contain->getContainCount(0);
+    if (contain && contain->getContainMax() > 0 && field80 != contain->getContainCount(0)) {
+        field80 = contain->getContainCount(0);
         rva0031D230();
     }
     CommandProductionView *production = obj ? (CommandProductionView *)obj->rva0028BC58(0) : 0;
-    if (queueParent->winIsHidden() == false) {
+    if (field48[2]->winIsHidden() == false) {
         setPortraitByObject(0);
         if (production) {
             const CommandProductionEntry *entry = production->firstProduction();
             if (entry) {
                 static unsigned int winID = TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonQueue01");
-                GameWindow *window = ((CommandWindowManagerView *)TheWindowManager)->getWindow(queueParent, winID);
-                Rva003284B9(window, (int)entry->percent, clockColor);
+                GameWindow *window = ((CommandWindowManagerView *)TheWindowManager)->getWindow(field48[2], winID);
+                Rva003284B9(window, (int)entry->percent, field208);
             }
         }
     }
     bool locallyControlled = obj ? obj->isLocallyControlled() : false;
     for (int i = 0; i < 32; ++i) {
-        GameWindow *win = windows[i];
+        GameWindow *win = fieldDC[i];
         if (!win) continue;
         const CommandButton *command = (const CommandButton *)GadgetButtonGetData(win);
         if (!command) continue;
@@ -623,11 +604,11 @@ void ControlBar::updateContextCommand()
             if (availability == 8) win->winSetStatus(0x01000000);
             break;
         case 5:
-            color = clockColor; win->winEnable(false); win->winSetStatus(0x00400000); break;
+            color = field208; win->winEnable(false); win->winSetStatus(0x00400000); break;
         case 6: case 7:
             win->winEnable(false); win->winSetStatus(0x01000000); break;
         case 9:
-            color = clockColor; win->winEnable(true); win->winSetStatus(0x00400000); break;
+            color = field208; win->winEnable(true); win->winSetStatus(0x00400000); break;
         default: win->winEnable(true); break;
         }
         if (color < 1.0f && !spectator) Rva003284B9(win, (int)(percent * 100.0f), color);

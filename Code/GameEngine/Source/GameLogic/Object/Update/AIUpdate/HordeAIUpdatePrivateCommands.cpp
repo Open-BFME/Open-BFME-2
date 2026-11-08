@@ -104,17 +104,7 @@ private:
 	unsigned char m_privateStatus; // +0x438
 };
 
-// TheControlBar (0x00E01CFC); +0x28 is the UI-dirty flag other users set.
-class ControlBar
-{
-public:
-	void markUIDirty() { m_UIDirty = true; }
-private:
-	char m_unrecovered00[0x28];
-	bool m_UIDirty;
-};
-
-extern ControlBar *TheControlBar;
+#include "../../../../../Include/GameClient/ControlBar.h"
 
 #include "../../../../../Include/GameLogic/ActionManager.h"
 

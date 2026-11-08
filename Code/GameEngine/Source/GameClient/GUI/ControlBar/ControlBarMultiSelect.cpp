@@ -205,32 +205,7 @@ enum CommandAvailability
 	COMMAND_DONE = 8
 };
 
-class ControlBar
-{
-protected:
-    void addCommonCommands(Drawable *, bool);
-	void updateContextMultiSelect();
-    void populateMultiSelect();
-public:
-    void populateCommand(Object *, bool);
-    void setPortraitByObject(Object *obj);
-protected:
-    void updateContextCommand();
-public:
-    void setControlCommand(GameWindow *, const CommandButton *);
-    CommandAvailability getCommandAvailability(const CommandButton *, GameWindow *, Object *, Real *, Bool) const;
-
-private:
-	char m_slice_pad[0x6C];					// retail this+0x00 .. +0x6B, untouched
-	Drawable *m_currentSelectedDrawable;			// this+0x6C
-	char m_slice_padC[0xDC - 0x70];			// this+0x70 .. +0xDB, untouched
-	GameWindow *m_commandWindows[MAX_COMMANDS_PER_SET];	// this+0xDC
-	const CommandButton *m_commonCommands[MAX_COMMANDS_PER_SET];	// this+0x15C
-	char m_slice_padE[0x208 - (0x15C + MAX_COMMANDS_PER_SET * 4)];
-	Int m_buildUpClockColor;				// this+0x208
-    char unknown20C[0x2A0-0x20C];
-    Rva0053ED1A *overlaySink; // target2A0
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 // ?updateContextMultiSelect@ControlBar@@IAEXXZ
 // WB identifies the operation as updateContextMultiSelect. Retain the existing
@@ -245,7 +220,7 @@ void ControlBar::updateContextMultiSelect(void)
 	Int objectsThatCanDoCommand[MAX_COMMANDS_PER_SET];
 	Int i;
 
-	if (m_currentSelectedDrawable != 0)
+	if (field6C != 0)
 	{
 		updateContextCommand();
 		return;
@@ -272,7 +247,7 @@ void ControlBar::updateContextMultiSelect(void)
 
 		for (i = 0; i < MAX_COMMANDS_PER_SET; i++)
 		{
-			win = m_commandWindows[i];
+			win = fieldDC[i];
 			if (!win)
 				continue;
 
@@ -311,7 +286,7 @@ void ControlBar::updateContextMultiSelect(void)
 					break;
 
 				case 5:
-					color = m_buildUpClockColor;
+					color = field208;
 					win->winEnable(false);
 					win->winSetStatus(0x00400000);
 					break;
@@ -340,14 +315,14 @@ void ControlBar::updateContextMultiSelect(void)
 
 	for (i = 0; i < MAX_COMMANDS_PER_SET; i++)
 	{
-		win = m_commandWindows[i];
+		win = fieldDC[i];
 		if (!win)
 			continue;
 
 		if (win->winIsHidden() == true)
 			continue;
 
-		if (m_commonCommands[i] == 0)
+		if (field15C[i] == 0)
 			continue;
 
 		if (objectsThatCanDoCommand[i] > 0)
@@ -378,8 +353,8 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
     const CommandSet *commandSet = (const CommandSet *)((Rva0031D5F8 *)this)->rva0031D5F8(obj->rva00290E67());
     if (commandSet == 0) {
         for (i = 0; i < MAX_COMMANDS_PER_SET; i++) {
-            m_commonCommands[i] = 0;
-            if (m_commandWindows[i]) m_commandWindows[i]->winHide(true);
+            field15C[i] = 0;
+            if (fieldDC[i]) fieldDC[i]->winHide(true);
         }
         return;
     }
@@ -387,10 +362,10 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
         for (i = 0; i < MAX_COMMANDS_PER_SET; i++) {
             command = commandSet->getCommandButton(i);
             if (command && (command->getOptions() & 0x100) != 0) {
-                m_commonCommands[i] = command;
-                if (m_commandWindows[i]) {
-                    m_commandWindows[i]->winHide(false);
-                    m_commandWindows[i]->winEnable(true);
+                field15C[i] = command;
+                if (fieldDC[i]) {
+                    fieldDC[i]->winHide(false);
+                    fieldDC[i]->winEnable(true);
                     if (command->getCommandType() == 0x24) {
                         int modeVote = 0;
                         const BfmeControlBarDrawableList *selected =
@@ -414,7 +389,7 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
                     } else {
                         const_cast<CommandButton *>(command)->rva0035B5C2(obj, false);
                     }
-                    setControlCommand(m_commandWindows[i], command);
+                    setControlCommand(fieldDC[i], command);
                 }
             }
         }
@@ -422,17 +397,17 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
         for (i = 0; i < MAX_COMMANDS_PER_SET; i++) {
             command = commandSet->getCommandButton(i);
             bool attackMove = (command && command->getCommandType() == 0xA) ||
-                (m_commonCommands[i] && m_commonCommands[i]->getCommandType() == 0xA);
-            if (attackMove && !m_commonCommands[i]) {
-                m_commonCommands[i] = command;
-                if (m_commandWindows[i]) {
-                    m_commandWindows[i]->winHide(false);
-                    m_commandWindows[i]->winEnable(true);
-                    setControlCommand(m_commandWindows[i], command);
+                (field15C[i] && field15C[i]->getCommandType() == 0xA);
+            if (attackMove && !field15C[i]) {
+                field15C[i] = command;
+                if (fieldDC[i]) {
+                    fieldDC[i]->winHide(false);
+                    fieldDC[i]->winEnable(true);
+                    setControlCommand(fieldDC[i], command);
                 }
-            } else if (command != m_commonCommands[i] && !attackMove) {
-                m_commonCommands[i] = 0;
-                if (m_commandWindows[i]) m_commandWindows[i]->winHide(true);
+            } else if (command != field15C[i] && !attackMove) {
+                field15C[i] = 0;
+                if (fieldDC[i]) fieldDC[i]->winHide(true);
             }
         }
     }
@@ -473,7 +448,7 @@ void ControlBar::populateMultiSelect()
         }
     }
     if (best) {
-        m_currentSelectedDrawable = best;
+        field6C = best;
         populateCommand(best->getObject(), false);
         return;
     }
@@ -483,7 +458,7 @@ void ControlBar::populateMultiSelect()
     Object *portraitObject = 0;
     ((Rva0053DB02 *)this)->rva0053DB02();
     for (int i = 0; i < MAX_COMMANDS_PER_SET; ++i)
-        if (m_commandWindows[i]) m_commandWindows[i]->winHide(true);
+        if (fieldDC[i]) fieldDC[i]->winHide(true);
     for (BfmeControlBarDrawableListNode *it = selected->head->next;
          it != selected->head; it = it->next) {
         Drawable *draw = it->value;
@@ -505,5 +480,5 @@ void ControlBar::populateMultiSelect()
     setPortraitByObject(portraitObject);
     if (theRadarWindowOverrideSource)
         ((Rva002D363EOwner *)theRadarWindowOverrideSource)->rva002D363E(0);
-    overlaySink->rva0053EF2E();
+    field2A0->rva0053EF2E();
 }

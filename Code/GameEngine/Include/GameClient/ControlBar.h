@@ -4,6 +4,7 @@
 // Target facts: 0x00C0CC88 has fourteen slots: 0=0x0031EB7A (deleting wrapper calling destructor 0x0031DCF0), 1=0x0031C83D (rowed init), 2=0x0031B53D (INI-loading override), 3/8/12=0x000B3FD0 (ret), 4=0x0031E7F0 (reload notice, one argument), 5=0x0047A699 (false), 6=0x000D43D0 (zero), 7/13=0x0047A69C (ret 4), 9=0x0031E09E (rowed reset), 10=0x0031E25E (rowed update), 11=0x005CB9FF (false, ret 4). At 0x00C0CCC0 a UTF-16 string begins; its first word pair 0x00490052 is not a fifteenth function pointer. The registered parent supplies slots 2-8 and 11-13; only its overridden slots 1/2/4/9/10 are redeclared here. The parent's integer slot-4 parameter preserves the existing ABI for retail's pointer argument.
 // Target facts: constructor 0x0031EA46 clears byte +0x28, 0x0031E9C9 clears pointer +0x210, and 0x0031E983 clears byte +0x214. Other storage stays opaque; its extent follows the two allocations. Field names are neutral because these stores do not establish original member spellings.
 // Target facts: W3DCommandBarBackgroundDraw reads the manager pointer +0x44 at 0x0009FA95, W3DCommandBarGridDraw reads the border-color dword +0x22C at 0x0009DE6C, and ControlBarArrowTransition::init reads the image pointer +0x26C at 0x0035D87A, each through TheControlBar (VA 0x00E01CFC). Player's 0x002ADC77 writes byte +0x28 = 1 through that global.
+// Target facts: the constructor clears +0x10 at 0x0031EAC8, nine dwords +0x48..+0x6B with one rep stosd at 0x0031EA4C, +0x6C at 0x0031EA9D, +0x70 at 0x0031EAA0, +0x7C at 0x0031EAAB and +0x29C at 0x0031EB26. HideControlBar reads +0x10 at 0x00402A1C and calls AnimateWindowManager::reverseAnimateWindow (0x0053B417) on it; ShowControlBar tests +0x29C at 0x00402A99. processCommandTransitionUI 0x00539997 reads the context dword +0x70 and the drawable +0x6C whose object it tests at +0xFC; populateOCLTimer reads window +0x64 at 0x0053E360; updateContextOCLTimer compares +0x7C at 0x0053E326 and updateOCLTimerTextDisplay stores it at 0x0053E29D. The constructor also clears dword +0x80 at 0x0031EABF and 32 dwords +0xDC..+0x15B with one rep stosd at 0x0031EA55, and stores the clock color 0x64000000 at +0x208 at 0x0031EA1B. It clears 32 dwords +0x15C..+0x1DB (ecx 0x20 from 0x0031E9B8, rep stosd at 0x0031EA13), which updateContextMultiSelect walks from 0x0053E11F. populateMultiSelect loads +0x2A0 at 0x0053DEFA and calls ?rva0053EF2E@Rva0053ED1A@@QAEXXZ (0x0053EF2E) on it; init passes the same pointer at 0x0031CA2C. Zero Hour declares the same positions as AnimateWindowManager*, GameWindow* parents, Drawable*, the context, the unsigned OCL-timer seconds, an inventory count, the 32 GameWindow* command windows, the 32 const CommandButton* common commands and the clock Color; names stay neutral.
 // Donor facts: Zero Hour ControlBar.h declares markUIDirty, setObserverLookAtPlayer, getObserverLookAtPlayer, getControlBarSchemeManager, getBorderColor and getArrowImage. Their operations use the fields established by retail. All other methods below are declarations for ledger rows or existing retail-call bindings; no lifetime or rowed method is defined inline.
 // Ledger declarations (RVA, exact decorated identity):
 // 0x000D43D0 ?calculateVeterancyOverlayForObject@ControlBar@@KAPBVImage@@PBVObject@@@Z
@@ -103,6 +104,7 @@
 #endif
 #include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
+class AnimateWindowManager;
 class CommandButton;
 class CommandSet;
 class ControlBarSchemeManager;
@@ -113,6 +115,7 @@ class INI;
 class Object;
 class Player;
 class PlayerTemplate;
+class Rva0053ED1A;
 struct BfmeMsgDN;
 struct Coord3D;
 enum CBCommandStatus;
@@ -207,17 +210,33 @@ public:
     int getBorderColor() { return field22C; }
     const Image *getArrowImage() { return field26C; }
 
-    unsigned char field0C[0x1C];
+    unsigned char field0C[0x4];
+    AnimateWindowManager *field10;
+    unsigned char field14[0x14];
     bool field28;
     unsigned char field29[0x1B];
     ControlBarSchemeManager *field44;
-    unsigned char field48[0x1C8];
+    GameWindow *field48[9];
+    Drawable *field6C;
+    int field70;
+    unsigned char field74[0x8];
+    unsigned int field7C;
+    int field80;
+    unsigned char field84[0x58];
+    GameWindow *fieldDC[32];
+    const CommandButton *field15C[32];
+    unsigned char field1DC[0x2C];
+    int field208;
+    unsigned char field20C[0x4];
     Player *field210;
     unsigned char field214[0x18];
     int field22C;
     unsigned char field230[0x3C];
     const Image *field26C;
-    unsigned char field270[0x44];
+    unsigned char field270[0x2C];
+    int field29C;
+    Rva0053ED1A *field2A0;
+    unsigned char field2A4[0x10];
 
 protected:
     CommandButton *findNonConstCommandButton(const AsciiString &name);

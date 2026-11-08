@@ -36,26 +36,7 @@ protected:
 
 class CommandButton;
 
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-	void setControlCommand(GameWindow *window, const CommandButton *button);
-	void setPortraitByObject(Object *obj);
-	void populateOCLTimer(Object *creatorObject);
-
-protected:
-	void updateContextOCLTimer();
-	void updateOCLTimerTextDisplay(unsigned int totalSeconds, float percent);
-
-private:
-	unsigned char m_pad00[0x64];
-	GameWindow *m_contextOCLTimerParent; // +0x64, field identity unknown
-	unsigned char m_pad68[0x6C - 0x68];
-	Drawable *m_currentSelectedDrawable; // +0x6C
-	unsigned char m_pad70[0x7C - 0x70];
-	unsigned int m_displayedOCLTimerSeconds; // +0x7C
-};
+#include "../../../../Include/GameClient/ControlBar.h"
 
 #include "../../../../Include/GameClient/GameWindowManager.h"
 
@@ -96,7 +77,7 @@ void GadgetProgressBarSetProgress(GameWindow *, int);
 
 void ControlBar::updateContextOCLTimer()
 {
-	Object *obj = m_currentSelectedDrawable->getObject();
+	Object *obj = field6C->getObject();
 	if (!obj)
 		return;
 	static const NameKeyType key_OCLUpdate = TheNameKeyGenerator->nameToKey("OCLUpdate");
@@ -105,7 +86,7 @@ void ControlBar::updateContextOCLTimer()
 	unsigned int seconds = frames / BfmeLogicFramesPerSecond;
 	float percent = update->getCountdownPercent();
 	// if the time has changed since what was last shown to the user update the text
-	if (m_displayedOCLTimerSeconds != seconds)
+	if (field7C != seconds)
 		updateOCLTimerTextDisplay(seconds, percent);
 }
 
@@ -125,7 +106,7 @@ void ControlBar::populateOCLTimer(Object *creatorObject)
 {
 	if (creatorObject == 0)
 		return;
-	GameWindow *parent = m_contextOCLTimerParent;
+	GameWindow *parent = field48[7];
 	const CommandButton *button;
 	{
 		AsciiString name("Command_Sell");
@@ -158,5 +139,5 @@ void ControlBar::updateOCLTimerTextDisplay(unsigned int totalSeconds, float perc
         text.format(((OCLGameTextView *)TheGameText)->fetch("CONTROLBAR:OCLTimerDesc", 0), minutes, seconds);
     GadgetStaticTextSetText(descWindow, text);
     GadgetProgressBarSetProgress(barWindow, (int)(percent * 100));
-    m_displayedOCLTimerSeconds = totalSeconds;
+    field7C = totalSeconds;
 }
