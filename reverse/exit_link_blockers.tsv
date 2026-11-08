@@ -1,5 +1,6 @@
-# real link at cdcfc30b16752ea4399204275414e738220f64ac: tools/exit_link.py --blockers
+# real link at 1d4eb4c3a2c7869adaa6f4272748d3b07fc287a6: tools/exit_link.py --blockers
 source	missing	sample
 (export unowned)	128	?$S128@?1??GetValue@?$DefaultModuleKey@$00@FXParticleSystem@@CAPBDXZ@4IA
 Code/GameEngine/Source/Common/System/Snapshot.cpp	2	??0Matrix4D@@QAE@ABVCoord3D@@M@Z
+Code/GameEngine/Source/Common/GapBodiesSeat5A.cpp	1	?add@Rva002206F9Sink@@UAEHH@Z
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCtor.cpp	1	??1Rva0022B12DSubsystem@@UAE@XZ
