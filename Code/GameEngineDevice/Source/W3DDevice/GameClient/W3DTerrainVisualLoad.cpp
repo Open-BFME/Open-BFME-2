@@ -385,28 +385,7 @@ class Rva0007E90EHost
         rva0007E90E((int)&name);
     }
 };
-class TerrainLogic
-{
-  public:
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void slot3();
-    virtual void slot4();
-    virtual void slot5();
-    virtual void slot6();
-    virtual void slot7();
-    virtual void slot8();
-    virtual void slot9();
-    virtual void slot10();
-    virtual void slot11();
-    virtual void slot12();
-    virtual void slot13();
-    virtual void slot14();
-    virtual void slot15();
-    virtual void slot16();
-    virtual AsciiString getWaterName();
-};
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/W3DDevice/GameClient/W3DTerrainVisualClass.h"
 
@@ -489,7 +468,7 @@ bool W3DTerrainVisual::load(const AsciiString &filename, ChunkInputStream *strea
     }
     if (m_waterRenderObject && TheTerrainLogic)
     {
-        ((Rva0007E90EHost *)m_waterRenderObject)->loadName(TheTerrainLogic->getWaterName());
+        ((Rva0007E90EHost *)m_waterRenderObject)->loadName(TheTerrainLogic->getSourceFilename());
     }
     return true;
 }

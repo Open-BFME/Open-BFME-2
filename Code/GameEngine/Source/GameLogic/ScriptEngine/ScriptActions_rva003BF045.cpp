@@ -41,20 +41,7 @@ public:
 	void rva0036FAF8(const Waypoint *wp, CommandSourceType src, int x);
 };
 #include "../../../Include/Common/Player.h"
-class TerrainLogic
-{
-public:
-	virtual void d00(); virtual void d01(); virtual void d02(); virtual void d03();
-	virtual void d04(); virtual void d05(); virtual void d06(); virtual void d07();
-	virtual void d08(); virtual void d09(); virtual void d10(); virtual void d11();
-	virtual void d12(); virtual void d13(); virtual void d14(); virtual void d15();
-	virtual void d16(); virtual void d17(); virtual void d18(); virtual void d19();
-	virtual void d20(); virtual void d21(); virtual void d22(); virtual void d23();
-	virtual void d24(); virtual void d25(); virtual void d26(); virtual void d27();
-	virtual void d28(); virtual void d29(); virtual void d30(); virtual void d31();
-	virtual void d32(); virtual void d33(); virtual void d34(); virtual void d35();
-	virtual Waypoint *v36(const Coord3D *pos, const AsciiString *name);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern class ScriptEngine *TheScriptEngine;
 extern class AI *TheAI;
 extern TerrainLogic *TheTerrainLogic;
@@ -110,7 +97,7 @@ void ScriptActions::doTeamFollowSkirmishApproachPath(const AsciiString &teamName
 	const void *prefixHeader = *(const void * const *)&prefix;
 	const char *s = prefixHeader ? (const char *)prefixHeader + 8 : "";
 	waypointName.format("%s%d", s, num);
-	Waypoint *wp = TheTerrainLogic->v36(&sum, &waypointName);
+	Waypoint *wp = TheTerrainLogic->getClosestWaypointOnPath(&sum, waypointName);
 	if (wp == 0)
 		return;
 	Player *cur = TheScriptEngine->getCurrentPlayer();

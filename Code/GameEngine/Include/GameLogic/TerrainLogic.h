@@ -29,6 +29,10 @@ class Matrix3D;
 class Object;
 class PolygonTrigger;
 class Rva0027C36A;
+#ifdef _STLP_INTERNAL_VECTOR_H
+class Rva0027D098;
+struct ICoord2D;
+#endif
 class BfmeT1035;
 class ThingTemplate;
 class Vector3;
@@ -186,12 +190,19 @@ protected:
 
 public:
     unsigned int field18;
-    unsigned int field1C;
-    unsigned int field20;
+    // Retail compares both signed: jl at 0x0027DA81/0x0027DA8B, cvtsi2ss at 0x0027DACA/0x000630C3.
+    int field1C;
+    int field20;
     unsigned char *field24;
     unsigned int field28;
     unsigned int field2C;
+    // STLport containers are typed where the unit included their STLport header first;
+    // elsewhere the same bytes stay opaque, so other includers compile unchanged.
+#ifdef _STLP_INTERNAL_VECTOR_H
+    _STL::vector<ICoord2D> field30; // setActiveBoundary 0x0028069E selects a boundary from it
+#else
     unsigned int field30[3];
+#endif
     int field3C;
     Bridge *field40;
     bool field44;
@@ -202,7 +213,11 @@ public:
     void *field58;
     void *field5C;
     bool field60;
+#ifdef _STLP_INTERNAL_LIST_H
+    _STL::list<_STL::list<Coord3D> > field64; // buildBeacons 0x00283E9C appends beacon paths
+#else
     void *field64;
+#endif
     struct DynamicWaterEntry {
         const WaterHandle *waterTable;
         float changePerFrame;
@@ -211,10 +226,18 @@ public:
         float currentHeight;
     } field68[64];
     int field568;
+#ifdef _STLP_INTERNAL_MAP_H
+    _STL::map<unsigned int, Waypoint *> field56C; // getWaypointByID 0x0028333F looks ids up in it
+#else
     unsigned int field56C[3];
+#endif
+#ifdef _STLP_INTERNAL_VECTOR_H
+    _STL::vector<Rva0027D098 *> field578; // rva00283CE7 walks it; destructor 0x0028418A frees +0x578
+#else
     void **field578;
     void **field57C;
     void **field580;
+#endif
     void *field584;
     short field588[2500];
     unsigned int field1910;

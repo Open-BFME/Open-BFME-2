@@ -11,38 +11,27 @@
 // and m_mapMinZ/m_mapMaxZ at +0x53C/+0x540; BFME 2's are +0x18/+0x1C and
 // +0x1918/+0x191C (also written by the sibling init 0x00062B17).
 
-class TerrainLogic
-{
-public:
-	virtual void reset();				// 0x00283567
+#include "../../../../GameEngine/Include/GameLogic/TerrainLogic.h"
 
-private:
-	unsigned char m_pad04[0x18 - 0x04];
-
-protected:
-	int m_mapDX;						// +0x18
-	int m_mapDY;						// +0x1C
-};
-
+// reset overrides the SubsystemInterface slot, so this is the +4 subobject: retail's
+// +0x18/+0x1C/+0x1918/+0x191C displacements are full-object +0x1C/+0x20/+0x191C/+0x1920.
 class W3DTerrainLogic : public TerrainLogic
 {
 public:
 	virtual void reset();
 
 private:
-	unsigned char m_pad20[0x1918 - 0x20];
-	float m_mapMinZ;					// +0x1918
-	float m_mapMaxZ;					// +0x191C
+	float m_mapMinZ;					// +0x191C
+	float m_mapMaxZ;					// +0x1920
 };
 
-// WorldHeightMap::freeListOfMapObjects, rowed under this name.
 void Rva000ABD70Clear();
 
 void W3DTerrainLogic::reset( void )
 {
 	TerrainLogic::reset();
-	m_mapDX = 0;
-	m_mapDY = 0;
+	field1C = 0;
+	field20 = 0;
 	m_mapMinZ = 0;
 	m_mapMaxZ = 1;
 	Rva000ABD70Clear();

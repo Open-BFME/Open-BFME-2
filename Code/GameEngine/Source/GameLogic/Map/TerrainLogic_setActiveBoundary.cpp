@@ -37,26 +37,7 @@ class TerrainLogic;
 // (+0x20). Battle for Middle-earth 2 carries the boundary vector at +0x30
 // (begin +0x30, end +0x34, 8-byte ICoord2D elements) with the active index at
 // +0x3C, all measured from the retail body.
-class TerrainLogic
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void getExtent(Region3D *extent) const = 0;
-
-	void setActiveBoundary(Int newActiveBoundary);
-
-private:
-	char m_unmodelled04[0x2C];
-	BoundaryVector m_boundaries; // +0x30
-	Int m_activeBoundary; // +0x3C
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 // The target calls Radar slot 6 (+0x18) with TheTerrainLogic.
 #include "../../../Include/Common/Radar.h"
@@ -112,18 +93,18 @@ extern View *TheTacticalView;
 void TerrainLogic::setActiveBoundary(Int newActiveBoundary)
 {
 	if (newActiveBoundary < 0 ||
-		newActiveBoundary >= m_boundaries.size())
+		newActiveBoundary >= field30.size())
 		return;
 
-	if (newActiveBoundary == m_activeBoundary)
+	if (newActiveBoundary == field3C)
 		return;
 
-	if (m_boundaries[newActiveBoundary].x == 0 ||
-		m_boundaries[newActiveBoundary].y == 0)
+	if (field30[newActiveBoundary].x == 0 ||
+		field30[newActiveBoundary].y == 0)
 		return;
 
 	Region3D region;
-	m_activeBoundary = newActiveBoundary;
+	field3C = newActiveBoundary;
 	getExtent(&region);
 	TheRadar->vslot06(TheTerrainLogic);
 	ThePartitionManager->rva00625300(&region);

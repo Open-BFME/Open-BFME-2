@@ -66,12 +66,7 @@ static __forceinline long floatToLong(float value)
  }
  return result;
 }
-class TerrainLogic {
-public:
- virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
- virtual void s4(); virtual void s5();
- virtual float groundHeight(float,float,int);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
@@ -99,7 +94,7 @@ bool AIBuildableStructure::rva00573B5E()
      Coord3D point;
      point.x=center.x+dx;
      point.y=center.y+dy;
-     point.z=TheTerrainLogic->groundHeight(point.x,point.y,0);
+     point.z=TheTerrainLogic->getGroundHeight(point.x,point.y,0);
      if (((FireGridView *)TheTriggerManager)->occupied(point.x,point.y)) return true;
    }
  }

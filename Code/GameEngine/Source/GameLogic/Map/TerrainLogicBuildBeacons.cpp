@@ -97,57 +97,13 @@ extern Debug *theDebug;
 extern void _bfme_debugRecordCallsite(int kind);
 extern bool bfmeRva000387C0(void);
 
-class TerrainLogic
-{
-public:
-	virtual void tlSlot00(void) = 0;
-	virtual void tlSlot04(void) = 0;
-	virtual void tlSlot08(void) = 0;
-	virtual void tlSlot0C(void) = 0;
-	virtual void tlSlot10(void) = 0;
-	virtual void tlSlot14(void) = 0;
-	virtual void tlSlot18(void) = 0;
-	virtual void tlSlot1C(void) = 0;
-	virtual void tlSlot20(void) = 0;
-	virtual void tlSlot24(void) = 0;
-	virtual void tlSlot28(void) = 0;
-	virtual void tlSlot2C(void) = 0;
-	virtual void tlSlot30(void) = 0;
-	virtual void tlSlot34(void) = 0;
-	virtual void tlSlot38(void) = 0;
-	virtual void tlSlot3C(void) = 0;
-	virtual void tlSlot40(void) = 0;
-	virtual void tlSlot44(void) = 0;
-	virtual void tlSlot48(void) = 0;
-	virtual void tlSlot4C(void) = 0;
-	virtual void tlSlot50(void) = 0;
-	virtual void tlSlot54(void) = 0;
-	virtual void tlSlot58(void) = 0;
-	virtual void tlSlot5C(void) = 0;
-	virtual void tlSlot60(void) = 0;
-	virtual void tlSlot64(void) = 0;
-	virtual void tlSlot68(void) = 0;
-	virtual void tlSlot6C(void) = 0;
-	virtual void tlSlot70(void) = 0;
-	virtual void tlSlot74(void) = 0;
-	virtual void tlSlot78(void) = 0;
-	virtual void tlSlot7C(void) = 0;
-	virtual void tlSlot80(void) = 0;
-	virtual Waypoint *tlSlot84(void) = 0;
-
-private:
-	unsigned char m_unreconstructed_04[0x60];
-	_STL::list<BeaconPath00283E9C> m_beaconPaths;
-
-protected:
-	void buildBeacons(void);
-};
+#include "../../../Include/GameLogic/TerrainLogic.h"
 
 void TerrainLogic::buildBeacons(void)
 {
-	m_beaconPaths.clear();
+	field64.clear();
 
-	for (Waypoint *start = tlSlot84(); start != 0; start = start->getNext())
+	for (Waypoint *start = getFirstWaypoint(); start != 0; start = start->getNext())
 	{
 		if (start->getDword60() != 5)
 			continue;
@@ -187,6 +143,6 @@ void TerrainLogic::buildBeacons(void)
 		}
 
 		if (!path.empty())
-			m_beaconPaths.push_front(path);
+			field64.push_front(path);
 	}
 }

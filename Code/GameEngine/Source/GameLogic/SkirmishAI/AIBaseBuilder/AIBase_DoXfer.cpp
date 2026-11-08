@@ -238,9 +238,9 @@ struct Rva002A8AB1Record
 	int m_16C;				// +0x16C
 };
 
-class TerrainLogic { public: virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual float getHeight(float,float,int);};
+#include "../../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
-class Rva00573A00 { public: inline __declspec(noinline) void rva00573A00(const Coord3D *p) { m_pos=*p;m_pos.z=TheTerrainLogic->getHeight(m_pos.x,m_pos.y,0); } char pad[0x30];Coord3D m_pos; };
+class Rva00573A00 { public: inline __declspec(noinline) void rva00573A00(const Coord3D *p) { m_pos=*p;m_pos.z=TheTerrainLogic->getGroundHeight(m_pos.x,m_pos.y,0); } char pad[0x30];Coord3D m_pos; };
 
 
 
