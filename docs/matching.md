@@ -651,9 +651,14 @@ Include paths. A `/I` or `/FI` value in a `// cl:` line (as written, and as
 `build.source_extra_flags` rewrites it) must be one of the exact strings in
 `reverse/cl_include_roots.txt` (backslashes written as slashes): any other spelling,
 an 8.3 name, a trailing dot, an alternate stream or another case, is refused without
-being interpreted. `python3 tools/cl_flags.py --write-include-roots` rewrites the list
-from the tree; adding a value is a reviewed change with a `Verifier-Change` trailer
-(the file is protected). conversion_gate Rule F checks added lines against the
+being interpreted. The same list judges every include operand of the final command
+`build.compiler_command` returns, whatever added it (the SDKs, the STLport overlay, the
+sweep retry's directories, the Generals/ZH trees' flags), spelt as
+`cl_flags.canonical_include` writes it: `{toolchain}/...` under the toolchain, repo-relative
+under the checkout, `{overlay}` for the overlay's digest-named directory.
+`python3 tools/cl_flags.py --write-include-roots` rewrites the list from the tree (about
+six minutes: it builds every unit's command); adding a value is a reviewed change with a
+`Verifier-Change` trailer (the file is protected). conversion_gate Rule F checks added lines against the
 committed list and refuses a commit adding a symlink, or a gitlink other than this
 submodule's.
 
@@ -662,8 +667,13 @@ the files it opened through `#include` (`/showIncludes`, already the dependency
 cache's input; it leaves object bytes unchanged) and fails unless each resolves, case
 found as Wine finds it and links followed, inside the checkout, the toolchain
 (`vc71_root`) or a linked tree the seat trusts. An object recorded as built from a
-header outside them is never current, `#import`'s `.tlh`/`.tli` output is refused
-outright, and an assembler source naming an include is refused (ml.exe lists none).
+header outside them is never current and `#import`'s `.tlh`/`.tli` output is refused
+outright. ml.exe lists no included file, so an assembler source may use none of MASM's
+include or text-macro facilities (`INCLUDE`, `INCLUDELIB`, `CATSTR`, `SUBSTR`, `INSTR`,
+`SIZESTR`, `TEXTEQU`, `EQU <...>`, `@CatStr` and kin, `MACRO`, `FOR`/`FORC`/`IRP`/`IRPC`/
+`REPEAT`/`WHILE`, `%` at a line's start: `cl_flags.asm_directives`); such a source is
+refused, any earlier object and receipt deleted, and never current. data_rows' sizeof
+and type probes run through `build.run_confined`, under the same confinement.
 A seat whose own trees are links (a worktree whose `reference/open-bfme-1` is a
 junction to the main checkout) names each, repo-relative and in exact case, one per
 line, in its uncommitted `<git dir>/bfme-trusted-include-links`
@@ -675,9 +685,10 @@ Residual boundary. Include confinement guarantees that reads through `#include`
 a UTF-16 header) by compiles `build.py` runs stay inside those roots. Nothing is
 claimed about other reads: `#import`'s type library, `#using`'s assembly (and Rule F's
 textual refusal of `#import`, `#using` and `include_alias` in Code/ and
-reference/shims/ is an early warning, not the boundary), or compiles a tool runs
-itself with `build.compiler_command` (donor_sweep, harvest, permute and the like),
-which get the flag and value allowlists but not this check.
+reference/shims/ is an early warning, not the boundary), or compiles another tool runs
+itself from `build.compiler_command` (donor_sweep, harvest, permute and the like), whose
+commands pass the flag and value checks but whose reads are not confined. Assembler
+sources are confined by refusing every facility that can include, not by a list.
 
 ## Work selection in detail (moved from AGENTS.md, 2026-10)
 
