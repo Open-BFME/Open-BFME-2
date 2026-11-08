@@ -255,3 +255,12 @@ fixes (24 names). The guard numbers are the blocker, and they gate the batch:
   that retail TU recovered, with its content and instantiation order, so the counter lands on retail's
   values. Today the only way to get those exact names is a hatch (alternatename/object-symbol), which is
   not allowed, or new tooling. Prior record: `re_attempts.log` `?$S128@...` blocked. Not taken.
+
+**2026-11-08 vtable half (LifeEvent first) taken by the swarm Link lane.** McMickey93 has made no FX
+commit since `e892c4321b` (2026-11-07 15:15) and holds no FX claim (claims.py, 2026-11-08 ~06:10
+UTC). The Link lane (`ancalgonn-swarm-link`) claims `FXParticleSystemFactories.cpp` and
+`class:LifeEventModuleInfo` to adopt the canonical `LifeEventModuleInfo` header there (LINK-633: under
+retail object order, Factories' private 2-slot copy of the class's table at 0x0081C2E4 wins over retail's
+4 slots: deleting destructor, loadPostProcess, GetSnapshotName, DoXfer). First obstacle: a dry
+`header_adopt_lane.py adopt` fails one of Factories' 77 rows, `??1LifeEventModuleTemplate`, under the
+canonical Snapshot base and AsciiString member. Other categories' tables stay McMickey93's.
