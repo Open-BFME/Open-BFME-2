@@ -19,8 +19,6 @@
 // reference/open-bfme-1/inputs/reference); StateMachine's current state is
 // at +0x04.
 typedef bool Bool;
-#define TRUE true
-#define FALSE false
 class State;
 class StateMachine
 {
@@ -75,12 +73,12 @@ private:
 
 Bool AIAttackAreaState::isAttack() const
 {
-	return m_attackMachine ? m_attackMachine->isInAttackState() : FALSE;
+	return m_attackMachine ? m_attackMachine->isInAttackState() : false;
 }
 
 Bool AIAttackState::isAttack() const
 {
-	return m_attackMachine ? m_attackMachine->isInAttackState() : FALSE;
+	return m_attackMachine ? m_attackMachine->isInAttackState() : false;
 }
 
 //----------------------------------------------------------------------------------------------------------
@@ -90,7 +88,7 @@ Bool AIGuardState::isAttack() const
 	{
 		return m_guardMachine->isInAttackState();
 	}
-	return TRUE;
+	return true;
 }
 
 // AIFollowPathAsTeamState (vtable 0x00C121E8, name slot 0x00340D6A) keeps a
@@ -107,6 +105,6 @@ private:
 Bool AIFollowPathAsTeamState::rva00340E39() const
 {
 	if (m_subMachine && !m_subMachine->isInAttackState())
-		return TRUE;
-	return FALSE;
+		return true;
+	return false;
 }
