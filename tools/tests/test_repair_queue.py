@@ -3145,6 +3145,30 @@ def test_vtable_queue_reads_runner_paths_and_large_evidence(tmp_path, monkeypatc
     assert [item["source"] for item in items] == ["Code/A.cpp"] and "unowned" not in note
 
 
+def test_vtable_queue_skips_virtual_base_refusals_the_bridge_no_longer_plans(tmp_path):
+    import csv
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, files=[("Code/A.cpp", ""), ("Code/B.cpp", ""), ("Code/C.cpp", "")])
+    path = rev / "vtable_bridge_queue.tsv"
+    fields = ["state", "table", "class", "reason", "source", "retail_rva", "slots", "evidence"]
+    rows = [
+        # vbtable-only names: superseded by vtable_bridge.is_table_row
+        ["refused", "??_8A@@7B@", "", "no-retail-slots", "Code/A.cpp", "0x3000", "0",
+         '{"names": ["??_8A@@7B@", "??_8A2@@7BA@@@"]}'],
+        # a vbtable name bound beside a vftable or legacy name is still a table
+        ["refused", "??_8B@@7B@", "", "no-retail-slots", "Code/B.cpp", "0x4000", "0",
+         '{"names": ["??_8B@@7B@", "_vtbl_00C04000"]}'],
+        # a bridged row and another refusal in A's file are kept
+        ["bridged", "??_7A@@6B@", "A", "bridge-retirement", "Code/A.cpp", "0x5000", "3", "{}"],
+        ["refused", "??_8C@@7B@", "", "strong-definition", "Code/C.cpp", "0x6000", "0", "{}"]]
+    with path.open("w", newline="") as f:
+        writer = csv.writer(f, delimiter="\t"); writer.writerow(fields); writer.writerows(rows)
+    items, note = rq.vtable_bridge_items()
+    served = {item["source"]: [table["table"] for table in item["tables"]] for item in items}
+    assert served == {"Code/A.cpp": ["??_7A@@6B@"], "Code/B.cpp": ["??_8B@@7B@"], "Code/C.cpp": ["??_8C@@7B@"]}
+    assert not next(item for item in items if item["source"] == "Code/A.cpp")["urgent"]
+    assert "1 virtual-base table refusal(s) the current bridge no longer plans, not served: ??_8A@@7B@" in note
+
+
 def test_vtable_queue_absent_is_no_work(tmp_path):
     rq, _, _ = load(tmp_path, "bfme2", LEDGER)
     assert rq.vtable_bridge_items() == ([], None)

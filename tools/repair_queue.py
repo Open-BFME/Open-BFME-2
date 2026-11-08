@@ -1167,6 +1167,28 @@ def _checkout_relative(source):
     return text[index + 1:] if index >= 0 else text
 
 
+def _drop_superseded_vtable_refusals(rows):
+    """Keep the rows the current bridge would still plan. A queue is written by
+    the last real link; a no-retail-slots refusal whose names are all virtual-base
+    tables (`??_8`) is no table to vtable_bridge.is_table_row any more, so it has
+    no repair left in its source until the next real link rewrites the queue.
+    Every other refusal and every bridged row is kept."""
+    import vtable_bridge
+    kept, superseded = [], []
+    for row in rows:
+        if row.get("state") == "refused" and row.get("reason") == "no-retail-slots":
+            try:
+                names = json.loads(row.get("evidence") or "{}").get("names") or []
+            except (ValueError, AttributeError):
+                names = []
+            names = [row.get("table") or "", *names]
+            if not vtable_bridge.is_table_row({"kind": "vtable", "name": names[0], "names": ";".join(names)}):
+                superseded.append(row.get("table") or "")
+                continue
+        kept.append(row)
+    return kept, superseded
+
+
 def vtable_bridge_items(path=None):
     """Refusals then retirement, one file claim per source; retain unowned work visibly."""
     path = Path(path) if path else ROOT / VTABLE_QUEUE
@@ -1177,6 +1199,7 @@ def vtable_bridge_items(path=None):
     # An evidence cell holds a table's whole slot listing; a large class's passes csv's 128 KiB default.
     csv.field_size_limit(max(csv.field_size_limit(), 1 << 26))
     rows = list(csv.DictReader((line for line in lines if not line.startswith("#")), delimiter="\t"))
+    rows, superseded = _drop_superseded_vtable_refusals(rows)
     for row in rows:
         row["source"] = _checkout_relative(row["source"] or "")
     grouped = {}
@@ -1209,6 +1232,9 @@ def vtable_bridge_items(path=None):
             pass_test=("the next published real link no longer bridges or refuses these tables "
                        "(neither state in reverse/vtable_bridge_queue.tsv); preserve their ledger coverage")))
     note = f"{len(items)} source file(s) for {len(rows)} vtable refusal/retirement rows, from {measured}"
+    if superseded:
+        note += (f"; {len(superseded)} virtual-base table refusal(s) the current bridge no longer plans, "
+                 "not served: " + ", ".join(superseded[:3]))
     if unowned:
         note += f"; {unowned} unowned or vanished-source table(s) served under file:reverse/data_ledger.csv"
     return items, note
