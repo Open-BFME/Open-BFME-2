@@ -16,6 +16,12 @@ def no_real_git(monkeypatch):
     monkeypatch.setattr(A, "git", lambda *args: "Code/intervening.cpp" if "c" * 40 in args else "")
 
 
+@pytest.fixture(autouse=True)
+def no_real_verdict_log(monkeypatch, tmp_path_factory):
+    # main() logs every run to the clone's git common dir; outside a repository it writes nothing.
+    monkeypatch.setattr(A.link_check, "ROOT", tmp_path_factory.mktemp("not-a-repo"))
+
+
 def index():
     return {
         "objects": ["retail.obj", "ini.obj"],
