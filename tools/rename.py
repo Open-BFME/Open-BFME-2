@@ -455,11 +455,14 @@ def signature_only_change(old, new):
 # rowed with the wrong `this` cv (UAE for UBE) is respelled, without a vote, only
 # when retail proves the const: the row's address sits in exactly one slot of a
 # table its class's own constructor or destructor installs (to_class_evidence),
-# a canonical base (reverse/canonical_classes.csv, which the prepared views
-# derive from) installs a table whose same slot holds a registered row with the
-# same identifier, convention and parameters, and every such base virtual has
-# the new `this` cv. After ./build.sh, the installers' rebuilt table must name
-# the respelled row in that slot (to_class_slot_problems).
+# and retail's bytes of every such install store the table through `this` (ecx,
+# or a register copied from it with no load between) at offset 0; a base in the
+# class's canonical ancestry (its reverse/canonical_classes.csv record: the
+# contract's bases, else its registered header's class head -- never a prepared
+# declaration) installs, through `this` too, a table whose same slot holds a
+# registered row with the same identifier, convention and parameters, and every
+# such base virtual has the new `this` cv. After ./build.sh, the installers'
+# rebuilt table must name the respelled row in that slot (to_class_slot_problems).
 
 def this_cv_change(old, new):
     """True when `new` is `old` with only `this`'s cv-qualifier changed: the
@@ -472,6 +475,114 @@ def this_cv_change(old, new):
     i = at_old + 1
     return (at_old == at_new and len(old) == len(new) and old[:i] == new[:i] and old[i + 1:] == new[i + 1:]
             and old[i] != new[i] and old[i] in "ABCD" and new[i] in "ABCD")
+
+
+REG32 = ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp")
+# a sub-register write clobbers its full register
+FULL_REG = dict({r: r for r in REG32},
+                **{r[1:]: r for r in REG32}, al="eax", ah="eax", bl="ebx", bh="ebx", cl="ecx", ch="ecx",
+                dl="edx", dh="edx", sil="esi", dil="edi", bpl="ebp", spl="esp")
+
+
+def this_store_problem(ctx, row, store):
+    """None when the vptr store at retail `store` (`mov dword ptr [reg], imm32`) in
+    `row`'s retail bytes writes through `this`: ecx at entry, or a register copied
+    from it (`mov reg, reg`) with no load or other write in between, at offset 0
+    (the primary vfptr). Else why not. The bytes from the row's start to the store
+    are decoded in order; a branch before the store, or a store that is not an
+    instruction boundary, is refused rather than followed."""
+    import capstone
+    from capstone import x86
+    import build
+    start, size = _rva(row.get("target_rva")), int(row.get("target_size") or 0)
+    if start is None or not start <= store < start + size:
+        return f"0x{store:08X} is outside {row['name']}"
+    try:
+        code = build.read_target_bytes(start, store - start + 16)
+    except (OSError, ValueError) as error:
+        return f"retail's bytes of {row['name']} cannot be read ({error})"
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    md.detail = True
+    this = {"ecx"}
+    for ins in md.disasm(code, start):
+        ops = ins.operands
+        if ins.address == store:
+            if ins.mnemonic != "mov" or len(ops) != 2 or ops[0].type != x86.X86_OP_MEM \
+                    or ops[1].type != x86.X86_OP_IMM:
+                return f"0x{store:08X} is not a vptr store (`{ins.mnemonic} {ins.op_str}`)"
+            mem = ops[0].mem
+            base = ins.reg_name(mem.base) if mem.base else None
+            if mem.index or mem.segment or base not in this:
+                return (f"0x{store:08X} stores through `{ins.op_str.split(',')[0]}`, not `this` (ecx, or a "
+                        "register copied from it with no load in between)")
+            if mem.disp:
+                return f"0x{store:08X} stores at this+{mem.disp:#x}, not the primary vfptr at this+0"
+            return None
+        if ins.address > store:
+            break
+        if any(ins.group(g) for g in (capstone.CS_GRP_JUMP, capstone.CS_GRP_RET, capstone.CS_GRP_IRET,
+                                      capstone.CS_GRP_INT)):
+            return f"a branch at 0x{ins.address:08X} precedes the store at 0x{store:08X}"
+        if ins.mnemonic == "mov" and len(ops) == 2 and ops[0].type == x86.X86_OP_REG \
+                and ops[1].type == x86.X86_OP_REG and ins.reg_name(ops[0].reg) in REG32 \
+                and ins.reg_name(ops[1].reg) in this:
+            this.add(ins.reg_name(ops[0].reg))
+            continue
+        _read, written = ins.regs_access()
+        for reg in written:
+            this.discard(FULL_REG.get(ins.reg_name(reg), ins.reg_name(reg)))
+        if ins.group(capstone.CS_GRP_CALL):
+            this -= {"eax", "ecx", "edx"}
+    return f"0x{store:08X} is not an instruction boundary of {row['name']}"
+
+
+def receiver_problems(ctx, stores, installers):
+    """[problem] unless every store {rva: displacement} of a table that one of the
+    `installers` rows makes goes through `this` at offset 0 (this_store_problem);
+    a table none of them stores is a problem too."""
+    names = {r["name"] for r in installers}
+    checked, problems = 0, []
+    for store, _disp in sorted(stores.items()):
+        row = row_at(ctx, store)
+        if not row or row["name"] not in names:
+            continue
+        checked += 1
+        why = this_store_problem(ctx, row, store)
+        if why:
+            problems.append(f"{row['name']}: {why}")
+    if not checked:
+        problems.append("none of its installers' stores was found")
+    return problems
+
+
+def canonical_ancestry(ctx, cls, registered):
+    """`cls` and every class its canonical record derives from: a registered
+    class's bases come from its contract (reverse/class_contracts/<class>.json
+    `bases`), else from its own class head in its registered header; a base
+    without a record is an ancestor whose own bases are not read. Prepared
+    sources and private views are never read."""
+    seen, todo = set(), [cls]
+    while todo:
+        name = todo.pop()
+        if name in seen:
+            continue
+        seen.add(name)
+        record = registered.get(name)
+        if not record:
+            continue
+        bases = None
+        contract = ctx.read(f"{CLASS_CONTRACTS}/{name}.json")
+        if contract:
+            try:
+                bases = json.loads(contract.decode("utf-8")).get("bases")
+            except (ValueError, UnicodeDecodeError, AttributeError):
+                bases = None
+        if not isinstance(bases, list):
+            heads = {}
+            _class_heads(heads, (ctx.read(record.get("header", "")) or b"").decode("utf-8", "replace"))
+            bases = sorted(heads.get(name, ()))
+        todo.extend(b for b in bases if isinstance(b, str) and b and b != UNPARSED_BASE)
+    return seen
 
 
 def this_cv_proof(ctx, rva, old, new, source, prepared):
@@ -491,22 +602,31 @@ def this_cv_proof(ctx, rva, old, new, source, prepared):
         raise Refusal(f"{old}'s signature holds a back-reference, whose meaning in a base's spelling differs")
     sources = sorted({source, *(prepared or {})})
     table, slot, slots, installers, proof = to_class_evidence(ctx, rva, cls, sources)
-    bases = set()
-    for rel in sources:
-        bases |= class_chain(prepared_base_map(ctx, rel, prepared), cls)[0]
-    bases.discard(cls)
-    registered = {row.get("class") for row in ctx.dicts(CANONICAL_CLASSES)} - {"", None}
-    ident = old[1:old.index("@")]
     tables = retail_vtables(ctx)
+    # the class's own table: its special members install it through `this`
+    bad = receiver_problems(ctx, tables[table][1], installers)
+    if bad:
+        raise Refusal(f"retail table 0x{table + IMAGE_BASE:08X} is not proved {cls}'s own: {bad[0]}")
+    # its ancestry: the canonical record, never a prepared declaration
+    registered = {row.get("class"): row for row in ctx.dicts(CANONICAL_CLASSES) if row.get("class")}
+    if cls not in registered:
+        raise Refusal(f"{cls} has no record in {CANONICAL_CLASSES}: a this-cv respell reads the class's ancestry "
+                      "from its canonical record (contract or registered header), never from prepared "
+                      "declarations")
+    bases = canonical_ancestry(ctx, cls, registered) - {cls}
+    ident = old[1:old.index("@")]
     found = []
-    for base in sorted(bases & registered):
+    for base in sorted(bases & set(registered)):
         for base_table, (base_slots, stores) in sorted(tables.items()):
-            if slot < len(base_slots) and class_installers(ctx, base, stores, tables):
+            if slot >= len(base_slots):
+                continue
+            own = class_installers(ctx, base, stores, tables)
+            if own and not receiver_problems(ctx, stores, [r for r, _d in own]):
                 found.append((base, base_table, base_slots[slot]))
     if not found:
-        raise Refusal(f"no canonical base of {cls} ({', '.join(sorted(bases)) or 'none its views name'}) "
-                      f"installs a retail table with a slot {slot}: the virtual {old} overrides is no "
-                      "registered row")
+        raise Refusal(f"no canonical base in {cls}'s canonical ancestry ({', '.join(sorted(bases)) or 'none'}) "
+                      f"installs, through `this`, a retail table with a slot {slot}: the virtual {old} overrides "
+                      "is not proved")
     want = new[at + 1]
     proofs = []
     for base, base_table, word in found:
@@ -535,7 +655,7 @@ def this_cv_proof(ctx, rva, old, new, source, prepared):
     early = to_class_slot_problems(ctx, dict(check, sources=[s for s in installer_sources if s not in edited]))
     if early:
         raise Refusal(f"the vftable {cls}'s installers compile does not put {new} in slot {slot}: {early[0]}")
-    evidence = f"this-cv: 0x{rva:08X} fills {proof}; " + "; ".join(proofs)
+    evidence = f"this-cv: 0x{rva:08X} fills {proof} (stored through `this`); " + "; ".join(proofs)
     return evidence, check
 
 
@@ -3083,7 +3203,7 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
         if not respell or identity is False:
             raise Refusal("--identity and --move-to go with --respell --identity only")
         return plan_identity_respell(ctx, rva, new, old=old, prepared=prepared, also=also, move_to=move_to,
-                                     basis=basis, max_files=max_files)
+                                     basis=basis, evidence=evidence, max_files=max_files)
     if also and not respell:
         raise Refusal("--also adds slots of one retail table to a --to-class move only")
     if prepared and not (virtual or respell):
@@ -3279,32 +3399,45 @@ def plan_function(ctx, rva, new=None, basis=None, evidence="", *, old=None, max_
 
 # ---------------------------------------------------------------- code-identity respell
 #
-# `function --respell --identity` respells compiler-spelled rows (operators,
-# special members, template members) whose bytes already match retail but whose
-# calls bind to the wrong code: a row typed `map<Placeholder, int>` whose retail
-# body calls the rowed clear and _M_copy of `_Rb_tree<Record, ..., _Identity>`
-# compiles to the same bytes, yet its calls bind local COMDATs of the wrong
-# instantiation. Its name is not a naming claim: the compiler spells it from the
-# types, and the types are proved by what the body calls. So no vote and no
-# basis: the code-identity check (tools/allowed_symbols.py) is the evidence.
+# `function --respell --identity` respells a compiler-spelled row (an operator,
+# special member or template member) whose old spelling names a placeholder type
+# and whose bytes already match retail while its calls bind the wrong code: a row
+# typed `map<Placeholder, int>` whose retail body calls the rowed clear and
+# _M_copy of `_Rb_tree<Record, ..., _Identity>` compiles to the same bytes, yet
+# its calls bind local COMDATs of the wrong instantiation. Which spelling is right
+# is a naming judgement -- a callee's class does not prove the caller's (`mov
+# ecx,[ecx+4]; call clear` acts on a contained object) -- so the new spelling
+# comes from the naming route: --basis inferred, --evidence agree:<id> for every
+# row, two blind votes on the row's placeholder key (docs/naming.md). The voters
+# judge the whole signature. The code-identity checks are hard gates on top:
 #
 #   1. before: the identity scan of a respelled row reports a wrong binding, or
-#      the row calls another row the same plan respells (a wrapper);
-#   2. after (./build.sh exact on every unit the plan touches): every reference
-#      of every respelled row binds to its retail owner (no wrong, interior,
-#      unowned or divergent class), and no row in a touched source gains a
-#      wrong binding it did not have;
-#   3. each new mangled name is owned by no row or pin, and both spellings are
-#      compiler-spelled (`??<code>` or a template `?$`) with the same operator
-#      code or identifier: a hand-written name or a changed identifier is a
-#      naming claim and goes through `function --new` with its basis;
-#   4. the evidence records the retail callee RVAs the scan found.
-# `--move-to TU` also moves the respelled rows to their approved TU
-# (reverse/tu_map.csv `approved`): every row of the owner source must be in the
-# plan, its path-keyed columns follow, and the emptied source is deleted.
+#      the row calls another row the same plan respells;
+#   2. no callee is ICF-marked or carries two names, and a callee pin refuses
+#      unless it is the old-type spelling the respell retires (below);
+#   3. after (./build.sh exact on every unit the plan touches): every reference
+#      of every respelled row binds its retail owner directly (no alias, fold,
+#      pin or ICF-marked callee), and no row in a touched source gains a wrong
+#      binding;
+#   4. the new mangled name is owned by no row or pin, and both spellings are
+#      compiler-spelled with the same operator code or identifier (the primary
+#      row checks of plan_function run on every row).
+#
+# A callee pin spelling the callee under the respelled row's old class (the
+# symbol the old object binds there) is retired only when no object outside the
+# rebuilt units references it. Every rowed object's symbol table, weak externals
+# and .drectve (/alternatename, /INCLUDE) is read; a missing or unreadable object
+# refuses; a stale object whose source, or a header it includes, spells the pin
+# or one of its placeholder types is rebuilt with ./build.sh first (refused when
+# it cannot be). The rebuilt units' objects are read again after the build.
+# `--move-to TU` also moves the respelled rows to their approved TU (the map
+# rebuilt in memory from current inputs when the committed one is stale): every
+# row of the owner source must be in the plan, its path-keyed columns follow, and
+# the emptied source is deleted.
 
 IDENTITY = "code-identity:"
 COMPILER_HEAD = re.compile(r"\?\?(_?[0-9A-Z])|\?([A-Za-z_]\w*)@")
+AGREE_TOKEN = re.compile(r"agree:[A-Za-z0-9_.:-]+")
 
 
 # non-static member access codes (private, protected, public; plain and virtual;
@@ -3387,18 +3520,6 @@ def identity_class(mangled):
     return elements, args
 
 
-def type_has_references(text):
-    """True unless `text` is one whole type spelled without a back-reference
-    (whose meaning would depend on the name table around it)."""
-    out = _Out()
-    out.refs, out.type_refs = [], []
-    try:
-        end = _parse_type(text, 0, out)
-    except (IndexError, ValueError):
-        return True
-    return end != len(text) or bool(out.refs or out.type_refs)
-
-
 def placeholder_types(mangled):
     """The placeholder identifiers (Rva.../Bfme... and name_metric's other
     placeholder shapes) among the name fragments of `mangled`."""
@@ -3441,10 +3562,162 @@ def identity_direct(ref):
     return ref["cls"] in ("owner", "eh") or (ref["cls"] == "label" and not ref.get("detail"))
 
 
+def callee_marks(rows):
+    """({rva: function names}, {rva: notes}) of the ledger's function rows (funclets left out)."""
+    named, notes = collections.defaultdict(set), collections.defaultdict(list)
+    for r in rows:
+        if r["name"].startswith(FUNCLET_PREFIXES + ("$L",)) or "parent=" in r.get("notes", ""):
+            continue
+        at = _rva(r.get("target_rva"))
+        named[at].add(r["name"])
+        notes[at].append(r.get("notes", ""))
+    return named, notes
+
+
+def folded_callee(named, notes, at):
+    """Why the callee at `at` proves no one name (ICF notes or two names), or None."""
+    if len(named.get(at, ())) > 1:
+        return f"names {', '.join(sorted(named[at]))}"
+    marked = [n for n in notes.get(at, ()) if FOLD_NOTES.search(n)]
+    return f"ICF-marked ({marked[0][:80]})" if marked else None
+
+
+# ---- the objects that could still reference a retired pin
+
+def rowed_objects(ctx):
+    """{source: [object paths]} of every ledger source with matched rows (the build's own mapping)."""
+    import name_dependents
+    return name_dependents._row_objects(ctx.rows())
+
+
+def object_is_current(ctx, source, path):
+    """build.compile_is_current: the object was compiled from the source's text and every header it read."""
+    import build
+    if source.lower().endswith(build.LIB_SUFFIX):
+        return True
+    try:
+        return build.compile_is_current(ctx.path(source), Path(path))
+    except (OSError, ValueError, SystemExit):
+        return False
+
+
+def rebuild_sources(ctx, sources):
+    """./build.sh over `sources`, the normal build path; True when it passed."""
+    try:
+        result = subprocess.run(["./build.sh", *sources], cwd=str(ctx.root), capture_output=True, text=True)
+    except OSError:                      # no build here: nothing was rebuilt
+        return False
+    return result.returncode == 0
+
+
+PIN_INCLUDE_LINE = r'^[ \t]*#[ \t]*include[ \t]*[<"](?:[^>"\r\n]*[/\\])?%s[>"]'
+
+
+def mentioning_sources(ctx, words):
+    """Tracked Code files that spell one of `words`, and every file that includes
+    one of those (by file name, case-insensitively, transitively)."""
+    seen = set()
+    for word in words:
+        seen |= set(ctx.grep_files(word, roots=("Code",)))
+    frontier = set(seen)
+    while frontier:
+        names = sorted({Path(rel).name for rel in frontier})
+        frontier = set()
+        for name in names:
+            line = re.compile(PIN_INCLUDE_LINE % re.escape(name), re.M | re.I)
+            for rel in ctx.grep_files(name, roots=("Code",)):
+                if rel not in seen and line.search((ctx.read(rel) or b"").decode("utf-8", "replace")):
+                    seen.add(rel)
+                    frontier.add(rel)
+    return seen
+
+
+def object_pin_references(objects, names):
+    """[problem] for the objects {source: [paths]}: one missing or unreadable, or one whose symbol
+    table, weak externals or .drectve (/alternatename either side, /INCLUDE) names one of `names`."""
+    import link_census
+    needles = [n.encode() for n in names]
+    problems = []
+    for src, paths in sorted(objects.items()):
+        if not paths:
+            problems.append(f"{src} has no object to read")
+            continue
+        for path in paths:
+            path = Path(path)
+            try:
+                data = path.read_bytes()
+            except OSError:
+                data = b""
+            if len(data) < 20:
+                problems.append(f"{src}'s object {path.name} is missing or unreadable")
+                break
+            if not any(n in data for n in needles):
+                continue
+            try:
+                defined, referenced, weak, alternate, includes = link_census.object_symbols(path, data)
+            except Exception as error:      # a damaged object: refuse, never read as clean
+                problems.append(f"{src}'s object {path.name} is unreadable ({type(error).__name__})")
+                break
+            spelled = set(defined) | set(referenced) | set(includes) | set(alternate) | set(alternate.values())
+            for entry in weak:
+                spelled |= set(entry) if isinstance(entry, (tuple, list)) else {entry}
+            hit = sorted(set(names) & spelled)
+            if hit:
+                problems.append(f"{src}'s object {path.name} references {hit[0]}")
+    return problems
+
+
+def pin_consumers(ctx, names, words, rebuilt):
+    """(problems, count rebuilt) for retiring the pins `names` (placeholder types `words`): every
+    rowed object outside `rebuilt` (the units the plan rebuilds) is read. A stale object whose source
+    or an included header spells a pin or a type is rebuilt through ./build.sh first."""
+    objects = rowed_objects(ctx)
+    mentioned = mentioning_sources(ctx, sorted(set(names) | set(words)))
+    stale = sorted(src for src in mentioned if objects.get(src) and src not in rebuilt
+                   and not all(object_is_current(ctx, src, path) for path in objects[src]))
+    if stale:
+        if not rebuild_sources(ctx, stale):
+            return [f"./build.sh could not rebuild the stale object(s) of {', '.join(stale[:4])}, which spell a "
+                    "retired pin or its placeholder types"], 0
+        objects = rowed_objects(ctx)
+        still = [src for src in stale if not objects.get(src)
+                 or not all(object_is_current(ctx, src, path) for path in objects[src])]
+        if still:
+            return [f"{', '.join(still[:4])} still has no current object after ./build.sh"], 0
+    return object_pin_references({s: p for s, p in objects.items() if s not in rebuilt}, names), len(stale)
+
+
+def identity_approvals(ctx, entries, evidence):
+    """Give each entry its `agree` token: the naming approval among `evidence` that covers its
+    exact old and new spelling at its address. Every token covers one row, once."""
+    tokens = (evidence or "").split()
+    if not tokens or any(not AGREE_TOKEN.fullmatch(tok) for tok in tokens):
+        raise Refusal("--identity needs --evidence 'agree:<id> [agree:<id> ...]', one naming approval per "
+                      "row (two blind votes on its placeholder key)")
+    for e in entries:
+        inferred_guards(ctx, "function", e["old"], e["old"], e["rva"])
+        why = []
+        for tok in tokens:
+            try:
+                check_agreement(ctx, "function", tok, {e["old"]}, {e["new"]}, e["rva"])
+            except Refusal as error:
+                why.append(f"{tok}: {error}")
+                continue
+            e["agree"] = tok
+            break
+        else:
+            raise Refusal(f"no naming approval covers {e['old']} -> {e['new']} at 0x{e['rva']:08X} "
+                          f"({'; '.join(why)[:400]})")
+    used = [e["agree"] for e in entries]
+    if len(set(tokens)) != len(tokens) or len(set(used)) != len(used) or set(used) != set(tokens):
+        raise Refusal("--evidence names one approval per respelled row, each once")
+
+
 def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), move_to=None, basis=None,
-                          max_files=25):
-    if basis:
-        raise Refusal("--identity takes its evidence from the code-identity check: pass no --basis")
+                          evidence="", max_files=25):
+    if basis != "inferred":
+        raise Refusal("--identity takes the naming route's approval: --basis inferred with --evidence "
+                      "agree:<id> for every row (two blind votes on its placeholder key)")
     if not prepared:
         raise Refusal("--identity needs --prepared sources for every unit whose C++ must change")
     targets = [(rva, new, old)] + [(at, name, None) for at, name in (also or ())]
@@ -3453,17 +3726,7 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
     rows = ctx.rows()
     entries = []
     for at, new_name, want in targets:
-        owners = [r for r in rows if _rva(r.get("target_rva")) == at
-                  and not r["name"].startswith(("__ehhandler$", "__unwindfunclet$", "$L"))
-                  and "parent=" not in r.get("notes", "")]
-        if want:
-            owners = [r for r in owners if r["name"] == want]
-        names = sorted({r["name"] for r in owners})
-        if len(names) != 1:
-            raise Refusal(f"0x{at:08X} carries {len(names)} function names ({', '.join(names) or 'none'}); "
-                          "pass --old to choose one")
-        owner = owners[0]
-        old_name = names[0]
+        old_name, owner = function_owner(ctx, at, want)
         if not new_name or not new_name.startswith("?"):
             raise Refusal("--identity needs each new name as its whole mangled spelling")
         if new_name == old_name:
@@ -3471,33 +3734,23 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
         head_old, head_new = identity_head(old_name), identity_head(new_name)
         if head_old is None or head_new is None:
             raise Refusal(f"{old_name if head_old is None else new_name} is a hand-written name, not an operator, "
-                          "special member or template member the compiler spells from its types: choosing it "
-                          "is a naming claim (function --new with its basis)")
+                          "special member or template member the compiler spells from its types: rename it "
+                          "with function --new and its basis")
         if head_old != head_new:
             raise Refusal(f"{new_name} changes the operator or identifier of {old_name} ({head_old} -> "
                           f"{head_new}): only the types the compiler spells may change")
         if not placeholder_types(old_name):
-            raise Refusal(f"{old_name} names no placeholder type (Rva.../Bfme...): respelling one real type "
-                          "to another is a naming claim, not something code identity proves")
-        if is_generated(owner["source"]):
-            raise Refusal(f"{old_name} lives in generated source {owner['source']}")
-        refuse_vendored(ctx, [owner["source"]], f"respelling {old_name}")
-        reason = is_protected(ctx, "function", old_name, rva=at)
-        if reason:
-            raise Refusal(f"canonical name: {reason}")
-        if any(r["name"] == new_name for r in rows) or any(p.get("name") == new_name for p in ctx.pins()):
-            raise Refusal(f"{new_name} already names a row or pin: one name, one identity")
-        tombstoned = _tombstones(ctx)
-        if (new_name, at) in tombstoned:
-            raise Refusal(f"({new_name}, 0x{at:08X}) is tombstoned in deleted_rows.csv")
+            raise Refusal(f"{old_name} names no placeholder type (Rva.../Bfme...): an identity respell replaces "
+                          "a placeholder-typed spelling only")
+        # the primary row checks of plan_function, on every row
+        function_identity_checks(ctx, at, old_name, old_name, owner)
+        function_collision_checks(ctx, at, old_name, new_name, old_name, new_name, respell=True)
         pinned = sorted(p.get("name", "") for p in ctx.pins() if _rva(p.get("address")) == at)
         if pinned:
             raise Refusal(f"0x{at:08X} carries pin(s) {', '.join(pinned)}: an identity respell cannot derive "
                           "their spellings")
-        frozen = frozen_mentions(ctx, old_name)
-        if frozen:
-            raise Refusal(f"{old_name} is a key in {', '.join(frozen)} (frozen, shrink-only)")
         entries.append(dict(rva=at, old=old_name, new=new_name, source=owner["source"]))
+    identity_approvals(ctx, entries, evidence)
 
     # 1. the code-identity check is the reason for the respell
     owner_sources = {e["source"] for e in entries}
@@ -3522,52 +3775,19 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
     if not any(e["wrong"] for e in entries):
         raise Refusal("the code-identity check reports no wrong binding for any row of this plan")
 
-    # the class: each respelled row's new class is spelled exactly as a retail callee's
-    # thiscall member's, or (a --also wrapper) takes a proved row's class or key as a
-    # template argument and calls that row
-    named = collections.defaultdict(set)
-    for r in rows:
-        if not r["name"].startswith(("__ehhandler$", "__unwindfunclet$", "$L")) and \
-                "parent=" not in r.get("notes", ""):
-            named[_rva(r.get("target_rva"))].add(r["name"])
+    # 2. a folded callee's binding proves no one name
+    named, notes = callee_marks(rows)
     for e in entries:
-        e["class"] = identity_class(e["new"])
-        if e["class"] is None:
-            raise Refusal(f"{e['new']} is not a thiscall member of a class this tool reads: code identity "
-                          "proves a member's class and nothing else")
-        e["class_of"] = sorted(t for t in e["bound"] if t not in planned and len(named.get(t, ())) == 1
-                               and (identity_class(min(named[t])) or (None,))[0] == e["class"][0])
-    by_rva = {e["rva"]: e for e in entries}
-    for e in entries:
-        e["wraps"] = []
-        if e["class_of"]:
-            continue
-        if e is entries[0]:
-            raise Refusal(f"{e['new']}'s class is not the class of any retail callee of 0x{e['rva']:08X} "
-                          f"(a thiscall member rowed at " + (", ".join(f"0x{t:08X}" for t in e["bound"]) or
-                                                             "no callee") +
-                          "): the callees prove only their own class")
-        wargs = e["class"][1]
-        for t in e["inner"]:
-            inner = by_rva[t]
-            if not inner["class_of"]:
-                continue
-            scope, args = inner["class"]
-            whole = "".join(scope) + "@"
-            key = args[0] if args else None
-            if any(a in ("U" + whole, "V" + whole) for a in wargs) or \
-                    (key and not type_has_references(key) and key in wargs):
-                e["wraps"].append(t)
-        if not e["wraps"]:
-            raise Refusal(f"{e['new']} neither has a retail callee's class nor takes the class or key type of "
-                          "a respelled row it calls as a template argument: a wrapper is proved only through "
-                          "the row it wraps")
+        for t in e["bound"]:
+            folded = None if t in planned else folded_callee(named, notes, t)
+            if folded:
+                raise Refusal(f"{e['old']} calls 0x{t:08X}, which {folded}: a folded callee's binding proves "
+                              "no one name")
 
-    # Callee pins. A pinned callee's binding says nothing about the caller's types, so a
-    # pin refuses, except the one the respell makes obsolete: the callee spelled under the
-    # respelled row's OLD class (the symbol that row's object binds there), at a callee the
-    # class proof covers, whose real row has the new class. It is retired: the plan drops it
-    # and, after the build, the row must bind that real row directly with the pin gone.
+    # Callee pins: a pinned callee binds through the pin, so a pin refuses, except
+    # the one the respell makes obsolete -- the callee spelled under the respelled
+    # row's old class, the symbol its old object binds there -- once no object
+    # outside the rebuilt units references it.
     pins_at = collections.defaultdict(list)
     for p in ctx.pins():
         pins_at[_rva(p.get("address"))].append(p.get("name", ""))
@@ -3583,32 +3803,21 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
                 bound = {r["symbol"] for r in before if r["row"] == e["old"] and r["rva"] == e["rva"]
                          and r["target"] == t}
                 pin_cls = identity_class(name)
-                if not (t in e["class_of"] and callee in matched and old_cls and pin_cls
-                        and pin_cls[0] == old_cls[0] and identity_head(name) == identity_head(callee)
-                        and name in bound and pin_count[name] == 1 and name not in row_names):
-                    raise Refusal(f"{e['old']} calls 0x{t:08X}, which carries pin {name}: only a pin spelling "
-                                  "that callee under the respelled row's old class, which the row binds and the "
-                                  "class proof covers, is retired; any other pinned callee proves nothing")
+                if not (callee in matched and old_cls and pin_cls and pin_cls[0] == old_cls[0]
+                        and identity_head(name) == identity_head(callee) and name in bound
+                        and pin_count[name] == 1 and name not in row_names):
+                    raise Refusal(f"{e['old']} calls 0x{t:08X}, which carries pin {name}: only that callee's "
+                                  "old-type spelling, which the respelled row's object binds there, is retired; "
+                                  "any other pinned callee proves nothing")
                 retire[(name, t)] = callee
+    rebuilt = 0
     if retire:
-        # a unit the plan does not rebuild must not bind a retired pin
-        words = sorted({w for name, _t in retire for w in placeholder_types(name)})
-        consumers = set()
-        for word in words:
-            consumers |= set(ctx.grep_files(word, roots=("Code",)))
-        consumers -= owner_sources | set(prepared)
-        names = {name for name, _t in retire}
-        consumers &= {r["source"] for r in rows}
-        scanned = identity_refs(ctx, consumers) if consumers else []
-        unread = sorted(consumers - {r["source"] for r in scanned})
-        if unread:
-            raise Refusal(f"{unread[0]} spells the old type of a pin this respell would retire, and the code-identity "
-                          "check reads no object of it (./build.sh it first)")
-        users = [r for r in scanned if r["symbol"] in names]
-        if users:
-            u = users[0]
-            raise Refusal(f"{u['row']} in {u['source']} binds pin {u['symbol']}, which this respell would retire: "
-                          "prepare that unit too")
+        names = sorted({name for name, _t in retire})
+        words = sorted({w for name in names for w in placeholder_types(name)})
+        problems, rebuilt = pin_consumers(ctx, names, words, owner_sources | set(prepared))
+        if problems:
+            raise Refusal(f"the old-type pin(s) cannot be retired: {problems[0]}"
+                          + (f" (and {len(problems) - 1} more)" if len(problems) > 1 else ""))
 
     # --move-to: the approved TU of every respelled row; every row of the owner source moves with them
     removed = []
@@ -3654,18 +3863,19 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
 
     renames = {e["old"]: e["new"] for e in entries}
     primary = entries[0]
+
     def hexes(rvas):
         return ", ".join(f"0x{t:08X}" for t in rvas)
 
-    evidence = IDENTITY + " " + "; ".join(
+    facts = IDENTITY + " " + "; ".join(
         f"0x{e['rva']:08X} calls " + (hexes(callees[e["rva"]]) or "nothing") + " (" +
-        "; ".join(([f"wrong before: {hexes(e['wrong'])}"] if e["wrong"] else []) +
-                  ([f"class of {hexes(e['class_of'])}"] if e["class_of"] else
-                   [f"wrapper of the respelled {hexes(e['wraps'])}"])) + ")"
-        for e in entries) + ("; retires the old-type pin(s) at " + hexes(sorted({t for _n, t in retire}))
-                             if retire else "")
-    plan = Plan("function", primary["old"], primary["new"], "inferred", evidence,
-                move_to or primary["source"], primary["rva"])
+        (f"wrong before: {hexes(e['wrong'])}" if e["wrong"] else f"calls the respelled {hexes(e['inner'])}") + ")"
+        for e in entries)
+    if retire:
+        facts += (f"; retires the old-type pin(s) at {hexes(sorted({t for _n, t in retire}))} "
+                  f"({rebuilt} stale object(s) rebuilt for the consumer scan)")
+    plan = Plan("function", primary["old"], primary["new"], "inferred",
+                " ".join(e["agree"] for e in entries) + "; " + facts, move_to or primary["source"], primary["rva"])
 
     # Ledgers: every row, funclet and notes token spelling an old name.
     raw = ctx.read(FUNCTIONS)
@@ -3712,8 +3922,9 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
             plan.edit(ctx, DELETED, appended(plan.after.get(DELETED, ctx.read(DELETED)), [tombstone_line(
                 old_row, at, f"Respelled to {new_row} by tools/rename.py (code identity)")],
                 header="name,target_rva,reason"))
+    # the record is the approval alone (agree:<id>), as every inferred landing's, so revert finds it
     plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
-        ["function", e["old"], e["new"], "inferred", evidence, move_to or e["source"], f"0x{e['rva']:08X}"])
+        ["function", e["old"], e["new"], "inferred", e["agree"], move_to or e["source"], f"0x{e['rva']:08X}"])
         for e in entries], header=NAME_BASIS_HEADER))
 
     # Sources: the prepared C++ is the whole change; nothing may still spell an old name.
@@ -3751,9 +3962,20 @@ def plan_identity_respell(ctx, rva, new, *, old=None, prepared=None, also=(), mo
 
 def identity_problems(ctx, identity):
     """What the rebuilt objects say against an identity respell: a respelled row
-    with no references or a wrong one, or a wrong binding new to a touched source."""
+    with no references, one not bound directly to retail's row (an alias, fold,
+    pinned or ICF-marked callee), a retired pin still named, or a wrong binding new
+    to a touched source."""
     refs = identity_refs(ctx, identity["sources"])
     problems = []
+    # the ledgers as written now (ctx's tables are the plan-time snapshot)
+    written = ctx.path(SYMBOLS).read_bytes().decode("utf-8") if ctx.path(SYMBOLS).exists() else ""
+    pin_rows = list(csv.DictReader(io.StringIO(written)))
+    pins = {(p.get("name", ""), _rva(p.get("address"))) for p in pin_rows}
+    pinned = collections.defaultdict(list)
+    for p in pin_rows:
+        pinned[_rva(p.get("address"))].append(p.get("name", ""))
+    rows_now = list(csv.DictReader(io.StringIO(ctx.path(FUNCTIONS).read_bytes().decode("utf-8"))))
+    named, notes = callee_marks(rows_now)
     for at, old, new in identity["rows"]:
         own = [r for r in refs if r["row"] == new and r["rva"] == at]
         if not own:
@@ -3764,9 +3986,13 @@ def identity_problems(ctx, identity):
             if not identity_direct(r):
                 problems.append(f"{new} (0x{at:08X}) still binds {r['symbol']} at 0x{r['target']:08X} "
                                 f"({r['cls']}), not retail's row")
-    # the pins as written now (ctx.pins() is the plan-time snapshot)
-    written = ctx.path(SYMBOLS).read_bytes().decode("utf-8") if ctx.path(SYMBOLS).exists() else ""
-    pins = {(p.get("name", ""), _rva(p.get("address"))) for p in csv.DictReader(io.StringIO(written))}
+            elif r["cls"] == "owner" and r["target"] != at:
+                if pinned.get(r["target"]):
+                    problems.append(f"{new} (0x{at:08X}) binds 0x{r['target']:08X}, which carries pin "
+                                    f"{pinned[r['target']][0]}")
+                folded = folded_callee(named, notes, r["target"])
+                if folded:
+                    problems.append(f"{new} (0x{at:08X}) binds 0x{r['target']:08X}, which {folded}")
     for name, t, callee in identity.get("retired", ()):
         if (name, t) in pins:
             problems.append(f"pin {name} at 0x{t:08X} is still in {SYMBOLS}")
@@ -3775,11 +4001,15 @@ def identity_problems(ctx, identity):
         if not any(r["symbol"] == callee and r["target"] == t and r["cls"] == "owner"
                    for at, _old, new in identity["rows"] for r in refs if r["row"] == new and r["rva"] == at):
             problems.append(f"no respelled row binds {callee} at 0x{t:08X} directly after the pin is retired")
-    if identity.get("retired") and (ctx.root / "tools/pin_consistency.py").exists():
-        result = subprocess.run([sys.executable, "tools/pin_consistency.py", "--check"], cwd=str(ctx.root),
-                                capture_output=True, text=True)
-        if result.returncode:
-            problems.append("pin_consistency --check: " + (result.stdout + result.stderr).strip()[-300:])
+    if identity.get("retired"):
+        names = sorted({name for name, _t, _c in identity["retired"]})
+        objects = rowed_objects(ctx)
+        problems += object_pin_references({s: objects.get(s, []) for s in identity["sources"]}, names)
+        if (ctx.root / "tools/pin_consistency.py").exists():
+            result = subprocess.run([sys.executable, "tools/pin_consistency.py", "--check"], cwd=str(ctx.root),
+                                    capture_output=True, text=True)
+            if result.returncode:
+                problems.append("pin_consistency --check: " + (result.stdout + result.stderr).strip()[-300:])
     known = {tuple(k) for k in identity["wrong_before"]}
     for r in identity_wrong(refs):
         if any(r["row"] == new and r["rva"] == at for at, _old, new in identity["rows"]):
@@ -12346,10 +12576,11 @@ def main(argv=None):
                                "--respell: another slot of the same retail table, each proved by its base "
                                "virtual and all checked after one build")
     function.add_argument("--identity", action="store_true",
-                          help="with --respell: respell compiler-spelled rows (operators, special members, "
-                               "template members) by code identity, no --basis: refused unless the "
-                               "code-identity check reports a wrong binding before and, after ./build.sh, every "
-                               "reference of every respelled row binds its retail owner")
+                          help="with --respell: respell a placeholder-typed compiler-spelled row (operator, "
+                               "special member, template member) by the naming route, --basis inferred "
+                               "--evidence 'agree:<id> ...' (one approval per row), gated by code identity: "
+                               "refused unless the check reports a wrong binding before and, after ./build.sh, "
+                               "every reference of every respelled row binds its retail owner directly")
     function.add_argument("--move-to", metavar="TU",
                           help="with --respell --identity: also move the respelled rows into their approved "
                                "TU (reverse/tu_map.csv); every row of the owner source must move, its "
@@ -12487,8 +12718,6 @@ def main(argv=None):
         parser.error("--identity and --move-to go with --respell")
     if args.kind == "function" and args.move_to and not identity:
         parser.error("--move-to goes with --respell --identity")
-    if identity and args.basis:
-        parser.error("--respell --identity takes its evidence from the code-identity check: pass no --basis")
     if args.kind == "function" and args.prepared and not (to_class or args.virtual or respell):
         parser.error("--prepared goes with --to-class, --virtual or --respell")
     if respell and (to_class or args.virtual):
@@ -12548,7 +12777,7 @@ def main(argv=None):
                      ", ".join(f for f, v in (("--name", args.name), ("--new", args.new)) if v is None))
     if identity and args.new is None:
         parser.error("the following arguments are required: --new")
-    if not virtual and not fold and not to_class and not retype and not identity and (
+    if not virtual and not fold and not to_class and not retype and (
             args.basis is None or args.evidence is None or args.new is None):
         parser.error("the following arguments are required: " +
                      ", ".join(f for f, v in (("--new", args.new), ("--basis", args.basis),
@@ -12568,7 +12797,7 @@ def main(argv=None):
     if respell and also:
         kwargs["also"] = also
     if identity:
-        kwargs.update(identity=True, move_to=args.move_to, basis=None, evidence="")
+        kwargs.update(identity=True, move_to=args.move_to)
     if virtual:
         kwargs = dict(virtual=True, evidence=args.evidence or "", max_files=args.max_files,
                       prepared=prepared or None)

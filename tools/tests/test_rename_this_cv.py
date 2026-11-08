@@ -7,13 +7,17 @@ slot 129, which in CameraClass's own table holds the registered
 the override would add a slot instead. So the const is proved by the base
 virtual, and the respell changes nothing else:
 
-  * the row sits in exactly one slot of a table its class's ctor installs;
-  * a canonical base its views derive from installs a table whose same slot
-    holds a registered row with the same identifier, convention and parameters,
-    whose `this` cv is the new one;
+  * the row sits in exactly one slot of a table its class's ctor installs, and
+    retail's bytes of that install store the table through `this` at offset 0;
+  * a base in the class's canonical ancestry (its canonical_classes.csv record:
+    contract bases, else its registered header -- never a prepared declaration)
+    installs, through `this` too, a table whose same slot holds a registered
+    row with the same identifier, convention and parameters, whose `this` cv is
+    the new one;
   * after ./build.sh the installers' rebuilt table names the row in that slot.
 
-The retail tables and compiled objects are injected as in test_rename_to_class.py.
+The retail tables and compiled objects are injected as in test_rename_to_class.py;
+the installers' retail bytes are a synthetic image read by the real decoder.
 """
 import subprocess
 import sys
@@ -59,7 +63,13 @@ FUNCTIONS = f"""name,export_rva,target_rva,target_size,source,status,notes
 {BASE_BOX},,0x00135990,214,{CAMERA},matched,slot 130 of CameraClass
 {CAM_DTOR},,0x00133A00,64,{CAMERA},matched,dtor
 """
-CANONICAL = "class,header,notes\nCameraClass,Code/WW3D2/CameraClass.h,existing header\n"
+CANONICAL = ("class,header,notes\nCameraClass,Code/WW3D2/CameraClass.h,existing header\n"
+             "Rva007C454,Code/Game/Rva007C454.h,camera-derived class\n")
+CLASS_HEADER = '#include "CameraClass.h"\nclass Rva007C454 : public CameraClass { };\n'
+IMAGE_BASE = 0x00400000
+# retail bytes from each installer row's start to its store: push esi; mov esi, ecx; then
+# (CameraClass's dtor) padding; the store itself is `mov dword ptr [esi], table`
+CTOR_START, CAM_START = 0x0007C3CD, 0x00133A00
 HEADER = """struct SphereClass;
 class CameraClass {
 public:
@@ -108,6 +118,7 @@ def tree(tmp_path):
         "reverse/gate_baseline.txt": "",
         "reverse/canonical_classes.csv": CANONICAL,
         "Code/WW3D2/CameraClass.h": HEADER,
+        "Code/Game/Rva007C454.h": CLASS_HEADER,
         OVERLAP: OVERLAP_SRC,
         BOX_SRC: BOX_TEXT,
         CTOR_SRC: CTOR_TEXT,
@@ -123,10 +134,31 @@ def tree(tmp_path):
     return tmp_path
 
 
+def store_bytes(table, base_reg=b"\x06"):
+    """`mov dword ptr [reg], table` (C7 /0 imm32); 06 is [esi], 01 [ecx], 00 [eax], 46 04 [esi+4]."""
+    import struct
+    return b"\xc7" + base_reg + struct.pack("<I", table + IMAGE_BASE)
+
+
+def retail_code():
+    """{start: bytes} of the installers' retail code: the store sits at CTOR_STORE / CAM_STORE."""
+    return {CTOR_START: b"\x56\x8b\xf1" + store_bytes(TABLE),
+            CAM_START: b"\x56\x8b\xf1" + b"\x90" * 13 + store_bytes(BASE_TABLE)}
+
+
 @pytest.fixture
 def objects(monkeypatch):
-    """The retail tables and the installers' compiled tables (BUILT_BEFORE until a test swaps them)."""
-    state = {"tables": dict(TABLES), "built": BUILT_BEFORE}
+    """The retail tables, the installers' retail bytes and their compiled tables
+    (BUILT_BEFORE until a test swaps them)."""
+    import build
+    state = {"tables": dict(TABLES), "built": BUILT_BEFORE, "code": retail_code()}
+
+    def exe_image():
+        image = bytearray(b"\xcc" * 0x140000)
+        for start, code in state["code"].items():
+            image[start:start + len(code)] = code
+        return bytes(image), [dict(name=".text", rva=0, size=len(image), raw_size=len(image), raw_pointer=0)]
+    monkeypatch.setattr(build, "exe_image", exe_image)
     monkeypatch.setattr(rename, "retail_vtables", lambda ctx: state["tables"])
     monkeypatch.setattr(rename, "compiled_vtables", lambda ctx, rel, current=True: state["built"].get(rel))
     monkeypatch.setattr(rename, "retail_jump", lambda ctx, rva: None)
@@ -135,7 +167,8 @@ def objects(monkeypatch):
 
 
 def recommit(root, rel, text):
-    (root / rel).write_text(text)
+    (root / rel).parent.mkdir(parents=True, exist_ok=True)
+    (root / rel).write_bytes(text.encode("utf-8"))      # LF on every host
     _git(root, "add", "-A")
     _git(root, "-c", "user.email=t@t", "-c", "user.name=t", "commit", "-q", "-m", "edit")
 
@@ -163,7 +196,7 @@ def test_respells_the_this_cv_proved_by_the_base_virtual(tree, objects):
     assert got.this_cv["slot"] == 1 and got.this_cv["sources"] == [CTOR_SRC]
     assert CTOR_SRC in got.verify and OVERLAP in got.verify
     assert got.evidence.startswith(EVIDENCE + "; this-cv: 0x0007BEA7 fills retail table 0x00BC6C58 slot 1, "
-                                   f"installed by {CTOR} at 0x0007C3CD; ")
+                                   f"installed by {CTOR} at 0x0007C3CD (stored through `this`); ")
     assert f"overrides {BASE} (0x00135960, CameraClass's retail table 0x00BD26E0 slot 1)" in got.evidence
     basis = got.after["reverse/name_basis.csv"].decode()
     assert ",inferred," in basis and "agree:" not in basis and "this-cv:" in basis
@@ -214,10 +247,11 @@ def test_refused_when_the_base_slot_is_no_registered_row(tree, objects):
 
 
 def test_refused_when_the_base_is_not_canonical(tree, objects):
-    recommit(tree, "reverse/canonical_classes.csv", "class,header,notes\n")
+    recommit(tree, "reverse/canonical_classes.csv",
+             "class,header,notes\nRva007C454,Code/Game/Rva007C454.h,camera-derived class\n")
     with pytest.raises(Refusal) as error:
         plan(tree)
-    assert "no canonical base of Rva007C454 (CameraClass)" in str(error.value)
+    assert "no canonical base in Rva007C454's canonical ancestry (CameraClass)" in str(error.value)
 
 
 def test_refused_when_the_base_slot_holds_another_virtual(tree, objects):
@@ -406,3 +440,110 @@ def test_siblings_run_the_primary_rows_check_functions(tree, objects, monkeypatc
     batch(tree)
     assert {key: sorted(rvas) for key, rvas in seen.items()} == {
         "owner": [RVA, BOX_RVA], "identity": [RVA, BOX_RVA], "collision": [RVA, BOX_RVA]}
+
+
+
+# ------------------------------- the install goes through `this` (review round 2, finding 3)
+
+def install(objects, start, code, store_at, table=TABLE):
+    """Retail bytes `code` at `start`, whose table store sits at `store_at`."""
+    objects["code"][start] = code
+    slots, _stores = objects["tables"][table]
+    objects["tables"][table] = (slots, {store_at: 0})
+
+
+def test_refused_when_the_store_goes_through_a_loaded_pointer(tree, objects):
+    """review_installer_repro.py: `mov eax,[ecx+4]; mov [eax],table` installs a
+    member object's table, not this class's."""
+    install(objects, CTOR_START, b"\x8b\x41\x04" + store_bytes(TABLE, b"\x00"), CTOR_START + 3)
+    with pytest.raises(Refusal, match=r"not proved Rva007C454's own: .*stores through `dword ptr \[eax\]`, "
+                                      r"not `this`"):
+        plan(tree)
+
+
+def test_refused_when_a_base_table_store_goes_through_a_loaded_pointer(tree, objects):
+    install(objects, CAM_START, b"\x8b\x41\x04" + store_bytes(BASE_TABLE, b"\x00"), CAM_START + 3,
+            table=BASE_TABLE)
+    with pytest.raises(Refusal, match="no canonical base in Rva007C454's canonical ancestry .* installs, "
+                                      "through `this`"):
+        plan(tree)
+
+
+def test_a_store_straight_through_ecx_is_this(tree, objects):
+    install(objects, CTOR_START, b"\x90\x90\x90" + store_bytes(TABLE, b"\x01"), CTOR_START + 3)
+    assert plan(tree).this_cv["slot"] == 1
+
+
+def test_a_this_copy_survives_a_call(tree, objects):
+    """push esi; mov esi, ecx; call Base::Base; mov [esi], table: esi is callee-saved."""
+    install(objects, CTOR_START, b"\x56\x8b\xf1\xe8\x00\x00\x00\x00" + store_bytes(TABLE), CTOR_START + 8)
+    assert plan(tree).this_cv["slot"] == 1
+
+
+def test_refused_when_ecx_is_used_after_a_call(tree, objects):
+    install(objects, CTOR_START, b"\xe8\x00\x00\x00\x00" + store_bytes(TABLE, b"\x01"), CTOR_START + 5)
+    with pytest.raises(Refusal, match="not `this`"):
+        plan(tree)
+
+
+def test_refused_when_this_is_reloaded_from_the_frame(tree, objects):
+    """mov [ebp-4], ecx; mov eax, [ebp-4]; mov [eax], table: a load in between."""
+    install(objects, CTOR_START, b"\x89\x4d\xfc\x8b\x45\xfc" + store_bytes(TABLE, b"\x00"), CTOR_START + 6)
+    with pytest.raises(Refusal, match="not `this`"):
+        plan(tree)
+
+
+def test_refused_when_the_copy_is_overwritten(tree, objects):
+    """mov esi, ecx; mov esi, [esi+4]: esi no longer holds this."""
+    install(objects, CTOR_START, b"\x8b\xf1\x8b\x76\x04" + store_bytes(TABLE), CTOR_START + 5)
+    with pytest.raises(Refusal, match="not `this`"):
+        plan(tree)
+
+
+def test_refused_when_the_store_is_off_the_primary_vfptr(tree, objects):
+    install(objects, CTOR_START, b"\x8b\xf1\xc7\x46\x04" + (TABLE + IMAGE_BASE).to_bytes(4, "little"),
+            CTOR_START + 2)
+    with pytest.raises(Refusal, match=r"this\+0x4, not the primary vfptr"):
+        plan(tree)
+
+
+def test_refused_when_a_branch_precedes_the_store(tree, objects):
+    install(objects, CTOR_START, b"\xeb\x00\x90" + store_bytes(TABLE, b"\x01"), CTOR_START + 3)
+    with pytest.raises(Refusal, match="a branch at 0x0007C3CD precedes the store"):
+        plan(tree)
+
+
+# ------------------------------- ancestry from the canonical record (review round 2, finding 4)
+
+def test_refused_when_the_class_has_no_canonical_record(tree, objects):
+    """review_this_cv_repro.py: a prepared `: public CameraClass` proves nothing."""
+    recommit(tree, "reverse/canonical_classes.csv", CANONICAL.split("Rva007C454,")[0])
+    with pytest.raises(Refusal, match="Rva007C454 has no record in reverse/canonical_classes.csv"):
+        plan(tree)
+
+
+def test_refused_when_the_canonical_header_does_not_derive_from_the_base(tree, objects):
+    """The prepared views say `: public CameraClass`; the registered header does not."""
+    recommit(tree, "Code/Game/Rva007C454.h", "class Rva007C454 { };\n")
+    with pytest.raises(Refusal, match=r"no canonical base in Rva007C454's canonical ancestry \(none\)"):
+        plan(tree)
+
+
+def test_a_private_base_view_in_a_prepared_unit_proves_nothing(tree, objects):
+    """The review's shape: prepared units carry their own CameraClass copy and derive from it."""
+    recommit(tree, "Code/Game/Rva007C454.h", "class Rva007C454 { };\n")
+    private = "class CameraClass { public: virtual void Render(); virtual bool Cull_Sphere(const SphereClass &) const; };\n"
+    prepared = {OVERLAP: OVERLAP_PREPARED.replace('#include "CameraClass.h"', private).encode(),
+                CTOR_SRC: CTOR_PREPARED.replace('#include "CameraClass.h"', private).encode()}
+    with pytest.raises(Refusal, match="canonical ancestry"):
+        plan(tree, prepared=prepared)
+
+
+def test_the_contract_bases_decide_before_the_header(tree, objects):
+    recommit(tree, "Code/Game/Rva007C454.h", "class Rva007C454 { };\n")
+    recommit(tree, "reverse/class_contracts/Rva007C454.json", '{"class": "Rva007C454", "bases": ["CameraClass"]}\n')
+    assert plan(tree).this_cv["slot"] == 1
+    recommit(tree, "Code/Game/Rva007C454.h", CLASS_HEADER)
+    recommit(tree, "reverse/class_contracts/Rva007C454.json", '{"class": "Rva007C454", "bases": []}\n')
+    with pytest.raises(Refusal, match="canonical ancestry"):
+        plan(tree)

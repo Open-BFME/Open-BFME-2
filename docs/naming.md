@@ -1093,6 +1093,47 @@ Known limits, each refused or out of reach rather than passed wrongly:
   arguments, alone or behind `&`, `*` or extra parentheses (`memset(&g, 0, 16)`), unless the
   function's name is also a type.
 
+### `rename.py function --respell`: `this` cv and code identity
+
+`--respell` takes the row's whole new mangled name and `--prepared` sources for
+every unit that names it. Two of its routes replace a guess with evidence, and
+two review rounds set where the evidence ends:
+
+- **`this` cv** (`--basis inferred --evidence 'signature-only: ...'`, no vote): a
+  virtual rowed with the wrong `this` cv (`UAE` for `UBE`) when retail proves
+  the cv. The row fills exactly one slot of a table its class's own ctor or dtor
+  installs. Retail's bytes of each install store the table through `this`: ecx,
+  or a register copied from it with no load in between, at offset 0. The class's
+  canonical record (`reverse/canonical_classes.csv`: the contract's `bases`, else
+  its registered header's class head) derives from a canonical base. That base
+  installs, through `this` too, a table whose same slot holds a registered row
+  with the same identifier, convention and parameters and exactly the new cv.
+  Prepared declarations never supply the ancestry, so a class with no canonical
+  record is refused. After the build, the installers' table must name the row in
+  that slot. `--also RVA=NEW` adds slots of the same table, each with the same
+  proof and the primary row's own checks, and all slots are judged after one
+  build.
+- **code identity** (`--identity`): a placeholder-typed operator, special member
+  or template member whose bytes match while its calls bind the wrong
+  instantiation. A callee's class does not prove the caller's (`mov
+  ecx,[ecx+4]; call clear` acts on a contained object), and a mechanical proof
+  of the whole signature leaked twice. So the new spelling is a naming
+  judgement: `--basis inferred --evidence 'agree:<id> ...'`, one approval (two
+  blind votes on the row's placeholder key, keyed on its whole old spelling) per
+  row. The voters judge the whole signature. The code-identity checks are hard
+  gates on top:
+  - before: the scan shows a wrong binding;
+  - after the build: every call binds retail's row directly (no alias, pin or
+    ICF-marked callee);
+  - the bytes match and the new name is unowned.
+  A callee pin spelling the callee under the row's old type is retired only when
+  no object outside the rebuilt units names it (symbol table, weak externals,
+  `/alternatename`, `/INCLUDE`). A missing or unreadable object refuses, and a
+  stale object whose source or an included header spells the pin or its type is
+  rebuilt with `./build.sh` first. The evidence records how many were rebuilt.
+  Each `name_basis.csv` record is the approval alone (`agree:<id>`), so `revert`
+  finds it.
+
 ### `reverse/name_basis.csv`
 
 Append-only and union-merged, one row per rename:
