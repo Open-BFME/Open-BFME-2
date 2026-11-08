@@ -1,0 +1,13 @@
+{
+  "rows": 26,
+  "matched": 21,
+  "missing": [
+    "??1SnapC8@@UAE@XZ",
+    "??1RefTex@@QAE@XZ",
+    "??1FreeBuf@@QAE@XZ",
+    "$L1608",
+    "$L1607"
+  ],
+  "errors": [],
+  "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\tu_skeleton\\e4189d5fa29ea6fa.obj"
+}

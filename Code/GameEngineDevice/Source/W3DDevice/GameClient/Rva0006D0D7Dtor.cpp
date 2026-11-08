@@ -7,17 +7,11 @@
 // RenderObjClass base destructor 0x13BE20. Layout from the retail dtor.
 #include "ascii_string.h"
 
-class TextureBaseClass
-{
-public:
-	void Release_Ref();
-};
+#include "../../../../Libraries/Source/WWVegas/WWLib/ref_ptr.h"
+// Only Release_Ref is used through these owning pointer members.
+class TextureClass { public: void Release_Ref(); };
 void Rva00030830GameFree(void *);
 
-struct RefTex {
-	TextureBaseClass *p;
-	~RefTex() { if (p) p->Release_Ref(); }
-};
 struct FreeBuf {
 	void *p;
 	~FreeBuf() { if (p) Rva00030830GameFree(p); }
@@ -141,7 +135,7 @@ public:
 	virtual void ReAcquireResources();
 private:
 	char m_pad0[0xD4 - 0xCC];
-	RefTex m_d4;
+	RefCountPtr<TextureClass> m_d4;
 	char m_pad1[0xE0 - 0xD8];
 	Rva001F3574Vec m_array[500];
 	char m_pad2[0x37EC - 0xE0 - 500 * 0x1C];
@@ -149,17 +143,17 @@ private:
 	char m_pad3[0x3800 - 0x37F0];
 	FreeBuf m_3800;
 	char m_pad4[0x381C - 0x3804];
-	RefTex m_381c;
+	RefCountPtr<TextureClass> m_381c;
 	AsciiString m_3820;
 	AsciiString m_3824;
-	RefTex m_3828;
+	RefCountPtr<TextureClass> m_3828;
 	AsciiString m_382c;
 	AsciiString m_3830;
 	char m_pad5[4];
-	RefTex m_3838;
+	RefCountPtr<TextureClass> m_3838;
 	AsciiString m_383c;
 	AsciiString m_3840;
-	RefTex m_3844;
+	RefCountPtr<TextureClass> m_3844;
 	AsciiString m_3848;
 	AsciiString m_384c;
 	VBuf *m_3850;

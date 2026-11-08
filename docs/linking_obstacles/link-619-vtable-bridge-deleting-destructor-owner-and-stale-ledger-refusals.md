@@ -358,3 +358,23 @@ but retail needs148; the SnapC8 one-slot view and full BaseHeightMap lifetime/
 interface adoption remain open. Preview817B is conserved; the separate
 bounding-getter alignment refusal and real-image verification remain pending.
 [Source and table scope](../../reverse/attempt_support/baseheight-renderobj-parent-20261108/README.md).
+
+The parent prerequisite published as 7aac060ff5 with all 26 rows and the
+parent EH graph exact. Its broader outgoing audit was INCONCLUSIVE: index
+f4727bbd09 versus base 142b6e389c1d5a49fb9e9686da0ab0c15f405f30, one missing
+current source receipt (Rva0006D0D7Dtor.cpp). Preserve that selection scope for
+the next census and real image.
+
+**2026-11-08 terrain texture-handle prerequisite:** the same destructor now
+uses canonical RefCountPtr<TextureClass> for its five owning texture members.
+All 25 retained rows and its one EH graph remain exact; the redundant private
+RefTex destructor row is retired while its canonical owner at 0x0017098D
+continues to cover the range. Complete index touches identify no outside
+consumer of RefTex. Ordinary preview stays LINKS (817->805 authored bytes,
+removing the redundant 12-byte claim). Full-header adoption is still blocked:
+the game-free allocator binding restores the exact 735-byte parent and EH,
+but two cleanup rows need native twin-callee ownership and twelve newly exposed
+virtual names need providers. No pin or masking change is made. The primary
+129/148-slot and Snapshot 1/4-slot gaps, broader consumer selection, and actual
+image/runtime verification remain open.
+[Verified scope and full-header trial](../../reverse/attempt_support/baseheight-texture-handles-20261108/README.md).

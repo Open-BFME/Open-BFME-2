@@ -30,3 +30,10 @@ current compiler table names come from the row's actual DIR32 bindings. No
 data row is deleted to silence the queue. Actual image binding and runtime,
 and the next real-link queue outcome, remain unverified. Gate results and
 table extents support only the scope stated here.
+
+Published as 7aac060ff5. Required gates passed all 26 rows, scoped DIR32
+(seven symbols), the exact parent EH graph and converged data. The broader
+outgoing audit was INCONCLUSIVE: index f4727bbd09 versus base
+142b6e389c1d5a49fb9e9686da0ab0c15f405f30, one source without a current audit
+receipt (this destructor). Carry its current provider/consumer selection into
+the next census and actual image; publication does not close that scope.

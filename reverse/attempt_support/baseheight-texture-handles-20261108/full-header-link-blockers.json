@@ -1,0 +1,20 @@
+[
+  "unresolved ?GetSnapshotName@BaseHeightMapRenderObjClass@@MBEPBDXZ",
+  "unresolved ?loadPostProcess@BaseHeightMapRenderObjClass@@MAEXXZ",
+  "unresolved ?vslot129@BaseHeightMapRenderObjClass@@UAEXXZ",
+  "unresolved ?vslot130@BaseHeightMapRenderObjClass@@UAEXXZ",
+  "unresolved ?vslot131@BaseHeightMapRenderObjClass@@UAEHHHPAVWorldHeightMap@@PAX@Z",
+  "unresolved ?vslot133@BaseHeightMapRenderObjClass@@UAEHXZ",
+  "unresolved ?vslot134@BaseHeightMapRenderObjClass@@UAEXABVRva000E3A8D@@H@Z",
+  "unresolved ?vslot137@BaseHeightMapRenderObjClass@@UAEXH@Z",
+  "unresolved ?vslot139@BaseHeightMapRenderObjClass@@UAEXH@Z",
+  "unresolved ?vslot142@BaseHeightMapRenderObjClass@@UAE_NH@Z",
+  "unresolved ?vslot143@BaseHeightMapRenderObjClass@@UAEXXZ",
+  "unresolved ?vslot144@BaseHeightMapRenderObjClass@@UAEHXZ",
+  "comdat ??_7BaseHeightMapRenderObjClass@@6BSnapshot@@@ (first)",
+  "comdat ??_7BaseHeightMapRenderObjClass@@6BRefCountClass@@@ (first)",
+  "no longer defines ??1FreeBuf@@QAE@XZ, which the census still references",
+  "no longer defines ??1RefTex@@QAE@XZ, which the census still references",
+  "no longer defines ??1Rva001F3574Vec@@UAE@XZ, which the census still references",
+  "no longer defines ??1SnapC8@@UAE@XZ, which the census still references"
+]

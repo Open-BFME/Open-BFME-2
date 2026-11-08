@@ -1,0 +1,20 @@
+{
+  "index": {
+    "date": "2026-11-08 12:06",
+    "commit": "f4727bbd09",
+    "clean_tree": true,
+    "census_date": "2026-11-08 10:36",
+    "census_commit": "6494b4b9d0"
+  },
+  "retired_symbol": "??1RefTex@@QAE@XZ",
+  "touching": [
+    "^code_^game^engine^device_^source_^w3^d^device_^game^client_^rva0006^d0^d7^dtor.obj"
+  ],
+  "objects_missing_touches": [],
+  "native_twins": {
+    "a": "0x0007FAB3",
+    "b": "0x00142D70",
+    "size": 14,
+    "proof": true
+  }
+}
