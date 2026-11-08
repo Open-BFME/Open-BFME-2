@@ -1,0 +1,103 @@
+{
+  "changed_sources": [
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561527.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp"
+  ],
+  "code_rows": 23,
+  "normalized_code_bytes_relocation_positions_flags_policies_equal": true,
+  "removed_definitions": [
+    "??_7Rva005EBCC0Object@@6BV3Slot0@@@",
+    "??_7Rva005EBCC0Object@@6BV3Slot2@@@"
+  ],
+  "added_definitions": [],
+  "copy_provider_facts_unchanged": true,
+  "unused_namespace_class_removed": "FXParticleSystem::LightningDrawModuleInfoBase",
+  "target_bindings": [
+    {
+      "row": "??0Rva003ABB93@@QAE@PAX0@Z",
+      "operand_rva": "0x3abbb3",
+      "symbol": "??_7Rva005EBCC0Object@@6B@",
+      "native_rva": "0x81cd40"
+    },
+    {
+      "row": "??0Rva003ACE5CModule@@QAE@PAXPAVRva003AD80BTemplate@@@Z",
+      "operand_rva": "0x3ace6e",
+      "symbol": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+      "native_rva": "0x81cd54"
+    },
+    {
+      "row": "??0Rva003ACE5CModule@@QAE@PAXPAVRva003AD80BTemplate@@@Z",
+      "operand_rva": "0x3ace7c",
+      "symbol": "??_7Rva005EBCC0Object@@6B@",
+      "native_rva": "0x81cd40"
+    }
+  ],
+  "copy_bindings": [
+    {
+      "row": "??0Rva005EBCC0Object@@QAE@ABV0@@Z",
+      "operand_rva": "0x3ae7a0",
+      "symbol": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+      "native_rva": "0x81cd54"
+    },
+    {
+      "row": "??0Rva005EBCC0Object@@QAE@ABV0@@Z",
+      "operand_rva": "0x3ae7a7",
+      "symbol": "??_7Rva005EBCC0Object@@6BModuleInfoSecondBase_3AE7B8@@@",
+      "native_rva": "0x81cd50"
+    },
+    {
+      "row": "??0Rva005EBCC0Object@@QAE@ABV0@@Z",
+      "operand_rva": "0x3ae7ae",
+      "symbol": "??_7Rva005EBCC0Object@@6B@",
+      "native_rva": "0x81cd40"
+    }
+  ],
+  "bridge": {
+    "before": {
+      "tables": 2,
+      "slots": 15,
+      "refused_tables": 2,
+      "refusal_reasons": {
+        "strong-definition": 2
+      },
+      "already_correct": 0
+    },
+    "after": {
+      "tables": 2,
+      "slots": 15,
+      "refused_tables": 0,
+      "refusal_reasons": {},
+      "already_correct": 0
+    }
+  },
+  "generated_bridge_names_targets_unchanged": true,
+  "cached_support_objects": 17,
+  "not_strict_current_support": [
+    "Code/Libraries/Source/WWVegas/WWMath/region.cpp",
+    "Code/GameEngine/Source/Common/ConstIntGetters4.cpp",
+    "Code/GameEngine/Source/Common/GlobalFloatGetters.cpp",
+    "Code/GameEngine/Source/Common/RvaAsciiStringNameGetters.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00560ABAGetter.cpp",
+    "Code/GameEngine/Source/Common/V3NewInlineCtorFactories.cpp",
+    "Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp",
+    "Code/GameEngine/Source/Common/EmptyFoldTwins.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/LightningDrawModuleDoParticles.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ABA83Ctor.cpp",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF208Clone.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/animobj.cpp"
+  ],
+  "hashes": {
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561527.cpp": "b9d260bf2f56f3ef8d20f5c33fa5bfa645e3aa848178e1c1bed374cb16f8f022",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp": "dd6df18b774b39630672d3922af1a9933e4266234d9100f79210b18a94bbe917",
+    "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AE7B8CopyCtor.cpp": "4fb3ce18923b6463c59335d158c12a7b7cc0bc9938771296ee75c7b0ed466928"
+  },
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  },
+  "scope": "Two strong arrays and one unused private declaration removed. Existing compiler tables stay4B; native44/16B still require the same2bridges/15slots. Cached support proof includes noncurrent/held objects; no fullclass/graph/image/runtime clearance."
+}

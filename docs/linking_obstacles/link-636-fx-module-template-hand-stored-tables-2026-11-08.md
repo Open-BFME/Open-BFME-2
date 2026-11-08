@@ -138,3 +138,15 @@ INCONCLUSIVE for unchanged ConstIntGetters4.cpp's missing current receipt
 at indexc885072a48/base15b108ac97; two unchanged emitter destructor-alias
 identity shadow findings remain. Carry those scopes into the next census
 and image check; no complete game/link clearance is claimed.
+
+2026-11-09, LightningDraw runtime wrapper: Rva00561527.cpp removes its two
+strong V3Slot0/V3Slot2 arrays and an unused private class declaration. The
+three live constructor stores now use existing Rva005EBCC0Object compiler
+tables, independently placed at CD54/CD40 by the exact 3AE792 copy. Normal
+23/23 code and two data rows pass; whole code/flags/policies and other data
+are equal after the two referent substitutions. Cached replay removes two
+strong refusals with the same two bridges/fifteen slots. The 4-byte views
+still need complete 44/16-byte class recovery. Thirteen cached support
+objects lack strict receipts, including held getters/animobj; no global or
+image clearance is claimed. Next: maintained census/image queue confirmation.
+[Native operands, retained bridges and support gaps](../../reverse/attempt_support/lightning-stored-tables-20261109/README.md).

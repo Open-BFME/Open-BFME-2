@@ -676,3 +676,12 @@ separate false-reject tooling pass must judge already-correct prefixed
 tables without weakening generated-copy admission. Full RTTI graph and
 next-image queue clearance are not claimed.
 [Bounded native/selection evidence](../../reverse/attempt_support/com-error-rtti-selection-20261109/README.md).
+
+2026-11-09, LightningDraw runtime tables: the Rva00561527 wrapper retires
+two strong arrays, and its constructor consumer binds the already emitted
+copy-class tables at 81CD54/81CD40. The exact 3AE792 native operands prove
+both bindings. Normal 23 code/two data rows pass; no new code, pin or alias
+is introduced. Cached replay changes strong refusals 2 to 0 with the same
+two bridges/fifteen slots. Short 4-byte class views and thirteen noncurrent
+support receipts remain; no current global provider or image result is
+claimed. LINK-636 and the packet retain those next-census/image scopes.

@@ -205,6 +205,16 @@ Offline `vtable_bridge.plan()` over the exit link's own inputs on this tree (ful
   one-byte placeholder owners (`_Rva003AEA15_v1c`, `_Rva003AED6B_vsub`, `_Rva003AED6B_v0`, FXParticleSystem: other
   owners) whose ledger extent is 1, so the bridge cannot bound the table.
 
+  2026-11-09 root follow-up for the two Rva005EBCC0Object names: the strong
+  V3Slot0/V3Slot2 arrays leave Rva00561527.cpp. The three live stores in the
+  constructor consumer now bind the existing compiler names whose native
+  copy-constructor operands prove CD54/CD40. Normal 23 code/two data rows
+  pass; cached replay removes both strong refusals with the same two bridges
+  and fifteen slots. The short class views and thirteen noncurrent support
+  receipts remain; next-image confirmation is pending. This clears only the
+  source-side stand-ins, not the broader boot-path or table-recovery scope.
+  [Proof and remaining bridge debt](../../reverse/attempt_support/lightning-stored-tables-20261109/README.md).
+
   2026-11-08 root follow-up for C1CDBC only: the one-byte owner is replaced
   by its existing complete 16-byte Rva003ABC6E Snapshot compiler table.
   The copy constructor removes three byte stand-ins and binds existing

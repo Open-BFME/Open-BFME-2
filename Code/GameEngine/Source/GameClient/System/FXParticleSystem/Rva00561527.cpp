@@ -25,18 +25,6 @@ struct XferUnknown11;
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #define BFME_SNAPSHOT_REFERENCE_XFER
 #include "../../../../Include/GameClient/LightningDrawModuleInfo.h"
-namespace FXParticleSystem
-{
-
-class LightningDrawModuleInfoBase
-{
-public:
-	virtual ~LightningDrawModuleInfoBase();
-};
-
-
-}
-
 class Pad018
 {
 public:
@@ -57,41 +45,3 @@ void Rva00561527::rva00561527(Xfer *xfer)
 	FXParticleSystem::LightningDrawModuleInfo::DoXfer(*xfer);
 }
 
-// The native constructor installs these primary and +0x18 tables.
-// Shared slots retain their existing row owners.
-extern "C" {
-void __identifier("??_GRva003AD273@@UAEPAXI@Z")();
-void __identifier("?rva000B3FD0@Rva003AD273@@UAEXXZ")();
-void __identifier("?clone@Rva005EBCC0Object@@QBEPAV1@XZ")();
-void __identifier("?rva00561527@Rva00561527@@UAEXPAVXfer@@@Z")();
-void __identifier("?doParticles@LightningDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z")();
-void __identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ")();
-void __identifier("?rva004BD9CB@Rva004BD9CB@@UBE?AVAsciiString@@XZ")();
-void __identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ")();
-void __identifier("?Create@GameFileClass@@UAEHXZ")();
-void __identifier("?Rva004647D1Get@@YAMXZ")();
-void __identifier("??_ERva003AD273@@WBI@AEPAXI@Z")();
-void __identifier("?Rva003ABBBDGet@@YAHXZ")();
-void __identifier("?rva00561527@Rva00561527@@WBI@AEXPAVXfer@@@Z")();
-
-extern const void *const __identifier("??_7Rva005EBCC0Object@@6BV3Slot0@@@")[11] = {
-    (const void *)&__identifier("??_GRva003AD273@@UAEPAXI@Z"),
-    (const void *)&__identifier("?rva000B3FD0@Rva003AD273@@UAEXXZ"),
-    (const void *)&__identifier("?clone@Rva005EBCC0Object@@QBEPAV1@XZ"),
-    (const void *)&__identifier("?rva00561527@Rva00561527@@UAEXPAVXfer@@@Z"),
-    (const void *)&__identifier("?doParticles@LightningDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z"),
-    (const void *)&__identifier("?rva00560ABA@Rva00560ABA@@QAE?AVAsciiString@@XZ"),
-    (const void *)&__identifier("?rva004BD9CB@Rva004BD9CB@@UBE?AVAsciiString@@XZ"),
-    (const void *)&__identifier("?rva0055C44F@Rva0055C44F@@QAEHXZ"),
-    (const void *)&__identifier("?Create@GameFileClass@@UAEHXZ"),
-    (const void *)&__identifier("?Create@GameFileClass@@UAEHXZ"),
-    (const void *)&__identifier("?Rva004647D1Get@@YAMXZ")
-};
-
-extern const void *const __identifier("??_7Rva005EBCC0Object@@6BV3Slot2@@@")[4] = {
-    (const void *)&__identifier("??_ERva003AD273@@WBI@AEPAXI@Z"),
-    (const void *)&__identifier("?rva000B3FD0@Rva003AD273@@UAEXXZ"),
-    (const void *)&__identifier("?Rva003ABBBDGet@@YAHXZ"),
-    (const void *)&__identifier("?rva00561527@Rva00561527@@WBI@AEXPAVXfer@@@Z")
-};
-}

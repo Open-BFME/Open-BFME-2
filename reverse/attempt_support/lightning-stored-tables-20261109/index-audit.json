@@ -1,0 +1,61 @@
+{
+  "addresses_before": 34433,
+  "addresses_after": 34433,
+  "added": 0,
+  "removed": 0,
+  "verified_owners_preserved": 2354,
+  "changed": {
+    "0x0081CD40": {
+      "before": {
+        "address": "0x0081CD40",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005EBCC0Object@@6BV3Slot2@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva005EBCC0Object@@6B@;??_7Rva005EBCC0Object@@6BV3Slot2@@@",
+        "defs": "1",
+        "refs": "3"
+      },
+      "after": {
+        "address": "0x0081CD40",
+        "size": "16",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005EBCC0Object@@6B@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "3"
+      }
+    },
+    "0x0081CD54": {
+      "before": {
+        "address": "0x0081CD54",
+        "size": "44",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+        "source": "",
+        "status": "literal",
+        "names": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@;??_7Rva005EBCC0Object@@6BV3Slot0@@@",
+        "defs": "1",
+        "refs": "2"
+      },
+      "after": {
+        "address": "0x0081CD54",
+        "size": "44",
+        "section": ".rdata",
+        "kind": "vtable",
+        "name": "??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@",
+        "source": "",
+        "status": "literal",
+        "names": "",
+        "defs": "0",
+        "refs": "2"
+      }
+    }
+  }
+}

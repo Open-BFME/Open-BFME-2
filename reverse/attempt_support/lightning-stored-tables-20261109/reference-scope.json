@@ -1,0 +1,44 @@
+{
+  "index_meta": {
+    "date": "2026-11-08 19:18",
+    "commit": "c885072a48",
+    "clean_tree": true,
+    "census_date": "2026-11-08 18:05",
+    "census_commit": "b9aeebea15"
+  },
+  "indexed_users": {
+    "??_7Rva005EBCC0Object@@6BV3Slot0@@@": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp"
+      },
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva00561527.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561527.cpp"
+      }
+    ],
+    "??_7Rva005EBCC0Object@@6BV3Slot2@@@": [
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^module^ctor^chains^a_^rva003^a^b^a^f3_^rva003^a^b^b93.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3_Rva003ABB93.cpp"
+      },
+      {
+        "object": "^code_^game^engine_^source_^game^client_^system_^f^x^particle^system_^rva00561527.obj",
+        "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00561527.cpp"
+      }
+    ]
+  },
+  "unchanged_declaration_only_files": [
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA.cpp",
+      "only_two_unused_declarations": true,
+      "cached_object_has_no_old_symbols": true
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleCtorChainsA_Rva003ABAF3.cpp",
+      "only_two_unused_declarations": true,
+      "cached_object_has_no_old_symbols": true
+    }
+  ],
+  "scope": "Index graph plus cached unchanged declaration units; broad unread-object/directive gaps still require next census."
+}

@@ -263,7 +263,9 @@ extern const void *const g_00C1CF38[12];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$01@1@@")[];
 extern "C" const void *const __identifier("??_7Gen005ED0D0@@6BDefaultModuleHeadBase@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$07@1@@")[];
-extern "C" const void *const __identifier("??_7Rva005EBCC0Object@@6BV3Slot0@@@")[];
+// Native copy constructor 0x003AE792 independently installs these compiler
+// tables at 0x0081CD54 (+0) and 0x0081CD40 (+0x18), respectively.
+extern "C" const void *const __identifier("??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@")[];
 extern "C" const void *const __identifier("??_7Rva003AE928@@6BModuleInfoHeadBase_3AE94E@@@")[];
 extern "C" const void *const __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@")[];
@@ -283,7 +285,7 @@ void __identifier("?Rva004647D1Get@@YAMXZ")();
 }
 // Owned by ModuleCtorChainsA_Rva003ABAF3.cpp (data_rows); declared only here.
 extern const void *const g_00C1C488[11];
-extern "C" const void *const __identifier("??_7Rva005EBCC0Object@@6BV3Slot2@@@")[];
+extern "C" const void *const __identifier("??_7Rva005EBCC0Object@@6B@")[];
 // The retail table at RVA 0x0081C4C8: 11 slots, each a rowed code owner (the next
 // word is not a code address or starts another ledger datum).
 extern "C" {
@@ -550,7 +552,7 @@ Rva003ABB93::Rva003ABB93(void *systemReference, void *moduleTemplate)
 {
 	STAMP(0x00, g_00C1C488);
 	STAMP(0x14, __identifier("??_7?$CategoryModuleTemplate@$05@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"));
-	STAMP(0x18, __identifier("??_7Rva005EBCC0Object@@6BV3Slot2@@@"));
+	STAMP(0x18, __identifier("??_7Rva005EBCC0Object@@6B@"));
 }
 
 
@@ -610,9 +612,9 @@ public:
 Rva003ACE5CModule::Rva003ACE5CModule(void *systemReference, Rva003AD80BTemplate *moduleTemplate)
 	: Rva003ABB93(systemReference, moduleTemplate)
 {
-	STAMP(0x00, __identifier("??_7Rva005EBCC0Object@@6BV3Slot0@@@"));
+	STAMP(0x00, __identifier("??_7Rva005EBCC0Object@@6BModuleInfoHeadBase_3AE7B8@@@"));
 	STAMP(0x14, __identifier("??_7?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@6B?$CategoryModuleInfo@$05@1@@"));
-	STAMP(0x18, __identifier("??_7Rva005EBCC0Object@@6BV3Slot2@@@"));
+	STAMP(0x18, __identifier("??_7Rva005EBCC0Object@@6B@"));
 }
 
 class V3HostRva005E76E0;
