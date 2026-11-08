@@ -8904,9 +8904,9 @@ def this_displacements(ctx, row):
     image, sections = build.exe_image()
     offset = build.rva_to_file_offset(sections, start)
     # `mov eax,<FuncInfo>; call __EH_prolog` opens an EH frame and clobbers
-    # eax only: ecx still holds this after it.
-    eh_prolog = {_rva(r.get("target_rva")) for r in ctx.rows() if r["name"] == "__EH_prolog"}
-    ctx._cache[key] = this_stores(bytes(image[offset:offset + size]), start, eh_prolog)
+    # eax only: ecx still holds this after it (the ledger's one row, eh_prolog_rva).
+    eh_prolog = eh_prolog_rva(ctx)
+    ctx._cache[key] = this_stores(bytes(image[offset:offset + size]), start, () if eh_prolog is None else (eh_prolog,))
     return ctx._cache[key]
 
 

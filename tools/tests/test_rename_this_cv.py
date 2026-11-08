@@ -637,3 +637,45 @@ def test_a_duplicate_helper_row_at_its_address_gives_no_exception(monkeypatch):
 def test_no_helper_row_keeps_every_call_ordinary(monkeypatch):
     why = eh_problem(monkeypatch, eh_frame(EH_PROLOG, COPY_THIS + store_bytes(TABLE)), EhContext((OTHER_ROW,)))
     assert "stores through `dword ptr [esi]`" in why
+
+
+# ------------------------------------------------------------ this_displacements reads the same one row
+
+class DisplacementContext(EhContext):
+    root = rename.ROOT.resolve()
+
+    def __init__(self, rows):
+        super().__init__(rows)
+        self._cache = {}
+
+
+def displacements(monkeypatch, callee, rows):
+    """this_displacements on `mov eax,<FuncInfo>; call callee; mov esi,ecx; store` from EH_START."""
+    import build
+    code = eh_frame(callee, b"\x8b\xf1" + store_bytes(TABLE))
+    monkeypatch.setattr(build, "exe_image", lambda: (code, []))
+    monkeypatch.setattr(build, "rva_to_file_offset", lambda sections, rva: 0)
+    row = dict(EH_ROW, target_size=str(len(code)))
+    return rename.this_displacements(DisplacementContext(rows), row), EH_START + len(code) - 6
+
+
+def test_this_displacements_keeps_this_past_the_one_helper_row(monkeypatch):
+    found, store = displacements(monkeypatch, EH_PROLOG, (HELPER_ROW, OTHER_ROW))
+    assert found == {store: 0}
+
+
+@pytest.mark.parametrize("callee", [OTHER_CALL, EH_PROLOG])
+def test_this_displacements_gets_no_exception_from_a_duplicate_row(monkeypatch, callee):
+    found, _store = displacements(monkeypatch, callee, DUPLICATE_ELSEWHERE)
+    assert found == {}
+
+
+def test_this_displacements_gets_no_exception_from_a_duplicate_at_its_address(monkeypatch):
+    found, _store = displacements(monkeypatch, EH_PROLOG, DUPLICATE_SAME)
+    assert found == {}
+
+
+def test_this_displacements_treats_another_call_as_ordinary(monkeypatch):
+    found, _store = displacements(monkeypatch, OTHER_CALL, (HELPER_ROW, OTHER_ROW))
+    assert found == {}
+
