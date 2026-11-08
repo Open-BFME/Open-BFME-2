@@ -12981,7 +12981,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001E0A3B,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp
 0x001E0A57,78,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget.cpp,Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp
 0x001E0AA5,74,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,C,C=0x001E0A57..0x001E0AEF,Code/GameEngine/Source/Common/Rva001E125DCtor.cpp
-0x001E0AEF,392,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
+0x001E0AEF,392,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/FXList.cpp S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp,Code/GameEngine/Source/GameClient/FXList.cpp
 0x001E0C77,25,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAA.cpp
 0x001E0C90,157,code,Code/GameEngine/Source/GameClient/CursorParticleSystemFXNugget.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/CursorParticleSystemFXNugget.cpp noncontiguous,Code/GameEngine/Source/GameClient/CursorParticleSystemFXNuggetCtor.cpp
 0x001E0D2D,70,code,Code/GameEngine/Source/GameClient/CursorParticleSystemFXNugget.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/CursorParticleSystemFXNugget.cpp noncontiguous,Code/GameEngine/Source/GameClient/CursorParticleSystemFXNuggetDoFX.cpp
@@ -12992,7 +12992,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001E0E43,567,code,Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp,proposed,U,N=Code/GameEngine/Source/GameClient/DynamicDecalFXNugget.cpp W=Code/GameEngine/Source/GameClient/FXList.cpp noncontiguous,Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp
 0x001E107A,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget.cpp,Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp
 0x001E1096,56,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,S,S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/FXListAtBonePosFXNugget.cpp,Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetDtor.cpp
-0x001E10CE,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
+0x001E10CE,28,code,,displaced,-,N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp,Code/GameEngine/Source/GameClient/FXList.cpp
 0x001E10EA,104,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,S,S=Code/GameEngine/Source/GameClient/FXList.cpp N=Code/GameEngine/Source/GameClient/ParticleSystemFXNugget.cpp,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetDtor.cpp
 0x001E1152,28,code,Code/GameEngine/Source/GameClient/CursorParticleSystemFXNugget.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/CursorParticleSystemFXNugget.cpp noncontiguous,Code/GameEngine/Source/GameClient/CursorParticleSystemFXNuggetCtor.cpp
 0x001E116E,56,code,Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp,proposed,U,N=Code/GameEngine/Source/GameLogic/Object/Contain/CursorParticleSystemFXNugget.cpp noncontiguous,Code/GameEngine/Source/GameLogic/Object/Contain/HelixContainModuleDataDtor.cpp
@@ -66395,12 +66395,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00769C33,10,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0A57@FuncInfo0x0090EEF0,Code/GameEngine/Source/GameClient/FXListAtBonePosFXNuggetCtor.cpp
 0x00769C3D,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AA5@FuncInfo0x0090EF14,Code/GameEngine/Source/Common/Rva001E125DCtor.cpp
 0x00769C45,10,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AA5@FuncInfo0x0090EF14,Code/GameEngine/Source/Common/Rva001E125DCtor.cpp
-0x00769C4F,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
-0x00769C57,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
-0x00769C65,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
-0x00769C73,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
-0x00769C81,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
-0x00769C8F,10,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/ParticleSystemFXNuggetCtor.cpp
+0x00769C4F,8,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/FXList.cpp
+0x00769C57,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/FXList.cpp
+0x00769C65,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/FXList.cpp
+0x00769C73,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/FXList.cpp
+0x00769C81,14,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/FXList.cpp
+0x00769C8F,10,code,Code/GameEngine/Source/GameClient/FXList.cpp,approved,P,P=0x001E0AEF@FuncInfo0x0090EF58,Code/GameEngine/Source/GameClient/FXList.cpp
 0x00769C99,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Contain/HelixContainModuleDataDtor.cpp
 0x00769CA1,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Contain/HelixContainModuleDataDtor.cpp
 0x00769CAB,8,code,Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp,approved,P,P=0x001E0E43@FuncInfo0x0090EFA0 p-group provisional,Code/GameEngine/Source/GameClient/EvaEventFXNugget.cpp

@@ -32,6 +32,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+// BFME 2's GameClientRandomVariable (default constructor 0x000B4979, which the particle
+// nugget's constructor runs) stands in place of Zero Hour's ClientRandomValue.h class.
+#include "../../Include/GameClient/GameClientRandomVariableInlines.h"
+#define _CLIENT_RANDOM_VALUE_H_
+extern int GetGameClientRandomValue( int lo, int hi, char *file, int line );
+extern float GetGameClientRandomValueReal( float lo, float hi, char *file, int line );
+#define GameClientRandomValue( lo, hi ) GetGameClientRandomValue( lo, hi, __FILE__, __LINE__ )
+#define GameClientRandomValueReal( lo, hi ) GetGameClientRandomValueReal( lo, hi, __FILE__, __LINE__ )
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -68,7 +76,6 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameClient/Display.h"
 #include "GameClient/GameClient.h"
 #include "GameClient/Drawable.h"
-#include "GameClient/ParticleSys.h"
 #include "GameLogic/PartitionManager.h"
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *,allocator<void *> >::size()const  { return (unsigned int)(this->_M_finish - this->_M_start); } }
@@ -503,49 +510,20 @@ private:
 EMPTY_DTOR(TerrainScorchFXNugget)
 
 //-------------------------------------------------------------------------------------------------
-class ParticleSystemFXNugget : public FXNugget
+#include "../../Include/GameClient/Rva001DFEAABase.h"
+// BFME 2's particle-system nugget (vftable 0x00BDD908): five slots, ??_G, doFXPos, doFXObj,
+// slot 3 (rowed 0x001E0C77 under a placeholder) and the base's rva001DFF5D.
+class ParticleSystemFXNugget : public Rva001DFEAABase
 {
-	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(ParticleSystemFXNugget, "ParticleSystemFXNugget")		
 public:
-
-	ParticleSystemFXNugget()
-	{
-		m_name.clear();
-		m_count = 1;
-		m_radius.setRange(0, 0, GameClientRandomVariable::CONSTANT);
-		m_height.setRange(0, 0, GameClientRandomVariable::CONSTANT);
-		// -1 means "don't mess with it, just accept the particle-system's defaults"
-		m_delay.setRange(-1, -1, GameClientRandomVariable::CONSTANT);
-		m_offset.x = m_offset.y = m_offset.z = 0;
-		m_orientToObject = false;
-		m_attachToObject = false;
-		m_createAtGroundHeight = FALSE;
-		m_useCallersRadius = FALSE;
-		m_rotateX = m_rotateY = m_rotateZ = 0;
-	}
-
-	void reallyDoFX(const Coord3D *, const Matrix3D *, const Object *, const Object *) const;
-
-	virtual void doFXPos(const Coord3D *primary, const Matrix3D* primaryMtx, const Real /*primarySpeed*/, const Coord3D * /*secondary*/, const Real overrideRadius ) const
-	{
-		if (primary)
-		{
-			// As retail's doFXPos 0x001E19CE does (push 0, push 0, then the
-			// rowed four-argument reallyDoFX 0x001E19E8). Zero Hour's inline
-			// reallyDoFX(..., Real) called names BFME 2 does not provide (LINK-181).
-			reallyDoFX(primary, primaryMtx, (const Object *)NULL, (const Object *)NULL);
-		}
-		else
-		{
-			DEBUG_CRASH(("You must have a primary source for this effect"));
-		}
-	}
-
+	ParticleSystemFXNugget();
+	virtual ~ParticleSystemFXNugget();
+	virtual void doFXPos(const Coord3D *primary, const Matrix3D *primaryMtx, float primarySpeed, const Coord3D *secondary) const;
 	virtual void doFXObj(const Object* primary, const Object* secondary) const
 	{
 		if (primary)
 		{
-			if (*(const Bool *)((const char *)this + 0x195) && secondary)
+			if (m_ricochet && secondary)
 			{
 				// HERE WE MUST BUILD A MATRIX WHICH WILL ORIENT THE NEW PARTICLE SYSTEM TO FACE AWAY FROM THE SECONDARY OBJECT
 				// THE RESULT SHOULD LOOK LIKE THE DIRECTION OF THE "ATTACK" IS CARRIED THROUGH LIKE A RICOCHET
@@ -569,124 +547,61 @@ public:
 			DEBUG_CRASH(("You must have a primary source for this effect"));
 		}
 	}
-
-	static void parse(INI *ini, void *instance, void* /*store*/, const void* /*userData*/)
-	{
-		static const FieldParse myFieldParse[] = 
-		{
-			{ "Name",									INI::parseAsciiString,			NULL, offsetof( ParticleSystemFXNugget, m_name ) },
-			{ "Count",								INI::parseInt,							NULL, offsetof( ParticleSystemFXNugget, m_count ) },
-			{ "Offset",								INI::parseCoord3D,					NULL, offsetof( ParticleSystemFXNugget, m_offset ) },
-			{ "Radius",								INI::parseGameClientRandomVariable,		NULL, offsetof( ParticleSystemFXNugget, m_radius ) },
-			{ "Height",								INI::parseGameClientRandomVariable,		NULL, offsetof( ParticleSystemFXNugget, m_height ) },
-			{ "InitialDelay",					INI::parseGameClientRandomVariable,		NULL, offsetof( ParticleSystemFXNugget, m_delay ) },
-			{ "RotateX",							INI::parseAngleReal,				NULL, offsetof( ParticleSystemFXNugget, m_rotateX ) },
-			{ "RotateY",							INI::parseAngleReal,				NULL, offsetof( ParticleSystemFXNugget, m_rotateY ) },
-			{ "RotateZ",							INI::parseAngleReal,				NULL, offsetof( ParticleSystemFXNugget, m_rotateZ ) },
-			{ "OrientToObject",				INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_orientToObject ) },
-			{ "Ricochet",				      INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_ricochet ) },
-			{ "AttachToObject",				INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_attachToObject ) },
-			{ "CreateAtGroundHeight",	INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_createAtGroundHeight ) },
-			{ "UseCallersRadius",			INI::parseBool,							NULL, offsetof( ParticleSystemFXNugget, m_useCallersRadius ) },
-			{ 0, 0, 0, 0 }
-		};
-
-		ParticleSystemFXNugget* nugget = newInstance( ParticleSystemFXNugget );	
-		ini->initFromINI(nugget, myFieldParse);
-		((FXList*)instance)->addFXNugget(nugget);
-	}
-
-protected:
-
-	void reallyDoFX(const Coord3D *primary, const Matrix3D* mtx, const Object* thingToAttachTo, Real overrideRadius ) const
-	{
-		Coord3D offset = m_offset;
-		if (mtx)
-		{
-			adjustVector(&offset, mtx);
-		}
-
-		const ParticleSystemTemplate *particleSystemTemplate = TheParticleSystemManager->findTemplate(m_name);
-		DEBUG_ASSERTCRASH(particleSystemTemplate, ("ParticleSystem %s not found\n",m_name.str()));
-		if (particleSystemTemplate)
-		{
-			for (Int i = 0; i < m_count; i++ )
-			{
-				ParticleSystem *sys = TheParticleSystemManager->createParticleSystem(particleSystemTemplate);
-				if (sys)
-				{
-					Coord3D newPos;
-					Real radius = m_radius.getValue();
-					Real angle = GameClientRandomValueReal( 0.0f, 2.0f * PI );
-
-					newPos.x = primary->x + offset.x + radius * cos(angle);
-					newPos.y = primary->y + offset.y + radius * sin(angle);
-					if( m_createAtGroundHeight && TheTerrainLogic )
-					{
-						//old way:
-						//newPos.z = TheTerrainLogic->getGrsoundHeight( newPos.x, newPos.y ) + 1;// The plus one prevents scissoring with terrain
-						
-						//new way: now we allow bridges in the GroundHeight.
-						PathfindLayerEnum layer = TheTerrainLogic->getLayerForDestination(&newPos);
-						newPos.z = TheTerrainLogic->getLayerHeight( newPos.x, newPos.y, layer );
-					}
-					else
-						newPos.z = primary->z + offset.z + m_height.getValue();
-
-
-					if (m_orientToObject && mtx)
-					{
-						sys->setLocalTransform(mtx);
-					}
-					if (m_rotateX != 0.0f)
-						sys->rotateLocalTransformX(m_rotateX);
-					if (m_rotateY != 0.0f)
-						sys->rotateLocalTransformY(m_rotateY);
-					if (m_rotateZ != 0.0f)
-						sys->rotateLocalTransformZ(m_rotateZ);
-
-					if (m_attachToObject && thingToAttachTo)
-						sys->attachToObject(thingToAttachTo);
-					else
-						sys->setPosition( &newPos );
-
-					Real delayInMsec = m_delay.getValue();
-					if (delayInMsec >= 0.0f)
-					{
-						UnsignedInt delayInFrames = REAL_TO_INT_CEIL(ConvertDurationFromMsecsToFrames(delayInMsec));
-						sys->setInitialDelay(delayInFrames);
-					}
-
-					if( m_useCallersRadius  &&  overrideRadius )
-					{
-						ParticleSystemInfo::EmissionVolumeType type = sys->getEmisionVolumeType();
-
-						if( type == ParticleSystemInfo::EmissionVolumeType::SPHERE )
-							sys->setEmissionVolumeSphereRadius( overrideRadius );
-						else if( type == ParticleSystemInfo::EmissionVolumeType::CYLINDER )
-							sys->setEmissionVolumeCylinderRadius( overrideRadius );
-					}
-				}
-			}
-		}
-	}
-
-
+	void reallyDoFX(const Coord3D *, const Matrix3D *, const Object *, const Object *) const;
+	static void parse(INI *ini, void *instance, void *store, const void *userData);
 private:
-	AsciiString			m_name;
-	Int							m_count;
-	Coord3D					m_offset;
-	GameClientRandomVariable	m_radius;
-	GameClientRandomVariable	m_height;
-	GameClientRandomVariable	m_delay;
-	Real						m_rotateX, m_rotateY, m_rotateZ;
-	Bool						m_orientToObject;
-	Bool						m_attachToObject;
-	Bool						m_createAtGroundHeight;
-	Bool						m_useCallersRadius;
-	Bool						m_ricochet;
-};  
-EMPTY_DTOR(ParticleSystemFXNugget)
+	AsciiString m_name; // +0x148
+	int m_count; // +0x14C
+	Coord3D m_offset; // +0x150
+	GameClientRandomVariable m_radius; // +0x15C
+	GameClientRandomVariable m_height; // +0x168
+	GameClientRandomVariable m_delay; // +0x174
+	float m_rotateX; // +0x180
+	float m_rotateY; // +0x184
+	float m_rotateZ; // +0x188
+	bool m_orientToObject; // +0x18C
+	bool m_attachToObject; // +0x18D
+	unsigned char m_pad18E[2]; // +0x18E
+	AsciiString m_attachToBone; // +0x190
+	bool m_createAtGroundHeight; // +0x194
+	bool m_ricochet; // +0x195
+	unsigned char m_pad196[2]; // +0x196
+	AsciiString m_createBoneOverride; // +0x198
+	AsciiString m_targetBoneOverride; // +0x19C
+	bool m_createBoneAtTarget; // +0x1A0
+	unsigned char m_pad1A1[3]; // +0x1A1
+	float m_targetCoeff; // +0x1A4
+	int m_systemLife; // +0x1A8
+	bool m_useTargetOffset; // +0x1AC
+	bool m_setTargetMatrix; // +0x1AD
+	bool m_onlyIfOnLand; // +0x1AE
+	bool m_onlyIfOnWater; // +0x1AF
+	Coord3D m_targetOffset; // +0x1B0
+};
+
+ParticleSystemFXNugget::ParticleSystemFXNugget()
+{
+	m_name.clear();
+	m_count = 1;
+	m_radius.setRange(0.0f, 0.0f, GameClientRandomVariable::CONSTANT);
+	m_height.setRange(0.0f, 0.0f, GameClientRandomVariable::CONSTANT);
+	m_delay.setRange(-1.0f, -1.0f, GameClientRandomVariable::CONSTANT);
+	m_systemLife = -1;
+	m_offset.x = m_offset.y = m_offset.z = 0.0f;
+	m_orientToObject = false;
+	m_attachToObject = false;
+	m_createAtGroundHeight = false;
+	m_rotateX = m_rotateY = m_rotateZ = 0.0f;
+	m_nuggetType = 8;
+	m_targetCoeff = 1.0f;
+	m_createBoneAtTarget = false;
+	m_useTargetOffset = false;
+	m_targetOffset.x = m_targetOffset.y = m_targetOffset.z = 0.0f;
+	m_setTargetMatrix = false;
+	m_onlyIfOnLand = false;
+	m_onlyIfOnWater = false;
+	m_ricochet = false;
+}
 
 //-------------------------------------------------------------------------------------------------
 class FXListAtBonePosFXNugget : public FXNugget
@@ -743,17 +658,8 @@ EMPTY_DTOR(FXListAtBonePosFXNugget)
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 
-// The native table and parsers are owned by FXListStoreParse.cpp and
-// FXListNuggetParse.cpp. This unreferenced compiler-only table retains the
-// existing inline particle method shape and is removed by /OPT:REF. Do not
-// instantiate the other obsolete Zero Hour constructors and virtual tables.
-extern const FieldParse BfmeReferenceFXListFieldParse[] =
-{
-	{ "ParticleSystem",							ParticleSystemFXNugget::parse, 0, 0},		
-	{ NULL, NULL, 0, 0 }  // keep this last
-};
 
-//-------------------------------------------------------------------------------------------------
+// ?FXList::FXList absent-from-retail (retail news 0x001E2747 from a name, never this)
 FXList::FXList()
 {
 }
