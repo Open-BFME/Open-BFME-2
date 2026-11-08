@@ -13,11 +13,7 @@
 typedef bool Bool;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Waypoint
-{
-public:
-	const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 enum GuardMode { GUARDMODE_NORMAL = 0 };
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 
@@ -49,8 +45,8 @@ void ScriptActions::Rva003BF71EDo(const AsciiString &teamName, const AsciiString
 		return;
 	team->getTeamAsAIGroup(group);
 	Coord3D position;
-	position.x = way->location()->x;
-	position.y = way->location()->y;
-	position.z = way->location()->z;
+	position.x = way->getLocation()->x;
+	position.y = way->getLocation()->y;
+	position.z = way->getLocation()->z;
 	group->groupGuardPosition(&position, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 }

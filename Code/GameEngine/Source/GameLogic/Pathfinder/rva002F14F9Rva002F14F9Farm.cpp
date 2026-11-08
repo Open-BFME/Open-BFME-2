@@ -115,22 +115,7 @@ struct Rva002E93A7Info
  Pathfinder *m_00;
  Int m_04;
 };
-class Waypoint
-{
-public:
-	bool isValidUnitType(Object *);
-	Waypoint *getLink(int) const;
-	Int word0; // +0x00
-	Int id; // +0x04
-	void *name; // +0x08
-	Coord3D m_location; // +0x0C
-	char m_pad18[0x4];
-	Waypoint *m_next; // +0x1C
-	char m_pad20[0x24];
-	Waypoint *chainNext; // +0x44
-	Int word48; // +0x48
-	Int linkCount; // +0x4C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 class PathfindCell;
 class Path
 {

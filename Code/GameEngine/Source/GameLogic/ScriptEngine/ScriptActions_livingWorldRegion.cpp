@@ -250,15 +250,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class Waypoint
-{
-public:
-	const Coord3D *getLocation() const { return (const Coord3D *)m_location; }
-
-private:
-	unsigned char m_pad[0x0C];
-	unsigned char m_location[0x0C];
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;

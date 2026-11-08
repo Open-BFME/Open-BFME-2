@@ -9,11 +9,7 @@ class Parameter;
 class Object;
 class Player;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Waypoint
-{
-public:
-	const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
@@ -79,5 +75,5 @@ void ScriptActions::doNamedBuildStructureAtWaypoint(Parameter *param, const Asci
 	if (!obj || !way || !lookup)
 		return;
 	AIUpdateInterface *ai = obj->getAI();
-	ai->slot126(lookup, way->location(), f, obj->getControllingPlayer(), 0, 0);
+	ai->slot126(lookup, way->getLocation(), f, obj->getControllingPlayer(), 0, 0);
 }

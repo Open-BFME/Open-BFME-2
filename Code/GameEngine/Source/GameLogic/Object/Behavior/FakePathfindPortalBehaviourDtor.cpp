@@ -10,11 +10,7 @@
 // Members after +0x28 follow the rowed constructor.
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class Waypoint { public:
- Waypoint(unsigned,AsciiString,const Coord3D*,AsciiString,AsciiString,AsciiString,bool,int,AsciiString);
- virtual ~Waypoint();
- char pad04[0xA8-4];bool flagA8,flagA9;char padAA[6];unsigned ownerID;char padB4[0xC0-0xB4];
-};
+#include "../../../../Include/GameLogic/Waypoint.h"
 struct FakePortalDataView { char pad[0x118];bool flag118,flag119; };
 struct FakePortalOwnerView { char pad[0x74];unsigned id; };
 
@@ -128,9 +124,9 @@ Waypoint *FakePathfindPortalBehaviour::rva00461A46(const Coord3D *point)
  Waypoint *wp=new Waypoint(0x7ffffffe,AsciiString("#fakepathfindportal_wp"),point,
   AsciiString::TheEmptyString,AsciiString::TheEmptyString,AsciiString::TheEmptyString,
   false,7,AsciiString::TheEmptyString);
- wp->ownerID=reinterpret_cast<FakePortalOwnerView *>(m_object)->id;
- wp->flagA8=data->flag118;
- wp->flagA9=data->flag119;
+ wp->m_fieldB0=reinterpret_cast<FakePortalOwnerView *>(m_object)->id;
+ wp->m_fieldA8=data->flag118;
+ wp->m_fieldA9=data->flag119;
  return wp;
 }
 

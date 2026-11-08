@@ -281,11 +281,7 @@ int rva0034373F(State *state, void *)
 	return !state->m_machine->m_owner->testStatus(OBJECT_STATUS_25);
 }
 
-class Waypoint
-{
-public:
-	virtual void *deleteInstance(Int pool);
-};
+#include "../../Include/GameLogic/Waypoint.h"
 extern Waypoint *g_waypointListHead;
 class Rva0027CE80
 {
@@ -295,7 +291,7 @@ public:
 void Rva0027CE80::rva0027CE80()
 {
 	while (g_waypointListHead)
-		::operator delete(g_waypointListHead->deleteInstance(0));
+		::delete g_waypointListHead;
 }
 
 class Display;

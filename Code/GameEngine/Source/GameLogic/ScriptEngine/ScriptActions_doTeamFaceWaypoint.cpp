@@ -19,14 +19,7 @@ enum CommandSourceType
 {
 	CMD_FROM_SCRIPT = 1
 };
-class Waypoint
-{
-public:
-    const Coord3D *location() const
-    {
-        return (const Coord3D *)((const char *)this + 0x0c);
-    }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 template<class OBJCLASS> class DLINK_ITERATOR
 {
 private:
@@ -82,7 +75,7 @@ void ScriptActions::doTeamFaceWaypoint(const AsciiString &teamName,
         if (ai) {
             ai->rva0026295E();
             object->leaveGroup();
-            ai->aiFacePosition(waypoint->location(), 1);
+            ai->aiFacePosition(waypoint->getLocation(), 1);
         }
         iter.advance();
     }

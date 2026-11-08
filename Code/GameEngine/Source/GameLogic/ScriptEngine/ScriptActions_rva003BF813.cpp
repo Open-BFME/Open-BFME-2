@@ -15,11 +15,7 @@ typedef bool Bool;
 
 class PolygonTrigger;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Waypoint
-{
-public:
-	const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 
 class Team;
@@ -51,7 +47,7 @@ void ScriptActions::Rva003BF813Do(const AsciiString &teamName, const AsciiString
 		return;
 	team->getTeamAsAIGroup(group);
 	if (way != 0)
-		group->rva003704D3(trigger, 0, CMD_FROM_SCRIPT, way->location());
+		group->rva003704D3(trigger, 0, CMD_FROM_SCRIPT, way->getLocation());
 	else
 		group->rva00370492(trigger, 0, CMD_FROM_SCRIPT);
 }

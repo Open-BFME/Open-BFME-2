@@ -40,25 +40,8 @@ class Matrix3D;
 
 #include "../object.h"
 
-class Waypoint
-{
-public:
-	Waypoint(unsigned int id, AsciiString name, const Coord3D *pos, AsciiString label1, AsciiString label2, AsciiString label3, bool biDirectional, int type, AsciiString extra);
-	void addLink(Waypoint *other);
-	void setNext(Waypoint *next) { m_next = next; }
-
-	char m_pad00[0x44];
-	Waypoint *m_next; // +0x44
-	bool m_48; // +0x48
-	char m_pad49[0xA8 - 0x49];
-	bool m_allowEnemies; // +0xA8
-	char m_padA9[0xB0 - 0xA9];
-	int m_ownerID; // +0xB0
-	unsigned int m_activationFrame; // +0xB4
-	bool m_portal; // +0xB8
-	char m_padB9[3];
-	int m_timeout; // +0xBC
-};
+#include "../../../../Include/GameLogic/Waypoint.h"
+static inline void setWaypointField44(Waypoint *way, Waypoint *next) { way->m_field44 = next; }
 
 class Rva002E9042
 {
@@ -137,12 +120,12 @@ void DynamicPortalBehaviour::createWaypoints()
 			const DynamicPortalWayPoint &entry = *it;
 			Coord3D pos = locations[entry.m_first];
 			Waypoint *wp = new Waypoint(0x7ffffffe, AsciiString("#dynamicportal_wp"), &pos, AsciiString::TheEmptyString, AsciiString::TheEmptyString, AsciiString::TheEmptyString, false, entry.m_second, AsciiString::TheEmptyString);
-			wp->m_ownerID = ownerID;
-			wp->m_portal = true;
-			wp->m_timeout = data->m_timeout;
-			wp->m_allowEnemies = data->m_allowEnemies;
+			wp->m_fieldB0 = ownerID;
+			wp->m_fieldB8 = true;
+			wp->m_fieldBC = data->m_timeout;
+			wp->m_fieldA8 = data->m_allowEnemies;
 			if (activationFrame > 0)
-				wp->m_activationFrame = activationFrame;
+				wp->m_fieldB4 = activationFrame;
 			m_waypoints[index] = wp;
 		}
 		m_created = true;
@@ -167,8 +150,8 @@ void DynamicPortalBehaviour::createWaypoints()
 			{
 				unsigned int a = start[i];
 				unsigned int b = start[i + 1];
-				m_waypoints[b]->m_48 = false;
-				m_waypoints[a]->setNext(m_waypoints[b]);
+				m_waypoints[b]->m_field48 = false;
+				setWaypointField44(m_waypoints[a], m_waypoints[b]);
 			}
 		}
 	}

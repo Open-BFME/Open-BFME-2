@@ -55,20 +55,7 @@ public:
 	unsigned int m_94;	// +0x94 money
 };
 // A waypoint: +0x08 its name, +0x0C its location, +0x1C the next one.
-class Waypoint
-{
-public:
-	const AsciiString &getName() const { return m_name; }
-	const Coord3D *getLocation() const { return &m_location; }
-	Waypoint *getNext() const { return m_pNext; }
-private:
-	int m_00;
-	int m_04;
-	AsciiString m_name;	// +0x08
-	Coord3D m_location;	// +0x0C
-	int m_18;
-	Waypoint *m_pNext;	// +0x1C
-};
+#include "../../Include/GameLogic/Waypoint.h"
 class TerrainLogic
 {
 public:

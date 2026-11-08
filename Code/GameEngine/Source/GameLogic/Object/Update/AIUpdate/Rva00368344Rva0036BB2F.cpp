@@ -50,16 +50,7 @@ struct GiantBirdPathPoint : public Coord3D
 
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D &); }
 
-class Waypoint
-{
-public:
-	char m_unrecovered00[0xC];
-	Coord3D m_location; // 0x0C
-	char m_unrecovered18[0x20 - 0x18];
-	const Waypoint *m_link; // 0x20
-	char m_unrecovered24[0x4C - 0x24];
-	int m_numLinks; // 0x4C
-};
+#include "../../../../../Include/GameLogic/Waypoint.h"
 
 // Slot 2 of the retail tables is the class-name getter.
 #define BFME_SNAPSHOT_NAME_SLOT
@@ -122,7 +113,7 @@ void Rva00368344::rva0036BB2F(const Waypoint *way, bool flag, int cmdSource)
 		path.push_back(point);
 		if (cur->m_numLinks == 0)
 			break;
-		cur = cur->m_link;
+		cur = cur->m_links[0];
 		if (cur == way)
 		{
 			m_pathLoops = true;

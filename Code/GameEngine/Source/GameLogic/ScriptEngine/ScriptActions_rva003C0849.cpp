@@ -11,11 +11,7 @@
 typedef bool Bool;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Waypoint
-{
-public:
-	const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 class CommandButton;
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 
@@ -56,5 +52,5 @@ void ScriptActions::Rva003C0849Do(const AsciiString &teamName, const AsciiString
 	if (group == 0)
 		return;
 	team->getTeamAsAIGroup(group);
-	group->groupDoCommandButtonAtPosition(button, way->location(), CMD_FROM_SCRIPT);
+	group->groupDoCommandButtonAtPosition(button, way->getLocation(), CMD_FROM_SCRIPT);
 }

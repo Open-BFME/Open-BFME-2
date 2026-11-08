@@ -52,16 +52,7 @@ struct GiantBirdPathPoint : public Coord3D
 // Reuse the verified Coord3D push-back specialization at 0x002CE7DC.
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D &); }
 
-class Waypoint
-{
-public:
-	char m_unrecovered00[0xC];
-	Coord3D m_location;			///< 0x0C
-	char m_unrecovered18[0x20 - 0x18];
-	const Waypoint *m_link;		///< 0x20 (first link)
-	char m_unrecovered24[0x4C - 0x24];
-	int m_numLinks;				///< 0x4C
-};
+#include "../../../../../Include/GameLogic/Waypoint.h"
 
 struct Rva0036BA77Speed
 {
@@ -100,7 +91,7 @@ void GiantBirdAIUpdate::privateFollowWaypointPath(const Waypoint *way, const Way
 		path.push_back(point);
 		if (cur->m_numLinks == 0)
 			break;
-		cur = cur->m_link;
+		cur = cur->m_links[0];
 		if (cur == way)
 		{
 			m_pathLoops = true;

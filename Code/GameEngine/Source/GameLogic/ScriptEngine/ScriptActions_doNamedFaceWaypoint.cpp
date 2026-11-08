@@ -14,11 +14,7 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
-class Waypoint
-{
-public:
-    const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 class TerrainLogicByValue
@@ -65,5 +61,5 @@ void ScriptActions::doNamedFaceWaypoint(const AsciiString &unitName,
     if (!ai) return;
     ai->rva0026295E();
     unit->leaveGroup();
-    ai->aiFacePosition(waypoint->location(), 1);
+    ai->aiFacePosition(waypoint->getLocation(), 1);
 }

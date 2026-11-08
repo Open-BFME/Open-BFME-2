@@ -25,17 +25,7 @@ enum { WAYPOINT_PATH_LIMIT = 1024 };
 
 #include "../../../../Include/GameLogic/PathfindPath.h"
 
-class Waypoint
-{
-public:
-	const Coord3D *getLocation() const { return &m_location; }
-	__declspec(dllimport) __forceinline Waypoint *getLink(int) const { return m_link0; }
-private:
-	unsigned char m_pad00[0x0C];
-	Coord3D m_location;						// +0x0C
-	unsigned char m_pad18[0x20 - 0x18];
-	Waypoint *m_link0;						// +0x20
-};
+#include "../../../../Include/GameLogic/Waypoint.h"
 
 class Object
 {
@@ -79,10 +69,10 @@ void AIUpdateInterface::setPathFromWaypoint(const Waypoint *way, const Coord2D *
 		wayPos.z = loc->z;
 		wayPos.x += offset->x;
 		wayPos.y += offset->y;
-		if (way->getLink(0) == 0)
+		if (way->m_links[0] == 0)
 			Rva002EDE5B(getObject(), &wayPos);
 		m_path->appendNode(&wayPos, LAYER_GROUND, 0x7FFFFFFF);
-		way = way->getLink(0);
+		way = way->m_links[0];
 		count++;
 		if (count > WAYPOINT_PATH_LIMIT)
 			break;

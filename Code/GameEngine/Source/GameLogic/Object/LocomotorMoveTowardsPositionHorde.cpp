@@ -673,46 +673,10 @@ class Object : public Thing
  char m_pad25C[0x274-0x25C];
  union { void *m_p274; Object *m_274; }; // +0x274
 };
-class Waypoint
-
-{
- public:
- ObjectID getClimbObjectID() const 
- {
-  return m_climbObjectID;
-  
- }
- int getID() const 
- {
-  return m_id;
-  
- }
- const Coord3D *getLocation() const 
- {
-  return &m_location;
-  
- }
- int getType() const 
- {
-  return m_type;
-  
- }
- private:
- void *m_vtbl;
- int m_id;
-// +0x04
- char m_pad08[4];
- Coord3D m_location;
-// +0x0C
- char m_pad18[0x60 - 0x18];
- int m_type;
-// +0x60
- char m_pad64[0xB0 - 0x64];
- ObjectID m_climbObjectID;
-// +0xB0
- 
-}
-;
+#include "../../../Include/GameLogic/Waypoint.h"
+// The climb object at +0xB0 and the type at +0x60, read as the retail inline accessors do.
+static inline ObjectID waypointClimbObjectID(const Waypoint *way) { return (ObjectID)way->m_fieldB0; }
+static inline int waypointType(const Waypoint *way) { return way->m_field60; }
 #include "../../../Include/GameLogic/TerrainLogic.h"
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/AIPathfind.h"
@@ -1145,9 +1109,9 @@ matrix[2].set(src[2]);
 float turn=((const Locomotor*)this)->getMaxTurnRate(obj);((Rva001E46E1*)this)->rva001E56DC(obj,a,turn,b);}
 bool Locomotor::moveTowardsPositionHordeOnClimbPortal(Object *obj, Waypoint *way)
 {
-	if (!way->getClimbObjectID())
+	if (!waypointClimbObjectID(way))
 		return false;
-	Object *climbObj = TheGameLogic->findObjectByID(way->getClimbObjectID());
+	Object *climbObj = TheGameLogic->findObjectByID(waypointClimbObjectID(way));
 	if (!climbObj)
 		return false;
 	ContainModuleInterface *contain = obj->getContain();
@@ -1468,7 +1432,7 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
    
    {
     onPortal = true;
-    int type = way->getType();
+    int type = waypointType(way);
     if (type == 3)
     
     {
@@ -1564,15 +1528,15 @@ void Locomotor::moveTowardsPositionHorde(Object *obj, const Coord3D &goalPos, Re
         if (destWay)
         
         {
-         Object *destination = TheGameLogic->findObjectByID(destWay->getClimbObjectID());
+         Object *destination = TheGameLogic->findObjectByID(waypointClimbObjectID(destWay));
          MineshaftPortalBehaviour *mpb = (MineshaftPortalBehaviour *)Rva00372D3AFind(destination);
          mpb->addArrivingObject(obj);
          hordeContain->slot154();
          int id = !result.m_node ? 0x7fffffff : ((int *)result.m_node)[8];
          Waypoint *waypoint = TheTerrainLogic->getWaypointByID(id);
-         if (waypoint && waypoint->getType() == 8)
+         if (waypoint && waypointType(waypoint) == 8)
          way = waypoint;
-         Object *garrison = TheGameLogic->findObjectByID(way->getClimbObjectID());
+         Object *garrison = TheGameLogic->findObjectByID(waypointClimbObjectID(way));
          AIGroup *group = TheAI->createGroup();
          group->add(obj);
          group->rva00372BB9(garrison, 2);

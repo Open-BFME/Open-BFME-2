@@ -59,12 +59,7 @@ struct Rva00506C82Arg;
 
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
 
-class Waypoint
-{
-public:
-	char m_pad00[0x60];
-	int m_60;		// +0x60
-};
+#include "../../../../../../Include/GameLogic/Waypoint.h"
 
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString &name);
 
@@ -199,7 +194,7 @@ bool AIFlankAttackTactic::canRun(void *request)
 			AsciiString name;
 			name.format("Player_%d_Start", start + 1);
 			Waypoint *waypoint = Rva00506CC3FindWaypoint(name);
-			if (waypoint && waypoint->m_60 == 5)
+			if (waypoint && waypoint->m_field60 == 5)
 				return false;
 		}
 	}

@@ -40,11 +40,7 @@ extern TerrainLogic *TheTerrainLogic;
 
 #include "../Object/object.h"
 
-class Waypoint
-{
-public:
-	const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 
 extern class ScriptEngine *TheScriptEngine;
 
@@ -61,7 +57,7 @@ void ScriptActions::Rva003C8A15Do(Parameter *unitParam, const AsciiString &areaN
 	Waypoint *wp = ((TerrainLogicByValue *&)TheTerrainLogic)->getWaypointByName(wayName);
 	AIUpdateInterface *ai = obj->getAI();
 	if (wp)
-		ai->aiGuardAreaFromPosition(area, 0, CMD_FROM_SCRIPT, wp->location());
+		ai->aiGuardAreaFromPosition(area, 0, CMD_FROM_SCRIPT, wp->getLocation());
 	else
 		ai->aiGuardArea(area, 0, CMD_FROM_SCRIPT);
 }

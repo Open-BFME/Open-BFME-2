@@ -171,23 +171,7 @@ enum
 {
 	NO_MAX_SHOTS_LIMIT = 0x7FFFFFFF
 };
-class Waypoint
-{
-public:
-	enum { MAX_LINKS = 12 };
-	UnsignedInt getID() const { return m_id; }
-	const Coord3D *getLocation() const { return &m_location; }
-	__declspec(dllimport) __forceinline Int getNumLinks() const { return m_numLinks; }
-	__declspec(dllimport) __forceinline Waypoint *getLink(Int ndx) const { return m_links[ndx]; }
-private:
-	unsigned char m_pad00[4];
-	UnsignedInt m_id; // +0x04
-	unsigned char m_pad08[0x0C - 0x08];
-	Coord3D m_location; // +0x0C
-	unsigned char m_pad18[0x1C - 0x18];
-	Waypoint *m_links[MAX_LINKS]; // +0x1C
-	Int m_numLinks; // +0x4C
-};
+#include "../../../Include/GameLogic/Waypoint.h"
 #include "../../../Include/GameLogic/AIGroup.h"
 // The rowed group member count runs on the AIGroup (address-derived name).
 #include "../../../Include/Common/TeamBFME2.h"
