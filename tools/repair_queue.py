@@ -1987,8 +1987,9 @@ def _base_verified(candidates):
     DEBT_BASE's tools/*.py; anything that fails to run credits nothing."""
     import tarfile
     import tempfile
+    trusted = dict(os.environ, GIT_NO_REPLACE_OBJECTS="1")      # no `git replace` stands in for the base
     archive = subprocess.run(["git", "archive", DEBT_BASE or "HEAD", "--", ":(glob)tools/*.py"], cwd=ROOT,
-                             capture_output=True)
+                             capture_output=True, env=trusted)
     if archive.returncode != 0:
         print(f"repair_queue: no class-rename credit: cannot read {DEBT_BASE}'s tools", file=sys.stderr)
         return {}
@@ -1999,7 +2000,8 @@ def _base_verified(candidates):
         for old, new in sorted(candidates.items()):
             got = subprocess.run([sys.executable, str(Path(tmp) / "tools" / "rename.py"), "verify-record",
                                   "--root", str(ROOT), "--base", DEBT_BASE or "HEAD", "--target", DEBT_TARGET,
-                                  "--old", old, "--new", new], cwd=ROOT, capture_output=True, text=True)
+                                  "--old", old, "--new", new], cwd=ROOT, capture_output=True, text=True,
+                                 env=trusted)
             if got.returncode == 0:
                 approved[old] = new
             else:

@@ -64,6 +64,7 @@ import collections
 import csv
 import hashlib
 import io
+import os
 import re
 import subprocess
 import sys
@@ -79,8 +80,17 @@ import class_views  # noqa: E402
 ALLOW = re.compile(r"//\s*class-gate:\s*allow\s+(\w+)\s+\S")
 
 
+# History is read as git wrote it: no `git replace` object stands in for a vote, a header or
+# a base revision, in this gate's own git calls or the base verify-record it runs.
+TRUSTED_GIT = {"GIT_NO_REPLACE_OBJECTS": "1"}
+
+
+def trusted_env():
+    return {**os.environ, **TRUSTED_GIT}
+
+
 def git_text(spec):
-    result = subprocess.run(["git", "show", spec], cwd=ROOT, capture_output=True)
+    result = subprocess.run(["git", "show", spec], cwd=ROOT, capture_output=True, env=trusted_env())
     if result.returncode != 0:
         return None
     return result.stdout.decode("latin-1")
@@ -127,7 +137,7 @@ def base_verify_record(root, base, target, old, new):
     of base's tools/*.py, so the commit being judged cannot change the check. A base that
     predates verify-record, or any failure to run it, credits nothing."""
     archive = subprocess.run(["git", "archive", base or "HEAD", "--", ":(glob)tools/*.py"], cwd=root,
-                             capture_output=True)
+                             capture_output=True, env=trusted_env())
     if archive.returncode != 0:
         return False, f"cannot read {base}'s tools: {archive.stderr.decode('utf-8', 'replace').strip()[:200]}"
     with tempfile.TemporaryDirectory(prefix="class-rename-verify-") as tmp:
@@ -135,7 +145,8 @@ def base_verify_record(root, base, target, old, new):
             tar.extractall(tmp, filter="data")
         result = subprocess.run([sys.executable, str(Path(tmp) / "tools" / "rename.py"), "verify-record",
                                  "--root", str(root), "--base", base, "--target", target,
-                                 "--old", old, "--new", new], cwd=root, capture_output=True, text=True)
+                                 "--old", old, "--new", new], cwd=root, capture_output=True, text=True,
+                                env=trusted_env())             # base's rename.py inherits it
     return result.returncode == 0, (result.stdout + result.stderr).strip()[-400:]
 
 
@@ -163,7 +174,7 @@ def vote_sources_change_problems(before, after, tree):
     problems = []
     for row in csv.DictReader(io.StringIO("\n".join([new[0]] + added) + "\n")):
         rel = (row.get("key") or "").split("|")[0]
-        blob = subprocess.run(["git", "show", f"{tree}:{rel}"], cwd=ROOT, capture_output=True)
+        blob = subprocess.run(["git", "show", f"{tree}:{rel}"], cwd=ROOT, capture_output=True, env=trusted_env())
         digest = hashlib.sha256(blob.stdout).hexdigest() if blob.returncode == 0 else None
         if digest is None or digest != row.get("source_sha"):
             problems.append(f"{VOTE_SOURCES}: the vote by {row.get('worker')} at {row.get('key')} fingerprints "
@@ -179,9 +190,10 @@ def vote_sources_problems():
 def vote_sources_range_problems(base, tip):
     """The same rule for every commit of base..tip that touches the file, each against its
     first parent (the pre-push hook): a batch that adds a fingerprint and then rewrites it
-    is refused even though its tip alone only adds rows."""
-    listed = subprocess.run(["git", "rev-list", "--reverse", "--full-history", f"{base}..{tip}", "--",
-                             VOTE_SOURCES], cwd=ROOT, capture_output=True, text=True)
+    is refused even though its tip alone only adds rows. An empty `base` reads the file's
+    whole history from the root commit (a push with no known remote base)."""
+    listed = subprocess.run(["git", "rev-list", "--reverse", "--full-history", f"{base}..{tip}" if base else tip,
+                             "--", VOTE_SOURCES], cwd=ROOT, capture_output=True, text=True, env=trusted_env())
     if listed.returncode:
         return [f"{VOTE_SOURCES}: cannot list the commits of {base}..{tip}: {listed.stderr.strip()[:200]}"]
     problems = []

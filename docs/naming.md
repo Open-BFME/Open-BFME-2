@@ -825,7 +825,14 @@ only when it is added. `class_gate.py --staged` (pre-commit) keeps
 deleted). It also requires each added row's hash to equal the sha256 of the
 header it names in that commit's index. Pre-push applies the same rule to every
 commit of the outgoing range against its parent (`--vote-sources-range`), so a
-batch can't add a fingerprint and rewrite it in a later commit. The credit readers accept a row only if history adds it once and
+batch can't add a fingerprint and rewrite it in a later commit. A push with no
+known remote base reads the file's whole history from the root commit instead.
+Every git call of the registered-class rename, its `verify-record` credit check and
+prepared-unit proof, `class_gate.py`, `repair_queue.py`'s base `verify-record`, and
+the pre-push hook runs with `GIT_NO_REPLACE_OBJECTS=1`, so a `git replace` object
+never stands in for history they trust. Neither tool sets it on import, so other
+lanes' git calls are unaffected. The credit
+readers accept a row only if history adds it once and
 never touches it again, with the hash of the header as it stood in that adding
 commit. A header edited before, with or after the votes earns nothing, in
 whatever order the commits land, and so does a vote recorded without a
@@ -896,12 +903,15 @@ C++ source that reads as after the rename:
 - no second body (`NEW::m(`) of a row the rename respells, unless the unit owns
   that row;
 - no `#line` directive of its own, in any spelling the preprocessor could read
-  as one: `#line N`, `# N`, after a BOM, across a backslash-newline, with `??=`
-  or `%:`, or with a comment between `#` and `line`. One would make the
-  preprocessor attribute the unit's own lines to any file it names.
+  as one: `#line N`, `# N`, after a UTF-8 BOM anywhere, across a
+  backslash-newline, with `??=` or `%:`, or with a comment between `#` and
+  `line`. A file with a UTF-16 or UTF-32 BOM, or any NUL byte, refuses too: the
+  compiler would decode it differently from the scan. Such a directive would make
+  the preprocessor attribute the unit's own lines to any file it names.
 
 The proof is fixed before anything is written. At the merge base with
-`origin/master`, `canonical_classes.csv`, OLD's contract and every prepared unit
+`refs/remotes/origin/master` (never a local branch of that name),
+`canonical_classes.csv`, OLD's contract and every prepared unit
 must read exactly as in the working tree. An edit in an outgoing commit or in
 the tree refuses (a contract widened to fit a prepared layout proves nothing), so
 land such a change first. The contract the proof compares with is master's,
@@ -917,8 +927,9 @@ and every file is restored, unless each prepared unit:
   all show up there.
 - lists the canonical header in the compiler's own include list (`cl -E
   -showIncludes` under its build command; no object is written);
-- includes no file that carries a `#line` directive, so every line marker in the
-  preprocessed output is the compiler's own (no header on master carries one);
+- includes no file that carries a `#line` directive, read by the same byte-level
+  scan, so every line marker in the preprocessed output is the compiler's own (no
+  header on master carries one);
 - defines NEW, once preprocessed, only through the canonical header (markers
   compared as full repo-relative paths), with no definition of OLD left;
 - holds one complete CodeView record of NEW equal to master's contract: sizeof,

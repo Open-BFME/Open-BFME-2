@@ -771,7 +771,8 @@ def test_the_contract_registry_and_unit_are_master_s(spelled, evidence_stubbed, 
     preprocessed(monkeypatch, evidence_stubbed, spelled, {}, layouts={VIEWS: {NEW: dict(CONTRACT_LAYOUT, size=16)}})
     dirty_unit = rel == VIEWS and edit == "tree"          # refused sooner: a prepared unit must be clean
     with pytest.raises(evidence_stubbed.Refusal,
-                       match=re.escape(rel) if dirty_unit else f"{re.escape(rel)} differs from origin/master"):
+                       match=re.escape(rel) if dirty_unit else
+                       f"{re.escape(rel)} differs from refs/remotes/origin/master"):
         plan_of(spelled, merge=True, prepared={VIEWS: RESHAPED.encode()})
 
 
@@ -805,6 +806,75 @@ def test_every_spelling_of_line_is_a_line_directive(text):
 def test_other_text_is_no_line_directive(text):
     import rename
     assert not rename.line_directive(text)
+
+
+@pytest.mark.parametrize("data,directive", [
+    # round 8's probe: a file read as Latin-1 kept its UTF-8 BOM in front of `#line`
+    (b"\xef\xbb\xbf#line 1 \"Canonical.h\"\nint x;\n", True),
+    (b"int a;\n\xef\xbb\xbf#line 1\n", True),
+    (b"\xff\xfe#\x00l\x00i\x00n\x00e\x00 \x001\x00\n\x00", True),       # UTF-16: the compiler decodes it
+    (b"\xfe\xff\x00#\x00l\x00i\x00n\x00e", True),
+    (b"int a;\x00\n", True),
+    (b"\xef\xbb\xbfint x;\n", False),
+    (b"int x; // \xe9t\xe9\n", False),
+])
+def test_files_are_scanned_for_line_as_the_compiler_reads_them(data, directive):
+    import rename
+    assert rename.source_line_directive(data) is directive
+
+
+def test_an_included_header_with_a_bom_before_its_line_refuses(spelled, evidence_stubbed, monkeypatch):
+    other = spelled / "Code/Game/Other.h"
+    other.write_bytes(b'\xef\xbb\xbf#line 1 "Code/Game/Canonical.h"\nint other;\n')
+    run(spelled, "add", "-A")
+    run(spelled, "-c", "user.name=t", "-c", "user.email=", "commit", "-qm", "a header with a BOM")
+    defined(spelled, "    int m_nuggetType;\n")
+    before = snapshot(spelled)
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {}, includes={VIEWS: [HEADER, "Code/Game/Other.h"]})
+    with pytest.raises(evidence_stubbed.VerifyFailed, match="includes Code/Game/Other.h, which carries a #line"):
+        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+    assert snapshot(spelled) == before
+
+
+@pytest.mark.parametrize("spoof", ["branch", "replace"])
+def test_the_baseline_is_the_remote_tracking_ref_as_git_wrote_it(spelled, evidence_stubbed, monkeypatch, spoof):
+    """Round 8's probes: an outgoing commit widens the contract, then either a local branch named
+    origin/master points at it or a `git replace` object swaps master's contract blob for it."""
+    defined(spelled, "    int m_nuggetType;\n")
+    original = run(spelled, "rev-parse", "HEAD").stdout.strip()
+    frozen = json.loads((spelled / CONTRACT).read_text())
+    frozen["size"] = 16
+    write(spelled, CONTRACT, json.dumps(frozen))
+    run(spelled, "-c", "user.name=t", "-c", "user.email=", "commit", "-qam", "an outgoing contract edit")
+    if spoof == "branch":
+        run(spelled, "branch", "origin/master", "HEAD")
+    else:
+        run(spelled, "replace", run(spelled, "rev-parse", f"{original}:{CONTRACT}").stdout.strip(),
+            run(spelled, "rev-parse", f"HEAD:{CONTRACT}").stdout.strip())
+    preprocessed(monkeypatch, evidence_stubbed, spelled, {}, layouts={VIEWS: {NEW: dict(CONTRACT_LAYOUT, size=16)}})
+    with pytest.raises(evidence_stubbed.Refusal, match=f"{re.escape(CONTRACT)} differs from refs/remotes/origin/master"):
+        apply_prepared(spelled, evidence_stubbed, RESHAPED)
+
+
+def test_a_replace_object_never_stands_in_for_trusted_history(approved, monkeypatch):
+    """The rename's and class_gate's own git reads ignore `git replace`; importing either tool
+    leaves the process environment alone (other lanes' git calls are theirs to judge)."""
+    import rename
+    monkeypatch.delenv("GIT_NO_REPLACE_OBJECTS", raising=False)
+    monkeypatch.setattr(class_gate, "ROOT", approved)
+    tools = Path(__file__).resolve().parents[1]
+    imported = subprocess.run([sys.executable, "-c", f"import os, sys; sys.path.insert(0, {str(tools)!r}); "
+                               "import rename, class_gate; print('GIT_NO_REPLACE_OBJECTS' in os.environ)"],
+                              capture_output=True, text=True, check=True, env=dict(os.environ))
+    assert imported.stdout.strip() == "False"
+    forged = subprocess.run(["git", "hash-object", "-w", "--stdin"], cwd=approved, input=b"class Forged {};\n",
+                            capture_output=True, check=True).stdout.decode().strip()
+    run(approved, "replace", run(approved, "rev-parse", f"HEAD:{HEADER}").stdout.strip(), forged)
+    assert run(approved, "show", f"HEAD:{HEADER}").stdout == "class Forged {};\n"      # plain git is fooled
+    real = (approved / HEADER).read_bytes()
+    assert rename._git_out(approved, "show", f"HEAD:{HEADER}") == (0, real)
+    assert rename.RevisionContext(approved, "HEAD").read(HEADER) == real
+    assert class_gate.git_text(f"HEAD:{HEADER}") == real.decode("latin-1")
 
 
 @pytest.mark.parametrize("text", [

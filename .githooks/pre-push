@@ -8,6 +8,8 @@ set -euo pipefail
 unset BUILD_RECOMPILE_ONLY
 # cl.exe reads options from CL and _CL_: a gate builds with the command the receipt records.
 unset CL _CL_
+# History is judged as git wrote it: no `git replace` object stands in for a base revision.
+export GIT_NO_REPLACE_OBJECTS=1
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
@@ -681,11 +683,15 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     if [ "$remote_sha" != "$ZERO" ] && git cat-file -e "$remote_sha" 2>/dev/null; then
         base="$remote_sha"
     else
-        base="$(git merge-base "$local_sha" origin/master 2>/dev/null || true)"
+        base="$(git merge-base "$local_sha" refs/remotes/origin/master 2>/dev/null || true)"
     fi
     if [ -z "$base" ]; then
         # Nothing to diff against, so Rule F judges the whole pushed tree instead.
         spawn "\`// cl:\` flags over the pushed tree" python3 tools/conversion_gate.py --cl-tree "$local_sha"
+        # No range to judge, but a vote fingerprint binds only when its row is added:
+        # read the whole history of reverse/name_vote_sources.csv from the root commit.
+        spawn "a vote fingerprint edited, removed or unbound in the history of $local_sha" \
+            python3 tools/class_gate.py --vote-sources-range "" "$local_sha"
         join_jobs
         echo "pre-push: no known remote base; static ledger and \`// cl:\` checks only" >&2
         continue

@@ -6168,6 +6168,16 @@ def fingerprint_bound(ctx, row, rel):
 # reference/open-bfme-1) is read at the commit the base pins for that submodule.
 
 
+# Trusted history is read as git wrote it: no `git replace` object may stand in for a frozen
+# contract, a vote or a base revision. Every git call of the registered-class rename, its
+# credit check (verify-record) and its prepared-unit proof runs under this environment.
+TRUSTED_GIT = {"GIT_NO_REPLACE_OBJECTS": "1"}
+
+
+def trusted_env(extra=None):
+    return {**os.environ, **TRUSTED_GIT, **(extra or {})}
+
+
 class RevisionContext(Context):
     """A Context reading the git revision `base` (gitlinks followed), read-only, with no
     object scan."""
@@ -6181,7 +6191,7 @@ class RevisionContext(Context):
         """{submodule path: the commit `base` pins} for every gitlink in base's tree."""
         if self._gitlinks is None:
             listed = subprocess.run(["git", "-C", str(self.root), "ls-tree", "-r", "-z", self.base or "HEAD"],
-                                    capture_output=True)
+                                    capture_output=True, env=trusted_env())
             self._gitlinks = {}
             for entry in listed.stdout.decode("utf-8", "surrogateescape").split("\0"):
                 meta, _, path = entry.partition("\t")
@@ -6194,9 +6204,10 @@ class RevisionContext(Context):
         for link, commit in self.gitlinks().items():
             if rel.startswith(link + "/"):
                 result = subprocess.run(["git", "-C", str(self.root / link), "show",
-                                         f"{commit}:{rel[len(link) + 1:]}"], capture_output=True)
+                                         f"{commit}:{rel[len(link) + 1:]}"], capture_output=True, env=trusted_env())
                 return result.stdout if result.returncode == 0 else None
-        result = subprocess.run(["git", "-C", str(self.root), "show", f"{self.base}:{rel}"], capture_output=True)
+        result = subprocess.run(["git", "-C", str(self.root), "show", f"{self.base}:{rel}"], capture_output=True,
+                                env=trusted_env())
         return result.stdout if result.returncode == 0 else None
 
 
@@ -6206,7 +6217,8 @@ def verify_record(root, base, target, old, new):
     ctx = RevisionContext(root, base)
 
     def records(ref):
-        shown = subprocess.run(["git", "-C", str(root), "show", f"{ref}:{NAME_BASIS}"], capture_output=True)
+        shown = subprocess.run(["git", "-C", str(root), "show", f"{ref}:{NAME_BASIS}"], capture_output=True,
+                               env=trusted_env())
         return list(csv.DictReader(io.StringIO(shown.stdout.decode("utf-8") if shown.returncode == 0 else "")))
     before = {tuple(sorted(r.items())) for r in records(base)}
     added = [r for r in records(target) if r.get("kind") == "class" and r.get("old") == old
@@ -6237,8 +6249,7 @@ REVERT_FREE = (NAME_BASIS, DELETED)
 
 
 def _git_out(root, *args, env=None, data=None):
-    result = subprocess.run(["git", "-C", str(root), *args], capture_output=True, input=data,
-                            env=dict(os.environ, **env) if env else None)
+    result = subprocess.run(["git", "-C", str(root), *args], capture_output=True, input=data, env=trusted_env(env))
     return result.returncode, result.stdout
 
 
@@ -6565,7 +6576,7 @@ def prepare_merge_sources(ctx, plan, prepared, old, new, registration):
     header = posixpath.basename(registration["header"]).lower()
     for rel, data in sorted(prepared.items()):
         text = data.decode("utf-8", errors="surrogateescape")
-        own = prepared_text_problems(rel, text)
+        own = prepared_text_problems(rel, data)
         if own:
             raise Refusal(f"prepared {own[0]}")
         code = name_metric.strip(text)
@@ -6621,8 +6632,9 @@ def class_definitions(text, word, root=ROOT):
     return out
 
 
-UPSTREAM = "origin/master"
+UPSTREAM = "refs/remotes/origin/master"         # never a local branch named origin/master
 LINE_DIRECTIVE = re.compile(r"(?m)^[ \t\f\v]*(?:#|\?\?=|%:)[ \t\f\v]*(?:line\b|\d)")
+UTF8_BOM = b"\xef\xbb\xbf"
 
 
 def line_directive(text):
@@ -6636,11 +6648,22 @@ def line_directive(text):
                (spliced, name_metric.strip(spliced), re.sub(r"/\*.*?\*/", " ", spliced, flags=re.S)))
 
 
-def prepared_text_problems(rel, text):
+def source_line_directive(data):
+    """line_directive over a file's bytes as the compiler reads them: UTF-8 BOMs dropped
+    wherever they sit, then 8-bit text. A UTF-16 or UTF-32 BOM, or any NUL byte, counts as
+    a directive: the compiler would decode that file differently from this scan."""
+    data = data.replace(UTF8_BOM, b"")
+    if data.startswith((b"\xff\xfe", b"\xfe\xff")) or b"\0" in data:
+        return True
+    return line_directive(data.decode("latin-1"))
+
+
+def prepared_text_problems(rel, data):
     """A prepared unit's own `#line` directive would make the preprocessor attribute its
     lines to any file it names, so the unit is refused before anything is written."""
-    if line_directive(text):
-        return [f"{rel} carries a #line directive of its own: its lines could be attributed to any file"]
+    if source_line_directive(data):
+        return [f"{rel} carries a #line directive of its own (or is not 8-bit text): its lines could be "
+                "attributed to any file"]
     return []
 
 
@@ -6741,7 +6764,7 @@ def prepared_attribution_problems(ctx, plan):
         if own is None:
             problems.append(f"{rel} cannot be read to prove its {new}")
             continue
-        problems += prepared_text_problems(rel, own.decode("utf-8", errors="replace"))
+        problems += prepared_text_problems(rel, own)
         flags = unit_flags(ctx, rel)
         if rel not in frozen or flags != frozen[rel]:
             problems.append(f"{rel} compiles with {flags}, {UPSTREAM}'s copy with {frozen.get(rel)}: a prepared "
@@ -6756,7 +6779,7 @@ def prepared_attribution_problems(ctx, plan):
         for host in includes:
             path = Path(host)
             included = os.path.relpath(path, ctx.root).replace(os.sep, "/")
-            if not path.is_file() or line_directive(path.read_bytes().decode("latin-1")):
+            if not path.is_file() or source_line_directive(path.read_bytes()):
                 marked.append(included)
             seen.append(included)
         if marked:
