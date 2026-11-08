@@ -186,3 +186,29 @@ by `ancalgonn-swarm-seat6` for the bridge lane's conflicting duplicate type
 records. Whoever takes it next should keep each error's text; every consumer
 only stores `str(exc)`, so nothing parses the format, and `land_wave.py`'s
 `^compile failed: (\S+)$` matches `build.py`'s message, not this one.
+
+### A stale local census index reports losses that are not there
+
+Retiring the adoption's queue row refused: `header_adopt_lane.py accept` runs
+`link_check`, which said `Object.cpp: does not link  LINKED 7,026 -> 0 bytes`
+with `?loadPostProcess@ObjectHelper@@MAEXXZ` and
+`?xfer@ObjectHelper@@MAEXPAVXfer@@@Z` unresolved.
+
+It was not the adoption: the pre-adoption file failed identically. Nor was it a
+regression. Both symbols are `matched` rows in
+`Code/GameEngine/Source/Common/Rva004DF81BXfer.cpp`, which links on its own, and
+the canonical `ObjectHelper.h` declares both `protected: virtual`, so the
+manglings are exactly the ones reported missing. The rows were created today
+(a8c5cef5e52 01:16, db25603390e 02:26) while `build/link_census/link_index.pkl`
+was from 2026-11-04 07:13 -- three days older than the definitions it was being
+asked about.
+
+`python3 tools/link_check.py --fetch-index` brought the published index to
+2026-11-08 01:56 (17,943 objects), and Object.cpp then reports
+`LINKS  LINKED 7,026 -> 7,026 bytes`. The row retired on the next `accept`.
+
+Worth knowing because the failure is indistinguishable from a real one and
+points at the unit you just touched: a local index older than the rows it judges
+invents link losses, and the natural response is to revert good work. Fetch the
+index before believing a loss, and check whether the unresolved symbols have
+rows whose commits postdate the index.
