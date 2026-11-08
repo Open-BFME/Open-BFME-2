@@ -352,3 +352,110 @@ class RunnerDebugTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
+class StackKernel:
+    """OpenThread, Wow64GetThreadContext and ReadProcessMemory over `memory` (a readable
+    range [lo, hi) of dwords); a read past hi fails the way one across a stack's top does."""
+
+    def __init__(self, esp, lo, hi):
+        self.esp, self.lo, self.hi, self.reads = esp, lo, hi, []
+        self.OpenThread = lambda *args: 7
+
+    def Wow64GetThreadContext(self, handle, ref):
+        ctx = ref._obj
+        ctx.esp, ctx.ebp, ctx.edx, ctx.eip, ctx.eflags = self.esp, self.esp + 0x40, 0x476E654D, 0x101696DF, 0x10246
+        return 1
+
+    def CloseHandle(self, handle):
+        return 1
+
+    def ReadProcessMemory(self, hproc, address, buf, size, got):
+        at = address.value
+        self.reads.append((at, size))
+        if not (self.lo <= at and at + size <= self.hi):
+            got._obj.value = 0
+            return 0
+        data = b"".join((w & 0xFFFFFFFF).to_bytes(4, "little") for w in range(at // 4, (at + size) // 4))
+        ctypes.memmove(buf, data, size)
+        got._obj.value = size
+        return 1
+
+
+class FaultStackTests(unittest.TestCase):
+    """The crash record keeps the fault's raw stack (P31: a heap overrun's writer)."""
+
+    def test_stack_words_stops_at_the_first_unreadable_page(self):
+        # 0x100 bytes below the stack's top: one 8 KB read would fail and return nothing
+        k = StackKernel(esp=0x0019FF00, lo=0x00190000, hi=0x001A0000)
+        st = runner.stack_words(k, 5, 201)
+        self.assertEqual(len(st["words"]), 0x40)
+        self.assertEqual(st["words"][0], 0x0019FF00 // 4)
+        self.assertEqual(k.reads, [(0x0019FF00, 0x100), (0x001A0000, 0x1000)])
+        self.assertEqual(st["regs"]["edx"], "0x476e654d")
+        self.assertEqual((st["regs"]["esp"], st["regs"]["eflags"]), ("0x19ff00", "0x10246"))
+
+    def test_stack_words_reads_all_n_words_a_page_at_a_time(self):
+        k = StackKernel(esp=0x00180F00, lo=0x00100000, hi=0x00200000)
+        st = runner.stack_words(k, 5, 201)
+        self.assertEqual(len(st["words"]), 2048)
+        self.assertEqual(st["words"][-1], (0x00180F00 + 2047 * 4) // 4)
+        self.assertEqual(k.reads[0], (0x00180F00, 0x100))
+        self.assertTrue(all(size <= 0x1000 for _at, size in k.reads))
+
+    STACK = {"esp": 0x0019F000, "ebp": 0x0019F040, "regs": {"edx": "0x476e654d", "eip": "0x101696df"},
+             "words": [0x476E654D, 0x1023F4AF, 0x0019F0A0]}
+    OPTS = dict(retail=True, base=0x400000, args="-win", overlay=None, appdata=Path("/mock-sandbox-appdata"),
+                game_dir=Path("/mock-game"), guard=[], compat=None, no_focus_lie=True, no_version_lie=True,
+                timeout=2, probes=False, defocus=None, int3_faults=False, relayout=False)
+
+    def smoke(self, report, **opts):
+        with (mock.patch.object(runner, "prepare_sandbox_profile"),
+              mock.patch.object(runner.real_image, "install_game_dat", return_value="0" * 64),
+              mock.patch.object(runner, "run", return_value=report),
+              mock.patch.object(runner, "ledger_row", return_value=("?f@@YAXXZ", "0x1000", "matched")),
+              mock.patch.object(runner, "image_frames", return_value=[["0x1023f4af", "?g@@YAXXZ+0x1f"]]),
+              mock.patch.object(runner, "ProfileGuard") as guard):
+            guard.return_value.check.return_value = ({"changed": []}, False)
+            return runner.smoke(SimpleNamespace(**dict(self.OPTS, **opts)))
+
+    def assert_stack(self, out):
+        stack = out["crash"]["stack"]
+        self.assertEqual(stack["words"], ["0x476e654d", "0x1023f4af", "0x19f0a0"])
+        self.assertEqual((stack["esp"], stack["ebp"]), ("0x19f000", "0x19f040"))
+        self.assertEqual(stack["regs"]["edx"], "0x476e654d")
+        self.assertEqual(stack["frames"], [["0x1023f4af", "?g@@YAXXZ+0x1f"]])
+        self.assertIs(out["receipt"]["crash"]["stack"], stack)     # the queue copies the receipt's crash
+
+    def test_real_image_crash_keeps_the_raw_stack(self):
+        ri = SimpleNamespace(base=0x10000000)
+        report = {"outcome": "exit", "exit_code": 666, "fault": 0x101696DF, "first_chance":
+                  [["0xc0000005", 0x101696DF, [0, 0x476E6551]]], "probes_hit": [], "image_base": 0x10000000,
+                  "stack": self.STACK, "quiet": []}
+        with (mock.patch.object(runner.real_image, "load", return_value=ri),
+              mock.patch.object(runner.real_image, "check", return_value=(True, {})),
+              mock.patch.object(runner.real_image, "summary", return_value={
+                  "image_kind": "diagnostic", "image_sha256": "1" * 64, "image_commit": None}),
+              mock.patch.object(runner.real_image, "crash_fields", return_value={
+                  "exception": "0xc0000005", "map_symbol": "?rva00033ED0@Rva006C1F60@@QAEPAXIH@Z",
+                  "stack_frames": []})):
+            out = self.smoke(report, real_image="/mock/exit.exe", rebase=None, retail=False)
+        self.assertEqual(out["outcome"], "crash-at-?rva00033ED0@Rva006C1F60@@QAEPAXIH@Z")
+        self.assert_stack(out)
+
+    def test_retail_crash_keeps_the_raw_stack(self):
+        report = {"outcome": "crash", "code": "0xc0000005", "address": 0x401000, "info": [0, 0],
+                  "first_chance": [], "probes_hit": [], "image_base": 0x400000, "stack": self.STACK, "quiet": []}
+        self.assert_stack(self.smoke(report))
+
+    def test_retail_handled_fault_then_exit_keeps_the_raw_stack(self):
+        report = {"outcome": "exit", "exit_code": 666, "fault": 0x401000, "first_chance":
+                  [["0xc0000005", 0x401000, [0, 0]]], "probes_hit": [], "image_base": 0x400000,
+                  "stack": self.STACK, "quiet": []}
+        self.assert_stack(self.smoke(report))
+
+    def test_a_crash_without_a_stack_read_has_no_stack(self):
+        report = {"outcome": "crash", "code": "0xc0000005", "address": 0x401000, "info": [0, 0],
+                  "first_chance": [], "probes_hit": [], "image_base": 0x400000, "stack": None, "quiet": []}
+        self.assertNotIn("stack", self.smoke(report)["crash"])

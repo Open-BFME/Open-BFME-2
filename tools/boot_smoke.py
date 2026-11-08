@@ -904,7 +904,9 @@ class WOW64_CONTEXT(ctypes.Structure):
 
 
 def stack_words(k, hproc, tid, n=2048):
-    """(esp, [dwords from esp]) of the faulting WOW64 thread: return-address candidates."""
+    """(esp, [dwords from esp]) of the faulting WOW64 thread: return-address candidates.
+    The n dwords (8 KB by default) are read a page at a time: a thread near its stack's
+    top has fewer, and one read across the end would return none."""
     k.OpenThread.restype = wt.HANDLE
     h = k.OpenThread(0x1FFFFF, False, tid)
     ctx = WOW64_CONTEXT()
@@ -912,11 +914,20 @@ def stack_words(k, hproc, tid, n=2048):
     if not h or not k.Wow64GetThreadContext(wt.HANDLE(h), ctypes.byref(ctx)):
         return None
     k.CloseHandle(h)
-    buf, got = ctypes.create_string_buffer(n * 4), ctypes.c_size_t()
-    k.ReadProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(ctx.esp), buf, n * 4, ctypes.byref(got))
+    data, at, end = b"", ctx.esp, ctx.esp + n * 4
+    buf, got = ctypes.create_string_buffer(0x1000), ctypes.c_size_t()
+    while at < end:
+        size = min(end, (at & ~0xFFF) + 0x1000) - at
+        got.value = 0
+        ok = k.ReadProcessMemory(wt.HANDLE(hproc), ctypes.c_void_p(at), buf, size, ctypes.byref(got))
+        data += buf.raw[:min(got.value, size)]
+        if not ok or got.value != size:
+            break
+        at += size
     return {"esp": ctx.esp, "ebp": ctx.ebp, "regs": {r: hex(getattr(ctx, r)) for r in
-                                                      ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "eip")},
-            "words": [int.from_bytes(buf.raw[i:i + 4], "little") for i in range(0, got.value, 4)]}
+                                                      ("eax", "ebx", "ecx", "edx", "esi", "edi", "ebp", "esp",
+                                                       "eip", "eflags")},
+            "words": [int.from_bytes(data[i:i + 4], "little") for i in range(0, len(data) - 3, 4)]}
 
 
 def sample_eips(k, hthread, n=8):
@@ -1298,6 +1309,8 @@ def smoke(a, rows=None, tag="boot"):
                                                loaded, st.get("words", []), exc)
         if res["outcome"] == "exit":
             out["crash"]["handled_then_exit"] = res["exit_code"]
+        if st:
+            out["crash"]["stack"] = fault_stack(st, loaded, ri, pieces_map)
         out["run"]["regs"] = st.get("regs")
         out["outcome"] = f"crash-at-{real_image.crash_name(out['crash'])}"
     elif res["outcome"] == "crash":
@@ -1323,6 +1336,8 @@ def smoke(a, rows=None, tag="boot"):
         out.update(crash={"address": hex(res["address"]), "retail_rva": hex(rva) if rva is not None else None,
                           "piece": piece, "row": row, "stack_frames": frames,
                           "authored": blame(rva) if rva is not None else None})
+        if st:
+            out["crash"]["stack"] = fault_stack(st, loaded, ri, pieces_map)
         out["outcome"] = f"crash-at-{row[0] if row else (hex(rva) if rva is not None else 'outside-image')}"
     elif res["outcome"] == "exit" and res.get("fault") is not None and res["exit_code"]:
         # an access violation the game's own handler caught, then exited non-zero
@@ -1331,6 +1346,8 @@ def smoke(a, rows=None, tag="boot"):
         out.update(crash={"address": hex(res["fault"]), "retail_rva": hex(rva) if rva is not None else None,
                           "piece": piece, "row": row, "handled_then_exit": res["exit_code"],
                           "authored": blame(rva) if rva is not None else None})
+        if res.get("stack"):
+            out["crash"]["stack"] = fault_stack(res["stack"], loaded, ri, pieces_map)
         out["outcome"] = f"crash-at-{row[0] if row else (hex(rva) if rva is not None else 'outside-image')}"
     elif res["outcome"] == "exit":
         out["outcome"] = f"exit-{res['exit_code']:#x}"
@@ -1403,6 +1420,22 @@ def address_label(va, loaded, ri, pieces_map):
 
 def map_addresses(vas, loaded, ri, pieces_map):
     return [address_label(v, loaded, ri, pieces_map) for v in vas]
+
+
+FAULT_FRAMES = 64
+
+
+def fault_stack(st, loaded, ri, pieces_map):
+    """The crash record's `stack`: the faulting thread's esp, ebp and register file, every
+    dword read from esp (`words[i]` is at esp + 4*i: return addresses with the arguments
+    and locals between them) and the return addresses among them, symbolized as a hang's
+    main_stack frames are. None when no stack was read."""
+    if not st:
+        return None
+    words = st.get("words") or []
+    return {"esp": hex(st.get("esp", 0)), "ebp": hex(st.get("ebp", 0)), "regs": st.get("regs"),
+            "words": [hex(w) for w in words],
+            "frames": image_frames(words, loaded, ri, pieces_map, FAULT_FRAMES)}
 
 
 def image_frames(words, loaded, ri, pieces_map, limit):
