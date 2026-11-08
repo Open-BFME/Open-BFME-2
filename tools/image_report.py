@@ -6,6 +6,10 @@ as a plain function compiles, matches and links, and never runs. Order needs an 
 is looked up in its own object (every object numbers its own); an unrowed one by its shape and
 its relocations' targets. `twice` lists registrations that build an entry another object registers.
 A slot associative with a public COMDAT (a template static's) runs once, however many objects emit it.
+A credit is only as good as those targets: a relocation the ledger cannot place votes neither way, so a
+registration can be credited with an entry that builds another global or runs another constructor, and
+retail's own body then never runs. `credit_conflicts` lists each, naming ours and what the ledger names at
+retail's address (LINK-634). It reports; it does not change what is credited.
 Vtables: every kept copy's length against retail's run of code pointers. COMDAT selection may keep
 any copy, so the shortest one counts.
 Globals and FieldParse tables: bytes against retail, each comparison bounded by the symbol's own
@@ -261,7 +265,40 @@ def relocation_votes(retail, rva, relocs, places):
     return agree, disagree
 
 
-def initializer_report(retail, rows, registered, addresses=None):
+def credit_conflicts(retail, credits, places, addresses, code_bodies=None):
+    """[{entry, object, symbol, how, kind, ours, retail_rva, retail_name, same_code}] for each relocation of
+    a credited registration the ledger does not place, where it names something else at retail's address. A
+    compiler-local target says nothing: every object numbers its own `_$E<n>`. `same_code` compares a called
+    body with retail's row outside relocations, when `code_bodies(name)` gives (body, masked, size of retail's
+    row by rva); None when it cannot be read, as for a body no object defines."""
+    named = collections.defaultdict(set)
+    for name, rvas in addresses.items():
+        for rva in rvas:
+            named[rva].add(name)
+    found = []
+    for (obj, symbol, relocs), (hit, how) in credits.items():
+        for offset, target, kind, addend in relocs:
+            if ledger_io.LOCAL_STATIC.fullmatch(target) or places(obj)(target) \
+                    or kind not in (link_cycle.DIR32, link_cycle.REL32):
+                continue
+            raw = retail.read(hit + offset, 4)
+            if raw is None:
+                continue
+            value = struct.unpack("<i", raw)[0]
+            got = (value & 0xFFFFFFFF) - retail.base - addend if kind == link_cycle.DIR32 else hit + offset + 4 + value - addend
+            names = named.get(got)
+            if not names or target in names:
+                continue
+            same = None
+            if kind == link_cycle.REL32 and code_bodies is not None:
+                same = code_bodies(target, got)
+            found.append({"entry": hex(hit), "object": obj, "symbol": symbol, "how": how,
+                          "kind": "call" if kind == link_cycle.REL32 else "address", "ours": target,
+                          "retail_rva": hex(got), "retail_name": sorted(names)[0], "same_code": same})
+    return found
+
+
+def initializer_report(retail, rows, registered, addresses=None, code_bodies=None):
     addresses = addresses or {}
     in_order = retail.initializers()
     table = set(in_order)
@@ -342,7 +379,7 @@ def initializer_report(retail, rows, registered, addresses=None):
     owned = collections.Counter(first.values())
     unowned = {key for key, count in owned.items() if count < len(key[1])}
 
-    by_shape = []
+    by_shape, credits = [], {}
     for strong in (True, False):
         waiting = []
         for entry in pending:
@@ -354,6 +391,7 @@ def initializer_report(retail, rows, registered, addresses=None):
                 waiting.append(entry)
                 continue
             mapped.add(hit)
+            credits[(obj, symbol, tuple(entry[4]))] = (hit, "votes" if strong else "shape")
             if not strong:
                 by_shape.append([obj, symbol, hex(hit)])
         pending = waiting
@@ -370,6 +408,8 @@ def initializer_report(retail, rows, registered, addresses=None):
             if agree and not disagree:
                 twice.append([obj, symbol, hex(rva)])
                 break
+    conflicts = credit_conflicts(retail, {key: credit for key, credit in credits.items() if key[2]}, places, addresses,
+                                 code_bodies)
     kinds = collections.Counter()
     plain = []
     for rva in sorted(table - mapped):
@@ -389,6 +429,7 @@ def initializer_report(retail, rows, registered, addresses=None):
             "not_registered_kinds": dict(kinds), "registered_not_in_retail": len(mapped - table),
             "registered_unidentified": len(unmapped), "registered_by_shape_only": len(by_shape),
             "registered_twice": len(twice), "twice": twice,
+            "credit_conflicts": len(conflicts), "conflicts": conflicts,
             "order": "needs an image", "by_shape_only": by_shape,
             "not_registered_rvas": [hex(rva) for rva in in_order if rva not in mapped],
             "plain_functions": plain, "unidentified": unmapped}
@@ -421,6 +462,36 @@ def known_addresses(rows):
                 if name:
                     addresses[name].add(int(row["address"], 16))
     return addresses
+
+
+def code_body_reader(paths, retail, rows, wanted):
+    """code_bodies for credit_conflicts: does the first defining object's `name` equal retail's row at rva, outside
+    relocations? A second pass over the objects, for the few names `wanted` holds."""
+    sizes = {}
+    for row in rows:
+        try:
+            sizes.setdefault(int(row["target_rva"], 16), int(row["target_size"] or 0))
+        except ValueError:
+            continue
+    bodies = {}
+    for path in paths:
+        raw = path.read_bytes()
+        sections, symbols = link_cycle.parse_coff(raw)
+        for symbol in symbols.values():
+            if symbol.sec > 0 and symbol.name in wanted and symbol.name not in bodies:
+                section = sections[symbol.sec - 1]
+                if section.name.startswith(".text"):
+                    bodies[symbol.name] = (raw[section.ptr + symbol.value:section.ptr + section.size],
+                                           {off - symbol.value + k for off, _i, _t in section.relocs for k in range(4)})
+
+    def same_code(name, rva):
+        size = sizes.get(rva)
+        if name not in bodies or not size or len(bodies[name][0]) < size:
+            return None
+        body, masked = bodies[name]
+        theirs = retail.read(rva, size)
+        return theirs is not None and all(k in masked or body[k] == theirs[k] for k in range(size))
+    return same_code
 
 
 def bridge_entries(rows, paths):
@@ -512,7 +583,7 @@ def ledger_report(retail, definitions, addresses, constructed=frozenset()):
 
 
 def summary(report):
-    keys = {"initializers": ("retail", "registered_retail_entries", "not_registered", "registered_twice"),
+    keys = {"initializers": ("retail", "registered_retail_entries", "not_registered", "registered_twice", "credit_conflicts"),
             "vtables": ("same_length", "ours_shorter", "ours_longer", "no_object_defines_it"),
             "globals": ("same", "contents_differ", "ours_zero_retail_not", "with_wrong_pointers",
                         "pointers_unchecked", "no_object_retail_nonzero", "constructed_undersized"),
@@ -551,8 +622,10 @@ def main(argv=None):
     retail = Retail(build.EXE.read_bytes())
     definitions, registered, _code = scan_objects(present)
     addresses = known_addresses(rows)
+    called = {target for entry in registered for _offset, target, kind, _addend in entry[4] if kind == link_cycle.REL32}
     report = {"objects_kept": len(kept), "objects_missing": len(kept) - len(present),
-              "initializers": initializer_report(retail, rows, registered, addresses)}
+              "initializers": initializer_report(retail, rows, registered, addresses,
+                                                 code_body_reader(present, retail, rows, called))}
     sources = (path.read_text(encoding="utf-8", errors="replace") for path in (build.ROOT / "Code").rglob("*.cpp"))
     report["vtables"], report["globals"], report["fieldparse"], report["duplicates"] = \
         ledger_report(retail, definitions, addresses, constructed_names(sources))

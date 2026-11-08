@@ -1,5 +1,8 @@
 """The retail comparison's verdicts: a masked relocation is not a difference, a short copy counts."""
+import collections
+import struct
 import sys
+import types
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -255,3 +258,97 @@ def test_a_template_static_slot_runs_once_however_many_objects_emit_it(tmp_path)
     rowed = [(build.row_object(row).name if obj == "b.obj" else obj, symbol, *entry) for obj, symbol, *entry in registered]
     report = ir.initializer_report(Image(), [row], rowed)
     assert report["registered_retail_entries"] == 1 and report["unidentified"] == [] and report["twice"] == []
+
+
+# ------------------------------------------------------------ LINK-634: a credit whose targets differ from retail's
+
+class ConflictImage:
+    """Two same-shaped initializers: `mov ecx,global; call ctor; ret`."""
+    base = 0x400000
+    words = {0x100: (0x900, 0x500), 0x200: (0xA00, 0x600)}
+
+    def initializers(self):
+        return [0x100, 0x200]
+
+    def read(self, rva, size):
+        out = bytearray()
+        for start, (global_rva, ctor) in self.words.items():
+            if start <= rva < start + 11:
+                body = b"\xB9" + struct.pack("<I", global_rva + self.base) + \
+                    b"\xE8" + struct.pack("<i", ctor - (start + 10)) + b"\xC3"
+                out = bytearray(body[rva - start:])
+        return bytes(out[:size]).ljust(size, b"\xCC")
+
+
+def conflict_entry(global_name="?g@@3HA", ctor="??0Local@@QAE@XZ"):
+    body = b"\xB9\0\0\0\0\xE8\0\0\0\0\xC3"
+    masked = {1, 2, 3, 4, 6, 7, 8, 9}
+    return ("x.obj", "_$E1", body, masked, [(1, global_name, 6, 0), (6, ctor, 20, 0)])
+
+
+def conflicts_of(addresses, entry, code_bodies=None):
+    addresses = collections.defaultdict(set, addresses)
+    return ir.initializer_report(ConflictImage(), [], [entry], addresses, code_bodies)
+
+
+def test_a_credit_with_another_constructor_is_reported():
+    # P36: the global agrees, the ledger cannot place our local ctor, and retail's address is rowed under another name
+    report = conflicts_of({"?g@@3HA": {0x900}, "??0Rowed@@QAE@XZ": {0x500}}, conflict_entry())
+    assert report["registered_retail_entries"] == 1 and report["credit_conflicts"] == 1
+    found = report["conflicts"][0]
+    assert (found["entry"], found["kind"], found["ours"], found["retail_rva"], found["retail_name"]) == \
+        ("0x100", "call", "??0Local@@QAE@XZ", "0x500", "??0Rowed@@QAE@XZ")
+    assert found["how"] == "votes" and found["same_code"] is None
+
+
+def test_a_shape_credit_with_another_global_is_reported():
+    # P39: nothing places our global or ctor, so a shape alone credits an entry that builds something else
+    report = conflicts_of({"?retail@@3HA": {0x900}, "??0Rowed@@QAE@XZ": {0x500}}, conflict_entry("?other@@3HA"))
+    kinds = {c["kind"]: c for c in report["conflicts"]}
+    assert report["credit_conflicts"] == 2 and kinds["address"]["how"] == "shape"
+    assert kinds["address"]["ours"] == "?other@@3HA" and kinds["address"]["retail_name"] == "?retail@@3HA"
+
+
+def test_a_conflict_reports_and_does_not_change_the_credit():
+    addresses = {"?g@@3HA": {0x900}, "??0Rowed@@QAE@XZ": {0x500}}
+    report = conflicts_of(addresses, conflict_entry())
+    assert report["not_registered_rvas"] == ["0x200"]
+
+
+def test_a_fold_of_the_same_code_says_so():
+    report = conflicts_of({"?g@@3HA": {0x900}, "??0Rowed@@QAE@XZ": {0x500}}, conflict_entry(),
+                          code_bodies=lambda name, rva: name == "??0Local@@QAE@XZ" and rva == 0x500)
+    assert report["conflicts"][0]["same_code"] is True
+
+
+def test_a_placed_target_agreeing_is_no_conflict():
+    report = conflicts_of({"?g@@3HA": {0x900}, "??0Local@@QAE@XZ": {0x500}}, conflict_entry())
+    assert report["credit_conflicts"] == 0
+
+
+def test_a_retail_address_the_ledger_cannot_name_is_no_conflict():
+    report = conflicts_of({"?g@@3HA": {0x900}}, conflict_entry())
+    assert report["credit_conflicts"] == 0
+
+
+def test_a_compiler_local_target_says_nothing():
+    # every object numbers its own _$E<n>; retail's thunk row has its own name
+    report = conflicts_of({"?g@@3HA": {0x900}, "??0Local@@QAE@XZ": {0x500}, "_$E2x": {0x500}}, conflict_entry(ctor="_$E2"))
+    assert report["credit_conflicts"] == 0
+
+
+def test_the_body_reader_compares_outside_relocations(tmp_path, monkeypatch):
+    section = types.SimpleNamespace(name=".text$x", ptr=0, size=6, relocs=[(1, 0, 20)], idx=1, flags=0)
+    symbol = types.SimpleNamespace(sec=1, name="??0Local@@QAE@XZ", value=0, cls=2)
+    (tmp_path / "o.obj").write_bytes(b"\xE8\0\0\0\0\xC3")
+    monkeypatch.setattr(ir.link_cycle, "parse_coff", lambda raw: ([section], {0: symbol}))
+
+    class Same:
+        def read(self, rva, size):
+            return b"\xE8\x11\x22\x33\x44\xC3"[:size]
+    rows = [{"target_rva": "0x500", "target_size": "6"}, {"target_rva": "0x600", "target_size": "9"}]
+    same = ir.code_body_reader([tmp_path / "o.obj"], Same(), rows, {"??0Local@@QAE@XZ"})
+    assert same("??0Local@@QAE@XZ", 0x500) is True
+    assert same("??0Local@@QAE@XZ", 0x600) is None     # our body is shorter than retail's row
+    assert same("??0Missing@@QAE@XZ", 0x500) is None
+
