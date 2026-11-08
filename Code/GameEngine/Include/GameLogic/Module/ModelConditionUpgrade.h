@@ -30,6 +30,7 @@ class ModelConditionUpgrade : public UpgradeModule
 {
 public:
 	ModelConditionUpgrade( Thing *thing, const ModuleData *moduleData );
+	virtual ~ModelConditionUpgrade();
 
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void upgradeRemovalImplementation();							// UpgradeMux slot 8

@@ -374,7 +374,7 @@ ModelConditionUpgrade::ModelConditionUpgrade( Thing *thing, const ModuleData *mo
 {
 }
 
-// tu-skeleton: 0x004B6516 28B ??_GRva004B63BD@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
+// tu-skeleton: 0x004B6516 28B ??_GModelConditionUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004B65A5 63B ?upgradeRemovalImplementation@ModelConditionUpgrade@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
 

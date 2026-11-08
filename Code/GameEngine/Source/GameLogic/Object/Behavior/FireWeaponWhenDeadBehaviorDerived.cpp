@@ -162,13 +162,12 @@ Rva004B6259::~Rva004B6259()
 {
 }
 
-class Rva004B63BD : public UpgradeModule
-{
-public:
-	virtual ~Rva004B63BD();
-};
+// ModelConditionUpgrade's destructor 0x004B63BD: its constructor 0x004B64E5
+// installs the same four tables. The class is ModelConditionUpgrade.h's, so this
+// unit's copies of its vftables equal the constructor unit's.
+#include "../../../../Include/GameLogic/Module/ModelConditionUpgrade.h"
 
-Rva004B63BD::~Rva004B63BD()
+ModelConditionUpgrade::~ModelConditionUpgrade()
 {
 }
 
