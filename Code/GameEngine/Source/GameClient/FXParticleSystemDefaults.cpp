@@ -35,22 +35,20 @@ public:
     static const char *const VALUE;
 
 private:
-    static const char *GetValue();
-};
+    // In class, as retail exports it: the locals are COMDAT externals, not statics.
+    static const char *GetValue()
+    {
+        static bool initialized = false;
+        static AsciiString value("Default");
 
-template <int CATEGORY>
-const char *DefaultModuleKey<CATEGORY>::GetValue()
-{
-    static bool built = false;
-    static AsciiString value("Default");
+        if (!initialized) {
+            ((StringBase<char> *)&value)->concat(GetKey((ModuleCategory)CATEGORY));
+            initialized = true;
+        }
 
-    if (!built) {
-        ((StringBase<char> *)&value)->concat(GetKey((ModuleCategory)CATEGORY));
-        built = true;
+        return value.str();
     }
-
-    return value.str();
-}
+};
 
 template <int CATEGORY>
 const char *const DefaultModuleKey<CATEGORY>::VALUE = DefaultModuleKey<CATEGORY>::GetValue();
@@ -63,22 +61,20 @@ public:
     static const char *const VALUE;
 
 private:
-    static const char *GetValue();
-};
+    // In class, as retail exports it: the locals are COMDAT externals, not statics.
+    static const char *GetValue()
+    {
+        static bool initialized = false;
+        static AsciiString value("Default ");
 
-template <int CATEGORY>
-const char *DefaultModuleName<CATEGORY>::GetValue()
-{
-    static bool built = false;
-    static AsciiString value("Default ");
+        if (!initialized) {
+            ((StringBase<char> *)&value)->concat(GetName((ModuleCategory)CATEGORY));
+            initialized = true;
+        }
 
-    if (!built) {
-        ((StringBase<char> *)&value)->concat(GetName((ModuleCategory)CATEGORY));
-        built = true;
+        return value.str();
     }
-
-    return value.str();
-}
+};
 
 template <int CATEGORY>
 const char *const DefaultModuleName<CATEGORY>::VALUE = DefaultModuleName<CATEGORY>::GetValue();
