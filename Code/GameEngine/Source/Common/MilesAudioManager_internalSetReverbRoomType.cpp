@@ -5,25 +5,9 @@
 // and reverb-enabled/dirty byte updates at +0x6A7/+0x6A8.
 #include "../../Include/Common/GameLODManager.h"
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_room_type(int room, int unk);
-extern "C" __declspec(dllimport) void __stdcall AIL_set_digital_master_room_type(int room, int unk);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_digital_master_room_type(void *driver, int unk);
 
-struct RoomEntry { int room; char _p[8]; };
-
-class MilesAudioManager
-{
-public:
-	char _p0[0x678];
-	int m_678;
-	char _p1[0x6a7 - 0x67c];
-	unsigned char m_6a7;
-	unsigned char m_6a8;
-	char _p2[0x6d0 - 0x6a9];
-	RoomEntry m_rooms[64];
-	int m_9d0;
-	char _p3[0x9dc - 0x9d4];
-	int m_9dc;
-	void internalSetReverbRoomType(int a);
-};
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::internalSetReverbRoomType(int a)
 {
@@ -46,23 +30,23 @@ void MilesAudioManager::internalSetReverbRoomType(int a)
 			}
 		}
 	}
-	int cur = m_9d0;
+	int cur = m_selectedProvider;
 	if (cur != -1)
 	{
-		AIL_set_3D_room_type(m_rooms[cur].room, edi);
-		AIL_set_digital_master_room_type(m_9dc, edi);
+		AIL_set_3D_room_type(m_provider3D[cur].id, edi);
+		AIL_set_digital_master_room_type(m_digitalHandle, edi);
 	}
 	if (edi == 0)
 	{
-		if (m_6a7 != 0)
+		if (m_6A7 != 0)
 		{
-			m_6a7 = 0;
-			m_6a8 = 1;
+			m_6A7 = 0;
+			m_6A8 = 1;
 		}
 	}
 	else
 	{
-		m_6a7 = 1;
-		m_6a8 = 1;
+		m_6A7 = 1;
+		m_6A8 = 1;
 	}
 }

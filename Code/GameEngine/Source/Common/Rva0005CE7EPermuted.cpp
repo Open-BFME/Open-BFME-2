@@ -49,10 +49,11 @@ template<class K,class V,class C,class A>class map{char bytes[12];};
 typedef _STL::map<AsciiString,float,_STL::less<AsciiString>,_STL::allocator<_STL::pair<const AsciiString,float> > > AsciiFloatMap;
 Xfer *Rva00058DC6Xfer(Xfer*,AsciiStringSet*);
 Xfer *Rva0005CC28Xfer(Xfer*,AsciiFloatMap*);
-class MilesAudioManager {public:class GlobalVolumeData {public:
+#include "../../../GameEngineDevice/Include/MilesAudioDevice/MilesAudioManager.h"
+class MilesAudioManager::GlobalVolumeData {public:
  int view;float volume[6][2];char pad34[0x9C-0x34];float at9C;AsciiStringSet names;char padA8[4];float atAC,atB0,atB4,atB8,atBC,atC0;bool atC4;char padC5[0x1B8-0xC5];AsciiFloatMap map;
  void rva0005CE7E(Xfer*);void refreshAll();
-};};
+};
 void MilesAudioManager::GlobalVolumeData::rva0005CE7E(Xfer*xfer) {
  xfer->Version1();
  for(int i=0;i<6;++i)for(int j=0;j<2;++j)(*xfer == volume[i][j]);

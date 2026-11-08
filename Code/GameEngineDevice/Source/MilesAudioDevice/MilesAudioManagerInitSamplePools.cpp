@@ -54,24 +54,7 @@ struct AudioSettings
 	int m_streamCount;
 };
 
-class MilesAudioManager
-{
-	private:
-	void initSamplePools(void);
-
-	private:
-	void *m_vtable;
-	char m_prefix[0xc];
-	AudioSettings *m_audioSettings;
-	char m_pad014[0x67c - 0x14];
-	unsigned int m_num2DSamples;
-	char m_pad60c[0xc];
-	unsigned int m_numStreams;
-	char m_pad690[0x9dc - 0x690];
-	HDIGDRIVER m_digitalHandle;
-	char m_pad9e0[0xa38 - 0x9e0];
-	_STL::list<HSAMPLE> m_availableSamples;
-};
+#include "../../Include/MilesAudioDevice/MilesAudioManager.h"
 
 void MilesAudioManager::initSamplePools(void)
 {
@@ -83,9 +66,9 @@ void MilesAudioManager::initSamplePools(void)
 		AIL_init_sample(sample);
 		AIL_set_sample_user_data(sample, 0,
 			(unsigned int)m_availableSamples.size() + 1);
-		reinterpret_cast<_STL::list<int> *>(&m_availableSamples)->push_back(reinterpret_cast<const int &>(sample));
-		++m_num2DSamples;
+		m_availableSamples.push_back(reinterpret_cast<const int &>(sample));
+		++m_67C;
 	}
 
-	m_numStreams = m_audioSettings->m_streamCount;
+	m_68C = m_audioSettings->m_streamCount;
 }
