@@ -88,3 +88,81 @@ classes' worth of pushes. Unprobed, with live row counts:
 `ModuleData` 44, `Matrix3D` 53, `DamageInfo` 32, `Overridable` 28,
 `BehaviorModuleInterface` 26, `UpdateModuleInterface` 25, `LocomotorSet` 13.
 At 2.2% those 372 units are worth about eight adoptions.
+
+## The full sweep: 15 passes from 729 units (2026-11-08)
+
+The note above reported 2.2% from 445 units and recommended the cheap end of
+`header-gate-costs-20261108.tsv`. Those six cheap classes were then probed too,
+and the completed figure over every class probed this session is:
+
+| units | passed | rate | class |
+| ---: | ---: | ---: | --- |
+| 17 | 2 | 12% | `UpgradeMux` |
+| 72 | 4 | 5.6% | `Vector3` |
+| 90 | 4 | 4.4% | `DX8Wrapper` |
+| 29 | 1 | 3.4% | `DrawModule` |
+| 85 | 2 | 2.4% | the 195-row re-run, 28 classes |
+| 81 | 1 | 1.2% | `AICommandInterface` |
+| 108 | 1 | 0.9% | `Drawable` |
+| 82 | 0 | 0% | `Thing` |
+| 52 | 0 | 0% | `ModelConditionFlags` |
+| 51 | 0 | 0% | `ContainModuleInterface` |
+| 34 | 0 | 0% | `Rva0036CA00Str` |
+| 28 | 0 | 0% | `RTS3DScene` |
+| **729** | **15** | **2.1%** | total |
+
+2.1% over 729 units, against 2.2% over the first 445. The rate held.
+
+### Gate cost does not predict yield either
+
+This is the part worth keeping. I picked the last six cohorts by *cheap gate
+cost*, on the reasoning that a cheap header is the better target. Of those six,
+four returned nothing at all -- `ModelConditionFlags` (gate 23, 52 units),
+`RTS3DScene` (20, 28), `ContainModuleInterface` (73, 51) and `Rva0036CA00Str`
+(85, 34). The two that paid, `DX8Wrapper` (gate 117) and `DrawModule` (47),
+were the more expensive half of the set.
+
+So three different rankings have now each failed to predict adoption yield:
+
+- `canonical_classes.csv`'s sampled adopt rate (the queue is the residue those
+  samples left behind);
+- merge reach in TUs (`Thing`: 19 TUs, 82 units, zero);
+- gate cost (four of the six cheapest gates returned zero).
+
+What the passes actually cluster by is nothing visible in any register I have
+looked at: `Vector3` 4 and `DX8Wrapper` 4 carry a third of the total between
+them, while five classes gave none. Until something predicts it, probing is a
+flat 2% lottery and should be budgeted as one -- run it broad and cheap, on
+whatever classes are unclaimed, and do not spend analysis choosing.
+
+### Landed, and two that did not
+
+`DX8Wrapper`, three units applied, byte-verified and retired through `accept`:
+`BaseHeightMapLoadRoadsAndBridges.cpp`, `W3DDisplaySmallSlots.cpp`,
+`DX8SetAmbient.cpp`.
+
+Two of the five passes did not land, for different reasons, and both are worth
+recording.
+
+**`W3DDisplay.cpp` (DX8Wrapper) -- another seat's claim, and a trap in reading
+the claim table.** My apply script guarded only the *class* claim, so it applied
+to all four units although `claims.py claim` had reported
+`not claimed: file:3bf91e199720375b (held by someone else)` for this one. Worse,
+when I checked whether that file was really held I grepped the claim listing for
+the path and found nothing -- because `claims.py` prints a **hash** for a long
+path, not the path. I read a hash as "free". The change was reverted along with
+its queue retirement and the row re-retired for the three units only.
+
+Two lessons: a batch applier must check the per-file claim result, not just the
+class; and a `file:` claim cannot be confirmed by grepping the listing for a
+path, because long paths appear hashed. Use `claims.py claim` and read what it
+says it did not claim.
+
+**`W3DStreakDraw.cpp` (DrawModule) -- `accept` refused with `link_check predicts
+a loss of census-linked bytes`.** The unit applied and byte-verified 25/25, but
+the row is not retired. This is the same shape as the stale-index false alarm in
+`header-lane-vptr-standin-20261107.md`, and the index here was from 06:55 while
+the census had moved on; `--fetch-index` then refused outright with
+`this checkout lacks census commit eba83a23be`. Until the index can be refreshed
+against a pulled checkout, the verdict is unknown rather than bad, so the
+adoption is held, not landed.

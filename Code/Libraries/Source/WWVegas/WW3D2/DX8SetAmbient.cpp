@@ -8,17 +8,7 @@
 static __forceinline Vector3 &copyAmbientVector(Vector3 &out,const Vector3 &in) {out.X=in.X;out.Y=in.Y;out.Z=in.Z;return out;}
 
 
-class DX8Wrapper {
-public:
-    static void Set_DX8_Render_State(unsigned long state,unsigned value);
-    // dllimport: every use inlines it, so this unit emits no out-of-line copy to compete with
-    // retail's one body (DX8ConvertColorVector3O1.cpp, 0x0006E1C0).
-    __declspec(dllimport) static unsigned Convert_Color(const Vector3 &color,float alpha);
-    static void Set_Ambient(const Vector3 &color);
-protected:
-    // dx8wrapper.cpp's protected static (VA 0x00DEDC70), ZH Set_Ambient's Ambient_Color.
-    static Vector3 Ambient_Color;
-};
+#include "DX8WrapperClass.h"
 
 __forceinline unsigned DX8Wrapper::Convert_Color(const Vector3 &color, float alpha)
 {
