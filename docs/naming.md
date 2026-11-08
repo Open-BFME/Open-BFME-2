@@ -1179,6 +1179,50 @@ Known limits, each refused or out of reach rather than passed wrongly:
   arguments, alone or behind `&`, `*` or extra parentheses (`memset(&g, 0, 16)`), unless the
   function's name is also a type.
 
+A placeholder can be wrong in more than its size. It can start too late (a clamp table rowed
+at its zero point, 256 bytes above its first byte), it can have split one object into two
+rows (a deque and its finish iterator), it can be const where retail writes it, or it can
+have no data row at all. The same command takes those:
+
+```sh
+# start too late: the table is 0x300 B from 0x00A23000, retail's code indexes -256..511
+python3 tools/rename.py global --name '?g_bfmeClampTable@@3QBEB' --new '?g_bfmeClampTable@@3PAEA' \
+    --retype 'unsigned char [0x300]' --size 0x300 --address 0x00A23000 \
+    --evidence '<why>' --prepared Code/X.cpp=FILE ...
+
+# two rows of one object: the second is an offset of the first
+python3 tools/rename.py global --name '?g_00E031A8@@3...' --new '?g_00E031A8@@3PAIA' \
+    --retype 'unsigned int [10]' --size 40 --absorb '?g_00E031B8@@3...' --model MODEL \
+    --evidence '<why>' --prepared Code/X.cpp=FILE ...
+```
+
+- **`--address RVA`** moves the start down, in `data_ledger.csv`'s spelling. The new extent
+  must contain the old one and meet the usual refusals over the space it takes: no other
+  owner or name, zero-filled or spelled by `--initializer`, no relocated word.
+- **`--absorb MANGLED`** takes a row of the same unit wholly inside the extent, past its
+  start. Its data row and ledger row go, with a tombstone, and its references join the
+  owner's count. Every unit that names it must come as `--prepared` bytes reading it as an
+  offset. A pin, a converged address, a frozen key, another unit's definition or another
+  spelling bound in the ledger refuses.
+- **An entry in `EXTENTS`** (`tools/retail_identity.py`) must spell out both, since no compiler
+  or byte proves where an object starts: the old and new names, the start, the size, the rows
+  absorbed and retail's facts by site. A new entry is a reviewed one (`Verifier-Change`). Its
+  facts must hold on the image, every `stores` address must lie in the extent, the start must
+  be named or be a `stores` address plus an `offset` its own instruction encodes, and every
+  absorbed address must be named. The data row's evidence records them as
+  `retail:<site> <fact>=<value> ...`. A retype writes no `name_basis.csv` row, so this grants
+  no name tier: the identifier does not change.
+- **A const placeholder** (`...@@3...B`) may become mutable when its row is in retail's
+  `.data`. The other direction stays refused.
+- **A global only `data_ledger.csv` owns** (status `owned`, with a source) gains its data row,
+  and `--model` names who lands it. An unowned or provisional ledger row refuses.
+
+After the build, a retype also reads every rebuilt row's DIR32 relocations: retail's pointer
+less the compiled addend must be the new symbol's start, and nothing may reach into the
+extent through another symbol. The byte gate masks those operands, so a table read at +0
+rather than +0x100 passes it. No rebuilt object or preprocessed unit may name an absorbed
+identifier under any spelling.
+
 ### `rename.py function --respell`: `this` cv and code identity
 
 `--respell` takes the row's whole new mangled name and `--prepared` sources for

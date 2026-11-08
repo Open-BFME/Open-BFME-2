@@ -6305,7 +6305,7 @@ def _identifier(symbol):
 
 
 def plan_global(ctx, name, new, basis, evidence, *, max_files=25, retype=None, size=None, initializer=None,
-                prepared=None):
+                prepared=None, address=None, absorb=(), model=None):
     """Plan respelling one reverse/data_rows.csv global everywhere it is named.
 
     The byte gate masks DIR32 operands, so a consumer left on the old name
@@ -6315,7 +6315,7 @@ def plan_global(ctx, name, new, basis, evidence, *, max_files=25, retype=None, s
     (plan_retype): the identifier stays, the type and size change."""
     if retype is not None:
         return plan_retype(ctx, name, new, retype, size, evidence, initializer=initializer, prepared=prepared,
-                           max_files=max_files)
+                           max_files=max_files, address=address, absorb=absorb, model=model)
     rows = ctx.dicts(DATA_ROWS)
     if name.startswith("?") or "@" in name:
         owners = [r for r in rows if r.get("name") == name]
@@ -6452,6 +6452,14 @@ def plan_global(ctx, name, new, basis, evidence, *, max_files=25, retype=None, s
 # parse, the old mangled name surviving anywhere, and a new type the owner's
 # object would construct with its own dynamic initializer (retail's rowed
 # initializer already constructs these: the image would run both).
+#
+# A placeholder can also start too late or hold a neighbour's field. `--address`
+# moves the start down over unrowed space and `--absorb` takes a row wholly inside
+# the extent, its readers rewritten by --prepared. Neither has a compiler or a byte
+# to prove what the object is, so each makes only the change an entry of
+# tools/retail_identity.py's EXTENTS spells out, on facts read from the image. A global only
+# data_ledger.csv owns gains its data row here, and a const placeholder of a table
+# retail writes becomes mutable.
 
 HATCH_BASELINE = "reverse/hatch_baseline.tsv"
 ZERO_INIT = re.compile(r"^\s*=\s*(?:0[uUlL]*|NULL|\{\s*0?\s*\})\s*$")
@@ -6726,12 +6734,13 @@ def retail_extent(ctx, rva, size):
     return img.section(va), img.section(va + size - 1), img.read(va, size)
 
 
-def extent_overlaps(ctx, rva, size, owner):
-    """Every owner or name other than `owner` that meets [rva, rva + size)."""
+def extent_overlaps(ctx, rva, size, own):
+    """Every owner or name that meets [rva, rva + size), but those `own` {name: rva} gives
+    up: the retyped global and the rows it absorbs, where they stand today."""
     end, found = rva + size, []
     for row in ctx.dicts(DATA_ROWS):
         at = data_rva(row)
-        if row is owner or at is None:
+        if at is None or own.get(row.get("name")) == at:
             continue
         span = int(row.get("size") or 0) or 1
         if at < end and rva < at + span:
@@ -6746,7 +6755,7 @@ def extent_overlaps(ctx, rva, size, owner):
             found.append(f"converged global {row.get('name')} at 0x{at:08X}")
     for row in ctx.dicts(DATA_LEDGER):
         at = _rva(row.get("address"))
-        if at is not None and rva < at < end:
+        if at is not None and rva < at < end and own.get(row.get("name")) != at:
             found.append(f"data_ledger.csv name {row.get('name')} at 0x{at:08X} ({row.get('status')})")
     return found
 
@@ -6765,6 +6774,23 @@ def rekey_csv_record(raw, label, match, update):
             found = dict(row)
             update(row)
             payload = csv_line([row.get(h, "") for h in header]).rstrip(b"\n")
+        out.append(payload + term)
+    return b"".join(out), found
+
+
+def drop_csv_record(raw, label, match):
+    """`raw` without the one record `match(fields dict)` selects, every other record byte
+    for byte. Returns (raw, its dict) or (raw, None)."""
+    ledger_io.lf_terminator(raw, label)
+    records = ledger_io.split_records(raw)
+    header = next(csv.reader(io.StringIO(records[0][0].decode("utf-8"))))
+    out, found = [records[0][0] + records[0][1]], None
+    for payload, term in records[1:]:
+        values = next(csv.reader(io.StringIO(payload.decode("utf-8"))), [])
+        row = dict(zip(header, values))
+        if found is None and values and match(row):
+            found = row
+            continue
         out.append(payload + term)
     return b"".join(out), found
 
@@ -6856,17 +6882,89 @@ def forced_include_units(ctx, word, headers):
     return out
 
 
-def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, prepared=None, max_files=25):
-    """Plan `global --retype`: one rowed global's type and size, its identifier kept."""
-    rows = ctx.dicts(DATA_ROWS)
-    owners = [r for r in rows if r.get("name") == name or (not name.startswith("?")
-                                                           and _identifier(r.get("name", "")) == name)]
-    if len({r.get("name") for r in owners}) != 1 or len(owners) != 1:
+def retype_owner(ctx, name, model):
+    """(row, True when it is new) of the global `name` retypes: its reverse/data_rows.csv row,
+    or the row a global only data_ledger.csv owns gains (P30: rowed there alone, source known)."""
+    def named(row):
+        return row.get("name") == name or (not name.startswith("?") and _identifier(row.get("name", "")) == name)
+    owners = [r for r in ctx.dicts(DATA_ROWS) if named(r)]
+    if len(owners) > 1:
         raise Refusal(f"{name} names {len(owners)} reverse/data_rows.csv rows; a retype needs exactly one")
-    owner = owners[0]
-    old_name, source, rva = owner["name"], owner.get("source", ""), data_rva(owner)
-    if rva is None:
+    if owners:
+        return owners[0], False
+    ledgered = [r for r in ctx.dicts(DATA_LEDGER) if named(r)]
+    if len(ledgered) != 1 or ledgered[0].get("status") != "owned" or ledgered[0].get("kind") != "global" \
+            or not ledgered[0].get("source"):
+        raise Refusal(f"{name} names 0 reverse/data_rows.csv rows and {len(ledgered)} data_ledger.csv rows, none it "
+                      "can take as a source-owned global; a retype needs exactly one")
+    if not (model or "").strip():
+        raise Refusal(f"{ledgered[0]['name']} has no data row yet: --model names who lands the one this adds")
+    row = ledgered[0]
+    return {"name": row["name"], "address": row["address"], "address_kind": "rva", "size": row["size"],
+            "section": row["section"], "source": row["source"], "status": "matched", "evidence": "",
+            "model": model.strip()}, True
+
+
+def absorbed_rows(ctx, names, old_name, source, rva, size):
+    """The rows `names` hands to the retyped global, each wholly inside its extent past the
+    start and defined by its source; their data rows and ledger rows go, so nothing may still
+    key on them: [{name, word, rva, size, row, ledger}]. Their readers are the caller's."""
+    out = []
+    rows, ledger = ctx.dicts(DATA_ROWS), ctx.dicts(DATA_LEDGER)
+    hatches = ctx.read(HATCH_BASELINE) or b""
+    for name in dict.fromkeys(names):
+        word = _identifier(name)
+        if name.startswith("??") or not word or not re.fullmatch(r"\?" + re.escape(word) + r"@@3.+[AB]", name):
+            raise Refusal(f"--absorb {name} is not a global datum spelled ?<identifier>@@3<type>")
+        if name == old_name or word == _identifier(old_name):
+            raise Refusal(f"--absorb {name} is the global being retyped")
+        row = [r for r in rows if r.get("name") == name]
+        booked = [r for r in ledger if r.get("name") == name]
+        if len(row) > 1 or len(booked) > 1 or not (row or booked):
+            raise Refusal(f"--absorb {name} names {len(row)} data rows and {len(booked)} data_ledger.csv rows; "
+                          "it needs one of each at most, and at least one")
+        at = data_rva(row[0]) if row else _rva(booked[0].get("address"))
+        span = int((row[0] if row else booked[0]).get("size") or 0)
+        if at is None or span <= 0 or not (rva < at and at + span <= rva + size):
+            raise Refusal(f"--absorb {name} at 0x{at or 0:08X}+{span} is not wholly inside the extent past its start "
+                          f"(0x{rva:08X}+{size})")
+        if booked and _rva(booked[0].get("address")) != at:
+            raise Refusal(f"data_ledger.csv puts {name} at {booked[0].get('address')}, its data row at 0x{at:08X}")
+        if (row[0] if row else booked[0]).get("source") != source:
+            raise Refusal(f"--absorb {name} is defined by {(row[0] if row else booked[0]).get('source')}, not {source}: "
+                          "the retype takes a row of its own unit")
+        if booked and {n for n in (booked[0].get("names") or "").split(";") if n} - {name}:
+            raise Refusal(f"data_ledger.csv binds other spellings at {name}'s address ({booked[0].get('names')}): "
+                          "reconcile them first")
+        if any(p.get("name") == name for p in ctx.pins()):
+            raise Refusal(f"symbols.csv pins {name}: a pin keeps the symbol alive, and absorbing it leaves no definition")
+        frozen = [rel for rel in frozen_mentions(ctx, name) if rel not in (DATA_LEDGER, HATCH_BASELINE)]
+        if frozen or name.encode() in hatches:
+            raise Refusal(f"{name} is a key in {', '.join(frozen) or HATCH_BASELINE} (frozen, shrink-only); absorbing it "
+                          "needs a Verifier-Change commit that re-keys it")
+        out.append({"name": name, "word": word, "rva": at, "size": span, "row": bool(row),
+                    "refs": int(booked[0].get("refs") or 0) if booked else 0})
+    return out
+
+
+def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, prepared=None, max_files=25,
+                address=None, absorb=(), model=None):
+    """Plan `global --retype`: one global's type and size, its identifier kept; with `address` and
+    `absorb` its start and the rows inside it too, as tools/retail_identity.py's EXTENTS spell out."""
+    rows = ctx.dicts(DATA_ROWS)
+    owner, new_owner = retype_owner(ctx, name, model)
+    old_name, source, old_rva = owner["name"], owner.get("source", ""), data_rva(owner)
+    if old_rva is None:
         raise Refusal(f"{old_name}'s data row has no readable address")
+    rva = old_rva
+    if address is not None:
+        try:
+            rva = int(str(address), 0)
+        except ValueError:
+            raise Refusal(f"--address {address!r} is not a number") from None
+        if rva >= old_rva:
+            raise Refusal(f"--address 0x{rva:08X} is not below 0x{old_rva:08X}: it moves a start down, over unrowed "
+                          "space (an RVA, as data_ledger.csv spells it)")
     if is_generated(source):
         raise Refusal(f"{old_name} lives in generated source {source} (never edit Code/gen_*)")
     if source not in ctx.ledger_sources():
@@ -6875,9 +6973,12 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
         raise Refusal(f"{old_name} is a compiler-named datum; it has no declaration to retype")
     word = _identifier(old_name)
     m = re.fullmatch(r"\?" + re.escape(word or "") + r"@@3(.+)A", new or "")
-    if not word or not m or not re.fullmatch(r"\?" + re.escape(word) + r"@@3.+A", old_name):
+    if not word or not m or not re.fullmatch(r"\?" + re.escape(word) + r"@@3.+[AB]", old_name):
         raise Refusal(f"{new} is not a global datum spelled ?{word}@@3<type>A: a retype keeps the identifier "
                       "and the global scope")
+    if old_name.endswith("B") and owner.get("section") != ".data":
+        raise Refusal(f"{old_name} is const and retail keeps it in {owner.get('section')}: only a table in retail's "
+                      ".data can become mutable")
     if new == old_name:
         raise Refusal("the new mangled name is the old one: nothing to retype")
     if not new_type or not new_type.strip():
@@ -6898,16 +6999,32 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
     if size < int(owner.get("size") or 0):
         raise Refusal(f"--size {size} is smaller than the row's {owner.get('size')} B: a retype grows a placeholder "
                       "to its retail extent, and a shrink would drop retail bytes from verification")
+    if rva + size < old_rva + int(owner.get("size") or 0):
+        raise Refusal(f"0x{rva:08X}+{size} does not contain the row's 0x{old_rva:08X}+{owner.get('size')}: a move "
+                      "would drop retail bytes from verification")
+    absorbed = absorbed_rows(ctx, absorb, old_name, source, rva, size)
+    extent = None
+    if rva != old_rva or absorbed:
+        import retail_identity
+        extent = retail_identity.extent_of(old_name, new)
+        spelled = (rva, size, {(row["name"], row["rva"]) for row in absorbed})
+        if extent is None or (extent.start, extent.size, set(extent.absorbs)) != spelled:
+            raise Refusal(f"--address and --absorb make only a change an entry of tools/retail_identity.py's EXTENTS "
+                          f"spells out; none takes {old_name} to {new} at 0x{rva:08X}+{size} with these rows "
+                          "(a new entry is a reviewed one, Verifier-Change)")
+        problems = retail_identity.extent_problems(extent)
+        if problems:
+            raise Refusal(f"retail does not state 0x{rva:08X}+{size}: {problems[0]}")
     for row in ctx.dicts(CONVERGED):
-        if _rva(row.get("address")) == rva:
-            raise Refusal(f"0x{rva:08X} is a converged address (reverse/data_converged.csv binds {row.get('name')});"
-                          " data_check --converged refuses a changed name there")
+        if _rva(row.get("address")) in (rva, old_rva):
+            raise Refusal(f"0x{_rva(row.get('address')):08X} is a converged address (reverse/data_converged.csv binds "
+                          f"{row.get('name')}); data_check --converged refuses a changed name there")
     if any(r.get("name") == new for r in rows) or any(r["name"] == new for r in ctx.rows()) \
             or any(p.get("name") == new for p in ctx.pins()):
         raise Refusal(f"{new} already names a data row, function or pin")
     refuse_vendored(ctx, [source], f"retyping {old_name}")
 
-    overlaps = extent_overlaps(ctx, rva, size, owner)
+    overlaps = extent_overlaps(ctx, rva, size, {old_name: old_rva, **{a["name"]: a["rva"] for a in absorbed}})
     if overlaps:
         raise Refusal(f"0x{rva:08X}+{size} overlaps another owner: {'; '.join(overlaps[:3])}")
     first, last, retail = retail_extent(ctx, rva, size)
@@ -6924,12 +7041,21 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
                       "is not zero-filled; pass the --initializer that spells retail's bytes")
 
     old_re = mangled_re(old_name)
+    if extent:
+        evidence = "; ".join((retail_identity.record(extent.facts), (evidence or "").strip())).strip("; ")
     plan = Plan("global", old_name, new, "retype", (evidence or "").strip(), source, rva,
                 old_word=word, new_word=word)
     # sources: every file that spells the identifier, and the prepared ones
     prepared = dict(prepared or {})
     by_object = object_referencers(ctx, old_name)
     touched = set(ctx.grep_files(word, word=True, roots=("Code",))) | {source} | set(prepared) | by_object
+    for row in absorbed:                             # only hand-written bytes can turn a read into an offset
+        readers = set(ctx.grep_files(row["word"], word=True, roots=("Code",))) | object_referencers(ctx, row["name"])
+        unprepared = sorted(readers - set(prepared))
+        if unprepared:
+            raise Refusal(f"{', '.join(unprepared[:3])} names {row['name']}: --absorb needs --prepared bytes reading "
+                          f"it as an offset of {word}")
+        touched |= readers
     generated = sorted(p for p in touched if is_generated(p))
     if generated:
         raise Refusal(f"generated source(s) name {word}: {', '.join(generated[:5])} (never edited)")
@@ -6950,6 +7076,9 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
             new_text, _ext, _defs = retype_declarations(text, word, new_type, owner=rel == source,
                                                          initializer=initializer)
         definitions += check_declarations(new_text, word, new_type, rel, rel == source, function_like_macros(ctx))
+        for row in absorbed:
+            if row["name"] in new_text or re.search(r"\b" + re.escape(row["word"]) + r"\b", name_metric.strip(new_text)):
+                raise Refusal(f"{rel} still names {row['word']}, absorbed into {word}")
         new_text, _gone = remove_bridging_aliases(new_text, old_name, new)
         kept = [(a.group("a"), a.group("b")) for a in ALTERNATENAME.finditer(new_text)]
         if old_name in name_metric.strip(new_text) or any(old_name in pair for pair in kept):
@@ -6980,20 +7109,33 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
     elif old_name.encode() in (ctx.read(HATCH_BASELINE) or b""):
         raise Refusal(f"hatch_baseline.tsv is keyed on {old_name}, but no bridging pragma was removed")
 
-    new_row = dict(owner, name=new, size=str(size))
+    moved = {} if rva == old_rva else {
+        "address": f"0x{rva + IMAGE_BASE if owner.get('address_kind') == 'va' else rva:08X}"}
+    new_row = dict(owner, name=new, size=str(size), **moved)
     note = f"Retyped from {old_name} ({owner.get('size')} B) to {new_type.strip()} ({size} B) by tools/rename.py " \
            f"global --retype: {plan.evidence}"
-    raw, found = rekey_csv_record(ctx.read(DATA_ROWS), DATA_ROWS, lambda r: r.get("name") == old_name,
-                                  lambda r: r.update(name=new, size=str(size),
-                                                     evidence=(r.get("evidence", "") + "; " + note).strip("; ")))
     new_row["evidence"] = (owner.get("evidence", "") + "; " + note).strip("; ")
+    raw = ctx.read(DATA_ROWS)
+    if new_owner:
+        header = next(csv.reader(io.StringIO(raw.split(b"\n", 1)[0].decode("utf-8"))))
+        raw = appended(raw, [csv_line([new_row.get(column, "") for column in header])])
+    else:
+        raw, found = rekey_csv_record(raw, DATA_ROWS, lambda r: r.get("name") == old_name,
+                                      lambda r: r.update(name=new, size=str(size), evidence=new_row["evidence"], **moved))
+    for row in absorbed:
+        if row["row"]:
+            raw, found = drop_csv_record(raw, DATA_ROWS, lambda r, gone=row["name"]: r.get("name") == gone)
     plan.edit(ctx, DATA_ROWS, raw)
-    plan.renamed_data.append((old_name, new, rva))
+    plan.renamed_data.append((old_name, new, old_rva))
+    plan.renamed_data += [(row["name"], new, row["rva"]) for row in absorbed]
     for rel, label in ((FUNCTIONS, "functions.csv"), (SYMBOLS, "symbols.csv")):
         raw = ctx.read(rel)
         if raw is None:
             continue
-        new_raw, changed = rewrite_records(raw, label, old_re, new)
+        new_raw, changed = raw, []
+        for symbol_re in [old_re] + [mangled_re(row["name"]) for row in absorbed]:
+            new_raw, more = rewrite_records(new_raw, label, symbol_re, new)
+            changed += more
         for before, after in changed:
             if rel == FUNCTIONS and before[0] != after[0]:
                 raise Refusal(f"functions.csv row {before[0]} embeds {old_name} in its name")
@@ -7004,8 +7146,10 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
         if changed:
             plan.edit(ctx, rel, new_raw)
     for row in ctx.dicts(DATA_LEDGER):
-        if _rva(row.get("address")) == rva and (row.get("name") != old_name or row.get("source") not in ("", source)):
-            raise Refusal(f"data_ledger.csv binds 0x{rva:08X} to {row.get('name')} ({row.get('source') or 'no source'}), "
+        if _rva(row.get("address")) in (rva, old_rva) and (row.get("name") != old_name
+                                                           or row.get("source") not in ("", source)):
+            raise Refusal(f"data_ledger.csv binds {row.get('address')} to {row.get('name')} "
+                          f"({row.get('source') or 'no source'}), "
                           f"not {old_name} in {source}: another owner's row is not this retype's to re-key")
     if ctx.read(DATA_LEDGER) is not None:
         def rekey(r):
@@ -7014,20 +7158,27 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
             names = [n for n in (r.get("names") or "").split(";") if n]
             names = sorted({new} | {n for n in names
                                     if _identifier(re.split(r"@(?=(?:Code|reference)/)", n)[0]) != word})
-            r.update(name=new, size=str(size), source=source)
+            r.update(name=new, size=str(size), source=source, address=f"0x{rva:08X}" if moved else r["address"])
+            if absorbed:
+                r["refs"] = str(int(r.get("refs") or 0) + sum(row["refs"] for row in absorbed))
             if len(names) <= 1:
                 r.update(names="", defs="1", status="owned")
             else:
                 r["names"] = ";".join(names)
-        raw, found = rekey_csv_record(ctx.read(DATA_LEDGER), DATA_LEDGER, lambda r: _rva(r.get("address")) == rva,
+        raw, found = rekey_csv_record(ctx.read(DATA_LEDGER), DATA_LEDGER, lambda r: _rva(r.get("address")) == old_rva,
                                       rekey)
         if found is None:
-            plan.warnings.append(f"{DATA_LEDGER} has no row at 0x{rva:08X}; tools/data_ledger.py adds it")
-        else:
+            plan.warnings.append(f"{DATA_LEDGER} has no row at 0x{old_rva:08X}; tools/data_ledger.py adds it")
+        for row in absorbed:
+            raw, gone = drop_csv_record(raw, DATA_LEDGER, lambda r, name=row["name"]: r.get("name") == name)
+            found = found or gone
+        if found is not None:
             plan.edit(ctx, DATA_LEDGER, raw)
-    if (old_name, rva) not in _tombstones(ctx):
-        plan.edit(ctx, DELETED, appended(ctx.read(DELETED), [tombstone_line(old_name, rva, note)],
-                                         header="name,target_rva,reason"))
+    tombstones = [tombstone_line(gone, at, note + (f"; absorbed at 0x{at:08X} into {new}" if gone != old_name else ""))
+                  for gone, at in [(old_name, old_rva)] + [(row["name"], row["rva"]) for row in absorbed]
+                  if (gone, at) not in _tombstones(ctx)]
+    if tombstones:
+        plan.edit(ctx, DELETED, appended(ctx.read(DELETED), tombstones, header="name,target_rva,reason"))
 
     # every unit that spells the identifier or references the old symbol is rebuilt and
     # its object read, changed or not: an unchanged one must already be right
@@ -7041,9 +7192,10 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
         others = [rel for rel in computed if rel not in ctx.ledger_sources()]
         if others:
             verify |= includers(ctx, others, max_files)
-        verify |= {rel for rel in forced_include_units(ctx, word, headers) if rel in ctx.ledger_sources()}
+        for each in [word] + [row["word"] for row in absorbed]:
+            verify |= {rel for rel in forced_include_units(ctx, each, headers) if rel in ctx.ledger_sources()}
     # a unit or header whose `##` pastes could build the identifier is preprocessed too
-    pasted = paste_units(ctx, word)
+    pasted = set().union(*(paste_units(ctx, each) for each in [word] + [row["word"] for row in absorbed]))
     verify |= {rel for rel in pasted if rel in ctx.ledger_sources()}
     pasted_headers = sorted(rel for rel in pasted if rel not in ctx.ledger_sources())
     if pasted_headers:
@@ -7052,10 +7204,12 @@ def plan_retype(ctx, name, new, new_type, size, evidence, *, initializer=None, p
     plan.verify = sorted(v for v in verify if not is_generated(v))
     if len(plan.verify) > max_files:
         raise Refusal(f"{len(plan.verify)} sources to verify (over --max-files {max_files})")
-    plan.claims = sorted({rva} | {at for _, at in plan.notes_rows if at is not None}) + \
+    plan.claims = sorted({rva, old_rva} | {row["rva"] for row in absorbed}
+                         | {at for _, at in plan.notes_rows if at is not None}) + \
         [f"file:{rel}" for rel in sorted(plan.source_counts)]
     plan.retype = {"word": word, "old": old_name, "new": new, "type": new_type.strip(), "size": size,
-                   "owner": source, "row": new_row, "sources": sorted(plan.verify), "removed": removed}
+                   "owner": source, "row": new_row, "sources": sorted(plan.verify), "removed": removed,
+                   "start": rva, "absorbed": [(row["word"], row["name"]) for row in absorbed]}
     plan.mentions = sorted(set(ctx.grep_files(old_name, roots=("docs", "reverse"))) - set(plan.after))
     return plan
 
@@ -7462,11 +7616,38 @@ def preprocessed_problems(text, word, new_type):
     return problems
 
 
+def retype_reference_problems(ctx, retype):
+    """Every absolute reference a rebuilt row makes into the extent goes through the new symbol
+    at its start. The byte gate masks DIR32 operands, so a wrong addend (P35's table read at +0
+    rather than +0x100) or another symbol placed inside the extent passes it: here retail's
+    pointer less the compiled addend must be the start."""
+    sys.path.insert(0, str(ctx.root / "tools"))
+    import build
+    start = IMAGE_BASE + retype["start"]
+    end, sources, statics, problems = start + retype["size"], set(retype["sources"]), {}, []
+    for row in build.load_function_rows():
+        if row["source"] not in sources:
+            continue
+        pairs = build._dir32_row_pairs(row, build.obj_path(ctx.path(row["source"])), statics)
+        if pairs is None:
+            problems.append(f"{row['name']}'s body cannot be read from {row['source']}'s object")
+            continue
+        for identity, base in pairs:
+            if identity == retype["new"]:
+                if base != start:
+                    problems.append(f"{row['name']} reads {identity} from base 0x{base:08X}, not 0x{start:08X}: "
+                                    "its addend is not its offset in the extent")
+            elif start <= base < end:
+                problems.append(f"{row['name']} reaches 0x{base:08X}, inside the extent, through {identity}")
+    return problems
+
+
 def retype_object_problems(ctx, retype):
     """After ./build.sh: every rebuilt unit's preprocessed text declares the global only as
-    the new type (preprocessed_problems), the owner's object defines the new symbol once and no dynamic
-    initializer for it, no rebuilt object names the old symbol, and data_rows.py proves
-    the new row (compiler sizeof, retail bytes, relocations)."""
+    the new type (preprocessed_problems) and names no absorbed row, the owner's object defines the new
+    symbol once and no dynamic initializer for it, no rebuilt object names the old symbol or an
+    absorbed one, every reference into the extent is its start plus an offset, and data_rows.py
+    proves the new row (compiler sizeof, retail bytes, relocations)."""
     sys.path.insert(0, str(ctx.root / "tools"))
     import build
     import data_rows
@@ -7479,6 +7660,8 @@ def retype_object_problems(ctx, retype):
             problems.append(f"{rel}: {why}")
             continue
         problems += [f"{rel} {what}" for what in preprocessed_problems(text, word, retype["type"])]
+        problems += [f"{rel} still names {gone} after the preprocessor, absorbed into {word}"
+                     for gone, _name in retype["absorbed"] if re.search(r"\b" + re.escape(gone) + r"\b", text)]
     for rel in retype["sources"]:
         obj = build.obj_path(ctx.path(rel))
         if not obj.exists():
@@ -7488,6 +7671,8 @@ def retype_object_problems(ctx, retype):
         names = [s["name"] for s in symbols.values()]
         if old in names:
             problems.append(f"{rel}'s object still names {old} (a second symbol for 0x{retype['row']['address']})")
+        problems += [f"{rel}'s object still names {symbol}, absorbed into {word}" for gone, _name in retype["absorbed"]
+                     for symbol in names if symbol.startswith(f"?{gone}@@")]
         defined = [s for s in symbols.values() if s["name"] == new and s["storage"] == data_rows.EXTERNAL
                    and (s["section"] > 0 or s["value"] > 0)]
         definitions += [rel] * len(defined)
@@ -7500,6 +7685,8 @@ def retype_object_problems(ctx, retype):
     if definitions != [retype["owner"]]:
         problems.append(f"{new} is defined {len(definitions)} time(s) across the rebuilt objects "
                         f"({', '.join(sorted(definitions)) or 'nowhere'}); it must be once, in {retype['owner']}")
+    if not problems:
+        problems += retype_reference_problems(ctx, retype)
     if not problems:
         img, resolve = reloc_ledger.Image(), data_rows.Resolver(data_rows.load())
         ok, message = data_rows.verify_row(retype["row"], img, resolve, compile=False)
@@ -14307,6 +14494,12 @@ def main(argv=None):
     data.add_argument("--prepared", action="append", default=[], metavar="REL=FILE",
                       help="with --retype: the proposed bytes of a Code source whose uses must change shape for "
                            "the new type (repeatable); every source is still byte-verified")
+    data.add_argument("--address", help="with --retype: the new start, an RVA below the row's, over unrowed space, as "
+                                        "an entry of tools/retail_identity.py's EXTENTS spells out")
+    data.add_argument("--absorb", action="append", default=[], metavar="MANGLED",
+                      help="with --retype: a row of the same unit wholly inside the extent, whose readers --prepared "
+                           "rewrites as offsets, as an EXTENTS entry spells out (repeatable)")
+    data.add_argument("--model", help="with --retype: who lands the data row a global only data_ledger.csv owns gains")
     unit = kinds.add_parser("file", parents=[common],
                             help="git mv one Code/ unit within its directory, with its path-keyed rows")
     unit.add_argument("--source", required=True, help="the unit's repo-relative path")
@@ -14447,8 +14640,9 @@ def main(argv=None):
         if not sep or not word:
             parser.error(f"--also {item!r} is not RVA=NEW (hex RVA)")
     retype = args.kind == "global" and args.retype is not None
-    if args.kind == "global" and not retype and (args.size or args.initializer or args.prepared):
-        parser.error("--size, --initializer and --prepared go with global --retype")
+    if args.kind == "global" and not retype and (args.size or args.initializer or args.prepared or args.address
+                                                 or args.absorb or args.model):
+        parser.error("--size, --initializer, --prepared, --address, --absorb and --model go with global --retype")
     if retype and (args.basis or args.size is None or not args.evidence):
         parser.error("global --retype keeps the identifier and takes --new (the full mangled name), --size and "
                      "--evidence; pass no --basis")
@@ -14533,7 +14727,7 @@ def main(argv=None):
                 kwargs["prepared"] = prepared
         if retype:
             kwargs.update(retype=args.retype, size=args.size, initializer=args.initializer,
-                          prepared=prepared or None)
+                          prepared=prepared or None, address=args.address, absorb=args.absorb, model=args.model)
     elif args.kind == "member":
         kwargs.update(cls=args.cls, member=args.member)
     elif args.kind in ("param", "local"):

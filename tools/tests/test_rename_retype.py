@@ -793,12 +793,13 @@ def objects(tmp_path, monkeypatch):
     import reloc_ledger
     monkeypatch.setattr(reloc_ledger, "Image", lambda: None)
     monkeypatch.setattr(rename, "preprocess_unit", lambda ctx, rel: ("", None))
+    monkeypatch.setattr(build, "load_function_rows", lambda: [])
     return made, tmp_path
 
 
 def retype_record(sources):
     return {"word": "g_00A01000", "old": OLD, "new": NEW, "type": TYPE, "size": 12, "owner": OWNER,
-            "row": {"address": "0x00A01000"}, "sources": sources}
+            "row": {"address": "0x00A01000"}, "sources": sources, "start": 0x00A01000, "absorbed": []}
 
 
 def test_object_check_passes_a_clean_owner(tree, objects):
@@ -855,3 +856,480 @@ def test_cli_takes_no_basis_and_needs_size(tree, capsys):
         rename.main(["global", "--name", OLD, "--new", NEW, "--retype", TYPE, "--size", "12", "--evidence", "x",
                      "--basis", "inferred", "--root", str(tree), "--dry-run", "--no-claim"])
     assert "--retype" in capsys.readouterr().err
+
+
+# ------------------------------------------------------------ the data route (P30, P35)
+# Retail's statements are read through tools/retail_identity.py: `route` gives it a table of
+# this tree's two extents and makes their facts hold.
+
+INNER = "?g_00A01008@@3HA"
+
+
+def fact(kind, site, value, code=None):
+    import retail_identity
+    return retail_identity.Fact(kind, site, value, code)
+
+
+LOW, STORE, HIGH = fact("offset", 0x00401000, -256, "b800ffffff"), fact("stores", 0x0040100B, 0x00E01000, "8888"), \
+    fact("offset", 0x00401012, 512, "3d00020000")
+AT_START, AT_INNER = fact("stores", 0x00401020, 0x00E01000, "b9"), fact("stores", 0x00401030, 0x00E01008, "a1")
+
+
+def extent(**overrides):
+    import retail_identity
+    args = dict(old=OLD, new=NEW, start=0x00A00F00, size=0x300, absorbs=(), facts=(LOW, STORE, HIGH))
+    args.update(overrides)
+    return retail_identity.Extent(**args)
+
+
+@pytest.fixture
+def route(tree, monkeypatch):
+    import retail_identity
+    held = {f.site: retail_identity.expected(f) for f in (LOW, STORE, HIGH, AT_START, AT_INNER)}
+    monkeypatch.setattr(retail_identity, "read_retail", lambda rva, size: held[rva][:size])
+    monkeypatch.setattr(retail_identity, "EXTENTS", (extent(),))
+    return tree
+
+
+def moved(root, **overrides):
+    args = dict(address="0x00A00F00", size="0x300")
+    args.update(overrides)
+    return plan(root, **args)
+
+
+def add_inner(root):
+    """A row inside the placeholder's extent, in its own unit, read by another unit."""
+    write(root, "reverse/data_rows.csv", DATA_ROWS + f"{INNER},0x00A01008,rva,4,.data,{OWNER},matched,x,m\n")
+    write(root, "reverse/data_ledger.csv", LEDGER + f"0x00A01008,4,.data,global,{INNER},{OWNER},owned,,1,3\n")
+    write(root, OWNER, OWNER_SRC + "int g_00A01008;\n")
+    write(root, USER, USER_SRC + "extern int g_00A01008;\nint inner() { return g_00A01008; }\n")
+    _git(root, "add", "-A")
+
+
+USER_ABSORBED = """extern unsigned int g_00A01000[3];
+void reg(void *p) { (void)p; (void)&g_00A01000; }
+int inner() { return *(int *)(g_00A01000 + 2); }
+"""
+OWNER_ABSORBED = OWNER_SRC.replace("unsigned g_00A01000;", "unsigned int g_00A01000[3];")
+
+
+def absorbing(root, monkeypatch, facts=(AT_START, AT_INNER), **overrides):
+    import retail_identity
+    monkeypatch.setattr(retail_identity, "EXTENTS", (extent(start=0x00A01000, size=12, facts=facts,
+                                                            absorbs=((INNER, 0x00A01008),)),))
+    args = dict(absorb=[INNER], prepared={BRIDGED: BRIDGED_PREPARED.encode(), USER: USER_ABSORBED.encode(),
+                                          OWNER: OWNER_ABSORBED.encode()})
+    args.update(overrides)
+    return plan(root, **args)
+
+
+# ---- a move
+
+def test_a_move_rekeys_the_row_and_the_ledger_at_the_new_start(route):
+    p = moved(route)
+    assert p.after["reverse/data_rows.csv"].decode().splitlines()[1].startswith(f"{NEW},0x00A00F00,rva,768,.data,{OWNER},")
+    ledger = text(p, "reverse/data_ledger.csv").splitlines()
+    assert ledger[1].startswith(f"0x00A00F00,768,.data,global,{NEW},{OWNER},")
+    assert text(p, "reverse/deleted_rows.csv").splitlines()[-1].startswith(f'{OLD},0x00A01000,"Retyped')
+    assert {0x00A00F00, 0x00A01000} <= set(p.claims)
+    assert p.retype["start"] == 0x00A00F00 and p.retype["row"]["address"] == "0x00A00F00"
+
+
+def test_a_va_row_moves_in_its_own_spelling(route):
+    write(route, "reverse/data_rows.csv", DATA_ROWS.replace(f"{OLD},0x00A01000,rva,", f"{OLD},0x00E01000,va,"))
+    _git(route, "add", "-A")
+    line = text(moved(route), "reverse/data_rows.csv").splitlines()[1]
+    assert line.startswith(f"{NEW},0x00E00F00,va,768,")
+
+
+def test_the_entrys_record_stands_in_retail_identitys_form(route):
+    import retail_identity
+    p = moved(route)
+    record, prose = p.evidence.split("; ", 1)
+    assert record == "retail:0x00401000 offset=-256 stores=0x00E01000 offset=512" and retail_identity.well_formed(record)
+    assert prose.startswith("image_iso")                        # the prose stays beside it
+    assert record in text(p, "reverse/data_rows.csv")
+
+
+@pytest.mark.parametrize("overrides,message", [
+    (dict(address="0x00A01000"), "is not below"),
+    (dict(address="0x00E00F00"), "is not below"),           # a VA spelled for an RVA
+    (dict(address="zero"), "is not a number"),
+    (dict(size="0x40"), "does not contain"),
+    (dict(address="0x00A00F04"), "EXTENTS"),                # not the entry's start
+    (dict(size="0x400"), "EXTENTS"),                        # not the entry's size
+    (dict(new="?g_00A01000@@3PAHA"), "EXTENTS"),            # no entry for this spelling
+])
+def test_a_move_makes_only_the_change_an_entry_spells_out(route, overrides, message):
+    with pytest.raises(Refusal, match=re.escape(message)):
+        moved(route, **overrides)
+
+
+def test_a_move_refuses_an_entry_retail_does_not_hold(route, monkeypatch):
+    import retail_identity
+    monkeypatch.setattr(retail_identity, "EXTENTS", (extent(facts=(LOW, fact("stores", 0x0040100B, 0x00E01004, "8888"))),))
+    with pytest.raises(Refusal, match="retail does not state .* holds"):
+        moved(route)
+
+
+@pytest.mark.parametrize("overrides,message", [
+    (dict(facts=(STORE,)), "reach"),
+    (dict(facts=(LOW,)), "reach"),
+    (dict(facts=(STORE, HIGH)), "reach"),
+    (dict(facts=(fact("offset", 0x00401000, -300, "b800ffffff"), STORE)), "reach"),      # bytes differ
+    (dict(facts=(fact("offset", 0x00401012, -256, "3d00020000"), STORE)), "reach"),      # the code says 512
+    (dict(facts=(LOW, STORE, fact("stores", 0x00401040, 0x00E05000, "a1"))), "outside"),
+    (dict(facts=(LOW, fact("stores", 0x0040100C, 0x00E01000, "8888"))), "cannot be read"),
+    (dict(facts=(AT_START,), absorbs=((INNER, 0x00A01008),), start=0x00A01000, size=12), "absorbed"),
+    (dict(facts=(AT_INNER,), absorbs=((INNER, 0x00A01008),), start=0x00A01000, size=12), "reach"),
+])
+def test_an_entry_must_reach_its_start_and_every_absorbed_row(monkeypatch, overrides, message):
+    import retail_identity
+    held = {f.site: retail_identity.expected(f) for f in (LOW, STORE, HIGH, AT_START, AT_INNER)}
+    held[0x00401040] = retail_identity.expected(fact("stores", 0x00401040, 0x00E05000, "a1"))
+    monkeypatch.setattr(retail_identity, "read_retail", lambda rva, size: held[rva][:size])
+    problems = retail_identity.extent_problems(extent(**overrides))
+    assert problems and any(message in line for line in problems)
+
+
+def test_every_entry_of_the_real_table_states_its_extent(monkeypatch):
+    """Its shape on any tree; held against the image by the test below where the image is."""
+    import retail_identity
+    monkeypatch.setattr(retail_identity, "facts_problems", lambda facts: [])
+    assert len(retail_identity.EXTENTS) >= 2
+    for each in retail_identity.EXTENTS:
+        assert retail_identity.extent_problems(each) == []
+        assert retail_identity.well_formed(retail_identity.record(each.facts))
+        assert retail_identity.extent_of(each.old, each.new) is each
+
+
+def test_the_real_table_holds_on_the_retail_image():
+    import build
+    import retail_identity
+    if not build.EXE.exists():
+        pytest.skip("no retail image here")
+    for each in retail_identity.EXTENTS:
+        assert retail_identity.extent_problems(each) == []
+
+
+@pytest.mark.parametrize("extra,message", [
+    ("0x00A00F80,4,.data,global,?g_00A00F80@@3IA,,unowned,,0,3\n", "data_ledger.csv name ?g_00A00F80@@3IA"),
+    ("0x00A00F00,4,.data,global,?g_00A00F00@@3IA,,unowned,,0,3\n", "binds 0x00A00F00"),
+])
+def test_a_move_refuses_a_name_in_the_space_it_takes(route, extra, message):
+    with open(route / "reverse/data_ledger.csv", "a") as f:
+        f.write(extra)
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match=re.escape(message)):
+        moved(route)
+
+
+def test_a_move_refuses_a_data_row_in_the_space_it_takes(route):
+    with open(route / "reverse/data_rows.csv", "a") as f:
+        f.write(f"?g_00A00F80@@3HA,0x00A00F80,rva,4,.data,{OWNER},matched,x,m\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="overlaps another owner: data row"):
+        moved(route)
+
+
+@pytest.mark.parametrize("address", ["0x00A00F00", "0x00A01000"])
+def test_a_move_refuses_a_converged_address_at_either_end(route, address):
+    write(route, "reverse/data_converged.csv", f"address,name,evidence\n{address},?other@@3HA,link\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="converged address"):
+        moved(route)
+
+
+def test_a_move_refuses_non_zero_bytes_in_the_space_it_takes(route, monkeypatch):
+    monkeypatch.setattr(rename, "retail_extent", lambda ctx, rva, size: (".data", ".data", b"\x01" + bytes(size - 1)))
+    with pytest.raises(Refusal, match=r"non-zero bytes at 0x00A00F00\+0x0"):
+        moved(route)
+
+
+# ---- a const placeholder
+
+CONST = "?g_00A01000@@3QBIB"
+
+
+def const_tree(root, section=".data"):
+    write(root, "reverse/functions.csv", FUNCTIONS.replace(OLD, CONST))
+    write(root, "reverse/data_rows.csv", DATA_ROWS.replace(f"{OLD},0x00A01000,rva,4,.data", f"{CONST},0x00A01000,rva,4,{section}"))
+    write(root, "reverse/data_ledger.csv", LEDGER.replace(f";{VEC}", "").replace(OLD, CONST))
+    write(root, "reverse/symbols.csv", "name,address,notes\n")
+    write(root, "reverse/hatch_baseline.tsv", HATCHES.replace(f"alternatename\t{BRIDGED}\t{VEC}\t1\n", ""))
+    write(root, OWNER, "extern const unsigned int g_00A01000[];\nconst unsigned int g_00A01000[1] = { 0 };\n"
+          "void thunk() {}\n")
+    write(root, USER, "extern const unsigned int g_00A01000[];\nvoid reg(void *p) { (void)p; }\n")
+    write(root, BRIDGED, "void erase() {}\n")
+    _git(root, "add", "-A")
+
+
+def test_a_const_placeholder_becomes_mutable_in_data(route):
+    const_tree(route)
+    p = plan(route, name=CONST, prepared={})
+    assert text(p, OWNER).count("unsigned int g_00A01000[3]") == 2 and "const" not in text(p, OWNER)
+    assert text(p, USER).startswith("extern unsigned int g_00A01000[3];")
+    assert text(p, "reverse/data_rows.csv").splitlines()[1].startswith(f"{NEW},0x00A01000,rva,12,.data,")
+
+
+def test_a_const_placeholder_in_read_only_data_stays(route, monkeypatch):
+    const_tree(route, ".rdata")
+    monkeypatch.setattr(rename, "retail_extent", lambda ctx, rva, size: (".rdata", ".rdata", bytes(size)))
+    with pytest.raises(Refusal, match="only a table in retail's .data"):
+        plan(route, name=CONST, prepared={})
+
+
+def test_a_new_const_spelling_is_still_refused(route):
+    const_tree(route)
+    with pytest.raises(Refusal, match="keeps the identifier"):
+        plan(route, name=CONST, new="?g_00A01000@@3QBIB2", prepared={})
+    with pytest.raises(Refusal, match="keeps the identifier"):
+        plan(route, name=CONST, new="?g_00A01000@@3PBIB", prepared={})
+
+
+# ---- a global only the ledger owns
+
+def ledger_only(root, line=f"0x00A01000,4,.data,global,{OLD},{OWNER},owned,,1,8"):
+    write(root, "reverse/data_rows.csv", DATA_ROWS.replace(DATA_ROWS.splitlines()[1] + "\n", ""))
+    write(root, "reverse/data_ledger.csv", LEDGER.replace(LEDGER.splitlines()[1], line))
+    _git(root, "add", "-A")
+
+
+def test_a_ledger_owned_global_gains_its_data_row(route):
+    ledger_only(route)
+    p = plan(route, model="claude-opus-5-5")
+    rows = text(p, "reverse/data_rows.csv").splitlines()
+    assert rows[1] == f"?g_00A02000@@3HA,0x00A02000,rva,4,.data,{OWNER},matched,other,m"
+    assert rows[2].startswith(f"{NEW},0x00A01000,rva,12,.data,{OWNER},matched,")
+    assert rows[2].endswith(",claude-opus-5-5") and "Retyped from" in rows[2]
+    assert text(p, "reverse/data_ledger.csv").splitlines()[1].startswith(f"0x00A01000,12,.data,global,{NEW},{OWNER},")
+    assert p.retype["row"]["model"] == "claude-opus-5-5"
+
+
+def test_a_ledger_owned_global_needs_a_model_for_its_row(route):
+    ledger_only(route)
+    with pytest.raises(Refusal, match="--model"):
+        plan(route)
+
+
+@pytest.mark.parametrize("line", [
+    f"0x00A01000,4,.data,global,{OLD},,unowned,,0,8",
+    f"0x00A01000,4,.data,global,{OLD},{OWNER},provisional,{OLD};{VEC},1,8",
+    f"0x00A01000,4,.data,string,{OLD},{OWNER},owned,,1,8",
+])
+def test_only_a_source_owned_ledger_global_gains_a_row(route, line):
+    ledger_only(route, line)
+    with pytest.raises(Refusal, match="names 0 reverse/data_rows.csv rows"):
+        plan(route, model="m")
+
+
+# ---- an absorbed row
+
+def test_an_absorbed_row_goes_from_every_ledger(route, monkeypatch):
+    add_inner(route)
+    p = absorbing(route, monkeypatch)
+    rows = text(p, "reverse/data_rows.csv")
+    assert INNER not in rows.replace("; retail", "")
+    assert not [line for line in rows.splitlines() if line.startswith(INNER)]
+    ledger = text(p, "reverse/data_ledger.csv").splitlines()
+    assert not [line for line in ledger if INNER in line]
+    assert ledger[1] == f"0x00A01000,12,.data,global,{NEW},{OWNER},owned,,1,11"     # its references stay counted
+    tombstones = text(p, "reverse/deleted_rows.csv").splitlines()
+    assert tombstones[-1].startswith(f'{INNER},0x00A01008,"Retyped') and f"absorbed at 0x00A01008 into {NEW}" in tombstones[-1]
+    assert tombstones[-2].startswith(f'{OLD},0x00A01000,"Retyped')
+    assert 0x00A01008 in p.claims
+    assert p.retype["absorbed"] == [("g_00A01008", INNER)]
+    assert (INNER, NEW, 0x00A01008) in p.renamed_data
+    assert USER in p.verify and OWNER in p.verify
+
+
+def test_an_absorbed_row_noted_on_a_function_row_follows_the_note(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/functions.csv", FUNCTIONS.replace("?erase@@YAXXZ,,0x00403000,16,"
+                                                            f"{BRIDGED},matched,", "?erase@@YAXXZ,,0x00403000,16,"
+                                                            f"{BRIDGED},matched,reads {INNER}"))
+    _git(route, "add", "-A")
+    assert f"reads {NEW}" in text(absorbing(route, monkeypatch), "reverse/functions.csv")
+
+
+@pytest.mark.parametrize("overrides,message", [
+    (dict(absorb=["?nothing@@3HA"]), "names 0 data rows"),
+    (dict(absorb=["??_C@_01@"]), "is not a global datum"),
+    (dict(absorb=["_plain"]), "is not a global datum"),
+    (dict(absorb=[OLD]), "is the global being retyped"),
+    (dict(size="8"), "not wholly inside"),
+    (dict(size="10"), "not wholly inside"),
+    (dict(size="16"), "EXTENTS"),                            # not the entry's size
+    (dict(facts=(AT_START,)), "where ?g_00A01008@@3HA is absorbed"),
+    (dict(facts=(AT_INNER,)), "no fact reaches the start"),
+    (dict(prepared={BRIDGED: BRIDGED_PREPARED.encode(), OWNER: OWNER_ABSORBED.encode()}), "--absorb needs --prepared"),
+    (dict(prepared={BRIDGED: BRIDGED_PREPARED.encode(), USER: USER_ABSORBED.encode() + b"int r() { return g_00A01008; }\n",
+                    OWNER: OWNER_ABSORBED.encode()}), "still names g_00A01008"),
+    (dict(prepared={BRIDGED: BRIDGED_PREPARED.encode(), USER: USER_ABSORBED.encode() + f"// {INNER}\n".encode(),
+                    OWNER: OWNER_ABSORBED.encode()}), "still names g_00A01008"),
+])
+def test_an_absorb_refuses_what_it_cannot_prove(route, monkeypatch, overrides, message):
+    add_inner(route)
+    with pytest.raises(Refusal, match=re.escape(message)):
+        absorbing(route, monkeypatch, **overrides)
+
+
+def test_an_absorbed_row_at_the_start_is_no_interior(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/data_rows.csv", DATA_ROWS + f"{INNER},0x00A01000,rva,4,.data,{OWNER},matched,x,m\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="not wholly inside"):
+        absorbing(route, monkeypatch)
+
+
+def test_an_absorbed_row_of_another_unit_refuses(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/data_rows.csv", DATA_ROWS + f"{INNER},0x00A01008,rva,4,.data,{USER},matched,x,m\n")
+    write(route, "reverse/data_ledger.csv", LEDGER + f"0x00A01008,4,.data,global,{INNER},{USER},owned,,1,3\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="the retype takes a row of its own unit"):
+        absorbing(route, monkeypatch)
+
+
+def test_an_absorbed_row_with_other_ledger_spellings_refuses(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/data_ledger.csv",
+          LEDGER + f"0x00A01008,4,.data,global,{INNER},{OWNER},provisional,{INNER};?other@@3HA,1,3\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="binds other spellings"):
+        absorbing(route, monkeypatch)
+
+
+def test_a_pinned_row_refuses_absorption(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/symbols.csv", f"name,address,notes\n{OLD},0x00E01000,data pin\n{INNER},0x00E01008,data pin\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="symbols.csv pins"):
+        absorbing(route, monkeypatch)
+
+
+@pytest.mark.parametrize("rel,body", [
+    ("reverse/hatch_baseline.tsv", HATCHES + f"alternatename\tCode/Game/Other.cpp\t{INNER}\t1\n"),
+    ("reverse/gate_baseline.txt", f"{INNER} waits\n"),
+    ("reverse/some_whitelist.txt", f"{INNER}\n"),
+])
+def test_a_frozen_key_refuses_absorption(route, monkeypatch, rel, body):
+    add_inner(route)
+    write(route, rel, body)
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="frozen, shrink-only"):
+        absorbing(route, monkeypatch)
+
+
+def test_a_converged_interior_row_refuses_absorption(route, monkeypatch):
+    add_inner(route)
+    write(route, "reverse/data_converged.csv", f"address,name,evidence\n0x00A01008,{INNER},link\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="converged global"):
+        absorbing(route, monkeypatch)
+
+
+def test_without_an_absorb_an_interior_row_still_overlaps(route):
+    add_inner(route)
+    with pytest.raises(Refusal, match="overlaps another owner"):
+        plan(route, prepared={BRIDGED: BRIDGED_PREPARED.encode()})
+
+
+def test_a_second_ledger_name_at_a_moved_owner_still_overlaps(route):
+    """`own` gives up the owner where it stands, not its name anywhere in the extent."""
+    with open(route / "reverse/data_ledger.csv", "a") as f:
+        f.write(f"0x00A01004,4,.data,global,{OLD},,unowned,,0,1\n")
+    _git(route, "add", "-A")
+    with pytest.raises(Refusal, match="overlaps another owner"):
+        plan(route)
+
+
+# ---- after the build
+
+def route_record(sources, **overrides):
+    return dict(retype_record(sources), **overrides)
+
+
+def test_object_check_refuses_an_absorbed_symbol_in_any_object(tree, objects):
+    made, tmp = objects
+    made["ThunksRva00401000.cpp"] = coff(tmp / "owner.obj", [(NEW, 1, 2)])
+    made["Register.cpp"] = coff(tmp / "user.obj", [("?g_00A01008@@3PAHA", 0, 2)])  # under another spelling too
+    problems = rename.retype_object_problems(ctx_of(tree), route_record([OWNER, USER],
+                                                                        absorbed=[("g_00A01008", INNER)]))
+    assert problems and "still names ?g_00A01008@@3PAHA, absorbed into g_00A01000" in problems[0]
+
+
+def test_object_check_refuses_an_absorbed_name_after_the_preprocessor(tree, objects, monkeypatch):
+    made, tmp = objects
+    made["ThunksRva00401000.cpp"] = coff(tmp / "owner.obj", [(NEW, 1, 2)])
+    monkeypatch.setattr(rename, "preprocess_unit", lambda ctx, rel: ("extern int g_00A01008;\n", None))
+    problems = rename.retype_object_problems(ctx_of(tree), route_record([OWNER], absorbed=[("g_00A01008", INNER)]))
+    assert problems and "still names g_00A01008 after the preprocessor" in problems[0]
+
+
+@pytest.fixture
+def references(tree, monkeypatch):
+    """retype_reference_problems over one row of OWNER, whose DIR32 pairs the test gives."""
+    import build
+    pairs = []
+    monkeypatch.setattr(build, "load_function_rows", lambda: [
+        {"name": "?thunk@@YAXXZ", "source": OWNER}, {"name": "?not_rebuilt@@YAXXZ", "source": "Code/Game/Other.cpp"}])
+    monkeypatch.setattr(build, "obj_path", lambda source: Path(source))
+    monkeypatch.setattr(build, "_dir32_row_pairs", lambda row, obj, statics: list(pairs) if row["source"] == OWNER else 1 / 0)
+    return tree, pairs
+
+
+def test_references_at_the_start_pass(references):
+    tree, pairs = references
+    pairs += [(NEW, 0x00E01000), ("?other@@3HA", 0x00E02000), ("?low@@3HA", 0x00E00FFC)]
+    assert rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER])) == []
+
+
+def test_a_reference_with_the_wrong_addend_refuses(references):
+    tree, pairs = references
+    pairs.append((NEW, 0x00E01100))                  # the old table's zero point, read at +0 rather than +0x100
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert problems and "its addend is not its offset" in problems[0]
+
+
+def test_a_reference_through_another_symbol_inside_the_extent_refuses(references):
+    tree, pairs = references
+    pairs.append(("?alias@@3HA", 0x00E01008))
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert problems and "inside the extent, through ?alias@@3HA" in problems[0]
+
+
+def test_an_unreadable_body_is_never_a_pass(references, monkeypatch):
+    import build
+    tree, _pairs = references
+    monkeypatch.setattr(build, "_dir32_row_pairs", lambda row, obj, statics: None)
+    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
+    assert problems and "cannot be read" in problems[0]
+
+
+def test_the_object_check_runs_the_reference_check(tree, objects, monkeypatch):
+    made, tmp = objects
+    made["ThunksRva00401000.cpp"] = coff(tmp / "owner.obj", [(NEW, 1, 2)])
+    monkeypatch.setattr(rename, "retype_reference_problems", lambda ctx, r: ["a wrong addend"])
+    assert rename.retype_object_problems(ctx_of(tree), retype_record([OWNER])) == ["a wrong addend"]
+
+
+def test_apply_keeps_the_whole_route_or_nothing(route, monkeypatch):
+    add_inner(route)
+    before = snapshot(route)
+    monkeypatch.setattr(rename, "retype_object_problems", lambda ctx, r: ["a wrong addend"])
+    with pytest.raises(VerifyFailed, match="a wrong addend"):
+        rename.apply_rename(absorbing(route, monkeypatch), ctx=ctx_of(route), verify=lambda ctx, sources: True, checks=None)
+    assert snapshot(route) == before
+    monkeypatch.setattr(rename, "retype_object_problems", lambda ctx, r: [])
+    rename.apply_rename(absorbing(route, monkeypatch), ctx=ctx_of(route), verify=lambda ctx, sources: True, checks=None)
+    assert INNER not in [line.split(",")[0] for line in (route / "reverse/data_rows.csv").read_text().splitlines()]
+    assert "g_00A01008" not in (route / USER).read_text()
+
+
+@pytest.mark.parametrize("flag,value", [("--address", "0x00A00F00"), ("--absorb", INNER), ("--model", "m")])
+def test_cli_route_flags_go_with_retype(tree, capsys, flag, value):
+    with pytest.raises(SystemExit):
+        rename.main(["global", "--name", OLD, "--new", "?g_new@@3IA", flag, value, "--basis", "inferred",
+                     "--evidence", "x", "--root", str(tree), "--dry-run", "--no-claim"])
+    assert "go with global --retype" in capsys.readouterr().err
