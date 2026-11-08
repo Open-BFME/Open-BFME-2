@@ -92,13 +92,7 @@ void Rva00129670Inc();
 void BFME_DX8_Thread_Lock();
 bool BFME_DX8_Thread_Assert();
 #include "../../../../GameEngineDevice/Include/W3DDevice/GameClient/BFMEDX8DeviceLock.h"
-class ChunkLoadClass
-{
-public:
-	bool Open_Chunk();
-	bool Close_Chunk();
-	unsigned long Read(void *buf, unsigned long nbytes);
-};
+#include "../WWLib/ChunkLoadClass.h"
 // W3D_CHUNK_FX_SHADER_INFO, after its version byte.
 struct W3dFXShaderInfoStruct
 {
