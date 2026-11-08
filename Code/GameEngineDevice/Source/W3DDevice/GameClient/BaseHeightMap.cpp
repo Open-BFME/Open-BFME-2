@@ -657,7 +657,7 @@ private:
 
 // tu-skeleton: 0x00066808 292B ?ReleaseResources@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp (not merged yet)
 
-// tu-skeleton: 0x0006692C 54B ?rva0006692C@BaseHeightMapRenderObjClass@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva0006692C.cpp (not merged yet)
+// tu-skeleton: 0x0006692C 54B ?rva0006692C@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapRva0006692C.cpp (not merged yet)
 
 // tu-skeleton: 0x00066962 312B ?ReAcquireResources@BaseHeightMapRenderObjClass@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapReleaseResources.cpp (not merged yet)
 

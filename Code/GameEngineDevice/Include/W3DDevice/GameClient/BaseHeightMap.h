@@ -105,7 +105,7 @@ public:
     virtual RenderObjClass *Clone(void) const { return 0; }
     virtual int Class_ID(void) const { return CLASSID_TILEMAP; }
 
-    virtual void vslot129();
+    virtual void rva0006692C();
     virtual void vslot130();
     virtual int vslot131(int, int, WorldHeightMap *, void *);
     virtual void vslot132() = 0;
@@ -154,7 +154,6 @@ public:
     int getStaticDiffuse(int, int, bool);
     int initHeightData(int, int, WorldHeightMap *, void *);
     bool isClearLineOfSight(const Coord3D &, const Coord3D &) const;
-    void rva0006692C();
     char rva00067FCD(void *, Vector3, const Matrix3D *);
     char rva00068017(void *, Vector3, const Matrix3D *);
     void rva00068223(unsigned int, Coord3D, float, const Matrix3D *, float, const Rva000E91CEData *, int, const AsciiString &, const AsciiString &);

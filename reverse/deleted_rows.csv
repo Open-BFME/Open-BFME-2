@@ -5875,3 +5875,4 @@ __ehhandler$??0Rva005F00FB@@QAE@XZ,0x007A4B0D,"Renamed to __ehhandler$??0MappedI
 ??_GRva004B6259@@UAEPAXI@Z,0x004B633B,"Renamed to ??_GMaxHealthUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C58590)"
 ??1Rva004B53DF@@UAE@XZ,0x004B53DF,"Renamed to ??1UnpauseSpecialPowerUpgrade@@UAE@XZ by tools/rename.py (fold: retail vftable 0x00C57EA8)"
 ??_GRva004B53DF@@UAEPAXI@Z,0x004B54BD,"Renamed to ??_GUnpauseSpecialPowerUpgrade@@UAEPAXI@Z by tools/rename.py (fold: retail vftable 0x00C57EA8)"
+?rva0006692C@BaseHeightMapRenderObjClass@@QAEXXZ,0x0006692C,"Renamed to ?rva0006692C@BaseHeightMapRenderObjClass@@UAEXXZ by tools/rename.py (virtual: retail vtable slot)"

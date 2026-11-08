@@ -1,6 +1,6 @@
 // cl: /D_OPERATOR_NEW_DEFINED_ /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Include /ICode/Libraries/Source/WWVegas/WWLib /ICode/Libraries/Source/WWVegas/WWMath /ICode/Libraries/Source/WWVegas/WWSaveLoad /ICode/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/shims/sweep
 // stlport
-// ?rva0006692C@BaseHeightMapRenderObjClass@@QAEXXZ, retail 0x0006692C..0x00066962
+// ?rva0006692C@BaseHeightMapRenderObjClass@@UAEXXZ, retail 0x0006692C..0x00066962
 // (54 bytes, ends in a tail jump). The terrain's device-resource teardown
 // helper: releases the water reflection resources held by the global at VA
 // 0x00DE2000 (rowed 0x0007E12F), frees the shrub (+0x3854) and tree
