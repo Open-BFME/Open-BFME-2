@@ -52,21 +52,7 @@ public:
 
 class Locomotor;
 
-class AIUpdateInterface
-{
-public:
-	Bool chooseLocomotorSetExplicit(Int wst);
-private:
-	Object *getObject() const { return m_object; }
-
-	void *m_vtable;
-	char m_pad04[0x08 - 0x04];
-	Object *m_object;
-	char m_pad0C[0x1CC - 0x0C];
-	LocomotorSet m_locomotorSet;
-	Locomotor *m_curLocomotor;
-	Int m_curLocomotorSet;
-};
+#include "../../../../Include/GameLogic/Module/AIUpdate.h"
 
 Bool AIUpdateInterface::chooseLocomotorSetExplicit(Int wst)
 {
