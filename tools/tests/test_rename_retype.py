@@ -17,6 +17,8 @@ sys.path.insert(0, str(TOOLS))
 import rename  # noqa: E402
 from rename import Refusal, VerifyFailed  # noqa: E402
 
+REAL_SCAN = rename.compiler_scan
+
 OWNER = "Code/Game/ThunksRva00401000.cpp"
 USER = "Code/Game/Register.cpp"
 BRIDGED = "Code/Game/EraseRva00403000.cpp"
@@ -88,6 +90,7 @@ def tree(tmp_path, monkeypatch):
     _git(tmp_path, "add", "-A")
     monkeypatch.setattr(rename, "retail_extent", lambda ctx, rva, size: (".data", ".data", bytes(size)))
     monkeypatch.setattr(rename, "retail_relocated", lambda ctx, rva, size: [])
+    monkeypatch.setattr(rename, "compiler_scan", lambda ctx, words: {"spelled": set(), "asm": set(), "cleared": set()})
     return tmp_path
 
 
@@ -150,7 +153,7 @@ def test_ledger_keeps_a_different_identifier_bound_at_the_address(tree):
     ("?g_00E01004@@3HA,0x00E01004,va,4,.data,Code/Game/X.cpp,matched,x,m\n", "at 0x00A01004"),
 ])
 def test_overlapping_data_row_refuses(tree, extra, message):
-    with open(tree / "reverse/data_rows.csv", "a") as f:
+    with open(tree / "reverse/data_rows.csv", "a", newline="\n") as f:
         f.write(extra)
     _git(tree, "add", "-A")
     with pytest.raises(Refusal, match=re.escape("overlaps another owner") + ".*" + re.escape(message)):
@@ -158,7 +161,7 @@ def test_overlapping_data_row_refuses(tree, extra, message):
 
 
 def test_overlapping_ledger_name_or_code_refuses(tree):
-    with open(tree / "reverse/data_ledger.csv", "a") as f:
+    with open(tree / "reverse/data_ledger.csv", "a", newline="\n") as f:
         f.write("0x00A01004,4,.data,global,?g_00A01004@@3IA,,unowned,,0,3\n")
     _git(tree, "add", "-A")
     with pytest.raises(Refusal, match=r"overlaps another owner: data_ledger.csv name \?g_00A01004@@3IA"):
@@ -716,22 +719,171 @@ def test_parenthesized_declarator_is_refused_through_apply(tree, objects, monkey
     assert snapshot(tree) == before
 
 
-def test_token_pasted_units_are_preprocessed(tree):                             # finding 2
+@pytest.fixture
+def scanning(tree, tmp_path, monkeypatch):
+    """compiler_scan itself over this tree. `texts` {rel: what the preprocessor gives, None to fail};
+    `stale` the units whose objects are not current; `asked` the units it preprocessed."""
+    import build
+    import name_dependents
+    state = {"texts": {}, "stale": set(), "missing": set(), "asked": []}
+
+    def preprocess(ctx, rel):
+        state["asked"].append(rel)
+        text = state["texts"].get(rel, "")
+        return (None, "the preprocessor refused it") if text is None else (text, None)
+    obj = tmp_path / "current.obj"
+    obj.write_bytes(b"")
+
+    def objects(rows):
+        return {r["source"]: [tmp_path / "gone.obj" if r["source"] in state["missing"] else obj]
+                for r in rows if r.get("status") == "matched"}
+    monkeypatch.setattr(rename, "compiler_scan", REAL_SCAN)
+    monkeypatch.setattr(rename, "preprocess_unit", preprocess)
+    monkeypatch.setattr(name_dependents, "_row_objects", objects)
+    monkeypatch.setattr(name_dependents, "_data_row_objects", lambda rows: {})
+    monkeypatch.setattr(build, "compile_is_current",
+                        lambda source, output: Path(source).relative_to(tree).as_posix() not in state["stale"])
+    return tree, state
+
+
+def add_unit(root, rel, text, rva):
+    write(root, rel, text)
+    with open(root / "reverse/functions.csv", "a", newline="\n") as f:
+        f.write(f"?f{rva:x}@@YAHXZ,,0x{rva:08X},6,{rel},matched,\n")
+    _git(root, "add", "-A")
+
+
+def test_a_nested_paste_with_no_paste_in_the_consumer_joins_the_rebuild(scanning):
+    """The review's repro: the consumer has no `##` and never calls the macro that pastes."""
+    tree, state = scanning
+    write(tree, "Code/Game/Paste.h", "#define CAT(a,b) a##b\n#define WRAP(x) CAT(g,x)\n")
     consumer = "Code/Game/Hidden.cpp"
-    write(tree, consumer, "#define DECL(x) extern unsigned int g_##x\n#define SIZE(x) sizeof(g_##x)\n"
-                          "int hidden() { DECL(00A01000); return SIZE(00A01000); }\n")
-    header = "Code/Game/Paste.h"
-    write(tree, header, "#define NAME(x) x##00A01000\n")
-    includer = "Code/Game/Includer.cpp"
-    write(tree, includer, '#include "Paste.h"\nint i() { return 0; }\n')
-    other = "Code/Game/Unrelated.cpp"
-    write(tree, other, "#define CAT(a, b) a##b\n#define P(x) p##x\nint u() { return 0; }\n")
-    with open(tree / "reverse/functions.csv", "a", newline="\n") as f:
-        for i, rel in enumerate((consumer, includer, other)):
-            f.write(f"?f{i}@@YAHXZ,,0x0040{5 + i}000,6,{rel},matched,\n")
-    _git(tree, "add", "-A")
+    add_unit(tree, consumer, '#include "Paste.h"\nint f(){extern unsigned WRAP(_00A01000);return sizeof(WRAP(_00A01000));}\n',
+             0x00405000)
+    state["texts"][consumer] = "int f(){extern unsigned g_00A01000;return sizeof(g_00A01000);}\n"
     p = plan(tree)
-    assert consumer in p.verify and includer in p.verify and other not in p.verify
+    assert consumer in p.verify and consumer not in p.retype["cleared"]
+
+
+def test_a_unit_reaching_a_paste_that_does_not_spell_it_is_cleared(scanning):
+    tree, state = scanning
+    write(tree, "Code/Game/Paste.h", "#define P(x) p##x\n")
+    reached, unrelated = "Code/Game/Reached.cpp", "Code/Game/Unrelated.cpp"
+    add_unit(tree, reached, '#include "Paste.h"\nint P(q);\n', 0x00405000)
+    add_unit(tree, unrelated, "int u;\n", 0x00406000)
+    state["texts"][reached] = "int pq;\n"
+    p = plan(tree)
+    assert reached in state["asked"] and reached not in p.verify and reached in p.retype["cleared"]
+    assert unrelated not in state["asked"]                      # no paste and a current object: its object speaks
+
+
+def test_a_stale_object_whose_unit_spells_it_joins_the_rebuild(scanning):
+    tree, state = scanning
+    stale = "Code/Game/Stale.cpp"
+    add_unit(tree, stale, '#include "Holds.h"\nint s;\n', 0x00405000)      # header-only: its .cpp never spells it
+    state["stale"].add(stale)
+    state["texts"][stale] = "extern unsigned int g_00A01000;\nint s;\n"
+    assert stale in plan(tree).verify
+
+
+def test_a_stale_object_whose_unit_does_not_spell_it_is_cleared_and_not_rebuilt(scanning):
+    tree, state = scanning
+    stale = "Code/Game/Stale.cpp"
+    add_unit(tree, stale, "int s;\n", 0x00405000)
+    state["stale"].add(stale)
+    state["texts"][stale] = "int s;\n"
+    p = plan(tree)
+    assert stale not in p.verify and stale in p.retype["cleared"]
+
+
+def test_a_missing_object_is_asked_too(scanning):
+    tree, state = scanning
+    missing = "Code/Game/Missing.cpp"
+    add_unit(tree, missing, "int m;\n", 0x00405000)
+    state["missing"].add(missing)
+    state["texts"][missing] = "extern unsigned int g_00A01000;\n"
+    assert missing in plan(tree).verify
+
+
+@pytest.mark.parametrize("why", ["a stale unit", "a missing unit"])
+def test_a_failed_preprocess_refuses_and_names_the_unit(scanning, capsys, why):
+    tree, state = scanning
+    unit = "Code/Game/Broken.cpp"
+    add_unit(tree, unit, "int b;\n", 0x00405000)
+    state["stale" if "stale" in why else "missing"].add(unit)
+    state["texts"][unit] = None
+    with pytest.raises(Refusal, match=r"did not preprocess.*Code/Game/Broken.cpp"):
+        plan(tree)
+    assert "did not preprocess: Code/Game/Broken.cpp" in capsys.readouterr().out
+
+
+def test_a_stale_asm_rebuilds_rather_than_being_read(scanning):
+    tree, state = scanning
+    unit = "Code/Game/Thunk.asm"
+    add_unit(tree, unit, "; no compiler reads this\n", 0x00405000)
+    state["stale"].add(unit)
+    p = plan(tree)
+    assert unit in p.verify and unit not in state["asked"] and unit not in p.retype["cleared"]
+
+
+def test_a_current_asm_is_left_to_its_object(scanning):
+    tree, state = scanning
+    unit = "Code/Game/Thunk.asm"
+    add_unit(tree, unit, "; no compiler reads this\n", 0x00405000)
+    assert unit not in plan(tree).verify and unit not in state["asked"]
+
+
+def test_a_stale_generated_asm_refuses(scanning):
+    tree, state = scanning
+    unit = "Code/gen_asm/Thunk.asm"
+    (tree / "Code/gen_asm").mkdir()
+    add_unit(tree, unit, "; generated\n", 0x00405000)
+    state["stale"].add(unit)
+    with pytest.raises(Refusal, match="generated source.*never edited"):
+        plan(tree)
+
+
+def test_the_scan_asks_about_an_absorbed_identifier_too(scanning, monkeypatch):
+    tree, state = scanning
+    add_inner(tree)
+    stale = "Code/Game/Stale.cpp"
+    add_unit(tree, stale, "int s;\n", 0x00405000)
+    state["stale"].add(stale)
+    state["texts"][stale] = "extern int g_00A01008;\n"
+    held = {f.site: __import__("retail_identity").expected(f) for f in (AT_START, AT_INNER)}
+    monkeypatch.setattr(__import__("retail_identity"), "read_retail", lambda rva, size: held[rva][:size])
+    assert stale in absorbing(tree, monkeypatch).verify
+
+
+@pytest.mark.parametrize("text,spells", [
+    ("extern unsigned g_00A01000;\n", True),
+    ("int g_00A01000x;\n", True),                                                    # text, not tokens: errs towards a rebuild
+    ('int __identifier("?g_00A01000@@3IA");\n', True),
+    ("void f() { __asm mov eax, g_00A01000 }\n", True),
+    ('#pragma comment(linker, "/alternatename:?g_00A01000@@3IA=_y")\n', True),
+    ('#pragma comment(linker, "/alternatename:?g_00A0" "1000@@3IA=_y")\n', True),    # split, as cl -E leaves it
+    ('const char *a = "g_00A0"\n#line 40 "other.h"\n    "1000";\n', True),
+    ('const wchar_t *b = L"g_00A0" L"1000";\n', True),
+    ("int other;\n", False),
+    ('const char *a = "g_00A0"; int b; const char *c = "1000";\n', False),
+])
+def test_preprocessed_text_is_searched_as_text(text, spells):
+    assert rename.preprocessed_spells(text, ["g_00A01000"]) is spells
+
+
+def test_an_exported_name_refuses(tree):
+    write(tree, "reverse/exports.csv", f"ordinal,rva,target_rva,section,kind,name\n1,0x00A01000,,.data,data,{OLD}\n")
+    _git(tree, "add", "-A")
+    with pytest.raises(Refusal, match="an exported name is retail's own"):
+        plan(tree)
+
+
+def test_a_shim_naming_the_identifier_refuses(tree):
+    (tree / "reference/shims/x").mkdir(parents=True)
+    write(tree, "reference/shims/x/Holds.h", "extern unsigned g_00A01000;\n")
+    _git(tree, "add", "-A")
+    with pytest.raises(Refusal, match="a shim is not this retype's to respell"):
+        plan(tree)
 
 
 def test_forced_include_units_are_preprocessed(tree):                            # finding 4
@@ -1017,7 +1169,7 @@ def test_the_real_table_holds_on_the_retail_image():
     ("0x00A00F00,4,.data,global,?g_00A00F00@@3IA,,unowned,,0,3\n", "binds 0x00A00F00"),
 ])
 def test_a_move_refuses_a_name_in_the_space_it_takes(route, extra, message):
-    with open(route / "reverse/data_ledger.csv", "a") as f:
+    with open(route / "reverse/data_ledger.csv", "a", newline="\n") as f:
         f.write(extra)
     _git(route, "add", "-A")
     with pytest.raises(Refusal, match=re.escape(message)):
@@ -1029,7 +1181,7 @@ def test_a_move_refuses_a_name_in_the_space_it_takes(route, extra, message):
     ("0x00A00EFC,4,.data,global,?g_00A00EFC@@3IA,,unowned,,0,3\n", False),     # ends exactly at the new start
 ])
 def test_a_ledger_extent_running_up_from_below_the_start(route, line, refused):
-    with open(route / "reverse/data_ledger.csv", "a") as f:
+    with open(route / "reverse/data_ledger.csv", "a", newline="\n") as f:
         f.write(line)
     _git(route, "add", "-A")
     if refused:
@@ -1040,7 +1192,7 @@ def test_a_ledger_extent_running_up_from_below_the_start(route, line, refused):
 
 
 def test_a_move_refuses_a_data_row_in_the_space_it_takes(route):
-    with open(route / "reverse/data_rows.csv", "a") as f:
+    with open(route / "reverse/data_rows.csv", "a", newline="\n") as f:
         f.write(f"?g_00A00F80@@3HA,0x00A00F80,rva,4,.data,{OWNER},matched,x,m\n")
     _git(route, "add", "-A")
     with pytest.raises(Refusal, match="overlaps another owner: data row"):
@@ -1276,7 +1428,7 @@ def test_without_an_absorb_an_interior_row_still_overlaps(route):
 
 def test_a_second_ledger_name_at_a_moved_owner_still_overlaps(route):
     """`own` gives up the owner where it stands, not its name anywhere in the extent."""
-    with open(route / "reverse/data_ledger.csv", "a") as f:
+    with open(route / "reverse/data_ledger.csv", "a", newline="\n") as f:
         f.write(f"0x00A01004,4,.data,global,{OLD},,unowned,,0,1\n")
     _git(route, "add", "-A")
     with pytest.raises(Refusal, match="overlaps another owner"):
@@ -1333,7 +1485,8 @@ def references(tree, tmp_path, monkeypatch):
     monkeypatch.setattr(build, "obj_path", lambda source: made["obj"])
     monkeypatch.setattr(build, "_dir32_row_pairs", lambda row, obj, statics: list(pairs) if row["source"] == OWNER else 1 / 0)
     monkeypatch.setattr(data_rows, "load", lambda: made.get("datas", []))
-    monkeypatch.setattr(name_dependents, "dependents", lambda names, objects, root: made.get("dependents", set()))
+    monkeypatch.setattr(name_dependents, "_row_objects", lambda rows: {})
+    monkeypatch.setattr(name_dependents, "_data_row_objects", lambda rows: {})
     return tree, pairs, made, tmp_path
 
 
@@ -1400,21 +1553,68 @@ def test_a_data_row_initializer_is_held_to_data_rows(references, monkeypatch, ok
     assert (problems == []) if ok else (problems and message in problems[0])
 
 
-def test_an_object_outside_the_rebuilt_set_refuses(references):
-    tree, _pairs, made, _tmp = references
-    made["dependents"] = {"Code/Game/Outside.cpp", OWNER}
-    problems = rename.retype_reference_problems(ctx_of(tree), retype_record([OWNER]))
-    assert len(problems) == 1 and "Code/Game/Outside.cpp references g_00A01000 but this retype did not rebuild" in problems[0]
+OUTSIDE = "Code/Game/Outside.cpp"
 
 
-def test_the_scan_looks_for_every_spelling_the_retype_retires(references, monkeypatch):
-    import name_dependents
-    tree, _pairs, _made, _tmp = references
-    seen = []
-    monkeypatch.setattr(name_dependents, "dependents", lambda names, objects, root: seen.append(set(names)) or set())
-    assert rename.retype_reference_problems(ctx_of(tree), dict(retype_record([OWNER]),
-                                                               absorbed=[("g_00A01008", INNER)])) == []
-    assert seen == [{OLD, NEW, INNER}]
+@pytest.fixture
+def outside(tree, tmp_path, monkeypatch):
+    """outside_references over OUTSIDE, whose object the test writes; `state["stale"]` marks it stale."""
+    import build
+    state = {"stale": False}
+    monkeypatch.setattr(build, "compile_is_current", lambda source, output: not state["stale"])
+    return tree, tmp_path, state
+
+
+def outside_problems(tree, tmp_path, symbols, **record):
+    path = object_with(tmp_path / "outside.obj", [(".text", CODE_FLAGS, bytes(16))], symbols)
+    return rename.outside_references(ctx_of(tree), dict(retype_record([OWNER]), **record), {OUTSIDE: [path]})
+
+
+@pytest.mark.parametrize("symbol", [OLD, NEW])
+def test_a_current_object_outside_the_rebuilt_set_naming_it_refuses(outside, symbol):
+    tree, tmp, _state = outside
+    problems = outside_problems(tree, tmp, [("?f@@YAXXZ", 1, 0), (symbol, 0, 0)])
+    assert len(problems) == 1 and f"{OUTSIDE} references g_00A01000 but this retype did not rebuild it" in problems[0]
+
+
+def test_a_current_object_naming_an_absorbed_symbol_refuses(outside):
+    tree, tmp, _state = outside
+    problems = outside_problems(tree, tmp, [("?f@@YAXXZ", 1, 0), (INNER, 0, 0)], absorbed=[("g_00A01008", INNER)])
+    assert problems and "did not rebuild it" in problems[0]
+
+
+def test_a_current_object_that_does_not_name_it_passes(outside):
+    tree, tmp, _state = outside
+    assert outside_problems(tree, tmp, [("?f@@YAXXZ", 1, 0)]) == []
+
+
+def test_a_stale_object_the_scan_did_not_clear_refuses(outside):
+    tree, tmp, state = outside
+    state["stale"] = True
+    problems = outside_problems(tree, tmp, [("?f@@YAXXZ", 1, 0)])
+    assert problems and "stale or missing and the compiler scan did not clear it" in problems[0]
+
+
+def test_a_stale_object_the_scan_cleared_passes_and_is_not_read(outside):
+    tree, tmp, state = outside
+    state["stale"] = True
+    assert outside_problems(tree, tmp, [("?f@@YAXXZ", 1, 0), (OLD, 0, 0)], cleared={OUTSIDE}) == []
+
+
+def test_a_missing_object_the_scan_did_not_clear_refuses(tree, tmp_path):
+    problems = rename.outside_references(ctx_of(tree), retype_record([OWNER]), {OUTSIDE: [tmp_path / "gone.obj"]})
+    assert problems and "stale or missing" in problems[0]
+
+
+def test_a_source_with_no_object_mapped_is_not_read_as_clean(tree):
+    problems = rename.outside_references(ctx_of(tree), retype_record([OWNER]), {OUTSIDE: []})
+    assert problems and "stale or missing" in problems[0]
+
+
+def test_a_rebuilt_source_is_not_outside(outside):
+    tree, tmp, _state = outside
+    path = object_with(tmp / "owner.obj", [(".text", CODE_FLAGS, bytes(16))], [(NEW, 1, 0)])
+    assert rename.outside_references(ctx_of(tree), retype_record([OWNER]), {OWNER: [path]}) == []
 
 
 def test_a_missing_object_is_never_a_pass(references):
