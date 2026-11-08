@@ -589,3 +589,12 @@ owner) precedes the remaining copies in particle_buffer_render_line and shatters
 Same seat, the Vector4 twin: StreakLineCtor.cpp and mesh.cpp now declare
 `SimpleVecClass<Vector4>::Uninitialised_Grow`, so meshgeometry.obj (the row's owner) is its first provider for the
 0x007D71C8 tables. 16/16 rows exact; link_check LINKS 805 -> 805. Clearance: none claimed.
+
+**2026-11-08, seat LeonardBuhl: the bounding-getter wall, counted on real link `e3760a5c6c`.** 22 refused tables are
+blocked only by slots 65/66 (`Get_Bounding_Sphere` 0x0006D028, `Get_Bounding_Box` 0x0006D03E; BaseHeightMapConstructor.obj
+first, align1, against hlod.obj's align16 rows, bytes and relocations equal): BaseHeightMapRenderObjClass, Rva006DD51,
+Rva007C454 (camera copy), Water, TerrainTracks, Rva000E3B41, Light, RenderObjClass, Mesh, SegmentedLine, Line3D,
+Rva001684D6, Box/AABox/OBBox, Null3DObj, Camera, ParticleEmitter, Animatable3DObj, Composite, ParticleBuffer and
+StreakLine. Nothing in their own units clears them (non-template inline members; no approved TU for either address), so
+each now carries a `re_attempts.log` deferral and is drawn only after untried work. The one shared repair (an alignment
+boundary proven sound, or one provider for both getters) clears all 22.
